@@ -117,6 +117,11 @@ public:
     m_graph.SetAStarParents(forward, parents);
   }
 
+  void DropAStarParents() override
+  {
+    m_graph.DropAStarParents();
+  }
+
   bool AreWavesConnectible(std::map<Vertex, Vertex> & forwardParents, Vertex const & commonVertex,
                            std::map<Vertex, Vertex> & backwardParents) override
   {

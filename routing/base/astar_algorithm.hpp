@@ -112,6 +112,16 @@ public:
   class Context final
   {
   public:
+    Context(Graph & graph) : m_graph(graph)
+    {
+      m_graph.SetAStarParents(true /* forward */, m_parents);
+    }
+
+    ~Context()
+    {
+      m_graph.DropAStarParents();
+    }
+
     void Clear()
     {
       m_distanceMap.clear();
@@ -159,6 +169,7 @@ public:
     void ReconstructPath(Vertex const & v, std::vector<Vertex> & path) const;
 
   private:
+    Graph & m_graph;
     std::map<Vertex, Weight> m_distanceMap;
     std::map<Vertex, Vertex> m_parents;
   };
@@ -241,6 +252,11 @@ private:
       bestVertex = forward ? startVertex : finalVertex;
       pS = ConsistentHeuristic(bestVertex);
       graph.SetAStarParents(forward, parent);
+    }
+
+    ~BidirectionalStepContext()
+    {
+      graph.DropAStarParents();
     }
 
     Weight TopDistance() const
@@ -399,7 +415,7 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPath(P & params, RoutingResult<Vertex,
   auto const & finalVertex = params.m_finalVertex;
   auto const & startVertex = params.m_startVertex;
 
-  Context context;
+  Context context(graph);
   PeriodicPollCancellable periodicCancellable(params.m_cancellable);
   Result resultCode = Result::NoPath;
 
@@ -653,8 +669,7 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result
     remainingDistance += it->GetWeight();
   }
 
-  Context context;
-  graph.SetAStarParents(true /* forward */, context.GetParents());
+  Context context(graph);
   PeriodicPollCancellable periodicCancellable(params.m_cancellable);
 
   auto visitVertex = [&](Vertex const & vertex) {

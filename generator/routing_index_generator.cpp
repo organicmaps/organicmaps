@@ -172,6 +172,7 @@ public:
     CHECK(false, ("This method exists only for compatibility with IndexGraphStarterJoints"));
     return GetAStarWeightZero<RouteWeight>();
   }
+
   bool AreWavesConnectible(map<JointSegment, JointSegment> const & /* forwardParents */,
                            JointSegment const & /* commonVertex */,
                            map<JointSegment, JointSegment> const & /* backwardParents */,
@@ -179,16 +180,21 @@ public:
   {
     return true;
   }
+
+  void SetAStarParents(bool /* forward */, map<JointSegment, JointSegment> & parents)
+  {
+    m_AStarParents = &parents;
+  }
+
+  void DropAStarParents()
+  {
+    m_AStarParents = nullptr;
+  }
   // @}
 
   m2::PointD const & GetPoint(Segment const & s, bool forward)
   {
     return m_graph.GetPoint(s, forward);
-  }
-
-  void SetAStarParents(bool /* forward */, map<JointSegment, JointSegment> & parents)
-  {
-    m_AStarParents = &parents;
   }
 
   void GetEdgesList(Segment const & child, bool isOutgoing, vector<SegmentEdge> & edges)
@@ -473,8 +479,7 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
     Algorithm astar;
     IndexGraphWrapper indexGraphWrapper(graph, enter);
     DijkstraWrapperJoints wrapper(indexGraphWrapper, enter);
-    AStarAlgorithm<JointSegment, JointEdge, RouteWeight>::Context context;
-    indexGraphWrapper.SetAStarParents(true /* forward */, context.GetParents());
+    AStarAlgorithm<JointSegment, JointEdge, RouteWeight>::Context context(wrapper);
     unordered_map<uint32_t, vector<JointSegment>> visitedVertexes;
     astar.PropagateWave(wrapper, wrapper.GetStartJoint(),
                         [&](JointSegment const & vertex)

@@ -81,6 +81,7 @@ public:
 
   void SetAStarParents(bool forward, ParentSegments & parents) override;
   void SetAStarParents(bool forward, ParentJoints & parents) override;
+  void DropAStarParents() override;
 
   bool AreWavesConnectible(ParentSegments & forwardParents, Segment const & commonVertex,
                            ParentSegments & backwardParents,

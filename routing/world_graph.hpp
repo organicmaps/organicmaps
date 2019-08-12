@@ -93,6 +93,7 @@ public:
 
   virtual void SetAStarParents(bool forward, ParentSegments & parents);
   virtual void SetAStarParents(bool forward, ParentJoints & parents);
+  virtual void DropAStarParents();
 
   virtual bool AreWavesConnectible(ParentSegments & forwardParents, Segment const & commonVertex,
                                   ParentSegments & backwardParents,

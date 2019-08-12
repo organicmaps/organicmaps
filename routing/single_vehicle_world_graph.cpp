@@ -251,6 +251,15 @@ void SingleVehicleWorldGraph::SetAStarParents(bool forward, map<JointSegment, Jo
     m_parentsForJoints.backward = &parents;
 }
 
+void SingleVehicleWorldGraph::DropAStarParents()
+{
+  m_parentsForJoints.backward = &AStarParents<JointSegment>::kEmpty;
+  m_parentsForJoints.forward = &AStarParents<JointSegment>::kEmpty;
+
+  m_parentsForSegments.backward = &AStarParents<Segment>::kEmpty;
+  m_parentsForSegments.forward = &AStarParents<Segment>::kEmpty;
+}
+
 template <typename VertexType>
 NumMwmId GetCommonMwmInChain(vector<VertexType> const & chain)
 {

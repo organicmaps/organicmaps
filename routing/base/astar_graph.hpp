@@ -22,6 +22,7 @@ public:
   virtual void GetIngoingEdgesList(Vertex const & v, std::vector<Edge> & edges) = 0;
 
   virtual void SetAStarParents(bool forward, Parents & parents);
+  virtual void DropAStarParents();
   virtual bool AreWavesConnectible(Parents & forwardParents, Vertex const & commonVertex,
                                    Parents & backwardParents);
 
@@ -31,6 +32,9 @@ public:
 template <typename VertexType, typename EdgeType, typename WeightType>
 void AStarGraph<VertexType, EdgeType, WeightType>::SetAStarParents(bool /* forward */,
                                                                    std::map<Vertex, Vertex> & /* parents */) {}
+
+template <typename VertexType, typename EdgeType, typename WeightType>
+void AStarGraph<VertexType, EdgeType, WeightType>::DropAStarParents() {}
 
 template <typename VertexType, typename EdgeType, typename WeightType>
 bool AStarGraph<VertexType, EdgeType, WeightType>::AreWavesConnectible(AStarGraph::Parents & /* forwardParents */,
