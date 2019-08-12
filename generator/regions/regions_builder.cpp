@@ -246,14 +246,16 @@ int RegionsBuilder::CompareAffiliation(LevelRegion const & l, LevelRegion const 
 
   auto const lArea = l.GetArea();
   auto const rArea = r.GetArea();
-  if (0.5 * lArea >= rArea)
+  if (0.5 * lArea > rArea)
   {
+    ASSERT_GREATER(0.5 * lArea, 0, ());
     LOG(LDEBUG, ("Region", l.GetId(), GetRegionNotation(l), "contains partly", r.GetId(),
                  GetRegionNotation(r)));
     return 1;
   }
-  if (0.5 * rArea >= lArea)
+  if (0.5 * rArea > lArea)
   {
+    ASSERT_GREATER(0.5 * rArea, 0, ());
     LOG(LDEBUG, ("Region", r.GetId(), GetRegionNotation(r), "contains partly", l.GetId(),
                  GetRegionNotation(l)));
     return -1;
