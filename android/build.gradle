@@ -119,7 +119,7 @@ def getDate() {
 
 def osName = System.properties['os.name'].toLowerCase()
 
-project.ext.versionCodes = ['armeabi-v7a': 30, 'x86': 40, 'arm64-v8a': 50]
+project.ext.versionCodes = ['armeabi-v7a': 30, 'x86': 40, 'arm64-v8a': 50, 'x86_64' : 60]
 project.ext.appId = 'com.mapswithme.maps.pro'
 
 crashlytics {
@@ -219,6 +219,9 @@ android {
       } else if (project.hasProperty("arm64")) {
         println("Building for the ARM64 architecture")
         abiFilters.add("arm64-v8a")
+      } else if (project.hasProperty("x86_64")) {
+        println("Building for the x86_64 architecture")
+        abiFilters.add("x86_64")
       } else if (project.hasProperty("x86")) {
         println("Building for the x86 architecture")
         abiFilters.add("x86")
@@ -226,6 +229,7 @@ android {
         if (!project.hasProperty('splitApk')) {
           println("Building for the ARM and x86 architectures")
           abiFilters.add("x86")
+          abiFilters.add("x86_64")
           abiFilters.add("armeabi-v7a")
           abiFilters.add("arm64-v8a")
         }
@@ -386,7 +390,7 @@ android {
     println ("Create separate apks: " + enabled)
     enable enabled
     reset()
-    include 'x86', 'armeabi-v7a', 'arm64-v8a'
+    include 'x86', 'armeabi-v7a', 'arm64-v8a', 'x86_64'
     universalApk true
   }
 
@@ -489,8 +493,6 @@ android {
     exclude 'lib/mips64/libcrashlytics.so'
     exclude 'lib/mips/libcrashlytics-envelope.so'
     exclude 'lib/mips/libcrashlytics.so'
-    exclude 'lib/x86_64/libcrashlytics-envelope.so'
-    exclude 'lib/x86_64/libcrashlytics.so'
     exclude 'lib/armeabi/libVkLayer_core_validation.so'
     exclude 'lib/armeabi/libVkLayer_threading.so'
     exclude 'lib/armeabi/libVkLayer_image.so'
@@ -498,13 +500,6 @@ android {
     exclude 'lib/armeabi/libVkLayer_object_tracker.so'
     exclude 'lib/armeabi/libVkLayer_swapchain.so'
     exclude 'lib/armeabi/libVkLayer_unique_objects.so'
-    exclude 'lib/x86_64/libVkLayer_core_validation.so'
-    exclude 'lib/x86_64/libVkLayer_threading.so'
-    exclude 'lib/x86_64/libVkLayer_image.so'
-    exclude 'lib/x86_64/libVkLayer_parameter_validation.so'
-    exclude 'lib/x86_64/libVkLayer_object_tracker.so'
-    exclude 'lib/x86_64/libVkLayer_swapchain.so'
-    exclude 'lib/x86_64/libVkLayer_unique_objects.so'
     exclude 'lib/mips64/libVkLayer_core_validation.so'
     exclude 'lib/mips64/libVkLayer_threading.so'
     exclude 'lib/mips64/libVkLayer_image.so'
