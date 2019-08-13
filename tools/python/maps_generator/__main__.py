@@ -141,7 +141,10 @@ def main():
     if "COUNTRIES" in os.environ:
         countries_line = os.environ["COUNTRIES"]
     if options["countries"]:
+        options["build_all_countries"] = False
         countries_line = options["countries"]
+    else:
+        options["build_all_countries"] = True
     raw_countries = []
     if os.path.isfile(countries_line):
         with open(countries_line) as f:

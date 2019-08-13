@@ -56,6 +56,7 @@ def stage_preprocess(env, **kwargs):
                  osm_file_type="o5m",
                  osm_file_name=settings.PLANET_O5M,
                  node_storage=env.node_storage,
+                 user_resource_path=env.user_resource_path,
                  preprocess=True,
                  **kwargs)
 
@@ -65,10 +66,11 @@ def stage_features(env, **kwargs):
     if not env.production:
         extra["no_ads"] = True
     if any(x not in WORLDS_NAMES for x in env.countries):
-        extra["split_by_polygons"] = True
         extra["generate_packed_borders"] = True
     if any(x == WORLD_NAME for x in env.countries):
         extra["generate_world"] = True
+    if env.build_all_countries:
+        extra["have_borders_for_whole_world"] = True
 
     run_gen_tool(
         env.gen_tool,

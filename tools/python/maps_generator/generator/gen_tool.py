@@ -32,6 +32,7 @@ class GenTool:
         "generate_search_index": bool,
         "generate_traffic_keys": bool,
         "generate_world": bool,
+        "have_borders_for_whole_world": bool,
         "make_city_roads": bool,
         "make_coasts": bool,
         "make_cross_mwm": bool,

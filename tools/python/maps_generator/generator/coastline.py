@@ -26,6 +26,7 @@ def make_coastline(env):
                  osm_file_type="o5m",
                  osm_file_name=coastline_o5m,
                  node_storage=env.node_storage,
+                 user_resource_path=env.user_resource_path,
                  preprocess=True)
 
     run_gen_tool(env.gen_tool,
