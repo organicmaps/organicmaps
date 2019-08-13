@@ -13,6 +13,8 @@
 
     <include layout="@layout/place_page_fat_shadow"/>
 
+    <include layout="@layout/catalog_promo_container"/>
+
     <include
       layout="@layout/divider_horizontal"/>
 
@@ -35,8 +37,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_half"
         tools:visibility="gone"/>
-
-      <include layout="@layout/catalog_promo_container"/>
 
       <include layout="@layout/place_page_hotel_gallery"/>
 
