@@ -1,5 +1,7 @@
 #pragma once
 
+#include "generator/feature_builder.hpp"
+
 #include "storage/storage_defines.hpp"
 
 #include "coding/geometry_coding.hpp"
@@ -71,9 +73,6 @@ public:
     });
   }
 
-  // TODO(maksimandrianov): Remove it, after removing Polygonizer class.
-  mutable int32_t m_index = -1;
-
 private:
   std::string m_name;
   RegionsContainer m_regions;
@@ -99,12 +98,6 @@ public:
     return m_regionsTree.FindNode([&](auto const & countryPolygons) {
       return countryPolygons.GetName() == name;
     });
-  }
-
-  // TODO(maksimandrianov): Remove it, after removing Polygonizer class.
-  void Add(CountryPolygons const & country, m2::RectD const & rect)
-  {
-    m_regionsTree.Add(country, rect);
   }
 
   CountryPolygons const & GetRegionByName(std::string const & name) const

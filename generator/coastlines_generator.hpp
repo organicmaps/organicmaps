@@ -3,6 +3,7 @@
 #include "generator/feature_merger.hpp"
 
 #include "indexer/cell_id.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "geometry/tree4d.hpp"
 #include "geometry/region2d.hpp"
@@ -24,7 +25,7 @@ class CoastlineFeaturesGenerator
   uint32_t m_coastType;
 
 public:
-  CoastlineFeaturesGenerator(uint32_t coastType);
+  CoastlineFeaturesGenerator(uint32_t coastType = ftypes::IsCoastlineChecker::Instance().GetCoastlineType());
 
   void AddRegionToTree(feature::FeatureBuilder const & fb);
 
