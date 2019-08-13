@@ -23,6 +23,7 @@ omim_link_libraries(
   storage
   editor
   indexer
+  mwm_diff
   platform
   geometry
   coding
@@ -33,7 +34,6 @@ omim_link_libraries(
   icu
   jansson
   protobuf
-  mwm_diff
   bsdiff
   stats_client
   minizip

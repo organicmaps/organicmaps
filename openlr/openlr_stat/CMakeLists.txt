@@ -16,6 +16,7 @@ omim_link_libraries(${PROJECT_NAME}
   storage
   editor
   indexer
+  mwm_diff
   platform
   geometry
   coding
@@ -26,7 +27,6 @@ omim_link_libraries(${PROJECT_NAME}
   oauthcpp
   opening_hours
   protobuf
-  mwm_diff
   bsdiff
   pugixml
   stats_client
