@@ -1,10 +1,8 @@
 #include "generator/feature_processing_layers.hpp"
 
 #include "generator/coastlines_generator.hpp"
-#include "generator/feature_builder.hpp"
 #include "generator/feature_maker.hpp"
 #include "generator/generate_info.hpp"
-#include "generator/emitter_interface.hpp"
 #include "generator/place_processor.hpp"
 #include "generator/type_helper.hpp"
 
@@ -21,20 +19,20 @@ namespace generator
 {
 namespace
 {
-void FixLandType(FeatureBuilder & feature)
+void FixLandType(FeatureBuilder & fb)
 {
-  auto const & types = feature.GetTypes();
+  auto const & types = fb.GetTypes();
   auto const & isIslandChecker = ftypes::IsIslandChecker::Instance();
   auto const & isLandChecker = ftypes::IsLandChecker::Instance();
   auto const & isCoastlineChecker = ftypes::IsCoastlineChecker::Instance();
   if (isCoastlineChecker(types))
   {
-    feature.PopExactType(isLandChecker.GetLandType());
-    feature.PopExactType(isCoastlineChecker.GetCoastlineType());
+    fb.PopExactType(isLandChecker.GetLandType());
+    fb.PopExactType(isCoastlineChecker.GetCoastlineType());
   }
-  else if (isIslandChecker(types) && feature.IsArea())
+  else if (isIslandChecker(types) && fb.IsArea())
   {
-    feature.AddType(isLandChecker.GetLandType());
+    fb.AddType(isLandChecker.GetLandType());
   }
 }
 }  // namespace
@@ -44,10 +42,46 @@ std::string LogBuffer::GetAsString() const
   return m_buffer.str();
 }
 
-void LayerBase::Handle(FeatureBuilder & feature)
+std::shared_ptr<LayerBase> LayerBase::CloneRecursive() const
+{
+  auto temp = shared_from_this();
+  std::shared_ptr<LayerBase> clone;
+  if (temp)
+  {
+    clone = temp->Clone();
+    temp = temp->m_next;
+  }
+  while (temp)
+  {
+    clone->Add(temp->Clone());
+    temp = temp->m_next;
+  }
+  return clone;
+}
+
+void LayerBase::Handle(FeatureBuilder & fb)
 {
   if (m_next)
-    m_next->Handle(feature);
+    m_next->Handle(fb);
+}
+
+void LayerBase::Merge(std::shared_ptr<LayerBase> const & other)
+{
+  CHECK(other, ());
+
+  m_logBuffer.AppendLine(other->GetAsString());
+}
+
+void LayerBase::MergeRecursive(std::shared_ptr<LayerBase> const & other)
+{
+  auto left = shared_from_this();
+  auto right = other;
+  while (left && right)
+  {
+    left->Merge(right);
+    left = left->m_next;
+    right = right->m_next;
+  }
 }
 
 void LayerBase::SetNext(std::shared_ptr<LayerBase> next)
@@ -83,20 +117,23 @@ std::string LayerBase::GetAsStringRecursive() const
   return m_buffer.str();
 }
 
-RepresentationLayer::RepresentationLayer(std::shared_ptr<PlaceProcessor> processor)
-  : m_processor(processor) {}
+std::shared_ptr<LayerBase> RepresentationLayer::Clone() const
 
-void RepresentationLayer::Handle(FeatureBuilder & feature)
 {
-  auto const sourceType = feature.GetMostGenericOsmId().GetType();
-  auto const geomType = feature.GetGeomType();
+  return std::make_shared<RepresentationLayer>();
+}
+
+void RepresentationLayer::Handle(FeatureBuilder & fb)
+{
+  auto const sourceType = fb.GetMostGenericOsmId().GetType();
+  auto const geomType = fb.GetGeomType();
   // There is a copy of params here, if there is a reference here, then the params can be
   // implicitly changed at other layers.
-  auto const params = feature.GetParams();
+  auto const params = fb.GetParams();
   switch (sourceType)
   {
   case base::GeoObjectId::Type::ObsoleteOsmNode:
-    LayerBase::Handle(feature);
+    LayerBase::Handle(fb);
     break;
   case base::GeoObjectId::Type::ObsoleteOsmWay:
   {
@@ -104,16 +141,16 @@ void RepresentationLayer::Handle(FeatureBuilder & feature)
     {
     case feature::GeomType::Area:
     {
-      HandleArea(feature, params);
+      HandleArea(fb, params);
       if (CanBeLine(params))
       {
-        auto featureLine = MakeLineFromArea(feature);
+        auto featureLine = MakeLineFromArea(fb);
         LayerBase::Handle(featureLine);
       }
       break;
     }
     case feature::GeomType::Line:
-      LayerBase::Handle(feature);
+      LayerBase::Handle(fb);
       break;
     default:
       UNREACHABLE();
@@ -126,7 +163,7 @@ void RepresentationLayer::Handle(FeatureBuilder & feature)
     switch (geomType)
     {
     case feature::GeomType::Area:
-      HandleArea(feature, params);
+      HandleArea(fb, params);
       break;
     default:
       UNREACHABLE();
@@ -140,19 +177,16 @@ void RepresentationLayer::Handle(FeatureBuilder & feature)
   }
 }
 
-void RepresentationLayer::HandleArea(FeatureBuilder & feature, FeatureParams const & params)
+void RepresentationLayer::HandleArea(FeatureBuilder & fb, FeatureParams const & params)
 {
-  if (ftypes::IsCityTownOrVillage(params.m_types))
-    m_processor->Add(feature);
-
   if (CanBeArea(params))
   {
-    LayerBase::Handle(feature);
-    feature.SetParams(params);
+    LayerBase::Handle(fb);
+    fb.SetParams(params);
   }
   else if (CanBePoint(params))
   {
-    auto featurePoint = MakePointFromArea(feature);
+    auto featurePoint = MakePointFromArea(fb);
     LayerBase::Handle(featurePoint);
   }
 }
@@ -175,106 +209,31 @@ bool RepresentationLayer::CanBeLine(FeatureParams const & params)
   return feature::HasUsefulType(params.m_types, feature::GeomType::Line);
 }
 
-void PrepareFeatureLayer::Handle(FeatureBuilder & feature)
+std::shared_ptr<LayerBase> PrepareFeatureLayer::Clone() const
 {
-  auto const type = feature.GetGeomType();
-  auto const & types = feature.GetParams().m_types;
-  if (!feature::HasUsefulType(types, type))
-    return;
+  return std::make_shared<PrepareFeatureLayer>();
+}
 
-  auto & params = feature.GetParams();
+void PrepareFeatureLayer::Handle(FeatureBuilder & fb)
+{
+  auto const type = fb.GetGeomType();
+  auto & params = fb.GetParams();
   feature::RemoveUselessTypes(params.m_types, type);
-  feature.PreSerializeAndRemoveUselessNamesForIntermediate();
-  FixLandType(feature);
-  LayerBase::Handle(feature);
+  fb.PreSerializeAndRemoveUselessNamesForIntermediate();
+  FixLandType(fb);
+  if (feature::HasUsefulType(params.m_types, type))
+    LayerBase::Handle(fb);
 }
 
-PlaceLayer::PlaceLayer(std::shared_ptr<PlaceProcessor> processor)
-  : m_processor(processor) {}
-
-void PlaceLayer::Handle(FeatureBuilder & feature)
+std::shared_ptr<LayerBase> RepresentationCoastlineLayer::Clone() const
 {
-  auto const type = GetPlaceType(feature);
-  if (type != ftype::GetEmptyValue() && !feature.GetName().empty())
-    m_processor->TryUpdate(feature);
-  else
-    LayerBase::Handle(feature);
+  return std::make_shared<RepresentationCoastlineLayer>();
 }
 
-BookingLayer::~BookingLayer()
+void RepresentationCoastlineLayer::Handle(FeatureBuilder & fb)
 {
-  m_dataset.BuildOsmObjects([&] (FeatureBuilder & feature) {
-    m_countryMapper->RemoveInvalidTypesAndMap(feature);
-  });
-}
-
-BookingLayer::BookingLayer(std::string const & filename, std::shared_ptr<CountryMapper> countryMapper)
-  : m_dataset(filename), m_countryMapper(countryMapper) {}
-
-void BookingLayer::Handle(FeatureBuilder & feature)
-{
-  auto const id = m_dataset.FindMatchingObjectId(feature);
-  if (id == BookingHotel::InvalidObjectId())
-  {
-    LayerBase::Handle(feature);
-    return;
-  }
-
-  m_dataset.PreprocessMatchedOsmObject(id, feature, [&](FeatureBuilder & newFeature) {
-    AppendLine("BOOKING", DebugPrint(newFeature.GetMostGenericOsmId()), DebugPrint(id));
-    m_countryMapper->RemoveInvalidTypesAndMap(newFeature);
-  });
-}
-
-OpentableLayer::OpentableLayer(std::string const & filename, std::shared_ptr<CountryMapper> countryMapper)
-  : m_dataset(filename), m_countryMapper(countryMapper) {}
-
-void OpentableLayer::Handle(FeatureBuilder & feature)
-{
-  auto const id = m_dataset.FindMatchingObjectId(feature);
-  if (id == OpentableRestaurant::InvalidObjectId())
-  {
-    LayerBase::Handle(feature);
-    return;
-  }
-
-  m_dataset.PreprocessMatchedOsmObject(id, feature, [&](FeatureBuilder & newFeature) {
-    AppendLine("OPENTABLE", DebugPrint(newFeature.GetMostGenericOsmId()), DebugPrint(id));
-    m_countryMapper->RemoveInvalidTypesAndMap(newFeature);
-  });
-}
-
-
-PromoCatalogLayer::PromoCatalogLayer(std::string const & citiesFinename)
-  : m_cities(promo::LoadCities(citiesFinename))
-{
-}
-
-void PromoCatalogLayer::Handle(FeatureBuilder & feature)
-{
-  if (ftypes::IsCityTownOrVillage(feature.GetTypes()) &&
-      m_cities.find(feature.GetMostGenericOsmId()) != m_cities.cend())
-  {
-    auto static const kPromoType = classif().GetTypeByPath({"sponsored", "promo_catalog"});
-    FeatureParams & params = feature.GetParams();
-    params.AddType(kPromoType);
-  }
-  LayerBase::Handle(feature);
-}
-
-CountryMapperLayer::CountryMapperLayer(std::shared_ptr<CountryMapper> countryMapper)
-  : m_countryMapper(countryMapper) {}
-
-void CountryMapperLayer::Handle(FeatureBuilder & feature)
-{
-  m_countryMapper->RemoveInvalidTypesAndMap(feature);
-  LayerBase::Handle(feature);
-}
-
-void RepresentationCoastlineLayer::Handle(FeatureBuilder & feature)
-{
-  auto const sourceType = feature.GetMostGenericOsmId().GetType();
-  auto const geomType = feature.GetGeomType();
+  auto const sourceType = fb.GetMostGenericOsmId().GetType();
+  auto const geomType = fb.GetGeomType();
   switch (sourceType)
   {
   case base::GeoObjectId::Type::ObsoleteOsmNode:
@@ -284,10 +243,10 @@ void RepresentationCoastlineLayer::Handle(FeatureBuilder & feature)
     switch (geomType)
     {
     case feature::GeomType::Area:
-      LayerBase::Handle(feature);
+      LayerBase::Handle(fb);
       break;
     case feature::GeomType::Line:
-      LayerBase::Handle(feature);
+      LayerBase::Handle(fb);
       break;
     default:
       UNREACHABLE();
@@ -303,115 +262,62 @@ void RepresentationCoastlineLayer::Handle(FeatureBuilder & feature)
   }
 }
 
-void PrepareCoastlineFeatureLayer::Handle(FeatureBuilder & feature)
+std::shared_ptr<LayerBase> PrepareCoastlineFeatureLayer::Clone() const
 {
-  if (feature.IsArea())
+  return std::make_shared<PrepareCoastlineFeatureLayer>();
+}
+
+void PrepareCoastlineFeatureLayer::Handle(FeatureBuilder & fb)
+{
+  if (fb.IsArea())
   {
-    auto & params = feature.GetParams();
-    feature::RemoveUselessTypes(params.m_types, feature.GetGeomType());
+    auto & params = fb.GetParams();
+    feature::RemoveUselessTypes(params.m_types, fb.GetGeomType());
   }
 
-  feature.PreSerializeAndRemoveUselessNamesForIntermediate();
-  LayerBase::Handle(feature);
-}
-
-CoastlineMapperLayer::CoastlineMapperLayer(std::shared_ptr<CoastlineFeaturesGenerator> coastlineMapper)
-  : m_coastlineGenerator(coastlineMapper) {}
-
-void CoastlineMapperLayer::Handle(FeatureBuilder & feature)
-{
+  fb.PreSerializeAndRemoveUselessNamesForIntermediate();
   auto const & isCoastlineChecker = ftypes::IsCoastlineChecker::Instance();
   auto const kCoastType = isCoastlineChecker.GetCoastlineType();
-  feature.SetType(kCoastType);
-  m_coastlineGenerator->Process(feature);
-  LayerBase::Handle(feature);
+  fb.SetType(kCoastType);
+  LayerBase::Handle(fb);
 }
 
-WorldAreaLayer::WorldAreaLayer(std::shared_ptr<WorldMapper> mapper)
-  : m_mapper(mapper) {}
-
-
-WorldAreaLayer::~WorldAreaLayer()
+WorldLayer::WorldLayer(std::string const & popularityFilename)
+  : m_popularityFilename(popularityFilename)
+  , m_filter(popularityFilename)
 {
-  m_mapper->Merge();
 }
 
-void WorldAreaLayer::Handle(FeatureBuilder & feature)
+std::shared_ptr<LayerBase> WorldLayer::Clone() const
 {
-  m_mapper->RemoveInvalidTypesAndMap(feature);
-  LayerBase::Handle(feature);
+  return std::make_shared<WorldLayer>(m_popularityFilename);
 }
 
-EmitCoastsLayer::EmitCoastsLayer(std::string const & worldCoastsFilename, std::string const & geometryFilename,
-                                 std::shared_ptr<CountryMapper> countryMapper)
-  : m_collector(std::make_shared<feature::FeaturesCollector>(worldCoastsFilename))
-  , m_countryMapper(countryMapper)
-  , m_geometryFilename(geometryFilename) {}
-
-EmitCoastsLayer::~EmitCoastsLayer()
+void WorldLayer::Handle(FeatureBuilder & fb)
 {
-  feature::ForEachFromDatRawFormat(m_geometryFilename, [&](FeatureBuilder fb, uint64_t)
-  {
-    auto & emitter = m_countryMapper->Parent();
-    emitter.Start();
-    m_countryMapper->Map(fb);
-    emitter.Finish();
-
-    fb.AddName("default", emitter.GetCurrentNames());
-    m_collector->Collect(fb);
-  });
+  if (fb.RemoveInvalidTypes() && m_filter.IsAccepted(fb))
+    LayerBase::Handle(fb);
 }
 
-void EmitCoastsLayer::Handle(FeatureBuilder & feature)
+std::shared_ptr<LayerBase> CountryLayer::Clone() const
 {
-  LayerBase::Handle(feature);
+  return std::make_shared<CountryLayer>();
 }
 
-CountryMapper::CountryMapper(feature::GenerateInfo const & info)
-  : m_countries(std::make_unique<CountriesGenerator>(info)) {}
-
-void CountryMapper::Map(FeatureBuilder & feature)
+void CountryLayer::Handle(feature::FeatureBuilder & fb)
 {
-  m_countries->Process(feature);
+  if (fb.RemoveInvalidTypes() && PreprocessForCountryMap(fb))
+    LayerBase::Handle(fb);
 }
 
-void CountryMapper::RemoveInvalidTypesAndMap(FeatureBuilder & feature)
+std::shared_ptr<LayerBase> PreserializeLayer::Clone() const
 {
-  if (!feature.RemoveInvalidTypes())
-    return;
-
-  m_countries->Process(feature);
+  return std::make_shared<PreserializeLayer>();
 }
 
-CountryMapper::Polygonizer & CountryMapper::Parent()
+void PreserializeLayer::Handle(FeatureBuilder & fb)
 {
-  return m_countries->Parent();
-}
-
-std::vector<std::string> const & CountryMapper::GetNames() const
-{
-  return m_countries->Parent().GetNames();
-}
-
-WorldMapper::WorldMapper(std::string const & worldFilename, std::string const & rawGeometryFilename,
-                         std::string const & popularPlacesFilename)
-  : m_world(std::make_unique<WorldGenerator>(worldFilename, rawGeometryFilename, popularPlacesFilename)) {}
-
-void WorldMapper::Map(FeatureBuilder & feature)
-{
-  m_world->Process(feature);
-}
-
-void WorldMapper::RemoveInvalidTypesAndMap(FeatureBuilder & feature)
-{
-  if (!feature.RemoveInvalidTypes())
-    return;
-
-  m_world->Process(feature);
-}
-
-void WorldMapper::Merge()
-{
-  m_world->DoMerge();
+  if (fb.PreSerialize())
+    LayerBase::Handle(fb);
 }
 }  // namespace generator

@@ -1,9 +1,13 @@
 #pragma once
 
+#include "generator/affiliation.hpp"
 #include "generator/booking_dataset.hpp"
+#include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
+#include "generator/features_processing_helpers.hpp"
+#include "generator/filter_world.hpp"
 #include "generator/opentable_dataset.hpp"
-#include "generator/polygonizer.hpp"
+#include "generator/processor_interface.hpp"
 #include "generator/promo_catalog_cities.hpp"
 #include "generator/world_map_generator.hpp"
 
@@ -15,16 +19,12 @@ class CoastlineFeaturesGenerator;
 
 namespace feature
 {
-class FeatureBuilder;
 struct GenerateInfo;
 }  // namespace feature
 
 namespace generator
 {
 class PlaceProcessor;
-class CountryMapper;
-class WorldMapper;
-
 // Responsibility of the class Log Buffer - encapsulation of the buffer for internal logs.
 class LogBuffer
 {
@@ -60,8 +60,14 @@ public:
   LayerBase() = default;
   virtual ~LayerBase() = default;
 
+  virtual std::shared_ptr<LayerBase> Clone() const = 0;
+  std::shared_ptr<LayerBase> CloneRecursive() const;
+
   // The function works in linear time from the number of layers that exist after that.
-  virtual void Handle(feature::FeatureBuilder & feature);
+  virtual void Handle(feature::FeatureBuilder & fb);
+
+  void Merge(std::shared_ptr<LayerBase> const & other);
+  void MergeRecursive(std::shared_ptr<LayerBase> const & other);
 
   void SetNext(std::shared_ptr<LayerBase> next);
   std::shared_ptr<LayerBase> Add(std::shared_ptr<LayerBase> next);
@@ -76,32 +82,31 @@ public:
   std::string GetAsStringRecursive() const;
 
 private:
+  void FailIfMethodUnsuppirted() const { CHECK(false, ("This method is unsupported.")); }
+
   LogBuffer m_logBuffer;
   std::shared_ptr<LayerBase> m_next;
 };
 
 // Responsibility of class RepresentationLayer is converting features from one form to another for countries.
 // Here we can use the knowledge of the rules for drawing objects.
-// The class transfers control to the CityBoundaryProcessor if for the feature it is a city, town or village.
 // Osm object can be represented as feature of following geometry types: point, line, area depending on
 // its types and geometry. Sometimes one osm object can be represented as two features e.g. object with
 // closed geometry with types "leisure=playground" and "barrier=fence" splits into two objects: area object
 // with type "leisure=playground" and line object with type "barrier=fence".
 class RepresentationLayer : public LayerBase
 {
-public:
-  explicit RepresentationLayer(std::shared_ptr<PlaceProcessor> processor);
-
   // LayerBase overrides:
-  void Handle(feature::FeatureBuilder & feature) override;
+  std::shared_ptr<LayerBase> Clone() const override;
+
+  void Handle(feature::FeatureBuilder & fb) override;
 
 private:
   static bool CanBeArea(FeatureParams const & params);
   static bool CanBePoint(FeatureParams const & params);
   static bool CanBeLine(FeatureParams const & params);
 
-  void HandleArea(feature::FeatureBuilder & feature, FeatureParams const & params);
-
+  void HandleArea(feature::FeatureBuilder & fb, FeatureParams const & params);
   std::shared_ptr<PlaceProcessor> m_processor;
 };
 
@@ -111,96 +116,9 @@ class PrepareFeatureLayer : public LayerBase
 {
 public:
   // LayerBase overrides:
-  void Handle(feature::FeatureBuilder & feature) override;
-};
+  std::shared_ptr<LayerBase> Clone() const override;
 
-// Responsibility of class PlaceLayer - transfering control to the PlaceProcessor
-// if the feature is a place.
-class PlaceLayer : public LayerBase
-{
-public:
-  explicit PlaceLayer(std::shared_ptr<PlaceProcessor> processor);
-
-  // LayerBase overrides:
-  void Handle(feature::FeatureBuilder & feature) override;
-
-private:
-  std::shared_ptr<PlaceProcessor> m_processor;
-};
-
-// Responsibility of class BookingLayer - mixing information from booking. If there is a
-// coincidence of the hotel and feature, the processing of the feature is performed.
-class BookingLayer : public LayerBase
-{
-public:
-  explicit BookingLayer(std::string const & filename, std::shared_ptr<CountryMapper> countryMapper);
-
-  // LayerBase overrides:
-  ~BookingLayer() override;
-
-  void Handle(feature::FeatureBuilder & feature) override;
-
-private:
-  BookingDataset m_dataset;
-  std::shared_ptr<CountryMapper> m_countryMapper;
-};
-
-// Responsibility of class OpentableLayer - mixing information from opentable. If there is a
-// coincidence of the restaurant and feature, the processing of the feature is performed.
-class OpentableLayer : public LayerBase
-{
-public:
-  explicit OpentableLayer(std::string const & filename, std::shared_ptr<CountryMapper> countryMapper);
-
-  // LayerBase overrides:
-  void Handle(feature::FeatureBuilder & feature) override;
-
-private:
-  OpentableDataset m_dataset;
-  std::shared_ptr<CountryMapper> m_countryMapper;
-};
-
-class PromoCatalogLayer : public LayerBase
-{
-public:
-  explicit PromoCatalogLayer(std::string const & citiesFinename);
-
-  // LayerBase overrides:
-  void Handle(feature::FeatureBuilder & feature) override;
-
-private:
-  promo::Cities m_cities;
-};
-
-// Responsibility of class CountryMapperLayer - mapping of features to countries.
-class CountryMapperLayer : public LayerBase
-{
-public:
-  explicit CountryMapperLayer(std::shared_ptr<CountryMapper> countryMapper);
-
-  // LayerBase overrides:
-  void Handle(feature::FeatureBuilder & feature) override;
-
-private:
-  std::shared_ptr<CountryMapper> m_countryMapper;
-};
-
-// Responsibility of class EmitCoastsLayer is adding coastlines to countries.
-class EmitCoastsLayer : public LayerBase
-{
-public:
-  explicit EmitCoastsLayer(std::string const & worldCoastsFilename, std::string const & geometryFilename,
-                           std::shared_ptr<CountryMapper> countryMapper);
-
-  // LayerBase overrides:
-  ~EmitCoastsLayer() override;
-
-  void Handle(feature::FeatureBuilder & feature) override;
-
-private:
-  std::shared_ptr<feature::FeaturesCollector> m_collector;
-  std::shared_ptr<CountryMapper> m_countryMapper;
-  std::string m_geometryFilename;
+  void Handle(feature::FeatureBuilder & fb) override;
 };
 
 // Responsibility of class RepresentationCoastlineLayer is converting features from one form to
@@ -209,7 +127,9 @@ class RepresentationCoastlineLayer : public LayerBase
 {
 public:
   // LayerBase overrides:
-  void Handle(feature::FeatureBuilder & feature) override;
+  std::shared_ptr<LayerBase> Clone() const override;
+
+  void Handle(feature::FeatureBuilder & fb) override;
 };
 
 // Responsibility of class PrepareCoastlineFeatureLayer is the removal of unused types and names,
@@ -218,71 +138,92 @@ class PrepareCoastlineFeatureLayer : public LayerBase
 {
 public:
   // LayerBase overrides:
-  void Handle(feature::FeatureBuilder & feature) override;
+  std::shared_ptr<LayerBase> Clone() const override;
+
+  void Handle(feature::FeatureBuilder & fb) override;
 };
 
-// Responsibility of class CoastlineMapperLayer - mapping of features on coastline.
-class CoastlineMapperLayer : public LayerBase
+class WorldLayer : public LayerBase
 {
 public:
-  explicit CoastlineMapperLayer(std::shared_ptr<CoastlineFeaturesGenerator> coastlineMapper);
+  explicit WorldLayer(std::string const & popularityFilename);
 
   // LayerBase overrides:
-  void Handle(feature::FeatureBuilder & feature) override;
+  std::shared_ptr<LayerBase> Clone() const override;
+
+  void Handle(feature::FeatureBuilder & fb) override;
 
 private:
-  std::shared_ptr<CoastlineFeaturesGenerator> m_coastlineGenerator;
+  std::string m_popularityFilename;
+  FilterWorld m_filter;
 };
 
-// Responsibility of class CountryMapperLayer - mapping of features on the world.
-class WorldAreaLayer : public LayerBase
+class CountryLayer : public LayerBase
 {
 public:
-  using WorldGenerator = WorldMapGenerator<feature::FeaturesCollector>;
+  // LayerBase overrides:
+  std::shared_ptr<LayerBase> Clone() const override;
 
-  explicit WorldAreaLayer(std::shared_ptr<WorldMapper> mapper);
+  void Handle(feature::FeatureBuilder & fb) override;
+};
+
+class PreserializeLayer : public LayerBase
+{
+public:
+  // LayerBase overrides:
+  std::shared_ptr<LayerBase> Clone() const override;
+
+  void Handle(feature::FeatureBuilder & fb) override;
+};
+
+template <class SerializePolicy = feature::serialization_policy::MaxAccuracy>
+class AffilationsFeatureLayer : public LayerBase
+{
+public:
+  AffilationsFeatureLayer(size_t bufferSize, std::shared_ptr<feature::AffiliationInterface> const & affilation)
+    : m_bufferSize(bufferSize)
+    , m_affilation(affilation)
+  {
+    m_buffer.reserve(m_bufferSize);
+  }
 
   // LayerBase overrides:
-  ~WorldAreaLayer() override;
+  std::shared_ptr<LayerBase> Clone() const override
+  {
+    return std::make_shared<AffilationsFeatureLayer<SerializePolicy>>(m_bufferSize, m_affilation);
+  }
 
-  void Handle(feature::FeatureBuilder & feature) override;
+  void Handle(feature::FeatureBuilder & fb) override
+  {
+    feature::FeatureBuilder::Buffer buffer;
+    SerializePolicy::Serialize(fb, buffer);
+    m_buffer.emplace_back(std::move(buffer), m_affilation->GetAffiliations(fb));
+  }
 
-private:
-  std::shared_ptr<WorldMapper> m_mapper;
-};
+  bool AddBufferToQueue(std::shared_ptr<FeatureProcessorQueue> const & queue)
+  {
+    if (!m_buffer.empty())
+    {
+      queue->Push(std::move(m_buffer));
+      m_buffer = {};
+      m_buffer.reserve(m_bufferSize);
+      return true;
+    }
 
-// This is the class-wrapper over CountriesGenerator class.
-class CountryMapper
-{
-public:
-  using Polygonizer = feature::Polygonizer<feature::FeaturesCollector>;
-  using CountriesGenerator = CountryMapGenerator<Polygonizer>;
+    return false;
+  }
 
-  explicit CountryMapper(feature::GenerateInfo const & info);
+  bool AddBufferToQueueIfFull(std::shared_ptr<FeatureProcessorQueue> const & queue)
+  {
+    if (m_buffer.size() >= m_bufferSize)
+      return AddBufferToQueue(queue);
 
-  void Map(feature::FeatureBuilder & feature);
-  void RemoveInvalidTypesAndMap(feature::FeatureBuilder & feature);
-  Polygonizer & Parent();
-  std::vector<std::string> const & GetNames() const;
-
-private:
-  std::unique_ptr<CountriesGenerator> m_countries;
-};
-
-// This is the class-wrapper over WorldGenerator class.
-class WorldMapper
-{
-public:
-  using WorldGenerator = WorldMapGenerator<feature::FeaturesCollector>;
-
-  explicit WorldMapper(std::string const & worldFilename, std::string const & rawGeometryFilename,
-                       std::string const & popularPlacesFilename);
-
-  void Map(feature::FeatureBuilder & feature);
-  void RemoveInvalidTypesAndMap(feature::FeatureBuilder & feature);
-  void Merge();
+    return false;
+  }
 
 private:
-  std::unique_ptr<WorldGenerator> m_world;
+  size_t const m_bufferSize;
+  std::vector<ProcessedData> m_buffer;
+  std::shared_ptr<feature::AffiliationInterface> m_affilation;
 };
 }  // namespace generator
