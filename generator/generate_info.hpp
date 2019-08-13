@@ -55,14 +55,14 @@ struct GenerateInfo
 
   std::string m_idToWikidataFilename;
 
-  std::shared_ptr<generator::OsmIdToBoundariesTable> m_boundariesTable;
+  std::string m_citiesBoundariesFilename;
 
   uint32_t m_versionDate = 0;
 
   std::vector<std::string> m_bucketNames;
 
   bool m_createWorld = false;
-  bool m_splitByPolygons = false;
+  bool m_haveBordersForWholeWorld = false;
   bool m_makeCoasts = false;
   bool m_emitCoasts = false;
   bool m_genAddresses = false;
