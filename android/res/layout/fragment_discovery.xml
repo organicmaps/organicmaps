@@ -105,7 +105,10 @@
         android:layout_marginBottom="@dimen/margin_half_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-      <include layout="@layout/catalog_promo_container"/>
+      <android.support.v7.widget.RecyclerView
+        android:id="@+id/catalog_promo_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     </LinearLayout>
     <com.mapswithme.maps.widget.PlaceholderView
       android:id="@+id/placeholder"
