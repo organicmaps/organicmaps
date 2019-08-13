@@ -1,8 +1,7 @@
 #include "generator/translator.hpp"
 
-#include "generator/collector_interface.hpp"
-#include "generator/emitter_interface.hpp"
-#include "generator/intermediate_data.hpp"
+#include "generator/collector_collection.hpp"
+#include "generator/filter_collection.hpp"
 #include "generator/osm_element.hpp"
 
 #include "base/assert.hpp"
@@ -11,62 +10,67 @@ using namespace feature;
 
 namespace generator
 {
-Translator::Translator(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & cache,
-                       std::shared_ptr<FeatureMakerBase> maker, FilterCollection const & filters,
-                       CollectorCollection const & collectors)
-  : m_filters(filters)
-  , m_collectors(collectors)
-  , m_tagsEnricher(cache)
+Translator::Translator(std::shared_ptr<FeatureProcessorInterface> const & processor,
+                       std::shared_ptr<cache::IntermediateData> const & cache,
+                       std::shared_ptr<FeatureMakerBase> const & maker,
+                       std::shared_ptr<FilterInterface> const & filter,
+                       std::shared_ptr<CollectorInterface> const & collector)
+  : m_filter(filter)
+  , m_collector(collector)
+  , m_tagsEnricher(cache->GetCache())
   , m_featureMaker(maker)
-  , m_emitter(emitter)
+  , m_processor(processor)
   , m_cache(cache)
 {
-  CHECK(m_emitter, ());
+  m_featureMaker->SetCache(cache);
 }
 
-Translator::Translator(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & cache,
-                       std::shared_ptr<FeatureMakerBase> maker)
-  : Translator(emitter, cache, maker, {} /* filters */, {} /* collectors */) {}
+Translator::Translator(std::shared_ptr<FeatureProcessorInterface> const & processor,
+                       std::shared_ptr<cache::IntermediateData> const & cache,
+                       std::shared_ptr<FeatureMakerBase> const & maker)
+  : Translator(processor, cache, maker, std::make_shared<FilterCollection>(), std::make_shared<CollectorCollection>())
+{
+}
+
+void Translator::SetCollector(std::shared_ptr<CollectorInterface> const & collector)
+{
+  m_collector = collector;
+}
+
+void Translator::SetFilter(std::shared_ptr<FilterInterface> const & filter)
+{
+  m_filter = filter;
+}
 
 void Translator::Emit(OsmElement & element)
 {
-  if (!m_filters.IsAccepted(element))
+  if (!m_filter->IsAccepted(element))
     return;
 
   Preprocess(element);
   m_tagsEnricher(element);
-  m_collectors.Collect(element);
+  m_collector->Collect(element);
   m_featureMaker->Add(element);
   FeatureBuilder feature;
   while (m_featureMaker->GetNextFeature(feature))
   {
-    if (!m_filters.IsAccepted(feature))
+    if (!m_filter->IsAccepted(feature))
       continue;
 
-    m_collectors.CollectFeature(feature, element);
-    m_emitter->Process(feature);
+    m_collector->CollectFeature(feature, element);
+    m_processor->Process(feature);
   }
 }
 
-bool Translator::Finish()
+void Translator::Finish()
 {
-  m_collectors.Finish();
-  m_collectors.Save();
-  return m_emitter->Finish();
+  m_collector->Finish();
+  m_processor->Finish();
 }
 
-void Translator::GetNames(std::vector<std::string> & names) const
+bool Translator::Save()
 {
-  m_emitter->GetNames(names);
-}
-
-void Translator::AddCollector(std::shared_ptr<CollectorInterface> collector)
-{
-  m_collectors.Append(collector);
-}
-
-void Translator::AddFilter(std::shared_ptr<FilterInterface> filter)
-{
-  m_filters.Append(filter);
+  m_collector->Save();
+  return true;
 }
 }  // namespace generator

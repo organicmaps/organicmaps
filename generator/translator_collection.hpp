@@ -12,8 +12,14 @@ class TranslatorCollection : public CollectionBase<std::shared_ptr<TranslatorInt
 {
 public:
   // TranslatorInterface overrides:
+  std::shared_ptr<TranslatorInterface> Clone() const override;
+
   void Emit(OsmElement /* const */ & element) override;
-  bool Finish() override;
-  void GetNames(std::vector<std::string> & names) const override;
+
+  void Finish() override;
+  bool Save() override;
+
+  void Merge(TranslatorInterface const & other) override;
+  void MergeInto(TranslatorCollection & other) const override;
 };
 }  // namespace generator

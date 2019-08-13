@@ -1,6 +1,6 @@
 #pragma once
 
-#include "generator/emitter_interface.hpp"
+#include "generator/processor_interface.hpp"
 #include "generator/translator.hpp"
 
 #include <memory>
@@ -12,7 +12,7 @@ struct GenerateInfo;
 
 namespace cache
 {
-class IntermediateDataReader;
+class IntermediateData;
 }  // namespace cache
 
 namespace generator
@@ -21,7 +21,17 @@ namespace generator
 class TranslatorCoastline : public Translator
 {
 public:
-  explicit TranslatorCoastline(std::shared_ptr<EmitterInterface> emitter,
-                               cache::IntermediateDataReader & cache);
+  explicit TranslatorCoastline(std::shared_ptr<FeatureProcessorInterface> const & processor,
+                               std::shared_ptr<cache::IntermediateData> const & cache);
+
+  // TranslatorInterface overrides:
+  std::shared_ptr<TranslatorInterface> Clone() const override;
+
+  void Merge(TranslatorInterface const & other) override;
+
+protected:
+  using Translator::Translator;
+
+  void MergeInto(TranslatorCoastline & other) const override;
 };
 }  // namespace generator

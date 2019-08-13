@@ -1,6 +1,6 @@
 #pragma once
 
-#include "generator/emitter_interface.hpp"
+#include "generator/processor_interface.hpp"
 #include "generator/tag_admixer.hpp"
 #include "generator/translator.hpp"
 
@@ -13,7 +13,7 @@ struct GenerateInfo;
 
 namespace cache
 {
-class IntermediateDataReader;
+class IntermediateData;
 }  // namespace cache
 
 namespace generator
@@ -21,14 +21,22 @@ namespace generator
 // The TranslatorArea class implements translator for building countries.
 class TranslatorCountry : public Translator
 {
-public:
-  explicit TranslatorCountry(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & cache,
+public:  
+  explicit TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> const & processor,
+                             std::shared_ptr<cache::IntermediateData> const & cache,
                              feature::GenerateInfo const & info);
 
   // TranslatorInterface overrides:
   void Preprocess(OsmElement & element) override;
 
-private:
+  std::shared_ptr<TranslatorInterface> Clone() const override;
+
+  void Merge(TranslatorInterface const & other) override;
+  void MergeInto(TranslatorCountry & other) const override;
+
+protected:
+  using Translator::Translator;
+
   void CollectFromRelations(OsmElement const & element);
 
   TagAdmixer m_tagAdmixer;
@@ -39,15 +47,22 @@ private:
 class TranslatorCountryWithAds : public TranslatorCountry
 {
 public:
-  explicit TranslatorCountryWithAds(std::shared_ptr<EmitterInterface> emitter,
-                                    cache::IntermediateDataReader & cache,
+  explicit TranslatorCountryWithAds(std::shared_ptr<FeatureProcessorInterface> const & processor,
+                                    std::shared_ptr<cache::IntermediateData> const & cache,
                                     feature::GenerateInfo const & info);
 
   // TranslatorInterface overrides:
   void Preprocess(OsmElement & element) override;
-  bool Finish() override;
+  bool Save() override;
 
-private:
+  std::shared_ptr<TranslatorInterface> Clone() const override;
+
+  void Merge(TranslatorInterface const & other) override;
+  void MergeInto(TranslatorCountryWithAds & other) const override;
+
+protected:
+  using TranslatorCountry::TranslatorCountry;
+
   OsmTagMixer m_osmTagMixer;
 };
 }  // namespace generator

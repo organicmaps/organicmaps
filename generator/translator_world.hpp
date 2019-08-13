@@ -1,6 +1,6 @@
 #pragma once
 
-#include "generator/emitter_interface.hpp"
+#include "generator/processor_interface.hpp"
 #include "generator/tag_admixer.hpp"
 #include "generator/translator.hpp"
 
@@ -13,7 +13,7 @@ struct GenerateInfo;
 
 namespace cache
 {
-class IntermediateDataReader;
+class IntermediateData;
 }  // namespace cache
 
 namespace generator
@@ -22,13 +22,21 @@ namespace generator
 class TranslatorWorld : public Translator
 {
 public:
-  explicit TranslatorWorld(std::shared_ptr<EmitterInterface> emitter, cache::IntermediateDataReader & cache,
+  explicit TranslatorWorld(std::shared_ptr<FeatureProcessorInterface> const & processor,
+                           std::shared_ptr<cache::IntermediateData> const & cache,
                            feature::GenerateInfo const & info);
 
   // TranslatorInterface overrides:
   void Preprocess(OsmElement & element) override;
 
-private:
+  std::shared_ptr<TranslatorInterface> Clone() const override;
+
+  void Merge(TranslatorInterface const & other) override;
+  void MergeInto(TranslatorWorld & other) const override;
+
+protected:
+  using Translator::Translator;
+
   TagAdmixer m_tagAdmixer;
   TagReplacer m_tagReplacer;
 };
@@ -37,15 +45,22 @@ private:
 class TranslatorWorldWithAds : public TranslatorWorld
 {
 public:
-  explicit TranslatorWorldWithAds(std::shared_ptr<EmitterInterface> emitter,
-                                  cache::IntermediateDataReader & cache,
+  explicit TranslatorWorldWithAds(std::shared_ptr<FeatureProcessorInterface> const & processor,
+                                  std::shared_ptr<cache::IntermediateData> const & cache,
                                   feature::GenerateInfo const & info);
 
   // TranslatorInterface overrides:
   void Preprocess(OsmElement & element) override;
-  bool Finish() override;
+  bool Save() override;
 
-private:
+  std::shared_ptr<TranslatorInterface> Clone() const override;
+
+  void Merge(TranslatorInterface const & other) override;
+  void MergeInto(TranslatorWorldWithAds & other) const override;
+
+protected:
+  using TranslatorWorld::TranslatorWorld;
+
   OsmTagMixer m_osmTagMixer;
 };
 }  // namespace generator
