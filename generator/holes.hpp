@@ -19,7 +19,7 @@ class IntermediateDataReader;
 class HolesAccumulator
 {
 public:
-  explicit HolesAccumulator(cache::IntermediateDataReader & cache);
+  explicit HolesAccumulator(std::shared_ptr<cache::IntermediateDataReader> const & cache);
 
   void operator() (uint64_t id) { m_merger.AddWay(id); }
   feature::FeatureBuilder::Geometry & GetHoles();
@@ -33,7 +33,7 @@ private:
 class HolesProcessor
 {
 public:
-  explicit HolesProcessor(uint64_t id, cache::IntermediateDataReader & cache);
+  explicit HolesProcessor(uint64_t id, std::shared_ptr<cache::IntermediateDataReader> const & cache);
 
   /// 1. relations process function
   base::ControlFlow operator() (uint64_t /* id */, RelationElement const & e);
@@ -49,7 +49,7 @@ private:
 class HolesRelation
 {
 public:
-  explicit HolesRelation(cache::IntermediateDataReader & cache);
+  explicit HolesRelation(std::shared_ptr<cache::IntermediateDataReader> const & cache);
 
   void Build(OsmElement const * p);
   feature::FeatureBuilder::Geometry & GetHoles() { return m_holes.GetHoles(); }

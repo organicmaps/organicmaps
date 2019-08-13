@@ -27,8 +27,8 @@
 namespace feature
 {
 
-FeaturesCollector::FeaturesCollector(std::string const & fName)
-  : m_datFile(fName), m_writeBuffer(kBufferSize) {}
+FeaturesCollector::FeaturesCollector(std::string const & fName, FileWriter::Op op)
+  : m_datFile(fName, op), m_writeBuffer(kBufferSize) {}
 
 FeaturesCollector::~FeaturesCollector()
 {

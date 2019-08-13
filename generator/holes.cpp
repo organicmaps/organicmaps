@@ -9,7 +9,7 @@ using namespace feature;
 
 namespace generator
 {
-HolesAccumulator::HolesAccumulator(cache::IntermediateDataReader & cache) :
+HolesAccumulator::HolesAccumulator(std::shared_ptr<cache::IntermediateDataReader> const & cache) :
   m_merger(cache)
 {
 }
@@ -25,7 +25,7 @@ FeatureBuilder::Geometry & HolesAccumulator::GetHoles()
   return m_holes;
 }
 
-HolesProcessor::HolesProcessor(uint64_t id, cache::IntermediateDataReader & cache) :
+HolesProcessor::HolesProcessor(uint64_t id, std::shared_ptr<cache::IntermediateDataReader> const & cache) :
   m_id(id),
   m_holes(cache)
 {
@@ -53,7 +53,7 @@ void HolesProcessor::operator() (uint64_t id, std::string const & role)
     m_holes(id);
 }
 
-HolesRelation::HolesRelation(cache::IntermediateDataReader & cache) :
+HolesRelation::HolesRelation(std::shared_ptr<cache::IntermediateDataReader> const & cache) :
   m_holes(cache),
   m_outer(cache)
 {

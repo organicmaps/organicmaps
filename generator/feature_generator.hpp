@@ -19,7 +19,7 @@ class FeaturesCollector
 public:
   static size_t constexpr kBufferSize = 48000;
 
-  FeaturesCollector(std::string const & fName);
+  FeaturesCollector(std::string const & fName, FileWriter::Op op = FileWriter::Op::OP_WRITE_TRUNCATE);
   virtual ~FeaturesCollector();
 
   static uint64_t GetCurrentPosition();

@@ -79,31 +79,36 @@ private:
 class TagAdmixer
 {
 public:
+  TagAdmixer() = default;
+
   TagAdmixer(std::string const & waysFile, std::string const & capitalsFile) : m_ferryTag("route", "ferry")
   {
-    try
     {
       std::ifstream reader(waysFile);
       WaysParserHelper parser(m_ways);
       parser.ParseStream(reader);
     }
-    catch (std::ifstream::failure const &)
-    {
-      LOG(LWARNING, ("Can't read the world level ways file! Generating world without roads. Path:", waysFile));
-      return;
-    }
 
-    try
     {
       std::ifstream reader(capitalsFile);
       CapitalsParserHelper parser(m_capitals);
       parser.ParseStream(reader);
     }
-    catch (std::ifstream::failure const &)
+  }
+
+  TagAdmixer(TagAdmixer const & other)
+    : m_ways(other.m_ways), m_capitals(other.m_capitals), m_ferryTag(other.m_ferryTag) {}
+
+  TagAdmixer & operator=(TagAdmixer const & other)
+  {
+    if (this != &other)
     {
-      LOG(LWARNING, ("Can't read the world level capitals file! Generating world without towns admixing. Path:", capitalsFile));
-      return;
+      m_ways = other.m_ways;
+      m_capitals = other.m_capitals;
+      m_ferryTag = other.m_ferryTag;
     }
+
+    return *this;
   }
 
   void operator()(OsmElement & element)
@@ -131,13 +136,14 @@ public:
 private:
   std::map<uint64_t, std::string> m_ways;
   std::set<uint64_t> m_capitals;
-  OsmElement::Tag const m_ferryTag;
+  OsmElement::Tag m_ferryTag;
 };
 
 class TagReplacer
 {
-  std::map<OsmElement::Tag, std::vector<std::string>> m_entries;
 public:
+  TagReplacer() = default;
+
   TagReplacer(std::string const & filePath)
   {
     std::ifstream stream(filePath);
@@ -168,6 +174,16 @@ public:
     }
   }
 
+  TagReplacer(TagReplacer const & other) : m_entries(other.m_entries) {}
+
+  TagReplacer & operator=(TagReplacer const & other)
+  {
+    if (this != &other)
+      m_entries = other.m_entries;
+
+    return *this;
+  }
+
   void operator()(OsmElement & element)
   {
     for (auto & tag : element.m_tags)
@@ -183,13 +199,16 @@ public:
       }
     }
   }
+
+private:
+  std::map<OsmElement::Tag, std::vector<std::string>> m_entries;
 };
 
 class OsmTagMixer
 {
-  std::map<std::pair<OsmElement::EntityType, uint64_t>, std::vector<OsmElement::Tag>> m_elements;
-
 public:
+  OsmTagMixer() = default;
+
   OsmTagMixer(std::string const & filePath)
   {
     std::ifstream stream(filePath);
@@ -225,6 +244,16 @@ public:
     }
   }
 
+  OsmTagMixer(OsmTagMixer const & other) : m_elements(other.m_elements) {}
+
+  OsmTagMixer & operator=(OsmTagMixer const & other)
+  {
+    if (this != &other)
+      m_elements = other.m_elements;
+
+    return *this;
+  }
+
   void operator()(OsmElement & element)
   {
     std::pair<OsmElement::EntityType, uint64_t> elementId = {element.m_type, element.m_id};
@@ -235,4 +264,7 @@ public:
         element.UpdateTag(tag.m_key, [&tag](std::string & v) { v = tag.m_value; });
     }
   }
+
+private:
+  std::map<std::pair<OsmElement::EntityType, uint64_t>, std::vector<OsmElement::Tag>> m_elements;
 };

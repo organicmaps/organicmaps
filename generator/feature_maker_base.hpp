@@ -10,19 +10,23 @@ namespace generator
 {
 namespace cache
 {
-class IntermediateDataReader;
+class IntermediateData;
 }  // namespace cache
 
-// Abstract class FeatureMakerBase is responsible for the conversion OsmElement to FeatureBuilder1.
+// Abstract class FeatureMakerBase is responsible for the conversion OsmElement to FeatureBuilder.
 // The main task of this class is to create features of the necessary types.
 // At least one feature should turn out from one OSM element. You can get several features from one element.
 class FeatureMakerBase
 {
 public:
-  explicit FeatureMakerBase(cache::IntermediateDataReader & cache);
+  explicit FeatureMakerBase(std::shared_ptr<cache::IntermediateData> const & cache = {});
   virtual ~FeatureMakerBase() = default;
 
-  bool Add(OsmElement & element);
+  virtual std::shared_ptr<FeatureMakerBase> Clone() const = 0;
+
+  void SetCache(std::shared_ptr<cache::IntermediateData> const & cache);
+
+  virtual bool Add(OsmElement & element);
   // The function returns true when the receiving feature was successful and a false when not successful.
   bool GetNextFeature(feature::FeatureBuilder & feature);
   size_t Size() const;
@@ -35,7 +39,7 @@ protected:
 
   virtual void ParseParams(FeatureParams & params, OsmElement & element) const  = 0;
 
-  cache::IntermediateDataReader & m_cache;
+  std::shared_ptr<cache::IntermediateData> m_cache;
   std::queue<feature::FeatureBuilder> m_queue;
 };
 

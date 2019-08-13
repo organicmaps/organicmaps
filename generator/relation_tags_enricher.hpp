@@ -15,11 +15,11 @@ class IntermediateDataReader;
 class RelationTagsEnricher
 {
 public:
-  explicit RelationTagsEnricher(cache::IntermediateDataReader & cache);
+  explicit RelationTagsEnricher(std::shared_ptr<cache::IntermediateDataReader> const & cache);
   void operator()(OsmElement & p);
 
 private:
-  cache::IntermediateDataReader & m_cache;
+  std::shared_ptr<cache::IntermediateDataReader> m_cache;
   RelationTagsNode m_nodeRelations;
   RelationTagsWay m_wayRelations;
 };

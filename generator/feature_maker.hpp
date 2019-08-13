@@ -15,6 +15,9 @@ class FeatureMakerSimple: public FeatureMakerBase
 public:
   using FeatureMakerBase::FeatureMakerBase;
 
+  // FeatureMaker overrides:
+  std::shared_ptr<FeatureMakerBase> Clone() const override;
+
 protected:
   // FeatureMaker overrides:
   void ParseParams(FeatureParams & params, OsmElement & element) const override;
@@ -32,6 +35,9 @@ class FeatureMaker : public FeatureMakerSimple
 {
 public:
   using FeatureMakerSimple::FeatureMakerSimple;
+
+  // FeatureMaker overrides:
+  std::shared_ptr<FeatureMakerBase> Clone() const override;
 
 private:
   // FeatureMaker overrides:
