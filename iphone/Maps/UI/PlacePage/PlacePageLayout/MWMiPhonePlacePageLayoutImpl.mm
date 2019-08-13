@@ -143,7 +143,9 @@ typedef NS_ENUM(NSUInteger, MWMScrollDirection) {
 - (CGFloat)openContentOffset {
   CGSize size = self.ownerView.size;
   CGFloat offset = self.isPortrait ? MAX(size.width, size.height) : MIN(size.width, size.height);
-  return offset * kTopPlacePageStopValue;
+  CGFloat actionBarHeight = self.actionBar.height;
+  offset -= actionBarHeight;
+  return offset * kTopPlacePageStopValue + actionBarHeight;
 }
 
 - (CGFloat)topContentOffset {
@@ -155,7 +157,9 @@ typedef NS_ENUM(NSUInteger, MWMScrollDirection) {
 - (CGFloat)previewPlusContentOffset {
   CGSize size = self.ownerView.size;
   CGFloat offset = self.isPortrait ? MAX(size.width, size.height) : MIN(size.width, size.height);
-  CGFloat previewPlusOffset = offset * kExpandedPlacePageStopValue;
+  CGFloat actionBarHeight = self.actionBar.height;
+  offset -= actionBarHeight;
+  CGFloat previewPlusOffset = offset * kExpandedPlacePageStopValue + actionBarHeight;
   CGFloat previewOffset = [self previewContentOffset];
   if (previewPlusOffset < previewOffset + kLuftDraggingOffset) {
     return previewOffset + kLuftDraggingOffset;

@@ -102,7 +102,7 @@
                             <constraint firstItem="aPn-pa-nCx" firstAttribute="leading" secondItem="USG-6L-Uhw" secondAttribute="leading" id="YFX-ma-vAf"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="FFY-Dy-Wou" secondAttribute="bottom" id="YUs-MJ-9w8"/>
                             <constraint firstItem="rL1-9E-4b7" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="Z1s-Q9-zX6"/>
-                            <constraint firstItem="awj-9E-eBS" firstAttribute="bottom" secondItem="utd-Jy-pE5" secondAttribute="bottom" priority="100" id="aqR-pe-LgT"/>
+                            <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="awj-9E-eBS" secondAttribute="bottom" priority="100" id="aqR-pe-LgT"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="NI8-tV-i2B" secondAttribute="bottom" priority="100" id="fgM-Gj-Vd4"/>
                             <constraint firstItem="aPn-pa-nCx" firstAttribute="top" secondItem="USG-6L-Uhw" secondAttribute="top" id="pwE-hX-IML"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="TdT-ia-GP9" secondAttribute="bottom" priority="100" id="pwZ-Fm-mHR"/>
@@ -1050,10 +1050,10 @@
                                         <rect key="frame" x="16" y="0.0" width="276" height="348"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="87G-jh-N8H" userLabel="CenteredView">
-                                                <rect key="frame" x="0.0" y="41.5" width="276" height="265"/>
+                                                <rect key="frame" x="0.0" y="53.5" width="276" height="241"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="img_no_maps" translatesAutoresizingMaskIntoConstraints="NO" id="vI9-fc-FO2">
-                                                        <rect key="frame" x="58" y="0.0" width="160" height="160"/>
+                                                        <rect key="frame" x="70" y="0.0" width="136" height="136"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="vI9-fc-FO2" secondAttribute="height" multiplier="1:1" id="f4J-1R-ewM"/>
                                                             <constraint firstAttribute="height" relation="lessThanOrEqual" priority="800" constant="160" id="jwh-bM-u0p"/>
@@ -1061,7 +1061,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="У вас нет загруженных карт" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="abh-G0-Alr" userLabel="Title">
-                                                        <rect key="frame" x="0.0" y="180" width="276" height="24"/>
+                                                        <rect key="frame" x="0.0" y="156" width="276" height="24"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1072,7 +1072,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaW-Ad-mYI" userLabel="Text">
-                                                        <rect key="frame" x="0.0" y="216" width="276" height="49"/>
+                                                        <rect key="frame" x="0.0" y="192" width="276" height="49"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1239,10 +1239,10 @@
                                         <rect key="frame" x="16" y="36" width="288" height="334"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6hj-bQ-tcL" userLabel="CenteredView">
-                                                <rect key="frame" x="0.0" y="0.5" width="288" height="333"/>
+                                                <rect key="frame" x="0.0" y="15.5" width="288" height="303"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="img_whatsnew_migration" translatesAutoresizingMaskIntoConstraints="NO" id="tap-L1-zYH">
-                                                        <rect key="frame" x="44" y="0.0" width="200" height="200"/>
+                                                        <rect key="frame" x="59" y="0.0" width="170" height="170"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="800" constant="130" id="fte-fp-Qz4"/>
                                                             <constraint firstAttribute="width" secondItem="tap-L1-zYH" secondAttribute="height" multiplier="1:1" id="msK-gB-JPG"/>
@@ -1250,7 +1250,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вы долго просили — мы наконец сделали!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="X9a-dw-9YW" userLabel="Title">
-                                                        <rect key="frame" x="0.0" y="220" width="288" height="48"/>
+                                                        <rect key="frame" x="0.0" y="190" width="288" height="48"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1261,7 +1261,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Мы поделили большие карты на маленькие части. Обновите данные и загружайте карту только нужного района." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="QK7-Vw-qwk" userLabel="Text">
-                                                        <rect key="frame" x="0.0" y="284" width="288" height="49"/>
+                                                        <rect key="frame" x="0.0" y="254" width="288" height="49"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
