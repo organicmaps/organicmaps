@@ -1,13 +1,24 @@
 #pragma once
 
-#include "generator/emitter_interface.hpp"
+#include "generator/feature_generator.hpp"
+#include "generator/final_processor_intermediate_mwm.hpp"
+#include "generator/processor_interface.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/intermediate_data.hpp"
+#include "generator/osm_o5m_source.hpp"
+#include "generator/osm_xml_source.hpp"
+#include "generator/translator_collection.hpp"
 #include "generator/translator_interface.hpp"
+
+#include "coding/parse_xml.hpp"
+
+#include "base/thread_pool_computational.hpp"
+#include "base/thread_safe_queue.hpp"
 
 #include <functional>
 #include <iostream>
 #include <memory>
+#include <queue>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -62,7 +73,6 @@ private:
 
   DISALLOW_COPY(CacheLoader);
 };
-
 // This function is needed to generate intermediate data from OSM elements.
 // The translators collection contains translators that translate the OSM element into
 // some intermediate representation.
@@ -116,4 +126,41 @@ bool GenerateIntermediateData(feature::GenerateInfo & info);
 
 void ProcessOsmElementsFromO5M(SourceReader & stream, std::function<void(OsmElement *)> processor);
 void ProcessOsmElementsFromXML(SourceReader & stream, std::function<void(OsmElement *)> processor);
+
+class ProcessorOsmElementsInterface
+{
+public:
+  virtual ~ProcessorOsmElementsInterface() = default;
+
+  virtual bool TryRead(OsmElement & element) = 0;
+};
+
+class ProcessorOsmElementsFromO5M : public ProcessorOsmElementsInterface
+{
+public:
+  explicit ProcessorOsmElementsFromO5M(SourceReader & stream);
+
+  // ProcessorOsmElementsInterface overrides:
+  bool TryRead(OsmElement & element) override;
+
+private:
+  SourceReader & m_stream;
+  osm::O5MSource m_dataset;
+  osm::O5MSource::Iterator m_pos;
+};
+
+class ProcessorXmlElementsFromXml : public ProcessorOsmElementsInterface
+{
+public:
+  explicit ProcessorXmlElementsFromXml(SourceReader & stream);
+  // ProcessorOsmElementsInterface overrides:
+  bool TryRead(OsmElement & element) override;
+
+private:
+  bool TryReadFromQueue(OsmElement & element);
+
+  XMLSource m_xmlSource;
+  ParserXMLSequence<SourceReader, XMLSource> m_parser;
+  std::queue<OsmElement> m_queue;
+};
 }  // namespace generator

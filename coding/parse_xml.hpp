@@ -40,6 +40,48 @@ uint64_t ParseXMLSequence(SequenceT & source, XMLDispatcherT & dispatcher, bool 
   return res;
 }
 
+template <typename SequenceT, typename XMLDispatcherT>
+class ParserXMLSequence
+{
+public:
+  ParserXMLSequence(SequenceT & source, XMLDispatcherT & dispatcher)
+    : m_res(0)
+    , m_readed(0)
+    , m_source(source)
+    , m_parser(dispatcher, false /* useCharData */)
+  {
+    CHECK(m_parser.Create(), ());
+
+  }
+
+  bool Read()
+  {
+    char * buffer = static_cast<char *>(m_parser.GetBuffer(kBufferSize));
+    ASSERT(buffer, ());
+
+    m_readed = m_source.Read(buffer, kBufferSize);
+    if (m_readed == 0)
+      return false;
+
+    if (!m_parser.ParseBuffer(static_cast<uint32_t>(m_readed), false))
+    {
+      m_parser.PrintError();
+      return false;
+    }
+
+    m_res += m_readed;
+    return m_readed == kBufferSize;
+  }
+
+private:
+  uint32_t static const kBufferSize = 16 * 1024;
+
+  uint64_t m_res;
+  uint64_t m_readed;
+  SequenceT & m_source;
+  XmlParser<XMLDispatcherT> m_parser;
+};
+
 namespace
 {
 

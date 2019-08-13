@@ -1,17 +1,15 @@
 #include "generator/osm_source.hpp"
 
+#include "generator/intermediate_data.hpp"
 #include "generator/intermediate_elements.hpp"
 #include "generator/osm_element.hpp"
-#include "generator/osm_o5m_source.hpp"
-#include "generator/osm_xml_source.hpp"
 #include "generator/towns_dumper.hpp"
+#include "generator/translator_factory.hpp"
 
 #include "platform/platform.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/tree4d.hpp"
-
-#include "coding/parse_xml.hpp"
 
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
@@ -24,6 +22,7 @@
 #include "defines.hpp"
 
 using namespace std;
+using namespace base::thread_pool::computational;
 
 namespace generator
 {
@@ -121,8 +120,13 @@ void BuildIntermediateDataFromXML(SourceReader & stream, cache::IntermediateData
 
 void ProcessOsmElementsFromXML(SourceReader & stream, function<void(OsmElement *)> processor)
 {
-  XMLSource parser([&](OsmElement * element) { processor(element); });
-  ParseXMLSequence(stream, parser);
+  ProcessorXmlElementsFromXml processorXmlElementsFromXml(stream);
+  OsmElement element;
+  while (processorXmlElementsFromXml.TryRead(element))
+  {
+    processor(&element);
+    element = {};
+  }
 }
 
 void BuildIntermediateDataFromO5M(SourceReader & stream, cache::IntermediateDataWriter & cache,
@@ -140,14 +144,29 @@ void BuildIntermediateDataFromO5M(SourceReader & stream, cache::IntermediateData
 
 void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *)> processor)
 {
-  using Type = osm::O5MSource::EntityType;
-
-  osm::O5MSource dataset([&stream](uint8_t * buffer, size_t size)
+  ProcessorOsmElementsFromO5M processorOsmElementsFromO5M(stream);
+  OsmElement element;
+  while (processorOsmElementsFromO5M.TryRead(element))
   {
-    return stream.Read(reinterpret_cast<char *>(buffer), size);
-  });
+    processor(&element);
+    element = {};
+  }
+}
 
-  auto translate = [](Type t) -> OsmElement::EntityType {
+ProcessorOsmElementsFromO5M::ProcessorOsmElementsFromO5M(SourceReader & stream)
+  : m_stream(stream)
+  , m_dataset([&, this](uint8_t * buffer, size_t size) { return m_stream.Read(reinterpret_cast<char *>(buffer), size); })
+  , m_pos(m_dataset.begin())
+{
+}
+
+bool ProcessorOsmElementsFromO5M::TryRead(OsmElement & element)
+{
+  if (m_pos == m_dataset.end())
+    return false;
+
+  using Type = osm::O5MSource::EntityType;
+  auto const translate = [](Type t) -> OsmElement::EntityType {
     switch (t)
     {
     case Type::Node: return OsmElement::EntityType::Node;
@@ -157,48 +176,69 @@ void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *
     }
   };
 
-  // Be careful, we could call Nodes(), Members(), Tags() from O5MSource::Entity
-  // only once (!). Because these functions read data from file simultaneously with
-  // iterating in loop. Furthermore, into Tags() method calls Nodes.Skip() and Members.Skip(),
-  // thus first call of Nodes (Members) after Tags() will not return any results.
-  // So don not reorder the "for" loops (!).
-
-  for (auto const & entity : dataset)
+  auto entity = *m_pos;
+  element.m_id = entity.id;
+  switch (entity.type)
   {
-    OsmElement p;
-    p.m_id = entity.id;
-
-    switch (entity.type)
-    {
-    case Type::Node:
-    {
-      p.m_type = OsmElement::EntityType::Node;
-      p.m_lat = entity.lat;
-      p.m_lon = entity.lon;
-      break;
-    }
-    case Type::Way:
-    {
-      p.m_type = OsmElement::EntityType::Way;
-      for (uint64_t nd : entity.Nodes())
-        p.AddNd(nd);
-      break;
-    }
-    case Type::Relation:
-    {
-      p.m_type = OsmElement::EntityType::Relation;
-      for (auto const & member : entity.Members())
-        p.AddMember(member.ref, translate(member.type), member.role);
-      break;
-    }
-    default: break;
-    }
-
-    for (auto const & tag : entity.Tags())
-      p.AddTag(tag.key, tag.value);
-
-    processor(&p);
+  case Type::Node:
+  {
+    element.m_type = OsmElement::EntityType::Node;
+    element.m_lat = entity.lat;
+    element.m_lon = entity.lon;
+    break;
   }
+  case Type::Way:
+  {
+    element.m_type = OsmElement::EntityType::Way;
+    for (uint64_t nd : entity.Nodes())
+      element.AddNd(nd);
+    break;
+  }
+  case Type::Relation:
+  {
+    element.m_type = OsmElement::EntityType::Relation;
+    for (auto const & member : entity.Members())
+      element.AddMember(member.ref, translate(member.type), member.role);
+    break;
+  }
+  default: break;
+  }
+
+  for (auto const & tag : entity.Tags())
+    element.AddTag(tag.key, tag.value);
+
+  ++m_pos;
+  return true;
+}
+
+ProcessorXmlElementsFromXml::ProcessorXmlElementsFromXml(SourceReader & stream)
+  : m_xmlSource([&, this](auto * element) { m_queue.emplace(*element); })
+  , m_parser(stream, m_xmlSource)
+{
+}
+
+bool ProcessorXmlElementsFromXml::TryReadFromQueue(OsmElement & element)
+{
+  if (m_queue.empty())
+    return false;
+
+  element = m_queue.front();
+  m_queue.pop();
+  return true;
+}
+
+bool ProcessorXmlElementsFromXml::TryRead(OsmElement & element)
+{
+  if (TryReadFromQueue(element))
+    return true;
+
+  while (m_parser.Read())
+  {
+    if (TryReadFromQueue(element))
+      return true;
+  }
+
+  return TryReadFromQueue(element);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -251,35 +291,27 @@ cache::IntermediateDataReader & CacheLoader::GetCache()
 
 bool GenerateIntermediateData(feature::GenerateInfo & info)
 {
-  try
+  auto nodes = cache::CreatePointStorageWriter(info.m_nodeStorageType,
+                                               info.GetIntermediateFileName(NODES_FILE));
+  cache::IntermediateDataWriter cache(*nodes, info);
+  TownsDumper towns;
+  SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
+
+  LOG(LINFO, ("Data source:", info.m_osmFileName));
+
+  switch (info.m_osmFileType)
   {
-    auto nodes = cache::CreatePointStorageWriter(info.m_nodeStorageType,
-                                                 info.GetIntermediateFileName(NODES_FILE));
-    cache::IntermediateDataWriter cache(*nodes, info);
-    TownsDumper towns;
-    SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
-
-    LOG(LINFO, ("Data source:", info.m_osmFileName));
-
-    switch (info.m_osmFileType)
-    {
-    case feature::GenerateInfo::OsmSourceType::XML:
-      BuildIntermediateDataFromXML(reader, cache, towns);
-      break;
-    case feature::GenerateInfo::OsmSourceType::O5M:
-      BuildIntermediateDataFromO5M(reader, cache, towns);
-      break;
-    }
-
-    cache.SaveIndex();
-    towns.Dump(info.GetIntermediateFileName(TOWNS_FILE));
-    LOG(LINFO, ("Added points count =", nodes->GetNumProcessedPoints()));
+  case feature::GenerateInfo::OsmSourceType::XML:
+    BuildIntermediateDataFromXML(reader, cache, towns);
+    break;
+  case feature::GenerateInfo::OsmSourceType::O5M:
+    BuildIntermediateDataFromO5M(reader, cache, towns);
+    break;
   }
-  catch (Writer::Exception const & e)
-  {
-    LOG(LCRITICAL, ("Error with file:", e.what()));
-  }
+
+  cache.SaveIndex();
+  towns.Dump(info.GetIntermediateFileName(TOWNS_FILE));
+  LOG(LINFO, ("Added points count =", nodes->GetNumProcessedPoints()));
   return true;
 }
-
 }  // namespace generator
