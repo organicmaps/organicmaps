@@ -7,6 +7,8 @@ include_directories(
 
 set(
   SRC
+  affiliation.cpp
+  affiliation.hpp
   altitude_generator.cpp
   altitude_generator.hpp
   booking_dataset.cpp
@@ -36,6 +38,8 @@ set(
   collection_base.hpp
   collector_addresses.cpp
   collector_addresses.hpp
+  collector_city_area.cpp
+  collector_city_area.hpp
   collector_camera.cpp
   collector_camera.hpp
   collector_collection.cpp
@@ -49,20 +53,18 @@ set(
   descriptions_section_builder.hpp
   dumper.cpp
   dumper.hpp
-  emitter_booking.hpp
-  emitter_coastline.cpp
-  emitter_coastline.hpp
-  emitter_country.cpp
-  emitter_country.hpp
-  emitter_factory.hpp
-  emitter_interface.hpp
-  emitter_noop.hpp
-  emitter_restaurants.cpp
-  emitter_restaurants.hpp
-  emitter_simple.cpp
-  emitter_simple.hpp
-  emitter_world.cpp
-  emitter_world.hpp
+  processor_booking.hpp
+  processor_coastline.cpp
+  processor_coastline.hpp
+  processor_country.cpp
+  processor_country.hpp
+  processor_factory.hpp
+  processor_interface.hpp
+  processor_noop.hpp
+  processor_simple.cpp
+  processor_simple.hpp
+  processor_world.cpp
+  processor_world.hpp
   factory_utils.hpp
   feature_builder.cpp
   feature_builder.hpp
@@ -81,6 +83,7 @@ set(
   feature_processing_layers.hpp
   feature_sorter.cpp
   feature_sorter.hpp
+  features_processing_helpers.hpp
   filter_collection.cpp
   filter_collection.hpp
   filter_elements.cpp
@@ -90,6 +93,8 @@ set(
   filter_planet.hpp
   filter_world.cpp
   filter_world.hpp
+  final_processor_intermediate_mwm.cpp
+  final_processor_intermediate_mwm.hpp
   gen_mwm_info.hpp
   generate_info.hpp
   geo_objects/geo_objects_generator.cpp
@@ -141,7 +146,6 @@ set(
   place_node.hpp
   platform_helpers.cpp
   platform_helpers.hpp
-  polygonizer.hpp
   popular_places_section_builder.cpp
   popular_places_section_builder.hpp
   popularity.cpp
@@ -149,6 +153,10 @@ set(
   promo_catalog_cities.hpp
   ratings_section_builder.cpp
   ratings_section_builder.hpp
+  raw_generator.cpp
+  raw_generator.hpp
+  raw_generator_writer.cpp
+  raw_generator_writer.hpp
   region_meta.cpp
   region_meta.hpp
   regions/admin_suburbs_marker.cpp
@@ -246,6 +254,8 @@ set(
   translator_streets.hpp
   translator_world.cpp
   translator_world.hpp
+  translators_pool.cpp
+  translators_pool.hpp
   type_helper.cpp
   type_helper.hpp
   ugc_db.cpp
@@ -269,6 +279,7 @@ omim_add_library(${PROJECT_NAME} ${SRC})
 
 omim_add_test_subdirectory(generator_tests_support)
 omim_add_test_subdirectory(generator_tests)
+omim_add_test_subdirectory(generator_integration_tests)
 
 add_subdirectory(generator_tool)
 add_subdirectory(booking_quality_check)
