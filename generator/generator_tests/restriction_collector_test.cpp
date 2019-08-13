@@ -237,9 +237,7 @@ UNIT_TEST(RestrictionWriter_Case1)
   stream.exceptions(std::fstream::failbit | std::fstream::badbit);
   stream.open(filename);
   std::stringstream buffer;
-  auto * buf = stream.rdbuf();
-  if (buf->in_avail())
-    buffer << stream.rdbuf();
+  buffer << stream.rdbuf();
 
   std::string const correctAnswer = "No,way,11,1,21\n"
                                     "No,way,13,3,23\n"

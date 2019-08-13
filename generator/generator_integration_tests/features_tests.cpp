@@ -1,4 +1,3 @@
-// ~/Projects/omim_copy/data/
 #include "testing/testing.hpp"
 
 #include "generator/generator_integration_tests/helpers.hpp"
@@ -28,6 +27,8 @@ class FeatureIntegrationTests
 public:
   FeatureIntegrationTests()
   {
+    // You can get features-2019_07_17__13_39_20 by running:
+    // rsync -v -p testdata.mapsme.cloud.devmail.ru::testdata/features-2019_07_17__13_39_20.zip .
     Init("features-2019_07_17__13_39_20" /* arhiveName */);
   }
 
@@ -101,11 +102,11 @@ public:
         ++cityTownOrVillageCnt;
     }
 
-    TEST_EQUAL(fbs.size(), 949, ());
-    TEST_EQUAL(pointsCnt, 364410, ());
+    TEST_EQUAL(fbs.size(), 938, ());
+    TEST_EQUAL(pointsCnt, 364399, ());
     TEST_EQUAL(airportCnt, 3, ());
     TEST_EQUAL(cityTownOrVillageCnt, 172, ());
-    TEST_EQUAL(popularAttractionCnt, 146, ());
+    TEST_EQUAL(popularAttractionCnt, 135, ());
   }
 
   void BuildCountries()
@@ -126,18 +127,18 @@ public:
     rawGenerator.GenerateCountries();
     TEST(rawGenerator.Execute(), ());
 
-    TestCountry(northAuckland, 1811915 /* fbsCnt */, 12195892 /* pointsCnt */, 1007316 /* pointCnt */,
+    TestCountry(northAuckland, 1811971 /* fbsCnt */, 12195948 /* pointsCnt */, 1007372 /* pointCnt */,
                 205469 /* lineCnt */, 599130 /* areaCnt */, 212087 /* poiCnt */,
-                521 /* cityTownOrVillageCnt */, 47 /* popularAttractionCnt */, 3557 /* bookingHotelsCnt */);
-    TestCountry(northWellington, 797769 /* fbsCnt */, 7772261 /* pointsCnt */, 460437 /* pointCnt */,
+                521 /* cityTownOrVillageCnt */, 43 /* popularAttractionCnt */, 3557 /* bookingHotelsCnt */);
+    TestCountry(northWellington, 797778 /* fbsCnt */, 7772270 /* pointsCnt */, 460446 /* pointCnt */,
                 87058 /* lineCnt */, 250274 /* areaCnt */, 95651 /* poiCnt */,
-                297 /* cityTownOrVillageCnt */, 17 /* popularAttractionCnt */, 1062 /* bookingHotelsCnt */);
-    TestCountry(southCanterbury, 636922 /* fbsCnt */, 6984348 /* pointsCnt */, 397622 /* pointCnt */,
+                297 /* cityTownOrVillageCnt */, 16 /* popularAttractionCnt */, 1062 /* bookingHotelsCnt */);
+    TestCountry(southCanterbury, 636934 /* fbsCnt */, 6984360 /* pointsCnt */, 397634 /* pointCnt */,
                 81712 /* lineCnt */, 157588 /* areaCnt */, 89249 /* poiCnt */,
-                331 /* cityTownOrVillageCnt */, 42 /* popularAttractionCnt */, 2085 /* bookingHotelsCnt */);
+                331 /* cityTownOrVillageCnt */, 40 /* popularAttractionCnt */, 2085 /* bookingHotelsCnt */);
     TestCountry(southSouthland, 340491 /* fbsCnt */, 5342804 /* pointsCnt */, 185845 /* pointCnt */,
                 40124 /* lineCnt */, 114522 /* areaCnt */, 40497 /* poiCnt */,
-                297 /* cityTownOrVillageCnt */, 41 /* popularAttractionCnt */, 1621 /* bookingHotelsCnt */);
+                297 /* cityTownOrVillageCnt */, 37 /* popularAttractionCnt */, 1621 /* bookingHotelsCnt */);
   }
 
   void CheckGeneratedData()

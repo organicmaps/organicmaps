@@ -5,15 +5,14 @@
 namespace generator
 {
 TranslatorsPool::TranslatorsPool(std::shared_ptr<TranslatorInterface> const & original,
-                                 std::shared_ptr<cache::IntermediateData> const & cache,
                                  size_t threadCount)
   : m_threadPool(threadCount)
 {
-  m_translators.Push(original);
-  for (size_t i = 0; i < threadCount; ++i)
-    m_translators.Push(original->Clone());
+  CHECK_GREATER_OR_EQUAL(threadCount, 1, ());
 
-  CHECK_EQUAL(m_translators.Size(), threadCount + 1, ());
+  m_translators.Push(original);
+  for (size_t i = 1; i < threadCount; ++i)
+    m_translators.Push(original->Clone());
 }
 
 void TranslatorsPool::Emit(std::vector<OsmElement> && elements)

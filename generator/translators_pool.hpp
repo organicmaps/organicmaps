@@ -16,7 +16,6 @@ class TranslatorsPool
 {
 public:
   explicit TranslatorsPool(std::shared_ptr<TranslatorInterface> const & original,
-                           std::shared_ptr<generator::cache::IntermediateData> const & cache,
                            size_t threadCount);
 
   void Emit(std::vector<OsmElement> && elements);

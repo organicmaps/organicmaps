@@ -316,7 +316,7 @@ public:
     {
     case feature::GeomType::Line:
     {
-      MergedFeatureBuilder1 * p = m_typesCorrector(fb);
+      MergedFeatureBuilder * p = m_typesCorrector(fb);
       if (p)
         m_merger(p);
       return false;

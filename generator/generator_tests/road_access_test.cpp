@@ -209,9 +209,7 @@ UNIT_TEST(RoadAccessWriter_Case1)
   stream.exceptions(fstream::failbit | fstream::badbit);
   stream.open(filename);
   stringstream buffer;
-  auto * buf = stream.rdbuf();
-  if (buf->in_avail())
-    buffer << stream.rdbuf();
+  buffer << stream.rdbuf();
 
   string const correctAnswer = "Car Private 1 2\n"
                                "Car Private 2 3\n";

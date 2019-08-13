@@ -306,7 +306,7 @@ int GeneratorToolMain(int argc, char ** argv)
       return EXIT_FAILURE;
   }
 
-    DataVersion{FLAGS_osm_file_name}.DumpToPath(genInfo.m_intermediateDir);
+  DataVersion{FLAGS_osm_file_name}.DumpToPath(genInfo.m_intermediateDir);
 
   // Generate .mwm.tmp files.
   if (FLAGS_generate_features ||
@@ -361,12 +361,8 @@ int GeneratorToolMain(int argc, char ** argv)
   if (!FLAGS_geo_objects_key_value.empty())
   {
     if (!geo_objects::GenerateGeoObjects(FLAGS_regions_index, FLAGS_regions_key_value,
-          FLAGS_regions_key_value,
-          FLAGS_geo_objects_features,
-          FLAGS_ids_without_addresses,
-          FLAGS_geo_objects_key_value,
-          FLAGS_verbose,
-          threadsCount};
+                                         FLAGS_geo_objects_features, FLAGS_ids_without_addresses,
+                                         FLAGS_geo_objects_key_value, FLAGS_verbose, threadsCount))
       return EXIT_FAILURE;
   }
 
@@ -391,8 +387,8 @@ int GeneratorToolMain(int argc, char ** argv)
 
       LOG(LINFO, ("Saving geo objects index to", outFile));
       if (!indexer::BuildGeoObjectsIndexFromDataFile(
-              locDataFile, outFile, DataVersion::LoadFromPath(path).GetVersionJson(),
-              DataVersion::kFileTag))
+            locDataFile, outFile, DataVersion::LoadFromPath(path).GetVersionJson(),
+            DataVersion::kFileTag))
       {
         LOG(LCRITICAL, ("Error generating geo objects index."));
         return EXIT_FAILURE;

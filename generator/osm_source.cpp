@@ -244,50 +244,6 @@ bool ProcessorOsmElementsFromXml::TryRead(OsmElement & element)
 // Generate functions implementations.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-bool GenerateRaw(feature::GenerateInfo & info, TranslatorInterface & translators)
-{
-  auto const fn = [&](OsmElement * element) {
-    CHECK(element, ());
-    translators.Emit(*element);
-  };
-
-  SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
-  switch (info.m_osmFileType)
-  {
-  case feature::GenerateInfo::OsmSourceType::XML:
-    ProcessOsmElementsFromXML(reader, fn);
-    break;
-  case feature::GenerateInfo::OsmSourceType::O5M:
-    ProcessOsmElementsFromO5M(reader, fn);
-    break;
-  }
-
-  LOG(LINFO, ("Processing", info.m_osmFileName, "done."));
-  if (!translators.Finish())
-    return false;
-
-  translators.GetNames(info.m_bucketNames);
-  return true;
-}
-
-LoaderWrapper::LoaderWrapper(feature::GenerateInfo & info)
-  : m_reader(std::make_unique<cache::IntermediateData>(info, true /* forceReload */)) {}
-
-cache::IntermediateDataReader & LoaderWrapper::GetReader()
-{
-  return *m_reader->GetCache();
-}
-
-CacheLoader::CacheLoader(feature::GenerateInfo & info) : m_info(info) {}
-
-cache::IntermediateDataReader & CacheLoader::GetCache()
-{
-  if (!m_loader)
-    m_loader = std::make_unique<LoaderWrapper>(m_info);
-
-  return m_loader->GetReader();
-}
-
 bool GenerateIntermediateData(feature::GenerateInfo & info)
 {
   auto nodes = cache::CreatePointStorageWriter(info.m_nodeStorageType,

@@ -170,7 +170,7 @@ bool RawGenerator::GenerateFilteredFeatures()
   }
   CHECK(sourceProcessor, ());
 
-  TranslatorsPool translators(m_translators, m_cache, m_threadsCount);
+  TranslatorsPool translators(m_translators, m_threadsCount);
   RawGeneratorWriter rawGeneratorWriter(m_queue, m_genInfo.m_tmpDir);
   rawGeneratorWriter.Run();
 
