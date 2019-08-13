@@ -24,6 +24,19 @@ class BookmarksSubscriptionViewController: MWMViewController {
     get { return UIColor.isNightMode() ? .lightContent : .default }
   }
 
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    InAppPurchase.bookmarksSubscriptionManager.addListener(self)
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  deinit {
+    InAppPurchase.bookmarksSubscriptionManager.removeListener(self)
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -49,7 +62,9 @@ class BookmarksSubscriptionViewController: MWMViewController {
                                 image: UIImage(named: "bookmarksSubscriptionMonth")!)
     annualViewController.setSelected(true, animated: false)
     continueButton.setTitle(L("current_location_unknown_continue_button").uppercased(), for: .normal)
-    InAppPurchase.bookmarksSubscriptionManager.addListener(self)
+
+    Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: MWMPurchaseManager.bookmarksSubscriptionVendorId(),
+                                                         kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId()])
     InAppPurchase.bookmarksSubscriptionManager.getAvailableSubscriptions { [weak self] (subscriptions, error) in
       guard let subscriptions = subscriptions, subscriptions.count == 2 else {
         // TODO: hande error
@@ -90,6 +105,8 @@ class BookmarksSubscriptionViewController: MWMViewController {
     annualViewController.setSelected(true, animated: true)
     monthlyViewController.setSelected(false, animated: true)
     scrollView.scrollRectToVisible(annualView.convert(annualView.bounds, to: scrollView), animated: true)
+    Statistics.logEvent(kStatInappSelect, withParameters: [kStatProduct: selectedSubscription!.productId,
+                                                           kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId()])
   }
 
   @IBAction func onMonthlyViewTap(_ sender: UITapGestureRecognizer) {
@@ -100,6 +117,8 @@ class BookmarksSubscriptionViewController: MWMViewController {
     annualViewController.setSelected(false, animated: true)
     monthlyViewController.setSelected(true, animated: true)
     scrollView.scrollRectToVisible(monthlyView.convert(monthlyView.bounds, to: scrollView), animated: true)
+    Statistics.logEvent(kStatInappSelect, withParameters: [kStatProduct: selectedSubscription!.productId,
+                                                           kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId()])
   }
 
   @IBAction func onContinue(_ sender: UIButton) {
@@ -120,10 +139,12 @@ class BookmarksSubscriptionViewController: MWMViewController {
       
       InAppPurchase.bookmarksSubscriptionManager.subscribe(to: subscription)
     }
+    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId()])
   }
 
   @IBAction func onClose(_ sender: UIButton) {
     onCancel?()
+    Statistics.logEvent(kStatInappCancel, withParameters: [kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId()])
   }
 }
 

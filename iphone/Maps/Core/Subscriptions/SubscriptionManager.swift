@@ -94,15 +94,15 @@ class SubscriptionManager: NSObject {
   private func logEvents(_ validationResult: MWMValidationResult) {
     switch validationResult {
     case .valid:
-      Statistics.logEvent(kStatInappValidationSuccess)
+      Statistics.logEvent(kStatInappValidationSuccess, withParameters: [kStatPurchase : serverId])
       Statistics.logEvent(kStatInappProductDelivered,
-                          withParameters: [kStatVendor : vendorId])
+                          withParameters: [kStatVendor : vendorId, kStatPurchase : serverId])
     case .notValid:
-      Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 0])
+      Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 0, kStatPurchase : serverId])
     case .serverError:
-      Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 2])
+      Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 2, kStatPurchase : serverId])
     case .authError:
-      Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 1])
+      Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 1, kStatPurchase : serverId])
     }
   }
 }
@@ -110,7 +110,7 @@ class SubscriptionManager: NSObject {
 extension SubscriptionManager: SKProductsRequestDelegate {
   func request(_ request: SKRequest, didFailWithError error: Error) {
     Statistics.logEvent(kStatInappPaymentError,
-                        withParameters: [kStatError : error.localizedDescription])
+                        withParameters: [kStatError : error.localizedDescription, kStatPurchase : serverId])
     subscriptionsComplection?(nil, error)
     subscriptionsComplection = nil
     productsRequest = nil
@@ -167,7 +167,7 @@ extension SubscriptionManager: SKPaymentTransactionObserver {
   private func processPurchased(_ transaction: SKPaymentTransaction) {
     paymentQueue.finishTransaction(transaction)
     if let ps = pendingSubscription, transaction.payment.productIdentifier == ps.productId {
-      Statistics.logEvent(kStatInappPaymentSuccess)
+      Statistics.logEvent(kStatInappPaymentSuccess, withParameters: [kStatPurchase : serverId])
       listeners.allObjects.forEach { $0.didSubsribe(ps) }
     }
   }
@@ -182,8 +182,9 @@ extension SubscriptionManager: SKPaymentTransactionObserver {
   private func processFailed(_ transaction: SKPaymentTransaction, error: Error?) {
     paymentQueue.finishTransaction(transaction)
     if let ps = pendingSubscription, transaction.payment.productIdentifier == ps.productId {
+      let errorText = error?.localizedDescription ?? ""
       Statistics.logEvent(kStatInappPaymentError,
-                          withParameters: [kStatError : error?.localizedDescription ?? ""])
+                          withParameters: [kStatPurchase : serverId, kStatError : errorText])
       listeners.allObjects.forEach { $0.didFailToSubscribe(ps, error: error) }
     }
   }

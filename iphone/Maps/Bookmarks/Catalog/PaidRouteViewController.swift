@@ -105,6 +105,9 @@ class PaidRouteViewController: MWMViewController {
       self?.subscribeButton.setTitle(title, for: .normal)
       self?.subscribeButton.isEnabled = true
       self?.subscription = s
+      Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor : MWMPurchaseManager.bookmarksSubscriptionVendorId(),
+                                                           kStatProduct : s.productId,
+                                                           kStatPurchase : MWMPurchaseManager.bookmarksSubscriptionServerId()])
     }
 
     statistics.logPreviewShow()
@@ -181,12 +184,16 @@ class PaidRouteViewController: MWMViewController {
         return
       }
 
+      Statistics.logEvent(kStatInappSelect, withParameters: [kStatProduct : subscription.productId,
+                                                             kStatPurchase : MWMPurchaseManager.bookmarksSubscriptionServerId()])
+      Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase : MWMPurchaseManager.bookmarksSubscriptionServerId()])
       self?.subscriptionManager.subscribe(to: subscription)
     }
   }
 
   @IBAction func onCancel(_ sender: UIButton) {
     statistics.logCancel()
+    Statistics.logEvent(kStatInappCancel, withParameters: [kStatPurchase : MWMPurchaseManager.bookmarksSubscriptionServerId()])
     delegate?.didCancelPurchase(self)
   }
 

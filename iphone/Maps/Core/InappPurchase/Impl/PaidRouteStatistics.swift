@@ -16,7 +16,7 @@ class PaidRouteStatistics: IPaidRouteStatistics {
   }
 
   func logPay() {
-    logEvent(kStatInappSelect, withParameters: [kStatPurchase: serverId])
+    logEvent(kStatInappSelect, withParameters: [kStatPurchase: serverId, kStatProduct: productId])
     logEvent(kStatInappPay, withParameters: [kStatPurchase: serverId])
   }
 

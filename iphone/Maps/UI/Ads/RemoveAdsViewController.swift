@@ -113,12 +113,13 @@ import SafariServices
                                    arguments: [VC.formatPrice(yearlyDiscount, locale: locale)])
 
       self.monthButton.setTitle(String(coreFormat: L("options_dropdown_item1"),
-                                       arguments: [VC.formatPrice(monthlyPrice ?? 0, locale: locale),
+                                       arguments: [VC.formatPrice(monthlyPrice, locale: locale),
                                                    VC.formatPrice(monthlyDiscount, locale: locale)]), for: .normal)
       self.weekButton.setTitle(String(coreFormat: L("options_dropdown_item2"),
-                                      arguments: [VC.formatPrice(weeklyPrice ?? 0, locale: locale)]), for: .normal)
+                                      arguments: [VC.formatPrice(weeklyPrice, locale: locale)]), for: .normal)
       Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor : MWMPurchaseManager.adsRemovalVendorId(),
-                                                           kStatProduct : subscriptions[0].productId])
+                                                           kStatProduct : subscriptions[0].productId,
+                                                           kStatPurchase : MWMPurchaseManager.adsRemovalServerId()])
     }
   }
 
@@ -131,7 +132,7 @@ import SafariServices
   }
 
   @IBAction func onClose(_ sender: Any) {
-    Statistics.logEvent(kStatInappCancel)
+    Statistics.logEvent(kStatInappCancel, withParameters: [kStatPurchase : MWMPurchaseManager.adsRemovalServerId()])
     delegate?.didCancelSubscribtion(self)
   }
 
@@ -185,8 +186,9 @@ import SafariServices
       self.delegate?.didCancelSubscribtion(self)
       return
     }
-    Statistics.logEvent(kStatInappSelect, withParameters: [kStatProduct : subscription.productId])
-    Statistics.logEvent(kStatInappPay)
+    Statistics.logEvent(kStatInappSelect, withParameters: [kStatProduct : subscription.productId,
+                                                           kStatPurchase : MWMPurchaseManager.adsRemovalServerId()])
+    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase : MWMPurchaseManager.adsRemovalServerId()])
     showPurchaseProgress()
     InAppPurchase.adsRemovalSubscriptionManager.subscribe(to: subscription)
   }
