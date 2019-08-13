@@ -1,7 +1,15 @@
 #include "testing/testing.hpp"
 
+#include "generator/generator_tests/common.hpp"
 #include "generator/metalines_builder.hpp"
+#include "generator/osm2type.hpp"
 #include "generator/osm_element.hpp"
+
+#include "indexer/classificator_loader.hpp"
+
+#include "platform/platform.hpp"
+
+#include "base/scope_guard.hpp"
 
 #include <cstddef>
 #include <cstdint>
@@ -27,6 +35,14 @@ OsmElement MakeHighway(uint64_t id, std::string const & name, std::vector<uint64
     element.AddTag("oneway", "yes");
   element.m_nodes = nodes;
   return element;
+}
+
+feature::FeatureBuilder MakeFbForTest(OsmElement element)
+{
+  feature::FeatureBuilder result;
+  ftype::GetNameAndType(&element, result.GetParams());
+  result.SetLinear();
+  return result;
 }
 
 size_t MakeKey(OsmElement const & element)
@@ -146,4 +162,37 @@ UNIT_TEST(MetalinesTest_Case6)
   TEST_EQUAL(outputData.size(), 2 /* unique names roads count */, ());
   TEST_EQUAL(outputData.at(keyW).size(), 1 /* ways count */, ());
   TEST_EQUAL(outputData.at(keyB).size(), 1 /* ways count */, ());
+}
+
+UNIT_TEST(MetalinesTest_MetalinesBuilder)
+{
+  classificator::Load();
+  auto const filename = generator_tests::GetFileName();
+  SCOPE_GUARD(_, std::bind(Platform::RemoveFileIfExists, std::cref(filename)));
+
+  auto c1 = std::make_shared<MetalinesBuilder>(filename);
+  auto c2 = c1->Clone();
+  c1->CollectFeature(MakeFbForTest(w1), w1);
+  c2->CollectFeature(MakeFbForTest(w2), w2);
+  c1->CollectFeature(MakeFbForTest(w5), w5);
+  c2->CollectFeature(MakeFbForTest(w4), w4);
+  c1->Finish();
+  c2->Finish();
+  c1->Merge(*c2);
+  c1->Save();
+
+  FileReader reader(filename);
+  ReaderSource<FileReader> src(reader);
+  std::set<std::vector<int32_t>> s;
+  while (src.Size() > 0)
+  {
+    uint16_t size = ReadPrimitiveFromSource<uint16_t>(src);
+    std::vector<int32_t> ways(size);
+    src.Read(ways.data(), size * sizeof(int32_t));
+    s.emplace(std::move(ways));
+  }
+
+  TEST_EQUAL(s.size(), 2, ());
+  TEST_EQUAL(s.count({1, 2}), 1, ());
+  TEST_EQUAL(s.count({4, 5}), 1, ());
 }

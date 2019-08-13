@@ -1,19 +1,21 @@
 #include "testing/testing.hpp"
 
+#include "generator/generator_tests/common.hpp"
 #include "generator/generator_tests_support/routing_helpers.hpp"
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
+#include "generator/osm2type.hpp"
 #include "generator/road_access_generator.hpp"
 
 #include "routing/road_access_serialization.hpp"
 #include "routing/segment.hpp"
 
+#include "indexer/classificator_loader.hpp"
+
 #include "platform/country_file.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
-
-#include "indexer/classificator_loader.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -21,6 +23,7 @@
 
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
 #include <map>
@@ -123,6 +126,21 @@ RoadAccessCollector::RoadAccessByVehicleType SaveAndLoadRoadAccess(string const 
   return roadAccessFromMwm;
 }
 
+OsmElement MakeOsmElementWithNodes(uint64_t id, generator_tests::Tags const & tags,
+                                   OsmElement::EntityType t, vector<uint64_t> const & nodes)
+{
+  auto r = generator_tests::MakeOsmElement(id, tags, t);
+  r.m_nodes = nodes;
+  return r;
+}
+
+feature::FeatureBuilder MakeFbForTest(OsmElement element)
+{
+  feature::FeatureBuilder result;
+  ftype::GetNameAndType(&element, result.GetParams());
+  return result;
+}
+
 UNIT_TEST(RoadAccess_Smoke)
 {
   string const roadAccessContent = "";
@@ -143,13 +161,13 @@ UNIT_TEST(RoadAccess_AccessPrivate)
 UNIT_TEST(RoadAccess_Access_Multiple_Vehicle_Types)
 {
   string const roadAccessContent = R"(Car Private 10 0
-                                     Car Private 20 0
-                                     Bicycle No 30 0
-                                     Car Destination 40 0)";
+                                      Car Private 20 0
+                                      Bicycle No 30 0
+                                      Car Destination 40 0)";
   string const osmIdsToFeatureIdsContent = R"(10, 1,
-                                             20, 2,
-                                             30, 3,
-                                             40, 4,)";
+                                              20, 2,
+                                              30, 3,
+                                              40, 4,)";
   auto const roadAccessAllTypes =
       SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
   auto const carRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)];
@@ -160,5 +178,43 @@ UNIT_TEST(RoadAccess_Access_Multiple_Vehicle_Types)
   TEST_EQUAL(carRoadAccess.GetFeatureType(4 /* featureId */), RoadAccess::Type::Destination,
              ());
   TEST_EQUAL(bicycleRoadAccess.GetFeatureType(3 /* featureId */), RoadAccess::Type::No, ());
+}
+
+UNIT_TEST(RoadAccessWriter_Case1)
+{
+  classificator::Load();
+  auto const filename = generator_tests::GetFileName();
+  SCOPE_GUARD(_, bind(Platform::RemoveFileIfExists, cref(filename)));
+
+  auto const w1 = MakeOsmElementWithNodes(1 /* id */, {{"highway", "service"}} /* tags */,
+                                          OsmElement::EntityType::Way, {10, 11, 12, 13});
+  auto const w2 = MakeOsmElementWithNodes(2 /* id */, {{"highway", "service"}} /* tags */,
+                                          OsmElement::EntityType::Way, {20, 21, 22, 23});
+
+  auto const p1 = generator_tests::MakeOsmElement(11 /* id */, {{"barrier", "lift_gate"}, {"motor_vehicle", "private"}}, OsmElement::EntityType::Node);
+  auto const p2 = generator_tests::MakeOsmElement(22 /* id */, {{"barrier", "lift_gate"}, {"motor_vehicle", "private"}}, OsmElement::EntityType::Node);
+
+  auto c1 = make_shared<RoadAccessWriter>(filename);
+  auto c2 = c1->Clone();
+  c1->CollectFeature(MakeFbForTest(p1), p1);
+  c2->CollectFeature(MakeFbForTest(p2), p2);
+  c1->CollectFeature(MakeFbForTest(w1), w1);
+  c2->CollectFeature(MakeFbForTest(w2), w2);
+  c1->Finish();
+  c2->Finish();
+  c1->Merge(*c2);
+  c1->Save();
+
+  ifstream stream;
+  stream.exceptions(fstream::failbit | fstream::badbit);
+  stream.open(filename);
+  stringstream buffer;
+  auto * buf = stream.rdbuf();
+  if (buf->in_avail())
+    buffer << stream.rdbuf();
+
+  string const correctAnswer = "Car Private 1 2\n"
+                               "Car Private 2 3\n";
+  TEST_EQUAL(buffer.str(), correctAnswer, ());
 }
 }  // namespace

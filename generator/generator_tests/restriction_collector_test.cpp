@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "generator/generator_tests/common.hpp"
 #include "generator/generator_tests_support/routing_helpers.hpp"
 #include "generator/restriction_collector.hpp"
 
@@ -7,13 +8,13 @@
 
 #include "indexer/classificator_loader.hpp"
 
+#include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
-#include "platform/platform.hpp"
-
 #include "base/file_name_utils.hpp"
 #include "base/geo_object_id.hpp"
+#include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <memory>
@@ -100,6 +101,17 @@ std::string const kosmIdsToFeatureIdsContentForTwoCubeGraph =
        8, 8
        9, 9
        10, 10)";
+
+RelationElement MakeRelationElement(std::vector<RelationElement::Member> const & nodes,
+                                    std::vector<RelationElement::Member> const & ways,
+                                    std::map<std::string, std::string> const & tags)
+{
+  RelationElement r;
+  r.nodes = nodes;
+  r.ways = ways;
+  r.tags = tags;
+  return r;
+}
 
 class TestRestrictionCollector
 {
@@ -200,5 +212,39 @@ UNIT_CLASS_TEST(TestRestrictionCollector, InvalidCase_NoSuchFeature)
 UNIT_CLASS_TEST(TestRestrictionCollector, InvalidCase_FeaturesNotIntersecting)
 {
   TestRestrictionCollector::InvalidCase_FeaturesNotIntersecting();
+}
+
+UNIT_TEST(RestrictionWriter_Case1)
+{
+  classificator::Load();
+  auto const filename = generator_tests::GetFileName();
+  SCOPE_GUARD(_, std::bind(Platform::RemoveFileIfExists, std::cref(filename)));
+
+  auto c1 = std::make_shared<RestrictionWriter>(filename, nullptr /* cache */);
+  auto c2 = c1->Clone();
+  std::map<std::string, std::string> const tags = {{"type", "restriction"},
+                                                   {"restriction", "no_right_turn"}};
+  c1->CollectRelation(MakeRelationElement({} /* nodes */, {{1, "via"}, {11, "from"}, {21, "to"}} /* ways */, tags /* tags */));
+  c2->CollectRelation(MakeRelationElement({} /* nodes */, {{2, "via"}, {12, "from"}, {22, "to"}} /* ways */, tags /* tags */));
+  c1->CollectRelation(MakeRelationElement({} /* nodes */, {{3, "via"}, {13, "from"}, {23, "to"}} /* ways */, tags /* tags */));
+  c2->CollectRelation(MakeRelationElement({} /* nodes */, {{4, "via"}, {14, "from"}, {24, "to"}} /* ways */, tags /* tags */));
+  c1->Finish();
+  c2->Finish();
+  c1->Merge(*c2);
+  c1->Save();
+
+  std::ifstream stream;
+  stream.exceptions(std::fstream::failbit | std::fstream::badbit);
+  stream.open(filename);
+  std::stringstream buffer;
+  auto * buf = stream.rdbuf();
+  if (buf->in_avail())
+    buffer << stream.rdbuf();
+
+  std::string const correctAnswer = "No,way,11,1,21\n"
+                                    "No,way,13,3,23\n"
+                                    "No,way,12,2,22\n"
+                                    "No,way,14,4,24\n";
+  TEST_EQUAL(buffer.str(), correctAnswer, ());
 }
 }  // namespace

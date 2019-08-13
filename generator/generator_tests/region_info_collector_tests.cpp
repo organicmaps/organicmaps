@@ -10,9 +10,11 @@
 
 #include "base/file_name_utils.hpp"
 #include "base/geo_object_id.hpp"
+#include "base/scope_guard.hpp"
 
 #include <cstdint>
 #include <limits>
+#include <memory>
 #include <string>
 #include <utility>
 #include <vector>
@@ -131,4 +133,38 @@ UNIT_TEST(RegionInfoCollector_Exists)
     TEST(!rg.GetIsoCodeAlpha3(), ());
     TEST(!rg.GetIsoCodeAlphaNumeric(), ());
   }
+}
+
+UNIT_TEST(RegionInfoCollector_MergeAndSave)
+{
+  auto const filename = generator_tests::GetFileName();
+  SCOPE_GUARD(_, bind(Platform::RemoveFileIfExists, cref(filename)));
+
+  auto c1 = std::make_shared<CollectorRegionInfo>(filename);
+  auto c2 = c1->Clone();
+  c1->Collect(kOsmElementCity);
+  c2->Collect(kOsmElementCountry);
+  c1->Finish();
+  c2->Finish();
+  c1->Merge(*c2);
+  c1->Save();
+
+ RegionInfo regionInfo(filename);
+ {
+   auto const rg = regionInfo.Get(MakeOsmRelation(kOsmElementCountry.m_id));
+   TEST_NOT_EQUAL(rg.GetAdminLevel(), AdminLevel::Unknown, ());
+   TEST_EQUAL(rg.GetPlaceType(), PlaceType::Unknown, ());
+   TEST(rg.GetIsoCodeAlpha2(), ());
+   TEST(rg.GetIsoCodeAlpha3(), ());
+   TEST(rg.GetIsoCodeAlphaNumeric(), ());
+ }
+
+ {
+   auto const rg = regionInfo.Get(MakeOsmRelation(kOsmElementCity.m_id));
+   TEST_NOT_EQUAL(rg.GetAdminLevel(), AdminLevel::Unknown, ());
+   TEST_NOT_EQUAL(rg.GetPlaceType(), PlaceType::Unknown, ());
+   TEST(!rg.GetIsoCodeAlpha2(), ());
+   TEST(!rg.GetIsoCodeAlpha3(), ());
+   TEST(!rg.GetIsoCodeAlphaNumeric(), ());
+ }
 }

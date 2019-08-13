@@ -11,6 +11,7 @@ set(
   cities_ids_tests.cpp
   city_roads_tests.cpp
   coasts_test.cpp
+  collector_city_area_tests.cpp
   common.cpp
   common.hpp
   descriptions_section_builder_tests.cpp

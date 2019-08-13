@@ -1,5 +1,6 @@
 #include "generator/generator_tests/common.hpp"
 
+#include "generator/borders.hpp"
 #include "generator/osm2type.hpp"
 
 #include "indexer/classificator.hpp"
@@ -7,6 +8,11 @@
 #include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/string_utils.hpp"
+
+#include <fstream>
+
+#include "defines.hpp"
 
 namespace generator_tests
 {
@@ -27,6 +33,21 @@ std::string GetFileName(std::string const & filename)
   auto const tmpDir = platform.TmpDir();
   platform.SetWritableDirForTests(tmpDir);
   return filename.empty() ? platform.TmpPathForFile() : platform.TmpPathForFile(filename);
+}
+
+bool MakeFakeBordersFile(std::string const & intemediatePath, std::string const & filename)
+{
+  auto const borderPath = base::JoinPath(intemediatePath, BORDERS_DIR);
+  auto & platform = GetPlatform();
+  auto const code = platform.MkDir(borderPath);
+  if (code != Platform::EError::ERR_OK && code != Platform::EError::ERR_FILE_ALREADY_EXISTS)
+    return false;
+
+  std::ofstream file;
+  file.exceptions(std::ios::failbit | std::ios::badbit);
+  file.open(base::JoinPath(borderPath, filename + ".poly"));
+  file << filename << "\n1\n\t-180.0	-90.0\n\t180.0	-90.0\n\t180.0	90.0\n\t-180.0	90.0\n\t-180.0	-90.0\nEND\nEND";
+  return true;
 }
 
 OsmElement MakeOsmElement(OsmElementData const & elementData)

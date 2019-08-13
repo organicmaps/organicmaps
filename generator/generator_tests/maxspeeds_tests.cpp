@@ -1,9 +1,13 @@
 #include "testing/testing.hpp"
 
+#include "generator/feature_builder.hpp"
+#include "generator/generator_tests/common.hpp"
 #include "generator/generator_tests_support/test_feature.cpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 #include "generator/maxspeeds_builder.hpp"
+#include "generator/maxspeeds_collector.hpp"
 #include "generator/maxspeeds_parser.hpp"
+#include "generator/osm_element.hpp"
 #include "generator/routing_helpers.hpp"
 
 #include "routing/maxspeeds_serialization.hpp"
@@ -18,20 +22,21 @@
 #include "indexer/feature_processor.hpp"
 #include "indexer/mwm_set.hpp"
 
-#include "coding/reader.hpp"
-#include "coding/writer.hpp"
-
-#include "geometry/point2d.hpp"
-
 #include "platform/local_country_file.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
+
+#include "geometry/point2d.hpp"
+
 #include "base/file_name_utils.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 
 #include <algorithm>
 #include <cstdint>
@@ -43,6 +48,7 @@
 namespace
 {
 using namespace generator;
+using namespace generator_tests;
 using namespace measurement_utils;
 using namespace platform::tests_support;
 using namespace platform;
@@ -365,5 +371,31 @@ UNIT_TEST(MaxspeedSection_Big)
       {4 /* feature id */, base::MakeOsmWay(500)}, {5 /* feature id */, base::MakeOsmWay(600)},
       {6 /* feature id */, base::MakeOsmWay(700)}};
   TestMaxspeedsSection(roads, maxspeedsCsvContent, featureIdToOsmId);
+}
+
+UNIT_TEST(MaxspeedCollector_Case1)
+{
+  classificator::Load();
+  auto const filename = GetFileName();
+  SCOPE_GUARD(_, bind(Platform::RemoveFileIfExists, cref(filename)));
+
+  auto c1 = std::make_shared<MaxspeedsCollector>(filename);
+  auto c2 = c1->Clone();
+  c1->CollectFeature({}, MakeOsmElement(1 /* id */, {{"maxspeed", "50"}} /* tags */, OsmElement::EntityType::Way));
+  c2->CollectFeature({}, MakeOsmElement(2 /* id */, {{"maxspeed", "60"}} /* tags */, OsmElement::EntityType::Way));
+  c1->CollectFeature({}, MakeOsmElement(3 /* id */, {{"maxspeed", "70"}} /* tags */, OsmElement::EntityType::Way));
+  c2->CollectFeature({}, MakeOsmElement(4 /* id */, {{"maxspeed", "80"}} /* tags */, OsmElement::EntityType::Way));
+  c1->Finish();
+  c2->Finish();
+  c1->Merge(*c2);
+  c1->Save();
+
+  OsmIdToMaxspeed osmIdToMaxspeed;
+  ParseMaxspeeds(filename, osmIdToMaxspeed);
+  TEST_EQUAL(osmIdToMaxspeed.size(), 4, ());
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(1)].GetForward(), static_cast<MaxspeedType>(50), ());
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(2)].GetForward(), static_cast<MaxspeedType>(60), ());
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(3)].GetForward(), static_cast<MaxspeedType>(70), ());
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(4)].GetForward(), static_cast<MaxspeedType>(80), ());
 }
 }  // namespace

@@ -231,7 +231,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureParams_Parsing)
   }
 }
 
-UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder12_SerializeLocalityObjectForBuildingPoint)
+UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder2_SerializeLocalityObjectForBuildingPoint)
 {
   FeatureBuilder fb;
   FeatureParams params;

@@ -15,6 +15,8 @@ OsmElement MakeOsmElement(uint64_t id, Tags const & tags, OsmElement::EntityType
 
 std::string GetFileName(std::string const & filename = std::string());
 
+bool MakeFakeBordersFile(std::string const & intemediatePath, std::string const & filename);
+
 struct TagValue
 {
   std::string m_key;
