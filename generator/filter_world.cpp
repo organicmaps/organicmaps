@@ -6,6 +6,8 @@
 #include "indexer/classificator.hpp"
 #include "indexer/scales.hpp"
 
+#include <algorithm>
+
 namespace generator
 {
 FilterWorld::FilterWorld(std::string const & popularityFilename)
@@ -48,7 +50,7 @@ bool FilterWorld::IsPopularAttraction(feature::FeatureBuilder const & fb, std::s
     return false;
 
   auto static const attractionTypes = search::GetCategoryTypes("attractions", "en", GetDefaultCategories());
-  ASSERT(is_sorted(attractionTypes.begin(), attractionTypes.end()), ());
+  ASSERT(std::is_sorted(attractionTypes.begin(), attractionTypes.end()), ());
   auto const & featureTypes = fb.GetTypes();
   if (!std::any_of(featureTypes.begin(), featureTypes.end(), [](uint32_t t) {
         return std::binary_search(attractionTypes.begin(), attractionTypes.end(), t);
@@ -57,7 +59,7 @@ bool FilterWorld::IsPopularAttraction(feature::FeatureBuilder const & fb, std::s
     return false;
   }
 
-  auto static const & m_popularPlaces = PopularPlacesLoader::GetOrLoad(popularityFilename);
+  auto static const & m_popularPlaces = GetOrLoadPopularPlacesLoader(popularityFilename);
   auto const it = m_popularPlaces.find(fb.GetMostGenericOsmId());
   if (it == m_popularPlaces.end())
     return false;
