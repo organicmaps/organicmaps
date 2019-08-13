@@ -429,15 +429,9 @@ int GeneratorToolMain(int argc, char ** argv)
 
   if (!FLAGS_geo_objects_key_value.empty())
   {
-    geo_objects::GeoObjectsGenerator geoObjectsGenerator{FLAGS_regions_index,
-                                                         FLAGS_regions_key_value,
-                                                         FLAGS_geo_objects_features,
-                                                         FLAGS_ids_without_addresses,
-                                                         FLAGS_geo_objects_key_value,
-                                                         FLAGS_verbose,
-                                                         threadsCount};
-
-    if (!geoObjectsGenerator.GenerateGeoObjects())
+    if (!geo_objects::GenerateGeoObjects(FLAGS_regions_index, FLAGS_regions_key_value,
+                                         FLAGS_geo_objects_features, FLAGS_ids_without_addresses,
+                                         FLAGS_geo_objects_key_value, FLAGS_verbose, threadsCount))
       return EXIT_FAILURE;
   }
 

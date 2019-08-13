@@ -23,25 +23,10 @@ namespace generator
 {
 namespace geo_objects
 {
-GeoObjectsGenerator::GeoObjectsGenerator(std::string pathInRegionsIndex,
-                                         std::string pathInRegionsKv,
-                                         std::string pathInGeoObjectsTmpMwm,
-                                         std::string pathOutIdsWithoutAddress,
-                                         std::string pathOutGeoObjectsKv, bool verbose,
-                                         size_t threadsCount)
-  : m_pathInGeoObjectsTmpMwm(std::move(pathInGeoObjectsTmpMwm))
-  , m_pathOutPoiIdsToAddToLocalityIndex(std::move(pathOutIdsWithoutAddress))
-  , m_pathOutGeoObjectsKv(std::move(pathOutGeoObjectsKv))
-  , m_verbose(verbose)
-  , m_threadsCount(threadsCount)
-  , m_geoObjectMaintainer{m_pathOutGeoObjectsKv, RegionInfoGetterProxy(pathInRegionsIndex, pathInRegionsKv)}
-
-{
-}
 
 GeoObjectsGenerator::GeoObjectsGenerator(
-    RegionInfoGetterProxy::RegionInfoGetter && regionInfoGetter,
-    RegionInfoGetterProxy::RegionIdGetter && regionIdGetter, std::string pathInGeoObjectsTmpMwm,
+    GeoObjectMaintainer::RegionInfoGetter && regionInfoGetter,
+    GeoObjectMaintainer::RegionIdGetter && regionIdGetter, std::string pathInGeoObjectsTmpMwm,
     std::string pathOutIdsWithoutAddress, std::string pathOutGeoObjectsKv, bool verbose,
     size_t threadsCount)
   : m_pathInGeoObjectsTmpMwm(std::move(pathInGeoObjectsTmpMwm))
@@ -49,8 +34,7 @@ GeoObjectsGenerator::GeoObjectsGenerator(
   , m_pathOutGeoObjectsKv(std::move(pathOutGeoObjectsKv))
   , m_verbose(verbose)
   , m_threadsCount(threadsCount)
-  , m_geoObjectMaintainer{m_pathOutGeoObjectsKv, RegionInfoGetterProxy(std::move(regionInfoGetter),
-                                                                       std::move(regionIdGetter))}
+  , m_geoObjectMaintainer{m_pathOutGeoObjectsKv, std::move(regionInfoGetter), std::move(regionIdGetter)}
 {
 }
 
@@ -99,5 +83,31 @@ bool GeoObjectsGenerator::GenerateGeoObjectsPrivate()
   return true;
 }
 
+bool GenerateGeoObjects(std::string const & regionsIndex, std::string const & regionsKeyValue,
+                        std::string const & geoObjectsFeatures,
+                        std::string const & nodesListToIndex, std::string const & geoObjectKeyValue,
+                        bool verbose, size_t threadsCount)
+
+{
+  auto regionInfoGetter = regions::RegionInfoGetter(regionsIndex, regionsKeyValue);
+  LOG(LINFO, ("Size of regions key-value storage:", regionInfoGetter.GetStorage().Size()));
+
+  auto findDeepest = [&regionInfoGetter](auto && point) {
+    return regionInfoGetter.FindDeepest(point);
+  };
+  auto keyValueFind = [&regionInfoGetter](auto && id) {
+    return regionInfoGetter.GetStorage().Find(id.GetEncodedId());
+  };
+
+  geo_objects::GeoObjectsGenerator geoObjectsGenerator{std::move(findDeepest),
+                                                       std::move(keyValueFind),
+                                                       geoObjectsFeatures,
+                                                       nodesListToIndex,
+                                                       geoObjectKeyValue,
+                                                       verbose,
+                                                       threadsCount};
+
+  return geoObjectsGenerator.GenerateGeoObjects();
+}
 }  // namespace geo_objects
 }  // namespace generator

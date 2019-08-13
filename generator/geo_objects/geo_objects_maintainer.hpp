@@ -27,51 +27,14 @@ namespace generator
 {
 namespace geo_objects
 {
-class RegionInfoGetterProxy
-{
-public:
-  using RegionInfoGetter = std::function<boost::optional<KeyValue>(m2::PointD const & pathPoint)>;
-  using RegionIdGetter = std::function<std::shared_ptr<JsonValue>(base::GeoObjectId id)>;
-
-  RegionInfoGetterProxy(std::string const & pathInRegionsIndex, std::string const & pathInRegionsKv)
-  {
-    m_regionInfoGetter = regions::RegionInfoGetter(pathInRegionsIndex, pathInRegionsKv);
-    LOG(LINFO, ("Size of regions key-value storage:", m_regionInfoGetter->GetStorage().Size()));
-  }
-
-  explicit RegionInfoGetterProxy(RegionInfoGetter && regionInfoGetter, RegionIdGetter && regionIdGetter)
-    : m_externalInfoGetter(std::move(regionInfoGetter))
-    , m_externalRegionIdGetter(std::move(regionIdGetter))
-
-  {
-    LOG(LINFO, ("External regions info provided"));
-  }
-
-  boost::optional<KeyValue> FindDeepest(m2::PointD const & point) const
-  {
-    return m_regionInfoGetter ? m_regionInfoGetter->FindDeepest(point)
-                              : m_externalInfoGetter->operator()(point);
-  }
-
-  std::shared_ptr<JsonValue> FindById(base::GeoObjectId id) const
-  {
-    return m_externalRegionIdGetter ? m_externalRegionIdGetter->operator()(id) :
-           m_regionInfoGetter->GetStorage().Find(id.GetEncodedId());
-
-  }
-
-
-private:
-  boost::optional<regions::RegionInfoGetter> m_regionInfoGetter;
-  boost::optional<RegionInfoGetter> m_externalInfoGetter;
-  boost::optional<RegionIdGetter> m_externalRegionIdGetter;
-};
-
 void UpdateCoordinates(m2::PointD const & point, base::JSONPtr & json);
 
 class GeoObjectMaintainer
 {
 public:
+  using RegionInfoGetter = std::function<boost::optional<KeyValue>(m2::PointD const & pathPoint)>;
+  using RegionIdGetter = std::function<std::shared_ptr<JsonValue>(base::GeoObjectId id)>;
+
   struct GeoObjectData
   {
     std::string m_street;
@@ -86,10 +49,12 @@ public:
   {
   public:
     GeoObjectsView(GeoIndex const & geoIndex, GeoId2GeoData const & geoId2GeoData,
-                   RegionInfoGetterProxy const & regionInfoGetter, std::mutex & updateMutex)
+                   RegionInfoGetter const & regionInfoGetter, RegionIdGetter const & regionIdGetter,
+                   std::mutex & updateMutex)
       : m_geoIndex(geoIndex)
       , m_geoId2GeoData(geoId2GeoData)
       , m_regionInfoGetter(regionInfoGetter)
+      , m_regionIdGetter(regionIdGetter)
       , m_lock(updateMutex, std::defer_lock)
     {
       CHECK(m_lock.try_lock(), ("Cannot create GeoObjectView on locked mutex"));
@@ -116,12 +81,13 @@ public:
   private:
     GeoIndex const & m_geoIndex;
     GeoId2GeoData const & m_geoId2GeoData;
-    RegionInfoGetterProxy const & m_regionInfoGetter;
+    RegionInfoGetter const & m_regionInfoGetter;
+    RegionIdGetter const & m_regionIdGetter;
     std::unique_lock<std::mutex> m_lock;
   };
 
-  GeoObjectMaintainer(std::string const & pathOutGeoObjectsKv,
-                      RegionInfoGetterProxy && regionInfoGetter);
+  GeoObjectMaintainer(std::string const & pathOutGeoObjectsKv, RegionInfoGetter && regionInfoGetter,
+                      RegionIdGetter && regionIdGetter);
 
   void SetIndex(GeoIndex && index) { m_index = std::move(index); }
 
@@ -130,9 +96,10 @@ public:
 
   size_t Size() const { return m_geoId2GeoData.size(); }
 
-  const GeoObjectsView CreateView()
+  GeoObjectsView CreateView()
   {
-    return GeoObjectsView(m_index, m_geoId2GeoData, m_regionInfoGetter, m_updateMutex);
+    return GeoObjectsView(m_index, m_geoId2GeoData, m_regionInfoGetter, m_regionIdGetter,
+                          m_updateMutex);
   }
 
 private:
@@ -143,7 +110,8 @@ private:
   std::mutex m_storageMutex;
 
   GeoIndex m_index;
-  RegionInfoGetterProxy m_regionInfoGetter;
+  RegionInfoGetter m_regionInfoGetter;
+  RegionIdGetter m_regionIdGetter;
   GeoId2GeoData m_geoId2GeoData;
 };
 }  // namespace geo_objects

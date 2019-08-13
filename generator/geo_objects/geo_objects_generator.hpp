@@ -18,12 +18,8 @@ namespace geo_objects
 class GeoObjectsGenerator
 {
 public:
-  GeoObjectsGenerator(std::string pathInRegionsIndex, std::string pathInRegionsKv,
-                      std::string pathInGeoObjectsTmpMwm, std::string pathOutIdsWithoutAddress,
-                      std::string pathOutGeoObjectsKv, bool verbose, size_t threadsCount);
-
-  GeoObjectsGenerator(RegionInfoGetterProxy::RegionInfoGetter && regionInfoGetter,
-                      RegionInfoGetterProxy::RegionIdGetter && regionIdGetter,
+  GeoObjectsGenerator(GeoObjectMaintainer::RegionInfoGetter && regionInfoGetter,
+                      GeoObjectMaintainer::RegionIdGetter && regionIdGetter,
                       std::string pathInGeoObjectsTmpMwm, std::string pathOutIdsWithoutAddress,
                       std::string pathOutGeoObjectsKv, bool verbose, size_t threadsCount);
 
@@ -49,5 +45,10 @@ private:
   size_t m_threadsCount = 1;
   GeoObjectMaintainer m_geoObjectMaintainer;
 };
+
+bool GenerateGeoObjects(std::string const & regionsIndex, std::string const & regionsKeyValue,
+                        std::string const & geoObjectsFeatures,
+                        std::string const & nodesListToIndex, std::string const & geoObjectKeyValue,
+                        bool verbose, size_t threadsCount);
 }  // namespace geo_objects
 }  // namespace generator

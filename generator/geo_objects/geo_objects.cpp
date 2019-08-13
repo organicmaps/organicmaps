@@ -269,7 +269,7 @@ void AddPoisEnrichedWithHouseAddresses(GeoObjectMaintainer & geoObjectMaintainer
                                        bool verbose, size_t threadsCount)
 {
   std::atomic_size_t counter{0};
-
+  std::mutex streamMutex;
   auto const & view = geoObjectMaintainer.CreateView();
 
   auto const concurrentTransformer = [&](FeatureBuilder & fb, uint64_t /* currPos */) {
@@ -288,9 +288,11 @@ void AddPoisEnrichedWithHouseAddresses(GeoObjectMaintainer & geoObjectMaintainer
 
     counter++;
     if (counter % 100000 == 0)
-      LOG(LINFO, (counter, "pois added added"));
+      LOG(LINFO, (counter, "pois added"));
 
     geoObjectMaintainer.WriteToStorage(id, JsonValue{std::move(jsonValue)});
+
+    std::lock_guard<std::mutex> lock(streamMutex);
     streamPoiIdsToAddToLocalityIndex << id << "\n";
   };
 

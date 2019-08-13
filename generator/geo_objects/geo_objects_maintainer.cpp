@@ -11,9 +11,11 @@ namespace generator
 namespace geo_objects
 {
 GeoObjectMaintainer::GeoObjectMaintainer(std::string const & pathOutGeoObjectsKv,
-                                         RegionInfoGetterProxy && regionInfoGetter)
+                                         RegionInfoGetter && regionInfoGetter,
+                                         RegionIdGetter && regionIdGetter)
   : m_geoObjectsKvStorage{InitGeoObjectsKv(pathOutGeoObjectsKv)}
   , m_regionInfoGetter{std::move(regionInfoGetter)}
+  , m_regionIdGetter(std::move(regionIdGetter))
 {
 }
 
@@ -25,7 +27,7 @@ std::fstream GeoObjectMaintainer::InitGeoObjectsKv(std::string const & pathOutGe
   if (!result)
     MYTHROW(Reader::OpenException, ("Failed to open file", pathOutGeoObjectsKv));
 
-  return std::move(result);
+  return result;
 }
 
 void UpdateCoordinates(m2::PointD const & point, base::JSONPtr & json)
@@ -65,10 +67,6 @@ base::JSONPtr AddAddress(std::string const & street, std::string const & house, 
   ToJSONObject(*properties, "rank", kHouseOrPoiRank);
 
   ToJSONObject(*properties, "dref", KeyValueStorage::SerializeDref(regionKeyValue.first));
-  // auto locales = json_object_get(result.get(), "locales");
-  // auto locales = json_object_get(result.get(), "locales");
-  // auto en = json_object_get(result.get(), "en");
-  // todo(maksimandrianov): Add en locales.
   return result;
 }
 
@@ -77,26 +75,25 @@ void GeoObjectMaintainer::StoreAndEnrich(feature::FeatureBuilder & fb)
   if (!GeoObjectsFilter::IsBuilding(fb) && !GeoObjectsFilter::HasHouse(fb))
     return;
 
-  auto regionKeyValue = m_regionInfoGetter.FindDeepest(fb.GetKeyPoint());
+  auto regionKeyValue = m_regionInfoGetter(fb.GetKeyPoint());
   if (!regionKeyValue)
     return;
 
   auto const id = fb.GetMostGenericOsmId();
   auto jsonValue = AddAddress(fb.GetParams().GetStreet(), fb.GetParams().house.Get(),
                               fb.GetKeyPoint(), fb.GetMultilangName(), *regionKeyValue);
+  {
+    std::lock_guard<std::mutex> lock(m_updateMutex);
 
-  std::lock_guard<std::mutex> lock(m_updateMutex);
+    auto const it = m_geoId2GeoData.emplace(
+        std::make_pair(id, GeoObjectData{fb.GetParams().GetStreet(), fb.GetParams().house.Get(),
+                                         base::GeoObjectId(regionKeyValue->first)}));
 
-  auto const it = m_geoId2GeoData.emplace(
-      std::make_pair(id, GeoObjectData{fb.GetParams().GetStreet(), fb.GetParams().house.Get(),
-                                       base::GeoObjectId(regionKeyValue->first)}));
-
-  // Duplicate ID's are possible
-  if (!it.second)
-    return;
-
-  m_geoObjectsKvStorage << KeyValueStorage::SerializeFullLine(id.GetEncodedId(),
-                                                              JsonValue{std::move(jsonValue)});
+    // Duplicate ID's are possible
+    if (!it.second)
+      return;
+  }
+  WriteToStorage(id, JsonValue{std::move(jsonValue)});
 }
 
 void GeoObjectMaintainer::WriteToStorage(base::GeoObjectId id, JsonValue && value)
@@ -106,7 +103,6 @@ void GeoObjectMaintainer::WriteToStorage(base::GeoObjectId id, JsonValue && valu
 }
 
 // GeoObjectMaintainer::GeoObjectsView
-
 base::JSONPtr GeoObjectMaintainer::GeoObjectsView::GetFullGeoObject(
     m2::PointD point,
     std::function<bool(GeoObjectMaintainer::GeoObjectData const &)> && pred) const
@@ -123,7 +119,7 @@ base::JSONPtr GeoObjectMaintainer::GeoObjectsView::GetFullGeoObject(
       continue;
 
 
-    auto regionJsonValue = m_regionInfoGetter.FindById(geoData.m_regionId);
+    auto regionJsonValue = m_regionIdGetter(geoData.m_regionId);
     if (!regionJsonValue)
       return {};
 
@@ -142,7 +138,7 @@ base::JSONPtr GeoObjectMaintainer::GeoObjectsView::GetFullGeoObjectWithoutNameAn
     return {};
 
   auto const geoData = it->second;
-  auto regionJsonValue = m_regionInfoGetter.FindById(geoData.m_regionId);
+  auto regionJsonValue = m_regionIdGetter(geoData.m_regionId);
   if (!regionJsonValue)
     return {};
 
