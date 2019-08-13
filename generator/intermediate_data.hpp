@@ -17,6 +17,7 @@
 #include <cstdint>
 #include <limits>
 #include <memory>
+#include <mutex>
 #include <string>
 #include <type_traits>
 #include <unordered_map>
@@ -74,9 +75,9 @@ class IndexFileReader
 public:
   using Value = uint64_t;
 
+  IndexFileReader() = default;
   explicit IndexFileReader(std::string const & name);
 
-  void ReadAll();
   bool GetValueByKey(Key key, Value & value) const;
 
   template <typename ToDo>
@@ -104,7 +105,6 @@ private:
   };
 
   std::vector<Element> m_elements;
-  FileReader m_fileReader;
 };
 
 
@@ -128,7 +128,8 @@ private:
 class OSMElementCacheReader
 {
 public:
-  explicit OSMElementCacheReader(std::string const & name, bool preload = false);
+  explicit OSMElementCacheReader(std::string const & name, bool preload = false,
+                                 bool forceReload = false);
 
   template <class Value>
   bool Read(Key id, Value & value)
@@ -157,11 +158,9 @@ public:
     return true;
   }
 
-  void LoadOffsets();
-
 protected:
   FileReader m_fileReader;
-  IndexFileReader m_offsets;
+  IndexFileReader const & m_offsets;
   std::string m_name;
   std::vector<uint8_t> m_data;
   bool m_preload = false;
@@ -200,13 +199,12 @@ protected:
 class IntermediateDataReader
 {
 public:
-  IntermediateDataReader(std::shared_ptr<PointStorageReaderInterface> nodes,
-                         feature::GenerateInfo & info);
+  IntermediateDataReader(PointStorageReaderInterface const & nodes,
+                         feature::GenerateInfo & info, bool forceReload = false);
 
   // TODO |GetNode()|, |lat|, |lon| are used as y, x in real.
-  bool GetNode(Key id, double & lat, double & lon) const { return m_nodes->GetPoint(id, lat, lon); }
+  bool GetNode(Key id, double & lat, double & lon) const { return m_nodes.GetPoint(id, lat, lon); }
   bool GetWay(Key id, WayElement & e) { return m_ways.Read(id, e); }
-  void LoadIndex();
 
   template <typename ToDo>
   void ForEachRelationByWay(Key id, ToDo && toDo)
@@ -266,19 +264,19 @@ private:
     base::ControlFlow operator()(uint64_t id) { return this->m_toDo(id, this->m_reader); }
   };
 
-  std::shared_ptr<PointStorageReaderInterface> m_nodes;
+  PointStorageReaderInterface const & m_nodes;
   cache::OSMElementCacheReader m_ways;
   cache::OSMElementCacheReader m_relations;
-  cache::IndexFileReader m_nodeToRelations;
-  cache::IndexFileReader m_wayToRelations;
+  cache::IndexFileReader const & m_nodeToRelations;
+  cache::IndexFileReader const & m_wayToRelations;
 };
 
 class IntermediateDataWriter
 {
 public:
-  IntermediateDataWriter(std::shared_ptr<PointStorageWriterInterface> nodes, feature::GenerateInfo & info);
+  IntermediateDataWriter(PointStorageWriterInterface & nodes, feature::GenerateInfo & info);
 
-  void AddNode(Key id, double lat, double lon) { m_nodes->AddPoint(id, lat, lon); }
+  void AddNode(Key id, double lat, double lon) { m_nodes.AddPoint(id, lat, lon); }
   void AddWay(Key id, WayElement const & e) { m_ways.Write(id, e); }
 
   void AddRelation(Key id, RelationElement const & e);
@@ -298,17 +296,54 @@ private:
       index.Add(v.first, relationId);
   }
 
-  std::shared_ptr<PointStorageWriterInterface> m_nodes;
+  PointStorageWriterInterface & m_nodes;
   cache::OSMElementCacheWriter m_ways;
   cache::OSMElementCacheWriter m_relations;
   cache::IndexFileWriter m_nodeToRelations;
   cache::IndexFileWriter m_wayToRelations;
 };
 
-std::shared_ptr<PointStorageReaderInterface>
+std::unique_ptr<PointStorageReaderInterface>
 CreatePointStorageReader(feature::GenerateInfo::NodeStorageType type, std::string const & name);
 
-std::shared_ptr<PointStorageWriterInterface>
+std::unique_ptr<PointStorageWriterInterface>
 CreatePointStorageWriter(feature::GenerateInfo::NodeStorageType type, std::string const & name);
+
+class PointStorageReader
+{
+public:
+  static PointStorageReaderInterface const &
+  GetOrCreate(feature::GenerateInfo::NodeStorageType type, std::string const & name,
+              bool forceReload = false);
+
+private:
+  static std::mutex m_mutex;
+  static std::unordered_map<std::string, std::unique_ptr<PointStorageReaderInterface>> m_readers;
+};
+
+class IndexReader
+{
+public:
+  static cache::IndexFileReader const &
+  GetOrCreate(std::string const & name, bool forceReload = false);
+
+private:
+  static std::mutex m_mutex;
+  static std::unordered_map<std::string, IndexFileReader> m_indexes;
+};
+
+class IntermediateData
+{
+public:
+  IntermediateData(feature::GenerateInfo & info, bool forceReload = false);
+  std::shared_ptr<IntermediateDataReader> const & GetCache() const;
+  std::shared_ptr<IntermediateData> Clone() const;
+
+private:
+  feature::GenerateInfo & m_info;
+  std::shared_ptr<IntermediateDataReader> m_reader;
+
+  DISALLOW_COPY(IntermediateData);
+};
 }  // namespace cache
 }  // namespace generator
