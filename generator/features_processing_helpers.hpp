@@ -23,6 +23,6 @@ struct ProcessedData
   std::vector<std::string> m_affiliations;
 };
 
-using FeatureProcessorChank = base::threads::DataWrapper<std::vector<ProcessedData>>;
-using FeatureProcessorQueue = base::threads::ThreadSafeQueue<FeatureProcessorChank>;
+using FeatureProcessorChunk = base::threads::DataWrapper<std::vector<ProcessedData>>;
+using FeatureProcessorQueue = base::threads::ThreadSafeQueue<FeatureProcessorChunk>;
 }  // namespace generator

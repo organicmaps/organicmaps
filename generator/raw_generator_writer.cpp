@@ -23,14 +23,14 @@ void RawGeneratorWriter::Run()
   m_thread = std::thread([&]() {
     while (true)
     {
-      FeatureProcessorChank chank;
-      m_queue->WaitAndPop(chank);
+      FeatureProcessorChunk chunk;
+      m_queue->WaitAndPop(chunk);
       // As a sign of the end of tasks, we use an empty message. We have the right to do that,
       // because there is only one reader.
-      if (chank.IsEmpty())
+      if (chunk.IsEmpty())
         return;
 
-      Write(chank.Get());
+      Write(chunk.Get());
     }
   });
 }
@@ -47,11 +47,11 @@ std::vector<std::string> RawGeneratorWriter::GetNames()
   return names;
 }
 
-void RawGeneratorWriter::Write(std::vector<ProcessedData> const & vecChanks)
+void RawGeneratorWriter::Write(std::vector<ProcessedData> const & vecChunks)
 {
-  for (auto const & chank : vecChanks)
+  for (auto const & chunk : vecChunks)
   {
-    for (auto const & affiliation : chank.m_affiliations)
+    for (auto const & affiliation : chunk.m_affiliations)
     {
       if (affiliation.empty())
         continue;
@@ -65,7 +65,7 @@ void RawGeneratorWriter::Write(std::vector<ProcessedData> const & vecChanks)
       }
 
       auto & writer = writerIt->second;
-      auto const & buffer = chank.m_buffer;
+      auto const & buffer = chunk.m_buffer;
       WriteVarUint(*writer, static_cast<uint32_t>(buffer.size()));
       writer->Write(buffer.data(), buffer.size());
     }

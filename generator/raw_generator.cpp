@@ -159,16 +159,16 @@ bool RawGenerator::GenerateFilteredFeatures()
   SourceReader reader = m_genInfo.m_osmFileName.empty() ? SourceReader()
                                                         : SourceReader(m_genInfo.m_osmFileName);
 
-  std::unique_ptr<ProcessorOsmElementsInterface> sourseProcessor;
+  std::unique_ptr<ProcessorOsmElementsInterface> sourceProcessor;
   switch (m_genInfo.m_osmFileType) {
   case feature::GenerateInfo::OsmSourceType::O5M:
-    sourseProcessor = std::make_unique<ProcessorOsmElementsFromO5M>(reader);
+    sourceProcessor = std::make_unique<ProcessorOsmElementsFromO5M>(reader);
     break;
   case feature::GenerateInfo::OsmSourceType::XML:
-    sourseProcessor = std::make_unique<ProcessorXmlElementsFromXml>(reader);
+    sourceProcessor = std::make_unique<ProcessorXmlElementsFromXml>(reader);
     break;
   }
-  CHECK(sourseProcessor, ());
+  CHECK(sourceProcessor, ());
 
   TranslatorsPool translators(m_translators, m_cache, m_threadsCount);
   RawGeneratorWriter rawGeneratorWriter(m_queue, m_genInfo.m_tmpDir);
@@ -176,7 +176,7 @@ bool RawGenerator::GenerateFilteredFeatures()
 
   size_t element_pos = 0;
   std::vector<OsmElement> elements(m_chunkSize);
-  while(sourseProcessor->TryRead(elements[element_pos]))
+  while (sourceProcessor->TryRead(elements[element_pos]))
   {
     if (++element_pos != m_chunkSize)
       continue;
