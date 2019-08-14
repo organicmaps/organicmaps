@@ -19,11 +19,6 @@ struct Data
 {
   Data() = default;
 
-  Data(std::string const & name, std::string customName, std::string const & description)
-    : m_name(name), m_customName(customName), m_description(description)
-  {
-  }
-
   Data(kml::BookmarkData const & bookmarkData)
     : m_name(kml::GetDefaultStr(bookmarkData.m_name))
     , m_customName(kml::GetDefaultStr(bookmarkData.m_customName))

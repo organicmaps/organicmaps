@@ -71,20 +71,30 @@ protected:
   Processor m_processor;
 };
 
+kml::BookmarkData MakeBookmarkData(string const & name, string const & customName,
+                                   string const & description)
+{
+  kml::BookmarkData b;
+  b.m_name = {{kml::kDefaultLangCode, name}};
+  b.m_customName = {{kml::kDefaultLangCode, customName}};
+  b.m_description = {{kml::kDefaultLangCode, description}};
+  return b;
+}
+
 UNIT_CLASS_TEST(BookmarksProcessorTest, Smoke)
 {
   GetProcessor().EnableIndexingOfDescriptions(true);
 
-  Add(10, {"Double R Diner" /* name */,
-           "2R Diner" /* customName */,
-           "They've got a cherry pie there that'll kill ya!" /* description */});
+  Add(10, MakeBookmarkData("Double R Diner" /* name */,
+                           "2R Diner" /* customName */,
+                           "They've got a cherry pie there that'll kill ya!" /* description */));
 
-  Add(18, {"Silver Mustang Casino" /* name */,
-           "Ag Mustang" /* customName */,
-           "Joyful place, owners Bradley and Rodney are very friendly!"});
-  Add(20, {"Great Northern Hotel" /* name */,
-           "N Hotel" /* customName */,
-           "Clean place with a reasonable price" /* description */});
+  Add(18, MakeBookmarkData("Silver Mustang Casino" /* name */,
+                           "Ag Mustang" /* customName */,
+                           "Joyful place, owners Bradley and Rodney are very friendly!"));
+  Add(20, MakeBookmarkData("Great Northern Hotel" /* name */,
+                           "N Hotel" /* customName */,
+                           "Clean place with a reasonable price" /* description */));
 
   TEST_EQUAL(Search("R&R food"), Ids({10}), ());
   TEST_EQUAL(Search("cherry pie"), Ids({10}), ());
@@ -108,9 +118,9 @@ UNIT_CLASS_TEST(BookmarksProcessorTest, IndexDescriptions)
 {
   GetProcessor().EnableIndexingOfDescriptions(true);
 
-  Add(10, {"Double R Diner" /* name */,
-           "2R Diner" /* customName */,
-           "They've got a cherry pie there that'll kill ya!" /* description */});
+  Add(10, MakeBookmarkData("Double R Diner" /* name */,
+                           "2R Diner" /* customName */,
+                           "They've got a cherry pie there that'll kill ya!" /* description */));
   TEST_EQUAL(Search("diner"), Ids({10}), ());
   TEST_EQUAL(Search("cherry pie"), Ids({10}), ());
 
@@ -119,13 +129,13 @@ UNIT_CLASS_TEST(BookmarksProcessorTest, IndexDescriptions)
   TEST_EQUAL(Search("cherry pie"), Ids{}, ());
 
   GetProcessor().EnableIndexingOfDescriptions(false);
-  Add(10, {"Double R Diner" /* name */,
-          "2R Diner" /* customName */,
-           "They've got a cherry pie there that'll kill ya!" /* description */});
+  Add(10, MakeBookmarkData("Double R Diner" /* name */,
+                           "2R Diner" /* customName */,
+                           "They've got a cherry pie there that'll kill ya!" /* description */));
   TEST_EQUAL(Search("diner"), Ids({10}), ());
   TEST_EQUAL(Search("cherry pie"), Ids(), ());
 
-  // Already indexed results don't change.
+  // Results for already indexed bookmarks don't change.
   GetProcessor().EnableIndexingOfDescriptions(true);
   TEST_EQUAL(Search("diner"), Ids({10}), ());
   TEST_EQUAL(Search("cherry pie"), Ids(), ());
