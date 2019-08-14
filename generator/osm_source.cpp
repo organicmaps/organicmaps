@@ -22,7 +22,6 @@
 #include "defines.hpp"
 
 using namespace std;
-using namespace base::thread_pool::computational;
 
 namespace generator
 {
@@ -110,23 +109,21 @@ void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement & eleme
 void BuildIntermediateDataFromXML(SourceReader & stream, cache::IntermediateDataWriter & cache,
                                   TownsDumper & towns)
 {
-  XMLSource parser([&](OsmElement * element)
+  ProcessorOsmElementsFromXml processorOsmElementsFromXml(stream);
+  OsmElement element;
+  while (processorOsmElementsFromXml.TryRead(element))
   {
-    towns.CheckElement(*element);
-    AddElementToCache(cache, *element);
-  });
-  ParseXMLSequence(stream, parser);
+    towns.CheckElement(element);
+    AddElementToCache(cache, element);
+  }
 }
 
 void ProcessOsmElementsFromXML(SourceReader & stream, function<void(OsmElement *)> processor)
 {
-  ProcessorXmlElementsFromXml processorXmlElementsFromXml(stream);
+  ProcessorOsmElementsFromXml processorOsmElementsFromXml(stream);
   OsmElement element;
-  while (processorXmlElementsFromXml.TryRead(element))
-  {
+  while (processorOsmElementsFromXml.TryRead(element))
     processor(&element);
-    element = {};
-  }
 }
 
 void BuildIntermediateDataFromO5M(SourceReader & stream, cache::IntermediateDataWriter & cache,
@@ -147,15 +144,14 @@ void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *
   ProcessorOsmElementsFromO5M processorOsmElementsFromO5M(stream);
   OsmElement element;
   while (processorOsmElementsFromO5M.TryRead(element))
-  {
     processor(&element);
-    element = {};
-  }
 }
 
 ProcessorOsmElementsFromO5M::ProcessorOsmElementsFromO5M(SourceReader & stream)
   : m_stream(stream)
-  , m_dataset([&, this](uint8_t * buffer, size_t size) { return m_stream.Read(reinterpret_cast<char *>(buffer), size); })
+  , m_dataset([&](uint8_t * buffer, size_t size) {
+      return m_stream.Read(reinterpret_cast<char *>(buffer), size);
+  })
   , m_pos(m_dataset.begin())
 {
 }
@@ -176,7 +172,14 @@ bool ProcessorOsmElementsFromO5M::TryRead(OsmElement & element)
     }
   };
 
-  auto entity = *m_pos;
+  element = {};
+
+  // Be careful, we could call Nodes(), Members(), Tags() from O5MSource::Entity
+  // only once (!). Because these functions read data from file simultaneously with
+  // iterating in loop. Furthermore, into Tags() method calls Nodes.Skip() and Members.Skip(),
+  // thus first call of Nodes (Members) after Tags() will not return any results.
+  // So don not reorder the "for" loops (!).
+  auto const entity = *m_pos;
   element.m_id = entity.id;
   switch (entity.type)
   {
@@ -211,13 +214,13 @@ bool ProcessorOsmElementsFromO5M::TryRead(OsmElement & element)
   return true;
 }
 
-ProcessorXmlElementsFromXml::ProcessorXmlElementsFromXml(SourceReader & stream)
+ProcessorOsmElementsFromXml::ProcessorOsmElementsFromXml(SourceReader & stream)
   : m_xmlSource([&, this](auto * element) { m_queue.emplace(*element); })
   , m_parser(stream, m_xmlSource)
 {
 }
 
-bool ProcessorXmlElementsFromXml::TryReadFromQueue(OsmElement & element)
+bool ProcessorOsmElementsFromXml::TryReadFromQueue(OsmElement & element)
 {
   if (m_queue.empty())
     return false;
@@ -227,16 +230,12 @@ bool ProcessorXmlElementsFromXml::TryReadFromQueue(OsmElement & element)
   return true;
 }
 
-bool ProcessorXmlElementsFromXml::TryRead(OsmElement & element)
+bool ProcessorOsmElementsFromXml::TryRead(OsmElement & element)
 {
-  if (TryReadFromQueue(element))
-    return true;
-
-  while (m_parser.Read())
-  {
+  do {
     if (TryReadFromQueue(element))
       return true;
-  }
+  } while (m_parser.Read());
 
   return TryReadFromQueue(element);
 }

@@ -7,6 +7,9 @@
 #pragma clang diagnostic ignored "-Wunused-parameter"
 #endif
 
+#include <sstream>
+#include <string>
+
 #define XML_STATIC
 #include "3party/expat/expat_impl.h"
 
@@ -76,14 +79,15 @@ public:
     m_charData.append(pszData, nLength);
   }
 
-  void PrintError()
+  std::string GetErrorMessage()
   {
-    if (BaseT::GetErrorCode() != XML_ERROR_NONE)
-    {
-      LOG(LDEBUG, ("XML parse error at line",
-                   BaseT::GetCurrentLineNumber(),
-                   "and byte", BaseT::GetCurrentByteIndex()));
-    }
+    if (BaseT::GetErrorCode() == XML_ERROR_NONE)
+      return {};
+
+    std::stringstream s;
+    s << "XML parse error at line " << BaseT::GetCurrentLineNumber()
+      << " and byte " << BaseT::GetCurrentByteIndex();
+    return s.str();
   }
 
 private:

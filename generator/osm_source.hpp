@@ -1,19 +1,12 @@
 #pragma once
 
-#include "generator/feature_generator.hpp"
-#include "generator/final_processor_intermediate_mwm.hpp"
-#include "generator/processor_interface.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/osm_o5m_source.hpp"
 #include "generator/osm_xml_source.hpp"
-#include "generator/translator_collection.hpp"
 #include "generator/translator_interface.hpp"
 
 #include "coding/parse_xml.hpp"
-
-#include "base/thread_pool_computational.hpp"
-#include "base/thread_safe_queue.hpp"
 
 #include <functional>
 #include <iostream>
@@ -21,7 +14,6 @@
 #include <queue>
 #include <sstream>
 #include <string>
-#include <vector>
 
 struct OsmElement;
 class FeatureParams;
@@ -149,10 +141,11 @@ private:
   osm::O5MSource::Iterator m_pos;
 };
 
-class ProcessorXmlElementsFromXml : public ProcessorOsmElementsInterface
+class ProcessorOsmElementsFromXml : public ProcessorOsmElementsInterface
 {
 public:
-  explicit ProcessorXmlElementsFromXml(SourceReader & stream);
+  explicit ProcessorOsmElementsFromXml(SourceReader & stream);
+
   // ProcessorOsmElementsInterface overrides:
   bool TryRead(OsmElement & element) override;
 
@@ -160,7 +153,7 @@ private:
   bool TryReadFromQueue(OsmElement & element);
 
   XMLSource m_xmlSource;
-  ParserXMLSequence<SourceReader, XMLSource> m_parser;
+  XMLSequenceParser<SourceReader, XMLSource> m_parser;
   std::queue<OsmElement> m_queue;
 };
 }  // namespace generator

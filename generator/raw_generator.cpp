@@ -165,7 +165,7 @@ bool RawGenerator::GenerateFilteredFeatures()
     sourceProcessor = std::make_unique<ProcessorOsmElementsFromO5M>(reader);
     break;
   case feature::GenerateInfo::OsmSourceType::XML:
-    sourceProcessor = std::make_unique<ProcessorXmlElementsFromXml>(reader);
+    sourceProcessor = std::make_unique<ProcessorOsmElementsFromXml>(reader);
     break;
   }
   CHECK(sourceProcessor, ());
