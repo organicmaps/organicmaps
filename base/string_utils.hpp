@@ -120,6 +120,7 @@ UniString MakeUniString(std::string const & utf8s);
 std::string ToUtf8(UniString const & s);
 bool IsASCIIString(std::string const & str);
 bool IsASCIIDigit(UniChar c);
+bool IsASCIINumeric(std::string const & str);
 bool IsASCIISpace(UniChar c);
 bool IsASCIILatin(UniChar c);
 

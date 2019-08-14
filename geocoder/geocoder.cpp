@@ -397,7 +397,12 @@ void Geocoder::FillRegularLayer(Context const & ctx, Type type, Tokens const & s
       return;
 
     if (ctx.GetLayers().empty() || HasParent(ctx.GetLayers(), d))
+    {
+      if (type > Type::Locality && !IsRelevantLocalityMember(ctx, d, subquery))
+        return;
+
       curLayer.m_entries.emplace_back(docId);
+    }
   });
 }
 
@@ -413,6 +418,34 @@ bool Geocoder::HasParent(vector<Geocoder::Layer> const & layers, Hierarchy::Entr
     if (m_hierarchy.IsParentTo(m_index.GetDoc(docId), e))
       return true;
   }
+  return false;
+}
+
+bool Geocoder::IsRelevantLocalityMember(Context const & ctx, Hierarchy::Entry const & member,
+                                        Tokens const & subquery) const
+{
+  auto const isNumeric = subquery.size() == 1 && strings::IsASCIINumeric(subquery.front());
+  return !isNumeric || HasMemberLocalityInMatching(ctx, member);
+}
+
+bool Geocoder::HasMemberLocalityInMatching(Context const & ctx, Hierarchy::Entry const & member) const
+{
+  for (auto const & layer : ctx.GetLayers())
+  {
+    auto const layerType = layer.m_type;
+    if (layerType > Type::Locality)
+      break;
+    if (layerType != Type::Locality)
+      continue;
+
+    for (auto const docId : layer.m_entries)
+    {
+      auto const & matchedEntry = m_index.GetDoc(docId);
+      if (m_hierarchy.IsParentTo(matchedEntry, member))
+        return true;
+    }
+  }
+
   return false;
 }
 }  // namespace geocoder

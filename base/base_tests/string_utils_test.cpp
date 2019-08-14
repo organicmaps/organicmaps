@@ -622,6 +622,24 @@ UNIT_TEST(IsUtf8Test)
   TEST(strings::IsASCIIString("Nice places in Zhodino.kml"), ());
 }
 
+UNIT_TEST(IsASCIINumericTest)
+{
+  TEST(strings::IsASCIINumeric("0"), ());
+  TEST(strings::IsASCIINumeric("1"), ());
+  TEST(strings::IsASCIINumeric("10"), ());
+  TEST(strings::IsASCIINumeric("01"), ());
+  TEST(strings::IsASCIINumeric("00"), ());
+
+  TEST(!strings::IsASCIINumeric(""), ());
+  TEST(!strings::IsASCIINumeric(" "), ());
+  TEST(!strings::IsASCIINumeric(" 9"), ());
+  TEST(!strings::IsASCIINumeric("9 "), ());
+  TEST(!strings::IsASCIINumeric("+3"), ());
+  TEST(!strings::IsASCIINumeric("-2"), ());
+  TEST(!strings::IsASCIINumeric("0x09"), ());
+  TEST(!strings::IsASCIINumeric("0.1"), ());
+}
+
 UNIT_TEST(CountNormLowerSymbols)
 {
   char const * strs[] = {"æüßs",

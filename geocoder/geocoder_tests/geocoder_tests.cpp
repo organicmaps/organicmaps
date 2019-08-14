@@ -272,18 +272,13 @@ UNIT_TEST(Geocoder_LocalityBuilding)
 {
   string const kData = R"#(
 10 {"properties": {"locales": {"default": {"address": {"locality": "Zelenograd"}}}}}
-
 22 {"properties": {"locales": {"default": {"address": {"building": "2", "locality": "Zelenograd"}}}}}
-
 31 {"properties": {"locales": {"default": {"address": {"street": "Krymskaya", "locality": "Zelenograd"}}}}}
 32 {"properties": {"locales": {"default": {"address": {"building": "2", "street": "Krymskaya", "locality": "Zelenograd"}}}}}
 )#";
-
   ScopedFile const regionsJsonFile("regions.jsonl", kData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
-
   base::GeoObjectId const building2(0x22);
-
   TestGeocoder(geocoder, "Zelenograd 2", {{building2, 1.0}});
 }
 
@@ -303,6 +298,27 @@ UNIT_TEST(Geocoder_SubregionInLocality)
   TestGeocoder(geocoder, "Москва, Северный административный округ",
                {{Id{0x12}, 1.0}, {Id{0x10}, 0.294118}, {Id{0x11}, 0.176471}});
   TestGeocoder(geocoder, "Москва", {{Id{0x10}, 1.0}, {Id{0x11}, 0.6}});
+}
+
+// Geocoder_NumericalSuburb* ----------------------------------------------------------------------
+UNIT_TEST(Geocoder_NumericalSuburbRelevance)
+{
+  string const kData = R"#(
+10 {"properties": {"locales": {"default": {"address": {"region": "Metro Manila"}}}}}
+11 {"properties": {"locales": {"default": {"address": {"locality": "Caloocan", "region": "Metro Manila"}}}}}
+12 {"properties": {"locales": {"default": {"address": {"suburb": "60", "locality": "Caloocan", "region": "Metro Manila"}}}}}
+20 {"properties": {"locales": {"default": {"address": {"locality": "Белгород"}}}}}
+21 {"properties": {"locales": {"default": {"address": {"street": "Щорса", "locality": "Белгород"}}}}}
+22 {"properties": {"locales": {"default": {"address": {"building": "60", "street": "Щорса", "locality": "Белгород"}}}}}
+)#";
+
+  ScopedFile const regionsJsonFile("regions.jsonl", kData);
+  Geocoder geocoder(regionsJsonFile.GetFullPath());
+
+  TestGeocoder(geocoder, "Caloocan, 60", {{Id{0x12}, 1.0}});
+  TestGeocoder(geocoder, "60", {});
+  TestGeocoder(geocoder, "Metro Manila, 60", {{Id{0x10}, 1.0}});
+  TestGeocoder(geocoder, "Белгород, Щорса, 60", {{Id{0x22}, 1.0}});
 }
 
 //--------------------------------------------------------------------------------------------------

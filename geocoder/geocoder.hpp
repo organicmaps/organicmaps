@@ -148,6 +148,9 @@ private:
   // Returns whether any of the paths through |layers| can be extended
   // by appending |e|.
   bool HasParent(std::vector<Geocoder::Layer> const & layers, Hierarchy::Entry const & e) const;
+  bool IsRelevantLocalityMember(Context const & ctx, Hierarchy::Entry const & member,
+                                Tokens const & subquery) const;
+  bool HasMemberLocalityInMatching(Context const & ctx, Hierarchy::Entry const & member) const;
 
   Hierarchy m_hierarchy;
 
