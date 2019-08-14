@@ -1248,6 +1248,27 @@ public class PlacePageView extends NestedScrollView
 
   private void processSponsored(@NonNull NetworkPolicy policy)
   {
+    updateCatalogPromoGallery(policy);
+
+    if (mSponsored == null || mMapObject == null)
+      return;
+
+    mSponsored.updateId(mMapObject);
+    mSponsoredPrice = mSponsored.getPrice();
+    String currencyCode = Utils.getCurrencyCode();
+
+    if (mSponsored.getId() == null || TextUtils.isEmpty(currencyCode))
+      return;
+
+    if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
+      return;
+
+    Sponsored.requestPrice(mSponsored.getId(), currencyCode, policy);
+    Sponsored.requestInfo(mSponsored, Locale.getDefault().toString(), policy);
+  }
+
+  private void updateCatalogPromoGallery(@NonNull NetworkPolicy policy)
+  {
     boolean hasPromoGallery = mSponsored != null && mSponsored.getType() == Sponsored.TYPE_PROMO_CATALOG;
     toggleCatalogPromoGallery(hasPromoGallery);
 
@@ -1267,19 +1288,6 @@ public class PlacePageView extends NestedScrollView
       com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoErrorAdapter(listener);
       mCatalogPromoRecycler.setAdapter(adapter);
     }
-
-    mSponsored.updateId(mMapObject);
-    mSponsoredPrice = mSponsored.getPrice();
-    String currencyCode = Utils.getCurrencyCode();
-
-    if (mSponsored.getId() == null || TextUtils.isEmpty(currencyCode))
-      return;
-
-    if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
-      return;
-
-    Sponsored.requestPrice(mSponsored.getId(), currencyCode, policy);
-    Sponsored.requestInfo(mSponsored, Locale.getDefault().toString(), policy);
   }
 
   private void onNetworkPolicyResult(@NonNull NetworkPolicy policy, @NonNull MapObject mapObject)
@@ -1310,6 +1318,7 @@ public class PlacePageView extends NestedScrollView
     refreshHotelDetailViews(policy);
     refreshViewsInternal(mMapObject);
     mUgcController.getUGC(mMapObject);
+    updateCatalogPromoGallery(policy);
   }
 
   private void refreshViewsInternal(@NonNull MapObject mapObject)
