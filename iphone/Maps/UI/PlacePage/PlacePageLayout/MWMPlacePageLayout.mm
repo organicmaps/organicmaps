@@ -652,6 +652,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
       collection.delegate = self;
       collection.dataSource = self;
       collection.itemType = discovery::ItemType::Promo;
+      [collection reloadData];
       return cell;
     }
   }
