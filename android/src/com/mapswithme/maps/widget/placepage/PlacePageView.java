@@ -340,6 +340,10 @@ public class PlacePageView extends NestedScrollView
   @NonNull
   private View mCatalogPromoTitleView;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private com.mapswithme.maps.gallery.GalleryAdapter mCatalogPromoLoadingAdapter;
+
   void setScrollable(boolean scrollable)
   {
     mScrollable = scrollable;
@@ -872,9 +876,7 @@ public class PlacePageView extends NestedScrollView
   {
     mCatalogPromoRecycler = findViewById(R.id.catalog_promo_recycler);
     mCatalogPromoTitleView = findViewById(R.id.catalog_promo_title);
-    BaseItemSelectedListener<Items.Item> listener =
-        new BaseItemSelectedListener<>(getActivity());
-    com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoLoadingAdapter();
+    mCatalogPromoLoadingAdapter = Factory.createCatalogPromoLoadingAdapter();
     mCatalogPromoRecycler.setNestedScrollingEnabled(false);
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
                                                                 LinearLayoutManager.HORIZONTAL,
@@ -884,7 +886,7 @@ public class PlacePageView extends NestedScrollView
         ItemDecoratorFactory.createSponsoredGalleryDecorator(getContext(),
                                                              LinearLayoutManager.HORIZONTAL);
     mCatalogPromoRecycler.addItemDecoration(decor);
-    mCatalogPromoRecycler.setAdapter(adapter);
+    mCatalogPromoRecycler.setAdapter(mCatalogPromoLoadingAdapter);
   }
 
   private void initHotelFacilitiesView()
@@ -1254,6 +1256,7 @@ public class PlacePageView extends NestedScrollView
 
     if (hasPromoGallery && policy.canUseNetwork())
     {
+      mCatalogPromoRecycler.setAdapter(mCatalogPromoLoadingAdapter);
       Promo.INSTANCE.nativeRequestCityGallery(policy, mMapObject.getLat(), mMapObject.getLon(),
                                               UTM.UTM_PLACEPAGE_GALLERY);
     }
