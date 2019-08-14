@@ -19,13 +19,14 @@ struct Data
 {
   Data() = default;
 
-  Data(std::string const & name, std::string const & description)
-    : m_name(name), m_description(description)
+  Data(std::string const & name, std::string customName, std::string const & description)
+    : m_name(name), m_customName(customName), m_description(description)
   {
   }
 
   Data(kml::BookmarkData const & bookmarkData)
     : m_name(kml::GetDefaultStr(bookmarkData.m_name))
+    , m_customName(kml::GetDefaultStr(bookmarkData.m_customName))
     , m_description(kml::GetDefaultStr(bookmarkData.m_description))
   {
   }
@@ -38,6 +39,7 @@ struct Data
     };
 
     ForEachNormalizedToken(m_name, withDefaultLang);
+    ForEachNormalizedToken(m_customName, withDefaultLang);
   }
 
   template <typename Fn>
@@ -51,6 +53,7 @@ struct Data
   }
 
   std::string m_name;
+  std::string m_customName;
   std::string m_description;
 };
 

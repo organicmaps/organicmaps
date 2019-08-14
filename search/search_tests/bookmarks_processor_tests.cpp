@@ -76,11 +76,14 @@ UNIT_CLASS_TEST(BookmarksProcessorTest, Smoke)
   GetProcessor().EnableIndexingOfDescriptions(true);
 
   Add(10, {"Double R Diner" /* name */,
+           "2R Diner" /* customName */,
            "They've got a cherry pie there that'll kill ya!" /* description */});
 
   Add(18, {"Silver Mustang Casino" /* name */,
+           "Ag Mustang" /* customName */,
            "Joyful place, owners Bradley and Rodney are very friendly!"});
   Add(20, {"Great Northern Hotel" /* name */,
+           "N Hotel" /* customName */,
            "Clean place with a reasonable price" /* description */});
 
   TEST_EQUAL(Search("R&R food"), Ids({10}), ());
@@ -88,6 +91,8 @@ UNIT_CLASS_TEST(BookmarksProcessorTest, Smoke)
   TEST_EQUAL(Search("great silver hotel"), Ids({20, 18}), ());
   TEST_EQUAL(Search("double r cafe"), Ids({10}), ());
   TEST_EQUAL(Search("dine"), Ids({10}), ());
+  TEST_EQUAL(Search("2R"), Ids({10}), ());
+  TEST_EQUAL(Search("Ag"), Ids({18}), ());
 
   AttachToGroup(Id{10}, GroupId{0});
   AttachToGroup(Id{18}, GroupId{0});
@@ -104,6 +109,7 @@ UNIT_CLASS_TEST(BookmarksProcessorTest, IndexDescriptions)
   GetProcessor().EnableIndexingOfDescriptions(true);
 
   Add(10, {"Double R Diner" /* name */,
+           "2R Diner" /* customName */,
            "They've got a cherry pie there that'll kill ya!" /* description */});
   TEST_EQUAL(Search("diner"), Ids({10}), ());
   TEST_EQUAL(Search("cherry pie"), Ids({10}), ());
@@ -114,6 +120,7 @@ UNIT_CLASS_TEST(BookmarksProcessorTest, IndexDescriptions)
 
   GetProcessor().EnableIndexingOfDescriptions(false);
   Add(10, {"Double R Diner" /* name */,
+          "2R Diner" /* customName */,
            "They've got a cherry pie there that'll kill ya!" /* description */});
   TEST_EQUAL(Search("diner"), Ids({10}), ());
   TEST_EQUAL(Search("cherry pie"), Ids(), ());
