@@ -72,6 +72,8 @@ public:
                                        MultipleNames & multipleNames,
                                        NameDictionaryBuilder & normalizedNameDictionaryBuilder,
                                        ParsingStats & stats);
+    // See generator::regions::LevelRegion::GetRank().
+    static Type RankToType(uint8_t rank);
 
     MultipleNames const & GetNormalizedMultipleNames(
         Type type, NameDictionary const & normalizedNameDictionary) const;

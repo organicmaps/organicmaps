@@ -64,7 +64,8 @@ bool Hierarchy::Entry::DeserializeAddressFromJSON(
     json_t * const root, NameDictionaryBuilder & normalizedNameDictionaryBuilder,
     ParsingStats & stats)
 {
-  auto const locales = base::GetJSONObligatoryFieldByPath(root, "properties", "locales");
+  auto const properties = base::GetJSONObligatoryField(root, "properties");
+  auto const locales = base::GetJSONObligatoryField(properties, "locales");
   m_normalizedAddress= {};
   for (size_t i = 0; i < static_cast<size_t>(Type::Count); ++i)
   {
@@ -80,6 +81,16 @@ bool Hierarchy::Entry::DeserializeAddressFromJSON(
     {
       m_normalizedAddress[i] = normalizedNameDictionaryBuilder.Add(move(multipleNames));
       m_type = static_cast<Type>(i);
+    }
+  }
+
+  if (auto const rank = FromJSONObjectOptional<uint8_t>(properties, "rank"))
+  {
+    auto const type = RankToType(*rank);
+    if (type != Type::Count &&
+        m_normalizedAddress[static_cast<size_t>(type)] != NameDictionary::kUnspecifiedPosition)
+    {
+      m_type = type;
     }
   }
 
@@ -145,6 +156,24 @@ MultipleNames const & Hierarchy::Entry::GetNormalizedMultipleNames(
 {
   auto const & addressField = m_normalizedAddress[static_cast<size_t>(type)];
   return normalizedNameDictionary.Get(addressField);
+}
+
+// static
+Type Hierarchy::Entry::RankToType(uint8_t rank)
+{
+  switch (rank)
+  {
+  case 1:
+    return Type::Country;
+  case 2:
+    return Type::Region;
+  case 3:
+    return Type::Subregion;
+  case 4:
+    return Type::Locality;
+  }
+
+  return Type::Count;
 }
 
 // Hierarchy ---------------------------------------------------------------------------------------
