@@ -401,7 +401,9 @@ public class PlacePageView extends NestedScrollView
   @Override
   public void onErrorReceived()
   {
-    com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoErrorAdapter(null);
+    ErrorCatalogPromoListener<Items.Item> listener =
+        new ErrorCatalogPromoListener<>(getActivity(), networkPolicy -> onNetworkPolicyResult(networkPolicy, mMapObject));
+    com.mapswithme.maps.gallery.GalleryAdapter adapter = Factory.createCatalogPromoErrorAdapter(listener);
     mCatalogPromoRecycler.setAdapter(adapter);
     Statistics.INSTANCE.trackGalleryError(GalleryType.PROMO, GalleryPlacement.PLACEPAGE,
                                           Statistics.ParamValue.NO_PRODUCTS);

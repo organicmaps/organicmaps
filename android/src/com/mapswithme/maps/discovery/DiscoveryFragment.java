@@ -326,7 +326,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
         Statistics.INSTANCE.trackGalleryError(LOCAL_EXPERTS, DISCOVERY, null);
         break;
       case PROMO:
-        GalleryAdapter adapter = Factory.createCatalogPromoErrorAdapter(null);
+        GalleryAdapter adapter = Factory.createCatalogPromoErrorAdapter(new ErrorCatalogPromoListener<>(requireActivity(),
+                                                                                                        this::onNetworkPolicyResult));
         RecyclerView gallery = getGallery(R.id.catalog_promo_recycler);
         gallery.setAdapter(adapter);
         Statistics.INSTANCE.trackGalleryError(PROMO, DISCOVERY, null);

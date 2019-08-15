@@ -524,19 +524,17 @@ public class Holders
       UiUtils.invisible(progress);
     }
 
-    @Override
     public void bind(@NonNull Items.Item item)
     {
       super.bind(item);
       getButton().setText(R.string.gallery_pp_download_guides_offline_cta);
-      boolean hasNetwork = ConnectionState.isConnected() ||
-                           NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus()).canUseNetwork();
+      boolean isBtnInvisible = ConnectionState.isConnected() &&
+                               NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus()).canUseNetwork();
 
-      if (hasNetwork)
+      if (isBtnInvisible)
         UiUtils.invisible(getButton());
       else
         UiUtils.show(getButton());
-
     }
 
     @Override
