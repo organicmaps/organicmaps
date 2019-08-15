@@ -35,6 +35,7 @@
     <item name="android:stateListAnimator" tools:targetApi="lollipop">@null</item>
     <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoMedium</item>
     <item name="android:textAllCaps">true</item>
+    <item name="android:letterSpacing" tools:ignore="NewApi">0.04</item>
   </style>
 
   <style name="MwmWidget.Button.Accent">

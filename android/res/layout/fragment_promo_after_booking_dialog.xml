@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearanceLarge"
-        android:textStyle="bold"
+        android:textSize="@dimen/text_size_alert_dialog_title"
         android:gravity="start"
         android:text="@string/popup_booking_download_guides_title"
         tools:text="Booked a hotel?"/>
@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_half"
         android:textAppearance="?android:textAppearance"
+        android:lineSpacingExtra="4sp"
         android:text="@string/popup_booking_download_guides_message"
         tools:text="Take a look at ready-made trips around the place!"/>
       <Button
@@ -41,16 +42,21 @@
         android:layout_height="@dimen/primary_button_min_height"
         android:layout_marginTop="@dimen/margin_base_plus_quarter"
         android:textAppearance="?android:textAppearanceInverse"
+        android:letterSpacing="0.04"
         android:text="@string/popup_mwm_download_guides_cta"
-        tools:text="Choose one"/>
+        tools:text="Choose one"
+        tools:targetApi="lollipop"/>
       <Button
         android:id="@+id/cancel"
         style="@style/MwmWidget.Button"
         android:layout_width="match_parent"
         android:layout_height="@dimen/primary_button_min_height"
-        android:layout_marginTop="@dimen/margin_half_double_plus"
+        android:background="?attr/selectableItemBackground"
+        android:layout_marginTop="@dimen/margin_half"
         android:textAppearance="?android:textAppearance"
-        android:text="@string/cancel"/>
+        android:letterSpacing="0.04"
+        android:text="@string/cancel"
+        tools:ignore="UnusedAttribute"/>
     </LinearLayout>
   </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>
