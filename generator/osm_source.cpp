@@ -232,14 +232,11 @@ bool GenerateRaw(feature::GenerateInfo & info, TranslatorInterface & translators
 }
 
 LoaderWrapper::LoaderWrapper(feature::GenerateInfo & info)
-  : m_reader(cache::CreatePointStorageReader(info.m_nodeStorageType, info.GetIntermediateFileName(NODES_FILE)), info)
-{
-  m_reader.LoadIndex();
-}
+  : m_reader(std::make_unique<cache::IntermediateData>(info, true /* forceReload */)) {}
 
 cache::IntermediateDataReader & LoaderWrapper::GetReader()
 {
-  return m_reader;
+  return *m_reader->GetCache();
 }
 
 CacheLoader::CacheLoader(feature::GenerateInfo & info) : m_info(info) {}
@@ -258,7 +255,7 @@ bool GenerateIntermediateData(feature::GenerateInfo & info)
   {
     auto nodes = cache::CreatePointStorageWriter(info.m_nodeStorageType,
                                                  info.GetIntermediateFileName(NODES_FILE));
-    cache::IntermediateDataWriter cache(nodes, info);
+    cache::IntermediateDataWriter cache(*nodes, info);
     TownsDumper towns;
     SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
 

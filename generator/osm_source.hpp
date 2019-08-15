@@ -47,7 +47,7 @@ public:
   cache::IntermediateDataReader & GetReader();
 
 private:
-  cache::IntermediateDataReader m_reader;
+  std::unique_ptr<cache::IntermediateData> m_reader;
 };
 
 class CacheLoader
