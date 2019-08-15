@@ -59,7 +59,7 @@ bool FilterWorld::IsPopularAttraction(feature::FeatureBuilder const & fb, std::s
     return false;
   }
 
-  auto static const & m_popularPlaces = GetOrLoadPopularPlacesLoader(popularityFilename);
+  auto static const & m_popularPlaces = GetOrLoadPopularPlaces(popularityFilename);
   auto const it = m_popularPlaces.find(fb.GetMostGenericOsmId());
   if (it == m_popularPlaces.end())
     return false;

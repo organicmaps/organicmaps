@@ -3,7 +3,6 @@
 #include "base/geo_object_id.hpp"
 
 #include <string>
-#include <mutex>
 #include <unordered_map>
 
 namespace generator
@@ -16,5 +15,5 @@ void LoadPopularPlaces(std::string const & srcFilename, PopularPlaces & places);
 bool BuildPopularPlacesMwmSection(std::string const & srcFilename, std::string const & mwmFile,
                                   std::string const & osmToFeatureFilename);
 
-PopularPlaces const & GetOrLoadPopularPlacesLoader(std::string const & filename);
+PopularPlaces const & GetOrLoadPopularPlaces(std::string const & filename);
 }  // namespace generator

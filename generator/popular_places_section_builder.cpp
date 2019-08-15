@@ -16,6 +16,7 @@
 
 #include <cstdint>
 #include <limits>
+#include <mutex>
 #include <utility>
 #include <vector>
 
@@ -111,19 +112,19 @@ bool BuildPopularPlacesMwmSection(std::string const & srcFilename, std::string c
 }
 
 
-PopularPlaces const & GetOrLoadPopularPlacesLoader(std::string const & filename)
+PopularPlaces const & GetOrLoadPopularPlaces(std::string const & filename)
 {
   static std::mutex m;
-  static std::unordered_map<std::string, PopularPlaces> plases;
+  static std::unordered_map<std::string, PopularPlaces> plaсes;
 
   std::lock_guard<std::mutex> lock(m);
-  auto const it = plases.find(filename);
-  if (it != plases.cend())
+  auto const it = plaсes.find(filename);
+  if (it != plaсes.cend())
     return it->second;
 
   PopularPlaces places;
   LoadPopularPlaces(filename, places);
-  auto const eIt = plases.emplace(filename, places);
+  auto const eIt = plaсes.emplace(filename, places);
   return eIt.first->second;
 }
 }  // namespace generator
