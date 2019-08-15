@@ -135,7 +135,7 @@ public:
   bool Read(Key id, Value & value)
   {
     uint64_t pos = 0;
-    if (!m_offsets.GetValueByKey(id, pos))
+    if (!m_offsetsReader.GetValueByKey(id, pos))
     {
       LOG_SHORT(LWARNING, ("Can't find offset in file", m_name + OFFSET_EXT, "by id", id));
       return false;
@@ -160,7 +160,7 @@ public:
 
 protected:
   FileReader m_fileReader;
-  IndexFileReader const & m_offsets;
+  IndexFileReader const & m_offsetsReader;
   std::string m_name;
   std::vector<uint8_t> m_data;
   bool m_preload = false;
@@ -200,7 +200,7 @@ class IntermediateDataReader
 {
 public:
   IntermediateDataReader(PointStorageReaderInterface const & nodes,
-                         feature::GenerateInfo & info, bool forceReload = false);
+                         feature::GenerateInfo const & info, bool forceReload = false);
 
   // TODO |GetNode()|, |lat|, |lon| are used as y, x in real.
   bool GetNode(Key id, double & lat, double & lon) const { return m_nodes.GetPoint(id, lat, lon); }
@@ -274,7 +274,7 @@ private:
 class IntermediateDataWriter
 {
 public:
-  IntermediateDataWriter(PointStorageWriterInterface & nodes, feature::GenerateInfo & info);
+  IntermediateDataWriter(PointStorageWriterInterface & nodes, feature::GenerateInfo const & info);
 
   void AddNode(Key id, double lat, double lon) { m_nodes.AddPoint(id, lat, lon); }
   void AddWay(Key id, WayElement const & e) { m_ways.Write(id, e); }
@@ -309,38 +309,15 @@ CreatePointStorageReader(feature::GenerateInfo::NodeStorageType type, std::strin
 std::unique_ptr<PointStorageWriterInterface>
 CreatePointStorageWriter(feature::GenerateInfo::NodeStorageType type, std::string const & name);
 
-class PointStorageReader
-{
-public:
-  static PointStorageReaderInterface const &
-  GetOrCreate(feature::GenerateInfo::NodeStorageType type, std::string const & name,
-              bool forceReload = false);
-
-private:
-  static std::mutex m_mutex;
-  static std::unordered_map<std::string, std::unique_ptr<PointStorageReaderInterface>> m_readers;
-};
-
-class IndexReader
-{
-public:
-  static cache::IndexFileReader const &
-  GetOrCreate(std::string const & name, bool forceReload = false);
-
-private:
-  static std::mutex m_mutex;
-  static std::unordered_map<std::string, IndexFileReader> m_indexes;
-};
-
 class IntermediateData
 {
 public:
-  IntermediateData(feature::GenerateInfo & info, bool forceReload = false);
+  explicit IntermediateData(feature::GenerateInfo const & info, bool forceReload = false);
   std::shared_ptr<IntermediateDataReader> const & GetCache() const;
   std::shared_ptr<IntermediateData> Clone() const;
 
 private:
-  feature::GenerateInfo & m_info;
+  feature::GenerateInfo const & m_info;
   std::shared_ptr<IntermediateDataReader> m_reader;
 
   DISALLOW_COPY(IntermediateData);
