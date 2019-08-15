@@ -7,6 +7,7 @@
 #include "generator/cities_ids_builder.hpp"
 #include "generator/city_roads_generator.hpp"
 #include "generator/descriptions_section_builder.hpp"
+#include "generator/data_version.hpp"
 #include "generator/dumper.hpp"
 #include "generator/emitter_factory.hpp"
 #include "generator/feature_generator.hpp"
@@ -296,6 +297,8 @@ int GeneratorToolMain(int argc, char ** argv)
     {
       return EXIT_FAILURE;
     }
+
+    DataVersion{FLAGS_osm_file_name}.DumpToPath(genInfo.m_intermediateDir);
   }
 
   // Use merged style.
@@ -458,8 +461,9 @@ int GeneratorToolMain(int argc, char ** argv)
       }
 
       LOG(LINFO, ("Saving geo objects index to", outFile));
-
-      if (!indexer::BuildGeoObjectsIndexFromDataFile(locDataFile, outFile))
+      if (!indexer::BuildGeoObjectsIndexFromDataFile(
+              locDataFile, outFile, DataVersion::LoadFromPath(path).GetVersionJson(),
+              DataVersion::kFileTag))
       {
         LOG(LCRITICAL, ("Error generating geo objects index."));
         return EXIT_FAILURE;
@@ -476,7 +480,9 @@ int GeneratorToolMain(int argc, char ** argv)
 
       LOG(LINFO, ("Saving regions index to", outFile));
 
-      if (!indexer::BuildRegionsIndexFromDataFile(locDataFile, outFile))
+      if (!indexer::BuildRegionsIndexFromDataFile(locDataFile, outFile,
+                                                  DataVersion::LoadFromPath(path).GetVersionJson(),
+                                                  DataVersion::kFileTag))
       {
         LOG(LCRITICAL, ("Error generating regions index."));
         return EXIT_FAILURE;

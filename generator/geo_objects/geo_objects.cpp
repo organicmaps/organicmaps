@@ -1,3 +1,4 @@
+#include "generator/data_version.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/key_value_storage.hpp"
@@ -219,7 +220,7 @@ boost::optional<indexer::GeoObjectsIndex<IndexReader>> MakeTempGeoObjectsIndex(
 
   auto const indexFile = GetPlatform().TmpPathForFile();
   SCOPE_GUARD(removeIndexFile, std::bind(Platform::RemoveFileIfExists, std::cref(indexFile)));
-  if (!indexer::BuildGeoObjectsIndexFromDataFile(dataFile, indexFile))
+  if (!indexer::BuildGeoObjectsIndexFromDataFile(dataFile, indexFile, std::string(), DataVersion::kFileTag))
   {
     LOG(LCRITICAL, ("Error generating geo objects index."));
     return {};

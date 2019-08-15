@@ -62,7 +62,9 @@ template <int DEPTH_LEVELS>
 bool BuildLocalityIndexFromDataFile(string const & dataFile,
                                     covering::CoverLocality const & coverLocality,
                                     string const & outFileName,
-                                    string const & localityIndexFileTag)
+                                    string const & localityIndexFileTag,
+                                    string const & dataVersionJson,
+                                    string const & dataVersionTag)
 {
   try
   {
@@ -75,8 +77,9 @@ bool BuildLocalityIndexFromDataFile(string const & dataFile,
           localities.GetVector(), writer, coverLocality, outFileName, IntervalIndexVersion::V2);
     }
 
-    FilesContainerW(outFileName, FileWriter::OP_WRITE_TRUNCATE)
-        .Write(idxFileName, localityIndexFileTag);
+    FilesContainerW writer(outFileName, FileWriter::OP_WRITE_TRUNCATE);
+    writer.Write(idxFileName, localityIndexFileTag);
+    writer.Write(std::vector<char>(dataVersionJson.begin(), dataVersionJson.end()), dataVersionTag);
     FileWriter::DeleteFileX(idxFileName);
   }
   catch (Reader::Exception const & e)
@@ -93,21 +96,26 @@ bool BuildLocalityIndexFromDataFile(string const & dataFile,
 }
 }  // namespace
 
-bool BuildGeoObjectsIndexFromDataFile(string const & dataFile, string const & outFileName)
+bool BuildGeoObjectsIndexFromDataFile(string const & dataFile, string const & outFileName,
+                                      string const & dataVersionJson,
+                                      string const & dataVersionTag)
 {
   auto coverObject = [](indexer::LocalityObject const & o, int cellDepth) {
     return covering::CoverGeoObject(o, cellDepth);
   };
   return BuildLocalityIndexFromDataFile<kGeoObjectsDepthLevels>(dataFile, coverObject, outFileName,
-                                                                GEO_OBJECTS_INDEX_FILE_TAG);
+                                                                GEO_OBJECTS_INDEX_FILE_TAG,
+                                                                dataVersionJson, dataVersionTag);
 }
 
-bool BuildRegionsIndexFromDataFile(string const & dataFile, string const & outFileName)
+bool BuildRegionsIndexFromDataFile(string const & dataFile, string const & outFileName,
+                                   string const & dataVersionJson,
+                                   string const & dataVersionTag)
 {
   auto coverRegion = [](indexer::LocalityObject const & o, int cellDepth) {
     return covering::CoverRegion(o, cellDepth);
   };
-  return BuildLocalityIndexFromDataFile<kRegionsDepthLevels>(dataFile, coverRegion, outFileName,
-                                                             REGIONS_INDEX_FILE_TAG);
+  return BuildLocalityIndexFromDataFile<kRegionsDepthLevels>(
+      dataFile, coverRegion, outFileName, REGIONS_INDEX_FILE_TAG, dataVersionJson, dataVersionTag);
 }
 }  // namespace indexer

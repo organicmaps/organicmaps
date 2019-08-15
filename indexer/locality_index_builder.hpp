@@ -61,9 +61,13 @@ namespace indexer
 {
 // Builds indexer::GeoObjectsIndex for reverse geocoder with |kGeoObjectsDepthLevels| depth levels
 // and saves it to |GEO_OBJECTS_INDEX_FILE_TAG| of |out|.
-bool BuildGeoObjectsIndexFromDataFile(std::string const & dataFile, std::string const & out);
+bool BuildGeoObjectsIndexFromDataFile(std::string const & dataFile, std::string const & out,
+                                      std::string const & dataVersionJson,
+                                      std::string const & dataVersionTag);
 
 // Builds indexer::RegionsIndex for reverse geocoder with |kRegionsDepthLevels| depth levels and
 // saves it to |REGIONS_INDEX_FILE_TAG| of |out|.
-bool BuildRegionsIndexFromDataFile(std::string const & dataFile, std::string const & out);
+bool BuildRegionsIndexFromDataFile(std::string const & dataFile, std::string const & out,
+                                   std::string const & dataVersionJson,
+                                   std::string const & dataVersionTag);
 }  // namespace indexer

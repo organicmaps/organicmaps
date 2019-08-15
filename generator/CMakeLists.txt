@@ -43,6 +43,8 @@ set(
   collector_interface.hpp
   collector_tag.cpp
   collector_tag.hpp
+  data_version.cpp
+  data_version.hpp
   descriptions_section_builder.cpp
   descriptions_section_builder.hpp
   dumper.cpp
