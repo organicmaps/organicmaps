@@ -157,7 +157,7 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   @Override
   public void onAlertDialogNegativeClick(int requestCode, int which)
   {
-    mDialogClickDelegate.onAlertDialogPositiveClick(requestCode,which);
+    mDialogClickDelegate.onAlertDialogNegativeClick(requestCode, which);
   }
 
   @Override
