@@ -5,7 +5,10 @@
   android:layout_height="match_parent"
   android:orientation="vertical">
   <include
-    layout="@layout/non_elevated_toolbar"/>
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    layout="@layout/toolbar_with_optional_search"/>
   <FrameLayout
     android:id="@+id/fragment_container"
     android:layout_width="match_parent"

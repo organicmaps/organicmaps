@@ -81,7 +81,7 @@ public class SearchToolbarController extends ToolbarController
   private void updateButtons(boolean queryEmpty)
   {
     UiUtils.showIf(supportsVoiceSearch() && queryEmpty && mVoiceInputSupported, mVoiceInput);
-    UiUtils.showIf(!queryEmpty, mClear);
+    UiUtils.showIf(alwaysShowClearButton() || !queryEmpty, mClear);
   }
 
   protected void onQueryClick(String query) {}
@@ -107,6 +107,11 @@ public class SearchToolbarController extends ToolbarController
    * Return true to display & activate voice search. Turned OFF by default.
    */
   protected boolean supportsVoiceSearch()
+  {
+    return false;
+  }
+
+  protected boolean alwaysShowClearButton()
   {
     return false;
   }

@@ -16,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 
 public enum SearchEngine implements NativeSearchListener,
                                     NativeMapSearchListener,
+                                    NativeBookmarkSearchListener,
                                     NativeBookingFilterListener,
                                     Initializable
 {
@@ -62,14 +63,26 @@ public enum SearchEngine implements NativeSearchListener,
         });
   }
 
-  public void onBookmarksResultsUpdate(@Nullable long[] bookmarkIds, long timestamp)
+  public void onBookmarkSearchResultsUpdate(@Nullable long[] bookmarkIds, long timestamp)
   {
-    // Dummy. Will be implemented soon.
+    UiThread.run(
+        () ->
+        {
+          for (NativeBookmarkSearchListener listener : mBookmarkListeners)
+            listener.onBookmarkSearchResultsUpdate(bookmarkIds, timestamp);
+          mBookmarkListeners.finishIterate();
+        });
   }
 
-  public void onBookmarksResultsEnd(@Nullable long[] bookmarkIds, long timestamp)
+  public void onBookmarkSearchResultsEnd(@Nullable long[] bookmarkIds, long timestamp)
   {
-    // Dummy. Will be implemented soon.
+    UiThread.run(
+        () ->
+        {
+          for (NativeBookmarkSearchListener listener : mBookmarkListeners)
+            listener.onBookmarkSearchResultsEnd(bookmarkIds, timestamp);
+          mBookmarkListeners.finishIterate();
+        });
   }
 
   @Override
@@ -88,6 +101,8 @@ public enum SearchEngine implements NativeSearchListener,
   private final Listeners<NativeSearchListener> mListeners = new Listeners<>();
   @NonNull
   private final Listeners<NativeMapSearchListener> mMapListeners = new Listeners<>();
+  @NonNull
+  private final Listeners<NativeBookmarkSearchListener> mBookmarkListeners = new Listeners<>();
   @NonNull
   private final Listeners<NativeBookingFilterListener> mHotelListeners = new Listeners<>();
 
@@ -109,6 +124,16 @@ public enum SearchEngine implements NativeSearchListener,
   public void removeMapListener(NativeMapSearchListener listener)
   {
     mMapListeners.unregister(listener);
+  }
+
+  public void addBookmarkListener(NativeBookmarkSearchListener listener)
+  {
+    mBookmarkListeners.register(listener);
+  }
+
+  public void removeBookmarkListener(NativeBookmarkSearchListener listener)
+  {
+    mBookmarkListeners.unregister(listener);
   }
 
   public void addHotelListener(@NonNull NativeBookingFilterListener listener)
@@ -169,6 +194,16 @@ public enum SearchEngine implements NativeSearchListener,
     } catch (UnsupportedEncodingException ignored) { }
   }
 
+  @MainThread
+  public static boolean searchInBookmarks(String query, long categoryId, long timestamp)
+  {
+    try
+    {
+      return nativeRunSearchInBookmarks(query.getBytes("utf-8"), categoryId, timestamp);
+    } catch (UnsupportedEncodingException ignored) { }
+    return false;
+  }
+
   public void setQuery(@Nullable String query)
   {
     mQuery = query;
@@ -186,6 +221,7 @@ public enum SearchEngine implements NativeSearchListener,
     cancelApiCall();
     cancelAllSearches();
   }
+
   @MainThread
   private static void cancelApiCall()
   {
@@ -246,6 +282,8 @@ public enum SearchEngine implements NativeSearchListener,
    * @param bytes utf-8 formatted query bytes
    */
   private static native void nativeRunSearchMaps(byte[] bytes, String language, long timestamp);
+
+  private static native boolean nativeRunSearchInBookmarks(byte[] bytes, long categoryId, long timestamp);
 
   private static native void nativeShowResult(int index);
 

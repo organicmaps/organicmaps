@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   xmlns:mapsme="http://schemas.android.com/apk/res-auto">
+
   <android.support.v7.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
+
+  <android.support.design.widget.FloatingActionButton
+    android:id="@+id/viewOnMap"
+    mapsme:layout_constraintRight_toRightOf="parent"
+    mapsme:layout_constraintBottom_toBottomOf="parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@id/recycler"
+    android:layout_alignWithParentIfMissing="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginBottom="@dimen/margin_base"
+    android:src="?fabAdd"/>
+
   <com.mapswithme.maps.widget.PlaceholderView
     android:id="@+id/placeholder"
     mapsme:layout_constraintBottom_toBottomOf="parent"

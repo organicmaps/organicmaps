@@ -660,9 +660,9 @@ extern "C"
     g_mapResultCtor = jni::GetConstructorID(env, g_mapResultClass, "(Ljava/lang/String;Ljava/lang/String;)V");
 
     g_updateBookmarksResultsId =
-      jni::GetMethodID(env, g_javaListener, "onBookmarksResultsUpdate", "([JJ)V");
+      jni::GetMethodID(env, g_javaListener, "onBookmarkSearchResultsUpdate", "([JJ)V");
     g_endBookmarksResultsId =
-      jni::GetMethodID(env, g_javaListener, "onBookmarksResultsEnd", "([JJ)V");
+      jni::GetMethodID(env, g_javaListener, "onBookmarkSearchResultsEnd", "([JJ)V");
 
     g_onFilterHotels = jni::GetMethodID(env, g_javaListener, "onFilterHotels",
                                                    "(I[Lcom/mapswithme/maps/bookmarks/data/FeatureId;)V");
@@ -733,16 +733,19 @@ extern "C"
       g_queryTimestamp = timestamp;
   }
 
-  JNIEXPORT void JNICALL Java_com_mapswithme_maps_search_SearchEngine_nativeRunSearchInBookmarks(
-      JNIEnv * env, jclass clazz, jbyteArray query, jlong timestamp)
+  JNIEXPORT jboolean JNICALL Java_com_mapswithme_maps_search_SearchEngine_nativeRunSearchInBookmarks(
+      JNIEnv * env, jclass clazz, jbyteArray query, jlong catId, jlong timestamp)
   {
     search::BookmarksSearchParams params;
     params.m_query = jni::ToNativeString(env, query);
+    params.m_groupId = static_cast<kml::MarkGroupId>(catId);
     params.m_onStarted = bind(&OnBookmarksSearchStarted);
     params.m_onResults = bind(&OnBookmarksSearchResults, _1, _2, timestamp);
 
-    if (g_framework->NativeFramework()->SearchInBookmarks(params))
+    bool const searchStarted = g_framework->NativeFramework()->SearchInBookmarks(params);
+    if (searchStarted)
       g_queryTimestamp = timestamp;
+    return searchStarted;
   }
 
   JNIEXPORT void JNICALL

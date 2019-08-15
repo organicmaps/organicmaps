@@ -28,9 +28,12 @@ import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.maps.bookmarks.data.CategoryDataSource;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.intent.Factory;
+import com.mapswithme.maps.search.NativeBookmarkSearchListener;
+import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.maps.ugc.routes.BaseUgcRouteActivity;
 import com.mapswithme.maps.ugc.routes.UgcRouteEditSettingsActivity;
 import com.mapswithme.maps.ugc.routes.UgcRouteSharingOptionsActivity;
+import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.maps.widget.placepage.EditBookmarkFragment;
 import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
@@ -42,18 +45,32 @@ import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.util.SortedMap;
+
 public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListAdapter>
-    implements RecyclerLongClickListener, RecyclerClickListener,
+    implements RecyclerLongClickListener,
+               RecyclerClickListener,
                MenuItem.OnMenuItemClickListener,
-               BookmarkManager.BookmarksSharingListener
+               BookmarkManager.BookmarksSharingListener,
+               NativeBookmarkSearchListener
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
   public static final String EXTRA_CATEGORY = "bookmark_category";
+
+  private BookmarksToolbarController mToolbarController;
+  private long mLastQueryTimestamp;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
   private CategoryDataSource mCategoryDataSource;
   private int mSelectedPosition;
+
+  private long[] mSearchResults;
+  private long[] mSortResults;
+
+  private boolean mSearchMode = false;
+  private boolean mSortMode = false;
+
   @SuppressWarnings("NullableProblems")
   @NonNull
   private BookmarkManager.BookmarksCatalogListener mCatalogListener;
@@ -90,7 +107,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
-    return inflater.inflate(R.layout.fragment_bookmark_list, container, false);
+    View root = inflater.inflate(R.layout.fragment_bookmark_list, container, false);
+    return root;
   }
 
   @CallSuper
@@ -107,6 +125,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
     if (bar != null)
       bar.setTitle(mCategoryDataSource.getData().getName());
+
+    ViewGroup toolbar = ((AppCompatActivity) getActivity()).findViewById(R.id.toolbar);
+    mToolbarController = new BookmarksToolbarController(toolbar, getActivity(), this);
+
     addRecyclerDecor();
   }
 
@@ -236,6 +258,83 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     return false;
   }
 
+  private void updateControlsStatus()
+  {
+    ViewGroup toolbar = ((AppCompatActivity) getActivity()).findViewById(R.id.toolbar);
+    ViewGroup searchContainer = toolbar.findViewById(R.id.toolbar_search_container);
+    UiUtils.showIf(isSearchMode(), searchContainer);
+    if (isSearchMode())
+    {
+      mToolbarController.activate();
+    }
+    else
+    {
+      mToolbarController.deactivate();
+    }
+
+    getActivity().invalidateOptionsMenu();
+  }
+
+  public void runSearch()
+  {
+    SearchEngine.INSTANCE.cancel();
+
+    mLastQueryTimestamp = System.nanoTime();
+    if (SearchEngine.INSTANCE.searchInBookmarks(mToolbarController.getQuery(),
+                                                mCategoryDataSource.getData().getId(),
+                                                mLastQueryTimestamp))
+    {
+      mToolbarController.showProgress(true);
+    }
+  }
+
+  @Override
+  public void onBookmarkSearchResultsUpdate(@Nullable long[] bookmarkIds, long timestamp)
+  {
+    if (!isAdded() || !mToolbarController.hasQuery())
+      return;
+    updateSearchResults(bookmarkIds);
+  }
+
+  @Override
+  public void onBookmarkSearchResultsEnd(@Nullable long[] bookmarkIds, long timestamp)
+  {
+    if (!isAdded() || !mToolbarController.hasQuery())
+      return;
+    mToolbarController.showProgress(false);
+    updateSearchResults(bookmarkIds);
+  }
+
+  private void updateSearchResults(@Nullable long[] bookmarkIds)
+  {
+    mSearchResults = bookmarkIds;
+  }
+
+  public void cancelSearch()
+  {
+    SearchEngine.INSTANCE.cancel();
+    mToolbarController.showProgress(false);
+  }
+
+  public void activateSearch()
+  {
+    mSearchMode = true;
+
+    updateControlsStatus();
+  }
+
+  public void deactivateSearch()
+  {
+    mSearchMode = false;
+
+    updateControlsStatus();
+  }
+
+  public boolean isSearchMode()
+  {
+    return mSearchMode;
+  }
+
   @Override
   public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
   {
@@ -282,10 +381,23 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     if (isDownloadedCategory())
       return;
     inflater.inflate(R.menu.option_menu_bookmarks, menu);
-    MenuItem item = menu.findItem(R.id.share);
-    item.setVisible(getCategoryOrThrow().isSharingOptionsAllowed());
+
+    MenuItem itemSearch = menu.findItem(R.id.bookmarks_search);
+    itemSearch.setVisible(getCategoryOrThrow().isSearchAllowed());
   }
 
+  @Override
+  public void onPrepareOptionsMenu(Menu menu)
+  {
+    super.onPrepareOptionsMenu(menu);
+    //menu.setGroupVisible(0, false);
+    final boolean visible = !isSearchMode();
+    MenuItem itemSearch = menu.findItem(R.id.bookmarks_search);
+    itemSearch.setVisible(visible);
+
+    MenuItem itemMore = menu.findItem(R.id.bookmarks_more);
+    itemMore.setVisible(visible);
+  }
 
   @SuppressWarnings("ConstantConditions")
   @Override
@@ -306,10 +418,23 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   @Override
   public boolean onOptionsItemSelected(MenuItem item)
   {
-    if (item.getItemId() == R.id.share)
+    if (item.getItemId() == R.id.bookmarks_search)
     {
-      openSharingOptionsScreen();
-      trackBookmarkListSharingOptions();
+      activateSearch();
+      return true;
+    }
+
+    if (item.getItemId() == R.id.bookmarks_more)
+    {
+      //openSharingOptionsScreen();
+      //trackBookmarkListSharingOptions();
+      BottomSheet bs = BottomSheetHelper.create(getActivity(),
+                                                mCategoryDataSource.getData().getName())
+                                        .sheet(R.menu.menu_bookmarks_list)
+                                        .listener(this)
+                                        .build();
+      BottomSheetHelper.tint(bs);
+      bs.show();
       return true;
     }
 
