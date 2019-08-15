@@ -177,7 +177,7 @@ struct DeleteRequestData
   std::string m_userId;
   std::vector<std::string> m_serverIds;
 
-  DECLARE_VISITOR(visitor(m_deviceId, "server_id"),
+  DECLARE_VISITOR(visitor(m_deviceId, "device_id"),
                   visitor(m_userId, "user_id"),
                   visitor(m_serverIds, "server_ids"))
 };
