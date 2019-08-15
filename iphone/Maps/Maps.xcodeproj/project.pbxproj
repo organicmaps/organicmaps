@@ -589,6 +589,7 @@
 		BB8123D0212C264700ADE512 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB8123CE212C264700ADE512 /* MetalKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BB8123D62130427E00ADE512 /* MetalContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB8123D52130427E00ADE512 /* MetalContextFactory.mm */; };
 		CD08887422B7ABB400C1368D /* MWMDiscoveryCollectionView.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD08887322B7ABB400C1368D /* MWMDiscoveryCollectionView.mm */; };
+		CD4A1F132305872700F2A6B6 /* PromoBookingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4A1F122305872700F2A6B6 /* PromoBookingPresentationController.swift */; };
 		CD6E8677226774C700D1EDF7 /* CPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6E8676226774C700D1EDF7 /* CPConstants.swift */; };
 		CD96C70C22A681C400DB7CFE /* DiscoveryGuideCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD96C70A22A681C400DB7CFE /* DiscoveryGuideCell.swift */; };
 		CD96C70D22A681C400DB7CFE /* DiscoveryGuideCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD96C70B22A681C400DB7CFE /* DiscoveryGuideCell.xib */; };
@@ -1677,6 +1678,7 @@
 		CD08887322B7ABB400C1368D /* MWMDiscoveryCollectionView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDiscoveryCollectionView.mm; sourceTree = "<group>"; };
 		CD08888322BCF1C800C1368D /* maps.me rel.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "maps.me rel.entitlements"; sourceTree = "<group>"; };
 		CD08888422BCF1C900C1368D /* maps.me full.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "maps.me full.entitlements"; sourceTree = "<group>"; };
+		CD4A1F122305872700F2A6B6 /* PromoBookingPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoBookingPresentationController.swift; sourceTree = "<group>"; };
 		CD6E8676226774C700D1EDF7 /* CPConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPConstants.swift; sourceTree = "<group>"; };
 		CD96C70A22A681C400DB7CFE /* DiscoveryGuideCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryGuideCell.swift; sourceTree = "<group>"; };
 		CD96C70B22A681C400DB7CFE /* DiscoveryGuideCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryGuideCell.xib; sourceTree = "<group>"; };
@@ -3605,6 +3607,7 @@
 				47EF05B12150383A00EAC269 /* RemoveAds */,
 				47E3C7242111E41B008B3B27 /* DimmedModalPresentationController.swift */,
 				47E3C7262111E5A8008B3B27 /* AlertPresentationController.swift */,
+				CD4A1F122305872700F2A6B6 /* PromoBookingPresentationController.swift */,
 				47E3C7282111E614008B3B27 /* FadeInAnimatedTransitioning.swift */,
 				47E3C72A2111E62A008B3B27 /* FadeOutAnimatedTransitioning.swift */,
 				47E3C72C2111E6A2008B3B27 /* FadeTransitioning.swift */,
@@ -5542,6 +5545,7 @@
 				347752901F7251C7000D46A3 /* UGCAddReviewTextCell.swift in Sources */,
 				34E50DF01F6FCC41008EED49 /* UGCYourReviewCell.swift in Sources */,
 				34AB66381FC5AA330078E451 /* RouteManagerCell.swift in Sources */,
+				CD4A1F132305872700F2A6B6 /* PromoBookingPresentationController.swift in Sources */,
 				3472B5D3200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift in Sources */,
 				F6E2FF301E097BA00083EBEC /* MWMSearchCommonCell.mm in Sources */,
 				F6E2FEA01E097BA00083EBEC /* MWMPlacePageLayout.mm in Sources */,

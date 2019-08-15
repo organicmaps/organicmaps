@@ -1,12 +1,25 @@
 @objc
 class PromoAfterBookingViewController: UIViewController {
-  private let transitioning = FadeTransitioning<AlertPresentationController>()
+  private let transitioning = FadeTransitioning<PromoBookingPresentationController>()
   private var cityImageUrl: String
   private var okClosure: MWMVoidBlock
   private var cancelClosure: MWMVoidBlock
   private var isOnButtonClosed: Bool = false
   
-  @IBOutlet weak var cityImageView: UIImageView!
+  @IBOutlet var cityImageView: UIImageView!
+  @IBOutlet var descriptionLabel: UILabel! {
+    didSet {
+      let desc = L("popup_booking_download_guides_message")
+      let paragraphStyle = NSMutableParagraphStyle()
+      paragraphStyle.lineSpacing = 3
+      let attributedDesc = NSAttributedString(string: desc, attributes: [
+        .font : UIFont.regular14(),
+        .foregroundColor : UIColor.blackSecondaryText(),
+        .paragraphStyle : paragraphStyle
+        ])
+      descriptionLabel.attributedText = attributedDesc
+    }
+  }
   
   @objc init(cityImageUrl: String, okClosure: @escaping MWMVoidBlock, cancelClosure: @escaping MWMVoidBlock) {
     self.cityImageUrl = cityImageUrl
