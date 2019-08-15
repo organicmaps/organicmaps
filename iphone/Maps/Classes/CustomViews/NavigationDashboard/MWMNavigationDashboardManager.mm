@@ -381,8 +381,6 @@ using Observers = NSHashTable<Observer>;
 
 - (void)setState:(MWMNavigationDashboardState)state
 {
-  if (_state == state)
-    return;
   if (state == MWMNavigationDashboardStateHidden)
     [MWMSearchManager removeObserver:self];
   else

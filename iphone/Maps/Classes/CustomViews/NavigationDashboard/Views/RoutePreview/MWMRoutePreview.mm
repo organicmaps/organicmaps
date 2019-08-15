@@ -152,6 +152,8 @@ static CGFloat const kDrivingOptionsHeight = 48;
     if (prg.second != progress)
       continue;
     auto const routerType = prg.first;
+    if ([MWMRouter type] == routerType)
+      return;
     [self selectRouter:routerType];
     [MWMRouter setType:routerType];
     [MWMRouter rebuildWithBestRouter:NO];
