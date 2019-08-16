@@ -34,15 +34,15 @@ map<NavigationSearchState, NSString *> const kSearchStateButtonImageNames{
     {NavigationSearchState::MinimizedSearch, @"ic_routing_search_off"},
     {NavigationSearchState::MinimizedGas, @"ic_routing_fuel_off"},
     {NavigationSearchState::MinimizedParking, @"ic_routing_parking_off"},
+    {NavigationSearchState::MinimizedEat, @"ic_routing_eat_off"},
     {NavigationSearchState::MinimizedFood, @"ic_routing_food_off"},
-    {NavigationSearchState::MinimizedShop, @"ic_routing_shop_off"},
     {NavigationSearchState::MinimizedATM, @"ic_routing_atm_off"}};
 
 map<NavigationSearchState, NSString *> const kSearchButtonRequest{
     {NavigationSearchState::MinimizedGas, L(@"fuel")},
     {NavigationSearchState::MinimizedParking, L(@"parking")},
+    {NavigationSearchState::MinimizedEat, L(@"eat")},
     {NavigationSearchState::MinimizedFood, L(@"food")},
-    {NavigationSearchState::MinimizedShop, L(@"shop")},
     {NavigationSearchState::MinimizedATM, L(@"atm")}};
 
 BOOL defaultOrientation(CGSize const & size)
@@ -77,8 +77,8 @@ BOOL defaultOrientation(CGSize const & size)
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * searchButtonsSideSize;
 @property(weak, nonatomic) IBOutlet MWMButton * searchGasButton;
 @property(weak, nonatomic) IBOutlet MWMButton * searchParkingButton;
+@property(weak, nonatomic) IBOutlet MWMButton * searchEatButton;
 @property(weak, nonatomic) IBOutlet MWMButton * searchFoodButton;
-@property(weak, nonatomic) IBOutlet MWMButton * searchShopButton;
 @property(weak, nonatomic) IBOutlet MWMButton * searchATMButton;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * turnsTopOffset;
 
@@ -196,8 +196,8 @@ BOOL defaultOrientation(CGSize const & size)
   case NavigationSearchState::MinimizedSearch:
   case NavigationSearchState::MinimizedGas:
   case NavigationSearchState::MinimizedParking:
+  case NavigationSearchState::MinimizedEat:
   case NavigationSearchState::MinimizedFood:
-  case NavigationSearchState::MinimizedShop:
   case NavigationSearchState::MinimizedATM:
     [MWMSearch clear];
     [MWMSearchManager manager].state = MWMSearchManagerStateHidden;
@@ -220,10 +220,10 @@ BOOL defaultOrientation(CGSize const & size)
     body(NavigationSearchState::MinimizedGas);
   else if (sender == self.searchParkingButton)
     body(NavigationSearchState::MinimizedParking);
+  else if (sender == self.searchEatButton)
+    body(NavigationSearchState::MinimizedEat);
   else if (sender == self.searchFoodButton)
     body(NavigationSearchState::MinimizedFood);
-  else if (sender == self.searchShopButton)
-    body(NavigationSearchState::MinimizedShop);
   else if (sender == self.searchATMButton)
     body(NavigationSearchState::MinimizedATM);
 }

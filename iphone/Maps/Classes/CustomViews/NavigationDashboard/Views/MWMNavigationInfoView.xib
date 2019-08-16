@@ -301,9 +301,9 @@
                                 <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="uiN-0q-kol"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GcK-FI-VXw" userLabel="Food" customClass="MWMButton">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GcK-FI-VXw" userLabel="Eat" customClass="MWMButton">
                             <rect key="frame" x="142" y="78" width="44" height="44"/>
-                            <state key="normal" image="ic_routing_food_on"/>
+                            <state key="normal" image="ic_routing_eat_on"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
@@ -311,9 +311,9 @@
                                 <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="3le-Cd-rvC"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ggf-tc-U3R" userLabel="Shop" customClass="MWMButton">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ggf-tc-U3R" userLabel="Food" customClass="MWMButton">
                             <rect key="frame" x="122" y="122" width="44" height="44"/>
-                            <state key="normal" image="ic_routing_shop_on"/>
+                            <state key="normal" image="ic_routing_food_on"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
@@ -423,11 +423,11 @@
                 <outlet property="searchButtonsView" destination="TMW-aw-1RT" id="bQd-e2-Jey"/>
                 <outlet property="searchButtonsViewHeight" destination="ClV-rj-I5W" id="egz-NO-EAn"/>
                 <outlet property="searchButtonsViewWidth" destination="mOu-Vw-eLb" id="SsK-HE-lHC"/>
-                <outlet property="searchFoodButton" destination="GcK-FI-VXw" id="G0h-uf-9uS"/>
+                <outlet property="searchEatButton" destination="GcK-FI-VXw" id="G0h-uf-9uS"/>
                 <outlet property="searchGasButton" destination="2Bv-7H-IZt" id="hUg-CH-kWQ"/>
                 <outlet property="searchMainButton" destination="Xna-Q1-7zW" id="v48-fa-MQE"/>
                 <outlet property="searchParkingButton" destination="RP3-01-Pj7" id="sdL-mN-sLE"/>
-                <outlet property="searchShopButton" destination="Ggf-tc-U3R" id="RJJ-mh-rwy"/>
+                <outlet property="searchFoodButton" destination="Ggf-tc-U3R" id="RJJ-mh-rwy"/>
                 <outlet property="secondTurnImageView" destination="CKi-sy-dNO" id="A29-2z-4oh"/>
                 <outlet property="secondTurnView" destination="8Zu-Ff-6p2" id="yEK-rY-S50"/>
                 <outlet property="streetNameLabel" destination="ShI-bz-5g8" id="eZd-Es-g0l"/>
@@ -463,11 +463,11 @@
     <resources>
         <image name="ic_get_position" width="20" height="20"/>
         <image name="ic_routing_atm_on" width="24" height="24"/>
-        <image name="ic_routing_food_on" width="24" height="24"/>
+        <image name="ic_routing_eat_on" width="24" height="24"/>
         <image name="ic_routing_fuel_on" width="24" height="24"/>
         <image name="ic_routing_parking_on" width="24" height="24"/>
         <image name="ic_routing_search_light" width="56" height="56"/>
-        <image name="ic_routing_shop_on" width="24" height="24"/>
+        <image name="ic_routing_food_on" width="24" height="24"/>
         <image name="ic_search_toast" width="24" height="24"/>
     </resources>
 </document>

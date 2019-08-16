@@ -5,8 +5,8 @@ enum class NavigationSearchState
   MinimizedSearch,
   MinimizedGas,
   MinimizedParking,
+  MinimizedEat,
   MinimizedFood,
-  MinimizedShop,
   MinimizedATM
 };
 
