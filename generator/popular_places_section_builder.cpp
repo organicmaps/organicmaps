@@ -115,16 +115,16 @@ bool BuildPopularPlacesMwmSection(std::string const & srcFilename, std::string c
 PopularPlaces const & GetOrLoadPopularPlaces(std::string const & filename)
 {
   static std::mutex m;
-  static std::unordered_map<std::string, PopularPlaces> plaсes;
+  static std::unordered_map<std::string, PopularPlaces> placesStorage;
 
   std::lock_guard<std::mutex> lock(m);
-  auto const it = plaсes.find(filename);
-  if (it != plaсes.cend())
+  auto const it = placesStorage.find(filename);
+  if (it != placesStorage.cend())
     return it->second;
 
   PopularPlaces places;
   LoadPopularPlaces(filename, places);
-  auto const eIt = plaсes.emplace(filename, places);
+  auto const eIt = placesStorage.emplace(filename, places);
   return eIt.first->second;
 }
 }  // namespace generator
