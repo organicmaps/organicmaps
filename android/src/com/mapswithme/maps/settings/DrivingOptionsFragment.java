@@ -34,7 +34,10 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
                            @Nullable Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.fragment_driving_options, container, false);
-    initViews(root);
+    String componentDescent = getArguments() == null
+                              ? Statistics.EventParam.ROUTE
+                              : getArguments().getString(Statistics.EventParam.FROM, Statistics.EventParam.ROUTE);
+    initViews(root, componentDescent);
     mRoadTypes = savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_ROAD_TYPES)
                  ? makeRouteTypes(savedInstanceState)
                  : RoutingOptions.getActiveRoadTypes();
@@ -79,30 +82,30 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     return super.onBackPressed();
   }
 
-  private void initViews(@NonNull View root)
+  private void initViews(@NonNull View root, @NonNull String componentDescent)
   {
     Switch tollsBtn = root.findViewById(R.id.avoid_tolls_btn);
     tollsBtn.setChecked(RoutingOptions.hasOption(RoadType.Toll));
     CompoundButton.OnCheckedChangeListener tollBtnListener =
-        new ToggleRoutingOptionListener(RoadType.Toll);
+        new ToggleRoutingOptionListener(RoadType.Toll, componentDescent);
     tollsBtn.setOnCheckedChangeListener(tollBtnListener);
 
     Switch motorwaysBtn = root.findViewById(R.id.avoid_motorways_btn);
     motorwaysBtn.setChecked(RoutingOptions.hasOption(RoadType.Motorway));
     CompoundButton.OnCheckedChangeListener motorwayBtnListener =
-        new ToggleRoutingOptionListener(RoadType.Motorway);
+        new ToggleRoutingOptionListener(RoadType.Motorway, componentDescent);
     motorwaysBtn.setOnCheckedChangeListener(motorwayBtnListener);
 
     Switch ferriesBtn = root.findViewById(R.id.avoid_ferries_btn);
     ferriesBtn.setChecked(RoutingOptions.hasOption(RoadType.Ferry));
     CompoundButton.OnCheckedChangeListener ferryBtnListener =
-        new ToggleRoutingOptionListener(RoadType.Ferry);
+        new ToggleRoutingOptionListener(RoadType.Ferry, componentDescent);
     ferriesBtn.setOnCheckedChangeListener(ferryBtnListener);
 
     Switch dirtyRoadsBtn = root.findViewById(R.id.avoid_dirty_roads_btn);
     dirtyRoadsBtn.setChecked(RoutingOptions.hasOption(RoadType.Dirty));
     CompoundButton.OnCheckedChangeListener dirtyBtnListener =
-        new ToggleRoutingOptionListener(RoadType.Dirty);
+        new ToggleRoutingOptionListener(RoadType.Dirty, componentDescent);
     dirtyRoadsBtn.setOnCheckedChangeListener(dirtyBtnListener);
   }
 
@@ -111,9 +114,13 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     @NonNull
     private final RoadType mRoadType;
 
-    private ToggleRoutingOptionListener(@NonNull RoadType roadType)
+    @NonNull
+    private final String mComponentDescent;
+
+    private ToggleRoutingOptionListener(@NonNull RoadType roadType, @NonNull String componentDescent)
     {
       mRoadType = roadType;
+      mComponentDescent = componentDescent;
     }
 
     @Override
@@ -124,7 +131,7 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
       else
         RoutingOptions.removeOption(mRoadType);
 
-      Statistics.INSTANCE.trackSettingsDrivingOptionsChangeEvent();
+      Statistics.INSTANCE.trackSettingsDrivingOptionsChangeEvent(mComponentDescent);
     }
   }
 }

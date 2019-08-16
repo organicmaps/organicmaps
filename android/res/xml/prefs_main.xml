@@ -172,7 +172,9 @@
       android:title="@string/driving_options_title">
       <intent
         android:targetClass="com.mapswithme.maps.settings.DrivingOptionsActivity"
-        android:targetPackage="@string/app_id"/>
+        android:targetPackage="@string/app_id">
+        <extra android:name="from" android:value="settings" />
+      </intent>
     </PreferenceScreen>
   </android.support.v7.preference.PreferenceCategory>
   <android.support.v7.preference.PreferenceCategory

@@ -736,6 +736,9 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
           root.setSummary(enabled ? R.string.on : R.string.off);
         pref.setTitle(enabled ? R.string.on : R.string.off);
 
+        Statistics.ParameterBuilder builder =
+            new Statistics.ParameterBuilder().add(Statistics.EventParam.VALUE, value);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.SETTINGS_RECENT_TRACK_CHANGE, builder);
         UiThread.runLater(new Runnable()
         {
           @Override

@@ -239,7 +239,7 @@ public enum Statistics
                                                      Statistics.ParamValue.SHARING_OPTIONS));
   }
 
-  public void trackSettingsDrivingOptionsChangeEvent()
+  public void trackSettingsDrivingOptionsChangeEvent(@NonNull String componentDescent)
   {
     boolean hasToll = RoutingOptions.hasOption(RoadType.Toll);
     boolean hasFerry = RoutingOptions.hasOption(RoadType.Ferry);
@@ -251,7 +251,7 @@ public enum Statistics
                                                .add(EventParam.FERRY, hasFerry ? 1 : 0)
                                                .add(EventParam.MOTORWAY, hasMoto ? 1 : 0)
                                                .add(EventParam.UNPAVED, hasDirty ? 1 : 0);
-    parameterBuilder.add(EventParam.FROM, EventParam.SETTINGS);
+    parameterBuilder.add(EventParam.FROM, componentDescent);
 
     trackEvent(EventName.SETTINGS_DRIVING_OPTIONS_CHANGE, parameterBuilder);
   }
@@ -290,6 +290,7 @@ public enum Statistics
     public static final String PLACEPAGE_DESCRIPTION_OUTBOUND_CLICK = "Placepage_Description_Outbound_click";
     public static final String SETTINGS_SPEED_CAMS = "Settings. Speed_cameras";
     public static final String SETTINGS_MOBILE_INTERNET_CHANGE = "Settings_MobileInternet_change";
+    public static final String SETTINGS_RECENT_TRACK_CHANGE = "Settings_RecentTrack_change";
     public static final String MOBILE_INTERNET_ALERT = "MobileInternet_alert";
 
     public static final String DOWNLOADER_BANNER_SHOW = "Downloader_Banner_show";
