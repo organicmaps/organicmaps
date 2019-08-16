@@ -571,13 +571,14 @@ continueUserActivity:(NSUserActivity *)userActivity
   [UIButton appearance].exclusiveTouch = YES;
 
   [self customizeAppearanceForNavigationBar:[UINavigationBar appearance]];
-
-  UIBarButtonItem * barBtn = [UIBarButtonItem appearance];
-  [barBtn setTitleTextAttributes:[self navigationBarTextAttributes] forState:UIControlStateNormal];
-  [barBtn setTitleTextAttributes:@{
-    NSForegroundColorAttributeName : [UIColor lightGrayColor],
-  }
-                        forState:UIControlStateDisabled];
+  
+  UIBarButtonItem *barButtonApperance = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UINavigationBar class]]];
+  [barButtonApperance setTitleTextAttributes:[self navigationBarTextAttributes]
+                                    forState:UIControlStateNormal];
+  [barButtonApperance setTitleTextAttributes:@{
+                                               NSForegroundColorAttributeName : [UIColor lightGrayColor],
+                                               }
+                                    forState:UIControlStateDisabled];
   [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UINavigationBar class]]].tintColor = [UIColor whitePrimaryText];
 
   UIPageControl * pageControl = [UIPageControl appearance];
