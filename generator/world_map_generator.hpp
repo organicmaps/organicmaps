@@ -238,8 +238,7 @@ class WorldMapGenerator
 
     bool NeedPushToWorld(feature::FeatureBuilder const & fb) const
     {
-      // GetMinFeatureDrawScale also checks suitable size for AREA features
-      return (scales::GetUpperWorldScale() >= fb.GetMinFeatureDrawScale());
+      return generator::FilterWorld::IsGoodScale(fb);
     }
 
     void PushSure(feature::FeatureBuilder const & fb)

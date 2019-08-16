@@ -65,7 +65,7 @@ bool FilterWorld::IsPopularAttraction(feature::FeatureBuilder const & fb, std::s
     return false;
 
   // todo(@t.yan): adjust
-  uint8_t const kPopularityThreshold = 12;
+  uint8_t const kPopularityThreshold = 13;
   // todo(@t.yan): maybe check place has wikipedia link.
   return it->second >= kPopularityThreshold;
 }
