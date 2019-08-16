@@ -245,6 +245,7 @@ public:
 
   void Write(std::string const & fPath, Tag const & tag);
   void Write(ModelReaderPtr reader, Tag const & tag);
+  void Write(void const * buffer, size_t size, Tag const & tag);
   void Write(std::vector<char> const & buffer, Tag const & tag);
   void Write(std::vector<uint8_t> const & buffer, Tag const & tag);
 

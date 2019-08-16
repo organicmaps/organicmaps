@@ -448,16 +448,20 @@ void FilesContainerW::Write(ModelReaderPtr reader, Tag const & tag)
   rw::ReadAndWrite(src, *writer);
 }
 
+void FilesContainerW::Write(void const * buffer, size_t size, Tag const & tag)
+{
+  if (size != 0)
+    GetWriter(tag)->Write(buffer, size);
+}
+
 void FilesContainerW::Write(vector<char> const & buffer, Tag const & tag)
 {
-  if (!buffer.empty())
-    GetWriter(tag)->Write(buffer.data(), buffer.size());
+  Write(buffer.data(), buffer.size(), tag);
 }
 
 void FilesContainerW::Write(vector<uint8_t> const & buffer, Tag const & tag)
 {
-  if (!buffer.empty())
-    GetWriter(tag)->Write(buffer.data(), buffer.size());
+  Write(buffer.data(), buffer.size(), tag);
 }
 
 void FilesContainerW::Finish()

@@ -79,7 +79,7 @@ bool BuildLocalityIndexFromDataFile(string const & dataFile,
 
     FilesContainerW writer(outFileName, FileWriter::OP_WRITE_TRUNCATE);
     writer.Write(idxFileName, localityIndexFileTag);
-    writer.Write(std::vector<char>(dataVersionJson.begin(), dataVersionJson.end()), dataVersionTag);
+    writer.Write(dataVersionJson.c_str(), dataVersionJson.size(), dataVersionTag);
     FileWriter::DeleteFileX(idxFileName);
   }
   catch (Reader::Exception const & e)
