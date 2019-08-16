@@ -859,8 +859,8 @@ didDisconnectCarInterfaceController:(CPInterfaceController *)interfaceController
 - (void)updateAppearanceFromWindow:(UIWindow *)sourceWindow
                           toWindow:(UIWindow *)destinationWindow
                 isCarplayActivated:(BOOL)isCarplayActivated {
-  CGFloat sourceContentScale = sourceWindow.screen.nativeScale;
-  CGFloat destinationContentScale = destinationWindow.screen.nativeScale;
+  CGFloat sourceContentScale = sourceWindow.screen.scale;
+  CGFloat destinationContentScale = destinationWindow.screen.scale;
   if (ABS(sourceContentScale - destinationContentScale) > 0.1) {
     if (isCarplayActivated) {
       [self updateVisualScale:destinationContentScale];
