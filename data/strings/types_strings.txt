@@ -11046,7 +11046,7 @@
     nl = Plaats voor hondenuitlaten
     fi = Koirien ulkoilupaikka
     fr = Places autorisés pour promener les chiens
-    de = Platz für Hundesauflauf
+    de = Hundeauslauffläche
     hu = Kutyás terület
     id = Area untuk anjing
     it = Area sgambamento cani
