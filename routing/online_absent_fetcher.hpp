@@ -34,7 +34,7 @@ public:
   OnlineAbsentCountriesFetcher(TCountryFileFn const &, TCountryLocalFileFn const &);
 
   // IOnlineFetcher overrides:
-  void GenerateRequest(Checkpoints const &) override;
+  void GenerateRequest(Checkpoints const & checkpoints) override;
   void GetAbsentCountries(std::set<std::string> & countries) override;
 
 private:

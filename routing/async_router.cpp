@@ -157,7 +157,7 @@ void AsyncRouter::RouterDelegateProxy::OnPointCheck(m2::PointD const & pt)
     lock_guard<mutex> l(m_guard);
     CHECK(m_onPointCheck, ());
 
-    if (m_delegate.IsCancelled())
+    if (m_delegateProxy.IsCancelled())
       return;
 
     onPointCheck = m_onPointCheck;
@@ -220,9 +220,10 @@ void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD con
 
   ResetDelegate();
 
-  m_delegate = make_shared<RouterDelegateProxy>(readyCallback, needMoreMapsCallback, removeRouteCallback,
-                                                m_pointCheckCallback, progressCallback, timeoutSec);
-
+  m_delegateProxy = 
+      make_shared<RouterDelegateProxy>(readyCallback, needMoreMapsCallback, removeRouteCallback,
+                                       m_pointCheckCallback, progressCallback, timeoutSec);
+  
   m_hasRequest = true;
   m_threadCondVar.notify_one();
 }
@@ -299,10 +300,10 @@ void AsyncRouter::LogCode(RouterResultCode code, double const elapsedSec)
 
 void AsyncRouter::ResetDelegate()
 {
-  if (m_delegate)
+  if (m_delegateProxy)
   {
-    m_delegate->Cancel();
-    m_delegate.reset();
+    m_delegateProxy->Cancel();
+    m_delegateProxy.reset();
   }
 }
 
@@ -334,7 +335,7 @@ void AsyncRouter::ThreadFunc()
 void AsyncRouter::CalculateRoute()
 {
   Checkpoints checkpoints;
-  shared_ptr<RouterDelegateProxy> delegate;
+  shared_ptr<RouterDelegateProxy> delegateProxy;
   m2::PointD startDirection;
   bool adjustToPrevRoute = false;
   shared_ptr<IOnlineFetcher> absentFetcher;
@@ -352,13 +353,13 @@ void AsyncRouter::CalculateRoute()
       return;
     if (!m_router)
       return;
-    if (!m_delegate)
+    if (!m_delegateProxy)
       return;
 
     checkpoints = m_checkpoints;
     startDirection = m_startDirection;
     adjustToPrevRoute = m_adjustToPrevRoute;
-    delegate = m_delegate;
+    delegateProxy = m_delegateProxy;
     router = m_router;
     absentFetcher = m_absentFetcher;
     routeId = ++m_routeCounter;
@@ -382,7 +383,7 @@ void AsyncRouter::CalculateRoute()
 
     // Run basic request.
     code = router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute,
-                                  delegate->GetDelegate(), *route);
+                                  delegateProxy->GetDelegate(), *route);
 
     elapsedSec = timer.ElapsedSeconds(); // routing time
     LogCode(code, elapsedSec);
@@ -401,7 +402,7 @@ void AsyncRouter::CalculateRoute()
     // Note. After call of this method |route| should be used only on ui thread.
     // And |route| should stop using on routing background thread, in this method.
     GetPlatform().RunTask(Platform::Thread::Gui,
-                          [delegate, route, code]() { delegate->OnReady(route, code); });
+                          [delegateProxy, route, code]() { delegateProxy->OnReady(route, code); });
     return;
   }
 
@@ -419,7 +420,7 @@ void AsyncRouter::CalculateRoute()
     // Note. After call of this method |route| should be used only on ui thread.
     // And |route| should stop using on routing background thread, in this method.
     GetPlatform().RunTask(Platform::Thread::Gui,
-                          [delegate, route, code]() { delegate->OnReady(route, code); });
+                          [delegateProxy, route, code]() { delegateProxy->OnReady(route, code); });
   }
 
   bool const needFetchAbsent = (code != RouterResultCode::Cancelled);
@@ -441,14 +442,14 @@ void AsyncRouter::CalculateRoute()
   {
     if (code == RouterResultCode::NeedMoreMaps)
     {
-      GetPlatform().RunTask(Platform::Thread::Gui, [delegate, routeId, absent]() {
-        delegate->OnNeedMoreMaps(routeId, absent);
+      GetPlatform().RunTask(Platform::Thread::Gui, [delegateProxy, routeId, absent]() {
+        delegateProxy->OnNeedMoreMaps(routeId, absent);
       });
     }
     else
     {
       GetPlatform().RunTask(Platform::Thread::Gui,
-                            [delegate, code]() { delegate->OnRemoveRoute(code); });
+                            [delegateProxy, code]() { delegateProxy->OnRemoveRoute(code); });
     }
   }
 }

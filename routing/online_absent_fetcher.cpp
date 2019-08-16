@@ -4,7 +4,6 @@
 
 #include "platform/platform.hpp"
 #include "platform/country_file.hpp"
-#include "platform/local_country_file.hpp"
 
 #include "base/stl_helpers.hpp"
 
@@ -27,8 +26,14 @@ OnlineAbsentCountriesFetcher::OnlineAbsentCountriesFetcher(
 
 void OnlineAbsentCountriesFetcher::GenerateRequest(Checkpoints const & checkpoints)
 {
-  if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
+  if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
     return;
+
+  if (m_fetcherThread)
+  {
+    m_fetcherThread->Cancel();
+    m_fetcherThread.reset();
+  }
 
   // Single mwm case.
   if (AllPointsInSameMwm(checkpoints))
@@ -37,7 +42,7 @@ void OnlineAbsentCountriesFetcher::GenerateRequest(Checkpoints const & checkpoin
   unique_ptr<OnlineCrossFetcher> fetcher =
       make_unique<OnlineCrossFetcher>(m_countryFileFn, OSRM_ONLINE_SERVER_URL, checkpoints);
   // iOS can't reuse threads. So we need to recreate the thread.
-  m_fetcherThread.reset(new threads::Thread());
+  m_fetcherThread = make_unique<threads::Thread>();
   m_fetcherThread->Create(move(fetcher));
 }
 
