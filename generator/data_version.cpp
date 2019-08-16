@@ -5,25 +5,34 @@
 
 #include "build_version.hpp"
 
+#include <base/timer.hpp>
+
 #include <fstream>
 #include <streambuf>
 #include <string>
+
+#include <sys/stat.h>
 
 namespace generator
 {
 DataVersion::DataVersion(std::string const & planetFilePath)
 {
-  size_t started =
-      std::chrono::time_point_cast<std::chrono::seconds>(std::chrono::system_clock::now())
-          .time_since_epoch()
-          .count();
+  size_t planetTimestamp = 0;
+
+  struct stat path_stat{};
+  if (::stat(planetFilePath.c_str(), &path_stat) != 0)
+    planetTimestamp = base::TimeTToSecondsSinceEpoch(path_stat.st_mtime);
 
   m_json.reset(json_object());
 
-  ToJSONObject(*m_json, "time_started", started);
+  ToJSONObject(*m_json, "time_started",
+               base::TimeTToSecondsSinceEpoch(
+                   std::chrono::system_clock::to_time_t(std::chrono::system_clock::now())));
   ToJSONObject(*m_json, "generator_build_time", omim::build_version::git::kTimestamp);
   ToJSONObject(*m_json, "generator_git_hash", omim::build_version::git::kHash);
+  ToJSONObject(*m_json, "generator_git_hash", omim::build_version::git::kHash);
   ToJSONObject(*m_json, "planet_md5", ReadWholeFile(planetFilePath + ".md5"));
+  ToJSONObject(*m_json, "planet_timestamp", planetTimestamp);
 }
 
 std::string DataVersion::GetVersionJson() const { return base::DumpToString(m_json); }
