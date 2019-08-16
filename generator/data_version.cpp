@@ -13,6 +13,8 @@
 
 #include <sys/stat.h>
 
+#include "platform/platform.hpp"
+
 namespace generator
 {
 DataVersion::DataVersion(std::string const & planetFilePath)
@@ -31,7 +33,8 @@ DataVersion::DataVersion(std::string const & planetFilePath)
   ToJSONObject(*m_json, "generator_build_time", omim::build_version::git::kTimestamp);
   ToJSONObject(*m_json, "generator_git_hash", omim::build_version::git::kHash);
   ToJSONObject(*m_json, "planet_md5", ReadWholeFile(planetFilePath + ".md5"));
-  ToJSONObject(*m_json, "planet_timestamp", planetTimestamp);
+  ToJSONObject(*m_json, "planet_timestamp", ReadWholeFile(planetFilePath + ".timestamp"));
+  ToJSONObject(*m_json, "planet_file_timestamp", planetTimestamp);
 }
 
 std::string DataVersion::GetVersionJson() const { return base::DumpToString(m_json); }
@@ -76,6 +79,9 @@ std::string const & DataVersion::Key()
 // static
 std::string DataVersion::ReadWholeFile(std::string const & filePath)
 {
+  if (!GetPlatform().IsFileExistsByFullPath(filePath))
+    return {};
+
   std::ifstream stream;
   stream.exceptions(std::fstream::failbit | std::fstream::badbit);
   stream.open(filePath);
