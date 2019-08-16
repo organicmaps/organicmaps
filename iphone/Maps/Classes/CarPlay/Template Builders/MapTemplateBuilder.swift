@@ -62,9 +62,13 @@ final class MapTemplateBuilder {
     }
     let zoomInButton = buildMapButton(type: .zoomIn) { _ in
       FrameworkHelper.zoomMap(.in)
+      Alohalytics.logEvent(kStatCarplayZoom, with: [kStatIsZoomIn : true,
+                                                    kStatIsPanActivated: false])
     }
     let zoomOutButton = buildMapButton(type: .zoomOut) { _ in
       FrameworkHelper.zoomMap(.out)
+      Alohalytics.logEvent(kStatCarplayZoom, with: [kStatIsZoomIn : false,
+                                                    kStatIsPanActivated: false])
     }
     mapTemplate.mapButtons = [panningButton, zoomInButton, zoomOutButton]
     
@@ -79,17 +83,23 @@ final class MapTemplateBuilder {
   class func configurePanUI(mapTemplate: CPMapTemplate) {
     let zoomInButton = buildMapButton(type: .zoomIn) { _ in
       FrameworkHelper.zoomMap(.in)
+      Alohalytics.logEvent(kStatCarplayZoom, with: [kStatIsZoomIn : true,
+                                                    kStatIsPanActivated: true])
     }
     let zoomOutButton = buildMapButton(type: .zoomOut) { _ in
       FrameworkHelper.zoomMap(.out)
+      Alohalytics.logEvent(kStatCarplayZoom, with: [kStatIsZoomIn : false,
+                                                    kStatIsPanActivated: true])
     }
     mapTemplate.mapButtons = [zoomInButton, zoomOutButton]
     
     let doneButton = buildBarButton(type: .dismissPaning) { _ in
       mapTemplate.dismissPanningInterface(animated: true)
+      Alohalytics.logEvent(kStatCarplayPanDeactivated, with: [kStatUsedButtons: CarPlayService.shared.isUserPanMap])
     }
     mapTemplate.leadingNavigationBarButtons = []
     mapTemplate.trailingNavigationBarButtons = [doneButton]
+    Alohalytics.logEvent(kStatCarplayPanActivated)
   }
   
   class func configureNavigationUI(mapTemplate: CPMapTemplate) {
@@ -118,6 +128,7 @@ final class MapTemplateBuilder {
   class func setupRecenterButton(mapTemplate: CPMapTemplate) {
     let recenterButton = buildBarButton(type: .recenter) { _ in
       FrameworkHelper.switchMyPositionMode()
+      Alohalytics.logEvent(kStatCarplayRecenter)
     }
     mapTemplate.leadingNavigationBarButtons = [recenterButton]
   }

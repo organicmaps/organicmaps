@@ -28,9 +28,11 @@ final class ListTemplateBuilder {
       let searchButton = buildBarButton(type: .search) { _ in
         if CarPlayService.shared.isKeyboardLimited {
           CarPlayService.shared.showKeyboardAlert()
+          Alohalytics.logEvent(kStatCarplayKeyboardError)
         } else {
           let searchTemplate = SearchTemplateBuilder.buildSearchTemplate()
           CarPlayService.shared.pushTemplate(searchTemplate, animated: true)
+          Alohalytics.logEvent(kStatCarplayKeyboardActivated)
         }
       }
       trailingNavigationBarButtons = [searchButton, bookmarksButton]
@@ -85,6 +87,7 @@ final class ListTemplateBuilder {
     })
     let section = CPListSection(items: items)
     template.updateSections([section])
+    Alohalytics.logEvent(kStatCarplayBookmarksOpened, with: [kStatCount: items.count])
   }
   
   private class func obtainBookmarks(template: CPListTemplate, categoryId: MWMMarkGroupID) {
@@ -99,6 +102,7 @@ final class ListTemplateBuilder {
     })
     let section = CPListSection(items: items)
     template.updateSections([section])
+    Alohalytics.logEvent(kStatCarplayBookmarksListOpened, with: [kStatCount: items.count])
   }
   
   private class func convertSearchResults(_ results: [MWMCarPlaySearchResultObject], template: CPListTemplate) {
