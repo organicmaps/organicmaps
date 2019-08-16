@@ -23,6 +23,7 @@ import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -509,6 +510,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Statistics.INSTANCE.trackConnectionState();
 
     mSearchController = new FloatingSearchToolbarController(this, this);
+    mSearchController.getToolbar().getViewTreeObserver().addOnGlobalLayoutListener(new ToolbarLayoutChangeListener());
     mSearchController.setVisibilityListener(this);
 
     SharingHelper.INSTANCE.initialize();
@@ -2632,6 +2634,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
     void onPostStatisticMenuItemClick()
     {
       getActivity().startLocationToPoint(null, false);
+    }
+  }
+
+  private class ToolbarLayoutChangeListener implements ViewTreeObserver.OnGlobalLayoutListener
+  {
+    @Override
+    public void onGlobalLayout()
+    {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+        mSearchController.getToolbar().getViewTreeObserver()
+                         .removeOnGlobalLayoutListener(this);
+      else
+        mSearchController.getToolbar().getViewTreeObserver()
+                         .removeGlobalOnLayoutListener(this);
+
+
+      adjustCompassAndTraffic(UiUtils.isVisible(mSearchController.getToolbar())
+                              ? calcFloatingViewsOffset()
+                              : UiUtils.getStatusBarHeight(getApplicationContext()));
     }
   }
 }
