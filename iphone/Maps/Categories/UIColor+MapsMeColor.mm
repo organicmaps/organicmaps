@@ -407,4 +407,13 @@ UIColor * color(SEL cmd)
   return [UIColor colorWithRed:scaled(174) green:scaled(184) blue:scaled(190) alpha:alpha100];
 }
 
++ (UIColor *)subscriptionCellBackground {
+  return [UIColor colorWithRed:scaled(208) green:scaled(246) blue:scaled(255) alpha:alpha100];
+}
+
++ (UIColor *)subscriptionCellTitle {
+  return [UIColor colorWithRed:scaled(14) green:scaled(101) blue:scaled(188) alpha:alpha100];
+}
+
+
 @end

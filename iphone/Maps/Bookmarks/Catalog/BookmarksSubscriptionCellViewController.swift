@@ -23,10 +23,10 @@ class BookmarksSubscriptionCellViewController: UIViewController {
   func setSelected(_ selected: Bool, animated: Bool = false) {
     isSelected = selected
     let setSelectedClosure = { [unowned self] in
-      self.titleLabel.textColor = selected ? .linkBlue() : .blackPrimaryText()
+      self.titleLabel.textColor = selected ? .subscriptionCellTitle() : .blackSecondaryText()
       self.subtitleLabel.textColor = selected ? .linkBlue() : .blackSecondaryText()
-      self.priceLabel.textColor = selected ? .linkBlue() : .blackPrimaryText()
-      self.contentView.backgroundColor = selected ? .linkBlueHighlighted() : .clear
+      self.priceLabel.textColor = selected ? .subscriptionCellTitle() : .blackSecondaryText()
+      self.contentView.backgroundColor = selected ? .subscriptionCellBackground() : .clear
       self.containerView.backgroundColor = selected ? .white() : .clear
     }
 

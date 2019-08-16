@@ -56,6 +56,8 @@
 + (UIColor *)shadowColorBlue;
 + (UIColor *)shadowColorPurple;
 + (UIColor *)subscriptionCellBorder;
++ (UIColor *)subscriptionCellBackground;
++ (UIColor *)subscriptionCellTitle;
 
 + (UIColor *)colorWithName:(NSString *)colorName;
 + (UIColor *)colorFromHexString:(NSString *)hexString;
