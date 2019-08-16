@@ -3875,7 +3875,7 @@
 
 "type.leisure.common" = "leisure-common";
 
-"type.leisure.dog_park" = "Platz für Hundesauflauf";
+"type.leisure.dog_park" = "Hundeauslauffläche";
 
 "type.leisure.dog_park.tennis" = "Hundezone";
 
