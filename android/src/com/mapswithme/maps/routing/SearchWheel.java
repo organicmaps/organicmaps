@@ -8,6 +8,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.view.ContextThemeWrapper;
 import android.view.View;
@@ -52,27 +53,32 @@ class SearchWheel implements View.OnClickListener
 
   private enum SearchOption
   {
-    FUEL(R.id.search_fuel, R.drawable.ic_routing_fuel_off, R.drawable.ic_routing_fuel_on, "fuel"),
-    PARKING(R.id.search_parking, R.drawable.ic_routing_parking_off, R.drawable.ic_routing_parking_on, "parking"),
-    FOOD(R.id.search_food, R.drawable.ic_routing_food_off, R.drawable.ic_routing_food_on, "food"),
-    SHOP(R.id.search_shop, R.drawable.ic_routing_shop_off, R.drawable.ic_routing_shop_on, "shop"),
-    ATM(R.id.search_atm, R.drawable.ic_routing_atm_off, R.drawable.ic_routing_atm_on, "atm");
+    FUEL(R.id.search_fuel, R.drawable.ic_routing_fuel_off, R.drawable.ic_routing_fuel_on, R.string.fuel),
+    PARKING(R.id.search_parking, R.drawable.ic_routing_parking_off, R.drawable.ic_routing_parking_on, R.string.parking),
+    EAT(R.id.search_eat, R.drawable.ic_routing_eat_off, R.drawable.ic_routing_eat_on, R.string.eat),
+    FOOD(R.id.search_food, R.drawable.ic_routing_food_off, R.drawable.ic_routing_food_on, R.string.food),
+    ATM(R.id.search_atm, R.drawable.ic_routing_atm_off, R.drawable.ic_routing_atm_on, R.string.atm);
 
+    @IdRes
     private int mResId;
+    @DrawableRes
     private int mDrawableOff;
+    @DrawableRes
     private int mDrawableOn;
-    private String mSearchQuery;
+    @StringRes
+    private int mQueryId;
 
-    SearchOption(@IdRes int resId, @DrawableRes int drawableOff, @DrawableRes int drawableOn, String searchQuery)
+    SearchOption(@IdRes int resId, @DrawableRes int drawableOff, @DrawableRes int drawableOn,
+                 @StringRes int queryId)
     {
       this.mResId = resId;
       this.mDrawableOff = drawableOff;
       this.mDrawableOn = drawableOn;
-      this.mSearchQuery = searchQuery;
+      this.mQueryId = queryId;
     }
 
     @NonNull
-    public static SearchOption FromResId(@IdRes int resId)
+    public static SearchOption fromResId(@IdRes int resId)
     {
       for (SearchOption searchOption : SearchOption.values())
       {
@@ -83,12 +89,13 @@ class SearchWheel implements View.OnClickListener
     }
 
     @Nullable
-    public static SearchOption FromSearchQuery(@NonNull String query)
+    public static SearchOption fromSearchQuery(@NonNull String query, @NonNull Context context)
     {
       final String normalizedQuery = query.trim().toLowerCase();
       for (SearchOption searchOption : SearchOption.values())
       {
-        if (searchOption.mSearchQuery.equals(normalizedQuery))
+        final String searchOptionQuery = context.getString(searchOption.mQueryId).trim().toLowerCase();
+        if (searchOptionQuery.equals(normalizedQuery))
           return searchOption;
       }
       return null;
@@ -154,7 +161,7 @@ class SearchWheel implements View.OnClickListener
       return;
     }
 
-    mCurrentOption = SearchOption.FromSearchQuery(query);
+    mCurrentOption = SearchOption.fromSearchQuery(query, mFrame.getContext());
     refreshSearchButtonImage();
   }
 
@@ -263,10 +270,10 @@ class SearchWheel implements View.OnClickListener
       break;
     case R.id.search_fuel:
     case R.id.search_parking:
+    case R.id.search_eat:
     case R.id.search_food:
-    case R.id.search_shop:
     case R.id.search_atm:
-      startSearch(SearchOption.FromResId(v.getId()));
+      startSearch(SearchOption.fromResId(v.getId()));
     }
   }
 
@@ -288,7 +295,8 @@ class SearchWheel implements View.OnClickListener
   private void startSearch(SearchOption searchOption)
   {
     mCurrentOption = searchOption;
-    SearchEngine.INSTANCE.searchInteractive(searchOption.mSearchQuery, System.nanoTime(), false /* isMapAndTable */,
+    final String query = mFrame.getContext().getString(searchOption.mQueryId);
+    SearchEngine.INSTANCE.searchInteractive(query, System.nanoTime(), false /* isMapAndTable */,
                                    null /* hotelsFilter */, null /* bookingParams */);
     refreshSearchButtonImage();
 

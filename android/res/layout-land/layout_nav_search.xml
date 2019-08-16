@@ -41,14 +41,14 @@
       android:src="@drawable/ic_routing_parking_on"/>
 
     <ImageView
+      android:id="@+id/search_eat"
+      style="@style/MwmWidget.SearchNavigationButton"
+      android:src="@drawable/ic_routing_eat_on"/>
+
+    <ImageView
       android:id="@+id/search_food"
       style="@style/MwmWidget.SearchNavigationButton"
       android:src="@drawable/ic_routing_food_on"/>
-
-    <ImageView
-      android:id="@+id/search_shop"
-      style="@style/MwmWidget.SearchNavigationButton"
-      android:src="@drawable/ic_routing_shop_on"/>
 
     <ImageView
       android:id="@+id/search_atm"

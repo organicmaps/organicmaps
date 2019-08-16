@@ -67,23 +67,23 @@
       android:src="@drawable/ic_routing_parking_on"/>
 
     <ImageView
-      android:id="@+id/search_food"
+      android:id="@+id/search_eat"
       style="@style/MwmWidget.SearchNavigationButton"
       android:layout_alignParentEnd="true"
       android:layout_alignParentRight="true"
       android:layout_marginEnd="@dimen/margin_half_plus"
       android:layout_marginRight="@dimen/margin_half_plus"
       android:layout_centerVertical="true"
-      android:src="@drawable/ic_routing_food_on"/>
+      android:src="@drawable/ic_routing_eat_on"/>
 
     <ImageView
-      android:id="@+id/search_shop"
+      android:id="@+id/search_food"
       style="@style/MwmWidget.SearchNavigationButton"
       android:layout_alignParentBottom="true"
       android:layout_marginBottom="@dimen/margin_double"
       android:layout_toEndOf="@id/search_fuel"
       android:layout_toRightOf="@id/search_fuel"
-      android:src="@drawable/ic_routing_shop_on"/>
+      android:src="@drawable/ic_routing_food_on"/>
 
     <ImageView
       android:id="@+id/search_atm"
