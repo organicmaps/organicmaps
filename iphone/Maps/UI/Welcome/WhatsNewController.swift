@@ -9,9 +9,13 @@ final class WhatsNewController: WelcomeViewController {
   
   static var welcomeConfigs: [WelcomeConfig] {
   return [
-    WhatsNewConfig(image: UIImage(named: "img_whats_new_toll")!,
-                   title: "whatsnew_toll_unpaved_title",
-                   text: "whatsnew_toll_unpaved_message",
+    WhatsNewConfig(image: UIImage(named: "img_whatsnew_carplay")!,
+                   title: "whatsnew_carplay_title",
+                   text: "whatsnew_carplay_message",
+                   buttonTitle: "whats_new_next_button"),
+    WhatsNewConfig(image: UIImage(named: "img_whatsnew_catalogsubs")!,
+                   title: "whatsnew_subscription_title",
+                   text: "whatsnew_subscription_message",
                    buttonTitle: "done")
     ]
   }
