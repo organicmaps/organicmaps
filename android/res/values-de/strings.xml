@@ -1962,7 +1962,7 @@
 	<string name="type.landuse.landfill">Müllhalde</string>
 	<string name="type.landuse.railway">Eisenbahnanlagen</string>
 	<string name="type.landuse.reservoir">Wasserfläche</string>
-	<string name="type.leisure.dog_park">Platz für Hundesauflauf</string>
+	<string name="type.leisure.dog_park">Hundeauslauffläche</string>
 	<string name="type.leisure.dog_park.tennis">Hundezone</string>
 	<string name="type.leisure.fitness_centre">Fitnessstudio</string>
 	<string name="type.leisure.fitness_station">Fitnessstation</string>
