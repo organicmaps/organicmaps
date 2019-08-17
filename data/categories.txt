@@ -2719,7 +2719,7 @@ en:3Dog area|Dog park
 ru:Место для выгула собак|Площадка для собак|4Собачья площадка
 cs:3Psí hřiště
 nl:4Hondenpark|Hondengebied
-de:4Hundezone|Hundeauslaufzone
+de:4Hundezone|Hundeauslaufzone|Hundeauslauffläche
 fi:Koirapuisto
 he:גינת כלבים
 ja:ドッグラン
