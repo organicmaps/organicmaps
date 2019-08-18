@@ -45,7 +45,9 @@ import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.util.SortedMap;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListAdapter>
     implements RecyclerLongClickListener,
@@ -65,7 +67,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   private CategoryDataSource mCategoryDataSource;
   private int mSelectedPosition;
 
-  private long[] mSearchResults;
+  private List<Long> mSearchResults;
   private long[] mSortResults;
 
   private boolean mSearchMode = false;
@@ -144,6 +146,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     super.onStart();
     Crashlytics.log("onStart");
+    SearchEngine.INSTANCE.addBookmarkListener(this);
     BookmarkManager.INSTANCE.addSharingListener(this);
     BookmarkManager.INSTANCE.addCatalogListener(mCatalogListener);
   }
@@ -170,6 +173,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     super.onStop();
     Crashlytics.log("onStop");
+    SearchEngine.INSTANCE.removeBookmarkListener(this);
     BookmarkManager.INSTANCE.removeSharingListener(this);
     BookmarkManager.INSTANCE.removeCatalogListener(mCatalogListener);
   }
@@ -275,12 +279,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     getActivity().invalidateOptionsMenu();
   }
 
-  public void runSearch()
+  public void runSearch(@NonNull String query)
   {
     SearchEngine.INSTANCE.cancel();
 
     mLastQueryTimestamp = System.nanoTime();
-    if (SearchEngine.INSTANCE.searchInBookmarks(mToolbarController.getQuery(),
+    if (SearchEngine.INSTANCE.searchInBookmarks(query,
                                                 mCategoryDataSource.getData().getId(),
                                                 mLastQueryTimestamp))
     {
@@ -307,13 +311,24 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
   private void updateSearchResults(@Nullable long[] bookmarkIds)
   {
-    mSearchResults = bookmarkIds;
+    ArrayList<Long> ids = new ArrayList<Long>(bookmarkIds.length);
+    for (long id : bookmarkIds)
+      ids.add(id);
+
+    mSearchResults = ids;
+
+    BookmarkListAdapter adapter = getAdapter();
+    adapter.setSearchResults(mSearchResults);
+    adapter.notifyDataSetChanged();
   }
 
   public void cancelSearch()
   {
     SearchEngine.INSTANCE.cancel();
     mToolbarController.showProgress(false);
+    BookmarkListAdapter adapter = getAdapter();
+    adapter.setSearchResults(null);
+    adapter.notifyDataSetChanged();
   }
 
   public void activateSearch()
