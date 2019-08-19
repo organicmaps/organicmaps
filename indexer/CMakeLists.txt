@@ -90,6 +90,7 @@ set(
   index_builder.hpp
   interval_index.hpp
   interval_index_builder.hpp
+  locality_index.cpp
   locality_index.hpp
   locality_index_builder.cpp
   locality_index_builder.hpp

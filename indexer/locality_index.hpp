@@ -175,4 +175,7 @@ typename IndexBox::IndexType ReadIndex(std::string const & pathIndx)
   typename IndexBox::IndexType index(subReader);
   return index;
 }
+
+std::string ReadGeneratorDataVersionFromIndex(std::string const & filename);
+
 }  // namespace indexer

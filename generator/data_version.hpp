@@ -12,7 +12,7 @@ namespace generator
 class DataVersion
 {
 public:
-  static constexpr const char * kFileTag = INDEX_DATA_VERSION_FILE_TAG;
+  static constexpr const char * kFileTag = INDEX_GENERATOR_DATA_VERSION_FILE_TAG;
 
   explicit DataVersion(std::string const & planetFilePath);
   std::string GetVersionJson() const;
