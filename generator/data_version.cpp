@@ -22,12 +22,12 @@ DataVersion::DataVersion(std::string const & planetFilePath)
   size_t planetTimestamp = 0;
 
   struct stat path_stat{};
-  if (::stat(planetFilePath.c_str(), &path_stat) != 0)
+  if (::stat(planetFilePath.c_str(), &path_stat) == 0)
     planetTimestamp = base::TimeTToSecondsSinceEpoch(path_stat.st_mtime);
 
   m_json.reset(json_object());
 
-  ToJSONObject(*m_json, "time_started",
+  ToJSONObject(*m_json, "time_generation_started",
                base::TimeTToSecondsSinceEpoch(
                    std::chrono::system_clock::to_time_t(std::chrono::system_clock::now())));
   ToJSONObject(*m_json, "generator_build_time", omim::build_version::git::kTimestamp);
