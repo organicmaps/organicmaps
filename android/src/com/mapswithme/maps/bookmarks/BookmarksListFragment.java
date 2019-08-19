@@ -26,6 +26,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.maps.bookmarks.data.CategoryDataSource;
+import com.mapswithme.maps.bookmarks.data.SortedBlock;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.intent.Factory;
 import com.mapswithme.maps.search.NativeBookmarkSearchListener;
@@ -54,6 +55,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
                RecyclerClickListener,
                MenuItem.OnMenuItemClickListener,
                BookmarkManager.BookmarksSharingListener,
+               BookmarkManager.BookmarksSortingListener,
                NativeBookmarkSearchListener
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
@@ -61,6 +63,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
   private BookmarksToolbarController mToolbarController;
   private long mLastQueryTimestamp;
+  private long mLastSortTimestamp;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -68,7 +71,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   private int mSelectedPosition;
 
   private List<Long> mSearchResults;
-  private long[] mSortResults;
+  private List<SortedBlock> mSortResults;
 
   private boolean mSearchMode = false;
   private boolean mSortMode = false;
@@ -147,6 +150,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     super.onStart();
     Crashlytics.log("onStart");
     SearchEngine.INSTANCE.addBookmarkListener(this);
+    BookmarkManager.INSTANCE.addSortingListener(this);
     BookmarkManager.INSTANCE.addSharingListener(this);
     BookmarkManager.INSTANCE.addCatalogListener(mCatalogListener);
   }
@@ -174,6 +178,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     super.onStop();
     Crashlytics.log("onStop");
     SearchEngine.INSTANCE.removeBookmarkListener(this);
+    BookmarkManager.INSTANCE.removeSortingListener(this);
     BookmarkManager.INSTANCE.removeSharingListener(this);
     BookmarkManager.INSTANCE.removeCatalogListener(mCatalogListener);
   }
@@ -326,8 +331,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     SearchEngine.INSTANCE.cancel();
     mToolbarController.showProgress(false);
+    mSearchResults = null;
     BookmarkListAdapter adapter = getAdapter();
-    adapter.setSearchResults(null);
+    adapter.setSearchResults(mSearchResults);
     adapter.notifyDataSetChanged();
   }
 
@@ -351,6 +357,32 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   }
 
   @Override
+  public void onBookmarksSortingCompleted(SortedBlock[] sortedBlocks, long timestamp)
+  {
+    if (mLastSortTimestamp != timestamp)
+      return;
+
+    mSortResults = Arrays.asList(sortedBlocks);
+
+    BookmarkListAdapter adapter = getAdapter();
+    adapter.setSortedResults(mSortResults);
+    adapter.notifyDataSetChanged();
+  }
+
+  @Override
+  public void onBookmarksSortingCancelled(long timestamp)
+  {
+    if (mLastSortTimestamp != timestamp)
+      return;
+
+    mSortResults = null;
+
+    BookmarkListAdapter adapter = getAdapter();
+    adapter.setSortedResults(mSortResults);
+    adapter.notifyDataSetChanged();
+  }
+
+  @Override
   public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
   {
     SharingHelper.INSTANCE.onPreparedFileForSharing(getActivity(), result);
@@ -359,6 +391,28 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   @Override
   public boolean onMenuItemClick(MenuItem menuItem)
   {
+    switch (menuItem.getItemId())
+    {
+      case R.id.sort:
+        mLastSortTimestamp = System.nanoTime();
+        BookmarkManager.INSTANCE.getSortedBookmarks(
+            getCategoryOrThrow().getId(), BookmarkManager.SORT_BY_TYPE,
+            false, 0, 0, mLastSortTimestamp);
+        return false;
+      case R.id.sharing_options:
+        return false;
+      case R.id.share_category:
+        return false;
+      case R.id.settings:
+        Intent intent = new Intent(getContext(), UgcRouteEditSettingsActivity.class).putExtra(
+            BaseUgcRouteActivity.EXTRA_BOOKMARK_CATEGORY,
+            getCategoryOrThrow());
+        startActivityForResult(intent, UgcRouteEditSettingsActivity.REQUEST_CODE);
+        return false;
+      case R.id.delete_category:
+        return false;
+    }
+
     BookmarkListAdapter adapter = getAdapter();
 
     Bookmark item = (Bookmark) adapter.getItem(mSelectedPosition);
@@ -378,13 +432,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
       case R.id.delete:
         BookmarkManager.INSTANCE.deleteBookmark(item.getBookmarkId());
         adapter.notifyDataSetChanged();
-        break;
-
-      case R.id.settings:
-        Intent intent = new Intent(getContext(), UgcRouteEditSettingsActivity.class).putExtra(
-                                       BaseUgcRouteActivity.EXTRA_BOOKMARK_CATEGORY,
-                                       getCategoryOrThrow());
-        startActivityForResult(intent, UgcRouteEditSettingsActivity.REQUEST_CODE);
         break;
     }
     return false;

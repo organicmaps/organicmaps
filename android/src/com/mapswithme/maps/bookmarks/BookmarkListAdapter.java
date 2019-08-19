@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.SortedBlock;
 import com.mapswithme.maps.content.DataSource;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
@@ -25,6 +26,21 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   static final int TYPE_BOOKMARK = 1;
   static final int TYPE_SECTION = 2;
   static final int TYPE_DESC = 3;
+
+  @NonNull
+  private final DataSource<BookmarkCategory> mDataSource;
+  @Nullable
+  private List<Long> mSearchResults;
+  @Nullable
+  private List<SortedBlock> mSortedResults;
+
+  @NonNull
+  private SectionsDataSource mSectionsDataSource;
+
+  @Nullable
+  private RecyclerLongClickListener mLongClickListener;
+  @Nullable
+  private RecyclerClickListener mClickListener;
 
   public static class SectionPosition
   {
@@ -48,14 +64,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     {
       return sectionIndex != INVALID_POSITION && itemIndex != INVALID_POSITION;
     }
-  }
-
-  public static class SortedBlock
-  {
-    @NonNull
-    public String title;
-    public List<Long> bookmarkIds;
-    public List<Long> trackIds;
   }
 
   public abstract class SectionsDataSource
@@ -289,23 +297,23 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     @Nullable
     public String getTitle(int sectionIndex, Resources rs)
     {
-      return mSortedBlocks.get(sectionIndex).title;
+      return mSortedBlocks.get(sectionIndex).getName();
     }
 
     @Override
     public int getItemsCount(int sectionIndex)
     {
       SortedBlock block = mSortedBlocks.get(sectionIndex);
-      if (block.bookmarkIds.size() > 0)
-        return block.bookmarkIds.size();
-      return block.trackIds.size();
+      if (block.isBookmarksBlock())
+        return block.getBookmarkIds().size();
+      return block.getTrackIds().size();
     }
 
     @Override
     public int getItemsType(int sectionIndex)
     {
       SortedBlock block = mSortedBlocks.get(sectionIndex);
-      if (block.bookmarkIds.size() > 0)
+      if (block.isBookmarksBlock())
         return TYPE_BOOKMARK;
       return TYPE_TRACK;
     }
@@ -314,44 +322,29 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     public void onDelete(SectionPosition pos)
     {
       SortedBlock block = mSortedBlocks.get(pos.sectionIndex);
-      if (block.bookmarkIds.size() > 0)
+      if (block.isBookmarksBlock())
       {
-        block.bookmarkIds.remove(pos.itemIndex);
-        if (block.bookmarkIds.isEmpty())
+        block.getBookmarkIds().remove(pos.itemIndex);
+        if (block.getBookmarkIds().isEmpty())
           mSortedBlocks.remove(pos.sectionIndex);
         return;
       }
 
-      block.trackIds.remove(pos.itemIndex);
-      if (block.trackIds.isEmpty())
+      block.getTrackIds().remove(pos.itemIndex);
+      if (block.getTrackIds().isEmpty())
         mSortedBlocks.remove(pos.sectionIndex);
     }
 
     public long getBookmarkId(SectionPosition pos)
     {
-      return mSortedBlocks.get(pos.sectionIndex).bookmarkIds.get(pos.itemIndex);
+      return mSortedBlocks.get(pos.sectionIndex).getBookmarkIds().get(pos.itemIndex);
     }
 
     public long getTrackId(SectionPosition pos)
     {
-      return mSortedBlocks.get(pos.sectionIndex).trackIds.get(pos.itemIndex);
+      return mSortedBlocks.get(pos.sectionIndex).getTrackIds().get(pos.itemIndex);
     }
   }
-
-  @NonNull
-  private final DataSource<BookmarkCategory> mDataSource;
-  @Nullable
-  private List<Long> mSearchResults;
-  @Nullable
-  private List<SortedBlock> mSortedResults;
-
-  @NonNull
-  private SectionsDataSource mSectionsDataSource;
-
-  @Nullable
-  private RecyclerLongClickListener mLongClickListener;
-  @Nullable
-  private RecyclerClickListener mClickListener;
 
   BookmarkListAdapter(@NonNull DataSource<BookmarkCategory> dataSource)
   {

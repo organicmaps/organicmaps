@@ -201,7 +201,7 @@ public:
   {
     ByType,
     ByDistance,
-    ByTime,
+    ByTime
   };
 
   struct SortedBlock

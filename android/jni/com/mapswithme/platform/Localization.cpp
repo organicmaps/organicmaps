@@ -46,6 +46,7 @@ std::string GetLocalizedBrandName(std::string const & brand)
 
 std::string GetLocalizedString(std::string const & key)
 {
+  return key;
   static auto const methodId = GetMethodId("getStringValueByKey");
   return GetLocalizedStringByUtil(methodId, key);
 }

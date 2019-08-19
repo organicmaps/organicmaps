@@ -50,10 +50,21 @@ public enum BookmarkManager
   public static final int CLOUD_NO_BACKUP = 1;
   public static final int CLOUD_NOT_ENOUGH_DISK_SPACE = 2;
 
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ SORT_BY_TYPE, SORT_BY_DISTANCE, SORT_BY_TIME })
+  public @interface SortingType {}
+
+  public static final int SORT_BY_TYPE = 0;
+  public static final int SORT_BY_DISTANCE = 1;
+  public static final int SORT_BY_TIME = 2;
+
   public static final List<Icon> ICONS = new ArrayList<>();
 
   @NonNull
   private final List<BookmarksLoadingListener> mListeners = new ArrayList<>();
+
+  @NonNull
+  private final List<BookmarksSortingListener> mSortingListeners = new ArrayList<>();
 
   @NonNull
   private final List<KmlConversionListener> mConversionListeners = new ArrayList<>();
@@ -119,6 +130,16 @@ public enum BookmarkManager
   public void removeLoadingListener(@NonNull BookmarksLoadingListener listener)
   {
     mListeners.remove(listener);
+  }
+
+  public void addSortingListener(@NonNull BookmarksSortingListener listener)
+  {
+    mSortingListeners.add(listener);
+  }
+
+  public void removeSortingListener(@NonNull BookmarksSortingListener listener)
+  {
+    mSortingListeners.remove(listener);
   }
 
   public void addKmlConversionListener(@NonNull KmlConversionListener listener)
@@ -197,6 +218,24 @@ public enum BookmarkManager
   {
     for (BookmarksLoadingListener listener : mListeners)
       listener.onBookmarksLoadingFinished();
+  }
+
+  // Called from JNI.
+  @SuppressWarnings("unused")
+  @MainThread
+  public void onBookmarksSortingCompleted(@NonNull SortedBlock[] sortedBlocks, long timestamp)
+  {
+    for (BookmarksSortingListener listener : mSortingListeners)
+      listener.onBookmarksSortingCompleted(sortedBlocks, timestamp);
+  }
+
+  // Called from JNI.
+  @SuppressWarnings("unused")
+  @MainThread
+  public void onBookmarksSortingCancelled(long timestamp)
+  {
+    for (BookmarksSortingListener listener : mSortingListeners)
+      listener.onBookmarksSortingCancelled(timestamp);
   }
 
   // Called from JNI.
@@ -713,6 +752,32 @@ public enum BookmarkManager
     return nativeIsCategoryFromCatalog(catId);
   }
 
+  public boolean hasLastSortingType(long catId) { return nativeHasLastSortingType(catId); }
+
+  @SortingType
+  public int getLastSortingType(long catId) { return nativeGetLastSortingType(catId); }
+
+  public void setLastSortingType(long catId, @SortingType int sortingType)
+  {
+    nativeSetLastSortingType(catId, sortingType);
+  }
+
+  public void resetLastSortingType(long catId) { nativeResetLastSortingType(catId); }
+
+  @NonNull
+  @SortingType
+  public int[] getAvailableSortingTypes(long catId, boolean hasMyPosition)
+  {
+    return nativeGetAvailableSortingTypes(catId, hasMyPosition);
+  }
+
+  public void getSortedBookmarks(long catId, @SortingType int sortingType,
+                                 boolean hasMyPosition, double lat, double lon,
+                                 long timestamp)
+  {
+    nativeGetSortedBookmarks(catId, sortingType, hasMyPosition, lat, lon, timestamp);
+  }
+
   @NonNull
   private String getCategoryAuthor(long catId)
   {
@@ -856,11 +921,34 @@ public enum BookmarkManager
   private static native void nativeDeleteInvalidCategories();
   private static native void nativeResetInvalidCategories();
 
+  private native boolean nativeHasLastSortingType(long catId);
+
+  @SortingType
+  private native int nativeGetLastSortingType(long catId);
+
+  private native void nativeSetLastSortingType(long catId, @SortingType int sortingType);
+
+  private native void nativeResetLastSortingType(long catId);
+
+  @NonNull
+  @SortingType
+  private native int[] nativeGetAvailableSortingTypes(long catId, boolean hasMyPosition);
+
+  private native boolean nativeGetSortedBookmarks(long catId, @SortingType int sortingType,
+                                           boolean hasMyPosition, double lat, double lon,
+                                           long timestamp);
+
   public interface BookmarksLoadingListener
   {
     void onBookmarksLoadingStarted();
     void onBookmarksLoadingFinished();
     void onBookmarksFileLoaded(boolean success);
+  }
+
+  public interface BookmarksSortingListener
+  {
+    void onBookmarksSortingCompleted(SortedBlock[] sortedBlocks, long timestamp);
+    void onBookmarksSortingCancelled(long timestamp);
   }
 
   public interface KmlConversionListener
