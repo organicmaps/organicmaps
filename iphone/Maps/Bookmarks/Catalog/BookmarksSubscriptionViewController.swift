@@ -56,20 +56,25 @@ class BookmarksSubscriptionViewController: MWMViewController {
 
     annualViewController.config(title: L("annual_subscription_title"),
                                 subtitle: L("annual_subscription_message"),
-                                price: "",
-                                image: UIImage(named: "bookmarksSubscriptionYear")!)
+                                price: "...",
+                                image: UIImage(named: "bookmarksSubscriptionYear")!,
+                                discount: "...")
     monthlyViewController.config(title: L("montly_subscription_title"),
                                 subtitle: L("montly_subscription_message"),
-                                price: "",
+                                price: "...",
                                 image: UIImage(named: "bookmarksSubscriptionMonth")!)
     annualViewController.setSelected(true, animated: false)
     continueButton.setTitle(L("current_location_unknown_continue_button").uppercased(), for: .normal)
+    continueButton.isEnabled = false
+    scrollView.isUserInteractionEnabled = false
 
     Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: MWMPurchaseManager.bookmarksSubscriptionVendorId(),
                                                          kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId()])
     InAppPurchase.bookmarksSubscriptionManager.getAvailableSubscriptions { [weak self] (subscriptions, error) in
       guard let subscriptions = subscriptions, subscriptions.count == 2 else {
-        // TODO: hande error
+        MWMAlertViewController.activeAlert().presentInfoAlert(L("price_error_title"),
+                                                              text: L("price_error_subtitle"))
+        self?.onCancel?()
         return
       }
 
@@ -97,6 +102,8 @@ class BookmarksSubscriptionViewController: MWMViewController {
                                         price: formatter.string(from: annualPrice) ?? "",
                                         image: UIImage(named: "bookmarksSubscriptionYear")!,
                                         discount: "- \(discount.rounding(accordingToBehavior: nil).intValue) %")
+      self?.continueButton.isEnabled = true
+      self?.scrollView.isUserInteractionEnabled = true
     }
   }
 
