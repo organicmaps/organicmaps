@@ -380,13 +380,13 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     return new SectionPosition(SectionPosition.INVALID_POSITION, SectionPosition.INVALID_POSITION);
   }
 
-  public void setSearchResults(List<Long> searchResults)
+  public void setSearchResults(@Nullable List<Long> searchResults)
   {
     mSearchResults = searchResults;
     refreshSections();
   }
 
-  public void setSortedResults(List<SortedBlock> sortedResults)
+  public void setSortedResults(@Nullable List<SortedBlock> sortedResults)
   {
     mSortedResults = sortedResults;
     refreshSections();

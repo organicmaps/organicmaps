@@ -56,7 +56,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
                MenuItem.OnMenuItemClickListener,
                BookmarkManager.BookmarksSharingListener,
                BookmarkManager.BookmarksSortingListener,
-               NativeBookmarkSearchListener
+               NativeBookmarkSearchListener,
+               ChooseBookmarksSortingTypeFragment.ChooseSortingTypeListener
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
   public static final String EXTRA_CATEGORY = "bookmark_category";
@@ -388,16 +389,42 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     SharingHelper.INSTANCE.onPreparedFileForSharing(getActivity(), result);
   }
 
+  public void onResetSorting()
+  {
+    mLastSortTimestamp = 0;
+    long catId = getCategoryOrThrow().getId();
+    BookmarkManager.INSTANCE.resetLastSortingType(catId);
+
+    BookmarkListAdapter adapter = getAdapter();
+    adapter.setSortedResults(null);
+    adapter.notifyDataSetChanged();
+  }
+
+  public void onSort(@BookmarkManager.SortingType int sortingType)
+  {
+    mLastSortTimestamp = System.nanoTime();
+    long catId = getCategoryOrThrow().getId();
+    BookmarkManager.INSTANCE.setLastSortingType(catId, sortingType);
+    BookmarkManager.INSTANCE.getSortedBookmarks(catId, sortingType,
+        false, 0, 0, mLastSortTimestamp);
+  }
+
   @Override
   public boolean onMenuItemClick(MenuItem menuItem)
   {
     switch (menuItem.getItemId())
     {
       case R.id.sort:
-        mLastSortTimestamp = System.nanoTime();
-        BookmarkManager.INSTANCE.getSortedBookmarks(
-            getCategoryOrThrow().getId(), BookmarkManager.SORT_BY_TYPE,
-            false, 0, 0, mLastSortTimestamp);
+        long catId = getCategoryOrThrow().getId();
+        @BookmarkManager.SortingType int[] types =
+            BookmarkManager.INSTANCE.getAvailableSortingTypes(catId, false);
+        int currentType = -1;
+        if (BookmarkManager.INSTANCE.hasLastSortingType(catId))
+          currentType = (int)BookmarkManager.INSTANCE.getLastSortingType(catId);
+
+        ChooseBookmarksSortingTypeFragment.chooseSortingType(types, currentType, this,
+                                                             getActivity(),
+                                                             getChildFragmentManager());
         return false;
       case R.id.sharing_options:
         return false;
@@ -452,7 +479,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   public void onPrepareOptionsMenu(Menu menu)
   {
     super.onPrepareOptionsMenu(menu);
-    //menu.setGroupVisible(0, false);
     final boolean visible = !isSearchMode();
     MenuItem itemSearch = menu.findItem(R.id.bookmarks_search);
     itemSearch.setVisible(visible);

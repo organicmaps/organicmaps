@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_margin="@dimen/margin_double_and_half"
+  android:padding="@dimen/margin_base_plus"
+  android:minWidth="@dimen/dialog_min_width"
+  android:minHeight="@dimen/dialog_min_height">
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/margin_quarter"
+    android:textAppearance="@android:style/TextAppearance.DialogWindowTitle"
+    android:fontFamily="@string/robotoMedium"
+    android:text="Sort_bookmarks"/>
+
+  <RadioGroup
+    android:id="@+id/sorting_types"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_base">
+
+    <RadioButton
+      android:id="@+id/sort_by_default"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="@android:style/TextAppearance.Theme"
+      android:padding="@dimen/margin_half_plus"
+      android:checked="true"
+      android:text="by_default"/>
+
+    <RadioButton
+      android:id="@+id/sort_by_type"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="@android:style/TextAppearance.Theme"
+      android:padding="@dimen/margin_half_plus"
+      android:checked="false"
+      android:text="by_type"
+      tools:visibility="gone"/>
+
+    <RadioButton
+      android:id="@+id/sort_by_distance"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="@android:style/TextAppearance.Theme"
+      android:padding="@dimen/margin_half_plus"
+      android:checked="false"
+      android:text="by_distance"
+      tools:visibility="gone"/>
+
+    <RadioButton
+      android:id="@+id/sort_by_time"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="@android:style/TextAppearance.Theme"
+      android:padding="@dimen/margin_half_plus"
+      android:checked="false"
+      android:text="by_time"
+      tools:visibility="gone"/>
+  </RadioGroup>
+</LinearLayout>
