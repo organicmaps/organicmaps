@@ -33,7 +33,7 @@ DataVersion::DataVersion(std::string const & planetFilePath)
   ToJSONObject(*m_json, "generator_build_time", omim::build_version::git::kTimestamp);
   ToJSONObject(*m_json, "generator_git_hash", omim::build_version::git::kHash);
   ToJSONObject(*m_json, "planet_md5", ReadWholeFile(planetFilePath + ".md5"));
-  ToJSONObject(*m_json, "planet_timestamp", ReadWholeFile(planetFilePath + ".timestamp"));
+  ToJSONObject(*m_json, "planet_last_changeset_timestamp", ReadWholeFile(planetFilePath + ".timestamp"));
   ToJSONObject(*m_json, "planet_file_timestamp", planetTimestamp);
 }
 
