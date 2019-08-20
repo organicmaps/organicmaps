@@ -4,7 +4,8 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/numbers"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content">
+  android:layout_height="wrap_content"
+  android:layout_marginBottom="@dimen/altitude_chart_time_distance_margin_bottom">
   <TextView
     android:id="@+id/altitude_difference"
     android:layout_width="wrap_content"
@@ -20,39 +21,15 @@
     tools:text="43 m"
     tools:targetApi="jelly_bean"
     tools:visibility="visible"/>
-  <LinearLayout
+  <TextView
+    android:id="@+id/time"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:singleLine="true"
+    android:ellipsize="middle"
     android:layout_alignParentStart="true"
     android:layout_alignParentLeft="true"
     android:orientation="horizontal"
     android:layout_toLeftOf="@id/altitude_difference"
-    android:layout_toStartOf="@id/altitude_difference">
-    <TextView
-      android:id="@+id/time"
-      android:layout_width="0dp"
-      android:layout_weight="1"
-      android:singleLine="true"
-      android:ellipsize="middle"
-      tools:text="33 min"
-      android:layout_height="wrap_content"/>
-    <TextView
-      style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
-      android:layout_marginLeft="6dp"
-      android:layout_width="0dp"
-      android:layout_weight="1"
-      android:layout_marginRight="6dp"
-      android:layout_marginTop="2dp"
-      android:visibility="gone"
-      android:text="•"
-      tools:ignore="HardcodedText"/>
-    <TextView
-      android:id="@+id/distance"
-      android:layout_width="0dp"
-      android:layout_weight="1"
-      android:visibility="gone"
-      style="@style/MwmWidget.TextView.PlanDetail.Number"
-      tools:text="1024 km"/>
-  </LinearLayout>
-
+    android:layout_toStartOf="@id/altitude_difference"
+    android:layout_height="wrap_content"/>
 </RelativeLayout>

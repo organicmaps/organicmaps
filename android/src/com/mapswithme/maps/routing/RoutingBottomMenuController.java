@@ -370,7 +370,14 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
     Spanned spanned = makeSpannedRoutingDetails(mContext, rinfo);
     TextView numbersTime = (TextView) mNumbersFrame.findViewById(R.id.time);
-    numbersTime.setText(spanned, TextView.BufferType.SPANNABLE);
+    numbersTime.setText(spanned);
+
+    TextView numbersArrival = (TextView) mNumbersFrame.findViewById(R.id.arrival);
+    if (numbersArrival != null)
+    {
+      String arrivalTime = RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds);
+      numbersArrival.setText(arrivalTime);
+    }
   }
 
   @NonNull
@@ -388,11 +395,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     initDotBuilderSequence(context, dot, builder);
 
     String dist = routingInfo.distToTarget + " " + routingInfo.targetUnits;
-    dist = "asdasdasdasdasdasdasdasdasdadqweqweqweqweqweqweqweqweqweqwe";
-    initTailBuilderSequence(context, dist, builder, android.R.attr.textColorPrimary);
-
-    String arrivalTime = RoutingController.formatArrivalTime(routingInfo.totalTimeInSeconds);
-    initTailBuilderSequence(context, arrivalTime, builder.append(" "), R.attr.secondary);
+    initDistanceBuilderSequence(context, dist, builder);
 
     return builder;
   }
@@ -406,7 +409,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
                     0,
                     builder.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.setSpan(new AbsoluteSizeSpan(context.getResources().getDimensionPixelSize(R.dimen.text_size_routing_number)),
+    builder.setSpan(new AbsoluteSizeSpan(context.getResources()
+                                                .getDimensionPixelSize(R.dimen.text_size_routing_number)),
                     0,
                     builder.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -414,7 +418,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
                     0,
                     builder.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(context, android.R.attr.textColorPrimary)),
+    builder.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(context,
+                                                                android.R.attr.textColorPrimary)),
                     0,
                     builder.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -427,7 +432,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
                     builder.length() - dot.length(),
                     builder.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.setSpan(new AbsoluteSizeSpan(context.getResources().getDimensionPixelSize(R.dimen.text_size_routing_number)),
+    builder.setSpan(new AbsoluteSizeSpan(context.getResources()
+                                                .getDimensionPixelSize(R.dimen.text_size_routing_number)),
                     builder.length() - dot.length(),
                     builder.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -437,8 +443,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
   }
 
-  private static void initTailBuilderSequence(@NonNull Context context, @NonNull String arrivalTime,
-                                              @NonNull SpannableStringBuilder builder, int textColor)
+  private static void initDistanceBuilderSequence(@NonNull Context context, @NonNull String arrivalTime,
+                                                  @NonNull SpannableStringBuilder builder)
   {
     builder.append(arrivalTime);
     builder.setSpan(new TypefaceSpan(context.getResources().getString(R.string.robotoMedium)),
@@ -454,7 +460,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
                     builder.length() - arrivalTime.length(),
                     builder.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(context, textColor)),
+    builder.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(context, android.R.attr.textColorPrimary)),
                     builder.length() - arrivalTime.length(),
                     builder.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

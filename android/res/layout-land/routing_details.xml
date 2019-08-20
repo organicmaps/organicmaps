@@ -6,31 +6,13 @@
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="wrap_content">
-  <LinearLayout
+  <TextView
+    android:id="@+id/time"
+    android:singleLine="true"
+    android:ellipsize="middle"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <TextView
-      android:id="@+id/time"
-      android:singleLine="true"
-      android:ellipsize="middle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      tools:text="33 min"/>
-    <TextView
-      style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
-      android:layout_marginLeft="6dp"
-      android:layout_marginRight="6dp"
-      android:layout_marginTop="2dp"
-      android:visibility="gone"
-      android:text="•"
-      tools:ignore="HardcodedText"/>
-    <TextView
-      android:id="@+id/distance"
-      android:visibility="gone"
-      style="@style/MwmWidget.TextView.PlanDetail.Number"
-      tools:text="1024 km"/>
-  </LinearLayout>
+    tools:text="33 min"/>
   <TextView
     android:id="@+id/altitude_difference"
     android:layout_width="wrap_content"
