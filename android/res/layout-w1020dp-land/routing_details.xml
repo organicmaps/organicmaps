@@ -7,7 +7,10 @@
   android:layout_height="wrap_content">
   <TextView
     android:id="@+id/time"
-    style="@style/MwmWidget.TextView.PlanDetail.Number.Time"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:singleLine="true"
+    android:ellipsize="middle"
     android:layout_marginBottom="4dp"
     tools:text="33 min"/>
   <TextView
@@ -18,6 +21,7 @@
     android:layout_marginTop="2dp"
     android:layout_toRightOf="@id/time"
     android:layout_toEndOf="@id/time"
+    android:visibility="gone"
     android:text="•"
     tools:ignore="HardcodedText"/>
   <TextView
@@ -25,6 +29,7 @@
     style="@style/MwmWidget.TextView.PlanDetail.Number"
     android:layout_toEndOf="@id/dot"
     android:layout_toRightOf="@id/dot"
+    android:visibility="gone"
     tools:text="1024 km 324"/>
   <TextView
     android:id="@+id/arrival"
@@ -34,8 +39,8 @@
     android:layout_alignLeft="@id/time"
     android:layout_alignStart="@id/time"
     android:layout_marginBottom="10dp"
+    android:visibility="gone"
     tools:text="Arrival 13:03"
-    style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
     android:textSize="@dimen/text_size_routing_plan_detail_arrival"/>
   <TextView
     android:id="@+id/altitude_difference"

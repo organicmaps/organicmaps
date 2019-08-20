@@ -2,8 +2,10 @@ package com.mapswithme.maps.routing;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -14,7 +16,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
+import android.text.style.TypefaceSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -359,18 +368,96 @@ final class RoutingBottomMenuController implements View.OnClickListener
       return;
     }
 
+    Spanned spanned = makeSpannedRoutingDetails(mContext, rinfo);
     TextView numbersTime = (TextView) mNumbersFrame.findViewById(R.id.time);
-    TextView numbersDistance = (TextView) mNumbersFrame.findViewById(R.id.distance);
-    TextView numbersArrival = (TextView) mNumbersFrame.findViewById(R.id.arrival);
-    numbersTime.setText(RoutingController.formatRoutingTime(mContext, rinfo.totalTimeInSeconds,
-                                                            R.dimen.text_size_routing_number));
-    numbersDistance.setText(rinfo.distToTarget + " " + rinfo.targetUnits);
+    numbersTime.setText(spanned, TextView.BufferType.SPANNABLE);
+  }
 
-    if (numbersArrival != null)
-    {
-      String arrivalTime = RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds);
-      numbersArrival.setText(arrivalTime);
-    }
+  @NonNull
+  private static Spanned makeSpannedRoutingDetails(@NonNull Context context, @NonNull RoutingInfo routingInfo)
+
+  {
+    CharSequence time = RoutingController.formatRoutingTime(context,
+                                                            routingInfo.totalTimeInSeconds,
+                                                            R.dimen.text_size_routing_number);
+
+    SpannableStringBuilder builder = new SpannableStringBuilder();
+    initTimeBuilderSequence(context, time, builder);
+
+    String dot = " • ";
+    initDotBuilderSequence(context, dot, builder);
+
+    String dist = routingInfo.distToTarget + " " + routingInfo.targetUnits;
+    dist = "asdasdasdasdasdasdasdasdasdadqweqweqweqweqweqweqweqweqweqwe";
+    initTailBuilderSequence(context, dist, builder, android.R.attr.textColorPrimary);
+
+    String arrivalTime = RoutingController.formatArrivalTime(routingInfo.totalTimeInSeconds);
+    initTailBuilderSequence(context, arrivalTime, builder.append(" "), R.attr.secondary);
+
+    return builder;
+  }
+
+  private static void initTimeBuilderSequence(@NonNull Context context, @NonNull CharSequence time,
+                                              @NonNull SpannableStringBuilder builder)
+  {
+    builder.append(time);
+
+    builder.setSpan(new TypefaceSpan(context.getResources().getString(R.string.robotoMedium)),
+                    0,
+                    builder.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(new AbsoluteSizeSpan(context.getResources().getDimensionPixelSize(R.dimen.text_size_routing_number)),
+                    0,
+                    builder.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(new StyleSpan(Typeface.BOLD),
+                    0,
+                    builder.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(context, android.R.attr.textColorPrimary)),
+                    0,
+                    builder.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+  }
+
+  private static void initDotBuilderSequence(@NonNull Context context, String dot, SpannableStringBuilder builder)
+  {
+    builder.append(dot);
+    builder.setSpan(new TypefaceSpan(context.getResources().getString(R.string.robotoMedium)),
+                    builder.length() - dot.length(),
+                    builder.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(new AbsoluteSizeSpan(context.getResources().getDimensionPixelSize(R.dimen.text_size_routing_number)),
+                    builder.length() - dot.length(),
+                    builder.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(context, R.attr.secondary)),
+                    builder.length() - dot.length(),
+                    builder.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+  }
+
+  private static void initTailBuilderSequence(@NonNull Context context, @NonNull String arrivalTime,
+                                              @NonNull SpannableStringBuilder builder, int textColor)
+  {
+    builder.append(arrivalTime);
+    builder.setSpan(new TypefaceSpan(context.getResources().getString(R.string.robotoMedium)),
+                    builder.length() - arrivalTime.length(),
+                    builder.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(new AbsoluteSizeSpan(context.getResources()
+                                                .getDimensionPixelSize(R.dimen.text_size_routing_number)),
+                    builder.length() - arrivalTime.length(),
+                    builder.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(new StyleSpan(Typeface.NORMAL),
+                    builder.length() - arrivalTime.length(),
+                    builder.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(context, textColor)),
+                    builder.length() - arrivalTime.length(),
+                    builder.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
   }
 
   @Override

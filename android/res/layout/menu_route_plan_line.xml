@@ -8,7 +8,7 @@
     android:layout_height="wrap_content">
 
   <include layout="@layout/altitude_chart_panel"
-           tools:visibility="gone"/>
+           tools:visibility="visible"/>
 
   <include layout="@layout/routing_bottom_panel_transit"/>
 
