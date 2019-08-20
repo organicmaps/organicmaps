@@ -357,6 +357,7 @@ string ReverseGeocoder::GetLocalizedRegionAddress(RegionAddress const & addr,
     {
       vector<string> nameParts;
       nameGetter.GetLocalizedFullName(countryName, nameParts);
+      nameParts.insert(nameParts.begin(), addrStr);
       nameParts.erase(unique(nameParts.begin(), nameParts.end()), nameParts.end());
       addrStr = strings::JoinStrings(nameParts, ", ");
     }
