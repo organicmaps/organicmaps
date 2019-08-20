@@ -96,12 +96,12 @@ import SafariServices
       self.optionsView.isHidden = false
       self.payButton.isEnabled = true
       assert(subscriptions.count == 3)
-      let yearlyPrice = subscriptions[0].price
+      let weeklyPrice = subscriptions[0].price
       let monthlyPrice = subscriptions[1].price
-      let weeklyPrice = subscriptions[2].price
+      let yearlyPrice = subscriptions[2].price
       let yearlyDiscount = VC.calculateDiscount(yearlyPrice,
                                                 weeklyPrice: weeklyPrice,
-                                                period: subscriptions[0].period)
+                                                period: subscriptions[2].period)
       let monthlyDiscount = VC.calculateDiscount(monthlyPrice,
                                                  weeklyPrice: weeklyPrice,
                                                  period: subscriptions[1].period)
@@ -118,7 +118,7 @@ import SafariServices
       self.weekButton.setTitle(String(coreFormat: L("options_dropdown_item2"),
                                       arguments: [VC.formatPrice(weeklyPrice, locale: locale)]), for: .normal)
       Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor : MWMPurchaseManager.adsRemovalVendorId(),
-                                                           kStatProduct : subscriptions[0].productId,
+                                                           kStatProduct : subscriptions[2].productId,
                                                            kStatPurchase : MWMPurchaseManager.adsRemovalServerId()])
     }
   }
@@ -137,7 +137,7 @@ import SafariServices
   }
 
   @IBAction func onPay(_ sender: UIButton) {
-    subscribe(subscriptions?[0])
+    subscribe(subscriptions?[2])
   }
 
   @IBAction func onMonth(_ sender: UIButton) {
@@ -145,7 +145,7 @@ import SafariServices
   }
 
   @IBAction func onWeek(_ sender: UIButton) {
-    subscribe(subscriptions?[2])
+    subscribe(subscriptions?[0])
   }
 
   @IBAction func onMoreOptions(_ sender: UIButton) {
