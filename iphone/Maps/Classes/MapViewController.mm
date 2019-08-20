@@ -87,7 +87,7 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
 
 @property(nonatomic) UserTouchesAction userTouchesAction;
 
-@property(nonatomic) MWMMapDownloadDialog * downloadDialog;
+@property(nonatomic, readwrite) MWMMapDownloadDialog * downloadDialog;
 
 @property(nonatomic) BOOL skipForceTouch;
 

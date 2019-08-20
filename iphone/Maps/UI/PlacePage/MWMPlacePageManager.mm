@@ -129,6 +129,10 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   [self processCountryEvent:[self.data countryId]];
 }
 
+- (BOOL)isPPShown {
+  return self.data != nil;
+}
+
 - (void)dismiss
 {
   [self.layout close];

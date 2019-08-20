@@ -8,6 +8,7 @@
 @class MWMAPIBar;
 @class MWMPlacePageData;
 @class EAGLView;
+@class MWMMapDownloadDialog;
 @protocol MWMLocationModeListener;
 
 @interface MapViewController : MWMViewController
@@ -51,6 +52,7 @@
 @property(nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
 @property(nonatomic) MWMAPIBar * apiBar;
 @property(nonatomic) MWMWelcomePageController * welcomePageController;
+@property(nonatomic, readonly) MWMMapDownloadDialog * downloadDialog;
 
 
 @property(nonatomic) MWMMyPositionMode currentPositionMode;

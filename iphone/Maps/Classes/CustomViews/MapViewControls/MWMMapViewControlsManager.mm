@@ -2,6 +2,7 @@
 #import "MWMAddPlaceNavigationBar.h"
 #import "MWMBottomMenuControllerProtocol.h"
 #import "MWMCommon.h"
+#import "MWMMapDownloadDialog.h"
 #import "MWMNetworkPolicy.h"
 #import "MWMPlacePageManager.h"
 #import "MWMPlacePageProtocol.h"
@@ -471,13 +472,17 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (BOOL)showTutorialIfNeeded {
   if (self.tutorialViewContoller != nil)
     return YES;
+  
+  auto ownerController = self.ownerController;
+  
+  if ([self.placePageManager isPPShown] || ownerController.downloadDialog.superview != nil) {
+    return NO;
+  }
 
   self.tutorialType = [MWMEye getTipType];
   self.tutorialViewContoller = [self tutorialWithType:self.tutorialType];
   if (!self.tutorialViewContoller)
     return NO;
-
-  auto ownerController = self.ownerController;
 
   [self logTutorialEvent:kStatTipsTricksShow additionalOptions:nil];
   self.hidden = NO;
