@@ -1,5 +1,6 @@
-#import "InfoSection.h"
 #import "MWMTableViewCell.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 namespace kml
 {
@@ -8,7 +9,7 @@ struct CategoryData;
 
 @class MWMCategoryInfoCell;
 
-@protocol MWMCategoryInfoCellDelegate <InfoSectionDelegate>
+@protocol MWMCategoryInfoCellDelegate
 
 - (void)categoryInfoCellDidPressMore:(MWMCategoryInfoCell *)cell;
 
@@ -22,3 +23,5 @@ struct CategoryData;
                       delegate:(id<MWMCategoryInfoCellDelegate>)delegate;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -43,7 +43,10 @@ typedef void (^PingCompletionBlock)(BOOL success);
 - (BOOL)checkCategoryName:(NSString *)name;
 
 - (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId;
+- (MWMMarkIDCollection)bookmarkIdsForCategory:(MWMMarkGroupID)categoryId;
 - (void)deleteBookmark:(MWMMarkID)bookmarkId;
+
+- (MWMTrackIDCollection)trackIdsForCategory:(MWMMarkGroupID)categoryId;
 
 - (void)shareCategory:(MWMMarkGroupID)groupId;
 - (NSURL *)shareCategoryURL;

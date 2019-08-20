@@ -120,10 +120,9 @@ extension DownloadedBookmarksViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     let category = dataSource.category(at: indexPath.row)
-    if let bmViewController = BookmarksVC(category: category.categoryId) {
-      MapViewController.topViewController().navigationController?.pushViewController(bmViewController,
-                                                                                     animated: true)
-    }
+    let bmViewController = BookmarksVC(category: category.categoryId)
+    MapViewController.topViewController().navigationController?.pushViewController(bmViewController,
+                                                                                   animated: true)
   }
 }
 

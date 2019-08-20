@@ -109,7 +109,7 @@ final class BMCViewController: MWMViewController {
   }
 
   private func openCategory(category: MWMCategory) {
-    let bmViewController = BookmarksVC(category: category.categoryId)!
+    let bmViewController = BookmarksVC(category: category.categoryId)
     bmViewController.delegate = self
     MapViewController.topViewController().navigationController?.pushViewController(bmViewController,
                                                                                    animated: true)

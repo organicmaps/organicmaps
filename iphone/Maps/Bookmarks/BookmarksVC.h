@@ -1,6 +1,8 @@
 #import "MWMViewController.h"
 #import "MWMTypes.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class BookmarksVC;
 
 @protocol BookmarksVCDelegate
@@ -17,6 +19,8 @@
 
 @property (weak, nonatomic) id<BookmarksVCDelegate> delegate;
 
-- (instancetype)initWithCategory:(MWMMarkGroupID)index;
+- (instancetype)initWithCategory:(MWMMarkGroupID)categoryId;
 
 @end
+
+NS_ASSUME_NONNULL_END

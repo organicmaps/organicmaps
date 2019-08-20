@@ -1,24 +1,14 @@
+#import "MWMTypes.h"
 #import "TableSectionDataSource.h"
 
-#include "kml/type_utils.hpp"
-
-@class BookmarksSection;
-
-@protocol BookmarksSectionDelegate <NSObject>
-
-- (NSInteger)numberOfBookmarksInSection:(BookmarksSection *)bookmarkSection;
-- (NSString *)titleOfBookmarksSection:(BookmarksSection *)bookmarkSection;
-- (BOOL)canEditBookmarksSection:(BookmarksSection *)bookmarkSection;
-- (kml::MarkId)bookmarkSection:(BookmarksSection *)bookmarkSection getBookmarkIdByRow:(NSInteger)row;
-- (BOOL)bookmarkSection:(BookmarksSection *)bookmarkSection onDeleteBookmarkInRow:(NSInteger)row;
-
-@end
+NS_ASSUME_NONNULL_BEGIN
 
 @interface BookmarksSection : NSObject <TableSectionDataSource>
 
-@property(nullable, nonatomic) NSNumber *blockIndex;
-
-- (instancetype)initWithDelegate:(id<BookmarksSectionDelegate>)delegate;
-- (instancetype)initWithBlockIndex:(NSNumber *)blockIndex delegate:(id<BookmarksSectionDelegate>)delegate;
+- (instancetype)initWithTitle:(nullable NSString *)title
+                      markIds:(MWMMarkIDCollection)markIds
+                   isEditable:(BOOL)isEditable;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -2,41 +2,48 @@
 #import "CircleView.h"
 #include "Framework.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 namespace {
 CGFloat const kPinDiameter = 22.0f;
 }  // namespace
 
-@interface TracksSection ()
-
-@property(weak, nonatomic) id<TracksSectionDelegate> delegate;
+@interface TracksSection () {
+  NSString *m_title;
+  NSMutableArray<NSNumber *> *m_trackIds;
+  BOOL m_isEditable;
+}
 
 @end
 
 @implementation TracksSection
 
-- (instancetype)initWithDelegate:(id<TracksSectionDelegate>)delegate {
-  return [self initWithBlockIndex:nil delegate:delegate];
-}
-
-- (instancetype)initWithBlockIndex:(NSNumber *)blockIndex delegate:(id<TracksSectionDelegate>)delegate {
+- (instancetype)initWithTitle:(nullable NSString *)title
+                     trackIds:(MWMTrackIDCollection)trackIds
+                   isEditable:(BOOL)isEditable {
   self = [super init];
   if (self) {
-    _blockIndex = blockIndex;
-    _delegate = delegate;
+    m_title = title;
+    m_trackIds = trackIds.mutableCopy;
+    m_isEditable = isEditable;
   }
   return self;
 }
 
-- (NSInteger)numberOfRows {
-  return [self.delegate numberOfTracksInSection:self];
+- (kml::TrackId)getTrackIdForRow:(NSInteger)row {
+  return static_cast<kml::TrackId>(m_trackIds[row].unsignedLongLongValue);
 }
 
-- (NSString *)title {
-  return [self.delegate titleOfTracksSection:self];
+- (NSInteger)numberOfRows {
+  return [m_trackIds count];
+}
+
+- (nullable NSString *)title {
+  return m_title;
 }
 
 - (BOOL)canEdit {
-  return [self.delegate canEditTracksSection:self];
+  return m_isEditable;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRow:(NSInteger)row {
@@ -47,7 +54,7 @@ CGFloat const kPinDiameter = 22.0f;
 
   auto const &bm = GetFramework().GetBookmarkManager();
 
-  kml::TrackId const trackId = [self.delegate tracksSection:self getTrackIdByRow:row];
+  auto const trackId = [self getTrackIdForRow:row];
   Track const *track = bm.GetTrack(trackId);
   cell.textLabel.text = @(track->GetName().c_str());
   string dist;
@@ -65,16 +72,18 @@ CGFloat const kPinDiameter = 22.0f;
 }
 
 - (BOOL)didSelectRow:(NSInteger)row {
-  kml::TrackId const trackId = [self.delegate tracksSection:self getTrackIdByRow:row];
+  auto const trackId = [self getTrackIdForRow:row];
   GetFramework().ShowTrack(trackId);
   return YES;
 }
 
-- (BOOL)deleteRow:(NSInteger)row {
-  kml::TrackId const trackId = [self.delegate tracksSection:self getTrackIdByRow:row];
+- (void)deleteRow:(NSInteger)row {
+  auto const trackId = [self getTrackIdForRow:row];
   auto &bm = GetFramework().GetBookmarkManager();
   bm.GetEditSession().DeleteTrack(trackId);
-  return [self.delegate tracksSection:self onDeleteTrackInRow:row];
+  [m_trackIds removeObjectAtIndex:row];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

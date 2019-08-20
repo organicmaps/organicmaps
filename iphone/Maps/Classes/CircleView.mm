@@ -2,6 +2,8 @@
 #import "CircleView.h"
 #import <QuartzCore/QuartzCore.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CircleView()
 
 @property(nonatomic) UIColor *circleColor;
@@ -15,7 +17,7 @@
   return [self initWithFrame:frame andColor:color andImageName:nil];
 }
 
-- (id)initWithFrame:(CGRect)frame andColor:(UIColor *)color andImageName:(NSString *)imageName {
+- (id)initWithFrame:(CGRect)frame andColor:(UIColor *)color andImageName:(nullable NSString *)imageName {
   self = [super initWithFrame:frame];
   if (self)
   {
@@ -39,7 +41,7 @@
 
 + (UIView *)createViewWithCircleDiameter:(CGFloat)diameter
                                 andColor:(UIColor *)color
-                            andImageName:(NSString *)imageName {
+                            andImageName:(nullable NSString *)imageName {
   UIView *circleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, diameter, diameter)];
   circleView.backgroundColor = UIColor.clearColor;
   CircleView *circle = [[self alloc] initWithFrame:CGRectMake(0.5, 0.5, diameter - 1, diameter - 1)
@@ -66,15 +68,15 @@
 }
 
 + (UIImage *)imageWithView:(UIView *)view {
-  UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0.0);
-  CGContextRef context = UIGraphicsGetCurrentContext();
-  [view.layer renderInContext:context];
+  UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:view.bounds.size];
 
-  UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+  UIImage *image = [renderer imageWithActions:^(UIGraphicsImageRendererContext *rendererContext) {
+    [view.layer renderInContext:rendererContext.CGContext];
+  }];
 
-  UIGraphicsEndImageContext();
-
-  return img;
+  return image;
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

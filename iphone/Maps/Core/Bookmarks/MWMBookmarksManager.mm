@@ -407,6 +407,14 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return [result copy];
 }
 
+- (MWMMarkIDCollection)bookmarkIdsForCategory:(MWMMarkGroupID)categoryId {
+  auto const &bookmarkIds = self.bm.GetUserMarkIds(categoryId);
+  NSMutableArray<NSNumber *> *collection = [[NSMutableArray alloc] initWithCapacity:bookmarkIds.size()];
+  for (auto bookmarkId : bookmarkIds)
+    [collection addObject:@(bookmarkId)];
+  return collection.copy;
+}
+
 - (void)deleteBookmark:(MWMMarkID)bookmarkId
 {
   self.bm.GetEditSession().DeleteBookmark(bookmarkId);
@@ -414,6 +422,16 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
     if ([observer respondsToSelector:@selector(onBookmarkDeleted:)])
       [observer onBookmarkDeleted:bookmarkId];
   }];
+}
+
+#pragma mark - Tracks
+
+- (MWMTrackIDCollection)trackIdsForCategory:(MWMMarkGroupID)categoryId {
+  auto const &trackIds = self.bm.GetTrackIds(categoryId);
+  NSMutableArray<NSNumber *> *collection = [[NSMutableArray alloc] initWithCapacity:trackIds.size()];
+  for (auto trackId : trackIds)
+    [collection addObject:@(trackId)];
+  return collection.copy;
 }
 
 #pragma mark - Category sharing
