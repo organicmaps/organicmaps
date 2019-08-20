@@ -287,6 +287,19 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   [Statistics logEvent:kStatPlacepageSponsoredOpen withParameters:parameters];
 }
 
+- (void)logStateChangeEventWithValue:(NSNumber *)value {
+  MWMPlacePageData * data = self.data;
+  if (data == nil) return;
+  
+  NSString *types = data.statisticsTags;
+  NSNumber *lat = [NSNumber numberWithFloat:data.latLon.m_lat];
+  NSNumber *lon = [NSNumber numberWithFloat:data.latLon.m_lon];
+  [Statistics logEvent:kStatPlacePageChangeState withParameters:@{kStatTypes: types,
+                                                                  kStatLat: lat,
+                                                                  kStatLon: lon,
+                                                                  kStatValue: value}];
+}
+
 #pragma mark - MWMLocationObserver
 
 - (void)onHeadingUpdate:(location::CompassInfo const &)info
