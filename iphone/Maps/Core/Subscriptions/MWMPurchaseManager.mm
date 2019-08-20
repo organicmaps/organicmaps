@@ -177,6 +177,10 @@
   GetFramework().GetPurchase()->SetSubscriptionEnabled(SubscriptionType::RemoveAds, disabled);
 }
 
++ (void)setBookmarksSubscriptionActive:(BOOL)active {
+  GetFramework().GetPurchase()->SetSubscriptionEnabled(SubscriptionType::BookmarkCatalog, active);
+}
+
 #pragma mark - SKRequestDelegate
 
 - (void)requestDidFinish:(SKRequest *)request

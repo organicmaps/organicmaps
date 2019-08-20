@@ -25,6 +25,7 @@ typedef void (^StartTransactionCallback)(BOOL success, NSString * serverId);
 + (NSArray<NSString *> *)legacyProductIds;
 + (NSArray<NSString *> *)bookmarkInappIds;
 + (void)setAdsDisabled:(BOOL)disabled;
++ (void)setBookmarksSubscriptionActive:(BOOL)active;
 
 - (instancetype)initWithVendorId:(NSString *)vendorId;
 - (void)validateReceipt:(NSString *)serverId

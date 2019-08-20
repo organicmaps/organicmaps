@@ -238,6 +238,7 @@ extension PaidRouteViewController : SubscriptionManagerListener {
   }
 
   func didSubsribe(_ subscription: ISubscription) {
+    MWMPurchaseManager.setBookmarksSubscriptionActive(true)
   }
 
   func didDefer(_ subscription: ISubscription) {

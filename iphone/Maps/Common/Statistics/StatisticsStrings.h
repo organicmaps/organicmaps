@@ -208,6 +208,7 @@ static NSString * const kStatInappPay = @"InAppPurchase_Preview_pay";
 static NSString * const kStatInappPaymentError = @"InAppPurchase_Store_error";
 static NSString * const kStatInappPaymentSuccess = @"InAppPurchase_Store_success";
 static NSString * const kStatInappProductDelivered = @"InAppPurchase_Product_delivered";
+static NSString * const kStatInappRestore = @"InAppPurchase_Preview_restore";
 static NSString * const kStatInappSelect = @"InAppPurchase_Preview_select";
 static NSString * const kStatInappShow = @"InAppPurchase_Preview_show";
 static NSString * const kStatInappValidationSuccess = @"InAppPurchase_Validation_success";
