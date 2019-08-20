@@ -29,7 +29,7 @@ public:
   {
     // You can get features-2019_07_17__13_39_20 by running:
     // rsync -v -p testdata.mapsme.cloud.devmail.ru::testdata/features-2019_07_17__13_39_20.zip .
-    Init("features-2019_07_17__13_39_20" /* arhiveName */);
+    Init("features-2019_07_17__13_39_20" /* archiveName */);
   }
 
   ~FeatureIntegrationTests()
@@ -39,8 +39,8 @@ public:
 
   void BuildCoasts()
   {
-    auto const worldCoastsGeom = m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME".geom");
-    auto const worldCoastsRawGeom = m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME".rawgeom");
+    auto const worldCoastsGeom = m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME ".geom");
+    auto const worldCoastsRawGeom = m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME ".rawgeom");
 
     CHECK(!Platform::IsFileExistsByFullPath(worldCoastsGeom), ());
     CHECK(!Platform::IsFileExistsByFullPath(worldCoastsRawGeom), ());
@@ -51,7 +51,7 @@ public:
 
     TEST(Platform::IsFileExistsByFullPath(worldCoastsGeom), ());
     TEST(Platform::IsFileExistsByFullPath(worldCoastsRawGeom), ());
-    size_t fileSize = 0;
+    uint64_t fileSize = 0;
     CHECK(Platform::GetFileSizeByFullPath(worldCoastsGeom, fileSize), ());
     TEST_GREATER(fileSize, 0, ());
     CHECK(Platform::GetFileSizeByFullPath(worldCoastsRawGeom, fileSize), ());
@@ -129,16 +129,16 @@ public:
 
     TestCountry(northAuckland, 1811971 /* fbsCnt */, 12195948 /* pointsCnt */, 1007372 /* pointCnt */,
                 205469 /* lineCnt */, 599130 /* areaCnt */, 212087 /* poiCnt */,
-                521 /* cityTownOrVillageCnt */, 43 /* popularAttractionCnt */, 3557 /* bookingHotelsCnt */);
+                521 /* cityTownOrVillageCnt */, 3557 /* bookingHotelsCnt */);
     TestCountry(northWellington, 797778 /* fbsCnt */, 7772270 /* pointsCnt */, 460446 /* pointCnt */,
                 87058 /* lineCnt */, 250274 /* areaCnt */, 95651 /* poiCnt */,
-                297 /* cityTownOrVillageCnt */, 16 /* popularAttractionCnt */, 1062 /* bookingHotelsCnt */);
+                297 /* cityTownOrVillageCnt */, 1062 /* bookingHotelsCnt */);
     TestCountry(southCanterbury, 636934 /* fbsCnt */, 6984360 /* pointsCnt */, 397634 /* pointCnt */,
                 81712 /* lineCnt */, 157588 /* areaCnt */, 89249 /* poiCnt */,
-                331 /* cityTownOrVillageCnt */, 40 /* popularAttractionCnt */, 2085 /* bookingHotelsCnt */);
+                331 /* cityTownOrVillageCnt */, 2085 /* bookingHotelsCnt */);
     TestCountry(southSouthland, 340491 /* fbsCnt */, 5342804 /* pointsCnt */, 185845 /* pointCnt */,
                 40124 /* lineCnt */, 114522 /* areaCnt */, 40497 /* poiCnt */,
-                297 /* cityTownOrVillageCnt */, 37 /* popularAttractionCnt */, 1621 /* bookingHotelsCnt */);
+                297 /* cityTownOrVillageCnt */, 1621 /* bookingHotelsCnt */);
   }
 
   void CheckGeneratedData()
@@ -166,7 +166,7 @@ public:
     TestGeneratedFile(cameraToWays, 0 /* fileSize */);
     TestGeneratedFile(citiesAreas, 18601 /* fileSize */);
     TestGeneratedFile(maxSpeeds, 1301515 /* fileSize */);
-    TestGeneratedFile(metalines, 306228 /* fileSize */);
+    TestGeneratedFile(metalines, 288032 /* fileSize */);
     TestGeneratedFile(restrictions, 273283 /* fileSize */);
     TestGeneratedFile(roadAccess, 1918315 /* fileSize */);
     TestGeneratedFile(m_genInfo.m_citiesBoundariesFilename, 2435 /* fileSize */);
@@ -193,7 +193,7 @@ public:
 private:
   void TestCountry(std::string const & path, size_t fbsCnt, size_t pointsCnt, size_t pointCnt,
                    size_t lineCnt, size_t areaCnt, size_t poiCnt, size_t cityTownOrVillageCnt,
-                   size_t popularAttractionCnt, size_t bookingHotelsCnt)
+                   size_t bookingHotelsCnt)
   {
     CHECK(Platform::IsFileExistsByFullPath(path), ());
     auto const fbs = feature::ReadAllDatRawFormat(path);
@@ -203,7 +203,6 @@ private:
     size_t areaCntReal = 0;
     size_t poiCntReal = 0;
     size_t cityTownOrVillageCntReal = 0;
-    size_t popularAttractionCntReal = 0;
     size_t bookingHotelsCntReal = 0;
     for (auto const & fb : fbs)
     {
@@ -218,9 +217,6 @@ private:
       auto static const & poiChecker = ftypes::IsPoiChecker::Instance();
       if (poiChecker(fb.GetTypes()))
         ++poiCntReal;
-
-      if (generator::FilterWorld::IsPopularAttraction(fb, m_genInfo.m_popularPlacesFilename))
-        ++popularAttractionCntReal;
 
       if (ftypes::IsCityTownOrVillage(fb.GetTypes()))
         ++cityTownOrVillageCntReal;
@@ -237,19 +233,18 @@ private:
     TEST_EQUAL(areaCntReal, areaCnt, ());
     TEST_EQUAL(poiCntReal, poiCnt, ());
     TEST_EQUAL(cityTownOrVillageCntReal, cityTownOrVillageCnt, ());
-    TEST_EQUAL(popularAttractionCntReal, popularAttractionCnt, ());
     TEST_EQUAL(bookingHotelsCntReal, bookingHotelsCnt, ());
   }
 
   void TestGeneratedFile(std::string const & path, size_t fileSize)
   {
     TEST(Platform::IsFileExistsByFullPath(path), (path));
-    size_t fileSizeReal = 0;
+    uint64_t fileSizeReal = 0;
     CHECK(Platform::GetFileSizeByFullPath(path, fileSizeReal), (path));
     TEST_EQUAL(fileSizeReal, fileSize, (path));
   }
 
-  void Init(std::string const & arhiveName)
+  void Init(std::string const & archiveName)
   {
     classificator::Load();
     auto const & options = GetTestingOptions();
@@ -260,13 +255,13 @@ private:
     m_testPath = base::JoinPath(platform.WritableDir(), "gen-test");
     m_genInfo.SetNodeStorageType("map");
     m_genInfo.SetOsmFileType("o5m");
-    m_genInfo.m_intermediateDir = base::JoinPath(m_testPath, arhiveName, "intermediate_data");
+    m_genInfo.m_intermediateDir = base::JoinPath(m_testPath, archiveName, "intermediate_data");
     m_genInfo.m_targetDir = m_genInfo.m_intermediateDir;
     m_genInfo.m_tmpDir = base::JoinPath(m_genInfo.m_intermediateDir, "tmp");
     m_genInfo.m_osmFileName = base::JoinPath(m_testPath, "planet.o5m");
     m_genInfo.m_popularPlacesFilename = m_genInfo.GetIntermediateFileName("popular_places.csv");
     m_genInfo.m_idToWikidataFilename = m_genInfo.GetIntermediateFileName("wiki_urls.csv");
-    DecompressZipArchive(base::JoinPath(options.m_dataPath, arhiveName + ".zip"), m_testPath);
+    DecompressZipArchive(base::JoinPath(options.m_dataPath, archiveName + ".zip"), m_testPath);
   }
 
   size_t m_threadCount;

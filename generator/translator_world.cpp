@@ -5,6 +5,7 @@
 #include "generator/filter_collection.hpp"
 #include "generator/filter_planet.hpp"
 #include "generator/filter_elements.hpp"
+#include "generator/filter_world.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/node_mixer.hpp"
@@ -56,8 +57,7 @@ void TranslatorWorld::Merge(TranslatorInterface const & other)
 
 void TranslatorWorld::MergeInto(TranslatorWorld & other) const
 {
-  other.m_collector->Merge(*m_collector);
-  other.m_processor->Merge(*m_processor);
+  MergeIntoBase(other);
 }
 
 TranslatorWorldWithAds::TranslatorWorldWithAds(std::shared_ptr<FeatureProcessorInterface> const & processor,

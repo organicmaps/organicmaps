@@ -57,21 +57,21 @@ public:
 /// Feature merger.
 class FeatureMergeProcessor
 {
-  typedef int64_t key_t;
-  key_t get_key(m2::PointD const & p);
+  using Key = int64_t ;
+  Key GetKey(m2::PointD const & p);
 
   MergedFeatureBuilder m_last;
 
-  typedef std::vector<MergedFeatureBuilder *> vector_t;
-  typedef std::map<key_t, vector_t> map_t;
-  map_t m_map;
+  using MergedFeatureBuilders = std::vector<MergedFeatureBuilder *>;
+  using KeyToMergedFeatureBuilders = std::map<Key, MergedFeatureBuilders>;
+  KeyToMergedFeatureBuilders m_map;
 
   void Insert(m2::PointD const & pt, MergedFeatureBuilder * p);
 
-  void Remove(key_t key, MergedFeatureBuilder const * p);
+  void Remove(Key key, MergedFeatureBuilder const * p);
   inline void Remove1(m2::PointD const & pt, MergedFeatureBuilder const * p)
   {
-    Remove(get_key(pt), p);
+    Remove(GetKey(pt), p);
   }
   void Remove(MergedFeatureBuilder const * p);
 

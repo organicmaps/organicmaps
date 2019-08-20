@@ -180,7 +180,7 @@ UNIT_TEST(RoadAccess_Access_Multiple_Vehicle_Types)
   TEST_EQUAL(bicycleRoadAccess.GetFeatureType(3 /* featureId */), RoadAccess::Type::No, ());
 }
 
-UNIT_TEST(RoadAccessWriter_Case1)
+UNIT_TEST(RoadAccessWriter_Merge)
 {
   classificator::Load();
   auto const filename = generator_tests::GetFileName();

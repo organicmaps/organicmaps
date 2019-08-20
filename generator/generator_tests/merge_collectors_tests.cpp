@@ -24,7 +24,7 @@ namespace
 auto const kEmptyValidator = [](auto const &) { return true; };
 }
 
-UNIT_TEST(MergeCollector_Case1)
+UNIT_TEST(MergeCollector_MergeCase1)
 {
   auto const filename = GetFileName();
   std::string const tagKey = "admin_level";
@@ -59,7 +59,7 @@ UNIT_TEST(MergeCollector_Case1)
     TEST_EQUAL(line, answers[pos++], ());
 }
 
-UNIT_TEST(MergeCollector_Case2)
+UNIT_TEST(MergeCollector_MergeCase2)
 {
   auto const filename = GetFileName();
   std::string const tagKey = "admin_level";

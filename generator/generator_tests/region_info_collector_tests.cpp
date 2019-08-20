@@ -138,7 +138,7 @@ UNIT_TEST(RegionInfoCollector_Exists)
 UNIT_TEST(RegionInfoCollector_MergeAndSave)
 {
   auto const filename = generator_tests::GetFileName();
-  SCOPE_GUARD(_, bind(Platform::RemoveFileIfExists, cref(filename)));
+  SCOPE_GUARD(_, std::bind(Platform::RemoveFileIfExists, std::cref(filename)));
 
   auto c1 = std::make_shared<CollectorRegionInfo>(filename);
   auto c2 = c1->Clone();

@@ -1,7 +1,6 @@
 #include "testing/testing.hpp"
 
 #include "generator/camera_info_collector.hpp"
-#include "generator/processor_factory.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/generator_tests/common.hpp"
@@ -10,8 +9,9 @@
 #include "generator/intermediate_data.hpp"
 #include "generator/maxspeeds_parser.hpp"
 #include "generator/metalines_builder.hpp"
-#include "generator/raw_generator.hpp"
 #include "generator/osm_source.hpp"
+#include "generator/processor_factory.hpp"
+#include "generator/raw_generator.hpp"
 #include "generator/translator_collection.hpp"
 #include "generator/translator_factory.hpp"
 

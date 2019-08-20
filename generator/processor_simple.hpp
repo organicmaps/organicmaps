@@ -30,7 +30,7 @@ public:
 
 private:
   std::string m_name;
-  std::shared_ptr<AffilationsFeatureLayer<feature::serialization_policy::MinSize>> m_affilationsLayer;
+  std::shared_ptr<AffiliationsFeatureLayer<feature::serialization_policy::MinSize>> m_affiliationsLayer;
   std::shared_ptr<FeatureProcessorQueue> m_queue;
   std::shared_ptr<LayerBase> m_processingChain;
 };

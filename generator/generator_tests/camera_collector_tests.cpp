@@ -27,6 +27,7 @@
 #include "defines.hpp"
 
 #include <cstdint>
+#include <memory>
 #include <set>
 #include <string>
 #include <utility>
@@ -54,15 +55,15 @@ feature::FeatureBuilder MakeFeatureBuilderWithParams(OsmElement & element)
 class TranslatorForTest : public Translator
 {
 public:
-  explicit TranslatorForTest(std::shared_ptr<FeatureProcessorInterface> const & processor,
-                             std::shared_ptr<generator::cache::IntermediateData> const & cache)
-    : Translator(processor, cache, std::make_shared<FeatureMaker>(cache))
+  explicit TranslatorForTest(shared_ptr<FeatureProcessorInterface> const & processor,
+                             shared_ptr<generator::cache::IntermediateData> const & cache)
+    : Translator(processor, cache, make_shared<FeatureMaker>(cache))
   {
     SetFilter(make_shared<FilterPlanet>());
   }
 
   // TranslatorInterface overrides:
-  std::shared_ptr<TranslatorInterface> Clone() const override
+  shared_ptr<TranslatorInterface> Clone() const override
   {
     CHECK(false, ());
     return {};
@@ -84,8 +85,8 @@ class TestCameraCollector
 {
 public:
   // Directory name for creating test mwm and temprary files.
-  std::string static const kTestDir;
-  std::string static const kOsmFileName;
+  string static const kTestDir;
+  string static const kOsmFileName;
 
   TestCameraCollector()
   {
@@ -113,10 +114,10 @@ public:
     CHECK(GenerateIntermediateData(genInfo), ());
 
     // Test load this data from cached file.
-    auto collector = std::make_shared<CameraCollector>(genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME));
-    auto cache = std::make_shared<generator::cache::IntermediateData>(genInfo, true /* forceReload */);
+    auto collector = make_shared<CameraCollector>(genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME));
+    auto cache = make_shared<generator::cache::IntermediateData>(genInfo, true /* forceReload */);
     auto processor = CreateProcessor(ProcessorType::Noop);
-    auto translator = std::make_shared<TranslatorForTest>(processor, cache);
+    auto translator = make_shared<TranslatorForTest>(processor, cache);
     translator->SetCollector(collector);
     RawGenerator rawGenerator(genInfo);
     rawGenerator.GenerateCustom(translator);
@@ -127,9 +128,7 @@ public:
         answers.emplace(camera.m_id, w);
     });
 
-
     return answers == trueAnswers;
-
   }
 
   void TestMergeCollectors()
@@ -140,7 +139,7 @@ public:
     // Generate intermediate data.
     genInfo.m_intermediateDir = writableDir;
     auto const filename = genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
-    auto collector1 = std::make_shared<CameraCollector>(filename);
+    auto collector1 = make_shared<CameraCollector>(filename);
     auto collector2 = collector1->Clone();
     {
       OsmElement el;
@@ -202,12 +201,12 @@ public:
         answers.emplace(camera.m_id, w);
     });
 
-    TEST(answers == trueAnswers, ());
+    TEST_EQUAL(answers, trueAnswers, ());
   }
 };
 
-std::string const TestCameraCollector::kTestDir = "camera_test";
-std::string const TestCameraCollector::kOsmFileName = "planet" OSM_DATA_FILE_EXTENSION;
+string const TestCameraCollector::kTestDir = "camera_test";
+string const TestCameraCollector::kOsmFileName = "planet" OSM_DATA_FILE_EXTENSION;
 } // namespace generator_tests
 
 using namespace generator_tests;

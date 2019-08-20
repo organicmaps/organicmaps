@@ -42,23 +42,6 @@ std::string LogBuffer::GetAsString() const
   return m_buffer.str();
 }
 
-std::shared_ptr<LayerBase> LayerBase::CloneRecursive() const
-{
-  auto temp = shared_from_this();
-  std::shared_ptr<LayerBase> clone;
-  if (temp)
-  {
-    clone = temp->Clone();
-    temp = temp->m_next;
-  }
-  while (temp)
-  {
-    clone->Add(temp->Clone());
-    temp = temp->m_next;
-  }
-  return clone;
-}
-
 void LayerBase::Handle(FeatureBuilder & fb)
 {
   if (m_next)
@@ -72,8 +55,10 @@ void LayerBase::Merge(std::shared_ptr<LayerBase> const & other)
   m_logBuffer.AppendLine(other->GetAsString());
 }
 
-void LayerBase::MergeRecursive(std::shared_ptr<LayerBase> const & other)
+void LayerBase::MergeChain(std::shared_ptr<LayerBase> const & other)
 {
+  CHECK_EQUAL(GetChainSize(), other->GetChainSize(), ());
+
   auto left = shared_from_this();
   auto right = other;
   while (left && right)
@@ -82,6 +67,19 @@ void LayerBase::MergeRecursive(std::shared_ptr<LayerBase> const & other)
     left = left->m_next;
     right = right->m_next;
   }
+}
+
+size_t LayerBase::GetChainSize() const
+{
+  size_t size = 0;
+  auto current = shared_from_this();
+  while (current)
+  {
+    ++size;
+    current = current->m_next;
+  }
+
+  return size;
 }
 
 void LayerBase::SetNext(std::shared_ptr<LayerBase> next)
@@ -106,21 +104,15 @@ std::string LayerBase::GetAsString() const
 
 std::string LayerBase::GetAsStringRecursive() const
 {
-  std::ostringstream m_buffer;
+  std::ostringstream buffer;
   auto temp = shared_from_this();
   while (temp)
   {
-    m_buffer << temp->GetAsString();
+    buffer << temp->GetAsString();
     temp = temp->m_next;
   }
 
-  return m_buffer.str();
-}
-
-std::shared_ptr<LayerBase> RepresentationLayer::Clone() const
-
-{
-  return std::make_shared<RepresentationLayer>();
+  return buffer.str();
 }
 
 void RepresentationLayer::Handle(FeatureBuilder & fb)
@@ -209,11 +201,6 @@ bool RepresentationLayer::CanBeLine(FeatureParams const & params)
   return feature::HasUsefulType(params.m_types, feature::GeomType::Line);
 }
 
-std::shared_ptr<LayerBase> PrepareFeatureLayer::Clone() const
-{
-  return std::make_shared<PrepareFeatureLayer>();
-}
-
 void PrepareFeatureLayer::Handle(FeatureBuilder & fb)
 {
   auto const type = fb.GetGeomType();
@@ -223,11 +210,6 @@ void PrepareFeatureLayer::Handle(FeatureBuilder & fb)
   FixLandType(fb);
   if (feature::HasUsefulType(params.m_types, type))
     LayerBase::Handle(fb);
-}
-
-std::shared_ptr<LayerBase> RepresentationCoastlineLayer::Clone() const
-{
-  return std::make_shared<RepresentationCoastlineLayer>();
 }
 
 void RepresentationCoastlineLayer::Handle(FeatureBuilder & fb)
@@ -243,8 +225,6 @@ void RepresentationCoastlineLayer::Handle(FeatureBuilder & fb)
     switch (geomType)
     {
     case feature::GeomType::Area:
-      LayerBase::Handle(fb);
-      break;
     case feature::GeomType::Line:
       LayerBase::Handle(fb);
       break;
@@ -262,10 +242,6 @@ void RepresentationCoastlineLayer::Handle(FeatureBuilder & fb)
   }
 }
 
-std::shared_ptr<LayerBase> PrepareCoastlineFeatureLayer::Clone() const
-{
-  return std::make_shared<PrepareCoastlineFeatureLayer>();
-}
 
 void PrepareCoastlineFeatureLayer::Handle(FeatureBuilder & fb)
 {
@@ -283,14 +259,8 @@ void PrepareCoastlineFeatureLayer::Handle(FeatureBuilder & fb)
 }
 
 WorldLayer::WorldLayer(std::string const & popularityFilename)
-  : m_popularityFilename(popularityFilename)
-  , m_filter(popularityFilename)
+  : m_filter(popularityFilename)
 {
-}
-
-std::shared_ptr<LayerBase> WorldLayer::Clone() const
-{
-  return std::make_shared<WorldLayer>(m_popularityFilename);
 }
 
 void WorldLayer::Handle(FeatureBuilder & fb)
@@ -299,20 +269,10 @@ void WorldLayer::Handle(FeatureBuilder & fb)
     LayerBase::Handle(fb);
 }
 
-std::shared_ptr<LayerBase> CountryLayer::Clone() const
-{
-  return std::make_shared<CountryLayer>();
-}
-
 void CountryLayer::Handle(feature::FeatureBuilder & fb)
 {
   if (fb.RemoveInvalidTypes() && PreprocessForCountryMap(fb))
     LayerBase::Handle(fb);
-}
-
-std::shared_ptr<LayerBase> PreserializeLayer::Clone() const
-{
-  return std::make_shared<PreserializeLayer>();
 }
 
 void PreserializeLayer::Handle(FeatureBuilder & fb)

@@ -12,10 +12,11 @@ ProcessorSimple::ProcessorSimple(std::shared_ptr<FeatureProcessorQueue> const & 
   : m_name(name)
   , m_queue(queue)
 {
-  m_processingChain->Add(std::make_shared<PreserializeLayer>());
-  auto affilation = std::make_shared<feature::SingleAffiliation>(name);
-  m_affilationsLayer = std::make_shared<AffilationsFeatureLayer<feature::serialization_policy::MinSize>>(kAffilationsBufferSize, affilation);
-  m_processingChain->Add(m_affilationsLayer);
+  m_processingChain = std::make_shared<PreserializeLayer>();
+  auto affiliation = std::make_shared<feature::SingleAffiliation>(name);
+  m_affiliationsLayer = std::make_shared<AffiliationsFeatureLayer<
+                       feature::serialization_policy::MinSize>>(kAffiliationsBufferSize, affiliation, m_queue);
+  m_processingChain->Add(m_affiliationsLayer);
 }
 
 std::shared_ptr<FeatureProcessorInterface>ProcessorSimple::Clone() const
@@ -26,12 +27,11 @@ std::shared_ptr<FeatureProcessorInterface>ProcessorSimple::Clone() const
 void ProcessorSimple::Process(feature::FeatureBuilder & fb)
 {
   m_processingChain->Handle(fb);
-  m_affilationsLayer->AddBufferToQueueIfFull(m_queue);
 }
 
 void ProcessorSimple::Finish()
 {
-  m_affilationsLayer->AddBufferToQueue(m_queue);
+  m_affiliationsLayer->AddBufferToQueue();
 }
 
 void ProcessorSimple::Merge(FeatureProcessorInterface const & other)
@@ -41,6 +41,6 @@ void ProcessorSimple::Merge(FeatureProcessorInterface const & other)
 
 void ProcessorSimple::MergeInto(ProcessorSimple & other) const
 {
-  other.m_processingChain->Merge(m_processingChain);
+  other.m_processingChain->MergeChain(m_processingChain);
 }
 }  // namespace generator

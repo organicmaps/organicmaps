@@ -2,6 +2,8 @@
 
 #include "generator/feature_builder.hpp"
 
+#include "indexer/ftypes_matcher.hpp"
+
 #include "coding/point_coding.hpp"
 
 #include "geometry/region2d/binary_operators.hpp"
@@ -21,10 +23,8 @@ using RegionT = m2::RegionI;
 using PointT = m2::PointI;
 using RectT = m2::RectI;
 
-CoastlineFeaturesGenerator::CoastlineFeaturesGenerator(uint32_t coastType)
-  : m_merger(kPointCoordBits), m_coastType(coastType)
-{
-}
+CoastlineFeaturesGenerator::CoastlineFeaturesGenerator()
+  : m_merger(kPointCoordBits) {}
 
 namespace
 {
@@ -333,7 +333,8 @@ void CoastlineFeaturesGenerator::GetFeatures(vector<FeatureBuilder> & features)
 
         cellData.AssignGeometry(fb);
         fb.SetArea();
-        fb.AddType(m_coastType);
+        static auto const kCoastType = ftypes::IsCoastlineChecker::Instance().GetCoastlineType();
+        fb.AddType(kCoastType);
 
         // Should represent non-empty geometry
         CHECK_GREATER(fb.GetPolygonsCount(), 0, ());

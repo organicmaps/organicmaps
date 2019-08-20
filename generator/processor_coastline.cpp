@@ -19,9 +19,9 @@ ProcessorCoastline::ProcessorCoastline(std::shared_ptr<FeatureProcessorQueue> co
 {
   m_processingChain = std::make_shared<RepresentationCoastlineLayer>();
   m_processingChain->Add(std::make_shared<PrepareCoastlineFeatureLayer>());
-  auto affilation = std::make_shared<feature::SingleAffiliation>(WORLD_COASTS_FILE_NAME);
-  m_affilationsLayer = std::make_shared<AffilationsFeatureLayer<>>(kAffilationsBufferSize, affilation);
-  m_processingChain->Add(m_affilationsLayer);
+  auto affiliation = std::make_shared<feature::SingleAffiliation>(WORLD_COASTS_FILE_NAME);
+  m_affiliationsLayer = std::make_shared<AffiliationsFeatureLayer<>>(kAffiliationsBufferSize, affiliation, m_queue);
+  m_processingChain->Add(m_affiliationsLayer);
 }
 
 std::shared_ptr<FeatureProcessorInterface> ProcessorCoastline::Clone() const
@@ -32,12 +32,11 @@ std::shared_ptr<FeatureProcessorInterface> ProcessorCoastline::Clone() const
 void ProcessorCoastline::Process(feature::FeatureBuilder & feature)
 {
   m_processingChain->Handle(feature);
-  m_affilationsLayer->AddBufferToQueueIfFull(m_queue);
 }
 
 void ProcessorCoastline::Finish()
 {
-  m_affilationsLayer->AddBufferToQueue(m_queue);
+  m_affiliationsLayer->AddBufferToQueue();
 }
 
 void ProcessorCoastline::Merge(FeatureProcessorInterface const & other)
@@ -47,6 +46,6 @@ void ProcessorCoastline::Merge(FeatureProcessorInterface const & other)
 
 void ProcessorCoastline::MergeInto(ProcessorCoastline & other) const
 {
-  other.m_processingChain->Merge(m_processingChain);
+  other.m_processingChain->MergeChain(m_processingChain);
 }
 }  // namespace generator

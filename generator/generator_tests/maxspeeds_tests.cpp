@@ -373,11 +373,11 @@ UNIT_TEST(MaxspeedSection_Big)
   TestMaxspeedsSection(roads, maxspeedsCsvContent, featureIdToOsmId);
 }
 
-UNIT_TEST(MaxspeedCollector_Case1)
+UNIT_TEST(MaxspeedCollector_Merge)
 {
   classificator::Load();
   auto const filename = GetFileName();
-  SCOPE_GUARD(_, bind(Platform::RemoveFileIfExists, cref(filename)));
+  SCOPE_GUARD(_, std::bind(Platform::RemoveFileIfExists, std::cref(filename)));
 
   auto c1 = std::make_shared<MaxspeedsCollector>(filename);
   auto c2 = c1->Clone();

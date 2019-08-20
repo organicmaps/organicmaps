@@ -24,7 +24,7 @@ public:
   void MergeInto(ProcessorCoastline & other) const override;
 
 private:
-  std::shared_ptr<AffilationsFeatureLayer<>> m_affilationsLayer;
+  std::shared_ptr<AffiliationsFeatureLayer<>> m_affiliationsLayer;
   std::shared_ptr<FeatureProcessorQueue> m_queue;
   std::shared_ptr<LayerBase> m_processingChain;
 };

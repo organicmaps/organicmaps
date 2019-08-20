@@ -1,8 +1,8 @@
 #include "testing/testing.hpp"
 
-#include "generator/generator_tests/common.hpp"
 #include "generator/collector_city_area.hpp"
 #include "generator/feature_builder.hpp"
+#include "generator/generator_tests/common.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/osm_element.hpp"
 
@@ -12,8 +12,8 @@
 
 #include "geometry/point2d.hpp"
 
-#include "base/scope_guard.hpp"
 #include "base/geo_object_id.hpp"
+#include "base/scope_guard.hpp"
 
 #include <algorithm>
 #include <memory>
@@ -34,7 +34,7 @@ feature::FeatureBuilder MakeFbForTest(OsmElement element)
   return result;
 }
 
-bool FindId(std::vector<feature::FeatureBuilder> const & fbs, uint64_t id) {
+bool HasRelationWithId(std::vector<feature::FeatureBuilder> const & fbs, uint64_t id) {
   return std::find_if(std::begin(fbs), std::end(fbs), [&](auto const & fb) {
     return fb.GetMostGenericOsmId() == base::MakeOsmRelation(id);
   }) != std::end(fbs);
@@ -46,7 +46,7 @@ auto const o3 = MakeOsmElement(3 /* id */, {{"place", "village"}} /* tags */, Os
 auto const o4 = MakeOsmElement(4 /* id */, {{"place", "country"}} /* tags */, OsmElement::EntityType::Relation);
 }  // namespace
 
-UNIT_TEST(CollectorCityArea_Case1)
+UNIT_TEST(CollectorCityArea_Merge)
 {
   classificator::Load();
   auto const filename = generator_tests::GetFileName();
@@ -65,7 +65,7 @@ UNIT_TEST(CollectorCityArea_Case1)
 
   auto const fbs = feature::ReadAllDatRawFormat<feature::serialization_policy::MaxAccuracy>(filename);
   TEST_EQUAL(fbs.size(), 3, ());
-  TEST(FindId(fbs, 1 /* id */), ());
-  TEST(FindId(fbs, 2 /* id */), ());
-  TEST(FindId(fbs, 3 /* id */), ());
+  TEST(HasRelationWithId(fbs, 1 /* id */), ());
+  TEST(HasRelationWithId(fbs, 2 /* id */), ());
+  TEST(HasRelationWithId(fbs, 3 /* id */), ());
 }

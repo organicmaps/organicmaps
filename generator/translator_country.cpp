@@ -124,8 +124,7 @@ void TranslatorCountry::Merge(TranslatorInterface const & other)
 
 void TranslatorCountry::MergeInto(TranslatorCountry & other) const
 {
-  other.m_collector->Merge(*m_collector);
-  other.m_processor->Merge(*m_processor);
+  MergeIntoBase(other);
 }
 
 void TranslatorCountry::CollectFromRelations(OsmElement const & element)

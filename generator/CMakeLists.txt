@@ -38,10 +38,10 @@ set(
   collection_base.hpp
   collector_addresses.cpp
   collector_addresses.hpp
-  collector_city_area.cpp
-  collector_city_area.hpp
   collector_camera.cpp
   collector_camera.hpp
+  collector_city_area.cpp
+  collector_city_area.hpp
   collector_collection.cpp
   collector_collection.hpp
   collector_interface.hpp
@@ -53,18 +53,6 @@ set(
   descriptions_section_builder.hpp
   dumper.cpp
   dumper.hpp
-  processor_booking.hpp
-  processor_coastline.cpp
-  processor_coastline.hpp
-  processor_country.cpp
-  processor_country.hpp
-  processor_factory.hpp
-  processor_interface.hpp
-  processor_noop.hpp
-  processor_simple.cpp
-  processor_simple.hpp
-  processor_world.cpp
-  processor_world.hpp
   factory_utils.hpp
   feature_builder.cpp
   feature_builder.hpp
@@ -97,14 +85,14 @@ set(
   final_processor_intermediate_mwm.hpp
   gen_mwm_info.hpp
   generate_info.hpp
-  geo_objects/geo_objects_generator.cpp
-  geo_objects/geo_objects_generator.hpp
-  geo_objects/geo_objects_maintainer.cpp
-  geo_objects/geo_objects_maintainer.hpp
   geo_objects/geo_objects.cpp
   geo_objects/geo_objects.hpp
   geo_objects/geo_objects_filter.cpp
   geo_objects/geo_objects_filter.hpp
+  geo_objects/geo_objects_generator.cpp
+  geo_objects/geo_objects_generator.hpp
+  geo_objects/geo_objects_maintainer.cpp
+  geo_objects/geo_objects_maintainer.hpp
   geometry_holder.hpp
   holes.cpp
   holes.hpp
@@ -141,15 +129,27 @@ set(
   osm_xml_source.hpp
   place.cpp
   place.hpp
+  place_node.hpp
   place_processor.cpp
   place_processor.hpp
-  place_node.hpp
   platform_helpers.cpp
   platform_helpers.hpp
   popular_places_section_builder.cpp
   popular_places_section_builder.hpp
   popularity.cpp
   popularity.hpp
+  processor_booking.hpp
+  processor_coastline.cpp
+  processor_coastline.hpp
+  processor_country.cpp
+  processor_country.hpp
+  processor_factory.hpp
+  processor_interface.hpp
+  processor_noop.hpp
+  processor_simple.cpp
+  processor_simple.hpp
+  processor_world.cpp
+  processor_world.hpp
   promo_catalog_cities.hpp
   ratings_section_builder.cpp
   ratings_section_builder.hpp
@@ -230,12 +230,12 @@ set(
   tesselator.hpp
   towns_dumper.cpp
   towns_dumper.hpp
-  translation.hpp
-  translation.cpp
   traffic_generator.cpp
   traffic_generator.hpp
   transit_generator.cpp
   transit_generator.hpp
+  translation.cpp
+  translation.hpp
   translator.cpp
   translator.hpp
   translator_coastline.cpp

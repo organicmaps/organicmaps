@@ -18,7 +18,7 @@
 class WaysParserHelper
 {
 public:
-  WaysParserHelper(std::map<uint64_t, std::string> & ways) : m_ways(ways) {}
+  explicit WaysParserHelper(std::map<uint64_t, std::string> & ways) : m_ways(ways) {}
 
   void ParseStream(std::istream & input)
   {
@@ -43,7 +43,7 @@ private:
 class CapitalsParserHelper
 {
 public:
-  CapitalsParserHelper(std::set<uint64_t> & capitals) : m_capitals(capitals) {}
+  explicit CapitalsParserHelper(std::set<uint64_t> & capitals) : m_capitals(capitals) {}
 
   void ParseStream(std::istream & input)
   {
@@ -81,7 +81,7 @@ class TagAdmixer
 public:
   TagAdmixer() = default;
 
-  TagAdmixer(std::string const & waysFile, std::string const & capitalsFile) : m_ferryTag("route", "ferry")
+  explicit TagAdmixer(std::string const & waysFile, std::string const & capitalsFile)
   {
     {
       std::ifstream reader(waysFile);
@@ -97,7 +97,7 @@ public:
   }
 
   TagAdmixer(TagAdmixer const & other)
-    : m_ways(other.m_ways), m_capitals(other.m_capitals), m_ferryTag(other.m_ferryTag) {}
+    : m_ways(other.m_ways), m_capitals(other.m_capitals) {}
 
   TagAdmixer & operator=(TagAdmixer const & other)
   {
@@ -105,7 +105,6 @@ public:
     {
       m_ways = other.m_ways;
       m_capitals = other.m_capitals;
-      m_ferryTag = other.m_ferryTag;
     }
 
     return *this;
@@ -116,7 +115,8 @@ public:
     if (element.m_type == OsmElement::EntityType::Way && m_ways.find(element.m_id) != m_ways.end())
     {
       // Exclude ferry routes.
-      if (find(element.Tags().begin(), element.Tags().end(), m_ferryTag) == element.Tags().end())
+      static OsmElement::Tag const kFerryTag = {"route", "ferry"};
+      if (find(element.Tags().begin(), element.Tags().end(), kFerryTag) == element.Tags().end())
         element.AddTag("highway", m_ways[element.m_id]);
     }
     else if (element.m_type == OsmElement::EntityType::Node && m_capitals.find(element.m_id) != m_capitals.end())
@@ -136,7 +136,6 @@ public:
 private:
   std::map<uint64_t, std::string> m_ways;
   std::set<uint64_t> m_capitals;
-  OsmElement::Tag m_ferryTag;
 };
 
 class TagReplacer
@@ -144,7 +143,7 @@ class TagReplacer
 public:
   TagReplacer() = default;
 
-  TagReplacer(std::string const & filePath)
+  explicit TagReplacer(std::string const & filePath)
   {
     std::ifstream stream(filePath);
 
@@ -209,7 +208,7 @@ class OsmTagMixer
 public:
   OsmTagMixer() = default;
 
-  OsmTagMixer(std::string const & filePath)
+  explicit OsmTagMixer(std::string const & filePath)
   {
     std::ifstream stream(filePath);
     std::vector<std::string> values;
@@ -237,10 +236,7 @@ public:
       }
 
       if (!tags.empty())
-      {
-        std::pair<OsmElement::EntityType, uint64_t> elementPair = {entityType, id};
-        m_elements[elementPair].swap(tags);
-      }
+        m_elements[{entityType, id}].swap(tags);
     }
   }
 
@@ -256,8 +252,7 @@ public:
 
   void operator()(OsmElement & element)
   {
-    std::pair<OsmElement::EntityType, uint64_t> elementId = {element.m_type, element.m_id};
-    auto elements = m_elements.find(elementId);
+    auto elements = m_elements.find({element.m_type, element.m_id});
     if (elements != m_elements.end())
     {
       for (OsmElement::Tag tag : elements->second)

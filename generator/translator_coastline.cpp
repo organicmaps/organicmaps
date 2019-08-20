@@ -14,8 +14,6 @@
 
 #include "base/file_name_utils.hpp"
 
-#include <memory>
-
 #include "defines.hpp"
 
 using namespace feature;
@@ -65,7 +63,6 @@ void TranslatorCoastline::Merge(TranslatorInterface const & other)
 
 void TranslatorCoastline::MergeInto(TranslatorCoastline & other) const
 {
-  other.m_collector->Merge(*m_collector);
-  other.m_processor->Merge(*m_processor);
+  MergeIntoBase(other);
 }
 }  // namespace generator

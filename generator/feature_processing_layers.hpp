@@ -60,14 +60,13 @@ public:
   LayerBase() = default;
   virtual ~LayerBase() = default;
 
-  virtual std::shared_ptr<LayerBase> Clone() const = 0;
-  std::shared_ptr<LayerBase> CloneRecursive() const;
-
   // The function works in linear time from the number of layers that exist after that.
   virtual void Handle(feature::FeatureBuilder & fb);
 
   void Merge(std::shared_ptr<LayerBase> const & other);
-  void MergeRecursive(std::shared_ptr<LayerBase> const & other);
+  void MergeChain(std::shared_ptr<LayerBase> const & other);
+
+  size_t GetChainSize() const;
 
   void SetNext(std::shared_ptr<LayerBase> next);
   std::shared_ptr<LayerBase> Add(std::shared_ptr<LayerBase> next);
@@ -82,8 +81,6 @@ public:
   std::string GetAsStringRecursive() const;
 
 private:
-  void FailIfMethodUnsuppirted() const { CHECK(false, ("This method is unsupported.")); }
-
   LogBuffer m_logBuffer;
   std::shared_ptr<LayerBase> m_next;
 };
@@ -97,8 +94,6 @@ private:
 class RepresentationLayer : public LayerBase
 {
   // LayerBase overrides:
-  std::shared_ptr<LayerBase> Clone() const override;
-
   void Handle(feature::FeatureBuilder & fb) override;
 
 private:
@@ -107,7 +102,6 @@ private:
   static bool CanBeLine(FeatureParams const & params);
 
   void HandleArea(feature::FeatureBuilder & fb, FeatureParams const & params);
-  std::shared_ptr<PlaceProcessor> m_processor;
 };
 
 // Responsibility of class PrepareFeatureLayer is the removal of unused types and names,
@@ -116,8 +110,6 @@ class PrepareFeatureLayer : public LayerBase
 {
 public:
   // LayerBase overrides:
-  std::shared_ptr<LayerBase> Clone() const override;
-
   void Handle(feature::FeatureBuilder & fb) override;
 };
 
@@ -127,8 +119,6 @@ class RepresentationCoastlineLayer : public LayerBase
 {
 public:
   // LayerBase overrides:
-  std::shared_ptr<LayerBase> Clone() const override;
-
   void Handle(feature::FeatureBuilder & fb) override;
 };
 
@@ -138,8 +128,6 @@ class PrepareCoastlineFeatureLayer : public LayerBase
 {
 public:
   // LayerBase overrides:
-  std::shared_ptr<LayerBase> Clone() const override;
-
   void Handle(feature::FeatureBuilder & fb) override;
 };
 
@@ -149,12 +137,9 @@ public:
   explicit WorldLayer(std::string const & popularityFilename);
 
   // LayerBase overrides:
-  std::shared_ptr<LayerBase> Clone() const override;
-
   void Handle(feature::FeatureBuilder & fb) override;
 
 private:
-  std::string m_popularityFilename;
   FilterWorld m_filter;
 };
 
@@ -162,8 +147,6 @@ class CountryLayer : public LayerBase
 {
 public:
   // LayerBase overrides:
-  std::shared_ptr<LayerBase> Clone() const override;
-
   void Handle(feature::FeatureBuilder & fb) override;
 };
 
@@ -171,59 +154,47 @@ class PreserializeLayer : public LayerBase
 {
 public:
   // LayerBase overrides:
-  std::shared_ptr<LayerBase> Clone() const override;
-
   void Handle(feature::FeatureBuilder & fb) override;
 };
 
 template <class SerializePolicy = feature::serialization_policy::MaxAccuracy>
-class AffilationsFeatureLayer : public LayerBase
+class AffiliationsFeatureLayer : public LayerBase
 {
 public:
-  AffilationsFeatureLayer(size_t bufferSize, std::shared_ptr<feature::AffiliationInterface> const & affilation)
+  AffiliationsFeatureLayer(size_t bufferSize, std::shared_ptr<feature::AffiliationInterface> const & affiliation,
+                          std::shared_ptr<FeatureProcessorQueue> const & queue)
     : m_bufferSize(bufferSize)
-    , m_affilation(affilation)
+    , m_affiliation(affiliation)
+    , m_queue(queue)
   {
     m_buffer.reserve(m_bufferSize);
   }
 
   // LayerBase overrides:
-  std::shared_ptr<LayerBase> Clone() const override
-  {
-    return std::make_shared<AffilationsFeatureLayer<SerializePolicy>>(m_bufferSize, m_affilation);
-  }
-
   void Handle(feature::FeatureBuilder & fb) override
   {
     feature::FeatureBuilder::Buffer buffer;
     SerializePolicy::Serialize(fb, buffer);
-    m_buffer.emplace_back(std::move(buffer), m_affilation->GetAffiliations(fb));
-  }
-
-  bool AddBufferToQueue(std::shared_ptr<FeatureProcessorQueue> const & queue)
-  {
-    if (!m_buffer.empty())
-    {
-      queue->Push(std::move(m_buffer));
-      m_buffer = {};
-      m_buffer.reserve(m_bufferSize);
-      return true;
-    }
-
-    return false;
-  }
-
-  bool AddBufferToQueueIfFull(std::shared_ptr<FeatureProcessorQueue> const & queue)
-  {
+    m_buffer.emplace_back(std::move(buffer), m_affiliation->GetAffiliations(fb));
     if (m_buffer.size() >= m_bufferSize)
-      return AddBufferToQueue(queue);
+      AddBufferToQueue();
+  }
 
-    return false;
+  bool AddBufferToQueue()
+  {
+    if (m_buffer.empty())
+      return false;
+
+    m_queue->Push(std::move(m_buffer));
+    m_buffer.clear();
+    m_buffer.reserve(m_bufferSize);
+    return true;
   }
 
 private:
   size_t const m_bufferSize;
   std::vector<ProcessedData> m_buffer;
-  std::shared_ptr<feature::AffiliationInterface> m_affilation;
+  std::shared_ptr<feature::AffiliationInterface> m_affiliation;
+  std::shared_ptr<FeatureProcessorQueue> m_queue;
 };
 }  // namespace generator

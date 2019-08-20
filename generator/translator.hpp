@@ -55,6 +55,12 @@ protected:
     return std::make_shared<T>(processor, cache, featureMaker, filter, collector);
   }
 
+  void MergeIntoBase(Translator & other) const
+  {
+    other.m_collector->Merge(*m_collector);
+    other.m_processor->Merge(*m_processor);
+  }
+
   std::shared_ptr<FilterInterface> m_filter;
   std::shared_ptr<CollectorInterface> m_collector;
   RelationTagsEnricher m_tagsEnricher;

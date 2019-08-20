@@ -9,6 +9,8 @@
 
 #include "platform/platform.hpp"
 
+#include "coding/read_write_utils.hpp"
+
 #include "base/scope_guard.hpp"
 
 #include <cstddef>
@@ -164,7 +166,7 @@ UNIT_TEST(MetalinesTest_Case6)
   TEST_EQUAL(outputData.at(keyB).size(), 1 /* ways count */, ());
 }
 
-UNIT_TEST(MetalinesTest_MetalinesBuilder)
+UNIT_TEST(MetalinesTest_MetalinesBuilderMarge)
 {
   classificator::Load();
   auto const filename = generator_tests::GetFileName();
@@ -186,9 +188,8 @@ UNIT_TEST(MetalinesTest_MetalinesBuilder)
   std::set<std::vector<int32_t>> s;
   while (src.Size() > 0)
   {
-    uint16_t size = ReadPrimitiveFromSource<uint16_t>(src);
-    std::vector<int32_t> ways(size);
-    src.Read(ways.data(), size * sizeof(int32_t));
+    std::vector<int32_t> ways;
+    rw::ReadVectorOfPOD(src, ways);
     s.emplace(std::move(ways));
   }
 

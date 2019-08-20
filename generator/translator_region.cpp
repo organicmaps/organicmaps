@@ -74,7 +74,6 @@ void TranslatorRegion::Merge(TranslatorInterface const & other)
 
 void TranslatorRegion::MergeInto(TranslatorRegion & other) const
 {
-  other.m_collector->Merge(*m_collector);
-  other.m_processor->Merge(*m_processor);
+  MergeIntoBase(other);
 }
 }  // namespace generator

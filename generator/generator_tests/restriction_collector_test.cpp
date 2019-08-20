@@ -17,6 +17,7 @@
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 
+#include <map>
 #include <memory>
 #include <string>
 #include <utility>
@@ -214,7 +215,7 @@ UNIT_CLASS_TEST(TestRestrictionCollector, InvalidCase_FeaturesNotIntersecting)
   TestRestrictionCollector::InvalidCase_FeaturesNotIntersecting();
 }
 
-UNIT_TEST(RestrictionWriter_Case1)
+UNIT_TEST(RestrictionWriter_Merge)
 {
   classificator::Load();
   auto const filename = generator_tests::GetFileName();

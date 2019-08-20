@@ -6,11 +6,9 @@
 #include "generator/cities_boundaries_builder.hpp"
 #include "generator/cities_ids_builder.hpp"
 #include "generator/city_roads_generator.hpp"
-#include "generator/descriptions_section_builder.hpp"
 #include "generator/data_version.hpp"
+#include "generator/descriptions_section_builder.hpp"
 #include "generator/dumper.hpp"
-#include "generator/osm_source.hpp"
-#include "generator/processor_factory.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/generate_info.hpp"
@@ -18,9 +16,11 @@
 #include "generator/locality_sorter.hpp"
 #include "generator/maxspeeds_builder.hpp"
 #include "generator/metalines_builder.hpp"
+#include "generator/osm_source.hpp"
 #include "generator/platform_helpers.hpp"
 #include "generator/popular_places_section_builder.hpp"
 #include "generator/popularity.hpp"
+#include "generator/processor_factory.hpp"
 #include "generator/ratings_section_builder.hpp"
 #include "generator/raw_generator.hpp"
 #include "generator/regions/collector_region_info.hpp"
@@ -117,12 +117,12 @@ DEFINE_uint64(planet_version, base::SecondsSinceEpoch(),
 DEFINE_bool(preprocess, false, "1st pass - create nodes/ways/relations data.");
 DEFINE_bool(generate_features, false, "2nd pass - generate intermediate features.");
 DEFINE_bool(no_ads, false, "generation without ads.");
-DEFINE_string(generate_region_features, "",
-              "Generate intermediate features for regions to use in regions index and borders generation.");
-DEFINE_string(generate_streets_features, "",
-              "Generate intermediate features for streets to use in server-side forward geocoder.");
-DEFINE_string(generate_geo_objects_features, "",
-              "Generate intermediate features for geo objects to use in geo objects index.");
+DEFINE_bool(generate_region_features, false,
+            "Generate intermediate features for regions to use in regions index and borders generation.");
+DEFINE_bool(generate_streets_features, false,
+            "Generate intermediate features for streets to use in server-side forward geocoder.");
+DEFINE_bool(generate_geo_objects_features, false,
+            "Generate intermediate features for geo objects to use in geo objects index.");
 DEFINE_bool(generate_geometry, false,
             "3rd pass - split and simplify geometry and triangles for features.");
 DEFINE_bool(generate_index, false, "4rd pass - generate index.");
@@ -222,13 +222,12 @@ DEFINE_string(regions_features, "", "Input tmp.mwm file with regions.");
 
 DEFINE_string(popularity_csv, "", "Output csv for popularity.");
 
-DEFINE_bool(dump_mwm_tmp, false, "Prints features builder objects from .mwm.tmp");
+DEFINE_bool(dump_mwm_tmp, false, "Prints feature builder objects from .mwm.tmp");
 
 // Common.
 DEFINE_bool(verbose, false, "Provide more detailed output.");
 
 using namespace generator;
-
 
 int GeneratorToolMain(int argc, char ** argv)
 {
@@ -312,9 +311,9 @@ int GeneratorToolMain(int argc, char ** argv)
   if (FLAGS_generate_features ||
       FLAGS_generate_world ||
       FLAGS_make_coasts ||
-      !FLAGS_generate_region_features.empty() ||
-      !FLAGS_generate_streets_features.empty() ||
-      !FLAGS_generate_geo_objects_features.empty())
+      FLAGS_generate_region_features ||
+      FLAGS_generate_streets_features ||
+      FLAGS_generate_geo_objects_features)
   {
     RawGenerator rawGenerator(genInfo, threadsCount);
     if (FLAGS_generate_features)
@@ -323,12 +322,12 @@ int GeneratorToolMain(int argc, char ** argv)
       rawGenerator.GenerateWorld(FLAGS_no_ads);
     if (FLAGS_make_coasts)
       rawGenerator.GenerateCoasts();
-    if (!FLAGS_generate_region_features.empty())
-      rawGenerator.GenerateRegionFeatures(FLAGS_generate_region_features);
-    if (!FLAGS_generate_streets_features.empty())
-      rawGenerator.GenerateStreetsFeatures(FLAGS_generate_streets_features);
-    if (!FLAGS_generate_geo_objects_features.empty())
-      rawGenerator.GenerateGeoObjectsFeatures(FLAGS_generate_geo_objects_features);
+    if (FLAGS_generate_region_features)
+      rawGenerator.GenerateRegionFeatures(FLAGS_output);
+    if (FLAGS_generate_streets_features)
+      rawGenerator.GenerateStreetsFeatures(FLAGS_output);
+    if (FLAGS_generate_geo_objects_features)
+      rawGenerator.GenerateGeoObjectsFeatures(FLAGS_output);
 
     if (!rawGenerator.Execute())
       return EXIT_FAILURE;

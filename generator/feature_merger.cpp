@@ -122,7 +122,7 @@ double MergedFeatureBuilder::GetPriority() const
 }
 
 
-FeatureMergeProcessor::key_t FeatureMergeProcessor::get_key(m2::PointD const & p)
+FeatureMergeProcessor::Key FeatureMergeProcessor::GetKey(m2::PointD const & p)
 {
   return PointToInt64Obsolete(p, m_coordBits);
 }
@@ -139,8 +139,8 @@ void FeatureMergeProcessor::operator() (FeatureBuilder const & fb)
 
 void FeatureMergeProcessor::operator() (MergedFeatureBuilder * p)
 {
-  key_t const k1 = get_key(p->FirstPoint());
-  key_t const k2 = get_key(p->LastPoint());
+  Key const k1 = GetKey(p->FirstPoint());
+  Key const k2 = GetKey(p->LastPoint());
 
   m_map[k1].push_back(p);
   if (k1 != k2)
@@ -156,15 +156,15 @@ void FeatureMergeProcessor::operator() (MergedFeatureBuilder * p)
 
 void FeatureMergeProcessor::Insert(m2::PointD const & pt, MergedFeatureBuilder * p)
 {
-  m_map[get_key(pt)].push_back(p);
+  m_map[GetKey(pt)].push_back(p);
 }
 
-void FeatureMergeProcessor::Remove(key_t key, MergedFeatureBuilder const * p)
+void FeatureMergeProcessor::Remove(Key key, MergedFeatureBuilder const * p)
 {
-  map_t::iterator i = m_map.find(key);
+  auto i = m_map.find(key);
   if (i != m_map.end())
   {
-    vector_t & v = i->second;
+    MergedFeatureBuilders & v = i->second;
     v.erase(remove(v.begin(), v.end(), p), v.end());
     if (v.empty()) m_map.erase(i);
   }
@@ -172,8 +172,8 @@ void FeatureMergeProcessor::Remove(key_t key, MergedFeatureBuilder const * p)
 
 void FeatureMergeProcessor::Remove(MergedFeatureBuilder const * p)
 {
-  key_t const k1 = get_key(p->FirstPoint());
-  key_t const k2 = get_key(p->LastPoint());
+  Key const k1 = GetKey(p->FirstPoint());
+  Key const k2 = GetKey(p->LastPoint());
 
   Remove(k1, p);
   if (k1 != k2)
@@ -191,7 +191,7 @@ void FeatureMergeProcessor::DoMerge(FeatureEmitterIFace & emitter)
   while (!m_map.empty())
   {
     // Get any starting feature.
-    vector_t & vS = m_map.begin()->second;
+    MergedFeatureBuilders & vS = m_map.begin()->second;
     CHECK(!vS.empty(), ());
     MergedFeatureBuilder * p = vS.front();  // may be 'back' is better
 
@@ -213,7 +213,7 @@ void FeatureMergeProcessor::DoMerge(FeatureEmitterIFace & emitter)
     while (ind < curr.GetKeyPointsCount())  // GetKeyPointsCount() can be different on each iteration
     {
       std::pair<m2::PointD, bool> const pt = curr.GetKeyPoint(ind++);
-      map_t::const_iterator it = m_map.find(get_key(pt.first));
+      auto it = m_map.find(GetKey(pt.first));
 
       MergedFeatureBuilder * pp = 0;
       if (it != m_map.end())

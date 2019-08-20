@@ -38,14 +38,14 @@ bool TranslatorCollection::Save()
   });
 }
 
-void TranslatorCollection::Merge(TranslatorInterface const & collector)
+void TranslatorCollection::Merge(TranslatorInterface const & other)
 {
-  collector.MergeInto(*this);
+  other.MergeInto(*this);
 }
 
-void TranslatorCollection::MergeInto(TranslatorCollection & collector) const
+void TranslatorCollection::MergeInto(TranslatorCollection & other) const
 {
-  auto & otherCollection = collector.m_collection;
+  auto & otherCollection = other.m_collection;
   CHECK_EQUAL(m_collection.size(), otherCollection.size(), ());
   for (size_t i = 0; i < m_collection.size(); ++i)
     otherCollection[i]->Merge(*m_collection[i]);

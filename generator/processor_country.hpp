@@ -37,7 +37,7 @@ private:
 
   std::string m_bordersPath;
   std::string m_layerLogFilename;
-  std::shared_ptr<AffilationsFeatureLayer<>> m_affilationsLayer;
+  std::shared_ptr<AffiliationsFeatureLayer<>> m_affiliationsLayer;
   std::shared_ptr<FeatureProcessorQueue> m_queue;
   std::shared_ptr<LayerBase> m_processingChain;
   bool m_haveBordersForWholeWorld;

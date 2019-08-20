@@ -28,7 +28,6 @@ void TranslatorStreets::Merge(TranslatorInterface const & other)
 
 void TranslatorStreets::MergeInto(TranslatorStreets & other) const
 {
-  other.m_collector->Merge(*m_collector);
-  other.m_processor->Merge(*m_processor);
+  MergeIntoBase(other);
 }
 }  // namespace generator

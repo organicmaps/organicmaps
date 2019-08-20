@@ -26,6 +26,7 @@ public:
 
   void SetCache(std::shared_ptr<cache::IntermediateData> const & cache);
 
+  // Reference on element is non const because ftype::GetNameAndType will be call.
   virtual bool Add(OsmElement & element);
   // The function returns true when the receiving feature was successful and a false when not successful.
   bool GetNextFeature(feature::FeatureBuilder & feature);

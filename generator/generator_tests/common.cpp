@@ -30,8 +30,6 @@ OsmElement MakeOsmElement(uint64_t id, Tags const & tags, OsmElement::EntityType
 std::string GetFileName(std::string const & filename)
 {
   auto & platform = GetPlatform();
-  auto const tmpDir = platform.TmpDir();
-  platform.SetWritableDirForTests(tmpDir);
   return filename.empty() ? platform.TmpPathForFile() : platform.TmpPathForFile(filename);
 }
 
@@ -43,10 +41,9 @@ bool MakeFakeBordersFile(std::string const & intemediatePath, std::string const 
   if (code != Platform::EError::ERR_OK && code != Platform::EError::ERR_FILE_ALREADY_EXISTS)
     return false;
 
-  std::ofstream file;
-  file.exceptions(std::ios::failbit | std::ios::badbit);
-  file.open(base::JoinPath(borderPath, filename + ".poly"));
-  file << filename << "\n1\n\t-180.0	-90.0\n\t180.0	-90.0\n\t180.0	90.0\n\t-180.0	90.0\n\t-180.0	-90.0\nEND\nEND";
+  std::vector<m2::PointD> points = {{-180.0, -90.0}, {180.0, -90.0}, {180.0, 90.0}, {-180.0, 90.0},
+                                    {-180.0, -90.0}};
+  borders::DumpBorderToPolyFile(borderPath, filename, {m2::RegionD{points}});
   return true;
 }
 
@@ -77,7 +74,7 @@ feature::FeatureBuilder FeatureBuilderFromOmsElementData(OsmElementData const & 
     auto const & p1 = elementData.m_polygon[0];
     auto const & p2 = elementData.m_polygon[1];
     vector<m2::PointD> poly = {
-        {p1.x, p1.y}, {p1.x, p2.y}, {p2.x, p2.y}, {p2.x, p1.y}, {p1.x, p1.y}};
+      {p1.x, p1.y}, {p1.x, p2.y}, {p2.x, p2.y}, {p2.x, p1.y}, {p1.x, p1.y}};
     fb.AddPolygon(poly);
     fb.SetHoles({});
     fb.SetArea();

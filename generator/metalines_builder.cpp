@@ -6,6 +6,7 @@
 #include "indexer/classificator.hpp"
 
 #include "coding/file_container.hpp"
+#include "coding/read_write_utils.hpp"
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
 
@@ -104,7 +105,7 @@ LineStringMerger::OutputData LineStringMerger::Merge(InputData const & data)
 bool LineStringMerger::TryMerge(LinePtr const & lineString, Buffer & buffer)
 {
   bool merged = false;
-  while(TryMergeOne(lineString, buffer))
+  while (TryMergeOne(lineString, buffer))
     merged = true;
 
   buffer.emplace(lineString->GetStart(), lineString);
@@ -200,11 +201,8 @@ void MetalinesBuilder::Save()
     for (auto const & lineString : p.second)
     {
       auto const & ways = lineString->GetWays();
-      uint16_t size = base::checked_cast<uint16_t>(ways.size());
-      WriteToSink(writer, size);
+      rw::WriteVectorOfPOD(writer, ways);
       countWays += ways.size();
-      for (int32_t const way : ways)
-        WriteToSink(writer, way);
       ++countLines;
     }
   }
@@ -240,9 +238,8 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
   while (src.Size() > 0)
   {
     std::vector<int32_t> featureIds;
-    uint16_t size = ReadPrimitiveFromSource<uint16_t>(src);
-    std::vector<int32_t> ways(size);
-    src.Read(ways.data(), size * sizeof(int32_t));
+    std::vector<int32_t> ways;
+    rw::ReadVectorOfPOD(src, ways);
     for (auto const wayId : ways)
     {
       // We get a negative wayId when a feature direction should be reversed.
