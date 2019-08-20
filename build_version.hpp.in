@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace omim
+namespace @PROJECT_NAME@
 {
 namespace build_version
 {
@@ -15,4 +15,4 @@ constexpr uint64_t kTimestamp = @GIT_TIMESTAMP@;
 constexpr char const * const kProjectName = "@PROJECT_NAME@";
 }  // namespace git
 }  // namespace build_version
-}  // namespace omim
+}  // namespace @PROJECT_NAME@
