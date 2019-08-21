@@ -50,7 +50,7 @@
 - (instancetype)initWithAuthURL:(NSURL *)url onSuccessAuth:(MWMStringBlock)success
                       onFailure:(MWMVoidBlock)failure
 {
-  self = [super init];
+  self = [super initWithNibName:nil bundle:nil];
   if (self)
   {
     _m_url = url;

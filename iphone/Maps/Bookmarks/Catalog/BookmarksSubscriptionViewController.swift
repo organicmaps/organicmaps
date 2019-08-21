@@ -134,41 +134,47 @@ class BookmarksSubscriptionViewController: MWMViewController {
   }
 
   @IBAction func onContinue(_ sender: UIButton) {
-    loadingView.isHidden = false
-    MWMBookmarksManager.shared().ping { [weak self] (success) in
-      guard success else {
-        self?.loadingView.isHidden = true
-        let errorDialog = BookmarksSubscriptionFailViewController { [weak self] in
-          self?.dismiss(animated: true)
+    signup(anchor: sender) { [weak self] success in
+      guard success else { return }
+      self?.loadingView.isHidden = false
+      MWMBookmarksManager.shared().ping { success in
+        guard success else {
+          self?.loadingView.isHidden = true
+          let errorDialog = BookmarksSubscriptionFailViewController { [weak self] in
+            self?.dismiss(animated: true)
+          }
+          self?.present(errorDialog, animated: true)
+          return
         }
-        self?.present(errorDialog, animated: true)
-        return
-      }
 
-      guard let subscription = self?.selectedSubscription else {
-        return
+        guard let subscription = self?.selectedSubscription else {
+          return
+        }
+
+        InAppPurchase.bookmarksSubscriptionManager.subscribe(to: subscription)
       }
-      
-      InAppPurchase.bookmarksSubscriptionManager.subscribe(to: subscription)
     }
     Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId()])
   }
 
   @IBAction func onRestore(_ sender: UIButton) {
-    loadingView.isHidden = false
     Statistics.logEvent(kStatInappRestore, withParameters: [kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId()])
-    InAppPurchase.bookmarksSubscriptionManager.restore { [weak self] result in
-      self?.loadingView.isHidden = true
-      let alertText: String
-      switch result {
-      case .valid:
-        alertText = L("restore_success_alert")
-      case .notValid:
-        alertText = L("restore_no_subscription_alert")
-      case .serverError, .authError:
-        alertText = L("restore_error_alert")
+    signup(anchor: sender) { [weak self] (success) in
+      guard success else { return }
+      self?.loadingView.isHidden = false
+      InAppPurchase.bookmarksSubscriptionManager.restore { result in
+        self?.loadingView.isHidden = true
+        let alertText: String
+        switch result {
+        case .valid:
+          alertText = L("restore_success_alert")
+        case .notValid:
+          alertText = L("restore_no_subscription_alert")
+        case .serverError, .authError:
+          alertText = L("restore_error_alert")
+        }
+        MWMAlertViewController.activeAlert().presentInfoAlert(L("restore_subscription"), text: alertText)
       }
-      MWMAlertViewController.activeAlert().presentInfoAlert(L("restore_subscription"), text: alertText)
     }
   }
 

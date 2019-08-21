@@ -45,6 +45,7 @@
 #import "MWMKeyboard.h"
 #import "MWMLocationManager.h"
 #import "MWMMapWidgetsHelper.h"
+#import "MWMNavigationController.h"
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMNoMapsViewController.h"
