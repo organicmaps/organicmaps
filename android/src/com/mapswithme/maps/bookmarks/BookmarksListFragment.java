@@ -63,19 +63,16 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   public static final String EXTRA_CATEGORY = "bookmark_category";
 
   private BookmarksToolbarController mToolbarController;
-  private long mLastQueryTimestamp;
-  private long mLastSortTimestamp;
+  private long mLastQueryTimestamp = 0;
+  private long mLastSortTimestamp = 0;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
   private CategoryDataSource mCategoryDataSource;
   private int mSelectedPosition;
 
-  private List<Long> mSearchResults;
-  private List<SortedBlock> mSortResults;
-
   private boolean mSearchMode = false;
-  private boolean mSortMode = false;
+  private boolean mNeedUpdateSorting = true;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -162,8 +159,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     super.onResume();
     Crashlytics.log("onResume");
     BookmarkListAdapter adapter = getAdapter();
-
     adapter.notifyDataSetChanged();
+    updateSorting();
   }
 
   @Override
@@ -301,7 +298,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   @Override
   public void onBookmarkSearchResultsUpdate(@Nullable long[] bookmarkIds, long timestamp)
   {
-    if (!isAdded() || !mToolbarController.hasQuery())
+    if (!isAdded() || !mToolbarController.hasQuery() || mLastQueryTimestamp != timestamp)
       return;
     updateSearchResults(bookmarkIds);
   }
@@ -309,22 +306,17 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   @Override
   public void onBookmarkSearchResultsEnd(@Nullable long[] bookmarkIds, long timestamp)
   {
-    if (!isAdded() || !mToolbarController.hasQuery())
+    if (!isAdded() || !mToolbarController.hasQuery() || mLastQueryTimestamp != timestamp)
       return;
+    mLastQueryTimestamp = 0;
     mToolbarController.showProgress(false);
     updateSearchResults(bookmarkIds);
   }
 
   private void updateSearchResults(@Nullable long[] bookmarkIds)
   {
-    ArrayList<Long> ids = new ArrayList<Long>(bookmarkIds.length);
-    for (long id : bookmarkIds)
-      ids.add(id);
-
-    mSearchResults = ids;
-
     BookmarkListAdapter adapter = getAdapter();
-    adapter.setSearchResults(mSearchResults);
+    adapter.setSearchResults(bookmarkIds);
     adapter.notifyDataSetChanged();
   }
 
@@ -332,23 +324,23 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     SearchEngine.INSTANCE.cancel();
     mToolbarController.showProgress(false);
-    mSearchResults = null;
     BookmarkListAdapter adapter = getAdapter();
-    adapter.setSearchResults(mSearchResults);
+    adapter.setSearchResults(null);
     adapter.notifyDataSetChanged();
+    updateSorting();
   }
 
   public void activateSearch()
   {
     mSearchMode = true;
-
+    BookmarkManager.INSTANCE.setNotificationsEnabled(true);
     updateControlsStatus();
   }
 
   public void deactivateSearch()
   {
     mSearchMode = false;
-
+    BookmarkManager.INSTANCE.setNotificationsEnabled(false);
     updateControlsStatus();
   }
 
@@ -362,11 +354,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     if (mLastSortTimestamp != timestamp)
       return;
-
-    mSortResults = Arrays.asList(sortedBlocks);
+    mLastSortTimestamp = 0;
 
     BookmarkListAdapter adapter = getAdapter();
-    adapter.setSortedResults(mSortResults);
+    adapter.setSortedResults(sortedBlocks);
     adapter.notifyDataSetChanged();
   }
 
@@ -375,18 +366,21 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     if (mLastSortTimestamp != timestamp)
       return;
-
-    mSortResults = null;
+    mLastSortTimestamp = 0;
 
     BookmarkListAdapter adapter = getAdapter();
-    adapter.setSortedResults(mSortResults);
+    adapter.setSortedResults(null);
     adapter.notifyDataSetChanged();
   }
 
-  @Override
-  public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
+  public void onSort(@BookmarkManager.SortingType int sortingType)
   {
-    SharingHelper.INSTANCE.onPreparedFileForSharing(getActivity(), result);
+    mLastSortTimestamp = System.nanoTime();
+
+    long catId = getCategoryOrThrow().getId();
+    BookmarkManager.INSTANCE.setLastSortingType(catId, sortingType);
+    BookmarkManager.INSTANCE.getSortedBookmarks(catId, sortingType,
+        false, 0, 0, mLastSortTimestamp);
   }
 
   public void onResetSorting()
@@ -400,13 +394,38 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     adapter.notifyDataSetChanged();
   }
 
-  public void onSort(@BookmarkManager.SortingType int sortingType)
+  public void updateSorting()
   {
-    mLastSortTimestamp = System.nanoTime();
+    if (!mNeedUpdateSorting)
+      return;
+    mNeedUpdateSorting = false;
+
+    // Do nothing in case of sorting has already started and we are waiting for results.
+    if (mLastSortTimestamp != 0)
+      return;
+
     long catId = getCategoryOrThrow().getId();
-    BookmarkManager.INSTANCE.setLastSortingType(catId, sortingType);
-    BookmarkManager.INSTANCE.getSortedBookmarks(catId, sortingType,
-        false, 0, 0, mLastSortTimestamp);
+    if (!BookmarkManager.INSTANCE.hasLastSortingType(catId))
+      return;
+
+    @BookmarkManager.SortingType int currentType =
+        BookmarkManager.INSTANCE.getLastSortingType(catId);
+    @BookmarkManager.SortingType int[] types =
+        BookmarkManager.INSTANCE.getAvailableSortingTypes(catId, false);
+    for (int i = 0; i < types.length; ++i)
+    {
+      if (types[i] == currentType)
+      {
+        onSort(currentType);
+        break;
+      }
+    }
+  }
+
+  @Override
+  public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
+  {
+    SharingHelper.INSTANCE.onPreparedFileForSharing(getActivity(), result);
   }
 
   @Override
@@ -457,8 +476,11 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
         break;
 
       case R.id.delete:
+        adapter.onDelete(mSelectedPosition);
         BookmarkManager.INSTANCE.deleteBookmark(item.getBookmarkId());
         adapter.notifyDataSetChanged();
+        if (mSearchMode)
+          mNeedUpdateSorting = true;
         break;
     }
     return false;

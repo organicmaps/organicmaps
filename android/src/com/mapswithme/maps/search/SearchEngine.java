@@ -65,24 +65,16 @@ public enum SearchEngine implements NativeSearchListener,
 
   public void onBookmarkSearchResultsUpdate(@Nullable long[] bookmarkIds, long timestamp)
   {
-    UiThread.run(
-        () ->
-        {
-          for (NativeBookmarkSearchListener listener : mBookmarkListeners)
-            listener.onBookmarkSearchResultsUpdate(bookmarkIds, timestamp);
-          mBookmarkListeners.finishIterate();
-        });
+    for (NativeBookmarkSearchListener listener : mBookmarkListeners)
+      listener.onBookmarkSearchResultsUpdate(bookmarkIds, timestamp);
+    mBookmarkListeners.finishIterate();
   }
 
   public void onBookmarkSearchResultsEnd(@Nullable long[] bookmarkIds, long timestamp)
   {
-    UiThread.run(
-        () ->
-        {
-          for (NativeBookmarkSearchListener listener : mBookmarkListeners)
-            listener.onBookmarkSearchResultsEnd(bookmarkIds, timestamp);
-          mBookmarkListeners.finishIterate();
-        });
+    for (NativeBookmarkSearchListener listener : mBookmarkListeners)
+      listener.onBookmarkSearchResultsEnd(bookmarkIds, timestamp);
+    mBookmarkListeners.finishIterate();
   }
 
   @Override

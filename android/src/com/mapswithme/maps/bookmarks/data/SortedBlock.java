@@ -3,6 +3,7 @@ package com.mapswithme.maps.bookmarks.data;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,8 +20,8 @@ public class SortedBlock
                      @NonNull Long[] trackIds)
   {
     mName = name;
-    mBookmarkIds = Arrays.asList(bookmarkIds);
-    mTrackIds = Arrays.asList(trackIds);
+    mBookmarkIds = new ArrayList<>(Arrays.asList(bookmarkIds));
+    mTrackIds = new ArrayList<>(Arrays.asList(trackIds));
   }
 
   public boolean isBookmarksBlock() { return !mBookmarkIds.isEmpty(); }

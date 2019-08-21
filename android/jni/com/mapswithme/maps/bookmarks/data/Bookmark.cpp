@@ -10,6 +10,11 @@ namespace
 Bookmark const * getBookmark(jlong bokmarkId)
 {
   Bookmark const * pBmk = frm()->GetBookmarkManager().GetBookmark(static_cast<kml::MarkId>(bokmarkId));
+  if (!pBmk)
+  {
+    int i = 0;
+    ++i;
+  }
   ASSERT(pBmk, ("Bookmark not found, id", bokmarkId));
   return pBmk;
 }

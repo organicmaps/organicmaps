@@ -17,6 +17,8 @@ import com.mapswithme.maps.content.DataSource;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookmarkHolder>
@@ -76,9 +78,12 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
       mDataSource = dataSource;
     }
 
-    public BookmarkCategory getCategory()
+    public BookmarkCategory getCategory() { return mDataSource.getData(); }
+
+    protected boolean hasDescription()
     {
-      return mDataSource.getData();
+      return !mDataSource.getData().getAnnotation().isEmpty() ||
+             !mDataSource.getData().getDescription().isEmpty();
     }
 
     public abstract int getSectionsCount();
@@ -112,10 +117,8 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
       mTracksSectionIndex = SectionPosition.INVALID_POSITION;
 
       mSectionsCount = 0;
-      if (!getCategory().getAnnotation().isEmpty() || !getCategory().getDescription().isEmpty())
-      {
+      if (hasDescription())
         mDescriptionSectionIndex = mSectionsCount++;
-      }
       if (getCategory().getTracksCount() > 0)
         mTracksSectionIndex = mSectionsCount++;
       if (getCategory().getBookmarksCount() > 0)
@@ -123,10 +126,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     }
 
     @Override
-    public int getSectionsCount()
-    {
-      return mSectionsCount;
-    }
+    public int getSectionsCount() { return mSectionsCount; }
 
     @Override
     public boolean isEditable(int sectionIndex)
@@ -135,10 +135,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     }
 
     @Override
-    public boolean hasTitle(int sectionIndex)
-    {
-      return true;
-    }
+    public boolean hasTitle(int sectionIndex) { return true; }
 
     @Nullable
     public String getTitle(int sectionIndex, Resources rs)
@@ -210,57 +207,33 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     }
 
     @Override
-    public int getSectionsCount()
-    {
-      return 1;
-    }
+    public int getSectionsCount() { return 1; }
 
     @Override
-    public boolean isEditable(int sectionIndex)
-    {
-      return true;
-    }
+    public boolean isEditable(int sectionIndex) { return true; }
 
     @Override
-    public boolean hasTitle(int sectionIndex)
-    {
-      return false;
-    }
+    public boolean hasTitle(int sectionIndex) { return false; }
 
     @Nullable
-    public String getTitle(int sectionIndex, Resources rs)
-    {
-      return null;
-    }
+    public String getTitle(int sectionIndex, Resources rs) { return null; }
 
     @Override
-    public int getItemsCount(int sectionIndex)
-    {
-      return mSearchResults.size();
-    }
+    public int getItemsCount(int sectionIndex) { return mSearchResults.size(); }
 
     @Override
-    public int getItemsType(int sectionIndex)
-    {
-      return TYPE_BOOKMARK;
-    }
+    public int getItemsType(int sectionIndex) { return TYPE_BOOKMARK; }
 
     @Override
-    public void onDelete(SectionPosition pos)
-    {
-      mSearchResults.remove(pos.itemIndex);
-    }
+    public void onDelete(SectionPosition pos) { mSearchResults.remove(pos.itemIndex); }
 
     @Override
-    public long getBookmarkId(SectionPosition pos)
-    {
-      return mSearchResults.get(pos.itemIndex);
-    }
+    public long getBookmarkId(SectionPosition pos) { return mSearchResults.get(pos.itemIndex); }
 
     @Override
     public long getTrackId(SectionPosition pos)
     {
-      return 0;
+      throw new AssertionError("Tracks unsupported in search results.");
     }
   }
 
@@ -276,34 +249,51 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
       mSortedBlocks = sortedBlocks;
     }
 
+    private boolean isDescriptionSection(int sectionIndex)
+    {
+      return hasDescription() && sectionIndex == 0;
+    }
+
+    @NonNull
+    private SortedBlock getSortedBlock(int sectionIndex)
+    {
+      if (isDescriptionSection(sectionIndex))
+        throw new IllegalArgumentException("Invalid section index for sorted block.");
+      int blockIndex = sectionIndex - (hasDescription() ? 1 : 0);
+      return mSortedBlocks.get(blockIndex);
+    }
+
     @Override
     public int getSectionsCount()
     {
-      return mSortedBlocks.size();
+      return mSortedBlocks.size() + (hasDescription() ? 1 : 0);
     }
 
     @Override
     public boolean isEditable(int sectionIndex)
     {
+      if (isDescriptionSection(sectionIndex))
+        return false;
       return true;
     }
 
     @Override
-    public boolean hasTitle(int sectionIndex)
-    {
-      return true;
-    }
+    public boolean hasTitle(int sectionIndex) { return true; }
 
     @Nullable
     public String getTitle(int sectionIndex, Resources rs)
     {
-      return mSortedBlocks.get(sectionIndex).getName();
+      if (isDescriptionSection(sectionIndex))
+        return rs.getString(R.string.description);
+      return getSortedBlock(sectionIndex).getName();
     }
 
     @Override
     public int getItemsCount(int sectionIndex)
     {
-      SortedBlock block = mSortedBlocks.get(sectionIndex);
+      if (isDescriptionSection(sectionIndex))
+        return 1;
+      SortedBlock block = getSortedBlock(sectionIndex);
       if (block.isBookmarksBlock())
         return block.getBookmarkIds().size();
       return block.getTrackIds().size();
@@ -312,8 +302,9 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     @Override
     public int getItemsType(int sectionIndex)
     {
-      SortedBlock block = mSortedBlocks.get(sectionIndex);
-      if (block.isBookmarksBlock())
+      if (isDescriptionSection(sectionIndex))
+        return TYPE_DESC;
+      if (getSortedBlock(sectionIndex).isBookmarksBlock())
         return TYPE_BOOKMARK;
       return TYPE_TRACK;
     }
@@ -321,28 +312,32 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     @Override
     public void onDelete(SectionPosition pos)
     {
-      SortedBlock block = mSortedBlocks.get(pos.sectionIndex);
+      if (isDescriptionSection(pos.sectionIndex))
+        throw new IllegalArgumentException("Delete failed. Invalid section index.");
+
+      int blockIndex = pos.sectionIndex - (hasDescription() ? 1 : 0);
+      SortedBlock block = mSortedBlocks.get(blockIndex);
       if (block.isBookmarksBlock())
       {
         block.getBookmarkIds().remove(pos.itemIndex);
         if (block.getBookmarkIds().isEmpty())
-          mSortedBlocks.remove(pos.sectionIndex);
+          mSortedBlocks.remove(blockIndex);
         return;
       }
 
       block.getTrackIds().remove(pos.itemIndex);
       if (block.getTrackIds().isEmpty())
-        mSortedBlocks.remove(pos.sectionIndex);
+        mSortedBlocks.remove(blockIndex);
     }
 
     public long getBookmarkId(SectionPosition pos)
     {
-      return mSortedBlocks.get(pos.sectionIndex).getBookmarkIds().get(pos.itemIndex);
+      return getSortedBlock(pos.sectionIndex).getBookmarkIds().get(pos.itemIndex);
     }
 
     public long getTrackId(SectionPosition pos)
     {
-      return mSortedBlocks.get(pos.sectionIndex).getTrackIds().get(pos.itemIndex);
+      return getSortedBlock(pos.sectionIndex).getTrackIds().get(pos.itemIndex);
     }
   }
 
@@ -380,15 +375,27 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     return new SectionPosition(SectionPosition.INVALID_POSITION, SectionPosition.INVALID_POSITION);
   }
 
-  public void setSearchResults(@Nullable List<Long> searchResults)
+  public void setSearchResults(@Nullable long[] searchResults)
   {
-    mSearchResults = searchResults;
+    if (searchResults != null)
+    {
+      mSearchResults = new ArrayList<Long>(searchResults.length);
+      for (long id : searchResults)
+        mSearchResults.add(id);
+    }
+    else
+    {
+      mSearchResults = null;
+    }
     refreshSections();
   }
 
-  public void setSortedResults(@Nullable List<SortedBlock> sortedResults)
+  public void setSortedResults(@Nullable SortedBlock[] sortedResults)
   {
-    mSortedResults = sortedResults;
+    if (sortedResults != null)
+      mSortedResults = new ArrayList<>(Arrays.asList(sortedResults));
+    else
+      mSortedResults = null;
     refreshSections();
   }
 
@@ -471,6 +478,14 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
         ++itemCount;
     }
     return itemCount;
+  }
+
+  public void onDelete(int position)
+  {
+    SectionPosition sp = getSectionPosition(position);
+    mSectionsDataSource.onDelete(sp);
+    if (mSearchResults != null)
+      mSortedResults = null;
   }
 
   // FIXME: remove this heavy method and use BoomarkInfo class instead.

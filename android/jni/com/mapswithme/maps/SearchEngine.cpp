@@ -441,8 +441,10 @@ void OnBookmarksSearchResults(search::BookmarksSearchParams::Results const & res
 
   JNIEnv * env = jni::GetEnv();
 
-  jni::ScopedLocalRef<jlongArray> jResults(env, env->NewLongArray(results.size()));
-  vector<jlong> const tmp(results.cbegin(), results.cend());
+  auto filteredResults = results;
+  g_framework->NativeFramework()->GetBookmarkManager().FilterInvalidBookmarks(filteredResults);
+  jni::ScopedLocalRef<jlongArray> jResults(env, env->NewLongArray(filteredResults.size()));
+  vector<jlong> const tmp(filteredResults.cbegin(), filteredResults.cend());
   env->SetLongArrayRegion(jResults.get(), 0, tmp.size(), tmp.data());
 
   auto const method = (status == search::BookmarksSearchParams::Status::InProgress) ?
