@@ -409,6 +409,7 @@ private func logToPushWoosh(_ categoryInfo: CatalogCategoryInfo) {
 extension CatalogWebViewController: PaidRouteViewControllerDelegate {
   func didCompleteSubscription(_ viewController: PaidRouteViewController) {
     dismiss(animated: true)
+    download()
     self.webView.reload()
   }
 
