@@ -401,9 +401,12 @@ extension CarPlayService: CPMapTemplateDelegate {
     guard let info = routeChoice.userInfo as? RouteInfo,
       let estimates = createEstimates(routeInfo: info) else {
       applyUndefinedEstimates(template: mapTemplate, trip: trip)
+      router?.rebuildRoute()
       return
     }
     mapTemplate.updateEstimates(estimates, for: trip)
+    routeChoice.userInfo = nil
+    router?.rebuildRoute()
   }
 }
 
