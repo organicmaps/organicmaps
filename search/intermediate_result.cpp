@@ -71,6 +71,10 @@ PreRankerResult::PreRankerResult(FeatureID const & id, PreRankingInfo const & in
   : m_id(id), m_info(info), m_provenance(provenance)
 {
   ASSERT(m_id.IsValid(), ());
+
+  m_matchedTokensNumber = 0;
+  for (auto const & r : m_info.m_tokenRange)
+    m_matchedTokensNumber += r.Size();
 }
 
 // static
@@ -99,6 +103,12 @@ bool PreRankerResult::LessByExactMatch(PreRankerResult const & lhs, PreRankerRes
   auto const rhsScore = rhs.m_info.m_exactMatch && rhs.m_info.m_allTokensUsed;
   if (lhsScore != rhsScore)
     return lhsScore;
+
+  if (lhs.GetInnermostTokensNumber() != rhs.GetInnermostTokensNumber())
+    return lhs.GetInnermostTokensNumber() > rhs.GetInnermostTokensNumber();
+
+  if (lhs.GetMatchedTokensNumber() != rhs.GetMatchedTokensNumber())
+    return lhs.GetMatchedTokensNumber() > rhs.GetMatchedTokensNumber();
 
   return LessDistance(lhs, rhs);
 }

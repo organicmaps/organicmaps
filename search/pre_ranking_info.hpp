@@ -31,8 +31,6 @@ struct PreRankingInfo
     return m_tokenRange[m_type];
   }
 
-  size_t GetNumTokens() const { return InnermostTokenRange().Size(); }
-
   // An abstract distance from the feature to the pivot.  Measurement
   // units do not matter here.
   double m_distanceToPivot = 0;

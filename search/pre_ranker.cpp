@@ -148,11 +148,13 @@ void PreRanker::Filter(bool viewportSearch)
     if (lhs.GetId() != rhs.GetId())
       return lhs.GetId() < rhs.GetId();
 
-    auto const & linfo = lhs.GetInfo();
-    auto const & rinfo = rhs.GetInfo();
-    if (linfo.GetNumTokens() != rinfo.GetNumTokens())
-      return linfo.GetNumTokens() > rinfo.GetNumTokens();
-    return linfo.InnermostTokenRange().Begin() < rinfo.InnermostTokenRange().Begin();
+    if (lhs.GetInnermostTokensNumber() != rhs.GetInnermostTokensNumber())
+      return lhs.GetInnermostTokensNumber() > rhs.GetInnermostTokensNumber();
+
+    if (lhs.GetMatchedTokensNumber() != rhs.GetMatchedTokensNumber())
+      return lhs.GetMatchedTokensNumber() > rhs.GetMatchedTokensNumber();
+
+    return lhs.GetInfo().InnermostTokenRange().Begin() < rhs.GetInfo().InnermostTokenRange().Begin();
   };
 
   sort(m_results.begin(), m_results.end(), comparePreRankerResults);

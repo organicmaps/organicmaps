@@ -55,12 +55,16 @@ public:
   PreRankingInfo & GetInfo() { return m_info; }
   PreRankingInfo const & GetInfo() const { return m_info; }
   std::vector<ResultTracer::Branch> const & GetProvenance() const { return m_provenance; }
+  size_t GetInnermostTokensNumber() const { return m_info.InnermostTokenRange().Size(); }
+  size_t GetMatchedTokensNumber() const { return m_matchedTokensNumber; }
 
 private:
   friend class RankerResult;
 
   FeatureID m_id;
   PreRankingInfo m_info;
+
+  size_t m_matchedTokensNumber = 0;
 
   // The call path in the Geocoder that leads to this result.
   std::vector<ResultTracer::Branch> m_provenance;
