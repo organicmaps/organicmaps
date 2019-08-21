@@ -347,7 +347,9 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     String formattedPrice = Utils.formatCurrencyString(mSubsProductDetails.getPrice(),
                                                        mSubsProductDetails.getCurrencyCode());
     TextView subsButton = getViewOrThrow().findViewById(R.id.buy_subs_btn);
-    subsButton.setText(getString(R.string.buy_btn_for_subscription, formattedPrice));
+    String priceString = getString(R.string.buy_btn_for_subscription, formattedPrice);
+    String priceWithPeriod = priceString + getString(R.string.per_month);
+    subsButton.setText(priceWithPeriod);
   }
 
   public void finishValidation()
