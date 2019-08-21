@@ -105,8 +105,6 @@ public:
 
   void SetUserCurrentPosition(m2::PointD const & position);
 
-  void ActivateAdditionalFeatures() {}
-
   /// Disable following mode on GPS updates. Following mode is disabled only for the current route.
   /// If a route is rebuilt you must call DisableFollowMode again.
   /// Returns true if following was disabled, false if a route is not ready for the following yet.
