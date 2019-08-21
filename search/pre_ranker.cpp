@@ -86,7 +86,6 @@ void PreRanker::FillMissingFieldsInPreResults()
 
   ForEach([&](PreRankerResult & r) {
     FeatureID const & id = r.GetId();
-    PreRankingInfo & info = r.GetInfo();
     if (id.m_mwmId != mwmId)
     {
       mwmId = id.m_mwmId;
@@ -109,17 +108,15 @@ void PreRanker::FillMissingFieldsInPreResults()
         ratings = make_unique<DummyRankTable>();
     }
 
-    info.m_rank = ranks->Get(id.m_index);
-    info.m_popularity = popularityRanks->Get(id.m_index);
-    info.m_rating = ugc::UGC::UnpackRating(ratings->Get(id.m_index));
+    r.SetRank(ranks->Get(id.m_index));
+    r.SetPopularity(popularityRanks->Get(id.m_index));
+    r.SetRating(ugc::UGC::UnpackRating(ratings->Get(id.m_index)));
 
     m2::PointD center;
     if (centers && centers->Get(id.m_index, center))
     {
-      info.m_distanceToPivot =
-          MercatorBounds::DistanceOnEarth(m_params.m_accuratePivotCenter, center);
-      info.m_center = center;
-      info.m_centerLoaded = true;
+      r.SetDistanceToPivot(MercatorBounds::DistanceOnEarth(m_params.m_accuratePivotCenter, center));
+      r.SetCenter(center);
     }
     else
     {
@@ -128,7 +125,7 @@ void PreRanker::FillMissingFieldsInPreResults()
         m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
         pivotFeaturesInitialized = true;
       }
-      info.m_distanceToPivot = m_pivotFeatures.GetDistanceToFeatureMeters(id);
+      r.SetDistanceToPivot(m_pivotFeatures.GetDistanceToFeatureMeters(id));
     }
   });
 }
