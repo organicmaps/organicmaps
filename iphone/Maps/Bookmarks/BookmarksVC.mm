@@ -730,11 +730,12 @@ using namespace std;
 #pragma mark - MWMLocationObserver
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info {
+  CLLocation *location = [[CLLocation alloc] initWithLatitude:info.m_latitude longitude:info.m_longitude];
   [self.tableView.visibleCells enumerateObjectsUsingBlock:^(UITableViewCell *cell, NSUInteger idx, BOOL *stop) {
     auto const indexPath = [self.tableView indexPathForCell:cell];
     auto const &section = [self currentSections][indexPath.section];
     if ([section respondsToSelector:@selector(updateCell:forRow:withNewLocation:)])
-      [section updateCell:cell forRow:indexPath.row withNewLocation:info];
+      [section updateCell:cell forRow:indexPath.row withNewLocation:location];
   }];
 }
 

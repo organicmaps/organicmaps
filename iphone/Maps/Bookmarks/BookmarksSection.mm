@@ -96,13 +96,12 @@ CGFloat const kPinDiameter = 22.0f;
   return cell;
 }
 
-- (void)updateCell:(UITableViewCell *)cell forRow:(NSInteger)row withNewLocation:(location::GpsInfo const &)info {
+- (void)updateCell:(UITableViewCell *)cell forRow:(NSInteger)row withNewLocation:(CLLocation *)location {
   auto const bmId = [self getMarkIdForRow:row];
   auto const &bm = GetFramework().GetBookmarkManager();
   Bookmark const *bookmark = bm.GetBookmark(bmId);
   if (!bookmark)
     return;
-  CLLocation *location = [[CLLocation alloc] initWithLatitude:info.m_latitude longitude:info.m_longitude];
   [self fillCell:cell withBookmarkDetails:bookmark andLocation:location];
 }
 

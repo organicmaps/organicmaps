@@ -1,6 +1,6 @@
-#include "platform/location.hpp"
-
 NS_ASSUME_NONNULL_BEGIN
+
+@class CLLocation;
 
 @protocol TableSectionDataSource <NSObject>
 
@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
-- (void)updateCell:(UITableViewCell *)cell forRow:(NSInteger)row withNewLocation:(location::GpsInfo const &)gpsInfo;
+- (void)updateCell:(UITableViewCell *)cell forRow:(NSInteger)row withNewLocation:(CLLocation *)location;
 
 @end
 
