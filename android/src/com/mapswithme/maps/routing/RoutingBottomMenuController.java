@@ -425,7 +425,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
   }
 
-  private static void initDotBuilderSequence(@NonNull Context context, String dot, SpannableStringBuilder builder)
+  private static void initDotBuilderSequence(@NonNull Context context, @NonNull String dot,
+                                             @NonNull SpannableStringBuilder builder)
   {
     builder.append(dot);
     builder.setSpan(new TypefaceSpan(context.getResources().getString(R.string.robotoMedium)),
