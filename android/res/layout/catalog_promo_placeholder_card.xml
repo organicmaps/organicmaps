@@ -13,8 +13,7 @@
     <LinearLayout
       android:orientation="vertical"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:minHeight="@dimen/discovery_expert_item_min_height">
+      android:layout_height="@dimen/discovery_expert_item_min_height">
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -35,9 +34,8 @@
           android:layout_marginTop="@dimen/margin_half_plus"
           android:layout_marginLeft="@dimen/margin_half_plus"
           android:layout_marginRight="@dimen/margin_half_plus"
-          style="@style/MwmWidget.Discovery.Item.Title"
-          android:maxLines="1"
-          android:minLines="1"
+          android:gravity="center_horizontal"
+          android:lines="2"
           android:textAppearance="@style/MwmTextAppearance.Discovery.Item.Title"
           tools:text="Irina Severintseva"/>
         <TextView
@@ -47,7 +45,8 @@
           android:layout_marginTop="@dimen/margin_eighth"
           android:layout_marginLeft="@dimen/margin_half_plus"
           android:layout_marginRight="@dimen/margin_half_plus"
-          style="@style/MwmWidget.Discovery.Item.Subtitle"
+          android:gravity="center_horizontal"
+          android:lines="3"
           android:ellipsize="middle"
           android:textAppearance="@style/MwmTextAppearance.Body3"
           tools:text="★ ★ ★ ★ ★"/>

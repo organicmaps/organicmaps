@@ -13,7 +13,6 @@
   android:layout_marginBottom="@dimen/margin_double_and_half"
   android:textAppearance="@style/MwmTextAppearance.Body3"
   android:fontFamily="@string/robotoMedium"
-  android:maxLines="1"
-  android:ellipsize="end"
+  android:lines="2"
   tools:targetApi="jelly_bean"
   tools:showIn="@layout/item_discovery_simple_loading"/>
