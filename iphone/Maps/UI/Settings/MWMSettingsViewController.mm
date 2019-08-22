@@ -369,29 +369,11 @@ using namespace power_management;
   else if (cell == self.restoreSubscriptionCell)
   {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self.restoreSubscriptionCell.progress startAnimating];
-    self.restoringSubscription = YES;
     __weak auto s = self;
-    [[InAppPurchase adsRemovalSubscriptionManager] restore:^(MWMValidationResult result) {
-      __strong auto self = s;
-      self.restoringSubscription = NO;
-      [self.restoreSubscriptionCell.progress stopAnimating];
-      NSString *alertText;
-      switch (result)
-      {
-        case MWMValidationResultValid:
-          alertText = L(@"restore_success_alert");
-          break;
-        case MWMValidationResultNotValid:
-          alertText = L(@"restore_no_subscription_alert");
-          break;
-        case MWMValidationResultServerError:
-        case MWMValidationResultAuthError:
-          alertText = L(@"restore_error_alert");
-          break;
+    [self signupWithAnchor:self.restoreSubscriptionCell.progress onComplete:^(BOOL success) {
+      if (success) {
+        [s restoreSubscription];
       }
-      [MWMAlertViewController.activeAlertController presentInfoAlert:L(@"restore_subscription")
-                                                                text:alertText];
     }];
   }
   else if (cell == self.manageSubscriptionsCell)
@@ -449,6 +431,46 @@ using namespace power_management;
   [self.navigationController dismissViewControllerAnimated:YES completion:^{
     self.showOffersCell.isOn = YES;
   }];
+}
+
+#pragma mark - RestoreSubscription
+
+- (void)restoreSubscription {
+  dispatch_group_t dispatchGroup = dispatch_group_create();
+
+  [self.restoreSubscriptionCell.progress startAnimating];
+  self.restoringSubscription = YES;
+  __block MWMValidationResult adsResult;
+  __block MWMValidationResult bookmarksResult;
+
+  dispatch_group_enter(dispatchGroup);
+  [[InAppPurchase adsRemovalSubscriptionManager] restore:^(MWMValidationResult result) {
+    adsResult = result;
+    dispatch_group_leave(dispatchGroup);
+  }];
+
+  dispatch_group_enter(dispatchGroup);
+  [[InAppPurchase bookmarksSubscriptionManager] restore:^(MWMValidationResult result) {
+    bookmarksResult = result;
+    dispatch_group_leave(dispatchGroup);
+  }];
+
+  __weak auto s = self;
+  dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^{
+    __strong auto self = s;
+    self.restoringSubscription = NO;
+    [self.restoreSubscriptionCell.progress stopAnimating];
+    NSString *alertText;
+    if (adsResult == MWMValidationResultNotValid && bookmarksResult == MWMValidationResultNotValid) {
+      alertText = L(@"restore_no_subscription_alert");
+    } else if (adsResult == MWMValidationResultValid || bookmarksResult == MWMValidationResultValid) {
+      alertText = L(@"restore_success_alert");
+    } else {
+      alertText = L(@"restore_error_alert");
+    }
+    [MWMAlertViewController.activeAlertController presentInfoAlert:L(@"restore_subscription")
+                                                              text:alertText];
+  });
 }
 
 @end

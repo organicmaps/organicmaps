@@ -1,5 +1,5 @@
 extension UIViewController {
-  func signup(anchor: UIView, onComplete: @escaping (Bool) -> Void) {
+  @objc func signup(anchor: UIView, onComplete: @escaping (Bool) -> Void) {
     if MWMAuthorizationViewModel.isAuthenticated() {
       onComplete(true)
     } else {
