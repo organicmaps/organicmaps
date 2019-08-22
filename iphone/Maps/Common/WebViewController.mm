@@ -93,6 +93,10 @@
   self.webView.backgroundColor = UIColor.whiteColor;
   self.webView.allowsLinkPreview = NO;
 
+  [self performURLRequest];
+}
+
+- (void)performURLRequest {
   __weak __typeof(self) ws = self;
   [self willLoadUrl:^(BOOL load, NSDictionary<NSString *, NSString *> *headers) {
     __typeof(self) self = ws;
@@ -107,7 +111,7 @@
         for (NSString *header in headers.allKeys) {
           [request setValue:headers[header] forHTTPHeaderField:header];
         }
-
+        
         [request setValue:@(GetPlatform().GetAppUserAgent().Get().c_str()) forHTTPHeaderField:@"User-Agent"];
         if (self.shouldAddAccessToken)
         {

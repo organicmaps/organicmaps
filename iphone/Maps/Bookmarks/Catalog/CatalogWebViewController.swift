@@ -31,6 +31,7 @@ final class CatalogWebViewController: WebViewController {
   var fwdButton: UIBarButtonItem!
   var toolbar = UIToolbar()
   var billing = InAppPurchase.inAppBilling()
+  var noInternetView: CatalogConnectionErrorView!
 
   @objc static func catalogFromAbsoluteUrl(_ url: URL? = nil, utm: MWMUTM = .none) -> CatalogWebViewController {
     return CatalogWebViewController(url, utm:utm, isAbsoluteUrl:true)
@@ -65,6 +66,16 @@ final class CatalogWebViewController: WebViewController {
     fwdButton.tintColor = .blackSecondaryText()
     backButton.isEnabled = false
     fwdButton.isEnabled = false
+    noInternetView = CatalogConnectionErrorView(frame: .zero, actionCallback: { [weak self] in
+      guard let self = self else { return }
+      self.noInternetView.isHidden = true
+      self.loadingIndicator.startAnimating()
+      if self.webView.url != nil {
+        self.webView.reload()
+      } else {
+        self.performURLRequest()
+      }
+    })
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -97,6 +108,12 @@ final class CatalogWebViewController: WebViewController {
     progressView.centerYAnchor.constraint(equalTo: progressBgView.centerYAnchor).isActive = true
     progressBgView.widthAnchor.constraint(equalToConstant: 48).isActive = true
     progressBgView.heightAnchor.constraint(equalToConstant: 48).isActive = true
+    
+    noInternetView.isHidden = true
+    noInternetView.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(noInternetView)
+    noInternetView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    noInternetView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20.0).isActive = true
 
     view.addSubview(toolbar)
     toolbar.translatesAutoresizingMaskIntoConstraints = false
@@ -177,6 +194,7 @@ final class CatalogWebViewController: WebViewController {
     Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
                         withParameters: [kStatError : kStatUnknown])
     loadingIndicator.stopAnimating()
+    noInternetView.isHidden = false
   }
 
   override func webView(_ webView: WKWebView,
@@ -185,6 +203,7 @@ final class CatalogWebViewController: WebViewController {
     Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
                         withParameters: [kStatError : kStatUnknown])
     loadingIndicator.stopAnimating()
+    noInternetView.isHidden = false
   }
 
   private func showSubscribe() {

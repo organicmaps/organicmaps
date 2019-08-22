@@ -26,6 +26,7 @@ typedef void (^WebViewControllerWillLoadBlock)(BOOL, NSDictionary<NSString *, NS
 - (void)forward;
 - (void)back;
 - (NSString *)configuredHtmlWithText:(NSString *)htmlText;
+- (void)performURLRequest;
 
 @end
 

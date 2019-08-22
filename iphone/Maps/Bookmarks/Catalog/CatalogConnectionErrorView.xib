@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CatalogConnectionErrorView" customModule="maps_me" customModuleProvider="target">
+            <connections>
+                <outlet property="actionButton" destination="kyS-Dc-8Qc" id="hBQ-hJ-tyA"/>
+                <outlet property="imageView" destination="Pei-9A-n7i" id="vil-2f-cDC"/>
+                <outlet property="titleLabel" destination="dSI-8v-q0T" id="Sut-eN-iDC"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="280" height="371"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_no_internet_connection" translatesAutoresizingMaskIntoConstraints="NO" id="Pei-9A-n7i">
+                    <rect key="frame" x="24" y="0.0" width="182" height="175"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="175" id="CCZ-Hc-GEh"/>
+                        <constraint firstAttribute="width" constant="182" id="hiU-5U-9jy"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dSI-8v-q0T">
+                    <rect key="frame" x="5" y="205" width="270" height="94"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular20"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="blackPrimaryText"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="catalog_no_internet_title"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kyS-Dc-8Qc">
+                    <rect key="frame" x="0.0" y="323" width="280" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="hOC-5N-zNA"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="whitePrimaryTextHighlighted"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="semibold14"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whitePrimaryText"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="catalog_no_internet_button"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="actionTapHandler" destination="-1" eventType="touchUpInside" id="D9p-hf-eMV"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="kyS-Dc-8Qc" secondAttribute="trailing" id="2gU-Ct-ccl"/>
+                <constraint firstAttribute="trailing" secondItem="dSI-8v-q0T" secondAttribute="trailing" constant="5" id="5lL-7g-AdH"/>
+                <constraint firstItem="Pei-9A-n7i" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ubu-Af-XnV"/>
+                <constraint firstAttribute="trailing" secondItem="Pei-9A-n7i" secondAttribute="trailing" constant="74" id="aKw-Tg-7Ds"/>
+                <constraint firstItem="kyS-Dc-8Qc" firstAttribute="top" secondItem="dSI-8v-q0T" secondAttribute="bottom" constant="24" id="aR0-XD-Fkx"/>
+                <constraint firstItem="dSI-8v-q0T" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="ejF-9v-wCy"/>
+                <constraint firstItem="Pei-9A-n7i" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="fJ8-AE-Mbf"/>
+                <constraint firstItem="dSI-8v-q0T" firstAttribute="top" secondItem="Pei-9A-n7i" secondAttribute="bottom" constant="30" id="quR-U0-o2h"/>
+                <constraint firstItem="kyS-Dc-8Qc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="tZT-IZ-ce5"/>
+                <constraint firstAttribute="bottom" secondItem="kyS-Dc-8Qc" secondAttribute="bottom" id="xfW-xR-ToV"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="53.623188405797109" y="56.584821428571423"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_no_internet_connection" width="182" height="175"/>
+    </resources>
+</document>

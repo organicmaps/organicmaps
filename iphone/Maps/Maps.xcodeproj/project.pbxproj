@@ -591,6 +591,8 @@
 		BB8123D62130427E00ADE512 /* MetalContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB8123D52130427E00ADE512 /* MetalContextFactory.mm */; };
 		CD08887422B7ABB400C1368D /* MWMDiscoveryCollectionView.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD08887322B7ABB400C1368D /* MWMDiscoveryCollectionView.mm */; };
 		CD4A1F132305872700F2A6B6 /* PromoBookingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4A1F122305872700F2A6B6 /* PromoBookingPresentationController.swift */; };
+		CD4A1F1A230EADC100F2A6B6 /* CatalogConnectionErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4A1F19230EADC100F2A6B6 /* CatalogConnectionErrorView.swift */; };
+		CD4A1F1C230EB43B00F2A6B6 /* CatalogConnectionErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD4A1F1B230EB43B00F2A6B6 /* CatalogConnectionErrorView.xib */; };
 		CD6E8677226774C700D1EDF7 /* CPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6E8676226774C700D1EDF7 /* CPConstants.swift */; };
 		CD96C70C22A681C400DB7CFE /* DiscoveryGuideCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD96C70A22A681C400DB7CFE /* DiscoveryGuideCell.swift */; };
 		CD96C70D22A681C400DB7CFE /* DiscoveryGuideCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD96C70B22A681C400DB7CFE /* DiscoveryGuideCell.xib */; };
@@ -1681,6 +1683,8 @@
 		CD08888322BCF1C800C1368D /* maps.me rel.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "maps.me rel.entitlements"; sourceTree = "<group>"; };
 		CD08888422BCF1C900C1368D /* maps.me full.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "maps.me full.entitlements"; sourceTree = "<group>"; };
 		CD4A1F122305872700F2A6B6 /* PromoBookingPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoBookingPresentationController.swift; sourceTree = "<group>"; };
+		CD4A1F19230EADC100F2A6B6 /* CatalogConnectionErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogConnectionErrorView.swift; sourceTree = "<group>"; };
+		CD4A1F1B230EB43B00F2A6B6 /* CatalogConnectionErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CatalogConnectionErrorView.xib; sourceTree = "<group>"; };
 		CD6E8676226774C700D1EDF7 /* CPConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPConstants.swift; sourceTree = "<group>"; };
 		CD96C70A22A681C400DB7CFE /* DiscoveryGuideCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryGuideCell.swift; sourceTree = "<group>"; };
 		CD96C70B22A681C400DB7CFE /* DiscoveryGuideCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryGuideCell.xib; sourceTree = "<group>"; };
@@ -3674,6 +3678,8 @@
 				4728F68F22CE430800E00028 /* BookmarksSubscriptionViewController.xib */,
 				4710366322D3764600585272 /* BookmarksSubscriptionCellViewController.swift */,
 				4710366422D3764600585272 /* BookmarksSubscriptionCellViewController.xib */,
+				CD4A1F19230EADC100F2A6B6 /* CatalogConnectionErrorView.swift */,
+				CD4A1F1B230EB43B00F2A6B6 /* CatalogConnectionErrorView.xib */,
 			);
 			path = Catalog;
 			sourceTree = "<group>";
@@ -4878,6 +4884,7 @@
 				4716EAC121A6E0570029B886 /* BookmarksVC.xib in Resources */,
 				F6E2FEAC1E097BA00083EBEC /* PPPReview.xib in Resources */,
 				F60C8BEF1FCED15A00DCF5FB /* DiscoverySearchCell.xib in Resources */,
+				CD4A1F1C230EB43B00F2A6B6 /* CatalogConnectionErrorView.xib in Resources */,
 				F65D1E1A20E4F11600FE31DD /* ugc_migration in Resources */,
 				F6E2FEAF1E097BA00083EBEC /* _MWMPPPExternalTitle.xib in Resources */,
 				F6E2FEB21E097BA00083EBEC /* _MWMPPPSchedule.xib in Resources */,
@@ -5484,6 +5491,7 @@
 				3454D7CE1E07F045004AF2AD /* UIFont+MapsMeFonts.mm in Sources */,
 				F682249B1E5B104600BC1C18 /* PPHotelDescriptionCell.swift in Sources */,
 				3454D7DD1E07F045004AF2AD /* UISwitch+RuntimeAttributes.m in Sources */,
+				CD4A1F1A230EADC100F2A6B6 /* CatalogConnectionErrorView.swift in Sources */,
 				4719A647219CBD7F009F9AA7 /* IBillingPendingTransaction.swift in Sources */,
 				340416581E7C0D4100E2B6D6 /* PhotosOverlayView.swift in Sources */,
 				F6E2FE821E097BA00083EBEC /* MWMPlacePageOpeningHoursDayView.mm in Sources */,
