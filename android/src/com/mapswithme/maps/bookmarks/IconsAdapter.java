@@ -37,9 +37,9 @@ public class IconsAdapter extends ArrayAdapter<Icon>
 
     final Icon icon = getItem(position);
     if (icon.getColor() == mCheckedIconColor)
-      holder.icon.setImageResource(getItem(position).getSelectedResId());
+      holder.icon.setImageResource(getItem(position).getCheckedResId());
     else
-      holder.icon.setImageResource(getItem(position).getResId());
+      holder.icon.setImageResource(getItem(position).getUncheckedResId());
 
     return convertView;
   }

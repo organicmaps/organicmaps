@@ -21,7 +21,7 @@ public class BookmarkInfo
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
     mTitle = Bookmark.nativeGetName(mBookmarkId);
-    mIcon = BookmarkManager.INSTANCE.getIconByColor(Bookmark.nativeGetColor(mBookmarkId));
+    mIcon = new Icon(Bookmark.nativeGetColor(mBookmarkId), Bookmark.nativeGetIcon(mBookmarkId));
     final ParcelablePointD ll = Bookmark.nativeGetXY(mBookmarkId);
     mMerX = ll.x;
     mMerY = ll.y;

@@ -86,26 +86,14 @@ public enum BookmarkManager
   
   static
   {
-    ICONS.add(new Icon("placemark-red", Icon.PREDEFINED_COLOR_RED, R.drawable.ic_bookmark_marker_red_off, R.drawable.ic_bookmark_marker_red_on));
-    ICONS.add(new Icon("placemark-blue", Icon.PREDEFINED_COLOR_BLUE, R.drawable.ic_bookmark_marker_blue_off, R.drawable.ic_bookmark_marker_blue_on));
-    ICONS.add(new Icon("placemark-purple", Icon.PREDEFINED_COLOR_PURPLE, R.drawable.ic_bookmark_marker_purple_off, R.drawable.ic_bookmark_marker_purple_on));
-    ICONS.add(new Icon("placemark-yellow", Icon.PREDEFINED_COLOR_YELLOW, R.drawable.ic_bookmark_marker_yellow_off, R.drawable.ic_bookmark_marker_yellow_on));
-    ICONS.add(new Icon("placemark-pink", Icon.PREDEFINED_COLOR_PINK, R.drawable.ic_bookmark_marker_pink_off, R.drawable.ic_bookmark_marker_pink_on));
-    ICONS.add(new Icon("placemark-brown", Icon.PREDEFINED_COLOR_BROWN, R.drawable.ic_bookmark_marker_brown_off, R.drawable.ic_bookmark_marker_brown_on));
-    ICONS.add(new Icon("placemark-green", Icon.PREDEFINED_COLOR_GREEN, R.drawable.ic_bookmark_marker_green_off, R.drawable.ic_bookmark_marker_green_on));
-    ICONS.add(new Icon("placemark-orange", Icon.PREDEFINED_COLOR_ORANGE, R.drawable.ic_bookmark_marker_orange_off, R.drawable.ic_bookmark_marker_orange_on));
-  }
-
-  @NonNull
-  Icon getIconByColor(@Icon.PredefinedColor int color)
-  {
-    for (Icon icon : ICONS)
-    {
-      if (icon.getColor() == color)
-        return icon;
-    }
-    // return default icon
-    return ICONS.get(0);
+    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_RED, Icon.BOOKMARK_ICON_TYPE_NONE));
+    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_BLUE, Icon.BOOKMARK_ICON_TYPE_NONE));
+    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_PURPLE, Icon.BOOKMARK_ICON_TYPE_NONE));
+    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_YELLOW, Icon.BOOKMARK_ICON_TYPE_NONE));
+    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_PINK, Icon.BOOKMARK_ICON_TYPE_NONE));
+    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_BROWN, Icon.BOOKMARK_ICON_TYPE_NONE));
+    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_GREEN, Icon.BOOKMARK_ICON_TYPE_NONE));
+    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_ORANGE, Icon.BOOKMARK_ICON_TYPE_NONE));
   }
 
   public void toggleCategoryVisibility(long catId)

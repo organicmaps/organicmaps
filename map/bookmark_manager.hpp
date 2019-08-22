@@ -197,6 +197,7 @@ public:
   kml::MarkIdSet const & GetUserMarkIds(kml::MarkGroupId groupId) const;
   kml::TrackIdSet const & GetTrackIds(kml::MarkGroupId groupId) const;
 
+  // Do not change the order.
   enum class SortingType
   {
     ByType,

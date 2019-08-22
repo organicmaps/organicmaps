@@ -43,6 +43,7 @@ struct BookmarkGroupInfo
   kml::MarkIdCollection m_bookmarkIds;
 };
 
+// Do not change the order.
 enum class BookmarkBaseType : uint16_t
 {
   None = 0,

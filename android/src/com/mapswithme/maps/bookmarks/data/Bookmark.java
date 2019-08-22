@@ -65,6 +65,7 @@ public class Bookmark extends MapObject
     dest.writeLong(mCategoryId);
     dest.writeLong(mBookmarkId);
     dest.writeInt(mIcon.getColor());
+    dest.writeInt(mIcon.getType());
     dest.writeDouble(mMerX);
     dest.writeDouble(mMerY);
   }
@@ -77,7 +78,7 @@ public class Bookmark extends MapObject
     super(type, source);
     mCategoryId = source.readLong();
     mBookmarkId = source.readLong();
-    mIcon = BookmarkManager.INSTANCE.getIconByColor(source.readInt());
+    mIcon = new Icon(source.readInt(), source.readInt());
     mMerX = source.readDouble();
     mMerY = source.readDouble();
     initXY();
@@ -96,7 +97,7 @@ public class Bookmark extends MapObject
 
   private Icon getIconInternal()
   {
-    return BookmarkManager.INSTANCE.getIconByColor(nativeGetColor(mBookmarkId));
+    return new Icon(nativeGetColor(mBookmarkId), nativeGetIcon(mBookmarkId));
   }
 
   public Icon getIcon()
@@ -168,7 +169,11 @@ public class Bookmark extends MapObject
 
   public static native ParcelablePointD nativeGetXY(@IntRange(from = 0) long bookmarkId);
 
+  @Icon.PredefinedColor
   public static native int nativeGetColor(@IntRange(from = 0) long bookmarkId);
+
+  @Icon.BookmarkIconType
+  public static native int nativeGetIcon(@IntRange(from = 0) long bookmarkId);
 
   private native String nativeGetBookmarkDescription(@IntRange(from = 0) long bookmarkId);
 

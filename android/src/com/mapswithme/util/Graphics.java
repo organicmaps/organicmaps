@@ -36,6 +36,30 @@ public final class Graphics
     return new BitmapDrawable(res, bmp);
   }
 
+  public static Drawable drawCircleAndImage(int color, int sizeResId,
+                                            int imageResId, int sizeImgResId, Resources res)
+  {
+    final int size = res.getDimensionPixelSize(sizeResId);
+    final Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+
+    final Paint paint = new Paint();
+    paint.setColor(color);
+    paint.setAntiAlias(true);
+
+    final Canvas c = new Canvas(bmp);
+    final float radius = size / 2.0f;
+    c.drawCircle(radius, radius, radius, paint);
+
+    Drawable imgD = res.getDrawable(imageResId);
+    imgD.mutate();
+    final int sizeImg = res.getDimensionPixelSize(sizeImgResId);
+    int offset = (size - sizeImg) / 2;
+    imgD.setBounds(offset, offset, size - offset, size - offset);
+    imgD.draw(c);
+
+    return new BitmapDrawable(res, bmp);
+  }
+
   public static void tint(TextView view)
   {
     tint(view, R.attr.iconTint);

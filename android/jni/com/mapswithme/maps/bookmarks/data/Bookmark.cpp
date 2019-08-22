@@ -2,6 +2,7 @@
 
 #include "com/mapswithme/core/jni_helper.hpp"
 
+#include "kml/types.hpp"
 
 namespace
 {
@@ -10,11 +11,6 @@ namespace
 Bookmark const * getBookmark(jlong bokmarkId)
 {
   Bookmark const * pBmk = frm()->GetBookmarkManager().GetBookmark(static_cast<kml::MarkId>(bokmarkId));
-  if (!pBmk)
-  {
-    int i = 0;
-    ++i;
-  }
   ASSERT(pBmk, ("Bookmark not found, id", bokmarkId));
   return pBmk;
 }
@@ -43,6 +39,15 @@ Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeGetColor(
   auto const * mark = getBookmark(bmk);
   return static_cast<jint>(mark != nullptr ? mark->GetColor()
                                            : frm()->LastEditedBMColor());
+}
+
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeGetIcon(
+    JNIEnv * env, jobject thiz, jlong bmk)
+{
+  auto const * mark = getBookmark(bmk);
+  return static_cast<jint>(mark != nullptr ? mark->GetData().m_icon
+                                           : kml::BookmarkIcon::None);
 }
 
 JNIEXPORT void JNICALL

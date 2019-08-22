@@ -209,7 +209,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   private void refreshColorMarker()
   {
     if (mIcon != null)
-      mIvColor.setImageResource(mIcon.getSelectedResId());
+      mIvColor.setImageResource(mIcon.getCheckedResId());
   }
 
   private void refreshCategory()

@@ -279,7 +279,13 @@ public class Holders
                                                                        loc.getLongitude(), 0.0);
       mDistance.setText(distanceValue);
       UiUtils.hideIf(TextUtils.isEmpty(distanceValue), mDistance);
-      mIcon.setImageResource(bookmark.getIcon().getSelectedResId());
+      mIcon.setImageResource(bookmark.getIcon().getResId());
+
+      Drawable circle = Graphics.drawCircleAndImage(bookmark.getIcon().argb(),
+                                                    R.dimen.track_circle_size,
+                                                    bookmark.getIcon().getResId(),
+                                                    mIcon.getContext().getResources());
+      mIcon.setImageDrawable(circle);
     }
   }
 
