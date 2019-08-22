@@ -847,6 +847,24 @@ public class Factory
     }
   }
 
+  public static class ShowBookmarkCategoryTask implements MapTask
+  {
+    private static final long serialVersionUID = 1L;
+
+    final long mCategoryId;
+
+    public ShowBookmarkCategoryTask(long categoryId)
+    {
+      mCategoryId = categoryId;
+    }
+
+    public boolean run(@NonNull MwmActivity target)
+    {
+      BookmarkManager.INSTANCE.showBookmarkCategoryOnMap(mCategoryId);
+      return true;
+    }
+  }
+
   static abstract class BaseUserMarkTask implements MapTask
   {
     private static final long serialVersionUID = 1L;

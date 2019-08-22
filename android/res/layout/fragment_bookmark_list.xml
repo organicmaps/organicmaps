@@ -13,7 +13,7 @@
     android:layout_height="match_parent"/>
 
   <android.support.design.widget.FloatingActionButton
-    android:id="@+id/viewOnMap"
+    android:id="@+id/fabViewOnMap"
     mapsme:layout_constraintRight_toRightOf="parent"
     mapsme:layout_constraintBottom_toBottomOf="parent"
     android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
     android:layout_marginRight="@dimen/margin_base"
     android:layout_marginEnd="@dimen/margin_base"
     android:layout_marginBottom="@dimen/margin_base"
-    android:src="?fabAdd"/>
+    android:src="?fabViewOnMap"/>
 
   <com.mapswithme.maps.widget.PlaceholderView
     android:id="@+id/placeholder"

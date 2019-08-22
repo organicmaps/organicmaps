@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,7 +35,6 @@ import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.maps.ugc.routes.BaseUgcRouteActivity;
 import com.mapswithme.maps.ugc.routes.UgcRouteEditSettingsActivity;
 import com.mapswithme.maps.ugc.routes.UgcRouteSharingOptionsActivity;
-import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.maps.widget.placepage.EditBookmarkFragment;
 import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
@@ -45,10 +45,6 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.Statistics;
-
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListAdapter>
     implements RecyclerLongClickListener,
@@ -71,8 +67,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   private CategoryDataSource mCategoryDataSource;
   private int mSelectedPosition;
 
+  private boolean mSearchAllowed = false;
   private boolean mSearchMode = false;
   private boolean mNeedUpdateSorting = true;
+
+  private ViewGroup mSearchContainer;
+  private FloatingActionButton mFabViewOnMap;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -87,6 +87,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     BookmarkCategory category = getCategoryOrThrow();
     mCategoryDataSource = new CategoryDataSource(category);
     mCatalogListener = new CatalogListenerDecorator(this);
+    mSearchAllowed = !category.isFromCatalog() &&
+        BookmarkManager.INSTANCE.isSearchAllowed(category.getId());
   }
 
   @NonNull
@@ -121,15 +123,15 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     super.onViewCreated(view, savedInstanceState);
     Crashlytics.log("onViewCreated");
     configureAdapter();
+    configureFab(view);
     setHasOptionsMenu(true);
-    boolean isEmpty = getAdapter().getItemCount() == 0;
-    UiUtils.showIf(!isEmpty, getRecyclerView());
-    showPlaceholder(isEmpty);
+
     ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
     if (bar != null)
       bar.setTitle(mCategoryDataSource.getData().getName());
 
     ViewGroup toolbar = ((AppCompatActivity) getActivity()).findViewById(R.id.toolbar);
+    mSearchContainer = toolbar.findViewById(R.id.toolbar_search_container);
     mToolbarController = new BookmarksToolbarController(toolbar, getActivity(), this);
 
     addRecyclerDecor();
@@ -161,6 +163,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     BookmarkListAdapter adapter = getAdapter();
     adapter.notifyDataSetChanged();
     updateSorting();
+    updateSearchVisibility();
+    updateRecyclerVisibility();
   }
 
   @Override
@@ -187,6 +191,63 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     adapter.registerAdapterDataObserver(mCategoryDataSource);
     adapter.setOnClickListener(this);
     adapter.setOnLongClickListener(isDownloadedCategory() ? null : this);
+  }
+
+  private void configureFab(@NonNull View view)
+  {
+    mFabViewOnMap = (FloatingActionButton) view.findViewById(R.id.fabViewOnMap);
+    mFabViewOnMap.setOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        final Intent i = new Intent(getActivity(), MwmActivity.class);
+        i.putExtra(MwmActivity.EXTRA_TASK,
+            new Factory.ShowBookmarkCategoryTask(mCategoryDataSource.getData().getId()));
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+      }
+    });
+  }
+
+  private void updateRecyclerVisibility()
+  {
+    if (isEmptySearchResults())
+    {
+      getPlaceholder().setContent(R.drawable.img_search_nothing_found_light,
+                                  R.string.search_not_found,
+                                  R.string.search_not_found_query);
+    }
+    else if (isEmpty())
+    {
+      getPlaceholder().setContent(R.drawable.img_empty_bookmarks,
+                                  R.string.bookmarks_empty_list_title,
+                                  R.string.bookmarks_empty_list_message);
+    }
+
+    boolean isEmptyRecycler = isEmpty() || isEmptySearchResults();
+
+    UiUtils.showIf(!isEmptyRecycler, getRecyclerView());
+    showPlaceholder(isEmptyRecycler);
+    UiUtils.showIf(!isEmptyRecycler, mFabViewOnMap);
+    getActivity().invalidateOptionsMenu();
+  }
+
+  private void updateSearchVisibility()
+  {
+    if (!mSearchAllowed || isEmpty())
+    {
+      UiUtils.hide(mSearchContainer);
+    }
+    else
+    {
+      UiUtils.showIf(mSearchMode, mSearchContainer);
+      if (mSearchMode)
+        mToolbarController.activate();
+      else
+        mToolbarController.deactivate();
+    }
+    getActivity().invalidateOptionsMenu();
   }
 
   @Override
@@ -265,23 +326,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     return false;
   }
 
-  private void updateControlsStatus()
-  {
-    ViewGroup toolbar = ((AppCompatActivity) getActivity()).findViewById(R.id.toolbar);
-    ViewGroup searchContainer = toolbar.findViewById(R.id.toolbar_search_container);
-    UiUtils.showIf(isSearchMode(), searchContainer);
-    if (isSearchMode())
-    {
-      mToolbarController.activate();
-    }
-    else
-    {
-      mToolbarController.deactivate();
-    }
-
-    getActivity().invalidateOptionsMenu();
-  }
-
   public void runSearch(@NonNull String query)
   {
     SearchEngine.INSTANCE.cancel();
@@ -318,15 +362,14 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     BookmarkListAdapter adapter = getAdapter();
     adapter.setSearchResults(bookmarkIds);
     adapter.notifyDataSetChanged();
+    updateRecyclerVisibility();
   }
 
   public void cancelSearch()
   {
     SearchEngine.INSTANCE.cancel();
     mToolbarController.showProgress(false);
-    BookmarkListAdapter adapter = getAdapter();
-    adapter.setSearchResults(null);
-    adapter.notifyDataSetChanged();
+    updateSearchResults(null);
     updateSorting();
   }
 
@@ -334,19 +377,14 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     mSearchMode = true;
     BookmarkManager.INSTANCE.setNotificationsEnabled(true);
-    updateControlsStatus();
+    updateSearchVisibility();
   }
 
   public void deactivateSearch()
   {
     mSearchMode = false;
     BookmarkManager.INSTANCE.setNotificationsEnabled(false);
-    updateControlsStatus();
-  }
-
-  public boolean isSearchMode()
-  {
-    return mSearchMode;
+    updateSearchVisibility();
   }
 
   @Override
@@ -394,7 +432,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     adapter.notifyDataSetChanged();
   }
 
-  public void updateSorting()
+  private void updateSorting()
   {
     if (!mNeedUpdateSorting)
       return;
@@ -408,18 +446,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     if (!BookmarkManager.INSTANCE.hasLastSortingType(catId))
       return;
 
-    @BookmarkManager.SortingType int currentType =
-        BookmarkManager.INSTANCE.getLastSortingType(catId);
-    @BookmarkManager.SortingType int[] types =
-        BookmarkManager.INSTANCE.getAvailableSortingTypes(catId, false);
-    for (int i = 0; i < types.length; ++i)
-    {
-      if (types[i] == currentType)
-      {
-        onSort(currentType);
-        break;
-      }
-    }
+    int currentType = getLastAvailableSortingType();
+    if (currentType >= 0)
+      onSort(currentType);
   }
 
   @Override
@@ -431,23 +460,22 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   @Override
   public boolean onMenuItemClick(MenuItem menuItem)
   {
+    long catId = getCategoryOrThrow().getId();
     switch (menuItem.getItemId())
     {
       case R.id.sort:
-        long catId = getCategoryOrThrow().getId();
-        @BookmarkManager.SortingType int[] types =
-            BookmarkManager.INSTANCE.getAvailableSortingTypes(catId, false);
-        int currentType = -1;
-        if (BookmarkManager.INSTANCE.hasLastSortingType(catId))
-          currentType = (int)BookmarkManager.INSTANCE.getLastSortingType(catId);
-
-        ChooseBookmarksSortingTypeFragment.chooseSortingType(types, currentType, this,
+        ChooseBookmarksSortingTypeFragment.chooseSortingType(getAvailableSortingTypes(),
+                                                             getLastSortingType(),
+                                                             this,
                                                              getActivity(),
                                                              getChildFragmentManager());
         return false;
       case R.id.sharing_options:
+        openSharingOptionsScreen();
+        trackBookmarkListSharingOptions();
         return false;
       case R.id.share_category:
+        SharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(getActivity(), catId);
         return false;
       case R.id.settings:
         Intent intent = new Intent(getContext(), UgcRouteEditSettingsActivity.class).putExtra(
@@ -481,6 +509,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
         adapter.notifyDataSetChanged();
         if (mSearchMode)
           mNeedUpdateSorting = true;
+        updateSearchVisibility();
+        updateRecyclerVisibility();
         break;
     }
     return false;
@@ -491,19 +521,27 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     if (isDownloadedCategory())
       return;
+
     inflater.inflate(R.menu.option_menu_bookmarks, menu);
 
     MenuItem itemSearch = menu.findItem(R.id.bookmarks_search);
-    itemSearch.setVisible(getCategoryOrThrow().isSearchAllowed());
+    itemSearch.setVisible(mSearchAllowed && !isEmpty());
+
+    MenuItem itemMore = menu.findItem(R.id.bookmarks_more);
+    itemMore.setVisible(!isEmpty());
   }
 
   @Override
   public void onPrepareOptionsMenu(Menu menu)
   {
+    if (isDownloadedCategory())
+      return;
+
     super.onPrepareOptionsMenu(menu);
-    final boolean visible = !isSearchMode();
+
+    boolean visible = !mSearchMode && !isEmpty();
     MenuItem itemSearch = menu.findItem(R.id.bookmarks_search);
-    itemSearch.setVisible(visible);
+    itemSearch.setVisible(mSearchAllowed && visible);
 
     MenuItem itemMore = menu.findItem(R.id.bookmarks_more);
     itemMore.setVisible(visible);
@@ -517,6 +555,44 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     getAdapter().notifyDataSetChanged();
     ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
     actionBar.setTitle(mCategoryDataSource.getData().getName());
+  }
+
+  @NonNull
+  @BookmarkManager.SortingType
+  private int[] getAvailableSortingTypes()
+  {
+    long catId = mCategoryDataSource.getData().getId();
+    return BookmarkManager.INSTANCE.getAvailableSortingTypes(catId, false);
+  }
+
+  private int getLastSortingType()
+  {
+    long catId = mCategoryDataSource.getData().getId();
+    if (BookmarkManager.INSTANCE.hasLastSortingType(catId))
+      return BookmarkManager.INSTANCE.getLastSortingType(catId);
+    return -1;
+  }
+
+  private int getLastAvailableSortingType()
+  {
+    int currentType = getLastSortingType();
+    @BookmarkManager.SortingType int[] types = getAvailableSortingTypes();
+    for (int i = 0; i < types.length; ++i)
+    {
+      if (types[i] == currentType)
+        return currentType;
+    }
+    return -1;
+  }
+
+  private boolean isEmpty()
+  {
+    return !getAdapter().isSearchResults() && (getAdapter().getItemCount() == 0);
+  }
+
+  private boolean isEmptySearchResults()
+  {
+    return getAdapter().isSearchResults() && (getAdapter().getItemCount() == 0);
   }
 
   private boolean isDownloadedCategory()
@@ -536,13 +612,15 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
     if (item.getItemId() == R.id.bookmarks_more)
     {
-      //openSharingOptionsScreen();
-      //trackBookmarkListSharingOptions();
       BottomSheet bs = BottomSheetHelper.create(getActivity(),
                                                 mCategoryDataSource.getData().getName())
                                         .sheet(R.menu.menu_bookmarks_list)
                                         .listener(this)
                                         .build();
+
+      @BookmarkManager.SortingType int[] types = getAvailableSortingTypes();
+      bs.getMenu().findItem(R.id.sort).setVisible(types.length > 0);
+
       BottomSheetHelper.tint(bs);
       bs.show();
       return true;

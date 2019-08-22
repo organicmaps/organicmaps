@@ -473,7 +473,10 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     int sectionsCount = mSectionsDataSource.getSectionsCount();
     for (int i = 0; i < sectionsCount; ++i)
     {
-      itemCount += mSectionsDataSource.getItemsCount(i);
+      int sectionItemsCount = mSectionsDataSource.getItemsCount(i);
+      if (sectionItemsCount == 0)
+        continue;
+      itemCount += sectionItemsCount;
       if (mSectionsDataSource.hasTitle(i))
         ++itemCount;
     }
@@ -484,8 +487,14 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   {
     SectionPosition sp = getSectionPosition(position);
     mSectionsDataSource.onDelete(sp);
-    if (mSearchResults != null)
+    // In case of the search results editing reset cached sorted blocks.
+    if (isSearchResults())
       mSortedResults = null;
+  }
+
+  public boolean isSearchResults()
+  {
+    return mSearchResults != null;
   }
 
   // FIXME: remove this heavy method and use BoomarkInfo class instead.

@@ -99,6 +99,9 @@ public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> ex
     return mRecycler;
   }
 
+  @Nullable
+  public PlaceholderView getPlaceholder() { return mPlaceholder; }
+
   @Override
   public void onResume()
   {

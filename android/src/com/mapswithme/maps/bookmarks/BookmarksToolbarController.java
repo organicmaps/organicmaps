@@ -31,9 +31,6 @@ public class BookmarksToolbarController extends SearchToolbarController
   @Override
   protected void onTextChanged(String query)
   {
-    if (!mFragment.isSearchMode())
-      return;
-
     if (hasQuery())
       mFragment.runSearch(getQuery());
     else

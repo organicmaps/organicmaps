@@ -65,6 +65,7 @@
     <attr name="navigationTheme" format="reference"/>
 
     <attr name="fabAdd" format="reference"/>
+    <attr name="fabViewOnMap" format="reference"/>
 
     <attr name="routingButtonHint" format="color"/>
     <attr name="routingButtonPressedHint" format="color"/>

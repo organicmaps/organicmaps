@@ -181,11 +181,6 @@ public class BookmarkCategory implements Parcelable
     return isLocal && size() > 0;
   }
 
-  public boolean isSearchAllowed()
-  {
-    return true;
-  }
-
   public static class CountAndPlurals {
     private final int mCount;
     @PluralsRes

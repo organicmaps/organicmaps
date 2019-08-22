@@ -536,6 +536,8 @@ public enum BookmarkManager
 
   public void showBookmarkOnMap(long bmkId) { nativeShowBookmarkOnMap(bmkId); }
 
+  public void showBookmarkCategoryOnMap(long catId) { nativeShowBookmarkCategoryOnMap(catId); }
+
   public long getLastEditedCategory() { return nativeGetLastEditedCategory(); }
 
   @Icon.PredefinedColor
@@ -597,6 +599,9 @@ public enum BookmarkManager
   public boolean isEditableTrack(long trackId) { return nativeIsEditableTrack(trackId); }
 
   public boolean isEditableCategory(long catId) { return nativeIsEditableCategory(catId); }
+
+  // TODO(@darina) Implement in native BookmarkManager.
+  public boolean isSearchAllowed(long catId) { return true; }
 
   public boolean areAllCatalogCategoriesVisible()
   {
@@ -840,6 +845,8 @@ public enum BookmarkManager
   private native long nativeCreateCategory(@NonNull String name);
 
   private native void nativeShowBookmarkOnMap(long bmkId);
+
+  private native void nativeShowBookmarkCategoryOnMap(long catId);
 
   @NonNull
   private native Bookmark nativeAddBookmarkToLastEditedCategory(double lat, double lon);
