@@ -228,18 +228,6 @@ public class Holders
           listener.onItemClick(v, getAdapterPosition());
       });
     }
-
-    void setOnLongClickListener(@Nullable RecyclerLongClickListener listener)
-    {
-      mView.setOnLongClickListener(v -> onOpenActionMenu(v, listener));
-    }
-
-    boolean onOpenActionMenu(@NonNull View v, @Nullable RecyclerLongClickListener listener)
-    {
-      if (listener != null)
-        listener.onLongItemClick(v, getAdapterPosition());
-      return true;
-    }
   }
 
   static class BookmarkViewHolder extends BaseBookmarkHolder
@@ -250,6 +238,8 @@ public class Holders
     private final TextView mName;
     @NonNull
     private final TextView mDistance;
+    @Nullable
+    private View mMore;
 
     BookmarkViewHolder(@NonNull View itemView)
     {
@@ -257,12 +247,7 @@ public class Holders
       mIcon = itemView.findViewById(R.id.iv__bookmark_color);
       mName = itemView.findViewById(R.id.tv__bookmark_name);
       mDistance = itemView.findViewById(R.id.tv__bookmark_distance);
-    }
-
-    @Override
-    void setOnLongClickListener(@Nullable RecyclerLongClickListener listener)
-    {
-      super.setOnLongClickListener(listener);
+      mMore = itemView.findViewById(R.id.more);
     }
 
     @Override
@@ -280,12 +265,21 @@ public class Holders
       mDistance.setText(distanceValue);
       UiUtils.hideIf(TextUtils.isEmpty(distanceValue), mDistance);
       mIcon.setImageResource(bookmark.getIcon().getResId());
-
+      UiUtils.hideIf(!sectionsDataSource.isEditable(position.sectionIndex), mMore);
       Drawable circle = Graphics.drawCircleAndImage(bookmark.getIcon().argb(),
                                                     R.dimen.track_circle_size,
                                                     bookmark.getIcon().getResId(),
+                                                    R.dimen.bookmark_icon_size,
                                                     mIcon.getContext().getResources());
       mIcon.setImageDrawable(circle);
+    }
+
+    void setMoreListener(@Nullable RecyclerClickListener listener)
+    {
+      mMore.setOnClickListener(v -> {
+        if (listener != null)
+          listener.onItemClick(v, getAdapterPosition());
+      });
     }
   }
 

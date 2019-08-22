@@ -15,7 +15,6 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.SortedBlock;
 import com.mapswithme.maps.content.DataSource;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
-import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,7 +39,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   private SectionsDataSource mSectionsDataSource;
 
   @Nullable
-  private RecyclerLongClickListener mLongClickListener;
+  private RecyclerClickListener mMoreListener;
   @Nullable
   private RecyclerClickListener mClickListener;
 
@@ -404,9 +403,9 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     mClickListener = listener;
   }
 
-  void setOnLongClickListener(@Nullable RecyclerLongClickListener listener)
+  void setMoreListener(@Nullable RecyclerClickListener listener)
   {
-    mLongClickListener = listener;
+    mMoreListener = listener;
   }
 
   @Override
@@ -417,12 +416,19 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     switch (viewType)
     {
       case TYPE_TRACK:
-        holder = new Holders.TrackViewHolder(inflater.inflate(R.layout.item_track, parent,
-                                                              false));
+        Holders.TrackViewHolder trackHolder =
+            new Holders.TrackViewHolder(inflater.inflate(R.layout.item_track, parent,
+                                                         false));
+        trackHolder.setOnClickListener(mClickListener);
+        holder = trackHolder;
         break;
       case TYPE_BOOKMARK:
-        holder = new Holders.BookmarkViewHolder(inflater.inflate(R.layout.item_bookmark, parent,
-                                                                 false));
+        Holders.BookmarkViewHolder bookmarkHolder =
+            new Holders.BookmarkViewHolder(inflater.inflate(R.layout.item_bookmark, parent,
+                                                            false));
+        bookmarkHolder.setOnClickListener(mClickListener);
+        bookmarkHolder.setMoreListener(mMoreListener);
+        holder = bookmarkHolder;
         break;
       case TYPE_SECTION:
         TextView tv = (TextView) inflater.inflate(R.layout.item_category_title, parent, false);
@@ -437,8 +443,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     if (holder == null)
       throw new AssertionError("Unsupported view type: " + viewType);
 
-    holder.setOnClickListener(mClickListener);
-    holder.setOnLongClickListener(mLongClickListener);
     return holder;
   }
 

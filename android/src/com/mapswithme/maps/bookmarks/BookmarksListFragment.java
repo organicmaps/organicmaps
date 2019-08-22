@@ -47,9 +47,7 @@ import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.Statistics;
 
 public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListAdapter>
-    implements RecyclerLongClickListener,
-               RecyclerClickListener,
-               MenuItem.OnMenuItemClickListener,
+    implements MenuItem.OnMenuItemClickListener,
                BookmarkManager.BookmarksSharingListener,
                BookmarkManager.BookmarksSortingListener,
                NativeBookmarkSearchListener,
@@ -189,24 +187,29 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     BookmarkListAdapter adapter = getAdapter();
     adapter.registerAdapterDataObserver(mCategoryDataSource);
-    adapter.setOnClickListener(this);
-    adapter.setOnLongClickListener(isDownloadedCategory() ? null : this);
+    adapter.setOnClickListener((v, position) ->
+    {
+      onItemClick(position);
+    });
+    if (!isDownloadedCategory())
+    {
+      adapter.setMoreListener((v, position) ->
+      {
+        onMore(position);
+      });
+    }
   }
 
   private void configureFab(@NonNull View view)
   {
-    mFabViewOnMap = (FloatingActionButton) view.findViewById(R.id.fabViewOnMap);
-    mFabViewOnMap.setOnClickListener(new View.OnClickListener()
+    mFabViewOnMap = view.findViewById(R.id.fabViewOnMap);
+    mFabViewOnMap.setOnClickListener(v ->
     {
-      @Override
-      public void onClick(View v)
-      {
-        final Intent i = new Intent(getActivity(), MwmActivity.class);
-        i.putExtra(MwmActivity.EXTRA_TASK,
-            new Factory.ShowBookmarkCategoryTask(mCategoryDataSource.getData().getId()));
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
-      }
+      final Intent i = new Intent(getActivity(), MwmActivity.class);
+      i.putExtra(MwmActivity.EXTRA_TASK,
+          new Factory.ShowBookmarkCategoryTask(mCategoryDataSource.getData().getId()));
+      i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+      startActivity(i);
     });
   }
 
@@ -250,8 +253,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     getActivity().invalidateOptionsMenu();
   }
 
-  @Override
-  public void onItemClick(View v, int position)
+  public void onItemClick(int position)
   {
     final Intent i = new Intent(getActivity(), MwmActivity.class);
 
@@ -278,8 +280,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     startActivity(i);
   }
 
-  @Override
-  public void onLongItemClick(View v, int position)
+  public void onMore(int position)
   {
     BookmarkListAdapter adapter = getAdapter();
 
