@@ -29,6 +29,7 @@ endmacro()
 # Functions for using in subdirectories
 function(omim_add_executable executable)
   add_executable(${executable} ${ARGN})
+  add_dependencies(${executable} BuildVersion)
   if (USE_ASAN)
     target_link_libraries(
       ${executable}
@@ -53,6 +54,7 @@ endfunction()
 
 function(omim_add_library library)
   add_library(${library} ${ARGN})
+  add_dependencies(${library} BuildVersion)
   if (USE_PCH)
     add_precompiled_headers_to_target(${library} ${OMIM_PCH_TARGET_NAME})
   endif()
