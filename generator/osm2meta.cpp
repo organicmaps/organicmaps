@@ -7,16 +7,19 @@
 #include "coding/url_encode.hpp"
 
 #include "base/logging.hpp"
+#include "base/math.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <array>
 #include <cctype>
 #include <cmath>
 #include <cstdlib>
-#include <iostream>
 #include <sstream>
 #include <unordered_map>
 #include <unordered_set>
+
+#include "boost/optional.hpp"
 
 using namespace std;
 
@@ -284,3 +287,110 @@ string MetadataTagProcessorImpl::ValidateAndFormat_airport_iata(string const & v
   }
   return str;
 }
+
+string MetadataTagProcessorImpl::ValidateAndFormat_duration(string const & v) const
+{
+  auto const format = [](double hours) -> std::string {
+    if (base::AlmostEqualAbs(hours, 0.0, 1e-5))
+      return "";
+
+    std::stringstream ss;
+    ss << std::setprecision(5);
+    ss << hours;
+    return ss.str();
+  };
+
+  auto const readNumber = [&v](size_t startPos, size_t & endPos) -> boost::optional<uint32_t> {
+    uint32_t number = 0;
+    while (startPos < v.size() && isdigit(v[startPos]))
+    {
+      number *= 10;
+      number += v[startPos] - '0';
+      ++startPos;
+    }
+
+    if (startPos == endPos)
+      return {};
+
+    endPos = startPos;
+    return {number};
+  };
+
+  auto const convert = [](char type, uint32_t number) -> boost::optional<double> {
+    switch (type)
+    {
+    case 'H': return number;
+    case 'M': return number / 60.0;
+    case 'S': return number / 3600.0;
+    }
+
+    return {};
+  };
+
+  if (v.empty())
+    return {};
+
+  double hours = 0;
+  size_t pos = 0;
+  boost::optional<uint32_t> op;
+
+  if (v[0] == 'P')
+  {
+    if (v.size() < 4)
+      return {};
+
+    if (v.substr(0, 2) != "PT")
+      return {};
+
+    pos = 2;
+    while (pos < v.size() && (op = readNumber(pos, pos)))
+    {
+      if (pos >= v.size())
+        return {};
+
+      char const type = v[pos];
+      auto const addHours = convert(type, *op);
+      if (addHours)
+        hours += *addHours;
+      else
+        return {};
+
+      ++pos;
+    }
+
+    if (!op)
+      return {};
+
+    return format(hours);
+  }
+
+  // "hh:mm:ss" or just "mm"
+  vector<uint32_t> numbers;
+  while (pos < v.size() && (op = readNumber(pos, pos)))
+  {
+    numbers.emplace_back(*op);
+    if (pos >= v.size())
+      break;
+
+    if (v[pos] != ':')
+      return {};
+
+    ++pos;
+  }
+
+  if (numbers.size() > 3 || !op)
+    return {};
+
+  if (numbers.size() == 1)
+    return format(numbers.back() / 60.0);
+
+  double pow = 1;
+  for (auto number : numbers)
+  {
+    hours += number / pow;
+    pow *= 60;
+  }
+
+  return format(hours);
+}
+

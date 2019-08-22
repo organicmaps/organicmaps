@@ -34,6 +34,7 @@ struct MetadataTagProcessorImpl
   std::string ValidateAndFormat_denomination(std::string const & v) const;
   std::string ValidateAndFormat_wikipedia(std::string v) const;
   std::string ValidateAndFormat_airport_iata(std::string const & v) const;
+  std::string ValidateAndFormat_duration(std::string const & v) const;
 
 protected:
   FeatureParams & m_params;
@@ -96,6 +97,7 @@ public:
     case Metadata::FMD_BANNER_URL: valid = ValidateAndFormat_url(v); break;
     case Metadata::FMD_LEVEL: valid = ValidateAndFormat_level(v); break;
     case Metadata::FMD_AIRPORT_IATA: valid = ValidateAndFormat_airport_iata(v); break;
+    case Metadata::FMD_DURATION: valid = ValidateAndFormat_duration(v); break;
     // Metadata types we do not get from OSM.
     case Metadata::FMD_SPONSORED_ID:
     case Metadata::FMD_PRICE_RATE:

@@ -133,6 +133,7 @@ public:
     FMD_LEVEL = 28,
     FMD_AIRPORT_IATA = 29,
     FMD_BRAND = 30,
+    FMD_DURATION = 31,
     FMD_COUNT
   };
 

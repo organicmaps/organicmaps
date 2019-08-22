@@ -201,3 +201,59 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
 
 #undef WIKIHOST
 }
+
+UNIT_TEST(Metadata_ValidateAndFormat_duration)
+{
+  FeatureParams params;
+  MetadataTagProcessor p(params);
+  Metadata & md = params.GetMetadata();
+
+  auto const test = [&](std::string const & osm, std::string const & expected) {
+    p("duration", osm);
+
+    if (expected.empty())
+    {
+      TEST(md.Empty(), ());
+    }
+    else
+    {
+      TEST_EQUAL(md.Get(Metadata::FMD_DURATION), expected, ());
+      md.Drop(Metadata::FMD_DURATION);
+    }
+  };
+
+  test("10", "0.16667");
+  test("10:00", "10");
+  test("QWE", "");
+  test("1:1:1", "1.0169");
+  test("10:30", "10.5");
+  test("30", "0.5");
+  test("60", "1");
+  test("120", "2");
+  test("35:10", "35.167");
+
+  test("35::10", "");
+  test("", "");
+  test("0", "");
+  test("asd", "");
+  test("10 minutes", "");
+  test("01:15 h", "");
+  test("08:00;07:00;06:30", "");
+  test("3-4 minutes", "");
+  test("5:00 hours", "");
+  test("12 min", "");
+
+  test("PT20S", "0.0055556");
+  test("PT7M", "0.11667");
+  test("PT10M40S", "0.17778");
+  test("PT50M", "0.83333");
+  test("PT2H", "2");
+  test("PT7H50M", "7.8333");
+  test("PT60M", "1");
+  test("PT15M", "0.25");
+
+  test("PT1000Y", "");
+  test("PTPT", "");
+  test("P4D", "");
+  test("PT50:20", "");
+}
