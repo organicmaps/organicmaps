@@ -17,7 +17,8 @@ MINMAX_LIMIT_WAIT_AFTER_429_ERROR_SECONDS = (30, 120)
 class BookingApi:
     ENDPOINTS = {
         "countries": "list",
-        "hotels": "list"
+        "hotels": "list",
+        "districts": "list"
     }
 
     def __init__(self, login, password, version):
