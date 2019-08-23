@@ -11,13 +11,16 @@ display_usage() {
     echo "Usage: $0 -v [version] -a -h"
     echo "    -v  version of maps to download"
     echo "    -a  download all maps of the specified version"
+    echo "    -c  continue getting partially-downloaded files; new files on the server must be exactly the same as the ones in the previous attempt"
     echo "    -h  display this message"
 }
 
-while getopts ":av:h" opt
+while getopts ":acv:h" opt
 do
     case "$opt" in
         a) ALL=1
+           ;;
+        c) RESUME_PARTIAL="-c"
            ;;
         v) VERSION="$OPTARG"
            ;;
@@ -72,7 +75,7 @@ then
     set -x
     for file in $files
     do
-        wget -np -nd "$DIR/$file"
+        wget $RESUME_PARTIAL -np -nd "$DIR/$file"
     done
 else
     echo "Downloading maps..."
@@ -81,6 +84,6 @@ else
     set -x
     for name in ${NAMES[@]}
     do
-        wget -r -np -nd -A "$name" "$DIR/"
+        wget $RESUME_PARTIAL -r -np -nd -A "$name" "$DIR/"
     done
 fi
