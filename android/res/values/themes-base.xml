@@ -241,7 +241,7 @@
     <item name="navigationTheme">@style/MwmTheme.Navigation.Night</item>
 
     <item name="fabAdd">@drawable/ic_fab_add_night</item>
-    <item name="fabViewOnMap">@drawable/ic_fab_view_on_map</item>
+    <item name="fabViewOnMap">@drawable/ic_fab_view_on_map_night</item>
 
     <item name="routingButtonHint">@color/routing_button_tint</item>
     <item name="routingButtonActivatedHint">?statusBar</item>
