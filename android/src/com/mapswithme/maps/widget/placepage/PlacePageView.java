@@ -2161,7 +2161,7 @@ public class PlacePageView extends NestedScrollView
   }
 
   @Override
-  public void onBookmarkSaved(long bookmarkId)
+  public void onBookmarkSaved(long bookmarkId, boolean movedFromCategory)
   {
     setMapObject(BookmarkManager.INSTANCE.getBookmark(bookmarkId), null);
     NetworkPolicy policy = NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus());

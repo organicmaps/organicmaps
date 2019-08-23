@@ -48,7 +48,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
 
   public interface EditBookmarkListener
   {
-    void onBookmarkSaved(long bookmarkId);
+    void onBookmarkSaved(long bookmarkId, boolean movedFromCategory);
   }
 
   public static void editBookmark(long categoryId, long bookmarkId, @NonNull Context context,
@@ -131,7 +131,8 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
       dismiss();
       return;
     }
-    if (mBookmark.getCategoryId() != mBookmarkCategory.getId())
+    boolean movedFromCategory = mBookmark.getCategoryId() != mBookmarkCategory.getId();
+    if (movedFromCategory)
     {
       mBookmark.setCategoryId(mBookmarkCategory.getId());
       Framework.nativeOnBookmarkCategoryChanged(mBookmark.getCategoryId(), mBookmark.getBookmarkId());
@@ -139,7 +140,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     mBookmark.setParams(mEtName.getText().toString(), mIcon, mEtDescription.getText().toString());
 
     if (mListener != null)
-      mListener.onBookmarkSaved(mBookmark.getBookmarkId());
+      mListener.onBookmarkSaved(mBookmark.getBookmarkId(), movedFromCategory);
     dismiss();
   }
 
