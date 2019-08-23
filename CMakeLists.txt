@@ -46,6 +46,11 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
   add_definitions(-DDEBUG)
 elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
   add_definitions(-DRELEASE)
+elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "RelWithDebInfo")
+  add_definitions(-DRELEASE)
+  add_compile_options(
+    "-fno-omit-frame-pointer"
+  )
 else()
   message(FATAL_ERROR "Unknown build type: " ${CMAKE_BUILD_TYPE})
 endif()
