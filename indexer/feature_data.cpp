@@ -44,6 +44,18 @@ TypesHolder::TypesHolder(FeatureType & f) : m_size(0), m_geomType(f.GetGeomType(
   });
 }
 
+// static
+TypesHolder TypesHolder::FromTypesIndexes(std::vector<uint32_t> const & indexes)
+{
+  TypesHolder result;
+  for (auto index : indexes)
+  {
+    result.Add(classif().GetTypeForIndex(index));
+  }
+
+  return result;
+}
+
 void TypesHolder::Remove(uint32_t type)
 {
   UNUSED_VALUE(RemoveIf(base::EqualFunctor<uint32_t>(type)));
@@ -51,6 +63,9 @@ void TypesHolder::Remove(uint32_t type)
 
 bool TypesHolder::Equals(TypesHolder const & other) const
 {
+  if (m_size != other.m_size)
+    return false;
+
   vector<uint32_t> my(this->begin(), this->end());
   vector<uint32_t> his(other.begin(), other.end());
 

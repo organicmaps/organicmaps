@@ -61,6 +61,8 @@ namespace feature
     explicit TypesHolder(GeomType geomType) : m_geomType(geomType) {}
     explicit TypesHolder(FeatureType & f);
 
+    static TypesHolder FromTypesIndexes(std::vector<uint32_t> const & src);
+
     void Assign(uint32_t type)
     {
       m_types[0] = type;
