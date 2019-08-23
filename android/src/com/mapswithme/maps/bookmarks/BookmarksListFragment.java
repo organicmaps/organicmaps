@@ -1,6 +1,7 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
@@ -30,6 +31,7 @@ import com.mapswithme.maps.bookmarks.data.CategoryDataSource;
 import com.mapswithme.maps.bookmarks.data.SortedBlock;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.intent.Factory;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.search.NativeBookmarkSearchListener;
 import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.maps.ugc.routes.BaseUgcRouteActivity;
@@ -337,10 +339,18 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     mLastSortTimestamp = System.nanoTime();
 
-    long catId = mCategoryDataSource.getData().getId();
+    final Location loc = LocationHelper.INSTANCE.getSavedLocation();
+    final boolean hasMyPosition = loc != null;
+    if (!hasMyPosition && sortingType == BookmarkManager.SORT_BY_DISTANCE)
+      return;
+
+    final long catId = mCategoryDataSource.getData().getId();
+    final double lat = hasMyPosition ? loc.getLatitude() : 0;
+    final double lon = hasMyPosition ? loc.getLongitude() : 0;
+
     BookmarkManager.INSTANCE.setLastSortingType(catId, sortingType);
-    BookmarkManager.INSTANCE.getSortedBookmarks(catId, sortingType,
-        false, 0, 0, mLastSortTimestamp);
+    BookmarkManager.INSTANCE.getSortedBookmarks(catId, sortingType, hasMyPosition, lat, lon,
+                                                mLastSortTimestamp);
   }
 
   public void onResetSorting()
@@ -400,13 +410,15 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   @BookmarkManager.SortingType
   private int[] getAvailableSortingTypes()
   {
-    long catId = mCategoryDataSource.getData().getId();
-    return BookmarkManager.INSTANCE.getAvailableSortingTypes(catId, false);
+    final long catId = mCategoryDataSource.getData().getId();
+    final Location loc = LocationHelper.INSTANCE.getSavedLocation();
+    final boolean hasMyPosition = loc != null;
+    return BookmarkManager.INSTANCE.getAvailableSortingTypes(catId, hasMyPosition);
   }
 
   private int getLastSortingType()
   {
-    long catId = mCategoryDataSource.getData().getId();
+    final long catId = mCategoryDataSource.getData().getId();
     if (BookmarkManager.INSTANCE.hasLastSortingType(catId))
       return BookmarkManager.INSTANCE.getLastSortingType(catId);
     return -1;
