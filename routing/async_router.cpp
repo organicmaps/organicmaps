@@ -157,7 +157,7 @@ void AsyncRouter::RouterDelegateProxy::OnPointCheck(m2::PointD const & pt)
     lock_guard<mutex> l(m_guard);
     CHECK(m_onPointCheck, ());
 
-    if (m_delegateProxy.IsCancelled())
+    if (m_delegate.IsCancelled())
       return;
 
     onPointCheck = m_onPointCheck;
