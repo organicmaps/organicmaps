@@ -12,8 +12,8 @@ string DebugPrint(Data const & data)
 {
   ostringstream os;
   os << "Data [";
-  os << "name: " << data.m_name << ", ";
-  os << "description: " << data.m_description << "]";
+  os << "names: " << ::DebugPrint(data.GetNames()) << ", ";
+  os << "description: " << data.GetDescription() << "]";
   return os.str();
 }
 }  // namespace bookmarks
