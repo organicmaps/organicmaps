@@ -94,9 +94,9 @@ if [ -n "$ARGS_PRIVATE_REPO" ]; then
   fi
 else
   read -t 1 READ_PRIVATE_REPO READ_PRIVATE_BRANCH || true
-  if [ -n "$READ_PRIVATE_REPO" ]; then
+  if [ -n "${READ_PRIVATE_REPO-}" ]; then
     PRIVATE_REPO=$READ_PRIVATE_REPO
-    if [ -n "$READ_PRIVATE_BRANCH" ]; then
+    if [ -n "${READ_PRIVATE_BRANCH-}" ]; then
       PRIVATE_BRANCH=$READ_PRIVATE_BRANCH
     else
       PRIVATE_BRANCH=master
