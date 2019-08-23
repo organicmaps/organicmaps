@@ -120,11 +120,19 @@ bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
     Version m_driverVersion;
   };
 
+  static std::vector<std::string> const kBannedDevices = {"PowerVR Rogue GE8100"};
+
   static std::vector<Configuration> const kBannedConfigurations = {
     {"Adreno (TM) 506", {1, 0, 31}, {42, 264, 975}},
     {"Adreno (TM) 506", {1, 1, 66}, {512, 313, 0}},
     {"Adreno (TM) 530", {1, 1, 66}, {512, 313, 0}},
   };
+
+  for (auto const & d : kBannedDevices)
+  {
+    if (d == deviceName)
+      return true;
+  }
 
   for (auto const & c : kBannedConfigurations)
   {
