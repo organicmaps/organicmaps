@@ -173,7 +173,8 @@ public:
 
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & /* road */) const override;
   double CalcSegmentETA(Segment const & segment, RoadGeometry const & road) const override { return 0.0; }
-  double GetUTurnPenalty() const override;
+  double GetUTurnPenalty(Purpose purpose) const override;
+  double GetFerryLandingPenalty(Purpose purpose) const override;
 
 private:
   std::map<Segment, double> m_segmentWeights;

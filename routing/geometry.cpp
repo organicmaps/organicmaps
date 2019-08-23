@@ -13,6 +13,7 @@
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
+#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <string>
@@ -178,6 +179,27 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
                              altitudes ? (*altitudes)[i] : feature::kDefaultAltitudeMeters);
   }
 
+  if (m_routingOptions.Has(RoutingOptions::Road::Ferry))
+  {
+    // Look for more info: https://confluence.mail.ru/display/MAPSME/Ferries
+    // Shortly: the coefs were received from statistic about ferries with durations in OSM.
+    double constexpr kBias = 0.2490726747447476;
+    double constexpr kCoef = 0.02078913;
+
+    auto const durationHours = feature.GetMetadata().Get(feature::Metadata::FMD_DURATION);
+    auto const roadLenKm = GetRoadLengthM() / 1000.0;
+    double durationH = 0.0;
+
+    if (!durationHours.empty())
+      CHECK(strings::to_double(durationHours.c_str(), durationH), (durationHours));
+    else
+      durationH = kBias + kCoef * roadLenKm;
+
+    CHECK(!base::AlmostEqualAbs(durationH, 0.0, 1e-5), ());
+    m_forwardSpeed = m_backwardSpeed =
+        SpeedKMpH(std::min(vehicleModel.GetMaxWeightSpeed(), roadLenKm / durationH));
+  }
+
   if (m_valid && (!m_forwardSpeed.IsValid() || !m_backwardSpeed.IsValid()))
   {
     auto const & id = feature.GetID();
@@ -194,6 +216,18 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
 SpeedKMpH const & RoadGeometry::GetSpeed(bool forward) const
 {
   return forward ? m_forwardSpeed : m_backwardSpeed;
+}
+
+double RoadGeometry::GetRoadLengthM() const
+{
+  double lenM = 0.0;
+  for (size_t i = 1; i < GetPointsCount(); ++i)
+  {
+    lenM +=
+        MercatorBounds::DistanceOnEarth(m_junctions[i - 1].GetPoint(), m_junctions[i].GetPoint());
+  }
+
+  return lenM;
 }
 
 // Geometry ----------------------------------------------------------------------------------------

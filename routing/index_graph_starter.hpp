@@ -135,7 +135,8 @@ public:
   }
 
   RouteWeight CalcSegmentWeight(Segment const & segment) const;
-  double CalcSegmentETA(Segment const & segment) const;
+  double CalculateETA(Segment const & from, Segment const & to) const;
+  double CalculateETAWithoutPenalty(Segment const & segment) const;
 
   // For compatibility with IndexGraphStarterJoints
   // @{

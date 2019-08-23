@@ -116,6 +116,10 @@ public:
                     std::map<Parent, Parent> & parents) const;
 
   bool IsUTurnAndRestricted(Segment const & parent, Segment const & child, bool isOutgoing) const;
+
+  RouteWeight CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool isOutgoing,
+                                  Segment const & from, Segment const & to);
+
 private:
 
   RouteWeight CalcSegmentWeight(Segment const & segment);
@@ -125,7 +129,15 @@ private:
                            std::map<Segment, Segment> & parents);
   void GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
                           std::vector<SegmentEdge> & edges, std::map<Segment, Segment> & parents);
-  RouteWeight GetPenalties(Segment const & u, Segment const & v);
+
+  struct PenaltyData
+  {
+    bool m_passThroughAllowed = false;
+    bool m_isFerry = false;
+  };
+
+  PenaltyData GetRoadPenaltyData(Segment const & segment);
+  RouteWeight GetPenalties(EdgeEstimator::Purpose purpose, Segment const & u, Segment const & v);
 
   void GetSegmentCandidateForRoadPoint(RoadPoint const & rp, NumMwmId numMwmId,
                                        bool isOutgoing, std::vector<Segment> & children);

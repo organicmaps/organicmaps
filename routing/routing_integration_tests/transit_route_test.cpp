@@ -8,7 +8,7 @@ using namespace routing;
 
 namespace
 {
-UNIT_TEST(Moscow_CenterToKotelniki_CrossMwm)
+UNIT_TEST(Transit_Moscow_CenterToKotelniki_CrossMwm)
 {
   TRouteResult routeResult =
     integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
@@ -22,7 +22,7 @@ UNIT_TEST(Moscow_CenterToKotelniki_CrossMwm)
   integration::CheckSubwayExistence(*routeResult.first);
 }
 
-UNIT_TEST(Moscow_DubrovkaToTrtykovskya)
+UNIT_TEST(Transit_Moscow_DubrovkaToTrtykovskya)
 {
   TRouteResult routeResult =
     integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
@@ -36,7 +36,7 @@ UNIT_TEST(Moscow_DubrovkaToTrtykovskya)
   integration::CheckSubwayExistence(*routeResult.first);
 }
 
-UNIT_TEST(Moscow_NoSubwayTest)
+UNIT_TEST(Transit_Moscow_NoSubwayTest)
 {
   TRouteResult routeResult =
     integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
@@ -50,7 +50,7 @@ UNIT_TEST(Moscow_NoSubwayTest)
   integration::CheckSubwayAbsent(*routeResult.first);
 }
 
-UNIT_TEST(Piter_FrunzenskyaToPlochadVosstaniya)
+UNIT_TEST(Transit_Piter_FrunzenskyaToPlochadVosstaniya)
 {
   TRouteResult routeResult =
     integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
@@ -64,7 +64,7 @@ UNIT_TEST(Piter_FrunzenskyaToPlochadVosstaniya)
   integration::CheckSubwayExistence(*routeResult.first);
 }
 
-UNIT_TEST(Piter_TooLongPedestrian)
+UNIT_TEST(Transit_Piter_TooLongPedestrian)
 {
   TRouteResult routeResult =
     integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
@@ -74,7 +74,7 @@ UNIT_TEST(Piter_TooLongPedestrian)
   TEST_EQUAL(routeResult.second, RouterResultCode::TransitRouteNotFoundTooLongPedestrian, ());
 }
 
-UNIT_TEST(Vatikan_NotEnoughGraphDataAtThenEnd)
+UNIT_TEST(Transit_Vatikan_NotEnoughGraphDataAtThenEnd)
 {
   TRouteResult routeResult =
     integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
@@ -85,7 +85,7 @@ UNIT_TEST(Vatikan_NotEnoughGraphDataAtThenEnd)
   TEST_EQUAL(routeResult.second, RouterResultCode::TransitRouteNotFoundTooLongPedestrian, ());
 }
 
-UNIT_TEST(Vatikan_CorneliaToOttaviano)
+UNIT_TEST(Transit_Vatikan_CorneliaToOttaviano)
 {
   TRouteResult routeResult =
     integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
@@ -100,7 +100,7 @@ UNIT_TEST(Vatikan_CorneliaToOttaviano)
   integration::CheckSubwayExistence(*routeResult.first);
 }
 
-UNIT_TEST(London_PoplarToOval)
+UNIT_TEST(Transit_London_PoplarToOval)
 {
   TRouteResult routeResult =
     integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
@@ -115,7 +115,7 @@ UNIT_TEST(London_PoplarToOval)
   integration::CheckSubwayExistence(*routeResult.first);
 }
 
-UNIT_TEST(London_DeptfordBridgeToCyprus)
+UNIT_TEST(Transit_London_DeptfordBridgeToCyprus)
 {
   TRouteResult routeResult =
     integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
@@ -130,7 +130,7 @@ UNIT_TEST(London_DeptfordBridgeToCyprus)
   integration::CheckSubwayExistence(*routeResult.first);
 }
 
-UNIT_TEST(Washington_FoggyToShaw)
+UNIT_TEST(Transit_Washington_FoggyToShaw)
 {
   TRouteResult routeResult =
     integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
@@ -145,7 +145,7 @@ UNIT_TEST(Washington_FoggyToShaw)
   integration::CheckSubwayExistence(*routeResult.first);
 }
 
-UNIT_TEST(NewYork_GrassmereToPleasantPlains)
+UNIT_TEST(Transit_NewYork_GrassmereToPleasantPlains)
 {
   TRouteResult routeResult =
     integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),

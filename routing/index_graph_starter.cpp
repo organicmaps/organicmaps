@@ -270,13 +270,24 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment) const
   return m_graph.CalcOffroadWeight(vertex.GetPointFrom(), vertex.GetPointTo());
 }
 
-double IndexGraphStarter::CalcSegmentETA(Segment const & segment) const
+double IndexGraphStarter::CalculateETA(Segment const & from, Segment const & to) const
 {
   // We don't distinguish fake segment weight and fake segment transit time.
+  if (IsFakeSegment(to))
+    return CalcSegmentWeight(to).GetWeight();
+
+  if (IsFakeSegment(from))
+    return CalculateETAWithoutPenalty(to);
+
+  return m_graph.CalculateETA(from, to);
+}
+
+double IndexGraphStarter::CalculateETAWithoutPenalty(Segment const & segment) const
+{
   if (IsFakeSegment(segment))
     return CalcSegmentWeight(segment).GetWeight();
 
-  return m_graph.CalcSegmentETA(segment);
+  return m_graph.CalculateETAWithoutPenalty(segment);
 }
 
 void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding const & otherEnding,

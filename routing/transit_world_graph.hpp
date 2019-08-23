@@ -63,7 +63,9 @@ public:
   RouteWeight CalcSegmentWeight(Segment const & segment) override;
   RouteWeight CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const override;
   RouteWeight CalcOffroadWeight(m2::PointD const & from, m2::PointD const & to) const override;
-  double CalcSegmentETA(Segment const & segment) override;
+  double CalculateETA(Segment const & from, Segment const & to) override;
+  double CalculateETAWithoutPenalty(Segment const & segment) override;
+
   std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) override;
 
   IndexGraph & GetIndexGraph(NumMwmId numMwmId) override

@@ -21,6 +21,12 @@ namespace routing
 class EdgeEstimator
 {
 public:
+  enum class Purpose
+  {
+    Weight,
+    ETA
+  };
+
   EdgeEstimator(double maxWeightSpeedKMpH, double offroadSpeedKMpH);
   virtual ~EdgeEstimator() = default;
 
@@ -39,7 +45,8 @@ public:
 
   virtual double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const = 0;
   virtual double CalcSegmentETA(Segment const & segment, RoadGeometry const & road) const = 0;
-  virtual double GetUTurnPenalty() const = 0;
+  virtual double GetUTurnPenalty(Purpose purpose) const = 0;
+  virtual double GetFerryLandingPenalty(Purpose purpose) const = 0;
 
   static std::shared_ptr<EdgeEstimator> Create(VehicleType vehicleType, double maxWeighSpeedKMpH,
                                                double offroadSpeedKMpH,

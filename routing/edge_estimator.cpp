@@ -20,12 +20,6 @@ namespace
 {
 feature::TAltitude constexpr kMountainSicknessAltitudeM = 2500;
 
-enum class Purpose
-{
-  Weight,
-  ETA
-};
-
 double TimeBetweenSec(m2::PointD const & from, m2::PointD const & to, double speedMpS)
 {
   CHECK_GREATER(speedMpS, 0.0,
@@ -78,15 +72,15 @@ double GetBicycleClimbPenalty(double tangent, feature::TAltitude altitudeM)
 double GetCarClimbPenalty(double /* tangent */, feature::TAltitude /* altitude */) { return 1.0; }
 
 template <typename GetClimbPenalty>
-double CalcClimbSegment(Purpose purpose, Segment const & segment, RoadGeometry const & road,
-                              GetClimbPenalty && getClimbPenalty)
+double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
+                        RoadGeometry const & road, GetClimbPenalty && getClimbPenalty)
 {
   Junction const & from = road.GetJunction(segment.GetPointId(false /* front */));
   Junction const & to = road.GetJunction(segment.GetPointId(true /* front */));
   SpeedKMpH const & speed = road.GetSpeed(segment.IsForward());
 
   double const distance = MercatorBounds::DistanceOnEarth(from.GetPoint(), to.GetPoint());
-  double const speedMpS = KMPH2MPS(purpose == Purpose::Weight ? speed.m_weight : speed.m_eta);
+  double const speedMpS = KMPH2MPS(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
   CHECK_GREATER(speedMpS, 0.0, ());
   double const timeSec = distance / speedMpS;
 
@@ -138,7 +132,17 @@ public:
   }
 
   // EdgeEstimator overrides:
-  double GetUTurnPenalty() const override { return 0.0 /* seconds */; }
+  double GetUTurnPenalty(Purpose /* purpose */) const override { return 0.0 /* seconds */; }
+  // Based on: https://confluence.mail.ru/display/MAPSME/Ferries
+  double GetFerryLandingPenalty(Purpose purpose) const override
+  {
+    switch (purpose)
+    {
+    case Purpose::Weight: return 20 * 60;  // seconds
+    case Purpose::ETA: return 8 * 60;  // seconds
+    }
+    UNREACHABLE();
+  }
 
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const override
   {
@@ -161,7 +165,17 @@ public:
   }
 
   // EdgeEstimator overrides:
-  double GetUTurnPenalty() const override { return 20.0 /* seconds */; }
+  double GetUTurnPenalty(Purpose /* purpose */) const override { return 20.0 /* seconds */; }
+  // Based on: https://confluence.mail.ru/display/MAPSME/Ferries
+  double GetFerryLandingPenalty(Purpose purpose) const override
+  {
+    switch (purpose)
+    {
+    case Purpose::Weight: return 20 * 60;  // seconds
+    case Purpose::ETA: return 8 * 60;  // seconds
+    }
+    UNREACHABLE();
+  }
 
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const override
   {
@@ -184,7 +198,8 @@ public:
   // EdgeEstimator overrides:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const override;
   double CalcSegmentETA(Segment const & segment, RoadGeometry const & road) const override;
-  double GetUTurnPenalty() const override;
+  double GetUTurnPenalty(Purpose /* purpose */) const override;
+  double GetFerryLandingPenalty(Purpose purpose) const override;
 
 private:
   double CalcSegment(Purpose purpose, Segment const & segment, RoadGeometry const & road) const;
@@ -207,12 +222,23 @@ double CarEstimator::CalcSegmentETA(Segment const & segment, RoadGeometry const 
   return CalcSegment(Purpose::ETA, segment, road);
 }
 
-double CarEstimator::GetUTurnPenalty() const
+double CarEstimator::GetUTurnPenalty(Purpose /* purpose */) const
 {
   // Adds 2 minutes penalty for U-turn. The value is quite arbitrary
   // and needs to be properly selected after a number of real-world
   // experiments.
   return 2 * 60;  // seconds
+}
+
+double CarEstimator::GetFerryLandingPenalty(Purpose purpose) const
+{
+  switch (purpose)
+  {
+  case Purpose::Weight: return 40 * 60;  // seconds
+  // Based on https://confluence.mail.ru/display/MAPSME/Ferries
+  case Purpose::ETA: return 20 * 60;  // seconds
+  }
+  UNREACHABLE();
 }
 
 double CarEstimator::CalcSegment(Purpose purpose, Segment const & segment, RoadGeometry const & road) const

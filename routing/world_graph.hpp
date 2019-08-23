@@ -79,7 +79,8 @@ public:
 
   virtual RouteWeight CalcOffroadWeight(m2::PointD const & from, m2::PointD const & to) const = 0;
 
-  virtual double CalcSegmentETA(Segment const & segment) = 0;
+  virtual double CalculateETA(Segment const & from, Segment const & to) = 0;
+  virtual double CalculateETAWithoutPenalty(Segment const & segment) = 0;
 
   /// \returns transitions for mwm with id |numMwmId|.
   virtual std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter);

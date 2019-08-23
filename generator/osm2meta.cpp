@@ -11,7 +11,6 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <array>
 #include <cctype>
 #include <cmath>
 #include <cstdlib>

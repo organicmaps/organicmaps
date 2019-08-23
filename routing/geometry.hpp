@@ -77,6 +77,9 @@ public:
   RoutingOptions GetRoutingOptions() const { return m_routingOptions; }
 
 private:
+
+  double GetRoadLengthM() const;
+
   buffer_vector<Junction, 32> m_junctions;
   SpeedKMpH m_forwardSpeed;
   SpeedKMpH m_backwardSpeed;

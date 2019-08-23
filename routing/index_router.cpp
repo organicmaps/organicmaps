@@ -1313,11 +1313,13 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   double time = 0.0;
   times.emplace_back(static_cast<uint32_t>(0), 0.0);
 
-  for (size_t i = 0; i + 1 < numPoints; ++i)
+  for (size_t i = 0; i < segments.size() - 1; ++i)
   {
-    time += starter.CalcSegmentETA(segments[i]);
+    time += starter.CalculateETA(segments[i], segments[i + 1]);
     times.emplace_back(static_cast<uint32_t>(i + 1), time);
   }
+
+  times.emplace_back(static_cast<uint32_t>(segments.size()), time);
 
   CHECK(m_directionsEngine, ());
   ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate, junctions, move(times),

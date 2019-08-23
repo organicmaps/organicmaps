@@ -342,8 +342,8 @@ void IndexGraph::ReconstructJointSegment(JointSegment const & parentJoint,
 
     do
     {
-      RouteWeight const weight = CalcSegmentWeight(isOutgoing ? current : prev) +
-                                 GetPenalties(isOutgoing ? prev : current, isOutgoing ? current : prev);
+      RouteWeight const weight =
+          CalculateEdgeWeight(EdgeEstimator::Purpose::Weight, isOutgoing, prev, current);
 
       if (isOutgoing || prev != parent)
         summaryWeight += weight;
@@ -378,25 +378,37 @@ void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bo
   if (m_roadAccess.GetPointType(rp) == RoadAccess::Type::No)
     return;
 
-  RouteWeight const weight = CalcSegmentWeight(isOutgoing ? to : from) +
-                             GetPenalties(isOutgoing ? from : to, isOutgoing ? to : from);
-  edges.emplace_back(to, weight);
+  RouteWeight weight = CalculateEdgeWeight(EdgeEstimator::Purpose::Weight, isOutgoing, from, to);
+  edges.emplace_back(to, std::move(weight));
 }
 
-RouteWeight IndexGraph::GetPenalties(Segment const & u, Segment const & v)
+IndexGraph::PenaltyData IndexGraph::GetRoadPenaltyData(Segment const & segment)
 {
-  bool const fromPassThroughAllowed = m_geometry->GetRoad(u.GetFeatureId()).IsPassThroughAllowed();
-  bool const toPassThroughAllowed = m_geometry->GetRoad(v.GetFeatureId()).IsPassThroughAllowed();
+  auto const & road = m_geometry->GetRoad(segment.GetFeatureId());
+
+  PenaltyData result;
+  result.m_passThroughAllowed = road.IsPassThroughAllowed();
+  result.m_isFerry = road.GetRoutingOptions().Has(RoutingOptions::Road::Ferry);
+
+  return result;
+}
+
+RouteWeight IndexGraph::GetPenalties(EdgeEstimator::Purpose purpose,
+                                     Segment const & u, Segment const & v)
+{
+  auto const & fromPenaltyData = GetRoadPenaltyData(u);
+  auto const & toPenaltyData = GetRoadPenaltyData(v);
   // Route crosses border of pass-through/non-pass-through area if |u| and |v| have different
   // pass through restrictions.
-  int32_t const passThroughPenalty = fromPassThroughAllowed == toPassThroughAllowed ? 0 : 1;
+  int8_t const passThroughPenalty =
+      fromPenaltyData.m_passThroughAllowed == toPenaltyData.m_passThroughAllowed ? 0 : 1;
 
   // We do not distinguish between RoadAccess::Type::Private and RoadAccess::Type::Destination for now.
   bool const fromAccessAllowed = m_roadAccess.GetFeatureType(u.GetFeatureId()) == RoadAccess::Type::Yes;
   bool const toAccessAllowed = m_roadAccess.GetFeatureType(v.GetFeatureId()) == RoadAccess::Type::Yes;
   // Route crosses border of access=yes/access={private, destination} area if |u| and |v| have different
   // access restrictions.
-  int32_t accessPenalty = fromAccessAllowed == toAccessAllowed ? 0 : 1;
+  int8_t accessPenalty = fromAccessAllowed == toAccessAllowed ? 0 : 1;
 
   // RoadPoint between u and v is front of u.
   auto const rp = u.GetRoadPoint(true /* front */);
@@ -404,9 +416,14 @@ RouteWeight IndexGraph::GetPenalties(Segment const & u, Segment const & v)
   if (m_roadAccess.GetPointType(rp) != RoadAccess::Type::Yes)
     accessPenalty = 1;
 
-  auto const uTurnPenalty = IsUTurn(u, v) ? m_estimator->GetUTurnPenalty() : 0.0;
+  double weightPenalty = 0.0;
+  if (IsUTurn(u, v))
+    weightPenalty += m_estimator->GetUTurnPenalty(purpose);
 
-  return RouteWeight(uTurnPenalty /* weight */, passThroughPenalty, accessPenalty, 0.0 /* transitTime */);
+  if (!fromPenaltyData.m_isFerry && toPenaltyData.m_isFerry)
+    weightPenalty += m_estimator->GetFerryLandingPenalty(purpose);
+
+  return {weightPenalty /* weight */, passThroughPenalty, accessPenalty, 0.0 /* transitTime */};
 }
 
 WorldGraphMode IndexGraph::GetMode() const { return WorldGraphMode::Undefined; }
@@ -435,5 +452,19 @@ bool IndexGraph::IsUTurnAndRestricted(Segment const & parent, Segment const & ch
   uint32_t const n = roadGeometry.GetPointsCount();
   ASSERT_GREATER_OR_EQUAL(n, 1, ());
   return uTurn.m_atTheEnd && turnPoint == n - 1;
+}
+
+RouteWeight IndexGraph::CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool isOutgoing,
+                                            Segment const & from, Segment const & to)
+{
+  auto const & segment = isOutgoing ? to : from;
+  auto const & weight =
+      purpose == EdgeEstimator::Purpose::Weight ?
+      RouteWeight(m_estimator->CalcSegmentWeight(segment, m_geometry->GetRoad(segment.GetFeatureId()))) :
+      RouteWeight(m_estimator->CalcSegmentETA(segment, m_geometry->GetRoad(segment.GetFeatureId())));
+
+  auto const & penalties = GetPenalties(purpose, isOutgoing ? from : to, isOutgoing ? to : from);
+
+  return weight + penalties;
 }
 }  // namespace routing

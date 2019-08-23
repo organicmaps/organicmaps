@@ -192,9 +192,19 @@ RouteWeight SingleVehicleWorldGraph::CalcOffroadWeight(m2::PointD const & from,
   return RouteWeight(m_estimator->CalcOffroadWeight(from, to));
 }
 
-double SingleVehicleWorldGraph::CalcSegmentETA(Segment const & segment)
+double SingleVehicleWorldGraph::CalculateETA(Segment const & from, Segment const & to)
 {
-  return m_estimator->CalcSegmentETA(segment, GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()));
+  if (from.GetMwmId() != to.GetMwmId())
+    return CalculateETAWithoutPenalty(to);
+
+  auto & indexGraph = m_loader->GetIndexGraph(from.GetMwmId());
+  return indexGraph.CalculateEdgeWeight(EdgeEstimator::Purpose::ETA, true /* isOutgoing */, from, to).GetWeight();
+}
+
+double SingleVehicleWorldGraph::CalculateETAWithoutPenalty(Segment const & segment)
+{
+  return m_estimator->CalcSegmentETA(segment,
+                                     GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()));
 }
 
 vector<Segment> const & SingleVehicleWorldGraph::GetTransitions(NumMwmId numMwmId, bool isEnter)

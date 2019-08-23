@@ -156,13 +156,28 @@ RouteWeight TransitWorldGraph::CalcOffroadWeight(m2::PointD const & from,
   return RouteWeight(m_estimator->CalcOffroadWeight(from, to));
 }
 
-double TransitWorldGraph::CalcSegmentETA(Segment const & segment)
+double TransitWorldGraph::CalculateETA(Segment const & from, Segment const & to)
 {
-  // TODO: Separate weight and ETA of transit segments.
+  if (TransitGraph::IsTransitSegment(from))
+    return CalcSegmentWeight(to).GetWeight();
+
+  if (TransitGraph::IsTransitSegment(to))
+    return CalcSegmentWeight(to).GetWeight();
+
+  if (from.GetMwmId() != to.GetMwmId())
+    return m_estimator->CalcSegmentETA(to, GetRealRoadGeometry(to.GetMwmId(), to.GetFeatureId()));
+
+  auto & indexGraph = m_indexLoader->GetIndexGraph(from.GetMwmId());
+  return indexGraph.CalculateEdgeWeight(EdgeEstimator::Purpose::ETA, true /* isOutgoing */, from, to).GetWeight();
+}
+
+double TransitWorldGraph::CalculateETAWithoutPenalty(Segment const & segment)
+{
   if (TransitGraph::IsTransitSegment(segment))
     return CalcSegmentWeight(segment).GetWeight();
 
-  return m_estimator->CalcSegmentETA(segment, GetRealRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()));
+  return m_estimator->CalcSegmentETA(segment,
+                                     GetRealRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()));
 }
 
 unique_ptr<TransitInfo> TransitWorldGraph::GetTransitInfo(Segment const & segment)
