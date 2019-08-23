@@ -49,11 +49,9 @@ public:
   {
   public:
     GeoObjectsView(GeoIndex const & geoIndex, GeoId2GeoData const & geoId2GeoData,
-                   RegionInfoGetter const & regionInfoGetter, RegionIdGetter const & regionIdGetter,
-                   std::mutex & updateMutex)
+                   RegionIdGetter const & regionIdGetter, std::mutex & updateMutex)
       : m_geoIndex(geoIndex)
       , m_geoId2GeoData(geoId2GeoData)
-      , m_regionInfoGetter(regionInfoGetter)
       , m_regionIdGetter(regionIdGetter)
       , m_lock(updateMutex, std::defer_lock)
     {
@@ -81,7 +79,6 @@ public:
   private:
     GeoIndex const & m_geoIndex;
     GeoId2GeoData const & m_geoId2GeoData;
-    RegionInfoGetter const & m_regionInfoGetter;
     RegionIdGetter const & m_regionIdGetter;
     std::unique_lock<std::mutex> m_lock;
   };
@@ -98,8 +95,7 @@ public:
 
   GeoObjectsView CreateView()
   {
-    return GeoObjectsView(m_index, m_geoId2GeoData, m_regionInfoGetter, m_regionIdGetter,
-                          m_updateMutex);
+    return GeoObjectsView(m_index, m_geoId2GeoData, m_regionIdGetter, m_updateMutex);
   }
 
 private:
