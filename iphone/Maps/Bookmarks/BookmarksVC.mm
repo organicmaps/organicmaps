@@ -23,8 +23,6 @@
 #include <string>
 #include <vector>
 
-NS_ASSUME_NONNULL_BEGIN
-
 using namespace std;
 
 @interface BookmarksVC () <UITableViewDataSource,
@@ -33,17 +31,16 @@ using namespace std;
                            MWMBookmarksObserver,
                            MWMLocationObserver,
                            MWMKeyboardObserver,
-                           InfoSectionObserver,
+                           InfoSectionDelegate,
                            BookmarksSharingViewControllerDelegate,
-                           CategorySettingsViewControllerDelegate> {
-  NSMutableArray<id<TableSectionDataSource>> *m_defaultSections;
-  NSMutableArray<id<TableSectionDataSource>> *m_searchSections;
-}
+                           CategorySettingsViewControllerDelegate>
+
+@property(strong, nonatomic) NSMutableArray<id<TableSectionDataSource>> *defaultSections;
+@property(strong, nonatomic) NSMutableArray<id<TableSectionDataSource>> *searchSections;
+@property(strong, nonatomic) InfoSection *infoSection;
 
 @property(nonatomic) NSUInteger lastSearchId;
 @property(nonatomic) NSUInteger lastSortId;
-
-@property(nonatomic) BOOL infoExpanded;
 
 @property(weak, nonatomic) IBOutlet UIView *statusBarBackground;
 @property(weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -76,82 +73,91 @@ using namespace std;
   self = [super init];
   if (self)
   {
-    m_categoryId = categoryId;
+    _categoryId = categoryId;
   }
   return self;
 }
 
 - (BOOL)isEditable {
-  return [[MWMBookmarksManager sharedManager] isCategoryEditable:m_categoryId];
+  return [[MWMBookmarksManager sharedManager] isCategoryEditable:self.categoryId];
+}
+
+- (InfoSection *)cachedInfoSection
+{
+  if (self.infoSection == nil)
+  {
+    self.infoSection = [[InfoSection alloc] initWithCategoryId:self.categoryId
+                                                      expanded:NO
+                                                      observer:self];
+  }
+  return self.infoSection;
 }
 
 - (NSMutableArray<id<TableSectionDataSource>> *)currentSections {
-  if (m_searchSections != nil)
-    return m_searchSections;
-  return m_defaultSections;
+  if (self.searchSections != nil)
+    return self.searchSections;
+  return self.defaultSections;
 }
 
 - (void)setCategorySections {
-  if (m_defaultSections == nil)
-    m_defaultSections = [[NSMutableArray alloc] init];
+  if (self.defaultSections == nil)
+    self.defaultSections = [[NSMutableArray alloc] init];
   else
-    [m_defaultSections removeAllObjects];
+    [self.defaultSections removeAllObjects];
 
-  auto const &bm = GetFramework().GetBookmarkManager();
-  if (bm.IsCategoryFromCatalog(m_categoryId)) {
-    [m_defaultSections addObject:[[InfoSection alloc] initWithCategoryId:m_categoryId
-                                                                expanded:self.infoExpanded
-                                                                observer:self]];
+  if ([[MWMBookmarksManager sharedManager] isCategoryFromCatalog:self.categoryId]) {
+    [self.defaultSections addObject:[self cachedInfoSection]];
   }
 
-  if (bm.GetTrackIds(m_categoryId).size() > 0) {
-    [m_defaultSections addObject:[[TracksSection alloc]
-                                   initWithTitle:L(@"tracks_title")
-                                        trackIds:[[MWMBookmarksManager sharedManager] trackIdsForCategory:m_categoryId]
-                                      isEditable:[self isEditable]]];
+  MWMTrackIDCollection trackIds = [[MWMBookmarksManager sharedManager] trackIdsForCategory:self.categoryId];
+  if (trackIds.count > 0) {
+    [self.defaultSections addObject:[[TracksSection alloc]
+                                      initWithTitle:L(@"tracks_title")
+                                           trackIds:trackIds
+                                         isEditable:[self isEditable]]];
   }
 
-  if (bm.GetUserMarkIds(m_categoryId).size() > 0) {
-    [m_defaultSections addObject:[[BookmarksSection alloc] initWithTitle:L(@"bookmarks")
-                                                                 markIds:[[MWMBookmarksManager sharedManager]
-                                                                           bookmarkIdsForCategory:m_categoryId]
-                                                              isEditable:[self isEditable]]];
+  MWMMarkIDCollection markIds = [[MWMBookmarksManager sharedManager] bookmarkIdsForCategory:self.categoryId];
+  if (markIds.count > 0) {
+    [self.defaultSections addObject:[[BookmarksSection alloc] initWithTitle:L(@"bookmarks")
+                                                                    markIds:markIds
+                                                                 isEditable:[self isEditable]]];
   }
 }
 
 - (void)setSortedSections:(BookmarkManager::SortedBlocksCollection const &)sortResults {
-  if (m_defaultSections == nil)
-    m_defaultSections = [[NSMutableArray alloc] init];
+  if (self.defaultSections == nil)
+    self.defaultSections = [[NSMutableArray alloc] init];
   else
-    [m_defaultSections removeAllObjects];
+    [self.defaultSections removeAllObjects];
 
   for (auto const &block : sortResults) {
     if (!block.m_markIds.empty()) {
-      [m_defaultSections addObject:[[BookmarksSection alloc] initWithTitle:@(block.m_blockName.c_str())
-                                                                   markIds:[BookmarksVC bookmarkIds:block.m_markIds]
-                                                                isEditable:[self isEditable]]];
+      [self.defaultSections addObject:[[BookmarksSection alloc] initWithTitle:@(block.m_blockName.c_str())
+                                                                      markIds:[BookmarksVC bookmarkIds:block.m_markIds]
+                                                                   isEditable:[self isEditable]]];
     } else if (!block.m_trackIds.empty()) {
-      [m_defaultSections addObject:[[TracksSection alloc] initWithTitle:@(block.m_blockName.c_str())
-                                                               trackIds:[BookmarksVC trackIds:block.m_trackIds]
-                                                             isEditable:[self isEditable]]];
+      [self.defaultSections addObject:[[TracksSection alloc] initWithTitle:@(block.m_blockName.c_str())
+                                                                  trackIds:[BookmarksVC trackIds:block.m_trackIds]
+                                                                isEditable:[self isEditable]]];
     }
   }
 }
 
-- (void)setSearchSections:(search::BookmarksSearchParams::Results const &)searchResults {
-  if (m_searchSections == nil) {
-    m_searchSections = [[NSMutableArray alloc] init];
+- (void)setSearchSection:(search::BookmarksSearchParams::Results const &)searchResults {
+  if (self.searchSections == nil) {
+    self.searchSections = [[NSMutableArray alloc] init];
   } else {
-    [m_searchSections removeAllObjects];
+    [self.searchSections removeAllObjects];
   }
 
-  [m_searchSections addObject:[[BookmarksSection alloc] initWithTitle:nil
-                                                              markIds:[BookmarksVC bookmarkIds:searchResults]
-                                                           isEditable:[self isEditable]]];
+  [self.searchSections addObject:[[BookmarksSection alloc] initWithTitle:nil
+                                                                 markIds:[BookmarksVC bookmarkIds:searchResults]
+                                                              isEditable:[self isEditable]]];
 }
 
 - (void)refreshDefaultSections {
-  if (m_defaultSections != nil)
+  if (self.defaultSections != nil)
     return;
 
   [self setCategorySections];
@@ -159,8 +165,8 @@ using namespace std;
 
   auto const &bm = GetFramework().GetBookmarkManager();
   BookmarkManager::SortingType lastSortingType;
-  if (bm.GetLastSortingType(m_categoryId, lastSortingType)) {
-    auto const availableSortingTypes = [self getAvailableSortingTypes];
+  if (bm.GetLastSortingType(self.categoryId, lastSortingType)) {
+    auto const availableSortingTypes = [self availableSortingTypes];
     for (auto availableType : availableSortingTypes) {
       if (availableType == lastSortingType) {
         [self sort:lastSortingType];
@@ -171,7 +177,7 @@ using namespace std;
 }
 
 - (void)updateControlsVisibility {
-  if ([self isEditable] && [[MWMBookmarksManager sharedManager] isCategoryNotEmpty:m_categoryId]) {
+  if ([self isEditable] && [[MWMBookmarksManager sharedManager] isCategoryNotEmpty:self.categoryId]) {
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.sortItem.enabled = YES;
   } else {
@@ -220,10 +226,10 @@ using namespace std;
 - (void)viewWillAppear:(BOOL)animated {
   [MWMLocationManager addObserver:self];
 
-  bool searchAllowed = false;
+  BOOL searchAllowed = NO;
   if ([self isEditable]) {
-    if ([[MWMBookmarksManager sharedManager] isCategoryNotEmpty:m_categoryId])
-      searchAllowed = true;
+    if ([[MWMBookmarksManager sharedManager] isCategoryNotEmpty:self.categoryId])
+      searchAllowed = YES;
     self.myCategoryToolbar.hidden = NO;
     self.downloadedCategoryToolbar.hidden = YES;
   } else {
@@ -236,7 +242,7 @@ using namespace std;
   [super viewWillAppear:animated];
 
   auto const &bm = GetFramework().GetBookmarkManager();
-  self.title = @(bm.GetCategoryName(m_categoryId).c_str());
+  self.title = @(bm.GetCategoryName(self.categoryId).c_str());
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -303,7 +309,7 @@ using namespace std;
                                                style:UIAlertActionStyleDestructive
                                              handler:^(UIAlertAction * _Nonnull action)
                        {
-                         [[MWMBookmarksManager sharedManager] deleteCategory:self->m_categoryId];
+                         [[MWMBookmarksManager sharedManager] deleteCategory:self.categoryId];
                          [self.delegate bookmarksVCdidDeleteCategory:self];
                          [Statistics logEvent:kStatBookmarksListItemMoreClick withParameters:@{kStatOption : kStatDelete}];
                        }];
@@ -329,26 +335,26 @@ using namespace std;
   auto storyboard = [UIStoryboard instance:MWMStoryboardCategorySettings];
   auto settingsController = (CategorySettingsViewController *)[storyboard instantiateInitialViewController];
   settingsController.delegate = self;
-  settingsController.category = [[MWMBookmarksManager sharedManager] categoryWithId:m_categoryId];
+  settingsController.category = [[MWMBookmarksManager sharedManager] categoryWithId:self.categoryId];
   [self.navigationController pushViewController:settingsController animated:YES];
 }
 
 - (void)exportFile {
   [[MWMBookmarksManager sharedManager] addObserver:self];
-  [[MWMBookmarksManager sharedManager] shareCategory:m_categoryId];
+  [[MWMBookmarksManager sharedManager] shareCategory:self.categoryId];
 }
 
 - (void)shareCategory {
   auto storyboard = [UIStoryboard instance:MWMStoryboardSharing];
   auto shareController = (BookmarksSharingViewController *)[storyboard instantiateInitialViewController];
   shareController.delegate = self;
-  shareController.category = [[MWMBookmarksManager sharedManager] categoryWithId:m_categoryId];
+  shareController.category = [[MWMBookmarksManager sharedManager] categoryWithId:self.categoryId];
   [self.navigationController pushViewController:shareController animated:YES];
 }
 
 - (void)viewOnMap {
   [self.navigationController popToRootViewControllerAnimated:YES];
-  GetFramework().ShowBookmarkCategory(m_categoryId);
+  GetFramework().ShowBookmarkCategory(self.categoryId);
 }
 
 - (IBAction)onSort:(UIBarButtonItem *)sender {
@@ -356,14 +362,14 @@ using namespace std;
                                                          message:nil
                                                   preferredStyle:UIAlertControllerStyleActionSheet];
 
-  auto const sortingTypes = [self getAvailableSortingTypes];
+  auto const sortingTypes = [self availableSortingTypes];
 
   for (auto type : sortingTypes) {
-    [actionSheet addAction:[UIAlertAction actionWithTitle:[BookmarksVC getLocalizedSortingType:type]
+    [actionSheet addAction:[UIAlertAction actionWithTitle:[BookmarksVC localizedSortingType:type]
                                                     style:UIAlertActionStyleDefault
                                                   handler:^(UIAlertAction *_Nonnull action) {
                                                     auto &bm = GetFramework().GetBookmarkManager();
-                                                    bm.SetLastSortingType(self->m_categoryId, type);
+                                                    bm.SetLastSortingType(self.categoryId, type);
                                                     [self sort:type];
                                                   }]];
   }
@@ -384,17 +390,17 @@ using namespace std;
                    }];
 }
 
-- (std::vector<BookmarkManager::SortingType>)getAvailableSortingTypes {
+- (std::vector<BookmarkManager::SortingType>)availableSortingTypes {
   CLLocation *lastLocation = [MWMLocationManager lastLocation];
   bool const hasMyPosition = lastLocation != nil;
   auto const &bm = GetFramework().GetBookmarkManager();
-  auto const sortingTypes = bm.GetAvailableSortingTypes(m_categoryId, hasMyPosition);
+  auto const sortingTypes = bm.GetAvailableSortingTypes(self.categoryId, hasMyPosition);
   return sortingTypes;
 }
 
 - (void)sortDefault {
   auto &bm = GetFramework().GetBookmarkManager();
-  bm.ResetLastSortingType(self->m_categoryId);
+  bm.ResetLastSortingType(self.categoryId);
   [self setCategorySections];
   [self.tableView reloadData];
 }
@@ -416,7 +422,7 @@ using namespace std;
 
   auto &bm = GetFramework().GetBookmarkManager();
   BookmarkManager::SortParams sortParams;
-  sortParams.m_groupId = m_categoryId;
+  sortParams.m_groupId = self.categoryId;
   sortParams.m_sortingType = type;
   sortParams.m_hasMyPosition = hasMyPosition;
   sortParams.m_myPosition = myPosition;
@@ -462,7 +468,7 @@ using namespace std;
   [self showNoResultsView:NO];
   [self showSpinner:NO];
 
-  m_searchSections = nil;
+  self.searchSections = nil;
   [self refreshDefaultSections];
   [self.tableView reloadData];
 }
@@ -526,7 +532,7 @@ using namespace std;
 }
 
 - (NSString *)categoryFileName {
-  return @(GetFramework().GetBookmarkManager().GetCategoryFileName(m_categoryId).c_str());
+  return @(GetFramework().GetBookmarkManager().GetCategoryFileName(self.categoryId).c_str());
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -557,7 +563,7 @@ using namespace std;
   return collection.copy;
 }
 
-+ (NSString *)getLocalizedSortingType:(BookmarkManager::SortingType)type {
++ (NSString *)localizedSortingType:(BookmarkManager::SortingType)type {
   switch (type) {
     case BookmarkManager::SortingType::ByTime:
       return L(@"sort_date");
@@ -607,7 +613,7 @@ using namespace std;
 
   search::BookmarksSearchParams searchParams;
   searchParams.m_query = searchText.UTF8String;
-  searchParams.m_groupId = m_categoryId;
+  searchParams.m_groupId = self.categoryId;
 
   auto const searchId = ++self.lastSearchId;
   __weak auto weakSelf = self;
@@ -621,7 +627,7 @@ using namespace std;
     auto const &bm = GetFramework().GetBookmarkManager();
     auto filteredResults = results;
     bm.FilterInvalidBookmarks(filteredResults);
-    [self setSearchSections:filteredResults];
+    [self setSearchSection:filteredResults];
 
     if (status == search::BookmarksSearchParams::Status::Cancelled) {
       [self showSpinner:NO];
@@ -693,9 +699,9 @@ using namespace std;
 
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     [[self currentSections][indexPath.section] deleteRow:indexPath.row];
-    // In the case of search sections editing reset cached default sections.
-    if (m_searchSections != nil)
-      m_defaultSections = nil;
+    // In the case of search section editing reset cached default sections.
+    if (self.searchSections != nil)
+      self.defaultSections = nil;
     [self updateControlsVisibility];
   }
 
@@ -708,7 +714,7 @@ using namespace std;
   }
 
   auto const &bm = GetFramework().GetBookmarkManager();
-  if (bm.GetUserMarkIds(m_categoryId).size() + bm.GetTrackIds(m_categoryId).size() == 0) {
+  if (bm.GetUserMarkIds(self.categoryId).size() + bm.GetTrackIds(self.categoryId).size() == 0) {
     self.navigationItem.rightBarButtonItem = nil;
     [self setEditing:NO animated:YES];
   }
@@ -720,11 +726,10 @@ using namespace std;
   header.textLabel.font = [UIFont medium14];
 }
 
-#pragma mark - InfoSectionObserver
+#pragma mark - InfoSectionDelegate
 
-- (void)infoSectionUpdates:(void (^_Nullable)(void))updates expanded:(BOOL)expanded {
+- (void)infoSectionUpdates:(void (^)(void))updates {
   [self.tableView update:updates];
-  self.infoExpanded = expanded;
 }
 
 #pragma mark - MWMLocationObserver
@@ -799,5 +804,3 @@ using namespace std;
 }
 
 @end
-
-NS_ASSUME_NONNULL_END

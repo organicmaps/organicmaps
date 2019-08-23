@@ -1,18 +1,17 @@
 #import "TracksSection.h"
 #import "CircleView.h"
-#include "Framework.h"
 
-NS_ASSUME_NONNULL_BEGIN
+#include "Framework.h"
 
 namespace {
 CGFloat const kPinDiameter = 22.0f;
 }  // namespace
 
-@interface TracksSection () {
-  NSString *m_title;
-  NSMutableArray<NSNumber *> *m_trackIds;
-  BOOL m_isEditable;
-}
+@interface TracksSection ()
+
+@property(copy, nonatomic, nullable) NSString *sectionTitle;
+@property(strong, nonatomic) NSMutableArray<NSNumber *> *trackIds;
+@property(nonatomic) BOOL isEditable;
 
 @end
 
@@ -23,27 +22,27 @@ CGFloat const kPinDiameter = 22.0f;
                    isEditable:(BOOL)isEditable {
   self = [super init];
   if (self) {
-    m_title = title;
-    m_trackIds = trackIds.mutableCopy;
-    m_isEditable = isEditable;
+    _sectionTitle = [title copy];
+    _trackIds = [trackIds mutableCopy];
+    _isEditable = isEditable;
   }
   return self;
 }
 
-- (kml::TrackId)getTrackIdForRow:(NSInteger)row {
-  return static_cast<kml::TrackId>(m_trackIds[row].unsignedLongLongValue);
+- (kml::TrackId)trackIdForRow:(NSInteger)row {
+  return static_cast<kml::TrackId>(self.trackIds[row].unsignedLongLongValue);
 }
 
 - (NSInteger)numberOfRows {
-  return [m_trackIds count];
+  return [self.trackIds count];
 }
 
 - (nullable NSString *)title {
-  return m_title;
+  return self.sectionTitle;
 }
 
 - (BOOL)canEdit {
-  return m_isEditable;
+  return self.isEditable;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRow:(NSInteger)row {
@@ -54,7 +53,7 @@ CGFloat const kPinDiameter = 22.0f;
 
   auto const &bm = GetFramework().GetBookmarkManager();
 
-  auto const trackId = [self getTrackIdForRow:row];
+  auto const trackId = [self trackIdForRow:row];
   Track const *track = bm.GetTrack(trackId);
   cell.textLabel.text = @(track->GetName().c_str());
   string dist;
@@ -72,18 +71,16 @@ CGFloat const kPinDiameter = 22.0f;
 }
 
 - (BOOL)didSelectRow:(NSInteger)row {
-  auto const trackId = [self getTrackIdForRow:row];
+  auto const trackId = [self trackIdForRow:row];
   GetFramework().ShowTrack(trackId);
   return YES;
 }
 
 - (void)deleteRow:(NSInteger)row {
-  auto const trackId = [self getTrackIdForRow:row];
+  auto const trackId = [self trackIdForRow:row];
   auto &bm = GetFramework().GetBookmarkManager();
   bm.GetEditSession().DeleteTrack(trackId);
-  [m_trackIds removeObjectAtIndex:row];
+  [self.trackIds removeObjectAtIndex:row];
 }
 
 @end
-
-NS_ASSUME_NONNULL_END

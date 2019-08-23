@@ -2,8 +2,6 @@
 #import "CircleView.h"
 #import <QuartzCore/QuartzCore.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface CircleView()
 
 @property(nonatomic) UIColor *circleColor;
@@ -78,5 +76,3 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @end
-
-NS_ASSUME_NONNULL_END

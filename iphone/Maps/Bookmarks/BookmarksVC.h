@@ -13,10 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface BookmarksVC : MWMViewController <UITextFieldDelegate>
-{
-  MWMMarkGroupID m_categoryId;
-}
 
+@property (nonatomic) MWMMarkGroupID categoryId;
 @property (weak, nonatomic) id<BookmarksVCDelegate> delegate;
 
 - (instancetype)initWithCategory:(MWMMarkGroupID)categoryId;

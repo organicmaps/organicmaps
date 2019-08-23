@@ -412,7 +412,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   NSMutableArray<NSNumber *> *collection = [[NSMutableArray alloc] initWithCapacity:bookmarkIds.size()];
   for (auto bookmarkId : bookmarkIds)
     [collection addObject:@(bookmarkId)];
-  return collection.copy;
+  return [collection copy];
 }
 
 - (void)deleteBookmark:(MWMMarkID)bookmarkId
@@ -431,7 +431,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   NSMutableArray<NSNumber *> *collection = [[NSMutableArray alloc] initWithCapacity:trackIds.size()];
   for (auto trackId : trackIds)
     [collection addObject:@(trackId)];
-  return collection.copy;
+  return [collection copy];
 }
 
 #pragma mark - Category sharing

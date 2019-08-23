@@ -102,7 +102,7 @@ enum class BookmarkIcon : uint16_t
   Count
 };
 
-inline std::string DebugPrint(BookmarkIcon icon)
+inline std::string ToString(BookmarkIcon icon)
 {
   switch (icon)
   {
@@ -362,4 +362,9 @@ struct FileData
   // Tracks collection.
   std::vector<TrackData> m_tracksData;
 };
+  
+inline std::string DebugPrint(BookmarkIcon icon)
+{
+  return ToString(icon);
+}
 }  // namespace kml

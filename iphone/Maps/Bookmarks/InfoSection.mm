@@ -1,25 +1,26 @@
 #import "InfoSection.h"
-#include "Framework.h"
 #import "MWMCategoryInfoCell.h"
 #import "SwiftBridge.h"
 
+#include "Framework.h"
+
 @interface InfoSection () <MWMCategoryInfoCellDelegate> {
-  kml::MarkGroupId m_categoryId;
+  kml::MarkGroupId _categoryId;
 }
 
 @property(nonatomic) BOOL infoExpanded;
-@property(weak, nonatomic) id<InfoSectionObserver> observer;
-
+@property(weak, nonatomic) id<InfoSectionDelegate> observer;
+@property(strong, nonatomic) MWMCategoryInfoCell *infoCell;
 @end
 
 @implementation InfoSection
 
 - (instancetype)initWithCategoryId:(MWMMarkGroupID)categoryId
                           expanded:(BOOL)expanded
-                          observer:(id<InfoSectionObserver>)observer {
+                          observer:(id<InfoSectionDelegate>)observer {
   self = [super init];
   if (self) {
-    m_categoryId = static_cast<kml::MarkGroupId>(categoryId);
+    _categoryId = categoryId;
     _infoExpanded = expanded;
     _observer = observer;
   }
@@ -39,18 +40,20 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRow:(NSInteger)row {
+  if (self.infoCell != nil)
+    return self.infoCell;
+  
   UITableViewCell *cell = [tableView dequeueReusableCellWithCellClass:MWMCategoryInfoCell.class];
   CHECK(cell, ("Invalid category info cell."));
 
-  auto &f = GetFramework();
-  auto &bm = f.GetBookmarkManager();
-  bool const categoryExists = bm.HasBmCategory(m_categoryId);
+  auto &bm = GetFramework().GetBookmarkManager();
+  bool const categoryExists = bm.HasBmCategory(_categoryId);
   CHECK(categoryExists, ("Nonexistent category"));
 
-  auto infoCell = (MWMCategoryInfoCell *)cell;
-  auto const &categoryData = bm.GetCategoryData(m_categoryId);
-  [infoCell updateWithCategoryData:categoryData delegate:self];
-  infoCell.expanded = _infoExpanded;
+  self.infoCell = (MWMCategoryInfoCell *)cell;
+  auto const &categoryData = bm.GetCategoryData(_categoryId);
+  [self.infoCell updateWithCategoryData:categoryData delegate:self];
+  self.infoCell.expanded = self.infoExpanded;
 
   return cell;
 }
@@ -62,14 +65,13 @@
 - (void)deleteRow:(NSInteger)row {
 }
 
-#pragma mark - InfoSectionObserver
+#pragma mark - InfoSectionDelegate
 
 - (void)categoryInfoCellDidPressMore:(MWMCategoryInfoCell *)cell {
   _infoExpanded = YES;
   [self.observer infoSectionUpdates:^{
                    cell.expanded = YES;
-                 }
-                           expanded:_infoExpanded];
+                 }];
 }
 
 @end

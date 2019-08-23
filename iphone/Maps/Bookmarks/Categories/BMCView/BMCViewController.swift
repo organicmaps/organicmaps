@@ -375,11 +375,11 @@ extension BMCViewController: CategorySettingsViewControllerDelegate {
 }
 
 extension BMCViewController: BookmarksVCDelegate {
-  func bookmarksVCdidUpdateCategory(_ viewController: BookmarksVC!) {
+  func bookmarksVCdidUpdateCategory(_ viewController: BookmarksVC) {
     // for now we did necessary interface update in -viewWillAppear
   }
 
-  func bookmarksVCdidDeleteCategory(_ viewController: BookmarksVC!) {
+  func bookmarksVCdidDeleteCategory(_ viewController: BookmarksVC) {
     guard let parentVC = parent else { return }
     navigationController?.popToViewController(parentVC, animated: true)
   }

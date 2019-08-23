@@ -2,9 +2,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol InfoSectionObserver
+@protocol InfoSectionDelegate
 
-- (void)infoSectionUpdates:(void (^_Nullable)(void))updates expanded:(BOOL)expanded;
+- (void)infoSectionUpdates:(void (^)(void))updates;
 
 @end
 
@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithCategoryId:(MWMMarkGroupID)categoryId
                           expanded:(BOOL)expanded
-                          observer:(id<InfoSectionObserver>)observer;
+                          observer:(id<InfoSectionDelegate>)observer;
 
 @end
 

@@ -4,21 +4,20 @@
 #import "MWMBookmarksManager.h"
 #import "MWMLocationHelpers.h"
 #import "MWMSearchManager.h"
+
 #include "Framework.h"
 
 #include "geometry/distance_on_sphere.hpp"
-
-NS_ASSUME_NONNULL_BEGIN
 
 namespace {
 CGFloat const kPinDiameter = 22.0f;
 }  // namespace
 
-@interface BookmarksSection () {
-  NSString *m_title;
-  NSMutableArray<NSNumber *> *m_markIds;
-  BOOL m_isEditable;
-}
+@interface BookmarksSection ()
+
+@property(copy, nonatomic, nullable) NSString *sectionTitle;
+@property(strong, nonatomic) NSMutableArray<NSNumber *> *markIds;
+@property(nonatomic) BOOL isEditable;
 
 @end
 
@@ -29,27 +28,27 @@ CGFloat const kPinDiameter = 22.0f;
                    isEditable:(BOOL)isEditable {
   self = [super init];
   if (self) {
-    m_title = title;
-    m_markIds = markIds.mutableCopy;
-    m_isEditable = isEditable;
+    _sectionTitle = [title copy];
+    _markIds = [markIds mutableCopy];
+    _isEditable = isEditable;
   }
   return self;
 }
 
-- (kml::MarkId)getMarkIdForRow:(NSInteger)row {
-  return static_cast<kml::MarkId>(m_markIds[row].unsignedLongLongValue);
+- (kml::MarkId)markIdForRow:(NSInteger)row {
+  return static_cast<kml::MarkId>(self.markIds[row].unsignedLongLongValue);
 }
 
 - (NSInteger)numberOfRows {
-  return [m_markIds count];
+  return [self.markIds count];
 }
 
 - (nullable NSString *)title {
-  return m_title;
+  return self.sectionTitle;
 }
 
 - (BOOL)canEdit {
-  return m_isEditable;
+  return self.isEditable;
 }
 
 - (void)fillCell:(UITableViewCell *)cell
@@ -82,13 +81,13 @@ CGFloat const kPinDiameter = 22.0f;
                                   reuseIdentifier:@"BookmarksVCBookmarkItemCell"];
   }
 
-  auto const bmId = [self getMarkIdForRow:row];
+  auto const bmId = [self markIdForRow:row];
   auto const &bm = GetFramework().GetBookmarkManager();
   Bookmark const *bookmark = bm.GetBookmark(bmId);
   cell.textLabel.text = @(bookmark->GetPreferredName().c_str());
   cell.imageView.image = [CircleView createCircleImageWith:kPinDiameter
                                                   andColor:[ColorPickerView getUIColor:bookmark->GetColor()]
-                                              andImageName:@(DebugPrint(bookmark->GetData().m_icon).c_str())];
+                                              andImageName:@(ToString(bookmark->GetData().m_icon).c_str())];
 
   CLLocation *lastLocation = [MWMLocationManager lastLocation];
 
@@ -97,7 +96,7 @@ CGFloat const kPinDiameter = 22.0f;
 }
 
 - (void)updateCell:(UITableViewCell *)cell forRow:(NSInteger)row withNewLocation:(CLLocation *)location {
-  auto const bmId = [self getMarkIdForRow:row];
+  auto const bmId = [self markIdForRow:row];
   auto const &bm = GetFramework().GetBookmarkManager();
   Bookmark const *bookmark = bm.GetBookmark(bmId);
   if (!bookmark)
@@ -106,7 +105,7 @@ CGFloat const kPinDiameter = 22.0f;
 }
 
 - (BOOL)didSelectRow:(NSInteger)row {
-  auto const bmId = [self getMarkIdForRow:row];
+  auto const bmId = [self markIdForRow:row];
   [Statistics logEvent:kStatEventName(kStatBookmarks, kStatShowOnMap)];
   // Same as "Close".
   [MWMSearchManager manager].state = MWMSearchManagerStateHidden;
@@ -115,11 +114,9 @@ CGFloat const kPinDiameter = 22.0f;
 }
 
 - (void)deleteRow:(NSInteger)row {
-  auto const bmId = [self getMarkIdForRow:row];
+  auto const bmId = [self markIdForRow:row];
   [[MWMBookmarksManager sharedManager] deleteBookmark:bmId];
-  [m_markIds removeObjectAtIndex:row];
+  [self.markIds removeObjectAtIndex:row];
 }
 
 @end
-
-NS_ASSUME_NONNULL_END
