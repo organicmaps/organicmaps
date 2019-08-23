@@ -26,6 +26,14 @@ Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeGetName(
 }
 
 JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeGetFeatureType(
+    JNIEnv * env, jobject thiz, jlong bmk)
+{
+  return jni::ToJavaString(env,
+      kml::GetLocalizedFeatureType(getBookmark(bmk)->GetData().m_featureTypes));
+}
+
+JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeGetBookmarkDescription(
      JNIEnv * env, jobject thiz, jlong bmk)
 {

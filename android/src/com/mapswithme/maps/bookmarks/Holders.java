@@ -260,10 +260,15 @@ public class Holders
       mName.setText(bookmark.getTitle());
       final Location loc = LocationHelper.INSTANCE.getSavedLocation();
 
-      String distanceValue = loc == null ? null : bookmark.getDistance(loc.getLatitude(),
-                                                                       loc.getLongitude(), 0.0);
-      mDistance.setText(distanceValue);
-      UiUtils.hideIf(TextUtils.isEmpty(distanceValue), mDistance);
+      String distanceValue = loc == null ? "" : bookmark.getDistance(loc.getLatitude(),
+                                                                     loc.getLongitude(), 0.0);
+      String separator = "";
+      if (!distanceValue.isEmpty() && !bookmark.getFeatureType().isEmpty())
+        separator = " • ";
+      String subtitleValue = distanceValue.concat(separator).concat(bookmark.getFeatureType());
+      mDistance.setText(subtitleValue);
+      UiUtils.hideIf(TextUtils.isEmpty(subtitleValue), mDistance);
+
       mIcon.setImageResource(bookmark.getIcon().getResId());
       UiUtils.hideIf(!sectionsDataSource.isEditable(position.sectionIndex), mMore);
       Drawable circle = Graphics.drawCircleAndImage(bookmark.getIcon().argb(),

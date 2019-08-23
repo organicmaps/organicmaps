@@ -12,6 +12,8 @@ public class BookmarkInfo
   @NonNull
   private String mTitle;
   @NonNull
+  private String mFeatureType;
+  @NonNull
   private Icon mIcon;
   private double mMerX;
   private double mMerY;
@@ -21,6 +23,7 @@ public class BookmarkInfo
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
     mTitle = Bookmark.nativeGetName(mBookmarkId);
+    mFeatureType = Bookmark.nativeGetFeatureType(mBookmarkId);
     mIcon = new Icon(Bookmark.nativeGetColor(mBookmarkId), Bookmark.nativeGetIcon(mBookmarkId));
     final ParcelablePointD ll = Bookmark.nativeGetXY(mBookmarkId);
     mMerX = ll.x;
@@ -41,6 +44,9 @@ public class BookmarkInfo
   {
     return Framework.nativeGetDistanceAndAzimuth(mMerX, mMerY, cLat, cLon, north);
   }
+
+  @NonNull
+  public String getFeatureType() { return mFeatureType; }
 
   @NonNull
   public String getTitle()

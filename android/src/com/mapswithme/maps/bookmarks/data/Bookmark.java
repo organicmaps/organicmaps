@@ -167,6 +167,8 @@ public class Bookmark extends MapObject
 
   public static native String nativeGetName(@IntRange(from = 0) long bookmarkId);
 
+  public static native String nativeGetFeatureType(@IntRange(from = 0) long bookmarkId);
+
   public static native ParcelablePointD nativeGetXY(@IntRange(from = 0) long bookmarkId);
 
   @Icon.PredefinedColor
