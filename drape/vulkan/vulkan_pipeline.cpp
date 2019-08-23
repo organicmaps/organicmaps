@@ -185,7 +185,21 @@ VulkanPipeline::VulkanPipeline(VkDevice device, int appVersionCode)
   pipelineCacheCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO;
   pipelineCacheCreateInfo.initialDataSize = dumpData.size();
   pipelineCacheCreateInfo.pInitialData = dumpData.data();
-  CHECK_VK_CALL(vkCreatePipelineCache(device, &pipelineCacheCreateInfo, nullptr, &m_vulkanPipelineCache));
+  auto result = vkCreatePipelineCache(device, &pipelineCacheCreateInfo, nullptr, &m_vulkanPipelineCache);
+  if (result != VK_SUCCESS && pipelineCacheCreateInfo.pInitialData != nullptr)
+  {
+    FileWriter::DeleteFileX(dumpFilePath);
+    pipelineCacheCreateInfo.initialDataSize = 0;
+    pipelineCacheCreateInfo.pInitialData = nullptr;
+    result = vkCreatePipelineCache(device, &pipelineCacheCreateInfo, nullptr, &m_vulkanPipelineCache);
+  }
+  if (result != VK_SUCCESS)
+  {
+    // The function vkCreatePipelineCache can return unspecified codes, so if we aren't able to
+    // create pipeline cache without saved state, we consider it as a driver issue and forbid Vulkan.
+    SupportManager::Instance().ForbidVulkan();
+    CHECK(false, ("Fatal driver issue."));
+  }
 }
 
 void VulkanPipeline::Dump(VkDevice device)
