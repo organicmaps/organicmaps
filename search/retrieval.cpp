@@ -189,26 +189,28 @@ pair<bool, bool> MatchFeatureByNameAndType(EditableMapObject const & emo,
 {
   auto const & th = emo.GetTypes();
 
-  pair<bool, bool> matched = {false, false};
+  pair<bool, bool> matchedByType = MatchesByType(th, request.m_categories);
+
+  // Exactly matched by type.
+  if (matchedByType.second)
+    return {true, true};
+
+  pair<bool, bool> matchedByName = {false, false};
   emo.GetNameMultilang().ForEach([&](int8_t lang, string const & name) {
     if (name.empty() || !request.HasLang(lang))
       return base::ControlFlow::Continue;
 
     vector<UniString> tokens;
     NormalizeAndTokenizeString(name, tokens, Delimiters());
-    auto const matchesByName = MatchesByName(tokens, request.m_names);
-    auto const matchesByType =
-        matchesByName.second ? make_pair(false, false) : MatchesByType(th, request.m_categories);
-
-    matched = {matchesByName.first || matchesByType.first,
-               matchesByName.second || matchesByType.second};
-    if (!matched.first)
+    auto const matched = MatchesByName(tokens, request.m_names);
+    matchedByName = {matchedByName.first || matched.first, matchedByName.second || matched.second};
+    if (!matchedByName.second)
       return base::ControlFlow::Continue;
 
     return base::ControlFlow::Break;
   });
 
-  return matched;
+  return {matchedByType.first || matchedByName.first, matchedByType.second || matchedByName.second};
 }
 
 bool MatchFeatureByPostcode(EditableMapObject const & emo, TokenSlice const & slice)

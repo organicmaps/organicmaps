@@ -25,7 +25,7 @@ class SearchEditedFeaturesTest : public SearchTest
 UNIT_CLASS_TEST(SearchEditedFeaturesTest, Smoke)
 {
   TestCity city(m2::PointD(0, 0), "Quahog", "default", 100 /* rank */);
-  TestPOI cafe(m2::PointD(0, 0), "Bar", "default");
+  TestCafe cafe(m2::PointD(0, 0), "Bar", "default");
 
   BuildWorld([&](TestMwmBuilder & builder) { builder.Add(city); });
 
@@ -36,6 +36,7 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, Smoke)
   {
     Rules const rules = {ExactMatch(id, cafe)};
 
+    TEST(ResultsMatch("Eat ", rules), ());
     TEST(ResultsMatch("Bar", rules), ());
     TEST(ResultsMatch("Drunken", Rules{}), ());
 
@@ -43,6 +44,7 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, Smoke)
       emo.SetName("The Drunken Clam", StringUtf8Multilang::kEnglishCode);
     });
 
+    TEST(ResultsMatch("Eat ", rules), ());
     TEST(ResultsMatch("Bar", rules), ());
     TEST(ResultsMatch("Drunken", rules), ());
   }
@@ -56,6 +58,26 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, Smoke)
 
     TEST(ResultsMatch("Wifi", rules), ());
     TEST(ResultsMatch("wifi bar quahog", rules), ());
+  }
+}
+
+UNIT_CLASS_TEST(SearchEditedFeaturesTest, NonamePoi)
+{
+  TestCafe nonameCafe(m2::PointD(0, 0), "", "default");
+
+  auto const id =
+      BuildCountry("Wonderland", [&](TestMwmBuilder & builder) { builder.Add(nonameCafe); });
+
+  FeatureID cafeId(id, 0 /* index */);
+
+  {
+    Rules const rules = {ExactMatch(id, nonameCafe)};
+
+    TEST(ResultsMatch("Eat ", rules), ());
+
+    EditFeature(cafeId, [](osm::EditableMapObject & emo) { emo.SetInternet(osm::Internet::Wlan); });
+
+    TEST(ResultsMatch("Eat ", rules), ());
   }
 }
 
