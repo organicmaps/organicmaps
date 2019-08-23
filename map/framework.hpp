@@ -719,6 +719,8 @@ public:
   ParsedRoutingData GetParsedRoutingData() const;
   url_scheme::SearchRequest GetParsedSearchRequest() const;
 
+  using FeatureMatcher = std::function<bool(feature::GeomType geomType, FeatureType & ft)>;
+
 private:
   /// @returns true if command was handled by editor.
   bool ParseEditorDebugCommand(search::SearchParams const & params);
@@ -731,13 +733,15 @@ private:
 
   void FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const;
   /// @param customTitle, if not empty, overrides any other calculated name.
-  void FillPointInfo(m2::PointD const & mercator, string const & customTitle, place_page::Info & info) const;
+  void FillPointInfo(place_page::Info & info, m2::PointD const & mercator,
+                     string const & customTitle = {}, FeatureMatcher && matcher = nullptr) const;
   void FillInfoFromFeatureType(FeatureType & ft, place_page::Info & info) const;
   void FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const;
   void FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const;
   void FillMyPositionInfo(place_page::Info & info, df::TapInfo const & tapInfo) const;
   void FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info & info) const;
   void FillRoadTypeMarkInfo(RoadWarningMark const & roadTypeMark, place_page::Info & info) const;
+  void FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info & info) const;
 
 public:
   void FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const;
@@ -748,7 +752,8 @@ public:
   /// Get "best for the user" feature at given point even if it's invisible on the screen.
   /// Ignores coastlines and prefers buildings over other area features.
   /// @returns invalid FeatureID if no feature was found at the given mercator point.
-  FeatureID GetFeatureAtPoint(m2::PointD const & mercator) const;
+  FeatureID GetFeatureAtPoint(m2::PointD const & mercator,
+                              FeatureMatcher && matcher = nullptr) const;
   template <typename TFn>
   void ForEachFeatureAtPoint(TFn && fn, m2::PointD const & mercator) const
   {
