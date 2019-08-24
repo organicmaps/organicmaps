@@ -127,8 +127,6 @@ set(
   osm_o5m_source.hpp
   osm_source.cpp
   osm_xml_source.hpp
-  place.cpp
-  place.hpp
   place_node.hpp
   place_processor.cpp
   place_processor.hpp

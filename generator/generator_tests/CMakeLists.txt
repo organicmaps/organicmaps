@@ -28,6 +28,7 @@ set(
   osm2meta_test.cpp
   osm_o5m_source_test.cpp
   osm_type_test.cpp
+  place_processor_tests.cpp
   popularity_builder_tests.cpp
   region_info_collector_tests.cpp
   regions_tests.cpp

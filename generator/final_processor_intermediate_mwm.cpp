@@ -139,21 +139,18 @@ public:
   static bool IsPlace(FeatureBuilder const & fb)
   {
     auto const type = GetPlaceType(fb);
-    return type != ftype::GetEmptyValue()  && !fb.GetName().empty();
+    return type != ftype::GetEmptyValue()  && !fb.GetName().empty() && NeedProcessPlace(fb);
   }
 
   bool Process(FeatureBuilder const & fb)
   {
-    if (!IsPlace(fb))
-      return false;
-
-    m_processor.TryUpdate(fb);
+    m_processor.Add(fb);
     return true;
   }
 
-  std::vector<FeatureBuilder> GetFeatures() const
+  std::vector<FeatureBuilder> GetFeatures()
   {
-    return m_processor.GetFeatures();
+    return m_processor.ProcessPlaces();
   }
 
   std::shared_ptr<OsmIdToBoundariesTable> GetTable() const

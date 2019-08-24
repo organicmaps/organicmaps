@@ -127,17 +127,17 @@ public:
     rawGenerator.GenerateCountries();
     TEST(rawGenerator.Execute(), ());
 
-    TestCountry(northAuckland, 1811971 /* fbsCnt */, 12195948 /* pointsCnt */, 1007372 /* pointCnt */,
-                205469 /* lineCnt */, 599130 /* areaCnt */, 212087 /* poiCnt */,
+    TestCountry(northAuckland, 1811963 /* fbsCnt */, 12195155 /* pointsCnt */, 1007377 /* pointCnt */,
+                205469 /* lineCnt */, 599117 /* areaCnt */, 212086 /* poiCnt */,
                 521 /* cityTownOrVillageCnt */, 3557 /* bookingHotelsCnt */);
-    TestCountry(northWellington, 797778 /* fbsCnt */, 7772270 /* pointsCnt */, 460446 /* pointCnt */,
-                87058 /* lineCnt */, 250274 /* areaCnt */, 95651 /* poiCnt */,
+    TestCountry(northWellington, 797790 /* fbsCnt */, 7772135 /* pointsCnt */, 460460 /* pointCnt */,
+                87058 /* lineCnt */, 250272 /* areaCnt */, 95650 /* poiCnt */,
                 297 /* cityTownOrVillageCnt */, 1062 /* bookingHotelsCnt */);
-    TestCountry(southCanterbury, 636934 /* fbsCnt */, 6984360 /* pointsCnt */, 397634 /* pointCnt */,
-                81712 /* lineCnt */, 157588 /* areaCnt */, 89249 /* poiCnt */,
+    TestCountry(southCanterbury, 636992 /* fbsCnt */, 6984268 /* pointsCnt */, 397694 /* pointCnt */,
+                81712 /* lineCnt */, 157586 /* areaCnt */, 89249 /* poiCnt */,
                 331 /* cityTownOrVillageCnt */, 2085 /* bookingHotelsCnt */);
-    TestCountry(southSouthland, 340491 /* fbsCnt */, 5342804 /* pointsCnt */, 185845 /* pointCnt */,
-                40124 /* lineCnt */, 114522 /* areaCnt */, 40497 /* poiCnt */,
+    TestCountry(southSouthland, 340492 /* fbsCnt */, 5342793 /* pointsCnt */, 185847 /* pointCnt */,
+                40124 /* lineCnt */, 114521 /* areaCnt */, 40497 /* poiCnt */,
                 297 /* cityTownOrVillageCnt */, 1621 /* bookingHotelsCnt */);
   }
 
@@ -169,7 +169,7 @@ public:
     TestGeneratedFile(metalines, 288032 /* fileSize */);
     TestGeneratedFile(restrictions, 273283 /* fileSize */);
     TestGeneratedFile(roadAccess, 1918315 /* fileSize */);
-    TestGeneratedFile(m_genInfo.m_citiesBoundariesFilename, 2435 /* fileSize */);
+    TestGeneratedFile(m_genInfo.m_citiesBoundariesFilename, 87 /* fileSize */);
   }
 
   void BuildWorldOneThread()
