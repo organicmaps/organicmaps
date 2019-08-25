@@ -494,7 +494,7 @@ UNIT_TEST(NetherlandsAmsterdamPedestrianPastFerry)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       MercatorBounds::FromLatLon(52.38075, 4.89938), {0.0, 0.0},
-      MercatorBounds::FromLatLon(52.40194, 4.89038), 3580.0);
+      MercatorBounds::FromLatLon(52.40194, 4.89038), 2553.18);
 }
 
 // Test on building pedestrian route past ferry.

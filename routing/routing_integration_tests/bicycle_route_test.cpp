@@ -131,7 +131,7 @@ UNIT_TEST(SwedenStockholmBicyclePastFerry)
   CalculateRouteAndTestRouteLength(
       GetVehicleComponents(VehicleType::Bicycle),
       MercatorBounds::FromLatLon(59.4725, 18.51355), {0.0, 0.0},
-      MercatorBounds::FromLatLon(59.32967, 18.075), 66161.2);
+      MercatorBounds::FromLatLon(59.32967, 18.075), 46163.7);
 }
 
 UNIT_TEST(CrossMwmKaliningradRegionToLiepaja)
