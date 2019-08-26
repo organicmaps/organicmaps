@@ -412,15 +412,19 @@ public:
   void DrawMwmBorder(std::string const & mwmName, std::vector<m2::RegionD> const & regions,
                      bool withVertices);
 
-  /// Called to notify UI that object on a map was selected (UI should show Place Page, for example).
-  using TActivateMapSelectionFn = function<void (place_page::Info const &)>;
-  /// Called to notify UI that object on a map was deselected (UI should hide Place Page).
-  /// If switchFullScreenMode is true, ui can [optionally] enter or exit full screen mode.
-  using TDeactivateMapSelectionFn = function<void (bool /*switchFullScreenMode*/)>;
-  void SetMapSelectionListeners(TActivateMapSelectionFn const & activator,
-                                TDeactivateMapSelectionFn const & deactivator);
+  struct PlacePageEvent
+  {
+    /// Called to notify UI that object on a map was selected (UI should show Place Page, for example).
+    using OnOpen = function<void (place_page::Info const &)>;
+    /// Called to notify UI that object on a map was deselected (UI should hide Place Page).
+    /// If switchFullScreenMode is true, ui can [optionally] enter or exit full screen mode.
+    using OnClose = function<void (bool /*switchFullScreenMode*/)>;
+    using OnUpdate = function<void (place_page::Info const &)>;
+  };
 
-  void ResetLastTapEvent();
+  void SetPlacePageListenners(PlacePageEvent::OnOpen const & onOpen,
+                              PlacePageEvent::OnClose const & onClose,
+                              PlacePageEvent::OnUpdate const & onUpdate);
 
   void InvalidateRendering();
   void EnableDebugRectRendering(bool enabled);
@@ -478,8 +482,9 @@ private:
 
   int m_minBuildingsTapZoom;
 
-  TActivateMapSelectionFn m_activateMapSelectionFn;
-  TDeactivateMapSelectionFn m_deactivateMapSelectionFn;
+  PlacePageEvent::OnOpen m_onPlacePageOpen;
+  PlacePageEvent::OnClose m_onPlacePageClose;
+  PlacePageEvent::OnUpdate m_onPlacePageUpdate;
 
   /// Here we store last selected feature to get its polygons in case of adding organization.
   mutable FeatureID m_selectedFeature;

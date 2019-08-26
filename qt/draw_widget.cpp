@@ -58,9 +58,8 @@ DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, std::unique_ptr
   , m_rubberBand(nullptr)
   , m_emulatingLocation(false)
 {
-  m_framework.SetMapSelectionListeners(
-      [this](place_page::Info const & info) { ShowPlacePage(info); },
-      [](bool /* switchFullScreenMode */) {});  // Empty deactivation listener.
+  m_framework.SetPlacePageListenners([this](place_page::Info const & info) { ShowPlacePage(info); },
+                                     {} /* onClose */, {} /* onUpdate */);
 
   m_framework.GetRoutingManager().SetRouteBuildingListener(
       [](routing::RouterResultCode, storage::CountriesSet const &) {});

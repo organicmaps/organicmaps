@@ -58,7 +58,7 @@ MainView::MainView(Framework & framework) : m_framework(framework)
   InitDocks();
   InitMenuBar();
 
-  m_framework.SetMapSelectionListeners(
+  m_framework.SetPlacePageListenners(
       [this](place_page::Info const & info) {
         auto const & selectedFeature = info.GetID();
         if (!selectedFeature.IsValid())
@@ -79,7 +79,8 @@ MainView::MainView(Framework & framework) : m_framework(framework)
         FeatureInfoDialog dialog(this /* parent */, mapObject, address, m_sampleLocale);
         dialog.exec();
       },
-      [this](bool /* switchFullScreenMode */) { m_selectedFeature = FeatureID(); });
+      [this](bool /* switchFullScreenMode */) { m_selectedFeature = FeatureID(); },
+      {} /* onUpdate */);
 }
 
 MainView::~MainView()

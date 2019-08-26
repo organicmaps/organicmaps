@@ -2396,11 +2396,13 @@ BookmarkManager const & Framework::GetBookmarkManager() const
   return *m_bmManager.get();
 }
 
-void Framework::SetMapSelectionListeners(TActivateMapSelectionFn const & activator,
-                                         TDeactivateMapSelectionFn const & deactivator)
+void Framework::SetPlacePageListenners(PlacePageEvent::OnOpen const & onOpen,
+                                       PlacePageEvent::OnClose const & onClose,
+                                       PlacePageEvent::OnUpdate const & onUpdate)
 {
-  m_activateMapSelectionFn = activator;
-  m_deactivateMapSelectionFn = deactivator;
+  m_onPlacePageOpen = onOpen;
+  m_onPlacePageClose = onClose;
+  m_onPlacePageUpdate = onUpdate;
 }
 
 void Framework::ActivateMapSelection(bool needAnimation, df::SelectionShape::ESelectedObject selectionType,
@@ -2420,10 +2422,10 @@ void Framework::ActivateMapSelection(bool needAnimation, df::SelectionShape::ESe
   SetDisplacementMode(DisplacementModeManager::SLOT_MAP_SELECTION,
                       ftypes::IsHotelChecker::Instance()(info.GetTypes()) /* show */);
 
-  if (m_activateMapSelectionFn)
-    m_activateMapSelectionFn(info);
+  if (m_onPlacePageOpen)
+    m_onPlacePageOpen(info);
   else
-    LOG(LWARNING, ("m_activateMapSelectionFn has not been set up."));
+    LOG(LWARNING, ("m_onPlacePageOpen has not been set up."));
 }
 
 void Framework::DeactivateMapSelection(bool notifyUI)
@@ -2431,8 +2433,8 @@ void Framework::DeactivateMapSelection(bool notifyUI)
   bool const somethingWasAlreadySelected = (m_lastTapEvent != nullptr);
   m_lastTapEvent.reset();
 
-  if (notifyUI && m_deactivateMapSelectionFn)
-    m_deactivateMapSelectionFn(!somethingWasAlreadySelected);
+  if (notifyUI && m_onPlacePageClose)
+    m_onPlacePageClose(!somethingWasAlreadySelected);
 
   if (somethingWasAlreadySelected && m_drapeEngine != nullptr)
     m_drapeEngine->DeselectObject();
