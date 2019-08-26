@@ -28,6 +28,11 @@ bool IsUTurn(Segment const & u, Segment const & v)
          u.IsForward() != v.IsForward();
 }
 
+bool IsBoarding(bool prevIsFerry, bool nextIsFerry)
+{
+  return !prevIsFerry && nextIsFerry;
+}
+
 std::map<Segment, Segment> IndexGraph::kEmptyParentsSegments = {};
 
 IndexGraph::IndexGraph(shared_ptr<Geometry> geometry, shared_ptr<EdgeEstimator> estimator,
@@ -386,9 +391,8 @@ IndexGraph::PenaltyData IndexGraph::GetRoadPenaltyData(Segment const & segment)
 {
   auto const & road = m_geometry->GetRoad(segment.GetFeatureId());
 
-  PenaltyData result;
-  result.m_passThroughAllowed = road.IsPassThroughAllowed();
-  result.m_isFerry = road.GetRoutingOptions().Has(RoutingOptions::Road::Ferry);
+  PenaltyData result(road.IsPassThroughAllowed(),
+                     road.GetRoutingOptions().Has(RoutingOptions::Road::Ferry));
 
   return result;
 }
@@ -420,7 +424,7 @@ RouteWeight IndexGraph::GetPenalties(EdgeEstimator::Purpose purpose,
   if (IsUTurn(u, v))
     weightPenalty += m_estimator->GetUTurnPenalty(purpose);
 
-  if (!fromPenaltyData.m_isFerry && toPenaltyData.m_isFerry)
+  if (IsBoarding(fromPenaltyData.m_isFerry, toPenaltyData.m_isFerry))
     weightPenalty += m_estimator->GetFerryLandingPenalty(purpose);
 
   return {weightPenalty /* weight */, passThroughPenalty, accessPenalty, 0.0 /* transitTime */};
@@ -457,12 +461,18 @@ bool IndexGraph::IsUTurnAndRestricted(Segment const & parent, Segment const & ch
 RouteWeight IndexGraph::CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool isOutgoing,
                                             Segment const & from, Segment const & to)
 {
-  auto const & segment = isOutgoing ? to : from;
-  auto const & weight =
-      purpose == EdgeEstimator::Purpose::Weight ?
-      RouteWeight(m_estimator->CalcSegmentWeight(segment, m_geometry->GetRoad(segment.GetFeatureId()))) :
-      RouteWeight(m_estimator->CalcSegmentETA(segment, m_geometry->GetRoad(segment.GetFeatureId())));
+  auto const getWeight = [this, isOutgoing, &to, &from, purpose]() {
+    auto const & segment = isOutgoing ? to : from;
+    auto const & road = m_geometry->GetRoad(segment.GetFeatureId());
+    switch (purpose)
+    {
+    case EdgeEstimator::Purpose::Weight: return RouteWeight(m_estimator->CalcSegmentWeight(segment, road));
+    case EdgeEstimator::Purpose::ETA: return RouteWeight(m_estimator->CalcSegmentETA(segment, road));
+    }
+    UNREACHABLE();
+  };
 
+  auto const & weight = getWeight();
   auto const & penalties = GetPenalties(purpose, isOutgoing ? from : to, isOutgoing ? to : from);
 
   return weight + penalties;

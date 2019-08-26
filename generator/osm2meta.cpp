@@ -289,29 +289,29 @@ string MetadataTagProcessorImpl::ValidateAndFormat_airport_iata(string const & v
 
 string MetadataTagProcessorImpl::ValidateAndFormat_duration(string const & v) const
 {
-  auto const format = [](double hours) -> std::string {
+  auto const format = [](double hours) -> string {
     if (base::AlmostEqualAbs(hours, 0.0, 1e-5))
-      return "";
+      return {};
 
-    std::stringstream ss;
-    ss << std::setprecision(5);
+    stringstream ss;
+    ss << setprecision(5);
     ss << hours;
     return ss.str();
   };
 
-  auto const readNumber = [&v](size_t startPos, size_t & endPos) -> boost::optional<uint32_t> {
+  auto const readNumber = [&v](size_t & pos) -> boost::optional<uint32_t> {
     uint32_t number = 0;
-    while (startPos < v.size() && isdigit(v[startPos]))
+    size_t const startPos = pos;
+    while (pos < v.size() && isdigit(v[pos]))
     {
       number *= 10;
-      number += v[startPos] - '0';
-      ++startPos;
+      number += v[pos] - '0';
+      ++pos;
     }
 
-    if (startPos == endPos)
+    if (startPos == pos)
       return {};
 
-    endPos = startPos;
     return {number};
   };
 
@@ -329,20 +329,17 @@ string MetadataTagProcessorImpl::ValidateAndFormat_duration(string const & v) co
   if (v.empty())
     return {};
 
-  double hours = 0;
+  double hours = 0.0;
   size_t pos = 0;
   boost::optional<uint32_t> op;
 
-  if (v[0] == 'P')
+  if (strings::StartsWith(v, "PT"))
   {
     if (v.size() < 4)
       return {};
 
-    if (v.substr(0, 2) != "PT")
-      return {};
-
     pos = 2;
-    while (pos < v.size() && (op = readNumber(pos, pos)))
+    while (pos < v.size() && (op = readNumber(pos)))
     {
       if (pos >= v.size())
         return {};
@@ -365,7 +362,7 @@ string MetadataTagProcessorImpl::ValidateAndFormat_duration(string const & v) co
 
   // "hh:mm:ss" or just "mm"
   vector<uint32_t> numbers;
-  while (pos < v.size() && (op = readNumber(pos, pos)))
+  while (pos < v.size() && (op = readNumber(pos)))
   {
     numbers.emplace_back(*op);
     if (pos >= v.size())
@@ -383,11 +380,11 @@ string MetadataTagProcessorImpl::ValidateAndFormat_duration(string const & v) co
   if (numbers.size() == 1)
     return format(numbers.back() / 60.0);
 
-  double pow = 1;
+  double pow = 1.0;
   for (auto number : numbers)
   {
     hours += number / pow;
-    pow *= 60;
+    pow *= 60.0;
   }
 
   return format(hours);

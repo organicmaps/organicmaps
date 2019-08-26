@@ -168,7 +168,9 @@ double TransitWorldGraph::CalculateETA(Segment const & from, Segment const & to)
     return m_estimator->CalcSegmentETA(to, GetRealRoadGeometry(to.GetMwmId(), to.GetFeatureId()));
 
   auto & indexGraph = m_indexLoader->GetIndexGraph(from.GetMwmId());
-  return indexGraph.CalculateEdgeWeight(EdgeEstimator::Purpose::ETA, true /* isOutgoing */, from, to).GetWeight();
+  return indexGraph
+      .CalculateEdgeWeight(EdgeEstimator::Purpose::ETA, true /* isOutgoing */, from, to)
+      .GetWeight();
 }
 
 double TransitWorldGraph::CalculateETAWithoutPenalty(Segment const & segment)

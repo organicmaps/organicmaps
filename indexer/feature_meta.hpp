@@ -133,6 +133,10 @@ public:
     FMD_LEVEL = 28,
     FMD_AIRPORT_IATA = 29,
     FMD_BRAND = 30,
+    // Duration of routes by ferries and other rare means of transportation.
+    // The number of ferries having the duration key in OSM is low so we
+    // store the parsed tag value in Metadata instead of building a separate section for it.
+    // See https://wiki.openstreetmap.org/wiki/Key:duration
     FMD_DURATION = 31,
     FMD_COUNT
   };

@@ -132,8 +132,12 @@ private:
 
   struct PenaltyData
   {
-    bool m_passThroughAllowed = false;
-    bool m_isFerry = false;
+    PenaltyData(bool passThroughAllowed, bool isFerry)
+      : m_passThroughAllowed(passThroughAllowed),
+        m_isFerry(isFerry) {}
+
+    bool m_passThroughAllowed;
+    bool m_isFerry;
   };
 
   PenaltyData GetRoadPenaltyData(Segment const & segment);

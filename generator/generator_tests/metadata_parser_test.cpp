@@ -4,12 +4,7 @@
 
 #include "indexer/classificator_loader.hpp"
 
-#include "coding/writer.hpp"
-#include "coding/reader.hpp"
-
 #include "base/logging.hpp"
-
-#include "std/target_os.hpp"
 
 using feature::Metadata;
 
@@ -202,9 +197,13 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
 #undef WIKIHOST
 }
 
+// Look at: https://wiki.openstreetmap.org/wiki/Key:duration for details
+// about "duration" format.
+
 UNIT_TEST(Metadata_ValidateAndFormat_duration)
 {
   FeatureParams params;
+  params.AddType(classif().GetTypeByPath({"route", "ferry"}));
   MetadataTagProcessor p(params);
   Metadata & md = params.GetMetadata();
 
@@ -222,10 +221,14 @@ UNIT_TEST(Metadata_ValidateAndFormat_duration)
     }
   };
 
+  // "10" - 10 minutes ~ 0.16667 hours
   test("10", "0.16667");
+  // 10:00 - 10 hours
   test("10:00", "10");
   test("QWE", "");
+  // 1:1:1 - 1 hour + 1 minute + 1 second
   test("1:1:1", "1.0169");
+  // 10 hours and 30 minutes
   test("10:30", "10.5");
   test("30", "0.5");
   test("60", "1");
@@ -243,17 +246,24 @@ UNIT_TEST(Metadata_ValidateAndFormat_duration)
   test("5:00 hours", "");
   test("12 min", "");
 
+  // means 20 seconds
   test("PT20S", "0.0055556");
+  // means 7 minutes
   test("PT7M", "0.11667");
+  // means 10 minutes and 40 seconds
   test("PT10M40S", "0.17778");
   test("PT50M", "0.83333");
+  // means 2 hours
   test("PT2H", "2");
+  // means 7 hours and 50 minutes
   test("PT7H50M", "7.8333");
   test("PT60M", "1");
   test("PT15M", "0.25");
 
+  // means 1000 years, but we don't support such duration.
   test("PT1000Y", "");
   test("PTPT", "");
+  // means 4 day, but we don't support such duration.
   test("P4D", "");
   test("PT50:20", "");
 }

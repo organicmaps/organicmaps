@@ -31,7 +31,7 @@ UNIT_TEST(Ferry_RoutingQuality_RussiaFromCrimeaFerry)
 }
 
 // For tests Ferry_RoutingQuality_1 - Ferry_RoutingQuality_15
-// Look to: https://confluence.mail.ru/display/MAPSME/Ferries for more details.
+// Look at: https://confluence.mail.ru/display/MAPSME/Ferries for more details.
 
 UNIT_TEST(Ferry_RoutingQuality_1)
 {
