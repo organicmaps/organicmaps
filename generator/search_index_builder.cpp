@@ -315,6 +315,10 @@ public:
     if (types.Empty())
       return;
 
+    // Road number.
+    if (hasStreetType && !f.GetParams().ref.empty())
+      inserter(StringUtf8Multilang::kDefaultCode, f.GetParams().ref);
+
     if (ftypes::IsAirportChecker::Instance()(types))
     {
       string const iata = f.GetMetadata().Get(feature::Metadata::FMD_AIRPORT_IATA);

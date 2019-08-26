@@ -2347,5 +2347,25 @@ UNIT_CLASS_TEST(ProcessorTest, CityPostcodes)
     TEST(ResultsMatch("Tverskaya 4 Moscow 123456 ", rules), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, StreetNumber)
+{
+  string const countryName = "Wonderland";
+
+  TestStreet street(vector<m2::PointD>{m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)},
+                    "Симферопольское шоссе", "ru");
+  street.SetRoadNumber("M2");
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(street);
+  });
+
+  SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 2.0)));
+  {
+    Rules rules = {ExactMatch(countryId, street)};
+    TEST(ResultsMatch("M2 ", rules), ());
+  }
+}
+
 }  // namespace
 }  // namespace search

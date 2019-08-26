@@ -223,6 +223,8 @@ void TestStreet::Serialize(FeatureBuilder & fb) const
   auto const & classificator = classif();
   fb.SetType(classificator.GetTypeByPath({"highway", m_highwayType}));
 
+  fb.GetParams().ref = m_roadNumber;
+
   for (auto const & point : m_points)
     fb.AddPoint(point);
   fb.SetLinear(false /* reverseGeometry */);

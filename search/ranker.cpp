@@ -145,6 +145,13 @@ pair<NameScores, size_t> GetNameScores(FeatureType & ft, Geocoder::Params const 
     });
   }
 
+  if (type == Model::TYPE_STREET)
+  {
+    auto const roadNumber = ft.GetRoadNumber();
+    if (!roadNumber.empty())
+      UpdateNameScores(roadNumber, sliceNoCategories, bestScores);
+  }
+
   return make_pair(bestScores, matchedLength);
 }
 
