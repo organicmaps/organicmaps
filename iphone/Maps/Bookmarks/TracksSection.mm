@@ -45,6 +45,10 @@ CGFloat const kPinDiameter = 22.0f;
   return self.isEditable;
 }
 
+- (BOOL)canSelect {
+  return YES;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRow:(NSInteger)row {
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TrackCell"];
   if (!cell)
@@ -70,10 +74,9 @@ CGFloat const kPinDiameter = 22.0f;
   return cell;
 }
 
-- (BOOL)didSelectRow:(NSInteger)row {
+- (void)didSelectRow:(NSInteger)row {
   auto const trackId = [self trackIdForRow:row];
   GetFramework().ShowTrack(trackId);
-  return YES;
 }
 
 - (void)deleteRow:(NSInteger)row {

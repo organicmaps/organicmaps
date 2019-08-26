@@ -51,6 +51,10 @@ CGFloat const kPinDiameter = 22.0f;
   return self.isEditable;
 }
 
+- (BOOL)canSelect {
+  return YES;
+}
+
 - (void)fillCell:(UITableViewCell *)cell
   withBookmarkDetails:(Bookmark const *)bookmark
           andLocation:(CLLocation *)location {
@@ -104,13 +108,12 @@ CGFloat const kPinDiameter = 22.0f;
   [self fillCell:cell withBookmarkDetails:bookmark andLocation:location];
 }
 
-- (BOOL)didSelectRow:(NSInteger)row {
+- (void)didSelectRow:(NSInteger)row {
   auto const bmId = [self markIdForRow:row];
   [Statistics logEvent:kStatEventName(kStatBookmarks, kStatShowOnMap)];
   // Same as "Close".
   [MWMSearchManager manager].state = MWMSearchManagerStateHidden;
   GetFramework().ShowBookmark(bmId);
-  return YES;
 }
 
 - (void)deleteRow:(NSInteger)row {

@@ -6,8 +6,6 @@
 #include "kml/types.hpp"
 #include "kml/type_utils.hpp"
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface MWMCategoryInfoCell()
 
 @property (weak, nonatomic) IBOutlet UILabel * titleLabel;
@@ -17,8 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * infoToBottomConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * infoHeightConstraint;
 
-@property(copy, nonatomic, nullable) NSAttributedString *info;
-@property(copy, nonatomic, nullable) NSString *shortInfo;
+@property(copy, nonatomic) NSAttributedString *info;
+@property(copy, nonatomic) NSString *shortInfo;
 @property (weak, nonatomic) id<MWMCategoryInfoCellDelegate> delegate;
 
 @end
@@ -99,5 +97,3 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @end
-
-NS_ASSUME_NONNULL_END

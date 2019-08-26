@@ -7,10 +7,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSInteger)numberOfRows;
 - (nullable NSString *)title;
 - (BOOL)canEdit;
+- (BOOL)canSelect;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRow:(NSInteger)row;
 
-- (BOOL)didSelectRow:(NSInteger)row;
+- (void)didSelectRow:(NSInteger)row;
 - (void)deleteRow:(NSInteger)row;
 
 @optional

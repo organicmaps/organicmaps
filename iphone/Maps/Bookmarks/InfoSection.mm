@@ -39,6 +39,10 @@
   return NO;
 }
 
+- (BOOL)canSelect {
+  return NO;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRow:(NSInteger)row {
   if (self.infoCell != nil)
     return self.infoCell;
@@ -58,8 +62,7 @@
   return cell;
 }
 
-- (BOOL)didSelectRow:(NSInteger)row {
-  return NO;
+- (void)didSelectRow:(NSInteger)row {
 }
 
 - (void)deleteRow:(NSInteger)row {

@@ -667,16 +667,18 @@ using namespace std;
   return cell;
 }
 
+- (nullable NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  if ([[self currentSections][indexPath.section] canSelect])
+    return indexPath;
+  return nil;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   // Remove cell selection
   [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-  auto const close = [[self currentSections][indexPath.section] didSelectRow:indexPath.row];
-
+  [[self currentSections][indexPath.section] didSelectRow:indexPath.row];
   [self.searchBar resignFirstResponder];
-
-  if (close)
-    [self.navigationController popToRootViewControllerAnimated:NO];
+  [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
