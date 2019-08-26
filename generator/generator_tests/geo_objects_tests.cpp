@@ -234,9 +234,8 @@ void TestPoiHasAddress(std::vector<OsmElementData> const & osmElements)
   ScopedFile const idsWithoutAddresses{"ids_without_addresses.txt", ScopedFile::Mode::DoNotCreate};
   ScopedFile const geoObjectsKeyValue{"geo_objects.jsonl", ScopedFile::Mode::DoNotCreate};
 
-  auto const & expectedIds =
-      CollectFeatures(osmElements, geoObjectsFeatures,
-                      [](FeatureBuilder const & fb) { return GeoObjectsFilter::IsPoi(fb); });
+  CollectFeatures(osmElements, geoObjectsFeatures,
+                  [](FeatureBuilder const & fb) { return GeoObjectsFilter::IsPoi(fb); });
 
   std::unique_ptr<GeoObjectsGenerator> geoObjectsGenerator = {
       TearUp(osmElements, geoObjectsFeatures, idsWithoutAddresses, geoObjectsKeyValue)};
