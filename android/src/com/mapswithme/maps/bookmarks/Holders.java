@@ -228,6 +228,15 @@ public class Holders
           listener.onItemClick(v, getAdapterPosition());
       });
     }
+
+    void setOnLongClickListener(@Nullable RecyclerLongClickListener listener)
+    {
+      mView.setOnLongClickListener(v -> {
+        if (listener != null)
+          listener.onLongItemClick(v, getAdapterPosition());
+        return true;
+      });
+    }
   }
 
   static class BookmarkViewHolder extends BaseBookmarkHolder

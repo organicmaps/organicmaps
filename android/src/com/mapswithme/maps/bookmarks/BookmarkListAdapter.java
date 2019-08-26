@@ -15,6 +15,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.SortedBlock;
 import com.mapswithme.maps.content.DataSource;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
+import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,6 +43,8 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   private RecyclerClickListener mMoreListener;
   @Nullable
   private RecyclerClickListener mClickListener;
+  @Nullable
+  private RecyclerLongClickListener mLongClickListener;
 
   public static class SectionPosition
   {
@@ -403,6 +406,11 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     mClickListener = listener;
   }
 
+  public void setOnLongClickListener(@Nullable RecyclerLongClickListener listener)
+  {
+    mLongClickListener = listener;
+  }
+
   void setMoreListener(@Nullable RecyclerClickListener listener)
   {
     mMoreListener = listener;
@@ -427,6 +435,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
             new Holders.BookmarkViewHolder(inflater.inflate(R.layout.item_bookmark, parent,
                                                             false));
         bookmarkHolder.setOnClickListener(mClickListener);
+        bookmarkHolder.setOnLongClickListener(mLongClickListener);
         bookmarkHolder.setMoreListener(mMoreListener);
         holder = bookmarkHolder;
         break;

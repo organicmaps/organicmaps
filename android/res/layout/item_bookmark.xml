@@ -5,8 +5,6 @@
   android:layout_height="wrap_content"
   android:minHeight="@dimen/height_item_multiline"
   android:background="?clickableBackground"
-  android:paddingRight="@dimen/margin_base"
-  android:paddingEnd="@dimen/margin_base"
   android:paddingLeft="@dimen/margin_base"
   android:paddingStart="@dimen/margin_base">
 

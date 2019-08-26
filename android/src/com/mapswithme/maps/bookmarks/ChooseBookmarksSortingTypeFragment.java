@@ -32,14 +32,8 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
     void onSort(@BookmarkManager.SortingType int sortingType);
   }
 
-  public void setChooseSortingTypeListener(@Nullable ChooseSortingTypeListener listener)
-  {
-    mListener = listener;
-  }
-
   public static void chooseSortingType(@NonNull @BookmarkManager.SortingType int[] availableTypes,
-                                       int currentType, @NonNull ChooseSortingTypeListener listener,
-                                       @NonNull Context context,
+                                       int currentType, @NonNull Context context,
                                        @NonNull FragmentManager manager)
   {
     Bundle args = new Bundle();
@@ -49,7 +43,6 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
     final ChooseBookmarksSortingTypeFragment fragment =
         (ChooseBookmarksSortingTypeFragment) Fragment.instantiate(context, name, args);
     fragment.setArguments(args);
-    fragment.setChooseSortingTypeListener(listener);
     fragment.show(manager, name);
   }
 
@@ -106,6 +99,26 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
     radioGroup.clearCheck();
     radioGroup.check(getViewId(currentType));
     radioGroup.setOnCheckedChangeListener(this);
+  }
+
+  @Override
+  public void onAttach(Context context)
+  {
+    super.onAttach(context);
+    onAttachInternal();
+  }
+
+  protected void onAttachInternal()
+  {
+    mListener = (ChooseSortingTypeListener) (getParentFragment() == null ? getTargetFragment()
+                                                                         : getParentFragment());
+  }
+
+  @Override
+  public void onDetach()
+  {
+    super.onDetach();
+    mListener = null;
   }
 
   private void resetSorting()

@@ -99,8 +99,13 @@ public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> ex
     return mRecycler;
   }
 
-  @Nullable
-  public PlaceholderView getPlaceholder() { return mPlaceholder; }
+  @NonNull
+  public PlaceholderView requirePlaceholder()
+  {
+    if (mPlaceholder != null)
+      return mPlaceholder;
+    throw new IllegalStateException("Placeholder not found in layout");
+  }
 
   @Override
   public void onResume()

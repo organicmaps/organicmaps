@@ -1,19 +1,25 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.mapswithme.maps.widget.SearchToolbarController;
 
 public class BookmarksToolbarController extends SearchToolbarController
 {
+  @NonNull
   private final BookmarksListFragment mFragment;
 
-  BookmarksToolbarController(View root, Activity activity, BookmarksListFragment fragment)
+  BookmarksToolbarController(@NonNull View root, @NonNull Activity activity,
+                             @NonNull BookmarksListFragment fragment)
   {
     super(root, activity);
     mFragment = fragment;
   }
+
+  @Override
+  protected boolean useExtendedToolbar() { return false; }
 
   @Override
   protected boolean alwaysShowClearButton()

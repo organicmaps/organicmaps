@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
   <item android:id="@+id/sort"
-        android:title="sort"
+        android:title="@string/sort"
         android:icon="@drawable/ic_sort"/>
 
   <item android:id="@+id/sharing_options"

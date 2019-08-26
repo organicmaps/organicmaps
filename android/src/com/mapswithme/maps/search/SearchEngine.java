@@ -187,7 +187,7 @@ public enum SearchEngine implements NativeSearchListener,
   }
 
   @MainThread
-  public static boolean searchInBookmarks(String query, long categoryId, long timestamp)
+  public boolean searchInBookmarks(String query, long categoryId, long timestamp)
   {
     try
     {

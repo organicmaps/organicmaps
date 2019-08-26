@@ -6,12 +6,9 @@
   android:theme="@style/MwmWidget.ToolbarTheme"
   android:layout_width="match_parent"
   android:layout_height="?attr/actionBarSize">
-  <LinearLayout
-    android:id="@+id/toolbar_search_container"
+  <include
+    layout="@layout/toolbar_search_controls"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:visibility="gone">
-    <include layout="@layout/toolbar_search_controls"/>
-  </LinearLayout>
+    android:visibility="gone"/>
 </android.support.v7.widget.Toolbar>

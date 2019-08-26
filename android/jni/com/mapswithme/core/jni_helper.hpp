@@ -78,7 +78,7 @@ template<typename TIt, typename TToJavaFn>
 jobjectArray ToJavaArray(JNIEnv * env, jclass clazz, TIt begin, TIt end, size_t const size, TToJavaFn && toJavaFn)
 {
   jobjectArray jArray = env->NewObjectArray((jint) size, clazz, 0);
-  size_t i = 0;
+  jint i = 0;
   for (auto it = begin; it != end; ++it)
   {
     TScopedLocalRef jItem(env, toJavaFn(env, *it));
@@ -122,8 +122,8 @@ std::pair<std::string, std::string> ToNativeKeyValue(JNIEnv * env, jobject pairO
 template <typename OutputIt>
 void ToNativekeyValueContainer(JNIEnv * env, jobjectArray src, OutputIt it)
 {
-  int const length = env->GetArrayLength(src);
-  for (size_t i = 0; i < length; ++i)
+  jint const length = env->GetArrayLength(src);
+  for (jint i = 0; i < length; ++i)
   {
     jni::ScopedLocalRef<jobject> const arrayItem(env, env->GetObjectArrayElement(src, i));
 
