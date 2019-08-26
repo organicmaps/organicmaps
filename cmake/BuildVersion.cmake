@@ -1,64 +1,60 @@
 function(get_last_git_commit_hash result_name)
-  find_package(Git)
-  if (GIT_FOUND)
-    execute_process(COMMAND
-      "${GIT_EXECUTABLE}" describe --match="" --always --abbrev=40 --dirty
-      WORKING_DIRECTORY "${MAPSME_CURRENT_PROJECT_ROOT}"
-      OUTPUT_VARIABLE GIT_HASH
-      ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
-  endif()
+  execute_process(COMMAND
+    "${GIT_EXECUTABLE}" describe --match="" --always --abbrev=40 --dirty
+    WORKING_DIRECTORY "${MAPSME_CURRENT_PROJECT_ROOT}"
+    OUTPUT_VARIABLE GIT_HASH
+    RESULT_VARIABLE status
+    ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-  if (NOT GIT_HASH)
-    message(WARNING "Failed to get last commit from git.")
-    set(GIT_HASH "")
+  if (NOT status STREQUAL "0")
+    message(WARNING "Failed to get hash for last commit from git.")
+  else()
+    set(${result_name} ${GIT_HASH} PARENT_SCOPE)
   endif()
-
-  set(${result_name} ${GIT_HASH} PARENT_SCOPE)
 endfunction()
 
 function(get_last_git_commit_timestamp result_name)
-  find_package(Git)
-  if (GIT_FOUND)
-    execute_process(COMMAND
-      "${GIT_EXECUTABLE}" show -s --format=%ct HEAD
-      WORKING_DIRECTORY "${MAPSME_CURRENT_PROJECT_ROOT}"
-      OUTPUT_VARIABLE GIT_TIMESTAMP
-      ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
-  endif()
+  execute_process(COMMAND
+    "${GIT_EXECUTABLE}" show -s --format=%ct HEAD
+    WORKING_DIRECTORY "${MAPSME_CURRENT_PROJECT_ROOT}"
+    OUTPUT_VARIABLE GIT_TIMESTAMP
+    RESULT_VARIABLE status
+    ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-  if (NOT GIT_TIMESTAMP)
-    message(WARNING "Failed to get last commit from git.")
-    set(GIT_TIMESTAMP "0")
+  if (NOT status STREQUAL "0")
+    message(WARNING "Failed to get timestamp for last commit from git.")
+  else()
+    set(${result_name} ${GIT_TIMESTAMP} PARENT_SCOPE)
   endif()
-
-  set(${result_name} ${GIT_TIMESTAMP} PARENT_SCOPE)
 endfunction()
 
 function(get_git_tag_name result_name)
-  find_package(Git)
-  if (GIT_FOUND)
-    execute_process(COMMAND
-      "${GIT_EXECUTABLE}" git tag --points-at HEAD
-      WORKING_DIRECTORY "${MAPSME_CURRENT_PROJECT_ROOT}"
-      OUTPUT_VARIABLE GIT_TAG
-      ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
-  endif()
+  execute_process(COMMAND
+    "${GIT_EXECUTABLE}" git tag --points-at HEAD
+    WORKING_DIRECTORY "${MAPSME_CURRENT_PROJECT_ROOT}"
+    OUTPUT_VARIABLE GIT_TAG
+    RESULT_VARIABLE status
+    ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-  if (NOT GIT_TAG)
-    message(WARNING "Failed to get last commit from git.")
-    set(GIT_TAG "no_tag_set")
+  if (NOT status STREQUAL "0")
+    message(WARNING "Failed to get tag for last commit from git.")
+  else()
+    set(${result_name} ${GIT_TAG} PARENT_SCOPE)
   endif()
-
-  set(${result_name} ${GIT_TAG} PARENT_SCOPE)
 endfunction()
 
 function(configure_build_version_hpp)
-  message("Configure build version ...")
-  get_last_git_commit_hash(GIT_HASH)
-  get_last_git_commit_timestamp(GIT_TIMESTAMP)
-  get_git_tag_name(GIT_TAG)
+  message(STATUS "Configure build version ...")
+  set(GIT_HASH "")
+  set(GIT_TIMESTAMP "0")
+  set(GIT_TAG "")
+  find_package(Git)
+  if (GIT_FOUND)
+    get_last_git_commit_hash(GIT_HASH)
+    get_last_git_commit_timestamp(GIT_TIMESTAMP)
+    get_git_tag_name(GIT_TAG)
+  endif()
   configure_file("${PATH_WITH_BUILD_VERSION_HPP}/build_version.hpp.in" "${MAPSME_CURRENT_PROJECT_ROOT}/build_version.hpp" @ONLY)
 endfunction()
-
 
 configure_build_version_hpp()
