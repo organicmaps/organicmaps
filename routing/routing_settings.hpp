@@ -16,7 +16,8 @@ struct RoutingSettings
 
 private:
   RoutingSettings(bool useDirectionForRouteBuilding, bool matchRoute, bool soundDirection,
-                  double matchingThresholdM, bool keepPedestrianInfo, bool showTurnAfterNext);
+                  double matchingThresholdM, bool keepPedestrianInfo, bool showTurnAfterNext,
+                  double minSpeedForRouteRebuildMpS);
 
 public:
   /// \brief We accumulate several positions to calculate current direction.
@@ -26,16 +27,16 @@ public:
   /// route direction if the current position is matched to the route.
   /// If m_matchRoute is equal to false GPS bearing is used while
   /// the current position is matched to the route.
-  bool    m_matchRoute;
+  bool m_matchRoute;
   /// \brief if m_soundDirection is equal to true an end user gets sound notification
   /// before directions.
-  bool    m_soundDirection;
+  bool m_soundDirection;
 
   /// \brief m_matchingThresholdM is half width of the passage around the route
   /// for route matching in meters. That means if a real current position is closer than
   /// m_matchingThresholdM to the route than the current position is moved to
   /// the closest point to the route.
-  double  m_matchingThresholdM;
+  double m_matchingThresholdM;
 
   /// \brief m_keepPedestrianInfo flag for keeping in memory additional information for pedestrian
   /// routing.
@@ -44,6 +45,11 @@ public:
   /// \brief if m_showTurnAfterNext is equal to true end users see a notification
   /// about the turn after the next in some cases.
   bool m_showTurnAfterNext;
+
+  /// \brief If the speed in gps info is less than |m_minSpeedForRouteRebuildMpS|
+  /// info we will penalize less than if it's would be.
+  /// Penalty uses for route rebuilding during routing.
+  double m_minSpeedForRouteRebuildMpS;
 };
 
 RoutingSettings GetRoutingSettings(VehicleType vehicleType);

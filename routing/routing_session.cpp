@@ -22,7 +22,7 @@ using namespace traffic;
 namespace
 {
 
-int constexpr kOnRouteMissedCount = 5;
+int constexpr kOnRouteMissedCount = 10;
 
 // @TODO(vbykoianko) The distance should depend on the current speed.
 double constexpr kShowLanesDistInMeters = 500.;
@@ -327,7 +327,11 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     if (base::AlmostEqualAbs(dist, m_lastDistance, kRunawayDistanceSensitivityMeters))
       return m_state;
 
-    ++m_moveAwayCounter;
+    if (!info.HasSpeed() || info.m_speedMpS < m_routingSettings.m_minSpeedForRouteRebuildMpS)
+      m_moveAwayCounter += 1;
+    else
+      m_moveAwayCounter += 2;
+
     m_lastDistance = dist;
 
     if (m_moveAwayCounter > kOnRouteMissedCount)
