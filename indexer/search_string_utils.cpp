@@ -306,7 +306,7 @@ public:
       "väg", "vägen", "gatan", "gränd", "gränden", "stig", "stigen", "plats", "platsen",
 
       // Türkçe - Turkish
-      "sokak", "sk", "sok", "sokağı", "cadde", "cd", "caddesi", "bulvar", "bulvarı",
+      "sokak", "sk", "sok", "sokağı", "cadde", "cad", "cd", "caddesi", "bulvar", "bulvarı",
 
       // Tiếng Việt – Vietnamese
       "quốc lộ", "ql", "tỉnh lộ", "tl", "Đại lộ", "Đl", "Đường", "Đ", "Đường sắt", "Đs", "Đường phố", "Đp", "vuông", "con Đường", "Đại lộ", "Đường cao tốc",
