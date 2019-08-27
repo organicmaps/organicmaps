@@ -6,10 +6,10 @@ function(get_last_git_commit_hash result_name)
     RESULT_VARIABLE status
     ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-  if (NOT status STREQUAL "0")
-    message(WARNING "Failed to get hash for last commit from git.")
-  else()
+  if (status STREQUAL "0")
     set(${result_name} ${GIT_HASH} PARENT_SCOPE)
+  else()
+    message(WARNING "Failed to get hash for last commit from git.")
   endif()
 endfunction()
 
@@ -21,25 +21,25 @@ function(get_last_git_commit_timestamp result_name)
     RESULT_VARIABLE status
     ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-  if (NOT status STREQUAL "0")
-    message(WARNING "Failed to get timestamp for last commit from git.")
-  else()
+  if (status STREQUAL "0")
     set(${result_name} ${GIT_TIMESTAMP} PARENT_SCOPE)
+  else()
+    message(WARNING "Failed to get timestamp for last commit from git.")
   endif()
 endfunction()
 
 function(get_git_tag_name result_name)
   execute_process(COMMAND
-    "${GIT_EXECUTABLE}" git tag --points-at HEAD
+    "${GIT_EXECUTABLE}" tag --points-at HEAD
     WORKING_DIRECTORY "${MAPSME_CURRENT_PROJECT_ROOT}"
     OUTPUT_VARIABLE GIT_TAG
     RESULT_VARIABLE status
     ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-  if (NOT status STREQUAL "0")
-    message(WARNING "Failed to get tag for last commit from git.")
-  else()
+  if (status STREQUAL "0")
     set(${result_name} ${GIT_TAG} PARENT_SCOPE)
+  else()
+    message(WARNING "Failed to get tag for last commit from git.")
   endif()
 endfunction()
 
