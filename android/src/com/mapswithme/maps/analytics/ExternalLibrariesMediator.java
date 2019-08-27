@@ -281,8 +281,8 @@ public class ExternalLibrariesMediator
 
   private static class GetAdInfoTask extends AsyncTask<Void, Void, AdvertisingInfo>
   {
-    private final static long ADS_INFO_GETTING_TIMEOUT_MS = 10000;
-    private final static long ADS_INFO_GETTING_CHECK_INTERVAL_MS = 1000;
+    private final static long ADS_INFO_GETTING_TIMEOUT_MS = 4000;
+    private final static long ADS_INFO_GETTING_CHECK_INTERVAL_MS = 500;
     @NonNull
     private final ExternalLibrariesMediator mMediator;
     @NonNull
