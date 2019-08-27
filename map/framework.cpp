@@ -829,8 +829,11 @@ kml::MarkGroupId Framework::AddCategory(string const & categoryName)
 
 void Framework::FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info & info) const
 {
-  auto types = feature::TypesHolder::FromTypesIndexes(bmk.GetData().m_featureTypes);
-  FillPointInfo(info, bmk.GetPivot(), {}, [&types](FeatureType & ft)
+  feature::TypesHolder types;
+  if (!bmk.GetData().m_featureTypes.empty())
+    types = feature::TypesHolder::FromTypesIndexes(bmk.GetData().m_featureTypes);
+
+  FillPointInfo(info, bmk.GetPivot(), {}, [&types](feature::GeomType geomType, FeatureType & ft)
   {
     return !types.Empty() && feature::TypesHolder(ft).Equals(types);
   });
@@ -2313,18 +2316,19 @@ url_scheme::SearchRequest Framework::GetParsedSearchRequest() const
 FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator,
                                        FeatureMatcher && matcher /* = nullptr */) const
 {
-  FeatureID fullMatch, poi, line, area;
+  FeatureID poi, line, area;
   auto haveBuilding = false;
-  auto closestDistanceToCenter = numeric_limits<double>::max();
+  auto fullMatch = false;
+  auto closestDistnceToCenter = numeric_limits<double>::max();
   auto currentDistance = numeric_limits<double>::max();
   indexer::ForEachFeatureAtPoint(m_model.GetDataSource(), [&](FeatureType & ft)
   {
-    if (fullMatch.IsValid())
+    if (fullMatch)
       return;
-
-    if (matcher && matcher(ft))
+    if (matcher && matcher(ft.GetGeomType(), ft))
     {
-      fullMatch = ft.GetID();
+      fullMatch = true;
+      poi = ft.GetID();
       return;
     }
 
@@ -2343,14 +2347,13 @@ FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator,
       // Skip/ignore coastlines.
       if (feature::TypesHolder(ft).Has(classif().GetCoastType()))
         return;
-      haveBuilding = ftypes::IsBuildingChecker::Instance()(ft);
       currentDistance = MercatorBounds::DistanceOnEarth(mercator, feature::GetCenter(ft));
-      // Choose the first matching building or, if no buildings are matched,
-      // the first among the closest matching non-buildings.
-      if (!haveBuilding && currentDistance >= closestDistanceToCenter)
+      // Choose first closest object.
+      if (currentDistance >= closestDistnceToCenter)
         return;
       area = ft.GetID();
-      closestDistanceToCenter = currentDistance;
+      haveBuilding = ftypes::IsBuildingChecker::Instance()(ft);
+      closestDistnceToCenter = currentDistance;
       break;
     case feature::GeomType::Undefined:
       ASSERT(false, ("case feature::Undefined"));
@@ -2358,7 +2361,7 @@ FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator,
     }
   }, mercator);
 
-  return fullMatch.IsValid() ? fullMatch : (poi.IsValid() ? poi : (area.IsValid() ? area : line));
+  return poi.IsValid() ? poi : (area.IsValid() ? area : line);
 }
 
 osm::MapObject Framework::GetMapObjectByID(FeatureID const & fid) const

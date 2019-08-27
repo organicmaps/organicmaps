@@ -719,7 +719,7 @@ public:
   ParsedRoutingData GetParsedRoutingData() const;
   url_scheme::SearchRequest GetParsedSearchRequest() const;
 
-  using FeatureMatcher = std::function<bool(FeatureType & ft)>;
+  using FeatureMatcher = std::function<bool(feature::GeomType geomType, FeatureType & ft)>;
 
 private:
   /// @returns true if command was handled by editor.
