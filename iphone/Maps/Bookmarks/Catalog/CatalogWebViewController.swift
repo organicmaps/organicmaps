@@ -191,9 +191,12 @@ final class CatalogWebViewController: WebViewController {
   }
 
   override func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+    loadingIndicator.stopAnimating()
+    if let error = error as NSError?, error.code == NSURLErrorCancelled {
+      return
+    }
     Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
                         withParameters: [kStatError : kStatUnknown])
-    loadingIndicator.stopAnimating()
     noInternetView.isHidden = false
   }
 
