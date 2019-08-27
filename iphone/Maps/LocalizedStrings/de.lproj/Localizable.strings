@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "%s Ausfahrt";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Sortieren…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "Lesezeichen sortieren";
+
+/* iOS */
+"sort_default" = "Default Sortierung";
+
+"sort_type" = "Sortierung nach Kategorien";
+
+"sort_distance" = "Sortieren nach Entfernung";
+
+"sort_date" = "Sortieren nach Datum";
+
+/* Android */
+"by_default" = "Default";
+
+/* Android */
+"by_type" = "Nach Kategorie";
+
+/* Android */
+"by_distance" = "Nach Entfernung";
+
+/* Android */
+"by_date" = "Nach Datum";
+
+"week_ago_sorttype" = "Vor einer Woche";
+
+"month_ago_sorttype" = "Vor einem Monat";
+
+"moremonth_ago_sorttype" = "Vor über einem Monat";
+
+"moreyear_ago_sorttype" = "Vor über einem Jahr";
+
+"near_me_sorttype" = "In der Nähe";
+
+"others_sorttype" = "Sonstiges";
+
+"food_places" = "Essen";
+
+"tourist_places" = "Sehenswürdigkeiten";
+
+"museums" = "Museen";
+
+"parks" = "Parks";
+
+"swim_places" = "Schwimmmöglichkeiten";
+
+"mountains" = "Berge";
+
+"animals" = "Tiere";
+
+"hotels" = "Hotels";
+
+"buildings" = "Gebäude";
+
+"money" = "Geld";
+
+"shops" = "Ladengeschäfte";
+
+"parkings" = "Parkplätze";
+
+"fuel_places" = "Tankstellen";
+
+"water" = "Wasser";
+
+"medicine" = "Medizin";
+
+"search_in_the_list" = "In der Liste suchen";
+
+"view_on_map_bookmarks" = "Auf der Karte";
+
+"more_bookmarks" = "Mehr…";
+
+"no_items_found" = "Keine Einträge gefunden";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "Korrigieren";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "Liste löschen";
+
+"whatsnew_bookmarks_search_sort_title" = "Ordnung in den Lesezeichen – Handlichkeit während der Reise";
+
+"whatsnew_bookmarks_search_sort_message" = "Sortieren Sie die gewählten Orte nach Kategorie, Hinzufügungszeit und Geolokation. Sie können Lesezeichen schnell nach Lesezeichenname suchen";
+
 
 /**********  Partners  **********/
 

@@ -1667,6 +1667,54 @@
 	<string name="speedcams_alert_title_carplay_2">Инфо о камерах</string>
 	<string name="download_map_carplay">Скачайте карты в приложении MAPS.ME на своем устройстве</string>
 	<string name="carplay_roundabout_exit">%s съезд</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Сортировать…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Сортировать метки</string>
+	<!-- iOS -->
+	<string name="sort_default">Сортировать по умолчанию</string>
+	<string name="sort_type">Сортировать по типу</string>
+	<string name="sort_distance">Сортировать по расстоянию</string>
+	<string name="sort_date">Сортировать по дате</string>
+	<!-- Android -->
+	<string name="by_default">По умолчанию</string>
+	<!-- Android -->
+	<string name="by_type">По типу</string>
+	<!-- Android -->
+	<string name="by_distance">По расстоянию</string>
+	<!-- Android -->
+	<string name="by_date">По дате</string>
+	<string name="week_ago_sorttype">Неделю назад</string>
+	<string name="month_ago_sorttype">Месяц назад</string>
+	<string name="moremonth_ago_sorttype">Больше месяца назад</string>
+	<string name="moreyear_ago_sorttype">Больше года назад</string>
+	<string name="near_me_sorttype">Рядом со мной</string>
+	<string name="others_sorttype">Другие</string>
+	<string name="food_places">Еда</string>
+	<string name="tourist_places">Достопримечательности</string>
+	<string name="museums">Музеи</string>
+	<string name="parks">Парки</string>
+	<string name="swim_places">Плавание</string>
+	<string name="mountains">Горы</string>
+	<string name="animals">Животные</string>
+	<string name="hotels">Отели</string>
+	<string name="buildings">Здания</string>
+	<string name="money">Деньги</string>
+	<string name="shops">Магазины</string>
+	<string name="parkings">Парковки</string>
+	<string name="fuel_places">Заправки</string>
+	<string name="water">Вода</string>
+	<string name="medicine">Медицина</string>
+	<string name="search_in_the_list">Искать в списке</string>
+	<string name="view_on_map_bookmarks">На карте</string>
+	<string name="more_bookmarks">Еще…</string>
+	<string name="no_items_found">Ничего не найдено</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Редактировать</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Удалить список</string>
+	<string name="whatsnew_bookmarks_search_sort_title">Порядок в метках — удобство в путешествии</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Сортируйте избранные места по категориям, времени добавления и геолокации, а также быстро находите конкретные метки по названию</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

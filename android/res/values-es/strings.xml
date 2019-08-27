@@ -1608,6 +1608,54 @@
 	<string name="speedcams_alert_title_carplay_2">Alerta velocid.</string>
 	<string name="download_map_carplay">Descarga mapas en la aplicación MAPS.ME en tu dispositivo</string>
 	<string name="carplay_roundabout_exit">%s desviación</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Ordenar…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Ordenar etiquetas</string>
+	<!-- iOS -->
+	<string name="sort_default">Ordenar por defecto</string>
+	<string name="sort_type">Ordenar por tipo</string>
+	<string name="sort_distance">Ordenar por distancia</string>
+	<string name="sort_date">Ordenar por fecha</string>
+	<!-- Android -->
+	<string name="by_default">Por defecto</string>
+	<!-- Android -->
+	<string name="by_type">Por tipo</string>
+	<!-- Android -->
+	<string name="by_distance">Por distancia</string>
+	<!-- Android -->
+	<string name="by_date">Por fecha</string>
+	<string name="week_ago_sorttype">Hace una semana</string>
+	<string name="month_ago_sorttype">Hace un mes</string>
+	<string name="moremonth_ago_sorttype">Hace más de un mes</string>
+	<string name="moreyear_ago_sorttype">Hace más de un año</string>
+	<string name="near_me_sorttype">Cerca a mí</string>
+	<string name="others_sorttype">Otros</string>
+	<string name="food_places">Comida</string>
+	<string name="tourist_places">Sitios de interés</string>
+	<string name="museums">Museos</string>
+	<string name="parks">Parques</string>
+	<string name="swim_places">Natación</string>
+	<string name="mountains">Montañas</string>
+	<string name="animals">Animales</string>
+	<string name="hotels">Hoteles</string>
+	<string name="buildings">Edificios</string>
+	<string name="money">Dinero</string>
+	<string name="shops">Tiendas</string>
+	<string name="parkings">Estacionamiento</string>
+	<string name="fuel_places">Gasolinera</string>
+	<string name="water">Agua</string>
+	<string name="medicine">Medicina</string>
+	<string name="search_in_the_list">Buscar en la lista</string>
+	<string name="view_on_map_bookmarks">En el mapa</string>
+	<string name="more_bookmarks">Más…</string>
+	<string name="no_items_found">No encontrado</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Editar</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Eliminar lista</string>
+	<string name="whatsnew_bookmarks_search_sort_title">El orden en las etiquetas, significa facilidad de viaje</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Ordena tus lugares favoritos por categoría, tiempo de adición y geolocalización, y también encuentra rápidamente etiquetas específicas por nombre</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estación de teleférico</string>

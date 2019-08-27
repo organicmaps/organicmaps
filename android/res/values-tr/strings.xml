@@ -1619,6 +1619,54 @@
 	<string name="speedcams_alert_title_carplay_2">Hız uyarıları</string>
 	<string name="download_map_carplay">Lütfen haritaları cihazınıza MAPS.ME uygulamasından indirin</string>
 	<string name="carplay_roundabout_exit">%s çıkış</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Sırala…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Yer imlerini sırala</string>
+	<!-- iOS -->
+	<string name="sort_default">Varsayılana göre sırala</string>
+	<string name="sort_type">Türe göre sırala</string>
+	<string name="sort_distance">Mesafeye göre sırala</string>
+	<string name="sort_date">Tarihe göre sırala</string>
+	<!-- Android -->
+	<string name="by_default">Varsayılana göre</string>
+	<!-- Android -->
+	<string name="by_type">Türe göre</string>
+	<!-- Android -->
+	<string name="by_distance">Mesafeye göre</string>
+	<!-- Android -->
+	<string name="by_date">Tarihe göre</string>
+	<string name="week_ago_sorttype">Bir hafta önce</string>
+	<string name="month_ago_sorttype">Bir ay önce</string>
+	<string name="moremonth_ago_sorttype">Bir aydan daha önce</string>
+	<string name="moreyear_ago_sorttype">Bir yıldan daha önce</string>
+	<string name="near_me_sorttype">Bana yakın</string>
+	<string name="others_sorttype">Diğerleri</string>
+	<string name="food_places">Yiyecek</string>
+	<string name="tourist_places">Görülecek yerler</string>
+	<string name="museums">Müzeler</string>
+	<string name="parks">Parklar</string>
+	<string name="swim_places">Yüzme</string>
+	<string name="mountains">Dağlar</string>
+	<string name="animals">Hayvanlar</string>
+	<string name="hotels">Oteller</string>
+	<string name="buildings">Binalar</string>
+	<string name="money">Para</string>
+	<string name="shops">Mağazalar</string>
+	<string name="parkings">Otoparklar</string>
+	<string name="fuel_places">Benzin istasyonları</string>
+	<string name="water">Su</string>
+	<string name="medicine">İlaç</string>
+	<string name="search_in_the_list">Listede ara</string>
+	<string name="view_on_map_bookmarks">Haritada</string>
+	<string name="more_bookmarks">Daha fazla…</string>
+	<string name="no_items_found">Hiç bir öğe bulunamadı</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Listeyi düzenle</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Listeyi sil</string>
+	<string name="whatsnew_bookmarks_search_sort_title">Yer imlerine göre sıralamak yolculuğunuzu rahatlaştırır</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Favori yerleri kategori, konum ve kronolojik sıraya göre sıralayın ve belirli yer imlerini isimleriyle hızlı bir şekilde bulun</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

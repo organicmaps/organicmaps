@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "%s з’їзд";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Сортувати";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "Сортувати мітки";
+
+/* iOS */
+"sort_default" = "Сортувати за промовчанням";
+
+"sort_type" = "Сортувати за типом";
+
+"sort_distance" = "Сортувати за відстанню";
+
+"sort_date" = "Сортувати за датою";
+
+/* Android */
+"by_default" = "За промовчанням";
+
+/* Android */
+"by_type" = "За типом";
+
+/* Android */
+"by_distance" = "За відстанню";
+
+/* Android */
+"by_date" = "За датою";
+
+"week_ago_sorttype" = "Тиждень тому";
+
+"month_ago_sorttype" = "Місяць тому";
+
+"moremonth_ago_sorttype" = "Понад місяць тому";
+
+"moreyear_ago_sorttype" = "Понад рік тому";
+
+"near_me_sorttype" = "Поруч зі мною";
+
+"others_sorttype" = "Інші";
+
+"food_places" = "Їжа";
+
+"tourist_places" = "Пам’ятки";
+
+"museums" = "Музеї";
+
+"parks" = "Парки";
+
+"swim_places" = "Плавання";
+
+"mountains" = "Гори";
+
+"animals" = "Тварини";
+
+"hotels" = "Готелі";
+
+"buildings" = "Будівлі";
+
+"money" = "Гроші";
+
+"shops" = "Магазини";
+
+"parkings" = "Парковки";
+
+"fuel_places" = "Заправки";
+
+"water" = "Вода";
+
+"medicine" = "Медицина";
+
+"search_in_the_list" = "Шукати в списку";
+
+"view_on_map_bookmarks" = "На карті";
+
+"more_bookmarks" = "Ще…";
+
+"no_items_found" = "Нічого не знайдено";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "Редагувати";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "Видалити список";
+
+"whatsnew_bookmarks_search_sort_title" = "Порядок у мітках — зручність під час подорожі";
+
+"whatsnew_bookmarks_search_sort_message" = "Сортуйте обрані місця за категоріями, часом завантаження та геолокацією, а також швидко знаходьте конкретні мітки за назвою";
+
 
 /**********  Partners  **********/
 

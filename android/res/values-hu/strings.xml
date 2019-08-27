@@ -1615,6 +1615,54 @@
 	<string name="speedcams_alert_title_carplay_2">Sebességjelzés</string>
 	<string name="download_map_carplay">Kérjük, töltsd le a térképeket a MAPS.ME alkalmazásban az eszközödre</string>
 	<string name="carplay_roundabout_exit">%s kijárat</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Rendezd…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Könyvelzők rendezése</string>
+	<!-- iOS -->
+	<string name="sort_default">Alapértelmezés szerint</string>
+	<string name="sort_type">Típus szerint</string>
+	<string name="sort_distance">Távolság szerint</string>
+	<string name="sort_date">Dátum szerint</string>
+	<!-- Android -->
+	<string name="by_default">Alapértelmezés szerint</string>
+	<!-- Android -->
+	<string name="by_type">Típus szerint</string>
+	<!-- Android -->
+	<string name="by_distance">Távolság szerint</string>
+	<!-- Android -->
+	<string name="by_date">Dátum szerint</string>
+	<string name="week_ago_sorttype">Egy hete</string>
+	<string name="month_ago_sorttype">Egy hónapja</string>
+	<string name="moremonth_ago_sorttype">Több mint egy hónapja</string>
+	<string name="moreyear_ago_sorttype">Több mint egy éve</string>
+	<string name="near_me_sorttype">Hozzám közel</string>
+	<string name="others_sorttype">Más</string>
+	<string name="food_places">Étel</string>
+	<string name="tourist_places">Látnivalók</string>
+	<string name="museums">Múzeumok</string>
+	<string name="parks">Parkok</string>
+	<string name="swim_places">Úszás</string>
+	<string name="mountains">Hegyek</string>
+	<string name="animals">Állatok</string>
+	<string name="hotels">Hotelek</string>
+	<string name="buildings">Épületek</string>
+	<string name="money">Pénz</string>
+	<string name="shops">Üzletek</string>
+	<string name="parkings">Parkolók</string>
+	<string name="fuel_places">Benzinkutak</string>
+	<string name="water">Víz</string>
+	<string name="medicine">Gyógyszer</string>
+	<string name="search_in_the_list">Keresés a listában</string>
+	<string name="view_on_map_bookmarks">Térképen</string>
+	<string name="more_bookmarks">Továbbiak…</string>
+	<string name="no_items_found">Nincs találat</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Lista szerkesztése</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Lista törlése</string>
+	<string name="whatsnew_bookmarks_search_sort_title">A könyvjelzők rendezése kényelmes utazást tesz lehetővé</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Rendezze kedvenc helyeit kategóriánként, helyenként és időrendbe, és találja meg őket gyorsan a nevük alapján</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>

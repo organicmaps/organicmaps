@@ -1558,6 +1558,54 @@
 	<string name="speedcams_alert_title_carplay_2">هشدارهای سرعت</string>
 	<string name="download_map_carplay">لطفا نقشه ها را در نرم افزار MAPS.ME روی دستگاه خود دانلود کنید</string>
 	<string name="carplay_roundabout_exit">خروجی %s</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">مرتب سازی…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">مرتب سازی نشانهها</string>
+	<!-- iOS -->
+	<string name="sort_default">مرتب سازی بر اساس پیش فرض</string>
+	<string name="sort_type">مرتب سازی بر اساس نوع</string>
+	<string name="sort_distance">مرتب سازی بر اساس فاصله</string>
+	<string name="sort_date">مرتب سازی بر اساس تاریخ</string>
+	<!-- Android -->
+	<string name="by_default">به صورت پیش فرض</string>
+	<!-- Android -->
+	<string name="by_type">بر اساس تاریخ</string>
+	<!-- Android -->
+	<string name="by_distance">بر اساس فاصله</string>
+	<!-- Android -->
+	<string name="by_date">بر اساس تاریخ</string>
+	<string name="week_ago_sorttype">یک هفته قبل</string>
+	<string name="month_ago_sorttype">یک ماه قبل</string>
+	<string name="moremonth_ago_sorttype">بیش از یک ماه قبل</string>
+	<string name="moreyear_ago_sorttype">بیش از یک سال قبل</string>
+	<string name="near_me_sorttype">نزدیک من</string>
+	<string name="others_sorttype">دیگران</string>
+	<string name="food_places">غذا</string>
+	<string name="tourist_places">مناظر</string>
+	<string name="museums">موزهها</string>
+	<string name="parks">پارکها</string>
+	<string name="swim_places">شنا</string>
+	<string name="mountains">کوهها</string>
+	<string name="animals">حیوانات</string>
+	<string name="hotels">هتلها</string>
+	<string name="buildings">ساختمانها</string>
+	<string name="money">پول</string>
+	<string name="shops">مراکز خرید</string>
+	<string name="parkings">پارکینگها</string>
+	<string name="fuel_places">پمپ بنزین</string>
+	<string name="water">آب</string>
+	<string name="medicine">پزشکی</string>
+	<string name="search_in_the_list">جستجو در لیست</string>
+	<string name="view_on_map_bookmarks">روی نقشه</string>
+	<string name="more_bookmarks">بیشتر…</string>
+	<string name="no_items_found">هیچ موردی یافت نشد</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">ویرایش فهرست</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">حذف همه</string>
+	<string name="whatsnew_bookmarks_search_sort_title">سفارش در نشانهها سفری آسوده را رقم می زند</string>
+	<string name="whatsnew_bookmarks_search_sort_message">مکانهای مورد علاقه را بر اساس طبقه بندی ، موقعیت مکانی و ترتیب زمانی مرتب کنید، همچنین نشانههای خاص را به سرعت از روی نام بیابید</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>

@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "Afrit nr. %s";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Sorteer…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "Bladwijzers sorteren";
+
+/* iOS */
+"sort_default" = "Standaard sorteren";
+
+"sort_type" = "Sorteren op type";
+
+"sort_distance" = "Sorteer op afstand";
+
+"sort_date" = "Sorteer op datum";
+
+/* Android */
+"by_default" = "Standaard";
+
+/* Android */
+"by_type" = "Op type";
+
+/* Android */
+"by_distance" = "Op afstand";
+
+/* Android */
+"by_date" = "Op datum";
+
+"week_ago_sorttype" = "Een week geleden";
+
+"month_ago_sorttype" = "Een maand geleden";
+
+"moremonth_ago_sorttype" = "Meer dan een maand geleden";
+
+"moreyear_ago_sorttype" = "Meer dan een jaar geleden";
+
+"near_me_sorttype" = "Naast mij";
+
+"others_sorttype" = "Andere";
+
+"food_places" = "Eten";
+
+"tourist_places" = "Bezienswaardigheden";
+
+"museums" = "Musea";
+
+"parks" = "Parken";
+
+"swim_places" = "Zwemmen";
+
+"mountains" = "Bergen";
+
+"animals" = "Dieren";
+
+"hotels" = "Hotels";
+
+"buildings" = "Gebouwen";
+
+"money" = "Geld";
+
+"shops" = "Winkels";
+
+"parkings" = "Parkeerplaatsen";
+
+"fuel_places" = "Benzinestations";
+
+"water" = "Water";
+
+"medicine" = "Geneeskunde";
+
+"search_in_the_list" = "In de lijst zoeken";
+
+"view_on_map_bookmarks" = "Op de kaart";
+
+"more_bookmarks" = "Meer…";
+
+"no_items_found" = "Niets gevonden";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "Bewerken";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "Lijst verwijderen";
+
+"whatsnew_bookmarks_search_sort_title" = "Bladwijzerts in orde om gemakkelijk te reizen";
+
+"whatsnew_bookmarks_search_sort_message" = "Sorteer uw favoriete plaatsen op categorie, tijdstip van toevoegen en geolocatie, en vind ook snel specifieke bladwijzers op hun namen";
+
 
 /**********  Partners  **********/
 

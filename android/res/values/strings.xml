@@ -1679,6 +1679,54 @@
 	<string name="speedcams_alert_title_carplay_2">Speed warnings</string>
 	<string name="download_map_carplay">Please download maps in MAPS.ME app on your device</string>
 	<string name="carplay_roundabout_exit">%s exit</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Sort…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Sort bookmarks</string>
+	<!-- iOS -->
+	<string name="sort_default">Sort by default</string>
+	<string name="sort_type">Sort by type</string>
+	<string name="sort_distance">Sort by distance</string>
+	<string name="sort_date">Sort by date</string>
+	<!-- Android -->
+	<string name="by_default">By default</string>
+	<!-- Android -->
+	<string name="by_type">By type</string>
+	<!-- Android -->
+	<string name="by_distance">By distance</string>
+	<!-- Android -->
+	<string name="by_date">By date</string>
+	<string name="week_ago_sorttype">A week ago</string>
+	<string name="month_ago_sorttype">A month ago</string>
+	<string name="moremonth_ago_sorttype">More than a month ago</string>
+	<string name="moreyear_ago_sorttype">More than a year ago</string>
+	<string name="near_me_sorttype">Near me</string>
+	<string name="others_sorttype">Others</string>
+	<string name="food_places">Food</string>
+	<string name="tourist_places">Sights</string>
+	<string name="museums">Museums</string>
+	<string name="parks">Parks</string>
+	<string name="swim_places">Swim</string>
+	<string name="mountains">Mountains</string>
+	<string name="animals">Animals</string>
+	<string name="hotels">Hotels</string>
+	<string name="buildings">Buildings</string>
+	<string name="money">Money</string>
+	<string name="shops">Shops</string>
+	<string name="parkings">Parkings</string>
+	<string name="fuel_places">Gas stations</string>
+	<string name="water">Water</string>
+	<string name="medicine">Medicine</string>
+	<string name="search_in_the_list">Search in the list</string>
+	<string name="view_on_map_bookmarks">On map</string>
+	<string name="more_bookmarks">More…</string>
+	<string name="no_items_found">No items found</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Edit list</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Delete list</string>
+	<string name="whatsnew_bookmarks_search_sort_title">Good order in bookmarks makes a journey comfortable</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Sort favorite places by category, location, and in chronological order, as well as quickly find specific bookmarks by their name</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

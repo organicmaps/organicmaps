@@ -1610,6 +1610,54 @@
 	<string name="speedcams_alert_title_carplay_2">Cảnh báo tốc độ</string>
 	<string name="download_map_carplay">Vui lòng tải xuống bản đồ trong ứng dụng MAPS.ME trên thiết bị của bạn</string>
 	<string name="carplay_roundabout_exit">Lối ra %s của vòng xuyến</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Sắp xếp…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Sắp xếp dấu trang</string>
+	<!-- iOS -->
+	<string name="sort_default">Sắp xếp theo mặc định</string>
+	<string name="sort_type">Sắp xếp theo kiểu</string>
+	<string name="sort_distance">Sắp xếp theo khoảng cách</string>
+	<string name="sort_date">Sắp xếp theo ngày</string>
+	<!-- Android -->
+	<string name="by_default">Theo mặc định</string>
+	<!-- Android -->
+	<string name="by_type">Theo kiểu</string>
+	<!-- Android -->
+	<string name="by_distance">Theo khoảng cách</string>
+	<!-- Android -->
+	<string name="by_date">Theo ngày</string>
+	<string name="week_ago_sorttype">Tuần trước</string>
+	<string name="month_ago_sorttype">Tháng trước</string>
+	<string name="moremonth_ago_sorttype">Hơn một tháng trước</string>
+	<string name="moreyear_ago_sorttype">Hơn một năm trước</string>
+	<string name="near_me_sorttype">Ở gần tôi</string>
+	<string name="others_sorttype">Khác</string>
+	<string name="food_places">Đồ ăn</string>
+	<string name="tourist_places">Danh lam thắng cảnh</string>
+	<string name="museums">Bảo tàng</string>
+	<string name="parks">Công viên</string>
+	<string name="swim_places">Bơi lội</string>
+	<string name="mountains">Núi non</string>
+	<string name="animals">Động vật</string>
+	<string name="hotels">Khách sạn</string>
+	<string name="buildings">Tòa nhà</string>
+	<string name="money">Tiền</string>
+	<string name="shops">Cửa hàng</string>
+	<string name="parkings">Bãi đậu xe</string>
+	<string name="fuel_places">Trạm xăng dầu</string>
+	<string name="water">Nước</string>
+	<string name="medicine">Y tế</string>
+	<string name="search_in_the_list">Tìm trong danh sách</string>
+	<string name="view_on_map_bookmarks">Trên bản đồ</string>
+	<string name="more_bookmarks">Thêm…</string>
+	<string name="no_items_found">Không tìm thấy gì cả</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Chỉnh sửa</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Xóa dánh sách</string>
+	<string name="whatsnew_bookmarks_search_sort_title">Trật tự trong các dấu trang – đó là sự tiện nghi, thoải mái cho chuyến du lịch</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Hãy sắp xếp các địa điểm yêu thích theo thể loại, thời gian thêm vào và vị trí địa lý, đồng thời bạn cũng sẽ nhanh chóng tìm thấy các dấu trang cụ thể theo tên gọi</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

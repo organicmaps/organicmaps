@@ -1371,6 +1371,54 @@
 	<string name="speedcams_alert_title_carplay_2">Πληροφ. γιαόρια</string>
 	<string name="download_map_carplay">Κάντε λήψη χαρτών στην εφαρμογή MAPS.ME στη συσκευή σας</string>
 	<string name="carplay_roundabout_exit">%s έξοδος</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Ταξινόμηση</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Ταξινόμηση σελιδοδ/τών</string>
+	<!-- iOS -->
+	<string name="sort_default">Ταξινόμηση κατά προεπιλογή</string>
+	<string name="sort_type">Ταξινόμηση ανά τύπο</string>
+	<string name="sort_distance">Ταξινόμηση κατά απόσταση</string>
+	<string name="sort_date">Ταξινόμηση κατά ημερομηνία</string>
+	<!-- Android -->
+	<string name="by_default">Προεπιλογή</string>
+	<!-- Android -->
+	<string name="by_type">Ανά τύπο</string>
+	<!-- Android -->
+	<string name="by_distance">Κατά απόσταση</string>
+	<!-- Android -->
+	<string name="by_date">Κατά ημερομηνία</string>
+	<string name="week_ago_sorttype">Μια βδομάδα πριν</string>
+	<string name="month_ago_sorttype">Ένας μήνας πριν</string>
+	<string name="moremonth_ago_sorttype">Περισσότερο από έναν μήνα πριν</string>
+	<string name="moreyear_ago_sorttype">Περισσότερο από ένα έτος πριν</string>
+	<string name="near_me_sorttype">Δίπλα μου</string>
+	<string name="others_sorttype">Άλλα</string>
+	<string name="food_places">Εστίαση</string>
+	<string name="tourist_places">Αξιοθέατα</string>
+	<string name="museums">Μουσεία</string>
+	<string name="parks">Πάρκα</string>
+	<string name="swim_places">Κολύμβηση</string>
+	<string name="mountains">Βουνά</string>
+	<string name="animals">Ζώα</string>
+	<string name="hotels">Διαμονή</string>
+	<string name="buildings">Κτήρια</string>
+	<string name="money">Χρήματα</string>
+	<string name="shops">Καταστήματα</string>
+	<string name="parkings">Χώροι στάθμευσης</string>
+	<string name="fuel_places">Πρατήρια βενζίνης</string>
+	<string name="water">Νερό</string>
+	<string name="medicine">Γιατρική βοήθεια</string>
+	<string name="search_in_the_list">Αναζήτηση στη λίστα</string>
+	<string name="view_on_map_bookmarks">Στον χάρτη</string>
+	<string name="more_bookmarks">Περισσότερα…</string>
+	<string name="no_items_found">Δεν βρέθηκε τίποτα</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Επεξεργασία</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Διαγραφή λίστας</string>
+	<string name="whatsnew_bookmarks_search_sort_title">Τάξη στους σελιδοδείκτες κάνει το ταξίδι άνετο</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Ταξινόμηση των αγαπημένων σας τοποθεσιών ανά κατηγορία, ώρα προσθήκης και γεωγραφική κατανομή και γρήγορη εύρεση συγκεκριμένων σελιδοδεικτών με το όνομα</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Σταθμός αερομεταφοράς</string>

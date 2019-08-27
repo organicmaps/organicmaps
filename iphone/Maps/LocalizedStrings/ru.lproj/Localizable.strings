@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "%s съезд";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Сортировать…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "Сортировать метки";
+
+/* iOS */
+"sort_default" = "Сортировать по умолчанию";
+
+"sort_type" = "Сортировать по типу";
+
+"sort_distance" = "Сортировать по расстоянию";
+
+"sort_date" = "Сортировать по дате";
+
+/* Android */
+"by_default" = "По умолчанию";
+
+/* Android */
+"by_type" = "По типу";
+
+/* Android */
+"by_distance" = "По расстоянию";
+
+/* Android */
+"by_date" = "По дате";
+
+"week_ago_sorttype" = "Неделю назад";
+
+"month_ago_sorttype" = "Месяц назад";
+
+"moremonth_ago_sorttype" = "Больше месяца назад";
+
+"moreyear_ago_sorttype" = "Больше года назад";
+
+"near_me_sorttype" = "Рядом со мной";
+
+"others_sorttype" = "Другие";
+
+"food_places" = "Еда";
+
+"tourist_places" = "Достопримечательности";
+
+"museums" = "Музеи";
+
+"parks" = "Парки";
+
+"swim_places" = "Плавание";
+
+"mountains" = "Горы";
+
+"animals" = "Животные";
+
+"hotels" = "Отели";
+
+"buildings" = "Здания";
+
+"money" = "Деньги";
+
+"shops" = "Магазины";
+
+"parkings" = "Парковки";
+
+"fuel_places" = "Заправки";
+
+"water" = "Вода";
+
+"medicine" = "Медицина";
+
+"search_in_the_list" = "Искать в списке";
+
+"view_on_map_bookmarks" = "На карте";
+
+"more_bookmarks" = "Еще…";
+
+"no_items_found" = "Ничего не найдено";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "Редактировать";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "Удалить список";
+
+"whatsnew_bookmarks_search_sort_title" = "Порядок в метках — удобство в путешествии";
+
+"whatsnew_bookmarks_search_sort_message" = "Сортируйте избранные места по категориям, времени добавления и геолокации, а также быстро находите конкретные метки по названию";
+
 
 /**********  Partners  **********/
 

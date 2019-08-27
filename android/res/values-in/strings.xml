@@ -1613,6 +1613,54 @@
 	<string name="speedcams_alert_title_carplay_2">Info kecepatan</string>
 	<string name="download_map_carplay">Silakan unduh peta di apl MAPS.ME pada perangkat Anda</string>
 	<string name="carplay_roundabout_exit">Jalan keluar ke %s</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Urutkan…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Urutkan bookmark</string>
+	<!-- iOS -->
+	<string name="sort_default">Urutkan standar</string>
+	<string name="sort_type">Urutkan per tipe</string>
+	<string name="sort_distance">Urutkan per jarak</string>
+	<string name="sort_date">Urutkan per tanggal</string>
+	<!-- Android -->
+	<string name="by_default">Standar</string>
+	<!-- Android -->
+	<string name="by_type">Per tipe</string>
+	<!-- Android -->
+	<string name="by_distance">Per jarak</string>
+	<!-- Android -->
+	<string name="by_date">Per tanggal</string>
+	<string name="week_ago_sorttype">Seminggu yang lalu</string>
+	<string name="month_ago_sorttype">Sebulan yang lalu</string>
+	<string name="moremonth_ago_sorttype">Lebih dari sebulan yang lalu</string>
+	<string name="moreyear_ago_sorttype">Lebih dari setahun yang lalu</string>
+	<string name="near_me_sorttype">Dekat dengan saya</string>
+	<string name="others_sorttype">Lainnya</string>
+	<string name="food_places">Makanan</string>
+	<string name="tourist_places">Tempat Rekreasi</string>
+	<string name="museums">Museum</string>
+	<string name="parks">Taman</string>
+	<string name="swim_places">Kolam renang</string>
+	<string name="mountains">Pegunungan</string>
+	<string name="animals">Kebun binatang</string>
+	<string name="hotels">Hotel</string>
+	<string name="buildings">Gedung</string>
+	<string name="money">Uang</string>
+	<string name="shops">Pusat perbelanjaan</string>
+	<string name="parkings">Parkir</string>
+	<string name="fuel_places">SPBU</string>
+	<string name="water">Air</string>
+	<string name="medicine">Obat</string>
+	<string name="search_in_the_list">Cari dalam daftar</string>
+	<string name="view_on_map_bookmarks">Di peta</string>
+	<string name="more_bookmarks">Lainnya…</string>
+	<string name="no_items_found">Item tidak ditemukan</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Ubah daftar</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Hapus daftar</string>
+	<string name="whatsnew_bookmarks_search_sort_title">Bookmark yang rapi membuat perjalanan menjadi nyaman</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Urutkan tempat favorit berdasarkan kategori, lokasi dan waktu kunjungan, serta temukan bookmark secara cepat hanya dengan menggunakan nama</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

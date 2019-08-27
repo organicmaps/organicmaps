@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "%s ieșire";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Sortați…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "Sortați inscripțiile";
+
+/* iOS */
+"sort_default" = "Sortați la modul implicit";
+
+"sort_type" = "Sortați după dip";
+
+"sort_distance" = "Sortați după distanță";
+
+"sort_date" = "Sortați după dată";
+
+/* Android */
+"by_default" = "Mod implicit";
+
+/* Android */
+"by_type" = "După tip";
+
+/* Android */
+"by_distance" = "După distanță";
+
+/* Android */
+"by_date" = "După dată";
+
+"week_ago_sorttype" = "O săptămână în urmă";
+
+"month_ago_sorttype" = "O lună în urmă";
+
+"moremonth_ago_sorttype" = "Mai mult de o lună în urmă";
+
+"moreyear_ago_sorttype" = "Mai mult de un an în urmă";
+
+"near_me_sorttype" = "Alături de mine";
+
+"others_sorttype" = "Altele";
+
+"food_places" = "Mâncare";
+
+"tourist_places" = "Locuri faimoase";
+
+"museums" = "Muzeu";
+
+"parks" = "Parcuri";
+
+"swim_places" = "Înot";
+
+"mountains" = "Munți";
+
+"animals" = "Animale";
+
+"hotels" = "Hoteluri";
+
+"buildings" = "Clădiri";
+
+"money" = "Bani";
+
+"shops" = "Magazine";
+
+"parkings" = "Parcări";
+
+"fuel_places" = "Benzinării";
+
+"water" = "Apă";
+
+"medicine" = "Medicină";
+
+"search_in_the_list" = "Căutați în listă";
+
+"view_on_map_bookmarks" = "Pe hartă";
+
+"more_bookmarks" = "Încă…";
+
+"no_items_found" = "Nu a fost găsit nimic";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "Redactați";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "Ștergeți lista";
+
+"whatsnew_bookmarks_search_sort_title" = "Ordine în inscripții – comoditate în călătorie";
+
+"whatsnew_bookmarks_search_sort_message" = "Sortați locurile preferate după categorie, ora adăugării și geolocalizarea și găsiți rapid inscripțiile după nume";
+
 
 /**********  Partners  **********/
 

@@ -1619,6 +1619,54 @@
 	<string name="speedcams_alert_title_carplay_2">เตือนความเร็ว</string>
 	<string name="download_map_carplay">โปรดดาวน์โหลดแผนที่ในแอพฯ MAPS.ME บนอุปกรณ์ของคุณ</string>
 	<string name="carplay_roundabout_exit">ทางออกที่ %s</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">เรียง…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">เรียงบุ๊กมาร์ก</string>
+	<!-- iOS -->
+	<string name="sort_default">เรียงตามค่าเริ่มต้น</string>
+	<string name="sort_type">เรียงตามประเภท</string>
+	<string name="sort_distance">เรียงตามระยะทาง</string>
+	<string name="sort_date">เรียงตามวันที่</string>
+	<!-- Android -->
+	<string name="by_default">ตามค่าเริ่มต้น</string>
+	<!-- Android -->
+	<string name="by_type">ตามประเภท</string>
+	<!-- Android -->
+	<string name="by_distance">ตามระยะทาง</string>
+	<!-- Android -->
+	<string name="by_date">ตามวันที่</string>
+	<string name="week_ago_sorttype">สัปดาห์ที่ผ่านมา</string>
+	<string name="month_ago_sorttype">เดือนที่ผ่านมา</string>
+	<string name="moremonth_ago_sorttype">มากกว่าหนึ่งเดือนที่ผ่านมา</string>
+	<string name="moreyear_ago_sorttype">มากกว่าหนึ่งปีที่ผ่านมา</string>
+	<string name="near_me_sorttype">ใกล้ฉัน</string>
+	<string name="others_sorttype">อื่นๆ</string>
+	<string name="food_places">อาหาร</string>
+	<string name="tourist_places">ที่ท่องเที่ยว</string>
+	<string name="museums">พิพิธภัณฑ์</string>
+	<string name="parks">ที่จอดรถ</string>
+	<string name="swim_places">ว่ายน้ำ</string>
+	<string name="mountains">ภูเขา</string>
+	<string name="animals">สวนสัตว์</string>
+	<string name="hotels">โรงแรม</string>
+	<string name="buildings">สิ่งปลูกสร้าง</string>
+	<string name="money">เงิน</string>
+	<string name="shops">ร้านค้า</string>
+	<string name="parkings">ที่จอดรถ</string>
+	<string name="fuel_places">ปั๊มน้ำมัน/แก๊ส</string>
+	<string name="water">น้ำ</string>
+	<string name="medicine">ยา</string>
+	<string name="search_in_the_list">ค้นหาในรายการ</string>
+	<string name="view_on_map_bookmarks">บนแผนที่</string>
+	<string name="more_bookmarks">เพิ่มเติม…</string>
+	<string name="no_items_found">ไม่พบรายการ</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">แก้ไขรายการ</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">ลบรายการ</string>
+	<string name="whatsnew_bookmarks_search_sort_title">ลำดับในบุ๊กมาร์กทำให้การเดินทางสะดวกมากขึ้น</string>
+	<string name="whatsnew_bookmarks_search_sort_message">เรียงสถานที่โปรดตามหมวดหมู่ ตำแหน่ง และลำดับ ตลอดจนค้นหาบุ๊กมาร์กที่กำหนดอย่างรวดเร็วด้วยชื่อ</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

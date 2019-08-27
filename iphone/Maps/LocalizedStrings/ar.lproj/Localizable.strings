@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "المخرج رقم %s";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "تريتب…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "رتب العلامات المرجعية";
+
+/* iOS */
+"sort_default" = "رتب افتراضي";
+
+"sort_type" = "رتب حسب النوع";
+
+"sort_distance" = "رتب حسب المسافة";
+
+"sort_date" = "رتب حسب التاريخ";
+
+/* Android */
+"by_default" = "افتراضي";
+
+/* Android */
+"by_type" = "حسب النوع";
+
+/* Android */
+"by_distance" = "حسب المسافة";
+
+/* Android */
+"by_date" = "حسب التاريخ";
+
+"week_ago_sorttype" = "منذ أسبوع";
+
+"month_ago_sorttype" = "منذ شهر";
+
+"moremonth_ago_sorttype" = "منذ أكثر من شهر";
+
+"moreyear_ago_sorttype" = "منذ أكثر من سنة";
+
+"near_me_sorttype" = "قريب مني";
+
+"others_sorttype" = "أخرى";
+
+"food_places" = "طعام";
+
+"tourist_places" = "مشاهد";
+
+"museums" = "متاحف";
+
+"parks" = "حدائق";
+
+"swim_places" = "سباحة";
+
+"mountains" = "جبال";
+
+"animals" = "حيوانات";
+
+"hotels" = "فنادق";
+
+"buildings" = "بنايات";
+
+"money" = "نقود";
+
+"shops" = "متاجر";
+
+"parkings" = "مواقف سيارات";
+
+"fuel_places" = "محطات وقود";
+
+"water" = "ماء";
+
+"medicine" = "دواء";
+
+"search_in_the_list" = "بحث في القائمة";
+
+"view_on_map_bookmarks" = "على الخريطة";
+
+"more_bookmarks" = "المزيد…";
+
+"no_items_found" = "لم يتم العثور على عناصر";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "تحرير القائمة";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "حذف القائمة";
+
+"whatsnew_bookmarks_search_sort_title" = "ترتيب الإشارات المرجعية لرحلة مريحة";
+
+"whatsnew_bookmarks_search_sort_message" = "رتب الأماكن المفضلة حسب الفئة والموقع وترتيبها الزمني، وكذلك البحث عن إشارات مرجعية محددة بسرعة حسب اسمهم";
+
 
 /**********  Partners  **********/
 

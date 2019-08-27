@@ -1628,6 +1628,54 @@
 	<string name="speedcams_alert_title_carplay_2">Blitzerwarnung</string>
 	<string name="download_map_carplay">Laden Sie Karten in der App MAPS.ME auf Ihrem Gerät herunter</string>
 	<string name="carplay_roundabout_exit">%s Ausfahrt</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Sortieren…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Lesezeichen sortieren</string>
+	<!-- iOS -->
+	<string name="sort_default">Default Sortierung</string>
+	<string name="sort_type">Sortierung nach Kategorien</string>
+	<string name="sort_distance">Sortieren nach Entfernung</string>
+	<string name="sort_date">Sortieren nach Datum</string>
+	<!-- Android -->
+	<string name="by_default">Default</string>
+	<!-- Android -->
+	<string name="by_type">Nach Kategorie</string>
+	<!-- Android -->
+	<string name="by_distance">Nach Entfernung</string>
+	<!-- Android -->
+	<string name="by_date">Nach Datum</string>
+	<string name="week_ago_sorttype">Vor einer Woche</string>
+	<string name="month_ago_sorttype">Vor einem Monat</string>
+	<string name="moremonth_ago_sorttype">Vor über einem Monat</string>
+	<string name="moreyear_ago_sorttype">Vor über einem Jahr</string>
+	<string name="near_me_sorttype">In der Nähe</string>
+	<string name="others_sorttype">Sonstiges</string>
+	<string name="food_places">Essen</string>
+	<string name="tourist_places">Sehenswürdigkeiten</string>
+	<string name="museums">Museen</string>
+	<string name="parks">Parks</string>
+	<string name="swim_places">Schwimmmöglichkeiten</string>
+	<string name="mountains">Berge</string>
+	<string name="animals">Tiere</string>
+	<string name="hotels">Hotels</string>
+	<string name="buildings">Gebäude</string>
+	<string name="money">Geld</string>
+	<string name="shops">Ladengeschäfte</string>
+	<string name="parkings">Parkplätze</string>
+	<string name="fuel_places">Tankstellen</string>
+	<string name="water">Wasser</string>
+	<string name="medicine">Medizin</string>
+	<string name="search_in_the_list">In der Liste suchen</string>
+	<string name="view_on_map_bookmarks">Auf der Karte</string>
+	<string name="more_bookmarks">Mehr…</string>
+	<string name="no_items_found">Keine Einträge gefunden</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Korrigieren</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Liste löschen</string>
+	<string name="whatsnew_bookmarks_search_sort_title">Ordnung in den Lesezeichen – Handlichkeit während der Reise</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Sortieren Sie die gewählten Orte nach Kategorie, Hinzufügungszeit und Geolokation. Sie können Lesezeichen schnell nach Lesezeichenname suchen</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>

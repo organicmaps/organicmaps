@@ -1613,6 +1613,54 @@
 	<string name="speedcams_alert_title_carplay_2">速度警告</string>
 	<string name="download_map_carplay">あなたの機器のMAPS.MEのアプリにマップをダウンロードしてください</string>
 	<string name="carplay_roundabout_exit">第%s出口</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">並び替え中…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">ブックマークの並び替え</string>
+	<!-- iOS -->
+	<string name="sort_default">デフォルトで並び替え</string>
+	<string name="sort_type">タイプで並び替え</string>
+	<string name="sort_distance">距離で並び替え</string>
+	<string name="sort_date">日付で並び替え</string>
+	<!-- Android -->
+	<string name="by_default">デフォルトで</string>
+	<!-- Android -->
+	<string name="by_type">タイプで</string>
+	<!-- Android -->
+	<string name="by_distance">距離で</string>
+	<!-- Android -->
+	<string name="by_date">日付で</string>
+	<string name="week_ago_sorttype">1週間前</string>
+	<string name="month_ago_sorttype">1ケ月前</string>
+	<string name="moremonth_ago_sorttype">1ケ月以上前</string>
+	<string name="moreyear_ago_sorttype">1年以上前</string>
+	<string name="near_me_sorttype">近隣</string>
+	<string name="others_sorttype">その他</string>
+	<string name="food_places">食べ物</string>
+	<string name="tourist_places">観光地</string>
+	<string name="museums">博物館</string>
+	<string name="parks">公園</string>
+	<string name="swim_places">水泳</string>
+	<string name="mountains">山</string>
+	<string name="animals">動物園</string>
+	<string name="hotels">ホテル</string>
+	<string name="buildings">ビル</string>
+	<string name="money">金銭</string>
+	<string name="shops">ショップ</string>
+	<string name="parkings">駐車場</string>
+	<string name="fuel_places">ガソリンスタンド</string>
+	<string name="water">水</string>
+	<string name="medicine">医薬品</string>
+	<string name="search_in_the_list">リスト内で検索</string>
+	<string name="view_on_map_bookmarks">マップ上</string>
+	<string name="more_bookmarks">更に…</string>
+	<string name="no_items_found">何も見つかりませんでした</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">リストの編集</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">リストの削除</string>
+	<string name="whatsnew_bookmarks_search_sort_title">ブックマークの順番で快適な旅ができます</string>
+	<string name="whatsnew_bookmarks_search_sort_message">お気に入りの場所をカテゴリーや、位置、時系列順で並び替えたり、名前で素早く特定のブックマークを検索しましょう。</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "%s utgången";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Sortera…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "Sortera bokmärken";
+
+/* iOS */
+"sort_default" = "Sortera som standard";
+
+"sort_type" = "Sortera efter typ";
+
+"sort_distance" = "Sortera efter avstånd";
+
+"sort_date" = "Sortera efter datum";
+
+/* Android */
+"by_default" = "Som standard";
+
+/* Android */
+"by_type" = "Efter typ";
+
+/* Android */
+"by_distance" = "Efter avstånd";
+
+/* Android */
+"by_date" = "Efter datum";
+
+"week_ago_sorttype" = "För en vecka sedan";
+
+"month_ago_sorttype" = "För en månad sedan";
+
+"moremonth_ago_sorttype" = "För över en månad sedan";
+
+"moreyear_ago_sorttype" = "För över ett år sedan";
+
+"near_me_sorttype" = "Bredvid mig";
+
+"others_sorttype" = "Andra";
+
+"food_places" = "Mat";
+
+"tourist_places" = "Sevärdheter";
+
+"museums" = "Museer";
+
+"parks" = "Parker";
+
+"swim_places" = "Simning";
+
+"mountains" = "Berg";
+
+"animals" = "Djur";
+
+"hotels" = "Hotell";
+
+"buildings" = "Byggnader";
+
+"money" = "Pengar";
+
+"shops" = "Butiker";
+
+"parkings" = "Parkeringsplatser";
+
+"fuel_places" = "Bensinstationer";
+
+"water" = "Vatten";
+
+"medicine" = "Medicin";
+
+"search_in_the_list" = "Söka i listan";
+
+"view_on_map_bookmarks" = "På kartan";
+
+"more_bookmarks" = "Mer…";
+
+"no_items_found" = "Ingenting hittades";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "Redigera";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "Ta bort listan";
+
+"whatsnew_bookmarks_search_sort_title" = "Ordningen i bokmärken — bekvämlighet i resan";
+
+"whatsnew_bookmarks_search_sort_message" = "Sortera favoritplatser efter kategorier, tid för tilläggning och geolokation, samt hitta snabbt specifika bokmärken efter namn";
+
 
 /**********  Partners  **********/
 

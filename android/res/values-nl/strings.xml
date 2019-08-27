@@ -1615,6 +1615,54 @@
 	<string name="speedcams_alert_title_carplay_2">Over cameras</string>
 	<string name="download_map_carplay">Download kaarten in de MAPS.ME app op uw apparaat</string>
 	<string name="carplay_roundabout_exit">Afrit nr. %s</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Sorteer…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Bladwijzers sorteren</string>
+	<!-- iOS -->
+	<string name="sort_default">Standaard sorteren</string>
+	<string name="sort_type">Sorteren op type</string>
+	<string name="sort_distance">Sorteer op afstand</string>
+	<string name="sort_date">Sorteer op datum</string>
+	<!-- Android -->
+	<string name="by_default">Standaard</string>
+	<!-- Android -->
+	<string name="by_type">Op type</string>
+	<!-- Android -->
+	<string name="by_distance">Op afstand</string>
+	<!-- Android -->
+	<string name="by_date">Op datum</string>
+	<string name="week_ago_sorttype">Een week geleden</string>
+	<string name="month_ago_sorttype">Een maand geleden</string>
+	<string name="moremonth_ago_sorttype">Meer dan een maand geleden</string>
+	<string name="moreyear_ago_sorttype">Meer dan een jaar geleden</string>
+	<string name="near_me_sorttype">Naast mij</string>
+	<string name="others_sorttype">Andere</string>
+	<string name="food_places">Eten</string>
+	<string name="tourist_places">Bezienswaardigheden</string>
+	<string name="museums">Musea</string>
+	<string name="parks">Parken</string>
+	<string name="swim_places">Zwemmen</string>
+	<string name="mountains">Bergen</string>
+	<string name="animals">Dieren</string>
+	<string name="hotels">Hotels</string>
+	<string name="buildings">Gebouwen</string>
+	<string name="money">Geld</string>
+	<string name="shops">Winkels</string>
+	<string name="parkings">Parkeerplaatsen</string>
+	<string name="fuel_places">Benzinestations</string>
+	<string name="water">Water</string>
+	<string name="medicine">Geneeskunde</string>
+	<string name="search_in_the_list">In de lijst zoeken</string>
+	<string name="view_on_map_bookmarks">Op de kaart</string>
+	<string name="more_bookmarks">Meer…</string>
+	<string name="no_items_found">Niets gevonden</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Bewerken</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Lijst verwijderen</string>
+	<string name="whatsnew_bookmarks_search_sort_title">Bladwijzerts in orde om gemakkelijk te reizen</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Sorteer uw favoriete plaatsen op categorie, tijdstip van toevoegen en geolocatie, en vind ook snel specifieke bladwijzers op hun namen</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

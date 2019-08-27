@@ -1618,6 +1618,54 @@
 	<string name="speedcams_alert_title_carplay_2">Info om kameror</string>
 	<string name="download_map_carplay">Ladda ner kartor i applikation MAPS.ME på din enhet</string>
 	<string name="carplay_roundabout_exit">%s utgången</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Sortera…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Sortera bokmärken</string>
+	<!-- iOS -->
+	<string name="sort_default">Sortera som standard</string>
+	<string name="sort_type">Sortera efter typ</string>
+	<string name="sort_distance">Sortera efter avstånd</string>
+	<string name="sort_date">Sortera efter datum</string>
+	<!-- Android -->
+	<string name="by_default">Som standard</string>
+	<!-- Android -->
+	<string name="by_type">Efter typ</string>
+	<!-- Android -->
+	<string name="by_distance">Efter avstånd</string>
+	<!-- Android -->
+	<string name="by_date">Efter datum</string>
+	<string name="week_ago_sorttype">För en vecka sedan</string>
+	<string name="month_ago_sorttype">För en månad sedan</string>
+	<string name="moremonth_ago_sorttype">För över en månad sedan</string>
+	<string name="moreyear_ago_sorttype">För över ett år sedan</string>
+	<string name="near_me_sorttype">Bredvid mig</string>
+	<string name="others_sorttype">Andra</string>
+	<string name="food_places">Mat</string>
+	<string name="tourist_places">Sevärdheter</string>
+	<string name="museums">Museer</string>
+	<string name="parks">Parker</string>
+	<string name="swim_places">Simning</string>
+	<string name="mountains">Berg</string>
+	<string name="animals">Djur</string>
+	<string name="hotels">Hotell</string>
+	<string name="buildings">Byggnader</string>
+	<string name="money">Pengar</string>
+	<string name="shops">Butiker</string>
+	<string name="parkings">Parkeringsplatser</string>
+	<string name="fuel_places">Bensinstationer</string>
+	<string name="water">Vatten</string>
+	<string name="medicine">Medicin</string>
+	<string name="search_in_the_list">Söka i listan</string>
+	<string name="view_on_map_bookmarks">På kartan</string>
+	<string name="more_bookmarks">Mer…</string>
+	<string name="no_items_found">Ingenting hittades</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Redigera</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Ta bort listan</string>
+	<string name="whatsnew_bookmarks_search_sort_title">Ordningen i bokmärken — bekvämlighet i resan</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Sortera favoritplatser efter kategorier, tid för tilläggning och geolokation, samt hitta snabbt specifika bokmärken efter namn</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

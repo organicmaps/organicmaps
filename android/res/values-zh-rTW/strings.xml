@@ -1622,6 +1622,54 @@
 	<string name="speedcams_alert_title_carplay_2">攝像頭信息</string>
 	<string name="download_map_carplay">將MAPS.ME軟件中的地圖下載至個人設備中</string>
 	<string name="carplay_roundabout_exit">%s號坡道</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">分類……</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">分類標籤</string>
+	<!-- iOS -->
+	<string name="sort_default">默認排序</string>
+	<string name="sort_type">按類型排序</string>
+	<string name="sort_distance">按距離排序</string>
+	<string name="sort_date">按日期排序</string>
+	<!-- Android -->
+	<string name="by_default">默認情況下</string>
+	<!-- Android -->
+	<string name="by_type">按類型</string>
+	<!-- Android -->
+	<string name="by_distance">按距離</string>
+	<!-- Android -->
+	<string name="by_date">按時間</string>
+	<string name="week_ago_sorttype">一周前</string>
+	<string name="month_ago_sorttype">一月前</string>
+	<string name="moremonth_ago_sorttype">一個多月前</string>
+	<string name="moreyear_ago_sorttype">一年多以前</string>
+	<string name="near_me_sorttype">在我旁邊</string>
+	<string name="others_sorttype">其他</string>
+	<string name="food_places">美食</string>
+	<string name="tourist_places">名勝</string>
+	<string name="museums">博物館</string>
+	<string name="parks">公園</string>
+	<string name="swim_places">游泳</string>
+	<string name="mountains">山</string>
+	<string name="animals">動物</string>
+	<string name="hotels">酒店</string>
+	<string name="buildings">建築物</string>
+	<string name="money">貨幣</string>
+	<string name="shops">商店</string>
+	<string name="parkings">停車場</string>
+	<string name="fuel_places">加油站</string>
+	<string name="water">水</string>
+	<string name="medicine">醫療</string>
+	<string name="search_in_the_list">在列表中搜索</string>
+	<string name="view_on_map_bookmarks">在地圖上</string>
+	<string name="more_bookmarks">更多……</string>
+	<string name="no_items_found">未搜索到內容</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">編輯</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">刪除列表</string>
+	<string name="whatsnew_bookmarks_search_sort_title">標籤中的順序 – 便於旅行</string>
+	<string name="whatsnew_bookmarks_search_sort_message">請根據類別、添加時間和地理位置對您喜歡的地點進行排序，還可以按名稱快速查找具體的標籤</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">纜車站</string>

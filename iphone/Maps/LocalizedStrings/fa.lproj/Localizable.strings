@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "خروجی %s";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "مرتب سازی…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "مرتب سازی نشانهها";
+
+/* iOS */
+"sort_default" = "مرتب سازی بر اساس پیش فرض";
+
+"sort_type" = "مرتب سازی بر اساس نوع";
+
+"sort_distance" = "مرتب سازی بر اساس فاصله";
+
+"sort_date" = "مرتب سازی بر اساس تاریخ";
+
+/* Android */
+"by_default" = "به صورت پیش فرض";
+
+/* Android */
+"by_type" = "بر اساس تاریخ";
+
+/* Android */
+"by_distance" = "بر اساس فاصله";
+
+/* Android */
+"by_date" = "بر اساس تاریخ";
+
+"week_ago_sorttype" = "یک هفته قبل";
+
+"month_ago_sorttype" = "یک ماه قبل";
+
+"moremonth_ago_sorttype" = "بیش از یک ماه قبل";
+
+"moreyear_ago_sorttype" = "بیش از یک سال قبل";
+
+"near_me_sorttype" = "نزدیک من";
+
+"others_sorttype" = "دیگران";
+
+"food_places" = "غذا";
+
+"tourist_places" = "مناظر";
+
+"museums" = "موزهها";
+
+"parks" = "پارکها";
+
+"swim_places" = "شنا";
+
+"mountains" = "کوهها";
+
+"animals" = "حیوانات";
+
+"hotels" = "هتلها";
+
+"buildings" = "ساختمانها";
+
+"money" = "پول";
+
+"shops" = "مراکز خرید";
+
+"parkings" = "پارکینگها";
+
+"fuel_places" = "پمپ بنزین";
+
+"water" = "آب";
+
+"medicine" = "پزشکی";
+
+"search_in_the_list" = "جستجو در لیست";
+
+"view_on_map_bookmarks" = "روی نقشه";
+
+"more_bookmarks" = "بیشتر…";
+
+"no_items_found" = "هیچ موردی یافت نشد";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "ویرایش فهرست";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "حذف همه";
+
+"whatsnew_bookmarks_search_sort_title" = "سفارش در نشانهها سفری آسوده را رقم می زند";
+
+"whatsnew_bookmarks_search_sort_message" = "مکانهای مورد علاقه را بر اساس طبقه بندی ، موقعیت مکانی و ترتیب زمانی مرتب کنید، همچنین نشانههای خاص را به سرعت از روی نام بیابید";
+
 
 /**********  Partners  **********/
 

@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "%s έξοδος";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Ταξινόμηση";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "Ταξινόμηση σελιδοδ/τών";
+
+/* iOS */
+"sort_default" = "Ταξινόμηση κατά προεπιλογή";
+
+"sort_type" = "Ταξινόμηση ανά τύπο";
+
+"sort_distance" = "Ταξινόμηση κατά απόσταση";
+
+"sort_date" = "Ταξινόμηση κατά ημερομηνία";
+
+/* Android */
+"by_default" = "Προεπιλογή";
+
+/* Android */
+"by_type" = "Ανά τύπο";
+
+/* Android */
+"by_distance" = "Κατά απόσταση";
+
+/* Android */
+"by_date" = "Κατά ημερομηνία";
+
+"week_ago_sorttype" = "Μια βδομάδα πριν";
+
+"month_ago_sorttype" = "Ένας μήνας πριν";
+
+"moremonth_ago_sorttype" = "Περισσότερο από έναν μήνα πριν";
+
+"moreyear_ago_sorttype" = "Περισσότερο από ένα έτος πριν";
+
+"near_me_sorttype" = "Δίπλα μου";
+
+"others_sorttype" = "Άλλα";
+
+"food_places" = "Εστίαση";
+
+"tourist_places" = "Αξιοθέατα";
+
+"museums" = "Μουσεία";
+
+"parks" = "Πάρκα";
+
+"swim_places" = "Κολύμβηση";
+
+"mountains" = "Βουνά";
+
+"animals" = "Ζώα";
+
+"hotels" = "Διαμονή";
+
+"buildings" = "Κτήρια";
+
+"money" = "Χρήματα";
+
+"shops" = "Καταστήματα";
+
+"parkings" = "Χώροι στάθμευσης";
+
+"fuel_places" = "Πρατήρια βενζίνης";
+
+"water" = "Νερό";
+
+"medicine" = "Γιατρική βοήθεια";
+
+"search_in_the_list" = "Αναζήτηση στη λίστα";
+
+"view_on_map_bookmarks" = "Στον χάρτη";
+
+"more_bookmarks" = "Περισσότερα…";
+
+"no_items_found" = "Δεν βρέθηκε τίποτα";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "Επεξεργασία";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "Διαγραφή λίστας";
+
+"whatsnew_bookmarks_search_sort_title" = "Τάξη στους σελιδοδείκτες κάνει το ταξίδι άνετο";
+
+"whatsnew_bookmarks_search_sort_message" = "Ταξινόμηση των αγαπημένων σας τοποθεσιών ανά κατηγορία, ώρα προσθήκης και γεωγραφική κατανομή και γρήγορη εύρεση συγκεκριμένων σελιδοδεικτών με το όνομα";
+
 
 /**********  Partners  **********/
 

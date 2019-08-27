@@ -1614,6 +1614,54 @@
 	<string name="speedcams_alert_title_carplay_2">Nopeuskamerat</string>
 	<string name="download_map_carplay">Lataa kartat laitteesi MAPS.ME-sovelluksessa</string>
 	<string name="carplay_roundabout_exit">Poistumisramppi %s</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Järjestä…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Järjestä kirjanmerkit</string>
+	<!-- iOS -->
+	<string name="sort_default">Järjestä: oletus</string>
+	<string name="sort_type">Järjestä: tyyppi</string>
+	<string name="sort_distance">Järjestä: etäisyys</string>
+	<string name="sort_date">Järjestä: päivämäärä</string>
+	<!-- Android -->
+	<string name="by_default">Oletus</string>
+	<!-- Android -->
+	<string name="by_type">Tyyppi</string>
+	<!-- Android -->
+	<string name="by_distance">Etäisyys</string>
+	<!-- Android -->
+	<string name="by_date">Päivämäärä</string>
+	<string name="week_ago_sorttype">Viikko sitten</string>
+	<string name="month_ago_sorttype">Kuukausi sitten</string>
+	<string name="moremonth_ago_sorttype">Yli kuukausi sitten</string>
+	<string name="moreyear_ago_sorttype">Yli vuosi sitten</string>
+	<string name="near_me_sorttype">Lähelläni</string>
+	<string name="others_sorttype">Muut</string>
+	<string name="food_places">Ruoka</string>
+	<string name="tourist_places">Nähtävyydet</string>
+	<string name="museums">Museot</string>
+	<string name="parks">Puistot</string>
+	<string name="swim_places">Uiminen</string>
+	<string name="mountains">Vuoret</string>
+	<string name="animals">Eläimet</string>
+	<string name="hotels">Hotellit</string>
+	<string name="buildings">Rakennukset</string>
+	<string name="money">Raha</string>
+	<string name="shops">Kaupat</string>
+	<string name="parkings">Pysäköinti</string>
+	<string name="fuel_places">Huoltoasemat</string>
+	<string name="water">Vesi</string>
+	<string name="medicine">Apteekki</string>
+	<string name="search_in_the_list">Etsi listalta</string>
+	<string name="view_on_map_bookmarks">Kartalla</string>
+	<string name="more_bookmarks">Lisää…</string>
+	<string name="no_items_found">Kohteita ei löytynyt</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Muokkaa listaa</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Poista lista</string>
+	<string name="whatsnew_bookmarks_search_sort_title">Järjestellyt kirjanmerkit tekevät matkailusta mukavampaa</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Järjestä suosikkipaikkasi kategorian, sijainnin tai kronologisen järjestyksen mukaan ja etsi kirjanmerkkejä nopeasti nimen perusteella</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

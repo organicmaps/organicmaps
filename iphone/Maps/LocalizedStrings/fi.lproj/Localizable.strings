@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "Poistumisramppi %s";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Järjestä…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "Järjestä kirjanmerkit";
+
+/* iOS */
+"sort_default" = "Järjestä: oletus";
+
+"sort_type" = "Järjestä: tyyppi";
+
+"sort_distance" = "Järjestä: etäisyys";
+
+"sort_date" = "Järjestä: päivämäärä";
+
+/* Android */
+"by_default" = "Oletus";
+
+/* Android */
+"by_type" = "Tyyppi";
+
+/* Android */
+"by_distance" = "Etäisyys";
+
+/* Android */
+"by_date" = "Päivämäärä";
+
+"week_ago_sorttype" = "Viikko sitten";
+
+"month_ago_sorttype" = "Kuukausi sitten";
+
+"moremonth_ago_sorttype" = "Yli kuukausi sitten";
+
+"moreyear_ago_sorttype" = "Yli vuosi sitten";
+
+"near_me_sorttype" = "Lähelläni";
+
+"others_sorttype" = "Muut";
+
+"food_places" = "Ruoka";
+
+"tourist_places" = "Nähtävyydet";
+
+"museums" = "Museot";
+
+"parks" = "Puistot";
+
+"swim_places" = "Uiminen";
+
+"mountains" = "Vuoret";
+
+"animals" = "Eläimet";
+
+"hotels" = "Hotellit";
+
+"buildings" = "Rakennukset";
+
+"money" = "Raha";
+
+"shops" = "Kaupat";
+
+"parkings" = "Pysäköinti";
+
+"fuel_places" = "Huoltoasemat";
+
+"water" = "Vesi";
+
+"medicine" = "Apteekki";
+
+"search_in_the_list" = "Etsi listalta";
+
+"view_on_map_bookmarks" = "Kartalla";
+
+"more_bookmarks" = "Lisää…";
+
+"no_items_found" = "Kohteita ei löytynyt";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "Muokkaa listaa";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "Poista lista";
+
+"whatsnew_bookmarks_search_sort_title" = "Järjestellyt kirjanmerkit tekevät matkailusta mukavampaa";
+
+"whatsnew_bookmarks_search_sort_message" = "Järjestä suosikkipaikkasi kategorian, sijainnin tai kronologisen järjestyksen mukaan ja etsi kirjanmerkkejä nopeasti nimen perusteella";
+
 
 /**********  Partners  **********/
 

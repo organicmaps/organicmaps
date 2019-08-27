@@ -1620,6 +1620,54 @@
 	<string name="speedcams_alert_title_carplay_2">Інфо о камерах</string>
 	<string name="download_map_carplay">Завантажте карти в додатку MAPS.ME на своєму пристрої</string>
 	<string name="carplay_roundabout_exit">%s з’їзд</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Сортувати</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Сортувати мітки</string>
+	<!-- iOS -->
+	<string name="sort_default">Сортувати за промовчанням</string>
+	<string name="sort_type">Сортувати за типом</string>
+	<string name="sort_distance">Сортувати за відстанню</string>
+	<string name="sort_date">Сортувати за датою</string>
+	<!-- Android -->
+	<string name="by_default">За промовчанням</string>
+	<!-- Android -->
+	<string name="by_type">За типом</string>
+	<!-- Android -->
+	<string name="by_distance">За відстанню</string>
+	<!-- Android -->
+	<string name="by_date">За датою</string>
+	<string name="week_ago_sorttype">Тиждень тому</string>
+	<string name="month_ago_sorttype">Місяць тому</string>
+	<string name="moremonth_ago_sorttype">Понад місяць тому</string>
+	<string name="moreyear_ago_sorttype">Понад рік тому</string>
+	<string name="near_me_sorttype">Поруч зі мною</string>
+	<string name="others_sorttype">Інші</string>
+	<string name="food_places">Їжа</string>
+	<string name="tourist_places">Пам’ятки</string>
+	<string name="museums">Музеї</string>
+	<string name="parks">Парки</string>
+	<string name="swim_places">Плавання</string>
+	<string name="mountains">Гори</string>
+	<string name="animals">Тварини</string>
+	<string name="hotels">Готелі</string>
+	<string name="buildings">Будівлі</string>
+	<string name="money">Гроші</string>
+	<string name="shops">Магазини</string>
+	<string name="parkings">Парковки</string>
+	<string name="fuel_places">Заправки</string>
+	<string name="water">Вода</string>
+	<string name="medicine">Медицина</string>
+	<string name="search_in_the_list">Шукати в списку</string>
+	<string name="view_on_map_bookmarks">На карті</string>
+	<string name="more_bookmarks">Ще…</string>
+	<string name="no_items_found">Нічого не знайдено</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Редагувати</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Видалити список</string>
+	<string name="whatsnew_bookmarks_search_sort_title">Порядок у мітках — зручність під час подорожі</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Сортуйте обрані місця за категоріями, часом завантаження та геолокацією, а також швидко знаходьте конкретні мітки за назвою</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

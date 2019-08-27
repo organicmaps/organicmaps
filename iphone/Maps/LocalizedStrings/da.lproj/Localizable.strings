@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "%s exit";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Sort…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "Sort (bookmaarks)";
+
+/* iOS */
+"sort_default" = "Sortér (std)";
+
+"sort_type" = "Sort (type)";
+
+"sort_distance" = "Sort (Afs)";
+
+"sort_date" = "Sort (dato)";
+
+/* Android */
+"by_default" = "Som standard";
+
+/* Android */
+"by_type" = "Efter type";
+
+/* Android */
+"by_distance" = "Efter afstand";
+
+/* Android */
+"by_date" = "Efter dato";
+
+"week_ago_sorttype" = "En uge siden";
+
+"month_ago_sorttype" = "En måned siden";
+
+"moremonth_ago_sorttype" = "Mere end en måned siden";
+
+"moreyear_ago_sorttype" = "Mere end et år siden";
+
+"near_me_sorttype" = "I nærheden";
+
+"others_sorttype" = "Andre";
+
+"food_places" = "Mad";
+
+"tourist_places" = "Seværdigheder";
+
+"museums" = "Museer";
+
+"parks" = "Parker";
+
+"swim_places" = "Svøm";
+
+"mountains" = "Bjerge";
+
+"animals" = "Dyr";
+
+"hotels" = "Hoteller";
+
+"buildings" = "Bygninger";
+
+"money" = "Penge";
+
+"shops" = "Butikker";
+
+"parkings" = "Parkering";
+
+"fuel_places" = "Benzintankstationer";
+
+"water" = "Vand";
+
+"medicine" = "Medicin";
+
+"search_in_the_list" = "Søg i listen";
+
+"view_on_map_bookmarks" = "På kort";
+
+"more_bookmarks" = "Mere…";
+
+"no_items_found" = "Der blev ikke fundet nogen elementer";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "Redigér liste";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "Slet liste";
+
+"whatsnew_bookmarks_search_sort_title" = "Rækkefølgen i bookmarks gør en rejse behagelig";
+
+"whatsnew_bookmarks_search_sort_message" = "Sortere favoritsteder efter kategori, placering og rækkefølge, samt finde specifikke bogmærker hurtigt, efter deres navn";
+
 
 /**********  Partners  **********/
 

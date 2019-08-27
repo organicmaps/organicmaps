@@ -1619,6 +1619,54 @@
 	<string name="speedcams_alert_title_carplay_2">تحذير سريع</string>
 	<string name="download_map_carplay">يُرجى تحميل الخرائط في تطبيق MAPS.ME على جهازك</string>
 	<string name="carplay_roundabout_exit">المخرج رقم %s</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">تريتب…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">رتب العلامات المرجعية</string>
+	<!-- iOS -->
+	<string name="sort_default">رتب افتراضي</string>
+	<string name="sort_type">رتب حسب النوع</string>
+	<string name="sort_distance">رتب حسب المسافة</string>
+	<string name="sort_date">رتب حسب التاريخ</string>
+	<!-- Android -->
+	<string name="by_default">افتراضي</string>
+	<!-- Android -->
+	<string name="by_type">حسب النوع</string>
+	<!-- Android -->
+	<string name="by_distance">حسب المسافة</string>
+	<!-- Android -->
+	<string name="by_date">حسب التاريخ</string>
+	<string name="week_ago_sorttype">منذ أسبوع</string>
+	<string name="month_ago_sorttype">منذ شهر</string>
+	<string name="moremonth_ago_sorttype">منذ أكثر من شهر</string>
+	<string name="moreyear_ago_sorttype">منذ أكثر من سنة</string>
+	<string name="near_me_sorttype">قريب مني</string>
+	<string name="others_sorttype">أخرى</string>
+	<string name="food_places">طعام</string>
+	<string name="tourist_places">مشاهد</string>
+	<string name="museums">متاحف</string>
+	<string name="parks">حدائق</string>
+	<string name="swim_places">سباحة</string>
+	<string name="mountains">جبال</string>
+	<string name="animals">حيوانات</string>
+	<string name="hotels">فنادق</string>
+	<string name="buildings">بنايات</string>
+	<string name="money">نقود</string>
+	<string name="shops">متاجر</string>
+	<string name="parkings">مواقف سيارات</string>
+	<string name="fuel_places">محطات وقود</string>
+	<string name="water">ماء</string>
+	<string name="medicine">دواء</string>
+	<string name="search_in_the_list">بحث في القائمة</string>
+	<string name="view_on_map_bookmarks">على الخريطة</string>
+	<string name="more_bookmarks">المزيد…</string>
+	<string name="no_items_found">لم يتم العثور على عناصر</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">تحرير القائمة</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">حذف القائمة</string>
+	<string name="whatsnew_bookmarks_search_sort_title">ترتيب الإشارات المرجعية لرحلة مريحة</string>
+	<string name="whatsnew_bookmarks_search_sort_message">رتب الأماكن المفضلة حسب الفئة والموقع وترتيبها الزمني، وكذلك البحث عن إشارات مرجعية محددة بسرعة حسب اسمهم</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

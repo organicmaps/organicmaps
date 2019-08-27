@@ -1609,6 +1609,54 @@
 	<string name="speedcams_alert_title_carplay_2">속도단속 카메라</string>
 	<string name="download_map_carplay">MAPS.ME 앱 안의 지도들을 디바이스에 다운로드하세요</string>
 	<string name="carplay_roundabout_exit">%s번 출구</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">분류…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">북마크 분류하기</string>
+	<!-- iOS -->
+	<string name="sort_default">기본 값으로 분류</string>
+	<string name="sort_type">유형으로 분류</string>
+	<string name="sort_distance">거리로 분류</string>
+	<string name="sort_date">날짜로 분류</string>
+	<!-- Android -->
+	<string name="by_default">기본 값</string>
+	<!-- Android -->
+	<string name="by_type">유형 별</string>
+	<!-- Android -->
+	<string name="by_distance">거리 별</string>
+	<!-- Android -->
+	<string name="by_date">날짜 별</string>
+	<string name="week_ago_sorttype">일주일 전</string>
+	<string name="month_ago_sorttype">한달 전</string>
+	<string name="moremonth_ago_sorttype">한달 그 이상 전</string>
+	<string name="moreyear_ago_sorttype">1년 그 이상 전</string>
+	<string name="near_me_sorttype">나와 가까운 곳</string>
+	<string name="others_sorttype">기타</string>
+	<string name="food_places">음식</string>
+	<string name="tourist_places">명소</string>
+	<string name="museums">박물관</string>
+	<string name="parks">공원</string>
+	<string name="swim_places">수영</string>
+	<string name="mountains">산</string>
+	<string name="animals">동물원</string>
+	<string name="hotels">호텔</string>
+	<string name="buildings">빌딩</string>
+	<string name="money">돈</string>
+	<string name="shops">상점</string>
+	<string name="parkings">주차장</string>
+	<string name="fuel_places">주유소</string>
+	<string name="water">물</string>
+	<string name="medicine">의료</string>
+	<string name="search_in_the_list">리스트에서 검색</string>
+	<string name="view_on_map_bookmarks">맵에서</string>
+	<string name="more_bookmarks">더…</string>
+	<string name="no_items_found">발견 없음</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">리스트 수정</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">리스트 삭제</string>
+	<string name="whatsnew_bookmarks_search_sort_title">북마크를 정리하시고 편안한 여행되세요</string>
+	<string name="whatsnew_bookmarks_search_sort_message">카테고리, 위치, 추가한 시간대 별로 좋아하는 장소를 분류하세요. 이름으로 특정한 북마크를 빠르게 찾으실 수도 있습니다</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">케이블카 역</string>

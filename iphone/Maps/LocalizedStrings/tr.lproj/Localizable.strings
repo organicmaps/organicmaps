@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "%s çıkış";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Sırala…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "Yer imlerini sırala";
+
+/* iOS */
+"sort_default" = "Varsayılana göre sırala";
+
+"sort_type" = "Türe göre sırala";
+
+"sort_distance" = "Mesafeye göre sırala";
+
+"sort_date" = "Tarihe göre sırala";
+
+/* Android */
+"by_default" = "Varsayılana göre";
+
+/* Android */
+"by_type" = "Türe göre";
+
+/* Android */
+"by_distance" = "Mesafeye göre";
+
+/* Android */
+"by_date" = "Tarihe göre";
+
+"week_ago_sorttype" = "Bir hafta önce";
+
+"month_ago_sorttype" = "Bir ay önce";
+
+"moremonth_ago_sorttype" = "Bir aydan daha önce";
+
+"moreyear_ago_sorttype" = "Bir yıldan daha önce";
+
+"near_me_sorttype" = "Bana yakın";
+
+"others_sorttype" = "Diğerleri";
+
+"food_places" = "Yiyecek";
+
+"tourist_places" = "Görülecek yerler";
+
+"museums" = "Müzeler";
+
+"parks" = "Parklar";
+
+"swim_places" = "Yüzme";
+
+"mountains" = "Dağlar";
+
+"animals" = "Hayvanlar";
+
+"hotels" = "Oteller";
+
+"buildings" = "Binalar";
+
+"money" = "Para";
+
+"shops" = "Mağazalar";
+
+"parkings" = "Otoparklar";
+
+"fuel_places" = "Benzin istasyonları";
+
+"water" = "Su";
+
+"medicine" = "İlaç";
+
+"search_in_the_list" = "Listede ara";
+
+"view_on_map_bookmarks" = "Haritada";
+
+"more_bookmarks" = "Daha fazla…";
+
+"no_items_found" = "Hiç bir öğe bulunamadı";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "Listeyi düzenle";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "Listeyi sil";
+
+"whatsnew_bookmarks_search_sort_title" = "Yer imlerine göre sıralamak yolculuğunuzu rahatlaştırır";
+
+"whatsnew_bookmarks_search_sort_message" = "Favori yerleri kategori, konum ve kronolojik sıraya göre sıralayın ve belirli yer imlerini isimleriyle hızlı bir şekilde bulun";
+
 
 /**********  Partners  **********/
 

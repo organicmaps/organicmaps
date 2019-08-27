@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "%s zjazd";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Sortuj…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "Sortuj znaczniki";
+
+/* iOS */
+"sort_default" = "Sortuj domyślnie";
+
+"sort_type" = "Sortuj wg rodzaju";
+
+"sort_distance" = "Sortuj wg odległości";
+
+"sort_date" = "Sortuj wg daty";
+
+/* Android */
+"by_default" = "Domyślnie";
+
+/* Android */
+"by_type" = "Wg rodzaju";
+
+/* Android */
+"by_distance" = "Wg odległości";
+
+/* Android */
+"by_date" = "Wg daty";
+
+"week_ago_sorttype" = "Tydzień wstecz";
+
+"month_ago_sorttype" = "Miesiąc wstecz";
+
+"moremonth_ago_sorttype" = "Ponad miesiąc wstecz";
+
+"moreyear_ago_sorttype" = "Ponad rok wstecz";
+
+"near_me_sorttype" = "Obok mnie";
+
+"others_sorttype" = "Inne";
+
+"food_places" = "Jedzenie";
+
+"tourist_places" = "Zabytki";
+
+"museums" = "Muzea";
+
+"parks" = "Parki";
+
+"swim_places" = "Pływanie";
+
+"mountains" = "Góry";
+
+"animals" = "Zwierzęta";
+
+"hotels" = "Hotele";
+
+"buildings" = "Budynki";
+
+"money" = "Pieniądze";
+
+"shops" = "Sklepy";
+
+"parkings" = "Parkingi";
+
+"fuel_places" = "Stacje paliw";
+
+"water" = "Woda";
+
+"medicine" = "Lecznictwo";
+
+"search_in_the_list" = "Wyszukaj na liście";
+
+"view_on_map_bookmarks" = "Na mapie";
+
+"more_bookmarks" = "Więcej…";
+
+"no_items_found" = "Brak wyników";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "Redaguj";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "Usuń listę";
+
+"whatsnew_bookmarks_search_sort_title" = "Porządek w znacznikach — wygoda w podróży";
+
+"whatsnew_bookmarks_search_sort_message" = "Sortuj ulubione miejsca wg kategorii, czasu dodania i geolokalizacji, również szybko wyszukaj konkretne znaczniki wg nazwy";
+
 
 /**********  Partners  **********/
 

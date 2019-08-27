@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "Lối ra %s của vòng xuyến";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Sắp xếp…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "Sắp xếp dấu trang";
+
+/* iOS */
+"sort_default" = "Sắp xếp theo mặc định";
+
+"sort_type" = "Sắp xếp theo kiểu";
+
+"sort_distance" = "Sắp xếp theo khoảng cách";
+
+"sort_date" = "Sắp xếp theo ngày";
+
+/* Android */
+"by_default" = "Theo mặc định";
+
+/* Android */
+"by_type" = "Theo kiểu";
+
+/* Android */
+"by_distance" = "Theo khoảng cách";
+
+/* Android */
+"by_date" = "Theo ngày";
+
+"week_ago_sorttype" = "Tuần trước";
+
+"month_ago_sorttype" = "Tháng trước";
+
+"moremonth_ago_sorttype" = "Hơn một tháng trước";
+
+"moreyear_ago_sorttype" = "Hơn một năm trước";
+
+"near_me_sorttype" = "Ở gần tôi";
+
+"others_sorttype" = "Khác";
+
+"food_places" = "Đồ ăn";
+
+"tourist_places" = "Danh lam thắng cảnh";
+
+"museums" = "Bảo tàng";
+
+"parks" = "Công viên";
+
+"swim_places" = "Bơi lội";
+
+"mountains" = "Núi non";
+
+"animals" = "Động vật";
+
+"hotels" = "Khách sạn";
+
+"buildings" = "Tòa nhà";
+
+"money" = "Tiền";
+
+"shops" = "Cửa hàng";
+
+"parkings" = "Bãi đậu xe";
+
+"fuel_places" = "Trạm xăng dầu";
+
+"water" = "Nước";
+
+"medicine" = "Y tế";
+
+"search_in_the_list" = "Tìm trong danh sách";
+
+"view_on_map_bookmarks" = "Trên bản đồ";
+
+"more_bookmarks" = "Thêm…";
+
+"no_items_found" = "Không tìm thấy gì cả";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "Chỉnh sửa";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "Xóa dánh sách";
+
+"whatsnew_bookmarks_search_sort_title" = "Trật tự trong các dấu trang – đó là sự tiện nghi, thoải mái cho chuyến du lịch";
+
+"whatsnew_bookmarks_search_sort_message" = "Hãy sắp xếp các địa điểm yêu thích theo thể loại, thời gian thêm vào và vị trí địa lý, đồng thời bạn cũng sẽ nhanh chóng tìm thấy các dấu trang cụ thể theo tên gọi";
+
 
 /**********  Partners  **********/
 

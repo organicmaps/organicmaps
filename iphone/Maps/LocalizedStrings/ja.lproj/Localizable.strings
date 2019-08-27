@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "第%s出口";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "並び替え中…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "ブックマークの並び替え";
+
+/* iOS */
+"sort_default" = "デフォルトで並び替え";
+
+"sort_type" = "タイプで並び替え";
+
+"sort_distance" = "距離で並び替え";
+
+"sort_date" = "日付で並び替え";
+
+/* Android */
+"by_default" = "デフォルトで";
+
+/* Android */
+"by_type" = "タイプで";
+
+/* Android */
+"by_distance" = "距離で";
+
+/* Android */
+"by_date" = "日付で";
+
+"week_ago_sorttype" = "1週間前";
+
+"month_ago_sorttype" = "1ケ月前";
+
+"moremonth_ago_sorttype" = "1ケ月以上前";
+
+"moreyear_ago_sorttype" = "1年以上前";
+
+"near_me_sorttype" = "近隣";
+
+"others_sorttype" = "その他";
+
+"food_places" = "食べ物";
+
+"tourist_places" = "観光地";
+
+"museums" = "博物館";
+
+"parks" = "公園";
+
+"swim_places" = "水泳";
+
+"mountains" = "山";
+
+"animals" = "動物園";
+
+"hotels" = "ホテル";
+
+"buildings" = "ビル";
+
+"money" = "金銭";
+
+"shops" = "ショップ";
+
+"parkings" = "駐車場";
+
+"fuel_places" = "ガソリンスタンド";
+
+"water" = "水";
+
+"medicine" = "医薬品";
+
+"search_in_the_list" = "リスト内で検索";
+
+"view_on_map_bookmarks" = "マップ上";
+
+"more_bookmarks" = "更に…";
+
+"no_items_found" = "何も見つかりませんでした";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "リストの編集";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "リストの削除";
+
+"whatsnew_bookmarks_search_sort_title" = "ブックマークの順番で快適な旅ができます";
+
+"whatsnew_bookmarks_search_sort_message" = "お気に入りの場所をカテゴリーや、位置、時系列順で並び替えたり、名前で素早く特定のブックマークを検索しましょう。";
+
 
 /**********  Partners  **********/
 

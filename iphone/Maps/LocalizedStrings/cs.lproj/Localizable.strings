@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "%s výjezd";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Třídit…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "Třídit záložky";
+
+/* iOS */
+"sort_default" = "Třídit ve výchozím nastavení";
+
+"sort_type" = "Třídit dle typu";
+
+"sort_distance" = "Třídit dle vzdálenosti";
+
+"sort_date" = "Třídit dle data";
+
+/* Android */
+"by_default" = "Podle výchozího stavu";
+
+/* Android */
+"by_type" = "Podle typu";
+
+/* Android */
+"by_distance" = "Podle vzdálenosti";
+
+/* Android */
+"by_date" = "Podle data";
+
+"week_ago_sorttype" = "Před týdnem";
+
+"month_ago_sorttype" = "Před měsícem";
+
+"moremonth_ago_sorttype" = "Více než před měsícem";
+
+"moreyear_ago_sorttype" = "Více než před rokem";
+
+"near_me_sorttype" = "Blízko mě";
+
+"others_sorttype" = "Ostatní";
+
+"food_places" = "Jídlo";
+
+"tourist_places" = "Památky";
+
+"museums" = "Muzea";
+
+"parks" = "Parky";
+
+"swim_places" = "Plavat";
+
+"mountains" = "Hory";
+
+"animals" = "Zvířata";
+
+"hotels" = "Hotely";
+
+"buildings" = "Budovy";
+
+"money" = "Peníze";
+
+"shops" = "Obchody";
+
+"parkings" = "Parkoviště";
+
+"fuel_places" = "Čerpací stanice";
+
+"water" = "Voda";
+
+"medicine" = "Medicína";
+
+"search_in_the_list" = "Vyhledat v seznamu";
+
+"view_on_map_bookmarks" = "Na mapě";
+
+"more_bookmarks" = "Více…";
+
+"no_items_found" = "Nebyly nalezeny žádné položky";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "Upravit seznam";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "Odstranit seznam";
+
+"whatsnew_bookmarks_search_sort_title" = "Pořadí v záložkách tvoří pohodlnou cestu";
+
+"whatsnew_bookmarks_search_sort_message" = "Seřaďte oblíbená místa podle kategorie, umístění a chronologického pořadí a také rychle najděte konkrétní záložky podle jejich názvu";
+
 
 /**********  Partners  **********/
 

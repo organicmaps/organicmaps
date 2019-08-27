@@ -1629,6 +1629,54 @@
 	<string name="speedcams_alert_title_carplay_2">Info Caméras</string>
 	<string name="download_map_carplay">Téléchargez des cartes dans l\'application MAPS.ME sur votre appareil</string>
 	<string name="carplay_roundabout_exit">%s sortie</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Trier…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Trier les signets</string>
+	<!-- iOS -->
+	<string name="sort_default">Trier par défaut</string>
+	<string name="sort_type">Trier par type</string>
+	<string name="sort_distance">Trier par distance</string>
+	<string name="sort_date">Classer pa date</string>
+	<!-- Android -->
+	<string name="by_default">Par défaut</string>
+	<!-- Android -->
+	<string name="by_type">Par type</string>
+	<!-- Android -->
+	<string name="by_distance">Par distance</string>
+	<!-- Android -->
+	<string name="by_date">Par date</string>
+	<string name="week_ago_sorttype">Il y a une semaine</string>
+	<string name="month_ago_sorttype">Il y a un mois</string>
+	<string name="moremonth_ago_sorttype">Il y a plus d\'un mois</string>
+	<string name="moreyear_ago_sorttype">Il y a plus d\'un an</string>
+	<string name="near_me_sorttype">Près de moi</string>
+	<string name="others_sorttype">Autres</string>
+	<string name="food_places">Aliments</string>
+	<string name="tourist_places">Choses à voir</string>
+	<string name="museums">Musées</string>
+	<string name="parks">Parcs</string>
+	<string name="swim_places">Natation</string>
+	<string name="mountains">Montagnes</string>
+	<string name="animals">Animaux</string>
+	<string name="hotels">Hotels</string>
+	<string name="buildings">Batiments</string>
+	<string name="money">Argent</string>
+	<string name="shops">Magasins</string>
+	<string name="parkings">Parkings</string>
+	<string name="fuel_places">Stations d\'essence</string>
+	<string name="water">Eau</string>
+	<string name="medicine">Médicament</string>
+	<string name="search_in_the_list">Chercher dans la liste</string>
+	<string name="view_on_map_bookmarks">Sur plan</string>
+	<string name="more_bookmarks">Plus…</string>
+	<string name="no_items_found">Aucun article trouvé</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Modifier la liste</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Supprimer la liste</string>
+	<string name="whatsnew_bookmarks_search_sort_title">Commander dans les signets rend un voyage confortable</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Triez les endroits préférés par catégorie, emplacement et ordre chronologique, ainsi que trouver rapidement des signets spécifiques par leur nom</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

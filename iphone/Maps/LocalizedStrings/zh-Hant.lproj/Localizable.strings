@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "%s號坡道";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "分類……";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "分類標籤";
+
+/* iOS */
+"sort_default" = "默認排序";
+
+"sort_type" = "按類型排序";
+
+"sort_distance" = "按距離排序";
+
+"sort_date" = "按日期排序";
+
+/* Android */
+"by_default" = "默認情況下";
+
+/* Android */
+"by_type" = "按類型";
+
+/* Android */
+"by_distance" = "按距離";
+
+/* Android */
+"by_date" = "按時間";
+
+"week_ago_sorttype" = "一周前";
+
+"month_ago_sorttype" = "一月前";
+
+"moremonth_ago_sorttype" = "一個多月前";
+
+"moreyear_ago_sorttype" = "一年多以前";
+
+"near_me_sorttype" = "在我旁邊";
+
+"others_sorttype" = "其他";
+
+"food_places" = "美食";
+
+"tourist_places" = "名勝";
+
+"museums" = "博物館";
+
+"parks" = "公園";
+
+"swim_places" = "游泳";
+
+"mountains" = "山";
+
+"animals" = "動物";
+
+"hotels" = "酒店";
+
+"buildings" = "建築物";
+
+"money" = "貨幣";
+
+"shops" = "商店";
+
+"parkings" = "停車場";
+
+"fuel_places" = "加油站";
+
+"water" = "水";
+
+"medicine" = "醫療";
+
+"search_in_the_list" = "在列表中搜索";
+
+"view_on_map_bookmarks" = "在地圖上";
+
+"more_bookmarks" = "更多……";
+
+"no_items_found" = "未搜索到內容";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "編輯";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "刪除列表";
+
+"whatsnew_bookmarks_search_sort_title" = "標籤中的順序 – 便於旅行";
+
+"whatsnew_bookmarks_search_sort_message" = "請根據類別、添加時間和地理位置對您喜歡的地點進行排序，還可以按名稱快速查找具體的標籤";
+
 
 /**********  Partners  **********/
 

@@ -1619,6 +1619,54 @@
 	<string name="speedcams_alert_title_carplay_2">Rýchl. upozorn.</string>
 	<string name="download_map_carplay">Prosím stiahnite si mapy v aplikácii MAPS.ME vo vašom zariadení</string>
 	<string name="carplay_roundabout_exit">%s výjazd</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Zoradiť…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Zoradiť záložky</string>
+	<!-- iOS -->
+	<string name="sort_default">Zoradiť Predvolené</string>
+	<string name="sort_type">Zoradiť podľa typu</string>
+	<string name="sort_distance">Zoradiť podľa vzdialenosti</string>
+	<string name="sort_date">Zoradiť podľa dátumu</string>
+	<!-- Android -->
+	<string name="by_default">Podľa predvoleného</string>
+	<!-- Android -->
+	<string name="by_type">Podľa typu</string>
+	<!-- Android -->
+	<string name="by_distance">Podľa vzdialenosti</string>
+	<!-- Android -->
+	<string name="by_date">Podľa dátumu</string>
+	<string name="week_ago_sorttype">Pred týždňom</string>
+	<string name="month_ago_sorttype">Pred mesiacom</string>
+	<string name="moremonth_ago_sorttype">Pred viac ako mesiacom</string>
+	<string name="moreyear_ago_sorttype">Pred viac ako rokom</string>
+	<string name="near_me_sorttype">Blízko mňa</string>
+	<string name="others_sorttype">Iné</string>
+	<string name="food_places">Jedlo</string>
+	<string name="tourist_places">Pamiatky</string>
+	<string name="museums">Múzeá</string>
+	<string name="parks">Parky</string>
+	<string name="swim_places">Plávanie</string>
+	<string name="mountains">Hory</string>
+	<string name="animals">Zvieratá</string>
+	<string name="hotels">Hotely</string>
+	<string name="buildings">Budovy</string>
+	<string name="money">Peniaze</string>
+	<string name="shops">Obchody</string>
+	<string name="parkings">Parkovanie</string>
+	<string name="fuel_places">Čerpacie stanice</string>
+	<string name="water">Voda</string>
+	<string name="medicine">Medicína</string>
+	<string name="search_in_the_list">Vyhľadať v zozname</string>
+	<string name="view_on_map_bookmarks">Na mape</string>
+	<string name="more_bookmarks">Viac…</string>
+	<string name="no_items_found">Žiadne položky nenájdené</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Upraviť zoznam</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Vymazať zoznam</string>
+	<string name="whatsnew_bookmarks_search_sort_title">Poradie v záložkách umožňuje pohodlnú cestu</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Zoraďte obľúbené miesta podľa kategórie, umiestnenia a chronologického poradia a rýchlo vyhľadajte konkrétne záložky podľa ich názvu</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

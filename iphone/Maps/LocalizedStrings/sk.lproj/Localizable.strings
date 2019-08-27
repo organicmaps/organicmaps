@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "%s výjazd";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Zoradiť…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "Zoradiť záložky";
+
+/* iOS */
+"sort_default" = "Zoradiť Predvolené";
+
+"sort_type" = "Zoradiť podľa typu";
+
+"sort_distance" = "Zoradiť podľa vzdialenosti";
+
+"sort_date" = "Zoradiť podľa dátumu";
+
+/* Android */
+"by_default" = "Podľa predvoleného";
+
+/* Android */
+"by_type" = "Podľa typu";
+
+/* Android */
+"by_distance" = "Podľa vzdialenosti";
+
+/* Android */
+"by_date" = "Podľa dátumu";
+
+"week_ago_sorttype" = "Pred týždňom";
+
+"month_ago_sorttype" = "Pred mesiacom";
+
+"moremonth_ago_sorttype" = "Pred viac ako mesiacom";
+
+"moreyear_ago_sorttype" = "Pred viac ako rokom";
+
+"near_me_sorttype" = "Blízko mňa";
+
+"others_sorttype" = "Iné";
+
+"food_places" = "Jedlo";
+
+"tourist_places" = "Pamiatky";
+
+"museums" = "Múzeá";
+
+"parks" = "Parky";
+
+"swim_places" = "Plávanie";
+
+"mountains" = "Hory";
+
+"animals" = "Zvieratá";
+
+"hotels" = "Hotely";
+
+"buildings" = "Budovy";
+
+"money" = "Peniaze";
+
+"shops" = "Obchody";
+
+"parkings" = "Parkovanie";
+
+"fuel_places" = "Čerpacie stanice";
+
+"water" = "Voda";
+
+"medicine" = "Medicína";
+
+"search_in_the_list" = "Vyhľadať v zozname";
+
+"view_on_map_bookmarks" = "Na mape";
+
+"more_bookmarks" = "Viac…";
+
+"no_items_found" = "Žiadne položky nenájdené";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "Upraviť zoznam";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "Vymazať zoznam";
+
+"whatsnew_bookmarks_search_sort_title" = "Poradie v záložkách umožňuje pohodlnú cestu";
+
+"whatsnew_bookmarks_search_sort_message" = "Zoraďte obľúbené miesta podľa kategórie, umiestnenia a chronologického poradia a rýchlo vyhľadajte konkrétne záložky podľa ich názvu";
+
 
 /**********  Partners  **********/
 

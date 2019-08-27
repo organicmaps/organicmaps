@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "%s kijárat";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Rendezd…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "Könyvelzők rendezése";
+
+/* iOS */
+"sort_default" = "Alapértelmezés szerint";
+
+"sort_type" = "Típus szerint";
+
+"sort_distance" = "Távolság szerint";
+
+"sort_date" = "Dátum szerint";
+
+/* Android */
+"by_default" = "Alapértelmezés szerint";
+
+/* Android */
+"by_type" = "Típus szerint";
+
+/* Android */
+"by_distance" = "Távolság szerint";
+
+/* Android */
+"by_date" = "Dátum szerint";
+
+"week_ago_sorttype" = "Egy hete";
+
+"month_ago_sorttype" = "Egy hónapja";
+
+"moremonth_ago_sorttype" = "Több mint egy hónapja";
+
+"moreyear_ago_sorttype" = "Több mint egy éve";
+
+"near_me_sorttype" = "Hozzám közel";
+
+"others_sorttype" = "Más";
+
+"food_places" = "Étel";
+
+"tourist_places" = "Látnivalók";
+
+"museums" = "Múzeumok";
+
+"parks" = "Parkok";
+
+"swim_places" = "Úszás";
+
+"mountains" = "Hegyek";
+
+"animals" = "Állatok";
+
+"hotels" = "Hotelek";
+
+"buildings" = "Épületek";
+
+"money" = "Pénz";
+
+"shops" = "Üzletek";
+
+"parkings" = "Parkolók";
+
+"fuel_places" = "Benzinkutak";
+
+"water" = "Víz";
+
+"medicine" = "Gyógyszer";
+
+"search_in_the_list" = "Keresés a listában";
+
+"view_on_map_bookmarks" = "Térképen";
+
+"more_bookmarks" = "Továbbiak…";
+
+"no_items_found" = "Nincs találat";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "Lista szerkesztése";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "Lista törlése";
+
+"whatsnew_bookmarks_search_sort_title" = "A könyvjelzők rendezése kényelmes utazást tesz lehetővé";
+
+"whatsnew_bookmarks_search_sort_message" = "Rendezze kedvenc helyeit kategóriánként, helyenként és időrendbe, és találja meg őket gyorsan a nevük alapján";
+
 
 /**********  Partners  **********/
 

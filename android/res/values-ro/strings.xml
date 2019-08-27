@@ -1610,6 +1610,54 @@
 	<string name="speedcams_alert_title_carplay_2">Info camere</string>
 	<string name="download_map_carplay">Vă rugăm să descărcați hărțile în aplicația MAPS.ME de pe dispozitivul dvs.</string>
 	<string name="carplay_roundabout_exit">%s ieșire</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Sortați…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Sortați inscripțiile</string>
+	<!-- iOS -->
+	<string name="sort_default">Sortați la modul implicit</string>
+	<string name="sort_type">Sortați după dip</string>
+	<string name="sort_distance">Sortați după distanță</string>
+	<string name="sort_date">Sortați după dată</string>
+	<!-- Android -->
+	<string name="by_default">Mod implicit</string>
+	<!-- Android -->
+	<string name="by_type">După tip</string>
+	<!-- Android -->
+	<string name="by_distance">După distanță</string>
+	<!-- Android -->
+	<string name="by_date">După dată</string>
+	<string name="week_ago_sorttype">O săptămână în urmă</string>
+	<string name="month_ago_sorttype">O lună în urmă</string>
+	<string name="moremonth_ago_sorttype">Mai mult de o lună în urmă</string>
+	<string name="moreyear_ago_sorttype">Mai mult de un an în urmă</string>
+	<string name="near_me_sorttype">Alături de mine</string>
+	<string name="others_sorttype">Altele</string>
+	<string name="food_places">Mâncare</string>
+	<string name="tourist_places">Locuri faimoase</string>
+	<string name="museums">Muzeu</string>
+	<string name="parks">Parcuri</string>
+	<string name="swim_places">Înot</string>
+	<string name="mountains">Munți</string>
+	<string name="animals">Animale</string>
+	<string name="hotels">Hoteluri</string>
+	<string name="buildings">Clădiri</string>
+	<string name="money">Bani</string>
+	<string name="shops">Magazine</string>
+	<string name="parkings">Parcări</string>
+	<string name="fuel_places">Benzinării</string>
+	<string name="water">Apă</string>
+	<string name="medicine">Medicină</string>
+	<string name="search_in_the_list">Căutați în listă</string>
+	<string name="view_on_map_bookmarks">Pe hartă</string>
+	<string name="more_bookmarks">Încă…</string>
+	<string name="no_items_found">Nu a fost găsit nimic</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Redactați</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Ștergeți lista</string>
+	<string name="whatsnew_bookmarks_search_sort_title">Ordine în inscripții – comoditate în călătorie</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Sortați locurile preferate după categorie, ora adăugării și geolocalizarea și găsiți rapid inscripțiile după nume</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>

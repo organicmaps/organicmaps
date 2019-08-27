@@ -1614,6 +1614,54 @@
 	<string name="speedcams_alert_title_carplay_2">Info autovelox</string>
 	<string name="download_map_carplay">Scarica l\'applicazione MAPS.ME sul tuo smartphone</string>
 	<string name="carplay_roundabout_exit">%s uscita</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Ordina…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Ordina i segnalibri</string>
+	<!-- iOS -->
+	<string name="sort_default">Ordina per default</string>
+	<string name="sort_type">Ordina per tipo</string>
+	<string name="sort_distance">Ordina per distanza</string>
+	<string name="sort_date">Ordina per data</string>
+	<!-- Android -->
+	<string name="by_default">Per default</string>
+	<!-- Android -->
+	<string name="by_type">Per tipo</string>
+	<!-- Android -->
+	<string name="by_distance">Per distanza</string>
+	<!-- Android -->
+	<string name="by_date">Per data</string>
+	<string name="week_ago_sorttype">Una settimana fa</string>
+	<string name="month_ago_sorttype">Un mese fa</string>
+	<string name="moremonth_ago_sorttype">Più di un mese fa</string>
+	<string name="moreyear_ago_sorttype">Più di un anno fa</string>
+	<string name="near_me_sorttype">Vicino a me</string>
+	<string name="others_sorttype">Altri</string>
+	<string name="food_places">Cibo</string>
+	<string name="tourist_places">Luoghi d\'interesse</string>
+	<string name="museums">Musei</string>
+	<string name="parks">Parchi</string>
+	<string name="swim_places">Nuoto</string>
+	<string name="mountains">Montagne</string>
+	<string name="animals">Animali</string>
+	<string name="hotels">Alberghi</string>
+	<string name="buildings">Edifici</string>
+	<string name="money">Denaro</string>
+	<string name="shops">Negozi</string>
+	<string name="parkings">Parcheggi</string>
+	<string name="fuel_places">Stazione di servizio</string>
+	<string name="water">Acqua</string>
+	<string name="medicine">Farmacia</string>
+	<string name="search_in_the_list">Cerca nella lista</string>
+	<string name="view_on_map_bookmarks">Sulla mappa</string>
+	<string name="more_bookmarks">Ecc…</string>
+	<string name="no_items_found">Nessun risultato trovato</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Modifica</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Cancella la lista</string>
+	<string name="whatsnew_bookmarks_search_sort_title">I segnalibri ordinati rendono un viaggio piacevole</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Ordina i tuoi posti preferiti per categoria, data di aggiunta e posizione geografica, inoltre trova velocemente dei segnalibri specifici cercando per nome</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stazione di rifornimento per auto elettriche</string>

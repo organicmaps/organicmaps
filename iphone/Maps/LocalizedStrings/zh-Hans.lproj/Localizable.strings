@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "%s号坡道";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "分类……";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "分类标签";
+
+/* iOS */
+"sort_default" = "默认排序";
+
+"sort_type" = "按类型排序";
+
+"sort_distance" = "按距离排序";
+
+"sort_date" = "按日期排序";
+
+/* Android */
+"by_default" = "默认情况下";
+
+/* Android */
+"by_type" = "按类型";
+
+/* Android */
+"by_distance" = "按距离";
+
+/* Android */
+"by_date" = "按时间";
+
+"week_ago_sorttype" = "一周前";
+
+"month_ago_sorttype" = "一月前";
+
+"moremonth_ago_sorttype" = "一个多月前";
+
+"moreyear_ago_sorttype" = "一年多以前";
+
+"near_me_sorttype" = "在我旁边";
+
+"others_sorttype" = "其他";
+
+"food_places" = "美食";
+
+"tourist_places" = "名胜";
+
+"museums" = "博物馆";
+
+"parks" = "公园";
+
+"swim_places" = "游泳";
+
+"mountains" = "山";
+
+"animals" = "动物";
+
+"hotels" = "酒店";
+
+"buildings" = "建筑物";
+
+"money" = "货币";
+
+"shops" = "商店";
+
+"parkings" = "停车场";
+
+"fuel_places" = "加油站";
+
+"water" = "水";
+
+"medicine" = "医疗";
+
+"search_in_the_list" = "在列表中搜索";
+
+"view_on_map_bookmarks" = "在地图上";
+
+"more_bookmarks" = "更多……";
+
+"no_items_found" = "未搜索到内容";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "编辑";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "删除列表";
+
+"whatsnew_bookmarks_search_sort_title" = "标签中的顺序 – 便于旅行";
+
+"whatsnew_bookmarks_search_sort_message" = "请根据类别、添加时间和地理位置对您喜欢的地点进行排序，还可以按名称快速查找具体的标签";
+
 
 /**********  Partners  **********/
 

@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "%s saída";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Ordenar…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "Ordenar tags";
+
+/* iOS */
+"sort_default" = "Ordenar por predefinição";
+
+"sort_type" = "Ordenar por tipo";
+
+"sort_distance" = "Ordenar por distância";
+
+"sort_date" = "Ordenar por data";
+
+/* Android */
+"by_default" = "Por predefinição";
+
+/* Android */
+"by_type" = "Por tipo";
+
+/* Android */
+"by_distance" = "Por distância";
+
+/* Android */
+"by_date" = "Por data";
+
+"week_ago_sorttype" = "Uma semana atrás";
+
+"month_ago_sorttype" = "Um mês atrás";
+
+"moremonth_ago_sorttype" = "Mais de um mês atrás";
+
+"moreyear_ago_sorttype" = "Mais de um ano atrás";
+
+"near_me_sorttype" = "Perto de mim";
+
+"others_sorttype" = "Outro";
+
+"food_places" = "Alimento";
+
+"tourist_places" = "Pontos turísticos";
+
+"museums" = "Museus";
+
+"parks" = "Jardins";
+
+"swim_places" = "Natação";
+
+"mountains" = "Montanhas";
+
+"animals" = "Animais";
+
+"hotels" = "Hotéis";
+
+"buildings" = "Prédios";
+
+"money" = "Dinheiro";
+
+"shops" = "Lojas";
+
+"parkings" = "Estacionamentos";
+
+"fuel_places" = "Postos de gasolina";
+
+"water" = "Água";
+
+"medicine" = "Medicina";
+
+"search_in_the_list" = "Pesquisar na lista";
+
+"view_on_map_bookmarks" = "No mapa";
+
+"more_bookmarks" = "Mais…";
+
+"no_items_found" = "Nada encontrado";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "Editar";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "Eliminar a lista";
+
+"whatsnew_bookmarks_search_sort_title" = "Ordem nas tags- conveniência em viagem";
+
+"whatsnew_bookmarks_search_sort_message" = "Ordena os locais favoritos por categoria, tempo de adição e geolocalização, e também encontre rapidamente tags específicas por nome";
+
 
 /**********  Partners  **********/
 

@@ -1618,6 +1618,54 @@
 	<string name="speedcams_alert_title_carplay_2">Radar advarsel</string>
 	<string name="download_map_carplay">Download kort i MAPS.ME appen, på din enhed</string>
 	<string name="carplay_roundabout_exit">%s exit</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Sort…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Sort (bookmaarks)</string>
+	<!-- iOS -->
+	<string name="sort_default">Sortér (std)</string>
+	<string name="sort_type">Sort (type)</string>
+	<string name="sort_distance">Sort (Afs)</string>
+	<string name="sort_date">Sort (dato)</string>
+	<!-- Android -->
+	<string name="by_default">Som standard</string>
+	<!-- Android -->
+	<string name="by_type">Efter type</string>
+	<!-- Android -->
+	<string name="by_distance">Efter afstand</string>
+	<!-- Android -->
+	<string name="by_date">Efter dato</string>
+	<string name="week_ago_sorttype">En uge siden</string>
+	<string name="month_ago_sorttype">En måned siden</string>
+	<string name="moremonth_ago_sorttype">Mere end en måned siden</string>
+	<string name="moreyear_ago_sorttype">Mere end et år siden</string>
+	<string name="near_me_sorttype">I nærheden</string>
+	<string name="others_sorttype">Andre</string>
+	<string name="food_places">Mad</string>
+	<string name="tourist_places">Seværdigheder</string>
+	<string name="museums">Museer</string>
+	<string name="parks">Parker</string>
+	<string name="swim_places">Svøm</string>
+	<string name="mountains">Bjerge</string>
+	<string name="animals">Dyr</string>
+	<string name="hotels">Hoteller</string>
+	<string name="buildings">Bygninger</string>
+	<string name="money">Penge</string>
+	<string name="shops">Butikker</string>
+	<string name="parkings">Parkering</string>
+	<string name="fuel_places">Benzintankstationer</string>
+	<string name="water">Vand</string>
+	<string name="medicine">Medicin</string>
+	<string name="search_in_the_list">Søg i listen</string>
+	<string name="view_on_map_bookmarks">På kort</string>
+	<string name="more_bookmarks">Mere…</string>
+	<string name="no_items_found">Der blev ikke fundet nogen elementer</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Redigér liste</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Slet liste</string>
+	<string name="whatsnew_bookmarks_search_sort_title">Rækkefølgen i bookmarks gør en rejse behagelig</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Sortere favoritsteder efter kategori, placering og rækkefølge, samt finde specifikke bogmærker hurtigt, efter deres navn</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

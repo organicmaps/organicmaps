@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "%s avkjøring";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Sortere…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "Sortere merker";
+
+/* iOS */
+"sort_default" = "Sortere som standard";
+
+"sort_type" = "Sortere etter type";
+
+"sort_distance" = "Sortere etter avstand";
+
+"sort_date" = "Sortere etter dato";
+
+/* Android */
+"by_default" = "Som standard";
+
+/* Android */
+"by_type" = "Etter type";
+
+/* Android */
+"by_distance" = "Etter avstand";
+
+/* Android */
+"by_date" = "Etter dato";
+
+"week_ago_sorttype" = "For en uke siden";
+
+"month_ago_sorttype" = "For en måned siden";
+
+"moremonth_ago_sorttype" = "Mer enn en måned siden";
+
+"moreyear_ago_sorttype" = "Mer enn ett år siden";
+
+"near_me_sorttype" = "Nær meg";
+
+"others_sorttype" = "Andre";
+
+"food_places" = "Mat";
+
+"tourist_places" = "Severdigheter";
+
+"museums" = "Museer";
+
+"parks" = "Parker";
+
+"swim_places" = "Svømming";
+
+"mountains" = "Fjell";
+
+"animals" = "Dyr";
+
+"hotels" = "Hoteller";
+
+"buildings" = "Bygninger";
+
+"money" = "Penger";
+
+"shops" = "Butikker";
+
+"parkings" = "Parkeringer";
+
+"fuel_places" = "Bensinstasjoner";
+
+"water" = "Vann";
+
+"medicine" = "Medisin";
+
+"search_in_the_list" = "Søk på lista";
+
+"view_on_map_bookmarks" = "På kartet";
+
+"more_bookmarks" = "Mer…";
+
+"no_items_found" = "Ingenting funnet";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "Endre";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "Slette lista";
+
+"whatsnew_bookmarks_search_sort_title" = "Orden i merker- lett å reise";
+
+"whatsnew_bookmarks_search_sort_message" = "Sorter favoritter etter kategorier, tidspunkt de er lagt inn og geografisk lokasjon, samt finn bestemte merker fort etter navn";
+
 
 /**********  Partners  **********/
 

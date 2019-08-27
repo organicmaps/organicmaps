@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "Jalan keluar ke %s";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Urutkan…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "Urutkan bookmark";
+
+/* iOS */
+"sort_default" = "Urutkan standar";
+
+"sort_type" = "Urutkan per tipe";
+
+"sort_distance" = "Urutkan per jarak";
+
+"sort_date" = "Urutkan per tanggal";
+
+/* Android */
+"by_default" = "Standar";
+
+/* Android */
+"by_type" = "Per tipe";
+
+/* Android */
+"by_distance" = "Per jarak";
+
+/* Android */
+"by_date" = "Per tanggal";
+
+"week_ago_sorttype" = "Seminggu yang lalu";
+
+"month_ago_sorttype" = "Sebulan yang lalu";
+
+"moremonth_ago_sorttype" = "Lebih dari sebulan yang lalu";
+
+"moreyear_ago_sorttype" = "Lebih dari setahun yang lalu";
+
+"near_me_sorttype" = "Dekat dengan saya";
+
+"others_sorttype" = "Lainnya";
+
+"food_places" = "Makanan";
+
+"tourist_places" = "Tempat Rekreasi";
+
+"museums" = "Museum";
+
+"parks" = "Taman";
+
+"swim_places" = "Kolam renang";
+
+"mountains" = "Pegunungan";
+
+"animals" = "Kebun binatang";
+
+"hotels" = "Hotel";
+
+"buildings" = "Gedung";
+
+"money" = "Uang";
+
+"shops" = "Pusat perbelanjaan";
+
+"parkings" = "Parkir";
+
+"fuel_places" = "SPBU";
+
+"water" = "Air";
+
+"medicine" = "Obat";
+
+"search_in_the_list" = "Cari dalam daftar";
+
+"view_on_map_bookmarks" = "Di peta";
+
+"more_bookmarks" = "Lainnya…";
+
+"no_items_found" = "Item tidak ditemukan";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "Ubah daftar";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "Hapus daftar";
+
+"whatsnew_bookmarks_search_sort_title" = "Bookmark yang rapi membuat perjalanan menjadi nyaman";
+
+"whatsnew_bookmarks_search_sort_message" = "Urutkan tempat favorit berdasarkan kategori, lokasi dan waktu kunjungan, serta temukan bookmark secara cepat hanya dengan menggunakan nama";
+
 
 /**********  Partners  **********/
 

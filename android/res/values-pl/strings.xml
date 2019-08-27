@@ -1619,6 +1619,54 @@
 	<string name="speedcams_alert_title_carplay_2">Info o kamerach</string>
 	<string name="download_map_carplay">Pobierz mapy do aplikacji MAPS.ME na swoje urządzenie</string>
 	<string name="carplay_roundabout_exit">%s zjazd</string>
+	<!-- max. 10 symbols, both iOS and Android -->
+	<string name="sort">Sortuj…</string>
+	<!-- Android, title, max 20-22 symbols -->
+	<string name="sort_bookmarks">Sortuj znaczniki</string>
+	<!-- iOS -->
+	<string name="sort_default">Sortuj domyślnie</string>
+	<string name="sort_type">Sortuj wg rodzaju</string>
+	<string name="sort_distance">Sortuj wg odległości</string>
+	<string name="sort_date">Sortuj wg daty</string>
+	<!-- Android -->
+	<string name="by_default">Domyślnie</string>
+	<!-- Android -->
+	<string name="by_type">Wg rodzaju</string>
+	<!-- Android -->
+	<string name="by_distance">Wg odległości</string>
+	<!-- Android -->
+	<string name="by_date">Wg daty</string>
+	<string name="week_ago_sorttype">Tydzień wstecz</string>
+	<string name="month_ago_sorttype">Miesiąc wstecz</string>
+	<string name="moremonth_ago_sorttype">Ponad miesiąc wstecz</string>
+	<string name="moreyear_ago_sorttype">Ponad rok wstecz</string>
+	<string name="near_me_sorttype">Obok mnie</string>
+	<string name="others_sorttype">Inne</string>
+	<string name="food_places">Jedzenie</string>
+	<string name="tourist_places">Zabytki</string>
+	<string name="museums">Muzea</string>
+	<string name="parks">Parki</string>
+	<string name="swim_places">Pływanie</string>
+	<string name="mountains">Góry</string>
+	<string name="animals">Zwierzęta</string>
+	<string name="hotels">Hotele</string>
+	<string name="buildings">Budynki</string>
+	<string name="money">Pieniądze</string>
+	<string name="shops">Sklepy</string>
+	<string name="parkings">Parkingi</string>
+	<string name="fuel_places">Stacje paliw</string>
+	<string name="water">Woda</string>
+	<string name="medicine">Lecznictwo</string>
+	<string name="search_in_the_list">Wyszukaj na liście</string>
+	<string name="view_on_map_bookmarks">Na mapie</string>
+	<string name="more_bookmarks">Więcej…</string>
+	<string name="no_items_found">Brak wyników</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_edit_list">Redaguj</string>
+	<!-- Android, max 18 symbols -->
+	<string name="bookmarks_delete_list">Usuń listę</string>
+	<string name="whatsnew_bookmarks_search_sort_title">Porządek w znacznikach — wygoda w podróży</string>
+	<string name="whatsnew_bookmarks_search_sort_message">Sortuj ulubione miejsca wg kategorii, czasu dodania i geolokalizacji, również szybko wyszukaj konkretne znaczniki wg nazwy</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stacja kolejki linowej</string>

@@ -2947,6 +2947,93 @@
 
 "carplay_roundabout_exit" = "ทางออกที่ %s";
 
+/* max. 10 symbols, both iOS and Android */
+"sort" = "เรียง…";
+
+/* Android, title, max 20-22 symbols */
+"sort_bookmarks" = "เรียงบุ๊กมาร์ก";
+
+/* iOS */
+"sort_default" = "เรียงตามค่าเริ่มต้น";
+
+"sort_type" = "เรียงตามประเภท";
+
+"sort_distance" = "เรียงตามระยะทาง";
+
+"sort_date" = "เรียงตามวันที่";
+
+/* Android */
+"by_default" = "ตามค่าเริ่มต้น";
+
+/* Android */
+"by_type" = "ตามประเภท";
+
+/* Android */
+"by_distance" = "ตามระยะทาง";
+
+/* Android */
+"by_date" = "ตามวันที่";
+
+"week_ago_sorttype" = "สัปดาห์ที่ผ่านมา";
+
+"month_ago_sorttype" = "เดือนที่ผ่านมา";
+
+"moremonth_ago_sorttype" = "มากกว่าหนึ่งเดือนที่ผ่านมา";
+
+"moreyear_ago_sorttype" = "มากกว่าหนึ่งปีที่ผ่านมา";
+
+"near_me_sorttype" = "ใกล้ฉัน";
+
+"others_sorttype" = "อื่นๆ";
+
+"food_places" = "อาหาร";
+
+"tourist_places" = "ที่ท่องเที่ยว";
+
+"museums" = "พิพิธภัณฑ์";
+
+"parks" = "ที่จอดรถ";
+
+"swim_places" = "ว่ายน้ำ";
+
+"mountains" = "ภูเขา";
+
+"animals" = "สวนสัตว์";
+
+"hotels" = "โรงแรม";
+
+"buildings" = "สิ่งปลูกสร้าง";
+
+"money" = "เงิน";
+
+"shops" = "ร้านค้า";
+
+"parkings" = "ที่จอดรถ";
+
+"fuel_places" = "ปั๊มน้ำมัน/แก๊ส";
+
+"water" = "น้ำ";
+
+"medicine" = "ยา";
+
+"search_in_the_list" = "ค้นหาในรายการ";
+
+"view_on_map_bookmarks" = "บนแผนที่";
+
+"more_bookmarks" = "เพิ่มเติม…";
+
+"no_items_found" = "ไม่พบรายการ";
+
+/* Android, max 18 symbols */
+"bookmarks_edit_list" = "แก้ไขรายการ";
+
+/* Android, max 18 symbols */
+"bookmarks_delete_list" = "ลบรายการ";
+
+"whatsnew_bookmarks_search_sort_title" = "ลำดับในบุ๊กมาร์กทำให้การเดินทางสะดวกมากขึ้น";
+
+"whatsnew_bookmarks_search_sort_message" = "เรียงสถานที่โปรดตามหมวดหมู่ ตำแหน่ง และลำดับ ตลอดจนค้นหาบุ๊กมาร์กที่กำหนดอย่างรวดเร็วด้วยชื่อ";
+
 
 /**********  Partners  **********/
 
