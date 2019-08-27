@@ -42,6 +42,10 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   @NonNull
   private AlertDialogCallback mDialogClickDelegate;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private ViewPager mViewPager;
+
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
@@ -77,16 +81,16 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
                            @Nullable Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.fragment_bookmark_categories_pager, container, false);
-    ViewPager viewPager = root.findViewById(R.id.viewpager);
+    mViewPager = root.findViewById(R.id.viewpager);
     TabLayout tabLayout = root.findViewById(R.id.sliding_tabs_layout);
 
     FragmentManager fm = getActivity().getSupportFragmentManager();
     List<BookmarksPageFactory> dataSet = getAdapterDataSet();
     mAdapter = new BookmarksPagerAdapter(getContext(), fm, dataSet);
-    viewPager.setAdapter(mAdapter);
-    viewPager.setCurrentItem(saveAndGetInitialPage());
-    tabLayout.setupWithViewPager(viewPager);
-    viewPager.addOnPageChangeListener(new PageChangeListener());
+    mViewPager.setAdapter(mAdapter);
+    mViewPager.setCurrentItem(saveAndGetInitialPage());
+    tabLayout.setupWithViewPager(mViewPager);
+    mViewPager.addOnPageChangeListener(new PageChangeListener());
     mDelegate.onCreateView(savedInstanceState);
     return root;
   }
@@ -158,6 +162,7 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   public void onAlertDialogNegativeClick(int requestCode, int which)
   {
     mDialogClickDelegate.onAlertDialogNegativeClick(requestCode, which);
+    mViewPager.setAdapter(mAdapter);
   }
 
   @Override
