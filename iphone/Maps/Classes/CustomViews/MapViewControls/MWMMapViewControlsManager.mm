@@ -130,6 +130,10 @@ extern NSString * const kAlohalyticsTapEventKey;
   });
 }
 
+- (void)updatePlacePage:(place_page::Info const &)info {
+  [self.placePageManager update:info];
+}
+
 - (void)showPlacePageReview:(place_page::Info const &)info
 {
   network_policy::CallPartnersApi([self, info](auto const & /* canUseNetwork */) {

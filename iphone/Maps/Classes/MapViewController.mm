@@ -136,6 +136,10 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
   [self.controlsManager showPlacePage:info];
 }
 
+- (void)onMapObjectUpdated:(place_page::Info const &)info {
+  [self.controlsManager updatePlacePage:info];
+}
+
 - (void)checkMaskedPointer:(UITouch *)touch withEvent:(df::TouchEvent &)e
 {
   int64_t id = reinterpret_cast<int64_t>(touch);
@@ -392,10 +396,9 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
   self.listeners = [NSHashTable<id<MWMLocationModeListener>> weakObjectsHashTable];
   Framework & f = GetFramework();
   // TODO: Review and improve this code.
-  f.SetPlacePageListenners(
-      [self](place_page::Info const & info) { [self onMapObjectSelected:info]; },
-      [self](bool switchFullScreen) { [self onMapObjectDeselected:switchFullScreen]; },
-      {} /* onUpdate */);
+  f.SetPlacePageListenners([self](place_page::Info const &info) { [self onMapObjectSelected:info]; },
+                           [self](bool switchFullScreen) { [self onMapObjectDeselected:switchFullScreen]; },
+                           [self](place_page::Info const &info) { [self onMapObjectUpdated:info]; });
   // TODO: Review and improve this code.
   f.SetMyPositionModeListener([self](location::EMyPositionMode mode, bool routingActive) {
     // TODO: Two global listeners are subscribed to the same event from the core.

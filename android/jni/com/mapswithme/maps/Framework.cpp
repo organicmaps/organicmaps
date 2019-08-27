@@ -1017,19 +1017,20 @@ Java_com_mapswithme_maps_Framework_nativeSetMapObjectListener(JNIEnv * env, jcla
                                                  "(Lcom/mapswithme/maps/bookmarks/data/MapObject;)V");
   // void onDismiss(boolean switchFullScreenMode);
   jmethodID const dismissId = jni::GetMethodID(env, g_mapObjectListener, "onDismiss", "(Z)V");
-  frm()->SetPlacePageListenners([activatedId](place_page::Info const & info)
+  auto const fillPlacePage = [activatedId](place_page::Info const & info)
   {
     JNIEnv * env = jni::GetEnv();
     g_framework->SetPlacePageInfo(info);
     jni::TScopedLocalRef mapObject(env, usermark_helper::CreateMapObject(env, info));
     env->CallVoidMethod(g_mapObjectListener, activatedId, mapObject.get());
-  }, [dismissId](bool switchFullScreenMode)
+  };
+  auto const closePlacePage = [dismissId](bool switchFullScreenMode)
   {
     JNIEnv * env = jni::GetEnv();
     g_framework->SetPlacePageInfo({});
     env->CallVoidMethod(g_mapObjectListener, dismissId, switchFullScreenMode);
-  },
-  {} /* onUpdate */);
+  };
+  frm()->SetPlacePageListenners(fillPlacePage, closePlacePage, fillPlacePage);
 }
 
 JNIEXPORT void JNICALL

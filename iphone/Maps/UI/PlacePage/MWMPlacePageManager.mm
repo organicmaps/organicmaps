@@ -129,6 +129,16 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   [self processCountryEvent:[self.data countryId]];
 }
 
+- (void)update:(place_page::Info const &)info {
+  if (!self.layout || !self.data)
+    return;
+
+  self.data = [[MWMPlacePageData alloc] initWithPlacePageInfo:info];
+  [self.data fillSections];
+  [self setupSpeedAndDistance];
+  [self.layout checkCellsVisible];
+}
+
 - (BOOL)isPPShown {
   return self.data != nil;
 }
