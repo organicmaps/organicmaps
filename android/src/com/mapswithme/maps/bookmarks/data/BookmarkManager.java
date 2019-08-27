@@ -942,7 +942,7 @@ public enum BookmarkManager
 
   public interface BookmarksSortingListener
   {
-    void onBookmarksSortingCompleted(SortedBlock[] sortedBlocks, long timestamp);
+    void onBookmarksSortingCompleted(@NonNull SortedBlock[] sortedBlocks, long timestamp);
     void onBookmarksSortingCancelled(long timestamp);
   }
 

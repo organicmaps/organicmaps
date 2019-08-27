@@ -247,7 +247,7 @@ public class Holders
     private final TextView mName;
     @NonNull
     private final TextView mDistance;
-    @Nullable
+    @NonNull
     private View mMore;
 
     BookmarkViewHolder(@NonNull View itemView)

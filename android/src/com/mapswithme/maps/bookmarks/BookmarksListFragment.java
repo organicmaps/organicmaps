@@ -71,8 +71,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   private boolean mSearchMode = false;
   private boolean mNeedUpdateSorting = true;
 
+  @SuppressWarnings("NullableProblems")
   @NonNull
   private ViewGroup mSearchContainer;
+  @SuppressWarnings("NullableProblems")
   @NonNull
   private FloatingActionButton mFabViewOnMap;
 
@@ -80,6 +82,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   @NonNull
   private BookmarkManager.BookmarksCatalogListener mCatalogListener;
 
+  @NonNull
   private final RecyclerView.OnScrollListener mRecyclerListener = new RecyclerView.OnScrollListener()
   {
     @Override
@@ -222,7 +225,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   private void configureRecycler()
   {
     RecyclerView.ItemDecoration decor = ItemDecoratorFactory
-        .createDefaultDecorator(getContext(), LinearLayoutManager.VERTICAL);
+        .createDefaultDecorator(requireContext(), LinearLayoutManager.VERTICAL);
     getRecyclerView().addItemDecoration(decor);
     getRecyclerView().addOnScrollListener(mRecyclerListener);
   }
@@ -526,7 +529,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
             : R.menu.menu_bookmarks;
         BottomSheet bs = BottomSheetHelper.create(requireActivity(), bookmark.getTitle())
             .sheet(menuResId)
-            .listener(menuItem -> onBookmarkMenuItemClicked(menuItem))
+            .listener(this::onBookmarkMenuItemClicked)
             .build();
         BottomSheetHelper.tint(bs);
         bs.show();
@@ -553,7 +556,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     return false;
   }
 
-  public boolean onBookmarkMenuItemClicked(MenuItem menuItem)
+  public boolean onBookmarkMenuItemClicked(@NonNull MenuItem menuItem)
   {
     BookmarkListAdapter adapter = getAdapter();
     Bookmark item = (Bookmark) adapter.getItem(mSelectedPosition);
@@ -588,7 +591,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     return false;
   }
 
-  public boolean onListMoreMenuItemClick(MenuItem menuItem)
+  public boolean onListMoreMenuItemClick(@NonNull MenuItem menuItem)
   {
     switch (menuItem.getItemId())
     {
@@ -608,7 +611,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
         return false;
 
       case R.id.settings:
-        Intent intent = new Intent(getContext(), UgcRouteEditSettingsActivity.class).putExtra(
+        Intent intent = new Intent(requireContext(), UgcRouteEditSettingsActivity.class).putExtra(
             BaseUgcRouteActivity.EXTRA_BOOKMARK_CATEGORY,
             mCategoryDataSource.getData());
         startActivityForResult(intent, UgcRouteEditSettingsActivity.REQUEST_CODE);
@@ -665,7 +668,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
       BottomSheet bs = BottomSheetHelper.create(requireActivity(),
           mCategoryDataSource.getData().getName())
           .sheet(R.menu.menu_bookmarks_list)
-          .listener(menuItem -> onListMoreMenuItemClick(menuItem))
+          .listener(this::onListMoreMenuItemClick)
           .build();
 
       @BookmarkManager.SortingType int[] types = getAvailableSortingTypes();

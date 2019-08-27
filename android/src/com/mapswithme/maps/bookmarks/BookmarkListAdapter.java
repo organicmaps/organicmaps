@@ -36,6 +36,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   @Nullable
   private List<SortedBlock> mSortedResults;
 
+  @SuppressWarnings("NullableProblems")
   @NonNull
   private SectionsDataSource mSectionsDataSource;
 
@@ -46,9 +47,9 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   @Nullable
   private RecyclerLongClickListener mLongClickListener;
 
-  public static class SectionPosition
+  static class SectionPosition
   {
-    public static final int INVALID_POSITION = -1;
+    static final int INVALID_POSITION = -1;
 
     public final int sectionIndex;
     public final int itemIndex;
@@ -73,7 +74,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   public abstract class SectionsDataSource
   {
     @NonNull
-    protected final DataSource<BookmarkCategory> mDataSource;
+    private final DataSource<BookmarkCategory> mDataSource;
 
     SectionsDataSource(@NonNull DataSource<BookmarkCategory> dataSource)
     {
@@ -82,7 +83,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
 
     public BookmarkCategory getCategory() { return mDataSource.getData(); }
 
-    protected boolean hasDescription()
+    boolean hasDescription()
     {
       return !mDataSource.getData().getAnnotation().isEmpty() ||
              !mDataSource.getData().getDescription().isEmpty();
@@ -91,12 +92,13 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     public abstract int getSectionsCount();
     public abstract boolean isEditable(int sectionIndex);
     public abstract boolean hasTitle(int sectionIndex);
-    public abstract @Nullable String getTitle(int sectionIndex, Resources rs);
+    @Nullable
+    public abstract String getTitle(int sectionIndex, @NonNull Resources rs);
     public abstract int getItemsCount(int sectionIndex);
     public abstract int getItemsType(int sectionIndex);
-    public abstract long getBookmarkId(SectionPosition pos);
-    public abstract long getTrackId(SectionPosition pos);
-    public abstract void onDelete(SectionPosition pos);
+    public abstract long getBookmarkId(@NonNull SectionPosition pos);
+    public abstract long getTrackId(@NonNull SectionPosition pos);
+    public abstract void onDelete(@NonNull SectionPosition pos);
   }
 
   private class CategorySectionsDataSource extends SectionsDataSource
@@ -140,7 +142,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     public boolean hasTitle(int sectionIndex) { return true; }
 
     @Nullable
-    public String getTitle(int sectionIndex, Resources rs)
+    public String getTitle(int sectionIndex, @NonNull Resources rs)
     {
       if (sectionIndex == mDescriptionSectionIndex)
         return rs.getString(R.string.description);
@@ -170,29 +172,25 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
         return TYPE_TRACK;
       if (sectionIndex == mBookmarksSectionIndex)
         return TYPE_BOOKMARK;
-      return 0;
+      throw new AssertionError("Invalid section index: " + sectionIndex);
     }
 
     @Override
-    public void onDelete(SectionPosition pos)
+    public void onDelete(@NonNull SectionPosition pos)
     {
       calculateSections();
     }
 
     @Override
-    public long getBookmarkId(SectionPosition pos)
+    public long getBookmarkId(@NonNull SectionPosition pos)
     {
-      final long bookmarkId = BookmarkManager.INSTANCE.getBookmarkIdByPosition(
-          getCategory().getId(), pos.itemIndex);
-      return bookmarkId;
+      return BookmarkManager.INSTANCE.getBookmarkIdByPosition(getCategory().getId(), pos.itemIndex);
     }
 
     @Override
-    public long getTrackId(SectionPosition pos)
+    public long getTrackId(@NonNull SectionPosition pos)
     {
-      final long trackId = BookmarkManager.INSTANCE.getTrackIdByPosition(
-          getCategory().getId(), pos.itemIndex);
-      return trackId;
+      return BookmarkManager.INSTANCE.getTrackIdByPosition(getCategory().getId(), pos.itemIndex);
     }
   }
 
@@ -218,7 +216,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     public boolean hasTitle(int sectionIndex) { return false; }
 
     @Nullable
-    public String getTitle(int sectionIndex, Resources rs) { return null; }
+    public String getTitle(int sectionIndex, @NonNull Resources rs) { return null; }
 
     @Override
     public int getItemsCount(int sectionIndex) { return mSearchResults.size(); }
@@ -227,13 +225,13 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     public int getItemsType(int sectionIndex) { return TYPE_BOOKMARK; }
 
     @Override
-    public void onDelete(SectionPosition pos) { mSearchResults.remove(pos.itemIndex); }
+    public void onDelete(@NonNull SectionPosition pos) { mSearchResults.remove(pos.itemIndex); }
 
     @Override
-    public long getBookmarkId(SectionPosition pos) { return mSearchResults.get(pos.itemIndex); }
+    public long getBookmarkId(@NonNull SectionPosition pos) { return mSearchResults.get(pos.itemIndex); }
 
     @Override
-    public long getTrackId(SectionPosition pos)
+    public long getTrackId(@NonNull SectionPosition pos)
     {
       throw new AssertionError("Tracks unsupported in search results.");
     }
@@ -274,16 +272,14 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     @Override
     public boolean isEditable(int sectionIndex)
     {
-      if (isDescriptionSection(sectionIndex))
-        return false;
-      return true;
+      return !isDescriptionSection(sectionIndex);
     }
 
     @Override
     public boolean hasTitle(int sectionIndex) { return true; }
 
     @Nullable
-    public String getTitle(int sectionIndex, Resources rs)
+    public String getTitle(int sectionIndex, @NonNull Resources rs)
     {
       if (isDescriptionSection(sectionIndex))
         return rs.getString(R.string.description);
@@ -312,7 +308,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     }
 
     @Override
-    public void onDelete(SectionPosition pos)
+    public void onDelete(@NonNull SectionPosition pos)
     {
       if (isDescriptionSection(pos.sectionIndex))
         throw new IllegalArgumentException("Delete failed. Invalid section index.");
@@ -332,12 +328,12 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
         mSortedBlocks.remove(blockIndex);
     }
 
-    public long getBookmarkId(SectionPosition pos)
+    public long getBookmarkId(@NonNull SectionPosition pos)
     {
       return getSortedBlock(pos.sectionIndex).getBookmarkIds().get(pos.itemIndex);
     }
 
-    public long getTrackId(SectionPosition pos)
+    public long getTrackId(@NonNull SectionPosition pos)
     {
       return getSortedBlock(pos.sectionIndex).getTrackIds().get(pos.itemIndex);
     }
@@ -377,7 +373,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     return new SectionPosition(SectionPosition.INVALID_POSITION, SectionPosition.INVALID_POSITION);
   }
 
-  public void setSearchResults(@Nullable long[] searchResults)
+  void setSearchResults(@Nullable long[] searchResults)
   {
     if (searchResults != null)
     {
@@ -392,7 +388,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     refreshSections();
   }
 
-  public void setSortedResults(@Nullable SortedBlock[] sortedResults)
+  void setSortedResults(@Nullable SortedBlock[] sortedResults)
   {
     if (sortedResults != null)
       mSortedResults = new ArrayList<>(Arrays.asList(sortedResults));
@@ -406,7 +402,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     mClickListener = listener;
   }
 
-  public void setOnLongClickListener(@Nullable RecyclerLongClickListener listener)
+  void setOnLongClickListener(@Nullable RecyclerLongClickListener listener)
   {
     mLongClickListener = listener;
   }
@@ -417,7 +413,8 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   }
 
   @Override
-  public Holders.BaseBookmarkHolder onCreateViewHolder(ViewGroup parent, int viewType)
+  @NonNull
+  public Holders.BaseBookmarkHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
   {
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     Holders.BaseBookmarkHolder holder = null;
@@ -456,7 +453,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   }
 
   @Override
-  public void onBindViewHolder(Holders.BaseBookmarkHolder holder, int position)
+  public void onBindViewHolder(@NonNull Holders.BaseBookmarkHolder holder, int position)
   {
     SectionPosition sp = getSectionPosition(position);
     holder.bind(sp, mSectionsDataSource);
@@ -496,7 +493,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     return itemCount;
   }
 
-  public void onDelete(int position)
+  void onDelete(int position)
   {
     SectionPosition sp = getSectionPosition(position);
     mSectionsDataSource.onDelete(sp);
@@ -505,7 +502,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
       mSortedResults = null;
   }
 
-  public boolean isSearchResults()
+  boolean isSearchResults()
   {
     return mSearchResults != null;
   }

@@ -2,10 +2,10 @@ package com.mapswithme.maps.bookmarks;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +24,7 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
   private static final String EXTRA_CURRENT_SORT_TYPE = "current_sort_type";
 
   @Nullable
-  ChooseSortingTypeListener mListener;
+  private ChooseSortingTypeListener mListener;
 
   public interface ChooseSortingTypeListener
   {
@@ -60,6 +60,7 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
     return STYLE_NO_TITLE;
   }
 
+  @IdRes
   private int getViewId(int sortingType)
   {
     if (sortingType >= 0)
@@ -84,12 +85,14 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
 
     final Bundle args = getArguments();
 
-    UiUtils.hide(view.findViewById(R.id.sort_by_type));
-    UiUtils.hide(view.findViewById(R.id.sort_by_distance));
-    UiUtils.hide(view.findViewById(R.id.sort_by_time));
+    UiUtils.hide(view, R.id.sort_by_type, R.id.sort_by_distance, R.id.sort_by_time);
+
+    if (args.getIntArray(EXTRA_SORTING_TYPES) == null)
+      throw new AssertionError("Available sorting types can't be null.");
 
     @BookmarkManager.SortingType
     int[] availableSortingTypes = args.getIntArray(EXTRA_SORTING_TYPES);
+
     for (int i = 0; i < availableSortingTypes.length; ++i)
       UiUtils.show(view.findViewById(getViewId(availableSortingTypes[i])));
 
@@ -108,7 +111,7 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
     onAttachInternal();
   }
 
-  protected void onAttachInternal()
+  private void onAttachInternal()
   {
     mListener = (ChooseSortingTypeListener) (getParentFragment() == null ? getTargetFragment()
                                                                          : getParentFragment());
@@ -136,7 +139,7 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
   }
 
   @Override
-  public void onCheckedChanged(RadioGroup group, int id)
+  public void onCheckedChanged(RadioGroup group, @IdRes int id)
   {
     switch (id)
     {

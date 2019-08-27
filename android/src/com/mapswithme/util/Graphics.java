@@ -12,7 +12,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
+import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.widget.TextView;
 
@@ -20,7 +23,8 @@ import com.mapswithme.maps.R;
 
 public final class Graphics
 {
-  public static Drawable drawCircle(int color, int sizeResId, Resources res)
+  @NonNull
+  public static Drawable drawCircle(int color, @DimenRes int sizeResId, @NonNull Resources res)
   {
     final int size = res.getDimensionPixelSize(sizeResId);
     final Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
@@ -36,8 +40,10 @@ public final class Graphics
     return new BitmapDrawable(res, bmp);
   }
 
-  public static Drawable drawCircleAndImage(int color, int sizeResId,
-                                            int imageResId, int sizeImgResId, Resources res)
+  @NonNull
+  public static Drawable drawCircleAndImage(int color, @DimenRes int sizeResId,
+                                            @DrawableRes int imageResId, @DimenRes int sizeImgResId,
+                                            @NonNull Resources res)
   {
     final int size = res.getDimensionPixelSize(sizeResId);
     final Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);

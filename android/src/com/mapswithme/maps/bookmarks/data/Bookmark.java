@@ -64,8 +64,7 @@ public class Bookmark extends MapObject
     super.writeToParcel(dest, flags);
     dest.writeLong(mCategoryId);
     dest.writeLong(mBookmarkId);
-    dest.writeInt(mIcon.getColor());
-    dest.writeInt(mIcon.getType());
+    dest.writeParcelable(mIcon, flags);
     dest.writeDouble(mMerX);
     dest.writeDouble(mMerY);
   }
@@ -78,7 +77,7 @@ public class Bookmark extends MapObject
     super(type, source);
     mCategoryId = source.readLong();
     mBookmarkId = source.readLong();
-    mIcon = new Icon(source.readInt(), source.readInt());
+    mIcon = source.readParcelable(Icon.class.getClassLoader());
     mMerX = source.readDouble();
     mMerY = source.readDouble();
     initXY();
@@ -167,6 +166,7 @@ public class Bookmark extends MapObject
 
   public static native String nativeGetName(@IntRange(from = 0) long bookmarkId);
 
+  @NonNull
   public static native String nativeGetFeatureType(@IntRange(from = 0) long bookmarkId);
 
   public static native ParcelablePointD nativeGetXY(@IntRange(from = 0) long bookmarkId);
