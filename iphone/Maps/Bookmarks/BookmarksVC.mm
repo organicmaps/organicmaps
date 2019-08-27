@@ -82,6 +82,12 @@ using namespace std;
   return [[MWMBookmarksManager sharedManager] isCategoryEditable:self.categoryId];
 }
 
+- (BOOL)hasInfo {
+  auto const &categoryData = GetFramework().GetBookmarkManager().GetCategoryData(_categoryId);
+  return !GetPreferredBookmarkStr(categoryData.m_description).empty() ||
+    !GetPreferredBookmarkStr(categoryData.m_annotation).empty();
+}
+
 - (InfoSection *)cachedInfoSection
 {
   if (self.infoSection == nil)
@@ -105,9 +111,8 @@ using namespace std;
   else
     [self.defaultSections removeAllObjects];
 
-  if ([[MWMBookmarksManager sharedManager] isCategoryFromCatalog:self.categoryId]) {
+  if ([self hasInfo])
     [self.defaultSections addObject:[self cachedInfoSection]];
-  }
 
   MWMTrackIDCollection trackIds = [[MWMBookmarksManager sharedManager] trackIdsForCategory:self.categoryId];
   if (trackIds.count > 0) {
@@ -131,6 +136,9 @@ using namespace std;
   else
     [self.defaultSections removeAllObjects];
 
+  if ([self hasInfo])
+    [self.defaultSections addObject:[self cachedInfoSection]];
+  
   for (auto const &block : sortResults) {
     if (!block.m_markIds.empty()) {
       [self.defaultSections addObject:[[BookmarksSection alloc] initWithTitle:@(block.m_blockName.c_str())
@@ -791,6 +799,9 @@ using namespace std;
                      didEndEditing:(MWMMarkGroupID)categoryId {
   [self.navigationController popViewControllerAnimated:YES];
   [self.delegate bookmarksVCdidUpdateCategory:self];
+  self.infoSection = nil;
+  self.defaultSections = nil;
+  [self refreshDefaultSections];
   [self.tableView reloadData];
 }
 
