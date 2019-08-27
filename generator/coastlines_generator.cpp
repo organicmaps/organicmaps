@@ -294,7 +294,7 @@ public:
     while (true)
     {
       unique_lock<mutex> lock(m_ctx.mutexTasks);
-      m_ctx.listCondVar.wait(lock, [this]{return (!m_ctx.listTasks.empty() || m_ctx.inWork == 0);});
+      m_ctx.listCondVar.wait(lock, [&]{return (!m_ctx.listTasks.empty() || m_ctx.inWork == 0);});
       if (m_ctx.listTasks.empty())
         break;
 
@@ -326,7 +326,7 @@ void CoastlineFeaturesGenerator::GetFeatures(vector<FeatureBuilder> & features)
   mutex featuresMutex;
   RegionInCellSplitter::Process(
       maxThreads, RegionInCellSplitter::kStartLevel, m_tree,
-      [&features, &featuresMutex, this](RegionInCellSplitter::TCell const & cell, DoDifference & cellData)
+      [&features, &featuresMutex](RegionInCellSplitter::TCell const & cell, DoDifference & cellData)
       {
         FeatureBuilder fb;
         fb.SetCoastCell(cell.ToInt64(RegionInCellSplitter::kHighLevel + 1));

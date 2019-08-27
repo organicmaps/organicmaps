@@ -62,5 +62,9 @@ protected:
   using TranslatorWorld::TranslatorWorld;
 
   OsmTagMixer m_osmTagMixer;
+
+private:
+  // Fix warning 'hides overloaded virtual function'.
+  void MergeInto(TranslatorWorld & other) const override { TranslatorInterface::MergeInto(other); }
 };
 }  // namespace generator

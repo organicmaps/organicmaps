@@ -64,5 +64,9 @@ protected:
   using TranslatorCountry::TranslatorCountry;
 
   OsmTagMixer m_osmTagMixer;
+
+private:
+  // Fix warning 'hides overloaded virtual function'.
+  void MergeInto(TranslatorCountry & other) const override { TranslatorInterface::MergeInto(other); }
 };
 }  // namespace generator
