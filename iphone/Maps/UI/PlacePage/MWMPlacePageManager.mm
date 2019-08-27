@@ -130,7 +130,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 }
 
 - (void)update:(place_page::Info const &)info {
-  if (!self.layout || !self.data)
+  if (!self.isPPShown)
     return;
 
   self.data = [[MWMPlacePageData alloc] initWithPlacePageInfo:info];
