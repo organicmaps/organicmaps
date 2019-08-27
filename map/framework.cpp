@@ -842,8 +842,10 @@ void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) 
   info.SetBookmarkData(bmk.GetData());
   info.SetBookmarkId(bmk.GetId());
   info.SetBookmarkCategoryId(bmk.GetGroupId());
-  info.SetOpeningMode(bmk.GetDescription().empty() ? place_page::OpeningMode::Preview
-                                                   : place_page::OpeningMode::PreviewPlus);
+  auto openingMode = (m_routingManager.IsRoutingActive() || bmk.GetDescription().empty())
+      ? place_page::OpeningMode::Preview
+      : place_page::OpeningMode::PreviewPlus;
+  info.SetOpeningMode(openingMode);
   FillPointInfoForBookmark(bmk, info);
 }
 
@@ -990,7 +992,9 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   }
   else if (ftypes::IsPromoCatalogChecker::Instance()(ft))
   {
-    info.SetOpeningMode(place_page::OpeningMode::PreviewPlus);
+    info.SetOpeningMode(m_routingManager.IsRoutingActive()
+                        ? place_page::OpeningMode::Preview
+                        : place_page::OpeningMode::PreviewPlus);
     info.SetSponsoredType(SponsoredType::PromoCatalog);
   }
 
@@ -3906,7 +3910,9 @@ void Framework::FillDescription(FeatureType & ft, place_page::Info & info) const
   if (m_descriptionsLoader->GetDescription(ft.GetID(), langPriority, description))
   {
     info.SetDescription(std::move(description));
-    info.SetOpeningMode(place_page::OpeningMode::PreviewPlus);
+    info.SetOpeningMode(m_routingManager.IsRoutingActive()
+                        ? place_page::OpeningMode::Preview
+                        : place_page::OpeningMode::PreviewPlus);
   }
 }
 
