@@ -15,10 +15,13 @@ struct RoutingSettings
   friend RoutingSettings GetRoutingSettings(VehicleType vehicleType);
 
 private:
-  RoutingSettings(bool matchRoute, bool soundDirection, double matchingThresholdM,
-                  bool keepPedestrianInfo, bool showTurnAfterNext);
+  RoutingSettings(bool useDirectionForRouteBuilding, bool matchRoute, bool soundDirection,
+                  double matchingThresholdM, bool keepPedestrianInfo, bool showTurnAfterNext);
 
 public:
+  /// \brief We accumulate several positions to calculate current direction.
+  /// So we can use this direction for car for ex. or don't for pedestrian for ex.
+  bool m_useDirectionForRouteBuilding;
   /// \brief if m_matchRoute is equal to true the bearing follows the
   /// route direction if the current position is matched to the route.
   /// If m_matchRoute is equal to false GPS bearing is used while

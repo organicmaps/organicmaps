@@ -109,9 +109,13 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
   m_lastCompletionPercent = 0;
   m_checkpoints.SetPointFrom(startPoint);
 
+  auto const & direction = 
+      m_routingSettings.m_useDirectionForRouteBuilding ? m_positionAccumulator.GetDirection()
+                                                       : m2::PointD::Zero();
+
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
-  m_router->CalculateRoute(m_checkpoints, m_positionAccumulator.GetDirection(), adjustToPrevRoute,
+  m_router->CalculateRoute(m_checkpoints, direction, adjustToPrevRoute,
                            DoReadyCallback(*this, readyCallback),
                            needMoreMapsCallback, removeRouteCallback, m_progressCallback, timeoutSec);
 }
