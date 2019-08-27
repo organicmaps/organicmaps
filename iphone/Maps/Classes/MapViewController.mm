@@ -785,7 +785,6 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
     self.visibleAreaKeyboard.constant = kbHeight;
     self.placePageAreaKeyboard.constant = kbHeight;
   }
-  [self.view layoutIfNeeded];
 }
 #pragma mark - Properties
 
