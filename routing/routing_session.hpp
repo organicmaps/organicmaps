@@ -106,7 +106,8 @@ public:
 
   void SetUserCurrentPosition(m2::PointD const & position);
 
-  void ClearPositionAccumulator() { m_positionAccumulator.Clear(); }
+  void PushPositionAccumulator(m2::PointD const & position);
+  void ClearPositionAccumulator();
 
   void ActivateAdditionalFeatures() {}
 

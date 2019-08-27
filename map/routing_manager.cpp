@@ -1028,8 +1028,8 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
 
 void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)
 {
-  // @TODO(bykoianko) PositionAccumulator should be filled even if there's no route.
-  // That means IsRoutingActive() returns false.
+  m_routingSession.PushPositionAccumulator(position);
+
   if (IsRoutingActive())
     m_routingSession.SetUserCurrentPosition(position);
 

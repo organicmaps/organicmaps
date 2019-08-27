@@ -610,8 +610,19 @@ void RoutingSession::SetUserCurrentPosition(m2::PointD const & position)
 
   m_userCurrentPosition = position;
   m_userCurrentPositionValid = true;
+}
+
+void RoutingSession::PushPositionAccumulator(m2::PointD const & position)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   m_positionAccumulator.PushNextPoint(position);
+}
+void RoutingSession::ClearPositionAccumulator()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  m_positionAccumulator.Clear();
 }
 
 void RoutingSession::EnableTurnNotifications(bool enable)
