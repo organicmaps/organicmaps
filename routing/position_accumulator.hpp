@@ -16,13 +16,12 @@ public:
   // the length of the all track will be more than |kMinTrackLengthM|.
   static double constexpr kMinTrackLengthM = 70.0;
 
-  // All segments which are shorter than
+  // All segments which are shorter than |kMinValidSegmentLengthM| are not added to the track.
   static double constexpr kMinValidSegmentLengthM = 10.0;
-  // are not added to the track.
 
-  // If a segment is longer then
+  // If a segment is longer then |kMaxValidSegmentLengthM|
+  // all the content of |m_points| is removed and the current point is added to track.
   static double constexpr kMaxValidSegmentLengthM = 80.0;
-  // all the content of |m_points| is removed the current point is added to track.
 
   void PushNextPoint(m2::PointD const & point);
   void Clear();
