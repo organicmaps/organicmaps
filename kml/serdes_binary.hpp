@@ -2,6 +2,7 @@
 
 #include "kml/header_binary.hpp"
 #include "kml/types.hpp"
+#include "kml/types_v3.hpp"
 #include "kml/visitors.hpp"
 
 #include "coding/read_write_utils.hpp"
@@ -23,7 +24,8 @@ enum class Version : uint8_t
   V1 = 1, // 11th April 2018 (new Point2D storage, added deviceId, feature name -> custom name).
   V2 = 2, // 25th April 2018 (added serverId).
   V3 = 3, // 7th May 2018 (persistent feature types).
-  Latest = V3
+  V4 = 4, // 26th August 2019 (key-value properties and nearestToponym for bookmarks and tracks, cities -> toponyms)
+  Latest = V4
 };
 
 class SerializerKml
@@ -135,72 +137,38 @@ public:
     NonOwningReaderSource source(reader);
     auto const v = ReadPrimitiveFromSource<Version>(source);
 
-    if (v != Version::Latest && v != Version::V2)
+    if (v != Version::Latest && v != Version::V2 && v != Version::V3)
       MYTHROW(DeserializeException, ("Incorrect file version."));
 
-    // Read device id.
-    {
-      auto const sz = ReadVarUint<uint32_t>(source);
-      m_data.m_deviceId.resize(sz);
-      source.Read(&m_data.m_deviceId[0], sz);
-    }
-
-    // Read server id.
-    {
-      auto const sz = ReadVarUint<uint32_t>(source);
-      m_data.m_serverId.resize(sz);
-      source.Read(&m_data.m_serverId[0], sz);
-    }
-
-    // Read bits count in double number.
-    m_doubleBits = ReadPrimitiveFromSource<uint8_t>(source);
-    if (m_doubleBits == 0 || m_doubleBits > 32)
-      MYTHROW(DeserializeException, ("Incorrect double bits count: ", m_doubleBits));
+    ReadDeviceId(source);
+    ReadServerId(source);
+    ReadBitsCountInDouble(source);
 
     auto subReader = reader.CreateSubReader(source.Pos(), source.Size());
     InitializeIfNeeded(*subReader);
 
-    // Deserialize category.
+    if (v == Version::V4)
     {
-      auto categorySubReader = CreateCategorySubReader(*subReader);
-      NonOwningReaderSource src(*categorySubReader);
-      CategoryDeserializerVisitor<decltype(src)> visitor(src, m_doubleBits);
-      visitor(m_data.m_categoryData);
+      DeserializeCategory(subReader, m_data);
+      DeserializeBookmarks(subReader, m_data);
+      DeserializeTracks(subReader, m_data);
+      DeserializeStrings(subReader, m_data);
     }
-
-    // Deserialize bookmarks.
+    else
     {
-      auto bookmarkSubReader = CreateBookmarkSubReader(*subReader);
-      NonOwningReaderSource src(*bookmarkSubReader);
-      BookmarkDeserializerVisitor<decltype(src)> visitor(src, m_doubleBits);
-      visitor(m_data.m_bookmarksData);
-    }
+      // NOTE: v.2 and v.3 are binary compatible.
+      FileDataV3 dataV3;
+      DeserializeCategory(subReader, dataV3);
+      DeserializeBookmarks(subReader, dataV3);
 
-    // Migrate bookmarks.
-    if (v == Version::V2)
-    {
-      for (auto & data : m_data.m_bookmarksData)
-        data.m_featureTypes.clear();
-    }
+      // Migrate bookmarks (it's necessary ony for v.2).
+      if (v == Version::V2)
+        MigrateBookmarksV2(dataV3);
 
-    // Deserialize tracks.
-    {
-      auto trackSubReader = CreateTrackSubReader(*subReader);
-      NonOwningReaderSource src(*trackSubReader);
-      BookmarkDeserializerVisitor<decltype(src)> visitor(src, m_doubleBits);
-      visitor(m_data.m_tracksData);
-    }
+      DeserializeTracks(subReader, dataV3);
+      DeserializeStrings(subReader, dataV3);
 
-    // Deserialize strings.
-    {
-      auto textsSubReader = CreateStringsSubReader(*subReader);
-      coding::BlockedTextStorage<Reader> strings(*textsSubReader);
-      DeserializedStringCollector<Reader> collector(strings);
-      CollectorVisitor<decltype(collector)> visitor(collector);
-      m_data.Visit(visitor);
-      CollectorVisitor<decltype(collector)> clearVisitor(collector,
-                                                         true /* clear index */);
-      m_data.Visit(clearVisitor);
+      m_data = dataV3.ConvertToLatestVersion();
     }
   }
 
@@ -248,6 +216,73 @@ private:
   std::unique_ptr<Reader> CreateStringsSubReader(ReaderType const & reader)
   {
     return CreateSubReader(reader, m_header.m_stringsOffset, m_header.m_eosOffset);
+  }
+
+  void ReadDeviceId(NonOwningReaderSource & source)
+  {
+    auto const sz = ReadVarUint<uint32_t>(source);
+    m_data.m_deviceId.resize(sz);
+    source.Read(&m_data.m_deviceId[0], sz);
+  }
+
+  void ReadServerId(NonOwningReaderSource & source)
+  {
+    auto const sz = ReadVarUint<uint32_t>(source);
+    m_data.m_serverId.resize(sz);
+    source.Read(&m_data.m_serverId[0], sz);
+  }
+
+  void ReadBitsCountInDouble(NonOwningReaderSource & source)
+  {
+    m_doubleBits = ReadPrimitiveFromSource<uint8_t>(source);
+    if (m_doubleBits == 0 || m_doubleBits > 32)
+      MYTHROW(DeserializeException, ("Incorrect double bits count: ", m_doubleBits));
+  }
+
+  template <typename FileDataType>
+  void DeserializeCategory(std::unique_ptr<Reader> & subReader, FileDataType & data)
+  {
+    auto categorySubReader = CreateCategorySubReader(*subReader);
+    NonOwningReaderSource src(*categorySubReader);
+    CategoryDeserializerVisitor<decltype(src)> visitor(src, m_doubleBits);
+    visitor(data.m_categoryData);
+  }
+
+  template <typename FileDataType>
+  void DeserializeBookmarks(std::unique_ptr<Reader> & subReader, FileDataType & data)
+  {
+    auto bookmarkSubReader = CreateBookmarkSubReader(*subReader);
+    NonOwningReaderSource src(*bookmarkSubReader);
+    BookmarkDeserializerVisitor<decltype(src)> visitor(src, m_doubleBits);
+    visitor(data.m_bookmarksData);
+  }
+
+  void MigrateBookmarksV2(FileDataV3 & data)
+  {
+    for (auto & d : data.m_bookmarksData)
+      d.m_featureTypes.clear();
+  }
+
+  template <typename FileDataType>
+  void DeserializeTracks(std::unique_ptr<Reader> & subReader, FileDataType & data)
+  {
+    auto trackSubReader = CreateTrackSubReader(*subReader);
+    NonOwningReaderSource src(*trackSubReader);
+    BookmarkDeserializerVisitor<decltype(src)> visitor(src, m_doubleBits);
+    visitor(data.m_tracksData);
+  }
+
+  template <typename FileDataType>
+  void DeserializeStrings(std::unique_ptr<Reader> & subReader, FileDataType & data)
+  {
+    auto textsSubReader = CreateStringsSubReader(*subReader);
+    coding::BlockedTextStorage<Reader> strings(*textsSubReader);
+    DeserializedStringCollector<Reader> collector(strings);
+    CollectorVisitor<decltype(collector)> visitor(collector);
+    data.Visit(visitor);
+    CollectorVisitor<decltype(collector)> clearVisitor(collector,
+                                                       true /* clear index */);
+    data.Visit(clearVisitor);
   }
 
   FileData & m_data;

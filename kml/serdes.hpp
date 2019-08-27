@@ -122,6 +122,10 @@ private:
   LocalId m_localId;
   BookmarkIcon m_icon;
   std::vector<TrackLayer> m_trackLayers;
+  bool m_visible;
+  std::string m_nearestToponym;
+  std::vector<std::string> m_nearestToponyms;
+  kml::Properties m_properties;
   double m_trackWidth;
 };
 

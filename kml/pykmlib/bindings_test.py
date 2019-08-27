@@ -31,7 +31,7 @@ class PyKmlibAdsTest(unittest.TestCase):
         category.last_modified = int(datetime.datetime.now().timestamp())
         category.access_rules = pykmlib.AccessRules.PUBLIC
         category.tags.set_list(['mountains', 'ski', 'snowboard'])
-        category.cities.set_list([pykmlib.LatLon(35.2424, 56.2164), pykmlib.LatLon(34.2443, 46.3536)])
+        category.toponyms.set_list(['12345', '54321'])
         category.languages.set_list(['en', 'ru', 'de'])
         category.properties.set_dict({'property1':'value1', 'property2':'value2'})
 
@@ -50,7 +50,10 @@ class PyKmlibAdsTest(unittest.TestCase):
         bookmark.icon = pykmlib.BookmarkIcon.HOTEL
         bookmark.viewport_scale = 15
         bookmark.timestamp = int(datetime.datetime.now().timestamp())
-        bookmark.point = pykmlib.LatLon(45.9242, 56.8679) 
+        bookmark.point = pykmlib.LatLon(45.9242, 56.8679)
+        bookmark.visible = True
+        bookmark.nearest_toponym = '12345'
+        bookmark.properties.set_dict({'bm_property1':'value1', 'bm_property2':'value2'})
         bookmark.bound_tracks.set_list([0])
 
         layer1 = pykmlib.TrackLayer()
@@ -72,6 +75,9 @@ class PyKmlibAdsTest(unittest.TestCase):
         	pykmlib.LatLon(45.9242, 56.8679),
         	pykmlib.LatLon(45.2244, 56.2786),
         	pykmlib.LatLon(45.1964, 56.9832)])
+        track.visible = True
+        track.nearest_toponyms.set_list(['12345', '54321', '98765'])
+        track.properties.set_dict({'tr_property1':'value1', 'tr_property2':'value2'})
 
         file_data = pykmlib.FileData()
         file_data.server_id = 'AAAA-BBBB-CCCC-DDDD'

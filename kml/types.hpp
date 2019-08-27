@@ -163,9 +163,13 @@ struct BookmarkData
                                   visitor(m_timestamp, "timestamp"),
                                   visitor(m_point, "point"),
                                   visitor(m_boundTracks, "boundTracks"),
+                                  visitor(m_visible, "visible"),
+                                  visitor(m_nearestToponym, "nearestToponym"),
+                                  visitor(m_properties, "properties"),
                                   VISITOR_COLLECTABLE)
 
-  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_customName)
+  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_customName,
+                      m_nearestToponym, m_properties)
 
   bool operator==(BookmarkData const & data) const
   {
@@ -178,7 +182,10 @@ struct BookmarkData
            m_point.EqualDxDy(data.m_point, kEps) &&
            m_featureTypes == data.m_featureTypes &&
            m_customName == data.m_customName &&
-           m_boundTracks == data.m_boundTracks;
+           m_boundTracks == data.m_boundTracks &&
+           m_visible == data.m_visible &&
+           m_nearestToponym == data.m_nearestToponym &&
+           m_properties == data.m_properties;
   }
 
   bool operator!=(BookmarkData const & data) const { return !operator==(data); }
@@ -206,6 +213,12 @@ struct BookmarkData
   m2::PointD m_point;
   // Bound tracks (vector contains local track ids).
   std::vector<LocalId> m_boundTracks;
+  // Visibility.
+  bool m_visible = true;
+  // Nearest toponym.
+  std::string m_nearestToponym;
+  // Key-value properties.
+  Properties m_properties;
 };
 
 struct TrackLayer
@@ -236,15 +249,20 @@ struct TrackData
                                   visitor(m_layers, "layers"),
                                   visitor(m_timestamp, "timestamp"),
                                   visitor(m_points, "points"),
+                                  visitor(m_visible, "visible"),
+                                  visitor(m_nearestToponyms, "nearestToponyms"),
+                                  visitor(m_properties, "properties"),
                                   VISITOR_COLLECTABLE)
 
-  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description)
+  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_nearestToponyms, m_properties)
 
   bool operator==(TrackData const & data) const
   {
     return m_id == data.m_id && m_localId == data.m_localId && m_name == data.m_name &&
            m_description == data.m_description && m_layers == data.m_layers &&
-           IsEqual(m_timestamp, data.m_timestamp) && IsEqual(m_points, data.m_points);
+           IsEqual(m_timestamp, data.m_timestamp) && IsEqual(m_points, data.m_points) &&
+           m_visible == data.m_visible && m_nearestToponyms == data.m_nearestToponyms &&
+           m_properties == data.m_properties;
   }
 
   bool operator!=(TrackData const & data) const { return !operator==(data); }
@@ -263,6 +281,12 @@ struct TrackData
   Timestamp m_timestamp = {};
   // Points.
   std::vector<m2::PointD> m_points;
+  // Visibility.
+  bool m_visible = true;
+  // Nearest toponyms.
+  std::vector<std::string> m_nearestToponyms;
+  // Key-value properties.
+  Properties m_properties;
 };
 
 struct CategoryData
@@ -280,13 +304,13 @@ struct CategoryData
                                   visitor(m_lastModified, "lastModified"),
                                   visitor(m_accessRules, "accessRules"),
                                   visitor(m_tags, "tags"),
-                                  visitor(m_cities, "cities"),
+                                  visitor(m_toponyms, "toponyms"),
                                   visitor(m_languageCodes, "languageCodes"),
                                   visitor(m_properties, "properties"),
                                   VISITOR_COLLECTABLE)
 
   DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_annotation, m_description,
-                      m_imageUrl, m_authorName, m_authorId, m_tags, m_properties)
+                      m_imageUrl, m_authorName, m_authorId, m_tags, m_toponyms, m_properties)
 
   bool operator==(CategoryData const & data) const
   {
@@ -297,7 +321,7 @@ struct CategoryData
            m_authorName == data.m_authorName && m_authorId == data.m_authorId &&
            fabs(m_rating - data.m_rating) < kEps && m_reviewsNumber == data.m_reviewsNumber &&
            IsEqual(m_lastModified, data.m_lastModified) && m_tags == data.m_tags &&
-           IsEqual(m_cities, data.m_cities) && m_languageCodes == data.m_languageCodes &&
+           m_toponyms == data.m_toponyms && m_languageCodes == data.m_languageCodes &&
            m_properties == data.m_properties;
   }
 
@@ -329,8 +353,8 @@ struct CategoryData
   AccessRules m_accessRules = AccessRules::Local;
   // Collection of tags.
   std::vector<std::string> m_tags;
-  // Collection of cities coordinates.
-  std::vector<m2::PointD> m_cities;
+  // Collection of geo ids for relevant toponyms.
+  std::vector<std::string> m_toponyms;
   // Language codes.
   std::vector<int8_t> m_languageCodes;
   // Key-value properties.

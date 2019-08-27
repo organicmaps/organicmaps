@@ -382,7 +382,10 @@ std::string BookmarkDataToString(BookmarkData const & bm)
       << "viewport_scale:" << static_cast<uint32_t>(bm.m_viewportScale) << ", "
       << "timestamp:" << DebugPrint(bm.m_timestamp) << ", "
       << "point:" << LatLonToString(latLon) << ", "
-      << "bound_tracks:" << VectorAdapter<uint8_t>::ToString(bm.m_boundTracks)
+      << "bound_tracks:" << VectorAdapter<uint8_t>::ToString(bm.m_boundTracks) << ", "
+      << "visible:" << (bm.m_visible ? "True" : "False") << ", "
+      << "nearest_toponym:'" << bm.m_nearestToponym << "', "
+      << "properties:" << PropertiesAdapter::ToString(bm.m_properties)
       << "]";
   return out.str();
 }
@@ -406,7 +409,10 @@ std::string TrackDataToString(TrackData const & t)
       << "description:" << LocalizableStringAdapter::ToString(t.m_description) << ", "
       << "timestamp:" << DebugPrint(t.m_timestamp) << ", "
       << "layers:" << VectorAdapter<TrackLayer>::ToString(t.m_layers) << ", "
-      << "points:" << VectorAdapter<m2::PointD>::ToString(t.m_points)
+      << "points:" << VectorAdapter<m2::PointD>::ToString(t.m_points) << ", "
+      << "visible:" << (t.m_visible ? "True" : "False") << ", "
+      << "nearest_toponyms:" << VectorAdapter<std::string>::ToString(t.m_nearestToponyms) << ", "
+      << "properties:" << PropertiesAdapter::ToString(t.m_properties)
       << "]";
   return out.str();
 }
@@ -441,7 +447,7 @@ std::string CategoryDataToString(CategoryData const & c)
       << "reviews_number:" << c.m_reviewsNumber << ", "
       << "access_rules:" << AccessRulesToString(c.m_accessRules) << ", "
       << "tags:" << VectorAdapter<std::string>::ToString(c.m_tags) << ", "
-      << "cities:" << VectorAdapter<m2::PointD>::ToString(c.m_cities) << ", "
+      << "toponyms:" << VectorAdapter<std::string>::ToString(c.m_toponyms) << ", "
       << "languages:" << LanguagesListToString(c.m_languageCodes) << ", "
       << "properties:" << PropertiesAdapter::ToString(c.m_properties)
       << "]";
@@ -738,6 +744,16 @@ BOOST_PYTHON_MODULE(pykmlib)
 
   class_<Timestamp>("Timestamp");
 
+  class_<Properties>("Properties")
+    .def("__len__", &Properties::size)
+    .def("clear", &Properties::clear)
+    .def("__getitem__", &PropertiesAdapter::Get, return_value_policy<copy_const_reference>())
+    .def("__setitem__", &PropertiesAdapter::Set, with_custodian_and_ward<1,2>())
+    .def("__delitem__", &PropertiesAdapter::Delete)
+    .def("get_dict", &PropertiesAdapter::GetDict)
+    .def("set_dict", &PropertiesAdapter::SetDict)
+    .def("__str__", &PropertiesAdapter::ToString);
+
   class_<BookmarkData>("BookmarkData")
     .def_readwrite("name", &BookmarkData::m_name)
     .def_readwrite("description", &BookmarkData::m_description)
@@ -749,6 +765,9 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def_readwrite("timestamp", &BookmarkData::m_timestamp)
     .def_readwrite("point", &BookmarkData::m_point)
     .def_readwrite("bound_tracks", &BookmarkData::m_boundTracks)
+    .def_readwrite("visible", &BookmarkData::m_visible)
+    .def_readwrite("nearest_toponym", &BookmarkData::m_nearestToponym)
+    .def_readwrite("properties", &BookmarkData::m_properties)
     .def("__eq__", &BookmarkData::operator==)
     .def("__ne__", &BookmarkData::operator!=)
     .def("__str__", &BookmarkDataToString);
@@ -782,6 +801,9 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def_readwrite("timestamp", &TrackData::m_timestamp)
     .def_readwrite("layers", &TrackData::m_layers)
     .def_readwrite("points", &TrackData::m_points)
+    .def_readwrite("visible", &TrackData::m_visible)
+    .def_readwrite("nearest_toponyms", &TrackData::m_nearestToponyms)
+    .def_readwrite("properties", &TrackData::m_properties)
     .def("__eq__", &TrackData::operator==)
     .def("__ne__", &TrackData::operator!=)
     .def("__str__", &TrackDataToString);
@@ -791,16 +813,6 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def("get_list", &GetLanguages)
     .def("set_list", &SetLanguages)
     .def("__str__", &LanguagesListToString);
-
-  class_<Properties>("Properties")
-    .def("__len__", &Properties::size)
-    .def("clear", &Properties::clear)
-    .def("__getitem__", &PropertiesAdapter::Get, return_value_policy<copy_const_reference>())
-    .def("__setitem__", &PropertiesAdapter::Set, with_custodian_and_ward<1,2>())
-    .def("__delitem__", &PropertiesAdapter::Delete)
-    .def("get_dict", &PropertiesAdapter::GetDict)
-    .def("set_dict", &PropertiesAdapter::SetDict)
-    .def("__str__", &PropertiesAdapter::ToString);
 
   class_<CategoryData>("CategoryData")
     .def_readwrite("name", &CategoryData::m_name)
@@ -815,7 +827,7 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def_readwrite("reviews_number", &CategoryData::m_reviewsNumber)
     .def_readwrite("access_rules", &CategoryData::m_accessRules)
     .def_readwrite("tags", &CategoryData::m_tags)
-    .def_readwrite("cities", &CategoryData::m_cities)
+    .def_readwrite("toponyms", &CategoryData::m_toponyms)
     .def_readwrite("languages", &CategoryData::m_languageCodes)
     .def_readwrite("properties", &CategoryData::m_properties)
     .def("__eq__", &CategoryData::operator==)

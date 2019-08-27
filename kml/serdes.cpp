@@ -217,23 +217,6 @@ void SaveStringsArray(KmlWriter::WriterWrapper & writer,
   writer << offsetStr << "</mwm:" << tagName << ">\n";
 }
 
-void SavePointsArray(KmlWriter::WriterWrapper & writer,
-                     std::vector<m2::PointD> const & pointsArray,
-                     std::string const & tagName, std::string const & offsetStr)
-{
-  if (pointsArray.empty())
-    return;
-
-  writer << offsetStr << "<mwm:" << tagName << ">\n";
-  for (auto const & p : pointsArray)
-  {
-    writer << offsetStr << kIndent2 << "<mwm:value>";
-    writer << PointToString(p);
-    writer << "</mwm:value>\n";
-  }
-  writer << offsetStr << "</mwm:" << tagName << ">\n";
-}
-
 void SaveStringsMap(KmlWriter::WriterWrapper & writer,
                     std::map<std::string, std::string> const & stringsMap,
                     std::string const & tagName, std::string const & offsetStr)
@@ -297,7 +280,7 @@ void SaveCategoryExtendedData(KmlWriter::WriterWrapper & writer, CategoryData co
 
   SaveStringsArray(writer, categoryData.m_tags, "tags", kIndent4);
 
-  SavePointsArray(writer, categoryData.m_cities, "cities", kIndent4);
+  SaveStringsArray(writer, categoryData.m_toponyms, "toponyms", kIndent4);
 
   std::vector<std::string> languageCodes;
   languageCodes.reserve(categoryData.m_languageCodes.size());
@@ -338,17 +321,12 @@ void SaveCategoryData(KmlWriter::WriterWrapper & writer, CategoryData const & ca
 
 void SaveBookmarkExtendedData(KmlWriter::WriterWrapper & writer, BookmarkData const & bookmarkData)
 {
-  if (bookmarkData.m_name.empty() && bookmarkData.m_description.empty() &&
-      bookmarkData.m_customName.empty() && bookmarkData.m_viewportScale == 0 &&
-      bookmarkData.m_icon == BookmarkIcon::None && bookmarkData.m_featureTypes.empty() &&
-      bookmarkData.m_boundTracks.empty())
-  {
-    return;
-  }
-
   writer << kIndent4 << kExtendedDataHeader;
-  SaveLocalizableString(writer, bookmarkData.m_name, "name", kIndent6);
-  SaveLocalizableString(writer, bookmarkData.m_description, "description", kIndent6);
+  if (!bookmarkData.m_name.empty())
+    SaveLocalizableString(writer, bookmarkData.m_name, "name", kIndent6);
+
+  if (!bookmarkData.m_description.empty())
+    SaveLocalizableString(writer, bookmarkData.m_description, "description", kIndent6);
 
   if (!bookmarkData.m_featureTypes.empty())
   {
@@ -371,14 +349,29 @@ void SaveBookmarkExtendedData(KmlWriter::WriterWrapper & writer, BookmarkData co
     auto const scale = strings::to_string(static_cast<double>(bookmarkData.m_viewportScale));
     writer << kIndent6 << "<mwm:scale>" << scale << "</mwm:scale>\n";
   }
+
   if (bookmarkData.m_icon != BookmarkIcon::None)
     writer << kIndent6 << "<mwm:icon>" << DebugPrint(bookmarkData.m_icon) << "</mwm:icon>\n";
 
-  std::vector<std::string> boundTracks;
-  boundTracks.reserve(bookmarkData.m_boundTracks.size());
-  for (auto const & t : bookmarkData.m_boundTracks)
-    boundTracks.push_back(strings::to_string(static_cast<uint32_t>(t)));
-  SaveStringsArray(writer, boundTracks, "boundTracks", kIndent6);
+  if (!bookmarkData.m_boundTracks.empty())
+  {
+    std::vector<std::string> boundTracks;
+    boundTracks.reserve(bookmarkData.m_boundTracks.size());
+    for (auto const & t : bookmarkData.m_boundTracks)
+      boundTracks.push_back(strings::to_string(static_cast<uint32_t>(t)));
+    SaveStringsArray(writer, boundTracks, "boundTracks", kIndent6);
+  }
+
+  writer << kIndent6 << "<mwm:visibility>" << (bookmarkData.m_visible ? "1" : "0") << "</mwm:visibility>\n";
+
+  if (!bookmarkData.m_nearestToponym.empty())
+  {
+    writer << kIndent6 << "<mwm:nearestToponym>";
+    SaveStringWithCDATA(writer, bookmarkData.m_nearestToponym);
+    writer << "</mwm:nearestToponym>\n";
+  }
+
+  SaveStringsMap(writer, bookmarkData.m_properties, "properties", kIndent6);
 
   writer << kIndent4 << kExtendedDataFooter;
 }
@@ -440,6 +433,11 @@ void SaveTrackExtendedData(KmlWriter::WriterWrapper & writer, TrackData const & 
     writer << kIndent8 << "</mwm:additionalLineStyle>\n";
   }
   writer << kIndent6 << "</mwm:additionalStyle>\n";
+
+  writer << kIndent6 << "<mwm:visibility>" << (trackData.m_visible ? "1" : "0") << "</mwm:visibility>\n";
+
+  SaveStringsArray(writer, trackData.m_nearestToponyms, "nearestToponyms", kIndent6);
+  SaveStringsMap(writer, trackData.m_properties, "properties", kIndent6);
 
   writer << kIndent4 << kExtendedDataFooter;
 }
@@ -535,6 +533,10 @@ void KmlParser::ResetPoint()
   m_featureTypes.clear();
   m_customName.clear();
   m_boundTracks.clear();
+  m_visible = true;
+  m_nearestToponym.clear();
+  m_nearestToponyms.clear();
+  m_properties.clear();
   m_localId = 0;
   m_trackLayers.clear();
   m_trackWidth = kDefaultTrackWidth;
@@ -713,6 +715,9 @@ void KmlParser::Pop(std::string const & tag)
         data.m_featureTypes = std::move(m_featureTypes);
         data.m_customName = std::move(m_customName);
         data.m_boundTracks = std::move(m_boundTracks);
+        data.m_visible = m_visible;
+        data.m_nearestToponym = std::move(m_nearestToponym);
+        data.m_properties = std::move(m_properties);
 
         // Here we set custom name from 'name' field for KML-files exported from 3rd-party services.
         if (data.m_name.size() == 1 && data.m_name.begin()->first == kDefaultLangCode &&
@@ -732,6 +737,9 @@ void KmlParser::Pop(std::string const & tag)
         data.m_layers = std::move(m_trackLayers);
         data.m_timestamp = m_timestamp;
         data.m_points = m_points;
+        data.m_visible = m_visible;
+        data.m_nearestToponyms = std::move(m_nearestToponyms);
+        data.m_properties = std::move(m_properties);
         m_data.m_tracksData.push_back(std::move(data));
       }
     }
@@ -855,11 +863,9 @@ void KmlParser::CharData(std::string value)
       {
         m_data.m_categoryData.m_tags.push_back(value);
       }
-      else if (prevTag == "mwm:cities")
+      else if (prevTag == "mwm:toponyms")
       {
-        m2::PointD pt;
-        if (ParsePoint(value, ", \n\r\t", pt))
-          m_data.m_categoryData.m_cities.push_back(pt);
+        m_data.m_categoryData.m_toponyms.push_back(value);
       }
       else if (prevTag == "mwm:languageCodes")
       {
@@ -980,6 +986,14 @@ void KmlParser::CharData(std::string value)
         {
           m_icon = GetIcon(value);
         }
+        else if (currTag == "mwm:visibility")
+        {
+          m_visible = value != "0";
+        }
+        else if (currTag == "mwm:nearestToponym")
+        {
+          m_nearestToponym = value;
+        }
       }
       else if (prevTag == "TimeStamp")
       {
@@ -1049,7 +1063,18 @@ void KmlParser::CharData(std::string value)
           }
         }
         else if (prevTag == "mwm:boundTracks" && strings::to_uint(value, i))
+        {
           m_boundTracks.push_back(static_cast<LocalId>(i));
+        }
+        else if (prevTag == "mwm:nearestToponyms")
+        {
+          m_nearestToponyms.push_back(value);
+        }
+        else if (prevTag == "mwm:properties" && !m_attrKey.empty())
+        {
+          m_properties[m_attrKey] = value;
+          m_attrKey.clear();
+        }
       }
     }
   }

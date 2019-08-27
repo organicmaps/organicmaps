@@ -38,7 +38,11 @@ class CollectorVisitor
     enum {value = std::is_same<T, FileData>::value ||
                   std::is_same<T, CategoryData>::value ||
                   std::is_same<T, BookmarkData>::value ||
-                  std::is_same<T, TrackData>::value};
+                  std::is_same<T, TrackData>::value ||
+                  std::is_same<T, FileDataV3>::value ||
+                  std::is_same<T, CategoryDataV3>::value ||
+                  std::is_same<T, BookmarkDataV3>::value ||
+                  std::is_same<T, TrackDataV3>::value};
   };
 
 public:

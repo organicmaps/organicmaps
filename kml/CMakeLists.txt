@@ -10,6 +10,7 @@ set(
   type_utils.cpp
   type_utils.hpp
   types.hpp
+  types_v3.hpp
   visitors.hpp
 )
 
