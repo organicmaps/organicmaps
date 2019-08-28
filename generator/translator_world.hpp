@@ -65,6 +65,6 @@ protected:
 
 private:
   // Fix warning 'hides overloaded virtual function'.
-  void MergeInto(TranslatorWorld & other) const override { TranslatorInterface::MergeInto(other); }
+  using TranslatorWorld::MergeInto;
 };
 }  // namespace generator
