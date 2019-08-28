@@ -113,7 +113,7 @@ map<string, string> ParseAddressDataset(string const & filename)
   string line;
   // Skip header.
   getline(data, line);
-  while (getline(data, line);)
+  while (getline(data, line))
   {
     vector<string> fields;
     strings::ParseCSVRow(line, '\t', fields);
