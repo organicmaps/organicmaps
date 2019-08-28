@@ -452,7 +452,7 @@ using namespace std;
   [self showSortSpinner:YES];
   self.sortItem.enabled = NO;
 
-  bm.GetSortedBookmarks(sortParams);
+  bm.GetSortedCategory(sortParams);
 }
 
 - (UIActivityIndicatorView *)sortSpinner {

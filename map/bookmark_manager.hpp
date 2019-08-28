@@ -234,7 +234,7 @@ public:
 
   std::vector<SortingType> GetAvailableSortingTypes(kml::MarkGroupId groupId,
                                                     bool hasMyPosition) const;
-  void GetSortedBookmarks(SortParams const & params);
+  void GetSortedCategory(SortParams const & params);
 
   bool GetLastSortingType(kml::MarkGroupId groupId, SortingType & sortingType) const;
   void SetLastSortingType(kml::MarkGroupId groupId, SortingType sortingType);
@@ -416,6 +416,7 @@ public:
   static std::string GenerateValidAndUniqueFilePathForKMB(std::string const & fileName);
   static std::string GetActualBookmarksDirectory();
   static bool IsMigrated();
+  static std::string GetTracksSortedBlockName();
   static std::string GetOthersSortedBlockName();
   static std::string GetNearMeSortedBlockName();
   enum class SortedByTimeBlockType : uint32_t
@@ -645,18 +646,40 @@ private:
     search::ReverseGeocoder::RegionAddress m_address;
   };
 
-  void GetSortedBookmarksImpl(SortParams const & params, std::vector<SortBookmarkData> const & bookmarksForSort,
-                              SortedBlocksCollection & sortedBlocks);
+  struct SortTrackData
+  {
+    SortTrackData() = default;
+    SortTrackData(kml::TrackData const & trackData)
+      : m_id(trackData.m_id)
+      , m_timestamp(trackData.m_timestamp)
+    {}
 
-  void SortByDistance(std::vector<SortBookmarkData> const & bookmarksForSort, m2::PointD const & myPosition,
-                      SortedBlocksCollection & sortedBlocks);
-  void SortByTime(std::vector<SortBookmarkData> const & bookmarksForSort, SortedBlocksCollection & sortedBlocks) const;
-  void SortByType(std::vector<SortBookmarkData> const & bookmarksForSort, SortedBlocksCollection & sortedBlocks) const;
+    kml::TrackId m_id;
+    kml::Timestamp m_timestamp;
+  };
+
+  void GetSortedCategoryImpl(SortParams const & params,
+                             std::vector<SortBookmarkData> const & bookmarksForSort,
+                             std::vector<SortTrackData> const & tracksForSort,
+                             SortedBlocksCollection & sortedBlocks);
+
+  void SortByDistance(std::vector<SortBookmarkData> const & bookmarksForSort,
+                      std::vector<SortTrackData> const & tracksForSort,
+                      m2::PointD const & myPosition, SortedBlocksCollection & sortedBlocks);
+  void SortByTime(std::vector<SortBookmarkData> const & bookmarksForSort,
+                  std::vector<SortTrackData> const & tracksForSort,
+                  SortedBlocksCollection & sortedBlocks) const;
+  void SortByType(std::vector<SortBookmarkData> const & bookmarksForSort,
+                  std::vector<SortTrackData> const & tracksForSort,
+                  SortedBlocksCollection & sortedBlocks) const;
 
   using AddressesCollection = std::vector<std::pair<kml::MarkId, search::ReverseGeocoder::RegionAddress>>;
   void PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort, AddressesCollection & newAddresses);
   void FilterInvalidData(SortedBlocksCollection & sortedBlocks, AddressesCollection & newAddresses) const;
   void SetBookmarksAddresses(AddressesCollection const & addresses);
+  void AddTracksSortedBlock(std::vector<SortTrackData> const & sortedTracks,
+                            SortedBlocksCollection & sortedBlocks) const;
+  void SortTracksByTime(std::vector<SortTrackData> & tracks) const;
 
   std::vector<std::string> GetAllPaidCategoriesIds() const;
 

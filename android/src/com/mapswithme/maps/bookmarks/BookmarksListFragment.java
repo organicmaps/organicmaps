@@ -370,8 +370,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     final double lon = hasMyPosition ? loc.getLongitude() : 0;
 
     BookmarkManager.INSTANCE.setLastSortingType(catId, sortingType);
-    BookmarkManager.INSTANCE.getSortedBookmarks(catId, sortingType, hasMyPosition, lat, lon,
-                                                mLastSortTimestamp);
+    BookmarkManager.INSTANCE.getSortedCategory(catId, sortingType, hasMyPosition, lat, lon,
+                                               mLastSortTimestamp);
   }
 
   @Override

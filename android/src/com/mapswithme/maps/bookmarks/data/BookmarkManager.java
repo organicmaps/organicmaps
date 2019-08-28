@@ -764,11 +764,11 @@ public enum BookmarkManager
     return nativeGetAvailableSortingTypes(catId, hasMyPosition);
   }
 
-  public void getSortedBookmarks(long catId, @SortingType int sortingType,
-                                 boolean hasMyPosition, double lat, double lon,
-                                 long timestamp)
+  public void getSortedCategory(long catId, @SortingType int sortingType,
+                                boolean hasMyPosition, double lat, double lon,
+                                long timestamp)
   {
-    nativeGetSortedBookmarks(catId, sortingType, hasMyPosition, lat, lon, timestamp);
+    nativeGetSortedCategory(catId, sortingType, hasMyPosition, lat, lon, timestamp);
   }
 
   @NonNull
@@ -929,9 +929,9 @@ public enum BookmarkManager
   @SortingType
   private native int[] nativeGetAvailableSortingTypes(long catId, boolean hasMyPosition);
 
-  private native boolean nativeGetSortedBookmarks(long catId, @SortingType int sortingType,
-                                                  boolean hasMyPosition, double lat, double lon,
-                                                  long timestamp);
+  private native boolean nativeGetSortedCategory(long catId, @SortingType int sortingType,
+                                                 boolean hasMyPosition, double lat, double lon,
+                                                 long timestamp);
 
   public interface BookmarksLoadingListener
   {

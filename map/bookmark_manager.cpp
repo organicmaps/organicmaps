@@ -964,6 +964,12 @@ std::string BookmarkManager::GetSortedByTimeBlockName(SortedByTimeBlockType bloc
 }
 
 // static
+std::string BookmarkManager::GetTracksSortedBlockName()
+{
+  return platform::GetLocalizedString("tracks_title");
+}
+
+// static
 std::string BookmarkManager::GetOthersSortedBlockName()
 {
   return platform::GetLocalizedString("others_sorttype");
@@ -1038,11 +1044,50 @@ void BookmarkManager::SetBookmarksAddresses(AddressesCollection const & addresse
   }
 }
 
+void BookmarkManager::AddTracksSortedBlock(std::vector<SortTrackData> const & sortedTracks,
+                                           SortedBlocksCollection & sortedBlocks) const
+{
+  if (!sortedTracks.empty())
+  {
+    SortedBlock tracksBlock;
+    tracksBlock.m_blockName = GetTracksSortedBlockName();
+    tracksBlock.m_trackIds.reserve(sortedTracks.size());
+    for (auto const & track : sortedTracks)
+      tracksBlock.m_trackIds.push_back(track.m_id);
+    sortedBlocks.emplace_back(std::move(tracksBlock));
+  }
+}
+
+void BookmarkManager::SortTracksByTime(std::vector<SortTrackData> & tracks) const
+{
+  bool hasTimestamp = false;
+  for (auto const & track : tracks)
+  {
+    if (!kml::IsEqual(track.m_timestamp, kml::Timestamp()))
+    {
+      hasTimestamp = true;
+      break;
+    }
+  }
+
+  if (!hasTimestamp)
+    return;
+
+  std::sort(tracks.begin(), tracks.end(),
+            [](SortTrackData const & lbm, SortTrackData const & rbm)
+            {
+              return lbm.m_timestamp > rbm.m_timestamp;
+            });
+}
+
 void BookmarkManager::SortByDistance(std::vector<SortBookmarkData> const & bookmarksForSort,
+                                     std::vector<SortTrackData> const & tracksForSort,
                                      m2::PointD const & myPosition,
                                      SortedBlocksCollection & sortedBlocks)
 {
   CHECK(m_regionAddressGetter != nullptr, ());
+
+  AddTracksSortedBlock(tracksForSort, sortedBlocks);
 
   std::vector<std::pair<SortBookmarkData const *, double>> sortedMarks;
   sortedMarks.reserve(bookmarksForSort.size());
@@ -1105,8 +1150,13 @@ void BookmarkManager::SortByDistance(std::vector<SortBookmarkData> const & bookm
 }
 
 void BookmarkManager::SortByTime(std::vector<SortBookmarkData> const & bookmarksForSort,
+                                 std::vector<SortTrackData> const & tracksForSort,
                                  SortedBlocksCollection & sortedBlocks) const
 {
+  std::vector<SortTrackData> sortedTracks = tracksForSort;
+  SortTracksByTime(sortedTracks);
+  AddTracksSortedBlock(sortedTracks, sortedBlocks);
+
   std::vector<SortBookmarkData const *> sortedMarks;
   sortedMarks.reserve(bookmarksForSort.size());
   for (auto const & mark : bookmarksForSort)
@@ -1143,12 +1193,16 @@ void BookmarkManager::SortByTime(std::vector<SortBookmarkData> const & bookmarks
     lastBlockType.reset(currentBlockType);
     currentBlock.m_markIds.push_back(mark->m_id);
   }
-  sortedBlocks.push_back(currentBlock);
+  if (!currentBlock.m_markIds.empty())
+    sortedBlocks.push_back(currentBlock);
 }
 
 void BookmarkManager::SortByType(std::vector<SortBookmarkData> const & bookmarksForSort,
+                                 std::vector<SortTrackData> const & tracksForSort,
                                  SortedBlocksCollection & sortedBlocks) const
 {
+  AddTracksSortedBlock(tracksForSort, sortedBlocks);
+
   std::vector<SortBookmarkData const *> sortedMarks;
   sortedMarks.reserve(bookmarksForSort.size());
   for (auto const & mark : bookmarksForSort)
@@ -1188,18 +1242,23 @@ void BookmarkManager::SortByType(std::vector<SortBookmarkData> const & bookmarks
                std::pair<BookmarkBaseType, size_t> const & r){ return l.second > r.second; });
 
   std::map<BookmarkBaseType, size_t> blockIndices;
-  sortedBlocks.resize(sortedTypes.size() + (othersTypeMarksCount > 0 ? 1 : 0));
+  sortedBlocks.reserve(sortedBlocks.size() + sortedTypes.size() + (othersTypeMarksCount > 0 ? 1 : 0));
   for (size_t i = 0; i < sortedTypes.size(); ++i)
   {
     auto const type = sortedTypes[i].first;
-    sortedBlocks[i].m_blockName = GetLocalizedBookmarkBaseType(type);
-    sortedBlocks[i].m_markIds.reserve(sortedTypes[i].second);
-    blockIndices[type] = i;
+    SortedBlock typeBlock;
+    typeBlock.m_blockName = GetLocalizedBookmarkBaseType(type);
+    typeBlock.m_markIds.reserve(sortedTypes[i].second);
+    blockIndices[type] = sortedBlocks.size();
+    sortedBlocks.emplace_back(std::move(typeBlock));
   }
+
   if (othersTypeMarksCount > 0)
   {
-    sortedBlocks.back().m_blockName = GetOthersSortedBlockName();
-    sortedBlocks.back().m_markIds.reserve(othersTypeMarksCount);
+    SortedBlock othersBlock;
+    othersBlock.m_blockName = GetOthersSortedBlockName();
+    othersBlock.m_markIds.reserve(othersTypeMarksCount);
+    sortedBlocks.emplace_back(std::move(othersBlock));
   }
 
   for (auto mark : sortedMarks)
@@ -1217,27 +1276,28 @@ void BookmarkManager::SortByType(std::vector<SortBookmarkData> const & bookmarks
   }
 }
 
-void BookmarkManager::GetSortedBookmarksImpl(SortParams const & params,
-                                             std::vector<SortBookmarkData> const & bookmarksForSort,
-                                             SortedBlocksCollection & sortedBlocks)
+void BookmarkManager::GetSortedCategoryImpl(SortParams const & params,
+                                            std::vector<SortBookmarkData> const & bookmarksForSort,
+                                            std::vector<SortTrackData> const & tracksForSort,
+                                            SortedBlocksCollection & sortedBlocks)
 {
   switch (params.m_sortingType)
   {
   case SortingType::ByDistance:
     CHECK(params.m_hasMyPosition, ());
-    SortByDistance(bookmarksForSort, params.m_myPosition, sortedBlocks);
+    SortByDistance(bookmarksForSort, tracksForSort, params.m_myPosition, sortedBlocks);
     return;
   case SortingType::ByTime:
-    SortByTime(bookmarksForSort, sortedBlocks);
+    SortByTime(bookmarksForSort, tracksForSort, sortedBlocks);
     return;
   case SortingType::ByType:
-    SortByType(bookmarksForSort, sortedBlocks);
+    SortByType(bookmarksForSort, tracksForSort, sortedBlocks);
     return;
   }
   UNREACHABLE();
 }
 
-void BookmarkManager::GetSortedBookmarks(SortParams const & params)
+void BookmarkManager::GetSortedCategory(SortParams const & params)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK(params.m_onResults != nullptr, ());
@@ -1251,6 +1311,14 @@ void BookmarkManager::GetSortedBookmarks(SortParams const & params)
   {
     auto const * bm = GetBookmark(markId);
     bookmarksForSort.emplace_back(bm->GetData(), bm->GetAddress());
+  }
+
+  std::vector<SortTrackData> tracksForSort;
+  tracksForSort.reserve(group->GetUserLines().size());
+  for (auto trackId : group->GetUserLines())
+  {
+    auto const * track = GetTrack(trackId);
+    tracksForSort.emplace_back(track->GetData());
   }
 
   if (m_testModeEnabled)
@@ -1267,13 +1335,14 @@ void BookmarkManager::GetSortedBookmarks(SortParams const & params)
     PrepareBookmarksAddresses(bookmarksForSort, newAddresses);
 
     SortedBlocksCollection sortedBlocks;
-    GetSortedBookmarksImpl(params, bookmarksForSort, sortedBlocks);
+    GetSortedCategoryImpl(params, bookmarksForSort, tracksForSort, sortedBlocks);
     params.m_onResults(std::move(sortedBlocks), SortParams::Status::Completed);
     return;
   }
 
   GetPlatform().RunTask(Platform::Thread::File,
-                        [this, params, bookmarksForSort = std::move(bookmarksForSort)]() mutable
+                        [this, params, bookmarksForSort = std::move(bookmarksForSort),
+                          tracksForSort = std::move(tracksForSort)]() mutable
   {
     std::unique_lock<std::mutex> lock(m_regionAddressMutex);
     if (m_regionAddressGetter == nullptr)
@@ -1290,7 +1359,7 @@ void BookmarkManager::GetSortedBookmarks(SortParams const & params)
     PrepareBookmarksAddresses(bookmarksForSort, newAddresses);
 
     SortedBlocksCollection sortedBlocks;
-    GetSortedBookmarksImpl(params, bookmarksForSort, sortedBlocks);
+    GetSortedCategoryImpl(params, bookmarksForSort, tracksForSort, sortedBlocks);
 
     GetPlatform().RunTask(Platform::Thread::Gui, [this, params,
                                                   newAddresses = std::move(newAddresses),

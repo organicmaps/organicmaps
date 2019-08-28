@@ -436,9 +436,9 @@ void OnUploadFinished(JNIEnv * env, BookmarkCatalog::UploadResult uploadResult,
   jni::HandleJavaException(env);
 }
 
-void OnBookmarksSortingResults(JNIEnv * env, long long timestamp,
-                               BookmarkManager::SortedBlocksCollection && sortedBlocks,
-                               BookmarkManager::SortParams::Status status)
+void OnCategorySortingResults(JNIEnv * env, long long timestamp,
+                              BookmarkManager::SortedBlocksCollection && sortedBlocks,
+                              BookmarkManager::SortParams::Status status)
 {
   ASSERT(g_bookmarkManagerClass, ());
   ASSERT(g_sortedBlockClass, ());
@@ -1166,7 +1166,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetAvailableSortin
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetSortedBookmarks(JNIEnv *env,
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetSortedCategory(JNIEnv *env,
     jobject, jlong catId, jint sortingType, jboolean hasMyPosition, jdouble lat, jdouble lon,
     jlong timestamp)
 {
@@ -1177,8 +1177,8 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetSortedBookmarks
   sortParams.m_hasMyPosition = static_cast<bool>(hasMyPosition);
   sortParams.m_myPosition = MercatorBounds::FromLatLon(static_cast<double>(lat),
       static_cast<double>(lon));
-  sortParams.m_onResults = bind(&OnBookmarksSortingResults, env, timestamp, _1, _2);
+  sortParams.m_onResults = bind(&OnCategorySortingResults, env, timestamp, _1, _2);
 
-  bm.GetSortedBookmarks(sortParams);
+  bm.GetSortedCategory(sortParams);
 }
 }  // extern "C"

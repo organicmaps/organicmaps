@@ -628,6 +628,12 @@ UNIT_TEST(Bookmarks_Sorting)
     std::vector<std::string> m_types;
   };
 
+  struct TestTrackData
+  {
+    kml::TrackId m_trackId;
+    std::chrono::hours m_hoursSinceCreation;
+  };
+
   auto const kMoscowCenter = MercatorBounds::FromLatLon(55.750441, 37.6175138);
 
   auto const addrMoscow = fm.GetBookmarkManager().GetLocalizedRegionAddress(kMoscowCenter);
@@ -635,7 +641,7 @@ UNIT_TEST(Bookmarks_Sorting)
   double constexpr kNearR = 20 * 1000;
   m2::PointD const myPos = MercatorBounds::GetSmPoint(kMoscowCenter, -kNearR, 0.0);
 
-  std::vector<TestMarkData> testData = {
+  std::vector<TestMarkData> testMarksData = {
     {0,  MercatorBounds::GetSmPoint(myPos, kNearR * 0.07, 0.0), kDay + std::chrono::hours(1), {"historic-ruins"}},
     {1,  MercatorBounds::GetSmPoint(myPos, kNearR * 0.06, 0.0), kUnknownTime, {"amenity-restaurant", "cuisine-sushi"}},
     {2,  MercatorBounds::GetSmPoint(myPos, kNearR * 0.05, 0.0), kUnknownTime, {"shop-music", "shop-gift"}},
@@ -651,23 +657,32 @@ UNIT_TEST(Bookmarks_Sorting)
     {12, MercatorBounds::GetSmPoint(myPos, kNearR * 1.04, 0.0), kDay + std::chrono::hours(2), {"shop-music"}},
   };
 
+  std::vector<TestTrackData> testTracksData = {
+    {0, kDay + std::chrono::hours(1)},
+    {1, kUnknownTime},
+    {2, kMonth + std::chrono::hours(1)}
+  };
+
   BookmarkManager::SortedBlocksCollection expectedSortedByDistance = {
-    {BookmarkManager::GetNearMeSortedBlockName(), {8, 6, 4, 2, 1, 0}},
-    {addrMoscow, {3, 5, 10, 12, 7, 9}},
-    {BookmarkManager::GetOthersSortedBlockName(), {11}}};
+    {BookmarkManager::GetTracksSortedBlockName(), {}, {0, 1, 2}},
+    {BookmarkManager::GetNearMeSortedBlockName(), {8, 6, 4, 2, 1, 0}, {}},
+    {addrMoscow, {3, 5, 10, 12, 7, 9}, {}},
+    {BookmarkManager::GetOthersSortedBlockName(), {11}, {}}};
 
   BookmarkManager::SortedBlocksCollection expectedSortedByTime = {
-    {BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::WeekAgo), {8, 0, 12, 9}},
-    {BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::MonthAgo), {11, 3, 4}},
-    {BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::MoreThanMonthAgo), {5, 6}},
-    {BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::MoreThanYearAgo), {10}},
-    {BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::Others), {7, 2, 1}}};
+    {BookmarkManager::GetTracksSortedBlockName(), {}, {0, 2, 1}},
+    {BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::WeekAgo), {8, 0, 12, 9}, {}},
+    {BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::MonthAgo), {11, 3, 4}, {}},
+    {BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::MoreThanMonthAgo), {5, 6}, {}},
+    {BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::MoreThanYearAgo), {10}, {}},
+    {BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::Others), {7, 2, 1}, {}}};
 
   BookmarkManager::SortedBlocksCollection expectedSortedByType = {
-    {GetLocalizedBookmarkBaseType(BookmarkBaseType::Sights), {0, 3, 5, 10}},
-    {GetLocalizedBookmarkBaseType(BookmarkBaseType::Food), {9, 4, 1}},
-    {GetLocalizedBookmarkBaseType(BookmarkBaseType::Shop), {12, 6, 2}},
-    {BookmarkManager::GetOthersSortedBlockName(), {8, 11, 7}}};
+    {BookmarkManager::GetTracksSortedBlockName(), {}, {0, 1, 2}},
+    {GetLocalizedBookmarkBaseType(BookmarkBaseType::Sights), {0, 3, 5, 10}, {}},
+    {GetLocalizedBookmarkBaseType(BookmarkBaseType::Food), {9, 4, 1}, {}},
+    {GetLocalizedBookmarkBaseType(BookmarkBaseType::Shop), {12, 6, 2}, {}},
+    {BookmarkManager::GetOthersSortedBlockName(), {8, 11, 7}, {}}};
 
   auto const kBerlin1 = MercatorBounds::FromLatLon(52.5038994, 13.3982282);
   auto const kBerlin2 = MercatorBounds::FromLatLon(52.5007139, 13.4005403);
@@ -683,7 +698,7 @@ UNIT_TEST(Bookmarks_Sorting)
   auto const kVladimir = MercatorBounds::FromLatLon(56.2102137, 40.5195297);
   auto const kBermuda = MercatorBounds::FromLatLon(32.2946391, -64.7820014);
 
-  std::vector<TestMarkData> testData2 = {
+  std::vector<TestMarkData> testMarksData2 = {
     {100,  kBerlin1, kUnknownTime, {"amenity", "building", "wheelchair-yes", "tourism-museum"}},
     {101,  kGreenland, kUnknownTime, {}},
     {102,  kVladimir, kUnknownTime, {"tourism-artwork"}},
@@ -720,12 +735,12 @@ UNIT_TEST(Bookmarks_Sorting)
     {addrBermuda, {111}}};
 
   BookmarkManager::SortedBlocksCollection expectedSortedByType2 = {
-    {GetLocalizedBookmarkBaseType(BookmarkBaseType::Food), {111, 109, 107, 103}},
-    {GetLocalizedBookmarkBaseType(BookmarkBaseType::Museum), {110, 106, 100}},
-    {GetLocalizedBookmarkBaseType(BookmarkBaseType::ReligiousPlace), {108, 105, 104}},
-    {BookmarkManager::GetOthersSortedBlockName(), {112, 102, 101}}};
+    {GetLocalizedBookmarkBaseType(BookmarkBaseType::Food), {111, 109, 107, 103}, {}},
+    {GetLocalizedBookmarkBaseType(BookmarkBaseType::Museum), {110, 106, 100}, {}},
+    {GetLocalizedBookmarkBaseType(BookmarkBaseType::ReligiousPlace), {108, 105, 104}, {}},
+    {BookmarkManager::GetOthersSortedBlockName(), {112, 102, 101}, {}}};
 
-  std::vector<TestMarkData> testData3 = {
+  std::vector<TestMarkData> testMarksData3 = {
     {200,  {0.0, 0.0}, kUnknownTime, {"tourism-museum"}},
     {201,  {0.0, 0.0}, kUnknownTime, {"leisure-park"}},
     {202,  {0.0, 0.0}, kUnknownTime, {"tourism-artwork"}},
@@ -734,7 +749,7 @@ UNIT_TEST(Bookmarks_Sorting)
     {205,  {0.0, 0.0}, kUnknownTime, {"amenity-place_of_worship-christian"}},
   };
 
-  std::vector<TestMarkData> testData4 = {
+  std::vector<TestMarkData> testMarksData4 = {
     {300,  {0.0, 0.0}, kUnknownTime, {"tourism-museum"}},
     {301,  {0.0, 0.0}, kUnknownTime, {"leisure-park"}},
     {302,  {0.0, 0.0}, kUnknownTime, {"tourism-artwork"}},
@@ -745,12 +760,30 @@ UNIT_TEST(Bookmarks_Sorting)
 
   BookmarkManager::SortedBlocksCollection expectedSortedByType4 = {
     {GetLocalizedBookmarkBaseType(BookmarkBaseType::Hotel), {305}},
-    {BookmarkManager::GetOthersSortedBlockName(), {304, 303, 302, 301, 300}}};
+    {BookmarkManager::GetOthersSortedBlockName(), {304, 303, 302, 301, 300}, {}}};
 
-  auto const fillCategory = [&](kml::MarkGroupId cat, std::vector<TestMarkData> const & data)
+  std::vector<TestTrackData> testTracksData5 = {
+    {40, kUnknownTime},
+    {41, kUnknownTime},
+    {42, std::chrono::hours(1)},
+    {43, kUnknownTime}
+  };
+
+  BookmarkManager::SortedBlocksCollection expectedSortedByTime5 = {
+    {BookmarkManager::GetTracksSortedBlockName(), {}, {42, 40, 41, 43}}};
+
+  std::vector<TestTrackData> testTracksData6 = {
+    {50, kUnknownTime},
+    {51, kUnknownTime},
+    {52, kUnknownTime}
+  };
+
+  auto const fillCategory = [&](kml::MarkGroupId cat,
+                                std::vector<TestMarkData> const & marksData,
+                                std::vector<TestTrackData> const & tracksData)
   {
     auto es = bmManager.GetEditSession();
-    for (auto const & testMarkData : data)
+    for (auto const & testMarkData : marksData)
     {
       kml::BookmarkData bmData;
       bmData.m_id = testMarkData.m_markId;
@@ -760,6 +793,16 @@ UNIT_TEST(Bookmarks_Sorting)
       setFeatureTypes(testMarkData.m_types, bmData);
       auto const * bm = es.CreateBookmark(std::move(bmData));
       es.AttachBookmark(bm->GetId(), cat);
+    }
+    for (auto const & testTrackData : tracksData)
+    {
+      kml::TrackData trackData;
+      trackData.m_id = testTrackData.m_trackId;
+      trackData.m_points = {{0.0, 0.0}, {1.0, 0.0}};
+      if (testTrackData.m_hoursSinceCreation != kUnknownTime)
+        trackData.m_timestamp = currentTime - testTrackData.m_hoursSinceCreation;
+      auto const * track = es.CreateTrack(std::move(trackData));
+      es.AttachTrack(track->GetId(), cat);
     }
   };
 
@@ -771,8 +814,10 @@ UNIT_TEST(Bookmarks_Sorting)
     for (auto const & block : blocks)
     {
       LOG(LINFO, ("========== ", block.m_blockName));
+      for (auto const trackId : block.m_trackIds)
+        LOG(LINFO, ("   track", trackId));
       for (auto const markId : block.m_markIds)
-        LOG(LINFO, ("   ", markId));
+        LOG(LINFO, ("   bookmark", markId));
     }
     */
   };
@@ -791,13 +836,13 @@ UNIT_TEST(Bookmarks_Sorting)
     {
       sortedBlocks = std::move(results);
     };
-    bmManager.GetSortedBookmarks(params);
+    bmManager.GetSortedCategory(params);
     return sortedBlocks;
   };
 
   {
     kml::MarkGroupId catId = bmManager.CreateBookmarkCategory("test", false);
-    fillCategory(catId, testData);
+    fillCategory(catId, testMarksData, testTracksData);
 
     std::vector<BookmarkManager::SortingType> expectedSortingTypes = {
       BookmarkManager::SortingType::ByType,
@@ -823,7 +868,7 @@ UNIT_TEST(Bookmarks_Sorting)
 
   {
     kml::MarkGroupId catId2 = bmManager.CreateBookmarkCategory("test2", false);
-    fillCategory(catId2, testData2);
+    fillCategory(catId2, testMarksData2, {} /* tracksData */);
 
     std::vector<BookmarkManager::SortingType> expectedSortingTypes2 = {
       BookmarkManager::SortingType::ByType,
@@ -850,7 +895,7 @@ UNIT_TEST(Bookmarks_Sorting)
 
   {
     kml::MarkGroupId catId3 = bmManager.CreateBookmarkCategory("test3", false);
-    fillCategory(catId3, testData3);
+    fillCategory(catId3, testMarksData3, {} /* tracksData */);
 
     std::vector<BookmarkManager::SortingType> expectedSortingTypes3 = {};
     auto const sortingTypes3 = bmManager.GetAvailableSortingTypes(catId3, false);
@@ -859,7 +904,7 @@ UNIT_TEST(Bookmarks_Sorting)
 
   {
     kml::MarkGroupId catId4 = bmManager.CreateBookmarkCategory("test4", false);
-    fillCategory(catId4, testData4);
+    fillCategory(catId4, testMarksData4, {} /* tracksData */);
 
     std::vector<BookmarkManager::SortingType> expectedSortingTypes4 = { BookmarkManager::SortingType::ByType };
     auto const sortingTypes4 = bmManager.GetAvailableSortingTypes(catId4, false);
@@ -868,6 +913,28 @@ UNIT_TEST(Bookmarks_Sorting)
     auto const sortedByType4 = getSortedBokmarks(catId4, BookmarkManager::SortingType::ByType, false, {});
     printBlocks("Sorted by type 4", sortedByType4);
     TEST(sortedByType4 == expectedSortedByType4, ());
+  }
+
+  {
+    kml::MarkGroupId catId5 = bmManager.CreateBookmarkCategory("test5", false);
+    fillCategory(catId5, {} /* marksData */, testTracksData5);
+    std::vector<BookmarkManager::SortingType> expectedSortingTypes5 = { BookmarkManager::SortingType::ByTime };
+
+    auto const sortingTypes5 = bmManager.GetAvailableSortingTypes(catId5, false);
+    TEST(sortingTypes5 == expectedSortingTypes5, ());
+
+    auto const sortedByTime5 = getSortedBokmarks(catId5, BookmarkManager::SortingType::ByTime, false, {});
+    printBlocks("Sorted by time 5", sortedByTime5);
+    TEST(sortedByTime5 == expectedSortedByTime5, ());
+  }
+
+  {
+    kml::MarkGroupId catId6 = bmManager.CreateBookmarkCategory("test6", false);
+    fillCategory(catId6, {} /* marksData */, testTracksData6);
+    std::vector<BookmarkManager::SortingType> expectedSortingTypes6 = {};
+
+    auto const sortingTypes6 = bmManager.GetAvailableSortingTypes(catId6, false);
+    TEST(sortingTypes6 == expectedSortingTypes6, ());
   }
 }
 
