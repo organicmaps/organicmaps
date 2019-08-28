@@ -84,14 +84,15 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
     super.onViewCreated(view, savedInstanceState);
 
     final Bundle args = getArguments();
+    if (args == null)
+      throw new AssertionError("Arguments of choose sorting type view can't be null.");
 
     UiUtils.hide(view, R.id.sort_by_type, R.id.sort_by_distance, R.id.sort_by_time);
 
-    if (args.getIntArray(EXTRA_SORTING_TYPES) == null)
-      throw new AssertionError("Available sorting types can't be null.");
-
     @BookmarkManager.SortingType
     int[] availableSortingTypes = args.getIntArray(EXTRA_SORTING_TYPES);
+    if (availableSortingTypes == null)
+      throw new AssertionError("Available sorting types can't be null.");
 
     for (@BookmarkManager.SortingType int type : availableSortingTypes)
       UiUtils.show(view.findViewById(getViewId(type)));
