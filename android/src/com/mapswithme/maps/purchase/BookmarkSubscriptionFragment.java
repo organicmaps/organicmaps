@@ -128,7 +128,6 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
     }
 
     activateState(BookmarkSubscriptionPaymentState.PRODUCT_DETAILS_LOADING);
-    mPurchaseController.queryProductDetails();
   }
 
   void queryProductDetails()
