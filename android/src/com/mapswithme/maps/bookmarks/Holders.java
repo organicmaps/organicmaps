@@ -3,7 +3,6 @@ package com.mapswithme.maps.bookmarks;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.PluralsRes;
@@ -28,11 +27,6 @@ import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Holders
 {
@@ -279,7 +273,7 @@ public class Holders
       UiUtils.hideIf(TextUtils.isEmpty(subtitleValue), mDistance);
 
       mIcon.setImageResource(bookmark.getIcon().getResId());
-      UiUtils.hideIf(!sectionsDataSource.isEditable(position.sectionIndex), mMore);
+      UiUtils.hideIf(!sectionsDataSource.isEditable(position.getSectionIndex()), mMore);
       Drawable circle = Graphics.drawCircleAndImage(bookmark.getIcon().argb(),
                                                     R.dimen.track_circle_size,
                                                     bookmark.getIcon().getResId(),
@@ -347,7 +341,7 @@ public class Holders
     void bind(@NonNull BookmarkListAdapter.SectionPosition position,
               @NonNull BookmarkListAdapter.SectionsDataSource sectionsDataSource)
     {
-      mView.setText(sectionsDataSource.getTitle(position.sectionIndex, mView.getResources()));
+      mView.setText(sectionsDataSource.getTitle(position.getSectionIndex(), mView.getResources()));
     }
   }
 

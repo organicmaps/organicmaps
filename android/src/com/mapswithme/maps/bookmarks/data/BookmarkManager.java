@@ -930,8 +930,8 @@ public enum BookmarkManager
   private native int[] nativeGetAvailableSortingTypes(long catId, boolean hasMyPosition);
 
   private native boolean nativeGetSortedBookmarks(long catId, @SortingType int sortingType,
-                                           boolean hasMyPosition, double lat, double lon,
-                                           long timestamp);
+                                                  boolean hasMyPosition, double lat, double lon,
+                                                  long timestamp);
 
   public interface BookmarksLoadingListener
   {

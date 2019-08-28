@@ -831,7 +831,7 @@ public class Factory
 
   public static class ShowCountryTask implements MapTask
   {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 256630934543189768L;
     private final String mCountryId;
 
     public ShowCountryTask(String countryId)
@@ -849,8 +849,7 @@ public class Factory
 
   public static class ShowBookmarkCategoryTask implements MapTask
   {
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 8285565041410550281L;
     final long mCategoryId;
 
     public ShowBookmarkCategoryTask(long categoryId)
@@ -867,8 +866,7 @@ public class Factory
 
   static abstract class BaseUserMarkTask implements MapTask
   {
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = -3348320422813422144L;
     final long mCategoryId;
     final long mId;
 

@@ -450,9 +450,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     int currentType = getLastSortingType();
     @BookmarkManager.SortingType int[] types = getAvailableSortingTypes();
-    for (int i = 0; i < types.length; ++i)
+    for (@BookmarkManager.SortingType int type : types)
     {
-      if (types[i] == currentType)
+      if (type == currentType)
         return currentType;
     }
     return -1;

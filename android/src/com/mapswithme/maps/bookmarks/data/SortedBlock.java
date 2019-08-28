@@ -1,7 +1,6 @@
 package com.mapswithme.maps.bookmarks.data;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,8 +27,12 @@ public class SortedBlock
   public boolean isTracksBlock() { return !mTrackIds.isEmpty(); }
   @NonNull
   public String getName() { return mName; }
+
+  @SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType")
   @NonNull
   public List<Long> getBookmarkIds() { return mBookmarkIds; }
+
+  @SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType")
   @NonNull
   public List<Long> getTrackIds() { return mTrackIds; }
 }

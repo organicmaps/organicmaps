@@ -93,8 +93,8 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
     @BookmarkManager.SortingType
     int[] availableSortingTypes = args.getIntArray(EXTRA_SORTING_TYPES);
 
-    for (int i = 0; i < availableSortingTypes.length; ++i)
-      UiUtils.show(view.findViewById(getViewId(availableSortingTypes[i])));
+    for (@BookmarkManager.SortingType int type : availableSortingTypes)
+      UiUtils.show(view.findViewById(getViewId(type)));
 
     int currentType = args.getInt(EXTRA_CURRENT_SORT_TYPE);
 
