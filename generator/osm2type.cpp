@@ -311,6 +311,13 @@ private:
   buffer_vector<uint32_t, static_cast<size_t>(Type::Count)> m_types;
 };
 
+// This function tries to match osm tags with classificator types:
+//   amenity=parking + parking=underground + fee=yes -> amenity-parking-underground-fee.
+// Now it works wrong with some tags combinations:
+//   place=quarter + country=MX -> place-country
+//   emergency=yes + phone=7777777 -> emergency-phone
+//   route=ferry + car=yes + foot=yes -> route-ferry-car
+// See https://jira.mail.ru/browse/MAPSME-10611.
 void MatchTypes(OsmElement * p, FeatureParams & params, function<bool(uint32_t)> filterType)
 {
   set<int> skipRows;
