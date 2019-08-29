@@ -46,6 +46,7 @@ import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
+import com.mapswithme.maps.dialog.CatalogUnlimitedAccessDialog;
 import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.maps.dialog.DrivingOptionsDialogFactory;
 import com.mapswithme.maps.discovery.DiscoveryActivity;
@@ -81,10 +82,12 @@ import com.mapswithme.maps.promo.PromoAfterBooking;
 import com.mapswithme.maps.promo.PromoBookingDialogFragment;
 import com.mapswithme.maps.purchase.AdsRemovalActivationCallback;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
+import com.mapswithme.maps.purchase.BookmarkSubscriptionActivity;
 import com.mapswithme.maps.purchase.FailedPurchaseChecker;
 import com.mapswithme.maps.purchase.PurchaseCallback;
 import com.mapswithme.maps.purchase.PurchaseController;
 import com.mapswithme.maps.purchase.PurchaseFactory;
+import com.mapswithme.maps.purchase.PurchaseUtils;
 import com.mapswithme.maps.routing.NavigationController;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingBottomMenuListener;
@@ -189,7 +192,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private static final int REQ_CODE_SHOW_SIMILAR_HOTELS = 3;
   public static final int REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG = 5;
   public static final int REQ_CODE_DRIVING_OPTIONS = 6;
+  public static final int REQ_CODE_CATALOG_UNLIMITED_ACCESS = 7;
   public static final String ERROR_DRIVING_OPTIONS_DIALOG_TAG = "error_driving_options_dialog_tag";
+  public static final String CATALOG_UNLIMITED_ACCESS_DIALOG_TAG = "catalog_unlimited_access_dialog_tag";
 
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
@@ -706,16 +711,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (frame == null)
       return;
 
-    View zoomIn = frame.findViewById(R.id.nav_zoom_in);
-    zoomIn.setOnClickListener(this);
-    View zoomOut = frame.findViewById(R.id.nav_zoom_out);
-    zoomOut.setOnClickListener(this);
+    View zoomIn = frame.findViewById(R.id.nav_zoom_in_container);
+    zoomIn.findViewById(R.id.nav_zoom_in).setOnClickListener(this);
+    View zoomOut = frame.findViewById(R.id.nav_zoom_out_container);
+    zoomOut.findViewById(R.id.nav_zoom_out).setOnClickListener(this);
     View myPosition = frame.findViewById(R.id.my_position);
     mNavMyPosition = new MyPositionButton(myPosition, mOnMyPositionClickListener);
 
     initToggleMapLayerController(frame);
     mNavAnimationController = new NavigationButtonsAnimationController(
         zoomIn, zoomOut, myPosition, getWindow().getDecorView().getRootView(), this);
+    View openSubsScreenBtn = frame.findViewById(R.id.subs_screen_btn);
+    openSubsScreenBtn.setOnClickListener(v -> openSubscriptionsScreen());
+    openSubsScreenBtn.setVisibility(true ? View.VISIBLE : View.GONE);
+  }
+
+  private void openSubscriptionsScreen()
+  {
+    Intent intent = new Intent(MwmActivity.this, BookmarkSubscriptionActivity.class);
+    startActivityForResult(intent, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION);
   }
 
   private void initToggleMapLayerController(@NonNull View frame)
@@ -933,7 +947,27 @@ public class MwmActivity extends BaseMwmFragmentActivity
       case REQ_CODE_DRIVING_OPTIONS:
         rebuildLastRoute();
         break;
+      case PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION:
+        showCatalogUnlimitedAccessDialog();
+        break;
     }
+  }
+
+  private void showCatalogUnlimitedAccessDialog()
+  {
+    com.mapswithme.maps.dialog.AlertDialog dialog =
+        new com.mapswithme.maps.dialog.AlertDialog.Builder()
+            .setTitleId(R.string.unable_to_calc_alert_title)
+            .setMessageId(R.string.unable_to_calc_alert_subtitle)
+            .setPositiveBtnId(R.string.settings)
+            .setNegativeBtnId(R.string.cancel)
+            .setDialogViewStrategyType(com.mapswithme.maps.dialog.AlertDialog.DialogViewStrategyType.CONFIRMATION_DIALOG)
+            .setDialogFactory(CatalogUnlimitedAccessDialog::new)
+            .setReqCode(REQ_CODE_CATALOG_UNLIMITED_ACCESS)
+            .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog
+                                            .FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+            .build();
+    dialog.show(this, CATALOG_UNLIMITED_ACCESS_DIALOG_TAG);
   }
 
   private void rebuildLastRoute()
@@ -2333,6 +2367,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (requestCode == REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG)
       DrivingOptionsActivity.start(this);
+    else if (requestCode == REQ_CODE_CATALOG_UNLIMITED_ACCESS)
+      BookmarksCatalogActivity.start(this, BookmarkManager.INSTANCE.getCatalogFrontendUrl(UTM.UTM_NONE));
   }
 
   @Override

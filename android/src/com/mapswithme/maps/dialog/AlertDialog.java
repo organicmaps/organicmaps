@@ -76,7 +76,7 @@ public class AlertDialog extends BaseMwmDialogFragment
   @LayoutRes
   protected int getLayoutId()
   {
-    throw new UnsupportedOperationException("By default, you" +
+    throw new UnsupportedOperationException("By default, you " +
                                             "shouldn't implement this method." +
                                             " AlertDialog.Builder will do everything by itself. " +
                                             "But if you want to use this method, " +

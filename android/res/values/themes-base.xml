@@ -158,6 +158,7 @@
     <item name="bookmarkSubscriptionCardTextColor">@color/subscription_card_color</item>
     <item name="subscriptionTitleColor">@color/bookmarks_subs_title</item>
     <item name="subscriptionSubtitleColor">@color/bookmarks_subs_subtitle</item>
+    <item name="bg_crown">@drawable/bg_crown</item>
   </style>
 
   <!-- Night theme -->
@@ -315,5 +316,6 @@
     <item name="bookmarkSubscriptionCardTextColor">@color/subscription_card_color_night</item>
     <item name="subscriptionTitleColor">@color/bookmarks_subs_title_night</item>
     <item name="subscriptionSubtitleColor">@color/bookmarks_subs_subtitle_night</item>
+    <item name="bg_crown">@drawable/bg_crown_night</item>
   </style>
 </resources>

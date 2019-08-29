@@ -110,6 +110,7 @@
     <attr name="tipsBgColor" format="color"/>
     <attr name="tipsPrimaryTextColor" format="color"/>
     <attr name="tipsSecondaryTextColor" format="color"/>
+    <attr name="bg_crown" format="reference"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">
