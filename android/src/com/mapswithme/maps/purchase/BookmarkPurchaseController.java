@@ -22,7 +22,7 @@ class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCa
   @NonNull
   private final PlayStoreBillingCallback mBillingCallback = new PlayStoreBillingCallbackImpl();
   @NonNull
-  private final ValidationCallback mValidationCallback = new ValidationCallbackImpl();
+  private final ValidationCallback mValidationCallback;
   @Nullable
   private final String mServerId;
 
@@ -32,6 +32,7 @@ class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCa
   {
     super(validator, billingManager, productId);
     mServerId = serverId;
+    mValidationCallback = new ValidationCallbackImpl(mServerId);
   }
 
   @Override
@@ -48,27 +49,26 @@ class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCa
     getBillingManager().removeCallback(mBillingCallback);
   }
 
-  private class ValidationCallbackImpl implements ValidationCallback
+  private class ValidationCallbackImpl extends AbstractBookmarkValidationCallback
   {
 
-    @Override
-    public void onValidate(@NonNull String purchaseData, @NonNull ValidationStatus status)
+    ValidationCallbackImpl(@Nullable String serverId)
     {
-      LOGGER.i(TAG, "Validation status of 'paid bookmark': " + status);
-      if (status == ValidationStatus.VERIFIED)
-      {
-        //noinspection ConstantConditions
-        Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_VALIDATION_SUCCESS,
-                                               mServerId);
-        LOGGER.i(TAG, "Bookmark purchase consuming...");
-        getBillingManager().consumePurchase(PurchaseUtils.parseToken(purchaseData));
-        return;
-      }
+      super(serverId);
+    }
 
-      //noinspection ConstantConditions
-      Statistics.INSTANCE.trackPurchaseValidationError(mServerId, status);
+    @Override
+    void onValidationError(@NonNull ValidationStatus status)
+    {
       if (getUiCallback() != null)
         getUiCallback().onValidationFinish(false);
+    }
+
+    @Override
+    void consumePurchase(@NonNull String purchaseData)
+    {
+      LOGGER.i(TAG, "Bookmark purchase consuming...");
+      getBillingManager().consumePurchase(PurchaseUtils.parseToken(purchaseData));
     }
   }
 
@@ -121,7 +121,7 @@ class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCa
     @Override
     public void onConsumptionSuccess()
     {
-      LOGGER.i(TAG, "Bookmark purchase consumed and verified");
+      LOGGER.i(TAG, "Bookmark purchase consumed");
       if (getUiCallback() != null)
         getUiCallback().onValidationFinish(true);
     }
