@@ -342,6 +342,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     BookmarkListAdapter adapter = getAdapter();
     adapter.setSortedResults(sortedBlocks);
     adapter.notifyDataSetChanged();
+
+    updateSortingProgressBar();
   }
 
   @Override
@@ -354,6 +356,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     BookmarkListAdapter adapter = getAdapter();
     adapter.setSortedResults(null);
     adapter.notifyDataSetChanged();
+
+    updateSortingProgressBar();
   }
 
   @Override
@@ -373,6 +377,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     BookmarkManager.INSTANCE.setLastSortingType(catId, sortingType);
     BookmarkManager.INSTANCE.getSortedCategory(catId, sortingType, hasMyPosition, lat, lon,
                                                mLastSortTimestamp);
+
+    updateSortingProgressBar();
   }
 
   @Override
@@ -479,6 +485,11 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     BookmarkCategory category = mCategoryDataSource.getData();
     return !isDownloadedCategory() && BookmarkManager.INSTANCE.isSearchAllowed(category.getId());
+  }
+
+  private void updateSortingProgressBar()
+  {
+    requireActivity().invalidateOptionsMenu();
   }
 
   public void onItemClick(int position)
@@ -655,6 +666,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
     MenuItem itemMore = menu.findItem(R.id.bookmarks_more);
     itemMore.setVisible(visible);
+
+    if (mLastSortTimestamp != 0)
+      itemMore.setActionView(R.layout.toolbar_menu_progressbar);
   }
 
   @Override
