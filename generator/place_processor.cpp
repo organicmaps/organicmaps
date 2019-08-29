@@ -185,9 +185,9 @@ void PlaceProcessor::FillTable(FeaturePlaces::const_iterator start, FeaturePlace
     m_boundariesTable->Union(lastId, best->GetFb().GetMostGenericOsmId());
 }
 
-std::vector<FeatureBuilder> PlaceProcessor::ProcessPlaces()
+std::vector<PlaceProcessor::PlaceWithIds> PlaceProcessor::ProcessPlaces()
 {
-  std::vector<FeatureBuilder> finalPlaces;
+  std::vector<PlaceWithIds> finalPlaces;
   for (auto & nameToGeoObjectIdToFeaturePlaces : m_nameToPlaces)
   {
     std::vector<FeaturePlace> places;
@@ -214,7 +214,12 @@ std::vector<FeatureBuilder> PlaceProcessor::ProcessPlaces()
         LOG(LWARNING, (bestFb, "is transforming to point."));
         TransformAreaToPoint(bestFb);
       }
-      finalPlaces.emplace_back(std::move(bestFb));
+      std::vector<base::GeoObjectId> ids;
+      ids.reserve(static_cast<size_t>(std::distance(start, end)));
+      std::transform(start, end, std::back_inserter(ids), [](auto const & place) {
+        return place.GetMostGenericOsmId();
+      });
+      finalPlaces.emplace_back(std::move(bestFb), std::move(ids));
       if (m_boundariesTable)
         FillTable(start, end, best);
 

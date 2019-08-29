@@ -31,7 +31,7 @@ public:
 
   void StopInc() { m_isInc = false; }
   void StartInc() { m_isInc = true; }
-  uint64_t GetId()  { return m_isInc ? m_id++ : m_id; }
+  uint64_t GetId() { return m_isInc ? m_id++ : m_id; }
 
 private:
   IdGenerator() = default;
@@ -109,6 +109,23 @@ feature::FeatureBuilder MakeArea()
                         {172.62542724609375, -43.4509250075837},
                         {172.54302978515625, -43.48331750944707}});
 }
+
+void Sort(std::vector<generator::PlaceProcessor::PlaceWithIds> & value)
+{
+  std::sort(std::begin(value), std::end(value), [](auto const & left, auto const & right) {
+    return left.first.GetMostGenericOsmId() < right.first.GetMostGenericOsmId();
+  });
+  for (auto & placeWithIds : value)
+    std::sort(std::begin(placeWithIds.second), std::end(placeWithIds.second));
+}
+
+void Test(std::vector<generator::PlaceProcessor::PlaceWithIds> value,
+          std::vector<generator::PlaceProcessor::PlaceWithIds> excpected)
+{
+  Sort(value);
+  Sort(excpected);
+  TEST_EQUAL(value, excpected, ());
+}
 }  // namespace
 
 namespace generator_tests
@@ -131,7 +148,7 @@ using namespace generator_tests;
 UNIT_CLASS_TEST(TestPlaceProcessor, EmptyTest)
 {
   generator::PlaceProcessor pp;
-  TEST_EQUAL(pp.ProcessPlaces(), std::vector<feature::FeatureBuilder>(), ());
+  Test(pp.ProcessPlaces(), {});
 }
 
 UNIT_CLASS_TEST(TestPlaceProcessor, OnePlacePointTest)
@@ -144,8 +161,8 @@ UNIT_CLASS_TEST(TestPlaceProcessor, OnePlacePointTest)
   generator::PlaceProcessor pp(table);
   pp.Add(point);
 
-  std::vector<feature::FeatureBuilder> r{point};
-  TEST_EQUAL(pp.ProcessPlaces(), r, ());
+  std::vector<generator::PlaceProcessor::PlaceWithIds> r{{point, {point.GetMostGenericOsmId()}}};
+  Test(pp.ProcessPlaces(), r);
   TEST(TestTable(*table, {}), ());
 }
 
@@ -155,8 +172,9 @@ UNIT_CLASS_TEST(TestPlaceProcessor, OnePlaceAreaTest)
   generator::PlaceProcessor pp(table);
   pp.Add(kArea);
 
-  std::vector<feature::FeatureBuilder> r{generator::MakePointFromArea(kArea)};
-  TEST_EQUAL(pp.ProcessPlaces(), r, ());
+  std::vector<generator::PlaceProcessor::PlaceWithIds> r{
+      {generator::MakePointFromArea(kArea), {kArea.GetMostGenericOsmId()}}};
+  Test(pp.ProcessPlaces(), r);
   TEST(TestTable(*table, {{{kArea.GetMostGenericOsmId()}, 1 /* cluster size */}}), ());
 }
 
@@ -171,8 +189,9 @@ UNIT_CLASS_TEST(TestPlaceProcessor, PointInAreaTest)
   pp.Add(kArea);
   pp.Add(point);
 
-  std::vector<feature::FeatureBuilder> r{point};
-  TEST_EQUAL(pp.ProcessPlaces(), r, ());
+  std::vector<generator::PlaceProcessor::PlaceWithIds> r{
+      {point, {point.GetMostGenericOsmId(), kArea.GetMostGenericOsmId()}}};
+  Test(pp.ProcessPlaces(), r);
   TEST(TestTable(*table, {{{point.GetMostGenericOsmId(), kArea.GetMostGenericOsmId()},
                            1 /* cluster size */}}),
        ());
@@ -189,8 +208,10 @@ UNIT_CLASS_TEST(TestPlaceProcessor, SameNamesButDifferentPlacesTest)
   pp.Add(kArea);
   pp.Add(point);
 
-  std::vector<feature::FeatureBuilder> r{point, generator::MakePointFromArea(kArea)};
-  TEST_EQUAL(pp.ProcessPlaces(), r, ());
+  std::vector<generator::PlaceProcessor::PlaceWithIds> r{
+      {point, {point.GetMostGenericOsmId()}},
+      {generator::MakePointFromArea(kArea), {kArea.GetMostGenericOsmId()}}};
+  Test(pp.ProcessPlaces(), r);
   TEST(TestTable(*table, {{{kArea.GetMostGenericOsmId()}, 1 /* cluster size */}}), ());
 }
 
@@ -200,15 +221,16 @@ UNIT_CLASS_TEST(TestPlaceProcessor, SelectBestPlaceTest)
       MakeFbForTest({{"name", "City"}, {"place", "city"}}, OsmElement::EntityType::Node,
                     {{162.6314353942871, -33.493592271503786}});
   auto const point2 = MakeFbForTest({{"name", "City"}, {"place", "city"}, {"capital", "yes"}},
-                                     OsmElement::EntityType::Node, {{162.63145, -33.4935}});
+                                    OsmElement::EntityType::Node, {{162.63145, -33.4935}});
 
   auto table = std::make_shared<generator::OsmIdToBoundariesTable>();
   generator::PlaceProcessor pp(table);
   pp.Add(point1);
   pp.Add(point2);
 
-  std::vector<feature::FeatureBuilder> r{point2};
-  TEST_EQUAL(pp.ProcessPlaces(), r, ());
+  std::vector<generator::PlaceProcessor::PlaceWithIds> r{
+      {point2, {point1.GetMostGenericOsmId(), point2.GetMostGenericOsmId()}}};
+  Test(pp.ProcessPlaces(), r);
   TEST(TestTable(*table, {}), ());
 }
 
@@ -216,7 +238,7 @@ UNIT_CLASS_TEST(TestPlaceProcessor, MinskDuplicatingCityFeatureTest)
 {
   DisablerIdInc _;
   auto const point = MakeFbForTest({{"name", "Minsk"}, {"place", "city"}},
-                                    OsmElement::EntityType::Node, {{27.5618791, 64.2446451}});
+                                   OsmElement::EntityType::Node, {{27.5618791, 64.2446451}});
   auto const areaPart1 =
       MakeFbForTest({{"name", "Minsk"}, {"place", "city"}}, OsmElement::EntityType::Relation,
                     {{27.5790063, 64.1120914}, {27.5784754, 64.1117773}, {27.5778736, 64.1115736},
@@ -750,8 +772,9 @@ UNIT_CLASS_TEST(TestPlaceProcessor, MinskDuplicatingCityFeatureTest)
   pp.Add(areaPart3);
   pp.Add(point);
 
-  std::vector<feature::FeatureBuilder> r{point};
-  TEST_EQUAL(pp.ProcessPlaces(), r, ());
+  std::vector<generator::PlaceProcessor::PlaceWithIds> r{
+      {point, {point.GetMostGenericOsmId(), areaPart1.GetMostGenericOsmId()}}};
+  Test(pp.ProcessPlaces(), r);
   TEST(TestTable(*table, {{{point.GetMostGenericOsmId(), areaPart1.GetMostGenericOsmId()},
                            3 /* cluster size */}}),
        ());
@@ -761,7 +784,7 @@ UNIT_CLASS_TEST(TestPlaceProcessor, VoronezhDuplicatingCityFeatureTest)
 {
   DisablerIdInc _;
   auto const point = MakeFbForTest({{"name", "Voronezh"}, {"place", "city"}},
-                                    OsmElement::EntityType::Node, {{39.2005858, 60.53736258}});
+                                   OsmElement::EntityType::Node, {{39.2005858, 60.53736258}});
 
   auto const areaPart1 =
       MakeFbForTest({{"name", "Voronezh"}, {"place", "city"}}, OsmElement::EntityType::Relation,
@@ -1307,8 +1330,9 @@ UNIT_CLASS_TEST(TestPlaceProcessor, VoronezhDuplicatingCityFeatureTest)
   pp.Add(areaPart2);
   pp.Add(point);
 
-  std::vector<feature::FeatureBuilder> r{point};
-  TEST_EQUAL(pp.ProcessPlaces(), r, ());
+  std::vector<generator::PlaceProcessor::PlaceWithIds> r{
+      {point, {point.GetMostGenericOsmId(), areaPart1.GetMostGenericOsmId()}}};
+  Test(pp.ProcessPlaces(), r);
   TEST(TestTable(*table, {{{point.GetMostGenericOsmId(), areaPart1.GetMostGenericOsmId()},
                            2 /* cluster size */}}),
        ());
@@ -1317,7 +1341,7 @@ UNIT_CLASS_TEST(TestPlaceProcessor, VoronezhDuplicatingCityFeatureTest)
 UNIT_CLASS_TEST(TestPlaceProcessor, KuznetsovoNearbyHamletsTest)
 {
   auto const point1 = MakeFbForTest({{"name", "Кузнецово"}, {"place", "hamlet"}},
-                                     OsmElement::EntityType::Node, {{39.5338039, 71.44840478}});
+                                    OsmElement::EntityType::Node, {{39.5338039, 71.44840478}});
 
   auto const way1 =
       MakeFbForTest({{"name", "Кузнецово"}, {"place", "hamlet"}}, OsmElement::EntityType::Way,
@@ -1332,7 +1356,7 @@ UNIT_CLASS_TEST(TestPlaceProcessor, KuznetsovoNearbyHamletsTest)
                      {39.5300791, 71.4499322}});
 
   auto const point2 = MakeFbForTest({{"name", "Кузнецово"}, {"place", "hamlet"}},
-                                     OsmElement::EntityType::Node, {{39.6701222, 71.52284624}});
+                                    OsmElement::EntityType::Node, {{39.6701222, 71.52284624}});
 
   auto const way2 =
       MakeFbForTest({{"name", "Кузнецово"}, {"place", "hamlet"}}, OsmElement::EntityType::Way,
@@ -1343,7 +1367,7 @@ UNIT_CLASS_TEST(TestPlaceProcessor, KuznetsovoNearbyHamletsTest)
                      {39.6670159, 71.5224511}});
 
   auto const point3 = MakeFbForTest({{"name", "Кузнецово"}, {"place", "hamlet"}},
-                                     OsmElement::EntityType::Node, {{39.9688407, 71.45936188}});
+                                    OsmElement::EntityType::Node, {{39.9688407, 71.45936188}});
 
   auto const way3 =
       MakeFbForTest({{"name", "Кузнецово"}, {"place", "hamlet"}}, OsmElement::EntityType::Way,
@@ -1372,14 +1396,16 @@ UNIT_CLASS_TEST(TestPlaceProcessor, KuznetsovoNearbyHamletsTest)
   pp.Add(way1);
   pp.Add(way2);
   pp.Add(way3);
-  std::vector<feature::FeatureBuilder> r{point1, point2, point3};
-  TEST_EQUAL(pp.ProcessPlaces(), r, ());
-  TEST(
-      TestTable(
-          *table,
-          {{{point1.GetMostGenericOsmId(), way1.GetMostGenericOsmId()}, 1 /* cluster size */},
-           {{point2.GetMostGenericOsmId(), way2.GetMostGenericOsmId()}, 1 /* cluster size */},
-           {{point3.GetMostGenericOsmId(), way3.GetMostGenericOsmId()}, 1 /* cluster size */}}),
-      ());
+  std::vector<generator::PlaceProcessor::PlaceWithIds> r{
+      {point1, {point1.GetMostGenericOsmId(), way1.GetMostGenericOsmId()}},
+      {point2, {point2.GetMostGenericOsmId(), way2.GetMostGenericOsmId()}},
+      {point3, {point3.GetMostGenericOsmId(), way3.GetMostGenericOsmId()}}};
+  Test(pp.ProcessPlaces(), r);
+  TEST(TestTable(
+           *table,
+           {{{point1.GetMostGenericOsmId(), way1.GetMostGenericOsmId()}, 1 /* cluster size */},
+            {{point2.GetMostGenericOsmId(), way2.GetMostGenericOsmId()}, 1 /* cluster size */},
+            {{point3.GetMostGenericOsmId(), way3.GetMostGenericOsmId()}, 1 /* cluster size */}}),
+       ());
 }
 }  // namespace

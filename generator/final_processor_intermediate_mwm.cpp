@@ -15,6 +15,7 @@
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/geo_object_id.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 #include "base/thread_pool_computational.hpp"
 
@@ -148,7 +149,7 @@ public:
     return true;
   }
 
-  std::vector<FeatureBuilder> GetFeatures()
+  std::vector<PlaceProcessor::PlaceWithIds> GetFeatures()
   {
     return m_processor.ProcessPlaces();
   }
@@ -212,10 +213,14 @@ public:
       for (auto const & city : cities)
         m_citiesHelper.Process(city);
     }
-
-    auto fbs = m_citiesHelper.GetFeatures();
+    auto fbsWithIds = m_citiesHelper.GetFeatures();
     if (!m_citiesFilename.empty())
-      ProcessForPromoCatalog(fbs);
+      ProcessForPromoCatalog(fbsWithIds);
+
+    std::vector<FeatureBuilder> fbs;
+    fbs.reserve(fbsWithIds.size());
+    std::transform(std::cbegin(fbsWithIds), std::cend(fbsWithIds),
+                   std::back_inserter(fbs), base::RetrieveKey());
 
     auto const affiliations = GetAffiliations(fbs, m_affiliation, m_threadsCount);
     AppendToCountries(fbs, affiliations, m_temporaryMwmPath, m_threadsCount);
@@ -223,17 +228,20 @@ public:
   }
 
 private:
-  void ProcessForPromoCatalog(std::vector<FeatureBuilder> & fbs)
+  void ProcessForPromoCatalog(std::vector<PlaceProcessor::PlaceWithIds> & fbs)
   {
     auto const cities = promo::LoadCities(m_citiesFilename);
-    for (auto & fb : fbs)
+    for (auto & fbWithIds : fbs)
     {
-      if (cities.count(fb.GetMostGenericOsmId()) == 0)
-        continue;
+      for (auto const & id : fbWithIds.second)
+      {
+        if (cities.count(id) != 0)
+          continue;
 
-      auto static const kPromoType = classif().GetTypeByPath({"sponsored", "promo_catalog"});
-      FeatureParams & params = fb.GetParams();
-      params.AddType(kPromoType);
+        auto static const kPromoType = classif().GetTypeByPath({"sponsored", "promo_catalog"});
+        FeatureParams & params = fbWithIds.first.GetParams();
+        params.AddType(kPromoType);
+      }
     }
   }
 

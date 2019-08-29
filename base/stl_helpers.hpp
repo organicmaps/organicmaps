@@ -441,4 +441,22 @@ struct EnumClassHash
     return static_cast<size_t>(t);
   }
 };
+
+struct RetrieveKey
+{
+    template <typename T>
+    typename T::first_type const &  operator()(T const & keyValue) const
+    {
+        return keyValue.first;
+    }
+};
+
+struct RetrieveValue
+{
+    template <typename T>
+    typename T::second_type const & operator()(T const & keyValue) const
+    {
+        return keyValue.second;
+    }
+};
 }  // namespace base

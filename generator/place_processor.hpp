@@ -3,6 +3,8 @@
 #include "generator/cities_boundaries_builder.hpp"
 #include "generator/feature_builder.hpp"
 
+#include "base/geo_object_id.hpp"
+
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -39,10 +41,12 @@ private:
 class PlaceProcessor
 {
 public:
+  using PlaceWithIds = std::pair<feature::FeatureBuilder, std::vector<base::GeoObjectId>>;
+
   PlaceProcessor(std::shared_ptr<OsmIdToBoundariesTable> boundariesTable = {});
 
   void Add(feature::FeatureBuilder const & fb);
-  std::vector<feature::FeatureBuilder> ProcessPlaces();
+  std::vector<PlaceWithIds> ProcessPlaces();
 
 private:
   using FeaturePlaces = std::vector<FeaturePlace>;
