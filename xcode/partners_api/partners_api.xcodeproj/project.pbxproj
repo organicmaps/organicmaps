@@ -32,6 +32,8 @@
 		3D15ACE6214AA1B000F725D5 /* taxi_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D15ACE3214AA1AF00F725D5 /* taxi_delegate.hpp */; };
 		3D15ACE7214AA1B000F725D5 /* rutaxi_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D15ACE4214AA1B000F725D5 /* rutaxi_api.hpp */; };
 		3D15ACE8214AA1B000F725D5 /* rutaxi_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D15ACE5214AA1B000F725D5 /* rutaxi_api.cpp */; };
+		3D1775A72318198700F8889C /* promo_catalog_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D1775A52318198600F8889C /* promo_catalog_types.cpp */; };
+		3D1775A82318198700F8889C /* promo_catalog_types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D1775A62318198700F8889C /* promo_catalog_types.hpp */; };
 		3D18DC3422953FF600A583A6 /* rutaxi_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D18DC3222953FF600A583A6 /* rutaxi_tests.cpp */; };
 		3D18DC4122956DFA00A583A6 /* promo_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D18DC3F22956DFA00A583A6 /* promo_api.hpp */; };
 		3D18DC4222956DFA00A583A6 /* promo_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D18DC4022956DFA00A583A6 /* promo_api.cpp */; };
@@ -121,6 +123,8 @@
 		3D15ACE3214AA1AF00F725D5 /* taxi_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = taxi_delegate.hpp; sourceTree = "<group>"; };
 		3D15ACE4214AA1B000F725D5 /* rutaxi_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = rutaxi_api.hpp; sourceTree = "<group>"; };
 		3D15ACE5214AA1B000F725D5 /* rutaxi_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rutaxi_api.cpp; sourceTree = "<group>"; };
+		3D1775A52318198600F8889C /* promo_catalog_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = promo_catalog_types.cpp; sourceTree = "<group>"; };
+		3D1775A62318198700F8889C /* promo_catalog_types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = promo_catalog_types.hpp; sourceTree = "<group>"; };
 		3D18DC3222953FF600A583A6 /* rutaxi_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rutaxi_tests.cpp; sourceTree = "<group>"; };
 		3D18DC3F22956DFA00A583A6 /* promo_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = promo_api.hpp; sourceTree = "<group>"; };
 		3D18DC4022956DFA00A583A6 /* promo_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = promo_api.cpp; sourceTree = "<group>"; };
@@ -247,6 +251,8 @@
 		F6B5363B1DA520B20067EEA5 /* partners_api */ = {
 			isa = PBXGroup;
 			children = (
+				3D1775A52318198600F8889C /* promo_catalog_types.cpp */,
+				3D1775A62318198700F8889C /* promo_catalog_types.hpp */,
 				346E888F1E9D087400D4CE9B /* ads_base.cpp */,
 				346E88901E9D087400D4CE9B /* ads_base.hpp */,
 				346E88911E9D087400D4CE9B /* ads_engine.cpp */,
@@ -371,6 +377,7 @@
 			files = (
 				3DA5713420B57358007BDE27 /* booking_params_base.hpp in Headers */,
 				3D18DC4122956DFA00A583A6 /* promo_api.hpp in Headers */,
+				3D1775A82318198700F8889C /* promo_catalog_types.hpp in Headers */,
 				346E88971E9D087400D4CE9B /* ads_base.hpp in Headers */,
 				3DCD415420DAB33700143533 /* booking_block_params.hpp in Headers */,
 				F67E75261DB8F06F00D6741F /* opentable_api.hpp in Headers */,
@@ -495,6 +502,7 @@
 				3D18DC4222956DFA00A583A6 /* promo_api.cpp in Sources */,
 				349CFD0B2045720000569949 /* maxim_api.cpp in Sources */,
 				3DFEBFA41EFBFC2300317D5C /* yandex_tests.cpp in Sources */,
+				3D1775A72318198700F8889C /* promo_catalog_types.cpp in Sources */,
 				3D452AEF1EE6D202009EAB9B /* google_tests.cpp in Sources */,
 				3D452AF01EE6D202009EAB9B /* mopub_tests.cpp in Sources */,
 				3D18DC3422953FF600A583A6 /* rutaxi_tests.cpp in Sources */,

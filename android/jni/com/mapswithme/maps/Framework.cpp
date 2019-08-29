@@ -814,6 +814,23 @@ void Framework::GetPromoCityGallery(JNIEnv * env, jobject policy,
   api->GetCityGallery(point, languages::GetCurrentNorm(), utm, onSuccess, onError);
 }
 
+void Framework::GetPromoPoiGallery(JNIEnv * env, jobject policy,
+                                   m2::PointD const & point, promo::Tags const & tags,
+                                   bool useCoordinates, UTM utm,
+                                   promo::CityGalleryCallback const & onSuccess,
+                                   promo::OnError const & onError)
+{
+  auto api = NativeFramework()->GetPromoApi(ToNativeNetworkPolicy(env, policy));
+  if (api == nullptr)
+  {
+    onError();
+    return;
+  }
+
+  api->GetPoiGallery(point, languages::GetCurrentNorm(), tags, useCoordinates, utm, onSuccess,
+                     onError);
+}
+
 promo::AfterBooking Framework::GetPromoAfterBooking(JNIEnv * env, jobject policy)
 {
   auto api = NativeFramework()->GetPromoApi(ToNativeNetworkPolicy(env, policy));

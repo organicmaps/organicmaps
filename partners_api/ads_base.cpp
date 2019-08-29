@@ -1,6 +1,7 @@
 #include "partners_api/ads_base.hpp"
 
-#include "indexer/classificator.hpp"
+#include "partners_api/promo_catalog_types.hpp"
+
 #include "indexer/feature_data.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
@@ -21,6 +22,8 @@ Container::Container()
                        {"tourism", "motel"},
                        {"tourism", "resort"},
                        {"sponsored", "promo_catalog"}});
+
+  m_excludedTypes.Append(promo::GetPromoCatalogPoiTypes());
 }
 
 void Container::AppendEntry(std::initializer_list<std::initializer_list<char const *>> && types,

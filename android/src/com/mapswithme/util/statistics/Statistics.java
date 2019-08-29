@@ -1178,7 +1178,10 @@ public enum Statistics
         return HOLIDAY;
       case Sponsored.TYPE_PARTNER:
         return PARTNER;
-      case Sponsored.TYPE_PROMO_CATALOG:
+      case Sponsored.TYPE_PROMO_CATALOG_CITY:
+        return MAPSME_GUIDES;
+      case Sponsored.TYPE_PROMO_CATALOG_POI:
+        // Dummy, fix with correct value when documentation will be done.
         return MAPSME_GUIDES;
       case Sponsored.TYPE_NONE:
         return "N/A";

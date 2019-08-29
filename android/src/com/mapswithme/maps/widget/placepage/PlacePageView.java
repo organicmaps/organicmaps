@@ -1271,7 +1271,7 @@ public class PlacePageView extends NestedScrollView
 
   private void updateCatalogPromoGallery(@NonNull NetworkPolicy policy)
   {
-    boolean hasPromoGallery = mSponsored != null && mSponsored.getType() == Sponsored.TYPE_PROMO_CATALOG;
+    boolean hasPromoGallery = mSponsored != null && mSponsored.getType() == Sponsored.TYPE_PROMO_CATALOG_CITY;
     toggleCatalogPromoGallery(hasPromoGallery);
 
     if (mSponsored == null || mMapObject == null)

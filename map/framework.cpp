@@ -8,6 +8,7 @@
 #include "map/gps_tracker.hpp"
 #include "map/notifications/notification_manager_delegate.hpp"
 #include "map/notifications/notification_queue.hpp"
+#include "map/promo_catalog_poi_checker.hpp"
 #include "map/promo_delegate.hpp"
 #include "map/taxi_delegate.hpp"
 #include "map/user_mark.hpp"
@@ -995,7 +996,14 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
     info.SetOpeningMode(m_routingManager.IsRoutingActive()
                         ? place_page::OpeningMode::Preview
                         : place_page::OpeningMode::PreviewPlus);
-    info.SetSponsoredType(SponsoredType::PromoCatalog);
+    info.SetSponsoredType(SponsoredType::PromoCatalogCity);
+  }
+  else if (ftypes::IsPromoCatalogPoiChecker::Instance()(ft))
+  {
+    info.SetOpeningMode(m_routingManager.IsRoutingActive()
+                        ? place_page::OpeningMode::Preview
+                        : place_page::OpeningMode::PreviewPlus);
+    info.SetSponsoredType(SponsoredType::PromoCatalogPoi);
   }
 
   FillLocalExperts(ft, info);

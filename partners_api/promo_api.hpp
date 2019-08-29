@@ -33,12 +33,18 @@ struct CityGallery
   {
     std::string m_name;
     std::string m_url;
+    std::string m_description;
     std::string m_imageUrl;
     std::string m_access;
     std::string m_tier;
     Author m_author;
     LuxCategory m_luxCategory;
   };
+
+  bool IsEmpty() const
+  {
+    return m_items.empty() || (m_items.size() == 1 && m_items.back().m_description.empty());
+  }
 
   std::string m_moreUrl;
   std::vector<Item> m_items;
@@ -67,6 +73,7 @@ public:
 
 using CityGalleryCallback = platform::SafeCallback<void(CityGallery const & gallery)>;
 using OnError = platform::SafeCallback<void()>;
+using Tags = std::vector<std::string>;
 
 class Api : public eye::Subscriber
 {
@@ -79,7 +86,6 @@ public:
     virtual std::string GetCityId(m2::PointD const & point) = 0;
   };
 
-
   Api(std::string const & baseUrl = BOOKMARKS_CATALOG_FRONT_URL,
       std::string const & basePicturesUrl = PICTURES_URL);
 
@@ -89,6 +95,9 @@ public:
   std::string GetCityUrl(m2::PointD const & point) const;
   void GetCityGallery(m2::PointD const & point, std::string const & lang, UTM utm,
                       CityGalleryCallback const & onSuccess, OnError const & onError) const;
+  void GetPoiGallery(m2::PointD const & point, std::string const & lang, Tags const & tags,
+                     bool useCoordinates, UTM utm, CityGalleryCallback const & onSuccess,
+                     OnError const & onError) const;
 
   // eye::Subscriber overrides:
   void OnTransitionToBooking(m2::PointD const & hotelPos) override;
