@@ -81,19 +81,15 @@ bool IsTheSamePlace(T const & left, T const & right)
   return dist <= GetThresholdM(localityL);
 }
 
-template <typename Iterator>
-Iterator FindGroupOfTheSamePlaces(Iterator start, Iterator end)
+std::vector<std::vector<FeaturePlace>> FindClusters(std::vector<FeaturePlace> && places)
 {
-  CHECK(start != end, ());
-  auto next = start;
-  while (++next != end)
-  {
-    if (!IsTheSamePlace(*next, *start))
-      return next;
-
-    start = next;
-  }
-  return end;
+  auto func = [](FeaturePlace const & fp) {
+    auto const & localityChecker = ftypes::IsLocalityChecker::Instance();
+    auto const locality = localityChecker.GetType(GetPlaceType(fp.GetFb()));
+    return GetThresholdM(locality);
+  };
+  ClustersFinder<FeaturePlace, std::vector> f(std::move(places), func, IsTheSamePlace<FeaturePlace>);
+  return f.Find();
 }
 }  // namespace
 
@@ -129,6 +125,11 @@ FeaturePlace::FeaturesBuilders const & FeaturePlace::GetFbs() const
 m2::RectD const & FeaturePlace::GetLimitRect() const
 {
   return m_limitRect;
+}
+
+base::GeoObjectId FeaturePlace::GetMostGenericOsmId() const
+{
+  return GetFb().GetMostGenericOsmId();
 }
 
 uint8_t FeaturePlace::GetRank() const
@@ -194,19 +195,11 @@ std::vector<PlaceProcessor::PlaceWithIds> PlaceProcessor::ProcessPlaces()
     places.reserve(nameToGeoObjectIdToFeaturePlaces.second.size());
     for (auto const & geoObjectIdToFeaturePlaces : nameToGeoObjectIdToFeaturePlaces.second)
       places.emplace_back(geoObjectIdToFeaturePlaces.second);
-    // Firstly, objects are geometrically sorted.
-    std::sort(std::begin(places), std::end(places), [](auto const & l, auto const & r) {
-      auto const & rectL = l.GetLimitRect();
-      auto const & rectR = r.GetLimitRect();
-      return rectL.Center() < rectR.Center();
-    });
-    // Secondly, a group of similar places is searched for, then a better place is searched in
-    // this group.
-    auto start = std::begin(places);
-    while (start != std::cend(places))
+
+    auto const clusters = FindClusters(std::move(places));
+    for (auto const & cluster : clusters)
     {
-      auto end = FindGroupOfTheSamePlaces(start, std::end(places));
-      auto best = std::max_element(start, end, IsWorsePlace<FeaturePlace>);
+      auto best = std::max_element(std::cbegin(cluster), std::cend(cluster), IsWorsePlace<FeaturePlace>);
       auto bestFb = best->GetFb();
       auto const & localityChecker = ftypes::IsLocalityChecker::Instance();
       if (bestFb.IsArea() && localityChecker.GetType(GetPlaceType(bestFb)) != ftypes::NONE)
@@ -215,17 +208,15 @@ std::vector<PlaceProcessor::PlaceWithIds> PlaceProcessor::ProcessPlaces()
         TransformAreaToPoint(bestFb);
       }
       std::vector<base::GeoObjectId> ids;
-      ids.reserve(static_cast<size_t>(std::distance(start, end)));
-      std::transform(start, end, std::back_inserter(ids), [](auto const & place) {
-        return place.GetMostGenericOsmId();
-      });
+      ids.reserve(cluster.size());
+      std::transform(std::cbegin(cluster), std::cend(cluster), std::back_inserter(ids),
+                     [](auto const & place) { return place.GetMostGenericOsmId(); });
       finalPlaces.emplace_back(std::move(bestFb), std::move(ids));
       if (m_boundariesTable)
-        FillTable(start, end, best);
-
-      start = end;
+        FillTable(std::cbegin(cluster), std::cend(cluster), best);
     }
   }
+
   return finalPlaces;
 }
 

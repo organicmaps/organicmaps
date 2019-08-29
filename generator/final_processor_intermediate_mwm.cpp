@@ -235,7 +235,7 @@ private:
     {
       for (auto const & id : fbWithIds.second)
       {
-        if (cities.count(id) != 0)
+        if (cities.count(id) == 0)
           continue;
 
         auto static const kPromoType = classif().GetTypeByPath({"sponsored", "promo_catalog"});
