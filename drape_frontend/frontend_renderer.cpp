@@ -506,7 +506,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       if (m_selectionShape == nullptr)
       {
         m_selectObjectMessage = make_unique_dp<SelectObjectMessage>(msg->GetSelectedObject(), msg->GetPosition(),
-                                                                    msg->GetFeatureID(), msg->IsAnim());
+                                                                    msg->GetFeatureID(), msg->IsAnim(),
+                                                                    msg->IsGeometrySelectionAllowed());
         break;
       }
       ProcessSelection(msg);
@@ -1343,10 +1344,13 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
       m_selectionTrackInfo = SelectionTrackInfo(modelView.GlobalRect(), startPosition);
     }
 
-    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                              make_unique_dp<CheckSelectionGeometryMessage>(
-                                msg->GetFeatureID(), m_selectionShape->GetRecacheId()),
-                              MessagePriority::Normal);
+    if (msg->IsGeometrySelectionAllowed())
+    {
+      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                make_unique_dp<CheckSelectionGeometryMessage>(
+                                  msg->GetFeatureID(), m_selectionShape->GetRecacheId()),
+                                MessagePriority::Normal);
+    }
   }
 }
 

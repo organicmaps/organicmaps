@@ -2409,7 +2409,13 @@ void Framework::ActivateMapSelection(bool needAnimation, df::SelectionShape::ESe
   ASSERT_NOT_EQUAL(selectionType, df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
   m_selectedFeature = info.GetID();
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->SelectObject(selectionType, info.GetMercator(), info.GetID(), needAnimation);
+  {
+    bool isGeometrySelectionAllowed = false;
+    if (!m_lastTapEvent || !m_lastTapEvent->m_info.m_isLong)
+      isGeometrySelectionAllowed = true;
+    m_drapeEngine->SelectObject(selectionType, info.GetMercator(), info.GetID(), needAnimation,
+                                isGeometrySelectionAllowed);
+  }
 
   SetDisplacementMode(DisplacementModeManager::SLOT_MAP_SELECTION,
                       ftypes::IsHotelChecker::Instance()(info.GetTypes()) /* show */);
