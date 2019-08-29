@@ -3,11 +3,9 @@
 #include "generator/holes.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/osm_element.hpp"
-#include "generator/type_helper.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_visibility.hpp"
-#include "indexer/ftypes_matcher.hpp"
 
 #include <utility>
 
@@ -80,7 +78,7 @@ bool FeatureMakerSimple::BuildFromRelation(OsmElement & p, FeatureParams const &
   auto const & holesGeometry = helper.GetHoles();
   auto & outer = helper.GetOuter();
   auto const size = m_queue.size();
-  auto const func = [&](FeatureBuilder::PointSeq const & pts, std::vector<uint64_t> const & ids)
+  auto func = [&](FeatureBuilder::PointSeq const & pts, std::vector<uint64_t> const & ids)
   {
     FeatureBuilder fb;
     for (uint64_t id : ids)
@@ -99,7 +97,7 @@ bool FeatureMakerSimple::BuildFromRelation(OsmElement & p, FeatureParams const &
     m_queue.push(std::move(fb));
   };
 
-  outer.ForEachArea(true /* collectID */, func);
+  outer.ForEachArea(true /* collectID */, std::move(func));
   return size != m_queue.size();
 }
 

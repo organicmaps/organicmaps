@@ -25,7 +25,7 @@ public:
   void AddWay(uint64_t id);
 
   template <class ToDo>
-  void ForEachArea(bool collectID, ToDo toDo)
+  void ForEachArea(bool collectID, ToDo && toDo)
   {
     while (!m_map.empty())
     {
