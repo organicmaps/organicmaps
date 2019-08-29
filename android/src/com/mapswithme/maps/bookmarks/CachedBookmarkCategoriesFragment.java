@@ -100,9 +100,8 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
   }
 
   @Override
-  protected void onDeleteActionSelected(@NonNull BookmarkCategory category)
+  protected void onDeleteActionSelected()
   {
-    super.onDeleteActionSelected(category);
     updateLoadingPlaceholder();
   }
 
@@ -136,15 +135,15 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
   {
     String catalogUrl = BookmarkManager.INSTANCE.getCatalogFrontendUrl(
         UTM.UTM_BOOKMARKS_PAGE_CATALOG_BUTTON);
-    BookmarksCatalogActivity.startForResult(this, BookmarksCatalogActivity.REQ_CODE_CATALOG,
+    BookmarksCatalogActivity.startForResult(this, BaseBookmarkCategoriesFragment.REQ_CODE_CATALOG,
                                             catalogUrl);
     Statistics.INSTANCE.trackOpenCatalogScreen();
   }
 
   @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data)
+  public void onActivityResultInternal(int requestCode, int resultCode, @NonNull Intent data)
   {
-    if (requestCode == BookmarksCatalogActivity.REQ_CODE_CATALOG && resultCode == Activity.RESULT_OK)
+    if (requestCode == BaseBookmarkCategoriesFragment.REQ_CODE_CATALOG && resultCode == Activity.RESULT_OK)
     {
       requireActivity().setResult(Activity.RESULT_OK, data);
       requireActivity().finish();

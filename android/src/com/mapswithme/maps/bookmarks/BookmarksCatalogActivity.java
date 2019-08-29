@@ -11,7 +11,6 @@ import com.mapswithme.maps.base.BaseToolbarActivity;
 
 public class BookmarksCatalogActivity extends BaseToolbarActivity
 {
-  public static final int REQ_CODE_CATALOG = 101;
   public static final String EXTRA_DOWNLOADED_CATEGORY = "extra_downloaded_category";
 
   public static void startForResult(@NonNull Fragment fragment, int requestCode,

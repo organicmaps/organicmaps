@@ -1,5 +1,6 @@
 package com.mapswithme.maps.bookmarks;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -618,6 +619,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
         return false;
 
       case R.id.delete_category:
+        requireActivity().setResult(Activity.RESULT_OK);
+        requireActivity().finish();
         return false;
     }
     return false;

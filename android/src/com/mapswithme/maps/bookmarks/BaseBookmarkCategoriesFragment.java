@@ -1,5 +1,6 @@
 package com.mapswithme.maps.bookmarks;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
@@ -41,6 +42,9 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
                OnItemLongClickListener<BookmarkCategory>
 
 {
+  static final int REQ_CODE_CATALOG = 101;
+  private static final int REQ_CODE_DELETE_CATEGORY = 102;
+
   private static final int MAX_CATEGORY_NAME_LENGTH = 60;
 
   @NonNull
@@ -266,7 +270,8 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   @Override
   public void onItemClick(@NonNull View v, @NonNull BookmarkCategory category)
   {
-    startActivity(makeBookmarksListIntent(category));
+    mSelectedCategory = category;
+    startActivityForResult(makeBookmarksListIntent(category), REQ_CODE_DELETE_CATEGORY);
   }
 
   @NonNull
@@ -281,11 +286,33 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     SharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(getActivity(), category.getId());
   }
 
-  @CallSuper
-  protected void onDeleteActionSelected(@NonNull BookmarkCategory category)
+  private void onDeleteActionSelected(@NonNull BookmarkCategory category)
   {
     BookmarkManager.INSTANCE.deleteCategory(category.getId());
     getAdapter().notifyDataSetChanged();
+    onDeleteActionSelected();
+  }
+
+  protected void onDeleteActionSelected()
+  {
+    // Do nothing.
+  }
+
+  protected void onActivityResultInternal(int requestCode, int resultCode, @NonNull Intent data)
+  {
+    // Do nothing.
+  }
+
+  @Override
+  public final void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (resultCode == Activity.RESULT_OK && requestCode == REQ_CODE_DELETE_CATEGORY)
+    {
+      onDeleteActionSelected(mSelectedCategory);
+      return;
+    }
+    onActivityResultInternal(requestCode, resultCode, data);
   }
 
   @Override
