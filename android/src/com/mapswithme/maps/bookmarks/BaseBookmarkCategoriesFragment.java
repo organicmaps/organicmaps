@@ -47,7 +47,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
 
   private static final int MAX_CATEGORY_NAME_LENGTH = 60;
 
-  @NonNull
+  @Nullable
   private BookmarkCategory mSelectedCategory;
   @Nullable
   private CategoryEditor mCategoryEditor;
@@ -156,7 +156,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
 
     processor
         .mInternalProcessor
-        .process(this, mSelectedCategory);
+        .process(this, getSelectedCategory());
     Statistics.INSTANCE.trackBookmarkListSettingsClick(processor.getAnalytics());
     return true;
   }
@@ -309,7 +309,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     super.onActivityResult(requestCode, resultCode, data);
     if (resultCode == Activity.RESULT_OK && requestCode == REQ_CODE_DELETE_CATEGORY)
     {
-      onDeleteActionSelected(mSelectedCategory);
+      onDeleteActionSelected(getSelectedCategory());
       return;
     }
     onActivityResultInternal(requestCode, resultCode, data);
@@ -347,6 +347,8 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   @NonNull
   protected BookmarkCategory getSelectedCategory()
   {
+    if (mSelectedCategory == null)
+      throw new AssertionError("Invalid attempt to use null selected category.");
     return mSelectedCategory;
   }
 

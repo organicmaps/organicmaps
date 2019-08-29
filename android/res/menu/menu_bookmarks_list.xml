@@ -18,6 +18,6 @@
         android:icon="@drawable/ic_24_px_settings"/>
 
   <item android:id="@+id/delete_category"
-        android:title="@string/delete"
+        android:title="@string/delete_list"
         android:icon="@drawable/ic_delete"/>
 </menu>
