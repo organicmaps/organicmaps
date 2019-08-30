@@ -42800,8 +42800,8 @@ colors {
     color: 113876
   }
   value {
-    name: "SpeedCameraMarkText"
-    color: 16777215
+    name: "BookmarkGray"
+    color: 7697781
   }
   value {
     name: "TransitBackground"
@@ -42812,8 +42812,8 @@ colors {
     color: 16777215
   }
   value {
-    name: "BookmarkGray"
-    color: 7697781
+    name: "SpeedCameraMarkText"
+    color: 16777215
   }
   value {
     name: "UGCRatingText"
@@ -42928,6 +42928,10 @@ colors {
     color: 8263442
   }
   value {
+    name: "RouteFakeOutline"
+    color: 7434609
+  }
+  value {
     name: "RoutePreview"
     color: 3003121664
   }
@@ -43003,6 +43007,10 @@ colors {
   value {
     name: "Route"
     color: 34815
+  }
+  value {
+    name: "RouteFake"
+    color: 11053224
   }
   value {
     name: "RouteArrowsMaskBicycle"
