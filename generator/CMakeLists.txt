@@ -47,8 +47,6 @@ set(
   collector_interface.hpp
   collector_tag.cpp
   collector_tag.hpp
-  data_version.cpp
-  data_version.hpp
   descriptions_section_builder.cpp
   descriptions_section_builder.hpp
   dumper.cpp
@@ -91,8 +89,6 @@ set(
   intermediate_data.cpp
   intermediate_data.hpp
   intermediate_elements.hpp
-  key_value_storage.cpp
-  key_value_storage.hpp
   maxspeeds_builder.cpp
   maxspeeds_builder.hpp
   maxspeeds_collector.cpp
@@ -184,8 +180,6 @@ set(
   traffic_generator.hpp
   transit_generator.cpp
   transit_generator.hpp
-  translation.cpp
-  translation.hpp
   translator.cpp
   translator.hpp
   translator_coastline.cpp

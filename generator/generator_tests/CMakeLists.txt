@@ -39,7 +39,6 @@ set(
   srtm_parser_test.cpp
   tag_admixer_test.cpp
   tesselator_test.cpp
-  translation_test.cpp
   triangles_tree_coding_test.cpp
   types_helper.hpp
   ugc_test.cpp

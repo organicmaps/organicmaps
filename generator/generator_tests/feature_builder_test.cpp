@@ -10,7 +10,6 @@
 #include "indexer/data_header.cpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_visibility.hpp"
-#include "indexer/locality_object.hpp"
 
 #include "base/geo_object_id.hpp"
 
@@ -261,15 +260,6 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeLocalityObjectFor
   auto & buffer = holder.GetBuffer();
   TEST(fb.PreSerializeAndRemoveUselessNamesForMwm(buffer), ());
   fb.SerializeLocalityObject(serial::GeometryCodingParams(), buffer);
-
-  using indexer::LocalityObject;
-  LocalityObject object;
-  object.Deserialize(buffer.m_buffer.data());
-
-  TEST_EQUAL(LocalityObject::FromStoredId(object.GetStoredId()), base::MakeOsmNode(1), ());
-  object.ForEachPoint([] (auto && point) {
-    TEST(base::AlmostEqualAbs(point, m2::PointD(10.1, 15.8), 1e-7), ());
-  });
 }
 
 UNIT_TEST(FeatureBuilder_SerializeAccuratelyForIntermediate)

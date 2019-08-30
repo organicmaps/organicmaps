@@ -6,7 +6,6 @@
 #include "generator/cities_boundaries_builder.hpp"
 #include "generator/cities_ids_builder.hpp"
 #include "generator/city_roads_generator.hpp"
-#include "generator/data_version.hpp"
 #include "generator/descriptions_section_builder.hpp"
 #include "generator/dumper.hpp"
 #include "generator/feature_builder.hpp"
@@ -45,7 +44,6 @@
 #include "indexer/features_offsets_table.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/index_builder.hpp"
-#include "indexer/locality_index_builder.hpp"
 #include "indexer/map_style_reader.hpp"
 #include "indexer/rank_table.hpp"
 
@@ -274,8 +272,6 @@ int GeneratorToolMain(int argc, char ** argv)
     if (!GenerateIntermediateData(genInfo))
       return EXIT_FAILURE;
   }
-
-  DataVersion{FLAGS_osm_file_name}.DumpToPath(genInfo.m_intermediateDir);
 
   // Generate .mwm.tmp files.
   if (FLAGS_generate_features ||

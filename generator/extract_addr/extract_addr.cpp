@@ -1,5 +1,4 @@
 #include "generator/feature_builder.hpp"
-#include "generator/key_value_storage.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
@@ -80,7 +79,7 @@ void PrintFeature(FeatureBuilder const & fb, uint64_t)
   ToJSONObject(*feature, "geometry", geometry);
   ToJSONObject(*feature, "properties", properties);
 
-  std::cout << generator::KeyValueStorage::Serialize(feature) << std::endl;
+  std::cout << base::DumpToString(feature, JSON_COMPACT | JSON_REAL_PRECISION(9 /* precision */)) << std::endl;
 }
 
 int main(int argc, char * argv[])
