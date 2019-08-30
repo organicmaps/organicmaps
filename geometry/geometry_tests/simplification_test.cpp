@@ -1,12 +1,9 @@
 #include "testing/testing.hpp"
 
-#include "geometry/simplification.hpp"
-
-#include "indexer/scales.hpp"
-
 #include "geometry/geometry_tests/large_polygon.hpp"
 #include "geometry/parametrized_segment.hpp"
 #include "geometry/point2d.hpp"
+#include "geometry/simplification.hpp"
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
