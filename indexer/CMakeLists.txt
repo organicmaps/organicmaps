@@ -6,8 +6,6 @@ set(
   SRC
   altitude_loader.cpp
   altitude_loader.hpp
-  borders.cpp
-  borders.hpp
   brands_holder.cpp
   brands_holder.hpp
   caching_rank_table_loader.cpp
@@ -90,12 +88,6 @@ set(
   index_builder.hpp
   interval_index.hpp
   interval_index_builder.hpp
-  locality_index.cpp
-  locality_index.hpp
-  locality_index_builder.cpp
-  locality_index_builder.hpp
-  locality_object.cpp
-  locality_object.hpp
   map_object.cpp
   map_object.hpp
   map_style.cpp

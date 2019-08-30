@@ -2,7 +2,6 @@ project(indexer_tests)
 
 set(
   SRC
-  borders_test.cpp
   bounds.hpp
   brands_tests.cpp
   categories_test.cpp
@@ -22,7 +21,6 @@ set(
   features_vector_test.cpp
   index_builder_test.cpp
   interval_index_test.cpp
-  locality_index_test.cpp
   mwm_set_test.cpp
   postcodes_matcher_tests.cpp
   rank_table_test.cpp

@@ -57,12 +57,6 @@
 #define DESCRIPTIONS_FILE_TAG "descriptions"
 #define MAXSPEEDS_FILE_TAG "maxspeeds"
 
-#define LOCALITY_DATA_FILE_TAG "locdata"
-#define GEO_OBJECTS_INDEX_FILE_TAG "locidx"
-#define REGIONS_INDEX_FILE_TAG "regidx"
-#define INDEX_GENERATOR_DATA_VERSION_FILE_TAG "index_data_version"
-#define BORDERS_FILE_TAG "borders"
-
 #define READY_FILE_EXTENSION ".ready"
 #define RESUME_FILE_EXTENSION ".resume"
 #define DOWNLOADING_FILE_EXTENSION ".downloading"
