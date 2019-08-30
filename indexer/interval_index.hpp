@@ -8,13 +8,6 @@
 #include "base/buffer_vector.hpp"
 
 #include <cstdint>
-#include <string>
-
-enum class IntervalIndexVersion : uint8_t
-{
-  V1 = 1,
-  V2 = 2,
-};
 
 class IntervalIndexBase
 {
@@ -35,6 +28,8 @@ public:
     ASSERT_GREATER(bitsPerLevel, 3, ());
     return 1 << (bitsPerLevel - 3);
   }
+
+  enum { kVersion = 1 };
 };
 
 template <class ReaderT, typename Value>
@@ -47,18 +42,10 @@ public:
   {
     ReaderSource<ReaderT> src(reader);
     src.Read(&m_Header, sizeof(Header));
-    auto const version = static_cast<IntervalIndexVersion>(m_Header.m_Version);
-    CHECK(version == IntervalIndexVersion::V1 || version == IntervalIndexVersion::V2, ());
+    CHECK_EQUAL(m_Header.m_Version, static_cast<uint8_t>(kVersion), ());
     if (m_Header.m_Levels != 0)
-    {
       for (int i = 0; i <= m_Header.m_Levels + 1; ++i)
-      {
-        uint64_t levelOffset =
-            version == IntervalIndexVersion::V1 ? ReadPrimitiveFromSource<uint32_t>(src)
-                                                : ReadPrimitiveFromSource<uint64_t>(src);
-        m_LevelOffsets.push_back(levelOffset);
-      }
-    }
+        m_LevelOffsets.push_back(ReadPrimitiveFromSource<uint32_t>(src));
   }
 
   uint64_t KeyEnd() const
@@ -87,7 +74,7 @@ public:
 private:
   template <typename F>
   void ForEachLeaf(F const & f, uint64_t const beg, uint64_t const end,
-      uint64_t const offset, uint64_t const size,
+      uint32_t const offset, uint32_t const size,
       uint64_t keyBase /* discarded part of object key value in the parent nodes*/) const
   {
     buffer_vector<uint8_t, 1024> data;
@@ -113,7 +100,7 @@ private:
 
   template <typename F>
   void ForEachNode(F const & f, uint64_t beg, uint64_t end, int level,
-      uint64_t offset, uint64_t size,
+      uint32_t offset, uint32_t size,
       uint64_t keyBase /* discarded part of object key value in the parent nodes */) const
   {
     offset += m_LevelOffsets[level];
@@ -138,8 +125,8 @@ private:
     m_Reader.Read(offset, &data[0], size);
     ArrayByteSource src(&data[0]);
 
-    uint64_t const offsetAndFlag = ReadVarUint<uint64_t>(src);
-    uint64_t childOffset = offsetAndFlag >> 1;
+    uint32_t const offsetAndFlag = ReadVarUint<uint32_t>(src);
+    uint32_t childOffset = offsetAndFlag >> 1;
     if (offsetAndFlag & 1)
     {
       // Reading bitmap.
@@ -149,7 +136,7 @@ private:
       {
         if (bits::GetBit(pBitmap, i))
         {
-          uint64_t childSize = ReadVarUint<uint64_t>(src);
+          uint32_t childSize = ReadVarUint<uint32_t>(src);
           if (i >= beg0)
           {
             uint64_t const beg1 = (i == beg0) ? (beg & levelBytesFF) : 0;
@@ -160,7 +147,7 @@ private:
         }
       }
       ASSERT(end0 != (static_cast<uint32_t>(1) << m_Header.m_BitsPerLevel) - 1 ||
-             static_cast<size_t>(static_cast<uint8_t const *>(src.Ptr()) - &data[0]) == size,
+             static_cast<uint8_t const *>(src.Ptr()) - &data[0] == size,
              (beg, end, beg0, end0, offset, size, src.Ptr(), &data[0]));
     }
     else
@@ -171,7 +158,7 @@ private:
         uint8_t const i = src.ReadByte();
         if (i > end0)
           break;
-        uint64_t childSize = ReadVarUint<uint64_t>(src);
+        uint32_t childSize = ReadVarUint<uint32_t>(src);
         if (i >= beg0)
         {
           uint64_t const beg1 = (i == beg0) ? (beg & levelBytesFF) : 0;
@@ -185,5 +172,5 @@ private:
 
   ReaderT m_Reader;
   Header m_Header;
-  buffer_vector<uint64_t, 7> m_LevelOffsets;
+  buffer_vector<uint32_t, 7> m_LevelOffsets;
 };

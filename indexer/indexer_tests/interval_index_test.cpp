@@ -48,8 +48,8 @@ UNIT_TEST(IntervalIndex_LevelCount)
 
 UNIT_TEST(IntervalIndex_SerializedNodeBitmap)
 {
-  uint64_t const offset = 350; // == 0x15E
-  uint64_t childSizes[8] = { 0, 0, 0, 10, 0, 0, 1000, 0 };
+  uint32_t const offset = 350; // == 0x15E
+  uint32_t childSizes[8] = { 0, 0, 0, 10, 0, 0, 1000, 0 };
   char const expSerial [] =
       "\xBD\x05"  // (350 << 1) + 1 == 701 == 0x2BD - offset encoded as varuint.
       "\x48"      // (1 << 3) | (1 << 6) == 72 == 0x48 - bitmap.
@@ -57,54 +57,23 @@ UNIT_TEST(IntervalIndex_SerializedNodeBitmap)
       "\xE8\x07"  // 1000 = 0x3E8 - childSizes[6] encoded as varuint.
       "";
   vector<uint8_t> serializedNode;
-  MemWriter<vector<uint8_t>> writer(serializedNode);
+  MemWriter<vector<uint8_t> > writer(serializedNode);
   IntervalIndexBuilder(11, 1, 3).WriteNode(writer, offset, childSizes);
-  TEST_EQUAL(serializedNode, vector<uint8_t>(expSerial, expSerial + ARRAY_SIZE(expSerial) - 1), ());
-}
-
-UNIT_TEST(IntervalIndexV2_SerializedNodeBitmap)
-{
-  uint64_t const offset = 5'547'468'350; // == 0x01'2A'A7'A6'3E
-  uint64_t childSizes[8] = { 0, 0, 0, 10, 0, 0, 6'200'000'000, 0 };
-  char const expSerial [] =
-      "\xFD\x98\xBD\xAA\x29"  // (5'547'468'350 << 1) + 1 - offset encoded as varuint
-      "\x48"                  // (1 << 3) | (1 << 6) == 72 == 0x48 - bitmap.
-      "\x0A"                  // 10 - childSizes[3] encoded as varuint.
-      "\x80\xFC\xB1\x8C\x17"  // 6'200'000'000 - childSizes[6] encoded as varuint.
-      "";
-  vector<uint8_t> serializedNode;
-  MemWriter<vector<uint8_t>> writer(serializedNode);
-  IntervalIndexBuilder(IntervalIndexVersion::V2, 11, 1, 3).WriteNode(writer, offset, childSizes);
   TEST_EQUAL(serializedNode, vector<uint8_t>(expSerial, expSerial + ARRAY_SIZE(expSerial) - 1), ());
 }
 
 UNIT_TEST(IntervalIndex_SerializedNodeList)
 {
-  uint64_t const offset = 350; // == 0x15E
-  uint64_t childSizes[16] = { 0, 0, 0, 0, 0, 0, 1000, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+  uint32_t const offset = 350; // == 0x15E
+  uint32_t childSizes[16] = { 0, 0, 0, 0, 0, 0, 1000, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
   char const expSerial [] =
       "\xBC\x05"         // (350 << 1) + 0 == 700 == 0x2BC - offset encoded as varuint.
       "\x06" "\xE8\x07"  // 6, 1000
       "";
   vector<uint8_t> serializedNode;
-  MemWriter<vector<uint8_t>> writer(serializedNode);
+  MemWriter<vector<uint8_t> > writer(serializedNode);
   IntervalIndexBuilder(11, 1, 4).WriteNode(writer, offset, childSizes);
   TEST_EQUAL(serializedNode, vector<uint8_t>(expSerial, expSerial + ARRAY_SIZE(expSerial) - 1), ());
-}
-
-UNIT_TEST(IntervalIndexV2_SerializedNodeList)
-{
-  uint64_t const offset = 5'547'468'350; // == 0x01'2A'A7'A6'3E
-  uint64_t childSizes[16] = { 0, 0, 0, 0, 0, 0, 0, 6'200'000'000, 0, 0, 0, 0, 0, 0, 0, 0, };
-  char const expSerial [] =
-      "\xFC\x98\xBD\xAA\x29"         // (5'547'468'350 << 1) + 0 - offset encoded as varuint.
-      "\x07" "\x80\xFC\xB1\x8C\x17"  // 7, 6'200'000'000
-      "";
-  vector<uint8_t> serializedNode;
-  MemWriter<vector<uint8_t>> writer(serializedNode);
-  IntervalIndexBuilder(IntervalIndexVersion::V2, 11, 1, 4).WriteNode(writer, offset, childSizes);
-  TEST_EQUAL(serializedNode, vector<uint8_t>(expSerial, expSerial + ARRAY_SIZE(expSerial) - 1),
-    (DebugPrint(serializedNode), DebugPrint(expSerial)));
 }
 
 UNIT_TEST(IntervalIndex_SerializedLeaves)
@@ -114,13 +83,13 @@ UNIT_TEST(IntervalIndex_SerializedLeaves)
   data.push_back(CellIdFeaturePairForTest(0x1538U, 1));
   data.push_back(CellIdFeaturePairForTest(0x1637U, 2));
   vector<uint8_t> serialLeaves;
-  MemWriter<vector<uint8_t>> writer(serialLeaves);
-  vector<uint64_t> sizes;
+  MemWriter<vector<uint8_t> > writer(serialLeaves);
+  vector<uint32_t> sizes;
   IntervalIndexBuilder(16, 1, 4).BuildLeaves(writer, data.begin(), data.end(), sizes);
   char const expSerial [] = "\x37\x00" "\x38\x02" "\x37\x04"; // 0x1537 0x1538 0x1637
   uint32_t const expSizes [] = { 4, 2 };
   TEST_EQUAL(serialLeaves, vector<uint8_t>(expSerial, expSerial + ARRAY_SIZE(expSerial) - 1), ());
-  TEST_EQUAL(sizes, vector<uint64_t>(expSizes, expSizes + ARRAY_SIZE(expSizes)), ());
+  TEST_EQUAL(sizes, vector<uint32_t>(expSizes, expSizes + ARRAY_SIZE(expSizes)), ());
 }
 
 UNIT_TEST(IntervalIndex_SerializedNodes)
@@ -129,17 +98,17 @@ UNIT_TEST(IntervalIndex_SerializedNodes)
   data.push_back(CellIdFeaturePairForTest(0x1537U, 0));
   data.push_back(CellIdFeaturePairForTest(0x1538U, 1));
   data.push_back(CellIdFeaturePairForTest(0x1637U, 2));
-  uint64_t const leavesSizes [] = { 4, 2 };
+  uint32_t const leavesSizes [] = { 4, 2 };
   vector<uint8_t> serialNodes;
-  MemWriter<vector<uint8_t>> writer(serialNodes);
-  vector<uint64_t> sizes;
+  MemWriter<vector<uint8_t> > writer(serialNodes);
+  vector<uint32_t> sizes;
   IntervalIndexBuilder(16, 1, 4).BuildLevel(writer, data.begin(), data.end(), 1,
                                             leavesSizes, leavesSizes + ARRAY_SIZE(leavesSizes),
                                             sizes);
   char const expSerial [] = "\x01\x60\x00\x04\x02";
   uint32_t const expSizes [] = { ARRAY_SIZE(expSerial) - 1 };
   TEST_EQUAL(serialNodes, vector<uint8_t>(expSerial, expSerial + ARRAY_SIZE(expSerial) - 1), ());
-  TEST_EQUAL(sizes, vector<uint64_t>(expSizes, expSizes + ARRAY_SIZE(expSizes)), ());
+  TEST_EQUAL(sizes, vector<uint32_t>(expSizes, expSizes + ARRAY_SIZE(expSizes)), ());
 }
 
 UNIT_TEST(IntervalIndex_Serialized)
@@ -149,7 +118,7 @@ UNIT_TEST(IntervalIndex_Serialized)
   data.push_back(CellIdFeaturePairForTest(0x1538U, 1));
   data.push_back(CellIdFeaturePairForTest(0x1637U, 2));
   vector<uint8_t> serialIndex;
-  MemWriter<vector<uint8_t>> writer(serialIndex);
+  MemWriter<vector<uint8_t> > writer(serialIndex);
   IntervalIndexBuilder(16, 1, 4).BuildIndex(writer, data.begin(), data.end());
 
   char const expSerial [] =
@@ -174,38 +143,6 @@ UNIT_TEST(IntervalIndex_Serialized)
   TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
 }
 
-UNIT_TEST(IntervalIndexV2_Serialized)
-{
-  vector<CellIdFeaturePairForTest> data;
-  data.push_back(CellIdFeaturePairForTest(0x1537U, 0));
-  data.push_back(CellIdFeaturePairForTest(0x1538U, 1));
-  data.push_back(CellIdFeaturePairForTest(0x1637U, 2));
-  vector<uint8_t> serialIndex;
-  MemWriter<vector<uint8_t>> writer(serialIndex);
-  IntervalIndexBuilder(IntervalIndexVersion::V2, 16, 1, 4).BuildIndex(writer, data.begin(), data.end());
-
-  char const expSerial [] =
-      "\x02\x02\x04\x01"                  // Header
-      "\x24\x00\x00\x00\x00\x00\x00\x00"  // Leaves level offset
-      "\x2A\x00\x00\x00\x00\x00\x00\x00"  // Level 1 offset
-      "\x2F\x00\x00\x00\x00\x00\x00\x00"  // Root level offset
-      "\x32\x00\x00\x00\x00\x00\x00\x00"  // Root level offset
-      "\x37\x00" "\x38\x02" "\x37\x04"    // 0x1537 0x1538 0x1637
-      "\x01\x60\x00\x04\x02"              // 0x15, 0x16 node
-      "\x00\x01\x05"                      // Root
-      "";
-
-  TEST_EQUAL(serialIndex, vector<uint8_t>(expSerial, expSerial + ARRAY_SIZE(expSerial) - 1), ());
-
-  MemReader reader(&serialIndex[0], serialIndex.size());
-  IntervalIndex<MemReader, uint32_t> index(reader);
-  uint32_t expected [] = {0, 1, 2};
-  vector<uint32_t> values;
-  TEST_EQUAL(index.KeyEnd(), 0x10000, ());
-  index.ForEach(IndexValueInserter(values), 0, 0x10000);
-  TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
-}
-
 UNIT_TEST(IntervalIndex_Simple)
 {
   vector<CellIdFeaturePairForTest> data;
@@ -213,7 +150,7 @@ UNIT_TEST(IntervalIndex_Simple)
   data.push_back(CellIdFeaturePairForTest(0xA0B1C2D200ULL, 1));
   data.push_back(CellIdFeaturePairForTest(0xA0B2C2D100ULL, 2));
   vector<char> serialIndex;
-  MemWriter<vector<char>> writer(serialIndex);
+  MemWriter<vector<char> > writer(serialIndex);
   BuildIntervalIndex(data.begin(), data.end(), writer, 40);
   MemReader reader(&serialIndex[0], serialIndex.size());
   IntervalIndex<MemReader, uint32_t> index(reader);
@@ -264,7 +201,7 @@ UNIT_TEST(IntervalIndex_Empty)
 {
   vector<CellIdFeaturePairForTest> data;
   vector<char> serialIndex;
-  MemWriter<vector<char>> writer(serialIndex);
+  MemWriter<vector<char> > writer(serialIndex);
   BuildIntervalIndex(data.begin(), data.end(), writer, 40);
   MemReader reader(&serialIndex[0], serialIndex.size());
   IntervalIndex<MemReader, uint32_t> index(reader);
@@ -283,7 +220,7 @@ UNIT_TEST(IntervalIndex_Simple2)
   data.push_back(CellIdFeaturePairForTest(0xA0B1C2D200ULL, 3));
   data.push_back(CellIdFeaturePairForTest(0xA0B2C2D200ULL, 2));
   vector<char> serialIndex;
-  MemWriter<vector<char>> writer(serialIndex);
+  MemWriter<vector<char> > writer(serialIndex);
   BuildIntervalIndex(data.begin(), data.end(), writer, 40);
   MemReader reader(&serialIndex[0], serialIndex.size());
   IntervalIndex<MemReader, uint32_t> index(reader);
@@ -302,7 +239,7 @@ UNIT_TEST(IntervalIndex_Simple3)
   data.push_back(CellIdFeaturePairForTest(0x0100ULL, 0));
   data.push_back(CellIdFeaturePairForTest(0x0200ULL, 1));
   vector<char> serialIndex;
-  MemWriter<vector<char>> writer(serialIndex);
+  MemWriter<vector<char> > writer(serialIndex);
   BuildIntervalIndex(data.begin(), data.end(), writer, 40);
   MemReader reader(&serialIndex[0], serialIndex.size());
   IntervalIndex<MemReader, uint32_t> index(reader);
@@ -321,7 +258,7 @@ UNIT_TEST(IntervalIndex_Simple4)
   data.push_back(CellIdFeaturePairForTest(0x01030400ULL, 0));
   data.push_back(CellIdFeaturePairForTest(0x02030400ULL, 1));
   vector<char> serialIndex;
-  MemWriter<vector<char>> writer(serialIndex);
+  MemWriter<vector<char> > writer(serialIndex);
   BuildIntervalIndex(data.begin(), data.end(), writer, 40);
   MemReader reader(&serialIndex[0], serialIndex.size());
   IntervalIndex<MemReader, uint32_t> index(reader);
@@ -342,7 +279,7 @@ UNIT_TEST(IntervalIndex_Simple5)
   data.push_back(CellIdFeaturePairForTest(0xA0B1C2D200ULL, 3));
   data.push_back(CellIdFeaturePairForTest(0xA0B2C2D200ULL, 2));
   vector<char> serialIndex;
-  MemWriter<vector<char>> writer(serialIndex);
+  MemWriter<vector<char> > writer(serialIndex);
   BuildIntervalIndex(data.begin(), data.end(), writer, 40);
   MemReader reader(&serialIndex[0], serialIndex.size());
   IntervalIndex<MemReader, uint32_t> index(reader);
