@@ -134,6 +134,11 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 {
   self.data = data;
   [self checkCellsVisible];
+  
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [data fillOnlineBookingSections];
+    [data fillPromoCatalogSection];
+  });
 }
 
 - (void)rotateDirectionArrowToAngle:(CGFloat)angle
