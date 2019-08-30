@@ -484,7 +484,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   private boolean isSearchAllowed()
   {
     BookmarkCategory category = mCategoryDataSource.getData();
-    return !isDownloadedCategory() && BookmarkManager.INSTANCE.isSearchAllowed(category.getId());
+    return BookmarkManager.INSTANCE.isSearchAllowed(category.getId());
   }
 
   private void updateSortingProgressBar()
@@ -640,9 +640,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
   {
-    if (isDownloadedCategory())
-      return;
-
     inflater.inflate(R.menu.option_menu_bookmarks, menu);
 
     MenuItem itemSearch = menu.findItem(R.id.bookmarks_search);
@@ -655,9 +652,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   @Override
   public void onPrepareOptionsMenu(Menu menu)
   {
-    if (isDownloadedCategory())
-      return;
-
     super.onPrepareOptionsMenu(menu);
 
     boolean visible = !mSearchMode && !isEmpty();
@@ -687,6 +681,13 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
           .sheet(R.menu.menu_bookmarks_list)
           .listener(this::onListMoreMenuItemClick)
           .build();
+
+      if (isDownloadedCategory())
+      {
+        bs.getMenu().findItem(R.id.sharing_options).setVisible(false);
+        bs.getMenu().findItem(R.id.share_category).setVisible(false);
+        bs.getMenu().findItem(R.id.settings).setVisible(false);
+      }
 
       @BookmarkManager.SortingType int[] types = getAvailableSortingTypes();
       bs.getMenu().findItem(R.id.sort).setVisible(types.length > 0);

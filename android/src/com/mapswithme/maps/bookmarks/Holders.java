@@ -273,7 +273,6 @@ public class Holders
       UiUtils.hideIf(TextUtils.isEmpty(subtitleValue), mDistance);
 
       mIcon.setImageResource(bookmark.getIcon().getResId());
-      UiUtils.hideIf(!sectionsDataSource.isEditable(position.getSectionIndex()), mMore);
       Drawable circle = Graphics.drawCircleAndImage(bookmark.getIcon().argb(),
                                                     R.dimen.track_circle_size,
                                                     bookmark.getIcon().getResId(),
