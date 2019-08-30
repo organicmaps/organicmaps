@@ -9,13 +9,9 @@ final class WhatsNewController: WelcomeViewController {
   
   static var welcomeConfigs: [WelcomeConfig] {
   return [
-    WhatsNewConfig(image: UIImage(named: "img_whatsnew_carplay")!,
-                   title: "whatsnew_carplay_title",
-                   text: "whatsnew_carplay_message",
-                   buttonTitle: "whats_new_next_button"),
-    WhatsNewConfig(image: UIImage(named: "img_whatsnew_catalogsubs")!,
-                   title: "whatsnew_subscription_title",
-                   text: "whatsnew_subscription_message",
+    WhatsNewConfig(image: UIImage(named: "img_wnew_bookmarks_sort")!,
+                   title: "whatsnew_bookmarks_search_sort_title",
+                   text: "whatsnew_bookmarks_search_sort_message",
                    buttonTitle: "done")
     ]
   }
