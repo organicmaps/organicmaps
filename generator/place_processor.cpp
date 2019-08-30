@@ -6,12 +6,9 @@
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
-#include "geometry/mercator.hpp"
-
 #include "base/assert.hpp"
 
 #include <algorithm>
-#include <functional>
 #include <iterator>
 #include <tuple>
 
@@ -29,7 +26,7 @@ namespace
 {
 using namespace generator;
 
-double GetThresholdM(ftypes::Type const & type)
+double GetRadiusM(ftypes::Type const & type)
 {
   switch (type)
   {
@@ -78,18 +75,19 @@ bool IsTheSamePlace(T const & left, T const & right)
     return true;
 
   auto const dist = MercatorBounds::DistanceOnEarth(left.GetKeyPoint(), right.GetKeyPoint());
-  return dist <= GetThresholdM(localityL);
+  return dist <= GetRadiusM(localityL);
 }
 
 std::vector<std::vector<FeaturePlace>> FindClusters(std::vector<FeaturePlace> && places)
 {
-  auto func = [](FeaturePlace const & fp) {
+  auto const func = [](FeaturePlace const & fp) {
     auto const & localityChecker = ftypes::IsLocalityChecker::Instance();
     auto const locality = localityChecker.GetType(GetPlaceType(fp.GetFb()));
-    return GetThresholdM(locality);
+    return GetRadiusM(locality);
   };
-  ClustersFinder<FeaturePlace, std::vector> f(std::move(places), func, IsTheSamePlace<FeaturePlace>);
-  return f.Find();
+  ClustersFinder<FeaturePlace, std::vector> finder(std::move(places), func,
+                                                   IsTheSamePlace<FeaturePlace>);
+  return finder.Find();
 }
 }  // namespace
 
@@ -155,6 +153,11 @@ StringUtf8Multilang const & FeaturePlace::GetMultilangName() const
 bool FeaturePlace::IsPoint() const
 {
   return GetFb().IsPoint();
+}
+
+m2::RectD GetLimitRect(FeaturePlace const & fp)
+{
+  return fp.GetLimitRect();
 }
 
 PlaceProcessor::PlaceProcessor(std::shared_ptr<OsmIdToBoundariesTable> boundariesTable)

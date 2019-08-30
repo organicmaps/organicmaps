@@ -120,11 +120,11 @@ void Sort(std::vector<generator::PlaceProcessor::PlaceWithIds> & value)
 }
 
 void Test(std::vector<generator::PlaceProcessor::PlaceWithIds> value,
-          std::vector<generator::PlaceProcessor::PlaceWithIds> excpected)
+          std::vector<generator::PlaceProcessor::PlaceWithIds> expected)
 {
   Sort(value);
-  Sort(excpected);
-  TEST_EQUAL(value, excpected, ());
+  Sort(expected);
+  TEST_EQUAL(value, expected, ());
 }
 }  // namespace
 

@@ -442,21 +442,21 @@ struct EnumClassHash
   }
 };
 
-struct RetrieveKey
+struct RetrieveFirst
 {
-    template <typename T>
-    typename T::first_type const &  operator()(T const & keyValue) const
-    {
-        return keyValue.first;
-    }
+  template <typename T>
+  typename T::first_type const & operator()(T const & pair) const
+  {
+    return pair.first;
+  }
 };
 
-struct RetrieveValue
+struct RetrieveSecond
 {
-    template <typename T>
-    typename T::second_type const & operator()(T const & keyValue) const
-    {
-        return keyValue.second;
-    }
+  template <typename T>
+  typename T::second_type const & operator()(T const & pair) const
+  {
+    return pair.second;
+  }
 };
 }  // namespace base

@@ -9,6 +9,7 @@ set(
   cities_boundaries_checker_tests.cpp
   cities_ids_tests.cpp
   city_roads_tests.cpp
+  cluster_finder_tests.cpp
   coasts_test.cpp
   collector_city_area_tests.cpp
   common.cpp
