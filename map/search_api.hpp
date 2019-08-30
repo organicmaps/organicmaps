@@ -146,6 +146,12 @@ public:
 
   void EnableIndexingOfBookmarksDescriptions(bool enable);
 
+  // A hint on the maximum number of bookmarks that can be stored in the
+  // search index for bookmarks. It is advisable that the client send
+  // OnBookmarksDeleted if the limit is crossed.
+  // The limit is not enforced by the Search API.
+  static size_t GetMaximumPossibleNumberOfBookmarksToIndex();
+
   void OnBookmarksCreated(std::vector<BookmarkInfo> const & marks);
   void OnBookmarksUpdated(std::vector<BookmarkInfo> const & marks);
   void OnBookmarksDeleted(std::vector<kml::MarkId> const & marks);

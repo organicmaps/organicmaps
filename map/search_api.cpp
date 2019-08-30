@@ -44,6 +44,8 @@ double const kDistEqualQueryMercator = MercatorBounds::MetersToMercator(kDistEqu
 // 200 squared kilometers.
 double const kMaxAreaToLoadAllHotelsInViewport = 2e8;
 
+size_t const kMaximumPossibleNumberOfBookmarksToIndex = 5000;
+
 // Cancels search query by |handle|.
 void CancelQuery(weak_ptr<ProcessorHandle> & handle)
 {
@@ -393,6 +395,12 @@ void SearchAPI::FilterAllHotelsInViewport(m2::RectD const & viewport,
 void SearchAPI::EnableIndexingOfBookmarksDescriptions(bool enable)
 {
   m_engine.EnableIndexingOfBookmarksDescriptions(enable);
+}
+
+// static
+size_t SearchAPI::GetMaximumPossibleNumberOfBookmarksToIndex()
+{
+  return kMaximumPossibleNumberOfBookmarksToIndex;
 }
 
 void SearchAPI::OnBookmarksCreated(vector<BookmarkInfo> const & marks)
