@@ -130,6 +130,12 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   });
 }
 
+- (void)updateWithData:(MWMPlacePageData *)data;
+{
+  self.data = data;
+  [self checkCellsVisible];
+}
+
 - (void)rotateDirectionArrowToAngle:(CGFloat)angle
 {
   [self.previewLayoutHelper rotateDirectionArrowToAngle:angle];

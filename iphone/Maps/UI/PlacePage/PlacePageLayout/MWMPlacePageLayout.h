@@ -36,6 +36,7 @@ enum class NodeStatus;
                        dataSource:(id<MWMPlacePageLayoutDataSource>)dataSource;
 
 - (void)showWithData:(MWMPlacePageData *)data;
+- (void)updateWithData:(MWMPlacePageData *)data;
 - (void)close;
 
 - (void)mwm_refreshUI;

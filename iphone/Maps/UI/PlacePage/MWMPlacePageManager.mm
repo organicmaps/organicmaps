@@ -136,7 +136,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   self.data = [[MWMPlacePageData alloc] initWithPlacePageInfo:info];
   [self.data fillSections];
   [self setupSpeedAndDistance];
-  [self.layout checkCellsVisible];
+  [self.layout updateWithData:self.data];
 }
 
 - (BOOL)isPPShown {
