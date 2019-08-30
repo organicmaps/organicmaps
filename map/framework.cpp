@@ -1000,7 +1000,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   }
   else if (ftypes::IsPromoCatalogPoiChecker::Instance()(ft))
   {
-    info.SetOpeningMode(m_routingManager.IsRoutingActive()
+    info.SetOpeningMode(m_routingManager.IsRoutingActive() || !GetPlatform().IsConnected()
                         ? place_page::OpeningMode::Preview
                         : place_page::OpeningMode::PreviewPlus);
     info.SetSponsoredType(SponsoredType::PromoCatalogPoi);

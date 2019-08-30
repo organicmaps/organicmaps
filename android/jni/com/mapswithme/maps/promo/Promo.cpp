@@ -145,9 +145,9 @@ Java_com_mapswithme_maps_promo_Promo_nativeRequestCityGallery(JNIEnv * env, jcla
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_promo_Promo_nativeRequestPoiGallery(JNIEnv * env, jclass,
-                                                                    jobject policy, jdouble lat,
-                                                                    jdouble lon, jobjectArray tags,
-                                                                    jint utm)
+                                                             jobject policy, jdouble lat,
+                                                             jdouble lon, jobjectArray tags,
+                                                             jint utm)
 {
   PrepareClassRefs(env);
   auto const point = MercatorBounds::FromLatLon(static_cast<double>(lat), static_cast<double>(lon));
