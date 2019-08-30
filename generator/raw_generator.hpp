@@ -23,9 +23,6 @@ public:
   void GenerateCountries(bool disableAds = true);
   void GenerateWorld(bool disableAds = true);
   void GenerateCoasts();
-  void GenerateRegionFeatures(std::string const & filename);
-  void GenerateStreetsFeatures(std::string const & filename);
-  void GenerateGeoObjectsFeatures(std::string const & filename);
   void GenerateCustom(std::shared_ptr<TranslatorInterface> const & translator);
   void GenerateCustom(std::shared_ptr<TranslatorInterface> const & translator,
                       std::shared_ptr<FinalProcessorIntermediateMwmInterface> const & finalProcessor);

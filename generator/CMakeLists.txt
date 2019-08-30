@@ -85,14 +85,6 @@ set(
   final_processor_intermediate_mwm.hpp
   gen_mwm_info.hpp
   generate_info.hpp
-  geo_objects/geo_objects.cpp
-  geo_objects/geo_objects.hpp
-  geo_objects/geo_objects_filter.cpp
-  geo_objects/geo_objects_filter.hpp
-  geo_objects/geo_objects_generator.cpp
-  geo_objects/geo_objects_generator.hpp
-  geo_objects/geo_objects_maintainer.cpp
-  geo_objects/geo_objects_maintainer.hpp
   geometry_holder.hpp
   holes.cpp
   holes.hpp
@@ -101,8 +93,6 @@ set(
   intermediate_elements.hpp
   key_value_storage.cpp
   key_value_storage.hpp
-  locality_sorter.cpp
-  locality_sorter.hpp
   maxspeeds_builder.cpp
   maxspeeds_builder.hpp
   maxspeeds_collector.cpp
@@ -157,34 +147,6 @@ set(
   raw_generator_writer.hpp
   region_meta.cpp
   region_meta.hpp
-  regions/admin_suburbs_marker.cpp
-  regions/admin_suburbs_marker.hpp
-  regions/collector_region_info.cpp
-  regions/collector_region_info.hpp
-  regions/country_specifier.cpp
-  regions/country_specifier.hpp
-  regions/country_specifier_builder.cpp
-  regions/country_specifier_builder.hpp
-  regions/level_region.hpp
-  regions/locality_point_integrator.cpp
-  regions/locality_point_integrator.hpp
-  regions/node.cpp
-  regions/node.hpp
-  regions/place_point.hpp
-  regions/place_points_integrator.cpp
-  regions/place_points_integrator.hpp
-  regions/region.cpp
-  regions/region.hpp
-  regions/region_base.cpp
-  regions/region_base.hpp
-  regions/region_info.cpp
-  regions/region_info.hpp
-  regions/region_info_getter.cpp
-  regions/region_info_getter.hpp
-  regions/regions.cpp
-  regions/regions.hpp
-  regions/regions_builder.cpp
-  regions/regions_builder.hpp
   relation_tags.cpp
   relation_tags.hpp
   relation_tags_enricher.cpp
@@ -213,16 +175,6 @@ set(
   srtm_parser.hpp
   statistics.cpp
   statistics.hpp
-  streets/street_geometry.cpp
-  streets/street_geometry.hpp
-  streets/street_regions_tracing.cpp
-  streets/street_regions_tracing.hpp
-  streets/streets.cpp
-  streets/streets.hpp
-  streets/streets_builder.cpp
-  streets/streets_builder.hpp
-  streets/streets_filter.cpp
-  streets/streets_filter.hpp
   tag_admixer.hpp
   tesselator.cpp
   tesselator.hpp
@@ -243,13 +195,7 @@ set(
   translator_country.cpp
   translator_country.hpp
   translator_factory.hpp
-  translator_geo_objects.cpp
-  translator_geo_objects.hpp
   translator_interface.hpp
-  translator_region.cpp
-  translator_region.hpp
-  translator_streets.cpp
-  translator_streets.hpp
   translator_world.cpp
   translator_world.hpp
   translators_pool.cpp

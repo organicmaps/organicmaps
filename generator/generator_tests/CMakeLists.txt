@@ -17,7 +17,6 @@ set(
   feature_builder_test.cpp
   feature_merger_test.cpp
   filter_elements_tests.cpp
-  geo_objects_tests.cpp
   intermediate_data_test.cpp
   maxspeeds_tests.cpp
   merge_collectors_tests.cpp
@@ -29,8 +28,6 @@ set(
   osm_type_test.cpp
   place_processor_tests.cpp
   popularity_builder_tests.cpp
-  region_info_collector_tests.cpp
-  regions_tests.cpp
   restriction_collector_test.cpp
   restriction_test.cpp
   road_access_test.cpp
@@ -40,8 +37,6 @@ set(
   speed_cameras_test.cpp
   sponsored_storage_tests.cpp
   srtm_parser_test.cpp
-  street_geometry_tests.cpp
-  street_regions_tracing_tests.cpp
   tag_admixer_test.cpp
   tesselator_test.cpp
   translation_test.cpp

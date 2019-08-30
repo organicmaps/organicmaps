@@ -56,24 +56,6 @@ void RawGenerator::GenerateCoasts()
   m_finalProcessors.emplace(CreateCoslineFinalProcessor());
 }
 
-void RawGenerator::GenerateRegionFeatures(string const & filename)
-{
-  auto processor = CreateProcessor(ProcessorType::Simple, m_queue, filename);
-  m_translators->Append(CreateTranslator(TranslatorType::Regions, processor, m_cache, m_genInfo));
-}
-
-void RawGenerator::GenerateStreetsFeatures(string const & filename)
-{
-  auto processor = CreateProcessor(ProcessorType::Simple, m_queue, filename);
-  m_translators->Append(CreateTranslator(TranslatorType::Streets, processor, m_cache));
-}
-
-void RawGenerator::GenerateGeoObjectsFeatures(string const & filename)
-{
-  auto processor = CreateProcessor(ProcessorType::Simple, m_queue, filename);
-  m_translators->Append(CreateTranslator(TranslatorType::GeoObjects, processor, m_cache));
-}
-
 void RawGenerator::GenerateCustom(std::shared_ptr<TranslatorInterface> const & translator)
 {
   m_translators->Append(translator);

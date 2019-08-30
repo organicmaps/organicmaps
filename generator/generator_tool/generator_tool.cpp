@@ -9,11 +9,10 @@
 #include "generator/data_version.hpp"
 #include "generator/descriptions_section_builder.hpp"
 #include "generator/dumper.hpp"
+#include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/generate_info.hpp"
-#include "generator/geo_objects/geo_objects_generator.hpp"
-#include "generator/locality_sorter.hpp"
 #include "generator/maxspeeds_builder.hpp"
 #include "generator/metalines_builder.hpp"
 #include "generator/osm_source.hpp"
@@ -23,14 +22,11 @@
 #include "generator/processor_factory.hpp"
 #include "generator/ratings_section_builder.hpp"
 #include "generator/raw_generator.hpp"
-#include "generator/regions/collector_region_info.hpp"
-#include "generator/regions/regions.hpp"
 #include "generator/restriction_generator.hpp"
 #include "generator/road_access_generator.hpp"
 #include "generator/routing_index_generator.hpp"
 #include "generator/search_index_builder.hpp"
 #include "generator/statistics.hpp"
-#include "generator/streets/streets.hpp"
 #include "generator/traffic_generator.hpp"
 #include "generator/transit_generator.hpp"
 #include "generator/translator_collection.hpp"
@@ -117,23 +113,10 @@ DEFINE_uint64(planet_version, base::SecondsSinceEpoch(),
 DEFINE_bool(preprocess, false, "1st pass - create nodes/ways/relations data.");
 DEFINE_bool(generate_features, false, "2nd pass - generate intermediate features.");
 DEFINE_bool(no_ads, false, "generation without ads.");
-DEFINE_bool(generate_region_features, false,
-            "Generate intermediate features for regions to use in regions index and borders generation.");
-DEFINE_bool(generate_streets_features, false,
-            "Generate intermediate features for streets to use in server-side forward geocoder.");
-DEFINE_bool(generate_geo_objects_features, false,
-            "Generate intermediate features for geo objects to use in geo objects index.");
 DEFINE_bool(generate_geometry, false,
             "3rd pass - split and simplify geometry and triangles for features.");
 DEFINE_bool(generate_index, false, "4rd pass - generate index.");
 DEFINE_bool(generate_search_index, false, "5th pass - generate search index.");
-DEFINE_bool(generate_geo_objects_index, false,
-            "Generate objects and index for server-side reverse geocoder.");
-DEFINE_bool(generate_regions, false,
-            "Generate regions index and borders for server-side reverse geocoder.");
-DEFINE_bool(generate_regions_kv, false,
-            "Generate regions key-value for server-side reverse geocoder.");
-
 DEFINE_bool(dump_cities_boundaries, false, "Dump cities boundaries to a file");
 DEFINE_bool(generate_cities_boundaries, false, "Generate the cities boundaries section");
 DEFINE_string(cities_boundaries_data, "", "File with cities boundaries");
@@ -206,19 +189,6 @@ DEFINE_bool(generate_addresses_file, false,
             "Generate .addr file (for '--output' option) with full addresses list.");
 DEFINE_bool(generate_traffic_keys, false,
             "Generate keys for the traffic map (road segment -> speed group).");
-
-// Generating geo objects key-value.
-DEFINE_string(regions_index, "", "Input regions index file.");
-DEFINE_string(regions_key_value, "", "Input regions key-value file.");
-DEFINE_string(streets_features, "", "Input tmp.mwm file with streets.");
-DEFINE_string(streets_key_value, "", "Output streets key-value file.");
-DEFINE_string(geo_objects_features, "", "Input tmp.mwm file with geo objects.");
-DEFINE_string(ids_without_addresses, "", "Output file with objects ids without addresses.");
-DEFINE_string(geo_objects_key_value, "", "Output geo objects key-value file.");
-DEFINE_string(allow_addressless_for_countries, "*",
-              "Allow addressless buildings for only specified countries separated by commas.");
-
-DEFINE_string(regions_features, "", "Input tmp.mwm file with regions.");
 
 DEFINE_string(popularity_csv, "", "Output csv for popularity.");
 
@@ -310,10 +280,7 @@ int GeneratorToolMain(int argc, char ** argv)
   // Generate .mwm.tmp files.
   if (FLAGS_generate_features ||
       FLAGS_generate_world ||
-      FLAGS_make_coasts ||
-      FLAGS_generate_region_features ||
-      FLAGS_generate_streets_features ||
-      FLAGS_generate_geo_objects_features)
+      FLAGS_make_coasts)
   {
     RawGenerator rawGenerator(genInfo, threadsCount);
     if (FLAGS_generate_features)
@@ -322,12 +289,6 @@ int GeneratorToolMain(int argc, char ** argv)
       rawGenerator.GenerateWorld(FLAGS_no_ads);
     if (FLAGS_make_coasts)
       rawGenerator.GenerateCoasts();
-    if (FLAGS_generate_region_features)
-      rawGenerator.GenerateRegionFeatures(FLAGS_output);
-    if (FLAGS_generate_streets_features)
-      rawGenerator.GenerateStreetsFeatures(FLAGS_output);
-    if (FLAGS_generate_geo_objects_features)
-      rawGenerator.GenerateGeoObjectsFeatures(FLAGS_output);
 
     if (!rawGenerator.Execute())
       return EXIT_FAILURE;
@@ -348,88 +309,6 @@ int GeneratorToolMain(int argc, char ** argv)
   unique_ptr<storage::CountryParentGetter> countryParentGetter;
   if (FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm)
     countryParentGetter = make_unique<storage::CountryParentGetter>();
-
-
-  if (!FLAGS_streets_key_value.empty())
-  {
-    streets::GenerateStreets(FLAGS_regions_index, FLAGS_regions_key_value, FLAGS_streets_features,
-                             FLAGS_geo_objects_features, FLAGS_streets_key_value, FLAGS_verbose,
-                             threadsCount);
-  }
-
-  if (!FLAGS_geo_objects_key_value.empty())
-  {
-    if (!geo_objects::GenerateGeoObjects(FLAGS_regions_index, FLAGS_regions_key_value,
-                                         FLAGS_geo_objects_features, FLAGS_ids_without_addresses,
-                                         FLAGS_geo_objects_key_value, FLAGS_verbose, threadsCount))
-      return EXIT_FAILURE;
-  }
-
-  if (FLAGS_generate_geo_objects_index || FLAGS_generate_regions)
-  {
-    if (FLAGS_output.empty())
-    {
-      LOG(LCRITICAL, ("Bad output or intermediate_data_path. Output:", FLAGS_output));
-      return EXIT_FAILURE;
-    }
-
-    auto const locDataFile = base::JoinPath(path, FLAGS_output + LOC_DATA_FILE_EXTENSION);
-    auto const outFile = base::JoinPath(path, FLAGS_output + LOC_IDX_FILE_EXTENSION);
-    if (FLAGS_generate_geo_objects_index)
-    {
-      if (!feature::GenerateGeoObjectsData(FLAGS_geo_objects_features, FLAGS_nodes_list_path,
-                                           locDataFile))
-      {
-        LOG(LCRITICAL, ("Error generating geo objects data."));
-        return EXIT_FAILURE;
-      }
-
-      LOG(LINFO, ("Saving geo objects index to", outFile));
-      if (!indexer::BuildGeoObjectsIndexFromDataFile(
-            locDataFile, outFile, DataVersion::LoadFromPath(path).GetVersionJson(),
-            DataVersion::kFileTag))
-      {
-        LOG(LCRITICAL, ("Error generating geo objects index."));
-        return EXIT_FAILURE;
-      }
-    }
-
-    if (FLAGS_generate_regions)
-    {
-      if (!feature::GenerateRegionsData(FLAGS_regions_features, locDataFile))
-      {
-        LOG(LCRITICAL, ("Error generating regions data."));
-        return EXIT_FAILURE;
-      }
-
-      LOG(LINFO, ("Saving regions index to", outFile));
-
-      if (!indexer::BuildRegionsIndexFromDataFile(locDataFile, outFile,
-                                                  DataVersion::LoadFromPath(path).GetVersionJson(),
-                                                  DataVersion::kFileTag))
-      {
-        LOG(LCRITICAL, ("Error generating regions index."));
-        return EXIT_FAILURE;
-      }
-      if (!feature::GenerateBorders(FLAGS_regions_features, outFile))
-      {
-        LOG(LCRITICAL, ("Error generating regions borders."));
-        return EXIT_FAILURE;
-      }
-    }
-  }
-
-  if (FLAGS_generate_regions_kv)
-  {
-    auto const pathInRegionsCollector =
-        genInfo.GetTmpFileName(genInfo.m_fileName, regions::CollectorRegionInfo::kDefaultExt);
-    auto const pathInRegionsTmpMwm = genInfo.GetTmpFileName(genInfo.m_fileName);
-    auto const pathOutRepackedRegionsTmpMwm =
-        genInfo.GetTmpFileName(genInfo.m_fileName + "_repacked");
-    auto const pathOutRegionsKv = genInfo.GetIntermediateFileName(genInfo.m_fileName, ".jsonl");
-    regions::GenerateRegions(pathInRegionsTmpMwm, pathInRegionsCollector, pathOutRegionsKv,
-                             pathOutRepackedRegionsTmpMwm, FLAGS_verbose, threadsCount);
-  }
 
   if (!FLAGS_popularity_csv.empty())
   {
