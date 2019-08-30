@@ -1540,6 +1540,13 @@ bool BookmarkManager::IsVisible(kml::MarkGroupId groupId) const
   return GetGroup(groupId)->IsVisible();
 }
 
+bool BookmarkManager::IsSearchAllowed(kml::MarkGroupId groupId) const
+{
+  // TODO(@darina) Implement.
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  return true;
+}
+
 void BookmarkManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 {
   m_drapeEngine.Set(engine);

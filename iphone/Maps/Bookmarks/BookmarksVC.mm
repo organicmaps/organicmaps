@@ -60,8 +60,12 @@ using namespace std;
 @property(weak, nonatomic) IBOutlet UIBarButtonItem * viewOnMapItem;
 
 @property(nonatomic) UIActivityIndicatorView *sortSpinner;
+
 @property(weak, nonatomic) IBOutlet UIBarButtonItem *sortItem;
 @property(weak, nonatomic) IBOutlet UIBarButtonItem *sortSpinnerItem;
+
+@property(weak, nonatomic) IBOutlet UIBarButtonItem *sortDownloadedItem;
+@property(weak, nonatomic) IBOutlet UIBarButtonItem *sortDownloadedSpinnerItem;
 
 @property(weak, nonatomic) IBOutlet UIBarButtonItem * moreItem;
 
@@ -184,13 +188,22 @@ using namespace std;
   }
 }
 
+- (void)enableSortButton:(BOOL)enable
+{
+  if ([self isEditable])
+    self.sortItem.enabled = enable;
+  else
+    self.sortDownloadedSpinnerItem.enabled = enable;
+}
+
 - (void)updateControlsVisibility {
-  if ([self isEditable] && [[MWMBookmarksManager sharedManager] isCategoryNotEmpty:self.categoryId]) {
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.sortItem.enabled = YES;
+  if ([[MWMBookmarksManager sharedManager] isCategoryNotEmpty:self.categoryId]) {
+    if ([self isEditable])
+      self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self enableSortButton:YES];
   } else {
     self.navigationItem.rightBarButtonItem = nil;
-    self.sortItem.enabled = NO;
+    [self enableSortButton:NO];
   }
 }
 
@@ -216,12 +229,18 @@ using namespace std;
 
   [self.moreItem setTitleTextAttributes:moreTitleAttributes forState:UIControlStateNormal];
   [self.sortItem setTitleTextAttributes:regularTitleAttributes forState:UIControlStateNormal];
+  [self.sortDownloadedItem setTitleTextAttributes:regularTitleAttributes forState:UIControlStateNormal];
   [self.viewOnMapItem setTitleTextAttributes:regularTitleAttributes forState:UIControlStateNormal];
 
   self.moreItem.title = L(@"placepage_more_button");
   self.sortItem.title = L(@"sort");
-  self.sortSpinnerItem.customView = self.sortSpinner;
-  self.viewOnMapItem.title = L(@"search_show_on_map");
+  self.sortDownloadedItem.title = L(@"sort");
+  if ([self isEditable])
+    self.sortSpinnerItem.customView = self.sortSpinner;
+  else
+    self.sortDownloadedSpinnerItem.customView = self.sortSpinner;
+  
+  self.viewOnMapItem.title = L(@"view_on_map_bookmarks");
 
   self.myCategoryToolbar.barTintColor = [UIColor white];
   self.downloadedCategoryToolbar.barTintColor = [UIColor white];
@@ -234,10 +253,10 @@ using namespace std;
 - (void)viewWillAppear:(BOOL)animated {
   [MWMLocationManager addObserver:self];
 
-  BOOL searchAllowed = NO;
+  BOOL searchAllowed = [[MWMBookmarksManager sharedManager] isCategoryNotEmpty:self.categoryId] &&
+    [[MWMBookmarksManager sharedManager] isSearchAllowed:self.categoryId];
+  
   if ([self isEditable]) {
-    if ([[MWMBookmarksManager sharedManager] isCategoryNotEmpty:self.categoryId])
-      searchAllowed = YES;
     self.myCategoryToolbar.hidden = NO;
     self.downloadedCategoryToolbar.hidden = YES;
   } else {
@@ -390,7 +409,8 @@ using namespace std;
 
   [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"cancel") style:UIAlertActionStyleCancel handler:nil]];
 
-  actionSheet.popoverPresentationController.barButtonItem = self.sortItem;
+  actionSheet.popoverPresentationController.barButtonItem = [self isEditable] ? self.sortItem
+                                                                              : self.sortDownloadedItem;
   [self presentViewController:actionSheet
                      animated:YES
                    completion:^{
@@ -441,7 +461,7 @@ using namespace std;
       return;
 
     [self showSortSpinner:NO];
-    self.sortItem.enabled = YES;
+    [self enableSortButton:YES];
 
     if (status == BookmarkManager::SortParams::Status::Completed) {
       [self setSortedSections:sortedBlocks];
@@ -450,8 +470,8 @@ using namespace std;
   };
 
   [self showSortSpinner:YES];
-  self.sortItem.enabled = NO;
-
+  [self enableSortButton:NO];
+  
   bm.GetSortedCategory(sortParams);
 }
 

@@ -241,7 +241,8 @@ public:
   void ResetLastSortingType(kml::MarkGroupId groupId);
 
   bool IsVisible(kml::MarkGroupId groupId) const;
-
+  bool IsSearchAllowed(kml::MarkGroupId groupId) const;
+  
   kml::MarkGroupId CreateBookmarkCategory(kml::CategoryData && data, bool autoSave = true);
   kml::MarkGroupId CreateBookmarkCategory(std::string const & name, bool autoSave = true);
 

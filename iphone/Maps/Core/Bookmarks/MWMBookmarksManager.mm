@@ -288,6 +288,10 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
          (self.bm.GetUserMarkIds(groupId).size() + self.bm.GetTrackIds(groupId).size());
 }
 
+- (BOOL)isSearchAllowed:(MWMMarkGroupID)groupId {
+  return self.bm.IsSearchAllowed(groupId);
+}
+
 - (MWMGroupIDCollection)groupsIdList
 {
   auto const & list = self.bm.GetBmGroupsIdList();

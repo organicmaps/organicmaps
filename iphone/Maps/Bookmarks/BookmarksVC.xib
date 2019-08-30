@@ -20,6 +20,8 @@
                 <outlet property="noResultsContainer" destination="eGH-Rr-EJq" id="vaj-qX-IeS"/>
                 <outlet property="searchBar" destination="CQZ-YM-Mk4" id="1DX-m0-Vok"/>
                 <outlet property="showSearchBar" destination="GJx-FV-8CF" id="PkO-sS-pSv"/>
+                <outlet property="sortDownloadedItem" destination="q9W-1k-FcF" id="8cR-4a-7vi"/>
+                <outlet property="sortDownloadedSpinnerItem" destination="lqj-ym-l6h" id="eRf-zs-1mB"/>
                 <outlet property="sortItem" destination="U4v-rd-kcf" id="vlw-yQ-uUA"/>
                 <outlet property="sortSpinnerItem" destination="bgr-Fc-kub" id="7q1-gI-Wxt"/>
                 <outlet property="statusBarBackground" destination="S4A-UM-s8p" id="4DY-Of-VqX"/>
@@ -58,13 +60,20 @@
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lox-EJ-BTW">
                     <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                     <items>
+                        <barButtonItem width="8" style="plain" systemItem="fixedSpace" id="Nx8-rO-Gnv"/>
+                        <barButtonItem title="Sort" style="plain" id="q9W-1k-FcF">
+                            <connections>
+                                <action selector="onSort:" destination="-1" id="AG9-d5-JNZ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem width="16" style="plain" id="lqj-ym-l6h"/>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="mgA-WK-Be8"/>
                         <barButtonItem title="View on map" id="zDI-L0-Fjj">
                             <connections>
                                 <action selector="onViewOnMap:" destination="-1" id="93e-aP-Lza"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="tlq-gn-Jdq"/>
+                        <barButtonItem width="8" style="plain" systemItem="fixedSpace" id="lFC-24-CEh"/>
                     </items>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
@@ -73,7 +82,7 @@
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uNd-fM-YVD">
                     <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                     <items>
-                        <barButtonItem width="16" style="plain" systemItem="fixedSpace" id="jsx-WU-dhT"/>
+                        <barButtonItem width="8" style="plain" systemItem="fixedSpace" id="jsx-WU-dhT"/>
                         <barButtonItem title="Sort" style="plain" id="U4v-rd-kcf">
                             <connections>
                                 <action selector="onSort:" destination="-1" id="Nvj-G6-K6X"/>
@@ -86,7 +95,7 @@
                                 <action selector="onMore:" destination="-1" id="lBH-EV-C9v"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem width="16" style="plain" systemItem="fixedSpace" id="YAt-eE-x2I"/>
+                        <barButtonItem width="8" style="plain" systemItem="fixedSpace" id="YAt-eE-x2I"/>
                     </items>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
