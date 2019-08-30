@@ -194,7 +194,7 @@ def stage_descriptions(env):
                  dump_wikipedia_urls=env.wiki_url_path,
                  idToWikidata=env.id_to_wikidata_path)
 
-    langs = ("en", "ru", "es")
+    langs = ("en", "ru", "es", "fr", "de")
     checker = check_and_get_checker(env.popularity_path)
     download_from_wikipedia_tags(env.wiki_url_path, env.descriptions_path,
                                  langs, checker)

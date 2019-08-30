@@ -31,7 +31,9 @@ HEADERS = {f"h{x}" for x in range(1,7)}
 BAD_SECTIONS = {
     "en": ["External links", "Sources", "See also", "Bibliography", "Further reading", "References"],
     "ru": ["Литература", "Ссылки", "См. также", "Библиография", "Примечания"],
-    "es": ["Vínculos de interés", "Véase también", "Enlaces externos", "Referencias"]
+    "es": ["Vínculos de interés", "Véase también", "Enlaces externos", "Referencias"],
+    "fr": ["Bibliographie", "Lien externe", "Voir aussi", "Liens externes", "Références", "Notes et références"],
+    "de": ["Einzelnachweise", "Weblinks", "Literatur", "Siehe auch", "Anmerkungen"]
 }
 
 
