@@ -30,6 +30,8 @@ std::string const kRouteMaskBicycle = "RouteMaskBicycle";
 std::string const kRouteArrowsMaskBicycle = "RouteArrowsMaskBicycle";
 std::string const kRouteMaskPedestrian = "RouteMaskPedestrian";
 std::string const kTransitStopInnerMarkerColor = "TransitStopInnerMarker";
+std::string const kRouteFakeColor = "RouteFake";
+std::string const kRouteFakeOutlineColor = "RouteFakeOutline";
 
 namespace
 {
@@ -459,6 +461,10 @@ void RouteRenderer::RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr
   {
     params.m_outlineColor = glsl::ToVec4(df::GetColorConstant(style.m_outlineColor));
   }
+  params.m_fakeBorders = glsl::vec2(subrouteData->m_subroute->m_headFakeDistance,
+                                    subrouteData->m_subroute->m_tailFakeDistance);
+  params.m_fakeColor = glsl::ToVec4(df::GetColorConstant(kRouteFakeColor));
+  params.m_fakeOutlineColor = glsl::ToVec4(df::GetColorConstant(kRouteFakeOutlineColor));
 
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(style.m_pattern.m_isDashed ?
                                                 gpu::Program::RouteDash : gpu::Program::Route);

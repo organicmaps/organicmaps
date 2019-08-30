@@ -116,6 +116,9 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
   Parameter::CheckApply(guard, "u_angleCosSin", params.m_angleCosSin);
   Parameter::CheckApply(guard, "u_arrowHalfWidth", params.m_arrowHalfWidth);
   Parameter::CheckApply(guard, "u_opacity", params.m_opacity);
+  Parameter::CheckApply(guard, "u_fakeBorders", params.m_fakeBorders);
+  Parameter::CheckApply(guard, "u_fakeColor", params.m_fakeColor);
+  Parameter::CheckApply(guard, "u_fakeOutlineColor", params.m_fakeOutlineColor);
 }
 
 void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,

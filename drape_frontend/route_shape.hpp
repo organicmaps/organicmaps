@@ -148,6 +148,9 @@ struct Subroute
   std::vector<SubrouteStyle> m_style;
 
   std::vector<SubrouteMarker> m_markers;
+
+  double m_headFakeDistance = 0.0;
+  double m_tailFakeDistance = 0.0;
 };
 
 using SubrouteConstPtr = std::shared_ptr<Subroute const>;

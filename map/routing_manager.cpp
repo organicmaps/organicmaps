@@ -250,6 +250,52 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(vector<RouteSegment> const & segment
     return nullptr;
   }
 
+  // We support visualization of fake edges only in the head and in the tail of subroute.
+  auto constexpr kInvalidId = std::numeric_limits<size_t>::max();
+  auto firstReal = kInvalidId;
+  auto lastReal = kInvalidId;
+  for (size_t i = 0; i < segments.size(); ++i)
+  {
+    if (!segments[i].GetSegment().IsRealSegment())
+      continue;
+
+    if (firstReal == kInvalidId)
+      firstReal = i;
+    lastReal = i;
+  }
+
+  if (firstReal == kInvalidId)
+  {
+    // All segments are fake.
+    subroute->m_headFakeDistance = 0.0;
+    subroute->m_tailFakeDistance = 0.0;
+  }
+  else
+  {
+    CHECK_NOT_EQUAL(firstReal, kInvalidId, ());
+    CHECK_NOT_EQUAL(lastReal, kInvalidId, ());
+
+    auto constexpr kEps = 1e-5;
+    auto constexpr kBias = 1.0;
+
+    // To prevent visual artefacts, in the case when all head segments are real
+    // m_headFakeDistance must be less than 0.0.
+    auto const headLen = (firstReal > 0) ? segments[firstReal - 1].GetDistFromBeginningMerc() - baseDistance : 0.0;
+    if (base::AlmostEqualAbs(headLen, 0.0, kEps))
+      subroute->m_headFakeDistance = -kBias;
+    else
+      subroute->m_headFakeDistance = headLen;
+
+    // To prevent visual artefacts, in the case when all tail segments are real
+    // m_tailFakeDistance must be greater than the length of the subroute.
+    auto const subrouteLen = segments.back().GetDistFromBeginningMerc() - baseDistance;
+    auto const tailLen = segments[lastReal].GetDistFromBeginningMerc() - baseDistance;
+    if (base::AlmostEqualAbs(tailLen, subrouteLen, kEps))
+      subroute->m_tailFakeDistance = subrouteLen + kBias;
+    else
+      subroute->m_tailFakeDistance = tailLen;
+  }
+
   subroute->m_polyline = m2::PolylineD(points);
   return subroute;
 }

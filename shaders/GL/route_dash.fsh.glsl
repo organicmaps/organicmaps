@@ -13,6 +13,9 @@ uniform vec4 u_color;
 uniform vec2 u_pattern;
 uniform vec4 u_maskColor;
 
+uniform vec2 u_fakeBorders;
+uniform vec4 u_fakeColor;
+
 const float kAntialiasingThreshold = 0.92;
 
 float alphaFromPattern(float curLen, float dashLen, float gapLen)
@@ -27,7 +30,12 @@ void main()
   if (v_length.x < v_length.z)
     discard;
 
-  vec4 color = u_color + v_color;
+  vec2 coefs = step(v_length.xx, u_fakeBorders);
+  coefs.y = 1.0 - coefs.y;
+  vec4 mainColor = mix(u_color, u_fakeColor, coefs.x);
+  mainColor = mix(mainColor, u_fakeColor, coefs.y);
+
+  vec4 color = mainColor + v_color;
   color.a *= (1.0 - smoothstep(kAntialiasingThreshold, 1.0, abs(v_length.y))) *
               alphaFromPattern(v_length.x, u_pattern.x, u_pattern.y);
   color = vec4(mix(color.rgb, u_maskColor.rgb, u_maskColor.a), color.a);

@@ -105,6 +105,9 @@ struct RouteProgramParams
   glsl::vec2 m_angleCosSin;
   float m_arrowHalfWidth = 0.0f;
   float m_opacity = 1.0f;
+  glsl::vec2 m_fakeBorders;
+  glsl::vec4 m_fakeColor;
+  glsl::vec4 m_fakeOutlineColor;
 
   BIND_PROGRAMS(RouteProgramParams,
     Program::Route,

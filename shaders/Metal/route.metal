@@ -16,6 +16,9 @@ typedef struct
   packed_float2 u_angleCosSin;
   float u_arrowHalfWidth;
   float u_opacity;
+  packed_float2 u_fakeBorders;
+  float4 u_fakeColor;
+  float4 u_fakeOutlineColor;
 } Uniforms_T;
 
 // Route/RouteDash
@@ -69,10 +72,18 @@ fragment float4 fsRoute(const RouteFragment_T in [[stage_in]],
   constexpr float kOutlineThreshold1 = 0.81;
   constexpr float kOutlineThreshold2 = 0.71;
   
-  float4 color = mix(mix(uniforms.u_color, float4(in.color.rgb, 1.0), in.color.a), uniforms.u_color,
+  float2 fb = uniforms.u_fakeBorders;
+  float2 coefs = step(in.lengthParams.xx, fb);
+  coefs.y = 1.0 - coefs.y;
+  float4 mainColor = mix(uniforms.u_color, uniforms.u_fakeColor, coefs.x);
+  mainColor = mix(mainColor, uniforms.u_fakeColor, coefs.y);
+  float4 mainOutlineColor = mix(uniforms.u_outlineColor, uniforms.u_fakeOutlineColor, coefs.x);
+  mainOutlineColor = mix(mainOutlineColor, uniforms.u_fakeOutlineColor, coefs.y);
+  
+  float4 color = mix(mix(mainColor, float4(in.color.rgb, 1.0), in.color.a), mainColor,
                      step(uniforms.u_routeParams.w, 0.0));
-  color = mix(color, uniforms.u_outlineColor, step(kOutlineThreshold1, abs(in.lengthParams.y)));
-  color = mix(color, uniforms.u_outlineColor,
+  color = mix(color, mainOutlineColor, step(kOutlineThreshold1, abs(in.lengthParams.y)));
+  color = mix(color, mainOutlineColor,
               smoothstep(kOutlineThreshold2, kOutlineThreshold1, abs(in.lengthParams.y)));
   color.a *= (1.0 - smoothstep(kAntialiasingThreshold, 1.0, abs(in.lengthParams.y)));
   color = float4(mix(color.rgb, uniforms.u_maskColor.rgb, uniforms.u_maskColor.a), color.a);
@@ -94,7 +105,13 @@ fragment float4 fsRouteDash(const RouteFragment_T in [[stage_in]],
   
   constexpr float kAntialiasingThreshold = 0.92;
   
-  float4 color = uniforms.u_color + in.color;
+  float2 fb = uniforms.u_fakeBorders;
+  float2 coefs = step(in.lengthParams.xx, fb);
+  coefs.y = 1.0 - coefs.y;
+  float4 mainColor = mix(uniforms.u_color, uniforms.u_fakeColor, coefs.x);
+  mainColor = mix(mainColor, uniforms.u_fakeColor, coefs.y);
+  
+  float4 color = mainColor + in.color;
   float a = 1.0 - smoothstep(kAntialiasingThreshold, 1.0, abs(in.lengthParams.y));
   color.a *= (a * AlphaFromPattern(in.lengthParams.x, uniforms.u_pattern));
   color = float4(mix(color.rgb, uniforms.u_maskColor.rgb, uniforms.u_maskColor.a), color.a);
