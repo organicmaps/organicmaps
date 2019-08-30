@@ -1039,7 +1039,8 @@ void BookmarkManager::SetBookmarksAddresses(AddressesCollection const & addresse
   auto session = GetEditSession();
   for (auto const & item : addresses)
   {
-    auto bm = session.GetBookmarkForEdit(item.first);
+    // Use inner method GetBookmarkForEdit to save address even if the bookmarks is not editable.
+    auto bm = GetBookmarkForEdit(item.first);
     bm->SetAddress(item.second);
   }
 }
@@ -1332,7 +1333,8 @@ void BookmarkManager::GetSortedCategory(SortParams const & params)
       return;
     }
     AddressesCollection newAddresses;
-    PrepareBookmarksAddresses(bookmarksForSort, newAddresses);
+    if (params.m_sortingType == SortingType::ByDistance)
+      PrepareBookmarksAddresses(bookmarksForSort, newAddresses);
 
     SortedBlocksCollection sortedBlocks;
     GetSortedCategoryImpl(params, bookmarksForSort, tracksForSort, sortedBlocks);
@@ -1356,7 +1358,8 @@ void BookmarkManager::GetSortedCategory(SortParams const & params)
     }
 
     AddressesCollection newAddresses;
-    PrepareBookmarksAddresses(bookmarksForSort, newAddresses);
+    if (params.m_sortingType == SortingType::ByDistance)
+      PrepareBookmarksAddresses(bookmarksForSort, newAddresses);
 
     SortedBlocksCollection sortedBlocks;
     GetSortedCategoryImpl(params, bookmarksForSort, tracksForSort, sortedBlocks);
@@ -1618,6 +1621,9 @@ void BookmarkManager::LoadState()
 
 std::string BookmarkManager::GetMetadataEntryName(kml::MarkGroupId groupId) const
 {
+  CHECK(IsBookmarkCategory(groupId), ());
+  if (IsCategoryFromCatalog(groupId))
+    return GetBmCategory(groupId)->GetServerId();
   return GetCategoryFileName(groupId);
 }
 
