@@ -1,6 +1,6 @@
 @objc protocol SubscriptionManagerListener: AnyObject {
   func didFailToSubscribe(_ subscription: ISubscription, error: Error?)
-  func didSubsribe(_ subscription: ISubscription)
+  func didSubscribe(_ subscription: ISubscription)
   func didDefer(_ subscription: ISubscription)
   func didFailToValidate()
   func didValidate(_ isValid: Bool)
@@ -111,24 +111,30 @@ extension SubscriptionManager: SKProductsRequestDelegate {
   func request(_ request: SKRequest, didFailWithError error: Error) {
     Statistics.logEvent(kStatInappPaymentError,
                         withParameters: [kStatError : error.localizedDescription, kStatPurchase : serverId])
-    subscriptionsComplection?(nil, error)
-    subscriptionsComplection = nil
-    productsRequest = nil
+    DispatchQueue.main.async { [weak self] in
+      self?.subscriptionsComplection?(nil, error)
+      self?.subscriptionsComplection = nil
+      self?.productsRequest = nil
+    }
   }
 
   func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
     guard response.products.count == productIds.count else {
-      subscriptionsComplection?(nil, NSError(domain: "mapsme.subscriptions", code: -1, userInfo: nil))
-      subscriptionsComplection = nil
-      productsRequest = nil
+      DispatchQueue.main.async { [weak self] in
+        self?.subscriptionsComplection?(nil, NSError(domain: "mapsme.subscriptions", code: -1, userInfo: nil))
+        self?.subscriptionsComplection = nil
+        self?.productsRequest = nil
+      }
       return
     }
     let subscriptions = response.products.map { Subscription($0) }
       .sorted { $0.period.rawValue < $1.period.rawValue }
-    products = Dictionary(uniqueKeysWithValues: response.products.map { ($0.productIdentifier, $0) })
-    subscriptionsComplection?(subscriptions, nil)
-    subscriptionsComplection = nil
-    productsRequest = nil
+    DispatchQueue.main.async { [weak self] in
+      self?.products = Dictionary(uniqueKeysWithValues: response.products.map { ($0.productIdentifier, $0) })
+      self?.subscriptionsComplection?(subscriptions, nil)
+      self?.subscriptionsComplection = nil
+      self?.productsRequest = nil
+    }
   }
 }
 
@@ -168,14 +174,14 @@ extension SubscriptionManager: SKPaymentTransactionObserver {
     paymentQueue.finishTransaction(transaction)
     if let ps = pendingSubscription, transaction.payment.productIdentifier == ps.productId {
       Statistics.logEvent(kStatInappPaymentSuccess, withParameters: [kStatPurchase : serverId])
-      listeners.allObjects.forEach { $0.didSubsribe(ps) }
+      listeners.allObjects.forEach { $0.didSubscribe(ps) }
     }
   }
 
   private func processRestored(_ transaction: SKPaymentTransaction) {
     paymentQueue.finishTransaction(transaction)
     if let ps = pendingSubscription, transaction.payment.productIdentifier == ps.productId {
-      listeners.allObjects.forEach { $0.didSubsribe(ps) }
+      listeners.allObjects.forEach { $0.didSubscribe(ps) }
     }
   }
 

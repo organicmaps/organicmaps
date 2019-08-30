@@ -1,5 +1,5 @@
 class BookmarksSubscriptionExpiredViewController: UIViewController {
-  private let transitioning = FadeTransitioning<AlertPresentationController>()
+  private let transitioning = FadeTransitioning<AlertPresentationController>(cancellable: false)
   private let onSubscribe: MWMVoidBlock
   private let onDelete: MWMVoidBlock
 

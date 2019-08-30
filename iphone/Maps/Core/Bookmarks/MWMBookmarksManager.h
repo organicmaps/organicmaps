@@ -98,12 +98,14 @@ typedef void (^PingCompletionBlock)(BOOL success);
                     progress:(_Nullable ProgressBlock)progress
                   completion:(UploadCompletionBlock)completion;
 - (void)ping:(PingCompletionBlock)callback;
+- (void)checkForInvalidCategories:(MWMBoolBlock)completion;
+- (void)deleteInvalidCategories;
+- (void)resetInvalidCategories;
 
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));
 - (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +manager instead")));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone
-__attribute__((unavailable("call +manager instead")));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable("call +manager instead")));
 + (instancetype) new __attribute__((unavailable("call +manager instead")));
 
 @end

@@ -27,7 +27,11 @@ fileprivate final class PresentationController: DimmedModalPresentationControlle
     height = presentationHeight
     super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
   }
-
+  
+  required init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?, cancellable: Bool = true) {
+    fatalError("init(presentedViewController:presenting:cancellable:) has not been implemented")
+  }
+  
   override var frameOfPresentedViewInContainerView: CGRect {
     let f = super.frameOfPresentedViewInContainerView
     return CGRect(x: 0, y: f.height - height, width: f.width, height: height)

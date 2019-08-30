@@ -237,8 +237,9 @@ extension PaidRouteViewController : SubscriptionManagerListener {
                                                           text: L("purchase_error_subtitle"))
   }
 
-  func didSubsribe(_ subscription: ISubscription) {
+  func didSubscribe(_ subscription: ISubscription) {
     MWMPurchaseManager.setBookmarksSubscriptionActive(true)
+    MWMBookmarksManager.shared().resetInvalidCategories()
   }
 
   func didDefer(_ subscription: ISubscription) {

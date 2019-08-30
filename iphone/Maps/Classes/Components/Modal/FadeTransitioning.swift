@@ -1,6 +1,13 @@
-class FadeTransitioning<T: UIPresentationController>: NSObject, UIViewControllerTransitioningDelegate {
+class FadeTransitioning<T: DimmedModalPresentationController>: NSObject, UIViewControllerTransitioningDelegate {
   let presentedTransitioning = FadeInAnimatedTransitioning()
   let dismissedTransitioning = FadeOutAnimatedTransitioning()
+  let isCancellable: Bool
+
+  init(cancellable: Bool = true) {
+    isCancellable = cancellable
+    super.init()
+  }
+
   func animationController(forPresented presented: UIViewController,
                            presenting: UIViewController,
                            source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -14,6 +21,6 @@ class FadeTransitioning<T: UIPresentationController>: NSObject, UIViewController
   func presentationController(forPresented presented: UIViewController,
                               presenting: UIViewController?,
                               source: UIViewController) -> UIPresentationController? {
-    return T(presentedViewController: presented, presenting: presenting)
+    return T(presentedViewController: presented, presenting: presenting, cancellable: isCancellable)
   }
 }

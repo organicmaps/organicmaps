@@ -72,16 +72,21 @@ final class InAppBilling: NSObject, IInAppBilling {
 
 extension InAppBilling: SKProductsRequestDelegate {
   func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-    let products = response.products.map { BillingProduct($0) }
-    productsCompletion?(products, nil)
-    productsCompletion = nil
-    productRequest = nil
+    DispatchQueue.main.async { [weak self] in
+      let products = response.products.map { BillingProduct($0) }
+      self?.productsCompletion?(products, nil)
+      self?.productsCompletion = nil
+      self?.productRequest = nil
+
+    }
   }
 
   func request(_ request: SKRequest, didFailWithError error: Error) {
-    productsCompletion?(nil, error)
-    productsCompletion = nil
-    productRequest = nil
+    DispatchQueue.main.async { [weak self] in
+      self?.productsCompletion?(nil, error)
+      self?.productsCompletion = nil
+      self?.productRequest = nil
+    }
   }
 }
 

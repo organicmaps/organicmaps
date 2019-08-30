@@ -229,7 +229,7 @@ extension RemoveAdsViewController: SubscriptionManagerListener {
 
   }
 
-  func didSubsribe(_ subscription: ISubscription) {
+  func didSubscribe(_ subscription: ISubscription) {
     MWMPurchaseManager.setAdsDisabled(true)
     hidePurchaseProgress()
     delegate?.didCompleteSubscribtion(self)

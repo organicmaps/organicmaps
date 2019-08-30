@@ -152,7 +152,10 @@ final class CatalogWebViewController: WebViewController {
 
   override func willLoadUrl(_ decisionHandler: @escaping (Bool, Dictionary<String, String>?) -> Void) {
     buildHeaders { [weak self] (headers) in
-      self?.handlePendingTransactions { decisionHandler($0, headers) }
+      self?.handlePendingTransactions {
+        decisionHandler($0, headers)
+        self?.checkInvalidSubscription()
+      }
     }
   }
 

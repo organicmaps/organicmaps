@@ -749,6 +749,20 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   });
 }
 
+- (void)checkForInvalidCategories:(MWMBoolBlock)completion {
+  self.bm.CheckInvalidCategories(Purchase::GetDeviceId(), [completion] (bool hasInvalidCategories) {
+    completion(hasInvalidCategories);
+  });
+}
+
+- (void)deleteInvalidCategories {
+  self.bm.DeleteInvalidCategories();
+}
+
+- (void)resetInvalidCategories {
+  self.bm.ResetInvalidCategories();
+}
+
 #pragma mark - Helpers
 
 - (void)loopObservers:(void (^)(id<MWMBookmarksObserver> observer))block

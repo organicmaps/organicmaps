@@ -448,6 +448,7 @@
 		47E3C72F2111F472008B3B27 /* CoverVerticalModalTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C72E2111F472008B3B27 /* CoverVerticalModalTransitioning.swift */; };
 		47E3C7312111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C7302111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift */; };
 		47E3C7332111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C7322111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift */; };
+		47E6688A23196F0100057733 /* UIViewController+Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E6688923196F0000057733 /* UIViewController+Subscription.swift */; };
 		47E6CB0B2178BA3600EA102B /* SearchBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E6CB092178BA3600EA102B /* SearchBannerCell.swift */; };
 		47E6CB0C2178BA3600EA102B /* SearchBannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47E6CB0A2178BA3600EA102B /* SearchBannerCell.xib */; };
 		47EF05B321504D8F00EAC269 /* RemoveAdsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF05B221504D8F00EAC269 /* RemoveAdsPresentationController.swift */; };
@@ -1556,6 +1557,7 @@
 		47E3C72E2111F472008B3B27 /* CoverVerticalModalTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverVerticalModalTransitioning.swift; sourceTree = "<group>"; };
 		47E3C7302111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverVerticalPresentationAnimator.swift; sourceTree = "<group>"; };
 		47E3C7322111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverVerticalDismissalAnimator.swift; sourceTree = "<group>"; };
+		47E6688923196F0000057733 /* UIViewController+Subscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Subscription.swift"; sourceTree = "<group>"; };
 		47E6CB092178BA3600EA102B /* SearchBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBannerCell.swift; sourceTree = "<group>"; };
 		47E6CB0A2178BA3600EA102B /* SearchBannerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBannerCell.xib; sourceTree = "<group>"; };
 		47EF05B221504D8F00EAC269 /* RemoveAdsPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAdsPresentationController.swift; sourceTree = "<group>"; };
@@ -3690,6 +3692,7 @@
 				4710366422D3764600585272 /* BookmarksSubscriptionCellViewController.xib */,
 				CD4A1F19230EADC100F2A6B6 /* CatalogConnectionErrorView.swift */,
 				CD4A1F1B230EB43B00F2A6B6 /* CatalogConnectionErrorView.xib */,
+				47E6688923196F0000057733 /* UIViewController+Subscription.swift */,
 			);
 			path = Catalog;
 			sourceTree = "<group>";
@@ -5423,6 +5426,7 @@
 				3462258F1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm in Sources */,
 				470F5A7D2189BB2F00754295 /* PaidRoutePurchase.swift in Sources */,
 				34AB66171FC5AA320078E451 /* MWMiPhoneRoutePreview.m in Sources */,
+				47E6688A23196F0100057733 /* UIViewController+Subscription.swift in Sources */,
 				6741A9E71BF340DE002C974C /* MWMCircularProgressView.mm in Sources */,
 				34AC8FDB1EFC07FE00E7F910 /* UILabel+NumberOfVisibleLines.swift in Sources */,
 				4767CD9F20AAD48A00BD8166 /* Checkmark.swift in Sources */,
