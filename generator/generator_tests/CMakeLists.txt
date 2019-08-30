@@ -6,7 +6,6 @@ set(
   booking_tests.cpp
   brands_loader_test.cpp
   camera_collector_tests.cpp
-  check_mwms.cpp
   cities_boundaries_checker_tests.cpp
   cities_ids_tests.cpp
   city_roads_tests.cpp
@@ -58,28 +57,21 @@ omim_link_libraries(
   generator_tests_support
   platform_tests_support
   generator
-  drape_frontend
-  shaders
-  map
   routing
   search
   storage
-  drape
   traffic
   routing_common
   descriptions
   transit
-  kml
   editor
   indexer
   platform
   geometry
   coding
   base
-  freetype
   expat
   icu
-  agg
   jansson
   protobuf
   stats_client
@@ -90,10 +82,7 @@ omim_link_libraries(
   gflags
   oauthcpp
   opening_hours
-  stb_image
-  sdf_image
   ugc
-  vulkan_wrapper
   # TODO(syershov): Use FindPackage.
   sqlite3
   ${LIBZ}

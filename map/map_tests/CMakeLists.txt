@@ -9,6 +9,7 @@ set(
   booking_filter_test.cpp
   bookmarks_test.cpp
   chart_generator_tests.cpp
+  check_mwms.cpp
   cloud_tests.cpp
   countries_names_tests.cpp
   extrapolator_tests.cpp

@@ -1,7 +1,5 @@
 #include "generator/srtm_parser.hpp"
 
-#include "map/feature_vec_model.hpp"
-
 #include "routing/routing_helpers.hpp"
 
 #include "indexer/classificator_loader.hpp"
