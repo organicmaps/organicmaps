@@ -121,6 +121,7 @@
 
   [type.aeroway.gate]
     en = aeroway-gate
+    pl = Wyjście lotniskowe
 
   [type.aeroway.helipad]
     en = Helipad
@@ -527,7 +528,7 @@
     ja = バスステーション
     ko = 버스 정류장
     nb = Busstasjon
-    pl = Stacja autobusowa
+    pl = Dworzec autobusowy
     pt = Rodoviária
     pt-BR = Rodoviária
     ro = Gara de autobuz
@@ -565,7 +566,7 @@
     ro = Cafenea
     es = Café
     sv = Café
-    th =  คาเฟ่
+    th = คาเฟ่
     tr = Kafeterya่
     uk = Кафе
     vi = Cà phê
@@ -621,7 +622,7 @@
     ja = カーシェアリング
     ko = 카셰어링
     nb = Kjøre sammen
-    pl = Carsharing
+    pl = Współdzielenie samochodów
     pt = Compartilhamento de carro
     pt-BR = Compartilhamento de carro
     es = Compartir coche
@@ -741,7 +742,7 @@
     ja = 託児所
     ko = 보육
     nb = Førskole
-    pl = Żłobek
+    pl = Opieka nad dziećmi
     pt = Creche
     pt-BR = Creche
     ro = De îngrijire a copilului
@@ -864,7 +865,7 @@
     ja = コミュニティセンター
     ko = 커뮤니티센터
     nb = Samfunnshus
-    pl = Dom kultury
+    pl = Centrum społecznościowe
     pt = Centro comunitário
     pt-BR = Centro comunitário
     ro = Centru comunitar
@@ -928,6 +929,7 @@
     ja = 歯科医
     ko = 치과
     nb = Tannlege
+    pl = Dentysta
     pt = Dentista
     pt-BR = Dentista
     es = Dentista
@@ -989,7 +991,7 @@
     ja = 水飲み場
     ko = 식수
     nb = Drikkevann
-    pl = Picie wody
+    pl = Woda pitna
     pt = Água potável
     pt-BR = Água potável
     ro = Apă de băut
@@ -1117,7 +1119,7 @@
     ja = フェリー
     ko = 나룻배
     nb = Ferje
-    pl = Prom
+    pl = Terminal promowy
     pt = Estação de barcas
     pt-BR = Estação de barcas
     ro = Feribot
@@ -1167,6 +1169,7 @@
 
   [type.amenity.food_court]
     en = Food court
+    pl = Sekcja gastronomiczna
 
   [type.amenity.fountain]
     en = Fountain
@@ -1280,7 +1283,7 @@
     ja = 墓地
     ko = 묘소
     nb = Gravplass
-    pl = Cmentarz
+    pl = Cmentarz chrześcijański
     pt = Cemitério
     pt-BR = Cemitério
     ro = Cimitir
@@ -1561,7 +1564,7 @@
     ja = ナイトクラブ
     ko = 나이트 클럽
     nb = Nattklubb
-    pl = Dyskoteka
+    pl = Klub nocny
     pt = Boate
     pt-BR = Boate
     ro = Club de noapte
@@ -1904,6 +1907,7 @@
     ja = 駐車場
     ko = 주차
     nb = Parkering
+    pl = Parking podziemny
     pt = Estacionamento
     pt-BR = Estacionamento
     ro = Parcare
@@ -2061,7 +2065,7 @@
     ja = 寺
     ko = 절
     nb = Tempel
-    pl = Świątynia
+    pl = Świątynia buddyjska
     pt = Templo budista
     pt-BR = Templo budista
     ro = Templu
@@ -2093,7 +2097,7 @@
     ja = 教会
     ko = 교회
     nb = Kirke
-    pl = Kościół
+    pl = Kościół chrześcijański
     pt = Igreja
     pt-BR = Igreja
     ro = Biserică
@@ -2124,7 +2128,7 @@
     ja = 寺
     ko = 절
     nb = Tempel
-    pl = Świątynia
+    pl = Świątynia hinduistyczna
     pt = Templo hindu
     pt-BR = Templo hindu
     ro = Templu
@@ -2219,7 +2223,7 @@
     ja = 神社
     ko = 성지
     nb = Alter
-    pl = Kapliczka
+    pl = Kapliczka szintoistyczna 
     pt = Templo shintoísta
     pt-BR = Templo shintoísta
     ro = Sanctuar
@@ -2250,7 +2254,7 @@
     ja = 寺
     ko = 절
     nb = Tempel
-    pl = Świątynia
+    pl = Świątynia taoistyczna
     pt = Templo taoísta
     pt-BR = Templo taoísta
     ro = Templu
@@ -2357,7 +2361,8 @@
     fa = پست
 
   [type.amenity.prison]
-    en = amenity-prison
+    en = Prison
+    pl = Więzienie
 
   [type.amenity.pub]
     en = Pub
@@ -2398,7 +2403,7 @@
     ja = 書棚
     ko = 책장, 도서 교환
     nb = Bokhylle
-    pl = Biblioteka
+    pl = Wymiana książek
     pt = Biblioteca livre
     pt-BR = Biblioteca livre
     ro = Bibliotecă
@@ -2429,6 +2434,7 @@
     ja = リサクルセンター
     ko = 재활용센터
     nb = Resirkuleringssenter
+    pl = Centrum przetwórstwa odpadów
     pt = Reciclagem
     pt-BR = Reciclagem
     ro = Centru de reciclare
@@ -2745,6 +2751,7 @@
 
   [type.amenity.vending_machine]
     en = amenity-vending_machine
+    pl = Automat sprzedający
 
   [type.amenity.vending_machine.cigarettes]
     en = Cigarette Dispenser
@@ -2826,7 +2833,7 @@
     ja = 駐車券支払機
     ko = 주차티켓판매기
     nb = Parkeringsautomat
-    pl = Parkomat
+    pl = Parkometr
     pt = Máquina venda de tíquetes de estacionamento
     pt-BR = Máquina venda de tíquetes de estacionamento
     ro = Parcomat
@@ -2956,7 +2963,7 @@
     ja = ゴミ
     ko = 쓰레기
     nb = Søppel
-    pl = Wysypisko
+    pl = Wysypisko śmieci
     pt = Depósito de lixo
     pt-BR = Depósito de lixo
     ro = Gunoi
@@ -3006,6 +3013,7 @@
 
   [type.barrier]
     en = barrier
+    pl = bariera
 
   [type.barrier.block]
     en = Block
@@ -3054,7 +3062,7 @@
     ja = 柱
     ko = 기둥
     nb = Pullert
-    pl = Kolumna
+    pl = Słupek
     pt = Pilar
     pt-BR = Pilar
     ro = Stâlp
@@ -3104,6 +3112,7 @@
 
   [type.barrier.city_wall]
     en = barrier-city_wall
+    pl = Mur miejski
 
   [type.barrier.cycle_barrier]
     en = barrier-cycle_barrier
@@ -3142,6 +3151,7 @@
 
   [type.barrier.fence]
     en = barrier-fence
+    pl = Płot
 
   [type.barrier.gate]
     en = Gate
@@ -3177,6 +3187,7 @@
 
   [type.barrier.hedge]
     en = barrier-hedge
+    pl = Żywopłot
 
   [type.barrier.lift_gate]
     en = Lift Gate
@@ -3212,6 +3223,7 @@
 
   [type.barrier.retaining_wall]
     en = barrier-retaining_wall
+    pl = Mur oporowy
 
   [type.barrier.stile]
     en = Stile
@@ -3279,12 +3291,15 @@
 
   [type.barrier.wall]
     en = barrier-wall
+    pl = Mur
 
   [type.boundary]
     en = boundary
+    pl = Granica
 
   [type.boundary.administrative]
     en = boundary-administrative
+    pl = Granica administracyjna
 
   [type.boundary.administrative.10]
     en = boundary-administrative-10
@@ -3425,7 +3440,7 @@
     ja = 建物
     ko = 건물
     nb = Bygning
-    pl = Budynek
+    pl = Adres
     pt = Edifício
     pt-BR = Edifício
     ro = Clădire
@@ -3452,7 +3467,7 @@
     ja = 車庫
     ko = 정비소
     nb = Verksted
-    pl = Warsztat samochodowy
+    pl = Garaż
     pt = Garagem
     pt-BR = Garagem
     ro = Garaj
@@ -3482,7 +3497,7 @@
     ja = 建物
     ko = 건물
     nb = Bygning
-    pl = Budynek
+    pl = Część budynku
     pt = Edifício
     pt-BR = Edifício
     ro = Clădire
@@ -3558,6 +3573,7 @@
     ja = 醸造所
     ko = 양조장
     nb = Bryggeri
+    pl = Browar
     pt = Cervejaria
     pt-BR = Cervejaria
     ro = Berărie
@@ -3589,6 +3605,7 @@
     ja = 大工
     ko = 목수
     nb = Snekker
+    pl = Stolarz
     pt = Carpinteiro
     pt-BR = Carpinteiro
     ro = Tâmplar
@@ -3620,6 +3637,7 @@
     ja = 電気技師
     ko = 전기기술자
     nb = Elektriker
+    pl = Elektryk
     pt = Eletricista
     pt-BR = Eletricista
     es = Electricista
@@ -3650,6 +3668,7 @@
     ja = 造園家
     ko = 조경사
     nb = Anleggsgartner
+    pl = Ogrodnik
     pt = Jardineiro
     pt-BR = Jardineiro
     ro = Peisagist
@@ -3710,6 +3729,7 @@
     ja = 金属工
     ko = 금속공
     nb = Metallarbeider
+    pl = Ślusarz, obrabiacz metalu
     pt = Serralheiro
     pt-BR = Serralheiro
     ro = Metalurgist
@@ -3741,6 +3761,7 @@
     ja = 塗装工
     ko = 페인트공
     nb = Maler
+    pl = Malarz
     pt = Pintor
     pt-BR = Pintor
     ro = Pictor
@@ -3804,6 +3825,7 @@
     ja = 配管工
     ko = 배관공
     nb = Rørlegger
+    pl = Hydraulik
     pt = Encanador
     pt-BR = Encanador
     ro = Instalator
@@ -3835,6 +3857,7 @@
     ja = 靴修理
     ko = 구두수선
     nb = Skoreparasjon
+    pl = Szewc
     pt = Sapateiro
     pt-BR = Sapateiro
     ro = Reparații încălțăminte
@@ -3866,6 +3889,7 @@
     ja = 仕立て屋
     ko = 양복점
     nb = Skredder
+    pl = Krawiec
     pt = Alfaiate
     pt-BR = Alfaiate
     ro = Croitor
@@ -5324,7 +5348,7 @@
     ja = イタリア料理；ピザ
     ko = 이탈리아식, 피자
     nb = Italiensk mat;pizza
-    pl = Włoska, pizza
+    pl = Kuchnia włoska, pizza
     pt = Italiana, pizza
     ro = Italian, pizza
     es = Cocina italiana, pizzas
@@ -5758,7 +5782,7 @@
     ja = ホットケーキ
     ko = 팬케이크
     nb = Pannekake
-    pl = Naleśnik
+    pl = Naleśniki
     pt = Panqueca
     ro = Clătită
     es = Tortitas
@@ -6754,7 +6778,7 @@
     ja = 歩道
     ko = 경로
     nb = Sti
-    pl = Ścieżka
+    pl = Chodnik
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
@@ -6818,7 +6842,7 @@
     ja = 歩道
     ko = 경로
     nb = Sti
-    pl = Ścieżka
+    pl = Obszar chodnika
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
@@ -6850,7 +6874,7 @@
     ja = 歩道
     ko = 경로
     nb = Sti
-    pl = Ścieżka
+    pl = Chodnik
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
@@ -7042,7 +7066,7 @@
     ja = 歩道
     ko = 경로
     nb = Sti
-    pl = Ścieżka
+    pl = Chodnik
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
@@ -7074,7 +7098,7 @@
     ja = 歩道
     ko = 경로
     nb = Sti
-    pl = Ścieżka
+    pl = Tunel chodnikowy
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
@@ -7173,7 +7197,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Tunel ulicy
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -7237,7 +7261,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Most drogowy
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -7269,7 +7293,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Tunel drogowy
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -7811,7 +7835,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Pasaż pieszy
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -7843,7 +7867,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Pasaż pieszy
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -7875,7 +7899,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Most pasażu pieszego
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -7907,7 +7931,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Tunel pasażu pieszego
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -8006,7 +8030,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Tunel drogowy
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -8392,7 +8416,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Tunel drogowy
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -8488,7 +8512,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Tunel drogowy
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -8584,7 +8608,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Tunel drogowy
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -8680,7 +8704,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Most drogowy
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -8840,7 +8864,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Miejsca parkingowe
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -8872,7 +8896,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Tunel drogowy
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -8939,7 +8963,7 @@
     ja = 歩道
     ko = 경로
     nb = Sti
-    pl = Ścieżka
+    pl = Stopnie
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
@@ -8971,7 +8995,7 @@
     ja = 歩道
     ko = 경로
     nb = Sti
-    pl = Ścieżka
+    pl = Stopnie
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
@@ -9003,7 +9027,7 @@
     ja = 歩道
     ko = 경로
     nb = Sti
-    pl = Ścieżka
+    pl = Stopnie
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
@@ -9099,7 +9123,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Tunel drogowy
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -9195,7 +9219,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Tunel drogowy
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -9739,7 +9763,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Tunel drogowy
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -10091,7 +10115,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Tunel drogowy
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -10150,6 +10174,7 @@
 
   [type.historic.battlefield]
     en = historic-battlefield
+    pl = Miejsce historycznej bitwy
 
   [type.historic.boundary_stone]
     en = historic-boundary_stone
@@ -10202,7 +10227,7 @@
     ja = 城
     ko = 대저택
     nb = Slott
-    pl = Zamek
+    pl = Zamek obronny
     pt = Castelo
     pt-BR = Castelo
     ro = Castel
@@ -10252,6 +10277,7 @@
 
   [type.historic.citywalls]
     en = historic-citywalls
+    pl = Historyczne mury miasta
 
   [type.historic.fort]
     en = historic-fort
@@ -10301,7 +10327,7 @@
     ja = 追悼
     ko = 기념비
     nb = Minnesmerke
-    pl = Pomnik
+    pl = Tablica pamiątkowa
     ro = Comemorare
     sv = Minnesmärke
     th = ที่ระลึก
@@ -10330,7 +10356,7 @@
     ja = 追悼
     ko = 기념비
     nb = Minnesmerke
-    pl = Pomnik
+    pl = Rzeźba
     ro = Comemorare
     sv = Minnesmärke
     th = ที่ระลึก
@@ -10447,7 +10473,7 @@
     ja = 観光
     ko = 관광
     nb = Severdigheter
-    pl = Osobliwości miasta
+    pl = Okręt
     pt = Turismo
     pt-BR = Turismo
     ro = Obiective turistice
@@ -10479,7 +10505,7 @@
     ja = 観光
     ko = 관광
     nb = Severdigheter
-    pl = Osobliwości miasta
+    pl = Grobowiec
     pt = Turismo
     pt-BR = Turismo
     ro = Obiective turistice
@@ -10574,6 +10600,7 @@
 
   [type.landuse.allotments]
     en = Allotments
+    pl = Działki
 
   [type.landuse.basin]
     en = Water
@@ -10608,6 +10635,7 @@
 
   [type.landuse.brownfield]
     en = landuse-brownfield
+    pl = Teren do zabudowy
 
   [type.landuse.cemetery]
     en = Graveyard
@@ -10657,7 +10685,7 @@
     ja = 墓地
     ko = 묘소
     nb = Gravplass
-    pl = Cmentarz
+    pl = Cmentarz chrześcijański
     pt = Cemitério
     pt-BR = Cemitério
     ro = Cimitir
@@ -10675,12 +10703,15 @@
 
   [type.landuse.commercial]
     en = landuse-commercial
+    pl = Teren handlu i usług
 
   [type.landuse.construction]
     en = landuse-construction
+    pl = Teren budowy
 
   [type.landuse.farm]
     en = Farm
+    pl = Gospodarstwo rolne
 
   [type.landuse.farmland]
     en = Farmland
@@ -10718,9 +10749,11 @@
 
   [type.landuse.farmyard]
     en = Farmyard
+    pl = Obejście gospodarskie
 
   [type.landuse.field]
     en = Field
+    pl = Pole
 
   [type.landuse.forest]
     en = Forest
@@ -10834,7 +10867,7 @@
     ja = 森林
     ko = 숲
     nb = Skog
-    pl = Las
+    pl = Las mieszany
     pt = Floresta
     pt-BR = Floresta
     ro = Pădure
@@ -10852,6 +10885,7 @@
 
   [type.landuse.garages]
     en = Garages
+    pl = Garaże
 
   [type.landuse.grass]
     en = Lawn
@@ -10895,6 +10929,7 @@
 
   [type.landuse.industrial]
     en = Industrial land
+    pl = Obszar przemysłowy
 
   [type.landuse.landfill]
     en = Landfill
@@ -10932,15 +10967,19 @@
 
   [type.landuse.meadow]
     en = Meadow
+    pl = Łąka
 
   [type.landuse.military]
     en = Military area
+    pl = Teren wojskowy
 
   [type.landuse.orchard]
     en = Orchard
+    pl = Sad
 
   [type.landuse.quarry]
     en = Quarry
+    pl = Kamieniołom
 
   [type.landuse.railway]
     en = Railway premises
@@ -10978,6 +11017,7 @@
 
   [type.landuse.recreation_ground]
     en = landuse-recreation_ground
+    pl = Tereny wypoczynkowe
 
   [type.landuse.reservoir]
     en = Water
@@ -11012,6 +11052,7 @@
 
   [type.landuse.residential]
     en = landuse-residential
+    pl = Tereny zamieszkania
 
   [type.landuse.residential.rural]
     en = landuse-residential-rural
@@ -11021,6 +11062,7 @@
 
   [type.landuse.retail]
     en = landuse-retail
+    pl = Obszar handlu
 
   [type.landuse.salt_pond]
     en = landuse-salt_pond
@@ -11030,6 +11072,7 @@
 
   [type.landuse.vineyard]
     en = Vineyard
+    pl = Winnica
 
   [type.leisure]
     en = leisure
@@ -11209,9 +11252,11 @@
 
   [type.leisure.ice_rink]
     en = Ice rink
+    pl = Lodowisko
 
   [type.leisure.landscape_reserve]
     en = Landscape reserve
+    pl = Rezerwat krajobrazu
 
   [type.leisure.marina]
     en = Marina
@@ -11433,7 +11478,7 @@
     ja = 運動場
     ko = 경기장
     nb = Sportssenter
-    pl = Boisko sportowe
+    pl = Korty tenisowe
     pt = Campo de esportes
     pt-BR = Campo de esportes
     ro = Teren de sport
@@ -11521,6 +11566,7 @@
 
   [type.leisure.recreation_ground]
     en = Recreation ground
+    pl = Teren rekreacji
 
   [type.leisure.sauna]
     en = Sauna
@@ -11575,7 +11621,7 @@
     ja = スポーツセンター
     ko = 스포츠 센터
     nb = Sportssenter
-    pl = Cebtrum sportowe
+    pl = Centrum sportowe
     pt = Centro esportivo
     pt-BR = Centro esportivo
     ro = Sport
@@ -11671,7 +11717,7 @@
     ja = スイミングセンター
     ko = 수영 센터
     nb = Svømmehall
-    pl = Basen
+    pl = Pływalnia
     pt = Centro de natação
     pt-BR = Centro de natação
     ro = Piscină
@@ -11799,7 +11845,7 @@
     ja = ウォーターパーク
     ko = 워터파크
     nb = Vannpark
-    pl = Akwapark
+    pl = Park wodny
     pt = Parque aquático
     pt-BR = Parque aquático
     ro = Parc acvatic
@@ -11892,6 +11938,7 @@
 
   [type.man_made.pier]
     en = man_made-pier
+    pl = Molo
 
   [type.man_made.pipeline]
     en = man_made-pipeline
@@ -12279,9 +12326,11 @@
 
   [type.natural.cliff]
     en = Cliff
+    pl = Klif
 
   [type.natural.coastline]
     en = Coastline
+    pl = Linia brzegowa
 
   [type.natural.geyser]
     en = Geyser
@@ -12367,7 +12416,7 @@
     ja = 野原
     ko = 밭
     nb = Slette
-    pl = Pole
+    pl = Pastwisko
     pt = Campo
     pt-BR = Campo
     ro = Câmp
@@ -12387,9 +12436,11 @@
 
   [type.natural.heath]
     en = Heath
+    pl = Wrzosowisko
 
   [type.natural.hot_spring]
     en = Hot Spring
+    pl = Gorące źródło
     ru = Горячий Источник
 
   [type.natural.lake]
@@ -12429,9 +12480,11 @@
 
   [type.natural.meadow]
     en = Meadow
+    pl = Łąka
 
   [type.natural.orchard]
     en = Orchard
+    pl = Sad
 
   [type.natural.peak]
     en = Peak
@@ -12449,7 +12502,7 @@
     ja = 山頂
     ko = 피크
     nb = Høydepunkt
-    pl = Góra
+    pl = Szczyt
     pt = Pico
     pt-BR = Pico
     ro = Munte
@@ -12481,7 +12534,7 @@
     ja = 池
     ko = 연못이
     nb = Dam
-    pl = Źródło
+    pl = Staw
     pt = Lagoa
     pt-BR = Lagoa
     ro = Heleșteu
@@ -12499,9 +12552,11 @@
 
   [type.natural.rock]
     en = Rock
+    pl = Skała
 
   [type.natural.salt_pond]
     en = Salt pond
+    pl = Słony staw
 
   [type.natural.scrub]
     en = Scrub
@@ -12519,7 +12574,7 @@
     ja = 雑木林
     ko = 관목지
     nb = Myr
-    pl = Gąszcze
+    pl = Zarośla
     pt = Mato
     pt-BR = Arbustos
     ro = Boschet
@@ -12603,9 +12658,11 @@
 
   [type.natural.tree_row]
     en = Tree row
+    pl - Rząd drzew
 
   [type.natural.vineyard]
     en = Vineyard
+    pl = Winnica
 
   [type.natural.volcano]
     en = Volcano
@@ -12822,7 +12879,7 @@
     ja = 森林
     ko = 숲
     nb = Skog
-    pl = Las
+    pl = Las mieszany
     pt = Floresta
     pt-BR = Floresta
     ro = Pădure
@@ -12892,6 +12949,7 @@
     ja = 会社事務所
     ko = 회사
     nb = Firmakontor
+    pl = Biuro przedsiębiorstwa
     pt = Escritório de empresa
     pt-BR = Escritório de empresa
     ro = Sediu companei
@@ -12955,6 +13013,7 @@
     ja = 官庁
     ko = 관공서
     nb = Offentlig kontor
+    pl = Biuro administracji rządowej
     pt = Gabinete governamental
     pt-BR = Gabinete governamental
     ro = Birou guvernamental
@@ -13018,6 +13077,7 @@
     ja = 弁護士事務所
     ko = 법률 사무소
     nb = Advokatkontor
+    pl = Prawnik
     pt = Escritório de advogado
     pt-BR = Escritório de advogado
     ro = Firmă de avocatură
@@ -13081,6 +13141,7 @@
     ja = 携帯電話事業者
     ko = 이동통신 사업자
     nb = Mobiloperatør
+    pl = Biuro operatora telefonii komórkowej
     pt = Operadora de telecomunicações
     pt-BR = Operadora de telecomunicações
     ro = Operator de telefonie mobilă
@@ -13101,9 +13162,11 @@
 
   [type.olympics.attraction]
     en = olympics-attraction
+    pl = Atrakcje olimpijskie
 
   [type.olympics.bike_sport]
     en = olympics-bike_sport
+    pl = Olimpijskie sporty rowerowe
 
   [type.olympics.live_site]
     en = olympics-live_site
@@ -13113,6 +13176,7 @@
 
   [type.olympics.stadium]
     en = olympics-stadium
+    pl = Stadion olimpijski
 
   [type.olympics.stadium_main]
     en = olympics-stadium_main
@@ -13143,6 +13207,7 @@
 
   [type.place]
     en = place
+    pl = miejsce
 
   [type.place.city]
     en = City
@@ -13636,7 +13701,7 @@
     ja = 村
     ko = 햄릿
     nb = Landsby
-    pl = Wieś
+    pl = Przysiółek
     pt = Lugarejo
     pt-BR = Lugarejo
     ro = Cătun
@@ -13753,6 +13818,7 @@
 
   [type.place.neighbourhood]
     en = Neighbourhood
+    pl = Sąsiedztwo
 
   [type.place.ocean]
     en = Ocean
@@ -14019,12 +14085,14 @@
 
   [type.power.line]
     en = power-line
+    pl = Linia wysokiego napięcia
 
   [type.power.line.underground]
     en = power-line-underground
 
   [type.power.minor_line]
     en = power-minor_line
+    pl = Linia niskiego napięcia
 
   [type.power.pole]
     en = Power Tower
@@ -14060,6 +14128,7 @@
 
   [type.power.station]
     en = power-station
+    pl = Elektrownia
 
   [type.power.substation]
     en = Substation
@@ -14190,7 +14259,7 @@
     ja = 鉄道駅
     ko = 기차역
     nb = Togstasjon
-    pl = Dworzec kolejowy
+    pl = Przystanek kolejowy
     pt = Estação de trem
     pt-BR = Estação de trem
     ro = Feroviar
@@ -15829,7 +15898,7 @@
     ja = 酒屋
     ko = 주류 샵
     nb = Vinmonopol
-    pl = Monopolowy
+    pl = Sklep monopolowy
     pt = Loja de bebidas
     pt-BR = Loja de bebidas
     ro = Băuturi alcoolice
@@ -15925,7 +15994,7 @@
     ja = ドリンク
     ko = 음료
     nb = Drinker
-    pl = Napoje
+    pl = Sklep z napojami
     pt = Bebidas
     pt-BR = Bebidas
     ro = Băuturi
@@ -16239,7 +16308,7 @@
     ja = 買い物
     ko = 쇼핑
     nb = Butikk
-    pl = Sklep
+    pl = Sklep z czekoladą
     pt = Loja
     pt-BR = Loja
     ro = Magazin
@@ -16303,7 +16372,7 @@
     ja = 買い物
     ko = 쇼핑
     nb = Butikk
-    pl = Sklep
+    pl = Sklep z kawą
     pt = Loja
     pt-BR = Loja
     ro = Magazin
@@ -16814,7 +16883,7 @@
     ja = ギフトショップ
     ko = 선물 가게
     nb = Gavebutikk
-    pl = Sklep pamiątkarski
+    pl = Sklep z pamiątkami
     pt = Loja de presentes
     pt-BR = Loja de presentes
     ro = Magazin de suveniruri
@@ -17126,7 +17195,7 @@
     ja = 買い物
     ko = 쇼핑
     nb = Butikk
-    pl = Sklep
+    pl = Pożyczkodawca
     pt = Loja
     pt-BR = Loja
     ro = Magazin
@@ -17190,7 +17259,7 @@
     ja = 買い物
     ko = 쇼핑
     nb = Butikk
-    pl = Sklep
+    pl = Sklep muzyczny
     pt = Loja
     pt-BR = Loja
     ro = Magazin
@@ -17222,7 +17291,7 @@
     ja = 買い物
     ko = 쇼핑
     nb = Butikk
-    pl = Sklep
+    pl = Sklep z instrumentami muzycznymi
     pt = Loja
     pt-BR = Loja
     ro = Magazin
@@ -17633,7 +17702,7 @@
     ja = 買い物
     ko = 쇼핑
     nb = Butikk
-    pl = Sklep
+    pl = Sklep z herbatą
     pt = Loja
     pt-BR = Loja
     ro = Magazin
@@ -17665,7 +17734,7 @@
     ja = チケット売り場
     ko = 매표소
     nb = Billettkontor
-    pl = Kasa biletowa
+    pl = Sklep z biletami
     pt = Bilheteria
     pt-BR = Bilheteria
     ro = Casă de bilete
@@ -17825,7 +17894,7 @@
     ja = 買い物
     ko = 쇼핑
     nb = Butikk
-    pl = Sklep
+    pl = Sklep z filmami
     pt = Loja
     pt-BR = Loja
     ro = Magazin
@@ -17914,8 +17983,9 @@
 
   [type.sponsored.holiday]
     en = Christmas or New Year Celebrations
-    ru = Празднование Рождества или Нового года
     el = Χριστούγεννα ή Ρεβεγιόν πρωτοχρονιάς
+    pl = Obchody świąt Bożego Narodzenia lub Nowego Roku
+    ru = Празднование Рождества или Нового года
 
   [type.sponsored.opentable]
     en = sponsored-opentable
@@ -17991,9 +18061,11 @@
 
   [type.sport.american_football]
     en = sport-american_football
+    pl = Futbol amerykański
 
   [type.sport.archery]
     en = sport-archery
+    pl = Łucznictwo sportowe
 
   [type.sport.athletics]
     en = Athletics
@@ -18034,6 +18106,7 @@
 
   [type.sport.baseball]
     en = sport-baseball
+    pl = Baseball
 
   [type.sport.basketball]
     en = Basketball
@@ -18071,9 +18144,11 @@
 
   [type.sport.bowls]
     en = sport-bowls
+    pl = Kręgle
 
   [type.sport.cricket]
     en = sport-cricket
+    pl = Krykiet
 
   [type.sport.curling]
     en = sport-curling
@@ -18117,24 +18192,30 @@
 
   [type.sport.football]
     en = sport-football
+    pl = Piłka nożna
 
   [type.sport.golf]
     en = sport-golf
+    pl = Golf
 
   [type.sport.gymnastics]
     en = sport-gymnastics
+    pl = Gimnastyka
 
   [type.sport.handball]
     en = sport-handball
+    pl = Piłka ręczna
 
   [type.sport.multi]
     en = sport-multi
 
   [type.sport.scuba_diving]
     en = sport-scuba_diving
+    pl = Nurkowanie
 
   [type.sport.shooting]
     en = sport-shooting
+    pl = Strzelectwo sportowe
 
   [type.sport.skiing]
     en = sport-skiing
@@ -18144,6 +18225,7 @@
 
   [type.sport.swimming]
     en = sport-swimming
+    pl = Pływanie
 
   [type.sport.tennis]
     en = Tennis court
@@ -18198,7 +18280,7 @@
     ja = 山小屋
     ko = 고산 오두막
     nb = Fjellstue
-    pl = Schronisko
+    pl = Schronisko górskie
     pt = Abrigo de montanha
     pt-BR = Abrigo de montanha
     ro = Cabană de munte
@@ -18261,7 +18343,7 @@
     ja = イラスト
     ko = 작품
     nb = Kunstverk
-    pl = Rzeźba
+    pl = Dzieło sztuki
     pt = Obra de arte
     pt-BR = Obra de arte
     ro = Turism
@@ -18293,7 +18375,7 @@
     ja = イラスト
     ko = 작품
     nb = Kunstverk
-    pl = Rzeźba
+    pl = Architektura
     pt = Obra de arte
     pt-BR = Obra de arte
     ro = Turism
@@ -18325,7 +18407,7 @@
     ja = イラスト
     ko = 작품
     nb = Kunstverk
-    pl = Rzeźba
+    pl = Malarstwo
     pt = Obra de arte
     pt-BR = Obra de arte
     ro = Turism
@@ -18420,7 +18502,7 @@
     ja = アトラクション
     ko = 관광 명소
     nb = Attraksjon
-    pl = Atrakcje
+    pl = Atrakcja turystyczna
     pt = Atração turística
     pt-BR = Atração turística
     ro = Punct de atracție
@@ -18451,7 +18533,7 @@
     ja = アトラクション
     ko = 관광 명소
     nb = Attraksjon
-    pl = Atrakcje
+    pl = Atrakcje zwierzęce
     pt = Atração turística
     pt-BR = Atração turística
     ro = Punct de atracție
@@ -18596,7 +18678,7 @@
     ja = 観光
     ko = 관광
     nb = Severdigheter
-    pl = Osobliwości miasta
+    pl = Galeria
     pt = Turismo
     pt-BR = Turismo
     ro = Obiective turistice
@@ -18831,7 +18913,7 @@
     ja = 観光案内所
     ko = 관광정보센터
     nb = Turistkontor
-    pl = Biuro podróży
+    pl = Biuro informacji turystycznej
     pt = Escritório de turismo
     pt-BR = Escritório de turismo
     ro = Birou de informații turistice
@@ -18964,7 +19046,7 @@
     ja = 観光
     ko = 관광
     nb = Severdigheter
-    pl = Osobliwości miasta
+    pl = Park tematyczny
     pt = Parque de diversão
     pt-BR = Parque de diversão
     ro = Obiective turistice
@@ -19236,7 +19318,7 @@
     ja = 河川
     ko = 강
     nb = Elv
-    pl = Rzeka
+    pl = Tunel rzeki
     pt = Rio
     pt-BR = Rio
     ro = Râu
@@ -19268,7 +19350,7 @@
     ja = 河川
     ko = 강
     nb = Elv
-    pl = Rzeka
+    pl = Koryto rzeki
     pt = Rio
     pt-BR = Rio
     ro = Râu
@@ -19300,7 +19382,7 @@
     ja = 河川
     ko = 강
     nb = Elv
-    pl = Rzeka
+    pl = Ciek rzeki
     pt = Rio
     pt-BR = Rio
     ro = Râu
@@ -19616,7 +19698,7 @@
     ja = 建物
     ko = 건물
     nb = Bygning
-    pl = Budynek
+    pl = Część budynku
     pt = Edifício
     pt-BR = Edifício
     ro = Clădire
