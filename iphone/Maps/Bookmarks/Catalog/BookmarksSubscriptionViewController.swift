@@ -207,10 +207,6 @@ extension BookmarksSubscriptionViewController: SubscriptionManagerListener {
     loadingView.isHidden = true
     if (isValid) {
       onSubscribe?()
-      let successDialog = BookmarksSubscriptionSuccessViewController { [weak self] in
-        self?.dismiss(animated: true)
-      }
-      present(successDialog, animated: true)
     } else {
       MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_convert_error_title"),
                                                             text: L("purchase_error_subtitle"))
