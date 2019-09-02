@@ -533,6 +533,8 @@ public class Framework
 
   public static native void nativeSetSearchViewport(double lat, double lon, int zoom);
 
+  public static native boolean nativeNeedToShowCrown();
+
   public enum LocalAdsEventType
   {
     LOCAL_ADS_EVENT_SHOW_POINT,

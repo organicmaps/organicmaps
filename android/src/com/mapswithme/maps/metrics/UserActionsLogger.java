@@ -70,6 +70,11 @@ public class UserActionsLogger
     nativePromoAfterBookingShown(id);
   }
 
+  public static void logCrownClicked()
+  {
+    nativeCrownClicked();
+  }
+
   private static native void nativeTipClicked(int type, int event);
   private static native void nativeBookingFilterUsed();
   private static native void nativeBookmarksCatalogShown();
@@ -83,4 +88,5 @@ public class UserActionsLogger
   private static native void nativeBookingReviewsClicked();
   private static native void nativeBookingDetailsClicked();
   private static native void nativePromoAfterBookingShown(@NonNull String id);
+  private static native void nativeCrownClicked();
 }
