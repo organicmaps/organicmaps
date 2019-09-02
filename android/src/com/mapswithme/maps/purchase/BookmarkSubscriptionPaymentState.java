@@ -3,6 +3,8 @@ package com.mapswithme.maps.purchase;
 import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.UiUtils;
 
 public enum  BookmarkSubscriptionPaymentState
@@ -82,7 +84,31 @@ public enum  BookmarkSubscriptionPaymentState
           BookmarkSubscriptionPaymentState.hideButtonProgress(fragment);
           fragment.finishPinging();
         }
-      };
+      },
+
+  CHECK_NETWORK_CONNECTION
+      {
+        @Override
+        void activate(@NonNull BookmarkSubscriptionFragment fragment)
+        {
+          if (ConnectionState.isConnected())
+            NetworkPolicy.checkNetworkPolicy(fragment.requireFragmentManager(),
+                                             policy -> onNetworkPolicyResult(policy, fragment), true);
+          else
+            fragment.showNoConnectionDialog();
+
+        }
+
+        private void onNetworkPolicyResult(@NonNull NetworkPolicy policy,
+                                           @NonNull BookmarkSubscriptionFragment fragment)
+        {
+          if (policy.canUseNetwork())
+            fragment.onNetworkCheckPassed();
+          else
+            fragment.requireActivity().finish();
+        }
+      }
+  ;
 
   private static void showProgress(@NonNull BookmarkSubscriptionFragment fragment)
   {

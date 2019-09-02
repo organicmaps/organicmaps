@@ -476,7 +476,7 @@ public class AlertDialog extends BaseMwmDialogFragment
     }
 
     @NonNull
-    private ResolveFragmentManagerStrategy getValue()
+    public ResolveFragmentManagerStrategy getValue()
     {
       return mStrategy;
     }

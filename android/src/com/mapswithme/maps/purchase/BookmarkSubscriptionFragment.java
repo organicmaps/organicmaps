@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +19,10 @@ import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseAuthFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
+import com.mapswithme.maps.dialog.ResolveFragmentManagerStrategy;
+import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -34,6 +39,8 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
   private final static String EXTRA_CURRENT_STATE = "extra_current_state";
   private final static String EXTRA_PRODUCT_DETAILS = "extra_product_details";
   private static final int DEF_ELEVATION = 0;
+  private static final int REQ_CODE_NO_NETWORK_CONNECTION_DIALOG = 102;
+  private static final String NO_NETWORK_CONNECTION_DIALOG_TAG = "no_network_connection_dialog_tag";
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -49,6 +56,10 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
   private boolean mValidationResult;
   private boolean mPingingResult;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mContentView;
+
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -61,6 +72,7 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
     mPingCallback.attach(this);
     BookmarkManager.INSTANCE.addCatalogPingListener(mPingCallback);
     View root = inflater.inflate(R.layout.bookmark_subscription_fragment, container, false);
+    mContentView = root.findViewById(R.id.content_view);
     CardView annualPriceCard = root.findViewById(R.id.annual_price_card);
     CardView monthlyPriceCard = root.findViewById(R.id.monthly_price_card);
     AnnualCardClickListener annualCardListener = new AnnualCardClickListener(monthlyPriceCard,
@@ -127,7 +139,7 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
       return;
     }
 
-    activateState(BookmarkSubscriptionPaymentState.PRODUCT_DETAILS_LOADING);
+    activateState(BookmarkSubscriptionPaymentState.CHECK_NETWORK_CONNECTION);
   }
 
   void queryProductDetails()
@@ -215,19 +227,24 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
   @Override
   public void onAlertDialogPositiveClick(int requestCode, int which)
   {
-    // TODO: coming soon.
+    if (requestCode == REQ_CODE_NO_NETWORK_CONNECTION_DIALOG && ConnectionState.isConnected())
+      onNetworkCheckPassed();
+    else if (requestCode == REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
+      showNoConnectionDialog();
   }
 
   @Override
   public void onAlertDialogNegativeClick(int requestCode, int which)
   {
-    // TODO: coming soon.
+    if (requestCode == REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
+      requireActivity().finish();
   }
 
   @Override
   public void onAlertDialogCancel(int requestCode)
   {
-    // TODO: coming soon.
+    if (requestCode == REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
+      requireActivity().finish();
   }
 
   private void handleActivationResult(boolean result)
@@ -312,6 +329,39 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
   public void onSocialAuthenticationError(@Framework.AuthTokenType int type, @Nullable String error)
   {
     LOGGER.w(TAG, "Social authentication error = " + error + ",  auth type = " + type);
+  }
+
+  public void onNetworkCheckPassed()
+  {
+    mContentView.setVisibility(View.VISIBLE);
+    activateState(BookmarkSubscriptionPaymentState.PRODUCT_DETAILS_LOADING);
+  }
+
+  public void showNoConnectionDialog()
+  {
+
+    AlertDialog.FragManagerStrategyType fragManagerStrategyType =
+        AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER;
+
+    ResolveFragmentManagerStrategy strategy = fragManagerStrategyType.getValue();
+    FragmentManager manager = strategy.resolve(this);
+    Fragment outdatedInstance  = manager.findFragmentByTag(NO_NETWORK_CONNECTION_DIALOG_TAG);
+    if (outdatedInstance != null)
+    {
+      manager.beginTransaction().remove(outdatedInstance).commitAllowingStateLoss();
+      manager.executePendingTransactions();
+    }
+
+    AlertDialog dialog = new AlertDialog.Builder()
+        .setTitleId(R.string.common_check_internet_connection_dialog_title)
+        .setMessageId(R.string.common_check_internet_connection_dialog)
+        .setPositiveBtnId(R.string.try_again)
+        .setNegativeBtnId(R.string.cancel)
+        .setFragManagerStrategyType(fragManagerStrategyType)
+        .setReqCode(REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
+        .build();
+    dialog.setTargetFragment(this, REQ_CODE_NO_NETWORK_CONNECTION_DIALOG);
+    dialog.show(this, NO_NETWORK_CONNECTION_DIALOG_TAG);
   }
 
   private class AnnualCardClickListener implements View.OnClickListener
