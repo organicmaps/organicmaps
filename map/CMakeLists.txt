@@ -36,6 +36,8 @@ set(
   chart_generator.hpp
   cloud.cpp
   cloud.hpp
+  crown.cpp
+  crown.hpp
   discovery/discovery_client_params.hpp
   discovery/discovery_manager.cpp
   discovery/discovery_manager.hpp

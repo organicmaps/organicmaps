@@ -24,6 +24,8 @@
 		3D0AEAFC1FBB0FF400AD042B /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEAFF1FBB0FF400AD042B /* libgenerator_tests_support.a */; };
 		3D0AEAFE1FBB0FF400AD042B /* libsearch_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEB011FBB0FF400AD042B /* libsearch_tests_support.a */; };
 		3D1775A42317E2FD00F8889C /* promo_catalog_poi_checker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D1775A22317E2FD00F8889C /* promo_catalog_poi_checker.hpp */; };
+		3D1775AB2319848500F8889C /* crown.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D1775A92319848500F8889C /* crown.hpp */; };
+		3D1775AC2319848500F8889C /* crown.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D1775AA2319848500F8889C /* crown.cpp */; };
 		3D18DC3C22956DD100A583A6 /* framework_light_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D18DC3922956DD100A583A6 /* framework_light_delegate.hpp */; };
 		3D18DC3D22956DD100A583A6 /* promo_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D18DC3A22956DD100A583A6 /* promo_delegate.hpp */; };
 		3D18DC3E22956DD100A583A6 /* promo_delegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D18DC3B22956DD100A583A6 /* promo_delegate.cpp */; };
@@ -275,6 +277,8 @@
 		3D0AEB001FBB0FF400AD042B /* libindexer_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D0AEB011FBB0FF400AD042B /* libsearch_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsearch_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D1775A22317E2FD00F8889C /* promo_catalog_poi_checker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = promo_catalog_poi_checker.hpp; sourceTree = "<group>"; };
+		3D1775A92319848500F8889C /* crown.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = crown.hpp; sourceTree = "<group>"; };
+		3D1775AA2319848500F8889C /* crown.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = crown.cpp; sourceTree = "<group>"; };
 		3D18DC3922956DD100A583A6 /* framework_light_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = framework_light_delegate.hpp; sourceTree = "<group>"; };
 		3D18DC3A22956DD100A583A6 /* promo_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = promo_delegate.hpp; sourceTree = "<group>"; };
 		3D18DC3B22956DD100A583A6 /* promo_delegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = promo_delegate.cpp; sourceTree = "<group>"; };
@@ -813,6 +817,8 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				3D1775AA2319848500F8889C /* crown.cpp */,
+				3D1775A92319848500F8889C /* crown.hpp */,
 				3D1775A22317E2FD00F8889C /* promo_catalog_poi_checker.hpp */,
 				3D18DC3922956DD100A583A6 /* framework_light_delegate.hpp */,
 				3D18DC3B22956DD100A583A6 /* promo_delegate.cpp */,
@@ -964,6 +970,7 @@
 				F6B283081C1B03320081957A /* gps_track_storage.hpp in Headers */,
 				3DD1166B21888AAD007A2ED4 /* notification_manager.hpp in Headers */,
 				3D4F44BB21345D270005E765 /* tips_api.hpp in Headers */,
+				3D1775AB2319848500F8889C /* crown.hpp in Headers */,
 				675346671A4054E800A0A8C3 /* ge0_parser.hpp in Headers */,
 				675346A21A4054E800A0A8C3 /* user_mark.hpp in Headers */,
 				454649F21F2728CE00EF4064 /* local_ads_mark.hpp in Headers */,
@@ -1212,6 +1219,7 @@
 				454649F11F2728CE00EF4064 /* local_ads_mark.cpp in Sources */,
 				F63421F81DF9BF9100A96868 /* reachable_by_taxi_checker.cpp in Sources */,
 				56C116602090E5670068BBC0 /* extrapolator.cpp in Sources */,
+				3D1775AC2319848500F8889C /* crown.cpp in Sources */,
 				40ACC79723191C2600238E21 /* check_mwms.cpp in Sources */,
 				6753466A1A4054E800A0A8C3 /* geourl_process.cpp in Sources */,
 				3DD1166621888AAC007A2ED4 /* notification_queue_serdes.cpp in Sources */,
