@@ -52,16 +52,9 @@ class DownloadedBookmarksViewController: MWMViewController {
   }
 
   @IBAction func onDownloadBookmarks(_ sender: Any) {
-    if MWMPlatform.networkConnectionType() == .none {
-      MWMAlertViewController.activeAlert().presentNoConnectionAlert();
-      Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
-                          withParameters: [kStatError : "no_internet"])
-      return
-    }
     Statistics.logEvent(kStatCatalogOpen, withParameters: [kStatFrom: kStatDownloaded])
     let webViewController = CatalogWebViewController.catalogFromAbsoluteUrl(nil, utm: .bookmarksPageCatalogButton)
-    MapViewController.topViewController().navigationController?.pushViewController(webViewController,
-                                                                                   animated: true)
+    MapViewController.topViewController().navigationController?.pushViewController(webViewController, animated: true)
   }
 
   private func reloadData() {

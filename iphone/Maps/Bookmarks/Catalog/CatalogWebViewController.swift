@@ -68,6 +68,11 @@ final class CatalogWebViewController: WebViewController {
     fwdButton.isEnabled = false
     noInternetView = CatalogConnectionErrorView(frame: .zero, actionCallback: { [weak self] in
       guard let self = self else { return }
+      if !FrameworkHelper.isNetworkConnected() {
+        self.noInternetView.isHidden = false
+        return
+      }
+
       self.noInternetView.isHidden = true
       self.loadingIndicator.startAnimating()
       if self.webView.url != nil {
@@ -108,8 +113,14 @@ final class CatalogWebViewController: WebViewController {
     progressView.centerYAnchor.constraint(equalTo: progressBgView.centerYAnchor).isActive = true
     progressBgView.widthAnchor.constraint(equalToConstant: 48).isActive = true
     progressBgView.heightAnchor.constraint(equalToConstant: 48).isActive = true
-    
-    noInternetView.isHidden = true
+
+    let connected = FrameworkHelper.isNetworkConnected()
+    if !connected {
+      Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
+                          withParameters: [kStatError : "no_internet"])
+    }
+
+    noInternetView.isHidden = connected
     noInternetView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(noInternetView)
     noInternetView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -195,21 +206,16 @@ final class CatalogWebViewController: WebViewController {
 
   override func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
     loadingIndicator.stopAnimating()
-    if let error = error as NSError?, error.code == NSURLErrorCancelled {
-      return
-    }
     Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
                         withParameters: [kStatError : kStatUnknown])
-    noInternetView.isHidden = false
   }
 
   override func webView(_ webView: WKWebView,
                         didFailProvisionalNavigation navigation: WKNavigation!,
                         withError error: Error) {
+    loadingIndicator.stopAnimating()
     Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
                         withParameters: [kStatError : kStatUnknown])
-    loadingIndicator.stopAnimating()
-    noInternetView.isHidden = false
   }
 
   private func showSubscribe() {
