@@ -129,23 +129,20 @@ void Processor::AddToIndex(Id const & id)
 
 void Processor::Update(Id const & id, Doc const & doc)
 {
+  auto group = kInvalidGroupId;
   auto const groupIt = m_idToGroup.find(id);
   if (groupIt != m_idToGroup.end())
   {
     // A copy to avoid use-after-free.
-    auto const group = groupIt->second;
+    group = groupIt->second;
     DetachFromGroup(id, group);
   }
 
   Erase(id);
   Add(id, doc);
 
-  if (groupIt != m_idToGroup.end())
-  {
-    // A copy to avoid use-after-free.
-    auto const group = groupIt->second;
+  if (group != kInvalidGroupId)
     AttachToGroup(id, group);
-  }
 }
 
 void Processor::Erase(Id const & id)
