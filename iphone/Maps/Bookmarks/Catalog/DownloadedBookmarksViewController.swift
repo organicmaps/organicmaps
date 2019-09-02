@@ -30,7 +30,11 @@ class DownloadedBookmarksViewController: MWMViewController {
     tableView.tableHeaderView = bottomView
     tableView.registerNib(cell: CatalogCategoryCell.self)
     tableView.registerNibForHeaderFooterView(BMCCategoriesHeader.self)
-    checkInvalidSubscription()
+    checkInvalidSubscription { [weak self] deleted in
+      if deleted {
+        self?.reloadData()
+      }
+    }
     if #available(iOS 11, *) { return } // workaround for https://jira.mail.ru/browse/MAPSME-8101
     reloadData()
   }
