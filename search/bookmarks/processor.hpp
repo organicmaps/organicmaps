@@ -14,6 +14,7 @@
 
 #include <cstdint>
 #include <unordered_map>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -47,8 +48,18 @@ public:
   // by their descriptions.
   void EnableIndexingOfDescriptions(bool enable);
 
+  void EnableIndexingOfBookmarkGroup(GroupId const & groupId, bool enable);
+
+  // Adds a bookmark to Processor but does not index it.
   void Add(Id const & id, Doc const & doc);
+  // Indexes an already added bookmark.
+  void AddToIndex(Id const & id);
+  // Updates a bookmark with a new |doc|. Re-indexes if the bookmarks
+  // is already attached to an indexable group.
+  void Update(Id const & id, Doc const & doc);
+
   void Erase(Id const & id);
+  void EraseFromIndex(Id const & id);
 
   void AttachToGroup(Id const & id, GroupId const & group);
   void DetachFromGroup(Id const & id, GroupId const & group);
@@ -82,11 +93,13 @@ private:
   std::unordered_map<Id, DocVec> m_docs;
 
   bool m_indexDescriptions = false;
+  std::unordered_set<GroupId> m_indexableGroups;
 
   // Currently a bookmark can belong to at most one group
   // but in the future it is possible for a single bookmark to be
   // attached to multiple groups.
   std::unordered_map<Id, GroupId> m_idToGroup;
+  std::unordered_map<GroupId, std::unordered_set<Id>> m_bookmarksInGroup;
 };
 }  // namespace bookmarks
 }  // namespace search

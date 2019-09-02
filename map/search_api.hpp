@@ -22,6 +22,7 @@
 #include <functional>
 #include <memory>
 #include <string>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -152,6 +153,14 @@ public:
   // The limit is not enforced by the Search API.
   static size_t GetMaximumPossibleNumberOfBookmarksToIndex();
 
+  // By default all created bookmarks are saved in BookmarksProcessor
+  // but we do not index them in an attempt to save time and memory.
+  // This method must be used to enable or disable indexing all current and future
+  // bookmarks belonging to |groupId|.
+  void EnableIndexingOfBookmarkGroup(kml::MarkGroupId const & groupId, bool enable);
+  bool IsIndexingOfBookmarkGroupEnabled(kml::MarkGroupId const & groupId);
+  std::unordered_set<kml::MarkGroupId> const & GetIndexableGroups() const;
+
   void OnBookmarksCreated(std::vector<BookmarkInfo> const & marks);
   void OnBookmarksUpdated(std::vector<BookmarkInfo> const & marks);
   void OnBookmarksDeleted(std::vector<kml::MarkId> const & marks);
@@ -192,4 +201,9 @@ private:
   // Viewport search callback should be changed every time when SearchAPI::PokeSearchInViewport
   // is called and we need viewport search params to construct it.
   search::ViewportSearchParams m_viewportParams;
+
+  // Same as the one in bookmarks::Processor. Duplicated here because
+  // it is easier than obtaining the information about a group asynchronously
+  // from |m_engine|.
+  std::unordered_set<kml::MarkGroupId> m_indexableGroups;
 };

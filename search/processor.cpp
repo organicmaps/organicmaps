@@ -329,6 +329,11 @@ void Processor::EnableIndexingOfBookmarksDescriptions(bool enable)
   m_bookmarksProcessor.EnableIndexingOfDescriptions(enable);
 }
 
+void Processor::EnableIndexingOfBookmarkGroup(bookmarks::GroupId const & groupId, bool enable)
+{
+  m_bookmarksProcessor.EnableIndexingOfBookmarkGroup(groupId, enable);
+}
+
 void Processor::OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks)
 {
   for (auto const & idDoc : marks)
@@ -338,10 +343,7 @@ void Processor::OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> c
 void Processor::OnBookmarksUpdated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks)
 {
   for (auto const & idDoc : marks)
-  {
-    m_bookmarksProcessor.Erase(idDoc.first /* id */);
-    m_bookmarksProcessor.Add(idDoc.first /* id */, idDoc.second /* doc */);
-  }
+    m_bookmarksProcessor.Update(idDoc.first /* id */, idDoc.second /* doc */);
 }
 
 void Processor::OnBookmarksDeleted(vector<bookmarks::Id> const & marks)

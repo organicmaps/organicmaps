@@ -403,6 +403,26 @@ size_t SearchAPI::GetMaximumPossibleNumberOfBookmarksToIndex()
   return kMaximumPossibleNumberOfBookmarksToIndex;
 }
 
+void SearchAPI::EnableIndexingOfBookmarkGroup(kml::MarkGroupId const & groupId, bool enable)
+{
+  if (enable)
+    m_indexableGroups.insert(groupId);
+  else
+    m_indexableGroups.erase(groupId);
+
+  m_engine.EnableIndexingOfBookmarkGroup(KmlGroupIdToSearchGroupId(groupId), enable);
+}
+
+bool SearchAPI::IsIndexingOfBookmarkGroupEnabled(kml::MarkGroupId const & groupId)
+{
+  return m_indexableGroups.count(groupId) > 0;
+}
+
+unordered_set<kml::MarkGroupId> const & SearchAPI::GetIndexableGroups() const
+{
+  return m_indexableGroups;
+}
+
 void SearchAPI::OnBookmarksCreated(vector<BookmarkInfo> const & marks)
 {
   vector<BookmarkIdDoc> data;

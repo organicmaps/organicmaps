@@ -78,9 +78,27 @@ Processor::Processor(Emitter & emitter, base::Cancellable const & cancellable)
 {
 }
 
-void Processor::EnableIndexingOfDescriptions(bool enable)
+void Processor::EnableIndexingOfDescriptions(bool enable) { m_indexDescriptions = enable; }
+
+void Processor::EnableIndexingOfBookmarkGroup(GroupId const & groupId, bool enable)
 {
-  m_indexDescriptions = enable;
+  bool const wasIndexable = m_indexableGroups.count(groupId) > 0;
+  if (enable)
+    m_indexableGroups.insert(groupId);
+  else
+    m_indexableGroups.erase(groupId);
+  bool const nowIndexable = m_indexableGroups.count(groupId) > 0;
+
+  if (wasIndexable == nowIndexable)
+    return;
+
+  for (auto const & id : m_bookmarksInGroup[groupId])
+  {
+    if (nowIndexable)
+      AddToIndex(id);
+    else
+      EraseFromIndex(id);
+  }
 }
 
 void Processor::Add(Id const & id, Doc const & doc)
@@ -99,17 +117,53 @@ void Processor::Add(Id const & id, Doc const & doc)
 
   DocVec const docVec(builder);
 
-  m_index.Add(id, DocVecWrapper(docVec));
   m_docs[id] = docVec;
+}
+
+void Processor::AddToIndex(Id const & id)
+{
+  ASSERT_EQUAL(m_docs.count(id), 1, ());
+
+  m_index.Add(id, DocVecWrapper(m_docs[id]));
+}
+
+void Processor::Update(Id const & id, Doc const & doc)
+{
+  auto const groupIt = m_idToGroup.find(id);
+  if (groupIt != m_idToGroup.end())
+  {
+    // A copy to avoid use-after-free.
+    auto const group = groupIt->second;
+    DetachFromGroup(id, group);
+  }
+
+  Erase(id);
+  Add(id, doc);
+
+  if (groupIt != m_idToGroup.end())
+  {
+    // A copy to avoid use-after-free.
+    auto const group = groupIt->second;
+    AttachToGroup(id, group);
+  }
 }
 
 void Processor::Erase(Id const & id)
 {
   ASSERT_EQUAL(m_docs.count(id), 1, ());
 
+  ASSERT(m_idToGroup.find(id) == m_idToGroup.end(),
+         ("A bookmark must be detached from all groups before being deleted."));
+
+  m_docs.erase(id);
+}
+
+void Processor::EraseFromIndex(Id const & id)
+{
+  ASSERT_EQUAL(m_docs.count(id), 1, ());
+
   auto const & docVec = m_docs[id];
   m_index.Erase(id, DocVecWrapper(docVec));
-  m_docs.erase(id);
 }
 
 void Processor::AttachToGroup(Id const & id, GroupId const & group)
@@ -122,6 +176,9 @@ void Processor::AttachToGroup(Id const & id, GroupId const & group)
   }
 
   m_idToGroup[id] = group;
+  m_bookmarksInGroup[group].insert(id);
+  if (m_indexableGroups.count(group) > 0)
+    AddToIndex(id);
 }
 
 void Processor::DetachFromGroup(Id const & id, GroupId const & group)
@@ -140,7 +197,17 @@ void Processor::DetachFromGroup(Id const & id, GroupId const & group)
                    "but it only belongs to group", it->second));
     return;
   }
+
   m_idToGroup.erase(it);
+  m_bookmarksInGroup[group].erase(id);
+
+  if (m_indexableGroups.count(group) > 0)
+    EraseFromIndex(id);
+
+  auto const groupIt = m_bookmarksInGroup.find(group);
+  CHECK(groupIt != m_bookmarksInGroup.end(), (group, m_bookmarksInGroup));
+  if (groupIt->second.size() == 0)
+    m_bookmarksInGroup.erase(groupIt);
 }
 
 void Processor::Search(Params const & params) const
@@ -175,7 +242,7 @@ void Processor::Search(Params const & params) const
     }
 
     auto it = m_docs.find(id);
-    ASSERT(it != m_docs.end(), ("Can't find retrieved doc:", id));
+    CHECK(it != m_docs.end(), ("Can't find retrieved doc:", id));
     auto const & doc = it->second;
 
     RankingInfo info;

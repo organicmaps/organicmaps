@@ -109,6 +109,7 @@ public:
   void LoadCountriesTree();
 
   void EnableIndexingOfBookmarksDescriptions(bool enable);
+  void EnableIndexingOfBookmarkGroup(bookmarks::GroupId const & groupId, bool enable);
 
   void OnBookmarksCreated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks);
   void OnBookmarksUpdated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks);

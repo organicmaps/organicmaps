@@ -165,6 +165,13 @@ void Engine::EnableIndexingOfBookmarksDescriptions(bool enable)
   });
 }
 
+void Engine::EnableIndexingOfBookmarkGroup(bookmarks::GroupId const & groupId, bool enable)
+{
+  PostMessage(Message::TYPE_BROADCAST, [=](Processor & processor) {
+    processor.EnableIndexingOfBookmarkGroup(groupId, enable);
+  });
+}
+
 void Engine::OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks)
 {
   PostMessage(Message::TYPE_BROADCAST,
