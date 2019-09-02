@@ -16,6 +16,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.Statistics;
 
 public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
     implements RadioGroup.OnCheckedChangeListener
@@ -129,6 +130,7 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
   {
     if (mListener != null)
       mListener.onResetSorting();
+    trackBookmarksListResetSort();
     dismiss();
   }
 
@@ -136,6 +138,7 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
   {
     if (mListener != null)
       mListener.onSort(sortingType);
+    trackBookmarksListSort(sortingType);
     dismiss();
   }
 
@@ -157,5 +160,30 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
         setSortingType(BookmarkManager.SORT_BY_TIME);
         break;
     }
+  }
+
+  @NonNull
+  private String getStatisticsSortingType(@BookmarkManager.SortingType int sortingType)
+  {
+    switch (sortingType)
+    {
+      case BookmarkManager.SORT_BY_TYPE:
+        return Statistics.ParamValue.BY_TYPE;
+      case BookmarkManager.SORT_BY_DISTANCE:
+        return Statistics.ParamValue.BY_DISTANCE;
+      case BookmarkManager.SORT_BY_TIME:
+        return Statistics.ParamValue.BY_DATE;
+    }
+    throw new AssertionError("Invalid sorting type");
+  }
+
+  private void trackBookmarksListSort(@BookmarkManager.SortingType int sortingType)
+  {
+    Statistics.INSTANCE.trackBookmarksListSort(getStatisticsSortingType(sortingType));
+  }
+
+  private void trackBookmarksListResetSort()
+  {
+    Statistics.INSTANCE.trackBookmarksListSort(Statistics.ParamValue.BY_DEFAULT);
   }
 }

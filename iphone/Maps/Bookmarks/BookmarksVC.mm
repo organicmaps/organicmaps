@@ -397,6 +397,9 @@ using namespace std;
                                                   handler:^(UIAlertAction *_Nonnull action) {
                                                     auto &bm = GetFramework().GetBookmarkManager();
                                                     bm.SetLastSortingType(self.categoryId, type);
+                                                    auto const option = [BookmarksVC statisticsSortingOption:type];
+                                                    [Statistics logEvent:kStatBookmarksListSort
+                                                          withParameters:@{kStatOption: option}];
                                                     [self sort:type];
                                                   }]];
   }
@@ -404,6 +407,8 @@ using namespace std;
   [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"sort_default")
                                                   style:UIAlertActionStyleDefault
                                                 handler:^(UIAlertAction *_Nonnull action) {
+                                                  [Statistics logEvent:kStatBookmarksListSort
+                                                        withParameters:@{kStatOption: kStatSortByDefault}];
                                                   [self sortDefault];
                                                 }]];
 
@@ -603,6 +608,18 @@ using namespace std;
   UNREACHABLE();
 }
 
++ (NSString *)statisticsSortingOption:(BookmarkManager::SortingType)type {
+  switch (type) {
+    case BookmarkManager::SortingType::ByTime:
+      return kStatSortByDate;
+    case BookmarkManager::SortingType::ByDistance:
+      return kStatSortByDistance;
+    case BookmarkManager::SortingType::ByType:
+      return kStatSortByType;
+  }
+  UNREACHABLE();
+}
+
 #pragma mark - UISearchBarDelegate
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
@@ -666,6 +683,8 @@ using namespace std;
     }
 
     [self.tableView reloadData];
+    
+    [Statistics logEvent:kStatBookmarksSearch withParameters:@{kStatFrom : kStatBookmarksList}];
   };
 
   [self showSpinner:YES];
@@ -706,6 +725,8 @@ using namespace std;
   // Remove cell selection
   [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
   [[self currentSections][indexPath.section] didSelectRow:indexPath.row];
+  if (self.searchSections != nil)
+    [Statistics logEvent:kStatBookmarksSearchResultSelected withParameters:@{kStatFrom : kStatBookmarksList}];
   [self.searchBar resignFirstResponder];
   [self.navigationController popToRootViewControllerAnimated:NO];
 }

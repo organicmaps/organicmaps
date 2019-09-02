@@ -296,6 +296,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     if (!isAdded() || !mToolbarController.hasQuery() || mLastQueryTimestamp != timestamp)
       return;
+    trackBookmarksSearch();
     mLastQueryTimestamp = 0;
     mToolbarController.showProgress(false);
     updateSearchResults(bookmarkIds);
@@ -506,6 +507,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
         return;
 
       case BookmarkListAdapter.TYPE_BOOKMARK:
+        if (getAdapter().isSearchResults())
+          trackBookmarksSearchResultSelected();
         final Bookmark bookmark = (Bookmark) adapter.getItem(position);
         i.putExtra(MwmActivity.EXTRA_TASK,
             new Factory.ShowBookmarkTask(bookmark.getCategoryId(), bookmark.getBookmarkId()));
@@ -715,6 +718,16 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   private void trackBookmarkListSharingOptions()
   {
     Statistics.INSTANCE.trackBookmarkListSharingOptions();
+  }
+
+  private void trackBookmarksSearch()
+  {
+    Statistics.INSTANCE.trackBookmarksSearch(Statistics.ParamValue.BOOKMARKS_LIST);
+  }
+
+  private void trackBookmarksSearchResultSelected()
+  {
+    Statistics.INSTANCE.trackBookmarksSearchResultSelected(Statistics.ParamValue.BOOKMARKS_LIST);
   }
 
   @SuppressWarnings("ConstantConditions")

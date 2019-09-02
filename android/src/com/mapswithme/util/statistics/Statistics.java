@@ -211,6 +211,24 @@ public enum Statistics
     trackEvent(EventName.BM_BOOKMARKS_LIST_SETTINGS_CLICK, builder);
   }
 
+  public void trackBookmarksListSort(@NonNull String value)
+  {
+    ParameterBuilder builder = new ParameterBuilder().add(EventParam.OPTION, value);
+    trackEvent(EventName.BM_BOOKMARKS_LIST_SORT, builder);
+  }
+
+  public void trackBookmarksSearch(@NonNull String value)
+  {
+    ParameterBuilder builder = new ParameterBuilder().add(EventParam.FROM, value);
+    trackEvent(EventName.BM_BOOKMARKS_SEARCH, builder);
+  }
+
+  public void trackBookmarksSearchResultSelected(@NonNull String value)
+  {
+    ParameterBuilder builder = new ParameterBuilder().add(EventParam.FROM, value);
+    trackEvent(EventName.BM_BOOKMARKS_SEARCH_RESULT_SELECTED, builder);
+  }
+
   private void trackEditSettingsScreenOptionClick(@NonNull String value)
   {
     ParameterBuilder builder = new ParameterBuilder().add(OPTION, value);
@@ -307,6 +325,9 @@ public enum Statistics
     public static final String BM_EDIT_SETTINGS_CONFIRM = "Bookmarks_Bookmark_Settings_confirm";
     public static final String BM_BOOKMARKS_LIST_SETTINGS_CLICK = "Bookmarks_BookmarksList_settings_click";
     public static final String BM_BOOKMARKS_LIST_ITEM_SETTINGS = "Bookmarks_BookmarksListItem_settings";
+    public static final String BM_BOOKMARKS_LIST_SORT = "Bookmarks_BookmarksList_sort";
+    public static final String BM_BOOKMARKS_SEARCH = "Bookmarks_Search";
+    public static final String BM_BOOKMARKS_SEARCH_RESULT_SELECTED = "Bookmarks_Search_result_selected";
     public static final String BM_GROUP_CREATED = "Bookmark. Group created";
     public static final String BM_GROUP_CHANGED = "Bookmark. Group changed";
     public static final String BM_COLOR_CHANGED = "Bookmark. Color changed";
@@ -659,6 +680,11 @@ public enum Statistics
     public static final String DELETE_GROUP = "delete_group";
     public static final String OFFSCREEEN = "Offscreen";
     public static final String MAPSME_GUIDES = "MapsMeGuides";
+    public static final String BY_DEFAULT = "Default";
+    public static final String BY_DATE = "Date";
+    public static final String BY_DISTANCE = "Distance";
+    public static final String BY_TYPE = "Type";
+    public static final String BOOKMARKS_LIST = "BookmarksList";
     static final String PARTNER = "Partner";
   }
 
