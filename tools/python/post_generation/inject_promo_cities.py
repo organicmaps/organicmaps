@@ -4,6 +4,8 @@ import os
 import re
 import sys
 
+from multiprocessing import Pool
+
 from mwm import mwm
 
 
@@ -93,22 +95,32 @@ def load_osm2ft(osm2ft_path, mwm_id):
         return mwm.read_osm2ft(f, ft2osm=True, tuples=False)
 
 
-def inject_into_leafs(node, cities):
-    if "g" in node:
-        for item in node["g"]:
-            inject_into_leafs(item, cities)
-    else:
-        proposed_cities = cities.find(node["id"])
-
-        if not proposed_cities:
-            return
-
-        best_city = cities.choose_best_city(proposed_cities)
-
-        if best_city["id"] < 0:
-            node["top_city_geo_id"] = best_city["id"] + (1 << 64)
+def get_nodes(node):
+    def _get_nodes(node, mwm_nodes):
+        if "g" in node:
+            for item in node["g"]:
+                _get_nodes(item, mwm_nodes)
         else:
-            node["top_city_geo_id"] = best_city["id"]
+            mwm_nodes.append(node)
+
+    mwm_nodes = []
+    _get_nodes(node, mwm_nodes)
+    return mwm_nodes
+
+
+def inject_into_leafs(node, cities):
+    nodes = get_nodes(node)
+    with Pool() as pool:
+        proposed_cities_list = pool.map(cities.find, (n["id"] for n in nodes),
+                                        chunksize=1)
+    for idx, proposed_cities in enumerate(proposed_cities_list):
+        if not proposed_cities:
+            continue
+        node = nodes[idx]
+        best = cities.choose_best_city(proposed_cities)
+        node["top_city_geo_id"] = best["id"]
+        if best["id"] < 0:
+            node["top_city_geo_id"] += (1 << 64)
 
 
 def inject_promo_cities(countries_json, promo_cities_path, mwm_path, types_path,
