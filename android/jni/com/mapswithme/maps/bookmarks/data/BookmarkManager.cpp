@@ -852,6 +852,20 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsEditableCategory
 }
 
 JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsSearchAllowed(
+        JNIEnv * env, jobject thiz, jlong catId)
+{
+  return static_cast<jboolean>(frm()->GetBookmarkManager().IsSearchAllowed(static_cast<kml::MarkGroupId>(catId)));
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativePrepareForSearch(
+        JNIEnv * env, jobject thiz, jlong catId)
+{
+  frm()->GetBookmarkManager().PrepareForSearch(static_cast<kml::MarkGroupId>(catId));
+}
+
+JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAreAllCategoriesInvisible(
         JNIEnv * env, jobject thiz, jint type)
 {

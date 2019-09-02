@@ -588,8 +588,9 @@ public enum BookmarkManager
 
   public boolean isEditableCategory(long catId) { return nativeIsEditableCategory(catId); }
 
-  // TODO(@darina) Implement in native BookmarkManager.
-  public boolean isSearchAllowed(long catId) { return true; }
+  public boolean isSearchAllowed(long catId) { return nativeIsSearchAllowed(catId); }
+
+  public void prepareForSearch(long catId) { nativePrepareForSearch(catId); }
 
   public boolean areAllCatalogCategoriesVisible()
   {
@@ -861,6 +862,10 @@ public enum BookmarkManager
   private static native boolean nativeIsEditableTrack(long trackId);
 
   private static native boolean nativeIsEditableCategory(long catId);
+
+  private static native boolean nativeIsSearchAllowed(long catId);
+
+  private static native void nativePrepareForSearch(long catId);
 
   private static native boolean nativeAreAllCategoriesVisible(int type);
 

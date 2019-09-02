@@ -214,7 +214,7 @@ using namespace std;
   self.searchBar.delegate = self;
   self.statusBarBackground.backgroundColor = self.searchBar.barTintColor = searchBarColor;
   self.searchBar.backgroundImage = [UIImage imageWithColor:searchBarColor];
-  self.searchBar.placeholder = L(@"search");
+  self.searchBar.placeholder = L(@"search_in_the_list");
 
   [self.noResultsView setTranslatesAutoresizingMaskIntoConstraints:NO];
 
@@ -612,7 +612,8 @@ using namespace std;
 
   // Allow to send all notifications in BM.
   [[MWMBookmarksManager sharedManager] setNotificationsEnabled:YES];
-
+  [[MWMBookmarksManager sharedManager] prepareForSearch:self.categoryId];
+  
   return YES;
 }
 

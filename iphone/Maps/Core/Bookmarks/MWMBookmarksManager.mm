@@ -292,6 +292,10 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return self.bm.IsSearchAllowed(groupId);
 }
 
+- (void)prepareForSearch:(MWMMarkGroupID)groupId {
+  self.bm.PrepareForSearch(groupId);
+}
+
 - (MWMGroupIDCollection)groupsIdList
 {
   auto const & list = self.bm.GetBmGroupsIdList();

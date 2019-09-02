@@ -26,6 +26,7 @@ typedef void (^PingCompletionBlock)(BOOL success);
 - (BOOL)isCategoryEditable:(MWMMarkGroupID)groupId;
 - (BOOL)isCategoryNotEmpty:(MWMMarkGroupID)groupId;
 - (BOOL)isSearchAllowed:(MWMMarkGroupID)groupId;
+- (void)prepareForSearch:(MWMMarkGroupID)groupId;
 - (NSString *)getCategoryName:(MWMMarkGroupID)groupId;
 - (uint64_t)getCategoryMarksCount:(MWMMarkGroupID)groupId;
 - (uint64_t)getCategoryTracksCount:(MWMMarkGroupID)groupId;

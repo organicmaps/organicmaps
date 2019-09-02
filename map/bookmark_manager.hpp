@@ -41,6 +41,7 @@ class CountryInfoGetter;
 }  // namespace storage
 
 class DataSource;
+class SearchAPI;
 class User;
 
 class BookmarkManager final
@@ -71,18 +72,22 @@ public:
   struct Callbacks
   {
     using GetStringsBundleFn = std::function<StringsBundle const &()>;
+    using GetSeacrhAPIFn = std::function<SearchAPI &()>;
     using CreatedBookmarksCallback = std::function<void(std::vector<BookmarkInfo> const &)>;
     using UpdatedBookmarksCallback = std::function<void(std::vector<BookmarkInfo> const &)>;
     using DeletedBookmarksCallback = std::function<void(std::vector<kml::MarkId> const &)>;
     using AttachedBookmarksCallback = std::function<void(std::vector<BookmarkGroupInfo> const &)>;
     using DetachedBookmarksCallback = std::function<void(std::vector<BookmarkGroupInfo> const &)>;
 
-    template <typename StringsBundleProvider, typename CreateListener, typename UpdateListener,
+    template <typename StringsBundleProvider, typename SearchAPIProvider,
+              typename CreateListener, typename UpdateListener,
               typename DeleteListener, typename AttachListener, typename DetachListener>
-    Callbacks(StringsBundleProvider && stringsBundleProvider, CreateListener && createListener,
+    Callbacks(StringsBundleProvider && stringsBundleProvider,
+              SearchAPIProvider && searchAPIProvider, CreateListener && createListener,
               UpdateListener && updateListener, DeleteListener && deleteListener,
               AttachListener && attachListener, DetachListener && detachListener)
       : m_getStringsBundle(std::forward<StringsBundleProvider>(stringsBundleProvider))
+      , m_getSearchAPI(std::forward<SearchAPIProvider>(searchAPIProvider))
       , m_createdBookmarksCallback(std::forward<CreateListener>(createListener))
       , m_updatedBookmarksCallback(std::forward<UpdateListener>(updateListener))
       , m_deletedBookmarksCallback(std::forward<DeleteListener>(deleteListener))
@@ -91,6 +96,7 @@ public:
     {}
 
     GetStringsBundleFn m_getStringsBundle;
+    GetSeacrhAPIFn m_getSearchAPI;
     CreatedBookmarksCallback m_createdBookmarksCallback;
     UpdatedBookmarksCallback m_updatedBookmarksCallback;
     DeletedBookmarksCallback m_deletedBookmarksCallback;
@@ -240,9 +246,11 @@ public:
   void SetLastSortingType(kml::MarkGroupId groupId, SortingType sortingType);
   void ResetLastSortingType(kml::MarkGroupId groupId);
 
-  bool IsVisible(kml::MarkGroupId groupId) const;
   bool IsSearchAllowed(kml::MarkGroupId groupId) const;
-  
+  void PrepareForSearch(kml::MarkGroupId groupId);
+
+  bool IsVisible(kml::MarkGroupId groupId) const;
+
   kml::MarkGroupId CreateBookmarkCategory(kml::CategoryData && data, bool autoSave = true);
   kml::MarkGroupId CreateBookmarkCategory(std::string const & name, bool autoSave = true);
 

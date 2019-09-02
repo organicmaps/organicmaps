@@ -2,6 +2,7 @@
 #include "map/api_mark_point.hpp"
 #include "map/local_ads_mark.hpp"
 #include "map/routing_mark.hpp"
+#include "map/search_api.hpp"
 #include "map/search_mark.hpp"
 #include "map/user.hpp"
 #include "map/user_mark.hpp"
@@ -1542,9 +1543,30 @@ bool BookmarkManager::IsVisible(kml::MarkGroupId groupId) const
 
 bool BookmarkManager::IsSearchAllowed(kml::MarkGroupId groupId) const
 {
-  // TODO(@darina) Implement.
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return true;
+  CHECK(m_callbacks.m_getSearchAPI != nullptr, ());
+
+  if (m_callbacks.m_getSearchAPI().IsIndexingOfBookmarkGroupEnabled(groupId))
+    return true;
+
+  size_t indexedBookmarksCount = 0;
+  for (auto const indexableGroupId : m_callbacks.m_getSearchAPI().GetIndexableGroups())
+  {
+    auto const it = m_categories.find(indexableGroupId);
+    if (it == m_categories.end())
+      continue;
+    indexedBookmarksCount += it->second->GetUserMarks().size();
+  }
+  auto const bookmarksCount = GetUserMarkIds(groupId).size();
+  auto const maxCount = m_callbacks.m_getSearchAPI().GetMaximumPossibleNumberOfBookmarksToIndex();
+  return indexedBookmarksCount + bookmarksCount <= maxCount;
+}
+
+void BookmarkManager::PrepareForSearch(kml::MarkGroupId groupId)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  CHECK(m_callbacks.m_getSearchAPI != nullptr, ());
+  m_callbacks.m_getSearchAPI().EnableIndexingOfBookmarkGroup(groupId, true /* enable */);
 }
 
 void BookmarkManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
@@ -2121,20 +2143,6 @@ void BookmarkManager::SendBookmarksChanges()
       m_callbacks.m_updatedBookmarksCallback(bookmarksInfo);
   }
 
-  if (m_callbacks.m_deletedBookmarksCallback != nullptr)
-  {
-    kml::MarkIdCollection bookmarkIds;
-    auto const & removedIds = m_changesTracker.GetRemovedMarkIds();
-    bookmarkIds.reserve(removedIds.size());
-    for (auto markId : removedIds)
-    {
-      if (IsBookmark(markId))
-        bookmarkIds.push_back(markId);
-    }
-    if (!bookmarkIds.empty())
-      m_callbacks.m_deletedBookmarksCallback(bookmarkIds);
-  }
-
   std::vector<BookmarkGroupInfo> groupsInfo;
 
   if (m_callbacks.m_attachedBookmarksCallback != nullptr)
@@ -2149,6 +2157,20 @@ void BookmarkManager::SendBookmarksChanges()
     GetBookmarkGroupsInfo(m_changesTracker.GetDetachedBookmarks(), groupsInfo);
     if (!groupsInfo.empty())
       m_callbacks.m_detachedBookmarksCallback(groupsInfo);
+  }
+
+  if (m_callbacks.m_deletedBookmarksCallback != nullptr)
+  {
+    kml::MarkIdCollection bookmarkIds;
+    auto const & removedIds = m_changesTracker.GetRemovedMarkIds();
+    bookmarkIds.reserve(removedIds.size());
+    for (auto markId : removedIds)
+    {
+      if (IsBookmark(markId))
+        bookmarkIds.push_back(markId);
+    }
+    if (!bookmarkIds.empty())
+      m_callbacks.m_deletedBookmarksCallback(bookmarkIds);
   }
 }
 
