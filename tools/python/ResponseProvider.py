@@ -147,7 +147,7 @@ class ResponseProvider:
                 "/partners/taxi_info": self.partners_yandex_taxi_info,
                 "/partners/get-offers-in-bbox/": self.partners_rent_nearby,
                 "/partners/CalculateByCoords": self.partners_calculate_by_coords,
-                "/gallery/v1/city/-4611686018427193776/": self.promo_gallery_city,
+                "/gallery/v1/search/": self.promo_gallery_city,
             }[url]()
         except:
             return self.test_404()
