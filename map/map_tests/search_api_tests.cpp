@@ -146,6 +146,7 @@ UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
   kml::SetDefaultStr(data.m_description, "Clean place with a reasonable price");
   marks.emplace_back(2, data);
   m_api.EnableIndexingOfBookmarksDescriptions(true);
+  m_api.EnableIndexingOfBookmarkGroup(10, true /* enable */);
   m_api.OnBookmarksCreated(marks);
   m_api.OnViewportChanged(m2::RectD(-1, -1, 1, 1));
 
@@ -171,7 +172,7 @@ UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
   };
 
   string const query = "gread silver hotel";
-  runTest(query, kml::kInvalidMarkGroupId, vector<kml::MarkId>({2, 1}));
+  runTest(query, kml::kInvalidMarkGroupId, vector<kml::MarkId>());
 
   {
     vector<BookmarkGroupInfo> groupInfos;
@@ -180,8 +181,15 @@ UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
     m_api.OnBookmarksAttached(groupInfos);
   }
 
+  runTest(query, kml::kInvalidMarkGroupId, vector<kml::MarkId>({1}));
+  runTest(query, kml::MarkGroupId(11), {});
+  m_api.EnableIndexingOfBookmarkGroup(11, true /* enable */);
   runTest(query, kml::kInvalidMarkGroupId, vector<kml::MarkId>({2, 1}));
   runTest(query, kml::MarkGroupId(11), vector<kml::MarkId>({2}));
+  m_api.EnableIndexingOfBookmarkGroup(11, false /* enable */);
+  runTest(query, kml::kInvalidMarkGroupId, vector<kml::MarkId>({1}));
+  runTest(query, kml::MarkGroupId(11), {});
+  m_api.EnableIndexingOfBookmarkGroup(11, true /* enable */);
 
   {
     vector<BookmarkGroupInfo> groupInfos;
