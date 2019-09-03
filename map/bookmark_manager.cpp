@@ -1343,7 +1343,7 @@ void BookmarkManager::GetSortedCategory(SortParams const & params)
     return;
   }
 
-  GetPlatform().RunTask(Platform::Thread::File,
+  GetPlatform().RunTask(Platform::Thread::Background,
                         [this, params, bookmarksForSort = std::move(bookmarksForSort),
                           tracksForSort = std::move(tracksForSort)]() mutable
   {
