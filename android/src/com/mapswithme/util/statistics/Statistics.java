@@ -211,19 +211,54 @@ public enum Statistics
     trackEvent(EventName.BM_BOOKMARKS_LIST_SETTINGS_CLICK, builder);
   }
 
-  public void trackBookmarksListSort(@NonNull String value)
+  @NonNull
+  private static String getStatisticsSortingType(@BookmarkManager.SortingType int sortingType)
+  {
+    switch (sortingType)
+    {
+      case BookmarkManager.SORT_BY_TYPE:
+        return Statistics.ParamValue.BY_TYPE;
+      case BookmarkManager.SORT_BY_DISTANCE:
+        return Statistics.ParamValue.BY_DISTANCE;
+      case BookmarkManager.SORT_BY_TIME:
+        return Statistics.ParamValue.BY_DATE;
+    }
+    throw new AssertionError("Invalid sorting type");
+  }
+
+  public void trackBookmarksListSort(@BookmarkManager.SortingType int sortingType)
+  {
+    trackBookmarksListSort(getStatisticsSortingType(sortingType));
+  }
+
+  public void trackBookmarksListResetSort()
+  {
+    trackBookmarksListSort(Statistics.ParamValue.BY_DEFAULT);
+  }
+
+  private void trackBookmarksListSort(@NonNull String value)
   {
     ParameterBuilder builder = new ParameterBuilder().add(EventParam.OPTION, value);
     trackEvent(EventName.BM_BOOKMARKS_LIST_SORT, builder);
   }
 
-  public void trackBookmarksSearch(@NonNull String value)
+  public void trackBookmarksListSearch()
+  {
+    trackBookmarksSearch(ParamValue.BOOKMARKS_LIST);
+  }
+
+  private void trackBookmarksSearch(@NonNull String value)
   {
     ParameterBuilder builder = new ParameterBuilder().add(EventParam.FROM, value);
     trackEvent(EventName.BM_BOOKMARKS_SEARCH, builder);
   }
 
-  public void trackBookmarksSearchResultSelected(@NonNull String value)
+  public void trackBookmarksListSearchResultSelected()
+  {
+    trackBookmarksSearchResultSelected(ParamValue.BOOKMARKS_LIST);
+  }
+
+  private void trackBookmarksSearchResultSelected(@NonNull String value)
   {
     ParameterBuilder builder = new ParameterBuilder().add(EventParam.FROM, value);
     trackEvent(EventName.BM_BOOKMARKS_SEARCH_RESULT_SELECTED, builder);

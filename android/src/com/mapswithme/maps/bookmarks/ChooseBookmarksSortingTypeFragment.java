@@ -162,28 +162,13 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
     }
   }
 
-  @NonNull
-  private String getStatisticsSortingType(@BookmarkManager.SortingType int sortingType)
+  private static void trackBookmarksListSort(@BookmarkManager.SortingType int sortingType)
   {
-    switch (sortingType)
-    {
-      case BookmarkManager.SORT_BY_TYPE:
-        return Statistics.ParamValue.BY_TYPE;
-      case BookmarkManager.SORT_BY_DISTANCE:
-        return Statistics.ParamValue.BY_DISTANCE;
-      case BookmarkManager.SORT_BY_TIME:
-        return Statistics.ParamValue.BY_DATE;
-    }
-    throw new AssertionError("Invalid sorting type");
+    Statistics.INSTANCE.trackBookmarksListSort(sortingType);
   }
 
-  private void trackBookmarksListSort(@BookmarkManager.SortingType int sortingType)
+  private static void trackBookmarksListResetSort()
   {
-    Statistics.INSTANCE.trackBookmarksListSort(getStatisticsSortingType(sortingType));
-  }
-
-  private void trackBookmarksListResetSort()
-  {
-    Statistics.INSTANCE.trackBookmarksListSort(Statistics.ParamValue.BY_DEFAULT);
+    Statistics.INSTANCE.trackBookmarksListResetSort();
   }
 }

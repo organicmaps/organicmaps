@@ -79,20 +79,18 @@ string GetStatisticsMode(SearchParams const & params)
 {
   switch (params.m_mode)
   {
-  case Mode::Everywhere:
   case Mode::Viewport:
-    return "Main";
+    return "Viewport";
+  case Mode::Everywhere:
+    return "Everywhere";
   case Mode::Downloader:
     return "Downloader";
   case Mode::Bookmarks:
     if (params.m_bookmarksGroupId != bookmarks::kInvalidGroupId)
       return "BookmarksList";
     return "Bookmarks";
-    break;
   case Mode::Count:
-    CHECK(false, ());
-    return "";
-    break;
+    UNREACHABLE();
   }
   UNREACHABLE();
 }
@@ -122,7 +120,7 @@ void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Res
       {"query", params.m_query},
       {"locale", params.m_inputLocale},
       {"results", resultString},
-      {"from", GetStatisticsMode(params)}
+      {"mode", GetStatisticsMode(params)}
   };
   alohalytics::LogEvent("searchEmitResultsAndCoords", stats);
   GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kSearchEmitResultsAndCoords, {});

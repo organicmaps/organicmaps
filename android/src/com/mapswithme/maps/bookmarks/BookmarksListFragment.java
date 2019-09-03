@@ -715,19 +715,19 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     UgcRouteSharingOptionsActivity.startForResult(requireActivity(), mCategoryDataSource.getData());
   }
 
-  private void trackBookmarkListSharingOptions()
+  private static void trackBookmarkListSharingOptions()
   {
     Statistics.INSTANCE.trackBookmarkListSharingOptions();
   }
 
-  private void trackBookmarksSearch()
+  private static void trackBookmarksSearch()
   {
-    Statistics.INSTANCE.trackBookmarksSearch(Statistics.ParamValue.BOOKMARKS_LIST);
+    Statistics.INSTANCE.trackBookmarksListSearch();
   }
 
-  private void trackBookmarksSearchResultSelected()
+  private static void trackBookmarksSearchResultSelected()
   {
-    Statistics.INSTANCE.trackBookmarksSearchResultSelected(Statistics.ParamValue.BOOKMARKS_LIST);
+    Statistics.INSTANCE.trackBookmarksListSearchResultSelected();
   }
 
   @SuppressWarnings("ConstantConditions")
