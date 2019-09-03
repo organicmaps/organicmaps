@@ -115,9 +115,6 @@
                         <constraint firstAttribute="height" priority="250" id="rHp-eh-4pP"/>
                     </constraints>
                     <textInputTraits key="textInputTraits"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="whitePrimaryText"/>
-                    </userDefinedRuntimeAttributes>
                 </searchBar>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

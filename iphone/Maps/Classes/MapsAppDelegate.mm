@@ -596,6 +596,10 @@ continueUserActivity:(NSUserActivity *)userActivity
 
   UISearchBar * searchBar = [UISearchBar appearance];
   searchBar.barTintColor = [UIColor primary];
+
+  UIBarButtonItem *searchButtonApperance = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]];
+  searchButtonApperance.tintColor = [UIColor whitePrimaryText];
+
   UITextField * textFieldInSearchBar =
       [UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]];
 
