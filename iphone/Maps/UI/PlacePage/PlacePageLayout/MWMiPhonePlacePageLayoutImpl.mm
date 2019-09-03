@@ -144,9 +144,7 @@ typedef NS_ENUM(NSUInteger, MWMScrollDirection) {
 - (CGFloat)openContentOffset {
   CGSize size = self.ownerView.size;
   CGFloat offset = self.isPortrait ? MAX(size.width, size.height) : MIN(size.width, size.height);
-  CGFloat actionBarHeight = self.actionBar.height;
-  offset -= actionBarHeight;
-  return offset * kTopPlacePageStopValue + actionBarHeight;
+  return offset * kTopPlacePageStopValue;
 }
 
 - (CGFloat)topContentOffset {

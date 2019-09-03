@@ -113,7 +113,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 
   if (!self.layout)
   {
-    self.layout = [[MWMPlacePageLayout alloc] initWithOwnerView:self.ownerViewController.controlsView
+    self.layout = [[MWMPlacePageLayout alloc] initWithOwnerView:self.ownerViewController.view
                                                        delegate:self
                                                      dataSource:self];
   }
