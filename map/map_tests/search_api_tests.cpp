@@ -202,5 +202,8 @@ UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
     m_api.OnBookmarksAttached(groupInfos);
   }
   runTest(query, kml::MarkGroupId(11), vector<kml::MarkId>({2, 1}));
+
+  m_api.ResetBookmarksEngine();
+  runTest(query, kml::MarkGroupId(11), {});
 }
 }  // namespace

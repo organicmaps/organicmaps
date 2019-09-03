@@ -132,6 +132,9 @@ UNIT_CLASS_TEST(BookmarksProcessorTest, Smoke)
                               "N Hotel" /* customName */,
                               "Clean establishment with a reasonable price" /* description */));
   TEST_EQUAL(Search("place", GroupId{0}), Ids({18}), ());
+
+  GetProcessor().Reset();
+  TEST_EQUAL(Search("place", GroupId{0}), Ids{}, ());
 }
 
 UNIT_CLASS_TEST(BookmarksProcessorTest, IndexDescriptions)

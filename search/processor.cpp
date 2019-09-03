@@ -334,6 +334,11 @@ void Processor::EnableIndexingOfBookmarkGroup(bookmarks::GroupId const & groupId
   m_bookmarksProcessor.EnableIndexingOfBookmarkGroup(groupId, enable);
 }
 
+void Processor::ResetBookmarks()
+{
+  m_bookmarksProcessor.Reset();
+}
+
 void Processor::OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks)
 {
   for (auto const & idDoc : marks)

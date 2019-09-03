@@ -78,6 +78,16 @@ Processor::Processor(Emitter & emitter, base::Cancellable const & cancellable)
 {
 }
 
+void Processor::Reset()
+{
+  m_index = {};
+  m_docs.clear();
+  m_indexDescriptions = false;
+  m_indexableGroups.clear();
+  m_idToGroup.clear();
+  m_bookmarksInGroup.clear();
+}
+
 void Processor::EnableIndexingOfDescriptions(bool enable) { m_indexDescriptions = enable; }
 
 void Processor::EnableIndexingOfBookmarkGroup(GroupId const & groupId, bool enable)

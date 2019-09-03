@@ -161,6 +161,13 @@ public:
   bool IsIndexingOfBookmarkGroupEnabled(kml::MarkGroupId const & groupId);
   std::unordered_set<kml::MarkGroupId> const & GetIndexableGroups() const;
 
+  // Returns the bookmarks search to its default, pre-launch state.
+  // This includes dropping all bookmark data for created bookmarks (efficiently
+  // calling OnBookmarksDeleted with all known bookmarks as an argument),
+  // clearing the bookmark search index, and resetting all parameters to
+  // their default values.
+  void ResetBookmarksEngine();
+
   void OnBookmarksCreated(std::vector<BookmarkInfo> const & marks);
   void OnBookmarksUpdated(std::vector<BookmarkInfo> const & marks);
   void OnBookmarksDeleted(std::vector<kml::MarkId> const & marks);

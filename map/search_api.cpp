@@ -423,6 +423,12 @@ unordered_set<kml::MarkGroupId> const & SearchAPI::GetIndexableGroups() const
   return m_indexableGroups;
 }
 
+void SearchAPI::ResetBookmarksEngine()
+{
+  m_indexableGroups.clear();
+  m_engine.ResetBookmarks();
+}
+
 void SearchAPI::OnBookmarksCreated(vector<BookmarkInfo> const & marks)
 {
   vector<BookmarkIdDoc> data;

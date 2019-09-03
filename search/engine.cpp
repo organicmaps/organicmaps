@@ -172,6 +172,13 @@ void Engine::EnableIndexingOfBookmarkGroup(bookmarks::GroupId const & groupId, b
   });
 }
 
+void Engine::ResetBookmarks()
+{
+  PostMessage(Message::TYPE_BROADCAST, [](Processor & processor) {
+    processor.ResetBookmarks();
+  });
+}
+
 void Engine::OnBookmarksCreated(vector<pair<bookmarks::Id, bookmarks::Doc>> const & marks)
 {
   PostMessage(Message::TYPE_BROADCAST,

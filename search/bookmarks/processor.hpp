@@ -43,6 +43,8 @@ public:
   Processor(Emitter & emitter, base::Cancellable const & cancellable);
   ~Processor() override = default;
 
+  void Reset();
+
   // By default, only bookmark names are indexed. This method
   // should be used to enable or disable indexing bookmarks
   // by their descriptions.
