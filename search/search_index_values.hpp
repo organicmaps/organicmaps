@@ -61,9 +61,6 @@ public:
 
   SingleValueSerializer() = default;
 
-  // todo(@mpimenov). Remove.
-  SingleValueSerializer(serial::GeometryCodingParams const & /* codingParams */) {}
-
   // The serialization and deserialization is needed for StringsFile.
   // Use ValueList for group serialization in CBVs.
   template <typename Sink>
