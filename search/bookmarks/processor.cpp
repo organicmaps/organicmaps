@@ -261,8 +261,14 @@ void Processor::Search(Params const & params) const
   BailIfCancelled();
   sort(idInfos.begin(), idInfos.end());
 
+  size_t numEmitted = 0;
   for (auto const & idInfo : idInfos)
+  {
+    if (numEmitted >= params.m_maxNumResults)
+      break;
     m_emitter.AddBookmarkResult(bookmarks::Result(idInfo.m_id));
+    ++numEmitted;
+  }
 }
 
 uint64_t Processor::GetNumDocs(strings::UniString const & token, bool isPrefix) const

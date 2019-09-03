@@ -8,6 +8,7 @@
 #include "search/feature_offset_match.hpp"
 #include "search/idf_map.hpp"
 #include "search/query_params.hpp"
+#include "search/search_params.hpp"
 #include "search/utils.hpp"
 
 #include "indexer/search_string_utils.hpp"
@@ -38,6 +39,8 @@ public:
   {
     // If valid, only show results with bookmarks attached to |m_groupId|.
     GroupId m_groupId = kInvalidGroupId;
+
+    size_t m_maxNumResults = SearchParams::kDefaultNumResultsEverywhere;
   };
 
   Processor(Emitter & emitter, base::Cancellable const & cancellable);
