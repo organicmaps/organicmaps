@@ -24,7 +24,7 @@ public:
     : m_dataset(dataset), m_features(features) {}
 
   // FeatureProcessorInterface overrides:
-  virtual std::shared_ptr<FeatureProcessorInterface> Clone() const
+  virtual std::shared_ptr<FeatureProcessorInterface> Clone() const override
   {
     CHECK(false, ());
     return {};
