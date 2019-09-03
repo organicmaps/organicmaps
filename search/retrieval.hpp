@@ -115,9 +115,6 @@ private:
   base::Cancellable const & m_cancellable;
   ModelReaderPtr m_reader;
 
-  version::MwmTraits::SearchIndexFormat m_format;
-
-  std::unique_ptr<TrieRoot<FeatureWithRankAndCenter>> m_root0;
-  std::unique_ptr<TrieRoot<FeatureIndexValue>> m_root1;
+  std::unique_ptr<TrieRoot<FeatureIndexValue>> m_root;
 };
 }  // namespace search

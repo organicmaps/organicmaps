@@ -236,21 +236,6 @@ template <typename Value>
 struct ValueBuilder;
 
 template <>
-struct ValueBuilder<FeatureWithRankAndCenter>
-{
-  ValueBuilder() = default;
-
-  void MakeValue(FeatureType & ft, uint32_t index, FeatureWithRankAndCenter & v) const
-  {
-    v.m_featureId = index;
-
-    // get BEST geometry rect of feature
-    v.m_pt = feature::GetCenter(ft);
-    v.m_rank = feature::PopulationToRank(ft.GetPopulation());
-  }
-};
-
-template <>
 struct ValueBuilder<FeatureIndexValue>
 {
   ValueBuilder() = default;

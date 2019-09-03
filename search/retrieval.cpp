@@ -354,17 +354,10 @@ Retrieval::Retrieval(MwmContext const & context, base::Cancellable const & cance
   auto & value = context.m_value;
 
   version::MwmTraits mwmTraits(value.GetMwmVersion());
-  m_format = mwmTraits.GetSearchIndexFormat();
-
-  switch (m_format)
-  {
-  case version::MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter:
-    m_root0 = ReadTrie<FeatureWithRankAndCenter>(value, m_reader);
-    break;
-  case version::MwmTraits::SearchIndexFormat::CompressedBitVector:
-    m_root1 = ReadTrie<FeatureIndexValue>(value, m_reader);
-    break;
-  }
+  auto const format = mwmTraits.GetSearchIndexFormat();
+  // We do not support mwms older than November 2015.
+  CHECK_EQUAL(format, version::MwmTraits::SearchIndexFormat::CompressedBitVector, ());
+  m_root = ReadTrie<FeatureIndexValue>(value, m_reader);
 }
 
 Retrieval::ExtendedFeatures Retrieval::RetrieveAddressFeatures(
@@ -404,21 +397,8 @@ Retrieval::Features Retrieval::RetrieveGeometryFeatures(m2::RectD const & rect, 
 template <template <typename> class R, typename... Args>
 Retrieval::ExtendedFeatures Retrieval::Retrieve(Args &&... args) const
 {
-  switch (m_format)
-  {
-  case version::MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter:
-  {
-    R<FeatureWithRankAndCenter> r;
-    ASSERT(m_root0, ());
-    return r(*m_root0, m_context, m_cancellable, forward<Args>(args)...);
-  }
-  case version::MwmTraits::SearchIndexFormat::CompressedBitVector:
-  {
-    R<FeatureIndexValue> r;
-    ASSERT(m_root1, ());
-    return r(*m_root1, m_context, m_cancellable, forward<Args>(args)...);
-  }
-  }
-  UNREACHABLE();
+  R<FeatureIndexValue> r;
+  ASSERT(m_root, ());
+  return r(*m_root, m_context, m_cancellable, forward<Args>(args)...);
 }
 }  // namespace search
