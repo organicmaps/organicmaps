@@ -26,7 +26,6 @@ template <typename Graph>
 class IndexGraphStarterJoints : public AStarGraph<JointSegment, JointEdge, RouteWeight>
 {
 public:
-
   explicit IndexGraphStarterJoints(Graph & graph) : m_graph(graph) {}
   IndexGraphStarterJoints(Graph & graph,
                           Segment const & startSegment,
@@ -126,6 +125,8 @@ private:
     Segment m_end;
   };
 
+  void InitEnding(Segment const & ending, bool start);
+
   void AddFakeJoints(Segment const & segment, bool isOutgoing, std::vector<JointEdge> & edges);
 
   void GetEdgeList(JointSegment const & vertex, bool isOutgoing, std::vector<JointEdge> & edges);
@@ -223,41 +224,57 @@ IndexGraphStarterJoints<Graph>::IndexGraphStarterJoints(Graph & graph,
 template <typename Graph>
 IndexGraphStarterJoints<Graph>::IndexGraphStarterJoints(Graph & graph,
                                                         Segment const & startSegment)
-  : m_graph(graph), m_startSegment(startSegment), m_endSegment(Segment())
+  : m_graph(graph), m_startSegment(startSegment)
 {
-  Init(m_startSegment, m_endSegment);
+  InitEnding(startSegment, true /* start */);
+
+  m_endSegment = Segment();
+  m_endJoint = JointSegment();
+  m_endPoint = m2::PointD::Zero();
+
+  m_init = true;
 }
 
 template <typename Graph>
 void IndexGraphStarterJoints<Graph>::Init(Segment const & startSegment, Segment const & endSegment)
 {
-  m_startSegment = startSegment;
-  m_endSegment = endSegment;
-
-  m_startPoint = m_graph.GetPoint(m_startSegment, true /* front */);
-  m_endPoint = m_graph.GetPoint(m_endSegment, true /* front */);
-
-  if (IsRealSegment(startSegment))
-    m_startJoint = CreateInvisibleJoint(startSegment, true /* start */);
-  else
-    m_startJoint = CreateFakeJoint(m_graph.GetStartSegment(), m_graph.GetStartSegment());
-
-  if (IsRealSegment(endSegment))
-    m_endJoint = CreateInvisibleJoint(endSegment, false /* start */);
-  else
-    m_endJoint = CreateFakeJoint(m_graph.GetFinishSegment(), m_graph.GetFinishSegment());
-
-  m_reconstructedFakeJoints[m_startJoint] = ReconstructedPath({m_startSegment}, true /* fromStart */);
-  m_reconstructedFakeJoints[m_endJoint] = ReconstructedPath({m_endSegment}, false /* fromStart */);
-
-  m_startOutEdges = FindFirstJoints(startSegment, true /* fromStart */);
-  m_endOutEdges = FindFirstJoints(endSegment, false /* fromStart */);
-
-  m_savedWeight[m_endJoint] = Weight(0.0);
-  for (auto const & edge : m_endOutEdges)
-    m_savedWeight[edge.GetTarget()] = edge.GetWeight();
+  InitEnding(startSegment, true /* start */);
+  InitEnding(endSegment, false /* start */);
 
   m_init = true;
+}
+
+template <typename Graph>
+void IndexGraphStarterJoints<Graph>::InitEnding(Segment const & ending, bool start)
+{
+  auto & segment = start ? m_startSegment : m_endSegment;
+  segment = ending;
+
+  auto & point = start ? m_startPoint : m_endPoint;
+  point = m_graph.GetPoint(ending, true /* front */);
+
+  auto & endingJoint = start ? m_startJoint : m_endJoint;
+  if (IsRealSegment(ending))
+  {
+    endingJoint = CreateInvisibleJoint(ending, start);
+  }
+  else
+  {
+    auto const & loopSegment = start ? m_graph.GetStartSegment() : m_graph.GetFinishSegment();
+    endingJoint = CreateFakeJoint(loopSegment, loopSegment);
+  }
+
+  m_reconstructedFakeJoints[endingJoint] = ReconstructedPath({ending}, start);
+
+  auto & outEdges = start ? m_startOutEdges : m_endOutEdges;
+  outEdges = FindFirstJoints(ending, start);
+
+  if (!start)
+  {
+    m_savedWeight[m_endJoint] = Weight(0.0);
+    for (auto const & edge : m_endOutEdges)
+      m_savedWeight[edge.GetTarget()] = edge.GetWeight();
+  }
 }
 
 template <typename Graph>
