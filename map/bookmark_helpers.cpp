@@ -199,7 +199,6 @@ std::map<std::string, kml::BookmarkIcon> const kFeatureTypeToBookmarkIcon = {
   {"shop-ticket", kml::BookmarkIcon::Shop},
   {"shop-toys", kml::BookmarkIcon::Shop},
   {"shop-fabric", kml::BookmarkIcon::Shop},
-  {"shop-alcohol", kml::BookmarkIcon::Shop},
 
   {"amenity-place_of_worship-christian", kml::BookmarkIcon::Christianity},
   {"landuse-cemetery-christian", kml::BookmarkIcon::Christianity},
@@ -234,7 +233,6 @@ std::map<std::string, kml::BookmarkIcon> const kFeatureTypeToBookmarkIcon = {
   {"amenity-doctors", kml::BookmarkIcon::Medicine},
   {"amenity-hospital", kml::BookmarkIcon::Medicine},
   {"amenity-pharmacy", kml::BookmarkIcon::Medicine},
-  {"amenity-clinic", kml::BookmarkIcon::Medicine},
   {"amenity-childcare", kml::BookmarkIcon::Medicine},
   {"emergency-defibrillator", kml::BookmarkIcon::Medicine}
 };
@@ -410,7 +408,6 @@ std::map<std::string, BookmarkBaseType> const kFeatureTypeToBookmarkType = {
   {"shop-ticket", BookmarkBaseType::Shop},
   {"shop-toys", BookmarkBaseType::Shop},
   {"shop-fabric", BookmarkBaseType::Shop},
-  {"shop-alcohol", BookmarkBaseType::Shop},
 
   {"amenity-parking", BookmarkBaseType::Parking},
   {"vending-parking_tickets", BookmarkBaseType::Parking},
@@ -443,7 +440,6 @@ std::map<std::string, BookmarkBaseType> const kFeatureTypeToBookmarkType = {
   {"amenity-doctors", BookmarkBaseType::Medicine},
   {"amenity-hospital", BookmarkBaseType::Medicine},
   {"amenity-pharmacy", BookmarkBaseType::Medicine},
-  {"amenity-clinic", BookmarkBaseType::Medicine},
   {"amenity-childcare", BookmarkBaseType::Medicine},
   {"emergency-defibrillator", BookmarkBaseType::Medicine}
 };
