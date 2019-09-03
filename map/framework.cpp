@@ -2520,6 +2520,21 @@ void Framework::OnTapEvent(TapEvent const & tapEvent)
       alohalytics::Stats::Instance().LogEvent("$SelectMapObject", kv,
                                               alohalytics::Location::FromLatLon(ll.m_lat, ll.m_lon));
 
+      // Send realtime statistics about bookmark selection.
+      if (info.IsBookmark())
+      {
+        auto const serverId = m_bmManager->GetCategoryServerId(info.GetBookmarkCategoryId());
+        if (!serverId.empty())
+        {
+          auto const accessRules = m_bmManager->GetCategoryData(info.GetBookmarkCategoryId()).m_accessRules;
+          if (BookmarkManager::IsGuide(accessRules))
+          {
+            alohalytics::TStringMap params = {{"server_id", serverId}};
+            alohalytics::Stats::Instance().LogEvent("Map_GuideBookmark_open", params, alohalytics::kAllChannels);
+          }
+        }
+      }
+
       if (info.GetSponsoredType() == SponsoredType::Booking)
       {
         GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kBookHotelOnBookingComDiscovered);

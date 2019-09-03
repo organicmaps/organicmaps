@@ -995,6 +995,25 @@ std::string BookmarkManager::GetLocalizedRegionAddress(m2::PointD const & pt)
   return m_regionAddressGetter->GetLocalizedRegionAddress(pt);
 }
 
+std::vector<std::string> BookmarkManager::GetCategoriesFromCatalog(AccessRulesFilter && filter) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  std::vector<std::string> result;
+  for (auto const & c : m_categories)
+  {
+    if (!filter || filter(c.second->GetCategoryData().m_accessRules))
+      result.emplace_back(c.second->GetServerId());
+  }
+  return result;
+}
+
+// static
+bool BookmarkManager::IsGuide(kml::AccessRules accessRules)
+{
+  return accessRules == kml::AccessRules::Public || accessRules == kml::AccessRules::Paid ||
+         accessRules == kml::AccessRules::P2P;
+}
+
 void BookmarkManager::PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort,
                                                 AddressesCollection & newAddresses)
 {
@@ -2720,15 +2739,9 @@ void BookmarkManager::SetAllCategoriesVisibility(CategoryFilterType const filter
 
 std::vector<std::string> BookmarkManager::GetAllPaidCategoriesIds() const
 {
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  std::vector<std::string> ids;
-  for (auto const & category : m_categories)
-  {
-    if (category.second->GetCategoryData().m_accessRules != kml::AccessRules::Paid)
-      continue;
-    ids.emplace_back(category.second->GetServerId());
-  }
-  return ids;
+  return GetCategoriesFromCatalog([](kml::AccessRules accessRules) {
+    return accessRules == kml::AccessRules::Paid;
+  });
 }
 
 bool BookmarkManager::CanConvert() const

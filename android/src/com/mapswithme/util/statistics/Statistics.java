@@ -69,6 +69,10 @@ import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_PROPOS
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_PROPOSAL_TOGGLE;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_SUCCESS;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_ERROR;
+import static com.mapswithme.util.statistics.Statistics.EventName.GUIDES_BOOKMARK_SELECT;
+import static com.mapswithme.util.statistics.Statistics.EventName.GUIDES_SHOWN;
+import static com.mapswithme.util.statistics.Statistics.EventName.GUIDES_OPEN;
+import static com.mapswithme.util.statistics.Statistics.EventName.GUIDES_TRACK_SELECT;
 import static com.mapswithme.util.statistics.Statistics.EventName.INAPP_PURCHASE_PREVIEW_SELECT;
 import static com.mapswithme.util.statistics.Statistics.EventName.INAPP_PURCHASE_PREVIEW_SHOW;
 import static com.mapswithme.util.statistics.Statistics.EventName.INAPP_PURCHASE_PRODUCT_DELIVERED;
@@ -128,6 +132,8 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.PURCHASE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LAT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LON;
+import static com.mapswithme.util.statistics.Statistics.EventParam.SERVER_ID;
+import static com.mapswithme.util.statistics.Statistics.EventParam.SERVER_IDS;
 import static com.mapswithme.util.statistics.Statistics.EventParam.STATE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.TYPE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.VALUE;
@@ -315,6 +321,14 @@ public enum Statistics
 
   public static final int PP_BANNER_STATE_PREVIEW = 0;
   public static final int PP_BANNER_STATE_DETAILS = 1;
+
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ STATISTICS_CHANNEL_DEFAULT, STATISTICS_CHANNEL_REALTIME })
+  public @interface StatisticsChannel {}
+
+  public static final int STATISTICS_CHANNEL_DEFAULT = org.alohalytics.Statistics.ONLY_CHANNEL;
+  private static final int REALTIME_CHANNEL_INDEX = 1;
+  public static final int STATISTICS_CHANNEL_REALTIME =  STATISTICS_CHANNEL_DEFAULT | (1 << REALTIME_CHANNEL_INDEX);
 
   // Statistics counters
   private int mBookmarksCreated;
@@ -534,7 +548,12 @@ public enum Statistics
     public static final String INAPP_SUGGESTION_SHOWN = "MapsMe_InAppSuggestion_shown";
     public static final String INAPP_SUGGESTION_CLICKED = "MapsMe_InAppSuggestion_clicked";
     public static final String INAPP_SUGGESTION_CLOSED = "MapsMe_InAppSuggestion_closed";
-    
+
+    public static final String GUIDES_SHOWN = "Bookmarks_Downloaded_Guides_list";
+    public static final String GUIDES_OPEN = "Bookmarks_Downloaded_Guide_open";
+    public static final String GUIDES_BOOKMARK_SELECT = "Bookmarks_BookmarksList_Bookmark_select";
+    public static final String GUIDES_TRACK_SELECT = "Bookmarks_BookmarksList_Track_select";
+
     public static class Settings
     {
       public static final String WEB_SITE = "Setings. Go to website";
@@ -638,6 +657,8 @@ public enum Statistics
     static final String VENDOR = "vendor";
     static final String PRODUCT = "product";
     static final String PURCHASE = "purchase";
+    static final String SERVER_ID = "server_id";
+    static final String SERVER_IDS = "server_ids";
 
     private EventParam() {}
   }
@@ -755,25 +776,44 @@ public enum Statistics
     // Statistics is still enabled/disabled separately and never sent anywhere if turned off.
     // TODO (AlexZ): Remove this initialization dependency from JNI part.
     org.alohalytics.Statistics.setDebugMode(BuildConfig.DEBUG);
-    org.alohalytics.Statistics.setup(PrivateVariables.alohalyticsUrl(), context);
+    org.alohalytics.Statistics.setup(new String[] { PrivateVariables.alohalyticsUrl(),
+        PrivateVariables.alohalyticsRealtimeUrl()}, context);
   }
 
   public void trackEvent(@NonNull String name)
   {
+    trackEvent(name, STATISTICS_CHANNEL_DEFAULT);
+  }
+
+  public void trackEvent(@NonNull String name, @StatisticsChannel int channel)
+  {
     if (mEnabled)
-      org.alohalytics.Statistics.logEvent(name);
+      org.alohalytics.Statistics.logEvent(name, channel);
     mMediator.getEventLogger().logEvent(name, Collections.emptyMap());
   }
 
   public void trackEvent(@NonNull String name, @NonNull Map<String, String> params)
   {
+    trackEvent(name, params, STATISTICS_CHANNEL_DEFAULT);
+  }
+
+  public void trackEvent(@NonNull String name, @NonNull Map<String, String> params,
+                         @StatisticsChannel int channel)
+  {
     if (mEnabled)
-      org.alohalytics.Statistics.logEvent(name, params);
+      org.alohalytics.Statistics.logEvent(name, params, channel);
 
     mMediator.getEventLogger().logEvent(name, params);
   }
 
-  public void trackEvent(@NonNull String name, @Nullable Location location, @NonNull Map<String, String> params)
+  public void trackEvent(@NonNull String name, @Nullable Location location,
+                         @NonNull Map<String, String> params)
+  {
+    trackEvent(name, location, params, STATISTICS_CHANNEL_DEFAULT);
+  }
+
+  public void trackEvent(@NonNull String name, @Nullable Location location,
+                         @NonNull Map<String, String> params, @StatisticsChannel int channel)
   {
     List<String> eventDictionary = new ArrayList<String>();
     for (Map.Entry<String, String> entry : params.entrySet())
@@ -785,14 +825,20 @@ public enum Statistics
     params.put("lon", (location == null ? "N/A" : String.valueOf(location.getLongitude())));
 
     if (mEnabled)
-      org.alohalytics.Statistics.logEvent(name, eventDictionary.toArray(new String[0]), location);
+      org.alohalytics.Statistics.logEvent(name, eventDictionary.toArray(new String[0]), location, channel);
 
     mMediator.getEventLogger().logEvent(name, params);
   }
 
   public void trackEvent(@NonNull String name, @NonNull ParameterBuilder builder)
   {
-    trackEvent(name, builder.get());
+    trackEvent(name, builder.get(), STATISTICS_CHANNEL_DEFAULT);
+  }
+
+  public void trackEvent(@NonNull String name, @NonNull ParameterBuilder builder,
+                         @StatisticsChannel int channel)
+  {
+    trackEvent(name, builder.get(), channel);
   }
 
   public void startActivity(Activity activity)
@@ -995,22 +1041,22 @@ public enum Statistics
                                    @NonNull MapObject mapObject)
   {
     String provider = restaurant.getType() == Sponsored.TYPE_OPENTABLE ? OPENTABLE : "Unknown restaurant";
-    Statistics.INSTANCE.trackEvent(eventName, LocationHelper.INSTANCE.getLastKnownLocation(),
-                                   Statistics.params().add(PROVIDER, provider)
-                                             .add(RESTAURANT, restaurant.getId())
-                                             .add(RESTAURANT_LAT, mapObject.getLat())
-                                             .add(RESTAURANT_LON, mapObject.getLon()).get());
+    trackEvent(eventName, LocationHelper.INSTANCE.getLastKnownLocation(),
+        Statistics.params().add(PROVIDER, provider)
+                           .add(RESTAURANT, restaurant.getId())
+                           .add(RESTAURANT_LAT, mapObject.getLat())
+                           .add(RESTAURANT_LON, mapObject.getLon()).get());
   }
 
   public void trackHotelEvent(@NonNull String eventName, @NonNull Sponsored hotel,
                               @NonNull MapObject mapObject)
   {
     String provider = hotel.getType() == Sponsored.TYPE_BOOKING ? BOOKING_COM : "Unknown hotel";
-    Statistics.INSTANCE.trackEvent(eventName, LocationHelper.INSTANCE.getLastKnownLocation(),
-                                   Statistics.params().add(PROVIDER, provider)
-                                             .add(HOTEL, hotel.getId())
-                                             .add(HOTEL_LAT, mapObject.getLat())
-                                             .add(HOTEL_LON, mapObject.getLon()).get());
+    trackEvent(eventName, LocationHelper.INSTANCE.getLastKnownLocation(),
+        Statistics.params().add(PROVIDER, provider)
+                           .add(HOTEL, hotel.getId())
+                           .add(HOTEL_LAT, mapObject.getLat())
+                           .add(HOTEL_LON, mapObject.getLon()).get());
   }
 
   public void trackBookHotelEvent(@NonNull Sponsored hotel, @NonNull MapObject mapObject)
@@ -1342,7 +1388,7 @@ public enum Statistics
                                         @NonNull MapObject mapObject)
   {
     // Here we code category by means of rating.
-    Statistics.INSTANCE.trackEvent(eventName, LocationHelper.INSTANCE.getLastKnownLocation(),
+    trackEvent(eventName, LocationHelper.INSTANCE.getLastKnownLocation(),
         Statistics.params().add(PROVIDER, convertToSponsor(sponsoredObj))
             .add(CATEGORY, sponsoredObj.getRating())
             .add(OBJECT_LAT, mapObject.getLat())
@@ -1567,12 +1613,19 @@ public enum Statistics
   {
     trackEvent(INAPP_PURCHASE_PREVIEW_SHOW, params().add(VENDOR, vendor)
                                                     .add(PRODUCT, productId)
-                                                    .add(PURCHASE, purchaseId));
+                                                    .add(PURCHASE, purchaseId),
+               STATISTICS_CHANNEL_REALTIME);
   }
 
   public void trackPurchaseEvent(@NonNull String event, @NonNull String purchaseId)
   {
-    trackEvent(event, params().add(PURCHASE, purchaseId));
+    trackPurchaseEvent(event, purchaseId, STATISTICS_CHANNEL_DEFAULT);
+  }
+
+  public void trackPurchaseEvent(@NonNull String event, @NonNull String purchaseId,
+                                 @StatisticsChannel int channel)
+  {
+    trackEvent(event, params().add(PURCHASE, purchaseId), channel);
   }
 
   public void trackPurchasePreviewSelect(@NonNull String purchaseId, @NonNull String productId)
@@ -1632,18 +1685,39 @@ public enum Statistics
   public void trackPurchaseProductDelivered(@NonNull String purchaseId, @NonNull String vendor)
   {
     trackEvent(INAPP_PURCHASE_PRODUCT_DELIVERED, params().add(VENDOR, vendor)
-                                                         .add(PURCHASE, purchaseId));
+                                                         .add(PURCHASE, purchaseId),
+               STATISTICS_CHANNEL_REALTIME);
   }
 
   public void trackTipsEvent(@NonNull String eventName, int type)
   {
-    Statistics.INSTANCE.trackEvent(eventName, params().add(TYPE, type));
+    trackEvent(eventName, params().add(TYPE, type));
   }
 
   public void trackTipsClose(int type)
   {
-    Statistics.INSTANCE.trackEvent(TIPS_TRICKS_CLOSE, params().add(TYPE, type)
-                                                              .add(OPTION, OFFSCREEEN));
+    trackEvent(TIPS_TRICKS_CLOSE, params().add(TYPE, type).add(OPTION, OFFSCREEEN));
+  }
+
+  public void trackGuidesShown(@NonNull String serverIds)
+  {
+    if (!serverIds.isEmpty())
+      trackEvent(GUIDES_SHOWN, params().add(SERVER_IDS, serverIds), STATISTICS_CHANNEL_REALTIME);
+  }
+
+  public void trackGuideOpen(@NonNull String serverId)
+  {
+    trackEvent(GUIDES_OPEN, params().add(SERVER_ID, serverId), STATISTICS_CHANNEL_REALTIME);
+  }
+
+  public void trackGuideBookmarkSelect(@NonNull String serverId)
+  {
+    trackEvent(GUIDES_BOOKMARK_SELECT, params().add(SERVER_ID, serverId), STATISTICS_CHANNEL_REALTIME);
+  }
+
+  public void trackGuideTrackSelect(@NonNull String serverId)
+  {
+    trackEvent(GUIDES_TRACK_SELECT, params().add(SERVER_ID, serverId), STATISTICS_CHANNEL_REALTIME);
   }
 
   public static ParameterBuilder params()

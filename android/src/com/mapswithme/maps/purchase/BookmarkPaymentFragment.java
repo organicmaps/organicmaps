@@ -134,7 +134,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     Statistics.INSTANCE.trackPurchasePreviewSelect(mPaymentData.getServerId(),
                                                    mPaymentData.getProductId());
     Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_PAY,
-                                           mPaymentData.getServerId());
+                                           mPaymentData.getServerId(), Statistics.STATISTICS_CHANNEL_REALTIME);
     startPurchaseTransaction();
   }
 

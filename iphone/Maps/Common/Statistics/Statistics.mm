@@ -55,7 +55,8 @@ void checkFlurryLogStatus(FlurryEventRecordStatus status)
       [MRMyTracker setupTracker];
     }
 
-    [Alohalytics setup:@(ALOHALYTICS_URL) withLaunchOptions:launchOptions];
+    [Alohalytics setup:@[@(ALOHALYTICS_URL), [NSString stringWithFormat:@"%@/%@", @(ALOHALYTICS_URL), @"realtime"]]
+     withLaunchOptions:launchOptions];
   }
   // Always call Facebook method, looks like it is required to handle some url schemes and sign on scenarios.
   return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];

@@ -439,6 +439,10 @@ public:
   static std::string GetSortedByTimeBlockName(SortedByTimeBlockType blockType);
   std::string GetLocalizedRegionAddress(m2::PointD const & pt);
 
+  using AccessRulesFilter = std::function<bool(kml::AccessRules)>;
+  std::vector<std::string> GetCategoriesFromCatalog(AccessRulesFilter && filter) const;
+  static bool IsGuide(kml::AccessRules accessRules);
+
 private:
   class MarksChangesTracker : public df::UserMarksProvider
   {

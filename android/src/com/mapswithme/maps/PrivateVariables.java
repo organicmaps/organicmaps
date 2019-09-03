@@ -10,6 +10,8 @@ public class PrivateVariables
   @NonNull
   public static native String alohalyticsUrl();
   @NonNull
+  public static native String alohalyticsRealtimeUrl();
+  @NonNull
   public static native String flurryKey();
   @NonNull
   public static native String appsFlyerKey();

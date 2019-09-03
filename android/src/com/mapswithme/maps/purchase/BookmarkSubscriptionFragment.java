@@ -111,7 +111,8 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
     activateState(BookmarkSubscriptionPaymentState.PINGING);
 
     Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_PAY,
-                                           PrivateVariables.bookmarksSubscriptionServerId());
+                                           PrivateVariables.bookmarksSubscriptionServerId(),
+                                           Statistics.STATISTICS_CHANNEL_REALTIME);
   }
 
   @Override

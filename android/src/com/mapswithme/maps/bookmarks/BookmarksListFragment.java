@@ -512,12 +512,16 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
         final Bookmark bookmark = (Bookmark) adapter.getItem(position);
         i.putExtra(MwmActivity.EXTRA_TASK,
             new Factory.ShowBookmarkTask(bookmark.getCategoryId(), bookmark.getBookmarkId()));
+        if (BookmarkManager.INSTANCE.isGuide(mCategoryDataSource.getData()))
+          Statistics.INSTANCE.trackGuideBookmarkSelect(mCategoryDataSource.getData().getServerId());
         break;
 
       case BookmarkListAdapter.TYPE_TRACK:
         final Track track = (Track) adapter.getItem(position);
         i.putExtra(MwmActivity.EXTRA_TASK,
             new Factory.ShowTrackTask(track.getCategoryId(), track.getTrackId()));
+        if (BookmarkManager.INSTANCE.isGuide(mCategoryDataSource.getData()))
+          Statistics.INSTANCE.trackGuideTrackSelect(mCategoryDataSource.getData().getServerId());
         break;
     }
 

@@ -711,6 +711,17 @@ public enum BookmarkManager
     return nativeGetCatalogFrontendUrl(utm);
   }
 
+  @NonNull
+  public String getGuidesIds()
+  {
+    return nativeGuidesIds();
+  }
+
+  public boolean isGuide(@NonNull BookmarkCategory category)
+  {
+    return category.isFromCatalog() && nativeIsGuide(category.getAccessRules().ordinal());
+  }
+
   public void requestRouteTags()
   {
     nativeRequestCatalogTags();
@@ -937,6 +948,10 @@ public enum BookmarkManager
   private native boolean nativeGetSortedCategory(long catId, @SortingType int sortingType,
                                                  boolean hasMyPosition, double lat, double lon,
                                                  long timestamp);
+
+  @NonNull
+  private static native String nativeGuidesIds();
+  private static native boolean nativeIsGuide(int accessRulesIndex);
 
   public interface BookmarksLoadingListener
   {

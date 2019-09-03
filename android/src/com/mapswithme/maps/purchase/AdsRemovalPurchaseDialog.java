@@ -207,7 +207,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     Statistics.INSTANCE.trackPurchasePreviewSelect(PrivateVariables.adsRemovalServerId(),
                                                    details.getProductId());
     Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_PAY,
-                                           purchaseId);
+                                           purchaseId, Statistics.STATISTICS_CHANNEL_REALTIME);
   }
 
   void onExplanationClick()

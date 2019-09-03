@@ -809,7 +809,8 @@ public class PlacePageView extends NestedScrollView
 
   private void showDescriptionScreen()
   {
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.PLACEPAGE_DESCRIPTION_MORE);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.PLACEPAGE_DESCRIPTION_MORE,
+        Statistics.STATISTICS_CHANNEL_REALTIME);
     Context context = mPlaceDescriptionContainer.getContext();
     String description = Objects.requireNonNull(mMapObject).getDescription();
     Intent intent = new Intent(context, PlaceDescriptionActivity.class)

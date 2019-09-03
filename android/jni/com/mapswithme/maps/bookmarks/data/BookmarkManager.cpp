@@ -11,6 +11,8 @@
 
 #include "platform/preferred_languages.hpp"
 
+#include "base/string_utils.hpp"
+
 #include <utility>
 
 using namespace std::placeholders;
@@ -1076,6 +1078,22 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeResetInvalidCatego
                                                                                      jobject)
 {
   frm()->GetBookmarkManager().ResetInvalidCategories();
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGuidesIds(JNIEnv * env, jobject)
+{
+  auto & bm = frm()->GetBookmarkManager();
+  auto const guides = bm.GetCategoriesFromCatalog(
+    std::bind(&BookmarkManager::IsGuide, std::placeholders::_1));
+  return ToJavaString(env, strings::JoinStrings(guides.begin(), guides.end(), ','));
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsGuide(JNIEnv * env, jobject,
+  jint accessRulesIndex)
+{
+  return static_cast<jboolean>(BookmarkManager::IsGuide(static_cast<kml::AccessRules>(accessRulesIndex)));
 }
 
 JNIEXPORT jobjectArray JNICALL
