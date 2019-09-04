@@ -102,36 +102,6 @@ namespace feature
     return table;
   }
 
-  // static
-  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::CreateIfNotExistsAndLoad(
-      LocalCountryFile const & localFile, FilesContainerR const & cont)
-  {
-    string const offsetsFilePath = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
-
-    if (Platform::IsFileExistsByFullPath(offsetsFilePath))
-      return LoadImpl(offsetsFilePath);
-
-    return CreateImpl(localFile, cont, offsetsFilePath);
-  }
-
-  // static
-  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::CreateIfNotExistsAndLoad(
-      LocalCountryFile const & localFile)
-  {
-    string const offsetsFilePath = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
-
-    if (Platform::IsFileExistsByFullPath(offsetsFilePath))
-      return LoadImpl(offsetsFilePath);
-
-    return CreateImpl(localFile, FilesContainerR(localFile.GetPath(MapOptions::Map)), offsetsFilePath);
-  }
-
-  // static
-  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::CreateIfNotExistsAndLoad(FilesContainerR const & cont)
-  {
-    return CreateIfNotExistsAndLoad(LocalCountryFile::MakeTemporary(cont.GetFileName()), cont);
-  }
-
   void FeaturesOffsetsTable::Save(string const & filePath)
   {
     LOG(LINFO, ("Saving features offsets table to ", filePath));

@@ -423,18 +423,14 @@ MwmValue::MwmValue(LocalCountryFile const & localFile)
 void MwmValue::SetTable(MwmInfoEx & info)
 {
   auto const version = GetHeader().GetFormat();
-  if (version < version::Format::v5)
-    return;
+  CHECK_GREATER(version, version::Format::v5, ("Old maps should not be registered."));
 
   m_table = info.m_table.lock();
-  if (!m_table)
-  {
-    if (version == version::Format::v5)
-      m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(m_file, m_cont);
-    else
-      m_table = feature::FeaturesOffsetsTable::Load(m_cont);
-    info.m_table = m_table;
-  }
+  if (m_table)
+    return;
+
+  m_table = feature::FeaturesOffsetsTable::Load(m_cont);
+  info.m_table = m_table;
 }
 
 string DebugPrint(MwmSet::RegResult result)

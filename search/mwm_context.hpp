@@ -97,7 +97,9 @@ private:
   template <class Fn>
   void ForEachIndexImpl(covering::Intervals const & intervals, uint32_t scale, Fn && fn) const
   {
-    CheckUniqueIndexes checkUnique(m_value.GetHeader().GetFormat() >= version::Format::v5);
+    CHECK_GREATER_OR_EQUAL(m_value.GetHeader().GetFormat(), version::Format::v5,
+                           ("Old maps should not be registered."));
+    CheckUniqueIndexes checkUnique;
     for (auto const & i : intervals)
       m_index.ForEachInIntervalAndScale(i.first, i.second, scale,
           [&](uint64_t /* key */, uint32_t value)

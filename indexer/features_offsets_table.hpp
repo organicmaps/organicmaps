@@ -70,16 +70,6 @@ namespace feature
     static std::unique_ptr<FeaturesOffsetsTable> Build(FilesContainerR const & cont,
                                                        std::string const & storePath);
 
-    /// Get table for the MWM map, represented by localFile and cont.
-    static std::unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(
-             platform::LocalCountryFile const & localFile, FilesContainerR const & cont);
-
-    /// @todo The easiest solution for now. Need to be removed in future.
-    //@{
-    static std::unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(platform::LocalCountryFile const & localFile);
-    static std::unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(FilesContainerR const & cont);
-    //@}
-
     FeaturesOffsetsTable(FeaturesOffsetsTable const &) = delete;
     FeaturesOffsetsTable const & operator=(FeaturesOffsetsTable const &) = delete;
 

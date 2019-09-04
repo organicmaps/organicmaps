@@ -27,10 +27,8 @@ FeaturesVectorTest::FeaturesVectorTest(FilesContainerR const & cont)
   : m_cont(cont), m_header(m_cont), m_vector(m_cont, m_header, 0)
 {
   auto const version = m_header.GetFormat();
-  if (version == version::Format::v5)
-    m_vector.m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(m_cont).release();
-  else if (version >= version::Format::v6)
-    m_vector.m_table = feature::FeaturesOffsetsTable::Load(m_cont).release();
+  CHECK_GREATER(version, version::Format::v5, ("Old maps should not be registered."));
+  m_vector.m_table = feature::FeaturesOffsetsTable::Load(m_cont).release();
 }
 
 FeaturesVectorTest::~FeaturesVectorTest()
