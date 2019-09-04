@@ -247,41 +247,6 @@ public:
   }
 };
 
-// Calculate distance from the starting border point to the transition along the border.
-// It could be measured clockwise or counterclockwise, direction doesn't matter.
-template <typename CrossMwmId>
-double CalcDistanceAlongTheBorders(vector<m2::RegionD> const & borders,
-                                   CrossMwmConnectorSerializer::Transition<CrossMwmId> const & transition)
-{
-  auto distance = GetAStarWeightZero<double>();
-
-  for (m2::RegionD const & region : borders)
-  {
-    vector<m2::PointD> const & points = region.Data();
-    CHECK(!points.empty(), ());
-    m2::PointD const * prev = &points.back();
-
-    for (m2::PointD const & curr : points)
-    {
-      m2::PointD intersection;
-      if (m2::RegionD::IsIntersect(transition.GetBackPoint(), transition.GetFrontPoint(), *prev,
-                                   curr, intersection))
-      {
-        distance += prev->Length(intersection);
-        return distance;
-      }
-
-      distance += prev->Length(curr);
-      prev = &curr;
-    }
-  }
-
-  CHECK(false, ("Intersection not found, feature:", transition.GetFeatureId(), "segment:",
-                transition.GetSegmentIdx(), "back:", transition.GetBackPoint(), "front:",
-                transition.GetFrontPoint()));
-  return distance;
-}
-
 /// \brief Fills |transitions| for osm id case. That means |Transition::m_roadMask| for items in
 /// |transitions| will be combination of |VehicleType::Pedestrian|, |VehicleType::Bicycle|
 /// and |VehicleType::Car|.
@@ -321,8 +286,7 @@ void CalcCrossMwmTransitions(
       auto const segmentIdx = base::asserted_cast<uint32_t>(i - 1);
       VehicleMask const oneWayMask = maskMaker.CalcOneWayMask(f);
 
-      transitions.emplace_back(osmId, featureId, segmentIdx, roadMask, oneWayMask, currPointIn,
-                               f.GetPoint(i - 1), f.GetPoint(i));
+      transitions.emplace_back(osmId, featureId, segmentIdx, roadMask, oneWayMask, currPointIn);
 
       prevPointIn = currPointIn;
     }
@@ -377,8 +341,7 @@ void CalcCrossMwmTransitions(string const & mwmFile, string const & mappingFile,
       // Note. One way mask is set to kTransitMask because all transit edges are one way edges.
       transitions.emplace_back(connector::TransitId(e.GetStop1Id(), e.GetStop2Id(), e.GetLineId()),
                                i /* feature id */, 0 /* segment index */, kTransitMask,
-                               kTransitMask /* one way mask */, stop2In /* forward is enter */,
-                               stop1Point, stop2Point);
+                               kTransitMask /* one way mask */, stop2In /* forward is enter */);
     }
   }
   catch (Reader::OpenException const & e)
@@ -420,14 +383,6 @@ void CalcCrossMwmConnectors(
       ", elapsed:", timer.ElapsedSeconds(), "seconds"));
 
   timer.Reset();
-  sort(transitions.begin(), transitions.end(),
-       [&](CrossMwmConnectorSerializer::Transition<CrossMwmId> const & lhs,
-           CrossMwmConnectorSerializer::Transition<CrossMwmId> const & rhs) {
-         return CalcDistanceAlongTheBorders(borders, lhs) <
-                CalcDistanceAlongTheBorders(borders, rhs);
-       });
-
-  LOG(LINFO, ("Transition sorted in", timer.ElapsedSeconds(), "seconds"));
 
   for (auto const & transition : transitions)
   {
@@ -571,12 +526,6 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
   LOG(LINFO, ("Leaps finished, elapsed:", timer.ElapsedSeconds(), "seconds, routes found:",
               foundCount, ", not found:", notFoundCount));
 }
-
-serial::GeometryCodingParams LoadGeometryCodingParams(string const & mwmFile)
-{
-  DataHeader const dataHeader(mwmFile);
-  return dataHeader.GetDefGeometryCodingParams();
-}
 }  // namespace
 
 namespace routing
@@ -620,11 +569,10 @@ void SerializeCrossMwm(string const & mwmFile, string const & sectionName,
                        CrossMwmConnectorPerVehicleType<CrossMwmId> const & connectors,
                        vector<CrossMwmConnectorSerializer::Transition<CrossMwmId>> const & transitions)
 {
-  serial::GeometryCodingParams const codingParams = LoadGeometryCodingParams(mwmFile);
   FilesContainerW cont(mwmFile, FileWriter::OP_WRITE_EXISTING);
   auto writer = cont.GetWriter(sectionName);
   auto const startPos = writer->Pos();
-  CrossMwmConnectorSerializer::Serialize(transitions, connectors, codingParams, *writer);
+  CrossMwmConnectorSerializer::Serialize(transitions, connectors, *writer);
   auto const sectionSize = writer->Pos() - startPos;
 
   LOG(LINFO, ("Cross mwm section generated, size:", sectionSize, "bytes"));
