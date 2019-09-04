@@ -1,5 +1,7 @@
 #include "indexer/data_source.hpp"
 
+#include "platform/mwm_version.hpp"
+
 #include "base/logging.hpp"
 
 #include <algorithm>
@@ -152,6 +154,9 @@ unique_ptr<FeatureType> FeaturesLoaderGuard::GetOriginalFeatureByIndex(uint32_t 
 unique_ptr<MwmInfo> DataSource::CreateInfo(platform::LocalCountryFile const & localFile) const
 {
   MwmValue value(localFile);
+
+  if (!version::IsSingleMwm(value.GetMwmVersion().GetVersion()))
+    return nullptr;
 
   feature::DataHeader const & h = value.GetHeader();
   if (!h.IsMWMSuitable())

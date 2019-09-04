@@ -16,6 +16,8 @@
 #include <memory>
 #include <vector>
 
+#include "defines.hpp"
+
 using namespace std;
 
 UNIT_TEST(CheckMWM_LoadAll)
@@ -34,6 +36,12 @@ UNIT_TEST(CheckMWM_LoadAll)
     try
     {
       auto p = m.RegisterMap(localFile);
+
+      // Normally we do not load maps older than March 2016, but we keep WorldCoasts_obsolete.mwm
+      // for migration tests.
+      if (localFile.GetCountryName() == WORLD_COASTS_OBSOLETE_FILE_NAME)
+        continue;
+
       TEST(p.first.IsAlive(), ());
       TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
     }
