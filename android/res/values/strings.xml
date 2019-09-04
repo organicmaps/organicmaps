@@ -1679,6 +1679,10 @@
 	<string name="speedcams_alert_title_carplay_2">Speed warnings</string>
 	<string name="download_map_carplay">Please download maps in MAPS.ME app on your device</string>
 	<string name="carplay_roundabout_exit">%s exit</string>
+	<string name="popup_subscription_success_map_title">Woohoo, you\'re subscribed!</string>
+	<string name="popup_subscription_success_map_message">Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog</string>
+	<string name="popup_subscription_success_map_start_button">Start browsing</string>
+	<string name="popup_subscription_success_map_not_now_button">Not now</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sort…</string>
 	<!-- Android, title, max 20-22 symbols -->
