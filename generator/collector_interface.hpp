@@ -39,6 +39,7 @@ class CollectorCollection;
 class CollectorTag;
 class MaxspeedsCollector;
 class CityAreaCollector;
+class CrossMwmOsmWaysCollector;
 namespace cache
 {
 class IntermediateDataReader;
@@ -77,6 +78,7 @@ public:
   virtual void MergeInto(feature::MetalinesBuilder &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(regions::CollectorRegionInfo &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(CollectorCollection &) const { FailIfMethodUnsupported(); }
+  virtual void MergeInto(CrossMwmOsmWaysCollector &) const { FailIfMethodUnsupported(); }
 
   std::string GetTmpFilename() const { return m_filename + "." + std::to_string(m_id); }
   std::string const & GetFilename() const { return m_filename; }

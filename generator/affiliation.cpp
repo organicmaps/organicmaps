@@ -4,6 +4,7 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/assert.hpp"
 #include "base/thread_pool_computational.hpp"
 
 #include <cmath>
@@ -53,6 +54,21 @@ std::vector<std::string> CountriesFilesAffiliation::GetAffiliations(FeatureBuild
   }
 
   return countries;
+}
+
+std::vector<bool>
+CountriesFilesAffiliation::GetFeaturePointsEntries(std::string const & mwmName,
+                                                   FeatureBuilder const & fb) const
+{
+  std::vector<bool> entries;
+  entries.reserve(fb.GetPointsCount());
+  auto const & polygon = m_countries.GetRegionByName(mwmName);
+  fb.ForAnyGeometryPoint([&entries, &polygon](auto const & point) {
+    entries.emplace_back(polygon.Contains(point));
+    return false;
+  });
+
+  return entries;
 }
 
 bool CountriesFilesAffiliation::HasRegionByName(std::string const & name) const
@@ -232,5 +248,12 @@ std::vector<std::string> SingleAffiliation::GetAffiliations(FeatureBuilder const
 bool SingleAffiliation::HasRegionByName(std::string const & name) const
 {
   return name == m_filename;
+}
+
+std::vector<bool>
+SingleAffiliation::GetFeaturePointsEntries(std::string const & mwmName,
+                                           FeatureBuilder const & fb) const
+{
+  UNREACHABLE();
 }
 }  // namespace feature

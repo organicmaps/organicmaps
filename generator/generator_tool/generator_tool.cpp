@@ -483,8 +483,8 @@ int GeneratorToolMain(int argc, char ** argv)
 
       if (FLAGS_make_cross_mwm)
       {
-        routing::BuildRoutingCrossMwmSection(path, datFile, country, *countryParentGetter,
-                                             osmToFeatureFilename,
+        routing::BuildRoutingCrossMwmSection(path, datFile, country, genInfo.m_intermediateDir,
+                                             *countryParentGetter, osmToFeatureFilename,
                                              FLAGS_disable_cross_mwm_progress);
       }
 

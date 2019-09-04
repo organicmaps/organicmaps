@@ -99,7 +99,6 @@ void SingleVehicleWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoi
 
   if (m_mode != WorldGraphMode::SingleMwm && m_crossMwmGraph && m_crossMwmGraph->IsTransition(segment, isOutgoing))
     GetTwins(segment, isOutgoing, useRoutingOptions, edges);
-
 }
 
 void SingleVehicleWorldGraph::GetEdgeList(JointSegment const & parentJoint,

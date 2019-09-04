@@ -16,7 +16,7 @@ bool BuildRoutingIndex(std::string const & filename, std::string const & country
 /// * all features and feature geometry should be generated
 /// * city_roads section should be generated
 void BuildRoutingCrossMwmSection(std::string const & path, std::string const & mwmFile,
-                                 std::string const & country,
+                                 std::string const & country, std::string const & intermediateDir,
                                  CountryParentNameGetterFn const & countryParentNameGetterFn,
                                  std::string const & osmToFeatureFile,
                                  bool disableCrossMwmProgress);

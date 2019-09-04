@@ -1,6 +1,7 @@
 #include "generator/routing_index_generator.hpp"
 
 #include "generator/borders.hpp"
+#include "generator/cross_mwm_osm_ways_collector.hpp"
 #include "generator/routing_helpers.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
@@ -251,7 +252,8 @@ public:
 /// |transitions| will be combination of |VehicleType::Pedestrian|, |VehicleType::Bicycle|
 /// and |VehicleType::Car|.
 void CalcCrossMwmTransitions(
-    string const & mwmFile, string const & mappingFile, vector<m2::RegionD> const & borders,
+    string const & mwmFile, string const & intermediateDir,
+    string const & mappingFile, vector<m2::RegionD> const & borders,
     string const & country, CountryParentNameGetterFn const & countryParentNameGetterFn,
     vector<CrossMwmConnectorSerializer::Transition<base::GeoObjectId>> & transitions)
 {
@@ -260,14 +262,13 @@ void CalcCrossMwmTransitions(
   CHECK(ParseRoadsFeatureIdToOsmIdMapping(mappingFile, featureIdToOsmId),
         ("Can't parse feature id to osm id mapping. File:", mappingFile));
 
+  auto const & path = base::JoinPath(intermediateDir, CROSS_MWM_OSM_WAYS_DIR, country);
+  auto const crossMwmOsmIdWays =
+      generator::CrossMwmOsmWaysCollector::Info::LoadFromFileToSet(path);
+
   ForEachFromDat(mwmFile, [&](FeatureType & f, uint32_t featureId) {
     VehicleMask const roadMask = maskMaker.CalcRoadMask(f);
     if (roadMask == 0)
-      return;
-
-    f.ParseGeometry(FeatureType::BEST_GEOMETRY);
-    size_t const pointsCount = f.GetPointsCount();
-    if (pointsCount == 0)
       return;
 
     auto const it = featureIdToOsmId.find(featureId);
@@ -275,32 +276,39 @@ void CalcCrossMwmTransitions(
     auto const osmId = it->second;
     CHECK(osmId.GetType() == base::GeoObjectId::Type::ObsoleteOsmWay, ());
 
-    bool prevPointIn = m2::RegionsContain(borders, f.GetPoint(0));
+    auto const it =
+        crossMwmOsmIdWays.find(generator::CrossMwmOsmWaysCollector::Info(osmId.GetEncodedId()));
 
-    for (size_t i = 1; i < pointsCount; ++i)
+    if (it != crossMwmOsmIdWays.cend())
     {
-      bool const currPointIn = m2::RegionsContain(borders, f.GetPoint(i));
-      if (currPointIn == prevPointIn)
-        continue;
+      f.ParseGeometry(FeatureType::BEST_GEOMETRY);
+      if (f.GetPointsCount() == 0)
+        return;
 
-      auto const segmentIdx = base::asserted_cast<uint32_t>(i - 1);
       VehicleMask const oneWayMask = maskMaker.CalcOneWayMask(f);
 
-      transitions.emplace_back(osmId, featureId, segmentIdx, roadMask, oneWayMask, currPointIn);
+      auto const & crossMwmWayInfo = *it;
+      for (auto const & segmentInfo : crossMwmWayInfo.m_crossMwmSegments)
+      {
+        uint32_t const segmentId = segmentInfo.m_segmentId;
+        bool const forwardIsEnter = segmentInfo.m_forwardIsEnter;
 
-      prevPointIn = currPointIn;
+        transitions.emplace_back(osmId, featureId, segmentId, roadMask, oneWayMask, forwardIsEnter);
+      }
     }
   });
 }
 
 /// \brief Fills |transitions| for transit case. That means Transition::m_roadMask for items in
 /// |transitions| will be equal to VehicleType::Transit after call of this method.
-void CalcCrossMwmTransitions(string const & mwmFile, string const & mappingFile,
+void CalcCrossMwmTransitions(string const & mwmFile, string const & intermediateDir,
+                             string const & mappingFile,
                              vector<m2::RegionD> const & borders, string const & country,
                              CountryParentNameGetterFn const & /* countryParentNameGetterFn */,
                              vector<CrossMwmConnectorSerializer::Transition<connector::TransitId>> & transitions)
 {
   CHECK(mappingFile.empty(), ());
+  CHECK(intermediateDir.empty(), ());
   try
   {
     FilesContainerR cont(mwmFile);
@@ -357,7 +365,7 @@ void CalcCrossMwmTransitions(string const & mwmFile, string const & mappingFile,
 /// And |VehicleType::Transit| is applicable for |connector::TransitId|.
 template <typename CrossMwmId>
 void CalcCrossMwmConnectors(
-    string const & path, string const & mwmFile, string const & country,
+    string const & path, string const & mwmFile, string const & intermediateDir, string const & country,
     CountryParentNameGetterFn const & countryParentNameGetterFn, string const & mappingFile,
     vector<CrossMwmConnectorSerializer::Transition<CrossMwmId>> & transitions,
     CrossMwmConnectorPerVehicleType<CrossMwmId> & connectors)
@@ -377,7 +385,7 @@ void CalcCrossMwmConnectors(
   // Note 2. Taking into account note 1 it's clear that field |Transition<TransitId>::m_roadMask|
   // is always set to |VehicleType::Transit| and field |Transition<OsmId>::m_roadMask| can't have
   // |VehicleType::Transit| value.
-  CalcCrossMwmTransitions(mwmFile, mappingFile, borders, country, countryParentNameGetterFn,
+  CalcCrossMwmTransitions(mwmFile, intermediateDir, mappingFile, borders, country, countryParentNameGetterFn,
                           transitions);
   LOG(LINFO, ("Transitions finished, transitions:", transitions.size(),
       ", elapsed:", timer.ElapsedSeconds(), "seconds"));
@@ -579,7 +587,7 @@ void SerializeCrossMwm(string const & mwmFile, string const & sectionName,
 }
 
 void BuildRoutingCrossMwmSection(string const & path, string const & mwmFile,
-                                 string const & country,
+                                 string const & country, string const & intermediateDir,
                                  CountryParentNameGetterFn const & countryParentNameGetterFn,
                                  string const & osmToFeatureFile, bool disableCrossMwmProgress)
 {
@@ -588,7 +596,7 @@ void BuildRoutingCrossMwmSection(string const & path, string const & mwmFile,
   CrossMwmConnectorPerVehicleType<CrossMwmId> connectors;
   vector<CrossMwmConnectorSerializer::Transition<CrossMwmId>> transitions;
 
-  CalcCrossMwmConnectors(path, mwmFile, country, countryParentNameGetterFn, osmToFeatureFile,
+  CalcCrossMwmConnectors(path, mwmFile, intermediateDir, country, countryParentNameGetterFn, osmToFeatureFile,
                          transitions, connectors);
 
   // We use leaps for cars only. To use leaps for other vehicle types add weights generation
@@ -609,7 +617,8 @@ void BuildTransitCrossMwmSection(string const & path, string const & mwmFile,
   CrossMwmConnectorPerVehicleType<CrossMwmId> connectors;
   vector<CrossMwmConnectorSerializer::Transition<CrossMwmId>> transitions;
 
-  CalcCrossMwmConnectors(path, mwmFile, country, countryParentNameGetterFn, "" /* mapping file */,
+  CalcCrossMwmConnectors(path, mwmFile, "" /* intermediateDir */, country,
+                         countryParentNameGetterFn, "" /* mapping file */,
                          transitions, connectors);
 
   CHECK(connectors[static_cast<size_t>(VehicleType::Pedestrian)].IsEmpty(), ());

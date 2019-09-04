@@ -6,6 +6,7 @@
 #include "generator/collector_collection.hpp"
 #include "generator/collector_interface.hpp"
 #include "generator/collector_tag.hpp"
+#include "generator/cross_mwm_osm_ways_collector.hpp"
 #include "generator/feature_maker.hpp"
 #include "generator/filter_collection.hpp"
 #include "generator/filter_elements.hpp"
@@ -101,6 +102,7 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
     collectors->Append(std::make_shared<CollectorAddresses>(info.GetAddressesFileName()));
   if (!info.m_idToWikidataFilename.empty())
     collectors->Append(std::make_shared<CollectorTag>(info.m_idToWikidataFilename, "wikidata" /* tagKey */, WikiDataValidator));
+  collectors->Append(std::make_shared<CrossMwmOsmWaysCollector>(info));
   SetCollector(collectors);
 }
 

@@ -20,6 +20,8 @@ public:
   // The method will return the names of the buckets to which the fb belongs.
   virtual std::vector<std::string> GetAffiliations(FeatureBuilder const & fb) const = 0;
   virtual bool HasRegionByName(std::string const & name) const = 0;
+  virtual std::vector<bool> GetFeaturePointsEntries(std::string const & mwmName,
+                                                    FeatureBuilder const & fb) const = 0;
 };
 
 class CountriesFilesAffiliation : public AffiliationInterface
@@ -30,6 +32,8 @@ public:
   // AffiliationInterface overrides:
   std::vector<std::string> GetAffiliations(FeatureBuilder const & fb) const override;
   bool HasRegionByName(std::string const & name) const override;
+  std::vector<bool> GetFeaturePointsEntries(std::string const & mwmName,
+                                            FeatureBuilder const & fb) const override;
 
 protected:
   borders::CountriesContainer const & m_countries;
@@ -60,11 +64,13 @@ private:
 class SingleAffiliation : public AffiliationInterface
 {
 public:
-  SingleAffiliation(std::string const & filename);
+  explicit SingleAffiliation(std::string const & filename);
 
   // AffiliationInterface overrides:
   std::vector<std::string> GetAffiliations(FeatureBuilder const &) const override;
   bool HasRegionByName(std::string const & name) const override;
+  std::vector<bool> GetFeaturePointsEntries(std::string const & mwmName,
+                                            FeatureBuilder const & fb) const override;
 
 private:
   std::string m_filename;

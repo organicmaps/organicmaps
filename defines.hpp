@@ -102,6 +102,7 @@
 #define CAMERAS_TO_WAYS_FILENAME "cameras_to_ways.bin"
 #define MAXSPEEDS_FILENAME "maxspeeds.csv"
 #define CITIES_AREAS_TMP_FILENAME "cities_areas" DATA_FILE_EXTENSION_TMP
+#define CROSS_MWM_OSM_WAYS_DIR "cross_mwm_osm_ways"
 
 #define TRAFFIC_FILE_EXTENSION ".traffic"
 

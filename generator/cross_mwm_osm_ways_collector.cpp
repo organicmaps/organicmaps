@@ -1,0 +1,151 @@
+#include "generator/cross_mwm_osm_ways_collector.hpp"
+
+#include "generator/feature_builder.hpp"
+#include "generator/osm_element.hpp"
+
+#include "routing/routing_helpers.hpp"
+
+#include "base/assert.hpp"
+#include "base/file_name_utils.hpp"
+
+namespace generator
+{
+
+// CrossMwmOsmWaysCollector ------------------------------------------------------------------------
+
+CrossMwmOsmWaysCollector::CrossMwmOsmWaysCollector(feature::GenerateInfo const & info)
+  : m_intermediateDir(info.m_intermediateDir)
+{
+  auto const & targetDir = info.m_targetDir;
+  auto const haveBordersForWholeWorld = info.m_haveBordersForWholeWorld;
+  m_affiliation =
+      std::make_shared<feature::CountriesFilesAffiliation>(targetDir, haveBordersForWholeWorld);
+}
+
+CrossMwmOsmWaysCollector::CrossMwmOsmWaysCollector(
+    std::string intermediateDir, std::shared_ptr<feature::CountriesFilesAffiliation> affiliation)
+  : m_intermediateDir(std::move(intermediateDir)), m_affiliation(std::move(affiliation))
+{
+}
+
+std::shared_ptr<CollectorInterface>
+CrossMwmOsmWaysCollector::Clone(std::shared_ptr<cache::IntermediateDataReader> const &) const
+{
+  return std::make_shared<CrossMwmOsmWaysCollector>(m_intermediateDir, m_affiliation);
+}
+
+void CrossMwmOsmWaysCollector::CollectFeature(feature::FeatureBuilder const & fb,
+                                              OsmElement const & element)
+{
+  if (element.m_type != OsmElement::EntityType::Way)
+    return;
+
+  if (!routing::IsRoad(fb.GetTypes()))
+    return;
+
+  std::vector<std::string> affiliations = m_affiliation->GetAffiliations(fb);
+  if (affiliations.size() == 1)
+    return;
+
+  for (auto const & mwmName : affiliations)
+  {
+    std::vector<bool> entries = m_affiliation->GetFeaturePointsEntries(mwmName, fb);
+    std::vector<Info::SegmentInfo> crossMwmSegments;
+    bool prevPointIn = entries[0];
+    for (size_t i = 1; i < entries.size(); ++i)
+    {
+      bool curPointIn = entries[i];
+      if (prevPointIn == curPointIn)
+        continue;
+
+      prevPointIn = curPointIn;
+      crossMwmSegments.emplace_back(i - 1, curPointIn);
+    }
+
+    CHECK(!crossMwmSegments.empty(),
+         ("Can not find cross mwm segments, mwmName:", mwmName, "fb:", fb));
+
+    m_mwmToCrossMwmOsmIds[mwmName].emplace_back(element.m_id, std::move(crossMwmSegments));
+  }
+}
+
+void CrossMwmOsmWaysCollector::Save()
+{
+  auto const & crossMwmOsmWaysDir = base::JoinPath(m_intermediateDir, CROSS_MWM_OSM_WAYS_DIR);
+  CHECK(Platform::MkDirChecked(crossMwmOsmWaysDir), ("Can not create dir:", crossMwmOsmWaysDir));
+
+  for (auto const & item : m_mwmToCrossMwmOsmIds)
+  {
+    auto const & mwmName = item.first;
+    auto const & waysInfo = item.second;
+
+    auto const & pathToCrossMwmOsmIds = base::JoinPath(crossMwmOsmWaysDir, mwmName);
+    std::ofstream output(pathToCrossMwmOsmIds);
+    for (auto const & wayInfo : waysInfo)
+      Info::Dump(wayInfo, output);
+  }
+}
+
+void CrossMwmOsmWaysCollector::Merge(generator::CollectorInterface const & collector)
+{
+  collector.MergeInto(*this);
+}
+
+void CrossMwmOsmWaysCollector::MergeInto(CrossMwmOsmWaysCollector & collector) const
+{
+  for (auto const & item : m_mwmToCrossMwmOsmIds)
+  {
+    auto const & mwmName = item.first;
+    auto const & osmIds = item.second;
+
+    auto & otherOsmIds = collector.m_mwmToCrossMwmOsmIds[mwmName];
+    otherOsmIds.insert(otherOsmIds.end(), osmIds.begin(), osmIds.end());
+  }
+}
+
+// CrossMwmOsmWaysCollector::Info ------------------------------------------------------------------
+
+bool CrossMwmOsmWaysCollector::Info::operator<(Info const & rhs) const
+{
+  return m_osmId < rhs.m_osmId;
+}
+
+// static
+void CrossMwmOsmWaysCollector::Info::Dump(Info const & info, std::ofstream & output)
+{
+  {
+    output << base::MakeOsmWay(info.m_osmId) << " " << info.m_crossMwmSegments.size() << " ";
+    for (auto const & segmentInfo : info.m_crossMwmSegments)
+      output << segmentInfo.m_segmentId << " " << segmentInfo.m_forwardIsEnter << " ";
+
+    output << std::endl;
+  }
+}
+
+// static
+std::set<CrossMwmOsmWaysCollector::Info>
+CrossMwmOsmWaysCollector::Info::LoadFromFileToSet(std::string const & path)
+{
+  std::set<Info> result;
+  std::ifstream input(path);
+  CHECK(input.good(), ("Can not open:", path));
+
+  uint64_t osmId;
+  size_t segmentsNumber;
+  std::vector<SegmentInfo> segments;
+
+  while (input >> osmId >> segmentsNumber)
+  {
+    segments.clear();
+
+    CHECK_NOT_EQUAL(segmentsNumber, 0, ());
+    segments.resize(segmentsNumber);
+    for (size_t j = 0; j < segmentsNumber; ++j)
+      input >> segments[j].m_segmentId >> segments[j].m_forwardIsEnter;
+
+    result.emplace(osmId, std::move(segments));
+  }
+
+  return result;
+}
+}  // namespace generator
