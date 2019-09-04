@@ -43649,3 +43649,15 @@
     zh-Hans = 请根据类别、添加时间和地理位置对您喜欢的地点进行排序，还可以按名称快速查找具体的标签
     zh-Hant = 請根據類別、添加時間和地理位置對您喜歡的地點進行排序，還可以按名稱快速查找具體的標籤
     fa = مکانهای مورد علاقه را بر اساس طبقه بندی ، موقعیت مکانی و ترتیب زمانی مرتب کنید، همچنین نشانههای خاص را به سرعت از روی نام بیابید
+
+  [popup_subscription_success_map_title]
+    en = Woohoo, you're subscribed!
+
+  [popup_subscription_success_map_message]
+    en = Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog
+
+  [popup_subscription_success_map_start_button]
+    en = Start browsing
+
+  [popup_subscription_success_map_not_now_button]
+    en = Not now
