@@ -1310,16 +1310,19 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
 
   Route::TTimes times;
   times.reserve(segments.size());
-  double time = 0.0;
+
+  // Time at zero route point.
   times.emplace_back(static_cast<uint32_t>(0), 0.0);
 
-  for (size_t i = 0; i < segments.size() - 1; ++i)
+  // Time at first route point - weight of first segment.
+  double time = starter.CalculateETAWithoutPenalty(segments.front());
+  times.emplace_back(static_cast<uint32_t>(1), time);
+
+  for (size_t i = 1; i < segments.size(); ++i)
   {
-    time += starter.CalculateETA(segments[i], segments[i + 1]);
+    time += starter.CalculateETA(segments[i - 1], segments[i]);
     times.emplace_back(static_cast<uint32_t>(i + 1), time);
   }
-
-  times.emplace_back(static_cast<uint32_t>(segments.size()), time);
 
   CHECK(m_directionsEngine, ());
   ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate, junctions, move(times),
