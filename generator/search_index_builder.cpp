@@ -137,9 +137,12 @@ void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> const 
 template <typename Key, typename Value>
 struct FeatureNameInserter
 {
-  FeatureNameInserter(SynonymsHolder * synonyms, vector<pair<Key, Value>> & keyValuePairs,
-                      bool hasStreetType)
-    : m_synonyms(synonyms), m_keyValuePairs(keyValuePairs), m_hasStreetType(hasStreetType)
+  FeatureNameInserter(uint32_t index, SynonymsHolder * synonyms,
+                      vector<pair<Key, Value>> & keyValuePairs, bool hasStreetType)
+    : m_val(index)
+    , m_synonyms(synonyms)
+    , m_keyValuePairs(keyValuePairs)
+    , m_hasStreetType(hasStreetType)
   {
   }
 
@@ -226,24 +229,10 @@ struct FeatureNameInserter
     }
   }
 
+  Value m_val;
   SynonymsHolder * m_synonyms;
   vector<pair<Key, Value>> & m_keyValuePairs;
-  Value m_val;
   bool m_hasStreetType = false;
-};
-
-template <typename Value>
-struct ValueBuilder;
-
-template <>
-struct ValueBuilder<FeatureIndexValue>
-{
-  ValueBuilder() = default;
-
-  void MakeValue(FeatureType const & /* f */, uint32_t index, FeatureIndexValue & value) const
-  {
-    value.m_featureId = index;
-  }
 };
 
 template <typename Key, typename Value>
@@ -251,13 +240,11 @@ class FeatureInserter
 {
 public:
   FeatureInserter(SynonymsHolder * synonyms, vector<pair<Key, Value>> & keyValuePairs,
-                  CategoriesHolder const & catHolder, pair<int, int> const & scales,
-                  ValueBuilder<Value> const & valueBuilder)
+                  CategoriesHolder const & catHolder, pair<int, int> const & scales)
     : m_synonyms(synonyms)
     , m_keyValuePairs(keyValuePairs)
     , m_categories(catHolder)
     , m_scales(scales)
-    , m_valueBuilder(valueBuilder)
   {
   }
 
@@ -275,8 +262,8 @@ public:
     // Init inserter with serialized value.
     // Insert synonyms only for countries and states (maybe will add cities in future).
     FeatureNameInserter<Key, Value> inserter(
-        skipIndex.IsCountryOrState(types) ? m_synonyms : nullptr, m_keyValuePairs, hasStreetType);
-    m_valueBuilder.MakeValue(f, index, inserter.m_val);
+        index, skipIndex.IsCountryOrState(types) ? m_synonyms : nullptr, m_keyValuePairs,
+        hasStreetType);
 
     string const postcode = f.GetMetadata().Get(feature::Metadata::FMD_POSTCODE);
     if (!postcode.empty())
@@ -342,8 +329,6 @@ private:
   CategoriesHolder const & m_categories;
 
   pair<int, int> m_scales;
-
-  ValueBuilder<Value> const & m_valueBuilder;
 };
 
 template <typename Key, typename Value>
@@ -353,14 +338,12 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
 {
   feature::DataHeader const & header = features.GetHeader();
 
-  ValueBuilder<Value> valueBuilder;
-
   unique_ptr<SynonymsHolder> synonyms;
   if (header.GetType() == feature::DataHeader::MapType::World)
     synonyms.reset(new SynonymsHolder(base::JoinPath(GetPlatform().ResourcesDir(), SYNONYMS_FILE)));
 
   features.GetVector().ForEach(FeatureInserter<Key, Value>(
-      synonyms.get(), keyValuePairs, categoriesHolder, header.GetScaleRange(), valueBuilder));
+      synonyms.get(), keyValuePairs, categoriesHolder, header.GetScaleRange()));
 }
 
 bool GetStreetIndex(search::MwmContext & ctx, uint32_t featureID, string const & streetName,
