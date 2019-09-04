@@ -6,8 +6,6 @@
 
 #include "coding/string_utf8_multilang.hpp"
 
-#include "platform/preferred_languages.hpp"
-
 #include "base/string_utils.hpp"
 
 #include <string>
@@ -23,8 +21,8 @@ class Data
 public:
   Data() = default;
 
-  Data(kml::BookmarkData const & bookmarkData)
-    : m_names(ExtractIndexableNames(bookmarkData))
+  Data(kml::BookmarkData const & bookmarkData, std::string const & locale)
+    : m_names(ExtractIndexableNames(bookmarkData, locale))
     , m_description(kml::GetDefaultStr(bookmarkData.m_description))
   {
   }
@@ -57,11 +55,12 @@ public:
   std::string const & GetDescription() const { return m_description; }
 
 private:
-  std::vector<std::string> ExtractIndexableNames(kml::BookmarkData const & bookmarkData)
+  std::vector<std::string> ExtractIndexableNames(kml::BookmarkData const & bookmarkData,
+                                                 std::string const & locale)
   {
     // Same as GetPreferredBookmarkName from the map library. Duplicated here to avoid dependency.
-    auto name0 = kml::GetPreferredBookmarkName(bookmarkData, languages::GetCurrentOrig());
-    auto name1 = kml::GetPreferredBookmarkStr(bookmarkData.m_name, languages::GetCurrentOrig());
+    auto name0 = kml::GetPreferredBookmarkName(bookmarkData, locale);
+    auto name1 = kml::GetPreferredBookmarkStr(bookmarkData.m_name, locale);
     // Normalization is postponed. It is unlikely but we may still need original strings later.
     // Trimming seems harmless, though.
     strings::Trim(name0);

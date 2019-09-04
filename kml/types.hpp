@@ -189,7 +189,8 @@ struct BookmarkData
   LocalizableString m_name;
   // Bookmark's description.
   LocalizableString m_description;
-  // Bound feature's types.
+  // Bound feature's types: type indices sorted by importance, the most
+  // important one goes first.
   std::vector<uint32_t> m_featureTypes;
   // Custom bookmark's name.
   LocalizableString m_customName;
