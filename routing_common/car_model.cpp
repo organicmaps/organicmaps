@@ -63,7 +63,7 @@ std::array<char const *, 41> constexpr kCountries = {"Australia",
                                                      "United States of America",
                                                      "Venezuela"};
 
-double constexpr kSpeedOffroadKMpH = 10.0;
+double constexpr kSpeedOffroadKMpH = 3.0;
 
 VehicleModel::LimitsInitList const kCarOptionsDefault = {
     // {{roadType, roadType}  passThroughAllowed}
