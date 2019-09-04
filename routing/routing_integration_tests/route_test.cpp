@@ -323,7 +323,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 979.4);
+    integration::TestRouteTime(route, 1000.65);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22SubrouteTest)
@@ -405,7 +405,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 19621.8);
+    integration::TestRouteTime(route, 19859.3);
   }
 
   // Test on roads with tag route=shuttle_train
@@ -433,7 +433,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 6445.17);
+    integration::TestRouteTime(route, 6470.68);
   }
 
   // Test on removing speed cameras from the route for maps from Jan 2019,
@@ -547,7 +547,7 @@ namespace
 
     integration::CalculateRouteAndTestRouteLength(
         vehicleComponents, MercatorBounds::FromLatLon(55.93885, 37.40588), {0.0, 0.0},
-        MercatorBounds::FromLatLon(55.93706, 37.45339), 10270.2);
+        MercatorBounds::FromLatLon(55.93706, 37.45339), 10627.5);
   }
 
   UNIT_TEST(NoCrash_RioGrandeCosmopolis)
