@@ -16,6 +16,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
+import com.mapswithme.maps.purchase.PurchaseUtils;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -162,7 +163,8 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   public void onAlertDialogNegativeClick(int requestCode, int which)
   {
     mDialogClickDelegate.onAlertDialogNegativeClick(requestCode, which);
-    mViewPager.setAdapter(mAdapter);
+    if (PurchaseUtils.REQ_CODE_CHECK_INVALID_SUBS_DIALOG == requestCode)
+      mViewPager.setAdapter(mAdapter);
   }
 
   @Override
