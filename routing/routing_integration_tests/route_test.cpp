@@ -569,4 +569,23 @@ namespace
 
     TEST_EQUAL(route.second, RouterResultCode::NoError, ());
   }
+
+  // Test RussiaShorterFakeEdges1 and RussiaShorterFakeEdges2 are on reducing
+  // |kSpeedOffroadKMpH| for car routing. This lets us make
+  // fake edges shorter that prevent crossing lakes, forests and so on.
+  UNIT_TEST(RussiaBlackLakeShorterFakeEdges1)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        MercatorBounds::FromLatLon(55.62466, 39.71385), {0., 0.},
+        MercatorBounds::FromLatLon(55.63114, 39.70979), 1469.54);
+  }
+
+  UNIT_TEST(RussiaShorterFakeEdges2)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents(VehicleType::Car),
+        MercatorBounds::FromLatLon(55.31103, 38.80954), {0., 0.},
+        MercatorBounds::FromLatLon(55.31155, 38.8217), 2489.8);
+  }
 }  // namespace
