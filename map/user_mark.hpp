@@ -31,9 +31,9 @@ public:
     TransitKeyStop,
     SpeedCamera,
     RoadWarning,
-    RoadWarningFirstFerry,
     RoadWarningFirstDirty,
     RoadWarningFirstToll,
+    RoadWarningFirstFerry,
   };
 
   enum Type : uint32_t
