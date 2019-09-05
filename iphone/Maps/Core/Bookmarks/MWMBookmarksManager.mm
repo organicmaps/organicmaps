@@ -17,6 +17,7 @@
 #include "coding/internal/file_data.hpp"
 
 #include "base/stl_helpers.hpp"
+#include "base/string_utils.hpp"
 
 #include <utility>
 
@@ -769,6 +770,20 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 - (void)resetInvalidCategories {
   self.bm.ResetInvalidCategories();
+}
+
+- (BOOL)isGuide:(MWMMarkGroupID)groupId {
+  auto const & data = self.bm.GetCategoryData(groupId);
+  return BookmarkManager::IsGuide(data.m_accessRules);
+}
+
+- (NSString *)getServerId:(MWMMarkGroupID)groupId {
+  return @(self.bm.GetCategoryServerId(groupId).c_str());
+}
+
+- (NSString *)getGuidesIds {
+  auto const guides = self.bm.GetCategoriesFromCatalog(std::bind(&BookmarkManager::IsGuide, std::placeholders::_1));
+  return @(strings::JoinStrings(guides.begin(), guides.end(), ',').c_str());
 }
 
 #pragma mark - Helpers

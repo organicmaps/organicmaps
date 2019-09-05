@@ -96,7 +96,7 @@ class SubscriptionManager: NSObject {
     case .valid:
       Statistics.logEvent(kStatInappValidationSuccess, withParameters: [kStatPurchase : serverId])
       Statistics.logEvent(kStatInappProductDelivered,
-                          withParameters: [kStatVendor : vendorId, kStatPurchase : serverId])
+                          withParameters: [kStatVendor : vendorId, kStatPurchase : serverId], with: .realtime)
     case .notValid:
       Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 0, kStatPurchase : serverId])
     case .serverError:

@@ -42,6 +42,9 @@ class DownloadedBookmarksViewController: MWMViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     reloadData()
+    
+    Statistics.logEvent(kStatGuidesShown, withParameters: [kStatServerIds : dataSource.guideIds],
+                        with: .realtime)
   }
 
   override func viewDidLayoutSubviews() {
@@ -117,6 +120,12 @@ extension DownloadedBookmarksViewController: UITableViewDelegate {
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
+    
+    if (dataSource.isGuide(at: indexPath.row)) {
+      Statistics.logEvent(kStatGuidesOpen, withParameters: [kStatServerId : dataSource.getServerId(at: indexPath.row)],
+                          with: .realtime)
+    }
+    
     let category = dataSource.category(at: indexPath.row)
     let bmViewController = BookmarksVC(category: category.categoryId)
     MapViewController.topViewController().navigationController?.pushViewController(bmViewController,

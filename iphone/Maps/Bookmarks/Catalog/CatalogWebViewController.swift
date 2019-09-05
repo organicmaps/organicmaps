@@ -364,7 +364,8 @@ final class CatalogWebViewController: WebViewController {
       } else {
         if MWMBookmarksManager.shared().getCatalogDownloadsCount() == 0 {
           Statistics.logEvent(kStatInappProductDelivered, withParameters: [kStatVendor: BOOKMARKS_VENDOR,
-                                                                           kStatPurchase: categoryInfo.id])
+                                                                           kStatPurchase: categoryInfo.id],
+                              with: .realtime)
           logToPushWoosh(categoryInfo)
           MapViewController.shared().showBookmarksLoadedAlert(categoryId)
         }

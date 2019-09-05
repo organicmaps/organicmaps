@@ -1,5 +1,7 @@
 #import "TracksSection.h"
 #import "CircleView.h"
+#import "MWMBookmarksManager.h"
+#import "Statistics.h"
 
 #include "Framework.h"
 
@@ -76,6 +78,14 @@ CGFloat const kPinDiameter = 22.0f;
 
 - (void)didSelectRow:(NSInteger)row {
   auto const trackId = [self trackIdForRow:row];
+  
+  auto const track = GetFramework().GetBookmarkManager().GetTrack(trackId);
+  if (track != nullptr && [[MWMBookmarksManager sharedManager] isGuide:track->GetGroupId()]) {
+    [Statistics logEvent:kStatGuidesBookmarkSelect
+          withParameters:@{kStatServerId: [[MWMBookmarksManager sharedManager] getServerId:track->GetGroupId()]}
+             withChannel:StatisticsChannelRealtime];
+  }
+  
   GetFramework().ShowTrack(trackId);
 }
 

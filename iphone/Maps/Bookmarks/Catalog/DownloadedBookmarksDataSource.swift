@@ -17,6 +17,12 @@ class DownloadedBookmarksDataSource {
       MWMBookmarksManager.shared().setCatalogCategoriesVisible(!newValue)
     }
   }
+  
+  var guideIds: String {
+    get {
+      return MWMBookmarksManager.shared().getGuidesIds()
+    }
+  }
 
   init() {
     reloadData()
@@ -38,5 +44,13 @@ class DownloadedBookmarksDataSource {
   func deleteCategory(at index: Int) {
     MWMBookmarksManager.shared().deleteCategory(category(at: index).categoryId)
     reloadData()
+  }
+  
+  func getServerId(at index: Int) -> String {
+    return MWMBookmarksManager.shared().getServerId(category(at: index).categoryId)
+  }
+  
+  func isGuide(at index: Int) -> Bool {
+    return MWMBookmarksManager.shared().isGuide(category(at: index).categoryId)
   }
 }

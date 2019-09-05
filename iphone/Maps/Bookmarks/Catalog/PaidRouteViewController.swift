@@ -107,7 +107,8 @@ class PaidRouteViewController: MWMViewController {
       self?.subscription = s
       Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor : MWMPurchaseManager.bookmarksSubscriptionVendorId(),
                                                            kStatProduct : s.productId,
-                                                           kStatPurchase : MWMPurchaseManager.bookmarksSubscriptionServerId()])
+                                                           kStatPurchase : MWMPurchaseManager.bookmarksSubscriptionServerId()],
+                          with: .realtime)
     }
 
     statistics.logPreviewShow()
@@ -186,7 +187,8 @@ class PaidRouteViewController: MWMViewController {
 
       Statistics.logEvent(kStatInappSelect, withParameters: [kStatProduct : subscription.productId,
                                                              kStatPurchase : MWMPurchaseManager.bookmarksSubscriptionServerId()])
-      Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase : MWMPurchaseManager.bookmarksSubscriptionServerId()])
+      Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase : MWMPurchaseManager.bookmarksSubscriptionServerId()],
+                          with: .realtime)
       self?.subscriptionManager.subscribe(to: subscription)
     }
   }

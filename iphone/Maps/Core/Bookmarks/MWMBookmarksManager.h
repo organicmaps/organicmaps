@@ -110,5 +110,9 @@ typedef void (^PingCompletionBlock)(BOOL success);
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable("call +manager instead")));
 + (instancetype) new __attribute__((unavailable("call +manager instead")));
 
+- (BOOL)isGuide:(MWMMarkGroupID)groupId;
+- (NSString *)getServerId:(MWMMarkGroupID)groupId;
+- (NSString *)getGuidesIds;
+
 @end
 NS_ASSUME_NONNULL_END

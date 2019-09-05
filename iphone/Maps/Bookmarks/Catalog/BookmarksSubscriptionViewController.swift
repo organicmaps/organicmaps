@@ -71,7 +71,7 @@ class BookmarksSubscriptionViewController: MWMViewController {
     Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: MWMPurchaseManager.bookmarksSubscriptionVendorId(),
                                                          kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId(),
                                                          kStatProduct: BOOKMARKS_SUBSCRIPTION_YEARLY_PRODUCT_ID,
-                                                         kStatFrom: kStatBanner])
+                                                         kStatFrom: kStatBanner], with: .realtime)
     InAppPurchase.bookmarksSubscriptionManager.getAvailableSubscriptions { [weak self] (subscriptions, error) in
       guard let subscriptions = subscriptions, subscriptions.count == 2 else {
         MWMAlertViewController.activeAlert().presentInfoAlert(L("price_error_title"),
@@ -154,7 +154,8 @@ class BookmarksSubscriptionViewController: MWMViewController {
         InAppPurchase.bookmarksSubscriptionManager.subscribe(to: subscription)
       }
     }
-    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId()])
+    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId()],
+                        with: .realtime)
   }
 
   @IBAction func onRestore(_ sender: UIButton) {

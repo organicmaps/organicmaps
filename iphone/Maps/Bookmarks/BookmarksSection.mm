@@ -111,6 +111,14 @@ CGFloat const kPinDiameter = 22.0f;
 - (void)didSelectRow:(NSInteger)row {
   auto const bmId = [self markIdForRow:row];
   [Statistics logEvent:kStatEventName(kStatBookmarks, kStatShowOnMap)];
+  
+  auto const bookmark = GetFramework().GetBookmarkManager().GetBookmark(bmId);
+  if (bookmark != nullptr && [[MWMBookmarksManager sharedManager] isGuide:bookmark->GetGroupId()]) {
+    [Statistics logEvent:kStatGuidesBookmarkSelect
+          withParameters:@{kStatServerId: [[MWMBookmarksManager sharedManager] getServerId:bookmark->GetGroupId()]}
+             withChannel:StatisticsChannelRealtime];
+  }
+  
   // Same as "Close".
   [MWMSearchManager manager].state = MWMSearchManagerStateHidden;
   GetFramework().ShowBookmark(bmId);

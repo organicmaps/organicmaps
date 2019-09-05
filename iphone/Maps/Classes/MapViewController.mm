@@ -466,7 +466,7 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
 
 - (void)openFullPlaceDescriptionWithHtml:(NSString *)htmlString
 {
-  [Statistics logEvent:kStatPlacePageDescriptionMore];
+  [Statistics logEvent:kStatPlacePageDescriptionMore withChannel:StatisticsChannelRealtime];
   WebViewController * descriptionViewController =
   [[PlacePageDescriptionViewController alloc] initWithHtml:htmlString baseUrl:nil title:L(@"place_description_title")];
   descriptionViewController.openInSafari = YES;
