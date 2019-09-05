@@ -38,6 +38,8 @@ public class PurchaseUtils
   final static int MONTHS_IN_YEAR = 12;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private static final String TAG = PurchaseUtils.class.getSimpleName();
+  static final int REQ_CODE_NO_NETWORK_CONNECTION_DIALOG = 11;
+  static final String NO_NETWORK_CONNECTION_DIALOG_TAG = "no_network_connection_dialog_tag";
 
   private PurchaseUtils()
   {
@@ -160,6 +162,20 @@ public class PurchaseUtils
         .setPositiveBtnId(R.string.ok)
         .build();
     alertDialog.show(fragment, null);
+  }
+
+  static void showNoConnectionDialog(@NonNull Fragment fragment)
+  {
+    AlertDialog dialog = new AlertDialog.Builder()
+        .setTitleId(R.string.common_check_internet_connection_dialog_title)
+        .setMessageId(R.string.common_check_internet_connection_dialog)
+        .setPositiveBtnId(R.string.try_again)
+        .setNegativeBtnId(R.string.cancel)
+        .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+        .setReqCode(REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
+        .build();
+    dialog.setTargetFragment(fragment, REQ_CODE_NO_NETWORK_CONNECTION_DIALOG);
+    dialog.show(fragment, NO_NETWORK_CONNECTION_DIALOG_TAG);
   }
 
   enum Period

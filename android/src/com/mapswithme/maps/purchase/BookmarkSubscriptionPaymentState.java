@@ -14,7 +14,7 @@ public enum  BookmarkSubscriptionPaymentState
         @Override
         void activate(@NonNull BookmarkSubscriptionFragment fragment)
         {
-          throw new UnsupportedOperationException("This state can't bu used!");
+          UiUtils.hide(fragment.getViewOrThrow(), R.id.root_screen_progress, R.id.content_view);
         }
       },
   PRODUCT_DETAILS_LOADING
@@ -95,7 +95,7 @@ public enum  BookmarkSubscriptionPaymentState
             NetworkPolicy.checkNetworkPolicy(fragment.requireFragmentManager(),
                                              policy -> onNetworkPolicyResult(policy, fragment), true);
           else
-            fragment.showNoConnectionDialog();
+            PurchaseUtils.showNoConnectionDialog(fragment);
 
         }
 

@@ -36,43 +36,30 @@
     android:contentDescription="@string/core_my_position"
     android:tint="@null"/>
 
-  <RelativeLayout
-    android:id="@+id/nav_zoom_out_container"
+  <ImageButton
+    android:id="@+id/nav_zoom_out"
+    style="@style/MwmWidget.MapButton"
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
-    android:layout_below="@id/nav_zoom_in_container"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <ImageButton
-      android:id="@+id/nav_zoom_out"
-      style="@style/MwmWidget.MapButton"
-      android:layout_alignParentEnd="true"
-      android:layout_alignParentRight="true"
-      android:src="@drawable/ic_zoom_out"/>
-  </RelativeLayout>
+    android:layout_below="@+id/nav_zoom_in"
+    android:src="@drawable/ic_zoom_out"/>
 
-  <RelativeLayout
-    android:id="@+id/nav_zoom_in_container"
+  <ImageButton
+    android:id="@id/nav_zoom_in"
+    style="@style/MwmWidget.MapButton"
+    android:src="@drawable/ic_zoom_in"
     android:layout_marginTop="@dimen/nav_zoom_top"
     android:layout_alignParentTop="true"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <ImageButton
-      android:id="@+id/subs_screen_btn"
-      style="@style/MwmWidget.MapButton.Traffic"
-      android:background="?attr/bg_crown"
-      android:src="@drawable/ic_fab_blue"
-      android:layout_centerVertical="true"
-      android:layout_alignParentLeft="true"
-      android:layout_alignParentStart="true"/>
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"/>
 
-    <ImageButton
-      android:id="@id/nav_zoom_in"
-      style="@style/MwmWidget.MapButton"
-      android:src="@drawable/ic_zoom_in"
-      android:layout_alignParentTop="true"
-      android:layout_alignParentRight="true"
-      android:layout_alignParentEnd="true"/>
-  </RelativeLayout>
-
+  <ImageButton
+    android:id="@+id/subs_screen_btn"
+    style="@style/MwmWidget.MapButton.Traffic"
+    android:background="?attr/bg_crown"
+    android:src="@drawable/ic_crown"
+    android:layout_centerVertical="true"
+    android:layout_alignBottom="@id/nav_zoom_in"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"/>
 </RelativeLayout>

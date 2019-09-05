@@ -46,9 +46,8 @@ import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
-import com.mapswithme.maps.dialog.CatalogUnlimitedAccessDialog;
+import com.mapswithme.maps.dialog.DefaultConfirmationAlertDialog;
 import com.mapswithme.maps.dialog.DialogUtils;
-import com.mapswithme.maps.dialog.DrivingOptionsDialogFactory;
 import com.mapswithme.maps.discovery.DiscoveryActivity;
 import com.mapswithme.maps.discovery.DiscoveryFragment;
 import com.mapswithme.maps.discovery.ItemType;
@@ -114,8 +113,8 @@ import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.taxi.TaxiManager;
-import com.mapswithme.maps.tips.TutorialAction;
 import com.mapswithme.maps.tips.Tutorial;
+import com.mapswithme.maps.tips.TutorialAction;
 import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
@@ -711,24 +710,35 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (frame == null)
       return;
 
-    View zoomIn = frame.findViewById(R.id.nav_zoom_in_container);
-    zoomIn.findViewById(R.id.nav_zoom_in).setOnClickListener(this);
-    View zoomOut = frame.findViewById(R.id.nav_zoom_out_container);
-    zoomOut.findViewById(R.id.nav_zoom_out).setOnClickListener(this);
+    View zoomIn = frame.findViewById(R.id.nav_zoom_in);
+    zoomIn.setOnClickListener(this);
+    View zoomOut = frame.findViewById(R.id.nav_zoom_out);
+    zoomOut.setOnClickListener(this);
     View myPosition = frame.findViewById(R.id.my_position);
     mNavMyPosition = new MyPositionButton(myPosition, mOnMyPositionClickListener);
 
     initToggleMapLayerController(frame);
-    mNavAnimationController = new NavigationButtonsAnimationController(
-        zoomIn, zoomOut, myPosition, getWindow().getDecorView().getRootView(), this);
     View openSubsScreenBtn = frame.findViewById(R.id.subs_screen_btn);
-    openSubsScreenBtn.setOnClickListener(v -> openSubscriptionsScreen());
-    openSubsScreenBtn.setVisibility(true ? View.VISIBLE : View.GONE);
+    mNavAnimationController = new NavigationButtonsAnimationController(
+        zoomIn, zoomOut, myPosition, getWindow().getDecorView().getRootView(), this, openSubsScreenBtn);
+
+    openSubsScreenBtn.setOnClickListener(v -> onCrownClicked());
+    UiUtils.showIf(Framework.nativeNeedToShowCrown(), openSubsScreenBtn);
   }
 
-  private void openSubscriptionsScreen()
+  private void onCrownClicked()
   {
-    Intent intent = new Intent(MwmActivity.this, BookmarkSubscriptionActivity.class);
+    openBookmarkSubscriptionScreen();
+    UserActionsLogger.logCrownClicked();
+    if (mNavAnimationController == null)
+      return;
+
+    mNavAnimationController.hideCrownView();
+  }
+
+  private void openBookmarkSubscriptionScreen()
+  {
+    Intent intent = new Intent(this, BookmarkSubscriptionActivity.class);
     startActivityForResult(intent, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION);
   }
 
@@ -957,12 +967,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     com.mapswithme.maps.dialog.AlertDialog dialog =
         new com.mapswithme.maps.dialog.AlertDialog.Builder()
-            .setTitleId(R.string.unable_to_calc_alert_title)
-            .setMessageId(R.string.unable_to_calc_alert_subtitle)
-            .setPositiveBtnId(R.string.settings)
-            .setNegativeBtnId(R.string.cancel)
+            .setTitleId(R.string.popup_subscription_success_map_title)
+            .setMessageId(R.string.popup_subscription_success_map_message)
+            .setPositiveBtnId(R.string.popup_subscription_success_map_start_button)
+            .setNegativeBtnId(R.string.popup_subscription_success_map_not_now_button)
             .setDialogViewStrategyType(com.mapswithme.maps.dialog.AlertDialog.DialogViewStrategyType.CONFIRMATION_DIALOG)
-            .setDialogFactory(CatalogUnlimitedAccessDialog::new)
+            .setDialogFactory(DefaultConfirmationAlertDialog::new)
             .setReqCode(REQ_CODE_CATALOG_UNLIMITED_ACCESS)
             .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog
                                             .FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
@@ -2104,7 +2114,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
             .setPositiveBtnId(R.string.settings)
             .setNegativeBtnId(R.string.cancel)
             .setReqCode(REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG)
-            .setDialogFactory(new DrivingOptionsDialogFactory())
             .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog
                                             .FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
             .build();

@@ -99,10 +99,17 @@ public class AlertDialog extends BaseMwmDialogFragment
     }
   }
 
-  protected void onAttachInternal()
+  private void onAttachInternal()
   {
     mTargetCallback = (AlertDialogCallback) (getParentFragment() == null ? getTargetFragment()
                                                                          : getParentFragment());
+    if (mTargetCallback != null)
+      return;
+
+    if (!(getActivity() instanceof AlertDialogCallback))
+      return;
+
+    mTargetCallback = (AlertDialogCallback) getActivity();
   }
 
   @Override

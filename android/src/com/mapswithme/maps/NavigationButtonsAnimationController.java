@@ -19,6 +19,8 @@ class NavigationButtonsAnimationController
   private final View mZoomOut;
   @NonNull
   private final View mMyPosition;
+  @Nullable
+  private View mCrownView;
 
   @Nullable
   private final OnTranslationChangedListener mTranslationListener;
@@ -34,10 +36,12 @@ class NavigationButtonsAnimationController
 
   NavigationButtonsAnimationController(@NonNull View zoomIn, @NonNull View zoomOut,
                                        @NonNull View myPosition, @NonNull final View contentView,
-                                       @Nullable OnTranslationChangedListener translationListener)
+                                       @Nullable OnTranslationChangedListener translationListener,
+                                       @NonNull View crownView)
   {
     mZoomIn = zoomIn;
     mZoomOut = zoomOut;
+    mCrownView = crownView;
     checkZoomButtonsVisibility();
     mMyPosition = myPosition;
     Resources res = mZoomIn.getResources();
@@ -110,17 +114,23 @@ class NavigationButtonsAnimationController
     mMyPosition.setTranslationY(translation);
     mZoomOut.setTranslationY(translation);
     mZoomIn.setTranslationY(translation);
+    if (mCrownView != null)
+      mCrownView.setTranslationY(translation);
+
     if (mZoomIn.getVisibility() == View.VISIBLE
         && !isViewInsideLimits(mZoomIn))
     {
       UiUtils.invisible(mZoomIn, mZoomOut);
+      if (mCrownView != null)
+        UiUtils.invisible(mCrownView);
+
       if (mTranslationListener != null)
         mTranslationListener.onFadeOutZoomButtons();
     }
     else if (mZoomIn.getVisibility() == View.INVISIBLE
              && isViewInsideLimits(mZoomIn))
     {
-      UiUtils.show(mZoomIn, mZoomOut);
+      UiUtils.show(mZoomIn, mZoomOut, mCrownView);
       if (mTranslationListener != null)
         mTranslationListener.onFadeInZoomButtons();
     }
@@ -157,6 +167,19 @@ class NavigationButtonsAnimationController
       return;
 
     UiUtils.hide(mZoomIn, mZoomOut);
+    if (mCrownView == null)
+      return;
+
+    UiUtils.hide(mCrownView);
+  }
+
+  void hideCrownView()
+  {
+    if (mCrownView == null)
+      return;
+
+    mCrownView.setVisibility(View.GONE);
+    mCrownView = null;
   }
 
   void appearZoomButtons()
@@ -165,6 +188,11 @@ class NavigationButtonsAnimationController
       return;
 
     UiUtils.show(mZoomIn, mZoomOut);
+
+    if (mCrownView == null)
+      return;
+
+    UiUtils.show(mCrownView);
   }
 
   private static boolean showZoomButtons()

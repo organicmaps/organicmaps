@@ -24,43 +24,23 @@
     android:background="?attr/nav_bg_subway"
     android:visibility="invisible"/>
 
-  <RelativeLayout
-    android:id="@+id/nav_zoom_in_container"
-    android:layout_above="@+id/nav_zoom_out_container"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+  <ImageButton
+    android:id="@+id/nav_zoom_in"
+    style="@style/MwmWidget.MapButton"
+    android:layout_above="@+id/nav_zoom_out"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:background="?nav_background"
+    android:src="@drawable/ic_zoom_in"/>
 
-    <ImageButton
-      android:id="@+id/nav_zoom_in"
-      style="@style/MwmWidget.MapButton"
-      android:layout_alignParentEnd="true"
-      android:layout_alignParentRight="true"
-      android:background="?nav_background"
-      android:src="@drawable/ic_zoom_in"/>
-  </RelativeLayout>
-
-  <RelativeLayout
-    android:id="@+id/nav_zoom_out_container"
+  <ImageButton
+    android:id="@id/nav_zoom_out"
+    style="@style/MwmWidget.MapButton"
     android:layout_above="@+id/my_position"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <ImageButton
-      android:id="@+id/subs_screen_btn"
-      style="@style/MwmWidget.MapButton.Traffic"
-      android:background="?attr/bg_crown"
-      android:src="@drawable/ic_fab_blue"
-      android:layout_centerVertical="true"
-      android:layout_alignParentLeft="true"
-      android:layout_alignParentStart="true"/>
-
-    <ImageButton
-      android:id="@id/nav_zoom_out"
-      style="@style/MwmWidget.MapButton"
-      android:layout_alignParentEnd="true"
-      android:layout_alignParentRight="true"
-      android:background="?nav_background"
-      android:src="@drawable/ic_zoom_out"/>
-  </RelativeLayout>
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:background="?nav_background"
+    android:src="@drawable/ic_zoom_out"/>
 
   <ImageButton
     android:id="@id/my_position"
@@ -72,4 +52,14 @@
     android:background="?nav_background"
     android:contentDescription="@string/core_my_position"
     android:tint="@null"/>
+
+  <ImageButton
+    android:id="@+id/subs_screen_btn"
+    style="@style/MwmWidget.MapButton.Traffic"
+    android:background="?attr/bg_crown"
+    android:src="@drawable/ic_crown"
+    android:layout_alignBottom="@id/nav_zoom_out"
+    android:layout_centerVertical="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"/>
 </RelativeLayout>
