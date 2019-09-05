@@ -381,7 +381,7 @@ UNIT_TEST(ThailandPhuketNearPrabarameeRoad)
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToLeft);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
 }
 
 // Test case: a route goes in Moscow from Varshavskoe shosse (from the city center direction)
