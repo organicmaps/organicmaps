@@ -42,7 +42,7 @@ size_t NamedPoint::m_counter = 0;
 
 m2::RectD GetLimitRect(NamedPoint const & p)
 {
-   return m2::RectD(p.m_point, p.m_point);
+  return m2::RectD(p.m_point, p.m_point);
 }
 
 bool operator==(NamedPoint const & left, NamedPoint const & right)
@@ -52,7 +52,7 @@ bool operator==(NamedPoint const & left, NamedPoint const & right)
 
 std::string DebugPrint(NamedPoint const & t)
 {
-  return DebugPrint(t.m_point) + " " + std::to_string(static_cast<int>(t.m_type)) + " " + t.m_name;
+  return DebugPrint(t.m_point) + " " + DebugPrint(t.m_type) + " " + t.m_name;
 }
 
 auto const getRadiusMFunction = [](NamedPoint const & p) {
@@ -74,6 +74,28 @@ auto const isSameFunction = [](NamedPoint const & left, NamedPoint const & right
   return MercatorBounds::DistanceOnEarth(left.m_point, right.m_point)  < getRadiusMFunction(left);
 };
 
+void Sort(std::vector<std::vector<NamedPoint>> & data)
+{
+  for (auto & d : data)
+  {
+    std::sort(std::begin(d), std::end(d), [](auto const & l, auto const & r) {
+      return l.m_id < r.m_id;
+    });
+  }
+  std::sort(std::begin(data), std::end(data), [](auto const & l, auto const & r) {
+    CHECK(!l.empty(), ());
+    CHECK(!r.empty(), ());
+    return l.front().m_id < r.front().m_id;
+  });
+}
+
+void Test(std::vector<std::vector<NamedPoint>> & result, std::vector<std::vector<NamedPoint>> & expected)
+{
+  Sort(result);
+  Sort(expected);
+  TEST_EQUAL(result, expected, ());
+}
+
 template <typename T, template<typename, typename> class Container, typename Alloc = std::allocator<T>>
 std::vector<std::vector<T>> GetClusters(
     Container<T, Alloc> && container,
@@ -87,8 +109,9 @@ std::vector<std::vector<T>> GetClusters(
 UNIT_TEST(ClustersFinder_Empty)
 {
   std::list<NamedPoint> emptyList;
-  TEST_EQUAL(GetClusters(std::move(emptyList), getRadiusMFunction, isSameFunction),
-             std::vector<std::vector<NamedPoint>>(), ());
+  std::vector<std::vector<NamedPoint>> expected;
+  auto result = GetClusters(std::move(emptyList), getRadiusMFunction, isSameFunction);
+  Test(result, expected);
 }
 
 UNIT_TEST(ClustersFinder_OneElement)
@@ -96,7 +119,8 @@ UNIT_TEST(ClustersFinder_OneElement)
   NamedPoint p1({0.0, 0.0}, Type::T1, "name");
   std::list<NamedPoint> l{p1};
   std::vector<std::vector<NamedPoint>> expected{{p1}};
-  TEST_EQUAL(GetClusters(std::move(l), getRadiusMFunction, isSameFunction), expected, ());
+  auto result = GetClusters(std::move(l), getRadiusMFunction, isSameFunction);
+  Test(result, expected);
 }
 
 UNIT_TEST(ClustersFinder_TwoElements)
@@ -106,7 +130,8 @@ UNIT_TEST(ClustersFinder_TwoElements)
   std::list<NamedPoint> l{p1, p2};
 
   std::vector<std::vector<NamedPoint>> expected{{p1, p2}};
-  TEST_EQUAL(GetClusters(std::move(l), getRadiusMFunction, isSameFunction), expected, ());
+  auto result = GetClusters(std::move(l), getRadiusMFunction, isSameFunction);
+  Test(result, expected);
 }
 
 UNIT_TEST(ClustersFinder_TwoClusters)
@@ -116,7 +141,8 @@ UNIT_TEST(ClustersFinder_TwoClusters)
     NamedPoint p2({0.0001, 0.0001}, Type::T1, "name2");
     std::list<NamedPoint> l{p1, p2};
     std::vector<std::vector<NamedPoint>> expected{{p2}, {p1}};
-    TEST_EQUAL(GetClusters(std::move(l), getRadiusMFunction, isSameFunction), expected, ());
+    auto result = GetClusters(std::move(l), getRadiusMFunction, isSameFunction);
+    Test(result, expected);
   }
   {
     NamedPoint p1({0.0, 0.0}, Type::T1, "name");
@@ -124,7 +150,8 @@ UNIT_TEST(ClustersFinder_TwoClusters)
     std::list<NamedPoint> l{p1, p2};
 
     std::vector<std::vector<NamedPoint>> expected{{p1}, {p2}};
-    TEST_EQUAL(GetClusters(std::move(l), getRadiusMFunction, isSameFunction), expected, ());
+    auto result = GetClusters(std::move(l), getRadiusMFunction, isSameFunction);
+    Test(result, expected);
   }
 }
 
@@ -141,6 +168,7 @@ UNIT_TEST(ClustersFinder_ThreeClusters)
   NamedPoint p21({0.0, 0.0}, Type::T1, "name21");
   std::list<NamedPoint> l{p1, p2, p3, p11, p12, p13, p21};
   std::vector<std::vector<NamedPoint>> expected{{p2, p1, p3}, {p11, p13, p12}, {p21}};
-  TEST_EQUAL(GetClusters(std::move(l), getRadiusMFunction, isSameFunction), expected, ());
+  auto result = GetClusters(std::move(l), getRadiusMFunction, isSameFunction);
+  Test(result, expected);
 }
 }  // namespace
