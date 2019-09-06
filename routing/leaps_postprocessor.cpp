@@ -216,7 +216,7 @@ bool LeapsPostProcessor::PathInterval::GreaterByWeight::operator()(PathInterval 
 bool LeapsPostProcessor::PathInterval::operator<(PathInterval const & rhs) const
 {
   CHECK(m_left > rhs.m_right || m_right < rhs.m_left ||
-        m_left == rhs.m_left && m_right == rhs.m_right,
+        (m_left == rhs.m_left && m_right == rhs.m_right),
         ("Intervals shouldn't intersect.", *this, rhs));
 
   return m_right < rhs.m_left;
