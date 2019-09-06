@@ -1,9 +1,14 @@
 #pragma once
 
 #include "storage/map_files_downloader.hpp"
+
 #include "coding/file_writer.hpp"
+
 #include "base/thread_checker.hpp"
-#include "std/unique_ptr.hpp"
+
+#include <cstdint>
+#include <memory>
+#include <vector>
 
 namespace storage
 {
@@ -23,26 +28,24 @@ public:
 
   FakeMapFilesDownloader(TaskRunner & taskRunner);
 
-  virtual ~FakeMapFilesDownloader();
+  ~FakeMapFilesDownloader();
 
-  // MapFilesDownloader overrides:
-  void GetServersList(ServersListCallback const & callback) override;
-
-  void DownloadMapFile(vector<string> const & urls, string const & path, int64_t size,
-                       FileDownloadedCallback const & onDownloaded,
-                       DownloadingProgressCallback const & onProgress) override;
   Progress GetDownloadingProgress() override;
   bool IsIdle() override;
   void Reset() override;
 
 private:
+  // MapFilesDownloader overrides:
+  void Download(std::vector<std::string> const & urls, std::string const & path, int64_t size,
+                FileDownloadedCallback const & onDownloaded,
+                DownloadingProgressCallback const & onProgress) override;
+
   void DownloadNextChunk(uint64_t requestId);
 
-  vector<string> m_servers;
   Progress m_progress;
   bool m_idle;
 
-  unique_ptr<FileWriter> m_writer;
+  std::unique_ptr<FileWriter> m_writer;
   FileDownloadedCallback m_onDownloaded;
   DownloadingProgressCallback m_onProgress;
 

@@ -1,12 +1,11 @@
 #include "storage/http_map_files_downloader.hpp"
 
-#include "platform/platform.hpp"
 #include "platform/servers_list.hpp"
 
 #include "base/assert.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/bind.hpp"
-#include "base/string_utils.hpp"
 
 namespace
 {
@@ -31,18 +30,10 @@ HttpMapFilesDownloader::~HttpMapFilesDownloader()
   CHECK_THREAD_CHECKER(m_checker, ());
 }
 
-void HttpMapFilesDownloader::GetServersList(ServersListCallback const & callback)
-{
-  CHECK_THREAD_CHECKER(m_checker, ());
-  m_request.reset(downloader::HttpRequest::Get(
-      GetPlatform().MetaServerUrl(),
-      bind(&HttpMapFilesDownloader::OnServersListDownloaded, this, callback, _1)));
-}
-
-void HttpMapFilesDownloader::DownloadMapFile(vector<string> const & urls, string const & path,
-                                             int64_t size,
-                                             FileDownloadedCallback const & onDownloaded,
-                                             DownloadingProgressCallback const & onProgress)
+void HttpMapFilesDownloader::Download(vector<string> const & urls, string const & path,
+                                      int64_t size,
+                                      FileDownloadedCallback const & onDownloaded,
+                                      DownloadingProgressCallback const & onProgress)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
   m_request.reset(downloader::HttpRequest::GetFile(
@@ -74,15 +65,6 @@ void HttpMapFilesDownloader::Reset()
 {
   CHECK_THREAD_CHECKER(m_checker, ());
   m_request.reset();
-}
-
-void HttpMapFilesDownloader::OnServersListDownloaded(ServersListCallback const & callback,
-                                                     downloader::HttpRequest & request)
-{
-  CHECK_THREAD_CHECKER(m_checker, ());
-  vector<string> urls;
-  GetServerListFromRequest(request, urls);
-  callback(urls);
 }
 
 void HttpMapFilesDownloader::OnMapFileDownloaded(FileDownloadedCallback const & onDownloaded,

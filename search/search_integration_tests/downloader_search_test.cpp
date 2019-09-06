@@ -83,19 +83,20 @@ class TestMapFilesDownloader : public storage::MapFilesDownloader
 {
 public:
   // MapFilesDownloader overrides:
-  void GetServersList(ServersListCallback const & /* callback */) override {}
-
-  void DownloadMapFile(vector<string> const & /* urls */, string const & /* path */,
-                       int64_t /* size */, FileDownloadedCallback const & /* onDownloaded */,
-                       DownloadingProgressCallback const & /* onProgress */) override
-  {
-  }
-
   Progress GetDownloadingProgress() override { return Progress{}; }
 
   bool IsIdle() override { return false; }
   
   void Reset() override {}
+
+private:
+  void GetServersList(ServersListCallback const & /* callback */) override {}
+
+  void Download(vector<string> const & /* urls */, string const & /* path */, int64_t /* size */,
+                FileDownloadedCallback const & /* onDownloaded */,
+                DownloadingProgressCallback const & /* onProgress */) override
+  {
+  }
 };
 
 class TestDelegate : public DownloaderSearchCallback::Delegate

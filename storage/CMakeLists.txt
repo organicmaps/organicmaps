@@ -27,7 +27,10 @@ set(
   downloading_policy.hpp
   http_map_files_downloader.cpp
   http_map_files_downloader.hpp
+  map_files_downloader.cpp
   map_files_downloader.hpp
+  map_files_downloader_with_ping.cpp
+  map_files_downloader_with_ping.hpp
   queued_country.cpp
   queued_country.hpp
   pinger.cpp

@@ -6,7 +6,6 @@
 #include "storage/diff_scheme/diff_manager.hpp"
 #include "storage/downloading_policy.hpp"
 #include "storage/map_files_downloader.hpp"
-#include "storage/pinger.hpp"
 #include "storage/queued_country.hpp"
 #include "storage/storage_defines.hpp"
 
@@ -241,10 +240,6 @@ private:
   // downloading maps to a special place but not for continue working with them from this place.
   std::string m_dataDir;
 
-  // A list of urls for downloading maps. It's necessary for storage integration tests.
-  // For example {"http://new-search.mapswithme.com/"}.
-  std::vector<std::string> m_downloadingUrlsForTesting;
-
   bool m_integrityValidationEnabled = true;
 
   // |m_downloadMapOnTheMap| is called when an end user clicks on download map or retry button
@@ -274,7 +269,6 @@ private:
   std::vector<platform::LocalCountryFile> m_notAppliedDiffs;
 
   bool m_needToStartDeferredDownloading = false;
-  boost::optional<std::vector<std::string>> m_sessionServerList;
 
   StartDownloadingCallback m_startDownloadingCallback;
 
@@ -579,10 +573,8 @@ public:
 
   CountryId GetCurrentDownloadingCountryId() const;
   void EnableKeepDownloadingQueue(bool enable) {m_keepDownloadingQueue = enable;}
-  /// get download url by base url & queued country
-  std::string GetFileDownloadUrl(std::string const & baseUrl,
-                                 QueuedCountry const & queuedCountry) const;
-  std::string GetFileDownloadUrl(std::string const & baseUrl, std::string const & fileName) const;
+
+  std::string GetDownloadRelativeUrl(CountryId const & countryId, MapOptions options) const;
 
   /// @param[out] res Populated with oudated countries.
   void GetOutdatedCountries(vector<Country const *> & countries) const;
@@ -595,9 +587,9 @@ public:
 
   // for testing:
   void SetEnabledIntegrityValidationForTesting(bool enabled);
-  void SetDownloaderForTesting(std::unique_ptr<MapFilesDownloader> && downloader);
+  void SetDownloaderForTesting(std::unique_ptr<MapFilesDownloader> downloader);
   void SetCurrentDataVersionForTesting(int64_t currentVersion);
-  void SetDownloadingUrlsForTesting(std::vector<std::string> const & downloadingUrls);
+  void SetDownloadingServersForTesting(std::vector<std::string> const & downloadingUrls);
   void SetLocaleForTesting(std::string const & jsonBuffer, std::string const & locale);
 
   /// Returns true if the diff scheme is available and all local outdated maps can be updated via
@@ -722,10 +714,6 @@ private:
   // Should be called once on startup, downloading process should be suspended until this method
   // was not called. Do not call this method manually.
   void OnDiffStatusReceived(diffs::Status const status) override;
-
-  void LoadServerListForSession();
-  void LoadServerListForTesting();
-  void PingServerList(std::vector<std::string> const & urls);
 };
 
 void GetQueuedCountries(Storage::Queue const & queue, CountriesSet & resultCountries);

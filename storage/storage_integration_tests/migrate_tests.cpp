@@ -88,7 +88,7 @@ UNIT_TEST(StorageFastMigrationTests)
 //  // Somewhere in Moscow, Russia
 //  ms::LatLon curPos(55.7, 37.7);
 //
-//  s.SetDownloadingUrlsForTesting({"http://direct.mapswithme.com/"});
+//  s.SetDownloadingServersForTesting({"http://direct.mapswithme.com/"});
 //  s.Subscribe(stateChanged, progressChanged);
 //  for (auto const & countryId : kOldCountries)
 //    s.DownloadNode(countryId);

@@ -10,7 +10,6 @@
 
 namespace downloader
 {
-
 // Returns false if can't parse urls. Note that it also clears outUrls.
 bool ParseServerList(string const & jsonStr, vector<string> & outUrls)
 {
@@ -32,13 +31,18 @@ bool ParseServerList(string const & jsonStr, vector<string> & outUrls)
   return !outUrls.empty();
 }
 
-void GetServerListFromRequest(HttpRequest const & request, vector<string> & urls)
+void GetServerList(string const & src, vector<string> & urls)
 {
-  if (request.GetStatus() == HttpRequest::Status::Completed && ParseServerList(request.GetData(), urls))
+  if (!src.empty() && ParseServerList(src, urls))
     return;
 
   VERIFY(ParseServerList(GetPlatform().DefaultUrlsJSON(), urls), ());
   LOG(LWARNING, ("Can't get servers list from request, using default servers:", urls));
 }
 
+void GetServerList(HttpRequest const & request, vector<string> & urls)
+{
+  auto const src = request.GetStatus() == HttpRequest::Status::Completed ? request.GetData() : "";
+  GetServerList(src, urls);
+}
 } // namespace downloader

@@ -60,7 +60,7 @@ void InitStorage(Storage & storage, Storage::ProgressFunction const & onProgress
   storage.Init(Update, [](CountryId const &, storage::LocalFilePtr const) { return false; });
   storage.RegisterAllLocalMaps(false /* enableDiffs */);
   storage.Subscribe(bind(&ChangeCountry, ref(storage), _1), onProgressFn);
-  storage.SetDownloadingUrlsForTesting({kTestWebServer});
+  storage.SetDownloadingServersForTesting({kTestWebServer});
 }
 
 } // namespace

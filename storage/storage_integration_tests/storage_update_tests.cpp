@@ -99,7 +99,7 @@ UNIT_TEST(SmallMwms_Update_Test)
         testing::StopEventLoop();
     };
     storage.Subscribe(onChangeCountryFn, onProgressFn);
-    storage.SetDownloadingUrlsForTesting({kTestWebServer});
+    storage.SetDownloadingServersForTesting({kTestWebServer});
 
     CountriesVec children;
     storage.GetChildren(kGroupCountryId, children);
@@ -136,7 +136,7 @@ UNIT_TEST(SmallMwms_Update_Test)
         testing::StopEventLoop();
     };
     storage.Subscribe(onChangeCountryFn, onProgressFn);
-    storage.SetDownloadingUrlsForTesting({kTestWebServer});
+    storage.SetDownloadingServersForTesting({kTestWebServer});
 
     CountriesVec children;
     storage.GetChildren(kGroupCountryId, children);

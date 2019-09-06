@@ -10,7 +10,8 @@ namespace storage
 class Pinger
 {
 public:
-  using Pong = platform::SafeCallback<void(std::vector<std::string> readyUrls)>;
-  static void Ping(std::vector<std::string> const & urls, Pong const & pong);
+  using Endpoints = std::vector<std::string>;
+  // Returns list of available endpoints. Works synchronously.
+  static Endpoints ExcludeUnavailableEndpoints(Endpoints const & urls);
 };
 }  // namespace storage

@@ -6,7 +6,7 @@ namespace storage
 {
 class TestMapFilesDownloader : public HttpMapFilesDownloader
 {
-public:
+private:
   // MapFilesDownloader overrides:
   void GetServersList(ServersListCallback const & callback) override;
 };

@@ -56,7 +56,7 @@ UNIT_TEST(SmallMwms_3levels_Test)
   };
 
   storage.Subscribe(onChangeCountryFn, onProgressFn);
-  storage.SetDownloadingUrlsForTesting({kTestWebServer});
+  storage.SetDownloadingServersForTesting({kTestWebServer});
 
   NodeAttrs attrs;
   storage.GetNodeAttrs(kCountryId, attrs);

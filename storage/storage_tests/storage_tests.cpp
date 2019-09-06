@@ -608,6 +608,7 @@ UNIT_TEST(StorageTest_Smoke)
 
 UNIT_CLASS_TEST(StorageTest, CountryDownloading)
 {
+  Platform::ThreadRunner m_runner;
   CountryId const azerbaijanCountryId = storage.FindCountryIdByFile("Azerbaijan");
   TEST(IsCountryIdValid(azerbaijanCountryId), ());
 
@@ -969,6 +970,7 @@ UNIT_CLASS_TEST(TwoComponentStorageTest, DeleteCountry)
 
 UNIT_TEST(StorageTest_FailedDownloading)
 {
+  Platform::ThreadRunner m_runner;
   Storage storage;
   storage.Init(&OnCountryDownloaded, [](CountryId const &, LocalFilePtr const) { return false; });
   storage.SetDownloaderForTesting(make_unique<TestMapFilesDownloader>());
@@ -1000,6 +1002,7 @@ UNIT_TEST(StorageTest_FailedDownloading)
 
 UNIT_TEST(StorageTest_ObsoleteMapsRemoval)
 {
+  Platform::ThreadRunner m_runner;
   Storage storage;
   CountryFile country("Azerbaijan");
 

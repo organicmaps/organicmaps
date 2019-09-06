@@ -2,17 +2,21 @@
 
 #include "defines.hpp"
 
-#include "coding/internal/file_data.hpp"
-#include "coding/reader_streambuf.hpp"
-#include "coding/url_encode.hpp"
+#include "storage/map_files_downloader.hpp"
+#include "storage/storage.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/http_request.hpp"
 #include "platform/servers_list.hpp"
 
+#include "coding/internal/file_data.hpp"
+#include "coding/reader_streambuf.hpp"
+#include "coding/url_encode.hpp"
+
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
+#include "base/url_helpers.hpp"
 
 #include "com/mapswithme/core/jni_helper.hpp"
 
@@ -23,6 +27,8 @@
 #include <vector>
 
 using namespace downloader;
+using namespace storage;
+
 using namespace std::placeholders;
 
 /// Special error codes to notify GUI about free space
@@ -183,12 +189,14 @@ extern "C"
 
     LOG(LINFO, ("Finished URL list download for", curFile.m_fileName));
 
-    GetServerListFromRequest(req, curFile.m_urls);
+    GetServerList(req, curFile.m_urls);
 
-    storage::Storage const & storage = g_framework->GetStorage();
+    Storage const & storage = g_framework->GetStorage();
     for (size_t i = 0; i < curFile.m_urls.size(); ++i)
     {
-      curFile.m_urls[i] = storage.GetFileDownloadUrl(curFile.m_urls[i], curFile.m_fileName);
+      curFile.m_urls[i] = MapFilesDownloader::MakeFullUrlLegacy(curFile.m_urls[i],
+                                                                curFile.m_fileName,
+                                                                storage.GetCurrentDataVersion());
       LOG(LDEBUG, (curFile.m_urls[i]));
     }
 
