@@ -173,9 +173,12 @@ UNIT_CLASS_TEST(BookmarksProcessorTest, SearchByType)
       MakeBookmarkData("" /* name */, "" /* customName */, "" /* description */,
                        {"amenity-cafe"} /* types */));
 
-  // Only unnamed bookmarks are indexed by type name.
-  TEST_EQUAL(Search("cafe", GroupId{0}), Ids({12}), ());
+  Add(Id{0}, GroupId{0},
+      MakeBookmarkData("" /* name */, "" /* customName */, "" /* description */, {} /* types */));
+
+  TEST_EQUAL(Search("cafe", GroupId{0}), Ids({12, 10}), ());
   TEST_EQUAL(Search("кафе", GroupId{0}), Ids{}, ());
+  TEST_EQUAL(Search("", GroupId{0}), Ids{}, ());
 }
 
 UNIT_CLASS_TEST(BookmarksProcessorTest, IndexDescriptions)

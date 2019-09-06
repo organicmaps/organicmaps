@@ -6,6 +6,7 @@
 
 #include "coding/string_utf8_multilang.hpp"
 
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <string>
@@ -58,16 +59,23 @@ private:
   std::vector<std::string> ExtractIndexableNames(kml::BookmarkData const & bookmarkData,
                                                  std::string const & locale)
   {
+    std::vector<std::string> names;
+
     // Same as GetPreferredBookmarkName from the map library. Duplicated here to avoid dependency.
-    auto name0 = kml::GetPreferredBookmarkName(bookmarkData, locale);
-    auto name1 = kml::GetPreferredBookmarkStr(bookmarkData.m_name, locale);
+    names.emplace_back(kml::GetPreferredBookmarkName(bookmarkData, locale));
+    names.emplace_back(kml::GetPreferredBookmarkStr(bookmarkData.m_name, locale));
+
+    // todo(@m) Platform's API does not allow to use |locale| here.
+    names.emplace_back(kml::GetLocalizedFeatureType(bookmarkData.m_featureTypes));
+
     // Normalization is postponed. It is unlikely but we may still need original strings later.
     // Trimming seems harmless, though.
-    strings::Trim(name0);
-    strings::Trim(name1);
-    if (name0 == name1)
-      return {name0};
-    return {name0, name1};
+    for (auto & s : names)
+      strings::Trim(s);
+
+    base::SortUnique(names);
+    base::EraseIf(names, [](std::string const & s) { return s.empty(); });
+    return names;
   }
 
   // Names and custom names in all the locales that we are interested in.
