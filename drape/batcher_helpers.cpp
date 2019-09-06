@@ -12,6 +12,16 @@ namespace dp
 {
 namespace
 {
+template <typename T>
+T CyclicClamp(T const x, T const xmin, T const xmax)
+{
+  if (x > xmax)
+    return xmin;
+  if (x < xmin)
+    return xmax;
+  return x;
+}
+
 bool IsEnoughMemory(uint32_t avVertex, uint32_t existVertex, uint32_t avIndex, uint32_t existIndex)
 {
   return avVertex >= existVertex && avIndex >= existIndex;
@@ -60,7 +70,7 @@ protected:
   int16_t GetCWNormalizer()
   {
     int16_t tmp = m_minStripCounter;
-    m_minStripCounter = static_cast<uint8_t>(base::cyclicClamp(m_minStripCounter + 1, 0, 5));
+    m_minStripCounter = static_cast<uint8_t>(CyclicClamp(m_minStripCounter + 1, 0, 5));
     switch (tmp)
     {
       case 4: return 1;

@@ -22,11 +22,11 @@ struct MercatorBounds
 
   static m2::RectD FullRect() { return m2::RectD(kMinX, kMinY, kMaxX, kMaxY); }
 
-  static bool ValidLon(double d) { return base::between_s(-180.0, 180.0, d); }
-  static bool ValidLat(double d) { return base::between_s(-90.0, 90.0, d); }
+  static bool ValidLon(double d) { return base::Between(-180.0, 180.0, d); }
+  static bool ValidLat(double d) { return base::Between(-90.0, 90.0, d); }
 
-  static bool ValidX(double d) { return base::between_s(kMinX, kMaxX, d); }
-  static bool ValidY(double d) { return base::between_s(kMinY, kMaxY, d); }
+  static bool ValidX(double d) { return base::Between(kMinX, kMaxX, d); }
+  static bool ValidY(double d) { return base::Between(kMinY, kMaxY, d); }
 
   static double ClampX(double d) { return base::clamp(d, kMinX, kMaxX); }
   static double ClampY(double d) { return base::clamp(d, kMinY, kMaxY); }
