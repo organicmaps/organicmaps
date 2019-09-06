@@ -37,6 +37,8 @@ public final class PromoCityGallery
     @NonNull
     private final String mUrl;
     @NonNull
+    private final String mDescription;
+    @NonNull
     private final String mImageUrl;
     @NonNull
     private final String mAccess;
@@ -47,12 +49,13 @@ public final class PromoCityGallery
     @Nullable
     private final LuxCategory mLuxCategory;
 
-    public Item(@NonNull String name, @NonNull String url, @NonNull String imageUrl,
-                @NonNull String access, @NonNull String tier, @NonNull Author author,
-                @Nullable LuxCategory luxCategory)
+    public Item(@NonNull String name, @NonNull String url, @NonNull String description,
+                @NonNull String imageUrl, @NonNull String access, @NonNull String tier,
+                @NonNull Author author, @Nullable LuxCategory luxCategory)
     {
       mName = name;
       mUrl = url;
+      mDescription = description;
       mImageUrl = imageUrl;
       mAccess = access;
       mTier = tier;
@@ -70,6 +73,12 @@ public final class PromoCityGallery
     public String getUrl()
     {
       return mUrl;
+    }
+
+    @NonNull
+    public String getDescription()
+    {
+      return mDescription;
     }
 
     @NonNull

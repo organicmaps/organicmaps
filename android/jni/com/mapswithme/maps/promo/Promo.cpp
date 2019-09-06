@@ -42,7 +42,7 @@ void PrepareClassRefs(JNIEnv * env)
   g_itemConstructor =
       jni::GetConstructorID(env, g_itemClass,
                             "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
-                            "Ljava/lang/String;Ljava/lang/String;"
+                            "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
                             "Lcom/mapswithme/maps/promo/PromoCityGallery$Author;"
                             "Lcom/mapswithme/maps/promo/PromoCityGallery$LuxCategory;)V");
   g_authorClass =
@@ -103,6 +103,7 @@ jobject MakeCityGallery(JNIEnv * env, promo::CityGallery const & gallery)
   {
     jni::TScopedLocalRef name(env, jni::ToJavaString(env, item.m_name));
     jni::TScopedLocalRef url(env, jni::ToJavaString(env, item.m_url));
+    jni::TScopedLocalRef description(env, jni::ToJavaString(env, item.m_description));
     jni::TScopedLocalRef imageUrl(env, jni::ToJavaString(env, item.m_imageUrl));
     jni::TScopedLocalRef access(env, jni::ToJavaString(env, item.m_access));
     jni::TScopedLocalRef tier(env, jni::ToJavaString(env, item.m_tier));
@@ -117,8 +118,9 @@ jobject MakeCityGallery(JNIEnv * env, promo::CityGallery const & gallery)
         env, env->NewObject(g_categoryClass, g_categoryConstructor, luxCategoryName.get(),
                             luxCategoryColor.get()));
 
-    return env->NewObject(g_itemClass, g_itemConstructor, name.get(), url.get(), imageUrl.get(),
-                          access.get(), tier.get(), author.get(), luxCategory.get());
+      return env->NewObject(g_itemClass, g_itemConstructor, name.get(), url.get(),
+                            description.get(), imageUrl.get(), access.get(), tier.get(),
+                            author.get(), luxCategory.get());
   };
 
   jni::TScopedLocalObjectArrayRef items(env, jni::ToJavaArray(env, g_itemClass, gallery.m_items,
