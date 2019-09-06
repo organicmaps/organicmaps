@@ -375,6 +375,8 @@
 		4719A647219CBD7F009F9AA7 /* IBillingPendingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A646219CBD7F009F9AA7 /* IBillingPendingTransaction.swift */; };
 		4719A64E21A30C3B009F9AA7 /* PaidRouteStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A64D21A30C3B009F9AA7 /* PaidRouteStatistics.swift */; };
 		471BBD942130390F00EB17C9 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471BBD932130390F00EB17C9 /* TutorialViewController.swift */; };
+		471C448C2322A7C800C307EC /* BookmarksSubscriptionGoToCatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471C448A2322A7C800C307EC /* BookmarksSubscriptionGoToCatalogViewController.swift */; };
+		471C448D2322A7C800C307EC /* BookmarksSubscriptionGoToCatalogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 471C448B2322A7C800C307EC /* BookmarksSubscriptionGoToCatalogViewController.xib */; };
 		4726254921C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4726254821C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift */; };
 		47289E5A2212DFFF002ABFC0 /* EditOnWebAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47289E582212DFFF002ABFC0 /* EditOnWebAlertViewController.swift */; };
 		47289E5B2212DFFF002ABFC0 /* EditOnWebAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47289E592212DFFF002ABFC0 /* EditOnWebAlertViewController.xib */; };
@@ -1465,6 +1467,8 @@
 		4719A646219CBD7F009F9AA7 /* IBillingPendingTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBillingPendingTransaction.swift; sourceTree = "<group>"; };
 		4719A64D21A30C3B009F9AA7 /* PaidRouteStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidRouteStatistics.swift; sourceTree = "<group>"; };
 		471BBD932130390F00EB17C9 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
+		471C448A2322A7C800C307EC /* BookmarksSubscriptionGoToCatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSubscriptionGoToCatalogViewController.swift; sourceTree = "<group>"; };
+		471C448B2322A7C800C307EC /* BookmarksSubscriptionGoToCatalogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksSubscriptionGoToCatalogViewController.xib; sourceTree = "<group>"; };
 		4726254821C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageDescriptionViewController.swift; sourceTree = "<group>"; };
 		47289E582212DFFF002ABFC0 /* EditOnWebAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOnWebAlertViewController.swift; sourceTree = "<group>"; };
 		47289E592212DFFF002ABFC0 /* EditOnWebAlertViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditOnWebAlertViewController.xib; sourceTree = "<group>"; };
@@ -3616,6 +3620,8 @@
 				47C8789822DF622400A772DA /* BookmarksSubscriptionFailViewController.xib */,
 				47C8789B22DF662700A772DA /* BookmarksSubscriptionExpiredViewController.swift */,
 				47C8789C22DF662700A772DA /* BookmarksSubscriptionExpiredViewController.xib */,
+				471C448A2322A7C800C307EC /* BookmarksSubscriptionGoToCatalogViewController.swift */,
+				471C448B2322A7C800C307EC /* BookmarksSubscriptionGoToCatalogViewController.xib */,
 			);
 			path = Dialogs;
 			sourceTree = "<group>";
@@ -4992,6 +4998,7 @@
 				F6E2FD6E1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.xib in Resources */,
 				345E8F551F839E6C00A826CC /* GoogleService-Info.plist in Resources */,
 				3477528B1F725002000D46A3 /* UGCAddReviewRatingCell.xib in Resources */,
+				471C448D2322A7C800C307EC /* BookmarksSubscriptionGoToCatalogViewController.xib in Resources */,
 				F6E2FD741E097BA00083EBEC /* MWMMapDownloaderTableViewCell.xib in Resources */,
 				349A13851DEC138C00C7DB60 /* MWMMobileInternetAlert.xib in Resources */,
 				34D3B04B1E389D05004100F9 /* MWMNoteCell.xib in Resources */,
@@ -5674,6 +5681,7 @@
 				34B924431DC8A29C0008D971 /* MWMMailViewController.mm in Sources */,
 				340475651E081A4600C92850 /* MWMRouter.mm in Sources */,
 				47E3C72F2111F472008B3B27 /* CoverVerticalModalTransitioning.swift in Sources */,
+				471C448C2322A7C800C307EC /* BookmarksSubscriptionGoToCatalogViewController.swift in Sources */,
 				346DB83D1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
 				4710366522D3764600585272 /* BookmarksSubscriptionCellViewController.swift in Sources */,
 				34E776101F14B165003040B3 /* VisibleArea.swift in Sources */,

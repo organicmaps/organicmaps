@@ -36,4 +36,6 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (void)rotateMap:(double)azimuth animated:(BOOL)isAnimated;
 + (void)updatePositionArrowOffset:(BOOL)useDefault offset:(int)offsetY;
 
++ (BOOL)shouldShowCrown;
+
 @end

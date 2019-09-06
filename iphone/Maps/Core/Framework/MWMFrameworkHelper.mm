@@ -15,6 +15,7 @@
 extern NSString * const kAlohalyticsTapEventKey;
 
 #include "base/sunrise_sunset.hpp"
+#include "map/crown.hpp"
 
 @implementation MWMFrameworkHelper
 
@@ -182,6 +183,10 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 + (void)updatePositionArrowOffset:(BOOL)useDefault offset:(int)offsetY {
   GetFramework().UpdateMyPositionRoutingOffset(useDefault, offsetY);
+}
+
++ (BOOL)shouldShowCrown {
+  return crown::NeedToShow(GetFramework().GetPurchase());
 }
 
 @end

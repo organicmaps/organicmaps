@@ -40,6 +40,10 @@ NSString * const kMWMSideButtonsViewNibName = @"MWMSideButtonsView";
 
 @implementation MWMSideButtons
 
+- (UIView *)view {
+  return self.sideView;
+}
+
 + (MWMSideButtons *)buttons { return [MWMMapViewControlsManager manager].sideButtons; }
 - (instancetype)initWithParentView:(UIView *)view
 {

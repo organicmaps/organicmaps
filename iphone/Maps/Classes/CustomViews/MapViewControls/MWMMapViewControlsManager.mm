@@ -35,6 +35,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 @property(nonatomic) MWMSideButtons * sideButtons;
 @property(nonatomic) MWMTrafficButtonViewController * trafficButton;
+@property(nonatomic) UIButton * crownButton;
 @property(nonatomic) MWMBottomMenuViewController * menuController;
 @property(nonatomic) id<MWMPlacePageProtocol> placePageManager;
 @property(nonatomic) MWMNavigationDashboardManager * navigationManager;
@@ -64,6 +65,13 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.trafficButtonHidden = NO;
   self.isDirectionViewHidden = YES;
   self.menuRestoreState = MWMBottomMenuStateInactive;
+  if ([MWMFrameworkHelper shouldShowCrown]) {
+    [controller.controlsView addSubview:self.crownButton];
+    self.crownButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:
+     @[[self.crownButton.leftAnchor constraintEqualToAnchor:self.trafficButton.view.leftAnchor constant:-4],
+       [self.crownButton.topAnchor constraintEqualToAnchor:self.sideButtons.view.topAnchor]]];
+  }
   return self;
 }
 
@@ -290,7 +298,41 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.trafficButtonHidden = NO;
 }
 
+- (void)onCrown:(UIButton *)sender {
+  BookmarksSubscriptionViewController *controller = [[BookmarksSubscriptionViewController alloc] init];
+  controller.onSubscribe = ^{
+    MapViewController *mapViewController = self.ownerController;
+    [mapViewController dismissViewControllerAnimated:YES completion:nil];
+    BookmarksSubscriptionGoToCatalogViewController *successDialog =
+    [[BookmarksSubscriptionGoToCatalogViewController alloc] initOnOk:^{
+      [mapViewController dismissViewControllerAnimated:YES completion:nil];
+      [mapViewController openCatalogAnimated:YES utm:MWMUTMNone];
+    } onCancel:^{
+      [mapViewController dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [mapViewController presentViewController:successDialog animated:YES completion:nil];
+  };
+
+  controller.onCancel = ^{
+    [self.ownerController dismissViewControllerAnimated:YES completion:nil];
+  };
+
+  [self.ownerController presentViewController:controller animated:YES completion:^{
+    self.crownButton.hidden = YES;
+  }];
+  [MWMEye crownClicked];
+}
+
 #pragma mark - Properties
+
+- (UIButton *)crownButton {
+  if (!_crownButton) {
+    _crownButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_crownButton setImage:[UIImage imageNamed:@"bookmarksSubscriptionPromo"] forState:UIControlStateNormal];
+    [_crownButton addTarget:self action:@selector(onCrown:) forControlEvents:UIControlEventTouchUpInside];
+  }
+  return _crownButton;
+}
 
 - (MWMSideButtons *)sideButtons
 {

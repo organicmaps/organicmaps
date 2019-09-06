@@ -1,6 +1,6 @@
 import SafariServices
 
-class BookmarksSubscriptionViewController: MWMViewController {
+@objc class BookmarksSubscriptionViewController: MWMViewController {
   @IBOutlet private var annualView: UIView!
   @IBOutlet private var monthlyView: UIView!
   @IBOutlet private var gradientView: GradientView!
@@ -15,8 +15,8 @@ class BookmarksSubscriptionViewController: MWMViewController {
   private var annualSubscription: ISubscription?
   private var selectedSubscription: ISubscription?
 
-  var onSubscribe: MWMVoidBlock?
-  var onCancel: MWMVoidBlock?
+  @objc var onSubscribe: MWMVoidBlock?
+  @objc var onCancel: MWMVoidBlock?
 
   override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
     get { return [.portrait] }
