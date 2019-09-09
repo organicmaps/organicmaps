@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.mapswithme.maps.R;
 
+import java.util.Objects;
+
 public class ItemDecoratorFactory
 {
   @NonNull
@@ -16,7 +18,9 @@ public class ItemDecoratorFactory
                                                                         int orientation)
   {
     DividerItemDecoration decoration = new HotelDividerItemDecoration(context, orientation);
-    decoration.setDrawable(ContextCompat.getDrawable(context, R.drawable.divider_transparent_quarter));
+    @DrawableRes
+    int dividerId = R.drawable.divider_transparent_quarter;
+    decoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(context, dividerId)));
     return decoration;
   }
 
@@ -25,7 +29,19 @@ public class ItemDecoratorFactory
                                                                             int orientation)
   {
     DividerItemDecoration decoration = new SponsoredDividerItemDecoration(context, orientation);
-    decoration.setDrawable(ContextCompat.getDrawable(context, R.drawable.divider_transparent_half));
+    @DrawableRes
+    int dividerId = R.drawable.divider_transparent_half;
+    decoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(context, dividerId)));
+    return decoration;
+  }
+
+  public static RecyclerView.ItemDecoration createPlacePagePromoGalleryDecorator(@NonNull Context context,
+                                                                                 int orientation)
+  {
+    DividerItemDecoration decoration = new SponsoredDividerItemDecoration(context, orientation);
+    @DrawableRes
+    int dividerId = R.drawable.divider_transparent_quarter;
+    decoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(context, dividerId)));
     return decoration;
   }
 
@@ -35,7 +51,7 @@ public class ItemDecoratorFactory
                                                                         @DrawableRes int dividerResId)
   {
     DividerItemDecoration decoration = new DividerItemDecoration(context, orientation);
-    decoration.setDrawable(ContextCompat.getDrawable(context, dividerResId));
+    decoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(context, dividerResId)));
     return decoration;
   }
 

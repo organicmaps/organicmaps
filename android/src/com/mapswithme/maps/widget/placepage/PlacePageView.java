@@ -66,7 +66,6 @@ import com.mapswithme.maps.gallery.Constants;
 import com.mapswithme.maps.gallery.FullScreenGalleryActivity;
 import com.mapswithme.maps.gallery.GalleryActivity;
 import com.mapswithme.maps.gallery.Items;
-import com.mapswithme.maps.gallery.impl.BaseItemSelectedListener;
 import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.gallery.impl.RegularCatalogPromoListener;
 import com.mapswithme.maps.location.LocationHelper;
@@ -886,8 +885,8 @@ public class PlacePageView extends NestedScrollView
                                                                 false);
     mCatalogPromoRecycler.setLayoutManager(layoutManager);
     RecyclerView.ItemDecoration decor =
-        ItemDecoratorFactory.createSponsoredGalleryDecorator(getContext(),
-                                                             LinearLayoutManager.HORIZONTAL);
+        ItemDecoratorFactory.createPlacePagePromoGalleryDecorator(getContext(),
+                                                                  LinearLayoutManager.HORIZONTAL);
     mCatalogPromoRecycler.addItemDecoration(decor);
     mCatalogPromoRecycler.setAdapter(mCatalogPromoLoadingAdapter);
   }
@@ -2176,8 +2175,7 @@ public class PlacePageView extends NestedScrollView
 
   public void toggleCatalogPromoGallery(boolean enabled)
   {
-    UiUtils.showIf(enabled, mCatalogPromoRecycler);
-    UiUtils.showIf(enabled, mCatalogPromoTitleView);
+    UiUtils.showIf(enabled, this, R.id.catalog_promo_container);
   }
 
   @NonNull
