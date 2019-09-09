@@ -6,6 +6,7 @@ restaurant=yes : amenity=restaurant
 hotel=yes : tourism=hotel
 ford=yes : highway=ford
 ruins=yes : historic=ruins
+drinkable=yes : amenity=drinking_water
 building=entrance : entrance=yes
 
 natural=marsh : natural=wetland, wetland=marsh

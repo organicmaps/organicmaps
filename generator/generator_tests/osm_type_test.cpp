@@ -245,11 +245,12 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Synonyms)
   {
     char const * arr[][2] = {
       { "building", "yes" },
-      { "shop", "yes" },
       { "atm", "yes" },
-      { "toilets", "yes" },
+      { "shop", "yes" },
       { "restaurant", "yes" },
       { "hotel", "yes" },
+      { "toilets", "yes" },
+      { "drinkable", "yes"},
     };
 
     OsmElement e;
@@ -267,7 +268,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Synonyms)
     char const * arrT4[] = { "amenity", "restaurant" };
     char const * arrT5[] = { "tourism", "hotel" };
     char const * arrT6[] = { "amenity", "toilets" };
-    TEST_EQUAL(params.m_types.size(), 6, (params));
+    char const * arrT7[] = { "amenity", "drinking_water" };
+    TEST_EQUAL(params.m_types.size(), 7, (params));
 
     TEST(params.IsTypeExist(GetType(arrT1)), ());
     TEST(params.IsTypeExist(GetType(arrT2)), ());
@@ -275,6 +277,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Synonyms)
     TEST(params.IsTypeExist(GetType(arrT4)), ());
     TEST(params.IsTypeExist(GetType(arrT5)), ());
     TEST(params.IsTypeExist(GetType(arrT6)), ());
+    TEST(params.IsTypeExist(GetType(arrT7)), ());
   }
 
   // Duplicating test.

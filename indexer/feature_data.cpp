@@ -123,6 +123,7 @@ private:
         {"amenity", "bench"},
         {"amenity", "shelter"},
         {"amenity", "toilets"},
+        {"amenity", "drinking_water"},
         {"building", "address"},
         {"building", "has_parts"},
     };
