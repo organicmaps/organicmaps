@@ -115,6 +115,8 @@ set(
   nested_rects_cache.cpp
   nested_rects_cache.hpp
   point_rect_matcher.hpp
+  postcode_points.cpp
+  postcode_points.hpp
   pre_ranker.cpp
   pre_ranker.hpp
   pre_ranking_info.cpp

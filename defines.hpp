@@ -29,6 +29,7 @@
 #define INDEX_FILE_TAG "idx"
 #define SEARCH_INDEX_FILE_TAG "sdx"
 #define SEARCH_ADDRESS_FILE_TAG "addr"
+#define POSTCODE_POINTS_FILE_TAG "postcodes"
 #define CITIES_BOUNDARIES_FILE_TAG "cities_boundaries"
 #define FEATURE_TO_OSM_FILE_TAG "feature_to_osm"
 #define HEADER_FILE_TAG "header"

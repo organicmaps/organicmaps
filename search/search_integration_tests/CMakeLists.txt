@@ -4,6 +4,7 @@ set(
   SRC
   downloader_search_test.cpp
   generate_tests.cpp
+  postcode_points_tests.cpp
   pre_ranker_test.cpp
   processor_test.cpp
   ranker_test.cpp
@@ -20,6 +21,7 @@ omim_link_libraries(
   search_tests_support
   editor_tests_support
   generator_tests_support
+  platform_tests_support
   generator
   routing
   routing_common

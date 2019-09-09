@@ -2,8 +2,10 @@
 
 #include <string>
 
-class FilesContainerR;
-class Writer;
+namespace storage
+{
+class CountryInfoGetter;
+}
 
 namespace indexer
 {
@@ -14,5 +16,11 @@ namespace indexer
 bool BuildSearchIndexFromDataFile(std::string const & filename, bool forceRebuild,
                                   uint32_t threadsCount);
 
-void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter);
+// Builds postcodes section with external postcodes data and writes it to the mwm file.
+bool BuildPostcodes(std::string const & path, std::string const & country,
+                    std::string const & datasetPath, bool forceRebuild);
+// Exposed for testing.
+bool BuildPostcodesWithInfoGetter(std::string const & path, std::string const & country,
+                                  std::string const & datasetPath, bool forceRebuild,
+                                  storage::CountryInfoGetter & infoGetter);
 }  // namespace indexer

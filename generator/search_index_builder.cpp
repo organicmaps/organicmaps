@@ -2,6 +2,7 @@
 
 #include "search/common.hpp"
 #include "search/mwm_context.hpp"
+#include "search/postcode_points.hpp"
 #include "search/reverse_geocoder.hpp"
 #include "search/search_index_values.hpp"
 #include "search/search_trie.hpp"
@@ -21,13 +22,16 @@
 #include "indexer/search_string_utils.hpp"
 #include "indexer/trie_builder.hpp"
 
-#include "defines.hpp"
+#include "storage/country_info_getter.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "platform/platform.hpp"
 
 #include "coding/map_uint32_to_val.hpp"
 #include "coding/reader_writer_ops.hpp"
 #include "coding/writer.hpp"
+
+#include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
@@ -45,6 +49,8 @@
 #include <unordered_map>
 #include <vector>
 #include <thread>
+
+#include "defines.hpp"
 
 using namespace std;
 
@@ -234,6 +240,63 @@ struct FeatureNameInserter
   vector<pair<Key, Value>> & m_keyValuePairs;
   bool m_hasStreetType = false;
 };
+
+template <typename Key, typename Value>
+void GetUKPostcodes(string const & filename, storage::CountryId const & countryId,
+                    storage::CountryInfoGetter & infoGetter, vector<m2::PointD> & valueMapping,
+                    vector<pair<Key, Value>> & keyValuePairs)
+{
+  if (filename.empty())
+    return;
+
+  // <outward>,<inward>,<easting>,<northing>,<WGS84 lat>,<WGS84 long>,<2+6 NGR>,<grid>,<sources>
+  size_t constexpr kOutwardIndex = 0;
+  size_t constexpr kInwardIndex = 1;
+  size_t constexpr kLatIndex = 4;
+  size_t constexpr kLonIndex = 5;
+  size_t constexpr kDatasetCount = 9;
+
+  ifstream data(filename);
+  string line;
+  size_t index = 0;
+  while (getline(data, line))
+  {
+    // Skip comments.
+    if (line[0] == '#')
+      continue;
+
+    vector<string> fields;
+    strings::ParseCSVRow(line, ',', fields);
+    // Some lines have comma in "source". It leads to fields number greater than kDatasetCount.
+    CHECK_GREATER_OR_EQUAL(fields.size(), kDatasetCount, (line));
+
+    // Skip outward-only postcodes, build outward from inwards.
+    if (fields[kInwardIndex].empty())
+      continue;
+
+    double lon;
+    CHECK(strings::to_double(fields[kLonIndex], lon), ());
+    auto const x = MercatorBounds::LonToX(lon);
+
+    double lat;
+    CHECK(strings::to_double(fields[kLatIndex], lat), ());
+    auto const y = MercatorBounds::LatToY(lat);
+
+    vector<storage::CountryId> countries;
+    infoGetter.GetRegionsCountryId(m2::PointD(x, y), countries);
+    if (find(countries.begin(), countries.end(), countryId) == countries.end())
+      continue;
+
+    CHECK_EQUAL(valueMapping.size(), index, ());
+    valueMapping.push_back(m2::PointD(x, y));
+    keyValuePairs.emplace_back(
+        search::NormalizeAndSimplifyString(fields[kOutwardIndex] + " " + fields[kInwardIndex]),
+        Value(index));
+    keyValuePairs.emplace_back(search::NormalizeAndSimplifyString(fields[kOutwardIndex]),
+                               Value(index));
+    ++index;
+  }
+}
 
 template <typename Key, typename Value>
 class FeatureInserter
@@ -487,6 +550,11 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer, uint32_t th
 
 namespace indexer
 {
+void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter);
+bool BuildPostcodesImpl(FilesContainerR & container, storage::CountryId const & country,
+                        string const & dataset, std::string const & tmpFileName,
+                        storage::CountryInfoGetter & infoGetter, Writer & indexWriter);
+
 bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild, uint32_t threadsCount)
 {
   Platform & platform = GetPlatform();
@@ -552,6 +620,125 @@ bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild, ui
     return false;
   }
 
+  return true;
+}
+
+bool BuildPostcodesWithInfoGetter(string const & path, string const & country,
+                                  string const & datasetPath, bool forceRebuild,
+                                  storage::CountryInfoGetter & infoGetter)
+{
+  auto const filename = base::JoinPath(path, country + DATA_FILE_EXTENSION);
+  Platform & platform = GetPlatform();
+
+  FilesContainerR readContainer(platform.GetReader(filename, "f"));
+  if (readContainer.IsExist(POSTCODE_POINTS_FILE_TAG) && !forceRebuild)
+    return true;
+
+  string const postcodesFilePath = filename + "." + POSTCODE_POINTS_FILE_TAG EXTENSION_TMP;
+  // Temporary file used to reverse trie part of postcodes section.
+  string const trieTmpFilePath =
+      filename + "." + POSTCODE_POINTS_FILE_TAG + "_trie" + EXTENSION_TMP;
+  SCOPE_GUARD(postcodesFileGuard, bind(&FileWriter::DeleteFileX, postcodesFilePath));
+  SCOPE_GUARD(trieTmpFileGuard, bind(&FileWriter::DeleteFileX, trieTmpFilePath));
+
+  if (filename == WORLD_FILE_NAME || filename == WORLD_COASTS_FILE_NAME)
+    return true;
+
+  try
+  {
+    FileWriter writer(postcodesFilePath);
+    if (!BuildPostcodesImpl(readContainer, storage::CountryId(country), datasetPath,
+                            trieTmpFilePath, infoGetter, writer))
+    {
+      // No postcodes for country.
+      return true;
+    }
+
+    LOG(LINFO, ("Postcodes section size =", writer.Size()));
+    FilesContainerW writeContainer(readContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING);
+    writeContainer.Write(postcodesFilePath, POSTCODE_POINTS_FILE_TAG);
+  }
+  catch (Reader::Exception const & e)
+  {
+    LOG(LERROR, ("Error while reading file:", e.Msg()));
+    return false;
+  }
+  catch (Writer::Exception const & e)
+  {
+    LOG(LERROR, ("Error writing file:", e.Msg()));
+    return false;
+  }
+
+  return true;
+}
+
+bool BuildPostcodes(string const & path, string const & country, string const & datasetPath,
+                    bool forceRebuild)
+{
+  auto const & platform = GetPlatform();
+  auto infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(platform);
+  CHECK(infoGetter, ());
+  return BuildPostcodesWithInfoGetter(path, country, datasetPath, forceRebuild, *infoGetter);
+}
+
+bool BuildPostcodesImpl(FilesContainerR & container, storage::CountryId const & country,
+                        string const & dataset, string const & tmpName,
+                        storage::CountryInfoGetter & infoGetter, Writer & writer)
+{
+  using Key = strings::UniString;
+  using Value = FeatureIndexValue;
+
+  search::PostcodePoints::Header header;
+
+  auto const startOffset = writer.Pos();
+  header.Serialize(writer);
+
+  auto alighmentSize = (8 - (writer.Pos() % 8) % 8);
+  WriteZeroesToSink(writer, alighmentSize);
+
+  header.m_trieOffset = base::asserted_cast<uint32_t>(writer.Pos() - startOffset);
+
+  vector<pair<Key, Value>> ukPostcodesKeyValuePairs;
+  vector<m2::PointD> valueMapping;
+  GetUKPostcodes(dataset, country, infoGetter, valueMapping, ukPostcodesKeyValuePairs);
+
+  if (ukPostcodesKeyValuePairs.empty())
+    return false;
+
+  sort(ukPostcodesKeyValuePairs.begin(), ukPostcodesKeyValuePairs.end());
+
+  {
+    FileWriter tmpWriter(tmpName);
+    SingleValueSerializer<Value> serializer;
+    trie::Build<Writer, Key, ValueList<Value>, SingleValueSerializer<Value>>(
+        tmpWriter, serializer, ukPostcodesKeyValuePairs);
+  }
+
+  rw_ops::Reverse(FileReader(tmpName), writer);
+
+  header.m_trieSize =
+      base::asserted_cast<uint32_t>(writer.Pos() - header.m_trieOffset - startOffset);
+
+  alighmentSize = (8 - (writer.Pos() % 8) % 8);
+  WriteZeroesToSink(writer, alighmentSize);
+
+  header.m_pointsOffset = base::asserted_cast<uint32_t>(writer.Pos() - startOffset);
+
+  {
+    search::CentersTableBuilder builder;
+    builder.SetGeometryCodingParams(feature::DataHeader(container).GetDefGeometryCodingParams());
+    for (size_t i = 0; i < valueMapping.size(); ++i)
+      builder.Put(base::asserted_cast<uint32_t>(i), valueMapping[i]);
+
+    builder.Freeze(writer);
+  }
+
+  header.m_pointsSize =
+      base::asserted_cast<uint32_t>(writer.Pos() - header.m_pointsOffset - startOffset);
+  auto const endOffset = writer.Pos();
+  writer.Seek(startOffset);
+  header.Serialize(writer);
+  writer.Seek(endOffset);
   return true;
 }
 

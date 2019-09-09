@@ -166,6 +166,8 @@ DEFINE_string(popular_places_data, "",
 DEFINE_string(brands_data, "", "Path to json with OSM objects to brand ID map.");
 DEFINE_string(brands_translations_data, "", "Path to json with brands translations and synonyms.");
 
+DEFINE_string(postcodes_dataset, "", "Path to dataset with postcodes data");
+
 // Printing stuff.
 DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files.");
 DEFINE_bool(type_statistics, false, "Calculate statistics by type for specified mwm bucket files.");
@@ -380,7 +382,15 @@ int GeneratorToolMain(int argc, char ** argv)
       /// @todo Make threads count according to environment (single mwm build or planet build).
       if (!indexer::BuildSearchIndexFromDataFile(datFile, true /* forceRebuild */,
                                                  1 /* threadsCount */))
+      {
         LOG(LCRITICAL, ("Error generating search index."));
+      }
+
+      if (!FLAGS_postcodes_dataset.empty())
+      {
+        if (!indexer::BuildPostcodes(path, country, FLAGS_postcodes_dataset, true /*forceRebuild*/))
+          LOG(LCRITICAL, ("Error generating postcodes section."));
+      }
 
       LOG(LINFO, ("Generating rank table for", datFile));
       if (!search::SearchRankTableBuilder::CreateIfNotExists(datFile))
