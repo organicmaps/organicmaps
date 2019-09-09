@@ -63,8 +63,8 @@ def stage_preprocess(env, **kwargs):
 
 def stage_features(env, **kwargs):
     extra = {}
-    if not env.production:
-        extra["no_ads"] = True
+    if env.production:
+        extra["add_ads"] = True
     if any(x not in WORLDS_NAMES for x in env.countries):
         extra["generate_packed_borders"] = True
     if any(x == WORLD_NAME for x in env.countries):

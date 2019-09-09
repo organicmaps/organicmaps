@@ -76,11 +76,14 @@ bool WikiDataValidator(std::string const & tagValue)
 
 TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> const & processor,
                                      std::shared_ptr<cache::IntermediateData> const & cache,
-                                     feature::GenerateInfo const & info)
+                                     feature::GenerateInfo const & info, bool needMixTags)
   : Translator(processor, cache, std::make_shared<FeatureMaker>(cache))
-  , m_tagAdmixer(info.GetIntermediateFileName("ways", ".csv"), info.GetIntermediateFileName("towns", ".csv"))
-  , m_tagReplacer(base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE))
+  , m_tagAdmixer(std::make_shared<TagAdmixer>(info.GetIntermediateFileName("ways", ".csv"), info.GetIntermediateFileName("towns", ".csv")))
+  , m_tagReplacer(std::make_shared<TagReplacer>(base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE)))
 {
+  if (needMixTags)
+    m_osmTagMixer = std::make_shared<OsmTagMixer>(base::JoinPath(GetPlatform().ResourcesDir(), MIXED_TAGS_FILE));
+
   auto filters = std::make_shared<FilterCollection>();
   filters->Append(std::make_shared<FilterPlanet>());
   filters->Append(std::make_shared<FilterElements>(base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE)));
@@ -107,13 +110,17 @@ TranslatorCountry::Clone() const
   auto copy = Translator::CloneBase<TranslatorCountry>();
   copy->m_tagAdmixer = m_tagAdmixer;
   copy->m_tagReplacer = m_tagReplacer;
+  copy->m_osmTagMixer = m_osmTagMixer;
   return copy;
 }
 
 void TranslatorCountry::Preprocess(OsmElement & element)
 {
   // Here we can add new tags to the elements!
-  m_tagReplacer(element);
+  m_tagReplacer->Process(element);
+  m_tagAdmixer->Process(element);
+  if (m_osmTagMixer)
+    m_osmTagMixer->Process(element);
   CollectFromRelations(element);
 }
 
@@ -135,47 +142,5 @@ void TranslatorCountry::CollectFromRelations(OsmElement const & element)
     cache->ForEachRelationByNodeCached(element.m_id, collector);
   else if (element.IsWay())
     cache->ForEachRelationByWayCached(element.m_id, collector);
-}
-
-TranslatorCountryWithAds::TranslatorCountryWithAds(std::shared_ptr<FeatureProcessorInterface> const & processor,
-                                                   std::shared_ptr<cache::IntermediateData> const & cache,
-                                                   feature::GenerateInfo const & info)
-  : TranslatorCountry(processor, cache, info)
-  , m_osmTagMixer(base::JoinPath(GetPlatform().ResourcesDir(), MIXED_TAGS_FILE))
-{
-}
-
-std::shared_ptr<TranslatorInterface>
-TranslatorCountryWithAds::Clone() const
-{
-  auto copy = Translator::CloneBase<TranslatorCountryWithAds>();
-  copy->m_tagAdmixer = m_tagAdmixer;
-  copy->m_tagReplacer = m_tagReplacer;
-  copy->m_osmTagMixer = m_osmTagMixer;
-  return copy;
-}
-
-void TranslatorCountryWithAds::Preprocess(OsmElement & element)
-{
-  // Here we can add new tags to the elements!
-  m_osmTagMixer(element);
-  TranslatorCountry::Preprocess(element);
-}
-
-bool TranslatorCountryWithAds::Save()
-{
-  MixFakeNodes(GetPlatform().ResourcesDir() + MIXED_NODES_FILE,
-               std::bind(&TranslatorCountryWithAds::Emit, this, std::placeholders::_1));
-  return TranslatorCountry::Save();
-}
-
-void TranslatorCountryWithAds::Merge(TranslatorInterface const & other)
-{
-  TranslatorCountry::Merge(other);
-}
-
-void TranslatorCountryWithAds::MergeInto(TranslatorCountryWithAds & other) const
-{
-  TranslatorCountry::MergeInto(other);
 }
 }  // namespace generator

@@ -110,16 +110,22 @@ public:
     return *this;
   }
 
-  void operator()(OsmElement & element)
+  void Process(OsmElement & element) const
   {
-    if (element.m_type == OsmElement::EntityType::Way && m_ways.find(element.m_id) != m_ways.end())
+    if (element.m_type == OsmElement::EntityType::Way)
     {
+      auto const it = m_ways.find(element.m_id);
+      if (it == m_ways.cend())
+        return;
+
       // Exclude ferry routes.
       static OsmElement::Tag const kFerryTag = {"route", "ferry"};
-      if (find(element.Tags().begin(), element.Tags().end(), kFerryTag) == element.Tags().end())
-        element.AddTag("highway", m_ways[element.m_id]);
+      auto const & tags = element.Tags();
+      if (std::find(tags.cbegin(), tags.cend(), kFerryTag) == tags.cend())
+        element.AddTag("highway", it->second);
     }
-    else if (element.m_type == OsmElement::EntityType::Node && m_capitals.find(element.m_id) != m_capitals.end())
+    else if (element.m_type == OsmElement::EntityType::Node &&
+             m_capitals.find(element.m_id) != m_capitals.cend())
     {
       // Our goal here - to make some capitals visible in World map.
       // The simplest way is to upgrade population to 45000,
@@ -183,11 +189,11 @@ public:
     return *this;
   }
 
-  void operator()(OsmElement & element)
+  void Process(OsmElement & element) const
   {
     for (auto & tag : element.m_tags)
     {
-      auto it = m_entries.find(tag);
+      auto const it = m_entries.find(tag);
       if (it != m_entries.end())
       {
         auto const & v = it->second;
@@ -250,12 +256,12 @@ public:
     return *this;
   }
 
-  void operator()(OsmElement & element)
+  void Process(OsmElement & element) const
   {
-    auto elements = m_elements.find({element.m_type, element.m_id});
+    auto const elements = m_elements.find({element.m_type, element.m_id});
     if (elements != m_elements.end())
     {
-      for (OsmElement::Tag tag : elements->second)
+      for (OsmElement::Tag const & tag : elements->second)
         element.UpdateTag(tag.m_key, [&tag](std::string & v) { v = tag.m_value; });
     }
   }

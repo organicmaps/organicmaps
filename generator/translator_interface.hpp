@@ -18,10 +18,8 @@ class IntermediateData;
 class TranslatorRegion;
 class TranslatorGeoObjects;
 class TranslatorCountry;
-class TranslatorCountryWithAds;
 class TranslatorCoastline;
 class TranslatorWorld;
-class TranslatorWorldWithAds;
 class TranslatorStreets;
 class TranslatorCollection;
 
@@ -43,10 +41,8 @@ public:
   virtual void MergeInto(TranslatorRegion &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(TranslatorGeoObjects &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(TranslatorCountry &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(TranslatorCountryWithAds &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(TranslatorCoastline &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(TranslatorWorld &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(TranslatorWorldWithAds &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(TranslatorStreets &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(TranslatorCollection &) const { FailIfMethodUnsupported(); }
 

@@ -16,10 +16,8 @@ namespace generator
 enum class TranslatorType
 {
   Country,
-  CountryWithAds,
   Coastline,
   World,
-  WorldWithAds
 };
 
 template <class... Args>
@@ -31,12 +29,8 @@ std::shared_ptr<TranslatorInterface> CreateTranslator(TranslatorType type, Args&
     return create<TranslatorCoastline>(std::forward<Args>(args)...);
   case TranslatorType::Country:
     return create<TranslatorCountry>(std::forward<Args>(args)...);
-  case TranslatorType::CountryWithAds:
-    return create<TranslatorCountryWithAds>(std::forward<Args>(args)...);
   case TranslatorType::World:
     return create<TranslatorWorld>(std::forward<Args>(args)...);
-  case TranslatorType::WorldWithAds:
-    return create<TranslatorWorldWithAds>(std::forward<Args>(args)...);
   }
   UNREACHABLE();
 }

@@ -257,7 +257,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Synonyms)
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     TagReplacer tagReplacer(GetPlatform().ResourcesDir() + REPLACED_TAGS_FILE);
-    tagReplacer(e);
+    tagReplacer.Process(e);
 
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
@@ -763,7 +763,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Entrance)
     FillXmlElement(arr, ARRAY_SIZE(arr), &e);
 
     TagReplacer tagReplacer(GetPlatform().ResourcesDir() + REPLACED_TAGS_FILE);
-    tagReplacer(e);
+    tagReplacer.Process(e);
 
     FeatureParams params;
     ftype::GetNameAndType(&e, params);

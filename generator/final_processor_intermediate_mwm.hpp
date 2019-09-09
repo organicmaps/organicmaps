@@ -28,7 +28,7 @@ public:
   explicit FinalProcessorIntermediateMwmInterface(FinalProcessorPriority priority);
   virtual ~FinalProcessorIntermediateMwmInterface() = default;
 
-  virtual bool Process() = 0;
+  virtual void Process() = 0;
 
   bool operator<(FinalProcessorIntermediateMwmInterface const & other) const;
   bool operator==(FinalProcessorIntermediateMwmInterface const & other) const;
@@ -51,17 +51,19 @@ public:
   void SetPromoCatalog(std::string const & filename);
   void SetCoastlines(std::string const & coastlineGeomFilename,
                      std::string const & worldCoastsFilename);
+  void SetFakeNodes(std::string const & filename);
 
   void DumpCitiesBoundaries(std::string const & filename);
 
   // FinalProcessorIntermediateMwmInterface overrides:
-  bool Process() override;
+  void Process() override;
 
 private:
-  bool ProcessBooking();
-  bool ProcessCities();
-  bool ProcessCoastline();
-  bool Finish();
+  void ProcessBooking();
+  void ProcessCities();
+  void ProcessCoastline();
+  void AddFakeNodes();
+  void Finish();
 
   std::string m_borderPath;
   std::string m_temporaryMwmPath;
@@ -71,6 +73,7 @@ private:
   std::string m_coastlineGeomFilename;
   std::string m_worldCoastsFilename;
   std::string m_citiesFilename;
+  std::string m_fakeNodesFilename;
   bool m_haveBordersForWholeWorld;
   size_t m_threadsCount;
 };
@@ -88,10 +91,10 @@ public:
   void SetPromoCatalog(std::string const & filename);
 
   // FinalProcessorIntermediateMwmInterface overrides:
-  bool Process() override;
+  void Process() override;
 
 private:
-  bool ProcessCities();
+  void ProcessCities();
 
   std::string m_temporaryMwmPath;
   std::string m_worldTmpFilename;
@@ -109,7 +112,7 @@ public:
   void SetCoastlinesFilenames(std::string const & geomFilename, std::string const & rawGeomFilename);
 
   // FinalProcessorIntermediateMwmInterface overrides:
-  bool Process() override;
+  void Process() override;
 
 private:
   std::string m_filename;

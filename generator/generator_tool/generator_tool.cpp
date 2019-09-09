@@ -110,7 +110,7 @@ DEFINE_uint64(planet_version, base::SecondsSinceEpoch(),
 // Preprocessing and feature generator.
 DEFINE_bool(preprocess, false, "1st pass - create nodes/ways/relations data.");
 DEFINE_bool(generate_features, false, "2nd pass - generate intermediate features.");
-DEFINE_bool(no_ads, false, "generation without ads.");
+DEFINE_bool(add_ads, false, "generation with ads.");
 DEFINE_bool(generate_geometry, false,
             "3rd pass - split and simplify geometry and triangles for features.");
 DEFINE_bool(generate_index, false, "4rd pass - generate index.");
@@ -280,9 +280,9 @@ int GeneratorToolMain(int argc, char ** argv)
   {
     RawGenerator rawGenerator(genInfo, threadsCount);
     if (FLAGS_generate_features)
-      rawGenerator.GenerateCountries(FLAGS_no_ads);
+      rawGenerator.GenerateCountries(FLAGS_add_ads);
     if (FLAGS_generate_world)
-      rawGenerator.GenerateWorld(FLAGS_no_ads);
+      rawGenerator.GenerateWorld(FLAGS_add_ads);
     if (FLAGS_make_coasts)
       rawGenerator.GenerateCoasts();
 

@@ -25,7 +25,6 @@ ProcessorCountry::ProcessorCountry(std::shared_ptr<FeatureProcessorQueue> const 
   m_processingChain->Add(m_affiliationsLayer);
 }
 
-
 std::shared_ptr<FeatureProcessorInterface> ProcessorCountry::Clone() const
 {
   return std::make_shared<ProcessorCountry>(m_queue, m_bordersPath, m_layerLogFilename, m_haveBordersForWholeWorld);

@@ -19,6 +19,6 @@ bool BuildCitiesBoundaries(std::string const & dataPath, std::string const & osm
                            OsmIdToBoundariesTable & table);
 bool BuildCitiesBoundariesForTesting(std::string const & dataPath, TestIdToBoundariesTable & table);
 
-bool SerializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable & table);
+void SerializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable & table);
 bool DeserializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable & table);
 }  // namespace generator

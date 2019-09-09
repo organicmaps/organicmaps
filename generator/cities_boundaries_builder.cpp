@@ -103,7 +103,7 @@ bool BuildCitiesBoundariesForTesting(string const & dataPath, TestIdToBoundaries
   });
 }
 
-bool SerializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable & table)
+void SerializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable & table)
 {
   vector<vector<base::GeoObjectId>> allIds;
   vector<vector<CityBoundary>> allBoundaries;
@@ -115,25 +115,13 @@ bool SerializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable &
 
   CHECK_EQUAL(allIds.size(), allBoundaries.size(), ());
 
-  try
+  FileWriter sink(path);
+  indexer::CitiesBoundariesSerDes::Serialize(sink, allBoundaries);
+  for (auto const & ids : allIds)
   {
-    FileWriter sink(path);
-
-    indexer::CitiesBoundariesSerDes::Serialize(sink, allBoundaries);
-
-    for (auto const & ids : allIds)
-    {
-      WriteToSink(sink, static_cast<uint64_t>(ids.size()));
-      for (auto const & id : ids)
-        WriteToSink(sink, id.GetEncodedId());
-    }
-
-    return true;
-  }
-  catch (Writer::Exception const & e)
-  {
-    LOG(LERROR, ("Can't serialize boundaries table:", e.what()));
-    return false;
+    WriteToSink(sink, static_cast<uint64_t>(ids.size()));
+    for (auto const & id : ids)
+      WriteToSink(sink, id.GetEncodedId());
   }
 }
 

@@ -20,8 +20,8 @@ public:
   explicit RawGenerator(feature::GenerateInfo & genInfo, size_t threadsCount = 1,
                         size_t chunkSize = 1024);
 
-  void GenerateCountries(bool disableAds = true);
-  void GenerateWorld(bool disableAds = true);
+  void GenerateCountries(bool addAds = false);
+  void GenerateWorld(bool addAds = false);
   void GenerateCoasts();
   void GenerateCustom(std::shared_ptr<TranslatorInterface> const & translator);
   void GenerateCustom(std::shared_ptr<TranslatorInterface> const & translator,
@@ -43,7 +43,7 @@ private:
   };
 
   FinalProcessorPtr CreateCoslineFinalProcessor();
-  FinalProcessorPtr CreateCountryFinalProcessor();
+  FinalProcessorPtr CreateCountryFinalProcessor(bool needMixNodes = false);
   FinalProcessorPtr CreateWorldFinalProcessor();
   bool GenerateFilteredFeatures();
 

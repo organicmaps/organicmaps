@@ -16,6 +16,7 @@
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 
+#include <cstdio>
 #include <string>
 
 #include "defines.hpp"
@@ -35,12 +36,21 @@ public:
   ~FeatureIntegrationTests()
   {
     CHECK(Platform::RmDirRecursively(m_testPath), ());
+    CHECK(Platform::RemoveFileIfExists(m_mixedNodesFilenames.first), ());
+    CHECK(Platform::RemoveFileIfExists(m_mixedTagsFilenames.first), ());
+    CHECK_EQUAL(
+        std::rename(m_mixedNodesFilenames.second.c_str(), m_mixedNodesFilenames.first.c_str()), 0,
+        ());
+    CHECK_EQUAL(
+        std::rename(m_mixedTagsFilenames.second.c_str(), m_mixedTagsFilenames.first.c_str()), 0,
+        ());
   }
 
   void BuildCoasts()
   {
     auto const worldCoastsGeom = m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME ".geom");
-    auto const worldCoastsRawGeom = m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME ".rawgeom");
+    auto const worldCoastsRawGeom =
+        m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME ".rawgeom");
 
     CHECK(!Platform::IsFileExistsByFullPath(worldCoastsGeom), ());
     CHECK(!Platform::IsFileExistsByFullPath(worldCoastsRawGeom), ());
@@ -59,16 +69,16 @@ public:
 
     auto const fbs = feature::ReadAllDatRawFormat(worldCoastsGeom);
     size_t geomeriesCnt = 0;
-    size_t pointsCnt = 0;
+    size_t geometryPointsCnt = 0;
     for (auto const & fb : fbs)
     {
       geomeriesCnt += fb.GetGeometry().size();
-      pointsCnt += fb.GetPointsCount();
+      geometryPointsCnt += fb.GetPointsCount();
     }
 
     TEST_EQUAL(fbs.size(), 340, ());
     TEST_EQUAL(geomeriesCnt, 6832, ());
-    TEST_EQUAL(pointsCnt, 512330, ());
+    TEST_EQUAL(geometryPointsCnt, 512330, ());
   }
 
   void BuildWorld()
@@ -83,36 +93,16 @@ public:
     TEST(rawGenerator.Execute(), ());
 
     TEST(Platform::IsFileExistsByFullPath(world), ());
-
-    auto const fbs = feature::ReadAllDatRawFormat(world);
-    size_t pointsCnt = 0;
-    size_t airportCnt = 0;
-    size_t cityTownOrVillageCnt = 0;
-    size_t popularAttractionCnt = 0;
-    for (auto const & fb : fbs)
-    {
-      pointsCnt += fb.IsPoint() ? 1 : fb.GetPointsCount();
-      if (generator::FilterWorld::IsInternationalAirport(fb))
-        ++airportCnt;
-
-      if (generator::FilterWorld::IsPopularAttraction(fb, m_genInfo.m_popularPlacesFilename))
-        ++popularAttractionCnt;
-
-      if (ftypes::IsCityTownOrVillage(fb.GetTypes()))
-        ++cityTownOrVillageCnt;
-    }
-
-    TEST_EQUAL(fbs.size(), 938, ());
-    TEST_EQUAL(pointsCnt, 364399, ());
-    TEST_EQUAL(airportCnt, 3, ());
-    TEST_EQUAL(cityTownOrVillageCnt, 172, ());
-    TEST_EQUAL(popularAttractionCnt, 135, ());
+    TestCountry(world, 938 /* fbsCnt */, 364399 /* geometryPointsCnt */, 327 /* pointCnt */,
+                598 /* lineCnt */, 13 /* areaCnt */, 422 /* poiCnt */,
+                172 /* cityTownOrVillageCnt */, 0 /* bookingHotelsCnt */);
   }
 
   void BuildCountries()
   {
     m_genInfo.m_emitCoasts = true;
-    m_genInfo.m_citiesBoundariesFilename = m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
+    m_genInfo.m_citiesBoundariesFilename =
+        m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
     m_genInfo.m_bookingDataFilename = m_genInfo.GetIntermediateFileName("hotels.csv");
 
     auto const northAuckland = m_genInfo.GetTmpFileName("New Zealand North_Auckland");
@@ -127,24 +117,70 @@ public:
     rawGenerator.GenerateCountries();
     TEST(rawGenerator.Execute(), ());
 
-    TestCountry(northAuckland, 1811963 /* fbsCnt */, 12195155 /* pointsCnt */, 1007377 /* pointCnt */,
-                205469 /* lineCnt */, 599117 /* areaCnt */, 212086 /* poiCnt */,
-                521 /* cityTownOrVillageCnt */, 3557 /* bookingHotelsCnt */);
-    TestCountry(northWellington, 797790 /* fbsCnt */, 7772135 /* pointsCnt */, 460460 /* pointCnt */,
-                87058 /* lineCnt */, 250272 /* areaCnt */, 95650 /* poiCnt */,
-                297 /* cityTownOrVillageCnt */, 1062 /* bookingHotelsCnt */);
-    TestCountry(southCanterbury, 636992 /* fbsCnt */, 6984268 /* pointsCnt */, 397694 /* pointCnt */,
-                81712 /* lineCnt */, 157586 /* areaCnt */, 89249 /* poiCnt */,
-                331 /* cityTownOrVillageCnt */, 2085 /* bookingHotelsCnt */);
-    TestCountry(southSouthland, 340492 /* fbsCnt */, 5342793 /* pointsCnt */, 185847 /* pointCnt */,
+    TestCountry(northAuckland, 1811963 /* fbsCnt */, 12195155 /* geometryPointsCnt */,
+                1007377 /* pointCnt */, 205469 /* lineCnt */, 599117 /* areaCnt */,
+                212086 /* poiCnt */, 521 /* cityTownOrVillageCnt */, 3557 /* bookingHotelsCnt */);
+    TestCountry(northWellington, 797790 /* fbsCnt */, 7772135 /* geometryPointsCnt */,
+                460460 /* pointCnt */, 87058 /* lineCnt */, 250272 /* areaCnt */,
+                95650 /* poiCnt */, 297 /* cityTownOrVillageCnt */, 1062 /* bookingHotelsCnt */);
+    TestCountry(southCanterbury, 636992 /* fbsCnt */, 6984268 /* geometryPointsCnt */,
+                397694 /* pointCnt */, 81712 /* lineCnt */, 157586 /* areaCnt */,
+                89249 /* poiCnt */, 331 /* cityTownOrVillageCnt */, 2085 /* bookingHotelsCnt */);
+    TestCountry(southSouthland, 340492 /* fbsCnt */, 5342793 /* geometryPointsCnt */, 185847 /* pointCnt */,
                 40124 /* lineCnt */, 114521 /* areaCnt */, 40497 /* poiCnt */,
                 297 /* cityTownOrVillageCnt */, 1621 /* bookingHotelsCnt */);
+  }
+
+  void CheckMixedTagsAndNodes()
+  {
+    m_genInfo.m_emitCoasts = true;
+    m_genInfo.m_citiesBoundariesFilename =
+        m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
+    m_genInfo.m_bookingDataFilename = m_genInfo.GetIntermediateFileName("hotels.csv");
+
+    auto const northAuckland = m_genInfo.GetTmpFileName("New Zealand North_Auckland");
+    auto const northWellington = m_genInfo.GetTmpFileName("New Zealand North_Wellington");
+    auto const southCanterbury = m_genInfo.GetTmpFileName("New Zealand South_Canterbury");
+    auto const southSouthland = m_genInfo.GetTmpFileName("New Zealand South_Southland");
+    auto const world = m_genInfo.GetTmpFileName("World");
+    auto const counties = {northAuckland, northWellington, southCanterbury, southSouthland, world};
+    for (auto const & mwmTmp : counties)
+      CHECK(!Platform::IsFileExistsByFullPath(mwmTmp), (mwmTmp));
+
+    generator::RawGenerator rawGenerator(m_genInfo, m_threadCount);
+    rawGenerator.GenerateCoasts();
+    rawGenerator.GenerateCountries(true /* needMixTagsAndNodes */);
+    rawGenerator.GenerateWorld(true /* needMixTags */);
+    TEST(rawGenerator.Execute(), ());
+
+    TestCountry(northAuckland, 1811963 /* fbsCnt */, 12195155 /* geometryPointsCnt */,
+                1007377 /* pointCnt */, 205469 /* lineCnt */, 599117 /* areaCnt */,
+                212086 /* poiCnt */, 521 /* cityTownOrVillageCnt */, 3557 /* bookingHotelsCnt */);
+    TestCountry(northWellington, 797790 /* fbsCnt */, 7772135 /* geometryPointsCnt */,
+                460460 /* pointCnt */, 87058 /* lineCnt */, 250272 /* areaCnt */,
+                95650 /* poiCnt */, 297 /* cityTownOrVillageCnt */, 1062 /* bookingHotelsCnt */);
+    TestCountry(southCanterbury, 636992 /* fbsCnt */, 6984268 /* geometryPointsCnt */,
+                397694 /* pointCnt */, 81712 /* lineCnt */, 157586 /* areaCnt */,
+                89249 /* poiCnt */, 331 /* cityTownOrVillageCnt */, 2085 /* bookingHotelsCnt */);
+    size_t partner1CntReal = 0;
+    TestCountry(southSouthland, 340494 /* fbsCnt */, 5342795 /* geometryPointsCnt */, 185849 /* pointCnt */,
+                40124 /* lineCnt */, 114521 /* areaCnt */, 40497 /* poiCnt */,
+                297 /* cityTownOrVillageCnt */, 1621 /* bookingHotelsCnt */, [&](auto const & fb) {
+                  static auto const partner1 = classif().GetTypeByPath({"sponsored", "partner1"});
+                  if (fb.HasType(partner1))
+                    ++partner1CntReal;
+                });
+    TEST_EQUAL(partner1CntReal, 4, ());
+    TestCountry(world, 938 /* fbsCnt */, 364399 /* geometryPointsCnt */, 327 /* pointCnt */,
+                598 /* lineCnt */, 13 /* areaCnt */, 422 /* poiCnt */,
+                172 /* cityTownOrVillageCnt */, 0 /* bookingHotelsCnt */);
   }
 
   void CheckGeneratedData()
   {
     m_genInfo.m_emitCoasts = true;
-    m_genInfo.m_citiesBoundariesFilename = m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
+    m_genInfo.m_citiesBoundariesFilename =
+        m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
     auto const cameraToWays = m_genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
     auto const citiesAreas = m_genInfo.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME);
     auto const maxSpeeds = m_genInfo.GetIntermediateFileName(MAXSPEEDS_FILENAME);
@@ -152,8 +188,9 @@ public:
     auto const restrictions = m_genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME);
     auto const roadAccess = m_genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME);
 
-    for (auto const & generatedFile : {cameraToWays, citiesAreas, maxSpeeds, metalines,
-         restrictions, roadAccess, m_genInfo.m_citiesBoundariesFilename})
+    for (auto const & generatedFile :
+         {cameraToWays, citiesAreas, maxSpeeds, metalines, restrictions, roadAccess,
+          m_genInfo.m_citiesBoundariesFilename})
     {
       CHECK(!Platform::IsFileExistsByFullPath(generatedFile), (generatedFile));
     }
@@ -191,13 +228,15 @@ public:
   }
 
 private:
-  void TestCountry(std::string const & path, size_t fbsCnt, size_t pointsCnt, size_t pointCnt,
-                   size_t lineCnt, size_t areaCnt, size_t poiCnt, size_t cityTownOrVillageCnt,
-                   size_t bookingHotelsCnt)
+  void TestCountry(
+      std::string const & path, size_t fbsCnt, size_t geometryPointsCnt, size_t pointCnt, size_t lineCnt,
+      size_t areaCnt, size_t poiCnt, size_t cityTownOrVillageCnt, size_t bookingHotelsCnt,
+      std::function<void(feature::FeatureBuilder const &)> const & fn =
+          [](feature::FeatureBuilder const &) {})
   {
     CHECK(Platform::IsFileExistsByFullPath(path), ());
     auto const fbs = feature::ReadAllDatRawFormat(path);
-    size_t pointsCntReal = 0;
+    size_t geometryPointsCntReal = 0;
     size_t pointCntReal = 0;
     size_t lineCntReal = 0;
     size_t areaCntReal = 0;
@@ -206,7 +245,7 @@ private:
     size_t bookingHotelsCntReal = 0;
     for (auto const & fb : fbs)
     {
-      pointsCntReal += fb.IsPoint() ? 1 : fb.GetPointsCount();
+      geometryPointsCntReal += fb.IsPoint() ? 1 : fb.GetPointsCount();
       if (fb.IsPoint())
         ++pointCntReal;
       else if (fb.IsLine())
@@ -224,10 +263,12 @@ private:
       auto static const & bookingChecker = ftypes::IsBookingHotelChecker::Instance();
       if (bookingChecker(fb.GetTypes()))
         ++bookingHotelsCntReal;
+
+      fn(fb);
     }
 
     TEST_EQUAL(fbs.size(), fbsCnt, ());
-    TEST_EQUAL(pointsCntReal, pointsCnt, ());
+    TEST_EQUAL(geometryPointsCntReal, geometryPointsCnt, ());
     TEST_EQUAL(pointCntReal, pointCnt, ());
     TEST_EQUAL(lineCntReal, lineCnt, ());
     TEST_EQUAL(areaCntReal, areaCnt, ());
@@ -262,10 +303,54 @@ private:
     m_genInfo.m_popularPlacesFilename = m_genInfo.GetIntermediateFileName("popular_places.csv");
     m_genInfo.m_idToWikidataFilename = m_genInfo.GetIntermediateFileName("wiki_urls.csv");
     DecompressZipArchive(base::JoinPath(options.m_dataPath, archiveName + ".zip"), m_testPath);
+
+    m_mixedNodesFilenames.first = base::JoinPath(platform.ResourcesDir(), MIXED_NODES_FILE);
+    m_mixedNodesFilenames.second = base::JoinPath(platform.ResourcesDir(), MIXED_NODES_FILE "_");
+    m_mixedTagsFilenames.first = base::JoinPath(platform.ResourcesDir(), MIXED_TAGS_FILE);
+    m_mixedTagsFilenames.second = base::JoinPath(platform.ResourcesDir(), MIXED_TAGS_FILE "_");
+
+    CHECK_EQUAL(
+        std::rename(m_mixedNodesFilenames.first.c_str(), m_mixedNodesFilenames.second.c_str()), 0,
+        ());
+    CHECK_EQUAL(
+        std::rename(m_mixedTagsFilenames.first.c_str(), m_mixedTagsFilenames.second.c_str()), 0,
+        ());
+    std::string const fakeNodes =
+        "sponsored=partner1\n"
+        "lat=-46.43525\n"
+        "lon=168.35674\n"
+        "banner_url=https://localads.maps.me/redirects/test\n"
+        "name=Test name1\n"
+        "\n"
+        "sponsored=partner1\n"
+        "lat=-46.43512\n"
+        "lon=168.35359\n"
+        "banner_url=https://localads.maps.me/redirects/test\n"
+        "name=Test name2\n";
+    WriteToFile(m_mixedNodesFilenames.first, fakeNodes);
+
+    std::string const mixesTags =
+        "way,548504067,sponsored=partner1,banner_url=https://localads.maps.me/redirects/"
+        "test,name=Test name3\n"
+        "way,548504066,sponsored=partner1,banner_url=https://localads.maps.me/redirects/"
+        "test,name=Test name4\n";
+    WriteToFile(m_mixedTagsFilenames.first, mixesTags);
+  }
+
+  void WriteToFile(std::string const & filename, std::string const & data)
+  {
+    std::ofstream stream;
+    stream.exceptions(std::fstream::failbit | std::fstream::badbit);
+    stream.open(filename);
+    stream << data;
   }
 
   size_t m_threadCount;
   std::string m_testPath;
+  // m_mixedNodesFilenames and m_mixedTagsFilenames contain old and new filenames.
+  // This is necessary to replace a file and then restore an old one back.
+  std::pair<std::string, std::string> m_mixedNodesFilenames;
+  std::pair<std::string, std::string> m_mixedTagsFilenames;
   feature::GenerateInfo m_genInfo;
 };
 
@@ -282,6 +367,11 @@ UNIT_CLASS_TEST(FeatureIntegrationTests, BuildWorld)
 UNIT_CLASS_TEST(FeatureIntegrationTests, BuildCountries)
 {
   FeatureIntegrationTests::BuildCountries();
+}
+
+UNIT_CLASS_TEST(FeatureIntegrationTests, CheckMixedTagsAndNodes)
+{
+  FeatureIntegrationTests::CheckMixedTagsAndNodes();
 }
 
 UNIT_CLASS_TEST(FeatureIntegrationTests, CheckGeneratedData)

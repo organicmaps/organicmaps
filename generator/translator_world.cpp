@@ -23,11 +23,14 @@ namespace generator
 {
 TranslatorWorld::TranslatorWorld(std::shared_ptr<FeatureProcessorInterface> const & processor,
                                  std::shared_ptr<cache::IntermediateData> const & cache,
-                                 feature::GenerateInfo const & info)
+                                 feature::GenerateInfo const & info, bool needMixTags)
   : Translator(processor, cache, std::make_shared<FeatureMaker>(cache))
-  , m_tagAdmixer(info.GetIntermediateFileName("ways", ".csv"), info.GetIntermediateFileName("towns", ".csv"))
-  , m_tagReplacer(GetPlatform().ResourcesDir() + REPLACED_TAGS_FILE)
+  , m_tagAdmixer(std::make_shared<TagAdmixer>(info.GetIntermediateFileName("ways", ".csv"), info.GetIntermediateFileName("towns", ".csv")))
+  , m_tagReplacer(std::make_shared<TagReplacer>(base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE)))
 {
+  if (needMixTags)
+    m_osmTagMixer = std::make_shared<OsmTagMixer>(base::JoinPath(GetPlatform().ResourcesDir(), MIXED_TAGS_FILE));
+
   auto filters = std::make_shared<FilterCollection>();
   filters->Append(std::make_shared<FilterPlanet>());
   filters->Append(std::make_shared<FilterElements>(base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE)));
@@ -40,14 +43,17 @@ TranslatorWorld::Clone() const
   auto copy = Translator::CloneBase<TranslatorWorld>();
   copy->m_tagAdmixer = m_tagAdmixer;
   copy->m_tagReplacer = m_tagReplacer;
+  copy->m_osmTagMixer = m_osmTagMixer;
   return copy;
 }
 
 void TranslatorWorld::Preprocess(OsmElement & element)
 {
   // Here we can add new tags to the elements!
-  m_tagReplacer(element);
-  m_tagAdmixer(element);
+  m_tagReplacer->Process(element);
+  m_tagAdmixer->Process(element);
+  if (m_osmTagMixer)
+    m_osmTagMixer->Process(element);
 }
 
 void TranslatorWorld::Merge(TranslatorInterface const & other)
@@ -58,47 +64,5 @@ void TranslatorWorld::Merge(TranslatorInterface const & other)
 void TranslatorWorld::MergeInto(TranslatorWorld & other) const
 {
   MergeIntoBase(other);
-}
-
-TranslatorWorldWithAds::TranslatorWorldWithAds(std::shared_ptr<FeatureProcessorInterface> const & processor,
-                                               std::shared_ptr<cache::IntermediateData> const & cache,
-                                               feature::GenerateInfo const & info)
-  : TranslatorWorld(processor, cache, info)
-  , m_osmTagMixer(base::JoinPath(GetPlatform().ResourcesDir(), MIXED_TAGS_FILE))
-{
-}
-
-std::shared_ptr<TranslatorInterface>
-TranslatorWorldWithAds::Clone() const
-{
-  auto copy = Translator::CloneBase<TranslatorWorldWithAds>();
-  copy->m_tagAdmixer = m_tagAdmixer;
-  copy->m_tagReplacer = m_tagReplacer;
-  copy->m_osmTagMixer = m_osmTagMixer;
-  return copy;
-}
-
-void TranslatorWorldWithAds::Preprocess(OsmElement & element)
-{
-  // Here we can add new tags to the elements!
-  m_osmTagMixer(element);
-  TranslatorWorld::Preprocess(element);
-}
-
-bool TranslatorWorldWithAds::Save()
-{
-  MixFakeNodes(GetPlatform().ResourcesDir() + MIXED_NODES_FILE,
-               std::bind(&TranslatorWorldWithAds::Emit, this, std::placeholders::_1));
-  return TranslatorWorld::Save();
-}
-
-void TranslatorWorldWithAds::Merge(TranslatorInterface const & other)
-{
-  TranslatorWorld::Merge(other);
-}
-
-void TranslatorWorldWithAds::MergeInto(TranslatorWorldWithAds & other) const
-{
-  TranslatorWorld::MergeInto(other);
 }
 }  // namespace generator
