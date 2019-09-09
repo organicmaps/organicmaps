@@ -1,8 +1,5 @@
 #include "partners_api/promo_api.hpp"
 
-#include "indexer/classificator.hpp"
-#include "indexer/ftypes_matcher.hpp"
-
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
@@ -65,9 +62,15 @@ void ParseCityGallery(std::string const & src, UTM utm, promo::CityGallery & res
     FromJSONObject(obj, "url", item.m_url);
     item.m_url = InjectUTM(url::Join(BOOKMARKS_CATALOG_FRONT_URL, item.m_url), utm);
     FromJSONObject(obj, "access", item.m_access);
-    FromJSONObjectOptionalField(obj, "description", item.m_description);
     FromJSONObjectOptionalField(obj, "image_url", item.m_imageUrl);
     FromJSONObjectOptionalField(obj, "tier", item.m_tier);
+
+    auto const placeObj = json_object_get(obj, "place");
+    if (json_is_object(placeObj))
+    {
+      FromJSONObject(placeObj, "name", item.m_place.m_name);
+      FromJSONObject(placeObj, "description", item.m_place.m_description);
+    }
 
     auto const authorObj = json_object_get(obj, "author");
     FromJSONObject(authorObj, "key_id", item.m_author.m_id);

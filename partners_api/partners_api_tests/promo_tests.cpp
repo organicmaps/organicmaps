@@ -99,3 +99,46 @@ UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_GetCityGallery)
     TEST_EQUAL(result.m_items.size(), 2, ());
   }
 }
+
+UNIT_CLASS_TEST(ScopedEyeWithAsyncGuiThread, Promo_GetCityGallerySingleItem)
+{
+  {
+    promo::Api api("http://localhost:34568/single/empty/");
+    api.SetDelegate(std::make_unique<DelegateForTesting>());
+    auto const lang = "en";
+
+    promo::CityGallery result{};
+    api.GetCityGallery({}, lang, UTM::None, [&result](promo::CityGallery const & gallery)
+    {
+      result = gallery;
+      testing::Notify();
+    },
+    []
+    {
+      testing::Notify();
+    });
+
+    testing::Wait();
+    TEST_EQUAL(result.m_items.size(), 0, ());
+  }
+  {
+    promo::Api api("http://localhost:34568/single/");
+    api.SetDelegate(std::make_unique<DelegateForTesting>());
+    auto const lang = "en";
+
+    promo::CityGallery result{};
+    m2::PointD pt;
+    api.GetCityGallery(pt, lang, UTM::None, [&result](promo::CityGallery const & gallery)
+    {
+      result = gallery;
+      testing::Notify();
+    },
+    []
+    {
+      testing::Notify();
+    });
+
+    testing::Wait();
+    TEST_EQUAL(result.m_items.size(), 1, ());
+  }
+}

@@ -16,6 +16,13 @@
 
 namespace promo
 {
+struct Place
+{
+  bool IsEmpty() const { return m_name.empty() || m_description.empty(); }
+
+  std::string m_name;
+  std::string m_description;
+};
 struct Author
 {
   std::string m_id;
@@ -33,17 +40,17 @@ struct CityGallery
   {
     std::string m_name;
     std::string m_url;
-    std::string m_description;
     std::string m_imageUrl;
     std::string m_access;
     std::string m_tier;
+    Place m_place;
     Author m_author;
     LuxCategory m_luxCategory;
   };
 
   bool IsEmpty() const
   {
-    return m_items.empty() || (m_items.size() == 1 && m_items.back().m_description.empty());
+    return m_items.empty() || (m_items.size() == 1 && m_items.back().m_place.IsEmpty());
   }
 
   std::string m_moreUrl;

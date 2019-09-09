@@ -551,3 +551,59 @@ PROMO_GALLERY_CITY = """
     }
 }
 """
+
+PROMO_GALLERY_CITY_SINGLE_EMPTY = """
+{
+    "data": [
+        {
+            "url": "bundle/73af3f02-b8e3-4f60-8ef0-1c3c5cff43ca",
+            "name": "По Виа Рипетта до мавзолея Августа и Алтаря мира",
+            "author": {
+                "key_id": "00000000-0000-0000-0000-000000000000",
+                "name": "The Village"
+            },
+            "image_url": "http://localhost:8000/images/73af3f02-b8e3-4f60-8ef0-1c3c5cff43ca.jpg",
+            "access": "public",
+            "lux_category": {
+                "name": "LUX",
+                "color": "666666"
+            },
+            "tier": "price.tier"
+        }
+    ],
+    "errors": [],
+    "meta": {
+        "more": "search?city=888"
+    }
+}
+"""
+
+PROMO_GALLERY_CITY_SINGLE = """
+{
+    "data": [
+        {
+            "url": "bundle/73af3f02-b8e3-4f60-8ef0-1c3c5cff43ca",
+            "name": "По Виа Рипетта до мавзолея Августа и Алтаря мира",
+            "author": {
+                "key_id": "00000000-0000-0000-0000-000000000000",
+                "name": "The Village"
+            },
+            "image_url": "http://localhost:8000/images/73af3f02-b8e3-4f60-8ef0-1c3c5cff43ca.jpg",
+            "access": "public",
+            "lux_category": {
+                "name": "LUX",
+                "color": "666666"
+            },
+            "tier": "price.tier",
+            "place": {
+                "name": "Bookmark name",
+                "description": "Bookmark description"
+            }
+        }
+    ],
+    "errors": [],
+    "meta": {
+        "more": "search?city=888"
+    }
+}
+"""

@@ -148,6 +148,8 @@ class ResponseProvider:
                 "/partners/get-offers-in-bbox/": self.partners_rent_nearby,
                 "/partners/CalculateByCoords": self.partners_calculate_by_coords,
                 "/gallery/v1/search/": self.promo_gallery_city,
+                "/single/empty/gallery/v1/search/": self.promo_gallery_city_single_empty,
+                "/single/gallery/v1/search/": self.promo_gallery_city_single,
             }[url]()
         except:
             return self.test_404()
@@ -242,6 +244,12 @@ class ResponseProvider:
 
     def promo_gallery_city(self):
         return Payload(jsons.PROMO_GALLERY_CITY)
+
+    def promo_gallery_city_single_empty(self):
+        return Payload(jsons.PROMO_GALLERY_CITY_SINGLE_EMPTY)
+
+    def promo_gallery_city_single(self):
+        return Payload(jsons.PROMO_GALLERY_CITY_SINGLE)
 
     def kill(self):
         logging.debug("Kill called in ResponseProvider")

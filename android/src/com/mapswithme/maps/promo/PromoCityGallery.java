@@ -37,28 +37,28 @@ public final class PromoCityGallery
     @NonNull
     private final String mUrl;
     @NonNull
-    private final String mDescription;
-    @NonNull
     private final String mImageUrl;
     @NonNull
     private final String mAccess;
     @NonNull
     private final String mTier;
     @NonNull
+    private final Place mPlace;
+    @NonNull
     private final Author mAuthor;
     @Nullable
     private final LuxCategory mLuxCategory;
 
-    public Item(@NonNull String name, @NonNull String url, @NonNull String description,
-                @NonNull String imageUrl, @NonNull String access, @NonNull String tier,
+    public Item(@NonNull String name, @NonNull String url, @NonNull String imageUrl,
+                @NonNull String access, @NonNull String tier, @NonNull Place place,
                 @NonNull Author author, @Nullable LuxCategory luxCategory)
     {
       mName = name;
       mUrl = url;
-      mDescription = description;
       mImageUrl = imageUrl;
       mAccess = access;
       mTier = tier;
+      mPlace = place;
       mAuthor = author;
       mLuxCategory = luxCategory;
     }
@@ -73,12 +73,6 @@ public final class PromoCityGallery
     public String getUrl()
     {
       return mUrl;
-    }
-
-    @NonNull
-    public String getDescription()
-    {
-      return mDescription;
     }
 
     @NonNull
@@ -100,6 +94,12 @@ public final class PromoCityGallery
     }
 
     @NonNull
+    public Place getPlace()
+    {
+      return mPlace;
+    }
+
+    @NonNull
     public Author getAuthor()
     {
       return mAuthor;
@@ -111,6 +111,33 @@ public final class PromoCityGallery
       return mLuxCategory;
     }
 
+  }
+
+  public static final class Place
+  {
+    @NonNull
+    private String mName;
+
+    @NonNull
+    private String mDescription;
+
+    Place(@NonNull String name, @NonNull String description)
+    {
+      mName = name;
+      mDescription = description;
+    }
+
+    @NonNull
+    public String getName()
+    {
+      return mName;
+    }
+
+    @NonNull
+    public String getDescription()
+    {
+      return mDescription;
+    }
   }
 
   public static final class Author
