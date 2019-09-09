@@ -83,7 +83,9 @@ private:
       UNUSED_VALUE(m_dataSource.RegisterMap(localFile));
       auto const & countryFile = localFile.GetCountryFile();
       auto const mwmId = m_dataSource.GetMwmIdByCountryFile(countryFile);
-      CHECK(mwmId.IsAlive(), ());
+
+      if (!mwmId.IsAlive())
+        continue;
 
       // Only maps from countries.txt should be used for tests.
       if (m_cpg->GetStorageForTesting().IsLeaf(countryFile.GetName()))

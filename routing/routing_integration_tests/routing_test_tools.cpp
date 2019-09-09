@@ -28,6 +28,7 @@
 #include "geometry/latlon.hpp"
 
 #include "base/math.hpp"
+#include "base/stl_helpers.hpp"
 
 #include "private.h"
 
@@ -71,14 +72,8 @@ shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(vector<LocalCountryFile
   featuresFetcher->InitClassificator();
 
   for (LocalCountryFile const & localFile : localFiles)
-  {
-    auto p = featuresFetcher->RegisterMap(localFile);
-    if (p.second != MwmSet::RegResult::Success)
-    {
-      ASSERT(false, ("Can't register", localFile));
-      return nullptr;
-    }
-  }
+    featuresFetcher->RegisterMap(localFile);
+
   return featuresFetcher;
 }
 
@@ -110,7 +105,10 @@ unique_ptr<IndexRouter> CreateVehicleRouter(DataSource & dataSource,
   {
     auto const & countryFile = f.GetCountryFile();
     auto const mwmId = dataSource.GetMwmIdByCountryFile(countryFile);
-    CHECK(mwmId.IsAlive(), ());
+
+    if (!mwmId.IsAlive())
+      continue;
+
     if (countryParentGetter->GetStorageForTesting().IsLeaf(countryFile.GetName()))
       numMwmIds->RegisterFile(countryFile);
   }
