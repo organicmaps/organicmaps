@@ -286,10 +286,10 @@ void PreRanker::FilterForViewportSearch()
   {
     auto const & p = m_results[i].GetInfo().m_center;
     int dx = static_cast<int>((p.x - viewport.minX()) / sizeX * kNumXSlots);
-    dx = base::clamp(dx, 0, static_cast<int>(kNumXSlots) - 1);
+    dx = base::Clamp(dx, 0, static_cast<int>(kNumXSlots) - 1);
 
     int dy = static_cast<int>((p.y - viewport.minY()) / sizeY * kNumYSlots);
-    dy = base::clamp(dy, 0, static_cast<int>(kNumYSlots) - 1);
+    dy = base::Clamp(dy, 0, static_cast<int>(kNumYSlots) - 1);
 
     buckets[dx * kNumYSlots + dy].push_back(i);
   }

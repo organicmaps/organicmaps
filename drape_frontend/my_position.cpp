@@ -156,7 +156,7 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::GraphicsContext> context,
 {
   size_t constexpr kTriangleCount = 40;
   size_t constexpr kVertexCount = 3 * kTriangleCount;
-  auto const etalonSector = static_cast<float>(math::twicePi / kTriangleCount);
+  auto const etalonSector = static_cast<float>(2.0 * math::pi / kTriangleCount);
 
   dp::TextureManager::ColorRegion color;
   mng->GetColorRegion(df::GetColorConstant(df::kMyPositionAccuracyColor), color);

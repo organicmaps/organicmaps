@@ -676,8 +676,8 @@ void RouteShape::BatchGeometry(ref_ptr<dp::GraphicsContext> context, dp::RenderS
   uint32_t constexpr kMaxBatchSize = 65000;
   uint32_t constexpr kIndicesScalar = 2;
 
-  verticesCount = base::clamp(verticesCount, kMinBatchSize, kMaxBatchSize);
-  auto const indicesCount = base::clamp(verticesCount * kIndicesScalar, kMinBatchSize, kMaxBatchSize);
+  verticesCount = base::Clamp(verticesCount, kMinBatchSize, kMaxBatchSize);
+  auto const indicesCount = base::Clamp(verticesCount * kIndicesScalar, kMinBatchSize, kMaxBatchSize);
 
   dp::Batcher batcher(indicesCount, verticesCount);
   batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Routing));

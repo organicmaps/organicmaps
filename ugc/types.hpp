@@ -336,7 +336,7 @@ struct UGC
     float constexpr kEps = 0.01f;
     CHECK_LESS(m_totalRating - kEps, kMaxRating, ());
     CHECK_GREATER(m_totalRating + kEps, kMinRating, ());
-    m_totalRating = base::clamp(m_totalRating, kMinRating, kMaxRating);
+    m_totalRating = base::Clamp(m_totalRating, kMinRating, kMaxRating);
   }
 
   DECLARE_VISITOR(visitor(m_ratings, "ratings"), visitor(m_reviews, "reviews"),
@@ -382,7 +382,7 @@ struct UGC
       rating = 1 + (m_totalRating - kRatingDetalizationThreshold) /
                        (kMaxRating - kRatingDetalizationThreshold) * 62.0f;
     }
-    rating = base::clamp(rating, static_cast<uint8_t>(0), static_cast<uint8_t>(63));
+    rating = base::Clamp(rating, static_cast<uint8_t>(0), static_cast<uint8_t>(63));
 
     return confidence << 6 | rating;
   }

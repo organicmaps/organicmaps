@@ -247,7 +247,7 @@ uint8_t CalcSearchRank(FeatureType & ft)
   auto const transportRank = CalcTransportRank(ft);
   auto const populationRank = feature::PopulationToRank(ftypes::GetPopulation(ft));
 
-  return base::clamp(eventRank + transportRank + populationRank, 0,
+  return base::Clamp(eventRank + transportRank + populationRank, 0,
                      static_cast<int>(numeric_limits<uint8_t>::max()));
 }
 

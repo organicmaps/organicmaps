@@ -72,7 +72,7 @@ T TwoVectorsAngle(m2::Point<T> const & p, m2::Point<T> const & p1, m2::Point<T> 
 {
   T a = ang::AngleTo(p, p2) - ang::AngleTo(p, p1);
   while (a < 0)
-    a += math::twicePi;
+    a += 2.0 * math::pi;
   return a;
 }
 
@@ -93,7 +93,7 @@ T Azimuth(m2::Point<T> const & p1, m2::Point<T> const & p2, T north = 0)
 {
   T azimuth = math::pi2 - (AngleTo(p1, p2) + north);
   if (azimuth < 0)
-    azimuth += math::twicePi;
+    azimuth += 2.0 * math::pi;
   return azimuth;
 }
 

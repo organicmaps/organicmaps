@@ -902,7 +902,7 @@ void GetNameAndType(OsmElement * p, FeatureParams & params, function<bool(uint32
          {
            params.layer = atoi(v.c_str());
            int8_t const bound = 10;
-           params.layer = base::clamp(params.layer, static_cast<int8_t>(-bound), bound);
+           params.layer = base::Clamp(params.layer, static_cast<int8_t>(-bound), bound);
          }
        }},
   });

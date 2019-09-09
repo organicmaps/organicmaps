@@ -73,7 +73,7 @@ void TestAltitudeOfAllMwmFeatures(string const & countryId, TAltitude const alti
 
     for (auto const altitude : altitudes)
     {
-      TEST_EQUAL(base::clamp(altitude, altitudeLowerBoundMeters, altitudeUpperBoundMeters), altitude,
+      TEST_EQUAL(base::Clamp(altitude, altitudeLowerBoundMeters, altitudeUpperBoundMeters), altitude,
                  ("Unexpected altitude. MWM:", countryId, ", feature id:", id, ", altitudes:", altitudes));
     }
   });

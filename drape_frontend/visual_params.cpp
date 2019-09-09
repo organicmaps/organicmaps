@@ -203,7 +203,7 @@ int GetTileScaleBase(ScreenBase const & s)
 int GetTileScaleBase(m2::RectD const & r)
 {
   double const sz = std::max(r.SizeX(), r.SizeY());
-  return std::max(1, base::rounds(log(MercatorBounds::kRangeX / sz) / log(2.0)));
+  return std::max(1, base::SignedRound(log(MercatorBounds::kRangeX / sz) / log(2.0)));
 }
 
 double GetTileScaleBase(double drawScale)
@@ -243,12 +243,12 @@ m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center)
 
 m2::RectD GetRectForDrawScale(double drawScale, m2::PointD const & center, uint32_t tileSize, double visualScale)
 {
-  return GetRectForDrawScale(base::rounds(drawScale), center, tileSize, visualScale);
+  return GetRectForDrawScale(base::SignedRound(drawScale), center, tileSize, visualScale);
 }
 
 m2::RectD GetRectForDrawScale(double drawScale, m2::PointD const & center)
 {
-  return GetRectForDrawScale(base::rounds(drawScale), center);
+  return GetRectForDrawScale(base::SignedRound(drawScale), center);
 }
 
 uint32_t CalculateTileSize(uint32_t screenWidth, uint32_t screenHeight)
@@ -276,9 +276,9 @@ uint32_t CalculateTileSize(uint32_t screenWidth, uint32_t screenHeight)
   }
 
 #ifndef OMIM_OS_DESKTOP
-  return static_cast<uint32_t>(base::clamp(res / 2, 256, 1024));
+  return static_cast<uint32_t>(base::Clamp(res / 2, 256, 1024));
 #else
-  return static_cast<uint32_t>(base::clamp(res / 2, 512, 1024));
+  return static_cast<uint32_t>(base::Clamp(res / 2, 512, 1024));
 #endif
 }
 
@@ -349,7 +349,7 @@ m2::PointF InterpolateByZoomLevels(int index, float lerpCoef, std::vector<m2::Po
 double GetNormalizedZoomLevel(double screenScale, int minZoom)
 {
   double const kMaxZoom = scales::GetUpperStyleScale() + 1.0;
-  return base::clamp((GetZoomLevel(screenScale) - minZoom) / (kMaxZoom - minZoom), 0.0, 1.0);
+  return base::Clamp((GetZoomLevel(screenScale) - minZoom) / (kMaxZoom - minZoom), 0.0, 1.0);
 }
 
 double GetScreenScale(double zoomLevel)
@@ -368,6 +368,6 @@ double GetZoomLevel(double screenScale)
   auto const len = pxLen * screenScale;
   auto const factor = MercatorBounds::kRangeX / len;
   static double const kLog2 = log(2.0);
-  return base::clamp(GetDrawTileScale(fabs(log(factor) / kLog2)), 1.0, scales::GetUpperStyleScale() + 1.0);
+  return base::Clamp(GetDrawTileScale(fabs(log(factor) / kLog2)), 1.0, scales::GetUpperStyleScale() + 1.0);
 }
 }  // namespace df

@@ -702,7 +702,7 @@ void UserEventStream::CheckAutoRotate()
 
   double const kMaxAutoRotateAngle = 25.0 * math::pi / 180.0;
   double const angle = fabs(GetCurrentScreen().GetAngle());
-  if (angle < kMaxAutoRotateAngle || (math::twicePi - angle) < kMaxAutoRotateAngle)
+  if (angle < kMaxAutoRotateAngle || (2.0 * math::pi - angle) < kMaxAutoRotateAngle)
     SetAngle(0.0, true /* isAnim */);
 }
 

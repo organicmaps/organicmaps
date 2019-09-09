@@ -22,10 +22,10 @@ namespace
     b2 = screen.GtoP(b2);
 
     // check that we are in boundaries.
-    TEST(base::Between(0, width, base::rounds(b1.x)), ());
-    TEST(base::Between(0, width, base::rounds(b2.x)), ());
-    TEST(base::Between(0, height, base::rounds(b1.y)), ());
-    TEST(base::Between(0, height, base::rounds(b2.y)), ());
+    TEST(base::Between(0, width, base::SignedRound(b1.x)), ());
+    TEST(base::Between(0, width, base::SignedRound(b2.x)), ());
+    TEST(base::Between(0, height, base::SignedRound(b1.y)), ());
+    TEST(base::Between(0, height, base::SignedRound(b2.y)), ());
   }
 }
 

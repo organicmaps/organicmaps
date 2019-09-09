@@ -118,8 +118,8 @@ inline bool HasRating(float rating)
 
 float CalculateAggregateMetric(float rating, int pricing)
 {
-  float const p1 = base::clamp(rating, 0.0f, 10.0f) / 10.0f;
-  float const p2 = (3 - base::clamp(pricing, 0, 3)) / 3.0f;
+  float const p1 = base::Clamp(rating, 0.0f, 10.0f) / 10.0f;
+  float const p2 = (3 - base::Clamp(pricing, 0, 3)) / 3.0f;
   float const s = p1 + p2;
   if (fabs(s) < 1e-5)
     return 0.0f;

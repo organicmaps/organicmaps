@@ -110,7 +110,7 @@ string FormatLatLonAsDMSImpl(double value, char positive, char negative, int dac
   // Seconds
   d = d * 60.0;
   if (dac == 0)
-    d = rounds(d);
+    d = SignedRound(d);
 
   d = modf(d, &i);
   sstream << setw(2) << i;
@@ -121,7 +121,7 @@ string FormatLatLonAsDMSImpl(double value, char positive, char negative, int dac
   sstream << "″";
 
   // This condition is too heavy for production purposes (but more correct).
-  //if (base::rounds(value * 3600.0 * pow(10, dac)) != 0)
+  //if (base::SignedRound(value * 3600.0 * pow(10, dac)) != 0)
   if (!AlmostEqualULPs(value, 0.0))
   {
     char postfix = positive;

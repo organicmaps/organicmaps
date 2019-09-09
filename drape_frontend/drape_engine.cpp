@@ -799,7 +799,7 @@ void DrapeEngine::SetFontScaleFactor(double scaleFactor)
   double const kMinScaleFactor = 0.5;
   double const kMaxScaleFactor = 2.0;
 
-  scaleFactor = base::clamp(scaleFactor, kMinScaleFactor, kMaxScaleFactor);
+  scaleFactor = base::Clamp(scaleFactor, kMinScaleFactor, kMaxScaleFactor);
 
   VisualParams::Instance().SetFontScale(scaleFactor);
 }

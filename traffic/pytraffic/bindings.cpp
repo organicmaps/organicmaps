@@ -81,7 +81,7 @@ traffic::TrafficInfo::Coloring TransformToSpeedGroups(SegmentMapping const & seg
     else
     {
       double p = 100.0 * u / v;
-      p = base::clamp(p, 0.0, 100.0);
+      p = base::Clamp(p, 0.0, 100.0);
       result[kv.first] = traffic::GetSpeedGroupByPercentage(p);
     }
   }

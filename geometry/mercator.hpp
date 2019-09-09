@@ -28,14 +28,14 @@ struct MercatorBounds
   static bool ValidX(double d) { return base::Between(kMinX, kMaxX, d); }
   static bool ValidY(double d) { return base::Between(kMinY, kMaxY, d); }
 
-  static double ClampX(double d) { return base::clamp(d, kMinX, kMaxX); }
-  static double ClampY(double d) { return base::clamp(d, kMinY, kMaxY); }
+  static double ClampX(double d) { return base::Clamp(d, kMinX, kMaxX); }
+  static double ClampY(double d) { return base::Clamp(d, kMinY, kMaxY); }
 
   static double YToLat(double y) { return base::RadToDeg(2.0 * atan(tanh(0.5 * base::DegToRad(y)))); }
 
   static double LatToY(double lat)
   {
-    double const sinx = sin(base::DegToRad(base::clamp(lat, -86.0, 86.0)));
+    double const sinx = sin(base::DegToRad(base::Clamp(lat, -86.0, 86.0)));
     double const res = base::RadToDeg(0.5 * log((1.0 + sinx) / (1.0 - sinx)));
     return ClampY(res);
   }

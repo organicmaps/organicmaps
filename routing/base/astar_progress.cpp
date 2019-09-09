@@ -39,7 +39,7 @@ double AStarSubProgress::UpdateProgress(m2::PointD const & current, m2::PointD c
   toUpdate = std::min(toUpdate, dist);
 
   double part = 2.0 - (m_forwardDistance + m_backwardDistance) / m_fullDistance;
-  part = base::clamp(part, 0.0, 1.0);
+  part = base::Clamp(part, 0.0, 1.0);
   double const newProgress =  m_contributionCoef * part;
 
   m_currentProgress = std::max(newProgress, m_currentProgress);

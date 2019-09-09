@@ -691,7 +691,7 @@ ScreenBase CPUDrawer::CalculateScreen(m2::PointD const & center, int zoomModifie
   int baseZoom = df::GetDrawTileScale(rect, tileSize, m_visualScale);
   resultZoom = baseZoom + zoomModifier;
   int const minZoom = symbols.m_bottomZoom == -1 ? resultZoom : symbols.m_bottomZoom;
-  resultZoom = base::clamp(resultZoom, minZoom, scales::GetUpperScale());
+  resultZoom = base::Clamp(resultZoom, minZoom, scales::GetUpperScale());
   rect = df::GetRectForDrawScale(resultZoom, rect.Center(), tileSize, m_visualScale);
 
   df::CheckMinGlobalRect(rect, tileSize, m_visualScale);

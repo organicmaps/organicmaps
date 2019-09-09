@@ -36,7 +36,7 @@ double ToAngleInDeg(uint32_t angleInBuckets)
 {
   CHECK_GREATER_OR_EQUAL(angleInBuckets, 0, ());
   CHECK_LESS_OR_EQUAL(angleInBuckets, 255, ());
-  return base::clamp(kAnglesInBucket * static_cast<double>(angleInBuckets), 0.0, 360.0);
+  return base::Clamp(kAnglesInBucket * static_cast<double>(angleInBuckets), 0.0, 360.0);
 }
 
 uint32_t BearingInDeg(m2::PointD const & a, m2::PointD const & b)
