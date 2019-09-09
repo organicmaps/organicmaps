@@ -1666,6 +1666,7 @@
 	<string name="bookmarks_delete_list">Ta bort listan</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Ordningen i bokmärken — bekvämlighet i resan</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Sortera favoritplatser efter kategorier, tid för tilläggning och geolokation, samt hitta snabbt specifika bokmärken efter namn</string>
+	<string name="religious_places">Heliga platser</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

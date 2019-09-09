@@ -1677,6 +1677,7 @@
 	<string name="bookmarks_delete_list">Supprimer la liste</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Commander dans les signets rend un voyage confortable</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Triez les endroits préférés par catégorie, emplacement et ordre chronologique, ainsi que trouver rapidement des signets spécifiques par leur nom</string>
+	<string name="religious_places">Lieux saints</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

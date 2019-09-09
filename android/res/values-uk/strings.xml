@@ -1668,6 +1668,7 @@
 	<string name="bookmarks_delete_list">Видалити список</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Порядок у мітках — зручність під час подорожі</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Сортуйте обрані місця за категоріями, часом завантаження та геолокацією, а також швидко знаходьте конкретні мітки за назвою</string>
+	<string name="religious_places">Святі місця</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

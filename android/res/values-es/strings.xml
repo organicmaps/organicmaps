@@ -1656,6 +1656,7 @@
 	<string name="bookmarks_delete_list">Eliminar lista</string>
 	<string name="whatsnew_bookmarks_search_sort_title">El orden en las etiquetas, significa facilidad de viaje</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Ordena tus lugares favoritos por categoría, tiempo de adición y geolocalización, y también encuentra rápidamente etiquetas específicas por nombre</string>
+	<string name="religious_places">Lugares sagrados</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estación de teleférico</string>

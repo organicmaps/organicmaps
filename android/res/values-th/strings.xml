@@ -1667,6 +1667,7 @@
 	<string name="bookmarks_delete_list">ลบรายการ</string>
 	<string name="whatsnew_bookmarks_search_sort_title">ลำดับในบุ๊กมาร์กทำให้การเดินทางสะดวกมากขึ้น</string>
 	<string name="whatsnew_bookmarks_search_sort_message">เรียงสถานที่โปรดตามหมวดหมู่ ตำแหน่ง และลำดับ ตลอดจนค้นหาบุ๊กมาร์กที่กำหนดอย่างรวดเร็วด้วยชื่อ</string>
+	<string name="religious_places">สถานที่ทางศาสนา</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

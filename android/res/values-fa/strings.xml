@@ -1606,6 +1606,7 @@
 	<string name="bookmarks_delete_list">حذف همه</string>
 	<string name="whatsnew_bookmarks_search_sort_title">سفارش در نشانهها سفری آسوده را رقم می زند</string>
 	<string name="whatsnew_bookmarks_search_sort_message">مکانهای مورد علاقه را بر اساس طبقه بندی ، موقعیت مکانی و ترتیب زمانی مرتب کنید، همچنین نشانههای خاص را به سرعت از روی نام بیابید</string>
+	<string name="religious_places">اماکن مقدس</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>

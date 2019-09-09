@@ -1419,6 +1419,7 @@
 	<string name="bookmarks_delete_list">Διαγραφή λίστας</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Τάξη στους σελιδοδείκτες κάνει το ταξίδι άνετο</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Ταξινόμηση των αγαπημένων σας τοποθεσιών ανά κατηγορία, ώρα προσθήκης και γεωγραφική κατανομή και γρήγορη εύρεση συγκεκριμένων σελιδοδεικτών με το όνομα</string>
+	<string name="religious_places">Άγιοι τόποι</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Σταθμός αερομεταφοράς</string>

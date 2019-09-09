@@ -1666,6 +1666,7 @@
 	<string name="bookmarks_delete_list">删除列表</string>
 	<string name="whatsnew_bookmarks_search_sort_title">标签中的顺序 – 便于旅行</string>
 	<string name="whatsnew_bookmarks_search_sort_message">请根据类别、添加时间和地理位置对您喜欢的地点进行排序，还可以按名称快速查找具体的标签</string>
+	<string name="religious_places">圣地</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">缆车车站</string>

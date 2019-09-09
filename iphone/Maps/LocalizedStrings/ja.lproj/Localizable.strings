@@ -3034,6 +3034,16 @@
 
 "whatsnew_bookmarks_search_sort_message" = "お気に入りの場所をカテゴリーや、位置、時系列順で並び替えたり、名前で素早く特定のブックマークを検索しましょう。";
 
+"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+
+"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+
+"popup_subscription_success_map_start_button" = "Start browsing";
+
+"popup_subscription_success_map_not_now_button" = "Not now";
+
+"religious_places" = "宗教に関連した場所";
+
 
 /**********  Partners  **********/
 

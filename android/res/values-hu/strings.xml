@@ -1663,6 +1663,7 @@
 	<string name="bookmarks_delete_list">Lista törlése</string>
 	<string name="whatsnew_bookmarks_search_sort_title">A könyvjelzők rendezése kényelmes utazást tesz lehetővé</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Rendezze kedvenc helyeit kategóriánként, helyenként és időrendbe, és találja meg őket gyorsan a nevük alapján</string>
+	<string name="religious_places">Vallási helyek</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>

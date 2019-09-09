@@ -3034,6 +3034,16 @@
 
 "whatsnew_bookmarks_search_sort_message" = "Sortați locurile preferate după categorie, ora adăugării și geolocalizarea și găsiți rapid inscripțiile după nume";
 
+"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+
+"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+
+"popup_subscription_success_map_start_button" = "Start browsing";
+
+"popup_subscription_success_map_not_now_button" = "Not now";
+
+"religious_places" = "Locuri sfinte";
+
 
 /**********  Partners  **********/
 

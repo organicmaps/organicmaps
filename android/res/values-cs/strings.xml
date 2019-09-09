@@ -1671,6 +1671,7 @@
 	<string name="bookmarks_delete_list">Odstranit seznam</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Pořadí v záložkách tvoří pohodlnou cestu</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Seřaďte oblíbená místa podle kategorie, umístění a chronologického pořadí a také rychle najděte konkrétní záložky podle jejich názvu</string>
+	<string name="religious_places">Posvátná místa</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>

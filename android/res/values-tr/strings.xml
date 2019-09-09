@@ -1667,6 +1667,7 @@
 	<string name="bookmarks_delete_list">Listeyi sil</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Yer imlerine göre sıralamak yolculuğunuzu rahatlaştırır</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Favori yerleri kategori, konum ve kronolojik sıraya göre sıralayın ve belirli yer imlerini isimleriyle hızlı bir şekilde bulun</string>
+	<string name="religious_places">Dini yerler</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

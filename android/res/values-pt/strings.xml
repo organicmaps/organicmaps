@@ -1666,6 +1666,7 @@
 	<string name="bookmarks_delete_list">Eliminar a lista</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Ordem nas tags- conveniência em viagem</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Ordena os locais favoritos por categoria, tempo de adição e geolocalização, e também encontre rapidamente tags específicas por nome</string>
+	<string name="religious_places">Lugares sagrados</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estação de teleférico</string>

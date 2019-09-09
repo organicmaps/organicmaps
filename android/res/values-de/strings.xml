@@ -1676,6 +1676,7 @@
 	<string name="bookmarks_delete_list">Liste löschen</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Ordnung in den Lesezeichen – Handlichkeit während der Reise</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Sortieren Sie die gewählten Orte nach Kategorie, Hinzufügungszeit und Geolokation. Sie können Lesezeichen schnell nach Lesezeichenname suchen</string>
+	<string name="religious_places">Heilige Orte</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>

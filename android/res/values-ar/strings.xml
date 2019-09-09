@@ -1667,6 +1667,7 @@
 	<string name="bookmarks_delete_list">حذف القائمة</string>
 	<string name="whatsnew_bookmarks_search_sort_title">ترتيب الإشارات المرجعية لرحلة مريحة</string>
 	<string name="whatsnew_bookmarks_search_sort_message">رتب الأماكن المفضلة حسب الفئة والموقع وترتيبها الزمني، وكذلك البحث عن إشارات مرجعية محددة بسرعة حسب اسمهم</string>
+	<string name="religious_places">أماكن دينية</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

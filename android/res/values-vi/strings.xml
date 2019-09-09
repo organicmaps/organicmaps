@@ -1658,6 +1658,7 @@
 	<string name="bookmarks_delete_list">Xóa dánh sách</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Trật tự trong các dấu trang – đó là sự tiện nghi, thoải mái cho chuyến du lịch</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Hãy sắp xếp các địa điểm yêu thích theo thể loại, thời gian thêm vào và vị trí địa lý, đồng thời bạn cũng sẽ nhanh chóng tìm thấy các dấu trang cụ thể theo tên gọi</string>
+	<string name="religious_places">Những nơi tôn nghiêm</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

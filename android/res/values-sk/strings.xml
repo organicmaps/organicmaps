@@ -1667,6 +1667,7 @@
 	<string name="bookmarks_delete_list">Vymazať zoznam</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Poradie v záložkách umožňuje pohodlnú cestu</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Zoraďte obľúbené miesta podľa kategórie, umiestnenia a chronologického poradia a rýchlo vyhľadajte konkrétne záložky podľa ich názvu</string>
+	<string name="religious_places">Náboženské miesta</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

@@ -1560,6 +1560,7 @@
 	<string name="bookmarks_delete_list">Slette lista</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Orden i merker- lett å reise</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Sorter favoritter etter kategorier, tidspunkt de er lagt inn og geografisk lokasjon, samt finn bestemte merker fort etter navn</string>
+	<string name="religious_places">Hellige steder</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestasjon</string>

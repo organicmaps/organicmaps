@@ -1667,6 +1667,7 @@
 	<string name="bookmarks_delete_list">Usuń listę</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Porządek w znacznikach — wygoda w podróży</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Sortuj ulubione miejsca wg kategorii, czasu dodania i geolokalizacji, również szybko wyszukaj konkretne znaczniki wg nazwy</string>
+	<string name="religious_places">Święte miejsca</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stacja kolejki linowej</string>

@@ -1666,6 +1666,7 @@
 	<string name="bookmarks_delete_list">Slet liste</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Rækkefølgen i bookmarks gør en rejse behagelig</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Sortere favoritsteder efter kategori, placering og rækkefølge, samt finde specifikke bogmærker hurtigt, efter deres navn</string>
+	<string name="religious_places">Religiøse steder</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

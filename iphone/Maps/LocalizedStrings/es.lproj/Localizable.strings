@@ -3034,6 +3034,16 @@
 
 "whatsnew_bookmarks_search_sort_message" = "Ordena tus lugares favoritos por categoría, tiempo de adición y geolocalización, y también encuentra rápidamente etiquetas específicas por nombre";
 
+"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+
+"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+
+"popup_subscription_success_map_start_button" = "Start browsing";
+
+"popup_subscription_success_map_not_now_button" = "Not now";
+
+"religious_places" = "Lugares sagrados";
+
 
 /**********  Partners  **********/
 

@@ -1661,6 +1661,7 @@
 	<string name="bookmarks_delete_list">リストの削除</string>
 	<string name="whatsnew_bookmarks_search_sort_title">ブックマークの順番で快適な旅ができます</string>
 	<string name="whatsnew_bookmarks_search_sort_message">お気に入りの場所をカテゴリーや、位置、時系列順で並び替えたり、名前で素早く特定のブックマークを検索しましょう。</string>
+	<string name="religious_places">宗教に関連した場所</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

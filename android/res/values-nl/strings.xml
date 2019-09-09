@@ -1663,6 +1663,7 @@
 	<string name="bookmarks_delete_list">Lijst verwijderen</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Bladwijzerts in orde om gemakkelijk te reizen</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Sorteer uw favoriete plaatsen op categorie, tijdstip van toevoegen en geolocatie, en vind ook snel specifieke bladwijzers op hun namen</string>
+	<string name="religious_places">Religieuze plaatsen</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

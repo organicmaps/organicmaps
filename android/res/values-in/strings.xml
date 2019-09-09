@@ -1661,6 +1661,7 @@
 	<string name="bookmarks_delete_list">Hapus daftar</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Bookmark yang rapi membuat perjalanan menjadi nyaman</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Urutkan tempat favorit berdasarkan kategori, lokasi dan waktu kunjungan, serta temukan bookmark secara cepat hanya dengan menggunakan nama</string>
+	<string name="religious_places">Tempat ibadah</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

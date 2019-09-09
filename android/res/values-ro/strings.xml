@@ -1658,6 +1658,7 @@
 	<string name="bookmarks_delete_list">Ștergeți lista</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Ordine în inscripții – comoditate în călătorie</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Sortați locurile preferate după categorie, ora adăugării și geolocalizarea și găsiți rapid inscripțiile după nume</string>
+	<string name="religious_places">Locuri sfinte</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>
