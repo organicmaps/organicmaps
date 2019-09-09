@@ -38,5 +38,6 @@ class InvalidSubscriptionAlertDialogCallback implements AlertDialogCallback
   @Override
   public void onAlertDialogCancel(int requestCode)
   {
+    // Invalid subs dialog is not cancellable, so do nothing here.
   }
 }

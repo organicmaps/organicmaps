@@ -96,7 +96,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   private BookmarksDownloadFragmentDelegate mDelegate;
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private AlertDialogCallback mInvalidSubsDialogDelegate;
+  private AlertDialogCallback mInvalidSubsDialogCallback;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
@@ -104,7 +104,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     super.onCreate(savedInstanceState);
     mDelegate = new BookmarksDownloadFragmentDelegate(this);
     mDelegate.onCreate(savedInstanceState);
-    mInvalidSubsDialogDelegate = new InvalidSubscriptionAlertDialogCallback(this);
+    mInvalidSubsDialogCallback = new InvalidSubscriptionAlertDialogCallback(this);
   }
 
   @Override
@@ -311,7 +311,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     switch (requestCode)
     {
       case PurchaseUtils.REQ_CODE_CHECK_INVALID_SUBS_DIALOG:
-        mInvalidSubsDialogDelegate.onAlertDialogPositiveClick(requestCode, which);
+        mInvalidSubsDialogCallback.onAlertDialogPositiveClick(requestCode, which);
         break;
       case PurchaseUtils.REQ_CODE_BMK_SUBS_SUCCESS_DIALOG:
         onRetryClick();
@@ -324,7 +324,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   {
     if (requestCode == PurchaseUtils.REQ_CODE_CHECK_INVALID_SUBS_DIALOG)
     {
-      mInvalidSubsDialogDelegate.onAlertDialogNegativeClick(requestCode, which);
+      mInvalidSubsDialogCallback.onAlertDialogNegativeClick(requestCode, which);
     }
   }
 
@@ -334,7 +334,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     switch (requestCode)
     {
       case PurchaseUtils.REQ_CODE_CHECK_INVALID_SUBS_DIALOG:
-        mInvalidSubsDialogDelegate.onAlertDialogCancel(requestCode);
+        mInvalidSubsDialogCallback.onAlertDialogCancel(requestCode);
         break;
       case PurchaseUtils.REQ_CODE_BMK_SUBS_SUCCESS_DIALOG:
         onRetryClick();

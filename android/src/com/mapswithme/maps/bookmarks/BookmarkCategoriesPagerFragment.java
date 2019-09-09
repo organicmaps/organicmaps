@@ -41,7 +41,7 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private AlertDialogCallback mDialogClickDelegate;
+  private AlertDialogCallback mInvalidSubsDialogCallback;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -59,7 +59,7 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
       return;
 
     mCatalogDeeplink = args.getString(ARG_CATALOG_DEEPLINK);
-    mDialogClickDelegate = new InvalidSubscriptionAlertDialogCallback(this);
+    mInvalidSubsDialogCallback = new InvalidSubscriptionAlertDialogCallback(this);
   }
 
   @Override
@@ -170,21 +170,22 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   @Override
   public void onAlertDialogPositiveClick(int requestCode, int which)
   {
-    mDialogClickDelegate.onAlertDialogPositiveClick(requestCode, which);
+    mInvalidSubsDialogCallback.onAlertDialogPositiveClick(requestCode, which);
   }
 
   @Override
   public void onAlertDialogNegativeClick(int requestCode, int which)
   {
-    mDialogClickDelegate.onAlertDialogNegativeClick(requestCode, which);
     if (PurchaseUtils.REQ_CODE_CHECK_INVALID_SUBS_DIALOG == requestCode)
       mViewPager.setAdapter(mAdapter);
+
+    mInvalidSubsDialogCallback.onAlertDialogNegativeClick(requestCode, which);
   }
 
   @Override
   public void onAlertDialogCancel(int requestCode)
   {
-    mDialogClickDelegate.onAlertDialogCancel(requestCode);
+    mInvalidSubsDialogCallback.onAlertDialogCancel(requestCode);
   }
 
   private class PageChangeListener extends ViewPager.SimpleOnPageChangeListener
