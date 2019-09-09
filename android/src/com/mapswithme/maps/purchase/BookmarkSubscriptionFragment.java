@@ -84,6 +84,11 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
     monthlyPriceCard.setSelected(false);
     annualPriceCard.setCardElevation(getResources().getDimension(R.dimen.margin_base_plus_quarter));
 
+    View termsOfUse = root.findViewById(R.id.term_of_use_link);
+    termsOfUse.setOnClickListener(v -> Utils.openUrl(requireActivity(), Framework.nativeGetTermsOfUseLink()));
+    View privacyPolicy = root.findViewById(R.id.privacy_policy_link);
+    privacyPolicy.setOnClickListener(v -> Utils.openUrl(requireActivity(), Framework.nativeGetPrivacyPolicyLink()));
+
     Statistics.INSTANCE.trackPurchasePreviewShow(PrivateVariables.bookmarksSubscriptionServerId(),
                                                  PrivateVariables.bookmarksSubscriptionVendor(),
                                                  PrivateVariables.bookmarksSubscriptionYearlyProductId());

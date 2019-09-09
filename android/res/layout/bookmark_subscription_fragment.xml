@@ -19,6 +19,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:visibility="gone"
+    tools:visibility="visible"
     android:fillViewport="true">
     <LinearLayout
       android:orientation="vertical"
@@ -132,6 +133,54 @@
         android:textColor="?colorAccent"
         tools:text="Restore purchases"
         tools:ignore="UnusedAttribute"/>
+      <TextView
+        android:layout_marginTop="@dimen/margin_base_plus_quarter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearance"
+        android:textSize="@dimen/text_size_terms_of_use"
+        android:fontFamily="@string/robotoRegular"
+        android:textStyle="normal"
+        android:text="@string/subscription_terms_android"
+        android:textColor="?attr/secondary"
+        android:letterSpacing="-0.01"
+        android:lineSpacingExtra="@dimen/terms_of_use_line_spacing"
+        tools:targetApi="lollipop"/>
+      <RelativeLayout
+        android:layout_marginTop="@dimen/margin_base"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+          android:id="@+id/term_of_use_link"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="@dimen/text_size_body_5"
+          android:fontFamily="@string/robotoMedium"
+          android:textStyle="normal"
+          android:textColor="?attr/secondary"
+          android:letterSpacing="-0.01"
+          tools:text="Terms of Use"
+          tools:targetApi="lollipop"
+          android:text="@string/terms_of_use"
+          android:background="?attr/selectableItemBackground"
+          android:layout_alignParentLeft="true"
+          android:layout_alignParentStart="true"/>
+
+        <TextView
+          android:id="@+id/privacy_policy_link"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="@dimen/text_size_body_5"
+          android:fontFamily="@string/robotoMedium"
+          android:textStyle="normal"
+          android:textColor="?attr/secondary"
+          android:letterSpacing="-0.01"
+          tools:targetApi="lollipop"
+          android:text="@string/privacy_policy"
+          android:background="?attr/selectableItemBackground"
+          android:layout_alignParentRight="true"
+          android:layout_alignParentEnd="true"/>
+      </RelativeLayout>
     </LinearLayout>
   </android.support.v4.widget.NestedScrollView>
 </FrameLayout>
