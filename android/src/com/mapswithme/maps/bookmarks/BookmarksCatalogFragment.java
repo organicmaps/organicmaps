@@ -117,6 +117,20 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   }
 
   @Override
+  public void onResume()
+  {
+    super.onResume();
+    mDelegate.onResume();
+  }
+
+  @Override
+  public void onPause()
+  {
+    super.onPause();
+    mDelegate.onPause();
+  }
+
+  @Override
   public void onStop()
   {
     super.onStop();

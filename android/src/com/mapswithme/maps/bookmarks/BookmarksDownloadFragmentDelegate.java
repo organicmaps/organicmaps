@@ -67,6 +67,17 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
     mInvalidCategoriesListener.attach(mFragment);
   }
 
+  void onResume()
+  {
+    LOGGER.i(TAG, "Check invalid bookmark categories...");
+    BookmarkManager.INSTANCE.checkInvalidCategories();
+  }
+
+  void onPause()
+  {
+    // Do nothing.
+  }
+
   void onStop()
   {
     mAuthorizer.detach();
@@ -77,11 +88,6 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
   void onCreateView(@Nullable Bundle savedInstanceState)
   {
     BookmarkManager.INSTANCE.addInvalidCategoriesListener(mInvalidCategoriesListener);
-    if (savedInstanceState != null)
-      return;
-
-    LOGGER.i(TAG, "Check invalid bookmark categories...");
-    BookmarkManager.INSTANCE.checkInvalidCategories();
   }
 
   void onDestroyView()
@@ -218,8 +224,6 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
     public void onCheckInvalidCategories(boolean hasInvalidCategories)
     {
       LOGGER.i(TAG, "Has invalid categories: " + hasInvalidCategories);
-      BookmarkManager.INSTANCE.removeInvalidCategoriesListener(this);
-
       if (mFrag == null)
       {
         mPendingInvalidCategoriesResult = hasInvalidCategories;
