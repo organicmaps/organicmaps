@@ -419,7 +419,12 @@ void Framework::SetMapStyle(MapStyle mapStyle)
 
 void Framework::MarkMapStyle(MapStyle mapStyle)
 {
-  m_work.MarkMapStyle(mapStyle);
+  // In case of Vulkan rendering we don't recreate geometry and textures data, so
+  // we need use SetMapStyle instead of MarkMapStyle in all cases.
+  if (m_vulkanContextFactory)
+    m_work.SetMapStyle(mapStyle);
+  else
+    m_work.MarkMapStyle(mapStyle);
 }
 
 MapStyle Framework::GetMapStyle() const
