@@ -57,7 +57,7 @@ HighwayBasedMeanSpeeds const kDefaultSpeeds = {
     {HighwayType::RouteFerry, InOutCitySpeedKMpH(SpeedKMpH(1.0, 20.0))},
 };
 
-double constexpr kSpeedOffroadKMpH = 3.0;
+SpeedKMpH constexpr kSpeedOffroadKMpH = {3.0 /* weight */, 3.0 /* eta */};
 
 // Default
 VehicleModel::LimitsInitList const kPedestrianOptionsDefault = {
@@ -293,7 +293,7 @@ SpeedKMpH PedestrianModel::GetSpeed(FeatureType & f, SpeedParams const & speedPa
   return VehicleModel::GetSpeedWihtoutMaxspeed(f, speedParams);
 }
 
-double PedestrianModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
+SpeedKMpH PedestrianModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
 
 void PedestrianModel::Init()
 {

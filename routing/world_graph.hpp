@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/edge_estimator.hpp"
 #include "routing/geometry.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/joint_segment.hpp"
@@ -73,11 +74,13 @@ public:
   virtual RouteWeight HeuristicCostEstimate(m2::PointD const & from, m2::PointD const & to) = 0;
   virtual RouteWeight HeuristicCostEstimate(Segment const & from, m2::PointD const & to) = 0;
 
-  virtual RouteWeight CalcSegmentWeight(Segment const & segment) = 0;
+  virtual RouteWeight CalcSegmentWeight(Segment const & segment,
+                                        EdgeEstimator::Purpose purpose) = 0;
 
   virtual RouteWeight CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const = 0;
 
-  virtual RouteWeight CalcOffroadWeight(m2::PointD const & from, m2::PointD const & to) const = 0;
+  virtual RouteWeight CalcOffroadWeight(m2::PointD const & from, m2::PointD const & to,
+                                        EdgeEstimator::Purpose purpose) const = 0;
 
   virtual double CalculateETA(Segment const & from, Segment const & to) = 0;
   virtual double CalculateETAWithoutPenalty(Segment const & segment) = 0;

@@ -14,7 +14,7 @@ public:
   /// VehicleModelInterface overrides:
   SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const override;
   bool IsOneWay(FeatureType & f) const override;
-  double GetOffroadSpeed() const override;
+  SpeedKMpH GetOffroadSpeed() const override;
 
   static BicycleModel const & AllLimitsInstance();
 

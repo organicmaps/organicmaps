@@ -85,7 +85,7 @@ struct SpeedParams
   Maxspeed m_maxspeed;
 };
 
-/// \brief Speeds which are used for edge weight and ETA esimations.
+/// \brief Speeds which are used for edge weight and ETA estimations.
 struct SpeedKMpH
 {
   constexpr SpeedKMpH() = default;
@@ -231,7 +231,7 @@ public:
 
   /// @return Offroad speed in KMpH for vehicle. This speed should be used for non-feature routing
   /// e.g. to connect start point to nearest feature.
-  virtual double GetOffroadSpeed() const = 0;
+  virtual SpeedKMpH GetOffroadSpeed() const = 0;
 
   virtual bool IsOneWay(FeatureType & f) const = 0;
 

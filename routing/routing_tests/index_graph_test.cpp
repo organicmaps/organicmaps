@@ -545,9 +545,9 @@ UNIT_TEST(FakeEndingAStarInvariant)
   auto const finish = MakeFakeEnding(0, 0, m2::PointD(2.0, 1.0), *worldGraph);
 
   auto const expectedWeight =
-      estimator->CalcOffroadWeight({1.0, 1.0}, {1.0, 0.0}) +
+      estimator->CalcOffroadWeight({1.0, 1.0}, {1.0, 0.0}, EdgeEstimator::Purpose::Weight) +
       MercatorBounds::DistanceOnEarth({1.0, 0.0}, {2.0, 0.0}) / KMPH2MPS(1.0) +
-      estimator->CalcOffroadWeight({2.0, 0.0}, {2.0, 1.0});
+      estimator->CalcOffroadWeight({2.0, 0.0}, {2.0, 1.0}, EdgeEstimator::Purpose::Weight);
   TestRoute(start, finish, expectedRoute.size(), &expectedRoute, expectedWeight, *worldGraph);
 }
 

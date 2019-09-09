@@ -50,7 +50,8 @@ Junction const & TransitGraph::GetJunction(Segment const & segment, bool front) 
   return front ? vertex.GetJunctionTo() : vertex.GetJunctionFrom();
 }
 
-RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment) const
+RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment,
+                                            EdgeEstimator::Purpose purpose) const
 {
   CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
   if (IsGate(segment))
@@ -69,7 +70,7 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment) const
 
   return RouteWeight(
       m_estimator->CalcOffroadWeight(GetJunction(segment, false /* front */).GetPoint(),
-                                     GetJunction(segment, true /* front */).GetPoint()));
+                                     GetJunction(segment, true /* front */).GetPoint(), purpose));
 }
 
 RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const & to) const
@@ -108,7 +109,8 @@ void TransitGraph::GetTransitEdges(Segment const & segment, bool isOutgoing,
   {
     auto const & from = isOutgoing ? segment : s;
     auto const & to = isOutgoing ? s : segment;
-    edges.emplace_back(s, CalcSegmentWeight(to) + GetTransferPenalty(from, to));
+    edges.emplace_back(
+        s, CalcSegmentWeight(to, EdgeEstimator::Purpose::Weight) + GetTransferPenalty(from, to));
   }
 }
 

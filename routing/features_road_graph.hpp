@@ -37,7 +37,7 @@ private:
     SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const override;
     HighwayType GetHighwayType(FeatureType & f) const override;
     double GetMaxWeightSpeed() const override { return m_maxSpeed; };
-    double GetOffroadSpeed() const override;
+    SpeedKMpH GetOffroadSpeed() const override;
     bool IsOneWay(FeatureType & f) const override;
     bool IsRoad(FeatureType & f) const override;
     bool IsPassThroughAllowed(FeatureType & f) const override;
@@ -49,7 +49,7 @@ private:
 
     std::shared_ptr<VehicleModelFactoryInterface> const m_vehicleModelFactory;
     double const m_maxSpeed;
-    double const m_offroadSpeedKMpH;
+    SpeedKMpH const m_offroadSpeedKMpH;
 
     mutable std::map<MwmSet::MwmId, std::shared_ptr<VehicleModelInterface>> m_cache;
   };

@@ -134,7 +134,7 @@ public:
     return m_graph.HeuristicCostEstimate(GetPoint(from, true /* front */), to);
   }
 
-  RouteWeight CalcSegmentWeight(Segment const & segment) const;
+  RouteWeight CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const;
   double CalculateETA(Segment const & from, Segment const & to) const;
   double CalculateETAWithoutPenalty(Segment const & segment) const;
 

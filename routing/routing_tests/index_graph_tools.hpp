@@ -171,8 +171,9 @@ public:
   // EdgeEstimator overrides:
   ~WeightedEdgeEstimator() override = default;
 
-  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & /* road */) const override;
-  double CalcSegmentETA(Segment const & segment, RoadGeometry const & road) const override { return 0.0; }
+  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & /* road */,
+                           EdgeEstimator::Purpose purpose) const override;
+
   double GetUTurnPenalty(Purpose purpose) const override;
   double GetFerryLandingPenalty(Purpose purpose) const override;
 

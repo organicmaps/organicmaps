@@ -174,10 +174,11 @@ RouteWeight SingleVehicleWorldGraph::HeuristicCostEstimate(m2::PointD const & fr
   return RouteWeight(m_estimator->CalcHeuristic(from, to));
 }
 
-RouteWeight SingleVehicleWorldGraph::CalcSegmentWeight(Segment const & segment)
+RouteWeight SingleVehicleWorldGraph::CalcSegmentWeight(Segment const & segment,
+                                                       EdgeEstimator::Purpose purpose)
 {
   return RouteWeight(m_estimator->CalcSegmentWeight(
-      segment, GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())));
+      segment, GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()), purpose));
 }
 
 RouteWeight SingleVehicleWorldGraph::CalcLeapWeight(m2::PointD const & from,
@@ -187,9 +188,10 @@ RouteWeight SingleVehicleWorldGraph::CalcLeapWeight(m2::PointD const & from,
 }
 
 RouteWeight SingleVehicleWorldGraph::CalcOffroadWeight(m2::PointD const & from,
-                                                       m2::PointD const & to) const
+                                                       m2::PointD const & to,
+                                                       EdgeEstimator::Purpose purpose) const
 {
-  return RouteWeight(m_estimator->CalcOffroadWeight(from, to));
+  return RouteWeight(m_estimator->CalcOffroadWeight(from, to, purpose));
 }
 
 double SingleVehicleWorldGraph::CalculateETA(Segment const & from, Segment const & to)
@@ -203,8 +205,9 @@ double SingleVehicleWorldGraph::CalculateETA(Segment const & from, Segment const
 
 double SingleVehicleWorldGraph::CalculateETAWithoutPenalty(Segment const & segment)
 {
-  return m_estimator->CalcSegmentETA(segment,
-                                     GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()));
+  return m_estimator->CalcSegmentWeight(segment,
+                                        GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()),
+                                        EdgeEstimator::Purpose::ETA);
 }
 
 vector<Segment> const & SingleVehicleWorldGraph::GetTransitions(NumMwmId numMwmId, bool isEnter)

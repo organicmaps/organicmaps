@@ -92,7 +92,7 @@ double CalcMaxSpeed(NumMwmIds const & numMwmIds,
   return maxSpeed;
 }
 
-double CalcOffroadSpeed(VehicleModelFactoryInterface const & vehicleModelFactory)
+SpeedKMpH CalcOffroadSpeed(VehicleModelFactoryInterface const & vehicleModelFactory)
 {
   return vehicleModelFactory.GetVehicleModel()->GetOffroadSpeed();
 }
@@ -724,7 +724,8 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   for (size_t i = lastSubroute.GetBeginSegmentIdx(); i < lastSubroute.GetEndSegmentIdx(); ++i)
   {
     auto const & step = steps[i];
-    prevEdges.emplace_back(step.GetSegment(), starter.CalcSegmentWeight(step.GetSegment()));
+    prevEdges.emplace_back(step.GetSegment(), starter.CalcSegmentWeight(step.GetSegment(),
+                           EdgeEstimator::Purpose::Weight));
   }
 
   uint32_t visitCount = 0;

@@ -121,9 +121,6 @@ public:
                                   Segment const & from, Segment const & to);
 
 private:
-
-  RouteWeight CalcSegmentWeight(Segment const & segment);
-
   void GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
                            bool useRoutingOptions, std::vector<SegmentEdge> & edges,
                            std::map<Segment, Segment> & parents);

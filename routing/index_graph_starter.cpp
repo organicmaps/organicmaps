@@ -232,7 +232,7 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
     }
 
     for (auto const & s : m_fake.GetEdges(segment, isOutgoing))
-      edges.emplace_back(s, CalcSegmentWeight(isOutgoing ? s : segment));
+      edges.emplace_back(s, CalcSegmentWeight(isOutgoing ? s : segment, EdgeEstimator::Purpose::Weight));
   }
   else
   {
@@ -242,11 +242,12 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
   AddFakeEdges(segment, isOutgoing, edges);
 }
 
-RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment) const
+RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment,
+                                                 EdgeEstimator::Purpose purpose) const
 {
   if (!IsFakeSegment(segment))
   {
-    return m_graph.CalcSegmentWeight(segment);
+    return m_graph.CalcSegmentWeight(segment, purpose);
   }
 
   auto const & vertex = m_fake.GetVertex(segment);
@@ -257,24 +258,24 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment) const
     auto const fullLen = MercatorBounds::DistanceOnEarth(GetPoint(real, false /* front */),
                                                          GetPoint(real, true /* front */));
     // Note 1. |fullLen| == 0.0 in case of Segment(s) with the same ends.
-    // Note 2. There is the following logic behind |return 0.0 * m_graph.CalcSegmentWeight(real);|:
-    // it's necessary to return a intance of the structure |RouteWeight| with zero wight.
+    // Note 2. There is the following logic behind |return 0.0 * m_graph.CalcSegmentWeight(real, ...);|:
+    // it's necessary to return a instance of the structure |RouteWeight| with zero wight.
     // Theoretically it may be differ from |RouteWeight(0)| because some road access block
     // may be kept in it and it is up to |RouteWeight| to know how to multiply by zero.
     if (fullLen == 0.0)
-      return 0.0 * m_graph.CalcSegmentWeight(real);
+      return 0.0 * m_graph.CalcSegmentWeight(real, purpose);
 
-    return (partLen / fullLen) * m_graph.CalcSegmentWeight(real);
+    return (partLen / fullLen) * m_graph.CalcSegmentWeight(real, purpose);
   }
 
-  return m_graph.CalcOffroadWeight(vertex.GetPointFrom(), vertex.GetPointTo());
+  return m_graph.CalcOffroadWeight(vertex.GetPointFrom(), vertex.GetPointTo(), purpose);
 }
 
 double IndexGraphStarter::CalculateETA(Segment const & from, Segment const & to) const
 {
   // We don't distinguish fake segment weight and fake segment transit time.
   if (IsFakeSegment(to))
-    return CalcSegmentWeight(to).GetWeight();
+    return CalcSegmentWeight(to, EdgeEstimator::Purpose::ETA).GetWeight();
 
   if (IsFakeSegment(from))
     return CalculateETAWithoutPenalty(to);
@@ -285,7 +286,7 @@ double IndexGraphStarter::CalculateETA(Segment const & from, Segment const & to)
 double IndexGraphStarter::CalculateETAWithoutPenalty(Segment const & segment) const
 {
   if (IsFakeSegment(segment))
-    return CalcSegmentWeight(segment).GetWeight();
+    return CalcSegmentWeight(segment, EdgeEstimator::Purpose::ETA).GetWeight();
 
   return m_graph.CalculateETAWithoutPenalty(segment);
 }
@@ -404,7 +405,8 @@ void IndexGraphStarter::AddFakeEdges(Segment const & segment, bool isOutgoing, v
       {
         // For ingoing edges we use source weight which is the same for |s| and for |edge| and is
         // already calculated.
-        fakeEdges.emplace_back(s, isOutgoing ? CalcSegmentWeight(s) : edge.GetWeight());
+        fakeEdges.emplace_back(s, isOutgoing ? CalcSegmentWeight(s, EdgeEstimator::Purpose::Weight)
+                                             : edge.GetWeight());
       }
     }
   }

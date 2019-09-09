@@ -63,7 +63,7 @@ std::array<char const *, 41> constexpr kCountries = {"Australia",
                                                      "United States of America",
                                                      "Venezuela"};
 
-double constexpr kSpeedOffroadKMpH = 3.0;
+SpeedKMpH constexpr kSpeedOffroadKMpH = {3.0 /* weight */, 3.0 /* eta */};
 
 VehicleModel::LimitsInitList const kCarOptionsDefault = {
     // {{roadType, roadType}  passThroughAllowed}
@@ -209,7 +209,7 @@ CarModel::CarModel(VehicleModel::LimitsInitList const & roadLimits, HighwayBased
   Init();
 }
 
-double CarModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
+SpeedKMpH CarModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
 
 void CarModel::Init()
 {

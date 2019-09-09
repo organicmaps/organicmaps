@@ -57,7 +57,7 @@ HighwayBasedMeanSpeeds const kDefaultSpeeds = {
     {HighwayType::RouteFerry, InOutCitySpeedKMpH(SpeedKMpH(3.0, 20.0))},
 };
 
-double constexpr kSpeedOffroadKMpH = 3.0;
+SpeedKMpH constexpr kSpeedOffroadKMpH = {3.0 /* weight */, 3.0 /* eta */};
 
 // Default
 VehicleModel::LimitsInitList const kBicycleOptionsDefault = {
@@ -456,9 +456,9 @@ bool BicycleModel::IsOneWay(FeatureType & f) const
   return VehicleModel::IsOneWay(f);
 }
 
-double BicycleModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
+SpeedKMpH BicycleModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
 
-// If one of feature types will be disabled for bicycles, features of this type will be simplyfied
+// If one of feature types will be disabled for bicycles, features of this type will be simplified
 // in generator. Look FeatureBuilder1::IsRoad() for more details.
 // static
 BicycleModel const & BicycleModel::AllLimitsInstance()

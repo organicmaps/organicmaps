@@ -34,7 +34,7 @@ public:
   TransitGraph(NumMwmId numMwmId, std::shared_ptr<EdgeEstimator> estimator);
 
   Junction const & GetJunction(Segment const & segment, bool front) const;
-  RouteWeight CalcSegmentWeight(Segment const & segment) const;
+  RouteWeight CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const;
   RouteWeight GetTransferPenalty(Segment const & from, Segment const & to) const;
   void GetTransitEdges(Segment const & segment, bool isOutgoing,
                        std::vector<SegmentEdge> & edges) const;

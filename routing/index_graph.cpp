@@ -204,12 +204,6 @@ void IndexGraph::SetUTurnRestrictions(vector<RestrictionUTurn> && noUTurnRestric
 
 void IndexGraph::SetRoadAccess(RoadAccess && roadAccess) { m_roadAccess = move(roadAccess); }
 
-RouteWeight IndexGraph::CalcSegmentWeight(Segment const & segment)
-{
-  return RouteWeight(
-      m_estimator->CalcSegmentWeight(segment, m_geometry->GetRoad(segment.GetFeatureId())));
-}
-
 void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
                                      bool useRoutingOptions, vector<SegmentEdge> & edges,
                                      map<Segment, Segment> & parents)
@@ -466,8 +460,12 @@ RouteWeight IndexGraph::CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool
     auto const & road = m_geometry->GetRoad(segment.GetFeatureId());
     switch (purpose)
     {
-    case EdgeEstimator::Purpose::Weight: return RouteWeight(m_estimator->CalcSegmentWeight(segment, road));
-    case EdgeEstimator::Purpose::ETA: return RouteWeight(m_estimator->CalcSegmentETA(segment, road));
+    case EdgeEstimator::Purpose::Weight:
+      return RouteWeight(
+          m_estimator->CalcSegmentWeight(segment, road, EdgeEstimator::Purpose::Weight));
+    case EdgeEstimator::Purpose::ETA:
+      return RouteWeight(
+          m_estimator->CalcSegmentWeight(segment, road, EdgeEstimator::Purpose::ETA));
     }
     UNREACHABLE();
   };
