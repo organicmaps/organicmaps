@@ -15,4 +15,4 @@ def create_file_logger(file, level=logging.DEBUG,
     handler.setLevel(level)
     handler.setFormatter(formatter)
     logger.addHandler(handler)
-    return logger
+    return logger, handler

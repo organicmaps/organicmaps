@@ -18,21 +18,22 @@ def stage(func):
         stage_formatted = " ".join(func_name.split("_")).capitalize()
         logfile = os.path.join(env.log_path, f"{func_name}.log")
         log_handler = logging.FileHandler(logfile)
+        logger.addHandler(log_handler)
         if not env.is_accepted_stage(func):
-            logger.addHandler(log_handler)
             logger.info(f"{stage_formatted} was not accepted.")
+            logger.removeHandler(log_handler)
             return
         main_status = env.main_status
         main_status.init(env.main_status_path, func_name)
         if main_status.need_skip():
             logger.warning(f"{stage_formatted} was skipped.")
+            logger.removeHandler(log_handler)
             return
         main_status.update_status()
         logger.info(f"{stage_formatted}: start ...")
         t = time.time()
-        with open(logfile, "a+") as l:
-            env.set_subprocess_out(l)
-            func(env, *args, **kwargs)
+        env.set_subprocess_out(log_handler.stream)
+        func(env, *args, **kwargs)
         d = time.time() - t
         logger.info(f"{stage_formatted}: finished in "
                     f"{str(datetime.timedelta(seconds=d))}")
@@ -48,7 +49,7 @@ def country_stage_status(func):
         _logger = DummyObject()
         countries_meta = env.countries_meta
         if "logger" in countries_meta[country]:
-            _logger = countries_meta[country]["logger"]
+            _logger, _ = countries_meta[country]["logger"]
         stage_formatted = " ".join(func_name.split("_")).capitalize()
         if not env.is_accepted_stage(func):
             _logger.info(f"{stage_formatted} was not accepted.")
@@ -75,13 +76,12 @@ def country_stage_log(func):
         countries_meta = env.countries_meta
         if "logger" not in countries_meta[country]:
             countries_meta[country]["logger"] = create_file_logger(log_file)
-        _logger = countries_meta[country]["logger"]
+        _logger, log_handler = countries_meta[country]["logger"]
         stage_formatted = " ".join(func_name.split("_")).capitalize()
         _logger.info(f"{stage_formatted}: start ...")
         t = time.time()
-        with open(log_file, "a+") as l:
-            env.set_subprocess_out(l, country)
-            func(env, country, *args, logger=_logger, **kwargs)
+        env.set_subprocess_out(log_handler.stream, country)
+        func(env, country, *args, logger=_logger, **kwargs)
         d = time.time() - t
         _logger.info(f"{stage_formatted}: finished in "
                      f"{str(datetime.timedelta(seconds=d))}")
