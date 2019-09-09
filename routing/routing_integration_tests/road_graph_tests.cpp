@@ -34,10 +34,7 @@ UNIT_TEST(FakeEdgesCombinatorialExplosion)
 
   FrozenDataSource dataSource;
   for (auto const & file : localFiles)
-  {
-    auto const result = dataSource.Register(file);
-    TEST_EQUAL(result.second, MwmSet::RegResult::Success, ());
-  }
+    dataSource.Register(file);
 
   FeaturesRoadGraph graph(dataSource, IRoadGraph::Mode::ObeyOnewayTag,
                           make_shared<CarModelFactory>(CountryParentNameGetterFn()));
