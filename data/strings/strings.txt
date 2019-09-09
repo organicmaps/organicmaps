@@ -43661,3 +43661,37 @@
 
   [popup_subscription_success_map_not_now_button]
     en = Not now
+
+  [religious_places]
+    en = Religious places
+    ru = Святые места
+    ar = أماكن دينية
+    cs = Posvátná místa
+    da = Religiøse steder
+    nl = Religieuze plaatsen
+    fi = Pyhät paikat
+    fr = Lieux saints
+    de = Heilige Orte
+    hu = Vallási helyek
+    id = Tempat ibadah
+    it = Luoghi di culto
+    ja = 宗教に関連した場所
+    ko = 종교적 장소
+    nb = Hellige steder
+    pl = Święte miejsca
+    pt = Lugares sagrados
+    pt-BR = Lugares religiosos
+    ro = Locuri sfinte
+    es = Lugares sagrados
+    es-MX = Sitios religiosos
+    sv = Heliga platser
+    th = สถานที่ทางศาสนา
+    tr = Dini yerler
+    uk = Святі місця
+    vi = Những nơi tôn nghiêm
+    el = Άγιοι τόποι
+    sk = Náboženské miesta
+    sw = Sehemu za ibada
+    zh-Hans = 圣地
+    zh-Hant = 聖地
+    fa = اماکن مقدس
