@@ -180,11 +180,6 @@
   <style name="MwmTextAppearance.Editor">
   </style>
 
-  <style name="MwmTextAppearance.Editor.TimePicker">
-    <item name="android:textSize">@dimen/text_size_time_picker</item>
-    <item name="android:textColor">@color/timepicker_title</item>
-  </style>
-
   <style name="MwmTextAppearance.Editor.Buttons">
     <item name="android:textSize">@dimen/text_size_body_3</item>
   </style>

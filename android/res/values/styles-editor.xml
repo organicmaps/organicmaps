@@ -2,13 +2,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <style name="MwmWidget.Editor"/>
 
-  <style name="MwmWidget.Editor.TimePicker">
-    <item name="android:headerBackground">@null</item>
-    <item name="android:headerTimeTextAppearance" tools:targetApi="lollipop">@style/MwmTextAppearance.Editor.TimePicker</item>
-    <item name="android:headerAmPmTextAppearance" tools:targetApi="lollipop">@style/MwmTextAppearance.Editor.Buttons</item>
-    <item name="android:timePickerMode" tools:targetApi="lollipop">clock</item>
-  </style>
-
   <style name="MwmWidget.Editor.CardView">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>

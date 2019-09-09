@@ -25,17 +25,4 @@ public class EditorActivity extends BaseMwmFragmentActivity
     final Intent intent = new Intent(activity, EditorActivity.class);
     activity.startActivity(intent);
   }
-
-  @Override
-  @StyleRes
-  public int getThemeResourceId(@NonNull String theme)
-  {
-    if (ThemeUtils.isDefaultTheme(theme))
-      return R.style.MwmTheme_EditorActivity;
-
-    if (ThemeUtils.isNightTheme(theme))
-      return R.style.MwmTheme_Night_EditorActivity;
-
-    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
-  }
 }
