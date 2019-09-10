@@ -43696,10 +43696,22 @@
     zh-Hant = 聖地
     fa = اماکن مقدس
 
- [subscription_terms_android]
+  [subscription_terms_android]
     comment = FIXME
     en = subscription_terms_android
 
- [select_list]
+  [select_list]
     comment = FIXME
     en = select_list
+
+  [pp_discovery_place_related_header]
+    comment = FIXME
+    en = pp_discovery_place_related_header
+
+  [pp_discovery_place_related_cta_button]
+    comment = FIXME
+    en = pp_discovery_place_related_cta_button
+
+  [pp_discovery_place_related_tag_header]
+    comment = FIXME
+    en = pp_discovery_place_related_tag_header
