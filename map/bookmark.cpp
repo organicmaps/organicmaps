@@ -42,6 +42,8 @@ std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
   }
   UNREACHABLE();
 }
+
+std::string const kCustomImageProperty = "CustomImage";
 }  // namespace
 
 Bookmark::Bookmark(m2::PointD const & ptOrg)
@@ -58,6 +60,10 @@ Bookmark::Bookmark(kml::BookmarkData && data)
   , m_groupId(kml::kInvalidMarkGroupId)
 {
   m_data.m_id = GetId();
+
+  auto const it = m_data.m_properties.find(kCustomImageProperty);
+  if (it != m_data.m_properties.end())
+    m_customImageName = it->second;
 }
 
 void Bookmark::SetData(kml::BookmarkData const & data)
@@ -90,6 +96,12 @@ dp::Anchor Bookmark::GetAnchor() const
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetSymbolNames() const
 {
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
+  if (!m_customImageName.empty())
+  {
+    symbol->insert(std::make_pair(1 /* zoomLevel */, m_customImageName));
+    return symbol;
+  }
+
   symbol->insert(std::make_pair(1 /* zoomLevel */, "bookmark-default-xs"));
   symbol->insert(std::make_pair(8 /* zoomLevel */, "bookmark-default-s"));
   auto const iconType = GetBookmarkIconType(m_data.m_icon);

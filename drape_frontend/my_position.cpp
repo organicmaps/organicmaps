@@ -232,6 +232,7 @@ void MyPosition::CachePointPosition(ref_ptr<dp::GraphicsContext> context, ref_pt
   auto state = CreateRenderState(gpu::Program::MyPosition, DepthLayer::OverlayLayer);
   state.SetDepthTestEnabled(false);
   state.SetColorTexture(pointSymbol.GetTexture());
+  state.SetTextureIndex(pointSymbol.GetTextureIndex());
 
   dp::TextureManager::SymbolRegion * symbols[kSymbolsCount] = { &pointSymbol };
   EMyPositionPart partIndices[kSymbolsCount] = { MyPositionPoint };

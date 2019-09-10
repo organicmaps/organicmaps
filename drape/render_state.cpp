@@ -156,6 +156,16 @@ void RenderState::SetLineWidth(int width)
   m_lineWidth = width;
 }
 
+uint32_t RenderState::GetTextureIndex() const
+{
+  return m_textureIndex;
+}
+
+void RenderState::SetTextureIndex(uint32_t index)
+{
+  m_textureIndex = index;
+}
+
 bool RenderState::operator<(RenderState const & other) const
 {
   if (!m_renderStateExtension->Equal(other.m_renderStateExtension))
@@ -174,8 +184,10 @@ bool RenderState::operator<(RenderState const & other) const
     return m_textureFilter < other.m_textureFilter;
   if (m_drawAsLine != other.m_drawAsLine)
     return m_drawAsLine < other.m_drawAsLine;
+  if (m_lineWidth != other.m_lineWidth)
+    return m_lineWidth < other.m_lineWidth;
 
-  return m_lineWidth < other.m_lineWidth;
+  return m_textureIndex < other.m_textureIndex;
 }
 
 bool RenderState::operator==(RenderState const & other) const
@@ -188,7 +200,8 @@ bool RenderState::operator==(RenderState const & other) const
          m_textureFilter == other.m_textureFilter &&
          m_depthFunction == other.m_depthFunction &&
          m_drawAsLine == other.m_drawAsLine &&
-         m_lineWidth == other.m_lineWidth;
+         m_lineWidth == other.m_lineWidth &&
+         m_textureIndex == other.m_textureIndex;
 }
 
 bool RenderState::operator!=(RenderState const & other) const

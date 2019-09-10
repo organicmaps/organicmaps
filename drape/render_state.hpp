@@ -7,6 +7,7 @@
 
 #include "base/assert.hpp"
 
+#include <cstdint>
 #include <map>
 #include <utility>
 
@@ -92,6 +93,9 @@ public:
   int GetLineWidth() const;
   void SetLineWidth(int width);
 
+  uint32_t GetTextureIndex() const;
+  void SetTextureIndex(uint32_t index);
+
   bool operator<(RenderState const & other) const;
   bool operator==(RenderState const & other) const;
   bool operator!=(RenderState const & other) const;
@@ -111,6 +115,7 @@ private:
 
   bool m_drawAsLine = false;
   int m_lineWidth = 1;
+  uint32_t m_textureIndex = 0;
 };
 
 class TextureState

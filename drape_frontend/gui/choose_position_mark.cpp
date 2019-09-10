@@ -65,6 +65,7 @@ drape_ptr<ShapeRenderer> ChoosePositionMark::Draw(ref_ptr<dp::GraphicsContext> c
   auto state = df::CreateRenderState(gpu::Program::TexturingGui, df::DepthLayer::GuiLayer);
   state.SetColorTexture(region.GetTexture());
   state.SetDepthTestEnabled(false);
+  state.SetTextureIndex(region.GetTextureIndex());
 
   dp::AttributeProvider provider(1 /*streamCount*/, 4 /*vertexCount*/);
   dp::BindingInfo info(2 /*count*/);

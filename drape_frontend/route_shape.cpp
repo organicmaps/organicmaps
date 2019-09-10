@@ -522,6 +522,7 @@ void RouteShape::CacheRouteArrows(ref_ptr<dp::GraphicsContext> context,
   GetArrowTextureRegion(mng, region);
   auto state = CreateRenderState(gpu::Program::RouteArrow, DepthLayer::GeometryLayer);
   state.SetColorTexture(region.GetTexture());
+  state.SetTextureIndex(region.GetTextureIndex());
 
   // Generate arrow geometry.
   auto depth = static_cast<float>(baseDepthIndex * kDepthPerSubroute) + kArrowsDepth;

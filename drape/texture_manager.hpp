@@ -11,6 +11,7 @@
 #include "base/timer.hpp"
 
 #include <atomic>
+#include <cstdint>
 #include <list>
 #include <mutex>
 #include <string>
@@ -43,7 +44,14 @@ public:
     ref_ptr<Texture> m_texture;
   };
 
-  class SymbolRegion : public BaseRegion {};
+  class SymbolRegion : public BaseRegion
+  {
+  public:
+    uint32_t GetTextureIndex() const { return m_textureIndex; }
+    void SetTextureIndex(uint32_t index) { m_textureIndex = index; }
+  private:
+    uint32_t m_textureIndex = 0;
+  };
 
   class GlyphRegion : public BaseRegion
   {

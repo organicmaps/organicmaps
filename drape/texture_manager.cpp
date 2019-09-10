@@ -538,6 +538,7 @@ void TextureManager::GetSymbolRegion(std::string const & symbolName, SymbolRegio
     if (symbolsTexture->IsSymbolContained(symbolName))
     {
       GetRegionBase(symbolsTexture, region, SymbolsTexture::SymbolKey(symbolName));
+      region.SetTextureIndex(static_cast<uint32_t>(i));
       return;
     }
   }

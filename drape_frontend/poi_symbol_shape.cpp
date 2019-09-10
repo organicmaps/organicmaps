@@ -74,6 +74,7 @@ void Batch<SV>(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batche
   state.SetDepthTestEnabled(params.m_depthTestEnabled);
   state.SetColorTexture(symbolRegion.GetTexture());
   state.SetTextureFilter(dp::TextureFilter::Nearest);
+  state.SetTextureIndex(symbolRegion.GetTextureIndex());
 
   dp::AttributeProvider provider(1 /* streamCount */, ARRAY_SIZE(vertexes));
   provider.InitStream(0 /* streamIndex */, SV::GetBindingInfo(), make_ref(vertexes));
@@ -110,6 +111,7 @@ void Batch<MV>(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batche
   state.SetColorTexture(symbolRegion.GetTexture());
   state.SetMaskTexture(colorRegion.GetTexture()); // Here mask is a color.
   state.SetTextureFilter(dp::TextureFilter::Nearest);
+  state.SetTextureIndex(symbolRegion.GetTextureIndex());
 
   dp::AttributeProvider provider(1 /* streamCount */, ARRAY_SIZE(vertexes));
   provider.InitStream(0 /* streamIndex */, MV::GetBindingInfo(), make_ref(vertexes));

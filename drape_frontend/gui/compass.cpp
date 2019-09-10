@@ -112,6 +112,7 @@ drape_ptr<ShapeRenderer> Compass::Draw(ref_ptr<dp::GraphicsContext> context,
   auto state = df::CreateRenderState(gpu::Program::TexturingGui, df::DepthLayer::GuiLayer);
   state.SetColorTexture(region.GetTexture());
   state.SetDepthTestEnabled(false);
+  state.SetTextureIndex(region.GetTextureIndex());
 
   dp::AttributeProvider provider(1, 4);
   dp::BindingInfo info(2);

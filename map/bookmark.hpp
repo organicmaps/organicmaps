@@ -64,6 +64,7 @@ private:
   kml::BookmarkData m_data;
   kml::MarkGroupId m_groupId;
   search::ReverseGeocoder::RegionAddress m_address;
+  std::string m_customImageName;
 };
 
 class BookmarkCategory : public UserMarkLayer
