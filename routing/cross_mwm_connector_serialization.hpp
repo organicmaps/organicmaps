@@ -91,7 +91,7 @@ public:
     template <class Sink>
     void Serialize(uint32_t bitsPerCrossMwmId, uint8_t bitsPerMask, Sink & sink) const
     {
-      // TODO (@gmoryes)
+      // TODO (@gmoryes):
       //  We do not use back and front point of segment in code, so we just write
       //  zero to this 128 bits. Need to remove this data from mwm section.
       WriteVarUint<uint64_t>(sink, 0);

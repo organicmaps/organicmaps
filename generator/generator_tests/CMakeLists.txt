@@ -15,6 +15,7 @@ set(
   collector_city_area_tests.cpp
   common.cpp
   common.hpp
+  cross_mwm_osm_ways_collector_tests.cpp
   descriptions_section_builder_tests.cpp
   feature_builder_test.cpp
   feature_merger_test.cpp

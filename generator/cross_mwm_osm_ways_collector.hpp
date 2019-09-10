@@ -9,18 +9,14 @@
 #include <map>
 #include <memory>
 #include <set>
+#include <string>
 
 namespace generator
 {
 class CrossMwmOsmWaysCollector : public generator::CollectorInterface
 {
 public:
-  explicit CrossMwmOsmWaysCollector(feature::GenerateInfo const & info);
-
-  explicit CrossMwmOsmWaysCollector(std::string intermediateDir,
-                                    std::shared_ptr<feature::CountriesFilesAffiliation> affiliation);
-
-  struct Info
+  struct CrossMwmInfo
   {
     struct SegmentInfo
     {
@@ -32,19 +28,24 @@ public:
       bool m_forwardIsEnter = false;
     };
 
-    bool operator<(Info const & rhs) const;
-
-    Info(uint64_t osmId, std::vector<SegmentInfo> crossMwmSegments)
+    explicit CrossMwmInfo(uint64_t osmId) : m_osmId(osmId) {}
+    CrossMwmInfo(uint64_t osmId, std::vector<SegmentInfo> crossMwmSegments)
         : m_osmId(osmId), m_crossMwmSegments(std::move(crossMwmSegments)) {}
 
-    explicit Info(uint64_t osmId) : m_osmId(osmId) {}
+    bool operator<(CrossMwmInfo const & rhs) const;
 
-    static void Dump(Info const & info, std::ofstream & output);
-    static std::set<Info> LoadFromFileToSet(std::string const & path);
+    static void Dump(CrossMwmInfo const & info, std::ofstream & output);
+    static std::set<CrossMwmInfo> LoadFromFileToSet(std::string const & path);
 
     uint64_t m_osmId;
     std::vector<SegmentInfo> m_crossMwmSegments;
   };
+
+  CrossMwmOsmWaysCollector(std::string intermediateDir,
+                           std::string const & targetDir,
+                           bool haveBordersForWholeWorld);
+  CrossMwmOsmWaysCollector(std::string intermediateDir,
+                           std::shared_ptr<feature::CountriesFilesAffiliation> affiliation);
 
   // generator::CollectorInterface overrides:
   // @{
@@ -60,7 +61,7 @@ public:
 
 private:
   std::string m_intermediateDir;
-  std::map<std::string, std::vector<Info>> m_mwmToCrossMwmOsmIds;
+  std::map<std::string, std::vector<CrossMwmInfo>> m_mwmToCrossMwmOsmIds;
   std::shared_ptr<feature::CountriesFilesAffiliation> m_affiliation;
 };
 }  // namespace generator

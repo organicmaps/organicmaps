@@ -557,7 +557,7 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
       starter.GetGraph().SetMode(WorldGraphMode::Joints);
       break;
     case VehicleType::Transit:
-      starter.GetGraph().SetMode(WorldGraphMode::Joints);
+      starter.GetGraph().SetMode(WorldGraphMode::NoLeaps);
       break;
     case VehicleType::Car:
       starter.GetGraph().SetMode(AreMwmsNear(starter) ? WorldGraphMode::Joints

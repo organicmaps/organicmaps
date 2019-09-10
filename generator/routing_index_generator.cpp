@@ -264,7 +264,7 @@ void CalcCrossMwmTransitions(
 
   auto const & path = base::JoinPath(intermediateDir, CROSS_MWM_OSM_WAYS_DIR, country);
   auto const crossMwmOsmIdWays =
-      generator::CrossMwmOsmWaysCollector::Info::LoadFromFileToSet(path);
+      generator::CrossMwmOsmWaysCollector::CrossMwmInfo::LoadFromFileToSet(path);
 
   ForEachFromDat(mwmFile, [&](FeatureType & f, uint32_t featureId) {
     VehicleMask const roadMask = maskMaker.CalcRoadMask(f);
@@ -276,18 +276,16 @@ void CalcCrossMwmTransitions(
     auto const osmId = it->second;
     CHECK(osmId.GetType() == base::GeoObjectId::Type::ObsoleteOsmWay, ());
 
-    auto const it =
-        crossMwmOsmIdWays.find(generator::CrossMwmOsmWaysCollector::Info(osmId.GetEncodedId()));
+    auto const crossMwmWayInfoIt =
+        crossMwmOsmIdWays.find(generator::CrossMwmOsmWaysCollector::CrossMwmInfo(osmId.GetEncodedId()));
 
-    if (it != crossMwmOsmIdWays.cend())
+    if (crossMwmWayInfoIt != crossMwmOsmIdWays.cend())
     {
       f.ParseGeometry(FeatureType::BEST_GEOMETRY);
-      if (f.GetPointsCount() == 0)
-        return;
 
       VehicleMask const oneWayMask = maskMaker.CalcOneWayMask(f);
 
-      auto const & crossMwmWayInfo = *it;
+      auto const & crossMwmWayInfo = *crossMwmWayInfoIt;
       for (auto const & segmentInfo : crossMwmWayInfo.m_crossMwmSegments)
       {
         uint32_t const segmentId = segmentInfo.m_segmentId;

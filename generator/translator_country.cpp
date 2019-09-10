@@ -98,11 +98,11 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
   collectors->Append(std::make_shared<routing::RestrictionWriter>(info.GetIntermediateFileName(RESTRICTIONS_FILENAME), cache->GetCache()));
   collectors->Append(std::make_shared<routing::RoadAccessWriter>(info.GetIntermediateFileName(ROAD_ACCESS_FILENAME)));
   collectors->Append(std::make_shared<routing::CameraCollector>(info.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME)));
+  collectors->Append(std::make_shared<CrossMwmOsmWaysCollector>(info.m_intermediateDir, info.m_targetDir, info.m_haveBordersForWholeWorld));
   if (info.m_genAddresses)
     collectors->Append(std::make_shared<CollectorAddresses>(info.GetAddressesFileName()));
   if (!info.m_idToWikidataFilename.empty())
     collectors->Append(std::make_shared<CollectorTag>(info.m_idToWikidataFilename, "wikidata" /* tagKey */, WikiDataValidator));
-  collectors->Append(std::make_shared<CrossMwmOsmWaysCollector>(info));
   SetCollector(collectors);
 }
 

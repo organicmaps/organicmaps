@@ -8,16 +8,17 @@
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
 
+#include <utility>
+
 namespace generator
 {
-
 // CrossMwmOsmWaysCollector ------------------------------------------------------------------------
 
-CrossMwmOsmWaysCollector::CrossMwmOsmWaysCollector(feature::GenerateInfo const & info)
-  : m_intermediateDir(info.m_intermediateDir)
+CrossMwmOsmWaysCollector::CrossMwmOsmWaysCollector(std::string intermediateDir,
+                                                   std::string const & targetDir,
+                                                   bool haveBordersForWholeWorld)
+  : m_intermediateDir(std::move(intermediateDir))
 {
-  auto const & targetDir = info.m_targetDir;
-  auto const haveBordersForWholeWorld = info.m_haveBordersForWholeWorld;
   m_affiliation =
       std::make_shared<feature::CountriesFilesAffiliation>(targetDir, haveBordersForWholeWorld);
 }
@@ -43,14 +44,28 @@ void CrossMwmOsmWaysCollector::CollectFeature(feature::FeatureBuilder const & fb
   if (!routing::IsRoad(fb.GetTypes()))
     return;
 
-  std::vector<std::string> affiliations = m_affiliation->GetAffiliations(fb);
+  auto const & affiliations = m_affiliation->GetAffiliations(fb);
   if (affiliations.size() == 1)
     return;
 
+  auto const & featurePoints = fb.GetOuterGeometry();
+
+  std::map<std::string, std::vector<bool>> featurePointsEntriesToMwm;
+  for (auto const & mwmName : affiliations)
+    featurePointsEntriesToMwm[mwmName] = std::vector<bool>(featurePoints.size(), false);
+
+  for (size_t pointNumber = 0; pointNumber < featurePoints.size(); ++pointNumber)
+  {
+    auto const & point = featurePoints[pointNumber];
+    auto const & pointAffiliations = m_affiliation->GetAffiliations(point);
+    for (auto const & mwmName : pointAffiliations)
+      featurePointsEntriesToMwm[mwmName][pointNumber] = true;
+  }
+
   for (auto const & mwmName : affiliations)
   {
-    std::vector<bool> entries = m_affiliation->GetFeaturePointsEntries(mwmName, fb);
-    std::vector<Info::SegmentInfo> crossMwmSegments;
+    auto const & entries = featurePointsEntriesToMwm[mwmName];
+    std::vector<CrossMwmInfo::SegmentInfo> crossMwmSegments;
     bool prevPointIn = entries[0];
     for (size_t i = 1; i < entries.size(); ++i)
     {
@@ -72,7 +87,7 @@ void CrossMwmOsmWaysCollector::CollectFeature(feature::FeatureBuilder const & fb
 void CrossMwmOsmWaysCollector::Save()
 {
   auto const & crossMwmOsmWaysDir = base::JoinPath(m_intermediateDir, CROSS_MWM_OSM_WAYS_DIR);
-  CHECK(Platform::MkDirChecked(crossMwmOsmWaysDir), ("Can not create dir:", crossMwmOsmWaysDir));
+  CHECK(Platform::MkDirChecked(crossMwmOsmWaysDir), (crossMwmOsmWaysDir));
 
   for (auto const & item : m_mwmToCrossMwmOsmIds)
   {
@@ -80,9 +95,11 @@ void CrossMwmOsmWaysCollector::Save()
     auto const & waysInfo = item.second;
 
     auto const & pathToCrossMwmOsmIds = base::JoinPath(crossMwmOsmWaysDir, mwmName);
-    std::ofstream output(pathToCrossMwmOsmIds);
+    std::ofstream output;
+    output.exceptions(std::fstream::failbit | std::fstream::badbit);
+    output.open(pathToCrossMwmOsmIds);
     for (auto const & wayInfo : waysInfo)
-      Info::Dump(wayInfo, output);
+      CrossMwmInfo::Dump(wayInfo, output);
   }
 }
 
@@ -99,44 +116,42 @@ void CrossMwmOsmWaysCollector::MergeInto(CrossMwmOsmWaysCollector & collector) c
     auto const & osmIds = item.second;
 
     auto & otherOsmIds = collector.m_mwmToCrossMwmOsmIds[mwmName];
-    otherOsmIds.insert(otherOsmIds.end(), osmIds.begin(), osmIds.end());
+    otherOsmIds.insert(otherOsmIds.end(), osmIds.cbegin(), osmIds.cend());
   }
 }
 
 // CrossMwmOsmWaysCollector::Info ------------------------------------------------------------------
 
-bool CrossMwmOsmWaysCollector::Info::operator<(Info const & rhs) const
+bool CrossMwmOsmWaysCollector::CrossMwmInfo::operator<(CrossMwmInfo const & rhs) const
 {
   return m_osmId < rhs.m_osmId;
 }
 
 // static
-void CrossMwmOsmWaysCollector::Info::Dump(Info const & info, std::ofstream & output)
+void CrossMwmOsmWaysCollector::CrossMwmInfo::Dump(CrossMwmInfo const & info, std::ofstream & output)
 {
-  {
-    output << base::MakeOsmWay(info.m_osmId) << " " << info.m_crossMwmSegments.size() << " ";
-    for (auto const & segmentInfo : info.m_crossMwmSegments)
-      output << segmentInfo.m_segmentId << " " << segmentInfo.m_forwardIsEnter << " ";
+  output << base::MakeOsmWay(info.m_osmId) << " " << info.m_crossMwmSegments.size() << " ";
+  for (auto const & segmentInfo : info.m_crossMwmSegments)
+    output << segmentInfo.m_segmentId << " " << segmentInfo.m_forwardIsEnter << " ";
 
-    output << std::endl;
-  }
+  output << std::endl;
 }
 
 // static
-std::set<CrossMwmOsmWaysCollector::Info>
-CrossMwmOsmWaysCollector::Info::LoadFromFileToSet(std::string const & path)
+std::set<CrossMwmOsmWaysCollector::CrossMwmInfo>
+CrossMwmOsmWaysCollector::CrossMwmInfo::LoadFromFileToSet(std::string const & path)
 {
-  std::set<Info> result;
-  std::ifstream input(path);
-  CHECK(input.good(), ("Can not open:", path));
+  std::set<CrossMwmInfo> result;
+  std::ifstream input;
+  input.exceptions(std::fstream::failbit | std::fstream::badbit);
+  input.open(path);
+  input.exceptions(std::fstream::badbit);
 
   uint64_t osmId;
   size_t segmentsNumber;
-  std::vector<SegmentInfo> segments;
-
   while (input >> osmId >> segmentsNumber)
   {
-    segments.clear();
+    std::vector<SegmentInfo> segments;
 
     CHECK_NOT_EQUAL(segmentsNumber, 0, ());
     segments.resize(segmentsNumber);

@@ -4,12 +4,10 @@
 
 #include "geometry/mercator.hpp"
 
-#include "base/assert.hpp"
 #include "base/thread_pool_computational.hpp"
 
 #include <cmath>
-#include <map>
-#include <utility>
+#include <functional>
 
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/register/ring.hpp>
@@ -56,19 +54,31 @@ std::vector<std::string> CountriesFilesAffiliation::GetAffiliations(FeatureBuild
   return countries;
 }
 
-std::vector<bool>
-CountriesFilesAffiliation::GetFeaturePointsEntries(std::string const & mwmName,
-                                                   FeatureBuilder const & fb) const
+std::vector<std::string>
+CountriesFilesAffiliation::GetAffiliations(m2::PointD const & point) const
 {
-  std::vector<bool> entries;
-  entries.reserve(fb.GetPointsCount());
-  auto const & polygon = m_countries.GetRegionByName(mwmName);
-  fb.ForAnyGeometryPoint([&entries, &polygon](auto const & point) {
-    entries.emplace_back(polygon.Contains(point));
-    return false;
+  std::vector<std::string> countries;
+  std::vector<std::reference_wrapper<borders::CountryPolygons const>> countriesContainer;
+  m_countries.ForEachInRect(m2::RectD(point, point), [&](auto const & countryPolygons) {
+    countriesContainer.emplace_back(countryPolygons);
   });
 
-  return entries;
+  if (m_haveBordersForWholeWorld && countriesContainer.size() == 1)
+  {
+    borders::CountryPolygons const & countryPolygons = countriesContainer.front();
+    countries.emplace_back(countryPolygons.GetName());
+    return countries;
+  }
+
+  for (borders::CountryPolygons const & countryPolygons : countriesContainer)
+  {
+    auto const need = countryPolygons.Contains(point);
+
+    if (need)
+      countries.emplace_back(countryPolygons.GetName());
+  }
+
+  return countries;
 }
 
 bool CountriesFilesAffiliation::HasRegionByName(std::string const & name) const
@@ -250,10 +260,9 @@ bool SingleAffiliation::HasRegionByName(std::string const & name) const
   return name == m_filename;
 }
 
-std::vector<bool>
-SingleAffiliation::GetFeaturePointsEntries(std::string const & mwmName,
-                                           FeatureBuilder const & fb) const
+std::vector<std::string>
+SingleAffiliation::GetAffiliations(m2::PointD const & point) const
 {
-  UNREACHABLE();
+  return {m_filename};
 }
 }  // namespace feature
