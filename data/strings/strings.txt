@@ -43695,3 +43695,7 @@
     zh-Hans = 圣地
     zh-Hant = 聖地
     fa = اماکن مقدس
+
+ [subscription_terms_android]
+    comment = FIXME
+    en = subscription_terms_android
