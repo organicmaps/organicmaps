@@ -45,7 +45,7 @@
         android:layout_marginLeft="@dimen/height_item_oneline"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:letterSpacing="-0.02"
-        android:lineSpacingExtra="@dimen/line_space_extra"
+        android:lineSpacingExtra="@dimen/line_spacing_extra_1"
         android:textStyle="bold"
         android:gravity="center"
         tools:text="Unlimited access to 5000+ guides!"

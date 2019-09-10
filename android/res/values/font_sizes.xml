@@ -18,7 +18,9 @@
   <dimen name="text_size_icon_title">10sp</dimen>
   <dimen name="text_size_button">16sp</dimen>
   <dimen name="text_size_alert_dialog_title">20sp</dimen>
-  <dimen name="line_space_extra">4sp</dimen>
+  <dimen name="line_spacing_extra_0">2sp</dimen>
+  <dimen name="line_spacing_extra_1">4sp</dimen>
+  <dimen name="line_spacing_extra_2">6sp</dimen>
 
   <!-- BASE TEXT SIZES -->
 

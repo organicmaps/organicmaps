@@ -1,6 +1,7 @@
 <FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/catalog_promo_placeholder_card"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -9,6 +10,7 @@
   <android.support.v7.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:cardBackgroundColor="?cardBackground"
     android:minHeight="@dimen/discovery_expert_item_min_height">
     <LinearLayout
       android:orientation="vertical"

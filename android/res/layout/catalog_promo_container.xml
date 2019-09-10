@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/catalog_promo_container"
   android:orientation="vertical"
   android:background="?attr/windowBackgroundForced"
@@ -25,10 +27,130 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/divider_height"
     layout="@layout/list_divider"/>
+  <LinearLayout
+    android:id="@+id/promo_place_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="?cardBackground"
+    android:padding="@dimen/margin_base">
+    <TextView
+      android:id="@+id/promo_place_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="@dimen/text_size_body_3"
+      android:fontFamily="@string/robotoRegular"
+      android:textStyle="bold"
+      android:textColor="?android:textColorPrimary"
+      android:lineSpacingExtra="@dimen/line_spacing_extra_2"
+      android:maxLines="2"
+      android:ellipsize="end"
+      tools:text="Государственный музей изобразительных искусств имени А.С. Пушкина это..."
+      tools:targetApi="jelly_bean" />
+    <TextView
+      android:id="@+id/promo_place_description"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_half"
+      android:textSize="@dimen/text_size_body_3"
+      android:fontFamily="@string/robotoRegular"
+      android:textStyle="normal"
+      android:textColor="?android:textColorPrimary"
+      android:lineSpacingExtra="@dimen/line_spacing_extra_2"
+      android:maxLines="5"
+      android:ellipsize="end"
+      tools:text="музейный комплекс, обладающий одим из крупнейших в России художественных собраний
+      зарубежного искусства. хранящий артефакты, созданные мастерами разных эпох - от Древнего Египта
+      и античной Греции до;..."
+      tools:ignore="UnusedAttribute" />
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="@dimen/text_size_body_3"
+      android:fontFamily="@string/robotoRegular"
+      android:textStyle="normal"
+      android:textColor="?colorAccent"
+      android:lineSpacingExtra="@dimen/text_size_body_3"
+      android:text="@string/category_desc_more"
+      android:layout_marginTop="@dimen/margin_half"
+      tools:ignore="UnusedAttribute" />
+  </LinearLayout>
+  <include
+    android:id="@+id/promo_place_description_divider"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/divider_height"
+    layout="@layout/list_divider"/>
+  <android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_half"
+    app:cardCornerRadius="@dimen/margin_eighth"
+    app:cardBackgroundColor="@null">
+    <LinearLayout
+      android:id="@+id/promo_single_bookmark_container"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/promo_single_place_container_height"
+      android:orientation="horizontal"
+      tools:ignore="UnusedAttribute">
+      <ImageView
+        android:id="@+id/promo_single_bookmark_image"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:scaleType="centerCrop"/>
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="?cardBackground"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/margin_half_plus"
+        android:paddingLeft="@dimen/margin_half_plus"
+        android:paddingTop="@dimen/margin_double_and_half"
+        android:paddingEnd="@dimen/margin_half_plus"
+        android:paddingRight="@dimen/margin_half_plus"
+        android:paddingBottom="@dimen/margin_base">
+        <TextView
+          android:id="@+id/place_single_bookmark_name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:ellipsize="end"
+          android:fontFamily="@string/robotoRegular"
+          android:lineSpacingExtra="@dimen/line_spacing_extra_0"
+          android:maxLines="3"
+          android:textColor="?android:textColorPrimary"
+          android:textSize="@dimen/text_size_body_3"
+          android:textStyle="bold"
+          tools:text="From the Alexander Gardens to the City centre" />
+        <TextView
+          android:id="@+id/place_single_bookmark_author"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_half"
+          android:fontFamily="@string/robotoRegular"
+          android:lineSpacingExtra="@dimen/line_spacing_extra_1"
+          android:textColor="?android:textColorSecondary"
+          android:textSize="@dimen/text_size_body_4"
+          android:textStyle="normal"
+          tools:text="ArrivalGuides" />
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="bottom"
+          android:orientation="vertical">
+          <Button
+            style="@style/MwmWidget.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/promo_single_place_button_height"
+            android:text="@string/pp_discovery_place_related_cta_button"/>
+        </LinearLayout>
+      </LinearLayout>
+    </LinearLayout>
+  </android.support.v7.widget.CardView>
   <android.support.v7.widget.RecyclerView
     android:id="@+id/catalog_promo_recycler"
-    android:layout_marginBottom="@dimen/margin_quarter"
-    android:layout_marginTop="@dimen/margin_quarter"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_quarter"
+    android:layout_marginBottom="@dimen/margin_quarter" />
 </LinearLayout>
