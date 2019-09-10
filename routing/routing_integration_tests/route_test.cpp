@@ -405,7 +405,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 19645.0);
+    integration::TestRouteTime(route, 19621.8);
   }
 
   // Test on roads with tag route=shuttle_train
