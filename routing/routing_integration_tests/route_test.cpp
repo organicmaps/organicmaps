@@ -59,7 +59,7 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents(VehicleType::Car),
         MercatorBounds::FromLatLon(55.97310, 37.41460), {0., 0.},
-        MercatorBounds::FromLatLon(55.75100, 37.61790), 33717.0);
+        MercatorBounds::FromLatLon(55.75100, 37.61790), 39899.2);
   }
 
   // Restrictions tests. Check restrictions generation, if there are any errors.
@@ -323,7 +323,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 1000.65);
+    integration::TestRouteTime(route, 967.0);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22SubrouteTest)
@@ -405,7 +405,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 19859.3);
+    integration::TestRouteTime(route, 19645.0);
   }
 
   // Test on roads with tag route=shuttle_train
@@ -547,7 +547,7 @@ namespace
 
     integration::CalculateRouteAndTestRouteLength(
         vehicleComponents, MercatorBounds::FromLatLon(55.93885, 37.40588), {0.0, 0.0},
-        MercatorBounds::FromLatLon(55.93706, 37.45339), 10627.5);
+        MercatorBounds::FromLatLon(55.93706, 37.45339), 9168.15);
   }
 
   UNIT_TEST(NoCrash_RioGrandeCosmopolis)
