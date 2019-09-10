@@ -37,7 +37,7 @@ class NavigationButtonsAnimationController
   NavigationButtonsAnimationController(@NonNull View zoomIn, @NonNull View zoomOut,
                                        @NonNull View myPosition, @NonNull final View contentView,
                                        @Nullable OnTranslationChangedListener translationListener,
-                                       @NonNull View crownView)
+                                       @Nullable View crownView)
   {
     mZoomIn = zoomIn;
     mZoomOut = zoomOut;
