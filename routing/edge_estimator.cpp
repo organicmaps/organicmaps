@@ -119,7 +119,7 @@ double EdgeEstimator::CalcLeapWeight(m2::PointD const & from, m2::PointD const &
   return TimeBetweenSec(from, to, m_maxWeightSpeedMpS / 2.0);
 }
 
-double EdgeEstimator::CalcOffroadWeight(m2::PointD const & from, m2::PointD const & to, Purpose purpose) const
+double EdgeEstimator::CalcOffroad(m2::PointD const & from, m2::PointD const & to, Purpose purpose) const
 {
   return TimeBetweenSec(from, to,
                         KMPH2MPS(purpose == Purpose::Weight ? m_offroadSpeedKMpH.m_weight

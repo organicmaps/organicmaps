@@ -461,11 +461,15 @@ RouteWeight IndexGraph::CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool
     switch (purpose)
     {
     case EdgeEstimator::Purpose::Weight:
+    {
       return RouteWeight(
           m_estimator->CalcSegmentWeight(segment, road, EdgeEstimator::Purpose::Weight));
+    }
     case EdgeEstimator::Purpose::ETA:
+    {
       return RouteWeight(
           m_estimator->CalcSegmentWeight(segment, road, EdgeEstimator::Purpose::ETA));
+    }
     }
     UNREACHABLE();
   };

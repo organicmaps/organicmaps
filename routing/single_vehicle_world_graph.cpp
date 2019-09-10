@@ -191,7 +191,7 @@ RouteWeight SingleVehicleWorldGraph::CalcOffroadWeight(m2::PointD const & from,
                                                        m2::PointD const & to,
                                                        EdgeEstimator::Purpose purpose) const
 {
-  return RouteWeight(m_estimator->CalcOffroadWeight(from, to, purpose));
+  return RouteWeight(m_estimator->CalcOffroad(from, to, purpose));
 }
 
 double SingleVehicleWorldGraph::CalculateETA(Segment const & from, Segment const & to)

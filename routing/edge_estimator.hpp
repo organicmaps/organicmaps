@@ -40,7 +40,7 @@ public:
   double CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const;
 
   // Estimates time in seconds it takes to go from point |from| to point |to| along direct fake edge.
-  double CalcOffroadWeight(m2::PointD const & from, m2::PointD const & to, Purpose purpose) const;
+  double CalcOffroad(m2::PointD const & from, m2::PointD const & to, Purpose purpose) const;
 
   virtual double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
                                    Purpose purpose) const = 0;

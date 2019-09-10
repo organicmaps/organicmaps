@@ -69,8 +69,8 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment,
   }
 
   return RouteWeight(
-      m_estimator->CalcOffroadWeight(GetJunction(segment, false /* front */).GetPoint(),
-                                     GetJunction(segment, true /* front */).GetPoint(), purpose));
+      m_estimator->CalcOffroad(GetJunction(segment, false /* front */).GetPoint(),
+                               GetJunction(segment, true /* front */).GetPoint(), purpose));
 }
 
 RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const & to) const
