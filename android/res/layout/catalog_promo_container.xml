@@ -28,14 +28,14 @@
     android:layout_height="@dimen/divider_height"
     layout="@layout/list_divider"/>
   <LinearLayout
-    android:id="@+id/promo_place_container"
+    android:id="@+id/promo_poi_description_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="?cardBackground"
     android:padding="@dimen/margin_base">
     <TextView
-      android:id="@+id/promo_place_name"
+      android:id="@+id/promo_poi_name"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textSize="@dimen/text_size_body_3"
@@ -48,7 +48,7 @@
       tools:text="Государственный музей изобразительных искусств имени А.С. Пушкина это..."
       tools:targetApi="jelly_bean" />
     <TextView
-      android:id="@+id/promo_place_description"
+      android:id="@+id/promo_poi_description"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_half"
@@ -64,6 +64,7 @@
       и античной Греции до;..."
       tools:ignore="UnusedAttribute" />
     <TextView
+      android:id="@+id/promo_poi_more"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textSize="@dimen/text_size_body_3"
@@ -76,24 +77,24 @@
       tools:ignore="UnusedAttribute" />
   </LinearLayout>
   <include
-    android:id="@+id/promo_place_description_divider"
+    android:id="@+id/promo_poi_description_divider"
     android:layout_width="match_parent"
     android:layout_height="@dimen/divider_height"
     layout="@layout/list_divider"/>
   <android.support.v7.widget.CardView
+    android:id="@+id/promo_poi_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_half"
     app:cardCornerRadius="@dimen/margin_eighth"
     app:cardBackgroundColor="@null">
     <LinearLayout
-      android:id="@+id/promo_single_bookmark_container"
       android:layout_width="match_parent"
       android:layout_height="@dimen/promo_single_place_container_height"
       android:orientation="horizontal"
       tools:ignore="UnusedAttribute">
       <ImageView
-        android:id="@+id/promo_single_bookmark_image"
+        android:id="@+id/promo_poi_image"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -141,7 +142,13 @@
           <Button
             style="@style/MwmWidget.Button.Primary"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/promo_single_place_button_height"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/margin_half"
+            android:paddingStart="@dimen/margin_half"
+            android:paddingRight="@dimen/margin_half"
+            android:paddingEnd="@dimen/margin_half"
+            android:paddingTop="@dimen/margin_quarter_plus"
+            android:paddingBottom="@dimen/margin_quarter_plus"
             android:text="@string/pp_discovery_place_related_cta_button"/>
         </LinearLayout>
       </LinearLayout>

@@ -364,6 +364,19 @@ public class MapObject implements Parcelable, PopularityProvider
     return mReachableByTaxiTypes;
   }
 
+  @NonNull
+  public  String[] getRawTypes()
+  {
+    String[] types = new String[0];
+    if (mRawTypes != null)
+    {
+      types = new String[mRawTypes.size()];
+      mRawTypes.toArray(types);
+    }
+
+    return types;
+  }
+
   public void setLat(double lat)
   {
     mLat = lat;
