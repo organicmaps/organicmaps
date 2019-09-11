@@ -2223,7 +2223,7 @@
     ja = 神社
     ko = 성지
     nb = Alter
-    pl = Kapliczka szintoistyczna 
+    pl = Kapliczka szintoistyczna
     pt = Templo shintoísta
     pt-BR = Templo shintoísta
     ro = Sanctuar
@@ -12012,6 +12012,7 @@
 
   [type.man_made.wastewater_plant]
     en = man_made-wastewater_plant
+    pl = Oczyszczalnia ścieków
 
   [type.man_made.water_tap]
     en = Water Tap
@@ -12125,7 +12126,7 @@
     ja = 風車
     ko = 풍차
     nb = Vindmølle
-    pl = Wiatrak
+    pl = Młyn wiatrowy
     pt = Moinho de vento
     pt-BR = Moinho de vento
     ro = Moară de vânt
@@ -12170,6 +12171,7 @@
 
   [type.military]
     en = military
+    pl = wojskowy
 
   [type.military.bunker]
     en = Bunker
@@ -12192,9 +12194,11 @@
 
   [type.natural]
     en = natural
+    pl = naturalny
 
   [type.natural.bare_rock]
     en = Bare rock
+    pl = Skała macierzysta
 
   [type.natural.bay]
     en = Bay
@@ -12440,8 +12444,8 @@
 
   [type.natural.hot_spring]
     en = Hot Spring
-    pl = Gorące źródło
     ru = Горячий Источник
+    pl = Gorące źródło
 
   [type.natural.lake]
     en = Lake
@@ -12658,7 +12662,7 @@
 
   [type.natural.tree_row]
     en = Tree row
-    pl - Rząd drzew
+    pl = Rząd drzew
 
   [type.natural.vineyard]
     en = Vineyard
@@ -12743,7 +12747,7 @@
     ja = 湿地帯
     ko = 습지 구역
     nb = Våtmarksområde
-    pl = Bagno, mokradło
+    pl = Tereny podmokłe
     pt = Pantanoso
     pt-BR = Áreas úmdas
     ro = Loc mlăștinos
@@ -12763,9 +12767,11 @@
 
   [type.natural.wetland.bog]
     en = Wetland
+    pl = Torfowisko
 
   [type.natural.wetland.marsh]
     en = Wetland
+    pl = Moczary
 
   [type.natural.wood]
     en = Forest
@@ -12815,7 +12821,7 @@
     ja = 森林
     ko = 숲
     nb = Skog
-    pl = Las
+    pl = Las iglasty
     pt = Floresta
     pt-BR = Floresta
     ro = Pădure
@@ -12847,7 +12853,7 @@
     ja = 森林
     ko = 숲
     nb = Skog
-    pl = Las
+    pl = Las liściasty
     pt = Floresta
     pt-BR = Floresta
     ro = Pădure
@@ -12897,9 +12903,11 @@
 
   [type.noexit]
     en = noexit
+    pl = Ślepy koniec drogi
 
   [type.noexit.motor_vehicle]
     en = noexit-motor_vehicle
+    pl = Ślepy koniec drogi dla pojazdów mechanicznych
 
   [type.office]
     en = Office
