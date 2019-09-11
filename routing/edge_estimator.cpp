@@ -102,7 +102,9 @@ EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroa
   CHECK_GREATER(m_offroadSpeedKMpH.m_weight, 0.0, ());
   CHECK_GREATER(m_offroadSpeedKMpH.m_eta, 0.0, ());
   CHECK_GREATER_OR_EQUAL(m_maxWeightSpeedMpS, KMPH2MPS(m_offroadSpeedKMpH.m_weight), ());
-  CHECK_GREATER_OR_EQUAL(m_maxWeightSpeedMpS, KMPH2MPS(m_offroadSpeedKMpH.m_eta), ());
+
+  if (m_offroadSpeedKMpH.m_eta != kUndefinedSpeed)
+    CHECK_GREATER_OR_EQUAL(m_maxWeightSpeedMpS, KMPH2MPS(m_offroadSpeedKMpH.m_eta), ());
 }
 
 double EdgeEstimator::CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const
@@ -119,11 +121,15 @@ double EdgeEstimator::CalcLeapWeight(m2::PointD const & from, m2::PointD const &
   return TimeBetweenSec(from, to, m_maxWeightSpeedMpS / 2.0);
 }
 
-double EdgeEstimator::CalcOffroad(m2::PointD const & from, m2::PointD const & to, Purpose purpose) const
+double EdgeEstimator::CalcOffroad(m2::PointD const & from, m2::PointD const & to,
+                                  Purpose purpose) const
 {
-  return TimeBetweenSec(from, to,
-                        KMPH2MPS(purpose == Purpose::Weight ? m_offroadSpeedKMpH.m_weight
-                                                            : m_offroadSpeedKMpH.m_eta));
+  auto const offroadSpeedKMpH = purpose == Purpose::Weight ? m_offroadSpeedKMpH.m_weight
+                                                            : m_offroadSpeedKMpH.m_eta;
+  if (offroadSpeedKMpH == kUndefinedSpeed)
+    return 0.0;
+
+  return TimeBetweenSec(from, to, KMPH2MPS(offroadSpeedKMpH));
 }
 
 // PedestrianEstimator -----------------------------------------------------------------------------

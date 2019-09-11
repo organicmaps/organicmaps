@@ -64,12 +64,12 @@ std::array<char const *, 41> constexpr kCountries = {"Australia",
                                                      "Venezuela"};
 
 // |kSpeedOffroadKMpH| is a speed which is used for edges that don't lie on road features.
-// For example for pure fake edges. The speed for building route and the speed for
-// ETA calculation is significant different for cars. The idea behind that is
-// to use the closest edge for the start and the finish of the route except for some edge cases.
-// And when ETA is calculated not to take into account fake edges. It's actual
-// when an airport is a start of finish.
-SpeedKMpH constexpr kSpeedOffroadKMpH = {0.01 /* weight */, 100.0 /* eta */};
+// For example for pure fake edges. In car routing, off road speed for calculation ETA is not used.
+// The weight of such edges is considered as 0 seconds. It's especially actual when an airport is
+// a start or finish. On the other hand, while route calculation the fake edges are considered
+// as quite heavy. The idea behind that is to use the closest edge for the start and the finish
+// of the route except for some edge cases.
+SpeedKMpH constexpr kSpeedOffroadKMpH = {0.01 /* weight */, kUndefinedSpeed /* eta */};
 
 VehicleModel::LimitsInitList const kCarOptionsDefault = {
     // {{roadType, roadType}  passThroughAllowed}
