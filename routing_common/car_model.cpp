@@ -215,7 +215,7 @@ CarModel::CarModel(VehicleModel::LimitsInitList const & roadLimits, HighwayBased
   Init();
 }
 
-SpeedKMpH CarModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
+SpeedKMpH const & CarModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
 
 void CarModel::Init()
 {

@@ -14,7 +14,7 @@ public:
   CarModel(VehicleModel::LimitsInitList const & roadLimits, HighwayBasedInfo const & info);
 
   // VehicleModelInterface overrides:
-  SpeedKMpH GetOffroadSpeed() const override;
+  SpeedKMpH const & GetOffroadSpeed() const override;
 
   static CarModel const & AllLimitsInstance();
   static LimitsInitList const & GetOptions();

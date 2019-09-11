@@ -234,7 +234,7 @@ public:
 
   /// @return Offroad speed in KMpH for vehicle. This speed should be used for non-feature routing
   /// e.g. to connect start point to nearest feature.
-  virtual SpeedKMpH GetOffroadSpeed() const = 0;
+  virtual SpeedKMpH const & GetOffroadSpeed() const = 0;
 
   virtual bool IsOneWay(FeatureType & f) const = 0;
 

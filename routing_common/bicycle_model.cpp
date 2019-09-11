@@ -456,7 +456,7 @@ bool BicycleModel::IsOneWay(FeatureType & f) const
   return VehicleModel::IsOneWay(f);
 }
 
-SpeedKMpH BicycleModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
+SpeedKMpH const & BicycleModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
 
 // If one of feature types will be disabled for bicycles, features of this type will be simplified
 // in generator. Look FeatureBuilder1::IsRoad() for more details.

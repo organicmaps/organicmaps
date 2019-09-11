@@ -293,7 +293,7 @@ SpeedKMpH PedestrianModel::GetSpeed(FeatureType & f, SpeedParams const & speedPa
   return VehicleModel::GetSpeedWihtoutMaxspeed(f, speedParams);
 }
 
-SpeedKMpH PedestrianModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
+SpeedKMpH const & PedestrianModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
 
 void PedestrianModel::Init()
 {

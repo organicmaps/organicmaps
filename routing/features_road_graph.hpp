@@ -37,7 +37,7 @@ private:
     SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const override;
     HighwayType GetHighwayType(FeatureType & f) const override;
     double GetMaxWeightSpeed() const override { return m_maxSpeed; };
-    SpeedKMpH GetOffroadSpeed() const override;
+    SpeedKMpH const & GetOffroadSpeed() const override;
     bool IsOneWay(FeatureType & f) const override;
     bool IsRoad(FeatureType & f) const override;
     bool IsPassThroughAllowed(FeatureType & f) const override;

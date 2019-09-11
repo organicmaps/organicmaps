@@ -72,8 +72,13 @@ public:
   }
 
   // We are not going to use offroad routing in these tests.
-  SpeedKMpH GetOffroadSpeed() const override { return {0.0 /* weight */, 0.0 /* eta */}; }
+  SpeedKMpH const & GetOffroadSpeed() const override { return kDummy; }
+
+private:
+  static SpeedKMpH const kDummy;
 };
+
+SpeedKMpH const TestVehicleModel::kDummy = {0.0 /* weight */, 0.0 /* eta */};
 
 uint32_t GetType(char const * s0, char const * s1 = 0, char const * s2 = 0)
 {
