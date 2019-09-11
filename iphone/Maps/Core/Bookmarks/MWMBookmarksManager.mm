@@ -598,9 +598,13 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return urlString ? [NSURL URLWithString:[urlString stringByAppendingPathComponent:path]] : nil;
 }
 
-- (NSURL *)sharingUrlForCategoryId:(MWMMarkGroupID)groupId
-{
+- (NSURL *)deeplinkForCategoryId:(MWMMarkGroupID)groupId {
   NSString * urlString = @(self.bm.GetCategoryCatalogDeeplink(groupId).c_str());
+  return urlString ? [NSURL URLWithString:urlString] : nil;
+}
+
+- (NSURL *)publicLinkForCategoryId:(MWMMarkGroupID)groupId {
+  NSString *urlString = @(self.bm.GetCategoryCatalogPublicLink(groupId).c_str());
   return urlString ? [NSURL URLWithString:urlString] : nil;
 }
 

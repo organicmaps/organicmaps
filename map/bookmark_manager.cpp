@@ -3232,6 +3232,14 @@ std::string BookmarkManager::GetCategoryCatalogDeeplink(kml::MarkGroupId categor
   return cat->GetCatalogDeeplink();
 }
 
+std::string BookmarkManager::GetCategoryCatalogPublicLink(kml::MarkGroupId categoryId) const
+{
+  auto cat = GetBmCategory(categoryId);
+  if (cat == nullptr)
+    return {};
+  return cat->GetCatalogPublicLink();
+}
+
 BookmarkCatalog const & BookmarkManager::GetCatalog() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());

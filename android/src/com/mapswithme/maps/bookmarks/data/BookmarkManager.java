@@ -694,6 +694,12 @@ public enum BookmarkManager
   }
 
   @NonNull
+  public String getCatalogPublicLink(long catId)
+  {
+    return nativeGetCatalogPublicLink(catId);
+  }
+
+  @NonNull
   public String getCatalogDownloadUrl(@NonNull String serverId)
   {
     return nativeGetCatalogDownloadUrl(serverId);
@@ -910,6 +916,9 @@ public enum BookmarkManager
 
   @NonNull
   private static native String nativeGetCatalogDeeplink(long catId);
+
+  @NonNull
+  private static native String nativeGetCatalogPublicLink(long catId);
 
   @NonNull
   private static native String nativeGetCatalogDownloadUrl(@NonNull String serverId);

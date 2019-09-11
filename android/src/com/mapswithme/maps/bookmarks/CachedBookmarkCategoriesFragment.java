@@ -99,12 +99,7 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
   @Override
   protected void onShareActionSelected(@NonNull BookmarkCategory category)
   {
-    String deepLink = BookmarkManager.INSTANCE.getCatalogDeeplink(category.getId());
-    Intent intent = new Intent(Intent.ACTION_SEND)
-        .setType(TargetUtils.TYPE_TEXT_PLAIN)
-        .putExtra(Intent.EXTRA_SUBJECT, deepLink)
-        .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_bookmarks_email_body));
-    startActivity(Intent.createChooser(intent, getString(R.string.share)));
+    throw new AssertionError("Sharing is not supported for downloaded guides");
   }
 
   @Override

@@ -396,6 +396,7 @@ public:
   bool IsCategoryFromCatalog(kml::MarkGroupId categoryId) const;
   std::string GetCategoryServerId(kml::MarkGroupId categoryId) const;
   std::string GetCategoryCatalogDeeplink(kml::MarkGroupId categoryId) const;
+  std::string GetCategoryCatalogPublicLink(kml::MarkGroupId categoryId) const;
   BookmarkCatalog const & GetCatalog() const;
 
   bool IsMyCategory(kml::MarkGroupId categoryId) const;

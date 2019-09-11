@@ -95,6 +95,7 @@ public:
 
   bool IsCategoryFromCatalog() const;
   std::string GetCatalogDeeplink() const;
+  std::string GetCatalogPublicLink() const;
 
   void SetAuthor(std::string const & name, std::string const & id);
   void SetAccessRules(kml::AccessRules accessRules);

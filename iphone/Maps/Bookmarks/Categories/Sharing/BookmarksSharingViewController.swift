@@ -455,7 +455,17 @@ extension BookmarksSharingViewController: UITextViewDelegate {
 
 extension BookmarksSharingViewController: UploadActionCellDelegate {
   func cellDidPressShareButton(_ cell: UploadActionCell, senderView: UIView) {
-    guard let url = manager.sharingUrl(forCategoryId: category.categoryId) else {
+    if cell == uploadAndPublishCell {
+      share(manager.publicLink(forCategoryId: category.categoryId), senderView: senderView)
+    } else if cell == getDirectLinkCell {
+      share(manager.deeplink(forCategoryId: category.categoryId), senderView: senderView)
+    } else {
+      assert(false, "unsupported cell")
+    }
+  }
+  
+  func share(_ url: URL?, senderView: UIView) {
+    guard let url = url else {
       assert(false, "must provide guide url")
       return
     }

@@ -305,6 +305,16 @@ std::string BookmarkCategory::GetCatalogDeeplink() const
     return {};
 
   std::ostringstream ss;
+  ss << kDeepLinkUrl << "catalogue?id=" << m_serverId << "&name=" << UrlEncode(GetName());
+  return ss.str();
+}
+
+std::string BookmarkCategory::GetCatalogPublicLink() const
+{
+  if (kDeepLinkUrl.empty())
+    return {};
+
+  std::ostringstream ss;
   ss << kDeepLinkUrl << "guides_page?url=route%2F" << m_serverId;
   return ss.str();
 }

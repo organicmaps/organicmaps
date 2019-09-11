@@ -70,7 +70,8 @@ typedef void (^PingCompletionBlock)(BOOL success);
 - (NSURL * _Nullable)catalogFrontendUrl:(MWMUTM)utm;
 - (NSURL * _Nullable)catalogFrontendUrlPlusPath:(NSString *)path
                                             utm:(MWMUTM)utm;
-- (NSURL * _Nullable)sharingUrlForCategoryId:(MWMMarkGroupID)groupId;
+- (NSURL *_Nullable)deeplinkForCategoryId:(MWMMarkGroupID)groupId;
+- (NSURL *_Nullable)publicLinkForCategoryId:(MWMMarkGroupID)groupId;
 - (NSURL * _Nullable)webEditorUrlForCategoryId:(MWMMarkGroupID)groupId;
 - (void)downloadItemWithId:(NSString *)itemId
                       name:(NSString *)name

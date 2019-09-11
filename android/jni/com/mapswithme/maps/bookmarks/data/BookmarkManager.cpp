@@ -988,6 +988,14 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCatalogDeeplink
 }
 
 JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCatalogPublicLink(
+  JNIEnv * env, jobject, jlong catId)
+{
+  auto & bm = frm()->GetBookmarkManager();
+  return ToJavaString(env, bm.GetCategoryCatalogPublicLink(static_cast<kml::MarkGroupId>(catId)));
+}
+
+JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCatalogDownloadUrl(
         JNIEnv * env, jobject, jstring serverId)
 {

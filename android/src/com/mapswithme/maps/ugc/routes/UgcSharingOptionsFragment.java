@@ -256,22 +256,21 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void onPublishedCategoryShared()
   {
-    shareCategory();
+    shareCategory(BookmarkManager.INSTANCE.getCatalogPublicLink(mCategory.getId()));
   }
 
-  private void shareCategory()
+  private void shareCategory(@NonNull String link)
   {
-    String deepLink = BookmarkManager.INSTANCE.getCatalogDeeplink(mCategory.getId());
     Intent intent = new Intent(Intent.ACTION_SEND)
         .setType(TargetUtils.TYPE_TEXT_PLAIN)
-        .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_bookmarks_email_body_link, deepLink));
+        .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_bookmarks_email_body_link, link));
     startActivity(Intent.createChooser(intent, getString(R.string.share)));
     Statistics.INSTANCE.trackSharingOptionsClick(Statistics.ParamValue.COPY_LINK);
   }
 
   private void onDirectLinkShared()
   {
-    shareCategory();
+    shareCategory(BookmarkManager.INSTANCE.getCatalogDeeplink(mCategory.getId()));
   }
 
   private void showNoNetworkConnectionDialog()
