@@ -197,6 +197,7 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
       Glide.with(poiImage.getContext())
            .load(item.getImageUrl())
            .centerCrop()
+           .placeholder(R.drawable.img_guidespp_placeholder)
            .into(poiImage);
       TextView bookmarkName = mPlacePageView.findViewById(R.id.place_single_bookmark_name);
       bookmarkName.setText(item.getName());
