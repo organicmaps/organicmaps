@@ -2,18 +2,18 @@
 
   [sponsored_partner1_action]
     en = Outlets
-    pl = Wyprzedaże
     ru = Аутлеты
+    pl = Wyprzedaże
 
   [sponsored_partner2_action]
     en = Discount
-    pl = Przecena
     de = Rabatt
+    pl = Przecena
 
   [sponsored_partner3_action]
     en = Coupon
-    pl = Kupon
     ru = Купон
+    pl = Kupon
 
   [sponsored_partner18_action]
     en = Lifehack

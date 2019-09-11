@@ -1169,6 +1169,7 @@
 
   [type.amenity.food_court]
     en = Food court
+    ru = Ресторанный дворик
     pl = Sekcja gastronomiczna
 
   [type.amenity.fountain]
@@ -2362,6 +2363,7 @@
 
   [type.amenity.prison]
     en = Prison
+    ru = Тюрьма
     pl = Więzienie
 
   [type.amenity.pub]
@@ -2686,7 +2688,7 @@
     fa = دستشویی^
 
   [type.amenity.townhall]
-    en = Town Hall
+    en = Town hall
     ru = Ратуша
     ar = مبنى البلدية
     cs = Radnice
@@ -2750,11 +2752,12 @@
     fa = دانشگاه
 
   [type.amenity.vending_machine]
-    en = amenity-vending_machine
+    en = Vending machine
+    ru = Торговый автомат
     pl = Automat sprzedający
 
   [type.amenity.vending_machine.cigarettes]
-    en = Cigarette Dispenser
+    en = Cigarette dispenser
     ru = Сигаретный автомат
     ar = ماكينة بيع سجائر
     cs = Automat na cigarety
@@ -3012,8 +3015,9 @@
     fa = شیر آب قابل شرب
 
   [type.barrier]
-    en = barrier
-    pl = bariera
+    en = Barrier
+    ru = Преграда
+    pl = Bariera
 
   [type.barrier.block]
     en = Block
@@ -3111,11 +3115,13 @@
     fa = کنترل مرزی
 
   [type.barrier.city_wall]
-    en = barrier-city_wall
+    en = City wall
+    ru = Городская стена
     pl = Mur miejski
 
   [type.barrier.cycle_barrier]
-    en = barrier-cycle_barrier
+    en = Cycle barrier
+    ru = Ограждение, предотвращающее проезд велосипедов
 
   [type.barrier.entrance]
     en = Entrance
@@ -3150,7 +3156,8 @@
     fa = ورودی
 
   [type.barrier.fence]
-    en = barrier-fence
+    en = Fence
+    ru = Забор
     pl = Płot
 
   [type.barrier.gate]
@@ -3186,11 +3193,12 @@
     fa = ورودی
 
   [type.barrier.hedge]
-    en = barrier-hedge
+    en = Hedge
+    ru = Живая изгородь
     pl = Żywopłot
 
   [type.barrier.lift_gate]
-    en = Lift Gate
+    en = Lift gate
     ru = Шлагбаум
     ar = حاجز بوابة
     cs = Závora
@@ -3222,7 +3230,8 @@
     fa = اسانسور
 
   [type.barrier.retaining_wall]
-    en = barrier-retaining_wall
+    en = Retaining wall
+    ru = Стена, удерживающая от осыпания
     pl = Mur oporowy
 
   [type.barrier.stile]
@@ -3290,11 +3299,13 @@
     fa = گیشه عوارضی
 
   [type.barrier.wall]
-    en = barrier-wall
+    en = Wall
+    ru = Стена
     pl = Mur
 
   [type.boundary]
-    en = boundary
+    en = Boundary
+    ru = Граница
     pl = Granica
 
   [type.boundary.administrative]
@@ -10173,7 +10184,8 @@
     fa = گردشگری
 
   [type.historic.battlefield]
-    en = historic-battlefield
+    en = Battlefield
+    ru = Место исторического сражения
     pl = Miejsce historycznej bitwy
 
   [type.historic.boundary_stone]
@@ -10600,6 +10612,7 @@
 
   [type.landuse.allotments]
     en = Allotments
+    ru = Земельные участки
     pl = Działki
 
   [type.landuse.basin]
@@ -10634,7 +10647,8 @@
     fa = اب
 
   [type.landuse.brownfield]
-    en = landuse-brownfield
+    en = Brownfield
+    ru = Земли для застройки
     pl = Teren do zabudowy
 
   [type.landuse.cemetery]
@@ -10670,8 +10684,8 @@
     fa = قبرستان
 
   [type.landuse.cemetery.christian]
-    en = Graveyard
-    ru = Кладбище
+    en = Christian graveyard
+    ru = Христианское кладбище
     ar = مقبرة
     cs = Hřbitov
     da = Kirkegård
@@ -10706,11 +10720,13 @@
     pl = Teren handlu i usług
 
   [type.landuse.construction]
-    en = landuse-construction
+    en = Construction
+    ru = Стройка
     pl = Teren budowy
 
   [type.landuse.farm]
     en = Farm
+    ru = Ферма
     pl = Gospodarstwo rolne
 
   [type.landuse.farmland]
@@ -10749,10 +10765,12 @@
 
   [type.landuse.farmyard]
     en = Farmyard
+    ru = Сельскохозяйственная земля
     pl = Obejście gospodarskie
 
   [type.landuse.field]
     en = Field
+    ru = Поле
     pl = Pole
 
   [type.landuse.forest]
@@ -10788,8 +10806,8 @@
     fa = جنگل
 
   [type.landuse.forest.coniferous]
-    en = Forest
-    ru = Лес
+    en = Coniferous forest
+    ru = Хвойный лес
     ar = غابة
     cs = Les
     da = Skov
@@ -10820,8 +10838,8 @@
     fa = جنگل
 
   [type.landuse.forest.deciduous]
-    en = Forest
-    ru = Лес
+    en = Deciduous forest
+    ru = Лиственный лес
     ar = غابة
     cs = Les
     da = Skov
@@ -10852,8 +10870,8 @@
     fa = جنگل
 
   [type.landuse.forest.mixed]
-    en = Forest
-    ru = Лес
+    en = Mixed forest
+    ru = Смешанный лес
     ar = غابة
     cs = Les
     da = Skov
@@ -10885,6 +10903,7 @@
 
   [type.landuse.garages]
     en = Garages
+    ru = Гаражи
     pl = Garaże
 
   [type.landuse.grass]
@@ -10929,6 +10948,7 @@
 
   [type.landuse.industrial]
     en = Industrial land
+    ru = Промзона
     pl = Obszar przemysłowy
 
   [type.landuse.landfill]
@@ -10967,6 +10987,7 @@
 
   [type.landuse.meadow]
     en = Meadow
+    ru = Луг
     pl = Łąka
 
   [type.landuse.military]
@@ -10975,6 +10996,7 @@
 
   [type.landuse.orchard]
     en = Orchard
+    ru = Сад
     pl = Sad
 
   [type.landuse.quarry]
@@ -12171,7 +12193,6 @@
 
   [type.military]
     en = military
-    pl = wojskowy
 
   [type.military.bunker]
     en = Bunker
@@ -12194,7 +12215,6 @@
 
   [type.natural]
     en = natural
-    pl = naturalny
 
   [type.natural.bare_rock]
     en = Bare rock
@@ -12334,6 +12354,7 @@
 
   [type.natural.coastline]
     en = Coastline
+    ru = Береговая линия
     pl = Linia brzegowa
 
   [type.natural.geyser]
@@ -12443,8 +12464,8 @@
     pl = Wrzosowisko
 
   [type.natural.hot_spring]
-    en = Hot Spring
-    ru = Горячий Источник
+    en = Hot spring
+    ru = Горячий источник
     pl = Gorące źródło
 
   [type.natural.lake]
@@ -13215,7 +13236,6 @@
 
   [type.place]
     en = place
-    pl = miejsce
 
   [type.place.city]
     en = City
@@ -17991,9 +18011,9 @@
 
   [type.sponsored.holiday]
     en = Christmas or New Year Celebrations
+    ru = Празднование Рождества или Нового года
     el = Χριστούγεννα ή Ρεβεγιόν πρωτοχρονιάς
     pl = Obchody świąt Bożego Narodzenia lub Nowego Roku
-    ru = Празднование Рождества или Нового года
 
   [type.sponsored.opentable]
     en = sponsored-opentable
