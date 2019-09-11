@@ -3,7 +3,6 @@ package com.mapswithme.maps.widget.placepage;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -48,7 +47,6 @@ import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.maps.bookmarks.PlaceDescriptionActivity;
-import com.mapswithme.maps.bookmarks.PlaceDescriptionFragment;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
@@ -778,9 +776,7 @@ public class PlacePageView extends NestedScrollView
         Statistics.STATISTICS_CHANNEL_REALTIME);
     Context context = mPlaceDescriptionContainer.getContext();
     String description = Objects.requireNonNull(mMapObject).getDescription();
-    Intent intent = new Intent(context, PlaceDescriptionActivity.class)
-        .putExtra(PlaceDescriptionFragment.EXTRA_DESCRIPTION, description);
-    context.startActivity(intent);
+    PlaceDescriptionActivity.start(context, description);
   }
 
   private void initEditMapObjectBtn()

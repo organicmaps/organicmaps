@@ -7,12 +7,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.Detachable;
+import com.mapswithme.maps.bookmarks.PlaceDescriptionActivity;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.impl.Factory;
@@ -186,12 +188,6 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
       mPromoTitle.setText(R.string.pp_discovery_place_related_header);
 
       PromoCityGallery.Item item = items[0];
-      PromoCityGallery.Place place = item.getPlace();
-
-      TextView poiName = mPlacePageView.findViewById(R.id.promo_poi_name);
-      poiName.setText(place.getName());
-      TextView poiDescription = mPlacePageView.findViewById(R.id.promo_poi_description);
-      poiDescription.setText(Html.fromHtml(place.getDescription()));
 
       ImageView poiImage = mPlacePageView.findViewById(R.id.promo_poi_image);
       Glide.with(poiImage.getContext())
@@ -203,6 +199,17 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
       bookmarkName.setText(item.getName());
       TextView authorName = mPlacePageView.findViewById(R.id.place_single_bookmark_author);
       authorName.setText(item.getAuthor().getName());
+
+      PromoCityGallery.Place place = item.getPlace();
+
+      UiUtils.hide(mPlacePageView, R.id.poi_description_container);
+      TextView poiName = mPlacePageView.findViewById(R.id.promo_poi_name);
+      poiName.setText(place.getName());
+      TextView poiDescription = mPlacePageView.findViewById(R.id.promo_poi_description);
+      poiDescription.setText(Html.fromHtml(place.getDescription()));
+      View more = mPlacePageView.findViewById(R.id.promo_poi_more);
+      more.setOnClickListener(v -> PlaceDescriptionActivity.start(mPlacePageView.getContext(),
+                                                                  place.getDescription()));
     }
   }
 

@@ -29,7 +29,8 @@ public class PlaceDescriptionFragment extends BaseMwmFragment
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mDescription = Objects.requireNonNull(getArguments().getString(EXTRA_DESCRIPTION));
+    mDescription = Objects.requireNonNull(Objects.requireNonNull(getArguments())
+                                                 .getString(EXTRA_DESCRIPTION));
   }
 
   @Nullable
