@@ -47,15 +47,10 @@ PostcodePoints::PostcodePoints(MwmValue const & value)
   CHECK(m_points, ());
 }
 
-void PostcodePoints::Get(TokenSlice const & tokens, vector<m2::PointD> & points) const
+void PostcodePoints::Get(strings::UniString const & postcode, vector<m2::PointD> & points) const
 {
-  if (!m_root || !m_points || !m_trieSubReader || !m_pointsSubReader || tokens.Size() == 0)
+  if (!m_root || !m_points || !m_trieSubReader || !m_pointsSubReader || postcode.empty())
     return;
-
-  strings::UniString postcode = tokens.Get(0).GetOriginal();
-  auto const space = strings::MakeUniString(" ");
-  for (size_t i = 1; i < tokens.Size(); ++i)
-    postcode += space + tokens.Get(i).GetOriginal();
 
   auto postcodeIt = postcode.begin();
   auto trieIt = m_root->Clone();

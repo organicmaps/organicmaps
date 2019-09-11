@@ -112,10 +112,10 @@ bool TestMwmBuilder::Add(FeatureBuilder & fb)
   return true;
 }
 
-void TestMwmBuilder::SetPostcodesData(string const & datasetPath,
-                                      shared_ptr<storage::CountryInfoGetter> countryInfoGetter)
+void TestMwmBuilder::SetPostcodesData(
+    string const & postcodesPath, shared_ptr<storage::CountryInfoGetter> const & countryInfoGetter)
 {
-  m_postcodesDataset = datasetPath;
+  m_postcodesPath = postcodesPath;
   m_postcodesCountryInfoGetter = countryInfoGetter;
 }
 
@@ -150,10 +150,10 @@ void TestMwmBuilder::Finish()
   CHECK(indexer::BuildSearchIndexFromDataFile(path, true /* forceRebuild */, 1 /* threadsCount */),
         ("Can't build search index."));
 
-  if (!m_postcodesDataset.empty() && m_postcodesCountryInfoGetter)
+  if (!m_postcodesPath.empty() && m_postcodesCountryInfoGetter)
   {
     CHECK(indexer::BuildPostcodesWithInfoGetter(m_file.GetDirectory(), m_file.GetCountryName(),
-                                                m_postcodesDataset, true /* forceRebuild */,
+                                                m_postcodesPath, true /* forceRebuild */,
                                                 *m_postcodesCountryInfoGetter),
           ("Can't build postcodes section."));
   }

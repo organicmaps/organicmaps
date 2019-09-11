@@ -29,6 +29,7 @@
 
 #include "coding/map_uint32_to_val.hpp"
 #include "coding/reader_writer_ops.hpp"
+#include "coding/succinct_mapper.hpp"
 #include "coding/writer.hpp"
 
 #include "geometry/mercator.hpp"
@@ -246,9 +247,6 @@ void GetUKPostcodes(string const & filename, storage::CountryId const & countryI
                     storage::CountryInfoGetter & infoGetter, vector<m2::PointD> & valueMapping,
                     vector<pair<Key, Value>> & keyValuePairs)
 {
-  if (filename.empty())
-    return;
-
   // <outward>,<inward>,<easting>,<northing>,<WGS84 lat>,<WGS84 long>,<2+6 NGR>,<grid>,<sources>
   size_t constexpr kOutwardIndex = 0;
   size_t constexpr kInwardIndex = 1;
@@ -256,7 +254,11 @@ void GetUKPostcodes(string const & filename, storage::CountryId const & countryI
   size_t constexpr kLonIndex = 5;
   size_t constexpr kDatasetCount = 9;
 
-  ifstream data(filename);
+  ifstream data;
+  data.exceptions(fstream::failbit | fstream::badbit);
+  data.open(filename);
+  data.exceptions(fstream::badbit);
+
   string line;
   size_t index = 0;
   while (getline(data, line))
@@ -288,7 +290,7 @@ void GetUKPostcodes(string const & filename, storage::CountryId const & countryI
       continue;
 
     CHECK_EQUAL(valueMapping.size(), index, ());
-    valueMapping.push_back(m2::PointD(x, y));
+    valueMapping.emplace_back(x, y);
     keyValuePairs.emplace_back(
         search::NormalizeAndSimplifyString(fields[kOutwardIndex] + " " + fields[kInwardIndex]),
         Value(index));
@@ -552,7 +554,7 @@ namespace indexer
 {
 void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter);
 bool BuildPostcodesImpl(FilesContainerR & container, storage::CountryId const & country,
-                        string const & dataset, std::string const & tmpFileName,
+                        string const & dataset, string const & tmpFileName,
                         storage::CountryInfoGetter & infoGetter, Writer & indexWriter);
 
 bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild, uint32_t threadsCount)
@@ -628,8 +630,10 @@ bool BuildPostcodesWithInfoGetter(string const & path, string const & country,
                                   storage::CountryInfoGetter & infoGetter)
 {
   auto const filename = base::JoinPath(path, country + DATA_FILE_EXTENSION);
-  Platform & platform = GetPlatform();
+  if (filename == WORLD_FILE_NAME || filename == WORLD_COASTS_FILE_NAME)
+    return true;
 
+  Platform & platform = GetPlatform();
   FilesContainerR readContainer(platform.GetReader(filename, "f"));
   if (readContainer.IsExist(POSTCODE_POINTS_FILE_TAG) && !forceRebuild)
     return true;
@@ -640,9 +644,6 @@ bool BuildPostcodesWithInfoGetter(string const & path, string const & country,
       filename + "." + POSTCODE_POINTS_FILE_TAG + "_trie" + EXTENSION_TMP;
   SCOPE_GUARD(postcodesFileGuard, bind(&FileWriter::DeleteFileX, postcodesFilePath));
   SCOPE_GUARD(trieTmpFileGuard, bind(&FileWriter::DeleteFileX, trieTmpFilePath));
-
-  if (filename == WORLD_FILE_NAME || filename == WORLD_COASTS_FILE_NAME)
-    return true;
 
   try
   {
@@ -688,15 +689,15 @@ bool BuildPostcodesImpl(FilesContainerR & container, storage::CountryId const & 
   using Key = strings::UniString;
   using Value = FeatureIndexValue;
 
-  search::PostcodePoints::Header header;
+  CHECK_EQUAL(writer.Pos(), 0, ());
 
-  auto const startOffset = writer.Pos();
+  search::PostcodePoints::Header header;
   header.Serialize(writer);
 
-  auto alighmentSize = (8 - (writer.Pos() % 8) % 8);
-  WriteZeroesToSink(writer, alighmentSize);
+  uint64_t bytesWritten = writer.Pos();
+  coding::WritePadding(writer, bytesWritten);
 
-  header.m_trieOffset = base::asserted_cast<uint32_t>(writer.Pos() - startOffset);
+  header.m_trieOffset = base::asserted_cast<uint32_t>(writer.Pos());
 
   vector<pair<Key, Value>> ukPostcodesKeyValuePairs;
   vector<m2::PointD> valueMapping;
@@ -716,13 +717,12 @@ bool BuildPostcodesImpl(FilesContainerR & container, storage::CountryId const & 
 
   rw_ops::Reverse(FileReader(tmpName), writer);
 
-  header.m_trieSize =
-      base::asserted_cast<uint32_t>(writer.Pos() - header.m_trieOffset - startOffset);
+  header.m_trieSize = base::asserted_cast<uint32_t>(writer.Pos() - header.m_trieOffset);
 
-  alighmentSize = (8 - (writer.Pos() % 8) % 8);
-  WriteZeroesToSink(writer, alighmentSize);
+  bytesWritten = writer.Pos();
+  coding::WritePadding(writer, bytesWritten);
 
-  header.m_pointsOffset = base::asserted_cast<uint32_t>(writer.Pos() - startOffset);
+  header.m_pointsOffset = base::asserted_cast<uint32_t>(writer.Pos());
 
   {
     search::CentersTableBuilder builder;
@@ -733,10 +733,9 @@ bool BuildPostcodesImpl(FilesContainerR & container, storage::CountryId const & 
     builder.Freeze(writer);
   }
 
-  header.m_pointsSize =
-      base::asserted_cast<uint32_t>(writer.Pos() - header.m_pointsOffset - startOffset);
+  header.m_pointsSize = base::asserted_cast<uint32_t>(writer.Pos() - header.m_pointsOffset);
   auto const endOffset = writer.Pos();
-  writer.Seek(startOffset);
+  writer.Seek(0);
   header.Serialize(writer);
   writer.Seek(endOffset);
   return true;

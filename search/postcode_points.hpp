@@ -2,7 +2,6 @@
 
 #include "search/mwm_context.hpp"
 #include "search/search_index_values.hpp"
-#include "search/token_slice.hpp"
 
 #include "indexer/centers_table.hpp"
 #include "indexer/mwm_set.hpp"
@@ -10,6 +9,8 @@
 
 #include "coding/reader.hpp"
 #include "coding/write_to_sink.hpp"
+
+#include "base/string_utils.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -43,16 +44,17 @@ public:
 
     void Read(Reader & reader);
 
-    Version m_version = Version::V0;
-    uint32_t m_trieOffset;
-    uint32_t m_trieSize;
-    uint32_t m_pointsOffset;
-    uint32_t m_pointsSize;
+    Version m_version = Version::Latest;
+    // All offsets are relative to the start of the section (offset of header is zero).
+    uint32_t m_trieOffset = 0;
+    uint32_t m_trieSize = 0;
+    uint32_t m_pointsOffset = 0;
+    uint32_t m_pointsSize = 0;
   };
 
   PostcodePoints(MwmValue const & value);
 
-  void Get(TokenSlice const & tokens, std::vector<m2::PointD> & points) const;
+  void Get(strings::UniString const & postcode, std::vector<m2::PointD> & points) const;
 
 private:
   Header m_header;

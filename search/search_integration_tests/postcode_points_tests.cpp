@@ -1,9 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "search/postcode_points.hpp"
-#include "search/query_params.hpp"
 #include "search/search_tests_support/helpers.hpp"
-#include "search/utils.hpp"
 
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
@@ -38,18 +36,6 @@ class PostcodePointsTest : public SearchTest
 {
 };
 
-TokenSlice GetSlice(string const & query, QueryParams & params)
-{
-  search::Delimiters delims;
-
-  vector<strings::UniString> tokens;
-  SplitUniString(NormalizeAndSimplifyString(query), base::MakeBackInsertFunctor(tokens), delims);
-  params.InitNoPrefix(tokens.begin(), tokens.end());
-
-  TokenRange tokenRange(0, tokens.size());
-  return TokenSlice(params, tokenRange);
-}
-
 UNIT_CLASS_TEST(PostcodePointsTest, Smoke)
 {
   string const countryName = "Wonderland";
@@ -81,29 +67,25 @@ UNIT_CLASS_TEST(PostcodePointsTest, Smoke)
   PostcodePoints p(*value);
   {
     vector<m2::PointD> points;
-    QueryParams params;
-    p.Get(GetSlice("aa11 0", params), points);
+    p.Get(NormalizeAndSimplifyString("aa11 0"), points);
     TEST_EQUAL(points.size(), 1, ());
     TEST(base::AlmostEqualAbs(points[0], m2::PointD(0.0, 0.0), kMwmPointAccuracy), ());
   }
   {
     vector<m2::PointD> points;
-    QueryParams params;
-    p.Get(GetSlice("aa11 1", params), points);
+    p.Get(NormalizeAndSimplifyString("aa11 1"), points);
     TEST_EQUAL(points.size(), 1, ());
     TEST(base::AlmostEqualAbs(points[0], m2::PointD(0.1, 0.1), kMwmPointAccuracy), ());
   }
   {
     vector<m2::PointD> points;
-    QueryParams params;
-    p.Get(GetSlice("aa11 2", params), points);
+    p.Get(NormalizeAndSimplifyString("aa11 2"), points);
     TEST_EQUAL(points.size(), 1, ());
     TEST(base::AlmostEqualAbs(points[0], m2::PointD(0.2, 0.2), kMwmPointAccuracy), ());
   }
   {
     vector<m2::PointD> points;
-    QueryParams params;
-    p.Get(GetSlice("aa11", params), points);
+    p.Get(NormalizeAndSimplifyString("aa11"), points);
     TEST_EQUAL(points.size(), 3, ());
     sort(points.begin(), points.end());
     TEST(base::AlmostEqualAbs(points[0], m2::PointD(0.0, 0.0), kMwmPointAccuracy), ());
