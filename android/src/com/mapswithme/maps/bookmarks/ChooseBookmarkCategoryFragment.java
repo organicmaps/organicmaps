@@ -44,10 +44,11 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
-    mRecycler = (RecyclerView) inflater.inflate(R.layout.recycler_default, container, false);
+    View root = inflater.inflate(R.layout.choose_bookmark_category_fragment, container, false);
+    mRecycler = root.findViewById(R.id.recycler);
     mRecycler.setLayoutManager(new org.solovyev.android.views.llm.LinearLayoutManager(getActivity()));
 
-    return mRecycler;
+    return root;
   }
 
   @Override

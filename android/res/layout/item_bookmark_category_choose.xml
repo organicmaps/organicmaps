@@ -6,8 +6,16 @@
     android:background="?clickableBackground"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingLeft="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base">
+    android:paddingLeft="@dimen/margin_half_plus"
+    android:paddingRight="@dimen/margin_half_plus">
+
+  <RadioButton
+    android:id="@+id/rb__selected"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:clickable="false"
+    android:focusable="false"/>
 
   <TextView
       android:id="@+id/tv__set_name"
@@ -16,13 +24,5 @@
       android:layout_weight="1"
       android:singleLine="true"
       android:textAppearance="@style/MwmTextAppearance.Body1"/>
-
-  <RadioButton
-      android:id="@+id/rb__selected"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:background="@null"
-      android:clickable="false"
-      android:focusable="false"/>
 
 </LinearLayout>
