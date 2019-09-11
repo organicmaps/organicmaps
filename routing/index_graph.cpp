@@ -458,20 +458,7 @@ RouteWeight IndexGraph::CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool
   auto const getWeight = [this, isOutgoing, &to, &from, purpose]() {
     auto const & segment = isOutgoing ? to : from;
     auto const & road = m_geometry->GetRoad(segment.GetFeatureId());
-    switch (purpose)
-    {
-    case EdgeEstimator::Purpose::Weight:
-    {
-      return RouteWeight(
-          m_estimator->CalcSegmentWeight(segment, road, EdgeEstimator::Purpose::Weight));
-    }
-    case EdgeEstimator::Purpose::ETA:
-    {
-      return RouteWeight(
-          m_estimator->CalcSegmentWeight(segment, road, EdgeEstimator::Purpose::ETA));
-    }
-    }
-    UNREACHABLE();
+    return RouteWeight(m_estimator->CalcSegmentWeight(segment, road, purpose));
   };
 
   auto const & weight = getWeight();

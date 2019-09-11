@@ -103,7 +103,7 @@ EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroa
   CHECK_GREATER(m_offroadSpeedKMpH.m_eta, 0.0, ());
   CHECK_GREATER_OR_EQUAL(m_maxWeightSpeedMpS, KMPH2MPS(m_offroadSpeedKMpH.m_weight), ());
 
-  if (m_offroadSpeedKMpH.m_eta != kUndefinedSpeed)
+  if (m_offroadSpeedKMpH.m_eta != kNotUsed)
     CHECK_GREATER_OR_EQUAL(m_maxWeightSpeedMpS, KMPH2MPS(m_offroadSpeedKMpH.m_eta), ());
 }
 
@@ -126,7 +126,7 @@ double EdgeEstimator::CalcOffroad(m2::PointD const & from, m2::PointD const & to
 {
   auto const offroadSpeedKMpH = purpose == Purpose::Weight ? m_offroadSpeedKMpH.m_weight
                                                             : m_offroadSpeedKMpH.m_eta;
-  if (offroadSpeedKMpH == kUndefinedSpeed)
+  if (offroadSpeedKMpH == kNotUsed)
     return 0.0;
 
   return TimeBetweenSec(from, to, KMPH2MPS(offroadSpeedKMpH));

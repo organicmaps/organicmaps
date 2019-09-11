@@ -25,7 +25,7 @@ namespace feature { class TypesHolder; }
 
 namespace routing
 {
-double constexpr kUndefinedSpeed = std::numeric_limits<double>::max();
+double constexpr kNotUsed = std::numeric_limits<double>::max();
 
 struct InOutCityFactor;
 struct InOutCitySpeedKMpH;

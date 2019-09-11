@@ -69,7 +69,7 @@ std::array<char const *, 41> constexpr kCountries = {"Australia",
 // a start or finish. On the other hand, while route calculation the fake edges are considered
 // as quite heavy. The idea behind that is to use the closest edge for the start and the finish
 // of the route except for some edge cases.
-SpeedKMpH constexpr kSpeedOffroadKMpH = {0.01 /* weight */, kUndefinedSpeed /* eta */};
+SpeedKMpH constexpr kSpeedOffroadKMpH = {0.01 /* weight */, kNotUsed /* eta */};
 
 VehicleModel::LimitsInitList const kCarOptionsDefault = {
     // {{roadType, roadType}  passThroughAllowed}
