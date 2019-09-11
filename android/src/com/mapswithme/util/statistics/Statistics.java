@@ -1287,8 +1287,8 @@ public enum Statistics
         return PARTNER;
       case Sponsored.TYPE_PROMO_CATALOG_CITY:
         return MAPSME_GUIDES;
-      case Sponsored.TYPE_PROMO_CATALOG_POI:
-        // Dummy, fix with correct value when documentation will be done.
+      case Sponsored.TYPE_PROMO_CATALOG_SIGHTSEEINGS:
+        // TODO: Dummy, fix with correct value when documentation will be done.
         return MAPSME_GUIDES;
       case Sponsored.TYPE_NONE:
         return "N/A";

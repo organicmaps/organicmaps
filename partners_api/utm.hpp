@@ -11,10 +11,12 @@ enum class UTM : uint8_t
   BookmarksPageCatalogButton,
   ToolbarButton,
   DownloadMwmBanner,
-  PlacepageGallery,
+  LargeToponymsPlacepageGallery,
+  SightseeingsPlacepageGallery,
   DiscoveryPageGallery,
   TipsAndTricks,
-  BookingPromo
+  BookingPromo,
+  CrownButton,
 };
 
 inline std::string InjectUTM(std::string const & url, UTM utm)
@@ -35,9 +37,13 @@ inline std::string InjectUTM(std::string const & url, UTM utm)
     params.emplace_back("utm_medium", "banner");
     params.emplace_back("utm_campaign", "download_map_popup");
     break;
-  case UTM::PlacepageGallery:
+  case UTM::LargeToponymsPlacepageGallery:
     params.emplace_back("utm_medium", "gallery");
-    params.emplace_back("utm_campaign", "placepage_gallery");
+    params.emplace_back("utm_campaign", "large_toponyms_placepage_gallery");
+    break;
+  case UTM::SightseeingsPlacepageGallery:
+    params.emplace_back("utm_medium", "gallery");
+    params.emplace_back("utm_campaign", "sightseeings_placepage_gallery");
     break;
   case UTM::DiscoveryPageGallery:
     params.emplace_back("utm_medium", "gallery");
@@ -50,6 +56,10 @@ inline std::string InjectUTM(std::string const & url, UTM utm)
   case UTM::BookingPromo:
     params.emplace_back("utm_medium", "popup");
     params.emplace_back("utm_campaign", "bookingcom");
+    break;
+  case UTM::CrownButton:
+    params.emplace_back("utm_medium", "button");
+    params.emplace_back("utm_campaign", "map_sponsored_button");
     break;
   case UTM::None:
     return url;

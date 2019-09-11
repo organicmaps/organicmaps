@@ -5,5 +5,5 @@
 namespace promo
 {
 using TypesList = std::initializer_list<std::initializer_list<char const *>>;
-TypesList const & GetPromoCatalogPoiTypes();
+TypesList const & GetPromoCatalogSightseeingsTypes();
 }  // namespace promo

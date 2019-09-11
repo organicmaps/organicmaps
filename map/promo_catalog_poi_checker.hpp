@@ -10,17 +10,24 @@ namespace ftypes
 {
 class IsPromoCatalogPoiChecker : public BaseChecker
 {
-public:
-  DECLARE_CHECKER_INSTANCE(IsPromoCatalogPoiChecker);
-
-private:
-  IsPromoCatalogPoiChecker()
+protected:
+  IsPromoCatalogPoiChecker(promo::TypesList const & types)
   {
-    auto const & types = promo::GetPromoCatalogPoiTypes();
     for (auto const & type : types)
     {
       m_types.push_back(classif().GetTypeByPath(type));
     }
   }
+};
+
+class IsPromoCatalogSightseeingsChecker : public IsPromoCatalogPoiChecker
+{
+public:
+  DECLARE_CHECKER_INSTANCE(IsPromoCatalogSightseeingsChecker);
+
+private:
+  IsPromoCatalogSightseeingsChecker()
+    : IsPromoCatalogPoiChecker(promo::GetPromoCatalogSightseeingsTypes())
+  {}
 };
 }  // namespace ftypes

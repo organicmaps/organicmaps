@@ -1280,8 +1280,9 @@ public class PlacePageView extends NestedScrollView
     if (hasPromoGallery && policy.canUseNetwork())
     {
       mCatalogPromoRecycler.setAdapter(mCatalogPromoLoadingAdapter);
+      // TODO: set correct UTM
       Promo.INSTANCE.nativeRequestCityGallery(policy, mMapObject.getLat(), mMapObject.getLon(),
-                                              UTM.UTM_PLACEPAGE_GALLERY);
+                                              UTM.UTM_LARGE_TOPONYMS_PLACEPAGE_GALLERY);
     }
     else if (hasPromoGallery)
     {
@@ -1296,8 +1297,9 @@ public class PlacePageView extends NestedScrollView
   {
     if (policy.canUseNetwork())
     {
+      // TODO: set correct UTM
       Promo.INSTANCE.nativeRequestCityGallery(policy, mapObject.getLat(), mapObject.getLon(),
-                                              UTM.UTM_PLACEPAGE_GALLERY);
+                                              UTM.UTM_LARGE_TOPONYMS_PLACEPAGE_GALLERY);
       mCatalogPromoRecycler.setAdapter(Factory.createCatalogPromoLoadingAdapter());
     }
   }

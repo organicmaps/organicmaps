@@ -933,7 +933,8 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     };
     auto appInfo = AppInfo.sharedInfo;
     auto locale = appInfo.twoLetterLanguageId.UTF8String;
-    api->GetCityGallery(self.mercator, locale, UTM::PlacepageGallery, resultHandler, errorHandler);
+    //TODO: set correct UTM
+    api->GetCityGallery(self.mercator, locale, UTM::LargeToponymsPlacepageGallery, resultHandler, errorHandler);
   }
   
   if (self.refreshPromoCallback) {

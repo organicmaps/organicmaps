@@ -1,6 +1,6 @@
 package com.mapswithme.util.statistics;
 
-public enum  GalleryPlacement
+public enum GalleryPlacement
 {
   PLACEPAGE,
   DISCOVERY;

@@ -999,12 +999,12 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
                         : place_page::OpeningMode::PreviewPlus);
     info.SetSponsoredType(SponsoredType::PromoCatalogCity);
   }
-  else if (ftypes::IsPromoCatalogPoiChecker::Instance()(ft))
+  else if (ftypes::IsPromoCatalogSightseeingsChecker::Instance()(ft))
   {
     info.SetOpeningMode(m_routingManager.IsRoutingActive() || !GetPlatform().IsConnected()
                         ? place_page::OpeningMode::Preview
                         : place_page::OpeningMode::PreviewPlus);
-    info.SetSponsoredType(SponsoredType::PromoCatalogPoi);
+    info.SetSponsoredType(SponsoredType::PromoCatalogSightseeings);
   }
 
   FillLocalExperts(ft, info);

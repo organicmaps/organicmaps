@@ -23,7 +23,7 @@ Container::Container()
                        {"tourism", "resort"},
                        {"sponsored", "promo_catalog"}});
 
-  m_excludedTypes.Append(promo::GetPromoCatalogPoiTypes());
+  m_excludedTypes.Append(promo::GetPromoCatalogSightseeingsTypes());
 }
 
 void Container::AppendEntry(std::initializer_list<std::initializer_list<char const *>> && types,

@@ -46,7 +46,7 @@ enum class SponsoredType
   Partner,
   Holiday,
   PromoCatalogCity,
-  PromoCatalogPoi,
+  PromoCatalogSightseeings,
 };
 
 enum class LocalAdsStatus

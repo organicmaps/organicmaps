@@ -306,7 +306,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     BookmarksSubscriptionGoToCatalogViewController *successDialog =
     [[BookmarksSubscriptionGoToCatalogViewController alloc] initOnOk:^{
       [mapViewController dismissViewControllerAnimated:YES completion:nil];
-      [mapViewController openCatalogAnimated:YES utm:MWMUTMNone];
+      [mapViewController openCatalogAnimated:YES utm:MWMUTMCrownButton];
     } onCancel:^{
       [mapViewController dismissViewControllerAnimated:YES completion:nil];
     }];
@@ -500,7 +500,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   MWMVoidBlock ok = ^{
     auto urlString = afterBooking.promoUrl;
     auto url = [NSURL URLWithString:urlString];
-    [MapViewController.sharedController openCatalogAbsoluteUrl:url animated:YES utm:MWMUTMNone];
+    [MapViewController.sharedController openCatalogAbsoluteUrl:url animated:YES utm:MWMUTMBookingPromo];
 
     [self.ownerController dismissViewControllerAnimated:YES completion:nil];
   };

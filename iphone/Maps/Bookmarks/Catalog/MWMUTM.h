@@ -4,8 +4,10 @@ typedef NS_ENUM(NSInteger, MWMUTM) {
   MWMUTMBookmarksPageCatalogButton,
   MWMUTMToolbarButton,
   MWMUTMDownloadMwmBanner,
-  MWMUTMPlacepageGallery,
+  MWMUTMLargeToponymsPlacepageGallery,
+  MWMUTMSightseeingsPlacepageGallery,
   MWMUTMDiscoveryPageGallery,
   MWMUTMTipsAndTricks,
-  MWMUTMBookingPromo
+  MWMUTMBookingPromo,
+  MWMUTMCrownButton,
 };

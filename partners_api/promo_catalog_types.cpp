@@ -2,7 +2,7 @@
 
 namespace
 {
-promo::TypesList kTypes = {
+promo::TypesList kSightseeingsTypes = {
   {"tourism", "gallery"},
   {"tourism", "museum"},
   {"amenity", "arts_centre"},
@@ -26,8 +26,8 @@ promo::TypesList kTypes = {
 
 namespace promo
 {
-TypesList const & GetPromoCatalogPoiTypes()
+TypesList const & GetPromoCatalogSightseeingsTypes()
 {
-  return kTypes;
+  return kSightseeingsTypes;
 }
 }  // namespace promo
