@@ -130,7 +130,9 @@ class NavigationButtonsAnimationController
     else if (mZoomIn.getVisibility() == View.INVISIBLE
              && isViewInsideLimits(mZoomIn))
     {
-      UiUtils.show(mZoomIn, mZoomOut, mCrownView);
+      UiUtils.show(mZoomIn, mZoomOut);
+      if (mCrownView != null)
+        UiUtils.show(mCrownView);
       if (mTranslationListener != null)
         mTranslationListener.onFadeInZoomButtons();
     }
