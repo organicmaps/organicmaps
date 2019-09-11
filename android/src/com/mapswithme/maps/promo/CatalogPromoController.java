@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.Detachable;
+import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
 import com.mapswithme.maps.bookmarks.PlaceDescriptionActivity;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.gallery.GalleryAdapter;
@@ -199,6 +200,9 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
       bookmarkName.setText(item.getName());
       TextView authorName = mPlacePageView.findViewById(R.id.place_single_bookmark_author);
       authorName.setText(item.getAuthor().getName());
+      View cta = mPlacePageView.findViewById(R.id.place_single_bookmark_cta);
+      cta.setOnClickListener(v -> BookmarksCatalogActivity.start(mPlacePageView.getContext(),
+                                                                 item.getUrl()));
 
       PromoCityGallery.Place place = item.getPlace();
 

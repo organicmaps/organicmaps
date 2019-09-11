@@ -26,12 +26,7 @@ public class BookmarksCatalogActivity extends BaseToolbarActivity
     context.startActivityForResult(makeLaunchIntent(context, catalogUrl), requestCode);
   }
 
-  public static void startByGuidesPageDeeplink(@NonNull Activity context, @NonNull String deeplink)
-  {
-    BookmarksCatalogActivity.start(context, deeplink);
-  }
-
-  public static void start(@NonNull Activity context, @NonNull String catalogUrl)
+  public static void start(@NonNull Context context, @NonNull String catalogUrl)
   {
     context.startActivity(makeLaunchIntent(context, catalogUrl));
   }

@@ -31,7 +31,7 @@ public class RegularCatalogPromoListener implements ItemSelectedListener<PromoEn
     if (TextUtils.isEmpty(item.getUrl()))
       return;
 
-    BookmarksCatalogActivity.startByGuidesPageDeeplink(mActivity, item.getUrl());
+    BookmarksCatalogActivity.start(mActivity, item.getUrl());
     Statistics.INSTANCE.trackGalleryProductItemSelected(GalleryType.PROMO, mPlacement, position,
                                                         Destination.CATALOGUE);
   }
@@ -43,7 +43,7 @@ public class RegularCatalogPromoListener implements ItemSelectedListener<PromoEn
     if (TextUtils.isEmpty(item.getUrl()))
       return;
 
-    BookmarksCatalogActivity.startByGuidesPageDeeplink(mActivity, item.getUrl());
+    BookmarksCatalogActivity.start(mActivity, item.getUrl());
     Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
                                           GalleryType.PROMO,
                                           mPlacement);
@@ -55,6 +55,6 @@ public class RegularCatalogPromoListener implements ItemSelectedListener<PromoEn
     if (TextUtils.isEmpty(item.getUrl()))
       return;
 
-    BookmarksCatalogActivity.startByGuidesPageDeeplink(mActivity, item.getUrl());
+    BookmarksCatalogActivity.start(mActivity, item.getUrl());
   }
 }

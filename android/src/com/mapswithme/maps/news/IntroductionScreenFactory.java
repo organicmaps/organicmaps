@@ -105,7 +105,7 @@ public enum IntroductionScreenFactory implements StatisticValueConverter<String>
             public void onIntroductionButtonClick(@NonNull Activity activity,
                                                   @NonNull String deeplink)
             {
-              BookmarksCatalogActivity.startByGuidesPageDeeplink(activity, deeplink);
+              BookmarksCatalogActivity.start(activity, deeplink);
             }
           };
         }

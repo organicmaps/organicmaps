@@ -713,7 +713,7 @@ public class Factory
     public boolean run(@NonNull MwmActivity target)
     {
       String deeplink = convertUrlToGuidesPageDeeplink(getUrl());
-      BookmarksCatalogActivity.startByGuidesPageDeeplink(target, deeplink);
+      BookmarksCatalogActivity.start(target, deeplink);
       return true;
     }
   }
