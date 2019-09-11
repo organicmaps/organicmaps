@@ -233,7 +233,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
                                 with: .automatic)
     }
 
-    manager.uploadAndPublishCategory(withId: category.categoryId, progress: nil) { (_, error) in
+    manager.uploadAndPublishCategory(withId: category.categoryId, progress: nil) { (error) in
       if let error = error as NSError? {
         self.uploadAndPublishCell.cellState = .normal
         self.showErrorAlert(error)
@@ -277,7 +277,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
                                               section: s.privateSectionIndex)],
                                with: .automatic)
       }
-      s.manager.uploadAndGetDirectLinkCategory(withId: s.category.categoryId, progress: nil) { (_, error) in
+      s.manager.uploadAndGetDirectLinkCategory(withId: s.category.categoryId, progress: nil) { (error) in
         if let error = error as NSError? {
           s.getDirectLinkCell.cellState = .normal
           s.showErrorAlert(error)

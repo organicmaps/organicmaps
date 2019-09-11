@@ -179,8 +179,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
     auto observer = self.catalogObservers[[NSString stringWithFormat:@"%lld", originCategoryId]];
     if (observer)
     {
-      NSURL * url = [self sharingUrlForCategoryId:resultCategoryId];
-      [observer onUploadComplete:uploadResult withUrl:url];
+      [observer onUploadComplete:uploadResult];
       [self.catalogObservers removeObjectForKey:observer.categoryId];
     }
   };

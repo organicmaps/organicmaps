@@ -63,7 +63,7 @@ final class EditOnWebViewController: MWMViewController {
     sendMeLinkButton.setTitle(nil, for: .normal)
     MWMBookmarksManager.shared().uploadCategory(withId: category.categoryId, progress: { (progress) in
 
-    }) { [weak self] (url, error) in
+    }) { [weak self] (error) in
       guard let self = self else { return }
       self.activityIndicator.isHidden = true
       self.sendMeLinkButton.isEnabled = true

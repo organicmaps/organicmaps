@@ -37,5 +37,4 @@ static NSString * const kCategoryUploadStatusKey = @"kCategoryUploadStatusKey";
 
 typedef void (^ProgressBlock)(MWMCategoryProgress progress);
 typedef void (^DownloadCompletionBlock)(UInt64 categoryId, NSError * error);
-typedef void (^UploadCompletionBlock)(NSURL * url, NSError * error);
-
+typedef void (^UploadCompletionBlock)(NSError* error);

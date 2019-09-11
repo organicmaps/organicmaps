@@ -61,14 +61,13 @@
     self.progressBlock(MWMCategoryProgressUploadStarted);
 }
 
-- (void)onUploadComplete:(BookmarkCatalog::UploadResult)result withUrl:(NSURL *)categoryUrl
-{
+- (void)onUploadComplete:(BookmarkCatalog::UploadResult)result {
   MWMCategoryUploadStatus uploadStatus;
   switch (result)
   {
     case BookmarkCatalog::UploadResult::Success:
       if (self.uploadCompletionBlock)
-        self.uploadCompletionBlock(categoryUrl, nil);
+        self.uploadCompletionBlock(nil);
       return;
     case BookmarkCatalog::UploadResult::NetworkError:
       uploadStatus = MWMCategoryUploadStatusNetworkError;
@@ -90,9 +89,9 @@
       break;
   }
   if (self.uploadCompletionBlock)
-    self.uploadCompletionBlock(nil, [[NSError alloc] initWithDomain:kCatalogErrorDomain
-                                                               code:kCategoryUploadFailedCode
-                                                           userInfo:@{kCategoryUploadStatusKey : @(uploadStatus)}]);
+    self.uploadCompletionBlock([[NSError alloc] initWithDomain:kCatalogErrorDomain
+                                                          code:kCategoryUploadFailedCode
+                                                      userInfo:@{kCategoryUploadStatusKey: @(uploadStatus)}]);
 }
 
 @end

@@ -14,6 +14,6 @@
 - (void)onImportStart;
 - (void)onImportCompleteSuccessful:(BOOL)success forCategoryId:(UInt64)categoryId;
 - (void)onUploadStart;
-- (void)onUploadComplete:(BookmarkCatalog::UploadResult)result withUrl:(NSURL *)categoryUrl;
+- (void)onUploadComplete:(BookmarkCatalog::UploadResult)result;
 
 @end
