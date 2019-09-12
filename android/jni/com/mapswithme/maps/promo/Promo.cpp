@@ -39,7 +39,7 @@ void PrepareClassRefs(JNIEnv * env)
   g_galleryConstructor =
       jni::GetConstructorID(env, g_galleryClass,
                             "([Lcom/mapswithme/maps/promo/PromoCityGallery$Item;"
-                            "Ljava/lang/String;)V");
+                            "Ljava/lang/String;Ljava/lang/String;)V");
   g_itemClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/promo/PromoCityGallery$Item");
   g_itemConstructor =
       jni::GetConstructorID(env, g_itemClass,
@@ -136,8 +136,10 @@ jobject MakeCityGallery(JNIEnv * env, promo::CityGallery const & gallery)
   jni::TScopedLocalObjectArrayRef items(env, jni::ToJavaArray(env, g_itemClass, gallery.m_items,
                                         itemBuilder));
   jni::TScopedLocalRef moreUrl(env, jni::ToJavaString(env, gallery.m_moreUrl));
+  jni::TScopedLocalRef category(env, jni::ToJavaString(env, gallery.m_category));
 
-  return env->NewObject(g_galleryClass, g_galleryConstructor, items.get(), moreUrl.get());
+  return env->NewObject(g_galleryClass, g_galleryConstructor, items.get(), moreUrl.get(),
+                        category.get());
 }
 }
 

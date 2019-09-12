@@ -11,11 +11,14 @@ public final class PromoCityGallery
   private final Item[] mItems;
   @NonNull
   private final String mMoreUrl;
+  @NonNull
+  private final String mCategory;
 
-  PromoCityGallery(@NonNull Item[] items, @NonNull String moreUrl)
+  PromoCityGallery(@NonNull Item[] items, @NonNull String moreUrl, @NonNull String category)
   {
     mItems = items;
     mMoreUrl = moreUrl;
+    mCategory = category;
   }
 
   @NonNull
@@ -28,6 +31,12 @@ public final class PromoCityGallery
   public String getMoreUrl()
   {
     return mMoreUrl;
+  }
+
+  @NonNull
+  public String getCategory()
+  {
+    return mCategory;
   }
 
   public static final class Item

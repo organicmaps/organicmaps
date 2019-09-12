@@ -54,6 +54,7 @@ struct CityGallery
   }
 
   std::string m_moreUrl;
+  std::string m_category;
   std::vector<Item> m_items;
 };
 

@@ -87,11 +87,9 @@ void ParseCityGallery(std::string const & src, UTM utm, promo::CityGallery & res
   }
 
   auto const meta = json_object_get(root.get(), "meta");
-  // Workaround, should be changed to optional field when server will be done.
-  auto const more = json_object_get(meta, "more");
-  if (json_is_string(more))
-    FromJSON(more, result.m_moreUrl);
+  FromJSONObjectOptionalField(meta, "more", result.m_moreUrl);
   result.m_moreUrl = InjectUTM(url::Join(BOOKMARKS_CATALOG_FRONT_URL, result.m_moreUrl), utm);
+  FromJSONObjectOptionalField(meta, "category", result.m_category);
 }
 
 std::string ToSignedId(std::string const & id)
