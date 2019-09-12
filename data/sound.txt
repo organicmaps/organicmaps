@@ -48,7 +48,7 @@
     it = Gira a destra.
     ja = 右に曲がります。
     ko = 우회전하십시오.
-    pl = Jedź w prawo.
+    pl = Skręć w prawo.
     pt = Vire à direita.
     ro = Virați la dreapta.
     es = Gire a la derecha.
@@ -213,7 +213,7 @@
     it = Gira a sinistra.
     ja = 左に曲がります。
     ko = 좌회전하십시오.
-    pl = Jedź w lewo.
+    pl = Skręć w lewo.
     pt = Vire à esquerda.
     ro = Virați la stânga.
     es = Gire a la izquierda.
@@ -345,7 +345,7 @@
     it = Uscita.
     ja = 出口.
     ko = 출구.
-    pl = Wyjście.
+    pl = Zjazd.
     pt = Saída.
     ro = Ieșire.
     es = Salida.
@@ -411,7 +411,7 @@
     it = Sei arrivato.
     ja = 到着。
     ko = 도착했습니다.
-    pl = Dotarłeś do celu.
+    pl = Jesteś u celu.
     pt = Chegou.
     ro = Ați ajuns.
     es = Ha llegado a su destino.
@@ -840,7 +840,7 @@
     it = Tra un chilometro
     ja = 一キロ先
     ko = 일 킬로미터 앞
-    pl = Za jeden kilometr
+    pl = Za kilometr
     pt = A um quilómetro
     ro = După un kilometru
     es = En un kilómetro
@@ -1830,7 +1830,7 @@
     it = Tra duemila cinquecento piedi
     ja = 二千五百フィート先
     ko = 이천오백 피트 앞
-    pl = Za dwa tysiące pięćset stóp
+    pl = Za dwa i pół tysiąca stóp
     pt = A dois mil e quinhentos pés
     ro = După două mii cinci sute de picioare
     es = En dos mil quinientos pies
@@ -1896,7 +1896,7 @@
     it = Tra tremila cinquecento piedi
     ja = 三千五百フィート先
     ko = 삼천오백 피트 앞
-    pl = Za trzy tysiące pięćset stóp
+    pl = Za trzy i pół tysiąca stóp
     pt = A três mil e quinhentos pés
     ro = După trei mii cinci sute de picioare
     es = En tres mil quinientos pies
@@ -1962,7 +1962,7 @@
     it = Tra quattromila cinquecento piedi
     ja = 四千五百フィート先
     ko = 사천오백 피트 앞
-    pl = Za cztery tysiące pięćset stóp
+    pl = Za cztery i pół tysiąca stóp
     pt = A quatro mil e quinhentos pés
     ro = După patru mii cinci sute de picioare
     es = En cuatro mil quinientos pies
