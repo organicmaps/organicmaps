@@ -69,7 +69,7 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
     if (sponsored == null)
       return;
 
-    PromoResponseHandler handler = createPromoResponseHandler(promo);
+    PromoResponseHandler handler = createPromoResponseHandler(sponsored.getType(), promo);
     if (handler == null)
       return;
 
@@ -131,8 +131,13 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
   }
 
   @Nullable
-  private PromoResponseHandler createPromoResponseHandler(@NonNull PromoCityGallery promo)
+  private PromoResponseHandler createPromoResponseHandler(@Sponsored.SponsoredType int type,
+                                                          @NonNull PromoCityGallery promo)
   {
+    if (type != Sponsored.TYPE_PROMO_CATALOG_CITY
+        && type != Sponsored.TYPE_PROMO_CATALOG_SIGHTSEEINGS)
+      return null;
+
     PromoCityGallery.Item[] items = promo.getItems();
     if (items.length <= 0)
       return null;
