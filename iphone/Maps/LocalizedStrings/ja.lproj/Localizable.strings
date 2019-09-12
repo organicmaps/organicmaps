@@ -3044,6 +3044,21 @@
 
 "religious_places" = "宗教に関連した場所";
 
+/* FIXME */
+"subscription_terms_android" = "subscription_terms_android";
+
+/* FIXME */
+"select_list" = "select_list";
+
+/* FIXME */
+"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+
+/* FIXME */
+"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+
+/* FIXME */
+"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header";
+
 
 /**********  Partners  **********/
 
@@ -3238,7 +3253,7 @@
 
 "type.amenity.post_office" = "郵便局";
 
-"type.amenity.prison" = "amenity-prison";
+"type.amenity.prison" = "Prison";
 
 "type.amenity.pub" = "バー";
 
@@ -3268,7 +3283,7 @@
 
 "type.amenity.university" = "大学";
 
-"type.amenity.vending_machine" = "amenity-vending_machine";
+"type.amenity.vending_machine" = "Vending machine";
 
 "type.amenity.vending_machine.cigarettes" = "たばこ自動販売機";
 
@@ -3286,7 +3301,7 @@
 
 "type.amenity.water_point" = "給水所";
 
-"type.barrier" = "barrier";
+"type.barrier" = "Barrier";
 
 "type.barrier.block" = "ブロック";
 
@@ -3294,29 +3309,29 @@
 
 "type.barrier.border_control" = "国境管理";
 
-"type.barrier.city_wall" = "barrier-city_wall";
+"type.barrier.city_wall" = "City wall";
 
-"type.barrier.cycle_barrier" = "barrier-cycle_barrier";
+"type.barrier.cycle_barrier" = "Cycle barrier";
 
 "type.barrier.entrance" = "エントランス";
 
-"type.barrier.fence" = "barrier-fence";
+"type.barrier.fence" = "Fence";
 
 "type.barrier.gate" = "ゲート";
 
-"type.barrier.hedge" = "barrier-hedge";
+"type.barrier.hedge" = "Hedge";
 
 "type.barrier.lift_gate" = "ブームバリア";
 
-"type.barrier.retaining_wall" = "barrier-retaining_wall";
+"type.barrier.retaining_wall" = "Retaining wall";
 
 "type.barrier.stile" = "回転扉";
 
 "type.barrier.toll_booth" = "料金所";
 
-"type.barrier.wall" = "barrier-wall";
+"type.barrier.wall" = "Wall";
 
-"type.boundary" = "boundary";
+"type.boundary" = "Boundary";
 
 "type.boundary.administrative" = "boundary-administrative";
 
@@ -3828,7 +3843,7 @@
 
 "type.historic.archaeological_site" = "考古遺跡";
 
-"type.historic.battlefield" = "historic-battlefield";
+"type.historic.battlefield" = "Battlefield";
 
 "type.historic.boundary_stone" = "historic-boundary_stone";
 
@@ -3902,7 +3917,7 @@
 
 "type.landuse.basin" = "水地";
 
-"type.landuse.brownfield" = "landuse-brownfield";
+"type.landuse.brownfield" = "Brownfield";
 
 "type.landuse.cemetery" = "墓地";
 
@@ -3910,7 +3925,7 @@
 
 "type.landuse.commercial" = "landuse-commercial";
 
-"type.landuse.construction" = "landuse-construction";
+"type.landuse.construction" = "Construction";
 
 "type.landuse.farm" = "Farm";
 
@@ -4114,7 +4129,7 @@
 
 "type.natural.heath" = "Heath";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Hot spring";
 
 "type.natural.lake" = "湖";
 

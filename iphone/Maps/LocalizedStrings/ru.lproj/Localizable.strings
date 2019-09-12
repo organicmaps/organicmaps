@@ -3044,6 +3044,21 @@
 
 "religious_places" = "Святые места";
 
+/* FIXME */
+"subscription_terms_android" = "subscription_terms_android";
+
+/* FIXME */
+"select_list" = "select_list";
+
+/* FIXME */
+"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+
+/* FIXME */
+"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+
+/* FIXME */
+"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header";
+
 
 /**********  Partners  **********/
 
@@ -3160,7 +3175,7 @@
 
 "type.amenity.fire_station" = "Пожарная часть";
 
-"type.amenity.food_court" = "Food court";
+"type.amenity.food_court" = "Ресторанный дворик";
 
 "type.amenity.fountain" = "Фонтан";
 
@@ -3238,7 +3253,7 @@
 
 "type.amenity.post_office" = "Почта";
 
-"type.amenity.prison" = "amenity-prison";
+"type.amenity.prison" = "Тюрьма";
 
 "type.amenity.pub" = "Паб";
 
@@ -3268,7 +3283,7 @@
 
 "type.amenity.university" = "Университет";
 
-"type.amenity.vending_machine" = "amenity-vending_machine";
+"type.amenity.vending_machine" = "Торговый автомат";
 
 "type.amenity.vending_machine.cigarettes" = "Сигаретный автомат";
 
@@ -3286,7 +3301,7 @@
 
 "type.amenity.water_point" = "Выдача питьевой воды";
 
-"type.barrier" = "barrier";
+"type.barrier" = "Преграда";
 
 "type.barrier.block" = "Блок";
 
@@ -3294,29 +3309,29 @@
 
 "type.barrier.border_control" = "Погранконтроль";
 
-"type.barrier.city_wall" = "barrier-city_wall";
+"type.barrier.city_wall" = "Городская стена";
 
-"type.barrier.cycle_barrier" = "barrier-cycle_barrier";
+"type.barrier.cycle_barrier" = "Ограждение, предотвращающее проезд велосипедов";
 
 "type.barrier.entrance" = "Проход";
 
-"type.barrier.fence" = "barrier-fence";
+"type.barrier.fence" = "Забор";
 
 "type.barrier.gate" = "Ворота";
 
-"type.barrier.hedge" = "barrier-hedge";
+"type.barrier.hedge" = "Живая изгородь";
 
 "type.barrier.lift_gate" = "Шлагбаум";
 
-"type.barrier.retaining_wall" = "barrier-retaining_wall";
+"type.barrier.retaining_wall" = "Стена, удерживающая от осыпания";
 
 "type.barrier.stile" = "Перелаз";
 
 "type.barrier.toll_booth" = "Пункт оплаты";
 
-"type.barrier.wall" = "barrier-wall";
+"type.barrier.wall" = "Стена";
 
-"type.boundary" = "boundary";
+"type.boundary" = "Граница";
 
 "type.boundary.administrative" = "boundary-administrative";
 
@@ -3828,7 +3843,7 @@
 
 "type.historic.archaeological_site" = "Раскопки";
 
-"type.historic.battlefield" = "historic-battlefield";
+"type.historic.battlefield" = "Место исторического сражения";
 
 "type.historic.boundary_stone" = "historic-boundary_stone";
 
@@ -3898,37 +3913,37 @@
 
 "type.landuse" = "landuse";
 
-"type.landuse.allotments" = "Allotments";
+"type.landuse.allotments" = "Земельные участки";
 
 "type.landuse.basin" = "Водоём";
 
-"type.landuse.brownfield" = "landuse-brownfield";
+"type.landuse.brownfield" = "Земли для застройки";
 
 "type.landuse.cemetery" = "Кладбище";
 
-"type.landuse.cemetery.christian" = "Кладбище";
+"type.landuse.cemetery.christian" = "Христианское кладбище";
 
 "type.landuse.commercial" = "landuse-commercial";
 
-"type.landuse.construction" = "landuse-construction";
+"type.landuse.construction" = "Стройка";
 
-"type.landuse.farm" = "Farm";
+"type.landuse.farm" = "Ферма";
 
 "type.landuse.farmland" = "Сельскохозяйственная земля";
 
-"type.landuse.farmyard" = "Farmyard";
+"type.landuse.farmyard" = "Сельскохозяйственная земля";
 
-"type.landuse.field" = "Field";
+"type.landuse.field" = "Поле";
 
 "type.landuse.forest" = "Лес";
 
-"type.landuse.forest.coniferous" = "Лес";
+"type.landuse.forest.coniferous" = "Хвойный лес";
 
-"type.landuse.forest.deciduous" = "Лес";
+"type.landuse.forest.deciduous" = "Лиственный лес";
 
-"type.landuse.forest.mixed" = "Лес";
+"type.landuse.forest.mixed" = "Смешанный лес";
 
-"type.landuse.garages" = "Garages";
+"type.landuse.garages" = "Гаражи";
 
 "type.landuse.grass" = "Газон";
 
@@ -3936,15 +3951,15 @@
 
 "type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
 
-"type.landuse.industrial" = "Industrial land";
+"type.landuse.industrial" = "Промзона";
 
 "type.landuse.landfill" = "Свалка";
 
-"type.landuse.meadow" = "Meadow";
+"type.landuse.meadow" = "Луг";
 
 "type.landuse.military" = "Military area";
 
-"type.landuse.orchard" = "Orchard";
+"type.landuse.orchard" = "Сад";
 
 "type.landuse.quarry" = "Quarry";
 
@@ -4104,7 +4119,7 @@
 
 "type.natural.cliff" = "Cliff";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Береговая линия";
 
 "type.natural.geyser" = "Гейзер";
 
@@ -4114,7 +4129,7 @@
 
 "type.natural.heath" = "Heath";
 
-"type.natural.hot_spring" = "Горячий Источник";
+"type.natural.hot_spring" = "Горячий источник";
 
 "type.natural.lake" = "Озеро";
 
