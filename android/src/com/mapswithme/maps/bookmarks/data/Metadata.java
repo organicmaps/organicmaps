@@ -31,20 +31,21 @@ public class Metadata implements Parcelable
     FMD_POSTCODE(15),
     // TODO: It is hacked in jni and returns full Wikipedia url. Should use separate getter instead.
     FMD_WIKIPEDIA(16),
-    FMD_MAXSPEED(17),
+    // FMD_MAXSPEED(17),
     FMD_FLATS(18),
     FMD_HEIGHT(19),
     FMD_MIN_HEIGHT(20),
     FMD_DENOMINATION(21),
     FMD_BUILDING_LEVELS(22),
+    FWD_TEST_ID(23),
     FMD_SPONSORED_ID(24),
     FMD_PRICE_RATE(25),
     FMD_RATING(26),
     FMD_BANNER_URL(27),
     FMD_LEVEL(28),
     FMD_AIRPORT_IATA(29),
-    FMD_AIRPORT_BRAND(30);
-
+    FMD_BRAND(30),
+    FMD_DURATION(31);
     private final int mMetaType;
 
     MetadataType(int metadataType)
