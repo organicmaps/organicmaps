@@ -570,6 +570,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
 
   // Iterates through all alive mwms and performs geocoding.
   ForEachCountry(infos, processCountry);
+  m_preRanker.UpdateResults(true /* lastUpdate */);
 }
 
 void Geocoder::InitBaseContext(BaseContext & ctx)

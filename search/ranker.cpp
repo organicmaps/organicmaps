@@ -511,7 +511,7 @@ void Ranker::Init(Params const & params, Geocoder::Params const & geocoderParams
 
 void Ranker::Finish(bool cancelled)
 {
-  // The results have been updated by PreRanker.
+  // The results should be updated by Geocoder before Finish call.
   m_emitter.Finish(cancelled);
 }
 

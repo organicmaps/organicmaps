@@ -68,9 +68,6 @@ void PreRanker::Init(Params const & params)
 
 void PreRanker::Finish(bool cancelled)
 {
-  if (!cancelled)
-    UpdateResults(true /* lastUpdate */);
-
   m_ranker.Finish(cancelled);
 }
 
