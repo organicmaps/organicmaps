@@ -43714,4 +43714,4 @@
 
   [pp_discovery_place_related_tag_header]
     comment = FIXME
-    en = pp_discovery_place_related_tag_header
+    en = pp_discovery_place_related_tag_header_%s
