@@ -1734,6 +1734,8 @@
 	<string name="religious_places">Religious places</string>
 	<!-- FIXME -->
 	<string name="subscription_terms_android">subscription_terms_android</string>
+	<!-- FIXME -->
+	<string name="select_list">select_list</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
@@ -1832,7 +1834,7 @@
 	<string name="type.amenity.police">Police</string>
 	<string name="type.amenity.post_box">Postbox</string>
 	<string name="type.amenity.post_office">Post</string>
-	<string name="type.amenity.prison">amenity-prison</string>
+	<string name="type.amenity.prison">Prison</string>
 	<string name="type.amenity.pub">Pub</string>
 	<string name="type.amenity.public_bookcase">Book Exchange</string>
 	<string name="type.amenity.recycling">Recycling Center</string>
@@ -1845,10 +1847,10 @@
 	<string name="type.amenity.telephone">Phone</string>
 	<string name="type.amenity.theatre">Theatre</string>
 	<string name="type.amenity.toilets">Toilet</string>
-	<string name="type.amenity.townhall">Town Hall</string>
+	<string name="type.amenity.townhall">Town hall</string>
 	<string name="type.amenity.university">University</string>
-	<string name="type.amenity.vending_machine">amenity-vending_machine</string>
-	<string name="type.amenity.vending_machine.cigarettes">Cigarette Dispenser</string>
+	<string name="type.amenity.vending_machine">Vending machine</string>
+	<string name="type.amenity.vending_machine.cigarettes">Cigarette dispenser</string>
 	<string name="type.amenity.vending_machine.drinks">Drink Dispenser</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Parking Tickets</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Vending machine for public transport tickets</string>
@@ -1856,22 +1858,22 @@
 	<string name="type.amenity.waste_basket">Trash Bin</string>
 	<string name="type.amenity.waste_disposal">Dumpster</string>
 	<string name="type.amenity.water_point">Water Point</string>
-	<string name="type.barrier">barrier</string>
+	<string name="type.barrier">Barrier</string>
 	<string name="type.barrier.block">Block</string>
 	<string name="type.barrier.bollard">Pillar</string>
 	<string name="type.barrier.border_control">Border Control</string>
-	<string name="type.barrier.city_wall">barrier-city_wall</string>
-	<string name="type.barrier.cycle_barrier">barrier-cycle_barrier</string>
+	<string name="type.barrier.city_wall">City wall</string>
+	<string name="type.barrier.cycle_barrier">Cycle barrier</string>
 	<string name="type.barrier.entrance">Entrance</string>
-	<string name="type.barrier.fence">barrier-fence</string>
+	<string name="type.barrier.fence">Fence</string>
 	<string name="type.barrier.gate">Gate</string>
-	<string name="type.barrier.hedge">barrier-hedge</string>
-	<string name="type.barrier.lift_gate">Lift Gate</string>
-	<string name="type.barrier.retaining_wall">barrier-retaining_wall</string>
+	<string name="type.barrier.hedge">Hedge</string>
+	<string name="type.barrier.lift_gate">Lift gate</string>
+	<string name="type.barrier.retaining_wall">Retaining wall</string>
 	<string name="type.barrier.stile">Stile</string>
 	<string name="type.barrier.toll_booth">Toll Booth</string>
-	<string name="type.barrier.wall">barrier-wall</string>
-	<string name="type.boundary">boundary</string>
+	<string name="type.barrier.wall">Wall</string>
+	<string name="type.boundary">Boundary</string>
 	<string name="type.boundary.administrative">boundary-administrative</string>
 	<string name="type.boundary.administrative.10">boundary-administrative-10</string>
 	<string name="type.boundary.administrative.11">boundary-administrative-11</string>
@@ -2127,7 +2129,7 @@
 	<string name="type.highway.world_towns_level">highway-world_towns_level</string>
 	<string name="type.historic">historic</string>
 	<string name="type.historic.archaeological_site">Archaeological Site</string>
-	<string name="type.historic.battlefield">historic-battlefield</string>
+	<string name="type.historic.battlefield">Battlefield</string>
 	<string name="type.historic.boundary_stone">historic-boundary_stone</string>
 	<string name="type.historic.castle">Castle</string>
 	<string name="type.historic.castle.defensive">Castle</string>
@@ -2164,19 +2166,19 @@
 	<string name="type.landuse">landuse</string>
 	<string name="type.landuse.allotments">Allotments</string>
 	<string name="type.landuse.basin">Water</string>
-	<string name="type.landuse.brownfield">landuse-brownfield</string>
+	<string name="type.landuse.brownfield">Brownfield</string>
 	<string name="type.landuse.cemetery">Graveyard</string>
-	<string name="type.landuse.cemetery.christian">Graveyard</string>
+	<string name="type.landuse.cemetery.christian">Christian graveyard</string>
 	<string name="type.landuse.commercial">landuse-commercial</string>
-	<string name="type.landuse.construction">landuse-construction</string>
+	<string name="type.landuse.construction">Construction</string>
 	<string name="type.landuse.farm">Farm</string>
 	<string name="type.landuse.farmland">Farmland</string>
 	<string name="type.landuse.farmyard">Farmyard</string>
 	<string name="type.landuse.field">Field</string>
 	<string name="type.landuse.forest">Forest</string>
-	<string name="type.landuse.forest.coniferous">Forest</string>
-	<string name="type.landuse.forest.deciduous">Forest</string>
-	<string name="type.landuse.forest.mixed">Forest</string>
+	<string name="type.landuse.forest.coniferous">Coniferous forest</string>
+	<string name="type.landuse.forest.deciduous">Deciduous forest</string>
+	<string name="type.landuse.forest.mixed">Mixed forest</string>
 	<string name="type.landuse.garages">Garages</string>
 	<string name="type.landuse.grass">Lawn</string>
 	<string name="type.landuse.greenfield">landuse-greenfield</string>
@@ -2270,7 +2272,7 @@
 	<string name="type.natural.glacier">Glacier</string>
 	<string name="type.natural.grassland">Field</string>
 	<string name="type.natural.heath">Heath</string>
-	<string name="type.natural.hot_spring">Hot Spring</string>
+	<string name="type.natural.hot_spring">Hot spring</string>
 	<string name="type.natural.lake">Lake</string>
 	<string name="type.natural.land">natural-land</string>
 	<string name="type.natural.meadow">Meadow</string>
