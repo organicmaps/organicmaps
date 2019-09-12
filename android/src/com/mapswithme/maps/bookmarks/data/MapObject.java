@@ -367,13 +367,11 @@ public class MapObject implements Parcelable, PopularityProvider
   @NonNull
   public  String[] getRawTypes()
   {
-    String[] types = new String[0];
-    if (mRawTypes != null)
-    {
-      types = new String[mRawTypes.size()];
-      mRawTypes.toArray(types);
-    }
+    if (mRawTypes == null)
+      return new String[0];
 
+    String[] types = new String[mRawTypes.size()];
+    mRawTypes.toArray(types);
     return types;
   }
 
