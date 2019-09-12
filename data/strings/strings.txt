@@ -43699,3 +43699,7 @@
  [subscription_terms_android]
     comment = FIXME
     en = subscription_terms_android
+
+ [select_list]
+    comment = FIXME
+    en = select_list
