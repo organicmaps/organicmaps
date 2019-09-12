@@ -121,7 +121,7 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
   {
     switch (type)
     {
-      case Sponsored.TYPE_PROMO_CATALOG_POI:
+      case Sponsored.TYPE_PROMO_CATALOG_SIGHTSEEINGS:
         return new PoiPromoRequester();
       case Sponsored.TYPE_PROMO_CATALOG_CITY:
         return new CityPromoRequester();
