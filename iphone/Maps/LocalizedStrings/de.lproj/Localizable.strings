@@ -3057,7 +3057,7 @@
 "pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
 
 /* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header";
+"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
 
 
 /**********  Partners  **********/

@@ -1741,7 +1741,7 @@
 	<!-- FIXME -->
 	<string name="pp_discovery_place_related_cta_button">pp_discovery_place_related_cta_button</string>
 	<!-- FIXME -->
-	<string name="pp_discovery_place_related_tag_header">pp_discovery_place_related_tag_header</string>
+	<string name="pp_discovery_place_related_tag_header">pp_discovery_place_related_tag_header_%s</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
