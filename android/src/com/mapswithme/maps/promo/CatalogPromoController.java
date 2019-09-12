@@ -2,11 +2,13 @@ package com.mapswithme.maps.promo;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -145,7 +147,7 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
     if (items.length == 1)
       return new PoiPromoResponseHandler();
 
-    return new CityPromoResponseHandler();
+    return new GalleryPromoResponseHandler();
   }
 
   interface PromoRequester
@@ -222,7 +224,7 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
     }
   }
 
-  class CityPromoResponseHandler implements PromoResponseHandler
+  class GalleryPromoResponseHandler implements PromoResponseHandler
   {
     @Override
     public void handleResponse(@NonNull PromoCityGallery promo)
@@ -231,8 +233,14 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
                    R.id.catalog_promo_title_divider, R.id.catalog_promo_recycler);
       UiUtils.hide(mPlacePageView, R.id.promo_poi_description_container,
                    R.id.promo_poi_description_divider, R.id.promo_poi_card);
-      // TODO: we need to add additional field for title in server protocol (tag).
-      mPromoTitle.setText(R.string.guides);
+
+      Resources resources = mPlacePageView.getResources();
+      String category = promo.getCategory();
+      String title = TextUtils.isEmpty(category) ? resources.getString(R.string.guides)
+                                                 : resources.getString(R.string.pp_discovery_place_related_tag_header,
+                                                                       promo.getCategory());
+      mPromoTitle.setText(title);
+
       String url = promo.getMoreUrl();
       RegularCatalogPromoListener promoListener = new RegularCatalogPromoListener(Objects.requireNonNull(mActivity),
                                                                                   GalleryPlacement.PLACEPAGE);
