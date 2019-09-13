@@ -9,6 +9,7 @@ import com.mapswithme.maps.purchase.BookmarkSubscriptionActivity;
 import com.mapswithme.maps.purchase.PurchaseUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.statistics.Statistics;
 
 class InvalidSubscriptionAlertDialogCallback implements AlertDialogCallback
 {
@@ -23,7 +24,8 @@ class InvalidSubscriptionAlertDialogCallback implements AlertDialogCallback
   @Override
   public void onAlertDialogPositiveClick(int requestCode, int which)
   {
-    BookmarkSubscriptionActivity.startForResult(mFragment, PurchaseUtils.REQ_CODE_PAY_CONTINUE_SUBSCRIPTION);
+    BookmarkSubscriptionActivity.startForResult(mFragment, PurchaseUtils.REQ_CODE_PAY_CONTINUE_SUBSCRIPTION,
+                                                Statistics.ParamValue.POPUP);
   }
 
   @Override

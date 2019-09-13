@@ -20,10 +20,12 @@ public class BookmarkSubscriptionActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  public static void startForResult(@NonNull Fragment fragment, int requestCode)
+  public static void startForResult(@NonNull Fragment fragment, int requestCode,
+                                    @NonNull String extra)
   {
     Intent intent = new Intent(fragment.getActivity(), BookmarkSubscriptionActivity.class);
-    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    intent.putExtra(BookmarkSubscriptionFragment.EXTRA_ORIGIN_PARAM, extra)
+          .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     fragment.startActivityForResult(intent, requestCode);
   }
 }

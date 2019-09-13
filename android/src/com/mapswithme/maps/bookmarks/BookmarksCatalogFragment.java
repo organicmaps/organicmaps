@@ -387,7 +387,8 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       if (frag == null || frag.getActivity() == null)
         return;
 
-      BookmarkSubscriptionActivity.startForResult(frag, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION);
+      BookmarkSubscriptionActivity.startForResult(frag, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION,
+                                                  Statistics.ParamValue.WEBVIEW);
     }
 
     @Override

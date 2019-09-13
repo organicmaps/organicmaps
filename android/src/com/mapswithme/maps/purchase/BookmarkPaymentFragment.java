@@ -110,7 +110,10 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
 
   private void onBuySubscriptionClicked()
   {
-    BookmarkSubscriptionActivity.startForResult(this, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION);
+    Bundle extras = new Bundle();
+    extras.putString(BookmarkSubscriptionFragment.EXTRA_ORIGIN_PARAM, Statistics.ParamValue.CARD);
+    BookmarkSubscriptionActivity.startForResult(this, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION,
+                                                Statistics.ParamValue.CARD);
   }
 
   @Override

@@ -110,6 +110,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_CODE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_MESSAGE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.FEATURE_ID;
+import static com.mapswithme.util.statistics.Statistics.EventParam.FROM;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HAS_AUTH;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LAT;
@@ -684,6 +685,10 @@ public enum Statistics
     public static final String ASK = "ask";
     public static final String TODAY = "today";
     public static final String NOT_TODAY = "not_today";
+    public static final String CARD = "card";
+    public static final String SPONSORED_BUTTON = "sponsored_button";
+    public static final String POPUP = "popup";
+    public static final String WEBVIEW = "webview";
     static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
     static final String OPENTABLE = "OpenTable";
     static final String LOCALS_EXPERTS = "Locals.Maps.Me";
@@ -1609,12 +1614,22 @@ public enum Statistics
   }
 
   public void trackPurchasePreviewShow(@NonNull String purchaseId, @NonNull String vendor,
+                                       @NonNull String productId, @Nullable String from)
+  {
+    ParameterBuilder params = params().add(VENDOR, vendor)
+                                      .add(PRODUCT, productId)
+                                      .add(PURCHASE, purchaseId);
+    if (!TextUtils.isEmpty(from))
+      params.add(FROM, from);
+
+    trackEvent(INAPP_PURCHASE_PREVIEW_SHOW, params,
+               STATISTICS_CHANNEL_REALTIME);
+  }
+
+  public void trackPurchasePreviewShow(@NonNull String purchaseId, @NonNull String vendor,
                                        @NonNull String productId)
   {
-    trackEvent(INAPP_PURCHASE_PREVIEW_SHOW, params().add(VENDOR, vendor)
-                                                    .add(PRODUCT, productId)
-                                                    .add(PURCHASE, purchaseId),
-               STATISTICS_CHANNEL_REALTIME);
+     trackPurchasePreviewShow(purchaseId, vendor, productId, null);
   }
 
   public void trackPurchaseEvent(@NonNull String event, @NonNull String purchaseId)

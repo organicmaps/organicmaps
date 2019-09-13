@@ -33,6 +33,8 @@ import java.util.List;
 public class BookmarkSubscriptionFragment extends BaseAuthFragment
     implements AlertDialogCallback, PurchaseStateActivator<BookmarkSubscriptionPaymentState>
 {
+  public static final String EXTRA_ORIGIN_PARAM = "extra_origin_from";
+
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private static final String TAG = BookmarkSubscriptionFragment.class.getSimpleName();
   private final static String EXTRA_CURRENT_STATE = "extra_current_state";
@@ -91,8 +93,18 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
 
     Statistics.INSTANCE.trackPurchasePreviewShow(PrivateVariables.bookmarksSubscriptionServerId(),
                                                  PrivateVariables.bookmarksSubscriptionVendor(),
-                                                 PrivateVariables.bookmarksSubscriptionYearlyProductId());
+                                                 PrivateVariables.bookmarksSubscriptionYearlyProductId(),
+                                                 getExtraOriginParam());
     return root;
+  }
+
+  @Nullable
+  private String getExtraOriginParam()
+  {
+    if (getArguments() == null)
+      return null;
+
+    return getArguments().getString(EXTRA_ORIGIN_PARAM, null);
   }
 
   @Override
