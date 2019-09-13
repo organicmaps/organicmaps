@@ -111,9 +111,9 @@ private:
     auto & editor = Editor::Instance();
     for (auto const index : features)
     {
-      auto emo = editor.GetEditedFeature(FeatureID(m_id, index));
-      CHECK(emo, ());
-      fn(*emo, index);
+      // Ignore feature load errors related to mwm removal and feature parse errors from editor.
+      if (auto emo = editor.GetEditedFeature(FeatureID(m_id, index)))
+        fn(*emo, index);
     }
   }
 
