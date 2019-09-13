@@ -19,7 +19,7 @@ using namespace std;
 
 namespace
 {
-HighwayBasedMeanSpeeds const kDefaultSpeeds = {
+HighwayBasedSpeeds const kDefaultSpeeds = {
     {HighwayType::HighwayTrunk, InOutCitySpeedKMpH(100.0 /* in city */, 150.0 /* out city */)},
     {HighwayType::HighwayPrimary, InOutCitySpeedKMpH(90.0 /* in city */, 120.0 /* out city */)},
     {HighwayType::HighwaySecondary,
@@ -32,12 +32,9 @@ HighwayBasedMeanSpeeds const kDefaultSpeeds = {
                         SpeedKMpH(50.0 /* weight */, 40.0 /* eta */) /* out city */)}};
 
 HighwayBasedFactors const kDefaultFactors = {
-    {HighwayType::HighwayPrimary,
-     {// maxspeed : InOutCityFactor(in and out city factor value)
-      {70, InOutCityFactor(1.0)},
-      {90, InOutCityFactor(1.0)}}},
-    {HighwayType::HighwaySecondary, {{90, InOutCityFactor(1.0)}}},
-    {HighwayType::HighwayResidential, {{60, InOutCityFactor(0.5)}}}};
+    {HighwayType::HighwayPrimary, InOutCityFactor(1.0)},
+    {HighwayType::HighwaySecondary, InOutCityFactor(1.0)},
+    {HighwayType::HighwayResidential, InOutCityFactor(0.5)}};
 
 VehicleModel::LimitsInitList const kTestLimits = {{{"highway", "trunk"}, true},
                                                    {{"highway", "primary"}, true},
@@ -66,8 +63,7 @@ class TestVehicleModel : public VehicleModel
 
 public:
   TestVehicleModel()
-    : VehicleModel(classif(), kTestLimits, kCarSurface,
-                   {kDefaultSpeeds, kDefaultSpeeds, kDefaultFactors, kDefaultFactors})
+    : VehicleModel(classif(), kTestLimits, kCarSurface, {kDefaultSpeeds, kDefaultFactors})
   {
   }
 

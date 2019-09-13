@@ -30,11 +30,6 @@ InOutCitySpeedKMpH Max(InOutCitySpeedKMpH const & lhs, InOutCitySpeedKMpH const 
   return {Pick<max>(lhs.m_inCity, rhs.m_inCity), Pick<max>(lhs.m_outCity, rhs.m_outCity)};
 }
 
-MaxspeedType GetMaxspeedKey(double maxspeedValue)
-{
-  return base::asserted_cast<MaxspeedType>(10 * static_cast<MaxspeedType>((maxspeedValue + 5) / 10));
-}
-
 HighwayType GetHighwayTypeKey(HighwayType type)
 {
   switch (type)
@@ -176,53 +171,19 @@ SpeedKMpH VehicleModel::GetSpeedOnFeatureWithMaxspeed(HighwayType const & type,
   CHECK(speedParams.m_maxspeed.IsValid(), ());
   bool const isCityRoad = speedParams.m_inCity;
   SpeedKMpH const & maxModelSpeed = m_maxModelSpeed.GetSpeed(isCityRoad);
-  auto const maxspeedKmPH = static_cast<double>(speedParams.m_maxspeed.GetSpeedKmPH(speedParams.m_forward));
+  auto const maxSpeedType = speedParams.m_maxspeed.GetSpeedKmPH(speedParams.m_forward);
+  CHECK(maxSpeedType != kInvalidSpeed, (type, speedParams.m_forward, speedParams.m_maxspeed));
+  auto const maxspeedKmPH = static_cast<double>(maxSpeedType);
   SpeedKMpH speed = Pick<min>(SpeedKMpH(maxspeedKmPH, maxspeedKmPH), maxModelSpeed);
+
   // We assume that all link roads are equal to its parents and drop "_link" suffix
   // while searching for the particular factor.
-  auto const maxspeedKey = GetMaxspeedKey(maxspeedKmPH);
-  SpeedFactor maxspeedFactor(kInvalidModelValue, kInvalidModelValue);
   auto const typeKey = GetHighwayTypeKey(type);
-  auto const local = m_highwayBasedInfo.m_localFactors.find(typeKey);
-  if (local != m_highwayBasedInfo.m_localFactors.cend())
-  {
-    auto const & maxspeedsToFactors = local->second;
-    auto const it = maxspeedsToFactors.find(maxspeedKey);
-    if (it != maxspeedsToFactors.cend())
-      maxspeedFactor = it->second.GetFactor(isCityRoad);
-  }
 
-  if (maxspeedFactor.m_weight != kInvalidModelValue && maxspeedFactor.m_eta != kInvalidModelValue)
-    return Pick<min>(speed * maxspeedFactor, maxModelSpeed);
-
-  auto const global = m_highwayBasedInfo.m_globalFactors.find(typeKey);
-  if (global != m_highwayBasedInfo.m_globalFactors.cend())
-  {
-    auto const & maxspeedsToFactors = global->second;
-    auto const it = maxspeedsToFactors.find(maxspeedKey);
-    if (it != maxspeedsToFactors.cend())
-    {
-      auto const & factor = it->second.GetFactor(isCityRoad);
-      if (factor.m_weight != kInvalidModelValue && maxspeedFactor.m_weight == kInvalidModelValue)
-        maxspeedFactor.m_weight = factor.m_weight;
-
-      if (factor.m_eta != kInvalidModelValue && maxspeedFactor.m_weight == kInvalidModelValue)
-        maxspeedFactor.m_eta = factor.m_eta;
-    }
-
-    auto const defaultIt = maxspeedsToFactors.find(kCommonMaxSpeedValue);
-    CHECK(defaultIt != maxspeedsToFactors.cend(), ());
-    SpeedFactor const & defaultFactor = defaultIt->second.GetFactor(isCityRoad);
-    if (maxspeedFactor.m_weight == kInvalidModelValue)
-      maxspeedFactor.m_weight = defaultFactor.m_weight;
-
-    if (maxspeedFactor.m_eta == kInvalidModelValue)
-      maxspeedFactor.m_eta = defaultFactor.m_eta;
-  }
-
-  CHECK_NOT_EQUAL(maxspeedFactor.m_weight, kInvalidModelValue, ());
-  CHECK_NOT_EQUAL(maxspeedFactor.m_eta, kInvalidModelValue, ());
-  return Pick<min>(speed * maxspeedFactor, maxModelSpeed);
+  auto const factorIt = m_highwayBasedInfo.m_globalFactors.find(typeKey);
+  CHECK(factorIt != m_highwayBasedInfo.m_globalFactors.cend(), ("Key:", typeKey, "is not found."));
+  auto const & factor = factorIt->second;
+  return Pick<min>(speed * factor.GetFactor(isCityRoad), maxModelSpeed);
 }
 
 SpeedKMpH VehicleModel::GetSpeedOnFeatureWithoutMaxspeed(HighwayType const & type,
@@ -231,25 +192,17 @@ SpeedKMpH VehicleModel::GetSpeedOnFeatureWithoutMaxspeed(HighwayType const & typ
   CHECK(!speedParams.m_maxspeed.IsValid(), ());
   auto const isCityRoad = speedParams.m_inCity;
   SpeedKMpH const & maxModelSpeed = m_maxModelSpeed.GetSpeed(isCityRoad);
-  SpeedKMpH speed(kInvalidModelValue, kInvalidModelValue);
-  auto const local = m_highwayBasedInfo.m_localSpeeds.find(type);
-  if (local != m_highwayBasedInfo.m_localSpeeds.cend())
-    speed = local->second.GetSpeed(isCityRoad);
 
-  if (speed.m_weight != kInvalidModelValue && speed.m_eta != kInvalidModelValue)
-    return speed;
+  auto const speedIt = m_highwayBasedInfo.m_globalSpeeds.find(type);
+  CHECK(speedIt != m_highwayBasedInfo.m_globalSpeeds.cend(), ("Key:", type, "is not found."));
 
-  auto const globalIt = m_highwayBasedInfo.m_globalSpeeds.find(type);
-  CHECK(globalIt != m_highwayBasedInfo.m_globalSpeeds.cend(), ("Can't find type in global speeds", type));
-  SpeedKMpH const & global = globalIt->second.GetSpeed(isCityRoad);
-  CHECK_NOT_EQUAL(global.m_weight, kInvalidModelValue, ());
-  CHECK_NOT_EQUAL(global.m_eta, kInvalidModelValue, ());
-  if (speed.m_weight == kInvalidModelValue)
-    speed.m_weight = global.m_weight;
+  auto const typeKey = GetHighwayTypeKey(type);
+  auto const factorIt = m_highwayBasedInfo.m_globalFactors.find(typeKey);
+  CHECK(factorIt != m_highwayBasedInfo.m_globalFactors.cend(), ("Key:", typeKey, "is not found."));
 
-  if (speed.m_eta == kInvalidModelValue)
-    speed.m_eta = global.m_eta;
-
+  SpeedKMpH const speed = factorIt->second.GetFactor(isCityRoad) * speedIt->second.GetSpeed(isCityRoad);
+  CHECK_NOT_EQUAL(speed.m_weight, kInvalidModelValue, ());
+  CHECK_NOT_EQUAL(speed.m_eta, kInvalidModelValue, ());
   return Pick<min>(speed, maxModelSpeed);
 }
 

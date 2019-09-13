@@ -20,49 +20,6 @@ namespace
 // See road types here:
 //   https://wiki.openstreetmap.org/wiki/Key:highway
 
-//  // Names must be the same with country names from countries.txt
-std::array<char const *, 41> constexpr kCountries = {"Australia",
-                                                     "Austria",
-                                                     "Belarus",
-                                                     "Belgium",
-                                                     "Brazil",
-                                                     "Canada",
-                                                     "Colombia",
-                                                     "Czech Republic",
-                                                     "Denmark",
-                                                     "Ecuador",
-                                                     "Finland",
-                                                     "France",
-                                                     "Germany",
-                                                     "Hungary",
-                                                     "Indonesia",
-                                                     "Ireland",
-                                                     "Italy",
-                                                     "Kuwait",
-                                                     "Luxembourg",
-                                                     "Mexico",
-                                                     "Netherlands",
-                                                     "New Zealand",
-                                                     "Norway",
-                                                     "Poland",
-                                                     "Portugal",
-                                                     "Romania",
-                                                     "Russian Federation",
-                                                     "Saudi Arabia",
-                                                     "Singapore",
-                                                     "Slovakia",
-                                                     "South Africa",
-                                                     "Spain",
-                                                     "Sweden",
-                                                     "Switzerland",
-                                                     "Thailand",
-                                                     "Turkey",
-                                                     "Ukraine",
-                                                     "United Arab Emirates",
-                                                     "United Kingdom",
-                                                     "United States of America",
-                                                     "Venezuela"};
-
 // |kSpeedOffroadKMpH| is a speed which is used for edges that don't lie on road features.
 // For example for pure fake edges. In car routing, off road speed for calculation ETA is not used.
 // The weight of such edges is considered as 0 seconds. It's especially actual when an airport is
@@ -172,12 +129,12 @@ VehicleModel::LimitsInitList const kCarOptionsGermany = {
 
 vector<VehicleModel::AdditionalRoadTags> const kAdditionalTags = {
     // {{highway tags}, {weightSpeed, etaSpeed}}
-    {{"route", "ferry", "motorcar"}, kGlobalHighwayBasedMeanSpeeds.at(HighwayType::RouteFerryMotorcar)},
-    {{"route", "ferry", "motor_vehicle"}, kGlobalHighwayBasedMeanSpeeds.at(HighwayType::RouteFerryMotorVehicle)},
-    {{"railway", "rail", "motor_vehicle"}, kGlobalHighwayBasedMeanSpeeds.at(HighwayType::RailwayRailMotorVehicle)},
-    {{"route", "shuttle_train"}, kGlobalHighwayBasedMeanSpeeds.at(HighwayType::RouteShuttleTrain)},
-    {{"route", "ferry"}, kGlobalHighwayBasedMeanSpeeds.at(HighwayType::RouteFerryMotorcar)},
-    {{"man_made", "pier"}, kGlobalHighwayBasedMeanSpeeds.at(HighwayType::ManMadePier)}};
+    {{"route", "ferry", "motorcar"}, kHighwayBasedSpeeds.at(HighwayType::RouteFerryMotorcar)},
+    {{"route", "ferry", "motor_vehicle"}, kHighwayBasedSpeeds.at(HighwayType::RouteFerryMotorVehicle)},
+    {{"railway", "rail", "motor_vehicle"}, kHighwayBasedSpeeds.at(HighwayType::RailwayRailMotorVehicle)},
+    {{"route", "shuttle_train"}, kHighwayBasedSpeeds.at(HighwayType::RouteShuttleTrain)},
+    {{"route", "ferry"}, kHighwayBasedSpeeds.at(HighwayType::RouteFerryMotorcar)},
+    {{"man_made", "pier"}, kHighwayBasedSpeeds.at(HighwayType::ManMadePier)}};
 
 VehicleModel::SurfaceInitList const kCarSurface = {
   // {{surfaceType, surfaceType}, {weightFactor, etaFactor}}
@@ -187,6 +144,7 @@ VehicleModel::SurfaceInitList const kCarSurface = {
   {{"psurface", "unpaved_bad"}, {0.3, 0.3}}
 };
 
+// Names must be the same with country names from countries.txt
 std::unordered_map<char const *, VehicleModel::LimitsInitList> const kCarOptionsByCountries = {
     {"Austria", kCarOptionsNoPassThroughLivingStreet},
     {"Belarus", kCarOptionsNoPassThroughLivingStreet},
@@ -204,7 +162,7 @@ namespace routing
 {
 CarModel::CarModel()
   : VehicleModel(classif(), kCarOptionsDefault, kCarSurface,
-                 {kGlobalHighwayBasedMeanSpeeds, kGlobalHighwayBasedFactors})
+                 {kHighwayBasedSpeeds, kHighwayBasedFactors})
 {
   Init();
 }
@@ -258,23 +216,16 @@ VehicleModel::SurfaceInitList const & CarModel::GetSurfaces() { return kCarSurfa
 CarModelFactory::CarModelFactory(CountryParentNameGetterFn const & countryParentNameGetterFn)
   : VehicleModelFactory(countryParentNameGetterFn)
 {
-  auto const & speeds = kCountryToHighwayBasedMeanSpeeds;
-  auto const & factors = kCountryToHighwayBasedFactors;
   m_models[""] = make_shared<CarModel>(
       kCarOptionsDefault,
-      HighwayBasedInfo(kGlobalHighwayBasedMeanSpeeds, kGlobalHighwayBasedFactors));
-  for (auto const * country : kCountries)
+      HighwayBasedInfo(kHighwayBasedSpeeds, kHighwayBasedFactors));
+
+  for (auto const & kv : kCarOptionsByCountries)
   {
-    auto const limitIt = kCarOptionsByCountries.find(country);
-    auto const & limit = limitIt == kCarOptionsByCountries.cend() ? kCarOptionsDefault : limitIt->second;
-    auto const speedIt = speeds.find(country);
-    auto const & speed = speedIt == speeds.cend() ? kGlobalHighwayBasedMeanSpeeds : speedIt->second;
-    auto const factorIt = factors.find(country);
-    auto const & factor =
-        factorIt == factors.cend() ? kGlobalHighwayBasedFactors : factorIt->second;
-    m_models[country] = make_shared<CarModel>(
-        limit,
-        HighwayBasedInfo(speed, kGlobalHighwayBasedMeanSpeeds, factor, kGlobalHighwayBasedFactors));
+    auto const * country = kv.first;
+    auto const & limit = kv.second;
+    m_models[country] =
+        make_shared<CarModel>(limit, HighwayBasedInfo(kHighwayBasedSpeeds, kHighwayBasedFactors));
   }
 }
 }  // namespace routing

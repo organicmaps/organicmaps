@@ -63,14 +63,8 @@ enum class HighwayType : uint32_t
   RouteShuttleTrain = 1054,
 };
 
-using SpeedToFactor = std::unordered_map<MaxspeedType /* maxspeed km/h */, InOutCityFactor>;
-using HighwayBasedFactors = std::unordered_map<HighwayType, SpeedToFactor, base::EnumClassHash>;
-using HighwayBasedMeanSpeeds =
-    std::unordered_map<HighwayType, InOutCitySpeedKMpH, base::EnumClassHash>;
-using CountryToHighwayBasedMeanSpeeds =
-    std::unordered_map<std::string /* country */, HighwayBasedMeanSpeeds>;
-using CountryToHighwayBasedFactors =
-    std::unordered_map<std::string /* country */, HighwayBasedFactors>;
+using HighwayBasedFactors = std::unordered_map<HighwayType, InOutCityFactor, base::EnumClassHash>;
+using HighwayBasedSpeeds = std::unordered_map<HighwayType, InOutCitySpeedKMpH, base::EnumClassHash>;
 
 /// \brief Params for calculation of an approximate speed on a feature.
 struct SpeedParams
@@ -181,28 +175,13 @@ struct InOutCityFactor
 
 struct HighwayBasedInfo
 {
-  HighwayBasedInfo(HighwayBasedMeanSpeeds const & speeds, HighwayBasedFactors const & factors)
-    : m_localSpeeds(speeds)
-    , m_globalSpeeds(speeds)
-    , m_localFactors(factors)
+  HighwayBasedInfo(HighwayBasedSpeeds const & speeds, HighwayBasedFactors const & factors)
+    : m_globalSpeeds(speeds)
     , m_globalFactors(factors)
   {
   }
 
-  HighwayBasedInfo(HighwayBasedMeanSpeeds const & localSpeeds,
-                   HighwayBasedMeanSpeeds const & globalSpeeds,
-                   HighwayBasedFactors const & localFactors,
-                   HighwayBasedFactors const & globalFactors)
-    : m_localSpeeds(localSpeeds)
-    , m_globalSpeeds(globalSpeeds)
-    , m_localFactors(localFactors)
-    , m_globalFactors(globalFactors)
-  {
-  }
-
-  HighwayBasedMeanSpeeds const & m_localSpeeds;
-  HighwayBasedMeanSpeeds const & m_globalSpeeds;
-  HighwayBasedFactors const & m_localFactors;
+  HighwayBasedSpeeds const & m_globalSpeeds;
   HighwayBasedFactors const & m_globalFactors;
 };
 
@@ -353,7 +332,7 @@ protected:
 
   SpeedKMpH GetSpeedWihtoutMaxspeed(FeatureType & f, SpeedParams const & speedParams) const;
 
-  /// \brief maximum within all the speed limits set in a model (car model, bicycle modle and so on).
+  /// \brief maximum within all the speed limits set in a model (car model, bicycle model and so on).
   /// It shouldn't be mixed with maxspeed value tag which defines maximum legal speed on a feature.
   InOutCitySpeedKMpH m_maxModelSpeed;
 

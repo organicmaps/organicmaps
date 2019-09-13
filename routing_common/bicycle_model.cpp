@@ -30,7 +30,7 @@ namespace
 
 HighwayBasedFactors const kDefaultFactors{};
 
-HighwayBasedMeanSpeeds const kDefaultSpeeds = {
+HighwayBasedSpeeds const kDefaultSpeeds = {
     // {highway class : InOutCitySpeedKMpH(in city(weight, eta), out city(weight eta))}
     {HighwayType::HighwayTrunk, InOutCitySpeedKMpH(SpeedKMpH(3.0, 18.0))},
     {HighwayType::HighwayTrunkLink, InOutCitySpeedKMpH(SpeedKMpH(3.0, 18.0))},
