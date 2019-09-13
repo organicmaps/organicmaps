@@ -78,7 +78,7 @@ public:
   // Tries to parse a plus code from |m_query| and generate a (lat, lon) result.
   void SearchPlusCode();
 
-  void SearchBookmarks(bookmarks::GroupId const & groupId) const;
+  void SearchBookmarks(bookmarks::GroupId const & groupId);
 
   void InitParams(QueryParams & params) const;
 

@@ -449,19 +449,21 @@ void Processor::Search(SearchParams const & params)
   SetQuery(params.m_query);
   SetViewport(viewport);
 
-  Geocoder::Params geocoderParams;
-  InitGeocoder(geocoderParams, params);
-  InitPreRanker(geocoderParams, params);
-  InitRanker(geocoderParams, params);
   InitEmitter(params);
 
-  try
+  switch (params.m_mode)
   {
-    switch (params.m_mode)
+  case Mode::Everywhere:  // fallthrough
+  case Mode::Viewport:    // fallthrough
+  case Mode::Downloader:
+  {
+    Geocoder::Params geocoderParams;
+    InitGeocoder(geocoderParams, params);
+    InitPreRanker(geocoderParams, params);
+    InitRanker(geocoderParams, params);
+
+    try
     {
-    case Mode::Everywhere:  // fallthrough
-    case Mode::Viewport:    // fallthrough
-    case Mode::Downloader:
       SearchCoordinates();
       SearchPlusCode();
       if (viewportSearch)
@@ -474,18 +476,19 @@ void Processor::Search(SearchParams const & params)
           m_ranker.SuggestStrings();
         m_geocoder.GoEverywhere();
       }
-      break;
-    case Mode::Bookmarks: SearchBookmarks(params.m_bookmarksGroupId); break;
-    case Mode::Count: ASSERT(false, ("Invalid mode")); break;
     }
-  }
-  catch (CancelException const &)
-  {
-    LOG(LDEBUG, ("Search has been cancelled."));
-  }
+    catch (CancelException const &)
+    {
+      LOG(LDEBUG, ("Search has been cancelled."));
+    }
 
-  // Emit finish marker to client.
-  m_geocoder.Finish(IsCancelled());
+    // Emit finish marker to client.
+    m_geocoder.Finish(IsCancelled());
+    break;
+  }
+  case Mode::Bookmarks: SearchBookmarks(params.m_bookmarksGroupId); break;
+  case Mode::Count: ASSERT(false, ("Invalid mode")); break;
+  }
 
   if (!viewportSearch && !IsCancelled())
     SendStatistics(params, viewport, m_emitter.GetResults());
@@ -531,12 +534,23 @@ void Processor::SearchPlusCode()
   m_emitter.Emit();
 }
 
-void Processor::SearchBookmarks(bookmarks::GroupId const & groupId) const
+void Processor::SearchBookmarks(bookmarks::GroupId const & groupId)
 {
   bookmarks::Processor::Params params;
   InitParams(params);
   params.m_groupId = groupId;
-  m_bookmarksProcessor.Search(params);
+
+  try
+  {
+    m_bookmarksProcessor.Search(params);
+  }
+  catch (CancelException const &)
+  {
+    LOG(LDEBUG, ("Bookmarks search has been cancelled."));
+  }
+
+  // Emit finish marker to client.
+  m_bookmarksProcessor.Finish(IsCancelled());
 }
 
 void Processor::InitParams(QueryParams & params) const

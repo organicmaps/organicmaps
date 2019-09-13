@@ -71,6 +71,8 @@ public:
 
   void Search(Params const & params) const;
 
+  void Finish(bool cancelled);
+
   // IdfMap::Delegate overrides:
   uint64_t GetNumDocs(strings::UniString const & token, bool isPrefix) const override;
 

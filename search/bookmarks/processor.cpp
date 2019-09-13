@@ -271,6 +271,8 @@ void Processor::Search(Params const & params) const
   }
 }
 
+void Processor::Finish(bool cancelled) { m_emitter.Finish(cancelled); }
+
 uint64_t Processor::GetNumDocs(strings::UniString const & token, bool isPrefix) const
 {
   return base::asserted_cast<uint64_t>(
