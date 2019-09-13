@@ -1,3 +1,4 @@
+#import "CatalogPromoItem+Core.h"
 #import "MWMPlacePageLayout.h"
 #import "MWMBookmarkCell.h"
 #import "MWMDiscoveryCityGalleryObjects.h"
@@ -108,8 +109,9 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   [tv registerWithCellClass:[MWMUGCAddReviewCell class]];
   [tv registerWithCellClass:[MWMUGCYourReviewCell class]];
   [tv registerWithCellClass:[MWMUGCReviewCell class]];
-  [tv registerWithCellClass:[MWMDiscoveryOnlineTemplateCell class]];
+  [tv registerWithCellClass:[EmptyTableViewCell class]];
   [tv registerWithCellClass:[MWMDiscoveryGuideCollectionHolderCell class]];
+  [tv registerWithCellClass:[CatalogSingleItemCell class]];
 
   // Register all meta info cells.
   for (auto const & pair : kMetaInfoCells)
@@ -634,37 +636,36 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     {
       auto rows = self.data.promoCatalogRows;
       if (rows.empty() || rows[indexPath.row] != PromoCatalogRow::Guides) {
-        Class cls = [MWMDiscoveryOnlineTemplateCell class];
-        MWMDiscoveryOnlineTemplateCell * cell = (MWMDiscoveryOnlineTemplateCell *)[tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
-        __weak __typeof__(self) weakSelf = self;
-        [cell configWithType:MWMDiscoveryOnlineTemplateTypePromo
-                 needSpinner:rows.empty()
-               canUseNetwork: rows.empty() || rows[indexPath.row] == PromoCatalogRow::GuidesRequestError
-                         tap:^{
-                           __strong __typeof__(weakSelf) strongSelf = weakSelf;
-                           if (MWMPlatform.networkConnectionType == MWMNetworkConnectionTypeNone) {
-                             NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                             UIApplication * app = UIApplication.sharedApplication;
-                             if ([app canOpenURL:url])
-                               [app openURL:url options:@{} completionHandler:nil];
-                           } else {
-                             network_policy::CallPartnersApi([strongSelf](auto const & canUseNetwork) {
-                               [strongSelf.data reguestPromoCatalog:canUseNetwork];
-                             }, false, true);
-                           }
-                         }];
+        Class cls = [EmptyTableViewCell class];
+        EmptyTableViewCell * cell = (EmptyTableViewCell *)[tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
         return cell;
       }
-      Class cls = [MWMDiscoveryGuideCollectionHolderCell class];
-      MWMDiscoveryGuideCollectionHolderCell *cell = (MWMDiscoveryGuideCollectionHolderCell *)
-      [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
-      MWMDiscoveryCollectionView *collection = (MWMDiscoveryCollectionView *)cell.collectionView;
-      [cell config];
-      collection.delegate = self;
-      collection.dataSource = self;
-      collection.itemType = discovery::ItemType::Promo;
-      [collection reloadData];
-      return cell;
+      if (self.data.promoGallery.count == 1) {
+        CatalogSingleItemCell *cell = (CatalogSingleItemCell *)
+          [tableView dequeueReusableCellWithCellClass:CatalogSingleItemCell.class indexPath:indexPath];
+        CatalogPromoItem *item = [[CatalogPromoItem alloc] initWithCoreItem:[data.promoGallery galleryItemAtIndex:0]];
+        [cell config:item];
+        cell.onMore = ^{
+          [tableView beginUpdates];
+          [tableView endUpdates];
+        };
+        cell.onGoToCatalog = ^{
+          NSURL *url = [NSURL URLWithString:item.catalogUrl];
+          [self.delegate openCatalogForURL:url];
+        };
+        return cell;
+      } else {
+        Class cls = [MWMDiscoveryGuideCollectionHolderCell class];
+        MWMDiscoveryGuideCollectionHolderCell *cell = (MWMDiscoveryGuideCollectionHolderCell *)
+          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
+        MWMDiscoveryCollectionView *collection = (MWMDiscoveryCollectionView *)cell.collectionView;
+        [cell config];
+        collection.delegate = self;
+        collection.dataSource = self;
+        collection.itemType = discovery::ItemType::Promo;
+        [collection reloadData];
+        return cell;
+      }
     }
   }
 }

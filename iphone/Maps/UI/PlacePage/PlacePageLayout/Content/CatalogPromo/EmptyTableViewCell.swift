@@ -1,0 +1,2 @@
+@objc class EmptyTableViewCell: UITableViewCell {
+}

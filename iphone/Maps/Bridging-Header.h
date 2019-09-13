@@ -25,6 +25,7 @@
 #import "BookmarksVC.h"
 #import "FacebookNativeAdAdapter.h"
 #import "LocalNotificationManager.h"
+#import "CatalogPromoItem.h"
 #import "CoreNotificationWrapper.h"
 #import "DeepLinkHelper.h"
 #import "MapViewController.h"

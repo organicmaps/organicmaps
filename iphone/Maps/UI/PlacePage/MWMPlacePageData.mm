@@ -472,12 +472,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     auto editSession = bmManager.GetEditSession();
     auto const * bookmark = editSession.CreateBookmark(std::move(bmData), categoryId);
     f.FillBookmarkInfo(*bookmark, m_info);
-    NSUInteger position = [self bookmarkSectionPosition];
-    if (self.isPromoCatalog) {
-      m_sections.insert(m_sections.begin() + position, Sections::Bookmark);
-    } else {
-      m_sections.insert(m_sections.begin() + position, Sections::Bookmark);
-    }
+    m_sections.insert(m_sections.begin() + [self bookmarkSectionPosition], Sections::Bookmark);
   }
   else
   {
@@ -831,7 +826,8 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 - (BOOL)isOpentable { return m_info.GetSponsoredType() == SponsoredType::Opentable; }
 - (BOOL)isPartner { return m_info.GetSponsoredType() == SponsoredType::Partner; }
 - (BOOL)isHolidayObject { return m_info.GetSponsoredType() == SponsoredType::Holiday; }
-- (BOOL)isPromoCatalog { return m_info.GetSponsoredType() == SponsoredType::PromoCatalogCity; }
+- (BOOL)isPromoCatalog { return m_info.GetSponsoredType() == SponsoredType::PromoCatalogCity
+  || m_info.GetSponsoredType() == SponsoredType::PromoCatalogSightseeings; }
 - (BOOL)isBookingSearch { return !m_info.GetBookingSearchUrl().empty(); }
 - (BOOL)isMyPosition { return m_info.IsMyPosition(); }
 - (BOOL)isHTMLDescription { return strings::IsHTML(GetPreferredBookmarkStr(m_info.GetBookmarkData().m_description)); }
@@ -933,8 +929,16 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     };
     auto appInfo = AppInfo.sharedInfo;
     auto locale = appInfo.twoLetterLanguageId.UTF8String;
-    //TODO: set correct UTM
-    api->GetCityGallery(self.mercator, locale, UTM::LargeToponymsPlacepageGallery, resultHandler, errorHandler);
+    if (m_info.GetSponsoredType() == SponsoredType::PromoCatalogCity) {
+      api->GetCityGallery(self.mercator, locale, UTM::LargeToponymsPlacepageGallery, resultHandler, errorHandler);
+    } else {
+      api->GetPoiGallery(self.mercator, locale,
+                         m_info.GetRawTypes(),
+                         [MWMFrameworkHelper isWiFiConnected],
+                         UTM::SightseeingsPlacepageGallery,
+                         resultHandler,
+                         errorHandler);
+    }
   }
   
   if (self.refreshPromoCallback) {
