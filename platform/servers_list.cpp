@@ -1,6 +1,6 @@
 #include "platform/servers_list.hpp"
+
 #include "platform/http_request.hpp"
-#include "platform/settings.hpp"
 #include "platform/platform.hpp"
 
 #include "base/logging.hpp"
@@ -11,7 +11,7 @@
 namespace downloader
 {
 // Returns false if can't parse urls. Note that it also clears outUrls.
-bool ParseServerList(string const & jsonStr, vector<string> & outUrls)
+bool ParseServerList(std::string const & jsonStr, std::vector<std::string> & outUrls)
 {
   outUrls.clear();
   try
@@ -31,7 +31,7 @@ bool ParseServerList(string const & jsonStr, vector<string> & outUrls)
   return !outUrls.empty();
 }
 
-void GetServerList(string const & src, vector<string> & urls)
+void GetServersList(std::string const & src, std::vector<std::string> & urls)
 {
   if (!src.empty() && ParseServerList(src, urls))
     return;
@@ -40,9 +40,9 @@ void GetServerList(string const & src, vector<string> & urls)
   LOG(LWARNING, ("Can't get servers list from request, using default servers:", urls));
 }
 
-void GetServerList(HttpRequest const & request, vector<string> & urls)
+void GetServersList(HttpRequest const & request, std::vector<std::string> & urls)
 {
   auto const src = request.GetStatus() == HttpRequest::Status::Completed ? request.GetData() : "";
-  GetServerList(src, urls);
+  GetServersList(src, urls);
 }
 } // namespace downloader

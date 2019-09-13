@@ -5,21 +5,25 @@
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/bind.hpp"
+#include <functional>
+
+using namespace std::placeholders;
 
 namespace
 {
 class ErrorHttpRequest : public downloader::HttpRequest
 {
-  string m_filePath;
 public:
-  explicit ErrorHttpRequest(string const & filePath)
+  explicit ErrorHttpRequest(std::string const & filePath)
   : HttpRequest(Callback(), Callback()), m_filePath(filePath)
   {
     m_status = Status::Failed;
   }
 
-  virtual string const & GetData() const { return m_filePath; }
+  virtual std::string const & GetData() const { return m_filePath; }
+
+private:
+  std::string m_filePath;
 };
 }  // anonymous namespace
 
@@ -30,15 +34,16 @@ HttpMapFilesDownloader::~HttpMapFilesDownloader()
   CHECK_THREAD_CHECKER(m_checker, ());
 }
 
-void HttpMapFilesDownloader::Download(vector<string> const & urls, string const & path,
-                                      int64_t size,
+void HttpMapFilesDownloader::Download(std::vector<std::string> const & urls,
+                                      std::string const & path, int64_t size,
                                       FileDownloadedCallback const & onDownloaded,
                                       DownloadingProgressCallback const & onProgress)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
   m_request.reset(downloader::HttpRequest::GetFile(
-      urls, path, size, bind(&HttpMapFilesDownloader::OnMapFileDownloaded, this, onDownloaded, _1),
-      bind(&HttpMapFilesDownloader::OnMapFileDownloadingProgress, this, onProgress, _1)));
+      urls, path, size,
+      std::bind(&HttpMapFilesDownloader::OnMapFileDownloaded, this, onDownloaded, _1),
+      std::bind(&HttpMapFilesDownloader::OnMapFileDownloadingProgress, this, onProgress, _1)));
 
   if (!m_request)
   {

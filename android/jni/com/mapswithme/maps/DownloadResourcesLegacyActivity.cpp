@@ -189,7 +189,7 @@ extern "C"
 
     LOG(LINFO, ("Finished URL list download for", curFile.m_fileName));
 
-    GetServerList(req, curFile.m_urls);
+    GetServersList(req, curFile.m_urls);
 
     Storage const & storage = g_framework->GetStorage();
     for (size_t i = 0; i < curFile.m_urls.size(); ++i)

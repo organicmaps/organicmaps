@@ -46,7 +46,7 @@ public:
 
   static std::string MakeRelativeUrl(std::string const & fileName, int64_t dataVersion,
                                      uint64_t diffVersion);
-  static std::string MakeFullUrlLegacy(string const & baseUrl, string const & fileName,
+  static std::string MakeFullUrlLegacy(std::string const & baseUrl, std::string const & fileName,
                                        int64_t dataVersion);
 
   void SetServersList(ServersList const & serversList);
@@ -59,12 +59,11 @@ private:
   /// Default implementation asynchronously receives a list of all servers that can be asked
   /// for a map file and invokes callback on the main thread.
   virtual void GetServersList(ServersListCallback const & callback);
-  /// This method must be implemented to asynchronous downloading file
-  /// from provided |urls| and saving result into |path|.
+  /// Asynchronously downloads the file from provided |urls| and saves result to |path|.
   virtual void Download(std::vector<std::string> const & urls, std::string const & path,
                         int64_t size, FileDownloadedCallback const & onDownloaded,
                         DownloadingProgressCallback const & onProgress) = 0;
 
-  ServersList m_serverList;
+  ServersList m_serversList;
 };
 }  // namespace storage

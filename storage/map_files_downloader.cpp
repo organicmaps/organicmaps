@@ -35,18 +35,18 @@ void MapFilesDownloader::DownloadMapFile(std::string const & relativeUrl,
                                          FileDownloadedCallback const & onDownloaded,
                                          DownloadingProgressCallback const & onProgress)
 {
-  if (m_serverList.empty())
+  if (m_serversList.empty())
   {
-    GetServersList([=](ServersList const & serverList)
+    GetServersList([=](ServersList const & serversList)
                    {
-                     m_serverList = serverList;
-                     auto const urls = MakeUrlList(m_serverList, relativeUrl);
+                     m_serversList = serversList;
+                     auto const urls = MakeUrlList(m_serversList, relativeUrl);
                      Download(urls, path, size, onDownloaded, onProgress);
                    });
   }
   else
   {
-    auto const urls = MakeUrlList(m_serverList, relativeUrl);
+    auto const urls = MakeUrlList(m_serversList, relativeUrl);
     Download(urls, path, size, onDownloaded, onProgress);
   }
 }
@@ -74,7 +74,7 @@ std::string MapFilesDownloader::MakeFullUrlLegacy(string const & baseUrl, string
 
 void MapFilesDownloader::SetServersList(ServersList const & serversList)
 {
-  m_serverList = serversList;
+  m_serversList = serversList;
 }
 
 // static
@@ -84,7 +84,7 @@ MapFilesDownloader::ServersList MapFilesDownloader::LoadServersList()
   std::string httpResult;
   request.RunHttpRequest(httpResult);
   std::vector<std::string> urls;
-  downloader::GetServerList(httpResult, urls);
+  downloader::GetServersList(httpResult, urls);
   CHECK(!urls.empty(), ());
   return urls;
 }

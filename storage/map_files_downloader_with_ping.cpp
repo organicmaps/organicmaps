@@ -10,6 +10,8 @@ namespace storage
 {
 void MapFilesDownloaderWithPing::GetServersList(ServersListCallback const & callback)
 {
+  ASSERT(callback , ());
+
   GetPlatform().RunTask(Platform::Thread::Network, [callback]()
   {
     auto urls = LoadServersList();

@@ -74,7 +74,7 @@ void FakeMapFilesDownloader::DownloadNextChunk(uint64_t timestamp)
 
   if (m_progress.first == m_progress.second)
   {
-    m_taskRunner.PostTask(bind(m_onDownloaded, downloader::HttpRequest::Status::Completed, m_progress));
+    m_taskRunner.PostTask(std::bind(m_onDownloaded, downloader::HttpRequest::Status::Completed, m_progress));
     Reset();
     return;
   }
@@ -85,7 +85,7 @@ void FakeMapFilesDownloader::DownloadNextChunk(uint64_t timestamp)
   m_writer->Write(kZeroes.data(), bs);
   m_writer->Flush();
 
-  m_taskRunner.PostTask(bind(m_onProgress, m_progress));
+  m_taskRunner.PostTask(std::bind(m_onProgress, m_progress));
   m_taskRunner.PostTask(std::bind(&FakeMapFilesDownloader::DownloadNextChunk, this, timestamp));
 }
 }  // namespace storage
