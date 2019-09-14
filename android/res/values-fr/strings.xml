@@ -2268,4 +2268,16 @@
 
 	<!-- SECTION: Brands -->
 	<string name="brand.kfc">PFC</string>
+    <string name="accept_and_continue">Accepter et continuer</string>
+	<string name="bookmarks_downloaded_title">Signets téléchargés avec succès</string>
+	<string name="bookmarks_downloaded_subtitle">Appuyez sur \'Rechercher sur la carte\' pour explorer les endroits sur la liste</string>
+	<string name="data_version">Version de données: %d</string>
+	<string name="download_routes">" Télécharger itinéraires"</string>
+	<string name="placepage_more_reviews_button">Plus d\'avis</string>
+	<string name="popular_place">Populaire</string>
+	<string name="popup_subscription_success_map_message">Maintenant, découvrez des guides dans plus de 600 villes et  plus 100 pays dans la catalogue de MAPS.ME</string>
+	<string name="popup_subscription_success_map_not_now_button">Pas maintenant</string>
+	<string name="popup_subscription_success_map_start_button">Commencer à naviguer</string>
+	<string name="popup_subscription_success_map_title">Woohoo, vous êtes abonné</string>
+	<string name="prefs_group_general">paramètres généraux</string>
 </resources>

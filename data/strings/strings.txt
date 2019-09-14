@@ -5300,6 +5300,7 @@
     zh-Hant = 資料版本： %d
     el = Ημερομηνία έκδοσης: %d
     fa = ورژن داده: %d
+    fr = Version de données: %d
 
   [are_you_sure]
     comment = Confirmation in downloading countries dialog
@@ -5478,6 +5479,7 @@
     en = General settings
     ru = Общие настройки
     fa = تنظیمات عمومی
+    fr = Paramètres généraux
 
   [prefs_group_information]
     comment = Settings information group in settings screen
@@ -19630,6 +19632,7 @@
     ru = Ещё отзывы
     el = Περισσότερες κριτικές
     fa = بازخورد های بیشتر
+    fr = Plus d'avis
 
   [book_button]
     en = Book
@@ -21605,6 +21608,7 @@
     en = Accept and continue
     ru = Принять и продолжить
     fa = قبول و ادامه
+    fr = Accepter et continuer
 
   [decline]
     comment = For the first routing
@@ -32842,21 +32846,25 @@
     en = Popular
     ru = Популярно
     fa = مشهور
+    fr = Populaire
 
   [download_routes]
     en = Download routes
     ru = Загрузить маршруты
     fa = دانلود مسیر
+    fr = Télécharger itinéraires
 
   [bookmarks_downloaded_title]
     en = Bookmarks have been downloaded successfully
     ru = Метки были успешно загружены
     fa = نشانکها با موفقیت دانلود شدند
+    fr = Signets téléchargés avec succès
 
   [bookmarks_downloaded_subtitle]
     en = Press ‘View on map’ to explore new places from the list
     ru = Нажмите «Посмотреть на карте» чтобы посмотреть новые места из списка
     fa = 'نمایش بر روی نقشه' را فشار دهید تا مکان های جدید را از لیست کاوش کنید
+    fr = Appuyez sur 'Rechercher sur la carte' pour explorer les endroits sur la liste
 
   [guides]
     en = Guides
