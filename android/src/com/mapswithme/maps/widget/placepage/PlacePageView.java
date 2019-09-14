@@ -772,11 +772,9 @@ public class PlacePageView extends NestedScrollView
 
   private void showDescriptionScreen()
   {
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.PLACEPAGE_DESCRIPTION_MORE,
-        Statistics.STATISTICS_CHANNEL_REALTIME);
     Context context = mPlaceDescriptionContainer.getContext();
     String description = Objects.requireNonNull(mMapObject).getDescription();
-    PlaceDescriptionActivity.start(context, description);
+    PlaceDescriptionActivity.start(context, description, Statistics.ParamValue.WIKIPEDIA);
   }
 
   private void initEditMapObjectBtn()

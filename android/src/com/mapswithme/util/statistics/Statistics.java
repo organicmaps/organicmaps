@@ -105,6 +105,8 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.BATTERY;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BUTTON;
 import static com.mapswithme.util.statistics.Statistics.EventParam.CATEGORY;
 import static com.mapswithme.util.statistics.Statistics.EventParam.CHARGING;
+import static com.mapswithme.util.statistics.Statistics.EventParam.COUNT;
+import static com.mapswithme.util.statistics.Statistics.EventParam.COUNT_LOWERCASE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.DESTINATION;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_CODE;
@@ -599,6 +601,7 @@ public enum Statistics
     static final String CATEGORY = "category";
     public static final String TAB = "tab";
     static final String COUNT = "Count";
+    static final String COUNT_LOWERCASE = "count";
     static final String CHANNEL = "Channel";
     static final String CALLER_ID = "Caller ID";
     public static final String ENABLED = "Enabled";
@@ -660,6 +663,7 @@ public enum Statistics
     static final String PURCHASE = "purchase";
     static final String SERVER_ID = "server_id";
     static final String SERVER_IDS = "server_ids";
+    public static final String SOURCE = "source";
 
     private EventParam() {}
   }
@@ -747,6 +751,7 @@ public enum Statistics
     public static final String BY_TYPE = "Type";
     public static final String BOOKMARKS_LIST = "BookmarksList";
     static final String PARTNER = "Partner";
+    public static final String WIKIPEDIA = "wikipedia";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -1207,12 +1212,13 @@ public enum Statistics
   }
 
   public void trackGalleryShown(@NonNull GalleryType type, @NonNull GalleryState state,
-                                @NonNull GalleryPlacement placement)
+                                @NonNull GalleryPlacement placement, int itemsCount)
   {
     trackEvent(PP_SPONSORED_SHOWN, Statistics.params()
                                              .add(PROVIDER, type.getProvider())
                                              .add(PLACEMENT, placement.toString())
-                                             .add(STATE, state.toString()));
+                                             .add(STATE, state.toString())
+                                             .add(COUNT_LOWERCASE, itemsCount));
 
     if (state == GalleryState.ONLINE)
       MyTracker.trackEvent(PP_SPONSORED_SHOWN + "_" + type.getProvider());
