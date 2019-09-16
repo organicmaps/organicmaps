@@ -20,9 +20,7 @@
 #include "geometry/mercator.hpp"
 
 #include "base/checked_cast.hpp"
-#include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
-#include "base/timer.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -206,11 +204,6 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
 
   m_delegate.OnBookingFilterParamsUpdate(params.m_bookingFilterTasks);
 
-  LOG(LINFO, ("Search everywhere started."));
-  base::Timer timer;
-  SCOPE_GUARD(printDuration, [&timer]() {
-    LOG(LINFO, ("Search everywhere ended. Time:", timer.ElapsedSeconds(), "seconds."));
-  });
   return Search(p, true /* forceSearch */);
 }
 

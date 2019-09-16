@@ -9,6 +9,7 @@
 
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
+#include "base/timer.hpp"
 
 #include <algorithm>
 #include <cstdint>
@@ -282,6 +283,12 @@ void Engine::PostMessage(Args &&... args)
 void Engine::DoSearch(SearchParams const & params, shared_ptr<ProcessorHandle> handle,
                       Processor & processor)
 {
+  LOG(LINFO, ("Search started."));
+  base::Timer timer;
+  SCOPE_GUARD(printDuration, [&timer]() {
+    LOG(LINFO, ("Search ended. Time:", timer.ElapsedSeconds(), "seconds."));
+  });
+
   processor.Reset();
   handle->Attach(processor);
   SCOPE_GUARD(detach, [&handle] { handle->Detach(); });
