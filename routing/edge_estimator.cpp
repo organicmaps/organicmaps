@@ -5,6 +5,8 @@
 #include "traffic/speed_groups.hpp"
 #include "traffic/traffic_info.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "indexer/feature_altitude.hpp"
 
 #include "base/assert.hpp"
@@ -81,7 +83,9 @@ double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
 
   double const distance = MercatorBounds::DistanceOnEarth(from.GetPoint(), to.GetPoint());
   double const speedMpS = KMPH2MPS(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
-  CHECK_GREATER(speedMpS, 0.0, ());
+  CHECK_GREATER(speedMpS, 0.0,
+                ("from:", MercatorBounds::ToLatLon(from.GetPoint()),
+                 "to:", MercatorBounds::ToLatLon(to.GetPoint()), "speed:", speed));
   double const timeSec = distance / speedMpS;
 
   if (base::AlmostEqualAbs(distance, 0.0, 0.1))
