@@ -214,8 +214,12 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
     double durationH = CalcFerryDurationHours(durationHours, roadLenKm);
 
     CHECK(!base::AlmostEqualAbs(durationH, 0.0, 1e-5), (durationH));
-    m_forwardSpeed = m_backwardSpeed =
-        SpeedKMpH(std::min(vehicleModel.GetMaxWeightSpeed(), roadLenKm / durationH));
+
+    if (roadLenKm != 0.0)
+    {
+      m_forwardSpeed = m_backwardSpeed =
+          SpeedKMpH(std::min(vehicleModel.GetMaxWeightSpeed(), roadLenKm / durationH));
+    }
   }
 
   if (m_valid && (!m_forwardSpeed.IsValid() || !m_backwardSpeed.IsValid()))
