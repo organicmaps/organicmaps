@@ -82,7 +82,6 @@ import com.mapswithme.maps.promo.PromoBookingDialogFragment;
 import com.mapswithme.maps.purchase.AdsRemovalActivationCallback;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 import com.mapswithme.maps.purchase.BookmarkSubscriptionActivity;
-import com.mapswithme.maps.purchase.BookmarkSubscriptionFragment;
 import com.mapswithme.maps.purchase.FailedPurchaseChecker;
 import com.mapswithme.maps.purchase.PurchaseCallback;
 import com.mapswithme.maps.purchase.PurchaseController;
@@ -743,10 +742,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void openBookmarkSubscriptionScreen()
   {
-    Intent intent = new Intent(this, BookmarkSubscriptionActivity.class)
-        .putExtra(BookmarkSubscriptionFragment.EXTRA_ORIGIN_PARAM,
-                  Statistics.ParamValue.SPONSORED_BUTTON);
-    startActivityForResult(intent, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION);
+    BookmarkSubscriptionActivity.startForResult(this);
   }
 
   private void initToggleMapLayerController(@NonNull View frame)
