@@ -211,7 +211,7 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
   {
     auto const durationHours = feature.GetMetadata().Get(feature::Metadata::FMD_DURATION);
     auto const roadLenKm = GetRoadLengthM() / 1000.0;
-    double durationH = CalcFerryDurationHours(durationHours, roadLenKm);
+    double const durationH = CalcFerryDurationHours(durationHours, roadLenKm);
 
     CHECK(!base::AlmostEqualAbs(durationH, 0.0, 1e-5), (durationH));
 
