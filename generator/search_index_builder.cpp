@@ -687,7 +687,7 @@ bool BuildPostcodesImpl(FilesContainerR & container, storage::CountryId const & 
                         storage::CountryInfoGetter & infoGetter, Writer & writer)
 {
   using Key = strings::UniString;
-  using Value = FeatureIndexValue;
+  using Value = Uint64IndexValue;
 
   CHECK_EQUAL(writer.Pos(), 0, ());
 
@@ -744,7 +744,7 @@ bool BuildPostcodesImpl(FilesContainerR & container, storage::CountryId const & 
 void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter)
 {
   using Key = strings::UniString;
-  using Value = FeatureIndexValue;
+  using Value = Uint64IndexValue;
 
   LOG(LINFO, ("Start building search index for", container.GetFileName()));
   base::Timer timer;

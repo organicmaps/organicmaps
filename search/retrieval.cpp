@@ -355,7 +355,7 @@ Retrieval::Retrieval(MwmContext const & context, base::Cancellable const & cance
   auto const format = mwmTraits.GetSearchIndexFormat();
   // We do not support mwms older than November 2015.
   CHECK_EQUAL(format, version::MwmTraits::SearchIndexFormat::CompressedBitVector, ());
-  m_root = ReadTrie<FeatureIndexValue>(value, m_reader);
+  m_root = ReadTrie<Uint64IndexValue>(value, m_reader);
 }
 
 Retrieval::ExtendedFeatures Retrieval::RetrieveAddressFeatures(
@@ -395,7 +395,7 @@ Retrieval::Features Retrieval::RetrieveGeometryFeatures(m2::RectD const & rect, 
 template <template <typename> class R, typename... Args>
 Retrieval::ExtendedFeatures Retrieval::Retrieve(Args &&... args) const
 {
-  R<FeatureIndexValue> r;
+  R<Uint64IndexValue> r;
   ASSERT(m_root, ());
   return r(*m_root, m_context, m_cancellable, forward<Args>(args)...);
 }

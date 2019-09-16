@@ -115,6 +115,6 @@ private:
   base::Cancellable const & m_cancellable;
   ModelReaderPtr m_reader;
 
-  std::unique_ptr<TrieRoot<FeatureIndexValue>> m_root;
+  std::unique_ptr<TrieRoot<Uint64IndexValue>> m_root;
 };
 }  // namespace search

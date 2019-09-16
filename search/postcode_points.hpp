@@ -59,7 +59,7 @@ public:
 private:
   Header m_header;
   std::unique_ptr<CentersTable> m_points;
-  std::unique_ptr<trie::Iterator<ValueList<FeatureIndexValue>>> m_root;
+  std::unique_ptr<trie::Iterator<ValueList<Uint64IndexValue>>> m_root;
   std::unique_ptr<Reader> m_trieSubReader;
   std::unique_ptr<Reader> m_pointsSubReader;
 };

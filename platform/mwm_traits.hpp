@@ -20,7 +20,7 @@ public:
 
     // A compressed bit vector of feature indices is
     // stored behind every node of the search trie.
-    // This format corresponds to ValueList<FeatureIndexValue>.
+    // This format corresponds to ValueList<Uint64IndexValue>.
     CompressedBitVector,
   };
 

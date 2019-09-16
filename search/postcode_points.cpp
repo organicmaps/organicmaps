@@ -36,8 +36,8 @@ PostcodePoints::PostcodePoints(MwmValue const & value)
   m_header.Read(*reader.GetPtr());
 
   m_trieSubReader = reader.GetPtr()->CreateSubReader(m_header.m_trieOffset, m_header.m_trieSize);
-  m_root = trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<FeatureIndexValue>>(
-      SubReaderWrapper<Reader>(m_trieSubReader.get()), SingleValueSerializer<FeatureIndexValue>());
+  m_root = trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<Uint64IndexValue>>(
+      SubReaderWrapper<Reader>(m_trieSubReader.get()), SingleValueSerializer<Uint64IndexValue>());
   CHECK(m_root, ());
 
   m_pointsSubReader =

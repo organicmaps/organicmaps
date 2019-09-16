@@ -25,12 +25,12 @@ using namespace std;
 
 namespace
 {
-template <typename TValue>
+template <typename Value>
 struct SearchTokensCollector
 {
   SearchTokensCollector() : m_currentS(), m_currentCount(0) {}
 
-  void operator()(strings::UniString const & s, TValue const & /* value */)
+  void operator()(strings::UniString const & s, Value const & /* value */)
   {
     if (m_currentS != s)
     {
@@ -195,15 +195,15 @@ namespace feature
 
   void DumpSearchTokens(string const & fPath, size_t maxTokensToShow)
   {
-    using TValue = FeatureIndexValue;
+    using Value = Uint64IndexValue;
 
     FilesContainerR container(make_unique<FileReader>(fPath));
     feature::DataHeader header(container);
 
-    auto const trieRoot = trie::ReadTrie<ModelReaderPtr, ValueList<TValue>>(
-        container.GetReader(SEARCH_INDEX_FILE_TAG), SingleValueSerializer<TValue>());
+    auto const trieRoot = trie::ReadTrie<ModelReaderPtr, ValueList<Value>>(
+        container.GetReader(SEARCH_INDEX_FILE_TAG), SingleValueSerializer<Value>());
 
-    SearchTokensCollector<TValue> f;
+    SearchTokensCollector<Value> f;
     trie::ForEachRef(*trieRoot, f, strings::UniString());
     f.Finish();
 

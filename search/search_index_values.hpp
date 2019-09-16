@@ -22,17 +22,17 @@
 /// redundant serialization-deserialization or sorting.
 
 // A wrapper around feature index.
-struct FeatureIndexValue
+struct Uint64IndexValue
 {
-  FeatureIndexValue() = default;
+  Uint64IndexValue() = default;
 
-  explicit FeatureIndexValue(uint64_t featureId) : m_featureId(featureId) {}
+  explicit Uint64IndexValue(uint64_t featureId) : m_featureId(featureId) {}
 
-  bool operator<(FeatureIndexValue const & o) const { return m_featureId < o.m_featureId; }
+  bool operator<(Uint64IndexValue const & o) const { return m_featureId < o.m_featureId; }
 
-  bool operator==(FeatureIndexValue const & o) const { return m_featureId == o.m_featureId; }
+  bool operator==(Uint64IndexValue const & o) const { return m_featureId == o.m_featureId; }
 
-  void Swap(FeatureIndexValue & o) { std::swap(m_featureId, o.m_featureId); }
+  void Swap(Uint64IndexValue & o) { std::swap(m_featureId, o.m_featureId); }
 
   uint64_t m_featureId = 0;
 };
@@ -40,10 +40,10 @@ struct FeatureIndexValue
 namespace std
 {
 template <>
-struct hash<FeatureIndexValue>
+struct hash<Uint64IndexValue>
 {
 public:
-  size_t operator()(FeatureIndexValue const & value) const
+  size_t operator()(Uint64IndexValue const & value) const
   {
     return std::hash<uint64_t>{}(value.m_featureId);
   }
@@ -54,10 +54,10 @@ template <typename Value>
 class SingleValueSerializer;
 
 template <>
-class SingleValueSerializer<FeatureIndexValue>
+class SingleValueSerializer<Uint64IndexValue>
 {
 public:
-  using Value = FeatureIndexValue;
+  using Value = Uint64IndexValue;
 
   SingleValueSerializer() = default;
 
@@ -88,23 +88,23 @@ public:
 template <typename Value>
 class ValueList;
 
-// ValueList<FeatureIndexValue> serializes a group of feature
+// ValueList<Uint64IndexValue> serializes a group of feature
 // indices as a compressed bit vector.
 template <>
-class ValueList<FeatureIndexValue>
+class ValueList<Uint64IndexValue>
 {
 public:
-  using Value = FeatureIndexValue;
+  using Value = Uint64IndexValue;
 
   ValueList() = default;
 
-  ValueList(ValueList<FeatureIndexValue> const & o)
+  ValueList(ValueList<Uint64IndexValue> const & o)
   {
     if (o.m_cbv)
       m_cbv = o.m_cbv->Clone();
   }
 
-  void Init(std::vector<FeatureIndexValue> const & values)
+  void Init(std::vector<Uint64IndexValue> const & values)
   {
     std::vector<uint64_t> ids(values.size());
     for (size_t i = 0; i < ids.size(); ++i)
@@ -113,7 +113,7 @@ public:
   }
 
   // This method returns number of values in the current instance of
-  // ValueList<FeatureIndexValue>, but as these values are actually
+  // ValueList<Uint64IndexValue>, but as these values are actually
   // features indices and can be dumped as a single serialized
   // compressed bit vector, this method returns 1 when there're at
   // least one feature's index in the list - so, compressed bit
