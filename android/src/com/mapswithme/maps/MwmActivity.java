@@ -1015,6 +1015,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     MapTask mapTask = target -> showBookmarkCategory(category);
     addTask(mapTask);
+    if (!mPlacePageController.isClosed())
+      mPlacePageController.close();
   }
 
   private boolean showBookmarkCategory(@NonNull BookmarkCategory category)
@@ -1025,6 +1027,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void handleDiscoveryResult(@NonNull Intent data)
   {
+    BookmarkCategory category =
+        data.getParcelableExtra(BookmarksCatalogActivity.EXTRA_DOWNLOADED_CATEGORY);
+    if (category != null)
+    {
+      handleDownloadedCategoryResult(data);
+      return;
+    }
+
     String action = data.getAction();
     if (TextUtils.isEmpty(action))
       return;
