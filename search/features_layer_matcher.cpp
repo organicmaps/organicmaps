@@ -96,6 +96,9 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreet(FeatureType & houseFeature)
   result = kInvalidId;
 
   FeatureID streetId;
+  CHECK(m_context, ());
+  CHECK(m_context->m_handle.IsAlive(), (m_context->m_handle.GetId()));
+  CHECK(m_context->m_handle.GetId().IsAlive(), (m_context->m_handle.GetId()));
   if (!edited && m_reverseGeocoder.GetStreetByHouse(houseFeature, streetId))
   {
     result = streetId.m_index;

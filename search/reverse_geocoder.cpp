@@ -289,6 +289,7 @@ bool ReverseGeocoder::GetNearbyAddress(HouseTable & table, Building const & bld,
   case HouseToStreetTable::StreetIdType::FeatureId:
   {
     FeatureID streetFeature(bld.m_id.m_mwmId, streetId);
+    CHECK(bld.m_id.m_mwmId.IsAlive(), (bld.m_id.m_mwmId));
     m_dataSource.ReadFeature(
         [&bld, &addr](FeatureType & ft) {
           string streetName;
@@ -297,7 +298,7 @@ bool ReverseGeocoder::GetNearbyAddress(HouseTable & table, Building const & bld,
           addr.m_street = Street(ft.GetID(), distance, streetName, ft.GetNames());
         },
         streetFeature);
-    CHECK(!addr.m_street.m_name.empty(), ());
+    CHECK(!addr.m_street.m_multilangName.IsEmpty(), (bld.m_id.m_mwmId, streetId));
     addr.m_building = bld;
     return true;
   }
