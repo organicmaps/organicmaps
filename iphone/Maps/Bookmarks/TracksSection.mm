@@ -81,7 +81,7 @@ CGFloat const kPinDiameter = 22.0f;
   
   auto const track = GetFramework().GetBookmarkManager().GetTrack(trackId);
   if (track != nullptr && [[MWMBookmarksManager sharedManager] isGuide:track->GetGroupId()]) {
-    [Statistics logEvent:kStatGuidesBookmarkSelect
+    [Statistics logEvent:kStatGuidesTrackSelect
           withParameters:@{kStatServerId: [[MWMBookmarksManager sharedManager] getServerId:track->GetGroupId()]}
              withChannel:StatisticsChannelRealtime];
   }
