@@ -23,9 +23,10 @@
 #include "3party/agg/agg_path_storage.h"
 
 #include "std/cstdint.hpp"
-#include "std/map.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
+
+#include <map>
 
 namespace software_renderer
 {
@@ -115,7 +116,7 @@ public:
 
 private:
   unique_ptr<GlyphCache> m_glyphCache;
-  map<string, m2::RectU> m_symbolsIndex;
+  std::map<string, m2::RectU> m_symbolsIndex;
   vector<uint8_t> m_symbolsSkin;
   uint32_t m_skinWidth, m_skinHeight;
 

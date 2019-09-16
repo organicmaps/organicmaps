@@ -28,7 +28,7 @@ namespace
 {
 using place_page::MetainfoRows;
 
-map<MetainfoRows, Class> const kMetaInfoCells = {
+std::map<MetainfoRows, Class> const kMetaInfoCells = {
     {MetainfoRows::Website, [MWMPlacePageLinkCell class]},
     {MetainfoRows::Address, [MWMPlacePageInfoCell class]},
     {MetainfoRows::Email, [MWMPlacePageLinkCell class]},

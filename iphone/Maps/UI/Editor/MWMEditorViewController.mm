@@ -61,7 +61,7 @@ vector<MWMEditorCellType> const kSectionAddressCellTypes{
 vector<MWMEditorCellType> const kSectionNoteCellTypes{MWMEditorCellTypeNote};
 vector<MWMEditorCellType> const kSectionButtonCellTypes{MWMEditorCellTypeReportButton};
 
-using MWMEditorCellTypeClassMap = map<MWMEditorCellType, Class>;
+using MWMEditorCellTypeClassMap = std::map<MWMEditorCellType, Class>;
 MWMEditorCellTypeClassMap const kCellType2Class{
     {MWMEditorCellTypeCategory, [MWMEditorCategoryCell class]},
     {MWMEditorCellTypeAdditionalName, [MWMEditorAdditionalNameTableViewCell class]},
@@ -182,7 +182,7 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
 @implementation MWMEditorViewController
 {
   vector<MWMEditorSection> m_sections;
-  map<MWMEditorSection, vector<MWMEditorCellType>> m_cells;
+  std::map<MWMEditorSection, vector<MWMEditorCellType>> m_cells;
   osm::EditableMapObject m_mapObject;
   vector<NSInteger> m_newAdditionalLanguages;
 }

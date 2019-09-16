@@ -5,9 +5,10 @@
 #include "indexer/mwm_set.hpp"
 
 #include "std/cstdint.hpp"
-#include "std/map.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/vector.hpp"
+
+#include <map>
 
 namespace platform
 {
@@ -74,7 +75,7 @@ public:
   };
 
   // todo(@m) unordered_map?
-  using Coloring = map<RoadSegmentId, SpeedGroup>;
+  using Coloring = std::map<RoadSegmentId, SpeedGroup>;
 
   TrafficInfo() = default;
 

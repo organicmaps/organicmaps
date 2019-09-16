@@ -249,7 +249,7 @@ public:
 
 // void RunTest(string const & countryFileName)
 // {
-//   model::FeaturesFetcher src1;
+//   FeaturesFetcher src1;
 //   src1.InitClassificator();
 
 //   platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeForTesting(countryFileName));

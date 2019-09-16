@@ -85,7 +85,7 @@ struct GeoModeSettings
   DesiredAccuracy accuracy;
 };
 
-map<GeoMode, GeoModeSettings> const kGeoSettings{
+std::map<GeoMode, GeoModeSettings> const kGeoSettings{
     {GeoMode::Pending,
      {.distanceFilter = kCLDistanceFilterNone,
       .accuracy = {.charging = kCLLocationAccuracyBestForNavigation,

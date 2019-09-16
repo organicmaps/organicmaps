@@ -16,7 +16,7 @@ using namespace std;
 
 namespace
 {
-  typedef model::FeaturesFetcher SourceT;
+  using SourceT = FeaturesFetcher;
 
   class FeaturesLoader : public threads::IRoutine
   {

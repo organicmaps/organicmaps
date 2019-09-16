@@ -27,7 +27,7 @@ UNIT_TEST(CheckMWM_LoadAll)
   platform::FindAllLocalMapsInDirectoryAndCleanup(platform.WritableDir(), 0 /* version */,
                                                   -1 /* latestVersion */, localFiles);
 
-  model::FeaturesFetcher m;
+  FeaturesFetcher m;
   m.InitClassificator();
 
   for (platform::LocalCountryFile const & localFile : localFiles)

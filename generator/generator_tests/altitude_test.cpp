@@ -26,6 +26,7 @@
 
 #include "defines.hpp"
 
+#include <map>
 #include <string>
 
 using namespace feature;
@@ -69,7 +70,7 @@ TPoint3DList const kRoad4 = {{-10, 1, -1}, {-20, 6, -100}, {-20, -11, -110}};
 class MockAltitudeGetter : public AltitudeGetter
 {
 public:
-  using TMockAltitudes = map<m2::PointI, TAltitude>;
+  using TMockAltitudes = std::map<m2::PointI, TAltitude>;
 
   explicit MockAltitudeGetter(vector<TPoint3DList> const & roads)
   {

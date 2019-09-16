@@ -64,11 +64,11 @@ void ChangeMaxNumberOfOpenFiles(size_t n)
 
 namespace integration
 {
-shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(vector<LocalCountryFile> const & localFiles)
+shared_ptr<FeaturesFetcher> CreateFeaturesFetcher(vector<LocalCountryFile> const & localFiles)
 {
   size_t const maxOpenFileNumber = 4096;
   ChangeMaxNumberOfOpenFiles(maxOpenFileNumber);
-  shared_ptr<model::FeaturesFetcher> featuresFetcher(new model::FeaturesFetcher);
+  shared_ptr<FeaturesFetcher> featuresFetcher(new FeaturesFetcher);
   featuresFetcher->InitClassificator();
 
   for (LocalCountryFile const & localFile : localFiles)

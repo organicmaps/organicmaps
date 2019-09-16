@@ -203,7 +203,7 @@ private:
   EWidget m_currentElement = WIDGET_RULER;
   ResolverParser m_parser;
 
-  map<EWidget, pair<PositionResolver, PositionResolver> > & m_skin;
+  std::map<EWidget, pair<PositionResolver, PositionResolver>> & m_skin;
 };
 }
 

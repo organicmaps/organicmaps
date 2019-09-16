@@ -1,5 +1,7 @@
 #include "platform/marketing_service.hpp"
 
+using namespace std;
+
 void MarketingService::SendPushWooshTag(string const & tag)
 {}
 

@@ -38,7 +38,7 @@ public:
 
 bool RunTest(string const & countryFileName, int lowS, int highS)
 {
-  model::FeaturesFetcher src;
+  FeaturesFetcher src;
   auto p = src.RegisterMap(platform::LocalCountryFile::MakeForTesting(countryFileName));
   if (p.second != MwmSet::RegResult::Success)
     return false;

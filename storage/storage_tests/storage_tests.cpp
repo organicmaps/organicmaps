@@ -45,7 +45,6 @@
 #include "std/condition_variable.hpp"
 #include "std/exception.hpp"
 #include "std/iterator.hpp"
-#include "std/map.hpp"
 #include "std/mutex.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"

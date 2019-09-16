@@ -28,7 +28,7 @@ CGFloat const kShiftedTurnsTopOffset = 8;
 
 NSTimeInterval constexpr kCollapseSearchTimeout = 5.0;
 
-map<NavigationSearchState, NSString *> const kSearchStateButtonImageNames{
+std::map<NavigationSearchState, NSString *> const kSearchStateButtonImageNames{
     {NavigationSearchState::Maximized, @"ic_routing_search"},
     {NavigationSearchState::MinimizedNormal, @"ic_routing_search"},
     {NavigationSearchState::MinimizedSearch, @"ic_routing_search_off"},
@@ -38,7 +38,7 @@ map<NavigationSearchState, NSString *> const kSearchStateButtonImageNames{
     {NavigationSearchState::MinimizedFood, @"ic_routing_food_off"},
     {NavigationSearchState::MinimizedATM, @"ic_routing_atm_off"}};
 
-map<NavigationSearchState, NSString *> const kSearchButtonRequest{
+std::map<NavigationSearchState, NSString *> const kSearchButtonRequest{
     {NavigationSearchState::MinimizedGas, L(@"fuel")},
     {NavigationSearchState::MinimizedParking, L(@"parking")},
     {NavigationSearchState::MinimizedEat, L(@"eat")},

@@ -6,10 +6,11 @@
 
 #include "geometry/point2d.hpp"
 
-#include "std/map.hpp"
 #include "std/sstream.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
+
+#include <map>
 
 namespace routing
 {
@@ -134,7 +135,7 @@ private:
     return os.str();
   }
 
-  using Links = map<Vertex, pair<Vertex, Edge>>;
+  using Links = std::map<Vertex, pair<Vertex, Edge>>;
 
   using RoadGraphEdgesGetter = void (routing::IRoadGraph::*)(
       routing::Junction const & junction, routing::IRoadGraph::EdgeVector & edges) const;
@@ -176,7 +177,7 @@ private:
   void GetIngoingEdges(routing::Junction const & u, routing::IRoadGraph::EdgeVector & edges);
   void GetEdges(routing::Junction const & u, RoadGraphEdgesGetter getRegular,
                 RoadGraphEdgesGetter getFake,
-                map<routing::Junction, routing::IRoadGraph::EdgeVector> & cache,
+                std::map<routing::Junction, routing::IRoadGraph::EdgeVector> & cache,
                 routing::IRoadGraph::EdgeVector & edges);
 
   template <typename Fn>
@@ -211,8 +212,8 @@ private:
   void FindSingleEdgeApproximation(vector<Edge> const & edges, vector<routing::Edge> & path);
 
   routing::FeaturesRoadGraph & m_graph;
-  map<routing::Junction, routing::IRoadGraph::EdgeVector> m_outgoingCache;
-  map<routing::Junction, routing::IRoadGraph::EdgeVector> m_ingoingCache;
+  std::map<routing::Junction, routing::IRoadGraph::EdgeVector> m_outgoingCache;
+  std::map<routing::Junction, routing::IRoadGraph::EdgeVector> m_ingoingCache;
   RoadInfoGetter & m_roadInfoGetter;
 
   vector<WayPoint> m_points;

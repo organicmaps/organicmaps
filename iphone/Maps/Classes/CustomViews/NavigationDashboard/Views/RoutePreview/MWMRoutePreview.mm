@@ -33,7 +33,7 @@ static CGFloat const kDrivingOptionsHeight = 48;
 
 @implementation MWMRoutePreview
 {
-  map<MWMRouterType, MWMCircularProgress *> m_progresses;
+  std::map<MWMRouterType, MWMCircularProgress *> m_progresses;
 }
 
 - (void)awakeFromNib

@@ -13,8 +13,8 @@
 #include "map/mwm_url.hpp"
 #include "map/notifications/notification_manager.hpp"
 #include "map/place_page_info.hpp"
-#include "map/power_management/power_manager.hpp"
 #include "map/power_management/power_management_schemas.hpp"
+#include "map/power_management/power_manager.hpp"
 #include "map/purchase.hpp"
 #include "map/routing_manager.hpp"
 #include "map/routing_mark.hpp"
@@ -187,14 +187,14 @@ protected:
 
   StringsBundle m_stringsBundle;
 
-  model::FeaturesFetcher m_model;
+  FeaturesFetcher m_featuresFetcher;
 
   // The order matters here: DisplayedCategories may be used only
-  // after classificator is loaded by |m_model|.
+  // after classificator is loaded by |m_featuresFetcher|.
   unique_ptr<search::DisplayedCategories> m_displayedCategories;
 
   // The order matters here: storage::CountryInfoGetter and
-  // m_model::FeaturesFetcher must be initialized before
+  // m_FeaturesFetcher must be initialized before
   // search::Engine and, therefore, destroyed after search::Engine.
   unique_ptr<storage::CountryInfoGetter> m_infoGetter;
 
@@ -262,7 +262,7 @@ protected:
   bool OnCountryFileDelete(storage::CountryId const & countryId,
                            storage::LocalFilePtr const localFile);
 
-  /// This function is called by m_model when the map file is deregistered.
+  /// This function is called by m_featuresFetcher when the map file is deregistered.
   void OnMapDeregistered(platform::LocalCountryFile const & localFile);
 
   void ClearAllCaches();
@@ -346,7 +346,7 @@ public:
   storage::CountryInfoGetter & GetCountryInfoGetter() { return *m_infoGetter; }
   StorageDownloadingPolicy & GetDownloadingPolicy() { return m_storageDownloadingPolicy; }
 
-  DataSource const & GetDataSource() const { return m_model.GetDataSource(); }
+  DataSource const & GetDataSource() const { return m_featuresFetcher.GetDataSource(); }
 
   SearchAPI & GetSearchAPI();
   SearchAPI const & GetSearchAPI() const;
@@ -762,7 +762,7 @@ public:
   template <typename TFn>
   void ForEachFeatureAtPoint(TFn && fn, m2::PointD const & mercator) const
   {
-    indexer::ForEachFeatureAtPoint(m_model.GetDataSource(), fn, mercator, 0.0);
+    indexer::ForEachFeatureAtPoint(m_featuresFetcher.GetDataSource(), fn, mercator, 0.0);
   }
 
   osm::MapObject GetMapObjectByID(FeatureID const & fid) const;

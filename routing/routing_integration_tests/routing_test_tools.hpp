@@ -47,7 +47,7 @@ typedef std::pair<std::shared_ptr<Route>, RouterResultCode> TRouteResult;
 
 namespace integration
 {
-std::shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(
+std::shared_ptr<FeaturesFetcher> CreateFeaturesFetcher(
     std::vector<LocalCountryFile> const & localFiles);
 
 std::unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter();
@@ -73,7 +73,7 @@ public:
   storage::CountryInfoGetter const & GetCountryInfoGetter() const noexcept { return *m_infoGetter; }
 
 protected:
-  std::shared_ptr<model::FeaturesFetcher> m_featuresFetcher;
+  std::shared_ptr<FeaturesFetcher> m_featuresFetcher;
   std::unique_ptr<storage::CountryInfoGetter> m_infoGetter;
 };
 

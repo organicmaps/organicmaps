@@ -19,12 +19,13 @@
 #include "std/atomic.hpp"
 #include "std/chrono.hpp"
 #include "std/condition_variable.hpp"
-#include "std/map.hpp"
 #include "std/mutex.hpp"
 #include "std/set.hpp"
 #include "std/string.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
+
+#include <map>
 
 class TrafficManager final
 {
@@ -162,7 +163,7 @@ private:
   size_t m_maxCacheSizeBytes;
   size_t m_currentCacheSizeBytes = 0;
 
-  map<MwmSet::MwmId, CacheEntry> m_mwmCache;
+  std::map<MwmSet::MwmId, CacheEntry> m_mwmCache;
 
   bool m_isRunning;
   condition_variable m_condition;
@@ -175,7 +176,7 @@ private:
   // The ETag or entity tag is part of HTTP, the protocol for the World Wide Web.
   // It is one of several mechanisms that HTTP provides for web cache validation,
   // which allows a client to make conditional requests.
-  map<MwmSet::MwmId, string> m_trafficETags;
+  std::map<MwmSet::MwmId, string> m_trafficETags;
 
   atomic<bool> m_isPaused;
 

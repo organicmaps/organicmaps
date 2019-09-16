@@ -10,10 +10,11 @@
 #include "base/math.hpp"
 
 #include "std/cstdint.hpp"
-#include "std/map.hpp"
 #include "std/sstream.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
+
+#include <map>
 
 #include "pyhelpers/module_version.hpp"
 #include "pyhelpers/vector_list_conversion.hpp"
@@ -40,7 +41,7 @@ struct SegmentSpeeds
   double m_weight = 0;
 };
 
-using SegmentMapping = map<traffic::TrafficInfo::RoadSegmentId, SegmentSpeeds>;
+using SegmentMapping = std::map<traffic::TrafficInfo::RoadSegmentId, SegmentSpeeds>;
 
 string SegmentSpeedsRepr(SegmentSpeeds const & v)
 {

@@ -16,7 +16,7 @@ void MarketingService::SendPushWooshTag(string const & tag, vector<string> const
     m_pushwooshSender(tag, values);
 }
 
-void MarketingService::SendMarketingEvent(string const & tag, map<string, string> const & params)
+void MarketingService::SendMarketingEvent(string const & tag, std::map<string, string> const & params)
 {
   if (m_marketingSender)
     m_marketingSender(tag, params);

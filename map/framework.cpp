@@ -17,9 +17,6 @@
 
 #include "generator/borders.hpp"
 
-#include "defines.hpp"
-#include "private.h"
-
 #include "routing/city_roads.hpp"
 #include "routing/index_router.hpp"
 #include "routing/online_absent_fetcher.hpp"
@@ -108,16 +105,19 @@
 
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
-#include "std/map.hpp"
 #include "std/sstream.hpp"
 #include "std/target_os.hpp"
 
 #include "api/internal/c/api-client-internals.h"
 #include "api/src/c/api-client.h"
 
-#include "3party/Alohalytics/src/alohalytics.h"
-
+#include <map>
 #include <memory>
+
+#include "defines.hpp"
+#include "private.h"
+
+#include "3party/Alohalytics/src/alohalytics.h"
 
 using namespace storage;
 using namespace routing;
@@ -232,7 +232,7 @@ pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
     LocalCountryFile const & localFile)
 {
   LOG(LINFO, ("Loading map:", localFile.GetCountryName()));
-  return m_model.RegisterMap(localFile);
+  return m_featuresFetcher.RegisterMap(localFile);
 }
 
 void Framework::OnLocationError(TLocationError /*error*/)
@@ -391,7 +391,7 @@ void Framework::Migrate(bool keepDownloaded)
   CountriesVec existedCountries;
   GetStorage().DeleteAllLocalMaps(&existedCountries);
   DeregisterAllMaps();
-  m_model.Clear();
+  m_featuresFetcher.Clear();
   GetStorage().Migrate(keepDownloaded ? existedCountries : CountriesVec());
   InitCountryInfoGetter();
   InitSearchAPI();
@@ -400,11 +400,11 @@ void Framework::Migrate(bool keepDownloaded)
   InitTaxiEngine();
   RegisterAllMaps();
   m_notificationManager.SetDelegate(
-    std::make_unique<NotificationManagerDelegate>(m_model.GetDataSource(), *m_cityFinder,
+    std::make_unique<NotificationManagerDelegate>(m_featuresFetcher.GetDataSource(), *m_cityFinder,
                                                   m_addressGetter, *m_ugcApi));
 
   m_trafficManager.SetCurrentDataVersion(GetStorage().GetCurrentDataVersion());
-  m_bmManager->InitRegionAddressGetter(m_model.GetDataSource(), *m_infoGetter);
+  m_bmManager->InitRegionAddressGetter(m_featuresFetcher.GetDataSource(), *m_infoGetter);
   if (m_drapeEngine && m_isRenderingEnabled)
   {
     m_drapeEngine->SetRenderingEnabled();
@@ -423,14 +423,14 @@ Framework::Framework(FrameworkParams const & params)
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_enabledDiffs(params.m_enableDiffs)
   , m_isRenderingEnabled(true)
-  , m_transitManager(m_model.GetDataSource(),
+  , m_transitManager(m_featuresFetcher.GetDataSource(),
                      [this](FeatureCallback const & fn, vector<FeatureID> const & features) {
-                       return m_model.ReadFeatures(fn, features);
+                       return m_featuresFetcher.ReadFeatures(fn, features);
                      },
                      bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
   , m_routingManager(
         RoutingManager::Callbacks(
-            [this]() -> DataSource & { return m_model.GetDataSource(); },
+            [this]() -> DataSource & { return m_featuresFetcher.GetDataSource(); },
             [this]() -> storage::CountryInfoGetter & { return GetCountryInfoGetter(); },
             [this](string const & id) -> string { return m_storage.GetParentIdFor(id); },
             [this]() -> StringsBundle const & { return m_stringsBundle; },
@@ -438,15 +438,15 @@ Framework::Framework(FrameworkParams const & params)
         static_cast<RoutingManager::Delegate &>(*this))
   , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1, false /* rough */),
                      kMaxTrafficCacheSizeBytes, m_routingManager.RoutingSession())
-  , m_bookingFilterProcessor(m_model.GetDataSource(), *m_bookingApi)
+  , m_bookingFilterProcessor(m_featuresFetcher.GetDataSource(), *m_bookingApi)
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
     if (m_drapeEngine != nullptr)
       m_drapeEngine->SetDisplacementMode(mode);
   })
   , m_lastReportedCountry(kInvalidCountryId)
-  , m_popularityLoader(m_model.GetDataSource(), POPULARITY_RANKS_FILE_TAG)
-  , m_descriptionsLoader(std::make_unique<descriptions::Loader>(m_model.GetDataSource()))
+  , m_popularityLoader(m_featuresFetcher.GetDataSource(), POPULARITY_RANKS_FILE_TAG)
+  , m_descriptionsLoader(std::make_unique<descriptions::Loader>(m_featuresFetcher.GetDataSource()))
   , m_purchase(std::make_unique<Purchase>([this] { m_user.ResetAccessToken(); }))
   , m_tipsApi(static_cast<TipsApi::Delegate &>(*this))
 {
@@ -478,8 +478,8 @@ Framework::Framework(FrameworkParams const & params)
   // Wi-Fi string is used in categories that's why does not have core_ prefix
   m_stringsBundle.SetDefaultString("wifi", "WiFi");
 
-  m_model.InitClassificator();
-  m_model.SetOnMapDeregisteredCallback(bind(&Framework::OnMapDeregistered, this, _1));
+  m_featuresFetcher.InitClassificator();
+  m_featuresFetcher.SetOnMapDeregisteredCallback(bind(&Framework::OnMapDeregistered, this, _1));
   LOG(LDEBUG, ("Classificator initialized"));
 
   m_displayedCategories = make_unique<search::DisplayedCategories>(GetDefaultCategories());
@@ -503,7 +503,7 @@ Framework::Framework(FrameworkParams const & params)
       [this](vector<BookmarkGroupInfo> const & marks) { GetSearchAPI().OnBookmarksAttached(marks); },
       [this](vector<BookmarkGroupInfo> const & marks) { GetSearchAPI().OnBookmarksDetached(marks); }));
 
-  m_bmManager->InitRegionAddressGetter(m_model.GetDataSource(), *m_infoGetter);
+  m_bmManager->InitRegionAddressGetter(m_featuresFetcher.GetDataSource(), *m_infoGetter);
 
   m_ParsedMapApi.SetBookmarkManager(m_bmManager.get());
   m_routingManager.SetBookmarkManager(m_bmManager.get());
@@ -516,7 +516,7 @@ Framework::Framework(FrameworkParams const & params)
   {
     auto const userPos = GetCurrentPosition();
     if (userPos)
-      OnRouteStartBuild(m_model.GetDataSource(), points, userPos.get());
+      OnRouteStartBuild(m_featuresFetcher.GetDataSource(), points, userPos.get());
   });
 
   InitCityFinder();
@@ -556,11 +556,11 @@ Framework::Framework(FrameworkParams const & params)
 
   LOG(LINFO, ("System languages:", languages::GetPreferred()));
 
-  editor.SetDelegate(make_unique<search::EditorDelegate>(m_model.GetDataSource()));
+  editor.SetDelegate(make_unique<search::EditorDelegate>(m_featuresFetcher.GetDataSource()));
   editor.SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
   editor.LoadEdits();
 
-  m_model.GetDataSource().AddObserver(editor);
+  m_featuresFetcher.GetDataSource().AddObserver(editor);
 
   LOG(LINFO, ("Editor initialized"));
 
@@ -574,7 +574,7 @@ Framework::Framework(FrameworkParams const & params)
   LOG(LDEBUG, ("Transliterators initialized"));
 
   m_notificationManager.SetDelegate(
-    std::make_unique<NotificationManagerDelegate>(m_model.GetDataSource(), *m_cityFinder,
+    std::make_unique<NotificationManagerDelegate>(m_featuresFetcher.GetDataSource(), *m_cityFinder,
                                                   m_addressGetter, *m_ugcApi));
   m_notificationManager.Load();
   m_notificationManager.TrimExpired();
@@ -588,7 +588,7 @@ Framework::Framework(FrameworkParams const & params)
   GetPowerManager().Subscribe(this);
   GetPowerManager().Load();
 
-  m_promoApi->SetDelegate(make_unique<PromoDelegate>(m_model.GetDataSource(), *m_cityFinder));
+  m_promoApi->SetDelegate(make_unique<PromoDelegate>(m_featuresFetcher.GetDataSource(), *m_cityFinder));
   eye::Eye::Instance().Subscribe(m_promoApi.get());
 }
 
@@ -611,7 +611,7 @@ Framework::~Framework()
   GetBookmarkManager().Teardown();
   m_trafficManager.Teardown();
   DestroyDrapeEngine();
-  m_model.SetOnMapDeregisteredCallback(nullptr);
+  m_featuresFetcher.SetOnMapDeregisteredCallback(nullptr);
 
   m_user.ClearSubscribers();
   // Must be destroyed implicitly, since it stores reference to m_user.
@@ -681,7 +681,7 @@ void Framework::OnCountryFileDownloaded(storage::CountryId const & countryId,
   if (localFile && HasOptions(localFile->GetFiles(), MapOptions::Map))
   {
     // Add downloaded map.
-    auto p = m_model.RegisterMap(*localFile);
+    auto p = m_featuresFetcher.RegisterMap(*localFile);
     MwmSet::MwmId const & id = p.first;
     if (id.IsAlive())
       rect = id.GetInfo()->m_bordersRect;
@@ -710,7 +710,7 @@ bool Framework::OnCountryFileDelete(storage::CountryId const & countryId,
   if (localFile)
   {
     rect = m_infoGetter->GetLimitRectForLeaf(countryId);
-    m_model.DeregisterMap(platform::CountryFile(countryId));
+    m_featuresFetcher.DeregisterMap(platform::CountryFile(countryId));
     deferredDelete = true;
   }
   InvalidateRect(rect);
@@ -747,7 +747,7 @@ bool Framework::HasUnsavedEdits(storage::CountryId const & countryId)
     if (groupNode)
       return;
     hasUnsavedChanges |= osm::Editor::Instance().HaveMapEditsToUpload(
-          m_model.GetDataSource().GetMwmIdByCountryFile(platform::CountryFile(fileName)));
+          m_featuresFetcher.GetDataSource().GetMwmIdByCountryFile(platform::CountryFile(fileName)));
   };
   GetStorage().ForEachInSubtree(countryId, forEachInSubtree);
   return hasUnsavedChanges;
@@ -815,7 +815,7 @@ void Framework::RegisterAllMaps()
 
 void Framework::DeregisterAllMaps()
 {
-  m_model.Clear();
+  m_featuresFetcher.Clear();
   m_storage.Clear();
 }
 
@@ -863,7 +863,7 @@ void Framework::ResetBookmarkInfo(Bookmark const & bmk, place_page::Info & info)
 
 search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const & pt) const
 {
-  return m_addressGetter.GetAddressAtPoint(m_model.GetDataSource(), pt);
+  return m_addressGetter.GetAddressAtPoint(m_featuresFetcher.GetDataSource(), pt);
 }
 
 void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const
@@ -874,7 +874,7 @@ void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) 
     return;
   }
 
-  FeaturesLoaderGuard const guard(m_model.GetDataSource(), fid.m_mwmId);
+  FeaturesLoaderGuard const guard(m_featuresFetcher.GetDataSource(), fid.m_mwmId);
   auto ft = guard.GetFeatureByIndex(fid.m_index);
   if (!ft)
   {
@@ -893,7 +893,7 @@ void Framework::FillPointInfo(place_page::Info & info, m2::PointD const & mercat
 
   if (fid.IsValid())
   {
-    m_model.GetDataSource().ReadFeature(
+    m_featuresFetcher.GetDataSource().ReadFeature(
         [&](FeatureType & ft) { FillInfoFromFeatureType(ft, info); }, fid);
   }
   else
@@ -1107,7 +1107,7 @@ void Framework::FillRoadTypeMarkInfo(RoadWarningMark const & roadTypeMark, place
 {
   if (roadTypeMark.GetFeatureID().IsValid())
   {
-    FeaturesLoaderGuard const guard(m_model.GetDataSource(), roadTypeMark.GetFeatureID().m_mwmId);
+    FeaturesLoaderGuard const guard(m_featuresFetcher.GetDataSource(), roadTypeMark.GetFeatureID().m_mwmId);
     auto ft = guard.GetFeatureByIndex(roadTypeMark.GetFeatureID().m_index);
     if (ft)
     {
@@ -1252,7 +1252,7 @@ void Framework::ShowAll()
 {
   if (m_drapeEngine == nullptr)
     return;
-  m_drapeEngine->SetModelViewAnyRect(m2::AnyRectD(m_model.GetWorldRect()), false /* isAnim */,
+  m_drapeEngine->SetModelViewAnyRect(m2::AnyRectD(m_featuresFetcher.GetWorldRect()), false /* isAnim */,
                                      false /* useVisibleViewport */);
 }
 
@@ -1415,12 +1415,12 @@ bool Framework::IsCountryLoaded(m2::PointD const & pt) const
   if (fName.empty())
     return true;
 
-  return m_model.IsLoaded(fName);
+  return m_featuresFetcher.IsLoaded(fName);
 }
 
 bool Framework::IsCountryLoadedByName(string const & name) const
 {
-  return m_model.IsLoaded(name);
+  return m_featuresFetcher.IsLoaded(name);
 }
 
 void Framework::InvalidateRect(m2::RectD const & rect)
@@ -1431,7 +1431,7 @@ void Framework::InvalidateRect(m2::RectD const & rect)
 
 void Framework::ClearAllCaches()
 {
-  m_model.ClearCaches();
+  m_featuresFetcher.ClearCaches();
   m_infoGetter->ClearCaches();
   GetSearchAPI().ClearCaches();
 }
@@ -1554,7 +1554,7 @@ void Framework::InitUGC()
 {
   ASSERT(!m_ugcApi.get(), ("InitUGC() must be called only once."));
 
-  m_ugcApi = make_unique<ugc::Api>(m_model.GetDataSource(), [this](size_t numberOfUnsynchronized) {
+  m_ugcApi = make_unique<ugc::Api>(m_featuresFetcher.GetDataSource(), [this](size_t numberOfUnsynchronized) {
     if (numberOfUnsynchronized == 0)
       return;
 
@@ -1580,7 +1580,7 @@ void Framework::InitSearchAPI()
   try
   {
     m_searchAPI =
-        make_unique<SearchAPI>(m_model.GetDataSource(), m_storage, *m_infoGetter,
+        make_unique<SearchAPI>(m_featuresFetcher.GetDataSource(), m_storage, *m_infoGetter,
                                static_cast<SearchAPI::Delegate &>(*this));
   }
   catch (RootException const & e)
@@ -1595,7 +1595,7 @@ void Framework::InitDiscoveryManager()
   CHECK(m_cityFinder.get(), ("InitDiscoveryManager() must be called after InitCityFinder()"));
 
   discovery::Manager::APIs const apis(*m_searchAPI, *m_promoApi, *m_localsApi);
-  m_discoveryManager = make_unique<discovery::Manager>(m_model.GetDataSource(), apis);
+  m_discoveryManager = make_unique<discovery::Manager>(m_featuresFetcher.GetDataSource(), apis);
 }
 
 void Framework::InitTransliteration()
@@ -1892,12 +1892,12 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
 {
   auto idReadFn = [this](df::MapDataProvider::TReadCallback<FeatureID const> const & fn,
                          m2::RectD const & r,
-                         int scale) -> void { m_model.ForEachFeatureID(r, fn, scale); };
+                         int scale) -> void { m_featuresFetcher.ForEachFeatureID(r, fn, scale); };
 
   auto featureReadFn = [this](df::MapDataProvider::TReadCallback<FeatureType> const & fn,
                               vector<FeatureID> const & ids) -> void
   {
-    m_model.ReadFeatures(fn, ids);
+    m_featuresFetcher.ReadFeatures(fn, ids);
   };
 
   auto myPositionModeChangedFn = [this](location::EMyPositionMode mode, bool routingActive)
@@ -2330,7 +2330,7 @@ FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator,
   auto haveBuilding = false;
   auto closestDistanceToCenter = numeric_limits<double>::max();
   auto currentDistance = numeric_limits<double>::max();
-  indexer::ForEachFeatureAtPoint(m_model.GetDataSource(), [&](FeatureType & ft)
+  indexer::ForEachFeatureAtPoint(m_featuresFetcher.GetDataSource(), [&](FeatureType & ft)
   {
     if (fullMatch.IsValid())
       return;
@@ -2378,7 +2378,7 @@ osm::MapObject Framework::GetMapObjectByID(FeatureID const & fid) const
 {
   osm::MapObject res;
   ASSERT(fid.IsValid(), ());
-  FeaturesLoaderGuard guard(m_model.GetDataSource(), fid.m_mwmId);
+  FeaturesLoaderGuard guard(m_featuresFetcher.GetDataSource(), fid.m_mwmId);
   auto ft = guard.GetFeatureByIndex(fid.m_index);
   if (ft)
     res.SetFromFeatureType(*ft);
@@ -2577,7 +2577,7 @@ FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator) const
     constexpr int kScale = scales::GetUpperScale();
     constexpr double kSelectRectWidthInMeters = 1.1;
     m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(mercator, kSelectRectWidthInMeters);
-    m_model.ForEachFeature(rect, [&](FeatureType & ft)
+    m_featuresFetcher.ForEachFeature(rect, [&](FeatureType & ft)
     {
       if (!featureId.IsValid() &&
         ft.GetGeomType() == feature::GeomType::Area &&
@@ -2948,7 +2948,7 @@ vector<m2::TriangleD> Framework::GetSelectedFeatureTriangles() const
   if (!m_selectedFeature.IsValid())
     return triangles;
 
-  FeaturesLoaderGuard const guard(m_model.GetDataSource(), m_selectedFeature.m_mwmId);
+  FeaturesLoaderGuard const guard(m_featuresFetcher.GetDataSource(), m_selectedFeature.m_mwmId);
   auto ft = guard.GetFeatureByIndex(m_selectedFeature.m_index);
   if (!ft)
     return triangles;
@@ -3092,7 +3092,7 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
     {
       FeatureID const & fid = edit.first;
 
-      FeaturesLoaderGuard guard(m_model.GetDataSource(), fid.m_mwmId);
+      FeaturesLoaderGuard guard(m_featuresFetcher.GetDataSource(), fid.m_mwmId);
       auto ft = guard.GetFeatureByIndex(fid.m_index);
       if (!ft)
       {
@@ -3133,7 +3133,7 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
       auto const features = FindFeaturesByIndex(index);
       for (auto const & fid : features)
       {
-        FeaturesLoaderGuard guard(m_model.GetDataSource(), fid.m_mwmId);
+        FeaturesLoaderGuard guard(m_featuresFetcher.GetDataSource(), fid.m_mwmId);
         auto ft = guard.GetFeatureByIndex(fid.m_index);
         if (!ft)
           continue;
@@ -3298,7 +3298,7 @@ bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const feat
                                 osm::EditableMapObject & emo) const
 {
   emo = {};
-  auto const & dataSource = m_model.GetDataSource();
+  auto const & dataSource = m_featuresFetcher.GetDataSource();
   MwmSet::MwmId const mwmId = dataSource.GetMwmIdByCountryFile(
         platform::CountryFile(m_infoGetter->GetRegionCountryId(mercator)));
   if (!mwmId.IsAlive())
@@ -3306,11 +3306,11 @@ bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const feat
 
   GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kEditorAddStart, {});
 
-  search::ReverseGeocoder const coder(m_model.GetDataSource());
+  search::ReverseGeocoder const coder(m_featuresFetcher.GetDataSource());
   vector<search::ReverseGeocoder::Street> streets;
 
   coder.GetNearbyStreets(mwmId, mercator, streets);
-  emo.SetNearbyStreets(TakeSomeStreetsAndLocalize(streets, m_model.GetDataSource()));
+  emo.SetNearbyStreets(TakeSomeStreetsAndLocalize(streets, m_featuresFetcher.GetDataSource()));
 
   // TODO(mgsergio): Check emo is a poi. For now it is the only option.
   SetHostingBuildingAddress(FindBuildingAtPoint(mercator), dataSource, coder, emo);
@@ -3323,7 +3323,7 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
   if (!fid.IsValid())
     return false;
 
-  FeaturesLoaderGuard guard(m_model.GetDataSource(), fid.m_mwmId);
+  FeaturesLoaderGuard guard(m_featuresFetcher.GetDataSource(), fid.m_mwmId);
   auto ft = guard.GetFeatureByIndex(fid.m_index);
   if (!ft)
     return false;
@@ -3335,7 +3335,7 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
   auto const & editor = osm::Editor::Instance();
   emo.SetEditableProperties(editor.GetEditableProperties(*ft));
 
-  auto const & dataSource = m_model.GetDataSource();
+  auto const & dataSource = m_featuresFetcher.GetDataSource();
   search::ReverseGeocoder const coder(dataSource);
   SetStreet(coder, dataSource, *ft, emo);
 
@@ -3366,7 +3366,7 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
   {
     auto const isCreatedFeature = editor.IsCreatedFeature(emo.GetID());
 
-    FeaturesLoaderGuard g(m_model.GetDataSource(), emo.GetID().m_mwmId);
+    FeaturesLoaderGuard g(m_featuresFetcher.GetDataSource(), emo.GetID().m_mwmId);
     std::unique_ptr<FeatureType> originalFeature;
     if (!isCreatedFeature)
     {
@@ -3395,7 +3395,7 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
     issueLatLon = MercatorBounds::ToLatLon(feature::GetCenter(*hostingBuildingFeature));
 
     search::ReverseGeocoder::Address hostingBuildingAddress;
-    search::ReverseGeocoder const coder(m_model.GetDataSource());
+    search::ReverseGeocoder const coder(m_featuresFetcher.GetDataSource());
     // The is no address to take from a hosting building. Fallback to simple saving.
     if (!coder.GetExactAddress(*hostingBuildingFeature, hostingBuildingAddress))
       break;
@@ -3615,7 +3615,7 @@ std::vector<std::string> Framework::GetRegionsCountryIdByRect(m2::RectD const & 
 
 void Framework::VisualizeRoadsInRect(m2::RectD const & rect)
 {
-  m_model.ForEachFeature(rect, [this, &rect](FeatureType & ft)
+  m_featuresFetcher.ForEachFeature(rect, [this, &rect](FeatureType & ft)
   {
     if (routing::IsRoad(feature::TypesHolder(ft)))
       VisualizeFeatureInRect(rect, ft, m_drapeApi);
@@ -3662,7 +3662,7 @@ void Framework::VisualizeCityBoundariesInRect(m2::RectD const & rect)
 
 void Framework::VisualizeCityRoadsInRect(m2::RectD const & rect)
 {
-  map<MwmSet::MwmId, unique_ptr<CityRoads>> cityRoads;
+  std::map<MwmSet::MwmId, unique_ptr<CityRoads>> cityRoads;
   GetDataSource().ForEachInRect(
       [this, &rect, &cityRoads](FeatureType & ft) {
         if (ft.GetGeomType() != feature::GeomType::Line)
@@ -3672,7 +3672,7 @@ void Framework::VisualizeCityRoadsInRect(m2::RectD const & rect)
         auto const it = cityRoads.find(mwmId);
         if (it == cityRoads.cend())
         {
-          MwmSet::MwmHandle handle = m_model.GetDataSource().GetMwmHandleById(mwmId);
+          MwmSet::MwmHandle handle = m_featuresFetcher.GetDataSource().GetMwmHandleById(mwmId);
           if (!handle.IsAlive())
             return;
 
@@ -3819,7 +3819,7 @@ vector<MwmSet::MwmId> Framework::GetMwmsByRect(m2::RectD const & rect, bool roug
 
 MwmSet::MwmId Framework::GetMwmIdByName(string const & name) const
 {
-  return m_model.GetDataSource().GetMwmIdByCountryFile(platform::CountryFile(name));
+  return m_featuresFetcher.GetDataSource().GetMwmIdByCountryFile(platform::CountryFile(name));
 }
 
 vector<FeatureID> Framework::FindFeaturesByIndex(uint32_t featureIndex) const
@@ -3842,7 +3842,7 @@ vector<FeatureID> Framework::FindFeaturesByIndex(uint32_t featureIndex) const
 
   for (auto const & mwmId : mwms)
   {
-    FeaturesLoaderGuard const guard(m_model.GetDataSource(), mwmId);
+    FeaturesLoaderGuard const guard(m_featuresFetcher.GetDataSource(), mwmId);
     if (featureIndex < guard.GetNumFeatures() && guard.GetFeatureByIndex(featureIndex))
       result.emplace_back(mwmId, featureIndex);
   }
@@ -3852,7 +3852,7 @@ vector<FeatureID> Framework::FindFeaturesByIndex(uint32_t featureIndex) const
 void Framework::ReadFeatures(function<void(FeatureType &)> const & reader,
                              vector<FeatureID> const & features)
 {
-  m_model.ReadFeatures(reader, features);
+  m_featuresFetcher.ReadFeatures(reader, features);
 }
 
 // RoutingManager::Delegate
@@ -3888,7 +3888,7 @@ void Framework::InitCityFinder()
 {
   ASSERT(!m_cityFinder, ());
 
-  m_cityFinder = make_unique<search::CityFinder>(m_model.GetDataSource());
+  m_cityFinder = make_unique<search::CityFinder>(m_featuresFetcher.GetDataSource());
 }
 
 void Framework::InitTaxiEngine()
@@ -4135,11 +4135,11 @@ TipsApi const & Framework::GetTipsApi() const
 
 bool Framework::HaveTransit(m2::PointD const & pt) const
 {
-  auto const & dataSource = m_model.GetDataSource();
+  auto const & dataSource = m_featuresFetcher.GetDataSource();
   MwmSet::MwmId const mwmId =
       dataSource.GetMwmIdByCountryFile(platform::CountryFile(m_infoGetter->GetRegionCountryId(pt)));
 
-  MwmSet::MwmHandle handle = m_model.GetDataSource().GetMwmHandleById(mwmId);
+  MwmSet::MwmHandle handle = m_featuresFetcher.GetDataSource().GetMwmHandleById(mwmId);
   if (!handle.IsAlive())
     return false;
 
@@ -4160,19 +4160,19 @@ bool Framework::MakePlacePageInfo(NotificationCandidate const & notification,
   m2::RectD rect = MercatorBounds::RectByCenterXYAndOffset(notification.GetPos(), kMwmPointAccuracy);
   bool found = false;
 
-  m_model.GetDataSource().ForEachInRect([this, &info, &notification, &found](FeatureType & ft)
-  {
-   if (found || !feature::GetCenter(ft).EqualDxDy(notification.GetPos(), kMwmPointAccuracy))
-     return;
+  m_featuresFetcher.GetDataSource().ForEachInRect(
+      [this, &info, &notification, &found](FeatureType & ft) {
+        if (found || !feature::GetCenter(ft).EqualDxDy(notification.GetPos(), kMwmPointAccuracy))
+          return;
 
-   auto const foundMapObject = utils::MakeEyeMapObject(ft);
-   if (!foundMapObject.IsEmpty() && notification.IsSameMapObject(foundMapObject))
-   {
-     FillInfoFromFeatureType(ft, info);
-     found = true;
-   }
-  },
-  rect, scales::GetUpperScale());
+        auto const foundMapObject = utils::MakeEyeMapObject(ft);
+        if (!foundMapObject.IsEmpty() && notification.IsSameMapObject(foundMapObject))
+        {
+          FillInfoFromFeatureType(ft, info);
+          found = true;
+        }
+      },
+      rect, scales::GetUpperScale());
 
   return found;
 }

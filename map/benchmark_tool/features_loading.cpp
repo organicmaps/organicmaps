@@ -55,7 +55,7 @@ namespace
     }
   };
 
-  void RunBenchmark(model::FeaturesFetcher const & src, m2::RectD const & rect,
+  void RunBenchmark(FeaturesFetcher const & src, m2::RectD const & rect,
                     pair<int, int> const & scaleRange, AllResult & res)
   {
     ASSERT_LESS_OR_EQUAL(scaleRange.first, scaleRange.second, ());
@@ -103,7 +103,7 @@ void RunFeaturesLoadingBenchmark(string const & file, pair<int, int> scaleRange,
   platform::LocalCountryFile localFile =
       platform::LocalCountryFile::MakeForTesting(fileName);
 
-  model::FeaturesFetcher src;
+  FeaturesFetcher src;
   auto const r = src.RegisterMap(localFile);
   if (r.second != MwmSet::RegResult::Success)
     return;

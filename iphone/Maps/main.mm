@@ -35,7 +35,7 @@ void setPushWooshSender()
 
 void setMarketingSender()
 {
-  GetPlatform().GetMarketingService().SetMarketingSender([](string const & tag, map<string, string> const & params)
+  GetPlatform().GetMarketingService().SetMarketingSender([](string const & tag, std::map<string, string> const & params)
   {
     if (tag.empty())
       return;

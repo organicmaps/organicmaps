@@ -4,11 +4,12 @@
 
 #include "base/logging.hpp"
 
-#include "std/map.hpp"
+#include <map>
+
+using namespace std;
 
 namespace
 {
-
 location::GpsTrackInfo MakeGpsTrackInfo(double timestamp, ms::LatLon const & ll, double speed)
 {
   location::GpsTrackInfo info;
@@ -18,7 +19,6 @@ location::GpsTrackInfo MakeGpsTrackInfo(double timestamp, ms::LatLon const & ll,
   info.m_longitude = ll.m_lon;
   return info;
 }
-
 } // namespace
 
 UNIT_TEST(GpsTrackCollection_Simple)
