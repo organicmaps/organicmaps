@@ -45,7 +45,7 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
                                  MWMPlacePageCellUpdateProtocol,
                                  MWMPlacePageViewUpdateProtocol>
 
-@property(weak, nonatomic) MWMPlacePageData * data;
+@property(strong, nonatomic) MWMPlacePageData * data;
 
 @property(weak, nonatomic) UIView * ownerView;
 @property(weak, nonatomic)
@@ -446,17 +446,18 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
           [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
       auto const row = data.buttonsRows[indexPath.row];
 
-      [c configForRow:row
-            withAction:^{
-              switch (row)
-              {
-              case ButtonsRows::AddPlace: [delegate addPlace]; break;
-              case ButtonsRows::EditPlace: [delegate editPlace]; break;
-              case ButtonsRows::AddBusiness: [delegate addBusiness]; break;
-              case ButtonsRows::HotelDescription: [delegate openDescriptionUrl]; break;
-              case ButtonsRows::Other: NSAssert(false, @"Incorrect row");
-              }
-            }];
+      __weak __typeof(self) ws = self;
+      [c configForRow:row withAction:^{
+        __strong __typeof(self) self = ws;
+        switch (row)
+        {
+          case ButtonsRows::AddPlace: [delegate addPlace]; break;
+          case ButtonsRows::EditPlace: [delegate editPlace]; break;
+          case ButtonsRows::AddBusiness: [delegate addBusiness]; break;
+          case ButtonsRows::HotelDescription: [delegate openDescriptionUrl]; break;
+          case ButtonsRows::Other: NSAssert(false, @"Incorrect row");
+        }
+      }];
       // Hotel description button is always enabled.
       c.enabled = self.buttonsSectionEnabled || (row == ButtonsRows::HotelDescription);
       return c;
@@ -649,7 +650,9 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
           [tableView beginUpdates];
           [tableView endUpdates];
         };
+        __weak __typeof(self) ws = self;
         cell.onGoToCatalog = ^{
+          __strong __typeof(self) self = ws;
           NSURL *url = [NSURL URLWithString:item.catalogUrl];
           [self.delegate openCatalogForURL:url];
         };
@@ -778,7 +781,9 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
   if (!data)
     return;
 
+  __weak __typeof(self) ws = self;
   data.refreshPreviewCallback = ^{
+    __strong __typeof(self) self = ws;
     auto tv = self.placePageView.tableView;
     [tv reloadSections:[NSIndexSet indexSetWithIndex:0]
         withRowAnimation:UITableViewRowAnimationFade];
@@ -788,6 +793,7 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
   };
 
   data.sectionsAreReadyCallback = ^(NSRange const & range, MWMPlacePageData * d, BOOL isSection) {
+    __strong __typeof(self) self = ws;
     if (![self.data isEqual:d])
       return;
     
@@ -807,10 +813,12 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
   };
 
   data.bannerIsReadyCallback = ^{
+    __strong __typeof(self) self = ws;
     [self.previewLayoutHelper insertRowAtTheEnd];
   };
-  
+
   data.refreshPromoCallback = ^{
+    __strong __typeof(self) self = ws;
     auto tv = self.placePageView.tableView;
     [tv reloadSections:[NSIndexSet indexSetWithIndex:1]
       withRowAnimation:UITableViewRowAnimationFade];
