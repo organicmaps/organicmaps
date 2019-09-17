@@ -16,7 +16,7 @@ import java.util.List;
 
 class CatalogPromoAdapterStrategy extends RegularAdapterStrategy<PromoEntity>
 {
-  private static final int MAX_ITEMS = 4;
+  private static final int MAX_ITEMS = 3;
 
   CatalogPromoAdapterStrategy(@NonNull List<PromoEntity> items, @Nullable PromoEntity moreItem,
                               @Nullable ItemSelectedListener<PromoEntity> listener)
