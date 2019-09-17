@@ -290,7 +290,6 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
 
   m_turnNotificationsMgr.SetSpeedMetersPerSecond(info.m_speedMpS);
   bool movedIterator, closerToFake;
-  m_route->SetFakeSegmentsOnPolyline();
   std::tie(movedIterator, closerToFake) = m_route->MoveIteratorToReal(info);
 
   if (movedIterator)

@@ -1352,6 +1352,7 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
     if (!segment.IsRealSegment())
       starter.ConvertToReal(segment);
   }
+  route.SetFakeSegmentsOnPolyline();
 
   vector<platform::CountryFile> speedCamProhibited;
   FillSpeedCamProhibitedMwms(segments, speedCamProhibited);
