@@ -1,4 +1,4 @@
-package com.mapswithme.maps.bookmarks;
+package com.mapswithme.maps.widget.placepage;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

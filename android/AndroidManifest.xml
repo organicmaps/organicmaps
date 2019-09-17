@@ -460,7 +460,7 @@
       android:name="com.mapswithme.maps.ugc.routes.UgcRoutePropertiesActivity"
       android:label="@string/select_properties"/>
     <activity
-      android:name="com.mapswithme.maps.bookmarks.PlaceDescriptionActivity"
+      android:name="com.mapswithme.maps.widget.placepage.PlaceDescriptionActivity"
       android:label="@string/place_description_title"/>
     <activity
       android:name="com.mapswithme.maps.ugc.routes.EditCategoryNameActivity"
