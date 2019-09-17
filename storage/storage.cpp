@@ -284,6 +284,7 @@ void Storage::RegisterAllLocalMaps(bool enableDiffs)
       LocalCountryFile & localFile = *j;
       LOG(LINFO, ("Removing obsolete", localFile));
       localFile.SyncWithDisk();
+
       DeleteFromDiskWithIndexes(localFile, MapOptions::MapWithCarRouting);
       DeleteFromDiskWithIndexes(localFile, MapOptions::Diff);
       ++j;
@@ -927,8 +928,11 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapOptions op
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  auto const fn = [this, countryId](bool isSuccess) {
+  auto const fn = [this, countryId, options](bool isSuccess) {
     CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+    LOG(LINFO, ("Registering downloaded file:", countryId, options, "; success:", isSuccess));
+
     if (!isSuccess)
     {
       OnMapDownloadFailed(countryId);
@@ -1540,6 +1544,8 @@ void Storage::LoadDiffScheme()
 
 void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSuccess)> const & fn)
 {
+  LOG(LINFO, ("Applying diff for", countryId));
+
   m_diffsCancellable.Reset();
   auto const diffLocalFile = PreparePlaceForCountryFiles(GetCurrentDataVersion(), m_dataDir,
                                                          GetCountryFile(countryId));
@@ -1576,6 +1582,8 @@ void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSucces
           auto realResult = result;
           if (m_diffsBeingApplied.count(countryId) == 0 && realResult == DiffApplicationResult::Ok)
             realResult = DiffApplicationResult::Cancelled;
+
+          LOG(LINFO, ("Diff application result for", countryId, ":", realResult));
 
           m_latestDiffRequest = {};
           m_diffsBeingApplied.erase(countryId);

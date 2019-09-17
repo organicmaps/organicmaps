@@ -95,7 +95,7 @@ void Manager::ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancella
         result = DiffApplicationResult::Failed;
       }
 
-      base::DeleteFileX(diffApplyingInProgressPath);
+      Platform::RemoveFileIfExists(diffApplyingInProgressPath);
 
       if (result != DiffApplicationResult::Ok)
         Platform::RemoveFileIfExists(newMwmPath);

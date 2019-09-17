@@ -122,12 +122,8 @@ public:
   /// Resets editor to initial state: no any edits or created/deleted features.
   void ClearAllLocalEdits();
 
-  void OnMapUpdated(platform::LocalCountryFile const &,
-                    platform::LocalCountryFile const &) override
-  {
-    LoadEdits();
-  }
-
+  // MwmSet::Observer overrides:
+  void OnMapRegistered(platform::LocalCountryFile const & localFile) override;
   void OnMapDeregistered(platform::LocalCountryFile const & localFile) override;
 
   using FeatureIndexFunctor = std::function<void(uint32_t)>;

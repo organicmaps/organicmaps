@@ -184,7 +184,6 @@ public:
     {
       TYPE_REGISTERED,
       TYPE_DEREGISTERED,
-      TYPE_UPDATED,
     };
 
     Event() = default;
@@ -248,18 +247,11 @@ public:
   public:
     virtual ~Observer() = default;
 
-    // Called when a map is registered for a first time and can be
-    // used.
-    virtual void OnMapRegistered(platform::LocalCountryFile const & /*localFile*/) {}
-
-    // Called when a map is updated to a newer version. Feel free to
-    // treat it as combined OnMapRegistered(newFile) +
-    // OnMapDeregistered(oldFile).
-    virtual void OnMapUpdated(platform::LocalCountryFile const & /*newFile*/,
-                              platform::LocalCountryFile const & /*oldFile*/) {}
+    // Called when a map is registered for the first time and can be used.
+    virtual void OnMapRegistered(platform::LocalCountryFile const & /* localFile */) {}
 
     // Called when a map is deregistered and can no longer be used.
-    virtual void OnMapDeregistered(platform::LocalCountryFile const & /*localFile*/) {}
+    virtual void OnMapDeregistered(platform::LocalCountryFile const & /* localFile */) {}
   };
 
   /// Registers a new map.

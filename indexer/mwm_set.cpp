@@ -112,17 +112,8 @@ pair<MwmSet::MwmId, MwmSet::RegResult> MwmSet::Register(LocalCountryFile const &
     // Deregister old mwm for the country.
     if (info->GetVersion() < localFile.GetVersion())
     {
-      EventList subEvents;
-      DeregisterImpl(id, subEvents);
-      result = RegisterImpl(localFile, subEvents);
-
-      // In the case of success all sub-events are
-      // replaced with a single UPDATE event. Otherwise,
-      // sub-events are reported as is.
-      if (result.second == MwmSet::RegResult::Success)
-        events.Add(Event(Event::TYPE_UPDATED, localFile, info->GetLocalFile()));
-      else
-        events.Append(subEvents);
+      DeregisterImpl(id, events);
+      result = RegisterImpl(localFile, events);
       return;
     }
 
@@ -239,7 +230,8 @@ void MwmSet::SetStatus(MwmInfo & info, MwmInfo::Status status, EventList & event
   case MwmInfo::STATUS_REGISTERED:
     events.Add(Event(Event::TYPE_REGISTERED, info.GetLocalFile()));
     break;
-  case MwmInfo::STATUS_MARKED_TO_DEREGISTER: break;
+  case MwmInfo::STATUS_MARKED_TO_DEREGISTER:
+    break;
   case MwmInfo::STATUS_DEREGISTERED:
     events.Add(Event(Event::TYPE_DEREGISTERED, info.GetLocalFile()));
     break;
@@ -254,9 +246,6 @@ void MwmSet::ProcessEventList(EventList & events)
     {
     case Event::TYPE_REGISTERED:
       m_observers.ForEach(&Observer::OnMapRegistered, event.m_file);
-      break;
-    case Event::TYPE_UPDATED:
-      m_observers.ForEach(&Observer::OnMapUpdated, event.m_file, event.m_oldFile);
       break;
     case Event::TYPE_DEREGISTERED:
       m_observers.ForEach(&Observer::OnMapDeregistered, event.m_file);
@@ -456,7 +445,6 @@ string DebugPrint(MwmSet::Event::Type type)
   switch (type)
   {
     case MwmSet::Event::TYPE_REGISTERED: return "Registered";
-    case MwmSet::Event::TYPE_UPDATED: return "Updated";
     case MwmSet::Event::TYPE_DEREGISTERED: return "Deregistered";
   }
   return "Undefined";
@@ -465,9 +453,6 @@ string DebugPrint(MwmSet::Event::Type type)
 string DebugPrint(MwmSet::Event const & event)
 {
   ostringstream os;
-  os << "MwmSet::Event [" << DebugPrint(event.m_type) << ", " << DebugPrint(event.m_file);
-  if (event.m_type == MwmSet::Event::TYPE_UPDATED)
-    os << ", " << DebugPrint(event.m_oldFile);
-  os << "]";
+  os << "MwmSet::Event [" << DebugPrint(event.m_type) << ", " << DebugPrint(event.m_file) << "]";
   return os.str();
 }

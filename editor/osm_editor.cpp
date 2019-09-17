@@ -302,6 +302,11 @@ void Editor::ClearAllLocalEdits()
   Invalidate();
 }
 
+void Editor::OnMapRegistered(platform::LocalCountryFile const & localFile)
+{
+  LoadEdits();
+}
+
 void Editor::OnMapDeregistered(platform::LocalCountryFile const & localFile)
 {
   // Can be called on non-main-thread in case of simultaneous uploading process.

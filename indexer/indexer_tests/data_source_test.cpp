@@ -38,12 +38,6 @@ public:
     AddEvent(m_expected, MwmSet::Event::TYPE_REGISTERED, localFile);
   }
 
-  void ExpectUpdated(platform::LocalCountryFile const & newFile,
-                     platform::LocalCountryFile const & oldFile)
-  {
-    AddEvent(m_expected, MwmSet::Event::TYPE_UPDATED, newFile, oldFile);
-  }
-
   void ExpectDeregistered(platform::LocalCountryFile const & localFile)
   {
     AddEvent(m_expected, MwmSet::Event::TYPE_DEREGISTERED, localFile);
@@ -67,12 +61,6 @@ public:
   void OnMapRegistered(platform::LocalCountryFile const & localFile) override
   {
     AddEvent(m_actual, MwmSet::Event::TYPE_REGISTERED, localFile);
-  }
-
-  void OnMapUpdated(platform::LocalCountryFile const & newFile,
-                    platform::LocalCountryFile const & oldFile) override
-  {
-    AddEvent(m_actual, MwmSet::Event::TYPE_UPDATED, newFile, oldFile);
   }
 
   void OnMapDeregistered(platform::LocalCountryFile const & localFile) override
@@ -107,7 +95,7 @@ UNIT_CLASS_TEST(DataSourceTest, StatusNotifications)
   CountryFile const country("minsk-pass");
 
   // These two classes point to the same file, but will be considered
-  // by Index as distinct files because versions are artificially set
+  // by DataSource as distinct files because versions are artificially set
   // to different numbers.
   LocalCountryFile const file1(mapsDir, country, 1 /* version */);
   LocalCountryFile const file2(mapsDir, country, 2 /* version */);
@@ -147,7 +135,8 @@ UNIT_CLASS_TEST(DataSourceTest, StatusNotifications)
     TEST(id2.IsAlive(), ());
     TEST_NOT_EQUAL(id1, id2, ());
 
-    ExpectUpdated(file2, file1);
+    ExpectDeregistered(file1);
+    ExpectRegistered(file2);
     TEST(CheckExpectations(), ());
   }
 

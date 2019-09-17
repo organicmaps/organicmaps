@@ -75,8 +75,6 @@ public:
   m2::RectD GetWorldRect() const;
 
   // MwmSet::Observer overrides:
-  void OnMapUpdated(platform::LocalCountryFile const & newFile,
-                    platform::LocalCountryFile const & oldFile) override;
   void OnMapDeregistered(platform::LocalCountryFile const & localFile) override;
 
 private:

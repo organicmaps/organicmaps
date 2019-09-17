@@ -78,17 +78,8 @@ m2::RectD FeaturesFetcher::GetWorldRect() const
   return m_rect;
 }
 
-void FeaturesFetcher::OnMapUpdated(platform::LocalCountryFile const & newFile,
-                                   platform::LocalCountryFile const & oldFile)
-{
-  if (m_onMapDeregistered)
-    m_onMapDeregistered(oldFile);
-}
-
 void FeaturesFetcher::OnMapDeregistered(platform::LocalCountryFile const & localFile)
 {
   if (m_onMapDeregistered)
-  {
     m_onMapDeregistered(localFile);
-  }
 }
