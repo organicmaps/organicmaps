@@ -105,10 +105,16 @@ double Route::GetCurrentTimeToEndSec() const
   double const etaToLastPassedPointS = GetETAToLastPassedPointSec();
   double const curSegLenMeters = GetSegLenMeters(curIter.m_ind);
   double const totalTimeS = GetTotalTimeSec();
+  double const fromLastPassedPointToEndSec = totalTimeS - etaToLastPassedPointS;
   // Note. If a segment is short it does not make any sense to take into account time needed
   // to path its part.
   if (base::AlmostEqualAbs(curSegLenMeters, 0.0, 1.0 /* meters */))
-    return totalTimeS - etaToLastPassedPointS;
+    return fromLastPassedPointToEndSec;
+
+  CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
+  // Pure fake edges should not be taken into account while ETA calculation.
+  if (!m_routeSegments[curIter.m_ind].GetSegment().IsRealSegment())
+    return fromLastPassedPointToEndSec;
 
   double const curSegTimeS = GetTimeToPassSegSec(curIter.m_ind);
   CHECK_GREATER(curSegTimeS, 0, ("Route can't contain segments with infinite speed."));
