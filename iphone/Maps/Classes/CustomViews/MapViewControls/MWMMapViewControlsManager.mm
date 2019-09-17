@@ -263,6 +263,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   auto nm = self.navigationManager;
   [nm onRoutePrepare];
   [nm onRoutePointsUpdated];
+  self.crownButton.hidden = YES;
 }
 
 - (void)onRouteRebuild
@@ -271,12 +272,14 @@ extern NSString * const kAlohalyticsTapEventKey;
     self.searchManager.state = MWMSearchManagerStateHidden;
 
   [self.navigationManager onRoutePlanning];
+  self.crownButton.hidden = YES;
 }
 
 - (void)onRouteReady:(BOOL)hasWarnings
 {
   self.searchManager.state = MWMSearchManagerStateHidden;
   [self.navigationManager onRouteReady:hasWarnings];
+  self.crownButton.hidden = YES;
 }
 
 - (void)onRouteStart
@@ -287,6 +290,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.disableStandbyOnRouteFollowing = YES;
   self.trafficButtonHidden = YES;
   [self.navigationManager onRouteStart];
+  self.crownButton.hidden = YES;
 }
 
 - (void)onRouteStop
@@ -296,6 +300,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.navigationManager onRouteStop];
   self.disableStandbyOnRouteFollowing = NO;
   self.trafficButtonHidden = NO;
+  self.crownButton.hidden = NO;
 }
 
 - (void)onCrown:(UIButton *)sender {
