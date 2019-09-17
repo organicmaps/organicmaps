@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
-    implements TargetFragmentCallback, AlertDialogCallback
+    implements TargetFragmentCallback, AlertDialogCallback, AuthCompleteListener
 {
   final static String ARG_CATEGORIES_PAGE = "arg_categories_page";
   final static String ARG_CATALOG_DEEPLINK = "arg_catalog_deeplink";
@@ -186,6 +186,12 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   public void onAlertDialogCancel(int requestCode)
   {
     mInvalidSubsDialogCallback.onAlertDialogCancel(requestCode);
+  }
+
+  @Override
+  public void onAuthCompleted()
+  {
+    mViewPager.setAdapter(mAdapter);
   }
 
   private class PageChangeListener extends ViewPager.SimpleOnPageChangeListener

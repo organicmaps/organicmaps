@@ -3,6 +3,7 @@ package com.mapswithme.maps.bookmarks;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 
 import com.cocosw.bottomsheet.BottomSheet;
@@ -25,7 +26,12 @@ public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
     super.onPrepareControllers(view);
     Authorizer authorizer = new Authorizer(this);
     BookmarkBackupView backupView = view.findViewById(R.id.backup);
-    mBackupController = new BookmarkBackupController(getActivity(), backupView, authorizer);
+    FragmentManager fm = requireActivity().getSupportFragmentManager();
+    BookmarkCategoriesPagerFragment fragment =
+        (BookmarkCategoriesPagerFragment) fm.findFragmentByTag(BookmarkCategoriesPagerFragment.class.getName());
+
+    mBackupController = new BookmarkBackupController(requireActivity(), backupView, authorizer,
+                                                     new AuthCompleteListenerWrapper(fragment));
   }
 
   @Override
@@ -72,5 +78,23 @@ public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
     setEnableForMenuItem(R.id.delete, bottomSheet, isMultipleItems);
     setEnableForMenuItem(R.id.sharing_options, bottomSheet,
                          getSelectedCategory().isSharingOptionsAllowed());
+  }
+
+  private static class AuthCompleteListenerWrapper implements AuthCompleteListener
+  {
+    @Nullable
+    private final AuthCompleteListener mFragment;
+
+    AuthCompleteListenerWrapper(@Nullable BookmarkCategoriesPagerFragment fragment)
+    {
+      mFragment = fragment;
+    }
+
+    @Override
+    public void onAuthCompleted()
+    {
+      if (mFragment != null)
+        mFragment.onAuthCompleted();
+    }
   }
 }
