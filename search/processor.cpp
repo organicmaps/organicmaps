@@ -7,6 +7,7 @@
 #include "search/intermediate_result.hpp"
 #include "search/latlon_match.hpp"
 #include "search/mode.hpp"
+#include "search/postcode_points.hpp"
 #include "search/pre_ranking_info.hpp"
 #include "search/query_params.hpp"
 #include "search/ranking_info.hpp"
@@ -27,6 +28,7 @@
 #include "indexer/feature_impl.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/postcodes_matcher.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -152,15 +154,16 @@ Processor::Processor(DataSource const & dataSource, CategoriesHolder const & cat
                      storage::CountryInfoGetter const & infoGetter)
   : m_categories(categories)
   , m_infoGetter(infoGetter)
+  , m_dataSource(dataSource)
   , m_villagesCache(static_cast<base::Cancellable const &>(*this))
   , m_localitiesCache(static_cast<base::Cancellable const &>(*this))
-  , m_citiesBoundaries(dataSource)
+  , m_citiesBoundaries(m_dataSource)
   , m_keywordsScorer(LanguageTier::LANGUAGE_TIER_COUNT)
-  , m_ranker(dataSource, m_citiesBoundaries, infoGetter, m_keywordsScorer, m_emitter, categories,
+  , m_ranker(m_dataSource, m_citiesBoundaries, infoGetter, m_keywordsScorer, m_emitter, categories,
              suggests, m_villagesCache, static_cast<base::Cancellable const &>(*this))
-  , m_preRanker(dataSource, m_ranker)
-  , m_geocoder(dataSource, infoGetter, categories, m_citiesBoundaries, m_preRanker, m_villagesCache,
-               m_localitiesCache, static_cast<base::Cancellable const &>(*this))
+  , m_preRanker(m_dataSource, m_ranker)
+  , m_geocoder(m_dataSource, infoGetter, categories, m_citiesBoundaries, m_preRanker,
+               m_villagesCache, m_localitiesCache, static_cast<base::Cancellable const &>(*this))
   , m_bookmarksProcessor(m_emitter, static_cast<base::Cancellable const &>(*this))
 {
   // Current and input langs are to be set later.
@@ -466,6 +469,7 @@ void Processor::Search(SearchParams const & params)
     {
       SearchCoordinates();
       SearchPlusCode();
+      SearchPostcode();
       if (viewportSearch)
       {
         m_geocoder.GoInViewport();
@@ -532,6 +536,48 @@ void Processor::SearchPlusCode()
       m_ranker.MakeResult(RankerResult(area.GetCenter().latitude, area.GetCenter().longitude),
                           true /* needAddress */, false /* needHighlighting */));
   m_emitter.Emit();
+}
+
+void Processor::SearchPostcode()
+{
+  // Create a copy of the query to trim it in-place.
+  string query(m_query);
+  strings::Trim(query);
+
+  if (!LooksLikePostcode(query, !m_prefix.empty()))
+    return;
+
+  vector<shared_ptr<MwmInfo>> infos;
+  m_dataSource.GetMwmsInfo(infos);
+
+  for (auto const & info : infos)
+  {
+    auto handle = m_dataSource.GetMwmHandleById(MwmSet::MwmId(info));
+    if (!handle.IsAlive())
+      continue;
+    auto & value = *handle.GetValue<MwmValue>();
+    if (!value.m_cont.IsExist(POSTCODE_POINTS_FILE_TAG))
+      continue;
+
+    PostcodePoints postcodes(value);
+
+    vector<m2::PointD> points;
+    postcodes.Get(NormalizeAndSimplifyString(query), points);
+    if (points.empty())
+      continue;
+
+    m2::RectD r;
+    for (auto const & p : points)
+      r.Add(p);
+
+    auto const center = r.Center();
+    auto const lat = MercatorBounds::YToLat(center.y);
+    auto const lon = MercatorBounds::XToLon(center.x);
+    m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(lat, lon), true /* needAddress */,
+                                                    false /* needHighlighting */));
+    m_emitter.Emit();
+    return;
+  }
 }
 
 void Processor::SearchBookmarks(bookmarks::GroupId const & groupId)
