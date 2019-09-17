@@ -1335,24 +1335,22 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   {
     routeSegment.SetTransitInfo(worldGraph.GetTransitInfo(routeSegment.GetSegment()));
 
+    auto & segment = routeSegment.GetSegment();
     // Removing speed cameras from the route with method AreSpeedCamerasProhibited(...)
     // at runtime is necessary for maps from Jan 2019 with speed cameras where it's prohibited
     // to use them.
     if (m_vehicleType == VehicleType::Car)
     {
-      auto & segment = routeSegment.GetSegment();
       routeSegment.SetRoadTypes(starter.GetRoutingOptions(segment));
-
-      if (segment.IsRealSegment())
+      if (segment.IsRealSegment() &&
+          !AreSpeedCamerasProhibited(m_numMwmIds->GetFile(segment.GetMwmId())))
       {
-        if (!AreSpeedCamerasProhibited(m_numMwmIds->GetFile(segment.GetMwmId())))
-          routeSegment.SetSpeedCameraInfo(worldGraph.GetSpeedCamInfo(segment));
-      }
-      else
-      {
-        starter.ConvertToReal(segment);
+        routeSegment.SetSpeedCameraInfo(worldGraph.GetSpeedCamInfo(segment));
       }
     }
+
+    if (!segment.IsRealSegment())
+      starter.ConvertToReal(segment);
   }
 
   vector<platform::CountryFile> speedCamProhibited;
