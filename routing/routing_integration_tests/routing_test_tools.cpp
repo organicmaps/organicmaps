@@ -4,7 +4,7 @@
 
 #include "testing/testing.hpp"
 
-#include "map/feature_vec_model.hpp"
+#include "map/features_fetcher.hpp"
 
 #include "storage/routing_helpers.hpp"
 

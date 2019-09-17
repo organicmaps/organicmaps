@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "map/feature_vec_model.hpp"
+#include "map/features_fetcher.hpp"
 
 #include "indexer/scales.hpp"
 

@@ -1,6 +1,6 @@
 #include "map/benchmark_tool/api.hpp"
 
-#include "map/feature_vec_model.hpp"
+#include "map/features_fetcher.hpp"
 
 #include "indexer/feature_visibility.hpp"
 #include "indexer/scales.hpp"

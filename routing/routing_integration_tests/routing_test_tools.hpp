@@ -5,7 +5,7 @@
 
 #include "storage/country_info_getter.hpp"
 
-#include "map/feature_vec_model.hpp"
+#include "map/features_fetcher.hpp"
 
 #include "platform/local_country_file.hpp"
 

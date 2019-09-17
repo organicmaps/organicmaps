@@ -53,8 +53,8 @@ set(
   everywhere_search_params.hpp
   extrapolation/extrapolator.cpp
   extrapolation/extrapolator.hpp
-  feature_vec_model.cpp
-  feature_vec_model.hpp
+  features_fetcher.cpp
+  features_fetcher.hpp
   framework.cpp
   framework.hpp
   framework_light.cpp

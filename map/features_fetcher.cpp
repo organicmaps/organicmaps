@@ -1,4 +1,4 @@
-#include "map/feature_vec_model.hpp"
+#include "map/features_fetcher.hpp"
 
 #include "platform/platform.hpp"
 

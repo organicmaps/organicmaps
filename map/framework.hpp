@@ -8,7 +8,7 @@
 #include "map/caching_address_getter.hpp"
 #include "map/discovery/discovery_manager.hpp"
 #include "map/displacement_mode_manager.hpp"
-#include "map/feature_vec_model.hpp"
+#include "map/features_fetcher.hpp"
 #include "map/local_ads_manager.hpp"
 #include "map/mwm_url.hpp"
 #include "map/notifications/notification_manager.hpp"
