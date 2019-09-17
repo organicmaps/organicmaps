@@ -256,7 +256,7 @@ public:
       if (s.GetJunction().GetAltitude() == feature::kInvalidAltitude)
       {
         m_haveAltitudes = false;
-        return;
+        break;
       }
     }
   }
@@ -327,6 +327,10 @@ public:
   /// @return true  If position was updated successfully (projection within gps error radius).
   bool MoveIterator(location::GpsInfo const & info);
 
+  /// @return pair of vals: first = true if position was updated successfully to real segment,
+  /// second = true if position is closer to the fake segment
+  std::pair<bool, bool> MoveIteratorToReal(location::GpsInfo const & info);
+
   void MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
 
   /// Add country name if we have no country filename to make route
@@ -392,7 +396,9 @@ public:
 
 private:
   friend std::string DebugPrint(Route const & r);
-
+public:
+  void SetFakeSegmentsOnPolyline();
+private:
   double GetPolySegAngle(size_t ind) const;
   void GetClosestTurn(size_t segIdx, turns::TurnItem & turn) const;
   size_t ConvertPointIdxToSegmentIdx(size_t pointIdx) const;

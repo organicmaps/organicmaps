@@ -247,6 +247,27 @@ bool Route::MoveIterator(location::GpsInfo const & info)
   return res.IsValid();
 }
 
+void Route::SetFakeSegmentsOnPolyline()
+{
+  std::vector<size_t> fakeSegmentIndexes{};
+  auto const & segs = GetRouteSegments();
+  for(size_t i = 0; i < segs.size(); ++i)
+  {
+    if(!segs[i].GetSegment().IsRealSegment())
+      fakeSegmentIndexes.push_back(i);
+  }
+  m_poly.SetUnmatchedSegmentIndexes(fakeSegmentIndexes);
+}
+
+std::pair<bool, bool> Route::MoveIteratorToReal(location::GpsInfo const & info)
+{
+  m2::RectD const rect = MercatorBounds::MetersToXY(
+      info.m_longitude, info.m_latitude,
+      max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
+
+  return m_poly.UpdateMatchedProjection(rect);
+}
+
 double Route::GetPolySegAngle(size_t ind) const
 {
   size_t const polySz = m_poly.GetPolyline().GetSize();

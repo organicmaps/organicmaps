@@ -72,6 +72,13 @@ public:
   double GetDistanceM(Iter const & it1, Iter const & it2) const;
 
   Iter UpdateProjectionByPrediction(m2::RectD const & posRect, double predictDistance);
+
+  /// \brief set indexes of all unmatched segments on route
+  void SetUnmatchedSegmentIndexes(std::vector<size_t> const & unmatchedSegmentIndexes);
+
+  /// \brief Updates projection to the closest real segment if possible
+  std::pair<bool, bool>  UpdateMatchedProjection(m2::RectD const & posRect);
+
   Iter UpdateProjection(m2::RectD const & posRect);
 
   Iter Begin() const;
@@ -115,6 +122,48 @@ public:
     return res;
   }
 
+  /// \returns pair of iterator (projection point) and bool (true if nearest point is on unmatched segment)
+  template <typename DistanceFn>
+  std::pair<Iter, bool> GetClosestMatchedProjectionInInterval(m2::RectD const & posRect, DistanceFn const & distFn,
+                                                              size_t startIdx, size_t endIdx) const
+  {
+    CHECK_LESS_OR_EQUAL(endIdx, m_segProj.size(), ());
+    CHECK_LESS_OR_EQUAL(startIdx, endIdx, ());
+    Iter nearestIter;
+    double minDist = std::numeric_limits<double>::max();
+    double minDistUnmatched = minDist;
+
+    m2::PointD const currPos = posRect.Center();
+
+    for (size_t i = startIdx; i < endIdx; ++i)
+    {
+      m2::PointD const & pt = m_segProj[i].ClosestPointTo(currPos);
+
+      if (!posRect.IsPointInside(pt))
+        continue;
+
+      Iter it(pt, i);
+      double const dp = distFn(it);
+      if(dp >= minDistUnmatched && dp >= minDist)
+        continue;
+
+      if (std::find(m_unmatchedSegmentIndexes.begin(), m_unmatchedSegmentIndexes.end(), it.m_ind) == m_unmatchedSegmentIndexes.end())
+      {
+        if(minDist > dp) // overwrite best match for matched segment
+        {
+          minDist = dp;
+          nearestIter = it;
+        }
+      }
+      else
+      {
+        if(minDistUnmatched > dp) // overwrite best match for unmatched segment
+          minDistUnmatched = dp;
+      }
+    }
+    return std::make_pair(nearestIter, minDistUnmatched < minDist);
+  }
+
 private:
   /// \returns iterator to the best projection of center of |posRect| to the |m_poly|.
   /// If there's a good projection of center of |posRect| to two closest segments of |m_poly|
@@ -123,9 +172,14 @@ private:
   template <typename DistanceFn>
   Iter GetBestProjection(m2::RectD const & posRect, DistanceFn const & distFn) const;
 
+  template <class DistanceFn>
+  std::pair<Iter, bool> GetBestMatchedProjection(m2::RectD const & posRect,
+                                                 DistanceFn const & distFn) const;
+
   void Update();
 
   m2::PolylineD m_poly;
+  std::vector<size_t> m_unmatchedSegmentIndexes;
 
   /// Iterator with the current position. Position sets with UpdateProjection methods.
   Iter m_current;
