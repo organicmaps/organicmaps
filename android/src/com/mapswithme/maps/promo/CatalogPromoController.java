@@ -16,8 +16,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.Detachable;
+import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
-import com.mapswithme.maps.widget.placepage.PlaceDescriptionActivity;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.impl.Factory;
@@ -33,8 +33,6 @@ import com.mapswithme.util.statistics.GalleryPlacement;
 import com.mapswithme.util.statistics.GalleryState;
 import com.mapswithme.util.statistics.GalleryType;
 import com.mapswithme.util.statistics.Statistics;
-
-import java.util.Objects;
 
 public class CatalogPromoController implements Promo.Listener, Detachable<Activity>
 {
@@ -68,9 +66,6 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
   @Override
   public void onCityGalleryReceived(@NonNull PromoCityGallery promo)
   {
-    if (mActivity == null)
-      throw new AssertionError("Activity cannot be null if promo listener is triggered!");
-
     Sponsored sponsored = mPlacePageView.getSponsored();
     if (sponsored == null)
       return;
@@ -100,9 +95,6 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
 
   public void updateCatalogPromo(@NonNull NetworkPolicy policy, @Nullable MapObject mapObject)
   {
-    if (mActivity == null)
-      throw new AssertionError("Activity must be non-null at this point!");
-
     UiUtils.hide(mPlacePageView, R.id.catalog_promo_container);
 
     Sponsored sponsored = mPlacePageView.getSponsored();
@@ -161,6 +153,15 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
       return new SinglePromoResponseHandler(type);
 
     return new GalleryPromoResponseHandler(type);
+  }
+
+  @NonNull
+  private Activity requireActivity()
+  {
+    if (mActivity == null)
+      throw new AssertionError("Activity must be non-null at this point!");
+
+    return mActivity;
   }
 
   interface PromoRequester
@@ -256,9 +257,7 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
       TextView poiDescription = mPlacePageView.findViewById(R.id.promo_poi_description);
       poiDescription.setText(Html.fromHtml(place.getDescription()));
       View more = mPlacePageView.findViewById(R.id.promo_poi_more);
-      more.setOnClickListener(v -> PlaceDescriptionActivity.start(mPlacePageView.getContext(),
-                                                                  place.getDescription(),
-                                                                  Statistics.ParamValue.MAPSME_GUIDES));
+      more.setOnClickListener(v -> onMoreDescriptionClicked(item.getUrl()));
 
       Statistics.INSTANCE.trackGalleryShown(GalleryType.PROMO, GalleryState.ONLINE, placement, 1);
     }
@@ -268,6 +267,13 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
       BookmarksCatalogActivity.start(mPlacePageView.getContext(), url);
       Statistics.INSTANCE.trackGalleryProductItemSelected(GalleryType.PROMO, placement, 0,
                                                           Destination.CATALOGUE);
+    }
+
+    private void onMoreDescriptionClicked(@NonNull String url)
+    {
+      BookmarksCatalogActivity.startForResult(requireActivity(),
+                                              BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
+                                              url);
     }
   }
 
@@ -303,9 +309,9 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
       String url = promo.getMoreUrl();
       GalleryPlacement placement = isSightseeings ? GalleryPlacement.PLACEPAGE_SIGHTSEEINGS :
                                    GalleryPlacement.PLACEPAGE_LARGE_TOPONYMS;
-      RegularCatalogPromoListener promoListener = new RegularCatalogPromoListener(Objects.requireNonNull(mActivity),
+      RegularCatalogPromoListener promoListener = new RegularCatalogPromoListener(requireActivity(),
                                                                                   placement);
-      GalleryAdapter adapter = Factory.createCatalogPromoAdapter(mActivity, promo, url,
+      GalleryAdapter adapter = Factory.createCatalogPromoAdapter(requireActivity(), promo, url,
                                                                  promoListener, placement);
       mRecycler.setAdapter(adapter);
     }
