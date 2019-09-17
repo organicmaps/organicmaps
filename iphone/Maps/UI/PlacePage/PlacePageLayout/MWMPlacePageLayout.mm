@@ -651,7 +651,7 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
           [tableView endUpdates];
         };
         __weak __typeof(self) ws = self;
-        cell.onGoToCatalog = ^{
+        cell.onView = ^{
           __strong __typeof(self) self = ws;
           NSURL *url = [NSURL URLWithString:item.catalogUrl];
           [self.delegate openCatalogForURL:url];

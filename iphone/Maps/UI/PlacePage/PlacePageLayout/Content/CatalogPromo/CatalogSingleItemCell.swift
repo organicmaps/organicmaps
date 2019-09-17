@@ -10,7 +10,7 @@
   @IBOutlet var guideContainerView: UIView!
 
   @objc var onMore: MWMVoidBlock?
-  @objc var onGoToCatalog: MWMVoidBlock?
+  @objc var onView: MWMVoidBlock?
 
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -29,13 +29,10 @@
   }
   
   @IBAction func onMoreButton(_ sender: UIButton) {
-    moreButton.isHidden = true
-    moreButtonHeightConstraint.constant = 0
-    placeDescriptionLabel.numberOfLines = 0
-    onMore?()
+    onView?()
   }
 
   @IBAction func onCatalogButton(_ sender: UIButton) {
-    onGoToCatalog?()
+    onView?()
   }
 }
