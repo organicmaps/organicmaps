@@ -15,7 +15,7 @@ import com.mapswithme.maps.widget.BookmarkBackupView;
 import com.mapswithme.util.UiUtils;
 
 public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
-    implements TargetFragmentCallback
+    implements TargetFragmentCallback, AuthCompleteListener
 {
   @Nullable
   private BookmarkBackupController mBackupController;
@@ -26,12 +26,10 @@ public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
     super.onPrepareControllers(view);
     Authorizer authorizer = new Authorizer(this);
     BookmarkBackupView backupView = view.findViewById(R.id.backup);
-    FragmentManager fm = requireActivity().getSupportFragmentManager();
-    BookmarkCategoriesPagerFragment fragment =
-        (BookmarkCategoriesPagerFragment) fm.findFragmentByTag(BookmarkCategoriesPagerFragment.class.getName());
+
 
     mBackupController = new BookmarkBackupController(requireActivity(), backupView, authorizer,
-                                                     new AuthCompleteListenerWrapper(fragment));
+                                                     this);
   }
 
   @Override
@@ -80,21 +78,12 @@ public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
                          getSelectedCategory().isSharingOptionsAllowed());
   }
 
-  private static class AuthCompleteListenerWrapper implements AuthCompleteListener
+  @Override
+  public void onAuthCompleted()
   {
-    @Nullable
-    private final AuthCompleteListener mFragment;
-
-    AuthCompleteListenerWrapper(@Nullable BookmarkCategoriesPagerFragment fragment)
-    {
-      mFragment = fragment;
-    }
-
-    @Override
-    public void onAuthCompleted()
-    {
-      if (mFragment != null)
-        mFragment.onAuthCompleted();
-    }
+    FragmentManager fm = requireActivity().getSupportFragmentManager();
+    BookmarkCategoriesPagerFragment pagerFragment =
+        (BookmarkCategoriesPagerFragment) fm.findFragmentByTag(BookmarkCategoriesPagerFragment.class.getName());
+    pagerFragment.onAuthCompleted();
   }
 }
