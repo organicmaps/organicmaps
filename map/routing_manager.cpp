@@ -232,8 +232,12 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(vector<RouteSegment> const & segment
   subroute->m_baseDistance = baseDistance;
   subroute->m_baseDepthIndex = baseDepth;
 
+  auto constexpr kBias = 1.0;
+
   if (isTransit)
   {
+    subroute->m_headFakeDistance = -kBias;
+    subroute->m_tailFakeDistance = kBias;
     subroute->m_polyline.Add(startPt);
     return subroute;
   }
@@ -276,7 +280,6 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(vector<RouteSegment> const & segment
     CHECK_NOT_EQUAL(lastReal, kInvalidId, ());
 
     auto constexpr kEps = 1e-5;
-    auto constexpr kBias = 1.0;
 
     // To prevent visual artefacts, in the case when all head segments are real
     // m_headFakeDistance must be less than 0.0.
