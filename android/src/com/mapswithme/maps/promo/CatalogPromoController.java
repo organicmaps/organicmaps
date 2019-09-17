@@ -41,28 +41,28 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
   @Nullable
   private Activity mActivity;
   @NonNull
-  private RecyclerView mPromoRecycler;
+  private RecyclerView mRecycler;
   @NonNull
-  private TextView mPromoTitle;
+  private TextView mTitle;
   @NonNull
   private final PlacePageView mPlacePageView;
   @Nullable
-  private PromoRequester mPromoRequester;
+  private PromoRequester mRequester;
 
   public CatalogPromoController(@NonNull PlacePageView placePageView)
   {
     mPlacePageView = placePageView;
-    mPromoRecycler = mPlacePageView.findViewById(R.id.catalog_promo_recycler);
-    mPromoTitle = mPlacePageView.findViewById(R.id.catalog_promo_title);
-    mPromoRecycler.setNestedScrollingEnabled(false);
+    mRecycler = mPlacePageView.findViewById(R.id.catalog_promo_recycler);
+    mTitle = mPlacePageView.findViewById(R.id.catalog_promo_title);
+    mRecycler.setNestedScrollingEnabled(false);
     LinearLayoutManager layoutManager = new LinearLayoutManager(mPlacePageView.getContext(),
                                                                 LinearLayoutManager.HORIZONTAL,
                                                                 false);
-    mPromoRecycler.setLayoutManager(layoutManager);
+    mRecycler.setLayoutManager(layoutManager);
     RecyclerView.ItemDecoration decor =
         ItemDecoratorFactory.createPlacePagePromoGalleryDecorator(mPlacePageView.getContext(),
                                                                   LinearLayoutManager.HORIZONTAL);
-    mPromoRecycler.addItemDecoration(decor);
+    mRecycler.addItemDecoration(decor);
   }
 
   @Override
@@ -85,11 +85,11 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
   @Override
   public void onErrorReceived()
   {
-    if (mPromoRequester == null)
+    if (mRequester == null)
       return;
 
     GalleryPlacement placement;
-    if (mPromoRequester.getSponsoredType() == Sponsored.TYPE_PROMO_CATALOG_CITY)
+    if (mRequester.getSponsoredType() == Sponsored.TYPE_PROMO_CATALOG_CITY)
       placement = GalleryPlacement.PLACEPAGE_LARGE_TOPONYMS;
     else
       placement = GalleryPlacement.PLACEPAGE_SIGHTSEEINGS;
@@ -109,11 +109,11 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
     if (sponsored == null || mapObject == null)
       return;
 
-    mPromoRequester = createPromoRequester(sponsored.getType());
-    if (mPromoRequester == null)
+    mRequester = createPromoRequester(sponsored.getType());
+    if (mRequester == null)
       return;
 
-    mPromoRequester.requestPromo(policy, mapObject);
+    mRequester.requestPromo(policy, mapObject);
   }
 
   @Override
@@ -227,8 +227,8 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
       UiUtils.show(mPlacePageView, R.id.catalog_promo_container,
                    R.id.promo_poi_description_container, R.id.promo_poi_description_divider,
                    R.id.promo_poi_card);
-      UiUtils.hide(mPromoRecycler);
-      mPromoTitle.setText(R.string.pp_discovery_place_related_header);
+      UiUtils.hide(mRecycler);
+      mTitle.setText(R.string.pp_discovery_place_related_header);
 
       final PromoCityGallery.Item item = items[0];
       final GalleryPlacement placement = mSponsoredType == Sponsored.TYPE_PROMO_CATALOG_SIGHTSEEINGS
@@ -299,7 +299,7 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
         title = resources.getString(R.string.pp_discovery_place_related_tag_header, promo.getCategory());
       else
         title = resources.getString(R.string.guides);
-      mPromoTitle.setText(title);
+      mTitle.setText(title);
 
       String url = promo.getMoreUrl();
       GalleryPlacement placement = isSightseeings ? GalleryPlacement.PLACEPAGE_SIGHTSEEINGS :
@@ -308,7 +308,7 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
                                                                                   placement);
       GalleryAdapter adapter = Factory.createCatalogPromoAdapter(mActivity, promo, url,
                                                                  promoListener, placement);
-      mPromoRecycler.setAdapter(adapter);
+      mRecycler.setAdapter(adapter);
     }
   }
 }
