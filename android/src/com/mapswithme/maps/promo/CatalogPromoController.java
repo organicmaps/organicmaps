@@ -260,8 +260,7 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
                                                                   place.getDescription(),
                                                                   Statistics.ParamValue.MAPSME_GUIDES));
 
-      Statistics.INSTANCE.trackGalleryShown(GalleryType.PROMO, GalleryState.OFFLINE,
-                                            placement, 1);
+      Statistics.INSTANCE.trackGalleryShown(GalleryType.PROMO, GalleryState.ONLINE, placement, 1);
     }
 
     private void onCtaClicked(@NonNull GalleryPlacement placement, @NonNull String url)
