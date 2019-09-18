@@ -590,6 +590,14 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return urlString ? [NSURL URLWithString:urlString] : nil;
 }
 
+- (NSURL * _Nullable)injectCatalogUTMContent:(NSURL * _Nullable)url content:(MWMUTMContent)content {
+  if (!url)
+    return nil;
+  NSString * urlString = @(InjectUTMContent(std::string(url.absoluteString.UTF8String),
+                                            (UTMContent)content).c_str());
+  return urlString ? [NSURL URLWithString:urlString] : nil;
+}
+
 - (NSURL * _Nullable)catalogFrontendUrlPlusPath:(NSString *)path
                                             utm:(MWMUTM)utm
 {

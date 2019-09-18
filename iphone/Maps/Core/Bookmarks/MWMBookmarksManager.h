@@ -68,6 +68,7 @@ typedef void (^PingCompletionBlock)(BOOL success);
 - (BOOL)areNotificationsEnabled;
 
 - (NSURL * _Nullable)catalogFrontendUrl:(MWMUTM)utm;
+- (NSURL * _Nullable)injectCatalogUTMContent:(NSURL * _Nullable)url content:(MWMUTMContent)content;
 - (NSURL * _Nullable)catalogFrontendUrlPlusPath:(NSString *)path
                                             utm:(MWMUTM)utm;
 - (NSURL *_Nullable)deeplinkForCategoryId:(MWMMarkGroupID)groupId;

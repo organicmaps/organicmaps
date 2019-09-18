@@ -1,4 +1,4 @@
-// This enumeration must correspond to C++ enumeration in partners_api/utm.hpp.
+// These enumerations must correspond to C++ enumeration in partners_api/utm.hpp.
 typedef NS_ENUM(NSInteger, MWMUTM) {
   MWMUTMNone = 0,
   MWMUTMBookmarksPageCatalogButton,
@@ -10,4 +10,10 @@ typedef NS_ENUM(NSInteger, MWMUTM) {
   MWMUTMTipsAndTricks,
   MWMUTMBookingPromo,
   MWMUTMCrownButton,
+};
+
+typedef NS_ENUM(NSInteger, MWMUTMContent) {
+  MWMUTMContentDescription = 0,
+  MWMUTMContentView,
+  MWMUTMContentDetails,
 };

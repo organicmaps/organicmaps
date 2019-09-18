@@ -1020,6 +1020,14 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCatalogFrontend
   return ToJavaString(env, bm.GetCatalog().GetFrontendUrl(static_cast<UTM>(utm)));
 }
 
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeInjectCatalogUTMContent(JNIEnv * env,
+        jobject, jstring url, jint content)
+{
+  return ToJavaString(env, InjectUTMContent(ToNativeString(env, url),
+                                            static_cast<UTMContent>(content)));
+}
+
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsCategoryFromCatalog(
         JNIEnv *, jobject, jlong catId)

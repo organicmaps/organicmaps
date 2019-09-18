@@ -19,6 +19,13 @@ enum class UTM : uint8_t
   CrownButton,
 };
 
+enum class UTMContent : uint8_t
+{
+  Description = 0,
+  View,
+  Details,
+};
+
 inline std::string InjectUTM(std::string const & url, UTM utm)
 {
   base::url::Params params;
@@ -63,6 +70,24 @@ inline std::string InjectUTM(std::string const & url, UTM utm)
     break;
   case UTM::None:
     return url;
+  }
+  return base::url::Make(url, params);
+}
+
+inline std::string InjectUTMContent(std::string const & url, UTMContent content)
+{
+  base::url::Params params;
+  switch (content)
+  {
+  case UTMContent::Description:
+    params.emplace_back("utm_content", "description");
+    break;
+  case UTMContent::View:
+    params.emplace_back("utm_content", "view");
+    break;
+  case UTMContent::Details:
+    params.emplace_back("utm_content", "details");
+    break;
   }
   return base::url::Make(url, params);
 }

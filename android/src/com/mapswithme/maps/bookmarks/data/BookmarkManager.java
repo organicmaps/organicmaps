@@ -718,6 +718,12 @@ public enum BookmarkManager
   }
 
   @NonNull
+  public String injectCatalogUTMContent(@NonNull String url,  @UTM.UTMContentType int content)
+  {
+    return nativeInjectCatalogUTMContent(url, content);
+  }
+
+  @NonNull
   public String getGuidesIds()
   {
     return nativeGuidesIds();
@@ -928,6 +934,10 @@ public enum BookmarkManager
 
   @NonNull
   private static native String nativeGetCatalogFrontendUrl(@UTM.UTMType int utm);
+
+  @NonNull
+  private static native String nativeInjectCatalogUTMContent(@NonNull String url,
+                                                             @UTM.UTMContentType int content);
 
   private static native boolean nativeIsCategoryFromCatalog(long catId);
 
