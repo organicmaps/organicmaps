@@ -253,7 +253,7 @@ FollowedPolyline::UpdatedProjection FollowedPolyline::GetClosestMatchedProjectio
     if (dp >= minDistUnmatched && dp >= minDist)
       continue;
 
-    if (std::binary_search(m_unmatchedSegmentIndexes.begin(), m_unmatchedSegmentIndexes.end(), it.m_ind))
+    if (!std::binary_search(m_unmatchedSegmentIndexes.begin(), m_unmatchedSegmentIndexes.end(), it.m_ind))
     {
       if (minDist > dp) // overwrite best match for matched segment
       {
