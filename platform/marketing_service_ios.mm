@@ -1,22 +1,22 @@
 #include "platform/marketing_service.hpp"
 
-void MarketingService::SendPushWooshTag(string const & tag)
+void MarketingService::SendPushWooshTag(std::string const & tag)
 {
-  SendPushWooshTag(tag, vector<string>{"1"});
+  SendPushWooshTag(tag, std::vector<std::string>{"1"});
 }
 
-void MarketingService::SendPushWooshTag(string const & tag, string const & value)
+void MarketingService::SendPushWooshTag(std::string const & tag, std::string const & value)
 {
-  SendPushWooshTag(tag, vector<string>{value});
+  SendPushWooshTag(tag, std::vector<std::string>{value});
 }
 
-void MarketingService::SendPushWooshTag(string const & tag, vector<string> const & values)
+void MarketingService::SendPushWooshTag(std::string const & tag, std::vector<std::string> const & values)
 {
   if (m_pushwooshSender)
     m_pushwooshSender(tag, values);
 }
 
-void MarketingService::SendMarketingEvent(string const & tag, std::map<string, string> const & params)
+void MarketingService::SendMarketingEvent(std::string const & tag, std::map<std::string, std::string> const & params)
 {
   if (m_marketingSender)
     m_marketingSender(tag, params);

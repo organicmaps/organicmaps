@@ -4,14 +4,15 @@
 
 #include "base/logging.hpp"
 
+#include <string>
+
 #include <QtCore/QFile>
 #include <QtGui/QIcon>
-
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QTextBrowser>
+#include <QtWidgets/QVBoxLayout>
 
 #ifdef USE_DESIGNER_VERSION
   #include "designer_version.h"
@@ -50,7 +51,7 @@ AboutDialog::AboutDialog(QWidget * parent)
   hBox->addLayout(versionBox);
 #endif
 
-  string aboutText;
+  std::string aboutText;
   try
   {
     ReaderPtr<Reader> reader = GetPlatform().GetReader("copyright.html");

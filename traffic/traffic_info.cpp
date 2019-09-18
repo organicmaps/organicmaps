@@ -23,16 +23,17 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/limits.hpp"
-#include "std/sstream.hpp"
-#include "std/string.hpp"
+#include <algorithm>
+#include <limits>
+#include <sstream>
+#include <string>
 
 #include "defines.hpp"
-
 #include "private.h"
 
 #include "3party/Alohalytics/src/alohalytics.h"
+
+using namespace std;
 
 namespace traffic
 {

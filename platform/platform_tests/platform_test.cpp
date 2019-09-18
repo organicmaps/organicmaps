@@ -4,8 +4,6 @@
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
-#include "defines.hpp"
-
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 
@@ -13,21 +11,25 @@
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
-#include "std/bind.hpp"
-#include "std/initializer_list.hpp"
-#include "std/set.hpp"
+#include <functional>
+#include <initializer_list>
+#include <set>
+#include <string>
+#include <utility>
+
+#include "defines.hpp"
 
 namespace
 {
 char const * TEST_FILE_NAME = "some_temporary_unit_test_file.tmp";
 
-void CheckFilesPresence(string const & baseDir, unsigned typeMask,
-                        initializer_list<pair<string, size_t>> const & files)
+void CheckFilesPresence(std::string const & baseDir, unsigned typeMask,
+                        std::initializer_list<std::pair<std::string, size_t>> const & files)
 {
   Platform::TFilesWithType fwts;
   Platform::GetFilesByType(baseDir, typeMask, fwts);
 
-  multiset<string> filesSet;
+  std::multiset<std::string> filesSet;
   for (auto const & fwt : fwts)
     filesSet.insert(fwt.first);
 
@@ -38,7 +40,7 @@ void CheckFilesPresence(string const & baseDir, unsigned typeMask,
 
 UNIT_TEST(WritableDir)
 {
-  string const path = GetPlatform().WritableDir() + TEST_FILE_NAME;
+  std::string const path = GetPlatform().WritableDir() + TEST_FILE_NAME;
 
   try
   {
@@ -56,8 +58,8 @@ UNIT_TEST(WritableDir)
 UNIT_TEST(WritablePathForFile)
 {
   Platform & pl = GetPlatform();
-  string const p1 = pl.WritableDir() + TEST_FILE_NAME;
-  string const p2 = pl.WritablePathForFile(TEST_FILE_NAME);
+  std::string const p1 = pl.WritableDir() + TEST_FILE_NAME;
+  std::string const p2 = pl.WritablePathForFile(TEST_FILE_NAME);
   TEST_EQUAL(p1, p2, ());
 }
 
@@ -94,7 +96,7 @@ UNIT_TEST(GetFilesInDir_Smoke)
   Platform & pl = GetPlatform();
   Platform::FilesList files1, files2;
 
-  string const dir = pl.ResourcesDir();
+  std::string const dir = pl.ResourcesDir();
 
   pl.GetFilesByExt(dir, DATA_FILE_EXTENSION, files1);
   TEST_GREATER(files1.size(), 0, (dir, "folder should contain some data files"));
@@ -109,9 +111,9 @@ UNIT_TEST(GetFilesInDir_Smoke)
 
 UNIT_TEST(DirsRoutines)
 {
-  string const baseDir = GetPlatform().WritableDir();
-  string const testDir = base::JoinPath(baseDir, "test-dir");
-  string const testFile = base::JoinPath(testDir, "test-file");
+  std::string const baseDir = GetPlatform().WritableDir();
+  std::string const testDir = base::JoinPath(baseDir, "test-dir");
+  std::string const testFile = base::JoinPath(testDir, "test-file");
 
   TEST(!Platform::IsFileExistsByFullPath(testDir), ());
   TEST_EQUAL(Platform::MkDir(testDir), Platform::ERR_OK, ());
@@ -132,16 +134,16 @@ UNIT_TEST(DirsRoutines)
 
 UNIT_TEST(GetFilesByType)
 {
-  string const kTestDirBaseName = "test-dir";
-  string const kTestFileBaseName = "test-file";
+  std::string const kTestDirBaseName = "test-dir";
+  std::string const kTestFileBaseName = "test-file";
 
-  string const baseDir = GetPlatform().WritableDir();
+  std::string const baseDir = GetPlatform().WritableDir();
 
-  string const testDir = base::JoinPath(baseDir, kTestDirBaseName);
+  std::string const testDir = base::JoinPath(baseDir, kTestDirBaseName);
   TEST_EQUAL(Platform::MkDir(testDir), Platform::ERR_OK, ());
   SCOPE_GUARD(removeTestDir, bind(&Platform::RmDir, testDir));
 
-  string const testFile = base::JoinPath(baseDir, kTestFileBaseName);
+  std::string const testFile = base::JoinPath(baseDir, kTestFileBaseName);
   TEST(!Platform::IsFileExistsByFullPath(testFile), ());
   {
     FileWriter writer(testFile);
@@ -179,7 +181,7 @@ UNIT_TEST(GetFileSize)
   TEST(!pl.GetFileSizeByName("adsmngfuwrbfyfwe", size), ());
   TEST(!pl.IsFileExistsByFullPath("adsmngfuwrbfyfwe"), ());
 
-  string const fileName = pl.WritablePathForFile(TEST_FILE_NAME);
+  std::string const fileName = pl.WritablePathForFile(TEST_FILE_NAME);
   {
     FileWriter testFile(fileName);
     testFile.Write("HOHOHO", 6);
@@ -216,15 +218,15 @@ UNIT_TEST(GetWritableStorageStatus)
 
 UNIT_TEST(RmDirRecursively)
 {
-  string const testDir1 = base::JoinPath(GetPlatform().WritableDir(), "test_dir1");
+  std::string const testDir1 = base::JoinPath(GetPlatform().WritableDir(), "test_dir1");
   TEST_EQUAL(Platform::MkDir(testDir1), Platform::ERR_OK, ());
   SCOPE_GUARD(removeTestDir1, bind(&Platform::RmDir, testDir1));
 
-  string const testDir2 = base::JoinPath(testDir1, "test_dir2");
+  std::string const testDir2 = base::JoinPath(testDir1, "test_dir2");
   TEST_EQUAL(Platform::MkDir(testDir2), Platform::ERR_OK, ());
   SCOPE_GUARD(removeTestDir2, bind(&Platform::RmDir, testDir2));
 
-  string const filePath = base::JoinPath(testDir2, "test_file");
+  std::string const filePath = base::JoinPath(testDir2, "test_file");
   {
     FileWriter testFile(filePath);
     testFile.Write("HOHOHO", 6);

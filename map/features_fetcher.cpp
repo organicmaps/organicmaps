@@ -31,7 +31,7 @@ void FeaturesFetcher::InitClassificator()
   }
 }
 
-pair<MwmSet::MwmId, MwmSet::RegResult> FeaturesFetcher::RegisterMap(
+std::pair<MwmSet::MwmId, MwmSet::RegResult> FeaturesFetcher::RegisterMap(
     LocalCountryFile const & localFile)
 {
   try
@@ -54,7 +54,7 @@ pair<MwmSet::MwmId, MwmSet::RegResult> FeaturesFetcher::RegisterMap(
   catch (RootException const & ex)
   {
     LOG(LERROR, ("IO error while adding", localFile.GetCountryName(), "map.", ex.Msg()));
-    return make_pair(MwmSet::MwmId(), MwmSet::RegResult::BadFile);
+    return std::make_pair(MwmSet::MwmId(), MwmSet::RegResult::BadFile);
   }
 }
 

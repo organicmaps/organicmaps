@@ -70,7 +70,7 @@ void ScoreCandidatePointsGetter::EnrichWithProjectionPoints(m2::PointD const & p
 {
   m_graph.ResetFakes();
 
-  vector<pair<Graph::Edge, Junction>> vicinities;
+  std::vector<std::pair<Graph::Edge, Junction>> vicinities;
   m_graph.FindClosestEdges(p, static_cast<uint32_t>(m_maxProjectionCandidates), vicinities);
   for (auto const & v : vicinities)
   {

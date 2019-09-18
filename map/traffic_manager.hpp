@@ -15,17 +15,16 @@
 
 #include "base/thread.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/atomic.hpp"
-#include "std/chrono.hpp"
-#include "std/condition_variable.hpp"
-#include "std/mutex.hpp"
-#include "std/set.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
-
+#include <algorithm>
+#include <atomic>
+#include <chrono>
+#include <condition_variable>
 #include <map>
+#include <mutex>
+#include <set>
+#include <string>
+#include <utility>
+#include <vector>
 
 class TrafficManager final
 {
@@ -90,14 +89,14 @@ private:
   struct CacheEntry
   {
     CacheEntry();
-    CacheEntry(time_point<steady_clock> const & requestTime);
+    CacheEntry(std::chrono::time_point<std::chrono::steady_clock> const & requestTime);
 
     bool m_isLoaded;
     size_t m_dataSize;
 
-    time_point<steady_clock> m_lastActiveTime;
-    time_point<steady_clock> m_lastRequestTime;
-    time_point<steady_clock> m_lastResponseTime;
+    std::chrono::time_point<std::chrono::steady_clock> m_lastActiveTime;
+    std::chrono::time_point<std::chrono::steady_clock> m_lastRequestTime;
+    std::chrono::time_point<std::chrono::steady_clock> m_lastResponseTime;
 
     int m_retriesCount;
     bool m_isWaitingForResponse;
@@ -106,7 +105,7 @@ private:
   };
 
   void ThreadRoutine();
-  bool WaitForRequest(vector<MwmSet::MwmId> & mwms);
+  bool WaitForRequest(std::vector<MwmSet::MwmId> & mwms);
 
   void OnTrafficDataResponse(traffic::TrafficInfo && info);
   void OnTrafficRequestFailed(traffic::TrafficInfo && info);
@@ -116,8 +115,8 @@ private:
   /// \note |lastMwmsByRect|/|activeMwms| may be either |m_lastDrapeMwmsByRect/|m_activeDrapeMwms|
   /// or |m_lastRoutingMwmsByRect|/|m_activeRoutingMwms|.
   /// \note |m_mutex| is locked inside the method. So the method should be called without |m_mutex|.
-  void UpdateActiveMwms(m2::RectD const & rect, vector<MwmSet::MwmId> & lastMwmsByRect,
-                        set<MwmSet::MwmId> & activeMwms);
+  void UpdateActiveMwms(m2::RectD const & rect, std::vector<MwmSet::MwmId> & lastMwmsByRect,
+                        std::set<MwmSet::MwmId> & activeMwms);
 
   // This is a group of methods that haven't their own synchronization inside.
   void RequestTrafficData();
@@ -132,7 +131,7 @@ private:
 
   bool IsInvalidState() const;
 
-  void UniteActiveMwms(set<MwmSet::MwmId> & activeMwms) const;
+  void UniteActiveMwms(std::set<MwmSet::MwmId> & activeMwms) const;
 
   void Pause();
   void Resume();
@@ -140,22 +139,22 @@ private:
   template <class F>
   void ForEachActiveMwm(F && f) const
   {
-    set<MwmSet::MwmId> activeMwms;
+    std::set<MwmSet::MwmId> activeMwms;
     UniteActiveMwms(activeMwms);
-    for_each(activeMwms.begin(), activeMwms.end(), forward<F>(f));
+    std::for_each(activeMwms.begin(), activeMwms.end(), std::forward<F>(f));
   }
 
   GetMwmsByRectFn m_getMwmsByRectFn;
   traffic::TrafficObserver & m_observer;
 
   df::DrapeEngineSafePtr m_drapeEngine;
-  atomic<int64_t> m_currentDataVersion;
+  std::atomic<int64_t> m_currentDataVersion;
 
   // These fields have a flag of their initialization.
-  pair<MyPosition, bool> m_currentPosition = {MyPosition(), false};
-  pair<ScreenBase, bool> m_currentModelView = {ScreenBase(), false};
+  std::pair<MyPosition, bool> m_currentPosition = {MyPosition(), false};
+  std::pair<ScreenBase, bool> m_currentModelView = {ScreenBase(), false};
 
-  atomic<TrafficState> m_state;
+  std::atomic<TrafficState> m_state;
   TrafficStateChangedFn m_onStateChangedFn;
 
   bool m_hasSimplifiedColorScheme = true;
@@ -166,23 +165,23 @@ private:
   std::map<MwmSet::MwmId, CacheEntry> m_mwmCache;
 
   bool m_isRunning;
-  condition_variable m_condition;
+  std::condition_variable m_condition;
 
-  vector<MwmSet::MwmId> m_lastDrapeMwmsByRect;
-  set<MwmSet::MwmId> m_activeDrapeMwms;
-  vector<MwmSet::MwmId> m_lastRoutingMwmsByRect;
-  set<MwmSet::MwmId> m_activeRoutingMwms;
+  std::vector<MwmSet::MwmId> m_lastDrapeMwmsByRect;
+  std::set<MwmSet::MwmId> m_activeDrapeMwms;
+  std::vector<MwmSet::MwmId> m_lastRoutingMwmsByRect;
+  std::set<MwmSet::MwmId> m_activeRoutingMwms;
 
   // The ETag or entity tag is part of HTTP, the protocol for the World Wide Web.
   // It is one of several mechanisms that HTTP provides for web cache validation,
   // which allows a client to make conditional requests.
-  std::map<MwmSet::MwmId, string> m_trafficETags;
+  std::map<MwmSet::MwmId, std::string> m_trafficETags;
 
-  atomic<bool> m_isPaused;
+  std::atomic<bool> m_isPaused;
 
-  vector<MwmSet::MwmId> m_requestedMwms;
-  mutex m_mutex;
+  std::vector<MwmSet::MwmId> m_requestedMwms;
+  std::mutex m_mutex;
   threads::SimpleThread m_thread;
 };
 
-extern string DebugPrint(TrafficManager::TrafficState state);
+extern std::string DebugPrint(TrafficManager::TrafficState state);

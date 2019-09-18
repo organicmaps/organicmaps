@@ -13,7 +13,7 @@ namespace
 {
 bool Save(std::string const & filename, std::vector<int8_t> const & src)
 {
-  return base::WriteToTempAndRenameToFile(filename, [&src](string const & fileName)
+  return base::WriteToTempAndRenameToFile(filename, [&src](std::string const & fileName)
   {
     try
     {

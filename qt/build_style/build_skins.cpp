@@ -1,15 +1,18 @@
-#include "build_skins.h"
-#include "build_common.h"
+#include "qt/build_style/build_skins.h"
+
+#include "qt/build_style/build_common.h"
 
 #include "platform/platform.hpp"
 
-#include <array>
 #include <algorithm>
+#include <array>
 #include <exception>
+#include <fstream>
+#include <functional>
+#include <string>
 #include <tuple>
 #include <unordered_map>
 #include <utility>
-#include <fstream>
 
 #include <QtCore/QDir>
 
@@ -67,8 +70,9 @@ class RAII
 public:
   RAII(std::function<void()> && f) : m_f(std::move(f)) {}
   ~RAII() { m_f(); }
+
 private:
-  function<void()> const m_f;
+  std::function<void()> const m_f;
 };
 
 std::string trim(std::string && s)
@@ -80,12 +84,12 @@ std::string trim(std::string && s)
 
 namespace build_style
 {
-std::unordered_map<string, int> GetSkinSizes(QString const & file)
+std::unordered_map<std::string, int> GetSkinSizes(QString const & file)
 {
-  std::unordered_map<string, int> skinSizes;
+  std::unordered_map<std::string, int> skinSizes;
 
   for (SkinType s : g_skinTypes)
-    skinSizes.insert(make_pair(SkinSuffix(s), SkinSize(s)));
+    skinSizes.insert(std::make_pair(SkinSuffix(s), SkinSize(s)));
 
   try
   {
@@ -148,8 +152,8 @@ void BuildSkinImpl(QString const & styleDir, QString const & suffix,
   // Prepare command line
   QStringList params;
   params << GetSkinGeneratorPath() <<
-          "--symbolWidth" << to_string(size).c_str() <<
-          "--symbolHeight" << to_string(size).c_str() <<
+          "--symbolWidth" << std::to_string(size).c_str() <<
+          "--symbolHeight" << std::to_string(size).c_str() <<
           "--symbolsDir" << symbolsDir <<
           "--skinName" << JoinPathQt({outputDir, "basic"}) <<
           "--skinSuffix=\"\"";
@@ -163,7 +167,7 @@ void BuildSkinImpl(QString const & styleDir, QString const & suffix,
   // If script returns non zero then it is error
   if (res.first != 0)
   {
-    QString msg = QString("System error ") + to_string(res.first).c_str();
+    QString msg = QString("System error ") + std::to_string(res.first).c_str();
     if (!res.second.isEmpty())
       msg = msg + "\n" + res.second;
     throw std::runtime_error(to_string(msg));

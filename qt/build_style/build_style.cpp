@@ -10,6 +10,7 @@
 
 #include <exception>
 #include <future>
+#include <string>
 
 #include <QtCore/QFile>
 #include <QtCore/QDir>
@@ -124,7 +125,7 @@ void RunRecalculationGeometryScript(QString const & mapcssFile)
   // If script returns non zero then it is error
   if (res.first != 0)
   {
-    QString msg = QString("System error ") + to_string(res.first).c_str();
+    QString msg = QString("System error ") + std::to_string(res.first).c_str();
     if (!res.second.isEmpty())
       msg = msg + "\n" + res.second;
     throw std::runtime_error(to_string(msg));

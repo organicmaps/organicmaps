@@ -269,8 +269,8 @@ public:
   void SetLastEditedBmCategory(kml::MarkGroupId groupId);
   void SetLastEditedBmColor(kml::PredefinedColor color);
 
-  using TTouchRectHolder = function<m2::AnyRectD(UserMark::Type)>;
-  using TFindOnlyVisibleChecker = function<bool(UserMark::Type)>;
+  using TTouchRectHolder = std::function<m2::AnyRectD(UserMark::Type)>;
+  using TFindOnlyVisibleChecker = std::function<bool(UserMark::Type)>;
   UserMark const * FindNearestUserMark(TTouchRectHolder const & holder,
                                        TFindOnlyVisibleChecker const & findOnlyVisible) const;
   UserMark const * FindNearestUserMark(m2::AnyRectD const & rect) const;

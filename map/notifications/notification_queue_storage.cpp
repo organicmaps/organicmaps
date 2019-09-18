@@ -32,7 +32,7 @@ bool QueueStorage::Save(std::vector<int8_t> const & src)
     return false;
   }
 
-  return base::WriteToTempAndRenameToFile(GetFilePath(), [&src](string const & fileName)
+  return base::WriteToTempAndRenameToFile(GetFilePath(), [&src](std::string const & fileName)
   {
     try
     {

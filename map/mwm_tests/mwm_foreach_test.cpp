@@ -16,14 +16,15 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
-#include "std/string.hpp"
-#include "std/algorithm.hpp"
+#include <algorithm>
+#include <string>
+#include <vector>
 
+using namespace std;
 
 namespace
 {
-
-typedef vector<uint32_t> feature_cont_t;
+using Cont = vector<uint32_t>;
 
 bool IsDrawable(FeatureType & f, int scale)
 {
@@ -33,7 +34,7 @@ bool IsDrawable(FeatureType & f, int scale)
 
 class AccumulatorBase
 {
-  feature_cont_t & m_cont;
+  Cont & m_cont;
 
 protected:
   int m_scale;
@@ -58,7 +59,7 @@ protected:
   }
 
 public:
-  AccumulatorBase(int scale, feature_cont_t & cont)
+  AccumulatorBase(int scale, Cont & cont)
     : m_cont(cont), m_scale(scale)
   {
   }
@@ -162,7 +163,7 @@ class AccumulatorEtalon : public AccumulatorBase
   }
 
 public:
-  AccumulatorEtalon(m2::RectD const & r, int scale, feature_cont_t & cont)
+  AccumulatorEtalon(m2::RectD const & r, int scale, Cont & cont)
     : base_type(scale, cont), m_rect(r)
   {
   }
@@ -269,7 +270,7 @@ public:
 
 //     int const scale = scales::GetScaleLevel(r);
 
-//     feature_cont_t v1, v2;
+//     Cont v1, v2;
 //     {
 //       AccumulatorBase acc(scale, v1);
 //       src1.ForEachFeature(r, acc, scale);
@@ -304,10 +305,10 @@ public:
 //   }
 // }
 
-}
-
 //UNIT_TEST(ForEach_QueryResults)
 //{
 //  RunTest("minsk-pass");
 //  //RunTestForChoice("london-center");
 //}
+
+}  // namespace

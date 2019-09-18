@@ -2,6 +2,7 @@
 
 #include "map/bookmark_manager.hpp"
 
+#include <functional>
 #include <string>
 
 enum class RouteMarkType : uint8_t
@@ -97,7 +98,7 @@ public:
   void SetFollowingMode(bool enabled);
 
 private:
-  using TRoutePointCallback = function<void (RouteMarkPoint * mark)>;
+  using TRoutePointCallback = std::function<void (RouteMarkPoint * mark)>;
   void ForEachIntermediatePoint(TRoutePointCallback const & fn);
 
   BookmarkManager & m_manager;

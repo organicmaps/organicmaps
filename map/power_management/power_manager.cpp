@@ -196,7 +196,7 @@ void PowerManager::UnsubscribeAll()
 
 bool PowerManager::Save()
 {
-  auto const result = base::WriteToTempAndRenameToFile(GetFilePath(), [this](string const & fileName)
+  auto const result = base::WriteToTempAndRenameToFile(GetFilePath(), [this](std::string const & fileName)
   {
     try
     {

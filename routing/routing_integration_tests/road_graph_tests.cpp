@@ -16,6 +16,8 @@
 
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
+#include <memory>
+#include <utility>
 #include <vector>
 
 using namespace routing;
@@ -37,7 +39,7 @@ UNIT_TEST(FakeEdgesCombinatorialExplosion)
     dataSource.Register(file);
 
   FeaturesRoadGraph graph(dataSource, IRoadGraph::Mode::ObeyOnewayTag,
-                          make_shared<CarModelFactory>(CountryParentNameGetterFn()));
+                          std::make_shared<CarModelFactory>(CountryParentNameGetterFn()));
   Junction const j(m2::PointD(MercatorBounds::FromLatLon(50.73208, -1.21279)), feature::kDefaultAltitudeMeters);
   std::vector<std::pair<routing::Edge, routing::Junction>> sourceVicinity;
   graph.FindClosestEdges(MercatorBounds::RectByCenterXYAndSizeInMeters(

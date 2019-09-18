@@ -14,6 +14,7 @@
 #endif
 #include "3party/stb_image/stb_image.h"
 
+#include <functional>
 #include <limits>
 #include <vector>
 
@@ -23,8 +24,8 @@ std::string const StaticTexture::kDefaultResource = "default";
 
 namespace
 {
-using TLoadingCompletion = function<void(unsigned char *, uint32_t, uint32_t)>;
-using TLoadingFailure = function<void(std::string const &)>;
+using TLoadingCompletion = std::function<void(unsigned char *, uint32_t, uint32_t)>;
+using TLoadingFailure = std::function<void(std::string const &)>;
 
 bool LoadData(std::string const & textureName, std::string const & skinPathName,
               uint8_t bytesPerPixel, TLoadingCompletion const & completionHandler,

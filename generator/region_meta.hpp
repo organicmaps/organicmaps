@@ -4,6 +4,8 @@
 
 #include "indexer/feature_meta.hpp"
 
+#include <string>
+
 namespace feature
 {
 bool ReadRegionData(std::string const & countryName, RegionData & data);

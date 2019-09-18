@@ -14,7 +14,7 @@
 
 void setPushWooshSender()
 {
-  GetPlatform().GetMarketingService().SetPushWooshSender([](string const & tag, vector<string> const & values)
+  GetPlatform().GetMarketingService().SetPushWooshSender([](std::string const & tag, std::vector<std::string> const & values)
   {
     if (values.empty() || tag.empty())
       return;
@@ -35,7 +35,7 @@ void setPushWooshSender()
 
 void setMarketingSender()
 {
-  GetPlatform().GetMarketingService().SetMarketingSender([](string const & tag, std::map<string, string> const & params)
+  GetPlatform().GetMarketingService().SetMarketingSender([](std::string const & tag, std::map<std::string, std::string> const & params)
   {
     if (tag.empty())
       return;

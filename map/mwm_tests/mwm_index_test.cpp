@@ -5,13 +5,15 @@
 #include "indexer/scales.hpp"
 #include "indexer/classificator_loader.hpp"
 
+#include <string>
+#include <vector>
+
+using namespace std;
 
 namespace
 {
-
 class CheckNonEmptyGeometry
 {
-  int m_scale;
 public:
   vector<FeatureID> m_ids;
 
@@ -34,6 +36,9 @@ public:
     m_ids.clear();
     m_scale = scale;
   }
+
+private:
+  int m_scale;
 };
 
 bool RunTest(string const & countryFileName, int lowS, int highS)
@@ -60,7 +65,7 @@ bool RunTest(string const & countryFileName, int lowS, int highS)
 
   return true;
 }
-}
+}  // namespace
 
 UNIT_TEST(ForEachFeatureID_Test)
 {

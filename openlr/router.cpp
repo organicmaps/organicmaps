@@ -129,16 +129,16 @@ Router::Edge Router::Edge::MakeSpecial(Vertex const & u, Vertex const & v)
   return Edge(u, v, routing::Edge::MakeFake(u.m_junction, v.m_junction), true /* isSpecial */);
 }
 
-pair<m2::PointD, m2::PointD> Router::Edge::ToPair() const
+std::pair<m2::PointD, m2::PointD> Router::Edge::ToPair() const
 {
   auto const & e = m_raw;
-  return make_pair(e.GetStartJunction().GetPoint(), e.GetEndJunction().GetPoint());
+  return std::make_pair(e.GetStartJunction().GetPoint(), e.GetEndJunction().GetPoint());
 }
 
-pair<m2::PointD, m2::PointD> Router::Edge::ToPairRev() const
+std::pair<m2::PointD, m2::PointD> Router::Edge::ToPairRev() const
 {
   auto const & e = m_raw;
-  return make_pair(e.GetEndJunction().GetPoint(), e.GetStartJunction().GetPoint());
+  return std::make_pair(e.GetEndJunction().GetPoint(), e.GetStartJunction().GetPoint());
 }
 
 // Router::Router ----------------------------------------------------------------------------------
@@ -227,7 +227,7 @@ bool Router::FindPath(std::vector<routing::Edge> & path)
     if ((scores.count(v) == 0 || scores[v].GetScore() > vertexScore.GetScore() + kEps) && u != v)
     {
       scores[v] = vertexScore;
-      links[v] = make_pair(u, e);
+      links[v] = std::make_pair(u, e);
       queue.emplace(vertexScore, v);
     }
   };

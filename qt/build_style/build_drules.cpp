@@ -6,6 +6,7 @@
 #include <exception>
 #include <fstream>
 #include <streambuf>
+#include <string>
 
 #include <QtCore/QDir>
 #include <QtCore/QFile>
@@ -50,7 +51,7 @@ void BuildDrawingRulesImpl(QString const & mapcssFile, QString const & outputDir
   // Script returs nothing and zero exit code if it is executed succesfully,
   if (res.first != 0 || !res.second.isEmpty())
   {
-    QString msg = QString("System error ") + to_string(res.first).c_str();
+    QString msg = QString("System error ") + std::to_string(res.first).c_str();
     if (!res.second.isEmpty())
       msg = msg + "\n" + res.second;
     throw std::runtime_error(to_string(msg));

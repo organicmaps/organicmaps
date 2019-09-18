@@ -6,6 +6,9 @@
 
 #include "3party/jansson/myjansson.hpp"
 
+#include <cstdint>
+#include <vector>
+
 namespace
 {
 int8_t ParseHolidayReference(std::string const & ref)
@@ -38,7 +41,7 @@ bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
     if (!jsonData)
       return false;
 
-    vector<std::string> languages;
+    std::vector<std::string> languages;
     FromJSONObjectOptionalField(jsonData, "languages", languages);
     if (!languages.empty())
       data.SetLanguages(languages);
@@ -60,7 +63,7 @@ bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
 
     // Public holidays: an array of arrays of [string/number, number].
     // See https://github.com/opening-hours/opening_hours.js/blob/master/docs/holidays.md
-    vector<json_t *> holidays;
+    std::vector<json_t *> holidays;
     FromJSONObjectOptionalField(jsonData, "holidays", holidays);
     for (json_t * holiday : holidays)
     {

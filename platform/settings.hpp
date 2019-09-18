@@ -4,7 +4,7 @@
 
 #include "base/macros.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
 namespace settings
 {
@@ -14,9 +14,10 @@ extern char const * kLocationStateMode;
 extern char const * kMeasurementUnits;
 
 template <class T>
-bool FromString(string const & str, T & outValue);
+bool FromString(std::string const & str, T & outValue);
+
 template <class T>
-string ToString(T const & value);
+std::string ToString(T const & value);
 
 class StringStorage : public platform::StringStorageBase
 {
@@ -30,14 +31,14 @@ private:
 /// Retrieve setting
 /// @return false if setting is absent
 template <class Value>
-WARN_UNUSED_RESULT bool Get(string const & key, Value & outValue)
+WARN_UNUSED_RESULT bool Get(std::string const & key, Value & outValue)
 {
-  string strVal;
+  std::string strVal;
   return StringStorage::Instance().GetValue(key, strVal) && FromString(strVal, outValue);
 }
 
 template <class Value>
-void TryGet(string const & key, Value & outValue)
+void TryGet(std::string const & key, Value & outValue)
 {
     bool unused = Get(key, outValue);
     UNUSED_VALUE(unused);
@@ -45,12 +46,12 @@ void TryGet(string const & key, Value & outValue)
 
 /// Automatically saves setting to external file
 template <class Value>
-void Set(string const & key, Value const & value)
+void Set(std::string const & key, Value const & value)
 {
   StringStorage::Instance().SetValue(key, ToString(value));
 }
 
-inline void Delete(string const & key) { StringStorage::Instance().DeleteKeyAndValue(key); }
+inline void Delete(std::string const & key) { StringStorage::Instance().DeleteKeyAndValue(key); }
 inline void Clear() { StringStorage::Instance().Clear(); }
 
 /// Use this function for running some stuff once according to date.
@@ -64,15 +65,15 @@ class Settings : public platform::StringStorageBase
 {
 public:
   template <class Value>
-  static void Set(string const & key, Value const & value)
+  static void Set(std::string const & key, Value const & value)
   {
     Instance().SetValue(key, settings::ToString(value));
   }
 
   template <class Value>
-  WARN_UNUSED_RESULT static bool Get(string const & key, Value & outValue)
+  WARN_UNUSED_RESULT static bool Get(std::string const & key, Value & outValue)
   {
-    string strVal;
+    std::string strVal;
     return Instance().GetValue(key, strVal) && settings::FromString(strVal, outValue);
   }
 

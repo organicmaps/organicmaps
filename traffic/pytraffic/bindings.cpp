@@ -9,12 +9,11 @@
 #include "base/logging.hpp"
 #include "base/math.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/sstream.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
-
+#include <cstdint>
 #include <map>
+#include <sstream>
+#include <string>
+#include <vector>
 
 #include "pyhelpers/module_version.hpp"
 #include "pyhelpers/vector_list_conversion.hpp"
@@ -23,6 +22,8 @@
 #include <boost/python.hpp>
 #include <boost/python/suite/indexing/map_indexing_suite.hpp>
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
+
+using namespace std;
 
 namespace
 {

@@ -1,4 +1,5 @@
 #include "platform/platform.hpp"
+
 #include "platform/socket.hpp"
 
 #include "coding/file_reader.hpp"
@@ -9,10 +10,10 @@
 #include "base/macros.hpp"
 #include "base/scope_guard.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-#include "std/initializer_list.hpp"
-#include "std/string.hpp"
+#include <algorithm>
+#include <functional>
+#include <initializer_list>
+#include <string>
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -23,6 +24,8 @@
 
 #include <arpa/inet.h>
 #include <netinet/in.h>
+
+using namespace std;
 
 namespace
 {

@@ -71,7 +71,7 @@ void TestGeometryLoader::SetPassThroughAllowed(uint32_t featureId, bool passThro
   m_roads[featureId].SetPassThroughAllowedForTests(passThroughAllowed);
 }
 
-std::shared_ptr<EdgeEstimator> CreateEstimatorForCar(shared_ptr<TrafficStash> trafficStash)
+std::shared_ptr<EdgeEstimator> CreateEstimatorForCar(std::shared_ptr<TrafficStash> trafficStash)
 {
   auto const carModel = CarModelFactory({}).GetVehicleModel();
   return EdgeEstimator::Create(VehicleType::Car, *carModel, trafficStash);

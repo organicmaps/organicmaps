@@ -1,11 +1,10 @@
 #pragma once
 
-#include "std/function.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
-
+#include <functional>
 #include <map>
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace marketing
 {
@@ -70,8 +69,8 @@ public:
   std::string GetPushWooshTimestamp();
 
   void SetMarketingSender(MarketingSenderFn const & fn) { m_marketingSender = fn; }
-  void SendMarketingEvent(std::string const & tag, std::map<std::string,
-                          std::string> const & params);
+  void SendMarketingEvent(std::string const & tag,
+                          std::map<std::string, std::string> const & params);
 
 private:
   /// Callback fucntion for setting PushWoosh tags.

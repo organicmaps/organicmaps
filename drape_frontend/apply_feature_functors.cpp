@@ -231,8 +231,8 @@ uint16_t CalculateHotelOverlayPriority(BaseApplyFeature::HotelData const & data)
 {
   // NOTE: m_rating is in format X[.Y], where X = [0;10], Y = [0;9], e.g. 8.7
   string s = data.m_rating;
-  s.erase(remove(s.begin(), s.end(), '.'), s.end());
-  s.erase(remove(s.begin(), s.end(), ','), s.end());
+  s.erase(std::remove(s.begin(), s.end(), '.'), s.end());
+  s.erase(std::remove(s.begin(), s.end(), ','), s.end());
   if (s.empty())
     return 0;
 
@@ -477,7 +477,7 @@ string BaseApplyFeature::ExtractHotelInfo() const
 
 void BaseApplyFeature::SetHotelData(HotelData && hotelData)
 {
-  m_hotelData = move(hotelData);
+  m_hotelData = std::move(hotelData);
 }
 
 ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
@@ -851,7 +851,7 @@ void ApplyAreaFeature::ProcessAreaRule(Stylist::TRuleWrapper const & rule)
       params.m_is3D = !outline.m_indices.empty() && calculateNormals;
     }
 
-    m_insertShape(make_unique_dp<AreaShape>(std::vector<m2::PointD>(m_triangles), move(outline), params));
+    m_insertShape(make_unique_dp<AreaShape>(std::vector<m2::PointD>(m_triangles), std::move(outline), params));
   }
   else
   {

@@ -6,11 +6,10 @@
 
 #include "geometry/point2d.hpp"
 
-#include "std/sstream.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
-
 #include <map>
+#include <sstream>
+#include <utility>
+#include <vector>
 
 namespace routing
 {
@@ -26,8 +25,8 @@ class Router final
 public:
   Router(routing::FeaturesRoadGraph & graph, RoadInfoGetter & roadInfoGetter);
 
-  bool Go(vector<WayPoint> const & points, double positiveOffsetM, double negativeOffsetM,
-          vector<routing::Edge> & path);
+  bool Go(std::vector<WayPoint> const & points, double positiveOffsetM, double negativeOffsetM,
+          std::vector<routing::Edge> & path);
 
 private:
   struct Vertex final
@@ -92,7 +91,7 @@ private:
 
   friend string DebugPrint(Vertex const & u)
   {
-    ostringstream os;
+    std::ostringstream os;
     os << "Vertex [ ";
     os << "junction: " << DebugPrint(u.m_junction) << ", ";
     os << "stageStart: " << DebugPrint(u.m_stageStart) << ", ";
@@ -114,8 +113,8 @@ private:
     bool IsFake() const { return m_raw.IsFake(); }
     bool IsSpecial() const { return m_isSpecial; }
 
-    pair<m2::PointD, m2::PointD> ToPair() const;
-    pair<m2::PointD, m2::PointD> ToPairRev() const;
+    std::pair<m2::PointD, m2::PointD> ToPair() const;
+    std::pair<m2::PointD, m2::PointD> ToPairRev() const;
 
     Vertex m_u;
     Vertex m_v;
@@ -125,7 +124,7 @@ private:
 
   friend string DebugPrint(Edge const & edge)
   {
-    ostringstream os;
+    std::ostringstream os;
     os << "Edge [ ";
     os << "u: " << DebugPrint(edge.m_u) << ", ";
     os << "v: " << DebugPrint(edge.m_v) << ", ";
@@ -135,13 +134,13 @@ private:
     return os.str();
   }
 
-  using Links = std::map<Vertex, pair<Vertex, Edge>>;
+  using Links = std::map<Vertex, std::pair<Vertex, Edge>>;
 
   using RoadGraphEdgesGetter = void (routing::IRoadGraph::*)(
       routing::Junction const & junction, routing::IRoadGraph::EdgeVector & edges) const;
 
-  bool Init(vector<WayPoint> const & points, double positiveOffsetM, double negativeOffsetM);
-  bool FindPath(vector<routing::Edge> & path);
+  bool Init(std::vector<WayPoint> const & points, double positiveOffsetM, double negativeOffsetM);
+  bool FindPath(std::vector<routing::Edge> & path);
 
   // Returns true if the bearing should be checked for |u|, if the
   // real passed distance from the source vertex is |distanceM|.
@@ -207,19 +206,19 @@ private:
   template <typename It, typename Fn>
   void ForStagePrefix(It b, It e, size_t stage, Fn && fn);
 
-  bool ReconstructPath(vector<Edge> & edges, vector<routing::Edge> & path);
+  bool ReconstructPath(std::vector<Edge> & edges, std::vector<routing::Edge> & path);
 
-  void FindSingleEdgeApproximation(vector<Edge> const & edges, vector<routing::Edge> & path);
+  void FindSingleEdgeApproximation(std::vector<Edge> const & edges, std::vector<routing::Edge> & path);
 
   routing::FeaturesRoadGraph & m_graph;
   std::map<routing::Junction, routing::IRoadGraph::EdgeVector> m_outgoingCache;
   std::map<routing::Junction, routing::IRoadGraph::EdgeVector> m_ingoingCache;
   RoadInfoGetter & m_roadInfoGetter;
 
-  vector<WayPoint> m_points;
+  std::vector<WayPoint> m_points;
   double m_positiveOffsetM;
   double m_negativeOffsetM;
-  vector<vector<m2::PointD>> m_pivots;
+  std::vector<std::vector<m2::PointD>> m_pivots;
   routing::Junction m_sourceJunction;
   routing::Junction m_targetJunction;
 };

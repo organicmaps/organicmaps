@@ -14,9 +14,11 @@
 
 #include "base/logging.hpp"
 
-#include "std/cmath.hpp"
-#include "std/iostream.hpp"
-#include "std/sstream.hpp"
+#include <cmath>
+#include <iostream>
+#include <sstream>
+
+using namespace std;
 
 namespace settings
 {

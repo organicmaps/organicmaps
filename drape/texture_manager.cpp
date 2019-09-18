@@ -22,6 +22,8 @@
 #include <cstdint>
 #include <limits>
 #include <sstream>
+#include <string>
+#include <utility>
 #include <vector>
 
 namespace dp
@@ -57,9 +59,9 @@ void MultilineTextToUniString(TextureManager::TMultilineText const & text, strin
     outString.append(str.begin(), str.end());
 }
 
-string ReadFileToString(string const & filename)
+std::string ReadFileToString(std::string const & filename)
 {
-  string result;
+  std::string result;
   try
   {
     ReaderPtr<Reader>(GetPlatform().GetReader(filename)).ReadAsString(result);
@@ -73,7 +75,7 @@ string ReadFileToString(string const & filename)
 }
 
 template <typename ToDo>
-void ParseColorsList(string const & colorsFile, ToDo toDo)
+void ParseColorsList(std::string const & colorsFile, ToDo toDo)
 {
   std::istringstream fin(ReadFileToString(colorsFile));
   while (true)
@@ -88,15 +90,15 @@ void ParseColorsList(string const & colorsFile, ToDo toDo)
 }
 
 template <typename ToDo>
-void ParsePatternsList(string const & patternsFile, ToDo toDo)
+void ParsePatternsList(std::string const & patternsFile, ToDo toDo)
 {
-  strings::Tokenize(ReadFileToString(patternsFile), "\n", [&](string const & patternStr)
+  strings::Tokenize(ReadFileToString(patternsFile), "\n", [&](std::string const & patternStr)
   {
     if (patternStr.empty())
       return;
 
     buffer_vector<double, 8> pattern;
-    strings::Tokenize(patternStr, " ", [&](string const & token)
+    strings::Tokenize(patternStr, " ", [&](std::string const & token)
     {
       double d = 0.0;
       VERIFY(strings::to_double(token, d), ());
@@ -361,8 +363,10 @@ uint32_t TextureManager::GetNumberOfUnfoundCharacters(strings::UniString const &
 {
   uint32_t cnt = 0;
   for (auto const & c : text)
-    if (group.m_glyphs.find(make_pair(c, fixedHeight)) == group.m_glyphs.end())
+  {
+    if (group.m_glyphs.find(std::make_pair(c, fixedHeight)) == group.m_glyphs.end())
       cnt++;
+  }
 
   return cnt;
 }
@@ -371,7 +375,7 @@ void TextureManager::MarkCharactersUsage(strings::UniString const & text, int fi
                                          HybridGlyphGroup & group)
 {
   for (auto const & c : text)
-    group.m_glyphs.emplace(make_pair(c, fixedHeight));
+    group.m_glyphs.emplace(std::make_pair(c, fixedHeight));
 }
 
 size_t TextureManager::FindHybridGlyphsGroup(strings::UniString const & text, int fixedHeight)
@@ -462,7 +466,7 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
     buffer_vector<uint8_t, 8> p;
     for (size_t i = 0; i < pattern.size(); i++)
       p.push_back(static_cast<uint8_t>(pattern[i] * visualScale));
-    patterns.push_back(move(p));
+    patterns.push_back(std::move(p));
   });
   m_stipplePenTexture = make_unique_dp<StipplePenTexture>(StipplePenTextureSize(patterns.size(), m_maxTextureSize),
                                                           make_ref(m_textureAllocator));
@@ -524,7 +528,7 @@ void TextureManager::GetTexturesToCleanup(std::vector<drape_ptr<HWTexture>> & te
   std::swap(textures, m_texturesToCleanup);
 }
 
-void TextureManager::GetSymbolRegion(string const & symbolName, SymbolRegion & region)
+void TextureManager::GetSymbolRegion(std::string const & symbolName, SymbolRegion & region)
 {
   CHECK(m_isInitialized, ());
   for (size_t i = 0; i < m_symbolTextures.size(); ++i)

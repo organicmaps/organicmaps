@@ -9,13 +9,15 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
+#include <utility>
+#include <vector>
 
 using namespace routing;
 
 namespace openlr
 {
 void CandidatePointsGetter::FillJunctionPointCandidates(m2::PointD const & p,
-                                                        vector<m2::PointD> & candidates)
+                                                        std::vector<m2::PointD> & candidates)
 {
   // TODO(mgsergio): Get optimal value using experiments on a sample.
   // Or start with small radius and scale it up when there are too few points.
@@ -51,11 +53,11 @@ void CandidatePointsGetter::FillJunctionPointCandidates(m2::PointD const & p,
 }
 
 void CandidatePointsGetter::EnrichWithProjectionPoints(m2::PointD const & p,
-                                                       vector<m2::PointD> & candidates)
+                                                       std::vector<m2::PointD> & candidates)
 {
   m_graph.ResetFakes();
 
-  vector<pair<Graph::Edge, Junction>> vicinities;
+  std::vector<std::pair<Graph::Edge, Junction>> vicinities;
   m_graph.FindClosestEdges(p, static_cast<uint32_t>(m_maxProjectionCandidates), vicinities);
   for (auto const & v : vicinities)
   {

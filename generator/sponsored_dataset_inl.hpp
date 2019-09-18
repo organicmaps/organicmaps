@@ -13,6 +13,7 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
+#include <functional>
 #include <memory>
 #include <string>
 
@@ -50,7 +51,7 @@ SponsoredDataset<SponsoredObject>::SponsoredDataset(std::string const & dataPath
 }
 
 template <typename SponsoredObject>
-void SponsoredDataset<SponsoredObject>::BuildOsmObjects(function<void(feature::FeatureBuilder &)> const & fn) const
+void SponsoredDataset<SponsoredObject>::BuildOsmObjects(std::function<void(feature::FeatureBuilder &)> const & fn) const
 {
   for (auto const & item : m_storage.GetObjects())
     BuildObject(item.second, fn);

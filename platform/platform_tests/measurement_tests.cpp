@@ -5,7 +5,8 @@
 
 #include "base/math.hpp"
 
-#include "std/utility.hpp"
+#include <string>
+#include <utility>
 
 using namespace measurement_utils;
 using namespace settings;
@@ -36,28 +37,28 @@ UNIT_TEST(Measurement_Smoke)
 {
   ScopedSettings guard(Units::Metric);
 
-  typedef pair<double, char const *> PairT;
+  using Pair = std::pair<double, char const *>;
 
-  PairT arr[] = {
-    PairT(10.0, "10 m"),
-    PairT(10.4, "10 m"),
-    PairT(10.51, "11 m"),
-    PairT(1000.0, "1.0 km"),
-    PairT(1100.0, "1.1 km"),
-    PairT(1140.0, "1.1 km"),
-    PairT(1151.0, "1.2 km"),
-    PairT(1500.0, "1.5 km"),
-    PairT(1549.9, "1.5 km"),
-    PairT(1551.0, "1.6 km"),
-    PairT(10000.0, "10 km"),
-    PairT(10400.0, "10 km"),
-    PairT(10499.9, "10 km"),
-    PairT(10501.0, "11 km")
+  Pair arr[] = {
+    Pair(10.0, "10 m"),
+    Pair(10.4, "10 m"),
+    Pair(10.51, "11 m"),
+    Pair(1000.0, "1.0 km"),
+    Pair(1100.0, "1.1 km"),
+    Pair(1140.0, "1.1 km"),
+    Pair(1151.0, "1.2 km"),
+    Pair(1500.0, "1.5 km"),
+    Pair(1549.9, "1.5 km"),
+    Pair(1551.0, "1.6 km"),
+    Pair(10000.0, "10 km"),
+    Pair(10400.0, "10 km"),
+    Pair(10499.9, "10 km"),
+    Pair(10501.0, "11 km")
   };
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
   {
-    string s;
+    std::string s;
     TEST(FormatDistance(arr[i].first, s), (arr[i]));
     TEST_EQUAL(s, arr[i].second, (arr[i]));
   }

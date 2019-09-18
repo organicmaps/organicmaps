@@ -10,6 +10,7 @@
 #include <QtCore/QStringList>
 
 #include <exception>
+#include <string>
 
 namespace
 {
@@ -45,7 +46,7 @@ QString GetStyleStatistics(QString const & mapcssMappingFile, QString const & dr
   QString text;
   if (res.first != 0)
   {
-    text = QString("System error ") + to_string(res.first).c_str();
+    text = QString("System error ") + std::to_string(res.first).c_str();
     if (!res.second.isEmpty())
       text = text + "\n" + res.second;
   }

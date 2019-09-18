@@ -32,7 +32,7 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
   alohalytics::Stats::Instance().LogEvent("GPU", m_rendererName);
 
   m_isSamsungGoogleNexus = (m_rendererName == "PowerVR SGX 540" &&
-                            m_rendererVersion.find("GOOGLENEXUS.ED945322") != string::npos);
+                            m_rendererVersion.find("GOOGLENEXUS.ED945322") != std::string::npos);
   if (m_isSamsungGoogleNexus)
     LOG(LINFO, ("Samsung Google Nexus detected."));
 

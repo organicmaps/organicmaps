@@ -14,6 +14,8 @@
 #include <memory>
 #include <set>
 #include <sstream>
+#include <string>
+#include <utility>
 
 #include <ft2build.h>
 #include FT_TYPES_H
@@ -66,9 +68,9 @@ namespace
 int const kInvalidFont = -1;
 
 template <typename ToDo>
-void ParseUniBlocks(string const & uniBlocksFile, ToDo toDo)
+void ParseUniBlocks(std::string const & uniBlocksFile, ToDo toDo)
 {
-  string uniBlocks;
+  std::string uniBlocks;
   try
   {
     ReaderPtr<Reader>(GetPlatform().GetReader(uniBlocksFile)).ReadAsString(uniBlocks);
@@ -82,7 +84,7 @@ void ParseUniBlocks(string const & uniBlocksFile, ToDo toDo)
   std::istringstream fin(uniBlocks);
   while (true)
   {
-    string name;
+    std::string name;
     strings::UniChar start;
     strings::UniChar end;
     fin >> name >> std::hex >> start >> std::hex >> end;
@@ -94,9 +96,9 @@ void ParseUniBlocks(string const & uniBlocksFile, ToDo toDo)
 }
 
 template <typename ToDo>
-void ParseFontList(string const & fontListFile, ToDo toDo)
+void ParseFontList(std::string const & fontListFile, ToDo toDo)
 {
-  string fontList;
+  std::string fontList;
   try
   {
     ReaderPtr<Reader>(GetPlatform().GetReader(fontListFile)).ReadAsString(fontList);
@@ -110,8 +112,8 @@ void ParseFontList(string const & fontListFile, ToDo toDo)
   std::istringstream fin(fontList);
   while (true)
   {
-    string ubName;
-    string fontName;
+    std::string ubName;
+    std::string fontName;
     fin >> ubName >> fontName;
     if (!fin)
       break;
@@ -282,12 +284,12 @@ public:
 
   void MarkGlyphReady(strings::UniChar code, int fixedHeight)
   {
-    m_readyGlyphs.insert(make_pair(code, fixedHeight));
+    m_readyGlyphs.insert(std::make_pair(code, fixedHeight));
   }
 
   bool IsGlyphReady(strings::UniChar code, int fixedHeight) const
   {
-    return m_readyGlyphs.find(make_pair(code, fixedHeight)) != m_readyGlyphs.end();
+    return m_readyGlyphs.find(std::make_pair(code, fixedHeight)) != m_readyGlyphs.end();
   }
 
 private:
@@ -296,20 +298,20 @@ private:
   FT_Face m_fontFace;
   uint32_t m_sdfScale;
 
-  std::set<pair<strings::UniChar, int>> m_readyGlyphs;
+  std::set<std::pair<strings::UniChar, int>> m_readyGlyphs;
 };
 }  // namespace
 
 // Information about single unicode block.
 struct UnicodeBlock
 {
-  string m_name;
+  std::string m_name;
 
   strings::UniChar m_start;
   strings::UniChar m_end;
   std::vector<int> m_fontsWeight;
 
-  UnicodeBlock(string const & name, strings::UniChar start, strings::UniChar end)
+  UnicodeBlock(std::string const & name, strings::UniChar start, strings::UniChar end)
     : m_name(name)
     , m_start(start)
     , m_end(end)

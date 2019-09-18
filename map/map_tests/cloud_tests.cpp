@@ -41,7 +41,7 @@ UNIT_TEST(Cloud_SerDes)
 
   std::string data;
   {
-    using Sink = MemWriter<string>;
+    using Sink = MemWriter<std::string>;
     Sink sink(data);
     coding::SerializerJson<Sink> ser(sink);
     ser(index);

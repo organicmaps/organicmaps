@@ -9,8 +9,11 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include <functional>
 #include <iomanip>
 #include <iostream>
+#include <string>
+#include <vector>
 
 #include "boost/algorithm/string/replace.hpp"
 
@@ -47,7 +50,7 @@ bool OpentableDataset::NecessaryMatchingConditionHolds(FeatureBuilder const & fb
 
 template <>
 void OpentableDataset::PreprocessMatchedOsmObject(ObjectId const matchedObjId, FeatureBuilder & fb,
-                                                  function<void(FeatureBuilder &)> const fn) const
+                                                  std::function<void(FeatureBuilder &)> const fn) const
 {
   auto const & restaurant = m_storage.GetObjectById(matchedObjId);
   auto & metadata = fb.GetMetadata();

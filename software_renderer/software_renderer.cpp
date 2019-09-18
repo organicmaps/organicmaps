@@ -1,4 +1,5 @@
 #include "software_renderer/software_renderer.hpp"
+
 #include "software_renderer/proto_to_styles.hpp"
 
 #include "drape/symbols_texture.hpp"
@@ -13,25 +14,23 @@
 
 #include "base/logging.hpp"
 
+#include "3party/agg/agg_bounding_rect.h"
+#include "3party/agg/agg_conv_contour.h"
+#include "3party/agg/agg_conv_curve.h"
+#include "3party/agg/agg_conv_dash.h"
+#include "3party/agg/agg_conv_stroke.h"
+#include "3party/agg/agg_ellipse.h"
+#include "3party/agg/agg_path_storage.h"
 #include "3party/agg/agg_rasterizer_scanline_aa.h"
 #include "3party/agg/agg_scanline_p.h"
-#include "3party/agg/agg_path_storage.h"
-#include "3party/agg/agg_conv_stroke.h"
-#include "3party/agg/agg_conv_dash.h"
-#include "3party/agg/agg_ellipse.h"
-#include "3party/agg/agg_conv_curve.h"
-#include "3party/agg/agg_conv_stroke.h"
-#include "3party/agg/agg_conv_contour.h"
-#include "3party/agg/agg_bounding_rect.h"
-
-#include "3party/agg/agg_vcgen_stroke.cpp"
 #include "3party/agg/agg_vcgen_dash.cpp"
-
+#include "3party/agg/agg_vcgen_stroke.cpp"
 #include "3party/stb_image/stb_image_write.h"
+
+using namespace std;
 
 namespace software_renderer
 {
-
 #define BLENDER_TYPE agg::comp_op_src_over
 
 class agg_symbol_renderer : public ml::text_renderer
@@ -712,5 +711,4 @@ void PathWrapper::Render(SoftwareRenderer::TSolidRenderer & renderer,
     }
   }
 }
-
-}
+}  // namespace software_renderer

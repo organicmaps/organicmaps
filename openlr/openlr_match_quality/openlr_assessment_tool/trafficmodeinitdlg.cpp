@@ -5,9 +5,11 @@
 
 #include <QtWidgets/QFileDialog>
 
+#include <string>
+
 namespace
 {
-string const kDataFilePath = "LastOpenlrAssessmentDataFilePath";
+std::string const kDataFilePath = "LastOpenlrAssessmentDataFilePath";
 }  // namespace
 
 namespace openlr
@@ -18,7 +20,7 @@ TrafficModeInitDlg::TrafficModeInitDlg(QWidget * parent) :
 {
   m_ui->setupUi(this);
 
-  string lastDataFilePath;
+  std::string lastDataFilePath;
   if (settings::Get(kDataFilePath, lastDataFilePath))
     m_ui->dataFileName->setText(QString::fromStdString(lastDataFilePath));
 

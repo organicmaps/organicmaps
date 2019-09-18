@@ -40,20 +40,21 @@
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-#include "std/condition_variable.hpp"
-#include "std/exception.hpp"
-#include "std/iterator.hpp"
-#include "std/mutex.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <condition_variable>
+#include <exception>
+#include <functional>
+#include <iterator>
+#include <memory>
+#include <mutex>
+#include <vector>
 
 #include "defines.hpp"
 
 using namespace platform::tests_support;
 using namespace platform;
+using namespace std::placeholders;
+using namespace std;
 
 namespace storage
 {

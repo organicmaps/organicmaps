@@ -128,8 +128,8 @@ using namespace osm;
   {
     [self startSpinner];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-      string const username = self.loginTextField.text.UTF8String;
-      string const password = self.passwordTextField.text.UTF8String;
+      std::string const username = self.loginTextField.text.UTF8String;
+      std::string const password = self.passwordTextField.text.UTF8String;
       OsmOAuth auth = OsmOAuth::ServerAuth();
       try
       {
