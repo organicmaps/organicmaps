@@ -1671,7 +1671,26 @@
 	<string name="bookmarks_delete_list">Odstranit seznam</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Pořadí v záložkách tvoří pohodlnou cestu</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Seřaďte oblíbená místa podle kategorie, umístění a chronologického pořadí a také rychle najděte konkrétní záložky podle jejich názvu</string>
+	<string name="popup_subscription_success_map_title">Woohoo, máte přeplaceno!</string>
+	<string name="popup_subscription_success_map_message">Objevte nyní ty nejlepší turistické atrakce v katalogu MAPS.ME</string>
+	<string name="popup_subscription_success_map_start_button">Začít s prohlížením</string>
+	<string name="popup_subscription_success_map_not_now_button">Nyní ne</string>
 	<string name="religious_places">Posvátná místa</string>
+	<string name="subscription_terms_android">Po potvrzení nákupu bude platba naúčtována na Váš účet Google Play. Předplatné bude automaticky obnoveno, pokud nedojde ke zrušení funkce automatického obnovení nejméně 24 hodin před koncem aktuálního období. Částka bude naúčtována na Váš účet dle Vašeho plánu obnovy v průběhu 24 hodin před koncem aktuálního období. Funkci automatického obnovení lze po nákupu spravovat nebo vypnout v nastavení účtu. Používat můžete pouze průvodce stažené pomocí předplatného, a to do doby skončení platnosti. Po 30 dnech od skončení předplatného budou stažené průvodce automaticky smazány.</string>
+	<string name="select_list">Vybrat seznam</string>
+	<string name="pp_discovery_place_related_header">Toto místo se nachází v katalogu průvodců</string>
+	<string name="pp_discovery_place_related_header_1">Toto místo je uvedeno v katalogu</string>
+	<string name="pp_discovery_place_related_cta_button">Náhled</string>
+	<string name="pp_discovery_place_related_tag_header">Průvodci podle tagu „%s“</string>
+	<string name="pp_discovery_place_related_tag_header_1">Možná se vám bude také líbit</string>
+	<string name="buy_btn_for_subscription_version_2">VŠICHNI průvodci pouze za %s/měs</string>
+	<string name="buy_btn_for_subscription_version_3">Celý katalog za %s/měs</string>
+	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Přístup do katalogu za %s/měs</string>
+	<string name="buy_btn_for_subscription_ios_only_year_version_2">Přístup do katalogu za %s/rok</string>
+	<string name="subscription_screen_native_title_version_2">Přístup k průvodcům se záložkami!</string>
+	<string name="subscription_screen_native_message_version_2">Buďte připraveni na jakoukoli cestu do více než 600 měst a více než 100 zemí</string>
+	<string name="catalog_no_internet_title">Připojení k internetu není k dispozici</string>
+	<string name="catalog_no_internet_button">Zkusit znovu</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>

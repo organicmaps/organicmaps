@@ -1677,7 +1677,26 @@
 	<string name="bookmarks_delete_list">Supprimer la liste</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Commander dans les signets rend un voyage confortable</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Triez les endroits préférés par catégorie, emplacement et ordre chronologique, ainsi que trouver rapidement des signets spécifiques par leur nom</string>
+	<string name="popup_subscription_success_map_title">Hourra ! Vous êtes abonné !</string>
+	<string name="popup_subscription_success_map_message">Explorez maintenant les meilleures attractions touristiques du catalogue MAPS.ME</string>
+	<string name="popup_subscription_success_map_start_button">Regarder</string>
+	<string name="popup_subscription_success_map_not_now_button">Pas maintenant</string>
 	<string name="religious_places">Lieux saints</string>
+	<string name="subscription_terms_android">Le paiement sera effectué à partir de votre compte Google Play lors de la confirmation de l\'achat. L\'abonnement sera automatiquement renouvelé, sauf si le renouvellement automatique est désactivé au moins 24 heures avant la fin de la période en cours. Les fonds seront débités de votre compte conformément à votre plan de renouvellement dans les 24 heures avant la fin de la période en cours. Vous pouvez gérer le renouvellement automatique ou le désactiver dans les paramètres de votre compte après l\'achat. Vous pouvez utiliser les guides téléchargés par abonnement uniquement pendant la durée de votre abonnement. 30 jours après la fin de votre abonnement, les guides seront automatiquement supprimés.</string>
+	<string name="select_list">Sélectionner une liste</string>
+	<string name="pp_discovery_place_related_header">Cet endroit dans les guide</string>
+	<string name="pp_discovery_place_related_header_1">Vu dans le guide</string>
+	<string name="pp_discovery_place_related_cta_button">Voir plus</string>
+	<string name="pp_discovery_place_related_tag_header">Guide avec le tag « %s »</string>
+	<string name="pp_discovery_place_related_tag_header_1">Vous aimeriez aussi</string>
+	<string name="buy_btn_for_subscription_version_2">TOUS les guides pour seulement %s/mois</string>
+	<string name="buy_btn_for_subscription_version_3">Le catalogue entier pour %s/mois</string>
+	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Accès au catalogue pour %s/mois</string>
+	<string name="buy_btn_for_subscription_ios_only_year_version_2">Accès au catalogue pour %s/an</string>
+	<string name="subscription_screen_native_title_version_2">Accès aux guides de voyage avec des tags sur la carte!</string>
+	<string name="subscription_screen_native_message_version_2">Préparez-vous pour n\'importe quel voyage dans plus de 600 villes et plus de 100 pays</string>
+	<string name="catalog_no_internet_title">Pas de connexion internet</string>
+	<string name="catalog_no_internet_button">Essayer à nouveau</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

@@ -1656,7 +1656,26 @@
 	<string name="bookmarks_delete_list">Eliminar lista</string>
 	<string name="whatsnew_bookmarks_search_sort_title">El orden en las etiquetas, significa facilidad de viaje</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Ordena tus lugares favoritos por categoría, tiempo de adición y geolocalización, y también encuentra rápidamente etiquetas específicas por nombre</string>
+	<string name="popup_subscription_success_map_title">¡Genial, te has suscrito!</string>
+	<string name="popup_subscription_success_map_message">Ahora descubre las mejores atracciones turísticas en el catálogo MAPS.ME</string>
+	<string name="popup_subscription_success_map_start_button">Ver más</string>
+	<string name="popup_subscription_success_map_not_now_button">Luego</string>
 	<string name="religious_places">Lugares sagrados</string>
+	<string name="subscription_terms_android">El pago se realizará desde tu cuenta de Google Play al confirmar la compra. La suscripción se renovará automáticamente excepto si la renovación automática se desactive al menos 24 horas antes del final del período actual. Los fondos se restarán de tu cuenta de acuerdo con tu plan de renovación dentro de las 24 horas antes del final del período actual. Puedes administrar o desactivar la función de renovación automática en configuración de la cuenta después de la compra. Solo puedes usar las guías descargadas por suscripción hasta su fecha de vencimiento. Después de 30 días a partir de la fecha de vencimiento de la suscripción, las guías descargadas se eliminarán automáticamente.</string>
+	<string name="select_list">Seleccionar lista</string>
+	<string name="pp_discovery_place_related_header">Es un lugar en el directorio de guías</string>
+	<string name="pp_discovery_place_related_header_1">Este lugar aparece en la guía</string>
+	<string name="pp_discovery_place_related_cta_button">Ver más</string>
+	<string name="pp_discovery_place_related_tag_header">Guías por etiqueta “%s”</string>
+	<string name="pp_discovery_place_related_tag_header_1">También te puede gustar</string>
+	<string name="buy_btn_for_subscription_version_2">TODAS las guías en solo %s/mens.</string>
+	<string name="buy_btn_for_subscription_version_3">Todo el catálogo por %s/mens.</string>
+	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Acceso al catálogo por %s/mens.</string>
+	<string name="buy_btn_for_subscription_ios_only_year_version_2">Acceso al catálogo por %s/anuales</string>
+	<string name="subscription_screen_native_title_version_2">¡Acceso a guías con etiquetas en el mapa!</string>
+	<string name="subscription_screen_native_message_version_2">Prepárate para cualquier viaje en más de 600 ciudades y más de 100 países</string>
+	<string name="catalog_no_internet_title">Sin conexión a internet</string>
+	<string name="catalog_no_internet_button">Intentar nuevamente</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estación de teleférico</string>

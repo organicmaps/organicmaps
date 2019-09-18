@@ -1728,20 +1728,25 @@
 	<string name="whatsnew_bookmarks_search_sort_title">Good order in bookmarks makes a journey comfortable</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Sort favorite places by category, location, and in chronological order, as well as quickly find specific bookmarks by their name</string>
 	<string name="popup_subscription_success_map_title">Woohoo, you\'re subscribed!</string>
-	<string name="popup_subscription_success_map_message">Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog</string>
+	<string name="popup_subscription_success_map_message">Now discover the best touristic highlights in MAPS.ME catalog</string>
 	<string name="popup_subscription_success_map_start_button">Start browsing</string>
 	<string name="popup_subscription_success_map_not_now_button">Not now</string>
 	<string name="religious_places">Religious places</string>
-	<!-- FIXME -->
-	<string name="subscription_terms_android">subscription_terms_android</string>
-	<!-- FIXME -->
-	<string name="select_list">select_list</string>
-	<!-- FIXME -->
-	<string name="pp_discovery_place_related_header">pp_discovery_place_related_header</string>
-	<!-- FIXME -->
-	<string name="pp_discovery_place_related_cta_button">pp_discovery_place_related_cta_button</string>
-	<!-- FIXME -->
-	<string name="pp_discovery_place_related_tag_header">pp_discovery_place_related_tag_header_%s</string>
+	<string name="subscription_terms_android">When you confirm a purchase, the payment will be charged to your Google Play account. The subscription will automatically renew unless the auto-renew feature is turned off at least 24 hours before the end of the current period. Your account will be charged pursuant to your renewal plan within 24 hours before the end of the current period. You can manage or turn off the auto-renew feature in Account Settings after purchase. You can only use guides downloaded by subscription until the end of the billing period. After 30 days from the subscription expiry date, downloaded guides will be automatically deleted.</string>
+	<string name="select_list">Select list</string>
+	<string name="pp_discovery_place_related_header">This place in the guides catalog</string>
+	<string name="pp_discovery_place_related_header_1">This place is featured in a guide</string>
+	<string name="pp_discovery_place_related_cta_button">View</string>
+	<string name="pp_discovery_place_related_tag_header">Guides by tag “%s”</string>
+	<string name="pp_discovery_place_related_tag_header_1">You may also like</string>
+	<string name="buy_btn_for_subscription_version_2">ALL guides just for %s/mo</string>
+	<string name="buy_btn_for_subscription_version_3">Entire catalog for %s/mo</string>
+	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Access to catalog for %s/mo</string>
+	<string name="buy_btn_for_subscription_ios_only_year_version_2">Access to catalog for %s/year</string>
+	<string name="subscription_screen_native_title_version_2">Access to guides with bookmarks!</string>
+	<string name="subscription_screen_native_message_version_2">Be ready for any journey in 600+ cities and 100+ countries</string>
+	<string name="catalog_no_internet_title">No internet connection</string>
+	<string name="catalog_no_internet_button">Try again</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

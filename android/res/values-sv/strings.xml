@@ -1666,7 +1666,26 @@
 	<string name="bookmarks_delete_list">Ta bort listan</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Ordningen i bokmärken — bekvämlighet i resan</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Sortera favoritplatser efter kategorier, tid för tilläggning och geolokation, samt hitta snabbt specifika bokmärken efter namn</string>
+	<string name="popup_subscription_success_map_title">Hurra! Du är prenumererad!</string>
+	<string name="popup_subscription_success_map_message">Nu kan du utforska de bästa turistiska sevärdheterna i MAPS.ME-katalogen</string>
+	<string name="popup_subscription_success_map_start_button">Börja surfa</string>
+	<string name="popup_subscription_success_map_not_now_button">Inte nu</string>
 	<string name="religious_places">Heliga platser</string>
+	<string name="subscription_terms_android">Betalning ska göras från ditt Google Play-konto vid köpbekräftelse. Prenumerationen ska förnyas automatiskt, om automatisk förnyelse inte inaktiverats minst 24 timmar före utgången av den aktuella perioden. Penningmedel ska debiteras från ditt konto i enlighet med din förnyelseplan inom 24 timmar före utgången av den aktuella perioden. Du kan styra automatisk förnyelse eller inaktivera den i dina kontoinställningar efter köpet. Du kan använda guiderna som laddats ner genom prenumerationen bara under dess giltighetsperiod. Efter 30 dagar från prenumerationens utgångsdatum raderas nerladdade guider automatiskt.</string>
+	<string name="select_list">Välja lista</string>
+	<string name="pp_discovery_place_related_header">Denna plats i guidebok katalog</string>
+	<string name="pp_discovery_place_related_header_1">Denna plats finns i guide</string>
+	<string name="pp_discovery_place_related_cta_button">Se</string>
+	<string name="pp_discovery_place_related_tag_header">Guider efter tagg ”%s”</string>
+	<string name="pp_discovery_place_related_tag_header_1">Du kan också gilla</string>
+	<string name="buy_btn_for_subscription_version_2">ALLA guider bara för %s/mån.</string>
+	<string name="buy_btn_for_subscription_version_3">Hela katalogen för %s/mån.</string>
+	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Tillgång till katalogen för %s/mån.</string>
+	<string name="buy_btn_for_subscription_ios_only_year_version_2">Tillgång till katalogen för %s/år</string>
+	<string name="subscription_screen_native_title_version_2">Tillgång till guider med bokmärken på kartan!</string>
+	<string name="subscription_screen_native_message_version_2">Var redo för vilken som helst resa i 600+ städer och 100+ länder</string>
+	<string name="catalog_no_internet_title">Ingen internetanslutning</string>
+	<string name="catalog_no_internet_button">Försöka igen</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "お気に入りの場所をカテゴリーや、位置、時系列順で並び替えたり、名前で素早く特定のブックマークを検索しましょう。";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "おめでとうございます、サブスクライブしました!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "MAPS.MEのカタログで最高の観光地を見つけましょう";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "ブラウジングを開始";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "今はしない";
 
 "religious_places" = "宗教に関連した場所";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "購入を確認すると支払いはGoogle Playのアカウントに請求されます。サブスクリプションは、自動更新機能が現在の有効期限の24時間前までに無効化されない限り自動的に更新されます。現在の有効期限の終了の24時間以内に更新プランに従ってあなたのアカウントに対して請求されます。購入後にアカウント設定から自動更新機能を管理または無効化する事ができます。有効期限までにサブスクリプションでダウンロードしたガイドだけしか利用する事はできません。サブスクリプションの失効から30日が経過するとダウンロードしたガイドは自動的に削除されます。";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "リストを選択";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "この場所はガイドカタログに記載されています";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "この場所はガイドで特集されています";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "閲覧";
+
+"pp_discovery_place_related_tag_header" = "「%s」のタグが付いたガイド";
+
+"pp_discovery_place_related_tag_header_1" = "こちらもいかがですか";
+
+"buy_btn_for_subscription_version_2" = "全てのガイドがたったの月%s";
+
+"buy_btn_for_subscription_version_3" = "カタログ全体が月々%s";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "カタログへのアクセスが月々%s";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "カタログへのアクセスが年間%s";
+
+"subscription_screen_native_title_version_2" = "ブックマーク付きのガイドにアクセスしましょう！";
+
+"subscription_screen_native_message_version_2" = "600以上の都市と100以上の国々への旅の準備を整えましょう";
+
+"catalog_no_internet_title" = "インターネット接続がありません";
+
+"catalog_no_internet_button" = "もう一度お試しください";
 
 
 /**********  Partners  **********/

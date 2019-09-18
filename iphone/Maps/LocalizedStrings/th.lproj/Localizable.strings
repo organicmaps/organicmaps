@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "เรียงสถานที่โปรดตามหมวดหมู่ ตำแหน่ง และลำดับ ตลอดจนค้นหาบุ๊กมาร์กที่กำหนดอย่างรวดเร็วด้วยชื่อ";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "วู้ว ฮู้วว คุณได้สมัครสมาชิกแล้ว!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "ค้นพบการท่องเที่ยวโดดเด่นที่ดีที่สุดในแคตตาล็อก MAPS.ME";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "เริ่มค้นหา";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "ไม่ใช่ตอนนี้";
 
 "religious_places" = "สถานที่ทางศาสนา";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "เมื่อคุณยืนยันการซื้อแล้วจะมีการเรียกเก็บการชำระเงินไปยังบัญชี Google Play ของคุณ การสมัครสมาชิกจะได้รับการต่ออายุโดยอัตโนมัติ ยกเว้นคุณสมบัติการต่ออายุอัตโนมัติถูกปิดอย่างน้อย 24 ชั่วโมงก่อนสิ้นสุดระยะเวลาปัจจุบัน บัญชีของคุณจะถูกเรียกเก็บเงินตามแผนการต่ออายุของคุณภายใน 24 ชั่วโมงก่อนสิ้นสุดระยะเวลาปัจจุบัน คุณสามารถจัดการ หรือปิดคุณสมบัติต่ออายุอัตโนมัติในการตั้งค่าบัญชีหลังจากการซื้อได้ คุณสามารถใช้คู่มือที่ดาวน์โหลดจากการสมัครสมาชิกได้จนกว่าจะถึงวันหมดอายุ คู่มือการดาวน์โหลดจะถูกลบโดยอัตโนมัติหลังจาก 30 วันนับจากวันหมดอายุการสมัครสมาชิก";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "เลือกรายการ";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "สถานที่นี้อยู่ในแคตตาล็อคคู่มือ";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "แนะนำสถานที่นี้อยู่ในคู่มือ";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "ดู";
+
+"pp_discovery_place_related_tag_header" = "คู่มือตามแท็ก \"%s\"";
+
+"pp_discovery_place_related_tag_header_1" = "คุณอาจชอบสิ่งนี้";
+
+"buy_btn_for_subscription_version_2" = "คู่มือทั้งหมดเพียงแค่ %s/mo";
+
+"buy_btn_for_subscription_version_3" = "ทั้งแคตตาล็อคราคา %s/mo";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "เข้าใช้งานแคตตาล็อคราคา %s/mo";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "เข้าใช้งานแคตตาล็อคราคา %s/year";
+
+"subscription_screen_native_title_version_2" = "เข้าถึงคู่มือด้วยบุ๊คมาร์ค!";
+
+"subscription_screen_native_message_version_2" = "เตรียมพร้อมสำหรับการเดินทางมากกว่า 600 เมือง และมากกว่า 100 ประเทศ";
+
+"catalog_no_internet_title" = "ไม่มีการเชื่อมต่ออินเตอร์เน็ต";
+
+"catalog_no_internet_button" = "ลองใหม่อีกครั้ง";
 
 
 /**********  Partners  **********/

@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "Sortere favoritsteder efter kategori, placering og rækkefølge, samt finde specifikke bogmærker hurtigt, efter deres navn";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "Juuhuu, du har abonnement!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "Opdag nu de bedste turisthøjdepunkter i MAPS.ME kataloget";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "Begynd at udforske";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "Ikke nu";
 
 "religious_places" = "Religiøse steder";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "Når du bekræfter et køb, vil betalingen blive trukket fra din Google Play konto. Abonnementet bliver automatisk fornyet med mindre auto-forny-funktionen er slået fra mindst 24 timer før den nuværende periode slutter. Din konto vil blive trukket i henhold til din fornyelsesplan inden for 24 timer før den nuværende periode slutter. Du kan administrere eller slå auto-fornyelses funktionen fra i Konto Indstillinger efter købet. Du kan kun bruges guides downloaded med abonnementet indtil dets udløbsdato. Efter 30 dage fra abonnementets udløbsdato, bliver downloadede guides automatisk slettet.";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "Væg liste";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "Dette sted er i guide-katalog";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "Dette sted er vist i en guide";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "Se";
+
+"pp_discovery_place_related_tag_header" = "Guider ud fra tag „%s“";
+
+"pp_discovery_place_related_tag_header_1" = "Du vil måske også synes godt om";
+
+"buy_btn_for_subscription_version_2" = "ALLE guides for kun %s/mo";
+
+"buy_btn_for_subscription_version_3" = "Hele kataloget for %s/mo";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "Adgang til katalog for %s/mo";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "Adgang til kataloget for %s/year";
+
+"subscription_screen_native_title_version_2" = "Adgang til guides med bogmærker!";
+
+"subscription_screen_native_message_version_2" = "Bliv klar til enhver rejse i 600+ byer og 100+ lande";
+
+"catalog_no_internet_title" = "Ingen internetforbindelse";
+
+"catalog_no_internet_button" = "Prøv igen";
 
 
 /**********  Partners  **********/

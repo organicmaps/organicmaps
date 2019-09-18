@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "مکانهای مورد علاقه را بر اساس طبقه بندی ، موقعیت مکانی و ترتیب زمانی مرتب کنید، همچنین نشانههای خاص را به سرعت از روی نام بیابید";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "هورا، شما مشترک شدید!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "اکنون بهترین مکان های برجسته گردشگری را در کاتالوگ MAPS.ME کشف کنید";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "شروع جستجو";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "حالا نه";
 
 "religious_places" = "اماکن مقدس";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "هنگامی که خرید را تأیید کنید، هزینه آن از حساب Google Play شما پرداخت می شود. اشتراک به طور خودکار تمدید خواهد شد مگر اینکه ویژگی تمدید خودکار حداقل 24 ساعت قبل از پایان دوره فعلی خاموش باشد. حساب شما طبق برنامه تمدید، 24 ساعت پیش از پایان دوره جاری، شارژ می شود. شما می توانید ویژگی تمدید خودکار را در تنظیمات حساب پس از خرید مدیریت یا غیر فعال کنید. شما مجاز به استفاده از راهنماهای دانلود شده با اشتراک تنها تا تاریخ انقضا آن هستید. 30 روز پس از تاریخ انقضای اشتراک، راهنماهای دانلود شده به طور خودکار حذف خواهند";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "انتخاب فهرست";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "این مکان در کاتالوگ راهنماها موجود است";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "این مکان در راهنما متمایز است";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "مشاهده";
+
+"pp_discovery_place_related_tag_header" = "به راهنماهایی با برچسب \"%s\"";
+
+"pp_discovery_place_related_tag_header_1" = "همچنین ممکن است شما،";
+
+"buy_btn_for_subscription_version_2" = "تمامی راهنماها تنها با %s د";
+
+"buy_btn_for_subscription_version_3" = "کلیه کاتالوگ ها با %s در ماه";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "دسترسی به کاتالوگ با %s در ماه";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "دسترسی به کاتالوگ با %s در سال";
+
+"subscription_screen_native_title_version_2" = "Access to guides with bookmarks!";
+
+"subscription_screen_native_message_version_2" = "برای هر سفر به بیش از 600 شهر و بیش از 100 کشور آماده باش";
+
+"catalog_no_internet_title" = "اتصال به اینترنت برقرار نیست";
+
+"catalog_no_internet_button" = "تلاش مجدد";
 
 
 /**********  Partners  **********/

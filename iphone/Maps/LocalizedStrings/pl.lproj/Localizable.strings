@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "Sortuj ulubione miejsca wg kategorii, czasu dodania i geolokalizacji, również szybko wyszukaj konkretne znaczniki wg nazwy";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "Hura! Jesteś subskrybentem!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "Teraz odkryj najlepsze atrakcje turystyczne w katalogu MAPS.ME";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "Rozpocznij przeglądanie";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "Nie teraz";
 
 "religious_places" = "Święte miejsca";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "Gdy potwierdzisz zakup, płatność zostanie pobrana z Twojego konta Google Play. Subskrypcja zostanie automatycznie odnowiona, chyba że funkcja automatycznego odnawiania zostanie wyłączona co najmniej 24 godziny przed końcem bieżącego okresu. Twoje konto zostanie obciążone zgodnie z Twoją taryfą w ciągu 24 godzin przed końcem bieżącego okresu. Możesz zarządzać lub wyłączyć funkcję automatycznego odnawiania w ustawieniach konta po zakupie. Z przewodników pobranych w ramach subskrypcji można korzystać tylko do daty wygaśnięcia subskrypcji. Po 30 dniach od daty wygaśnięcia subskrypcji pobrane przewodniki zostaną automatycznie usunięte.";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "Wybierz listę";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "To miejsce w katalogu przewodników";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "To miejsce jest spotykane w przewodniku";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "Zobacz";
+
+"pp_discovery_place_related_tag_header" = "Przewodniki wg znacznika „%s”";
+
+"pp_discovery_place_related_tag_header_1" = "Może Ci tez spodobać się";
+
+"buy_btn_for_subscription_version_2" = "WSZYSTKIE przewodniki tylko za %s/mies.";
+
+"buy_btn_for_subscription_version_3" = "Cały katalog za %s/mies.";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "Dostęp do katalogu za %s/mies.";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "Dostęp do katalogu za %s/rok";
+
+"subscription_screen_native_title_version_2" = "Dostęp do przewodników z oznaczeniami na mapie!";
+
+"subscription_screen_native_message_version_2" = "Bądź gotowy na każdą podróż w ponad 600 miastach i ponad 100 krajach";
+
+"catalog_no_internet_title" = "Brak połączenia internetowego";
+
+"catalog_no_internet_button" = "Spróbuj ponownie";
 
 
 /**********  Partners  **********/

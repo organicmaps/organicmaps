@@ -1663,7 +1663,26 @@
 	<string name="bookmarks_delete_list">Lista törlése</string>
 	<string name="whatsnew_bookmarks_search_sort_title">A könyvjelzők rendezése kényelmes utazást tesz lehetővé</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Rendezze kedvenc helyeit kategóriánként, helyenként és időrendbe, és találja meg őket gyorsan a nevük alapján</string>
+	<string name="popup_subscription_success_map_title">Hohó, előfizettél!</string>
+	<string name="popup_subscription_success_map_message">Most már felfedezheted a legjobb turisztikai dolgokat a MAPS.ME katalógusban</string>
+	<string name="popup_subscription_success_map_start_button">Böngészés megkezdése</string>
+	<string name="popup_subscription_success_map_not_now_button">Ne most</string>
 	<string name="religious_places">Vallási helyek</string>
+	<string name="subscription_terms_android">Amikor megerősíted a vásárlást, a fizetség a Google Play fiókodat fogja megterhelni. Az előfizetés automatikusan megújul, hacsak az automatikus megújulás funkció ki nem lesz kapcsolva legalább 24 órával a jelenlegi időszak vége előtt. A fiókod a megújítási terved értelmében a jelenlegi időszak vége előtt 24 órán belül meg lesz terhelve. Az automatikus megújítás funkciót kezelheted vagy kikapcsolhatod vásárlás után a Fiókbeállításokban. Az előfizetéssel letöltött útikönyveket csak annak lejárati idejéig használhatod. A letöltött útikönyvek 30 nappal az előfizetés lejárati dátuma után automatikusan törölve lesznek.</string>
+	<string name="select_list">Lista kiválasztása</string>
+	<string name="pp_discovery_place_related_header">Ez a hely az útikönyv katalógusban van</string>
+	<string name="pp_discovery_place_related_header_1">Ez a hely kiemelt az útikönyvben</string>
+	<string name="pp_discovery_place_related_cta_button">Megnézés</string>
+	<string name="pp_discovery_place_related_tag_header">„%s” címkéjű útikönyvek</string>
+	<string name="pp_discovery_place_related_tag_header_1">Tetszhet még</string>
+	<string name="buy_btn_for_subscription_version_2">Az ÖSSZES útikönyv csak %s/hó</string>
+	<string name="buy_btn_for_subscription_version_3">A teljes katalógus %s/hó</string>
+	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Hozzáférés a katalógushoz %s/hó</string>
+	<string name="buy_btn_for_subscription_ios_only_year_version_2">Hozzáférés a katalógushoz %s/év</string>
+	<string name="subscription_screen_native_title_version_2">Férj hozzá az útikönyvekhez könyvjelzőkkel!</string>
+	<string name="subscription_screen_native_message_version_2">Állj készen bármilyen utazásra 600+ városba és 100+ országba</string>
+	<string name="catalog_no_internet_title">Nincs internetkapcsolat</string>
+	<string name="catalog_no_internet_button">Próbáld újra</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>

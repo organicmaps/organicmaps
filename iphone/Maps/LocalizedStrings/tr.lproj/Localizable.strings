@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "Favori yerleri kategori, konum ve kronolojik sıraya göre sıralayın ve belirli yer imlerini isimleriyle hızlı bir şekilde bulun";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "Yaşasın, abone oldun!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "Şimdi MAPS.ME kataloğunda en iyi turistik yerleri keşfedin";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "Göz atmaya başla";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "Şimdi değil";
 
 "religious_places" = "Dini yerler";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "Bir satın alma işlemini onayladığınızda, ödeme Google Play hesabınızdan tahsil edilecektir. Otomatik yenileme özelliği, geçerli dönemin sona ermesinden en az 24 saat önce kapatılmadıkça abonelik otomatik olarak yenilenecektir. Hesabınız cari dönemin bitiminden 24 saat önce yenileme planınıza uygun olarak ücretlendirilecektir. Satın alma işleminden sonra otomatik yenileme özelliğini Hesap Ayarları bölümünden yönetebilir veya kapatabilirsiniz. Abonelikle indirilen rehberlerinizi yalnızca son kullanma tarihine kadar kullanabilirsiniz. Abonelik sona erme tarihinden 30 gün sonra, indirilen rehberlerini otomatik olarak silinir.";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "Liste seç";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "Bu yer, rehber kataloğunda";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "Bu mekana kılavuzda yer verilmekte";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "Gör";
+
+"pp_discovery_place_related_tag_header" = "“%s” etiketli kılavuzlar";
+
+"pp_discovery_place_related_tag_header_1" = "Şunları da beğenebilirsiniz";
+
+"buy_btn_for_subscription_version_2" = "TÜM rehber sadece %s/ay";
+
+"buy_btn_for_subscription_version_3" = "Tüm katalog %s/ay";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "Kataloğa erişim %s/ay";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "Kataloğa erişim %s/yıl";
+
+"subscription_screen_native_title_version_2" = "Yer imleri ile rehberlere erişin!";
+
+"subscription_screen_native_message_version_2" = "600'den fazla şehir ve 100'den fazla ülkede seyahat etmeye hazır olun";
+
+"catalog_no_internet_title" = "İnternet bağlantısı yok";
+
+"catalog_no_internet_button" = "Tekrar deneyin";
 
 
 /**********  Partners  **********/

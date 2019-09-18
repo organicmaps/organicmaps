@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "Sorteer uw favoriete plaatsen op categorie, tijdstip van toevoegen en geolocatie, en vind ook snel specifieke bladwijzers op hun namen";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "Hoera! U bent opgeschreven!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "Ontdekt u nu de beste toeristische attracties in de MAPS.ME catalogus";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "Kijken";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "Niet nu";
 
 "religious_places" = "Religieuze plaatsen";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "De betaling zal worden gedaan vanaf uw Google Play-account wanneer u uw aankoop bevestigt. Het abonnement wordt automatisch hervat als de automatische verlenging niet minstens 24 uur voor het einde van de lopende periode wordt gedeactiveerd. Het geld wordt volgens uw verlengingsplan binnen 24 uur na afloop van de lopende periode van uw rekening afgetrokken. U kunt de automatische verlenging beheren of uitschakelen in de accountinstellingen na de aankoop. U kunt de handleidingen die u via het abonnement hebt gedownload alleen gebruiken voor de duur van het abonnement. Na 30 dagen na het einde van het abonnement worden de handleidingen automatisch verwijderd.";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "Lijst kiezen";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "Deze plaats in de catalogus van reisgidsen";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "Deze plaats verschijnt in de reisgids";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "Kijken";
+
+"pp_discovery_place_related_tag_header" = "De reisgidsen voor het tag „%s”";
+
+"pp_discovery_place_related_tag_header_1" = "Misschien wilt u ook graag";
+
+"buy_btn_for_subscription_version_2" = "ALLE handleidingen voor slechts %s per maand";
+
+"buy_btn_for_subscription_version_3" = "De hele catalogus voor %s per maand";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "Toegang tot de catalogus voor %s per maand";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "Toegang tot de catalogus voor %s per jaar";
+
+"subscription_screen_native_title_version_2" = "Toegang tot handleidingen met markeringen op de kaart!";
+
+"subscription_screen_native_message_version_2" = "Bereidt u voor op elke reis in meer dan 600 steden en meer dan 100 landen";
+
+"catalog_no_internet_title" = "Geen internetverbinding";
+
+"catalog_no_internet_button" = "Opnieuw verzoeken";
 
 
 /**********  Partners  **********/

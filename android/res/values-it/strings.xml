@@ -1662,7 +1662,26 @@
 	<string name="bookmarks_delete_list">Cancella la lista</string>
 	<string name="whatsnew_bookmarks_search_sort_title">I segnalibri ordinati rendono un viaggio piacevole</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Ordina i tuoi posti preferiti per categoria, data di aggiunta e posizione geografica, inoltre trova velocemente dei segnalibri specifici cercando per nome</string>
+	<string name="popup_subscription_success_map_title">Grande! Sei abbonato!</string>
+	<string name="popup_subscription_success_map_message">Esplora ora le migliori attrazioni turistiche del catalogo di MAPS.ME</string>
+	<string name="popup_subscription_success_map_start_button">Scopri</string>
+	<string name="popup_subscription_success_map_not_now_button">Non ora</string>
 	<string name="religious_places">Luoghi di culto</string>
+	<string name="subscription_terms_android">Il pagamento avverrà attraverso Google Play alla conferma dell\'acquisto. L\'abbonamento si rinnova automaticamente a meno che quest\'opzione non venga disattivata almeno entro le 24 ore precedenti alla fine del periodo corrente. Il costo verrà detratto dal tuo account in secondo il tuo piano di rinnovo entro 24 ore dalla fine del periodo corrente. Dopo l\'acquisto è possibile gestire il rinnovo automatico o disattivarlo nelle impostazioni dell\'account. Potrai utilizzare le guide scaricate attraverso l\'abbonamento solo per il periodo di per durata dell\'abbonamento. Entro un termine di 30 giorni dalla fine dell\'abbonamento le guide verranno automaticamente cancellate.</string>
+	<string name="select_list">Scegli la lista</string>
+	<string name="pp_discovery_place_related_header">Questo luogo è presente nel catalogo guide</string>
+	<string name="pp_discovery_place_related_header_1">Questo luogo è presente nella guida</string>
+	<string name="pp_discovery_place_related_cta_button">Scopri</string>
+	<string name="pp_discovery_place_related_tag_header">Guide per tag “%s”</string>
+	<string name="pp_discovery_place_related_tag_header_1">Potrebbero piacerti anche</string>
+	<string name="buy_btn_for_subscription_version_2">TUTTE le guide a %s al mese</string>
+	<string name="buy_btn_for_subscription_version_3">Tutto il catalogo a %s al mese</string>
+	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Accedi al catalogo per %s al mese</string>
+	<string name="buy_btn_for_subscription_ios_only_year_version_2">Accedi al catalogo per %s all\'anno</string>
+	<string name="subscription_screen_native_title_version_2">Accesso a guide con segnalibri sulla mappa!</string>
+	<string name="subscription_screen_native_message_version_2">Sarete pronti per qualsiasi viaggio in più di 600 città e 100 paesi</string>
+	<string name="catalog_no_internet_title">Nessuna connessione internet</string>
+	<string name="catalog_no_internet_button">Riprovare</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stazione di rifornimento per auto elettriche</string>

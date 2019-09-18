@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "Sortieren Sie die gewählten Orte nach Kategorie, Hinzufügungszeit und Geolokation. Sie können Lesezeichen schnell nach Lesezeichenname suchen";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "Hurra! Sie haben erfolgreich abonniert!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "Entdecken Sie die besten touristischen Sehenswürdigkeiten im MAPS.ME-Katalog";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "Ansehen";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "Nicht jetzt";
 
 "religious_places" = "Heilige Orte";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "Der Betrag wird von Ihrem Google Play Konto bei der Bestätigung der Transaktion abgebucht. Die Subskription wird automatisch verlängert, wenn die automatische Verlängerung mindestens 24 Stunden vor Ablauf des laufenden Zeitraums nicht deaktiviert wurde. Der Betrag wird von Ihrem Account gemäß Ihrem Verlängerungstarifplan innerhalb von 24 Stunden vor zum Ablauf des laufenden Zeitraums abgebucht. Sie können die automatische Verlängerung verwalten oder diese in den Account-Einstellungen nach dem Erwerb deaktivieren. Sie können Reiseführer, die mit einer gültigen Subskription heruntergeladen wurden, nur innerhalb deren Gültigkeitsdauer benutzen. 30 Tage nach Ablauf der Subskription werden die Reiseführer automatisch gelöscht.";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "Wählen Sie die Liste";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "Dieser Ort im Reiseführerkatalog";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "Dieser Ort ist im Reiseführer vorhanden";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "Ansehen";
+
+"pp_discovery_place_related_tag_header" = "Reiseführernach Tag „%s“";
+
+"pp_discovery_place_related_tag_header_1" = "Das könnte Ihnen auch gefallen";
+
+"buy_btn_for_subscription_version_2" = "ALLE Reiseführer für nur %s/Monat";
+
+"buy_btn_for_subscription_version_3" = "Das ganze Katalog für %s/Monat";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "Zugriff auf das Katalog für %s/Monat";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "Zugriff auf das Katalog für %s/Jahr";
+
+"subscription_screen_native_title_version_2" = "Zugriff auf Reiseführer mit Lesezeichen auf der Karte!";
+
+"subscription_screen_native_message_version_2" = "Seien Sie für jede Reise in 600+ Städten und 100+ Ländern bereit";
+
+"catalog_no_internet_title" = "Keine Internetverbindung";
+
+"catalog_no_internet_button" = "Noch einmal versuchen";
 
 
 /**********  Partners  **********/

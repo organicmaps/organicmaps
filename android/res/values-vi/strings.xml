@@ -1658,7 +1658,26 @@
 	<string name="bookmarks_delete_list">Xóa dánh sách</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Trật tự trong các dấu trang – đó là sự tiện nghi, thoải mái cho chuyến du lịch</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Hãy sắp xếp các địa điểm yêu thích theo thể loại, thời gian thêm vào và vị trí địa lý, đồng thời bạn cũng sẽ nhanh chóng tìm thấy các dấu trang cụ thể theo tên gọi</string>
+	<string name="popup_subscription_success_map_title">Ura! Bạn đã đăng ký mua!</string>
+	<string name="popup_subscription_success_map_message">Bây giờ hãy khám phá những điểm du lịch tốt nhất trong danh mục của MAPS.ME</string>
+	<string name="popup_subscription_success_map_start_button">Xem xét</string>
+	<string name="popup_subscription_success_map_not_now_button">Không phải bây giờ</string>
 	<string name="religious_places">Những nơi tôn nghiêm</string>
+	<string name="subscription_terms_android">Việc thanh toán sẽ được thực hiện từ tài khoản Google Play của bạn sau khi xác nhận mua. Việc đăng ký mua sẽ được tự động tiếp tục nếu chế độ tự động gia hạn không bị tắt trong thời gian ít nhất 24h trước khi kết thúc kỳ hiện tại. Tiền sẽ được trừ vào tài khoản của bạn tương ứng với gói cước gia hạn đã định trong thời gian 24h trước khi kết thúc kỳ hiện tại. Bạn có thể điều chỉnh tự động gia hạn hoặc tắt chế độ này trong phần thiết lập tài khoản sau khi mua. Bạn chỉ có thể sử dụng hướng dẫn đã tải theo gói cước đã mua trong thời gian nó còn hiệu lực. Sau 30 ngày khi kết thúc đăng ký mua, các hướng dẫn sẽ tự động bị xóa bỏ.</string>
+	<string name="select_list">Chọn danh sách</string>
+	<string name="pp_discovery_place_related_header">Địa điểm này trong danh mục hướng dẫn</string>
+	<string name="pp_discovery_place_related_header_1">Địa điểm này có trong hướng dẫn</string>
+	<string name="pp_discovery_place_related_cta_button">Xem</string>
+	<string name="pp_discovery_place_related_tag_header">Hướng dẫn theo thẻ \"%s\"</string>
+	<string name="pp_discovery_place_related_tag_header_1">Bạn có thể cũng sẽ thích</string>
+	<string name="buy_btn_for_subscription_version_2">TẤT CẢ hướng dẫn chỉ với %s/tháng</string>
+	<string name="buy_btn_for_subscription_version_3">Cả danh mục chỉ với %s/tháng</string>
+	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Truy cập vào danh mục với %s/tháng</string>
+	<string name="buy_btn_for_subscription_ios_only_year_version_2">Truy cập vào danh mục với %s/năm</string>
+	<string name="subscription_screen_native_title_version_2">Truy cập vào các hướng dẫn cùng với dấu trang trên bản đồ!</string>
+	<string name="subscription_screen_native_message_version_2">Hãy sẵn sàng cho mọi chuyến đi tới hơn 600 thành phố và hơn 100 quốc gia</string>
+	<string name="catalog_no_internet_title">Không có kết nối internet</string>
+	<string name="catalog_no_internet_button">Thử lại</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

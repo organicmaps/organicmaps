@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "Sortați locurile preferate după categorie, ora adăugării și geolocalizarea și găsiți rapid inscripțiile după nume";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "Ura! Sunteți abonat!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "Explorați acum cele mai faimoase obiective turistice în catalogul MAPS.ME";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "Uitați-vă";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "Nu acum";
 
 "religious_places" = "Locuri sfinte";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "Plata se va face din contul dvs. Google Play la confirmarea achiziției. Abonamentul se va reînnoi automat, dacă reînnoirea automată nu este oprită cu cel puțin 24 de ore înainte de încheierea perioadei curente. Banii vor fi luați din contul dvs. în conformitate cu planul dvs. de reînnoire în termen de 24 de ore până la sfârșitul perioadei curente. Puteți gestiona reînnoirea automată sau o puteți dezactiva în setările contului dvs. după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament doar în perioada de valabilitate. După 30 de zile de la terminarea abonamentului, ghidurile vor fi șterse automat.";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "Alegeți lista";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "Acest loc în catalogul ghidurilor";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "Acest loc poate fi întâlnit în ghid";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "De văzut";
+
+"pp_discovery_place_related_tag_header" = "Ghiduri după tag „%s”";
+
+"pp_discovery_place_related_tag_header_1" = "V-ar putea plăcea de asemenea";
+
+"buy_btn_for_subscription_version_2" = "TOATE ghidurile pentru doar %s/lună";
+
+"buy_btn_for_subscription_version_3" = "Tot catalogul pentru %s/lună";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "Acces la catalog pentru %s/lună";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "Acces la catalog pentru %s/an";
+
+"subscription_screen_native_title_version_2" = "Acces la ghiduri cu înscripții pe hartă!";
+
+"subscription_screen_native_message_version_2" = "Fiți pregătiți pentru orice călătorie în peste 600+ orașe și în peste 100+ țări";
+
+"catalog_no_internet_title" = "Fără conexiune la internet";
+
+"catalog_no_internet_button" = "Încercați din nou";
 
 
 /**********  Partners  **********/

@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "Hãy sắp xếp các địa điểm yêu thích theo thể loại, thời gian thêm vào và vị trí địa lý, đồng thời bạn cũng sẽ nhanh chóng tìm thấy các dấu trang cụ thể theo tên gọi";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "Ura! Bạn đã đăng ký mua!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "Bây giờ hãy khám phá những điểm du lịch tốt nhất trong danh mục của MAPS.ME";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "Xem xét";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "Không phải bây giờ";
 
 "religious_places" = "Những nơi tôn nghiêm";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "Việc thanh toán sẽ được thực hiện từ tài khoản Google Play của bạn sau khi xác nhận mua. Việc đăng ký mua sẽ được tự động tiếp tục nếu chế độ tự động gia hạn không bị tắt trong thời gian ít nhất 24h trước khi kết thúc kỳ hiện tại. Tiền sẽ được trừ vào tài khoản của bạn tương ứng với gói cước gia hạn đã định trong thời gian 24h trước khi kết thúc kỳ hiện tại. Bạn có thể điều chỉnh tự động gia hạn hoặc tắt chế độ này trong phần thiết lập tài khoản sau khi mua. Bạn chỉ có thể sử dụng hướng dẫn đã tải theo gói cước đã mua trong thời gian nó còn hiệu lực. Sau 30 ngày khi kết thúc đăng ký mua, các hướng dẫn sẽ tự động bị xóa bỏ.";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "Chọn danh sách";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "Địa điểm này trong danh mục hướng dẫn";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "Địa điểm này có trong hướng dẫn";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "Xem";
+
+"pp_discovery_place_related_tag_header" = "Hướng dẫn theo thẻ \"%s\"";
+
+"pp_discovery_place_related_tag_header_1" = "Bạn có thể cũng sẽ thích";
+
+"buy_btn_for_subscription_version_2" = "TẤT CẢ hướng dẫn chỉ với %s/tháng";
+
+"buy_btn_for_subscription_version_3" = "Cả danh mục chỉ với %s/tháng";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "Truy cập vào danh mục với %s/tháng";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "Truy cập vào danh mục với %s/năm";
+
+"subscription_screen_native_title_version_2" = "Truy cập vào các hướng dẫn cùng với dấu trang trên bản đồ!";
+
+"subscription_screen_native_message_version_2" = "Hãy sẵn sàng cho mọi chuyến đi tới hơn 600 thành phố và hơn 100 quốc gia";
+
+"catalog_no_internet_title" = "Không có kết nối internet";
+
+"catalog_no_internet_button" = "Thử lại";
 
 
 /**********  Partners  **********/

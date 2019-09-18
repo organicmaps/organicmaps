@@ -1662,7 +1662,26 @@
 	<string name="bookmarks_delete_list">Poista lista</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Järjestellyt kirjanmerkit tekevät matkailusta mukavampaa</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Järjestä suosikkipaikkasi kategorian, sijainnin tai kronologisen järjestyksen mukaan ja etsi kirjanmerkkejä nopeasti nimen perusteella</string>
+	<string name="popup_subscription_success_map_title">Hurraa! Tilauksesi on voimassa!</string>
+	<string name="popup_subscription_success_map_message">Tutustu nyt parhaisiin nähtävyyksiin MAPS.ME-luettelossa</string>
+	<string name="popup_subscription_success_map_start_button">Näytä</string>
+	<string name="popup_subscription_success_map_not_now_button">Ei nyt</string>
 	<string name="religious_places">Pyhät paikat</string>
+	<string name="subscription_terms_android">Maksu suoritetaan Google Play-tililtäsi oston vahvistamisen jälkeen. Tilaus uusitaan automaattisesti, ellei automaattinen uusiminen ole laitettu pois päältä vähintään 24 tuntia ennen nykyisen kauden päättymistä. Varat veloitetaan tililtäsi uusintasuunnitelmasi mukaisesti 24 tunnin kuluessa nykyisen kauden päättymisestä. Sinä voit hallita automaattista uusimista tai poistaa sen käytöstä Google Play-tili-asetuksissa oston jälkeen. Voit käyttää tilauksen kautta ladattuja oppaita vain sen voimassaoloaikana. 30 päivän kuluessa tilauksen päättymisestä matkaoppaat kaikkine kirjanmerkkeineen poistetaan automaattisesti.</string>
+	<string name="select_list">Valitse luettelo</string>
+	<string name="pp_discovery_place_related_header">Tämä paikka matkaopashakemistoissa</string>
+	<string name="pp_discovery_place_related_header_1">Tämä paikka löytyy matkaoppaasta</string>
+	<string name="pp_discovery_place_related_cta_button">Katso</string>
+	<string name="pp_discovery_place_related_tag_header">”%s”-tagin matkaoppaista</string>
+	<string name="pp_discovery_place_related_tag_header_1">Saatat myös pitää</string>
+	<string name="buy_btn_for_subscription_version_2">KAIKKI matkaoppaat vain %s/kk.</string>
+	<string name="buy_btn_for_subscription_version_3">Koko luettelo %s/kk.</string>
+	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Pääsy hakemistoon %s/kk.</string>
+	<string name="buy_btn_for_subscription_ios_only_year_version_2">Pääsy hakemistoon %s/vuosi</string>
+	<string name="subscription_screen_native_title_version_2">Pääsy matkaoppaan nastojen kanssa kartalla!</string>
+	<string name="subscription_screen_native_message_version_2">Ole valmiita mihin tahansa matkaan yli 600 kaupungissa ja yli 100 maassa</string>
+	<string name="catalog_no_internet_title">Ei ole Internet-yhteyttä</string>
+	<string name="catalog_no_internet_button">Yritä uudelleen</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

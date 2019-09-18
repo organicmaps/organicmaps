@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "رتب الأماكن المفضلة حسب الفئة والموقع وترتيبها الزمني، وكذلك البحث عن إشارات مرجعية محددة بسرعة حسب اسمهم";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "يا للروعة، لقد قمت بالاشتراك!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "اكتشف الآن أفضل المعالم السياحية في كتالوج MAPS.ME";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "ابدأ البحث";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "ليس الآن";
 
 "religious_places" = "أماكن دينية";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "عندما تؤكد عملية الشراء، سيتم الدفع عبر حسابك في Google Play سيتم تجديد الاشتراك تلقائياً ما لم يتم إيقاف تشغيل ميزة التجديد التلقائي قبل 24 ساعة على الأقل من نهاية الفترة الحالية. سيتم فرض رسوم على حسابك وفقاً لخطة التجديد الخاصة بك في غضون 24 ساعة قبل نهاية الفترة الحالية. يمكنك إدارة أو إيقاف تشغيل ميزة التجديد التلقائي في إعدادات الحساب بعد الشراء. يمكنك استخدام الأدلة التي تم تنزيلها عن طريق الاشتراك حتى تاريخ انتهاء الصلاحية فقط. بعد 30 يوماً من تاريخ انتهاء الاشتراك سيتم حذف الأدلة التي تم تنزيلها تلقائياً.";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "اختر القائمة";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "هذا المكان في كاتالوج أدلة السفر";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "يتم العثور على هذا المكان في أدلة السفر";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "مشاهدة";
+
+"pp_discovery_place_related_tag_header" = "أدلة السفرحسب العلامة “%s”";
+
+"pp_discovery_place_related_tag_header_1" = "سوف تعجبك كذلك";
+
+"buy_btn_for_subscription_version_2" = "جميع الأدلة فقط من أجل %s /شهر";
+
+"buy_btn_for_subscription_version_3" = "كامل الكتالوج من أجل %s /شهر";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "الوصول إلى الكاتالوج من أجل %s /شهر";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "الوصول إلى الكاتالوج من أجل %s /سنة";
+
+"subscription_screen_native_title_version_2" = "الوصول إلى الأدلة مع الإشارات المرجعية!";
+
+"subscription_screen_native_message_version_2" = "كن مستعداً لأي رحلة إلى أكثر من 600 مدينة و100 دولة";
+
+"catalog_no_internet_title" = "غير متصل";
+
+"catalog_no_internet_button" = "حاول مرة أخرى";
 
 
 /**********  Partners  **********/

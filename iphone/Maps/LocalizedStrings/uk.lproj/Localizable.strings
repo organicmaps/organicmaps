@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "Сортуйте обрані місця за категоріями, часом завантаження та геолокацією, а також швидко знаходьте конкретні мітки за назвою";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "Ура! Ви оформили підписку!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "Тепер досліджуйте найкращі туристичні пам’ятки в каталозі MAPS.ME";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "Переглянути";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "Не зараз";
 
 "religious_places" = "Святі місця";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "Оплату буде списано з вашого рахунку Google Play під час підтвердження купівлі. Передплату буде поновлено автоматично, якщо автоматичне продовження не буде вимкнено принаймні за 24 години до завершення поточного періоду. Грошові кошти буде списано з вашого облікового запису відповідно до вашого тарифного плану продовження впродовж 24 годин до завершення поточного періоду. Ви можете керувати автоматичним продовженням або вимкнути його в налаштуваннях облікового запису після купівлі. Ви зможете використовувати путівники, завантажені за передплатою, лише впродовж її терміну дії. Через 30 днів після завершення передплати путівники буде автоматично видалено.";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "Обрати список";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "Це місце в каталозі путівників";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "Це місце є в путівнику";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "Дивитися";
+
+"pp_discovery_place_related_tag_header" = "Путівники з тегом «%s»";
+
+"pp_discovery_place_related_tag_header_1" = "Вам також можуть сподобатися";
+
+"buy_btn_for_subscription_version_2" = "УСІ путівники лише за %s/міс.";
+
+"buy_btn_for_subscription_version_3" = "Увесь каталог за %s/міс.";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "Доступ до каталогу за %s/міс.";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "Доступ до каталогу за %s/рік";
+
+"subscription_screen_native_title_version_2" = "Доступ до путівників з мітками на карті!";
+
+"subscription_screen_native_message_version_2" = "Приготуйтеся до будь-якої подорожі в понад 600 містах і понад 100 країнах";
+
+"catalog_no_internet_title" = "Немає інтернет-підключення";
+
+"catalog_no_internet_button" = "Спробувати знову";
 
 
 /**********  Partners  **********/

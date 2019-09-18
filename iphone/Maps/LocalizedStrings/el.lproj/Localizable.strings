@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "Ταξινόμηση των αγαπημένων σας τοποθεσιών ανά κατηγορία, ώρα προσθήκης και γεωγραφική κατανομή και γρήγορη εύρεση συγκεκριμένων σελιδοδεικτών με το όνομα";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "Ζήτω! Είστε συνδρομητής!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "Τώρα μελετήστε τα καλύτερα τουριστικά αξιοθέατα στον κατάλογο MAPS.ME";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "Προβολή";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "Όχι τώρα";
 
 "religious_places" = "Άγιοι τόποι";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "Μετά την επιβεβαίωση αγοράς η πληρωμή θα χρεωθεί στο λογαριασμό σας στο Google Play. Η συνδρομή θα ανανεώνεται αυτόματα εκτός εάν η λειτουργία αυτόματης ανανέωσης απενεργοποιηθεί τουλάχιστον 24 ώρες πριν από το τέλος της τρέχουσας περιόδου. Ο λογαριασμός σας θα χρεώνεται σύμφωνα με το σχέδιο ανανέωσης συνδρομής σας εντός 24 ωρών πριν από το τέλος της τρέχουσας περιόδου. Μπορείτε να διαχειριστείτε ή να απενεργοποιήσετε τη δυνατότητα αυτόματης ανανέωσης στις Ρυθμίσεις λογαριασμού σας μετά την αγορά. Θα μπορέσετε να χρησιμοποιείτε τους οδηγούς που έχουν ληφθεί με τη συνδρομή μόνο μέχρι τη λήξη της. Μετά το πέρασμα 30 ημερών από τη λήξη της συνδρομής οι οδηγοί θα διαγραφούν αυτόματα.";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "Επιλογή λίστας";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "Αυτό το μέρος υπάρχει στον κατάλογο οδηγών";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "Αυτό το μέρος υπάρχει στον οδηγό";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "Προβολή";
+
+"pp_discovery_place_related_tag_header" = "Οδηγοί με ετικέτα «%s»";
+
+"pp_discovery_place_related_tag_header_1" = "Μπορεί επίσης να σας αρέσουν";
+
+"buy_btn_for_subscription_version_2" = "ΟΛΟΙ οι οδηγοί μόνο με %s/μήνα";
+
+"buy_btn_for_subscription_version_3" = "Ολόκληρος κατάλογος με %s/μήνα";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "Πρόσβαση στον κατάλογο με %s/μήνα";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "Πρόσβαση στον κατάλογο με %s/χρόνο";
+
+"subscription_screen_native_title_version_2" = "Πρόσβαση σε οδηγούς με τα Αγαπημένα!";
+
+"subscription_screen_native_message_version_2" = "Για να είστε έτοιμοι για κάθε ταξίδι σε 600+ πόλεις και 100+ χώρες";
+
+"catalog_no_internet_title" = "Δεν υπάρχει σύνδεση στο διαδίκτυο";
+
+"catalog_no_internet_button" = "Δοκιμάστε ξανά";
 
 
 /**********  Partners  **********/

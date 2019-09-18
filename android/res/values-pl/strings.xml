@@ -1667,7 +1667,26 @@
 	<string name="bookmarks_delete_list">Usuń listę</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Porządek w znacznikach — wygoda w podróży</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Sortuj ulubione miejsca wg kategorii, czasu dodania i geolokalizacji, również szybko wyszukaj konkretne znaczniki wg nazwy</string>
+	<string name="popup_subscription_success_map_title">Hura! Jesteś subskrybentem!</string>
+	<string name="popup_subscription_success_map_message">Teraz odkryj najlepsze atrakcje turystyczne w katalogu MAPS.ME</string>
+	<string name="popup_subscription_success_map_start_button">Rozpocznij przeglądanie</string>
+	<string name="popup_subscription_success_map_not_now_button">Nie teraz</string>
 	<string name="religious_places">Święte miejsca</string>
+	<string name="subscription_terms_android">Gdy potwierdzisz zakup, płatność zostanie pobrana z Twojego konta Google Play. Subskrypcja zostanie automatycznie odnowiona, chyba że funkcja automatycznego odnawiania zostanie wyłączona co najmniej 24 godziny przed końcem bieżącego okresu. Twoje konto zostanie obciążone zgodnie z Twoją taryfą w ciągu 24 godzin przed końcem bieżącego okresu. Możesz zarządzać lub wyłączyć funkcję automatycznego odnawiania w ustawieniach konta po zakupie. Z przewodników pobranych w ramach subskrypcji można korzystać tylko do daty wygaśnięcia subskrypcji. Po 30 dniach od daty wygaśnięcia subskrypcji pobrane przewodniki zostaną automatycznie usunięte.</string>
+	<string name="select_list">Wybierz listę</string>
+	<string name="pp_discovery_place_related_header">To miejsce w katalogu przewodników</string>
+	<string name="pp_discovery_place_related_header_1">To miejsce jest spotykane w przewodniku</string>
+	<string name="pp_discovery_place_related_cta_button">Zobacz</string>
+	<string name="pp_discovery_place_related_tag_header">Przewodniki wg znacznika „%s”</string>
+	<string name="pp_discovery_place_related_tag_header_1">Może Ci tez spodobać się</string>
+	<string name="buy_btn_for_subscription_version_2">WSZYSTKIE przewodniki tylko za %s/mies.</string>
+	<string name="buy_btn_for_subscription_version_3">Cały katalog za %s/mies.</string>
+	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Dostęp do katalogu za %s/mies.</string>
+	<string name="buy_btn_for_subscription_ios_only_year_version_2">Dostęp do katalogu za %s/rok</string>
+	<string name="subscription_screen_native_title_version_2">Dostęp do przewodników z oznaczeniami na mapie!</string>
+	<string name="subscription_screen_native_message_version_2">Bądź gotowy na każdą podróż w ponad 600 miastach i ponad 100 krajach</string>
+	<string name="catalog_no_internet_title">Brak połączenia internetowego</string>
+	<string name="catalog_no_internet_button">Spróbuj ponownie</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Wyprzedaże</string>

@@ -1676,7 +1676,26 @@
 	<string name="bookmarks_delete_list">Liste löschen</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Ordnung in den Lesezeichen – Handlichkeit während der Reise</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Sortieren Sie die gewählten Orte nach Kategorie, Hinzufügungszeit und Geolokation. Sie können Lesezeichen schnell nach Lesezeichenname suchen</string>
+	<string name="popup_subscription_success_map_title">Hurra! Sie haben erfolgreich abonniert!</string>
+	<string name="popup_subscription_success_map_message">Entdecken Sie die besten touristischen Sehenswürdigkeiten im MAPS.ME-Katalog</string>
+	<string name="popup_subscription_success_map_start_button">Ansehen</string>
+	<string name="popup_subscription_success_map_not_now_button">Nicht jetzt</string>
 	<string name="religious_places">Heilige Orte</string>
+	<string name="subscription_terms_android">Der Betrag wird von Ihrem Google Play Konto bei der Bestätigung der Transaktion abgebucht. Die Subskription wird automatisch verlängert, wenn die automatische Verlängerung mindestens 24 Stunden vor Ablauf des laufenden Zeitraums nicht deaktiviert wurde. Der Betrag wird von Ihrem Account gemäß Ihrem Verlängerungstarifplan innerhalb von 24 Stunden vor zum Ablauf des laufenden Zeitraums abgebucht. Sie können die automatische Verlängerung verwalten oder diese in den Account-Einstellungen nach dem Erwerb deaktivieren. Sie können Reiseführer, die mit einer gültigen Subskription heruntergeladen wurden, nur innerhalb deren Gültigkeitsdauer benutzen. 30 Tage nach Ablauf der Subskription werden die Reiseführer automatisch gelöscht.</string>
+	<string name="select_list">Wählen Sie die Liste</string>
+	<string name="pp_discovery_place_related_header">Dieser Ort im Reiseführerkatalog</string>
+	<string name="pp_discovery_place_related_header_1">Dieser Ort ist im Reiseführer vorhanden</string>
+	<string name="pp_discovery_place_related_cta_button">Ansehen</string>
+	<string name="pp_discovery_place_related_tag_header">Reiseführernach Tag „%s“</string>
+	<string name="pp_discovery_place_related_tag_header_1">Das könnte Ihnen auch gefallen</string>
+	<string name="buy_btn_for_subscription_version_2">ALLE Reiseführer für nur %s/Monat</string>
+	<string name="buy_btn_for_subscription_version_3">Das ganze Katalog für %s/Monat</string>
+	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Zugriff auf das Katalog für %s/Monat</string>
+	<string name="buy_btn_for_subscription_ios_only_year_version_2">Zugriff auf das Katalog für %s/Jahr</string>
+	<string name="subscription_screen_native_title_version_2">Zugriff auf Reiseführer mit Lesezeichen auf der Karte!</string>
+	<string name="subscription_screen_native_message_version_2">Seien Sie für jede Reise in 600+ Städten und 100+ Ländern bereit</string>
+	<string name="catalog_no_internet_title">Keine Internetverbindung</string>
+	<string name="catalog_no_internet_button">Noch einmal versuchen</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>

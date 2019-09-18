@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "Сортируйте избранные места по категориям, времени добавления и геолокации, а также быстро находите конкретные метки по названию";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "Ура! Вы подписаны!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "Теперь исследуйте лучшие туристические достопримечательности в каталоге MAPS.ME";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "Просмотреть";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "Не сейчас";
 
 "religious_places" = "Святые места";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "Оплата будет произведена с вашего счета Google Play при подтверждении покупки. Подписка автоматически возобновится, если автоматическое продление не будет отключено по крайней мере за 24 часа до окончания текущего периода. Денежные средства будут списываться с вашей учетной записи в соответствии с вашим тарифным планом продления в течение 24 часов до конца текущего периода. Вы можете управлять автоматическим продлением или отключать его в настройках учетной записи после покупки. Вы сможете использовать путеводители, скачанные по подписке, только в течение ее срока действия. По истечении 30 дней после окончания подписки путеводители будут автоматически удалены.";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "Выбрать список";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "Это место в каталоге путеводителей";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "Это место встречается в путеводителе";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "Посмотреть";
+
+"pp_discovery_place_related_tag_header" = "Путеводители по тегу «%s»";
+
+"pp_discovery_place_related_tag_header_1" = "Вам также могут понравиться";
+
+"buy_btn_for_subscription_version_2" = "ВСЕ путеводители всего за %s/мес.";
+
+"buy_btn_for_subscription_version_3" = "Весь каталог за %s/мес.";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "Доступ к каталогу за %s/мес.";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "Доступ к каталогу за %s/год";
+
+"subscription_screen_native_title_version_2" = "Доступ к путеводителям с метками на карте!";
+
+"subscription_screen_native_message_version_2" = "Будьте готовы к любому путешествию в 600+ городах и 100+ странах";
+
+"catalog_no_internet_title" = "Нет интернет-подключения";
+
+"catalog_no_internet_button" = "Попробовать снова";
 
 
 /**********  Partners  **********/

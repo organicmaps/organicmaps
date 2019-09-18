@@ -1667,7 +1667,26 @@
 	<string name="bookmarks_delete_list">حذف القائمة</string>
 	<string name="whatsnew_bookmarks_search_sort_title">ترتيب الإشارات المرجعية لرحلة مريحة</string>
 	<string name="whatsnew_bookmarks_search_sort_message">رتب الأماكن المفضلة حسب الفئة والموقع وترتيبها الزمني، وكذلك البحث عن إشارات مرجعية محددة بسرعة حسب اسمهم</string>
+	<string name="popup_subscription_success_map_title">يا للروعة، لقد قمت بالاشتراك!</string>
+	<string name="popup_subscription_success_map_message">اكتشف الآن أفضل المعالم السياحية في كتالوج MAPS.ME</string>
+	<string name="popup_subscription_success_map_start_button">ابدأ البحث</string>
+	<string name="popup_subscription_success_map_not_now_button">ليس الآن</string>
 	<string name="religious_places">أماكن دينية</string>
+	<string name="subscription_terms_android">عندما تؤكد عملية الشراء، سيتم الدفع عبر حسابك في Google Play سيتم تجديد الاشتراك تلقائياً ما لم يتم إيقاف تشغيل ميزة التجديد التلقائي قبل 24 ساعة على الأقل من نهاية الفترة الحالية. سيتم فرض رسوم على حسابك وفقاً لخطة التجديد الخاصة بك في غضون 24 ساعة قبل نهاية الفترة الحالية. يمكنك إدارة أو إيقاف تشغيل ميزة التجديد التلقائي في إعدادات الحساب بعد الشراء. يمكنك استخدام الأدلة التي تم تنزيلها عن طريق الاشتراك حتى تاريخ انتهاء الصلاحية فقط. بعد 30 يوماً من تاريخ انتهاء الاشتراك سيتم حذف الأدلة التي تم تنزيلها تلقائياً.</string>
+	<string name="select_list">اختر القائمة</string>
+	<string name="pp_discovery_place_related_header">هذا المكان في كاتالوج أدلة السفر</string>
+	<string name="pp_discovery_place_related_header_1">يتم العثور على هذا المكان في أدلة السفر</string>
+	<string name="pp_discovery_place_related_cta_button">مشاهدة</string>
+	<string name="pp_discovery_place_related_tag_header">أدلة السفرحسب العلامة “%s”</string>
+	<string name="pp_discovery_place_related_tag_header_1">سوف تعجبك كذلك</string>
+	<string name="buy_btn_for_subscription_version_2">جميع الأدلة فقط من أجل %s /شهر</string>
+	<string name="buy_btn_for_subscription_version_3">كامل الكتالوج من أجل %s /شهر</string>
+	<string name="buy_btn_for_subscription_ios_only_mo_version_2">الوصول إلى الكاتالوج من أجل %s /شهر</string>
+	<string name="buy_btn_for_subscription_ios_only_year_version_2">الوصول إلى الكاتالوج من أجل %s /سنة</string>
+	<string name="subscription_screen_native_title_version_2">الوصول إلى الأدلة مع الإشارات المرجعية!</string>
+	<string name="subscription_screen_native_message_version_2">كن مستعداً لأي رحلة إلى أكثر من 600 مدينة و100 دولة</string>
+	<string name="catalog_no_internet_title">غير متصل</string>
+	<string name="catalog_no_internet_button">حاول مرة أخرى</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

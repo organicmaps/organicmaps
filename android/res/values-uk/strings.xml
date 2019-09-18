@@ -1668,7 +1668,26 @@
 	<string name="bookmarks_delete_list">Видалити список</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Порядок у мітках — зручність під час подорожі</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Сортуйте обрані місця за категоріями, часом завантаження та геолокацією, а також швидко знаходьте конкретні мітки за назвою</string>
+	<string name="popup_subscription_success_map_title">Ура! Ви оформили підписку!</string>
+	<string name="popup_subscription_success_map_message">Тепер досліджуйте найкращі туристичні пам’ятки в каталозі MAPS.ME</string>
+	<string name="popup_subscription_success_map_start_button">Переглянути</string>
+	<string name="popup_subscription_success_map_not_now_button">Не зараз</string>
 	<string name="religious_places">Святі місця</string>
+	<string name="subscription_terms_android">Оплату буде списано з вашого рахунку Google Play під час підтвердження купівлі. Передплату буде поновлено автоматично, якщо автоматичне продовження не буде вимкнено принаймні за 24 години до завершення поточного періоду. Грошові кошти буде списано з вашого облікового запису відповідно до вашого тарифного плану продовження впродовж 24 годин до завершення поточного періоду. Ви можете керувати автоматичним продовженням або вимкнути його в налаштуваннях облікового запису після купівлі. Ви зможете використовувати путівники, завантажені за передплатою, лише впродовж її терміну дії. Через 30 днів після завершення передплати путівники буде автоматично видалено.</string>
+	<string name="select_list">Обрати список</string>
+	<string name="pp_discovery_place_related_header">Це місце в каталозі путівників</string>
+	<string name="pp_discovery_place_related_header_1">Це місце є в путівнику</string>
+	<string name="pp_discovery_place_related_cta_button">Дивитися</string>
+	<string name="pp_discovery_place_related_tag_header">Путівники з тегом «%s»</string>
+	<string name="pp_discovery_place_related_tag_header_1">Вам також можуть сподобатися</string>
+	<string name="buy_btn_for_subscription_version_2">УСІ путівники лише за %s/міс.</string>
+	<string name="buy_btn_for_subscription_version_3">Увесь каталог за %s/міс.</string>
+	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Доступ до каталогу за %s/міс.</string>
+	<string name="buy_btn_for_subscription_ios_only_year_version_2">Доступ до каталогу за %s/рік</string>
+	<string name="subscription_screen_native_title_version_2">Доступ до путівників з мітками на карті!</string>
+	<string name="subscription_screen_native_message_version_2">Приготуйтеся до будь-якої подорожі в понад 600 містах і понад 100 країнах</string>
+	<string name="catalog_no_internet_title">Немає інтернет-підключення</string>
+	<string name="catalog_no_internet_button">Спробувати знову</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

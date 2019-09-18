@@ -1661,7 +1661,26 @@
 	<string name="bookmarks_delete_list">リストの削除</string>
 	<string name="whatsnew_bookmarks_search_sort_title">ブックマークの順番で快適な旅ができます</string>
 	<string name="whatsnew_bookmarks_search_sort_message">お気に入りの場所をカテゴリーや、位置、時系列順で並び替えたり、名前で素早く特定のブックマークを検索しましょう。</string>
+	<string name="popup_subscription_success_map_title">おめでとうございます、サブスクライブしました!</string>
+	<string name="popup_subscription_success_map_message">MAPS.MEのカタログで最高の観光地を見つけましょう</string>
+	<string name="popup_subscription_success_map_start_button">ブラウジングを開始</string>
+	<string name="popup_subscription_success_map_not_now_button">今はしない</string>
 	<string name="religious_places">宗教に関連した場所</string>
+	<string name="subscription_terms_android">購入を確認すると支払いはGoogle Playのアカウントに請求されます。サブスクリプションは、自動更新機能が現在の有効期限の24時間前までに無効化されない限り自動的に更新されます。現在の有効期限の終了の24時間以内に更新プランに従ってあなたのアカウントに対して請求されます。購入後にアカウント設定から自動更新機能を管理または無効化する事ができます。有効期限までにサブスクリプションでダウンロードしたガイドだけしか利用する事はできません。サブスクリプションの失効から30日が経過するとダウンロードしたガイドは自動的に削除されます。</string>
+	<string name="select_list">リストを選択</string>
+	<string name="pp_discovery_place_related_header">この場所はガイドカタログに記載されています</string>
+	<string name="pp_discovery_place_related_header_1">この場所はガイドで特集されています</string>
+	<string name="pp_discovery_place_related_cta_button">閲覧</string>
+	<string name="pp_discovery_place_related_tag_header">「%s」のタグが付いたガイド</string>
+	<string name="pp_discovery_place_related_tag_header_1">こちらもいかがですか</string>
+	<string name="buy_btn_for_subscription_version_2">全てのガイドがたったの月%s</string>
+	<string name="buy_btn_for_subscription_version_3">カタログ全体が月々%s</string>
+	<string name="buy_btn_for_subscription_ios_only_mo_version_2">カタログへのアクセスが月々%s</string>
+	<string name="buy_btn_for_subscription_ios_only_year_version_2">カタログへのアクセスが年間%s</string>
+	<string name="subscription_screen_native_title_version_2">ブックマーク付きのガイドにアクセスしましょう！</string>
+	<string name="subscription_screen_native_message_version_2">600以上の都市と100以上の国々への旅の準備を整えましょう</string>
+	<string name="catalog_no_internet_title">インターネット接続がありません</string>
+	<string name="catalog_no_internet_button">もう一度お試しください</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

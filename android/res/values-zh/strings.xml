@@ -1666,7 +1666,26 @@
 	<string name="bookmarks_delete_list">删除列表</string>
 	<string name="whatsnew_bookmarks_search_sort_title">标签中的顺序 – 便于旅行</string>
 	<string name="whatsnew_bookmarks_search_sort_message">请根据类别、添加时间和地理位置对您喜欢的地点进行排序，还可以按名称快速查找具体的标签</string>
+	<string name="popup_subscription_success_map_title">耶！您已订阅！</string>
+	<string name="popup_subscription_success_map_message">现在在MAPS.ME画册中探索最佳的旅游景点</string>
+	<string name="popup_subscription_success_map_start_button">浏览</string>
+	<string name="popup_subscription_success_map_not_now_button">不是现在</string>
 	<string name="religious_places">圣地</string>
+	<string name="subscription_terms_android">在确认购买时，将从您的Google Play帐户付款。如果在本期订阅结束前24小时内没有取消自动续订，续订将自动延续。资金将在本期订阅结束前24小时内根据续订计划从您的帐户中扣除。您可以在购买后管理自动续订或在帐户设置中将其停用。您只能在有效期内使用订阅下载的指南。订阅结束30天后，指南将自动删除。</string>
+	<string name="select_list">选择列表</string>
+	<string name="pp_discovery_place_related_header">这是指南目录中标记的位置</string>
+	<string name="pp_discovery_place_related_header_1">这个位置在指南中出现过</string>
+	<string name="pp_discovery_place_related_cta_button">查看</string>
+	<string name="pp_discovery_place_related_tag_header">指南和按标记 “%s”</string>
+	<string name="pp_discovery_place_related_tag_header_1">您会喜欢这样的</string>
+	<string name="buy_btn_for_subscription_version_2">所有指南%s/月</string>
+	<string name="buy_btn_for_subscription_version_3">整个画册%s/月</string>
+	<string name="buy_btn_for_subscription_ios_only_mo_version_2">访问画册%s/月</string>
+	<string name="buy_btn_for_subscription_ios_only_year_version_2">访问画册%s/年</string>
+	<string name="subscription_screen_native_title_version_2">在地图上访问带有标记的指南！</string>
+	<string name="subscription_screen_native_message_version_2">请为600多个城市和100多个国家的任何旅行做好准备</string>
+	<string name="catalog_no_internet_title">没有网络连接</string>
+	<string name="catalog_no_internet_button">请再试一次</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">缆车车站</string>

@@ -3036,7 +3036,7 @@
 
 "popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "Now discover the best touristic highlights in MAPS.ME catalog";
 
 "popup_subscription_success_map_start_button" = "Start browsing";
 
@@ -3044,20 +3044,35 @@
 
 "religious_places" = "Religious places";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "When you confirm a purchase, the payment will be charged to your Google Play account. The subscription will automatically renew unless the auto-renew feature is turned off at least 24 hours before the end of the current period. Your account will be charged pursuant to your renewal plan within 24 hours before the end of the current period. You can manage or turn off the auto-renew feature in Account Settings after purchase. You can only use guides downloaded by subscription until the end of the billing period. After 30 days from the subscription expiry date, downloaded guides will be automatically deleted.";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "Select list";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "This place in the guides catalog";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "This place is featured in a guide";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "View";
+
+"pp_discovery_place_related_tag_header" = "Guides by tag “%s”";
+
+"pp_discovery_place_related_tag_header_1" = "You may also like";
+
+"buy_btn_for_subscription_version_2" = "ALL guides just for %s/mo";
+
+"buy_btn_for_subscription_version_3" = "Entire catalog for %s/mo";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "Access to catalog for %s/mo";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "Access to catalog for %s/year";
+
+"subscription_screen_native_title_version_2" = "Access to guides with bookmarks!";
+
+"subscription_screen_native_message_version_2" = "Be ready for any journey in 600+ cities and 100+ countries";
+
+"catalog_no_internet_title" = "No internet connection";
+
+"catalog_no_internet_button" = "Try again";
 
 
 /**********  Partners  **********/

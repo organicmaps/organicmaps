@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "請根據類別、添加時間和地理位置對您喜歡的地點進行排序，還可以按名稱快速查找具體的標籤";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "耶！您已訂閱！";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "現在在MAPS.ME畫冊中探索最佳的旅遊景點";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "瀏覽";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "不是現在";
 
 "religious_places" = "聖地";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "在確認購買時，將從您的Google Play帳戶付款。如果在本期訂閱結束前24小時內沒有取消自動續訂，續訂將自動延續。資金將在本期訂閱結束前24小時內根據續訂計劃從您的帳戶中扣除。您可以在購買後管理自動續訂或在賬戶設置中將其停用。您只能在有效期內使用訂閱下載的指南。訂閱結束30天后，指南將自動刪除。";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "選擇列表";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "這是指南目錄中標記的位置";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "這個位置在指南中出現過";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "查看";
+
+"pp_discovery_place_related_tag_header" = "指南和按標記 “%s”";
+
+"pp_discovery_place_related_tag_header_1" = "您會喜歡這樣的";
+
+"buy_btn_for_subscription_version_2" = "所有指南%s/月";
+
+"buy_btn_for_subscription_version_3" = "整個畫冊%s/月";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "訪問畫冊%s/月";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "訪問畫冊%s/年";
+
+"subscription_screen_native_title_version_2" = "在地圖上訪問帶有標記的指南！";
+
+"subscription_screen_native_message_version_2" = "請為600多個城市和100多個國家的任何旅行做好準備";
+
+"catalog_no_internet_title" = "沒有網絡連接";
+
+"catalog_no_internet_button" = "請再試一次";
 
 
 /**********  Partners  **********/

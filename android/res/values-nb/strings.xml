@@ -1560,7 +1560,26 @@
 	<string name="bookmarks_delete_list">Slette lista</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Orden i merker- lett å reise</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Sorter favoritter etter kategorier, tidspunkt de er lagt inn og geografisk lokasjon, samt finn bestemte merker fort etter navn</string>
+	<string name="popup_subscription_success_map_title">Hurra! Du har abonnert!</string>
+	<string name="popup_subscription_success_map_message">Nå kan du utforske de beste turistseverdighetene i MAPS.ME-katalogen</string>
+	<string name="popup_subscription_success_map_start_button">Ta en titt</string>
+	<string name="popup_subscription_success_map_not_now_button">Ikke nå</string>
 	<string name="religious_places">Hellige steder</string>
+	<string name="subscription_terms_android">Betaling utføres fra din Google Play-konto ved innkjøpsbekreftelse. Anonnementet blir automatisk oppdatert dersom den automatiske forlengelsen ikke slås av om minst 24 timer før gjeldende periode er ute. Penger blir overført fra din konto i henhold til din forlengelse-tariffplanen i løpet av 24 timer før gjeldende periode er ute. Du kan styre automatisk forlengelse eller slå den av i kontoinnstillinger etter kjøpet. Du kan bruke guider som ble lastet ned med abonnment kun i løpet av varighetsperiode. Når 30-dagers varighetsperiode er ute, blir guidene slettet.</string>
+	<string name="select_list">Velge liste</string>
+	<string name="pp_discovery_place_related_header">Dette stedet er i guidekatalogen</string>
+	<string name="pp_discovery_place_related_header_1">Dette stedet finnes i guidekatalogen</string>
+	<string name="pp_discovery_place_related_cta_button">Se</string>
+	<string name="pp_discovery_place_related_tag_header">Guider på tag «%s»</string>
+	<string name="pp_discovery_place_related_tag_header_1">Du kan også like</string>
+	<string name="buy_btn_for_subscription_version_2">ALLE guider for bare %s/md.</string>
+	<string name="buy_btn_for_subscription_version_3">Hele katalogen for %s/md.</string>
+	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Tilgang til katalogen for %s/md.</string>
+	<string name="buy_btn_for_subscription_ios_only_year_version_2">Tilgang til katalogen for %s/år</string>
+	<string name="subscription_screen_native_title_version_2">Tilgang til guider med bokmerker på kartet!</string>
+	<string name="subscription_screen_native_message_version_2">Bli klar til hvilken som helst reise i 600+ byer og 100+ land</string>
+	<string name="catalog_no_internet_title">Ingen Internett-forbindelse</string>
+	<string name="catalog_no_internet_button">Prøve igjen</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestasjon</string>

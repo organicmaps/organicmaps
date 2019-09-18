@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "Urutkan tempat favorit berdasarkan kategori, lokasi dan waktu kunjungan, serta temukan bookmark secara cepat hanya dengan menggunakan nama";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "Woohoo, anda telah berlangganan!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "Kini saatnya menemukan tempat wisata terbaik di katalog MAPS.ME";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "Mulai menjelajah";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "Jangan sekarang";
 
 "religious_places" = "Tempat ibadah";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "Setelah anda mengkonfirmasi pembelian, pembayaran akan diteruskan ke akun Google Play anda. Program langganan akan diperbaharui secara otomatis kecuali jika fitur pembaruan otomatis dimatikan dalam waktu 24 jam sebelum periode tersebut berakhir. Akun anda akan dikenakan biaya sesuai dengan rencana perpanjangan dalam waktu 24 jam sebelum akhir periode berjalan. Anda bisa mengatur dan mematikan fitur pembaruan otomatis di Pengaturan Akun setelah melakukan pembayaran. Anda hanya bisa menggunakan panduan yang didownload lewat program berlangganan sampai akhir masa berlaku. Setelah 30 hari dari masa berakhirnya program langganan, panduan yang telah didownload akan dihapus secara otomatis.";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "Pilih daftar";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "Tempat ini ada dalam katalog panduan";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "Tempat ini terdapat dalam panduan";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "Lihat";
+
+"pp_discovery_place_related_tag_header" = "Panduan dengan tag \"%s\"";
+
+"pp_discovery_place_related_tag_header_1" = "Anda mungkin menyukai";
+
+"buy_btn_for_subscription_version_2" = "Dapatkan SEMUA panduan hanya dengan %s/bln";
+
+"buy_btn_for_subscription_version_3" = "Katalog lengkap hanya dengan %s/bln";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "Akses ke katalog hanya dengan %s/bln";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "Akses ke katalog hanya dengan %s/tahun";
+
+"subscription_screen_native_title_version_2" = "Akses ke panduan dengan penanda!";
+
+"subscription_screen_native_message_version_2" = "Bersiaplah untuk melakukan perjalanan di lebih dari 600 kota dan 100 negara";
+
+"catalog_no_internet_title" = "Tidak ada sambungan internet";
+
+"catalog_no_internet_button" = "Coba lagi";
 
 
 /**********  Partners  **********/

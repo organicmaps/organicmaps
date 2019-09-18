@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "Ordena tus lugares favoritos por categoría, tiempo de adición y geolocalización, y también encuentra rápidamente etiquetas específicas por nombre";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "¡Genial, te has suscrito!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "Ahora descubre las mejores atracciones turísticas en el catálogo MAPS.ME";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "Ver más";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "Luego";
 
 "religious_places" = "Lugares sagrados";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "El pago se realizará desde tu cuenta de Google Play al confirmar la compra. La suscripción se renovará automáticamente excepto si la renovación automática se desactive al menos 24 horas antes del final del período actual. Los fondos se restarán de tu cuenta de acuerdo con tu plan de renovación dentro de las 24 horas antes del final del período actual. Puedes administrar o desactivar la función de renovación automática en configuración de la cuenta después de la compra. Solo puedes usar las guías descargadas por suscripción hasta su fecha de vencimiento. Después de 30 días a partir de la fecha de vencimiento de la suscripción, las guías descargadas se eliminarán automáticamente.";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "Seleccionar lista";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "Es un lugar en el directorio de guías";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "Este lugar aparece en la guía";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "Ver más";
+
+"pp_discovery_place_related_tag_header" = "Guías por etiqueta “%s”";
+
+"pp_discovery_place_related_tag_header_1" = "También te puede gustar";
+
+"buy_btn_for_subscription_version_2" = "TODAS las guías en solo %s/mens.";
+
+"buy_btn_for_subscription_version_3" = "Todo el catálogo por %s/mens.";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "Acceso al catálogo por %s/mens.";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "Acceso al catálogo por %s/anuales";
+
+"subscription_screen_native_title_version_2" = "¡Acceso a guías con etiquetas en el mapa!";
+
+"subscription_screen_native_message_version_2" = "Prepárate para cualquier viaje en más de 600 ciudades y más de 100 países";
+
+"catalog_no_internet_title" = "Sin conexión a internet";
+
+"catalog_no_internet_button" = "Intentar nuevamente";
 
 
 /**********  Partners  **********/

@@ -1661,7 +1661,26 @@
 	<string name="bookmarks_delete_list">Hapus daftar</string>
 	<string name="whatsnew_bookmarks_search_sort_title">Bookmark yang rapi membuat perjalanan menjadi nyaman</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Urutkan tempat favorit berdasarkan kategori, lokasi dan waktu kunjungan, serta temukan bookmark secara cepat hanya dengan menggunakan nama</string>
+	<string name="popup_subscription_success_map_title">Woohoo, anda telah berlangganan!</string>
+	<string name="popup_subscription_success_map_message">Kini saatnya menemukan tempat wisata terbaik di katalog MAPS.ME</string>
+	<string name="popup_subscription_success_map_start_button">Mulai menjelajah</string>
+	<string name="popup_subscription_success_map_not_now_button">Jangan sekarang</string>
 	<string name="religious_places">Tempat ibadah</string>
+	<string name="subscription_terms_android">Setelah anda mengkonfirmasi pembelian, pembayaran akan diteruskan ke akun Google Play anda. Program langganan akan diperbaharui secara otomatis kecuali jika fitur pembaruan otomatis dimatikan dalam waktu 24 jam sebelum periode tersebut berakhir. Akun anda akan dikenakan biaya sesuai dengan rencana perpanjangan dalam waktu 24 jam sebelum akhir periode berjalan. Anda bisa mengatur dan mematikan fitur pembaruan otomatis di Pengaturan Akun setelah melakukan pembayaran. Anda hanya bisa menggunakan panduan yang didownload lewat program berlangganan sampai akhir masa berlaku. Setelah 30 hari dari masa berakhirnya program langganan, panduan yang telah didownload akan dihapus secara otomatis.</string>
+	<string name="select_list">Pilih daftar</string>
+	<string name="pp_discovery_place_related_header">Tempat ini ada dalam katalog panduan</string>
+	<string name="pp_discovery_place_related_header_1">Tempat ini terdapat dalam panduan</string>
+	<string name="pp_discovery_place_related_cta_button">Lihat</string>
+	<string name="pp_discovery_place_related_tag_header">Panduan dengan tag \"%s\"</string>
+	<string name="pp_discovery_place_related_tag_header_1">Anda mungkin menyukai</string>
+	<string name="buy_btn_for_subscription_version_2">Dapatkan SEMUA panduan hanya dengan %s/bln</string>
+	<string name="buy_btn_for_subscription_version_3">Katalog lengkap hanya dengan %s/bln</string>
+	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Akses ke katalog hanya dengan %s/bln</string>
+	<string name="buy_btn_for_subscription_ios_only_year_version_2">Akses ke katalog hanya dengan %s/tahun</string>
+	<string name="subscription_screen_native_title_version_2">Akses ke panduan dengan penanda!</string>
+	<string name="subscription_screen_native_message_version_2">Bersiaplah untuk melakukan perjalanan di lebih dari 600 kota dan 100 negara</string>
+	<string name="catalog_no_internet_title">Tidak ada sambungan internet</string>
+	<string name="catalog_no_internet_button">Coba lagi</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

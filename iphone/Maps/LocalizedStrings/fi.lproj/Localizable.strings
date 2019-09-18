@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "Järjestä suosikkipaikkasi kategorian, sijainnin tai kronologisen järjestyksen mukaan ja etsi kirjanmerkkejä nopeasti nimen perusteella";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "Hurraa! Tilauksesi on voimassa!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "Tutustu nyt parhaisiin nähtävyyksiin MAPS.ME-luettelossa";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "Näytä";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "Ei nyt";
 
 "religious_places" = "Pyhät paikat";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "Maksu suoritetaan Google Play-tililtäsi oston vahvistamisen jälkeen. Tilaus uusitaan automaattisesti, ellei automaattinen uusiminen ole laitettu pois päältä vähintään 24 tuntia ennen nykyisen kauden päättymistä. Varat veloitetaan tililtäsi uusintasuunnitelmasi mukaisesti 24 tunnin kuluessa nykyisen kauden päättymisestä. Sinä voit hallita automaattista uusimista tai poistaa sen käytöstä Google Play-tili-asetuksissa oston jälkeen. Voit käyttää tilauksen kautta ladattuja oppaita vain sen voimassaoloaikana. 30 päivän kuluessa tilauksen päättymisestä matkaoppaat kaikkine kirjanmerkkeineen poistetaan automaattisesti.";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "Valitse luettelo";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "Tämä paikka matkaopashakemistoissa";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "Tämä paikka löytyy matkaoppaasta";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "Katso";
+
+"pp_discovery_place_related_tag_header" = "”%s”-tagin matkaoppaista";
+
+"pp_discovery_place_related_tag_header_1" = "Saatat myös pitää";
+
+"buy_btn_for_subscription_version_2" = "KAIKKI matkaoppaat vain %s/kk.";
+
+"buy_btn_for_subscription_version_3" = "Koko luettelo %s/kk.";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "Pääsy hakemistoon %s/kk.";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "Pääsy hakemistoon %s/vuosi";
+
+"subscription_screen_native_title_version_2" = "Pääsy matkaoppaan nastojen kanssa kartalla!";
+
+"subscription_screen_native_message_version_2" = "Ole valmiita mihin tahansa matkaan yli 600 kaupungissa ja yli 100 maassa";
+
+"catalog_no_internet_title" = "Ei ole Internet-yhteyttä";
+
+"catalog_no_internet_button" = "Yritä uudelleen";
 
 
 /**********  Partners  **********/

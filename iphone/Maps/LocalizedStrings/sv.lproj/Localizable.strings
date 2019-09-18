@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "Sortera favoritplatser efter kategorier, tid för tilläggning och geolokation, samt hitta snabbt specifika bokmärken efter namn";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "Hurra! Du är prenumererad!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "Nu kan du utforska de bästa turistiska sevärdheterna i MAPS.ME-katalogen";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "Börja surfa";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "Inte nu";
 
 "religious_places" = "Heliga platser";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "Betalning ska göras från ditt Google Play-konto vid köpbekräftelse. Prenumerationen ska förnyas automatiskt, om automatisk förnyelse inte inaktiverats minst 24 timmar före utgången av den aktuella perioden. Penningmedel ska debiteras från ditt konto i enlighet med din förnyelseplan inom 24 timmar före utgången av den aktuella perioden. Du kan styra automatisk förnyelse eller inaktivera den i dina kontoinställningar efter köpet. Du kan använda guiderna som laddats ner genom prenumerationen bara under dess giltighetsperiod. Efter 30 dagar från prenumerationens utgångsdatum raderas nerladdade guider automatiskt.";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "Välja lista";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "Denna plats i guidebok katalog";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "Denna plats finns i guide";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "Se";
+
+"pp_discovery_place_related_tag_header" = "Guider efter tagg ”%s”";
+
+"pp_discovery_place_related_tag_header_1" = "Du kan också gilla";
+
+"buy_btn_for_subscription_version_2" = "ALLA guider bara för %s/mån.";
+
+"buy_btn_for_subscription_version_3" = "Hela katalogen för %s/mån.";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "Tillgång till katalogen för %s/mån.";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "Tillgång till katalogen för %s/år";
+
+"subscription_screen_native_title_version_2" = "Tillgång till guider med bokmärken på kartan!";
+
+"subscription_screen_native_message_version_2" = "Var redo för vilken som helst resa i 600+ städer och 100+ länder";
+
+"catalog_no_internet_title" = "Ingen internetanslutning";
+
+"catalog_no_internet_button" = "Försöka igen";
 
 
 /**********  Partners  **********/

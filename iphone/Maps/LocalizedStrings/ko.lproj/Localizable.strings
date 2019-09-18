@@ -3034,30 +3034,45 @@
 
 "whatsnew_bookmarks_search_sort_message" = "카테고리, 위치, 추가한 시간대 별로 좋아하는 장소를 분류하세요. 이름으로 특정한 북마크를 빠르게 찾으실 수도 있습니다";
 
-"popup_subscription_success_map_title" = "Woohoo, you're subscribed!";
+"popup_subscription_success_map_title" = "우후, 구독을 하셨군요!";
 
-"popup_subscription_success_map_message" = "Now discover guides in 600+ cities and 100+ countries in MAPS.ME catalog";
+"popup_subscription_success_map_message" = "지금 MAPS.ME 카탈로그와 함께 최고의 여행 명소를 찾아보세요";
 
-"popup_subscription_success_map_start_button" = "Start browsing";
+"popup_subscription_success_map_start_button" = "보기 시작";
 
-"popup_subscription_success_map_not_now_button" = "Not now";
+"popup_subscription_success_map_not_now_button" = "지금은 아님";
 
 "religious_places" = "종교적 장소";
 
-/* FIXME */
-"subscription_terms_android" = "subscription_terms_android";
+"subscription_terms_android" = "구매를 확정하시면 귀하의 구글 플레이 어카운트에 비용이 청구될 것 입니다. 구독은 현재 기한이 끝나기 전 적어도 24시간 전에 자동 갱신 기능을 꺼놓지 않는다면 자동으로 갱신됩니다. 귀하의 계정에 현재 기간이 끝나기 24시간 전에 갱신 계획에 따라 청구됩니다. 구매 후 계정 설정에서 자동 갱신 기능을 관리하거나 끄실 수 있습니다. 구독으로 다운로드한 가이드는 만료일까지만 사용할 수 있습니다. 구독 만료일로부터 30일이 지나면 다운로드한 가이드는 자동으로 삭제됩니다.";
 
-/* FIXME */
-"select_list" = "select_list";
+"select_list" = "목록 선택";
 
-/* FIXME */
-"pp_discovery_place_related_header" = "pp_discovery_place_related_header";
+"pp_discovery_place_related_header" = "이 장소는 카탈로그 가이드에 있습니다";
 
-/* FIXME */
-"pp_discovery_place_related_cta_button" = "pp_discovery_place_related_cta_button";
+"pp_discovery_place_related_header_1" = "이 장소는 가이드에 실려있습니다";
 
-/* FIXME */
-"pp_discovery_place_related_tag_header" = "pp_discovery_place_related_tag_header_%s";
+"pp_discovery_place_related_cta_button" = "보기";
+
+"pp_discovery_place_related_tag_header" = "태그 \"%s\"로 찾은 가이드";
+
+"pp_discovery_place_related_tag_header_1" = "추천된 가이드";
+
+"buy_btn_for_subscription_version_2" = "모든 가이드가 단 돈 %s/월";
+
+"buy_btn_for_subscription_version_3" = "모든 카탈로그가 %s/월";
+
+"buy_btn_for_subscription_ios_only_mo_version_2" = "카탈로그 접근권이 %s/월";
+
+"buy_btn_for_subscription_ios_only_year_version_2" = "카탈로그 접근권이 %s/년";
+
+"subscription_screen_native_title_version_2" = "북마크가 있는 가이드에 엑세스하세요!";
+
+"subscription_screen_native_message_version_2" = "600개 이상의 도시와 100 곳 이상의 나라에 언제라도 갈 수 있습니다";
+
+"catalog_no_internet_title" = "인터넷 연결이 되어있지 않습니다";
+
+"catalog_no_internet_button" = "다시 시도";
 
 
 /**********  Partners  **********/
