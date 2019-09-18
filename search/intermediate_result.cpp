@@ -137,7 +137,7 @@ RankerResult::RankerResult(FeatureType & f, m2::PointD const & center, m2::Point
   : m_id(f.GetID())
   , m_types(f)
   , m_str(displayName)
-  , m_resultType(ftypes::IsBuildingChecker::Instance()(m_types) ? TYPE_BUILDING : TYPE_FEATURE)
+  , m_resultType(ftypes::IsBuildingChecker::Instance()(m_types) ? Type::Building : Type::Feature)
   , m_geomType(f.GetGeomType())
 {
   ASSERT(m_id.IsValid(), ());
@@ -152,9 +152,15 @@ RankerResult::RankerResult(FeatureType & f, m2::PointD const & center, m2::Point
 }
 
 RankerResult::RankerResult(double lat, double lon)
-  : m_str("(" + measurement_utils::FormatLatLon(lat, lon) + ")"), m_resultType(TYPE_LATLON)
+  : m_str("(" + measurement_utils::FormatLatLon(lat, lon) + ")"), m_resultType(Type::LatLon)
 {
   m_region.SetParams(string(), MercatorBounds::FromLatLon(lat, lon));
+}
+
+RankerResult::RankerResult(m2::PointD const & coord, string const & postcode)
+  : m_str(postcode), m_resultType(Type::Postcode)
+{
+  m_region.SetParams(string(), coord);
 }
 
 bool RankerResult::GetCountryId(storage::CountryInfoGetter const & infoGetter, uint32_t ftype,

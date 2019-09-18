@@ -122,7 +122,7 @@ UNIT_CLASS_TEST(PostcodePointsTest, SearchPostcode)
     TEST_EQUAL(results.size(), 1, ());
 
     auto const & result = results[0];
-    TEST_EQUAL(result.GetResultType(), Result::Type::LatLon, ());
+    TEST_EQUAL(result.GetResultType(), Result::Type::Postcode, ());
     TEST(result.HasPoint(), ());
 
     auto const actual = result.GetFeatureCenter();

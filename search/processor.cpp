@@ -570,11 +570,8 @@ void Processor::SearchPostcode()
     for (auto const & p : points)
       r.Add(p);
 
-    auto const center = r.Center();
-    auto const lat = MercatorBounds::YToLat(center.y);
-    auto const lon = MercatorBounds::XToLon(center.x);
-    m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(lat, lon), true /* needAddress */,
-                                                    false /* needHighlighting */));
+    m_emitter.AddResultNoChecks(m_ranker.MakeResult(
+        RankerResult(r.Center(), query), true /* needAddress */, false /* needHighlighting */));
     m_emitter.Emit();
     return;
   }

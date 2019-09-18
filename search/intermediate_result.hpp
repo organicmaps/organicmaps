@@ -86,19 +86,23 @@ private:
 class RankerResult
 {
 public:
-  enum Type
+  enum class Type
   {
-    TYPE_LATLON,
-    TYPE_FEATURE,
-    TYPE_BUILDING  //!< Buildings are not filtered out in duplicates filter.
+    LatLon,
+    Feature,
+    Building,  //!< Buildings are not filtered out in duplicates filter.
+    Postcode
   };
 
-  /// For RESULT_FEATURE and RESULT_BUILDING.
+  /// For Type::Feature and Type::Building.
   RankerResult(FeatureType & f, m2::PointD const & center, m2::PointD const & pivot,
                std::string const & displayName, std::string const & fileName);
 
-  /// For RESULT_LATLON.
+  /// For Type::LatLon.
   RankerResult(double lat, double lon);
+
+  /// For Type::Postcode.
+  RankerResult(m2::PointD const & coord, std::string const & postcode);
 
   bool IsStreet() const;
 

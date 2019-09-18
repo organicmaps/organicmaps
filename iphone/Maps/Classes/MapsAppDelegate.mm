@@ -71,6 +71,7 @@ void InitLocalizedStrings()
   f.AddString("core_my_places", L(@"core_my_places").UTF8String);
   f.AddString("core_my_position", L(@"core_my_position").UTF8String);
   f.AddString("core_placepage_unknown_place", L(@"core_placepage_unknown_place").UTF8String);
+  f.AddString("postal_code", L(@"postal_code").UTF8String);
   f.AddString("wifi", L(@"wifi").UTF8String);
 }
 

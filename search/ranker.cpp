@@ -245,7 +245,7 @@ bool ResultExists(RankerResult const & p, vector<RankerResult> const & results,
   // Filter equal features in different mwms.
   auto equalCmp = [&p, &minDistanceOnMapBetweenResults](RankerResult const & r) -> bool {
     if (p.GetResultType() == r.GetResultType() &&
-        p.GetResultType() == RankerResult::Type::TYPE_FEATURE)
+        p.GetResultType() == RankerResult::Type::Feature)
     {
       if (p.IsEqualCommon(r))
         return PointDistance(p.GetCenter(), r.GetCenter()) < minDistanceOnMapBetweenResults;
@@ -544,13 +544,14 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
   auto mk = [&](RankerResult const & r) -> Result {
     switch (r.GetResultType())
     {
-    case RankerResult::Type::TYPE_FEATURE:
-    case RankerResult::Type::TYPE_BUILDING:
+    case RankerResult::Type::Feature:
+    case RankerResult::Type::Building:
     {
       auto const type = rankerResult.GetBestType(m_params.m_preferredTypes);
       return Result(r.GetID(), r.GetCenter(), name, address, type, r.GetMetadata());
     }
-    case RankerResult::Type::TYPE_LATLON: return Result(r.GetCenter(), name, address);
+    case RankerResult::Type::LatLon: return Result(r.GetCenter(), name, address);
+    case RankerResult::Type::Postcode: return Result(r.GetCenter(), name);
     }
     ASSERT(false, ("Bad RankerResult type:", static_cast<size_t>(r.GetResultType())));
     UNREACHABLE();

@@ -31,6 +31,11 @@ Result::Result(m2::PointD const & pt, string const & latlon, string const & addr
 {
 }
 
+Result::Result(m2::PointD const & pt, string const & postcode)
+  : m_resultType(Type::Postcode), m_center(pt), m_str(postcode)
+{
+}
+
 Result::Result(string const & str, string const & suggest)
   : m_resultType(Type::PureSuggest), m_str(str), m_suggestionStr(suggest)
 {
@@ -155,6 +160,7 @@ string DebugPrint(Result::Type type)
   case Result::Type::LatLon: return "LatLon";
   case Result::Type::PureSuggest: return "PureSuggest";
   case Result::Type::SuggestFromFeature: return "SuggestFromFeature";
+  case Result::Type::Postcode: return "Postcode";
   }
 
   return "Unknown";

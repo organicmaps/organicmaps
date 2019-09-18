@@ -180,6 +180,13 @@ void Info::SetCustomName(std::string const & name)
   m_customName = name;
 }
 
+void Info::SetCustomNames(std::string const & title, std::string const & subtitle)
+{
+  m_uiTitle = title;
+  m_uiSubtitle = subtitle;
+  m_customName = title;
+}
+
 void Info::SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string const & name)
 {
   if (IsBookmark())

@@ -37,7 +37,8 @@ public:
     Feature,
     LatLon,
     PureSuggest,
-    SuggestFromFeature
+    SuggestFromFeature,
+    Postcode
   };
 
   // Metadata for search results. Considered valid if GetResultType() == Type::Feature.
@@ -75,6 +76,9 @@ public:
 
   // For Type::LatLon.
   Result(m2::PointD const & pt, std::string const & latlon, std::string const & address);
+
+  // For Type::Postcode.
+  Result(m2::PointD const & pt, std::string const & postcode);
 
   // For Type::PureSuggest.
   Result(std::string const & str, std::string const & suggest);

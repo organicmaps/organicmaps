@@ -476,6 +476,7 @@ Framework::Framework(FrameworkParams const & params)
   m_stringsBundle.SetDefaultString("core_placepage_unknown_place", "Unknown Place");
   m_stringsBundle.SetDefaultString("core_my_places", "My Places");
   m_stringsBundle.SetDefaultString("core_my_position", "My Position");
+  m_stringsBundle.SetDefaultString("postal_code", "Postal Code");
   // Wi-Fi string is used in categories that's why does not have core_ prefix
   m_stringsBundle.SetDefaultString("wifi", "WiFi");
 
@@ -907,6 +908,13 @@ void Framework::FillPointInfo(place_page::Info & info, m2::PointD const & mercat
   }
 
   // This line overwrites mercator center from area feature which can be far away.
+  info.SetMercator(mercator);
+}
+
+void Framework::FillPostcodeInfo(string const & postcode, m2::PointD const & mercator,
+                                 place_page::Info & info) const
+{
+  info.SetCustomNames(postcode, m_stringsBundle.GetString("postal_code"));
   info.SetMercator(mercator);
 }
 
@@ -1713,6 +1721,11 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
 
   case Result::Type::LatLon:
     FillPointInfo(info, result.GetFeatureCenter(), result.GetString());
+    scale = scales::GetUpperComfortScale();
+    break;
+
+  case Result::Type::Postcode:
+    FillPostcodeInfo(result.GetString(), result.GetFeatureCenter(), info);
     scale = scales::GetUpperComfortScale();
     break;
 
