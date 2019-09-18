@@ -26,15 +26,15 @@ namespace
 {
 using namespace generator;
 
-double GetRadiusM(ftypes::Type const & type)
+double GetRadiusM(ftypes::LocalityType const & type)
 {
   switch (type)
   {
-  case ftypes::COUNTRY: return 1000000.0;
-  case ftypes::STATE: return 100000.0;
-  case ftypes::CITY: return 30000.0;
-  case ftypes::TOWN: return 20000.0;
-  case ftypes::VILLAGE: return 5000.0;
+  case ftypes::LocalityType::Country: return 1000000.0;
+  case ftypes::LocalityType::State: return 100000.0;
+  case ftypes::LocalityType::City: return 30000.0;
+  case ftypes::LocalityType::Town: return 20000.0;
+  case ftypes::LocalityType::Village: return 5000.0;
   default: return 10000.0;
   }
 }
@@ -86,7 +86,7 @@ bool NeedProcessPlace(feature::FeatureBuilder const & fb)
 {
   auto const & islandChecker = ftypes::IsIslandChecker::Instance();
   auto const & localityChecker = ftypes::IsLocalityChecker::Instance();
-  return islandChecker(fb.GetTypes()) || localityChecker.GetType(GetPlaceType(fb)) != ftypes::NONE;
+  return islandChecker(fb.GetTypes()) || localityChecker.GetType(GetPlaceType(fb)) != ftypes::LocalityType::None;
 }
 
 void FeaturePlace::Append(FeatureBuilder const & fb)
@@ -194,7 +194,7 @@ std::vector<PlaceProcessor::PlaceWithIds> PlaceProcessor::ProcessPlaces()
       auto best = std::max_element(std::cbegin(cluster), std::cend(cluster), IsWorsePlace<FeaturePlace>);
       auto bestFb = best->GetFb();
       auto const & localityChecker = ftypes::IsLocalityChecker::Instance();
-      if (bestFb.IsArea() && localityChecker.GetType(GetPlaceType(bestFb)) != ftypes::NONE)
+      if (bestFb.IsArea() && localityChecker.GetType(GetPlaceType(bestFb)) != ftypes::LocalityType::None)
       {
         LOG(LWARNING, (bestFb, "is transforming to point."));
         TransformAreaToPoint(bestFb);

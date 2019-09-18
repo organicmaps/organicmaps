@@ -625,34 +625,34 @@ IsLocalityChecker::IsLocalityChecker()
     m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
 }
 
-Type IsLocalityChecker::GetType(uint32_t t) const
+LocalityType IsLocalityChecker::GetType(uint32_t t) const
 {
   ftype::TruncValue(t, 2);
 
-  size_t j = COUNTRY;
-  for (; j < LOCALITY_COUNT; ++j)
+  auto j = static_cast<size_t>(LocalityType::Country);
+  for (; j < static_cast<size_t>(LocalityType::Count); ++j)
     if (t == m_types[j])
-      return static_cast<Type>(j);
+      return static_cast<LocalityType>(j);
 
   for (; j < m_types.size(); ++j)
     if (t == m_types[j])
-      return VILLAGE;
+      return LocalityType::Village;
 
-  return NONE;
+  return LocalityType::None;
 }
 
-Type IsLocalityChecker::GetType(feature::TypesHolder const & types) const
+LocalityType IsLocalityChecker::GetType(feature::TypesHolder const & types) const
 {
   for (uint32_t t : types)
   {
-    Type const type = GetType(t);
-    if (type != NONE)
+    LocalityType const type = GetType(t);
+    if (type != LocalityType::None)
       return type;
   }
-  return NONE;
+  return LocalityType::None;
 }
 
-Type IsLocalityChecker::GetType(FeatureType & f) const
+LocalityType IsLocalityChecker::GetType(FeatureType & f) const
 {
   feature::TypesHolder types(f);
   return GetType(types);
@@ -666,11 +666,11 @@ uint64_t GetPopulation(FeatureType & ft)
   {
     switch (IsLocalityChecker::Instance().GetType(ft))
     {
-    case CITY:
-    case TOWN:
+    case LocalityType::City:
+    case LocalityType::Town:
       population = 10000;
       break;
-    case VILLAGE:
+    case LocalityType::Village:
       population = 100;
       break;
     default:

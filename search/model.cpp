@@ -105,13 +105,13 @@ Model::Type Model::GetType(FeatureType & feature) const
     auto const type = localityChecker.GetType(feature);
     switch (type)
     {
-    case NONE: ASSERT(false, ("Unknown locality.")); return TYPE_UNCLASSIFIED;
-    case STATE: return TYPE_STATE;
-    case COUNTRY: return TYPE_COUNTRY;
-    case CITY:
-    case TOWN: return TYPE_CITY;
-    case VILLAGE: return TYPE_VILLAGE;
-    case LOCALITY_COUNT: return TYPE_UNCLASSIFIED;
+    case LocalityType::None: ASSERT(false, ("Unknown locality.")); return TYPE_UNCLASSIFIED;
+    case LocalityType::State: return TYPE_STATE;
+    case LocalityType::Country: return TYPE_COUNTRY;
+    case LocalityType::City:
+    case LocalityType::Town: return TYPE_CITY;
+    case LocalityType::Village: return TYPE_VILLAGE;
+    case LocalityType::Count: return TYPE_UNCLASSIFIED;
     }
   }
 

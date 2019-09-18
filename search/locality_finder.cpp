@@ -87,9 +87,9 @@ public:
     using namespace ftypes;
     switch (IsLocalityChecker::Instance().GetType(*ft))
     {
-    case CITY:
-    case TOWN:
-    case VILLAGE:
+    case LocalityType::City:
+    case LocalityType::Town:
+    case LocalityType::Village:
       break;
     default:
       return;

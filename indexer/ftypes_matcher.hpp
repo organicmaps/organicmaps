@@ -370,16 +370,31 @@ public:
 };
 
 /// Type of locality (do not change values and order - they have detalization order)
-/// COUNTRY < STATE < CITY < ...
-enum Type { NONE = -1, COUNTRY = 0, STATE, CITY, TOWN, VILLAGE, LOCALITY_COUNT };
+/// Country < State < City < ...
+enum class LocalityType
+{
+  None = -1,
+  Country = 0,
+  State,
+  City,
+  Town,
+  Village,
+  Count
+};
+
+static_assert(base::Underlying(LocalityType::Country) < base::Underlying(LocalityType::State), "");
+static_assert(base::Underlying(LocalityType::State) < base::Underlying(LocalityType::City), "");
+static_assert(base::Underlying(LocalityType::City) < base::Underlying(LocalityType::Town), "");
+static_assert(base::Underlying(LocalityType::Town) < base::Underlying(LocalityType::Village), "");
+static_assert(base::Underlying(LocalityType::Village) < base::Underlying(LocalityType::Count), "");
 
 class IsLocalityChecker : public BaseChecker
 {
   IsLocalityChecker();
 public:
-  Type GetType(uint32_t t) const;
-  Type GetType(feature::TypesHolder const & types) const;
-  Type GetType(FeatureType & f) const;
+  LocalityType GetType(uint32_t t) const;
+  LocalityType GetType(feature::TypesHolder const & types) const;
+  LocalityType GetType(FeatureType & f) const;
 
   DECLARE_CHECKER_INSTANCE(IsLocalityChecker);
 };
@@ -391,7 +406,7 @@ bool IsCityTownOrVillage(Types const & types)
   for (auto const t : types)
     h.Add(t);
   auto const type = IsLocalityChecker::Instance().GetType(h);
-  return type == CITY || type == TOWN || type == VILLAGE;
+  return type == LocalityType ::City || type == LocalityType ::Town || type == LocalityType ::Village;
 }
 
 /// @name Get city radius and population.

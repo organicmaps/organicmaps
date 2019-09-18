@@ -204,21 +204,21 @@ void RemoveDuplicatingLinear(vector<RankerResult> & results)
   results.erase(unique(results.begin(), results.end(), equalCmp), results.end());
 }
 
-ftypes::Type GetLocalityIndex(feature::TypesHolder const & types)
+ftypes::LocalityType GetLocalityIndex(feature::TypesHolder const & types)
 {
   using namespace ftypes;
 
   // Inner logic of SearchAddress expects COUNTRY, STATE and CITY only.
-  Type const type = IsLocalityChecker::Instance().GetType(types);
+  LocalityType const type = IsLocalityChecker::Instance().GetType(types);
   switch (type)
   {
-  case NONE:
-  case COUNTRY:
-  case STATE:
-  case CITY: return type;
-  case TOWN: return CITY;
-  case VILLAGE: return NONE;
-  case LOCALITY_COUNT: return type;
+  case LocalityType::None:
+  case LocalityType::Country:
+  case LocalityType::State:
+  case LocalityType::City: return type;
+  case LocalityType::Town: return LocalityType::City;
+  case LocalityType::Village: return LocalityType::None;
+  case LocalityType::Count: return type;
   }
   UNREACHABLE();
 }
@@ -559,7 +559,7 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
   auto res = mk(rankerResult);
 
   if (needAddress &&
-      ftypes::IsLocalityChecker::Instance().GetType(rankerResult.GetTypes()) == ftypes::NONE)
+      ftypes::IsLocalityChecker::Instance().GetType(rankerResult.GetTypes()) == ftypes::LocalityType::None)
   {
     m_localities.GetLocality(res.GetFeatureCenter(), [&](LocalityItem const & item) {
       string city;
@@ -752,8 +752,8 @@ void Ranker::ProcessSuggestions(vector<RankerResult> & vec) const
   {
     RankerResult const & r = *i;
 
-    ftypes::Type const type = GetLocalityIndex(r.GetTypes());
-    if (type == ftypes::COUNTRY || type == ftypes::CITY || r.IsStreet())
+    ftypes::LocalityType const type = GetLocalityIndex(r.GetTypes());
+    if (type == ftypes::LocalityType::Country || type == ftypes::LocalityType::City || r.IsStreet())
     {
       string suggestion;
       GetSuggestion(r, m_params.m_query, m_params.m_tokens, m_params.m_prefix, suggestion);

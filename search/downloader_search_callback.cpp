@@ -79,9 +79,9 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
         continue;
       }
 
-      ftypes::Type const type = ftypes::IsLocalityChecker::Instance().GetType(*ft);
+      ftypes::LocalityType const type = ftypes::IsLocalityChecker::Instance().GetType(*ft);
 
-      if (type == ftypes::COUNTRY || type == ftypes::STATE)
+      if (type == ftypes::LocalityType::Country || type == ftypes::LocalityType::State)
       {
         std::string groupFeatureName;
         if (GetGroupCountryIdFromFeature(m_storage, *ft, groupFeatureName))

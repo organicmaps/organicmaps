@@ -71,8 +71,8 @@ UNIT_TEST(CountriesNamesTest)
     auto ft = g.GetFeatureByIndex(base::asserted_cast<uint32_t>(fid));
     TEST(ft, ());
 
-    ftypes::Type const type = ftypes::IsLocalityChecker::Instance().GetType(*ft);
-    if (type != ftypes::COUNTRY)
+    ftypes::LocalityType const type = ftypes::IsLocalityChecker::Instance().GetType(*ft);
+    if (type != ftypes::LocalityType::Country)
       return;
 
     TEST(any_of(langIndices.begin(), langIndices.end(),
