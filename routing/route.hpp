@@ -398,13 +398,11 @@ public:
   /// about speed cameras.
   std::vector<platform::CountryFile> const & GetMwmsPartlyProhibitedForSpeedCams() const;
 
-private:
-  friend std::string DebugPrint(Route const & r);
-
-public:
   void SetFakeSegmentsOnPolyline();
 
 private:
+  friend std::string DebugPrint(Route const & r);
+
   double GetPolySegAngle(size_t ind) const;
   void GetClosestTurn(size_t segIdx, turns::TurnItem & turn) const;
   size_t ConvertPointIdxToSegmentIdx(size_t pointIdx) const;

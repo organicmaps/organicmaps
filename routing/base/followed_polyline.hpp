@@ -93,7 +93,7 @@ public:
   void SetUnmatchedSegmentIndexes(std::vector<size_t> && unmatchedSegmentIndexes);
 
   /// \brief Updates projection to the closest matched segment if it's possible.
-  UpdatedProjectionInfo  UpdateMatchedProjection(m2::RectD const & posRect);
+  UpdatedProjectionInfo UpdateMatchedProjection(m2::RectD const & posRect);
 
   Iter UpdateProjection(m2::RectD const & posRect);
 

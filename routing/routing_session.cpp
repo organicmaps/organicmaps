@@ -15,7 +15,6 @@
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
-#include <tuple>
 
 using namespace location;
 using namespace std;
