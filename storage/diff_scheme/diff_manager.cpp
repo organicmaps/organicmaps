@@ -28,32 +28,25 @@ namespace diffs
 void Manager::Load(LocalMapsInfo && info)
 {
   LocalMapsInfo localMapsInfo = info;
-  {
-    std::lock_guard<std::mutex> lock(m_mutex);
-    m_localMapsInfo = std::move(info);
-  }
+  m_localMapsInfo = std::move(info);
 
-  m_workerThread.Push([this, localMapsInfo] {
-    NameDiffInfoMap diffs = Checker::Check(localMapsInfo);
+  GetPlatform().RunTask(Platform::Thread::Network, [this, info = std::move(localMapsInfo)] {
+    NameDiffInfoMap diffs = Checker::Check(info);
 
-    std::lock_guard<std::mutex> lock(m_mutex);
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, diffs = std::move(diffs)] {
+      m_diffs = std::move(diffs);
+      if (m_diffs.empty())
+      {
+        m_status = Status::NotAvailable;
 
-    m_diffs = std::move(diffs);
-    if (m_diffs.empty())
-    {
-      m_status = Status::NotAvailable;
+        alohalytics::Stats::Instance().LogEvent("Downloader_DiffScheme_OnStart_fallback");
+      }
+      else
+      {
+        m_status = Status::Available;
+      }
 
-      alohalytics::Stats::Instance().LogEvent("Downloader_DiffScheme_OnStart_fallback");
-    }
-    else
-    {
-      m_status = Status::Available;
-    }
-
-    auto & observers = m_observers;
-    auto status = m_status;
-    GetPlatform().RunTask(Platform::Thread::Gui, [observers, status]() mutable {
-      observers.ForEach(&Observer::OnDiffStatusReceived, status);
+      m_observers.ForEach(&Observer::OnDiffStatusReceived, m_status);
     });
   });
 }
@@ -63,7 +56,7 @@ void Manager::ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancella
 {
   using namespace generator::mwm_diff;
 
-  m_workerThread.Push([this, p, &cancellable, task] {
+  GetPlatform().RunTask(Platform::Thread::File, [this, p = std::move(p), &cancellable, task] {
     CHECK(p.m_diffFile, ());
     CHECK(p.m_oldMwmFile, ());
 
@@ -104,42 +97,39 @@ void Manager::ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancella
     switch (result)
     {
     case DiffApplicationResult::Ok:
-    {
       diffFile->DeleteFromDisk(MapOptions::Diff);
       break;
-    }
     case DiffApplicationResult::Cancelled:
       // The diff file will be deleted by storage.
       // Another way would be to leave it on disk but all consequences
       // of interacting with storage are much harder to be taken into account that way.
       break;
     case DiffApplicationResult::Failed:
-    {
       diffFile->DeleteFromDisk(MapOptions::Diff);
       alohalytics::Stats::Instance().LogEvent(
           "Downloader_DiffScheme_error",
           {{"type", "patching"},
            {"error", isFilePrepared ? "Cannot apply diff" : "Cannot prepare file"}});
-
-      std::lock_guard<std::mutex> lock(m_mutex);
-      m_status = Status::NotAvailable;
       break;
     }
-    }
 
-    task(result);
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, task, result]()
+    {
+      if (result == DiffApplicationResult::Failed)
+        m_status = Status::NotAvailable;
+
+      task(result);
+    });
   });
 }
 
 Status Manager::GetStatus() const
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
   return m_status;
 }
 
 bool Manager::SizeFor(storage::CountryId const & countryId, uint64_t & size) const
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
   if (m_status != Status::Available)
     return false;
 
@@ -168,7 +158,6 @@ bool Manager::HasDiffFor(storage::CountryId const & countryId) const
 
 void Manager::MarkAsApplied(storage::CountryId const & countryId)
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
   auto it = m_diffs.find(countryId);
   if (it == m_diffs.end())
     return;
@@ -181,7 +170,6 @@ void Manager::MarkAsApplied(storage::CountryId const & countryId)
 
 void Manager::RemoveDiffForCountry(storage::CountryId const & countryId)
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
   m_diffs.erase(countryId);
 
   if (m_diffs.empty() || !IsDiffsAvailable(m_diffs))
@@ -190,15 +178,12 @@ void Manager::RemoveDiffForCountry(storage::CountryId const & countryId)
 
 void Manager::AbortDiffScheme()
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
   m_status = Status::NotAvailable;
   m_diffs.clear();
 }
 
 bool Manager::IsPossibleToAutoupdate() const
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
-
   if (m_status != Status::Available)
     return false;
 

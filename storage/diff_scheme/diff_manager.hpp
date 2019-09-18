@@ -77,7 +77,6 @@ private:
   template <typename Fn>
   bool WithNotAppliedDiff(storage::CountryId const & countryId, Fn && fn) const
   {
-    std::lock_guard<std::mutex> lock(m_mutex);
     if (m_status != Status::Available)
       return false;
 
@@ -89,12 +88,10 @@ private:
     return true;
   }
 
-  mutable std::mutex m_mutex;
   Status m_status = Status::Undefined;
   NameDiffInfoMap m_diffs;
   LocalMapsInfo m_localMapsInfo;
   base::ObserverListUnsafe<Observer> m_observers;
-  base::thread_pool::delayed::ThreadPool m_workerThread;
 };
 }  // namespace diffs
 }  // namespace storage

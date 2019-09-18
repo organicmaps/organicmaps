@@ -1570,47 +1570,47 @@ void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSucces
   m_diffManager.ApplyDiff(
       move(params), m_diffsCancellable,
       [this, fn, countryId, diffFile](DiffApplicationResult result) {
+        CHECK_THREAD_CHECKER(m_threadChecker, ());
+
         static string const kSourceKey = "diff";
         if (result == DiffApplicationResult::Ok && m_integrityValidationEnabled &&
             !ValidateIntegrity(diffFile, diffFile->GetCountryName(), kSourceKey))
         {
-          base::DeleteFileX(diffFile->GetPath(MapOptions::Map));
+          GetPlatform().RunTask(Platform::Thread::File,
+            [path = diffFile->GetPath(MapOptions::Map)] { base::DeleteFileX(path); });
           result = DiffApplicationResult::Failed;
         }
 
-        GetPlatform().RunTask(Platform::Thread::Gui, [this, fn, diffFile, countryId, result] {
-          auto realResult = result;
-          if (m_diffsBeingApplied.count(countryId) == 0 && realResult == DiffApplicationResult::Ok)
-            realResult = DiffApplicationResult::Cancelled;
+        if (m_diffsBeingApplied.count(countryId) == 0 && result == DiffApplicationResult::Ok)
+          result = DiffApplicationResult::Cancelled;
 
-          LOG(LINFO, ("Diff application result for", countryId, ":", realResult));
+        LOG(LINFO, ("Diff application result for", countryId, ":", result));
 
-          m_latestDiffRequest = {};
-          m_diffsBeingApplied.erase(countryId);
-          switch (realResult)
-          {
-          case DiffApplicationResult::Ok:
-          {
-            RegisterCountryFiles(diffFile);
-            Platform::DisableBackupForFile(diffFile->GetPath(MapOptions::Map));
-            m_diffManager.MarkAsApplied(countryId);
-            fn(true);
-            break;
-          }
-          case DiffApplicationResult::Cancelled:
-          {
-            if (m_downloader->IsIdle())
-              DownloadNextCountryFromQueue();
-            break;
-          }
-          case DiffApplicationResult::Failed:
-          {
-            m_diffManager.RemoveDiffForCountry(countryId);
-            fn(false);
-            break;
-          }
-          }
-        });
+        m_latestDiffRequest = {};
+        m_diffsBeingApplied.erase(countryId);
+        switch (result)
+        {
+        case DiffApplicationResult::Ok:
+        {
+          RegisterCountryFiles(diffFile);
+          Platform::DisableBackupForFile(diffFile->GetPath(MapOptions::Map));
+          m_diffManager.MarkAsApplied(countryId);
+          fn(true);
+          break;
+        }
+        case DiffApplicationResult::Cancelled:
+        {
+          if (m_downloader->IsIdle())
+            DownloadNextCountryFromQueue();
+          break;
+        }
+        case DiffApplicationResult::Failed:
+        {
+          m_diffManager.RemoveDiffForCountry(countryId);
+          fn(false);
+          break;
+        }
+        }
       });
 }
 
