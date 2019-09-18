@@ -78,6 +78,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
   private final SearchWheel mSearchWheel;
   @NonNull
   private final View mSpeedViewContainer;
+  @NonNull
+  private final View mCrownBtn;
 
   private boolean mShowTimeLeft = true;
 
@@ -142,6 +144,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
     bookmarkButton.setOnClickListener(this);
     Application app = (Application) bookmarkButton.getContext().getApplicationContext();
     mSpeedCamSignalCompletionListener = new CameraWarningSignalCompletionListener(app);
+    mCrownBtn = activity.findViewById(R.id.subs_screen_btn);
   }
 
   public void onResume()
@@ -352,7 +355,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
 
   public void updateSearchButtonsTranslation(float translation)
   {
-    mSearchButtonFrame.setTranslationY(translation);
+    int offset = mCrownBtn.getVisibility() == View.VISIBLE ? mCrownBtn.getHeight() : 0;
+    mSearchButtonFrame.setTranslationY(translation + offset);
   }
 
   public void fadeInSearchButtons()
