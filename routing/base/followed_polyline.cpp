@@ -128,9 +128,7 @@ Iter FollowedPolyline::GetBestProjection(m2::RectD const & posRect,
   return GetClosestProjectionInInterval(posRect, distFn, hoppingBorderIdx, m_nextCheckpointIndex);
 }
 
-  template <class DistanceFn>
-  pair<Iter, bool> FollowedPolyline::GetBestMatchedProjection(m2::RectD const & posRect,
-                                                                   DistanceFn const & distFn) const
+  pair<Iter, bool> FollowedPolyline::GetBestMatchedProjection(m2::RectD const & posRect) const
   {
     CHECK_EQUAL(m_segProj.size() + 1, m_poly.GetSize(), ());
     // At first trying to find a projection to two closest route segments of route which is close
@@ -139,14 +137,13 @@ Iter FollowedPolyline::GetBestProjection(m2::RectD const & posRect,
     size_t const hoppingBorderIdx = min(m_segProj.size(), m_current.m_ind + 3);
     Iter closestIter;
     bool nearestIsFake = false;
-    tie(closestIter, nearestIsFake) = GetClosestMatchedProjectionInInterval(posRect, distFn, m_current.m_ind,
-                                                                                 hoppingBorderIdx);
+    tie(closestIter, nearestIsFake) = GetClosestMatchedProjectionInInterval(posRect, m_current.m_ind, hoppingBorderIdx);
     if (closestIter.IsValid())
       return make_pair(closestIter, nearestIsFake);
 
     // If a projection to the 3 closest route segments is not found tries to find projection to other route
     // segments of current subroute.
-    return GetClosestMatchedProjectionInInterval(posRect, distFn, hoppingBorderIdx, m_nextCheckpointIndex);
+    return GetClosestMatchedProjectionInInterval(posRect, hoppingBorderIdx, m_nextCheckpointIndex);
   }
 
 pair<bool, bool> FollowedPolyline::UpdateMatchedProjection(m2::RectD const & posRect)
@@ -157,9 +154,7 @@ pair<bool, bool> FollowedPolyline::UpdateMatchedProjection(m2::RectD const & pos
   Iter iter;
   bool nearestIsFake = false;
   m2::PointD const currPos = posRect.Center();
-  tie(iter, nearestIsFake) = GetBestMatchedProjection(posRect, [&](Iter const & it) {
-    return MercatorBounds::DistanceOnEarth(it.m_pt, currPos);
-  });
+  tie(iter, nearestIsFake) = GetBestMatchedProjection(posRect);
 
   if (iter.IsValid())
     m_current = iter;

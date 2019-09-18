@@ -126,8 +126,7 @@ public:
   }
 
   /// \returns pair of iterator (projection point) and bool (true if nearest point is on an unmatched segment).
-  template <typename DistanceFn>
-  std::pair<Iter, bool> GetClosestMatchedProjectionInInterval(m2::RectD const & posRect, DistanceFn const & distFn,
+  std::pair<Iter, bool> GetClosestMatchedProjectionInInterval(m2::RectD const & posRect,
                                                               size_t startIdx, size_t endIdx) const
   {
     CHECK_LESS_OR_EQUAL(endIdx, m_segProj.size(), ());
@@ -146,7 +145,7 @@ public:
         continue;
 
       Iter it(pt, i);
-      double const dp = distFn(it);
+      double const dp = MercatorBounds::DistanceOnEarth(it.m_pt, currPos);
       if (dp >= minDistUnmatched && dp >= minDist)
         continue;
 
@@ -160,7 +159,7 @@ public:
       }
       else
       {
-        if (minDistUnmatched > dp) // overwrite best match for unmatched segment
+        if (minDistUnmatched > dp)
           minDistUnmatched = dp;
       }
     }
@@ -175,9 +174,7 @@ private:
   template <typename DistanceFn>
   Iter GetBestProjection(m2::RectD const & posRect, DistanceFn const & distFn) const;
 
-  template <class DistanceFn>
-  std::pair<Iter, bool> GetBestMatchedProjection(m2::RectD const & posRect,
-                                                 DistanceFn const & distFn) const;
+  std::pair<Iter, bool> GetBestMatchedProjection(m2::RectD const & posRect) const;
 
   void Update();
 
