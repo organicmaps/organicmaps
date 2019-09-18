@@ -43658,7 +43658,7 @@
     da = Juuhuu, du har abonnement!
     nl = Hoera! U bent opgeschreven!
     fi = Hurraa! Tilauksesi on voimassa!
-    fr = Hourra! Vous êtes abonné!
+    fr = Hourra ! Vous êtes abonné !
     de = Hurra! Sie haben erfolgreich abonniert!
     hu = Hohó, előfizettél!
     id = Woohoo, anda telah berlangganan!
@@ -43889,7 +43889,7 @@
     fa = انتخاب فهرست
 
   [pp_discovery_place_related_header]
-    en = This place is in guides catalog
+    en = This place in the guides catalog
     ru = Это место в каталоге путеводителей
     ar = هذا المكان في كاتالوج أدلة السفر
     cs = Toto místo se nachází v katalogu průvodců
