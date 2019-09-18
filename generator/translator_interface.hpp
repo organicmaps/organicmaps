@@ -15,12 +15,9 @@ namespace cache
 class IntermediateData;
 }  // namespace cache
 
-class TranslatorRegion;
-class TranslatorGeoObjects;
 class TranslatorCountry;
 class TranslatorCoastline;
 class TranslatorWorld;
-class TranslatorStreets;
 class TranslatorCollection;
 
 // Implementing this interface allows an object to create intermediate data from OsmElement.
@@ -38,12 +35,9 @@ public:
 
   virtual void Merge(TranslatorInterface const &) = 0;
 
-  virtual void MergeInto(TranslatorRegion &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(TranslatorGeoObjects &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(TranslatorCountry &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(TranslatorCoastline &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(TranslatorWorld &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(TranslatorStreets &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(TranslatorCollection &) const { FailIfMethodUnsupported(); }
 
 private:
