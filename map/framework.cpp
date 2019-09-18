@@ -1154,7 +1154,7 @@ void Framework::ShowBookmark(Bookmark const * mark)
 
   place_page::Info info;
   FillBookmarkInfo(*mark, info);
-  ActivateMapSelection(true, df::SelectionShape::OBJECT_USER_MARK, info);
+  ActivateMapSelection(true, df::SelectionShape::OBJECT_USER_MARK, TapEvent::Source::Other, info);
   // TODO
   // We need to preserve bookmark id in the m_lastTapEvent, because one feature can have several bookmarks.
   m_lastTapEvent = MakeTapEvent(info.GetMercator(), info.GetID(), TapEvent::Source::Other);
@@ -1199,7 +1199,7 @@ void Framework::ShowFeatureByMercator(m2::PointD const & pt)
   std::string name;
   GetBookmarkManager().SelectionMark().SetPtOrg(pt);
   FillPointInfo(info, pt, name);
-  ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);
+  ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, TapEvent::Source::Other, info);
   m_lastTapEvent = MakeTapEvent(info.GetMercator(), info.GetID(), TapEvent::Source::Other);
 }
 
@@ -1728,7 +1728,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
     m_drapeEngine->SetModelViewCenter(center, scale, animation, true /* trackVisibleViewport */);
 
   GetBookmarkManager().SelectionMark().SetPtOrg(center);
-  ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);
+  ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, TapEvent::Source::Search, info);
   m_lastTapEvent = MakeTapEvent(center, info.GetID(), TapEvent::Source::Search);
 }
 
@@ -2281,13 +2281,13 @@ bool Framework::ShowMapForURL(string const & url)
       if (apiMark)
       {
         FillApiMarkInfo(*apiMark, info);
-        ActivateMapSelection(false, df::SelectionShape::OBJECT_USER_MARK, info);
+        ActivateMapSelection(false, df::SelectionShape::OBJECT_USER_MARK, TapEvent::Source::Other, info);
       }
       else
       {
         GetBookmarkManager().SelectionMark().SetPtOrg(point);
         FillPointInfo(info, point, name);
-        ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);
+        ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, TapEvent::Source::Other, info);
       }
       m_lastTapEvent = MakeTapEvent(info.GetMercator(), info.GetID(), TapEvent::Source::Other);
     }
@@ -2407,15 +2407,13 @@ void Framework::SetPlacePageListenners(PlacePageEvent::OnOpen const & onOpen,
 }
 
 void Framework::ActivateMapSelection(bool needAnimation, df::SelectionShape::ESelectedObject selectionType,
-                                     place_page::Info const & info)
+                                     TapEvent::Source tapSource, place_page::Info const & info)
 {
   ASSERT_NOT_EQUAL(selectionType, df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
   m_selectedFeature = info.GetID();
   if (m_drapeEngine != nullptr)
   {
-    bool isGeometrySelectionAllowed = false;
-    if (!m_lastTapEvent || !m_lastTapEvent->m_info.m_isLong)
-      isGeometrySelectionAllowed = true;
+    bool isGeometrySelectionAllowed = (tapSource == TapEvent::Source::Search);
     m_drapeEngine->SelectObject(selectionType, info.GetMercator(), info.GetID(), needAnimation,
                                 isGeometrySelectionAllowed);
   }
@@ -2545,7 +2543,7 @@ void Framework::OnTapEvent(TapEvent const & tapEvent)
 
     SetPlacePageLocation(info);
 
-    ActivateMapSelection(true, selection, info);
+    ActivateMapSelection(true, selection, tapEvent.m_source, info);
   }
   else
   {

@@ -399,9 +399,26 @@ public:
   double GetMinDistanceBetweenResults() const override;
 
 private:
-  void ActivateMapSelection(bool needAnimation,
-                            df::SelectionShape::ESelectedObject selectionType,
-                            place_page::Info const & info);
+  struct TapEvent
+  {
+    enum class Source
+    {
+      User,
+      Search,
+      Other
+    };
+
+    TapEvent(df::TapInfo const & info, Source source)
+      : m_info(info)
+      , m_source(source)
+    {}
+
+    df::TapInfo const m_info;
+    Source const m_source;
+  };
+
+  void ActivateMapSelection(bool needAnimation, df::SelectionShape::ESelectedObject selectionType,
+                            TapEvent::Source tapSource, place_page::Info const & info);
   void InvalidateUserMarks();
 
 public:
@@ -448,24 +465,6 @@ public:
                     vector<FeatureID> const & features);
 
 private:
-  struct TapEvent
-  {
-    enum class Source
-    {
-      User,
-      Search,
-      Other
-    };
-
-    TapEvent(df::TapInfo const & info, Source source)
-      : m_info(info)
-      , m_source(source)
-    {}
-
-    df::TapInfo const m_info;
-    Source const m_source;
-  };
-
   unique_ptr<TapEvent> m_lastTapEvent;
   bool m_isViewportInitialized = false;
 
