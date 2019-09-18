@@ -24,6 +24,7 @@ enum class UTMContent : uint8_t
   Description = 0,
   View,
   Details,
+  More,
 };
 
 inline std::string InjectUTM(std::string const & url, UTM utm)
@@ -87,6 +88,9 @@ inline std::string InjectUTMContent(std::string const & url, UTMContent content)
     break;
   case UTMContent::Details:
     params.emplace_back("utm_content", "details");
+    break;
+  case UTMContent::More:
+    params.emplace_back("utm_content", "more");
     break;
   }
   return base::url::Make(url, params);

@@ -26,11 +26,12 @@ public class UTM
   public static final int UTM_CROWN_BUTTON = 9;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ UTM_CONTENT_DESCRIPTION, UTM_CONTENT_VIEW, UTM_CONTENT_DETAILS })
+  @IntDef({ UTM_CONTENT_DESCRIPTION, UTM_CONTENT_VIEW, UTM_CONTENT_DETAILS, UTM_CONTENT_MORE })
   public @interface UTMContentType {}
 
   // The order of these constants must correspond to C++ enumeration in partners_api/utm.hpp.
   public static final int UTM_CONTENT_DESCRIPTION = 0;
   public static final int UTM_CONTENT_VIEW = 1;
   public static final int UTM_CONTENT_DETAILS = 2;
+  public static final int UTM_CONTENT_MORE = 3;
 }

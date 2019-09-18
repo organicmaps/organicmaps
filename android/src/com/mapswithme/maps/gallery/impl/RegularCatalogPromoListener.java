@@ -6,8 +6,10 @@ import android.text.TextUtils;
 
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.promo.PromoEntity;
+import com.mapswithme.util.UTM;
 import com.mapswithme.util.statistics.Destination;
 import com.mapswithme.util.statistics.GalleryPlacement;
 import com.mapswithme.util.statistics.GalleryType;
@@ -32,8 +34,10 @@ public class RegularCatalogPromoListener implements ItemSelectedListener<PromoEn
     if (TextUtils.isEmpty(item.getUrl()))
       return;
 
+    String utmContentUrl = BookmarkManager.INSTANCE.injectCatalogUTMContent(item.getUrl(),
+                                                                            UTM.UTM_CONTENT_DETAILS);
     BookmarksCatalogActivity.startForResult(mActivity, BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
-                                            item.getUrl());
+                                            utmContentUrl);
     Statistics.INSTANCE.trackGalleryProductItemSelected(GalleryType.PROMO, mPlacement, position,
                                                         Destination.CATALOGUE);
   }
@@ -45,8 +49,11 @@ public class RegularCatalogPromoListener implements ItemSelectedListener<PromoEn
     if (TextUtils.isEmpty(item.getUrl()))
       return;
 
-    BookmarksCatalogActivity.startForResult(mActivity, BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
-                                            item.getUrl());
+    String utmContentUrl = BookmarkManager.INSTANCE.injectCatalogUTMContent(item.getUrl(),
+                                                                            UTM.UTM_CONTENT_MORE);
+    BookmarksCatalogActivity.startForResult(mActivity,
+                                            BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
+                                            utmContentUrl);
     Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
                                           GalleryType.PROMO,
                                           mPlacement);
@@ -55,9 +62,6 @@ public class RegularCatalogPromoListener implements ItemSelectedListener<PromoEn
   @Override
   public void onActionButtonSelected(@NonNull PromoEntity item, int position)
   {
-    if (TextUtils.isEmpty(item.getUrl()))
-      return;
-
-    BookmarksCatalogActivity.start(mActivity, item.getUrl());
+    // Method not called.
   }
 }

@@ -18,6 +18,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.impl.Factory;
@@ -264,16 +265,22 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
 
     private void onCtaClicked(@NonNull GalleryPlacement placement, @NonNull String url)
     {
-      BookmarksCatalogActivity.start(mPlacePageView.getContext(), url);
+      String utmContentUrl = BookmarkManager.INSTANCE.injectCatalogUTMContent(url,
+                                                                              UTM.UTM_CONTENT_VIEW);
+      BookmarksCatalogActivity.startForResult(requireActivity(),
+                                              BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
+                                              utmContentUrl);
       Statistics.INSTANCE.trackGalleryProductItemSelected(GalleryType.PROMO, placement, 0,
                                                           Destination.CATALOGUE);
     }
 
     private void onMoreDescriptionClicked(@NonNull String url)
     {
+      String utmContentUrl = BookmarkManager.INSTANCE.injectCatalogUTMContent(url,
+                                                                         UTM.UTM_CONTENT_DESCRIPTION);
       BookmarksCatalogActivity.startForResult(requireActivity(),
                                               BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
-                                              url);
+                                              utmContentUrl);
     }
   }
 
