@@ -1,6 +1,6 @@
 # MAPS.ME
 
-[MAPS.ME](http://maps.me) is an open source cross-platform offline maps application,
+[MAPS.ME](https://maps.me) is an open source cross-platform offline maps application,
 built on top of crowd-sourced OpenStreetMap data. It was publicly released
 for [iOS](https://itunes.apple.com/app/id510623322) and
 [Android](https://play.google.com/store/apps/details?id=com.mapswithme.maps.pro).
@@ -24,9 +24,6 @@ and Android debug packages.
 
 For detailed installation instructions and Android/iOS building process,
 see [INSTALL.md](https://github.com/mapsme/omim/tree/master/docs/INSTALL.md).
-
-Nightly builds for Android are published to [osmz.ru](http://osmz.ru/mwm/)
-and Dropbox: [release](http://maps.me/release), [debug](http://maps.me/debug).
 
 ## Building maps
 
@@ -67,6 +64,6 @@ or by mail to bugs@maps.me.
 
 ## Authors and License
 
-This source code is Copyright (C) 2015 My.com B.V. (Mail.Ru Group), published under Apache Public License 2.0,
+This source code is Copyright (C) 2019 My.com B.V. (Mail.Ru Group), published under Apache Public License 2.0,
 except third-party libraries. See [NOTICE](https://github.com/mapsme/omim/blob/master/NOTICE)
 and [data/copyright.html](http://htmlpreview.github.io/?https://github.com/mapsme/omim/blob/master/data/copyright.html) files for more information.
