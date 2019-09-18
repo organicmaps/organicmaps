@@ -17,7 +17,6 @@
 #include "generator/osm_source.hpp"
 #include "generator/platform_helpers.hpp"
 #include "generator/popular_places_section_builder.hpp"
-#include "generator/popularity.hpp"
 #include "generator/processor_factory.hpp"
 #include "generator/ratings_section_builder.hpp"
 #include "generator/raw_generator.hpp"
@@ -190,8 +189,6 @@ DEFINE_bool(generate_addresses_file, false,
 DEFINE_bool(generate_traffic_keys, false,
             "Generate keys for the traffic map (road segment -> speed group).");
 
-DEFINE_string(popularity_csv, "", "Output csv for popularity.");
-
 DEFINE_bool(dump_mwm_tmp, false, "Prints feature builder objects from .mwm.tmp");
 
 // Common.
@@ -307,11 +304,6 @@ int GeneratorToolMain(int argc, char ** argv)
   unique_ptr<storage::CountryParentGetter> countryParentGetter;
   if (FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm)
     countryParentGetter = make_unique<storage::CountryParentGetter>();
-
-  if (!FLAGS_popularity_csv.empty())
-  {
-    popularity::BuildPopularitySrcFromAllData(genInfo.m_tmpDir, FLAGS_popularity_csv, threadsCount);
-  }
 
   if (!FLAGS_dump_wikipedia_urls.empty())
   {

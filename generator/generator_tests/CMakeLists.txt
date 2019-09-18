@@ -28,7 +28,6 @@ set(
   osm_o5m_source_test.cpp
   osm_type_test.cpp
   place_processor_tests.cpp
-  popularity_builder_tests.cpp
   restriction_collector_test.cpp
   restriction_test.cpp
   road_access_test.cpp
