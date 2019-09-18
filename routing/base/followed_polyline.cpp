@@ -128,37 +128,33 @@ Iter FollowedPolyline::GetBestProjection(m2::RectD const & posRect,
   return GetClosestProjectionInInterval(posRect, distFn, hoppingBorderIdx, m_nextCheckpointIndex);
 }
 
-  pair<Iter, bool> FollowedPolyline::GetBestMatchedProjection(m2::RectD const & posRect) const
+  FollowedPolyline::UpdatedProjection FollowedPolyline::GetBestMatchedProjection(m2::RectD const & posRect) const
   {
     CHECK_EQUAL(m_segProj.size() + 1, m_poly.GetSize(), ());
     // At first trying to find a projection to two closest route segments of route which is close
     // enough to |posRect| center. If |m_current| is right before intermediate point we can get |closestIter|
     // right after intermediate point (in next subroute).
     size_t const hoppingBorderIdx = min(m_segProj.size(), m_current.m_ind + 3);
-    Iter closestIter;
-    bool nearestIsFake = false;
-    tie(closestIter, nearestIsFake) = GetClosestMatchedProjectionInInterval(posRect, m_current.m_ind, hoppingBorderIdx);
-    if (closestIter.IsValid())
-      return make_pair(closestIter, nearestIsFake);
+    auto res = GetClosestMatchedProjectionInInterval(posRect, m_current.m_ind, hoppingBorderIdx);
+    if (res.iter.IsValid())
+      return UpdatedProjection{res.iter, res.closerToUnmatched};
 
     // If a projection to the 3 closest route segments is not found tries to find projection to other route
     // segments of current subroute.
     return GetClosestMatchedProjectionInInterval(posRect, hoppingBorderIdx, m_nextCheckpointIndex);
   }
 
-pair<bool, bool> FollowedPolyline::UpdateMatchedProjection(m2::RectD const & posRect)
+FollowedPolyline::UpdatedProjectionInfo FollowedPolyline::UpdateMatchedProjection(m2::RectD const & posRect)
 {
   ASSERT(m_current.IsValid(), ());
   ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
 
-  Iter iter;
-  bool nearestIsFake = false;
   m2::PointD const currPos = posRect.Center();
-  tie(iter, nearestIsFake) = GetBestMatchedProjection(posRect);
+  auto res = GetBestMatchedProjection(posRect);
 
-  if (iter.IsValid())
-    m_current = iter;
-  return make_pair(iter.IsValid(), nearestIsFake);
+  if (res.iter.IsValid())
+    m_current = res.iter;
+  return UpdatedProjectionInfo{res.iter.IsValid(), res.closerToUnmatched};
 }
 
 Iter FollowedPolyline::UpdateProjectionByPrediction(m2::RectD const & posRect,

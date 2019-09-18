@@ -291,11 +291,10 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
   ASSERT(m_route->IsValid(), ());
 
   m_turnNotificationsMgr.SetSpeedMetersPerSecond(info.m_speedMpS);
-  bool movedIterator = false;
-  bool closerToFake = false;
-  std::tie(movedIterator, closerToFake) = m_route->MoveIteratorToReal(info);
 
-  if (movedIterator)
+  auto iteratorAction = m_route->MoveIteratorToReal(info);
+
+  if (iteratorAction.movedIterator)
   {
     m_moveAwayCounter = 0;
     m_lastDistance = 0.0;
@@ -325,7 +324,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     return m_state;
   }
 
-  if(!closerToFake)
+  if(!iteratorAction.closerToFake)
   {
     // Distance from the last known projection on route
     // (check if we are moving far from the last known projection).

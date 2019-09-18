@@ -8,7 +8,6 @@
 
 #include <cstddef>
 #include <limits>
-#include <utility>
 #include <vector>
 
 namespace routing
@@ -70,6 +69,20 @@ public:
     bool IsValid() const { return m_ind != kInvalidIndex; }
   };
 
+  struct UpdatedProjection
+  {
+    // Iterator to the projection point.
+    Iter iter;
+    // True if nearest point is on an unmatched segment.
+    bool closerToUnmatched;
+  };
+
+  struct UpdatedProjectionInfo
+  {
+    bool updatedProjection;
+    bool closerToFake;
+  };
+
   const Iter GetCurrentIter() const { return m_current; }
 
   double GetDistanceM(Iter const & it1, Iter const & it2) const;
@@ -79,8 +92,8 @@ public:
   /// \brief Sets indexes of all unmatched segments on route.
   void SetUnmatchedSegmentIndexes(std::vector<size_t> && unmatchedSegmentIndexes);
 
-  /// \brief Updates projection to the closest real segment if it's possible.
-  std::pair<bool, bool>  UpdateMatchedProjection(m2::RectD const & posRect);
+  /// \brief Updates projection to the closest matched segment if it's possible.
+  UpdatedProjectionInfo  UpdateMatchedProjection(m2::RectD const & posRect);
 
   Iter UpdateProjection(m2::RectD const & posRect);
 
@@ -125,8 +138,7 @@ public:
     return res;
   }
 
-  /// \returns pair of iterator (projection point) and bool (true if nearest point is on an unmatched segment).
-  std::pair<Iter, bool> GetClosestMatchedProjectionInInterval(m2::RectD const & posRect,
+  UpdatedProjection GetClosestMatchedProjectionInInterval(m2::RectD const & posRect,
                                                               size_t startIdx, size_t endIdx) const
   {
     CHECK_LESS_OR_EQUAL(endIdx, m_segProj.size(), ());
@@ -163,7 +175,7 @@ public:
           minDistUnmatched = dp;
       }
     }
-    return std::make_pair(nearestIter, minDistUnmatched < minDist);
+    return UpdatedProjection{nearestIter, minDistUnmatched < minDist};
   }
 
 private:
@@ -174,7 +186,7 @@ private:
   template <typename DistanceFn>
   Iter GetBestProjection(m2::RectD const & posRect, DistanceFn const & distFn) const;
 
-  std::pair<Iter, bool> GetBestMatchedProjection(m2::RectD const & posRect) const;
+  UpdatedProjection GetBestMatchedProjection(m2::RectD const & posRect) const;
 
   void Update();
 

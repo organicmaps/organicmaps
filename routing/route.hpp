@@ -24,7 +24,6 @@
 #include <memory>
 #include <set>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace location
@@ -193,6 +192,14 @@ public:
     size_t m_endSegmentIdx = 0;
   };
 
+  struct MovedIteratorInfo
+  {
+    // Indicator of setting the iterator to one of real segments
+    bool movedIterator;
+    // Indicator of the presence of the fake segment which is the nearest to the given point
+    bool closerToFake;
+  };
+
   /// \brief For every subroute some attributes are kept in the following structure.
   struct SubrouteSettings final
   {
@@ -326,7 +333,7 @@ public:
 
   /// \returns pair of vals: first = true if position was updated successfully to real segment,
   /// second = true if position is closer to the fake segment
-  std::pair<bool, bool> MoveIteratorToReal(location::GpsInfo const & info);
+  MovedIteratorInfo MoveIteratorToReal(location::GpsInfo const & info);
 
   void MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
 

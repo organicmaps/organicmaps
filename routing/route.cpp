@@ -250,13 +250,13 @@ void Route::SetFakeSegmentsOnPolyline()
   m_poly.SetUnmatchedSegmentIndexes(move(fakeSegmentIndexes));
 }
 
-pair<bool, bool> Route::MoveIteratorToReal(location::GpsInfo const & info)
+Route::MovedIteratorInfo Route::MoveIteratorToReal(location::GpsInfo const & info)
 {
   m2::RectD const rect = MercatorBounds::MetersToXY(
       info.m_longitude, info.m_latitude,
       max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
-
-  return m_poly.UpdateMatchedProjection(rect);
+  auto resUpdate = m_poly.UpdateMatchedProjection(rect);
+  return MovedIteratorInfo{resUpdate.updatedProjection, resUpdate.closerToFake};
 }
 
 double Route::GetPolySegAngle(size_t ind) const
