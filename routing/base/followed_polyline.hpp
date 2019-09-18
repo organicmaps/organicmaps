@@ -80,7 +80,7 @@ public:
   struct UpdatedProjectionInfo
   {
     bool updatedProjection;
-    bool closerToFake;
+    bool closerToUnmatched;
   };
 
   const Iter GetCurrentIter() const { return m_current; }
