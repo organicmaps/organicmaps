@@ -4,8 +4,11 @@
 
 #include "geometry/point2d.hpp"
 #include "geometry/polyline2d.hpp"
+#include "geometry/rect2d.hpp"
 
+#include <cstddef>
 #include <limits>
+#include <utility>
 #include <vector>
 
 namespace routing
@@ -73,10 +76,10 @@ public:
 
   Iter UpdateProjectionByPrediction(m2::RectD const & posRect, double predictDistance);
 
-  /// \brief set indexes of all unmatched segments on route
-  void SetUnmatchedSegmentIndexes(std::vector<size_t> const & unmatchedSegmentIndexes);
+  /// \brief Sets indexes of all unmatched segments on route.
+  void SetUnmatchedSegmentIndexes(std::vector<size_t> && unmatchedSegmentIndexes);
 
-  /// \brief Updates projection to the closest real segment if possible
+  /// \brief Updates projection to the closest real segment if it's possible.
   std::pair<bool, bool>  UpdateMatchedProjection(m2::RectD const & posRect);
 
   Iter UpdateProjection(m2::RectD const & posRect);
@@ -101,7 +104,7 @@ public:
     Iter res;
     double minDist = std::numeric_limits<double>::max();
 
-    m2::PointD const currPos = posRect.Center();
+    m2::PointD const & currPos = posRect.Center();
 
     for (size_t i = startIdx; i < endIdx; ++i)
     {
@@ -122,7 +125,7 @@ public:
     return res;
   }
 
-  /// \returns pair of iterator (projection point) and bool (true if nearest point is on unmatched segment)
+  /// \returns pair of iterator (projection point) and bool (true if nearest point is on an unmatched segment).
   template <typename DistanceFn>
   std::pair<Iter, bool> GetClosestMatchedProjectionInInterval(m2::RectD const & posRect, DistanceFn const & distFn,
                                                               size_t startIdx, size_t endIdx) const
@@ -133,7 +136,7 @@ public:
     double minDist = std::numeric_limits<double>::max();
     double minDistUnmatched = minDist;
 
-    m2::PointD const currPos = posRect.Center();
+    m2::PointD const & currPos = posRect.Center();
 
     for (size_t i = startIdx; i < endIdx; ++i)
     {
@@ -144,12 +147,12 @@ public:
 
       Iter it(pt, i);
       double const dp = distFn(it);
-      if(dp >= minDistUnmatched && dp >= minDist)
+      if (dp >= minDistUnmatched && dp >= minDist)
         continue;
 
-      if (std::find(m_unmatchedSegmentIndexes.begin(), m_unmatchedSegmentIndexes.end(), it.m_ind) == m_unmatchedSegmentIndexes.end())
+      if (std::binary_search(m_unmatchedSegmentIndexes.begin(), m_unmatchedSegmentIndexes.end(), it.m_ind))
       {
-        if(minDist > dp) // overwrite best match for matched segment
+        if (minDist > dp) // overwrite best match for matched segment
         {
           minDist = dp;
           nearestIter = it;
@@ -157,7 +160,7 @@ public:
       }
       else
       {
-        if(minDistUnmatched > dp) // overwrite best match for unmatched segment
+        if (minDistUnmatched > dp) // overwrite best match for unmatched segment
           minDistUnmatched = dp;
       }
     }
@@ -179,6 +182,7 @@ private:
   void Update();
 
   m2::PolylineD m_poly;
+  /// Indexes of all unmatched segments on route.
   std::vector<size_t> m_unmatchedSegmentIndexes;
 
   /// Iterator with the current position. Position sets with UpdateProjection methods.

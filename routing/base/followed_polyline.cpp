@@ -1,5 +1,7 @@
 #include "followed_polyline.hpp"
 
+#include "base/assert.hpp"
+
 #include <algorithm>
 #include <limits>
 
@@ -113,7 +115,7 @@ Iter FollowedPolyline::GetBestProjection(m2::RectD const & posRect,
 {
   CHECK_EQUAL(m_segProj.size() + 1, m_poly.GetSize(), ());
   // At first trying to find a projection to two closest route segments of route which is close
-  // enough to |posRect| center. If m_current is right before intermediate point we can get closestIter
+  // enough to |posRect| center. If |m_current| is right before intermediate point we can get |closestIter|
   // right after intermediate point (in next subroute).
   size_t const hoppingBorderIdx = min(m_segProj.size(), m_current.m_ind + 2);
   Iter const closestIter =
@@ -127,27 +129,27 @@ Iter FollowedPolyline::GetBestProjection(m2::RectD const & posRect,
 }
 
   template <class DistanceFn>
-  std::pair<Iter, bool> FollowedPolyline::GetBestMatchedProjection(m2::RectD const & posRect,
+  pair<Iter, bool> FollowedPolyline::GetBestMatchedProjection(m2::RectD const & posRect,
                                                                    DistanceFn const & distFn) const
   {
     CHECK_EQUAL(m_segProj.size() + 1, m_poly.GetSize(), ());
     // At first trying to find a projection to two closest route segments of route which is close
-    // enough to |posRect| center. If m_current is right before intermediate point we can get closestIter
+    // enough to |posRect| center. If |m_current| is right before intermediate point we can get |closestIter|
     // right after intermediate point (in next subroute).
     size_t const hoppingBorderIdx = min(m_segProj.size(), m_current.m_ind + 3);
     Iter closestIter;
     bool nearestIsFake = false;
-    std::tie(closestIter, nearestIsFake) = GetClosestMatchedProjectionInInterval(posRect, distFn, m_current.m_ind,
+    tie(closestIter, nearestIsFake) = GetClosestMatchedProjectionInInterval(posRect, distFn, m_current.m_ind,
                                                                                  hoppingBorderIdx);
     if (closestIter.IsValid())
-      return std::make_pair(closestIter, nearestIsFake);
+      return make_pair(closestIter, nearestIsFake);
 
     // If a projection to the 3 closest route segments is not found tries to find projection to other route
     // segments of current subroute.
     return GetClosestMatchedProjectionInInterval(posRect, distFn, hoppingBorderIdx, m_nextCheckpointIndex);
   }
 
-std::pair<bool, bool> FollowedPolyline::UpdateMatchedProjection(m2::RectD const & posRect)
+pair<bool, bool> FollowedPolyline::UpdateMatchedProjection(m2::RectD const & posRect)
 {
   ASSERT(m_current.IsValid(), ());
   ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
@@ -155,13 +157,13 @@ std::pair<bool, bool> FollowedPolyline::UpdateMatchedProjection(m2::RectD const 
   Iter iter;
   bool nearestIsFake = false;
   m2::PointD const currPos = posRect.Center();
-  std::tie(iter, nearestIsFake) = GetBestMatchedProjection(posRect, [&](Iter const &it) {
+  tie(iter, nearestIsFake) = GetBestMatchedProjection(posRect, [&](Iter const & it) {
     return MercatorBounds::DistanceOnEarth(it.m_pt, currPos);
   });
 
   if (iter.IsValid())
     m_current = iter;
-  return std::make_pair(iter.IsValid(), nearestIsFake);
+  return make_pair(iter.IsValid(), nearestIsFake);
 }
 
 Iter FollowedPolyline::UpdateProjectionByPrediction(m2::RectD const & posRect,
@@ -201,9 +203,10 @@ Iter FollowedPolyline::UpdateProjection(m2::RectD const & posRect)
   return res;
 }
 
-void FollowedPolyline::SetUnmatchedSegmentIndexes(std::vector<size_t> const & unmatchedSegmentIndexes)
+void FollowedPolyline::SetUnmatchedSegmentIndexes(vector<size_t> && unmatchedSegmentIndexes)
 {
-  m_unmatchedSegmentIndexes = unmatchedSegmentIndexes;
+  ASSERT(is_sorted(unmatchedSegmentIndexes.cbegin(), unmatchedSegmentIndexes.cend()), ());
+  m_unmatchedSegmentIndexes = move(unmatchedSegmentIndexes);
 }
 
 double FollowedPolyline::GetDistFromCurPointToRoutePointMerc() const

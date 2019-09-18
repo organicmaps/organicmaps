@@ -15,6 +15,8 @@
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
+#include <tuple>
+
 using namespace location;
 using namespace std;
 using namespace traffic;
@@ -289,7 +291,8 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
   ASSERT(m_route->IsValid(), ());
 
   m_turnNotificationsMgr.SetSpeedMetersPerSecond(info.m_speedMpS);
-  bool movedIterator, closerToFake;
+  bool movedIterator = false;
+  bool closerToFake = false;
   std::tie(movedIterator, closerToFake) = m_route->MoveIteratorToReal(info);
 
   if (movedIterator)

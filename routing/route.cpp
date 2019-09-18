@@ -238,28 +238,19 @@ void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
   m_poly.GetCurrentDirectionPoint(pt, kOnEndToleranceM);
 }
 
-bool Route::MoveIterator(location::GpsInfo const & info)
-{
-  m2::RectD const rect = MercatorBounds::MetersToXY(
-        info.m_longitude, info.m_latitude,
-        max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
-  FollowedPolyline::Iter const res = m_poly.UpdateProjectionByPrediction(rect, -1.0 /* predictDistance */);
-  return res.IsValid();
-}
-
 void Route::SetFakeSegmentsOnPolyline()
 {
-  std::vector<size_t> fakeSegmentIndexes{};
-  auto const & segs = GetRouteSegments();
-  for(size_t i = 0; i < segs.size(); ++i)
+  vector<size_t> fakeSegmentIndexes{};
+  auto const & routeSegments = GetRouteSegments();
+  for (size_t i = 0; i < routeSegments.size(); ++i)
   {
-    if(!segs[i].GetSegment().IsRealSegment())
+    if (!routeSegments[i].GetSegment().IsRealSegment())
       fakeSegmentIndexes.push_back(i);
   }
-  m_poly.SetUnmatchedSegmentIndexes(fakeSegmentIndexes);
+  m_poly.SetUnmatchedSegmentIndexes(move(fakeSegmentIndexes));
 }
 
-std::pair<bool, bool> Route::MoveIteratorToReal(location::GpsInfo const & info)
+pair<bool, bool> Route::MoveIteratorToReal(location::GpsInfo const & info)
 {
   m2::RectD const rect = MercatorBounds::MetersToXY(
       info.m_longitude, info.m_latitude,
@@ -405,7 +396,7 @@ bool Route::CrossMwmsPartlyProhibitedForSpeedCams() const
   return !m_speedCamPartlyProhibitedMwms.empty();
 }
 
-std::vector<platform::CountryFile> const & Route::GetMwmsPartlyProhibitedForSpeedCams() const
+vector<platform::CountryFile> const & Route::GetMwmsPartlyProhibitedForSpeedCams() const
 {
   return m_speedCamPartlyProhibitedMwms;
 }
