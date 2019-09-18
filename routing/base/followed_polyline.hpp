@@ -139,44 +139,7 @@ public:
   }
 
   UpdatedProjection GetClosestMatchedProjectionInInterval(m2::RectD const & posRect,
-                                                              size_t startIdx, size_t endIdx) const
-  {
-    CHECK_LESS_OR_EQUAL(endIdx, m_segProj.size(), ());
-    CHECK_LESS_OR_EQUAL(startIdx, endIdx, ());
-    Iter nearestIter;
-    double minDist = std::numeric_limits<double>::max();
-    double minDistUnmatched = minDist;
-
-    m2::PointD const & currPos = posRect.Center();
-
-    for (size_t i = startIdx; i < endIdx; ++i)
-    {
-      m2::PointD const & pt = m_segProj[i].ClosestPointTo(currPos);
-
-      if (!posRect.IsPointInside(pt))
-        continue;
-
-      Iter it(pt, i);
-      double const dp = MercatorBounds::DistanceOnEarth(it.m_pt, currPos);
-      if (dp >= minDistUnmatched && dp >= minDist)
-        continue;
-
-      if (std::binary_search(m_unmatchedSegmentIndexes.begin(), m_unmatchedSegmentIndexes.end(), it.m_ind))
-      {
-        if (minDist > dp) // overwrite best match for matched segment
-        {
-          minDist = dp;
-          nearestIter = it;
-        }
-      }
-      else
-      {
-        if (minDistUnmatched > dp)
-          minDistUnmatched = dp;
-      }
-    }
-    return UpdatedProjection{nearestIter, minDistUnmatched < minDist};
-  }
+                                                              size_t startIdx, size_t endIdx) const;
 
 private:
   /// \returns iterator to the best projection of center of |posRect| to the |m_poly|.
