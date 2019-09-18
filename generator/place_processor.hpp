@@ -68,7 +68,7 @@ private:
       queue.pop();
       auto const queryBbox = GetBboxFor(current);
       m_tree.ForEachInRect(queryBbox, [&](auto const & candidate) {
-        if (unviewed.count(candidate) == 0 || !m_isSameFunc(*current, *candidate))
+        if (unviewed.count(candidate) == 0 || !m_isSameFunc(*it, *candidate))
           return;
 
         unviewed.erase(candidate);
@@ -96,6 +96,16 @@ private:
   IsSameFunc m_isSameFunc;
   m4::Tree<ConstIterator, TraitsDef> m_tree;
 };
+
+template <typename T, template<typename, typename> class Container, typename Alloc = std::allocator<T>>
+std::vector<std::vector<T>> GetClusters(
+    Container<T, Alloc> && container,
+    typename ClustersFinder<T, Container, Alloc>::RadiusFunc const & radiusFunc,
+    typename ClustersFinder<T, Container, Alloc>::IsSameFunc const & isSameFunc)
+{
+  return ClustersFinder<T, Container, Alloc>(std::forward<Container<T, Alloc>>(container),
+                                             radiusFunc, isSameFunc).Find();
+}
 
 bool NeedProcessPlace(feature::FeatureBuilder const & fb);
 

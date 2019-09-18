@@ -65,13 +65,7 @@ auto const getRadiusMFunction = [](NamedPoint const & p) {
 };
 
 auto const isSameFunction = [](NamedPoint const & left, NamedPoint const & right) {
-  if (left.m_name != right.m_name)
-    return false;
-
-  if (left.m_type != right.m_type)
-    return false;
-
-  return MercatorBounds::DistanceOnEarth(left.m_point, right.m_point)  < getRadiusMFunction(left);
+  return left.m_name == right.m_name && left.m_type == right.m_type;
 };
 
 void Sort(std::vector<std::vector<NamedPoint>> & data)
@@ -94,16 +88,6 @@ void Test(std::vector<std::vector<NamedPoint>> & result, std::vector<std::vector
   Sort(result);
   Sort(expected);
   TEST_EQUAL(result, expected, ());
-}
-
-template <typename T, template<typename, typename> class Container, typename Alloc = std::allocator<T>>
-std::vector<std::vector<T>> GetClusters(
-    Container<T, Alloc> && container,
-    typename ClustersFinder<T, Container, Alloc>::RadiusFunc const & radiusFunc,
-    typename ClustersFinder<T, Container, Alloc>::IsSameFunc const & isSameFunc)
-{
-  return ClustersFinder<T, Container, Alloc>(std::forward<Container<T, Alloc>>(container),
-                                             radiusFunc, isSameFunc).Find();
 }
 
 UNIT_TEST(ClustersFinder_Empty)

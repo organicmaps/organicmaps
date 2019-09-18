@@ -66,16 +66,7 @@ bool IsTheSamePlace(T const & left, T const & right)
   auto const & localityChecker = ftypes::IsLocalityChecker::Instance();
   auto const localityL = localityChecker.GetType(GetPlaceType(left));
   auto const localityR = localityChecker.GetType(GetPlaceType(right));
-  if (localityL != localityR)
-    return false;
-
-  auto const & rectL = left.GetLimitRect();
-  auto const & rectR = right.GetLimitRect();
-  if (rectL.IsIntersect(rectR))
-    return true;
-
-  auto const dist = MercatorBounds::DistanceOnEarth(left.GetKeyPoint(), right.GetKeyPoint());
-  return dist <= GetRadiusM(localityL);
+  return localityL == localityR;
 }
 
 std::vector<std::vector<FeaturePlace>> FindClusters(std::vector<FeaturePlace> && places)
@@ -85,9 +76,7 @@ std::vector<std::vector<FeaturePlace>> FindClusters(std::vector<FeaturePlace> &&
     auto const locality = localityChecker.GetType(GetPlaceType(fp.GetFb()));
     return GetRadiusM(locality);
   };
-  ClustersFinder<FeaturePlace, std::vector> finder(std::move(places), func,
-                                                   IsTheSamePlace<FeaturePlace>);
-  return finder.Find();
+  return GetClusters(std::move(places), func, IsTheSamePlace<FeaturePlace>);
 }
 }  // namespace
 
