@@ -1617,7 +1617,26 @@ void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSucces
 bool Storage::IsPossibleToAutoupdate() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return m_diffManager.IsPossibleToAutoupdate();
+  if (m_diffManager.GetStatus() != diffs::Status::Available)
+    return false;
+
+  bool isPossibleToAutoupdate = true;
+  auto const currentVersion = GetCurrentDataVersion();
+  CountriesVec localMaps;
+  GetLocalRealMaps(localMaps);
+  for (auto const & countryId : localMaps)
+  {
+    auto const localFile = GetLatestLocalFile(countryId);
+    auto const mapVersion = localFile->GetVersion();
+    if (mapVersion != currentVersion && mapVersion > 0 &&
+        !m_diffManager.HasDiffFor(localFile->GetCountryName()))
+    {
+      isPossibleToAutoupdate = false;
+      break;
+    }
+  }
+
+  return isPossibleToAutoupdate;
 }
 
 void Storage::SetStartDownloadingCallback(StartDownloadingCallback const & cb)

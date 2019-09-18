@@ -54,7 +54,6 @@ public:
   bool SizeToDownloadFor(storage::CountryId const & countryId, uint64_t & size) const;
 
   bool VersionFor(storage::CountryId const & countryId, uint64_t & version) const;
-  bool IsPossibleToAutoupdate() const;
 
   // Checks whether the diff for |countryId| is available for download or
   // has been downloaded.
@@ -90,7 +89,6 @@ private:
 
   Status m_status = Status::Undefined;
   NameDiffInfoMap m_diffs;
-  LocalMapsInfo m_localMapsInfo;
   base::ObserverListUnsafe<Observer> m_observers;
 };
 }  // namespace diffs

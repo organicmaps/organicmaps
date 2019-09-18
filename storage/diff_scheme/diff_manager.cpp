@@ -27,10 +27,7 @@ namespace diffs
 {
 void Manager::Load(LocalMapsInfo && info)
 {
-  LocalMapsInfo localMapsInfo = info;
-  m_localMapsInfo = std::move(info);
-
-  GetPlatform().RunTask(Platform::Thread::Network, [this, info = std::move(localMapsInfo)] {
+  GetPlatform().RunTask(Platform::Thread::Network, [this, info = std::move(info)] {
     NameDiffInfoMap diffs = Checker::Check(info);
 
     GetPlatform().RunTask(Platform::Thread::Gui, [this, diffs = std::move(diffs)] {
@@ -180,20 +177,6 @@ void Manager::AbortDiffScheme()
 {
   m_status = Status::NotAvailable;
   m_diffs.clear();
-}
-
-bool Manager::IsPossibleToAutoupdate() const
-{
-  if (m_status != Status::Available)
-    return false;
-
-  for (auto const & nameVersion : m_localMapsInfo.m_localMaps)
-  {
-    auto const it = m_diffs.find(nameVersion.first);
-    if (it == m_diffs.cend() || it->second.m_isApplied)
-      return false;
-  }
-  return true;
 }
 }  // namespace diffs
 }  // namespace storage
