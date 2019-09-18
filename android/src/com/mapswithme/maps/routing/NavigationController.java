@@ -137,6 +137,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
 
     mSearchButtonFrame = activity.findViewById(R.id.search_button_frame);
     mSearchWheel = new SearchWheel(mSearchButtonFrame);
+    mCrownBtn = activity.findViewById(R.id.subs_screen_btn);
 
     ImageView bookmarkButton = (ImageView) mSearchButtonFrame.findViewById(R.id.btn_bookmarks);
     bookmarkButton.setImageDrawable(Graphics.tint(bookmarkButton.getContext(),
@@ -144,7 +145,6 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
     bookmarkButton.setOnClickListener(this);
     Application app = (Application) bookmarkButton.getContext().getApplicationContext();
     mSpeedCamSignalCompletionListener = new CameraWarningSignalCompletionListener(app);
-    mCrownBtn = activity.findViewById(R.id.subs_screen_btn);
   }
 
   public void onResume()
@@ -355,7 +355,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
 
   public void updateSearchButtonsTranslation(float translation)
   {
-    int offset = mCrownBtn.getVisibility() == View.VISIBLE ? mCrownBtn.getHeight() : 0;
+    int offset = UiUtils.isVisible(mCrownBtn) ? mCrownBtn.getHeight() : 0;
     mSearchButtonFrame.setTranslationY(translation + offset);
   }
 
