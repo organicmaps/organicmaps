@@ -383,7 +383,7 @@ protected:
     {
       m_runner.PostTask([&]()
                         {
-                          m_storage.DeleteFromDownloader(m_countryId);
+                          m_storage.CancelDownloadNode(m_countryId);
                         });
     }
   }

@@ -567,8 +567,6 @@ public:
   /// Notifies observers about country status change.
   void DeleteCustomCountryVersion(platform::LocalCountryFile const & localFile);
 
-  /// \brief Deletes countryId from the downloader's queue.
-  void DeleteFromDownloader(CountryId const & countryId);
   bool IsDownloadInProgress() const;
 
   CountryId GetCurrentDownloadingCountryId() const;

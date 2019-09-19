@@ -700,15 +700,7 @@ void Storage::DownloadNextFile(QueuedCountry const & country)
   uint64_t size;
   auto & p = GetPlatform();
 
-  if (opt == MapOptions::Nothing)
-  {
-    // The diff was already downloaded (so the opt is Nothing) and
-    // is being applied.
-    // Still, an update of the status of another country might
-    // have kicked the downloader so we're here.
-    ASSERT(IsDiffApplyingInProgressToCountry(countryId), ());
-    return;
-  }
+  ASSERT(opt != MapOptions::Nothing, (countryId));
 
   // Since a downloaded valid diff file may be either with .diff or .diff.ready extension,
   // we have to check these both cases in order to find
@@ -739,14 +731,6 @@ void Storage::DownloadNextFile(QueuedCountry const & country)
   }
 
   DoDownload();
-}
-
-void Storage::DeleteFromDownloader(CountryId const & countryId)
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-
-  if (DeleteCountryFilesFromDownloader(countryId))
-    NotifyStatusChangedForHierarchy(countryId);
 }
 
 bool Storage::IsDownloadInProgress() const
@@ -1137,10 +1121,7 @@ bool Storage::IsDiffApplyingInProgressToCountry(CountryId const & countryId) con
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  if (!IsCountryFirstInQueue(countryId))
-    return false;
-
-  return m_queue.front().GetCountryId() == m_latestDiffRequest;
+  return countryId == m_latestDiffRequest;
 }
 
 void Storage::SetLocale(string const & locale) { m_countryNameGetter.SetLocale(locale); }
@@ -1256,7 +1237,7 @@ bool Storage::DeleteCountryFilesFromDownloader(CountryId const & countryId)
   if (!queuedCountry)
     return false;
 
-  if (m_latestDiffRequest && m_latestDiffRequest == countryId)
+  if (IsDiffApplyingInProgressToCountry(countryId))
   {
     m_diffsCancellable.Cancel();
     m_diffsBeingApplied.erase(countryId);
@@ -1457,8 +1438,10 @@ void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false
   auto downloadAction = [this, isUpdate](CountryTree::Node const & descendantNode) {
     if (descendantNode.ChildrenCount() == 0 &&
         GetNodeStatus(descendantNode).status != NodeStatus::OnDisk)
-      this->DownloadCountry(descendantNode.Value().Name(),
-                            isUpdate ? MapOptions::Diff : MapOptions::MapWithCarRouting);
+    {
+      DownloadCountry(descendantNode.Value().Name(),
+                      isUpdate ? MapOptions::Diff : MapOptions::MapWithCarRouting);
+    }
   };
 
   node->ForEachInSubtree(downloadAction);
@@ -1888,17 +1871,18 @@ void Storage::CancelDownloadNode(CountryId const & countryId)
   GetQueuedCountries(m_queue, setQueue);
 
   ForEachInSubtree(countryId, [&](CountryId const & descendantId, bool /* groupNode */) {
-    if (IsDiffApplyingInProgressToCountry(descendantId))
-      m_diffsCancellable.Cancel();
-
+    auto needNotify = false;
     if (setQueue.count(descendantId) != 0)
-      DeleteFromDownloader(descendantId);
+      needNotify = DeleteCountryFilesFromDownloader(descendantId);
 
     if (m_failedCountries.count(descendantId) != 0)
     {
       m_failedCountries.erase(descendantId);
-      NotifyStatusChangedForHierarchy(countryId);
+      needNotify = true;
     }
+
+    if (needNotify)
+      NotifyStatusChangedForHierarchy(countryId);
   });
 }
 
