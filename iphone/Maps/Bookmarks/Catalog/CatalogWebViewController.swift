@@ -221,7 +221,7 @@ final class CatalogWebViewController: WebViewController {
   private func showSubscribe() {
     let subscribeViewController = BookmarksSubscriptionViewController()
     subscribeViewController.onSubscribe = { [weak self] in
-      self?.webView.reload()
+      self?.webView.reloadFromOrigin()
       self?.dismiss(animated: true)
       let successDialog = BookmarksSubscriptionSuccessViewController { [weak self] in
         self?.dismiss(animated: true)
@@ -447,7 +447,7 @@ extension CatalogWebViewController: PaidRouteViewControllerDelegate {
   func didCompleteSubscription(_ viewController: PaidRouteViewController) {
     dismiss(animated: true)
     download()
-    self.webView.reload()
+    self.webView.reloadFromOrigin()
   }
 
   func didCompletePurchase(_ viewController: PaidRouteViewController) {
