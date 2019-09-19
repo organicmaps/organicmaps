@@ -458,7 +458,7 @@
 "version" = "Version : %@";
 
 /* Data version in «About» screen */
-"data_version" = "Data version: %d";
+"data_version" = "Version de données: %d";
 
 /* Confirmation in downloading countries dialog */
 "are_you_sure" = "Êtes-vous certain de vouloir continuer ?";
@@ -474,7 +474,7 @@
 "menu_search" = "Rechercher";
 
 /* Settings general group in settings screen */
-"prefs_group_general" = "General settings";
+"prefs_group_general" = "Paramètres généraux";
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
@@ -1494,7 +1494,7 @@
 
 "placepage_more_button" = "Plus";
 
-"placepage_more_reviews_button" = "More Reviews";
+"placepage_more_reviews_button" = "Plus d'avis";
 
 "book_button" = "Réserver";
 
@@ -1638,7 +1638,7 @@
 /* For the first routing */
 "accept" = "Accepter";
 
-"accept_and_continue" = "Accept and continue";
+"accept_and_continue" = "Accepter et continuer";
 
 /* For the first routing */
 "decline" = "Refuser";
@@ -2367,13 +2367,13 @@
 
 "error_already_downloaded" = "Cette liste a déjà été téléchargée";
 
-"popular_place" = "Popular";
+"popular_place" = "Populaire";
 
-"download_routes" = "Download routes";
+"download_routes" = "Télécharger itinéraires";
 
-"bookmarks_downloaded_title" = "Bookmarks have been downloaded successfully";
+"bookmarks_downloaded_title" = "Signets téléchargés avec succès";
 
-"bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
+"bookmarks_downloaded_subtitle" = "Appuyez sur 'Rechercher sur la carte' pour explorer les endroits sur la liste";
 
 "guides" = "Guides";
 

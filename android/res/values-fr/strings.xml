@@ -293,6 +293,8 @@
 	<string name="show_on_backscreen">Afficher sur l\'arrière-plan</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Version : %s</string>
+	<!-- Data version in «About» screen -->
+	<string name="data_version">Version de données: %d</string>
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Êtes-vous certain de vouloir continuer ?</string>
 	<!-- Title for tracks category in bookmarks manager -->
@@ -301,6 +303,8 @@
 	<string name="length">Longueur</string>
 	<string name="share_my_location">Partager ma position</string>
 	<string name="menu_search">Rechercher</string>
+	<!-- Settings general group in settings screen -->
+	<string name="prefs_group_general">Paramètres généraux</string>
 	<!-- Settings screen: "Map" category title -->
 	<string name="prefs_group_map">Carte</string>
 	<!-- Settings screen: "Miscellaneous" category title -->
@@ -885,6 +889,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Description</string>
 	<string name="placepage_more_button">Plus</string>
+	<string name="placepage_more_reviews_button">Plus d\'avis</string>
 	<string name="book_button">Réserver</string>
 	<string name="placepage_call_button">Appeler</string>
 	<string name="placepage_edit_bookmark_button">Éditer le signet</string>
@@ -964,6 +969,7 @@
 	<string name="something_is_not_working">Quelque chose ne fonctionne pas</string>
 	<!-- For the first routing -->
 	<string name="accept">Accepter</string>
+	<string name="accept_and_continue">Accepter et continuer</string>
 	<!-- For the first routing -->
 	<string name="decline">Refuser</string>
 	<string name="whats_new_route_profile_title">C\'est en se bougeant que l\'on trouve des solutions</string>
@@ -1348,6 +1354,10 @@
 	<string name="whats_new_hot_offers_title">Des offres attractives d\'hôtels</string>
 	<string name="whats_new_hot_offers_message">Vous pouvez les rechercher en utilisant la catégorie «Hôtels» dans la recherche. Les offres seront marquées par le symbole du pourcentage sur la carte et dans les résultats de la recherche.</string>
 	<string name="error_already_downloaded">Cette liste a déjà été téléchargée</string>
+	<string name="popular_place">Populaire</string>
+	<string name="download_routes">Télécharger itinéraires</string>
+	<string name="bookmarks_downloaded_title">Signets téléchargés avec succès</string>
+	<string name="bookmarks_downloaded_subtitle">Appuyez sur \'Rechercher sur la carte\' pour explorer les endroits sur la liste</string>
 	<string name="guides">Guides</string>
 	<string name="guide_downloaded_title">Le guide a été téléchargé avec succès</string>
 	<string name="download_guides">Télécharger les guides</string>
@@ -2268,16 +2278,4 @@
 
 	<!-- SECTION: Brands -->
 	<string name="brand.kfc">PFC</string>
-    <string name="accept_and_continue">Accepter et continuer</string>
-	<string name="bookmarks_downloaded_title">Signets téléchargés avec succès</string>
-	<string name="bookmarks_downloaded_subtitle">Appuyez sur \'Rechercher sur la carte\' pour explorer les endroits sur la liste</string>
-	<string name="data_version">Version de données: %d</string>
-	<string name="download_routes">" Télécharger itinéraires"</string>
-	<string name="placepage_more_reviews_button">Plus d\'avis</string>
-	<string name="popular_place">Populaire</string>
-	<string name="popup_subscription_success_map_message">Maintenant, découvrez des guides dans plus de 600 villes et  plus 100 pays dans la catalogue de MAPS.ME</string>
-	<string name="popup_subscription_success_map_not_now_button">Pas maintenant</string>
-	<string name="popup_subscription_success_map_start_button">Commencer à naviguer</string>
-	<string name="popup_subscription_success_map_title">Woohoo, vous êtes abonné</string>
-	<string name="prefs_group_general">paramètres généraux</string>
 </resources>
