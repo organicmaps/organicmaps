@@ -636,7 +636,7 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
     case Sections::PromoCatalog:
     {
       auto rows = self.data.promoCatalogRows;
-      if (rows.empty() || rows[indexPath.row] != PromoCatalogRow::Guides) {
+      if (rows.empty() || rows[indexPath.row] != PromoCatalogRow::Guides || self.data.promoGallery.count == 0) {
         Class cls = [EmptyTableViewCell class];
         EmptyTableViewCell * cell = (EmptyTableViewCell *)[tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
         return cell;
