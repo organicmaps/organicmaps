@@ -184,6 +184,12 @@ public enum Statistics
             .add(PROVIDER, provider);
   }
 
+  public static ParameterBuilder makeGuidesSubscriptionBuilder()
+  {
+    return new ParameterBuilder().add(EventParam.TARGET,
+                                      ParamValue.GUIDES_SUBSCRIPTION);
+  }
+
   public void trackCategoryDescChanged()
   {
     trackEditSettingsScreenOptionClick(ParamValue.ADD_DESC);
@@ -556,6 +562,8 @@ public enum Statistics
     public static final String GUIDES_OPEN = "Bookmarks_Downloaded_Guide_open";
     public static final String GUIDES_BOOKMARK_SELECT = "Bookmarks_BookmarksList_Bookmark_select";
     public static final String GUIDES_TRACK_SELECT = "Bookmarks_BookmarksList_Track_select";
+    public static final String MAP_SPONSORED_BUTTON_CLICK = "Map_SponsoredButton_click";
+    public static final String MAP_SPONSORED_BUTTON_SHOW = "Map_SponsoredButton_show";
 
     public static class Settings
     {
@@ -598,6 +606,7 @@ public enum Statistics
     public static final String SETTINGS = "settings";
     public static final String ROUTE = "route";
     public static final String SCENARIO = "scenario";
+    public static final String TARGET = "target";
     static final String CATEGORY = "category";
     public static final String TAB = "tab";
     static final String COUNT = "Count";
@@ -693,6 +702,7 @@ public enum Statistics
     public static final String SPONSORED_BUTTON = "sponsored_button";
     public static final String POPUP = "popup";
     public static final String WEBVIEW = "webview";
+    public static final String GUIDES_SUBSCRIPTION = "GuidesSubscription";
     static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
     static final String OPENTABLE = "OpenTable";
     static final String LOCALS_EXPERTS = "Locals.Maps.Me";

@@ -728,13 +728,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     UiUtils.showIf(hasCrownView, openSubsScreenBtn);
     if (hasCrownView)
+    {
       openSubsScreenBtn.setOnClickListener(v -> onCrownClicked());
+      Statistics.ParameterBuilder builder = Statistics.makeGuidesSubscriptionBuilder();
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.MAP_SPONSORED_BUTTON_SHOW, builder);
+    }
   }
 
   private void onCrownClicked()
   {
     openBookmarkSubscriptionScreen();
     UserActionsLogger.logCrownClicked();
+    Statistics.ParameterBuilder builder = Statistics.makeGuidesSubscriptionBuilder();
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.MAP_SPONSORED_BUTTON_CLICK, builder);
     if (mNavAnimationController == null)
       return;
 
