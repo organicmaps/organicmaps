@@ -427,9 +427,6 @@ public class Framework
   @NonNull
   public static native MapObject nativeDeleteBookmarkFromMapObject();
 
-  // TODO remove that hack after bookmarks will be refactored completely
-  public static native void nativeOnBookmarkCategoryChanged(long cat, long bmk);
-
   public static native void nativeZoomToPoint(double lat, double lon, int zoom, boolean animate);
 
   /**

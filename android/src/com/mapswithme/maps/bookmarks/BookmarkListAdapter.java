@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
+import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.SortedBlock;
 import com.mapswithme.maps.content.DataSource;
@@ -525,7 +526,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     return mSearchResults != null;
   }
 
-  // FIXME: remove this heavy method and use BoomarkInfo class instead.
   public Object getItem(int position)
   {
     if (getItemViewType(position) == TYPE_DESC)
@@ -540,7 +540,10 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     else
     {
       final long bookmarkId = mSectionsDataSource.getBookmarkId(pos);
-      return BookmarkManager.INSTANCE.getBookmarkInfo(bookmarkId);
+      BookmarkInfo info = BookmarkManager.INSTANCE.getBookmarkInfo(bookmarkId);
+      if (info == null)
+        throw new RuntimeException("Bookmark no longer exists " + bookmarkId);
+      return info;
     }
   }
 }

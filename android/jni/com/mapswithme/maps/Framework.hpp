@@ -81,8 +81,6 @@ namespace android
 
     bool m_isChoosePositionMode;
 
-    place_page::Info m_info;
-
   public:
     Framework();
 
@@ -185,7 +183,6 @@ namespace android
     void ApplyWidgets();
     void CleanWidgets();
 
-    void SetPlacePageInfo(place_page::Info const & info);
     place_page::Info & GetPlacePageInfo();
     void RequestBookingMinPrice(JNIEnv * env, jobject policy, booking::BlockParams && params,
                                 booking::BlockAvailabilityCallback const & callback);

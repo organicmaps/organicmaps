@@ -1,8 +1,10 @@
 package com.mapswithme.maps.bookmarks.data;
 
 import android.support.annotation.IntDef;
+import android.support.annotation.IntRange;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
@@ -492,12 +494,12 @@ public enum BookmarkManager
   }
 
   @NonNull
-  public Bookmark getBookmark(long bmkId)
+  public Bookmark updateBookmarkPlacePage(long bmkId)
   {
-    return nativeGetBookmark(bmkId);
+    return nativeUpdateBookmarkPlacePage(bmkId);
   }
 
-  @NonNull
+  @Nullable
   public BookmarkInfo getBookmarkInfo(long bmkId)
   {
     return nativeGetBookmarkInfo(bmkId);
@@ -814,6 +816,116 @@ public enum BookmarkManager
     return nativeGetCategoryAuthor(catId);
   }
 
+  @NonNull
+  public String getBookmarkName(@IntRange(from = 0) long bookmarkId)
+  {
+    return nativeGetBookmarkName(bookmarkId);
+  }
+
+  @NonNull
+  public String getBookmarkFeatureType(@IntRange(from = 0) long bookmarkId)
+  {
+    return nativeGetBookmarkFeatureType(bookmarkId);
+  }
+
+  @NonNull
+  public ParcelablePointD getBookmarkXY(@IntRange(from = 0) long bookmarkId)
+  {
+    return nativeGetBookmarkXY(bookmarkId);
+  }
+
+  @Icon.PredefinedColor
+  public int getBookmarkColor(@IntRange(from = 0) long bookmarkId)
+  {
+    return nativeGetBookmarkColor(bookmarkId);
+  }
+
+  @Icon.BookmarkIconType
+  public int getBookmarkIcon(@IntRange(from = 0) long bookmarkId)
+  {
+    return nativeGetBookmarkIcon(bookmarkId);
+  }
+
+  @NonNull
+  public String getBookmarkDescription(@IntRange(from = 0) long bookmarkId)
+  {
+    return nativeGetBookmarkDescription(bookmarkId);
+  }
+
+  public double getBookmarkScale(@IntRange(from = 0) long bookmarkId)
+  {
+    return nativeGetBookmarkScale(bookmarkId);
+  }
+
+  @NonNull
+  public String encode2Ge0Url(@IntRange(from = 0) long bookmarkId, boolean addName)
+  {
+    return nativeEncode2Ge0Url(bookmarkId, addName);
+  }
+
+  public void setBookmarkParams(@IntRange(from = 0) long bookmarkId, @NonNull String name,
+                                @Icon.PredefinedColor int color, @NonNull String descr)
+  {
+    nativeSetBookmarkParams(bookmarkId, name, color, descr);
+  }
+
+  public void changeBookmarkCategory(@IntRange(from = 0) long oldCatId,
+                                     @IntRange(from = 0) long newCatId,
+                                     @IntRange(from = 0) long bookmarkId)
+  {
+    nativeChangeBookmarkCategory(oldCatId, newCatId, bookmarkId);
+  }
+
+  @NonNull
+  public String getBookmarkAddress(@IntRange(from = 0) long bookmarkId)
+  {
+    return nativeGetBookmarkAddress(bookmarkId);
+  }
+
+  public void notifyCategoryChanging(@NonNull BookmarkInfo bookmarkInfo,
+                                     @IntRange(from = 0) long catId)
+  {
+    if (catId == bookmarkInfo.getCategoryId())
+      return;
+
+    changeBookmarkCategory(bookmarkInfo.getCategoryId(), catId, bookmarkInfo.getBookmarkId());
+  }
+
+  public void notifyCategoryChanging(@NonNull Bookmark bookmark, @IntRange(from = 0) long catId)
+  {
+    if (catId == bookmark.getCategoryId())
+      return;
+
+    changeBookmarkCategory(bookmark.getCategoryId(), catId, bookmark.getBookmarkId());
+  }
+
+  public void notifyParametersUpdating(@NonNull BookmarkInfo bookmarkInfo, @NonNull String name,
+                                       @Nullable Icon icon, @NonNull String description)
+  {
+    if (icon == null)
+      icon = bookmarkInfo.getIcon();
+
+    if (!name.equals(bookmarkInfo.getName()) || !icon.equals(bookmarkInfo.getIcon()) ||
+        !description.equals(getBookmarkDescription(bookmarkInfo.getBookmarkId())))
+    {
+      setBookmarkParams(bookmarkInfo.getBookmarkId(), name, icon.getColor(), description);
+    }
+  }
+
+  public void notifyParametersUpdating(@NonNull Bookmark bookmark, @NonNull String name,
+                                       @Nullable Icon icon, @NonNull String description)
+  {
+    if (icon == null)
+      icon = bookmark.getIcon();
+
+    if (!name.equals(bookmark.getName()) || !icon.equals(bookmark.getIcon()) ||
+        !description.equals(getBookmarkDescription(bookmark.getBookmarkId())))
+    {
+      setBookmarkParams(bookmark.getBookmarkId(), name,
+                        icon != null ? icon.getColor() : getLastEditedColor(), description);
+    }
+  }
+
   private native int nativeGetCategoriesCount();
 
   private native int nativeGetCategoryPositionById(long catId);
@@ -827,9 +939,9 @@ public enum BookmarkManager
   private native BookmarkCategory[] nativeGetBookmarkCategories();
 
   @NonNull
-  private native Bookmark nativeGetBookmark(long bmkId);
+  private native Bookmark nativeUpdateBookmarkPlacePage(long bmkId);
 
-  @NonNull
+  @Nullable
   private native BookmarkInfo nativeGetBookmarkInfo(long bmkId);
 
   private native long nativeGetBookmarkIdByPosition(long catId, int position);
@@ -987,6 +1099,42 @@ public enum BookmarkManager
   @NonNull
   private static native String nativeGuidesIds();
   private static native boolean nativeIsGuide(int accessRulesIndex);
+
+  @NonNull
+  private static native String nativeGetBookmarkName(@IntRange(from = 0) long bookmarkId);
+
+  @NonNull
+  private static native String nativeGetBookmarkFeatureType(@IntRange(from = 0) long bookmarkId);
+
+  @NonNull
+  private static native ParcelablePointD nativeGetBookmarkXY(@IntRange(from = 0) long bookmarkId);
+
+  @Icon.PredefinedColor
+  private static native int nativeGetBookmarkColor(@IntRange(from = 0) long bookmarkId);
+
+  @Icon.BookmarkIconType
+  private static native int nativeGetBookmarkIcon(@IntRange(from = 0) long bookmarkId);
+
+  @NonNull
+  private static native String nativeGetBookmarkDescription(@IntRange(from = 0) long bookmarkId);
+
+  private static native double nativeGetBookmarkScale(@IntRange(from = 0) long bookmarkId);
+
+  @NonNull
+  private static native String nativeEncode2Ge0Url(@IntRange(from = 0) long bookmarkId,
+                                                   boolean addName);
+
+  private static native void nativeSetBookmarkParams(@IntRange(from = 0) long bookmarkId,
+                                                     @NonNull String name,
+                                                     @Icon.PredefinedColor int color,
+                                                     @NonNull String descr);
+
+  private static native void nativeChangeBookmarkCategory(@IntRange(from = 0) long oldCatId,
+                                                          @IntRange(from = 0) long newCatId,
+                                                          @IntRange(from = 0) long bookmarkId);
+
+  @NonNull
+  private static native String nativeGetBookmarkAddress(@IntRange(from = 0) long bookmarkId);
 
   public interface BookmarksLoadingListener
   {

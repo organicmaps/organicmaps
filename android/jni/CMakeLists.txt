@@ -41,7 +41,6 @@ set(
   com/mapswithme/core/jni_helper.cpp
   com/mapswithme/core/logging.cpp
   com/mapswithme/maps/analytics/ExternalLibrariesMediator.cpp
-  com/mapswithme/maps/bookmarks/data/Bookmark.cpp
   com/mapswithme/maps/bookmarks/data/BookmarkManager.cpp
   com/mapswithme/maps/discovery/DiscoveryManager.cpp
   com/mapswithme/maps/discovery/Locals.cpp
@@ -87,6 +86,7 @@ set(
   com/mapswithme/platform/SecureStorage.cpp
   com/mapswithme/platform/SocketImpl.cpp
   com/mapswithme/util/Config.cpp
+  com/mapswithme/util/GeoUtils.cpp
   com/mapswithme/util/HttpClient.cpp
   com/mapswithme/util/HttpUploader.cpp
   com/mapswithme/util/Language.cpp

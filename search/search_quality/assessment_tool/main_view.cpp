@@ -58,8 +58,9 @@ MainView::MainView(Framework & framework) : m_framework(framework)
   InitDocks();
   InitMenuBar();
 
-  m_framework.SetPlacePageListenners(
-      [this](place_page::Info const & info) {
+  m_framework.SetPlacePageListeners(
+      [this]() {
+        auto const & info = m_framework.GetCurrentPlacePageInfo();
         auto const & selectedFeature = info.GetID();
         if (!selectedFeature.IsValid())
           return;

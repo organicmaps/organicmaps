@@ -83,7 +83,7 @@ public class MapObject implements Parcelable, PopularityProvider, ShareableInfoP
   @NonNull
   private final RoadWarningMarkType mRoadWarningMarkType;
   @NonNull
-  private final String mDescription;
+  private String mDescription;
   @Nullable
   private ArrayList<UGC.Rating> mRatings;
   @Nullable
@@ -285,6 +285,11 @@ public class MapObject implements Parcelable, PopularityProvider, ShareableInfoP
     return mTitle;
   }
 
+  public void setTitle(@NonNull String title)
+  {
+    mTitle = title;
+  }
+
   @NonNull
   @Override
   public String getName()
@@ -324,6 +329,11 @@ public class MapObject implements Parcelable, PopularityProvider, ShareableInfoP
   public String getDescription()
   {
     return mDescription;
+  }
+
+  public void setDescription(@NonNull String description)
+  {
+    mDescription = description;
   }
 
   @NonNull

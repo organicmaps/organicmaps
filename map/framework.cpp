@@ -380,7 +380,6 @@ void Framework::Migrate(bool keepDownloaded)
     OnDestroySurface();
   }
   m_bmManager->ResetRegionAddressGetter();
-  m_selectedFeature = FeatureID();
   m_discoveryManager.reset();
   m_searchAPI.reset();
   m_infoGetter.reset();
@@ -850,16 +849,6 @@ void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) 
   FillPointInfoForBookmark(bmk, info);
 }
 
-void Framework::ResetBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const
-{
-  info.SetBookmarkCategoryName("");
-  info.SetBookmarkData({});
-  info.SetBookmarkId(kml::kInvalidMarkId);
-  info.SetBookmarkCategoryId(kml::kInvalidMarkGroupId);
-  info.SetOpeningMode(place_page::OpeningMode::Preview);
-  FillPointInfoForBookmark(bmk, info);
-}
-
 search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const & pt) const
 {
   return m_addressGetter.GetAddressAtPoint(m_featuresFetcher.GetDataSource(), pt);
@@ -889,22 +878,27 @@ void Framework::FillPointInfo(place_page::Info & info, m2::PointD const & mercat
                               FeatureMatcher && matcher /* = nullptr */) const
 {
   auto const fid = GetFeatureAtPoint(mercator, move(matcher));
-
   if (fid.IsValid())
   {
     m_featuresFetcher.GetDataSource().ReadFeature(
         [&](FeatureType & ft) { FillInfoFromFeatureType(ft, info); }, fid);
+    // This line overwrites mercator center from area feature which can be far away.
+    info.SetMercator(mercator);
   }
   else
   {
-    if (customTitle.empty())
-      info.SetCustomNameWithCoordinates(mercator, m_stringsBundle.GetString("core_placepage_unknown_place"));
-    else
-      info.SetCustomName(customTitle);
-    info.SetCanEditOrAdd(CanEditMap());
+    FillNotMatchedPlaceInfo(info, mercator, customTitle);
   }
+}
 
-  // This line overwrites mercator center from area feature which can be far away.
+void Framework::FillNotMatchedPlaceInfo(place_page::Info & info, m2::PointD const & mercator,
+                                        std::string const & customTitle /* = {} */) const
+{
+  if (customTitle.empty())
+    info.SetCustomNameWithCoordinates(mercator, m_stringsBundle.GetString("core_placepage_unknown_place"));
+  else
+    info.SetCustomName(customTitle);
+  info.SetCanEditOrAdd(CanEditMap());
   info.SetMercator(mercator);
 }
 
@@ -1083,15 +1077,14 @@ void Framework::FillSearchResultInfo(SearchMarkPoint const & smp, place_page::In
     FillPointInfo(info, smp.GetPivot(), smp.GetMatchedName());
 }
 
-void Framework::FillMyPositionInfo(place_page::Info & info, df::TapInfo const & tapInfo) const
+void Framework::FillMyPositionInfo(place_page::Info & info, place_page::BuildInfo const & buildInfo) const
 {
   auto const position = GetCurrentPosition();
   VERIFY(position, ());
   info.SetMercator(*position);
-  info.SetIsMyPosition();
   info.SetCustomName(m_stringsBundle.GetString("core_my_position"));
 
-  UserMark const * mark = FindUserMarkInTapPosition(tapInfo);
+  UserMark const * mark = FindUserMarkInTapPosition(buildInfo);
   if (mark != nullptr && mark->GetMarkType() == UserMark::Type::ROUTING)
   {
     auto routingMark = static_cast<RouteMarkPoint const *>(mark);
@@ -1150,20 +1143,22 @@ void Framework::ShowBookmark(Bookmark const * mark)
 
   StopLocationFollow();
 
+  place_page::BuildInfo info;
+  info.m_mercator = mark->GetPivot();
+  info.m_userMarkId = mark->GetId();
+  m_currentPlacePageInfo = BuildPlacePageInfo(info);
+
   auto scale = static_cast<int>(mark->GetScale());
   if (scale == 0)
     scale = scales::GetUpperComfortScale();
 
   if (m_drapeEngine != nullptr)
+  {
     m_drapeEngine->SetModelViewCenter(mark->GetPivot(), scale, true /* isAnim */,
                                       true /* trackVisibleViewport */);
+  }
 
-  place_page::Info info;
-  FillBookmarkInfo(*mark, info);
-  ActivateMapSelection(true, df::SelectionShape::OBJECT_USER_MARK, TapEvent::Source::Other, info);
-  // TODO
-  // We need to preserve bookmark id in the m_lastTapEvent, because one feature can have several bookmarks.
-  m_lastTapEvent = MakeTapEvent(info.GetMercator(), info.GetID(), TapEvent::Source::Other);
+  ActivateMapSelection(m_currentPlacePageInfo);
 }
 
 void Framework::ShowTrack(kml::TrackId trackId)
@@ -1195,18 +1190,15 @@ void Framework::ShowFeatureByMercator(m2::PointD const & pt)
 {
   StopLocationFollow();
 
+  place_page::BuildInfo info;
+  info.m_mercator = pt;
+  m_currentPlacePageInfo = BuildPlacePageInfo(info);
   if (m_drapeEngine != nullptr)
   {
     m_drapeEngine->SetModelViewCenter(pt, scales::GetUpperComfortScale(), true /* isAnim */,
                                       true /* trackVisibleViewport */);
   }
-
-  place_page::Info info;
-  std::string name;
-  GetBookmarkManager().SelectionMark().SetPtOrg(pt);
-  FillPointInfo(info, pt, name);
-  ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, TapEvent::Source::Other, info);
-  m_lastTapEvent = MakeTapEvent(info.GetMercator(), info.GetID(), TapEvent::Source::Other);
+  ActivateMapSelection(m_currentPlacePageInfo);
 }
 
 void Framework::AddBookmarksFile(string const & filePath, bool isTemporaryFile)
@@ -1706,43 +1698,51 @@ search::DisplayedCategories const & Framework::GetDisplayedCategories()
 
 void Framework::SelectSearchResult(search::Result const & result, bool animation)
 {
-  place_page::Info info;
   using namespace search;
-  int scale;
+  place_page::BuildInfo info;
+  info.m_source = place_page::BuildInfo::Source::Search;
+  info.m_needAnimationOnSelection = false;
+  int scale = -1;
   switch (result.GetResultType())
   {
   case Result::Type::Feature:
-    FillFeatureInfo(result.GetFeatureID(), info);
-    scale = GetFeatureViewportScale(info.GetTypes());
+    info.m_mercator = result.GetFeatureCenter();
+    info.m_featureId = result.GetFeatureID();
+    info.m_isGeometrySelectionAllowed = true;
     break;
 
   case Result::Type::LatLon:
-    FillPointInfo(info, result.GetFeatureCenter(), result.GetString());
+    info.m_mercator = result.GetFeatureCenter();
+    info.m_match = place_page::BuildInfo::Match::Nothing;
     scale = scales::GetUpperComfortScale();
     break;
 
   case Result::Type::Postcode:
-    FillPostcodeInfo(result.GetString(), result.GetFeatureCenter(), info);
+    info.m_mercator = result.GetFeatureCenter();
+    info.m_match = place_page::BuildInfo::Match::Nothing;
+    info.m_postcode = result.GetString();
     scale = scales::GetUpperComfortScale();
     break;
 
   case Result::Type::SuggestFromFeature:
-  case Result::Type::PureSuggest: ASSERT(false, ("Suggests should not be here.")); return;
+  case Result::Type::PureSuggest:
+    m_currentPlacePageInfo = {};
+    ASSERT(false, ("Suggests should not be here."));
+    return;
   }
 
-  if (m_purchase && !m_purchase->IsSubscriptionActive(SubscriptionType::RemoveAds))
-    info.SetAdsEngine(m_adsEngine.get());
+  m_currentPlacePageInfo = BuildPlacePageInfo(info);
+  if (m_currentPlacePageInfo)
+  {
+    if (scale < 0)
+      scale = GetFeatureViewportScale(m_currentPlacePageInfo->GetTypes());
 
-  SetPlacePageLocation(info);
-  m2::PointD const center = info.GetMercator();
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetModelViewCenter(center, scale, animation, true /* trackVisibleViewport */);
+    m2::PointD const center = m_currentPlacePageInfo->GetMercator();
+    if (m_drapeEngine != nullptr)
+      m_drapeEngine->SetModelViewCenter(center, scale, animation, true /* trackVisibleViewport */);
 
-  GetBookmarkManager().SelectionMark().SetPtOrg(center);
-  auto const isGeometrySelectionAllowed = result.GetResultType() == Result::Type::Feature;
-  ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, TapEvent::Source::Search, info,
-                       isGeometrySelectionAllowed);
-  m_lastTapEvent = MakeTapEvent(center, info.GetID(), TapEvent::Source::Search);
+    ActivateMapSelection(m_currentPlacePageInfo);
+  }
 }
 
 void Framework::ShowSearchResult(search::Result const & res, bool animation)
@@ -2002,7 +2002,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   m_drapeEngine->SetTapEventInfoListener([this](df::TapInfo const & tapInfo)
   {
     GetPlatform().RunTask(Platform::Thread::Gui, [this, tapInfo]() {
-      OnTapEvent({tapInfo, TapEvent::Source::User});
+      OnTapEvent(place_page::BuildInfo(tapInfo));
     });
   });
   m_drapeEngine->SetUserPositionListener([this](m2::PointD const & position, bool hasPosition)
@@ -2284,25 +2284,26 @@ bool Framework::ShowMapForURL(string const & url)
     // Always hide current map selection.
     DeactivateMapSelection(true /* notifyUI */);
 
-    // set viewport and stop follow mode if any
+    // Set viewport and stop follow mode.
     StopLocationFollow();
     ShowRect(rect);
 
     if (result != NO_NEED_CLICK)
     {
-      place_page::Info info;
-      if (apiMark)
+      place_page::BuildInfo info;
+      info.m_needAnimationOnSelection = false;
+      if (apiMark != nullptr)
       {
-        FillApiMarkInfo(*apiMark, info);
-        ActivateMapSelection(false, df::SelectionShape::OBJECT_USER_MARK, TapEvent::Source::Other, info);
+        info.m_mercator = apiMark->GetPivot();
+        info.m_userMarkId = apiMark->GetId();
       }
       else
       {
-        GetBookmarkManager().SelectionMark().SetPtOrg(point);
-        FillPointInfo(info, point, name);
-        ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, TapEvent::Source::Other, info);
+        info.m_mercator = point;
       }
-      m_lastTapEvent = MakeTapEvent(info.GetMercator(), info.GetID(), TapEvent::Source::Other);
+
+      m_currentPlacePageInfo = BuildPlacePageInfo(info);
+      ActivateMapSelection(m_currentPlacePageInfo);
     }
 
     return true;
@@ -2410,44 +2411,57 @@ BookmarkManager const & Framework::GetBookmarkManager() const
   return *m_bmManager.get();
 }
 
-void Framework::SetPlacePageListenners(PlacePageEvent::OnOpen const & onOpen,
-                                       PlacePageEvent::OnClose const & onClose,
-                                       PlacePageEvent::OnUpdate const & onUpdate)
+void Framework::SetPlacePageListeners(PlacePageEvent::OnOpen const & onOpen,
+                                      PlacePageEvent::OnClose const & onClose,
+                                      PlacePageEvent::OnUpdate const & onUpdate)
 {
   m_onPlacePageOpen = onOpen;
   m_onPlacePageClose = onClose;
   m_onPlacePageUpdate = onUpdate;
 }
 
-void Framework::ActivateMapSelection(bool needAnimation,
-                                     df::SelectionShape::ESelectedObject selectionType,
-                                     TapEvent::Source tapSource, place_page::Info const & info,
-                                     bool isGeometrySelectionAllowed)
+place_page::Info const & Framework::GetCurrentPlacePageInfo() const
 {
-  ASSERT_NOT_EQUAL(selectionType, df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
-  m_selectedFeature = info.GetID();
+  CHECK(IsPlacePageOpened(), ());
+  return m_currentPlacePageInfo.get();
+}
+
+place_page::Info & Framework::GetCurrentPlacePageInfo()
+{
+  CHECK(IsPlacePageOpened(), ());
+  return m_currentPlacePageInfo.get();
+}
+
+void Framework::ActivateMapSelection(boost::optional<place_page::Info> const & info)
+{
+  if (!info)
+    return;
+
+  CHECK_NOT_EQUAL(info->GetSelectedObject(), df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
   if (m_drapeEngine != nullptr)
   {
-    m_drapeEngine->SelectObject(selectionType, info.GetMercator(), info.GetID(), needAnimation,
-                                isGeometrySelectionAllowed);
+    m_drapeEngine->SelectObject(info->GetSelectedObject(), info->GetMercator(), info->GetID(),
+                                info->GetBuildInfo().m_needAnimationOnSelection,
+                                info->GetBuildInfo().m_isGeometrySelectionAllowed);
   }
 
   SetDisplacementMode(DisplacementModeManager::SLOT_MAP_SELECTION,
-                      ftypes::IsHotelChecker::Instance()(info.GetTypes()) /* show */);
+                      ftypes::IsHotelChecker::Instance()(info->GetTypes()) /* show */);
 
   if (m_onPlacePageOpen)
-    m_onPlacePageOpen(info);
+    m_onPlacePageOpen();
   else
     LOG(LWARNING, ("m_onPlacePageOpen has not been set up."));
 }
 
 void Framework::DeactivateMapSelection(bool notifyUI)
 {
-  bool const somethingWasAlreadySelected = (m_lastTapEvent != nullptr);
-  m_lastTapEvent.reset();
+  bool const somethingWasAlreadySelected = (m_currentPlacePageInfo.has_value());
 
   if (notifyUI && m_onPlacePageClose)
     m_onPlacePageClose(!somethingWasAlreadySelected);
+
+  m_currentPlacePageInfo = {};
 
   if (somethingWasAlreadySelected && m_drapeEngine != nullptr)
     m_drapeEngine->DeselectObject();
@@ -2455,47 +2469,25 @@ void Framework::DeactivateMapSelection(bool notifyUI)
   SetDisplacementMode(DisplacementModeManager::SLOT_MAP_SELECTION, false /* show */);
 }
 
-void Framework::UpdatePlacePageInfoForCurrentSelection()
-{
-  if (m_lastTapEvent == nullptr)
-    return;
-
-  place_page::Info info;
-
-  auto const obj = OnTapEventImpl(*m_lastTapEvent, info);
-
-  if (obj == df::SelectionShape::OBJECT_EMPTY)
-    return;
-
-  SetPlacePageLocation(info);
-
-  if (m_onPlacePageUpdate)
-    m_onPlacePageUpdate(info);
-}
-
 void Framework::InvalidateUserMarks()
 {
   GetBookmarkManager().GetEditSession();
 }
 
-void Framework::OnTapEvent(TapEvent const & tapEvent)
+void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 {
   using place_page::SponsoredType;
-  auto const & tapInfo = tapEvent.m_info;
 
-  bool const somethingWasAlreadySelected = (m_lastTapEvent != nullptr);
+  bool const somethingWasAlreadySelected = (m_currentPlacePageInfo.has_value());
 
-  place_page::Info info;
-  df::SelectionShape::ESelectedObject const selection = OnTapEventImpl(tapEvent, info);
-  if (selection != df::SelectionShape::OBJECT_EMPTY)
+  m_currentPlacePageInfo = BuildPlacePageInfo(buildInfo);
+  if (m_currentPlacePageInfo)
   {
-    // Back up last tap event to recover selection in case of Drape reinitialization.
-    m_lastTapEvent = make_unique<TapEvent>(tapEvent);
-
-    { // Log statistics event.
-      auto const ll = info.GetLatLon();
+    // Log statistics events.
+    {
+      auto const ll = m_currentPlacePageInfo->GetLatLon();
       double metersToTap = -1;
-      if (info.IsMyPosition())
+      if (m_currentPlacePageInfo->IsMyPosition())
       {
         metersToTap = 0;
       }
@@ -2505,40 +2497,41 @@ void Framework::OnTapEvent(TapEvent const & tapEvent)
         metersToTap = MercatorBounds::DistanceOnEarth(*position, tapPoint);
       }
 
-      alohalytics::TStringMap kv = {{"longTap", tapInfo.m_isLong ? "1" : "0"},
-                                    {"title", info.GetTitle()},
-                                    {"bookmark", info.IsBookmark() ? "1" : "0"},
+      alohalytics::TStringMap kv = {{"longTap", buildInfo.m_isLongTap ? "1" : "0"},
+                                    {"title", m_currentPlacePageInfo->GetTitle()},
+                                    {"bookmark", m_currentPlacePageInfo->IsBookmark() ? "1" : "0"},
                                     {"meters", strings::to_string_dac(metersToTap, 0)}};
-      if (info.IsFeature())
-        kv["types"] = DebugPrint(info.GetTypes());
+      if (m_currentPlacePageInfo->IsFeature())
+        kv["types"] = DebugPrint(m_currentPlacePageInfo->GetTypes());
 
-      if (info.GetSponsoredType() == SponsoredType::Holiday)
+      if (m_currentPlacePageInfo->GetSponsoredType() == SponsoredType::Holiday)
       {
         kv["holiday"] = "1";
-        auto const & mwmInfo = info.GetID().m_mwmId.GetInfo();
+        auto const & mwmInfo = m_currentPlacePageInfo->GetID().m_mwmId.GetInfo();
         if (mwmInfo)
           kv["mwmVersion"] = strings::to_string(mwmInfo->GetVersion());
       }
-      else if (info.GetSponsoredType() == SponsoredType::Partner)
+      else if (m_currentPlacePageInfo->GetSponsoredType() == SponsoredType::Partner)
       {
-        if (!info.GetPartnerName().empty())
-          kv["partner"] = info.GetPartnerName();
+        if (!m_currentPlacePageInfo->GetPartnerName().empty())
+          kv["partner"] = m_currentPlacePageInfo->GetPartnerName();
       }
 
-      if (info.IsRoadType())
-        kv["road_warning"] = DebugPrint(info.GetRoadType());
+      if (m_currentPlacePageInfo->IsRoadType())
+        kv["road_warning"] = DebugPrint(m_currentPlacePageInfo->GetRoadType());
 
       // Older version of statistics used "$GetUserMark" event.
       alohalytics::Stats::Instance().LogEvent("$SelectMapObject", kv,
                                               alohalytics::Location::FromLatLon(ll.m_lat, ll.m_lon));
 
       // Send realtime statistics about bookmark selection.
-      if (info.IsBookmark())
+      if (m_currentPlacePageInfo->IsBookmark())
       {
-        auto const serverId = m_bmManager->GetCategoryServerId(info.GetBookmarkCategoryId());
+        auto const categoryId = m_currentPlacePageInfo->GetBookmarkCategoryId();
+        auto const serverId = m_bmManager->GetCategoryServerId(categoryId);
         if (!serverId.empty())
         {
-          auto const accessRules = m_bmManager->GetCategoryData(info.GetBookmarkCategoryId()).m_accessRules;
+          auto const accessRules = m_bmManager->GetCategoryData(categoryId).m_accessRules;
           if (BookmarkManager::IsGuide(accessRules))
           {
             alohalytics::TStringMap params = {{"server_id", serverId}};
@@ -2547,17 +2540,14 @@ void Framework::OnTapEvent(TapEvent const & tapEvent)
         }
       }
 
-      if (info.GetSponsoredType() == SponsoredType::Booking)
+      if (m_currentPlacePageInfo->GetSponsoredType() == SponsoredType::Booking)
       {
         GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kBookHotelOnBookingComDiscovered);
         GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kPlacepageHotelBook,
                                                                {{"provider", "booking.com"}});
       }
     }
-
-    SetPlacePageLocation(info);
-
-    ActivateMapSelection(true, selection, tapEvent.m_source, info);
+    ActivateMapSelection(m_currentPlacePageInfo);
   }
   else
   {
@@ -2604,103 +2594,148 @@ FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator) const
   return featureId;
 }
 
-df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & tapEvent,
-                                                              place_page::Info & outInfo)
+boost::optional<place_page::Info> Framework::BuildPlacePageInfo(place_page::BuildInfo const & buildInfo)
 {
+  place_page::Info outInfo;
   if (m_drapeEngine == nullptr)
-    return df::SelectionShape::OBJECT_EMPTY;
+    return {};
 
-  auto const & tapInfo = tapEvent.m_info;
+  outInfo.SetBuildInfo(buildInfo);
 
-  if (tapInfo.m_isMyPositionTapped)
+  if (buildInfo.m_isMyPosition)
   {
-    FillMyPositionInfo(outInfo, tapInfo);
-    return df::SelectionShape::OBJECT_MY_POSITION;
+    outInfo.SetSelectedObject(df::SelectionShape::OBJECT_MY_POSITION);
+    FillMyPositionInfo(outInfo, buildInfo);
+    SetPlacePageLocation(outInfo);
+    return outInfo;
   }
 
   if (m_purchase && !m_purchase->IsSubscriptionActive(SubscriptionType::RemoveAds))
     outInfo.SetAdsEngine(m_adsEngine.get());
 
-  UserMark const * mark = FindUserMarkInTapPosition(tapInfo);
-  if (mark != nullptr)
+  if (buildInfo.IsUserMarkMatchingEnabled())
   {
-    switch (mark->GetMarkType())
+    UserMark const * mark = FindUserMarkInTapPosition(buildInfo);
+    if (mark != nullptr)
     {
-    case UserMark::Type::API:
-      FillApiMarkInfo(*static_cast<ApiMarkPoint const *>(mark), outInfo);
-      break;
-    case UserMark::Type::BOOKMARK:
-      FillBookmarkInfo(*static_cast<Bookmark const *>(mark), outInfo);
-      break;
-    case UserMark::Type::SEARCH:
-      FillSearchResultInfo(*static_cast<SearchMarkPoint const *>(mark), outInfo);
-      break;
-    case UserMark::Type::ROUTING:
-      FillRouteMarkInfo(*static_cast<RouteMarkPoint const *>(mark), outInfo);
-      break;
-    case UserMark::Type::ROAD_WARNING:
-      FillRoadTypeMarkInfo(*static_cast<RoadWarningMark const *>(mark), outInfo);
-      break;
-    default:
-      ASSERT(false, ("FindNearestUserMark returned invalid mark."));
+      outInfo.SetSelectedObject(df::SelectionShape::OBJECT_USER_MARK);
+      switch (mark->GetMarkType())
+      {
+      case UserMark::Type::API:
+        FillApiMarkInfo(*static_cast<ApiMarkPoint const *>(mark), outInfo);
+        break;
+      case UserMark::Type::BOOKMARK:
+        FillBookmarkInfo(*static_cast<Bookmark const *>(mark), outInfo);
+        break;
+      case UserMark::Type::SEARCH:
+        FillSearchResultInfo(*static_cast<SearchMarkPoint const *>(mark), outInfo);
+        break;
+      case UserMark::Type::ROUTING:
+        FillRouteMarkInfo(*static_cast<RouteMarkPoint const *>(mark), outInfo);
+        break;
+      case UserMark::Type::ROAD_WARNING:
+        FillRoadTypeMarkInfo(*static_cast<RoadWarningMark const *>(mark), outInfo);
+        break;
+      default:
+        ASSERT(false, ("FindNearestUserMark returned invalid mark."));
+      }
+      SetPlacePageLocation(outInfo);
+
+      utils::RegisterEyeEventIfPossible(eye::MapObject::Event::Type::Open, GetCurrentPosition(),
+                                        outInfo);
+      return outInfo;
     }
+  }
+
+  if (!buildInfo.m_postcode.empty())
+  {
+    outInfo.SetSelectedObject(df::SelectionShape::OBJECT_POI);
+    FillPostcodeInfo(buildInfo.m_postcode, buildInfo.m_mercator, outInfo);
+    GetBookmarkManager().SelectionMark().SetPtOrg(outInfo.GetMercator());
+    SetPlacePageLocation(outInfo);
 
     utils::RegisterEyeEventIfPossible(eye::MapObject::Event::Type::Open, GetCurrentPosition(),
                                       outInfo);
-    return df::SelectionShape::OBJECT_USER_MARK;
+    return outInfo;
   }
 
-  FeatureID featureTapped = tapInfo.m_featureTapped;
-  if (!featureTapped.IsValid())
-    featureTapped = FindBuildingAtPoint(tapInfo.m_mercator);
+  FeatureID selectedFeature = buildInfo.m_featureId;
+  auto const isFeatureMatchingEnabled = buildInfo.IsFeatureMatchingEnabled();
+  if (isFeatureMatchingEnabled && !selectedFeature.IsValid())
+    selectedFeature = FindBuildingAtPoint(buildInfo.m_mercator);
 
   bool showMapSelection = false;
-  if (tapInfo.m_isLong || tapEvent.m_source == TapEvent::Source::Search)
+  if (buildInfo.m_isLongTap || buildInfo.m_source != place_page::BuildInfo::Source::User)
   {
-    FillPointInfo(outInfo, tapInfo.m_mercator);
-    if (!outInfo.IsFeature() && featureTapped.IsValid())
-      FillFeatureInfo(featureTapped, outInfo);
+    if (isFeatureMatchingEnabled)
+    {
+      FillPointInfo(outInfo, buildInfo.m_mercator, {});
+      if (!outInfo.IsFeature() && selectedFeature.IsValid())
+        FillFeatureInfo(selectedFeature, outInfo);
+    }
+    else
+    {
+      FillNotMatchedPlaceInfo(outInfo, buildInfo.m_mercator, {});
+    }
     showMapSelection = true;
   }
-  else if (featureTapped.IsValid())
+  else if (selectedFeature.IsValid())
   {
-    FillFeatureInfo(featureTapped, outInfo);
+    FillFeatureInfo(selectedFeature, outInfo);
     showMapSelection = true;
   }
 
   if (showMapSelection)
   {
+    outInfo.SetSelectedObject(df::SelectionShape::OBJECT_POI);
     GetBookmarkManager().SelectionMark().SetPtOrg(outInfo.GetMercator());
+    SetPlacePageLocation(outInfo);
 
     utils::RegisterEyeEventIfPossible(eye::MapObject::Event::Type::Open, GetCurrentPosition(),
                                       outInfo);
-
-    return df::SelectionShape::OBJECT_POI;
+    return outInfo;
   }
 
-  return df::SelectionShape::OBJECT_EMPTY;
+  return {};
 }
 
-UserMark const * Framework::FindUserMarkInTapPosition(df::TapInfo const & tapInfo) const
+void Framework::UpdatePlacePageInfoForCurrentSelection(boost::optional<place_page::BuildInfo> const & overrideInfo)
 {
+  if (!m_currentPlacePageInfo)
+    return;
+
+  m_currentPlacePageInfo = BuildPlacePageInfo(overrideInfo.has_value() ? *overrideInfo :
+    m_currentPlacePageInfo->GetBuildInfo());
+  if (m_currentPlacePageInfo && m_onPlacePageUpdate)
+    m_onPlacePageUpdate();
+}
+
+UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo const & buildInfo) const
+{
+  if (buildInfo.m_userMarkId != kml::kInvalidMarkId)
+  {
+    auto mark = GetBookmarkManager().GetUserMark(buildInfo.m_userMarkId);
+    if (mark != nullptr)
+      return mark;
+  }
+
   UserMark const * mark = GetBookmarkManager().FindNearestUserMark(
-    [this, &tapInfo](UserMark::Type type)
+    [this, &buildInfo](UserMark::Type type)
     {
+      double constexpr kEps = 1e-7;
+      if (buildInfo.m_source != place_page::BuildInfo::Source::User)
+        return df::TapInfo::GetPreciseSearchRect(buildInfo.m_mercator, kEps);
+
       if (type == UserMark::Type::BOOKMARK)
-        return tapInfo.GetBookmarkSearchRect(m_currentModelView);
+        return df::TapInfo::GetBookmarkSearchRect(buildInfo.m_mercator, m_currentModelView);
+
       if (type == UserMark::Type::ROUTING || type == UserMark::Type::ROAD_WARNING)
-        return tapInfo.GetRoutingPointSearchRect(m_currentModelView);
-      return tapInfo.GetDefaultSearchRect(m_currentModelView);
+        return df::TapInfo::GetRoutingPointSearchRect(buildInfo.m_mercator, m_currentModelView);
+
+      return df::TapInfo::GetDefaultSearchRect(buildInfo.m_mercator, m_currentModelView);
     },
     [](UserMark::Type) { return false; });
   return mark;
-}
-
-unique_ptr<Framework::TapEvent> Framework::MakeTapEvent(m2::PointD const & center,
-                                                        FeatureID const & fid,
-                                                        TapEvent::Source source) const
-{
-  return make_unique<TapEvent>(df::TapInfo{center, false, false, fid}, source);
 }
 
 void Framework::PredictLocation(double & lat, double & lon, double accuracy,
@@ -2922,11 +2957,14 @@ void Framework::SaveTransitSchemeEnabled(bool enabled)
   settings::Set(kTransitSchemeEnabledKey, enabled);
 }
 
-void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition, m2::PointD const & position)
+void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition,
+                                         m2::PointD const & position)
 {
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->EnableChoosePositionMode(enable, enableBounds ? GetSelectedFeatureTriangles() : vector<m2::TriangleD>(),
-                                            applyPosition, position);
+  {
+    m_drapeEngine->EnableChoosePositionMode(enable,
+      enableBounds ? GetSelectedFeatureTriangles() : vector<m2::TriangleD>(), applyPosition, position);
+  }
 }
 
 discovery::Manager::Params Framework::GetDiscoveryParams(
@@ -2957,11 +2995,11 @@ m2::PointD Framework::GetDiscoveryViewportCenter() const
 vector<m2::TriangleD> Framework::GetSelectedFeatureTriangles() const
 {
   vector<m2::TriangleD> triangles;
-  if (!m_selectedFeature.IsValid())
+  if (!m_currentPlacePageInfo || !m_currentPlacePageInfo->GetID().IsValid())
     return triangles;
 
-  FeaturesLoaderGuard const guard(m_featuresFetcher.GetDataSource(), m_selectedFeature.m_mwmId);
-  auto ft = guard.GetFeatureByIndex(m_selectedFeature.m_index);
+  FeaturesLoaderGuard const guard(m_featuresFetcher.GetDataSource(), m_currentPlacePageInfo->GetID().m_mwmId);
+  auto ft = guard.GetFeatureByIndex(m_currentPlacePageInfo->GetID().m_index);
   if (!ft)
     return triangles;
 
@@ -2973,7 +3011,6 @@ vector<m2::TriangleD> Framework::GetSelectedFeatureTriangles() const
       triangles.emplace_back(p1, p2, p3);
     }, scales::GetUpperScale());
   }
-  m_selectedFeature = FeatureID();
 
   return triangles;
 }
@@ -3362,12 +3399,6 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
 
 osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject emo)
 {
-  if (!m_lastTapEvent)
-  {
-    // Automatically select newly created objects.
-    m_lastTapEvent = MakeTapEvent(emo.GetMercator(), emo.GetID(), TapEvent::Source::Other);
-  }
-
   auto & editor = osm::Editor::Instance();
 
   ms::LatLon issueLatLon;
@@ -3492,14 +3523,25 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
 
   emo.RemoveNeedlessNames();
 
-  return osm::Editor::Instance().SaveEditedFeature(emo);
+  auto const result = osm::Editor::Instance().SaveEditedFeature(emo);
+
+  // Automatically select newly created objects.
+  if (!m_currentPlacePageInfo)
+  {
+    place_page::BuildInfo info;
+    info.m_mercator = emo.GetMercator();
+    info.m_featureId = emo.GetID();
+    m_currentPlacePageInfo = BuildPlacePageInfo(info);
+    ActivateMapSelection(m_currentPlacePageInfo);
+  }
+
+  return result;
 }
 
-void Framework::DeleteFeature(FeatureID const & fid) const
+void Framework::DeleteFeature(FeatureID const & fid)
 {
   osm::Editor::Instance().DeleteFeature(fid);
-  if (m_selectedFeature == fid)
-    m_selectedFeature = FeatureID();
+  UpdatePlacePageInfoForCurrentSelection();
 }
 
 osm::NewFeatureCategories Framework::GetEditorCategories() const
@@ -3509,8 +3551,6 @@ osm::NewFeatureCategories Framework::GetEditorCategories() const
 
 bool Framework::RollBackChanges(FeatureID const & fid)
 {
-  if (m_selectedFeature == fid) // reset selected feature since it becomes invalid after rollback
-    m_selectedFeature = FeatureID();
   auto & editor = osm::Editor::Instance();
   auto const status = editor.GetFeatureStatus(fid);
   auto const rolledBack = editor.RollBackChanges(fid);
@@ -4163,8 +4203,7 @@ double Framework::GetLastBackgroundTime() const
   return m_startBackgroundTime;
 }
 
-bool Framework::MakePlacePageInfo(NotificationCandidate const & notification,
-                                  place_page::Info & info) const
+bool Framework::MakePlacePageForNotification(NotificationCandidate const & notification)
 {
   if (notification.GetType() != NotificationCandidate::Type::UgcReview)
     return false;
@@ -4173,14 +4212,19 @@ bool Framework::MakePlacePageInfo(NotificationCandidate const & notification,
   bool found = false;
 
   m_featuresFetcher.GetDataSource().ForEachInRect(
-      [this, &info, &notification, &found](FeatureType & ft) {
-        if (found || !feature::GetCenter(ft).EqualDxDy(notification.GetPos(), kMwmPointAccuracy))
+      [this, &notification, &found](FeatureType & ft) {
+        auto const featureCenter = feature::GetCenter(ft);
+        if (found || !featureCenter.EqualDxDy(notification.GetPos(), kMwmPointAccuracy))
           return;
 
         auto const foundMapObject = utils::MakeEyeMapObject(ft);
         if (!foundMapObject.IsEmpty() && notification.IsSameMapObject(foundMapObject))
         {
-          FillInfoFromFeatureType(ft, info);
+          place_page::BuildInfo buildInfo;
+          buildInfo.m_mercator = featureCenter;
+          buildInfo.m_featureId = ft.GetID();
+          m_currentPlacePageInfo = BuildPlacePageInfo(buildInfo);
+          ActivateMapSelection(m_currentPlacePageInfo);
           found = true;
         }
       },

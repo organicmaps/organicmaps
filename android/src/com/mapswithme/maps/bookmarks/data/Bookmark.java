@@ -20,7 +20,7 @@ import com.mapswithme.util.Constants;
 @SuppressLint("ParcelCreator")
 public class Bookmark extends MapObject
 {
-  private final Icon mIcon;
+  private Icon mIcon;
   private long mCategoryId;
   private long mBookmarkId;
   private double mMerX;
@@ -46,7 +46,7 @@ public class Bookmark extends MapObject
     mBookmarkId = bookmarkId;
     mIcon = getIconInternal();
 
-    final ParcelablePointD ll = nativeGetXY(mBookmarkId);
+    final ParcelablePointD ll = BookmarkManager.INSTANCE.getBookmarkXY(mBookmarkId);
     mMerX = ll.x;
     mMerY = ll.y;
 
@@ -87,7 +87,7 @@ public class Bookmark extends MapObject
   @Override
   public double getScale()
   {
-    return nativeGetScale(mBookmarkId);
+    return BookmarkManager.INSTANCE.getBookmarkScale(mBookmarkId);
   }
 
   public DistanceAndAzimut getDistanceAndAzimuth(double cLat, double cLon, double north)
@@ -97,9 +97,11 @@ public class Bookmark extends MapObject
 
   private Icon getIconInternal()
   {
-    return new Icon(nativeGetColor(mBookmarkId), nativeGetIcon(mBookmarkId));
+    return new Icon(BookmarkManager.INSTANCE.getBookmarkColor(mBookmarkId),
+                    BookmarkManager.INSTANCE.getBookmarkIcon(mBookmarkId));
   }
 
+  @Nullable
   public Icon getIcon()
   {
     return mIcon;
@@ -119,25 +121,17 @@ public class Bookmark extends MapObject
 
   public void setCategoryId(@IntRange(from = 0) long catId)
   {
-    if (catId == mCategoryId)
-      return;
-
-    nativeChangeCategory(mCategoryId, catId, mBookmarkId);
+    BookmarkManager.INSTANCE.notifyCategoryChanging(this, catId);
     mCategoryId = catId;
   }
 
-  public void setParams(String title, Icon icon, String description)
+  public void setParams(@NonNull String title, @Nullable Icon icon, @NonNull String description)
   {
-    if (icon == null)
-      icon = mIcon;
-
-    if (!title.equals(getTitle()) || icon != mIcon || !description.equals(getBookmarkDescription()))
-    {
-      nativeSetBookmarkParams(mBookmarkId, title,
-                              icon != null ? icon.getColor()
-                                           : BookmarkManager.INSTANCE.getLastEditedColor(),
-                              description);
-    }
+    BookmarkManager.INSTANCE.notifyParametersUpdating(this, title, icon, description);
+    if (icon != null)
+      mIcon = icon;
+    setTitle(title);
+    setDescription(description);
   }
 
   public long getCategoryId()
@@ -150,47 +144,21 @@ public class Bookmark extends MapObject
     return mBookmarkId;
   }
 
+  @NonNull
   public String getBookmarkDescription()
   {
-    return nativeGetBookmarkDescription(mBookmarkId);
+    return BookmarkManager.INSTANCE.getBookmarkDescription(mBookmarkId);
   }
 
+  @NonNull
   public String getGe0Url(boolean addName)
   {
-    return nativeEncode2Ge0Url(mBookmarkId, addName);
+    return BookmarkManager.INSTANCE.encode2Ge0Url(mBookmarkId, addName);
   }
 
+  @NonNull
   public String getHttpGe0Url(boolean addName)
   {
     return getGe0Url(addName).replaceFirst(Constants.Url.GE0_PREFIX, Constants.Url.HTTP_GE0_PREFIX);
   }
-
-  public static native String nativeGetName(@IntRange(from = 0) long bookmarkId);
-
-  @NonNull
-  public static native String nativeGetFeatureType(@IntRange(from = 0) long bookmarkId);
-
-  public static native ParcelablePointD nativeGetXY(@IntRange(from = 0) long bookmarkId);
-
-  @Icon.PredefinedColor
-  public static native int nativeGetColor(@IntRange(from = 0) long bookmarkId);
-
-  @Icon.BookmarkIconType
-  public static native int nativeGetIcon(@IntRange(from = 0) long bookmarkId);
-
-  private native String nativeGetBookmarkDescription(@IntRange(from = 0) long bookmarkId);
-
-  public static native double nativeGetScale(@IntRange(from = 0) long bookmarkId);
-
-  private native String nativeEncode2Ge0Url(@IntRange(from = 0) long bookmarkId, boolean addName);
-
-  private native void nativeSetBookmarkParams(@IntRange(from = 0) long bookmarkId, String name, int color, String descr);
-
-  private native void nativeChangeCategory(@IntRange(from = 0) long oldCatId, @IntRange(from = 0) long newCatId, @IntRange(from = 0) long bookmarkId);
-
-  @NonNull
-  public native static String nativeGetAddress(long bookmarkId);
-
-  @NonNull
-  public native static ParcelablePointD nativeToLatLon(double merX, double merY);
 }

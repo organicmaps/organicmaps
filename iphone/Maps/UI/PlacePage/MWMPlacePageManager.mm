@@ -89,20 +89,18 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 
 @implementation MWMPlacePageManager
 
-- (void)showReview:(place_page::Info const &)info
-{
-  [self show:info];
+- (void)showReview {
+  [self show];
   [self showUGCAddReview:MWMRatingSummaryViewValueTypeNoValue
               fromSource:MWMUGCReviewSourceNotification];
 }
 
-- (void)show:(place_page::Info const &)info
-{
+- (void)show {
   self.isSponsoredOpenLogged = NO;
   self.currentDownloaderStatus = storage::NodeStatus::Undefined;
   [MWMFrameworkListener addObserver:self];
 
-  self.data = [[MWMPlacePageData alloc] initWithPlacePageInfo:info];
+  self.data = [[MWMPlacePageData alloc] init];
   [self.data fillSections];
 
   if (!self.layout)
@@ -123,11 +121,11 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   [self processCountryEvent:[self.data countryId]];
 }
 
-- (void)update:(place_page::Info const &)info {
+- (void)update {
   if (!self.isPPShown)
     return;
 
-  self.data = [[MWMPlacePageData alloc] initWithPlacePageInfo:info];
+  self.data = [[MWMPlacePageData alloc] init];
   [self.data fillSections];
   [self setupSpeedAndDistance];
   [self.layout updateWithData:self.data];

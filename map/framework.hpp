@@ -393,33 +393,13 @@ public:
   double GetMinDistanceBetweenResults() const override;
 
 private:
-  struct TapEvent
-  {
-    enum class Source
-    {
-      User,
-      Search,
-      Other
-    };
-
-    TapEvent(df::TapInfo const & info, Source source)
-      : m_info(info)
-      , m_source(source)
-    {}
-
-    df::TapInfo const m_info;
-    Source const m_source;
-  };
-
-  void ActivateMapSelection(bool needAnimation, df::SelectionShape::ESelectedObject selectionType,
-                            TapEvent::Source tapSource, place_page::Info const & info,
-                            bool isGeometrySelectionAllowed = false);
+  void ActivateMapSelection(boost::optional<place_page::Info> const & info);
   void InvalidateUserMarks();
 
 public:
   void DeactivateMapSelection(bool notifyUI);
   /// Used to "refresh" UI in some cases (e.g. feature editing).
-  void UpdatePlacePageInfoForCurrentSelection();
+  void UpdatePlacePageInfoForCurrentSelection(boost::optional<place_page::BuildInfo> const & overrideInfo = {});
 
   void DrawMwmBorder(std::string const & mwmName, std::vector<m2::RegionD> const & regions,
                      bool withVertices);
@@ -427,16 +407,19 @@ public:
   struct PlacePageEvent
   {
     /// Called to notify UI that object on a map was selected (UI should show Place Page, for example).
-    using OnOpen = std::function<void (place_page::Info const &)>;
+    using OnOpen = std::function<void()>;
     /// Called to notify UI that object on a map was deselected (UI should hide Place Page).
     /// If switchFullScreenMode is true, ui can [optionally] enter or exit full screen mode.
-    using OnClose = std::function<void (bool /*switchFullScreenMode*/)>;
-    using OnUpdate = std::function<void (place_page::Info const &)>;
+    using OnClose = std::function<void(bool /*switchFullScreenMode*/)>;
+    using OnUpdate = std::function<void()>;
   };
 
-  void SetPlacePageListenners(PlacePageEvent::OnOpen const & onOpen,
-                              PlacePageEvent::OnClose const & onClose,
-                              PlacePageEvent::OnUpdate const & onUpdate);
+  void SetPlacePageListeners(PlacePageEvent::OnOpen const & onOpen,
+                             PlacePageEvent::OnClose const & onClose,
+                             PlacePageEvent::OnUpdate const & onUpdate);
+  bool IsPlacePageOpened() const { return m_currentPlacePageInfo.has_value(); }
+  place_page::Info const & GetCurrentPlacePageInfo() const;
+  place_page::Info & GetCurrentPlacePageInfo();
 
   void InvalidateRendering();
   void EnableDebugRectRendering(bool enabled);
@@ -460,16 +443,12 @@ public:
                     std::vector<FeatureID> const & features);
 
 private:
-  std::unique_ptr<TapEvent> m_lastTapEvent;
+  boost::optional<place_page::Info> m_currentPlacePageInfo;
   bool m_isViewportInitialized = false;
 
-  void OnTapEvent(TapEvent const & tapEvent);
-  /// outInfo is valid only if return value is not df::SelectionShape::OBJECT_EMPTY.
-  df::SelectionShape::ESelectedObject OnTapEventImpl(TapEvent const & tapEvent,
-                                                     place_page::Info & outInfo);
-  std::unique_ptr<TapEvent> MakeTapEvent(m2::PointD const & center, FeatureID const & fid,
-                                    TapEvent::Source source) const;
-  UserMark const * FindUserMarkInTapPosition(df::TapInfo const & tapInfo) const;
+  void OnTapEvent(place_page::BuildInfo const & buildInfo);
+  boost::optional<place_page::Info> BuildPlacePageInfo(place_page::BuildInfo const & buildInfo);
+  UserMark const * FindUserMarkInTapPosition(place_page::BuildInfo const & buildInfo) const;
   FeatureID FindBuildingAtPoint(m2::PointD const & mercator) const;
 
   void UpdateMinBuildingsTapZoom();
@@ -479,9 +458,6 @@ private:
   PlacePageEvent::OnOpen m_onPlacePageOpen;
   PlacePageEvent::OnClose m_onPlacePageClose;
   PlacePageEvent::OnUpdate m_onPlacePageUpdate;
-
-  /// Here we store last selected feature to get its polygons in case of adding organization.
-  mutable FeatureID m_selectedFeature;
 
 private:
   std::vector<m2::TriangleD> GetSelectedFeatureTriangles() const;
@@ -728,22 +704,26 @@ private:
   void FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const;
   /// @param customTitle, if not empty, overrides any other calculated name.
   void FillPointInfo(place_page::Info & info, m2::PointD const & mercator,
-                     std::string const & customTitle = {}, FeatureMatcher && matcher = nullptr) const;
+                     std::string const & customTitle = {},
+                     FeatureMatcher && matcher = nullptr) const;
+  void FillNotMatchedPlaceInfo(place_page::Info & info, m2::PointD const & mercator,
+                               std::string const & customTitle = {}) const;
   void FillPostcodeInfo(std::string const & postcode, m2::PointD const & mercator,
                         place_page::Info & info) const;
 
   void FillInfoFromFeatureType(FeatureType & ft, place_page::Info & info) const;
   void FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const;
   void FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const;
-  void FillMyPositionInfo(place_page::Info & info, df::TapInfo const & tapInfo) const;
+  void FillMyPositionInfo(place_page::Info & info, place_page::BuildInfo const & buildInfo) const;
   void FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info & info) const;
   void FillRoadTypeMarkInfo(RoadWarningMark const & roadTypeMark, place_page::Info & info) const;
   void FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info & info) const;
+  void FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const;
+  void SetPlacePageLocation(place_page::Info & info);
+  void FillLocalExperts(FeatureType & ft, place_page::Info & info) const;
+  void FillDescription(FeatureType & ft, place_page::Info & info) const;
 
 public:
-  void FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const;
-  void ResetBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const;
-
   search::ReverseGeocoder::Address GetAddressAtPoint(m2::PointD const & pt) const;
 
   /// Get "best for the user" feature at given point even if it's invisible on the screen.
@@ -864,7 +844,7 @@ public:
   /// @returns false if feature is invalid or can't be edited.
   bool GetEditableMapObject(FeatureID const & fid, osm::EditableMapObject & emo) const;
   osm::Editor::SaveResult SaveEditedMapObject(osm::EditableMapObject emo);
-  void DeleteFeature(FeatureID const & fid) const;
+  void DeleteFeature(FeatureID const & fid);
   osm::NewFeatureCategories GetEditorCategories() const;
   bool RollBackChanges(FeatureID const & fid);
   void CreateNote(osm::MapObject const & mapObject, osm::Editor::NoteProblemType const type,
@@ -904,11 +884,7 @@ private:
   void InitCityFinder();
   void InitTaxiEngine();
 
-  void SetPlacePageLocation(place_page::Info & info);
 
-  void FillLocalExperts(FeatureType & ft, place_page::Info & info) const;
-
-  void FillDescription(FeatureType & ft, place_page::Info & info) const;
 
 public:
   // UGC.
@@ -948,8 +924,7 @@ public:
   bool HaveTransit(m2::PointD const & pt) const override;
   double GetLastBackgroundTime() const override;
 
-  bool MakePlacePageInfo(notifications::NotificationCandidate const & notification,
-                         place_page::Info & info) const;
+  bool MakePlacePageForNotification(notifications::NotificationCandidate const & notification);
 
   power_management::PowerManager & GetPowerManager() { return m_powerManager; }
 

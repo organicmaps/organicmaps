@@ -683,14 +683,9 @@ void Framework::SetupMeasurementSystem()
   m_work.SetupMeasurementSystem();
 }
 
-void Framework::SetPlacePageInfo(place_page::Info const & info)
-{
-  m_info = info;
-}
-
 place_page::Info & Framework::GetPlacePageInfo()
 {
-  return m_info;
+  return m_work.GetCurrentPlacePageInfo();
 }
 
 void Framework::RequestBookingMinPrice(JNIEnv * env, jobject policy,
@@ -1023,20 +1018,19 @@ Java_com_mapswithme_maps_Framework_nativeSetMapObjectListener(JNIEnv * env, jcla
                                                  "(Lcom/mapswithme/maps/bookmarks/data/MapObject;)V");
   // void onDismiss(boolean switchFullScreenMode);
   jmethodID const dismissId = jni::GetMethodID(env, g_mapObjectListener, "onDismiss", "(Z)V");
-  auto const fillPlacePage = [activatedId](place_page::Info const & info)
+  auto const fillPlacePage = [activatedId]()
   {
     JNIEnv * env = jni::GetEnv();
-    g_framework->SetPlacePageInfo(info);
+    auto const & info = frm()->GetCurrentPlacePageInfo();
     jni::TScopedLocalRef mapObject(env, usermark_helper::CreateMapObject(env, info));
     env->CallVoidMethod(g_mapObjectListener, activatedId, mapObject.get());
   };
   auto const closePlacePage = [dismissId](bool switchFullScreenMode)
   {
     JNIEnv * env = jni::GetEnv();
-    g_framework->SetPlacePageInfo({});
     env->CallVoidMethod(g_mapObjectListener, dismissId, switchFullScreenMode);
   };
-  frm()->SetPlacePageListenners(fillPlacePage, closePlacePage, fillPlacePage);
+  frm()->SetPlacePageListeners(fillPlacePage, closePlacePage, fillPlacePage);
 }
 
 JNIEXPORT void JNICALL
@@ -1045,7 +1039,7 @@ Java_com_mapswithme_maps_Framework_nativeRemoveMapObjectListener(JNIEnv * env, j
   if (g_mapObjectListener == nullptr)
     return;
 
-  frm()->SetPlacePageListenners({} /* onOpen */, {} /* onClose */, {} /* onUpdate */);
+  frm()->SetPlacePageListeners({} /* onOpen */, {} /* onClose */, {} /* onUpdate */);
   LOG(LINFO, ("Remove global map object listener"));
   env->DeleteGlobalRef(g_mapObjectListener);
   g_mapObjectListener = nullptr;
@@ -1773,20 +1767,14 @@ Java_com_mapswithme_maps_Framework_nativeDeleteBookmarkFromMapObject(JNIEnv * en
 {
   place_page::Info & info = g_framework->GetPlacePageInfo();
   auto const bookmarkId = info.GetBookmarkId();
-  frm()->ResetBookmarkInfo(*frm()->GetBookmarkManager().GetBookmark(bookmarkId), info);
   frm()->GetBookmarkManager().GetEditSession().DeleteBookmark(bookmarkId);
-  return usermark_helper::CreateMapObject(env, info);
-}
 
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeOnBookmarkCategoryChanged(JNIEnv * env, jclass, jlong cat, jlong bmk)
-{
-  place_page::Info & info = g_framework->GetPlacePageInfo();
-  ASSERT_GREATER_OR_EQUAL(bmk, 0, ());
-  ASSERT_GREATER_OR_EQUAL(cat, 0, ());
-  info.SetBookmarkCategoryId(static_cast<kml::MarkGroupId>(cat));
-  info.SetBookmarkId(static_cast<kml::MarkId>(bmk));
-  info.SetBookmarkCategoryName(frm()->GetBookmarkManager().GetCategoryName(static_cast<kml::MarkGroupId>(cat)));
+  auto buildInfo = info.GetBuildInfo();
+  buildInfo.m_match = place_page::BuildInfo::Match::FeatureOnly;
+  buildInfo.m_userMarkId = kml::kInvalidMarkId;
+  frm()->UpdatePlacePageInfoForCurrentSelection(buildInfo);
+
+  return usermark_helper::CreateMapObject(env, info);
 }
 
 JNIEXPORT void JNICALL
@@ -2188,9 +2176,8 @@ Java_com_mapswithme_maps_Framework_nativeGetMapObject(JNIEnv * env, jclass,
       static_cast<jstring>(env->CallObjectMethod(notificationCandidate, getDefaultNameId));
   notification.SetDefaultName(jni::ToNativeString(env, defaultName));
 
-  place_page::Info info;
-  if (frm()->MakePlacePageInfo(notification, info))
-    return usermark_helper::CreateMapObject(env, info);
+  if (frm()->MakePlacePageForNotification(notification))
+    return usermark_helper::CreateMapObject(env, frm()->GetCurrentPlacePageInfo());
 
   return nullptr;
 }

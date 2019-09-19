@@ -8,6 +8,9 @@
 
 #include "map/routing_mark.hpp"
 
+#include "drape_frontend/frontend_renderer.hpp"
+#include "drape_frontend/selection_shape.hpp"
+
 #include "storage/storage_defines.hpp"
 
 #include "editor/osm_editor.hpp"
@@ -73,6 +76,55 @@ enum class OpeningMode
 
 auto constexpr kIncorrectRating = kInvalidRatingValue;
 
+struct BuildInfo
+{
+  enum class Source : uint8_t
+  {
+    User,
+    Search,
+    Other
+  };
+
+  enum class Match : uint8_t
+  {
+    Everything = 0,
+    FeatureOnly,
+    UserMarkOnly,
+    Nothing
+  };
+
+  BuildInfo() = default;
+
+  explicit BuildInfo(df::TapInfo const & info)
+    : m_source(Source::User)
+    , m_mercator(info.m_mercator)
+    , m_isLongTap(info.m_isLong)
+    , m_isMyPosition(info.m_isMyPositionTapped)
+    , m_featureId(info.m_featureTapped)
+  {}
+
+  bool IsFeatureMatchingEnabled() const
+  {
+    return m_match == Match::Everything || m_match == Match::FeatureOnly;
+  }
+
+  bool IsUserMarkMatchingEnabled() const
+  {
+    return m_match == Match::Everything || m_match == Match::UserMarkOnly;
+  }
+
+  Source m_source = Source::Other;
+  m2::PointD m_mercator;
+  bool m_isLongTap = false;
+  bool m_isMyPosition = false;
+  FeatureID m_featureId;
+  Match m_match = Match::Everything;
+  kml::MarkId m_userMarkId = kml::kInvalidMarkId;
+  bool m_isGeometrySelectionAllowed = false;
+  bool m_needAnimationOnSelection = true;
+  std::string m_postcode;
+};
+
 class Info : public osm::MapObject
 {
 public:
@@ -81,10 +133,13 @@ public:
   static char const * const kMountainSymbol;
   static char const * const kPricingSymbol;
 
+  void SetBuildInfo(place_page::BuildInfo const & info) { m_buildInfo = info; }
+  place_page::BuildInfo const & GetBuildInfo() const { return m_buildInfo; }
+
   /// Place traits
   bool IsFeature() const { return m_featureID.IsValid(); }
   bool IsBookmark() const { return m_markGroupId != kml::kInvalidMarkGroupId && m_markId != kml::kInvalidMarkId; }
-  bool IsMyPosition() const { return m_isMyPosition; }
+  bool IsMyPosition() const { return m_selectedObject == df::SelectionShape::ESelectedObject::OBJECT_MY_POSITION; }
   bool IsRoutePoint() const { return m_isRoutePoint; }
   bool IsRoadType() const { return m_roadType != RoadWarningMarkType::Count; }
 
@@ -129,7 +184,6 @@ public:
   void SetCustomNames(std::string const & title, std::string const & subtitle);
   void SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string const & name);
   void SetAddress(std::string const & address) { m_address = address; }
-  void SetIsMyPosition() { m_isMyPosition = true; }
   void SetCanEditOrAdd(bool canEditOrAdd) { m_canEditOrAdd = canEditOrAdd; }
   void SetLocalizedWifiString(std::string const & str) { m_localizedWifiString = str; }
 
@@ -245,6 +299,9 @@ public:
   uint8_t GetPopularity() const { return m_popularity; }
   std::string const & GetPrimaryFeatureName() const { return m_primaryFeatureName; };
 
+  void SetSelectedObject(df::SelectionShape::ESelectedObject selectedObject) { m_selectedObject = selectedObject; }
+  df::SelectionShape::ESelectedObject GetSelectedObject() const { return m_selectedObject; }
+
 private:
   std::string FormatSubtitle(bool withType) const;
   void GetPrefferedNames(std::string & primaryName, std::string & secondaryName) const;
@@ -252,6 +309,8 @@ private:
   /// @returns empty string or GetStars() count of ★ symbol.
   std::string FormatStars() const;
   void SetTitlesForBookmark();
+
+  place_page::BuildInfo m_buildInfo;
 
   /// UI
   std::string m_uiTitle;
@@ -297,8 +356,6 @@ private:
   /// Road type
   RoadWarningMarkType m_roadType = RoadWarningMarkType::Count;
 
-  bool m_isMyPosition = false;
-
   /// Editor
   /// True if editing of a selected point is allowed by basic logic.
   /// See initialization in framework.
@@ -343,6 +400,8 @@ private:
   std::string m_primaryFeatureName;
 
   OpeningMode m_openingMode = OpeningMode::Preview;
+
+  df::SelectionShape::ESelectedObject m_selectedObject = df::SelectionShape::ESelectedObject::OBJECT_EMPTY;
 };
 
 namespace rating

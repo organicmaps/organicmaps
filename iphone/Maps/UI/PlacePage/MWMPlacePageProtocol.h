@@ -49,9 +49,9 @@ struct HotelFacility;
 
 @protocol MWMPlacePageProtocol<MWMActionBarProtocol, MWMPlacePageButtonsProtocol, MWMFeatureHolder, MWMBookingInfoHolder>
 
-- (void)show:(place_page::Info const &)info;
-- (void)update:(place_page::Info const &)info;
-- (void)showReview:(place_page::Info const &)info;
+- (void)show;
+- (void)update;
+- (void)showReview;
 - (BOOL)isPPShown;
 - (void)dismiss;
 - (void)mwm_refreshUI;

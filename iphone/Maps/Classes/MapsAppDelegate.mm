@@ -808,9 +808,8 @@ continueUserActivity:(NSUserActivity *)userActivity
   {
     [Statistics logEvent:kStatUGCReviewNotificationClicked];
     ReviewNotification * reviewNotification = (ReviewNotification *)notification;
-    place_page::Info info;
-    if (GetFramework().MakePlacePageInfo(reviewNotification.notificationWrapper.notificationCandidate, info))
-      [[MapViewController sharedController].controlsManager showPlacePageReview:info];
+    if (GetFramework().MakePlacePageForNotification(reviewNotification.notificationWrapper.notificationCandidate))
+      [[MapViewController sharedController].controlsManager showPlacePageReview];
   }
   else if (notification.class == AuthNotification.class)
   {

@@ -2649,15 +2649,17 @@ void FrontendRenderer::RenderLayer::Sort(ref_ptr<dp::OverlayTree> overlayTree)
   }
 }
 
-m2::AnyRectD TapInfo::GetDefaultSearchRect(ScreenBase const & screen) const
+// static
+m2::AnyRectD TapInfo::GetDefaultSearchRect(m2::PointD const & mercator, ScreenBase const & screen)
 {
   m2::AnyRectD result;
   double const halfSize = VisualParams::Instance().GetTouchRectRadius();
-  screen.GetTouchRect(screen.GtoP(m_mercator), halfSize, result);
+  screen.GetTouchRect(screen.GtoP(mercator), halfSize, result);
   return result;
 }
 
-m2::AnyRectD TapInfo::GetBookmarkSearchRect(ScreenBase const & screen) const
+// static
+m2::AnyRectD TapInfo::GetBookmarkSearchRect(m2::PointD const & mercator, ScreenBase const & screen)
 {
   static int constexpr kBmTouchPixelIncrease = 20;
 
@@ -2666,19 +2668,26 @@ m2::AnyRectD TapInfo::GetBookmarkSearchRect(ScreenBase const & screen) const
   double const halfSize = VisualParams::Instance().GetTouchRectRadius();
   double const pxWidth = halfSize;
   double const pxHeight = halfSize + bmAddition;
-  screen.GetTouchRect(screen.GtoP(m_mercator) + m2::PointD(0, bmAddition),
+  screen.GetTouchRect(screen.GtoP(mercator) + m2::PointD(0, bmAddition),
                       pxWidth, pxHeight, result);
   return result;
 }
 
-m2::AnyRectD TapInfo::GetRoutingPointSearchRect(ScreenBase const & screen) const
+// static
+m2::AnyRectD TapInfo::GetRoutingPointSearchRect(m2::PointD const & mercator, ScreenBase const & screen)
 {
   static int constexpr kRoutingPointTouchPixelIncrease = 20;
 
   m2::AnyRectD result;
   double const bmAddition = kRoutingPointTouchPixelIncrease * VisualParams::Instance().GetVisualScale();
   double const halfSize = VisualParams::Instance().GetTouchRectRadius();
-  screen.GetTouchRect(screen.GtoP(m_mercator), halfSize + bmAddition, result);
+  screen.GetTouchRect(screen.GtoP(mercator), halfSize + bmAddition, result);
   return result;
+}
+
+// static
+m2::AnyRectD TapInfo::GetPreciseSearchRect(m2::PointD const & mercator, double const eps)
+{
+  return m2::AnyRectD(mercator, ang::AngleD(0.0) /* angle */, m2::RectD(-eps, -eps, eps, eps));
 }
 }  // namespace df

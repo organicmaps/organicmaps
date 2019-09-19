@@ -107,7 +107,7 @@ private:
   void SubmitFakeLocationPoint(m2::PointD const & pt);
   void SubmitRoutingPoint(m2::PointD const & pt);
   void SubmitBookmark(m2::PointD const & pt);
-  void ShowPlacePage(place_page::Info const & info);
+  void ShowPlacePage();
 
   void UpdateCountryStatus(storage::CountryId const & countryId);
 

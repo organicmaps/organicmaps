@@ -43,9 +43,9 @@ class Info;
 #pragma mark - MWMPlacePageViewManager
 
 - (void)dismissPlacePage;
-- (void)showPlacePage:(place_page::Info const &)info;
-- (void)updatePlacePage:(place_page::Info const &)info;
-- (void)showPlacePageReview:(place_page::Info const &)info;
+- (void)showPlacePage;
+- (void)updatePlacePage;
+- (void)showPlacePageReview;
 - (void)addPlace:(BOOL)isBusiness hasPoint:(BOOL)hasPoint point:(m2::PointD const &)point;
 
 #pragma mark - MWMNavigationDashboardManager

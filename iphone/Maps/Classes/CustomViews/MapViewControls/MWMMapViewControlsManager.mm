@@ -129,23 +129,21 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.placePageManager dismiss];
 }
 
-- (void)showPlacePage:(place_page::Info const &)info
-{
-  network_policy::CallPartnersApi([self, info](auto const & /* canUseNetwork */) {
+- (void)showPlacePage {
+  network_policy::CallPartnersApi([self](auto const & /* canUseNetwork */) {
     self.trafficButtonHidden = YES;
-    [self.placePageManager show:info];
+    [self.placePageManager show];
   });
 }
 
-- (void)updatePlacePage:(place_page::Info const &)info {
-  [self.placePageManager update:info];
+- (void)updatePlacePage {
+  [self.placePageManager update];
 }
 
-- (void)showPlacePageReview:(place_page::Info const &)info
-{
-  network_policy::CallPartnersApi([self, info](auto const & /* canUseNetwork */) {
+- (void)showPlacePageReview {
+  network_policy::CallPartnersApi([self](auto const & /* canUseNetwork */) {
     self.trafficButtonHidden = YES;
-    [self.placePageManager showReview:info];
+    [self.placePageManager showReview];
   });
 }
 

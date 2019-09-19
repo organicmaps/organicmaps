@@ -2,8 +2,10 @@ package com.mapswithme.maps.bookmarks.data;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.util.GeoUtils;
 import com.mapswithme.util.sharing.ShareableInfoProvider;
 
 public class BookmarkInfo implements ShareableInfoProvider
@@ -28,15 +30,16 @@ public class BookmarkInfo implements ShareableInfoProvider
   {
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
-    mTitle = Bookmark.nativeGetName(mBookmarkId);
-    mFeatureType = Bookmark.nativeGetFeatureType(mBookmarkId);
-    mIcon = new Icon(Bookmark.nativeGetColor(mBookmarkId), Bookmark.nativeGetIcon(mBookmarkId));
-    final ParcelablePointD ll = Bookmark.nativeGetXY(mBookmarkId);
+    mTitle = BookmarkManager.INSTANCE.getBookmarkName(mBookmarkId);
+    mFeatureType = BookmarkManager.INSTANCE.getBookmarkFeatureType(mBookmarkId);
+    mIcon = new Icon(BookmarkManager.INSTANCE.getBookmarkColor(mBookmarkId),
+                     BookmarkManager.INSTANCE.getBookmarkIcon(mBookmarkId));
+    final ParcelablePointD ll = BookmarkManager.INSTANCE.getBookmarkXY(mBookmarkId);
     mMerX = ll.x;
     mMerY = ll.y;
-    mScale = Bookmark.nativeGetScale(mBookmarkId);
-    mAddress = Bookmark.nativeGetAddress(mBookmarkId);
-    mLatLonPoint = Bookmark.nativeToLatLon(mMerX, mMerY);
+    mScale = BookmarkManager.INSTANCE.getBookmarkScale(mBookmarkId);
+    mAddress = BookmarkManager.INSTANCE.getBookmarkAddress(mBookmarkId);
+    mLatLonPoint = GeoUtils.toLatLon(mMerX, mMerY);
   }
 
   public long getCategoryId()

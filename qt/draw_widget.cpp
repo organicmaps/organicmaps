@@ -59,8 +59,8 @@ DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, std::unique_ptr
   , m_rubberBand(nullptr)
   , m_emulatingLocation(false)
 {
-  m_framework.SetPlacePageListenners([this](place_page::Info const & info) { ShowPlacePage(info); },
-                                     {} /* onClose */, {} /* onUpdate */);
+  m_framework.SetPlacePageListeners([this]() { ShowPlacePage(); },
+                                    {} /* onClose */, {} /* onUpdate */);
 
   m_framework.GetRoutingManager().SetRouteBuildingListener(
       [](routing::RouterResultCode, storage::CountriesSet const &) {});
@@ -611,8 +611,9 @@ void DrawWidget::OnRouteRecommendation(RoutingManager::Recommendation recommenda
   }
 }
 
-void DrawWidget::ShowPlacePage(place_page::Info const & info)
+void DrawWidget::ShowPlacePage()
 {
+  place_page::Info const & info = m_framework.GetCurrentPlacePageInfo();
   search::ReverseGeocoder::Address address;
   if (info.IsFeature())
   {
