@@ -100,7 +100,8 @@ class PaidRouteViewController: MWMViewController {
       formatter.locale = s.priceLocale
       formatter.numberStyle = .currency
 
-      let titleFormat = L((s.period == .year) ? "buy_btn_for_subscription_ios_only_year" : "buy_btn_for_subscription_ios_only_mo")
+      let titleFormat = L((s.period == .year) ? "buy_btn_for_subscription_ios_only_year_version_2"
+        : "buy_btn_for_subscription_ios_only_mo_version_2")
       let title = String(coreFormat: titleFormat, arguments: [formatter.string(from: s.price) ?? ""])
       self?.subscribeButton.setTitle(title, for: .normal)
       self?.subscribeButton.isEnabled = true

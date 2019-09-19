@@ -41,32 +41,32 @@
                     <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eiz-QQ-h0b">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="675.66666666666663"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="677.66666666666663"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlimited access to 5000+ guides!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bOS-sQ-rkD">
-                                    <rect key="frame" x="16" y="22.000000000000004" width="382" height="57.333333333333343"/>
+                                    <rect key="frame" x="16" y="24.000000000000004" width="382" height="57.333333333333343"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold24"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="native_screen_subscription_title"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="subscription_screen_native_title_version_2"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Every kind of journey. Whether alone or with friends, hiking or sunbathing" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzD-qz-Fwt">
-                                    <rect key="frame" x="16" y="95.333333333333329" width="382" height="33.666666666666671"/>
+                                    <rect key="frame" x="16" y="97.333333333333329" width="382" height="33.666666666666671"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="native_screen_subscription_message"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="subscription_screen_native_message_version_2"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q5w-jW-Chn">
-                                    <rect key="frame" x="33" y="163" width="348" height="254"/>
+                                    <rect key="frame" x="33" y="165" width="348" height="254"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GGO-lU-mzy">
                                             <rect key="frame" x="0.0" y="0.0" width="348" height="254"/>
@@ -115,7 +115,7 @@
                                     </constraints>
                                 </scrollView>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neX-0h-hs4" userLabel="Continue">
-                                    <rect key="frame" x="50" y="451" width="314" height="50"/>
+                                    <rect key="frame" x="50" y="453" width="314" height="50"/>
                                     <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
                                     <constraints>
@@ -141,7 +141,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a64-qc-DrZ" userLabel="Restore">
-                                    <rect key="frame" x="50" y="509" width="314" height="50"/>
+                                    <rect key="frame" x="50" y="511" width="314" height="50"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
                                     <constraints>
@@ -162,7 +162,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWZ-GP-RxW">
-                                    <rect key="frame" x="20" y="567" width="374" height="64.666666666666629"/>
+                                    <rect key="frame" x="20" y="569" width="374" height="64.666666666666629"/>
                                     <string key="text">Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                     <color key="textColor" white="0.0" alpha="0.31555008561643838" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -174,7 +174,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awa-we-Pjk" userLabel="TermsOfUse">
-                                    <rect key="frame" x="20" y="631.66666666666663" width="66" height="44"/>
+                                    <rect key="frame" x="20" y="633.66666666666663" width="66" height="44"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
                                     <constraints>
@@ -195,7 +195,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="60B-kT-Eev" userLabel="PrivacyPolicy">
-                                    <rect key="frame" x="325" y="631.66666666666663" width="69" height="44"/>
+                                    <rect key="frame" x="325" y="633.66666666666663" width="69" height="44"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
                                     <constraints>
@@ -241,7 +241,7 @@
                                 <constraint firstItem="q5w-jW-Chn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Eiz-QQ-h0b" secondAttribute="leading" constant="13" id="9kc-0C-7dp"/>
                                 <constraint firstItem="60B-kT-Eev" firstAttribute="top" secondItem="tWZ-GP-RxW" secondAttribute="bottom" id="HNk-gd-Qc6"/>
                                 <constraint firstAttribute="trailing" secondItem="a64-qc-DrZ" secondAttribute="trailing" constant="50" id="INc-Pv-5M3"/>
-                                <constraint firstItem="bOS-sQ-rkD" firstAttribute="top" secondItem="Eiz-QQ-h0b" secondAttribute="top" constant="22" id="JTG-8l-iqj"/>
+                                <constraint firstItem="bOS-sQ-rkD" firstAttribute="top" secondItem="Eiz-QQ-h0b" secondAttribute="top" constant="24" id="JTG-8l-iqj"/>
                                 <constraint firstItem="awa-we-Pjk" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" constant="20" id="Loh-WS-cJr"/>
                                 <constraint firstAttribute="trailing" secondItem="tWZ-GP-RxW" secondAttribute="trailing" constant="20" id="OFb-vM-2cl"/>
                                 <constraint firstItem="a64-qc-DrZ" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" constant="50" id="R8g-2f-TIi"/>
@@ -309,7 +309,7 @@
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="47.200000000000003" y="111.0944527736132"/>
+            <point key="canvasLocation" x="46.376811594202906" y="110.86956521739131"/>
         </view>
         <tapGestureRecognizer id="CPT-bP-cim">
             <connections>
