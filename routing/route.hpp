@@ -330,9 +330,7 @@ public:
   bool GetNextTurns(std::vector<turns::TurnItemDist> & turns) const;
 
   void GetCurrentDirectionPoint(m2::PointD & pt) const;
-
-  /// \returns pair of vals: first = true if position was updated successfully to real segment,
-  /// second = true if position is closer to the fake segment
+  
   MovedIteratorInfo MoveIteratorToReal(location::GpsInfo const & info);
 
   void MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
