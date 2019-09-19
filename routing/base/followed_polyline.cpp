@@ -156,26 +156,6 @@ FollowedPolyline::UpdatedProjectionInfo FollowedPolyline::UpdateMatchedProjectio
   return UpdatedProjectionInfo{res.iter.IsValid(), res.closerToUnmatched};
 }
 
-Iter FollowedPolyline::UpdateProjectionByPrediction(m2::RectD const & posRect,
-                                                    double predictDistance)
-{
-  ASSERT(m_current.IsValid(), ());
-  ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
-
-  if (predictDistance <= 0.0)
-    return UpdateProjection(posRect);
-
-  Iter res;
-  res = GetBestProjection(posRect, [&](Iter const & it)
-  {
-    return fabs(GetDistanceM(m_current, it) - predictDistance);
-  });
-
-  if (res.IsValid())
-    m_current = res;
-  return res;
-}
-
 Iter FollowedPolyline::UpdateProjection(m2::RectD const & posRect)
 {
   ASSERT(m_current.IsValid(), ());

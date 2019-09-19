@@ -68,23 +68,6 @@ UNIT_TEST(FollowedPolylineFollowingTestByProjection)
   TEST_EQUAL(polyline.GetCurrentIter().m_pt, m2::PointD(5, 0), ());
 }
 
-UNIT_TEST(FollowedPolylineFollowingTestByPrediction)
-{
-  m2::PolylineD testPolyline({{0, 0}, {0.003, 0}, {0.003, 1}});
-  FollowedPolyline polyline(testPolyline.Begin(), testPolyline.End());
-  TEST_EQUAL(polyline.GetCurrentIter().m_ind, 0, ());
-  polyline.UpdateProjection(MercatorBounds::RectByCenterXYAndSizeInMeters({0, 0}, 2));
-  TEST_EQUAL(polyline.GetCurrentIter().m_ind, 0, ());
-  TEST_EQUAL(polyline.GetCurrentIter().m_pt, m2::PointD(0, 0), ());
-  // Near 0 distances between lons and lats are almost equal.
-  double dist = MercatorBounds::DistanceOnEarth({0, 0}, {0.003, 0}) * 2;
-  polyline.UpdateProjectionByPrediction(
-    MercatorBounds::RectByCenterXYAndSizeInMeters({0.002, 0.003}, 20000), dist);
-  TEST_EQUAL(polyline.GetCurrentIter().m_ind, 1, ());
-  TEST_LESS_OR_EQUAL(MercatorBounds::DistanceOnEarth(polyline.GetCurrentIter().m_pt,
-                                                     m2::PointD(0.003, 0.003)), 0.1, ());
-}
-
 UNIT_TEST(FollowedPolylineDistanceCalculationTest)
 {
   // Test full length case.

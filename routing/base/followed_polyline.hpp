@@ -87,8 +87,6 @@ public:
 
   double GetDistanceM(Iter const & it1, Iter const & it2) const;
 
-  Iter UpdateProjectionByPrediction(m2::RectD const & posRect, double predictDistance);
-
   /// \brief Sets indexes of all unmatched segments on route.
   void SetUnmatchedSegmentIndexes(std::vector<size_t> && unmatchedSegmentIndexes);
 
