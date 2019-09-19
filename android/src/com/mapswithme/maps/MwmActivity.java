@@ -984,6 +984,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
             .setDialogViewStrategyType(com.mapswithme.maps.dialog.AlertDialog.DialogViewStrategyType.CONFIRMATION_DIALOG)
             .setDialogFactory(DefaultConfirmationAlertDialog::new)
             .setReqCode(REQ_CODE_CATALOG_UNLIMITED_ACCESS)
+            .setNegativeBtnTextColor(ThemeUtils.getResource(this, R.attr.buttonDialogTextColor))
             .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog
                                             .FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
             .build();
