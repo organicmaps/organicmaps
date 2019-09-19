@@ -138,8 +138,8 @@ public:
     return res;
   }
 
-  UpdatedProjection GetClosestMatchedProjectionInInterval(m2::RectD const & posRect,
-                                                              size_t startIdx, size_t endIdx) const;
+UpdatedProjection GetClosestMatchedProjectionInInterval(m2::RectD const & posRect,
+                                                            size_t startIdx, size_t endIdx) const;
 
 private:
   /// \returns iterator to the best projection of center of |posRect| to the |m_poly|.

@@ -240,13 +240,13 @@ void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
 
 void Route::SetFakeSegmentsOnPolyline()
 {
-  vector<size_t> fakeSegmentIndexes{};
-  auto const & routeSegments = GetRouteSegments();
-  for (size_t i = 0; i < routeSegments.size(); ++i)
+  vector<size_t> fakeSegmentIndexes;
+  for (size_t i = 0; i < m_routeSegments.size(); ++i)
   {
-    if (!routeSegments[i].GetSegment().IsRealSegment())
+    if (!m_routeSegments[i].GetSegment().IsRealSegment())
       fakeSegmentIndexes.push_back(i);
   }
+
   m_poly.SetUnmatchedSegmentIndexes(move(fakeSegmentIndexes));
 }
 

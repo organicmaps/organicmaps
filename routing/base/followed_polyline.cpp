@@ -149,7 +149,6 @@ FollowedPolyline::UpdatedProjectionInfo FollowedPolyline::UpdateMatchedProjectio
   ASSERT(m_current.IsValid(), ());
   ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
 
-  m2::PointD const & currPos = posRect.Center();
   auto res = GetBestMatchedProjection(posRect);
 
   if (res.iter.IsValid())
@@ -267,6 +266,6 @@ FollowedPolyline::UpdatedProjection FollowedPolyline::GetClosestMatchedProjectio
         minDistUnmatched = dp;
     }
   }
-  return UpdatedProjection{nearestIter, minDistUnmatched < minDist};
+  return UpdatedProjection{nearestIter /* Iter */, minDistUnmatched < minDist /* closerToUnmatched */};
 }
 }  //  namespace routing
