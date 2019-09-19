@@ -15,8 +15,7 @@
 
 namespace
 {
-std::array<std::string, 10> const kSupportedLanguages = {"ru", "en", "fr", "de", "es", "it", "pl",
-                                                         "zh", "ar", "nl"};
+std::array<std::string, 5> const kSupportedLanguages = {"ru", "en", "fr", "de", "es"};
 }  // namespace
 
 namespace crown
