@@ -71,6 +71,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     [NSLayoutConstraint activateConstraints:
      @[[self.crownButton.leftAnchor constraintEqualToAnchor:self.trafficButton.view.leftAnchor constant:-4],
        [self.crownButton.topAnchor constraintEqualToAnchor:self.sideButtons.view.topAnchor]]];
+    [Statistics logEvent:kStatMapCrownButtonShow withParameters:@{kStatTarget : kStatGuidesSubscription}];
   }
   return self;
 }
@@ -304,6 +305,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 }
 
 - (void)onCrown:(UIButton *)sender {
+  [Statistics logEvent:kStatMapCrownButtonClick withParameters:@{kStatTarget : kStatGuidesSubscription}];
   BookmarksSubscriptionViewController *controller = [[BookmarksSubscriptionViewController alloc] init];
   controller.onSubscribe = ^{
     MapViewController *mapViewController = self.ownerController;
@@ -321,6 +323,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   controller.onCancel = ^{
     [self.ownerController dismissViewControllerAnimated:YES completion:nil];
   };
+
+  controller.source = kStatSponsoredButton;
 
   [self.ownerController presentViewController:controller animated:YES completion:^{
     self.crownButton.hidden = YES;

@@ -269,6 +269,8 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 - (BOOL)isPartner;
 - (BOOL)isHolidayObject;
 - (BOOL)isPromoCatalog;
+- (BOOL)isLargeToponim;
+- (BOOL)isSightseeing;
 - (BOOL)isBookingSearch;
 - (BOOL)isHTMLDescription;
 - (BOOL)isMyPosition;

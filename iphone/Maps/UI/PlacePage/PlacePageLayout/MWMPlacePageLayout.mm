@@ -646,15 +646,32 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
           [tableView dequeueReusableCellWithCellClass:CatalogSingleItemCell.class indexPath:indexPath];
         CatalogPromoItem *item = [[CatalogPromoItem alloc] initWithCoreItem:[data.promoGallery galleryItemAtIndex:0]];
         [cell config:item];
-        cell.onMore = ^{
-          [tableView beginUpdates];
-          [tableView endUpdates];
-        };
         __weak __typeof(self) ws = self;
+        cell.onMore = ^{
+          __strong __typeof(self) self = ws;
+          [Statistics logEvent:kStatPlacepageSponsoredItemSelected
+                withParameters:@{
+                                 kStatProvider: kStatMapsmeGuides,
+                                 kStatPlacement: kStatPlacePageSightSeeing,
+                                 kStatItem: @(0),
+                                 kStatDestination: kStatCatalogue
+                                 }];
+          NSURL *url = [NSURL URLWithString:item.catalogUrl];
+          NSURL *patchedUrl = [[MWMBookmarksManager sharedManager] injectCatalogUTMContent:url content:MWMUTMContentMore];
+          [self.delegate openCatalogForURL:patchedUrl];
+        };
         cell.onView = ^{
           __strong __typeof(self) self = ws;
+          [Statistics logEvent:kStatPlacepageSponsoredItemSelected
+                withParameters:@{
+                                 kStatProvider: kStatMapsmeGuides,
+                                 kStatPlacement: kStatPlacePageSightSeeing,
+                                 kStatItem: @(0),
+                                 kStatDestination: kStatCatalogue
+                                 }];
           NSURL *url = [NSURL URLWithString:item.catalogUrl];
-          [self.delegate openCatalogForURL:url];
+          NSURL *patchedUrl = [[MWMBookmarksManager sharedManager] injectCatalogUTMContent:url content:MWMUTMContentView];
+          [self.delegate openCatalogForURL:patchedUrl];
         };
         return cell;
       } else {
@@ -901,7 +918,7 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
     [Statistics logEvent:kStatPlacepageSponsoredMoreSelected
           withParameters:@{
                            kStatProvider: kStatMapsmeGuides,
-                           kStatPlacement: kStatPlacePage
+                           kStatPlacement: self.data.isLargeToponim ? kStatPlacePageToponims : kStatPlacePageSightSeeing,
                            }];
   } else {
     promo::CityGallery::Item const &item = [self.data.promoGallery galleryItemAtIndex:indexPath.row];
@@ -914,7 +931,7 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
     [Statistics logEvent:kStatPlacepageSponsoredItemSelected
           withParameters:@{
                            kStatProvider: kStatMapsmeGuides,
-                           kStatPlacement: kStatPlacePage,
+                           kStatPlacement: self.data.isLargeToponim ? kStatPlacePageToponims : kStatPlacePageSightSeeing,
                            kStatItem: @(indexPath.item + 1),
                            kStatDestination: kStatCatalogue
                            }];

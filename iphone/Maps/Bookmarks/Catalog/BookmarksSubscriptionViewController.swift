@@ -17,6 +17,7 @@ import SafariServices
 
   @objc var onSubscribe: MWMVoidBlock?
   @objc var onCancel: MWMVoidBlock?
+  @objc var source: String = kStatWebView
 
   override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
     get { return [.portrait] }
@@ -71,7 +72,7 @@ import SafariServices
     Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: MWMPurchaseManager.bookmarksSubscriptionVendorId(),
                                                          kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId(),
                                                          kStatProduct: BOOKMARKS_SUBSCRIPTION_YEARLY_PRODUCT_ID,
-                                                         kStatFrom: kStatBanner], with: .realtime)
+                                                         kStatFrom: source], with: .realtime)
     InAppPurchase.bookmarksSubscriptionManager.getAvailableSubscriptions { [weak self] (subscriptions, error) in
       guard let subscriptions = subscriptions, subscriptions.count == 2 else {
         MWMAlertViewController.activeAlert().presentInfoAlert(L("price_error_title"),

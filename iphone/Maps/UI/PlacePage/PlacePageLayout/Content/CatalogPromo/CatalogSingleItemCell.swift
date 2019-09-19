@@ -29,7 +29,7 @@
   }
   
   @IBAction func onMoreButton(_ sender: UIButton) {
-    onView?()
+    onMore?()
   }
 
   @IBAction func onCatalogButton(_ sender: UIButton) {
