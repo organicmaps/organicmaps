@@ -256,7 +256,7 @@ Route::MovedIteratorInfo Route::MoveIteratorToReal(location::GpsInfo const & inf
       info.m_longitude, info.m_latitude,
       max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
   auto resUpdate = m_poly.UpdateMatchedProjection(rect);
-  return MovedIteratorInfo{resUpdate.updatedProjection, resUpdate.closerToUnmatched};
+  return MovedIteratorInfo{resUpdate.m_updatedProjection, resUpdate.m_closerToUnmatched};
 }
 
 double Route::GetPolySegAngle(size_t ind) const

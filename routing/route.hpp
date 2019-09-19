@@ -195,9 +195,9 @@ public:
   struct MovedIteratorInfo
   {
     // Indicator of setting the iterator to one of real segments
-    bool movedIterator;
+    bool m_movedIterator;
     // Indicator of the presence of the fake segment which is the nearest to the given point
-    bool closerToFake;
+    bool m_closerToFake;
   };
 
   /// \brief For every subroute some attributes are kept in the following structure.

@@ -136,8 +136,8 @@ FollowedPolyline::UpdatedProjection FollowedPolyline::GetBestMatchedProjection(m
   // right after intermediate point (in next subroute).
   size_t const hoppingBorderIdx = min(m_segProj.size(), m_current.m_ind + 3);
   auto res = GetClosestMatchedProjectionInInterval(posRect, m_current.m_ind, hoppingBorderIdx);
-  if (res.iter.IsValid())
-    return UpdatedProjection{res.iter, res.closerToUnmatched};
+  if (res.m_iter.IsValid() || res.m_closerToUnmatched)
+    return UpdatedProjection{res.m_iter, res.m_closerToUnmatched};
 
   // If a projection to the 3 closest route segments is not found tries to find projection to other route
   // segments of current subroute.
@@ -151,9 +151,9 @@ FollowedPolyline::UpdatedProjectionInfo FollowedPolyline::UpdateMatchedProjectio
 
   auto res = GetBestMatchedProjection(posRect);
 
-  if (res.iter.IsValid())
-    m_current = res.iter;
-  return UpdatedProjectionInfo{res.iter.IsValid(), res.closerToUnmatched};
+  if (res.m_iter.IsValid())
+    m_current = res.m_iter;
+  return UpdatedProjectionInfo{res.m_iter.IsValid(), res.m_closerToUnmatched};
 }
 
 Iter FollowedPolyline::UpdateProjection(m2::RectD const & posRect)
@@ -246,6 +246,6 @@ FollowedPolyline::UpdatedProjection FollowedPolyline::GetClosestMatchedProjectio
         minDistUnmatched = dp;
     }
   }
-  return UpdatedProjection{nearestIter /* Iter */, minDistUnmatched < minDist /* closerToUnmatched */};
+  return UpdatedProjection{nearestIter /* m_iter */, minDistUnmatched < minDist /* m_closerToUnmatched */};
 }
 }  //  namespace routing

@@ -72,15 +72,15 @@ public:
   struct UpdatedProjection
   {
     // Iterator to the projection point.
-    Iter iter;
+    Iter m_iter;
     // True if nearest point is on an unmatched segment.
-    bool closerToUnmatched;
+    bool m_closerToUnmatched;
   };
 
   struct UpdatedProjectionInfo
   {
-    bool updatedProjection;
-    bool closerToUnmatched;
+    bool m_updatedProjection;
+    bool m_closerToUnmatched;
   };
 
   const Iter GetCurrentIter() const { return m_current; }
@@ -115,11 +115,9 @@ public:
     Iter res;
     double minDist = std::numeric_limits<double>::max();
 
-    m2::PointD const & currPos = posRect.Center();
-
     for (size_t i = startIdx; i < endIdx; ++i)
     {
-      m2::PointD const & pt = m_segProj[i].ClosestPointTo(currPos);
+      m2::PointD const & pt = m_segProj[i].ClosestPointTo(posRect.Center());
 
       if (!posRect.IsPointInside(pt))
         continue;

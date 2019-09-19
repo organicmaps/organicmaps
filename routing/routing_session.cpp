@@ -293,7 +293,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
 
   auto iteratorAction = m_route->MoveIteratorToReal(info);
 
-  if (iteratorAction.movedIterator)
+  if (iteratorAction.m_movedIterator)
   {
     m_moveAwayCounter = 0;
     m_lastDistance = 0.0;
@@ -323,7 +323,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     return m_state;
   }
 
-  if(!iteratorAction.closerToFake)
+  if(!iteratorAction.m_closerToFake)
   {
     // Distance from the last known projection on route
     // (check if we are moving far from the last known projection).
