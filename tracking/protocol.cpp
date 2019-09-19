@@ -5,9 +5,9 @@
 
 #include "base/assert.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/sstream.hpp"
-#include "std/utility.hpp"
+#include <sstream>
+
+using namespace std;
 
 namespace
 {

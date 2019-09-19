@@ -2,8 +2,10 @@
 
 #include "coding/traffic.hpp"
 
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <string>
+#include <utility>
+#include <vector>
 
 #if defined(__clang__)
 #pragma clang diagnostic push
@@ -23,7 +25,7 @@ class Protocol
 public:
   using Encoder = coding::TrafficGPSEncoder;
   using DataElementsCirc = boost::circular_buffer<Encoder::DataPoint>;
-  using DataElementsVec = vector<Encoder::DataPoint>;
+  using DataElementsVec = std::vector<Encoder::DataPoint>;
 
   static uint8_t const kOk[4];
   static uint8_t const kFail[4];
@@ -38,18 +40,18 @@ public:
     CurrentData = DataV1
   };
 
-  static vector<uint8_t> CreateHeader(PacketType type, uint32_t payloadSize);
-  static vector<uint8_t> CreateAuthPacket(string const & clientId);
-  static vector<uint8_t> CreateDataPacket(DataElementsCirc const & points, PacketType type);
-  static vector<uint8_t> CreateDataPacket(DataElementsVec const & points, PacketType type);
+  static std::vector<uint8_t> CreateHeader(PacketType type, uint32_t payloadSize);
+  static std::vector<uint8_t> CreateAuthPacket(std::string const & clientId);
+  static std::vector<uint8_t> CreateDataPacket(DataElementsCirc const & points, PacketType type);
+  static std::vector<uint8_t> CreateDataPacket(DataElementsVec const & points, PacketType type);
 
-  static std::pair<PacketType, size_t> DecodeHeader(vector<uint8_t> const & data);
-  static string DecodeAuthPacket(PacketType type, vector<uint8_t> const & data);
-  static DataElementsVec DecodeDataPacket(PacketType type, vector<uint8_t> const & data);
+  static std::pair<PacketType, size_t> DecodeHeader(std::vector<uint8_t> const & data);
+  static std::string DecodeAuthPacket(PacketType type, std::vector<uint8_t> const & data);
+  static DataElementsVec DecodeDataPacket(PacketType type, std::vector<uint8_t> const & data);
 
 private:
-  static void InitHeader(vector<uint8_t> & packet, PacketType type, uint32_t payloadSize);
+  static void InitHeader(std::vector<uint8_t> & packet, PacketType type, uint32_t payloadSize);
 };
 
-string DebugPrint(Protocol::PacketType type);
+std::string DebugPrint(Protocol::PacketType type);
 }  // namespace tracking

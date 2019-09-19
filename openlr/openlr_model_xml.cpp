@@ -5,12 +5,14 @@
 
 #include "base/logging.hpp"
 
-#include "std/cstring.hpp"
-#include "std/type_traits.hpp"
+#include <cstring>
+#include <type_traits>
 
 #include "boost/optional.hpp"
 
 #include "3party/pugixml/src/pugixml.hpp"
+
+using namespace std;
 
 namespace  // Primitive utilities to handle simple OpenLR-like XML data.
 {

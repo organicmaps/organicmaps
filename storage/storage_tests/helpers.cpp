@@ -6,14 +6,16 @@
 
 #include "platform/platform.hpp"
 
+#include <memory>
+
 namespace storage
 {
-unique_ptr<CountryInfoGetter> CreateCountryInfoGetterObsolete()
+std::unique_ptr<CountryInfoGetter> CreateCountryInfoGetterObsolete()
 {
   return CountryInfoReader::CreateCountryInfoReaderObsolete(GetPlatform());
 }
 
-unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter()
+std::unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter()
 {
   return CountryInfoReader::CreateCountryInfoReader(GetPlatform());
 }

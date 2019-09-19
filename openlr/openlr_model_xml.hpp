@@ -1,6 +1,6 @@
 #pragma once
 
-#include "std/vector.hpp"
+#include <vector>
 
 namespace pugi
 {
@@ -14,5 +14,5 @@ struct LinearSegment;
 
 bool SegmentFromXML(pugi::xml_node const & segmentNode, LinearSegment & segment);
 
-bool ParseOpenlr(pugi::xml_document const & document, vector<LinearSegment> & segments);
+bool ParseOpenlr(pugi::xml_document const & document, std::vector<LinearSegment> & segments);
 }  // namespace openlr

@@ -12,8 +12,14 @@
 #include "base/math.hpp"
 #include "base/thread.hpp"
 
-#include "std/cmath.hpp"
+#include <chrono>
+#include <cmath>
+#include <cstdint>
+#include <memory>
+#include <vector>
 
+using namespace std;
+using namespace std::chrono;
 using namespace tracking;
 using namespace platform::tests_support;
 

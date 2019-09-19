@@ -15,9 +15,10 @@
 #include "base/string_utils.hpp"
 #include "base/thread.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
 using namespace platform;
+using namespace std;
 using namespace storage;
 
 namespace

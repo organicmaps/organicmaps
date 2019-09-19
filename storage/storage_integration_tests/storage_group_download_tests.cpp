@@ -15,12 +15,10 @@
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
 
-#include "std/condition_variable.hpp"
-#include "std/mutex.hpp"
-#include "std/set.hpp"
-#include "std/unique_ptr.hpp"
+#include <string>
 
 using namespace platform;
+using namespace std;
 using namespace storage;
 
 namespace

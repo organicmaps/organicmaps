@@ -15,9 +15,11 @@
 
 #include "base/file_name_utils.hpp"
 
-#include "std/unique_ptr.hpp"
+#include <memory>
+#include <string>
 
 using namespace platform;
+using namespace std;
 using namespace storage;
 
 namespace

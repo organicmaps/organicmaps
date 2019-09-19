@@ -13,6 +13,9 @@
 
 #include <cmath>
 
+using namespace std;
+using namespace std::chrono;
+
 namespace
 {
 double constexpr kRequiredHorizontalAccuracy = 10.0;

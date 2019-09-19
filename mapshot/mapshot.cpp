@@ -10,11 +10,11 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/exception.hpp"
-#include "std/fstream.hpp"
-#include "std/iomanip.hpp"
-#include "std/iostream.hpp"
-#include "std/string.hpp"
+#include <exception>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <string>
 
 #include "3party/gflags/src/gflags/gflags.h"
 
@@ -28,6 +28,8 @@ DEFINE_string(mwmpath, "", "Path to mwm files");
 DEFINE_int32(width, 480, "Resulting image width");
 DEFINE_int32(height, 640, "Resulting image height");
 //----------------------------------------------------------------------------------------
+
+using namespace std;
 
 namespace
 {

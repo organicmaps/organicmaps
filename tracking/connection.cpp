@@ -14,8 +14,8 @@ uint32_t constexpr kSocketTimeoutMs = 10000;
 
 namespace tracking
 {
-Connection::Connection(unique_ptr<platform::Socket> socket, string const & host, uint16_t port,
-                       bool isHistorical)
+Connection::Connection(std::unique_ptr<platform::Socket> socket, std::string const & host,
+                       uint16_t port, bool isHistorical)
   : m_socket(move(socket)), m_host(host), m_port(port)
 {
   if (!m_socket)

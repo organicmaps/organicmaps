@@ -2,10 +2,9 @@
 
 #include "coding/traffic.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <memory>
+#include <string>
 
 #if defined(__clang__)
 #pragma clang diagnostic push
@@ -30,15 +29,15 @@ using DataPoint = coding::TrafficGPSEncoder::DataPoint;
 class Connection final
 {
 public:
-  Connection(unique_ptr<platform::Socket> socket, string const & host, uint16_t port,
+  Connection(std::unique_ptr<platform::Socket> socket, std::string const & host, uint16_t port,
              bool isHistorical);
   bool Reconnect();
   void Shutdown();
   bool Send(boost::circular_buffer<DataPoint> const & points);
 
 private:
-  unique_ptr<platform::Socket> m_socket;
-  string const m_host;
+  std::unique_ptr<platform::Socket> m_socket;
+  std::string const m_host;
   uint16_t const m_port;
 };
 }  // namespace tracking

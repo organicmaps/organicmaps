@@ -2,6 +2,9 @@
 
 #include "tracking/protocol.hpp"
 
+#include <string>
+
+using namespace std;
 using namespace tracking;
 
 UNIT_TEST(Protocol_CreateAuthPacket)

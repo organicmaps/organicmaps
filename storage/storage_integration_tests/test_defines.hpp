@@ -1,9 +1,9 @@
 #pragma once
 
-#include "std/string.hpp"
+#include <string>
 
 namespace storage
 {
-extern string const kMapTestDir;
-extern string const kTestWebServer;
+extern std::string const kMapTestDir;
+extern std::string const kTestWebServer;
 }  // namespace storage

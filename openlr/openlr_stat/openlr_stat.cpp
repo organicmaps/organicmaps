@@ -18,8 +18,6 @@
 #include "base/file_name_utils.hpp"
 #include "base/stl_helpers.hpp"
 
-#include "std/unique_ptr.hpp"
-
 #include <algorithm>
 #include <cstdint>
 #include <cstdio>
