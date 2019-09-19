@@ -12,8 +12,13 @@
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
-#include "std/bind.hpp"
-#include "std/chrono.hpp"
+#include <chrono>
+#include <functional>
+#include <utility>
+#include <vector>
+
+using namespace std;
+using namespace std::chrono;
 
 namespace
 {
@@ -106,7 +111,8 @@ UNIT_TEST(GpsTrack_Simple)
 
     GpsTrackCallback callback;
 
-    track.SetCallback(bind(&GpsTrackCallback::OnUpdate, &callback, _1, _2));
+    track.SetCallback(
+        bind(&GpsTrackCallback::OnUpdate, &callback, placeholders::_1, placeholders::_2));
 
     TEST(callback.WaitForCallback(kWaitForCallbackTimeout), ());
 
@@ -129,7 +135,8 @@ UNIT_TEST(GpsTrack_Simple)
 
     GpsTrackCallback callback;
 
-    track.SetCallback(bind(&GpsTrackCallback::OnUpdate, &callback, _1, _2));
+    track.SetCallback(
+        bind(&GpsTrackCallback::OnUpdate, &callback, placeholders::_1, placeholders::_2));
 
     TEST(callback.WaitForCallback(kWaitForCallbackTimeout), ());
 
@@ -163,7 +170,8 @@ UNIT_TEST(GpsTrack_EvictedByAdd)
   GpsTrack track(filePath, 1000, hours(24));
 
   GpsTrackCallback callback;
-  track.SetCallback(bind(&GpsTrackCallback::OnUpdate, &callback, _1, _2));
+  track.SetCallback(
+      bind(&GpsTrackCallback::OnUpdate, &callback, placeholders::_1, placeholders::_2));
 
   track.AddPoint(pt1);
 

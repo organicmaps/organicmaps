@@ -14,9 +14,9 @@
 
 #include "build_style/build_style.h"
 
-#include "std/cstdio.hpp"
-#include "std/cstdlib.hpp"
-#include "std/sstream.hpp"
+#include <cstdio>
+#include <cstdlib>
+#include <sstream>
 
 #include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/gflags/src/gflags/gflags.h"
@@ -36,6 +36,8 @@ DEFINE_string(lang, "", "Device language.");
 DEFINE_int32(width, 0, "Screenshot width.");
 DEFINE_int32(height, 0, "Screenshot height.");
 DEFINE_double(dpi_scale, 0.0, "Screenshot dpi scale.");
+
+using namespace std;
 
 namespace
 {

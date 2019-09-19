@@ -3,8 +3,7 @@
 #include "base/assert.hpp"
 #include "base/math.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/fstream.hpp"
+#include <algorithm>
 
 #include "3party/agg/agg_conv_curve.h"
 #include "3party/agg/agg_conv_stroke.h"
@@ -14,6 +13,8 @@
 #include "3party/agg/agg_renderer_primitives.h"
 #include "3party/agg/agg_renderer_scanline.h"
 #include "3party/agg/agg_scanline_p.h"
+
+using namespace std;
 
 namespace
 {

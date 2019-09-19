@@ -1,12 +1,12 @@
 #import "MWMViewController.h"
 
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <string>
+#include <vector>
 
 @protocol MWMCuisineEditorProtocol <NSObject>
 
-- (vector<string>)selectedCuisines;
-- (void)setSelectedCuisines:(vector<string> const &)cuisines;
+- (std::vector<std::string>)selectedCuisines;
+- (void)setSelectedCuisines:(std::vector<std::string> const &)cuisines;
 
 @end
 

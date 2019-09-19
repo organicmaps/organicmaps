@@ -15,8 +15,10 @@
 #include "drape_frontend/drape_engine.hpp"
 
 #include <condition_variable>
+#include <functional>
 #include <memory>
 #include <mutex>
+#include <string>
 
 #include "boost/optional.hpp"
 
@@ -71,8 +73,8 @@ public:
 
   void SetRouter(routing::RouterType routerType);
 
-  using TCurrentCountryChanged = function<void(storage::CountryId const &, string const &,
-                                               storage::Status, uint64_t, uint8_t)>;
+  using TCurrentCountryChanged = std::function<void(storage::CountryId const &, std::string const &,
+                                                    storage::Status, uint64_t, uint8_t)>;
   void SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener);
 
   void DownloadCountry(storage::CountryId const & countryId);

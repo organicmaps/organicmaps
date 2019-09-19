@@ -4,13 +4,15 @@
 
 #include "base/logging.hpp"
 
-#include "std/bind.hpp"
-#include "std/ctime.hpp"
+#include <ctime>
+#include <functional>
+#include <vector>
 
 #include "3party/jansson/myjansson.hpp"
 
 #include "private.h"
 
+using namespace std;
 
 namespace location
 {
@@ -89,9 +91,9 @@ namespace location
       jsonRequest += "}";
 
       // memory will be freed in callback
-      downloader::HttpRequest::PostJson(MWM_GEOLOCATION_SERVER,
-                                        jsonRequest,
-                                        bind(&WiFiLocationService::OnHttpPostFinished, this, _1));
+      downloader::HttpRequest::PostJson(
+          MWM_GEOLOCATION_SERVER, jsonRequest,
+          bind(&WiFiLocationService::OnHttpPostFinished, this, placeholders::_1));
     }
 
   public:
@@ -101,7 +103,8 @@ namespace location
 
     virtual void Start()
     {
-      m_wifiInfo.RequestWiFiBSSIDs(bind(&WiFiLocationService::OnWifiScanCompleted, this, _1));
+      m_wifiInfo.RequestWiFiBSSIDs(
+          bind(&WiFiLocationService::OnWifiScanCompleted, this, placeholders::_1));
     }
 
     virtual void Stop()

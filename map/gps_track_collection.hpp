@@ -2,11 +2,11 @@
 
 #include "platform/location.hpp"
 
-#include "std/chrono.hpp"
-#include "std/deque.hpp"
-#include "std/limits.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <chrono>
+#include <deque>
+#include <limits>
+#include <utility>
+#include <vector>
 
 class GpsTrackCollection final
 {
@@ -18,14 +18,14 @@ public:
   /// Constructor
   /// @param maxSize - max number of items in collection
   /// @param duration - duration in hours
-  GpsTrackCollection(size_t maxSize, hours duration);
+  GpsTrackCollection(size_t maxSize, std::chrono::hours duration);
 
   /// Adds new point in the collection.
   /// @param item - item to be added.
   /// @param evictedIds - output, which contains range of identifiers evicted items or
   /// pair(kInvalidId,kInvalidId) if nothing was removed
   /// @returns the item unique identifier or kInvalidId if point has incorrect time.
-  size_t Add(TItem const & item, pair<size_t, size_t> & evictedIds);
+  size_t Add(TItem const & item, std::pair<size_t, size_t> & evictedIds);
 
   /// Adds set of new points in the collection.
   /// @param items - set of items to be added.
@@ -33,24 +33,25 @@ public:
   /// pair(kInvalidId,kInvalidId) if nothing was removed
   /// @returns range of identifiers of added items or pair(kInvalidId,kInvalidId) if nothing was added
   /// @note items which does not conform to timestamp sequence, is not added.
-  pair<size_t, size_t> Add(vector<TItem> const & items, pair<size_t, size_t> & evictedIds);
+  std::pair<size_t, size_t> Add(std::vector<TItem> const & items,
+                                std::pair<size_t, size_t> & evictedIds);
 
   /// Get current duration in hours
   /// @returns current duration in hours
-  hours GetDuration() const;
+  std::chrono::hours GetDuration() const;
 
   /// Sets duration in hours.
   /// @param duration - new duration value
   /// @return range of item identifiers, which were removed or
   /// pair(kInvalidId,kInvalidId) if nothing was removed
-  pair<size_t, size_t> SetDuration(hours duration);
+  std::pair<size_t, size_t> SetDuration(std::chrono::hours duration);
 
   /// Removes all points from the collection.
   /// @param resetIds - if it is set to true, then new identifiers will start from 0,
   /// otherwise new identifiers will continue from returned value res.second + 1
   /// @return range of item identifiers, which were removed or
   /// pair(kInvalidId,kInvalidId) if nothing was removed
-  pair<size_t, size_t> Clear(bool resetIds = true);
+  std::pair<size_t, size_t> Clear(bool resetIds = true);
 
   /// Returns true if collection is empty, otherwise returns false.
   bool IsEmpty() const;
@@ -60,7 +61,7 @@ public:
 
   /// Returns range of timestamps of collection, where res.first is lower bound and
   /// res.second is upper bound. If collection is empty, then returns pair(0, 0).
-  pair<double, double> GetTimestampRange() const;
+  std::pair<double, double> GetTimestampRange() const;
 
   /// Returns max size of collection
   size_t GetMaxSize() const;
@@ -88,16 +89,16 @@ public:
 private:
   // Removes items in range [m_items.begin(), i) and returnd
   // range of identifiers of removed items
-  pair<size_t, size_t> RemoveUntil(deque<TItem>::iterator i);
+  std::pair<size_t, size_t> RemoveUntil(std::deque<TItem>::iterator i);
 
   // Removes items extra by timestamp and max size
-  pair<size_t, size_t> RemoveExtraItems();
+  std::pair<size_t, size_t> RemoveExtraItems();
 
   size_t const m_maxSize;
 
-  hours m_duration;
+  std::chrono::hours m_duration;
 
-  deque<TItem> m_items; // asc. sorted by timestamp
+  std::deque<TItem> m_items;  // asc. sorted by timestamp
 
   size_t m_lastId;
 };

@@ -48,7 +48,7 @@ To automatically format a file, install `clang-format` and run:
 ```cpp
 #pragma once
 
-#include "std/math.hpp"
+#include <math>
 
 uint16_t constexpr kBufferSize = 255;
 

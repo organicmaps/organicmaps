@@ -67,15 +67,15 @@ typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve
     f.ConnectToGpsTracker();
 
     if ([selectedCell isEqual:self.oneHour])
-      tracker.SetDuration(hours(One));
+      tracker.SetDuration(std::chrono::hours(One));
     else if ([selectedCell isEqual:self.twoHours])
-      tracker.SetDuration(hours(Two));
+      tracker.SetDuration(std::chrono::hours(Two));
     else if ([selectedCell isEqual:self.sixHours])
-      tracker.SetDuration(hours(Six));
+      tracker.SetDuration(std::chrono::hours(Six));
     else if ([selectedCell isEqual:self.twelveHours])
-      tracker.SetDuration(hours(Twelve));
+      tracker.SetDuration(std::chrono::hours(Twelve));
     else
-      tracker.SetDuration(hours(Day));
+      tracker.SetDuration(std::chrono::hours(Day));
 
     statValue = [NSString stringWithFormat:@"%@ hour(s)", @(tracker.GetDuration().count())];
   }

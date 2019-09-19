@@ -9,10 +9,10 @@
 #include "routing/turns.hpp"
 #include "routing/turns_sound_settings.hpp"
 
-#include "std/cmath.hpp"
-#include "std/function.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <cmath>
+#include <functional>
+#include <string>
+#include <vector>
 
 namespace location
 {
@@ -173,18 +173,18 @@ namespace location
     //@}
     int m_time;
     // m_lanes contains lane information on the edge before the turn.
-    vector<SingleLaneInfoClient> m_lanes;
+    std::vector<SingleLaneInfoClient> m_lanes;
     // m_turnNotifications contains information about the next turn notifications.
     // If there is nothing to pronounce m_turnNotifications is empty.
     // If there is something to pronounce the size of m_turnNotifications may be one or even more
     // depends on the number of notifications to prononce.
-    vector<string> m_turnNotifications;
+    std::vector<std::string> m_turnNotifications;
     // Current street name.
-    string m_sourceName;
+    std::string m_sourceName;
     // The next street name.
-    string m_targetName;
+    std::string m_targetName;
     // Street name to display. May be empty.
-    string m_displayedStreetName;
+    std::string m_displayedStreetName;
 
     // Percentage of the route completion.
     double m_completionPercent;
@@ -242,6 +242,6 @@ namespace location
     FollowAndRotate
   };
 
-  using TMyPositionModeChanged = function<void (location::EMyPositionMode, bool)>;
+  using TMyPositionModeChanged = std::function<void(location::EMyPositionMode, bool)>;
 
 } // namespace location

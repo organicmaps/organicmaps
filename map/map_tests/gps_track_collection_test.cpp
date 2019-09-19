@@ -4,11 +4,13 @@
 
 #include "base/logging.hpp"
 
+#include <chrono>
 #include <ctime>
 #include <map>
 #include <utility>
 
 using namespace std;
+using namespace std::chrono;
 
 namespace
 {

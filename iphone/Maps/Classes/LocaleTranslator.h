@@ -1,10 +1,10 @@
 #pragma once
 
-#include "std/string.hpp"
+#include <string>
 
 namespace locale_translator
 {
 
-string bcp47ToTwineLanguage(NSString const * bcp47LangName);
+std::string bcp47ToTwineLanguage(NSString const * bcp47LangName);
 
 } // namespace tts

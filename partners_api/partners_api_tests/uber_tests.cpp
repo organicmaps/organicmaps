@@ -6,12 +6,15 @@
 
 #include "platform/platform.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/atomic.hpp"
-#include "std/mutex.hpp"
+#include <algorithm>
+#include <atomic>
+#include <mutex>
+#include <string>
+#include <vector>
 
 #include "3party/jansson/myjansson.hpp"
 
+using namespace std;
 using namespace taxi;
 
 namespace

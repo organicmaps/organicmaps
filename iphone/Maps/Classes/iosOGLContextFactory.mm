@@ -45,7 +45,7 @@ bool iosOGLContextFactory::IsUploadContextCreated() const
 
 void iosOGLContextFactory::SetPresentAvailable(bool available)
 {
-  lock_guard<mutex> lock(m_initializationMutex);
+  std::lock_guard<std::mutex> lock(m_initializationMutex);
   m_presentAvailable = available;
   if (m_isInitialized)
   {
@@ -60,7 +60,7 @@ void iosOGLContextFactory::SetPresentAvailable(bool available)
 
 void iosOGLContextFactory::WaitForInitialization(dp::GraphicsContext * context)
 {
-  unique_lock<mutex> lock(m_initializationMutex);
+  std::unique_lock<std::mutex> lock(m_initializationMutex);
   if (!m_isInitialized)
   {
     m_initializationCounter++;

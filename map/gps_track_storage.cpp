@@ -3,11 +3,13 @@
 #include "coding/endianness.hpp"
 #include "coding/internal/file_data.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cstring.hpp"
-
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+
+#include <algorithm>
+#include <cstring>
+
+using namespace std;
 
 namespace
 {

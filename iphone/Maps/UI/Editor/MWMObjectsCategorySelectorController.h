@@ -1,6 +1,6 @@
 #import "MWMViewController.h"
 
-#include "std/string.hpp"
+#include <string>
 
 namespace osm
 {
@@ -17,6 +17,6 @@ class EditableMapObject;
 
 @property (weak, nonatomic) id<MWMObjectsCategorySelectorDelegate> delegate;
 
-- (void)setSelectedCategory:(string const &)type;
+- (void)setSelectedCategory:(std::string const &)type;
 
 @end

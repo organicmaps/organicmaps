@@ -1,11 +1,12 @@
 #include "map/benchmark_tool/api.hpp"
 
-#include "std/iostream.hpp"
-#include "std/numeric.hpp"
-#include "std/algorithm.hpp"
-#include "std/iomanip.hpp"
-#include "std/iterator.hpp"
+#include <algorithm>
+#include <iomanip>
+#include <iostream>
+#include <iterator>
+#include <numeric>
 
+using namespace std;
 
 namespace bench
 {

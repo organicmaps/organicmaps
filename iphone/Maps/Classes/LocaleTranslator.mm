@@ -3,10 +3,10 @@
 namespace locale_translator
 {
 
-string bcp47ToTwineLanguage(NSString const * bcp47LangName)
+std::string bcp47ToTwineLanguage(NSString const * bcp47LangName)
 {
   if (bcp47LangName == nil || [bcp47LangName length] < 2)
-    return string();
+    return {};
 
   if ([bcp47LangName isEqualToString:@"zh-CN"] || [bcp47LangName isEqualToString:@"zh-CHS"]
       || [bcp47LangName isEqualToString:@"zh-SG"])

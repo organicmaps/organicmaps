@@ -7,15 +7,16 @@
 #include "indexer/cuisines.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
+#include <utility>
 
 namespace
 {
 NSString * const kCuisineEditorCell = @"MWMCuisineEditorTableViewCell";
 /// @returns pair.first in a separate vector.
-vector<string> SliceKeys(vector<pair<string, string>> const & v)
+std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::string>> const & v)
 {
-  vector<string> res;
+  std::vector<std::string> res;
   for (auto const & kv : v)
     res.push_back(kv.first);
   return res;
@@ -25,9 +26,9 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 @interface MWMCuisineEditorViewController ()<UISearchBarDelegate, MWMKeyboardObserver>
 {
   osm::AllCuisines m_allCuisines;
-  vector<string> m_selectedCuisines;
-  vector<string> m_displayedKeys;
-  vector<string> m_untranslatedKeys;
+  std::vector<std::string> m_selectedCuisines;
+  std::vector<std::string> m_displayedKeys;
+  std::vector<std::string> m_untranslatedKeys;
 }
 
 @property(weak, nonatomic) IBOutlet UITableView * tableView;
@@ -71,7 +72,7 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   if (searchText.length)
   {
     self.isSearch = YES;
-    string const st = searchText.UTF8String;
+    std::string const st = searchText.UTF8String;
     for (auto const & kv : m_allCuisines)
       if (search::ContainsNormalized(kv.second, st))
         m_displayedKeys.push_back(kv.first);
@@ -153,7 +154,7 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   m_selectedCuisines = [self.delegate selectedCuisines];
   for (auto const & s : m_selectedCuisines)
   {
-    string const translated = Cuisines::Instance().Translate(s);
+    std::string const translated = Cuisines::Instance().Translate(s);
     if (translated.empty())
       m_untranslatedKeys.push_back(s);
   }
@@ -178,12 +179,12 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 
 #pragma mark - MWMCuisineEditorTableViewCellProtocol
 
-- (void)change:(string const &)key selected:(BOOL)selected
+- (void)change:(std::string const &)key selected:(BOOL)selected
 {
   if (selected)
     m_selectedCuisines.push_back(key);
   else
-    m_selectedCuisines.erase(find(m_selectedCuisines.begin(), m_selectedCuisines.end(), key));
+    m_selectedCuisines.erase(std::find(m_selectedCuisines.begin(), m_selectedCuisines.end(), key));
 }
 
 #pragma mark - UITableViewDataSource
@@ -196,10 +197,10 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   NSInteger const index = indexPath.row;
 
   auto const & dataSource = [self dataSourceForSection:indexPath.section];
-  string const & key = dataSource[index];
+  std::string const & key = dataSource[index];
   if (dataSource == m_displayedKeys)
   {
-    string const translated = osm::Cuisines::Instance().Translate(m_displayedKeys[index]);
+    std::string const translated = osm::Cuisines::Instance().Translate(m_displayedKeys[index]);
     NSAssert(!translated.empty(), @"There are only localizable keys in m_displayedKeys!");
     cell.textLabel.text = @(translated.c_str());
   }
@@ -209,7 +210,7 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   }
 
   BOOL const selected =
-      find(m_selectedCuisines.begin(), m_selectedCuisines.end(), key) != m_selectedCuisines.end();
+      std::find(m_selectedCuisines.begin(), m_selectedCuisines.end(), key) != m_selectedCuisines.end();
   cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
   return cell;
 }
@@ -224,7 +225,7 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   return [self dataSourceForSection:section].size();
 }
 
-- (vector<string> const &)dataSourceForSection:(NSInteger)section
+- (std::vector<std::string> const &)dataSourceForSection:(NSInteger)section
 {
   if (m_untranslatedKeys.empty())
     return m_displayedKeys;

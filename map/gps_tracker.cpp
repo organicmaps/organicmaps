@@ -5,9 +5,12 @@
 
 #include "base/file_name_utils.hpp"
 
-#include "std/atomic.hpp"
+#include <string>
 
 #include "defines.hpp"
+
+using namespace std;
+using namespace std::chrono;
 
 namespace
 {

@@ -8,14 +8,15 @@
 #include "base/logging.hpp"
 #include "base/thread.hpp"
 
-#include "std/iomanip.hpp"
-#include "std/sstream.hpp"
+#include <iomanip>
+#include <memory>
+#include <sstream>
+#include <string>
 
 #include "3party/jansson/myjansson.hpp"
 
 #include "private.h"
 
-#include <memory>
 
 using namespace platform;
 
@@ -128,8 +129,8 @@ string const kProductsUrl = "https://api.uber.com/v1/products";
 bool RawApi::GetProducts(ms::LatLon const & pos, string & result,
                          std::string const & baseUrl /* = kProductsUrl */)
 {
-  ostringstream url;
-  url << fixed << setprecision(6) << baseUrl << "?server_token=" << UBER_SERVER_TOKEN
+  std::ostringstream url;
+  url << std::fixed << std::setprecision(6) << baseUrl << "?server_token=" << UBER_SERVER_TOKEN
       << "&latitude=" << pos.m_lat << "&longitude=" << pos.m_lon;
 
   return RunSimpleHttpRequest(url.str(), result);
@@ -139,8 +140,8 @@ bool RawApi::GetProducts(ms::LatLon const & pos, string & result,
 bool RawApi::GetEstimatedTime(ms::LatLon const & pos, string & result,
                               std::string const & baseUrl /* = kEstimatesUrl */)
 {
-  ostringstream url;
-  url << fixed << setprecision(6) << baseUrl << "/time?server_token=" << UBER_SERVER_TOKEN
+  std::ostringstream url;
+  url << std::fixed << std::setprecision(6) << baseUrl << "/time?server_token=" << UBER_SERVER_TOKEN
       << "&start_latitude=" << pos.m_lat << "&start_longitude=" << pos.m_lon;
 
   return RunSimpleHttpRequest(url.str(), result);
@@ -150,10 +151,11 @@ bool RawApi::GetEstimatedTime(ms::LatLon const & pos, string & result,
 bool RawApi::GetEstimatedPrice(ms::LatLon const & from, ms::LatLon const & to, string & result,
                                std::string const & baseUrl /* = kEstimatesUrl */)
 {
-  ostringstream url;
-  url << fixed << setprecision(6) << baseUrl << "/price?server_token=" << UBER_SERVER_TOKEN
-      << "&start_latitude=" << from.m_lat << "&start_longitude=" << from.m_lon
-      << "&end_latitude=" << to.m_lat << "&end_longitude=" << to.m_lon;
+  std::ostringstream url;
+  url << std::fixed << std::setprecision(6) << baseUrl
+      << "/price?server_token=" << UBER_SERVER_TOKEN << "&start_latitude=" << from.m_lat
+      << "&start_longitude=" << from.m_lon << "&end_latitude=" << to.m_lat
+      << "&end_longitude=" << to.m_lon;
 
   return RunSimpleHttpRequest(url.str(), result);
 }
@@ -275,14 +277,14 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
   });
 }
 
-RideRequestLinks Api::GetRideRequestLinks(string const & productId, ms::LatLon const & from,
+RideRequestLinks Api::GetRideRequestLinks(std::string const & productId, ms::LatLon const & from,
                                           ms::LatLon const & to) const
 {
-  stringstream url;
-  url << fixed << setprecision(6)
-      << "?client_id=" << UBER_CLIENT_ID << "&action=setPickup&product_id=" << productId
-      << "&pickup[latitude]=" << from.m_lat << "&pickup[longitude]=" << from.m_lon
-      << "&dropoff[latitude]=" << to.m_lat << "&dropoff[longitude]=" << to.m_lon;
+  std::stringstream url;
+  url << std::fixed << std::setprecision(6) << "?client_id=" << UBER_CLIENT_ID
+      << "&action=setPickup&product_id=" << productId << "&pickup[latitude]=" << from.m_lat
+      << "&pickup[longitude]=" << from.m_lon << "&dropoff[latitude]=" << to.m_lat
+      << "&dropoff[longitude]=" << to.m_lon;
 
   return {"uber://" + url.str(), "https://m.uber.com/ul" + url.str()};
 }

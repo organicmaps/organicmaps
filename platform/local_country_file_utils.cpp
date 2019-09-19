@@ -13,14 +13,16 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cctype.hpp"
-#include "std/regex.hpp"
-#include "std/sstream.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/unordered_set.hpp"
+#include <algorithm>
+#include <cctype>
+#include <memory>
+#include <regex>
+#include <sstream>
+#include <unordered_set>
 
 #include "defines.hpp"
+
+using namespace std;
 
 namespace platform
 {

@@ -5,10 +5,10 @@
 #include "base/exception.hpp"
 #include "base/macros.hpp"
 
-#include "std/fstream.hpp"
-#include "std/function.hpp"
-#include "std/limits.hpp"
-#include "std/string.hpp"
+#include <fstream>
+#include <functional>
+#include <string>
+#include <vector>
 
 class GpsTrackStorage final
 {
@@ -23,12 +23,12 @@ public:
   /// @param filePath - path to the file on disk
   /// @param maxItemCount - max number of items in recycling file
   /// @exception OpenException if seek fails.
-  GpsTrackStorage(string const & filePath, size_t maxItemCount);
+  GpsTrackStorage(std::string const & filePath, size_t maxItemCount);
 
   /// Appends new point to the storage
   /// @param items - collection of gps track points.
   /// @exceptions WriteException if write fails or ReadException if read fails.
-  void Append(vector<TItem> const & items);
+  void Append(std::vector<TItem> const & items);
 
   /// Removes all data from the storage
   /// @exceptions WriteException if write fails.
@@ -45,9 +45,9 @@ private:
   void TruncFile();
   size_t GetFirstItemIndex() const;
 
-  string const m_filePath;
+  std::string const m_filePath;
   size_t const m_maxItemCount;
-  fstream m_stream;
+  std::fstream m_stream;
   size_t m_itemCount; // current number of items in file, read note
 
   // NOTE

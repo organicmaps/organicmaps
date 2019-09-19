@@ -30,7 +30,7 @@ NSString * breaksFromClosedTime(TTimespans const & closedTimes)
   return [breaks copy];
 }
 
-void addToday(ui::TimeTable const & tt, vector<Day> & allDays)
+void addToday(ui::TimeTable const & tt, std::vector<Day> & allDays)
 {
   NSString * workingDays;
   NSString * workingTimes;
@@ -53,12 +53,12 @@ void addToday(ui::TimeTable const & tt, vector<Day> & allDays)
   allDays.emplace(allDays.begin(), workingDays, workingTimes, breaks);
 }
 
-void addClosedToday(vector<Day> & allDays)
+void addClosedToday(std::vector<Day> & allDays)
 {
   allDays.emplace(allDays.begin(), L(@"day_off_today"));
 }
 
-void addDay(ui::TimeTable const & tt, vector<Day> & allDays)
+void addDay(ui::TimeTable const & tt, std::vector<Day> & allDays)
 {
   NSString * workingDays = stringFromOpeningDays(tt.GetOpeningDays());
   NSString * workingTimes;
@@ -75,7 +75,7 @@ void addDay(ui::TimeTable const & tt, vector<Day> & allDays)
   allDays.emplace_back(workingDays, workingTimes, breaks);
 }
 
-void addUnhandledDays(ui::OpeningDays const & days, vector<Day> & allDays)
+void addUnhandledDays(ui::OpeningDays const & days, std::vector<Day> & allDays)
 {
   if (!days.empty())
     allDays.emplace_back(stringFromOpeningDays(days));
@@ -85,14 +85,14 @@ void addUnhandledDays(ui::OpeningDays const & days, vector<Day> & allDays)
 
 @implementation MWMOpeningHours
 
-+ (vector<Day>)processRawString:(NSString *)str
++ (std::vector<Day>)processRawString:(NSString *)str
 {
   ui::TimeTableSet timeTableSet;
   osmoh::OpeningHours oh(str.UTF8String);
   if (!MakeTimeTableSet(oh, timeTableSet))
     return {};
 
-  vector<Day> days;
+  std::vector<Day> days;
 
   NSCalendar * cal = NSCalendar.currentCalendar;
   cal.locale = NSLocale.currentLocale;

@@ -7,10 +7,15 @@
 #include "base/logging.hpp"
 
 #include "std/windows.hpp"
-#include "std/cstdio.hpp"
+
+#include <cstdio>
+#include <string>
+#include <vector>
 
 #include <winsock2.h>
 #include <iphlpapi.h>
+
+using namespace std;
 
 bool GatewaysInfo(vector<WiFiInfo::AccessPoint> & out)
 {

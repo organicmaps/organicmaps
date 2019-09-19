@@ -5,8 +5,6 @@
 #include "base/assert.hpp"
 #include "base/exception.hpp"
 
-#include "std/shared_array.hpp"
-
 #include <cstddef>
 #include <cstdint>
 #include <cstring>

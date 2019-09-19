@@ -217,7 +217,7 @@ bool Router::Init(std::vector<WayPoint> const & points, double positiveOffsetM,
 bool Router::FindPath(std::vector<routing::Edge> & path)
 {
   using State = std::pair<Vertex::Score, Vertex>;
-  std::priority_queue<State, std::vector<State>, greater<State>> queue;
+  std::priority_queue<State, std::vector<State>, std::greater<State>> queue;
   std::map<Vertex, Vertex::Score> scores;
   Links links;
 

@@ -11,9 +11,11 @@
 
 #include "base/string_format.hpp"
 
-#include "std/random.hpp"
-#include "std/sstream.hpp"
+#include <random>
+#include <sstream>
+#include <string>
 
+using namespace std;
 using namespace url_scheme;
 
 namespace

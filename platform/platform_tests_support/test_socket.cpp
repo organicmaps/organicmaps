@@ -2,8 +2,11 @@
 
 #include "base/assert.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/chrono.hpp"
+#include <algorithm>
+#include <chrono>
+
+using namespace std;
+using namespace std::chrono;
 
 namespace platform
 {

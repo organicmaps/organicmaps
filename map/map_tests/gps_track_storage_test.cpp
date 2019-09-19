@@ -12,7 +12,12 @@
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
-#include "std/chrono.hpp"
+#include <chrono>
+#include <string>
+#include <vector>
+
+using namespace std;
+using namespace std::chrono;
 
 namespace
 {

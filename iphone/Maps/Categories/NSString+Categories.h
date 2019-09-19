@@ -1,4 +1,4 @@
-#include "std/vector.hpp"
+#include <vector>
 
 @interface NSString (MapsMeSize)
 
@@ -8,6 +8,6 @@
 
 @interface NSString (MapsMeRanges)
 
-- (vector<NSRange>)rangesOfString:(NSString *)aString;
+- (std::vector<NSRange>)rangesOfString:(NSString *)aString;
 
 @end

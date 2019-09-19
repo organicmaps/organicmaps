@@ -12,9 +12,9 @@
 
 @implementation NSString (MapsMeRanges)
 
-- (vector<NSRange>)rangesOfString:(NSString *)aString
+- (std::vector<NSRange>)rangesOfString:(NSString *)aString
 {
-  vector<NSRange> r;
+  std::vector<NSRange> r;
   if (self.length == 0)
     return r;
 

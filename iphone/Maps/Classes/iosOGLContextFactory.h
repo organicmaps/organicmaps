@@ -5,8 +5,8 @@
 #include "drape/graphics_context_factory.hpp"
 #include "drape/drape_global.hpp"
 
-#include "std/condition_variable.hpp"
-#include "std/mutex.hpp"
+#include <condition_variable>
+#include <mutex>
 
 class iosOGLContextFactory: public dp::GraphicsContextFactory
 {
@@ -33,6 +33,6 @@ private:
   bool m_isInitialized;
   size_t m_initializationCounter;
   bool m_presentAvailable;
-  condition_variable m_initializationCondition;
-  mutex m_initializationMutex;
+  std::condition_variable m_initializationCondition;
+  std::mutex m_initializationMutex;
 };

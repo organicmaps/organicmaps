@@ -1,5 +1,4 @@
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <vector>
 
 namespace osmoh
 {
@@ -27,6 +26,6 @@ struct Day
 
 @interface MWMOpeningHours : NSObject
 
-+ (vector<osmoh::Day>)processRawString:(NSString *)str;
++ (std::vector<osmoh::Day>)processRawString:(NSString *)str;
 
 @end

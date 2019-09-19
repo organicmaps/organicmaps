@@ -3,7 +3,10 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
+
+using namespace std;
+using namespace std::chrono;
 
 namespace
 {

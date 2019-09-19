@@ -14,7 +14,7 @@
 // folder.
 #import "private.h"
 
-#include "std/string.hpp"
+#include <string>
 
 namespace
 {

@@ -1,8 +1,8 @@
 #import "MWMCircularProgress+Swift.h"
 
-#include "std/vector.hpp"
+#include <vector>
 
-using MWMCircularProgressStateVec = vector<MWMCircularProgressState>;
+using MWMCircularProgressStateVec = std::vector<MWMCircularProgressState>;
 
 @interface MWMCircularProgress ()
 

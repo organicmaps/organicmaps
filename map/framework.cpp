@@ -119,6 +119,7 @@
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
+using namespace std::chrono;
 using namespace storage;
 using namespace routing;
 using namespace location;

@@ -1,6 +1,7 @@
 #pragma once
+#include "base/macros.hpp"
+
 #include "std/target_os.hpp"
-#include "std/noncopyable.hpp"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wignored-qualifiers"
@@ -16,7 +17,6 @@ using namespace Tizen::Net::Http;
 class HttpThread
     : public Tizen::Net::Http::IHttpTransactionEventListener
     , public Tizen::Net::Http::IHttpProgressEventListener
-    , noncopyable
 {
 public:
 
@@ -74,4 +74,6 @@ private:
 
   HttpSession * m_pSession;
   HttpTransaction* m_pTransaction;
+
+  DISALLOW_COPY(HttpThread);
 };
