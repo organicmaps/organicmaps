@@ -12,7 +12,7 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/features_vector.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/reader.hpp"

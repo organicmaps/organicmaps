@@ -29,14 +29,14 @@ set(
   diff.hpp
   elias_coder.hpp
   endianness.hpp
-  file_container.cpp
-  file_container.hpp
   file_container_writers.hpp
   file_reader.cpp
   file_reader.hpp
   file_sort.hpp
   file_writer.cpp
   file_writer.hpp
+  files_container.cpp
+  files_container.hpp
   fixed_bits_ddvector.hpp
   geometry_coding.cpp
   geometry_coding.hpp

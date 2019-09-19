@@ -11,7 +11,7 @@
 #include "search/localities_source.hpp"
 #include "search/mwm_context.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 #include "coding/file_writer.hpp"
 
 #include "base/cancellable.hpp"

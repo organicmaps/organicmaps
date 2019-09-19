@@ -5,7 +5,7 @@
 
 #include "indexer/classificator.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 #include "coding/read_write_utils.hpp"
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"

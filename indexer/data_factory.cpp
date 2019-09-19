@@ -1,6 +1,6 @@
 #include "indexer/data_factory.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 
 #include "defines.hpp"
 

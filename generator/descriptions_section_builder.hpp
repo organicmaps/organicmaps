@@ -6,7 +6,7 @@
 #include "indexer/feature_processor.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/string_utf8_multilang.hpp"
 

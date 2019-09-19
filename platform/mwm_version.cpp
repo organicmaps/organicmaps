@@ -1,6 +1,6 @@
 #include "mwm_version.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 #include "coding/reader_wrapper.hpp"
 #include "coding/varint.hpp"
 #include "coding/writer.hpp"

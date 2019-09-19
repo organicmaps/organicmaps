@@ -11,9 +11,9 @@ set(
   diff_test.cpp
   elias_coder_test.cpp
   endianness_test.cpp
-  file_container_test.cpp
   file_data_test.cpp
   file_sort_test.cpp
+  files_container_tests.cpp
   fixed_bits_ddvector_test.cpp
   geometry_coding_test.cpp
   hex_test.cpp

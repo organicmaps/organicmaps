@@ -446,9 +446,9 @@
 			<locationURI>PARENT-2-ECLIPSE_HOME/GitHub/omim/coding/coding_tests/endianness_test.cpp</locationURI>
 		</link>
 		<link>
-			<name>src/Tests/coding/file_container_test.cpp</name>
+			<name>src/Tests/coding/files_container_test.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-2-ECLIPSE_HOME/GitHub/omim/coding/coding_tests/file_container_test.cpp</locationURI>
+			<locationURI>PARENT-2-ECLIPSE_HOME/GitHub/omim/coding/coding_tests/files_container_test.cpp</locationURI>
 		</link>
 		<link>
 			<name>src/Tests/coding/file_data_test.cpp</name>

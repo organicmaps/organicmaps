@@ -11,7 +11,7 @@
 
 #include "indexer/data_source.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 
 #include "base/assert.hpp"
 #include "base/timer.hpp"

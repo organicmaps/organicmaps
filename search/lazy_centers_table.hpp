@@ -2,7 +2,7 @@
 
 #include "indexer/centers_table.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 
 #include "geometry/point2d.hpp"
 

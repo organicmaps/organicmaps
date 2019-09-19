@@ -15,7 +15,7 @@
 #include "platform/local_country_file.hpp"
 #include "platform/platform.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 #include "coding/reader.hpp"
 
 #include "base/assert.hpp"

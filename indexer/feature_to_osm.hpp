@@ -3,7 +3,7 @@
 #include "indexer/data_source.hpp"
 #include "indexer/feature_decl.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 #include "coding/map_uint32_to_val.hpp"
 #include "coding/reader.hpp"
 #include "coding/succinct_mapper.hpp"

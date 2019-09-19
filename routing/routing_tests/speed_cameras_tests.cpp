@@ -5,7 +5,7 @@
 #include "platform/platform_tests_support/scoped_file.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 

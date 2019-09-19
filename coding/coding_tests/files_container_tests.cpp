@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 #include "coding/varint.hpp"
 
 #include "base/logging.hpp"
@@ -15,7 +15,7 @@ using namespace std;
 
 UNIT_TEST(FilesContainer_Smoke)
 {
-  string const fName = "file_container.tmp";
+  string const fName = "files_container.tmp";
   FileWriter::DeleteFileX(fName);
   size_t const count = 10;
 
@@ -85,7 +85,7 @@ namespace
 
 UNIT_TEST(FilesContainer_Shared)
 {
-  string const fName = "file_container.tmp";
+  string const fName = "files_container.tmp";
   FileWriter::DeleteFileX(fName);
 
   uint32_t const count = 10;
@@ -173,7 +173,7 @@ namespace
 
 UNIT_TEST(FilesContainer_RewriteExisting)
 {
-  string const fName = "file_container.tmp";
+  string const fName = "files_container.tmp";
   FileWriter::DeleteFileX(fName);
 
   char const * key[] = { "3", "2", "1" };
@@ -213,7 +213,7 @@ UNIT_TEST(FilesContainer_RewriteExisting)
 
 UNIT_TEST(FilesMappingContainer_Handle)
 {
-  string const fName = "file_container.tmp";
+  string const fName = "files_container.tmp";
   string const tag = "dummy";
 
   {
@@ -254,7 +254,7 @@ UNIT_TEST(FilesMappingContainer_MoveHandle)
     FilesMappingContainer::Handle m_handle;
   };
 
-  string const containerPath = "file_container.tmp";
+  string const containerPath = "files_container.tmp";
   string const tagName = "dummy";
 
   SCOPE_GUARD(deleteContainerFileGuard, bind(&FileWriter::DeleteFileX, cref(containerPath)));
@@ -285,7 +285,7 @@ UNIT_TEST(FilesMappingContainer_MoveHandle)
 
 UNIT_TEST(FilesMappingContainer_Smoke)
 {
-  string const fName = "file_container.tmp";
+  string const fName = "files_container.tmp";
   char const * key[] = { "3", "2", "1" };
   uint32_t const count = 1000000;
 
@@ -327,7 +327,7 @@ UNIT_TEST(FilesMappingContainer_Smoke)
 
 UNIT_TEST(FilesMappingContainer_PageSize)
 {
-  string const fName = "file_container.tmp";
+  string const fName = "files_container.tmp";
 
   size_t const pageSize =
 #ifndef OMIM_OS_WINDOWS

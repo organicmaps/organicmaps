@@ -2,7 +2,7 @@
 
 #include "indexer/data_header.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 #include "coding/geometry_coding.hpp"
 
 #include "base/macros.hpp"

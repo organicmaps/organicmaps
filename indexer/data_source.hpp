@@ -10,7 +10,7 @@
 #include "indexer/scale_index.hpp"
 #include "indexer/unique_index.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 
 #include "base/macros.hpp"
 

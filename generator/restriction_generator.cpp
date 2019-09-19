@@ -10,7 +10,7 @@
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 #include "coding/file_writer.hpp"
 
 #include "base/checked_cast.hpp"

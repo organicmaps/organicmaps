@@ -4,7 +4,7 @@
 
 #include "indexer/mwm_set.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 #include "coding/memory_region.hpp"
 #include "coding/reader.hpp"
 #include "coding/simple_dense_coding.hpp"

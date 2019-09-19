@@ -17,7 +17,7 @@
 #include "platform/country_defines.hpp"
 #include "platform/local_country_file.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 #include "coding/mmap_reader.hpp"
 #include "coding/reader.hpp"
 

@@ -30,7 +30,7 @@
 #include "drape/support_manager.hpp"
 #include "drape/visual_scale.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 
 #include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"

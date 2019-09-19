@@ -22,7 +22,7 @@
 #include "platform/country_file.hpp"
 #include "platform/mwm_version.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/point_coding.hpp"
 

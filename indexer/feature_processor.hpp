@@ -3,7 +3,7 @@
 #include "indexer/features_vector.hpp"
 
 #include "coding/file_reader.hpp"
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 
 #include <memory>
 #include <string>

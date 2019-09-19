@@ -6,7 +6,7 @@
 #include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 
-#include "coding/file_container.hpp"
+#include "coding/files_container.hpp"
 #include "coding/reader_wrapper.hpp"
 #include "coding/varint.hpp"
 
