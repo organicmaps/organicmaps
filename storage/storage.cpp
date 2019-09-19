@@ -819,12 +819,6 @@ void Storage::OnMapFileDownloadFinished(HttpRequest::Status status,
   QueuedCountry & queuedCountry = m_queue.front();
   CountryId const countryId = queuedCountry.GetCountryId();
 
-  if (success && queuedCountry.SwitchToNextFile())
-  {
-    DownloadNextFile(queuedCountry);
-    return;
-  }
-
   // Send statistics to PushWoosh. We send these statistics only for the newly downloaded
   // mwms, not for updated ones.
   if (success && queuedCountry.GetInitOptions() != MapOptions::Diff)
