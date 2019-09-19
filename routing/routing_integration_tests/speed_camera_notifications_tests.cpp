@@ -320,25 +320,15 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_7)
       TEST(!CheckBeepSignal(routingSession), ());
     }
 
-    // Intermediate Move for correct calculating of passedDistance.
-    {
-      double const speedKmPH = 40.0;
-      ChangePosition({55.76559, 37.59016}, speedKmPH, routingSession);
-      TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::VoiceNotificationZone, ());
-      TEST(!CheckVoiceNotification(routingSession), ());
-      TEST(!CheckBeepSignal(routingSession), ());
-    }
-
-    // No exceed speed limit in beep zone, but we did VoiceNotification earlier,
+    // No exceed speed limit in beep zone, we did no VoiceNotification,
     // so now we make BeedSignal.
     {
       double const speedKmPH = 40.0;
-      ChangePosition({55.76527, 37.58970}, speedKmPH, routingSession);
+      ChangePosition({55.76559, 37.59016}, speedKmPH, routingSession);
       TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::BeepSignalZone, ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(CheckBeepSignal(routingSession), ());
     }
-
   }
 }
 
