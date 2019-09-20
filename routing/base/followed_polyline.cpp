@@ -149,7 +149,7 @@ FollowedPolyline::UpdatedProjectionInfo FollowedPolyline::UpdateMatchedProjectio
   ASSERT(m_current.IsValid(), ());
   ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
 
-  auto res = GetBestMatchedProjection(posRect);
+  auto const res = GetBestMatchedProjection(posRect);
 
   if (res.m_iter.IsValid())
     m_current = res.m_iter;
