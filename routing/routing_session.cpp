@@ -15,7 +15,6 @@
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
-
 using namespace location;
 using namespace std;
 using namespace traffic;
@@ -291,7 +290,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
 
   m_turnNotificationsMgr.SetSpeedMetersPerSecond(info.m_speedMpS);
 
-  auto iteratorAction = m_route->MoveIteratorToReal(info);
+  auto const iteratorAction = m_route->MoveIteratorToReal(info);
 
   if (iteratorAction.m_movedIterator)
   {
@@ -323,7 +322,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     return m_state;
   }
 
-  if(!iteratorAction.m_closerToFake)
+  if (!iteratorAction.m_closerToFake)
   {
     // Distance from the last known projection on route
     // (check if we are moving far from the last known projection).

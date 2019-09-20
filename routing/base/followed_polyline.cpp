@@ -135,7 +135,7 @@ FollowedPolyline::UpdatedProjection FollowedPolyline::GetBestMatchedProjection(m
   // enough to |posRect| center. If |m_current| is right before intermediate point we can get |closestIter|
   // right after intermediate point (in next subroute).
   size_t const hoppingBorderIdx = min(m_segProj.size(), m_current.m_ind + 3);
-  auto res = GetClosestMatchedProjectionInInterval(posRect, m_current.m_ind, hoppingBorderIdx);
+  auto const res = GetClosestMatchedProjectionInInterval(posRect, m_current.m_ind, hoppingBorderIdx);
   if (res.m_iter.IsValid() || res.m_closerToUnmatched)
     return UpdatedProjection{res.m_iter, res.m_closerToUnmatched};
 
@@ -246,6 +246,6 @@ FollowedPolyline::UpdatedProjection FollowedPolyline::GetClosestMatchedProjectio
         minDistUnmatched = dp;
     }
   }
-  return UpdatedProjection{nearestIter /* m_iter */, minDistUnmatched < minDist /* m_closerToUnmatched */};
+  return UpdatedProjection{nearestIter, minDistUnmatched < minDist /* m_closerToUnmatched */};
 }
 }  //  namespace routing

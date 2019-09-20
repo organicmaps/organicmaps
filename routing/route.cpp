@@ -255,7 +255,7 @@ Route::MovedIteratorInfo Route::MoveIteratorToReal(location::GpsInfo const & inf
   m2::RectD const rect = MercatorBounds::MetersToXY(
       info.m_longitude, info.m_latitude,
       max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
-  auto resUpdate = m_poly.UpdateMatchedProjection(rect);
+  auto const resUpdate = m_poly.UpdateMatchedProjection(rect);
   return MovedIteratorInfo{resUpdate.m_updatedProjection, resUpdate.m_closerToUnmatched};
 }
 
