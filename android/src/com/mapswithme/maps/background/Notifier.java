@@ -151,7 +151,7 @@ public final class Notifier
 
     return new NotificationCompat.Builder(mContext, channel)
         .setAutoCancel(true)
-        .setSmallIcon(R.drawable.ic_notification)
+        .setSmallIcon(R.drawable.pw_notification)
         .setColor(mContext.getResources().getColor(R.color.base_accent))
         .setContentTitle(title)
         .setContentText(content)

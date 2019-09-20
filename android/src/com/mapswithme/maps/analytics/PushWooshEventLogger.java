@@ -1,14 +1,17 @@
 package com.mapswithme.maps.analytics;
 
 import android.app.Application;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.R;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.PushwooshHelper;
 import com.pushwoosh.Pushwoosh;
+import com.pushwoosh.notification.PushwooshNotificationSettings;
 
 class PushWooshEventLogger extends DefaultEventLogger
 {
@@ -31,6 +34,9 @@ class PushWooshEventLogger extends DefaultEventLogger
       if (BuildConfig.PW_APPID.equals(PW_EMPTY_APP_ID))
         return;
 
+      @ColorInt
+      int color = getApplication().getResources().getColor(R.color.base_accent);
+      PushwooshNotificationSettings.setNotificationIconBackgroundColor(color);
       Pushwoosh pushManager = Pushwoosh.getInstance();
       pushManager.registerForPushNotifications();
       mPushwooshHelper = new PushwooshHelper();
