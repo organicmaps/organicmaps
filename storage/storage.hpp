@@ -605,9 +605,6 @@ private:
   void SaveDownloadQueue();
   void RestoreDownloadQueue();
 
-  Status CountryStatusWithoutFailed(CountryId const & countryId) const;
-  Status CountryStatusFull(CountryId const & countryId, Status const status) const;
-
   // Modifies file set of file to deletion - always adds (marks for
   // removal) a routing file when map file is marked for deletion.
   MapOptions NormalizeDeleteFileSet(MapOptions options) const;

@@ -474,7 +474,21 @@ Status Storage::CountryStatus(CountryId const & countryId) const
 
 Status Storage::CountryStatusEx(CountryId const & countryId) const
 {
-  return CountryStatusFull(countryId, CountryStatus(countryId));
+  auto const status = CountryStatus(countryId);
+  if (status != Status::EUnknown)
+    return status;
+
+  LocalFilePtr localFile = GetLatestLocalFile(countryId);
+  if (!localFile || !localFile->OnDisk(MapOptions::Map))
+    return Status::ENotDownloaded;
+
+  CountryFile const & countryFile = GetCountryFile(countryId);
+  if (GetRemoteSize(countryFile, MapOptions::Map, GetCurrentDataVersion()) == 0)
+    return Status::EUnknown;
+
+  if (localFile->GetVersion() != GetCurrentDataVersion())
+    return Status::EOnDiskOutOfDate;
+  return Status::EOnDisk;
 }
 
 void Storage::CountryStatusEx(CountryId const & countryId, Status & status,
@@ -1082,32 +1096,6 @@ void Storage::GetOutdatedCountries(vector<Country const *> & countries) const
       countries.push_back(&CountryLeafByCountryId(countryId));
     }
   }
-}
-
-Status Storage::CountryStatusWithoutFailed(CountryId const & countryId) const
-{
-  // First, check if we already downloading this country or have in in the queue.
-  if (!IsCountryInQueue(countryId))
-    return CountryStatusFull(countryId, Status::EUnknown);
-  return IsCountryFirstInQueue(countryId) ? Status::EDownloading : Status::EInQueue;
-}
-
-Status Storage::CountryStatusFull(CountryId const & countryId, Status const status) const
-{
-  if (status != Status::EUnknown)
-    return status;
-
-  LocalFilePtr localFile = GetLatestLocalFile(countryId);
-  if (!localFile || !localFile->OnDisk(MapOptions::Map))
-    return Status::ENotDownloaded;
-
-  CountryFile const & countryFile = GetCountryFile(countryId);
-  if (GetRemoteSize(countryFile, MapOptions::Map, GetCurrentDataVersion()) == 0)
-    return Status::EUnknown;
-
-  if (localFile->GetVersion() != GetCurrentDataVersion())
-    return Status::EOnDiskOutOfDate;
-  return Status::EOnDisk;
 }
 
 // @TODO(bykoianko) This method does nothing and should be removed.
