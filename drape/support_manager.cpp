@@ -120,7 +120,8 @@ bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
     Version m_driverVersion;
   };
 
-  static std::vector<std::string> const kBannedDevices = {"PowerVR Rogue GE8100"};
+  static std::vector<std::string> const kBannedDevices = {"PowerVR Rogue GE8100",
+                                                          "PowerVR Rogue GE8300"};
 
   static std::vector<Configuration> const kBannedConfigurations = {
     {"Adreno (TM) 506", {1, 0, 31}, {42, 264, 975}},
