@@ -31,7 +31,9 @@ auto constexpr extraSection = MWMMapDownloaderDataSourceExtraSection::Ads;
 - (void)configAdsSection
 {
   [self removeExtraSection:extraSection];
-  if ([UIColor isNightMode] || !GetFramework().GetStorage().HaveDownloadedCountries())
+  auto & purchase = GetFramework().GetPurchase();
+  bool hasSubscription = purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
+  if ([UIColor isNightMode] || !GetFramework().GetStorage().HaveDownloadedCountries() || hasSubscription)
     return;
   if ([MWMMyTarget manager].bannersCount != 0)
     [self addExtraSection:extraSection];
