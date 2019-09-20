@@ -3,15 +3,15 @@
 
   <!-- What's new -->
   <integer-array name="news_images">
-    <item>@drawable/img_wnew_bookmarks_sort</item>
+    <item>@drawable/img_whats_new_mapboost</item>
   </integer-array>
 
   <string-array name="news_title_keys">
-    <item>whatsnew_bookmarks_search_sort_title</item>
+    <item>whatsnew_map_updates_title</item>
   </string-array>
 
   <string-array name="news_messages_1">
-    <item>@string/whatsnew_bookmarks_search_sort_message</item>
+    <item>@string/whatsnew_map_updates_message</item>
   </string-array>
 
   <string-array name="news_messages_2">
