@@ -2,15 +2,15 @@
 
 #include "coding/writer.hpp"
 #include "coding/internal/file_data.hpp"
+#include "coding/write_to_sink.hpp"
 
 #include "base/assert.hpp"
-#include "base/base.hpp"
+#include "base/macros.hpp"
 
 #include <cstddef>
 #include <cstdint>
 #include <memory>
 #include <string>
-#include <vector>
 
 // FileWriter, not thread safe.
 class FileWriter : public Writer
@@ -78,8 +78,7 @@ private:
     uint64_t const padding = ((offset + factor - 1) / factor) * factor - offset;
     if (padding == 0)
       return;
-    std::vector<uint8_t> buffer(static_cast<size_t>(padding));
-    Write(buffer.data(), buffer.size());
+    WriteZeroesToSink(*this, padding);
   }
 };
 
