@@ -323,7 +323,7 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_7)
     // Intermediate Move for correct calculating of passedDistance.
     {
       double const speedKmPH = 20.0;
-      ChangePosition({ 55.76559, 37.59016}, speedKmPH, routingSession);
+      ChangePosition({55.76559, 37.59016}, speedKmPH, routingSession);
       TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::VoiceNotificationZone, ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());
@@ -333,7 +333,7 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_7)
     // so now we make BeedSignal.
     {
       double const speedKmPH = 40.0;
-      ChangePosition({ 55.765732, 37.590305}, speedKmPH, routingSession);
+      ChangePosition({55.765732, 37.590305}, speedKmPH, routingSession);
       TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::BeepSignalZone, ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(CheckBeepSignal(routingSession), ());
