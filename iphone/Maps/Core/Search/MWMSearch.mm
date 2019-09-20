@@ -118,8 +118,8 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   if (availabilityTaskIt != tasks.end())
   {
     availabilityTaskIt->m_filterParams.m_callback =
-    [self, filterType](shared_ptr<booking::ParamsBase> const & apiParams,
-                        std::vector<FeatureID> const & sortedFeatures)
+    [self, filterType](std::shared_ptr<booking::ParamsBase> const & apiParams,
+                       std::vector<FeatureID> const & sortedFeatures)
     {
       auto & t = self->m_everywhereParams.m_bookingFilterTasks;
       auto const it = t.Find(filterType);
@@ -180,7 +180,7 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
 
 - (void)updateFilters
 {
-  shared_ptr<search::hotels_filter::Rule> const hotelsRules = self.filter ? [self.filter rules] : nullptr;
+  std::shared_ptr<search::hotels_filter::Rule> const hotelsRules = self.filter ? [self.filter rules] : nullptr;
   m_viewportParams.m_hotelsFilter = hotelsRules;
   m_everywhereParams.m_hotelsFilter = hotelsRules;
   

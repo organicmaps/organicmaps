@@ -84,16 +84,15 @@
 #include "base/strings_bundle.hpp"
 #include "base/thread_checker.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/function.hpp"
-#include "std/list.hpp"
-#include "std/set.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/string.hpp"
 #include "std/target_os.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+
+#include <cstdint>
+#include <functional>
+#include <list>
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include <boost/optional.hpp>
 
@@ -162,7 +161,7 @@ class Framework : public SearchAPI::Delegate,
 #ifdef FIXED_LOCATION
   class FixedPosition
   {
-    pair<double, double> m_latlon;
+    std::pair<double, double> m_latlon;
     double m_dirFromNorth;
     bool m_fixedLatLon, m_fixedDir;
 
@@ -180,7 +179,7 @@ class Framework : public SearchAPI::Delegate,
     
 private:
   // Must be first member in Framework and must be destroyed first in Framework destructor.
-  unique_ptr<Platform::ThreadRunner> m_threadRunner = make_unique<Platform::ThreadRunner>();
+  std::unique_ptr<Platform::ThreadRunner> m_threadRunner = std::make_unique<Platform::ThreadRunner>();
 
 protected:
   using TDrapeFunction = function<void (df::DrapeEngine *)>;
@@ -191,20 +190,20 @@ protected:
 
   // The order matters here: DisplayedCategories may be used only
   // after classificator is loaded by |m_featuresFetcher|.
-  unique_ptr<search::DisplayedCategories> m_displayedCategories;
+  std::unique_ptr<search::DisplayedCategories> m_displayedCategories;
 
   // The order matters here: storage::CountryInfoGetter and
   // m_FeaturesFetcher must be initialized before
   // search::Engine and, therefore, destroyed after search::Engine.
-  unique_ptr<storage::CountryInfoGetter> m_infoGetter;
+  std::unique_ptr<storage::CountryInfoGetter> m_infoGetter;
 
   LocalAdsManager m_localAdsManager;
 
   // The order matters here: ugc::Api should be destroyed after
   // SearchAPI and notifications::NotificationManager.
-  unique_ptr<ugc::Api> m_ugcApi;
+  std::unique_ptr<ugc::Api> m_ugcApi;
 
-  unique_ptr<SearchAPI> m_searchAPI;
+  std::unique_ptr<SearchAPI> m_searchAPI;
 
   search::QuerySaver m_searchQuerySaver;
 
@@ -226,13 +225,13 @@ protected:
   location::TMyPositionModeChanged m_myPositionListener;
   df::DrapeEngine::UserPositionPendingTimeoutHandler m_myPositionPendingTimeoutListener;
 
-  unique_ptr<BookmarkManager> m_bmManager;
+  std::unique_ptr<BookmarkManager> m_bmManager;
 
   SearchMarks m_searchMarks;
 
-  unique_ptr<booking::Api> m_bookingApi = make_unique<booking::Api>();
-  unique_ptr<locals::Api> m_localsApi = make_unique<locals::Api>();
-  unique_ptr<promo::Api> m_promoApi = make_unique<promo::Api>();
+  std::unique_ptr<booking::Api> m_bookingApi = std::make_unique<booking::Api>();
+  std::unique_ptr<locals::Api> m_localsApi = std::make_unique<locals::Api>();
+  std::unique_ptr<promo::Api> m_promoApi = std::make_unique<promo::Api>();
 
   df::DrapeApi m_drapeApi;
 
@@ -307,9 +306,8 @@ public:
   void DeregisterAllMaps();
 
   /// Registers a local map file in internal indexes.
-  pair<MwmSet::MwmId, MwmSet::RegResult> RegisterMap(
+  std::pair<MwmSet::MwmId, MwmSet::RegResult> RegisterMap(
       platform::LocalCountryFile const & localFile);
-  //@}
 
   /// Shows group or leaf mwm on the map.
   void ShowNode(storage::CountryId const & countryId);
@@ -318,17 +316,14 @@ public:
   /// Checks, whether the country which contains the specified point is loaded.
   bool IsCountryLoaded(m2::PointD const & pt) const override;
   /// Checks, whether the country is loaded.
-  bool IsCountryLoadedByName(string const & name) const;
-  //@}
+  bool IsCountryLoadedByName(std::string const & name) const;
 
   void InvalidateRect(m2::RectD const & rect);
 
   /// @name Get any country info by point.
-  //@{
   storage::CountryId GetCountryIndex(m2::PointD const & pt) const;
 
-  string GetCountryName(m2::PointD const & pt) const;
-  //@}
+  std::string GetCountryName(m2::PointD const & pt) const;
 
   enum class DoAfterUpdate
   {
@@ -352,12 +347,11 @@ public:
   SearchAPI const & GetSearchAPI() const;
 
   /// @name Bookmarks, Tracks and other UserMarks
-  //@{
   /// Scans and loads all kml files with bookmarks in WritableDir.
   void LoadBookmarks();
 
   /// @return Created bookmark category id.
-  kml::MarkGroupId AddCategory(string const & categoryName);
+  kml::MarkGroupId AddCategory(std::string const & categoryName);
 
   kml::MarkGroupId LastEditedBMCategory() { return GetBookmarkManager().LastEditedBMCategory(); }
   kml::PredefinedColor LastEditedBMColor() const { return GetBookmarkManager().LastEditedBMColor(); }
@@ -368,7 +362,7 @@ public:
   void ShowFeatureByMercator(m2::PointD const & pt);
   void ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation = true);
 
-  void AddBookmarksFile(string const & filePath, bool isTemporaryFile);
+  void AddBookmarksFile(std::string const & filePath, bool isTemporaryFile);
 
   BookmarkManager & GetBookmarkManager();
   BookmarkManager const & GetBookmarkManager() const;
@@ -432,11 +426,11 @@ public:
   struct PlacePageEvent
   {
     /// Called to notify UI that object on a map was selected (UI should show Place Page, for example).
-    using OnOpen = function<void (place_page::Info const &)>;
+    using OnOpen = std::function<void (place_page::Info const &)>;
     /// Called to notify UI that object on a map was deselected (UI should hide Place Page).
     /// If switchFullScreenMode is true, ui can [optionally] enter or exit full screen mode.
-    using OnClose = function<void (bool /*switchFullScreenMode*/)>;
-    using OnUpdate = function<void (place_page::Info const &)>;
+    using OnClose = std::function<void (bool /*switchFullScreenMode*/)>;
+    using OnUpdate = std::function<void (place_page::Info const &)>;
   };
 
   void SetPlacePageListenners(PlacePageEvent::OnOpen const & onOpen,
@@ -449,30 +443,30 @@ public:
   void EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition, m2::PointD const & position);
   void BlockTapEvents(bool block);
 
-  using TCurrentCountryChanged = function<void(storage::CountryId const &)>;
+  using TCurrentCountryChanged = std::function<void(storage::CountryId const &)>;
   storage::CountryId const & GetLastReportedCountry() { return m_lastReportedCountry; }
   /// Guarantees that listener is called in the main thread context.
   void SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener);
 
   std::vector<std::string> GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const;
-  vector<MwmSet::MwmId> GetMwmsByRect(m2::RectD const & rect, bool rough) const;
-  MwmSet::MwmId GetMwmIdByName(string const & name) const;
+  std::vector<MwmSet::MwmId> GetMwmsByRect(m2::RectD const & rect, bool rough) const;
+  MwmSet::MwmId GetMwmIdByName(std::string const & name) const;
 
   // Use only for debug purposes!
-  vector<FeatureID> FindFeaturesByIndex(uint32_t featureIndex) const;
+  std::vector<FeatureID> FindFeaturesByIndex(uint32_t featureIndex) const;
 
-  void ReadFeatures(function<void(FeatureType &)> const & reader,
-                    vector<FeatureID> const & features);
+  void ReadFeatures(std::function<void(FeatureType &)> const & reader,
+                    std::vector<FeatureID> const & features);
 
 private:
-  unique_ptr<TapEvent> m_lastTapEvent;
+  std::unique_ptr<TapEvent> m_lastTapEvent;
   bool m_isViewportInitialized = false;
 
   void OnTapEvent(TapEvent const & tapEvent);
   /// outInfo is valid only if return value is not df::SelectionShape::OBJECT_EMPTY.
   df::SelectionShape::ESelectedObject OnTapEventImpl(TapEvent const & tapEvent,
                                                      place_page::Info & outInfo);
-  unique_ptr<TapEvent> MakeTapEvent(m2::PointD const & center, FeatureID const & fid,
+  std::unique_ptr<TapEvent> MakeTapEvent(m2::PointD const & center, FeatureID const & fid,
                                     TapEvent::Source source) const;
   UserMark const * FindUserMarkInTapPosition(df::TapInfo const & tapInfo) const;
   FeatureID FindBuildingAtPoint(m2::PointD const & mercator) const;
@@ -489,12 +483,10 @@ private:
   mutable FeatureID m_selectedFeature;
 
 private:
-  vector<m2::TriangleD> GetSelectedFeatureTriangles() const;
+  std::vector<m2::TriangleD> GetSelectedFeatureTriangles() const;
 
 public:
-
   /// @name GPS location updates routine.
-  //@{
   void OnLocationError(location::TLocationError error);
   void OnLocationUpdate(location::GpsInfo const & info);
   void OnCompassUpdate(location::CompassInfo const & info);
@@ -505,7 +497,6 @@ public:
 
 private:
   void OnUserPositionChanged(m2::PointD const & position, bool hasPosition);
-  //@}
 
 public:
   struct DrapeCreationParams
@@ -581,12 +572,12 @@ private:
   storage::CountryId m_lastReportedCountry;
   TCurrentCountryChanged m_currentCountryChanged;
 
-  void OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsTrackInfo>> && toAdd,
-                                      pair<size_t, size_t> const & toRemove);
+  void OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, location::GpsTrackInfo>> && toAdd,
+                                      std::pair<size_t, size_t> const & toRemove);
 
   CachingRankTableLoader m_popularityLoader;
 
-  unique_ptr<descriptions::Loader> m_descriptionsLoader;
+  std::unique_ptr<descriptions::Loader> m_descriptionsLoader;
 
 public:
   using SearchRequest = search::QuerySaver::SearchRequest;
@@ -621,12 +612,12 @@ public:
 
   size_t ShowSearchResults(search::Results const & results);
 
-  using SearchMarkPostProcessing = function<void(SearchMarkPoint & mark)>;
+  using SearchMarkPostProcessing = std::function<void(SearchMarkPoint & mark)>;
 
   void FillSearchResultsMarks(bool clear, search::Results const & results);
   void FillSearchResultsMarks(search::Results::ConstIter begin, search::Results::ConstIter end,
                                 bool clear, SearchMarkPostProcessing fn = nullptr);
-  list<SearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
+  std::list<SearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
   void SaveSearchQuery(SearchRequest const & query) { m_searchQuerySaver.Add(query); }
   void ClearSearchHistory() { m_searchQuerySaver.Clear(); }
 
@@ -638,14 +629,13 @@ public:
   /// @return true  If the POI is near the current position (distance < 25 km);
   bool GetDistanceAndAzimut(m2::PointD const & point,
                             double lat, double lon, double north,
-                            string & distance, double & azimut);
+                            std::string & distance, double & azimut);
 
   /// @name Manipulating with model view
-  //@{
-  inline m2::PointD PtoG(m2::PointD const & p) const { return m_currentModelView.PtoG(p); }
-  inline m2::PointD P3dtoG(m2::PointD const & p) const { return m_currentModelView.PtoG(m_currentModelView.P3dtoP(p)); }
-  inline m2::PointD GtoP(m2::PointD const & p) const { return m_currentModelView.GtoP(p); }
-  inline m2::PointD GtoP3d(m2::PointD const & p) const { return m_currentModelView.PtoP3d(m_currentModelView.GtoP(p)); }
+  m2::PointD PtoG(m2::PointD const & p) const { return m_currentModelView.PtoG(p); }
+  m2::PointD P3dtoG(m2::PointD const & p) const { return m_currentModelView.PtoG(m_currentModelView.P3dtoP(p)); }
+  m2::PointD GtoP(m2::PointD const & p) const { return m_currentModelView.GtoP(p); }
+  m2::PointD GtoP3d(m2::PointD const & p) const { return m_currentModelView.PtoP3d(m_currentModelView.GtoP(p)); }
 
   /// Show all model by it's world rect.
   void ShowAll();
@@ -700,23 +690,22 @@ public:
   void Rotate(double azimuth, bool isAnim);
 
   void TouchEvent(df::TouchEvent const & touch);
-  //@}
 
   int GetDrawScale() const;
 
   void RunFirstLaunchAnimation();
 
   /// Set correct viewport, parse API, show balloon.
-  bool ShowMapForURL(string const & url);
-  url_scheme::ParsedMapApi::ParsingResult ParseAndSetApiURL(string const & url);
+  bool ShowMapForURL(std::string const & url);
+  url_scheme::ParsedMapApi::ParsingResult ParseAndSetApiURL(std::string const & url);
 
   struct ParsedRoutingData
   {
-    ParsedRoutingData(vector<url_scheme::RoutePoint> const & points, routing::RouterType type)
+    ParsedRoutingData(std::vector<url_scheme::RoutePoint> const & points, routing::RouterType type)
       : m_points(points), m_type(type)
     {
     }
-    vector<url_scheme::RoutePoint> m_points;
+    std::vector<url_scheme::RoutePoint> m_points;
     routing::RouterType m_type;
   };
 
@@ -730,7 +719,7 @@ private:
   bool ParseEditorDebugCommand(search::SearchParams const & params);
 
   /// @returns true if command was handled by drape.
-  bool ParseDrapeDebugCommand(string const & query);
+  bool ParseDrapeDebugCommand(std::string const & query);
 
   /// This function can be used for enabling some experimental features for routing.
   bool ParseRoutingDebugCommand(search::SearchParams const & params);
@@ -738,9 +727,10 @@ private:
   void FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const;
   /// @param customTitle, if not empty, overrides any other calculated name.
   void FillPointInfo(place_page::Info & info, m2::PointD const & mercator,
-                     string const & customTitle = {}, FeatureMatcher && matcher = nullptr) const;
+                     std::string const & customTitle = {}, FeatureMatcher && matcher = nullptr) const;
   void FillPostcodeInfo(std::string const & postcode, m2::PointD const & mercator,
                         place_page::Info & info) const;
+
   void FillInfoFromFeatureType(FeatureType & ft, place_page::Info & info) const;
   void FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const;
   void FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const;
@@ -773,7 +763,7 @@ public:
   void EnterForeground();
 
   /// Set the localized strings bundle
-  inline void AddString(string const & name, string const & value)
+  void AddString(std::string const & name, std::string const & value)
   {
     m_stringsBundle.SetString(name, value);
   }
@@ -786,26 +776,21 @@ public:
                               double bearing, double speed, double elapsedSeconds);
 
 public:
-  string CodeGe0url(Bookmark const * bmk, bool addName);
-  string CodeGe0url(double lat, double lon, double zoomLevel, string const & name);
+  std::string CodeGe0url(Bookmark const * bmk, bool addName);
+  std::string CodeGe0url(double lat, double lon, double zoomLevel, std::string const & name);
 
   /// @name Api
-  //@{
-  string GenerateApiBackUrl(ApiMarkPoint const & point) const;
+  std::string GenerateApiBackUrl(ApiMarkPoint const & point) const;
   url_scheme::ParsedMapApi const & GetApiDataHolder() const { return m_ParsedMapApi; }
 
 private:
   url_scheme::ParsedMapApi m_ParsedMapApi;
 
 public:
-  //@}
-
   /// @name Data versions
-  //@{
   bool IsDataVersionUpdated();
   void UpdateSavedDataVersion();
   int64_t GetCurrentDataVersion() const;
-  //@}
 
 public:
   void AllowTransliteration(bool allowTranslit);
@@ -862,14 +847,14 @@ public:
   /// Routing Manager
   RoutingManager & GetRoutingManager() { return m_routingManager; }
   RoutingManager const & GetRoutingManager() const { return m_routingManager; }
+
 protected:
   /// RoutingManager::Delegate
   void OnRouteFollow(routing::RouterType type) override;
-  void RegisterCountryFilesOnRoute(shared_ptr<routing::NumMwmIds> ptr) const override;
+  void RegisterCountryFilesOnRoute(std::shared_ptr<routing::NumMwmIds> ptr) const override;
 
 public:
   /// @name Editor interface.
-  //@{
   /// Initializes feature for Create Object UI.
   /// @returns false in case when coordinate is in the ocean or mwm is not downloaded.
   bool CanEditMap() const;
@@ -882,42 +867,38 @@ public:
   osm::NewFeatureCategories GetEditorCategories() const;
   bool RollBackChanges(FeatureID const & fid);
   void CreateNote(osm::MapObject const & mapObject, osm::Editor::NoteProblemType const type,
-                  string const & note);
-  //@}
+                  std::string const & note);
 
 public:
-  //@{
   // User statistics.
-
-  editor::UserStats GetUserStats(string const & userName) const
+  editor::UserStats GetUserStats(std::string const & userName) const
   {
     return m_userStatsLoader.GetStats(userName);
   }
 
   // Reads user stats from server or gets it from cache calls |fn| on success.
-  void UpdateUserStats(string const & userName, editor::UserStatsLoader::UpdatePolicy policy,
+  void UpdateUserStats(std::string const & userName, editor::UserStatsLoader::UpdatePolicy policy,
                        editor::UserStatsLoader::OnUpdateCallback fn)
   {
     m_userStatsLoader.Update(userName, policy, fn);
   }
 
-  void DropUserStats(string const & userName) { m_userStatsLoader.DropStats(userName); }
+  void DropUserStats(std::string const & userName) { m_userStatsLoader.DropStats(userName); }
 
 private:
   editor::UserStatsLoader m_userStatsLoader;
-  //@}
 
 public:
   storage::CountriesVec GetTopmostCountries(ms::LatLon const & latlon) const;
 
 private:
-  unique_ptr<search::CityFinder> m_cityFinder;
+  std::unique_ptr<search::CityFinder> m_cityFinder;
   CachingAddressGetter m_addressGetter;
-  unique_ptr<ads::Engine> m_adsEngine;
+  std::unique_ptr<ads::Engine> m_adsEngine;
   // The order matters here: storage::CountryInfoGetter and
   // search::CityFinder must be initialized before
   // taxi::Engine and, therefore, destroyed after taxi::Engine.
-  unique_ptr<taxi::Engine> m_taxiEngine;
+  std::unique_ptr<taxi::Engine> m_taxiEngine;
 
   void InitCityFinder();
   void InitTaxiEngine();
@@ -932,6 +913,7 @@ public:
   // UGC.
   void UploadUGC(User::CompleteUploadingHandler const & onCompleteUploading);
   void GetUGC(FeatureID const & id, ugc::Api::UGCCallback const & callback);
+
 private:
   // Filters user's reviews.
   ugc::Reviews FilterUGCReviews(ugc::Reviews const & reviews) const;
@@ -940,14 +922,14 @@ public:
   void FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
                                    search::Results const & results, bool inViewport) override;
   void FilterHotels(booking::filter::Tasks const & filterTasks,
-                    vector<FeatureID> && featureIds) override;
+                    std::vector<FeatureID> && featureIds) override;
   void OnBookingFilterParamsUpdate(booking::filter::Tasks const & filterTasks) override;
 
   booking::AvailabilityParams GetLastBookingAvailabilityParams() const;
 
 private:
   // m_discoveryManager must be bellow m_searchApi, m_localsApi
-  unique_ptr<discovery::Manager> m_discoveryManager;
+  std::unique_ptr<discovery::Manager> m_discoveryManager;
 
 public:
   std::unique_ptr<Purchase> const & GetPurchase() const { return m_purchase; }

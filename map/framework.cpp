@@ -103,27 +103,24 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-#include "std/sstream.hpp"
-#include "std/target_os.hpp"
-
 #include "api/internal/c/api-client-internals.h"
 #include "api/src/c/api-client.h"
 
-#include <map>
-#include <memory>
+#include <algorithm>
+#include <sstream>
 
 #include "defines.hpp"
 #include "private.h"
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
-using namespace std::chrono;
-using namespace storage;
-using namespace routing;
 using namespace location;
 using namespace notifications;
+using namespace routing;
+using namespace storage;
+using namespace std::chrono;
+using namespace std::placeholders;
+using namespace std;
 
 using platform::CountryFile;
 using platform::LocalCountryFile;
