@@ -9,9 +9,9 @@ final class WhatsNewController: WelcomeViewController {
   
   static var welcomeConfigs: [WelcomeConfig] {
   return [
-    WhatsNewConfig(image: UIImage(named: "img_wnew_bookmarks_sort")!,
-                   title: "whatsnew_bookmarks_search_sort_title",
-                   text: "whatsnew_bookmarks_search_sort_message",
+    WhatsNewConfig(image: UIImage(named: "img_whats_new_mapboost")!,
+                   title: "whatsnew_map_updates_title",
+                   text: "whatsnew_map_updates_message",
                    buttonTitle: "done")
     ]
   }
