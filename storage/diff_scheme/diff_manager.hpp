@@ -11,6 +11,7 @@
 
 #include <functional>
 #include <mutex>
+#include <string>
 #include <utility>
 
 namespace base
@@ -30,14 +31,6 @@ public:
     std::string m_diffReadyPath;
     LocalFilePtr m_diffFile;
     LocalFilePtr m_oldMwmFile;
-  };
-
-  class Observer
-  {
-  public:
-    virtual ~Observer() = default;
-
-    virtual void OnDiffStatusReceived(Status const status) = 0;
   };
 
   using OnDiffApplicationFinished = std::function<void(generator::mwm_diff::DiffApplicationResult)>;
@@ -65,13 +58,9 @@ public:
 
   Status GetStatus() const;
 
-  void Load(LocalMapsInfo && info);
+  void Load(NameDiffInfoMap && info);
   void ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancellable,
                  OnDiffApplicationFinished const & task);
-
-  bool AddObserver(Observer & observer) { return m_observers.Add(observer); }
-  bool RemoveObserver(Observer const & observer) { return m_observers.Remove(observer); }
-
 private:
   template <typename Fn>
   bool WithNotAppliedDiff(storage::CountryId const & countryId, Fn && fn) const
@@ -89,7 +78,6 @@ private:
 
   Status m_status = Status::Undefined;
   NameDiffInfoMap m_diffs;
-  base::ObserverListUnsafe<Observer> m_observers;
 };
 }  // namespace diffs
 }  // namespace storage

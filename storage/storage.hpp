@@ -146,7 +146,7 @@ struct NodeStatuses
 // Downloading of only one mwm at a time is supported, so while the
 // mwm at the top of the queue is being downloaded (or updated by
 // applying a diff file) all other mwms have to wait.
-class Storage : public diffs::Manager::Observer
+class Storage
 {
 public:
   struct StatusCallback;
@@ -710,7 +710,7 @@ private:
 
   // Should be called once on startup, downloading process should be suspended until this method
   // was not called. Do not call this method manually.
-  void OnDiffStatusReceived(diffs::Status const status) override;
+  void OnDiffStatusReceived(diffs::NameDiffInfoMap && diffs);
 };
 
 void GetQueuedCountries(Storage::Queue const & queue, CountriesSet & resultCountries);

@@ -19,8 +19,8 @@ set(
   country_tree.hpp
   diff_scheme/diff_manager.cpp
   diff_scheme/diff_manager.hpp
-  diff_scheme/diff_scheme_checker.cpp
-  diff_scheme/diff_scheme_checker.hpp
+  diff_scheme/diff_scheme_loader.cpp
+  diff_scheme/diff_scheme_loader.hpp
   diff_scheme/diff_types.hpp
   downloader_search_params.hpp
   downloading_policy.cpp

@@ -1,5 +1,4 @@
 #include "storage/diff_scheme/diff_manager.hpp"
-#include "storage/diff_scheme/diff_scheme_checker.hpp"
 
 #include "platform/platform.hpp"
 
@@ -25,27 +24,19 @@ namespace storage
 {
 namespace diffs
 {
-void Manager::Load(LocalMapsInfo && info)
+void Manager::Load(NameDiffInfoMap && info)
 {
-  GetPlatform().RunTask(Platform::Thread::Network, [this, info = std::move(info)] {
-    NameDiffInfoMap diffs = Checker::Check(info);
+  if (info.empty())
+  {
+    m_status = Status::NotAvailable;
 
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, diffs = std::move(diffs)] {
-      m_diffs = std::move(diffs);
-      if (m_diffs.empty())
-      {
-        m_status = Status::NotAvailable;
-
-        alohalytics::Stats::Instance().LogEvent("Downloader_DiffScheme_OnStart_fallback");
-      }
-      else
-      {
-        m_status = Status::Available;
-      }
-
-      m_observers.ForEach(&Observer::OnDiffStatusReceived, m_status);
-    });
-  });
+    alohalytics::Stats::Instance().LogEvent("Downloader_DiffScheme_OnStart_fallback");
+  }
+  else
+  {
+    m_diffs = std::move(info);
+    m_status = Status::Available;
+  }
 }
 
 void Manager::ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancellable,

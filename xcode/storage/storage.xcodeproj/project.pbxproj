@@ -28,6 +28,8 @@
 		3DCD414620D80C0900143533 /* country_info_reader_light.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DCD414420D80C0800143533 /* country_info_reader_light.hpp */; };
 		3DCD414720D80C0900143533 /* country_info_reader_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCD414520D80C0900143533 /* country_info_reader_light.cpp */; };
 		3DCD414920D80C1B00143533 /* lightweight_matching_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCD414820D80C1B00143533 /* lightweight_matching_tests.cpp */; };
+		3DD84014233A38DE0008D0ED /* diff_scheme_loader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DD84012233A38DE0008D0ED /* diff_scheme_loader.hpp */; };
+		3DD84015233A38DE0008D0ED /* diff_scheme_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD84013233A38DE0008D0ED /* diff_scheme_loader.cpp */; };
 		401ECED41F56C50900DFDF76 /* country_parent_getter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 401ECED21F56C50900DFDF76 /* country_parent_getter.cpp */; };
 		401ECED51F56C50900DFDF76 /* country_parent_getter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 401ECED31F56C50900DFDF76 /* country_parent_getter.hpp */; };
 		402873422295A91F0036AA1C /* country_tree.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4028733F2295A91E0036AA1C /* country_tree.hpp */; };
@@ -188,8 +190,6 @@
 		F66D56AF1EAE383E0081E883 /* drules_proto_vehicle_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = F66D569B1EAE37160081E883 /* drules_proto_vehicle_clear.bin */; };
 		F66D56B01EAE383E0081E883 /* drules_proto_vehicle_clear.txt in Resources */ = {isa = PBXBuildFile; fileRef = F66D569C1EAE37160081E883 /* drules_proto_vehicle_clear.txt */; };
 		F66D56B21EAE385B0081E883 /* local_ads_symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = F66D56B11EAE385B0081E883 /* local_ads_symbols.txt */; };
-		F68CC5BE1F38B967007527C7 /* diff_scheme_checker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68CC5BB1F38B967007527C7 /* diff_scheme_checker.cpp */; };
-		F68CC5BF1F38B967007527C7 /* diff_scheme_checker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F68CC5BC1F38B967007527C7 /* diff_scheme_checker.hpp */; };
 		F68CC5C01F38B967007527C7 /* diff_types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F68CC5BD1F38B967007527C7 /* diff_types.hpp */; };
 		F6BC312B2034366100F677FE /* pinger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6BC31292034366100F677FE /* pinger.hpp */; };
 		F6BC312C2034366100F677FE /* pinger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6BC312A2034366100F677FE /* pinger.cpp */; };
@@ -218,6 +218,8 @@
 		3DCD414420D80C0800143533 /* country_info_reader_light.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_info_reader_light.hpp; sourceTree = "<group>"; };
 		3DCD414520D80C0900143533 /* country_info_reader_light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_info_reader_light.cpp; sourceTree = "<group>"; };
 		3DCD414820D80C1B00143533 /* lightweight_matching_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lightweight_matching_tests.cpp; sourceTree = "<group>"; };
+		3DD84012233A38DE0008D0ED /* diff_scheme_loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = diff_scheme_loader.hpp; path = diff_scheme/diff_scheme_loader.hpp; sourceTree = "<group>"; };
+		3DD84013233A38DE0008D0ED /* diff_scheme_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = diff_scheme_loader.cpp; path = diff_scheme/diff_scheme_loader.cpp; sourceTree = "<group>"; };
 		401ECED21F56C50900DFDF76 /* country_parent_getter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_parent_getter.cpp; sourceTree = "<group>"; };
 		401ECED31F56C50900DFDF76 /* country_parent_getter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_parent_getter.hpp; sourceTree = "<group>"; };
 		4028733F2295A91E0036AA1C /* country_tree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_tree.hpp; sourceTree = "<group>"; };
@@ -336,8 +338,6 @@
 		F66D56A91EAE38030081E883 /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = ../traffic/build/Debug/libtraffic.a; sourceTree = "<group>"; };
 		F66D56AB1EAE38150081E883 /* liblocal_ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblocal_ads.a; path = ../local_ads/build/Debug/liblocal_ads.a; sourceTree = "<group>"; };
 		F66D56B11EAE385B0081E883 /* local_ads_symbols.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = local_ads_symbols.txt; sourceTree = "<group>"; };
-		F68CC5BB1F38B967007527C7 /* diff_scheme_checker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = diff_scheme_checker.cpp; path = diff_scheme/diff_scheme_checker.cpp; sourceTree = "<group>"; };
-		F68CC5BC1F38B967007527C7 /* diff_scheme_checker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = diff_scheme_checker.hpp; path = diff_scheme/diff_scheme_checker.hpp; sourceTree = "<group>"; };
 		F68CC5BD1F38B967007527C7 /* diff_types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = diff_types.hpp; path = diff_scheme/diff_types.hpp; sourceTree = "<group>"; };
 		F6BC31292034366100F677FE /* pinger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pinger.hpp; sourceTree = "<group>"; };
 		F6BC312A2034366100F677FE /* pinger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pinger.cpp; sourceTree = "<group>"; };
@@ -582,6 +582,8 @@
 		675342E21A3F59EF00A0A8C3 /* storage */ = {
 			isa = PBXGroup;
 			children = (
+				3DD84013233A38DE0008D0ED /* diff_scheme_loader.cpp */,
+				3DD84012233A38DE0008D0ED /* diff_scheme_loader.hpp */,
 				3D497EA023292706000FB57D /* map_files_downloader_with_ping.cpp */,
 				3D497E9F23292706000FB57D /* map_files_downloader_with_ping.hpp */,
 				3D497E9E23292706000FB57D /* map_files_downloader.cpp */,
@@ -598,8 +600,6 @@
 				401ECED31F56C50900DFDF76 /* country_parent_getter.hpp */,
 				4586D0C51F48126A00DF9CE5 /* diff_manager.cpp */,
 				4586D0C61F48126A00DF9CE5 /* diff_manager.hpp */,
-				F68CC5BB1F38B967007527C7 /* diff_scheme_checker.cpp */,
-				F68CC5BC1F38B967007527C7 /* diff_scheme_checker.hpp */,
 				F68CC5BD1F38B967007527C7 /* diff_types.hpp */,
 				67BE1DC31CD2180D00572709 /* downloading_policy.cpp */,
 				67BE1DC41CD2180D00572709 /* downloading_policy.hpp */,
@@ -672,7 +672,6 @@
 				34C9BCFD1C6CCF85000DC38D /* country_name_getter.hpp in Headers */,
 				6741251F1B4C05FA00A3E828 /* http_map_files_downloader.hpp in Headers */,
 				67BE1DC61CD2180D00572709 /* downloading_policy.hpp in Headers */,
-				F68CC5BF1F38B967007527C7 /* diff_scheme_checker.hpp in Headers */,
 				675343191A3F5A2600A0A8C3 /* storage_defines.hpp in Headers */,
 				67247FD41C60BA8A00EDE56A /* task_runner.hpp in Headers */,
 				56D0E4801F8E40340084B18C /* routing_helpers.hpp in Headers */,
@@ -683,6 +682,7 @@
 				6753430A1A3F5A2600A0A8C3 /* country_decl.hpp in Headers */,
 				67247FCF1C60BA8A00EDE56A /* fake_map_files_downloader.hpp in Headers */,
 				67AF4A011BC579DD0048B1ED /* country_info_getter.hpp in Headers */,
+				3DD84014233A38DE0008D0ED /* diff_scheme_loader.hpp in Headers */,
 				3971140A229D7C6D003915E5 /* helpers.hpp in Headers */,
 				402873442295A91F0036AA1C /* downloader_search_params.hpp in Headers */,
 				674125221B4C05FA00A3E828 /* queued_country.hpp in Headers */,
@@ -856,6 +856,7 @@
 			files = (
 				56D8CB991CAC17A80003F420 /* test_defines.cpp in Sources */,
 				3D497EA323292706000FB57D /* map_files_downloader_with_ping.cpp in Sources */,
+				3DD84015233A38DE0008D0ED /* diff_scheme_loader.cpp in Sources */,
 				401ECED41F56C50900DFDF76 /* country_parent_getter.cpp in Sources */,
 				56D0E4811F8E40340084B18C /* routing_helpers.cpp in Sources */,
 				3D497EA123292706000FB57D /* map_files_downloader.cpp in Sources */,
@@ -864,7 +865,6 @@
 				4586D0C71F48126A00DF9CE5 /* diff_manager.cpp in Sources */,
 				675343091A3F5A2600A0A8C3 /* country_decl.cpp in Sources */,
 				674125211B4C05FA00A3E828 /* queued_country.cpp in Sources */,
-				F68CC5BE1F38B967007527C7 /* diff_scheme_checker.cpp in Sources */,
 				3DCD414720D80C0900143533 /* country_info_reader_light.cpp in Sources */,
 				6753431A1A3F5A2600A0A8C3 /* storage.cpp in Sources */,
 				674125231B4C05FA00A3E828 /* storage_defines.cpp in Sources */,

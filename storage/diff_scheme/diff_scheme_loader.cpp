@@ -1,4 +1,4 @@
-#include "storage/diff_scheme/diff_scheme_checker.hpp"
+#include "storage/diff_scheme/diff_scheme_loader.hpp"
 
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
@@ -103,14 +103,8 @@ NameDiffInfoMap DeserializeResponse(string const & response, LocalMapsInfo::Name
 
   return diffs;
 }
-}  // namespace
 
-namespace storage
-{
-namespace diffs
-{
-//static
-NameDiffInfoMap Checker::Check(LocalMapsInfo const & info)
+NameDiffInfoMap Load(LocalMapsInfo const & info)
 {
   if (info.m_localMaps.empty())
     return NameDiffInfoMap();
@@ -137,6 +131,22 @@ NameDiffInfoMap Checker::Check(LocalMapsInfo const & info)
   }
 
   return diffs;
+}
+}  // namespace
+
+namespace storage
+{
+namespace diffs
+{
+//static
+void Loader::Load(LocalMapsInfo && info, DiffsReceivedCallback && callback)
+{
+    GetPlatform().RunTask(Platform::Thread::Network, [info = move(info), callback = move(callback)]() {
+      GetPlatform().RunTask(Platform::Thread::Gui,
+                            [result = ::Load(info), callback = move(callback)]() mutable {
+                              callback(move(result));
+                            });
+  });
 }
 }  // namespace diffs
 }  // namespace storage

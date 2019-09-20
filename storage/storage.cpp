@@ -1,5 +1,6 @@
 #include "storage/storage.hpp"
 
+#include "storage/diff_scheme/diff_scheme_loader.hpp"
 #include "storage/http_map_files_downloader.hpp"
 
 #include "defines.hpp"
@@ -32,8 +33,9 @@
 using namespace downloader;
 using namespace generator::mwm_diff;
 using namespace platform;
-using namespace std::chrono;
 using namespace std;
+using namespace std::chrono;
+using namespace std::placeholders;
 
 namespace storage
 {
@@ -327,6 +329,9 @@ void Storage::RegisterAllLocalMaps(bool enableDiffs)
   FindAllDiffs(m_dataDir, m_notAppliedDiffs);
   if (enableDiffs)
     LoadDiffScheme();
+  // Note: call order is important, diffs loading must be called first.
+  // Because of diffs downloading and servers list downloading
+  // are working on network thread, consequtive executing is guaranteed.
   RestoreDownloadQueue();
 }
 
@@ -900,7 +905,6 @@ void Storage::DoDownload()
   auto const relativeUrl = GetDownloadRelativeUrl(id, options);
   auto const filePath = GetFileDownloadPath(id, options);
 
-  using namespace std::placeholders;
   m_downloader->DownloadMapFile(relativeUrl, filePath, GetDownloadSize(queuedCountry),
                                 bind(&Storage::OnMapFileDownloadFinished, this, _1, _2),
                                 bind(&Storage::OnMapFileDownloadProgress, this, _1));
@@ -1526,8 +1530,10 @@ void Storage::LoadDiffScheme()
       localMapsInfo.m_localMaps.emplace(localFile->GetCountryName(), mapVersion);
   }
 
-  m_diffManager.AddObserver(*this);
-  m_diffManager.Load(move(localMapsInfo));
+  diffs::Loader::Load(move(localMapsInfo), [this](diffs::NameDiffInfoMap && diffs)
+  {
+    OnDiffStatusReceived(move(diffs));
+  });
 }
 
 void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSuccess)> const & fn)
@@ -1634,9 +1640,10 @@ void Storage::SetStartDownloadingCallback(StartDownloadingCallback const & cb)
   m_startDownloadingCallback = cb;
 }
 
-void Storage::OnDiffStatusReceived(diffs::Status const status)
+void Storage::OnDiffStatusReceived(diffs::NameDiffInfoMap && diffs)
 {
-  if (status != diffs::Status::NotAvailable)
+  m_diffManager.Load(move(diffs));
+  if (m_diffManager.GetStatus() != diffs::Status::NotAvailable)
   {
     for (auto const & localDiff : m_notAppliedDiffs)
     {
