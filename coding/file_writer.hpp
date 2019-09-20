@@ -1,18 +1,16 @@
 #pragma once
 
 #include "coding/writer.hpp"
+#include "coding/internal/file_data.hpp"
 
+#include "base/assert.hpp"
 #include "base/base.hpp"
 
 #include <cstddef>
 #include <cstdint>
 #include <memory>
 #include <string>
-
-namespace base
-{
-class FileData;
-}
+#include <vector>
 
 // FileWriter, not thread safe.
 class FileWriter : public Writer
@@ -60,4 +58,45 @@ protected:
 
 private:
   std::unique_ptr<base::FileData> m_pFileData;
+};
+
+class FilesContainerWriter : public FileWriter
+{
+public:
+  FilesContainerWriter(std::string const & fileName, Op operation)
+    : FileWriter(fileName, operation)
+  {
+  }
+
+  void WritePaddingByEnd(size_t factor) { WritePadding(Size(), factor); }
+  void WritePaddingByPos(size_t factor) { WritePadding(Pos(), factor); }
+
+private:
+  void WritePadding(uint64_t offset, uint64_t factor)
+  {
+    ASSERT_GREATER(factor, 1, ());
+    uint64_t const padding = ((offset + factor - 1) / factor) * factor - offset;
+    if (padding == 0)
+      return;
+    std::vector<uint8_t> buffer(static_cast<size_t>(padding));
+    Write(buffer.data(), buffer.size());
+  }
+};
+
+class TruncatingFileWriter : public FilesContainerWriter
+{
+public:
+  explicit TruncatingFileWriter(std::string const & fileName)
+    : FilesContainerWriter(fileName, FileWriter::OP_WRITE_EXISTING)
+  {
+  }
+
+  TruncatingFileWriter(TruncatingFileWriter && rhs) = default;
+
+  // Writer overrides:
+  ~TruncatingFileWriter() override
+  {
+    GetFileData().Flush();
+    GetFileData().Truncate(Pos());
+  }
 };

@@ -385,7 +385,7 @@ void FilesContainerW::DeleteSection(Tag const & tag)
   Open(FileWriter::OP_WRITE_EXISTING);
 }
 
-std::unique_ptr<FileContainerWriter> FilesContainerW::GetWriter(Tag const & tag)
+std::unique_ptr<FilesContainerWriter> FilesContainerW::GetWriter(Tag const & tag)
 {
   ASSERT(!m_finished, ());
 
@@ -426,7 +426,7 @@ std::unique_ptr<FileContainerWriter> FilesContainerW::GetWriter(Tag const & tag)
   {
     SaveCurrentSize();
 
-    auto writer = make_unique<FileContainerWriter>(m_name, FileWriter::OP_APPEND);
+    auto writer = make_unique<FilesContainerWriter>(m_name, FileWriter::OP_APPEND);
     writer->WritePaddingByPos(kSectionAlignment);
 
     m_info.emplace_back(tag, writer->Pos());

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "coding/file_reader.hpp"
-#include "coding/file_container_writers.hpp"
+#include "coding/file_writer.hpp"
 
 #include "base/assert.hpp"
 #include "base/macros.hpp"
@@ -241,7 +241,7 @@ public:
                   FileWriter::Op op = FileWriter::OP_WRITE_TRUNCATE);
   ~FilesContainerW();
 
-  std::unique_ptr<FileContainerWriter> GetWriter(Tag const & tag);
+  std::unique_ptr<FilesContainerWriter> GetWriter(Tag const & tag);
 
   void Write(std::string const & fPath, Tag const & tag);
   void Write(ModelReaderPtr reader, Tag const & tag);

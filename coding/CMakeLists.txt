@@ -29,7 +29,6 @@ set(
   diff.hpp
   elias_coder.hpp
   endianness.hpp
-  file_container_writers.hpp
   file_reader.cpp
   file_reader.hpp
   file_sort.hpp
