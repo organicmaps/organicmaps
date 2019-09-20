@@ -1686,6 +1686,8 @@
 	<string name="subscription_screen_native_message_version_2">Bliv klar til enhver rejse i 600+ byer og 100+ lande</string>
 	<string name="catalog_no_internet_title">Ingen internetforbindelse</string>
 	<string name="catalog_no_internet_button">Prøv igen</string>
+	<string name="whatsnew_map_updates_title">Reaktive kortopdateringer</string>
+	<string name="whatsnew_map_updates_message">Fra nu af, opdaterer vi dataerne dobbelt så hurtigt</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

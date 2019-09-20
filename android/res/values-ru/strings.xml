@@ -1735,6 +1735,8 @@
 	<string name="subscription_screen_native_message_version_2">Будьте готовы к любому путешествию в 600+ городах и 100+ странах</string>
 	<string name="catalog_no_internet_title">Нет интернет-подключения</string>
 	<string name="catalog_no_internet_button">Попробовать снова</string>
+	<string name="whatsnew_map_updates_title">Реактивные обновления карт</string>
+	<string name="whatsnew_map_updates_message">Теперь обновляем данные в 2 раза быстрее</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

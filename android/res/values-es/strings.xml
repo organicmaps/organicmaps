@@ -1676,6 +1676,8 @@
 	<string name="subscription_screen_native_message_version_2">Prepárate para cualquier viaje en más de 600 ciudades y más de 100 países</string>
 	<string name="catalog_no_internet_title">Sin conexión a internet</string>
 	<string name="catalog_no_internet_button">Intentar nuevamente</string>
+	<string name="whatsnew_map_updates_title">Actualizaciones aceleradas de mapas</string>
+	<string name="whatsnew_map_updates_message">A partir de ahora actualizamos los datos el doble de rápido</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estación de teleférico</string>

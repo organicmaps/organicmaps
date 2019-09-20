@@ -1687,6 +1687,8 @@
 	<string name="subscription_screen_native_message_version_2">Bądź gotowy na każdą podróż w ponad 600 miastach i ponad 100 krajach</string>
 	<string name="catalog_no_internet_title">Brak połączenia internetowego</string>
 	<string name="catalog_no_internet_button">Spróbuj ponownie</string>
+	<string name="whatsnew_map_updates_title">Błyskawiczne aktualizacje map</string>
+	<string name="whatsnew_map_updates_message">Teraz aktualizujemy dane o 2 razy szybciej</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Wyprzedaże</string>

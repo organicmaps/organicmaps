@@ -1687,6 +1687,8 @@
 	<string name="subscription_screen_native_message_version_2">600\'den fazla şehir ve 100\'den fazla ülkede seyahat etmeye hazır olun</string>
 	<string name="catalog_no_internet_title">İnternet bağlantısı yok</string>
 	<string name="catalog_no_internet_button">Tekrar deneyin</string>
+	<string name="whatsnew_map_updates_title">Daha hızlı harita güncellemeleri</string>
+	<string name="whatsnew_map_updates_message">Artık verilerimizi iki kat daha hızlı güncelliyoruz</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

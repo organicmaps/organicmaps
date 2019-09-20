@@ -1683,6 +1683,8 @@
 	<string name="subscription_screen_native_message_version_2">Bereidt u voor op elke reis in meer dan 600 steden en meer dan 100 landen</string>
 	<string name="catalog_no_internet_title">Geen internetverbinding</string>
 	<string name="catalog_no_internet_button">Opnieuw verzoeken</string>
+	<string name="whatsnew_map_updates_title">Supersnelle updates van kaarten</string>
+	<string name="whatsnew_map_updates_message">Nu updaten we de gegevens twee keer zo snel als vroeger</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

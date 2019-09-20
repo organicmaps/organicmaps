@@ -1681,6 +1681,8 @@
 	<string name="subscription_screen_native_message_version_2">600以上の都市と100以上の国々への旅の準備を整えましょう</string>
 	<string name="catalog_no_internet_title">インターネット接続がありません</string>
 	<string name="catalog_no_internet_button">もう一度お試しください</string>
+	<string name="whatsnew_map_updates_title">高速のマップ更新</string>
+	<string name="whatsnew_map_updates_message">これからは更新速度が二倍になります</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

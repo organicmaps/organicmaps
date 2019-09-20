@@ -1686,6 +1686,8 @@
 	<string name="subscription_screen_native_message_version_2">请为600多个城市和100多个国家的任何旅行做好准备</string>
 	<string name="catalog_no_internet_title">没有网络连接</string>
 	<string name="catalog_no_internet_button">请再试一次</string>
+	<string name="whatsnew_map_updates_title">地图的超快更新</string>
+	<string name="whatsnew_map_updates_message">现在的数据更新速度提高了2倍</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">缆车车站</string>

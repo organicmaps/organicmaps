@@ -3074,6 +3074,10 @@
 
 "catalog_no_internet_button" = "Prøve igjen";
 
+"whatsnew_map_updates_title" = "Reaktive kartoppdateringer";
+
+"whatsnew_map_updates_message" = "Nå kan data bli oppdatert 2 ganger fortere";
+
 
 /**********  Partners  **********/
 

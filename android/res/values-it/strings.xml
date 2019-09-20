@@ -1682,6 +1682,8 @@
 	<string name="subscription_screen_native_message_version_2">Sarete pronti per qualsiasi viaggio in più di 600 città e 100 paesi</string>
 	<string name="catalog_no_internet_title">Nessuna connessione internet</string>
 	<string name="catalog_no_internet_button">Riprovare</string>
+	<string name="whatsnew_map_updates_title">Aggiornamenti rapidi delle mappe</string>
+	<string name="whatsnew_map_updates_message">Ora l\'aggiornamento dei dati è 2 volte più veloce</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stazione di rifornimento per auto elettriche</string>

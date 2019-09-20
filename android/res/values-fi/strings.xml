@@ -1682,6 +1682,8 @@
 	<string name="subscription_screen_native_message_version_2">Ole valmiita mihin tahansa matkaan yli 600 kaupungissa ja yli 100 maassa</string>
 	<string name="catalog_no_internet_title">Ei ole Internet-yhteyttä</string>
 	<string name="catalog_no_internet_button">Yritä uudelleen</string>
+	<string name="whatsnew_map_updates_title">Erittäin nopeat karttapäivitykset</string>
+	<string name="whatsnew_map_updates_message">Nyt me päivitämme tietoja 2 kertaa nopeammin</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

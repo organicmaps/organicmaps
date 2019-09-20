@@ -1687,6 +1687,8 @@
 	<string name="subscription_screen_native_message_version_2">Buďte pripravení na akúkoľvek cestu v 600+ mestách a 100+ krajinách</string>
 	<string name="catalog_no_internet_title">Žiadne internetové pripojenie</string>
 	<string name="catalog_no_internet_button">Skúste to znova</string>
+	<string name="whatsnew_map_updates_title">Bleskové aktualizácie máp</string>
+	<string name="whatsnew_map_updates_message">Odteraz aktualizujeme dáta dvojnásobnou rýchlosťou</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

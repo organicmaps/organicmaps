@@ -1687,6 +1687,8 @@
 	<string name="subscription_screen_native_message_version_2">เตรียมพร้อมสำหรับการเดินทางมากกว่า 600 เมือง และมากกว่า 100 ประเทศ</string>
 	<string name="catalog_no_internet_title">ไม่มีการเชื่อมต่ออินเตอร์เน็ต</string>
 	<string name="catalog_no_internet_button">ลองใหม่อีกครั้ง</string>
+	<string name="whatsnew_map_updates_title">ปรับปรุงแผนที่ได้รวดเร็ว</string>
+	<string name="whatsnew_map_updates_message">นับตั้งแต่นี้ไปเราทำการปรับปรุงข้อมูลได้เร็วขึ้นเป็นสองเท่า</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

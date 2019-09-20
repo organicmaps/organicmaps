@@ -1688,6 +1688,8 @@
 	<string name="subscription_screen_native_message_version_2">Приготуйтеся до будь-якої подорожі в понад 600 містах і понад 100 країнах</string>
 	<string name="catalog_no_internet_title">Немає інтернет-підключення</string>
 	<string name="catalog_no_internet_button">Спробувати знову</string>
+	<string name="whatsnew_map_updates_title">Блискавичні оновлення карт</string>
+	<string name="whatsnew_map_updates_message">Нині оновлюємо дані у 2 рази швидше</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

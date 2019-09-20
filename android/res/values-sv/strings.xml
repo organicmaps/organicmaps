@@ -1686,6 +1686,8 @@
 	<string name="subscription_screen_native_message_version_2">Var redo för vilken som helst resa i 600+ städer och 100+ länder</string>
 	<string name="catalog_no_internet_title">Ingen internetanslutning</string>
 	<string name="catalog_no_internet_button">Försöka igen</string>
+	<string name="whatsnew_map_updates_title">Reaktionskartuppdateringar</string>
+	<string name="whatsnew_map_updates_message">Nu uppdaterar vi data två gånger snabbare</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

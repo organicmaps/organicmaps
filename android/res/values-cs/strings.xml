@@ -1691,6 +1691,8 @@
 	<string name="subscription_screen_native_message_version_2">Buďte připraveni na jakoukoli cestu do více než 600 měst a více než 100 zemí</string>
 	<string name="catalog_no_internet_title">Připojení k internetu není k dispozici</string>
 	<string name="catalog_no_internet_button">Zkusit znovu</string>
+	<string name="whatsnew_map_updates_title">Bleskové aktualizace mapy</string>
+	<string name="whatsnew_map_updates_message">Od nynějška aktualizujeme údaje dvakrát rychleji</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>

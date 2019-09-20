@@ -1677,6 +1677,8 @@
 	<string name="subscription_screen_native_message_version_2">600개 이상의 도시와 100 곳 이상의 나라에 언제라도 갈 수 있습니다</string>
 	<string name="catalog_no_internet_title">인터넷 연결이 되어있지 않습니다</string>
 	<string name="catalog_no_internet_button">다시 시도</string>
+	<string name="whatsnew_map_updates_title">매우 빠른 맵 업데이트</string>
+	<string name="whatsnew_map_updates_message">이제부터데이터를 2배로 업데이트 합니다</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">케이블카 역</string>

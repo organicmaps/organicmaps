@@ -1678,6 +1678,8 @@
 	<string name="subscription_screen_native_message_version_2">Fiți pregătiți pentru orice călătorie în peste 600+ orașe și în peste 100+ țări</string>
 	<string name="catalog_no_internet_title">Fără conexiune la internet</string>
 	<string name="catalog_no_internet_button">Încercați din nou</string>
+	<string name="whatsnew_map_updates_title">Actualizarea reactiva a hărților</string>
+	<string name="whatsnew_map_updates_message">Acum actualizam hărțile de 2 ori mai repede</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>

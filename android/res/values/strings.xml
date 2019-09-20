@@ -1747,6 +1747,8 @@
 	<string name="subscription_screen_native_message_version_2">Be ready for any journey in 600+ cities and 100+ countries</string>
 	<string name="catalog_no_internet_title">No internet connection</string>
 	<string name="catalog_no_internet_button">Try again</string>
+	<string name="whatsnew_map_updates_title">Reactive map updates</string>
+	<string name="whatsnew_map_updates_message">From now on we update the data twice as fast</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

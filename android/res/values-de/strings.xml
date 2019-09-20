@@ -1696,6 +1696,8 @@
 	<string name="subscription_screen_native_message_version_2">Seien Sie für jede Reise in 600+ Städten und 100+ Ländern bereit</string>
 	<string name="catalog_no_internet_title">Keine Internetverbindung</string>
 	<string name="catalog_no_internet_button">Noch einmal versuchen</string>
+	<string name="whatsnew_map_updates_title">Raketenschnelles Kartenupdate</string>
+	<string name="whatsnew_map_updates_message">Von nun an werden die Daten doppelt so schnell upgedatet</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>

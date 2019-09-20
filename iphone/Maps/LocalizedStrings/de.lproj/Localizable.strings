@@ -3074,6 +3074,10 @@
 
 "catalog_no_internet_button" = "Noch einmal versuchen";
 
+"whatsnew_map_updates_title" = "Raketenschnelles Kartenupdate";
+
+"whatsnew_map_updates_message" = "Von nun an werden die Daten doppelt so schnell upgedatet";
+
 
 /**********  Partners  **********/
 

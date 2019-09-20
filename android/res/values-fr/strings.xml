@@ -1707,6 +1707,8 @@
 	<string name="subscription_screen_native_message_version_2">Préparez-vous pour n\'importe quel voyage dans plus de 600 villes et plus de 100 pays</string>
 	<string name="catalog_no_internet_title">Pas de connexion internet</string>
 	<string name="catalog_no_internet_button">Essayer à nouveau</string>
+	<string name="whatsnew_map_updates_title">Mises à jour très rapides des cartes</string>
+	<string name="whatsnew_map_updates_message">Maintenant, nous mettons à jour les données 2 fois plus rapidement</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

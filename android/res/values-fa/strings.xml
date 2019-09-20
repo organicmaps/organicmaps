@@ -1625,6 +1625,8 @@
 	<string name="subscription_screen_native_message_version_2">برای هر سفر به بیش از 600 شهر و بیش از 100 کشور آماده باش</string>
 	<string name="catalog_no_internet_title">اتصال به اینترنت برقرار نیست</string>
 	<string name="catalog_no_internet_button">تلاش مجدد</string>
+	<string name="whatsnew_map_updates_title">بروزرسانی بسیار سریع ن</string>
+	<string name="whatsnew_map_updates_message">از این پس سرعت بروزرسانی اطلاعات دو برابر است</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>

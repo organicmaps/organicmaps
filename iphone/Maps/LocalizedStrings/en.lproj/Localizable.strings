@@ -3074,6 +3074,10 @@
 
 "catalog_no_internet_button" = "Try again";
 
+"whatsnew_map_updates_title" = "Reactive map updates";
+
+"whatsnew_map_updates_message" = "From now on we update the data twice as fast";
+
 
 /**********  Partners  **********/
 

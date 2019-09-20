@@ -1687,6 +1687,8 @@
 	<string name="subscription_screen_native_message_version_2">كن مستعداً لأي رحلة إلى أكثر من 600 مدينة و100 دولة</string>
 	<string name="catalog_no_internet_title">غير متصل</string>
 	<string name="catalog_no_internet_button">حاول مرة أخرى</string>
+	<string name="whatsnew_map_updates_title">تحديث الخارطة بشكل سريع جداً</string>
+	<string name="whatsnew_map_updates_message">منالآن فصاعداً نقوم بتحديث البيانات مرتين بسرعة</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

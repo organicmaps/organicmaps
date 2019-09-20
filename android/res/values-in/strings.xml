@@ -1681,6 +1681,8 @@
 	<string name="subscription_screen_native_message_version_2">Bersiaplah untuk melakukan perjalanan di lebih dari 600 kota dan 100 negara</string>
 	<string name="catalog_no_internet_title">Tidak ada sambungan internet</string>
 	<string name="catalog_no_internet_button">Coba lagi</string>
+	<string name="whatsnew_map_updates_title">Pembaruan peta secara cepat</string>
+	<string name="whatsnew_map_updates_message">Mulai sekarang kami memperbarui data dua kali lebih cepat</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>
