@@ -45,8 +45,10 @@ public:
       unviewed.insert(&e);
 
     while (!unviewed.empty())
-      clusters.emplace_back(FindOneCluster(*std::cbegin(unviewed), unviewed));
-
+    {
+      auto const it = *std::cbegin(unviewed);
+      clusters.emplace_back(FindOneCluster(it, unviewed));
+    }
     return clusters;
   }
 
