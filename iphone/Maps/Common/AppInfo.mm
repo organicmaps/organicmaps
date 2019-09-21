@@ -14,8 +14,8 @@
 
 namespace
 {
-string const kCountryCodeKey = "CountryCode";
-string const kUniqueIdKey = "UniqueId";
+std::string const kCountryCodeKey = "CountryCode";
+std::string const kUniqueIdKey = "UniqueId";
 }  // namespace
 
 @interface AppInfo ()
@@ -88,7 +88,7 @@ string const kUniqueIdKey = "UniqueId";
 {
   if (!_uniqueId)
   {
-    string uniqueString;
+    std::string uniqueString;
     if (settings::Get(kUniqueIdKey, uniqueString))  // if id stored in settings
     {
       _uniqueId = @(uniqueString.c_str());

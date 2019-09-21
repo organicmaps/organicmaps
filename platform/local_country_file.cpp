@@ -1,4 +1,5 @@
 #include "platform/local_country_file.hpp"
+
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 
@@ -8,8 +9,9 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
-#include "std/sstream.hpp"
+#include <sstream>
 
+using namespace std;
 
 namespace platform
 {

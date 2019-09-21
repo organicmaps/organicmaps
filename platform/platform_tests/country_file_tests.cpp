@@ -5,6 +5,10 @@
 #include "platform/mwm_version.hpp"
 #include "platform/country_file.hpp"
 
+#include <string>
+
+using namespace std;
+
 namespace platform
 {
 UNIT_TEST(CountryFile_SmokeTwoComponentMwm)

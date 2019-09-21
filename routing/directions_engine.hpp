@@ -23,10 +23,10 @@ public:
   /// \brief Generates all args which are passed by reference.
   /// \param path is points of the route. It should not be empty.
   /// \returns true if fields passed by reference are filled correctly and false otherwise.
-  virtual bool Generate(IndexRoadGraph const & graph, vector<Junction> const & path,
+  virtual bool Generate(IndexRoadGraph const & graph, std::vector<Junction> const & path,
                         base::Cancellable const & cancellable, Route::TTurns & turns,
-                        Route::TStreets & streetNames, vector<Junction> & routeGeometry,
-                        vector<Segment> & segments) = 0;
+                        Route::TStreets & streetNames, std::vector<Junction> & routeGeometry,
+                        std::vector<Segment> & segments) = 0;
   virtual void Clear() = 0;
 };
 }  // namespace routing

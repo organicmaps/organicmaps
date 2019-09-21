@@ -10,11 +10,10 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
-#include "std/algorithm.hpp"
+using namespace std;
 
 namespace downloader
 {
-
 ChunksDownloadStrategy::ChunksDownloadStrategy(vector<string> const & urls)
 {
   // init servers list
@@ -212,5 +211,4 @@ ChunksDownloadStrategy::NextChunk(string & outUrl, RangeT & range)
 
   return (allChunksDownloaded ? EDownloadSucceeded : ENoFreeServers);
 }
-
 } // namespace downloader

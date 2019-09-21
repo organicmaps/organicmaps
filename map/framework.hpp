@@ -182,7 +182,7 @@ private:
   std::unique_ptr<Platform::ThreadRunner> m_threadRunner = std::make_unique<Platform::ThreadRunner>();
 
 protected:
-  using TDrapeFunction = function<void (df::DrapeEngine *)>;
+  using TDrapeFunction = std::function<void (df::DrapeEngine *)>;
 
   StringsBundle m_stringsBundle;
 
@@ -378,7 +378,7 @@ public:
 
 public:
   // SearchAPI::Delegate overrides:
-  void RunUITask(function<void()> fn) override;
+  void RunUITask(std::function<void()> fn) override;
   void SetSearchDisplacementModeEnabled(bool enabled) override;
   void ShowViewportSearchResults(search::Results::ConstIter begin,
                                  search::Results::ConstIter end, bool clear) override;
@@ -833,7 +833,7 @@ public:
                     discovery::Manager::ErrorCalback const & onError) const
   {
     CHECK(m_discoveryManager.get(), ());
-    return m_discoveryManager->Discover(GetDiscoveryParams(move(params)), onResult, onError);
+    return m_discoveryManager->Discover(GetDiscoveryParams(std::move(params)), onResult, onError);
   }
 
   discovery::Manager::Params GetDiscoveryParams(discovery::ClientParams && clientParams) const;

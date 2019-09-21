@@ -1,9 +1,8 @@
 #pragma once
 
-#include "std/function.hpp"
-
-#include "std/vector.hpp"
-#include "std/string.hpp"
+#include <functional>
+#include <string>
+#include <vector>
 
 class WiFiInfo
 {
@@ -12,15 +11,15 @@ public:
 
   struct AccessPoint
   {
-    string m_bssid;           //!< for example, "33-12-03-5b-44-9a"
-    string m_ssid;            //!< name for APN
-    string m_signalStrength;  //!< for example, "-54"
+    std::string m_bssid;           //!< for example, "33-12-03-5b-44-9a"
+    std::string m_ssid;            //!< name for APN
+    std::string m_signalStrength;  //!< for example, "-54"
   };
 
   WiFiInfo();
   ~WiFiInfo();
 
-  typedef function<void (vector<WiFiInfo::AccessPoint> const &)> WifiRequestCallbackT;
+  using WifiRequestCallbackT = std::function<void(std::vector<WiFiInfo::AccessPoint> const &)>;
   void RequestWiFiBSSIDs(WifiRequestCallbackT callback);
   /// Stops any active updates
   void Stop();

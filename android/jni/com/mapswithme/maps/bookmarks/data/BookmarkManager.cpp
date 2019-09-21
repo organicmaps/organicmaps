@@ -11,6 +11,7 @@
 
 #include "platform/preferred_languages.hpp"
 
+#include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
 #include <utility>
@@ -1176,6 +1177,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetLastSortingType
   BookmarkManager::SortingType type;
   auto const hasType = bm.GetLastSortingType(static_cast<kml::MarkGroupId>(catId), type);
   ASSERT(hasType, ());
+  UNUSED_VALUE(hasType);
   return static_cast<jint>(type);
 }
 

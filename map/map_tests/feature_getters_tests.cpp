@@ -10,8 +10,11 @@
 
 #include "geometry/mercator.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <cstdint>
+#include <vector>
+
+using namespace std;
 
 UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
 {

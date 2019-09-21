@@ -96,11 +96,11 @@ url::Params AvailabilityParams::Get(UrlFilter const & filter /* = {} */) const
   if (IsAcceptedByFilter(filter, "room"))
   {
     for (size_t i = 0; i < m_rooms.size(); ++i)
-      result.emplace_back("room" + to_string(i + 1), m_rooms[i].ToString());
+      result.emplace_back("room" + std::to_string(i + 1), m_rooms[i].ToString());
   }
 
   if (m_minReviewScore != 0.0 && IsAcceptedByFilter(filter, "min_review_score"))
-    result.emplace_back("min_review_score", to_string(m_minReviewScore));
+    result.emplace_back("min_review_score", std::to_string(m_minReviewScore));
 
   if (!m_stars.empty() && IsAcceptedByFilter(filter, "stars"))
     result.emplace_back("stars", strings::JoinStrings(m_stars, ','));

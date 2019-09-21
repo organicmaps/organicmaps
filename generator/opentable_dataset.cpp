@@ -24,7 +24,7 @@ namespace generator
 // OpentableRestaurant ------------------------------------------------------------------------------
 OpentableRestaurant::OpentableRestaurant(std::string const & src)
 {
-  vector<std::string> rec;
+  std::vector<std::string> rec;
   strings::ParseCSVRow(src, '\t', rec);
   CHECK_EQUAL(rec.size(), FieldsCount(), ("Error parsing restaurants.tsv line:",
                                           boost::replace_all_copy(src, "\t", "\\t")));

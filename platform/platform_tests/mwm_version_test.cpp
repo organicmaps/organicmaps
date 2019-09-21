@@ -6,7 +6,9 @@
 
 #include "platform/mwm_version.hpp"
 
-#include "std/string.hpp"
+#include <string>
+
+using namespace std;
 
 namespace
 {

@@ -1,16 +1,17 @@
 #include "platform/http_thread_qt.hpp"
+
 #include "platform/http_thread_callback.hpp"
 
 #include "platform/platform.hpp"
 
 #include "base/logging.hpp"
 
-#include "std/string.hpp"
-
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QSslError>
 #include <QUrl>
+
+using namespace std;
 
 HttpThread::HttpThread(string const & url,
                        downloader::IHttpThreadCallback & cb,
@@ -164,6 +165,5 @@ void DeleteNativeHttpThread(HttpThread * request)
 {
   delete request;
 }
-
 } // namespace downloader
 

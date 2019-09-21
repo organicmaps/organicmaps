@@ -1,11 +1,14 @@
 #include "platform/country_file.hpp"
-#include "platform/mwm_version.hpp"
 
-#include "defines.hpp"
+#include "platform/mwm_version.hpp"
 
 #include "base/assert.hpp"
 
-#include "std/sstream.hpp"
+#include <sstream>
+
+#include "defines.hpp"
+
+using namespace std;
 
 namespace
 {
@@ -27,7 +30,7 @@ string GetNameWithExt(string const & countryFile, MapOptions file)
       return string();
   }
 }
-} //  namespace
+}  //  namespace
 
 namespace platform
 {

@@ -62,7 +62,7 @@ CGFloat const kPinDiameter = 22.0f;
   auto const trackId = [self trackIdForRow:row];
   Track const *track = bm.GetTrack(trackId);
   cell.textLabel.text = @(track->GetName().c_str());
-  string dist;
+  std::string dist;
   if (measurement_utils::FormatDistance(track->GetLengthMeters(), dist))
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"length"), @(dist.c_str())];
   else

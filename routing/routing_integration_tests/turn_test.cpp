@@ -5,6 +5,8 @@
 #include "routing/route.hpp"
 #include "routing/routing_callbacks.hpp"
 
+#include <vector>
+
 using namespace routing;
 using namespace routing::turns;
 
@@ -246,7 +248,7 @@ UNIT_TEST(RussiaMoscowPankratevskiPerBolshaySuharedskazPloschadTurnTest)
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  vector<turns::TurnItem> t;
+  std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
   // It's not possible to get destination with less number of turns due to oneway roads.
   TEST_GREATER_OR_EQUAL(t.size(), 5, ());

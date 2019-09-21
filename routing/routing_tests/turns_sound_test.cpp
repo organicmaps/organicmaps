@@ -5,6 +5,10 @@
 
 #include "platform/location.hpp"
 
+#include <vector>
+
+using namespace std;
+
 namespace
 {
 // A error to compare two double after conversion feet to meters.

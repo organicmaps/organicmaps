@@ -230,7 +230,7 @@ m2::PointF GetOffset(CaptionDefProto const * capRule)
 uint16_t CalculateHotelOverlayPriority(BaseApplyFeature::HotelData const & data)
 {
   // NOTE: m_rating is in format X[.Y], where X = [0;10], Y = [0;9], e.g. 8.7
-  string s = data.m_rating;
+  std::string s = data.m_rating;
   s.erase(std::remove(s.begin(), s.end(), '.'), s.end());
   s.erase(std::remove(s.begin(), s.end(), ','), s.end());
   if (s.empty())
@@ -457,7 +457,7 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
   }
 }
 
-string BaseApplyFeature::ExtractHotelInfo() const
+std::string BaseApplyFeature::ExtractHotelInfo() const
 {
   if (!m_hotelData.m_isHotel)
     return "";
@@ -1011,7 +1011,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
 {
   ASSERT (m_shieldRule != nullptr, ());
 
-  string const & roadNumber = shield.m_name;
+  std::string const & roadNumber = shield.m_name;
   double const mainScale = df::VisualParams::Instance().GetVisualScale();
   double const fontScale = df::VisualParams::Instance().GetFontScale();
   auto const anchor = GetShieldAnchor(shieldIndex, shieldCount);

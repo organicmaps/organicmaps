@@ -179,7 +179,7 @@ using namespace osm_auth_ios;
   int32_t rank;
   if (stats.GetRank(rank))
     self.rankLabel.text = @(rank).stringValue;
-  string levelUpFeat;
+  std::string levelUpFeat;
   if (stats.GetLevelUpRequiredFeat(levelUpFeat))
   {
     self.yourPlaceLabelCenterYAlignment.priority = UILayoutPriorityDefaultLow;

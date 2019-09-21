@@ -155,7 +155,7 @@ std::string MakeCampaignPageURL(FeatureID const & featureId)
   params.reserve(kMarketingParameters.size());
   for (auto const & key : kMarketingParameters)
   {
-    string value;
+    std::string value;
     if (!marketing::Settings::Get(key, value))
       continue;
 

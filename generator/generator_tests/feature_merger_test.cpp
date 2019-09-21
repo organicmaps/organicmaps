@@ -6,6 +6,8 @@
 
 #include "coding/point_coding.hpp"
 
+#include <vector>
+
 using namespace feature;
 
 namespace
@@ -14,7 +16,7 @@ namespace
 
   class VectorEmitter : public FeatureEmitterIFace
   {
-    vector<FeatureBuilder> m_vec;
+    std::vector<FeatureBuilder> m_vec;
   public:
     virtual void operator() (FeatureBuilder const & fb)
     {
@@ -92,7 +94,7 @@ UNIT_TEST(FeatureMerger_Branches)
          o
   */
 
-  vector<FeatureBuilder> vF;
+  std::vector<FeatureBuilder> vF;
 
   vF.push_back(FeatureBuilder());
   vF.back().AddPoint(P(-2, 0));
@@ -146,7 +148,7 @@ UNIT_TEST(FeatureMerger_Rounds)
 {
   classificator::Load();
 
-  vector<FeatureBuilder> vF;
+  std::vector<FeatureBuilder> vF;
 
   vF.push_back(FeatureBuilder());
   vF.back().AddPoint(P(-10, 0));

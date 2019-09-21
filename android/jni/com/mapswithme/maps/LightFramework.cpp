@@ -95,7 +95,7 @@ Java_com_mapswithme_maps_LightFramework_nativeGetNotification(JNIEnv * env, jcla
 {
   lightweight::Framework framework(lightweight::REQUEST_TYPE_NOTIFICATION);
   if (g_framework)
-    framework.SetDelegate(make_unique<FrameworkLightDelegate>(*g_framework->NativeFramework()));
+    framework.SetDelegate(std::make_unique<FrameworkLightDelegate>(*g_framework->NativeFramework()));
   auto const notification = framework.GetNotification();
 
   if (!notification)

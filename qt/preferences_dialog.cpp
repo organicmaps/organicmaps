@@ -17,7 +17,7 @@
 using namespace measurement_utils;
 
 #ifdef BUILD_DESIGNER
-string const kEnabledAutoRegenGeomIndex = "EnabledAutoRegenGeomIndex";
+std::string const kEnabledAutoRegenGeomIndex = "EnabledAutoRegenGeomIndex";
 #endif
 
 namespace qt

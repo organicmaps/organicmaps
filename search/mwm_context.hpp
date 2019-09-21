@@ -32,9 +32,9 @@ class MwmContext
 public:
   explicit MwmContext(MwmSet::MwmHandle handle);
 
-  inline MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
-  inline string const & GetName() const { return GetInfo()->GetCountryName(); }
-  inline std::shared_ptr<MwmInfo> const & GetInfo() const { return GetId().GetInfo(); }
+  MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
+  std::string const & GetName() const { return GetInfo()->GetCountryName(); }
+  std::shared_ptr<MwmInfo> const & GetInfo() const { return GetId().GetInfo(); }
 
   template <typename Fn>
   void ForEachIndex(covering::Intervals const & intervals, uint32_t scale, Fn && fn) const

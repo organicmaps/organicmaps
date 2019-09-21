@@ -69,8 +69,8 @@ CountryInfoGetterBase::RegionId CountryInfoGetterBase::FindFirstCountry(m2::Poin
 }
 
 // CountryInfoGetter -------------------------------------------------------------------------------
-vector<CountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD const & rect,
-                                                               bool rough) const
+std::vector<CountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD const & rect,
+                                                                    bool rough) const
 {
   std::vector<CountryId> result;
   for (size_t id = 0; id < m_countries.size(); ++id)

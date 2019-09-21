@@ -74,9 +74,12 @@ struct TransitRouteInfo
 struct TransitTitle
 {
   TransitTitle() = default;
-  TransitTitle(string const & text, df::ColorConstant const & color) : m_text(text), m_color(color) {}
+  TransitTitle(std::string const & text, df::ColorConstant const & color)
+    : m_text(text), m_color(color)
+  {
+  }
 
-  string m_text;
+  std::string m_text;
   df::ColorConstant m_color;
 };
 

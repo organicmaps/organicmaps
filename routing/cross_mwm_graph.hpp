@@ -101,7 +101,7 @@ public:
   bool IsFeatureTransit(NumMwmId numMwmId, uint32_t featureId);
   /// \brief Checks whether feature where |segment| is placed is a cross mwm connector.
   ///        If yes twin-segments are saved to |twins|.
-  void GetTwinFeature(Segment const & segment, bool isOutgoing, vector<Segment> & twins);
+  void GetTwinFeature(Segment const & segment, bool isOutgoing, std::vector<Segment> & twins);
 
 private:
   MwmStatus GetMwmStatus(NumMwmId numMwmId, std::string const & sectionName) const;
@@ -129,5 +129,5 @@ private:
   CrossMwmIndexGraph<connector::TransitId> m_crossMwmTransitGraph;
 };
 
-string DebugPrint(CrossMwmGraph::MwmStatus status);
+std::string DebugPrint(CrossMwmGraph::MwmStatus status);
 }  // routing

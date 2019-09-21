@@ -1,6 +1,6 @@
 #pragma once
 
-#include "std/function.hpp"
+#include <functional>
 
 class _JNIEnv;
 class _jobject;
@@ -10,7 +10,7 @@ typedef _jobject * jobject;
 namespace platform
 {
 class NetworkPolicy;
-using PartnersApiFn = function<void(NetworkPolicy const & canUseNetwork)>;
+using PartnersApiFn = std::function<void(NetworkPolicy const & canUseNetwork)>;
 }
 
 namespace network_policy

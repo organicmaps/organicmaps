@@ -4,23 +4,24 @@
 
 #include "geometry/latlon.hpp"
 
-#include "std/vector.hpp"
+#include <cstddef>
+#include <vector>
 
 class IGpsTrackFilter
 {
 public:
   virtual ~IGpsTrackFilter() = default;
 
-  virtual void Process(vector<location::GpsInfo> const & inPoints,
-                       vector<location::GpsTrackInfo> & outPoints) = 0;
+  virtual void Process(std::vector<location::GpsInfo> const & inPoints,
+                       std::vector<location::GpsTrackInfo> & outPoints) = 0;
 };
 
 class GpsTrackNullFilter : public IGpsTrackFilter
 {
 public:
   // IGpsTrackFilter overrides
-  void Process(vector<location::GpsInfo> const & inPoints,
-               vector<location::GpsTrackInfo> & outPoints) override;
+  void Process(std::vector<location::GpsInfo> const & inPoints,
+               std::vector<location::GpsTrackInfo> & outPoints) override;
 };
 
 class GpsTrackFilter : public IGpsTrackFilter
@@ -32,8 +33,8 @@ public:
   GpsTrackFilter();
 
   // IGpsTrackFilter overrides
-  void Process(vector<location::GpsInfo> const & inPoints,
-               vector<location::GpsTrackInfo> & outPoints) override;
+  void Process(std::vector<location::GpsInfo> const & inPoints,
+               std::vector<location::GpsTrackInfo> & outPoints) override;
 
 private:
   bool IsGoodPoint(location::GpsInfo const & info) const;

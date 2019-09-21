@@ -141,7 +141,7 @@ namespace location
     // Android, iOS and so on.
     struct SingleLaneInfoClient
     {
-      vector<int8_t> m_lane;  // Possible directions for the lane.
+      std::vector<int8_t> m_lane;  // Possible directions for the lane.
       bool m_isRecommended;   // m_isRecommended is true if the lane is recommended for a user.
 
       SingleLaneInfoClient(routing::turns::SingleLaneInfo const & singleLaneInfo)
@@ -158,14 +158,14 @@ namespace location
 
     /// @name Formatted covered distance with measurement units suffix.
     //@{
-    string m_distToTarget;
-    string m_targetUnitsSuffix;
+    std::string m_distToTarget;
+    std::string m_targetUnitsSuffix;
     //@}
 
     /// @name Formated distance to next turn with measurement unit suffix
     //@{
-    string m_distToTurn;
-    string m_turnUnitsSuffix;
+    std::string m_distToTurn;
+    std::string m_turnUnitsSuffix;
     routing::turns::CarDirection m_turn;
     /// Turn after m_turn. Returns NoTurn if there is no turns after.
     routing::turns::CarDirection m_nextTurn;

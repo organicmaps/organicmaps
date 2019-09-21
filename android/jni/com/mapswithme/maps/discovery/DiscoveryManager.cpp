@@ -143,7 +143,7 @@ Java_com_mapswithme_maps_discovery_DiscoveryManager_nativeDiscover(JNIEnv * env,
   static auto const currencyField = env->GetFieldID(paramsClass, "mCurrency", "Ljava/lang/String;");
   {
     auto const currency = static_cast<jstring>(env->GetObjectField(params, currencyField));
-    string const res = jni::ToNativeString(env, currency);
+    std::string const res = jni::ToNativeString(env, currency);
     if (!res.empty())
       p.m_currency = res;
   }
@@ -151,7 +151,7 @@ Java_com_mapswithme_maps_discovery_DiscoveryManager_nativeDiscover(JNIEnv * env,
   static auto const langField = env->GetFieldID(paramsClass, "mLang", "Ljava/lang/String;");
   {
     auto const lang = static_cast<jstring>(env->GetObjectField(params, langField));
-    string const res = languages::Normalize(jni::ToNativeString(env, lang));
+    std::string const res = languages::Normalize(jni::ToNativeString(env, lang));
     if (!res.empty())
       p.m_lang = res;
   }

@@ -4,7 +4,9 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/sstream.hpp"
+#include <sstream>
+
+using namespace std;
 
 namespace platform
 {
@@ -205,4 +207,4 @@ string DebugPrint(HttpClient const & request)
     ostr << " response: " << request.ServerResponse();
   return ostr.str();
 }
-}
+}  // namespace platform

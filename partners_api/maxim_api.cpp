@@ -144,7 +144,7 @@ void MakeFromJson(std::string const & src, std::vector<taxi::Product> & products
   FromJSONObject(root.get(), "FeedTime", time);
   product.m_time = strings::to_string(static_cast<int64_t>(time * kSecInMinute));
 
-  products.push_back(move(product));
+  products.push_back(std::move(product));
 }
 }  // namespace maxim
 }  // namespace taxi

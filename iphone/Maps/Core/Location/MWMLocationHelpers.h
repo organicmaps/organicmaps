@@ -38,7 +38,7 @@ static inline NSString * formattedDistance(double const & meters) {
   auto units = measurement_utils::Units::Metric;
   settings::TryGet(settings::kMeasurementUnits, units);
   
-  string distance;
+  std::string distance;
   switch (units)
   {
   case measurement_utils::Units::Imperial:

@@ -28,7 +28,7 @@ extern "C"
   Java_com_mapswithme_maps_MwmApplication_nativeInitFramework(JNIEnv * env, jclass clazz)
   {
     if (!g_framework)
-      g_framework = make_unique<android::Framework>();
+      g_framework = std::make_unique<android::Framework>();
   }
 
   // static void nativeProcessTask(long taskPointer);

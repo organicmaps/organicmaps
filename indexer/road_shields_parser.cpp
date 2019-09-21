@@ -292,7 +292,7 @@ class SimpleUnicodeRoadShieldParser : public RoadShieldParser
 public:
   struct Name
   {
-    Name(std::string const & simpleName, string const & unicodeName)
+    Name(std::string const & simpleName, std::string const & unicodeName)
       : m_simpleName(simpleName), m_unicodeName(strings::MakeUniString(unicodeName))
     {
     }
@@ -591,7 +591,7 @@ std::string DebugPrint(RoadShieldType shieldType)
   case RoadShieldType::Hidden: return "hidden";
   case RoadShieldType::Count: CHECK(false, ("RoadShieldType::Count is not to be used as a type"));
   }
-  return string();
+  return std::string();
 }
 
 std::string DebugPrint(RoadShield const & shield)

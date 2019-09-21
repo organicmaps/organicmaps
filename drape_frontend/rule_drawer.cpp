@@ -243,7 +243,7 @@ bool RuleDrawer::CheckCoastlines(FeatureType & f, Stylist const & s)
       zoomLevel > scales::GetUpperWorldScale() &&
       f.GetID().m_mwmId.GetInfo()->GetType() == MwmInfo::COASTS)
   {
-    string name;
+    std::string name;
     if (f.GetName(StringUtf8Multilang::kDefaultCode, name))
     {
       ASSERT(!name.empty(), ());

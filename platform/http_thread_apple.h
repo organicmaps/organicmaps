@@ -2,8 +2,9 @@
 
 #import <Foundation/Foundation.h>
 
-#include "std/string.hpp"
 #include "std/target_os.hpp"
+
+#include <string>
 
 namespace downloader { class IHttpThreadCallback; }
 
@@ -13,8 +14,12 @@ namespace downloader { class IHttpThreadCallback; }
 
 @interface HttpThreadImpl : NSObject
 
-- (instancetype)initWithURL:(string const &)url callback:(downloader::IHttpThreadCallback &)cb
-                   begRange:(int64_t)beg endRange:(int64_t)end expectedSize:(int64_t)size postBody:(string const &)pb;
+- (instancetype)initWithURL:(std::string const &)url
+                   callback:(downloader::IHttpThreadCallback &)cb
+                   begRange:(int64_t)beg
+                   endRange:(int64_t)end
+               expectedSize:(int64_t)size
+                   postBody:(std::string const &)pb;
 
 - (void)cancel;
 

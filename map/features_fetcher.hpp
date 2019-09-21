@@ -16,6 +16,7 @@
 #include <functional>
 #include <string>
 #include <utility>
+#include <vector>
 
 class FeaturesFetcher : public MwmSet::Observer
 {
@@ -64,7 +65,7 @@ public:
   }
 
   template <class ToDo>
-  void ReadFeatures(ToDo & toDo, vector<FeatureID> const & features) const
+  void ReadFeatures(ToDo & toDo, std::vector<FeatureID> const & features) const
   {
     m_dataSource.ReadFeatures(toDo, features);
   }

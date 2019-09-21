@@ -50,12 +50,12 @@ static id<DownloadIndicatorProtocol> downloadIndicator = nil;
   m_cancelRequested = true;
 }
 
-- (instancetype)initWithURL:(string const &)url
+- (instancetype)initWithURL:(std::string const &)url
                    callback:(downloader::IHttpThreadCallback &)cb
                    begRange:(int64_t)beg
                    endRange:(int64_t)end
                expectedSize:(int64_t)size
-                   postBody:(string const &)pb
+                   postBody:(std::string const &)pb
 {
   self = [super init];
   
@@ -95,9 +95,9 @@ static id<DownloadIndicatorProtocol> downloadIndicator = nil;
     [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
   }
   // set user-agent with unique client id only for mapswithme requests
-  if (url.find("mapswithme.com") != string::npos)
+  if (url.find("mapswithme.com") != std::string::npos)
   {
-    static string const uid = GetPlatform().UniqueClientId();
+    static std::string const uid = GetPlatform().UniqueClientId();
     [request addValue:@(uid.c_str()) forHTTPHeaderField:@"User-Agent"];
   }
   
@@ -246,12 +246,12 @@ public:
 ///////////////////////////////////////////////////////////////////////////////////////
 namespace downloader
 {
-HttpThread * CreateNativeHttpThread(string const & url,
+HttpThread * CreateNativeHttpThread(std::string const & url,
                                     downloader::IHttpThreadCallback & cb,
                                     int64_t beg,
                                     int64_t end,
                                     int64_t size,
-                                    string const & pb)
+                                    std::string const & pb)
 {
   HttpThreadImpl * request = [[HttpThreadImpl alloc] initWithURL:url callback:cb begRange:beg endRange:end expectedSize:size postBody:pb];
   return new HttpThread(request);
@@ -262,5 +262,4 @@ void DeleteNativeHttpThread(HttpThread * request)
   [request->m_request cancel];
   delete request;
 }
-
 } // namespace downloader

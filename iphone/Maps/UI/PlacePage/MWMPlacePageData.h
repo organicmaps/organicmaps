@@ -197,8 +197,8 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 - (NSURL *)bookingSearchURL;
 - (NSString *)sponsoredId;
 - (NSString *)hotelDescription;
-- (vector<booking::HotelFacility> const &)facilities;
-- (vector<booking::HotelReview> const &)hotelReviews;
+- (std::vector<booking::HotelFacility> const &)facilities;
+- (std::vector<booking::HotelReview> const &)hotelReviews;
 - (NSUInteger)numberOfHotelReviews;
 - (NSURL *)URLToAllReviews;
 - (NSArray<MWMGalleryItemModel *> *)photos;

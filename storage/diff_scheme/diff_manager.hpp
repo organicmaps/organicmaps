@@ -27,7 +27,7 @@ class Manager final
 public:
   struct ApplyDiffParams
   {
-    string m_diffReadyPath;
+    std::string m_diffReadyPath;
     LocalFilePtr m_diffFile;
     LocalFilePtr m_oldMwmFile;
   };

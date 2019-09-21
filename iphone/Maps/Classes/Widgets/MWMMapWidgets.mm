@@ -12,7 +12,7 @@
 
 @implementation MWMMapWidgets
 {
-  unique_ptr<gui::Skin> m_skin;
+  std::unique_ptr<gui::Skin> m_skin;
 }
 
 + (MWMMapWidgets *)widgetsManager

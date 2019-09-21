@@ -5,10 +5,10 @@
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cstring.hpp"
-#include "std/regex.hpp"
-#include "std/unique_ptr.hpp"
+#include <algorithm>
+#include <cstring>
+#include <memory>
+#include <regex>
 
 #include <dirent.h>
 #include <sys/types.h>
@@ -20,6 +20,8 @@
 #else
   #include <sys/vfs.h>
 #endif
+
+using namespace std;
 
 namespace
 {

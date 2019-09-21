@@ -64,7 +64,7 @@ bool MwmVersion::IsEditableMap() const
   return m_secondsSinceEpoch + kMaxSecondsTillNoEdits > base::SecondsSinceEpoch();
 }
 
-string DebugPrint(Format f)
+std::string DebugPrint(Format f)
 {
   return "v" + strings::to_string(static_cast<uint32_t>(f) + 1);
 }

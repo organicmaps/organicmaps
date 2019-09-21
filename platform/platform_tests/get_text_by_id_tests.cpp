@@ -2,7 +2,10 @@
 
 #include "platform/get_text_by_id.hpp"
 
+#include <string>
+
 using namespace platform;
+using namespace std;
 
 UNIT_TEST(GetTextByIdEnglishTest)
 {

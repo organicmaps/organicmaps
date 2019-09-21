@@ -2,8 +2,6 @@
 
 #include "base/math.hpp"
 
-#include "std/algorithm.hpp"
-
 namespace traffic
 {
 uint32_t const kSpeedGroupThresholdPercentage[] = {8, 16, 33, 58, 83, 100, 100, 100};
@@ -20,7 +18,7 @@ SpeedGroup GetSpeedGroupByPercentage(double p)
   return res;
 }
 
-string DebugPrint(SpeedGroup const & group)
+std::string DebugPrint(SpeedGroup const & group)
 {
   switch (group)
   {

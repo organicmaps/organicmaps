@@ -11,9 +11,13 @@
 #include "base/macros.hpp"
 #include "base/timer.hpp"
 
+#include <utility>
+#include <vector>
+
+using namespace std;
+
 namespace bench
 {
-
 namespace
 {
   class Accumulator
@@ -120,5 +124,4 @@ void RunFeaturesLoadingBenchmark(string const & file, pair<int, int> scaleRange,
 
   RunBenchmark(src, r.first.GetInfo()->m_bordersRect, scaleRange, res);
 }
-
-}
+}  // namespace bench

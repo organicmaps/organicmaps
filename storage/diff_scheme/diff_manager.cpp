@@ -83,9 +83,9 @@ void Manager::ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancella
       if (!isOnDisk)
         diffFile->SyncWithDisk();
 
-      string const oldMwmPath = p.m_oldMwmFile->GetPath(MapOptions::Map);
-      string const newMwmPath = diffFile->GetPath(MapOptions::Map);
-      string const diffApplyingInProgressPath = newMwmPath + DIFF_APPLYING_FILE_EXTENSION;
+      std::string const oldMwmPath = p.m_oldMwmFile->GetPath(MapOptions::Map);
+      std::string const newMwmPath = diffFile->GetPath(MapOptions::Map);
+      std::string const diffApplyingInProgressPath = newMwmPath + DIFF_APPLYING_FILE_EXTENSION;
 
       result = generator::mwm_diff::ApplyDiff(oldMwmPath, diffApplyingInProgressPath, diffPath,
                                               cancellable);

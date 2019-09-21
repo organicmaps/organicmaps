@@ -704,7 +704,7 @@ private:
   MarksChangesTracker m_changesTracker;
   df::DrapeEngineSafePtr m_drapeEngine;
 
-  unique_ptr<search::RegionAddressGetter> m_regionAddressGetter;
+  std::unique_ptr<search::RegionAddressGetter> m_regionAddressGetter;
   std::mutex m_regionAddressMutex;
 
   AsyncLoadingCallbacks m_asyncLoadingCallbacks;

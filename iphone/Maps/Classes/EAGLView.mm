@@ -178,7 +178,7 @@ double getExactDPI(double contentScaleFactor)
   p.m_hints.m_isLaunchByDeepLink = self.isLaunchByDeepLink;
 
   [self.widgetsManager setupWidgets:p];
-  GetFramework().CreateDrapeEngine(make_ref(m_factory), move(p));
+  GetFramework().CreateDrapeEngine(make_ref(m_factory), std::move(p));
 
   self->_drapeEngineCreated = YES;
   LOG(LINFO, ("CreateDrapeEngine Finished"));

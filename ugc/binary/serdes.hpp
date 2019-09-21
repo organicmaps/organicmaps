@@ -154,7 +154,7 @@ private:
 
   std::vector<IndexUGC> m_ugcs;
   std::vector<TranslationKey> m_keys;
-  std::vector<vector<Text>> m_texts;
+  std::vector<std::vector<Text>> m_texts;
 };
 
 // Deserializer for UGC. May be used for random-access, but it is more

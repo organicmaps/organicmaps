@@ -1,10 +1,10 @@
 #pragma once
 
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <string>
+#include <vector>
 
 namespace pl
 {
-  void EnumerateFilesByRegExp(string const & directory, string const & regexp,
-                              vector<string> & res);
-}
+void EnumerateFilesByRegExp(std::string const & directory, std::string const & regexp,
+                            std::vector<std::string> & res);
+}  // namespace pl

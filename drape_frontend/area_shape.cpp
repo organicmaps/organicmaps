@@ -17,7 +17,7 @@
 
 namespace df
 {
-AreaShape::AreaShape(vector<m2::PointD> && triangleList, BuildingOutline && buildingOutline,
+AreaShape::AreaShape(std::vector<m2::PointD> && triangleList, BuildingOutline && buildingOutline,
                      AreaViewParams const & params)
   : m_vertexes(std::move(triangleList))
   , m_buildingOutline(std::move(buildingOutline))

@@ -87,7 +87,7 @@ private:
 
   RoadGeometry const & GetRealRoadGeometry(NumMwmId mwmId, uint32_t featureId);
   void AddRealEdges(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
-                    vector<SegmentEdge> & edges);
+                    std::vector<SegmentEdge> & edges);
   TransitGraph & GetTransitGraph(NumMwmId mwmId);
 
   std::unique_ptr<CrossMwmGraph> m_crossMwmGraph;

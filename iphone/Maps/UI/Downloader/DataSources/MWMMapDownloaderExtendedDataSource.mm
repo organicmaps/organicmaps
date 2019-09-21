@@ -29,7 +29,7 @@ auto constexpr extraSection = MWMMapDownloaderDataSourceExtraSection::NearMe;
 
 @implementation MWMMapDownloaderExtendedDataSource
 {
-  vector<MWMMapDownloaderDataSourceExtraSection> m_extraSections;
+  std::vector<MWMMapDownloaderDataSourceExtraSection> m_extraSections;
 }
 
 - (void)load

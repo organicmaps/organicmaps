@@ -22,8 +22,8 @@ namespace routing
 /// \param finalPoint Coordinates of a finish point.
 /// \return URL for OSRM MAPS.ME server request.
 /// \see MapsMePlugin.hpp for REST protocol.
-string GenerateOnlineRequest(std::string const & serverURL, ms::LatLon const & startPoint,
-                             ms::LatLon const & finalPoint);
+std::string GenerateOnlineRequest(std::string const & serverURL, ms::LatLon const & startPoint,
+                                  ms::LatLon const & finalPoint);
 
 /// \brief ParseResponse MAPS.ME OSRM server response parser.
 /// \param serverResponse Server response data.

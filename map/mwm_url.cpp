@@ -1,4 +1,4 @@
-#include "mwm_url.hpp"
+#include "map/mwm_url.hpp"
 
 #include "map/api_mark_point.hpp"
 #include "map/bookmark_manager.hpp"
@@ -16,10 +16,9 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-
 #include <array>
+
+using namespace std;
 
 namespace url_scheme
 {
@@ -100,12 +99,12 @@ namespace catalogue
 {
 char const * kId = "id";
 char const * kName = "name";
-}
+}  // namespace catalogue
 
 namespace cataloguePath
 {
   char const * kUrl = "url";
-}
+}  // namespace cataloguePath
 
 namespace
 {
@@ -167,7 +166,6 @@ bool ParseLatLon(string const & key, string const & value, double & lat, double 
   }
   return true;
 }
-
 }  // namespace
 
 void ParsedMapApi::SetBookmarkManager(BookmarkManager * manager)
@@ -552,5 +550,4 @@ ApiMarkPoint const * ParsedMapApi::GetSinglePoint() const
 
   return static_cast<ApiMarkPoint const *>(m_bmManager->GetUserMark(*markIds.begin()));
 }
-
-}
+}  // namespace url_scheme

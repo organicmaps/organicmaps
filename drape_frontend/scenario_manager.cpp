@@ -68,7 +68,7 @@ bool ScenarioManager::IsRunning()
 
 void ScenarioManager::ThreadRoutine()
 {
-  string const scenarioName = m_scenarioData.m_name;
+  std::string const scenarioName = m_scenarioData.m_name;
   if (m_onStartHandler != nullptr)
     m_onStartHandler(scenarioName);
 

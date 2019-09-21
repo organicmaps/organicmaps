@@ -1,6 +1,6 @@
 #pragma once
 
-#include "std/utility.hpp"
+#include <utility>
 
 #include <boost/python.hpp>
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
@@ -13,9 +13,9 @@ using namespace boost::python;
 template <typename T1, typename T2>
 struct pair_to_tuple
 {
-  static PyObject * convert(pair<T1, T2> const & p)
+  static PyObject * convert(std::pair<T1, T2> const & p)
   {
-    return incref(make_tuple(p.first, p.second).ptr());
+    return incref(std::make_tuple(p.first, p.second).ptr());
   }
   
   static PyTypeObject const * get_pytype() { return &PyTuple_Type; }

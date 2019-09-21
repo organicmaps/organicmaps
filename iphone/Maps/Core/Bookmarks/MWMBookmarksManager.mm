@@ -741,7 +741,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 - (void)setCategory:(MWMMarkGroupID)groupId tags:(NSArray<MWMTag *> *)tags
 {
-  vector<string> tagIds;
+  std::vector<std::string> tagIds;
   for (MWMTag * tag in tags)
   {
     tagIds.push_back(tag.tagId.UTF8String);

@@ -31,7 +31,7 @@ class SearchPanel : public QWidget
 
   QPixmap m_busyIcon;
 
-  vector<search::Result> m_results;
+  std::vector<search::Result> m_results;
 
   search::EverywhereSearchParams m_params;
   uint64_t m_timestamp;

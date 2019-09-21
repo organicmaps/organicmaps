@@ -66,7 +66,7 @@ bool Matcher::Matches(Sample::Result const & golden, FeatureType & ft)
   }
   else
   {
-    ft.ForEachName([&golden, &nameMatches](int8_t /* lang */, string const & name) {
+    ft.ForEachName([&golden, &nameMatches](int8_t /* lang */, std::string const & name) {
       if (NormalizeAndSimplifyString(ToUtf8(golden.m_name)) == NormalizeAndSimplifyString(name))
       {
         nameMatches = true;

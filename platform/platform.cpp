@@ -10,11 +10,11 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/target_os.hpp"
+
 #include <algorithm>
 #include <random>
 #include <thread>
-
-#include "std/target_os.hpp"
 
 #include "private.h"
 

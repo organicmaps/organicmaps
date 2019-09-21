@@ -87,7 +87,7 @@ public:
   // It is one of several mechanisms that HTTP provides for web cache validation,
   // which allows a client to make conditional requests.
   // *NOTE* This method must not be called on the UI thread.
-  bool ReceiveTrafficData(string & etag);
+  bool ReceiveTrafficData(std::string & etag);
 
   // Returns the latest known speed group by a feature segment's id
   // or SpeedGroup::Unknown if there is no information about the segment.

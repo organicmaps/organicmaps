@@ -56,7 +56,7 @@ public:
   ~DrawWidget() override;
 
   bool Search(search::EverywhereSearchParams const & params);
-  string GetDistance(search::Result const & res) const;
+  std::string GetDistance(search::Result const & res) const;
   void ShowSearchResult(search::Result const & res);
 
   void CreateFeature();

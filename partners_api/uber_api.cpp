@@ -12,11 +12,11 @@
 #include <memory>
 #include <sstream>
 #include <string>
+#include <utility>
 
 #include "3party/jansson/myjansson.hpp"
 
 #include "private.h"
-
 
 using namespace platform;
 
@@ -65,7 +65,7 @@ void FillProducts(json_t const * time, json_t const * price, vector<taxi::Produc
     FromJSONObject(item, "display_name", product.m_name);
     FromJSONObject(item, "estimate", estimatedTime);
     product.m_time = strings::to_string(estimatedTime);
-    products.push_back(move(product));
+    products.push_back(std::move(product));
   }
 
   // Fill data from price.

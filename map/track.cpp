@@ -1,9 +1,12 @@
 #include "map/track.hpp"
+
 #include "map/bookmark_helpers.hpp"
 #include "map/user_mark_id_storage.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
+
+#include <utility>
 
 Track::Track(kml::TrackData && data)
   : Base(data.m_id == kml::kInvalidTrackId ? UserMarkIdStorage::Instance().GetNextTrackId() : data.m_id)
@@ -14,7 +17,7 @@ Track::Track(kml::TrackData && data)
   ASSERT_GREATER(m_data.m_points.size(), 1, ());
 }
 
-string Track::GetName() const
+std::string Track::GetName() const
 {
   return GetPreferredBookmarkStr(m_data.m_name);
 }

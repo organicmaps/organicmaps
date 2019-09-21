@@ -6,11 +6,8 @@
 
 #include "base/logging.hpp"
 
-#include "std/function.hpp"
-
 namespace styles
 {
-
 template <class TFn>
 void RunForEveryMapStyle(TFn && fn)
 {
@@ -31,5 +28,4 @@ void RunForEveryMapStyle(TFn && fn)
   reader.SetCurrentStyle(kDefaultMapStyle);
   classificator::Load();
 }
-
-} // namespace styles
+}  // namespace styles

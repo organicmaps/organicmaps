@@ -65,8 +65,8 @@ std::string MapFilesDownloader::MakeRelativeUrl(std::string const & fileName, in
 }
 
 // static
-std::string MapFilesDownloader::MakeFullUrlLegacy(string const & baseUrl, string const & fileName,
-                                                  int64_t dataVersion)
+std::string MapFilesDownloader::MakeFullUrlLegacy(std::string const & baseUrl,
+                                                  std::string const & fileName, int64_t dataVersion)
 {
   return base::url::Join(baseUrl, OMIM_OS_NAME, strings::to_string(dataVersion),
                          UrlEncode(fileName));

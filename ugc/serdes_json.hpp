@@ -56,7 +56,7 @@ public:
   }
 
   template <typename T>
-  void operator()(vector<T> const & vs, char const * name = nullptr)
+  void operator()(std::vector<T> const & vs, char const * name = nullptr)
   {
     NewScopeWith(base::NewJSONArray(), name, [this, &vs] {
       for (auto const & v : vs)
@@ -184,7 +184,7 @@ public:
   }
 
   template <typename T>
-  void operator()(vector<T> & vs, char const * name = nullptr)
+  void operator()(std::vector<T> & vs, char const * name = nullptr)
   {
     json_t * context = SaveContext(name);
 

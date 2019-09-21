@@ -1005,7 +1005,7 @@ public:
   }
 
 private:
-  std::vector<string> m_symbols;
+  std::vector<std::string> m_symbols;
   RequestSymbolsSizeCallback m_callback;
 };
 
@@ -1189,18 +1189,18 @@ private:
 class DrapeApiRemoveMessage : public Message
 {
 public:
-  explicit DrapeApiRemoveMessage(string const & id, bool removeAll = false)
+  explicit DrapeApiRemoveMessage(std::string const & id, bool removeAll = false)
     : m_id(id)
     , m_removeAll(removeAll)
   {}
 
   Type GetType() const override { return Type::DrapeApiRemove; }
 
-  string const & GetId() const { return m_id; }
+  std::string const & GetId() const { return m_id; }
   bool NeedRemoveAll() const { return m_removeAll; }
 
 private:
-  string m_id;
+  std::string m_id;
   bool m_removeAll;
 };
 

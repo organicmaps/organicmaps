@@ -1,7 +1,7 @@
 #pragma once
 
-#include "std/cstdint.hpp"
-#include "std/string.hpp"
+#include <cstdint>
+#include <string>
 
 namespace traffic
 {
@@ -40,5 +40,5 @@ extern uint32_t const kSpeedGroupThresholdPercentage[static_cast<size_t>(SpeedGr
 /// \note This method is used in traffic jam generation.
 SpeedGroup GetSpeedGroupByPercentage(double p);
 
-string DebugPrint(SpeedGroup const & group);
+std::string DebugPrint(SpeedGroup const & group);
 }  // namespace traffic

@@ -8,13 +8,15 @@
 #include "indexer/categories_holder.hpp"
 #include "indexer/feature_data.hpp"
 
-#include "std/transform_iterator.hpp"
-
 #include <algorithm>
 #include <sstream>
 
+#include <boost/iterator/transform_iterator.hpp>
+
 using namespace std;
 using namespace strings;
+
+using boost::make_transform_iterator;
 
 namespace search
 {

@@ -85,7 +85,7 @@ void PrepareClassRefs(JNIEnv * env, jclass sponsoredClass)
       "(Ljava/lang/String;Lcom/mapswithme/maps/widget/placepage/Sponsored$HotelInfo;)V");
 }
 
-jobjectArray ToPhotosArray(JNIEnv * env, vector<HotelPhotoUrls> const & photos)
+jobjectArray ToPhotosArray(JNIEnv * env, std::vector<HotelPhotoUrls> const & photos)
 {
   return jni::ToJavaArray(env, g_imageClass, photos,
                           [](JNIEnv * env, HotelPhotoUrls const & item) {
@@ -95,7 +95,7 @@ jobjectArray ToPhotosArray(JNIEnv * env, vector<HotelPhotoUrls> const & photos)
                           });
 }
 
-jobjectArray ToFacilitiesArray(JNIEnv * env, vector<HotelFacility> const & facilities)
+jobjectArray ToFacilitiesArray(JNIEnv * env, std::vector<HotelFacility> const & facilities)
 {
   return jni::ToJavaArray(env, g_facilityTypeClass, facilities,
                           [](JNIEnv * env, HotelFacility const & item) {
@@ -105,7 +105,7 @@ jobjectArray ToFacilitiesArray(JNIEnv * env, vector<HotelFacility> const & facil
                           });
 }
 
-jobjectArray ToReviewsArray(JNIEnv * env, vector<HotelReview> const & reviews)
+jobjectArray ToReviewsArray(JNIEnv * env, std::vector<HotelReview> const & reviews)
 {
   return jni::ToJavaArray(env, g_reviewClass, reviews,
                           [](JNIEnv * env, HotelReview const & item) {

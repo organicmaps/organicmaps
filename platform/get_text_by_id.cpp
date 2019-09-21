@@ -1,4 +1,5 @@
 #include "platform/get_text_by_id.hpp"
+
 #include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
@@ -6,8 +7,11 @@
 
 #include "3party/jansson/myjansson.hpp"
 
-#include "std/algorithm.hpp"
 #include "std/target_os.hpp"
+
+#include <algorithm>
+
+using namespace std;
 
 namespace
 {

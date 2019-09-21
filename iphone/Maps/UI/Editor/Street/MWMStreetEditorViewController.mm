@@ -4,8 +4,8 @@
 
 @interface MWMStreetEditorViewController () <MWMStreetEditorEditCellProtocol>
 {
-  vector<osm::LocalizedStreet> m_streets;
-  string m_editedStreetName;
+  std::vector<osm::LocalizedStreet> m_streets;
+  std::string m_editedStreetName;
 }
 
 @property (nonatomic) NSUInteger selectedStreet;

@@ -28,10 +28,12 @@
 #include <set>
 #include <string>
 
-#include "std/transform_iterator.hpp"
+#include <boost/iterator/transform_iterator.hpp>
 
 using namespace std;
 using namespace std::placeholders;
+
+using boost::make_transform_iterator;
 
 namespace search
 {

@@ -10,7 +10,7 @@ namespace storage
 {
 struct DownloaderSearchResult
 {
-  DownloaderSearchResult(CountryId const & countryId, string const & matchedName)
+  DownloaderSearchResult(CountryId const & countryId, std::string const & matchedName)
     : m_countryId(countryId), m_matchedName(matchedName)
   {
   }

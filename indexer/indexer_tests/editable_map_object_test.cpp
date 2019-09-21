@@ -5,6 +5,11 @@
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
 
+#include <string>
+#include <vector>
+
+using namespace std;
+
 namespace
 {
 using osm::EditableMapObject;

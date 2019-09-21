@@ -214,7 +214,7 @@ public:
 
 private:
   template <class ToDo>
-  static void ForEachFromDatMock(string const &, ToDo && toDo)
+  static void ForEachFromDatMock(std::string const &, ToDo && toDo)
   {
     for (size_t i = 0; i < kWikiData.size(); ++i)
     {

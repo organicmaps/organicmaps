@@ -13,6 +13,7 @@
 #include "base/assert.hpp"
 
 #include <functional>
+#include <utility>
 
 #include <QtCore/QTimer>
 #include <QtGui/QBitmap>
@@ -98,7 +99,7 @@ void SearchPanel::OnSearchResults(uint64_t timestamp, search::Results const & re
     int pos = 0;
     for (size_t r = 0; r < res.GetHighlightRangesCount(); ++r)
     {
-      pair<uint16_t, uint16_t> const & range = res.GetHighlightRange(r);
+      std::pair<uint16_t, uint16_t> const & range = res.GetHighlightRange(r);
       strHigh.append(name.mid(pos, range.first - pos));
       strHigh.append("<font color=\"green\">");
       strHigh.append(name.mid(range.first, range.second));
@@ -115,7 +116,7 @@ void SearchPanel::OnSearchResults(uint64_t timestamp, search::Results const & re
 
     if (res.GetResultType() == search::Result::Type::Feature)
     {
-      string readableType = classif().GetReadableObjectName(res.GetFeatureType());
+      std::string readableType = classif().GetReadableObjectName(res.GetFeatureType());
       m_pTable->setItem(rowCount, 0, CreateItem(QString::fromStdString(readableType)));
       m_pTable->setItem(rowCount, 3, CreateItem(m_pDrawWidget->GetDistance(res).c_str()));
     }
@@ -292,7 +293,7 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
   if (m_results[row].IsSuggest())
   {
     // insert suggestion into the search bar
-    string const suggestion = m_results[row].GetSuggestionString();
+    std::string const suggestion = m_results[row].GetSuggestionString();
     m_pEditor->setText(QString::fromUtf8(suggestion.c_str()));
   }
   else

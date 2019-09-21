@@ -204,7 +204,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   auto data = self.data;
   if (!lastLocation || !data)
     return @"";
-  string distance;
+  std::string distance;
   CLLocationCoordinate2D const & coord = lastLocation.coordinate;
   ms::LatLon const & target = data.latLon;
   double meters = ms::DistanceOnEarth(coord.latitude, coord.longitude, target.m_lat, target.m_lon);
@@ -214,7 +214,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   auto units = measurement_utils::Units::Metric;
   settings::TryGet(settings::kMeasurementUnits, units);
   
-  string s;
+  std::string s;
   switch (units) {
     case measurement_utils::Units::Imperial:
       measurement_utils::FormatDistanceWithLocalization(meters,

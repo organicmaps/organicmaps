@@ -10,16 +10,14 @@
 
 #include "base/scope_guard.hpp"
 
-#include "std/string.hpp"
-#include "std/vector.hpp"
-#include "std/iostream.hpp"
-
+#include <string>
+#include <utility>
 
 UNIT_TEST(KMZ_UnzipTest)
 {
   UserMarkIdStorage::Instance().EnableSaving(false);
 
-  string const kmzFile = GetPlatform().TestsDataPathForFile("test.kmz");
+  std::string const kmzFile = GetPlatform().TestsDataPathForFile("test.kmz");
   std::string kmlHash;
   auto kmlData = LoadKmzFile(kmzFile, kmlHash);
   TEST(kmlData != nullptr, ());

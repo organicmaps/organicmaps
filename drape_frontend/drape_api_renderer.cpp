@@ -30,7 +30,7 @@ void DrapeApiRenderer::AddRenderProperties(
   }
 }
 
-void DrapeApiRenderer::RemoveRenderProperty(string const & id)
+void DrapeApiRenderer::RemoveRenderProperty(std::string const & id)
 {
   m_properties.erase(std::remove_if(m_properties.begin(), m_properties.end(),
                                     [&id](auto const & p) { return p->m_id == id; }),

@@ -13,15 +13,15 @@
 @implementation MWMEditorAdditionalNamesTableViewController
 {
   StringUtf8Multilang m_name;
-  vector<StringUtf8Multilang::Lang> m_languages;
-  vector<NSInteger> m_additionalSkipLanguageCodes;
+  std::vector<StringUtf8Multilang::Lang> m_languages;
+  std::vector<NSInteger> m_additionalSkipLanguageCodes;
 }
 
 #pragma mark - UITableViewDataSource
 
 - (void)configWithDelegate:(id<MWMEditorAdditionalNamesProtocol>)delegate
                       name:(StringUtf8Multilang const &)name
-additionalSkipLanguageCodes:(vector<NSInteger>)additionalSkipLanguageCodes
+additionalSkipLanguageCodes:(std::vector<NSInteger>)additionalSkipLanguageCodes
       selectedLanguageCode:(NSInteger)selectedLanguageCode
 {
   self.delegate = delegate;
@@ -39,7 +39,7 @@ additionalSkipLanguageCodes:(vector<NSInteger>)additionalSkipLanguageCodes
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  auto const getIndex = [](string const & lang) { return StringUtf8Multilang::GetLangIndex(lang); };
+  auto const getIndex = [](std::string const & lang) { return StringUtf8Multilang::GetLangIndex(lang); };
   StringUtf8Multilang::Languages const & supportedLanguages = StringUtf8Multilang::GetSupportedLanguages();
   m_languages.clear();
   if (self.selectedLanguageCode == StringUtf8Multilang::kDefaultCode ||
@@ -54,12 +54,12 @@ additionalSkipLanguageCodes:(vector<NSInteger>)additionalSkipLanguageCodes
     auto const langIndex = getIndex(language.m_code);
     if (self.selectedLanguageCode == NSNotFound && langIndex != kDefaultCode && m_name.HasString(langIndex))
       continue;
-    auto it = find(m_additionalSkipLanguageCodes.begin(), m_additionalSkipLanguageCodes.end(), langIndex);
+    auto it = std::find(m_additionalSkipLanguageCodes.begin(), m_additionalSkipLanguageCodes.end(), langIndex);
     if (it == m_additionalSkipLanguageCodes.end())
       m_languages.push_back(language);
   }
 
-  sort(m_languages.begin(), m_languages.end(),
+  std::sort(m_languages.begin(), m_languages.end(),
        [&getIndex](StringUtf8Multilang::Lang const & lhs, StringUtf8Multilang::Lang const & rhs) {
          // Default name can be changed in advanced mode, but it should be last in list of names.
          if (getIndex(lhs.m_code) == kDefaultCode && getIndex(rhs.m_code) != kDefaultCode)
@@ -67,7 +67,7 @@ additionalSkipLanguageCodes:(vector<NSInteger>)additionalSkipLanguageCodes
          if (getIndex(lhs.m_code) != kDefaultCode && getIndex(rhs.m_code) == kDefaultCode)
            return true;
 
-         return string(lhs.m_code) < string(rhs.m_code);
+         return std::string(lhs.m_code) < std::string(rhs.m_code);
        });
 }
 

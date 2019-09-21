@@ -3,17 +3,14 @@
 #include "platform/country_defines.hpp"
 #include "platform/local_country_file.hpp"
 
-#include "std/function.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <memory>
+#include <vector>
 
 class ModelReader;
 
 namespace platform
 {
-
 namespace migrate
 {
 bool NeedMigrate();
@@ -24,15 +21,15 @@ void SetMigrationFlag();
 // Note. The the maps are deleted from writable dir/|dataDir|/|version| directory.
 // If |dataDir| is empty (or is not set) the function deletes maps from writable dir.
 void DeleteDownloaderFilesForCountry(int64_t version, CountryFile const & countryFile);
-void DeleteDownloaderFilesForCountry(int64_t version, string const & dataDir,
+void DeleteDownloaderFilesForCountry(int64_t version, std::string const & dataDir,
                                      CountryFile const & countryFile);
 
 // Finds all local map files in |directory|. Version of these files is
 // passed as an argument. Also, performs cleanup described in comment
 // for FindAllLocalMapsAndCleanup().
-void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t version,
+void FindAllLocalMapsInDirectoryAndCleanup(std::string const & directory, int64_t version,
                                            int64_t latestVersion,
-                                           vector<LocalCountryFile> & localFiles);
+                                           std::vector<LocalCountryFile> & localFiles);
 
 // Finds all local map files in resources and writable directory. For
 // Android, checks /Android/obb directory.  Subdirectories in the
@@ -51,11 +48,11 @@ void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t ver
 // CleanupMapsDirectory().
 // Note. The the maps are looked for writable dir/|dataDir|/|version| directory.
 // If |dataDir| is empty (or is not set) the function looks for maps in writable dir.
-void FindAllLocalMapsAndCleanup(int64_t latestVersion, vector<LocalCountryFile> & localFiles);
-void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
-                                vector<LocalCountryFile> & localFiles);
+void FindAllLocalMapsAndCleanup(int64_t latestVersion, std::vector<LocalCountryFile> & localFiles);
+void FindAllLocalMapsAndCleanup(int64_t latestVersion, std::string const & dataDir,
+                                std::vector<LocalCountryFile> & localFiles);
 
-void FindAllDiffs(string const & dataDir, vector<LocalCountryFile> & diffs);
+void FindAllDiffs(std::string const & dataDir, std::vector<LocalCountryFile> & diffs);
 
 // This method removes:
 // * partially downloaded non-latest maps (with version less than |latestVersion|)
@@ -68,23 +65,23 @@ void CleanupMapsDirectory(int64_t latestVersion);
 // Tries to parse a version from a string of size not longer than 18
 // symbols and representing an unsigned decimal number. Leading zeroes
 // are allowed.
-bool ParseVersion(string const & s, int64_t & version);
+bool ParseVersion(std::string const & s, int64_t & version);
 
 // When version is zero, uses writable directory, otherwise, creates
 // directory with name equal to decimal representation of version.
 // Note. The function assumes the maps are located in writable dir/|dataDir|/|version| directory.
 // If |dataDir| is empty (or is not set) the function assumes that maps are in writable dir.
-shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, CountryFile const & countryFile);
-shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, string const & dataDir,
+std::shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, CountryFile const & countryFile);
+std::shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, std::string const & dataDir,
                                                          CountryFile const & countryFile);
 
 // Note. The function assumes the maps are located in writable dir/|dataDir|/|version| directory.
 // If |dataDir| is empty (or is not set) the function assumes that maps are in writable dir.
-string GetFileDownloadPath(int64_t version, CountryFile const & countryFile, MapOptions file);
-string GetFileDownloadPath(int64_t version, string const & dataDir,
+std::string GetFileDownloadPath(int64_t version, CountryFile const & countryFile, MapOptions file);
+std::string GetFileDownloadPath(int64_t version, std::string const & dataDir,
                            CountryFile const & countryFile, MapOptions file);
 
-unique_ptr<ModelReader> GetCountryReader(LocalCountryFile const & file, MapOptions options);
+std::unique_ptr<ModelReader> GetCountryReader(LocalCountryFile const & file, MapOptions options);
 
 // An API for managing country indexes.
 class CountryIndexes
@@ -108,20 +105,20 @@ public:
   // Returns full path to country index. Note that this method does
   // not create a file on disk - it just returns a path where the
   // index should be created/accessed/removed.
-  static string GetPath(LocalCountryFile const & localFile, Index index);
+  static std::string GetPath(LocalCountryFile const & localFile, Index index);
 
   // Pushes to the exts's end possible index files extensions.
-  static void GetIndexesExts(vector<string> & exts);
+  static void GetIndexesExts(std::vector<std::string> & exts);
 
   // Returns true if |file| corresponds to an index file.
-  static bool IsIndexFile(string const & file);
+  static bool IsIndexFile(std::string const & file);
 
 private:
   friend void UnitTest_LocalCountryFile_CountryIndexes();
   friend void UnitTest_LocalCountryFile_DoNotDeleteUserFiles();
 
-  static string IndexesDir(LocalCountryFile const & localFile);
+  static std::string IndexesDir(LocalCountryFile const & localFile);
 };
 
-string DebugPrint(CountryIndexes::Index index);
+std::string DebugPrint(CountryIndexes::Index index);
 }  // namespace platform

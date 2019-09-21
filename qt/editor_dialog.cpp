@@ -5,7 +5,7 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
+#include <string>
 
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialogButtonBox>
@@ -40,7 +40,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
   {  // Feature types.
     grid->addWidget(new QLabel("Type:"), row, 0);
 
-    string const raw = DebugPrint(m_feature.GetTypes());
+    std::string const raw = DebugPrint(m_feature.GetTypes());
     QLabel * label = new QLabel(QString::fromStdString(raw));
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     grid->addWidget(label, row++, 1);
@@ -91,7 +91,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
 
     for (size_t i = 0; i < nearbyStreets.size(); ++i)
     {
-      string street = nearbyStreets[i].m_defaultName;
+      std::string street = nearbyStreets[i].m_defaultName;
       if (!nearbyStreets[i].m_localizedName.empty())
         street += " / " + nearbyStreets[i].m_localizedName;
       cmb->addItem(street.c_str());
@@ -115,7 +115,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
   // Editable metadata rows.
   for (osm::Props const prop : emo.GetEditableProperties())
   {
-    string v;
+    std::string v;
     switch (prop)
     {
     case osm::Props::Phone: v = emo.GetPhone(); break;
@@ -126,9 +126,11 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
       {
         grid->addWidget(new QLabel(kInternetObjectName), row, 0);
         QComboBox * cmb = new QComboBox();
-        string const values[] = {DebugPrint(osm::Internet::Unknown), DebugPrint(osm::Internet::Wlan),
-                                 DebugPrint(osm::Internet::Wired), DebugPrint(osm::Internet::Yes),
-                                 DebugPrint(osm::Internet::No)};
+        std::string const values[] = {DebugPrint(osm::Internet::Unknown),
+                                      DebugPrint(osm::Internet::Wlan),
+                                      DebugPrint(osm::Internet::Wired),
+                                      DebugPrint(osm::Internet::Yes),
+                                      DebugPrint(osm::Internet::No)};
         for (auto const & v : values)
           cmb->addItem(v.c_str());
         cmb->setCurrentText(DebugPrint(emo.GetInternet()).c_str());
@@ -191,7 +193,7 @@ void EditorDialog::OnSave()
       QLineEdit * le = findChild<QLineEdit *>(StringUtf8Multilang::GetLangByCode(langCode));
       if (!le)
         continue;
-      string const name = le->text().toStdString();
+      std::string const name = le->text().toStdString();
       if (!name.empty())
         names.AddString(langCode, name);
     }
@@ -216,7 +218,7 @@ void EditorDialog::OnSave()
     if (prop == osm::Props::Internet)
     {
       QComboBox * cmb = findChild<QComboBox *>(kInternetObjectName);
-      string const str = cmb->currentText().toStdString();
+      std::string const str = cmb->currentText().toStdString();
       osm::Internet v = osm::Internet::Unknown;
       if (str == DebugPrint(osm::Internet::Wlan))
         v = osm::Internet::Wlan;
@@ -234,7 +236,7 @@ void EditorDialog::OnSave()
     if (!editor)
       continue;
 
-    string const v = editor->text().toStdString();
+    std::string const v = editor->text().toStdString();
     switch (prop)
     {
     case osm::Props::Phone: m_feature.SetPhone(v); break;
@@ -244,7 +246,7 @@ void EditorDialog::OnSave()
     case osm::Props::Internet: ASSERT(false, ("Is handled separately above."));
     case osm::Props::Cuisine:
     {
-      vector<string> cuisines;
+      std::vector<std::string> cuisines;
       strings::Tokenize(v, ";", base::MakeBackInsertFunctor(cuisines));
       m_feature.SetCuisines(cuisines);
     }

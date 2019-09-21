@@ -2,12 +2,16 @@
 
 #include "map/place_page_info.hpp"
 
+#include <string>
+
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
+
+using namespace std;
 
 string GenerateStars(int count)
 {

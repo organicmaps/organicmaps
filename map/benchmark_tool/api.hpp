@@ -1,15 +1,14 @@
 #pragma once
 
-#include "std/vector.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
-
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace bench
 {
   struct Result
   {
-    vector<double> m_time;
+    std::vector<double> m_time;
 
   public:
     double m_all, m_max, m_avg, m_med;
@@ -42,5 +41,5 @@ namespace bench
   };
 
   /// @param[in] count number of times to run benchmark
-  void RunFeaturesLoadingBenchmark(string const & file, pair<int, int> scaleR, AllResult & res);
-}
+  void RunFeaturesLoadingBenchmark(std::string const & file, std::pair<int, int> scaleR, AllResult & res);
+}  // namespace bench

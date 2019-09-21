@@ -11,7 +11,7 @@
 
 namespace
 {
-string RootId() { return GetFramework().GetStorage().GetRootId(); }
+std::string RootId() { return GetFramework().GetStorage().GetRootId(); }
 enum class State
 {
   Downloading,

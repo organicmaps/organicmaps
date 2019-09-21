@@ -89,7 +89,7 @@ private:
     bool m_bearingChecked = false;
   };
 
-  friend string DebugPrint(Vertex const & u)
+  friend std::string DebugPrint(Vertex const & u)
   {
     std::ostringstream os;
     os << "Vertex [ ";
@@ -122,7 +122,7 @@ private:
     bool m_isSpecial = false;
   };
 
-  friend string DebugPrint(Edge const & edge)
+  friend std::string DebugPrint(Edge const & edge)
   {
     std::ostringstream os;
     os << "Edge [ ";

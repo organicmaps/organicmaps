@@ -18,7 +18,7 @@ size_t FeaturesVector::GetNumFeatures() const
   return m_table ? m_table->size() : 0;
 }
 
-FeaturesVectorTest::FeaturesVectorTest(string const & filePath)
+FeaturesVectorTest::FeaturesVectorTest(std::string const & filePath)
   : FeaturesVectorTest((FilesContainerR(filePath, READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT)))
 {
 }

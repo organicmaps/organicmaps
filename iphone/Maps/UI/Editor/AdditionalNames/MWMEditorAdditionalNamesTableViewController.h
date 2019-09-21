@@ -12,7 +12,7 @@
 
 - (void)configWithDelegate:(id<MWMEditorAdditionalNamesProtocol>)delegate
                       name:(StringUtf8Multilang const &)name
-additionalSkipLanguageCodes:(vector<NSInteger>)additionalSkipLanguageCodes
+additionalSkipLanguageCodes:(std::vector<NSInteger>)additionalSkipLanguageCodes
       selectedLanguageCode:(NSInteger)selectedLanguageCode;
 
 @end

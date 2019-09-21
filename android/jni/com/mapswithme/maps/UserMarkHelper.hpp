@@ -5,6 +5,8 @@
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "com/mapswithme/maps/Framework.hpp"
 
+#include <vector>
+
 namespace place_page
 {
 class Info;
@@ -32,16 +34,17 @@ void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, feature
 
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info);
 
-jobjectArray ToBannersArray(JNIEnv * env, vector<ads::Banner> const & banners);
+jobjectArray ToBannersArray(JNIEnv * env, std::vector<ads::Banner> const & banners);
 
-jobjectArray ToRatingArray(JNIEnv * env, vector<std::string> const & ratingCategories);
+jobjectArray ToRatingArray(JNIEnv * env, std::vector<std::string> const & ratingCategories);
 
-jintArray ToReachableByTaxiProvidersArray(JNIEnv * env, vector<taxi::Provider::Type> const & types);
+jintArray ToReachableByTaxiProvidersArray(JNIEnv * env,
+                                          std::vector<taxi::Provider::Type> const & types);
 
 jobject CreateLocalAdInfo(JNIEnv * env, place_page::Info const & info);
 
 jobject CreateRoutePointInfo(JNIEnv * env, place_page::Info const & info);
 
 jobject CreateFeatureId(JNIEnv * env, FeatureID const & fid);
-jobjectArray ToFeatureIdArray(JNIEnv * env, vector<FeatureID> const & ids);
+jobjectArray ToFeatureIdArray(JNIEnv * env, std::vector<FeatureID> const & ids);
 }  // namespace usermark_helper

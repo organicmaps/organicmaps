@@ -54,7 +54,7 @@ public:
   };
 
   using TrafficStateChangedFn = std::function<void(TrafficState)>;
-  using GetMwmsByRectFn = std::function<vector<MwmSet::MwmId>(m2::RectD const &)>;
+  using GetMwmsByRectFn = std::function<std::vector<MwmSet::MwmId>(m2::RectD const &)>;
 
   TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes,
                  traffic::TrafficObserver & observer);

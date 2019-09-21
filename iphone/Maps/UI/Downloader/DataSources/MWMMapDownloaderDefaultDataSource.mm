@@ -18,8 +18,8 @@ auto compareStrings = ^NSComparisonResult(NSString * s1, NSString * s2) {
 auto compareLocalNames = ^NSComparisonResult(NSString * s1, NSString * s2)
 {
   auto const & s = GetFramework().GetStorage();
-  string const l1 = s.GetNodeLocalName(s1.UTF8String);
-  string const l2 = s.GetNodeLocalName(s2.UTF8String);
+  std::string const l1 = s.GetNodeLocalName(s1.UTF8String);
+  std::string const l2 = s.GetNodeLocalName(s2.UTF8String);
   return compareStrings(@(l1.c_str()), @(l2.c_str()));
 };
 } // namespace
@@ -85,7 +85,7 @@ initForRootCountryId:(NSString *)countryId
   for (auto const & countryId : availableChildren)
   {
     NSString * nsCountryId = @(countryId.c_str());
-    string localName = s.GetNodeLocalName(countryId);
+    std::string localName = s.GetNodeLocalName(countryId);
     NSString * index = isParentRoot ? [@(localName.c_str()) substringToIndex:1].capitalizedString : L(@"downloader_available_maps");
     [indexSet addObject:index];
 

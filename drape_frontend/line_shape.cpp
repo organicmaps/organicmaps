@@ -17,6 +17,7 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
+#include <vector>
 
 namespace df
 {
@@ -136,7 +137,7 @@ public:
 
 protected:
   using V = TVertex;
-  using TGeometryBuffer = vector<V>;
+  using TGeometryBuffer = std::vector<V>;
 
   TGeometryBuffer m_geometry;
   TGeometryBuffer m_joinGeom;
@@ -168,7 +169,7 @@ class SolidLineBuilder : public BaseLineBuilder<gpu::LineVertex>
     TTexCoord m_color;
   };
 
-  using TCapBuffer = vector<CapVertex>;
+  using TCapBuffer = std::vector<CapVertex>;
 
 public:
   using BuilderParams = BaseBuilderParams;
@@ -363,7 +364,7 @@ void LineShape::Construct(TBuilder & builder) const
 template <>
 void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
 {
-  vector<m2::PointD> const & path = m_spline->GetPath();
+  std::vector<m2::PointD> const & path = m_spline->GetPath();
   ASSERT_GREATER(path.size(), 1, ());
 
   // build geometry
@@ -405,7 +406,7 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
 template <>
 void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
 {
-  vector<m2::PointD> const & path = m_spline->GetPath();
+  std::vector<m2::PointD> const & path = m_spline->GetPath();
   ASSERT_GREATER(path.size(), 1, ());
 
   // skip joins generation
@@ -455,7 +456,7 @@ void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
 template <>
 void LineShape::Construct<SimpleSolidLineBuilder>(SimpleSolidLineBuilder & builder) const
 {
-  vector<m2::PointD> const & path = m_spline->GetPath();
+  std::vector<m2::PointD> const & path = m_spline->GetPath();
   ASSERT_GREATER(path.size(), 1, ());
 
   // Build geometry.

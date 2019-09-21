@@ -1,7 +1,9 @@
 #pragma once
 
 #include "platform/country_defines.hpp"
-#include "std/string.hpp"
+
+#include <cstdint>
+#include <string>
 
 namespace platform
 {
@@ -14,31 +16,31 @@ class CountryFile
 {
 public:
   CountryFile();
-  explicit CountryFile(string const & name);
+  explicit CountryFile(std::string const & name);
 
   /// \returns file name without extensions.
-  string const & GetName() const;
+  std::string const & GetName() const;
 
   /// \note Remote size is size of mwm in bytes. This mwm contains routing and map sections.
   void SetRemoteSizes(MwmSize mapSize, MwmSize routingSize);
   MwmSize GetRemoteSize(MapOptions file) const;
 
-  void SetSha1(string const & base64Sha1) { m_sha1 = base64Sha1; }
-  string const & GetSha1() const { return m_sha1; }
+  void SetSha1(std::string const & base64Sha1) { m_sha1 = base64Sha1; }
+  std::string const & GetSha1() const { return m_sha1; }
 
   inline bool operator<(const CountryFile & rhs) const { return m_name < rhs.m_name; }
   inline bool operator==(const CountryFile & rhs) const { return m_name == rhs.m_name; }
   inline bool operator!=(const CountryFile & rhs) const { return !(*this == rhs); }
 
 private:
-  friend string DebugPrint(CountryFile const & file);
+  friend std::string DebugPrint(CountryFile const & file);
 
   /// Base name (without any extensions) of the file. Same as id of country/region.
-  string m_name;
+  std::string m_name;
   MwmSize m_mapSize = 0;
   MwmSize m_routingSize = 0;
   /// \note SHA1 is encoded to base64.
-  string m_sha1;
+  std::string m_sha1;
 };
 
 /// \returns This method returns file name with extension. For example Abkhazia.mwm or
@@ -46,6 +48,6 @@ private:
 /// \param countryFile is a file name without extension. For example Abkhazia.
 /// \param file is type of map data.
 /// \param version is version of mwm. For example 160731.
-string GetFileName(string const & countryFile, MapOptions file, int64_t version);
-string DebugPrint(CountryFile const & file);
+std::string GetFileName(std::string const & countryFile, MapOptions file, int64_t version);
+std::string DebugPrint(CountryFile const & file);
 }  // namespace platform

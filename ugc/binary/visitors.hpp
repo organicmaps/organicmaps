@@ -87,7 +87,7 @@ public:
   }
 
   template <typename T>
-  void operator()(vector<T> const & vs, char const * /* name */ = nullptr)
+  void operator()(std::vector<T> const & vs, char const * /* name */ = nullptr)
   {
     VisitVarUint(static_cast<uint32_t>(vs.size()));
     for (auto const & v : vs)
@@ -110,7 +110,7 @@ public:
 private:
   Sink & m_sink;
   std::vector<TranslationKey> const & m_keys;
-  vector<Text> const & m_texts;
+  std::vector<Text> const & m_texts;
   uint64_t m_textsFrom = 0;
 };
 

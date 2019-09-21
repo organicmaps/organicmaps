@@ -1,9 +1,6 @@
 #pragma once
 
-#include "geometry/rect2d.hpp"
-
-#include "std/string.hpp"
-
+#include <string>
 
 namespace url_scheme
 {
@@ -24,5 +21,5 @@ namespace url_scheme
     bool SetLon(double x);
   };
 
-  void ParseGeoURL(string const & s, Info & info);
-}
+  void ParseGeoURL(std::string const & s, Info & info);
+}  // namespace url_scheme

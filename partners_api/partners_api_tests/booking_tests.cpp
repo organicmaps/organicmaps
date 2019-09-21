@@ -5,10 +5,11 @@
 #include "platform/platform_tests_support/async_gui_thread.hpp"
 
 #include <chrono>
+#include <string>
 #include <utility>
 
-using namespace platform::tests_support;
 using namespace booking;
+using namespace platform::tests_support;
 
 namespace
 {
@@ -28,16 +29,16 @@ public:
 
 UNIT_TEST(Booking_GetHotelAvailability)
 {
-  string const kHotelId = "98251";  // Booking hotel id for testing.
-  string result;
+  std::string const kHotelId = "98251";  // Booking hotel id for testing.
+  std::string result;
   TEST(RawApi::GetHotelAvailability(kHotelId, "", result), ());
   TEST(!result.empty(), ());
 }
 
 UNIT_TEST(Booking_GetExtendedInfo)
 {
-  string const kHotelId = "0";  // Internal hotel id for testing.
-  string result;
+  std::string const kHotelId = "0";  // Internal hotel id for testing.
+  std::string result;
   TEST(RawApi::GetExtendedInfo(kHotelId, "en", result), ());
   TEST(!result.empty(), ());
 }
@@ -50,7 +51,7 @@ UNIT_TEST(Booking_HotelAvailability)
   params.m_checkin = std::chrono::system_clock::now() + std::chrono::hours(24);
   params.m_checkout = std::chrono::system_clock::now() + std::chrono::hours(24 * 7);
   params.m_stars = {"4", "5"};
-  string result;
+  std::string result;
   TEST(RawApi::HotelAvailability(params, result), ());
   TEST(!result.empty(), ());
   LOG(LINFO, (result));
@@ -63,8 +64,8 @@ UNIT_CLASS_TEST(AsyncGuiThreadBooking, Booking_GetBlockAvailability)
     auto params = BlockParams::MakeDefault();
     params.m_hotelId = "0";  // Internal hotel id for testing.
     auto price = BlockInfo::kIncorrectPrice;
-    string currency;
-    string hotelId;
+    std::string currency;
+    std::string hotelId;
     auto copy = params;
     api.GetBlockAvailability(std::move(copy), [&hotelId, &price, &currency](std::string const & id,
                                                                               Blocks const & blocks)
@@ -87,8 +88,8 @@ UNIT_CLASS_TEST(AsyncGuiThreadBooking, Booking_GetBlockAvailability)
     params.m_hotelId = "0";  // Internal hotel id for testing.
     params.m_currency = "RUB";
     double price = std::numeric_limits<double>::max();
-    string currency;
-    string hotelId;
+    std::string currency;
+    std::string hotelId;
     auto copy = params;
     api.GetBlockAvailability(std::move(copy), [&hotelId, &price, &currency](std::string const & id,
                                                                               Blocks const & blocks)
@@ -109,7 +110,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadBooking, Booking_GetBlockAvailability)
 
 UNIT_CLASS_TEST(AsyncGuiThread, GetHotelInfo)
 {
-  string const kHotelId = "0";  // Internal hotel id for testing.
+  std::string const kHotelId = "0";  // Internal hotel id for testing.
   Api api;
   HotelInfo info;
 
@@ -150,4 +151,4 @@ UNIT_CLASS_TEST(AsyncGuiThreadBooking, GetHotelAvailability)
   TEST_EQUAL(result[1], "10624", ());
   TEST_EQUAL(result[2], "10625", ());
 }
-}
+}  // namespace

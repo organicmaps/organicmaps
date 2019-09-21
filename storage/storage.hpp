@@ -47,7 +47,7 @@ struct NodeAttrs
 {
   NodeAttrs() : m_mwmCounter(0), m_localMwmCounter(0), m_downloadingMwmCounter(0),
     m_mwmSize(0), m_localMwmSize(0), m_downloadingMwmSize(0),
-    m_downloadingProgress(make_pair(0, 0)),
+    m_downloadingProgress(std::make_pair(0, 0)),
     m_status(NodeStatus::Undefined), m_error(NodeErrorCode::NoError), m_present(false) {}
 
   /// If the node is expandable (a big country) |m_mwmCounter| is number of mwm files (leaves)
@@ -320,7 +320,7 @@ public:
 
   /// \brief This constructor should be used for testing only.
   Storage(std::string const & referenceCountriesTxtJsonForTesting,
-          unique_ptr<MapFilesDownloader> mapDownloaderForTesting);
+          std::unique_ptr<MapFilesDownloader> mapDownloaderForTesting);
 
   void Init(UpdateCallback const & didDownload, DeleteCallback const & willDelete);
 
@@ -425,7 +425,7 @@ public:
   /// \note This method works quicklier than GetNodeAttrs().
   void GetNodeStatuses(CountryId const & countryId, NodeStatuses & nodeStatuses) const;
 
-  string GetNodeLocalName(CountryId const & countryId) const
+  std::string GetNodeLocalName(CountryId const & countryId) const
   {
     return m_countryNameGetter(countryId);
   }
@@ -534,7 +534,7 @@ public:
   Country const & CountryLeafByCountryId(CountryId const & countryId) const;
   Country const & CountryByCountryId(CountryId const & countryId) const;
 
-  CountryId FindCountryIdByFile(string const & name) const;
+  CountryId FindCountryIdByFile(std::string const & name) const;
 
   // Returns true iff |countryId| exists as a node in the tree.
   bool IsNode(CountryId const & countryId) const;
@@ -577,11 +577,11 @@ public:
   std::string GetDownloadRelativeUrl(CountryId const & countryId, MapOptions options) const;
 
   /// @param[out] res Populated with oudated countries.
-  void GetOutdatedCountries(vector<Country const *> & countries) const;
+  void GetOutdatedCountries(std::vector<Country const *> & countries) const;
 
   /// Sets and gets locale, which is used to get localized counries names
-  void SetLocale(string const & locale);
-  string GetLocale() const;
+  void SetLocale(std::string const & locale);
+  std::string GetLocale() const;
 
   MwmSize GetMaxMwmSizeBytes() const { return m_maxMwmSizeBytes; }
 

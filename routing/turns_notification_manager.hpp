@@ -8,6 +8,7 @@
 
 #include <cstdint>
 #include <string>
+#include <vector>
 
 namespace location
 {
@@ -124,7 +125,7 @@ class NotificationManager
   /// for a turn once it will return the same value until the turn is changed.
   /// \note This method works independent from m_enabled value.
   /// So it works when the class enable and disable.
-  CarDirection GenerateSecondTurnNotification(vector<TurnItemDist> const & turns);
+  CarDirection GenerateSecondTurnNotification(std::vector<TurnItemDist> const & turns);
 
 public:
   NotificationManager()
@@ -159,8 +160,8 @@ public:
   /// \param distanceToTurnMeters is distance to the next turn in meters.
   /// \param turnNotifications is a parameter to fill it if it's necessary.
   /// \note The client implies turnNotifications does not contain empty strings.
-  void GenerateTurnNotifications(vector<TurnItemDist> const & turns,
-                                 vector<std::string> & turnNotifications);
+  void GenerateTurnNotifications(std::vector<TurnItemDist> const & turns,
+                                 std::vector<std::string> & turnNotifications);
 
   /// Reset states which reflects current route position.
   /// The method shall be called after creating a new route or after rerouting.

@@ -238,4 +238,4 @@ namespace android
   };
 }
 
-extern unique_ptr<android::Framework> g_framework;
+extern std::unique_ptr<android::Framework> g_framework;

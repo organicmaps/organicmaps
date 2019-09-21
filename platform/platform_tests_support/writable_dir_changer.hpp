@@ -1,4 +1,6 @@
-#include "std/string.hpp"
+#pragma once
+
+#include <string>
 
 class WritableDirChanger
 {
@@ -8,12 +10,12 @@ public:
     UseDefault, UseWritableDir
   };
 
-  WritableDirChanger(string const & testDir,
+  WritableDirChanger(std::string const & testDir,
                      SettingsDirPolicy settingsDirPolicy = SettingsDirPolicy::UseDefault);
   ~WritableDirChanger();
 
 private:
-  string const m_writableDirBeforeTest;
-  string const m_testDirFullPath;
+  std::string const m_writableDirBeforeTest;
+  std::string const m_testDirFullPath;
   SettingsDirPolicy m_settingsDirPolicy;
 };

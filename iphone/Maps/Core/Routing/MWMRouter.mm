@@ -311,7 +311,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 + (NSArray<NSString *> *)turnNotifications
 {
   NSMutableArray<NSString *> * turnNotifications = [@[] mutableCopy];
-  vector<string> notifications;
+  std::vector<std::string> notifications;
   GetFramework().GetRoutingManager().GenerateNotifications(notifications);
 
   for (auto const & text : notifications)
@@ -577,7 +577,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
     NSData * imageData = router.altitudeImagesData[sizeValue];
     if (!imageData)
     {
-      vector<uint8_t> imageRGBAData;
+      std::vector<uint8_t> imageRGBAData;
       int32_t minRouteAltitude = 0;
       int32_t maxRouteAltitude = 0;
       measurement_utils::Units units = measurement_utils::Units::Metric;
@@ -597,7 +597,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
       imageData = [NSData dataWithBytes:imageRGBAData.data() length:imageRGBAData.size()];
       router.altitudeImagesData[sizeValue] = imageData;
 
-      string heightString;
+      std::string heightString;
       measurement_utils::FormatDistance(maxRouteAltitude - minRouteAltitude, heightString);
       router.altitudeElevation = @(heightString.c_str());
     }

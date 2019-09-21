@@ -7,7 +7,7 @@ DisplacementModeManager::DisplacementModeManager(TCallback && callback)
 
 void DisplacementModeManager::Set(Slot slot, bool show)
 {
-  lock_guard<mutex> lock(m_mu);
+  std::lock_guard<std::mutex> lock(m_mu);
 
   uint32_t const bit = static_cast<uint32_t>(1) << slot;
   uint32_t const mask = m_mask;

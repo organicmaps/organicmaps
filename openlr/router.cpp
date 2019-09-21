@@ -14,13 +14,15 @@
 #include "base/assert.hpp"
 #include "base/math.hpp"
 
-#include "std/transform_iterator.hpp"
-
 #include <algorithm>
 #include <functional>
 #include <limits>
 #include <queue>
 #include <utility>
+
+#include <boost/iterator/transform_iterator.hpp>
+
+using boost::make_transform_iterator;
 
 namespace openlr
 {
@@ -633,7 +635,7 @@ void Router::ForStagePrefix(It b, It e, size_t stage, Fn && fn)
     fn(b);
 }
 
-bool Router::ReconstructPath(std::vector<Edge> & edges, vector<routing::Edge> & path)
+bool Router::ReconstructPath(std::vector<Edge> & edges, std::vector<routing::Edge> & path)
 {
   CHECK_GREATER_OR_EQUAL(m_points.size(), 2, ());
 

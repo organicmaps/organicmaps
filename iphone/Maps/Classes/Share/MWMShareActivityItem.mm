@@ -65,7 +65,7 @@ NSString * httpGe0Url(NSString * shortUrl)
 
   ms::LatLon const ll = self.object ? self.object.latLon
                                     : ms::LatLon(self.location.latitude, self.location.longitude);
-  string const & s = f.CodeGe0url(ll.m_lat, ll.m_lon, f.GetDrawScale(), title(self.object).UTF8String);
+  std::string const & s = f.CodeGe0url(ll.m_lat, ll.m_lon, f.GetDrawScale(), title(self.object).UTF8String);
 
   NSString * url = @(s.c_str());
   if (!isShort)
@@ -124,12 +124,12 @@ NSString * httpGe0Url(NSString * shortUrl)
   }
 
   NSMutableString * result = [L(@"sharing_call_action_look") mutableCopy];
-  vector<NSString *> strings{self.object.title,
-                             self.object.subtitle,
-                             self.object.address,
-                             self.object.phoneNumber,
-                             url,
-                             ge0Url};
+  std::vector<NSString *> strings{self.object.title,
+                                 self.object.subtitle,
+                                 self.object.address,
+                                 self.object.phoneNumber,
+                                 url,
+                                 ge0Url};
 
   if (self.object.isBooking)
   {

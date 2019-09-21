@@ -12,6 +12,7 @@
 
 #include <functional>
 #include <map>
+#include <vector>
 
 namespace dp
 {
@@ -60,9 +61,9 @@ public:
                                drape_ptr<OverlayHandle> && handle);
 
   void InsertLineRaw(ref_ptr<GraphicsContext> context, RenderState const & state,
-                     ref_ptr<AttributeProvider> params, vector<int> const & indices);
+                     ref_ptr<AttributeProvider> params, std::vector<int> const & indices);
   IndicesRange InsertLineRaw(ref_ptr<GraphicsContext> context, RenderState const & state,
-                             ref_ptr<AttributeProvider> params, vector<int> const & indices,
+                             ref_ptr<AttributeProvider> params, std::vector<int> const & indices,
                              drape_ptr<OverlayHandle> && handle);
 
   using TFlushFn = std::function<void (RenderState const &, drape_ptr<RenderBucket> &&)>;

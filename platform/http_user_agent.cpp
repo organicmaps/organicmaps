@@ -25,4 +25,4 @@ std::string HttpUserAgent::Get() const
   ss << m_appVersion;
   return ss.str();
 }
-}  // platform
+}  // namespace platform

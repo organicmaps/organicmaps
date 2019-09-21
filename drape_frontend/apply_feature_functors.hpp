@@ -48,7 +48,7 @@ public:
   struct HotelData
   {
     bool m_isHotel = false;
-    string m_rating;
+    std::string m_rating;
     int m_stars = 0;
     int m_priceCategory = 0;
   };
@@ -59,7 +59,7 @@ protected:
   void ExtractCaptionParams(CaptionDefProto const * primaryProto,
                             CaptionDefProto const * secondaryProto,
                             float depth, TextViewParams & params) const;
-  string ExtractHotelInfo() const;
+  std::string ExtractHotelInfo() const;
 
   TInsertShapeFn m_insertShape;
   FeatureID m_id;

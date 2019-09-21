@@ -3,8 +3,9 @@
 #include "platform/country_file.hpp"
 #include "platform/country_defines.hpp"
 
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <string>
+#include <vector>
 
 namespace platform
 {
@@ -32,7 +33,7 @@ public:
   // directory. Note that no disk operations are not performed until
   // SyncWithDisk() is called.
   // The directory must contain a full path to the country file.
-  LocalCountryFile(string const & directory, CountryFile const & countryFile, int64_t version);
+  LocalCountryFile(std::string const & directory, CountryFile const & countryFile, int64_t version);
 
   // Syncs internal state like availability of map and routing files,
   // their sizes etc. with disk.
@@ -48,7 +49,7 @@ public:
 
   // Returns path to a file. Return value may be empty until
   // SyncWithDisk() is called.
-  string GetPath(MapOptions file) const;
+  std::string GetPath(MapOptions file) const;
 
   // Returns size of a file. Return value may be zero until
   // SyncWithDisk() is called.
@@ -66,8 +67,8 @@ public:
            static_cast<unsigned>(filesMask);
   }
 
-  string const & GetDirectory() const { return m_directory; }
-  string const & GetCountryName() const { return m_countryFile.GetName(); }
+  std::string const & GetDirectory() const { return m_directory; }
+  std::string const & GetCountryName() const { return m_countryFile.GetName(); }
   int64_t GetVersion() const { return m_version; }
   CountryFile const & GetCountryFile() const { return m_countryFile; }
   CountryFile & GetCountryFile() { return m_countryFile; }
@@ -81,21 +82,21 @@ public:
   // Creates LocalCountryFile for test purposes, for a country region
   // with countryFileName (without any extensions). Automatically
   // performs sync with disk.
-  static LocalCountryFile MakeForTesting(string const & countryFileName, int64_t version = 0);
+  static LocalCountryFile MakeForTesting(std::string const & countryFileName, int64_t version = 0);
 
   /// @todo The easiest solution for now. Need to be removed in future.
   /// @param fullPath Full path to the mwm file.
-  static LocalCountryFile MakeTemporary(string const & fullPath);
+  static LocalCountryFile MakeTemporary(std::string const & fullPath);
 
 private:
-  friend string DebugPrint(LocalCountryFile const &);
+  friend std::string DebugPrint(LocalCountryFile const &);
   friend void UnitTest_LocalCountryFile_DirectoryLookup();
   friend void FindAllLocalMapsAndCleanup(int64_t latestVersion,
-                                         string const & dataDir, vector<LocalCountryFile> & localFiles);
+                                         std::string const & dataDir, std::vector<LocalCountryFile> & localFiles);
 
   /// @note! If directory is empty, the file is stored in resources.
   /// In this case, the only valid params are m_countryFile and m_version.
-  string m_directory;
+  std::string m_directory;
   CountryFile m_countryFile;
   int64_t m_version;
 
@@ -109,5 +110,5 @@ private:
   uint64_t m_routingSize;
 };
 
-string DebugPrint(LocalCountryFile const & file);
+std::string DebugPrint(LocalCountryFile const & file);
 }  // namespace platform

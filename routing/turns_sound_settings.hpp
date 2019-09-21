@@ -156,7 +156,7 @@ struct Notification
   }
 };
 
-string DebugPrint(Notification const & turnGeom);
+std::string DebugPrint(Notification const & turnGeom);
 
 using PairDist = std::pair<uint32_t, char const *>;
 using VecPairDist = std::vector<PairDist>;

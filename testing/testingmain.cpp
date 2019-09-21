@@ -6,6 +6,8 @@
 #include "base/timer.hpp"
 #include "base/waiter.hpp"
 
+#include "std/target_os.hpp"
+
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
@@ -14,8 +16,6 @@
 #include <regex>
 #include <string>
 #include <vector>
-
-#include "std/target_os.hpp"
 
 #ifdef TARGET_OS_IPHONE
 # include <CoreFoundation/CoreFoundation.h>

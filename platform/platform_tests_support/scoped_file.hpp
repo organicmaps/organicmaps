@@ -5,7 +5,7 @@
 
 #include "base/macros.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
 namespace platform
 {
@@ -29,10 +29,10 @@ public:
   };
 
   // Creates a scoped file in the specified mode.
-  ScopedFile(string const & relativePath, Mode mode);
+  ScopedFile(std::string const & relativePath, Mode mode);
 
   // Creates a scoped file in Mode::Create and writes |contents| to it.
-  ScopedFile(string const & relativePath, string const & contents);
+  ScopedFile(std::string const & relativePath, std::string const & contents);
 
   // Creates a scoped file in Mode::Create using the path inferred from |countryFile|
   // and |mapOptions|.
@@ -40,21 +40,21 @@ public:
 
   ~ScopedFile();
 
-  inline string const & GetFullPath() const { return m_fullPath; }
+  std::string const & GetFullPath() const { return m_fullPath; }
 
-  inline void Reset() { m_reset = true; }
+  void Reset() { m_reset = true; }
 
-  inline bool Exists() const { return GetPlatform().IsFileExistsByFullPath(GetFullPath()); }
+  bool Exists() const { return GetPlatform().IsFileExistsByFullPath(GetFullPath()); }
 
 private:
-  ScopedFile(string const & relativePath, string const & contents, Mode mode);
+  ScopedFile(std::string const & relativePath, std::string const & contents, Mode mode);
 
-  string const m_fullPath;
+  std::string const m_fullPath;
   bool m_reset = false;
 
   DISALLOW_COPY_AND_MOVE(ScopedFile);
 };
 
-string DebugPrint(ScopedFile const & file);
+std::string DebugPrint(ScopedFile const & file);
 }  // namespace tests_support
 }  // namespace platform

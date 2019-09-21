@@ -242,7 +242,7 @@
 
 - (void)onLocationUpdate:(location::GpsInfo const &)gpsInfo {
   NSMutableArray<NSString *> * turnNotifications = [NSMutableArray array];
-  vector<string> notifications;
+  std::vector<std::string> notifications;
   self.rm.GenerateNotifications(notifications);
   for (auto const & text : notifications) {
     [turnNotifications addObject:@(text.c_str())];

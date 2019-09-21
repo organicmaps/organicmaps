@@ -32,7 +32,7 @@
     NSMutableDictionary<NSString *, NSString *> * localizedStrings = [@{} mutableCopy];
 
     categories.ForEachSynonym(categoryKey, [&localizedStrings, &localeLanguageId, &categoryName](
-                                               string const & name, string const & locale) {
+                                               std::string const & name, std::string const & locale) {
       NSString * nsName = @(name.c_str());
       NSString * nsLocale = @(locale.c_str());
       if ([localeLanguageId isEqualToString:nsLocale])

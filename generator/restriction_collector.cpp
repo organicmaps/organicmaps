@@ -82,7 +82,7 @@ bool RestrictionCollector::Process(std::string const & restrictionPath)
   return true;
 }
 
-bool RestrictionCollector::ParseRestrictions(string const & path)
+bool RestrictionCollector::ParseRestrictions(std::string const & path)
 {
   std::ifstream stream(path);
   if (stream.fail())

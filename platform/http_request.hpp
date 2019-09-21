@@ -1,10 +1,10 @@
 #pragma once
 
-#include "std/cstdint.hpp"
-#include "std/function.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
-#include "std/utility.hpp"
+#include <cstdint>
+#include <functional>
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace downloader
 {
@@ -31,8 +31,8 @@ public:
   };
 
   /// <current, total>, total can be -1 if size is unknown
-  using Progress = pair<int64_t, int64_t>;
-  using Callback = function<void(HttpRequest & request)>;
+  using Progress = std::pair<int64_t, int64_t>;
+  using Callback = std::function<void(HttpRequest & request)>;
 
 protected:
   Status m_status;
@@ -48,27 +48,27 @@ public:
   Status GetStatus() const { return m_status; }
   Progress const & GetProgress() const { return m_progress; }
   /// Either file path (for chunks) or downloaded data
-  virtual string const & GetData() const = 0;
+  virtual std::string const & GetData() const = 0;
 
   /// Response saved to memory buffer and retrieved with Data()
-  static HttpRequest * Get(string const & url,
+  static HttpRequest * Get(std::string const & url,
                            Callback const & onFinish,
                            Callback const & onProgress = Callback());
 
   /// Content-type for request is always "application/json"
-  static HttpRequest * PostJson(string const & url, string const & postData,
+  static HttpRequest * PostJson(std::string const & url, std::string const & postData,
                                 Callback const & onFinish,
                                 Callback const & onProgress = Callback());
 
   /// Download file to filePath.
   /// @param[in]  fileSize  Correct file size (needed for resuming and reserving).
-  static HttpRequest * GetFile(vector<string> const & urls,
-                               string const & filePath, int64_t fileSize,
+  static HttpRequest * GetFile(std::vector<std::string> const & urls,
+                               std::string const & filePath, int64_t fileSize,
                                Callback const & onFinish,
                                Callback const & onProgress = Callback(),
                                int64_t chunkSize = 512 * 1024,
                                bool doCleanOnCancel = true);
 };
 
-string DebugPrint(HttpRequest::Status status);
+std::string DebugPrint(HttpRequest::Status status);
 } // namespace downloader

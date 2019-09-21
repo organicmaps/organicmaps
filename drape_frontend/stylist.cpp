@@ -202,17 +202,17 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int const zoom
   ProcessMainTextType(mainTextType);
 }
 
-string const & CaptionDescription::GetMainText() const
+std::string const & CaptionDescription::GetMainText() const
 {
   return m_mainText;
 }
 
-string const & CaptionDescription::GetAuxText() const
+std::string const & CaptionDescription::GetAuxText() const
 {
   return m_auxText;
 }
 
-string const & CaptionDescription::GetRoadNumber() const
+std::string const & CaptionDescription::GetRoadNumber() const
 {
   return m_roadNumber;
 }
@@ -244,7 +244,7 @@ void CaptionDescription::ProcessMainTextType(drule::text_type_t const & mainText
   else if (mainTextType == drule::text_type_name)
   {
     if (!m_houseNumber.empty() &&
-        (m_mainText.empty() || m_houseNumber.find(m_mainText) != string::npos))
+        (m_mainText.empty() || m_houseNumber.find(m_mainText) != std::string::npos))
     {
       m_houseNumber.swap(m_mainText);
       m_isHouseNumberInMainText = true;

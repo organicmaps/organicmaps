@@ -1,7 +1,7 @@
 #pragma once
 
-#include "std/cstdint.hpp"
-#include "std/string.hpp"
+#include <cstdint>
+#include <string>
 
 class FilesContainerR;
 class ReaderSrc;
@@ -26,7 +26,7 @@ enum class Format
   lastFormat = v9
 };
 
-string DebugPrint(Format f);
+std::string DebugPrint(Format f);
 
 class MwmVersion
 {

@@ -72,7 +72,7 @@ class FeaturesVectorTest
   FeaturesVector m_vector;
 
 public:
-  explicit FeaturesVectorTest(string const & filePath);
+  explicit FeaturesVectorTest(std::string const & filePath);
   explicit FeaturesVectorTest(FilesContainerR const & cont);
   ~FeaturesVectorTest();
 

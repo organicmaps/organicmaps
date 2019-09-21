@@ -6,6 +6,8 @@
 
 #include "geometry/mercator.hpp"
 
+#include <vector>
+
 using namespace routing;
 using namespace routing::turns;
 
@@ -393,7 +395,7 @@ UNIT_TEST(RussiaZgradPanfilovskyUndergroundCrossing)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  vector<turns::TurnItem> t;
+  std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
   TEST_EQUAL(t.size(), 3, ());
 
@@ -413,7 +415,7 @@ UNIT_TEST(RussiaMoscowHydroprojectBridgeCrossing)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  vector<turns::TurnItem> t;
+  std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
   TEST_EQUAL(t.size(), 3, ());
 
@@ -433,7 +435,7 @@ UNIT_TEST(BelarusMinskRenaissanceHotelUndergroundCross)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  vector<turns::TurnItem> t;
+  std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
   TEST_EQUAL(t.size(), 3, ());
 

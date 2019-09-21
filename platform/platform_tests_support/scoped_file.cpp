@@ -14,18 +14,18 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
-#include "std/sstream.hpp"
+#include <sstream>
 
 namespace platform
 {
 namespace tests_support
 {
-ScopedFile::ScopedFile(string const & relativePath, Mode mode)
+ScopedFile::ScopedFile(std::string const & relativePath, Mode mode)
   : ScopedFile(relativePath, {} /* contents */, mode)
 {
 }
 
-ScopedFile::ScopedFile(string const & relativePath, string const & contents)
+ScopedFile::ScopedFile(std::string const & relativePath, std::string const & contents)
   : ScopedFile(relativePath, contents, Mode::Create)
 {
 }
@@ -39,7 +39,7 @@ ScopedFile::ScopedFile(ScopedDir const & dir, CountryFile const & countryFile,
 {
 }
 
-ScopedFile::ScopedFile(string const & relativePath, string const & contents, Mode mode)
+ScopedFile::ScopedFile(std::string const & relativePath, std::string const & contents, Mode mode)
   : m_fullPath(base::JoinPath(GetPlatform().WritableDir(), relativePath))
 {
   if (mode == Mode::DoNotCreate)
@@ -71,9 +71,9 @@ ScopedFile::~ScopedFile()
     LOG(LERROR, ("Can't remove test file:", GetFullPath()));
 }
 
-string DebugPrint(ScopedFile const & file)
+std::string DebugPrint(ScopedFile const & file)
 {
-  ostringstream os;
+  std::ostringstream os;
   os << "ScopedFile [" << file.GetFullPath() << "]";
   return os.str();
 }

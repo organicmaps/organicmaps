@@ -167,7 +167,7 @@ using namespace discovery;
 
 - (NSString *)distanceFrom:(m2::PointD const &)startPoint
                         to:(m2::PointD const &)endPoint {
-  string distance;
+  std::string distance;
   auto const f = MercatorBounds::ToLatLon(startPoint);
   auto const t = MercatorBounds::ToLatLon(endPoint);
   measurement_utils::FormatDistance(ms::DistanceOnEarth(f.m_lat, f.m_lon, t.m_lat, t.m_lon), distance);

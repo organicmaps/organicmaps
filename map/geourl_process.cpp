@@ -8,8 +8,9 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/bind.hpp"
-#include "std/regex.hpp"
+#include <regex>
+
+using namespace std;
 
 namespace url_scheme
 {
@@ -179,4 +180,4 @@ namespace url_scheme
     if (!parser.IsValid())
       info.Reset();
   }
-}
+}  // namespace url_scheme

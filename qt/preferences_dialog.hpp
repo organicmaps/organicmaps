@@ -1,6 +1,6 @@
 #pragma once
 
-#include "std/string.hpp"
+#include <string>
 
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
@@ -34,5 +34,5 @@ namespace qt
 } // namespace qt
 
 #ifdef BUILD_DESIGNER
-extern string const kEnabledAutoRegenGeomIndex;
+extern std::string const kEnabledAutoRegenGeomIndex;
 #endif

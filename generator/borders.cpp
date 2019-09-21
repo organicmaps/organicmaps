@@ -144,7 +144,7 @@ public:
 private:
   FilesContainerW m_writer;
 
-  vector<storage::CountryDef> m_polys;
+  std::vector<storage::CountryDef> m_polys;
 };
 }  // namespace
 

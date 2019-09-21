@@ -1,18 +1,18 @@
 #include "indexer/index_builder.hpp"
-#include "indexer/features_vector.hpp"
 
-#include "defines.hpp"
+#include "indexer/features_vector.hpp"
 
 #include "base/logging.hpp"
 
+#include "defines.hpp"
 
 namespace indexer
 {
-  bool BuildIndexFromDataFile(string const & datFile, string const & tmpFile)
+  bool BuildIndexFromDataFile(std::string const & datFile, std::string const & tmpFile)
   {
     try
     {
-      string const idxFileName(tmpFile + GEOM_INDEX_TMP_EXT);
+      std::string const idxFileName(tmpFile + GEOM_INDEX_TMP_EXT);
       {
         FeaturesVectorTest features(datFile);
         FileWriter writer(idxFileName);
@@ -36,4 +36,4 @@ namespace indexer
 
     return true;
   }
-} // namespace indexer
+}  // namespace indexer

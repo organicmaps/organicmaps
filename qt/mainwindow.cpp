@@ -82,7 +82,7 @@ void add_buttons(QToolBar * pBar, button_t buttons[], size_t count, QObject * pR
   }
 }
 
-void FormatMapSize(uint64_t sizeInBytes, string & units, size_t & sizeToDownload)
+void FormatMapSize(uint64_t sizeInBytes, std::string & units, size_t & sizeToDownload)
 {
   int const mbInBytes = 1024 * 1024;
   int const kbInBytes = 1024;
@@ -241,14 +241,14 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
 #ifndef NO_DOWNLOADER
   // Show intro dialog if necessary
   bool bShow = true;
-  string const showWelcome = "ShowWelcome";
+  std::string const showWelcome = "ShowWelcome";
   settings::TryGet(showWelcome, bShow);
 
   if (bShow)
   {
     bool bShowUpdateDialog = true;
 
-    string text;
+    std::string text;
     try
     {
       ReaderPtr<Reader> reader = GetPlatform().GetReader("welcome.html");
@@ -546,7 +546,7 @@ void MainWindow::CreateCountryStatusControls()
   m_pDrawWidget->setLayout(mainLayout);
 
   m_pDrawWidget->SetCurrentCountryChangedListener([this](storage::CountryId const & countryId,
-                                                         string const & countryName,
+                                                         std::string const & countryName,
                                                          storage::Status status,
                                                          uint64_t sizeInBytes, uint8_t progress) {
     m_lastCountry = countryId;
@@ -564,7 +564,7 @@ void MainWindow::CreateCountryStatusControls()
         m_retryButton->setVisible(false);
         m_downloadingStatusLabel->setVisible(false);
 
-        string units;
+        std::string units;
         size_t sizeToDownload = 0;
         FormatMapSize(sizeInBytes, units, sizeToDownload);
         std::stringstream str;
@@ -724,7 +724,7 @@ void MainWindow::OnLoginMenuItem()
 
 void MainWindow::OnUploadEditsMenuItem()
 {
-  string key, secret;
+  std::string key, secret;
   if (!settings::Get(kTokenKeySetting, key) || key.empty() ||
       !settings::Get(kTokenSecretSetting, secret) || secret.empty())
   {

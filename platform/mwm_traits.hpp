@@ -2,7 +2,7 @@
 
 #include "platform/mwm_version.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
 namespace version
 {
@@ -64,6 +64,6 @@ private:
   MwmVersion m_version;
 };
 
-string DebugPrint(MwmTraits::SearchIndexFormat format);
-string DebugPrint(MwmTraits::HouseToStreetTableFormat format);
+std::string DebugPrint(MwmTraits::SearchIndexFormat format);
+std::string DebugPrint(MwmTraits::HouseToStreetTableFormat format);
 }  // namespace version

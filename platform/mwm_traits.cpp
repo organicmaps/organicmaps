@@ -1,4 +1,4 @@
-#include "mwm_traits.hpp"
+#include "platform/mwm_traits.hpp"
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -42,7 +42,7 @@ bool MwmTraits::HasCuisineTypes() const
   return GetVersion() >= kFirstVersionWithCuisineTypes;
 }
 
-string DebugPrint(MwmTraits::SearchIndexFormat format)
+std::string DebugPrint(MwmTraits::SearchIndexFormat format)
 {
   switch (format)
   {
@@ -54,7 +54,7 @@ string DebugPrint(MwmTraits::SearchIndexFormat format)
   UNREACHABLE();
 }
 
-string DebugPrint(MwmTraits::HouseToStreetTableFormat format)
+std::string DebugPrint(MwmTraits::HouseToStreetTableFormat format)
 {
   switch (format)
   {

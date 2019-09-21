@@ -8,7 +8,10 @@
 #include "platform/local_country_file.hpp"
 #include "platform/preferred_languages.hpp"
 
+#include <string>
+
 using namespace platform;
+using namespace std;
 
 namespace
 {

@@ -10,7 +10,6 @@ using namespace std;
 
 namespace bench
 {
-
 void Result::PrintAllTimes()
 {
   sort(m_time.begin(), m_time.end());
@@ -54,5 +53,4 @@ void AllResult::Print()
             " summ:" << m_all << " ]" << endl;
   }
 }
-
-}
+}  // namespace bench

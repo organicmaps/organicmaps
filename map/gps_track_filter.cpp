@@ -11,7 +11,6 @@
 
 namespace
 {
-
 char const kMinHorizontalAccuracyKey[] = "GpsTrackingMinAccuracy";
 
 // Minimal horizontal accuracy is required to skip 'bad' points.
@@ -38,11 +37,10 @@ double GetDistance(location::GpsInfo const & from, location::GpsInfo const & to)
 {
   return ms::DistanceOnEarth(from.m_latitude, from.m_longitude, to.m_latitude, to.m_longitude);
 }
-
 } // namespace
 
-void GpsTrackNullFilter::Process(vector<location::GpsInfo> const & inPoints,
-                                 vector<location::GpsTrackInfo> & outPoints)
+void GpsTrackNullFilter::Process(std::vector<location::GpsInfo> const & inPoints,
+                                 std::vector<location::GpsTrackInfo> & outPoints)
 {
   outPoints.insert(outPoints.end(), inPoints.begin(), inPoints.end());
 }
@@ -60,8 +58,8 @@ GpsTrackFilter::GpsTrackFilter()
   settings::TryGet(kMinHorizontalAccuracyKey, m_minAccuracy);
 }
 
-void GpsTrackFilter::Process(vector<location::GpsInfo> const & inPoints,
-                             vector<location::GpsTrackInfo> & outPoints)
+void GpsTrackFilter::Process(std::vector<location::GpsInfo> const & inPoints,
+                             std::vector<location::GpsTrackInfo> & outPoints)
 {
   outPoints.reserve(inPoints.size());
 
@@ -179,4 +177,3 @@ void GpsTrackFilter::AddLastAcceptedInfo(location::GpsInfo const & info)
   m_lastAcceptedInfo[0] = info;
   m_countAcceptedInfo += 1;
 }
-

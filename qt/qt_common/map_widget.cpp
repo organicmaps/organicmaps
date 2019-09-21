@@ -39,7 +39,7 @@ MapWidget::MapWidget(Framework & framework, bool apiOpenGLES3, bool isScreenshot
 {
   setMouseTracking(true);
   // Update widget contents each 30ms.
-  m_updateTimer = make_unique<QTimer>(this);
+  m_updateTimer = std::make_unique<QTimer>(this);
   VERIFY(connect(m_updateTimer.get(), SIGNAL(timeout()), this, SLOT(update())), ());
   m_updateTimer->setSingleShot(false);
   m_updateTimer->start(30);
@@ -70,7 +70,7 @@ void MapWidget::BindHotkeys(QWidget & parent)
 
   for (auto const & hotkey : hotkeys)
   {
-    auto action = make_unique<QAction>(&parent);
+    auto action = std::make_unique<QAction>(&parent);
     action->setShortcut(QKeySequence(hotkey.m_key));
     connect(action.get(), SIGNAL(triggered()), this, hotkey.m_slot);
     parent.addAction(action.release());
@@ -251,16 +251,16 @@ void MapWidget::Build()
       }";
   }
 
-  m_program = make_unique<QOpenGLShaderProgram>(this);
+  m_program = std::make_unique<QOpenGLShaderProgram>(this);
   m_program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexSrc.c_str());
   m_program->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentSrc.c_str());
   m_program->link();
 
-  m_vao = make_unique<QOpenGLVertexArrayObject>(this);
+  m_vao = std::make_unique<QOpenGLVertexArrayObject>(this);
   m_vao->create();
   m_vao->bind();
 
-  m_vbo = make_unique<QOpenGLBuffer>(QOpenGLBuffer::VertexBuffer);
+  m_vbo = std::make_unique<QOpenGLBuffer>(QOpenGLBuffer::VertexBuffer);
   m_vbo->setUsagePattern(QOpenGLBuffer::StaticDraw);
   m_vbo->create();
   m_vbo->bind();
@@ -279,7 +279,7 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
 {
   // show feature types
   QMenu menu;
-  auto const addStringFn = [&menu](string const & s) {
+  auto const addStringFn = [&menu](std::string const & s) {
     if (s.empty())
       return;
 
@@ -288,7 +288,7 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
 
   m_framework.ForEachFeatureAtPoint(
       [&](FeatureType & ft) {
-        string concat;
+        std::string concat;
         auto types = feature::TypesHolder(ft);
         types.SortBySpec();
         for (auto const & type : types.ToObjectNames())

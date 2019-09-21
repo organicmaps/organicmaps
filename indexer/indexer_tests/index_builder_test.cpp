@@ -15,6 +15,11 @@
 #include "base/macros.hpp"
 #include "base/stl_helpers.hpp"
 
+#include <string>
+#include <vector>
+
+using namespace std;
+
 UNIT_TEST(BuildIndexTest)
 {
   Platform & p = GetPlatform();
@@ -27,7 +32,7 @@ UNIT_TEST(BuildIndexTest)
   {
     FeaturesVectorTest features(originalContainer);
 
-    MemWriter<vector<char> > serialWriter(serialIndex);
+    MemWriter<vector<char>> serialWriter(serialIndex);
     indexer::BuildIndex(features.GetHeader(), features.GetVector(), serialWriter, "build_index_test");
   }
 

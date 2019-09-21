@@ -8,7 +8,7 @@
 
 namespace dp
 {
-string GlyphUsageTracker::GlyphUsageStatistic::ToString() const
+std::string GlyphUsageTracker::GlyphUsageStatistic::ToString() const
 {
   std::ostringstream ss;
   ss << " ----- Glyphs usage report ----- \n";

@@ -23,18 +23,18 @@ NSString * const kUserDefaultsTTSLanguageBcp47 = @"UserDefaultsTTSLanguageBcp47"
 NSString * const kIsTTSEnabled = @"UserDefaultsNeedToEnableTTS";
 NSString * const kDefaultLanguage = @"en-US";
 
-std::vector<std::pair<string, string>> availableLanguages()
+std::vector<std::pair<std::string, std::string>> availableLanguages()
 {
   NSArray<AVSpeechSynthesisVoice *> * voices = [AVSpeechSynthesisVoice speechVoices];
-  std::vector<std::pair<string, string>> native;
+  std::vector<std::pair<std::string, std::string>> native;
   for (AVSpeechSynthesisVoice * v in voices)
     native.emplace_back(make_pair(bcp47ToTwineLanguage(v.language), v.language.UTF8String));
 
   using namespace routing::turns::sound;
-  std::vector<std::pair<string, string>> result;
+  std::vector<std::pair<std::string, std::string>> result;
   for (auto const & p : kLanguageList)
   {
-    for (std::pair<string, string> const & lang : native)
+    for (std::pair<std::string, std::string> const & lang : native)
     {
       if (lang.first == p.first)
       {
@@ -53,7 +53,7 @@ using Observers = NSHashTable<Observer>;
 
 @interface MWMTextToSpeech ()<AVSpeechSynthesizerDelegate>
 {
-  std::vector<std::pair<string, string>> _availableLanguages;
+  std::vector<std::pair<std::string, std::string>> _availableLanguages;
 }
 
 @property(nonatomic) AVSpeechSynthesizer * speechSynthesizer;
@@ -94,9 +94,9 @@ using Observers = NSHashTable<Observer>;
     else
       preferedLanguageBcp47 = [AVSpeechSynthesisVoice currentLanguageCode];
 
-    std::pair<string, string> const lan =
-        make_pair(preferedLanguageBcp47.UTF8String,
-                  tts::translatedTwine(bcp47ToTwineLanguage(preferedLanguageBcp47)));
+    std::pair<std::string, std::string> const lan =
+        std::make_pair(preferedLanguageBcp47.UTF8String,
+                       tts::translatedTwine(bcp47ToTwineLanguage(preferedLanguageBcp47)));
 
     if (find(_availableLanguages.begin(), _availableLanguages.end(), lan) !=
         _availableLanguages.end())
@@ -123,7 +123,7 @@ using Observers = NSHashTable<Observer>;
                                        error:nil];
   self.speechSynthesizer.delegate = nil;
 }
-- (std::vector<std::pair<string, string>>)availableLanguages { return _availableLanguages; }
+- (std::vector<std::pair<std::string, std::string>>)availableLanguages { return _availableLanguages; }
 - (void)setNotificationsLocale:(NSString *)locale {
   [Statistics logEvent:kStatEventName(kStatTTSSettings, kStatChangeLanguage)
         withParameters:@{kStatValue : locale}];
@@ -192,7 +192,7 @@ using Observers = NSHashTable<Observer>;
 
   self.speechVoice = voice;
   if (voice) {
-    string const twineLang = bcp47ToTwineLanguage(voice.language);
+    std::string const twineLang = bcp47ToTwineLanguage(voice.language);
     if (twineLang.empty())
       LOG(LERROR, ("Cannot convert UI locale or default locale to twine language. MWMTextToSpeech "
                    "is invalid."));
@@ -298,12 +298,12 @@ using Observers = NSHashTable<Observer>;
 
 namespace tts
 {
-string translatedTwine(string const & twine)
+std::string translatedTwine(std::string const & twine)
 {
   auto const & list = routing::turns::sound::kLanguageList;
   auto const it =
       find_if(list.begin(), list.end(),
-              [&twine](std::pair<string, string> const & pair) { return pair.first == twine; });
+              [&twine](std::pair<std::string, std::string> const & pair) { return pair.first == twine; });
 
   if (it != list.end())
     return it->second;

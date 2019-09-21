@@ -186,13 +186,13 @@ IndicesRange Batcher::InsertLineStrip(ref_ptr<GraphicsContext> context, RenderSt
 }
 
 void Batcher::InsertLineRaw(ref_ptr<GraphicsContext> context, RenderState const & state,
-                            ref_ptr<AttributeProvider> params, vector<int> const & indices)
+                            ref_ptr<AttributeProvider> params, std::vector<int> const & indices)
 {
   InsertLineRaw(context, state, params, indices, nullptr);
 }
 
 IndicesRange Batcher::InsertLineRaw(ref_ptr<GraphicsContext> context, RenderState const & state,
-                                    ref_ptr<AttributeProvider> params, vector<int> const & indices,
+                                    ref_ptr<AttributeProvider> params, std::vector<int> const & indices,
                                     drape_ptr<OverlayHandle> && handle)
 {
   return InsertPrimitives<LineRawBatch>(context, state, params, std::move(handle),

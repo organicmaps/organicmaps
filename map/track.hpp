@@ -4,6 +4,8 @@
 
 #include "drape_frontend/user_marks_provider.hpp"
 
+#include <string>
+
 class Track : public df::UserLineMark
 {
   using Base = df::UserLineMark;

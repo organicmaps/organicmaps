@@ -8,6 +8,7 @@
 
 #include "base/logging.hpp"
 
+#include <vector>
 
 using namespace feature;
 
@@ -20,7 +21,7 @@ namespace check_model
     FeaturesVectorTest(fName).GetVector().ForEach([&](FeatureType & ft, uint32_t) {
       TypesHolder types(ft);
 
-      vector<uint32_t> vTypes;
+      std::vector<uint32_t> vTypes;
       for (uint32_t t : types)
       {
         CHECK_EQUAL(c.GetTypeForIndex(c.GetIndexForType(t)), t, ());

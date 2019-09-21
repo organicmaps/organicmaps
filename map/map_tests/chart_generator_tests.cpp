@@ -4,7 +4,10 @@
 
 #include "base/math.hpp"
 
-#include "std/vector.hpp"
+#include <cstdint>
+#include <vector>
+
+using namespace std;
 
 namespace
 {

@@ -4,8 +4,6 @@
 #include "platform/chunks_download_strategy.hpp"
 #include "platform/platform.hpp"
 
-#include "defines.hpp"
-
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
@@ -13,10 +11,17 @@
 #include "base/logging.hpp"
 #include "base/std_serialization.hpp"
 
-#include "std/bind.hpp"
-#include "std/unique_ptr.hpp"
+#include <functional>
+#include <memory>
+#include <vector>
+
+#include "defines.hpp"
 
 #include <QtCore/QCoreApplication>
+
+using namespace downloader;
+using namespace std::placeholders;
+using namespace std;
 
 #define TEST_URL1 "http://localhost:34568/unit_tests/1.txt"
 #define TEST_URL_404 "http://localhost:34568/unit_tests/notexisting_unittest"
@@ -25,8 +30,6 @@
 #define TEST_URL_BIG_FILE "http://localhost:34568/unit_tests/47kb.file"
 #define TEST_URL_HTTPS "https://github.com"
 #define TEST_URL_POST "http://localhost:34568/unit_tests/post.php"
-
-using namespace downloader;
 
 class DownloadObserver
 {

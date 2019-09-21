@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
-#include "helpers.hpp"
+
+#include "map/style_tests/helpers.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/drawing_rules.hpp"
@@ -13,10 +14,11 @@
 #include "coding/parse_xml.hpp"
 #include "coding/reader.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/set.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <set>
+#include <string>
+#include <vector>
+
+using namespace std;
 
 namespace
 {
@@ -29,10 +31,6 @@ void UnitTestInitPlatform()
   if (options.m_resourcePath)
     pl.SetResourceDir(options.m_resourcePath);
 }
-}
-
-namespace
-{
 
 class SdfParsingDispatcher
 {
@@ -75,7 +73,6 @@ set<string> GetSymbolsSetFromResourcesFile(string const & density)
   ParseXML(source, dispatcher);
   return symbols;
 }
-
 }  // namespace
 
 UNIT_TEST(Test_SymbolsConsistency)

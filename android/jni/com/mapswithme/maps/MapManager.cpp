@@ -16,6 +16,8 @@
 #include <functional>
 #include <memory>
 #include <unordered_map>
+#include <utility>
+#include <vector>
 
 using namespace std::placeholders;
 
@@ -53,7 +55,7 @@ jobject g_countryChangedListener;
 jobject g_migrationListener;
 
 DECLARE_THREAD_CHECKER(g_batchingThreadChecker);
-unordered_map<jobject, vector<TBatchedData>> g_batchedCallbackData;
+std::unordered_map<jobject, std::vector<TBatchedData>> g_batchedCallbackData;
 bool g_isBatched;
 
 Storage & GetStorage()
@@ -350,7 +352,7 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
 
 static void PutItemsToList(
     JNIEnv * env, jobject const list, CountriesVec const & children, int category,
-    function<bool(CountryId const & countryId, NodeAttrs const & attrs)> const & predicate)
+    std::function<bool(CountryId const & countryId, NodeAttrs const & attrs)> const & predicate)
 {
   static jmethodID const countryItemCtor = jni::GetConstructorID(env, g_countryItemClass, "(Ljava/lang/String;)V");
   static jfieldID const countryItemFieldCategory = env->GetFieldID(g_countryItemClass, "category", "I");
@@ -557,7 +559,7 @@ static void StatusChangedCallback(std::shared_ptr<jobject> const & listenerRef,
   GetStorage().GetNodeStatuses(countryId, ns);
 
   TBatchedData const data(countryId, ns.m_status, ns.m_error, !ns.m_groupNode);
-  g_batchedCallbackData[*listenerRef].push_back(move(data));
+  g_batchedCallbackData[*listenerRef].push_back(std::move(data));
 
   if (!g_isBatched)
     EndBatchingCallbacks(jni::GetEnv());

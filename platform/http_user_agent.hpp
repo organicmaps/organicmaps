@@ -18,4 +18,4 @@ private:
 
   std::string m_appVersion;
 };
-}  // platform
+}  // namespace platform

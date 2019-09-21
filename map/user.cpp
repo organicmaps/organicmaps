@@ -16,19 +16,18 @@
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
-
 #include "base/visitor.hpp"
 
-#include "3party/Alohalytics/src/alohalytics.h"
-#include "3party/jansson/myjansson.hpp"
+#include "std/target_os.hpp"
 
 #include <chrono>
 #include <limits>
 #include <sstream>
 
-#include "std/target_os.hpp"
-
 #include "private.h"
+
+#include "3party/Alohalytics/src/alohalytics.h"
+#include "3party/jansson/myjansson.hpp"
 
 namespace
 {

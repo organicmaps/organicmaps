@@ -35,7 +35,7 @@
     osm::Editor::Instance().UploadChanges(
         keySecret.first, keySecret.second,
         {{"created_by",
-          string("MAPS.ME " OMIM_OS_NAME " ") + AppInfo.sharedInfo.bundleVersion.UTF8String},
+          std::string("MAPS.ME " OMIM_OS_NAME " ") + AppInfo.sharedInfo.bundleVersion.UTF8String},
          {"bundle_id", NSBundle.mainBundle.bundleIdentifier.UTF8String}},
         lambda);
   }

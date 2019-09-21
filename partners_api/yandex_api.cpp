@@ -162,7 +162,7 @@ void MakeFromJson(std::string const & src, std::vector<taxi::Product> & products
     product.m_price = strings::to_string(price);
     product.m_time = strings::to_string(static_cast<int64_t>(time));
     product.m_currency = currency;
-    products.push_back(move(product));
+    products.push_back(std::move(product));
   }
 }
 }  // namespace yandex

@@ -5,6 +5,7 @@
 #include "routing_common/num_mwm_id.hpp"
 
 #include <memory>
+#include <vector>
 
 namespace routing
 {
@@ -15,10 +16,10 @@ public:
   PedestrianDirectionsEngine(std::shared_ptr<NumMwmIds> numMwmIds);
 
   // IDirectionsEngine override:
-  bool Generate(IndexRoadGraph const & graph, vector<Junction> const & path,
+  bool Generate(IndexRoadGraph const & graph, std::vector<Junction> const & path,
                 base::Cancellable const & cancellable, Route::TTurns & turns,
-                Route::TStreets & streetNames, vector<Junction> & routeGeometry,
-                vector<Segment> & segments) override;
+                Route::TStreets & streetNames, std::vector<Junction> & routeGeometry,
+                std::vector<Segment> & segments) override;
   void Clear() override {}
 
 private:

@@ -8,6 +8,8 @@
 
 #include "metrics/eye.hpp"
 
+#include <string>
+
 namespace utils
 {
 eye::MapObject MakeEyeMapObject(place_page::Info const & info)
@@ -42,7 +44,7 @@ eye::MapObject MakeEyeMapObject(FeatureType & ft)
   mapObject.SetBestType(classif().GetReadableObjectName(types.GetBestType()));
   mapObject.SetPos(feature::GetCenter(ft));
 
-  string name;
+  std::string name;
   if (ft.GetName(StringUtf8Multilang::kDefaultCode, name))
     mapObject.SetDefaultName(name);
 

@@ -17,18 +17,20 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/transform_iterator.hpp"
-
 #include <algorithm>
 #include <cstdint>
 #include <iterator>
 #include <string>
 #include <vector>
 
+#include <boost/iterator/transform_iterator.hpp>
+
 using namespace platform::tests_support;
 using namespace search_base;
 using namespace search;
 using namespace std;
+
+using boost::make_transform_iterator;
 
 namespace
 {

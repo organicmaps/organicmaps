@@ -16,6 +16,7 @@
 #include <functional>
 #include <initializer_list>
 #include <map>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -42,7 +43,7 @@ public:
   inline feature::TAltitude GetAltitude() const { return m_altitude; }
 
 private:
-  friend string DebugPrint(Junction const & r);
+  friend std::string DebugPrint(Junction const & r);
 
   // Point of the junction
   m2::PointD m_point;
@@ -115,7 +116,7 @@ private:
        bool forward, uint32_t segId, Junction const & startJunction,
        Junction const & endJunction);
 
-  friend string DebugPrint(Edge const & r);
+  friend std::string DebugPrint(Edge const & r);
 
   Type m_type = Type::FakeWithoutRealPart;
 
@@ -376,7 +377,7 @@ private:
   std::map<Junction, EdgeVector> m_fakeOutgoingEdges;
 };
 
-string DebugPrint(IRoadGraph::Mode mode);
+std::string DebugPrint(IRoadGraph::Mode mode);
 
 IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH,
                                             std::initializer_list<m2::PointD> const & points);

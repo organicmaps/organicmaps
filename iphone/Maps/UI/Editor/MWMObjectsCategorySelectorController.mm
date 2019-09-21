@@ -58,7 +58,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
          forCellReuseIdentifier:[UITableViewCell className]];
 }
 
-- (void)setSelectedCategory:(string const &)type
+- (void)setSelectedCategory:(std::string const &)type
 {
   self.selectedType = @(type.c_str());
 }

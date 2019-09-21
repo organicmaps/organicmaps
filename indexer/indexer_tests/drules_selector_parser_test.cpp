@@ -1,10 +1,13 @@
-
 #include "testing/testing.hpp"
 
 #include "indexer/drules_selector.hpp"
 #include "indexer/drules_selector_parser.hpp"
 
+#include <string>
+#include <vector>
+
 using namespace drule;
+using namespace std;
 
 UNIT_TEST(TestDruleSelectorIsSet)
 {

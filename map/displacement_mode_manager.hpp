@@ -1,9 +1,10 @@
 #pragma once
 
-#include "std/cstdint.hpp"
-#include "std/function.hpp"
-#include "std/limits.hpp"
-#include "std/mutex.hpp"
+#include <climits>
+#include <cstdint>
+#include <functional>
+#include <limits>
+#include <mutex>
 
 // This class should be used as a single point to control whether
 // hotels displacement mode should be activated or not.
@@ -15,7 +16,7 @@
 class DisplacementModeManager
 {
 public:
-  using TCallback = function<void(bool show)>;
+  using TCallback = std::function<void(bool show)>;
 
   enum Slot
   {
@@ -32,7 +33,7 @@ public:
 private:
   TCallback m_callback;
 
-  mutex m_mu;
+  std::mutex m_mu;
   uint32_t m_mask;
 
   static_assert(SLOT_COUNT <= sizeof(m_mask) * CHAR_BIT, "Number of slots is too large");

@@ -14,6 +14,7 @@
 
 #include <set>
 #include <string>
+#include <utility>
 
 namespace
 {
@@ -54,7 +55,7 @@ DownloaderSearchCallback::DownloaderSearchCallback(Delegate & delegate,
   , m_dataSource(dataSource)
   , m_infoGetter(infoGetter)
   , m_storage(storage)
-  , m_params(move(params))
+  , m_params(std::move(params))
 {
 }
 

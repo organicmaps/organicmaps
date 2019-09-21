@@ -6,9 +6,12 @@
 
 #include "platform/platform.hpp"
 
+#include <string>
+#include <vector>
+
 namespace
 {
-string const kTestResponse = R"(
+std::string const kTestResponse = R"(
 {
   "ButtonText": null,
   "Message": null,
@@ -30,7 +33,7 @@ UNIT_TEST(Maxim_GetTaxiInfo)
 {
   ms::LatLon const from(55.796918, 37.537859);
   ms::LatLon const to(55.758213, 37.616093);
-  string result;
+  std::string result;
 
   taxi::maxim::RawApi::GetTaxiInfo(from, to, result);
 

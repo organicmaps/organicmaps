@@ -35,7 +35,7 @@ UGC MakeTestUGC2(Time now)
   records.emplace_back("service" /* key */, 5.0 /* value */);
   records.emplace_back("music" /* key */, 5.0 /* value */);
 
-  vector<Review> reviews;
+  std::vector<Review> reviews;
   reviews.emplace_back(
       119 /* id */, Text("This pie's so good it is a crime", StringUtf8Multilang::kDefaultCode),
       Author("Cooper"), 5.0 /* rating */, FromDaysAgo(now, 1));

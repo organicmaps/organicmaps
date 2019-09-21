@@ -10,6 +10,7 @@
 #include "platform/platform.hpp"
 
 #include <memory>
+#include <string>
 #include <utility>
 
 using namespace notifications;
@@ -28,7 +29,7 @@ public:
       UNREACHABLE();
     }
 
-    string GetAddress(m2::PointD const & pt) override
+    std::string GetAddress(m2::PointD const & pt) override
     {
       return {};
     }

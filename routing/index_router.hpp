@@ -148,9 +148,10 @@ private:
 
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.
   // ProcessLeaps replaces each leap with calculated route through mwm.
-  RouterResultCode ProcessLeapsJoints(vector<Segment> const & input, RouterDelegate const & delegate,
-                                      WorldGraphMode prevMode, IndexGraphStarter & starter,
-                                      AStarProgress & progress, vector<Segment> & output);
+  RouterResultCode ProcessLeapsJoints(std::vector<Segment> const & input,
+                                      RouterDelegate const & delegate, WorldGraphMode prevMode,
+                                      IndexGraphStarter & starter, AStarProgress & progress,
+                                      std::vector<Segment> & output);
   RouterResultCode RedressRoute(std::vector<Segment> const & segments,
                                 RouterDelegate const & delegate, IndexGraphStarter & starter,
                                 Route & route) const;

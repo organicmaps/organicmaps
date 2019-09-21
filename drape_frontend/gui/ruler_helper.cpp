@@ -180,7 +180,7 @@ bool RulerHelper::IsTextDirty() const
   return m_isTextDirty;
 }
 
-string const & RulerHelper::GetRulerText() const
+std::string const & RulerHelper::GetRulerText() const
 {
   m_dirtyTextRequested = true;
   return m_rulerText;
@@ -192,7 +192,7 @@ void RulerHelper::ResetTextDirtyFlag()
     m_isTextDirty = false;
 }
 
-void RulerHelper::GetTextInitInfo(string & alphabet, uint32_t & size) const
+void RulerHelper::GetTextInitInfo(std::string & alphabet, uint32_t & size) const
 {
   std::set<char> symbols;
   size_t result = 0;
@@ -240,13 +240,13 @@ double RulerHelper::CalcMetersDiff(double value)
   if (arrU[0].m_i > v)
   {
     m_rangeIndex = kMinUnitValue;
-    m_rulerText = string("< ") + arrU[0].m_s;
+    m_rulerText = std::string("< ") + arrU[0].m_s;
     result = kMinMetersWidth - 1.0;
   }
   else if (arrU[count-1].m_i <= v)
   {
     m_rangeIndex = kMaxUnitValue;
-    m_rulerText = string("> ") + arrU[count-1].m_s;
+    m_rulerText = std::string("> ") + arrU[count-1].m_s;
     result = kMaxMetersWidth + 1.0;
   }
   else

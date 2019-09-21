@@ -6,13 +6,16 @@
 #include "coding/file_writer.hpp"
 
 #include "std/windows.hpp"
-#include "std/bind.hpp"
+
+#include <functional>
 
 #include <direct.h>
 #include <shlobj.h>
 #include <shlwapi.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+
+using namespace std;
 
 static bool GetUserWritableDir(string & outDir)
 {

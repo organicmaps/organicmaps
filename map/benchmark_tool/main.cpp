@@ -3,16 +3,16 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_header.hpp"
 
-#include "std/iostream.hpp"
+#include <iostream>
 
 #include "3party/gflags/src/gflags/gflags.h"
 
+using namespace std;
 
 DEFINE_string(input, "", "MWM file name in the data directory");
 DEFINE_int32(lowS, 10, "Low processing scale");
 DEFINE_int32(highS, 17, "High processing scale");
 DEFINE_bool(print_scales, false, "Print geometry scales for MWM and exit");
-
 
 int main(int argc, char ** argv)
 {

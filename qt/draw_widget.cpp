@@ -95,11 +95,11 @@ void DrawWidget::UpdateCountryStatus(storage::CountryId const & countryId)
 {
   if (m_currentCountryChanged != nullptr)
   {
-    string countryName = countryId;
+    std::string countryName = countryId;
     auto status = m_framework.GetStorage().CountryStatusEx(countryId);
 
     uint8_t progressInPercentage = 0;
-    storage::MapFilesDownloader::Progress progressInByte = make_pair(0, 0);
+    storage::MapFilesDownloader::Progress progressInByte = std::make_pair(0, 0);
     if (!countryId.empty())
     {
       storage::NodeAttrs nodeAttrs;
@@ -450,9 +450,9 @@ bool DrawWidget::Search(search::EverywhereSearchParams const & params)
   return m_framework.SearchEverywhere(params);
 }
 
-string DrawWidget::GetDistance(search::Result const & res) const
+std::string DrawWidget::GetDistance(search::Result const & res) const
 {
-  string dist;
+  std::string dist;
   if (auto const position = m_framework.GetCurrentPosition())
   {
     auto const ll = MercatorBounds::ToLatLon(*position);

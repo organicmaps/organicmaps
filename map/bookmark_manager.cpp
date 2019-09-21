@@ -35,8 +35,6 @@
 
 #include "std/target_os.hpp"
 
-#include "3party/Alohalytics/src/alohalytics.h"
-
 #include <algorithm>
 #include <ctime>
 #include <fstream>
@@ -44,6 +42,8 @@
 #include <limits>
 #include <sstream>
 #include <utility>
+
+#include "3party/Alohalytics/src/alohalytics.h"
 
 using namespace std::placeholders;
 
@@ -1996,7 +1996,7 @@ void BookmarkManager::NotifyAboutFile(bool success, std::string const & filePath
 boost::optional<std::string> BookmarkManager::GetKMLPath(std::string const & filePath)
 {
   std::string const fileExt = GetFileExt(filePath);
-  string fileSavePath;
+  std::string fileSavePath;
   if (fileExt == kKmlExtension)
   {
     fileSavePath = GenerateValidAndUniqueFilePathForKML(GetFileName(filePath));

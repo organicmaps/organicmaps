@@ -1,9 +1,8 @@
-#include "platform/chunks_download_strategy.hpp"
 #include "platform/http_request.hpp"
+
+#include "platform/chunks_download_strategy.hpp"
 #include "platform/http_thread_callback.hpp"
 #include "platform/platform.hpp"
-
-#include "defines.hpp"
 
 #ifdef DEBUG
 #include "base/thread.hpp"
@@ -15,10 +14,14 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/list.hpp"
-#include "std/unique_ptr.hpp"
+#include <list>
+#include <memory>
+
+#include "defines.hpp"
 
 #include "3party/Alohalytics/src/alohalytics.h"
+
+using namespace std;
 
 class HttpThread;
 
@@ -416,4 +419,4 @@ string DebugPrint(HttpRequest::Status status)
   }
   UNREACHABLE();
 }
-} // namespace downloader
+}  // namespace downloader

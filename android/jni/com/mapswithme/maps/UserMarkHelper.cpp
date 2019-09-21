@@ -68,16 +68,16 @@ jobject CreateHotelType(JNIEnv * env, place_page::Info const & info)
                         jni::ToJavaString(env, tag));
 }
 
-jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion,
-                        uint32_t featureIndex, int mapObjectType, string const & title,
-                        string const & secondaryTitle, string const & subtitle, double lat,
-                        double lon, string const & address, Metadata const & metadata,
-                        string const & apiId, jobjectArray jbanners, jintArray jTaxiTypes,
-                        string const & bookingSearchUrl, jobject const & localAdInfo,
+jobject CreateMapObject(JNIEnv * env, std::string const & mwmName, int64_t mwmVersion,
+                        uint32_t featureIndex, int mapObjectType, std::string const & title,
+                        std::string const & secondaryTitle, std::string const & subtitle, double lat,
+                        double lon, std::string const & address, Metadata const & metadata,
+                        std::string const & apiId, jobjectArray jbanners, jintArray jTaxiTypes,
+                        std::string const & bookingSearchUrl, jobject const & localAdInfo,
                         jobject const & routingPointInfo, place_page::OpeningMode openingMode,
                         bool shouldShowUGC, bool canBeRated, bool canBeReviewed,
                         jobjectArray jratings, jobject const & hotelType, int priceRate,
-                        jobject const & popularity, string const & description,
+                        jobject const & popularity, std::string const & description,
                         RoadWarningMarkType roadWarningMarkType, jobjectArray jrawTypes)
 {
   // public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
@@ -241,7 +241,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
       info.GetDescription(), info.GetRoadType(), jrawTypes.get());
 }
 
-jobjectArray ToBannersArray(JNIEnv * env, vector<ads::Banner> const & banners)
+jobjectArray ToBannersArray(JNIEnv * env, std::vector<ads::Banner> const & banners)
 {
   return jni::ToJavaArray(env, g_bannerClazz, banners,
                           [](JNIEnv * env, ads::Banner const & item) {
@@ -249,7 +249,7 @@ jobjectArray ToBannersArray(JNIEnv * env, vector<ads::Banner> const & banners)
                           });
 }
 
-jobjectArray ToRatingArray(JNIEnv * env, vector<std::string> const & ratingCategories)
+jobjectArray ToRatingArray(JNIEnv * env, std::vector<std::string> const & ratingCategories)
 {
   if (ratingCategories.empty())
     return nullptr;
@@ -260,7 +260,7 @@ jobjectArray ToRatingArray(JNIEnv * env, vector<std::string> const & ratingCateg
                           });
 }
 
-jintArray ToReachableByTaxiProvidersArray(JNIEnv * env, vector<taxi::Provider::Type> const & types)
+jintArray ToReachableByTaxiProvidersArray(JNIEnv * env, std::vector<taxi::Provider::Type> const & types)
 {
   if (types.size() == 0)
     return nullptr;
@@ -308,7 +308,7 @@ jobject CreateFeatureId(JNIEnv * env, FeatureID const & fid)
                         static_cast<jint>(fid.m_index));
 }
 
-jobjectArray ToFeatureIdArray(JNIEnv * env, vector<FeatureID> const & ids)
+jobjectArray ToFeatureIdArray(JNIEnv * env, std::vector<FeatureID> const & ids)
 {
   if (ids.empty())
     return nullptr;

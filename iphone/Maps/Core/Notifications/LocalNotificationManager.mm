@@ -44,7 +44,7 @@ static NSString * const kLastUGCNotificationDate = @"LastUGCNotificationDate";
 + (CoreNotificationWrapper *)reviewNotificationWrapper
 {
   lightweight::Framework framework(lightweight::REQUEST_TYPE_NOTIFICATION);
-  framework.SetDelegate(make_unique<FrameworkLightDelegate>(GetFramework()));
+  framework.SetDelegate(std::make_unique<FrameworkLightDelegate>(GetFramework()));
   auto const notificationCandidate = framework.GetNotification();
 
   if (notificationCandidate)

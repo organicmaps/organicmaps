@@ -233,10 +233,10 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   if (!query || query.length == 0)
     return;
 
-  string const locale = (!inputLocale || inputLocale.length == 0)
+  std::string const locale = (!inputLocale || inputLocale.length == 0)
                             ? [MWMSearch manager]->m_everywhereParams.m_inputLocale
                             : inputLocale.UTF8String;
-  string const text = query.precomposedStringWithCompatibilityMapping.UTF8String;
+  std::string const text = query.precomposedStringWithCompatibilityMapping.UTF8String;
   GetFramework().SaveSearchQuery(make_pair(locale, text));
 }
 
@@ -248,12 +248,12 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   MWMSearch * manager = [MWMSearch manager];
   if (inputLocale.length != 0)
   {
-    string const locale = inputLocale.UTF8String;
+    std::string const locale = inputLocale.UTF8String;
     manager->m_everywhereParams.m_inputLocale = locale;
     manager->m_viewportParams.m_inputLocale = locale;
   }
   manager.lastQuery = query.precomposedStringWithCompatibilityMapping;
-  string const text = manager.lastQuery.UTF8String;
+  std::string const text = manager.lastQuery.UTF8String;
   manager->m_everywhereParams.m_query = text;
   manager->m_viewportParams.m_query = text;
   manager.textChanged = YES;

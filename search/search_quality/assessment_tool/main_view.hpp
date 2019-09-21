@@ -79,7 +79,7 @@ private:
     AfterSearch
   };
 
-  friend string DebugPrint(State state)
+  friend std::string DebugPrint(State state)
   {
     switch (state)
     {

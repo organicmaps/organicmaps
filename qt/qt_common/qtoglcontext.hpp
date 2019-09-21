@@ -1,7 +1,6 @@
 #pragma once
 
 #include "drape/oglcontext.hpp"
-#include "std/mutex.hpp"
 
 #include <QtGui/QOffscreenSurface>
 #include <QtGui/QOpenGLFramebufferObject>

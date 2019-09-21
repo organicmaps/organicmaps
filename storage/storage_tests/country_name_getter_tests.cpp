@@ -2,6 +2,10 @@
 
 #include "storage/country_name_getter.hpp"
 
+#include <string>
+
+using namespace std;
+
 UNIT_TEST(CountryNameGetterTest)
 {
   string const shortJson =
