@@ -329,21 +329,23 @@ unsigned Platform::CpuCores() const
 void Platform::ShutdownThreads()
 {
   ASSERT(m_networkThread && m_fileThread && m_backgroundThread, ());
+  ASSERT(!m_networkThread->IsShoutedDown(), ());
+  ASSERT(!m_fileThread->IsShoutedDown(), ());
+  ASSERT(!m_backgroundThread->IsShoutedDown(), ());
 
   m_batteryTracker.UnsubscribeAll();
 
   m_networkThread->ShutdownAndJoin();
   m_fileThread->ShutdownAndJoin();
   m_backgroundThread->ShutdownAndJoin();
-
-  m_networkThread.reset();
-  m_fileThread.reset();
-  m_backgroundThread.reset();
 }
 
 void Platform::RunThreads()
 {
-  ASSERT(!m_networkThread && !m_fileThread && !m_backgroundThread, ());
+  ASSERT(!m_networkThread || (m_networkThread && m_networkThread->IsShoutedDown()), ());
+  ASSERT(!m_fileThread || (m_fileThread && m_fileThread->IsShoutedDown()), ());
+  ASSERT(!m_backgroundThread || (m_backgroundThread && m_backgroundThread->IsShoutedDown()), ());
+
   m_networkThread = make_unique<base::thread_pool::delayed::ThreadPool>();
   m_fileThread = make_unique<base::thread_pool::delayed::ThreadPool>();
   m_backgroundThread = make_unique<base::thread_pool::delayed::ThreadPool>();
