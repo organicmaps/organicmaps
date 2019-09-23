@@ -17,7 +17,6 @@ class ShieldRuleProto;
 
 namespace software_renderer
 {
-
 dp::Color ConvertColor(uint32_t c);
 
 void ConvertStyle(LineDefProto const * pSrc, double scale, PenInfo & dest);
@@ -27,5 +26,4 @@ void ConvertStyle(CaptionDefProto const * pSrc, double scale, dp::FontDecl & des
 void ConvertStyle(ShieldRuleProto const * pSrc, double scale, dp::FontDecl & dest);
 
 uint8_t GetFontSize(CaptionDefProto const * pSrc);
-
-}
+}  // namespace software_renderer

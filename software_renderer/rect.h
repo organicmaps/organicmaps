@@ -1,7 +1,8 @@
 #ifndef __IA__RECT__
 #define __IA__RECT__
 
-#include "point.h"
+#include "software_renderer/point.h"
+
 #include <iostream>
 #include <climits>
 

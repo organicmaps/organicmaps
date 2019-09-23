@@ -1,24 +1,25 @@
 #pragma once
+
 #ifndef __ML__TEXT_ENGINE_H__
 #define __ML__TEXT_ENGINE_H__
 
-#include <string>
-#include <stdexcept>
+
+#include "software_renderer/point.h"
+#include "software_renderer/rect.h"
+
+#include "base/string_utils.hpp"
+
+#include <cstdint>
 #include <map>
+#include <stdexcept>
+#include <string>
+#include <utility>
 #include <vector>
-#include <iostream>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 #include FT_STROKER_H
-
-#include "point.h"
-#include "rect.h"
-
-#include "base/string_utils.hpp"
-
-#include "std/utility.hpp"
 
 namespace ml
 {
@@ -47,12 +48,12 @@ public:
   void flip_y(bool f) { m_flip_y = f; }
 
   face(ml::text_engine & e, std::string const & name, size_t size);
-  inline std::string const & face_name() const { return m_face_name; }
-  inline size_t face_size() const { return m_face_size; }
+  std::string const & face_name() const { return m_face_name; }
+  size_t face_size() const { return m_face_size; }
   FT_Glyph glyph(unsigned int code, unsigned int prev_code = 0, ml::point_d * kerning = NULL);
-  inline double ascender() const { return m_ascender; }
-  inline double descender() const { return m_descender; }
-  inline double height() const { return m_height; }
+  double ascender() const { return m_ascender; }
+  double descender() const { return m_descender; }
+  double height() const { return m_height; }
 };
 
 struct text_engine_exception : public std::runtime_error
@@ -199,7 +200,7 @@ protected:
 class text_engine
 {
   typedef std::map<std::string, FT_Face> face_map_type;
-  typedef std::map<pair<size_t, size_t>, face> face_cache_type;
+  typedef std::map<std::pair<size_t, size_t>, face> face_cache_type;
   FT_Library m_library;
   face_map_type m_faces;
   FT_Face m_current_face;
@@ -218,7 +219,6 @@ public:
   text_engine();
   //        ~text_engine() {} // TODO: destroy all faces before exit
 };
-
 }  // namespace ml
 
 #endif  // __ML__TEXT_ENGINE_H__

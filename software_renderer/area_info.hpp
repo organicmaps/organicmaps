@@ -2,18 +2,18 @@
 
 #include "geometry/point2d.hpp"
 
-#include "std/vector.hpp"
-#include "std/algorithm.hpp"
+#include <algorithm>
+#include <cstddef>
+#include <vector>
 
 namespace software_renderer
 {
-
 class AreaInfo
 {
   m2::PointD m_center;
 
 public:
-  vector<m2::PointD> m_path;
+  std::vector<m2::PointD> m_path;
 
   void reserve(size_t ptsCount)
   {
@@ -36,8 +36,7 @@ public:
   void SetCenter(m2::PointD const & p) { m_center = p; }
   m2::PointD GetCenter() const { return m_center; }
 };
-
-}
+}  // namespace software_renderer
 
 inline void swap(software_renderer::AreaInfo & p1, software_renderer::AreaInfo & p2)
 {

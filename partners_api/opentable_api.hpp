@@ -1,12 +1,12 @@
 #pragma once
 
-#include "std/string.hpp"
+#include <string>
 
 namespace opentable
 {
 class Api
 {
 public:
-  static string GetBookTableUrl(string const & restaurantId);
+  static std::string GetBookTableUrl(std::string const & restaurantId);
 };
 }  // namespace opentable

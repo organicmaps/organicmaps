@@ -17,18 +17,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include "sdf_image.h"
+#include "3party/sdf_image/sdf_image.h"
 
 #include "base/math.hpp"
 #include "base/scope_guard.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/limits.hpp"
-#include "std/bind.hpp"
+#include <algorithm>
+#include <limits>
+
+using namespace std::placeholders;
 
 namespace sdf_image
 {
-
 namespace
 {
   float const SQRT2 = 1.4142136f;
@@ -44,7 +44,7 @@ namespace
   }
 
 }
-#define BIND_GRADIENT(f) bind(&f, _1, _2, _3, _4, _5, _6, _7, _8)
+#define BIND_GRADIENT(f) std::bind(&f, _1, _2, _3, _4, _5, _6, _7, _8)
 #define TRANSFORM(offset, dx, dy) \
   if (Transform(i, offset, dx, dy, xDist, yDist, oldDist)) \
   { \
@@ -94,10 +94,10 @@ uint32_t SdfImage::GetHeight() const
   return m_height;
 }
 
-void SdfImage::GetData(vector<uint8_t> & dst)
+void SdfImage::GetData(std::vector<uint8_t> & dst)
 {
   ASSERT(m_data.size() <= dst.size(), ());
-  transform(m_data.begin(), m_data.end(), dst.begin(), [](float const & node)
+  std::transform(m_data.begin(), m_data.end(), dst.begin(), [](float const & node)
   {
     return static_cast<uint8_t>(node * 255.0f);
   });
@@ -105,17 +105,17 @@ void SdfImage::GetData(vector<uint8_t> & dst)
 
 void SdfImage::Scale()
 {
-  float maxi = numeric_limits<float>::min();
-  float mini = numeric_limits<float>::max();
+  float maxi = std::numeric_limits<float>::min();
+  float mini = std::numeric_limits<float>::max();
 
-  for_each(m_data.begin(), m_data.end(), [&maxi, &mini](float const & node)
+  std::for_each(m_data.begin(), m_data.end(), [&maxi, &mini](float const & node)
   {
-    maxi = max(maxi, node);
-    mini = min(mini, node);
+    maxi = std::max(maxi, node);
+    mini = std::min(mini, node);
   });
 
   maxi -= mini;
-  for_each(m_data.begin(), m_data.end(), [&maxi, &mini](float & node)
+  std::for_each(m_data.begin(), m_data.end(), [&maxi, &mini](float & node)
   {
     node = (node - mini) / maxi;
   });
@@ -123,7 +123,7 @@ void SdfImage::Scale()
 
 void SdfImage::Invert()
 {
-  for_each(m_data.begin(), m_data.end(), [](float & node)
+  std::for_each(m_data.begin(), m_data.end(), [](float & node)
   {
     node = 1.0f - node;
   });
@@ -132,7 +132,7 @@ void SdfImage::Invert()
 void SdfImage::Minus(SdfImage & im)
 {
   ASSERT(m_data.size() == im.m_data.size(), ());
-  transform(m_data.begin(), m_data.end(), im.m_data.begin(), m_data.begin(), [](float const & n1, float const & n2)
+  std::transform(m_data.begin(), m_data.end(), im.m_data.begin(), m_data.begin(), [](float const & n1, float const & n2)
   {
     return n1 - n2;
   });
@@ -140,7 +140,7 @@ void SdfImage::Minus(SdfImage & im)
 
 void SdfImage::Distquant()
 {
-  for_each(m_data.begin(), m_data.end(), [](float & node)
+  std::for_each(m_data.begin(), m_data.end(), [](float & node)
   {
     node = base::Clamp(0.5f + node * 0.0325f, 0.0f, 1.0f);
   });
@@ -154,8 +154,8 @@ void SdfImage::GenerateSDF(float sc)
   SdfImage inside(m_height, m_width);
 
   size_t shortCount = m_width * m_height;
-  vector<short> xDist;
-  vector<short> yDist;
+  std::vector<short> xDist;
+  std::vector<short> yDist;
   xDist.resize(shortCount, 0);
   yDist.resize(shortCount, 0);
 
@@ -244,7 +244,7 @@ float SdfImage::ComputeGradient(uint32_t x, uint32_t y, SdfImage::TComputeFn con
     return 0.0;
 }
 
-void SdfImage::MexFunction(SdfImage const & img, vector<short> & xDist, vector<short> & yDist, SdfImage & out)
+void SdfImage::MexFunction(SdfImage const & img, std::vector<short> & xDist, std::vector<short> & yDist, SdfImage & out)
 {
   ASSERT_EQUAL(img.GetWidth(), out.GetWidth(), ());
   ASSERT_EQUAL(img.GetHeight(), out.GetHeight(), ());
@@ -252,9 +252,9 @@ void SdfImage::MexFunction(SdfImage const & img, vector<short> & xDist, vector<s
   img.EdtaA3(xDist, yDist, out);
   // Pixels with grayscale>0.5 will have a negative distance.
   // This is correct, but we don't want values <0 returned here.
-  for_each(out.m_data.begin(), out.m_data.end(), [](float & n)
+  std::for_each(out.m_data.begin(), out.m_data.end(), [](float & n)
   {
-    n = max(0.0f, n);
+    n = std::max(0.0f, n);
   });
 }
 
@@ -318,7 +318,7 @@ double SdfImage::EdgeDf(double gx, double gy, double a) const
     gx = fabs(gx);
     gy = fabs(gy);
     if (gx < gy)
-      swap(gx, gy);
+      std::swap(gx, gy);
 
     double a1 = 0.5 * gy / gx;
     if (a < a1)
@@ -332,7 +332,7 @@ double SdfImage::EdgeDf(double gx, double gy, double a) const
   return df;
 }
 
-void SdfImage::EdtaA3(vector<short> & xDist, vector<short> & yDist, SdfImage & dist) const
+void SdfImage::EdtaA3(std::vector<short> & xDist, std::vector<short> & yDist, SdfImage & dist) const
 {
   ASSERT_EQUAL(dist.GetHeight(), GetHeight(), ());
   ASSERT_EQUAL(dist.GetWidth(), GetWidth(), ());
@@ -479,7 +479,7 @@ void SdfImage::EdtaA3(vector<short> & xDist, vector<short> & yDist, SdfImage & d
   while(changed);
 }
 
-bool SdfImage::Transform(int baseIndex, int offset, int dx, int dy, vector<short> & xDist, vector<short> & yDist, float & oldDist) const
+bool SdfImage::Transform(int baseIndex, int offset, int dx, int dy, std::vector<short> & xDist, std::vector<short> & yDist, float & oldDist) const
 {
   double const epsilon = 1e-3;
   ASSERT_EQUAL(xDist.size(), yDist.size(), ());
@@ -505,5 +505,4 @@ bool SdfImage::Transform(int baseIndex, int offset, int dx, int dy, vector<short
 
   return false;
 }
-
 } // namespace sdf_image

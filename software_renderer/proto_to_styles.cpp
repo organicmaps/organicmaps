@@ -1,23 +1,20 @@
-#include "proto_to_styles.hpp"
+#include "software_renderer/proto_to_styles.hpp"
 
 #include "indexer/drules_include.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <vector>
 
 namespace
 {
-
 double ConvertWidth(double w, double scale)
 {
-  return max(w * scale, 1.0);
+  return std::max(w * scale, 1.0);
 }
-
-}
+}  // namespace
 
 namespace software_renderer
 {
-
 dp::Color ConvertColor(uint32_t c)
 {
   return dp::Extract(c, 255 - (c >> 24));
@@ -26,7 +23,7 @@ dp::Color ConvertColor(uint32_t c)
 void ConvertStyle(LineDefProto const * pSrc, double scale, PenInfo & dest)
 {
   double offset = 0.0;
-  vector<double> v;
+  std::vector<double> v;
 
   if (pSrc->has_dashdot())
   {
@@ -129,5 +126,4 @@ uint8_t GetFontSize(CaptionDefProto const * pSrc)
 {
   return pSrc->height();
 }
-
-}
+}  // namespace software_renderer

@@ -12,6 +12,6 @@ inline double VisualScale(double exactDensityDPI)
 
   // For some old devices (for example iPad 2) the density could be less than 160 DPI.
   // Returns one in that case to keep readable text on the map.
-  return max(1.35, exactDensityDPI / kMdpiDensityDPI);
+  return std::max(1.35, exactDensityDPI / kMdpiDensityDPI);
 }
 } //  namespace dp

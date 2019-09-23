@@ -9,6 +9,7 @@
 
 #include "base/file_name_utils.hpp"
 
+#include <algorithm>
 #include <string>
 
 #include "defines.hpp"
@@ -26,10 +27,9 @@ int GetLevelCount(Storage & storage, CountryId const & countryId)
   storage.GetChildren(countryId, children);
   int level = 0;
   for (auto const & child : children)
-    level = max(level, GetLevelCount(storage, child));
+    level = std::max(level, GetLevelCount(storage, child));
   return 1 + level;
 }
-
 } // namespace
 
 UNIT_TEST(SmallMwms_3levels_Test)

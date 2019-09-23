@@ -1,6 +1,6 @@
 #include "partners_api/opentable_api.hpp"
 
-#include "std/sstream.hpp"
+#include <sstream>
 
 #include "private.h"
 
@@ -12,9 +12,9 @@ namespace
 namespace opentable
 {
 // static
-string Api::GetBookTableUrl(string const & restaurantId)
+std::string Api::GetBookTableUrl(std::string const & restaurantId)
 {
-  stringstream ss;
+  std::stringstream ss;
   ss << kOpentableBaseUrl << restaurantId << "?ref=" << OPENTABLE_AFFILATE_ID;
   return ss.str();
 }

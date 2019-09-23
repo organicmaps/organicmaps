@@ -9,7 +9,6 @@
 #include "base/thread.hpp"
 
 #include <iomanip>
-#include <memory>
 #include <sstream>
 #include <string>
 #include <utility>
@@ -53,7 +52,7 @@ bool IsIncomplete(taxi::Product const & p)
   return p.m_name.empty() || p.m_productId.empty() || p.m_time.empty() || p.m_price.empty();
 }
 
-void FillProducts(json_t const * time, json_t const * price, vector<taxi::Product> & products)
+void FillProducts(json_t const * time, json_t const * price, std::vector<taxi::Product> & products)
 {
   // Fill data from time.
   auto const timeSize = json_array_size(time);
@@ -72,7 +71,7 @@ void FillProducts(json_t const * time, json_t const * price, vector<taxi::Produc
   auto const priceSize = json_array_size(price);
   for (size_t i = 0; i < priceSize; ++i)
   {
-    string name;
+    std::string name;
     auto const item = json_array_get(price, i);
 
     FromJSONObject(item, "display_name", name);
@@ -96,7 +95,7 @@ void FillProducts(json_t const * time, json_t const * price, vector<taxi::Produc
   products.erase(remove_if(products.begin(), products.end(), IsIncomplete), products.end());
 }
 
-void MakeFromJson(char const * times, char const * prices, vector<taxi::Product> & products)
+void MakeFromJson(char const * times, char const * prices, std::vector<taxi::Product> & products)
 {
   products.clear();
   try
@@ -122,11 +121,11 @@ namespace taxi
 {
 namespace uber
 {
-string const kEstimatesUrl = "https://api.uber.com/v1/estimates";
-string const kProductsUrl = "https://api.uber.com/v1/products";
+std::string const kEstimatesUrl = "https://api.uber.com/v1/estimates";
+std::string const kProductsUrl = "https://api.uber.com/v1/products";
 
 // static
-bool RawApi::GetProducts(ms::LatLon const & pos, string & result,
+bool RawApi::GetProducts(ms::LatLon const & pos, std::string & result,
                          std::string const & baseUrl /* = kProductsUrl */)
 {
   std::ostringstream url;
@@ -137,7 +136,7 @@ bool RawApi::GetProducts(ms::LatLon const & pos, string & result,
 }
 
 // static
-bool RawApi::GetEstimatedTime(ms::LatLon const & pos, string & result,
+bool RawApi::GetEstimatedTime(ms::LatLon const & pos, std::string & result,
                               std::string const & baseUrl /* = kEstimatesUrl */)
 {
   std::ostringstream url;
@@ -148,7 +147,7 @@ bool RawApi::GetEstimatedTime(ms::LatLon const & pos, string & result,
 }
 
 // static
-bool RawApi::GetEstimatedPrice(ms::LatLon const & from, ms::LatLon const & to, string & result,
+bool RawApi::GetEstimatedPrice(ms::LatLon const & from, ms::LatLon const & to, std::string & result,
                                std::string const & baseUrl /* = kEstimatesUrl */)
 {
   std::ostringstream url;
@@ -162,41 +161,41 @@ bool RawApi::GetEstimatedPrice(ms::LatLon const & from, ms::LatLon const & to, s
 
 void ProductMaker::Reset(uint64_t const requestId)
 {
-  lock_guard<mutex> lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   m_requestId = requestId;
   m_times.reset();
   m_prices.reset();
 }
 
-void ProductMaker::SetTimes(uint64_t const requestId, string const & times)
+void ProductMaker::SetTimes(uint64_t const requestId, std::string const & times)
 {
-  lock_guard<mutex> lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   if (requestId != m_requestId)
     return;
 
-  m_times = make_unique<string>(times);
+  m_times = std::make_unique<std::string>(times);
 }
 
-void ProductMaker::SetPrices(uint64_t const requestId, string const & prices)
+void ProductMaker::SetPrices(uint64_t const requestId, std::string const & prices)
 {
-  lock_guard<mutex> lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   if (requestId != m_requestId)
     return;
 
-  m_prices = make_unique<string>(prices);
+  m_prices = std::make_unique<std::string>(prices);
 }
 
 void ProductMaker::SetError(uint64_t const requestId, taxi::ErrorCode code)
 {
-  lock_guard<mutex> lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   if (requestId != m_requestId)
     return;
 
-  m_error = make_unique<taxi::ErrorCode>(code);
+  m_error = std::make_unique<taxi::ErrorCode>(code);
 }
 
 void ProductMaker::MakeProducts(uint64_t const requestId, ProductsCallback const & successFn,
@@ -205,10 +204,10 @@ void ProductMaker::MakeProducts(uint64_t const requestId, ProductsCallback const
   ASSERT(successFn, ());
   ASSERT(errorFn, ());
 
-  vector<Product> products;
-  unique_ptr<taxi::ErrorCode> error;
+  std::vector<Product> products;
+  std::unique_ptr<taxi::ErrorCode> error;
   {
-    lock_guard<mutex> lock(m_mutex);
+    std::lock_guard<std::mutex> lock(m_mutex);
 
     if (requestId != m_requestId || !m_times || !m_prices)
       return;
@@ -258,7 +257,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
 
   GetPlatform().RunTask(Platform::Thread::Network, [maker, from, reqId, baseUrl, successFn, errorFn]()
   {
-    string result;
+    std::string result;
     if (!RawApi::GetEstimatedTime(from, result, baseUrl))
       maker->SetError(reqId, ErrorCode::RemoteError);
 
@@ -268,7 +267,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
 
   GetPlatform().RunTask(Platform::Thread::Network, [maker, from, to, reqId, baseUrl, successFn, errorFn]()
   {
-    string result;
+    std::string result;
     if (!RawApi::GetEstimatedPrice(from, to, result, baseUrl))
       maker->SetError(reqId, ErrorCode::RemoteError);
 

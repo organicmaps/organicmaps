@@ -4,14 +4,13 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/shared_ptr.hpp"
-#include "std/vector.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace software_renderer
 {
-
 /// metrics of the single glyph
 struct GlyphMetrics
 {
@@ -28,7 +27,7 @@ struct GlyphBitmap
   unsigned m_width;
   unsigned m_height;
   unsigned m_pitch;
-  vector<unsigned char> m_data;
+  std::vector<unsigned char> m_data;
 };
 
 struct GlyphKey
@@ -55,22 +54,20 @@ struct GlyphCacheImpl;
 class GlyphCache
 {
 private:
-
-  shared_ptr<GlyphCacheImpl> m_impl;
+  std::shared_ptr<GlyphCacheImpl> m_impl;
 
 public:
-
   struct Params
   {
-    string m_blocksFile;
-    string m_whiteListFile;
-    string m_blackListFile;
+    std::string m_blocksFile;
+    std::string m_whiteListFile;
+    std::string m_blackListFile;
     size_t m_maxSize;
     double m_visualScale;
     bool m_isDebugging;
-    Params(string const & blocksFile,
-           string const & whiteListFile,
-           string const & blackListFile,
+    Params(std::string const & blocksFile,
+           std::string const & whiteListFile,
+           std::string const & blackListFile,
            size_t maxSize,
            double visualScale,
            bool isDebugging);
@@ -80,15 +77,14 @@ public:
   GlyphCache(Params const & params);
 
   void reset();
-  void addFonts(vector<string> const & fontNames);
+  void addFonts(std::vector<std::string> const & fontNames);
 
-  pair<Font*, int> getCharIDX(GlyphKey const & key);
+  std::pair<Font*, int> getCharIDX(GlyphKey const & key);
 
-  shared_ptr<GlyphBitmap> const getGlyphBitmap(GlyphKey const & key);
+  std::shared_ptr<GlyphBitmap> const getGlyphBitmap(GlyphKey const & key);
   /// return control box(could be slightly larger than the precise bound box).
   GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
 
-  double getTextLength(double fontSize, string const & text);
+  double getTextLength(double fontSize, std::string const & text);
 };
-
-}
+}  // namespace software_renderer

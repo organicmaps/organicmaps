@@ -258,7 +258,7 @@ public:
     return result;
   }
 
-  void GetCharcodes(vector<FT_ULong> & charcodes)
+  void GetCharcodes(std::vector<FT_ULong> & charcodes)
   {
     FT_UInt gindex;
     charcodes.push_back(FT_Get_First_Char(m_fontFace, &gindex));

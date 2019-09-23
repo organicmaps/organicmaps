@@ -1,6 +1,8 @@
 #include "software_renderer/cpu_drawer.hpp"
+
 #include "software_renderer/proto_to_styles.hpp"
 #include "software_renderer/software_renderer.hpp"
+
 #include "drape_frontend/navigator.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -14,12 +16,13 @@
 #include "base/macros.hpp"
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
+#include <algorithm>
+#include <vector>
+
+using namespace std;
 
 namespace
 {
-
 void CorrectFont(dp::FontDecl & font)
 {
   font.m_size = font.m_size * 0.75;
@@ -828,5 +831,4 @@ void CPUDrawer::Draw(FeatureData const & data)
 
   DrawFeatureEnd(data.m_id);
 }
-
-}
+}  // namespace software_renderer

@@ -30,12 +30,12 @@ THE SOFTWARE.
 
 #include "base/buffer_vector.hpp"
 
-#include "std/vector.hpp"
-#include "std/function.hpp"
+#include <cstdint>
+#include <functional>
+#include <vector>
 
 namespace sdf_image
 {
-
 class SdfImage
 {
 public:
@@ -63,18 +63,19 @@ private:
   /// d = down
   /// dr = down right
   ///                       ul    u      ur     l       r     dl      d     dr
-  typedef function<float (float, float, float, float, float, float, float, float)> TComputeFn;
+  using TComputeFn = std::function<float (float, float, float, float, float, float, float, float)>;
   float ComputeGradient(uint32_t x, uint32_t y, TComputeFn const & fn) const;
-  void MexFunction(SdfImage const & img, vector<short> & xDist, vector<short> & yDist, SdfImage & out);
+  void MexFunction(SdfImage const & img, std::vector<short> & xDist, std::vector<short> & yDist,
+                   SdfImage & out);
   float DistaA3(int c, int xc, int yc, int xi, int yi) const;
   double EdgeDf(double gx, double gy, double a) const;
-  void EdtaA3(vector<short> & xDist, vector<short> & yDist, SdfImage & dist) const;
-  bool Transform(int baseIndex, int offset, int dx, int dy, vector<short> & xDist, vector<short> & yDist, float & oldDist) const;
+  void EdtaA3(std::vector<short> & xDist, std::vector<short> & yDist, SdfImage & dist) const;
+  bool Transform(int baseIndex, int offset, int dx, int dy, std::vector<short> & xDist,
+                 std::vector<short> & yDist, float & oldDist) const;
 
 private:
   uint32_t m_height = 0;
   uint32_t m_width = 0;
   buffer_vector<float, 512> m_data;
 };
-
-} // namespace sdf_image
+}  // namespace sdf_image

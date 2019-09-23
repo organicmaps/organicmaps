@@ -4,14 +4,14 @@
 
 #include "geometry/rect2d.hpp"
 
-#include "std/vector.hpp"
+#include <cstddef>
+#include <cstdint>
 
 class FeatureType;
 class ScreenBase;
 
 namespace software_renderer
 {
-
 const int maxDepth = 20000;
 const int minDepth = -20000;
 
@@ -78,5 +78,4 @@ private:
   uint8_t GetTextFontSize(drule::BaseRule const * pRule) const;
   void LayoutTexts(double pathLength);
 };
-
-}
+}  // namespace software_renderer

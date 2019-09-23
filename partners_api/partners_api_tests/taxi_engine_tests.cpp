@@ -114,7 +114,7 @@ std::vector<taxi::Product> GetUberSynchronous(ms::LatLon const & from, ms::LatLo
   maker.SetTimes(reqId, times);
   maker.SetPrices(reqId, prices);
   maker.MakeProducts(
-      reqId, [&uberProducts](vector<taxi::Product> const & products) { uberProducts = products; },
+      reqId, [&uberProducts](std::vector<taxi::Product> const & products) { uberProducts = products; },
       [](taxi::ErrorCode const code) { TEST(false, (code)); });
 
   return uberProducts;
@@ -230,7 +230,7 @@ bool CompareProviders(taxi::ProvidersContainer const & lhs, taxi::ProvidersConta
 
   auto const m = lhs.size();
 
-  vector<bool> used(m);
+  std::vector<bool> used(m);
   // TODO (@y) Change it to algorithm, based on bipartite graphs.
   for (auto const & rItem : rhs)
   {
@@ -457,25 +457,25 @@ UNIT_CLASS_TEST(AsyncGuiThread, TaxiEngine_Smoke)
 
   {
     {
-      lock_guard<mutex> lock(resultsMutex);
+      std::lock_guard<std::mutex> lock(resultsMutex);
       reqId = engine.GetAvailableProducts(ms::LatLon(55.753960, 37.624513),
                                           ms::LatLon(55.765866, 37.661270), standardCallback,
                                           errorPossibleCallback);
     }
     {
-      lock_guard<mutex> lock(resultsMutex);
+      std::lock_guard<std::mutex> lock(resultsMutex);
       reqId = engine.GetAvailableProducts(ms::LatLon(59.922445, 30.367201),
                                           ms::LatLon(59.943675, 30.361123), standardCallback,
                                           errorPossibleCallback);
     }
     {
-      lock_guard<mutex> lock(resultsMutex);
+      std::lock_guard<std::mutex> lock(resultsMutex);
       reqId = engine.GetAvailableProducts(ms::LatLon(52.509621, 13.450067),
                                           ms::LatLon(52.510811, 13.409490), standardCallback,
                                           errorPossibleCallback);
     }
     {
-      lock_guard<mutex> lock(resultsMutex);
+      std::lock_guard<std::mutex> lock(resultsMutex);
       reqId = engine.GetAvailableProducts(from, to, lastCallback, errorCallback);
     }
   }

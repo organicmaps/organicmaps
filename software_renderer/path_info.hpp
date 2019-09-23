@@ -3,19 +3,20 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
-#include "std/vector.hpp"
-#include "std/algorithm.hpp"
+#include "base/assert.hpp"
+
+#include <algorithm>
+#include <vector>
 
 namespace software_renderer
 {
-
 class PathInfo
 {
   double m_fullL;
   double m_offset;
 
 public:
-  vector<m2::PointD> m_path;
+  std::vector<m2::PointD> m_path;
 
   // -1.0 means "not" initialized
   explicit PathInfo(double offset = -1.0) : m_fullL(-1.0), m_offset(offset) {}
@@ -89,8 +90,7 @@ public:
     return rect;
   }
 };
-
-}
+}  // namespace software_renderer
 
 inline void swap(software_renderer::PathInfo & p1, software_renderer::PathInfo & p2)
 {

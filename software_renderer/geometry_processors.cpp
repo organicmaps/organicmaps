@@ -1,10 +1,9 @@
-#include "geometry_processors.hpp"
+#include "software_renderer/geometry_processors.hpp"
 
-#include "std/bind.hpp"
+#include <functional>
 
 namespace software_renderer
 {
-
 base_screen::base_screen(params const & p)
   : base(p)
 {
@@ -129,7 +128,7 @@ bool cut_path_intervals::IsExist()
 {
   // finally, assign whole length to every cutted path
   for_each(m_points.begin(), m_points.end(),
-           bind(&PathInfo::SetFullLength, _1, m_length));
+           std::bind(&PathInfo::SetFullLength, std::placeholders::_1, m_length));
 
   return !m_points.empty();
 }
@@ -243,7 +242,7 @@ bool path_points::IsExist()
 {
   // finally, assign whole length to every cutted path
   for_each(m_points.begin(), m_points.end(),
-           bind(&PathInfo::SetFullLength, _1, m_length));
+           std::bind(&PathInfo::SetFullLength, std::placeholders::_1, m_length));
 
   EndPL();
   return base_type::IsExist();
@@ -272,5 +271,4 @@ bool area_tess_points::IsExist() const
 {
   return !m_points.empty();
 }
-
-}
+}  // namespace software_renderer

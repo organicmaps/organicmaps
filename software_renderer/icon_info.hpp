@@ -1,16 +1,14 @@
 #pragma once
 
-#include "std/string.hpp"
+#include <string>
 
 namespace software_renderer
 {
-
 struct IconInfo
 {
-  string m_name;
-
   IconInfo() = default;
-  explicit IconInfo(string const & name) : m_name(name) {}
-};
+  explicit IconInfo(std::string const & name) : m_name(name) {}
 
-}
+  std::string m_name;
+};
+}  // namespace software_renderer

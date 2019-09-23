@@ -1,9 +1,9 @@
 #include "software_renderer/glyph_cache.hpp"
+
 #include "software_renderer/glyph_cache_impl.hpp"
 
 namespace software_renderer
 {
-
 GlyphKey::GlyphKey(strings::UniChar symbolCode,
                    int fontSize,
                    bool isMask,
@@ -40,9 +40,9 @@ bool operator!=(GlyphKey const & l, GlyphKey const & r)
       || !(l.m_color == r.m_color);
 }
 
-GlyphCache::Params::Params(string const & blocksFile,
-                           string const & whiteListFile,
-                           string const & blackListFile,
+GlyphCache::Params::Params(std::string const & blocksFile,
+                           std::string const & whiteListFile,
+                           std::string const & blackListFile,
                            size_t maxSize,
                            double visualScale,
                            bool isDebugging)
@@ -61,7 +61,7 @@ GlyphCache::GlyphCache(Params const & params) : m_impl(new GlyphCacheImpl(params
 {
 }
 
-void GlyphCache::addFonts(vector<string> const & fontNames)
+void GlyphCache::addFonts(std::vector<std::string> const & fontNames)
 {
   m_impl->addFonts(fontNames);
 }
@@ -81,7 +81,7 @@ shared_ptr<GlyphBitmap> const GlyphCache::getGlyphBitmap(GlyphKey const & key)
   return m_impl->getGlyphBitmap(key);
 }
 
-double GlyphCache::getTextLength(double fontSize, string const & text)
+double GlyphCache::getTextLength(double fontSize, std::string const & text)
 {
   strings::UniString const s = strings::MakeUniString(text);
   double len = 0;
@@ -93,5 +93,4 @@ double GlyphCache::getTextLength(double fontSize, string const & text)
 
   return len;
 }
-
-}
+}  // namespace software_renderer

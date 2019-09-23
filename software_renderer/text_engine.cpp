@@ -1,6 +1,7 @@
-#include "text_engine.h"
+#include "software_renderer/text_engine.h"
 
 #include <sstream>
+
 #include <boost/format.hpp>
 
 extern "C" const char default_font_data[741536];
@@ -459,4 +460,4 @@ text_engine::text_engine()
   load_face("default", default_font_data, sizeof(default_font_data));
   //        face("default",16);
 }
-}
+}  // namespace ml

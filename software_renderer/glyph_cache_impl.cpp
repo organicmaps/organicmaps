@@ -7,8 +7,12 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
-#include "std/bind.hpp"
-#include "std/cstring.hpp"
+#include <algorithm>
+#include <cstring>
+#include <functional>
+#include <sstream>
+#include <string>
+#include <utility>
 
 #include <freetype/ftcache.h>
 
@@ -17,8 +21,7 @@
 
 namespace software_renderer
 {
-
-UnicodeBlock::UnicodeBlock(string const & name, strings::UniChar start, strings::UniChar end)
+UnicodeBlock::UnicodeBlock(std::string const & name, strings::UniChar start, strings::UniChar end)
   : m_name(name), m_start(start), m_end(end)
 {}
 
@@ -78,9 +81,9 @@ FT_Error Font::CreateFaceID(FT_Library library, FT_Face * face)
   //return FT_New_Memory_Face(library, (unsigned char*)m_fontData.data(), m_fontData.size(), 0, face);
 }
 
-void GlyphCacheImpl::initBlocks(string const & fileName)
+void GlyphCacheImpl::initBlocks(std::string const & fileName)
 {
-  string buffer;
+  std::string buffer;
   try
   {
     ReaderPtr<Reader>(GetPlatform().GetReader(fileName)).ReadAsString(buffer);
@@ -91,10 +94,10 @@ void GlyphCacheImpl::initBlocks(string const & fileName)
     return;
   }
 
-  istringstream fin(buffer);
+  std::istringstream fin(buffer);
   while (true)
   {
-    string name;
+    std::string name;
     strings::UniChar start;
     strings::UniChar end;
     fin >> name >> std::hex >> start >> std::hex >> end;
@@ -107,15 +110,15 @@ void GlyphCacheImpl::initBlocks(string const & fileName)
   m_lastUsedBlock = m_unicodeBlocks.end();
 }
 
-bool find_ub_by_name(string const & ubName, UnicodeBlock const & ub)
+bool find_ub_by_name(std::string const & ubName, UnicodeBlock const & ub)
 {
   return ubName == ub.m_name;
 }
 
-void GlyphCacheImpl::initFonts(string const & whiteListFile, string const & blackListFile)
+void GlyphCacheImpl::initFonts(std::string const & whiteListFile, std::string const & blackListFile)
 {
   {
-    string buffer;
+    std::string buffer;
     try
     {
       ReaderPtr<Reader>(GetPlatform().GetReader(whiteListFile)).ReadAsString(buffer);
@@ -126,11 +129,11 @@ void GlyphCacheImpl::initFonts(string const & whiteListFile, string const & blac
       return;
     }
 
-    istringstream fin(buffer);
+    std::istringstream fin(buffer);
     while (true)
     {
-      string ubName;
-      string fontName;
+      std::string ubName;
+      std::string fontName;
       fin >> ubName >> fontName;
       if (!fin)
         break;
@@ -142,7 +145,9 @@ void GlyphCacheImpl::initFonts(string const & whiteListFile, string const & blac
           it->m_whitelist.push_back(fontName);
       else
       {
-        unicode_blocks_t::iterator it = find_if(m_unicodeBlocks.begin(), m_unicodeBlocks.end(), bind(&find_ub_by_name, ubName, _1));
+        unicode_blocks_t::iterator it =
+            std::find_if(m_unicodeBlocks.begin(), m_unicodeBlocks.end(),
+                         std::bind(&find_ub_by_name, ubName, std::placeholders::_1));
         if (it != m_unicodeBlocks.end())
           it->m_whitelist.push_back(fontName);
       }
@@ -150,7 +155,7 @@ void GlyphCacheImpl::initFonts(string const & whiteListFile, string const & blac
   }
 
   {
-    string buffer;
+    std::string buffer;
     try
     {
       ReaderPtr<Reader>(GetPlatform().GetReader(blackListFile)).ReadAsString(buffer);
@@ -161,11 +166,11 @@ void GlyphCacheImpl::initFonts(string const & whiteListFile, string const & blac
       return;
     }
 
-    istringstream fin(buffer);
+    std::istringstream fin(buffer);
     while (true)
     {
-      string ubName;
-      string fontName;
+      std::string ubName;
+      std::string fontName;
       fin >> ubName >> fontName;
       if (!fin)
         break;
@@ -177,7 +182,9 @@ void GlyphCacheImpl::initFonts(string const & whiteListFile, string const & blac
           it->m_blacklist.push_back(fontName);
       else
       {
-        unicode_blocks_t::iterator it = find_if(m_unicodeBlocks.begin(), m_unicodeBlocks.end(), bind(&find_ub_by_name, ubName, _1));
+        unicode_blocks_t::iterator it =
+            std::find_if(m_unicodeBlocks.begin(), m_unicodeBlocks.end(),
+                         std::bind(&find_ub_by_name, ubName, std::placeholders::_1));
         if (it != m_unicodeBlocks.end())
           it->m_blacklist.push_back(fontName);
       }
@@ -185,12 +192,13 @@ void GlyphCacheImpl::initFonts(string const & whiteListFile, string const & blac
   }
 }
 
-bool greater_coverage(pair<int, shared_ptr<Font> > const & l, pair<int, shared_ptr<Font> > const & r)
+bool greater_coverage(std::pair<int, std::shared_ptr<Font>> const & l,
+                      std::pair<int, std::shared_ptr<Font>> const & r)
 {
   return l.first > r.first;
 }
 
-void GlyphCacheImpl::addFonts(vector<string> const & fontNames)
+void GlyphCacheImpl::addFonts(std::vector<std::string> const & fontNames)
 {
   if (m_isDebugging)
     return;
@@ -213,7 +221,7 @@ void GlyphCacheImpl::addFont(char const * fileName)
   if (m_isDebugging)
     return;
 
-  shared_ptr<Font> pFont(new Font(GetPlatform().GetReader(fileName)));
+  std::shared_ptr<Font> pFont(new Font(GetPlatform().GetReader(fileName)));
 
   // Obtaining all glyphs, supported by this font. Call to FTCHECKRETURN functions may return
   // from routine, so add font to fonts array only in the end.
@@ -221,15 +229,15 @@ void GlyphCacheImpl::addFont(char const * fileName)
   FT_Face face;
   FREETYPE_CHECK_RETURN(pFont->CreateFaceID(m_lib, &face), fileName);
 
-  vector<FT_ULong> charcodes;
+  std::vector<FT_ULong> charcodes;
 
   FT_UInt gindex;
   charcodes.push_back(FT_Get_First_Char(face, &gindex));
   while (gindex)
     charcodes.push_back(FT_Get_Next_Char(face, charcodes.back(), &gindex));
 
-  sort(charcodes.begin(), charcodes.end());
-  charcodes.erase(unique(charcodes.begin(), charcodes.end()), charcodes.end());
+  std::sort(charcodes.begin(), charcodes.end());
+  charcodes.erase(std::unique(charcodes.begin(), charcodes.end()), charcodes.end());
 
   FREETYPE_CHECK_RETURN(FT_Done_Face(face), fileName);
 
@@ -237,7 +245,7 @@ void GlyphCacheImpl::addFont(char const * fileName)
 
   // modifying the m_unicodeBlocks
   unicode_blocks_t::iterator ubIt = m_unicodeBlocks.begin();
-  vector<FT_ULong>::iterator ccIt = charcodes.begin();
+  std::vector<FT_ULong>::iterator ccIt = charcodes.begin();
 
   while (ccIt != charcodes.end())
   {
@@ -296,13 +304,13 @@ void GlyphCacheImpl::addFont(char const * fileName)
 
     size_t const count = ubIt->m_fonts.size();
 
-    vector<pair<int, shared_ptr<Font> > > sortData;
+    std::vector<std::pair<int, std::shared_ptr<Font>>> sortData;
     sortData.reserve(count);
 
     for (size_t i = 0; i < count; ++i)
-      sortData.push_back(make_pair(ubIt->m_coverage[i], ubIt->m_fonts[i]));
+      sortData.push_back(std::make_pair(ubIt->m_coverage[i], ubIt->m_fonts[i]));
 
-    sort(sortData.begin(), sortData.end(), &greater_coverage);
+    std::sort(sortData.begin(), sortData.end(), &greater_coverage);
 
     for (size_t i = 0; i < count; ++i)
     {
@@ -328,15 +336,15 @@ struct sym_in_block
   }
 };
 
-vector<shared_ptr<Font> > & GlyphCacheImpl::getFonts(strings::UniChar sym)
+std::vector<std::shared_ptr<Font>> & GlyphCacheImpl::getFonts(strings::UniChar sym)
 {
   if ((m_lastUsedBlock != m_unicodeBlocks.end()) && m_lastUsedBlock->hasSymbol(sym))
    return m_lastUsedBlock->m_fonts;
 
-  unicode_blocks_t::iterator it = lower_bound(m_unicodeBlocks.begin(),
-                                              m_unicodeBlocks.end(),
-                                              sym,
-                                              sym_in_block());
+  unicode_blocks_t::iterator it = std::lower_bound(m_unicodeBlocks.begin(),
+                                                   m_unicodeBlocks.end(),
+                                                   sym,
+                                                   sym_in_block());
 
   if (it == m_unicodeBlocks.end())
    it = m_unicodeBlocks.end()-1;
@@ -361,7 +369,6 @@ vector<shared_ptr<Font> > & GlyphCacheImpl::getFonts(strings::UniChar sym)
   else
     return m_fonts;
 }
-
 
 GlyphCacheImpl::GlyphCacheImpl(GlyphCache::Params const & params)
 {
@@ -420,12 +427,12 @@ int GlyphCacheImpl::getCharIDX(shared_ptr<Font> const & font, strings::UniChar s
       );
 }
 
-pair<Font*, int> const GlyphCacheImpl::getCharIDX(GlyphKey const & key)
+std::pair<Font*, int> const GlyphCacheImpl::getCharIDX(GlyphKey const & key)
 {
   if (m_isDebugging)
-    return make_pair((Font*)0, 0);
+    return std::make_pair((Font*)0, 0);
 
-  vector<shared_ptr<Font> > & fonts = getFonts(key.m_symbolCode);
+  std::vector<std::shared_ptr<Font> > & fonts = getFonts(key.m_symbolCode);
 
   Font * font = 0;
 
@@ -436,7 +443,7 @@ pair<Font*, int> const GlyphCacheImpl::getCharIDX(GlyphKey const & key)
     charIDX = getCharIDX(fonts[i], key.m_symbolCode);
 
     if (charIDX != 0)
-      return make_pair(fonts[i].get(), charIDX);
+      return std::make_pair(fonts[i].get(), charIDX);
   }
 
 #ifdef DEBUG
@@ -459,7 +466,7 @@ pair<Font*, int> const GlyphCacheImpl::getCharIDX(GlyphKey const & key)
   if (charIDX == 0)
     charIDX = getCharIDX(fonts.front(), 32);
 
-  return make_pair(font, charIDX);
+  return std::make_pair(font, charIDX);
 }
 
 GlyphMetrics const GlyphCacheImpl::getGlyphMetrics(GlyphKey const & key)
@@ -516,9 +523,9 @@ GlyphMetrics const GlyphCacheImpl::getGlyphMetrics(GlyphKey const & key)
   return m;
 }
 
-shared_ptr<GlyphBitmap> const GlyphCacheImpl::getGlyphBitmap(GlyphKey const & key)
+std::shared_ptr<GlyphBitmap> const GlyphCacheImpl::getGlyphBitmap(GlyphKey const & key)
 {
-  pair<Font *, int> charIDX = getCharIDX(key);
+  std::pair<Font *, int> charIDX = getCharIDX(key);
 
   FTC_ScalerRec fontScaler =
   {
@@ -584,5 +591,4 @@ FT_Error GlyphCacheImpl::RequestFace(FTC_FaceID faceID, FT_Library library, FT_P
   Font * font = reinterpret_cast<Font*>(faceID);
   return font->CreateFaceID(library, face);
 }
-
-}
+}  // namespace software_renderer

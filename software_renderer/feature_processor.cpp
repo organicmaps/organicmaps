@@ -1,4 +1,5 @@
 #include "software_renderer/feature_processor.hpp"
+
 #include "software_renderer/geometry_processors.hpp"
 #include "software_renderer/feature_styler.hpp"
 #include "software_renderer/cpu_drawer.hpp"
@@ -8,7 +9,6 @@
 
 namespace software_renderer
 {
-
 namespace
 {
   template <class TSrc> void assign_point(FeatureData & data, TSrc & src)
@@ -28,7 +28,7 @@ namespace
     ASSERT(!data.m_areas.empty(), ());
     data.m_areas.back().SetCenter(src.GetCenter());
   }
-}
+}  // namespace
 
 FeatureProcessor::FeatureProcessor(ref_ptr<CPUDrawer> drawer,
                                    m2::RectD const & r,
@@ -165,5 +165,4 @@ bool FeatureProcessor::operator()(FeatureType const & f)
 
   return true;
 }
-
-}
+}  // namespace software_renderer

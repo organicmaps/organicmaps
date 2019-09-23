@@ -1,4 +1,5 @@
 #include "software_renderer/feature_styler.hpp"
+
 #include "software_renderer/proto_to_styles.hpp"
 #include "software_renderer/glyph_cache.hpp"
 #include "software_renderer/geometry_processors.hpp"
@@ -15,11 +16,13 @@
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 
-#include "std/iterator_facade.hpp"
+#include <string>
+#include <utility>
+
+#include <boost/iterator/iterator_facade.hpp>
 
 namespace
 {
-
 struct less_depth
 {
   bool operator() (software_renderer::DrawRule const & r1, software_renderer::DrawRule const & r2) const
@@ -27,8 +30,7 @@ struct less_depth
     return (r1.m_depth < r2.m_depth);
   }
 };
-
-}
+}  // namespace
 
 namespace software_renderer
 {
@@ -61,7 +63,7 @@ FeatureStyler::FeatureStyler(FeatureType const & f,
     m_rect(rect)
 {
   drule::KeysT keys;
-  pair<int, bool> type = feature::GetDrawRule(f, zoom, keys);
+  std::pair<int, bool> type = feature::GetDrawRule(f, zoom, keys);
 
   // don't try to do anything to invisible feature
   if (keys.empty())
@@ -89,7 +91,7 @@ FeatureStyler::FeatureStyler(FeatureType const & f,
   //    m_primaryText.clear();
   //}
 
-  string houseNumber;
+  std::string houseNumber;
   if (ftypes::IsBuildingChecker::Instance()(f))
   {
     houseNumber = f.GetHouseNumber();
@@ -264,9 +266,9 @@ FeatureStyler::FeatureStyler(FeatureType const & f,
   sort(m_rules.begin(), m_rules.end(), less_depth());
 }
 
-typedef pair<double, double> RangeT;
+typedef std::pair<double, double> RangeT;
 template <class IterT> class RangeIterT :
-    public iterator_facade<RangeIterT<IterT>, RangeT, forward_traversal_tag, RangeT>
+    public boost::iterator_facade<RangeIterT<IterT>, RangeT, forward_traversal_tag, RangeT>
 {
   IterT m_iter;
 public:
@@ -404,5 +406,4 @@ bool FeatureStyler::FilterTextSize(drule::BaseRule const * pRule) const
     return true;
   }
 }
-
-}
+}  // namespace software_renderer

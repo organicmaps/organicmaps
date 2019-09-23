@@ -1,32 +1,30 @@
 #pragma once
 
-#include "area_info.hpp"
-#include "path_info.hpp"
+#include "software_renderer/area_info.hpp"
+#include "software_renderer/path_info.hpp"
 
-#include "indexer/cell_id.hpp" // CoordPointT
+#include "indexer/cell_id.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 #include "geometry/rect_intersect.hpp"
 #include "geometry/screenbase.hpp"
 
-#include "std/list.hpp"
-#include "std/limits.hpp"
-
 #include "base/buffer_vector.hpp"
+
+#include <limits>
+#include <list>
 
 class ScreenBase;
 
 namespace software_renderer
 {
-
 /// @name Base class policies (use by inheritance) for points processing.
 /// Containt next functions:\n
 /// - make_point - convert from Feature point to Screen point
 /// - convert_point - convert point to screen coordinates;\n
 /// - m_rect - clip rect;\n
 
-//@{
 struct base
 {
   struct params
@@ -91,8 +89,6 @@ struct base_screen : public base
   }
 };
 
-//@}
-
 template <typename TBase>
 struct calc_length : public TBase
 {
@@ -147,7 +143,7 @@ template <class TInfo, class TBase>
 struct geometry_base : public TBase
 {
 public:
-  list<TInfo> m_points;
+  std::list<TInfo> m_points;
 
   typedef typename TBase::params params;
 
@@ -310,7 +306,7 @@ public:
 
   explicit filter_screenpts_adapter(params const & p)
     : TBase(p),
-    m_prev(numeric_limits<double>::min(), numeric_limits<double>::min()), m_center(0, 0)
+    m_prev(std::numeric_limits<double>::min(), std::numeric_limits<double>::min()), m_center(0, 0)
   {
   }
 
@@ -339,5 +335,4 @@ public:
   m2::PointD GetCenter() const { return m_center; }
   void SetCenter(m2::PointD const & p) { m_center = this->g2p(p); }
 };
-
-}
+}  // namespace software_renderer

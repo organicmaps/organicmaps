@@ -9,27 +9,28 @@
 
 #include "geometry/screenbase.hpp"
 
-#include "std/function.hpp"
-#include "std/list.hpp"
-#include "std/unique_ptr.hpp"
+#include <cstdint>
+#include <functional>
+#include <list>
+#include <map>
+#include <memory>
+#include <string>
 
 namespace software_renderer
 {
-
 class SoftwareRenderer;
 
 class CPUDrawer
 {
-
 public:
   struct Params
   {
-    Params(string const & resourcesPrefix, double visualScale)
+    Params(std::string const & resourcesPrefix, double visualScale)
       : m_resourcesPrefix(resourcesPrefix)
       , m_visualScale(visualScale)
     {}
 
-    string m_resourcesPrefix;
+    std::string m_resourcesPrefix;
     double m_visualScale;
   };
 
@@ -62,10 +63,11 @@ protected:
   void DrawPathText(PathInfo const & info, FeatureStyler const & fs, DrawRule const & rule);
   void DrawPathNumber(PathInfo const & path, FeatureStyler const & fs, DrawRule const & rule);
 
-  using TRoadNumberCallbackFn = function<void (m2::PointD const & pt, dp::FontDecl const & font,
-                                               string const & text)>;
-  void GenerateRoadNumbers(PathInfo const & path, dp::FontDecl const & font, FeatureStyler const & fs,
-                           TRoadNumberCallbackFn const & fn);
+  using TRoadNumberCallbackFn = std::function<void(m2::PointD const & pt, dp::FontDecl const & font,
+                                                   std::string const & text)>;
+
+  void GenerateRoadNumbers(PathInfo const & path, dp::FontDecl const & font,
+                           FeatureStyler const & fs, TRoadNumberCallbackFn const & fn);
 
   void DrawFeatureStart(FeatureID const & id);
   void DrawFeatureEnd(FeatureID const & id);
@@ -76,13 +78,13 @@ protected:
   FeatureID const & Insert(PathInfo const & info);
   FeatureID const & Insert(AreaInfo const & info);
   FeatureID const & Insert(FeatureStyler const & styler);
-  FeatureID const & Insert(string const & text);
+  FeatureID const & Insert(std::string const & text);
 
 private:
   void Render();
 
 private:
-  unique_ptr<SoftwareRenderer> m_renderer;
+  std::unique_ptr<SoftwareRenderer> m_renderer;
   int m_generationCounter;
 
   enum EShapeType
@@ -178,42 +180,43 @@ private:
 
     BaseShape const * m_rules[2];
     size_t m_ruleCount;
-    vector<m2::RectD> m_rects;
+    std::vector<m2::RectD> m_rects;
     m2::RectD m_boundRect;
   };
 
   OverlayWrapper & AddOverlay(BaseShape const * shape1, BaseShape const * shape2 = nullptr);
 
-  using TTextRendererCall = function<void (m2::PointD const &, dp::Anchor,
-                                           dp::FontDecl const &, dp::FontDecl const &,
-                                           strings::UniString const &, strings::UniString const &)>;
+  using TTextRendererCall =
+      std::function<void(m2::PointD const &, dp::Anchor, dp::FontDecl const &, dp::FontDecl const &,
+                         strings::UniString const &, strings::UniString const &)>;
+
   void CallTextRendererFn(TextShape const * shape, TTextRendererCall const & fn);
 
-  using TRoadNumberRendererCall = function<void (m2::PointD const &, dp::Anchor,
-                                                 dp::FontDecl const &, strings::UniString const &)>;
+  using TRoadNumberRendererCall = std::function<void(
+      m2::PointD const &, dp::Anchor, dp::FontDecl const &, strings::UniString const &)>;
+
   void CallTextRendererFn(TextShape const * shape, TRoadNumberRendererCall const & fn);
 
-  using TPathTextRendererCall = function<void (PathInfo const &, dp::FontDecl const &,
-                                               strings::UniString const & text)>;
+  using TPathTextRendererCall = std::function<void (PathInfo const &, dp::FontDecl const &,
+                                                    strings::UniString const & text)>;
   void CallTextRendererFn(ComplexShape const * shape, TPathTextRendererCall const & fn);
 
-  list<ComplexShape> m_areaPathShapes;
+  std::list<ComplexShape> m_areaPathShapes;
 
   // overlay part
-  list<PointShape> m_pointShapes;
-  list<ComplexShape> m_pathTextShapes;
-  list<TextShape> m_textShapes;
-  list<OverlayWrapper> m_overlayList;
+  std::list<PointShape> m_pointShapes;
+  std::list<ComplexShape> m_pathTextShapes;
+  std::list<TextShape> m_textShapes;
+  std::list<OverlayWrapper> m_overlayList;
 
-  map<FeatureID, FeatureStyler> m_stylers;
-  map<FeatureID, AreaInfo> m_areasGeometry;
-  map<FeatureID, PathInfo> m_pathGeometry;
-  map<FeatureID, string> m_roadNames;
+  std::map<FeatureID, FeatureStyler> m_stylers;
+  std::map<FeatureID, AreaInfo> m_areasGeometry;
+  std::map<FeatureID, PathInfo> m_pathGeometry;
+  std::map<FeatureID, string> m_roadNames;
   dp::FontDecl m_roadNumberFont;
 
   double m_visualScale;
 
   FeatureID m_currentFeatureID;
 };
-
-}
+}  // namespace software_renderer
