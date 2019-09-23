@@ -40690,38 +40690,38 @@
     fa = مسیر خود را با راهنماهای آماده MAPS.ME برنامه ریزی کنید
 
   [popup_mwm_download_guides_title]
-    en = Ideas for your vacation👇
-    ru = Идеи для путешествий👇
-    ar = أفكار لعطلتك👇
-    cs = Nápady na vaši dovolenou👇
-    da = Ideer til din ferie👇
-    nl = Ideeën voor reisen👇
-    fi = Matkustusideoita👇
-    fr = Quelques idées pour vos vacances👇
-    de = Ideen für Reisen👇
-    hu = Ötletek a nyaralásodhoz👇
-    id = Ide liburan anda👇
-    it = Idee di viaggio👇
-    ja = あなたの休暇のためのアイディア👇
-    ko = 귀하의 휴가를 위한 아이디어들👇
-    nb = Idéer for reiser👇
-    pl = Pomysły na podróż👇
-    pt = Ideias para viagens👇
-    pt-BR = Ideias para seus férias👇
-    ro = Idei pentru călătorii👇
-    es = Ideas de viaje👇
-    es-MX = Ideas de viaje👇
-    sv = Idéer för resor👇
-    th = ไอเดียสำหรับวันหยุดของคุณ👇
-    tr = Tatiliniz için fikirler👇
-    uk = Ідеї для подорожей👇
-    vi = Ý tưởng cho chuyến du lịch👇
-    el = Ιδέες για ταξίδια👇
-    sk = Nápady pre vašu dovolenku👇
-    sw = Mawazo ya likizo yako👇
-    zh-Hans = 旅行规划👇
-    zh-Hant = 旅行規劃👇
-    fa = ایده هایی برای تعطیلات👇
+    en = Offline city guides
+    ru = Офлайн путеводители
+    ar = أدلة المدينة غير متصلة
+    cs = Offline průvodci
+    da = Offline byguides
+    nl = Offline handleidingen
+    fi = Offline-matkaoppaat
+    fr = Guides hors ligne
+    de = Offline-Reiseführer
+    hu = Offline városi útikönyvek
+    id = Panduan kota offline
+    it = Guida offline
+    ja = オフライン都市ガイド
+    ko = 오프라인 도시 가이드
+    nb = Uten nett-guider
+    pl = Przewodniki offline
+    pt = Guias off-line
+    pt-BR = Guias off-line
+    ro = Ghiduri offline
+    es = Guías sin conexión
+    es-MX = Guías sin conexión
+    sv = Offline guider
+    th = คู่มือเที่ยวเมืองออฟไลน์
+    tr = Çevrimdışı şehir rehberleri
+    uk = Офлайн-путівники
+    vi = Hướng dẫn ngoại tuyến
+    el = Οδηγοί εκτός σύνδεσης
+    sk = Offline mestskí sprievodcovia
+    sw = Viongozi vya mji bila mtandao
+    zh-Hans = 在线指南
+    zh-Hant = 在線指南
+    fa = راهنماهای آفلاین شهر
 
   [popup_mwm_download_guides_cta]
     en = Choose one
@@ -44338,7 +44338,7 @@
     fa = تلاش مجدد
 
   [whatsnew_map_updates_title]
-    en = Reactive map updates
+    en = Lightning-fast map updates
     ru = Реактивные обновления карт
     ar = تحديث الخارطة بشكل سريع جداً
     cs = Bleskové aktualizace mapy
