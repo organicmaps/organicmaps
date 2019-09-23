@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.R;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.PushwooshHelper;
@@ -35,7 +35,7 @@ class PushWooshEventLogger extends DefaultEventLogger
         return;
 
       @ColorInt
-      int color = getApplication().getResources().getColor(R.color.base_accent);
+      int color = UiUtils.getNotificationColor(getApplication());
       PushwooshNotificationSettings.setNotificationIconBackgroundColor(color);
       Pushwoosh pushManager = Pushwoosh.getInstance();
       pushManager.registerForPushNotifications();

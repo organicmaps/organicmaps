@@ -14,6 +14,7 @@ import android.support.v4.app.NotificationCompat;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.StringUtils;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.lang.annotation.Retention;
@@ -152,7 +153,7 @@ public final class Notifier
     return new NotificationCompat.Builder(mContext, channel)
         .setAutoCancel(true)
         .setSmallIcon(R.drawable.pw_notification)
-        .setColor(mContext.getResources().getColor(R.color.base_accent))
+        .setColor(UiUtils.getNotificationColor(mContext))
         .setContentTitle(title)
         .setContentText(content)
         .setTicker(getTicker(title, content))

@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.AnyRes;
 import android.support.annotation.AttrRes;
+import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.IdRes;
@@ -20,7 +21,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -532,6 +532,12 @@ public final class UiUtils
                   rect.bottom += bottom;
                   parent.setTouchDelegate(new TouchDelegate(rect, view));
                 });
+  }
+
+  @ColorInt
+  public static int getNotificationColor(@NonNull Context context)
+  {
+    return context.getResources().getColor(R.color.notification);
   }
 
   // utility class
