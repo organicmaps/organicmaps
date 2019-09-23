@@ -14,58 +14,7 @@
       location = "group:../std"
       name = "std">
       <FileRef
-         location = "group:../std/algorithm.hpp">
-      </FileRef>
-      <FileRef
-         location = "group:../std/bind.hpp">
-      </FileRef>
-      <FileRef
-         location = "group:../std/cstring.hpp">
-      </FileRef>
-      <FileRef
-         location = "group:../std/function.hpp">
-      </FileRef>
-      <FileRef
-         location = "group:../std/iostream.hpp">
-      </FileRef>
-      <FileRef
-         location = "group:../std/iterator_facade.hpp">
-      </FileRef>
-      <FileRef
-         location = "group:../std/limits.hpp">
-      </FileRef>
-      <FileRef
-         location = "group:../std/list.hpp">
-      </FileRef>
-      <FileRef
-         location = "group:../std/mutex.hpp">
-      </FileRef>
-      <FileRef
-         location = "group:../std/set.hpp">
-      </FileRef>
-      <FileRef
-         location = "group:../std/shared_ptr.hpp">
-      </FileRef>
-      <FileRef
-         location = "group:../std/sstream.hpp">
-      </FileRef>
-      <FileRef
-         location = "group:../std/string.hpp">
-      </FileRef>
-      <FileRef
          location = "group:../std/target_os.hpp">
-      </FileRef>
-      <FileRef
-         location = "group:../std/unique_ptr.hpp">
-      </FileRef>
-      <FileRef
-         location = "group:../std/unordered_map.hpp">
-      </FileRef>
-      <FileRef
-         location = "group:../std/utility.hpp">
-      </FileRef>
-      <FileRef
-         location = "group:../std/vector.hpp">
       </FileRef>
       <FileRef
          location = "group:../std/windows.hpp">
