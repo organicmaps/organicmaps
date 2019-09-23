@@ -58,7 +58,6 @@ public:
 
   TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t maxCacheSizeBytes,
                  traffic::TrafficObserver & observer);
-  TrafficManager(TrafficManager && /* trafficManager */) = default;
   ~TrafficManager();
 
   void Teardown();
@@ -89,7 +88,7 @@ private:
   struct CacheEntry
   {
     CacheEntry();
-    CacheEntry(std::chrono::time_point<std::chrono::steady_clock> const & requestTime);
+    explicit CacheEntry(std::chrono::time_point<std::chrono::steady_clock> const & requestTime);
 
     bool m_isLoaded;
     size_t m_dataSize;

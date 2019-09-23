@@ -22,9 +22,9 @@ public:
     m2::PointD const & GetPoint() const { return m_point; }
 
   private:
-    Segment const m_segment;
+    Segment m_segment;
     // The front point of segment
-    m2::PointD const m_point = m2::PointD::Zero();
+    m2::PointD m_point = m2::PointD::Zero();
   };
 
   SegmentedRoute(m2::PointD const & start, m2::PointD const & finish,

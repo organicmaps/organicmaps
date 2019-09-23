@@ -42,7 +42,6 @@ public:
 private:
   struct ExLocality
   {
-    ExLocality() = default;
     ExLocality(Locality const & locality, double queryNorm, uint8_t rank);
 
     uint32_t GetId() const { return m_locality.m_featureId; }
