@@ -98,6 +98,9 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
   {
     UiUtils.hide(mPlacePageView, R.id.catalog_promo_container);
 
+    if (MapObject.isOfType(MapObject.BOOKMARK, mapObject))
+      return;
+
     Sponsored sponsored = mPlacePageView.getSponsored();
     if (sponsored == null || mapObject == null)
       return;

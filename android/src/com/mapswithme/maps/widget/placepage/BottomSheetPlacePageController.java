@@ -44,7 +44,6 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
                                                        View.OnLayoutChangeListener,
                                                        BannerController.BannerStateRequester,
                                                        BannerController.BannerStateListener,
-                                                       PlacePageButtonsListener,
                                                        Closable
 {
   private static final float ANCHOR_RATIO = 0.3f;
@@ -260,7 +259,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
 
     mButtonsLayout = mActivity.findViewById(R.id.pp_buttons_layout);
     ViewGroup buttons = mButtonsLayout.findViewById(R.id.container);
-    mPlacePage.initButtons(buttons, this);
+    mPlacePage.initButtons(buttons);
     UiUtils.bringViewToFrontOf(mButtonsLayout, mPlacePage);
     UiUtils.bringViewToFrontOf(mActivity.findViewById(R.id.app_bar), mPlacePage);
     mPlacePageTracker = new PlacePageTracker(mPlacePage, mButtonsLayout);
@@ -649,20 +648,6 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   public void onBannerPreview(@NonNull MwmNativeAd ad)
   {
     mPlacePageTracker.onBannerPreview(ad);
-  }
-
-  @Override
-  public void onBookmarkSet(boolean isSet)
-  {
-    if (!isSet)
-      return;
-
-    @AnchorBottomSheetBehavior.State
-    int state = mPlacePageBehavior.getState();
-    if (!isCollapsedState(state))
-      return;
-
-    mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_ANCHORED);
   }
 
   @Override
