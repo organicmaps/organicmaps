@@ -34,8 +34,9 @@ std::vector<std::string> const kHighwayUnclassifiedPath = {"highway", "unclassif
 std::vector<std::pair<std::string, std::string>> const kHighwayUnclassified = {
     {"highway", "unclassified"}};
 
-std::string const kOsmWayIdOne = std::to_string(base::MakeOsmWay(1).GetEncodedId());
-std::string const kOsmWayIdTwo = std::to_string(base::MakeOsmWay(2).GetEncodedId());
+std::string const kOsmWayId_1 = std::to_string(base::MakeOsmWay(1).GetEncodedId());
+std::string const kOsmWayId_2 = std::to_string(base::MakeOsmWay(2).GetEncodedId());
+std::string const kOsmWayId_3 = std::to_string(base::MakeOsmWay(3).GetEncodedId());
 
 class CrossMwmWayCollectorTest
 {
@@ -62,21 +63,38 @@ public:
 
   void Checker()
   {
-    std::vector<std::string> answersForRomaniaNorth_West = {
+    std::vector<std::string> answersFor_RomaniaNorth_West = {
         /* osmId crossMwmSegmentsNumber [crossMwmSegmentsIds forwardIsEnter]+ */
-        kOsmWayIdOne + " 1 1 0 ", kOsmWayIdTwo + " 1 0 0 "};
+        kOsmWayId_1 + " 1 1 0 ", kOsmWayId_2 + " 1 0 0 "};
 
-    std::vector<std::string> answersForHungary_Northern_Great_Plain = {
+    std::vector<std::string> answersFor_Hungary_Northern_Great_Plain = {
         /* osmId crossMwmSegmentsNumber [crossMwmSegmentsIds forwardIsEnter]+ */
-        kOsmWayIdOne + " 1 1 1 ", kOsmWayIdTwo + " 1 0 1 "};
+        kOsmWayId_1 + " 1 1 1 ", kOsmWayId_2 + " 1 0 1 "};
 
-    auto const & pathToRomania =
+    std::vector<std::string> answersFor_Russia_Moscow = {
+        /* osmId crossMwmSegmentsNumber [crossMwmSegmentsIds forwardIsEnter]+ */
+        kOsmWayId_3 + " 1 0 1 "
+    };
+
+    std::vector<std::string> answersFor_Russia_Moscow_Oblast_West = {
+        /* osmId crossMwmSegmentsNumber [crossMwmSegmentsIds forwardIsEnter]+ */
+        kOsmWayId_3 + " 1 0 0 "
+    };
+
+    auto const pathToRomania =
         base::JoinPath(m_intermediateDir, CROSS_MWM_OSM_WAYS_DIR, "Romania_North_West");
-    auto const & pathToHungary =
+    auto const pathToHungary =
         base::JoinPath(m_intermediateDir, CROSS_MWM_OSM_WAYS_DIR, "Hungary_Northern Great Plain");
+    auto const pathToRussiaMoscow =
+        base::JoinPath(m_intermediateDir, CROSS_MWM_OSM_WAYS_DIR, "Russia_Moscow");
 
-    Check(pathToRomania, std::move(answersForRomaniaNorth_West));
-    Check(pathToHungary, std::move(answersForHungary_Northern_Great_Plain));
+    auto const pathToRussiaMoscowWest =
+        base::JoinPath(m_intermediateDir, CROSS_MWM_OSM_WAYS_DIR, "Russia_Moscow Oblast_West");
+
+    Check(pathToRomania, std::move(answersFor_RomaniaNorth_West));
+    Check(pathToHungary, std::move(answersFor_Hungary_Northern_Great_Plain));
+    Check(pathToRussiaMoscow, std::move(answersFor_Russia_Moscow));
+    Check(pathToRussiaMoscowWest, std::move(answersFor_Russia_Moscow_Oblast_West));
   }
 
 private:
@@ -123,9 +141,9 @@ void AddOsmWayByPoints(uint64_t osmId, std::vector<m2::PointD> && points,
 void AppendFirstWayFromRomaniaToHungary(std::shared_ptr<CollectorInterface> const & collection)
 {
   {
-    // In "Romania_North_West", Out of "Hungary_Northern Great Plain"
+    // In "Romania_North_West", out of "Hungary_Northern Great Plain"
     auto const & a = MercatorBounds::FromLatLon({47.48897, 22.22737});
-    // In "Romania_North_West", Out of "Hungary_Northern Great Plain"
+    // In "Romania_North_West", out of "Hungary_Northern Great Plain"
     auto const & b = MercatorBounds::FromLatLon({47.52341, 22.24097});
     // Out of "Romania_North_West", in "Hungary_Northern Great Plain"
     auto const & c = MercatorBounds::FromLatLon({47.63462, 22.04041});
@@ -136,11 +154,22 @@ void AppendFirstWayFromRomaniaToHungary(std::shared_ptr<CollectorInterface> cons
 void AppendSecondWayFromRomaniaToHungary(std::shared_ptr<CollectorInterface> const & collection)
 {
   {
-    // In "Romania_North_West", Out of "Hungary_Northern Great Plain"
+    // In "Romania_North_West", out of "Hungary_Northern Great Plain"
     auto const & a = MercatorBounds::FromLatLon({47.36594, 22.16958});
     // Out of "Romania_North_West", in "Hungary_Northern Great Plain"
     auto const & b = MercatorBounds::FromLatLon({47.49356, 21.77018});
     AddOsmWayByPoints(2 /* osmId */, {a, b} /* points */, collection);
+  }
+}
+
+void AppendThirdWayEndsExactlyAtRussiaMoscowBorder(std::shared_ptr<CollectorInterface> const & collection)
+{
+  {
+    // At "Russia_Moscow" border
+    auto const a = MercatorBounds::FromLatLon({55.50334, 36.82098});
+    // In "Russia_Moscow", out of "Russia_Moscow Oblast_West"
+    auto const b = MercatorBounds::FromLatLon({55.50222, 36.82246});
+    AddOsmWayByPoints(3 /* osmId */, {a, b} /* points */, collection);
   }
 }
 
@@ -150,6 +179,7 @@ UNIT_CLASS_TEST(CrossMwmWayCollectorTest, OneCollectorTest)
 
   AppendFirstWayFromRomaniaToHungary(collection1);
   AppendSecondWayFromRomaniaToHungary(collection1);
+  AppendThirdWayEndsExactlyAtRussiaMoscowBorder(collection1);
 
   collection1->Save();
 
@@ -160,6 +190,7 @@ UNIT_CLASS_TEST(CrossMwmWayCollectorTest, TwoCollectorTest)
 {
   auto collection1 = InitCollection();
   AppendFirstWayFromRomaniaToHungary(collection1);
+  AppendThirdWayEndsExactlyAtRussiaMoscowBorder(collection1);
 
   auto collection2 = collection1->Clone();
   AppendSecondWayFromRomaniaToHungary(collection2);

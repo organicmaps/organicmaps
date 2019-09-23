@@ -57,27 +57,52 @@ void CrossMwmOsmWaysCollector::CollectFeature(feature::FeatureBuilder const & fb
   for (auto const & mwmName : affiliations)
     featurePointsEntriesToMwm[mwmName] = std::vector<bool>(featurePoints.size(), false);
 
+  std::vector<size_t> pointsAffiliationsNumber(featurePoints.size());
   for (size_t pointNumber = 0; pointNumber < featurePoints.size(); ++pointNumber)
   {
     auto const & point = featurePoints[pointNumber];
     auto const & pointAffiliations = m_affiliation->GetAffiliations(point);
     for (auto const & mwmName : pointAffiliations)
       featurePointsEntriesToMwm[mwmName][pointNumber] = true;
+
+    CHECK_GREATER(pointAffiliations.size(), 0, ());
+    pointsAffiliationsNumber[pointNumber] = pointAffiliations.size();
   }
 
-  for (auto const & mwmName : affiliations)
+  for (auto const & item : featurePointsEntriesToMwm)
   {
-    auto const & entries = featurePointsEntriesToMwm[mwmName];
+    auto const & mwmName = item.first;
+    auto const & entries = item.second;
     std::vector<CrossMwmInfo::SegmentInfo> crossMwmSegments;
     bool prevPointIn = entries[0];
     for (size_t i = 1; i < entries.size(); ++i)
     {
       bool curPointIn = entries[i];
-      if (prevPointIn == curPointIn)
+      // If pointsAffiliationsNumber[i] is more than 1, that means point lies on the mwms' borders
+      // And belongs to both. So we consider such segment as cross mwm segment.
+      if (prevPointIn == curPointIn &&
+          pointsAffiliationsNumber[i] == 1 && pointsAffiliationsNumber[i - 1] == 1)
+      {
         continue;
+      }
+
+      bool forwardIsEnter;
+      if (prevPointIn != curPointIn)
+      {
+        forwardIsEnter = curPointIn;
+      }
+      else
+      {
+        if (pointsAffiliationsNumber[i - 1] != 1)
+          forwardIsEnter = curPointIn;
+        else if (pointsAffiliationsNumber[i] != 1)
+          forwardIsEnter = !prevPointIn;
+        else
+          UNREACHABLE();
+      }
 
       prevPointIn = curPointIn;
-      crossMwmSegments.emplace_back(i - 1, curPointIn);
+      crossMwmSegments.emplace_back(i - 1 /* segmentId */, forwardIsEnter);
     }
 
     CHECK(!crossMwmSegments.empty(),
