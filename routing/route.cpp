@@ -247,7 +247,7 @@ void Route::SetFakeSegmentsOnPolyline()
       fakeSegmentIndexes.push_back(i);
   }
 
-  m_poly.SetUnmatchedSegmentIndexes(move(fakeSegmentIndexes));
+  m_poly.SetUnmatchingSegmentIndexes(move(fakeSegmentIndexes));
 }
 
 Route::MovedIteratorInfo Route::MoveIteratorToReal(location::GpsInfo const & info)
@@ -255,8 +255,8 @@ Route::MovedIteratorInfo Route::MoveIteratorToReal(location::GpsInfo const & inf
   m2::RectD const rect = MercatorBounds::MetersToXY(
       info.m_longitude, info.m_latitude,
       max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
-  auto const resUpdate = m_poly.UpdateMatchedProjection(rect);
-  return MovedIteratorInfo{resUpdate.m_updatedProjection, resUpdate.m_closerToUnmatched};
+  auto const resUpdate = m_poly.UpdateMatchingProjection(rect);
+  return MovedIteratorInfo{resUpdate.m_updatedProjection, resUpdate.m_closerToUnmatching};
 }
 
 double Route::GetPolySegAngle(size_t ind) const
