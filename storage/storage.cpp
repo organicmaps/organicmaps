@@ -1541,25 +1541,22 @@ void Storage::LoadDiffScheme()
 void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSuccess)> const & fn)
 {
   m_diffsCancellable.Reset();
+  auto const diffLocalFile = PreparePlaceForCountryFiles(GetCurrentDataVersion(), m_dataDir,
+                                                         GetCountryFile(countryId));
+  uint64_t version;
+  if (!diffLocalFile || !m_diffManager.VersionFor(countryId, version))
+  {
+    fn(false);
+    return;
+  }
+
   m_latestDiffRequest = countryId;
   m_diffsBeingApplied.insert(countryId);
   NotifyStatusChangedForHierarchy(countryId);
 
   diffs::Manager::ApplyDiffParams params;
-  params.m_diffFile =
-      PreparePlaceForCountryFiles(GetCurrentDataVersion(), m_dataDir, GetCountryFile(countryId));
+  params.m_diffFile = diffLocalFile;
   params.m_diffReadyPath = GetFileDownloadPath(countryId, MapOptions::Diff);
-
-  uint64_t version;
-  if (!m_diffManager.VersionFor(countryId, version))
-  {
-    ASSERT(false, ("Invalid attempt to get version of diff with country id:", countryId));
-    fn(false);
-    m_latestDiffRequest = {};
-    m_diffsBeingApplied.erase(countryId);
-    return;
-  }
-
   params.m_oldMwmFile = GetLocalFile(countryId, version);
 
   LocalFilePtr & diffFile = params.m_diffFile;
