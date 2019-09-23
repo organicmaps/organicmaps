@@ -24,6 +24,7 @@
 #include <memory>
 #include <set>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace location
@@ -194,9 +195,9 @@ public:
 
   struct MovedIteratorInfo
   {
-    // Indicator of setting the iterator to one of real segments
+    // Indicator of setting the iterator to one of real segments.
     bool m_movedIterator;
-    // Indicator of the presence of the fake segment which is the nearest to the given point
+    // Indicator of the presence of the fake segment which is the nearest to the given point.
     bool m_closerToFake;
   };
 

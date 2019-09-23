@@ -333,7 +333,7 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_7)
     // so now we make BeedSignal.
     {
       double const speedKmPH = 40.0;
-      ChangePosition({55.765732, 37.590305}, speedKmPH, routingSession);
+      ChangePosition({55.76573, 37.59030}, speedKmPH, routingSession);
       TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::BeepSignalZone, ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(CheckBeepSignal(routingSession), ());
