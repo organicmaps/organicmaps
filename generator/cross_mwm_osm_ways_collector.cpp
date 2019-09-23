@@ -5,8 +5,11 @@
 
 #include "routing/routing_helpers.hpp"
 
+#include "platform/platform.hpp"
+
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
+#include "base/logging.hpp"
 
 #include <utility>
 
@@ -141,6 +144,12 @@ void CrossMwmOsmWaysCollector::CrossMwmInfo::Dump(CrossMwmInfo const & info, std
 std::set<CrossMwmOsmWaysCollector::CrossMwmInfo>
 CrossMwmOsmWaysCollector::CrossMwmInfo::LoadFromFileToSet(std::string const & path)
 {
+  if (!Platform::IsFileExistsByFullPath(path))
+  {
+    LOG(LWARNING, ("No info about cross mwm ways:", path));
+    return {};
+  }
+
   std::set<CrossMwmInfo> result;
   std::ifstream input;
   input.exceptions(std::fstream::failbit | std::fstream::badbit);
