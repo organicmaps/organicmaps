@@ -218,11 +218,11 @@ FollowedPolyline::UpdatedProjection FollowedPolyline::GetClosestMatchingProjecti
   double minDist = std::numeric_limits<double>::max();
   double minDistUnmatching = minDist;
 
-  m2::PointD const & currPos = posRect.Center();
+  m2::PointD const currPos = posRect.Center();
 
   for (size_t i = startIdx; i < endIdx; ++i)
   {
-    m2::PointD const & pt = m_segProj[i].ClosestPointTo(currPos);
+    m2::PointD const pt = m_segProj[i].ClosestPointTo(currPos);
 
     if (!posRect.IsPointInside(pt))
       continue;
