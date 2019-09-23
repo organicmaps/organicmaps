@@ -77,11 +77,19 @@ void MapFilesDownloader::SetServersList(ServersList const & serversList)
   m_serversList = serversList;
 }
 
+void MapFilesDownloader::SetDiffs(diffs::NameDiffInfoMap const & diffs)
+{
+  m_diffs = diffs;
+}
+
 // static
 MapFilesDownloader::ServersList MapFilesDownloader::LoadServersList()
 {
+  auto constexpr kTimeoutInSeconds = 10.0;
+
   platform::HttpClient request(GetPlatform().MetaServerUrl());
   std::string httpResult;
+  request.SetTimeout(kTimeoutInSeconds);
   request.RunHttpRequest(httpResult);
   std::vector<std::string> urls;
   downloader::GetServersList(httpResult, urls);

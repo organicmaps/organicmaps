@@ -1,5 +1,7 @@
 #pragma once
 
+#include "storage/diff_scheme/diff_types.hpp"
+
 #include "platform/http_request.hpp"
 #include "platform/safe_callback.hpp"
 
@@ -50,6 +52,7 @@ public:
                                        int64_t dataVersion);
 
   void SetServersList(ServersList const & serversList);
+  void SetDiffs(diffs::NameDiffInfoMap const & diffs);
 
 protected:
   // Synchronously loads list of servers by http client.
@@ -65,5 +68,6 @@ private:
                         DownloadingProgressCallback const & onProgress) = 0;
 
   ServersList m_serversList;
+  diffs::NameDiffInfoMap m_diffs;
 };
 }  // namespace storage

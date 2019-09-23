@@ -1642,6 +1642,7 @@ void Storage::SetStartDownloadingCallback(StartDownloadingCallback const & cb)
 
 void Storage::OnDiffStatusReceived(diffs::NameDiffInfoMap && diffs)
 {
+  m_downloader->SetDiffs(diffs);
   m_diffManager.Load(move(diffs));
   if (m_diffManager.GetStatus() != diffs::Status::NotAvailable)
   {
