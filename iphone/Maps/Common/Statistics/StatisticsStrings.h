@@ -511,6 +511,7 @@ static NSString * const kStatVisible = @"Visible";
 static NSString * const kStatWebView = @"webview";
 static NSString * const kStatWhatsNew = @"What's New";
 static NSString * const kStatWifi = @"wifi";
+static NSString * const kStatWikipedia = @"wikipedia";
 static NSString * const kStatYandex = @"Yandex";
 static NSString * const kStatYes = @"Yes";
 static NSString * const kStatZoom = @"Zoom";
