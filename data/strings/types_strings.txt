@@ -1955,6 +1955,18 @@
     sk = Parkovisko
     fa = پارکینگ
 
+  [type.amenity.parking_space]
+    en = Parking space
+
+  [type.amenity.parking_space.permissive]
+    en = Parking space
+
+  [type.amenity.parking_space.private]
+    en = Parking space
+
+  [type.amenity.parking_space.underground]
+    en = Parking space
+
   [type.amenity.payment_terminal]
     en = Payment Terminal
     ru = Терминал оплаты

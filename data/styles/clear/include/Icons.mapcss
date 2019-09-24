@@ -30,7 +30,9 @@
 
 node|z17-[leisure],
 node|z16[amenity=parking],
-area|z16[amenity=parking]
+area|z16[amenity=parking],
+node|z16[amenity=parking_space],
+area|z16[amenity=parking_space]
 {z-index: 6;}
 
 node|z17-[leisure=golf_course],
@@ -2650,6 +2652,8 @@ node|z17-[amenity=car_wash],
 area|z17-[amenity=car_wash],
 node|z18-[amenity=parking],
 area|z18-[amenity=parking],
+node|z18-[amenity=parking_space],
+area|z18-[amenity=parking_space],
 node|z18-[amenity=car_rental],
 area|z18-[amenity=car_rental],
 node|z18-[amenity=car_sharing],
@@ -2703,20 +2707,35 @@ area|z18-[amenity=car_sharing]
 /* 7.1 Parking */
 
 node|z16[amenity=parking],
-area|z16[amenity=parking]
+area|z16[amenity=parking],
+node|z16[amenity=parking_space],
+area|z16[amenity=parking_space]
 {icon-image: parking-s.svg;icon-min-distance: 25;}
 node|z16[amenity=parking][access=permissive],
-node|z16[amenity=parking][access=private]
+node|z16[amenity=parking][access=private],
+node|z16[amenity=parking_space][access=permissive],
+area|z16[amenity=parking_space][access=permissive],
+node|z16[amenity=parking_space][access=private],
+area|z16[amenity=parking_space][access=private]
 {icon-image: zero-icon.svg;}
 
-node|z17[amenity=parking], area|z17[amenity=parking]
+node|z17[amenity=parking], 
+area|z17[amenity=parking],
+node|z17[amenity=parking_space], 
+area|z17[amenity=parking_space]
 {icon-image: parking-m.svg;}
 node|z17[amenity=parking][access=permissive],
-node|z17[amenity=parking][access=private]
+node|z17[amenity=parking][access=private],
+node|z17[amenity=parking_space][access=permissive],
+area|z17[amenity=parking_space][access=permissive],
+node|z17[amenity=parking_space][access=private],
+area|z17[amenity=parking_space][access=private]
 {icon-image: zero-icon.svg;}
 
 node|z18-[amenity=parking],
-area|z18-[amenity=parking]
+area|z18-[amenity=parking],
+node|z18-[amenity=parking_space],
+area|z18-[amenity=parking_space]
 {icon-image: parking-m.svg;font-size: 11;text-optional: true;}
 
 node|z17-[amenity=bicycle_parking],
@@ -2735,6 +2754,9 @@ node|z18-[amenity=motorcycle_parking],
 area|z18-[amenity=motorcycle_parking]
 {icon-image: motorcycle-parking-m.svg;icon-min-distance: 20;text-optional: true;}
 
+node|z16-[amenity=parking_space][parking=underground],
+area|z16-[amenity=parking_space][parking=underground]
+{icon-image: zero-icon.svg;}
 
 /* 8 Sponsored */
 

@@ -1323,3 +1323,7 @@ cuisine|tea;1322;
 natural|geyser;1323;
 sponsored|promo_catalog;1324;
 natural|hot_spring;1325;
+amenity|parking_space;1326;
+amenity|parking_space|underground;[amenity=parking_space][parking=underground];;name;int_name;1327;
+amenity|parking_space|private;[amenity=parking_space][access=private];;name;int_name;1328;
+amenity|parking_space|permissive;[amenity=parking_space][access=permissive];;name;int_name;1329;
