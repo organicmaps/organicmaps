@@ -157,7 +157,7 @@ void ThreadPool::ShutdownAndJoin()
   m_threads.clear();
 }
 
-bool ThreadPool::IsShoutedDown()
+bool ThreadPool::IsShutDown()
 {
   lock_guard<mutex> lk(m_mu);
   return m_shutdown;

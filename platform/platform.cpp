@@ -329,9 +329,9 @@ unsigned Platform::CpuCores() const
 void Platform::ShutdownThreads()
 {
   ASSERT(m_networkThread && m_fileThread && m_backgroundThread, ());
-  ASSERT(!m_networkThread->IsShoutedDown(), ());
-  ASSERT(!m_fileThread->IsShoutedDown(), ());
-  ASSERT(!m_backgroundThread->IsShoutedDown(), ());
+  ASSERT(!m_networkThread->IsShutDown(), ());
+  ASSERT(!m_fileThread->IsShutDown(), ());
+  ASSERT(!m_backgroundThread->IsShutDown(), ());
 
   m_batteryTracker.UnsubscribeAll();
 
@@ -342,9 +342,9 @@ void Platform::ShutdownThreads()
 
 void Platform::RunThreads()
 {
-  ASSERT(!m_networkThread || (m_networkThread && m_networkThread->IsShoutedDown()), ());
-  ASSERT(!m_fileThread || (m_fileThread && m_fileThread->IsShoutedDown()), ());
-  ASSERT(!m_backgroundThread || (m_backgroundThread && m_backgroundThread->IsShoutedDown()), ());
+  ASSERT(!m_networkThread || (m_networkThread && m_networkThread->IsShutDown()), ());
+  ASSERT(!m_fileThread || (m_fileThread && m_fileThread->IsShutDown()), ());
+  ASSERT(!m_backgroundThread || (m_backgroundThread && m_backgroundThread->IsShutDown()), ());
 
   m_networkThread = make_unique<base::thread_pool::delayed::ThreadPool>();
   m_fileThread = make_unique<base::thread_pool::delayed::ThreadPool>();

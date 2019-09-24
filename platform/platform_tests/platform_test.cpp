@@ -286,3 +286,26 @@ UNIT_TEST(MkDirRecursively)
 
   CHECK(Platform::RmDirRecursively(workPath), ());
 }
+
+UNIT_TEST(Platform_ThreadRunner)
+{
+  {
+    Platform::ThreadRunner m_runner;
+
+    bool called = false;
+    GetPlatform().RunTask(Platform::Thread::File, [&called]
+    {
+      called = true;
+      testing::Notify();
+    });
+    testing::Wait();
+
+    TEST(called, ());
+  }
+
+  GetPlatform().RunTask(Platform::Thread::File, []
+  {
+    TEST(false, ("The task must not be posted when thread runner is dead. "
+                 "But app must not be crashed. It is normal behaviour during destruction"));
+  });
+}

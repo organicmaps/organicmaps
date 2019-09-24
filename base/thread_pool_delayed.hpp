@@ -69,7 +69,7 @@ public:
 
   // Sends a signal to the thread to shut down and waits for completion.
   void ShutdownAndJoin();
-  bool IsShoutedDown();
+  bool IsShutDown();
 
   static TimePoint Now() { return Clock::now(); }
 
