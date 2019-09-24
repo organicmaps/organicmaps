@@ -14,8 +14,10 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 
 #include <limits>
+#include <utility>
 
 namespace
 {
@@ -247,12 +249,6 @@ RoutesBuilder::Processor::Processor(Processor && rhs) noexcept
   m_dataSource = std::move(rhs.m_dataSource);
 }
 
-RoutesBuilder::Processor::~Processor()
-{
-  if (m_dataSource)
-    m_dataSourceStorage.PushDataSource(std::move(m_dataSource));
-}
-
 void RoutesBuilder::Processor::InitRouter(VehicleType type)
 {
   if (m_router && m_router->GetVehicleType() == type)
@@ -288,6 +284,9 @@ RoutesBuilder::Result
 RoutesBuilder::Processor::operator()(Params const & params)
 {
   InitRouter(params.m_type);
+  SCOPE_GUARD(returnDataSource, [&]() {
+    m_dataSourceStorage.PushDataSource(std::move(m_dataSource));
+  });
 
   RouterResultCode resultCode;
   routing::Route route("" /* router */, 0 /* routeId */);
@@ -299,7 +298,7 @@ RoutesBuilder::Processor::operator()(Params const & params)
                                false /* adjustToPrevRoute */,
                                *m_delegate,
                                route);
-  
+
   Result result;
   result.m_params.m_checkpoints = params.m_checkpoints;
   result.m_code = resultCode;

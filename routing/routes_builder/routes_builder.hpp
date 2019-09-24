@@ -107,8 +107,6 @@ private:
 
     Processor(Processor && rhs) noexcept;
 
-    ~Processor();
-
     Result operator()(Params const & params);
 
   private:
