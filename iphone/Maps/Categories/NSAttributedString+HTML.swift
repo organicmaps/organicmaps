@@ -50,18 +50,18 @@ extension NSMutableAttributedString {
     enumerateFont(baseFont)
     
     guard estimatedWidth > 0 else { return }
-    
+
     enumerateAttachments(estimatedWidth: estimatedWidth)
   }
   
-  func enumerateFont(_ font: UIFont) {
+  func enumerateFont(_ baseFont: UIFont) {
     enumerateAttribute(.font, in: NSMakeRange(0, length), options: []) { (value, range, _) in
       if let font = value as? UIFont,
-        let descriptor = font.fontDescriptor.withSymbolicTraits(font.fontDescriptor.symbolicTraits) {
-        let newFont = UIFont(descriptor: descriptor, size: font.pointSize)
+        let descriptor = baseFont.fontDescriptor.withSymbolicTraits(font.fontDescriptor.symbolicTraits) {
+        let newFont = UIFont(descriptor: descriptor, size: baseFont.pointSize)
         addAttribute(.font, value: newFont, range: range)
       } else {
-        addAttribute(.font, value: font, range: range)
+        addAttribute(.font, value: baseFont, range: range)
       }
     }
   }
