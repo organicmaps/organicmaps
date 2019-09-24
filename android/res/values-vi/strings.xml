@@ -1562,7 +1562,7 @@
 	<string name="booking_button_toolbar">Lựa chọn khách sạn trên bản đồ</string>
 	<string name="popup_booking_download_guides_title">Đặt phòng khách sạn?</string>
 	<string name="popup_booking_download_guides_message">Lên kế hoạch chô lộ trình du lịch cùng với những sách hướng dẫn sẵn có từ MAPS.ME</string>
-	<string name="popup_mwm_download_guides_title">Ý tưởng cho chuyến du lịch👇</string>
+	<string name="popup_mwm_download_guides_title">Hướng dẫn ngoại tuyến</string>
 	<string name="popup_mwm_download_guides_cta">Lựa chọn</string>
 	<string name="popup_mwm_download_guides_cta_1">Xem</string>
 	<string name="gallery_pp_download_guides_offline_title">Lên kết hoạch nghỉ ngơi cùng MAPS.ME!</string>

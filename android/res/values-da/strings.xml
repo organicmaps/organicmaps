@@ -1570,7 +1570,7 @@
 	<string name="booking_button_toolbar">Vælg et hotel på kortet</string>
 	<string name="popup_booking_download_guides_title">Book et hotel?</string>
 	<string name="popup_booking_download_guides_message">Planlæg din rute med færdiglavede guider fra MAPS.ME</string>
-	<string name="popup_mwm_download_guides_title">Ideer til din ferie👇</string>
+	<string name="popup_mwm_download_guides_title">Offline byguides</string>
 	<string name="popup_mwm_download_guides_cta">Vælg en</string>
 	<string name="popup_mwm_download_guides_cta_1">Tag et kig</string>
 	<string name="gallery_pp_download_guides_offline_title">Planlæg din ferie med MAPS.ME!</string>

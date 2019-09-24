@@ -1575,7 +1575,7 @@
 	<string name="booking_button_toolbar">Vyberte si hotel na mapě</string>
 	<string name="popup_booking_download_guides_title">Zamluvili jste si hotel?</string>
 	<string name="popup_booking_download_guides_message">Naplánujte si trasu pomocí ready-made průvodců z MAPS.ME</string>
-	<string name="popup_mwm_download_guides_title">Nápady na vaši dovolenou👇</string>
+	<string name="popup_mwm_download_guides_title">Offline průvodci</string>
 	<string name="popup_mwm_download_guides_cta">Zvolte jedno</string>
 	<string name="popup_mwm_download_guides_cta_1">Podívejte se</string>
 	<string name="gallery_pp_download_guides_offline_title">Plánujte svou dovolenou s MAPS.ME!</string>

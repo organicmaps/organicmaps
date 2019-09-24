@@ -1565,7 +1565,7 @@
 	<string name="booking_button_toolbar">Pilih hotel yang ada di peta</string>
 	<string name="popup_booking_download_guides_title">Pesan kamar hotel?</string>
 	<string name="popup_booking_download_guides_message">Rencanakan rute perjalanan anda bersama panduan dari MAPS.ME</string>
-	<string name="popup_mwm_download_guides_title">Ide liburan anda👇</string>
+	<string name="popup_mwm_download_guides_title">Panduan kota offline</string>
 	<string name="popup_mwm_download_guides_cta">Pilih salah satu</string>
 	<string name="popup_mwm_download_guides_cta_1">Lihat</string>
 	<string name="gallery_pp_download_guides_offline_title">Rencanakan liburan anda bersama MAPS.ME!</string>

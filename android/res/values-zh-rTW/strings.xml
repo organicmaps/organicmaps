@@ -1574,7 +1574,7 @@
 	<string name="booking_button_toolbar">在地圖上選擇酒店</string>
 	<string name="popup_booking_download_guides_title">已預訂酒店？</string>
 	<string name="popup_booking_download_guides_message">和MAPS.ME壹起規劃行程吧</string>
-	<string name="popup_mwm_download_guides_title">旅行規劃👇</string>
+	<string name="popup_mwm_download_guides_title">在線指南</string>
 	<string name="popup_mwm_download_guides_cta">選擇</string>
 	<string name="popup_mwm_download_guides_cta_1">查看</string>
 	<string name="gallery_pp_download_guides_offline_title">和 MAPS.ME壹起規劃妳的假期吧！</string>

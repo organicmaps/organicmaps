@@ -1562,7 +1562,7 @@
 	<string name="booking_button_toolbar">Selectează hotel pe hartă</string>
 	<string name="popup_booking_download_guides_title">Rezervare hotel?</string>
 	<string name="popup_booking_download_guides_message">Planificați traseul cu ghidurile MAPS.ME</string>
-	<string name="popup_mwm_download_guides_title">Idei pentru călătorii👇</string>
+	<string name="popup_mwm_download_guides_title">Ghiduri offline</string>
 	<string name="popup_mwm_download_guides_cta">Selectează</string>
 	<string name="popup_mwm_download_guides_cta_1">Privește</string>
 	<string name="gallery_pp_download_guides_offline_title">Planifică odihna ta cu MAPS.ME!</string>

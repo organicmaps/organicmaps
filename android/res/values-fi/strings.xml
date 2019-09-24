@@ -1566,7 +1566,7 @@
 	<string name="booking_button_toolbar">Etsi hotelli kartalla</string>
 	<string name="popup_booking_download_guides_title">Onko hotellin jo varattu?</string>
 	<string name="popup_booking_download_guides_message">Suunnittele reittisi valmiilla MAPS.ME -matkaoppailla</string>
-	<string name="popup_mwm_download_guides_title">Matkustusideoita👇</string>
+	<string name="popup_mwm_download_guides_title">Offline-matkaoppaat</string>
 	<string name="popup_mwm_download_guides_cta">Valitse</string>
 	<string name="popup_mwm_download_guides_cta_1">Katso</string>
 	<string name="gallery_pp_download_guides_offline_title">Suunnittele lomasi MAPS.ME:n kanssa!</string>

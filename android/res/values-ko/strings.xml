@@ -1561,7 +1561,7 @@
 	<string name="booking_button_toolbar">지도에서 호텔을 고르세요</string>
 	<string name="popup_booking_download_guides_title">호텔을 예약하셨나요?</string>
 	<string name="popup_booking_download_guides_message">귀하의 루트를 MAPS.ME의 준비된 가이드들로 계획해보세요</string>
-	<string name="popup_mwm_download_guides_title">귀하의 휴가를 위한 아이디어들👇</string>
+	<string name="popup_mwm_download_guides_title">오프라인 도시 가이드</string>
 	<string name="popup_mwm_download_guides_cta">하나를 고르세요</string>
 	<string name="popup_mwm_download_guides_cta_1">살펴보세요</string>
 	<string name="gallery_pp_download_guides_offline_title">휴가를 MAPS.ME와 함께 계획해보세요!</string>

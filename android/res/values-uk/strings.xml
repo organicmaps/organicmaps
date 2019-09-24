@@ -1572,7 +1572,7 @@
 	<string name="booking_button_toolbar">Підібрати готель на карті</string>
 	<string name="popup_booking_download_guides_title">Готель заброньовано?</string>
 	<string name="popup_booking_download_guides_message">Заплануйте маршрут із готовими путівниками MAPS.ME</string>
-	<string name="popup_mwm_download_guides_title">Ідеї для подорожей👇</string>
+	<string name="popup_mwm_download_guides_title">Офлайн-путівники</string>
 	<string name="popup_mwm_download_guides_cta">Вибрати</string>
 	<string name="popup_mwm_download_guides_cta_1">Переглянути</string>
 	<string name="gallery_pp_download_guides_offline_title">Плануйте свій відпочинок із MAPS.ME!</string>

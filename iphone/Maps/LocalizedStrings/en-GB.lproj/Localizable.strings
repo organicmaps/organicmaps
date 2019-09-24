@@ -2849,7 +2849,7 @@
 
 "popup_booking_download_guides_message" = "Plan your route with ready-made guides from MAPS.ME";
 
-"popup_mwm_download_guides_title" = "Ideas for your vacation👇";
+"popup_mwm_download_guides_title" = "Offline city guides";
 
 "popup_mwm_download_guides_cta" = "Choose one";
 
@@ -3074,7 +3074,7 @@
 
 "catalog_no_internet_button" = "Try again";
 
-"whatsnew_map_updates_title" = "Reactive map updates";
+"whatsnew_map_updates_title" = "Lightning-fast map updates";
 
 "whatsnew_map_updates_message" = "From now on we update the data twice as fast";
 
