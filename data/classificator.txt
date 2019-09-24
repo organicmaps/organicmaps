@@ -82,6 +82,11 @@ world  +
                 fee  -
                 {}
             {}
+        parking_space  +
+            permissive  -
+            private  -
+            underground  -
+            {}
         payment_terminal  -
         pharmacy  -
         place_of_worship  +

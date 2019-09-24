@@ -2485,6 +2485,386 @@ cont {
   }
 }
 cont {
+  name: "amenity-parking_space"
+  element {
+    scale: 15
+    area {
+      color: 15921870
+      priority: -15035
+    }
+    symbol {
+      name: "parking-m"
+      priority: 16965
+      min_distance: 3
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 15921870
+      priority: -15035
+    }
+    symbol {
+      name: "parking-m"
+      priority: 16965
+      min_distance: 3
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15965
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16579778
+      priority: -15094
+    }
+    symbol {
+      name: "parking-m"
+      priority: 16906
+      min_distance: 15
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15906
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16579778
+      priority: -15094
+    }
+    symbol {
+      name: "parking-m"
+      priority: 16906
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15906
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16579778
+      priority: -15094
+    }
+    symbol {
+      name: "parking-m"
+      priority: 16906
+      min_distance: 6
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15906
+    }
+  }
+}
+cont {
+  name: "amenity-parking_space-permissive"
+  element {
+    scale: 15
+    area {
+      color: 15921870
+      priority: -15035
+    }
+    symbol {
+      name: "zero-icon"
+      priority: 16965
+      min_distance: 3
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 15921870
+      priority: -15035
+    }
+    symbol {
+      name: "zero-icon"
+      priority: 16965
+      min_distance: 3
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15965
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16579778
+      priority: -15942
+    }
+    symbol {
+      name: "zero-icon"
+      priority: 16058
+      min_distance: 7
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15058
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16579778
+      priority: -15094
+    }
+    symbol {
+      name: "zero-icon"
+      priority: 16906
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15906
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16579778
+      priority: -15094
+    }
+    symbol {
+      name: "parking-m"
+      priority: 16906
+      min_distance: 6
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15906
+    }
+  }
+}
+cont {
+  name: "amenity-parking_space-private"
+  element {
+    scale: 15
+    area {
+      color: 15921870
+      priority: -15035
+    }
+    symbol {
+      name: "zero-icon"
+      priority: 16965
+      min_distance: 3
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 15921870
+      priority: -15035
+    }
+    symbol {
+      name: "zero-icon"
+      priority: 16965
+      min_distance: 3
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15965
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16579778
+      priority: -15942
+    }
+    symbol {
+      name: "zero-icon"
+      priority: 16058
+      min_distance: 7
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15058
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16579778
+      priority: -15094
+    }
+    symbol {
+      name: "zero-icon"
+      priority: 16906
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15906
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16579778
+      priority: -15094
+    }
+    symbol {
+      name: "parking-m"
+      priority: 16906
+      min_distance: 6
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15906
+    }
+  }
+}
+cont {
+  name: "amenity-parking_space-underground"
+  element {
+    scale: 15
+    area {
+      color: 15921870
+      priority: -15035
+    }
+    symbol {
+      name: "zero-icon"
+      priority: 16965
+      min_distance: 3
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 15921870
+      priority: -15035
+    }
+    symbol {
+      name: "zero-icon"
+      priority: 16965
+      min_distance: 3
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15965
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16579778
+      priority: -15094
+    }
+    symbol {
+      name: "zero-icon"
+      priority: 16906
+      min_distance: 15
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15906
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16579778
+      priority: -15094
+    }
+    symbol {
+      name: "zero-icon"
+      priority: 16906
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15906
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16579778
+      priority: -15094
+    }
+    symbol {
+      name: "zero-icon"
+      priority: 16906
+      min_distance: 6
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15906
+    }
+  }
+}
+cont {
   name: "amenity-place_of_worship"
   element {
     scale: 16

@@ -1323,3 +1323,7 @@ cuisine|tea
 natural|geyser
 sponsored|promo_catalog
 natural|hot_spring
+amenity|parking_space
+amenity|parking_space|underground
+amenity|parking_space|private
+amenity|parking_space|permissive

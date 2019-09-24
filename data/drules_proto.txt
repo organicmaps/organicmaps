@@ -5906,6 +5906,238 @@ cont {
   }
 }
 cont {
+  name: "amenity-parking_space"
+  element {
+    scale: 15
+    symbol {
+      name: "parking-s"
+      priority: 16037
+      min_distance: 25
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "parking-s"
+      priority: 16037
+      min_distance: 25
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "parking-m"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "parking-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "parking-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "amenity-parking_space-permissive"
+  element {
+    scale: 15
+    symbol {
+      name: "zero-icon"
+      priority: 16037
+      min_distance: 25
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "zero-icon"
+      priority: 16037
+      min_distance: 25
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "zero-icon"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "parking-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "parking-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "amenity-parking_space-private"
+  element {
+    scale: 15
+    symbol {
+      name: "zero-icon"
+      priority: 16037
+      min_distance: 25
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "zero-icon"
+      priority: 16037
+      min_distance: 25
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "zero-icon"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "parking-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "parking-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "amenity-parking_space-underground"
+  element {
+    scale: 15
+    symbol {
+      name: "zero-icon"
+      priority: 16037
+      min_distance: 25
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "zero-icon"
+      priority: 16037
+      min_distance: 25
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "zero-icon"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "zero-icon"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "zero-icon"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
   name: "amenity-payment_terminal"
   element {
     scale: 17
