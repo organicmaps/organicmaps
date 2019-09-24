@@ -57,9 +57,12 @@ public:
   void Get(strings::UniString const & postcode, std::vector<m2::PointD> & points) const;
 
 private:
+  void Get(strings::UniString const & postcode, bool recursive,
+           std::vector<m2::PointD> & points) const;
+
   Header m_header;
   std::unique_ptr<CentersTable> m_points;
-  std::unique_ptr<trie::Iterator<ValueList<Uint64IndexValue>>> m_root;
+  std::unique_ptr<trie::Iterator<SingleUint64Value>> m_root;
   std::unique_ptr<Reader> m_trieSubReader;
   std::unique_ptr<Reader> m_pointsSubReader;
 };

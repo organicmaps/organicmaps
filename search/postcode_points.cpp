@@ -36,7 +36,7 @@ PostcodePoints::PostcodePoints(MwmValue const & value)
   m_header.Read(*reader.GetPtr());
 
   m_trieSubReader = reader.GetPtr()->CreateSubReader(m_header.m_trieOffset, m_header.m_trieSize);
-  m_root = trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<Uint64IndexValue>>(
+  m_root = trie::ReadTrie<SubReaderWrapper<Reader>, SingleUint64Value>(
       SubReaderWrapper<Reader>(m_trieSubReader.get()), SingleValueSerializer<Uint64IndexValue>());
   CHECK(m_root, ());
 
@@ -47,7 +47,8 @@ PostcodePoints::PostcodePoints(MwmValue const & value)
   CHECK(m_points, ());
 }
 
-void PostcodePoints::Get(strings::UniString const & postcode, vector<m2::PointD> & points) const
+void PostcodePoints::Get(strings::UniString const & postcode, bool recursive,
+                         vector<m2::PointD> & points) const
 {
   if (!m_root || !m_points || !m_trieSubReader || !m_pointsSubReader || postcode.empty())
     return;
@@ -75,8 +76,29 @@ void PostcodePoints::Get(strings::UniString const & postcode, vector<m2::PointD>
     indexes.push_back(base::asserted_cast<uint32_t>(v.m_featureId));
   });
 
+  if (recursive)
+  {
+    trie::ForEachRef(
+        *trieIt,
+        [&indexes](auto const & /* s */, auto const & v) {
+          indexes.push_back(base::asserted_cast<uint32_t>(v.m_featureId));
+        },
+        strings::UniString{});
+  }
+
   points.resize(indexes.size());
   for (size_t i = 0; i < indexes.size(); ++i)
     CHECK(m_points->Get(indexes[i], points[i]), ());
+}
+
+void PostcodePoints::Get(strings::UniString const & postcode, vector<m2::PointD> & points) const
+{
+  points.clear();
+  Get(postcode, false /* recursive */, points);
+  if (!points.empty())
+    return;
+
+  auto static const space = strings::MakeUniString(" ");
+  Get(postcode + space, true /* recursive */, points);
 }
 }  // namespace search

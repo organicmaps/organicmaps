@@ -247,12 +247,20 @@ void GetUKPostcodes(string const & filename, storage::CountryId const & countryI
                     storage::CountryInfoGetter & infoGetter, vector<m2::PointD> & valueMapping,
                     vector<pair<Key, Value>> & keyValuePairs)
 {
-  // <outward>,<inward>,<easting>,<northing>,<WGS84 lat>,<WGS84 long>,<2+6 NGR>,<grid>,<sources>
-  size_t constexpr kOutwardIndex = 0;
-  size_t constexpr kInwardIndex = 1;
-  size_t constexpr kLatIndex = 4;
-  size_t constexpr kLonIndex = 5;
-  size_t constexpr kDatasetCount = 9;
+  // 0 Postcode
+  // 1 Positional_quality_indicator
+  // 2 Eastings
+  // 3 Northings
+  // 4 Country_code
+  // 5 NHS_regional_HA_code
+  // 6 NHS_HA_code
+  // 7 Admin_county_code
+  // 8 Admin_district_code
+  // 9 Admin_ward_code
+  size_t constexpr kPostcodeIndex = 0;
+  size_t constexpr kEastingIndex = 2;
+  size_t constexpr kNorthingIndex = 3;
+  size_t constexpr kDatasetCount = 10;
 
   ifstream data;
   data.exceptions(fstream::failbit | fstream::badbit);
@@ -272,29 +280,22 @@ void GetUKPostcodes(string const & filename, storage::CountryId const & countryI
     // Some lines have comma in "source". It leads to fields number greater than kDatasetCount.
     CHECK_GREATER_OR_EQUAL(fields.size(), kDatasetCount, (line));
 
-    // Skip outward-only postcodes, build outward from inwards.
-    if (fields[kInwardIndex].empty())
-      continue;
+    uint64_t lonMeters;
+    CHECK(strings::to_uint64(fields[kEastingIndex], lonMeters), ());
 
-    double lon;
-    CHECK(strings::to_double(fields[kLonIndex], lon), ());
-    auto const x = MercatorBounds::LonToX(lon);
+    uint64_t latMeters;
+    CHECK(strings::to_uint64(fields[kNorthingIndex], latMeters), ());
 
-    double lat;
-    CHECK(strings::to_double(fields[kLatIndex], lat), ());
-    auto const y = MercatorBounds::LatToY(lat);
+    auto const p = MercatorBounds::UKCoordsToXY(lonMeters, latMeters);
 
     vector<storage::CountryId> countries;
-    infoGetter.GetRegionsCountryId(m2::PointD(x, y), countries);
+    infoGetter.GetRegionsCountryId(p, countries);
     if (find(countries.begin(), countries.end(), countryId) == countries.end())
       continue;
 
     CHECK_EQUAL(valueMapping.size(), index, ());
-    valueMapping.emplace_back(x, y);
-    keyValuePairs.emplace_back(
-        search::NormalizeAndSimplifyString(fields[kOutwardIndex] + " " + fields[kInwardIndex]),
-        Value(index));
-    keyValuePairs.emplace_back(search::NormalizeAndSimplifyString(fields[kOutwardIndex]),
+    valueMapping.push_back(p);
+    keyValuePairs.emplace_back(search::NormalizeAndSimplifyString(fields[kPostcodeIndex]),
                                Value(index));
     ++index;
   }
@@ -711,7 +712,7 @@ bool BuildPostcodesImpl(FilesContainerR & container, storage::CountryId const & 
   {
     FileWriter tmpWriter(tmpName);
     SingleValueSerializer<Value> serializer;
-    trie::Build<Writer, Key, ValueList<Value>, SingleValueSerializer<Value>>(
+    trie::Build<Writer, Key, SingleUint64Value, SingleValueSerializer<Value>>(
         tmpWriter, serializer, ukPostcodesKeyValuePairs);
   }
 

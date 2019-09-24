@@ -172,3 +172,67 @@ public:
 private:
   std::unique_ptr<coding::CompressedBitVector> m_cbv;
 };
+
+class SingleUint64Value
+{
+public:
+  using Value = Uint64IndexValue;
+
+  SingleUint64Value() = default;
+
+  SingleUint64Value(SingleUint64Value const & o)
+  {
+    m_empty = o.m_empty;
+    m_val = o.m_val;
+  }
+
+  void Init(std::vector<Uint64IndexValue> const & values)
+  {
+    CHECK_LESS_OR_EQUAL(values.size(), 1, ());
+    m_empty = values.empty();
+    if (!m_empty)
+      m_val = values[0].m_featureId;
+  }
+
+  size_t Size() const { return m_empty ? 0 : 1; }
+
+  bool IsEmpty() const { return m_empty; }
+
+  template <typename Sink>
+  void Serialize(Sink & sink, SingleValueSerializer<Value> const & /* serializer */) const
+  {
+    if (m_empty)
+      return;
+    WriteVarUint(sink, m_val);
+  }
+
+  template <typename Source>
+  void Deserialize(Source & src, uint64_t valueCount,
+                   SingleValueSerializer<Value> const & /* serializer */)
+  {
+    CHECK_LESS_OR_EQUAL(valueCount, 1, ());
+    m_empty = valueCount == 0;
+    if (!m_empty)
+      m_val = ReadVarUint<uint64_t>(src);
+  }
+
+  template <typename Source>
+  void Deserialize(Source & src, SingleValueSerializer<Value> const & /* serializer */)
+  {
+    m_empty = src.Size() == 0;
+    if (!m_empty)
+      m_val = ReadVarUint<uint64_t>(src);
+  }
+
+  template <typename ToDo>
+  void ForEach(ToDo && toDo) const
+  {
+    if (IsEmpty())
+      return;
+    toDo(Value(m_val));
+  }
+
+private:
+  uint64_t m_val;
+  bool m_empty = false;
+};

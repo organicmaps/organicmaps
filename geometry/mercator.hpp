@@ -120,4 +120,7 @@ struct MercatorBounds
   static double AreaOnEarth(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
   /// Calculates area on Earth in m².
   static double AreaOnEarth(m2::RectD const & mercatorRect);
+
+  // Converts UK easting and northing measured from UK National Grid origin to mercator.
+  static m2::PointD UKCoordsToXY(double eastingM, double northingM);
 };
