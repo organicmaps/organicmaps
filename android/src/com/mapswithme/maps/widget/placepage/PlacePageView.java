@@ -1260,8 +1260,23 @@ public class PlacePageView extends NestedScrollView
 
   private void setPlaceDescription(@NonNull MapObject mapObject)
   {
-    boolean isDescriptionAbsent = TextUtils.isEmpty(mapObject.getDescription());
-    UiUtils.hideIf(isDescriptionAbsent, mPlaceDescriptionContainer);
+    if (TextUtils.isEmpty(mapObject.getDescription()))
+    {
+      UiUtils.hide(mPlaceDescriptionContainer);
+      return;
+    }
+
+    if (MapObject.isOfType(MapObject.BOOKMARK, mapObject))
+    {
+      Bookmark bmk = (Bookmark) mapObject;
+      if (!TextUtils.isEmpty(bmk.getBookmarkDescription()))
+      {
+        UiUtils.hide(mPlaceDescriptionContainer);
+        return;
+      }
+    }
+
+    UiUtils.show(mPlaceDescriptionContainer);
     mPlaceDescriptionView.setText(Html.fromHtml(mapObject.getDescription()));
   }
 
