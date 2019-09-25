@@ -5728,6 +5728,63 @@ cont {
   }
 }
 cont {
+  name: "highway-ford"
+  element {
+    scale: 14
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16000
+      min_distance: 20
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16000
+      min_distance: 20
+    }
+  }
+}
+cont {
   name: "highway-living_street"
   element {
     scale: 12

@@ -14038,6 +14038,11 @@ cont {
       }
       priority: 1248
     }
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16248
+    }
     path_text {
       primary {
         height: 9
@@ -14057,6 +14062,11 @@ cont {
         dd: 2.0
       }
       priority: 1248
+    }
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16248
     }
     path_text {
       primary {
@@ -14078,6 +14088,11 @@ cont {
       }
       priority: 1248
     }
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16248
+    }
     path_text {
       primary {
         height: 10
@@ -14097,6 +14112,11 @@ cont {
         dd: 8.1
       }
       priority: 1248
+    }
+    symbol {
+      name: "dot-m"
+      apply_for_type: 1
+      priority: 16248
     }
     path_text {
       primary {
