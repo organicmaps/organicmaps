@@ -49,6 +49,7 @@ area[amenity=doctors]
 
 area[landuse=industrial],
 area[landuse=construction],
+area[landuse=churchyard],
 area[landuse=landfill],
 area[landuse=railway],
 area[landuse=quarry]
@@ -427,6 +428,7 @@ area|z14-[landuse=cemetery],
 area|z14-[amenity=university],
 area|z15-[landuse=industrial],
 area|z15-[landuse=construction],
+area|z15-[landuse=churchyard],
 area|z15-[landuse=landfill],
 area|z15-[landuse=railway],
 area|z15-[landuse=quarry],
@@ -510,6 +512,11 @@ area|z15-19[aeroway=aerodrome][aerodrome=international],
 area|z15-19[aeroway=airport],
 area|z15-19[aeroway=aerodrome]
 {fill-color: @aerodrome5; fill-opacity: 1;}
+
+/* 7.7 Religion */
+area|z15-[landuse=churchyard]
+{fill-color: @background; fill-opacity: 1;}
+
 
 /* Parking */
 

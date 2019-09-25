@@ -10727,6 +10727,9 @@
     sk = Cintorín
     fa = قبرستان
 
+  [type.landuse.churchyard]
+    en = landuse-churchyard
+
   [type.landuse.commercial]
     en = landuse-commercial
     pl = Teren handlu i usług
