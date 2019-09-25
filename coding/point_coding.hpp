@@ -44,7 +44,14 @@ m2::PointU PointDToPointU(double x, double y, uint8_t coordBits);
 
 m2::PointU PointDToPointU(m2::PointD const & pt, uint8_t coordBits);
 
+m2::PointU PointDToPointU(m2::PointD const & pt, uint8_t coordBits, m2::RectD const & limitRect);
+
 m2::PointD PointUToPointD(m2::PointU const & p, uint8_t coordBits);
+
+m2::PointD PointUToPointD(m2::PointU const & pt, uint8_t coordBits, m2::RectD const & limitRect);
+
+// Returns coordBits needed to encode point from given rect with given accuracy.
+uint8_t GetCoordBits(m2::RectD const & limitRect, double accuracy);
 
 // All functions below are deprecated and are left
 // only for backward compatibility.

@@ -6,6 +6,8 @@
 #include "base/bits.hpp"
 #include "base/math.hpp"
 
+#include <algorithm>
+
 namespace
 {
 double CoordSize(uint8_t coordBits)
@@ -51,12 +53,39 @@ m2::PointU PointDToPointU(m2::PointD const & pt, uint8_t coordBits)
   return PointDToPointU(pt.x, pt.y, coordBits);
 }
 
+m2::PointU PointDToPointU(m2::PointD const & pt, uint8_t coordBits, m2::RectD const & limitRect)
+{
+  ASSERT_GREATER_OR_EQUAL(coordBits, 1, ());
+  ASSERT_LESS_OR_EQUAL(coordBits, 32, ());
+  auto const x = DoubleToUint32(pt.x, limitRect.minX(), limitRect.maxX(), coordBits);
+  auto const y = DoubleToUint32(pt.y, limitRect.minY(), limitRect.maxY(), coordBits);
+  return m2::PointU(x, y);
+}
+
 m2::PointD PointUToPointD(m2::PointU const & pt, uint8_t coordBits)
 {
   return m2::PointD(static_cast<double>(pt.x) * MercatorBounds::kRangeX / CoordSize(coordBits) +
                         MercatorBounds::kMinX,
                     static_cast<double>(pt.y) * MercatorBounds::kRangeY / CoordSize(coordBits) +
                         MercatorBounds::kMinY);
+}
+
+m2::PointD PointUToPointD(m2::PointU const & pt, uint8_t coordBits, m2::RectD const & limitRect)
+{
+  return m2::PointD(Uint32ToDouble(pt.x, limitRect.minX(), limitRect.maxX(), coordBits),
+                    Uint32ToDouble(pt.y, limitRect.minY(), limitRect.maxY(), coordBits));
+}
+
+uint8_t GetCoordBits(m2::RectD const & limitRect, double accuracy)
+{
+  auto const range = std::max(limitRect.SizeX(), limitRect.SizeY());
+  auto const valuesNumber = 1.0 + range / accuracy;
+  for (uint8_t coordBits = 1; coordBits <= 32; ++coordBits)
+  {
+    if (CoordSize(coordBits) >= valuesNumber)
+      return coordBits;
+  }
+  return 0;
 }
 
 // Obsolete functions ------------------------------------------------------------------------------
