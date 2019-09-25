@@ -86,20 +86,24 @@ UNIT_TEST(PointDToPointU_WithLimitRect)
 
   for (auto const & origin : limitRectOrigin)
   {
-    for (auto const size : limitRectSize)
+    for (auto const sizeX : limitRectSize)
     {
-      m2::RectD const limitRect(origin.x, origin.y, origin.x + size, origin.y + size);
-      auto distX = uniform_real_distribution<double>(limitRect.minX(), limitRect.maxX());
-      auto distY = uniform_real_distribution<double>(limitRect.minY(), limitRect.maxY());
-      auto const coordBits = GetCoordBits(limitRect, kEps);
-      // All rects in this test are more than 2 times smaller than mercator range.
-      TEST_LESS(coordBits, kCoordBits, (limitRect));
-      for (size_t i = 0; i < pointsPerRect; ++i)
+      for (auto const sizeY : limitRectSize)
       {
-        auto const pt = m2::PointD(distX(rng), distY(rng));
-        auto const pointU = PointDToPointU(pt, coordBits, limitRect);
-        auto const pointD = PointUToPointD(pointU, coordBits, limitRect);
-        TEST(base::AlmostEqualAbs(pt, pointD, kEps), (limitRect, pt, pointD, coordBits, kEps));
+        m2::RectD const limitRect(origin.x, origin.y, origin.x + sizeX, origin.y + sizeY);
+        auto distX = uniform_real_distribution<double>(limitRect.minX(), limitRect.maxX());
+        auto distY = uniform_real_distribution<double>(limitRect.minY(), limitRect.maxY());
+        auto const coordBits = GetCoordBits(limitRect, kEps);
+        TEST_NOT_EQUAL(coordBits, 0, ());
+        // All rects in this test are more than 2 times smaller than mercator range.
+        TEST_LESS(coordBits, kCoordBits, (limitRect));
+        for (size_t i = 0; i < pointsPerRect; ++i)
+        {
+          auto const pt = m2::PointD(distX(rng), distY(rng));
+          auto const pointU = PointDToPointU(pt, coordBits, limitRect);
+          auto const pointD = PointUToPointD(pointU, coordBits, limitRect);
+          TEST(base::AlmostEqualAbs(pt, pointD, kEps), (limitRect, pt, pointD, coordBits, kEps));
+        }
       }
     }
   }

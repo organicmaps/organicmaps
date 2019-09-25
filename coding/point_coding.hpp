@@ -50,7 +50,8 @@ m2::PointD PointUToPointD(m2::PointU const & p, uint8_t coordBits);
 
 m2::PointD PointUToPointD(m2::PointU const & pt, uint8_t coordBits, m2::RectD const & limitRect);
 
-// Returns coordBits needed to encode point from given rect with given accuracy.
+// Returns coordBits needed to encode point from given rect with given absolute precision.
+// If 32 bits are not enough returns 0. It's caller's responsibility to check it.
 uint8_t GetCoordBits(m2::RectD const & limitRect, double accuracy);
 
 // All functions below are deprecated and are left

@@ -21,6 +21,7 @@ uint32_t DoubleToUint32(double x, double min, double max, uint8_t coordBits)
 {
   ASSERT_GREATER_OR_EQUAL(coordBits, 1, ());
   ASSERT_LESS_OR_EQUAL(coordBits, 32, ());
+  ASSERT_LESS_OR_EQUAL(min, max, ());
   x = base::Clamp(x, min, max);
   return static_cast<uint32_t>(0.5 + (x - min) / (max - min) * bits::GetFullMask(coordBits));
 }
