@@ -2,6 +2,7 @@ project(routing_quality_tests)
 
 set(
   SRC
+  barriers_tests.cpp
   bigger_roads_tests.cpp
   ferry_tests.cpp
   is_built_tests.cpp
