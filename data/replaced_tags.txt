@@ -4,6 +4,11 @@ shelter=yes : amenity=shelter
 toilets=yes : amenity=toilets
 restaurant=yes : amenity=restaurant
 hotel=yes : tourism=hotel
+ford=boat : highway=ford
+ford=intermittent : highway=ford
+ford=seasonal : highway=ford
+ford=stream : highway=ford
+ford=stepping_stones : highway=ford
 ford=yes : highway=ford
 ruins=yes : historic=ruins
 drinkable=yes : amenity=drinking_water

@@ -2063,8 +2063,9 @@ line|z16-[barrier=gate],
 line|z16-[barrier=stile],
 {icon-image: dot-m.svg;font-size: 11;}
 
+node|z16-[highway=ford],
 line|z16-[power=tower]
-shelter{icon-image: dot-m.svg;}
+{icon-image: dot-m.svg;}
 
 node|z16-[amenity=taxi],
 area|z16-[amenity=taxi]

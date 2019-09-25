@@ -220,6 +220,8 @@ area|z12-[leisure=nature_reserve]
 {text: name;text-color: @park_label;text-halo-opacity: 0.75;text-halo-color: @label_halo_light;text-halo-radius:0.4;}
 
 
+node|z14-[highway=ford]
+{icon-image: dot-m.svg;icon-min-distance: 20;}
 
 /*node|z11[landuse=forest][boundary=national_park],
 area|z11[landuse=forest][boundary=national_park],
