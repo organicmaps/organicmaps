@@ -504,6 +504,7 @@ world  +
         cemetery  +
             christian  -
             {}
+        churchyard  -
         commercial  -
         construction  -
         farm  -

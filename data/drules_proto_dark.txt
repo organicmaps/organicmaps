@@ -31551,6 +31551,39 @@ cont {
   }
 }
 cont {
+  name: "landuse-churchyard"
+  element {
+    scale: 15
+    area {
+      priority: -15978
+    }
+  }
+  element {
+    scale: 16
+    area {
+      priority: -15978
+    }
+  }
+  element {
+    scale: 17
+    area {
+      priority: -15978
+    }
+  }
+  element {
+    scale: 18
+    area {
+      priority: -15978
+    }
+  }
+  element {
+    scale: 19
+    area {
+      priority: -15978
+    }
+  }
+}
+cont {
   name: "landuse-commercial"
   element {
     scale: 17
