@@ -42,10 +42,10 @@ void Translator::SetFilter(std::shared_ptr<FilterInterface> const & filter) { m_
 
 void Translator::Emit(OsmElement & element)
 {
+  Preprocess(element);
   if (!m_filter->IsAccepted(element))
     return;
 
-  Preprocess(element);
   m_tagsEnricher(element);
   m_collector->Collect(element);
   m_featureMaker->Add(element);

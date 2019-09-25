@@ -1,8 +1,5 @@
 #include "generator/filter_collection.hpp"
 
-#include "generator/feature_builder.hpp"
-#include "generator/osm_element.hpp"
-
 #include <algorithm>
 
 using namespace feature;

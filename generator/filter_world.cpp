@@ -1,6 +1,5 @@
 #include "generator/filter_world.hpp"
 
-#include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"

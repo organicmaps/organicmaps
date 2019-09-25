@@ -34,12 +34,10 @@
 #pragma once
 
 #include "generator/filter_interface.hpp"
-#include "generator/osm_element.hpp"
 
 #include <cstdint>
 #include <functional>
 #include <list>
-#include <memory>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>

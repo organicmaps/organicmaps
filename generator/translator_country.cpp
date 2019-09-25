@@ -11,6 +11,7 @@
 #include "generator/filter_collection.hpp"
 #include "generator/filter_elements.hpp"
 #include "generator/filter_planet.hpp"
+#include "generator/filter_roads.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/maxspeeds_collector.hpp"
@@ -93,8 +94,9 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
   }
   auto filters = std::make_shared<FilterCollection>();
   filters->Append(std::make_shared<FilterPlanet>());
-  filters->Append(std::make_shared<FilterElements>(
-      base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE)));
+  filters->Append(std::make_shared<FilterRoads>());
+  filters->Append(std::make_shared<FilterElements>(base::JoinPath(GetPlatform().ResourcesDir(),
+      SKIPPED_ELEMENTS_FILE)));
   SetFilter(filters);
 
   auto collectors = std::make_shared<CollectorCollection>();

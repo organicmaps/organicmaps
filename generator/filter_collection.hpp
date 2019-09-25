@@ -3,14 +3,6 @@
 #include "generator/collection_base.hpp"
 #include "generator/filter_interface.hpp"
 
-#include <memory>
-
-struct OsmElement;
-namespace feature
-{
-class FeatureBuilder;
-}  // namespace feature
-
 namespace generator
 {
 // This class allows you to work with a group of filters as with one.

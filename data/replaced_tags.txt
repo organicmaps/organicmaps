@@ -14,6 +14,9 @@ ruins=yes : historic=ruins
 drinkable=yes : amenity=drinking_water
 building=entrance : entrance=yes
 
+ice_road=yes : highway=ice_road
+winter_road=yes : highway=ice_road
+
 natural=marsh : natural=wetland, wetland=marsh
 natural=waterfall : waterway=waterfall
 natural = forest : natural = wood

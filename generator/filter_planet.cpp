@@ -1,16 +1,5 @@
 #include "generator/filter_planet.hpp"
 
-#include "generator/feature_builder.hpp"
-#include "generator/osm_element.hpp"
-
-#include "indexer/classificator.hpp"
-#include "indexer/feature_visibility.hpp"
-#include "indexer/ftypes_matcher.hpp"
-
-#include "base/assert.hpp"
-
-#include <algorithm>
-
 using namespace feature;
 
 namespace generator

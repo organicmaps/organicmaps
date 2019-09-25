@@ -1,12 +1,9 @@
 #pragma once
 
-#include <memory>
+#include "generator/feature_builder.hpp"
+#include "generator/osm_element.hpp"
 
-struct OsmElement;
-namespace feature
-{
-class FeatureBuilder;
-}  // namespace feature
+#include <memory>
 
 namespace generator
 {

@@ -1,10 +1,8 @@
 #pragma once
 
-#include "generator/feature_builder.hpp"
 #include "generator/filter_interface.hpp"
 #include "generator/popular_places_section_builder.hpp"
 
-#include <memory>
 #include <string>
 
 namespace generator

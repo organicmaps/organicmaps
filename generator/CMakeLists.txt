@@ -74,6 +74,8 @@ set(
   feature_sorter.cpp
   feature_sorter.hpp
   features_processing_helpers.hpp
+  filter_roads.cpp
+  filter_roads.hpp
   filter_collection.cpp
   filter_collection.hpp
   filter_elements.cpp
