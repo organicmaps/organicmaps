@@ -65,7 +65,10 @@ void CrossMwmOsmWaysCollector::CollectFeature(feature::FeatureBuilder const & fb
     for (auto const & mwmName : pointAffiliations)
       featurePointsEntriesToMwm[mwmName][pointNumber] = true;
 
-    CHECK_GREATER(pointAffiliations.size(), 0, ());
+    // TODO (@gmoryes)
+    //  Uncomment this check after: https://github.com/mapsme/omim/pull/10996
+    //  It could happend when point places between mwm's borders and doesn't belong to any of them.
+    // CHECK_GREATER(pointAffiliations.size(), 0, ());
     pointsAffiliationsNumber[pointNumber] = pointAffiliations.size();
   }
 
