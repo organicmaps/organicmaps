@@ -244,6 +244,9 @@ bool Editor::Save(FeaturesContainer const & features) const
   root.append_attribute("format_version") = 1;
   for (auto const & mwm : features)
   {
+    if (!mwm.first.IsAlive())
+      continue;
+
     xml_node mwmNode = root.append_child(kXmlMwmNode);
     mwmNode.append_attribute("name") = mwm.first.GetInfo()->GetCountryName().c_str();
     mwmNode.append_attribute("version") = static_cast<long long>(mwm.first.GetInfo()->GetVersion());
@@ -304,35 +307,8 @@ void Editor::ClearAllLocalEdits()
 
 void Editor::OnMapRegistered(platform::LocalCountryFile const & localFile)
 {
+  // todo(@a, @m) Reloading edits only for |localFile| should be enough.
   LoadEdits();
-}
-
-void Editor::OnMapDeregistered(platform::LocalCountryFile const & localFile)
-{
-  // Can be called on non-main-thread in case of simultaneous uploading process.
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, localFile]
-  {
-    using FeaturePair = FeaturesContainer::value_type;
-
-    auto const findMwm = [](FeaturesContainer const & src, platform::LocalCountryFile const & localFile)
-    {
-      // Cannot search by MwmId because country already removed. So, search by country name.
-      return find_if(cbegin(src), cend(src), [&localFile](FeaturePair const & item) {
-        return item.first.GetInfo()->GetCountryName() == localFile.GetCountryName();
-      });
-    };
-
-    auto const features = m_features.Get();
-    auto const matchedMwm = findMwm(*features, localFile);
-
-    if (features->cend() != matchedMwm)
-    {
-      auto editableFeatures = make_shared<FeaturesContainer>(*features);
-      editableFeatures->erase(findMwm(*editableFeatures, localFile));
-
-      SaveTransaction(editableFeatures);
-    }
-  });
 }
 
 FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t index) const
@@ -622,6 +598,9 @@ bool Editor::HaveMapEditsOrNotesToUpload() const
 
 bool Editor::HaveMapEditsToUpload(MwmSet::MwmId const & mwmId) const
 {
+  if (!mwmId.IsAlive())
+    return false;
+
   auto const features = m_features.Get();
 
   auto const found = features->find(mwmId);
@@ -663,6 +642,9 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
 
     for (auto const & id : *features)
     {
+      if (!id.first.IsAlive())
+        continue;
+
       for (auto const & index : id.second)
       {
         FeatureTypeInfo const & fti = index.second;
@@ -1251,6 +1233,17 @@ bool Editor::HaveMapEditsToUpload(FeaturesContainer const & features) const
 {
   for (auto const & id : features)
   {
+    // Do not upload changes for a deleted map.
+    // todo(@a, @m) This should be unnecessary but unfortunately it's not.
+    // The mwm's feature is read right before the xml feature is uploaded to fill
+    // in missing fields such as precise feature geometry. This is an artefact
+    // of an old design decision; we have all the information needed for uploading
+    // already at the time when the xml feature is created and should not
+    // need to re-read it when uploading and when the corresponding mwm may have
+    // been deleted from disk.
+    if (!id.first.IsAlive())
+      continue;
+
     for (auto const & index : id.second)
     {
       if (NeedsUpload(index.second.m_uploadStatus))

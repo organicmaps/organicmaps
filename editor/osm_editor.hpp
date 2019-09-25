@@ -124,7 +124,6 @@ public:
 
   // MwmSet::Observer overrides:
   void OnMapRegistered(platform::LocalCountryFile const & localFile) override;
-  void OnMapDeregistered(platform::LocalCountryFile const & localFile) override;
 
   using FeatureIndexFunctor = std::function<void(uint32_t)>;
   void ForEachCreatedFeature(MwmSet::MwmId const & id, FeatureIndexFunctor const & f,

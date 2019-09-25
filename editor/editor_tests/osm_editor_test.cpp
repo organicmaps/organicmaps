@@ -18,6 +18,8 @@
 #include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 
 #include <memory>
 
@@ -569,8 +571,10 @@ void EditorTest::GetFeaturesByStatusTest()
 void EditorTest::OnMapDeregisteredTest()
 {
   auto & editor = osm::Editor::Instance();
+  m_dataSource.AddObserver(editor);
+  SCOPE_GUARD(removeObs, [&] { m_dataSource.RemoveObserver(editor); });
 
-  auto const gbMwmId = BuildMwm("GB", [](TestMwmBuilder & builder)
+  auto gbMwmId = BuildMwm("GB", [](TestMwmBuilder & builder)
   {
     TestCafe cafeLondon(m2::PointD(1.0, 1.0), "London Cafe", "en");
     builder.Add(cafeLondon);
@@ -582,6 +586,11 @@ void EditorTest::OnMapDeregisteredTest()
     builder.Add(cafeMoscow);
   });
 
+  auto nzMwmId = BuildMwm("NZ", [](TestMwmBuilder & builder)
+  {
+  });
+  m_dataSource.DeregisterMap(nzMwmId.GetInfo()->GetLocalFile().GetCountryFile());
+
   ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0), [](FeatureType & ft)
   {
     SetBuildingLevelsToOne(ft);
@@ -592,17 +601,45 @@ void EditorTest::OnMapDeregisteredTest()
     SetBuildingLevelsToOne(ft);
   });
 
-  TEST(!editor.m_features.Get()->empty(), ());
+  TEST_EQUAL(editor.m_features.Get()->size(), 2, (editor.m_features.Get()->size()));
+
+  {
+    platform::tests_support::AsyncGuiThread guiThread;
+    m_dataSource.DeregisterMap(gbMwmId.GetInfo()->GetLocalFile().GetCountryFile());
+  }
+  // The map is deregistered but the edits are not deleted until
+  // LoadEdits() is called again, either on the next startup or
+  // on registering a new map.
   TEST_EQUAL(editor.m_features.Get()->size(), 2, ());
 
   {
     platform::tests_support::AsyncGuiThread guiThread;
-    editor.OnMapDeregistered(gbMwmId.GetInfo()->GetLocalFile());
+    auto result = m_dataSource.RegisterMap(gbMwmId.GetInfo()->GetLocalFile());
+    TEST_EQUAL(result.second, MwmSet::RegResult::Success, ());
+    gbMwmId = result.first;
+    TEST(gbMwmId.IsAlive(), ());
   }
+  // The same map was registered: the edits are still here.
+  TEST_EQUAL(editor.m_features.Get()->size(), 2, ());
 
+  {
+    platform::tests_support::AsyncGuiThread guiThread;
+    m_dataSource.DeregisterMap(gbMwmId.GetInfo()->GetLocalFile().GetCountryFile());
+  }
+  TEST_EQUAL(editor.m_features.Get()->size(), 2, ());
+
+  {
+    platform::tests_support::AsyncGuiThread guiThread;
+    auto result = m_dataSource.RegisterMap(nzMwmId.GetInfo()->GetLocalFile());
+    TEST_EQUAL(result.second, MwmSet::RegResult::Success, ());
+    nzMwmId = result.first;
+    TEST(nzMwmId.IsAlive(), ());
+  }
+  // Another map was registered: all edits are reloaded and
+  // the edits for the deleted map are removed.
   TEST_EQUAL(editor.m_features.Get()->size(), 1, ());
   auto const editedMwmId = editor.m_features.Get()->find(rfMwmId);
-  bool result = (editedMwmId != editor.m_features.Get()->end());
+  bool const result = (editedMwmId != editor.m_features.Get()->end());
   TEST(result, ());
 }
 
