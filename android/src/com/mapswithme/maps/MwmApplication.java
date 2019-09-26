@@ -15,6 +15,7 @@ import com.mapswithme.maps.background.NotificationChannelFactory;
 import com.mapswithme.maps.background.NotificationChannelProvider;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.base.MediaPlayerWrapper;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategoriesDataProvider;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
@@ -87,6 +88,10 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   @NonNull
   private GeofenceRegistry mGeofenceRegistry;
   private boolean mFirstLaunch;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private BookmarkCategoriesCache mBookmarkCategoriesCache;
 
   @NonNull
   public SubwayManager getSubwayManager()
@@ -185,6 +190,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     mPurchaseOperationObservable = new PurchaseOperationObservable();
     mPlayer = new MediaPlayerWrapper(this);
     mGeofenceRegistry = new GeofenceRegistryImpl(this);
+    mBookmarkCategoriesCache = new BookmarkCategoriesCache();
   }
 
   private void initNotificationChannels()
@@ -403,6 +409,12 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   public void onTransit(boolean foreground)
   {
     nativeOnTransit(foreground);
+  }
+
+  @NonNull
+  public BookmarkCategoriesCache getBookmarkCategoriesCache()
+  {
+    return mBookmarkCategoriesCache;
   }
 
   private static class VisibleAppLaunchListener implements AppBackgroundTracker.OnVisibleAppLaunchListener

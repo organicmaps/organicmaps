@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.PrivateVariables;
-import com.mapswithme.maps.R;
 import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.util.UTM;
 import com.mapswithme.util.statistics.Statistics;
@@ -63,6 +62,9 @@ public enum BookmarkManager
   public static final List<Icon> ICONS = new ArrayList<>();
 
   @NonNull
+  private BookmarkCategoriesDataProvider mDataProvider = new BookmarkCategoriesDataProvider.CoreBookmarkCategoriesDataProvider();
+
+  @NonNull
   private final List<BookmarksLoadingListener> mListeners = new ArrayList<>();
 
   @NonNull
@@ -102,6 +104,11 @@ public enum BookmarkManager
   {
     boolean isVisible = isVisible(catId);
     setVisibility(catId, !isVisible);
+  }
+
+  public void setDataProvider(@NonNull BookmarkCategoriesDataProvider dataProvider)
+  {
+    mDataProvider = dataProvider;
   }
 
   public Bookmark addNewBookmark(double lat, double lon)
@@ -336,7 +343,6 @@ public enum BookmarkManager
   public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups,
                              int maxTagsCount)
   {
-    //TODO(@yoksnod): Implement maxTagsCount usage.
     List<CatalogTagsGroup> unmodifiableData = Collections.unmodifiableList(Arrays.asList(tagsGroups));
     for (BookmarksCatalogListener listener : mCatalogListeners)
     {
@@ -405,12 +411,6 @@ public enum BookmarkManager
     nativeSetVisibility(catId, visible);
   }
 
-  @NonNull
-  public String getCategoryName(long catId)
-  {
-    return nativeGetCategoryName(catId);
-  }
-
   public void setCategoryName(long catId, @NonNull String name)
   {
     nativeSetCategoryName(catId, name);
@@ -450,10 +450,10 @@ public enum BookmarkManager
     nativeUploadToCatalog(rules.ordinal(), category.getId());
   }
 
-  /**
+/*  *//**
    * @return total count - tracks + bookmarks
    * @param category
-   */
+   *//*
   @Deprecated
   public int getCategorySize(@NonNull BookmarkCategory category)
   {
@@ -475,23 +475,15 @@ public enum BookmarkManager
                                                           .append(catId)
                                                           .append(" missed")
                                                           .toString());
-  }
+  }*/
 
+/*
   @Deprecated
   public long getCategoryIdByPosition(int position)
   {
     return nativeGetCategoryIdByPosition(position);
   }
-
-  public int getBookmarksCount(long catId)
-  {
-    return nativeGetBookmarksCount(catId);
-  }
-
-  public int getTracksCount(long catId)
-  {
-    return nativeGetTracksCount(catId);
-  }
+*/
 
   @NonNull
   public Bookmark updateBookmarkPlacePage(long bmkId)
@@ -568,28 +560,35 @@ public enum BookmarkManager
   @NonNull
   public AbstractCategoriesSnapshot.Default getDownloadedCategoriesSnapshot()
   {
-    BookmarkCategory[] items = nativeGetBookmarkCategories();
+    List<BookmarkCategory> items = mDataProvider.getCategories();
     return new AbstractCategoriesSnapshot.Default(items, new FilterStrategy.Downloaded());
   }
 
   @NonNull
   public AbstractCategoriesSnapshot.Default getOwnedCategoriesSnapshot()
   {
-    BookmarkCategory[] items = nativeGetBookmarkCategories();
+    List<BookmarkCategory> items = mDataProvider.getCategories();
     return new AbstractCategoriesSnapshot.Default(items, new FilterStrategy.Private());
   }
 
   @NonNull
   public AbstractCategoriesSnapshot.Default getAllCategoriesSnapshot()
   {
-    BookmarkCategory[] items = nativeGetBookmarkCategories();
+    List<BookmarkCategory> items = mDataProvider.getCategories();
     return new AbstractCategoriesSnapshot.Default(items, new FilterStrategy.All());
   }
 
   @NonNull
   public AbstractCategoriesSnapshot.Default getCategoriesSnapshot(FilterStrategy strategy)
   {
-    return new AbstractCategoriesSnapshot.Default(nativeGetBookmarkCategories(), strategy);
+    List<BookmarkCategory> items = mDataProvider.getCategories();
+    return new AbstractCategoriesSnapshot.Default(items, strategy);
+  }
+
+  @NonNull
+  public BookmarkCategory getCategoryById(long categoryId)
+  {
+    return mDataProvider.getCategoryById(categoryId);
   }
 
   public boolean isUsedCategoryName(@NonNull String name)
@@ -606,16 +605,6 @@ public enum BookmarkManager
   public boolean isSearchAllowed(long catId) { return nativeIsSearchAllowed(catId); }
 
   public void prepareForSearch(long catId) { nativePrepareForSearch(catId); }
-
-  public boolean areAllCatalogCategoriesVisible()
-  {
-    return areAllCategoriesVisible(BookmarkCategory.Type.DOWNLOADED);
-  }
-
-  public boolean areAllOwnedCategoriesVisible()
-  {
-    return areAllCategoriesVisible(BookmarkCategory.Type.PRIVATE);
-  }
 
   public boolean areAllCategoriesVisible(BookmarkCategory.Type type)
   {
@@ -936,7 +925,7 @@ public enum BookmarkManager
 
   private native int nativeGetTracksCount(long catId);
 
-  private native BookmarkCategory[] nativeGetBookmarkCategories();
+  public native BookmarkCategory[] nativeGetBookmarkCategories();
 
   @NonNull
   private native Bookmark nativeUpdateBookmarkPlacePage(long bmkId);

@@ -14,10 +14,18 @@ public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHol
 {
   @NonNull
   private final Context mContext;
+  @NonNull
+  private List<BookmarkCategory> mItems;
 
-  BaseBookmarkCategoryAdapter(@NonNull Context context)
+  BaseBookmarkCategoryAdapter(@NonNull Context context, @NonNull List<BookmarkCategory> items)
   {
     mContext = context;
+    mItems = items;
+  }
+
+  public void setItems(@NonNull List<BookmarkCategory> items)
+  {
+    mItems = items;
   }
 
   @NonNull
@@ -29,7 +37,7 @@ public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHol
   @NonNull
   public List<BookmarkCategory> getBookmarkCategories()
   {
-    return BookmarkManager.INSTANCE.getOwnedCategoriesSnapshot().getItems();
+    return mItems;
   }
 
   @Override

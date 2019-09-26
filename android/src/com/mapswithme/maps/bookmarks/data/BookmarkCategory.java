@@ -329,9 +329,9 @@ public class BookmarkCategory implements Parcelable
     DOWNLOADED(BookmarksPageFactory.DOWNLOADED, FilterStrategy.PredicativeStrategy.makeDownloadedInstance());
 
     @NonNull
-    private BookmarksPageFactory mFactory;
+    private final BookmarksPageFactory mFactory;
     @NonNull
-    private FilterStrategy mFilterStrategy;
+    private final FilterStrategy mFilterStrategy;
 
     Type(@NonNull BookmarksPageFactory pageFactory, @NonNull FilterStrategy filterStrategy)
     {

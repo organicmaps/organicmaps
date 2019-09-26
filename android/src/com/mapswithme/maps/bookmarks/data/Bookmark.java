@@ -116,7 +116,7 @@ public class Bookmark extends MapObject
 
   public String getCategoryName()
   {
-    return BookmarkManager.INSTANCE.getCategoryName(mCategoryId);
+    return BookmarkManager.INSTANCE.getCategoryById(mCategoryId).getName();
   }
 
   public void setCategoryId(@IntRange(from = 0) long catId)

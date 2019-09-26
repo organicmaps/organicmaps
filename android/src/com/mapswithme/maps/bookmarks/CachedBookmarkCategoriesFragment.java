@@ -19,7 +19,6 @@ import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.UTM;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.sharing.TargetUtils;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
@@ -77,9 +76,9 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
 
   @NonNull
   @Override
-  protected CatalogBookmarkCategoriesAdapter createAdapter()
+  protected BookmarkCategory.Type getType()
   {
-    return new CatalogBookmarkCategoriesAdapter(requireContext());
+    return BookmarkCategory.Type.DOWNLOADED;
   }
 
   @Override

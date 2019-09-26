@@ -58,7 +58,8 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
 
     final Bundle args = getArguments();
     final int catPosition = args.getInt(CATEGORY_POSITION, 0);
-    mAdapter = new ChooseBookmarkCategoryAdapter(getActivity(), catPosition);
+    List<BookmarkCategory> items = BookmarkManager.INSTANCE.getOwnedCategoriesSnapshot().getItems();
+    mAdapter = new ChooseBookmarkCategoryAdapter(getActivity(), catPosition, items);
     mAdapter.setListener(this);
     mRecycler.setAdapter(mAdapter);
   }

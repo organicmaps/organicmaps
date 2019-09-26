@@ -14,6 +14,8 @@ import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.UiUtils;
 
+import java.util.List;
+
 import static com.mapswithme.maps.bookmarks.Holders.CategoryViewHolder;
 import static com.mapswithme.maps.bookmarks.Holders.HeaderViewHolder;
 import static com.mapswithme.util.UiUtils.PHRASE_SEPARATOR;
@@ -37,16 +39,12 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   @NonNull
   private final BookmarkCategory.Type mType;
 
-  BookmarkCategoriesAdapter(@NonNull Context context, @NonNull BookmarkCategory.Type type)
+  BookmarkCategoriesAdapter(@NonNull Context context, @NonNull BookmarkCategory.Type type,
+                            @NonNull List<BookmarkCategory> categories)
   {
-    super(context.getApplicationContext());
+    super(context.getApplicationContext(), categories);
     mType = type;
     mResProvider = type.getFactory().getResProvider();
-  }
-
-  BookmarkCategoriesAdapter(@NonNull Context context)
-  {
-    this(context, BookmarkCategory.Type.PRIVATE);
   }
 
   public void setOnClickListener(@Nullable OnItemClickListener<BookmarkCategory> listener)

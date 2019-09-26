@@ -40,6 +40,7 @@ import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategoriesDataProvider;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
@@ -2387,7 +2388,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onBookmarksLoadingFinished()
   {
-    // Do nothing
+    BookmarkCategoriesDataProvider.CoreBookmarkCategoriesDataProvider coreDataProvider =
+        new BookmarkCategoriesDataProvider.CoreBookmarkCategoriesDataProvider();
+    BookmarkCategoriesDataProvider.CacheBookmarkCategoriesDataProvider cacheDataProvider =
+        new BookmarkCategoriesDataProvider.CacheBookmarkCategoriesDataProvider(getApplicationContext(), coreDataProvider);
+    BookmarkCategoriesCache.from(getApplicationContext()).updateItems(coreDataProvider.getCategories());
+    BookmarkManager.INSTANCE.setDataProvider(cacheDataProvider);
   }
 
   @Override

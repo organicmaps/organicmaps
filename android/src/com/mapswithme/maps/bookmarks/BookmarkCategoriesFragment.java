@@ -10,6 +10,7 @@ import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.widget.BookmarkBackupView;
 import com.mapswithme.util.UiUtils;
@@ -76,6 +77,13 @@ public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
     setEnableForMenuItem(R.id.delete, bottomSheet, isMultipleItems);
     setEnableForMenuItem(R.id.sharing_options, bottomSheet,
                          getSelectedCategory().isSharingOptionsAllowed());
+  }
+
+  @NonNull
+  @Override
+  protected BookmarkCategory.Type getType()
+  {
+    return BookmarkCategory.Type.PRIVATE;
   }
 
   @Override

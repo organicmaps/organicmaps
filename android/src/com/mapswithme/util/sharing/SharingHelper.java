@@ -225,7 +225,7 @@ public enum SharingHelper
       case BookmarkSharingResult.FILE_ERROR:
         DialogUtils.showAlertDialog(context, R.string.dialog_routing_system_error,
                                     R.string.bookmarks_error_message_share_general);
-        String catName = BookmarkManager.INSTANCE.getCategoryName(result.getCategoryId());
+        String catName = BookmarkManager.INSTANCE.getCategoryById(result.getCategoryId()).getName();
         LOGGER.e(TAG, "Failed to share bookmark category '" + catName + "', error code: "
                       + result.getCode());
         break;

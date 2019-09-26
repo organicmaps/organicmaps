@@ -11,9 +11,9 @@ public abstract class AbstractCategoriesSnapshot
   @NonNull
   private final List<BookmarkCategory> mSnapshot;
 
-  AbstractCategoriesSnapshot(@NonNull BookmarkCategory[] items)
+  AbstractCategoriesSnapshot(@NonNull List<BookmarkCategory> items)
   {
-    mSnapshot = Collections.unmodifiableList(Arrays.asList(items));
+    mSnapshot = Collections.unmodifiableList(items);
   }
 
   @NonNull
@@ -27,7 +27,7 @@ public abstract class AbstractCategoriesSnapshot
     @NonNull
     private final FilterStrategy mStrategy;
 
-    protected Default(@NonNull BookmarkCategory[] items, @NonNull FilterStrategy strategy)
+    protected Default(@NonNull List<BookmarkCategory> items, @NonNull FilterStrategy strategy)
     {
       super(items);
       mStrategy = strategy;

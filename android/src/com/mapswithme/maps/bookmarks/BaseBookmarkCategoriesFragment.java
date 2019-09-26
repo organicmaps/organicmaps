@@ -14,12 +14,16 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.cocosw.bottomsheet.BottomSheet;
+import com.mapswithme.maps.BookmarkCategoriesCache;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
+import com.mapswithme.maps.base.Detachable;
+import com.mapswithme.maps.bookmarks.data.AbstractCategoriesSnapshot;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
+import com.mapswithme.maps.bookmarks.data.FilterStrategy;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.maps.ugc.routes.UgcRouteEditSettingsActivity;
 import com.mapswithme.maps.ugc.routes.UgcRouteSharingOptionsActivity;
@@ -30,6 +34,8 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.Analytics;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.util.List;
 
 public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFragment<BookmarkCategoriesAdapter>
     implements EditTextDialogFragment.EditTextDialogInterface,
@@ -59,6 +65,10 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   @NonNull
   private BookmarkManager.BookmarksCatalogListener mCatalogListener;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private CategoriesAdapterObserver mCategoriesAdapterObserver;
+
   @Override
   @LayoutRes
   protected int getLayoutRes()
@@ -70,7 +80,10 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   @Override
   protected BookmarkCategoriesAdapter createAdapter()
   {
-    return new BookmarkCategoriesAdapter(getActivity());
+    FilterStrategy strategy = getType().getFilterStrategy();
+    List<BookmarkCategory> items = BookmarkManager.INSTANCE.getCategoriesSnapshot(strategy)
+                                                           .getItems();
+    return new BookmarkCategoriesAdapter(requireContext(), getType(), items);
   }
 
   @CallSuper
@@ -92,6 +105,8 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
         .createVerticalDefaultDecorator(getContext());
     rw.addItemDecoration(decor);
     mCatalogListener = new CatalogListenerDecorator(createCatalogListener(), this);
+    mCategoriesAdapterObserver = new CategoriesAdapterObserver();
+    BookmarkCategoriesCache.from(requireContext()).registerObserver(mCategoriesAdapterObserver);
   }
 
   protected void onPrepareControllers(@NonNull View view)
@@ -149,6 +164,13 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   }
 
   @Override
+  public void onDestroyView()
+  {
+    super.onDestroyView();
+    BookmarkCategoriesCache.from(requireContext()).unregisterObserver(mCategoriesAdapterObserver);
+  }
+
+  @Override
   public boolean onMenuItemClick(MenuItem item)
   {
     MenuItemClickProcessorWrapper processor = MenuItemClickProcessorWrapper
@@ -160,7 +182,6 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     Statistics.INSTANCE.trackBookmarkListSettingsClick(processor.getAnalytics());
     return true;
   }
-
 
   protected final void showBottomMenu(@NonNull BookmarkCategory item)
   {
@@ -267,6 +288,9 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     return new CategoryValidator();
   }
 
+  @NonNull
+  protected abstract BookmarkCategory.Type getType();
+
   @Override
   public void onItemClick(@NonNull View v, @NonNull BookmarkCategory category)
   {
@@ -278,7 +302,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   private Intent makeBookmarksListIntent(@NonNull BookmarkCategory category)
   {
     return new Intent(getActivity(), BookmarkListActivity.class)
-                      .putExtra(BookmarksListFragment.EXTRA_CATEGORY, category);
+        .putExtra(BookmarksListFragment.EXTRA_CATEGORY, category);
   }
 
   protected void onShareActionSelected(@NonNull BookmarkCategory category)
@@ -376,9 +400,12 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   {
     SET_SHARE(R.id.share, shareAction(), new Analytics(Statistics.ParamValue.SEND_AS_FILE)),
     SET_EDIT(R.id.edit, editAction(), new Analytics(Statistics.ParamValue.EDIT)),
-    SHOW_ON_MAP(R.id.show_on_map, showAction(), new Analytics(Statistics.ParamValue.MAKE_INVISIBLE_ON_MAP)),
-    SHARING_OPTIONS(R.id.sharing_options, showSharingOptions(), new Analytics(Statistics.ParamValue.SHARING_OPTIONS)),
-    LIST_SETTINGS(R.id.settings, showListSettings(), new Analytics(Statistics.ParamValue.LIST_SETTINGS)),
+    SHOW_ON_MAP(R.id.show_on_map, showAction(),
+                new Analytics(Statistics.ParamValue.MAKE_INVISIBLE_ON_MAP)),
+    SHARING_OPTIONS(R.id.sharing_options, showSharingOptions(),
+                    new Analytics(Statistics.ParamValue.SHARING_OPTIONS)),
+    LIST_SETTINGS(R.id.settings, showListSettings(),
+                  new Analytics(Statistics.ParamValue.LIST_SETTINGS)),
     DELETE_LIST(R.id.delete, deleteAction(), new Analytics(Statistics.ParamValue.DELETE_GROUP));
 
     @NonNull
@@ -525,6 +552,37 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
       {
         UgcRouteEditSettingsActivity.startForResult(frag.getActivity(), category);
       }
+    }
+  }
+
+  private static class CategoriesAdapterObserver extends RecyclerView.AdapterDataObserver implements Detachable<BaseBookmarkCategoriesFragment>
+  {
+    @Nullable
+    private BaseBookmarkCategoriesFragment mFragment;
+
+    @Override
+    public void attach(@NonNull BaseBookmarkCategoriesFragment object)
+    {
+      mFragment = object;
+    }
+
+    @Override
+    public void detach()
+    {
+      mFragment = null;
+    }
+
+    @Override
+    public void onChanged()
+    {
+      super.onChanged();
+      if (mFragment == null)
+        return;
+
+      FilterStrategy strategy = mFragment.getType().getFilterStrategy();
+      AbstractCategoriesSnapshot.Default snapshot =
+          BookmarkManager.INSTANCE.getCategoriesSnapshot(strategy);
+      mFragment.getAdapter().setItems(snapshot.getItems());
     }
   }
 }
