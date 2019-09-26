@@ -15,8 +15,16 @@ using namespace std;
 
 namespace platform
 {
+namespace
+{
+void SetOptions(boost::optional<MapOptions> & destination, MapOptions value)
+{
+  destination = destination ? SetOptions(destination.get(), value) : value;
+}
+}  // namespace
+
 LocalCountryFile::LocalCountryFile()
-    : m_version(0), m_files(MapOptions::Nothing), m_mapSize(0), m_routingSize(0)
+    : m_version(0), m_mapSize(0), m_routingSize(0)
 {
 }
 
@@ -25,7 +33,6 @@ LocalCountryFile::LocalCountryFile(string const & directory, CountryFile const &
     : m_directory(directory),
       m_countryFile(countryFile),
       m_version(version),
-      m_files(MapOptions::Nothing),
       m_mapSize(0),
       m_routingSize(0)
 {
@@ -33,30 +40,30 @@ LocalCountryFile::LocalCountryFile(string const & directory, CountryFile const &
 
 void LocalCountryFile::SyncWithDisk()
 {
-  m_files = MapOptions::Nothing;
+  m_files = {};
   m_mapSize = 0;
   m_routingSize = 0;
   Platform & platform = GetPlatform();
 
   if (platform.GetFileSizeByFullPath(GetPath(MapOptions::Diff), m_mapSize))
   {
-    m_files = SetOptions(m_files, MapOptions::Diff);
+    SetOptions(m_files, MapOptions::Diff);
     return;
   }
 
   if (platform.GetFileSizeByFullPath(GetPath(MapOptions::Map), m_mapSize))
-    m_files = SetOptions(m_files, MapOptions::Map);
+    SetOptions(m_files, MapOptions::Map);
 
   if (version::IsSingleMwm(GetVersion()))
   {
     if (m_files == MapOptions::Map)
-      m_files = SetOptions(m_files, MapOptions::CarRouting);
+      SetOptions(m_files, MapOptions::CarRouting);
     return;
   }
 
   string const routingPath = GetPath(MapOptions::CarRouting);
   if (platform.GetFileSizeByFullPath(routingPath, m_routingSize))
-    m_files = SetOptions(m_files, MapOptions::CarRouting);
+    SetOptions(m_files, MapOptions::CarRouting);
 }
 
 void LocalCountryFile::DeleteFromDisk(MapOptions files) const
@@ -140,7 +147,7 @@ string DebugPrint(LocalCountryFile const & file)
 {
   ostringstream os;
   os << "LocalCountryFile [" << file.m_directory << ", " << DebugPrint(file.m_countryFile) << ", "
-     << file.m_version << ", " << DebugPrint(file.m_files) << "]";
+     << file.m_version << ", " << (file.m_files ? DebugPrint(file.m_files.get()) : "No files") << "]";
   return os.str();
 }
 }  // namespace platform

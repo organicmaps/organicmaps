@@ -59,7 +59,7 @@ int main(int argc, char * argv[])
   for (auto & file : localFiles)
   {
     file.SyncWithDisk();
-    if (file.GetFiles() != MapOptions::MapWithCarRouting)
+    if (!file.OnDisk(MapOptions::MapWithCarRouting))
     {
       LOG(LINFO, ("Warning! Routing file not found for:", file.GetCountryName()));
       continue;

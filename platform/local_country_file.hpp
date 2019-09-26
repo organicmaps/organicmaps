@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+#include <boost/optional.hpp>
+
 namespace platform
 {
 // This class represents a path to disk files corresponding to some
@@ -55,15 +57,18 @@ public:
   // SyncWithDisk() is called.
   uint64_t GetSize(MapOptions filesMask) const;
 
-  // Returns a mask of all known country files. Return value may be
-  // empty until SyncWithDisk() is called.
-  MapOptions GetFiles() const { return m_files; }
+  // Returns true when some files are found during SyncWithDisk.
+  // Return value may be empty until SyncWithDisk() is called.
+  bool HasFiles() const { return m_files.is_initialized(); }
 
   // Checks whether files specified in filesMask are on disk. Return
   // value will be false until SyncWithDisk() is called.
   bool OnDisk(MapOptions filesMask) const
   {
-    return (static_cast<unsigned>(m_files) & static_cast<unsigned>(filesMask)) ==
+    if (!m_files)
+      return false;
+
+    return (static_cast<unsigned>(m_files.get()) & static_cast<unsigned>(filesMask)) ==
            static_cast<unsigned>(filesMask);
   }
 
@@ -100,7 +105,7 @@ private:
   CountryFile m_countryFile;
   int64_t m_version;
 
-  MapOptions m_files;
+  boost::optional<MapOptions> m_files;
 
   /// Size of file which contains map section in bytes. It's mwm file in any case.
   uint64_t m_mapSize;

@@ -77,12 +77,10 @@ UNIT_TEST(LocalCountryFile_Smoke)
              localFile.GetPath(MapOptions::CarRouting), ());
 
   // Not synced with disk yet.
-  TEST_EQUAL(MapOptions::Nothing, localFile.GetFiles(), ());
-
-  // Any statement is true about elements of an empty set.
-  TEST(localFile.OnDisk(MapOptions::Nothing), ());
+  TEST(!localFile.HasFiles(), ());
 
   TEST(!localFile.OnDisk(MapOptions::Map), ());
+  TEST(!localFile.OnDisk(MapOptions::Diff), ());
   TEST(!localFile.OnDisk(MapOptions::CarRouting), ());
   TEST(!localFile.OnDisk(MapOptions::MapWithCarRouting), ());
 
@@ -186,7 +184,7 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
   brazilMapFile.Reset();
 
   irelandLocalFile.SyncWithDisk();
-  TEST_EQUAL(MapOptions::Map, irelandLocalFile.GetFiles(), ());
+  TEST(irelandLocalFile.OnDisk(MapOptions::Map), ());
   irelandLocalFile.DeleteFromDisk(MapOptions::Map);
   TEST(!irelandMapFile.Exists(), (irelandMapFile));
   irelandMapFile.Reset();

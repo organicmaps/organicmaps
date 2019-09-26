@@ -1220,7 +1220,7 @@ void Storage::DeleteCountryFiles(CountryId const & countryId, MapOptions opt, bo
   {
     DeleteFromDiskWithIndexes(*localFile, opt);
     localFile->SyncWithDisk();
-    if (localFile->GetFiles() == MapOptions::Nothing)
+    if (!localFile->HasFiles())
       localFile.reset();
   }
   auto isNull = [](LocalFilePtr const & localFile) { return !localFile; };

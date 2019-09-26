@@ -676,7 +676,7 @@ void Framework::OnCountryFileDownloaded(storage::CountryId const & countryId,
 
   m2::RectD rect = MercatorBounds::FullRect();
 
-  if (localFile && HasOptions(localFile->GetFiles(), MapOptions::Map))
+  if (localFile && localFile->OnDisk(MapOptions::Map))
   {
     // Add downloaded map.
     auto p = m_featuresFetcher.RegisterMap(*localFile);

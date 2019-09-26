@@ -49,6 +49,8 @@
 #include <mutex>
 #include <vector>
 
+#include <boost/optional.hpp>
+
 #include "defines.hpp"
 
 using namespace platform::tests_support;
@@ -543,7 +545,7 @@ LocalFilePtr CreateDummyMapFile(CountryFile const & countryFile, int64_t version
     writer.Write(zeroes.data(), zeroes.size());
   }
   localFile->SyncWithDisk();
-  TEST_EQUAL(MapOptions::Map, localFile->GetFiles(), ());
+  TEST(localFile->OnDisk(MapOptions::Map), ());
   TEST_EQUAL(size, localFile->GetSize(MapOptions::Map), ());
   return localFile;
 }
@@ -697,10 +699,10 @@ UNIT_TEST(StorageTest_DeleteTwoVersionsOfTheSameCountry)
   storage.DeleteCountry(countryId, MapOptions::Map);
 
   localFileV1->SyncWithDisk();
-  TEST_EQUAL(MapOptions::Nothing, localFileV1->GetFiles(), ());
+  TEST(!localFileV1->HasFiles(), ());
 
   localFileV2->SyncWithDisk();
-  TEST_EQUAL(MapOptions::Nothing, localFileV2->GetFiles(), ());
+  TEST(!localFileV1->HasFiles(), ());
 
   TEST_EQUAL(Status::ENotDownloaded, storage.CountryStatusEx(countryId), ());
 }
@@ -742,11 +744,11 @@ UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
 
   LocalFilePtr localFileA = storage.GetLatestLocalFile(countryId);
   TEST(localFileA.get(), ());
-  TEST_EQUAL(MapOptions::Map, localFileA->GetFiles(), ());
+  TEST(localFileA->OnDisk(MapOptions::Map), ());
 
   MwmSet::MwmId id = mwmSet.GetMwmIdByCountryFile(countryFile);
   TEST(id.IsAlive(), ());
-  TEST_EQUAL(MapOptions::Map, id.GetInfo()->GetLocalFile().GetFiles(), ());
+  TEST(id.GetInfo()->GetLocalFile().OnDisk(MapOptions::Map), ());
 
   // Download routing file in addition to exising map file.
   {
@@ -759,10 +761,10 @@ UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
   LocalFilePtr localFileB = storage.GetLatestLocalFile(countryId);
   TEST(localFileB.get(), ());
   TEST_EQUAL(localFileA.get(), localFileB.get(), (*localFileA, *localFileB));
-  TEST_EQUAL(MapOptions::MapWithCarRouting, localFileB->GetFiles(), ());
+  TEST(localFileB->OnDisk(MapOptions::MapWithCarRouting), ());
 
   TEST(id.IsAlive(), ());
-  TEST_EQUAL(MapOptions::MapWithCarRouting, id.GetInfo()->GetLocalFile().GetFiles(), ());
+  TEST(id.GetInfo()->GetLocalFile().OnDisk(MapOptions::MapWithCarRouting), ());
 
   // Delete routing file and check status update.
   {
@@ -772,10 +774,10 @@ UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
   LocalFilePtr localFileC = storage.GetLatestLocalFile(countryId);
   TEST(localFileC.get(), ());
   TEST_EQUAL(localFileB.get(), localFileC.get(), (*localFileB, *localFileC));
-  TEST_EQUAL(MapOptions::Map, localFileC->GetFiles(), ());
+  TEST(localFileC->OnDisk(MapOptions::Map), ());
 
   TEST(id.IsAlive(), ());
-  TEST_EQUAL(MapOptions::Map, id.GetInfo()->GetLocalFile().GetFiles(), ());
+  TEST(id.GetInfo()->GetLocalFile().OnDisk(MapOptions::Map), ());
 
   // Delete map file and check status update.
   {
@@ -786,7 +788,7 @@ UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
   // Framework should notify MwmSet about deletion of a map file.
   // As there're no framework, there should not be any changes in MwmInfo.
   TEST(id.IsAlive(), ());
-  TEST_EQUAL(MapOptions::Map, id.GetInfo()->GetLocalFile().GetFiles(), ());
+  TEST(id.GetInfo()->GetLocalFile().OnDisk(MapOptions::Map), ());
 }
 
 UNIT_CLASS_TEST(StorageTest, DeletePendingCountry)
@@ -921,7 +923,7 @@ UNIT_CLASS_TEST(StorageTest, DeleteCountry)
   tests_support::ScopedFile map("Wonderland.mwm", ScopedFile::Mode::Create);
   LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland",
                                                            version::FOR_TESTING_SINGLE_MWM1);
-  TEST_EQUAL(MapOptions::MapWithCarRouting, file.GetFiles(), ());
+  TEST(file.OnDisk(MapOptions::MapWithCarRouting), ());
 
   CountryIndexes::PreparePlaceOnDisk(file);
   string const bitsPath = CountryIndexes::GetPath(file, CountryIndexes::Index::Bits);
@@ -947,7 +949,7 @@ UNIT_CLASS_TEST(TwoComponentStorageTest, DeleteCountry)
   tests_support::ScopedFile map("Wonderland.mwm", ScopedFile::Mode::Create);
   LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland",
                                                            version::FOR_TESTING_TWO_COMPONENT_MWM1);
-  TEST_EQUAL(MapOptions::Map, file.GetFiles(), ());
+  TEST(file.OnDisk(MapOptions::Map), ());
 
   CountryIndexes::PreparePlaceOnDisk(file);
   string const bitsPath = CountryIndexes::GetPath(file, CountryIndexes::Index::Bits);
