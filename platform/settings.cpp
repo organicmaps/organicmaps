@@ -1,5 +1,7 @@
 #include "platform/settings.hpp"
+
 #include "platform/location.hpp"
+#include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 
 #include "defines.hpp"

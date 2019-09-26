@@ -15,6 +15,7 @@
 #include "search/result.hpp"
 #include "search/reverse_geocoder.hpp"
 
+#include "routing/following_info.hpp"
 #include "routing/routing_callbacks.hpp"
 
 #include "storage/country_decl.hpp"
@@ -510,7 +511,7 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
 
   if (m_framework.GetRoutingManager().IsRoutingActive())
   {
-    location::FollowingInfo loc;
+    routing::FollowingInfo loc;
     m_framework.GetRoutingManager().GetRouteFollowingInfo(loc);
     LOG(LDEBUG, ("Distance:", loc.m_distToTarget, loc.m_targetUnitsSuffix, "Time:", loc.m_time,
                  "Turn:", routing::turns::GetTurnString(loc.m_turn), "(", loc.m_distToTurn, loc.m_turnUnitsSuffix,

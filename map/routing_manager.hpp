@@ -6,6 +6,7 @@
 #include "map/transit/transit_display.hpp"
 #include "map/transit/transit_reader.hpp"
 
+#include "routing/following_info.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_callbacks.hpp"
 #include "routing/routing_session.hpp"
@@ -174,7 +175,7 @@ public:
   }
   void FollowRoute();
   void CloseRouting(bool removeRoutePoints);
-  void GetRouteFollowingInfo(location::FollowingInfo & info) const
+  void GetRouteFollowingInfo(routing::FollowingInfo & info) const
   {
     m_routingSession.GetRouteFollowingInfo(info);
   }

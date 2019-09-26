@@ -47,6 +47,7 @@ set(
   fake_vertex.hpp
   features_road_graph.cpp
   features_road_graph.hpp
+  following_info.hpp
   geometry.cpp
   geometry.hpp
   index_graph.cpp

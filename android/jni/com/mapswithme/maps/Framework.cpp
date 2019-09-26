@@ -37,6 +37,7 @@
 
 #include "indexer/feature_altitude.hpp"
 
+#include "routing/following_info.hpp"
 #include "routing/speed_camera_manager.hpp"
 
 #include "platform/country_file.hpp"
@@ -1333,7 +1334,7 @@ Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jcl
   if (!fr->GetRoutingManager().IsRoutingActive())
     return nullptr;
 
-  location::FollowingInfo info;
+  routing::FollowingInfo info;
   fr->GetRoutingManager().GetRouteFollowingInfo(info);
   if (!info.IsValid())
     return nullptr;
@@ -1348,7 +1349,7 @@ Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jcl
                                                "Ljava/lang/String;Ljava/lang/String;DIIIDDII"
                                                "[Lcom/mapswithme/maps/routing/SingleLaneInfo;ZZ)V");
 
-  vector<location::FollowingInfo::SingleLaneInfoClient> const & lanes = info.m_lanes;
+  vector<routing::FollowingInfo::SingleLaneInfoClient> const & lanes = info.m_lanes;
   jobjectArray jLanes = nullptr;
   if (!lanes.empty())
   {

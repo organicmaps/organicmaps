@@ -2,6 +2,8 @@
 
 #include "map/gps_track_collection.hpp"
 
+#include "geometry/latlon.hpp"
+
 #include "base/logging.hpp"
 
 #include <chrono>

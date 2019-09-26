@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/async_router.hpp"
+#include "routing/following_info.hpp"
 #include "routing/position_accumulator.hpp"
 #include "routing/route.hpp"
 #include "routing/router.hpp"
@@ -96,7 +97,7 @@ public:
                                       feature::TAltitudes & routeAltitudesM) const;
 
   SessionState OnLocationPositionChanged(location::GpsInfo const & info);
-  void GetRouteFollowingInfo(location::FollowingInfo & info) const;
+  void GetRouteFollowingInfo(FollowingInfo & info) const;
 
   void MatchLocationToRoute(location::GpsInfo & location,
                             location::RouteMatchingInfo & routeMatchingInfo) const;

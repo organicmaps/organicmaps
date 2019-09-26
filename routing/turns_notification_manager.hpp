@@ -10,11 +10,6 @@
 #include <string>
 #include <vector>
 
-namespace location
-{
-class FollowingInfo;
-}
-
 namespace routing
 {
 namespace turns
