@@ -553,14 +553,16 @@ using namespace std;
 }
 
 - (void)showSpinner:(BOOL)show {
-  UITextField *textField = [self.searchBar valueForKey:@"searchField"];
-  if (!show) {
-    textField.leftView = self.searchIcon;
-    [self.spinner stopAnimating];
-  } else {
-    self.spinner.bounds = textField.leftView.bounds;
-    textField.leftView = self.spinner;
-    [self.spinner startAnimating];
+  if (@available(iOS 13, *)) {
+    UITextField *textField = self.searchBar.searchTextField;
+    if (!show) {
+      textField.leftView = self.searchIcon;
+      [self.spinner stopAnimating];
+    } else {
+      self.spinner.bounds = textField.leftView.bounds;
+      textField.leftView = self.spinner;
+      [self.spinner startAnimating];
+    }
   }
 }
 
@@ -569,7 +571,6 @@ using namespace std;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-  setStatusBarBackgroundColor(UIColor.clearColor);
   return UIStatusBarStyleLightContent;
 }
 

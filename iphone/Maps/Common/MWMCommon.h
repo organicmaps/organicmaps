@@ -51,11 +51,3 @@ static inline CGFloat statusBarHeight()
   CGSize const statusBarSize = UIApplication.sharedApplication.statusBarFrame.size;
   return MIN(statusBarSize.height, statusBarSize.width);
 }
-
-static inline void setStatusBarBackgroundColor(UIColor * color)
-{
-  UIView * statusBar =
-      [UIApplication.sharedApplication valueForKeyPath:@"statusBarWindow.statusBar"];
-  if ([statusBar respondsToSelector:@selector(setBackgroundColor:)])
-    statusBar.backgroundColor = color;
-}

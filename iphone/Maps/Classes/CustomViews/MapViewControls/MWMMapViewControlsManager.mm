@@ -91,8 +91,6 @@ extern NSString * const kAlohalyticsTapEventKey;
                                          isDirectionViewUnderStatusBar ||
                                          isMenuViewUnderStatusBar || isAddPlaceUnderStatusBar;
 
-  setStatusBarBackgroundColor(isSomethingUnderStatusBar ? UIColor.clearColor
-                                                        : [UIColor statusBarBackground]);
   return isSomethingUnderStatusBar || isNightMode ? UIStatusBarStyleLightContent
                                                   : UIStatusBarStyleDefault;
 }

@@ -51,7 +51,6 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-  setStatusBarBackgroundColor(UIColor.clearColor);
   return UIStatusBarStyleLightContent;
 }
 
@@ -141,9 +140,6 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
   self.isSearch = NO;
   self.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor primary]];
   self.searchBar.placeholder = L(@"search");
-  UITextField * textFiled = [self.searchBar valueForKey:@"searchField"];
-  UILabel * placeholder = [textFiled valueForKey:@"_placeholderLabel"];
-  placeholder.textColor = [UIColor blackHintText];
 }
 
 - (void)configData

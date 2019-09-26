@@ -65,7 +65,6 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-  setStatusBarBackgroundColor(UIColor.clearColor);
   return UIStatusBarStyleLightContent;
 }
 
@@ -74,9 +73,6 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 {
   self.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor primary]];
   self.searchBar.placeholder = L(@"search");
-  UITextField * textFiled = [self.searchBar valueForKey:@"searchField"];
-  UILabel * placeholder = [textFiled valueForKey:@"_placeholderLabel"];
-  placeholder.textColor = [UIColor blackHintText];
 }
 
 - (void)onDone

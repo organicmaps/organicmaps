@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="45K-kk-B2o" id="wdW-iu-3p9">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="239.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Fsd-1g-BiQ">
@@ -39,7 +36,7 @@
                         </connections>
                     </textView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient_light" translatesAutoresizingMaskIntoConstraints="NO" id="nxK-lC-JqY">
-                        <rect key="frame" x="24" y="137" width="272" height="24"/>
+                        <rect key="frame" x="16" y="137.5" width="288" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="lxX-KK-ccK"/>
                         </constraints>
@@ -48,7 +45,7 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZiC-VG-fs0">
-                        <rect key="frame" x="0.0" y="161" width="320" height="33"/>
+                        <rect key="frame" x="0.0" y="161.5" width="320" height="33"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="33" id="I3z-10-2aB"/>
                         </constraints>
@@ -67,7 +64,7 @@
                         </connections>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="ZHb-qS-nFh">
-                        <rect key="frame" x="16" y="194" width="304" height="1"/>
+                        <rect key="frame" x="16" y="194.5" width="304" height="1"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="Nie-DF-2Ki"/>
                         </constraints>
@@ -76,7 +73,7 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKp-HW-1bX">
-                        <rect key="frame" x="0.0" y="195" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="195.5" width="320" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="GrP-Iw-EEG"/>
                         </constraints>
@@ -96,7 +93,7 @@
                         </connections>
                     </button>
                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xqf-Fb-Ojj">
-                        <rect key="frame" x="142" y="199" width="36" height="36"/>
+                        <rect key="frame" x="142" y="199.5" width="36" height="36"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="36" id="gj2-Tn-x6I"/>
                             <constraint firstAttribute="height" constant="36" id="rzU-50-2nS"/>
@@ -106,15 +103,15 @@
                 <constraints>
                     <constraint firstItem="Xqf-Fb-Ojj" firstAttribute="centerX" secondItem="fKp-HW-1bX" secondAttribute="centerX" id="3SE-at-on8"/>
                     <constraint firstItem="fKp-HW-1bX" firstAttribute="top" secondItem="ZHb-qS-nFh" secondAttribute="bottom" id="5GI-iV-NcW"/>
-                    <constraint firstItem="nxK-lC-JqY" firstAttribute="leading" secondItem="wdW-iu-3p9" secondAttribute="leadingMargin" constant="8" id="7aJ-6Q-edO"/>
                     <constraint firstItem="Xqf-Fb-Ojj" firstAttribute="centerY" secondItem="fKp-HW-1bX" secondAttribute="centerY" id="Bjg-lo-TFI"/>
                     <constraint firstAttribute="bottom" secondItem="fKp-HW-1bX" secondAttribute="bottom" constant="0.5" id="Lni-kV-hFB"/>
                     <constraint firstItem="ZHb-qS-nFh" firstAttribute="leading" secondItem="wdW-iu-3p9" secondAttribute="leading" constant="16" id="MNZ-uJ-rat"/>
+                    <constraint firstItem="nxK-lC-JqY" firstAttribute="trailing" secondItem="Fsd-1g-BiQ" secondAttribute="trailing" id="Nuc-hw-k7g"/>
                     <constraint firstAttribute="trailing" secondItem="Fsd-1g-BiQ" secondAttribute="trailing" constant="16" id="Oli-Wc-XEw"/>
                     <constraint firstItem="Fsd-1g-BiQ" firstAttribute="leading" secondItem="wdW-iu-3p9" secondAttribute="leading" constant="16" id="Sf7-Sm-qjx"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="nxK-lC-JqY" secondAttribute="trailing" constant="8" id="XVC-is-HpN"/>
                     <constraint firstAttribute="trailing" secondItem="ZiC-VG-fs0" secondAttribute="trailing" id="YnE-ZS-uvq"/>
                     <constraint firstItem="Fsd-1g-BiQ" firstAttribute="top" secondItem="wdW-iu-3p9" secondAttribute="top" id="eq7-sX-Xmu"/>
+                    <constraint firstItem="nxK-lC-JqY" firstAttribute="leading" secondItem="Fsd-1g-BiQ" secondAttribute="leading" id="fEH-Mb-jKl"/>
                     <constraint firstItem="ZiC-VG-fs0" firstAttribute="top" secondItem="nxK-lC-JqY" secondAttribute="bottom" id="fzw-Ku-ogi"/>
                     <constraint firstItem="ZHb-qS-nFh" firstAttribute="top" secondItem="ZiC-VG-fs0" secondAttribute="bottom" id="lhB-Bz-I7t"/>
                     <constraint firstItem="ZiC-VG-fs0" firstAttribute="top" secondItem="Fsd-1g-BiQ" secondAttribute="bottom" priority="750" id="ljR-q8-Ogv"/>
@@ -135,7 +132,7 @@
                 <outlet property="textViewHeight" destination="9oh-yS-fXg" id="wSI-K7-3Sn"/>
                 <outlet property="textViewZeroHeight" destination="Fzu-Vb-HiG" id="F1e-1k-Ip3"/>
             </connections>
-            <point key="canvasLocation" x="291" y="429"/>
+            <point key="canvasLocation" x="421.73913043478262" y="287.27678571428572"/>
         </tableViewCell>
     </objects>
     <resources>

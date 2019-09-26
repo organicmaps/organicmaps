@@ -240,22 +240,6 @@
 
 @end
 
-@implementation UITextField (Refresh)
-
-- (void)mwm_refreshUI
-{
-  [super mwm_refreshUI];
-  UIColor * oppositeText = self.textColor.opposite;
-  UILabel * placeholder = [self valueForKey:@"_placeholderLabel"];
-  UIColor * oppositePlaceholder = placeholder.textColor.opposite;
-  if (oppositeText)
-    self.textColor = oppositeText;
-  if (oppositePlaceholder)
-    placeholder.textColor = oppositePlaceholder;
-}
-
-@end
-
 @implementation UIImageView (Refresh)
 
 - (void)mwm_refreshUI

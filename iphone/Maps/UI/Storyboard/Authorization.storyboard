@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--AuthorizationOSM Login View Controller-->
         <scene sceneID="14Y-XP-wqe">
             <objects>
-                <viewController storyboardIdentifier="UIViewController-4R7-Vk-fQr" id="4R7-Vk-fQr" customClass="MWMAuthorizationOSMLoginViewController" propertyAccessControl="all" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UIViewController-4R7-Vk-fQr" id="4R7-Vk-fQr" customClass="MWMAuthorizationOSMLoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="S9T-iq-RN6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2p5-BG-sgS">
-                                <rect key="frame" x="0.0" y="40" width="375" height="88"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="88"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8t7-Lb-1dX" userLabel="Separator #1">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
@@ -37,7 +30,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NyD-Tz-Vq4">
-                                        <rect key="frame" x="16" y="1" width="343" height="45"/>
+                                        <rect key="frame" x="16" y="1" width="343" height="44.5"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                                         <userDefinedRuntimeAttributes>
@@ -45,14 +38,13 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="validatorName" value="MWMInputLoginValidator"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="_placeholderLabel.colorName" value="blackHintText"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="delegate" destination="4R7-Vk-fQr" id="koP-R3-XiP"/>
                                         </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xl1-50-Vih" userLabel="Separator #2">
-                                        <rect key="frame" x="16" y="44" width="359" height="1"/>
+                                        <rect key="frame" x="16" y="43.5" width="359" height="1"/>
                                         <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="vvu-MV-Pff"/>
@@ -62,7 +54,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e51-Qs-t6a">
-                                        <rect key="frame" x="16" y="45" width="343" height="43"/>
+                                        <rect key="frame" x="16" y="44.5" width="343" height="43.5"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                                         <userDefinedRuntimeAttributes>
@@ -70,7 +62,6 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="validatorName" value="MWMInputPasswordValidator"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="_placeholderLabel.colorName" value="blackHintText"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="delegate" destination="4R7-Vk-fQr" id="QBg-oI-jcp"/>
@@ -113,7 +104,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QoF-Wv-nc2">
-                                <rect key="frame" x="16" y="148" width="343" height="44"/>
+                                <rect key="frame" x="16" y="128" width="343" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="g9P-gK-jg8"/>
                                 </constraints>
@@ -139,7 +130,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOX-WF-oyI">
-                                <rect key="frame" x="16" y="204" width="343" height="44"/>
+                                <rect key="frame" x="16" y="184" width="343" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="SFg-uo-s0U"/>
                                 </constraints>
@@ -157,7 +148,7 @@
                                 </connections>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jMt-5d-INe">
-                                <rect key="frame" x="177.5" y="160" width="20" height="20"/>
+                                <rect key="frame" x="177.5" y="140" width="20" height="20"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="9HJ-T7-PfS"/>
@@ -206,13 +197,13 @@
         <!--Authorization Login View Controller-->
         <scene sceneID="brg-EE-ML1">
             <objects>
-                <viewController storyboardIdentifier="AuthorizationLoginViewController" id="iZ6-Zi-bkZ" customClass="MWMAuthorizationLoginViewController" propertyAccessControl="all" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthorizationLoginViewController" id="iZ6-Zi-bkZ" customClass="MWMAuthorizationLoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="i64-CY-UO1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S0n-BM-V4o" userLabel="Auth view">
-                                <rect key="frame" x="20" y="116" width="335" height="249"/>
+                                <rect key="frame" x="20" y="96" width="335" height="248.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tzz-yF-441">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="40"/>
@@ -342,7 +333,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have OpenStreetMap account?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhm-W1-U8A">
-                                        <rect key="frame" x="0.0" y="180" width="335" height="17"/>
+                                        <rect key="frame" x="0.0" y="180" width="335" height="16.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="ntS-Lm-ZFB"/>
                                         </constraints>
@@ -356,7 +347,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0p-dL-PG8">
-                                        <rect key="frame" x="0.0" y="205" width="335" height="44"/>
+                                        <rect key="frame" x="0.0" y="204.5" width="335" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="4EG-ux-LH6"/>
                                         </constraints>
@@ -397,7 +388,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qZp-mj-lui" userLabel="Account view">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WGF-rs-oH8" userLabel="Main view">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="212"/>
@@ -420,7 +411,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VERIFIED CHANGES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61G-Rv-3df">
-                                                <rect key="frame" x="119.5" y="146" width="137" height="17"/>
+                                                <rect key="frame" x="119" y="146" width="137" height="17"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -431,7 +422,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last send 12.01.2015" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2UV-ZB-sPO">
-                                                <rect key="frame" x="128.5" y="171" width="119" height="15"/>
+                                                <rect key="frame" x="128" y="171" width="119" height="15"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -533,7 +524,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7m7-zW-Tcq">
-                                        <rect key="frame" x="20" y="607" width="335" height="20"/>
+                                        <rect key="frame" x="20" y="627" width="335" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="Z6L-ma-g9a"/>
                                         </constraints>
@@ -611,20 +602,20 @@
         <!--Authorization Web View Login View Controller-->
         <scene sceneID="FkX-1E-Llw">
             <objects>
-                <viewController storyboardIdentifier="UIViewController-anB-7S-ebY" id="anB-7S-ebY" customClass="MWMAuthorizationWebViewLoginViewController" propertyAccessControl="all" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UIViewController-anB-7S-ebY" id="anB-7S-ebY" customClass="MWMAuthorizationWebViewLoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2u2-L2-Hb3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iae-5m-9Z1">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="anB-7S-ebY" id="EDW-sZ-Oem"/>
                                 </connections>
                             </webView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WWh-HK-7a5">
-                                <rect key="frame" x="167.5" y="323.5" width="40" height="40"/>
+                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="4e7-ir-1vf"/>

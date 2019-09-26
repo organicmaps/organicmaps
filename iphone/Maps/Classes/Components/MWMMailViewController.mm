@@ -11,7 +11,6 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-  setStatusBarBackgroundColor(UIColor.clearColor);
   return UIStatusBarStyleLightContent;
 }
 
