@@ -118,7 +118,7 @@ void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> &&
       continue;
     }
 
-    if (anotherResult.GetRoutes().empty())
+    if (anotherResult.GetRoutes().empty() || !anotherResult.IsCodeOK())
     {
       routesSaver.PushRivalError(startLatLon, finishLatLon);
       ++apiErrors;
