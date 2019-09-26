@@ -243,8 +243,9 @@ void DrapeEngine::InvalidateUserMarks()
 
 void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
 {
-  auto const dirtyGroupIds = firstTime ? provider->GetAllGroupIds() : provider->GetDirtyGroupIds();
-  if (dirtyGroupIds.empty())
+  auto const updatedGroupIds = firstTime ? provider->GetAllGroupIds()
+                                         : provider->GetUpdatedGroupIds();
+  if (updatedGroupIds.empty())
     return;
 
   auto marksRenderCollection = make_unique_dp<UserMarksRenderCollection>();
@@ -254,7 +255,7 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
 
   if (!firstTime)
   {
-    kml::MarkGroupId lastGroupId = *dirtyGroupIds.begin();
+    kml::MarkGroupId lastGroupId = *updatedGroupIds.begin();
     bool visibilityChanged = provider->IsGroupVisibilityChanged(lastGroupId);
     bool groupIsVisible = provider->IsGroupVisible(lastGroupId);
 
@@ -264,8 +265,6 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
       kml::MarkIdCollection *idCollection)
     {
       auto const *mark = provider->GetUserPointMark(markId);
-      if (!mark->IsDirty())
-        return;
       auto const groupId = mark->GetGroupId();
       if (groupId != lastGroupId)
       {
@@ -297,7 +296,7 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
   }
 
   std::map<kml::MarkGroupId, drape_ptr<IDCollections>> dirtyMarkIds;
-  for (auto groupId : dirtyGroupIds)
+  for (auto groupId : updatedGroupIds)
   {
     auto & idCollection = *(dirtyMarkIds.emplace(groupId, make_unique_dp<IDCollections>()).first->second);
     bool const visibilityChanged = provider->IsGroupVisibilityChanged(groupId);

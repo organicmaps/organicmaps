@@ -57,6 +57,8 @@ public:
   using KMLDataCollection = std::vector<std::pair<std::string, std::unique_ptr<kml::FileData>>>;
   using KMLDataCollectionPtr = std::shared_ptr<KMLDataCollection>;
 
+  using CategoriesChangedCallback = std::function<void()>;
+
   using AsyncLoadingStartedCallback = std::function<void()>;
   using AsyncLoadingFinishedCallback = std::function<void()>;
   using AsyncLoadingFileCallback = std::function<void(std::string const &, bool)>;
@@ -173,6 +175,7 @@ public:
                                storage::CountryInfoGetter const & infoGetter);
   void ResetRegionAddressGetter();
 
+  void SetCategoriesChangedCallback(CategoriesChangedCallback && callback);
   void SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks);
   bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
 
@@ -459,12 +462,16 @@ private:
 
     void OnAddGroup(kml::MarkGroupId groupId);
     void OnDeleteGroup(kml::MarkGroupId groupId);
+    void OnUpdateGroup(kml::MarkGroupId groupId);
 
     void OnAttachBookmark(kml::MarkId markId, kml::MarkGroupId catId);
     void OnDetachBookmark(kml::MarkId markId, kml::MarkGroupId catId);
 
-    bool CheckChanges();
+    void AcceptDirtyItems();
+    bool HasChanges() const;
+    bool HasBookmarksChanges() const;
     void ResetChanges();
+    void AddChanges(MarksChangesTracker const & changes);
 
     using GroupMarkIdSet = std::map<kml::MarkGroupId, kml::MarkIdSet>;
     GroupMarkIdSet const & GetAttachedBookmarks() const { return m_attachedBookmarks; }
@@ -472,7 +479,7 @@ private:
 
     // UserMarksProvider
     kml::GroupIdSet GetAllGroupIds() const override;
-    kml::GroupIdSet const & GetDirtyGroupIds() const override { return m_dirtyGroups; }
+    kml::GroupIdSet const & GetUpdatedGroupIds() const override { return m_updatedGroups; }
     kml::GroupIdSet const & GetRemovedGroupIds() const override { return m_removedGroups; }
     kml::MarkIdSet const & GetCreatedMarkIds() const override { return m_createdMarks; }
     kml::MarkIdSet const & GetRemovedMarkIds() const override { return m_removedMarks; }
@@ -498,7 +505,7 @@ private:
     kml::TrackIdSet m_createdLines;
     kml::TrackIdSet m_removedLines;
 
-    kml::GroupIdSet m_dirtyGroups;
+    kml::GroupIdSet m_updatedGroups;
     kml::GroupIdSet m_createdGroups;
     kml::GroupIdSet m_removedGroups;
 
@@ -612,9 +619,10 @@ private:
                                      KmlFileType fileType, BookmarksChecker const & checker,
                                      std::vector<std::string> & cloudFilePaths);
 
-  void CollectDirtyGroups(kml::GroupIdSet & dirtyGroups);
-
+  void GetDirtyGroups(kml::GroupIdSet & dirtyGroups) const;
   void UpdateBmGroupIdList();
+
+  void NotifyBookmarksChanged();
 
   void SendBookmarksChanges();
   void GetBookmarksInfo(kml::MarkIdSet const & marks, std::vector<BookmarkInfo> & bookmarks);
@@ -702,11 +710,13 @@ private:
   User & m_user;
   Callbacks m_callbacks;
   MarksChangesTracker m_changesTracker;
+  MarksChangesTracker m_postponedChangesTracker;
   df::DrapeEngineSafePtr m_drapeEngine;
 
   std::unique_ptr<search::RegionAddressGetter> m_regionAddressGetter;
   std::mutex m_regionAddressMutex;
 
+  CategoriesChangedCallback m_categoriesChangedCallback;
   AsyncLoadingCallbacks m_asyncLoadingCallbacks;
   std::atomic<bool> m_needTeardown;
   size_t m_openedEditSessionsCount = 0;

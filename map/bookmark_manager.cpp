@@ -525,6 +525,7 @@ BookmarkManager::BookmarkManager(User & user, Callbacks && callbacks)
   : m_user(user)
   , m_callbacks(std::move(callbacks))
   , m_changesTracker(*this)
+  , m_postponedChangesTracker(*this)
   , m_needTeardown(false)
   , m_bookmarkCloud(Cloud::CloudParams("bmc.json", "bookmarks", std::string(kBookmarkCloudSettingsParam),
                                        GetBookmarksDirectory(), std::string(kKmbExtension),
@@ -731,7 +732,7 @@ void BookmarkManager::DeleteTrack(kml::TrackId trackId)
   m_tracks.erase(it);
 }
 
-void BookmarkManager::CollectDirtyGroups(kml::GroupIdSet & dirtyGroups)
+void BookmarkManager::GetDirtyGroups(kml::GroupIdSet & dirtyGroups) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (auto const & group : m_userMarkLayers)
@@ -765,25 +766,31 @@ void BookmarkManager::NotifyChanges()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
+  m_changesTracker.AcceptDirtyItems();
+  if (!m_firstDrapeNotification &&
+    !m_changesTracker.HasChanges() && !m_postponedChangesTracker.HasChanges())
+  {
+    return;
+  }
+
+  if (m_changesTracker.HasBookmarksChanges())
+    NotifyBookmarksChanged();
+
+  m_postponedChangesTracker.AddChanges(m_changesTracker);
+  m_changesTracker.ResetChanges();
+
   if (!m_notificationsEnabled)
     return;
 
-  if (!m_changesTracker.CheckChanges() && !m_firstDrapeNotification)
-    return;
-
-  bool hasBookmarks = false;
-  kml::GroupIdCollection categoriesToSave;
-  for (auto groupId : m_changesTracker.GetDirtyGroupIds())
+  if (m_postponedChangesTracker.HasBookmarksChanges())
   {
-    if (IsBookmarkCategory(groupId))
+    kml::GroupIdCollection categoriesToSave;
+    for (auto groupId : m_postponedChangesTracker.GetUpdatedGroupIds())
     {
-      if (GetBmCategory(groupId)->IsAutoSaveEnabled())
+      if (IsBookmarkCategory(groupId) && GetBmCategory(groupId)->IsAutoSaveEnabled())
         categoriesToSave.push_back(groupId);
-      hasBookmarks = true;
     }
-  }
-  if (hasBookmarks)
-  {
+
     SaveBookmarks(categoriesToSave);
     SendBookmarksChanges();
   }
@@ -792,31 +799,22 @@ void BookmarkManager::NotifyChanges()
   if (lock)
   {
     auto engine = lock.Get();
-    for (auto groupId : m_changesTracker.GetDirtyGroupIds())
+    for (auto groupId : m_postponedChangesTracker.GetUpdatedGroupIds())
     {
       auto * group = GetGroup(groupId);
       engine->ChangeVisibilityUserMarksGroup(groupId, group->IsVisible());
     }
 
-    for (auto groupId : m_changesTracker.GetRemovedGroupIds())
+    for (auto groupId : m_postponedChangesTracker.GetRemovedGroupIds())
       engine->ClearUserMarksGroup(groupId);
 
-    engine->UpdateUserMarks(&m_changesTracker, m_firstDrapeNotification);
+    engine->UpdateUserMarks(&m_postponedChangesTracker, m_firstDrapeNotification);
     m_firstDrapeNotification = false;
-
-    for (auto groupId : m_changesTracker.GetDirtyGroupIds())
-    {
-      auto * group = GetGroup(groupId);
-      group->ResetChanges();
-    }
 
     engine->InvalidateUserMarks();
   }
 
-  for (auto const markId : m_changesTracker.GetUpdatedMarkIds())
-    GetMark(markId)->ResetChanges();
-
-  m_changesTracker.ResetChanges();
+  m_postponedChangesTracker.ResetChanges();
 }
 
 kml::MarkIdSet const & BookmarkManager::GetUserMarkIds(kml::MarkGroupId groupId) const
@@ -1612,6 +1610,11 @@ void BookmarkManager::UpdateViewport(ScreenBase const & screen)
   m_viewport = screen;
 }
 
+void BookmarkManager::SetCategoriesChangedCallback(CategoriesChangedCallback && callback)
+{
+  m_categoriesChangedCallback = std:move(callback);
+}
+
 void BookmarkManager::SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks)
 {
   m_asyncLoadingCallbacks = std::move(callbacks);
@@ -2193,6 +2196,12 @@ void BookmarkManager::SendBookmarksChanges()
   }
 }
 
+void BookmarkManager::NotifyBookmarksChanged()
+{
+  if (m_categoriesChangedCallback != nullptr)
+    m_categoriesChangedCallback();
+}
+
 bool BookmarkManager::HasBmCategory(kml::MarkGroupId groupId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -2589,6 +2598,9 @@ void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollec
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   if (m_migrationInProgress)
+    return;
+
+  if (groupIdCollection.empty())
     return;
 
   auto kmlDataCollection = PrepareToSaveBookmarks(groupIdCollection);
@@ -3429,6 +3441,7 @@ void BookmarkManager::MarksChangesTracker::OnAddGroup(kml::MarkGroupId groupId)
 
 void BookmarkManager::MarksChangesTracker::OnDeleteGroup(kml::MarkGroupId groupId)
 {
+  m_updatedGroups.erase(groupId);
   auto const it = m_createdGroups.find(groupId);
   if (it != m_createdGroups.end())
     m_createdGroups.erase(it);
@@ -3436,21 +3449,71 @@ void BookmarkManager::MarksChangesTracker::OnDeleteGroup(kml::MarkGroupId groupI
     m_removedGroups.insert(groupId);
 }
 
-bool BookmarkManager::MarksChangesTracker::CheckChanges()
+void BookmarkManager::MarksChangesTracker::OnUpdateGroup(kml::MarkGroupId groupId)
 {
-  m_bmManager.CollectDirtyGroups(m_dirtyGroups);
+  m_updatedGroups.insert(groupId);
+}
+
+void BookmarkManager::MarksChangesTracker::AcceptDirtyItems()
+{
+  m_bmManager.GetDirtyGroups(m_updatedGroups);
+  for (auto groupId : m_updatedGroups)
+  {
+    auto * group = m_bmManager.GetGroup(groupId);
+    group->ResetChanges();
+  }
+
+  kml::MarkIdSet dirtyMarks;
   for (auto const markId : m_updatedMarks)
   {
     auto const * mark = m_bmManager.GetMark(markId);
     if (mark->IsDirty())
-      m_dirtyGroups.insert(mark->GetGroupId());
+    {
+      dirtyMarks.insert(markId);
+      m_updatedGroups.insert(mark->GetGroupId());
+      mark->ResetChanges();
+    }
   }
-  return !m_dirtyGroups.empty() || !m_removedGroups.empty();
+  m_updatedMarks.swap(dirtyMarks);
+
+  for (auto const markId : m_createdMarks)
+  {
+    auto const *mark = m_bmManager.GetMark(markId);
+    ASSERT(mark->IsDirty(), ());
+    mark->ResetChanges();
+  }
+
+  for (auto const lineId : m_createdLines)
+  {
+    auto const *line = m_bmManager.GetTrack(lineId);
+    ASSERT(line->IsDirty(), ());
+    line->ResetChanges();
+  }
+}
+
+bool BookmarkManager::MarksChangesTracker::HasChanges() const
+{
+  return !m_updatedGroups.empty() || !m_removedGroups.empty();
+}
+
+bool BookmarkManager::MarksChangesTracker::HasBookmarksChanges() const
+{
+  for (auto groupId : m_updatedGroups)
+  {
+    if (m_bmManager.IsBookmarkCategory(groupId))
+      return true;
+  }
+  for (auto groupId : m_removedGroups)
+  {
+    if (m_bmManager.IsBookmarkCategory(groupId))
+      return true;
+  }
+  return false;
 }
 
 void BookmarkManager::MarksChangesTracker::ResetChanges()
 {
-  m_dirtyGroups.clear();
+  m_updatedGroups.clear();
   m_createdGroups.clear();
   m_removedGroups.clear();
 
@@ -3463,6 +3526,45 @@ void BookmarkManager::MarksChangesTracker::ResetChanges()
 
   m_attachedBookmarks.clear();
   m_detachedBookmarks.clear();
+}
+
+void BookmarkManager::MarksChangesTracker::AddChanges(MarksChangesTracker const & changes)
+{
+  for (auto const groupId : changes.m_createdGroups)
+    OnAddGroup(groupId);
+
+  for (auto const groupId : changes.m_updatedGroups)
+    OnUpdateGroup(groupId);
+
+  for (auto const groupId : changes.m_removedGroups)
+    OnDeleteGroup(groupId);
+
+  for (auto const markId : changes.m_createdMarks)
+    OnAddMark(markId);
+
+  for (auto const markId : changes.m_updatedMarks)
+    OnUpdateMark(markId);
+
+  for (auto const markId : changes.m_removedMarks)
+    OnDeleteMark(markId);
+
+  for (auto const lineId : changes.m_createdLines)
+    OnAddLine(lineId);
+
+  for (auto const lineId : changes.m_removedLines)
+    OnDeleteLine(lineId);
+
+  for (auto const & attachedInfo : changes.m_attachedBookmarks)
+  {
+    for (auto const markId : attachedInfo.second)
+      OnAttachBookmark(markId, attachedInfo.first);
+  }
+
+  for (auto const & detachedInfo : changes.m_detachedBookmarks)
+  {
+    for (auto const markId : detachedInfo.second)
+      OnDetachBookmark(markId, detachedInfo.first);
+  }
 }
 
 bool BookmarkManager::SortedBlock::operator==(SortedBlock const & other) const
