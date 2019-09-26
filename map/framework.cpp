@@ -1739,7 +1739,9 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
     m_drapeEngine->SetModelViewCenter(center, scale, animation, true /* trackVisibleViewport */);
 
   GetBookmarkManager().SelectionMark().SetPtOrg(center);
-  ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, TapEvent::Source::Search, info);
+  auto const isGeometrySelectionAllowed = result.GetResultType() == Result::Type::Feature;
+  ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, TapEvent::Source::Search, info,
+                       isGeometrySelectionAllowed);
   m_lastTapEvent = MakeTapEvent(center, info.GetID(), TapEvent::Source::Search);
 }
 
@@ -2417,14 +2419,15 @@ void Framework::SetPlacePageListenners(PlacePageEvent::OnOpen const & onOpen,
   m_onPlacePageUpdate = onUpdate;
 }
 
-void Framework::ActivateMapSelection(bool needAnimation, df::SelectionShape::ESelectedObject selectionType,
-                                     TapEvent::Source tapSource, place_page::Info const & info)
+void Framework::ActivateMapSelection(bool needAnimation,
+                                     df::SelectionShape::ESelectedObject selectionType,
+                                     TapEvent::Source tapSource, place_page::Info const & info,
+                                     bool isGeometrySelectionAllowed)
 {
   ASSERT_NOT_EQUAL(selectionType, df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
   m_selectedFeature = info.GetID();
   if (m_drapeEngine != nullptr)
   {
-    bool isGeometrySelectionAllowed = (tapSource == TapEvent::Source::Search);
     m_drapeEngine->SelectObject(selectionType, info.GetMercator(), info.GetID(), needAnimation,
                                 isGeometrySelectionAllowed);
   }

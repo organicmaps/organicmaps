@@ -412,7 +412,8 @@ private:
   };
 
   void ActivateMapSelection(bool needAnimation, df::SelectionShape::ESelectedObject selectionType,
-                            TapEvent::Source tapSource, place_page::Info const & info);
+                            TapEvent::Source tapSource, place_page::Info const & info,
+                            bool isGeometrySelectionAllowed = false);
   void InvalidateUserMarks();
 
 public:
