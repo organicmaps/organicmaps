@@ -379,7 +379,10 @@ UNIT_CLASS_TEST(ProcessorTest, SearchByName)
     Rules rules = {ExactMatch(wonderlandId, hydePark)};
     TEST(ResultsMatch("hyde park", rules), ());
     TEST(ResultsMatch("london hyde park", rules), ());
-    TEST(ResultsMatch("hyde london park", Rules()), ());
+  }
+  {
+    Rules rules = {ExactMatch(worldId, london)};
+    TEST(ResultsMatch("hyde london park", rules), ());
   }
 
   SetViewport(m2::RectD(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5)));
@@ -1099,7 +1102,7 @@ UNIT_CLASS_TEST(ProcessorTest, FuzzyMatch)
     TEST(ResultsMatch("масква ленинргадский черчиль", "ru", rules), ());
 
     // Too many errors, can't do anything.
-    TEST(ResultsMatch("масква лениноргадсский чирчиль", "ru", Rules{}), ());
+    TEST(ResultsMatch("маcсква лениноргадсский чирчиль", "ru", Rules{}), ());
 
     TEST(ResultsMatch("моксва ленинргадский черчиль", "ru", rules), ());
 
@@ -1395,9 +1398,9 @@ UNIT_CLASS_TEST(ProcessorTest, RelaxedRetrieval)
 
   {
     Rules rulesStrict = {ExactMatch(countryId, street)};
-    Rules rulesRelaxed = {};
+    Rules rulesRelaxed = {ExactMatch(worldId, city)};
 
-    // Cities and larger toponyms should not be relaxed.
+    // Should return relaxed result for city.
     // "city" instead of "city-street"
     TEST(ResultsMatch("sick city queer street ", rulesStrict), ());
     TEST(ResultsMatch("sick city sick street ", rulesRelaxed), ());
@@ -1405,9 +1408,9 @@ UNIT_CLASS_TEST(ProcessorTest, RelaxedRetrieval)
 
   {
     Rules rulesStrict = {ExactMatch(countryId, street)};
-    Rules rulesRelaxed = {};
+    Rules rulesRelaxed = {ExactMatch(worldId, city)};
 
-    // Should not be relaxed.
+    // Should return relaxed result for city.
     // "country-city" instead of "country-city-street"
     TEST(ResultsMatch("wonderland sick city queer street ", rulesStrict), ());
     TEST(ResultsMatch("wonderland sick city other street ", rulesRelaxed), ());
@@ -1415,9 +1418,9 @@ UNIT_CLASS_TEST(ProcessorTest, RelaxedRetrieval)
 
   {
     Rules rulesStrict = {ExactMatch(countryId, poi0)};
-    Rules rulesRelaxed = {};
+    Rules rulesRelaxed = {ExactMatch(worldId, city)};
 
-    // Should not be relaxed.
+    // Should return relaxed result for city.
     // "city" instead of "city-poi"
     TEST(ResultsMatch("sick city pharmacy ", rulesStrict), ());
     TEST(ResultsMatch("sick city library ", rulesRelaxed), ());

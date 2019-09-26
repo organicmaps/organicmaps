@@ -965,7 +965,14 @@ void Geocoder::MatchCities(BaseContext & ctx)
         continue;
 
       LocalityFilter filter(cityFeatures);
+
+      size_t const numEmitted = ctx.m_numEmitted;
       LimitedSearch(ctx, filter);
+      if (numEmitted == ctx.m_numEmitted)
+      {
+        TRACE(Relaxed);
+        EmitResult(ctx, *ctx.m_city, ctx.m_city->m_tokenRange, false /* allTokensUsed */);
+      }
     }
   }
 }
