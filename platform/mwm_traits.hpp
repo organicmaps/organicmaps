@@ -41,11 +41,22 @@ public:
     Unknown
   };
 
+  enum class CentersTableFormat
+  {
+    // Centers table encoded without any header. Coding params from mwm header used.
+    PlainEliasFanoMap,
+
+    // Centers table has it's own header with version and coding params.
+    EliasFanoMapWithHeader,
+  };
+
   explicit MwmTraits(MwmVersion const & version);
 
   SearchIndexFormat GetSearchIndexFormat() const;
 
   HouseToStreetTableFormat GetHouseToStreetTableFormat() const;
+
+  CentersTableFormat GetCentersTableFormat() const;
 
   bool HasOffsetsTable() const;
 

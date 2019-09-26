@@ -2,6 +2,8 @@
 
 #include "indexer/trie_reader.hpp"
 
+#include "platform/mwm_traits.hpp"
+
 #include "coding/reader_wrapper.hpp"
 
 #include "geometry/mercator.hpp"
@@ -40,10 +42,14 @@ PostcodePoints::PostcodePoints(MwmValue const & value)
       SubReaderWrapper<Reader>(m_trieSubReader.get()), SingleValueSerializer<Uint64IndexValue>());
   CHECK(m_root, ());
 
+  version::MwmTraits traits(value.GetMwmVersion());
+  auto const format = traits.GetCentersTableFormat();
+  CHECK(format == version::MwmTraits::CentersTableFormat::EliasFanoMapWithHeader,
+        ("Unexpected format."));
+
   m_pointsSubReader =
       reader.GetPtr()->CreateSubReader(m_header.m_pointsOffset, m_header.m_pointsSize);
-  auto const codingParams = value.GetHeader().GetDefGeometryCodingParams();
-  m_points = CentersTable::Load(*m_pointsSubReader, codingParams);
+  m_points = CentersTable::LoadV1(*m_pointsSubReader);
   CHECK(m_points, ());
 }
 

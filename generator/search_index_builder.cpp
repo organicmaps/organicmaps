@@ -727,7 +727,8 @@ bool BuildPostcodesImpl(FilesContainerR & container, storage::CountryId const & 
 
   {
     search::CentersTableBuilder builder;
-    builder.SetGeometryCodingParams(feature::DataHeader(container).GetDefGeometryCodingParams());
+
+    builder.SetGeometryParams(feature::DataHeader(container).GetBounds());
     for (size_t i = 0; i < valueMapping.size(); ++i)
       builder.Put(base::asserted_cast<uint32_t>(i), valueMapping[i]);
 

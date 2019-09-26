@@ -2,6 +2,8 @@
 
 #include "indexer/mwm_set.hpp"
 
+#include "platform/mwm_traits.hpp"
+
 #include "defines.hpp"
 
 namespace search
@@ -29,8 +31,23 @@ void LazyCentersTable::EnsureTableLoaded()
     return;
   }
 
-  m_table =
-      CentersTable::Load(*m_reader.GetPtr(), m_value.GetHeader().GetDefGeometryCodingParams());
+  version::MwmTraits traits(m_value.GetMwmVersion());
+  auto const format = traits.GetCentersTableFormat();
+
+  if (format == version::MwmTraits::CentersTableFormat::PlainEliasFanoMap)
+  {
+    m_table =
+        CentersTable::LoadV0(*m_reader.GetPtr(), m_value.GetHeader().GetDefGeometryCodingParams());
+  }
+  else if (format == version::MwmTraits::CentersTableFormat::EliasFanoMapWithHeader)
+  {
+    m_table = CentersTable::LoadV1(*m_reader.GetPtr());
+  }
+  else
+  {
+    CHECK(false, ("Unknown centers table format."));
+  }
+
   if (m_table)
     m_state = STATE_LOADED;
   else

@@ -26,6 +26,18 @@ MwmTraits::HouseToStreetTableFormat MwmTraits::GetHouseToStreetTableFormat() con
   return HouseToStreetTableFormat::EliasFanoMap;
 }
 
+MwmTraits::CentersTableFormat MwmTraits::GetCentersTableFormat() const
+{
+  if (GetFormat() < version::Format::v9)
+    return CentersTableFormat::PlainEliasFanoMap;
+
+  uint32_t constexpr kLastVersionWithPlainEliasFanoMap = 190923;
+  if (GetVersion() <= kLastVersionWithPlainEliasFanoMap)
+    return CentersTableFormat::PlainEliasFanoMap;
+
+  return CentersTableFormat::EliasFanoMapWithHeader;
+}
+
 bool MwmTraits::HasOffsetsTable() const { return GetFormat() >= version::Format::v6; }
 
 bool MwmTraits::HasCrossMwmSection() const { return GetFormat() >= version::Format::v9; }
