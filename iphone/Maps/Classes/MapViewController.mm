@@ -849,6 +849,7 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
     [presentedController dismissViewControllerAnimated:NO completion:nil];
   }
   [[MapsAppDelegate theApp] showMap];
+  [self loadViewIfNeeded];
   [self.mapView removeFromSuperview];
   if (!self.controlsView.isHidden) {
     self.controlsView.hidden = YES;
