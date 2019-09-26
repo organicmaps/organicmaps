@@ -264,10 +264,10 @@ JNIEXPORT jintArray JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetEditableFields(JNIEnv * env, jclass clazz)
 {
   auto const & editable = g_editableMapObject.GetEditableFields();
-  int const size = editable.size();
-  jintArray jEditableFields = env->NewIntArray(size);
+  size_t const size = editable.size();
+  jintArray jEditableFields = env->NewIntArray(static_cast<jsize>(size));
   jint * arr = env->GetIntArrayElements(jEditableFields, 0);
-  for (int i = 0; i < size; ++i)
+  for (size_t i = 0; i < size; ++i)
     arr[i] = editable[i];
   env->ReleaseIntArrayElements(jEditableFields, arr, 0);
 
@@ -304,7 +304,7 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetNamesDataSource(JNIEnv * env, jc
   auto const namesDataSource = g_editableMapObject.GetNamesDataSource(needFakes);
 
   jobjectArray names = jni::ToJavaArray(env, g_localNameClazz, namesDataSource.names, ToJavaName);
-  jint mandatoryNamesCount = namesDataSource.mandatoryNamesCount;
+  jsize const mandatoryNamesCount = static_cast<jsize>(namesDataSource.mandatoryNamesCount);
 
   return env->NewObject(g_namesDataSourceClassID, g_namesDataSourceConstructorID, names, mandatoryNamesCount);
 }

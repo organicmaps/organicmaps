@@ -2,7 +2,7 @@
 
 #include <functional>
 
-class _JNIEnv;
+struct _JNIEnv;
 class _jobject;
 typedef _JNIEnv JNIEnv;
 typedef _jobject * jobject;

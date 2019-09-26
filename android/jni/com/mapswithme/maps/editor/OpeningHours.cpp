@@ -79,8 +79,9 @@ jobject JavaTimetable(JNIEnv * env, TimeTable const & tt)
   {
     return static_cast<int>(weekday);
   });
-  jintArray jWeekdays = env->NewIntArray(weekdays.size());
-  env->SetIntArrayRegion(jWeekdays, 0, weekdaysVector.size(), &weekdaysVector[0]);
+  jintArray jWeekdays = env->NewIntArray(static_cast<jsize>(weekdays.size()));
+  env->SetIntArrayRegion(jWeekdays, 0, static_cast<jsize>(weekdaysVector.size()),
+                         &weekdaysVector[0]);
 
   return JavaTimetable(env,
                        JavaTimespan(env, tt.GetOpeningTime()),
@@ -94,12 +95,12 @@ jobject JavaTimetable(JNIEnv * env, TimeTable const & tt)
 
 jobjectArray JavaTimetables(JNIEnv * env, TimeTableSet & tts)
 {
-  int const size = tts.Size();
-  jobjectArray const result = env->NewObjectArray(size, g_clazzTimetable, 0);
-  for (int i = 0; i < size; i++)
+  size_t const size = tts.Size();
+  jobjectArray const result = env->NewObjectArray(static_cast<jsize>(size), g_clazzTimetable, 0);
+  for (size_t i = 0; i < size; i++)
   {
     jni::TScopedLocalRef jTable(env, JavaTimetable(env, tts.Get(i)));
-    env->SetObjectArrayElement(result, i, jTable.get());
+    env->SetObjectArrayElement(result, static_cast<jsize>(i), jTable.get());
   }
 
   return result;

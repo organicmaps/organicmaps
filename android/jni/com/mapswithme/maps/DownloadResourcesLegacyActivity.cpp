@@ -75,7 +75,7 @@ extern "C"
         return ERR_NOT_ENOUGH_FREE_SPACE;
 
       default:
-        return fileSize;
+        return static_cast<int>(fileSize);
     }
   }
 

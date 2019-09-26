@@ -191,12 +191,13 @@ bool HttpClient::RunHttpRequest()
   static jfieldID const dataField = env->GetFieldID(g_httpParamsClazz, "data", "[B");
   if (!m_bodyData.empty())
   {
-    jni::ScopedLocalRef<jbyteArray> const jniPostData(env.get(),
-                                                      env->NewByteArray(m_bodyData.size()));
+    jni::ScopedLocalRef<jbyteArray> const jniPostData(
+        env.get(), env->NewByteArray(static_cast<jsize>(m_bodyData.size())));
+
     if (jni::HandleJavaException(env.get()))
       return false;
 
-    env->SetByteArrayRegion(jniPostData.get(), 0, m_bodyData.size(),
+    env->SetByteArrayRegion(jniPostData.get(), 0, static_cast<jsize>(m_bodyData.size()),
                             reinterpret_cast<const jbyte *>(m_bodyData.data()));
     if (jni::HandleJavaException(env.get()))
       return false;

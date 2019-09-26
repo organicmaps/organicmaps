@@ -72,7 +72,7 @@ std::vector<Campaign> DeserializeV1(std::vector<uint8_t> const & bytes)
   ReaderSource<MemReaderWithExceptions> src({bytes.data(), bytes.size()});
 
   CHECK_EQUAL(ReadPrimitiveFromSource<Version>(src), Version::V1, ());
-  auto const chunksNumber = ReadPrimitiveFromSource<uint64_t>(src);
+  size_t const chunksNumber = static_cast<size_t>(ReadPrimitiveFromSource<uint64_t>(src));
 
   auto const featureIds = ReadVarUintArray<uint32_t>(src, chunksNumber);
   auto const icons = ReadVarUintArray<uint16_t>(src, chunksNumber);
@@ -142,7 +142,7 @@ std::vector<Campaign> DeserializeV2(std::vector<uint8_t> const & bytes)
   ReaderSource<MemReaderWithExceptions> src({bytes.data(), bytes.size()});
 
   CHECK_EQUAL(ReadPrimitiveFromSource<Version>(src), Version::V2, ());
-  auto const chunksNumber = ReadPrimitiveFromSource<uint64_t>(src);
+  size_t const chunksNumber = static_cast<size_t>(ReadPrimitiveFromSource<uint64_t>(src));
 
   auto const featureIds = ReadVarUintArray<uint32_t>(src, chunksNumber);
   auto const icons = ReadVarUintArray<uint16_t>(src, chunksNumber);

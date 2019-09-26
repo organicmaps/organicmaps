@@ -165,9 +165,9 @@ Java_com_mapswithme_maps_promo_Promo_nativeRequestPoiGallery(JNIEnv * env, jclas
 {
   PrepareClassRefs(env);
   auto const point = MercatorBounds::FromLatLon(static_cast<double>(lat), static_cast<double>(lon));
-  int const size = env->GetArrayLength(tags);
+  jsize const size = env->GetArrayLength(tags);
   promo::Tags nativeTags;
-  for (size_t i = 0; i < size; ++i)
+  for (jsize i = 0; i < size; ++i)
   {
     auto tag = jni::ToNativeString(env, static_cast<jstring>(env->GetObjectArrayElement(tags, i)));
     nativeTags.emplace_back(std::move(tag));

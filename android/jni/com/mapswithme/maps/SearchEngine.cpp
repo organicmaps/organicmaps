@@ -294,7 +294,8 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
 {
   JNIEnv * env = jni::GetEnv();
 
-  jni::TScopedLocalIntArrayRef ranges(env, env->NewIntArray(result.GetHighlightRangesCount() * 2));
+  jni::TScopedLocalIntArrayRef ranges(
+      env, env->NewIntArray(static_cast<jsize>(result.GetHighlightRangesCount() * 2)));
   jint * rawArr = env->GetIntArrayElements(ranges, nullptr);
   for (int i = 0; i < result.GetHighlightRangesCount(); i++)
   {
@@ -402,14 +403,15 @@ jobjectArray BuildJavaMapResults(vector<storage::DownloaderSearchResult> const &
 {
   JNIEnv * env = jni::GetEnv();
 
-  int const count = results.size();
-  jobjectArray const res = env->NewObjectArray(count, g_mapResultClass, nullptr);
-  for (int i = 0; i < count; i++)
+  size_t const count = results.size();
+  jobjectArray const res =
+      env->NewObjectArray(static_cast<jsize>(count), g_mapResultClass, nullptr);
+  for (size_t i = 0; i < count; i++)
   {
     jni::TScopedLocalRef country(env, jni::ToJavaString(env, results[i].m_countryId));
     jni::TScopedLocalRef matched(env, jni::ToJavaString(env, results[i].m_matchedName));
     jni::TScopedLocalRef item(env, env->NewObject(g_mapResultClass, g_mapResultCtor, country.get(), matched.get()));
-    env->SetObjectArrayElement(res, i, item.get());
+    env->SetObjectArrayElement(res, static_cast<jsize>(i), item.get());
   }
 
   return res;
@@ -443,9 +445,10 @@ void OnBookmarksSearchResults(search::BookmarksSearchParams::Results const & res
 
   auto filteredResults = results;
   g_framework->NativeFramework()->GetBookmarkManager().FilterInvalidBookmarks(filteredResults);
-  jni::ScopedLocalRef<jlongArray> jResults(env, env->NewLongArray(filteredResults.size()));
+  jni::ScopedLocalRef<jlongArray> jResults(
+      env, env->NewLongArray(static_cast<jsize>(filteredResults.size())));
   vector<jlong> const tmp(filteredResults.cbegin(), filteredResults.cend());
-  env->SetLongArrayRegion(jResults.get(), 0, tmp.size(), tmp.data());
+  env->SetLongArrayRegion(jResults.get(), 0, static_cast<jsize>(tmp.size()), tmp.data());
 
   auto const method = (status == search::BookmarksSearchParams::Status::InProgress) ?
                       g_updateBookmarksResultsId : g_endBookmarksResultsId;
@@ -525,10 +528,12 @@ public:
       return result;
 
     jlong const jcheckin = env->GetLongField(bookingFilterParams, m_checkinMillisecId) / 1000;
-    result.m_checkin = booking::AvailabilityParams::Clock::from_time_t(jcheckin);
+    result.m_checkin =
+        booking::AvailabilityParams::Clock::from_time_t(static_cast<time_t>(jcheckin));
 
     jlong const jcheckout = env->GetLongField(bookingFilterParams, m_checkoutMillisecId) / 1000;
-    result.m_checkout = booking::AvailabilityParams::Clock::from_time_t(jcheckout);
+    result.m_checkout =
+        booking::AvailabilityParams::Clock::from_time_t(static_cast<time_t>(jcheckout));
 
     jobjectArray const jrooms =
         static_cast<jobjectArray>(env->GetObjectField(bookingFilterParams, m_roomsId));
@@ -538,7 +543,7 @@ public:
     result.m_rooms.resize(length);
     for (size_t i = 0; i < length; ++i)
     {
-      jobject jroom = env->GetObjectArrayElement(jrooms, i);
+      jobject jroom = env->GetObjectArrayElement(jrooms, static_cast<jsize>(i));
 
       booking::AvailabilityParams::Room room;
       room.SetAdultsCount(static_cast<uint8_t>(env->GetIntField(jroom, m_roomAdultsCountId)));
@@ -619,14 +624,15 @@ jobjectArray BuildSearchResults(Results const & results,
 
   g_results = results;
 
-  int const count = g_results.GetCount();
-  jobjectArray const jResults = env->NewObjectArray(count, g_resultClass, nullptr);
+  size_t const count = g_results.GetCount();
+  jobjectArray const jResults =
+      env->NewObjectArray(static_cast<jsize>(count), g_resultClass, nullptr);
 
-  for (int i = 0; i < count; i++)
+  for (size_t i = 0; i < count; i++)
   {
     jni::TScopedLocalRef jRes(env,
                               ToJavaResult(g_results[i], productInfo[i], hasPosition, lat, lon));
-    env->SetObjectArrayElement(jResults, i, jRes.get());
+    env->SetObjectArrayElement(jResults, static_cast<jsize>(i), jRes.get());
   }
   return jResults;
 }

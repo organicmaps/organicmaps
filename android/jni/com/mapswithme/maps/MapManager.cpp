@@ -238,7 +238,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeCancelMigration(JNIEnv * en
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeGetDownloadedCount(JNIEnv * env, jclass clazz)
 {
-  return GetStorage().GetDownloadedFilesCount();
+  return static_cast<jint>(GetStorage().GetDownloadedFilesCount());
 }
 
 // static @Nullable UpdateInfo nativeGetUpdateInfo(@Nullable String root);

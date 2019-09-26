@@ -167,11 +167,11 @@ private:
   jobjectArray ToJavaRatings(JNIEnv * env, std::vector<ugc::RatingRecord> const & ratings)
   {
     size_t const n = ratings.size();
-    jobjectArray result = env->NewObjectArray(n, g_ratingClazz, nullptr);
+    jobjectArray result = env->NewObjectArray(static_cast<jsize>(n), g_ratingClazz, nullptr);
     for (size_t i = 0; i < n; ++i)
     {
       jni::TScopedLocalRef rating(env, ToJavaRating(env, ratings[i]));
-      env->SetObjectArrayElement(result, i, rating.get());
+      env->SetObjectArrayElement(result, static_cast<jsize>(i), rating.get());
     }
     return result;
   }
@@ -179,11 +179,11 @@ private:
   jobjectArray ToJavaReviews(JNIEnv * env, std::vector<ugc::Review> const & reviews)
   {
     size_t const n = reviews.size();
-    jobjectArray result = env->NewObjectArray(n, m_reviewClass, nullptr);
+    jobjectArray result = env->NewObjectArray(static_cast<jsize>(n), m_reviewClass, nullptr);
     for (size_t i = 0; i < n; ++i)
     {
       jni::TScopedLocalRef review(env, ToJavaReview(env, reviews[i]));
-      env->SetObjectArrayElement(result, i, review.get());
+      env->SetObjectArrayElement(result, static_cast<jsize>(i), review.get());
     }
     return result;
   }

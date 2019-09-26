@@ -29,7 +29,7 @@ public:
     static std::string const uniqueUserId = GetPlatform().UniqueClientId();
 
     jni::TScopedLocalByteArrayRef postBody(env, nullptr);
-    size_t const postBodySize = pb.size();
+    jsize const postBodySize = static_cast<jsize>(pb.size());
     if (postBodySize)
     {
       postBody.reset(env->NewByteArray(postBodySize));
@@ -93,7 +93,7 @@ Java_com_mapswithme_maps_downloader_ChunkTask_nativeOnWrite(JNIEnv * env, jclass
   bool ret = false;
   try
   {
-    ret = cb->OnWrite(beg, buf, size);
+    ret = cb->OnWrite(beg, buf, static_cast<jsize>(size));
   }
   catch (std::exception const & ex)
   {
@@ -108,6 +108,6 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_downloader_ChunkTask_nativeOnFinish(JNIEnv * env, jclass clazz, jlong httpCallbackID, jlong httpCode, jlong beg, jlong end)
 {
   downloader::IHttpThreadCallback * cb = reinterpret_cast<downloader::IHttpThreadCallback*>(httpCallbackID);
-  cb->OnFinish(httpCode, beg, end);
+  cb->OnFinish(static_cast<long>(httpCode), beg, end);
 }
 } // extern "C"

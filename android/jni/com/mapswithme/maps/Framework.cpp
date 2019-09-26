@@ -1355,20 +1355,24 @@ Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jcl
   {
     static jclass const laneClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/routing/SingleLaneInfo");
     size_t const lanesSize = lanes.size();
-    jLanes = env->NewObjectArray(lanesSize, laneClass, nullptr);
+    jLanes = env->NewObjectArray(static_cast<jsize>(lanesSize), laneClass, nullptr);
     ASSERT(jLanes, (jni::DescribeException()));
     static jmethodID const ctorSingleLaneInfoID = jni::GetConstructorID(env, laneClass, "([BZ)V");
 
     for (size_t j = 0; j < lanesSize; ++j)
     {
       size_t const laneSize = lanes[j].m_lane.size();
-      jni::TScopedLocalByteArrayRef singleLane(env, env->NewByteArray(laneSize));
+      jni::TScopedLocalByteArrayRef singleLane(env,
+                                               env->NewByteArray(static_cast<jsize>(laneSize)));
       ASSERT(singleLane.get(), (jni::DescribeException()));
-      env->SetByteArrayRegion(singleLane.get(), 0, laneSize, lanes[j].m_lane.data());
+      env->SetByteArrayRegion(singleLane.get(), 0, static_cast<jsize>(laneSize),
+                              lanes[j].m_lane.data());
 
-      jni::TScopedLocalRef singleLaneInfo(env, env->NewObject(laneClass, ctorSingleLaneInfoID, singleLane.get(), lanes[j].m_isRecommended));
+      jni::TScopedLocalRef singleLaneInfo(
+          env, env->NewObject(laneClass, ctorSingleLaneInfoID, singleLane.get(),
+                              lanes[j].m_isRecommended));
       ASSERT(singleLaneInfo.get(), (jni::DescribeException()));
-      env->SetObjectArrayElement(jLanes, j, singleLaneInfo.get());
+      env->SetObjectArrayElement(jLanes, static_cast<jsize>(j), singleLaneInfo.get());
     }
   }
 
@@ -1447,7 +1451,7 @@ Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv *
     return nullptr;
   }
 
-  jintArray imageRGBADataArray = env->NewIntArray(pxlCount);
+  jintArray imageRGBADataArray = env->NewIntArray(static_cast<jsize>(pxlCount));
   ASSERT(imageRGBADataArray, ());
   jint * arrayElements = env->GetIntArrayElements(imageRGBADataArray, 0);
   ASSERT(arrayElements, ());

@@ -44,6 +44,6 @@ extern "C"
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_location_TrackRecorder_nativeGetDuration(JNIEnv * env, jclass clazz)
   {
-    return GpsTracker::Instance().GetDuration().count();
+    return static_cast<jint>(GpsTracker::Instance().GetDuration().count());
   }
 }

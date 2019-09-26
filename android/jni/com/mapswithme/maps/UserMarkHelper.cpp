@@ -265,14 +265,13 @@ jintArray ToReachableByTaxiProvidersArray(JNIEnv * env, std::vector<taxi::Provid
   if (types.size() == 0)
     return nullptr;
 
-  jintArray result = env->NewIntArray(types.size());
-  ASSERT(result, ());
-
   jint tmp[types.size()];
-  for (int i = 0; i < types.size(); i++)
+  for (size_t i = 0; i < types.size(); ++i)
     tmp[i] = static_cast<jint>(types[i]);
 
-  env->SetIntArrayRegion(result, 0, types.size(), tmp);
+  jintArray result = env->NewIntArray(static_cast<jsize>(types.size()));
+  ASSERT(result, ());
+  env->SetIntArrayRegion(result, 0, static_cast<jsize>(types.size()), tmp);
 
   return result;
 }
