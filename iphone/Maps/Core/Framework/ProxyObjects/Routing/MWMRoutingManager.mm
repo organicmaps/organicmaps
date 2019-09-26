@@ -9,6 +9,8 @@
 #import "SwiftBridge.h"
 
 #include "Framework.h"
+
+#include "routing/following_info.hpp"
 #include "routing/turns.hpp"
 #include "routing/routing_session.hpp"
 
@@ -80,7 +82,7 @@
 
 - (MWMRouteInfo *)routeInfo {
   if (!self.isRoutingActive) { return  nil; }
-  location::FollowingInfo info;
+  routing::FollowingInfo info;
   self.rm.GetRouteFollowingInfo(info);
   if (!info.IsValid()) { return nil; }
   CLLocation * lastLocation = [MWMLocationManager lastLocation];

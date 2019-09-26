@@ -19,6 +19,8 @@
 
 #include "Framework.h"
 
+#include "routing/following_info.hpp"
+
 #include "indexer/feature_altitude.hpp"
 
 #include "platform/local_country_file_utils.hpp"
@@ -540,7 +542,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   if (![MWMRouter isRoutingActive])
     return;
   auto const & rm = GetFramework().GetRoutingManager();
-  location::FollowingInfo info;
+  routing::FollowingInfo info;
   rm.GetRouteFollowingInfo(info);
   auto navManager = [MWMNavigationDashboardManager manager];
   if (!info.IsValid())

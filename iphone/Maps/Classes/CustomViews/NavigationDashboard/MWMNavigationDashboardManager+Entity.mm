@@ -5,6 +5,7 @@
 #import "MWMRouterTransitStepInfo.h"
 #import "SwiftBridge.h"
 
+#include "routing/following_info.hpp"
 #include "routing/turns.hpp"
 
 #include "map/routing_manager.hpp"
@@ -121,7 +122,7 @@ NSAttributedString * estimate(NSTimeInterval time, NSAttributedString * dot, NSS
 
 @implementation MWMNavigationDashboardManager (Entity)
 
-- (void)updateFollowingInfo:(location::FollowingInfo const &)info
+- (void)updateFollowingInfo:(routing::FollowingInfo const &)info
 {
   if ([MWMRouter isRouteFinished])
   {
