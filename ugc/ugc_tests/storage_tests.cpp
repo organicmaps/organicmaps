@@ -19,16 +19,17 @@
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
-#include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "coding/internal/file_data.hpp"
 #include "coding/writer.hpp"
 #include "coding/zlib.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/scope_guard.hpp"
 
 #include <chrono>
 #include <functional>
+#include <ostream>
 #include <memory>
 #include <string>
 #include <vector>
@@ -48,7 +49,7 @@ string const kTestMwmName = "ugc storage test";
 bool DeleteIndexFile(ugc::IndexVersion v = ugc::IndexVersion::Latest)
 {
   if (v == ugc::IndexVersion::Latest)
-    return base::DeleteFileX(base::JoinPath(GetPlatform().SettingsDir(), "index.json"));
+    return base::DeleteFileX(Storage::GetIndexFilePath());
 
   string version;
   switch (v)
@@ -61,7 +62,7 @@ bool DeleteIndexFile(ugc::IndexVersion v = ugc::IndexVersion::Latest)
     break;
   }
 
-  return base::DeleteFileX(base::JoinPath(GetPlatform().SettingsDir(), "index.json." + version));
+  return base::DeleteFileX(Storage::GetIndexFilePath() + "." + version);
 }
 
 bool DeleteUGCFile(ugc::IndexVersion v = ugc::IndexVersion::Latest)
@@ -463,7 +464,13 @@ UNIT_CLASS_TEST(StorageTest, GetNumberOfUnsentSeparately)
 
 UNIT_TEST(UGC_IndexMigrationFromV0ToV1Smoke)
 {
-  platform::tests_support::ScopedFile dummyUgcUpdate("ugc.update.bin", "some test content");
+  auto const dummyUgcUpdate = Storage::GetUGCFilePath();
+  SCOPE_GUARD(deleteFileGuard, bind(&FileWriter::DeleteFileX, cref(dummyUgcUpdate)));
+  {
+    ofstream stream;
+    stream.open(dummyUgcUpdate);
+    stream << "some test content";
+  }
   LOG(LINFO, ("Created dummy ugc update", dummyUgcUpdate));
 
   auto & p = GetPlatform();

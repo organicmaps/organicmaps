@@ -33,6 +33,7 @@
 #include <boost/optional/optional.hpp>
 
 using namespace std;
+using namespace ugc;
 
 namespace
 {
@@ -42,15 +43,11 @@ string const kTmpFileExtension = ".tmp";
 
 using Sink = MemWriter<string>;
 
-string GetUGCFilePath() { return base::JoinPath(GetPlatform().SettingsDir(), kUGCUpdateFileName); }
-
-string GetIndexFilePath() { return base::JoinPath(GetPlatform().SettingsDir(), kIndexFileName); }
-
 bool GetUGCFileSize(uint64_t & size)
 {
   try
   {
-    FileReader reader(GetUGCFilePath());
+    FileReader reader(Storage::GetUGCFilePath());
     size = reader.Size();
   }
   catch (FileReader::Exception const &)
@@ -138,7 +135,8 @@ bool SaveIndexes(ugc::UpdateIndexes const & indexes, std::string const & pathToT
   if (indexes.empty())
     return false;
 
-  auto const indexFilePath = pathToTargetFile.empty() ? GetIndexFilePath() : pathToTargetFile;
+  auto const indexFilePath =
+      pathToTargetFile.empty() ? Storage::GetIndexFilePath() : pathToTargetFile;
   auto const jsonData = SerializeIndexes(indexes);
   try
   {
@@ -197,7 +195,7 @@ ugc::Storage::SettingResult SetGenericUGCUpdate(UGCUpdate const & ugc,
   index.m_offset = offset;
   index.m_version = ugc::IndexVersion::Latest;
 
-  auto const ugcFilePath = GetUGCFilePath();
+  auto const ugcFilePath = Storage::GetUGCFilePath();
   try
   {
     FileWriter w(ugcFilePath, FileWriter::Op::OP_APPEND);
@@ -217,7 +215,7 @@ ugc::Storage::SettingResult SetGenericUGCUpdate(UGCUpdate const & ugc,
 
 void FindZombieObjects(size_t indexesCount)
 {
-  auto const ugcFilePath = GetUGCFilePath();
+  auto const ugcFilePath = Storage::GetUGCFilePath();
   vector<uint8_t> ugcFileContent;
   try
   {
@@ -265,6 +263,18 @@ void FindZombieObjects(size_t indexesCount)
 
 namespace ugc
 {
+// static
+string Storage::GetUGCFilePath()
+{
+  return base::JoinPath(GetPlatform().SettingsDir(), kUGCUpdateFileName);
+}
+
+// static
+string Storage::GetIndexFilePath()
+{
+  return base::JoinPath(GetPlatform().SettingsDir(), kIndexFileName);
+}
+
 UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
 {
   if (m_indexes.empty())
@@ -649,7 +659,7 @@ namespace impl
 {
 size_t GetNumberOfUnsentUGC()
 {
-  auto const indexFilePath = GetIndexFilePath();
+  auto const indexFilePath = Storage::GetIndexFilePath();
   if (!Platform::IsFileExistsByFullPath(indexFilePath))
     return 0;
 

@@ -25,6 +25,9 @@ class Storage
 public:
   explicit Storage(DataSource const & dataSource) : m_dataSource(dataSource) {}
 
+  static std::string GetUGCFilePath();
+  static std::string GetIndexFilePath();
+
   UGCUpdate GetUGCUpdate(FeatureID const & id) const;
 
   enum class SettingResult
