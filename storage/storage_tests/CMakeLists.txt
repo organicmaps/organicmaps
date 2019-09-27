@@ -10,7 +10,6 @@ set(
   fake_map_files_downloader.hpp
   helpers.cpp
   helpers.hpp
-  queued_country_tests.cpp
   simple_tree_test.cpp
   storage_tests.cpp
   task_runner.cpp

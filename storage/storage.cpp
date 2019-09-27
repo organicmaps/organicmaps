@@ -405,7 +405,7 @@ LocalAndRemoteSize Storage::CountrySizeInBytes(CountryId const & countryId, MapO
   if (!m_downloader->IsIdle() && IsCountryFirstInQueue(countryId))
   {
     sizes.first = m_downloader->GetDownloadingProgress().first +
-                  GetRemoteSize(countryFile, queuedCountry->GetDownloadedFilesOptions(),
+                  GetRemoteSize(countryFile, queuedCountry->GetDownloadingType(),
                                 GetCurrentDataVersion());
   }
   return sizes;
@@ -523,7 +523,7 @@ void Storage::SaveDownloadQueue()
   ostringstream update;
   for (auto const & item : m_queue)
   {
-    auto & ss = item.GetInitOptions() == MapOptions::Diff ? update : download;
+    auto & ss = item.GetDownloadingType() == MapOptions::Diff ? update : download;
     ss << (ss.str().empty() ? "" : ";") << item.GetCountryId();
   }
 
@@ -567,11 +567,8 @@ void Storage::DownloadCountry(CountryId const & countryId, MapOptions opt)
   if (opt == MapOptions::Nothing)
     return;
 
-  if (QueuedCountry * queuedCountry = FindCountryInQueue(countryId))
-  {
-    queuedCountry->AddOptions(opt);
+  if (FindCountryInQueue(countryId) != nullptr)
     return;
-  }
 
   m_failedCountries.erase(countryId);
   m_queue.push_back(QueuedCountry(countryId, opt));
@@ -681,7 +678,7 @@ void Storage::DownloadNextCountryFromQueue()
   if (stopDownload ||
       !PreparePlaceForCountryFiles(GetCurrentDataVersion(), m_dataDir, GetCountryFile(countryId)))
   {
-    OnMapDownloadFinished(countryId, HttpRequest::Status::Failed, queuedCountry.GetInitOptions());
+    OnMapDownloadFinished(countryId, HttpRequest::Status::Failed, queuedCountry.GetDownloadingType());
     return;
   }
 
@@ -694,7 +691,7 @@ void Storage::DownloadNextCountryFromQueue()
 void Storage::DownloadNextFile(QueuedCountry const & country)
 {
   CountryId const & countryId = country.GetCountryId();
-  auto const opt = country.GetCurrentFileOptions();
+  auto const opt = country.GetDownloadingType();
 
   string const readyFilePath = GetFileDownloadPath(countryId, opt);
   uint64_t size;
@@ -805,7 +802,7 @@ void Storage::OnMapFileDownloadFinished(HttpRequest::Status status,
 
   // Send statistics to PushWoosh. We send these statistics only for the newly downloaded
   // mwms, not for updated ones.
-  if (success && queuedCountry.GetInitOptions() != MapOptions::Diff)
+  if (success && queuedCountry.GetDownloadingType() != MapOptions::Diff)
   {
     auto const it = m_localFiles.find(countryId);
     if (it == m_localFiles.end())
@@ -818,7 +815,7 @@ void Storage::OnMapFileDownloadFinished(HttpRequest::Status status,
     }
   }
 
-  OnMapDownloadFinished(countryId, status, queuedCountry.GetInitOptions());
+  OnMapDownloadFinished(countryId, status, queuedCountry.GetDownloadingType());
 }
 
 void Storage::ReportProgress(CountryId const & countryId, MapFilesDownloader::Progress const & p)
@@ -861,7 +858,7 @@ void Storage::DoDownload()
     return;
 
   QueuedCountry & queuedCountry = m_queue.front();
-  if (queuedCountry.GetInitOptions() == MapOptions::Diff)
+  if (queuedCountry.GetDownloadingType() == MapOptions::Diff)
   {
     using diffs::Status;
     auto const status = m_diffManager.GetStatus();
@@ -869,17 +866,17 @@ void Storage::DoDownload()
     {
     case Status::Undefined: SetDeferDownloading(); return;
     case Status::NotAvailable:
-      queuedCountry.ResetToDefaultOptions();
+      queuedCountry.SetDownloadingType(MapOptions::Map);
       break;
     case Status::Available:
       if (!m_diffManager.HasDiffFor(queuedCountry.GetCountryId()))
-        queuedCountry.ResetToDefaultOptions();
+        queuedCountry.SetDownloadingType(MapOptions::Map);
       break;
     }
   }
 
   auto const & id = queuedCountry.GetCountryId();
-  auto const options = queuedCountry.GetCurrentFileOptions();
+  auto const options = queuedCountry.GetDownloadingType();
   auto const relativeUrl = GetDownloadRelativeUrl(id, options);
   auto const filePath = GetFileDownloadPath(id, options);
 
@@ -1243,27 +1240,18 @@ bool Storage::DeleteCountryFilesFromDownloader(CountryId const & countryId)
     m_diffsBeingApplied.erase(countryId);
   }
 
-  MapOptions const opt = queuedCountry->GetInitOptions();
   if (IsCountryFirstInQueue(countryId))
   {
-    // Abrupt downloading of the current file if it should be removed.
-    if (HasOptions(opt, queuedCountry->GetCurrentFileOptions()))
-      m_downloader->Reset();
+    m_downloader->Reset();
 
     // Remove all files the downloader has created for the country.
     DeleteDownloaderFilesForCountry(GetCurrentDataVersion(), m_dataDir, GetCountryFile(countryId));
   }
 
-  queuedCountry->RemoveOptions(opt);
-
-  // Remove country from the queue if there's nothing to download.
-  if (queuedCountry->GetInitOptions() == MapOptions::Nothing)
-  {
-    auto it = find(m_queue.begin(), m_queue.end(), countryId);
-    ASSERT(it != m_queue.end(), ());
-    PopFromQueue(it);
-    SaveDownloadQueue();
-  }
+  auto it = find(m_queue.begin(), m_queue.end(), countryId);
+  ASSERT(it != m_queue.end(), ());
+  PopFromQueue(it);
+  SaveDownloadQueue();
 
   if (!m_queue.empty() && m_downloader->IsIdle())
   {
@@ -1280,14 +1268,14 @@ uint64_t Storage::GetDownloadSize(QueuedCountry const & queuedCountry) const
 {
   CountryId const & countryId = queuedCountry.GetCountryId();
   uint64_t size;
-  if (queuedCountry.GetInitOptions() == MapOptions::Diff)
+  if (queuedCountry.GetDownloadingType() == MapOptions::Diff)
   {
     CHECK(m_diffManager.SizeToDownloadFor(countryId, size), ());
     return size;
   }
 
   CountryFile const & file = GetCountryFile(countryId);
-  return GetRemoteSize(file, queuedCountry.GetCurrentFileOptions(), GetCurrentDataVersion());
+  return GetRemoteSize(file, queuedCountry.GetDownloadingType(), GetCurrentDataVersion());
 }
 
 string Storage::GetFileDownloadPath(CountryId const & countryId, MapOptions options) const
