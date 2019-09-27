@@ -22,14 +22,12 @@ UNIT_TEST(CountryFile_SmokeTwoComponentMwm)
                                              version::FOR_TESTING_TWO_COMPONENT_MWM1);
   TEST_EQUAL("TestCountry" DATA_FILE_EXTENSION ROUTING_FILE_EXTENSION, routingFileName, ());
 
-  TEST_EQUAL(0, countryFile.GetRemoteSize(MapOptions::Nothing), ());
   TEST_EQUAL(0, countryFile.GetRemoteSize(MapOptions::Map), ());
   TEST_EQUAL(0, countryFile.GetRemoteSize(MapOptions::CarRouting), ());
   TEST_EQUAL(0, countryFile.GetRemoteSize(MapOptions::MapWithCarRouting), ());
 
   countryFile.SetRemoteSizes(1 /* mapSize */, 2 /* routingSize */);
 
-  TEST_EQUAL(0, countryFile.GetRemoteSize(MapOptions::Nothing), ());
   TEST_EQUAL(1, countryFile.GetRemoteSize(MapOptions::Map), ());
   TEST_EQUAL(2, countryFile.GetRemoteSize(MapOptions::CarRouting), ());
   TEST_EQUAL(3, countryFile.GetRemoteSize(MapOptions::MapWithCarRouting), ());
@@ -44,14 +42,12 @@ UNIT_TEST(CountryFile_SmokeOneComponentMwm)
 
   TEST_EQUAL("TestCountryOneComponent" DATA_FILE_EXTENSION, mapFileName, ());
 
-  TEST_EQUAL(0, countryFile.GetRemoteSize(MapOptions::Nothing), ());
   TEST_EQUAL(0, countryFile.GetRemoteSize(MapOptions::Map), ());
   TEST_EQUAL(0, countryFile.GetRemoteSize(MapOptions::CarRouting), ());
   TEST_EQUAL(0, countryFile.GetRemoteSize(MapOptions::MapWithCarRouting), ());
 
   countryFile.SetRemoteSizes(3 /* mapSize */, 0 /* routingSize */);
 
-  TEST_EQUAL(0, countryFile.GetRemoteSize(MapOptions::Nothing), ());
   TEST_EQUAL(3, countryFile.GetRemoteSize(MapOptions::Map), ());
   TEST_EQUAL(0, countryFile.GetRemoteSize(MapOptions::CarRouting), ());
   TEST_EQUAL(3, countryFile.GetRemoteSize(MapOptions::MapWithCarRouting), ());

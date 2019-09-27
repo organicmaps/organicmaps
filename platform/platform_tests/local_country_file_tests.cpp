@@ -86,7 +86,6 @@ UNIT_TEST(LocalCountryFile_Smoke)
 
   TEST_EQUAL("/test-dir", localFile.GetDirectory(), ());
 
-  TEST_EQUAL(0, localFile.GetSize(MapOptions::Nothing), ());
   TEST_EQUAL(0, localFile.GetSize(MapOptions::Map), ());
   TEST_EQUAL(0, localFile.GetSize(MapOptions::CarRouting), ());
   TEST_EQUAL(0, localFile.GetSize(MapOptions::MapWithCarRouting), ());

@@ -564,9 +564,6 @@ void Storage::DownloadCountry(CountryId const & countryId, MapOptions opt)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  if (opt == MapOptions::Nothing)
-    return;
-
   if (FindCountryInQueue(countryId) != nullptr)
     return;
 
@@ -696,8 +693,6 @@ void Storage::DownloadNextFile(QueuedCountry const & country)
   string const readyFilePath = GetFileDownloadPath(countryId, opt);
   uint64_t size;
   auto & p = GetPlatform();
-
-  ASSERT(opt != MapOptions::Nothing, (countryId));
 
   // Since a downloaded valid diff file may be either with .diff or .diff.ready extension,
   // we have to check these both cases in order to find
@@ -1006,8 +1001,6 @@ void Storage::OnMapDownloadFinished(CountryId const & countryId, HttpRequest::St
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_didDownload != nullptr, ("Storage::Init wasn't called"));
-  ASSERT_NOT_EQUAL(MapOptions::Nothing, options,
-                   ("This method should not be called for empty files set."));
 
   alohalytics::LogEvent("$OnMapDownloadFinished",
                         alohalytics::TStringMap(
@@ -2043,8 +2036,6 @@ MwmSize Storage::GetRemoteSize(CountryFile const & file, MapOptions opt, int64_t
 {
   if (version::IsSingleMwm(version))
   {
-    if (opt == MapOptions::Nothing)
-      return 0;
     uint64_t size;
     if (m_diffManager.SizeFor(file.GetName(), size))
       return size;
