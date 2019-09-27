@@ -7,7 +7,7 @@ namespace
 {
 
 CGFloat const kTopPlacePageStopValue = 0.7;
-CGFloat const kExpandedPlacePageStopValue = 0.5;
+CGFloat const kExpandedPlacePageStopValue = 0.45;
 CGFloat const kLuftDraggingOffset = 30;
 
 // Minimal offset for collapse. If place page offset is below this value we should hide place page.
