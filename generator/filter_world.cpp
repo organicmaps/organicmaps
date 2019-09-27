@@ -1,9 +1,8 @@
 #include "generator/filter_world.hpp"
 
-#include "search/utils.hpp"
-
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
 #include <algorithm>
@@ -49,15 +48,9 @@ bool FilterWorld::IsPopularAttraction(feature::FeatureBuilder const & fb, std::s
   if (fb.GetName().empty())
     return false;
 
-  auto static const attractionTypes = search::GetCategoryTypes("attractions", "en", GetDefaultCategories());
-  ASSERT(std::is_sorted(attractionTypes.begin(), attractionTypes.end()), ());
-  auto const & featureTypes = fb.GetTypes();
-  if (!std::any_of(featureTypes.begin(), featureTypes.end(), [](uint32_t t) {
-        return std::binary_search(attractionTypes.begin(), attractionTypes.end(), t);
-      }))
-  {
+  auto const & attractionsChecker = ftypes::AttractionsChecker::Instance();
+  if (!attractionsChecker(fb.GetTypes()))
     return false;
-  }
 
   if (popularityFilename.empty())
     return false;
