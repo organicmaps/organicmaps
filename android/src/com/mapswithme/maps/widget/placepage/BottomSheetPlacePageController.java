@@ -47,7 +47,7 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
                                                        Closable
 {
   private static final float ANCHOR_RATIO = 0.3f;
-  private static final float PREVIEW_PLUS_RATIO = 0.5f;
+  private static final float PREVIEW_PLUS_RATIO = 0.45f;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = BottomSheetPlacePageController.class.getSimpleName();
   private static final String EXTRA_MAP_OBJECT = "extra_map_object";
