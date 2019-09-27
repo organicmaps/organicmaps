@@ -237,13 +237,13 @@ bool HttpClient::RunHttpRequest()
   std::string headerKey;
   for (auto const & header : headers)
   {
-    if (header.first == "Set-Cookie")
+    if (strings::EqualNoCase(header.first, "Set-Cookie"))
     {
       serverCookies += header.second + ", ";
     }
     else
     {
-      if (header.first == "Location")
+      if (strings::EqualNoCase(header.first, "Location"))
         m_urlReceived = header.second;
 
       if (m_loadHeaders)
