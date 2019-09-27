@@ -821,4 +821,8 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   [[UIViewController topViewController] presentViewController:alert animated:YES completion:nil];
 }
 
+- (NSString *)deviceId {
+  return @(Purchase::GetDeviceId().c_str());
+}
+
 @end

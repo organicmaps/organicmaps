@@ -255,7 +255,8 @@ final class CatalogWebViewController: WebViewController {
           return
       }
       
-      completion(["X-Mapsme-Bundle-Tiers" : encodedString])
+      completion(["X-Mapsme-Bundle-Tiers" : encodedString,
+                  "X-Mapsme-Device-Id" : MWMBookmarksManager.shared().deviceId()])
     })
   }
 

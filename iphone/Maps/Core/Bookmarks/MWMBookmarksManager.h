@@ -115,6 +115,7 @@ typedef void (^PingCompletionBlock)(BOOL success);
 - (BOOL)isGuide:(MWMMarkGroupID)groupId;
 - (NSString *)getServerId:(MWMMarkGroupID)groupId;
 - (NSString *)getGuidesIds;
+- (NSString *)deviceId;
 
 @end
 NS_ASSUME_NONNULL_END
