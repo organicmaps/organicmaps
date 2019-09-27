@@ -176,13 +176,13 @@ struct InOutCityFactor
 struct HighwayBasedInfo
 {
   HighwayBasedInfo(HighwayBasedSpeeds const & speeds, HighwayBasedFactors const & factors)
-    : m_globalSpeeds(speeds)
-    , m_globalFactors(factors)
+    : m_speeds(speeds)
+    , m_factors(factors)
   {
   }
 
-  HighwayBasedSpeeds const & m_globalSpeeds;
-  HighwayBasedFactors const & m_globalFactors;
+  HighwayBasedSpeeds const & m_speeds;
+  HighwayBasedFactors const & m_factors;
 };
 
 class VehicleModelInterface
