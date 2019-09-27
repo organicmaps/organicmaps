@@ -327,36 +327,88 @@ IsPoiChecker::IsPoiChecker() : BaseChecker(1 /* level */)
     m_types.push_back(classif().GetTypeByPath({type}));
 }
 
-// static
-set<pair<string, string>> const WikiChecker::kTypesForWiki = {
-  {"amenity", "place_of_worship"},
-  {"historic", "archaeological_site"},
-  {"historic", "castle"},
-  {"historic", "memorial"},
-  {"historic", "monument"},
-  {"historic", "museum"},
-  {"historic", "ruins"},
-  {"historic", "ship"},
-  {"historic", "tomb"},
-  {"tourism", "artwork"},
-  {"tourism", "attraction"},
-  {"tourism", "museum"},
-  {"tourism", "gallery"},
-  {"tourism", "viewpoint"},
-  {"tourism", "zoo"},
-  {"tourism", "theme_park"},
-  {"leisure", "park"},
-  {"leisure", "water_park"},
-  {"highway", "pedestrian"},
-  {"man_made", "lighthouse"},
-  {"waterway", "waterfall"},
-  {"leisure", "garden"},
-};
-
-WikiChecker::WikiChecker() : BaseChecker(2 /* level */)
+AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
 {
-  for (auto const & t : kTypesForWiki)
-    m_types.push_back(classif().GetTypeByPath({t.first, t.second}));
+  set<pair<string, string>> const primaryAttractionTypes = {
+      {"amenity", "grave_yard"},
+      {"amenity", "fountain"},
+      {"amenity", "place_of_worship"},
+      {"amenity", "theatre"},
+      {"amenity", "townhall"},
+      {"amenity", "university"},
+      {"boundary", "national_park"},
+      {"building", "train_station"},
+      {"highway", "pedestrian"},
+      {"historic", "archaeological_site"},
+      {"historic", "boundary_stone"},
+      {"historic", "castle"},
+      {"historic", "fort"},
+      {"historic", "memorial"},
+      {"historic", "monument"},
+      {"historic", "museum"},
+      {"historic", "ruins"},
+      {"historic", "ship"},
+      {"historic", "tomb"},
+      {"historic", "wayside_cross"},
+      {"historic", "wayside_shrine"},
+      {"landuse", "cemetery"},
+      {"leisure", "garden"},
+      {"leisure", "nature_reserve"},
+      {"leisure", "park"},
+      {"leisure", "water_park"},
+      {"man_made", "lighthouse"},
+      {"man_made", "tower"},
+      {"natural", "beach"},
+      {"natural", "cave_entrance"},
+      {"natural", "geyser"},
+      {"natural", "glacier"},
+      {"natural", "hot_spring"},
+      {"natural", "peak"},
+      {"natural", "volcano"},
+      {"place", "square"},
+      {"tourism", "artwork"},
+      {"tourism", "museum"},
+      {"tourism", "gallery"},
+      {"tourism", "zoo"},
+      {"tourism", "theme_park"},
+      {"waterway", "waterfall"},
+  };
+
+  set<pair<string, string>> const additionalAttractionTypes = {
+      {"tourism", "viewpoint"},
+      {"tourism", "attraction"},
+  };
+
+  for (auto const & t : primaryAttractionTypes)
+  {
+    auto const type = classif().GetTypeByPath({t.first, t.second});
+    m_types.push_back(type);
+    m_primaryTypes.push_back(type);
+  }
+  sort(m_primaryTypes.begin(), m_primaryTypes.end());
+
+  for (auto const & t : additionalAttractionTypes)
+  {
+    auto const type = classif().GetTypeByPath({t.first, t.second});
+    m_types.push_back(type);
+    m_additionalTypes.push_back(type);
+  }
+  sort(m_additionalTypes.begin(), m_additionalTypes.end());
+}
+
+uint32_t AttractionsChecker::GetBestType(FeatureParams::Types const & types) const
+{
+  auto additionalType = ftype::GetEmptyValue();
+  for (auto type : types)
+  {
+    type = PrepareToMatch(type, m_level);
+    if (binary_search(m_primaryTypes.begin(), m_primaryTypes.end(), type))
+      return type;
+
+    if (binary_search(m_additionalTypes.begin(), m_additionalTypes.end(), type))
+      additionalType = type;
+  }
+  return additionalType;
 }
 
 IsPlaceChecker::IsPlaceChecker() : BaseChecker(1 /* level */)
@@ -471,7 +523,7 @@ IsPopularityPlaceChecker::IsPopularityPlaceChecker()
     {"waterway", "waterfall"}
   };
 
-  Classificator const & c = classif();
+   Classificator const & c = classif();
   for (auto const & t : popularityPlaceTypes)
     m_types.push_back(c.GetTypeByPath({t.first, t.second}));
 }

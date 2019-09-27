@@ -28,9 +28,8 @@ namespace ftypes
 {
 class BaseChecker
 {
-  size_t const m_level;
-
 protected:
+  size_t const m_level;
   std::vector<uint32_t> m_types;
 
   BaseChecker(size_t level = 2) : m_level(level) {}
@@ -191,13 +190,15 @@ public:
   DECLARE_CHECKER_INSTANCE(IsPoiChecker);
 };
 
-class WikiChecker : public BaseChecker
+class AttractionsChecker : public BaseChecker
 {
-  WikiChecker();
-public:
-  static std::set<std::pair<std::string, std::string>> const kTypesForWiki;
+  AttractionsChecker();
 
-  DECLARE_CHECKER_INSTANCE(WikiChecker);
+public:
+  std::vector<uint32_t> m_primaryTypes;
+  std::vector<uint32_t> m_additionalTypes;
+
+  DECLARE_CHECKER_INSTANCE(AttractionsChecker);
 
   template <typename Ft>
   bool NeedFeature(Ft & feature) const
@@ -209,6 +210,8 @@ public:
     });
     return need;
   }
+
+  uint32_t GetBestType(FeatureParams::Types const & types) const;
 };
 
 class IsPlaceChecker : public BaseChecker

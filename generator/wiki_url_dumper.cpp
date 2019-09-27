@@ -55,7 +55,7 @@ void WikiUrlDumper::Dump(size_t cpuCount) const
 // static
 void WikiUrlDumper::DumpOne(std::string const & path, std::ostream & stream)
 {
-  auto const & needWikiUrl = ftypes::WikiChecker::Instance();
+  auto const & needWikiUrl = ftypes::AttractionsChecker::Instance();
   feature::ForEachFromDatRawFormat(path, [&](FeatureBuilder const & feature, uint64_t /* pos */) {
     if (!needWikiUrl(feature.GetTypesHolder()))
       return;
@@ -88,7 +88,7 @@ WikiDataFilter::WikiDataFilter(std::string const & path, std::vector<std::string
 void WikiDataFilter::FilterOne(std::string const & path, std::map<base::GeoObjectId, std::string> const & idToWikiData,
                                std::ostream & stream)
 {
-  auto const & needWikiUrl = ftypes::WikiChecker::Instance();
+  auto const & needWikiUrl = ftypes::AttractionsChecker::Instance();
   feature::ForEachFromDatRawFormat(path, [&](FeatureBuilder const & feature, uint64_t /* pos */) {
     if (!needWikiUrl(feature.GetTypesHolder()))
       return;

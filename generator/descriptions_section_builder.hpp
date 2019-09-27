@@ -109,8 +109,8 @@ public:
   {
     descriptions::DescriptionsCollection descriptionList;
     auto fn = [&](Ft & f, uint32_t featureId) {
-      auto const & wikiChecker = ftypes::WikiChecker::Instance();
-      if (!wikiChecker.NeedFeature(f))
+      auto const & attractionsChecker = ftypes::AttractionsChecker::Instance();
+      if (!attractionsChecker.NeedFeature(f))
         return;
 
       std::function<void()> incSource = []() {};

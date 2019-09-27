@@ -29,16 +29,6 @@ vector<uint32_t> GetTypes(char const * arr[][roadArrColumnCount], size_t const r
   return types;
 }
 
-vector<uint32_t> GetTypes(std::vector<std::pair<std::string, std::string>> const & t)
-{
-  Classificator const & c = classif();
-  vector<uint32_t> types;
-
-  for (auto const & k : t)
-    types.push_back(c.GetTypeByPath({k.first, k.second}));
-  return types;
-}
-
 vector<uint32_t> GetTypes(std::vector<std::string> const & t)
 {
   Classificator const & c = classif();
@@ -130,33 +120,17 @@ vector<uint32_t> GetPoiTypes()
   return GetTypes(types);
 }
 
-vector<uint32_t> GetWikiTypes()
+vector<uint32_t> GetAttractionsTypes()
 {
-  vector<pair<string, string>> const types = {
-    {"amenity", "place_of_worship"},
-    {"historic", "archaeological_site"},
-    {"historic", "castle"},
-    {"historic", "memorial"},
-    {"historic", "monument"},
-    {"historic", "museum"},
-    {"historic", "ruins"},
-    {"historic", "ship"},
-    {"historic", "tomb"},
-    {"tourism", "artwork"},
-    {"tourism", "attraction"},
-    {"tourism", "museum"},
-    {"tourism", "gallery"},
-    {"tourism", "viewpoint"},
-    {"tourism", "zoo"},
-    {"tourism", "theme_park"},
-    {"leisure", "park"},
-    {"leisure", "water_park"},
-    {"highway", "pedestrian"},
-    {"man_made", "lighthouse"},
-    {"waterway", "waterfall"},
-    {"leisure", "garden"}
-  };
-  return GetTypes(types);
+  auto const & checker = ftypes::AttractionsChecker::Instance();
+  vector<uint32_t> types;
+  types.reserve(checker.m_primaryTypes.size() + checker.m_additionalTypes.size());
+  for (auto t : checker.m_primaryTypes)
+    types.push_back(t);
+  for (auto t : checker.m_additionalTypes)
+    types.push_back(t);
+
+  return types;
 }
 }  // namespace
 
@@ -253,13 +227,13 @@ UNIT_TEST(IsPoiChecker)
   TEST(!checker(c.GetTypeByPath({"building"})), ());
 }
 
-UNIT_TEST(IsWikiChecker)
+UNIT_TEST(IsAttractionsChecker)
 {
   classificator::Load();
   Classificator const & c = classif();
-  auto const & checker = ftypes::WikiChecker::Instance();
+  auto const & checker = ftypes::AttractionsChecker::Instance();
 
-  for (auto const & t : GetWikiTypes())
+  for (auto const & t : GetAttractionsTypes())
     TEST(checker(t), ());
 
   TEST(!checker(c.GetTypeByPath({"route", "shuttle_train"})), ());
