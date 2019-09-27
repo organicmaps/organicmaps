@@ -228,7 +228,7 @@ using namespace discovery;
   MWMDiscoveryGuideCollectionHolderCell *cell = (MWMDiscoveryGuideCollectionHolderCell *)
   [self.tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
   MWMDiscoveryCollectionView *collection = (MWMDiscoveryCollectionView *)cell.collectionView;
-  [cell config];
+  [cell config:L(@"gallery_pp_download_guides_title")];
   collection.delegate = self;
   collection.dataSource = self;
   collection.itemType = ItemType::Promo;

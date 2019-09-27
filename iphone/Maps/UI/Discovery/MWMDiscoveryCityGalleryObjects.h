@@ -8,6 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (promo::CityGallery::Item const &)galleryItemAtIndex:(NSUInteger)index;
 - (NSUInteger)count;
 - (nullable NSURL *)moreURL;
+- (NSString *)tagString;
 
 @end
 

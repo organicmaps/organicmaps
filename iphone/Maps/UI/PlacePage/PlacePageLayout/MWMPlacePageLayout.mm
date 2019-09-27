@@ -658,7 +658,8 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
         MWMDiscoveryGuideCollectionHolderCell *cell = (MWMDiscoveryGuideCollectionHolderCell *)
           [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
         MWMDiscoveryCollectionView *collection = (MWMDiscoveryCollectionView *)cell.collectionView;
-        [cell config];
+        [cell config:[NSString stringWithCoreFormat:L(@"pp_discovery_place_related_tag_header")
+                                          arguments:@[self.data.promoGallery.tagString]]];
         collection.delegate = self;
         collection.dataSource = self;
         collection.itemType = discovery::ItemType::Promo;

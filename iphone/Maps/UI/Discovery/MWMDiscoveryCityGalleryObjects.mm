@@ -32,4 +32,8 @@
   return nil;
 }
 
+- (NSString *)tagString {
+  return @(m_results.m_category.c_str());
+}
+
 @end
