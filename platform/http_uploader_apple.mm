@@ -85,7 +85,7 @@
 - (void)uploadWithCompletion:(void (^)(NSInteger httpCode, NSString *description))completion {
   NSURL * url = [NSURL URLWithString:self.urlString];
   NSMutableURLRequest * uploadRequest = [NSMutableURLRequest requestWithURL:url];
-  uploadRequest.timeoutInterval = 5;
+  uploadRequest.timeoutInterval = 15;
   uploadRequest.HTTPMethod = self.method;
 
   NSString * boundary = [NSString stringWithFormat:@"Boundary-%@", [[NSUUID UUID] UUIDString]];
