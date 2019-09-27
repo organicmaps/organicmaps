@@ -52,11 +52,11 @@ dependencies {
   implementation 'com.android.support:support-annotations:'+ propSupportLibraryVersion
   implementation 'com.android.support:support-compat:27.1.1'+ propSupportLibraryVersion
 
-  implementation 'com.google.android.gms:play-services-location:' + propPlayServicesVersion
-  implementation 'com.google.android.gms:play-services-analytics:' + propPlayServicesVersion
-  implementation 'com.google.android.gms:play-services-gcm:' + propPlayServicesVersion
-  implementation 'com.google.android.gms:play-services-auth:' + propPlayServicesVersion
-  implementation 'com.google.android.gms:play-services-basement:' + propPlayServicesVersion
+  implementation 'com.google.android.gms:play-services-location:17.0.0'
+  implementation 'com.google.android.gms:play-services-analytics:17.0.0'
+  implementation 'com.google.android.gms:play-services-gcm:17.0.0'
+  implementation 'com.google.android.gms:play-services-auth:17.0.0'
+  implementation 'com.google.android.gms:play-services-basement:17.1.1'
 
   // statistics
   implementation 'com.flurry.android:analytics:11.0.0@aar'
@@ -135,13 +135,14 @@ configurations.all {
     force 'com.android.support:support-compat:' + propSupportLibraryVersion
     force 'com.android.support:support-fragment:' + propSupportLibraryVersion
 
-    force 'com.google.android.gms:play-services-ads:' + propPlayServicesVersion
-    force 'com.google.android.gms:play-services-location:' + propPlayServicesVersion
-    force 'com.google.android.gms:play-services-analytics:' + propPlayServicesVersion
-    force 'com.google.android.gms:play-services-plus:' + propPlayServicesVersion
-    force 'com.google.android.gms:play-services-gcm:' + propPlayServicesVersion
-    force 'com.google.android.gms:play-services-auth:' + propPlayServicesVersion
-    force 'com.google.android.gms:play-services-basement:' + propPlayServicesVersion
+    force 'com.google.android.gms:play-services-ads:18.2.0'
+    force 'com.google.android.gms:play-services-location:17.0.0'
+    force 'com.google.android.gms:play-services-analytics:17.0.0'
+    force 'com.google.android.gms:play-services-plus:17.0.0'
+    force 'com.google.android.gms:play-services-gcm:17.0.0'
+    force 'com.google.android.gms:play-services-auth:17.0.0'
+    force 'com.google.android.gms:play-services-basement:17.1.1'
+    force 'com.google.android.gms:play-services-base:17.0.0'
 
     force 'android.arch.core:runtime:1.1.1'
     force 'android.arch.core:common:1.1.1'
