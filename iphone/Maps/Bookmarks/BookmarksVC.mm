@@ -28,6 +28,7 @@ using namespace std;
 @interface BookmarksVC () <UITableViewDataSource,
                            UITableViewDelegate,
                            UISearchBarDelegate,
+                           UIScrollViewDelegate,
                            MWMBookmarksObserver,
                            MWMLocationObserver,
                            MWMKeyboardObserver,
@@ -857,6 +858,13 @@ using namespace std;
     return;
 
   self.noResultsBottom.constant = -keyboardHeight;
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+  [self.searchBar resignFirstResponder];
 }
 
 @end
