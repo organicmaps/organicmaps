@@ -3,8 +3,8 @@ package com.mapswithme.maps.background;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.support.annotation.NonNull;
-import android.support.v4.app.JobIntentService;
+import androidx.annotation.NonNull;
+import androidx.core.app.JobIntentService;
 
 import com.mapswithme.maps.LightFramework;
 import com.mapswithme.maps.MwmApplication;

@@ -1,9 +1,9 @@
 package com.mapswithme.util;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.preference.PreferenceManager;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 

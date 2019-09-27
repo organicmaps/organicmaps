@@ -1,7 +1,7 @@
 package com.mapswithme.maps.background;
 
 import android.app.Application;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class StubNotificationChannelProvider implements NotificationChannelProvider
 {

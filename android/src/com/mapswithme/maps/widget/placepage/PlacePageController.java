@@ -2,7 +2,7 @@ package com.mapswithme.maps.widget.placepage;
 
 import android.app.Application;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.base.Savable;

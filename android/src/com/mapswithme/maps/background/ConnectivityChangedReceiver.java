@@ -3,7 +3,7 @@ package com.mapswithme.maps.background;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class ConnectivityChangedReceiver extends AbstractLogBroadcastReceiver
 {

@@ -1,8 +1,8 @@
 package com.mapswithme.maps.purchase;
 
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;

@@ -1,8 +1,8 @@
 package com.mapswithme.maps.downloader;
 
 import android.app.Application;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.mapswithme.util.Utils;
 

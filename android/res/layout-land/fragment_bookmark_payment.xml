@@ -11,7 +11,7 @@
     android:layout_alignParentLeft="true"
     android:scaleType="centerCrop"
     android:src="@drawable/img_guides_placeholder_land"/>
-  <android.support.v4.widget.NestedScrollView
+  <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_toRightOf="@id/image"
@@ -19,5 +19,5 @@
     android:layout_alignParentTop="true"
     android:fillViewport="true">
     <include layout="@layout/bookmark_payment_layout"/>
-  </android.support.v4.widget.NestedScrollView>
+  </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

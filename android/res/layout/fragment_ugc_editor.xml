@@ -5,7 +5,7 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:orientation="vertical">
-  <android.support.v7.widget.Toolbar
+  <androidx.appcompat.widget.Toolbar
     android:id="@+id/toolbar"
     style="@style/MwmWidget.ToolbarStyle"
     android:layout_width="match_parent"
@@ -21,7 +21,7 @@
       android:background="?selectableItemBackgroundBorderless"
       android:scaleType="centerInside"
       android:src="@drawable/ic_done"/>
-  </android.support.v7.widget.Toolbar>
+  </androidx.appcompat.widget.Toolbar>
   <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -31,7 +31,7 @@
       android:background="?cardBackground"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
-      <android.support.v7.widget.RecyclerView
+      <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ratings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:background="?dividerHorizontal"/>
-      <android.support.design.widget.TextInputLayout
+      <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_layout"
         android:layout_marginTop="@dimen/margin_base"
         android:layout_width="match_parent"
@@ -60,7 +60,7 @@
           android:textColorHint="?android:textColorSecondary"
           android:inputType="textMultiLine|textCapSentences"
           android:hint="@string/placepage_reviews_hint"/>
-      </android.support.design.widget.TextInputLayout>
+      </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
   </ScrollView>
 </LinearLayout>

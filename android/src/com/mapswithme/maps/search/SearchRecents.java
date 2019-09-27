@@ -1,6 +1,6 @@
 package com.mapswithme.maps.search;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Pair;
 import com.mapswithme.util.Language;

@@ -1,7 +1,7 @@
 package com.mapswithme.maps.widget.placepage;
 
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 
 import com.mapswithme.maps.gallery.Items;
 import com.mapswithme.util.ConnectionState;

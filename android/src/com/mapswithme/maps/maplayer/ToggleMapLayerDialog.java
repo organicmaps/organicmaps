@@ -4,17 +4,16 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +25,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
-import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.widget.recycler.SpanningLinearLayoutManager;
 
 import java.util.Arrays;
@@ -55,7 +53,7 @@ public class ToggleMapLayerDialog extends DialogFragment
   private void onShow(@NonNull DialogInterface dialogInterface)
   {
     BottomSheetDialog dialog = (BottomSheetDialog) dialogInterface;
-    View bottomSheet = dialog.findViewById(android.support.design.R.id.design_bottom_sheet);
+    View bottomSheet = dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
     BottomSheetBehavior behavior = BottomSheetBehavior.from(Objects.requireNonNull(bottomSheet));
     behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
   }

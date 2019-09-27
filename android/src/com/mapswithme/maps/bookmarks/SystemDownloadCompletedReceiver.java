@@ -3,8 +3,8 @@ package com.mapswithme.maps.bookmarks;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v4.app.JobIntentService;
+import androidx.annotation.NonNull;
+import androidx.core.app.JobIntentService;
 
 import com.mapswithme.maps.background.AbstractLogBroadcastReceiver;
 import com.mapswithme.maps.scheduling.JobIdMap;

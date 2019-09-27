@@ -3,11 +3,11 @@ package com.mapswithme.maps.editor;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.Nullable;
-import android.support.annotation.Size;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.IdRes;
+import androidx.annotation.Nullable;
+import androidx.annotation.Size;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
 import android.view.View;
 
 import com.mapswithme.maps.R;

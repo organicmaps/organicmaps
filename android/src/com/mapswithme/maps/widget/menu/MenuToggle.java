@@ -3,8 +3,8 @@ package com.mapswithme.maps.widget.menu;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
-import android.support.annotation.DimenRes;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DimenRes;
+import androidx.annotation.DrawableRes;
 import android.view.View;
 import android.widget.ImageView;
 

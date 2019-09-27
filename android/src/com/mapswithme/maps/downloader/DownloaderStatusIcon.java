@@ -1,7 +1,7 @@
 package com.mapswithme.maps.downloader;
 
-import android.support.annotation.AttrRes;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.AttrRes;
+import androidx.annotation.DrawableRes;
 import android.util.SparseIntArray;
 import android.view.View;
 import android.widget.ImageView;

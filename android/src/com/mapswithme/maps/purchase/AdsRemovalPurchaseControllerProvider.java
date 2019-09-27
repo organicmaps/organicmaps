@@ -1,6 +1,6 @@
 package com.mapswithme.maps.purchase;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 public interface AdsRemovalPurchaseControllerProvider
 {

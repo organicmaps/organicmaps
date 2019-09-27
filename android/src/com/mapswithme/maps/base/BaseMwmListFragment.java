@@ -2,8 +2,8 @@ package com.mapswithme.maps.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
-import android.support.v7.widget.Toolbar;
+import androidx.fragment.app.ListFragment;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 
 import com.mapswithme.maps.R;

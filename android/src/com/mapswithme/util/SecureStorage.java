@@ -2,8 +2,8 @@ package com.mapswithme.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.log.Logger;

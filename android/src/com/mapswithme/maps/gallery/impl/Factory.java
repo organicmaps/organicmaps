@@ -1,8 +1,8 @@
 package com.mapswithme.maps.gallery.impl;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.discovery.LocalExpert;

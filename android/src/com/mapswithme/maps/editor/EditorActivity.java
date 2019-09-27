@@ -2,13 +2,10 @@ package com.mapswithme.maps.editor;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.StyleRes;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
-import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
-import com.mapswithme.util.ThemeUtils;
 
 public class EditorActivity extends BaseMwmFragmentActivity
 {

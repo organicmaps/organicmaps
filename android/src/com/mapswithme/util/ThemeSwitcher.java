@@ -2,7 +2,7 @@ package com.mapswithme.util;
 
 import android.app.Activity;
 import android.location.Location;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
@@ -57,7 +57,7 @@ public final class ThemeSwitcher
    *                         <code>true</code> only if the map is rendered and visible on the screen
    *                         at this moment, otherwise <code>false</code>.
    */
-  @android.support.annotation.UiThread
+  @androidx.annotation.UiThread
   public static void restart(boolean isRendererActive)
   {
     sRendererActive = isRendererActive;
@@ -79,7 +79,7 @@ public final class ThemeSwitcher
     changeMapStyle(theme, oldTheme);
   }
 
-  @android.support.annotation.UiThread
+  @androidx.annotation.UiThread
   private static void changeMapStyle(@NonNull String newTheme, @NonNull String oldTheme)
   {
     @Framework.MapStyle

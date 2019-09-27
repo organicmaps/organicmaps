@@ -1,6 +1,6 @@
 package com.mapswithme.maps.downloader;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 
 /**

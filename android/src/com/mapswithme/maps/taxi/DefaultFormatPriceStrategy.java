@@ -1,6 +1,6 @@
 package com.mapswithme.maps.taxi;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 class DefaultFormatPriceStrategy implements FormatPriceStrategy
 {

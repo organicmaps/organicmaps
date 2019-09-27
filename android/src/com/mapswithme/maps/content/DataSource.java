@@ -1,6 +1,6 @@
 package com.mapswithme.maps.content;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public interface DataSource<D>
 {

@@ -3,7 +3,7 @@ package com.mapswithme.util.sharing;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.google.gson.annotations.SerializedName;

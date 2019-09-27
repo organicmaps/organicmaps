@@ -1,6 +1,6 @@
 package com.mapswithme.maps.bookmarks.data;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.util.Predicate;
 

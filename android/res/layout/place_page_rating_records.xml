@@ -13,7 +13,7 @@
     android:layout_marginLeft="@dimen/margin_base"
     android:layout_marginStart="@dimen/margin_base"
     android:background="?dividerHorizontal"/>
-  <android.support.v7.widget.RecyclerView
+  <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/rv__summary_rating_records"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

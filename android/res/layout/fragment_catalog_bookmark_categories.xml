@@ -6,7 +6,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <android.support.v4.widget.NestedScrollView
+  <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true"
@@ -23,7 +23,7 @@
         android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-      <android.support.constraint.ConstraintLayout
+      <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"
         android:paddingLeft="@dimen/margin_base"
         android:paddingRight="@dimen/margin_base"
@@ -58,7 +58,7 @@
           android:tint="@color/icon_tint"
           android:layout_width="@dimen/margin_half_double_plus"
           android:layout_height="@dimen/margin_half_double_plus"/>
-      </android.support.constraint.ConstraintLayout>
+      </androidx.constraintlayout.widget.ConstraintLayout>
         <View
           android:background="?android:attr/listDivider"
           android:layout_width="match_parent"
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/bookmark_recycler_view_bottom_margin"/>
     </LinearLayout>
-  </android.support.v4.widget.NestedScrollView>
+  </androidx.core.widget.NestedScrollView>
     <LinearLayout
       android:orientation="vertical"
       android:layout_width="match_parent"

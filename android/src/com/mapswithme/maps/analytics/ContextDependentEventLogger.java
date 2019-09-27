@@ -1,7 +1,7 @@
 package com.mapswithme.maps.analytics;
 
 import android.app.Application;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 abstract class ContextDependentEventLogger implements EventLogger
 {

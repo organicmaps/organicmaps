@@ -1,7 +1,7 @@
 package com.mapswithme.maps.search;
 
 import android.app.Activity;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.mapswithme.maps.api.ParsedMwmRequest;

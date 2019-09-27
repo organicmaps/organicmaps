@@ -1,6 +1,6 @@
 package com.mapswithme.util;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.util.Iterator;
 import java.util.LinkedHashSet;

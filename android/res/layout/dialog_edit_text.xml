@@ -13,7 +13,7 @@
     android:layout_marginBottom="@dimen/margin_base"
     android:textAppearance="@style/MwmTextAppearance.Title"/>
 
-  <android.support.design.widget.TextInputLayout
+  <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/input"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -27,6 +27,6 @@
       android:inputType="text|textCapSentences"
       android:singleLine="true"/>
 
-  </android.support.design.widget.TextInputLayout>
+  </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>

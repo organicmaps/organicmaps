@@ -1,6 +1,6 @@
 package com.mapswithme.maps.search;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Native search will return results via this interface.

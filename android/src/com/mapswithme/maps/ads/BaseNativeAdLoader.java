@@ -1,7 +1,7 @@
 package com.mapswithme.maps.ads;
 
-import android.support.annotation.CallSuper;
-import android.support.annotation.Nullable;
+import androidx.annotation.CallSuper;
+import androidx.annotation.Nullable;
 
 abstract class BaseNativeAdLoader implements NativeAdLoader
 {

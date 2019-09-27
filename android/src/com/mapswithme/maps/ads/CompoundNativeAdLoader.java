@@ -2,8 +2,8 @@ package com.mapswithme.maps.ads;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.mapswithme.util.concurrency.UiThread;
@@ -52,7 +52,7 @@ public class CompoundNativeAdLoader extends BaseNativeAdLoader implements Native
     mAdTracker = adTracker;
   }
 
-  @android.support.annotation.UiThread
+  @androidx.annotation.UiThread
   public void loadAd(@NonNull Context context, @NonNull List<Banner> banners)
   {
     LOGGER.i(TAG, "Load ads for " + banners);

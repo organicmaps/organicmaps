@@ -4,16 +4,16 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatDialog;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -404,7 +404,7 @@ public class AlertDialog extends BaseMwmDialogFragment
       int messageId = args.getInt(ARG_MESSAGE_ID);
       int positiveButtonId = args.getInt(ARG_POSITIVE_BUTTON_ID);
       int negativeButtonId = args.getInt(ARG_NEGATIVE_BUTTON_ID);
-      android.support.v7.app.AlertDialog.Builder builder =
+      androidx.appcompat.app.AlertDialog.Builder builder =
           DialogUtils.buildAlertDialog(instance.getContext(), titleId, messageId);
       builder.setPositiveButton(positiveButtonId,
                                 (dialog, which) -> instance.onPositiveClicked(which));

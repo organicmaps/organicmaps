@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   xmlns:mapsme="http://schemas.android.com/apk/res-auto">
 
-  <android.support.v7.widget.RecyclerView
+  <androidx.recyclerview.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
 
-  <android.support.design.widget.FloatingActionButton
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/fabViewOnMap"
     mapsme:layout_constraintRight_toRightOf="parent"
     mapsme:layout_constraintBottom_toBottomOf="parent"
@@ -42,4 +42,4 @@
     mapsme:imgSrcDefault="@drawable/img_empty_bookmarks"
     mapsme:titleDefault="@string/bookmarks_empty_list_title"
     mapsme:subTitleDefault="@string/bookmarks_empty_list_message"/>
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

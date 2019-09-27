@@ -1,7 +1,7 @@
 package com.mapswithme.util;
 
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 
 import com.mapswithme.maps.widget.StackedButtonDialogFragment;
 import com.mapswithme.util.statistics.StatisticValueConverter;

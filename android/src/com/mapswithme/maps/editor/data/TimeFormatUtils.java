@@ -1,8 +1,8 @@
 package com.mapswithme.maps.editor.data;
 
 import android.content.res.Resources;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
 
 import java.text.DateFormatSymbols;
 import java.util.Locale;

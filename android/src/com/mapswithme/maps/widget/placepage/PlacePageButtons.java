@@ -1,8 +1,8 @@
 package com.mapswithme.maps.widget.placepage;
 
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;

@@ -1,7 +1,7 @@
 package com.mapswithme.maps.gallery.impl;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;

@@ -1,14 +1,13 @@
 package com.mapswithme.maps.search;
 
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
-import com.mapswithme.maps.intent.Factory;
 import com.mapswithme.util.Language;
 import com.mapswithme.util.Listeners;
 import com.mapswithme.util.concurrency.UiThread;

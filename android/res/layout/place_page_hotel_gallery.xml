@@ -10,7 +10,7 @@
               tools:background="#20FF0000"
               tools:visibility="visible">
 
-  <android.support.v7.widget.RecyclerView
+  <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/rv__place_hotel_gallery"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

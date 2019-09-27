@@ -1,6 +1,6 @@
 package com.mapswithme.maps.news;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 class PromoButton
 {

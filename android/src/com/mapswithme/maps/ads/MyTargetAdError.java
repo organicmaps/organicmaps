@@ -1,6 +1,6 @@
 package com.mapswithme.maps.ads;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 
 class MyTargetAdError implements NativeAdError

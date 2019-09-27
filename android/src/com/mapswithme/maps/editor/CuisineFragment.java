@@ -1,7 +1,6 @@
 package com.mapswithme.maps.editor;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 

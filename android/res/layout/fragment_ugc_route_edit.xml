@@ -5,13 +5,13 @@
   android:background="?cardBackground"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
-  <android.support.v7.widget.Toolbar
+  <androidx.appcompat.widget.Toolbar
     android:id="@+id/toolbar"
     style="@style/MwmWidget.ToolbarStyle"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:theme="@style/MwmWidget.ToolbarTheme"/>
-  <android.support.v4.widget.NestedScrollView
+  <androidx.core.widget.NestedScrollView
     android:scrollbars="none"
     android:fillViewport="true"
     android:layout_width="match_parent"
@@ -109,6 +109,6 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>
   </LinearLayout>
-  </android.support.v4.widget.NestedScrollView>
+  </androidx.core.widget.NestedScrollView>
 </LinearLayout>
 

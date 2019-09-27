@@ -1,6 +1,6 @@
 package com.mapswithme.util.log;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;

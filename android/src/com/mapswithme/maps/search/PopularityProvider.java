@@ -1,6 +1,6 @@
 package com.mapswithme.maps.search;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public interface PopularityProvider
 {

@@ -6,11 +6,11 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
-  <android.support.design.widget.CoordinatorLayout
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
       android:id="@+id/app_bar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
       android:elevation="@dimen/dp_0"
       app:elevation="@dimen/dp_0"
       tools:targetApi="lollipop">
-      <android.support.design.widget.CollapsingToolbarLayout
+      <com.google.android.material.appbar.CollapsingToolbarLayout
         android:id="@+id/collapsing_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,9 +28,9 @@
           layout="@layout/toolbar_with_search_no_elevation"
           android:layout_width="match_parent"
           android:layout_height="?attr/actionBarSize"/>
-      </android.support.design.widget.CollapsingToolbarLayout>
+      </com.google.android.material.appbar.CollapsingToolbarLayout>
       <include layout="@layout/search_filter_panel"/>
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
       android:layout_width="match_parent"
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
           android:id="@+id/tabs"
           style="@style/MwmWidget.TabLayout"
           android:layout_width="match_parent"
@@ -55,7 +55,7 @@
           android:layout_height="1dp"
           android:background="?dividerHorizontal"/>
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
           android:id="@+id/pages"
           style="@style/MwmWidget.Floating"
           android:layout_width="match_parent"
@@ -90,6 +90,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     </FrameLayout>
-  </android.support.design.widget.CoordinatorLayout>
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </FrameLayout>
 

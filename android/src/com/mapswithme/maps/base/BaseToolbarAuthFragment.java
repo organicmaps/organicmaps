@@ -1,13 +1,12 @@
 package com.mapswithme.maps.base;
 
 import android.content.Intent;
-import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
-import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 
 /**
  * A base toolbar fragment which is responsible for the <b>authorization flow</b>,

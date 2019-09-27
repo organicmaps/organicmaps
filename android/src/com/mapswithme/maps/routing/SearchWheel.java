@@ -4,11 +4,11 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import android.text.TextUtils;
 import android.view.ContextThemeWrapper;
 import android.view.View;
@@ -283,8 +283,8 @@ class SearchWheel implements View.OnClickListener
     final MwmActivity parent;
     if (context instanceof ContextThemeWrapper)
       parent = (MwmActivity)((ContextThemeWrapper)context).getBaseContext();
-    else if (context instanceof android.support.v7.view.ContextThemeWrapper)
-      parent = (MwmActivity)((android.support.v7.view.ContextThemeWrapper)context).getBaseContext();
+    else if (context instanceof androidx.appcompat.view.ContextThemeWrapper)
+      parent = (MwmActivity)((androidx.appcompat.view.ContextThemeWrapper)context).getBaseContext();
     else
       parent = (MwmActivity) context;
     parent.showSearch();

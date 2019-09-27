@@ -1,6 +1,6 @@
 package com.mapswithme.maps.dialog;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public interface DialogFactory
 {

@@ -3,14 +3,14 @@ package com.mapswithme.maps.routing;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.annotation.DimenRes;
-import android.support.annotation.IntRange;
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.util.Pair;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.DimenRes;
+import androidx.annotation.IntRange;
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.core.util.Pair;
+import androidx.appcompat.app.AlertDialog;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.view.View;
@@ -43,7 +43,7 @@ import java.util.concurrent.TimeUnit;
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_POINT_ADD;
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_POINT_REMOVE;
 
-@android.support.annotation.UiThread
+@androidx.annotation.UiThread
 public class RoutingController implements TaxiManager.TaxiListener
 {
   private static final String TAG = RoutingController.class.getSimpleName();

@@ -3,9 +3,9 @@ package com.mapswithme.maps.widget.recycler;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Dimension;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Dimension;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 public class DotDividerItemDecoration extends RecyclerView.ItemDecoration

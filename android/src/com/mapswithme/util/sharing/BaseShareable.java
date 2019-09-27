@@ -3,8 +3,8 @@ package com.mapswithme.util.sharing;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import android.text.TextUtils;
 
 import com.mapswithme.util.statistics.AlohaHelper;

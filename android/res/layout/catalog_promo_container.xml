@@ -81,7 +81,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/divider_height"
     layout="@layout/list_divider"/>
-  <android.support.v7.widget.CardView
+  <androidx.cardview.widget.CardView
     android:id="@+id/promo_poi_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -153,8 +153,8 @@
         </LinearLayout>
       </LinearLayout>
     </LinearLayout>
-  </android.support.v7.widget.CardView>
-  <android.support.v7.widget.RecyclerView
+  </androidx.cardview.widget.CardView>
+  <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/catalog_promo_recycler"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

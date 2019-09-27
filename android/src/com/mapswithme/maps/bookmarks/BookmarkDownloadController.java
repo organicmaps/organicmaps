@@ -1,7 +1,7 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.maps.base.Savable;

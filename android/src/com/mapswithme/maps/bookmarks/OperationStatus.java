@@ -2,7 +2,7 @@ package com.mapswithme.maps.bookmarks;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.bookmarks.data.Error;
 import com.mapswithme.maps.bookmarks.data.Result;

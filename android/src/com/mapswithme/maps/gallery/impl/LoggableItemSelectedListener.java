@@ -1,7 +1,7 @@
 package com.mapswithme.maps.gallery.impl;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.discovery.ItemType;
 import com.mapswithme.maps.gallery.Items;

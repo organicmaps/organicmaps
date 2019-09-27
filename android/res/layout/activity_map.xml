@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/coordinator"
@@ -96,18 +96,18 @@
       android:background="?ppButtonsBackground"/>
     <include layout="@layout/divider_horizontal"/>
   </FrameLayout>
-  <android.support.design.widget.AppBarLayout
+  <com.google.android.material.appbar.AppBarLayout
     android:id="@+id/app_bar"
     app:layout_behavior="@string/placepage_toolbar_behavior"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:elevation="@dimen/appbar_elevation"
     android:visibility="gone">
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
       android:id="@+id/pp_toolbar"
       style="@style/MwmWidget.ToolbarStyle"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
       android:theme="@style/MwmWidget.ToolbarTheme.DownButton"/>
-  </android.support.design.widget.AppBarLayout>
-</android.support.design.widget.CoordinatorLayout>
+  </com.google.android.material.appbar.AppBarLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

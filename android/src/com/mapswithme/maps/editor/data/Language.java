@@ -1,6 +1,6 @@
 package com.mapswithme.maps.editor.data;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 // Corresponds to StringUtf8Multilang::Lang in core.
 public class Language

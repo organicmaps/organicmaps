@@ -1,7 +1,7 @@
 package com.mapswithme.maps.auth;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 public interface TargetFragmentCallback
 {

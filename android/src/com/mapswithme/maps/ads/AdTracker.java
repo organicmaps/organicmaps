@@ -1,6 +1,6 @@
 package com.mapswithme.maps.ads;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Represents a interface to track an ad visibility on the screen.

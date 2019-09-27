@@ -3,9 +3,9 @@ package com.mapswithme.maps.ugc;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.StyleRes;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.StyleRes;
+import androidx.fragment.app.Fragment;
 
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.metrics.UserActionsLogger;

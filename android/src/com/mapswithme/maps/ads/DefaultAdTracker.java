@@ -1,14 +1,13 @@
 package com.mapswithme.maps.ads;
 
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.BrokenBarrierException;
 
 public class DefaultAdTracker implements AdTracker, OnAdCacheModifiedListener
 {

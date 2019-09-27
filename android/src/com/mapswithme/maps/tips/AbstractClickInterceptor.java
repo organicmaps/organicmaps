@@ -1,6 +1,6 @@
 package com.mapswithme.maps.tips;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.metrics.UserActionsLogger;

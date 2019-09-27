@@ -1,7 +1,7 @@
 package com.mapswithme.maps.downloader;
 
 import android.app.Application;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.background.Notifier;
 

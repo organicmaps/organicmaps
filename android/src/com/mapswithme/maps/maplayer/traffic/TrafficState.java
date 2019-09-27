@@ -1,7 +1,7 @@
 package com.mapswithme.maps.maplayer.traffic;
 
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.util.statistics.Statistics;
 

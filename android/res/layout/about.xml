@@ -3,7 +3,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent">
-  <android.support.v4.widget.NestedScrollView
+  <androidx.core.widget.NestedScrollView
       android:id="@+id/content_frame"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
@@ -93,7 +93,7 @@
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/copyright"/>
     </LinearLayout>
-  </android.support.v4.widget.NestedScrollView>
+  </androidx.core.widget.NestedScrollView>
 
   <include layout="@layout/shadow_top"/>
 </FrameLayout>

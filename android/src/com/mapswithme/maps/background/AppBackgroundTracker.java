@@ -164,7 +164,7 @@ public final class AppBackgroundTracker
     mVisibleAppLaunchListeners.unregister(listener);
   }
 
-  @android.support.annotation.UiThread
+  @androidx.annotation.UiThread
   public Activity getTopActivity()
   {
     return (mActivities.size() == 0 ? null : mActivities.get(mActivities.keyAt(0)).get());

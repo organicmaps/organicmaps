@@ -8,7 +8,7 @@
   <include
     layout="@layout/toolbar_extended"/>
 
-  <android.support.v7.widget.CardView
+  <androidx.cardview.widget.CardView
     android:layout_width="@dimen/settings_width"
     android:layout_height="match_parent"
     android:layout_marginTop="?actionBarSize"
@@ -18,6 +18,6 @@
       style="@style/MwmWidget.FrameLayout.Elevation"
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>
-  </android.support.v7.widget.CardView>
+  </androidx.cardview.widget.CardView>
 
 </FrameLayout>

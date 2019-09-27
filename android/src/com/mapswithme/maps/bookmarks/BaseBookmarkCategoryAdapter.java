@@ -1,8 +1,8 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 

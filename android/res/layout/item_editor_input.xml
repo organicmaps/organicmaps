@@ -9,7 +9,7 @@
     style="@style/MwmWidget.Editor.MetadataIcon"
     tools:src="@drawable/ic_phone"/>
 
-  <android.support.design.widget.TextInputLayout
+  <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/custom_input"
     style="@style/MwmWidget.Editor.CustomTextInput"
     android:layout_centerVertical="true"
@@ -22,6 +22,6 @@
       tools:hint="Hint"
       tools:text="Input"/>
 
-  </android.support.design.widget.TextInputLayout>
+  </com.google.android.material.textfield.TextInputLayout>
 
 </RelativeLayout>

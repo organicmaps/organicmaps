@@ -1,7 +1,7 @@
 package com.mapswithme.maps.discovery;
 
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.promo.PromoCityGallery;
 import com.mapswithme.maps.search.SearchResult;

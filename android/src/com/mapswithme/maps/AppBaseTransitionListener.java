@@ -1,7 +1,7 @@
 package com.mapswithme.maps;
 
 import android.location.Location;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.mapswithme.maps.background.AppBackgroundTracker;

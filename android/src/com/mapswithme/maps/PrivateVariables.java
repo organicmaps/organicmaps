@@ -1,6 +1,6 @@
 package com.mapswithme.maps;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Interface to re-use some important variables from C++.

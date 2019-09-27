@@ -1,6 +1,6 @@
 package com.mapswithme.maps.purchase;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public interface CoreValidationObserver
 {

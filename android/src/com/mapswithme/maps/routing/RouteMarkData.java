@@ -1,6 +1,6 @@
 package com.mapswithme.maps.routing;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Represents RouteMarkData from core.

@@ -2,8 +2,8 @@ package com.mapswithme.maps.maplayer.subway;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.content.AbstractContextualListener;
 

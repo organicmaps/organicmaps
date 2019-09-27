@@ -1,8 +1,8 @@
 package com.mapswithme.maps.base;
 
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.CallSuper;
+import androidx.appcompat.widget.Toolbar;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;

@@ -1,8 +1,8 @@
 package com.mapswithme.maps.base;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
-import android.support.annotation.StyleRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.StyleRes;
 
 public interface BaseActivity
 {

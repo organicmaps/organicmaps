@@ -1,9 +1,7 @@
 package com.mapswithme.maps.bookmarks.data;
 
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.util.GeoUtils;
 import com.mapswithme.util.sharing.ShareableInfoProvider;

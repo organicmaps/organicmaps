@@ -586,7 +586,7 @@
       </intent-filter>
     </receiver>
     <provider
-      android:name="android.support.v4.content.FileProvider"
+      android:name="androidx.core.content.FileProvider"
       android:authorities="${FILE_PROVIDER_PLACEHOLDER}"
       android:exported="false"
       android:grantUriPermissions="true">

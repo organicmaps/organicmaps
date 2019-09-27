@@ -9,7 +9,7 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.LocationUtils;

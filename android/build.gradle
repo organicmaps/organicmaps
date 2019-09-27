@@ -80,7 +80,7 @@ dependencies {
   }
   implementation fileTree(dir: '3rd_party', include: '*.jar')
   // BottomSheet
-  implementation 'com.cocosw:bottomsheet:1.3.1@aar'
+  implementation 'com.cocosw:bottomsheet:1.5.0@aar'
   // LinearLayoutManager allowing wrap_content of RecyclerView-s
   // TODO remove this library when default LinearLayoutManager will be fixed.
   implementation 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
@@ -92,7 +92,7 @@ dependencies {
   implementation 'com.appsflyer:af-android-sdk:4.9.0'
   implementation 'com.android.installreferrer:installreferrer:1.0'
 
-  implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+  implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
   implementation 'com.android.billingclient:billing:1.1'
   implementation 'uk.co.samuelwall:material-tap-target-prompt:2.12.1'
   implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
@@ -135,7 +135,6 @@ configurations.all {
     force 'com.android.support:support-compat:' + propSupportLibraryVersion
     force 'com.android.support:support-fragment:' + propSupportLibraryVersion
 
-    force 'com.google.android.gms:play-services-ads:18.2.0'
     force 'com.google.android.gms:play-services-location:17.0.0'
     force 'com.google.android.gms:play-services-analytics:17.0.0'
     force 'com.google.android.gms:play-services-plus:17.0.0'

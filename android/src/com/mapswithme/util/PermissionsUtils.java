@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.permissions.PermissionsResult;
@@ -16,7 +16,7 @@ import java.util.Map;
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static android.support.v4.app.ActivityCompat.shouldShowRequestPermissionRationale;
+import static androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale;
 
 public final class PermissionsUtils
 {

@@ -6,7 +6,7 @@
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
-  <android.support.v7.widget.Toolbar
+  <androidx.appcompat.widget.Toolbar
     android:id="@+id/toolbar"
     style="@style/MwmWidget.ToolbarStyle"
     android:layout_width="match_parent"
@@ -15,7 +15,7 @@
     android:gravity="end|center_vertical"
     android:theme="@style/MwmWidget.ToolbarTheme"
     tools:ignore="UnusedAttribute">
-  </android.support.v7.widget.Toolbar>
+  </androidx.appcompat.widget.Toolbar>
   <TextView
     android:text="@string/driving_options_subheader"
     android:textAppearance="?android:attr/textAppearance"

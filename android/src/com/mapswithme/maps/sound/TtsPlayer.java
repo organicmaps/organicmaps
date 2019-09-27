@@ -3,8 +3,8 @@ package com.mapswithme.maps.sound;
 import android.content.Context;
 import android.content.res.Resources;
 import android.speech.tts.TextToSpeech;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.mapswithme.maps.Framework;

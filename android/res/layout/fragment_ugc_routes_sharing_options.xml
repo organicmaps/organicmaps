@@ -6,7 +6,7 @@
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
-  <android.support.v7.widget.Toolbar
+  <androidx.appcompat.widget.Toolbar
     android:id="@+id/toolbar"
     style="@style/MwmWidget.ToolbarStyle"
     android:layout_width="match_parent"
@@ -15,8 +15,8 @@
     android:gravity="end|center_vertical"
     android:theme="@style/MwmWidget.ToolbarTheme"
     tools:ignore="UnusedAttribute">
-  </android.support.v7.widget.Toolbar>
-  <android.support.v4.widget.NestedScrollView
+  </androidx.appcompat.widget.Toolbar>
+  <androidx.core.widget.NestedScrollView
     android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -47,7 +47,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:background="?attr/cardBackground">
-          <android.support.v7.widget.AppCompatImageView
+          <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/get_direct_link_image"
             android:layout_width="@dimen/sharing_options_img_size"
             android:layout_height="@dimen/sharing_options_img_size"
@@ -288,5 +288,5 @@
         <include layout="@layout/list_divider"/>
       </LinearLayout>
     </LinearLayout>
-  </android.support.v4.widget.NestedScrollView>
+  </androidx.core.widget.NestedScrollView>
 </LinearLayout>

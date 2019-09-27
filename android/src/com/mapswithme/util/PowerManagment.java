@@ -1,6 +1,6 @@
 package com.mapswithme.util;
 
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 
 import com.mapswithme.maps.Framework;
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.preference.PreferenceScreen
+<androidx.preference.PreferenceScreen
   xmlns:android="http://schemas.android.com/apk/res/android">
 
   <Preference
     android:key="@string/pref_osm_profile"
     android:title="@string/profile"
     android:order="1"/>
-  <android.support.v7.preference.PreferenceCategory
+  <androidx.preference.PreferenceCategory
     android:key="@string/pref_settings_general"
     android:title="@string/prefs_group_general"
     android:order="2">
@@ -45,7 +45,7 @@
       android:title="@string/whatsnew_transliteration_title"
       android:defaultValue="false"
       android:order="7"/>
-    <android.support.v7.preference.PreferenceScreen
+    <androidx.preference.PreferenceScreen
       android:key="@string/pref_track_screen"
       android:title="@string/pref_track_record_title"
       android:persistent="false"
@@ -66,7 +66,7 @@
         android:enabled="false"
         android:summary="@string/recent_track_help_text"
         android:order="3"/>
-    </android.support.v7.preference.PreferenceScreen>
+    </androidx.preference.PreferenceScreen>
     <Preference
       android:key="@string/pref_storage"
       android:title="@string/maps_storage"
@@ -112,9 +112,9 @@
       android:entries="@array/power_management_scheme"
       android:entryValues="@array/power_management_scheme_values"
       android:order="15"/>
-  </android.support.v7.preference.PreferenceCategory>
+  </androidx.preference.PreferenceCategory>
 
-  <android.support.v7.preference.PreferenceCategory
+  <androidx.preference.PreferenceCategory
     android:key="@string/pref_navigation"
     android:title="@string/prefs_group_route"
     android:order="3">
@@ -132,7 +132,7 @@
       android:key="@string/pref_auto_zoom"
       android:title="@string/pref_map_auto_zoom"
       android:order="3"/>
-    <android.support.v7.preference.PreferenceScreen
+    <androidx.preference.PreferenceScreen
       android:key="@string/pref_tts_screen"
       android:title="@string/pref_tts_enable_title"
       android:persistent="false"
@@ -159,7 +159,7 @@
         android:enabled="true"
         android:summary="@string/prefs_languages_information_off_link"
         android:order="4"/>
-    </android.support.v7.preference.PreferenceScreen>
+    </androidx.preference.PreferenceScreen>
     <ListPreference
       android:key="@string/pref_speed_cameras"
       android:title="@string/speedcams_alert_title"
@@ -176,8 +176,8 @@
         <extra android:name="from" android:value="settings" />
       </intent>
     </PreferenceScreen>
-  </android.support.v7.preference.PreferenceCategory>
-  <android.support.v7.preference.PreferenceCategory
+  </androidx.preference.PreferenceCategory>
+  <androidx.preference.PreferenceCategory
     android:key="@string/pref_information"
     android:title="@string/prefs_group_information"
     android:order="6">
@@ -191,8 +191,8 @@
       android:title="@string/about_menu_title"
       android:fragment="com.mapswithme.maps.settings.AboutFragment"
       android:order="2"/>
-  </android.support.v7.preference.PreferenceCategory>
-  <android.support.v7.preference.PreferenceCategory
+  </androidx.preference.PreferenceCategory>
+  <androidx.preference.PreferenceCategory
     android:key="@string/pref_subtittle_opt_out"
     android:title="@string/subtittle_opt_out"
     android:order="7">
@@ -210,5 +210,5 @@
       android:title="@string/opt_out_fabric"
       android:summary="@string/opt_out_fabric_description">
     </SwitchPreferenceCompat>
-  </android.support.v7.preference.PreferenceCategory>
-</android.support.v7.preference.PreferenceScreen>
+  </androidx.preference.PreferenceCategory>
+</androidx.preference.PreferenceScreen>

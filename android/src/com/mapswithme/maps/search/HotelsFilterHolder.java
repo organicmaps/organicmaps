@@ -1,6 +1,6 @@
 package com.mapswithme.maps.search;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 interface HotelsFilterHolder
 {

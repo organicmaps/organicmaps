@@ -1,7 +1,7 @@
 package com.mapswithme.maps.scheduling;
 
 import android.app.Application;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.background.NotificationService;
 import com.mapswithme.util.ConnectionState;

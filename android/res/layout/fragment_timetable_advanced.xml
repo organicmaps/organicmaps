@@ -13,7 +13,7 @@
     android:orientation="vertical"
     android:padding="@dimen/margin_half">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       card_view:cardBackgroundColor="?cardBackground"
@@ -33,9 +33,9 @@
         tools:hint="hint"
         tools:text="trololo \ntrololo \ntrololo"/>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_half"
@@ -76,7 +76,7 @@
 
       </RelativeLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
   </LinearLayout>
 

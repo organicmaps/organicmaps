@@ -2,7 +2,7 @@ package com.mapswithme.maps.analytics;
 
 import android.app.Activity;
 import android.app.Application;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.flurry.android.FlurryAgent;

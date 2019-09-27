@@ -2,7 +2,7 @@ package com.mapswithme.maps.maplayer.subway;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;

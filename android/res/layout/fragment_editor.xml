@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<androidx.core.widget.NestedScrollView
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -13,7 +13,7 @@
     android:layout_margin="@dimen/margin_half"
     android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
       android:id="@+id/cv__category"
       style="@style/MwmWidget.Editor.CardView">
 
@@ -68,17 +68,17 @@
 
       </RelativeLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
       android:id="@+id/cv__name"
       style="@style/MwmWidget.Editor.CardView">
 
       <include layout="@layout/localized_name"/>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
       android:id="@+id/cv__address"
       style="@style/MwmWidget.Editor.CardView">
 
@@ -155,9 +155,9 @@
 
       </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
       android:id="@+id/cv__metadata"
       style="@style/MwmWidget.Editor.CardView">
 
@@ -259,7 +259,7 @@
             android:layout_toStartOf="@+id/sw__wifi"
             android:text="@string/wifi"/>
 
-          <android.support.v7.widget.SwitchCompat
+          <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/sw__wifi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -270,9 +270,9 @@
 
       </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
       android:id="@+id/cv__more"
       style="@style/MwmWidget.Editor.CardView">
 
@@ -323,9 +323,9 @@
 
       </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
       android:id="@+id/cv__more"
       style="@style/MwmWidget.Editor.CardView"
       android:layout_marginTop="@dimen/margin_double"
@@ -340,8 +340,8 @@
         android:textAppearance="@style/MwmTextAppearance.Button"
         android:textColor="@color/base_red"
         tools:text="Reset my changes"/>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
   </LinearLayout>
 
-</android.support.v4.widget.NestedScrollView>
+</androidx.core.widget.NestedScrollView>

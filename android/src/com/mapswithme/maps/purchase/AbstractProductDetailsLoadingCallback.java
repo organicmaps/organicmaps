@@ -1,6 +1,6 @@
 package com.mapswithme.maps.purchase;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;

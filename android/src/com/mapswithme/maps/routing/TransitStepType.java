@@ -1,6 +1,6 @@
 package com.mapswithme.maps.routing;
 
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 
 import com.mapswithme.maps.R;
 

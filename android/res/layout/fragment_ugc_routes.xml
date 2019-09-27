@@ -41,7 +41,7 @@
       android:layout_height="wrap_content"
       android:textAppearance="?android:attr/textAppearanceSmall"/>
     <include layout="@layout/list_divider"/>
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/recycler"
       android:overScrollMode="never"
       android:layout_width="match_parent"

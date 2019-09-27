@@ -2,7 +2,7 @@ package com.mapswithme.maps.editor.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.IntRange;
+import androidx.annotation.IntRange;
 import android.text.format.DateFormat;
 
 import com.mapswithme.maps.MwmApplication;

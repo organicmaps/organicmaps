@@ -1,6 +1,6 @@
 package com.mapswithme.maps.intent;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.MwmActivity;
 

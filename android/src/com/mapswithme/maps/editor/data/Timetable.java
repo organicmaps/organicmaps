@@ -1,7 +1,7 @@
 package com.mapswithme.maps.editor.data;
 
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
 
 public class Timetable
 {

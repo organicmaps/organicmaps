@@ -1,8 +1,8 @@
 package com.mopub.nativeads;
 
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.ads.AdDataAdapter;
 import com.mapswithme.maps.ads.CachedMwmNativeAd;

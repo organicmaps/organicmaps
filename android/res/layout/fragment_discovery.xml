@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<androidx.core.widget.NestedScrollView
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:fillViewport="true"
@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
       android:id="@+id/toolbar"
       style="@style/MwmWidget.ToolbarStyle"
       android:layout_width="match_parent"
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/discovery_button_subtitle_book_hotels"/>
-      <android.support.v7.widget.RecyclerView
+      <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/hotels"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
         android:layout_marginTop="@dimen/margin_base_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-      <android.support.v7.widget.RecyclerView
+      <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/attractions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -69,7 +69,7 @@
         android:layout_marginBottom="@dimen/margin_half_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-      <android.support.v7.widget.RecyclerView
+      <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/food"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -87,7 +87,7 @@
         android:layout_marginBottom="@dimen/margin_half_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-      <android.support.v7.widget.RecyclerView
+      <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/localGuides"
         android:visibility="gone"
         android:layout_width="match_parent"
@@ -105,7 +105,7 @@
         android:layout_marginBottom="@dimen/margin_half_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-      <android.support.v7.widget.RecyclerView
+      <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/catalog_promo_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -122,5 +122,5 @@
       android:visibility="gone"
       tools:visibility="visible"/>
   </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+</androidx.core.widget.NestedScrollView>
 

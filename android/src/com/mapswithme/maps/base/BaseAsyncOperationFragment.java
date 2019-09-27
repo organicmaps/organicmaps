@@ -1,8 +1,8 @@
 package com.mapswithme.maps.base;
 
-import android.support.annotation.StringRes;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
+import androidx.annotation.StringRes;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.dialog.ProgressDialogFragment;

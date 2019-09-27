@@ -1,7 +1,7 @@
 package com.mapswithme.maps.downloader;
 
-import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.util.statistics.StatisticValueConverter;
 

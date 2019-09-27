@@ -1,7 +1,7 @@
 package com.mapswithme.maps.ugc;
 
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
 
 import com.mapswithme.maps.R;
 

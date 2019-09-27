@@ -1,6 +1,6 @@
 package com.mapswithme.util.statistics;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public interface StatisticValueConverter<T>
 {

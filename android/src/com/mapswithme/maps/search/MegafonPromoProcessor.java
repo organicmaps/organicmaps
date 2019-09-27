@@ -1,7 +1,7 @@
 package com.mapswithme.maps.search;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.util.Utils;

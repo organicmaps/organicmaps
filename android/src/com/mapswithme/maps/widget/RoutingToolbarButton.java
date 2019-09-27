@@ -2,9 +2,9 @@ package com.mapswithme.maps.widget;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.v7.widget.AppCompatRadioButton;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.appcompat.widget.AppCompatRadioButton;
 import android.util.AttributeSet;
 
 import com.mapswithme.maps.R;

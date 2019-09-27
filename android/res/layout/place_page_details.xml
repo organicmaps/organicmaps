@@ -103,7 +103,7 @@
 
     <include layout="@layout/place_page_add"/>
 
-    <android.support.v4.widget.Space
+    <androidx.legacy.widget.Space
       android:layout_width="match_parent"
       android:layout_height="@dimen/place_page_buttons_height"/>
 

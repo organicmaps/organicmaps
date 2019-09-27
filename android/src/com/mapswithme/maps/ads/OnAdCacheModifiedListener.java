@@ -1,6 +1,6 @@
 package com.mapswithme.maps.ads;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * A common listener to make all interested observers be able to watch for ads cache modifications.

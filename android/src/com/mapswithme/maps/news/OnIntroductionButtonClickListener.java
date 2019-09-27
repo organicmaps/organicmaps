@@ -1,7 +1,7 @@
 package com.mapswithme.maps.news;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public interface OnIntroductionButtonClickListener
 {

@@ -1,6 +1,6 @@
 package com.mapswithme.maps.location;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 class SensorData
 {

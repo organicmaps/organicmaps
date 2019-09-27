@@ -1,6 +1,6 @@
 package com.mapswithme.maps.widget.placepage;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class HotelPriceInfo
 {

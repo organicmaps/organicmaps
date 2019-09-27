@@ -1,6 +1,6 @@
 package com.mapswithme.maps.gallery;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public interface ItemSelectedListener<I>
 {

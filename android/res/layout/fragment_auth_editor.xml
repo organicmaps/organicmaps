@@ -5,7 +5,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical">
-  <android.support.v7.widget.Toolbar
+  <androidx.appcompat.widget.Toolbar
     android:id="@+id/toolbar"
     style="@style/MwmWidget.ToolbarStyle"
     android:layout_width="match_parent"
@@ -23,7 +23,7 @@
       android:scaleType="center"
       android:src="@drawable/ic_more"
       android:visibility="gone"/>
-  </android.support.v7.widget.Toolbar>
+  </androidx.appcompat.widget.Toolbar>
 
   <ScrollView
     android:layout_width="match_parent"
@@ -147,7 +147,7 @@
         android:layout_weight="1"
         android:padding="@dimen/margin_base">
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
           style="@style/MwmWidget.Editor.CardView"
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
@@ -203,7 +203,7 @@
                 tools:text="-42"/>
             </LinearLayout>
           </LinearLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
         <TextView
           android:id="@+id/about_osm"

@@ -3,9 +3,9 @@ package com.mapswithme.maps.analytics;
 import android.app.Application;
 import android.os.AsyncTask;
 import android.os.CountDownTimer;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.UiThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.UiThread;
 import android.text.TextUtils;
 
 import com.appsflyer.AppsFlyerConversionListener;

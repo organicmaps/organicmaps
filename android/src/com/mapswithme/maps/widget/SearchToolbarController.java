@@ -3,7 +3,7 @@ package com.mapswithme.maps.widget;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
