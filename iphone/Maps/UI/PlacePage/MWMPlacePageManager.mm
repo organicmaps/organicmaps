@@ -89,12 +89,6 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 
 @implementation MWMPlacePageManager
 
-- (void)didBecomeActive {
-  if (self.layout) {
-    [self.layout reloadPromoIfNeeded];
-  }
-}
-
 - (void)showReview:(place_page::Info const &)info
 {
   [self show:info];

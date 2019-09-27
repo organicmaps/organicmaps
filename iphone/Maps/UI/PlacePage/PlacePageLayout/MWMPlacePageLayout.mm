@@ -109,7 +109,6 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
   [tv registerWithCellClass:[MWMUGCAddReviewCell class]];
   [tv registerWithCellClass:[MWMUGCYourReviewCell class]];
   [tv registerWithCellClass:[MWMUGCReviewCell class]];
-  [tv registerWithCellClass:[EmptyTableViewCell class]];
   [tv registerWithCellClass:[MWMDiscoveryGuideCollectionHolderCell class]];
   [tv registerWithCellClass:[CatalogSingleItemCell class]];
 
@@ -228,21 +227,6 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
       [tv reloadRowsAtIndexPaths:@[ previewIP ] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
   }];
-}
-
-- (void)reloadPromoIfNeeded {
-  auto data = self.data;
-  if (!data)
-    return;
-  if (!data.isPromoCatalog)
-    return;
-  if (data.promoCatalogRows.size() == 1 && data.promoCatalogRows[0] == place_page::PromoCatalogRow::Guides) {
-    return;
-  }
-  __weak __typeof__(self) weakSelf = self;
-  network_policy::CallPartnersApi([weakSelf](auto const & canUseNetwork) {
-    [weakSelf.data reguestPromoCatalog:canUseNetwork];
-  });
 }
 
 #pragma mark - Downloader event
@@ -636,11 +620,6 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
     case Sections::PromoCatalog:
     {
       auto rows = self.data.promoCatalogRows;
-      if (rows.empty() || rows[indexPath.row] != PromoCatalogRow::Guides || self.data.promoGallery.count == 0) {
-        Class cls = [EmptyTableViewCell class];
-        EmptyTableViewCell * cell = (EmptyTableViewCell *)[tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
-        return cell;
-      }
       if (self.data.promoGallery.count == 1) {
         CatalogSingleItemCell *cell = (CatalogSingleItemCell *)
           [tableView dequeueReusableCellWithCellClass:CatalogSingleItemCell.class indexPath:indexPath];
@@ -834,11 +813,9 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
     [self.previewLayoutHelper insertRowAtTheEnd];
   };
 
-  data.refreshPromoCallback = ^{
+  data.refreshPromoCallback = ^(NSIndexSet *insertedSections) {
     __strong __typeof(self) self = ws;
-    auto tv = self.placePageView.tableView;
-    [tv reloadSections:[NSIndexSet indexSetWithIndex:1]
-      withRowAnimation:UITableViewRowAnimationFade];
+    [self.placePageView.tableView insertSections:insertedSections withRowAnimation:UITableViewRowAnimationNone];
   };
 
   [self.actionBar configureWithData:data];

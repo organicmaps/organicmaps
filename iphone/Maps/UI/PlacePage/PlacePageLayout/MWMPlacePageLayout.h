@@ -44,7 +44,6 @@ enum class NodeStatus;
 - (UIView *)shareAnchor;
 
 - (void)reloadBookmarkSection:(BOOL)isBookmark;
-- (void)reloadPromoIfNeeded;
 
 - (void)rotateDirectionArrowToAngle:(CGFloat)angle;
 - (void)setDistanceToObject:(NSString *)distance;

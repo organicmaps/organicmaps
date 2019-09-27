@@ -305,7 +305,6 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
 {
   if (!self.welcomePageController)
     [self.controlsManager showAdditionalViewsIfNeeded];
-  [self.controlsManager didBecomeActive];
 }
 
 - (void)viewDidLayoutSubviews

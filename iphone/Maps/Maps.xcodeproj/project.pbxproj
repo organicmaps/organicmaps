@@ -387,8 +387,6 @@
 		472C40E5232A7B9F009AA777 /* CatalogSingleItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 472C40E3232A7B9F009AA777 /* CatalogSingleItemCell.xib */; };
 		472C40E8232BA810009AA777 /* CatalogPromoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 472C40E7232BA810009AA777 /* CatalogPromoItem.m */; };
 		472C40EB232BAE20009AA777 /* CatalogPromoItem+Core.mm in Sources */ = {isa = PBXBuildFile; fileRef = 472C40EA232BAE20009AA777 /* CatalogPromoItem+Core.mm */; };
-		472C40EE232BC4E5009AA777 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472C40EC232BC4E5009AA777 /* EmptyTableViewCell.swift */; };
-		472C40EF232BC4E5009AA777 /* EmptyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 472C40ED232BC4E5009AA777 /* EmptyTableViewCell.xib */; };
 		472E3F472146BCD30020E412 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F462146BCD30020E412 /* SubscriptionManager.swift */; };
 		472E3F4A2146C4CD0020E412 /* MWMPurchaseManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F492146C4CD0020E412 /* MWMPurchaseManager.mm */; };
 		472E3F4C2147D5700020E412 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F4B2147D5700020E412 /* Subscription.swift */; };
@@ -1487,8 +1485,6 @@
 		472C40E7232BA810009AA777 /* CatalogPromoItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CatalogPromoItem.m; sourceTree = "<group>"; };
 		472C40E9232BAE20009AA777 /* CatalogPromoItem+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CatalogPromoItem+Core.h"; sourceTree = "<group>"; };
 		472C40EA232BAE20009AA777 /* CatalogPromoItem+Core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "CatalogPromoItem+Core.mm"; sourceTree = "<group>"; };
-		472C40EC232BC4E5009AA777 /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
-		472C40ED232BC4E5009AA777 /* EmptyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyTableViewCell.xib; sourceTree = "<group>"; };
 		472E3F462146BCD30020E412 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
 		472E3F482146C4CD0020E412 /* MWMPurchaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPurchaseManager.h; sourceTree = "<group>"; };
 		472E3F492146C4CD0020E412 /* MWMPurchaseManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPurchaseManager.mm; sourceTree = "<group>"; };
@@ -3560,8 +3556,6 @@
 				472C40E7232BA810009AA777 /* CatalogPromoItem.m */,
 				472C40E9232BAE20009AA777 /* CatalogPromoItem+Core.h */,
 				472C40EA232BAE20009AA777 /* CatalogPromoItem+Core.mm */,
-				472C40EC232BC4E5009AA777 /* EmptyTableViewCell.swift */,
-				472C40ED232BC4E5009AA777 /* EmptyTableViewCell.xib */,
 			);
 			path = CatalogPromo;
 			sourceTree = "<group>";
@@ -4929,7 +4923,6 @@
 				6741A9591BF340DE002C974C /* 05_khmeros.ttf in Resources */,
 				34AB66801FC5AA330078E451 /* MWMiPhoneRoutePreview.xib in Resources */,
 				F6D67CEB2069318B0032FD38 /* PPPSearchSimilarButton.xib in Resources */,
-				472C40EF232BC4E5009AA777 /* EmptyTableViewCell.xib in Resources */,
 				F61757F11FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib in Resources */,
 				6741A95B1BF340DE002C974C /* 06_code2000.ttf in Resources */,
 				F603E05E1FDE9703006B84D6 /* DiscoverySearchCollectionHolderCell.xib in Resources */,
@@ -5334,7 +5327,6 @@
 				3404F48B202894EA0090E401 /* BMCViewController.swift in Sources */,
 				349D1ABC1E2D05EF004A2006 /* SearchBar.swift in Sources */,
 				F6E2FD7A1E097BA00083EBEC /* MWMMapDownloaderDefaultDataSource.mm in Sources */,
-				472C40EE232BC4E5009AA777 /* EmptyTableViewCell.swift in Sources */,
 				34E50DF81F6FCC96008EED49 /* UGCReviewCell.swift in Sources */,
 				F6E2FF3F1E097BA00083EBEC /* MWMSearchTableViewController.mm in Sources */,
 				F6E2FDE01E097BA00083EBEC /* MWMEditorViewController.mm in Sources */,

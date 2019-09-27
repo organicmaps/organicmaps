@@ -141,6 +141,8 @@ enum class PromoCatalogRow
 using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * data, BOOL isSection);
 }  // namespace place_page
 
+typedef void (^RefreshPromoCallbackBlock)(NSIndexSet *insertedSections);
+
 @class MWMGalleryItemModel;
 @class MWMUGCViewModel;
 @class MWMUGCReviewModel;
@@ -156,7 +158,7 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 @property(copy, nonatomic) place_page::NewSectionsAreReady sectionsAreReadyCallback;
 @property(copy, nonatomic) MWMVoidBlock bannerIsReadyCallback;
 @property(copy, nonatomic) MWMVoidBlock bookingDataUpdatedCallback;
-@property(copy, nonatomic) MWMVoidBlock refreshPromoCallback;
+@property(copy, nonatomic) RefreshPromoCallbackBlock refreshPromoCallback;
 @property(nonatomic, readonly) MWMUGCViewModel * ugc;
 @property(nonatomic, readonly) MWMDiscoveryCityGalleryObjects *promoGallery;
 @property(nonatomic, readonly) NSInteger bookingDiscount;

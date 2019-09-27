@@ -93,13 +93,10 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   m_sections.push_back(Sections::Preview);
   [self fillPreviewSection];
   
-  if (self.isPromoCatalog) {
-    m_sections.push_back(Sections::PromoCatalog);
+  if ([[self placeDescription] length] && ![[self bookmarkDescription] length] && !self.isPromoCatalog) {
+    m_sections.push_back(Sections::Description);
   }
 
-  if ([[self placeDescription] length] && ![[self bookmarkDescription] length])
-    m_sections.push_back(Sections::Description);
-  
   // It's bookmark.
   if (m_info.IsBookmark())
     m_sections.push_back(Sections::Bookmark);
@@ -447,7 +444,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 }
 
 - (NSInteger)bookmarkSectionPosition {
-  if (self.isPromoCatalog) {
+  if (self.promoGallery != nil) {
     return 2;
   } else {
     return 1;
@@ -878,7 +875,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 #pragma mark - Promo Gallery
 
 - (void)fillPromoCatalogSection {
-  if (!self.isPromoCatalog) {
+  if (!self.isPromoCatalog || self.isBookmark || [self bookmarkDescription].length > 0) {
     return;
   }
   
@@ -902,33 +899,57 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
                            kStatError: kStatNoInternet
                            }];
   } else {
-    auto const resultHandler = [self](promo::CityGallery const & cityGallery) {
-      self.promoGallery = [[MWMDiscoveryCityGalleryObjects alloc] initWithGalleryResults:cityGallery];
-      m_promoCatalogRows.push_back(PromoCatalogRow::Guides);
-      [Statistics logEvent:kStatPlacepageSponsoredShow
-            withParameters:@{
-                             kStatProvider: kStatMapsmeGuides,
-                             kStatPlacement: self.isLargeToponim ? kStatPlacePageToponims : kStatPlacePageSightSeeing,
-                             kStatState: kStatOnline,
-                             kStatCount: @(cityGallery.m_items.size())
-                             }];
-      if (self.refreshPromoCallback) {
-        self.refreshPromoCallback();
+    __weak __typeof(self) weakSelf = self;
+    auto const resultHandler = [weakSelf](promo::CityGallery const & cityGallery) {
+      __strong __typeof(self) self = weakSelf;
+      if (self == nil) {
+        return;
+      }
+
+      if (cityGallery.IsEmpty()) {
+        if ([[self placeDescription] length] && ![[self bookmarkDescription] length]) {
+          m_sections.insert(m_sections.begin() + 1, Sections::Description);
+          if (self.refreshPromoCallback) {
+            self.refreshPromoCallback([NSIndexSet indexSetWithIndex:1]);
+          }
+        }
+      } else {
+        self.promoGallery = [[MWMDiscoveryCityGalleryObjects alloc] initWithGalleryResults:cityGallery];
+        m_sections.insert(m_sections.begin() + 1, Sections::PromoCatalog);
+        m_promoCatalogRows.push_back(PromoCatalogRow::Guides);
+        [Statistics logEvent:kStatPlacepageSponsoredShow
+              withParameters:@{
+                               kStatProvider: kStatMapsmeGuides,
+                               kStatPlacement: self.isLargeToponim ? kStatPlacePageToponims : kStatPlacePageSightSeeing,
+                               kStatState: kStatOnline,
+                               kStatCount: @(cityGallery.m_items.size())
+                               }];
+        NSMutableIndexSet *insertedSections = [NSMutableIndexSet indexSetWithIndex:1];
+        if (self.promoGallery.count > 1 && [[self placeDescription] length] && ![[self bookmarkDescription] length]) {
+          NSInteger infoIndex = self.isBookmark ? 3 : 2;
+          m_sections.insert(m_sections.begin() + infoIndex, Sections::Description);
+          [insertedSections addIndex:infoIndex];
+        }
+        if (self.refreshPromoCallback) {
+          self.refreshPromoCallback([insertedSections copy]);
+        }
       }
     };
     
-    auto const errorHandler = [self, row]() {
-      m_promoCatalogRows.push_back(row);
-      [Statistics logEvent:kStatPlacepageSponsoredError
-            withParameters:@{
-                             kStatProvider: kStatMapsmeGuides,
-                             kStatPlacement: self.isLargeToponim ? kStatPlacePageToponims : kStatPlacePageSightSeeing,
-                             kStatError: kStatDownloadError
-                             }];
-      if (self.refreshPromoCallback) {
-        self.refreshPromoCallback();
+    auto const errorHandler = [weakSelf]() {
+      __strong __typeof(self) self = weakSelf;
+      if (self == nil) {
+        return;
+      }
+
+      if ([[self placeDescription] length] && ![[self bookmarkDescription] length]) {
+        m_sections.insert(m_sections.begin() + 1, Sections::Description);
+        if (self.refreshPromoCallback) {
+          self.refreshPromoCallback([NSIndexSet indexSetWithIndex:1]);
+        }
       }
     };
+
     auto appInfo = AppInfo.sharedInfo;
     auto locale = appInfo.twoLetterLanguageId.UTF8String;
     if (m_info.GetSponsoredType() == SponsoredType::PromoCatalogCity) {
@@ -941,10 +962,6 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
                          resultHandler,
                          errorHandler);
     }
-  }
-  
-  if (self.refreshPromoCallback) {
-    self.refreshPromoCallback();
   }
 }
 

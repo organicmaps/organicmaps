@@ -72,6 +72,5 @@ class Info;
 - (id<MWMBookingInfoHolder>)bookingInfoHolder;
 
 - (void)showAdditionalViewsIfNeeded;
-- (void)didBecomeActive;
 
 @end
