@@ -1491,9 +1491,9 @@ void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
   Retrieval::ExtendedFeatures allFeatures;
   allFeatures.SetFull();
 
+  curToken = ctx.SkipUsedTokens(curToken);
   auto startToken = curToken;
-  for (curToken = ctx.SkipUsedTokens(curToken);
-       curToken < ctx.m_numTokens && !ctx.IsTokenUsed(curToken); ++curToken)
+  for (; curToken < ctx.m_numTokens && !ctx.IsTokenUsed(curToken); ++curToken)
   {
     allFeatures = allFeatures.Intersect(ctx.m_features[curToken]);
   }
