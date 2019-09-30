@@ -50,7 +50,6 @@ using namespace std;
 @property(nonatomic) MWMSearchNoResults *noResultsView;
 
 @property(nonatomic) UIActivityIndicatorView *spinner;
-@property(nonatomic) UIImageView *searchIcon;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *hideSearchBar;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *showSearchBar;
 
@@ -246,8 +245,9 @@ using namespace std;
   self.myCategoryToolbar.barTintColor = [UIColor white];
   self.downloadedCategoryToolbar.barTintColor = [UIColor white];
 
-  [self showSpinner:NO];
-
+  [self.searchBar setImage:[UIImage imageNamed:@"ic_search"]
+          forSearchBarIcon:UISearchBarIconSearch
+                     state:UIControlStateNormal];
   [self refreshDefaultSections];
 }
 
@@ -500,8 +500,6 @@ using namespace std;
   GetFramework().CancelSearch(search::Mode::Bookmarks);
 
   [self showNoResultsView:NO];
-  [self showSpinner:NO];
-
   self.searchSections = nil;
   [self refreshDefaultSections];
   [self.tableView reloadData];
@@ -543,28 +541,6 @@ using namespace std;
     _spinner.hidesWhenStopped = YES;
   }
   return _spinner;
-}
-
-- (UIImageView *)searchIcon {
-  if (!_searchIcon) {
-    _searchIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_search"]];
-    _searchIcon.mwm_coloring = MWMImageColoringBlack;
-  }
-  return _searchIcon;
-}
-
-- (void)showSpinner:(BOOL)show {
-  if (@available(iOS 13, *)) {
-    UITextField *textField = self.searchBar.searchTextField;
-    if (!show) {
-      textField.leftView = self.searchIcon;
-      [self.spinner stopAnimating];
-    } else {
-      self.spinner.bounds = textField.leftView.bounds;
-      textField.leftView = self.spinner;
-      [self.spinner startAnimating];
-    }
-  }
 }
 
 - (NSString *)categoryFileName {
@@ -677,19 +653,14 @@ using namespace std;
     bm.FilterInvalidBookmarks(filteredResults);
     [self setSearchSection:filteredResults];
 
-    if (status == search::BookmarksSearchParams::Status::Cancelled) {
-      [self showSpinner:NO];
-    } else if (status == search::BookmarksSearchParams::Status::Completed) {
+    if (status == search::BookmarksSearchParams::Status::Completed) {
       [self showNoResultsView:results.empty()];
-      [self showSpinner:NO];
     }
 
     [self.tableView reloadData];
     
     [Statistics logEvent:kStatBookmarksSearch withParameters:@{kStatFrom : kStatBookmarksList}];
   };
-
-  [self showSpinner:YES];
 
   GetFramework().SearchInBookmarks(searchParams);
 }
