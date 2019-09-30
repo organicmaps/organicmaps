@@ -43,10 +43,10 @@ public:
 
   enum class CentersTableFormat
   {
-    // Centers table encoded without any header. Coding params from mwm header used.
+    // Centers table encoded without any header. Coding params from mwm header are used.
     PlainEliasFanoMap,
 
-    // Centers table has it's own header with version and coding params.
+    // Centers table has its own header with version and coding params.
     EliasFanoMapWithHeader,
   };
 
@@ -77,4 +77,5 @@ private:
 
 std::string DebugPrint(MwmTraits::SearchIndexFormat format);
 std::string DebugPrint(MwmTraits::HouseToStreetTableFormat format);
+std::string DebugPrint(MwmTraits::CentersTableFormat format);
 }  // namespace version

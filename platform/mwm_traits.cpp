@@ -79,4 +79,14 @@ std::string DebugPrint(MwmTraits::HouseToStreetTableFormat format)
   }
   UNREACHABLE();
 }
+
+std::string DebugPrint(MwmTraits::CentersTableFormat format)
+{
+  switch (format)
+  {
+  case MwmTraits::CentersTableFormat::PlainEliasFanoMap: return "PlainEliasFanoMap";
+  case MwmTraits::CentersTableFormat::EliasFanoMapWithHeader: return "EliasFanoMapWithHeader";
+  }
+  UNREACHABLE();
+}
 }  // namespace version

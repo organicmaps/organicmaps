@@ -44,8 +44,8 @@ PostcodePoints::PostcodePoints(MwmValue const & value)
 
   version::MwmTraits traits(value.GetMwmVersion());
   auto const format = traits.GetCentersTableFormat();
-  CHECK(format == version::MwmTraits::CentersTableFormat::EliasFanoMapWithHeader,
-        ("Unexpected format."));
+  CHECK_EQUAL(format, version::MwmTraits::CentersTableFormat::EliasFanoMapWithHeader,
+              ("Unexpected format."));
 
   m_pointsSubReader =
       reader.GetPtr()->CreateSubReader(m_header.m_pointsOffset, m_header.m_pointsSize);
