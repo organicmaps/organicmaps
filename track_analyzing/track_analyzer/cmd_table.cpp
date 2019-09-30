@@ -30,6 +30,7 @@
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
+#include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/sunrise_sunset.hpp"
 #include "base/timer.hpp"
@@ -283,7 +284,18 @@ public:
     if (begin + 1 >= end)
       return;
 
-    uint64_t const time = (end - 1)->GetDataPoint().m_timestamp - begin->GetDataPoint().m_timestamp;
+    auto const & beginDataPoint = begin->GetDataPoint();
+    auto const & endDataPoint = (end - 1)->GetDataPoint();
+    uint64_t const time = endDataPoint.m_timestamp - beginDataPoint.m_timestamp;
+
+    if (time == 0)
+    {
+      LOG(LWARNING, ("Track with the same time at the beginning and at the end. Beginning:",
+                     beginDataPoint.m_latLon, " End:", endDataPoint.m_latLon,
+                     " Timestamp:", beginDataPoint.m_timestamp, " Segment:", begin->GetSegment()));
+      return;
+    }
+
     double const length = CalcSubtrackLength(begin, end, geometry);
     m_moveInfos[moveType].Add(length, time, crossroads);
   }
