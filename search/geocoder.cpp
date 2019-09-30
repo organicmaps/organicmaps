@@ -1510,7 +1510,9 @@ void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
       return;
     if (type == Model::TYPE_UNCLASSIFIED)
     {
-      EmitResult(ctx, m_context->GetId(), featureId, type, TokenRange(startToken, curToken),
+      auto const tokenRange = TokenRange(startToken, curToken);
+      ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_UNCLASSIFIED, tokenRange);
+      EmitResult(ctx, m_context->GetId(), featureId, type, tokenRange,
                  nullptr /* geoParts */, true /* allTokensUsed */, exactMatch);
     }
   };
