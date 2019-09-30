@@ -59,8 +59,9 @@ public:
   Status GetStatus() const;
 
   void Load(NameDiffInfoMap && info);
-  void ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancellable,
-                 OnDiffApplicationFinished const & task);
+  static void ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancellable,
+                        OnDiffApplicationFinished const & task);
+
 private:
   template <typename Fn>
   bool WithNotAppliedDiff(storage::CountryId const & countryId, Fn && fn) const

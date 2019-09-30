@@ -39,12 +39,13 @@ void Manager::Load(NameDiffInfoMap && info)
   }
 }
 
+// static
 void Manager::ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancellable,
                         Manager::OnDiffApplicationFinished const & task)
 {
   using namespace generator::mwm_diff;
 
-  GetPlatform().RunTask(Platform::Thread::File, [this, p = std::move(p), &cancellable, task] {
+  GetPlatform().RunTask(Platform::Thread::File, [p = std::move(p), &cancellable, task] {
     CHECK(p.m_diffFile, ());
     CHECK(p.m_oldMwmFile, ());
 
@@ -101,11 +102,8 @@ void Manager::ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancella
       break;
     }
 
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, task, result]()
+    GetPlatform().RunTask(Platform::Thread::Gui, [task, result]()
     {
-      if (result == DiffApplicationResult::Failed)
-        m_status = Status::NotAvailable;
-
       task(result);
     });
   });

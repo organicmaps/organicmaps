@@ -138,14 +138,15 @@ namespace storage
 {
 namespace diffs
 {
-//static
+// static
 void Loader::Load(LocalMapsInfo && info, DiffsReceivedCallback && callback)
 {
-    GetPlatform().RunTask(Platform::Thread::Network, [info = move(info), callback = move(callback)]() {
-      GetPlatform().RunTask(Platform::Thread::Gui,
-                            [result = ::Load(info), callback = move(callback)]() mutable {
-                              callback(move(result));
-                            });
+  GetPlatform().RunTask(Platform::Thread::Network, [info = move(info), callback = move(callback)]() {
+    auto result = ::Load(info);
+    GetPlatform().RunTask(Platform::Thread::Gui,
+                          [result = move(result), callback = move(callback)]() mutable {
+                            callback(move(result));
+                          });
   });
 }
 }  // namespace diffs

@@ -330,8 +330,8 @@ void Storage::RegisterAllLocalMaps(bool enableDiffs)
   if (enableDiffs)
     LoadDiffScheme();
   // Note: call order is important, diffs loading must be called first.
-  // Because of diffs downloading and servers list downloading
-  // are working on network thread, consequtive executing is guaranteed.
+  // Since diffs downloading and servers list downloading
+  // are working on network thread, consecutive executing is guaranteed.
   RestoreDownloadQueue();
 }
 
@@ -483,11 +483,11 @@ Status Storage::CountryStatusEx(CountryId const & countryId) const
   if (status != Status::EUnknown)
     return status;
 
-  LocalFilePtr localFile = GetLatestLocalFile(countryId);
+  auto localFile = GetLatestLocalFile(countryId);
   if (!localFile || !localFile->OnDisk(MapOptions::Map))
     return Status::ENotDownloaded;
 
-  CountryFile const & countryFile = GetCountryFile(countryId);
+  auto const & countryFile = GetCountryFile(countryId);
   if (GetRemoteSize(countryFile, MapOptions::Map, GetCurrentDataVersion()) == 0)
     return Status::EUnknown;
 
@@ -1561,7 +1561,7 @@ void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSucces
 
   LocalFilePtr & diffFile = params.m_diffFile;
 
-  m_diffManager.ApplyDiff(
+  diffs::Manager::ApplyDiff(
       move(params), m_diffsCancellable,
       [this, fn, countryId, diffFile](DiffApplicationResult result) {
         CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1614,7 +1614,6 @@ bool Storage::IsPossibleToAutoupdate() const
   if (m_diffManager.GetStatus() != diffs::Status::Available)
     return false;
 
-  bool isPossibleToAutoupdate = true;
   auto const currentVersion = GetCurrentDataVersion();
   CountriesVec localMaps;
   GetLocalRealMaps(localMaps);
@@ -1625,12 +1624,11 @@ bool Storage::IsPossibleToAutoupdate() const
     if (mapVersion != currentVersion && mapVersion > 0 &&
         !m_diffManager.HasDiffFor(localFile->GetCountryName()))
     {
-      isPossibleToAutoupdate = false;
-      break;
+      return false;
     }
   }
 
-  return isPossibleToAutoupdate;
+  return true;
 }
 
 void Storage::SetStartDownloadingCallback(StartDownloadingCallback const & cb)
