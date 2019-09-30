@@ -81,7 +81,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     }
   }
 
-  public abstract class SectionsDataSource
+  public static abstract class SectionsDataSource
   {
     @NonNull
     private final DataSource<BookmarkCategory> mDataSource;
@@ -111,7 +111,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     public abstract void onDelete(@NonNull SectionPosition pos);
   }
 
-  private class CategorySectionsDataSource extends SectionsDataSource
+  private static class CategorySectionsDataSource extends SectionsDataSource
   {
     private int mSectionsCount;
     private int mDescriptionSectionIndex;
@@ -206,7 +206,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     }
   }
 
-  private class SearchResultsSectionsDataSource extends SectionsDataSource
+  private static class SearchResultsSectionsDataSource extends SectionsDataSource
   {
     @NonNull
     private final List<Long> mSearchResults;
@@ -255,7 +255,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     }
   }
 
-  private class SortedSectionsDataSource extends SectionsDataSource
+  private static class SortedSectionsDataSource extends SectionsDataSource
   {
     @NonNull
     private List<SortedBlock> mSortedBlocks;
@@ -540,7 +540,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     else
     {
       final long bookmarkId = mSectionsDataSource.getBookmarkId(pos);
-      return BookmarkManager.INSTANCE.getBookmark(bookmarkId);
+      return BookmarkManager.INSTANCE.getLightWeightBookmark(bookmarkId);
     }
   }
 }

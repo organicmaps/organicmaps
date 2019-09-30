@@ -492,9 +492,15 @@ public enum BookmarkManager
   }
 
   @NonNull
-  public Bookmark getBookmark(long bmkId)
+  public Bookmark getHeavyWeightBookmark(long bmkId)
   {
     return nativeGetBookmark(bmkId);
+  }
+
+  @NonNull
+  public BookmarkInfo getLightWeightBookmark(long bmkId)
+  {
+    return nativeGetBookmarkInfo(bmkId);
   }
 
   public long getBookmarkIdByPosition(long catId, int positionInCategory)
@@ -822,6 +828,9 @@ public enum BookmarkManager
 
   @NonNull
   private native Bookmark nativeGetBookmark(long bmkId);
+
+  @NonNull
+  private native BookmarkInfo nativeGetBookmarkInfo(long bmkId);
 
   private native long nativeGetBookmarkIdByPosition(long catId, int position);
 

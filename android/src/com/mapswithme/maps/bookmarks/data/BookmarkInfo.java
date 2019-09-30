@@ -5,18 +5,23 @@ import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.Framework;
 
-public class BookmarkInfo
+public class BookmarkInfo implements MapPoint
 {
   private final long mCategoryId;
   private final long mBookmarkId;
   @NonNull
-  private String mTitle;
+  private final String mTitle;
   @NonNull
-  private String mFeatureType;
+  private final String mFeatureType;
   @NonNull
-  private Icon mIcon;
-  private double mMerX;
-  private double mMerY;
+  private final Icon mIcon;
+  private final double mMerX;
+  private final double mMerY;
+  private final double mScale;
+  @NonNull
+  private final String mAddress;
+  @NonNull
+  private final ParcelablePointD mLatLonPoint;
 
   public BookmarkInfo(@IntRange(from = 0) long categoryId, @IntRange(from = 0) long bookmarkId)
   {
@@ -28,6 +33,9 @@ public class BookmarkInfo
     final ParcelablePointD ll = Bookmark.nativeGetXY(mBookmarkId);
     mMerX = ll.x;
     mMerY = ll.y;
+    mScale = Bookmark.nativeGetScale(mBookmarkId);
+    mAddress = Bookmark.nativeGetAddress(mBookmarkId);
+    mLatLonPoint = Bookmark.nativeToLatLon(mMerX, mMerY);
   }
 
   public long getCategoryId()
@@ -49,6 +57,7 @@ public class BookmarkInfo
   public String getFeatureType() { return mFeatureType; }
 
   @NonNull
+  @Override
   public String getTitle()
   {
     return mTitle;
@@ -64,5 +73,30 @@ public class BookmarkInfo
   public String getDistance(double latitude, double longitude, double v)
   {
     return getDistanceAndAzimuth(latitude, longitude, v).getDistance();
+  }
+
+  @Override
+  public double getLat()
+  {
+    return mLatLonPoint.x;
+  }
+
+  @Override
+  public double getLon()
+  {
+    return mLatLonPoint.y;
+  }
+
+  @Override
+  public double getScale()
+  {
+    return mScale;
+  }
+
+  @NonNull
+  @Override
+  public String getAddress()
+  {
+    return mAddress;
   }
 }

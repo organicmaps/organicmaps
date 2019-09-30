@@ -180,11 +180,17 @@ public class Bookmark extends MapObject
 
   private native String nativeGetBookmarkDescription(@IntRange(from = 0) long bookmarkId);
 
-  private native double nativeGetScale(@IntRange(from = 0) long bookmarkId);
+  public static native double nativeGetScale(@IntRange(from = 0) long bookmarkId);
 
   private native String nativeEncode2Ge0Url(@IntRange(from = 0) long bookmarkId, boolean addName);
 
   private native void nativeSetBookmarkParams(@IntRange(from = 0) long bookmarkId, String name, int color, String descr);
 
   private native void nativeChangeCategory(@IntRange(from = 0) long oldCatId, @IntRange(from = 0) long newCatId, @IntRange(from = 0) long bookmarkId);
+
+  @NonNull
+  public native static String nativeGetAddress(long bookmarkId);
+
+  @NonNull
+  public native static ParcelablePointD nativeToLatLon(double merX, double merY);
 }

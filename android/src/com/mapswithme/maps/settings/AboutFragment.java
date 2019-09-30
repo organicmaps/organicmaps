@@ -114,7 +114,8 @@ public class AboutFragment extends BaseSettingsFragment
       case R.id.share:
         Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.TELL_FRIEND);
         AlohaHelper.logClick(AlohaHelper.Settings.TELL_FRIEND);
-        ShareOption.ANY.share(getActivity(), getString(R.string.tell_friends_text), R.string.tell_friends);
+        ShareOption.AnyShareOption.ANY.share(getActivity(), getString(R.string.tell_friends_text),
+                                             R.string.tell_friends);
         break;
 
       case R.id.copyright:

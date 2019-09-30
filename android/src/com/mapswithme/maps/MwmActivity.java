@@ -445,7 +445,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       final String geoUrl = Framework.nativeGetGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.nativeGetDrawScale(), "");
       final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.nativeGetDrawScale(), "");
       final String body = getString(R.string.my_position_share_sms, geoUrl, httpUrl);
-      ShareOption.ANY.share(this, body);
+      ShareOption.AnyShareOption.ANY.share(this, body);
       return;
     }
 

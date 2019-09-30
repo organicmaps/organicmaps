@@ -105,4 +105,23 @@ Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeEncode2Ge0Url(
 {
   return jni::ToJavaString(env, frm()->CodeGe0url(getBookmark(bmk), addName));
 }
+
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeGetAddress(
+        JNIEnv * env, jobject thiz, jlong bmkId)
+{
+  auto const address = frm()->GetAddressAtPoint(getBookmark(bmkId)->GetPivot()).FormatAddress();
+  return jni::ToJavaString(env, address);
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeToLatLon(
+        JNIEnv * env, jobject thiz, jdouble mercX, jdouble mercY)
+{
+  auto const mercPoint = m2::PointD(static_cast<double>(mercX), static_cast<double>(mercY));
+  auto const latLon = MercatorBounds::ToLatLon(mercPoint);
+  auto const latlonPoint = m2::PointD(latLon.m_lat, latLon.m_lon);
+
+  return jni::GetNewParcelablePointD(env, latlonPoint);
+}
 } // extern "C"

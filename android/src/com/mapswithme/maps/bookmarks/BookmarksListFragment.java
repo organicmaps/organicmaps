@@ -24,8 +24,8 @@ import com.crashlytics.android.Crashlytics;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
-import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
+import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.maps.bookmarks.data.CategoryDataSource;
@@ -215,7 +215,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     mFabViewOnMap = view.findViewById(R.id.fabViewOnMap);
     mFabViewOnMap.setOnClickListener(v ->
     {
-      final Intent i = new Intent(requireActivity(), MwmActivity.class);
+      final Intent i = makeMwmActivityIntent();
       i.putExtra(MwmActivity.EXTRA_TASK,
           new Factory.ShowBookmarkCategoryTask(mCategoryDataSource.getData().getId()));
       i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -496,7 +496,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
   public void onItemClick(int position)
   {
-    final Intent i = new Intent(requireActivity(), MwmActivity.class);
+    final Intent intent = makeMwmActivityIntent();
 
     BookmarkListAdapter adapter = getAdapter();
 
@@ -507,26 +507,44 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
         return;
 
       case BookmarkListAdapter.TYPE_BOOKMARK:
-        if (getAdapter().isSearchResults())
-          trackBookmarksSearchResultSelected();
-        final Bookmark bookmark = (Bookmark) adapter.getItem(position);
-        i.putExtra(MwmActivity.EXTRA_TASK,
-            new Factory.ShowBookmarkTask(bookmark.getCategoryId(), bookmark.getBookmarkId()));
-        if (BookmarkManager.INSTANCE.isGuide(mCategoryDataSource.getData()))
-          Statistics.INSTANCE.trackGuideBookmarkSelect(mCategoryDataSource.getData().getServerId());
+        onBookmarkClicked(position, intent, adapter);
         break;
 
       case BookmarkListAdapter.TYPE_TRACK:
-        final Track track = (Track) adapter.getItem(position);
-        i.putExtra(MwmActivity.EXTRA_TASK,
-            new Factory.ShowTrackTask(track.getCategoryId(), track.getTrackId()));
-        if (BookmarkManager.INSTANCE.isGuide(mCategoryDataSource.getData()))
-          Statistics.INSTANCE.trackGuideTrackSelect(mCategoryDataSource.getData().getServerId());
+        onTrackClicked(position, intent, adapter);
         break;
     }
 
-    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    startActivity(i);
+    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    startActivity(intent);
+  }
+
+  @NonNull
+  private Intent makeMwmActivityIntent()
+  {
+    return new Intent(requireActivity(), MwmActivity.class);
+  }
+
+  private void onTrackClicked(int position, @NonNull Intent i, @NonNull BookmarkListAdapter adapter)
+  {
+    final Track track = (Track) adapter.getItem(position);
+    i.putExtra(MwmActivity.EXTRA_TASK,
+               new Factory.ShowTrackTask(track.getCategoryId(), track.getTrackId()));
+    if (BookmarkManager.INSTANCE.isGuide(mCategoryDataSource.getData()))
+      Statistics.INSTANCE.trackGuideTrackSelect(mCategoryDataSource.getData().getServerId());
+  }
+
+  private void onBookmarkClicked(int position, Intent i, BookmarkListAdapter adapter)
+  {
+    if (getAdapter().isSearchResults())
+      trackBookmarksSearchResultSelected();
+
+    final BookmarkInfo bookmark = (BookmarkInfo) adapter.getItem(position);
+    i.putExtra(MwmActivity.EXTRA_TASK,
+               new Factory.ShowBookmarkTask(bookmark.getCategoryId(), bookmark.getBookmarkId()));
+
+    if (BookmarkManager.INSTANCE.isGuide(mCategoryDataSource.getData()))
+      Statistics.INSTANCE.trackGuideBookmarkSelect(mCategoryDataSource.getData().getServerId());
   }
 
   public void onItemMore(int position)
@@ -544,7 +562,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
         break;
 
       case BookmarkListAdapter.TYPE_BOOKMARK:
-        final Bookmark bookmark = (Bookmark) adapter.getItem(mSelectedPosition);
+        final BookmarkInfo bookmark = (BookmarkInfo) adapter.getItem(mSelectedPosition);
         int menuResId = isDownloadedCategory() ? R.menu.menu_bookmarks_catalog
             : R.menu.menu_bookmarks;
         BottomSheet bs = BottomSheetHelper.create(requireActivity(), bookmark.getTitle())
@@ -579,11 +597,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   public boolean onBookmarkMenuItemClicked(@NonNull MenuItem menuItem)
   {
     BookmarkListAdapter adapter = getAdapter();
-    Bookmark item = (Bookmark) adapter.getItem(mSelectedPosition);
+    BookmarkInfo item = (BookmarkInfo) adapter.getItem(mSelectedPosition);
     switch (menuItem.getItemId())
     {
       case R.id.share:
-        ShareOption.ANY.shareMapObject(requireActivity(), item, Sponsored.nativeGetCurrent());
+        ShareOption.AnyShareOption.ANY.shareBookmarkObject(requireActivity(), item,
+                                                           Sponsored.nativeGetCurrent());
         break;
 
       case R.id.edit:

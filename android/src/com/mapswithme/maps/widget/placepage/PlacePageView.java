@@ -653,7 +653,7 @@ public class PlacePageView extends NestedScrollView
     }
     Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_SHARE);
     AlohaHelper.logClick(AlohaHelper.PP_SHARE);
-    ShareOption.ANY.shareMapObject(getActivity(), mMapObject, mSponsored);
+    ShareOption.AnyShareOption.ANY.shareMapObject(getActivity(), mMapObject, mSponsored);
   }
 
   private void onBackBtnClicked()
@@ -2072,7 +2072,7 @@ public class PlacePageView extends NestedScrollView
   @Override
   public void onBookmarkSaved(long bookmarkId, boolean movedFromCategory)
   {
-    setMapObject(BookmarkManager.INSTANCE.getBookmark(bookmarkId), null);
+    setMapObject(BookmarkManager.INSTANCE.getHeavyWeightBookmark(bookmarkId), null);
     NetworkPolicy policy = NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus());
     refreshViews(policy);
   }

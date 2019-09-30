@@ -62,6 +62,9 @@ jclass g_longClass;
 jmethodID g_longConstructor;
 jmethodID g_onBookmarksSortingCompleted;
 jmethodID g_onBookmarksSortingCancelled;
+jmethodID g_bookmarkInfoConstructor;
+jclass g_bookmarkInfoClass;
+
 
 void PrepareClassRefs(JNIEnv * env)
 {
@@ -132,9 +135,13 @@ void PrepareClassRefs(JNIEnv * env)
     "onBookmarksSortingCompleted", "([Lcom/mapswithme/maps/bookmarks/data/SortedBlock;J)V");
   g_onBookmarksSortingCancelled = jni::GetMethodID(env, bookmarkManagerInstance,
     "onBookmarksSortingCancelled", "(J)V");
-
+  g_bookmarkInfoClass =
+    jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/BookmarkInfo");
+  g_bookmarkInfoConstructor =
+    jni::GetConstructorID(env, g_bookmarkInfoClass, "(JJ)V" );
   g_bookmarkCategoryClass =
     jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/BookmarkCategory");
+
 //public BookmarkCategory(long id,
 //                          String name,
 //                          String authorId,
@@ -765,6 +772,15 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmark(
   place_page::Info info;
   frm()->FillBookmarkInfo(*mark, info);
   return usermark_helper::CreateMapObject(env, info);
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarkInfo(
+  JNIEnv * env, jobject thiz, jlong bmkId)
+{
+  auto const mark = frm()->GetBookmarkManager().GetBookmark(static_cast<kml::MarkId>(bmkId));
+  return env->NewObject(g_bookmarkInfoClass,
+                        g_bookmarkInfoConstructor, static_cast<jlong>(mark->GetGroupId()), static_cast<jlong>(bmkId));
 }
 
 JNIEXPORT jlong JNICALL

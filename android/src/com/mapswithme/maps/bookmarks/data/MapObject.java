@@ -25,7 +25,7 @@ import java.util.List;
 
 // TODO(yunikkk): Refactor. Displayed information is different from edited information, and it's better to
 // separate them. Simple getters from jni place_page::Info and osm::EditableFeature should be enough.
-public class MapObject implements Parcelable, PopularityProvider
+public class MapObject implements Parcelable, PopularityProvider, MapPoint
 {
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ POI, API_POINT, BOOKMARK, MY_POSITION, SEARCH })
@@ -278,6 +278,7 @@ public class MapObject implements Parcelable, PopularityProvider
     return 0;
   }
 
+  @NonNull
   public String getTitle()
   {
     return mTitle;
@@ -289,6 +290,7 @@ public class MapObject implements Parcelable, PopularityProvider
     return mSecondaryTitle;
   }
 
+  @NonNull
   public String getSubtitle()
   {
     return mSubtitle;
@@ -304,6 +306,7 @@ public class MapObject implements Parcelable, PopularityProvider
     return mLon;
   }
 
+  @NonNull
   public String getAddress()
   {
     return mAddress;

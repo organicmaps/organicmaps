@@ -7,20 +7,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.statistics.Statistics;
 
 public abstract class ShareOption
 {
-  public static final AnyShareOption ANY = new AnyShareOption();
-
   @StringRes
-  protected final int mNameResId;
-  protected final Intent mBaseIntent;
+  private final int mNameResId;
+  private final Intent mBaseIntent;
 
   protected ShareOption(int nameResId, Intent baseIntent)
   {
@@ -35,35 +32,22 @@ public abstract class ShareOption
 
   public void shareMapObject(Activity activity, @NonNull MapObject mapObject, @Nullable Sponsored sponsored)
   {
-    SharingHelper.shareOutside(new MapObjectShareable(activity, mapObject, sponsored)
-                 .setBaseIntent(new Intent(mBaseIntent)), mNameResId);
+    MapObjectShareable shareable = new MapObjectShareable(activity, mapObject, sponsored);
+    shareObjectInternal(shareable);
   }
 
-  public static class SmsShareOption extends ShareOption
+  public void shareBookmarkObject(Activity activity, @NonNull BookmarkInfo mapObject,
+                                  @Nullable Sponsored sponsored)
   {
-    protected SmsShareOption()
-    {
-      super(R.string.share_by_message, new Intent(Intent.ACTION_VIEW));
-    }
+    BookmarkInfoMapObjectShareable<BookmarkInfo> shareable =
+        new BookmarkInfoMapObjectShareable<>(activity, mapObject, sponsored);
+    shareObjectInternal(shareable);
+  }
 
-    public void share(Activity activity, String body)
-    {
-      Intent smsIntent = new Intent();
-      TargetUtils.fillSmsIntent(smsIntent, body);
-      activity.startActivity(smsIntent);
-      Statistics.INSTANCE.trackPlaceShared("SMS");
-    }
-
-    @Override
-    public void shareMapObject(Activity activity, MapObject mapObject, Sponsored sponsored)
-    {
-      final String ge0Url = Framework.nativeGetGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), "");
-      final String httpUrl = Framework.getHttpGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), "");
-      final int bodyId = MapObject.isOfType(MapObject.MY_POSITION, mapObject) ? R.string.my_position_share_sms : R.string.bookmark_share_sms;
-      final String body = activity.getString(bodyId, ge0Url, httpUrl);
-
-      share(activity, body);
-    }
+  private void shareObjectInternal(@NonNull BaseShareable shareable)
+  {
+    SharingHelper.shareOutside(shareable
+                                   .setBaseIntent(new Intent(mBaseIntent)), mNameResId);
   }
 
   public static class EmailShareOption extends ShareOption
@@ -76,6 +60,8 @@ public abstract class ShareOption
 
   public static class AnyShareOption extends ShareOption
   {
+    public static final AnyShareOption ANY = new AnyShareOption();
+
     protected AnyShareOption()
     {
       super(R.string.share, new Intent(Intent.ACTION_SEND).setType(TargetUtils.TYPE_TEXT_PLAIN));
