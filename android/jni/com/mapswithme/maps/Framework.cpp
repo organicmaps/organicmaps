@@ -1354,25 +1354,23 @@ Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jcl
   if (!lanes.empty())
   {
     static jclass const laneClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/routing/SingleLaneInfo");
-    size_t const lanesSize = lanes.size();
-    jLanes = env->NewObjectArray(static_cast<jsize>(lanesSize), laneClass, nullptr);
+    auto const lanesSize = static_cast<jsize>(lanes.size());
+    jLanes = env->NewObjectArray(lanesSize, laneClass, nullptr);
     ASSERT(jLanes, (jni::DescribeException()));
     static jmethodID const ctorSingleLaneInfoID = jni::GetConstructorID(env, laneClass, "([BZ)V");
 
-    for (size_t j = 0; j < lanesSize; ++j)
+    for (jsize j = 0; j < lanesSize; ++j)
     {
-      size_t const laneSize = lanes[j].m_lane.size();
-      jni::TScopedLocalByteArrayRef singleLane(env,
-                                               env->NewByteArray(static_cast<jsize>(laneSize)));
+      auto const laneSize = static_cast<jsize>(lanes[j].m_lane.size());
+      jni::TScopedLocalByteArrayRef singleLane(env, env->NewByteArray(laneSize));
       ASSERT(singleLane.get(), (jni::DescribeException()));
-      env->SetByteArrayRegion(singleLane.get(), 0, static_cast<jsize>(laneSize),
-                              lanes[j].m_lane.data());
+      env->SetByteArrayRegion(singleLane.get(), 0, laneSize, lanes[j].m_lane.data());
 
       jni::TScopedLocalRef singleLaneInfo(
           env, env->NewObject(laneClass, ctorSingleLaneInfoID, singleLane.get(),
                               lanes[j].m_isRecommended));
       ASSERT(singleLaneInfo.get(), (jni::DescribeException()));
-      env->SetObjectArrayElement(jLanes, static_cast<jsize>(j), singleLaneInfo.get());
+      env->SetObjectArrayElement(jLanes, j, singleLaneInfo.get());
     }
   }
 

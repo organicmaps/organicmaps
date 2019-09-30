@@ -262,16 +262,18 @@ jobjectArray ToRatingArray(JNIEnv * env, std::vector<std::string> const & rating
 
 jintArray ToReachableByTaxiProvidersArray(JNIEnv * env, std::vector<taxi::Provider::Type> const & types)
 {
-  if (types.size() == 0)
+  auto const count = static_cast<jsize>(types.size());
+
+  if (count == 0)
     return nullptr;
 
-  jint tmp[types.size()];
-  for (size_t i = 0; i < types.size(); ++i)
+  jint tmp[count];
+  for (size_t i = 0; i < count; ++i)
     tmp[i] = static_cast<jint>(types[i]);
 
-  jintArray result = env->NewIntArray(static_cast<jsize>(types.size()));
+  jintArray result = env->NewIntArray(count);
   ASSERT(result, ());
-  env->SetIntArrayRegion(result, 0, static_cast<jsize>(types.size()), tmp);
+  env->SetIntArrayRegion(result, 0, count, tmp);
 
   return result;
 }

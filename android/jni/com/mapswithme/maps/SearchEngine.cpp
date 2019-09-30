@@ -403,15 +403,14 @@ jobjectArray BuildJavaMapResults(vector<storage::DownloaderSearchResult> const &
 {
   JNIEnv * env = jni::GetEnv();
 
-  size_t const count = results.size();
-  jobjectArray const res =
-      env->NewObjectArray(static_cast<jsize>(count), g_mapResultClass, nullptr);
-  for (size_t i = 0; i < count; i++)
+  auto const count = static_cast<jsize>(results.size());
+  jobjectArray const res = env->NewObjectArray(count, g_mapResultClass, nullptr);
+  for (jsize i = 0; i < count; i++)
   {
     jni::TScopedLocalRef country(env, jni::ToJavaString(env, results[i].m_countryId));
     jni::TScopedLocalRef matched(env, jni::ToJavaString(env, results[i].m_matchedName));
     jni::TScopedLocalRef item(env, env->NewObject(g_mapResultClass, g_mapResultCtor, country.get(), matched.get()));
-    env->SetObjectArrayElement(res, static_cast<jsize>(i), item.get());
+    env->SetObjectArrayElement(res, i, item.get());
   }
 
   return res;
@@ -624,15 +623,14 @@ jobjectArray BuildSearchResults(Results const & results,
 
   g_results = results;
 
-  size_t const count = g_results.GetCount();
-  jobjectArray const jResults =
-      env->NewObjectArray(static_cast<jsize>(count), g_resultClass, nullptr);
+  auto const count = static_cast<jsize>(g_results.GetCount());
+  jobjectArray const jResults = env->NewObjectArray(count, g_resultClass, nullptr);
 
-  for (size_t i = 0; i < count; i++)
+  for (jsize i = 0; i < count; i++)
   {
     jni::TScopedLocalRef jRes(env,
                               ToJavaResult(g_results[i], productInfo[i], hasPosition, lat, lon));
-    env->SetObjectArrayElement(jResults, static_cast<jsize>(i), jRes.get());
+    env->SetObjectArrayElement(jResults, i, jRes.get());
   }
   return jResults;
 }
