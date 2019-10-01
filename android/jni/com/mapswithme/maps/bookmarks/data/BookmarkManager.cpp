@@ -24,6 +24,7 @@ namespace
 
 jclass g_bookmarkManagerClass;
 jfieldID g_bookmarkManagerInstanceField;
+jmethodID g_onBookmarksChangedMethod;
 jmethodID g_onBookmarksLoadingStartedMethod;
 jmethodID g_onBookmarksLoadingFinishedMethod;
 jmethodID g_onBookmarksFileLoadedMethod;
@@ -74,6 +75,8 @@ void PrepareClassRefs(JNIEnv * env)
 
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
                                                               g_bookmarkManagerInstanceField);
+  g_onBookmarksChangedMethod =
+    jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksChanged", "()V");
   g_onBookmarksLoadingStartedMethod =
     jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksLoadingStarted", "()V");
   g_onBookmarksLoadingFinishedMethod =
@@ -175,6 +178,15 @@ void PrepareClassRefs(JNIEnv * env)
     jni::GetConstructorID(env, g_catalogCustomPropertyClass,
                           "(Ljava/lang/String;Ljava/lang/String;Z"
                           "[Lcom/mapswithme/maps/bookmarks/data/CatalogCustomPropertyOption;)V");
+}
+
+void OnBookmarksChanged(JNIEnv * env)
+{
+  ASSERT(g_bookmarkManagerClass, ());
+  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
+                                                              g_bookmarkManagerInstanceField);
+  env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksChangedMethod);
+  jni::HandleJavaException(env);
 }
 
 void OnAsyncLoadingStarted(JNIEnv * env)
@@ -530,6 +542,9 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeLoadBookmarks(JNIE
                                                  std::bind(&OnImportFinished, env, _1, _2, _3),
                                                  std::bind(&OnUploadStarted, env, _1),
                                                  std::bind(&OnUploadFinished, env, _1, _2, _3, _4));
+
+  frm()->GetBookmarkManager().SetBookmarksChangedCallback(std::bind(&OnBookmarksChanged, env));
+
   frm()->LoadBookmarks();
 }
 

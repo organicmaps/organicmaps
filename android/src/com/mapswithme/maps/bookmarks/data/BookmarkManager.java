@@ -193,6 +193,13 @@ public enum BookmarkManager
   // Called from JNI.
   @SuppressWarnings("unused")
   @MainThread
+  public void onBookmarksChanged()
+  {
+    // TODO: Implement.
+  }
+
+  @SuppressWarnings("unused")
+  @MainThread
   public void onBookmarksLoadingStarted()
   {
     for (BookmarksLoadingListener listener : mListeners)
