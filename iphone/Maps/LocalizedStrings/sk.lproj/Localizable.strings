@@ -3242,6 +3242,14 @@
 
 "type.amenity.parking.underground.fee" = "Parkovisko";
 
+"type.amenity.parking_space" = "Parking space";
+
+"type.amenity.parking_space.permissive" = "Parking space";
+
+"type.amenity.parking_space.private" = "Parking space";
+
+"type.amenity.parking_space.underground" = "Parking space";
+
 "type.amenity.payment_terminal" = "Platobný terminál";
 
 "type.amenity.pharmacy" = "Lekáreň";
@@ -3937,6 +3945,8 @@
 "type.landuse.cemetery" = "Cintorín";
 
 "type.landuse.cemetery.christian" = "Cintorín";
+
+"type.landuse.churchyard" = "landuse-churchyard";
 
 "type.landuse.commercial" = "landuse-commercial";
 

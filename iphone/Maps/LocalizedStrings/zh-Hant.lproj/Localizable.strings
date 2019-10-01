@@ -3242,6 +3242,14 @@
 
 "type.amenity.parking.underground.fee" = "停車場";
 
+"type.amenity.parking_space" = "Parking space";
+
+"type.amenity.parking_space.permissive" = "Parking space";
+
+"type.amenity.parking_space.private" = "Parking space";
+
+"type.amenity.parking_space.underground" = "Parking space";
+
 "type.amenity.payment_terminal" = "付款終端";
 
 "type.amenity.pharmacy" = "藥局";
@@ -3937,6 +3945,8 @@
 "type.landuse.cemetery" = "墓地";
 
 "type.landuse.cemetery.christian" = "墓地";
+
+"type.landuse.churchyard" = "landuse-churchyard";
 
 "type.landuse.commercial" = "landuse-commercial";
 

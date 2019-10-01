@@ -1832,6 +1832,10 @@
 	<string name="type.amenity.parking.private">Parking</string>
 	<string name="type.amenity.parking.underground">Parking</string>
 	<string name="type.amenity.parking.underground.fee">Parking</string>
+	<string name="type.amenity.parking_space">Parking space</string>
+	<string name="type.amenity.parking_space.permissive">Parking space</string>
+	<string name="type.amenity.parking_space.private">Parking space</string>
+	<string name="type.amenity.parking_space.underground">Parking space</string>
 	<string name="type.amenity.payment_terminal">Payment Terminal</string>
 	<string name="type.amenity.pharmacy">Pharmacy</string>
 	<string name="type.amenity.place_of_worship">Place of Worship</string>
@@ -2180,6 +2184,7 @@
 	<string name="type.landuse.brownfield">Brownfield</string>
 	<string name="type.landuse.cemetery">Graveyard</string>
 	<string name="type.landuse.cemetery.christian">Christian graveyard</string>
+	<string name="type.landuse.churchyard">landuse-churchyard</string>
 	<string name="type.landuse.commercial">landuse-commercial</string>
 	<string name="type.landuse.construction">Construction</string>
 	<string name="type.landuse.farm">Farm</string>

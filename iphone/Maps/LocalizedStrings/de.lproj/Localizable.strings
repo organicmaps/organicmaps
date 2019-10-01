@@ -3242,6 +3242,14 @@
 
 "type.amenity.parking.underground.fee" = "Tiefgarage";
 
+"type.amenity.parking_space" = "Parking space";
+
+"type.amenity.parking_space.permissive" = "Parking space";
+
+"type.amenity.parking_space.private" = "Parking space";
+
+"type.amenity.parking_space.underground" = "Parking space";
+
 "type.amenity.payment_terminal" = "Bezahlterminal";
 
 "type.amenity.pharmacy" = "Apotheke";
@@ -3937,6 +3945,8 @@
 "type.landuse.cemetery" = "Friedhof";
 
 "type.landuse.cemetery.christian" = "Friedhof";
+
+"type.landuse.churchyard" = "landuse-churchyard";
 
 "type.landuse.commercial" = "landuse-commercial";
 

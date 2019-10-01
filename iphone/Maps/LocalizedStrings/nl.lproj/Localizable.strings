@@ -3242,6 +3242,14 @@
 
 "type.amenity.parking.underground.fee" = "Parkeerplaats";
 
+"type.amenity.parking_space" = "Parking space";
+
+"type.amenity.parking_space.permissive" = "Parking space";
+
+"type.amenity.parking_space.private" = "Parking space";
+
+"type.amenity.parking_space.underground" = "Parking space";
+
 "type.amenity.payment_terminal" = "Betaalautomaat";
 
 "type.amenity.pharmacy" = "Apotheek";
@@ -3937,6 +3945,8 @@
 "type.landuse.cemetery" = "Begraafplaats";
 
 "type.landuse.cemetery.christian" = "Begraafplaats";
+
+"type.landuse.churchyard" = "landuse-churchyard";
 
 "type.landuse.commercial" = "landuse-commercial";
 
