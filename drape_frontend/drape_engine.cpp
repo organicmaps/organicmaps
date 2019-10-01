@@ -257,46 +257,44 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
 
   std::unordered_map<kml::MarkGroupId, drape_ptr<IDCollections>> groupsVisibleIds;
 
-  auto const marksFilter = [&](UserPointMark const * mark)
+  auto const groupFilter = [&](kml::MarkGroupId groupId)
   {
-    ASSERT_GREATER(groupsVisibleIds.count(mark->GetGroupId()), 0, ());
-    return !groupsVisibleIds[mark->GetGroupId()]->IsEmpty();
+    return provider->IsGroupVisible(groupId) &&
+      (provider->GetBecameVisibleGroupIds().count(groupId) == 0);
   };
 
-  auto const linesFilter = [&](UserLineMark const * line)
-  {
-    ASSERT_GREATER(groupsVisibleIds.count(line->GetGroupId()), 0, ());
-    return !groupsVisibleIds[line->GetGroupId()]->IsEmpty();
-  };
+  using GroupFilter = std::function<bool(kml::MarkGroupId groupId)>;
 
-  auto const collectIds = [&](kml::MarkIdSet const & markIds, kml::TrackIdSet const & lineIds, IDCollections & collection, bool filter)
+  auto const collectIds = [&](kml::MarkIdSet const & markIds, kml::TrackIdSet const & lineIds,
+                              GroupFilter const & filter, IDCollections & collection)
   {
     for (auto const markId : markIds)
     {
-      if (!filter || marksFilter(provider->GetUserPointMark(markId)))
+      if (filter == nullptr || filter(provider->GetUserPointMark(markId)->GetGroupId()))
         collection.m_markIds.push_back(markId);
     }
 
     for (auto const lineId : lineIds)
     {
-      if (!filter || linesFilter(provider->GetUserLineMark(lineId)))
+      if (filter == nullptr || filter(provider->GetUserLineMark(lineId)->GetGroupId()))
         collection.m_lineIds.push_back(lineId);
     }
   };
 
-  auto const collectRenderData = [&](kml::MarkIdSet const & markIds, kml::TrackIdSet const & lineIds, bool filter)
+  auto const collectRenderData = [&](kml::MarkIdSet const & markIds, kml::TrackIdSet const & lineIds,
+                                     GroupFilter const & filter)
   {
     for (auto const markId : markIds)
     {
       auto const mark = provider->GetUserPointMark(markId);
-      if (!filter || marksFilter(mark))
+      if (filter == nullptr || filter(mark->GetGroupId()))
         marksRenderCollection->emplace(markId, GenerateMarkRenderInfo(mark));
     }
 
     for (auto const lineId : lineIds)
     {
       auto const line = provider->GetUserLineMark(lineId);
-      if (!filter || linesFilter(line))
+      if (filter == nullptr || filter(line->GetGroupId()))
         linesRenderCollection->emplace(lineId, GenerateLineRenderInfo(line));
     }
   };
@@ -309,8 +307,10 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
 
       if (provider->IsGroupVisible(groupId))
       {
-        collectIds(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId), *visibleIdCollection, false /* filter */);
-        collectRenderData(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId), false /* filter */);
+        collectIds(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId),
+                   nullptr /* filter */, *visibleIdCollection);
+        collectRenderData(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId),
+                          nullptr /* filter */);
       }
       groupsVisibleIds.emplace(groupId, std::move(visibleIdCollection));
     }
@@ -321,21 +321,32 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
     {
       auto visibleIdCollection = make_unique_dp<IDCollections>();
       if (provider->IsGroupVisible(groupId))
-        collectIds(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId), *visibleIdCollection, false /* filter */);
+      {
+        collectIds(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId),
+                   nullptr /* filter */, *visibleIdCollection);
+      }
       groupsVisibleIds.emplace(groupId, std::move(visibleIdCollection));
     }
 
-    collectIds(provider->GetCreatedMarkIds(), provider->GetCreatedLineIds(), *justCreatedIdCollection, true /* filter */);
-    collectIds(provider->GetRemovedMarkIds(), provider->GetRemovedLineIds(), *removedIdCollection, false /* filter */);
+    collectIds(provider->GetCreatedMarkIds(), provider->GetCreatedLineIds(),
+               groupFilter, *justCreatedIdCollection);
+    collectIds(provider->GetRemovedMarkIds(), provider->GetRemovedLineIds(),
+               nullptr /* filter */, *removedIdCollection);
 
-    collectRenderData(provider->GetCreatedMarkIds(), provider->GetCreatedLineIds(), true /* filter */);
-    collectRenderData(provider->GetUpdatedMarkIds(), {}, true /* filter */);
+    collectRenderData(provider->GetCreatedMarkIds(), provider->GetCreatedLineIds(), groupFilter);
+    collectRenderData(provider->GetUpdatedMarkIds(), {} /* lineIds */, groupFilter);
 
     for (auto const groupId : provider->GetBecameVisibleGroupIds())
-      collectRenderData(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId), false /* filter */);
+    {
+      collectRenderData(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId),
+                        nullptr /* filter */);
+    }
 
     for (auto const groupId : provider->GetBecameInvisibleGroupIds())
-      collectIds(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId), *removedIdCollection, false /* filter */);
+    {
+      collectIds(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId),
+                 nullptr /* filter */, *removedIdCollection);
+    }
   }
 
   if (!marksRenderCollection->empty() || !linesRenderCollection->empty() ||
