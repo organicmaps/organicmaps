@@ -3,6 +3,7 @@
 #include "generator/factory_utils.hpp"
 #include "generator/processor_booking.hpp"
 #include "generator/processor_coastline.hpp"
+#include "generator/processor_complex.hpp"
 #include "generator/processor_country.hpp"
 #include "generator/processor_interface.hpp"
 #include "generator/processor_noop.hpp"
@@ -22,7 +23,8 @@ enum class ProcessorType
   Country,
   Coastline,
   World,
-  Noop
+  Noop,
+  Complex
   //  Booking
 };
 
@@ -36,6 +38,8 @@ std::shared_ptr<FeatureProcessorInterface> CreateProcessor(ProcessorType type, A
   case ProcessorType::Simple: return create<ProcessorSimple>(std::forward<Args>(args)...);
   case ProcessorType::World: return create<ProcessorWorld>(std::forward<Args>(args)...);
   case ProcessorType::Noop: return create<ProcessorNoop>(std::forward<Args>(args)...);
+  case ProcessorType::Complex:
+    return create<ProcessorComplex>(std::forward<Args>(args)...);
   }
   UNREACHABLE();
 }

@@ -16,12 +16,24 @@
 
 #include "base/logging.hpp"
 
+#include <csignal>
 #include <cstdint>
 #include <string>
 #include <unordered_map>
+#include <vector>
+
+#define MAIN_WITH_ERROR_HANDLING(func)             \
+  int main(int argc, char ** argv)                 \
+  {                                                \
+    std::signal(SIGABRT, generator::ErrorHandler); \
+    std::signal(SIGSEGV, generator::ErrorHandler); \
+    return func(argc, argv);                       \
+  }
 
 namespace generator
 {
+void ErrorHandler(int signum);
+
 /// \brief This class is wrapper around |DataSource| if only one mwm is registered in DataSource.
 class SingleMwmDataSource
 {
@@ -40,6 +52,18 @@ private:
 };
 
 void LoadDataSource(DataSource & dataSource);
+
+class FeatureGetter
+{
+public:
+  FeatureGetter(std::string const & countryFullPath);
+
+  std::unique_ptr<FeatureType> GetFeatureByIndex(uint32_t index) const;
+
+private:
+  SingleMwmDataSource m_mwm;
+  std::unique_ptr<FeaturesLoaderGuard> m_guard;
+};
 
 template <typename ToDo>
 bool ForEachOsmId2FeatureId(std::string const & path, ToDo && toDo)
@@ -60,7 +84,6 @@ bool ForEachOsmId2FeatureId(std::string const & path, ToDo && toDo)
   mapping.ForEach([&](auto const & p) {
     toDo(p.first /* osm id */, p.second /* feature id */);
   });
-
   return true;
 }
 

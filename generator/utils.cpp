@@ -12,12 +12,47 @@
 
 #include "base/assert.hpp"
 #include "base/cancellable.hpp"
+#include "base/exception.hpp"
 #include "base/logging.hpp"
 
+#include <exception>
+#include <iostream>
 #include <vector>
+
+#define BOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED
+#include <boost/stacktrace.hpp>
 
 namespace generator
 {
+void ErrorHandler(int signum)
+{
+  // Avoid recursive calls.
+  std::signal(signum, SIG_DFL);
+  // If there was an exception, then we will print the message.
+  try
+  {
+    if (auto const eptr = std::current_exception())
+      std::rethrow_exception(eptr);
+  }
+  catch (RootException const & e)
+  {
+    std::cerr << "Core exception: " << e.Msg() << "\n";
+  }
+  catch (std::exception const & e)
+  {
+    std::cerr << "Std exception: " << e.what() << "\n";
+  }
+  catch (...)
+  {
+    std::cerr << "Unknown exception.\n";
+  }
+
+  // Print stack stack.
+  std::cerr << boost::stacktrace::stacktrace();
+  // We raise the signal SIGABRT, so that there would be an opportunity to make a core dump.
+  std::raise(SIGABRT);
+}
+
 // SingleMwmDataSource -----------------------------------------------------------------------------
 SingleMwmDataSource::SingleMwmDataSource(std::string const & mwmPath)
 {
@@ -30,6 +65,17 @@ SingleMwmDataSource::SingleMwmDataSource(std::string const & mwmPath)
   CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ());
   CHECK(result.first.IsAlive(), ());
   m_mwmId = result.first;
+}
+
+FeatureGetter::FeatureGetter(std::string const & countryFullPath)
+  : m_mwm(countryFullPath)
+  , m_guard(std::make_unique<FeaturesLoaderGuard>(m_mwm.GetDataSource(), m_mwm.GetMwmId()))
+{
+}
+
+std::unique_ptr<FeatureType> FeatureGetter::GetFeatureByIndex(uint32_t index) const
+{
+  return m_guard->GetFeatureByIndex(index);
 }
 
 void LoadDataSource(DataSource & dataSource)

@@ -29,14 +29,15 @@ namespace ftypes
 class BaseChecker
 {
 protected:
-  size_t const m_level;
+  uint8_t const m_level;
   std::vector<uint32_t> m_types;
 
-  BaseChecker(size_t level = 2) : m_level(level) {}
+  BaseChecker(uint8_t level = 2) : m_level(level) {}
   virtual ~BaseChecker() = default;
 
 public:
   virtual bool IsMatched(uint32_t type) const;
+  virtual void ForEachType(std::function<void(uint32_t)> && fn) const;
 
   bool operator()(feature::TypesHolder const & types) const;
   bool operator()(FeatureType & ft) const;
@@ -44,12 +45,6 @@ public:
   bool operator()(uint32_t type) const { return IsMatched(type); }
 
   static uint32_t PrepareToMatch(uint32_t type, uint8_t level);
-
-  template <typename TFn>
-  void ForEachType(TFn && fn) const
-  {
-    std::for_each(m_types.cbegin(), m_types.cend(), std::forward<TFn>(fn));
-  }
 };
 
 class IsPeakChecker : public BaseChecker
@@ -237,13 +232,6 @@ class IsTunnelChecker : public BaseChecker
   IsTunnelChecker();
 public:
   DECLARE_CHECKER_INSTANCE(IsTunnelChecker);
-};
-
-class IsPopularityPlaceChecker : public BaseChecker
-{
-  IsPopularityPlaceChecker();
-public:
-  DECLARE_CHECKER_INSTANCE(IsPopularityPlaceChecker);
 };
 
 class IsIslandChecker : public BaseChecker

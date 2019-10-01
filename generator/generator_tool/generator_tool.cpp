@@ -31,6 +31,7 @@
 #include "generator/translator_factory.hpp"
 #include "generator/ugc_section_builder.hpp"
 #include "generator/unpack_mwm.hpp"
+#include "generator/utils.hpp"
 #include "generator/wiki_url_dumper.hpp"
 
 #include "routing/cross_mwm_ids.hpp"
@@ -62,9 +63,6 @@
 #include <memory>
 #include <string>
 #include <thread>
-
-#define BOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED
-#include <boost/stacktrace.hpp>
 
 #include "build_version.hpp"
 #include "defines.hpp"
@@ -197,7 +195,7 @@ DEFINE_bool(verbose, false, "Provide more detailed output.");
 
 using namespace generator;
 
-int GeneratorToolMain(int argc, char ** argv)
+MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 {
   CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
 
@@ -574,43 +572,5 @@ int GeneratorToolMain(int argc, char ** argv)
   if (FLAGS_check_mwm)
     check_model::ReadFeatures(datFile);
 
-  return 0;
-}
-
-void ErrorHandler(int signum)
-{
-  // Avoid recursive calls.
-  signal(signum, SIG_DFL);
-
-  // If there was an exception, then we will print the message.
-  try
-  {
-    if (auto const eptr = current_exception())
-      rethrow_exception(eptr);
-  }
-  catch (RootException const & e)
-  {
-    cerr << "Core exception: " << e.Msg() << "\n";
-  }
-  catch (exception const & e)
-  {
-    cerr << "Std exception: " << e.what() << "\n";
-  }
-  catch (...)
-  {
-    cerr << "Unknown exception.\n";
-  }
-
-  // Print stack stack.
-  cerr << boost::stacktrace::stacktrace();
-  // We raise the signal SIGABRT, so that there would be an opportunity to make a core dump.
-  raise(SIGABRT);
-}
-
-int main(int argc, char ** argv)
-{
-  signal(SIGABRT, ErrorHandler);
-  signal(SIGSEGV, ErrorHandler);
-
-  return GeneratorToolMain(argc, argv);
-}
+  return EXIT_SUCCESS;
+});

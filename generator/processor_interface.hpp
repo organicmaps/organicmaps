@@ -18,6 +18,7 @@ class ProcessorCountry;
 class ProcessorNoop;
 class ProcessorSimple;
 class ProcessorWorld;
+class ProcessorComplex;
 
 // Implementing this interface allows an object to process FeatureBuilder objects and broadcast
 // them.
@@ -39,6 +40,7 @@ public:
   virtual void MergeInto(ProcessorNoop &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(ProcessorSimple &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(ProcessorWorld &) const { FailIfMethodUnsupported(); }
+  virtual void MergeInto(ProcessorComplex &) const { FailIfMethodUnsupported(); }
 
 private:
   void FailIfMethodUnsupported() const { CHECK(false, ("This method is unsupported.")); }

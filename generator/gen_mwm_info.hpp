@@ -1,5 +1,7 @@
 #pragma once
 
+#include "generator/feature_builder.hpp"
+
 #include "coding/file_reader.hpp"
 #include "coding/read_write_utils.hpp"
 #include "coding/write_to_sink.hpp"
@@ -36,6 +38,8 @@ struct CompositeId
   base::GeoObjectId m_mainId;
   base::GeoObjectId m_additionalId;
 };
+
+CompositeId MakeCompositeId(feature::FeatureBuilder const & fb);
 
 std::string DebugPrint(CompositeId const & id);
 }  // namespace generator

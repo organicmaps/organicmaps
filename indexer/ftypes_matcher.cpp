@@ -130,6 +130,11 @@ bool BaseChecker::IsMatched(uint32_t type) const
   return (find(m_types.begin(), m_types.end(), PrepareToMatch(type, m_level)) != m_types.end());
 }
 
+void BaseChecker::ForEachType(function<void(uint32_t)> && fn) const
+{
+  for_each(m_types.cbegin(), m_types.cend(), move(fn));
+}
+
 bool BaseChecker::operator()(feature::TypesHolder const & types) const
 {
   for (uint32_t t : types)
@@ -476,56 +481,6 @@ unsigned IsHotelChecker::GetHotelTypesMask(FeatureType & ft) const
   }
 
   return mask;
-}
-
-IsPopularityPlaceChecker::IsPopularityPlaceChecker()
-{
-  vector<pair<string, string>> const popularityPlaceTypes = {
-    {"amenity", "bar"},
-    {"amenity", "biergarten"},
-    {"amenity", "cafe"},
-    {"amenity", "casino"},
-    {"amenity", "cinema"},
-    {"amenity", "fast_food"},
-    {"amenity", "fountain"},
-    {"amenity", "grave_yard"},
-    {"amenity", "marketplace"},
-    {"amenity", "nightclub"},
-    {"amenity", "place_of_worship"},
-    {"amenity", "pub"},
-    {"amenity", "restaurant"},
-    {"amenity", "theatre"},
-    {"amenity", "townhall"},
-    {"highway", "pedestrian"},
-    {"historic", "archaeological_site"},
-    {"historic", "castle"},
-    {"historic", "memorial"},
-    {"historic", "monument"},
-    {"historic", "museum"},
-    {"historic", "ruins"},
-    {"historic", "ship"},
-    {"historic", "tomb"},
-    {"landuse", "cemetery"},
-    {"leisure", "garden"},
-    {"leisure", "park"},
-    {"leisure", "water_park"},
-    {"man_made", "lighthouse"},
-    {"natural", "geyser"},
-    {"natural", "peak"},
-    {"shop", "bakery"},
-    {"tourism", "artwork"},
-    {"tourism", "attraction"},
-    {"tourism", "gallery"},
-    {"tourism", "museum"},
-    {"tourism", "theme_park"},
-    {"tourism", "viewpoint"},
-    {"tourism", "zoo"},
-    {"waterway", "waterfall"}
-  };
-
-   Classificator const & c = classif();
-  for (auto const & t : popularityPlaceTypes)
-    m_types.push_back(c.GetTypeByPath({t.first, t.second}));
 }
 
 IsIslandChecker::IsIslandChecker()

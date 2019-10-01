@@ -130,6 +130,24 @@ void EraseIf(Cont & c, Fn && fn)
   c.erase(remove_if(c.begin(), c.end(), std::forward<Fn>(fn)), c.end());
 }
 
+template <typename Cont, typename Fn>
+bool AllOf(Cont && c, Fn && fn)
+{
+  return std::all_of(c.cbegin(), c.cend(), std::forward<Fn>(fn));
+}
+
+template <typename Cont, typename Fn>
+bool AnyOf(Cont && c, Fn && fn)
+{
+  return std::any_of(c.cbegin(), c.cend(), std::forward<Fn>(fn));
+}
+
+template <typename Cont, typename Fn>
+decltype(auto) FindIf(Cont && c, Fn && fn)
+{
+  return std::find_if(c.begin(), c.end(), std::forward<Fn>(fn));
+}
+
 // Creates a comparer being able to compare two instances of class C
 // (given by reference or pointer) by a field or const method of C.
 // For example, to create comparer that is able to compare pairs of

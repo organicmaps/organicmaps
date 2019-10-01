@@ -46,6 +46,12 @@ std::string CompositeId::ToString() const
   return stream.str();
 }
 
+CompositeId MakeCompositeId(feature::FeatureBuilder const & fb)
+{
+  CHECK(fb.HasOsmIds(), (fb));
+  return CompositeId(fb.GetMostGenericOsmId(), fb.GetFirstOsmId());
+}
+
 std::string DebugPrint(CompositeId const & id)
 {
   return DebugPrint(id.m_mainId) + "|" + DebugPrint(id.m_additionalId);

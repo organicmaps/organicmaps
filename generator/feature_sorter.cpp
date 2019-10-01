@@ -238,11 +238,8 @@ public:
         fb.GetMetadata().Serialize(*w);
       }
 
-      if (!fb.GetOsmIds().empty())
-      {
-        generator::CompositeId const id(fb.GetMostGenericOsmId(), fb.GetFirstOsmId());
-        m_osm2ft.AddIds(id, featureId);
-      }
+      if (fb.HasOsmIds())
+        m_osm2ft.AddIds(generator::MakeCompositeId(fb), featureId);
     };
     return featureId;
   }

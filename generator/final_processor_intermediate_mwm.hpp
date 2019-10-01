@@ -2,6 +2,7 @@
 
 #include "generator/coastlines_generator.hpp"
 #include "generator/feature_generator.hpp"
+#include "generator/hierarchy.hpp"
 #include "generator/world_map_generator.hpp"
 
 #include <cstddef>
@@ -13,7 +14,8 @@ namespace generator
 enum class FinalProcessorPriority : uint8_t
 {
   CountriesOrWorld = 1,
-  WorldCoasts = 2
+  WorldCoasts = 2,
+  Complex = 3
 };
 
 // Classes that inherit this interface implement the final stage of intermediate mwm processing.
@@ -119,5 +121,33 @@ private:
   std::string m_coastlineGeomFilename;
   std::string m_coastlineRawGeomFilename;
   CoastlineFeaturesGenerator m_generator;
+};
+
+// Class ComplexFinalProcessor generates hierarchies for each previously filtered mwm.tmp file.
+// Warning: If the border separates the complex, then a situation is possible in which two logically
+// identical complexes are generated, but with different representations.
+class ComplexFinalProcessor : public FinalProcessorIntermediateMwmInterface
+{
+public:
+  ComplexFinalProcessor(std::string const & mwmTmpPath, std::string const & outFilename,
+                        size_t threadsCount);
+
+  void SetMwmAndFt2OsmPath(std::string const & mwmPath, std::string const & osm2ftPath);
+  void SetPrintFunction(hierarchy::PrintFunction const & printFunction);
+
+  // FinalProcessorIntermediateMwmInterface overrides:
+  void Process() override;
+
+private:
+  std::shared_ptr<hierarchy::HierarchyLineEnricher> CreateEnricher(
+      std::string const & countryName) const;
+  void WriteLines(std::vector<hierarchy::HierarchyLine> const & lines);
+
+  hierarchy::PrintFunction m_printFunction = hierarchy::PrintDefault;
+  std::string m_mwmTmpPath;
+  std::string m_outFilename;
+  std::string m_mwmPath;
+  std::string m_osm2ftPath;
+  size_t m_threadsCount;
 };
 }  // namespace generator

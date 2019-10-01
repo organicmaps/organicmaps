@@ -9,8 +9,10 @@
 #include "generator/place_processor.hpp"
 #include "generator/promo_catalog_cities.hpp"
 #include "generator/type_helper.hpp"
+#include "generator/utils.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/feature_algo.hpp"
 
 #include "platform/platform.hpp"
 
@@ -380,7 +382,7 @@ void CountryFinalProcessor::ProcessCoastline()
   FeatureBuilderWriter<> collector(m_worldCoastsFilename);
   for (size_t i = 0; i < fbs.size(); ++i)
   {
-    fbs[i].AddName("default", strings::JoinStrings(affiliations[i], ";"));
+    fbs[i].AddName("default", strings::JoinStrings(affiliations[i], ';'));
     collector.Write(fbs[i]);
   }
 }
@@ -507,5 +509,79 @@ void CoastlineFinalProcessor::Process()
 
   LOG(LINFO, ("Total features:", totalFeatures, "total polygons:", totalPolygons,
               "total points:", totalPoints));
+}
+
+ComplexFinalProcessor::ComplexFinalProcessor(std::string const & mwmTmpPath,
+                                             std::string const & outFilename, size_t threadsCount)
+  : FinalProcessorIntermediateMwmInterface(FinalProcessorPriority::Complex)
+  , m_mwmTmpPath(mwmTmpPath)
+  , m_outFilename(outFilename)
+  , m_threadsCount(threadsCount)
+{
+}
+
+void ComplexFinalProcessor::SetMwmAndFt2OsmPath(std::string const & mwmPath,
+                                                std::string const & osm2ftPath)
+{
+  m_mwmPath = mwmPath;
+  m_osm2ftPath = osm2ftPath;
+}
+
+void ComplexFinalProcessor::SetPrintFunction(hierarchy::PrintFunction const & printFunction)
+{
+  m_printFunction = printFunction;
+}
+
+std::shared_ptr<hierarchy::HierarchyLineEnricher> ComplexFinalProcessor::CreateEnricher(
+    std::string const & countryName) const
+{
+  if (m_osm2ftPath.empty() || m_mwmPath.empty())
+    return {};
+
+  return std::make_shared<hierarchy::HierarchyLineEnricher>(
+      base::JoinPath(m_osm2ftPath, countryName + DATA_FILE_EXTENSION OSM2FEATURE_FILE_EXTENSION),
+      base::JoinPath(m_mwmPath, countryName + DATA_FILE_EXTENSION));
+}
+
+void ComplexFinalProcessor::Process()
+{
+  ThreadPool pool(m_threadsCount);
+  std::vector<std::future<std::vector<hierarchy::HierarchyLine>>> futures;
+  ForEachCountry(m_mwmTmpPath, [&](auto const & filename) {
+    auto future = pool.Submit([&, filename]() {
+      auto countryName = filename;
+      strings::ReplaceLast(countryName, DATA_FILE_EXTENSION_TMP, "");
+
+      hierarchy::HierarchyBuilder builder(base::JoinPath(m_mwmTmpPath, filename));
+      builder.SetGetMainTypeFunction(hierarchy::popularity::GetMainType);
+      builder.SetGetNameFunction(hierarchy::popularity::GetName);
+      auto nodes = builder.Build();
+
+      auto const enricher = CreateEnricher(countryName);
+      hierarchy::HierarchyLinesBuilder linesBuilder(std::move(nodes));
+      linesBuilder.SetHierarchyLineEnricher(enricher);
+      linesBuilder.SetCountryName(countryName);
+      linesBuilder.SetGetMainTypeFunction(hierarchy::popularity::GetMainType);
+      linesBuilder.SetGetNameFunction(hierarchy::popularity::GetName);
+      return linesBuilder.GetHierarchyLines();
+    });
+    futures.emplace_back(std::move(future));
+  });
+  std::vector<hierarchy::HierarchyLine> allLines;
+  for (auto & f : futures)
+  {
+    auto const lines = f.get();
+    allLines.insert(std::cend(allLines), std::cbegin(lines), std::cend(lines));
+  }
+  WriteLines(allLines);
+}
+
+void ComplexFinalProcessor::WriteLines(std::vector<hierarchy::HierarchyLine> const & lines)
+{
+  std::ofstream stream;
+  stream.exceptions(std::fstream::failbit | std::fstream::badbit);
+  stream.open(m_outFilename);
+  for (auto const & line : lines)
+    stream << m_printFunction(line) << '\n';
 }
 }  // namespace generator

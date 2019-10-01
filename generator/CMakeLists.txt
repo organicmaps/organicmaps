@@ -78,6 +78,8 @@ set(
   filter_roads.hpp
   filter_collection.cpp
   filter_collection.hpp
+  filter_complex.cpp
+  filter_complex.hpp
   filter_elements.cpp
   filter_elements.hpp
   filter_interface.hpp
@@ -91,6 +93,8 @@ set(
   gen_mwm_info.hpp
   generate_info.hpp
   geometry_holder.hpp
+  hierarchy.cpp
+  hierarchy.hpp
   holes.cpp
   holes.hpp
   intermediate_data.cpp
@@ -130,6 +134,8 @@ set(
   processor_booking.hpp
   processor_coastline.cpp
   processor_coastline.hpp
+  processor_complex.cpp
+  processor_complex.hpp
   processor_country.cpp
   processor_country.hpp
   processor_factory.hpp
@@ -191,6 +197,8 @@ set(
   translator_coastline.hpp
   translator_collection.cpp
   translator_collection.hpp
+  translator_complex.cpp
+  translator_complex.hpp
   translator_country.cpp
   translator_country.hpp
   translator_factory.hpp
@@ -225,6 +233,7 @@ omim_add_test_subdirectory(generator_tests)
 omim_add_test_subdirectory(generator_integration_tests)
 
 add_subdirectory(generator_tool)
+add_subdirectory(complex_generator)
 add_subdirectory(booking_quality_check)
 add_subdirectory(extract_addr)
 add_subdirectory(feature_segments_checker)
