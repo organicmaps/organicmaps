@@ -237,7 +237,7 @@ using namespace osm_auth_ios;
     [self incrementSessionsCountAndCheckForAlert];
 
     //For first launch setup is called by FirstLaunchController
-    [MWMPushNotifications setup:launchOptions];
+    [MWMPushNotifications setup];
   }
   [self enableTTSForTheFirstTime];
 

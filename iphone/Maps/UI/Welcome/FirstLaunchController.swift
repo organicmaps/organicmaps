@@ -59,7 +59,7 @@ final class FirstLaunchController: WelcomeViewController {
     case .location:
       MWMLocationManager.start()
     case .notifications:
-      MWMPushNotifications.setup(nil)
+      MWMPushNotifications.setup()
     case .nothing:
       break
     }

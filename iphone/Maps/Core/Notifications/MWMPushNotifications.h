@@ -2,7 +2,7 @@
 
 @interface MWMPushNotifications : NSObject
 
-+ (void)setup:(NSDictionary *)launchOptions;
++ (void)setup;
 
 + (void)application:(UIApplication *)application
     didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;

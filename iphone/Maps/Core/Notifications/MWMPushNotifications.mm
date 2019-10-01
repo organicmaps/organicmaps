@@ -23,11 +23,9 @@ NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
 
 @implementation MWMPushNotifications
 
-+ (void)setup:(NSDictionary *)launchOptions
++ (void)setup
 {
   PushNotificationManager * pushManager = [PushNotificationManager pushManager];
-
-  [pushManager handlePushReceived:launchOptions];
 
   // make sure we count app open in Pushwoosh stats
   [pushManager sendAppOpen];
@@ -57,8 +55,6 @@ NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
           fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
   [Statistics logEvent:kStatEventName(kStatApplication, kStatPushReceived) withParameters:userInfo];
-  if (![self handleURLPush:userInfo])
-    [[PushNotificationManager pushManager] handlePushReceived:userInfo];
   completionHandler(UIBackgroundFetchResultNoData);
 }
 
