@@ -27,9 +27,6 @@ repositories {
     url 'https://maven.fabric.io/public'
   }
   maven {
-    url 'https://dl.bintray.com/libverify/android'
-  }
-  maven {
     url 'https://s3.amazonaws.com/moat-sdk-builds'
   }
   maven { url 'https://dl.bintray.com/google/flexbox-layout/' }
@@ -94,14 +91,6 @@ dependencies {
   implementation 'net.jcip:jcip-annotations:1.0'
   implementation 'com.appsflyer:af-android-sdk:4.9.0'
   implementation 'com.android.installreferrer:installreferrer:1.0'
-  implementation ("ru.mail:libnotify:0.1.177-notify-support-v107-sdk-26@aar") {
-    transitive = true
-    changing = true
-  }
-  implementation ("ru.mail:libnotify-debug:0.1.177-notify-support-v107-sdk-26@aar") {
-    transitive = true
-    changing = true
-  }
 
   implementation 'com.android.support.constraint:constraint-layout:1.1.0'
   implementation 'com.android.billingclient:billing:1.1'
@@ -188,12 +177,6 @@ android {
     manifestPlaceholders += ['PW_PROJECT_ID_KEY' : pwProjectIdKey]
     resValue 'string', 'pw_project_id', pwProps['pwProjectId']
     buildConfigField "String", 'PW_PROJECT_ID',  "\"" + pwProjectIdKey + "\""
-
-    // Libnotify keys
-    Properties lnProps = new Properties()
-    lnProps.load(new FileInputStream("${projectDir}/libnotify.properties"));
-    manifestPlaceholders += ['LIBNOTIFY_APP_ID': lnProps['appId']]
-    manifestPlaceholders += ['LIBNOTIFY_PROJECT_ID': lnProps['projectId']]
 
     multiDexEnabled true
     multiDexKeepFile file('multidex-config.txt')
@@ -443,7 +426,6 @@ android {
       zipAlignEnabled true
       signingConfig signingConfigs.mapswithmeDebug
       android.sourceSets.debug.setRoot('flavors/debug')
-      manifestPlaceholders += ['LIBNOTIFY_APP_ID': 'MapsMeDebug']
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
     }
 
@@ -461,7 +443,6 @@ android {
       signingConfig signingConfigs.mapswithme
       android.sourceSets.beta.setRoot('flavors/beta')
       matchingFallbacks = ['debug', 'release']
-      manifestPlaceholders += ['LIBNOTIFY_APP_ID': 'MapsMeBeta']
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
     }
   }

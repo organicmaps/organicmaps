@@ -11,8 +11,6 @@ import com.pushwoosh.PushwooshFcmHelper;
 
 import java.io.IOException;
 
-import ru.mail.libnotify.api.NotificationFactory;
-
 public class GcmInstanceIDRouterListenerService extends InstanceIDListenerService
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.THIRD_PARTY);
@@ -37,7 +35,6 @@ public class GcmInstanceIDRouterListenerService extends InstanceIDListenerServic
   {    
     String token = getRefreshedToken();
     PushwooshFcmHelper.onTokenRefresh(this, token);
-    NotificationFactory.refreshGcmToken(this);
   }
 
   @Nullable

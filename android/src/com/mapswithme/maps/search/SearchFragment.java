@@ -1,7 +1,6 @@
 package com.mapswithme.maps.search;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -39,7 +38,6 @@ import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
-import ru.mail.libnotify.debug.NotifyDebugActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -472,7 +470,6 @@ public class SearchFragment extends BaseMwmFragment
     if (mHiddenCommands.isEmpty())
     {
       mHiddenCommands.addAll(Arrays.asList(new BadStorageCommand("?emulateBadStorage"),
-                                           new LibnotifyIdCommand(getActivity(), "?libnotifyId"),
                                            new JavaCrashCommand("?emulateJavaCrash"),
                                            new NativeCrashCommand("?emulateNativeCrash")));
     }
@@ -748,24 +745,6 @@ public class SearchFragment extends BaseMwmFragment
     void executeInternal()
     {
       SharedPropertiesUtils.setShouldShowEmulateBadStorageSetting(true);
-    }
-  }
-
-  private static class LibnotifyIdCommand extends HiddenCommand.BaseHiddenCommand
-  {
-    @NonNull
-    private final Context mContext;
-
-    protected LibnotifyIdCommand(@NonNull Context context, @NonNull String command)
-    {
-      super(command);
-      mContext = context;
-    }
-
-    @Override
-    void executeInternal()
-    {
-      mContext.startActivity(new Intent(mContext, NotifyDebugActivity.class));
     }
   }
 

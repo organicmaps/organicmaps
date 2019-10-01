@@ -87,14 +87,6 @@
         android:name="${PW_PROJECT_ID_KEY}"
         android:value="@string/pw_project_id"/>
 
-    <meta-data
-      android:name="ru.mail.libnotify.application_name"
-      android:value="${LIBNOTIFY_APP_ID}"/>
-
-    <meta-data
-      android:name="ru.mail.libnotify.server_id"
-      android:value="${LIBNOTIFY_PROJECT_ID}"/>
-
     <!--meta-data
         android:name="PW_LOG_LEVEL"
         android:value="ERROR" /-->

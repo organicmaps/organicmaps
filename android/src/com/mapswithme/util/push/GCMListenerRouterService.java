@@ -13,7 +13,6 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.pushwoosh.internal.utils.NotificationRegistrarHelper;
-import ru.mail.libnotify.api.NotificationFactory;
 
 // It's temporary class, it may be deleted along with Pushwoosh sdk.
 // The base of this code is taken from https://www.pushwoosh.com/docs/gcm-integration-legacy.
@@ -23,9 +22,10 @@ public class GCMListenerRouterService extends GcmListenerService
   private static final String TAG = GCMListenerRouterService.class.getSimpleName();
 
   @Override
-  public void onMessageReceived(@Nullable String from, @Nullable Bundle data) {
+  public void onMessageReceived(@Nullable String from, @Nullable Bundle data)
+  {
     LOGGER.i(TAG, "Gcm router service received message: "
-             + (data != null ? data.toString() : "<null>") + " from: " + from);
+                  + (data != null ? data.toString() : "<null>") + " from: " + from);
 
     if (data == null || TextUtils.isEmpty(from))
       return;
@@ -35,12 +35,8 @@ public class GCMListenerRouterService extends GcmListenerService
     data.putString("from", from);
 
     String pwProjectId = getPWProjectId(getApplicationContext());
-    if (!TextUtils.isEmpty(pwProjectId) && pwProjectId.contains(from)) {
+    if (!TextUtils.isEmpty(pwProjectId) && pwProjectId.contains(from))
       NotificationRegistrarHelper.handleMessage(data);
-      return;
-    }
-
-    NotificationFactory.deliverGcmMessageIntent(this, from, data);
   }
 
   @Nullable
