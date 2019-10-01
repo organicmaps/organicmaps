@@ -43,7 +43,7 @@ void UserMarkGenerator::SetRemovedUserMarks(drape_ptr<IDCollections> && ids)
     m_lines.erase(id);
 }
 
-void UserMarkGenerator::SetCreatedUserMarks(drape_ptr<IDCollections> && ids)
+void UserMarkGenerator::SetJustCreatedUserMarks(drape_ptr<IDCollections> && ids)
 {
   if (ids == nullptr)
     return;

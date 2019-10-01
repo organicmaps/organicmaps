@@ -12,6 +12,8 @@ class Track : public df::UserLineMark
 public:
   explicit Track(kml::TrackData && data);
 
+  kml::MarkGroupId GetGroupId() const override { return m_groupID; }
+
   bool IsDirty() const override { return m_isDirty; }
   void ResetChanges() const override { m_isDirty = false; }
 
@@ -28,8 +30,6 @@ public:
   float GetWidth(size_t layerIndex) const override;
   float GetDepth(size_t layerIndex) const override;
   std::vector<m2::PointD> const & GetPoints() const override;
-
-  kml::MarkGroupId GetGroupId() const { return m_groupID; }
 
   void Attach(kml::MarkGroupId groupId);
   void Detach();

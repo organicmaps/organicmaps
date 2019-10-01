@@ -11,6 +11,8 @@
 
 #include "platform/settings.hpp"
 
+#include <unordered_map>
+
 using namespace std::placeholders;
 
 namespace df
@@ -250,108 +252,105 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
 
   auto marksRenderCollection = make_unique_dp<UserMarksRenderCollection>();
   auto linesRenderCollection = make_unique_dp<UserLinesRenderCollection>();
-  auto createdIdCollection = make_unique_dp<IDCollections>();
+  auto justCreatedIdCollection = make_unique_dp<IDCollections>();
   auto removedIdCollection = make_unique_dp<IDCollections>();
 
-  if (!firstTime)
+  std::unordered_map<kml::MarkGroupId, drape_ptr<IDCollections>> groupsVisibleIds;
+
+  auto const marksFilter = [&](UserPointMark const * mark)
   {
-    kml::MarkGroupId lastGroupId = *updatedGroupIds.begin();
-    bool visibilityChanged = provider->IsGroupVisibilityChanged(lastGroupId);
-    bool groupIsVisible = provider->IsGroupVisible(lastGroupId);
+    ASSERT_GREATER(groupsVisibleIds.count(mark->GetGroupId()), 0, ());
+    return !groupsVisibleIds[mark->GetGroupId()]->IsEmpty();
+  };
 
-    auto const handleMark = [&](
-      kml::MarkId markId,
-      UserMarksRenderCollection & renderCollection,
-      kml::MarkIdCollection *idCollection)
+  auto const linesFilter = [&](UserLineMark const * line)
+  {
+    ASSERT_GREATER(groupsVisibleIds.count(line->GetGroupId()), 0, ());
+    return !groupsVisibleIds[line->GetGroupId()]->IsEmpty();
+  };
+
+  auto const collectIds = [&](kml::MarkIdSet const & markIds, kml::TrackIdSet const & lineIds, IDCollections & collection, bool filter)
+  {
+    for (auto const markId : markIds)
     {
-      auto const *mark = provider->GetUserPointMark(markId);
-      auto const groupId = mark->GetGroupId();
-      if (groupId != lastGroupId)
+      if (!filter || marksFilter(provider->GetUserPointMark(markId)))
+        collection.m_markIds.push_back(markId);
+    }
+
+    for (auto const lineId : lineIds)
+    {
+      if (!filter || linesFilter(provider->GetUserLineMark(lineId)))
+        collection.m_lineIds.push_back(lineId);
+    }
+  };
+
+  auto const collectRenderData = [&](kml::MarkIdSet const & markIds, kml::TrackIdSet const & lineIds, bool filter)
+  {
+    for (auto const markId : markIds)
+    {
+      auto const mark = provider->GetUserPointMark(markId);
+      if (!filter || marksFilter(mark))
+        marksRenderCollection->emplace(markId, GenerateMarkRenderInfo(mark));
+    }
+
+    for (auto const lineId : lineIds)
+    {
+      auto const line = provider->GetUserLineMark(lineId);
+      if (!filter || linesFilter(line))
+        linesRenderCollection->emplace(lineId, GenerateLineRenderInfo(line));
+    }
+  };
+
+  if (firstTime)
+  {
+    for (auto groupId : provider->GetAllGroupIds())
+    {
+      auto visibleIdCollection = make_unique_dp<IDCollections>();
+
+      if (provider->IsGroupVisible(groupId))
       {
-        lastGroupId = groupId;
-        visibilityChanged = provider->IsGroupVisibilityChanged(groupId);
-        groupIsVisible = provider->IsGroupVisible(groupId);
+        collectIds(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId), *visibleIdCollection, false /* filter */);
+        collectRenderData(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId), false /* filter */);
       }
-      if (!visibilityChanged && groupIsVisible)
-      {
-        if (idCollection)
-          idCollection->push_back(markId);
-        renderCollection.emplace(markId, GenerateMarkRenderInfo(mark));
-      }
-    };
-
-    for (auto markId : provider->GetCreatedMarkIds())
-      handleMark(markId, *marksRenderCollection, &createdIdCollection->m_markIds);
-
-    for (auto markId : provider->GetUpdatedMarkIds())
-      handleMark(markId, *marksRenderCollection, nullptr);
-
-    auto const & removedMarkIds = provider->GetRemovedMarkIds();
-    removedIdCollection->m_markIds.reserve(removedMarkIds.size());
-    removedIdCollection->m_markIds.assign(removedMarkIds.begin(), removedMarkIds.end());
-
-    auto const & removedLineIds = provider->GetRemovedLineIds();
-    removedIdCollection->m_lineIds.reserve(removedLineIds.size());
-    removedIdCollection->m_lineIds.assign(removedLineIds.begin(), removedLineIds.end());
+      groupsVisibleIds.emplace(groupId, std::move(visibleIdCollection));
+    }
   }
-
-  std::map<kml::MarkGroupId, drape_ptr<IDCollections>> dirtyMarkIds;
-  for (auto groupId : updatedGroupIds)
+  else
   {
-    auto & idCollection = *(dirtyMarkIds.emplace(groupId, make_unique_dp<IDCollections>()).first->second);
-    bool const visibilityChanged = provider->IsGroupVisibilityChanged(groupId);
-    bool const groupIsVisible = provider->IsGroupVisible(groupId);
-    if (!groupIsVisible && !visibilityChanged)
-      continue;
-
-    auto const & markIds = provider->GetGroupPointIds(groupId);
-    auto const & lineIds = provider->GetGroupLineIds(groupId);
-    if (groupIsVisible)
+    for (auto groupId : provider->GetUpdatedGroupIds())
     {
-      idCollection.m_markIds.reserve(markIds.size());
-      idCollection.m_markIds.assign(markIds.begin(), markIds.end());
-      idCollection.m_lineIds.reserve(lineIds.size());
-      idCollection.m_lineIds.assign(lineIds.begin(), lineIds.end());
+      auto visibleIdCollection = make_unique_dp<IDCollections>();
+      if (provider->IsGroupVisible(groupId))
+        collectIds(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId), *visibleIdCollection, false /* filter */);
+      groupsVisibleIds.emplace(groupId, std::move(visibleIdCollection));
+    }
 
-      for (auto lineId : lineIds)
-      {
-        auto const * line = provider->GetUserLineMark(lineId);
-        if (visibilityChanged || line->IsDirty())
-          linesRenderCollection->emplace(lineId, GenerateLineRenderInfo(line));
-      }
-      if (visibilityChanged || firstTime)
-      {
-        for (auto markId : markIds)
-        {
-          marksRenderCollection->emplace(
-            markId, GenerateMarkRenderInfo(provider->GetUserPointMark(markId)));
-        }
-      }
-    }
-    else if (!firstTime)
-    {
-      auto & points = removedIdCollection->m_markIds;
-      points.reserve(points.size() + markIds.size());
-      points.insert(points.end(), markIds.begin(), markIds.end());
-      auto & lines = removedIdCollection->m_lineIds;
-      lines.reserve(lines.size() + lineIds.size());
-      lines.insert(lines.end(), lineIds.begin(), lineIds.end());
-    }
+    collectIds(provider->GetCreatedMarkIds(), provider->GetCreatedLineIds(), *justCreatedIdCollection, true /* filter */);
+    collectIds(provider->GetRemovedMarkIds(), provider->GetRemovedLineIds(), *removedIdCollection, false /* filter */);
+
+    collectRenderData(provider->GetCreatedMarkIds(), provider->GetCreatedLineIds(), true /* filter */);
+    collectRenderData(provider->GetUpdatedMarkIds(), {}, true /* filter */);
+
+    for (auto const groupId : provider->GetBecameVisibleGroupIds())
+      collectRenderData(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId), false /* filter */);
+
+    for (auto const groupId : provider->GetBecameInvisibleGroupIds())
+      collectIds(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId), *removedIdCollection, false /* filter */);
   }
 
   if (!marksRenderCollection->empty() || !linesRenderCollection->empty() ||
-      !removedIdCollection->IsEmpty() || !createdIdCollection->IsEmpty())
+      !removedIdCollection->IsEmpty() || !justCreatedIdCollection->IsEmpty())
   {
     m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                     make_unique_dp<UpdateUserMarksMessage>(
-                                      std::move(createdIdCollection),
+                                      std::move(justCreatedIdCollection),
                                       std::move(removedIdCollection),
                                       std::move(marksRenderCollection),
                                       std::move(linesRenderCollection)),
                                     MessagePriority::Normal);
   }
 
-  for (auto & v : dirtyMarkIds)
+  for (auto & v : groupsVisibleIds)
   {
     m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                     make_unique_dp<UpdateUserMarkGroupMessage>(

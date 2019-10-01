@@ -792,7 +792,7 @@ void BookmarkManager::NotifyChanges()
     }
 
     SaveBookmarks(categoriesToSave);
-    SendBookmarksChanges();
+    SendBookmarksChanges(m_postponedChangesTracker);
   }
 
   df::DrapeEngineLockGuard lock(m_drapeEngine);
@@ -1610,9 +1610,9 @@ void BookmarkManager::UpdateViewport(ScreenBase const & screen)
   m_viewport = screen;
 }
 
-void BookmarkManager::SetCategoriesChangedCallback(CategoriesChangedCallback && callback)
+void BookmarkManager::SetBookmarksChangedCallback(BookmarksChangedCallback && callback)
 {
-  m_categoriesChangedCallback = std:move(callback);
+  m_categoriesChangedCallback = std::move(callback);
 }
 
 void BookmarkManager::SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks)
@@ -2147,20 +2147,20 @@ void BookmarkManager::GetBookmarkGroupsInfo(MarksChangesTracker::GroupMarkIdSet 
   }
 }
 
-void BookmarkManager::SendBookmarksChanges()
+void BookmarkManager::SendBookmarksChanges(MarksChangesTracker const & changesTracker)
 {
   std::vector<BookmarkInfo> bookmarksInfo;
 
   if (m_callbacks.m_createdBookmarksCallback != nullptr)
   {
-    GetBookmarksInfo(m_changesTracker.GetCreatedMarkIds(), bookmarksInfo);
+    GetBookmarksInfo(changesTracker.GetCreatedMarkIds(), bookmarksInfo);
     if (!bookmarksInfo.empty())
       m_callbacks.m_createdBookmarksCallback(bookmarksInfo);
   }
 
   if (m_callbacks.m_updatedBookmarksCallback != nullptr)
   {
-    GetBookmarksInfo(m_changesTracker.GetUpdatedMarkIds(), bookmarksInfo);
+    GetBookmarksInfo(changesTracker.GetUpdatedMarkIds(), bookmarksInfo);
     if (!bookmarksInfo.empty())
       m_callbacks.m_updatedBookmarksCallback(bookmarksInfo);
   }
@@ -2169,14 +2169,14 @@ void BookmarkManager::SendBookmarksChanges()
 
   if (m_callbacks.m_attachedBookmarksCallback != nullptr)
   {
-    GetBookmarkGroupsInfo(m_changesTracker.GetAttachedBookmarks(), groupsInfo);
+    GetBookmarkGroupsInfo(changesTracker.GetAttachedBookmarks(), groupsInfo);
     if (!groupsInfo.empty())
       m_callbacks.m_attachedBookmarksCallback(groupsInfo);
   }
 
   if (m_callbacks.m_detachedBookmarksCallback != nullptr)
   {
-    GetBookmarkGroupsInfo(m_changesTracker.GetDetachedBookmarks(), groupsInfo);
+    GetBookmarkGroupsInfo(changesTracker.GetDetachedBookmarks(), groupsInfo);
     if (!groupsInfo.empty())
       m_callbacks.m_detachedBookmarksCallback(groupsInfo);
   }
@@ -2184,7 +2184,7 @@ void BookmarkManager::SendBookmarksChanges()
   if (m_callbacks.m_deletedBookmarksCallback != nullptr)
   {
     kml::MarkIdCollection bookmarkIds;
-    auto const & removedIds = m_changesTracker.GetRemovedMarkIds();
+    auto const & removedIds = changesTracker.GetRemovedMarkIds();
     bookmarkIds.reserve(removedIds.size());
     for (auto markId : removedIds)
     {
@@ -3342,11 +3342,6 @@ bool BookmarkManager::MarksChangesTracker::IsGroupVisible(kml::MarkGroupId group
   return m_bmManager.IsVisible(groupId);
 }
 
-bool BookmarkManager::MarksChangesTracker::IsGroupVisibilityChanged(kml::MarkGroupId groupId) const
-{
-  return m_bmManager.GetGroup(groupId)->IsVisibilityChanged();
-}
-
 kml::MarkIdSet const & BookmarkManager::MarksChangesTracker::GetGroupPointIds(kml::MarkGroupId groupId) const
 {
   return m_bmManager.GetUserMarkIds(groupId);
@@ -3442,6 +3437,9 @@ void BookmarkManager::MarksChangesTracker::OnAddGroup(kml::MarkGroupId groupId)
 void BookmarkManager::MarksChangesTracker::OnDeleteGroup(kml::MarkGroupId groupId)
 {
   m_updatedGroups.erase(groupId);
+  m_becameVisibleGroups.erase(groupId);
+  m_becameInvisibleGroups.erase(groupId);
+
   auto const it = m_createdGroups.find(groupId);
   if (it != m_createdGroups.end())
     m_createdGroups.erase(it);
@@ -3454,12 +3452,38 @@ void BookmarkManager::MarksChangesTracker::OnUpdateGroup(kml::MarkGroupId groupI
   m_updatedGroups.insert(groupId);
 }
 
+void BookmarkManager::MarksChangesTracker::OnBecameVisibleGroup(kml::MarkGroupId groupId)
+{
+  auto const it = m_becameInvisibleGroups.find(groupId);
+  if (it != m_becameInvisibleGroups.end())
+    m_becameInvisibleGroups.erase(it);
+  else
+    m_becameVisibleGroups.insert(groupId);
+}
+
+void BookmarkManager::MarksChangesTracker::OnBecameInvisibleGroup(kml::MarkGroupId groupId)
+{
+  auto const it = m_becameVisibleGroups.find(groupId);
+  if (it != m_becameVisibleGroups.end())
+    m_becameVisibleGroups.erase(it);
+  else
+    m_becameInvisibleGroups.insert(groupId);
+}
+
 void BookmarkManager::MarksChangesTracker::AcceptDirtyItems()
 {
+  CHECK(m_updatedGroups.empty(), ());
   m_bmManager.GetDirtyGroups(m_updatedGroups);
   for (auto groupId : m_updatedGroups)
   {
     auto * group = m_bmManager.GetGroup(groupId);
+    if (group->IsVisibilityChanged())
+    {
+      if (group->IsVisible())
+        m_becameVisibleGroups.insert(groupId);
+      else
+        m_becameInvisibleGroups.insert(groupId);
+    }
     group->ResetChanges();
   }
 
@@ -3479,14 +3503,14 @@ void BookmarkManager::MarksChangesTracker::AcceptDirtyItems()
   for (auto const markId : m_createdMarks)
   {
     auto const *mark = m_bmManager.GetMark(markId);
-    ASSERT(mark->IsDirty(), ());
+    CHECK(mark->IsDirty(), ());
     mark->ResetChanges();
   }
 
   for (auto const lineId : m_createdLines)
   {
     auto const *line = m_bmManager.GetTrack(lineId);
-    ASSERT(line->IsDirty(), ());
+    CHECK(line->IsDirty(), ());
     line->ResetChanges();
   }
 }
@@ -3513,9 +3537,12 @@ bool BookmarkManager::MarksChangesTracker::HasBookmarksChanges() const
 
 void BookmarkManager::MarksChangesTracker::ResetChanges()
 {
-  m_updatedGroups.clear();
   m_createdGroups.clear();
   m_removedGroups.clear();
+
+  m_updatedGroups.clear();
+  m_becameVisibleGroups.clear();
+  m_becameInvisibleGroups.clear();
 
   m_createdMarks.clear();
   m_removedMarks.clear();
@@ -3535,6 +3562,12 @@ void BookmarkManager::MarksChangesTracker::AddChanges(MarksChangesTracker const 
 
   for (auto const groupId : changes.m_updatedGroups)
     OnUpdateGroup(groupId);
+
+  for (auto const groupId : changes.m_becameVisibleGroups)
+    OnBecameVisibleGroup(groupId);
+
+  for (auto const groupId : changes.m_becameInvisibleGroups)
+    OnBecameInvisibleGroup(groupId);
 
   for (auto const groupId : changes.m_removedGroups)
     OnDeleteGroup(groupId);

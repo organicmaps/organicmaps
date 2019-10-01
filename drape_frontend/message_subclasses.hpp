@@ -241,11 +241,11 @@ private:
 class UpdateUserMarksMessage : public Message
 {
 public:
-  UpdateUserMarksMessage(drape_ptr<IDCollections> && createdIds,
+  UpdateUserMarksMessage(drape_ptr<IDCollections> && justCreatedIds,
                          drape_ptr<IDCollections> && removedIds,
                          drape_ptr<UserMarksRenderCollection> && marksRenderParams,
                          drape_ptr<UserLinesRenderCollection> && linesRenderParams)
-    : m_createdIds(std::move(createdIds))
+    : m_justCreatedIds(std::move(justCreatedIds))
     , m_removedIds(std::move(removedIds))
     , m_marksRenderParams(std::move(marksRenderParams))
     , m_linesRenderParams(std::move(linesRenderParams))
@@ -256,10 +256,10 @@ public:
   drape_ptr<UserMarksRenderCollection> AcceptMarkRenderParams() { return std::move(m_marksRenderParams); }
   drape_ptr<UserLinesRenderCollection> AcceptLineRenderParams() { return std::move(m_linesRenderParams); }
   drape_ptr<IDCollections> AcceptRemovedIds() { return std::move(m_removedIds); }
-  drape_ptr<IDCollections> AcceptCreatedIds() { return std::move(m_createdIds); }
+  drape_ptr<IDCollections> AcceptJustCreatedIds() { return std::move(m_justCreatedIds); }
 
 private:
-  drape_ptr<IDCollections> m_createdIds;
+  drape_ptr<IDCollections> m_justCreatedIds;
   drape_ptr<IDCollections> m_removedIds;
   drape_ptr<UserMarksRenderCollection> m_marksRenderParams;
   drape_ptr<UserLinesRenderCollection> m_linesRenderParams;

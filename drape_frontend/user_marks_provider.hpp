@@ -97,6 +97,7 @@ public:
   virtual void ResetChanges() const = 0;
 
   virtual kml::TrackId GetId() const { return m_id; }
+  virtual kml::MarkGroupId GetGroupId() const = 0;
 
   virtual int GetMinZoom() const = 0;
   virtual DepthLayer GetDepthLayer() const = 0;
@@ -117,13 +118,15 @@ public:
   virtual kml::GroupIdSet const & GetUpdatedGroupIds() const = 0;
   virtual kml::GroupIdSet const & GetRemovedGroupIds() const = 0;
   virtual kml::GroupIdSet GetAllGroupIds() const = 0;
+  virtual kml::GroupIdSet const & GetBecameVisibleGroupIds() const = 0;
+  virtual kml::GroupIdSet const & GetBecameInvisibleGroupIds() const = 0;
   virtual bool IsGroupVisible(kml::MarkGroupId groupId) const = 0;
-  virtual bool IsGroupVisibilityChanged(kml::MarkGroupId groupId) const = 0;
   virtual kml::MarkIdSet const & GetGroupPointIds(kml::MarkGroupId groupId) const = 0;
   virtual kml::TrackIdSet const & GetGroupLineIds(kml::MarkGroupId groupId) const = 0;
   virtual kml::MarkIdSet const & GetCreatedMarkIds() const = 0;
   virtual kml::MarkIdSet const & GetRemovedMarkIds() const = 0;
   virtual kml::MarkIdSet const & GetUpdatedMarkIds() const = 0;
+  virtual kml::TrackIdSet const & GetCreatedLineIds() const = 0;
   virtual kml::TrackIdSet const & GetRemovedLineIds() const = 0;
   /// Never store UserPointMark reference.
   virtual UserPointMark const * GetUserPointMark(kml::MarkId markId) const = 0;

@@ -1170,18 +1170,23 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
     map<kml::MarkGroupId, kml::MarkIdSet> m_detachedMarks;
   };
 
-  Changes expectedChanges;
   Changes resultChanges;
-
-  auto const checkNotifications = [&]()
+  auto const checkNotifications = [&resultChanges](Changes & changes)
   {
-    TEST_EQUAL(expectedChanges.m_createdMarks, resultChanges.m_createdMarks, ());
-    TEST_EQUAL(expectedChanges.m_updatedMarks, resultChanges.m_updatedMarks, ());
-    TEST_EQUAL(expectedChanges.m_deletedMarks, resultChanges.m_deletedMarks, ());
-    TEST_EQUAL(expectedChanges.m_attachedMarks, resultChanges.m_attachedMarks, ());
-    TEST_EQUAL(expectedChanges.m_detachedMarks, resultChanges.m_detachedMarks, ());
-    expectedChanges = Changes();
+    TEST_EQUAL(changes.m_createdMarks, resultChanges.m_createdMarks, ());
+    TEST_EQUAL(changes.m_updatedMarks, resultChanges.m_updatedMarks, ());
+    TEST_EQUAL(changes.m_deletedMarks, resultChanges.m_deletedMarks, ());
+    TEST_EQUAL(changes.m_attachedMarks, resultChanges.m_attachedMarks, ());
+    TEST_EQUAL(changes.m_detachedMarks, resultChanges.m_detachedMarks, ());
+    changes = Changes();
     resultChanges = Changes();
+  };
+
+  bool bookmarksChanged = false;
+  auto const checkBookmarksChanges = [&bookmarksChanged](bool expected)
+  {
+    TEST_EQUAL(bookmarksChanged, expected, ());
+    bookmarksChanged = false;
   };
 
   auto const onCreate = [&resultChanges](vector<BookmarkInfo> const & marks)
@@ -1220,7 +1225,9 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
 
   User user;
   BookmarkManager bmManager(user, std::move(callbacks));
+  bmManager.SetBookmarksChangedCallback([&bookmarksChanged]() { bookmarksChanged = true; });
   bmManager.EnableTestMode(true);
+  Changes expectedChanges;
 
   auto const catId = bmManager.CreateBookmarkCategory("Default", false /* autoSave */);
 
@@ -1241,13 +1248,15 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
 
     editSession.DeleteBookmark(bookmark1->GetId());
   }
-  checkNotifications();
+  checkNotifications(expectedChanges);
+  checkBookmarksChanges(true);
 
   auto const markId0 = *bmManager.GetUserMarkIds(catId).begin();
   bmManager.GetEditSession().GetBookmarkForEdit(markId0)->SetName("name 3", kml::kDefaultLangCode);
   expectedChanges.m_updatedMarks.insert(markId0);
 
-  checkNotifications();
+  checkNotifications(expectedChanges);
+  checkBookmarksChanges(true);
 
   {
     auto editSession = bmManager.GetEditSession();
@@ -1262,7 +1271,42 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
     auto * bookmark1 = editSession.CreateBookmark(std::move(data));
     expectedChanges.m_createdMarks.insert(bookmark1->GetId());
   }
-  checkNotifications();
+  checkNotifications(expectedChanges);
+  checkBookmarksChanges(true);
+
+  // Test postponed notifications.
+  bmManager.SetNotificationsEnabled(false);
+
+  Changes postponedChanges;
+  {
+    auto editSession = bmManager.GetEditSession();
+    kml::BookmarkData data;
+    kml::SetDefaultStr(data.m_name, "name 6");
+    data.m_point = m2::PointD(0.0, 0.0);
+    auto * bookmark = editSession.CreateBookmark(std::move(data));
+    editSession.AttachBookmark(bookmark->GetId(), catId);
+    postponedChanges.m_createdMarks.insert(bookmark->GetId());
+    postponedChanges.m_attachedMarks[catId].insert(bookmark->GetId());
+  }
+  checkNotifications(expectedChanges);
+  checkBookmarksChanges(true);
+
+  {
+    auto editSession = bmManager.GetEditSession();
+    kml::BookmarkData data;
+    kml::SetDefaultStr(data.m_name, "name 7");
+    data.m_point = m2::PointD(0.0, 0.0);
+    auto * bookmark = editSession.CreateBookmark(std::move(data));
+    editSession.AttachBookmark(bookmark->GetId(), catId);
+    postponedChanges.m_createdMarks.insert(bookmark->GetId());
+    postponedChanges.m_attachedMarks[catId].insert(bookmark->GetId());
+  }
+  checkNotifications(expectedChanges);
+  checkBookmarksChanges(true);
+
+  bmManager.SetNotificationsEnabled(true);
+  checkNotifications(postponedChanges);
+  checkBookmarksChanges(false);
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)

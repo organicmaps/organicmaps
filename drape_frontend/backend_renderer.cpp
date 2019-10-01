@@ -291,7 +291,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_userMarkGenerator->SetRemovedUserMarks(msg->AcceptRemovedIds());
       m_userMarkGenerator->SetUserMarks(msg->AcceptMarkRenderParams());
       m_userMarkGenerator->SetUserLines(msg->AcceptLineRenderParams());
-      m_userMarkGenerator->SetCreatedUserMarks(msg->AcceptCreatedIds());
+      m_userMarkGenerator->SetJustCreatedUserMarks(msg->AcceptJustCreatedIds());
       break;
     }
 
