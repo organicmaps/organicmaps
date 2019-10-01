@@ -51,6 +51,11 @@ PostcodePoints::PostcodePoints(MwmValue const & value)
       reader.GetPtr()->CreateSubReader(m_header.m_pointsOffset, m_header.m_pointsSize);
   m_points = CentersTable::LoadV1(*m_pointsSubReader);
   CHECK(m_points, ());
+
+  auto const kPostcodeRadiusMultiplicator = 5.0;
+  auto const area = value.GetHeader().GetBounds().Area();
+  auto const count = static_cast<double>(m_points->Count());
+  m_radius = kPostcodeRadiusMultiplicator * 0.5 * sqrt(area / count);
 }
 
 void PostcodePoints::Get(strings::UniString const & postcode, bool recursive,
@@ -106,5 +111,17 @@ void PostcodePoints::Get(strings::UniString const & postcode, vector<m2::PointD>
 
   auto static const space = strings::MakeUniString(" ");
   Get(postcode + space, true /* recursive */, points);
+}
+
+PostcodePoints & PostcodePointsCache::Get(MwmContext const & context)
+{
+  auto const mwmId = context.GetId();
+  auto const it = m_entries.find(mwmId);
+  if (it != m_entries.end())
+    return *it->second;
+
+  auto const emplaceRes = m_entries.emplace(mwmId, make_unique<PostcodePoints>(context.m_value));
+  ASSERT(emplaceRes.second, ("Failed to load postcode points for", mwmId));
+  return *(emplaceRes.first)->second;
 }
 }  // namespace search

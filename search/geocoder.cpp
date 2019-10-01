@@ -65,6 +65,7 @@ size_t constexpr kMaxNumStates = 5;
 size_t constexpr kMaxNumVillages = 5;
 size_t constexpr kMaxNumCountries = 5;
 double constexpr kMaxViewportRadiusM = 50.0 * 1000;
+double constexpr kMaxPostcodeRadiusM = 1000;
 
 // This constant limits number of localities that will be extracted
 // from World map.  Villages are not counted here as they're not
@@ -73,6 +74,7 @@ double constexpr kMaxViewportRadiusM = 50.0 * 1000;
 size_t const kMaxNumLocalities = LocalityScorer::kDefaultReadLimit;
 
 size_t constexpr kPivotRectsCacheSize = 10;
+size_t constexpr kPostcodesRectsCacheSize = 10;
 size_t constexpr kLocalityRectsCacheSize = 10;
 
 UniString const kUniSpace(MakeUniString(" "));
@@ -348,6 +350,7 @@ Geocoder::Geocoder(DataSource const & dataSource, storage::CountryInfoGetter con
   , m_cancellable(cancellable)
   , m_citiesBoundaries(citiesBoundaries)
   , m_pivotRectsCache(kPivotRectsCacheSize, m_cancellable, kMaxViewportRadiusM)
+  , m_postcodesRectsCache(kPostcodesRectsCacheSize, m_cancellable, kMaxPostcodeRadiusM)
   , m_localityRectsCache(kLocalityRectsCacheSize, m_cancellable)
   , m_filter(nullptr)
   , m_matcher(nullptr)
@@ -451,6 +454,7 @@ void Geocoder::ClearCaches()
   m_foodCache.Clear();
   m_hotelsFilter.ClearCaches();
   m_cuisineFilter.ClearCaches();
+  m_postcodePointsCache.Clear();
   m_postcodes.Clear();
 }
 
@@ -540,7 +544,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
     if (inViewport)
     {
       auto const viewportCBV =
-          RetrieveGeometryFeatures(*m_context, m_params.m_pivot, RECT_ID_PIVOT);
+          RetrieveGeometryFeatures(*m_context, m_params.m_pivot, RectId::Pivot);
       for (auto & features : ctx.m_features)
         features = features.Intersect(viewportCBV);
     }
@@ -807,7 +811,8 @@ void Geocoder::MatchCategories(BaseContext & ctx, bool aroundPivot)
 
   if (aroundPivot)
   {
-    auto const pivotFeatures = RetrieveGeometryFeatures(*m_context, m_params.m_pivot, RECT_ID_PIVOT);
+    auto const pivotFeatures =
+        RetrieveGeometryFeatures(*m_context, m_params.m_pivot, RectId::Pivot);
     ViewportFilter filter(pivotFeatures, m_preRanker.Limit() /* threshold */);
     features.m_features = filter.Filter(features.m_features);
     features.m_exactMatchingFeatures =
@@ -950,7 +955,7 @@ void Geocoder::MatchCities(BaseContext & ctx)
       if (m_context->GetInfo()->GetType() == MwmInfo::WORLD)
         continue;
 
-      auto cityFeatures = RetrieveGeometryFeatures(*m_context, city.m_rect, RECT_ID_LOCALITY);
+      auto cityFeatures = RetrieveGeometryFeatures(*m_context, city.m_rect, RectId::Locality);
 
       if (cityFeatures.IsEmpty())
         continue;
@@ -1017,6 +1022,19 @@ void Geocoder::WithPostcodes(BaseContext & ctx, Fn && fn)
     TokenRange const tokenRange(startToken, endToken);
 
     auto postcodes = RetrievePostcodeFeatures(*m_context, TokenSlice(m_params, tokenRange));
+    if (m_context->m_value.m_cont.IsExist(POSTCODE_POINTS_FILE_TAG))
+    {
+      auto & postcodePoints = m_postcodePointsCache.Get(*m_context);
+      UniString postcodeQuery;
+      JoinQueryTokens(m_params, tokenRange, kUniSpace /* sep */, postcodeQuery);
+      vector<m2::PointD> points;
+      postcodePoints.Get(postcodeQuery, points);
+      for (auto const & p : points)
+      {
+        auto const rect = MercatorBounds::RectByCenterXYAndOffset(p, postcodePoints.GetRadius());
+        postcodes = postcodes.Union(RetrieveGeometryFeatures(*m_context, rect, RectId::Postcode));
+      }
+    }
     SCOPE_GUARD(cleanup, [&]() { m_postcodes.Clear(); });
 
     if (!postcodes.IsEmpty())
@@ -1530,9 +1548,10 @@ CBV Geocoder::RetrieveGeometryFeatures(MwmContext const & context, m2::RectD con
 {
   switch (id)
   {
-  case RECT_ID_PIVOT: return m_pivotRectsCache.Get(context, rect, m_params.GetScale());
-  case RECT_ID_LOCALITY: return m_localityRectsCache.Get(context, rect, m_params.GetScale());
-  case RECT_ID_COUNT: ASSERT(false, ("Invalid RectId.")); return CBV();
+  case RectId::Pivot: return m_pivotRectsCache.Get(context, rect, m_params.GetScale());
+  case RectId::Postcode: return m_postcodesRectsCache.Get(context, rect, m_params.GetScale());
+  case RectId::Locality: return m_localityRectsCache.Get(context, rect, m_params.GetScale());
+  case RectId::Count: ASSERT(false, ("Invalid RectId.")); return CBV();
   }
   UNREACHABLE();
 }

@@ -216,6 +216,8 @@ public:
     }
   }
 
+  uint64_t Count() const { return m_ids.num_ones(); }
+
 private:
   bool Init()
   {

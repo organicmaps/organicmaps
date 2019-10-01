@@ -54,6 +54,8 @@ public:
   // false if table does not have entry for the feature.
   WARN_UNUSED_RESULT bool Get(uint32_t id, m2::PointD & center);
 
+  uint64_t Count() const { return m_map->Count(); };
+
   // Loads CentersTable instance. Note that |reader| must be alive
   // until the destruction of loaded table. Returns nullptr if
   // CentersTable can't be loaded.

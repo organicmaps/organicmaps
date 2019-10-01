@@ -16,6 +16,7 @@
 #include "search/model.hpp"
 #include "search/mwm_context.hpp"
 #include "search/nested_rects_cache.hpp"
+#include "search/postcode_points.hpp"
 #include "search/pre_ranking_info.hpp"
 #include "search/query_params.hpp"
 #include "search/ranking_utils.hpp"
@@ -125,11 +126,12 @@ public:
   void ClearCaches();
 
 private:
-  enum RectId
+  enum class RectId
   {
-    RECT_ID_PIVOT,
-    RECT_ID_LOCALITY,
-    RECT_ID_COUNT
+    Pivot,
+    Locality,
+    Postcode,
+    Count
   };
 
   struct Postcodes
@@ -299,7 +301,10 @@ private:
   // TokenToLocalities because the latter are quite lightweight and not
   // all of them are needed.
   PivotRectsCache m_pivotRectsCache;
+  PivotRectsCache m_postcodesRectsCache;
   LocalityRectsCache m_localityRectsCache;
+
+  PostcodePointsCache m_postcodePointsCache;
 
   // Postcodes features in the mwm that is currently being processed and World.mwm.
   Postcodes m_postcodes;

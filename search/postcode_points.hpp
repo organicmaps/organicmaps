@@ -55,6 +55,7 @@ public:
   PostcodePoints(MwmValue const & value);
 
   void Get(strings::UniString const & postcode, std::vector<m2::PointD> & points) const;
+  double GetRadius() const { return m_radius; }
 
 private:
   void Get(strings::UniString const & postcode, bool recursive,
@@ -65,5 +66,16 @@ private:
   std::unique_ptr<trie::Iterator<SingleUint64Value>> m_root;
   std::unique_ptr<Reader> m_trieSubReader;
   std::unique_ptr<Reader> m_pointsSubReader;
+  double m_radius = 0.0;
+};
+
+class PostcodePointsCache
+{
+public:
+  PostcodePoints & Get(MwmContext const & context);
+  void Clear() { m_entries.clear(); }
+
+private:
+  std::map<MwmSet::MwmId, std::unique_ptr<PostcodePoints>> m_entries;
 };
 }  // namespace search

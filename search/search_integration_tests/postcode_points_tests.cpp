@@ -45,7 +45,6 @@ UNIT_CLASS_TEST(PostcodePointsTest, Smoke)
   string const testFile = "postcodes.csv";
   auto const postcodesRelativePath = base::JoinPath(writableDir, testFile);
 
-  // <outward>,<inward>,<easting>,<northing>,<WGS84 lat>,<WGS84 long>,<2+6 NGR>,<grid>,<sources>
   ScopedFile const osmScopedFile(
       testFile,
       "aa11 0, dummy, 1000, 1000, dummy, dummy, dummy, dummy, dummy, dummy\n"
@@ -117,7 +116,6 @@ UNIT_CLASS_TEST(PostcodePointsTest, SearchPostcode)
   string const testFile = "postcodes.csv";
   auto const postcodesRelativePath = base::JoinPath(writableDir, testFile);
 
-  // <outward>,<inward>,<easting>,<northing>,<WGS84 lat>,<WGS84 long>,<2+6 NGR>,<grid>,<sources>
   ScopedFile const osmScopedFile(
       testFile,
       "BA6 7JP, dummy, 4000, 4000, dummy, dummy, dummy, dummy, dummy, dummy\n"
@@ -152,5 +150,93 @@ UNIT_CLASS_TEST(PostcodePointsTest, SearchPostcode)
   // Search should return center of all inward codes for outward query.
   test("BA6", MercatorBounds::UKCoordsToXY(5000, 5000));
   test("BA6 ", MercatorBounds::UKCoordsToXY(5000, 5000));
+}
+
+UNIT_CLASS_TEST(PostcodePointsTest, SearchStreetWithPostcode)
+{
+  string const countryName = "Wonderland";
+
+  Platform & platform = GetPlatform();
+  auto const & writableDir = platform.WritableDir();
+  string const testFile = "postcodes.csv";
+  auto const postcodesRelativePath = base::JoinPath(writableDir, testFile);
+
+  ScopedFile const osmScopedFile(
+      testFile,
+      "AA5 6KL, dummy, 4000, 4000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "BB7 8MN, dummy, 6000, 6000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "XX6 7KL, dummy, 4000, 6000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "YY8 9MN, dummy, 6000, 4000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      // Some dummy postcodes to make postcode radius approximation not too big.
+      "CC1 001, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 002, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 003, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 004, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 005, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 006, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 007, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 008, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 009, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 010, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 011, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 012, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 013, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 014, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 015, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 016, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 017, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 018, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 019, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n"
+      "CC1 020, dummy, 5000, 5000, dummy, dummy, dummy, dummy, dummy, dummy\n");
+
+  auto const rect =
+      m2::RectD(MercatorBounds::UKCoordsToXY(3990, 3990), MercatorBounds::UKCoordsToXY(6010, 6010));
+  auto infoGetter = std::make_shared<storage::CountryInfoGetterForTesting>();
+  infoGetter->AddCountry(storage::CountryDef(countryName, rect));
+
+  TestStreet streetA(vector<m2::PointD>{MercatorBounds::UKCoordsToXY(3990, 3990),
+                                        MercatorBounds::UKCoordsToXY(4010, 4010)},
+                     "Garden street", "en");
+  TestPOI houseA(MercatorBounds::UKCoordsToXY(4000, 4000), "", "en");
+  houseA.SetHouseNumber("1");
+  houseA.SetStreetName(streetA.GetName("en"));
+  TestStreet streetB(vector<m2::PointD>{MercatorBounds::UKCoordsToXY(5990, 5990),
+                                        MercatorBounds::UKCoordsToXY(6010, 6010)},
+                     "Garden street", "en");
+  TestPOI houseB(MercatorBounds::UKCoordsToXY(6000, 6000), "", "en");
+  houseB.SetHouseNumber("1");
+  houseB.SetStreetName(streetB.GetName("en"));
+  TestStreet streetX(vector<m2::PointD>{MercatorBounds::UKCoordsToXY(3990, 5990),
+                                        MercatorBounds::UKCoordsToXY(4010, 6010)},
+                     "Main street", "en");
+  TestStreet streetY(vector<m2::PointD>{MercatorBounds::UKCoordsToXY(5990, 3990),
+                                        MercatorBounds::UKCoordsToXY(6010, 4010)},
+                     "Main street", "en");
+
+  auto const id = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.SetPostcodesData(postcodesRelativePath, infoGetter);
+    builder.Add(streetA);
+    builder.Add(houseA);
+    builder.Add(streetB);
+    builder.Add(houseB);
+    builder.Add(streetX);
+    builder.Add(streetY);
+  });
+
+  auto test = [&](string const & query, TestFeature const & bestResult) {
+    auto request = MakeRequest(query);
+    auto const & results = request->Results();
+
+    TEST_GREATER_OR_EQUAL(results.size(), 1, ("Unexpected number of results."));
+    TEST(ResultsMatch({results[0]}, {ExactMatch(id, bestResult)}), ());
+    TEST(results[0].GetRankingInfo().m_allTokensUsed, ());
+    for (size_t i = 1; i < results.size(); ++i)
+      TEST(!results[i].GetRankingInfo().m_allTokensUsed, ());
+  };
+  SetViewport(rect);
+  test("Garden street 1 AA5 6KL ", houseA);
+  test("Garden street 1 BB7 8MN ", houseB);
+  test("Main street XX6 7KL ", streetX);
+  test("Main street YY8 9MN ", streetY);
 }
 }  // namespace
