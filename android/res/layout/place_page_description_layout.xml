@@ -19,8 +19,12 @@
     android:layout_marginStart="@dimen/margin_base"
     android:layout_marginTop="@dimen/margin_base"
     android:maxLength="2000"
+    android:fontFamily="@string/robotoRegular"
+    android:textStyle="normal"
+    android:lineSpacingExtra="@dimen/line_spacing_extra_2"
     android:textColor="?android:attr/textColorPrimary"
-    android:textAppearance="?android:attr/textAppearanceSmall"
+    android:textAppearance="?android:attr/textAppearance"
+    tools:text="asdasdadadasdasdasdasdasdasdasdadas"
     tools:ignore="UnusedAttribute"/>
 
   <TextView
