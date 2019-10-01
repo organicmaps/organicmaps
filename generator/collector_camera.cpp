@@ -35,13 +35,13 @@ namespace routing
 {
 size_t const CameraProcessor::kMaxSpeedSpeedStringLength = 32;
 
-std::string ValidateMaxSpeedString(std::string const & maxSpeedString)
+boost::optional<double> GetMaxSpeed(std::string const & maxSpeedString)
 {
   routing::SpeedInUnits speed;
   if (!generator::ParseMaxspeedTag(maxSpeedString, speed) || !speed.IsNumeric())
-    return std::string();
+    return {};
 
-  return strings::to_string(measurement_utils::ToSpeedKmPH(speed.GetSpeed(), speed.GetUnits()));
+  return measurement_utils::ToSpeedKmPH(speed.GetSpeed(), speed.GetUnits());
 }
 
 CameraProcessor::CameraInfo::CameraInfo(OsmElement const & element)
@@ -50,15 +50,13 @@ CameraProcessor::CameraInfo::CameraInfo(OsmElement const & element)
   , m_lat(element.m_lat)
 {
   auto const maxspeed = element.GetTag("maxspeed");
-  if (maxspeed.empty())
+  if (maxspeed.empty() || maxspeed.size() > kMaxSpeedSpeedStringLength)
     return;
 
-  auto const validatedMaxspeed = ValidateMaxSpeedString(maxspeed);
-  if (validatedMaxspeed.size() > kMaxSpeedSpeedStringLength ||
-      !strings::to_int(validatedMaxspeed.c_str(), m_speed))
-  {
+  if (auto const validatedMaxspeed = GetMaxSpeed(maxspeed))
+    m_speed = static_cast<uint32_t>(*validatedMaxspeed);
+  else
     LOG(LWARNING, ("Bad speed format of camera:", maxspeed, ", osmId:", element.m_id));
-  }
 }
 
 CameraProcessor::CameraProcessor(std::string const & filename)

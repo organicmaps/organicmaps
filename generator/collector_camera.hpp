@@ -12,6 +12,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include <boost/optional.hpp>
+
 namespace generator_tests
 {
 class TestCameraCollector;
@@ -34,14 +36,14 @@ class FeatureBuilder;
 // TODO (@gmoryes) move members of m_routingTagsProcessor to generator
 namespace routing
 {
-/// \brief Gets text with speed, returns formatted speed string in km per hour.
+/// \brief Returns formatted speed in km per hour.
 /// \param maxSpeedString - text with speed. Possible format:
 ///                         "130" - means 130 km per hour.
 ///                         "130 mph" - means 130 miles per hour.
 ///                         "130 kmh" - means 130 km per hour.
 /// See https://wiki.openstreetmap.org/wiki/Key:maxspeed
 /// for more details about input string.
-std::string ValidateMaxSpeedString(std::string const & maxSpeedString);
+boost::optional<double> GetMaxSpeed(std::string const & maxSpeedString);
 
 class CameraProcessor
 {
@@ -58,7 +60,7 @@ public:
     uint64_t m_id = 0;
     double m_lon = 0.0;
     double m_lat = 0.0;
-    int32_t m_speed = 0;
+    uint32_t m_speed = 0;
     std::vector<uint64_t> m_ways;
   };
 
