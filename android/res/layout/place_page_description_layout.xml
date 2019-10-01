@@ -18,7 +18,7 @@
     android:layout_marginRight="@dimen/margin_base"
     android:layout_marginStart="@dimen/margin_base"
     android:layout_marginTop="@dimen/margin_base"
-    android:maxLength="2000"
+    android:maxLength="500"
     android:fontFamily="@string/robotoRegular"
     android:textStyle="normal"
     android:lineSpacingExtra="@dimen/line_spacing_extra_2"
