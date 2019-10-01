@@ -20,8 +20,11 @@ template <typename Dataset>
 class ProcessorBooking : public FeatureProcessorInterface
 {
 public:
-  ProcessorBooking(Dataset const & dataset, std::map<base::GeoObjectId, feature::FeatureBuilder> & features)
-    : m_dataset(dataset), m_features(features) {}
+  ProcessorBooking(Dataset const & dataset,
+                   std::map<base::GeoObjectId, feature::FeatureBuilder> & features)
+    : m_dataset(dataset), m_features(features)
+  {
+  }
 
   // FeatureProcessorInterface overrides:
   virtual std::shared_ptr<FeatureProcessorInterface> Clone() const override
@@ -38,10 +41,7 @@ public:
 
   void Finish() override {}
 
-  void Merge(FeatureProcessorInterface const &) override
-  {
-    CHECK(false, ());
-  }
+  void Merge(FeatureProcessorInterface const &) override { CHECK(false, ()); }
 
 private:
   Dataset const & m_dataset;

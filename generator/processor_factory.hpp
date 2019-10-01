@@ -27,20 +27,15 @@ enum class ProcessorType
 };
 
 template <class... Args>
-std::shared_ptr<FeatureProcessorInterface> CreateProcessor(ProcessorType type, Args&&... args)
+std::shared_ptr<FeatureProcessorInterface> CreateProcessor(ProcessorType type, Args &&... args)
 {
   switch (type)
   {
-  case ProcessorType::Coastline:
-    return create<ProcessorCoastline>(std::forward<Args>(args)...);
-  case ProcessorType::Country:
-    return create<ProcessorCountry>(std::forward<Args>(args)...);
-  case ProcessorType::Simple:
-    return create<ProcessorSimple>(std::forward<Args>(args)...);
-  case ProcessorType::World:
-    return create<ProcessorWorld>(std::forward<Args>(args)...);
-  case ProcessorType::Noop:
-    return create<ProcessorNoop>(std::forward<Args>(args)...);
+  case ProcessorType::Coastline: return create<ProcessorCoastline>(std::forward<Args>(args)...);
+  case ProcessorType::Country: return create<ProcessorCountry>(std::forward<Args>(args)...);
+  case ProcessorType::Simple: return create<ProcessorSimple>(std::forward<Args>(args)...);
+  case ProcessorType::World: return create<ProcessorWorld>(std::forward<Args>(args)...);
+  case ProcessorType::Noop: return create<ProcessorNoop>(std::forward<Args>(args)...);
   }
   UNREACHABLE();
 }

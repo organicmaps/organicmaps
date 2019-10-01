@@ -8,7 +8,8 @@
 namespace generator
 {
 // This class allows you to work with a group of translators as with one.
-class TranslatorCollection : public CollectionBase<std::shared_ptr<TranslatorInterface>>, public TranslatorInterface
+class TranslatorCollection : public CollectionBase<std::shared_ptr<TranslatorInterface>>,
+                             public TranslatorInterface
 {
 public:
   // TranslatorInterface overrides:

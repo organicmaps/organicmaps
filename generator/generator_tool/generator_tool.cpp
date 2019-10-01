@@ -121,8 +121,9 @@ DEFINE_string(cities_boundaries_data, "", "File with cities boundaries");
 DEFINE_bool(generate_cities_ids, false, "Generate the cities ids section");
 
 DEFINE_bool(generate_world, false, "Generate separate world file.");
-DEFINE_bool(have_borders_for_whole_world, false, "If it is set to true, the optimization of checking that the "
-                                                 "fb belongs to the country border will be applied.");
+DEFINE_bool(have_borders_for_whole_world, false,
+            "If it is set to true, the optimization of checking that the "
+            "fb belongs to the country border will be applied.");
 
 DEFINE_string(
     nodes_list_path, "",
@@ -201,7 +202,7 @@ int GeneratorToolMain(int argc, char ** argv)
   CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
 
   google::SetUsageMessage(
-        "Takes OSM XML data from stdin and creates data and index files in several passes.");
+      "Takes OSM XML data from stdin and creates data and index files in several passes.");
   google::SetVersionString(std::to_string(omim::build_version::git::kTimestamp) + " " +
                            omim::build_version::git::kHash);
   google::ParseCommandLineFlags(&argc, &argv, true);
@@ -224,8 +225,8 @@ int GeneratorToolMain(int argc, char ** argv)
   feature::GenerateInfo genInfo;
   genInfo.m_verbose = FLAGS_verbose;
   genInfo.m_intermediateDir = FLAGS_intermediate_data_path.empty()
-                              ? path
-                              : base::AddSlashIfNeeded(FLAGS_intermediate_data_path);
+                                  ? path
+                                  : base::AddSlashIfNeeded(FLAGS_intermediate_data_path);
   genInfo.m_targetDir = genInfo.m_tmpDir = path;
 
   /// @todo Probably, it's better to add separate option for .mwm.tmp files.
@@ -273,9 +274,7 @@ int GeneratorToolMain(int argc, char ** argv)
   }
 
   // Generate .mwm.tmp files.
-  if (FLAGS_generate_features ||
-      FLAGS_generate_world ||
-      FLAGS_make_coasts)
+  if (FLAGS_generate_features || FLAGS_generate_world || FLAGS_make_coasts)
   {
     RawGenerator rawGenerator(genInfo, threadsCount);
     if (FLAGS_generate_features)

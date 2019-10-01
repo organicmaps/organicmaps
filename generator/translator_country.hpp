@@ -21,7 +21,7 @@ namespace generator
 // The TranslatorArea class implements translator for building countries.
 class TranslatorCountry : public Translator
 {
-public:  
+public:
   explicit TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> const & processor,
                              std::shared_ptr<cache::IntermediateData> const & cache,
                              feature::GenerateInfo const & info, bool needMixTags = false);

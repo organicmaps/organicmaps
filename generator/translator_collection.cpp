@@ -7,8 +7,7 @@
 
 namespace generator
 {
-std::shared_ptr<TranslatorInterface>
-TranslatorCollection::Clone() const
+std::shared_ptr<TranslatorInterface> TranslatorCollection::Clone() const
 {
   auto p = std::make_shared<TranslatorCollection>();
   for (auto const & c : m_collection)
@@ -33,15 +32,11 @@ void TranslatorCollection::Finish()
 
 bool TranslatorCollection::Save()
 {
-  return std::all_of(std::begin(m_collection), std::end(m_collection), [](auto & t) {
-    return t->Save();
-  });
+  return std::all_of(std::begin(m_collection), std::end(m_collection),
+                     [](auto & t) { return t->Save(); });
 }
 
-void TranslatorCollection::Merge(TranslatorInterface const & other)
-{
-  other.MergeInto(*this);
-}
+void TranslatorCollection::Merge(TranslatorInterface const & other) { other.MergeInto(*this); }
 
 void TranslatorCollection::MergeInto(TranslatorCollection & other) const
 {

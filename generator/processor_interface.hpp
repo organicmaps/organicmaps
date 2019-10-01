@@ -19,7 +19,8 @@ class ProcessorNoop;
 class ProcessorSimple;
 class ProcessorWorld;
 
-// Implementing this interface allows an object to process FeatureBuilder objects and broadcast them.
+// Implementing this interface allows an object to process FeatureBuilder objects and broadcast
+// them.
 class FeatureProcessorInterface
 {
 public:

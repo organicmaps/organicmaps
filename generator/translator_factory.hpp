@@ -21,16 +21,13 @@ enum class TranslatorType
 };
 
 template <class... Args>
-std::shared_ptr<TranslatorInterface> CreateTranslator(TranslatorType type, Args&&... args)
+std::shared_ptr<TranslatorInterface> CreateTranslator(TranslatorType type, Args &&... args)
 {
   switch (type)
   {
-  case TranslatorType::Coastline:
-    return create<TranslatorCoastline>(std::forward<Args>(args)...);
-  case TranslatorType::Country:
-    return create<TranslatorCountry>(std::forward<Args>(args)...);
-  case TranslatorType::World:
-    return create<TranslatorWorld>(std::forward<Args>(args)...);
+  case TranslatorType::Coastline: return create<TranslatorCoastline>(std::forward<Args>(args)...);
+  case TranslatorType::Country: return create<TranslatorCountry>(std::forward<Args>(args)...);
+  case TranslatorType::World: return create<TranslatorWorld>(std::forward<Args>(args)...);
   }
   UNREACHABLE();
 }

@@ -28,7 +28,8 @@ Translator::Translator(std::shared_ptr<FeatureProcessorInterface> const & proces
 Translator::Translator(std::shared_ptr<FeatureProcessorInterface> const & processor,
                        std::shared_ptr<cache::IntermediateData> const & cache,
                        std::shared_ptr<FeatureMakerBase> const & maker)
-  : Translator(processor, cache, maker, std::make_shared<FilterCollection>(), std::make_shared<CollectorCollection>())
+  : Translator(processor, cache, maker, std::make_shared<FilterCollection>(),
+               std::make_shared<CollectorCollection>())
 {
 }
 
@@ -37,10 +38,7 @@ void Translator::SetCollector(std::shared_ptr<CollectorInterface> const & collec
   m_collector = collector;
 }
 
-void Translator::SetFilter(std::shared_ptr<FilterInterface> const & filter)
-{
-  m_filter = filter;
-}
+void Translator::SetFilter(std::shared_ptr<FilterInterface> const & filter) { m_filter = filter; }
 
 void Translator::Emit(OsmElement & element)
 {

@@ -39,30 +39,25 @@ public:
 };
 }  // namespace
 
-TranslatorCoastline::TranslatorCoastline(std::shared_ptr<FeatureProcessorInterface> const & processor,
-                                         std::shared_ptr<cache::IntermediateData> const & cache)
+TranslatorCoastline::TranslatorCoastline(
+    std::shared_ptr<FeatureProcessorInterface> const & processor,
+    std::shared_ptr<cache::IntermediateData> const & cache)
   : Translator(processor, cache, std::make_shared<FeatureMaker>(cache))
 {
   auto filters = std::make_shared<FilterCollection>();
   filters->Append(std::make_shared<FilterPlanet>());
   filters->Append(std::make_shared<CoastlineFilter>());
-  filters->Append(std::make_shared<FilterElements>(base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE)));
+  filters->Append(std::make_shared<FilterElements>(
+      base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE)));
   SetFilter(filters);
 }
 
-std::shared_ptr<TranslatorInterface>
-TranslatorCoastline::Clone() const
+std::shared_ptr<TranslatorInterface> TranslatorCoastline::Clone() const
 {
   return Translator::CloneBase<TranslatorCoastline>();
 }
 
-void TranslatorCoastline::Merge(TranslatorInterface const & other)
-{
-  other.MergeInto(*this);
-}
+void TranslatorCoastline::Merge(TranslatorInterface const & other) { other.MergeInto(*this); }
 
-void TranslatorCoastline::MergeInto(TranslatorCoastline & other) const
-{
-  MergeIntoBase(other);
-}
+void TranslatorCoastline::MergeInto(TranslatorCoastline & other) const { MergeIntoBase(other); }
 }  // namespace generator

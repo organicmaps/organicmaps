@@ -21,8 +21,8 @@
 
 #include "platform/platform.hpp"
 
-#include "base/file_name_utils.hpp"
 #include "base/assert.hpp"
+#include "base/file_name_utils.hpp"
 
 #include <cctype>
 #include <cstdint>
@@ -39,7 +39,9 @@ class RelationCollector
 {
 public:
   explicit RelationCollector(std::shared_ptr<CollectorInterface> const & collectors)
-    : m_collectors(collectors) {}
+    : m_collectors(collectors)
+  {
+  }
 
   template <class Reader>
   base::ControlFlow operator()(uint64_t id, Reader & reader)
@@ -79,35 +81,50 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
                                      std::shared_ptr<cache::IntermediateData> const & cache,
                                      feature::GenerateInfo const & info, bool needMixTags)
   : Translator(processor, cache, std::make_shared<FeatureMaker>(cache))
-  , m_tagAdmixer(std::make_shared<TagAdmixer>(info.GetIntermediateFileName("ways", ".csv"), info.GetIntermediateFileName("towns", ".csv")))
-  , m_tagReplacer(std::make_shared<TagReplacer>(base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE)))
+  , m_tagAdmixer(std::make_shared<TagAdmixer>(info.GetIntermediateFileName("ways", ".csv"),
+                                              info.GetIntermediateFileName("towns", ".csv")))
+  , m_tagReplacer(std::make_shared<TagReplacer>(
+        base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE)))
 {
   if (needMixTags)
-    m_osmTagMixer = std::make_shared<OsmTagMixer>(base::JoinPath(GetPlatform().ResourcesDir(), MIXED_TAGS_FILE));
-
+  {
+    m_osmTagMixer = std::make_shared<OsmTagMixer>(
+        base::JoinPath(GetPlatform().ResourcesDir(), MIXED_TAGS_FILE));
+  }
   auto filters = std::make_shared<FilterCollection>();
   filters->Append(std::make_shared<FilterPlanet>());
-  filters->Append(std::make_shared<FilterElements>(base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE)));
+  filters->Append(std::make_shared<FilterElements>(
+      base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE)));
   SetFilter(filters);
 
   auto collectors = std::make_shared<CollectorCollection>();
-  collectors->Append(std::make_shared<feature::MetalinesBuilder>(info.GetIntermediateFileName(METALINES_FILENAME)));
-  collectors->Append(std::make_shared<CityAreaCollector>(info.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME)));
-  // These are the four collector that collect additional information for the future building of routing section.
-  collectors->Append(std::make_shared<MaxspeedsCollector>(info.GetIntermediateFileName(MAXSPEEDS_FILENAME)));
-  collectors->Append(std::make_shared<routing::RestrictionWriter>(info.GetIntermediateFileName(RESTRICTIONS_FILENAME), cache->GetCache()));
-  collectors->Append(std::make_shared<routing::RoadAccessWriter>(info.GetIntermediateFileName(ROAD_ACCESS_FILENAME)));
-  collectors->Append(std::make_shared<routing::CameraCollector>(info.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME)));
-  collectors->Append(std::make_shared<CrossMwmOsmWaysCollector>(info.m_intermediateDir, info.m_targetDir, info.m_haveBordersForWholeWorld));
+  collectors->Append(std::make_shared<feature::MetalinesBuilder>(
+      info.GetIntermediateFileName(METALINES_FILENAME)));
+  collectors->Append(
+      std::make_shared<CityAreaCollector>(info.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME)));
+  // These are the four collector that collect additional information for the future building of
+  // routing section.
+  collectors->Append(
+      std::make_shared<MaxspeedsCollector>(info.GetIntermediateFileName(MAXSPEEDS_FILENAME)));
+  collectors->Append(std::make_shared<routing::RestrictionWriter>(
+      info.GetIntermediateFileName(RESTRICTIONS_FILENAME), cache->GetCache()));
+  collectors->Append(std::make_shared<routing::RoadAccessWriter>(
+      info.GetIntermediateFileName(ROAD_ACCESS_FILENAME)));
+  collectors->Append(std::make_shared<routing::CameraCollector>(
+      info.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME)));
+  collectors->Append(std::make_shared<CrossMwmOsmWaysCollector>(
+      info.m_intermediateDir, info.m_targetDir, info.m_haveBordersForWholeWorld));
   if (info.m_genAddresses)
     collectors->Append(std::make_shared<CollectorAddresses>(info.GetAddressesFileName()));
   if (!info.m_idToWikidataFilename.empty())
-    collectors->Append(std::make_shared<CollectorTag>(info.m_idToWikidataFilename, "wikidata" /* tagKey */, WikiDataValidator));
+  {
+    collectors->Append(std::make_shared<CollectorTag>(info.m_idToWikidataFilename,
+                                                      "wikidata" /* tagKey */, WikiDataValidator));
+  }
   SetCollector(collectors);
 }
 
-std::shared_ptr<TranslatorInterface>
-TranslatorCountry::Clone() const
+std::shared_ptr<TranslatorInterface> TranslatorCountry::Clone() const
 {
   auto copy = Translator::CloneBase<TranslatorCountry>();
   copy->m_tagAdmixer = m_tagAdmixer;
@@ -126,15 +143,9 @@ void TranslatorCountry::Preprocess(OsmElement & element)
   CollectFromRelations(element);
 }
 
-void TranslatorCountry::Merge(TranslatorInterface const & other)
-{
-  other.MergeInto(*this);
-}
+void TranslatorCountry::Merge(TranslatorInterface const & other) { other.MergeInto(*this); }
 
-void TranslatorCountry::MergeInto(TranslatorCountry & other) const
-{
-  MergeIntoBase(other);
-}
+void TranslatorCountry::MergeInto(TranslatorCountry & other) const { MergeIntoBase(other); }
 
 void TranslatorCountry::CollectFromRelations(OsmElement const & element)
 {
