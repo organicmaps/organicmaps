@@ -15,7 +15,7 @@
 
 - (void)drawTextInRect:(CGRect)rect
 {
-  rect = UIEdgeInsetsInsetRect(rect, {.left = 16});
+  rect = UIEdgeInsetsInsetRect(rect, UIEdgeInsetsMake(0, 16, 0, 0));
   if (@available(iOS 11.0, *))
     rect = UIEdgeInsetsInsetRect(rect, self.safeAreaInsets);
   [super drawTextInRect:rect];

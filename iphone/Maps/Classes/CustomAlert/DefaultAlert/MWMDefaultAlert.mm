@@ -1,7 +1,7 @@
 #import "MWMDefaultAlert.h"
 #import "Statistics.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 static CGFloat const kDividerTopConstant = -8.;
 

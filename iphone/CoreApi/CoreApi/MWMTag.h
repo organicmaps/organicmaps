@@ -1,3 +1,5 @@
+#import <UIKit/UIKit.h>
+
 @interface MWMTag : NSObject
 
 @property(copy, nonatomic) NSString * tagId;

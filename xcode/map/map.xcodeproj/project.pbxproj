@@ -130,6 +130,7 @@
 		45F6EE9D1FB1C77600019892 /* search_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45F6EE9A1FB1C77500019892 /* search_api.hpp */; };
 		45F6EE9E1FB1C77600019892 /* mwm_tree.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45F6EE9B1FB1C77500019892 /* mwm_tree.hpp */; };
 		45F6EE9F1FB1C77600019892 /* search_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45F6EE9C1FB1C77500019892 /* search_api.cpp */; };
+		470015E4234246AE00EBF03D /* bookmark_catalog.hpp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4564FA80209497A60043CCFB /* bookmark_catalog.hpp */; };
 		475BD61B211C5FDC00E298C6 /* libshaders.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 475BD61A211C5FDC00E298C6 /* libshaders.a */; };
 		47A9D82220A19E9E00E4671B /* libopen_location_code.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A9D82120A19E9E00E4671B /* libopen_location_code.a */; };
 		47A9D82420A19EC300E4671B /* libkml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A9D82320A19EC300E4671B /* libkml.a */; };
@@ -245,6 +246,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		470015E32342469300EBF03D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = map;
+			dstSubfolderSpec = 16;
+			files = (
+				470015E4234246AE00EBF03D /* bookmark_catalog.hpp in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		674A29DD1B26FD1C001A525C /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1081,6 +1092,7 @@
 				675345B71A4054AD00A0A8C3 /* Sources */,
 				675345B81A4054AD00A0A8C3 /* Frameworks */,
 				675345B91A4054AD00A0A8C3 /* Headers */,
+				470015E32342469300EBF03D /* CopyFiles */,
 			);
 			buildRules = (
 			);

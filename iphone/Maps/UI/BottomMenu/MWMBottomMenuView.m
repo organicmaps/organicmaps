@@ -1,13 +1,10 @@
 #import "MWMBottomMenuView.h"
 #import "MWMAvailableAreaAffectDirection.h"
 #import "MWMButton.h"
-#import "MWMCommon.h"
+//#import <CoreApi/MWMCommon.h>
 
-namespace
-{
-CGFloat constexpr kAdditionalHeight = 64;
-CGFloat constexpr kDefaultMainButtonsHeight = 48;
-}  // namespace
+static CGFloat kAdditionalHeight = 64;
+static CGFloat kDefaultMainButtonsHeight = 48;
 
 @interface MWMBottomMenuView ()
 
@@ -81,7 +78,7 @@ CGFloat constexpr kDefaultMainButtonsHeight = 48;
 
 - (void)updateGeometry
 {
-  auto const availableArea = self.availableArea;
+  CGRect availableArea = self.availableArea;
   if (CGRectEqualToRect(availableArea, CGRectZero))
     return;
   self.separatorHeight.constant = 0.0;
@@ -108,12 +105,14 @@ CGFloat constexpr kDefaultMainButtonsHeight = 48;
   }
   break;
   }
-  auto const mainHeight = self.mainButtonsHeight.constant;
-  auto const separatorHeight = self.separatorHeight.constant;
-  auto const additionalHeight = self.additionalButtonsHeight.constant;
-  auto const height = mainHeight + separatorHeight + additionalHeight;
-  self.frame = {{availableArea.origin.x, availableArea.size.height - height},
-                {availableArea.size.width, height}};
+  CGFloat mainHeight = self.mainButtonsHeight.constant;
+  CGFloat separatorHeight = self.separatorHeight.constant;
+  CGFloat additionalHeight = self.additionalButtonsHeight.constant;
+  CGFloat height = mainHeight + separatorHeight + additionalHeight;
+  self.frame = CGRectMake(availableArea.origin.x,
+                          availableArea.size.height - height,
+                          availableArea.size.width,
+                          height);
 }
 
 - (void)morphMenuButtonTemplate:(NSString *)morphTemplate direct:(BOOL)direct

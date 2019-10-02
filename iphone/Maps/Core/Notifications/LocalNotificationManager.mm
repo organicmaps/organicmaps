@@ -8,7 +8,7 @@
 
 #include "platform/network_policy_ios.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 static NSString * const kLastUGCNotificationDate = @"LastUGCNotificationDate";
 

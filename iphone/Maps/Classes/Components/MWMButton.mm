@@ -1,4 +1,3 @@
-#import "MWMCommon.h"
 #import "MWMButton.h"
 
 namespace

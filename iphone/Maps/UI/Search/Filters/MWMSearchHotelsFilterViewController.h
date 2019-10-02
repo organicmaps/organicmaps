@@ -1,5 +1,6 @@
+#import <CoreApi/MWMTypes.h>
+
 #import "MWMSearchFilterViewController.h"
-#import "MWMTypes.h"
 #import "MWMHotelParams.h"
 
 @class MWMSearchHotelsFilterViewController;

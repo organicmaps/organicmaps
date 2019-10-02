@@ -1,5 +1,3 @@
-#import "MWMCommon.h"
-
 NSString * const kMediumFontName = @"HelveticaNeue-Medium";
 NSString * const kLightFontName = @"HelveticaNeue-Light";
 

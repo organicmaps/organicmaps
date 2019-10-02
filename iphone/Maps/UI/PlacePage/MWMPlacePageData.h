@@ -212,8 +212,8 @@ typedef void (^RefreshPromoCallbackBlock)(NSIndexSet *insertedSections);
 // UGC
 - (ftraits::UGCRatingCategories)ugcRatingCategories;
 - (void)setUGCUpdateFrom:(MWMUGCReviewModel *)reviewModel
+                language:(NSString *)language
            resultHandler:(void (^)(BOOL))resultHandler;
-
 // Route points
 - (RouteMarkType)routeMarkType;
 - (size_t)intermediateIndex;

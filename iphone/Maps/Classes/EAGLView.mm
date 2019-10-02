@@ -13,7 +13,7 @@
 #include "drape/visual_scale.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 #ifdef OMIM_METAL_AVAILABLE
 #import "MetalContextFactory.h"

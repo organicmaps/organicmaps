@@ -8,7 +8,7 @@
 #import "MWMCoreUnits.h"
 #import "SwiftBridge.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 #include "routing/following_info.hpp"
 #include "routing/turns.hpp"

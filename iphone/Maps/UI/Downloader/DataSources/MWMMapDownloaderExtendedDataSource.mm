@@ -2,7 +2,7 @@
 #import "CLLocation+Mercator.h"
 #import "MWMLocationManager.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 #include "storage/country_info_getter.hpp"
 

@@ -63,7 +63,7 @@ final class ListTemplateBuilder {
   }
   
   private class func obtainHistory(template: CPListTemplate) {
-    let searchQueries = FrameworkHelper.obtainLastSearchQueries() ?? []
+    let searchQueries = FrameworkHelper.obtainLastSearchQueries()
     let items = searchQueries.map({ (text) -> CPListItem in
       let item = CPListItem(text: text, detailText: nil, image: UIImage(named: "ic_carplay_recent"))
       item.userInfo = ListItemInfo(type: CPConstants.ListItemType.history,

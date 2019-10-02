@@ -5,8 +5,7 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationWebViewLoginViewController.h"
 #import "MWMAutoupdateController.h"
-#import "MWMBookmarksManager.h"
-#import "MWMCommon.h"
+#import <CoreApi/MWMBookmarksManager.h>
 #import "MWMEditBookmarkController.h"
 #import "MWMEditorViewController.h"
 #import "MWMFacilitiesController.h"
@@ -19,9 +18,9 @@
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
 #import "MWMLocationModeListener.h"
-#import "MWMUTM.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
+#import <CoreApi/MWMFrameworkHelper.h>
 
 #include "drape_frontend/user_event_stream.hpp"
 
@@ -830,7 +829,7 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
   [[self.mapView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor] setActive:YES];
   [[self.mapView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor] setActive:YES];
   self.controlsView.hidden = NO;
-  [MWMFrameworkHelper setVisibleViewport:self.view.bounds];
+  [MWMFrameworkHelper setVisibleViewport:self.view.bounds scaleFactor:self.view.contentScaleFactor];
 }
 
 - (void)enableCarPlayRepresentation

@@ -1,11 +1,11 @@
 #import "MWMAboutController.h"
-#import "AppInfo.h"
+
+#import <CoreApi/CoreApi.h>
+
 #import "Statistics.h"
 #import "SwiftBridge.h"
 #import "WebViewController.h"
 #import "3party/Alohalytics/src/alohalytics_objc.h"
-
-#include "Framework.h"
 
 extern NSString * const kAlohalyticsTapEventKey;
 

@@ -22,8 +22,6 @@
 #include <sys/utsname.h>
 #include <sys/xattr.h>
 
-#import "iphone/Maps/Common/MWMCommon.h"
-
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #import <CoreFoundation/CFURL.h>

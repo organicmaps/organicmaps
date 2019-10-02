@@ -227,6 +227,16 @@ extension BMCDefaultViewModel {
   }
 
   func requestRestoring() {
+    let statusStr: String;
+    switch FrameworkHelper.connectionType() {
+    case .none:
+      statusStr = kStatOffline
+    case .wifi:
+      statusStr = kStatWifi
+    case .cellular:
+      statusStr = kStatMobile
+    }
+    Statistics.logEvent(kStatBookmarksRestoreProposalClick, withParameters: [kStatNetwork : statusStr])
     manager.requestRestoring()
   }
 
@@ -240,10 +250,15 @@ extension BMCDefaultViewModel {
     }
 
     manager.cancelRestoring()
+    Statistics.logEvent(kStatBookmarksRestoreProposalCancel)
   }
 }
 
 extension BMCDefaultViewModel: MWMBookmarksObserver {
+  func onBackupStarted() {
+    Statistics.logEvent(kStatBookmarksSyncStarted)
+  }
+
   func onRestoringStarted() {
     filesPrepared = false
     MWMAlertViewController.activeAlert().presentSpinnerAlert(withTitle: L("bookmarks_restore_process"))
@@ -307,15 +322,20 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
           }, leftButtonAction: cancelAction)
 
         case .noBackup:
+          Statistics.logEvent(kStatBookmarksRestoreProposalError,
+                              withParameters: [kStatType: kStatNoBackup, kStatError: ""])
           MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("bookmarks_restore_empty_title"),
                                                                    message: L("bookmarks_restore_empty_message"),
                                                                    rightButtonTitle: L("ok"),
                                                                    leftButtonTitle: nil,
                                                                    rightButtonAction: nil)
 
-        case .notEnoughDiskSpace: MWMAlertViewController.activeAlert().presentNotEnoughSpaceAlert()
-
-        case .requestError: assertionFailure()
+        case .notEnoughDiskSpace:
+          Statistics.logEvent(kStatBookmarksRestoreProposalError,
+                              withParameters: [kStatType: kStatDisk, kStatError: "Not enough disk space"])
+          MWMAlertViewController.activeAlert().presentNotEnoughSpaceAlert()
+        case .requestError:
+          assertionFailure()
       }
     }
   }
@@ -345,5 +365,14 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
     setCategories()
     view?.update(sections: [.categories])
     view?.conversionFinished(success: success)
+  }
+
+  func onBookmarksFileLoadSuccess() {
+    Statistics.logEvent(kStatEventName(kStatApplication, kStatImport), withParameters: [kStatValue : kStatKML])
+    MWMAlertViewController.activeAlert().presentInfoAlert(L("load_kmz_title"), text: L("load_kmz_successful"))
+  }
+
+  func onBookmarksFileLoadError() {
+    MWMAlertViewController.activeAlert().presentInfoAlert(L("load_kmz_title"), text: L("load_kmz_failed"))
   }
 }

@@ -1,9 +1,8 @@
 #import "MWMSearchNoResultsAlert.h"
-#import "MWMCommon.h"
 #import "MWMSearch.h"
 #import "Statistics.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 namespace
 {

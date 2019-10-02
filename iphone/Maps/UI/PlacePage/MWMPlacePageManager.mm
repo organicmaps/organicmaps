@@ -2,7 +2,7 @@
 #import "CLLocation+Mercator.h"
 #import "MWMAPIBar.h"
 #import "MWMActivityViewController.h"
-#import "MWMBookmarksManager.h"
+//#import "MWMBookmarksManager.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationHelpers.h"
@@ -19,7 +19,7 @@
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
-#include "Framework.h"
+#import <CoreApi/CoreApi.h>
 
 #include "map/bookmark.hpp"
 #include "map/utils.hpp"
@@ -804,7 +804,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 
 - (MapViewController *)ownerViewController { return [MapViewController sharedController]; }
 
-- (void)saveUgcWithModel:(MWMUGCReviewModel *)model resultHandler:(void (^)(BOOL))resultHandler
+- (void)saveUgcWithModel:(MWMUGCReviewModel *)model language:(NSString *)language resultHandler:(void (^)(BOOL))resultHandler
 {
   auto data = self.data;
   if (!data)
@@ -814,7 +814,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
     return;
   }
   
-  [data setUGCUpdateFrom:model resultHandler:resultHandler];
+  [data setUGCUpdateFrom:model language:language resultHandler:resultHandler];
 }
 
 #pragma mark - MWMPlacePagePromoProtocol

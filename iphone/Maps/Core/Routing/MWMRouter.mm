@@ -17,7 +17,7 @@
 #import "SwiftBridge.h"
 #import "UIImage+RGBAData.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 #include "routing/following_info.hpp"
 

@@ -5,7 +5,7 @@
 #import "MWMSettings.h"
 #import "SwiftBridge.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 #include "map/routing_manager.hpp"
 

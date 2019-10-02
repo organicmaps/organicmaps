@@ -1,5 +1,4 @@
 #import "MWMMailViewController.h"
-#import "MWMCommon.h"
 
 @implementation MWMMailViewController
 

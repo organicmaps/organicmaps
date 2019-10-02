@@ -24,6 +24,8 @@
 
 #include "storage/storage_defines.hpp"
 
+#import <CoreApi/CoreApi.h>
+
 namespace
 {
 using place_page::MetainfoRows;

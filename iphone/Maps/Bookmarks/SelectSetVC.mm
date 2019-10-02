@@ -2,7 +2,7 @@
 #import "SwiftBridge.h"
 #import "UIViewController+Navigation.h"
 
-#include "Framework.h"
+#import <CoreApi/CoreApi.h>
 
 @interface SelectSetVC ()
 {

@@ -3,7 +3,7 @@
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 using namespace power_management;
 

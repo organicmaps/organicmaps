@@ -1,4 +1,4 @@
-#import "MWMTypes.h"
+#import <CoreApi/MWMTypes.h>
 #import "TableSectionDataSource.h"
 
 NS_ASSUME_NONNULL_BEGIN

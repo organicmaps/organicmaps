@@ -4,7 +4,6 @@
 #import "MWMBottomMenuControllerProtocol.h"
 #import "MWMBottomMenuLayout.h"
 #import "MWMButton.h"
-#import "MWMCommon.h"
 #import "MWMDiscoveryController.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNetworkPolicy.h"
@@ -13,7 +12,7 @@
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 #include "platform/platform.hpp"
 

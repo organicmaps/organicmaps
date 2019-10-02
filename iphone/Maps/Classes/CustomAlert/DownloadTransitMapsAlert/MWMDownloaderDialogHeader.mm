@@ -1,4 +1,3 @@
-#import "MWMCommon.h"
 #import "MWMDownloaderDialogHeader.h"
 #import "MWMDownloadTransitMapAlert.h"
 #import "Statistics.h"

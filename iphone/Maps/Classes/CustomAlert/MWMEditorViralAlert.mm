@@ -3,7 +3,6 @@
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMBottomMenuViewController.h"
-#import "MWMCommon.h"
 #import "Statistics.h"
 
 @interface MWMEditorViralAlert ()

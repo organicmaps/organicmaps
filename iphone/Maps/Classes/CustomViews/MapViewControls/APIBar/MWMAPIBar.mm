@@ -1,9 +1,8 @@
 #import "MWMAPIBar.h"
 #import "MWMAPIBarView.h"
-#import "MWMCommon.h"
 #import "Statistics.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 static NSString * const kKeyPath = @"subviews";
 

@@ -4,7 +4,7 @@
 #import "MWMFrameworkListener.h"
 #import "SwiftBridge.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 #include "partners_api/booking_availability_params.hpp"
 #include "partners_api/ads_engine.hpp"

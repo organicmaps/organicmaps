@@ -1,5 +1,6 @@
-#import "MWMCommon.h"
 #import "MWMMultilineLabel.h"
+
+#import <CoreApi/MWMCommon.h>
 
 @implementation MWMMultilineLabel
 

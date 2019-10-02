@@ -1,10 +1,10 @@
 #import "MWMMapDownloaderTableViewCell.h"
-#import "MWMCommon.h"
 #import "MWMCircularProgress.h"
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "NSString+Categories.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
+#import <CoreApi/MWMCommon.h>
 
 @interface MWMMapDownloaderTableViewCell ()<MWMCircularProgressProtocol>
 

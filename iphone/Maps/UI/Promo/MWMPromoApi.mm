@@ -1,7 +1,7 @@
 #import "MWMPromoApi.h"
 #import "MWMPromoAfterBooking.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 #include "platform/network_policy.hpp"
 #include "platform/preferred_languages.hpp"

@@ -1,7 +1,6 @@
 #import "MWMAddPlaceNavigationBar.h"
-#import "MWMCommon.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 @interface MWMAddPlaceNavigationBar ()
 

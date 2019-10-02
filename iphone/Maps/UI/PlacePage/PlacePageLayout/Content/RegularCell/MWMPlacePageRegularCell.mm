@@ -1,5 +1,4 @@
 #import "MWMPlacePageRegularCell.h"
-#import "MWMCommon.h"
 #import "MWMLocationManager.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"

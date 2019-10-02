@@ -1,6 +1,6 @@
 #import "MWMPurchaseValidation.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 #include "private.h"
 
 static NSMutableDictionary<NSString *, NSMutableArray<ValidatePurchaseCallback> *> *callbacks = [NSMutableDictionary dictionary];

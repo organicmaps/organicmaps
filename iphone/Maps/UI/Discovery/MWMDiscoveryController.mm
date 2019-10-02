@@ -1,6 +1,6 @@
 #import "MWMDiscoveryController.h"
 
-#import "Framework.h"
+#include <CoreApi/Framework.h>
 #import "MWMDiscoveryControllerViewModel.h"
 #import "MWMDiscoveryCityGalleryObjects.h"
 #import "MWMDiscoveryMapObjects.h"

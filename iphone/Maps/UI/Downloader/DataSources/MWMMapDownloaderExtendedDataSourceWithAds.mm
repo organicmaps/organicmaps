@@ -2,7 +2,7 @@
 #import "MWMMapDownloaderAdsTableViewCell.h"
 #import "MWMMyTarget.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 namespace
 {

@@ -1,7 +1,6 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMAddPlaceNavigationBar.h"
 #import "MWMBottomMenuControllerProtocol.h"
-#import "MWMCommon.h"
 #import "MWMMapDownloadDialog.h"
 #import "MWMNetworkPolicy.h"
 #import "MWMPlacePageManager.h"
@@ -15,7 +14,8 @@
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
+#import <CoreApi/MWMFrameworkHelper.h>
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"

@@ -1,3 +1,5 @@
+#import <CoreApi/MWMTypes.h>
+
 static inline CGPoint SubtractCGPoint(CGPoint p1, CGPoint p2)
 {
   return CGPointMake(p1.x - p2.x, p1.y - p2.y);
@@ -38,13 +40,6 @@ static inline CGFloat LengthCGPoint(CGPoint point)
 @property (nonatomic) CGFloat height;
 @property (nonatomic) CGSize size;
 
-+ (void)animateWithDuration:(NSTimeInterval)duration
-                      delay:(NSTimeInterval)delay
-                    damping:(double)dampingRatio
-            initialVelocity:(double)springVelocity
-                    options:(UIViewAnimationOptions)options
-                 animations:(MWMVoidBlock)animations
-                 completion:(void (^)(BOOL finished))completion;
 - (void)sizeToIntegralFit;
 
 @end
@@ -66,24 +61,6 @@ static inline CGFloat LengthCGPoint(CGPoint point)
 @end
 
 @interface SolidTouchImageView : UIImageView
-
-@end
-
-
-typedef void (^MWMAlertViewBlock) (UIAlertView * alertView);
-typedef void (^MWMAlertViewCompletionBlock) (UIAlertView * alertView, NSInteger buttonIndex);
-
-@interface UIAlertView (Blocks)
-
-@property (copy, nonatomic) MWMAlertViewCompletionBlock tapBlock;
-@property (copy, nonatomic) MWMAlertViewCompletionBlock willDismissBlock;
-@property (copy, nonatomic) MWMAlertViewCompletionBlock didDismissBlock;
-
-@property (copy, nonatomic) MWMAlertViewBlock willPresentBlock;
-@property (copy, nonatomic) MWMAlertViewBlock didPresentBlock;
-@property (copy, nonatomic) MWMAlertViewBlock cancelBlock;
-
-@property (copy, nonatomic) BOOL(^shouldEnableFirstOtherButtonBlock)(UIAlertView * alertView);
 
 @end
 

@@ -1,5 +1,5 @@
 #import "MWMPlacePageOpeningHoursCell.h"
-#import "MWMCommon.h"
+#import <CoreApi/MWMCommon.h>
 #import "MWMOpeningHoursCommon.h"
 #import "MWMPlacePageOpeningHoursDayView.h"
 #import "Statistics.h"

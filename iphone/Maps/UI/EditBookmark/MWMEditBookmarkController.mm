@@ -9,7 +9,7 @@
 #import "UIImageView+Coloring.h"
 #import "UIViewController+Navigation.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 namespace
 {

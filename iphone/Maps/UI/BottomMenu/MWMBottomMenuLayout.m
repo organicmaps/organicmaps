@@ -7,7 +7,7 @@
 {
   UICollectionViewLayoutAttributes * attr =
       [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
-  CGPoint origin = {};
+  CGPoint origin = CGPointZero;
   CGSize size = self.collectionView.frame.size;
   NSUInteger const buttonsCount = self.buttonsCount;
   CGFloat const position = (CGFloat)indexPath.item / buttonsCount;
@@ -23,7 +23,7 @@
     size.height = nearbyint(size.height / buttonsCount);
   }
   NSAssert(!CGSizeEqualToSize(size, CGSizeZero), @"Invalid cell size");
-  attr.frame = {origin, size};
+  attr.frame = CGRectMake(origin.x, origin.y, size.width, size.height);
   return attr;
 }
 

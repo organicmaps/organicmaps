@@ -1,12 +1,9 @@
 #import <CoreSpotlight/CoreSpotlight.h>
 #import <Crashlytics/Crashlytics.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "AppInfo.h"
-#import "MWMCommon.h"
+#import <CoreApi/CoreApi.h>
 #import "MWMSearch+CoreSpotlight.h"
 #import "MWMSettings.h"
-
-#include "Framework.h"
 
 @implementation MWMSearch (CoreSpotlight)
 

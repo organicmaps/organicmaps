@@ -4,7 +4,6 @@
 #import "EAGLView.h"
 #import "LocalNotificationManager.h"
 #import "MWMAuthorizationCommon.h"
-#import "MWMCommon.h"
 #import "MWMCoreRouterType.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
@@ -30,7 +29,8 @@
 #import <Crashlytics/Crashlytics.h>
 #import <Fabric/Fabric.h>
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
+#import <CoreApi/MWMFrameworkHelper.h>
 
 #include "map/framework_light.hpp"
 #include "map/gps_tracker.hpp"

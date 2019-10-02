@@ -1,16 +1,15 @@
 #import "BookmarksVC.h"
 #import "BookmarksSection.h"
 #import "InfoSection.h"
-#import "MWMBookmarksManager.h"
 #import "MWMCategoryInfoCell.h"
-#import "MWMCommon.h"
+
 #import "MWMKeyboard.h"
 #import "MWMLocationObserver.h"
 #import "MWMSearchNoResults.h"
 #import "SwiftBridge.h"
 #import "TracksSection.h"
 
-#include "Framework.h"
+#import <CoreApi/CoreApi.h>
 
 #include "map/bookmarks_search_params.hpp"
 

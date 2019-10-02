@@ -1,6 +1,5 @@
 #import <AVFoundation/AVFoundation.h>
 #import <Crashlytics/Crashlytics.h>
-#import "MWMCommon.h"
 #import "MWMRouter.h"
 #import "MWMTextToSpeech+CPP.h"
 #import "Statistics.h"
@@ -8,7 +7,7 @@
 
 #include "LocaleTranslator.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 #include "platform/languages.hpp"
 

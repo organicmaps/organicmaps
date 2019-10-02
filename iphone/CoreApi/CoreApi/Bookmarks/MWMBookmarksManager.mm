@@ -1,12 +1,10 @@
 #import "MWMBookmarksManager.h"
-#import "AppInfo.h"
+
 #import "MWMCategory.h"
 #import "MWMCarPlayBookmarkObject.h"
-#import "MWMTag+Convenience.h"
-#import "MWMTagGroup+Convenience.h"
 #import "MWMCatalogObserver.h"
-#import "Statistics.h"
-#import "SwiftBridge.h"
+#import "MWMTag.h"
+#import "MWMTagGroup+Convenience.h"
 
 #include "Framework.h"
 
@@ -22,19 +20,6 @@
 #include "base/string_utils.hpp"
 
 #include <utility>
-
-NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
-{
-  switch (result)
-  {
-  case Cloud::SynchronizationResult::Success: return nil;
-  case Cloud::SynchronizationResult::AuthError: return kStatAuth;
-  case Cloud::SynchronizationResult::NetworkError: return kStatNetwork;
-  case Cloud::SynchronizationResult::DiskError: return kStatDisk;
-  case Cloud::SynchronizationResult::UserInterrupted: return kStatUserInterrupted;
-  case Cloud::SynchronizationResult::InvalidCall: return kStatInvalidCall;
-  }
-}
 
 @interface MWMBookmarksManager ()
 
@@ -113,22 +98,21 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
     __weak auto wSelf = self;
     bookmarkCallbacks.m_onFileSuccess = [wSelf](std::string const & filePath,
                                                 bool isTemporaryFile) {
-      __strong auto self = wSelf;
-      if (!self)
-        return;
-      [self processFileEvent:YES];
+      __strong __typeof(self) self = wSelf;
       [self loopObservers:^(id<MWMBookmarksObserver> observer) {
         if ([observer respondsToSelector:@selector(onBookmarksFileLoadSuccess)])
           [observer onBookmarksFileLoadSuccess];
       }];
-      [Statistics logEvent:kStatEventName(kStatApplication, kStatImport)
-            withParameters:@{kStatValue: kStatKML}];
     };
   }
   {
     __weak auto wSelf = self;
     bookmarkCallbacks.m_onFileError = [wSelf](std::string const & filePath, bool isTemporaryFile) {
-      [wSelf processFileEvent:NO];
+      __strong __typeof(self) self = wSelf;
+      [self loopObservers:^(id<MWMBookmarksObserver> observer) {
+        if ([observer respondsToSelector:@selector(onBookmarksFileLoadError)])
+          [observer onBookmarksFileLoadError];
+      }];
     };
   }
   self.bm.SetAsyncLoadingCallbacks(std::move(bookmarkCallbacks));
@@ -204,60 +188,38 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 {
   auto onSynchronizationStarted = [self](Cloud::SynchronizationType type)
   {
-    if (type == Cloud::SynchronizationType::Backup)
-    {
-      [Statistics logEvent:kStatBookmarksSyncStarted];
-    }
-    else
-    {
-      [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-        if ([observer respondsToSelector:@selector(onRestoringStarted)])
+    [self loopObservers:^(id<MWMBookmarksObserver> observer) {
+      if (type == Cloud::SynchronizationType::Backup) {
+        if ([observer respondsToSelector:@selector(onBackupStarted)]) {
+          [observer onBackupStarted];
+        }
+      } else {
+        if ([observer respondsToSelector:@selector(onRestoringStarted)]) {
           [observer onRestoringStarted];
-      }];
-    }
+        }
+      }
+    }];
   };
   
-  auto onSynchronizationFinished = [self](Cloud::SynchronizationType type, Cloud::SynchronizationResult result,
-                                      std::string const & errorStr)
+  auto onSynchronizationFinished = [self](Cloud::SynchronizationType type,
+                                          Cloud::SynchronizationResult result,
+                                          std::string const & errorStr)
   {
-    if (result == Cloud::SynchronizationResult::Success)
-    {
-      [Statistics logEvent:type == Cloud::SynchronizationType::Backup ? kStatBookmarksSyncSuccess :
-                                                                        kStatBookmarksRestoreProposalSuccess];
-    }
-    else if (auto const error = CloudErrorToString(result))
-    {
-      [Statistics logEvent:type == Cloud::SynchronizationType::Backup ? kStatBookmarksSyncError :
-                                                                        kStatBookmarksRestoreProposalError
-            withParameters:@{kStatType: error, kStatError: @(errorStr.c_str())}];
-    }
-
     [self loopObservers:^(id<MWMBookmarksObserver> observer) {
       if ([observer respondsToSelector:@selector(onSynchronizationFinished:)])
         [observer onSynchronizationFinished:static_cast<MWMSynchronizationResult>(base::Underlying(result))];
     }];
   };
   
-  auto onRestoreRequested = [self](Cloud::RestoringRequestResult result, std::string const & deviceName,
-                               uint64_t backupTimestampInMs)
+  auto onRestoreRequested = [self](Cloud::RestoringRequestResult result,
+                                   std::string const & deviceName,
+                                   uint64_t backupTimestampInMs)
   {
     auto const res = static_cast<MWMRestoringRequestResult>(base::Underlying(result));
     NSDate * date = nil;
 
-    if (result == Cloud::RestoringRequestResult::BackupExists)
-    {
-        auto const interval = static_cast<NSTimeInterval>(backupTimestampInMs / 1000.);
-        date = [NSDate dateWithTimeIntervalSince1970:interval];
-    }
-    else if (result == Cloud::RestoringRequestResult::NoBackup)
-    {
-      [Statistics logEvent:kStatBookmarksRestoreProposalError
-            withParameters:@{kStatType: kStatNoBackup, kStatError: @("")}];
-    }
-    else if (result == Cloud::RestoringRequestResult::NotEnoughDiskSpace)
-    {
-      [Statistics logEvent:kStatBookmarksRestoreProposalError
-            withParameters:@{kStatType: kStatDisk, kStatError: @("Not enough disk space")}];
+    if (result == Cloud::RestoringRequestResult::BackupExists) {
+        date = [NSDate dateWithTimeIntervalSince1970:backupTimestampInMs / 1000];
     }
 
     [self loopObservers:^(id<MWMBookmarksObserver> observer) {
@@ -274,8 +236,10 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
     }];
   };
   
-  self.bm.SetCloudHandlers(std::move(onSynchronizationStarted), std::move(onSynchronizationFinished),
-                      std::move(onRestoreRequested), std::move(onRestoredFilesPrepared));
+  self.bm.SetCloudHandlers(std::move(onSynchronizationStarted),
+                           std::move(onSynchronizationFinished),
+                           std::move(onRestoreRequested),
+                           std::move(onRestoredFilesPrepared));
   self.bm.LoadBookmarks();
 }
 
@@ -533,23 +497,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 - (void)requestRestoring
 {
-  auto const status = Platform::ConnectionStatus();
-  auto statusStr = [](Platform::EConnectionType type) -> NSString * {
-    switch (type)
-    {
-    case Platform::EConnectionType::CONNECTION_NONE:
-      return kStatOffline;
-    case Platform::EConnectionType::CONNECTION_WWAN:
-      return kStatMobile;
-    case Platform::EConnectionType::CONNECTION_WIFI:
-      return kStatWifi;
-    }
-  } (status);
-
-  [Statistics logEvent:kStatBookmarksRestoreProposalClick
-        withParameters:@{kStatNetwork : statusStr}];
-
-  if (status == Platform::EConnectionType::CONNECTION_NONE)
+  if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
   {
     [self loopObservers:^(id<MWMBookmarksObserver> observer) {
       if ([observer respondsToSelector:@selector(onRestoringRequest:deviceName:backupDate:)])
@@ -568,7 +516,6 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 - (void)cancelRestoring
 {
-  [Statistics logEvent:kStatBookmarksRestoreProposalCancel];
   self.bm.CancelCloudRestoring();
 }
 
@@ -617,10 +564,9 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return urlString ? [NSURL URLWithString:urlString] : nil;
 }
 
-- (NSURL *)webEditorUrlForCategoryId:(MWMMarkGroupID)groupId {
+- (NSURL *)webEditorUrlForCategoryId:(MWMMarkGroupID)groupId language:(NSString *)languageCode {
   auto serverId = self.bm.GetCategoryServerId(groupId);
-  auto language = [[AppInfo sharedInfo] twoLetterLanguageId].UTF8String;
-  NSString * urlString = @(self.bm.GetCatalog().GetWebEditorUrl(serverId, language).c_str());
+  NSString *urlString = @(self.bm.GetCatalog().GetWebEditorUrl(serverId, languageCode.UTF8String).c_str());
   return [NSURL URLWithString:urlString];
 }
 
@@ -720,7 +666,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return self.bm.GetCatalog().HasDownloaded(itemId.UTF8String);
 }
 
-- (void)loadTags:(LoadTagsCompletionBlock)completionBlock {
+- (void)loadTagsWithLanguage:(NSString *)languageCode completion:(LoadTagsCompletionBlock)completionBlock {
   auto onTagsCompletion = [completionBlock](bool success, BookmarkCatalog::TagGroups const & tagGroups, uint32_t maxTagsCount)
   {
     if (success)
@@ -737,8 +683,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
       completionBlock(nil, 0);
   };
   
-  self.bm.GetCatalog().RequestTagGroups([[AppInfo sharedInfo] twoLetterLanguageId].UTF8String,
-                                        std::move(onTagsCompletion));
+  self.bm.GetCatalog().RequestTagGroups(languageCode.UTF8String, std::move(onTagsCompletion));
 }
 
 - (void)setCategory:(MWMMarkGroupID)groupId tags:(NSArray<MWMTag *> *)tags
@@ -808,19 +753,6 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
     if (observer)
       block(observer);
   }
-}
-
-- (void)processFileEvent:(BOOL)success
-{
-  UIAlertController * alert = [UIAlertController
-                               alertControllerWithTitle:L(@"load_kmz_title")
-                               message:success ? L(@"load_kmz_successful") : L(@"load_kmz_failed")
-                               preferredStyle:UIAlertControllerStyleAlert];
-  UIAlertAction * action =
-  [UIAlertAction actionWithTitle:L(@"ok") style:UIAlertActionStyleDefault handler:nil];
-  [alert addAction:action];
-  alert.preferredAction = action;
-  [[UIViewController topViewController] presentViewController:alert animated:YES completion:nil];
 }
 
 - (NSString *)deviceId {

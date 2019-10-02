@@ -1,5 +1,4 @@
 #import "MWMSideButtonsView.h"
-#import "MWMCommon.h"
 #import "MWMBottomMenuViewController.h"
 #import "MWMButton.h"
 #import "MWMMapViewControlsCommon.h"

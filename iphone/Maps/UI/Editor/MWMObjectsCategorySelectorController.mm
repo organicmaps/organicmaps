@@ -1,7 +1,6 @@
 #import "MWMObjectsCategorySelectorController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMObjectsCategorySelectorDataSource.h"
-#import "MWMCommon.h"
 #import "MWMEditorViewController.h"
 #import "MWMKeyboard.h"
 #import "MWMTableViewCell.h"
@@ -9,7 +8,7 @@
 #import "SwiftBridge.h"
 #import "UIViewController+Navigation.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 using namespace osm;
 

@@ -1,6 +1,6 @@
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 @interface MWMMapDownloaderTableViewCell ()
 

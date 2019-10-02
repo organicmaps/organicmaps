@@ -1,3 +1,4 @@
+
 protocol SharingTagsViewControllerDelegate: AnyObject {
   func sharingTagsViewController(_ viewController: SharingTagsViewController, didSelect tags: [MWMTag])
   func sharingTagsViewControllerDidCancel(_ viewController: SharingTagsViewController)

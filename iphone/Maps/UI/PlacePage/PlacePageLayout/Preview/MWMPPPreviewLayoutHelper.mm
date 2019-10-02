@@ -1,6 +1,5 @@
 #import "MWMPPPreviewLayoutHelper.h"
 #import <Crashlytics/Crashlytics.h>
-#import "MWMCommon.h"
 #import "MWMDirectionView.h"
 #import "MWMPlacePageData.h"
 #import "MWMPlacePageManagerHelper.h"

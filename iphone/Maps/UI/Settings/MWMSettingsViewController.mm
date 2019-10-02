@@ -6,7 +6,7 @@
 
 #include "LocaleTranslator.h"
 
-#include "Framework.h"
+#import <CoreApi/CoreApi.h>
 
 #include "routing/speed_camera_manager.hpp"
 

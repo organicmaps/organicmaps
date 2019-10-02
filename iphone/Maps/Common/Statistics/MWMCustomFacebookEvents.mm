@@ -3,7 +3,7 @@
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 @implementation MWMCustomFacebookEvents
 

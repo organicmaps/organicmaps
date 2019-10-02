@@ -3,7 +3,7 @@
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 NSString * httpGe0Url(NSString * shortUrl)
 {

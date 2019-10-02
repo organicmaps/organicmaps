@@ -1,4 +1,3 @@
-#import "MWMCommon.h"
 #import "UIImageView+Coloring.h"
 
 #import <objc/runtime.h>

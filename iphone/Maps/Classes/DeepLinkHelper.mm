@@ -2,7 +2,7 @@
 
 #import <Crashlytics/Crashlytics.h>
 
-#import "Framework.h"
+#include <CoreApi/Framework.h>
 #import "Statistics.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"

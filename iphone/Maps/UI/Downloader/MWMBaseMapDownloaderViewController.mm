@@ -1,6 +1,5 @@
 #import "MWMBaseMapDownloaderViewController.h"
 #import "MWMButton.h"
-#import "MWMCommon.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMMapDownloaderAdsTableViewCell.h"
@@ -17,7 +16,7 @@
 #import "SwiftBridge.h"
 #import "UIViewController+Navigation.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 namespace
 {

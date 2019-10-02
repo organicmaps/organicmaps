@@ -1,4 +1,4 @@
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 @interface MWMMapWidgets : NSObject
 

@@ -1,7 +1,7 @@
 #import "MWMPurchaseManager.h"
 #import "MWMPurchaseValidation.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 #include "private.h"
 
 #import <StoreKit/StoreKit.h>

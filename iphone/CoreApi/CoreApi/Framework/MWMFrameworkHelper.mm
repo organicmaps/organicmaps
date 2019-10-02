@@ -1,37 +1,27 @@
 #import "MWMFrameworkHelper.h"
-#import "MWMLocationManager.h"
-#import "MapViewController.h"
-#import "MWMAlertViewController.h"
-#import "MWMCategory.h"
-#import "Statistics.h"
-#import "3party/Alohalytics/src/alohalytics_objc.h"
-#import "EAGLView.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
+
+#include "base/sunrise_sunset.hpp"
+
+#include "map/crown.hpp"
 
 #include "platform/network_policy_ios.h"
 #include "platform/local_country_file_utils.hpp"
 
-extern NSString * const kAlohalyticsTapEventKey;
-
-#include "base/sunrise_sunset.hpp"
-#include "map/crown.hpp"
-
 @implementation MWMFrameworkHelper
 
-+ (void)processFirstLaunch
++ (void)processFirstLaunch:(BOOL)hasLocation
 {
   auto & f = GetFramework();
-  CLLocation * lastLocation = [MWMLocationManager lastLocation];
-  if (!lastLocation)
+  if (!hasLocation)
     f.SwitchMyPositionNextMode();
   else
     f.RunFirstLaunchAnimation();
 }
 
-+ (void)setVisibleViewport:(CGRect)rect
++ (void)setVisibleViewport:(CGRect)rect scaleFactor:(CGFloat)scale
 {
-  CGFloat const scale = [MapViewController sharedController].mapView.contentScaleFactor;
   CGFloat const x0 = rect.origin.x * scale;
   CGFloat const y0 = rect.origin.y * scale;
   CGFloat const x1 = x0 + rect.size.width * scale;
@@ -59,50 +49,19 @@ extern NSString * const kAlohalyticsTapEventKey;
     f.SetMapStyle(newStyle);
 }
 
-+ (MWMDayTime)daytime
++ (MWMDayTime)daytimeAtLocation:(CLLocation *)location
 {
-  CLLocation * lastLocation = [MWMLocationManager lastLocation];
-  if (!lastLocation)
+  if (!location)
     return MWMDayTimeDay;
-  auto const coord = lastLocation.coordinate;
-  auto const timeUtc = static_cast<time_t>(NSDate.date.timeIntervalSince1970);
-  auto const dayTime = GetDayTime(timeUtc, coord.latitude, coord.longitude);
+  DayTimeType dayTime = GetDayTime(NSDate.date.timeIntervalSince1970,
+                                   location.coordinate.latitude,
+                                   location.coordinate.longitude);
   switch (dayTime)
   {
   case DayTimeType::Day:
   case DayTimeType::PolarDay: return MWMDayTimeDay;
   case DayTimeType::Night:
   case DayTimeType::PolarNight: return MWMDayTimeNight;
-  }
-}
-
-+ (void)checkConnectionAndPerformAction:(MWMVoidBlock)action cancelAction:(MWMVoidBlock)cancel
-{
-  switch (Platform::ConnectionStatus())
-  {
-    case Platform::EConnectionType::CONNECTION_NONE:
-      [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
-      if (cancel)
-        cancel();
-      break;
-    case Platform::EConnectionType::CONNECTION_WIFI:
-      action();
-      break;
-    case Platform::EConnectionType::CONNECTION_WWAN:
-    {
-      if (!GetFramework().GetDownloadingPolicy().IsCellularDownloadEnabled())
-      {
-        [[MWMAlertViewController activeAlertController] presentNoWiFiAlertWithOkBlock:[action] {
-          GetFramework().GetDownloadingPolicy().EnableCellularDownload(true);
-          action();
-        } andCancelBlock:cancel];
-      }
-      else
-      {
-        action();
-      }
-      break;
-    }
   }
 }
 
@@ -123,6 +82,17 @@ extern NSString * const kAlohalyticsTapEventKey;
   return GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI;
 }
 
++ (MWMConnectionType)connectionType {
+  switch (GetPlatform().ConnectionStatus()) {
+    case Platform::EConnectionType::CONNECTION_NONE:
+      return MWMConnectionTypeNone;
+    case Platform::EConnectionType::CONNECTION_WIFI:
+      return MWMConnectionTypeWifi;
+    case Platform::EConnectionType::CONNECTION_WWAN:
+      return MWMConnectionTypeCellular;
+  }
+}
+
 + (MWMMarkGroupID)invalidCategoryId { return kml::kInvalidMarkGroupId; }
 
 + (NSArray<NSString *> *)obtainLastSearchQueries
@@ -140,8 +110,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 + (void)zoomMap:(MWMZoomMode)mode
 {
-  [Statistics logEvent:kStatEventName(kStatZoom, kStatOut)];
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"-"];
   switch(mode) {
     case MWMZoomModeIn:
       GetFramework().Scale(Framework::SCALE_MAG, true);

@@ -1,7 +1,8 @@
 #import "MWMMapDownloaderMode.h"
 #import "MWMViewController.h"
 #import "MWMMyPositionMode.h"
-#import "MWMUTM.h"
+
+#import <CoreApi/MWMUTM.h>
 
 @class MWMWelcomePageController;
 @class MWMMapViewControlsManager;

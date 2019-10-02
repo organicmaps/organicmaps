@@ -10,7 +10,7 @@
 #import "SwiftBridge.h"
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 #include "map/gps_tracker.hpp"
 

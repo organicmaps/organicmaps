@@ -2,7 +2,6 @@
 #import <Crashlytics/Crashlytics.h>
 #import <Pushwoosh/PushNotificationManager.h>
 #import <UserNotifications/UserNotifications.h>
-#import "MWMCommon.h"
 #import "Statistics.h"
 
 #include "platform/marketing_service.hpp"

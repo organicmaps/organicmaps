@@ -1,6 +1,6 @@
 #import "MWMViewController.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 @interface MWMAutoupdateController : MWMViewController
 

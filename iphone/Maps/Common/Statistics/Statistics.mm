@@ -1,5 +1,4 @@
 #import "Statistics.h"
-#import "AppInfo.h"
 #import "MWMCustomFacebookEvents.h"
 #import "MWMSettings.h"
 
@@ -10,6 +9,7 @@
 #import <MyTrackerSDK/MRMyTrackerParams.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <AdSupport/ASIdentifierManager.h>
+#import <CoreApi/AppInfo.h>
 
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"

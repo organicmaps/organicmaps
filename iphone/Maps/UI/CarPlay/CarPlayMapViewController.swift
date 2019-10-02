@@ -123,7 +123,7 @@ final class CarPlayMapViewController: MWMViewController {
     frame.origin = origin
     frame.size = CGSize(width: viewBounds.width - origin.x,
                         height: viewBounds.height - origin.y)
-    FrameworkHelper.setVisibleViewport(frame)
+    FrameworkHelper.setVisibleViewport(frame, scaleFactor: view.contentScaleFactor)
   }
   
   private func updateVisibleViewPortToNavigationState() {
@@ -136,11 +136,11 @@ final class CarPlayMapViewController: MWMViewController {
     frame.origin = origin
     frame.size = CGSize(width: viewBounds.width - (origin.x + mapControlsWidth),
                         height: viewBounds.height - origin.y)
-    FrameworkHelper.setVisibleViewport(frame)
+    FrameworkHelper.setVisibleViewport(frame, scaleFactor: view.contentScaleFactor)
   }
   
   private func updateVisibleViewPortToDefaultState() {
-    FrameworkHelper.setVisibleViewport(view.bounds)
+    FrameworkHelper.setVisibleViewport(view.bounds, scaleFactor: view.contentScaleFactor)
   }
   
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

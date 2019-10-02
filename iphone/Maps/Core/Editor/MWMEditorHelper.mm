@@ -1,5 +1,5 @@
 #import "MWMEditorHelper.h"
-#import "AppInfo.h"
+#import <CoreApi/AppInfo.h>
 #import "MWMAuthorizationCommon.h"
 
 #include "editor/osm_editor.hpp"

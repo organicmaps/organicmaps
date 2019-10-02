@@ -1,3 +1,8 @@
+#import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
+
+#import "MWMTypes.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MWMCarPlayBookmarkObject : NSObject

@@ -1,6 +1,6 @@
 #import <WebKit/WebKit.h>
 #import "MWMViewController.h"
-#import "MWMTypes.h"
+#import <CoreApi/MWMTypes.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

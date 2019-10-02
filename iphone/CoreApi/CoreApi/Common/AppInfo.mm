@@ -1,6 +1,5 @@
 #import "AppInfo.h"
 #import "MWMCommon.h"
-#import "SwiftBridge.h"
 
 #include "platform/platform_ios.h"
 #include "platform/preferred_languages.hpp"
@@ -8,25 +7,19 @@
 
 #include <sys/utsname.h>
 
-#import <AdSupport/ASIdentifierManager.h>
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
 namespace
 {
 std::string const kCountryCodeKey = "CountryCode";
-std::string const kUniqueIdKey = "UniqueId";
 }  // namespace
 
 @interface AppInfo ()
 
 @property(nonatomic) NSString * countryCode;
-@property(nonatomic) NSString * uniqueId;
 @property(nonatomic) NSString * bundleVersion;
 @property(nonatomic) NSString * buildNumber;
-@property(nonatomic) NSString * deviceInfo;
-@property(nonatomic) NSUUID * advertisingId;
-@property(nonatomic) NSDate * buildDate;
 @property(nonatomic) NSString * deviceModel;
 
 @end
@@ -84,25 +77,6 @@ std::string const kUniqueIdKey = "UniqueId";
   return _countryCode;
 }
 
-- (NSString *)uniqueId
-{
-  if (!_uniqueId)
-  {
-    std::string uniqueString;
-    if (settings::Get(kUniqueIdKey, uniqueString))  // if id stored in settings
-    {
-      _uniqueId = @(uniqueString.c_str());
-    }
-    else  // if id not stored in settings
-    {
-      _uniqueId = [UIDevice.currentDevice.identifierForVendor UUIDString];
-      if (_uniqueId)  // then saving in settings
-        settings::Set(kUniqueIdKey, std::string(_uniqueId.UTF8String));
-    }
-  }
-  return _uniqueId;
-}
-
 - (NSString *)bundleVersion
 {
   if (!_bundleVersion)
@@ -117,34 +91,6 @@ std::string const kUniqueIdKey = "UniqueId";
   return _buildNumber;
 }
 
-- (NSUUID *)advertisingId
-{
-  if (!_advertisingId)
-  {
-    ASIdentifierManager * m = [ASIdentifierManager sharedManager];
-    if (m.isAdvertisingTrackingEnabled)
-      _advertisingId = m.advertisingIdentifier;
-  }
-  return _advertisingId;
-}
-
-- (NSString *)inputLanguage
-{
-  auto window = UIApplication.sharedApplication.keyWindow;
-  auto firstResponder = [window firstResponder];
-  if (!firstResponder)
-    return self.languageId;
-  auto textInputMode = firstResponder.textInputMode;
-  if (!textInputMode)
-    return self.languageId;
-  return textInputMode.primaryLanguage;
-}
-
-- (NSString *)twoLetterInputLanguage
-{
-  return @(languages::Normalize(self.inputLanguage.UTF8String).c_str());
-}
-
 - (NSString *)languageId
 {
   return NSLocale.preferredLanguages.firstObject;
@@ -154,19 +100,6 @@ std::string const kUniqueIdKey = "UniqueId";
 {
   auto languageId = self.languageId;
   return languageId ? @(languages::Normalize(languageId.UTF8String).c_str()) : @"en";
-}
-
-- (NSDate *)buildDate
-{
-  if (!_buildDate)
-  {
-    NSString * dateStr = [NSString stringWithFormat:@"%@ %@", @(__DATE__), @(__TIME__)];
-    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"LLL d yyyy HH:mm:ss"];
-    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
-    _buildDate = [dateFormatter dateFromString:dateStr];
-  }
-  return _buildDate;
 }
 
 - (NSString *)deviceModel

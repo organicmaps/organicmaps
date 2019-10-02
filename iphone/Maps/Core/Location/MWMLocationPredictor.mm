@@ -1,6 +1,6 @@
 #import "MWMLocationPredictor.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 namespace
 {

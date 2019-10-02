@@ -18,7 +18,7 @@ final class ThemeManager: NSObject {
       case .vehicleNight: return isVehicleRouting ? .vehicleNight : .night
       case .auto:
         guard isVehicleRouting else { return .day }
-        switch FrameworkHelper.daytime() {
+        switch FrameworkHelper.daytime(at: MWMLocationManager.lastLocation()) {
         case .day: return .vehicleDay
         case .night: return .vehicleNight
         }

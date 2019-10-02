@@ -1,8 +1,7 @@
-#import "MWMCommon.h"
 #import "MWMSearchCell.h"
 #import "Statistics.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 #include "base/logging.hpp"
 

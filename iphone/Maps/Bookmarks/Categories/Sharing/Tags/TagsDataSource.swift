@@ -1,9 +1,10 @@
+
 final class TagsDataSource: NSObject {
   private var tagGroups: [MWMTagGroup] = []
   private var maxTagsNumber: Int = 0
   
   func loadTags(onComplete: @escaping (Bool) -> Void) {
-    MWMBookmarksManager.shared().loadTags { tags, maxTagsNumber in
+    MWMBookmarksManager.shared().loadTags(withLanguage: AppInfo.shared()?.twoLetterLanguageId) { tags, maxTagsNumber in
       if let tags = tags {
         self.tagGroups = tags
         self.maxTagsNumber = maxTagsNumber

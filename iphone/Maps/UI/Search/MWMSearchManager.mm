@@ -1,5 +1,4 @@
 #import "MWMSearchManager.h"
-#import "MWMCommon.h"
 #import "MWMFrameworkListener.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNoMapsViewController.h"

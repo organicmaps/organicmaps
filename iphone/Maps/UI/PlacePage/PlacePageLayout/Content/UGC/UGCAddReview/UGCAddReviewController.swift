@@ -1,7 +1,7 @@
 @objc(MWMGCReviewSaver)
 protocol UGCReviewSaver {
   typealias onSaveHandler = (Bool) -> Void
-  func saveUgc(model: UGCAddReviewController.Model, resultHandler: @escaping onSaveHandler)
+  func saveUgc(model: UGCAddReviewController.Model, language: String, resultHandler: @escaping onSaveHandler)
 }
 
 @objc(MWMUGCAddReviewController)
@@ -70,7 +70,7 @@ final class UGCAddReviewController: MWMTableViewController {
     reviewPosted = true
     model.text = text
     
-    saver.saveUgc(model: model, resultHandler: { (saveResult) in
+    saver.saveUgc(model: model, language: textCell?.reviewLanguage ?? "en", resultHandler: { (saveResult) in
       guard let nc = self.navigationController else { return }
 
       if !saveResult {

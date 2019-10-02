@@ -1,11 +1,10 @@
 #import "BookmarksSection.h"
 #import "CircleView.h"
 #import "ColorPickerView.h"
-#import "MWMBookmarksManager.h"
 #import "MWMLocationHelpers.h"
 #import "MWMSearchManager.h"
 
-#include "Framework.h"
+#import <CoreApi/CoreApi.h>
 
 #include "geometry/distance_on_sphere.hpp"
 

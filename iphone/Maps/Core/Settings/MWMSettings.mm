@@ -5,7 +5,7 @@
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 #import "Flurry.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 #include "platform/settings.hpp"
 

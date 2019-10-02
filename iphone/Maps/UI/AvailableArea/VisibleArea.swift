@@ -15,7 +15,7 @@ final class VisibleArea: AvailableArea {
         return
       }
     }
-    FrameworkHelper.setVisibleViewport(areaFrame)
+    FrameworkHelper.setVisibleViewport(areaFrame, scaleFactor: contentScaleFactor)
   }
 }
 

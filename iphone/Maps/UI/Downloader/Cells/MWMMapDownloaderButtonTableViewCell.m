@@ -1,8 +1,8 @@
 #import "MWMMapDownloaderButtonTableViewCell.h"
 
-#include "storage/storage.hpp"
-
-using namespace storage;
+//#include "storage/storage.hpp"
+//
+//using namespace storage;
 
 @implementation MWMMapDownloaderButtonTableViewCell
 

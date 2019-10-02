@@ -1,6 +1,5 @@
 #import "MWMAutoupdateController.h"
 #import "MWMCircularProgress.h"
-#import "MWMCommon.h"
 #import "MWMFrameworkListener.h"
 #import "MWMStorage.h"
 #import "Statistics.h"

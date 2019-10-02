@@ -1,6 +1,5 @@
 #import "MWMiPhoneRoutePreview.h"
 #import "MWMAvailableAreaAffectDirection.h"
-#import "MWMCommon.h"
 
 @interface MWMRoutePreview ()
 

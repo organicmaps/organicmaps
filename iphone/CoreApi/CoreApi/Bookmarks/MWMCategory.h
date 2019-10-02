@@ -1,3 +1,7 @@
+#import <Foundation/Foundation.h>
+
+#import "MWMTypes.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class MWMBookmarksManager;

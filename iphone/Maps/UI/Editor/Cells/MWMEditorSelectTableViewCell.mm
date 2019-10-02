@@ -1,5 +1,5 @@
 #import "MWMEditorSelectTableViewCell.h"
-#import "MWMCommon.h"
+#import <CoreApi/MWMCommon.h>
 #import "UIImageView+Coloring.h"
 
 @interface MWMEditorSelectTableViewCell ()

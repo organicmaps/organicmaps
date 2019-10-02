@@ -2,7 +2,7 @@
 #import "MWMCategoryInfoCell.h"
 #import "SwiftBridge.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 @interface InfoSection () <MWMCategoryInfoCellDelegate> {
   kml::MarkGroupId _categoryId;

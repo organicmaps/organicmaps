@@ -1,15 +1,12 @@
 #import "MWMPlacePageData.h"
-#import "AppInfo.h"
 #import "LocaleTranslator.h"
 #import "MWMDiscoveryCityGalleryObjects.h"
 #import "MWMDiscoveryGuideViewModel.h"
 #import "MWMBannerHelpers.h"
-#import "MWMBookmarksManager.h"
 #import "MWMUGCViewModel.h"
-#import "SwiftBridge.h"
 #import "Statistics.h"
 
-#include "Framework.h"
+#import <CoreApi/CoreApi.h>
 
 #include "local_ads/event.hpp"
 
@@ -684,16 +681,17 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
 - (ftraits::UGCRatingCategories)ugcRatingCategories { return [self getRawData].GetRatingCategories(); }
 
-- (void)setUGCUpdateFrom:(MWMUGCReviewModel *)reviewModel resultHandler:(void (^)(BOOL))resultHandler 
-{
+- (void)setUGCUpdateFrom:(MWMUGCReviewModel *)reviewModel
+                language:(NSString *)language
+           resultHandler:(void (^)(BOOL))resultHandler {
   using namespace ugc;
   auto appInfo = AppInfo.sharedInfo;
   auto const locale =
       static_cast<uint8_t>(StringUtf8Multilang::GetLangIndex(appInfo.twoLetterLanguageId.UTF8String));
   std::vector<uint8_t> keyboardLanguages;
   // TODO: Set the list of used keyboard languages (not only the recent one).
-  auto lastInputLanguage = appInfo.twoLetterInputLanguage;
-  keyboardLanguages.emplace_back(StringUtf8Multilang::GetLangIndex(lastInputLanguage.UTF8String));
+  auto twoLetterInputLanguage = languages::Normalize(language.UTF8String);
+  keyboardLanguages.emplace_back(StringUtf8Multilang::GetLangIndex(twoLetterInputLanguage));
 
   KeyboardText t{reviewModel.text.UTF8String, locale, keyboardLanguages};
   Ratings r;

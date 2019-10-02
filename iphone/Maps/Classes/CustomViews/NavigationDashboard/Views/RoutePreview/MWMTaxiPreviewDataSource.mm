@@ -2,7 +2,7 @@
 #import "MWMNetworkPolicy.h"
 #import "SwiftBridge.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 #include "partners_api/taxi_provider.hpp"
 

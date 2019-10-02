@@ -1,6 +1,6 @@
 #import "MWMRouter.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 @interface MWMRouter ()
 

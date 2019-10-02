@@ -4,7 +4,7 @@
 #import "MWMSearchTextField.h"
 #import "MWMViewController.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 namespace search
 {

@@ -16,6 +16,10 @@ final class UGCAddReviewTextCell: MWMTableViewCell {
     get { return textView.text }
     set { textView.text = newValue }
   }
+
+  var reviewLanguage: String? {
+    get { return textView.textInputMode?.primaryLanguage }
+  }
 }
 
 extension UGCAddReviewTextCell: UITextViewDelegate {

@@ -1,5 +1,4 @@
 #import "MWMAlertViewController+CPP.h"
-#import "MWMCommon.h"
 #import "MWMController.h"
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMLocationAlert.h"

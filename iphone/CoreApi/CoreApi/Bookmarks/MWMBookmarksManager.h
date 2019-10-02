@@ -1,5 +1,6 @@
-#import "MWMBookmarksObserver.h"
 #import "MWMTypes.h"
+
+#import "MWMBookmarksObserver.h"
 #import "MWMCatalogCommon.h"
 #import "MWMUTM.h"
 
@@ -71,9 +72,9 @@ typedef void (^PingCompletionBlock)(BOOL success);
 - (NSURL * _Nullable)injectCatalogUTMContent:(NSURL * _Nullable)url content:(MWMUTMContent)content;
 - (NSURL * _Nullable)catalogFrontendUrlPlusPath:(NSString *)path
                                             utm:(MWMUTM)utm;
-- (NSURL *_Nullable)deeplinkForCategoryId:(MWMMarkGroupID)groupId;
-- (NSURL *_Nullable)publicLinkForCategoryId:(MWMMarkGroupID)groupId;
-- (NSURL * _Nullable)webEditorUrlForCategoryId:(MWMMarkGroupID)groupId;
+- (NSURL * _Nullable)deeplinkForCategoryId:(MWMMarkGroupID)groupId;
+- (NSURL * _Nullable)publicLinkForCategoryId:(MWMMarkGroupID)groupId;
+- (NSURL * _Nullable)webEditorUrlForCategoryId:(MWMMarkGroupID)groupId language:(NSString *)languageCode;
 - (void)downloadItemWithId:(NSString *)itemId
                       name:(NSString *)name
                   progress:(_Nullable ProgressBlock)progress
@@ -86,7 +87,7 @@ typedef void (^PingCompletionBlock)(BOOL success);
 - (BOOL)isCategoryDownloading:(NSString *)itemId;
 - (BOOL)hasCategoryDownloaded:(NSString *)itemId;
 
-- (void)loadTags:(LoadTagsCompletionBlock)completionBlock;
+- (void)loadTagsWithLanguage:(NSString * _Nullable)languageCode completion:(LoadTagsCompletionBlock)completionBlock;
 - (void)setCategory:(MWMMarkGroupID)groupId tags:(NSArray<MWMTag *> *)tags;
 - (void)setCategory:(MWMMarkGroupID)groupId authorType:(MWMCategoryAuthorType)author;
 

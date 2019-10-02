@@ -1,5 +1,5 @@
 #import "MWMPlacePageActionBar.h"
-#import "AppInfo.h"
+#import <CoreApi/AppInfo.h>
 #import "MWMActionBarButton.h"
 #import "MWMCircularProgress.h"
 #import "MWMNavigationDashboardManager.h"

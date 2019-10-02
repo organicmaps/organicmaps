@@ -1,5 +1,7 @@
 #import "MWMRateAlert.h"
-#import "AppInfo.h"
+
+#import <CoreApi/AppInfo.h>
+
 #import "MWMAlertViewController.h"
 #import "MWMMailViewController.h"
 #import "Statistics.h"

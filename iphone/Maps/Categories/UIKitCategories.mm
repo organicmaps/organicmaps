@@ -1,5 +1,4 @@
 #import "UIKitCategories.h"
-#import "MWMCommon.h"
 #import "UIButton+RuntimeAttributes.h"
 #import "UIImageView+Coloring.h"
 
@@ -73,23 +72,6 @@
 - (void)setSize:(CGSize)size
 {
   self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, size.width, size.height);
-}
-
-+ (void)animateWithDuration:(NSTimeInterval)duration
-                      delay:(NSTimeInterval)delay
-                    damping:(double)dampingRatio
-            initialVelocity:(double)springVelocity
-                    options:(UIViewAnimationOptions)options
-                 animations:(MWMVoidBlock)animations
-                 completion:(void (^)(BOOL))completion
-{
-  [UIView animateWithDuration:duration
-                        delay:delay
-       usingSpringWithDamping:dampingRatio
-        initialSpringVelocity:springVelocity
-                      options:options
-                   animations:animations
-                   completion:completion];
 }
 
 - (void)sizeToIntegralFit

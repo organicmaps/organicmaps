@@ -1,5 +1,4 @@
 #import "MWMMapDownloaderSubplaceTableViewCell.h"
-#import "MWMCommon.h"
 
 @interface MWMMapDownloaderTableViewCell ()
 

@@ -3,7 +3,7 @@
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 #import "MWMMapDownloaderSubplaceTableViewCell.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 using namespace storage;
 

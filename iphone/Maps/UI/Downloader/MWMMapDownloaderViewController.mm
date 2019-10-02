@@ -3,7 +3,7 @@
 #import "MWMMapDownloaderSearchDataSource.h"
 #import "SwiftBridge.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 namespace
 {

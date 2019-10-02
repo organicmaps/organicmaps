@@ -23,7 +23,7 @@
 #import "MapViewController.h"
 #import "SwiftBridge.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 #include "editor/osm_editor.hpp"
 

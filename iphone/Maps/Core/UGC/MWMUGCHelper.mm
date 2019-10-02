@@ -1,6 +1,6 @@
 #import "MWMUGCHelper.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 @implementation MWMUGCHelper
 

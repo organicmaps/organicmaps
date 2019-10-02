@@ -1,10 +1,9 @@
 #import "MWMMapDownloaderDefaultDataSource.h"
-#import "MWMCommon.h"
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 #import "SwiftBridge.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 namespace
 {

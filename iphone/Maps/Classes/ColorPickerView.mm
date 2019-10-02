@@ -2,7 +2,7 @@
 #import "CircleView.h"
 #import <QuartzCore/QuartzCore.h>
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 #define BUTTONMARGIN 7
 #define BUTTONMARGINHEIGHT 16

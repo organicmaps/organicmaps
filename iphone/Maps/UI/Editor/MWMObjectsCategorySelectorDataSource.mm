@@ -2,7 +2,7 @@
 
 #include "LocaleTranslator.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 #include "indexer/classificator.hpp"
 

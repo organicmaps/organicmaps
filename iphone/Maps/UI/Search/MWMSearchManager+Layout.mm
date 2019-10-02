@@ -1,5 +1,6 @@
-#import "MWMCommon.h"
 #import "MWMSearchManager+Layout.h"
+
+#import <CoreApi/MWMCommon.h>
 
 namespace
 {

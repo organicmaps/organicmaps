@@ -1,9 +1,9 @@
 #import "TracksSection.h"
 #import "CircleView.h"
-#import "MWMBookmarksManager.h"
+#import <CoreApi/MWMBookmarksManager.h>
 #import "Statistics.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 namespace {
 CGFloat const kPinDiameter = 22.0f;

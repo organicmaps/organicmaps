@@ -1,6 +1,5 @@
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMCircularProgress.h"
-#import "MWMCommon.h"
 #import "MWMDownloaderDialogCell.h"
 #import "MWMDownloaderDialogHeader.h"
 #import "MWMFrameworkListener.h"
@@ -9,7 +8,7 @@
 #import "SwiftBridge.h"
 #import "UILabel+RuntimeAttributes.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 namespace
 {

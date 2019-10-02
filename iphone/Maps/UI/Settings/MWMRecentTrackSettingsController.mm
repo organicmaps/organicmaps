@@ -1,7 +1,7 @@
 #import "MWMRecentTrackSettingsController.h"
 #import "SwiftBridge.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 #include "map/gps_tracker.hpp"
 

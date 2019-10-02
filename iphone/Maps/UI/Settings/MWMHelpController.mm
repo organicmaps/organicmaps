@@ -1,6 +1,5 @@
 #import "MWMHelpController.h"
-#import "AppInfo.h"
-#import "MWMCommon.h"
+#import <CoreApi/AppInfo.h>
 #import "MWMMailViewController.h"
 #import "Statistics.h"
 #import "WebViewController.h"

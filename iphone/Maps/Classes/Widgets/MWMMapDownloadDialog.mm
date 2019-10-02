@@ -3,7 +3,6 @@
 #import "CLLocation+Mercator.h"
 #import "MWMBookmarksBannerViewController.h"
 #import "MWMCircularProgress.h"
-#import "MWMCommon.h"
 #import "MWMFrameworkListener.h"
 #import "MWMMegafonBannerViewController.h"
 #import "MWMStorage.h"
@@ -11,7 +10,7 @@
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
-#include "Framework.h"
+#include <CoreApi/Framework.h>
 
 #include "partners_api/downloader_promo.hpp"
 
