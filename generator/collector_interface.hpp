@@ -38,6 +38,7 @@ class CollectorAddresses;
 class CollectorCollection;
 class CollectorTag;
 class MaxspeedsCollector;
+class MiniRoundaboutCollector;
 class CityAreaCollector;
 class CrossMwmOsmWaysCollector;
 namespace cache
@@ -70,6 +71,7 @@ public:
 
   virtual void MergeInto(CityAreaCollector &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(routing::CameraCollector &) const { FailIfMethodUnsupported(); }
+  virtual void MergeInto(MiniRoundaboutCollector &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(routing::RestrictionWriter &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(routing::RoadAccessWriter &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(CollectorAddresses &) const { FailIfMethodUnsupported(); }

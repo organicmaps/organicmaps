@@ -4,6 +4,7 @@
 #include "generator/booking_dataset.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/feature_merger.hpp"
+#include "generator/mini_roundabout_transformer.hpp"
 #include "generator/node_mixer.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/place_processor.hpp"
@@ -30,7 +31,6 @@
 #include <iterator>
 #include <memory>
 #include <tuple>
-#include <unordered_set>
 #include <vector>
 
 #include "defines.hpp"
@@ -306,6 +306,11 @@ void CountryFinalProcessor::SetFakeNodes(std::string const & filename)
   m_fakeNodesFilename = filename;
 }
 
+void CountryFinalProcessor::SetMiniRoundabouts(std::string const & filename)
+{
+  m_miniRoundaboutsFilename = filename;
+}
+
 void CountryFinalProcessor::Process()
 {
   if (!m_hotelsFilename.empty())
@@ -314,6 +319,8 @@ void CountryFinalProcessor::Process()
     ProcessCities();
   if (!m_coastlineGeomFilename.empty())
     ProcessCoastline();
+  if (!m_miniRoundaboutsFilename.empty())
+    ProcessRoundabouts();
   if (!m_fakeNodesFilename.empty())
     AddFakeNodes();
 
@@ -355,6 +362,32 @@ void CountryFinalProcessor::ProcessBooking()
   dataset.BuildOsmObjects([&](auto && fb) { fbs.emplace_back(std::move(fb)); });
   auto const affiliations = GetAffiliations(fbs, affiliation, m_threadsCount);
   AppendToCountries(fbs, affiliations, m_temporaryMwmPath, m_threadsCount);
+}
+
+void CountryFinalProcessor::ProcessRoundabouts()
+{
+  MiniRoundaboutTransformer helper(m_miniRoundaboutsFilename);
+
+  auto const affiliation = CountriesFilesIndexAffiliation(m_borderPath, m_haveBordersForWholeWorld);
+  {
+    ThreadPool pool(m_threadsCount);
+    ForEachCountry(m_temporaryMwmPath, [&](auto const & filename) {
+      pool.SubmitWork([&, filename]() {
+        if (!FilenameIsCountry(filename, affiliation))
+          return;
+
+        auto const fullPath = base::JoinPath(m_temporaryMwmPath, filename);
+        auto fbs = ReadAllDatRawFormat<MaxAccuracy>(fullPath);
+        FeatureBuilderWriter<MaxAccuracy> writer(fullPath);
+
+        // Adds new way features generated from mini-roundabout nodes with those nodes ids.
+        // Transforms points on roads to connect them with these new roundabout junctions.
+        helper.ProcessRoundabouts(affiliation, fbs);
+        for (auto const & fb : fbs)
+          writer.Write(fb);
+      });
+    });
+  }
 }
 
 void CountryFinalProcessor::ProcessCities()

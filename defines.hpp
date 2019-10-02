@@ -95,8 +95,11 @@
 #define GPS_TRACK_FILENAME "gps_track.dat"
 #define RESTRICTIONS_FILENAME "restrictions.csv"
 #define ROAD_ACCESS_FILENAME "road_access.csv"
+
+#define MINI_ROUNDABOUT_ROADS_EXTENSION ".mini_roundabouts_roads_ids"
 #define METALINES_FILENAME "metalines.bin"
 #define CAMERAS_TO_WAYS_FILENAME "cameras_to_ways.bin"
+#define MINI_ROUNDABOUTS_FILENAME "mini_roundabouts.bin"
 #define MAXSPEEDS_FILENAME "maxspeeds.csv"
 #define CITIES_AREAS_TMP_FILENAME "cities_areas" DATA_FILE_EXTENSION_TMP
 #define CROSS_MWM_OSM_WAYS_DIR "cross_mwm_osm_ways"

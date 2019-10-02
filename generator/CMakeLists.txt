@@ -47,6 +47,8 @@ set(
   collector_collection.cpp
   collector_collection.hpp
   collector_interface.hpp
+  collector_mini_roundabout.cpp
+  collector_mini_roundabout.hpp
   collector_tag.cpp
   collector_tag.hpp
   complex_loader.cpp
@@ -114,6 +116,10 @@ set(
   maxspeeds_parser.hpp
   metalines_builder.cpp
   metalines_builder.hpp
+  mini_roundabout_info.cpp
+  mini_roundabout_info.hpp
+  mini_roundabout_transformer.cpp
+  mini_roundabout_transformer.hpp
   node_mixer.cpp
   node_mixer.hpp
   opentable_dataset.cpp

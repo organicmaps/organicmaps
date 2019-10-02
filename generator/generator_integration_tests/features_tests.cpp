@@ -93,6 +93,7 @@ public:
     TEST(rawGenerator.Execute(), ());
 
     TEST(Platform::IsFileExistsByFullPath(world), ());
+
     TestCountry(world, 945 /* fbsCnt */, 364406 /* geometryPointsCnt */, 334 /* pointCnt */,
                 598 /* lineCnt */, 13 /* areaCnt */, 428 /* poiCnt */,
                 172 /* cityTownOrVillageCnt */, 0 /* bookingHotelsCnt */);
@@ -117,17 +118,20 @@ public:
     rawGenerator.GenerateCountries();
     TEST(rawGenerator.Execute(), ());
 
-    TestCountry(northAuckland, 1812060 /* fbsCnt */, 12195237 /* geometryPointsCnt */,
-                1007477 /* pointCnt */, 205469 /* lineCnt */, 599114 /* areaCnt */,
-                212188 /* poiCnt */, 521 /* cityTownOrVillageCnt */, 3557 /* bookingHotelsCnt */);
-    TestCountry(northWellington, 797849 /* fbsCnt */, 7772223 /* geometryPointsCnt */,
-                460516 /* pointCnt */, 87058 /* lineCnt */, 250275 /* areaCnt */,
-                95705 /* poiCnt */, 297 /* cityTownOrVillageCnt */, 1062 /* bookingHotelsCnt */);
-    TestCountry(southCanterbury, 637239 /* fbsCnt */, 6984529 /* geometryPointsCnt */,
-                397939 /* pointCnt */, 81712 /* lineCnt */, 157588 /* areaCnt */,
-                89491 /* poiCnt */, 331 /* cityTownOrVillageCnt */, 2085 /* bookingHotelsCnt */);
-    TestCountry(southSouthland, 340629 /* fbsCnt */, 5343002 /* geometryPointsCnt */, 185979 /* pointCnt */,
-                40124 /* lineCnt */, 114526 /* areaCnt */, 40630 /* poiCnt */,
+    TestCountry(northAuckland, 1812394 /* fbsCnt */, 12200141 /* geometryPointsCnt */,
+                1007483 /* pointCnt */, 205797 /* lineCnt */, 599114 /* areaCnt */,
+                212516 /* poiCnt */, 521 /* cityTownOrVillageCnt */, 3557 /* bookingHotelsCnt */);
+
+    TestCountry(northWellington, 798177 /* fbsCnt */, 7776932 /* geometryPointsCnt */,
+                460516 /* pointCnt */, 87386 /* lineCnt */, 250275 /* areaCnt */,
+                96033 /* poiCnt */, 297 /* cityTownOrVillageCnt */, 1062 /* bookingHotelsCnt */);
+
+    TestCountry(southCanterbury, 637567 /* fbsCnt */, 6988959 /* geometryPointsCnt */,
+                397939 /* pointCnt */, 82040 /* lineCnt */, 157588 /* areaCnt */,
+                89819 /* poiCnt */, 331 /* cityTownOrVillageCnt */, 2085 /* bookingHotelsCnt */);
+
+    TestCountry(southSouthland, 340958 /* fbsCnt */, 5347345 /* geometryPointsCnt */, 185980 /* pointCnt */,
+                40452 /* lineCnt */, 114526 /* areaCnt */, 40958 /* poiCnt */,
                 297 /* cityTownOrVillageCnt */, 1621 /* bookingHotelsCnt */);
   }
 
@@ -153,24 +157,30 @@ public:
     rawGenerator.GenerateWorld(true /* needMixTags */);
     TEST(rawGenerator.Execute(), ());
 
-    TestCountry(northAuckland, 1812060 /* fbsCnt */, 12195237 /* geometryPointsCnt */,
-                1007477 /* pointCnt */, 205469 /* lineCnt */, 599114 /* areaCnt */,
-                212188 /* poiCnt */, 521 /* cityTownOrVillageCnt */, 3557 /* bookingHotelsCnt */);
-    TestCountry(northWellington, 797849 /* fbsCnt */, 7772223 /* geometryPointsCnt */,
-                460516 /* pointCnt */, 87058 /* lineCnt */, 250275 /* areaCnt */,
-                95705 /* poiCnt */, 297 /* cityTownOrVillageCnt */, 1062 /* bookingHotelsCnt */);
-    TestCountry(southCanterbury, 637239 /* fbsCnt */, 6984529 /* geometryPointsCnt */,
-                397939 /* pointCnt */, 81712 /* lineCnt */, 157588 /* areaCnt */,
-                89491 /* poiCnt */, 331 /* cityTownOrVillageCnt */, 2085 /* bookingHotelsCnt */);
+    TestCountry(northAuckland, 1812394 /* fbsCnt */, 12200141 /* geometryPointsCnt */,
+                1007483 /* pointCnt */, 205797 /* lineCnt */, 599114 /* areaCnt */,
+                212516 /* poiCnt */, 521 /* cityTownOrVillageCnt */, 3557 /* bookingHotelsCnt */);
+
+    TestCountry(northWellington, 798177 /* fbsCnt */, 7776932 /* geometryPointsCnt */,
+                460516 /* pointCnt */, 87386 /* lineCnt */, 250275 /* areaCnt */,
+                96033 /* poiCnt */, 297 /* cityTownOrVillageCnt */, 1062 /* bookingHotelsCnt */);
+
+    TestCountry(southCanterbury, 637567 /* fbsCnt */, 6988959 /* geometryPointsCnt */,
+                397939 /* pointCnt */, 82040 /* lineCnt */, 157588 /* areaCnt */,
+                89819 /* poiCnt */, 331 /* cityTownOrVillageCnt */, 2085 /* bookingHotelsCnt */);
+
     size_t partner1CntReal = 0;
-    TestCountry(southSouthland, 340631 /* fbsCnt */, 5343004 /* geometryPointsCnt */, 185981 /* pointCnt */,
-                40124 /* lineCnt */, 114526 /* areaCnt */, 40630 /* poiCnt */,
+
+    TestCountry(southSouthland, 340960 /* fbsCnt */, 5347347 /* geometryPointsCnt */, 185982 /* pointCnt */,
+                40452 /* lineCnt */, 114526 /* areaCnt */, 40958 /* poiCnt */,
                 297 /* cityTownOrVillageCnt */, 1621 /* bookingHotelsCnt */, [&](auto const & fb) {
                   static auto const partner1 = classif().GetTypeByPath({"sponsored", "partner1"});
                   if (fb.HasType(partner1))
                     ++partner1CntReal;
                 });
+
     TEST_EQUAL(partner1CntReal, 4, ());
+
     TestCountry(world, 945 /* fbsCnt */, 364406 /* geometryPointsCnt */, 334 /* pointCnt */,
                 598 /* lineCnt */, 13 /* areaCnt */, 428 /* poiCnt */,
                 172 /* cityTownOrVillageCnt */, 0 /* bookingHotelsCnt */);

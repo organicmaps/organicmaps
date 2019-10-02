@@ -54,6 +54,7 @@ public:
   void SetCoastlines(std::string const & coastlineGeomFilename,
                      std::string const & worldCoastsFilename);
   void SetFakeNodes(std::string const & filename);
+  void SetMiniRoundabouts(std::string const & filename);
 
   void DumpCitiesBoundaries(std::string const & filename);
 
@@ -64,6 +65,7 @@ private:
   void ProcessBooking();
   void ProcessCities();
   void ProcessCoastline();
+  void ProcessRoundabouts();
   void AddFakeNodes();
   void Finish();
 
@@ -76,6 +78,7 @@ private:
   std::string m_worldCoastsFilename;
   std::string m_citiesFilename;
   std::string m_fakeNodesFilename;
+  std::string m_miniRoundaboutsFilename;
   bool m_haveBordersForWholeWorld;
   size_t m_threadsCount;
 };

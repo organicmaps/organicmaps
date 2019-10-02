@@ -5,6 +5,7 @@
 #include "generator/collector_city_area.hpp"
 #include "generator/collector_collection.hpp"
 #include "generator/collector_interface.hpp"
+#include "generator/collector_mini_roundabout.hpp"
 #include "generator/collector_tag.hpp"
 #include "generator/cross_mwm_osm_ways_collector.hpp"
 #include "generator/feature_maker.hpp"
@@ -104,7 +105,7 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
       info.GetIntermediateFileName(METALINES_FILENAME)));
   collectors->Append(
       std::make_shared<CityAreaCollector>(info.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME)));
-  // These are the four collector that collect additional information for the future building of
+  // Collectors for gathering of additional information for the future building of
   // routing section.
   collectors->Append(
       std::make_shared<MaxspeedsCollector>(info.GetIntermediateFileName(MAXSPEEDS_FILENAME)));
@@ -114,6 +115,9 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
       info.GetIntermediateFileName(ROAD_ACCESS_FILENAME)));
   collectors->Append(std::make_shared<routing::CameraCollector>(
       info.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME)));
+  collectors->Append(std::make_shared<MiniRoundaboutCollector>(
+      info.GetIntermediateFileName(MINI_ROUNDABOUTS_FILENAME)));
+
   collectors->Append(std::make_shared<CrossMwmOsmWaysCollector>(
       info.m_intermediateDir, info.m_targetDir, info.m_haveBordersForWholeWorld));
   if (info.m_genAddresses)
