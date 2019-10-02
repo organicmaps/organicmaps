@@ -23,7 +23,8 @@ public:
   std::vector<std::string> GetNames();
 
 private:
-  using FeatureBuilderWriter = feature::FeatureBuilderWriter<feature::serialization_policy::MaxAccuracy>;
+  using FeatureBuilderWriter =
+      feature::FeatureBuilderWriter<feature::serialization_policy::MaxAccuracy>;
 
   void Write(std::vector<ProcessedData> const & vecChanks);
 

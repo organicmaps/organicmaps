@@ -10,13 +10,11 @@ namespace generator
 {
 RawGeneratorWriter::RawGeneratorWriter(std::shared_ptr<FeatureProcessorQueue> const & queue,
                                        std::string const & path)
-  : m_queue(queue), m_path(path) {}
-
-
-RawGeneratorWriter::~RawGeneratorWriter()
+  : m_queue(queue), m_path(path)
 {
-  ShutdownAndJoin();
 }
+
+RawGeneratorWriter::~RawGeneratorWriter() { ShutdownAndJoin(); }
 
 void RawGeneratorWriter::Run()
 {

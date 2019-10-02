@@ -58,9 +58,7 @@ std::vector<std::vector<std::string>> GetAffiliations(std::vector<FeatureBuilder
   std::vector<std::future<std::vector<std::string>>> futuresAffiliations;
   for (auto const & fb : fbs)
   {
-    auto result = pool.Submit([&]() {
-      return affiliation.GetAffiliations(fb);
-    });
+    auto result = pool.Submit([&]() { return affiliation.GetAffiliations(fb); });
     futuresAffiliations.emplace_back(std::move(result));
   }
 
@@ -112,7 +110,8 @@ void Sort(std::vector<FeatureBuilder> & fbs)
     auto const lKeyPoint = l.GetKeyPoint();
     auto const rKeyPoint = r.GetKeyPoint();
 
-    return std::tie(lGeomType, lId, lPointsCount, lKeyPoint) < std::tie(rGeomType, rId, rPointsCount, rKeyPoint);
+    return std::tie(lGeomType, lId, lPointsCount, lKeyPoint) <
+           std::tie(rGeomType, rId, rPointsCount, rKeyPoint);
   });
 }
 
@@ -125,24 +124,18 @@ bool FilenameIsCountry(std::string filename, AffiliationInterface const & affili
 class PlaceHelper
 {
 public:
-  PlaceHelper()
-    : m_table(std::make_shared<OsmIdToBoundariesTable>())
-    , m_processor(m_table)
-  {
-  }
+  PlaceHelper() : m_table(std::make_shared<OsmIdToBoundariesTable>()), m_processor(m_table) {}
 
-  explicit PlaceHelper(std::string const & filename)
-    : PlaceHelper()
+  explicit PlaceHelper(std::string const & filename) : PlaceHelper()
   {
-    ForEachFromDatRawFormat<MaxAccuracy>(filename, [&](auto const & fb, auto const &) {
-      m_processor.Add(fb);
-    });
+    ForEachFromDatRawFormat<MaxAccuracy>(
+        filename, [&](auto const & fb, auto const &) { m_processor.Add(fb); });
   }
 
   static bool IsPlace(FeatureBuilder const & fb)
   {
     auto const type = GetPlaceType(fb);
-    return type != ftype::GetEmptyValue()  && !fb.GetName().empty() && NeedProcessPlace(fb);
+    return type != ftype::GetEmptyValue() && !fb.GetName().empty() && NeedProcessPlace(fb);
   }
 
   bool Process(FeatureBuilder const & fb)
@@ -151,15 +144,9 @@ public:
     return true;
   }
 
-  std::vector<PlaceProcessor::PlaceWithIds> GetFeatures()
-  {
-    return m_processor.ProcessPlaces();
-  }
+  std::vector<PlaceProcessor::PlaceWithIds> GetFeatures() { return m_processor.ProcessPlaces(); }
 
-  std::shared_ptr<OsmIdToBoundariesTable> GetTable() const
-  {
-    return m_table;
-  }
+  std::shared_ptr<OsmIdToBoundariesTable> GetTable() const { return m_table; }
 
 private:
   std::shared_ptr<OsmIdToBoundariesTable> m_table;
@@ -178,10 +165,7 @@ public:
   {
   }
 
-  void SetPromoCatalog(std::string const & filename)
-  {
-    m_citiesFilename = filename;
-  }
+  void SetPromoCatalog(std::string const & filename) { m_citiesFilename = filename; }
 
   void Process()
   {
@@ -221,8 +205,8 @@ public:
 
     std::vector<FeatureBuilder> fbs;
     fbs.reserve(fbsWithIds.size());
-    std::transform(std::cbegin(fbsWithIds), std::cend(fbsWithIds),
-                   std::back_inserter(fbs), base::RetrieveFirst());
+    std::transform(std::cbegin(fbsWithIds), std::cend(fbsWithIds), std::back_inserter(fbs),
+                   base::RetrieveFirst());
     auto const affiliations = GetAffiliations(fbs, m_affiliation, m_threadsCount);
     AppendToCountries(fbs, affiliations, m_temporaryMwmPath, m_threadsCount);
   }
@@ -253,30 +237,33 @@ private:
 };
 }  // namespace
 
-FinalProcessorIntermediateMwmInterface::FinalProcessorIntermediateMwmInterface(FinalProcessorPriority priority)
+FinalProcessorIntermediateMwmInterface::FinalProcessorIntermediateMwmInterface(
+    FinalProcessorPriority priority)
   : m_priority(priority)
 {
 }
 
-bool FinalProcessorIntermediateMwmInterface::operator<(FinalProcessorIntermediateMwmInterface const & other) const
+bool FinalProcessorIntermediateMwmInterface::operator<(
+    FinalProcessorIntermediateMwmInterface const & other) const
 {
   return m_priority < other.m_priority;
 }
 
-bool FinalProcessorIntermediateMwmInterface::operator==(FinalProcessorIntermediateMwmInterface const & other) const
+bool FinalProcessorIntermediateMwmInterface::operator==(
+    FinalProcessorIntermediateMwmInterface const & other) const
 {
   return !(*this < other || other < *this);
 }
 
-bool FinalProcessorIntermediateMwmInterface::operator!=(FinalProcessorIntermediateMwmInterface const & other) const
+bool FinalProcessorIntermediateMwmInterface::operator!=(
+    FinalProcessorIntermediateMwmInterface const & other) const
 {
   return !(*this == other);
 }
 
 CountryFinalProcessor::CountryFinalProcessor(std::string const & borderPath,
                                              std::string const & temporaryMwmPath,
-                                             bool haveBordersForWholeWorld,
-                                             size_t threadsCount)
+                                             bool haveBordersForWholeWorld, size_t threadsCount)
   : FinalProcessorIntermediateMwmInterface(FinalProcessorPriority::CountriesOrWorld)
   , m_borderPath(borderPath)
   , m_temporaryMwmPath(temporaryMwmPath)
@@ -355,18 +342,15 @@ void CountryFinalProcessor::ProcessBooking()
           }
           else
           {
-            dataset.PreprocessMatchedOsmObject(id, fb, [&](FeatureBuilder & newFeature) {
-              writer.Write(newFeature);
-            });
+            dataset.PreprocessMatchedOsmObject(
+                id, fb, [&](FeatureBuilder & newFeature) { writer.Write(newFeature); });
           }
         }
       });
     });
   }
   std::vector<FeatureBuilder> fbs;
-  dataset.BuildOsmObjects([&](auto && fb) {
-    fbs.emplace_back(std::move(fb));
-  });
+  dataset.BuildOsmObjects([&](auto && fb) { fbs.emplace_back(std::move(fb)); });
   auto const affiliations = GetAffiliations(fbs, affiliation, m_threadsCount);
   AppendToCountries(fbs, affiliations, m_temporaryMwmPath, m_threadsCount);
 }
@@ -374,9 +358,8 @@ void CountryFinalProcessor::ProcessBooking()
 void CountryFinalProcessor::ProcessCities()
 {
   auto const affiliation = CountriesFilesIndexAffiliation(m_borderPath, m_haveBordersForWholeWorld);
-  auto citiesHelper = m_citiesAreasTmpFilename.empty()
-                      ? PlaceHelper()
-                      : PlaceHelper(m_citiesAreasTmpFilename);
+  auto citiesHelper =
+      m_citiesAreasTmpFilename.empty() ? PlaceHelper() : PlaceHelper(m_citiesAreasTmpFilename);
   ProcessorCities processorCities(m_temporaryMwmPath, affiliation, citiesHelper, m_threadsCount);
   processorCities.SetPromoCatalog(m_citiesFilename);
   processorCities.Process();
@@ -440,7 +423,8 @@ WorldFinalProcessor::WorldFinalProcessor(std::string const & temporaryMwmPath,
                                          std::string const & coastlineGeomFilename)
   : FinalProcessorIntermediateMwmInterface(FinalProcessorPriority::CountriesOrWorld)
   , m_temporaryMwmPath(temporaryMwmPath)
-  , m_worldTmpFilename(base::JoinPath(m_temporaryMwmPath, WORLD_FILE_NAME) + DATA_FILE_EXTENSION_TMP)
+  , m_worldTmpFilename(base::JoinPath(m_temporaryMwmPath, WORLD_FILE_NAME) +
+                       DATA_FILE_EXTENSION_TMP)
   , m_coastlineGeomFilename(coastlineGeomFilename)
 {
 }
@@ -477,9 +461,8 @@ void WorldFinalProcessor::Process()
 void WorldFinalProcessor::ProcessCities()
 {
   auto const affiliation = SingleAffiliation(WORLD_FILE_NAME);
-  auto citiesHelper = m_citiesAreasTmpFilename.empty()
-                      ? PlaceHelper()
-                      : PlaceHelper(m_citiesAreasTmpFilename);
+  auto citiesHelper =
+      m_citiesAreasTmpFilename.empty() ? PlaceHelper() : PlaceHelper(m_citiesAreasTmpFilename);
   ProcessorCities processorCities(m_temporaryMwmPath, affiliation, citiesHelper);
   processorCities.SetPromoCatalog(m_citiesFilename);
   processorCities.Process();

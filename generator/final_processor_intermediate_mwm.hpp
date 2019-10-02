@@ -18,10 +18,10 @@ enum class FinalProcessorPriority : uint8_t
 
 // Classes that inherit this interface implement the final stage of intermediate mwm processing.
 // For example, attempt to merge the coastline or adding external elements.
-// Each derived class has a priority. This is done to comply with the order of processing intermediate mwm,
-// taking into account the dependencies between them. For example, before adding a coastline to
-// a country, we must build coastline. Processors with higher priority will be called first.
-// Processors with the same priority can run in parallel.
+// Each derived class has a priority. This is done to comply with the order of processing
+// intermediate mwm, taking into account the dependencies between them. For example, before adding a
+// coastline to a country, we must build coastline. Processors with higher priority will be called
+// first. Processors with the same priority can run in parallel.
 class FinalProcessorIntermediateMwmInterface
 {
 public:
@@ -43,8 +43,7 @@ class CountryFinalProcessor : public FinalProcessorIntermediateMwmInterface
 public:
   explicit CountryFinalProcessor(std::string const & borderPath,
                                  std::string const & temporaryMwmPath,
-                                 bool haveBordersForWholeWorld,
-                                 size_t threadsCount);
+                                 bool haveBordersForWholeWorld, size_t threadsCount);
 
   void SetBooking(std::string const & filename);
   void SetCitiesAreas(std::string const & filename);
@@ -109,7 +108,8 @@ class CoastlineFinalProcessor : public FinalProcessorIntermediateMwmInterface
 public:
   explicit CoastlineFinalProcessor(std::string const & filename);
 
-  void SetCoastlinesFilenames(std::string const & geomFilename, std::string const & rawGeomFilename);
+  void SetCoastlinesFilenames(std::string const & geomFilename,
+                              std::string const & rawGeomFilename);
 
   // FinalProcessorIntermediateMwmInterface overrides:
   void Process() override;

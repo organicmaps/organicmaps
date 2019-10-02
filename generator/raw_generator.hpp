@@ -24,8 +24,9 @@ public:
   void GenerateWorld(bool addAds = false);
   void GenerateCoasts();
   void GenerateCustom(std::shared_ptr<TranslatorInterface> const & translator);
-  void GenerateCustom(std::shared_ptr<TranslatorInterface> const & translator,
-                      std::shared_ptr<FinalProcessorIntermediateMwmInterface> const & finalProcessor);
+  void GenerateCustom(
+      std::shared_ptr<TranslatorInterface> const & translator,
+      std::shared_ptr<FinalProcessorIntermediateMwmInterface> const & finalProcessor);
   bool Execute();
   std::vector<std::string> const & GetNames() const;
   std::shared_ptr<FeatureProcessorQueue> GetQueue();
@@ -36,10 +37,7 @@ private:
 
   struct FinalProcessorPtrCmp
   {
-    bool operator()(FinalProcessorPtr const & l, FinalProcessorPtr const & r)
-    {
-      return *l < *r;
-    }
+    bool operator()(FinalProcessorPtr const & l, FinalProcessorPtr const & r) { return *l < *r; }
   };
 
   FinalProcessorPtr CreateCoslineFinalProcessor();
@@ -53,7 +51,8 @@ private:
   std::shared_ptr<cache::IntermediateData> m_cache;
   std::shared_ptr<FeatureProcessorQueue> m_queue;
   std::shared_ptr<TranslatorCollection> m_translators;
-  std::priority_queue<FinalProcessorPtr, std::vector<FinalProcessorPtr>, FinalProcessorPtrCmp> m_finalProcessors;
+  std::priority_queue<FinalProcessorPtr, std::vector<FinalProcessorPtr>, FinalProcessorPtrCmp>
+      m_finalProcessors;
   std::vector<std::string> m_names;
 };
 }  // namespace generator

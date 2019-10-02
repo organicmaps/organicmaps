@@ -27,23 +27,23 @@ void RawGenerator::ForceReloadCache()
   m_cache = std::make_shared<cache::IntermediateData>(m_genInfo, true /* forceReload */);
 }
 
-std::shared_ptr<FeatureProcessorQueue> RawGenerator::GetQueue()
-{
-  return m_queue;
-}
+std::shared_ptr<FeatureProcessorQueue> RawGenerator::GetQueue() { return m_queue; }
 
 void RawGenerator::GenerateCountries(bool addAds)
 {
   auto processor = CreateProcessor(ProcessorType::Country, m_queue, m_genInfo.m_targetDir, "",
                                    m_genInfo.m_haveBordersForWholeWorld);
-  m_translators->Append(CreateTranslator(TranslatorType::Country, processor, m_cache, m_genInfo, addAds));
+  m_translators->Append(
+      CreateTranslator(TranslatorType::Country, processor, m_cache, m_genInfo, addAds));
   m_finalProcessors.emplace(CreateCountryFinalProcessor(addAds));
 }
 
 void RawGenerator::GenerateWorld(bool addAds)
 {
-  auto processor = CreateProcessor(ProcessorType::World, m_queue, m_genInfo.m_popularPlacesFilename);
-  m_translators->Append(CreateTranslator(TranslatorType::World, processor, m_cache, m_genInfo, addAds));
+  auto processor =
+      CreateProcessor(ProcessorType::World, m_queue, m_genInfo.m_popularPlacesFilename);
+  m_translators->Append(
+      CreateTranslator(TranslatorType::World, processor, m_cache, m_genInfo, addAds));
   m_finalProcessors.emplace(CreateWorldFinalProcessor());
 }
 
@@ -59,8 +59,9 @@ void RawGenerator::GenerateCustom(std::shared_ptr<TranslatorInterface> const & t
   m_translators->Append(translator);
 }
 
-void RawGenerator::GenerateCustom(std::shared_ptr<TranslatorInterface> const & translator,
-                                  std::shared_ptr<FinalProcessorIntermediateMwmInterface> const & finalProcessor)
+void RawGenerator::GenerateCustom(
+    std::shared_ptr<TranslatorInterface> const & translator,
+    std::shared_ptr<FinalProcessorIntermediateMwmInterface> const & finalProcessor)
 {
   m_translators->Append(translator);
   m_finalProcessors.emplace(finalProcessor);
@@ -78,9 +79,7 @@ bool RawGenerator::Execute()
     {
       auto const finalProcessor = m_finalProcessors.top();
       m_finalProcessors.pop();
-      threadPool.SubmitWork([finalProcessor{finalProcessor}]() {
-        finalProcessor->Process();
-      });
+      threadPool.SubmitWork([finalProcessor{finalProcessor}]() { finalProcessor->Process(); });
       if (m_finalProcessors.empty() || *finalProcessor != *m_finalProcessors.top())
         break;
     }
@@ -90,26 +89,23 @@ bool RawGenerator::Execute()
   return true;
 }
 
-std::vector<std::string> const & RawGenerator::GetNames() const
-{
-  return m_names;
-}
+std::vector<std::string> const & RawGenerator::GetNames() const { return m_names; }
 
 RawGenerator::FinalProcessorPtr RawGenerator::CreateCoslineFinalProcessor()
 {
   auto finalProcessor = make_shared<CoastlineFinalProcessor>(
-                          m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME, DATA_FILE_EXTENSION_TMP));
+      m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME, DATA_FILE_EXTENSION_TMP));
   finalProcessor->SetCoastlinesFilenames(
-        m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, ".geom"),
-        m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION));
+      m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, ".geom"),
+      m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION));
   return finalProcessor;
 }
 
 RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(bool addAds)
 {
-  auto finalProcessor = make_shared<CountryFinalProcessor>(m_genInfo.m_targetDir, m_genInfo.m_tmpDir,
-                                                           m_genInfo.m_haveBordersForWholeWorld,
-                                                           m_threadsCount);
+  auto finalProcessor =
+      make_shared<CountryFinalProcessor>(m_genInfo.m_targetDir, m_genInfo.m_tmpDir,
+                                         m_genInfo.m_haveBordersForWholeWorld, m_threadsCount);
   finalProcessor->SetBooking(m_genInfo.m_bookingDataFilename);
   finalProcessor->SetCitiesAreas(m_genInfo.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME));
   finalProcessor->SetPromoCatalog(m_genInfo.m_promoCatalogCitiesFilename);
@@ -118,8 +114,9 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(bool a
 
   if (m_genInfo.m_emitCoasts)
   {
-    finalProcessor->SetCoastlines(m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, ".geom"),
-                                  m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME));
+    finalProcessor->SetCoastlines(
+        m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, ".geom"),
+        m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME));
   }
 
   finalProcessor->DumpCitiesBoundaries(m_genInfo.m_citiesBoundariesFilename);
@@ -129,8 +126,8 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(bool a
 RawGenerator::FinalProcessorPtr RawGenerator::CreateWorldFinalProcessor()
 {
   auto finalProcessor = make_shared<WorldFinalProcessor>(
-                          m_genInfo.m_tmpDir,
-                          m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION));
+      m_genInfo.m_tmpDir,
+      m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION));
   finalProcessor->SetPopularPlaces(m_genInfo.m_popularPlacesFilename);
   finalProcessor->SetCitiesAreas(m_genInfo.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME));
   finalProcessor->SetPromoCatalog(m_genInfo.m_promoCatalogCitiesFilename);
@@ -139,11 +136,12 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateWorldFinalProcessor()
 
 bool RawGenerator::GenerateFilteredFeatures()
 {
-  SourceReader reader = m_genInfo.m_osmFileName.empty() ? SourceReader()
-                                                        : SourceReader(m_genInfo.m_osmFileName);
+  SourceReader reader =
+      m_genInfo.m_osmFileName.empty() ? SourceReader() : SourceReader(m_genInfo.m_osmFileName);
 
   std::unique_ptr<ProcessorOsmElementsInterface> sourceProcessor;
-  switch (m_genInfo.m_osmFileType) {
+  switch (m_genInfo.m_osmFileType)
+  {
   case feature::GenerateInfo::OsmSourceType::O5M:
     sourceProcessor = std::make_unique<ProcessorOsmElementsFromO5M>(reader);
     break;
