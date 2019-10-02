@@ -3452,7 +3452,7 @@ void BookmarkManager::MarksChangesTracker::OnUpdateGroup(kml::MarkGroupId groupI
   m_updatedGroups.insert(groupId);
 }
 
-void BookmarkManager::MarksChangesTracker::OnBecameVisibleGroup(kml::MarkGroupId groupId)
+void BookmarkManager::MarksChangesTracker::OnBecomeVisibleGroup(kml::MarkGroupId groupId)
 {
   auto const it = m_becameInvisibleGroups.find(groupId);
   if (it != m_becameInvisibleGroups.end())
@@ -3461,7 +3461,7 @@ void BookmarkManager::MarksChangesTracker::OnBecameVisibleGroup(kml::MarkGroupId
     m_becameVisibleGroups.insert(groupId);
 }
 
-void BookmarkManager::MarksChangesTracker::OnBecameInvisibleGroup(kml::MarkGroupId groupId)
+void BookmarkManager::MarksChangesTracker::OnBecomeInvisibleGroup(kml::MarkGroupId groupId)
 {
   auto const it = m_becameVisibleGroups.find(groupId);
   if (it != m_becameVisibleGroups.end())
@@ -3564,10 +3564,10 @@ void BookmarkManager::MarksChangesTracker::AddChanges(MarksChangesTracker const 
     OnUpdateGroup(groupId);
 
   for (auto const groupId : changes.m_becameVisibleGroups)
-    OnBecameVisibleGroup(groupId);
+    OnBecomeVisibleGroup(groupId);
 
   for (auto const groupId : changes.m_becameInvisibleGroups)
-    OnBecameInvisibleGroup(groupId);
+    OnBecomeInvisibleGroup(groupId);
 
   for (auto const groupId : changes.m_removedGroups)
     OnDeleteGroup(groupId);

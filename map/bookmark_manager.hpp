@@ -495,8 +495,8 @@ private:
 
   private:
     void OnUpdateGroup(kml::MarkGroupId groupId);
-    void OnBecameVisibleGroup(kml::MarkGroupId groupId);
-    void OnBecameInvisibleGroup(kml::MarkGroupId groupId);
+    void OnBecomeVisibleGroup(kml::MarkGroupId groupId);
+    void OnBecomeInvisibleGroup(kml::MarkGroupId groupId);
 
     void InsertBookmark(kml::MarkId markId, kml::MarkGroupId catId,
                         GroupMarkIdSet & setToInsert, GroupMarkIdSet & setToErase);
