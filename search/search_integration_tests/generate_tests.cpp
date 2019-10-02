@@ -86,6 +86,6 @@ UNIT_CLASS_TEST(GenerateTest, GenerateDeprecatedTypes)
 
   TEST_EQUAL(count, 3, ());
 
-  file.DeleteFromDisk(MapOptions::Map);
+  file.DeleteFromDisk(MapFileType::Map);
 }
 }  // namespace

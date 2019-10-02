@@ -9,17 +9,16 @@ namespace storage
 class QueuedCountry
 {
 public:
-  QueuedCountry(CountryId const & m_countryId, MapOptions opt);
+  QueuedCountry(CountryId const & m_countryId, MapFileType type);
 
-  void SetDownloadingType(MapOptions type);
-  MapOptions GetDownloadingType() const;
+  void SetFileType(MapFileType type);
+  MapFileType GetFileType() const;
 
-  CountryId const & GetCountryId() const { return m_countryId; }
-
-  inline bool operator==(CountryId const & countryId) const { return m_countryId == countryId; }
+  CountryId const & GetCountryId() const;
+  bool operator==(CountryId const & countryId) const;
 
 private:
   CountryId m_countryId;
-  MapOptions m_downloadingType;
+  MapFileType m_fileType;
 };
 }  // namespace storage

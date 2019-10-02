@@ -327,7 +327,7 @@ bool SearchRankTableBuilder::CreateIfNotExists(platform::LocalCountryFile const 
 
     unique_ptr<RankTable> table;
     {
-      ModelReaderPtr reader = platform::GetCountryReader(localFile, MapOptions::Map);
+      ModelReaderPtr reader = platform::GetCountryReader(localFile, MapFileType::Map);
       if (!reader.GetPtr())
         return false;
 

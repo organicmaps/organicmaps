@@ -104,7 +104,7 @@ TrafficInfo::TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion
     LOG(LWARNING, ("Attempt to create a traffic info for dead mwm."));
     return;
   }
-  string const mwmPath = mwmId.GetInfo()->GetLocalFile().GetPath(MapOptions::Map);
+  string const mwmPath = mwmId.GetInfo()->GetLocalFile().GetPath(MapFileType::Map);
   try
   {
     FilesContainerR rcont(mwmPath);

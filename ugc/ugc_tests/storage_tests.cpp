@@ -141,7 +141,7 @@ public:
   ~MwmBuilder()
   {
     platform::CountryIndexes::DeleteFromDisk(m_testMwm);
-    m_testMwm.DeleteFromDisk(MapOptions::Map);
+    m_testMwm.DeleteFromDisk(MapFileType::Map);
   }
 
 private:
@@ -149,7 +149,7 @@ private:
 
   MwmSet::MwmId BuildMwm(BuilderFn const & fn)
   {
-    if (m_testMwm.OnDisk(MapOptions::Map))
+    if (m_testMwm.OnDisk(MapFileType::Map))
       Cleanup(m_testMwm);
 
     m_testMwm = platform::LocalCountryFile(GetPlatform().WritableDir(),
@@ -192,7 +192,7 @@ private:
   {
     m_dataSource.DeregisterMap(map.GetCountryFile());
     platform::CountryIndexes::DeleteFromDisk(map);
-    map.DeleteFromDisk(MapOptions::Map);
+    map.DeleteFromDisk(MapFileType::Map);
   }
 
   FrozenDataSource m_dataSource;

@@ -46,15 +46,15 @@ public:
 
   // Removes specified file from disk if it known for LocalCountryFile, i.e.
   // were found by previous SyncWithDisk() call.
-  void DeleteFromDisk(MapOptions type) const;
+  void DeleteFromDisk(MapFileType type) const;
 
   // Returns path to a file. Return value may be empty until
   // SyncWithDisk() is called.
-  std::string GetPath(MapOptions type) const;
+  std::string GetPath(MapFileType type) const;
 
   // Returns size of a file. Return value may be zero until
   // SyncWithDisk() is called.
-  uint64_t GetSize(MapOptions type) const;
+  uint64_t GetSize(MapFileType type) const;
 
   // Returns true when some files are found during SyncWithDisk and have non empty size.
   // Consider that we are not working with empty files.
@@ -64,7 +64,7 @@ public:
   // Checks whether files specified in filesMask are on disk. Return
   // value will be false until SyncWithDisk() is called.
   // Consider that we are not working with empty files.
-  bool OnDisk(MapOptions type) const;
+  bool OnDisk(MapFileType type) const;
 
   std::string const & GetDirectory() const { return m_directory; }
   std::string const & GetCountryName() const { return m_countryFile.GetName(); }

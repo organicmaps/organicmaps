@@ -59,13 +59,13 @@ int main(int argc, char * argv[])
   for (auto & file : localFiles)
   {
     file.SyncWithDisk();
-    if (!file.OnDisk(MapOptions::Map))
+    if (!file.OnDisk(MapFileType::Map))
     {
       LOG(LINFO, ("Warning! Routing file not found for:", file.GetCountryName()));
       continue;
     }
 
-    auto const path = file.GetPath(MapOptions::Map);
+    auto const path = file.GetPath(MapFileType::Map);
     LOG(LINFO, ("Mwm", path, "is being processed."));
 
     size_t all = 0;

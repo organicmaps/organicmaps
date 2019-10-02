@@ -15,13 +15,13 @@ namespace
 /// \returns file name (m_name) with extension dependent on the file param.
 /// The extension could be .mwm.routing or just .mwm.
 /// The method is used for old (two components) mwm support.
-string GetNameWithExt(string const & countryFile, MapOptions file)
+string GetNameWithExt(string const & countryFile, MapFileType file)
 {
   switch (file)
   {
-    case MapOptions::Map:
+    case MapFileType::Map:
       return countryFile + DATA_FILE_EXTENSION;
-    case MapOptions::Diff:
+    case MapFileType::Diff:
       return countryFile + DIFF_FILE_EXTENSION;
     default:
       ASSERT(false, ("Can't get name for:", file));
@@ -48,12 +48,9 @@ MwmSize CountryFile::GetRemoteSize() const
   return m_mapSize;
 }
 
-string GetFileName(string const & countryFile, MapOptions opt, int64_t version)
+string GetFileName(string const & countryFile, MapFileType type, int64_t version)
 {
-  if (version::IsSingleMwm(version))
-    opt = opt == MapOptions::Diff ? MapOptions::Diff : MapOptions::Map;
-
-  return GetNameWithExt(countryFile, opt);
+  return GetNameWithExt(countryFile, type);
 }
 
 string DebugPrint(CountryFile const & file)

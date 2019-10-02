@@ -77,11 +77,11 @@ std::shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, s
 
 // Note. The function assumes the maps are located in writable dir/|dataDir|/|version| directory.
 // If |dataDir| is empty (or is not set) the function assumes that maps are in writable dir.
-std::string GetFileDownloadPath(int64_t version, CountryFile const & countryFile, MapOptions file);
+std::string GetFileDownloadPath(int64_t version, CountryFile const & countryFile, MapFileType type);
 std::string GetFileDownloadPath(int64_t version, std::string const & dataDir,
-                           CountryFile const & countryFile, MapOptions file);
+                                CountryFile const & countryFile, MapFileType type);
 
-std::unique_ptr<ModelReader> GetCountryReader(LocalCountryFile const & file, MapOptions options);
+std::unique_ptr<ModelReader> GetCountryReader(LocalCountryFile const & file, MapFileType type);
 
 // An API for managing country indexes.
 class CountryIndexes

@@ -153,7 +153,7 @@ UNIT_CLASS_TEST(Runner, DownloadIntegrity_Test)
     testing::RunEventLoop();
 
     auto localFile = storage.GetLatestLocalFile(kCountryId);
-    mapPath = localFile->GetPath(MapOptions::Map);
+    mapPath = localFile->GetPath(MapFileType::Map);
     mapHash = coding::SHA1::Calculate(mapPath);
   }
   TEST_NOT_EQUAL(mapHash, coding::SHA1::Hash(), ());

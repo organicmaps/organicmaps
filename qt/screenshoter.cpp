@@ -128,7 +128,7 @@ void Screenshoter::PrepareCountries()
       {
         ChangeState(State::WaitCountries);
         m_countriesToDownload.insert(countryId);
-        storage.DownloadCountry(countryId, MapOptions::Map);
+        storage.DownloadCountry(countryId, MapFileType::Map);
       }
     }
   }

@@ -35,7 +35,7 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
   try
   {
     std::vector<MetalineData> model;
-    ModelReaderPtr reader = FilesContainerR(mwmId.GetInfo()->GetLocalFile().GetPath(MapOptions::Map))
+    ModelReaderPtr reader = FilesContainerR(mwmId.GetInfo()->GetLocalFile().GetPath(MapFileType::Map))
                                             .GetReader(METALINES_FILE_TAG);
     ReaderSrc src(reader.GetPtr());
     auto const version = ReadPrimitiveFromSource<uint8_t>(src);

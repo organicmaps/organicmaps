@@ -76,7 +76,7 @@ UNIT_CLASS_TEST(CitiesIdsTest, BuildCitiesIds)
     builder.Add(marCaribe);
   });
 
-  auto const worldMwmPath = testWorldId.GetInfo()->GetLocalFile().GetPath(MapOptions::Map);
+  auto const worldMwmPath = testWorldId.GetInfo()->GetLocalFile().GetPath(MapFileType::Map);
 
   indexer::FeatureIdToGeoObjectIdOneWay oneWayMap(GetDataSource());
   TEST(oneWayMap.Load(), ());

@@ -72,18 +72,18 @@ UNIT_TEST(LocalCountryFile_Smoke)
 
   LocalCountryFile localFile("/test-dir", countryFile, 150309);
 
-  TEST_EQUAL("/test-dir/TestCountry" DATA_FILE_EXTENSION, localFile.GetPath(MapOptions::Map), ());
+  TEST_EQUAL("/test-dir/TestCountry" DATA_FILE_EXTENSION, localFile.GetPath(MapFileType::Map), ());
 
   // Not synced with disk yet.
   TEST(!localFile.HasFiles(), ());
 
-  TEST(!localFile.OnDisk(MapOptions::Map), ());
-  TEST(!localFile.OnDisk(MapOptions::Diff), ());
+  TEST(!localFile.OnDisk(MapFileType::Map), ());
+  TEST(!localFile.OnDisk(MapFileType::Diff), ());
 
   TEST_EQUAL("/test-dir", localFile.GetDirectory(), ());
 
-  TEST_EQUAL(0, localFile.GetSize(MapOptions::Map), ());
-  TEST_EQUAL(0, localFile.GetSize(MapOptions::Diff), ());
+  TEST_EQUAL(0, localFile.GetSize(MapFileType::Map), ());
+  TEST_EQUAL(0, localFile.GetSize(MapFileType::Diff), ());
 
   TEST_EQUAL(150309, localFile.GetVersion(), ());
 }
@@ -100,25 +100,25 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
   for (int64_t version : {1, 150312})
   {
     LocalCountryFile localFile(platform.WritableDir(), countryFile, version);
-    TEST(!localFile.OnDisk(MapOptions::Map), ());
-    TEST(!localFile.OnDisk(MapOptions::Diff), ());
+    TEST(!localFile.OnDisk(MapFileType::Map), ());
+    TEST(!localFile.OnDisk(MapFileType::Diff), ());
 
-    string const mapFileName = GetFileName(countryFile.GetName(), MapOptions::Map,
+    string const mapFileName = GetFileName(countryFile.GetName(), MapFileType::Map,
                                            version::FOR_TESTING_TWO_COMPONENT_MWM1);
 
     string const mapFileContents("map");
     ScopedFile testMapFile(mapFileName, mapFileContents);
 
     localFile.SyncWithDisk();
-    TEST(localFile.OnDisk(MapOptions::Map), ());
-    TEST(!localFile.OnDisk(MapOptions::Diff), ());
-    TEST_EQUAL(mapFileContents.size(), localFile.GetSize(MapOptions::Map), ());
+    TEST(localFile.OnDisk(MapFileType::Map), ());
+    TEST(!localFile.OnDisk(MapFileType::Diff), ());
+    TEST_EQUAL(mapFileContents.size(), localFile.GetSize(MapFileType::Map), ());
 
     localFile.SyncWithDisk();
-    TEST(localFile.OnDisk(MapOptions::Map), ());
-    TEST_EQUAL(mapFileContents.size(), localFile.GetSize(MapOptions::Map), ());
+    TEST(localFile.OnDisk(MapFileType::Map), ());
+    TEST_EQUAL(mapFileContents.size(), localFile.GetSize(MapFileType::Map), ());
 
-    localFile.DeleteFromDisk(MapOptions::Map);
+    localFile.DeleteFromDisk(MapFileType::Map);
     TEST(!testMapFile.Exists(), (testMapFile, "wasn't deleted by LocalCountryFile."));
     testMapFile.Reset();
   }
@@ -147,7 +147,7 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
   ScopedFile brazilMapFile("Brazil.mwm", "content");
 
   LocalCountryFile irelandLocalFile(dir4.GetFullPath(), irelandFile, 4 /* version */);
-  ScopedFile irelandMapFile(dir4, irelandFile, MapOptions::Map);
+  ScopedFile irelandMapFile(dir4, irelandFile, MapFileType::Map);
 
   // Check FindAllLocalMaps()
   vector<LocalCountryFile> localFiles;
@@ -163,8 +163,8 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
   brazilMapFile.Reset();
 
   irelandLocalFile.SyncWithDisk();
-  TEST(irelandLocalFile.OnDisk(MapOptions::Map), ());
-  irelandLocalFile.DeleteFromDisk(MapOptions::Map);
+  TEST(irelandLocalFile.OnDisk(MapFileType::Map), ());
+  irelandLocalFile.DeleteFromDisk(MapFileType::Map);
   TEST(!irelandMapFile.Exists(), (irelandMapFile));
   irelandMapFile.Reset();
 
@@ -227,8 +227,8 @@ UNIT_TEST(LocalCountryFile_DirectoryLookup)
 
   ScopedDir testDir("test-dir");
 
-  ScopedFile testIrelandMapFile(testDir, irelandFile, MapOptions::Map);
-  ScopedFile testNetherlandsMapFile(testDir, netherlandsFile, MapOptions::Map);
+  ScopedFile testIrelandMapFile(testDir, irelandFile, MapFileType::Map);
+  ScopedFile testNetherlandsMapFile(testDir, netherlandsFile, MapFileType::Map);
 
   vector<LocalCountryFile> localFiles;
   FindAllLocalMapsInDirectoryAndCleanup(testDir.GetFullPath(), 150309 /* version */,
@@ -260,7 +260,7 @@ UNIT_TEST(LocalCountryFile_AllLocalFilesLookup)
 
   settings::Delete("LastMigration");
 
-  ScopedFile testItalyMapFile(testDir, italyFile, MapOptions::Map);
+  ScopedFile testItalyMapFile(testDir, italyFile, MapFileType::Map);
 
   vector<LocalCountryFile> localFiles;
   FindAllLocalMapsAndCleanup(10101 /* latestVersion */, localFiles);
@@ -371,7 +371,7 @@ UNIT_TEST(LocalCountryFile_MakeTemporary)
 {
   string const path = GetPlatform().WritablePathForFile("minsk-pass" DATA_FILE_EXTENSION);
   LocalCountryFile file = LocalCountryFile::MakeTemporary(path);
-  TEST_EQUAL(file.GetPath(MapOptions::Map), path, ());
+  TEST_EQUAL(file.GetPath(MapFileType::Map), path, ());
 }
 
 }  // namespace platform

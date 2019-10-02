@@ -23,7 +23,7 @@ SingleMwmDataSource::SingleMwmDataSource(std::string const & mwmPath)
 {
   m_countryFile = platform::LocalCountryFile::MakeTemporary(mwmPath);
   m_countryFile.SyncWithDisk();
-  CHECK(m_countryFile.OnDisk(MapOptions::Map),
+  CHECK(m_countryFile.OnDisk(MapFileType::Map),
         ("No correct mwm corresponding to local country file:", m_countryFile, ". Path:", mwmPath));
 
   auto const result = m_dataSource.Register(m_countryFile);

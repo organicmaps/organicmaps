@@ -30,7 +30,7 @@ public:
   explicit SingleMwmDataSource(std::string const & mwmPath);
 
   DataSource & GetDataSource() { return m_dataSource; }
-  std::string GetPath(MapOptions file) const { return m_countryFile.GetPath(file); }
+  std::string GetPath(MapFileType type) const { return m_countryFile.GetPath(type); }
   MwmSet::MwmId const & GetMwmId() const { return m_mwmId; }
 
 private:

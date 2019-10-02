@@ -58,7 +58,7 @@ void TestAltitudeOfAllMwmFeatures(string const & countryId, TAltitude const alti
   unique_ptr<AltitudeLoader> altitudeLoader =
       make_unique<AltitudeLoader>(dataSource, regResult.first /* mwmId */);
 
-  ForEachFromDat(country.GetPath(MapOptions::Map), [&](FeatureType & f, uint32_t const & id) {
+  ForEachFromDat(country.GetPath(MapFileType::Map), [&](FeatureType & f, uint32_t const & id) {
     if (!routing::IsRoad(TypesHolder(f)))
       return;
 

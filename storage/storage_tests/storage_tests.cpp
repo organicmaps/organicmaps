@@ -279,12 +279,12 @@ bool ParentOf(Storage const & storage, string const & parent, string const & cou
 class CountryDownloaderChecker
 {
 public:
-  CountryDownloaderChecker(Storage & storage, CountryId const & countryId, MapOptions files,
+  CountryDownloaderChecker(Storage & storage, CountryId const & countryId, MapFileType type,
                            vector<Status> const & transitionList)
     : m_storage(storage)
     , m_countryId(countryId)
     , m_countryFile(storage.GetCountryFile(m_countryId))
-    , m_files(files)
+    , m_type(type)
     , m_bytesDownloaded(0)
     , m_totalBytesToDownload(0)
     , m_slot(0)
@@ -309,7 +309,7 @@ public:
     TEST_EQUAL(0, m_currStatus, (m_countryFile));
     TEST_LESS(m_currStatus, m_transitionList.size(), (m_countryFile));
     TEST_EQUAL(m_transitionList[m_currStatus], m_storage.CountryStatusEx(m_countryId), (m_countryFile));
-    m_storage.DownloadCountry(m_countryId, m_files);
+    m_storage.DownloadCountry(m_countryId, m_type);
   }
 
 protected:
@@ -352,7 +352,7 @@ protected:
   Storage & m_storage;
   CountryId const m_countryId;
   CountryFile const m_countryFile;
-  MapOptions const m_files;
+  MapFileType const m_type;
   int64_t m_bytesDownloaded;
   int64_t m_totalBytesToDownload;
   int m_slot;
@@ -367,8 +367,8 @@ public:
   CancelDownloadingWhenAlmostDoneChecker(Storage & storage, CountryId const & countryId,
                                          TaskRunner & runner)
     : CountryDownloaderChecker(
-          storage, countryId, MapOptions::Map,
-          vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::ENotDownloaded})
+    storage, countryId, MapFileType::Map,
+    vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::ENotDownloaded})
     , m_runner(runner)
   {
   }
@@ -397,10 +397,10 @@ protected:
 // NotDownloaded -> Downloading -> OnDisk.
 unique_ptr<CountryDownloaderChecker> AbsentCountryDownloaderChecker(Storage & storage,
                                                                     CountryId const & countryId,
-                                                                    MapOptions files)
+                                                                    MapFileType type)
 {
   return make_unique<CountryDownloaderChecker>(
-      storage, countryId, files,
+      storage, countryId, type,
       vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::EOnDisk});
 }
 
@@ -408,10 +408,10 @@ unique_ptr<CountryDownloaderChecker> AbsentCountryDownloaderChecker(Storage & st
 // NotDownloaded -> InQueue -> Downloading -> OnDisk.
 unique_ptr<CountryDownloaderChecker> QueuedCountryDownloaderChecker(Storage & storage,
                                                                     CountryId const & countryId,
-                                                                    MapOptions files)
+                                                                    MapFileType type)
 {
   return make_unique<CountryDownloaderChecker>(
-      storage, countryId, files, vector<Status>{Status::ENotDownloaded, Status::EInQueue,
+      storage, countryId, type, vector<Status>{Status::ENotDownloaded, Status::EInQueue,
                                              Status::EDownloading, Status::EOnDisk});
 }
 
@@ -419,10 +419,10 @@ unique_ptr<CountryDownloaderChecker> QueuedCountryDownloaderChecker(Storage & st
 // NotDownloaded -> Downloading -> NotDownloaded.
 unique_ptr<CountryDownloaderChecker> CancelledCountryDownloaderChecker(Storage & storage,
                                                                        CountryId const & countryId,
-                                                                       MapOptions files)
+                                                                       MapFileType type)
 {
   return make_unique<CountryDownloaderChecker>(
-      storage, countryId, files,
+      storage, countryId, type,
       vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::ENotDownloaded});
 }
 
@@ -530,12 +530,12 @@ LocalFilePtr CreateDummyMapFile(CountryFile const & countryFile, int64_t version
   TEST(localFile.get(), ("Can't prepare place for", countryFile, "(version", version, ")"));
   {
     string const zeroes(size, '\0');
-    FileWriter writer(localFile->GetPath(MapOptions::Map));
+    FileWriter writer(localFile->GetPath(MapFileType::Map));
     writer.Write(zeroes.data(), zeroes.size());
   }
   localFile->SyncWithDisk();
-  TEST(localFile->OnDisk(MapOptions::Map), ());
-  TEST_EQUAL(size, localFile->GetSize(MapOptions::Map), ());
+  TEST(localFile->OnDisk(MapFileType::Map), ());
+  TEST_EQUAL(size, localFile->GetSize(MapFileType::Map), ());
   return localFile;
 }
 
@@ -583,7 +583,7 @@ UNIT_TEST(StorageTest_Smoke)
   CountryId const georgiaCountryId = storage.FindCountryIdByFile("Georgia");
   TEST(IsCountryIdValid(georgiaCountryId), ());
   CountryFile usaGeorgiaFile = storage.GetCountryFile(georgiaCountryId);
-  TEST_EQUAL(platform::GetFileName(usaGeorgiaFile.GetName(), MapOptions::Map,
+  TEST_EQUAL(platform::GetFileName(usaGeorgiaFile.GetName(), MapFileType::Map,
                                    version::FOR_TESTING_TWO_COMPONENT_MWM1),
              "Georgia" DATA_FILE_EXTENSION, ());
 }
@@ -595,22 +595,22 @@ UNIT_CLASS_TEST(StorageTest, CountryDownloading)
   TEST(IsCountryIdValid(azerbaijanCountryId), ());
 
   CountryFile azerbaijanFile = storage.GetCountryFile(azerbaijanCountryId);
-  storage.DeleteCountry(azerbaijanCountryId, MapOptions::Map);
+  storage.DeleteCountry(azerbaijanCountryId, MapFileType::Map);
 
   {
     SCOPE_GUARD(cleanupCountryFiles,
-                bind(&Storage::DeleteCountry, &storage, azerbaijanCountryId, MapOptions::Map));
+                bind(&Storage::DeleteCountry, &storage, azerbaijanCountryId, MapFileType::Map));
     unique_ptr<CountryDownloaderChecker> checker =
-        AbsentCountryDownloaderChecker(storage, azerbaijanCountryId, MapOptions::Map);
+        AbsentCountryDownloaderChecker(storage, azerbaijanCountryId, MapFileType::Map);
     checker->StartDownload();
     runner.Run();
   }
 
   {
     SCOPE_GUARD(cleanupCountryFiles,
-                bind(&Storage::DeleteCountry, &storage, azerbaijanCountryId, MapOptions::Map));
+                bind(&Storage::DeleteCountry, &storage, azerbaijanCountryId, MapFileType::Map));
     unique_ptr<CountryDownloaderChecker> checker =
-        AbsentCountryDownloaderChecker(storage, azerbaijanCountryId, MapOptions::Map);
+        AbsentCountryDownloaderChecker(storage, azerbaijanCountryId, MapFileType::Map);
     checker->StartDownload();
     runner.Run();
   }
@@ -620,20 +620,20 @@ UNIT_CLASS_TEST(TwoComponentStorageTest, CountriesDownloading)
 {
   CountryId const uruguayCountryId = storage.FindCountryIdByFile("Uruguay");
   TEST(IsCountryIdValid(uruguayCountryId), ());
-  storage.DeleteCountry(uruguayCountryId, MapOptions::Map);
+  storage.DeleteCountry(uruguayCountryId, MapFileType::Map);
   SCOPE_GUARD(cleanupUruguayFiles,
-              bind(&Storage::DeleteCountry, &storage, uruguayCountryId, MapOptions::Map));
+              bind(&Storage::DeleteCountry, &storage, uruguayCountryId, MapFileType::Map));
 
   CountryId const venezuelaCountryId = storage.FindCountryIdByFile("Venezuela");
   TEST(IsCountryIdValid(venezuelaCountryId), ());
-  storage.DeleteCountry(venezuelaCountryId, MapOptions::Map);
+  storage.DeleteCountry(venezuelaCountryId, MapFileType::Map);
   SCOPE_GUARD(cleanupVenezuelaFiles,
-              bind(&Storage::DeleteCountry, &storage, venezuelaCountryId, MapOptions::Map));
+              bind(&Storage::DeleteCountry, &storage, venezuelaCountryId, MapFileType::Map));
 
   unique_ptr<CountryDownloaderChecker> uruguayChecker =
-      AbsentCountryDownloaderChecker(storage, uruguayCountryId, MapOptions::Map);
+      AbsentCountryDownloaderChecker(storage, uruguayCountryId, MapFileType::Map);
   unique_ptr<CountryDownloaderChecker> venezuelaChecker =
-      QueuedCountryDownloaderChecker(storage, venezuelaCountryId, MapOptions::Map);
+      QueuedCountryDownloaderChecker(storage, venezuelaCountryId, MapFileType::Map);
   uruguayChecker->StartDownload();
   venezuelaChecker->StartDownload();
   runner.Run();
@@ -657,7 +657,7 @@ UNIT_TEST(StorageTest_DeleteTwoVersionsOfTheSameCountry)
   TEST(IsCountryIdValid(countryId), ());
   CountryFile const countryFile = storage.GetCountryFile(countryId);
 
-  storage.DeleteCountry(countryId, MapOptions::Map);
+  storage.DeleteCountry(countryId, MapFileType::Map);
   LocalFilePtr latestLocalFile = storage.GetLatestLocalFile(countryId);
   TEST(!latestLocalFile.get(), ("Country wasn't deleted from disk."));
   TEST_EQUAL(Status::ENotDownloaded, storage.CountryStatusEx(countryId), ());
@@ -676,7 +676,7 @@ UNIT_TEST(StorageTest_DeleteTwoVersionsOfTheSameCountry)
   TEST_EQUAL(latestLocalFile->GetVersion(), localFileV2->GetVersion(), ());
   TEST_EQUAL(Status::EOnDiskOutOfDate, storage.CountryStatusEx(countryId), ());
 
-  storage.DeleteCountry(countryId, MapOptions::Map);
+  storage.DeleteCountry(countryId, MapFileType::Map);
 
   localFileV1->SyncWithDisk();
   TEST(!localFileV1->HasFiles(), ());
@@ -691,13 +691,13 @@ UNIT_CLASS_TEST(StorageTest, DeletePendingCountry)
 {
   CountryId const countryId = storage.FindCountryIdByFile("Azerbaijan");
   TEST(IsCountryIdValid(countryId), ());
-  storage.DeleteCountry(countryId, MapOptions::Map);
+  storage.DeleteCountry(countryId, MapFileType::Map);
 
   {
     unique_ptr<CountryDownloaderChecker> checker =
-        CancelledCountryDownloaderChecker(storage, countryId, MapOptions::Map);
+        CancelledCountryDownloaderChecker(storage, countryId, MapFileType::Map);
     checker->StartDownload();
-    storage.DeleteCountry(countryId, MapOptions::Map);
+    storage.DeleteCountry(countryId, MapFileType::Map);
     runner.Run();
   }
 }
@@ -709,24 +709,24 @@ UNIT_CLASS_TEST(TwoComponentStorageTest, CountriesAndDeleteSingleMwm)
 
   CountryId const uruguayCountryId = storage.FindCountryIdByFile("Uruguay");
   TEST(IsCountryIdValid(uruguayCountryId), ());
-  storage.DeleteCountry(uruguayCountryId, MapOptions::Map);
+  storage.DeleteCountry(uruguayCountryId, MapFileType::Map);
   SCOPE_GUARD(cleanupUruguayFiles,
-              bind(&Storage::DeleteCountry, &storage, uruguayCountryId, MapOptions::Map));
+              bind(&Storage::DeleteCountry, &storage, uruguayCountryId, MapFileType::Map));
 
   CountryId const venezuelaCountryId = storage.FindCountryIdByFile("Venezuela");
   TEST(IsCountryIdValid(venezuelaCountryId), ());
-  storage.DeleteCountry(venezuelaCountryId, MapOptions::Map);
+  storage.DeleteCountry(venezuelaCountryId, MapFileType::Map);
   SCOPE_GUARD(cleanupVenezuelaFiles,
-              bind(&Storage::DeleteCountry, &storage, venezuelaCountryId, MapOptions::Map));
+              bind(&Storage::DeleteCountry, &storage, venezuelaCountryId, MapFileType::Map));
 
   {
     unique_ptr<CountryDownloaderChecker> uruguayChecker = make_unique<CountryDownloaderChecker>(
-        storage, uruguayCountryId, MapOptions::Map,
-        vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::EOnDisk});
+      storage, uruguayCountryId, MapFileType::Map,
+      vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::EOnDisk});
 
     unique_ptr<CountryDownloaderChecker> venezuelaChecker = make_unique<CountryDownloaderChecker>(
-        storage, venezuelaCountryId, MapOptions::Map,
-        vector<Status>{Status::ENotDownloaded, Status::EInQueue,
+      storage, venezuelaCountryId, MapFileType::Map,
+      vector<Status>{Status::ENotDownloaded, Status::EInQueue,
                         Status::EDownloading, Status::EOnDisk});
 
     uruguayChecker->StartDownload();
@@ -736,15 +736,15 @@ UNIT_CLASS_TEST(TwoComponentStorageTest, CountriesAndDeleteSingleMwm)
 
   {
     unique_ptr<CountryDownloaderChecker> uruguayChecker = make_unique<CountryDownloaderChecker>(
-        storage, uruguayCountryId, MapOptions::Map,
-        vector<Status>{Status::EOnDisk, Status::ENotDownloaded});
+      storage, uruguayCountryId, MapFileType::Map,
+      vector<Status>{Status::EOnDisk, Status::ENotDownloaded});
 
     unique_ptr<CountryDownloaderChecker> venezuelaChecker = make_unique<CountryDownloaderChecker>(
-        storage, venezuelaCountryId, MapOptions::Map,
-        vector<Status>{Status::EOnDisk, Status::ENotDownloaded});
+      storage, venezuelaCountryId, MapFileType::Map,
+      vector<Status>{Status::EOnDisk, Status::ENotDownloaded});
 
-    storage.DeleteCountry(uruguayCountryId, MapOptions::Map);
-    storage.DeleteCountry(venezuelaCountryId, MapOptions::Map);
+    storage.DeleteCountry(uruguayCountryId, MapFileType::Map);
+    storage.DeleteCountry(venezuelaCountryId, MapFileType::Map);
     runner.Run();
   }
 
@@ -762,32 +762,32 @@ UNIT_CLASS_TEST(TwoComponentStorageTest, DownloadTwoCountriesAndDelete)
 
   CountryId const uruguayCountryId = storage.FindCountryIdByFile("Uruguay");
   TEST(IsCountryIdValid(uruguayCountryId), ());
-  storage.DeleteCountry(uruguayCountryId, MapOptions::Map);
+  storage.DeleteCountry(uruguayCountryId, MapFileType::Map);
   SCOPE_GUARD(cleanupUruguayFiles, bind(&Storage::DeleteCountry, &storage, uruguayCountryId,
-                                        MapOptions::Map));
+                                        MapFileType::Map));
 
   CountryId const venezuelaCountryId = storage.FindCountryIdByFile("Venezuela");
   TEST(IsCountryIdValid(venezuelaCountryId), ());
-  storage.DeleteCountry(venezuelaCountryId, MapOptions::Map);
+  storage.DeleteCountry(venezuelaCountryId, MapFileType::Map);
   SCOPE_GUARD(cleanupVenezuelaFiles, bind(&Storage::DeleteCountry, &storage, venezuelaCountryId,
-                                          MapOptions::Map));
+                                          MapFileType::Map));
 
   {
     // Map file will be deleted for Uruguay, thus, routing file should also be deleted. Therefore,
     // Uruguay should pass through following states: NotDownloaded -> Downloading -> NotDownloaded.
     unique_ptr<CountryDownloaderChecker> uruguayChecker = make_unique<CountryDownloaderChecker>(
-        storage, uruguayCountryId, MapOptions::Map,
-        vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::ENotDownloaded});
+      storage, uruguayCountryId, MapFileType::Map,
+      vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::ENotDownloaded});
     // Venezuela should pass through the following states:
     // NotDownloaded -> InQueue (Venezuela is added after Uruguay) -> Downloading -> NotDownloaded.
     unique_ptr<CountryDownloaderChecker> venezuelaChecker = make_unique<CountryDownloaderChecker>(
-        storage, venezuelaCountryId, MapOptions::Map,
-        vector<Status>{Status::ENotDownloaded, Status::EInQueue, Status::EDownloading,
+      storage, venezuelaCountryId, MapFileType::Map,
+      vector<Status>{Status::ENotDownloaded, Status::EInQueue, Status::EDownloading,
                         Status::ENotDownloaded});
     uruguayChecker->StartDownload();
     venezuelaChecker->StartDownload();
-    storage.DeleteCountry(uruguayCountryId, MapOptions::Map);
-    storage.DeleteCountry(venezuelaCountryId, MapOptions::Map);
+    storage.DeleteCountry(uruguayCountryId, MapFileType::Map);
+    storage.DeleteCountry(venezuelaCountryId, MapFileType::Map);
     runner.Run();
   }
 
@@ -802,8 +802,8 @@ UNIT_CLASS_TEST(StorageTest, CancelDownloadingWhenAlmostDone)
 {
   CountryId const countryId = storage.FindCountryIdByFile("Uruguay");
   TEST(IsCountryIdValid(countryId), ());
-  storage.DeleteCountry(countryId, MapOptions::Map);
-  SCOPE_GUARD(cleanupFiles, bind(&Storage::DeleteCountry, &storage, countryId, MapOptions::Map));
+  storage.DeleteCountry(countryId, MapFileType::Map);
+  SCOPE_GUARD(cleanupFiles, bind(&Storage::DeleteCountry, &storage, countryId, MapFileType::Map));
 
   {
     CancelDownloadingWhenAlmostDoneChecker checker(storage, countryId, runner);
@@ -820,12 +820,12 @@ UNIT_CLASS_TEST(StorageTest, DeleteCountry)
   LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland",
                                                            version::FOR_TESTING_SINGLE_MWM1);
   {
-    FileWriter writer(file.GetPath(MapOptions::Map));
+    FileWriter writer(file.GetPath(MapFileType::Map));
     string const data = "mwm";
     writer.Write(data.data(), data.size());
   }
   file.SyncWithDisk();
-  TEST(file.OnDisk(MapOptions::Map), ());
+  TEST(file.OnDisk(MapFileType::Map), ());
 
   CountryIndexes::PreparePlaceOnDisk(file);
   string const bitsPath = CountryIndexes::GetPath(file, CountryIndexes::Index::Bits);
@@ -852,12 +852,12 @@ UNIT_CLASS_TEST(TwoComponentStorageTest, DeleteCountry)
   LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland",
                                                            version::FOR_TESTING_TWO_COMPONENT_MWM1);
   {
-    FileWriter writer(file.GetPath(MapOptions::Map));
+    FileWriter writer(file.GetPath(MapFileType::Map));
     string const data = "mwm";
     writer.Write(data.data(), data.size());
   }
   file.SyncWithDisk();
-  TEST(file.OnDisk(MapOptions::Map), ());
+  TEST(file.OnDisk(MapFileType::Map), ());
 
   CountryIndexes::PreparePlaceOnDisk(file);
   string const bitsPath = CountryIndexes::GetPath(file, CountryIndexes::Index::Bits);
@@ -898,13 +898,13 @@ UNIT_TEST(StorageTest_FailedDownloading)
 
   {
     FailedDownloadingWaiter waiter(storage, countryId);
-    storage.DownloadCountry(countryId, MapOptions::Map);
+    storage.DownloadCountry(countryId, MapFileType::Map);
     testing::RunEventLoop();
   }
 
   // File wasn't downloaded, but temprorary downloader files must exist.
   string const downloadPath =
-      GetFileDownloadPath(storage.GetCurrentDataVersion(), countryFile, MapOptions::Map);
+      GetFileDownloadPath(storage.GetCurrentDataVersion(), countryFile, MapFileType::Map);
   TEST(!Platform::IsFileExistsByFullPath(downloadPath), ());
   TEST(Platform::IsFileExistsByFullPath(downloadPath + DOWNLOADING_FILE_EXTENSION), ());
   TEST(Platform::IsFileExistsByFullPath(downloadPath + RESUME_FILE_EXTENSION), ());
@@ -917,11 +917,11 @@ UNIT_TEST(StorageTest_ObsoleteMapsRemoval)
   CountryFile country("Azerbaijan");
 
   tests_support::ScopedDir dir1("1");
-  tests_support::ScopedFile map1(dir1, country, MapOptions::Map);
+  tests_support::ScopedFile map1(dir1, country, MapFileType::Map);
   LocalCountryFile file1(dir1.GetFullPath(), country, 1 /* version */);
 
   tests_support::ScopedDir dir2("2");
-  tests_support::ScopedFile map2(dir2, country, MapOptions::Map);
+  tests_support::ScopedFile map2(dir2, country, MapFileType::Map);
   LocalCountryFile file2(dir2.GetFullPath(), country, 2 /* version */);
 
   TEST(map1.Exists(), ());
@@ -1002,22 +1002,22 @@ UNIT_CLASS_TEST(StorageTest, DownloadedMap)
   TEST(IsCountryIdValid(algeriaCentralCountryId), ());
   TEST(IsCountryIdValid(algeriaCoastCountryId), ());
 
-  storage.DeleteCountry(algeriaCentralCountryId, MapOptions::Map);
-  storage.DeleteCountry(algeriaCoastCountryId, MapOptions::Map);
+  storage.DeleteCountry(algeriaCentralCountryId, MapFileType::Map);
+  storage.DeleteCountry(algeriaCoastCountryId, MapFileType::Map);
 
   SCOPE_GUARD(cleanupAlgeriaCentral,
-              bind(&Storage::DeleteCountry, &storage, algeriaCentralCountryId, MapOptions::Map));
+              bind(&Storage::DeleteCountry, &storage, algeriaCentralCountryId, MapFileType::Map));
   SCOPE_GUARD(cleanupAlgeriaCoast,
-              bind(&Storage::DeleteCountry, &storage, algeriaCoastCountryId, MapOptions::Map));
+              bind(&Storage::DeleteCountry, &storage, algeriaCoastCountryId, MapFileType::Map));
 
   {
     auto algeriaCentralChecker = make_unique<CountryDownloaderChecker>(
-        storage, algeriaCentralCountryId, MapOptions::Map,
-        vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::EOnDisk});
+      storage, algeriaCentralCountryId, MapFileType::Map,
+      vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::EOnDisk});
 
     auto algeriaCoastChecker = make_unique<CountryDownloaderChecker>(
-        storage, algeriaCoastCountryId, MapOptions::Map,
-        vector<Status>{Status::ENotDownloaded, Status::EInQueue,
+      storage, algeriaCoastCountryId, MapFileType::Map,
+      vector<Status>{Status::ENotDownloaded, Status::EInQueue,
                         Status::EDownloading, Status::EOnDisk});
 
     algeriaCentralChecker->StartDownload();
@@ -1068,7 +1068,7 @@ UNIT_CLASS_TEST(StorageTest, DownloadedMap)
   TEST_EQUAL(downloadedWithKeep.size(), 0, (downloadedWithKeep));
   TEST_EQUAL(availableWithKeep.size(), 0, (availableWithKeep));
 
-  storage.DeleteCountry(algeriaCentralCountryId, MapOptions::Map);
+  storage.DeleteCountry(algeriaCentralCountryId, MapFileType::Map);
   // Storage::GetChildrenInGroups test when Algeria_Coast has been downloaded and
   // Algeria_Central has been deleted.
   storage.GetChildrenInGroups(rootCountryId, downloaded, available);
@@ -1088,7 +1088,7 @@ UNIT_CLASS_TEST(StorageTest, DownloadedMap)
   TEST(!storage.IsNodeDownloaded("Algeria_Central"), ());
   TEST(storage.IsNodeDownloaded("Algeria_Coast"), ());
 
-  storage.DeleteCountry(algeriaCoastCountryId, MapOptions::Map);
+  storage.DeleteCountry(algeriaCoastCountryId, MapFileType::Map);
   // Storage::GetChildrenInGroups test when Algeria_Coast and Algeria_Central have been deleted.
   storage.GetChildrenInGroups(rootCountryId, downloaded, available);
   sort(downloaded.begin(), downloaded.end());
@@ -1106,13 +1106,13 @@ UNIT_CLASS_TEST(StorageTest, IsPointCoveredByDownloadedMaps)
   string const uruguayId = string("Uruguay");
   m2::PointD const montevideoUruguay = MercatorBounds::FromLatLon(-34.8094, -56.1558);
 
-  storage.DeleteCountry(uruguayId, MapOptions::Map);
+  storage.DeleteCountry(uruguayId, MapFileType::Map);
   TEST(!storage::IsPointCoveredByDownloadedMaps(montevideoUruguay, storage, *countryInfoGetter), ());
 
   {
     SCOPE_GUARD(cleanupCountryFiles,
-                bind(&Storage::DeleteCountry, &storage, uruguayId, MapOptions::Map));
-    auto const checker = AbsentCountryDownloaderChecker(storage, uruguayId, MapOptions::Map);
+                bind(&Storage::DeleteCountry, &storage, uruguayId, MapFileType::Map));
+    auto const checker = AbsentCountryDownloaderChecker(storage, uruguayId, MapFileType::Map);
     checker->StartDownload();
     runner.Run();
     TEST(storage::IsPointCoveredByDownloadedMaps(montevideoUruguay, storage, *countryInfoGetter), ());
@@ -1147,21 +1147,21 @@ UNIT_TEST(StorageTest_TwoInstance)
   InitStorage(storage2, runner2);
 
   string const uruguayId = string("Uruguay"); // This countryId is valid for single and two component mwms.
-  storage1.DeleteCountry(uruguayId, MapOptions::Map);
+  storage1.DeleteCountry(uruguayId, MapFileType::Map);
   {
     SCOPE_GUARD(cleanupCountryFiles,
-                bind(&Storage::DeleteCountry, &storage1, uruguayId, MapOptions::Map));
-    auto const checker = AbsentCountryDownloaderChecker(storage1, uruguayId, MapOptions::Map);
+                bind(&Storage::DeleteCountry, &storage1, uruguayId, MapFileType::Map));
+    auto const checker = AbsentCountryDownloaderChecker(storage1, uruguayId, MapFileType::Map);
     checker->StartDownload();
     runner1.Run();
     TEST(platform.IsFileExistsByFullPath(base::JoinPath(writableDir, versionDir1)), ());
   }
 
-  storage2.DeleteCountry(uruguayId, MapOptions::Map);
+  storage2.DeleteCountry(uruguayId, MapFileType::Map);
   {
     SCOPE_GUARD(cleanupCountryFiles,
-                bind(&Storage::DeleteCountry, &storage2, uruguayId, MapOptions::Map));
-    auto const checker = AbsentCountryDownloaderChecker(storage2, uruguayId, MapOptions::Map);
+                bind(&Storage::DeleteCountry, &storage2, uruguayId, MapFileType::Map));
+    auto const checker = AbsentCountryDownloaderChecker(storage2, uruguayId, MapFileType::Map);
     checker->StartDownload();
     runner2.Run();
     TEST(platform.IsFileExistsByFullPath(base::JoinPath(writableDir, versionDir1)), ());
@@ -1342,8 +1342,8 @@ UNIT_TEST(StorageTest_GetUpdateInfoSingleMwm)
 
   country1.SyncWithDisk();
   country2.SyncWithDisk();
-  auto const country1Size = country1.GetSize(MapOptions::Map);
-  auto const country2Size = country2.GetSize(MapOptions::Map);
+  auto const country1Size = country1.GetSize(MapFileType::Map);
+  auto const country2Size = country2.GetSize(MapFileType::Map);
 
   Storage::UpdateInfo updateInfo;
 
@@ -1761,7 +1761,7 @@ UNIT_TEST(StorageTest_FalsePolicy)
 
   {
     FailedDownloadingWaiter waiter(storage, countryId);
-    storage.DownloadCountry(countryId, MapOptions::Map);
+    storage.DownloadCountry(countryId, MapFileType::Map);
   }
 }
 

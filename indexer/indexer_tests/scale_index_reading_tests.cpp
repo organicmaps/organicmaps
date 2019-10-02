@@ -91,7 +91,7 @@ UNIT_CLASS_TEST(ScaleIndexReadingTest, Mmap)
 
   TEST(id.IsAlive(), ());
 
-  auto const path = id.GetInfo()->GetLocalFile().GetPath(MapOptions::Map);
+  auto const path = id.GetInfo()->GetLocalFile().GetPath(MapFileType::Map);
 
   FilesContainerR cont(path);
   feature::DataHeader header(cont);

@@ -404,7 +404,7 @@ void MwmSet::ClearCache(MwmId const & id)
 // MwmValue ----------------------------------------------------------------------------------------
 
 MwmValue::MwmValue(LocalCountryFile const & localFile)
-  : m_cont(platform::GetCountryReader(localFile, MapOptions::Map)), m_file(localFile)
+  : m_cont(platform::GetCountryReader(localFile, MapFileType::Map)), m_file(localFile)
 {
   m_factory.Load(m_cont);
 }

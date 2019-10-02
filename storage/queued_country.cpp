@@ -4,19 +4,29 @@
 
 namespace storage
 {
-QueuedCountry::QueuedCountry(CountryId const & countryId, MapOptions opt)
-  : m_countryId(countryId), m_downloadingType(opt)
+QueuedCountry::QueuedCountry(CountryId const & countryId, MapFileType type)
+  : m_countryId(countryId), m_fileType(type)
 {
   ASSERT(IsCountryIdValid(GetCountryId()), ("Only valid countries may be downloaded."));
 }
 
-void QueuedCountry::SetDownloadingType(MapOptions type)
+void QueuedCountry::SetFileType(MapFileType type)
 {
-  m_downloadingType = type;
+  m_fileType = type;
 }
 
-MapOptions QueuedCountry::GetDownloadingType() const
+MapFileType QueuedCountry::GetFileType() const
 {
-  return m_downloadingType;
+  return m_fileType;
+}
+
+CountryId const & QueuedCountry::GetCountryId() const
+{
+  return m_countryId;
+}
+
+bool QueuedCountry::operator==(CountryId const & countryId) const
+{
+  return m_countryId == countryId;
 }
 }  // namespace storage

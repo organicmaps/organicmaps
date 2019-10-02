@@ -294,10 +294,10 @@ private:
   /// during the downloading process.
   void OnMapFileDownloadProgress(MapFilesDownloader::Progress const & progress);
 
-  void RegisterDownloadedFiles(CountryId const & countryId, MapOptions files);
+  void RegisterDownloadedFiles(CountryId const & countryId, MapFileType type);
 
   void OnMapDownloadFinished(CountryId const & countryId, downloader::HttpRequest::Status status,
-                             MapOptions files);
+                             MapFileType type);
 
   /// Initiates downloading of the next file from the queue.
   void DownloadNextFile(QueuedCountry const & country);
@@ -557,11 +557,11 @@ public:
   /// Puts country denoted by countryId into the downloader's queue.
   /// During downloading process notifies observers about downloading
   /// progress and status changes.
-  void DownloadCountry(CountryId const & countryId, MapOptions opt);
+  void DownloadCountry(CountryId const & countryId, MapFileType type);
 
   /// Removes country files (for all versions) from the device.
   /// Notifies observers about country status change.
-  void DeleteCountry(CountryId const & countryId, MapOptions opt);
+  void DeleteCountry(CountryId const & countryId, MapFileType type);
 
   /// Removes country files of a particular version from the device.
   /// Notifies observers about country status change.
@@ -572,7 +572,7 @@ public:
   CountryId GetCurrentDownloadingCountryId() const;
   void EnableKeepDownloadingQueue(bool enable) {m_keepDownloadingQueue = enable;}
 
-  std::string GetDownloadRelativeUrl(CountryId const & countryId, MapOptions options) const;
+  std::string GetDownloadRelativeUrl(CountryId const & countryId, MapFileType type) const;
 
   /// @param[out] res Populated with oudated countries.
   void GetOutdatedCountries(std::vector<Country const *> & countries) const;
@@ -638,7 +638,7 @@ private:
   void RegisterFakeCountryFiles(platform::LocalCountryFile const & localFile);
 
   // Removes disk files for all versions of a country.
-  void DeleteCountryFiles(CountryId const & countryId, MapOptions opt, bool deferredDelete);
+  void DeleteCountryFiles(CountryId const & countryId, MapFileType type, bool deferredDelete);
 
   // Removes country files from downloader.
   bool DeleteCountryFilesFromDownloader(CountryId const & countryId);
@@ -649,9 +649,9 @@ private:
 
   // Returns a path to a place on disk downloader can use for
   // downloaded files.
-  std::string GetFileDownloadPath(CountryId const & countryId, MapOptions file) const;
+  std::string GetFileDownloadPath(CountryId const & countryId, MapFileType file) const;
 
-  void CountryStatusEx(CountryId const & countryId, Status & status, MapOptions & options) const;
+  void CountryStatusEx(CountryId const & countryId, Status & status, MapFileType & type) const;
 
   /// Fast version, doesn't check if country is out of date
   Status CountryStatus(CountryId const & countryId) const;

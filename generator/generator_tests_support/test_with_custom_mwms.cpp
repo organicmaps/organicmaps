@@ -24,7 +24,7 @@ TestWithCustomMwms::~TestWithCustomMwms()
 void TestWithCustomMwms::Cleanup(platform::LocalCountryFile const & file)
 {
   platform::CountryIndexes::DeleteFromDisk(file);
-  file.DeleteFromDisk(MapOptions::Map);
+  file.DeleteFromDisk(MapFileType::Map);
 }
 
 void TestWithCustomMwms::SetMwmVersion(uint32_t version) { m_version = version; }

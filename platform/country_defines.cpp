@@ -2,12 +2,12 @@
 
 #include "base/assert.hpp"
 
-std::string DebugPrint(MapOptions options)
+std::string DebugPrint(MapFileType type)
 {
-  switch (options)
+  switch (type)
   {
-  case MapOptions::Map: return "MapOnly";
-  case MapOptions::Diff: return "Diff";
+  case MapFileType::Map: return "MapOnly";
+  case MapFileType::Diff: return "Diff";
   }
   UNREACHABLE();
 }

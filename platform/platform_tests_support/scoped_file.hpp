@@ -36,7 +36,7 @@ public:
 
   // Creates a scoped file in Mode::Create using the path inferred from |countryFile|
   // and |mapOptions|.
-  ScopedFile(ScopedDir const & dir, CountryFile const & countryFile, MapOptions mapOptions);
+  ScopedFile(ScopedDir const & dir, CountryFile const & countryFile, MapFileType type);
 
   ~ScopedFile();
 

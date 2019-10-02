@@ -261,7 +261,7 @@ public:
 //   vector<m2::RectD> rects;
 //   rects.push_back(src1.GetWorldRect());
 
-//   ModelReaderPtr reader = platform::GetCountryReader(localFile, MapOptions::Map);
+//   ModelReaderPtr reader = platform::GetCountryReader(localFile, MapFileType::Map);
 
 //   while (!rects.empty())
 //   {

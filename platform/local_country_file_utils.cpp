@@ -135,9 +135,9 @@ void FindAllDiffsInDirectory(string const & dir, vector<LocalCountryFile> & diff
 }
 
 string GetFilePath(int64_t version, string const & dataDir, CountryFile const & countryFile,
-                   MapOptions options)
+                   MapFileType type)
 {
-  string const filename = GetFileName(countryFile.GetName(), options, version);
+  string const filename = GetFileName(countryFile.GetName(), type, version);
   string const dir = GetDataDirFullPath(dataDir);
   if (version == 0)
     return base::JoinPath(dir, filename);
@@ -153,9 +153,9 @@ void DeleteDownloaderFilesForCountry(int64_t version, CountryFile const & countr
 void DeleteDownloaderFilesForCountry(int64_t version, string const & dataDir,
                                      CountryFile const & countryFile)
 {
-  for (MapOptions opt : {MapOptions::Map, MapOptions::Diff})
+  for (MapFileType type : {MapFileType::Map, MapFileType::Diff})
   {
-    string const path = GetFileDownloadPath(version, dataDir, countryFile, opt);
+    string const path = GetFileDownloadPath(version, dataDir, countryFile, type);
     ASSERT(strings::EndsWith(path, READY_FILE_EXTENSION), ());
     Platform::RemoveFileIfExists(path);
     Platform::RemoveFileIfExists(path + RESUME_FILE_EXTENSION);
@@ -164,7 +164,7 @@ void DeleteDownloaderFilesForCountry(int64_t version, string const & dataDir,
 
   // Delete the diff that was downloaded but wasn't applied.
   {
-    string const path = GetFilePath(version, dataDir, countryFile, MapOptions::Diff);
+    string const path = GetFilePath(version, dataDir, countryFile, MapFileType::Diff);
     Platform::RemoveFileIfExists(path);
   }
 }
@@ -208,7 +208,7 @@ void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t ver
     if (name == "Japan" || name == "Brazil")
     {
       localFile.SyncWithDisk();
-      localFile.DeleteFromDisk(MapOptions::Map);
+      localFile.DeleteFromDisk(MapFileType::Map);
       continue;
     }
 
@@ -295,7 +295,7 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
 
       // Assume that empty path means the resource file.
       LocalCountryFile worldFile{string(), CountryFile(file), version::ReadVersionDate(reader)};
-      worldFile.m_files[static_cast<uint64_t>(MapOptions::Map)] = 1;
+      worldFile.m_files[static_cast<uint64_t>(MapFileType::Map)] = 1;
       if (i != localFiles.end())
       {
         // Always use resource World files instead of local on disk.
@@ -355,24 +355,23 @@ shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, string
   return make_shared<LocalCountryFile>(directory, countryFile, version);
 }
 
-string GetFileDownloadPath(int64_t version, CountryFile const & countryFile, MapOptions options)
+string GetFileDownloadPath(int64_t version, CountryFile const & countryFile, MapFileType type)
 {
-  return GetFileDownloadPath(version, string(), countryFile, options);
+  return GetFileDownloadPath(version, string(), countryFile, type);
 }
 
 string GetFileDownloadPath(int64_t version, string const & dataDir, CountryFile const & countryFile,
-                           MapOptions options)
+                           MapFileType type)
 {
   string const readyFile =
-      GetFileName(countryFile.GetName(), options, version) + READY_FILE_EXTENSION;
+      GetFileName(countryFile.GetName(), type, version) + READY_FILE_EXTENSION;
   string const dir = GetDataDirFullPath(dataDir);
   if (version == 0)
     return base::JoinPath(dir, readyFile);
   return base::JoinPath(dir, strings::to_string(version), readyFile);
 }
 
-unique_ptr<ModelReader> GetCountryReader(platform::LocalCountryFile const & file,
-                                         MapOptions options)
+unique_ptr<ModelReader> GetCountryReader(platform::LocalCountryFile const & file, MapFileType type)
 {
   Platform & platform = GetPlatform();
   // See LocalCountryFile comment for explanation.
@@ -381,7 +380,7 @@ unique_ptr<ModelReader> GetCountryReader(platform::LocalCountryFile const & file
     return platform.GetReader(file.GetCountryName() + DATA_FILE_EXTENSION,
                               GetSpecialFilesSearchScope());
   }
-  return platform.GetReader(file.GetPath(options), "f");
+  return platform.GetReader(file.GetPath(type), "f");
 }
 
 // static

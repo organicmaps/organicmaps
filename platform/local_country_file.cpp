@@ -38,7 +38,7 @@ void LocalCountryFile::SyncWithDisk()
   Platform & platform = GetPlatform();
 
   // Now we are not working with several files at the same time and diffs have greater priority.
-  for (MapOptions type : {MapOptions::Diff, MapOptions::Map})
+  for (MapFileType type : {MapFileType::Diff, MapFileType::Map})
   {
     ASSERT_LESS(base::Underlying(type), m_files.size(), ());
 
@@ -50,7 +50,7 @@ void LocalCountryFile::SyncWithDisk()
   }
 }
 
-void LocalCountryFile::DeleteFromDisk(MapOptions type) const
+void LocalCountryFile::DeleteFromDisk(MapFileType type) const
 {
   ASSERT_LESS(base::Underlying(type), m_files.size(), ());
 
@@ -61,12 +61,12 @@ void LocalCountryFile::DeleteFromDisk(MapOptions type) const
     LOG(LERROR, (type, "from", *this, "wasn't deleted from disk."));
 }
 
-string LocalCountryFile::GetPath(MapOptions type) const
+string LocalCountryFile::GetPath(MapFileType type) const
 {
   return base::JoinPath(m_directory, GetFileName(m_countryFile.GetName(), type, GetVersion()));
 }
 
-uint64_t LocalCountryFile::GetSize(MapOptions type) const
+uint64_t LocalCountryFile::GetSize(MapFileType type) const
 {
   ASSERT_LESS(base::Underlying(type), m_files.size(), ());
 
@@ -78,7 +78,7 @@ bool LocalCountryFile::HasFiles() const
   return std::any_of(m_files.cbegin(), m_files.cend(), [](auto value) { return value != 0; });
 }
 
-bool LocalCountryFile::OnDisk(MapOptions type) const
+bool LocalCountryFile::OnDisk(MapFileType type) const
 {
   ASSERT_LESS(base::Underlying(type), m_files.size(), ());
 
@@ -106,7 +106,7 @@ bool LocalCountryFile::operator==(LocalCountryFile const & rhs) const
 
 bool LocalCountryFile::ValidateIntegrity() const
 {
-  auto calculatedSha1 = coding::SHA1::CalculateBase64(GetPath(MapOptions::Map));
+  auto calculatedSha1 = coding::SHA1::CalculateBase64(GetPath(MapFileType::Map));
   ASSERT_EQUAL(calculatedSha1, m_countryFile.GetSha1(), ("Integrity failure"));
   return calculatedSha1 == m_countryFile.GetSha1();
 }

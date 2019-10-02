@@ -62,7 +62,7 @@ TestMwmBuilder::TestMwmBuilder(platform::LocalCountryFile & file, DataHeader::Ma
   : m_file(file)
   , m_type(type)
   , m_collector(
-        make_unique<FeaturesCollector>(m_file.GetPath(MapOptions::Map) + EXTENSION_TMP))
+        make_unique<FeaturesCollector>(m_file.GetPath(MapFileType::Map) + EXTENSION_TMP))
   , m_version(version)
 {
 }
@@ -140,7 +140,7 @@ void TestMwmBuilder::Finish()
 
   CHECK(base::DeleteFileX(tmpFilePath), ());
 
-  string const path = m_file.GetPath(MapOptions::Map);
+  string const path = m_file.GetPath(MapFileType::Map);
   (void)base::DeleteFileX(path + OSM2FEATURE_FILE_EXTENSION);
 
   CHECK(BuildOffsetsTable(path), ("Can't build feature offsets table."));

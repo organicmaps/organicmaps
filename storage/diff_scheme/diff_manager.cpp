@@ -51,12 +51,12 @@ void Manager::ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancella
 
     auto & diffReadyPath = p.m_diffReadyPath;
     auto & diffFile = p.m_diffFile;
-    auto const diffPath = diffFile->GetPath(MapOptions::Diff);
+    auto const diffPath = diffFile->GetPath(MapFileType::Diff);
     auto result = DiffApplicationResult::Failed;
 
     diffFile->SyncWithDisk();
 
-    auto const isOnDisk = diffFile->OnDisk(MapOptions::Diff);
+    auto const isOnDisk = diffFile->OnDisk(MapFileType::Diff);
     auto const isFilePrepared = isOnDisk || base::RenameFileX(diffReadyPath, diffPath);
 
     if (isFilePrepared)
@@ -65,8 +65,8 @@ void Manager::ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancella
       if (!isOnDisk)
         diffFile->SyncWithDisk();
 
-      std::string const oldMwmPath = p.m_oldMwmFile->GetPath(MapOptions::Map);
-      std::string const newMwmPath = diffFile->GetPath(MapOptions::Map);
+      std::string const oldMwmPath = p.m_oldMwmFile->GetPath(MapFileType::Map);
+      std::string const newMwmPath = diffFile->GetPath(MapFileType::Map);
       std::string const diffApplyingInProgressPath = newMwmPath + DIFF_APPLYING_FILE_EXTENSION;
 
       result = generator::mwm_diff::ApplyDiff(oldMwmPath, diffApplyingInProgressPath, diffPath,
@@ -86,7 +86,7 @@ void Manager::ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancella
     switch (result)
     {
     case DiffApplicationResult::Ok:
-      diffFile->DeleteFromDisk(MapOptions::Diff);
+      diffFile->DeleteFromDisk(MapFileType::Diff);
       break;
     case DiffApplicationResult::Cancelled:
       // The diff file will be deleted by storage.
@@ -94,7 +94,7 @@ void Manager::ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancella
       // of interacting with storage are much harder to be taken into account that way.
       break;
     case DiffApplicationResult::Failed:
-      diffFile->DeleteFromDisk(MapOptions::Diff);
+      diffFile->DeleteFromDisk(MapFileType::Diff);
       alohalytics::Stats::Instance().LogEvent(
           "Downloader_DiffScheme_error",
           {{"type", "patching"},

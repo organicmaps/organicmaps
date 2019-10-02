@@ -1303,7 +1303,7 @@ void EditorTest::SaveTransactionTest()
 void EditorTest::Cleanup(platform::LocalCountryFile const & map)
 {
   platform::CountryIndexes::DeleteFromDisk(map);
-  map.DeleteFromDisk(MapOptions::Map);
+  map.DeleteFromDisk(MapFileType::Map);
 }
 
 bool EditorTest::RemoveMwm(MwmSet::MwmId const & mwmId)

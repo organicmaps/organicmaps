@@ -144,7 +144,7 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
   vector<double> distances(pois.size());
   vector<bool> emit(pois.size());
 
-  FeaturesVectorTest fv(mwmId.GetInfo()->GetLocalFile().GetPath(MapOptions::Map));
+  FeaturesVectorTest fv(mwmId.GetInfo()->GetLocalFile().GetPath(MapFileType::Map));
   fv.GetVector().ForEach([&](FeatureType & ft, uint32_t index) {
     FeatureID id(mwmId, index);
     ResultTracer::Provenance provenance;

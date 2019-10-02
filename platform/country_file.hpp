@@ -47,6 +47,6 @@ private:
 /// \param countryFile is a file name without extension. For example Abkhazia.
 /// \param file is type of map data.
 /// \param version is version of mwm. For example 160731.
-std::string GetFileName(std::string const & countryFile, MapOptions file, int64_t version);
+std::string GetFileName(std::string const & countryFile, MapFileType type, int64_t version);
 std::string DebugPrint(CountryFile const & file);
 }  // namespace platform

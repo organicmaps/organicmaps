@@ -87,7 +87,7 @@ UNIT_TEST(RankTableBuilder_EndToEnd)
 
   platform::LocalCountryFile localFile =
       platform::LocalCountryFile::MakeForTesting("minsk-pass-copy");
-  TEST(localFile.OnDisk(MapOptions::Map), ());
+  TEST(localFile.OnDisk(MapFileType::Map), ());
 
   vector<uint8_t> ranks;
   {
