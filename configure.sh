@@ -20,7 +20,6 @@ DEFAULT_PRIVATE_CAR_MODEL_COEFS="$BASE_PATH/routing_common/car_model_coefs_defau
 PRIVATE_PROPERTIES="$BASE_PATH/android/secure.properties"
 PRIVATE_FABRIC_PROPERTIES="$BASE_PATH/android/fabric.properties"
 PRIVATE_PUSHWOOSH_PROPERTIES="$BASE_PATH/android/pushwoosh.properties"
-PRIVATE_LIBNOTIFY_PROPERTIES="$BASE_PATH/android/libnotify.properties"
 PRIVATE_NETWORK_CONFIG="$BASE_PATH/android/res/xml/network_security_config.xml"
 SAVED_PRIVATE_REPO_FILE="$BASE_PATH/.private_repository_url"
 SAVED_PRIVATE_BRANCH_FILE="$BASE_PATH/.private_repository_branch"
@@ -46,10 +45,6 @@ setup_opensource() {
   spropKeyPassword = "12345678"
 }
 ' > "$PRIVATE_PROPERTIES"
-
-  echo 'appId=XXXXX
-projectId=00000000
-' > "$PRIVATE_LIBNOTIFY_PROPERTIES"
 
   echo 'apiSecret=0000000000000000000000000000000000000000000000000000000000000000
 apiKey=0000000000000000000000000000000000000000
