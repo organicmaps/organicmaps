@@ -16,59 +16,33 @@ TypesSkipper::TypesSkipper()
 {
   Classificator const & c = classif();
 
-  for (auto const & e : (StringIL[]){{"barrier", "border_control"}})
-    m_doNotSkip.push_back(c.GetTypeByPath(e));
-  for (auto const & e : (StringIL[]){{"entrance"}, {"barrier"}})
-    m_skipAlways[0].push_back(c.GetTypeByPath(e));
-  for (auto const & e : (StringIL[]){{"building", "address"}})
-    m_skipAlways[1].push_back(c.GetTypeByPath(e));
-
-  for (auto const & e : (StringIL[]){{"building"}, {"highway"}, {"natural"},
-                                     {"waterway"}, {"landuse"}})
+  for (auto const & e : (StringIL[]){{"building"}, {"highway"}, {"landuse"}, {"natural"},
+                                     {"office"}, {"waterway"}, {"area:highway"}})
   {
     m_skipIfEmptyName[0].push_back(c.GetTypeByPath(e));
   }
 
-  for (auto const & e : (StringIL[]){{"place", "country"},
+  for (auto const & e : (StringIL[]){{"man_made", "chimney"},
+                                     {"place", "country"},
                                      {"place", "state"},
                                      {"place", "county"},
                                      {"place", "region"},
                                      {"place", "city"},
                                      {"place", "town"},
-                                     {"railway", "rail"}})
+                                     {"place", "suburb"},
+                                     {"place", "neighbourhood"},
+                                     {"place", "square"}})
   {
     m_skipIfEmptyName[1].push_back(c.GetTypeByPath(e));
   }
-
-  m_country = c.GetTypeByPath({"place", "country"});
-  m_state = c.GetTypeByPath({"place", "state"});
-}
-
-void TypesSkipper::SkipTypes(feature::TypesHolder & types) const
-{
-  auto shouldBeRemoved = [this](uint32_t type) {
-    if (HasType(m_doNotSkip, type))
-      return false;
-
-    ftype::TruncValue(type, 2);
-    if (HasType(m_skipAlways[1], type))
-      return true;
-
-    ftype::TruncValue(type, 1);
-    if (HasType(m_skipAlways[0], type))
-      return true;
-
-    return false;
-  };
-
-  types.RemoveIf(shouldBeRemoved);
 }
 
 void TypesSkipper::SkipEmptyNameTypes(feature::TypesHolder & types) const
 {
+  static const TwoLevelPOIChecker dontSkip;
   auto shouldBeRemoved = [this](uint32_t type)
   {
-    if (m_dontSkipIfEmptyName.IsMatched(type))
+    if (dontSkip.IsMatched(type))
       return false;
 
     ftype::TruncValue(type, 2);
@@ -87,10 +61,12 @@ void TypesSkipper::SkipEmptyNameTypes(feature::TypesHolder & types) const
 
 bool TypesSkipper::IsCountryOrState(feature::TypesHolder const & types) const
 {
+  auto static const country = classif().GetTypeByPath({"place", "country"});
+  auto static const state = classif().GetTypeByPath({"place", "state"});
   for (uint32_t t : types)
   {
     ftype::TruncValue(t, 2);
-    if (t == m_country || t == m_state)
+    if (t == country || t == state)
       return true;
   }
   return false;

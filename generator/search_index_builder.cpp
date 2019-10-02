@@ -343,11 +343,6 @@ public:
         inserter.AddToken(kPostcodesLang, token);
     }
 
-    skipIndex.SkipTypes(types);
-    if (types.Empty())
-      return;
-
-    // Skip types for features without names.
     if (!f.ForEachName(inserter))
       skipIndex.SkipEmptyNameTypes(types);
     if (types.Empty())

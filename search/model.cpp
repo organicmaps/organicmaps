@@ -14,17 +14,24 @@ TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
 {
   Classificator const & c = classif();
   base::StringIL arr[] = {{"building", "train_station"},
+                          {"emergency", "defibrillator"},
+                          {"emergency", "fire_hydrant"},
                           {"highway", "bus_stop"},
                           {"highway", "ford"},
+                          {"highway", "raceway"},
+                          {"highway", "rest_area"},
                           {"highway", "speed_camera"},
-                          {"waterway", "waterfall"},
-                          {"natural", "volcano"},
-                          {"natural", "cave_entrance"},
                           {"natural", "beach"},
-                          {"natural", "spring"},
                           {"natural", "geyser"},
-                          {"emergency", "defibrillator"},
-                          {"emergency", "fire_hydrant"}};
+                          {"natural", "cave_entrance"},
+                          {"natural", "spring"},
+                          {"natural", "volcano"},
+                          {"office", "estate_agent"},
+                          {"office", "government"},
+                          {"office", "insurance"},
+                          {"office", "lawyer"},
+                          {"office", "telecommunication"},
+                          {"waterway", "waterfall"}};
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
     m_types.push_back(c.GetTypeByPath(arr[i]));

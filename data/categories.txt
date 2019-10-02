@@ -1949,24 +1949,6 @@ sk:3Metro|podzemná doprava
 sw:Reli ya chini
 fa:ایستگاه مترو
 
-railway-level_crossing
-en:Level Crossing
-ru:Железнодорожный переезд
-fr:Passage à niveau
-de:Bahnübergang
-it:Passaggio a livello
-es:Paso a nivel
-pt:Passagem de nível
-pt-BR:Passagem em nível
-pl:Przejazd kolejowy
-cs:Železniční přejezd
-nl:Overweg
-da:Jernbaneoverskæring
-fi:Tasoristeys
-hu:Vasúti átjáró
-fa:تقاطع هم سطح با راه اهن
-el:Ισόπεδη σιδηροδρομική διάβαση|Πασάγιο
-
 amenity-ferry_terminal|@transport
 en:3Ferry|terminal|U+1F6A2|U+1F6A4|U+2693
 ru:3Паром|транспорт
@@ -3198,6 +3180,7 @@ el:Συντριβάνι
 sk:Fontána
 fa:فواره
 
+# landuse-cemetery skipped if empty name
 amenity-grave_yard|landuse-cemetery
 en:Graveyard|cemetery
 ru:Кладбище
@@ -3932,6 +3915,7 @@ sk:Kontinent|svetadiel
 sw:Bara
 fa:قاره
 
+# Skipped if empty name
 place-country
 en:Country
 ru:Страна
@@ -3965,6 +3949,7 @@ sk:Krajina
 sw:Nchi
 fa:کشور
 
+# Skipped if empty name
 place-city
 en:City|town
 ru:Город
@@ -3998,6 +3983,7 @@ sk:Mesto
 sw:Mji
 fa:شهر
 
+# Skipped if empty name
 place-town
 en:Town|city
 ru:Город
@@ -4064,6 +4050,7 @@ sk:Hlavné mesto|metropole
 sw:Mji mkuu
 fa:پایتخت
 
+# Skipped if empty name
 place-county
 en:County
 ru:Округ|графство
@@ -4096,6 +4083,7 @@ el:Δήμος
 sk:Krajina
 fa:بخش
 
+# Skipped if empty name
 place-state
 en:State|province
 ru:Штат|провинция
@@ -4129,6 +4117,7 @@ sk:Štát|kraj
 sw:Jimbo
 fa:ایالت
 
+# Skipped if empty name
 place-region
 en:Region
 ru:Район
@@ -4195,6 +4184,7 @@ sk:Ostrov
 sw:Kisiwa
 fa:جزیره
 
+# Skipped if empty name
 place-suburb|landuse-residential|place-neighbourhood
 en:Suburb|district
 ru:Район|микрорайон|округ|квартал
@@ -4360,6 +4350,7 @@ sk:Farma
 sw:Shamba
 fa:مزرعه
 
+# Skipped if empty name
 waterway-river|waterway-stream|waterway-riverbank
 en:River
 ru:Река
@@ -4393,6 +4384,7 @@ sk:Rieka
 sw:Mto
 fa:رودخانه
 
+# Skipped if empty name
 waterway-canal
 en:Canal
 ru:Канал
@@ -4458,6 +4450,7 @@ el:Πίστα αγώνων
 sk:Pretekárska dráha
 fa:کانال
 
+# Skipped if empty name
 highway-path|highway-footway|highway-steps
 en:Path
 ru:Дорожка
@@ -4491,6 +4484,7 @@ sk:Cesta
 sw:Jia
 fa:مسیر
 
+# Skipped if empty name
 highway-pedestrian|highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-unclassified|highway-motorway_link|highway-motorway
 en:Street|st|str|ave|road|rd
 ru:Улица|переулок|проезд|тракт|проспект|ул
@@ -4524,6 +4518,7 @@ sk:Ulica|cesta|ul
 sw:Barabara|mtaa|barabara kuu
 fa:جاده
 
+# Skipped if empty name
 highway-motorway_junction
 en:3Exit|3junction
 ru:3Съезд
@@ -4555,6 +4550,7 @@ sk:Dopravný uzol|3diaľnica
 sw:Njia panda
 fa:تقاطع
 
+# Skipped if empty name
 natural-peak
 en:Peak|mountain|mount|U+1F5FB|U+1F304
 ru:Гора|вершина|пик
@@ -4588,6 +4584,7 @@ sk:Hora|pohorie
 sw:Kilele|mlima
 fa:قله|کوه|کوهستان
 
+# Skipped if empty name
 natural-water|landuse-basin|landuse-reservoir
 en:Water
 ru:Водоём
@@ -4621,6 +4618,7 @@ sk:Voda
 sw:Maji
 fa:اب
 
+# Skipped if empty name
 natural-pond
 en:Pond|water
 ru:Пруд|водоём
@@ -4654,6 +4652,7 @@ sk:Rybník|vodná nádrž|voda
 sw:Bwawa
 fa:تالاب
 
+# Skipped if empty name
 natural-lake
 en:Lake|water
 ru:Озеро|водоём
@@ -4687,6 +4686,7 @@ sk:Jazero|vodná nádrž|voda
 sw:Ziwa
 fa:دریاچه
 
+# Skipped if empty name
 natural-wood|landuse-forest
 en:Forest|U+1F332|U+1F333
 ru:Лес
@@ -5216,6 +5216,7 @@ hu:Atlétika
 pt-BR:Atletismo
 el:Στίβος
 
+# Skipped if empty name
 building
 en:Building|U+1F3E0|U+1F3E1|U+1F3E2
 ru:Здание
@@ -5334,6 +5335,7 @@ sk:4Veľvyslanectvo|4ambasáda
 sw:Ubalozi
 fa:سفارت
 
+# Skipped if empty name
 natural-bay
 en:Bay
 ru:Залив
@@ -5530,6 +5532,7 @@ sk:Kancelária|úrad
 sw:Ofisi|kampuni
 fa:اداره
 
+# Skipped if empty name
 office-company
 en:Company Office
 ru:Организация
@@ -5755,69 +5758,6 @@ el:Ηλεκτρολόγος
 sk:Elektrikár
 fa:برق کار
 
-craft-gardener
-en:Gardener|Landscaper
-ru:Садовник
-ar:مهندس مناظر
-cs:Zahradník
-da:Gartner
-nl:Tuinarchitect|landschapsarchitect|tuinman
-fi:Puutarhuri
-fr:Paysagiste
-de:Landschaftsgärtner|Gärtner
-hu:Kertész
-id:Tukang kebun
-it:Giardiniere|architetto di esterni
-ja:造園家
-ko:조경사
-nb:Anleggsgartner
-pl:Ogrodnik
-pt:Paisagista
-pt-BR:Jardineiro|paisagista
-ro:Peisagist
-es:Paisajista
-sv:Trädgårdsmästare|landskapsarkitekt
-th:คนจัดสวน
-tr:Bahçe düzenleyici|peyzaj
-uk:Садівник
-vi:Người thiết kế và xây dựng cảnh quan
-zh-Hans:园林设计师
-zh-Hant:園藝師
-el:Κηπουρός|Κηποτέχνης
-sk:Záhradníctvo
-fa:باغبان
-
-craft-hvac
-en:Hvac|Air Conditioner
-ru:Кондиционеры
-ar:تكييف|مكيف هواء
-cs:HVAC|montér vzduchotechniky
-da:Blikkenslager|klimaanlæg
-nl:Airconditioning|luchtbehandeling|airco
-fi:Ilmastointilaite
-fr:Climatiseur
-de:Heizung|Lüftung|Klima|Installateur|Klimaanlage
-hu:Hűtés-fűtés szerelő|légkondicionáló
-id:Hvac
-it:Impianti HVAC|aria condizionata
-ja:冷暖房空調|エアコン
-ko:냉난방기|에어컨
-nb:Klimaanlegg|aircondition
-pl:Klimatyzacja
-pt:Ar-condicionado
-pt-BR:Ar-condicionado
-ro:Hvac|aparate de aer condiționat
-es:Aire acondicionado
-sv:Vvs|luftkonditionering
-th:ระบบปรับอากาศ|เครื่องปรับอากาศ
-tr:Klimacı
-uk:Кондиціонери
-vi:Điều hòa nhiệt độ
-zh-Hans:暖通工程师
-zh-Hant:空調設備
-el:Ψυκτικός|κλιματισμός
-sk:Vzduchotechnika
-
 craft-metal_construction
 en:Metal Worker
 ru:Ковка металла|кузнец
@@ -5850,38 +5790,6 @@ el:Μεταλλουργός
 sk:Kovorobotník|kovospracovanie
 fa:اهن کار
 
-craft-painter
-en:Painter
-ru:Маляр|мастерская маляра
-ar:رسام
-cs:Malíř
-da:Maler
-nl:Schilder
-fi:Maalari
-fr:Peintre
-de:Maler
-hu:Festő
-id:Tukang cat
-it:Imbianchino|pittore
-ja:塗装工
-ko:페인트공
-nb:Maler
-pl:Malarz
-pt:Pintor
-pt-BR:Pintor
-ro:Pictor
-es:Pintor
-sv:Målare
-th:ช่างทาสี
-tr:Boyacı
-uk:Маляр|малярська майстерня
-vi:Họa sỹ
-zh-Hans:油漆匠
-zh-Hant:油漆工
-el:Μπογιατζής|χρωματιστής
-sk:Maliar natierač
-fa:نقاش
-
 craft-photographer
 en:Photographer|photography Studio
 ru:Фотограф|фотоателье
@@ -5913,38 +5821,6 @@ zh-Hant:攝影師
 el:Φωτογράφος|Στούντιο φωτογραφίας
 sk:Fotograf|fotoateliér
 fa:عکاس
-
-craft-plumber
-en:Plumber
-ru:Сантехник
-ar:سمكري
-cs:Instalatér
-da:VVS-mand
-nl:Loodgieter
-fi:Putkimies
-fr:Plombier
-de:Installateur|Klempner
-hu:Vízvezeték-szerelő
-id:Tukang pipa
-it:Idraulico|tubista
-ja:配管工
-ko:배관공
-nb:Rørlegger
-pl:Hydraulik
-pt:Canalizador
-pt-BR:Encanador|bombeiro hidráulico
-ro:Instalator
-es:Fontanero
-sv:Vvs-montör|rörmokare
-th:ช่างประปา
-tr:Sıhhi tesisatçı|tesisatçı
-uk:Сантехнік
-vi:Thợ đường ống
-zh-Hans:管道工
-zh-Hant:水管工人|水電工
-el:Υδραυλικός
-sk:Klampiarstvo
-fa:لوله کش
 
 craft-shoemaker
 en:Shoe Repair
@@ -6010,6 +5886,7 @@ el:Ράφτης|ράπτης
 sk:Krajčírstvo
 fa:خیاطی
 
+# Skipped if empty name
 area:highway-footway|area:highway-pedestrian|area:highway-steps|place-square
 en:Square
 ru:Площадь
@@ -6204,38 +6081,6 @@ zh-Hant:海灘
 el:Παραλία|ακρογιαλιά
 sw:Pwani
 fa:ساحل
-
-highway-speed_camera
-en:3Speed Camera
-ru:Камера скорости
-ar:كاميرا لرصد السرعة
-cs:Rychlostní kamera
-da:Automatisk Trafikkontrol
-nl:Flitspaal
-fi:Nopeusvalvontakamera
-fr:Radar de vitesse
-de:Blitzer
-hu:Traffipax
-id:Kamera Kecepatan
-it:Autovelox
-ja:オービス
-ko:스피드 카메라
-nb:Fotoboks
-pl:Fotoradar
-pt:Radar de velocidade
-pt-BR:Radar de velocidade|Câmera de velocidade
-ro:Detector de viteză
-es:Radar de velocidad
-sv:Hastighetskamera|fartkamera
-th:กล้องตรวจจับความเร็ว
-tr:Hız Kamerası
-uk:Камера безпеки дорожнього руху
-vi:Camera bắn tốc độ
-zh-Hans:测速照相机
-zh-Hant:測速照相機
-el:Κάμερα ταχύτητας|ραντάρ
-sk:Rýchlostná kamera
-fa:دوربین سرعت سنج
 
 man_made-lighthouse
 en:Lighthouse
@@ -7072,6 +6917,7 @@ el:Αυτόματος πωλητής ποτών
 sk:Nápojový automat
 fa:ماشین فروش نوشیدنی
 
+# Skipped if empty name
 building-garage
 en:Garage
 ru:Гараж
@@ -7135,38 +6981,7 @@ zh-Hant:休息區
 el:Χώρος ανάπαυσης αυτοκινητιστών
 sk:Odpočívadlo
 
-highway-traffic_signals
-en:Traffic Lights
-ru:Светофор
-ar:إشارات مرور
-cs:Semafor
-da:Trafiklys
-nl:Verkeerslichten
-fi:Liikennevalot
-fr:Feux de circulation
-de:Verkehrsampel
-hu:Jelzőlámpák|Közlekedési lámpák
-id:Lampu lalu lintas
-it:Semaforo
-ja:交通信号
-ko:신호등
-nb:Trafikklys
-pl:Sygnalizacja świetlna
-pt:Semáforos
-pt-BR:Semáforo|sinaleira|sinal de trânsito|farol
-ro:Semafoare
-es:Semáforos
-sv:Trafikljus
-th:สัญญาณไฟจราจร
-tr:Feux de circulation
-uk:Світлофор
-vi:Đèn Giao Thông
-zh-Hans:交通信号灯
-zh-Hant:紅綠燈
-el:Φανάρια κυκλοφορίας
-sk:Semafor
-fa:چراغ راهنما
-
+# Skipped if empty name
 man_made-chimney
 en:Factory Chimney
 ru:Заводская труба
@@ -7229,37 +7044,6 @@ zh-Hant:塔
 el:Πύργος
 sk:Veža
 fa:برج
-
-power-substation
-en:Substation
-ru:Подстанция
-ar:محطة كهرباء فرعية
-cs:Rozvodna
-da:Transformerstation
-nl:Onderstation
-fi:Muuntoasema
-fr:Sous-station
-de:Umspannwerk
-hu:Alállomás
-id:Stasiun bawah tanah
-it:Sottostazione elettrica
-ja:変電所
-ko:변전소
-nb:Trafo
-pl:Podstacja
-pt:Subestação
-pt-BR:Subestação
-ro:Stație subterană
-es:Subestación
-sv:Ställverk
-th:สถานีไฟฟ้า
-tr:Sous-station
-uk:Підстанція
-vi:Trạm biến áp
-zh-Hans:变电站
-zh-Hant:變電所
-el:Υποσταθμός
-sk:Rozvodňa
 
 shop-bookmaker
 en:Bookmaker
@@ -7741,38 +7525,41 @@ el:Ανεμόμυλος
 sk:Veterný mlyn
 fa:توربین بادی
 
-military-bunker
-en:Bunker
-ru:Бункер
-ar:مأوى
-cs:Bunkr
-da:Bunker
-nl:Bunker
-fi:Bunkkeri
-fr:Bunker
-de:Bunker
-hu:Bunker
-id:Bunker
-it:Bunker
-ja:掩蔽壕
-ko:벙커
-nb:Bunker
-pl:Bunkier
-pt:Bunker
-pt-BR:Bunker
-ro:Buncăr
-es:Búnker
-sv:Bunker
-th:บังเกอร์
-tr:Bunker
-uk:Бункер
-vi:Boongke
-zh-Hans:地堡
-zh-Hant:地堡
-el:Στρατιωτική αποθήκη
-sk:Bunker
-fa:پناهگاه
+# We do not have bunkers now because we do not have styles to display them.
+# Consider adding after adding styles for bunker
+# military-bunker
+# en:Bunker
+# ru:Бункер
+# ar:مأوى
+# cs:Bunkr
+# da:Bunker
+# nl:Bunker
+# fi:Bunkkeri
+# fr:Bunker
+# de:Bunker
+# hu:Bunker
+# id:Bunker
+# it:Bunker
+# ja:掩蔽壕
+# ko:벙커
+# nb:Bunker
+# pl:Bunkier
+# pt:Bunker
+# pt-BR:Bunker
+# ro:Buncăr
+# es:Búnker
+# sv:Bunker
+# th:บังเกอร์
+# tr:Bunker
+# uk:Бункер
+# vi:Boongke
+# zh-Hans:地堡
+# zh-Hant:地堡
+# el:Στρατιωτική αποθήκη
+# sk:Bunker
+# fa:پناهگاه
 
+# Skipped if empty name
 natural-cave_entrance
 en:Cave Entrance
 ru:Пещера
@@ -7805,6 +7592,7 @@ el:Είσοδος σπηλαίου
 sk:Vstup do jaskyne
 fa:ورودی غار
 
+# Skipped if empty name
 natural-tree
 en:Tree
 ru:Дерево
@@ -7901,38 +7689,7 @@ el:Κτηματομεσίτης|Μεσίτης
 sk:Realitný agent
 fa:بنگاه معاملات ملکی
 
-power-pole|power-tower
-en:Power Tower
-ru:Опора ЛЭП
-ar:عمود كهرباء
-cs:Sloup elektrického vedení
-da:El-pol
-nl:Elektriciteitspaal
-fi:Sähköpylväs
-fr:Poteau électrique
-de:Freileitungsmast|Strommast
-hu:Távvezetékoszlop
-id:Menara listrik
-it:Palo elettrico
-ja:電柱
-ko:전봇대
-nb:Strømmast
-pl:Słup elektryczny
-pt:Poste de eletricidade
-pt-BR:Poste de eletricidade
-ro:Stâlp de electricitate
-es:Poste eléctrico
-sv:Elstolpe
-th:เสาไฟฟ้า
-tr:Poteau électrique
-uk:Стовп ЛЕП
-vi:Trụ Điện
-zh-Hans:电线杆
-zh-Hant:電塔
-el:Πυλώνες μεταφοράς ρεύματος
-sk:Stĺp elektrického vedenia
-fa:برج قدرت
-
+# Skipped if empty name
 waterway-lock_gate
 en:Lock Gate
 ru:Шлюз
@@ -8581,39 +8338,6 @@ zh-Hans:健身驿站
 zh-Hant:健身房
 fa:پارک سلامت
 
-man_made-surveillance
-en:Surveillance Camera
-ru:Камера наблюдения
-ar:كاميرا مراقبة
-cs:Bezpečnostní kamera
-da:Overvågningskamera
-de:Überwachungskamera
-el:Κάμερα παρακολούθησης
-es:Cámara de vigilancia
-fi:Valvontakamera
-fr:Caméra de surveillance
-hu:Térfigyelő kamera
-id:Kamera Pengawas
-it:Videocamera di sorveglianza
-ja:監視カメラ
-ko:감시 카메라
-nb:Overvåkingskamera
-nl:Bewakingscamera
-pl:Kamera monitoringu
-pt:Câmara de vigilância
-pt-BR:Câmara de vigilância
-ro:Cameră de supraveghere
-sk:Bezpečnostná kamera
-sv:Övervakningskamera
-sw:Kamera za Usalama
-th:กล้องวงจรปิด
-tr:Güvenlik Kamerası
-uk:Камера спостереження
-vi:Camera giám sát
-zh-Hans:监控摄像头
-zh-Hant:監控攝影機
-fa:دوربین نظارتی
-
 man_made-water_tap
 en:Water Tap
 ru:Колонка с водой
@@ -8680,6 +8404,7 @@ zh-Hans:保险机构
 zh-Hant:保險公司
 fa:دفتر بیمه
 
+# Skipped if empty name
 office-ngo
 en:NGO Office
 ru:Офис НКО
@@ -8745,39 +8470,6 @@ vi:Cửa hàng người lớn
 zh-Hans:成人用品店
 zh-Hant:情趣用品店
 fa:فروشگاه لوازم جنسی
-
-shop-funeral_directors
-en:Funeral Directors
-ru:Ритуальные услуги
-ar:منظموا الجنازات
-cs:Pohřební služba
-da:Bedemand
-de:Bestattungsinstitut
-el:Γραφεία τελετών|γραφείο κηδειών
-es:Funeraria
-fi:Hautaustoimisto
-fr:Pompes funèbres
-hu:Temetkezési iroda
-id:Direktur Pemakaman
-it:Pompe funebri
-ja:葬儀屋
-ko:장의사
-nb:Begravelsebyrå
-nl:Begrafenisondernemer
-pl:Celebranci pogrzebowi
-pt:Funerária
-pt-BR:Funerária
-ro:Pompe funebre
-sk:Pohrebníctvo
-sv:Begravningsentreprenörer
-sw:Wapangaji Mazishi
-th:สัปเหร่อ
-tr:Cenaze Levazımcısı
-uk:Ритуальна служба
-vi:Tổ chức tang lễ
-zh-Hans:殡仪馆
-zh-Hant:葬儀社
-fa:مسئول تشییع جنازه
 
 shop-massage
 en:Massage salon|Massage Parlour|massage|spa|massage center|massage therapy|massage services|spa treatment|spa services
@@ -9127,6 +8819,7 @@ vi:Giữ chỗ
 zh-Hans:野生动物园
 zh-Hant:自然保護區
 
+# Skipped if empty name
 natural-cape
 en:Cape
 ru:Мыс
@@ -9193,6 +8886,7 @@ zh-Hans:间歇泉
 zh-Hant:間歇泉
 fa:چشمه آب گرم
 
+# Skipped if empty name
 natural-glacier|@tourism
 en:Glacier
 ru:Ледник
