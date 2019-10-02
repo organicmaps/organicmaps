@@ -46,7 +46,8 @@ uint64_t ReadVersionFromHeader(platform::LocalCountryFile const & mwm)
       return mwm.GetVersion();
   }
 
-  ModelReaderPtr reader = FilesContainerR(mwm.GetPath(MapFileType::Map)).GetReader(VERSION_FILE_TAG);
+  ModelReaderPtr reader =
+      FilesContainerR(mwm.GetPath(MapFileType::Map)).GetReader(VERSION_FILE_TAG);
   ReaderSrc src(reader.GetPtr());
 
   version::MwmVersion version;

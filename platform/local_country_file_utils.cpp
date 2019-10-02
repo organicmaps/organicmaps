@@ -363,8 +363,7 @@ string GetFileDownloadPath(int64_t version, CountryFile const & countryFile, Map
 string GetFileDownloadPath(int64_t version, string const & dataDir, CountryFile const & countryFile,
                            MapFileType type)
 {
-  string const readyFile =
-      GetFileName(countryFile.GetName(), type, version) + READY_FILE_EXTENSION;
+  string const readyFile = GetFileName(countryFile.GetName(), type, version) + READY_FILE_EXTENSION;
   string const dir = GetDataDirFullPath(dataDir);
   if (version == 0)
     return base::JoinPath(dir, readyFile);

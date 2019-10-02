@@ -367,8 +367,8 @@ public:
   CancelDownloadingWhenAlmostDoneChecker(Storage & storage, CountryId const & countryId,
                                          TaskRunner & runner)
     : CountryDownloaderChecker(
-    storage, countryId, MapFileType::Map,
-    vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::ENotDownloaded})
+          storage, countryId, MapFileType::Map,
+          vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::ENotDownloaded})
     , m_runner(runner)
   {
   }
@@ -383,10 +383,7 @@ protected:
     // Cancel downloading when almost done.
     if (progress.first + 2 * FakeMapFilesDownloader::kBlockSize >= progress.second)
     {
-      m_runner.PostTask([&]()
-                        {
-                          m_storage.CancelDownloadNode(m_countryId);
-                        });
+      m_runner.PostTask([&]() { m_storage.CancelDownloadNode(m_countryId); });
     }
   }
 
@@ -411,8 +408,9 @@ unique_ptr<CountryDownloaderChecker> QueuedCountryDownloaderChecker(Storage & st
                                                                     MapFileType type)
 {
   return make_unique<CountryDownloaderChecker>(
-      storage, countryId, type, vector<Status>{Status::ENotDownloaded, Status::EInQueue,
-                                             Status::EDownloading, Status::EOnDisk});
+      storage, countryId, type,
+      vector<Status>{Status::ENotDownloaded, Status::EInQueue, Status::EDownloading,
+                     Status::EOnDisk});
 }
 
 // Checks following state transitions:
@@ -721,13 +719,13 @@ UNIT_CLASS_TEST(TwoComponentStorageTest, CountriesAndDeleteSingleMwm)
 
   {
     unique_ptr<CountryDownloaderChecker> uruguayChecker = make_unique<CountryDownloaderChecker>(
-      storage, uruguayCountryId, MapFileType::Map,
-      vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::EOnDisk});
+        storage, uruguayCountryId, MapFileType::Map,
+        vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::EOnDisk});
 
     unique_ptr<CountryDownloaderChecker> venezuelaChecker = make_unique<CountryDownloaderChecker>(
-      storage, venezuelaCountryId, MapFileType::Map,
-      vector<Status>{Status::ENotDownloaded, Status::EInQueue,
-                        Status::EDownloading, Status::EOnDisk});
+        storage, venezuelaCountryId, MapFileType::Map,
+        vector<Status>{Status::ENotDownloaded, Status::EInQueue, Status::EDownloading,
+                       Status::EOnDisk});
 
     uruguayChecker->StartDownload();
     venezuelaChecker->StartDownload();
@@ -736,12 +734,12 @@ UNIT_CLASS_TEST(TwoComponentStorageTest, CountriesAndDeleteSingleMwm)
 
   {
     unique_ptr<CountryDownloaderChecker> uruguayChecker = make_unique<CountryDownloaderChecker>(
-      storage, uruguayCountryId, MapFileType::Map,
-      vector<Status>{Status::EOnDisk, Status::ENotDownloaded});
+        storage, uruguayCountryId, MapFileType::Map,
+        vector<Status>{Status::EOnDisk, Status::ENotDownloaded});
 
     unique_ptr<CountryDownloaderChecker> venezuelaChecker = make_unique<CountryDownloaderChecker>(
-      storage, venezuelaCountryId, MapFileType::Map,
-      vector<Status>{Status::EOnDisk, Status::ENotDownloaded});
+        storage, venezuelaCountryId, MapFileType::Map,
+        vector<Status>{Status::EOnDisk, Status::ENotDownloaded});
 
     storage.DeleteCountry(uruguayCountryId, MapFileType::Map);
     storage.DeleteCountry(venezuelaCountryId, MapFileType::Map);
@@ -763,27 +761,27 @@ UNIT_CLASS_TEST(TwoComponentStorageTest, DownloadTwoCountriesAndDelete)
   CountryId const uruguayCountryId = storage.FindCountryIdByFile("Uruguay");
   TEST(IsCountryIdValid(uruguayCountryId), ());
   storage.DeleteCountry(uruguayCountryId, MapFileType::Map);
-  SCOPE_GUARD(cleanupUruguayFiles, bind(&Storage::DeleteCountry, &storage, uruguayCountryId,
-                                        MapFileType::Map));
+  SCOPE_GUARD(cleanupUruguayFiles,
+              bind(&Storage::DeleteCountry, &storage, uruguayCountryId, MapFileType::Map));
 
   CountryId const venezuelaCountryId = storage.FindCountryIdByFile("Venezuela");
   TEST(IsCountryIdValid(venezuelaCountryId), ());
   storage.DeleteCountry(venezuelaCountryId, MapFileType::Map);
-  SCOPE_GUARD(cleanupVenezuelaFiles, bind(&Storage::DeleteCountry, &storage, venezuelaCountryId,
-                                          MapFileType::Map));
+  SCOPE_GUARD(cleanupVenezuelaFiles,
+              bind(&Storage::DeleteCountry, &storage, venezuelaCountryId, MapFileType::Map));
 
   {
     // Map file will be deleted for Uruguay, thus, routing file should also be deleted. Therefore,
     // Uruguay should pass through following states: NotDownloaded -> Downloading -> NotDownloaded.
     unique_ptr<CountryDownloaderChecker> uruguayChecker = make_unique<CountryDownloaderChecker>(
-      storage, uruguayCountryId, MapFileType::Map,
-      vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::ENotDownloaded});
+        storage, uruguayCountryId, MapFileType::Map,
+        vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::ENotDownloaded});
     // Venezuela should pass through the following states:
     // NotDownloaded -> InQueue (Venezuela is added after Uruguay) -> Downloading -> NotDownloaded.
     unique_ptr<CountryDownloaderChecker> venezuelaChecker = make_unique<CountryDownloaderChecker>(
-      storage, venezuelaCountryId, MapFileType::Map,
-      vector<Status>{Status::ENotDownloaded, Status::EInQueue, Status::EDownloading,
-                        Status::ENotDownloaded});
+        storage, venezuelaCountryId, MapFileType::Map,
+        vector<Status>{Status::ENotDownloaded, Status::EInQueue, Status::EDownloading,
+                       Status::ENotDownloaded});
     uruguayChecker->StartDownload();
     venezuelaChecker->StartDownload();
     storage.DeleteCountry(uruguayCountryId, MapFileType::Map);
@@ -1012,13 +1010,13 @@ UNIT_CLASS_TEST(StorageTest, DownloadedMap)
 
   {
     auto algeriaCentralChecker = make_unique<CountryDownloaderChecker>(
-      storage, algeriaCentralCountryId, MapFileType::Map,
-      vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::EOnDisk});
+        storage, algeriaCentralCountryId, MapFileType::Map,
+        vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::EOnDisk});
 
     auto algeriaCoastChecker = make_unique<CountryDownloaderChecker>(
-      storage, algeriaCoastCountryId, MapFileType::Map,
-      vector<Status>{Status::ENotDownloaded, Status::EInQueue,
-                        Status::EDownloading, Status::EOnDisk});
+        storage, algeriaCoastCountryId, MapFileType::Map,
+        vector<Status>{Status::ENotDownloaded, Status::EInQueue, Status::EDownloading,
+                       Status::EOnDisk});
 
     algeriaCentralChecker->StartDownload();
     algeriaCoastChecker->StartDownload();

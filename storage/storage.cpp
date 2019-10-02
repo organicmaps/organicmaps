@@ -482,7 +482,8 @@ Status Storage::CountryStatusEx(CountryId const & countryId) const
   return Status::EOnDisk;
 }
 
-void Storage::CountryStatusEx(CountryId const & countryId, Status & status, MapFileType & type) const
+void Storage::CountryStatusEx(CountryId const & countryId, Status & status,
+                              MapFileType & type) const
 {
   status = CountryStatusEx(countryId);
 
@@ -840,7 +841,9 @@ void Storage::DoDownload()
     auto const status = m_diffManager.GetStatus();
     switch (status)
     {
-    case Status::Undefined: SetDeferDownloading(); return;
+    case Status::Undefined:
+      SetDeferDownloading();
+      return;
     case Status::NotAvailable:
       queuedCountry.SetFileType(MapFileType::Map);
       break;
@@ -936,7 +939,7 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapFileType t
   if (!localFile)
   {
     LOG(LERROR, ("Local file data structure can't be prepared for downloaded file(", countryFile,
-      type, ")."));
+                 type, ")."));
     fn(false /* isSuccess */);
     return;
   }
@@ -1376,7 +1379,8 @@ void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false
     if (descendantNode.ChildrenCount() == 0 &&
         GetNodeStatus(descendantNode).status != NodeStatus::OnDisk)
     {
-      DownloadCountry(descendantNode.Value().Name(), isUpdate ? MapFileType::Diff : MapFileType::Map);
+      DownloadCountry(descendantNode.Value().Name(),
+                      isUpdate ? MapFileType::Diff : MapFileType::Map);
     }
   };
 
@@ -1769,18 +1773,15 @@ MapFilesDownloader::Progress Storage::CalculateProgress(
     if (downloadingMwm == d && downloadingMwm != kInvalidCountryId)
     {
       localAndRemoteBytes.first += downloadingMwmProgress.first;
-      localAndRemoteBytes.second +=
-          GetRemoteSize(GetCountryFile(d), GetCurrentDataVersion());
+      localAndRemoteBytes.second += GetRemoteSize(GetCountryFile(d), GetCurrentDataVersion());
     }
     else if (mwmsInQueue.count(d) != 0)
     {
-      localAndRemoteBytes.second +=
-          GetRemoteSize(GetCountryFile(d), GetCurrentDataVersion());
+      localAndRemoteBytes.second += GetRemoteSize(GetCountryFile(d), GetCurrentDataVersion());
     }
     else if (m_justDownloaded.count(d) != 0)
     {
-      MwmSize const localCountryFileSz =
-          GetRemoteSize(GetCountryFile(d), GetCurrentDataVersion());
+      MwmSize const localCountryFileSz = GetRemoteSize(GetCountryFile(d), GetCurrentDataVersion());
       localAndRemoteBytes.first += localCountryFileSz;
       localAndRemoteBytes.second += localCountryFileSz;
     }

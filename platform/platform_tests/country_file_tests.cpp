@@ -15,8 +15,8 @@ UNIT_TEST(CountryFile_SmokeTwoComponentMwm)
 {
   CountryFile countryFile("TestCountry");
   TEST_EQUAL("TestCountry", countryFile.GetName(), ());
-  string const mapFileName = GetFileName(countryFile.GetName(), MapFileType::Map,
-                                         version::FOR_TESTING_TWO_COMPONENT_MWM1);
+  string const mapFileName =
+      GetFileName(countryFile.GetName(), MapFileType::Map, version::FOR_TESTING_TWO_COMPONENT_MWM1);
   TEST_EQUAL("TestCountry" DATA_FILE_EXTENSION, mapFileName, ());
 
   TEST_EQUAL(0, countryFile.GetRemoteSize(), ());
@@ -30,8 +30,8 @@ UNIT_TEST(CountryFile_SmokeOneComponentMwm)
 {
   CountryFile countryFile("TestCountryOneComponent");
   TEST_EQUAL("TestCountryOneComponent", countryFile.GetName(), ());
-  string const mapFileName = GetFileName(countryFile.GetName(), MapFileType::Map,
-                                         version::FOR_TESTING_SINGLE_MWM1);
+  string const mapFileName =
+      GetFileName(countryFile.GetName(), MapFileType::Map, version::FOR_TESTING_SINGLE_MWM1);
 
   TEST_EQUAL("TestCountryOneComponent" DATA_FILE_EXTENSION, mapFileName, ());
 

@@ -30,8 +30,7 @@ ScopedFile::ScopedFile(std::string const & relativePath, std::string const & con
 {
 }
 
-ScopedFile::ScopedFile(ScopedDir const & dir, CountryFile const & countryFile,
-                       MapFileType type)
+ScopedFile::ScopedFile(ScopedDir const & dir, CountryFile const & countryFile, MapFileType type)
   : ScopedFile(
         base::JoinPath(dir.GetRelativePath(), GetFileName(countryFile.GetName(), type,
                                                           version::FOR_TESTING_TWO_COMPONENT_MWM1)),

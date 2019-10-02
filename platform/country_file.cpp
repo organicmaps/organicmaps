@@ -19,13 +19,9 @@ string GetNameWithExt(string const & countryFile, MapFileType file)
 {
   switch (file)
   {
-    case MapFileType::Map:
-      return countryFile + DATA_FILE_EXTENSION;
-    case MapFileType::Diff:
-      return countryFile + DIFF_FILE_EXTENSION;
-    default:
-      ASSERT(false, ("Can't get name for:", file));
-      return string();
+  case MapFileType::Map: return countryFile + DATA_FILE_EXTENSION;
+  case MapFileType::Diff: return countryFile + DIFF_FILE_EXTENSION;
+  default: ASSERT(false, ("Can't get name for:", file)); return string();
   }
 }
 }  //  namespace
