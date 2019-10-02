@@ -755,20 +755,37 @@ sw:Kituo cha kuwoka mikate
 fa:نانوایی
 
 shop
-en:U+1F3EA|U+1F3EC
+en:Shop|U+1F3EA|U+1F3EC
+ru:Магазин
 ar:متجر
-da:forretning
-de:3Verbrauchermarkt
-ja:お買い物|ショップ|商店|雑貨
+cs:Obchod
+da:Butik|forretning
+de:3Verbrauchermarkt|Geschäft|Laden
+el:Κατάστημα
+es:Tienda
+fa:مرکزخرید
+fi:Kauppa
+fr:Magasin
+he:חנות
+hu:Bolt
+id:Toko
+it:Negozio
+ja:お買い物|ショップ|商店|雑貨|買い物
 ko:가게
+nb:Butikk
+nl:Winkel
 pl:sklep|towary
 pt:2Loja
 pt-BR:2Loja|compras
-uk:2Магазин
+ro:Magazin
+sk:Obchod
+sv:Butik|Affär
+sw:Duka
+th:ร้านค้า
+tr:Mağaza
+uk:2Магазин|Крамниця
 zh-Hans:商店
 zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
-el:Κατάστημα
-fa:مرکزخرید
 
 shop-cosmetics|@shopping
 en:4Beauty Care|home care|U+1F3EC|U+1F3EA
