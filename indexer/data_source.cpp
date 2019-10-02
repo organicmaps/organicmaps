@@ -157,7 +157,7 @@ unique_ptr<MwmInfo> DataSource::CreateInfo(platform::LocalCountryFile const & lo
 {
   MwmValue value(localFile);
 
-  if (!version::IsSingleMwm(value.GetMwmVersion().GetVersion()))
+  if (version::GetMwmType(value.GetMwmVersion()) != version::MwmType::SingleMwm)
     return nullptr;
 
   feature::DataHeader const & h = value.GetHeader();
@@ -183,6 +183,9 @@ unique_ptr<MwmSet::MwmValueBase> DataSource::CreateValue(MwmInfo & info) const
   // Create a section with rank table if it does not exist.
   platform::LocalCountryFile const & localFile = info.GetLocalFile();
   unique_ptr<MwmValue> p(new MwmValue(localFile));
+  if (!p || version::GetMwmType(p->GetMwmVersion()) != version::MwmType::SingleMwm)
+    return nullptr;
+
   p->SetTable(dynamic_cast<MwmInfoEx &>(info));
   ASSERT(p->GetHeader().IsMWMSuitable(), ());
   return unique_ptr<MwmSet::MwmValueBase>(move(p));

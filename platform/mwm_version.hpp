@@ -26,6 +26,13 @@ enum class Format
   lastFormat = v9
 };
 
+enum class MwmType
+{
+  SeparateMwms,
+  SingleMwm,
+  Unknown
+};
+
 std::string DebugPrint(Format f);
 
 class MwmVersion
@@ -62,7 +69,11 @@ uint32_t ReadVersionDate(ModelReaderPtr const & reader);
 
 /// \returns true if version is version of an mwm which was generated after small mwm update.
 /// This means it contains routing file as well.
+/// Always returns true for mwms with version 0 (located in root directory).
 bool IsSingleMwm(int64_t version);
+
+/// Returns MwmType (SeparateMwms/SingleMwm/Unknown) on the basis of mwm version and format.
+MwmType GetMwmType(MwmVersion const & version);
 
 /// \brief This enum sets constants which are used for writing test to set a version of mwm
 /// which should be processed as either single or two components (mwm and routing) mwms.
