@@ -30,7 +30,7 @@ UNIT_TEST(CountryFile_SmokeOneComponentMwm)
 {
   CountryFile countryFile("TestCountryOneComponent");
   TEST_EQUAL("TestCountryOneComponent", countryFile.GetName(), ());
-  string const mapFileName = GetFileName(countryFile.GetName(), MapOptions::MapWithCarRouting,
+  string const mapFileName = GetFileName(countryFile.GetName(), MapOptions::Map,
                                          version::FOR_TESTING_SINGLE_MWM1);
 
   TEST_EQUAL("TestCountryOneComponent" DATA_FILE_EXTENSION, mapFileName, ());

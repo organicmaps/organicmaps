@@ -405,17 +405,6 @@ unique_ptr<CountryDownloaderChecker> AbsentCountryDownloaderChecker(Storage & st
 }
 
 // Checks following state transitions:
-// OnDisk -> Downloading -> OnDisk.
-unique_ptr<CountryDownloaderChecker> PresentCountryDownloaderChecker(Storage & storage,
-                                                                     CountryId const & countryId,
-                                                                     MapOptions files)
-{
-  return make_unique<CountryDownloaderChecker>(
-      storage, countryId, files,
-      vector<Status>{Status::EOnDisk, Status::EDownloading, Status::EOnDisk});
-}
-
-// Checks following state transitions:
 // NotDownloaded -> InQueue -> Downloading -> OnDisk.
 unique_ptr<CountryDownloaderChecker> QueuedCountryDownloaderChecker(Storage & storage,
                                                                     CountryId const & countryId,
@@ -773,26 +762,26 @@ UNIT_CLASS_TEST(TwoComponentStorageTest, DownloadTwoCountriesAndDelete)
 
   CountryId const uruguayCountryId = storage.FindCountryIdByFile("Uruguay");
   TEST(IsCountryIdValid(uruguayCountryId), ());
-  storage.DeleteCountry(uruguayCountryId, MapOptions::MapWithCarRouting);
+  storage.DeleteCountry(uruguayCountryId, MapOptions::Map);
   SCOPE_GUARD(cleanupUruguayFiles, bind(&Storage::DeleteCountry, &storage, uruguayCountryId,
-                                        MapOptions::MapWithCarRouting));
+                                        MapOptions::Map));
 
   CountryId const venezuelaCountryId = storage.FindCountryIdByFile("Venezuela");
   TEST(IsCountryIdValid(venezuelaCountryId), ());
-  storage.DeleteCountry(venezuelaCountryId, MapOptions::MapWithCarRouting);
+  storage.DeleteCountry(venezuelaCountryId, MapOptions::Map);
   SCOPE_GUARD(cleanupVenezuelaFiles, bind(&Storage::DeleteCountry, &storage, venezuelaCountryId,
-                                          MapOptions::MapWithCarRouting));
+                                          MapOptions::Map));
 
   {
     // Map file will be deleted for Uruguay, thus, routing file should also be deleted. Therefore,
     // Uruguay should pass through following states: NotDownloaded -> Downloading -> NotDownloaded.
     unique_ptr<CountryDownloaderChecker> uruguayChecker = make_unique<CountryDownloaderChecker>(
-        storage, uruguayCountryId, MapOptions::MapWithCarRouting,
+        storage, uruguayCountryId, MapOptions::Map,
         vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::ENotDownloaded});
     // Venezuela should pass through the following states:
     // NotDownloaded -> InQueue (Venezuela is added after Uruguay) -> Downloading -> NotDownloaded.
     unique_ptr<CountryDownloaderChecker> venezuelaChecker = make_unique<CountryDownloaderChecker>(
-        storage, venezuelaCountryId, MapOptions::MapWithCarRouting,
+        storage, venezuelaCountryId, MapOptions::Map,
         vector<Status>{Status::ENotDownloaded, Status::EInQueue, Status::EDownloading,
                         Status::ENotDownloaded});
     uruguayChecker->StartDownload();

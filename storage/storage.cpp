@@ -154,7 +154,7 @@ void Storage::DeleteAllLocalMaps(CountriesVec * existedCountries /* = nullptr */
       if (existedCountries)
         existedCountries->push_back(localFiles.first);
       localFile->SyncWithDisk();
-      DeleteFromDiskWithIndexes(*localFile, MapOptions::MapWithCarRouting);
+      DeleteFromDiskWithIndexes(*localFile, MapOptions::Map);
       DeleteFromDiskWithIndexes(*localFile, MapOptions::Diff);
     }
   }
@@ -1380,8 +1380,7 @@ void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false
     if (descendantNode.ChildrenCount() == 0 &&
         GetNodeStatus(descendantNode).status != NodeStatus::OnDisk)
     {
-      DownloadCountry(descendantNode.Value().Name(),
-                      isUpdate ? MapOptions::Diff : MapOptions::MapWithCarRouting);
+      DownloadCountry(descendantNode.Value().Name(), isUpdate ? MapOptions::Diff : MapOptions::Map);
     }
   };
 
@@ -1400,7 +1399,7 @@ void Storage::DeleteNode(CountryId const & countryId)
   auto deleteAction = [this](CountryTree::Node const & descendantNode) {
     bool onDisk = m_localFiles.find(descendantNode.Value().Name()) != m_localFiles.end();
     if (descendantNode.ChildrenCount() == 0 && onDisk)
-      this->DeleteCountry(descendantNode.Value().Name(), MapOptions::MapWithCarRouting);
+      this->DeleteCountry(descendantNode.Value().Name(), MapOptions::Map);
   };
   node->ForEachInSubtree(deleteAction);
 }

@@ -20,7 +20,6 @@ string GetNameWithExt(string const & countryFile, MapOptions file)
   switch (file)
   {
     case MapOptions::Map:
-    case MapOptions::MapWithCarRouting:
       return countryFile + DATA_FILE_EXTENSION;
     case MapOptions::Diff:
       return countryFile + DIFF_FILE_EXTENSION;

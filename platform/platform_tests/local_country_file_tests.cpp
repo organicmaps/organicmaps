@@ -79,12 +79,11 @@ UNIT_TEST(LocalCountryFile_Smoke)
 
   TEST(!localFile.OnDisk(MapOptions::Map), ());
   TEST(!localFile.OnDisk(MapOptions::Diff), ());
-  TEST(!localFile.OnDisk(MapOptions::MapWithCarRouting), ());
 
   TEST_EQUAL("/test-dir", localFile.GetDirectory(), ());
 
   TEST_EQUAL(0, localFile.GetSize(MapOptions::Map), ());
-  TEST_EQUAL(0, localFile.GetSize(MapOptions::MapWithCarRouting), ());
+  TEST_EQUAL(0, localFile.GetSize(MapOptions::Diff), ());
 
   TEST_EQUAL(150309, localFile.GetVersion(), ());
 }
@@ -102,7 +101,7 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
   {
     LocalCountryFile localFile(platform.WritableDir(), countryFile, version);
     TEST(!localFile.OnDisk(MapOptions::Map), ());
-    TEST(!localFile.OnDisk(MapOptions::MapWithCarRouting), ());
+    TEST(!localFile.OnDisk(MapOptions::Diff), ());
 
     string const mapFileName = GetFileName(countryFile.GetName(), MapOptions::Map,
                                            version::FOR_TESTING_TWO_COMPONENT_MWM1);
@@ -112,7 +111,7 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
 
     localFile.SyncWithDisk();
     TEST(localFile.OnDisk(MapOptions::Map), ());
-    TEST(!localFile.OnDisk(MapOptions::MapWithCarRouting), ());
+    TEST(!localFile.OnDisk(MapOptions::Diff), ());
     TEST_EQUAL(mapFileContents.size(), localFile.GetSize(MapOptions::Map), ());
 
     localFile.SyncWithDisk();
