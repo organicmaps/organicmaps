@@ -16,6 +16,7 @@ import com.mapswithme.maps.search.PopularityProvider;
 import com.mapswithme.maps.search.PriceFilterView;
 import com.mapswithme.maps.taxi.TaxiType;
 import com.mapswithme.maps.ugc.UGC;
+import com.mapswithme.util.sharing.ShareableInfoProvider;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -25,7 +26,7 @@ import java.util.List;
 
 // TODO(yunikkk): Refactor. Displayed information is different from edited information, and it's better to
 // separate them. Simple getters from jni place_page::Info and osm::EditableFeature should be enough.
-public class MapObject implements Parcelable, PopularityProvider, MapPoint
+public class MapObject implements Parcelable, PopularityProvider, ShareableInfoProvider
 {
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ POI, API_POINT, BOOKMARK, MY_POSITION, SEARCH })
@@ -282,6 +283,13 @@ public class MapObject implements Parcelable, PopularityProvider, MapPoint
   public String getTitle()
   {
     return mTitle;
+  }
+
+  @NonNull
+  @Override
+  public String getName()
+  {
+    return getTitle();
   }
 
   @Nullable

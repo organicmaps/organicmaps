@@ -1,11 +1,11 @@
-package com.mapswithme.maps.bookmarks.data;
+package com.mapswithme.util.sharing;
 
 import android.support.annotation.NonNull;
 
-public interface MapPoint
+public interface ShareableInfoProvider
 {
   @NonNull
-  String getTitle();
+  String getName();
 
   double getLat();
 

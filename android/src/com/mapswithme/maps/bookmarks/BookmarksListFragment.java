@@ -534,7 +534,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
       Statistics.INSTANCE.trackGuideTrackSelect(mCategoryDataSource.getData().getServerId());
   }
 
-  private void onBookmarkClicked(int position, Intent i, BookmarkListAdapter adapter)
+  private void onBookmarkClicked(int position, @NonNull Intent i,
+                                 @NonNull BookmarkListAdapter adapter)
   {
     if (getAdapter().isSearchResults())
       trackBookmarksSearchResultSelected();
@@ -565,7 +566,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
         final BookmarkInfo bookmark = (BookmarkInfo) adapter.getItem(mSelectedPosition);
         int menuResId = isDownloadedCategory() ? R.menu.menu_bookmarks_catalog
             : R.menu.menu_bookmarks;
-        BottomSheet bs = BottomSheetHelper.create(requireActivity(), bookmark.getTitle())
+        BottomSheet bs = BottomSheetHelper.create(requireActivity(), bookmark.getName())
             .sheet(menuResId)
             .listener(this::onBookmarkMenuItemClicked)
             .build();

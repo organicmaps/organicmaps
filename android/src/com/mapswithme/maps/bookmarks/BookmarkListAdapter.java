@@ -540,7 +540,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     else
     {
       final long bookmarkId = mSectionsDataSource.getBookmarkId(pos);
-      return BookmarkManager.INSTANCE.getLightWeightBookmark(bookmarkId);
+      return BookmarkManager.INSTANCE.getBookmarkInfo(bookmarkId);
     }
   }
 }

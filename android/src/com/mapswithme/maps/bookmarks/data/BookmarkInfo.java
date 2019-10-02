@@ -4,8 +4,9 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.util.sharing.ShareableInfoProvider;
 
-public class BookmarkInfo implements MapPoint
+public class BookmarkInfo implements ShareableInfoProvider
 {
   private final long mCategoryId;
   private final long mBookmarkId;
@@ -58,7 +59,7 @@ public class BookmarkInfo implements MapPoint
 
   @NonNull
   @Override
-  public String getTitle()
+  public String getName()
   {
     return mTitle;
   }

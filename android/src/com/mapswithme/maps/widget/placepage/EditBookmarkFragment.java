@@ -87,7 +87,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     long categoryId = args.getLong(EXTRA_CATEGORY_ID);
     mBookmarkCategory = BookmarkManager.INSTANCE.getCategoryById(categoryId);
     long bookmarkId = args.getLong(EXTRA_BOOKMARK_ID);
-    mBookmark = BookmarkManager.INSTANCE.getHeavyWeightBookmark(bookmarkId);
+    mBookmark = BookmarkManager.INSTANCE.getBookmark(bookmarkId);
     mIcon = mBookmark.getIcon();
     mEtName = (EditText) view.findViewById(R.id.et__bookmark_name);
     mEtDescription = (EditText) view.findViewById(R.id.et__description);

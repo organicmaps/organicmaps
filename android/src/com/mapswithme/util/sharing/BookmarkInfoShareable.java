@@ -7,23 +7,22 @@ import android.text.TextUtils;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.MapPoint;
 import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Arrays;
 
-class BookmarkInfoMapObjectShareable<T extends MapPoint> extends BaseShareable
+class BookmarkInfoShareable<T extends ShareableInfoProvider> extends BaseShareable
 {
   private static final String DELIMITER = "\n";
   @NonNull
-  private final T mItem;
+  private final T mProvider;
 
-  public BookmarkInfoMapObjectShareable(@NonNull Activity activity, @NonNull T item,
-                                        @Nullable Sponsored sponsored)
+  BookmarkInfoShareable(@NonNull Activity activity, @NonNull T provider,
+                        @Nullable Sponsored sponsored)
   {
     super(activity);
-    mItem = item;
+    mProvider = provider;
     setSubject(R.string.bookmark_share_email_subject);
 
     String text = makeEmailBody(activity, sponsored, getEmailBodyContent());
@@ -53,31 +52,30 @@ class BookmarkInfoMapObjectShareable<T extends MapPoint> extends BaseShareable
   @NonNull
   protected Iterable<String> getEmailBodyContent()
   {
-    return TextUtils.isEmpty(getItem().getAddress())
-           ? Arrays.asList(getItem().getTitle(), getGeoUrl(), getHttpUrl())
-           : Arrays.asList(getItem().getTitle(), getItem().getAddress(), getGeoUrl(), getHttpUrl());
+    return TextUtils.isEmpty(getProvider().getAddress())
+           ? Arrays.asList(getProvider().getName(), getGeoUrl(), getHttpUrl())
+           : Arrays.asList(getProvider().getName(), getProvider().getAddress(), getGeoUrl(), getHttpUrl());
   }
 
   @NonNull
-  protected T getItem()
+  protected T getProvider()
   {
-    return mItem;
+    return mProvider;
   }
 
   @NonNull
   protected final String getGeoUrl()
   {
-    return Framework.nativeGetGe0Url(getItem().getLat(), getItem().getLon(),
-                                     getItem().getScale(), getItem().getTitle());
+    return Framework.nativeGetGe0Url(getProvider().getLat(), getProvider().getLon(),
+                                     getProvider().getScale(), getProvider().getName());
   }
 
   @NonNull
   protected final String getHttpUrl()
   {
-    return Framework.getHttpGe0Url(getItem().getLat(), getItem().getLon(),
-                                   getItem().getScale(), getItem().getTitle());
+    return Framework.getHttpGe0Url(getProvider().getLat(), getProvider().getLon(),
+                                   getProvider().getScale(), getProvider().getName());
   }
-
 
   @Override
   public String getMimeType()

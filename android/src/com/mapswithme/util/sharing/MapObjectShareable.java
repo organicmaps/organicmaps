@@ -10,7 +10,7 @@ import com.mapswithme.maps.widget.placepage.Sponsored;
 
 import java.util.Arrays;
 
-class MapObjectShareable extends BookmarkInfoMapObjectShareable<MapObject>
+class MapObjectShareable extends BookmarkInfoShareable<MapObject>
 {
   MapObjectShareable(Activity context, @NonNull MapObject mapObject, @Nullable Sponsored sponsored)
   {
@@ -28,8 +28,8 @@ class MapObjectShareable extends BookmarkInfoMapObjectShareable<MapObject>
   private String makeMyPositionEmailBodyContent()
   {
     return getActivity().getString(R.string.my_position_share_email,
-                                   Framework.nativeGetAddress(getItem().getLat(),
-                                                              getItem().getLon()),
+                                   Framework.nativeGetAddress(getProvider().getLat(),
+                                                              getProvider().getLon()),
                                    getGeoUrl(), getHttpUrl());
   }
 
@@ -37,7 +37,7 @@ class MapObjectShareable extends BookmarkInfoMapObjectShareable<MapObject>
   @Override
   protected Iterable<String> getEmailBodyContent()
   {
-    return Arrays.asList(getItem().getTitle(), getItem().getSubtitle(), getItem().getAddress(),
+    return Arrays.asList(getProvider().getName(), getProvider().getSubtitle(), getProvider().getAddress(),
                          getGeoUrl(), getHttpUrl());
   }
 }

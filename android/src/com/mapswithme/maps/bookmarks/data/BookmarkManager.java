@@ -492,13 +492,13 @@ public enum BookmarkManager
   }
 
   @NonNull
-  public Bookmark getHeavyWeightBookmark(long bmkId)
+  public Bookmark getBookmark(long bmkId)
   {
     return nativeGetBookmark(bmkId);
   }
 
   @NonNull
-  public BookmarkInfo getLightWeightBookmark(long bmkId)
+  public BookmarkInfo getBookmarkInfo(long bmkId)
   {
     return nativeGetBookmarkInfo(bmkId);
   }

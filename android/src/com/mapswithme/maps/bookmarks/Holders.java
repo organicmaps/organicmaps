@@ -260,7 +260,7 @@ public class Holders
       final long bookmarkId = sectionsDataSource.getBookmarkId(position);
       BookmarkInfo bookmark = new BookmarkInfo(sectionsDataSource.getCategory().getId(),
                                                bookmarkId);
-      mName.setText(bookmark.getTitle());
+      mName.setText(bookmark.getName());
       final Location loc = LocationHelper.INSTANCE.getSavedLocation();
 
       String distanceValue = loc == null ? "" : bookmark.getDistance(loc.getLatitude(),

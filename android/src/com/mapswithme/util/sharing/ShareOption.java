@@ -17,9 +17,10 @@ public abstract class ShareOption
 {
   @StringRes
   private final int mNameResId;
+  @NonNull
   private final Intent mBaseIntent;
 
-  protected ShareOption(int nameResId, Intent baseIntent)
+  ShareOption(int nameResId, @NonNull Intent baseIntent)
   {
     mNameResId = nameResId;
     mBaseIntent = baseIntent;
@@ -32,15 +33,15 @@ public abstract class ShareOption
 
   public void shareMapObject(Activity activity, @NonNull MapObject mapObject, @Nullable Sponsored sponsored)
   {
-    MapObjectShareable shareable = new MapObjectShareable(activity, mapObject, sponsored);
-    shareObjectInternal(shareable);
+    MapObjectShareable mapObjectShareable = new MapObjectShareable(activity, mapObject, sponsored);
+    shareObjectInternal(mapObjectShareable);
   }
 
   public void shareBookmarkObject(Activity activity, @NonNull BookmarkInfo mapObject,
                                   @Nullable Sponsored sponsored)
   {
-    BookmarkInfoMapObjectShareable<BookmarkInfo> shareable =
-        new BookmarkInfoMapObjectShareable<>(activity, mapObject, sponsored);
+    BookmarkInfoShareable<BookmarkInfo> shareable =
+        new BookmarkInfoShareable<>(activity, mapObject, sponsored);
     shareObjectInternal(shareable);
   }
 
@@ -62,7 +63,7 @@ public abstract class ShareOption
   {
     public static final AnyShareOption ANY = new AnyShareOption();
 
-    protected AnyShareOption()
+    AnyShareOption()
     {
       super(R.string.share, new Intent(Intent.ACTION_SEND).setType(TargetUtils.TYPE_TEXT_PLAIN));
     }

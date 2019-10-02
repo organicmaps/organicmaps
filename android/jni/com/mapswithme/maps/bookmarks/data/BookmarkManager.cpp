@@ -778,9 +778,10 @@ JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarkInfo(
   JNIEnv * env, jobject thiz, jlong bmkId)
 {
-  auto const mark = frm()->GetBookmarkManager().GetBookmark(static_cast<kml::MarkId>(bmkId));
+  auto const bookmark = frm()->GetBookmarkManager().GetBookmark(static_cast<kml::MarkId>(bmkId));
   return env->NewObject(g_bookmarkInfoClass,
-                        g_bookmarkInfoConstructor, static_cast<jlong>(mark->GetGroupId()), static_cast<jlong>(bmkId));
+                        g_bookmarkInfoConstructor, static_cast<jlong>(bookmark->GetGroupId()),
+                        static_cast<jlong>(bmkId));
 }
 
 JNIEXPORT jlong JNICALL
