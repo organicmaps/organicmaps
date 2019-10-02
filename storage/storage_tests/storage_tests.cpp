@@ -326,7 +326,7 @@ protected:
     ++m_currStatus;
     if (m_transitionList[m_currStatus] == Status::EDownloading)
     {
-      LocalAndRemoteSize localAndRemoteSize = m_storage.CountrySizeInBytes(m_countryId, m_files);
+      LocalAndRemoteSize localAndRemoteSize = m_storage.CountrySizeInBytes(m_countryId);
       m_totalBytesToDownload = localAndRemoteSize.second;
     }
   }
@@ -344,7 +344,7 @@ protected:
     m_bytesDownloaded = progress.first;
     TEST_LESS_OR_EQUAL(m_bytesDownloaded, m_totalBytesToDownload, (m_countryFile));
 
-    LocalAndRemoteSize localAndRemoteSize = m_storage.CountrySizeInBytes(m_countryId, m_files);
+    LocalAndRemoteSize localAndRemoteSize = m_storage.CountrySizeInBytes(m_countryId);
     TEST_EQUAL(static_cast<decltype(localAndRemoteSize.second)>(m_totalBytesToDownload),
                localAndRemoteSize.second, (m_countryFile));
   }
@@ -597,15 +597,6 @@ UNIT_TEST(StorageTest_Smoke)
   TEST_EQUAL(platform::GetFileName(usaGeorgiaFile.GetName(), MapOptions::Map,
                                    version::FOR_TESTING_TWO_COMPONENT_MWM1),
              "Georgia" DATA_FILE_EXTENSION, ());
-
-  if (version::IsSingleMwm(storage.GetCurrentDataVersion()))
-    return; // Following code tests car routing files, and is not relevant for a single mwm case.
-
-  TEST(IsCountryIdValid(georgiaCountryId), ());
-  CountryFile georgiaFile = storage.GetCountryFile(georgiaCountryId);
-  TEST_EQUAL(platform::GetFileName(georgiaFile.GetName(), MapOptions::CarRouting,
-                                   version::FOR_TESTING_TWO_COMPONENT_MWM1),
-             "Georgia" DATA_FILE_EXTENSION ROUTING_FILE_EXTENSION, ());
 }
 
 UNIT_CLASS_TEST(StorageTest, CountryDownloading)
@@ -705,90 +696,6 @@ UNIT_TEST(StorageTest_DeleteTwoVersionsOfTheSameCountry)
   TEST(!localFileV1->HasFiles(), ());
 
   TEST_EQUAL(Status::ENotDownloaded, storage.CountryStatusEx(countryId), ());
-}
-
-UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
-{
-  Storage storage;
-  bool const isSingleMwm = version::IsSingleMwm(storage.GetCurrentDataVersion());
-  if (isSingleMwm)
-    return;
-
-  TaskRunner runner;
-  tests::TestMwmSet mwmSet;
-  InitStorage(storage, runner, [&mwmSet](CountryId const &, LocalFilePtr const localFile) {
-    try
-    {
-      auto p = mwmSet.Register(*localFile);
-      TEST(p.first.IsAlive(), ());
-    }
-    catch (exception & e)
-    {
-      LOG(LERROR, ("Failed to register:", *localFile, ":", e.what()));
-    }
-  });
-
-  CountryId const countryId = storage.FindCountryIdByFile("Azerbaijan");
-  TEST(IsCountryIdValid(countryId), ());
-  CountryFile const countryFile = storage.GetCountryFile(countryId);
-
-  storage.DeleteCountry(countryId, MapOptions::Map);
-
-  // Download map file only.
-  {
-    unique_ptr<CountryDownloaderChecker> checker =
-        AbsentCountryDownloaderChecker(storage, countryId, MapOptions::Map);
-    checker->StartDownload();
-    runner.Run();
-  }
-
-  LocalFilePtr localFileA = storage.GetLatestLocalFile(countryId);
-  TEST(localFileA.get(), ());
-  TEST(localFileA->OnDisk(MapOptions::Map), ());
-
-  MwmSet::MwmId id = mwmSet.GetMwmIdByCountryFile(countryFile);
-  TEST(id.IsAlive(), ());
-  TEST(id.GetInfo()->GetLocalFile().OnDisk(MapOptions::Map), ());
-
-  // Download routing file in addition to exising map file.
-  {
-    unique_ptr<CountryDownloaderChecker> checker =
-        PresentCountryDownloaderChecker(storage, countryId, MapOptions::CarRouting);
-    checker->StartDownload();
-    runner.Run();
-  }
-
-  LocalFilePtr localFileB = storage.GetLatestLocalFile(countryId);
-  TEST(localFileB.get(), ());
-  TEST_EQUAL(localFileA.get(), localFileB.get(), (*localFileA, *localFileB));
-  TEST(localFileB->OnDisk(MapOptions::MapWithCarRouting), ());
-
-  TEST(id.IsAlive(), ());
-  TEST(id.GetInfo()->GetLocalFile().OnDisk(MapOptions::MapWithCarRouting), ());
-
-  // Delete routing file and check status update.
-  {
-    CountryStatusChecker checker(storage, countryId, Status::EOnDisk);
-    storage.DeleteCountry(countryId, MapOptions::CarRouting);
-  }
-  LocalFilePtr localFileC = storage.GetLatestLocalFile(countryId);
-  TEST(localFileC.get(), ());
-  TEST_EQUAL(localFileB.get(), localFileC.get(), (*localFileB, *localFileC));
-  TEST(localFileC->OnDisk(MapOptions::Map), ());
-
-  TEST(id.IsAlive(), ());
-  TEST(id.GetInfo()->GetLocalFile().OnDisk(MapOptions::Map), ());
-
-  // Delete map file and check status update.
-  {
-    CountryStatusChecker checker(storage, countryId, Status::ENotDownloaded);
-    storage.DeleteCountry(countryId, MapOptions::Map);
-  }
-
-  // Framework should notify MwmSet about deletion of a map file.
-  // As there're no framework, there should not be any changes in MwmInfo.
-  TEST(id.IsAlive(), ());
-  TEST(id.GetInfo()->GetLocalFile().OnDisk(MapOptions::Map), ());
 }
 
 UNIT_CLASS_TEST(StorageTest, DeletePendingCountry)
@@ -923,7 +830,13 @@ UNIT_CLASS_TEST(StorageTest, DeleteCountry)
   tests_support::ScopedFile map("Wonderland.mwm", ScopedFile::Mode::Create);
   LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland",
                                                            version::FOR_TESTING_SINGLE_MWM1);
-  TEST(file.OnDisk(MapOptions::MapWithCarRouting), ());
+  {
+    FileWriter writer(file.GetPath(MapOptions::Map));
+    string const data = "mwm";
+    writer.Write(data.data(), data.size());
+  }
+  file.SyncWithDisk();
+  TEST(file.OnDisk(MapOptions::Map), ());
 
   CountryIndexes::PreparePlaceOnDisk(file);
   string const bitsPath = CountryIndexes::GetPath(file, CountryIndexes::Index::Bits);
@@ -949,6 +862,12 @@ UNIT_CLASS_TEST(TwoComponentStorageTest, DeleteCountry)
   tests_support::ScopedFile map("Wonderland.mwm", ScopedFile::Mode::Create);
   LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland",
                                                            version::FOR_TESTING_TWO_COMPONENT_MWM1);
+  {
+    FileWriter writer(file.GetPath(MapOptions::Map));
+    string const data = "mwm";
+    writer.Write(data.data(), data.size());
+  }
+  file.SyncWithDisk();
   TEST(file.OnDisk(MapOptions::Map), ());
 
   CountryIndexes::PreparePlaceOnDisk(file);

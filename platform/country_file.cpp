@@ -22,8 +22,6 @@ string GetNameWithExt(string const & countryFile, MapOptions file)
     case MapOptions::Map:
     case MapOptions::MapWithCarRouting:
       return countryFile + DATA_FILE_EXTENSION;
-    case MapOptions::CarRouting:
-      return countryFile + DATA_FILE_EXTENSION + ROUTING_FILE_EXTENSION;
     case MapOptions::Diff:
       return countryFile + DIFF_FILE_EXTENSION;
     default:
@@ -35,26 +33,20 @@ string GetNameWithExt(string const & countryFile, MapOptions file)
 
 namespace platform
 {
-CountryFile::CountryFile() : m_mapSize(0), m_routingSize(0) {}
+CountryFile::CountryFile() : m_mapSize(0) {}
 
-CountryFile::CountryFile(string const & name) : m_name(name), m_mapSize(0), m_routingSize(0) {}
+CountryFile::CountryFile(string const & name) : m_name(name), m_mapSize(0) {}
 
 string const & CountryFile::GetName() const { return m_name; }
 
-void CountryFile::SetRemoteSizes(MwmSize mapSize, MwmSize routingSize)
+void CountryFile::SetRemoteSize(MwmSize mapSize)
 {
   m_mapSize = mapSize;
-  m_routingSize = routingSize;
 }
 
-MwmSize CountryFile::GetRemoteSize(MapOptions filesMask) const
+MwmSize CountryFile::GetRemoteSize() const
 {
-  uint32_t size = 0;
-  if (HasOptions(filesMask, MapOptions::Map))
-    size += m_mapSize;
-  if (HasOptions(filesMask, MapOptions::CarRouting))
-    size += m_routingSize;
-  return size;
+  return m_mapSize;
 }
 
 string GetFileName(string const & countryFile, MapOptions opt, int64_t version)

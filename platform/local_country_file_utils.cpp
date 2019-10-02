@@ -153,7 +153,7 @@ void DeleteDownloaderFilesForCountry(int64_t version, CountryFile const & countr
 void DeleteDownloaderFilesForCountry(int64_t version, string const & dataDir,
                                      CountryFile const & countryFile)
 {
-  for (MapOptions opt : {MapOptions::Map, MapOptions::CarRouting, MapOptions::Diff})
+  for (MapOptions opt : {MapOptions::Map, MapOptions::Diff})
   {
     string const path = GetFileDownloadPath(version, dataDir, countryFile, opt);
     ASSERT(strings::EndsWith(path, READY_FILE_EXTENSION), ());
@@ -208,7 +208,7 @@ void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t ver
     if (name == "Japan" || name == "Brazil")
     {
       localFile.SyncWithDisk();
-      localFile.DeleteFromDisk(MapOptions::MapWithCarRouting);
+      localFile.DeleteFromDisk(MapOptions::Map);
       continue;
     }
 
@@ -295,7 +295,7 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
 
       // Assume that empty path means the resource file.
       LocalCountryFile worldFile{string(), CountryFile(file), version::ReadVersionDate(reader)};
-      worldFile.m_files = MapOptions::Map;
+      worldFile.m_files[static_cast<uint64_t>(MapOptions::Map)] = 1;
       if (i != localFiles.end())
       {
         // Always use resource World files instead of local on disk.

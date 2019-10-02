@@ -44,19 +44,6 @@ namespace
 string const kUpdateQueueKey = "UpdateQueue";
 string const kDownloadQueueKey = "DownloadQueue";
 
-uint64_t GetLocalSize(shared_ptr<LocalCountryFile> file, MapOptions opt)
-{
-  if (!file)
-    return 0;
-  uint64_t size = 0;
-  for (MapOptions bit : {MapOptions::Map, MapOptions::CarRouting})
-  {
-    if (HasOptions(opt, bit))
-      size += file->GetSize(bit);
-  }
-  return size;
-}
-
 void DeleteCountryIndexes(LocalCountryFile const & localFile)
 {
   platform::CountryIndexes::DeleteFromDisk(localFile);
@@ -287,7 +274,7 @@ void Storage::RegisterAllLocalMaps(bool enableDiffs)
       LOG(LINFO, ("Removing obsolete", localFile));
       localFile.SyncWithDisk();
 
-      DeleteFromDiskWithIndexes(localFile, MapOptions::MapWithCarRouting);
+      DeleteFromDiskWithIndexes(localFile, MapOptions::Map);
       DeleteFromDiskWithIndexes(localFile, MapOptions::Diff);
       ++j;
     }
@@ -390,23 +377,22 @@ bool Storage::IsInnerNode(CountryId const & countryId) const
   return node != nullptr && node->ChildrenCount() != 0;
 }
 
-LocalAndRemoteSize Storage::CountrySizeInBytes(CountryId const & countryId, MapOptions opt) const
+LocalAndRemoteSize Storage::CountrySizeInBytes(CountryId const & countryId) const
 {
   QueuedCountry const * queuedCountry = FindCountryInQueue(countryId);
   LocalFilePtr localFile = GetLatestLocalFile(countryId);
   CountryFile const & countryFile = GetCountryFile(countryId);
   if (queuedCountry == nullptr)
   {
-    return LocalAndRemoteSize(GetLocalSize(localFile, opt),
-                              GetRemoteSize(countryFile, opt, GetCurrentDataVersion()));
+    return LocalAndRemoteSize(localFile ? localFile->GetSize(MapOptions::Map) : 0,
+                              GetRemoteSize(countryFile, GetCurrentDataVersion()));
   }
 
-  LocalAndRemoteSize sizes(0, GetRemoteSize(countryFile, opt, GetCurrentDataVersion()));
+  LocalAndRemoteSize sizes(0, GetRemoteSize(countryFile, GetCurrentDataVersion()));
   if (!m_downloader->IsIdle() && IsCountryFirstInQueue(countryId))
   {
     sizes.first = m_downloader->GetDownloadingProgress().first +
-                  GetRemoteSize(countryFile, queuedCountry->GetDownloadingType(),
-                                GetCurrentDataVersion());
+                  GetRemoteSize(countryFile, GetCurrentDataVersion());
   }
   return sizes;
 }
@@ -488,7 +474,7 @@ Status Storage::CountryStatusEx(CountryId const & countryId) const
     return Status::ENotDownloaded;
 
   auto const & countryFile = GetCountryFile(countryId);
-  if (GetRemoteSize(countryFile, MapOptions::Map, GetCurrentDataVersion()) == 0)
+  if (GetRemoteSize(countryFile, GetCurrentDataVersion()) == 0)
     return Status::EUnknown;
 
   if (localFile->GetVersion() != GetCurrentDataVersion())
@@ -504,11 +490,8 @@ void Storage::CountryStatusEx(CountryId const & countryId, Status & status,
   if (status == Status::EOnDisk || status == Status::EOnDiskOutOfDate)
   {
     options = MapOptions::Map;
-
-    LocalFilePtr localFile = GetLatestLocalFile(countryId);
-    ASSERT(localFile, ("Invariant violation: local file out of sync with disk."));
-    if (localFile->OnDisk(MapOptions::CarRouting))
-      options = SetOptions(options, MapOptions::CarRouting);
+    ASSERT(GetLatestLocalFile(countryId),
+           ("Invariant violation: local file out of sync with disk."));
   }
 }
 
@@ -587,7 +570,6 @@ void Storage::DeleteCountry(CountryId const & countryId, MapOptions opt)
   ASSERT(m_willDelete != nullptr, ("Storage::Init wasn't called"));
 
   LocalFilePtr localFile = GetLatestLocalFile(countryId);
-  opt = NormalizeDeleteFileSet(opt);
   bool const deferredDelete = m_willDelete(countryId, localFile);
   DeleteCountryFiles(countryId, opt, deferredDelete);
   DeleteCountryFilesFromDownloader(countryId);
@@ -601,7 +583,7 @@ void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   CountryFile const countryFile = localFile.GetCountryFile();
-  DeleteFromDiskWithIndexes(localFile, MapOptions::MapWithCarRouting);
+  DeleteFromDiskWithIndexes(localFile, MapOptions::Map);
   DeleteFromDiskWithIndexes(localFile, MapOptions::Diff);
 
   {
@@ -960,28 +942,15 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapOptions op
     return;
   }
 
-  bool ok = true;
-  vector<MapOptions> mapOpt = {MapOptions::Map};
-  if (!version::IsSingleMwm(GetCurrentDataVersion()))
-    mapOpt.emplace_back(MapOptions::CarRouting);
-
-  for (MapOptions file : mapOpt)
+  if (options == MapOptions::Map)
   {
-    if (!HasOptions(options, file))
-      continue;
-    string const path = GetFileDownloadPath(countryId, file);
-    if (!base::RenameFileX(path, localFile->GetPath(file)))
+    string const path = GetFileDownloadPath(countryId, options);
+    if (!base::RenameFileX(path, localFile->GetPath(options)))
     {
-      ok = false;
-      break;
+      localFile->DeleteFromDisk(options);
+      fn(false);
+      return;
     }
-  }
-
-  if (!ok)
-  {
-    localFile->DeleteFromDisk(options);
-    fn(false);
-    return;
   }
 
   static string const kSourceKey = "map";
@@ -1068,15 +1037,6 @@ void Storage::GetOutdatedCountries(vector<Country const *> & countries) const
       countries.push_back(&CountryLeafByCountryId(countryId));
     }
   }
-}
-
-// @TODO(bykoianko) This method does nothing and should be removed.
-MapOptions Storage::NormalizeDeleteFileSet(MapOptions options) const
-{
-  // Car routing files are useless without map files.
-  if (HasOptions(options, MapOptions::Map))
-    options = SetOptions(options, MapOptions::CarRouting);
-  return options;
 }
 
 QueuedCountry * Storage::FindCountryInQueue(CountryId const & countryId)
@@ -1268,7 +1228,7 @@ uint64_t Storage::GetDownloadSize(QueuedCountry const & queuedCountry) const
   }
 
   CountryFile const & file = GetCountryFile(countryId);
-  return GetRemoteSize(file, queuedCountry.GetDownloadingType(), GetCurrentDataVersion());
+  return GetRemoteSize(file, GetCurrentDataVersion());
 }
 
 string Storage::GetFileDownloadPath(CountryId const & countryId, MapOptions options) const
@@ -1815,17 +1775,17 @@ MapFilesDownloader::Progress Storage::CalculateProgress(
     {
       localAndRemoteBytes.first += downloadingMwmProgress.first;
       localAndRemoteBytes.second +=
-          GetRemoteSize(GetCountryFile(d), MapOptions::Map, GetCurrentDataVersion());
+          GetRemoteSize(GetCountryFile(d), GetCurrentDataVersion());
     }
     else if (mwmsInQueue.count(d) != 0)
     {
       localAndRemoteBytes.second +=
-          GetRemoteSize(GetCountryFile(d), MapOptions::Map, GetCurrentDataVersion());
+          GetRemoteSize(GetCountryFile(d), GetCurrentDataVersion());
     }
     else if (m_justDownloaded.count(d) != 0)
     {
       MwmSize const localCountryFileSz =
-          GetRemoteSize(GetCountryFile(d), MapOptions::Map, GetCurrentDataVersion());
+          GetRemoteSize(GetCountryFile(d), GetCurrentDataVersion());
       localAndRemoteBytes.first += localCountryFileSz;
       localAndRemoteBytes.second += localCountryFileSz;
     }
@@ -1896,8 +1856,7 @@ bool Storage::GetUpdateInfo(CountryId const & countryId, UpdateInfo & updateInfo
       updateInfo.m_totalUpdateSizeInBytes += node.Value().GetSubtreeMwmSizeBytes();
     }
 
-    LocalAndRemoteSize sizes =
-        CountrySizeInBytes(node.Value().Name(), MapOptions::MapWithCarRouting);
+    LocalAndRemoteSize sizes = CountrySizeInBytes(node.Value().Name());
     updateInfo.m_sizeDifference +=
         static_cast<int64_t>(sizes.second) - static_cast<int64_t>(sizes.first);
   };
@@ -2032,22 +1991,13 @@ CountryId const Storage::GetTopmostParentFor(CountryId const & countryId) const
   return result;
 }
 
-MwmSize Storage::GetRemoteSize(CountryFile const & file, MapOptions opt, int64_t version) const
+MwmSize Storage::GetRemoteSize(CountryFile const & file, int64_t version) const
 {
-  if (version::IsSingleMwm(version))
-  {
-    uint64_t size;
-    if (m_diffManager.SizeFor(file.GetName(), size))
-      return size;
-    return file.GetRemoteSize(MapOptions::Map);
-  }
+  uint64_t size;
+  if (m_diffManager.SizeFor(file.GetName(), size))
+    return size;
+  return file.GetRemoteSize();
 
-  MwmSize size = 0;
-  for (MapOptions bit : {MapOptions::Map, MapOptions::CarRouting})
-  {
-    if (HasOptions(opt, bit))
-      size += file.GetRemoteSize(bit);
-  }
   return size;
 }
 

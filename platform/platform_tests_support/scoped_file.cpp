@@ -37,6 +37,11 @@ ScopedFile::ScopedFile(ScopedDir const & dir, CountryFile const & countryFile,
                                                           version::FOR_TESTING_TWO_COMPONENT_MWM1)),
         Mode::Create)
 {
+  {
+    FileWriter writer(GetFullPath());
+    std::string const data = "mwm";
+    writer.Write(data.data(), data.size());
+  }
 }
 
 ScopedFile::ScopedFile(std::string const & relativePath, std::string const & contents, Mode mode)

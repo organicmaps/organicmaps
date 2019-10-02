@@ -22,8 +22,8 @@ public:
   std::string const & GetName() const;
 
   /// \note Remote size is size of mwm in bytes. This mwm contains routing and map sections.
-  void SetRemoteSizes(MwmSize mapSize, MwmSize routingSize);
-  MwmSize GetRemoteSize(MapOptions file) const;
+  void SetRemoteSize(MwmSize mapSize);
+  MwmSize GetRemoteSize() const;
 
   void SetSha1(std::string const & base64Sha1) { m_sha1 = base64Sha1; }
   std::string const & GetSha1() const { return m_sha1; }
@@ -38,7 +38,6 @@ private:
   /// Base name (without any extensions) of the file. Same as id of country/region.
   std::string m_name;
   MwmSize m_mapSize = 0;
-  MwmSize m_routingSize = 0;
   /// \note SHA1 is encoded to base64.
   std::string m_sha1;
 };

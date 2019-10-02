@@ -545,8 +545,8 @@ public:
   // Returns true iff |countryId| is an inner node of the tree.
   bool IsInnerNode(CountryId const & countryId) const;
 
-  LocalAndRemoteSize CountrySizeInBytes(CountryId const & countryId, MapOptions opt) const;
-  MwmSize GetRemoteSize(platform::CountryFile const & file, MapOptions opt, int64_t version) const;
+  LocalAndRemoteSize CountrySizeInBytes(CountryId const & countryId) const;
+  MwmSize GetRemoteSize(platform::CountryFile const & file, int64_t version) const;
   platform::CountryFile const & GetCountryFile(CountryId const & countryId) const;
   LocalFilePtr GetLatestLocalFile(platform::CountryFile const & countryFile) const;
   LocalFilePtr GetLatestLocalFile(CountryId const & countryId) const;
@@ -602,10 +602,6 @@ private:
 
   void SaveDownloadQueue();
   void RestoreDownloadQueue();
-
-  // Modifies file set of file to deletion - always adds (marks for
-  // removal) a routing file when map file is marked for deletion.
-  MapOptions NormalizeDeleteFileSet(MapOptions options) const;
 
   // Returns a pointer to a country in the downloader's queue.
   QueuedCountry * FindCountryInQueue(CountryId const & countryId);

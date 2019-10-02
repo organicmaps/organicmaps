@@ -65,7 +65,7 @@ int main(int argc, char * argv[])
       continue;
     }
 
-    auto const path = file.GetPath(MapOptions::CarRouting);
+    auto const path = file.GetPath(MapOptions::Map);
     LOG(LINFO, ("Mwm", path, "is being processed."));
 
     size_t all = 0;

@@ -6,25 +6,20 @@
 #include "coding/internal/file_data.hpp"
 #include "coding/sha1.hpp"
 
+#include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 
+#include <algorithm>
 #include <sstream>
 
 using namespace std;
 
 namespace platform
 {
-namespace
-{
-void SetOptions(boost::optional<MapOptions> & destination, MapOptions value)
-{
-  destination = destination ? SetOptions(destination.get(), value) : value;
-}
-}  // namespace
-
 LocalCountryFile::LocalCountryFile()
-    : m_version(0), m_mapSize(0), m_routingSize(0)
+    : m_version(0)
 {
 }
 
@@ -32,69 +27,62 @@ LocalCountryFile::LocalCountryFile(string const & directory, CountryFile const &
                                    int64_t version)
     : m_directory(directory),
       m_countryFile(countryFile),
-      m_version(version),
-      m_mapSize(0),
-      m_routingSize(0)
+      m_version(version)
 {
 }
 
 void LocalCountryFile::SyncWithDisk()
 {
   m_files = {};
-  m_mapSize = 0;
-  m_routingSize = 0;
+  uint64_t size = 0;
   Platform & platform = GetPlatform();
 
-  if (platform.GetFileSizeByFullPath(GetPath(MapOptions::Diff), m_mapSize))
+  // Now we are not working with several files at the same time and diffs have greater priority.
+  for (MapOptions type : {MapOptions::Diff, MapOptions::Map})
   {
-    SetOptions(m_files, MapOptions::Diff);
-    return;
-  }
+    ASSERT_LESS(base::Underlying(type), m_files.size(), ());
 
-  if (platform.GetFileSizeByFullPath(GetPath(MapOptions::Map), m_mapSize))
-    SetOptions(m_files, MapOptions::Map);
-
-  if (version::IsSingleMwm(GetVersion()))
-  {
-    if (m_files == MapOptions::Map)
-      SetOptions(m_files, MapOptions::CarRouting);
-    return;
-  }
-
-  string const routingPath = GetPath(MapOptions::CarRouting);
-  if (platform.GetFileSizeByFullPath(routingPath, m_routingSize))
-    SetOptions(m_files, MapOptions::CarRouting);
-}
-
-void LocalCountryFile::DeleteFromDisk(MapOptions files) const
-{
-  vector<MapOptions> const mapOptions =
-      version::IsSingleMwm(GetVersion()) ? vector<MapOptions>({MapOptions::Map, MapOptions::Diff})
-                                         : vector<MapOptions>({MapOptions::Map, MapOptions::CarRouting});
-  for (MapOptions file : mapOptions)
-  {
-    if (OnDisk(file) && HasOptions(files, file))
+    if (platform.GetFileSizeByFullPath(GetPath(type), size))
     {
-      if (!base::DeleteFileX(GetPath(file)))
-        LOG(LERROR, (file, "from", *this, "wasn't deleted from disk."));
+      m_files[base::Underlying(type)] = size;
+      break;
     }
   }
 }
 
-string LocalCountryFile::GetPath(MapOptions file) const
+void LocalCountryFile::DeleteFromDisk(MapOptions type) const
 {
-  return base::JoinPath(m_directory, GetFileName(m_countryFile.GetName(), file, GetVersion()));
+  ASSERT_LESS(base::Underlying(type), m_files.size(), ());
+
+  if (!OnDisk(type))
+    return;
+
+  if (!base::DeleteFileX(GetPath(type)))
+    LOG(LERROR, (type, "from", *this, "wasn't deleted from disk."));
 }
 
-uint64_t LocalCountryFile::GetSize(MapOptions filesMask) const
+string LocalCountryFile::GetPath(MapOptions type) const
 {
-  uint64_t size = 0;
-  if (HasOptions(filesMask, MapOptions::Map))
-    size += m_mapSize;
-  if (!version::IsSingleMwm(GetVersion()) && HasOptions(filesMask, MapOptions::CarRouting))
-    size += m_routingSize;
+  return base::JoinPath(m_directory, GetFileName(m_countryFile.GetName(), type, GetVersion()));
+}
 
-  return size;
+uint64_t LocalCountryFile::GetSize(MapOptions type) const
+{
+  ASSERT_LESS(base::Underlying(type), m_files.size(), ());
+
+  return m_files[base::Underlying(type)];
+}
+
+bool LocalCountryFile::HasFiles() const
+{
+  return std::any_of(m_files.cbegin(), m_files.cend(), [](auto value) { return value != 0; });
+}
+
+bool LocalCountryFile::OnDisk(MapOptions type) const
+{
+  ASSERT_LESS(base::Underlying(type), m_files.size(), ());
+
+  return m_files[base::Underlying(type)] != 0;
 }
 
 bool LocalCountryFile::operator<(LocalCountryFile const & rhs) const
@@ -142,12 +130,11 @@ LocalCountryFile LocalCountryFile::MakeTemporary(string const & fullPath)
   return LocalCountryFile(base::GetDirectory(fullPath), CountryFile(name), 0 /* version */);
 }
 
-
 string DebugPrint(LocalCountryFile const & file)
 {
   ostringstream os;
   os << "LocalCountryFile [" << file.m_directory << ", " << DebugPrint(file.m_countryFile) << ", "
-     << file.m_version << ", " << (file.m_files ? DebugPrint(file.m_files.get()) : "No files") << "]";
+     << file.m_version << ", " << ::DebugPrint(file.m_files) << "]";
   return os.str();
 }
 }  // namespace platform

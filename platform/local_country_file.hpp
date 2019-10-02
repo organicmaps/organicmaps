@@ -3,11 +3,10 @@
 #include "platform/country_file.hpp"
 #include "platform/country_defines.hpp"
 
+#include <array>
 #include <cstdint>
 #include <string>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 namespace platform
 {
@@ -45,32 +44,27 @@ public:
   // building routes stage.
   void SyncWithDisk();
 
-  // Removes specified files from disk if they're known for LocalCountryFile, i.e.
+  // Removes specified file from disk if it known for LocalCountryFile, i.e.
   // were found by previous SyncWithDisk() call.
-  void DeleteFromDisk(MapOptions files) const;
+  void DeleteFromDisk(MapOptions type) const;
 
   // Returns path to a file. Return value may be empty until
   // SyncWithDisk() is called.
-  std::string GetPath(MapOptions file) const;
+  std::string GetPath(MapOptions type) const;
 
   // Returns size of a file. Return value may be zero until
   // SyncWithDisk() is called.
-  uint64_t GetSize(MapOptions filesMask) const;
+  uint64_t GetSize(MapOptions type) const;
 
-  // Returns true when some files are found during SyncWithDisk.
+  // Returns true when some files are found during SyncWithDisk and have non empty size.
+  // Consider that we are not working with empty files.
   // Return value may be empty until SyncWithDisk() is called.
-  bool HasFiles() const { return m_files.is_initialized(); }
+  bool HasFiles() const;
 
   // Checks whether files specified in filesMask are on disk. Return
   // value will be false until SyncWithDisk() is called.
-  bool OnDisk(MapOptions filesMask) const
-  {
-    if (!m_files)
-      return false;
-
-    return (static_cast<unsigned>(m_files.get()) & static_cast<unsigned>(filesMask)) ==
-           static_cast<unsigned>(filesMask);
-  }
+  // Consider that we are not working with empty files.
+  bool OnDisk(MapOptions type) const;
 
   std::string const & GetDirectory() const { return m_directory; }
   std::string const & GetCountryName() const { return m_countryFile.GetName(); }
@@ -105,14 +99,8 @@ private:
   CountryFile m_countryFile;
   int64_t m_version;
 
-  boost::optional<MapOptions> m_files;
-
-  /// Size of file which contains map section in bytes. It's mwm file in any case.
-  uint64_t m_mapSize;
-  /// Size of file which contains routing section in bytes.
-  /// It's .mwm.routing file in case of big (two component) mwms.
-  /// And m_routingSize == 0 for small (one compontent) mwms.
-  uint64_t m_routingSize;
+  // Contains sizes of associated files.
+  std::array<uint64_t, kMapOptionsCount> m_files = {};
 };
 
 std::string DebugPrint(LocalCountryFile const & file);

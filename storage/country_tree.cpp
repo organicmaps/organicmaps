@@ -73,7 +73,7 @@ public:
     if (mapSize)
     {
       CountryFile countryFile(id);
-      countryFile.SetRemoteSizes(mapSize, 0 /* routingSize */);
+      countryFile.SetRemoteSize(mapSize);
       countryFile.SetSha1(mapSha1);
       country.SetFile(countryFile);
     }
@@ -432,7 +432,7 @@ public:
     if (mapSize)
     {
       CountryFile countryFile(id);
-      countryFile.SetRemoteSizes(mapSize, routingSize);
+      countryFile.SetRemoteSize(mapSize);
       country.SetFile(countryFile);
     }
     return &m_countries.AddAtDepth(depth, country);
