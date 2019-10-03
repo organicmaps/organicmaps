@@ -61,9 +61,7 @@ void TransformAreaToPoint(FeatureBuilder & feature)
 {
   CHECK(feature.IsArea(), ());
   auto const center = feature.GetGeometryCenter();
-  auto const id = feature.GetLastOsmId();
   feature.ResetGeometry();
-  feature.SetOsmId(id);
   feature.SetCenter(center);
   auto & params = feature.GetParams();
   if (!params.house.IsEmpty())

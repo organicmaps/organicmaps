@@ -87,6 +87,7 @@ set(
   filter_world.hpp
   final_processor_intermediate_mwm.cpp
   final_processor_intermediate_mwm.hpp
+  gen_mwm_info.cpp
   gen_mwm_info.hpp
   generate_info.hpp
   geometry_holder.hpp

@@ -82,6 +82,7 @@ private:
 };
 
 std::ostream & operator<<(std::ostream & os, GeoObjectId const & geoObjectId);
+std::istream & operator>>(std::istream & os, GeoObjectId & geoObjectId);
 
 // Helper functions for readability.
 GeoObjectId MakeOsmNode(uint64_t id);

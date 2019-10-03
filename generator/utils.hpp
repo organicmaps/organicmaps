@@ -44,12 +44,12 @@ void LoadDataSource(DataSource & dataSource);
 template <typename ToDo>
 bool ForEachOsmId2FeatureId(std::string const & path, ToDo && toDo)
 {
-  gen::OsmID2FeatureID mapping;
+  generator::OsmID2FeatureID mapping;
   try
   {
     FileReader reader(path);
     NonOwningReaderSource source(reader);
-    mapping.Read(source);
+    mapping.ReadAndCheckHeader(source);
   }
   catch (FileReader::Exception const & e)
   {
@@ -57,7 +57,7 @@ bool ForEachOsmId2FeatureId(std::string const & path, ToDo && toDo)
     return false;
   }
 
-  mapping.ForEach([&](gen::OsmID2FeatureID::ValueT const & p) {
+  mapping.ForEach([&](auto const & p) {
     toDo(p.first /* osm id */, p.second /* feature id */);
   });
 

@@ -2,66 +2,79 @@
 
 #include "coding/file_reader.hpp"
 #include "coding/read_write_utils.hpp"
+#include "coding/write_to_sink.hpp"
 
 #include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
 
 #include <algorithm>
+#include <iterator>
 #include <utility>
 #include <vector>
 
-namespace gen
+#include <boost/functional/hash.hpp>
+#include <boost/optional.hpp>
+
+namespace generator
 {
-template <class T> class Accumulator
+// This struct represents a composite Id.
+// This will be useful if we want to distinguish between polygons in a multipolygon.
+struct CompositeId
 {
-protected:
-  std::vector<T> m_data;
+  CompositeId() = default;
+  explicit CompositeId(std::string const & str);
+  explicit CompositeId(base::GeoObjectId mainId, base::GeoObjectId additionalId);
+  explicit CompositeId(base::GeoObjectId mainId);
 
-public:
-  typedef T ValueT;
+  bool operator<(CompositeId const & other) const;
+  bool operator==(CompositeId const & other) const;
+  bool operator!=(CompositeId const & other) const;
 
-  void Add(T const & t) { m_data.push_back(t); }
+  std::string ToString() const;
 
-  template <class TSink> void Flush(TSink & sink) const
-  {
-    rw::WriteVectorOfPOD(sink, m_data);
-  }
-
-  template <class TSource> void Read(TSource & src)
-  {
-    rw::ReadVectorOfPOD(src, m_data);
-  }
+  base::GeoObjectId m_mainId;
+  base::GeoObjectId m_additionalId;
 };
 
-class OsmID2FeatureID : public Accumulator<std::pair<base::GeoObjectId, uint32_t /* feature id */>>
-{
-  typedef Accumulator<ValueT> BaseT;
+std::string DebugPrint(CompositeId const & id);
+}  // namespace generator
 
-  struct LessID
+namespace std
+{
+template <>
+struct hash<generator::CompositeId>
+{
+  std::size_t operator()(generator::CompositeId const & id) const
   {
-    bool operator() (ValueT const & r1, ValueT const & r2) const { return r1.first < r2.first; }
-    bool operator()(base::GeoObjectId const & r1, ValueT const & r2) const { return r1 < r2.first; }
-    bool operator()(ValueT const & r1, base::GeoObjectId const & r2) const { return r1.first < r2; }
+    std::size_t seed = 0;
+    boost::hash_combine(seed, std::hash<base::GeoObjectId>()(id.m_mainId));
+    boost::hash_combine(seed, std::hash<base::GeoObjectId>()(id.m_additionalId));
+    return seed;
+  }
+};
+}  // namespace std
+
+namespace generator
+{
+class OsmID2FeatureID
+{
+public:
+  enum class Version : uint8_t
+  {
+    V0 = 0,
+    V1
   };
 
-public:
-  template <class TSink> void Flush(TSink & sink)
-  {
-    std::sort(m_data.begin(), m_data.end());
-    BaseT::Flush(sink);
-  }
+  OsmID2FeatureID();
 
-  /// Find a feature id for an OSM id.
-  bool GetFeatureID(base::GeoObjectId const & id, uint32_t & result) const
-  {
-    auto const it = std::lower_bound(m_data.begin(), m_data.end(), id, LessID());
-    if (it == m_data.end() || it->first != id)
-        return false;
+  bool ReadFromFile(std::string const & filename);
 
-    result = it->second;
-    return true;
-  }
+  void AddIds(CompositeId const & osmId, uint32_t featureId);
+  boost::optional<uint32_t> GetFeatureId(CompositeId const & id) const;
+  std::vector<uint32_t> GetFeatureIds(base::GeoObjectId mainId) const;
+
+  Version GetVersion() const;
 
   template <class Fn>
   void ForEach(Fn && fn) const
@@ -70,22 +83,54 @@ public:
       fn(v);
   }
 
-  bool ReadFromFile(std::string const & filename)
+  template <class TSink>
+  void Write(TSink & sink)
   {
-    try
-    {
-      FileReader reader(filename);
-      NonOwningReaderSource src(reader);
-      Read(src);
-    }
-    catch (FileReader::Exception const & e)
-    {
-      LOG(LERROR, ("Exception while reading osm id to feature id mapping from file", filename,
-                   ". Msg:", e.Msg()));
-      return false;
-    }
-
-    return true;
+    std::sort(std::begin(m_data), std::end(m_data));
+    WriteToSink(sink, kHeaderMagic);
+    WriteToSink(sink, base::Underlying(m_version));
+    rw::WriteVectorOfPOD(sink, m_data);
   }
+
+  template <class Source>
+  void ReadAndCheckHeader(Source & src)
+  {
+    // The first element of the old format takes more than kHeaderMagic.
+    // Probably we are dealing with a empty vector of the old format.
+    if (src.Size() < sizeof(kHeaderMagic))
+    {
+      LOG(LWARNING, ("There is insufficient file size."));
+      return;
+    }
+    auto const headerMagic = ReadPrimitiveFromSource<uint32_t>(src);
+    if (headerMagic == kHeaderMagic)
+    {
+      using VersionType = std::underlying_type_t<Version>;
+      auto const version = static_cast<Version>(ReadPrimitiveFromSource<VersionType>(src));
+      switch (version)
+      {
+      case Version::V1: rw::ReadVectorOfPOD(src, m_data); break;
+      default: UNREACHABLE();
+      }
+    }
+    else
+    {
+      // Code for supporting old format.
+      src.SetPosition(0 /* position */);
+      std::vector<std::pair<base::GeoObjectId, uint32_t>> data;
+      rw::ReadVectorOfPOD(src, data);
+      m_data.reserve(data.size());
+      for (auto const & pair : data)
+        m_data.emplace_back(CompositeId(pair.first), pair.second);
+
+      m_version = Version::V0;
+    }
+    ASSERT(std::is_sorted(std::cbegin(m_data), std::cend(m_data)), ());
+  }
+
+private:
+  static uint32_t const kHeaderMagic = 0xFFFFFFFF;
+  Version m_version;
+  std::vector<std::pair<CompositeId, uint32_t>> m_data;
 };
-}  // namespace gen
+}  // namespace generator

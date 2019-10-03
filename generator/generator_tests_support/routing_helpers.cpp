@@ -20,7 +20,7 @@ void ReEncodeOsmIdsToFeatureIdsMapping(std::string const & mappingContent, std::
 {
   strings::SimpleTokenizer lineIter(mappingContent, "\n\r" /* line delimiters */);
 
-  gen::Accumulator<std::pair<base::GeoObjectId, uint32_t>> osmIdsToFeatureIds;
+  std::vector<std::pair<base::GeoObjectId, uint32_t>> osmIdsToFeatureIds;
   for (; lineIter; ++lineIter)
   {
     auto const & line = *lineIter;
@@ -34,13 +34,13 @@ void ReEncodeOsmIdsToFeatureIdsMapping(std::string const & mappingContent, std::
     uint32_t featureId = 0;
     TEST(idIter, ());
     TEST(strings::to_uint(*idIter, featureId), ("Cannot convert to uint:", *idIter));
-    osmIdsToFeatureIds.Add(std::make_pair(base::MakeOsmWay(osmId), featureId));
+    osmIdsToFeatureIds.emplace_back(base::MakeOsmWay(osmId), featureId);
     ++idIter;
     TEST(!idIter, ());
   }
 
   FileWriter osm2ftWriter(outputFilePath);
-  osmIdsToFeatureIds.Flush(osm2ftWriter);
+  rw::WriteVectorOfPOD(osm2ftWriter, osmIdsToFeatureIds);
 }
 }  // namespace generator
 

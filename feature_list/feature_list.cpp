@@ -297,8 +297,8 @@ void PrintHeader()
 bool ParseFeatureIdToOsmIdMapping(string const & path, map<uint32_t, base::GeoObjectId> & mapping)
 {
   return generator::ForEachOsmId2FeatureId(
-      path, [&](base::GeoObjectId const & osmId, uint32_t const featureId) {
-        mapping[featureId] = osmId;
+      path, [&](generator::CompositeId const & compositeId, uint32_t const featureId) {
+        mapping[featureId] = compositeId.m_mainId;
       });
 }
 

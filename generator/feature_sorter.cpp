@@ -134,7 +134,7 @@ public:
         m_header.GetType() == DataHeader::MapType::World)
     {
       FileWriter osm2ftWriter(m_writer.GetFileName() + OSM2FEATURE_FILE_EXTENSION);
-      m_osm2ft.Flush(osm2ftWriter);
+      m_osm2ft.Write(osm2ftWriter);
     }
   }
 
@@ -240,8 +240,8 @@ public:
 
       if (!fb.GetOsmIds().empty())
       {
-        base::GeoObjectId const osmId = fb.GetMostGenericOsmId();
-        m_osm2ft.Add(make_pair(osmId, featureId));
+        generator::CompositeId const id(fb.GetMostGenericOsmId(), fb.GetFirstOsmId());
+        m_osm2ft.AddIds(id, featureId);
       }
     };
     return featureId;
@@ -307,7 +307,7 @@ private:
   RegionData m_regionData;
   uint32_t m_versionDate;
 
-  gen::OsmID2FeatureID m_osm2ft;
+  generator::OsmID2FeatureID m_osm2ft;
 
   DISALLOW_COPY_AND_MOVE(FeaturesCollector2);
 };

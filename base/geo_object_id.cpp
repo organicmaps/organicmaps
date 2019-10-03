@@ -73,6 +73,14 @@ std::ostream & operator<<(std::ostream & os, GeoObjectId const & geoObjectId)
   return os;
 }
 
+std::istream & operator>>(std::istream & os, GeoObjectId & geoObjectId)
+{
+  decltype(geoObjectId.GetEncodedId()) encodedId;
+  os >> encodedId;
+  geoObjectId = GeoObjectId(encodedId);
+  return os;
+}
+
 std::string DebugPrint(GeoObjectId::Type const & t)
 {
   switch (t)

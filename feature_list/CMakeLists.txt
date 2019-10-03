@@ -22,6 +22,7 @@ omim_link_libraries(
   mwm_diff
   bsdiff
   geometry
+  generator
   coding
   base
   agg

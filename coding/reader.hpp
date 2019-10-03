@@ -192,6 +192,11 @@ public:
     return (m_reader.Size() - m_pos);
   }
 
+  void SetPosition(uint64_t pos)
+  {
+    m_pos = pos;
+  }
+
 private:
   void CheckPosition() const
   {
