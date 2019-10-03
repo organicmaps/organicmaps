@@ -101,9 +101,9 @@ class UGC : public TraitsBase<UGC, UGCItem>
 
   UGC()
   {
-    coding::CSVReader reader;
     auto const fileReader = GetPlatform().GetReader("ugc_types.csv");
-    reader.Read(*fileReader, [this](coding::CSVReader::Row const & row) {
+    for (auto const & row : coding::CSVRunner(coding::CSVReader(*fileReader, true /* hasHeader */)))
+    {
       size_t constexpr kTypePos = 0;
       size_t constexpr kCategoriesPos = 4;
 
@@ -116,7 +116,7 @@ class UGC : public TraitsBase<UGC, UGCItem>
         m_matcher.AppendType(std::move(typePath), std::move(item));
       else
         m_excluded.AppendType(std::move(typePath));
-    });
+    }
   }
 
   UGCTypeMask ReadMasks(coding::CSVReader::Row const & row)

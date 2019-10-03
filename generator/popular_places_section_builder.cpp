@@ -24,9 +24,7 @@ namespace generator
 {
 void LoadPopularPlaces(std::string const & srcFilename, PopularPlaces & places)
 {
-  coding::CSVReader reader;
-  auto const fileReader = FileReader(srcFilename);
-  reader.Read(fileReader, [&places, &srcFilename](coding::CSVReader::Row const & row)
+  for (auto const & row : coding::CSVRunner(coding::CSVReader(srcFilename)))
   {
     size_t constexpr kOsmIdPos = 0;
     size_t constexpr kPopularityIndexPos = 1;
@@ -62,7 +60,7 @@ void LoadPopularPlaces(std::string const & srcFilename, PopularPlaces & places)
       LOG(LERROR, ("Popular place duplication in file:", srcFilename, "parsed row:", row));
       return;
     }
-  });
+  }
 }
 
 bool BuildPopularPlacesMwmSection(std::string const & srcFilename, std::string const & mwmFile,

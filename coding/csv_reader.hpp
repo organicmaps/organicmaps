@@ -2,43 +2,126 @@
 
 #include "coding/reader.hpp"
 
+#include <fstream>
 #include <functional>
 #include <sstream>
 #include <string>
 #include <vector>
+
+#include <boost/optional.hpp>
 
 namespace coding
 {
 class CSVReader
 {
 public:
-  struct Params
+  using Row = std::vector<std::string>;
+  using Rows = std::vector<Row>;
+
+  explicit CSVReader(std::string const & filename, bool hasHeader = false, char delimiter = ',');
+  explicit CSVReader(std::istream & stream, bool hasHeader = false, char delimiter = ',');
+  explicit CSVReader(Reader const & reader, bool hasHeader = false, char delimiter = ',');
+
+  bool HasHeader() const;
+  char GetDelimiter() const;
+
+  Row const & GetHeader() const;
+  boost::optional<Row> ReadRow();
+  Rows ReadAll();
+
+  template <typename Fn>
+  void ForEachRow(Fn && fn)
   {
-    Params() {}
-    bool m_readHeader = false;
-    char m_delimiter = ',';
+    while (auto const optRow = ReadRow())
+      fn(*optRow);
+  }
+
+  // The total number of lines read including the header. Count starts at 0.
+  size_t GetCurrentLineNumber() const;
+
+private:
+  class ReaderInterface
+  {
+  public:
+    virtual ~ReaderInterface() = default;
+
+    virtual boost::optional<std::string> ReadLine() = 0;
   };
 
-  CSVReader() = default;
-
-  using Row = std::vector<std::string>;
-  using File = std::vector<Row>;
-  using RowByRowCallback = std::function<void(Row && row)>;
-  using FullFileCallback = std::function<void(File && file)>;
-
-  void Read(std::istringstream & stream, RowByRowCallback const & fn,
-            Params const & params = {}) const;
-
-  void Read(std::istringstream & stream, FullFileCallback const & fn,
-            Params const & params = {}) const;
-
-  template <typename Callback>
-  void Read(Reader const & reader, Callback const & fn, Params const & params = {}) const
+  class IstreamWrapper : public ReaderInterface
   {
-    std::string str(static_cast<size_t>(reader.Size()), '\0');
-    reader.Read(0, &str[0], str.size());
-    std::istringstream stream(str);
-    Read(stream, fn, params);
-  }
+  public:
+    explicit IstreamWrapper(std::istream & stream);
+
+    // ReaderInterface overrides:
+    boost::optional<std::string> ReadLine() override;
+
+  private:
+    std::istream & m_stream;
+  };
+
+  class ReaderWrapper : public ReaderInterface
+  {
+  public:
+    explicit ReaderWrapper(Reader const & reader);
+
+    // ReaderInterface overrides:
+    boost::optional<std::string> ReadLine() override;
+
+  private:
+    size_t m_pos = 0;
+    Reader const & m_reader;
+  };
+
+  class DefaultReader : public ReaderInterface
+  {
+  public:
+    explicit DefaultReader(std::string const & filename);
+
+    // ReaderInterface overrides:
+    boost::optional<std::string> ReadLine() override;
+
+  private:
+    std::ifstream m_stream;
+  };
+
+  explicit CSVReader(std::unique_ptr<ReaderInterface> reader, bool hasHeader, char delimiter);
+
+  std::unique_ptr<ReaderInterface> m_reader;
+  size_t m_currentLine = 0;
+  bool m_hasHeader = false;
+  char m_delimiter = ',';
+  Row m_header;
+};
+
+class CSVRunner
+{
+public:
+  explicit CSVRunner(CSVReader && reader);
+
+  class Iterator : public std::iterator<std::input_iterator_tag, CSVReader::Row>
+  {
+  public:
+    Iterator(CSVReader & reader, bool isEnd = false);
+    Iterator(Iterator const & other);
+    Iterator & operator++();
+    Iterator operator++(int);
+    // Checks whether both this and other are equal. Two CSVReader iterators are equal if both of
+    // them are end-of-file iterators or not and both of them refer to the same CSVReader.
+    bool operator==(Iterator const & other) const;
+    bool operator!=(Iterator const & other) const;
+    CSVReader::Row & operator*();
+
+  private:
+    CSVReader & m_reader;
+    boost::optional<CSVReader::Row> m_current;
+  };
+
+  // Warning: It reads first line.
+  Iterator begin();
+  Iterator end();
+
+private:
+  CSVReader m_reader;
 };
 }  // namespace coding
