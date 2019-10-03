@@ -1,0 +1,17 @@
+package com.mapswithme.maps.bookmarks.data;
+
+import android.support.annotation.NonNull;
+
+import java.util.Arrays;
+import java.util.List;
+
+class CoreBookmarkCategoriesDataProvider extends AbstractDataProvider
+{
+  @NonNull
+  @Override
+  public List<BookmarkCategory> getCategories()
+  {
+    BookmarkCategory[] categories = BookmarkManager.INSTANCE.nativeGetBookmarkCategories();
+    return Arrays.asList(categories);
+  }
+}

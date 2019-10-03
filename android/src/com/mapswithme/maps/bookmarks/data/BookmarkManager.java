@@ -1,5 +1,6 @@
 package com.mapswithme.maps.bookmarks.data;
 
+import android.database.Observable;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.MainThread;
@@ -62,7 +63,14 @@ public enum BookmarkManager
   public static final List<Icon> ICONS = new ArrayList<>();
 
   @NonNull
-  private BookmarkCategoriesDataProvider mDataProvider = new BookmarkCategoriesDataProvider.CoreBookmarkCategoriesDataProvider();
+  private final CoreBookmarkCategoriesDataProvider mCoreBookmarkCategoriesDataProvider = new CoreBookmarkCategoriesDataProvider();
+
+  @NonNull
+  private BookmarkCategoriesDataProvider mCurrentDataProvider = mCoreBookmarkCategoriesDataProvider;
+
+  @NonNull
+  private final BookmarkCategoriesCache mBookmarkCategoriesCache = new BookmarkManager.BookmarkCategoriesCache();
+
 
   @NonNull
   private final List<BookmarksLoadingListener> mListeners = new ArrayList<>();
@@ -106,9 +114,13 @@ public enum BookmarkManager
     setVisibility(catId, !isVisible);
   }
 
-  public void setDataProvider(@NonNull BookmarkCategoriesDataProvider dataProvider)
+  public void setDataProvider()
   {
-    mDataProvider = dataProvider;
+    CacheBookmarkCategoriesDataProvider cacheDataProvider =
+        new CacheBookmarkCategoriesDataProvider();
+   getBookmarkCategoriesCache().updateItems(mCurrentDataProvider.getCategories());
+
+    mCurrentDataProvider = cacheDataProvider;
   }
 
   public Bookmark addNewBookmark(double lat, double lon)
@@ -450,41 +462,6 @@ public enum BookmarkManager
     nativeUploadToCatalog(rules.ordinal(), category.getId());
   }
 
-/*  *//**
-   * @return total count - tracks + bookmarks
-   * @param category
-   *//*
-  @Deprecated
-  public int getCategorySize(@NonNull BookmarkCategory category)
-  {
-    return nativeGetBookmarksCount(category.getId()) + nativeGetTracksCount(category.getId());
-  }
-
-  public int getCategoriesCount() { return nativeGetCategoriesCount(); }
-
-  @NonNull
-  public BookmarkCategory getCategoryById(long catId)
-  {
-    List<BookmarkCategory> items = getAllCategoriesSnapshot().getItems();
-    for (BookmarkCategory each : items)
-    {
-      if (catId == each.getId())
-        return each;
-    }
-    throw new IllegalArgumentException(new StringBuilder().append("Category with id = ")
-                                                          .append(catId)
-                                                          .append(" missed")
-                                                          .toString());
-  }*/
-
-/*
-  @Deprecated
-  public long getCategoryIdByPosition(int position)
-  {
-    return nativeGetCategoryIdByPosition(position);
-  }
-*/
-
   @NonNull
   public Bookmark updateBookmarkPlacePage(long bmkId)
   {
@@ -560,35 +537,61 @@ public enum BookmarkManager
   @NonNull
   public AbstractCategoriesSnapshot.Default getDownloadedCategoriesSnapshot()
   {
-    List<BookmarkCategory> items = mDataProvider.getCategories();
+    List<BookmarkCategory> items = mCurrentDataProvider.getCategories();
     return new AbstractCategoriesSnapshot.Default(items, new FilterStrategy.Downloaded());
   }
 
   @NonNull
   public AbstractCategoriesSnapshot.Default getOwnedCategoriesSnapshot()
   {
-    List<BookmarkCategory> items = mDataProvider.getCategories();
+    List<BookmarkCategory> items = mCurrentDataProvider.getCategories();
     return new AbstractCategoriesSnapshot.Default(items, new FilterStrategy.Private());
   }
 
   @NonNull
   public AbstractCategoriesSnapshot.Default getAllCategoriesSnapshot()
   {
-    List<BookmarkCategory> items = mDataProvider.getCategories();
+    List<BookmarkCategory> items = mCurrentDataProvider.getCategories();
     return new AbstractCategoriesSnapshot.Default(items, new FilterStrategy.All());
   }
 
   @NonNull
   public AbstractCategoriesSnapshot.Default getCategoriesSnapshot(FilterStrategy strategy)
   {
-    List<BookmarkCategory> items = mDataProvider.getCategories();
+    List<BookmarkCategory> items = mCurrentDataProvider.getCategories();
     return new AbstractCategoriesSnapshot.Default(items, strategy);
+  }
+
+  @NonNull
+  BookmarkCategoriesCache getBookmarkCategoriesCache()
+  {
+    return mBookmarkCategoriesCache;
+  }
+
+  public void registerBookmarkCategoriesListener()
+  {
+
+  }
+
+  private void updateCache()
+  {
+    getBookmarkCategoriesCache().updateItems(mCoreBookmarkCategoriesDataProvider.getCategories());
+  }
+
+  public void registerObserver(@NonNull RecyclerView.AdapterDataObserver observer)
+  {
+    getBookmarkCategoriesCache().registerObserver(observer);
+  }
+
+  public void unregisterObserver(@NonNull RecyclerView.AdapterDataObserver observer)
+  {
+    getBookmarkCategoriesCache().unregisterObserver(observer);
   }
 
   @NonNull
   public BookmarkCategory getCategoryById(long categoryId)
   {
-    return mDataProvider.getCategoryById(categoryId);
+    return mCurrentDataProvider.getCategoryById(categoryId);
   }
 
   public boolean isUsedCategoryName(@NonNull String name)
@@ -1301,5 +1304,29 @@ public enum BookmarkManager
     /* Edit on web */
     UPLOAD_RESULT_ACCESS_ERROR,
     UPLOAD_RESULT_INVALID_CALL;
+  }
+
+  static class BookmarkCategoriesCache extends Observable<RecyclerView.AdapterDataObserver>
+  {
+    @NonNull
+    private List<BookmarkCategory> mCachedItems = Collections.emptyList();
+
+    public void updateItems(@NonNull List<BookmarkCategory> cachedItems)
+    {
+      mCachedItems = Collections.unmodifiableList(cachedItems);
+      notifyChanged();
+    }
+
+    @NonNull
+    public List<BookmarkCategory> getItems()
+    {
+      return mCachedItems;
+    }
+
+    private void notifyChanged() {
+      for (int i = mObservers.size() - 1; i >= 0; i--) {
+        mObservers.get(i).onChanged();
+      }
+    }
   }
 }

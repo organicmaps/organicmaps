@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.cocosw.bottomsheet.BottomSheet;
-import com.mapswithme.maps.BookmarkCategoriesCache;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
@@ -106,7 +105,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     rw.addItemDecoration(decor);
     mCatalogListener = new CatalogListenerDecorator(createCatalogListener(), this);
     mCategoriesAdapterObserver = new CategoriesAdapterObserver();
-    BookmarkCategoriesCache.from(requireContext()).registerObserver(mCategoriesAdapterObserver);
+    BookmarkManager.INSTANCE.registerObserver(mCategoriesAdapterObserver);
   }
 
   protected void onPrepareControllers(@NonNull View view)
@@ -167,7 +166,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   public void onDestroyView()
   {
     super.onDestroyView();
-    BookmarkCategoriesCache.from(requireContext()).unregisterObserver(mCategoriesAdapterObserver);
+    BookmarkManager.INSTANCE.unregisterObserver(mCategoriesAdapterObserver);
   }
 
   @Override
