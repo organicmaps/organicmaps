@@ -158,6 +158,8 @@ public:
     {
       // NOTE: v.2 and v.3 are binary compatible.
       FileDataV3 dataV3;
+      dataV3.m_deviceId = m_data.m_deviceId;
+      dataV3.m_serverId = m_data.m_serverId;
       DeserializeCategory(subReader, dataV3);
       DeserializeBookmarks(subReader, dataV3);
 
