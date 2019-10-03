@@ -59,19 +59,6 @@ void TypesSkipper::SkipEmptyNameTypes(feature::TypesHolder & types) const
   types.RemoveIf(shouldBeRemoved);
 }
 
-bool TypesSkipper::IsCountryOrState(feature::TypesHolder const & types) const
-{
-  auto static const country = classif().GetTypeByPath({"place", "country"});
-  auto static const state = classif().GetTypeByPath({"place", "state"});
-  for (uint32_t t : types)
-  {
-    ftype::TruncValue(t, 2);
-    if (t == country || t == state)
-      return true;
-  }
-  return false;
-}
-
 // static
 bool TypesSkipper::HasType(Cont const & v, uint32_t t)
 {

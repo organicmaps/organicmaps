@@ -16,8 +16,6 @@ public:
 
   void SkipEmptyNameTypes(feature::TypesHolder & types) const;
 
-  bool IsCountryOrState(feature::TypesHolder const & types) const;
-
 private:
   using Cont = buffer_vector<uint32_t, 16>;
 

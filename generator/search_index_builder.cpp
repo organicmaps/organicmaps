@@ -320,6 +320,13 @@ public:
 
     static TypesSkipper skipIndex;
 
+    auto const isCountryOrState = [](auto types) {
+      auto const & isLocalityChecker = ftypes::IsLocalityChecker::Instance();
+      auto const localityType = isLocalityChecker.GetType(types);
+      return localityType == ftypes::LocalityType::Country ||
+             localityType == ftypes::LocalityType::State;
+    };
+
     feature::TypesHolder types(f);
 
     auto const & streetChecker = ftypes::IsStreetOrSuburbChecker::Instance();
@@ -327,9 +334,8 @@ public:
 
     // Init inserter with serialized value.
     // Insert synonyms only for countries and states (maybe will add cities in future).
-    FeatureNameInserter<Key, Value> inserter(
-        index, skipIndex.IsCountryOrState(types) ? m_synonyms : nullptr, m_keyValuePairs,
-        hasStreetType);
+    FeatureNameInserter<Key, Value> inserter(index, isCountryOrState(types) ? m_synonyms : nullptr,
+                                             m_keyValuePairs, hasStreetType);
 
     string const postcode = f.GetMetadata().Get(feature::Metadata::FMD_POSTCODE);
     if (!postcode.empty())
