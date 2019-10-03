@@ -25,6 +25,7 @@ namespace feature { class TypesHolder; }
 namespace routing
 {
 double constexpr kNotUsed = std::numeric_limits<double>::max();
+double constexpr kInvalidModelValue = -1.0;
 
 struct InOutCityFactor;
 struct InOutCitySpeedKMpH;
@@ -423,6 +424,7 @@ protected:
 
 std::string DebugPrint(VehicleModelInterface::RoadAvailability const l);
 std::string DebugPrint(SpeedKMpH const & speed);
+std::string DebugPrint(SpeedFactor const & speedFactor);
 std::string DebugPrint(InOutCitySpeedKMpH const & speed);
 std::string DebugPrint(HighwayType type);
 }  // namespace routing

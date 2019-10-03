@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "routing_common/car_model_coefs.hpp"
 #include "routing_common/maxspeed_conversion.hpp"
 #include "routing_common/vehicle_model.hpp"
 
@@ -13,6 +14,7 @@
 #include "base/math.hpp"
 
 #include <cstdint>
+#include <vector>
 
 using namespace routing;
 using namespace std;
@@ -257,4 +259,33 @@ UNIT_TEST(VehicleModel_MultiplicationOperatorTest)
   TEST_EQUAL(lResult, rResult, ());
   TEST(base::AlmostEqualAbs(lResult.m_weight, 90.0, 1e-7), ());
   TEST(base::AlmostEqualAbs(lResult.m_eta, 110.0, 1e-7), ());
+}
+
+UNIT_TEST(VehicleModel_CarModelValidation)
+{
+  vector<HighwayType> const carRoadTypes = {
+      HighwayType::HighwayLivingStreet,  HighwayType::HighwayMotorway,
+      HighwayType::HighwayMotorwayLink,  HighwayType::HighwayPrimary,
+      HighwayType::HighwayPrimaryLink,   HighwayType::HighwayResidential,
+      HighwayType::HighwayRoad,          HighwayType::HighwaySecondary,
+      HighwayType::HighwaySecondaryLink, HighwayType::HighwayService,
+      HighwayType::HighwayTertiary,      HighwayType::HighwayTertiaryLink,
+      HighwayType::HighwayTrack,         HighwayType::HighwayTrunk,
+      HighwayType::HighwayTrunkLink,     HighwayType::HighwayUnclassified,
+      HighwayType::ManMadePier,          HighwayType::RailwayRailMotorVehicle,
+      HighwayType::RouteFerryMotorcar,   HighwayType::RouteFerryMotorVehicle,
+      HighwayType::RouteShuttleTrain};
+
+  for (auto const hwType : carRoadTypes)
+  {
+    auto const factorIt = kHighwayBasedFactors.find(hwType);
+    TEST(factorIt != kHighwayBasedFactors.cend(), (hwType));
+    TEST_NOT_EQUAL(factorIt->second.m_inCity, kInvalidModelValue, (hwType));
+    TEST_NOT_EQUAL(factorIt->second.m_outCity, kInvalidModelValue, (hwType));
+
+    auto const speedIt = kHighwayBasedSpeeds.find(hwType);
+    TEST(speedIt != kHighwayBasedSpeeds.cend(), (hwType));
+    TEST_NOT_EQUAL(speedIt->second.m_inCity, SpeedKMpH(kInvalidModelValue, kInvalidModelValue), (hwType));
+    TEST_NOT_EQUAL(speedIt->second.m_outCity, SpeedKMpH(kInvalidModelValue, kInvalidModelValue), (hwType));
+  }
 }

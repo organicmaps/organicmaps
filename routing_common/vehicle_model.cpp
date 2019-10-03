@@ -17,8 +17,6 @@ using namespace std;
 
 namespace
 {
-double constexpr kInvalidModelValue = -1.0;
-
 template <double const & (*F)(double const &, double const &), typename WeightAndETA>
 WeightAndETA Pick(WeightAndETA const & lhs, WeightAndETA const & rhs)
 {
@@ -368,6 +366,15 @@ string DebugPrint(SpeedKMpH const & speed)
   oss << "SpeedKMpH [ ";
   oss << "weight:" << speed.m_weight << ", ";
   oss << "eta:" << speed.m_eta << " ]";
+  return oss.str();
+}
+
+std::string DebugPrint(SpeedFactor const & speedFactor)
+{
+  ostringstream oss;
+  oss << "SpeedFactor [ ";
+  oss << "weight:" << speedFactor.m_weight << ", ";
+  oss << "eta:" << speedFactor.m_eta << " ]";
   return oss.str();
 }
 
