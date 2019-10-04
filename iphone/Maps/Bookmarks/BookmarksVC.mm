@@ -245,9 +245,6 @@ using namespace std;
   self.myCategoryToolbar.barTintColor = [UIColor white];
   self.downloadedCategoryToolbar.barTintColor = [UIColor white];
 
-  [self.searchBar setImage:[UIImage imageNamed:@"ic_search"]
-          forSearchBarIcon:UISearchBarIconSearch
-                     state:UIControlStateNormal];
   [self refreshDefaultSections];
 }
 
