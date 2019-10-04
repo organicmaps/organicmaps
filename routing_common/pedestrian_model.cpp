@@ -28,7 +28,7 @@ namespace
 // As result of such heuristic road is not totally the shortest, but it avoids non pedestrian roads, which were
 // not marked as "foot=no" in OSM.
 
-HighwayBasedFactors const kDefaultFactors{};
+HighwayBasedFactors const kDefaultFactors = GetOneFactorsForBicycleAndPedestrianModel();
 
 HighwayBasedSpeeds const kDefaultSpeeds = {
     // {highway class : InOutCitySpeedKMpH(in city(weight, eta), out city(weight eta))}

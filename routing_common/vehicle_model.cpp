@@ -348,6 +348,35 @@ string VehicleModelFactory::GetParent(string const & country) const
   return m_countryParentNameGetterFn(country);
 }
 
+HighwayBasedFactors GetOneFactorsForBicycleAndPedestrianModel()
+{
+  return HighwayBasedFactors{
+      {HighwayType::HighwayTrunk, InOutCityFactor(1.0)},
+      {HighwayType::HighwayTrunkLink, InOutCityFactor(1.0)},
+      {HighwayType::HighwayPrimary, InOutCityFactor(1.0)},
+      {HighwayType::HighwayPrimaryLink, InOutCityFactor(1.0)},
+      {HighwayType::HighwaySecondary, InOutCityFactor(1.0)},
+      {HighwayType::HighwaySecondaryLink, InOutCityFactor(1.0)},
+      {HighwayType::HighwayTertiary, InOutCityFactor(1.0)},
+      {HighwayType::HighwayTertiaryLink, InOutCityFactor(1.0)},
+      {HighwayType::HighwayService, InOutCityFactor(1.0)},
+      {HighwayType::HighwayUnclassified, InOutCityFactor(1.0)},
+      {HighwayType::HighwayRoad, InOutCityFactor(1.0)},
+      {HighwayType::HighwayTrack, InOutCityFactor(1.0)},
+      {HighwayType::HighwayPath, InOutCityFactor(1.0)},
+      {HighwayType::HighwayBridleway, InOutCityFactor(1.0)},
+      {HighwayType::HighwayCycleway, InOutCityFactor(1.0)},
+      {HighwayType::HighwayResidential, InOutCityFactor(1.0)},
+      {HighwayType::HighwayLivingStreet, InOutCityFactor(1.0)},
+      {HighwayType::HighwaySteps, InOutCityFactor(1.0)},
+      {HighwayType::HighwayPedestrian, InOutCityFactor(1.0)},
+      {HighwayType::HighwayFootway, InOutCityFactor(1.0)},
+      {HighwayType::HighwayPlatform, InOutCityFactor(1.0)},
+      {HighwayType::ManMadePier, InOutCityFactor(1.0)},
+      {HighwayType::RouteFerry, InOutCityFactor(1.0)},
+  };
+}
+
 string DebugPrint(VehicleModelInterface::RoadAvailability const l)
 {
   switch (l)

@@ -422,6 +422,8 @@ protected:
   CountryParentNameGetterFn m_countryParentNameGetterFn;
 };
 
+HighwayBasedFactors GetOneFactorsForBicycleAndPedestrianModel();
+
 std::string DebugPrint(VehicleModelInterface::RoadAvailability const l);
 std::string DebugPrint(SpeedKMpH const & speed);
 std::string DebugPrint(SpeedFactor const & speedFactor);
