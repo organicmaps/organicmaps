@@ -220,6 +220,10 @@ class Env:
         return os.path.join(self.intermediate_path, "translations_food.json")
 
     @property
+    def postcodes_path(self):
+        return os.path.join(self.intermediate_path, "postcodes")
+
+    @property
     def cities_boundaries_path(self):
         return os.path.join(self.intermediate_path, "cities_boundaries.bin")
 

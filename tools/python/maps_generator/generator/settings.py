@@ -50,6 +50,7 @@ POPULARITY_URL= ""
 SUBWAY_URL = ""
 FOOD_URL = ""
 FOOD_TRANSLATIONS_URL = ""
+POSTCODES_URL = ""
 SRTM_PATH = ""
 
 STATS_TYPES_CONFIG = ""
@@ -122,6 +123,7 @@ PROMO_CATALOG_CITIES_URL = _get_opt_path(config, "External", "PROMO_CATALOG_CITI
 POPULARITY_URL = _get_opt_path(config, "External", "POPULARITY_URL", POPULARITY_URL)
 SUBWAY_URL = _get_opt(config, "External", "SUBWAY_URL", SUBWAY_URL)
 FOOD_URL = _get_opt(config, "External", "FOOD_URL", FOOD_URL)
+POSTCODES_URL = _get_opt(config, "External", "POSTCODES_URL", POSTCODES_URL)
 FOOD_TRANSLATIONS_URL = _get_opt(config, "External", "FOOD_TRANSLATIONS_URL", 
                                  FOOD_TRANSLATIONS_URL)
 SRTM_PATH = _get_opt_path(config, "External", "SRTM_PATH", SRTM_PATH)

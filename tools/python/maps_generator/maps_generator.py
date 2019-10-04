@@ -66,6 +66,7 @@ def stage_download_production_external(env):
         settings.POPULARITY_URL: env.popularity_path,
         settings.FOOD_URL: env.food_paths,
         settings.FOOD_TRANSLATIONS_URL: env.food_translations_path,
+        settings.POSTCODES_URL: env.postcodes_path,
     })
 
 
@@ -120,7 +121,10 @@ def stage_index(env, country, **kwargs):
     elif country == WORLD_COASTS_NAME:
         stages.stage_coastline_index(env, country, **kwargs)
     else:
-        stages.stage_index(env, country, **kwargs)
+        extra = {}
+        if env.is_accepted_stage(stage_download_production_external):
+            extra["postcodes_dataset"] = env.postcodes_path
+        stages.stage_index(env, country, **kwargs, **extra)
 
 
 @country_stage
