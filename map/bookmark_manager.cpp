@@ -2245,6 +2245,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & nam
   m_categories[groupId] = std::make_unique<BookmarkCategory>(name, groupId, autoSave);
   UpdateBmGroupIdList();
   m_changesTracker.OnAddGroup(groupId);
+  GetEditSession().NotifyChanges();
   return groupId;
 }
 

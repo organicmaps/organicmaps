@@ -26,6 +26,7 @@ public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHol
   public void setItems(@NonNull List<BookmarkCategory> items)
   {
     mItems = items;
+    notifyDataSetChanged();
   }
 
   @NonNull

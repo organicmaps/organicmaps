@@ -104,7 +104,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
         .createVerticalDefaultDecorator(getContext());
     rw.addItemDecoration(decor);
     mCatalogListener = new CatalogListenerDecorator(createCatalogListener(), this);
-    mCategoriesAdapterObserver = new CategoriesAdapterObserver();
+    mCategoriesAdapterObserver = new CategoriesAdapterObserver(this);
     BookmarkManager.INSTANCE.registerObserver(mCategoriesAdapterObserver);
   }
 
@@ -399,12 +399,9 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   {
     SET_SHARE(R.id.share, shareAction(), new Analytics(Statistics.ParamValue.SEND_AS_FILE)),
     SET_EDIT(R.id.edit, editAction(), new Analytics(Statistics.ParamValue.EDIT)),
-    SHOW_ON_MAP(R.id.show_on_map, showAction(),
-                new Analytics(Statistics.ParamValue.MAKE_INVISIBLE_ON_MAP)),
-    SHARING_OPTIONS(R.id.sharing_options, showSharingOptions(),
-                    new Analytics(Statistics.ParamValue.SHARING_OPTIONS)),
-    LIST_SETTINGS(R.id.settings, showListSettings(),
-                  new Analytics(Statistics.ParamValue.LIST_SETTINGS)),
+    SHOW_ON_MAP(R.id.show_on_map, showAction(), new Analytics(Statistics.ParamValue.MAKE_INVISIBLE_ON_MAP)),
+    SHARING_OPTIONS(R.id.sharing_options, showSharingOptions(), new Analytics(Statistics.ParamValue.SHARING_OPTIONS)),
+    LIST_SETTINGS(R.id.settings, showListSettings(), new Analytics(Statistics.ParamValue.LIST_SETTINGS)),
     DELETE_LIST(R.id.delete, deleteAction(), new Analytics(Statistics.ParamValue.DELETE_GROUP));
 
     @NonNull
@@ -554,10 +551,16 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     }
   }
 
-  private static class CategoriesAdapterObserver extends RecyclerView.AdapterDataObserver implements Detachable<BaseBookmarkCategoriesFragment>
+  private static class CategoriesAdapterObserver extends RecyclerView.AdapterDataObserver
+      implements Detachable<BaseBookmarkCategoriesFragment>
   {
     @Nullable
     private BaseBookmarkCategoriesFragment mFragment;
+
+    CategoriesAdapterObserver(@NonNull BaseBookmarkCategoriesFragment fragment)
+    {
+      mFragment = fragment;
+    }
 
     @Override
     public void attach(@NonNull BaseBookmarkCategoriesFragment object)

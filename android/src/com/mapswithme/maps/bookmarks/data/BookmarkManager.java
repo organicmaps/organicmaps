@@ -1,6 +1,5 @@
 package com.mapswithme.maps.bookmarks.data;
 
-import android.database.Observable;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.MainThread;
@@ -63,14 +62,15 @@ public enum BookmarkManager
   public static final List<Icon> ICONS = new ArrayList<>();
 
   @NonNull
-  private final CoreBookmarkCategoriesDataProvider mCoreBookmarkCategoriesDataProvider = new CoreBookmarkCategoriesDataProvider();
+  private final CoreBookmarkCategoriesDataProvider mCategoriesCoreDataProvider
+      = new CoreBookmarkCategoriesDataProvider();
 
   @NonNull
-  private BookmarkCategoriesDataProvider mCurrentDataProvider = mCoreBookmarkCategoriesDataProvider;
+  private BookmarkCategoriesDataProvider mCurrentDataProvider = mCategoriesCoreDataProvider;
 
   @NonNull
-  private final BookmarkCategoriesCache mBookmarkCategoriesCache = new BookmarkManager.BookmarkCategoriesCache();
-
+  private final BookmarkCategoriesCache mBookmarkCategoriesCache
+      = new BookmarkManager.BookmarkCategoriesCache();
 
   @NonNull
   private final List<BookmarksLoadingListener> mListeners = new ArrayList<>();
@@ -114,13 +114,10 @@ public enum BookmarkManager
     setVisibility(catId, !isVisible);
   }
 
-  public void setDataProvider()
+  private void setDataProvider()
   {
-    CacheBookmarkCategoriesDataProvider cacheDataProvider =
-        new CacheBookmarkCategoriesDataProvider();
-   getBookmarkCategoriesCache().updateItems(mCurrentDataProvider.getCategories());
-
-    mCurrentDataProvider = cacheDataProvider;
+    updateCache();
+    mCurrentDataProvider = new CacheBookmarkCategoriesDataProvider();
   }
 
   public Bookmark addNewBookmark(double lat, double lon)
@@ -216,7 +213,7 @@ public enum BookmarkManager
   @MainThread
   public void onBookmarksChanged()
   {
-    // TODO: Implement.
+    updateCache();
   }
 
   @SuppressWarnings("unused")
@@ -232,6 +229,7 @@ public enum BookmarkManager
   @MainThread
   public void onBookmarksLoadingFinished()
   {
+    setDataProvider();
     for (BookmarksLoadingListener listener : mListeners)
       listener.onBookmarksLoadingFinished();
   }
@@ -568,14 +566,9 @@ public enum BookmarkManager
     return mBookmarkCategoriesCache;
   }
 
-  public void registerBookmarkCategoriesListener()
-  {
-
-  }
-
   private void updateCache()
   {
-    getBookmarkCategoriesCache().updateItems(mCoreBookmarkCategoriesDataProvider.getCategories());
+    getBookmarkCategoriesCache().updateItems(mCategoriesCoreDataProvider.getCategories());
   }
 
   public void registerObserver(@NonNull RecyclerView.AdapterDataObserver observer)
@@ -802,11 +795,8 @@ public enum BookmarkManager
     nativeGetSortedCategory(catId, sortingType, hasMyPosition, lat, lon, timestamp);
   }
 
-  @NonNull
-  private String getCategoryAuthor(long catId)
-  {
-    return nativeGetCategoryAuthor(catId);
-  }
+  native BookmarkCategory[] nativeGetBookmarkCategories();
+
 
   @NonNull
   public String getBookmarkName(@IntRange(from = 0) long bookmarkId)
@@ -947,9 +937,6 @@ public enum BookmarkManager
 
   private native void nativeSetVisibility(long catId, boolean visible);
 
-  @NonNull
-  private native String nativeGetCategoryName(long catId);
-
   private native void nativeSetCategoryName(long catId, @NonNull String n);
 
   private native void nativeSetCategoryDescription(long catId, @NonNull String desc);
@@ -959,9 +946,6 @@ public enum BookmarkManager
   private native void nativeSetCategoryAccessRules(long catId, int accessRules);
 
   private native void nativeSetCategoryCustomProperty(long catId, String key, String value);
-
-  @NonNull
-  private native String nativeGetCategoryAuthor(long catId);
 
   private static native void nativeLoadBookmarks();
 
@@ -1311,7 +1295,7 @@ public enum BookmarkManager
     @NonNull
     private List<BookmarkCategory> mCachedItems = Collections.emptyList();
 
-    public void updateItems(@NonNull List<BookmarkCategory> cachedItems)
+    void updateItems(@NonNull List<BookmarkCategory> cachedItems)
     {
       mCachedItems = Collections.unmodifiableList(cachedItems);
       notifyChanged();

@@ -2387,7 +2387,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onBookmarksLoadingFinished()
   {
-    BookmarkManager.INSTANCE.setDataProvider();
   }
 
   @Override

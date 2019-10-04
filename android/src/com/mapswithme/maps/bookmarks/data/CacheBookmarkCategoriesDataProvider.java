@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-class CacheBookmarkCategoriesDataProvider extends AbstractDataProvider
+class CacheBookmarkCategoriesDataProvider extends AbstractBookmarkCategoriesDataProvider
 {
   @NonNull
   @Override
