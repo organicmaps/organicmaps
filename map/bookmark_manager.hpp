@@ -451,7 +451,11 @@ private:
   class MarksChangesTracker : public df::UserMarksProvider
   {
   public:
-    explicit MarksChangesTracker(BookmarkManager & bmManager) : m_bmManager(bmManager) {}
+    explicit MarksChangesTracker(BookmarkManager * bmManager)
+      : m_bmManager(bmManager)
+    {
+      CHECK(m_bmManager != nullptr, ());
+    }
 
     void OnAddMark(kml::MarkId markId);
     void OnDeleteMark(kml::MarkId markId);
@@ -501,7 +505,7 @@ private:
     void InsertBookmark(kml::MarkId markId, kml::MarkGroupId catId,
                         GroupMarkIdSet & setToInsert, GroupMarkIdSet & setToErase);
 
-    BookmarkManager & m_bmManager;
+    BookmarkManager * m_bmManager;
 
     kml::MarkIdSet m_createdMarks;
     kml::MarkIdSet m_removedMarks;
@@ -718,7 +722,8 @@ private:
   User & m_user;
   Callbacks m_callbacks;
   MarksChangesTracker m_changesTracker;
-  MarksChangesTracker m_postponedChangesTracker;
+  MarksChangesTracker m_bookmarksChangesTracker;
+  MarksChangesTracker m_drapeChangesTracker;
   df::DrapeEngineSafePtr m_drapeEngine;
 
   std::unique_ptr<search::RegionAddressGetter> m_regionAddressGetter;
