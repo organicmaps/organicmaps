@@ -148,9 +148,6 @@ def stage_cities_ids_world(env, country, **kwargs):
 def stage_index(env, country, **kwargs):
     _generate_common_index(env, country,
                            generate_search_index=True,
-                           cities_boundaries_data=env.cities_boundaries_path,
-                           generate_maxspeed=True,
-                           make_city_roads=True,
                            **kwargs)
 
 
@@ -213,6 +210,9 @@ def stage_routing(env, country, **kwargs):
         data_path=env.mwm_path,
         intermediate_data_path=env.intermediate_path,
         user_resource_path=env.user_resource_path,
+        cities_boundaries_data=env.cities_boundaries_path,
+        generate_maxspeed=True,
+        make_city_roads=True,
         make_cross_mwm=True,
         disable_cross_mwm_progress=True,
         generate_cameras=True,
