@@ -888,7 +888,7 @@ std::vector<BookmarkManager::SortingType> BookmarkManager::GetAvailableSortingTy
       {
         byTypeChecked = true;
       }
-      else
+      else if (type != BookmarkBaseType::None)
       {
         auto const count = ++typesCount[type];
         byTypeChecked = (count == kMinCommonTypesCount);
@@ -917,7 +917,7 @@ std::vector<BookmarkManager::SortingType> BookmarkManager::GetAvailableSortingTy
   std::vector<SortingType> sortingTypes;
   if (byTypeChecked)
     sortingTypes.push_back(SortingType::ByType);
-  if (hasMyPosition)
+  if (hasMyPosition && !group->GetUserMarks().empty())
     sortingTypes.push_back(SortingType::ByDistance);
   if (byTimeChecked)
     sortingTypes.push_back(SortingType::ByTime);
