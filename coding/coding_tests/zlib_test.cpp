@@ -86,4 +86,22 @@ UNIT_TEST(GZip_ForeignData)
   TEST(inflate(data, ARRAY_SIZE(data), back_inserter(s)), ());
   TEST_EQUAL(s, "Hello, World!", ());
 }
+
+UNIT_TEST(GZip_ExtraDataInBuffer)
+{
+  // Data from GZip_ForeignData + extra \n at the end of the buffer.
+  uint8_t const data[] = {0x1f, 0x8b, 0x08, 0x08, 0x6d, 0x55, 0x08, 0x59, 0x00, 0x03, 0x73,
+                          0x61, 0x6d, 0x70, 0x6c, 0x65, 0x2e, 0x74, 0x78, 0x74, 0x00, 0xf3,
+                          0x48, 0xcd, 0xc9, 0xc9, 0xd7, 0x51, 0x08, 0xcf, 0x2f, 0xca, 0x49,
+                          0x51, 0x04, 0x00, 0xd0, 0xc3, 0x4a, 0xec, 0x0d, 0x00, 0x00, 0x00,
+                          0x0a};
+
+  string s;
+
+  Inflate const inflate(Inflate::Format::GZip);
+  // inflate should fail becase there is unconsumed data at the end of buffer.
+  TEST(!inflate(data, ARRAY_SIZE(data), back_inserter(s)), ());
+  // inflate should decompress everything but the last byte.
+  TEST_EQUAL(s, "Hello, World!", ());
+}
 }  // namespace

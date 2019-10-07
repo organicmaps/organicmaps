@@ -149,10 +149,10 @@ private:
     if (!processor.IsInit())
       return false;
 
+    int ret = Z_OK;
     while (true)
     {
-      int const flush = processor.ConsumedAll() ? Z_FINISH : Z_NO_FLUSH;
-      int ret = Z_OK;
+      int const flush = (processor.ConsumedAll() || ret == Z_STREAM_END) ? Z_FINISH : Z_NO_FLUSH;
 
       while (true)
       {
@@ -171,7 +171,7 @@ private:
     }
 
     processor.MoveOut(out);
-    return true;
+    return processor.ConsumedAll();
   }
 };
 }  // namespace coding
