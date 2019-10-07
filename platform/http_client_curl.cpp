@@ -285,13 +285,16 @@ bool HttpClient::RunHttpRequest()
     m_serverResponse = move(redirect.m_serverResponse);
   }
 
-  auto const it = m_headers.find("content-encoding");
-  if (it != m_headers.end())
+  for (auto const & header : headers)
   {
-    m_serverResponse = Decompress(m_serverResponse, it->second);
-    LOG(LDEBUG, ("Response with", it->second, "is decompressed."));
+    if (strings::EqualNoCase(header.first, "content-encoding") &&
+        !strings::EqualNoCase(header.second, "identity"))
+    {
+      m_serverResponse = Decompress(m_serverResponse, header.second);
+      LOG(LDEBUG, ("Response with", header.second, "is decompressed."));
+      break;
+    }
   }
-
   return true;
 }
 }  // namespace platform
