@@ -620,6 +620,12 @@ IsPublicTransportStopChecker::IsPublicTransportStopChecker()
   m_types.push_back(classif().GetTypeByPath({"railway", "tram_stop"}));
 }
 
+IsMotorwayJunctionChecker::IsMotorwayJunctionChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"highway", "motorway_junction"}));
+}
+
 IsLocalityChecker::IsLocalityChecker()
 {
   Classificator const & c = classif();
