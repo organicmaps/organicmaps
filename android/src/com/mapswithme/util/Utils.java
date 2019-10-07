@@ -276,9 +276,16 @@ public class Utils
     }
   }
 
-  public static void sendSupportMail(@NonNull Activity activity, @NonNull String subject)
+  public static void sendBugReport(@NonNull Activity activity)
   {
-    LoggerFactory.INSTANCE.zipLogs(new OnZipCompletedCallback(activity, subject));
+    LoggerFactory.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(activity, "Bugreport from user",
+                                                                   Constants.Email.SUPPORT));
+  }
+
+  public static void sendFeedback(@NonNull Activity activity)
+  {
+    LoggerFactory.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(activity, "Feedback",
+                                                                   Constants.Email.FEEDBACK));
   }
 
   public static void navigateToParent(@Nullable Activity activity)
@@ -633,59 +640,6 @@ public class Utils
     return isTargetOrLater(Build.VERSION_CODES.JELLY_BEAN_MR1);
   }
 
-  private  static class OnZipCompletedCallback implements LoggerFactory.OnZipCompletedListener
-  {
-    @NonNull
-    private final WeakReference<Activity> mActivityRef;
-    @NonNull
-    private final String mSubject;
-
-    private OnZipCompletedCallback(@NonNull Activity activity, @NonNull String subject)
-    {
-      mActivityRef = new WeakReference<>(activity);
-      mSubject = subject;
-    }
-
-    @Override
-    public void onCompleted(final boolean success)
-    {
-      UiThread.run(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          Activity activity = mActivityRef.get();
-          if (activity == null)
-            return;
-
-          final Intent intent = new Intent(Intent.ACTION_SEND);
-          intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-          intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.Email.SUPPORT });
-          intent.putExtra(Intent.EXTRA_SUBJECT, "[" + BuildConfig.VERSION_NAME + "] " + mSubject);
-          if (success)
-          {
-            String logsZipFile = StorageUtils.getLogsZipPath(activity.getApplication());
-            if (!TextUtils.isEmpty(logsZipFile))
-            {
-              Uri uri = StorageUtils.getUriForFilePath(activity, logsZipFile);
-              intent.putExtra(Intent.EXTRA_STREAM, uri);
-            }
-          }
-          intent.putExtra(Intent.EXTRA_TEXT, ""); // do this so some email clients don't complain about empty body.
-          intent.setType("message/rfc822");
-          try
-          {
-            activity.startActivity(intent);
-          }
-          catch (ActivityNotFoundException e)
-          {
-            AlohaHelper.logException(e);
-          }
-        }
-      });
-    }
-  }
-
   @NonNull
   public static <T> T[] concatArrays(@Nullable T[] a, T... b)
   {
@@ -780,5 +734,58 @@ public class Utils
 
     String key = "brand." + brand;
     return getLocalizedFeatureByKey(context, key);
+  }
+
+  private static class SupportInfoWithLogsCallback implements LoggerFactory.OnZipCompletedListener
+  {
+    @NonNull
+    private final WeakReference<Activity> mActivityRef;
+    @NonNull
+    private final String mSubject;
+    @NonNull
+    private final String mEmail;
+
+    private SupportInfoWithLogsCallback(@NonNull Activity activity, @NonNull String subject,
+                                        @NonNull String email)
+    {
+      mActivityRef = new WeakReference<>(activity);
+      mSubject = subject;
+      mEmail = email;
+    }
+
+    @Override
+    public void onCompleted(final boolean success)
+    {
+      UiThread.run(() -> {
+        Activity activity = mActivityRef.get();
+        if (activity == null)
+          return;
+
+        final Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { mEmail });
+        intent.putExtra(Intent.EXTRA_SUBJECT, "[" + BuildConfig.VERSION_NAME + "] " + mSubject);
+        if (success)
+        {
+          String logsZipFile = StorageUtils.getLogsZipPath(activity.getApplication());
+          if (!TextUtils.isEmpty(logsZipFile))
+          {
+            Uri uri = StorageUtils.getUriForFilePath(activity, logsZipFile);
+            intent.putExtra(Intent.EXTRA_STREAM, uri);
+          }
+        }
+        // Do this so some email clients don't complain about empty body.
+        intent.putExtra(Intent.EXTRA_TEXT, "");
+        intent.setType("message/rfc822");
+        try
+        {
+          activity.startActivity(intent);
+        }
+        catch (ActivityNotFoundException e)
+        {
+          CrashlyticsUtils.logException(e);
+        }
+      });
+    }
   }
 }

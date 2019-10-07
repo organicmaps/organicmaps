@@ -1,7 +1,6 @@
 package com.mapswithme.maps.settings;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -11,13 +10,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.List;
-import java.util.Locale;
-
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Utils;
+
+import java.util.List;
+import java.util.Locale;
 
 public class StoragePathFragment extends BaseSettingsFragment
                               implements StoragePathManager.MoveFilesListener,
@@ -109,14 +108,7 @@ public class StoragePathFragment extends BaseSettingsFragment
 
     new AlertDialog.Builder(activity)
         .setTitle(message)
-        .setPositiveButton(R.string.report_a_bug, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            Utils.sendSupportMail(activity, message);
-          }
-        }).show();
+        .setPositiveButton(R.string.report_a_bug, (dialog, which) -> Utils.sendBugReport(activity)).show();
   }
 
   static String getSizeString(long size)
