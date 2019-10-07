@@ -9,6 +9,7 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "coding/bit_streams.hpp"
 #include "coding/byte_stream.hpp"
@@ -246,8 +247,11 @@ bool FeatureBuilder::PreSerialize()
 
     // Store ref's in name field (used in "highway-motorway_junction").
     // Also can be used to save post_box postcodes.
-    if (m_params.name.IsEmpty() && !m_params.ref.empty())
-      m_params.name.AddString(StringUtf8Multilang::kDefaultCode, m_params.ref);
+    if (!m_params.ref.empty())
+    {
+      if (ftypes::IsMotorwayJunctionChecker::Instance()(GetTypes()) || m_params.name.IsEmpty())
+        m_params.name.AddString(StringUtf8Multilang::kDefaultCode, m_params.ref);
+    }
 
     m_params.ref.clear();
     break;
