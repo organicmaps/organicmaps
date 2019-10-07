@@ -100,6 +100,12 @@ vector<uint32_t> GetBridgeAndTunnelTypes()
   return GetTypes(arr, ARRAY_SIZE(arr));
 }
 
+uint32_t GetMotorwayJunctionType()
+{
+  Classificator const & c = classif();
+  return c.GetTypeByPath({"highway", "motorway_junction"});
+}
+
 vector<uint32_t> GetPoiTypes()
 {
   std::vector<std::string> const types = {
@@ -237,4 +243,12 @@ UNIT_TEST(IsAttractionsChecker)
     TEST(checker(t), ());
 
   TEST(!checker(c.GetTypeByPath({"route", "shuttle_train"})), ());
+}
+
+UNIT_TEST(IsMotorwayJunctionChecker)
+{
+  classificator::Load();
+
+  TEST(ftypes::IsMotorwayJunctionChecker::Instance()(GetMotorwayJunctionType()), ());
+  TEST(!ftypes::IsMotorwayJunctionChecker::Instance()(GetPoiTypes()), ());
 }
