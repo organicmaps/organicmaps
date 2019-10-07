@@ -3,7 +3,11 @@
 #include "map/power_management/power_manager.hpp"
 #include "map/power_management/power_management_schemas.hpp"
 
-#include "platform/platform_tests_support/scoped_file.hpp"
+#include "platform//platform.hpp"
+
+#include "coding/file_writer.hpp"
+
+#include "base/scope_guard.hpp"
 
 #include <functional>
 #include <vector>
@@ -12,8 +16,6 @@ using namespace power_management;
 
 namespace
 {
-using namespace platform::tests_support;
-
 struct SubscriberForTesting : public PowerManager::Subscriber
 {
 public:
@@ -65,7 +67,8 @@ void TestAllFacilitiesEnabledExcept(PowerManager const & manager,
 
 UNIT_TEST(PowerManager_SetFacility)
 {
-  ScopedFile sf("power_manager_config", ScopedFile::Mode::DoNotCreate);
+  auto const configPath = PowerManager::GetConfigPath();
+  SCOPE_GUARD(deleteFileGuard, bind(&FileWriter::DeleteFileX, std::cref(configPath)));
   PowerManager manager;
   SubscriberForTesting subscriber;
 
@@ -98,7 +101,8 @@ UNIT_TEST(PowerManager_SetFacility)
 
 UNIT_TEST(PowerManager_SetScheme)
 {
-  ScopedFile sf("power_manager_config", ScopedFile::Mode::DoNotCreate);
+  auto const configPath = PowerManager::GetConfigPath();
+  SCOPE_GUARD(deleteFileGuard, bind(&FileWriter::DeleteFileX, std::cref(configPath)));
   Platform::ThreadRunner m_runner;
   PowerManager manager;
   SubscriberForTesting subscriber;
@@ -183,7 +187,8 @@ UNIT_TEST(PowerManager_SetScheme)
 
 UNIT_TEST(PowerManager_OnBatteryLevelChanged)
 {
-  ScopedFile sf("power_manager_config", ScopedFile::Mode::DoNotCreate);
+  auto const configPath = PowerManager::GetConfigPath();
+  SCOPE_GUARD(deleteFileGuard, bind(&FileWriter::DeleteFileX, std::cref(configPath)));
   Platform::ThreadRunner m_runner;
   PowerManager manager;
   SubscriberForTesting subscriber;

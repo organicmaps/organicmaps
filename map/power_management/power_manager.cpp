@@ -17,11 +17,6 @@ namespace
 {
 using Subscribers = std::vector<PowerManager::Subscriber *>;
 
-std::string GetFilePath()
-{
-  return base::JoinPath(GetPlatform().SettingsDir(), "power_manager_config");
-}
-
 void NotifySubscribers(Subscribers & subscribers, Scheme const scheme)
 {
   for (auto & subscriber : subscribers)
@@ -37,11 +32,17 @@ void NotifySubscribers(Subscribers & subscribers, Facility const facility, bool 
 
 namespace power_management
 {
+// static
+std::string PowerManager::GetConfigPath()
+{
+  return base::JoinPath(GetPlatform().SettingsDir(), "power_manager_config");
+}
+
 void PowerManager::Load()
 {
   try
   {
-    FileReader reader(GetFilePath());
+    FileReader reader(GetConfigPath());
     NonOwningReaderSource source(reader);
 
     coding::DeserializerJson des(source);
@@ -196,26 +197,26 @@ void PowerManager::UnsubscribeAll()
 
 bool PowerManager::Save()
 {
-  auto const result = base::WriteToTempAndRenameToFile(GetFilePath(), [this](std::string const & fileName)
-  {
-    try
-    {
-      FileWriter writer(fileName);
-      coding::SerializerJson<FileWriter> ser(writer);
-      ser(m_config);
-      return true;
-    }
-    catch (base::Json::Exception & ex)
-    {
-      LOG(LERROR, ("Cannot serialize power manager data into file. Exception:", ex.Msg()));
-    }
-    catch (FileWriter::Exception const & ex)
-    {
-      LOG(LERROR, ("Cannot write power manager file. Exception:", ex.Msg()));
-    }
+  auto const result =
+      base::WriteToTempAndRenameToFile(GetConfigPath(), [this](std::string const & fileName) {
+        try
+        {
+          FileWriter writer(fileName);
+          coding::SerializerJson<FileWriter> ser(writer);
+          ser(m_config);
+          return true;
+        }
+        catch (base::Json::Exception & ex)
+        {
+          LOG(LERROR, ("Cannot serialize power manager data into file. Exception:", ex.Msg()));
+        }
+        catch (FileWriter::Exception const & ex)
+        {
+          LOG(LERROR, ("Cannot write power manager file. Exception:", ex.Msg()));
+        }
 
-    return false;
-  });
+        return false;
+      });
 
   if (result)
     return true;

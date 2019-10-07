@@ -25,6 +25,8 @@ public:
     virtual void OnPowerSchemeChanged(Scheme const actualScheme) {}
   };
 
+  static std::string GetConfigPath();
+
   void Load();
   // Set some facility state manually, it turns current scheme to Scheme::None.
   void SetFacility(Facility const facility, bool enabled);
