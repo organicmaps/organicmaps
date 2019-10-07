@@ -485,9 +485,10 @@ string DetermineSurface(OsmElement * p)
     return {};
 
   static base::StringIL pavedSurfaces = {
-      "paved",    "asphalt",        "cobblestone",     "cobblestone:flattened", "sett",
-      "concrete", "concrete:lanes", "concrete:plates", "paving_stones",         "metal",
-      "wood"};
+      "paved",         "asphalt",  "cobblestone",    "cobblestone:flattened",
+      "sett",          "concrete", "concrete:lanes", "concrete:plates",
+      "paving_stones", "metal",    "wood",           "chipseal"};
+
   static base::StringIL badSurfaces = {"cobblestone", "sett", "metal", "wood", "grass",
                                        "gravel",      "mud",  "sand",  "snow", "woodchips"};
   static base::StringIL badSmoothness = {
