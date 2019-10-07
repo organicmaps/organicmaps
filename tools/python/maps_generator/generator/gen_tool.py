@@ -62,6 +62,7 @@ class GenTool:
         "osm_file_type": str,
         "output": str,
         "popular_places_data": str,
+        "postcodes_dataset": str,
         "regions_features": str,
         "regions_index": str,
         "regions_key_value": str,
