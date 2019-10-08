@@ -4,15 +4,14 @@
 #include <string>
 #include <utility>
 
-// Note: do not forget to change kMapOptionsCount
-// value when count of elements is changed.
+// Note: new values must be added before MapFileType::Count.
 enum class MapFileType : uint8_t
 {
   Map,
-  Diff
-};
+  Diff,
 
-uint8_t constexpr kMapOptionsCount = 2;
+  Count
+};
 
 using MwmCounter = uint32_t;
 using MwmSize = uint64_t;

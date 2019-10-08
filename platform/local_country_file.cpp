@@ -30,14 +30,13 @@ void LocalCountryFile::SyncWithDisk()
 {
   m_files = {};
   uint64_t size = 0;
-  Platform & platform = GetPlatform();
 
   // Now we are not working with several files at the same time and diffs have greater priority.
   for (MapFileType type : {MapFileType::Diff, MapFileType::Map})
   {
     ASSERT_LESS(base::Underlying(type), m_files.size(), ());
 
-    if (platform.GetFileSizeByFullPath(GetPath(type), size))
+    if (GetPlatform().GetFileSizeByFullPath(GetPath(type), size))
     {
       m_files[base::Underlying(type)] = size;
       break;
@@ -58,26 +57,30 @@ void LocalCountryFile::DeleteFromDisk(MapFileType type) const
 
 string LocalCountryFile::GetPath(MapFileType type) const
 {
-  return base::JoinPath(m_directory, GetFileName(m_countryFile.GetName(), type, GetVersion()));
+  return base::JoinPath(m_directory, GetFileName(m_countryFile.GetName(), type));
 }
 
 uint64_t LocalCountryFile::GetSize(MapFileType type) const
 {
   ASSERT_LESS(base::Underlying(type), m_files.size(), ());
 
-  return m_files[base::Underlying(type)];
+  if (!m_files[base::Underlying(type)].has_value())
+    return 0;
+
+  return m_files[base::Underlying(type)].get();
 }
 
 bool LocalCountryFile::HasFiles() const
 {
-  return std::any_of(m_files.cbegin(), m_files.cend(), [](auto value) { return value != 0; });
+  return std::any_of(m_files.cbegin(), m_files.cend(),
+                     [](auto value) { return value.has_value(); });
 }
 
 bool LocalCountryFile::OnDisk(MapFileType type) const
 {
   ASSERT_LESS(base::Underlying(type), m_files.size(), ());
 
-  return m_files[base::Underlying(type)] != 0;
+  return m_files[base::Underlying(type)].has_value();
 }
 
 bool LocalCountryFile::operator<(LocalCountryFile const & rhs) const
@@ -127,9 +130,23 @@ LocalCountryFile LocalCountryFile::MakeTemporary(string const & fullPath)
 
 string DebugPrint(LocalCountryFile const & file)
 {
+  ostringstream filesStream;
+  filesStream << "[";
+  bool fileAdded = false;
+  for (auto const mapFile : file.m_files)
+  {
+    if (mapFile)
+    {
+      filesStream << (fileAdded ? ", " : "") << mapFile.get();
+      if (!fileAdded)
+        fileAdded = true;
+    }
+  }
+  filesStream << "]";
+
   ostringstream os;
   os << "LocalCountryFile [" << file.m_directory << ", " << DebugPrint(file.m_countryFile) << ", "
-     << file.m_version << ", " << ::DebugPrint(file.m_files) << "]";
+     << file.m_version << ", " << filesStream.str() << "]";
   return os.str();
 }
 }  // namespace platform

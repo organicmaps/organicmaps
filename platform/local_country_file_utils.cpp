@@ -11,6 +11,7 @@
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
@@ -137,7 +138,7 @@ void FindAllDiffsInDirectory(string const & dir, vector<LocalCountryFile> & diff
 string GetFilePath(int64_t version, string const & dataDir, CountryFile const & countryFile,
                    MapFileType type)
 {
-  string const filename = GetFileName(countryFile.GetName(), type, version);
+  string const filename = GetFileName(countryFile.GetName(), type);
   string const dir = GetDataDirFullPath(dataDir);
   if (version == 0)
     return base::JoinPath(dir, filename);
@@ -153,9 +154,10 @@ void DeleteDownloaderFilesForCountry(int64_t version, CountryFile const & countr
 void DeleteDownloaderFilesForCountry(int64_t version, string const & dataDir,
                                      CountryFile const & countryFile)
 {
-  for (MapFileType type : {MapFileType::Map, MapFileType::Diff})
+  for (size_t type = 0; type < base::Underlying(MapFileType::Count); ++type)
   {
-    string const path = GetFileDownloadPath(version, dataDir, countryFile, type);
+    string const path = GetFileDownloadPath(version, dataDir, countryFile,
+                                            static_cast<MapFileType>(type));
     ASSERT(strings::EndsWith(path, READY_FILE_EXTENSION), ());
     Platform::RemoveFileIfExists(path);
     Platform::RemoveFileIfExists(path + RESUME_FILE_EXTENSION);
@@ -295,7 +297,7 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
 
       // Assume that empty path means the resource file.
       LocalCountryFile worldFile{string(), CountryFile(file), version::ReadVersionDate(reader)};
-      worldFile.m_files[static_cast<uint64_t>(MapFileType::Map)] = 1;
+      worldFile.m_files[base::Underlying(MapFileType::Map)] = 1;
       if (i != localFiles.end())
       {
         // Always use resource World files instead of local on disk.
@@ -363,7 +365,7 @@ string GetFileDownloadPath(int64_t version, CountryFile const & countryFile, Map
 string GetFileDownloadPath(int64_t version, string const & dataDir, CountryFile const & countryFile,
                            MapFileType type)
 {
-  string const readyFile = GetFileName(countryFile.GetName(), type, version) + READY_FILE_EXTENSION;
+  string const readyFile = GetFileName(countryFile.GetName(), type) + READY_FILE_EXTENSION;
   string const dir = GetDataDirFullPath(dataDir);
   if (version == 0)
     return base::JoinPath(dir, readyFile);

@@ -21,8 +21,10 @@ string GetNameWithExt(string const & countryFile, MapFileType file)
   {
   case MapFileType::Map: return countryFile + DATA_FILE_EXTENSION;
   case MapFileType::Diff: return countryFile + DIFF_FILE_EXTENSION;
-  default: ASSERT(false, ("Can't get name for:", file)); return string();
+  case MapFileType::Count: CHECK(false, (countryFile));
   }
+
+  UNREACHABLE();
 }
 }  //  namespace
 
@@ -44,7 +46,7 @@ MwmSize CountryFile::GetRemoteSize() const
   return m_mapSize;
 }
 
-string GetFileName(string const & countryFile, MapFileType type, int64_t version)
+string GetFileName(string const & countryFile, MapFileType type)
 {
   return GetNameWithExt(countryFile, type);
 }

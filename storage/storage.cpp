@@ -997,14 +997,13 @@ void Storage::OnMapDownloadFinished(CountryId const & countryId, HttpRequest::St
 string Storage::GetDownloadRelativeUrl(CountryId const & countryId, MapFileType type) const
 {
   auto const & countryFile = GetCountryFile(countryId);
-  auto const dataVersion = GetCurrentDataVersion();
-  auto const fileName = GetFileName(countryFile.GetName(), type, dataVersion);
+  auto const fileName = GetFileName(countryFile.GetName(), type);
 
   uint64_t diffVersion = 0;
   if (type == MapFileType::Diff)
     CHECK(m_diffManager.VersionFor(countryId, diffVersion), ());
 
-  return MapFilesDownloader::MakeRelativeUrl(fileName, dataVersion, diffVersion);
+  return MapFilesDownloader::MakeRelativeUrl(fileName, GetCurrentDataVersion(), diffVersion);
 }
 
 CountryId Storage::FindCountryIdByFile(string const & name) const

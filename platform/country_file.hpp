@@ -21,7 +21,7 @@ public:
   /// \returns file name without extensions.
   std::string const & GetName() const;
 
-  /// \note Remote size is size of mwm in bytes. This mwm contains routing and map sections.
+  /// \note Remote size is size of mwm in bytes.
   void SetRemoteSize(MwmSize mapSize);
   MwmSize GetRemoteSize() const;
 
@@ -42,11 +42,9 @@ private:
   std::string m_sha1;
 };
 
-/// \returns This method returns file name with extension. For example Abkhazia.mwm or
-/// Abkhazia.mwm.routing.
+/// \returns This method returns file name with extension. For example Abkhazia.mwm.
 /// \param countryFile is a file name without extension. For example Abkhazia.
-/// \param file is type of map data.
-/// \param version is version of mwm. For example 160731.
-std::string GetFileName(std::string const & countryFile, MapFileType type, int64_t version);
+/// \param type is type of map data.
+std::string GetFileName(std::string const & countryFile, MapFileType type);
 std::string DebugPrint(CountryFile const & file);
 }  // namespace platform

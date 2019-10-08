@@ -49,8 +49,6 @@
 #include <mutex>
 #include <vector>
 
-#include <boost/optional.hpp>
-
 #include "defines.hpp"
 
 using namespace platform::tests_support;
@@ -581,8 +579,7 @@ UNIT_TEST(StorageTest_Smoke)
   CountryId const georgiaCountryId = storage.FindCountryIdByFile("Georgia");
   TEST(IsCountryIdValid(georgiaCountryId), ());
   CountryFile usaGeorgiaFile = storage.GetCountryFile(georgiaCountryId);
-  TEST_EQUAL(platform::GetFileName(usaGeorgiaFile.GetName(), MapFileType::Map,
-                                   version::FOR_TESTING_TWO_COMPONENT_MWM1),
+  TEST_EQUAL(platform::GetFileName(usaGeorgiaFile.GetName(), MapFileType::Map),
              "Georgia" DATA_FILE_EXTENSION, ());
 }
 
@@ -680,7 +677,7 @@ UNIT_TEST(StorageTest_DeleteTwoVersionsOfTheSameCountry)
   TEST(!localFileV1->HasFiles(), ());
 
   localFileV2->SyncWithDisk();
-  TEST(!localFileV1->HasFiles(), ());
+  TEST(!localFileV2->HasFiles(), ());
 
   TEST_EQUAL(Status::ENotDownloaded, storage.CountryStatusEx(countryId), ());
 }
@@ -817,12 +814,6 @@ UNIT_CLASS_TEST(StorageTest, DeleteCountry)
   tests_support::ScopedFile map("Wonderland.mwm", ScopedFile::Mode::Create);
   LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland",
                                                            version::FOR_TESTING_SINGLE_MWM1);
-  {
-    FileWriter writer(file.GetPath(MapFileType::Map));
-    string const data = "mwm";
-    writer.Write(data.data(), data.size());
-  }
-  file.SyncWithDisk();
   TEST(file.OnDisk(MapFileType::Map), ());
 
   CountryIndexes::PreparePlaceOnDisk(file);
@@ -849,12 +840,6 @@ UNIT_CLASS_TEST(TwoComponentStorageTest, DeleteCountry)
   tests_support::ScopedFile map("Wonderland.mwm", ScopedFile::Mode::Create);
   LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland",
                                                            version::FOR_TESTING_TWO_COMPONENT_MWM1);
-  {
-    FileWriter writer(file.GetPath(MapFileType::Map));
-    string const data = "mwm";
-    writer.Write(data.data(), data.size());
-  }
-  file.SyncWithDisk();
   TEST(file.OnDisk(MapFileType::Map), ());
 
   CountryIndexes::PreparePlaceOnDisk(file);

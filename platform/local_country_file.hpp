@@ -3,10 +3,14 @@
 #include "platform/country_file.hpp"
 #include "platform/country_defines.hpp"
 
+#include "base/stl_helpers.hpp"
+
 #include <array>
 #include <cstdint>
 #include <string>
 #include <vector>
+
+#include <boost/optional.hpp>
 
 namespace platform
 {
@@ -44,8 +48,8 @@ public:
   // building routes stage.
   void SyncWithDisk();
 
-  // Removes specified file from disk if it known for LocalCountryFile, i.e.
-  // were found by previous SyncWithDisk() call.
+  // Removes specified file from disk if it is known for LocalCountryFile, i.e.
+  // it was found by a previous SyncWithDisk() call.
   void DeleteFromDisk(MapFileType type) const;
 
   // Returns path to a file. Return value may be empty until
@@ -56,14 +60,12 @@ public:
   // SyncWithDisk() is called.
   uint64_t GetSize(MapFileType type) const;
 
-  // Returns true when some files are found during SyncWithDisk and have non empty size.
-  // Consider that we are not working with empty files.
-  // Return value may be empty until SyncWithDisk() is called.
+  // Returns true when some files are found during SyncWithDisk.
+  // Return value is false until SyncWithDisk() is called.
   bool HasFiles() const;
 
   // Checks whether files specified in filesMask are on disk. Return
   // value will be false until SyncWithDisk() is called.
-  // Consider that we are not working with empty files.
   bool OnDisk(MapFileType type) const;
 
   std::string const & GetDirectory() const { return m_directory; }
@@ -89,7 +91,6 @@ public:
 
 private:
   friend std::string DebugPrint(LocalCountryFile const &);
-  friend void UnitTest_LocalCountryFile_DirectoryLookup();
   friend void FindAllLocalMapsAndCleanup(int64_t latestVersion,
                                          std::string const & dataDir, std::vector<LocalCountryFile> & localFiles);
 
@@ -99,8 +100,8 @@ private:
   CountryFile m_countryFile;
   int64_t m_version;
 
-  // Contains sizes of associated files.
-  std::array<uint64_t, kMapOptionsCount> m_files = {};
+  using File = boost::optional<uint64_t>;
+  std::array<File, base::Underlying(MapFileType::Count)> m_files = {};
 };
 
 std::string DebugPrint(LocalCountryFile const & file);

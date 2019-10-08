@@ -103,9 +103,7 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
     TEST(!localFile.OnDisk(MapFileType::Map), ());
     TEST(!localFile.OnDisk(MapFileType::Diff), ());
 
-    string const mapFileName = GetFileName(countryFile.GetName(), MapFileType::Map,
-                                           version::FOR_TESTING_TWO_COMPONENT_MWM1);
-
+    string const mapFileName = GetFileName(countryFile.GetName(), MapFileType::Map);
     string const mapFileContents("map");
     ScopedFile testMapFile(mapFileName, mapFileContents);
 
@@ -141,10 +139,10 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
   CountryFile irelandFile("Ireland");
 
   LocalCountryFile japanLocalFile(mapsDir, japanFile, 0 /* version */);
-  ScopedFile japanMapFile("Japan.mwm", "content");
+  ScopedFile japanMapFile("Japan.mwm", ScopedFile::Mode::Create);
 
   LocalCountryFile brazilLocalFile(mapsDir, brazilFile, 0 /* version */);
-  ScopedFile brazilMapFile("Brazil.mwm", "content");
+  ScopedFile brazilMapFile("Brazil.mwm", ScopedFile::Mode::Create);
 
   LocalCountryFile irelandLocalFile(dir4.GetFullPath(), irelandFile, 4 /* version */);
   ScopedFile irelandMapFile(dir4, irelandFile, MapFileType::Map);

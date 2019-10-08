@@ -32,15 +32,9 @@ ScopedFile::ScopedFile(std::string const & relativePath, std::string const & con
 
 ScopedFile::ScopedFile(ScopedDir const & dir, CountryFile const & countryFile, MapFileType type)
   : ScopedFile(
-        base::JoinPath(dir.GetRelativePath(), GetFileName(countryFile.GetName(), type,
-                                                          version::FOR_TESTING_TWO_COMPONENT_MWM1)),
+        base::JoinPath(dir.GetRelativePath(), GetFileName(countryFile.GetName(), type)),
         Mode::Create)
 {
-  {
-    FileWriter writer(GetFullPath());
-    std::string const data = "mwm";
-    writer.Write(data.data(), data.size());
-  }
 }
 
 ScopedFile::ScopedFile(std::string const & relativePath, std::string const & contents, Mode mode)
