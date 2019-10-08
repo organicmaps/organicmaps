@@ -281,12 +281,10 @@ UNIT_TEST(VehicleModel_CarModelValidation)
   {
     auto const factorIt = kHighwayBasedFactors.find(hwType);
     TEST(factorIt != kHighwayBasedFactors.cend(), (hwType));
-    TEST_NOT_EQUAL(factorIt->second.m_inCity, kInvalidModelValue, (hwType));
-    TEST_NOT_EQUAL(factorIt->second.m_outCity, kInvalidModelValue, (hwType));
+    TEST(factorIt->second.IsValid(), (hwType, factorIt->second));
 
     auto const speedIt = kHighwayBasedSpeeds.find(hwType);
     TEST(speedIt != kHighwayBasedSpeeds.cend(), (hwType));
-    TEST_NOT_EQUAL(speedIt->second.m_inCity, SpeedKMpH(kInvalidModelValue, kInvalidModelValue), (hwType));
-    TEST_NOT_EQUAL(speedIt->second.m_outCity, SpeedKMpH(kInvalidModelValue, kInvalidModelValue), (hwType));
+    TEST(speedIt->second.IsValid(), (hwType, speedIt->second));
   }
 }

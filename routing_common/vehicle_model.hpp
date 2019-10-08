@@ -25,7 +25,6 @@ namespace feature { class TypesHolder; }
 namespace routing
 {
 double constexpr kNotUsed = std::numeric_limits<double>::max();
-double constexpr kInvalidModelValue = -1.0;
 
 struct InOutCityFactor;
 struct InOutCitySpeedKMpH;
@@ -109,6 +108,8 @@ struct SpeedFactor
   constexpr SpeedFactor(double factor) noexcept : m_weight(factor), m_eta(factor) {}
   constexpr SpeedFactor(double weight, double eta) noexcept : m_weight(weight), m_eta(eta) {}
 
+  bool IsValid() const { return m_weight > 0.0 && m_eta > 0.0; }
+
   bool operator==(SpeedFactor const & rhs) const
   {
     return m_weight == rhs.m_weight && m_eta == rhs.m_eta;
@@ -147,6 +148,7 @@ struct InOutCitySpeedKMpH
   }
 
   SpeedKMpH const & GetSpeed(bool isCity) const { return isCity ? m_inCity : m_outCity; }
+  bool IsValid() const { return m_inCity.IsValid() && m_outCity.IsValid(); }
 
   SpeedKMpH m_inCity;
   SpeedKMpH m_outCity;
@@ -169,6 +171,7 @@ struct InOutCityFactor
   }
 
   SpeedFactor const & GetFactor(bool isCity) const { return isCity ? m_inCity : m_outCity; }
+  bool IsValid() const { return m_inCity.IsValid() && m_outCity.IsValid(); }
 
   SpeedFactor m_inCity;
   SpeedFactor m_outCity;
@@ -428,5 +431,6 @@ std::string DebugPrint(VehicleModelInterface::RoadAvailability const l);
 std::string DebugPrint(SpeedKMpH const & speed);
 std::string DebugPrint(SpeedFactor const & speedFactor);
 std::string DebugPrint(InOutCitySpeedKMpH const & speed);
+std::string DebugPrint(InOutCityFactor const & speedFactor);
 std::string DebugPrint(HighwayType type);
 }  // namespace routing
