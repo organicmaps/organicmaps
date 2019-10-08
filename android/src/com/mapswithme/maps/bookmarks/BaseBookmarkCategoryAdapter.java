@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
 import java.util.List;
 

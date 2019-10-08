@@ -10,6 +10,6 @@ class CacheBookmarkCategoriesDataProvider extends AbstractBookmarkCategoriesData
   @Override
   public List<BookmarkCategory> getCategories()
   {
-    return BookmarkManager.INSTANCE.getBookmarkCategoriesCache().getItems();
+    return BookmarkManager.INSTANCE.getBookmarkCategoriesCache().getCategories();
   }
 }

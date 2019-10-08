@@ -17,11 +17,11 @@ import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
-import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.maps.bookmarks.data.AbstractCategoriesSnapshot;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
+import com.mapswithme.maps.base.DataChangedListener;
 import com.mapswithme.maps.bookmarks.data.FilterStrategy;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.maps.ugc.routes.UgcRouteEditSettingsActivity;
@@ -66,7 +66,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private CategoriesAdapterObserver mCategoriesAdapterObserver;
+  private DataChangedListener mCategoriesAdapterObserver;
 
   @Override
   @LayoutRes
@@ -105,7 +105,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     rw.addItemDecoration(decor);
     mCatalogListener = new CatalogListenerDecorator(createCatalogListener(), this);
     mCategoriesAdapterObserver = new CategoriesAdapterObserver(this);
-    BookmarkManager.INSTANCE.registerObserver(mCategoriesAdapterObserver);
+    BookmarkManager.INSTANCE.addCategoriesUpdatesListener(mCategoriesAdapterObserver);
   }
 
   protected void onPrepareControllers(@NonNull View view)
@@ -166,7 +166,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   public void onDestroyView()
   {
     super.onDestroyView();
-    BookmarkManager.INSTANCE.unregisterObserver(mCategoriesAdapterObserver);
+    BookmarkManager.INSTANCE.removeCategoriesUpdatesListener(mCategoriesAdapterObserver);
   }
 
   @Override
@@ -551,8 +551,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     }
   }
 
-  private static class CategoriesAdapterObserver extends RecyclerView.AdapterDataObserver
-      implements Detachable<BaseBookmarkCategoriesFragment>
+  private static class CategoriesAdapterObserver implements DataChangedListener<BaseBookmarkCategoriesFragment>
   {
     @Nullable
     private BaseBookmarkCategoriesFragment mFragment;
@@ -577,7 +576,6 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     @Override
     public void onChanged()
     {
-      super.onChanged();
       if (mFragment == null)
         return;
 

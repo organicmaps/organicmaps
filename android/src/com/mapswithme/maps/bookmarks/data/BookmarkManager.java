@@ -6,6 +6,8 @@ import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.mapswithme.maps.base.DataChangedListener;
+import com.mapswithme.maps.base.Observable;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.util.UTM;
@@ -62,7 +64,7 @@ public enum BookmarkManager
   public static final List<Icon> ICONS = new ArrayList<>();
 
   @NonNull
-  private final CoreBookmarkCategoriesDataProvider mCategoriesCoreDataProvider
+  private final BookmarkCategoriesDataProvider mCategoriesCoreDataProvider
       = new CoreBookmarkCategoriesDataProvider();
 
   @NonNull
@@ -112,12 +114,6 @@ public enum BookmarkManager
   {
     boolean isVisible = isVisible(catId);
     setVisibility(catId, !isVisible);
-  }
-
-  private void setDataProvider()
-  {
-    updateCache();
-    mCurrentDataProvider = new CacheBookmarkCategoriesDataProvider();
   }
 
   public Bookmark addNewBookmark(double lat, double lon)
@@ -229,7 +225,8 @@ public enum BookmarkManager
   @MainThread
   public void onBookmarksLoadingFinished()
   {
-    setDataProvider();
+    updateCache();
+    mCurrentDataProvider = new CacheBookmarkCategoriesDataProvider();
     for (BookmarksLoadingListener listener : mListeners)
       listener.onBookmarksLoadingFinished();
   }
@@ -568,17 +565,17 @@ public enum BookmarkManager
 
   private void updateCache()
   {
-    getBookmarkCategoriesCache().updateItems(mCategoriesCoreDataProvider.getCategories());
+    getBookmarkCategoriesCache().update(mCategoriesCoreDataProvider.getCategories());
   }
 
-  public void registerObserver(@NonNull RecyclerView.AdapterDataObserver observer)
+  public void addCategoriesUpdatesListener(@NonNull DataChangedListener listener)
   {
-    getBookmarkCategoriesCache().registerObserver(observer);
+    getBookmarkCategoriesCache().registerListener(listener);
   }
 
-  public void unregisterObserver(@NonNull RecyclerView.AdapterDataObserver observer)
+  public void removeCategoriesUpdatesListener(@NonNull DataChangedListener listener)
   {
-    getBookmarkCategoriesCache().unregisterObserver(observer);
+    getBookmarkCategoriesCache().unregisterListener(listener);
   }
 
   @NonNull
@@ -917,8 +914,6 @@ public enum BookmarkManager
   private native int nativeGetBookmarksCount(long catId);
 
   private native int nativeGetTracksCount(long catId);
-
-  public native BookmarkCategory[] nativeGetBookmarkCategories();
 
   @NonNull
   private native Bookmark nativeUpdateBookmarkPlacePage(long bmkId);
@@ -1290,27 +1285,22 @@ public enum BookmarkManager
     UPLOAD_RESULT_INVALID_CALL;
   }
 
-  static class BookmarkCategoriesCache extends Observable<RecyclerView.AdapterDataObserver>
+  static class BookmarkCategoriesCache extends Observable<DataChangedListener>
   {
     @NonNull
-    private List<BookmarkCategory> mCachedItems = Collections.emptyList();
+    private final List<BookmarkCategory> mCategories = new ArrayList<>();
 
-    void updateItems(@NonNull List<BookmarkCategory> cachedItems)
+    void update(@NonNull List<BookmarkCategory> categories)
     {
-      mCachedItems = Collections.unmodifiableList(cachedItems);
+      mCategories.clear();
+      mCategories.addAll(categories);
       notifyChanged();
     }
 
     @NonNull
-    public List<BookmarkCategory> getItems()
+    public List<BookmarkCategory> getCategories()
     {
-      return mCachedItems;
-    }
-
-    private void notifyChanged() {
-      for (int i = mObservers.size() - 1; i >= 0; i--) {
-        mObservers.get(i).onChanged();
-      }
+      return Collections.unmodifiableList(mCategories);
     }
   }
 }

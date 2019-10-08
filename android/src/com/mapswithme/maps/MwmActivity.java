@@ -2387,6 +2387,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onBookmarksLoadingFinished()
   {
+    // Do nothing
   }
 
   @Override
