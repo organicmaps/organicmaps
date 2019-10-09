@@ -28,11 +28,11 @@ static FrameworkParams const kFrameworkParams(false /* m_enableLocalAds */, fals
 
 string const kCountriesTxtFile = COUNTRIES_FILE;
 
-string const kMwmVersion1 = "160316";
-size_t const kCountriesTxtFileSize1 = 353091;
+string const kMwmVersion1 = "190830";
+size_t const kCountriesTxtFileSize1 = 420632;
 
-string const kMwmVersion2 = "160317";
-size_t const kCountriesTxtFileSize2 = 348972;
+string const kMwmVersion2 = "190910";
+size_t const kCountriesTxtFileSize2 = 420634;
 
 string const kGroupCountryId = "Belarus";
 
