@@ -8,6 +8,9 @@ omim_add_executable(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
+  generator
+  routing
+  traffic
   routing_common
   search_quality
   search_tests_support
@@ -32,6 +35,7 @@ omim_link_libraries(
   pugixml
   stats_client
   succinct
+  ${CMAKE_DL_LIBS}
   ${LIBZ}
 )
 

@@ -66,6 +66,7 @@ omim_link_libraries(
   oauthcpp
   pugixml
   traffic
+  ${CMAKE_DL_LIBS}
   ${LIBZ}
 )
 

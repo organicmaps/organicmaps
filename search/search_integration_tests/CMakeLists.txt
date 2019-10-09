@@ -45,6 +45,7 @@ omim_link_libraries(
   opening_hours
   icu
   traffic
+  ${CMAKE_DL_LIBS}
   ${Qt5Network_LIBRARIES}
   ${LIBZ}
 )

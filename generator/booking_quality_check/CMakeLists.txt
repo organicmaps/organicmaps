@@ -35,6 +35,7 @@ omim_link_libraries(
   pugixml
   stats_client
   succinct
+  ${CMAKE_DL_LIBS}
   ${LIBZ}
 )
 

@@ -52,6 +52,7 @@ omim_link_libraries(
   opening_hours
   oauthcpp
   traffic
+  ${CMAKE_DL_LIBS}
   ${LIBZ}
 )
 link_qt5_core(${PROJECT_NAME})

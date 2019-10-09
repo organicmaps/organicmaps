@@ -44,6 +44,7 @@ omim_link_libraries(
   protobuf
   oauthcpp
   traffic
+  ${CMAKE_DL_LIBS}
   ${LIBZ}
   ${Qt5Widgets_LIBRARIES}
 )

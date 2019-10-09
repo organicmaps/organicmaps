@@ -34,6 +34,7 @@ omim_link_libraries(
   protobuf
   icu
   traffic
+  ${CMAKE_DL_LIBS}
   ${Qt5Core_LIBRARIES}
   ${LIBZ}
 )
