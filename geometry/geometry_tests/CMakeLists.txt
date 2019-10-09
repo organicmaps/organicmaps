@@ -25,6 +25,7 @@ set(
   nearby_points_sweeper_test.cpp
   packer_test.cpp
   parametrized_segment_tests.cpp
+  point3d_tests.cpp
   point_test.cpp
   polygon_test.cpp
   rect_test.cpp

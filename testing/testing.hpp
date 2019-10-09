@@ -186,6 +186,20 @@ CommandLineOptions const & GetTestingOptions();
     }                                                                                            \
   } while (0)
 
+#define TEST_ALMOST_EQUAL_ABS(X, Y, eps, msg)                                                      \
+  do                                                                                               \
+  {                                                                                                \
+    if (::base::AlmostEqualAbs(X, Y, eps))                                                         \
+    {                                                                                              \
+    }                                                                                              \
+    else                                                                                           \
+    {                                                                                              \
+      ::base::OnTestFailed(SRC(),                                                                  \
+                           ::base::Message("TEST(!base::AlmostEqualAbs(" #X ", " #Y ", " #eps ")", \
+                           ::base::Message(X, Y, eps), ::base::Message msg));                      \
+    }                                                                                              \
+  } while (0)
+
 // TODO(AlexZ): Add more cool macroses (or switch all unit tests to gtest).
 #define TEST_THROW(X, exception, msg)                                                           \
   do                                                                                            \

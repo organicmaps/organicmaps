@@ -36,6 +36,7 @@ set(
   packer.hpp
   parametrized_segment.hpp
   point2d.hpp
+  point3d.hpp
   polygon.hpp
   polyline2d.hpp
   rect2d.hpp
