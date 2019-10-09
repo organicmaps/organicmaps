@@ -53,7 +53,7 @@ uint32_t GetTypeDefault(FeatureParams::Types const &) { return ftype::GetEmptyVa
 
 std::string GetNameDefault(StringUtf8Multilang const &) { return {}; }
 
-std::string PrintDefault(HierarchyLine const &) { return {}; }
+std::string PrintDefault(HierarchyEntry const &) { return {}; }
 
 HierarchyPlace::HierarchyPlace(FeatureBuilder const & fb)
   : m_id(MakeCompositeId(fb))
@@ -145,8 +145,7 @@ HierarchyLinker::Node::PtrList HierarchyLinker::Link()
     if (!parentPlace)
       continue;
 
-    parentPlace->AddChild(node);
-    node->SetParent(parentPlace);
+    tree_node::Link(node, parentPlace);
   }
   return m_nodes;
 }
@@ -206,7 +205,7 @@ boost::optional<m2::PointD> HierarchyLineEnricher::GetFeatureCenter(CompositeId 
   return ftPtr ? feature::GetCenter(*ftPtr) : boost::optional<m2::PointD>();
 }
 
-std::string DebugPrint(HierarchyLine const & line)
+std::string DebugPrint(HierarchyEntry const & line)
 {
   std::stringstream stream;
   stream << std::fixed << std::setprecision(7);
@@ -243,9 +242,9 @@ void HierarchyLinesBuilder::SetHierarchyLineEnricher(
   m_enricher = enricher;
 }
 
-std::vector<HierarchyLine> HierarchyLinesBuilder::GetHierarchyLines()
+std::vector<HierarchyEntry> HierarchyLinesBuilder::GetHierarchyLines()
 {
-  std::vector<HierarchyLine> lines;
+  std::vector<HierarchyEntry> lines;
   lines.reserve(m_nodes.size());
   std::transform(std::cbegin(m_nodes), std::cend(m_nodes), std::back_inserter(lines),
                  [&](auto const & n) { return Transform(n); });
@@ -262,9 +261,9 @@ m2::PointD HierarchyLinesBuilder::GetCenter(HierarchyBuilder::Node::Ptr const & 
   return optCenter ? *optCenter : data.GetCenter();
 }
 
-HierarchyLine HierarchyLinesBuilder::Transform(HierarchyBuilder::Node::Ptr const & node)
+HierarchyEntry HierarchyLinesBuilder::Transform(HierarchyBuilder::Node::Ptr const & node)
 {
-  HierarchyLine line;
+  HierarchyEntry line;
   auto const & data = node->GetData();
   line.m_id = data.GetCompositeId();
   auto const parent = node->GetParent();
@@ -300,7 +299,7 @@ uint32_t GetMainType(FeatureParams::Types const & types)
 
 std::string GetName(StringUtf8Multilang const & str) { return GetRussianName(str); }
 
-std::string Print(HierarchyLine const & line)
+std::string Print(HierarchyEntry const & line)
 {
   std::stringstream stream;
   stream << std::fixed << std::setprecision(7);

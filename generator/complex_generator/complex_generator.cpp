@@ -100,7 +100,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv) {
   if (FLAGS_debug)
   {
     finalProcessor->SetPrintFunction(
-        static_cast<std::string (*)(generator::hierarchy::HierarchyLine const &)>(
+        static_cast<std::string (*)(generator::hierarchy::HierarchyEntry const &)>(
             generator::hierarchy::DebugPrint));
   }
   rawGenerator.GenerateCustom(translator, finalProcessor);

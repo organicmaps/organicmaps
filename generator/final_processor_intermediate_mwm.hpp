@@ -141,7 +141,7 @@ public:
 private:
   std::shared_ptr<hierarchy::HierarchyLineEnricher> CreateEnricher(
       std::string const & countryName) const;
-  void WriteLines(std::vector<hierarchy::HierarchyLine> const & lines);
+  void WriteLines(std::vector<hierarchy::HierarchyEntry> const & lines);
 
   hierarchy::PrintFunction m_printFunction = hierarchy::PrintDefault;
   std::string m_mwmTmpPath;

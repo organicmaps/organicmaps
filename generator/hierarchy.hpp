@@ -2,8 +2,8 @@
 
 #include "generator/feature_builder.hpp"
 #include "generator/gen_mwm_info.hpp"
-#include "generator/place_node.hpp"
 #include "generator/platform_helpers.hpp"
+#include "generator/tree_node.hpp"
 #include "generator/utils.hpp"
 
 #include "indexer/classificator.hpp"
@@ -31,16 +31,16 @@ namespace generator
 {
 namespace hierarchy
 {
-struct HierarchyLine;
+struct HierarchyEntry;
 
 using GetMainType = std::function<uint32_t(FeatureParams::Types const &)>;
 using GetName = std::function<std::string(StringUtf8Multilang const &)>;
-using PrintFunction = std::function<std::string(HierarchyLine const &)>;
+using PrintFunction = std::function<std::string(HierarchyEntry const &)>;
 
 // These are dummy functions.
 uint32_t GetTypeDefault(FeatureParams::Types const &);
 std::string GetNameDefault(StringUtf8Multilang const &);
-std::string PrintDefault(HierarchyLine const &);
+std::string PrintDefault(HierarchyEntry const &);
 
 // The HierarchyPlace class is an abstraction of FeatureBuilder to build a hierarchy of objects.
 // It allows you to work with the geometry of points and areas.
@@ -78,7 +78,7 @@ private:
 class HierarchyLinker
 {
 public:
-  using Node = PlaceNode<HierarchyPlace>;
+  using Node = tree_node::TreeNode<HierarchyPlace>;
   using Tree4d = m4::Tree<Node::Ptr>;
 
   explicit HierarchyLinker(Node::PtrList && nodes);
@@ -128,7 +128,7 @@ private:
 };
 
 // Intermediate view for hierarchy node.
-struct HierarchyLine
+struct HierarchyEntry
 {
   CompositeId m_id;
   boost::optional<CompositeId> m_parentId;
@@ -139,7 +139,7 @@ struct HierarchyLine
   uint32_t m_type = ftype::GetEmptyValue();
 };
 
-std::string DebugPrint(HierarchyLine const & line);
+std::string DebugPrint(HierarchyEntry const & line);
 
 class HierarchyLinesBuilder
 {
@@ -151,11 +151,11 @@ public:
   void SetCountryName(std::string const & name);
   void SetHierarchyLineEnricher(std::shared_ptr<HierarchyLineEnricher> const & enricher);
 
-  std::vector<HierarchyLine> GetHierarchyLines();
+  std::vector<HierarchyEntry> GetHierarchyLines();
 
 private:
   m2::PointD GetCenter(HierarchyBuilder::Node::Ptr const & node);
-  HierarchyLine Transform(HierarchyBuilder::Node::Ptr const & node);
+  HierarchyEntry Transform(HierarchyBuilder::Node::Ptr const & node);
 
   HierarchyBuilder::Node::PtrList m_nodes;
   GetMainType m_getMainType = GetTypeDefault;
@@ -168,7 +168,7 @@ namespace popularity
 {
 uint32_t GetMainType(FeatureParams::Types const & types);
 std::string GetName(StringUtf8Multilang const & str);
-std::string Print(HierarchyLine const & line);
+std::string Print(HierarchyEntry const & line);
 }  // namespace popularity
 }  // namespace hierarchy
 }  // namespace generator

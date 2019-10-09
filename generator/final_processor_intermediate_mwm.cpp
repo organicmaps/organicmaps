@@ -546,7 +546,7 @@ std::shared_ptr<hierarchy::HierarchyLineEnricher> ComplexFinalProcessor::CreateE
 void ComplexFinalProcessor::Process()
 {
   ThreadPool pool(m_threadsCount);
-  std::vector<std::future<std::vector<hierarchy::HierarchyLine>>> futures;
+  std::vector<std::future<std::vector<hierarchy::HierarchyEntry>>> futures;
   ForEachCountry(m_mwmTmpPath, [&](auto const & filename) {
     auto future = pool.Submit([&, filename]() {
       auto countryName = filename;
@@ -567,7 +567,7 @@ void ComplexFinalProcessor::Process()
     });
     futures.emplace_back(std::move(future));
   });
-  std::vector<hierarchy::HierarchyLine> allLines;
+  std::vector<hierarchy::HierarchyEntry> allLines;
   for (auto & f : futures)
   {
     auto const lines = f.get();
@@ -576,7 +576,7 @@ void ComplexFinalProcessor::Process()
   WriteLines(allLines);
 }
 
-void ComplexFinalProcessor::WriteLines(std::vector<hierarchy::HierarchyLine> const & lines)
+void ComplexFinalProcessor::WriteLines(std::vector<hierarchy::HierarchyEntry> const & lines)
 {
   std::ofstream stream;
   stream.exceptions(std::fstream::failbit | std::fstream::badbit);
