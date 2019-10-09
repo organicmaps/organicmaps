@@ -108,7 +108,8 @@ public class StoragePathFragment extends BaseSettingsFragment
 
     new AlertDialog.Builder(activity)
         .setTitle(message)
-        .setPositiveButton(R.string.report_a_bug, (dialog, which) -> Utils.sendBugReport(activity)).show();
+        .setPositiveButton(R.string.report_a_bug,
+                           (dialog, which) -> Utils.sendBugReport(activity, message)).show();
   }
 
   static String getSizeString(long size)

@@ -276,9 +276,9 @@ public class Utils
     }
   }
 
-  public static void sendBugReport(@NonNull Activity activity)
+  public static void sendBugReport(@NonNull Activity activity, @NonNull String subject)
   {
-    LoggerFactory.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(activity, "Bugreport from user",
+    LoggerFactory.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(activity, subject,
                                                                    Constants.Email.SUPPORT));
   }
 

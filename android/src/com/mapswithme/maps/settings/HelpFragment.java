@@ -34,7 +34,7 @@ public class HelpFragment extends BaseSettingsFragment
     {
       Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.REPORT_BUG);
       AlohaHelper.logClick(AlohaHelper.Settings.REPORT_BUG);
-      Utils.sendBugReport(requireActivity());
+      Utils.sendBugReport(requireActivity(), "Bugreport from user");
     }
 
     @Override
