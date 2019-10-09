@@ -698,6 +698,8 @@ void MyPositionController::StopLocationFollow()
   if (m_mode == location::PendingPosition)
     ChangeMode(location::NotFollowNoPosition);
 
+  m_allowToFollowAfterObsoletePosition = false;
+
   ResetRoutingNotFollowTimer();
 }
 
