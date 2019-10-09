@@ -2,21 +2,27 @@
 
   [type.aerialway]
     en = aerialway
+    pl = Transport linowy
 
   [type.aerialway.cable_car]
     en = aerialway-cable_car
+    pl = Kolej linowa
 
   [type.aerialway.chair_lift]
     en = aerialway-chair_lift
+    pl = Wyciąg krzesełkowy
 
   [type.aerialway.drag_lift]
     en = aerialway-drag_lift
+    pl = Wyciąg orczykowy
 
   [type.aerialway.gondola]
     en = aerialway-gondola
+    pl = Gondola kolejki linowej
 
   [type.aerialway.mixed_lift]
     en = aerialway-mixed_lift
+    pl = Wyciąg mieszany
 
   [type.aerialway.station]
     en = Aerialway Station
@@ -100,7 +106,7 @@
     ja = 空港
     ko = 공항
     nb = Flyplass
-    pl = Lotnisko
+    pl = Lotnisko międzynarodowe
     pt = Aeroporto
     pt-BR = Aeroporto
     ro = Aeroport
@@ -118,6 +124,7 @@
 
   [type.aeroway.apron]
     en = aeroway-apron
+    pl = Płyta postojowa samolotów
 
   [type.aeroway.gate]
     en = aeroway-gate
@@ -155,12 +162,15 @@
 
   [type.aeroway.runway]
     en = aeroway-runway
+    pl = Droga startowa
 
   [type.aeroway.taxiway]
     en = aeroway-taxiway
+    pl = Droga kołowania
 
   [type.aeroway.terminal]
     en = aeroway-terminal
+    pl = Terminal lotniskowy
 
   [type.amenity]
     en = Amenity
@@ -1023,7 +1033,7 @@
     ja = 自動車教習所
     ko = 운전학원
     nb = Kjøreskole
-    pl = Szkoła jazdy
+    pl = Szkoła nauki jazdy
     pt = Autoescola
     pt-BR = Autoescola
     ro = Școală de șoferi
@@ -1344,7 +1354,7 @@
     ja = 狩猟スタンド
     ko = 사냥 스탠드
     nb = Jaktpost
-    pl = Budka myśliwska
+    pl = Ambona myśliwska
     pt = Estande de caça
     pt-BR = Estande de caça
     ro = Stand de vânătoare
@@ -1660,6 +1670,7 @@
     ja = 駐車場
     ko = 주차
     nb = Parkering
+    pl = Parking płatny
     pt = Estacionamento
     pt-BR = Estacionamento
     ro = Parcare
@@ -1691,6 +1702,7 @@
     ja = 駐車場
     ko = 주차
     nb = Parkering
+    pl = Parking wielopoziomowy
     pt = Estacionamento
     pt-BR = Estacionamento
     ro = Parcare
@@ -1722,6 +1734,7 @@
     ja = 駐車場
     ko = 주차
     nb = Parkering
+    pl = Parking wielopoziomowy płatny
     pt = Estacionamento
     pt-BR = Estacionamento
     ro = Parcare
@@ -1784,6 +1797,7 @@
     ja = 駐車場
     ko = 주차
     nb = Parkering
+    pl = Parking "Parkuj i Jedź"
     pt = Estacionamento
     pt-BR = Estacionamento
     ro = Parcare
@@ -1815,6 +1829,7 @@
     ja = 駐車場
     ko = 주차
     nb = Parkering
+    pl = Parking ograniczony
     pt = Estacionamento
     pt-BR = Estacionamento
     ro = Parcare
@@ -1846,6 +1861,7 @@
     ja = 駐車場
     ko = 주차
     nb = Parkering
+    pl = Parking ograniczony płatny
     pt = Estacionamento
     pt-BR = Estacionamento
     ro = Parcare
@@ -1877,6 +1893,7 @@
     ja = 駐車場
     ko = 주차
     nb = Parkering
+    pl = Parking prywatny
     pt = Estacionamento
     pt-BR = Estacionamento
     ro = Parcare
@@ -1940,6 +1957,7 @@
     ja = 駐車場
     ko = 주차
     nb = Parkering
+    pl = Parking podziemny płatny
     pt = Estacionamento
     pt-BR = Estacionamento
     ro = Parcare
@@ -1957,15 +1975,19 @@
 
   [type.amenity.parking_space]
     en = Parking space
+    pl = Miejsce parkingowe
 
   [type.amenity.parking_space.permissive]
     en = Parking space
+    pl = Miejsce parkingowe ograniczone
 
   [type.amenity.parking_space.private]
     en = Parking space
+    pl = Miejsce parkingowe prywatne
 
   [type.amenity.parking_space.underground]
     en = Parking space
+    pl = Miejsce parkingowe podziemne
 
   [type.amenity.payment_terminal]
     en = Payment Terminal
@@ -2536,7 +2558,7 @@
     ja = 避難所
     ko = 피난처
     nb = Tilfluktsrom
-    pl = Szopa
+    pl = Wiata
     pt = Abrigo
     pt-BR = Abrigo
     ro = Adăpost
@@ -2586,6 +2608,7 @@
 
   [type.amenity.speed_trap]
     en = amenity-speed_trap
+    pl = Kontrola radarowa
 
   [type.amenity.taxi]
     en = Taxi
@@ -2596,6 +2619,7 @@
     ja = タクシー
     ko = 택시로 가다
     nb = Drosje
+    pl = Taksówka
     pt = Táxi
     pt-BR = Táxi
     th = แท็กซี่
@@ -3134,6 +3158,7 @@
   [type.barrier.cycle_barrier]
     en = Cycle barrier
     ru = Ограждение, предотвращающее проезд велосипедов
+    pl = Bariera rowerowa
 
   [type.barrier.entrance]
     en = Entrance
@@ -3359,27 +3384,34 @@
 
   [type.boundary.administrative.city]
     en = boundary-administrative-city
+    pl = Granica miasta
 
   [type.boundary.administrative.country]
     en = boundary-administrative-country
+    pl = Granica państwa
 
   [type.boundary.administrative.county]
     en = boundary-administrative-county
+    pl = Granica państwa
 
   [type.boundary.administrative.municipality]
     en = boundary-administrative-municipality
+    pl = Granica gminy
 
   [type.boundary.administrative.nation]
     en = boundary-administrative-nation
 
   [type.boundary.administrative.region]
     en = boundary-administrative-region
+    pl = Granica regionu
 
   [type.boundary.administrative.state]
     en = boundary-administrative-state
+    pl = Granica województwa
 
   [type.boundary.administrative.suburb]
     en = boundary-administrative-suburb
+    pl = Granica przedmieść
 
   [type.boundary.national_park]
     en = National park
@@ -3570,15 +3602,19 @@
 
   [type.communication]
     en = communication
+    pl = Komunikacja
 
   [type.communication.line]
     en = communication-line
+    pl = Kabel komunikacyjny
 
   [type.communication.line.underground]
     en = communication-line-underground
+    pl = Podziemny kabel komunikacyjny
 
   [type.craft]
     en = craft
+    pl = Rzemiosło
 
   [type.craft.brewery]
     en = Craft brewery
@@ -6566,6 +6602,7 @@
 
   [type.emergency]
     en = emergency
+    pl = Ratunkowe
 
   [type.emergency.defibrillator]
     en = Defibrillator
@@ -6694,18 +6731,23 @@
 
   [type.highway]
     en = highway
+    pl = Droga
 
   [type.highway.bridleway]
     en = highway-bridleway
+    pl = Droga dla koni
 
   [type.highway.bridleway.bridge]
     en = highway-bridleway-bridge
+    pl = Most drogowy dla koni 
 
   [type.highway.bridleway.permissive]
     en = highway-bridleway-permissive
+    pl = Droga dla koni ograniczona
 
   [type.highway.bridleway.tunnel]
     en = highway-bridleway-tunnel
+    pl = Tunel drogowy dla koni
 
   [type.highway.bus_stop]
     en = Bus Stop
@@ -6775,15 +6817,19 @@
 
   [type.highway.cycleway]
     en = highway-cycleway
+    pl = Droga rowerowa
 
   [type.highway.cycleway.bridge]
     en = highway-cycleway-bridge
+    pl = Most drogowy dla rowerów
 
   [type.highway.cycleway.permissive]
     en = highway-cycleway-permissive
+    pl = Droga rowerowa ograniczona
 
   [type.highway.cycleway.tunnel]
     en = highway-cycleway-tunnel
+    pl = Tunel drogowy dla rowerów
 
   [type.highway.footway]
     en = Path
@@ -6833,7 +6879,7 @@
     ja = 歩道
     ko = 경로
     nb = Sti
-    pl = Ścieżka
+    pl = Ścieżka wspinaczkowa
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
@@ -6897,7 +6943,7 @@
     ja = 歩道
     ko = 경로
     nb = Sti
-    pl = Chodnik
+    pl = Most dla pieszych
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
@@ -7121,7 +7167,7 @@
     ja = 歩道
     ko = 경로
     nb = Sti
-    pl = Tunel chodnikowy
+    pl = Tunel dla pieszych
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
@@ -7139,6 +7185,7 @@
 
   [type.highway.ford]
     en = highway-ford
+    pl = Bród
 
   [type.highway.living_street]
     en = Street
@@ -7156,7 +7203,7 @@
     ja = ストリート
     ko = 거리
     nb = Gate
-    pl = Ulica
+    pl = Ulica w strefie zamieszkania
     pt = Rua
     pt-BR = Rua
     ro = Stradă
@@ -7506,7 +7553,7 @@
     ja = 歩道
     ko = 경로
     nb = Sti
-    pl = Ścieżka
+    pl = Ścieżka wspinaczkowa
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
@@ -7538,7 +7585,7 @@
     ja = 歩道
     ko = 경로
     nb = Sti
-    pl = Ścieżka
+    pl = Ścieżka dla rowerów
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
@@ -7972,6 +8019,7 @@
 
   [type.highway.platform]
     en = highway-platform
+    pl = Peron
 
   [type.highway.primary]
     en = Street
@@ -8167,6 +8215,7 @@
 
   [type.highway.proposed]
     en = highway-proposed
+    pl = Droga projektowana
 
   [type.highway.raceway]
     en = Racetrack
@@ -8937,6 +8986,7 @@
 
   [type.highway.services]
     en = highway-services
+    pl = Miejsce obsługi podróżnych
 
   [type.highway.speed_camera]
     en = Speed Camera
@@ -8986,7 +9036,7 @@
     ja = 歩道
     ko = 경로
     nb = Sti
-    pl = Stopnie
+    pl = Schody
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
@@ -9018,7 +9068,7 @@
     ja = 歩道
     ko = 경로
     nb = Sti
-    pl = Stopnie
+    pl = Schody
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
@@ -9050,7 +9100,7 @@
     ja = 歩道
     ko = 경로
     nb = Sti
-    pl = Stopnie
+    pl = Schody
     pt = Caminho
     pt-BR = Caminho
     ro = Cale
@@ -10162,6 +10212,7 @@
 
   [type.historic]
     en = historic
+    pl = Historyczne
 
   [type.historic.archaeological_site]
     en = Archaeological Site
@@ -10202,6 +10253,7 @@
 
   [type.historic.boundary_stone]
     en = historic-boundary_stone
+    pl = Historyczny kamień graniczny
 
   [type.historic.castle]
     en = Castle
@@ -10305,6 +10357,7 @@
 
   [type.historic.fort]
     en = historic-fort
+    pl = Historyczny fort
 
   [type.historic.memorial]
     en = Memorial
@@ -10448,6 +10501,7 @@
 
   [type.historic.museum]
     en = historic-museum
+    pl = Muzeum historyczne
 
   [type.historic.ruins]
     en = Ruins
@@ -10547,9 +10601,11 @@
 
   [type.historic.wayside_cross]
     en = historic-wayside_cross
+    pl = Krzyż przydrożny
 
   [type.historic.wayside_shrine]
     en = historic-wayside_shrine
+    pl = Kapliczka przydrożna
 
   [type.hwtag]
     en = hwtag
@@ -10615,9 +10671,11 @@
 
   [type.junction]
     en = junction
+    pl = Skrzyżowanie
 
   [type.junction.roundabout]
     en = junction-roundabout
+    pl = Rondo
 
   [type.landuse]
     en = landuse
@@ -10729,6 +10787,7 @@
 
   [type.landuse.churchyard]
     en = landuse-churchyard
+    pl = Teren kościelny
 
   [type.landuse.commercial]
     en = landuse-commercial
@@ -10836,7 +10895,7 @@
     ja = 森林
     ko = 숲
     nb = Skog
-    pl = Las
+    pl = Las iglasty
     pt = Floresta
     pt-BR = Floresta
     ro = Pădure
@@ -10868,7 +10927,7 @@
     ja = 森林
     ko = 숲
     nb = Skog
-    pl = Las
+    pl = Las liściasty
     pt = Floresta
     pt-BR = Floresta
     ro = Pădure
@@ -10957,6 +11016,7 @@
 
   [type.landuse.greenfield]
     en = landuse-greenfield
+    pl = Obszar pod zabudowę
 
   [type.landuse.greenhouse_horticulture]
     en = landuse-greenhouse_horticulture
@@ -11093,9 +11153,11 @@
 
   [type.landuse.residential.rural]
     en = landuse-residential-rural
+    pl = Tereny wiejskie
 
   [type.landuse.residential.urban]
     en = landuse-residential-urban
+    pl = Tereny miejskie
 
   [type.landuse.retail]
     en = landuse-retail
@@ -11103,9 +11165,11 @@
 
   [type.landuse.salt_pond]
     en = landuse-salt_pond
+    pl = Słone jezioro
 
   [type.landuse.village_green]
     en = landuse-village_green
+    pl = Nawsie
 
   [type.landuse.vineyard]
     en = Vineyard
@@ -11641,6 +11705,7 @@
 
   [type.leisure.slipway]
     en = leisure-slipway
+    pl = Pochylnia
 
   [type.leisure.sports_centre]
     en = Sports Center
@@ -11903,9 +11968,11 @@
 
   [type.man_made.breakwater]
     en = man_made-breakwater
+    pl = Falochron
 
   [type.man_made.cairn]
     en = man_made-cairn
+    pl = Kopiec
 
   [type.man_made.chimney]
     en = Factory Chimney
@@ -11940,6 +12007,7 @@
 
   [type.man_made.cutline]
     en = man_made-cutline
+    pl = Przecinka leśna
 
   [type.man_made.lighthouse]
     en = Lighthouse
@@ -11979,9 +12047,11 @@
 
   [type.man_made.pipeline]
     en = man_made-pipeline
+    pl = Rurociąg
 
   [type.man_made.pipeline.overground]
     en = man_made-pipeline-overground
+    pl = Rurociąg nad ziemią
 
   [type.man_made.surveillance]
     en = Surveillance Camera
@@ -12208,6 +12278,7 @@
 
   [type.military]
     en = military
+    pl = Wojskowe
 
   [type.military.bunker]
     en = Bunker
@@ -12230,6 +12301,7 @@
 
   [type.natural]
     en = natural
+    pl = Natura
 
   [type.natural.bare_rock]
     en = Bare rock
@@ -13826,6 +13898,7 @@
 
   [type.place.isolated_dwelling]
     en = place-isolated_dwelling
+    pl = Mała osada
 
   [type.place.locality]
     en = Locality
@@ -13951,6 +14024,7 @@
 
   [type.place.square]
     en = place-square
+    pl = Plac
 
   [type.place.state]
     en = State
@@ -14125,6 +14199,7 @@
 
   [type.power.generator.wind]
     en = power-generator-wind
+    pl = Turbina wiatrowa
 
   [type.power.line]
     en = power-line
@@ -14132,6 +14207,7 @@
 
   [type.power.line.underground]
     en = power-line-underground
+    pl = Podziemna linia wysokiego napięcia
 
   [type.power.minor_line]
     en = power-minor_line
@@ -14252,12 +14328,15 @@
 
   [type.public_transport]
     en = public_transport
+    pl = Transport publiczny
 
   [type.public_transport.platform]
     en = public_transport-platform
+    pl = Przystanek transportu publicznego
 
   [type.railway]
     en = railway
+    pl = Kolej
 
   [type.railway.abandoned]
     en = railway-abandoned
@@ -18306,6 +18385,7 @@
 
   [type.tourism]
     en = tourism
+    pl = Turystyka
 
   [type.tourism.alpine_hut]
     en = Mountains Lodging
@@ -19197,12 +19277,15 @@
 
   [type.traffic_calming]
     en = traffic_calming
+    pl = Uspokojenie ruchu drogowego
 
   [type.traffic_calming.bump]
     en = traffic_calming-bump
+    pl = Krótki próg zwalniający
 
   [type.traffic_calming.hump]
     en = traffic_calming-hump
+    pl = Długi próg zwalniający
 
   [type.waterway]
     en = waterway
