@@ -10,6 +10,7 @@ omim_link_libraries(
   ${PROJECT_NAME}
   map
   traffic
+  routing_common
   search_quality
   search_tests_support
   search
