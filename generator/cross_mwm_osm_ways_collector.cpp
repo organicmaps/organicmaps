@@ -48,11 +48,10 @@ void CrossMwmOsmWaysCollector::CollectFeature(feature::FeatureBuilder const & fb
     return;
 
   auto const & affiliations = m_affiliation->GetAffiliations(fb);
-  if (affiliations.size() == 1)
+  if (affiliations.empty())
     return;
 
   auto const & featurePoints = fb.GetOuterGeometry();
-
   std::map<std::string, std::vector<bool>> featurePointsEntriesToMwm;
   for (auto const & mwmName : affiliations)
     featurePointsEntriesToMwm[mwmName] = std::vector<bool>(featurePoints.size(), false);
@@ -81,9 +80,14 @@ void CrossMwmOsmWaysCollector::CollectFeature(feature::FeatureBuilder const & fb
     for (size_t i = 1; i < entries.size(); ++i)
     {
       bool curPointIn = entries[i];
+      // We must be sure below that either both points belong to mwm either one of them belongs.
+      if (!curPointIn && !prevPointIn)
+        continue;
       // If pointsAffiliationsNumber[i] is more than 1, that means point lies on the mwms' borders
       // And belongs to both. So we consider such segment as cross mwm segment.
-      if (prevPointIn == curPointIn &&
+      // So the condition that segment certainly lies inside of mwm is:
+      // both points inside and both points belong to only this mwm.
+      if (prevPointIn && curPointIn &&
           pointsAffiliationsNumber[i] == 1 && pointsAffiliationsNumber[i - 1] == 1)
       {
         continue;
@@ -103,13 +107,12 @@ void CrossMwmOsmWaysCollector::CollectFeature(feature::FeatureBuilder const & fb
         else
           UNREACHABLE();
       }
-
       prevPointIn = curPointIn;
       crossMwmSegments.emplace_back(i - 1 /* segmentId */, forwardIsEnter);
     }
 
-    CHECK(!crossMwmSegments.empty(),
-         ("Can not find cross mwm segments, mwmName:", mwmName, "fb:", fb));
+    if (crossMwmSegments.empty())
+      return;
 
     m_mwmToCrossMwmOsmIds[mwmName].emplace_back(element.m_id, std::move(crossMwmSegments));
   }
