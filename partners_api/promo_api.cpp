@@ -120,7 +120,7 @@ std::string MakePoiGalleryUrl(std::string const & baseUrl, std::string const & i
 {
   auto cityUrl = MakeCityGalleryUrl(baseUrl, id, lang);
   if (cityUrl.empty())
-    return "";
+    return {};
 
   url::Params params;
 
@@ -139,7 +139,10 @@ std::string MakePoiGalleryUrl(std::string const & baseUrl, std::string const & i
 
 std::string GetPictureUrl(std::string const & baseUrl, std::string const & id)
 {
-  ASSERT(!baseUrl.empty(), ());
+  // Support opensource build.
+  if (baseUrl.empty())
+    return {};
+
   ASSERT_EQUAL(baseUrl.back(), '/', ());
 
   return baseUrl + "bookmarks_catalogue/city/" + ToSignedId(id) + ".jpg";
@@ -147,7 +150,10 @@ std::string GetPictureUrl(std::string const & baseUrl, std::string const & id)
 
 std::string GetCityCatalogueUrl(std::string const & baseUrl, std::string const & id)
 {
-  ASSERT(!baseUrl.empty(), ());
+  // Support opensource build.
+  if (baseUrl.empty())
+    return {};
+
   ASSERT_EQUAL(baseUrl.back(), '/', ());
 
   return baseUrl + "v2/mobilefront/city/" + ToSignedId(id);
@@ -233,10 +239,6 @@ void Api::SetDelegate(std::unique_ptr<Delegate> delegate)
 
 AfterBooking Api::GetAfterBooking(std::string const & lang) const
 {
-  // Support opensource build.
-  if (m_basePicturesUrl.empty() || m_baseUrl.empty())
-    return {};
-
   auto const eyeInfo = eye::Eye::Instance().GetInfo();
 
   auto const promoId = LoadPromoIdForBooking(eyeInfo);
@@ -250,19 +252,11 @@ AfterBooking Api::GetAfterBooking(std::string const & lang) const
 
 std::string Api::GetLinkForDownloader(std::string const & id) const
 {
-  // Support opensource build.
-  if (m_baseUrl.empty())
-    return {};
-
   return InjectUTM(GetCityCatalogueUrl(m_baseUrl, id), UTM::DownloadMwmBanner);
 }
 
 std::string Api::GetCityUrl(m2::PointD const & point) const
 {
-  // Support opensource build.
-  if (m_baseUrl.empty())
-    return {};
-
   auto const id = m_delegate->GetCityId(point);
 
   if (id.empty())

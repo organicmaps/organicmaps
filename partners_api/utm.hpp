@@ -29,6 +29,9 @@ enum class UTMContent : uint8_t
 
 inline std::string InjectUTM(std::string const & url, UTM utm)
 {
+  if (url.empty())
+    return {};
+
   base::url::Params params;
   params.emplace_back("utm_source", "maps.me");
   switch (utm)
