@@ -19,6 +19,7 @@
 
 #include <QtCore/QTemporaryFile>
 #include <QtCore/QDebug>
+#include <QtCore/QDir>
 #include <QtCore/QProcess>
 #include <QtCore/QTextStream>
 
@@ -27,13 +28,13 @@ std::string const kCompilersDir = "shaders_compiler";
 #if defined(OMIM_OS_MAC)
 std::string const kMaliCompilerOpenGLES2Dir = "macos/mali_compiler";
 std::string const kMaliCompilerOpenGLES3Dir = "macos/mali_compiler_es3";
-std::string const kCompilerOpenGLES2 = "macos/GLSLESCompiler_Series5.mac";
 std::string const kCompilerMaliOpenGLES2 = kMaliCompilerOpenGLES2Dir + "/malisc";
-std::string const kCompilerOpenGLES3 = "macos/GLSLESCompiler_Series6.mac";
 std::string const kCompilerMaliOpenGLES3 = kMaliCompilerOpenGLES3Dir + "/malisc";
+std::string const kCompilerOpenGLES = "macos/glslangValidator";
 #elif defined(OMIM_OS_LINUX)
 std::string const kMaliCompilerOpenGLES3Dir = "linux/mali_compiler_es3";
 std::string const kCompilerMaliOpenGLES3 = kMaliCompilerOpenGLES3Dir + "/malisc";
+std::string const kCompilerOpenGLES = "linux/glslangValidator";
 #endif
 
 std::string DebugPrint(QString const & s) { return s.toStdString(); }
@@ -97,14 +98,17 @@ void RunShaderTest(dp::ApiVersion apiVersion, std::string const & shaderName,
   }
 }
 
-void TestShaders(dp::ApiVersion apiVersion, std::string const & defines,
+void TestShaders(dp::ApiVersion apiVersion, std::string const & defines, QString const & ext,
                  std::map<std::string, std::string> const & shaders, QString const & glslCompiler,
                  PrepareProcessFn const & procPrepare, PrepareArgumentsFn const & argsPrepare,
                  SuccessChecker const & successChecker, QTextStream & errorLog)
 {
   for (auto const & src : shaders)
   {
-    QTemporaryFile srcFile;
+    // From QTemporaryFile documentation (https://doc.qt.io/qt-5/qtemporaryfile.html):
+    // "Specified filenames can contain the following template XXXXXX (six upper case "X" characters),
+    // which will be replaced by the auto-generated portion of the filename."
+    QTemporaryFile srcFile(QString("XXXXXX") + ext);
     TEST(srcFile.open(), ("Temporary file can't be created!"));
     std::string fullSrc;
     if (apiVersion == dp::ApiVersion::OpenGLES3)
@@ -134,85 +138,34 @@ std::string GetCompilerPath(std::string const & compilerName)
 }
 }  // namespace
 
-#if defined(OMIM_OS_MAC)
-
 struct CompilerData
 {
   dp::ApiVersion m_apiVersion;
   std::string m_compilerPath;
 };
 
-void CompileShaders(CompilerData const & compiler)
+void CompileShaders(CompilerData const & compiler, std::string const & additionalDefines = {})
 {
-  auto successChecker = [](QString const & output) { return output.indexOf("Success") != -1; };
-
-  QString errorLog;
-  QTextStream ss(&errorLog);
-
-  QString compilerPath = QString::fromStdString(compiler.m_compilerPath);
-  QString shaderType = "-v";
-  auto argsPrepareFn = [&shaderType](QStringList & args, QString const & fileName) {
-    args << fileName << fileName + ".bin" << shaderType;
+  auto successChecker = [](QString const & output) {
+    return output.isEmpty();
   };
 
-  std::string const defines = compiler.m_apiVersion == dp::ApiVersion::OpenGLES3 ? "#define GLES3\n" : "";
-  TestShaders(compiler.m_apiVersion, defines, GetVertexShaders(compiler.m_apiVersion),
-              compilerPath, [](QProcess const &) {}, argsPrepareFn, successChecker, ss);
-  shaderType = "-f";
-  TestShaders(compiler.m_apiVersion, defines, GetFragmentShaders(compiler.m_apiVersion),
-              compilerPath, [](QProcess const &) {}, argsPrepareFn, successChecker, ss);
-
-  TEST_EQUAL(errorLog.isEmpty(), true, ("PVR without defines :", errorLog));
-}
-
-void CompileShadersVTF(CompilerData const & compiler)
-{
-  auto successChecker = [](QString const & output) { return output.indexOf("Success") != -1; };
-
   QString errorLog;
   QTextStream ss(&errorLog);
 
   QString compilerPath = QString::fromStdString(compiler.m_compilerPath);
-  QString shaderType = "-v";
-  auto argsPrepareFn = [&shaderType](QStringList & args, QString const & fileName) {
-    args << fileName << fileName + ".bin" << shaderType;
+  auto argsPrepareFn = [](QStringList & args, QString const & fileName) {
+    args << fileName;
   };
 
   std::string const defines = compiler.m_apiVersion == dp::ApiVersion::OpenGLES3 ?
-    "#define GLES3\n#define ENABLE_VTF\n" : "#define ENABLE_VTF\n";
-  shaderType = "-v";
-  TestShaders(compiler.m_apiVersion, defines, GetVertexShaders(compiler.m_apiVersion),
+    "#define GLES3\n" + additionalDefines : additionalDefines;
+  TestShaders(compiler.m_apiVersion, defines, ".vert", GetVertexShaders(compiler.m_apiVersion),
               compilerPath, [](QProcess const &) {}, argsPrepareFn, successChecker, ss);
-  shaderType = "-f";
-  TestShaders(compiler.m_apiVersion, defines, GetFragmentShaders(compiler.m_apiVersion),
+  TestShaders(compiler.m_apiVersion, defines, ".frag", GetFragmentShaders(compiler.m_apiVersion),
               compilerPath, [](QProcess const &) {}, argsPrepareFn, successChecker, ss);
 
-  TEST_EQUAL(errorLog.isEmpty(), true, ("PVR with defines : ", defines, "\n", errorLog));
-}
-
-void CompileShadersSamsungGoogleNexus(CompilerData const & compiler)
-{
-  auto successChecker = [](QString const & output) { return output.indexOf("Success") != -1; };
-
-  QString errorLog;
-  QTextStream ss(&errorLog);
-
-  QString compilerPath = QString::fromStdString(compiler.m_compilerPath);
-  QString shaderType = "-v";
-  auto argsPrepareFn = [&shaderType](QStringList & args, QString const & fileName) {
-    args << fileName << fileName + ".bin" << shaderType;
-  };
-
-  std::string const defines = compiler.m_apiVersion == dp::ApiVersion::OpenGLES3 ?
-    "#define GLES3\n#define SAMSUNG_GOOGLE_NEXUS\n" : "#define SAMSUNG_GOOGLE_NEXUS\n";
-  shaderType = "-v";
-  TestShaders(compiler.m_apiVersion, defines, GetVertexShaders(compiler.m_apiVersion),
-              compilerPath, [](QProcess const &) {}, argsPrepareFn, successChecker, ss);
-  shaderType = "-f";
-  TestShaders(compiler.m_apiVersion, defines, GetFragmentShaders(compiler.m_apiVersion),
-              compilerPath, [](QProcess const &) {}, argsPrepareFn, successChecker, ss);
-
-  TEST_EQUAL(errorLog.isEmpty(), true, ("PVR with defines : ", defines, "\n", errorLog));
+  TEST_EQUAL(errorLog.isEmpty(), true, ("Defines:", defines, additionalDefines, "\n", errorLog));
 }
 
 UNIT_TEST(MobileCompileShaders_Test)
@@ -220,32 +173,35 @@ UNIT_TEST(MobileCompileShaders_Test)
   base::thread_pool::delayed::ThreadPool workerThread(6 /* threadsCount */);
 
   workerThread.Push([] {
-    CompileShaders({dp::ApiVersion::OpenGLES2, GetCompilerPath(kCompilerOpenGLES2)});
+    CompileShaders({dp::ApiVersion::OpenGLES2, GetCompilerPath(kCompilerOpenGLES)});
   });
 
   workerThread.Push([] {
-    CompileShaders({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES3)});
+    CompileShaders({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES)});
   });
 
   workerThread.Push([] {
-    CompileShadersVTF({dp::ApiVersion::OpenGLES2, GetCompilerPath(kCompilerOpenGLES2)});
+    CompileShaders({dp::ApiVersion::OpenGLES2, GetCompilerPath(kCompilerOpenGLES)},
+      "#define ENABLE_VTF\n");
   });
 
   workerThread.Push([] {
-    CompileShadersVTF({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES3)});
+    CompileShaders({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES)},
+      "#define ENABLE_VTF\n");
   });
 
   workerThread.Push([] {
-    CompileShadersSamsungGoogleNexus({dp::ApiVersion::OpenGLES2, GetCompilerPath(kCompilerOpenGLES2)});
+    CompileShaders({dp::ApiVersion::OpenGLES2, GetCompilerPath(kCompilerOpenGLES)},
+      "#define SAMSUNG_GOOGLE_NEXUS\n");
   });
 
   workerThread.Push([] {
-    CompileShadersSamsungGoogleNexus({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES3)});
+    CompileShaders({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES)},
+      "#define SAMSUNG_GOOGLE_NEXUS\n");
   });
 
   workerThread.Shutdown(base::thread_pool::delayed::ThreadPool::Exit::ExecPending);
 }
-#endif
 
 struct MaliReleaseVersion
 {
@@ -292,10 +248,10 @@ void MaliCompileShaders(MaliCompilerData const & compiler, MaliDriverSet const &
   std::string const defines =
     compiler.m_apiVersion == dp::ApiVersion::OpenGLES3 ? "#define GLES3\n" : "";
   QString const compilerPath = QString::fromStdString(compiler.m_compilerPath);
-  TestShaders(compiler.m_apiVersion, defines, GetVertexShaders(compiler.m_apiVersion),
+  TestShaders(compiler.m_apiVersion, defines, {}, GetVertexShaders(compiler.m_apiVersion),
               compilerPath, procPrepare, argForming, successChecker, ss);
   shaderType = "-f";
-  TestShaders(compiler.m_apiVersion, defines, GetFragmentShaders(compiler.m_apiVersion),
+  TestShaders(compiler.m_apiVersion, defines, {}, GetFragmentShaders(compiler.m_apiVersion),
               compilerPath, procPrepare, argForming, successChecker, ss);
   TEST(errorLog.isEmpty(),
        (shaderType, version.m_series, version.m_version, driverSet.m_driverName, defines, errorLog));
