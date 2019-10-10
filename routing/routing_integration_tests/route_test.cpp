@@ -298,7 +298,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 14612.7);
+    integration::TestRouteTime(route, 18241.2);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22TimeTest)
@@ -311,7 +311,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 967.0);
+    integration::TestRouteTime(route, 1060.0);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22SubrouteTest)
@@ -392,7 +392,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 20101.6);
+    integration::TestRouteTime(route, 18989.9);
   }
 
   // Test on roads with tag route=shuttle_train
@@ -407,7 +407,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 6392.28);
+    integration::TestRouteTime(route, 6529.2);
   }
 
   UNIT_TEST(TolyattiFeatureThatCrossSeveralMwmsTest)
@@ -419,6 +419,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
+
     integration::TestRouteTime(route, 6348.78);
   }
 
