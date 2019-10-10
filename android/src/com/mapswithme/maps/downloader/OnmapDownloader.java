@@ -144,13 +144,12 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
           }
           else
           {
-            sizeText = (MapManager.nativeIsLegacyMode() ? "" : StringUtils.getFileSizeString(mCurrentCountry.totalSize));
+            sizeText = (StringUtils.getFileSizeString(mCurrentCountry.totalSize));
 
             if (shouldAutoDownload &&
                 Config.isAutodownloadEnabled() &&
                 !sAutodownloadLocked &&
                 !failed &&
-                !MapManager.nativeIsLegacyMode() &&
                 ConnectionState.isWifiConnected())
             {
               Location loc = LocationHelper.INSTANCE.getSavedLocation();
@@ -213,12 +212,6 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       @Override
       public void onClick(View v)
       {
-        if (MapManager.nativeIsLegacyMode())
-        {
-          mActivity.showDownloader(false);
-          return;
-        }
-
         MapManager.warnOn3g(mActivity, mCurrentCountry.id, new Runnable()
         {
           @Override

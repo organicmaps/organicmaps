@@ -706,23 +706,6 @@ void Framework::RequestBookingInfo(JNIEnv * env, jobject policy,
     bookingApi->GetHotelInfo(hotelId, lang, callback);
 }
 
-bool Framework::HasSpaceForMigration()
-{
-  return m_work.IsEnoughSpaceForMigrate();
-}
-
-void Framework::Migrate(bool keepOldMaps)
-{
-  m_work.Migrate(keepOldMaps);
-}
-
-storage::CountryId Framework::PreMigrate(
-    ms::LatLon const & position, Storage::ChangeCountryFunction const & statusChangeListener,
-    Storage::ProgressFunction const & progressListener)
-{
-  return m_work.PreMigrate(position, statusChangeListener, progressListener);
-}
-
 bool Framework::IsAutoRetryDownloadFailed()
 {
   return m_work.GetDownloadingPolicy().IsAutoRetryDownloadFailed();

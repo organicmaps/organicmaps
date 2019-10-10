@@ -52,7 +52,6 @@ struct TBatchedData
 jmethodID g_listAddMethod;
 jclass g_countryItemClass;
 jobject g_countryChangedListener;
-jobject g_migrationListener;
 
 DECLARE_THREAD_CHECKER(g_batchingThreadChecker);
 std::unordered_map<jobject, std::vector<TBatchedData>> g_batchedCallbackData;
@@ -97,13 +96,6 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeMoveFile(JNIEnv * env, jcla
   return base::RenameFileX(jni::ToNativeString(env, oldFile), jni::ToNativeString(env, newFile));
 }
 
-// static boolean nativeHasSpaceForMigration();
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeHasSpaceForMigration(JNIEnv * env, jclass clazz)
-{
-  return g_framework->HasSpaceForMigration();
-}
-
 // static boolean nativeHasSpaceToDownloadAmount(long bytes);
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeHasSpaceToDownloadAmount(JNIEnv * env, jclass clazz, jlong bytes)
@@ -123,115 +115,6 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeHasSpaceToUpdate(JNIEnv * env, jclass clazz, jstring root)
 {
   return IsEnoughSpaceForUpdate(jni::ToNativeString(env, root), GetStorage());
-}
-
-// static native boolean nativeIsLegacyMode();
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeIsLegacyMode(JNIEnv * env, jclass clazz)
-{
-  return !version::IsSingleMwm(GetStorage().GetCurrentDataVersion());
-}
-
-// static native boolean nativeNeedMigrate();
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeNeedMigrate(JNIEnv * env, jclass clazz)
-{
-  return platform::migrate::NeedMigrate();
-}
-
-static void FinishMigration(JNIEnv * env)
-{
-  ASSERT(g_migrationListener, ());
-  env->DeleteGlobalRef(g_migrationListener);
-  g_migrationListener = nullptr;
-}
-
-static void OnPrefetchComplete(bool keepOldMaps)
-{
-  ASSERT(g_migrationListener, ());
-
-  g_framework->Migrate(keepOldMaps);
-
-  JNIEnv * env = jni::GetEnv();
-  static jmethodID const callback = jni::GetMethodID(env, g_migrationListener, "onComplete", "()V");
-  env->CallVoidMethod(g_migrationListener, callback);
-
-  FinishMigration(env);
-}
-
-static void OnMigrationError(NodeErrorCode error)
-{
-  ASSERT(g_migrationListener, ());
-
-  JNIEnv * env = jni::GetEnv();
-  static jmethodID const callback = jni::GetMethodID(env, g_migrationListener, "onError", "(I)V");
-  env->CallVoidMethod(g_migrationListener, callback, static_cast<jint>(error));
-
-  FinishMigration(env);
-}
-
-static void MigrationStatusChangedCallback(CountryId const & countryId, bool keepOldMaps)
-{
-  NodeStatuses attrs;
-  GetStorage().GetPrefetchStorage()->GetNodeStatuses(countryId, attrs);
-
-  switch (attrs.m_status)
-  {
-  case NodeStatus::OnDisk:
-    if (!attrs.m_groupNode)
-      OnPrefetchComplete(keepOldMaps);
-    break;
-
-  case NodeStatus::Undefined:
-  case NodeStatus::Error:
-    if (!attrs.m_groupNode)
-      OnMigrationError(attrs.m_error);
-    break;
-
-  default:
-    break;
-  }
-}
-
-static void MigrationProgressCallback(CountryId const & countryId, LocalAndRemoteSize const & sizes)
-{
-  JNIEnv * env = jni::GetEnv();
-
-  static jmethodID const callback = jni::GetMethodID(env, g_migrationListener, "onProgress", "(I)V");
-  env->CallVoidMethod(g_migrationListener, callback, static_cast<jint>(sizes.first * 100 / sizes.second));
-}
-
-// static @Nullable String nativeMigrate(MigrationListener listener, double lat, double lon, boolean hasLocation, boolean keepOldMaps);
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeMigrate(JNIEnv * env, jclass clazz, jobject listener, jdouble lat, jdouble lon, jboolean hasLocation, jboolean keepOldMaps)
-{
-  ms::LatLon position{};
-  if (hasLocation)
-    position = MercatorBounds::ToLatLon(g_framework->GetViewportCenter());
-
-  g_migrationListener = env->NewGlobalRef(listener);
-
-  CountryId id =
-      g_framework->PreMigrate(position, std::bind(&MigrationStatusChangedCallback, _1, keepOldMaps),
-                              std::bind(&MigrationProgressCallback, _1, _2));
-  if (id != kInvalidCountryId)
-  {
-    NodeAttrs attrs;
-    GetStorage().GetPrefetchStorage()->GetNodeAttrs(id, attrs);
-    return jni::ToJavaString(env, attrs.m_nodeLocalName);
-  }
-
-  OnPrefetchComplete(keepOldMaps);
-  return nullptr;
-}
-
-// static void nativeCancelMigration();
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeCancelMigration(JNIEnv * env, jclass clazz)
-{
-  Storage * storage = GetStorage().GetPrefetchStorage();
-  CountryId const & currentCountry = storage->GetCurrentDownloadingCountryId();
-  storage->CancelDownloadNode(currentCountry);
 }
 
 // static int nativeGetDownloadedCount();

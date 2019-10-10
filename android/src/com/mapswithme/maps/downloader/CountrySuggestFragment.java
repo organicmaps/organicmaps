@@ -214,8 +214,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
       break;
 
     case R.id.btn__select_map:
-      if (!RoutingController.get().checkMigration(getMwmActivity()))
-        getMwmActivity().replaceFragment(DownloaderFragment.class, null, null);
+      getMwmActivity().replaceFragment(DownloaderFragment.class, null, null);
       break;
 
     case R.id.wpv__download_progress:

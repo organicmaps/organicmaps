@@ -1166,23 +1166,6 @@ public class RoutingController implements TaxiManager.TaxiListener
     return StringUtils.formatUsingUsLocale("%d:%02d", current.get(Calendar.HOUR_OF_DAY), current.get(Calendar.MINUTE));
   }
 
-  public boolean checkMigration(Activity activity)
-  {
-    if (!MapManager.nativeIsLegacyMode())
-      return false;
-
-    if (!isNavigating() && !isPlanning())
-      return false;
-
-    new AlertDialog.Builder(activity)
-        .setTitle(R.string.migrate_title)
-        .setMessage(R.string.no_migration_during_navigation)
-        .setPositiveButton(android.R.string.ok, null)
-        .show();
-
-    return true;
-  }
-
   private void requestTaxiInfo(@NonNull MapObject startPoint, @NonNull MapObject endPoint)
   {
     mTaxiPlanning = true;

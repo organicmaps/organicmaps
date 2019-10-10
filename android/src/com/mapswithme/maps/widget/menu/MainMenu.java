@@ -323,9 +323,7 @@ public class MainMenu extends BaseMenu
     UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
     int count = (info == null ? 0 : info.filesCount);
 
-    boolean show = (MapManager.nativeIsLegacyMode() || count > 0) &&
-                   (!mCollapsed || mCollapseViews.isEmpty()) &&
-                   !isOpen();
+    boolean show = count > 0 && !isOpen() && (!mCollapsed || mCollapseViews.isEmpty());
 
     UiUtils.showIf(show, mNewsMarker);
     UiUtils.showIf(count > 0, mNewsCounter);
@@ -408,7 +406,7 @@ public class MainMenu extends BaseMenu
       UiUtils.showIf(expandContent,
                      mItemViews.get(Item.SEARCH),
                      mItemViews.get(Item.BOOKMARKS));
-      setVisible(Item.ADD_PLACE, !isRouting && !MapManager.nativeIsLegacyMode());
+      setVisible(Item.ADD_PLACE, !isRouting);
     }
 
     if (mLayoutMeasured)

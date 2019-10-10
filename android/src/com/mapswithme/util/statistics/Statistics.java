@@ -347,10 +347,6 @@ public enum Statistics
   public static class EventName
   {
     // Downloader
-    public static final String DOWNLOADER_MIGRATION_DIALOG_SEEN = "Downloader_Migration_dialogue";
-    public static final String DOWNLOADER_MIGRATION_STARTED = "Downloader_Migration_started";
-    public static final String DOWNLOADER_MIGRATION_COMPLETE = "Downloader_Migration_completed";
-    public static final String DOWNLOADER_MIGRATION_ERROR = "Downloader_Migration_error";
     public static final String DOWNLOADER_ERROR = "Downloader_Map_error";
     public static final String DOWNLOADER_ACTION = "Downloader_Map_action";
     public static final String DOWNLOADER_CANCEL = "Downloader_Cancel_downloading";

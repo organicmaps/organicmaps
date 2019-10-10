@@ -172,7 +172,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     else
     {
       result = Framework.nativeToDoAfterUpdate();
-      if (result == Framework.DO_AFTER_UPDATE_MIGRATE || result == Framework.DO_AFTER_UPDATE_NOTHING)
+      if (result == Framework.DO_AFTER_UPDATE_NOTHING)
         return false;
 
       Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_SHOW,

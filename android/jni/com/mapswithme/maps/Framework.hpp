@@ -190,13 +190,6 @@ namespace android
                             std::string const & hotelId, std::string const & lang,
                             booking::GetHotelInfoCallback const & callback);
 
-    bool HasSpaceForMigration();
-    storage::CountryId PreMigrate(
-        ms::LatLon const & position,
-        storage::Storage::ChangeCountryFunction const & statusChangeListener,
-        storage::Storage::ProgressFunction const & progressListener);
-    void Migrate(bool keepOldMaps);
-
     bool IsAutoRetryDownloadFailed();
     bool IsDownloadOn3gEnabled();
     void EnableDownloadOn3g();

@@ -12,8 +12,7 @@ public class DownloaderActivity extends BaseMwmFragmentActivity
   @Override
   protected Class<? extends Fragment> getFragmentClass()
   {
-    return (MapManager.nativeIsLegacyMode() ? MigrationFragment.class
-                                            : DownloaderFragment.class);
+    return (DownloaderFragment.class);
   }
 
   @Override

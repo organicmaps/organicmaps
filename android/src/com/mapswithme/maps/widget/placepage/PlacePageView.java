@@ -1378,10 +1378,7 @@ public class PlacePageView extends NestedScrollView
 
     showTaxiOffer(mapObject);
 
-    boolean inRouting = RoutingController.get().isNavigating() ||
-                        RoutingController.get().isPlanning();
-
-    if (inRouting || MapManager.nativeIsLegacyMode())
+    if (RoutingController.get().isNavigating() || RoutingController.get().isPlanning())
     {
       UiUtils.hide(mEditPlace, mAddOrganisation, mAddPlace, mLocalAd, mEditTopSpace);
     }
