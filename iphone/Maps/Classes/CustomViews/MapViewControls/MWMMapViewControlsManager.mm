@@ -174,26 +174,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)actionDownloadMaps:(MWMMapDownloaderMode)mode
 {
-  MapViewController * ownerController = self.ownerController;
-  if (platform::migrate::NeedMigrate())
-  {
-    if ([MWMRouter isRoutingActive])
-    {
-      [Statistics logEvent:kStatDownloaderMigrationProhibitedDialogue
-            withParameters:@{kStatFrom : kStatDownloader}];
-      [[MWMAlertViewController activeAlertController] presentMigrationProhibitedAlert];
-    }
-    else
-    {
-      [Statistics logEvent:kStatDownloaderMigrationDialogue
-            withParameters:@{kStatFrom : kStatDownloader}];
-      [ownerController openMigration];
-    }
-  }
-  else
-  {
-    [ownerController openMapsDownloader:mode];
-  }
+  [self.ownerController openMapsDownloader:mode];
 }
 
 - (void)didFinishAddingPlace

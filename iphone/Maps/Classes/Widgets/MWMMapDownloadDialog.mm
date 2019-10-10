@@ -37,7 +37,7 @@ BOOL canAutoDownload(storage::CountryId const &countryId) {
   auto const &countryInfoGetter = GetFramework().GetCountryInfoGetter();
   if (countryId != countryInfoGetter.GetRegionCountryId(lastLocation.mercator))
     return NO;
-  return !platform::migrate::NeedMigrate();
+  return YES;
 }
 
 promo::DownloaderPromo::Banner getPromoBanner(std::string const &mwmId) {
@@ -121,7 +121,7 @@ using namespace storage;
     }
     self.node.text = @(nodeAttrs.m_nodeLocalName.c_str());
     self.node.textColor = [UIColor blackPrimaryText];
-    self.nodeSize.hidden = platform::migrate::NeedMigrate();
+    self.nodeSize.hidden = NO;
     self.nodeSize.textColor = [UIColor blackSecondaryText];
     self.nodeSize.text = formattedSize(nodeAttrs.m_mwmSize);
 
@@ -427,24 +427,16 @@ using namespace storage;
 }
 
 - (IBAction)downloadAction {
-  MapViewController *controller = self.controller;
-  if (platform::migrate::NeedMigrate()) {
-    [Statistics logEvent:kStatDownloaderMigrationDialogue withParameters:@{kStatFrom: kStatMap}];
-    [controller openMigration];
-  } else {
-    [Statistics logEvent:kStatDownloaderMapAction
-          withParameters:@{
-            kStatAction: kStatDownload,
-            kStatIsAuto: kStatNo,
-            kStatFrom: kStatMap,
-            kStatScenario: kStatDownload
-          }];
-    [MWMStorage downloadNode:m_countryId
-                   onSuccess:^{
-                     [self showInQueue];
-                   }
-                    onCancel:nil];
-  }
+  [Statistics logEvent:kStatDownloaderMapAction
+        withParameters:@{
+          kStatAction: kStatDownload,
+          kStatIsAuto: kStatNo,
+          kStatFrom: kStatMap,
+          kStatScenario: kStatDownload
+        }];
+  [MWMStorage downloadNode:m_countryId
+                 onSuccess:^{ [self showInQueue]; }
+                  onCancel:nil];
 }
 
 #pragma mark - Properties

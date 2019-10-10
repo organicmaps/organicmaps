@@ -724,15 +724,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
                      countries:(storage::CountriesSet const &)countries
 {
   MWMAlertViewController * activeAlertController = [MWMAlertViewController activeAlertController];
-  if (platform::migrate::NeedMigrate())
-  {
-    [activeAlertController presentRoutingMigrationAlertWithOkBlock:^{
-      [Statistics logEvent:kStatDownloaderMigrationDialogue
-            withParameters:@{kStatFrom : kStatRouting}];
-      [[MapViewController sharedController] openMigration];
-    }];
-  }
-  else if (!countries.empty())
+  if (!countries.empty())
   {
     [activeAlertController presentDownloaderAlertWithCountries:countries
         code:code

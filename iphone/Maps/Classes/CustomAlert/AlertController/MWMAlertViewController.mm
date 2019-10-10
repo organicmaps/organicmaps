@@ -73,7 +73,6 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 }
 
 - (void)presentNoConnectionAlert { [self displayAlert:[MWMAlert noConnectionAlert]]; }
-- (void)presentMigrationProhibitedAlert { [self displayAlert:[MWMAlert migrationProhibitedAlert]]; }
 - (void)presentDeleteMapProhibitedAlert { [self displayAlert:[MWMAlert deleteMapProhibitedAlert]]; }
 - (void)presentUnsavedEditsAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
 {
@@ -95,11 +94,6 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 - (void)presentInvalidUserNameOrPasswordAlert
 {
   [self displayAlert:[MWMAlert invalidUserNameOrPasswordAlert]];
-}
-
-- (void)presentRoutingMigrationAlertWithOkBlock:(MWMVoidBlock)okBlock
-{
-  [self displayAlert:[MWMAlert routingMigrationAlertWithOkBlock:okBlock]];
 }
 
 - (void)presentDownloaderAlertWithCountries:(storage::CountriesSet const &)countries

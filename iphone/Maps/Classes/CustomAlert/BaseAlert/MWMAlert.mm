@@ -36,7 +36,6 @@
 }
 
 + (MWMAlert *)noConnectionAlert { return [MWMDefaultAlert noConnectionAlert]; }
-+ (MWMAlert *)migrationProhibitedAlert { return [MWMDefaultAlert migrationProhibitedAlert]; }
 + (MWMAlert *)deleteMapProhibitedAlert { return [MWMDefaultAlert deleteMapProhibitedAlert]; }
 + (MWMAlert *)unsavedEditsAlertWithOkBlock:(MWMVoidBlock)okBlock
 {
@@ -46,11 +45,6 @@
 + (MWMAlert *)locationServiceNotSupportedAlert
 {
   return [MWMDefaultAlert locationServiceNotSupportedAlert];
-}
-
-+ (MWMAlert *)routingMigrationAlertWithOkBlock:(MWMVoidBlock)okBlock
-{
-  return [MWMDefaultAlert routingMigrationAlertWithOkBlock:okBlock];
 }
 
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(storage::CountriesSet const &)countries

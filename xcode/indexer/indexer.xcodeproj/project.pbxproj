@@ -35,7 +35,6 @@
 		3496ABA91DC1FA9E00C5DDBA /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA41DC1FA9E00C5DDBA /* categories.txt */; };
 		3496ABAA1DC1FA9E00C5DDBA /* countries_meta.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA51DC1FA9E00C5DDBA /* countries_meta.txt */; };
 		3496ABAB1DC1FA9E00C5DDBA /* countries_names.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA61DC1FA9E00C5DDBA /* countries_names.txt */; };
-		3496ABAC1DC1FA9E00C5DDBA /* countries_obsolete.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA71DC1FA9E00C5DDBA /* countries_obsolete.txt */; };
 		3496ABAD1DC1FA9E00C5DDBA /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA81DC1FA9E00C5DDBA /* countries.txt */; };
 		3496ABAF1DC1FAC900C5DDBA /* minsk-pass.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABAE1DC1FAC900C5DDBA /* minsk-pass.mwm */; };
 		391C0C8322BD2551003DC252 /* feature_to_osm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 391C0C8122BD2551003DC252 /* feature_to_osm.cpp */; };
@@ -252,7 +251,6 @@
 		3496ABA41DC1FA9E00C5DDBA /* categories.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = categories.txt; path = ../../data/categories.txt; sourceTree = "<group>"; };
 		3496ABA51DC1FA9E00C5DDBA /* countries_meta.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = countries_meta.txt; path = ../../data/countries_meta.txt; sourceTree = "<group>"; };
 		3496ABA61DC1FA9E00C5DDBA /* countries_names.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = countries_names.txt; path = ../../data/countries_names.txt; sourceTree = "<group>"; };
-		3496ABA71DC1FA9E00C5DDBA /* countries_obsolete.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = countries_obsolete.txt; path = ../../data/countries_obsolete.txt; sourceTree = "<group>"; };
 		3496ABA81DC1FA9E00C5DDBA /* countries.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = countries.txt; path = ../../data/countries.txt; sourceTree = "<group>"; };
 		3496ABAE1DC1FAC900C5DDBA /* minsk-pass.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = "minsk-pass.mwm"; path = "../../data/minsk-pass.mwm"; sourceTree = "<group>"; };
 		34AF87D11DBE540700E5E7DC /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
@@ -488,7 +486,6 @@
 				4052928E21496D2B00D821F1 /* categories_cuisines.txt */,
 				3496ABA51DC1FA9E00C5DDBA /* countries_meta.txt */,
 				3496ABA61DC1FA9E00C5DDBA /* countries_names.txt */,
-				3496ABA71DC1FA9E00C5DDBA /* countries_obsolete.txt */,
 				3496ABA81DC1FA9E00C5DDBA /* countries.txt */,
 				3496ABA21DC1FA7200C5DDBA /* editor.config */,
 				3496AB981DC1FA5200C5DDBA /* drules_proto_clear.bin */,
@@ -909,6 +906,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 675340911A3F53CB00A0A8C3;
@@ -931,7 +929,6 @@
 				3496ABA91DC1FA9E00C5DDBA /* categories.txt in Resources */,
 				3496ABAA1DC1FA9E00C5DDBA /* countries_meta.txt in Resources */,
 				3496ABAB1DC1FA9E00C5DDBA /* countries_names.txt in Resources */,
-				3496ABAC1DC1FA9E00C5DDBA /* countries_obsolete.txt in Resources */,
 				3496ABAD1DC1FA9E00C5DDBA /* countries.txt in Resources */,
 				3496ABA31DC1FA7200C5DDBA /* editor.config in Resources */,
 				3496AB9D1DC1FA5200C5DDBA /* drules_proto_clear.bin in Resources */,

@@ -25,7 +25,6 @@
 
 - (void)performAction:(NSString *)action;
 
-- (void)openMigration;
 - (void)openBookmarks;
 - (void)openMapsDownloader:(MWMMapDownloaderMode)mode;
 - (void)openEditor;

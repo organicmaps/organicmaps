@@ -52,12 +52,6 @@
 		56FB436F2164A848002099B3 /* libshaders.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56FB436E2164A848002099B3 /* libshaders.a */; };
 		56FB43712164A8A1002099B3 /* libkml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56FB43702164A8A1002099B3 /* libkml.a */; };
 		671182CE1C7E06B400CB8177 /* storage_3levels_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671182CC1C7E069C00CB8177 /* storage_3levels_tests.cpp */; };
-		671182D21C7F0D5D00CB8177 /* WorldCoasts_obsolete.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 671182D11C7F0D5400CB8177 /* WorldCoasts_obsolete.mwm */; };
-		671182D31C7F0D5D00CB8177 /* WorldCoasts_obsolete.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 671182D11C7F0D5400CB8177 /* WorldCoasts_obsolete.mwm */; };
-		671182D41C7F0D6400CB8177 /* packed_polygons_obsolete.bin in Resources */ = {isa = PBXBuildFile; fileRef = 671182D01C7F0D5400CB8177 /* packed_polygons_obsolete.bin */; };
-		671182D51C7F0D6500CB8177 /* packed_polygons_obsolete.bin in Resources */ = {isa = PBXBuildFile; fileRef = 671182D01C7F0D5400CB8177 /* packed_polygons_obsolete.bin */; };
-		671182D61C7F0D6800CB8177 /* countries_obsolete.txt in Resources */ = {isa = PBXBuildFile; fileRef = 671182CF1C7F0D5400CB8177 /* countries_obsolete.txt */; };
-		671182D71C7F0D6900CB8177 /* countries_obsolete.txt in Resources */ = {isa = PBXBuildFile; fileRef = 671182CF1C7F0D5400CB8177 /* countries_obsolete.txt */; };
 		67239C961CBBDB1700C530A8 /* download_calc_size_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67239C941CBBDB0E00C530A8 /* download_calc_size_test.cpp */; };
 		67247FCF1C60BA8A00EDE56A /* fake_map_files_downloader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67247FC51C60BA8A00EDE56A /* fake_map_files_downloader.hpp */; };
 		67247FD41C60BA8A00EDE56A /* task_runner.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67247FCA1C60BA8A00EDE56A /* task_runner.hpp */; };
@@ -244,9 +238,6 @@
 		56FB436E2164A848002099B3 /* libshaders.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libshaders.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56FB43702164A8A1002099B3 /* libkml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libkml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		671182CC1C7E069C00CB8177 /* storage_3levels_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_3levels_tests.cpp; sourceTree = "<group>"; };
-		671182CF1C7F0D5400CB8177 /* countries_obsolete.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = countries_obsolete.txt; sourceTree = "<group>"; };
-		671182D01C7F0D5400CB8177 /* packed_polygons_obsolete.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = packed_polygons_obsolete.bin; sourceTree = "<group>"; };
-		671182D11C7F0D5400CB8177 /* WorldCoasts_obsolete.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = WorldCoasts_obsolete.mwm; sourceTree = "<group>"; };
 		67239C941CBBDB0E00C530A8 /* download_calc_size_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = download_calc_size_test.cpp; sourceTree = "<group>"; };
 		67247FC41C60BA8A00EDE56A /* fake_map_files_downloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fake_map_files_downloader.cpp; sourceTree = "<group>"; };
 		67247FC51C60BA8A00EDE56A /* fake_map_files_downloader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fake_map_files_downloader.hpp; sourceTree = "<group>"; };
@@ -632,10 +623,7 @@
 				678CB37F1CA5881B00E9118D /* editor.config */,
 				676109C81C99A941007C4E67 /* countries-strings */,
 				F66D56A31EAE37B90081E883 /* countries_meta.txt */,
-				671182CF1C7F0D5400CB8177 /* countries_obsolete.txt */,
 				F66D56B11EAE385B0081E883 /* local_ads_symbols.txt */,
-				671182D01C7F0D5400CB8177 /* packed_polygons_obsolete.bin */,
-				671182D11C7F0D5400CB8177 /* WorldCoasts_obsolete.mwm */,
 				676C84151C63888200DC9603 /* packed_polygons.bin */,
 				676C83F91C63884300DC9603 /* categories.txt */,
 				4069AD9F21495A5A005EB75C /* categories_cuisines.txt */,
@@ -803,15 +791,12 @@
 				676109CA1C99A9D0007C4E67 /* countries-strings in Resources */,
 				678338E31C72460700FD6263 /* types.txt in Resources */,
 				678338E61C72460700FD6263 /* WorldCoasts.mwm in Resources */,
-				671182D51C7F0D6500CB8177 /* packed_polygons_obsolete.bin in Resources */,
 				678338DA1C72460700FD6263 /* classificator.txt in Resources */,
-				671182D31C7F0D5D00CB8177 /* WorldCoasts_obsolete.mwm in Resources */,
 				678338E01C72460700FD6263 /* drules_proto-bw.bin in Resources */,
 				678338DC1C72460700FD6263 /* countries.txt in Resources */,
 				678338D91C72460700FD6263 /* categories.txt in Resources */,
 				678338E21C72460700FD6263 /* patterns.txt in Resources */,
 				678338E11C72460700FD6263 /* drules_proto.bin in Resources */,
-				671182D71C7F0D6900CB8177 /* countries_obsolete.txt in Resources */,
 				678338DD1C72460700FD6263 /* drules_proto_clear.bin in Resources */,
 				678338E41C72460700FD6263 /* World.mwm in Resources */,
 				678338DE1C72460700FD6263 /* drules_proto_dark.bin in Resources */,
@@ -832,15 +817,12 @@
 				67F90BF41C6A2B3100CD458E /* packed_polygons.bin in Resources */,
 				67F90BF51C6A2B3100CD458E /* categories.txt in Resources */,
 				67F90BF61C6A2B3100CD458E /* classificator.txt in Resources */,
-				671182D41C7F0D6400CB8177 /* packed_polygons_obsolete.bin in Resources */,
 				67F90BF81C6A2B3100CD458E /* countries.txt in Resources */,
-				671182D21C7F0D5D00CB8177 /* WorldCoasts_obsolete.mwm in Resources */,
 				67F90BF91C6A2B3100CD458E /* drules_proto_clear.bin in Resources */,
 				67F90BFA1C6A2B3100CD458E /* drules_proto_dark.bin in Resources */,
 				67F90BFC1C6A2B3100CD458E /* drules_proto-bw.bin in Resources */,
 				67F90BFD1C6A2B3100CD458E /* drules_proto.bin in Resources */,
 				67F90BFE1C6A2B3100CD458E /* patterns.txt in Resources */,
-				671182D61C7F0D6800CB8177 /* countries_obsolete.txt in Resources */,
 				67F90BFF1C6A2B3100CD458E /* types.txt in Resources */,
 				67F90C001C6A2B3100CD458E /* World.mwm in Resources */,
 				67F90C021C6A2B3100CD458E /* WorldCoasts.mwm in Resources */,

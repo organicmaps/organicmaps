@@ -128,7 +128,6 @@
                         <segue destination="2Nx-b7-VGe" kind="custom" identifier="Map2FBLogin" customClass="MWMSegue" id="nCr-QR-kY7"/>
                         <segue destination="2Nx-b7-VGe" kind="custom" identifier="Map2GoogleLogin" customClass="MWMSegue" id="sMq-pa-AId"/>
                         <segue destination="h4a-ne-bSJ" kind="custom" identifier="Map2MapDownloaderSegue" customClass="MWMSegue" id="Tkr-Ad-FQL"/>
-                        <segue destination="ZNV-s3-dag" kind="custom" identifier="Map2MigrationSegue" customClass="MWMSegue" id="meQ-0C-p2a"/>
                         <segue destination="lFr-lA-JTW" kind="show" identifier="PP2BookmarkEditing" id="0A8-4b-0A2"/>
                         <segue destination="Psz-BY-Fy4" kind="presentation" identifier="PP2BookmarkEditingIPAD" modalPresentationStyle="formSheet" id="k6v-a7-5DO"/>
                         <segue destination="DdR-kk-MnB" kind="custom" identifier="Map2Settings" customClass="MWMSegue" id="wtl-on-KxQ"/>
@@ -1227,216 +1226,6 @@
             </objects>
             <point key="canvasLocation" x="4680" y="2919"/>
         </scene>
-        <!--Migration View Controller-->
-        <scene sceneID="DZc-Ih-aae">
-            <objects>
-                <viewController storyboardIdentifier="MWMMigrationViewController" id="ZNV-s3-dag" customClass="MWMMigrationViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="C6V-Ws-Uzs" customClass="MWMMigrationView">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Toe-vk-Vmp" userLabel="Container">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OC0-ml-Jn7" userLabel="BoundsView">
-                                        <rect key="frame" x="16" y="36" width="288" height="334"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6hj-bQ-tcL" userLabel="CenteredView">
-                                                <rect key="frame" x="0.0" y="0.5" width="288" height="333"/>
-                                                <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="img_whatsnew_migration" translatesAutoresizingMaskIntoConstraints="NO" id="tap-L1-zYH">
-                                                        <rect key="frame" x="44" y="0.0" width="200" height="200"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="800" constant="130" id="fte-fp-Qz4"/>
-                                                            <constraint firstAttribute="width" secondItem="tap-L1-zYH" secondAttribute="height" multiplier="1:1" id="msK-gB-JPG"/>
-                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" priority="800" constant="200" id="oFQ-vg-Jr0"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вы долго просили — мы наконец сделали!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="X9a-dw-9YW" userLabel="Title">
-                                                        <rect key="frame" x="0.0" y="220" width="288" height="48"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="whatsnew_smallmwm_header"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Мы поделили большие карты на маленькие части. Обновите данные и загружайте карту только нужного района." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="QK7-Vw-qwk" userLabel="Text">
-                                                        <rect key="frame" x="0.0" y="284" width="288" height="49"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="whatsnew_smallmwm_message"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="CenteredView"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="Bcf-ou-ljt"/>
-                                                    <constraint firstItem="tap-L1-zYH" firstAttribute="centerX" secondItem="6hj-bQ-tcL" secondAttribute="centerX" id="NYm-0k-M9d"/>
-                                                    <constraint firstItem="X9a-dw-9YW" firstAttribute="centerX" secondItem="6hj-bQ-tcL" secondAttribute="centerX" id="U3F-te-S94"/>
-                                                    <constraint firstItem="QK7-Vw-qwk" firstAttribute="centerX" secondItem="6hj-bQ-tcL" secondAttribute="centerX" id="UIq-QR-63K"/>
-                                                    <constraint firstItem="X9a-dw-9YW" firstAttribute="top" secondItem="6hj-bQ-tcL" secondAttribute="top" priority="740" id="a5C-LX-kxc"/>
-                                                    <constraint firstItem="X9a-dw-9YW" firstAttribute="width" secondItem="6hj-bQ-tcL" secondAttribute="width" id="jS0-Jm-y8s"/>
-                                                    <constraint firstItem="QK7-Vw-qwk" firstAttribute="width" secondItem="6hj-bQ-tcL" secondAttribute="width" id="lMd-pq-ubH"/>
-                                                    <constraint firstAttribute="bottom" secondItem="QK7-Vw-qwk" secondAttribute="bottom" id="mYV-ew-wdG"/>
-                                                    <constraint firstItem="QK7-Vw-qwk" firstAttribute="top" secondItem="X9a-dw-9YW" secondAttribute="bottom" constant="16" id="rqD-tw-sXu"/>
-                                                    <constraint firstItem="X9a-dw-9YW" firstAttribute="top" secondItem="tap-L1-zYH" secondAttribute="bottom" priority="750" constant="20" id="wsr-HZ-weQ"/>
-                                                    <constraint firstItem="tap-L1-zYH" firstAttribute="top" secondItem="6hj-bQ-tcL" secondAttribute="top" id="xFD-b6-Bo9"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <accessibility key="accessibilityConfiguration" identifier="BoundsView"/>
-                                        <constraints>
-                                            <constraint firstItem="6hj-bQ-tcL" firstAttribute="height" relation="lessThanOrEqual" secondItem="OC0-ml-Jn7" secondAttribute="height" id="Gdk-pa-yBO"/>
-                                            <constraint firstItem="6hj-bQ-tcL" firstAttribute="centerX" secondItem="OC0-ml-Jn7" secondAttribute="centerX" id="Iy3-Qv-fsT"/>
-                                            <constraint firstAttribute="trailing" secondItem="6hj-bQ-tcL" secondAttribute="trailing" priority="999" id="OoG-lO-CQS"/>
-                                            <constraint firstItem="6hj-bQ-tcL" firstAttribute="centerY" secondItem="OC0-ml-Jn7" secondAttribute="centerY" id="YSp-Ei-ngE"/>
-                                            <constraint firstItem="6hj-bQ-tcL" firstAttribute="leading" secondItem="OC0-ml-Jn7" secondAttribute="leading" priority="999" id="cdG-n6-Mnq"/>
-                                        </constraints>
-                                    </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Для обновления требуется больше свободного места. Пожалуйста, удалите ненужный контент." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="9dB-cn-qbb" userLabel="State">
-                                        <rect key="frame" x="12" y="401" width="296" height="33"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" priority="750" constant="400" id="gnK-Ra-PzL"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4zz-rI-p8s">
-                                        <rect key="frame" x="40" y="450" width="240" height="44"/>
-                                        <color key="backgroundColor" red="0.12549019610000001" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="240" id="X1V-eT-w7Y"/>
-                                            <constraint firstAttribute="height" constant="44" id="cFJ-Fl-WbP"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <state key="normal" title="Update All Maps">
-                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="8"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="migration_update_all_button"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whiteColor"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="primaryAction" destination="ZNV-s3-dag" eventType="touchUpInside" id="79r-AU-CFo"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="7bw-ZT-3ea">
-                                        <rect key="frame" x="40" y="504" width="240" height="44"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="CAj-eV-2O5"/>
-                                            <constraint firstAttribute="width" constant="240" id="WDx-tN-JRi"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <state key="normal" title="Скачать текущую и удалить все старые карты">
-                                            <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="migration_delete_all_download_current_button"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="clearColor"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="secondaryAction" destination="ZNV-s3-dag" eventType="touchUpInside" id="wKE-Oh-RQ7"/>
-                                        </connections>
-                                    </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3d5-wL-CHn">
-                                        <rect key="frame" x="142" y="496" width="36" height="36"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="0zQ-BH-f0O"/>
-                                            <constraint firstAttribute="width" constant="36" id="7rB-qH-hqN"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <accessibility key="accessibilityConfiguration" identifier="ContainerView"/>
-                                <constraints>
-                                    <constraint firstItem="9dB-cn-qbb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Toe-vk-Vmp" secondAttribute="leading" priority="900" constant="12" id="4Wc-7I-5xu"/>
-                                    <constraint firstItem="3d5-wL-CHn" firstAttribute="centerX" secondItem="Toe-vk-Vmp" secondAttribute="centerX" id="8Mi-Ib-PsJ"/>
-                                    <constraint firstItem="OC0-ml-Jn7" firstAttribute="top" secondItem="Toe-vk-Vmp" secondAttribute="top" constant="36" id="G6M-AB-Kp0"/>
-                                    <constraint firstItem="7bw-ZT-3ea" firstAttribute="top" secondItem="4zz-rI-p8s" secondAttribute="bottom" priority="500" constant="10" id="JGY-SO-Jd5"/>
-                                    <constraint firstItem="9dB-cn-qbb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="OC0-ml-Jn7" secondAttribute="bottom" priority="750" constant="16" id="LDv-KR-tsz"/>
-                                    <constraint firstItem="tap-L1-zYH" firstAttribute="height" secondItem="Toe-vk-Vmp" secondAttribute="height" multiplier="0.3" priority="750" id="OwK-23-K7G"/>
-                                    <constraint firstAttribute="bottom" secondItem="7bw-ZT-3ea" secondAttribute="bottom" constant="20" id="SEB-Z1-PHu"/>
-                                    <constraint firstItem="OC0-ml-Jn7" firstAttribute="leading" secondItem="Toe-vk-Vmp" secondAttribute="leading" constant="16" id="XwN-dq-dzd"/>
-                                    <constraint firstItem="4zz-rI-p8s" firstAttribute="top" secondItem="OC0-ml-Jn7" secondAttribute="bottom" priority="250" constant="80" id="eff-ZO-eVk"/>
-                                    <constraint firstItem="7bw-ZT-3ea" firstAttribute="centerX" secondItem="Toe-vk-Vmp" secondAttribute="centerX" id="hLc-KL-B8u"/>
-                                    <constraint firstAttribute="bottom" secondItem="3d5-wL-CHn" secondAttribute="bottom" constant="36" id="jIy-bI-IQK"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9dB-cn-qbb" secondAttribute="trailing" priority="900" constant="12" id="mib-fn-M58"/>
-                                    <constraint firstAttribute="trailing" secondItem="OC0-ml-Jn7" secondAttribute="trailing" constant="16" id="oQ5-fG-W4E"/>
-                                    <constraint firstItem="4zz-rI-p8s" firstAttribute="top" secondItem="9dB-cn-qbb" secondAttribute="bottom" priority="250" constant="16" id="rHI-IH-sDQ"/>
-                                    <constraint firstItem="4zz-rI-p8s" firstAttribute="centerX" secondItem="Toe-vk-Vmp" secondAttribute="centerX" id="xcS-f1-5Fn"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                        <size key="value" width="0.0" height="3"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                        <integer key="value" value="6"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="4"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="9dB-cn-qbb" firstAttribute="centerX" secondItem="wsb-Pf-QEV" secondAttribute="centerX" id="ENX-6x-CjN"/>
-                            <constraint firstItem="Toe-vk-Vmp" firstAttribute="centerY" secondItem="C6V-Ws-Uzs" secondAttribute="centerY" id="IFQ-Op-9ay"/>
-                            <constraint firstItem="Toe-vk-Vmp" firstAttribute="width" secondItem="C6V-Ws-Uzs" secondAttribute="width" id="UUO-gZ-ECT"/>
-                            <constraint firstItem="Toe-vk-Vmp" firstAttribute="height" secondItem="C6V-Ws-Uzs" secondAttribute="height" id="eAs-yg-sdC"/>
-                            <constraint firstItem="Toe-vk-Vmp" firstAttribute="centerX" secondItem="wsb-Pf-QEV" secondAttribute="centerX" id="xAj-kJ-kU5"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="wsb-Pf-QEV"/>
-                        <connections>
-                            <outlet property="image" destination="tap-L1-zYH" id="oD5-1x-KtH"/>
-                            <outlet property="imageHeight" destination="OwK-23-K7G" id="psr-3Y-P11"/>
-                            <outlet property="imageMinHeight" destination="fte-fp-Qz4" id="Hmm-m9-xly"/>
-                            <outlet property="info" destination="9dB-cn-qbb" id="vzR-06-byQ"/>
-                            <outlet property="primaryButton" destination="4zz-rI-p8s" id="wgQ-1p-C5I"/>
-                            <outlet property="secondaryButton" destination="7bw-ZT-3ea" id="kgN-iz-hcM"/>
-                            <outlet property="spinnerView" destination="3d5-wL-CHn" id="lqh-BK-fDN"/>
-                            <outlet property="text" destination="QK7-Vw-qwk" id="T1c-eB-ceB"/>
-                            <outlet property="title" destination="X9a-dw-9YW" id="avt-gY-rR1"/>
-                            <outlet property="titleImageOffset" destination="wsr-HZ-weQ" id="k1N-AG-XsG"/>
-                            <outlet property="titleTopOffset" destination="a5C-LX-kxc" id="8HA-ok-546"/>
-                        </connections>
-                    </view>
-                    <connections>
-                        <segue destination="h4a-ne-bSJ" kind="custom" identifier="Migration2MapDownloaderSegue" customClass="MWMSegue" id="hU6-lr-OOV"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Gx4-SJ-B35" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3780" y="267"/>
-        </scene>
         <!--UIViewController-4R7-Vk-fQr-->
         <scene sceneID="HgW-7T-FIK">
             <objects>
@@ -1485,12 +1274,10 @@
         <image name="ic_arrow_gray_right" width="28" height="28"/>
         <image name="ic_carplay_activated" width="160" height="160"/>
         <image name="img_no_maps" width="240" height="240"/>
-        <image name="img_whatsnew_migration" width="240" height="240"/>
         <image name="separator_image" width="1" height="1"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sMq-pa-AId"/>
-        <segue reference="Tkr-Ad-FQL"/>
         <segue reference="4Cc-99-mlN"/>
         <segue reference="OEF-kR-jKi"/>
         <segue reference="0A8-4b-0A2"/>

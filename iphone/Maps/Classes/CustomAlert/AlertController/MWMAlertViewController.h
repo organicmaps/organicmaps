@@ -8,7 +8,6 @@
 @property(weak, nonatomic, readonly) UIViewController * _Null_unspecified ownerViewController;
 
 - (nonnull instancetype)initWithViewController:(nonnull UIViewController *)viewController;
-- (void)presentRoutingMigrationAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock;
 - (void)presentRateAlert;
 - (void)presentPoint2PointAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
                              needToRebuild:(BOOL)needToRebuild;
@@ -18,7 +17,6 @@
 - (void)presentLocationServiceNotSupportedAlert;
 - (void)presentLocationNotFoundAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock;
 - (void)presentNoConnectionAlert;
-- (void)presentMigrationProhibitedAlert;
 - (void)presentDeleteMapProhibitedAlert;
 - (void)presentUnsavedEditsAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock;
 - (void)presentNoWiFiAlertWithOkBlock:(nullable MWMVoidBlock)okBlock andCancelBlock:(nullable MWMVoidBlock)cancelBlock;

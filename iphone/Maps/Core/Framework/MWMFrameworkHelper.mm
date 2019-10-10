@@ -172,11 +172,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   GetFramework().StopLocationFollow();
 }
 
-+ (BOOL)needUpdateMaps
-{
-  return platform::migrate::NeedMigrate();
-}
-
 + (void)rotateMap:(double)azimuth animated:(BOOL)isAnimated {
   GetFramework().Rotate(azimuth, isAnimated);
 }

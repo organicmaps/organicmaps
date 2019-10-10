@@ -11,7 +11,6 @@
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 #import "MWMMapDownloaderSubplaceTableViewCell.h"
 #import "MWMMapDownloaderTableViewCell.h"
-#import "MWMMigrationViewController.h"
 #import "MWMMyTarget.h"
 #import "MWMSegue.h"
 #import "MWMStorage.h"

@@ -643,7 +643,7 @@ continueUserActivity:(NSUserActivity *)userActivity
   auto & s = GetFramework().GetStorage();
   storage::Storage::UpdateInfo updateInfo{};
   s.GetUpdateInfo(s.GetRootId(), updateInfo);
-  return updateInfo.m_numberOfMwmFilesToUpdate + (platform::migrate::NeedMigrate() ? 1 : 0);
+  return updateInfo.m_numberOfMwmFilesToUpdate;
 }
 
 #pragma mark - MWMFrameworkStorageObserver

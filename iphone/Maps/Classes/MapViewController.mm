@@ -47,7 +47,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction) {
 namespace
 {
 NSString * const kDownloaderSegue = @"Map2MapDownloaderSegue";
-NSString * const kMigrationSegue = @"Map2MigrationSegue";
 NSString * const kEditorSegue = @"Map2EditorSegue";
 NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
 NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
@@ -332,11 +331,6 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
   {
   case Framework::DoAfterUpdate::Nothing:
     break;
-    
-  case Framework::DoAfterUpdate::Migrate:
-    [self openMigration];
-    break;
-
   case Framework::DoAfterUpdate::AutoupdateMaps:
   case Framework::DoAfterUpdate::AskForUpdateMaps:
     [self presentViewController:[MWMAutoupdateController instanceWithPurpose:todo] animated:YES completion:nil];
@@ -423,7 +417,6 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
 
 #pragma mark - Open controllers
 
-- (void)openMigration { [self performSegueWithIdentifier:kMigrationSegue sender:self]; }
 - (void)openBookmarks
 {
   [self.navigationController pushViewController:[[MWMBookmarksTabViewController alloc] init]
