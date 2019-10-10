@@ -101,7 +101,7 @@
     else
     {
       LOG(LERROR, ("An error has occurred on the read stream."));
-#ifdef OMIN_PRODUCTION
+#ifdef OMIM_PRODUCTION
       LOG(LERROR, (self.inputStream.streamError));
 #else
       NSLog(@"%@", self.inputStream.streamError);
@@ -138,7 +138,7 @@
     else
     {
       LOG(LERROR, ("An error has occurred on the write stream."));
-#ifdef OMIN_PRODUCTION
+#ifdef OMIM_PRODUCTION
       LOG(LERROR, (self.outputStream.streamError));
 #else
       NSLog(@"%@", self.outputStream.streamError);
