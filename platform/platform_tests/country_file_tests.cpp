@@ -11,22 +11,7 @@ using namespace std;
 
 namespace platform
 {
-UNIT_TEST(CountryFile_SmokeTwoComponentMwm)
-{
-  CountryFile countryFile("TestCountry");
-  TEST_EQUAL("TestCountry", countryFile.GetName(), ());
-  string const mapFileName =
-      GetFileName(countryFile.GetName(), MapFileType::Map);
-  TEST_EQUAL("TestCountry" DATA_FILE_EXTENSION, mapFileName, ());
-
-  TEST_EQUAL(0, countryFile.GetRemoteSize(), ());
-
-  countryFile.SetRemoteSize(1 /* mapSize */);
-
-  TEST_EQUAL(1, countryFile.GetRemoteSize(), ());
-}
-
-UNIT_TEST(CountryFile_SmokeOneComponentMwm)
+UNIT_TEST(CountryFile_Smoke)
 {
   CountryFile countryFile("TestCountryOneComponent");
   TEST_EQUAL("TestCountryOneComponent", countryFile.GetName(), ());

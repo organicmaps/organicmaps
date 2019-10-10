@@ -250,9 +250,7 @@ void TestDownloadDelete(bool downloadOneByOne, bool deleteOneByOne)
 {
   WritableDirChanger writableDirChanger(kMapTestDir);
 
-  Storage storage(COUNTRIES_FILE);
-
-  TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
+  Storage storage;
   string const version = strings::to_string(storage.GetCurrentDataVersion());
 
   auto onUpdatedFn = [&](CountryId const &, storage::LocalFilePtr const localCountryFile) {

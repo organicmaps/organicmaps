@@ -203,23 +203,6 @@ std::unique_ptr<CountryInfoGetter> CountryInfoReader::CreateCountryInfoReader(
   return std::unique_ptr<CountryInfoReader>();
 }
 
-// static
-std::unique_ptr<CountryInfoGetter> CountryInfoReader::CreateCountryInfoReaderObsolete(
-    Platform const & platform)
-{
-  try
-  {
-    CountryInfoReader * result = new CountryInfoReader(platform.GetReader(PACKED_POLYGONS_OBSOLETE_FILE),
-                                                       platform.GetReader(COUNTRIES_OBSOLETE_FILE));
-    return std::unique_ptr<CountryInfoReader>(result);
-  }
-  catch (RootException const & e)
-  {
-    LOG(LCRITICAL, ("Can't load needed resources for storage::CountryInfoGetter:", e.Msg()));
-  }
-  return std::unique_ptr<CountryInfoReader>();
-}
-
 void CountryInfoReader::LoadRegionsFromDisk(size_t id, std::vector<m2::RegionD> & regions) const
 {
   regions.clear();
@@ -235,7 +218,7 @@ void CountryInfoReader::LoadRegionsFromDisk(size_t id, std::vector<m2::RegionD> 
 }
 
 CountryInfoReader::CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countryR)
-  : CountryInfoGetter(true), m_reader(polyR), m_cache(3 /* logCacheSize */)
+  : m_reader(polyR), m_cache(3 /* logCacheSize */)
 
 {
   ReaderSource<ModelReaderPtr> src(m_reader.GetReader(PACKED_POLYGONS_INFO_TAG));
@@ -247,7 +230,7 @@ CountryInfoReader::CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countr
 
   std::string buffer;
   countryR.ReadAsString(buffer);
-  LoadCountryFile2CountryInfo(buffer, m_idToInfo, m_isSingleMwm);
+  LoadCountryFile2CountryInfo(buffer, m_idToInfo);
 }
 
 void CountryInfoReader::ClearCachesImpl() const
@@ -333,7 +316,6 @@ bool CountryInfoReader::IsCloseEnough(size_t id, m2::PointD const & pt, double d
 
 // CountryInfoGetterForTesting ---------------------------------------------------------------------
 CountryInfoGetterForTesting::CountryInfoGetterForTesting(std::vector<CountryDef> const & countries)
-  : CountryInfoGetter(true)
 {
   for (auto const & country : countries)
     AddCountry(country);

@@ -8,7 +8,6 @@ namespace storage
 {
 class CountryInfoGetter;
 
-std::unique_ptr<CountryInfoGetter> CreateCountryInfoGetterObsolete();
 std::unique_ptr<CountryInfoGetter> CreateCountryInfoGetter();
 
 bool AlmostEqualRectsAbs(const m2::RectD & r1, const m2::RectD & r2);

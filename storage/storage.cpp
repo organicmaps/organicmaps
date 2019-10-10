@@ -110,22 +110,16 @@ MapFilesDownloader::Progress Storage::GetOverallProgress(CountriesVec const & co
 Storage::Storage(string const & pathToCountriesFile /* = COUNTRIES_FILE */,
                  string const & dataDir /* = string() */)
   : m_downloader(make_unique<HttpMapFilesDownloader>())
-  , m_currentSlotId(0)
   , m_dataDir(dataDir)
-  , m_downloadMapOnTheMap(nullptr)
-  , m_maxMwmSizeBytes(0)
 {
   SetLocale(languages::GetCurrentTwine());
-  LoadCountriesFile(pathToCountriesFile, m_dataDir);
+  LoadCountriesFile(pathToCountriesFile);
   CalcMaxMwmSizeBytes();
 }
 
 Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
                  unique_ptr<MapFilesDownloader> mapDownloaderForTesting)
   : m_downloader(move(mapDownloaderForTesting))
-  , m_currentSlotId(0)
-  , m_downloadMapOnTheMap(nullptr)
-  , m_maxMwmSizeBytes(0)
 {
   m_currentVersion =
       LoadCountriesFromBuffer(referenceCountriesTxtJsonForTesting, m_countries, m_affiliations,
@@ -165,65 +159,6 @@ bool Storage::HaveDownloadedCountries() const
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   return !m_localFiles.empty();
-}
-
-Storage * Storage::GetPrefetchStorage()
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  ASSERT(m_prefetchStorage.get() != nullptr, ());
-
-  return m_prefetchStorage.get();
-}
-
-void Storage::PrefetchMigrateData()
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-
-  m_prefetchStorage.reset(new Storage(COUNTRIES_FILE, "migrate"));
-  m_prefetchStorage->EnableKeepDownloadingQueue(false);
-  m_prefetchStorage->Init([](CountryId const &, LocalFilePtr const) {},
-                          [](CountryId const &, LocalFilePtr const) { return false; });
-}
-
-void Storage::Migrate(CountriesVec const & existedCountries)
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-
-  platform::migrate::SetMigrationFlag();
-
-  Clear();
-  m_countries.Clear();
-
-  OldMwmMapping mapping;
-  LoadCountriesFile(COUNTRIES_FILE, m_dataDir, &mapping);
-
-  vector<CountryId> prefetchedMaps;
-  m_prefetchStorage->GetLocalRealMaps(prefetchedMaps);
-
-  // Move prefetched maps into current storage.
-  for (auto const & countryId : prefetchedMaps)
-  {
-    string prefetchedFilename =
-        m_prefetchStorage->GetLatestLocalFile(countryId)->GetPath(MapFileType::Map);
-    CountryFile const countryFile = GetCountryFile(countryId);
-    auto localFile = PreparePlaceForCountryFiles(GetCurrentDataVersion(), m_dataDir, countryFile);
-    string localFilename = localFile->GetPath(MapFileType::Map);
-    LOG_SHORT(LINFO, ("Move", prefetchedFilename, "to", localFilename));
-    base::RenameFileX(prefetchedFilename, localFilename);
-  }
-
-  // Remove empty migrate folder
-  Platform::RmDir(m_prefetchStorage->m_dataDir);
-
-  // Cover old big maps with small ones and prepare them to add into download queue
-  stringstream ss;
-  for (auto const & country : existedCountries)
-  {
-    ASSERT(!mapping[country].empty(), ());
-    for (auto const & smallCountry : mapping[country])
-      ss << (ss.str().empty() ? "" : ";") << smallCountry;
-  }
-  settings::Set(kDownloadQueueKey, ss.str());
 }
 
 void Storage::Clear()
@@ -281,8 +216,7 @@ void Storage::RegisterAllLocalMaps(bool enableDiffs)
 
     LocalCountryFile const & localFile = *i;
     string const & name = localFile.GetCountryName();
-    if (name != WORLD_FILE_NAME && name != WORLD_COASTS_FILE_NAME &&
-        name != WORLD_COASTS_OBSOLETE_FILE_NAME)
+    if (name != WORLD_FILE_NAME && name != WORLD_COASTS_FILE_NAME)
     {
       auto const version = localFile.GetVersion();
       if (version < minVersion)
@@ -721,15 +655,12 @@ CountryId Storage::GetCurrentDownloadingCountryId() const
   return IsDownloadInProgress() ? m_queue.front().GetCountryId() : storage::CountryId();
 }
 
-void Storage::LoadCountriesFile(string const & pathToCountriesFile, string const & dataDir,
-                                OldMwmMapping * mapping /* = nullptr */)
+void Storage::LoadCountriesFile(string const & pathToCountriesFile)
 {
-  m_dataDir = dataDir;
-
   if (m_countries.IsEmpty())
   {
     m_currentVersion = LoadCountriesFromFile(pathToCountriesFile, m_countries, m_affiliations,
-                                             m_countryNameSynonyms, m_mwmTopCityGeoIds, mapping);
+                                             m_countryNameSynonyms, m_mwmTopCityGeoIds);
     LOG_SHORT(LINFO, ("Loaded countries list for version:", m_currentVersion));
     if (m_currentVersion < 0)
       LOG(LERROR, ("Can't load countries file", pathToCountriesFile));
@@ -1029,8 +960,8 @@ void Storage::GetOutdatedCountries(vector<Country const *> & countries) const
     CountryId const & countryId = p.first;
     string const name = GetCountryFile(countryId).GetName();
     LocalFilePtr file = GetLatestLocalFile(countryId);
-    if (file && file->GetVersion() != GetCurrentDataVersion() && name != WORLD_COASTS_FILE_NAME &&
-        name != WORLD_COASTS_OBSOLETE_FILE_NAME && name != WORLD_FILE_NAME)
+    if (file && file->GetVersion() != GetCurrentDataVersion() && name != WORLD_COASTS_FILE_NAME
+        && name != WORLD_FILE_NAME)
     {
       countries.push_back(&CountryLeafByCountryId(countryId));
     }
@@ -1142,10 +1073,6 @@ void Storage::RegisterCountryFiles(CountryId const & countryId, string const & d
 
 void Storage::RegisterFakeCountryFiles(platform::LocalCountryFile const & localFile)
 {
-  if (localFile.GetCountryName() ==
-      (platform::migrate::NeedMigrate() ? WORLD_COASTS_FILE_NAME : WORLD_COASTS_OBSOLETE_FILE_NAME))
-    return;
-
   LocalFilePtr fakeCountryLocalFile = make_shared<LocalCountryFile>(localFile);
   fakeCountryLocalFile->SyncWithDisk();
   m_localFilesForFakeCountries[fakeCountryLocalFile->GetCountryFile()] = fakeCountryLocalFile;

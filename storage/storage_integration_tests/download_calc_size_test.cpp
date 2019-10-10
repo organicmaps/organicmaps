@@ -13,8 +13,6 @@ using namespace storage;
 void InitStorage(Storage & storage, Storage::UpdateCallback const & didDownload,
                  Storage::ProgressFunction const & progress)
 {
-  TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
-
   auto const changeCountryFunction = [&](CountryId const & /* countryId */) {
     if (!storage.IsDownloadInProgress())
     {

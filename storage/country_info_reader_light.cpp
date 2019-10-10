@@ -24,7 +24,6 @@
 namespace lightweight
 {
 CountryInfoReader::CountryInfoReader()
-  : CountryInfoGetterBase(true)
 {
   try
   {

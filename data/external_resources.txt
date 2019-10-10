@@ -7,4 +7,3 @@
 07_roboto_medium.ttf 162588
 World.mwm 33464521
 WorldCoasts.mwm 4677305
-WorldCoasts_obsolete.mwm 4513802

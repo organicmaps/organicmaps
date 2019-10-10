@@ -10,11 +10,6 @@
 
 namespace storage
 {
-std::unique_ptr<CountryInfoGetter> CreateCountryInfoGetterObsolete()
-{
-  return CountryInfoReader::CreateCountryInfoReaderObsolete(GetPlatform());
-}
-
 std::unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter()
 {
   return CountryInfoReader::CreateCountryInfoReader(GetPlatform());

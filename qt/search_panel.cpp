@@ -169,38 +169,6 @@ bool SearchPanel::Try3dModeCmd(QString const & str)
   return true;
 }
 
-bool SearchPanel::TryMigrate(QString const & str)
-{
-  bool const isMigrate = (str == "?migrate");
-
-  if (!isMigrate)
-    return false;
-
-  m_pEditor->setText("");
-  parentWidget()->hide();
-
-  auto const stateChanged = [&](storage::CountryId const & id) {
-    storage::Status const nextStatus = m_pDrawWidget->GetFramework().GetStorage().GetPrefetchStorage()->CountryStatusEx(id);
-    LOG_SHORT(LINFO, (id, "status :", nextStatus));
-    if (nextStatus == storage::Status::EOnDisk)
-    {
-      LOG_SHORT(LINFO, ("Prefetch done. Ready to migrate."));
-      m_pDrawWidget->GetFramework().Migrate();
-    }
-  };
-
-  auto const progressChanged = [](storage::CountryId const & id,
-                                  storage::MapFilesDownloader::Progress const & sz) {
-    LOG(LINFO, (id, "downloading progress:", sz));
-  };
-
-  ms::LatLon curPos(55.7, 37.7);
-
-  m_pDrawWidget->GetFramework().PreMigrate(curPos, stateChanged, progressChanged);
-  return true;
-
-}
-
 bool SearchPanel::TryDisplacementModeCmd(QString const & str)
 {
   bool const isDefaultDisplacementMode = (str == "?dm:default");
@@ -246,8 +214,6 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   if (TryChangeRouterCmd(normalized))
     return;
   if (Try3dModeCmd(normalized))
-    return;
-  if (TryMigrate(normalized))
     return;
   if (TryDisplacementModeCmd(normalized))
     return;

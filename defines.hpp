@@ -76,11 +76,9 @@
 
 #define COUNTRIES_FILE "countries.txt"
 #define COUNTRIES_META_FILE "countries_meta.txt"
-#define COUNTRIES_OBSOLETE_FILE "countries_obsolete.txt"
 
 #define WORLD_FILE_NAME "World"
 #define WORLD_COASTS_FILE_NAME "WorldCoasts"
-#define WORLD_COASTS_OBSOLETE_FILE_NAME "WorldCoasts_obsolete"
 
 #define SETTINGS_FILE_NAME "settings.ini"
 #define MARKETING_SETTINGS_FILE_NAME "marketing_settings.ini"
@@ -91,7 +89,6 @@
 
 #define PACKED_POLYGONS_INFO_TAG "info"
 #define PACKED_POLYGONS_FILE "packed_polygons.bin"
-#define PACKED_POLYGONS_OBSOLETE_FILE "packed_polygons_obsolete.bin"
 
 #define EXTERNAL_RESOURCES_FILE "external_resources.txt"
 

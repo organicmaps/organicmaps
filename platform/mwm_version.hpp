@@ -79,10 +79,8 @@ MwmType GetMwmType(MwmVersion const & version);
 /// which should be processed as either single or two components (mwm and routing) mwms.
 enum ForTesting
 {
-  FOR_TESTING_TWO_COMPONENT_MWM1 = 10,
-  FOR_TESTING_TWO_COMPONENT_MWM2,
-  FOR_TESTING_SINGLE_MWM1 = 991215,
-  FOR_TESTING_SINGLE_MWM2,
-  FOR_TESTING_SINGLE_MWM_LATEST,
+  FOR_TESTING_MWM1 = 991215,
+  FOR_TESTING_MWM2,
+  FOR_TESTING_MWM_LATEST,
 };
 }  // namespace version

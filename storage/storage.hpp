@@ -215,7 +215,7 @@ private:
   /// @name Communicate with GUI
   //@{
 
-  int m_currentSlotId;
+  int m_currentSlotId = 0;
 
   struct CountryObservers
   {
@@ -248,20 +248,17 @@ private:
 
   CountryNameGetter m_countryNameGetter;
 
-  std::unique_ptr<Storage> m_prefetchStorage;
-
   // |m_affiliations| is a mapping from countryId to the list of names of
   // geographical objects (such as countries) that encompass this countryId.
   // Note. Affiliations is inherited from ancestors of the countryId in country tree.
   // |m_affiliations| is filled during Storage initialization or during migration process.
   // It is filled with data of countries.txt (field "affiliations").
   // Once filled |m_affiliations| is not changed.
-  // Note. |m_affiliations| is empty in case of countries_obsolete.txt.
   Affiliations m_affiliations;
   CountryNameSynonyms m_countryNameSynonyms;
   MwmTopCityGeoIds m_mwmTopCityGeoIds;
 
-  MwmSize m_maxMwmSizeBytes;
+  MwmSize m_maxMwmSizeBytes = 0;
 
   ThreadChecker m_threadChecker;
 
@@ -274,8 +271,7 @@ private:
 
   void DownloadNextCountryFromQueue();
 
-  void LoadCountriesFile(std::string const & pathToCountriesFile, std::string const & dataDir,
-                         OldMwmMapping * mapping = nullptr);
+  void LoadCountriesFile(std::string const & pathToCountriesFile);
 
   void ReportProgress(CountryId const & countryId, MapFilesDownloader::Progress const & p);
   void ReportProgressForHierarchy(CountryId const & countryId,
@@ -499,14 +495,6 @@ public:
   /// Delete local maps and aggregate their Id if needed
   void DeleteAllLocalMaps(CountriesVec * existedCountries = nullptr);
 
-  /// Prefetch MWMs before migrate
-  Storage * GetPrefetchStorage();
-  void PrefetchMigrateData();
-
-  /// Switch on new storage version, remove old mwm
-  /// and add required mwm's into download queue.
-  void Migrate(CountriesVec const & existedCountries);
-
   // Clears local files registry and downloader's queue.
   void Clear();
 
@@ -598,7 +586,6 @@ public:
 
 private:
   friend struct UnitClass_StorageTest_DeleteCountry;
-  friend struct UnitClass_TwoComponentStorageTest_DeleteCountry;
 
   void SaveDownloadQueue();
   void RestoreDownloadQueue();

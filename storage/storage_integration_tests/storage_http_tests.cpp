@@ -58,8 +58,6 @@ string const GetResumeFullPath(string const & countryId, string const & version)
 void InitStorage(Storage & storage, Storage::UpdateCallback const & didDownload,
                  Storage::ProgressFunction const & progress)
 {
-  TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
-
   auto const changeCountryFunction = [&](CountryId const & /* countryId */) {
     if (!storage.IsDownloadInProgress())
     {
@@ -76,20 +74,19 @@ void InitStorage(Storage & storage, Storage::UpdateCallback const & didDownload,
 
 class StorageHttpTest
 {
+public:
+  StorageHttpTest()
+    : m_writableDirChanger(kMapTestDir),
+      m_version(strings::to_string(m_storage.GetCurrentDataVersion())),
+      m_cleanupVersionDir(m_version)
+  {
+  }
+
 protected:
   WritableDirChanger const m_writableDirChanger;
   Storage m_storage;
   string const m_version;
   tests_support::ScopedDir const m_cleanupVersionDir;
-
-public:
-  StorageHttpTest()
-    : m_writableDirChanger(kMapTestDir), m_storage(COUNTRIES_FILE),
-      m_version(strings::to_string(m_storage.GetCurrentDataVersion())),
-      m_cleanupVersionDir(m_version)
-  {
-    TEST(version::IsSingleMwm(m_storage.GetCurrentDataVersion()), ());
-  }
 };
 }  // namespace
 

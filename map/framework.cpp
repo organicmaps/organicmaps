@@ -343,81 +343,11 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
     m_viewportChangedFn(screen);
 }
 
-bool Framework::IsEnoughSpaceForMigrate() const
-{
-  return GetPlatform().GetWritableStorageStatus(GetStorage().GetMaxMwmSizeBytes()) ==
-         Platform::TStorageStatus::STORAGE_OK;
-}
-
-CountryId Framework::PreMigrate(ms::LatLon const & position,
-                                Storage::ChangeCountryFunction const & change,
-                                Storage::ProgressFunction const & progress)
-{
-  GetStorage().PrefetchMigrateData();
-
-  auto const infoGetter =
-      CountryInfoReader::CreateCountryInfoReader(GetPlatform());
-
-  CountryId currentCountryId = infoGetter->GetRegionCountryId(MercatorBounds::FromLatLon(position));
-
-  if (currentCountryId == kInvalidCountryId)
-    return kInvalidCountryId;
-
-  GetStorage().GetPrefetchStorage()->Subscribe(change, progress);
-  GetStorage().GetPrefetchStorage()->DownloadNode(currentCountryId);
-  return currentCountryId;
-}
-
-void Framework::Migrate(bool keepDownloaded)
-{
-  // Drape must be suspended while migration is performed since it access different parts of
-  // framework (i.e. m_infoGetter) which are reinitialized during migration process.
-  // If we do not suspend drape, it tries to access framework fields (i.e. m_infoGetter) which are null
-  // while migration is performed.
-  if (m_drapeEngine && m_isRenderingEnabled)
-  {
-    m_drapeEngine->SetRenderingDisabled(true);
-    OnDestroySurface();
-  }
-  m_bmManager->ResetRegionAddressGetter();
-  m_discoveryManager.reset();
-  m_searchAPI.reset();
-  m_infoGetter.reset();
-  m_taxiEngine.reset();
-  m_cityFinder.reset();
-  CountriesVec existedCountries;
-  GetStorage().DeleteAllLocalMaps(&existedCountries);
-  DeregisterAllMaps();
-  m_featuresFetcher.Clear();
-  GetStorage().Migrate(keepDownloaded ? existedCountries : CountriesVec());
-  InitCountryInfoGetter();
-  InitSearchAPI();
-  InitCityFinder();
-  InitDiscoveryManager();
-  InitTaxiEngine();
-  RegisterAllMaps();
-  m_notificationManager.SetDelegate(
-    std::make_unique<NotificationManagerDelegate>(m_featuresFetcher.GetDataSource(), *m_cityFinder,
-                                                  m_addressGetter, *m_ugcApi));
-
-  m_trafficManager.SetCurrentDataVersion(GetStorage().GetCurrentDataVersion());
-  m_bmManager->InitRegionAddressGetter(m_featuresFetcher.GetDataSource(), *m_infoGetter);
-  if (m_drapeEngine && m_isRenderingEnabled)
-  {
-    m_drapeEngine->SetRenderingEnabled();
-    OnRecoverSurface(m_currentModelView.PixelRectIn3d().SizeX(),
-                     m_currentModelView.PixelRectIn3d().SizeY(),
-                     true /* recreateContextDependentResources */);
-  }
-  InvalidateRect(MercatorBounds::FullRect());
-}
-
 Framework::Framework(FrameworkParams const & params)
   : m_localAdsManager(bind(&Framework::GetMwmsByRect, this, _1, true /* rough */),
                       bind(&Framework::GetMwmIdByName, this, _1),
                       bind(&Framework::ReadFeatures, this, _1, _2),
                       bind(&Framework::GetMapObjectByID, this, _1))
-  , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_enabledDiffs(params.m_enableDiffs)
   , m_isRenderingEnabled(true)
   , m_transitManager(m_featuresFetcher.GetDataSource(),
@@ -521,8 +451,6 @@ Framework::Framework(FrameworkParams const & params)
   InitDiscoveryManager();
   InitTaxiEngine();
 
-  // All members which re-initialize in Migrate() method should be initialized before RegisterAllMaps().
-  // Migrate() can be called from RegisterAllMaps().
   RegisterAllMaps();
   LOG(LDEBUG, ("Maps initialized"));
 
@@ -758,20 +686,6 @@ void Framework::RegisterAllMaps()
           "ActiveMapsListener::m_items."));
 
   m_storage.RegisterAllLocalMaps(m_enabledDiffs);
-
-  // Fast migrate in case there are no downloaded MWM.
-  if (platform::migrate::NeedMigrate())
-  {
-    bool disableFastMigrate;
-    if (!settings::Get("DisableFastMigrate", disableFastMigrate))
-      disableFastMigrate = false;
-    if (!disableFastMigrate && !m_storage.HaveDownloadedCountries())
-    {
-      GetStorage().PrefetchMigrateData();
-      Migrate();
-      return;
-    }
-  }
 
   int minFormat = numeric_limits<int>::max();
 
@@ -1541,10 +1455,7 @@ void Framework::InitCountryInfoGetter()
   ASSERT(!m_infoGetter.get(), ("InitCountryInfoGetter() must be called only once."));
 
   auto const & platform = GetPlatform();
-  if (platform::migrate::NeedMigrate())
-    m_infoGetter = CountryInfoReader::CreateCountryInfoReaderObsolete(platform);
-  else
-    m_infoGetter = CountryInfoReader::CreateCountryInfoReader(platform);
+  m_infoGetter = CountryInfoReader::CreateCountryInfoReader(platform);
   m_infoGetter->SetAffiliations(&m_storage.GetAffiliations());
 }
 
@@ -1635,9 +1546,6 @@ string Framework::GetCountryName(m2::PointD const & pt) const
 
 Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
 {
-  if (platform::migrate::NeedMigrate())
-    return DoAfterUpdate::Migrate;
-
   auto const connectionStatus = Platform::ConnectionStatus();
   if (connectionStatus == Platform::EConnectionType::CONNECTION_NONE)
     return DoAfterUpdate::Nothing;
@@ -3340,7 +3248,7 @@ void SetHostingBuildingAddress(FeatureID const & hostingBuildingFid, DataSource 
 
 bool Framework::CanEditMap() const
 {
-  return version::IsSingleMwm(GetCurrentDataVersion()) && !GetStorage().IsDownloadInProgress();
+  return !GetStorage().IsDownloadInProgress();
 }
 
 bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const featureType,

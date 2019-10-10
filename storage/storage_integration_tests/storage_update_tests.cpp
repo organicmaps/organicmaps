@@ -94,7 +94,6 @@ UNIT_TEST(SmallMwms_Update_Test)
     Framework f(kFrameworkParams);
     auto & storage = f.GetStorage();
     string const version = strings::to_string(storage.GetCurrentDataVersion());
-    TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
     TEST_EQUAL(version, kMwmVersion1, ());
     auto onChangeCountryFn = [&](CountryId const & countryId) {
       if (!storage.IsDownloadInProgress())
@@ -131,7 +130,6 @@ UNIT_TEST(SmallMwms_Update_Test)
     Framework f(kFrameworkParams);
     auto & storage = f.GetStorage();
     string const version = strings::to_string(storage.GetCurrentDataVersion());
-    TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
     TEST_EQUAL(version, kMwmVersion2, ());
     auto onChangeCountryFn = [&](CountryId const & countryId) {
       if (!storage.IsDownloadInProgress())

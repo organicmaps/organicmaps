@@ -132,7 +132,6 @@ void GetAllLocalFiles(vector<LocalCountryFile> & localFiles)
   if (options.m_resourcePath)
     pl.SetResourceDir(options.m_resourcePath);
 
-  platform::migrate::SetMigrationFlag();
   platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* latestVersion */,
                                        localFiles);
   for (auto & file : localFiles)

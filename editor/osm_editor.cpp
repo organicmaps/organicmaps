@@ -545,8 +545,6 @@ EditableProperties Editor::GetEditableProperties(FeatureType & feature) const
   auto const & fid = feature.GetID();
   auto const featureStatus = GetFeatureStatusImpl(*features, fid.m_mwmId, fid.m_index);
 
-  ASSERT(version::IsSingleMwm(feature.GetID().m_mwmId.GetInfo()->m_version.GetVersion()),
-         ("Edit mode should be available only on new data"));
   ASSERT(featureStatus != FeatureStatus::Obsolete,
          ("Edit mode should not be available on obsolete features"));
 

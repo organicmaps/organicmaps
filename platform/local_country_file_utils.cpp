@@ -27,27 +27,6 @@ using namespace std;
 
 namespace platform
 {
-namespace migrate
-{
-// Set of functions to support migration between different versions of MWM
-// with totaly incompatible formats.
-// 160302 - Migrate to small single file MWM
-uint32_t constexpr kMinRequiredVersion = 160302;
-bool NeedMigrate()
-{
-  uint32_t version;
-  if (!settings::Get("LastMigration", version))
-    return true;
-
-  if (version >= kMinRequiredVersion)
-    return false;
-
-  return true;
-}
-
-void SetMigrationFlag() { settings::Set("LastMigration", kMinRequiredVersion); }
-}  // namespace migrate
-
 namespace
 {
 char const kBitsExt[] = ".bftsegbits";
@@ -204,16 +183,6 @@ void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t ver
     names.insert(name);
     LocalCountryFile localFile(directory, CountryFile(name), version);
 
-    // Delete Brazil.mwm and Japan.mwm maps, because they were
-    // replaced with smaller regions after osrm routing
-    // implementation.
-    if (name == "Japan" || name == "Brazil")
-    {
-      localFile.SyncWithDisk();
-      localFile.DeleteFromDisk(MapFileType::Map);
-      continue;
-    }
-
     localFiles.push_back(localFile);
   }
 
@@ -278,8 +247,7 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
   // World and WorldCoasts can be stored in app bundle or in resources
   // directory, thus it's better to get them via Platform.
   string const world(WORLD_FILE_NAME);
-  string const worldCoasts(migrate::NeedMigrate() ? WORLD_COASTS_OBSOLETE_FILE_NAME
-                                                  : WORLD_COASTS_FILE_NAME);
+  string const worldCoasts(WORLD_COASTS_FILE_NAME);
   for (string const & file : {world, worldCoasts})
   {
     auto i = localFiles.begin();

@@ -88,8 +88,7 @@ UNIT_TEST(LocalCountryFile_Smoke)
   TEST_EQUAL(150309, localFile.GetVersion(), ());
 }
 
-// Creates test country map file and routing file and checks
-// sync-with-disk functionality.
+// Creates test country map file and checks sync-with-disk functionality.
 UNIT_TEST(LocalCountryFile_DiskFiles)
 {
   Platform & platform = GetPlatform();
@@ -120,61 +119,6 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
     TEST(!testMapFile.Exists(), (testMapFile, "wasn't deleted by LocalCountryFile."));
     testMapFile.Reset();
   }
-}
-
-UNIT_TEST(LocalCountryFile_CleanupMapFiles)
-{
-  Platform & platform = GetPlatform();
-  string const mapsDir = platform.WritableDir();
-
-  // Two fake directories for test country files and indexes.
-  ScopedDir dir3("3");
-  ScopedDir dir4("4");
-
-  ScopedDir absentCountryIndexesDir(dir4, "Absent");
-  ScopedDir irelandIndexesDir(dir4, "Ireland");
-
-  CountryFile japanFile("Japan");
-  CountryFile brazilFile("Brazil");
-  CountryFile irelandFile("Ireland");
-
-  LocalCountryFile japanLocalFile(mapsDir, japanFile, 0 /* version */);
-  ScopedFile japanMapFile("Japan.mwm", ScopedFile::Mode::Create);
-
-  LocalCountryFile brazilLocalFile(mapsDir, brazilFile, 0 /* version */);
-  ScopedFile brazilMapFile("Brazil.mwm", ScopedFile::Mode::Create);
-
-  LocalCountryFile irelandLocalFile(dir4.GetFullPath(), irelandFile, 4 /* version */);
-  ScopedFile irelandMapFile(dir4, irelandFile, MapFileType::Map);
-
-  // Check FindAllLocalMaps()
-  vector<LocalCountryFile> localFiles;
-  FindAllLocalMapsAndCleanup(4 /* latestVersion */, localFiles);
-  TEST(!Contains(localFiles, japanLocalFile), (japanLocalFile, localFiles));
-  TEST(!Contains(localFiles, brazilLocalFile), (brazilLocalFile, localFiles));
-  TEST(Contains(localFiles, irelandLocalFile), (irelandLocalFile, localFiles));
-
-  TEST(!japanMapFile.Exists(), (japanMapFile));
-  japanMapFile.Reset();
-
-  TEST(!brazilMapFile.Exists(), (brazilMapFile));
-  brazilMapFile.Reset();
-
-  irelandLocalFile.SyncWithDisk();
-  TEST(irelandLocalFile.OnDisk(MapFileType::Map), ());
-  irelandLocalFile.DeleteFromDisk(MapFileType::Map);
-  TEST(!irelandMapFile.Exists(), (irelandMapFile));
-  irelandMapFile.Reset();
-
-  TEST(!dir3.Exists(), ("Empty directory", dir3, "wasn't removed."));
-  dir3.Reset();
-
-  TEST(dir4.Exists(), ());
-
-  TEST(!absentCountryIndexesDir.Exists(), ("Indexes for absent country weren't deleted."));
-  absentCountryIndexesDir.Reset();
-
-  TEST(irelandIndexesDir.Exists(), ());
 }
 
 UNIT_TEST(LocalCountryFile_CleanupPartiallyDownloadedFiles)
@@ -274,7 +218,7 @@ UNIT_TEST(LocalCountryFile_AllLocalFilesLookup)
       worldFound = true;
       TEST_NOT_EQUAL(0, file.GetVersion(), (file));
     }
-    if (file.GetCountryName() == WORLD_COASTS_OBSOLETE_FILE_NAME)
+    if (file.GetCountryName() == WORLD_COASTS_FILE_NAME)
     {
       worldCoastsFound = true;
       TEST_NOT_EQUAL(0, file.GetVersion(), (file));

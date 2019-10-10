@@ -41,7 +41,6 @@ UNIT_TEST(SmallMwms_3levels_Test)
   Framework f(FrameworkParams(false /* m_enableLocalAds */, false /* m_enableDiffs */));
   auto & storage = f.GetStorage();
   std::string const version = strings::to_string(storage.GetCurrentDataVersion());
-  TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
 
   TEST_EQUAL(3, GetLevelCount(storage, kCountryId), ());
 

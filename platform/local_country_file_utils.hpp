@@ -11,12 +11,6 @@ class ModelReader;
 
 namespace platform
 {
-namespace migrate
-{
-bool NeedMigrate();
-void SetMigrationFlag();
-}
-
 // Removes all files downloader creates during downloading of a country.
 // Note. The the maps are deleted from writable dir/|dataDir|/|version| directory.
 // If |dataDir| is empty (or is not set) the function deletes maps from writable dir.

@@ -288,13 +288,6 @@ public:
   User & GetUser() { return m_user; }
   User const & GetUser() const { return m_user; }
 
-  /// Migrate to new version of very different data.
-  bool IsEnoughSpaceForMigrate() const;
-  storage::CountryId PreMigrate(ms::LatLon const & position,
-                                storage::Storage::ChangeCountryFunction const & change,
-                                storage::Storage::ProgressFunction const & progress);
-  void Migrate(bool keepDownloaded = true);
-
   /// \returns true if there're unsaved changes in map with |countryId| and false otherwise.
   /// \note It works for group and leaf node.
   bool HasUnsavedEdits(storage::CountryId const & countryId);

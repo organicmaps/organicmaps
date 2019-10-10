@@ -68,8 +68,7 @@ void InitStorage(Storage & storage, Storage::ProgressFunction const & onProgress
 UNIT_TEST(SmallMwms_ReDownloadExistedMWMIgnored_Test)
 {
   WritableDirChanger writableDirChanger(kMapTestDir);
-  Storage storage(COUNTRIES_FILE);
-  TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
+  Storage storage;
 
   InitStorage(storage, [](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {});
   TEST(!storage.IsDownloadInProgress(), ());
@@ -89,8 +88,7 @@ UNIT_CLASS_TEST(Runner, SmallMwms_InterruptDownloadResumeDownload_Test)
 
   // Start download but interrupt it
   {
-    Storage storage(COUNTRIES_FILE);
-    TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
+    Storage storage;
 
     auto onProgressFn = [](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {
       TEST_EQUAL(countryId, kCountryId, ());
@@ -110,7 +108,7 @@ UNIT_CLASS_TEST(Runner, SmallMwms_InterruptDownloadResumeDownload_Test)
 
   // Continue download
   {
-    Storage storage(COUNTRIES_FILE);
+    Storage storage;
 
     auto onProgressFn = [](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {
       TEST_EQUAL(countryId, kCountryId, ());
@@ -143,7 +141,6 @@ UNIT_CLASS_TEST(Runner, DownloadIntegrity_Test)
     SCOPE_GUARD(deleteTestFileGuard, bind(&FileWriter::DeleteFileX, ref(mapPath)));
 
     Storage storage(COUNTRIES_FILE);
-    TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
 
     InitStorage(storage, [](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {});
     TEST(!storage.IsDownloadInProgress(), ());
@@ -168,7 +165,6 @@ UNIT_CLASS_TEST(Runner, DownloadIntegrity_Test)
       SCOPE_GUARD(deleteTestFileGuard, bind(&FileWriter::DeleteFileX, ref(mapPath)));
 
       Storage storage(COUNTRIES_FILE);
-      TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
 
       auto onProgressFn = [i, j](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {
         TEST_EQUAL(countryId, kCountryId, ());
@@ -189,7 +185,6 @@ UNIT_CLASS_TEST(Runner, DownloadIntegrity_Test)
     coding::SHA1::Hash newHash;
     {
       Storage storage(COUNTRIES_FILE);
-      TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
 
       InitStorage(storage, [](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {});
       TEST(storage.IsDownloadInProgress(), ());

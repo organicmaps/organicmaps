@@ -79,40 +79,39 @@ Cont Flatten(vector<Cont> const & cs)
 
 UNIT_TEST(CountryInfoGetter_GetByPoint_Smoke)
 {
-  auto const getter = CreateCountryInfoGetterObsolete();
+  auto const getter = CreateCountryInfoGetter();
 
   CountryInfo info;
 
   // Minsk
   getter->GetRegionInfo(MercatorBounds::FromLatLon(53.9022651, 27.5618818), info);
-  TEST_EQUAL(info.m_name, "Belarus", ());
+  TEST_EQUAL(info.m_name, "Belarus, Minsk Region", ());
 
   getter->GetRegionInfo(MercatorBounds::FromLatLon(-6.4146288, -38.0098101), info);
-  TEST_EQUAL(info.m_name, "Brazil, Northeast", ());
+  TEST_EQUAL(info.m_name, "Brazil, Rio Grande do Norte", ());
 
   getter->GetRegionInfo(MercatorBounds::FromLatLon(34.6509, 135.5018), info);
-  TEST_EQUAL(info.m_name, "Japan, Kinki", ());
+  TEST_EQUAL(info.m_name, "Japan, Kinki Region_Osaka_Osaka", ());
 }
 
 UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Smoke)
 {
-  auto const getter = CreateCountryInfoGetterObsolete();
+  auto const getter = CreateCountryInfoGetter();
 
-  m2::PointD const p = MercatorBounds::FromLatLon(53.9022651, 27.5618818);
+  m2::PointD const p = MercatorBounds::FromLatLon(52.537695, 32.203884);
 
-  // Inside mwm.
+  // Single mwm.
   m2::PointD const halfSize = m2::PointD(0.1, 0.1);
   auto const countries =
       getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize, p + halfSize), false /* rough */);
-  TEST_EQUAL(countries, vector<storage::CountryId>{"Belarus"}, ());
+  TEST_EQUAL(countries, vector<storage::CountryId>{"Russia_Bryansk Oblast"}, ());
 
   // Several countries.
-  m2::PointD const halfSize2 = m2::PointD(5.0, 5.0);
+  m2::PointD const halfSize2 = m2::PointD(0.5, 0.5);
   auto const countries2 =
       getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize2, p + halfSize2), false /* rough */);
   auto const expected = vector<storage::CountryId>{
-      "Belarus", "Latvia", "Lithuania", "Poland", "Russia_Central", "Russia_Northwestern",
-      "Ukraine"};
+      "Belarus_Homiel Region", "Russia_Bryansk Oblast", "Ukraine_Chernihiv Oblast"};
   TEST_EQUAL(countries2, expected, ());
 
   // No one found.
@@ -123,21 +122,16 @@ UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Smoke)
   // Inside mwm (rough).
   auto const countries4 =
       getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize, p + halfSize), true /* rough */);
-  TEST_EQUAL(countries, vector<storage::CountryId>{"Belarus"}, ());
+  TEST_EQUAL(countries, vector<storage::CountryId>{"Russia_Bryansk Oblast"}, ());
 
   // Several countries (rough).
   auto const countries5 =
       getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize2, p + halfSize2), true /* rough */);
-  auto const expected2 = vector<storage::CountryId>{"Belarus",
-                                                    "Latvia",
-                                                    "Lithuania",
-                                                    "Poland",
-                                                    "Russia_Central",
-                                                    "Russia_Far Eastern",
-                                                    "Russia_Northwestern",
-                                                    "Sweden",
-                                                    "Ukraine",
-                                                    "USA_Alaska"};
+  auto const expected2 = vector<storage::CountryId>{"Belarus_Homiel Region",
+                                                    "Belarus_Maglieu Region",
+                                                    "Russia_Bryansk Oblast",
+                                                    "Ukraine_Chernihiv Oblast",
+                                                    "US_Alaska"};
   TEST_EQUAL(countries5, expected2, ());
 }
 
@@ -147,26 +141,17 @@ UNIT_TEST(CountryInfoGetter_ValidName_Smoke)
   ReaderPtr<Reader>(GetPlatform().GetReader(COUNTRIES_FILE)).ReadAsString(buffer);
 
   map<string, CountryInfo> id2info;
-  bool isSingleMwm;
-  storage::LoadCountryFile2CountryInfo(buffer, id2info, isSingleMwm);
+  storage::LoadCountryFile2CountryInfo(buffer, id2info);
 
   Storage storage;
 
-  if (version::IsSingleMwm(storage.GetCurrentDataVersion()))
-  {
-    TEST(!IsEmptyName(id2info, "Belgium_West Flanders"), ());
-    TEST(!IsEmptyName(id2info, "France_Ile-de-France_Paris"), ());
-  }
-  else
-  {
-    TEST(!IsEmptyName(id2info, "Germany_Baden-Wurttemberg"), ());
-    TEST(!IsEmptyName(id2info, "France_Paris & Ile-de-France"), ());
-  }
+  TEST(!IsEmptyName(id2info, "Belgium_West Flanders"), ());
+  TEST(!IsEmptyName(id2info, "France_Ile-de-France_Paris"), ());
 }
 
 UNIT_TEST(CountryInfoGetter_SomeRects)
 {
-  auto const getter = CreateCountryInfoGetterObsolete();
+  auto const getter = CreateCountryInfoGetter();
 
   m2::RectD rects[3];
   getter->CalcUSALimitRect(rects);
@@ -213,26 +198,10 @@ UNIT_TEST(CountryInfoGetter_HitsInTheMiddleOfNowhere)
 UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafSingleMwm)
 {
   auto const getter = CreateCountryInfoGetter();
-  Storage storage(COUNTRIES_FILE);
-  if (!version::IsSingleMwm(storage.GetCurrentDataVersion()))
-    return;
+  Storage storage;
 
   m2::RectD const boundingBox = getter->GetLimitRectForLeaf("Angola");
   m2::RectD const expectedBoundingBox = {9.205259 /* minX */, -18.34456 /* minY */,
-                                         24.08212 /* maxX */, -4.393187 /* maxY */};
-
-  TEST(AlmostEqualRectsAbs(boundingBox, expectedBoundingBox), ());
-}
-
-UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafTwoComponentMwm)
-{
-  auto const getter = CreateCountryInfoGetterObsolete();
-  Storage storage(COUNTRIES_FILE);
-  if (version::IsSingleMwm(storage.GetCurrentDataVersion()))
-    return;
-
-  m2::RectD const boundingBox = getter->GetLimitRectForLeaf("Angola");
-  m2::RectD const expectedBoundingBox = {11.50151 /* minX */, -18.344569 /* minY */,
                                          24.08212 /* maxX */, -4.393187 /* maxY */};
 
   TEST(AlmostEqualRectsAbs(boundingBox, expectedBoundingBox), ());
@@ -244,7 +213,7 @@ UNIT_TEST(CountryInfoGetter_RegionRects)
   CHECK(getterRaw != nullptr, ());
   CountryInfoReader const * const getter = static_cast<CountryInfoReader const *>(getterRaw.get());
 
-  Storage storage(COUNTRIES_FILE);
+  Storage storage;
 
   auto const & countries = getter->GetCountries();
 
@@ -268,7 +237,7 @@ UNIT_TEST(CountryInfoGetter_Countries_And_Polygons)
   CHECK(getterRaw != nullptr, ());
   CountryInfoReader const * const getter = static_cast<CountryInfoReader const *>(getterRaw.get());
 
-  Storage storage(COUNTRIES_FILE);
+  Storage storage;
 
   double const kRectSize = 10;
 
@@ -304,7 +273,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
   auto const getterRaw = CountryInfoReader::CreateCountryInfoReader(GetPlatform());
   CountryInfoReader * getter = static_cast<CountryInfoReader *>(getterRaw.get());
 
-  Storage storage(COUNTRIES_FILE);
+  Storage storage;
 
   auto const & countryDefs = getter->GetCountries();
 
