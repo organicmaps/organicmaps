@@ -56,19 +56,3 @@ double MercatorBounds::AreaOnEarth(m2::RectD const & rect)
   return MercatorBounds::AreaOnEarth(rect.LeftTop(), rect.LeftBottom(), rect.RightBottom()) +
          MercatorBounds::AreaOnEarth(rect.LeftTop(), rect.RightTop(), rect.RightBottom());
 }
-
-m2::PointD MercatorBounds::UKCoordsToXY(double eastingM, double northingM)
-{
-  // The map projection used on Ordnance Survey Great Britain maps is known as the National Grid.
-  // It's UTM-like coordinate system.
-  // The Transverse Mercator eastings and northings axes are given a ‘false origin’ just south west
-  // of the Scilly Isles to ensure that all coordinates in Britain are positive. The false origin is
-  // 400 km west and 100 km north of the ‘true origin’ on the central meridian at 49°N 2°W (OSGB36)
-  // and approx. 49°N 2°0′5″ W (WGS 84). For further details see:
-  //   https://www.ordnancesurvey.co.uk/documents/resources/guide-coordinate-systems-great-britain.pdf
-  //   https://en.wikipedia.org/wiki/Ordnance_Survey_National_Grid
-  auto static kNationalGridOriginX = MercatorBounds::LonToX(-7.5571597);
-  auto static kNationalGridOriginY = MercatorBounds::LatToY(49.7668072);
-
-  return GetSmPoint({kNationalGridOriginX, kNationalGridOriginY}, eastingM, northingM);
-}

@@ -247,20 +247,12 @@ void GetUKPostcodes(string const & filename, storage::CountryId const & countryI
                     storage::CountryInfoGetter & infoGetter, vector<m2::PointD> & valueMapping,
                     vector<pair<Key, Value>> & keyValuePairs)
 {
-  // 0 Postcode
-  // 1 Positional_quality_indicator
-  // 2 Eastings
-  // 3 Northings
-  // 4 Country_code
-  // 5 NHS_regional_HA_code
-  // 6 NHS_HA_code
-  // 7 Admin_county_code
-  // 8 Admin_district_code
-  // 9 Admin_ward_code
+  // Original dataset uses UK National Grid UTM coordinates.
+  // It was converted to WGS84 by https://pypi.org/project/OSGridConverter/.
   size_t constexpr kPostcodeIndex = 0;
-  size_t constexpr kEastingIndex = 2;
-  size_t constexpr kNorthingIndex = 3;
-  size_t constexpr kDatasetCount = 10;
+  size_t constexpr kLatIndex = 1;
+  size_t constexpr kLongIndex = 2;
+  size_t constexpr kDatasetCount = 3;
 
   ifstream data;
   data.exceptions(fstream::failbit | fstream::badbit);
@@ -271,22 +263,17 @@ void GetUKPostcodes(string const & filename, storage::CountryId const & countryI
   size_t index = 0;
   while (getline(data, line))
   {
-    // Skip comments.
-    if (line[0] == '#')
-      continue;
-
     vector<string> fields;
     strings::ParseCSVRow(line, ',', fields);
-    // Some lines have comma in "source". It leads to fields number greater than kDatasetCount.
-    CHECK_GREATER_OR_EQUAL(fields.size(), kDatasetCount, (line));
+    CHECK_EQUAL(fields.size(), kDatasetCount, (line));
 
-    uint64_t lonMeters;
-    CHECK(strings::to_uint64(fields[kEastingIndex], lonMeters), ());
+    double lat;
+    CHECK(strings::to_double(fields[kLatIndex], lat), ());
 
-    uint64_t latMeters;
-    CHECK(strings::to_uint64(fields[kNorthingIndex], latMeters), ());
+    double lon;
+    CHECK(strings::to_double(fields[kLongIndex], lon), ());
 
-    auto const p = MercatorBounds::UKCoordsToXY(lonMeters, latMeters);
+    auto const p = MercatorBounds::FromLatLon(lat, lon);
 
     vector<storage::CountryId> countries;
     infoGetter.GetRegionsCountryId(p, countries);
