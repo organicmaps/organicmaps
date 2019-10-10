@@ -180,6 +180,12 @@ IsSpeedCamChecker::IsSpeedCamChecker()
   m_types.push_back(c.GetTypeByPath({"highway", "speed_camera"}));
 }
 
+IsPostBoxChecker::IsPostBoxChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"amenity", "post_box"}));
+}
+
 IsFuelStationChecker::IsFuelStationChecker()
 {
   Classificator const & c = classif();

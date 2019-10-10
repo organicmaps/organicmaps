@@ -2367,5 +2367,28 @@ UNIT_CLASS_TEST(ProcessorTest, StreetNumber)
   }
 }
 
+UNIT_CLASS_TEST(ProcessorTest, Postbox)
+{
+  string const countryName = "Wonderland";
+
+  TestPOI postbox(m2::PointD(0.0, 0.0), "127001", "default");
+  postbox.SetTypes({{"amenity", "post_box"}});
+  
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(postbox);
+  });
+
+  SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0)));
+  {
+    Rules rules = {ExactMatch(countryId, postbox)};
+    TEST(ResultsMatch("127001", rules), ());
+  }
+  {
+    // Misprints are not allowed for postcodes.
+    Rules rules = {};
+    TEST(ResultsMatch("127002", rules), ());
+  }
+}
+
 }  // namespace
 }  // namespace search

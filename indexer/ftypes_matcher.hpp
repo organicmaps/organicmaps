@@ -68,6 +68,14 @@ public:
   DECLARE_CHECKER_INSTANCE(IsSpeedCamChecker);
 };
 
+class IsPostBoxChecker : public BaseChecker
+{
+  IsPostBoxChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsPostBoxChecker);
+};
+
 class IsFuelStationChecker : public BaseChecker
 {
   IsFuelStationChecker();

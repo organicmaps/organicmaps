@@ -18,6 +18,7 @@
 #include "indexer/feature_visibility.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/postcodes_matcher.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 #include "indexer/trie_builder.hpp"
@@ -324,19 +325,44 @@ public:
     FeatureNameInserter<Key, Value> inserter(index, isCountryOrState(types) ? m_synonyms : nullptr,
                                              m_keyValuePairs, hasStreetType);
 
+    auto const & postBoxChecker = ftypes::IsPostBoxChecker::Instance();
     string const postcode = f.GetMetadata().Get(feature::Metadata::FMD_POSTCODE);
+    vector<string> postcodes;
     if (!postcode.empty())
+      postcodes.push_back(postcode);
+
+    bool useNameAsPostcode = false;
+    if (postBoxChecker(types))
+    {
+      auto const & names = f.GetNames();
+      if (names.CountLangs() == 1)
+      {
+        string defaultName;
+        names.GetString(StringUtf8Multilang::kDefaultCode, defaultName);
+        if (!defaultName.empty() && LooksLikePostcode(defaultName, false /* isPrefix */))
+        {
+          // In UK it's common practice to set outer postcode as postcode and outer + inner as ref.
+          // We convert ref to name at FeatureBuilder.
+          postcodes.push_back(defaultName);
+          useNameAsPostcode = true;
+        }
+      }
+    }
+
+    for (auto const & pc : postcodes)
     {
       // See OSM TagInfo or Wiki about modern postcodes format. The
       // mean number of tokens is less than two.
       buffer_vector<strings::UniString, 2> tokens;
-      SplitUniString(NormalizeAndSimplifyString(postcode), base::MakeBackInsertFunctor(tokens),
+      SplitUniString(NormalizeAndSimplifyString(pc), base::MakeBackInsertFunctor(tokens),
                      Delimiters());
       for (auto const & token : tokens)
         inserter.AddToken(kPostcodesLang, token);
     }
 
-    if (!f.ForEachName(inserter))
+    if (!useNameAsPostcode)
+      f.ForEachName(inserter);
+    if (!f.HasName())
       skipIndex.SkipEmptyNameTypes(types);
     if (types.Empty())
       return;
