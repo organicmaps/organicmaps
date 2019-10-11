@@ -67,4 +67,13 @@ m2::RectD CalcLimitRect(CountryId const & countryId, Storage const & storage,
   ASSERT(boundingBox.IsValid(), ());
   return boundingBox;
 }
+
+MwmSize GetRemoteSize(diffs::DiffsDataSource const & diffsDataSource,
+                      platform::CountryFile const & file, int64_t version)
+{
+  uint64_t size;
+  if (diffsDataSource.SizeFor(file.GetName(), size))
+    return size;
+  return file.GetRemoteSize();
+}
 } // namespace storage

@@ -196,17 +196,21 @@ private:
   // Used to cancel an ongoing diff application.
   // |m_diffsCancellable| is reset every time when a task to apply a diff is posted.
   // We use the fact that at most one diff is being applied at a time and the
-  // calls to the diff manager's ApplyDiff are coordinated from the storage thread.
+  // calls to the diffs::ApplyDiff are coordinated from the storage thread.
   base::Cancellable m_diffsCancellable;
 
   std::optional<CountryId> m_latestDiffRequest;
 
-  // Since the diff manager runs on a different thread, the result
+  // Since the diffs applying runs on a different thread, the result
   // of diff application may return "Ok" when in fact the diff was
   // cancelled. However, the storage thread knows for sure whether the
   // latest request was to apply or to cancel the diff, and this knowledge
   // is represented by |m_diffsBeingApplied|.
   std::set<CountryId> m_diffsBeingApplied;
+
+  std::vector<platform::LocalCountryFile> m_notAppliedDiffs;
+
+  diffs::DiffsSourcePtr m_diffsDataSource = std::make_shared<diffs::DiffsDataSource>();
 
   DownloadingPolicy m_defaultDownloadingPolicy;
   DownloadingPolicy * m_downloadingPolicy = &m_defaultDownloadingPolicy;
@@ -261,9 +265,6 @@ private:
   MwmSize m_maxMwmSizeBytes = 0;
 
   ThreadChecker m_threadChecker;
-
-  diffs::Manager m_diffManager;
-  std::vector<platform::LocalCountryFile> m_notAppliedDiffs;
 
   bool m_needToStartDeferredDownloading = false;
 
@@ -561,8 +562,6 @@ public:
   CountryId GetCurrentDownloadingCountryId() const;
   void EnableKeepDownloadingQueue(bool enable) {m_keepDownloadingQueue = enable;}
 
-  std::string GetDownloadRelativeUrl(CountryId const & countryId, MapFileType type) const;
-
   /// @param[out] res Populated with oudated countries.
   void GetOutdatedCountries(std::vector<Country const *> & countries) const;
 
@@ -630,10 +629,6 @@ private:
 
   // Removes country files from downloader.
   bool DeleteCountryFilesFromDownloader(CountryId const & countryId);
-
-  // Returns download size of the currently downloading file for the
-  // queued country.
-  uint64_t GetDownloadSize(QueuedCountry const & queuedCountry) const;
 
   // Returns a path to a place on disk downloader can use for
   // downloaded files.

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "storage/diff_scheme/diff_types.hpp"
+#include "storage/queued_country.hpp"
 
 #include "platform/http_request.hpp"
 #include "platform/safe_callback.hpp"
@@ -33,8 +33,7 @@ public:
   /// Asynchronously downloads a map file, periodically invokes
   /// onProgress callback and finally invokes onDownloaded
   /// callback. Both callbacks will be invoked on the main thread.
-  void DownloadMapFile(std::string const & relativeUrl, std::string const & path, int64_t size,
-                       FileDownloadedCallback const & onDownloaded,
+  void DownloadMapFile(QueuedCountry & queuedCountry, FileDownloadedCallback const & onDownloaded,
                        DownloadingProgressCallback const & onProgress);
 
   /// Returns current downloading progress.
@@ -46,13 +45,10 @@ public:
   /// Resets downloader to the idle state.
   virtual void Reset() = 0;
 
-  static std::string MakeRelativeUrl(std::string const & fileName, int64_t dataVersion,
-                                     uint64_t diffVersion);
   static std::string MakeFullUrlLegacy(std::string const & baseUrl, std::string const & fileName,
                                        int64_t dataVersion);
 
   void SetServersList(ServersList const & serversList);
-  void SetDiffs(diffs::NameDiffInfoMap const & diffs);
 
 protected:
   // Synchronously loads list of servers by http client.
@@ -68,6 +64,5 @@ private:
                         DownloadingProgressCallback const & onProgress) = 0;
 
   ServersList m_serversList;
-  diffs::NameDiffInfoMap m_diffs;
 };
 }  // namespace storage

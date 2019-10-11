@@ -3,38 +3,21 @@
 #include "storage/diff_scheme/diff_types.hpp"
 #include "storage/storage_defines.hpp"
 
-#include "generator/mwm_diff/diff.hpp"
-
-#include "base/observer_list.hpp"
 #include "base/thread_checker.hpp"
-#include "base/thread_pool_delayed.hpp"
 
-#include <functional>
-#include <mutex>
-#include <string>
-#include <utility>
-
-namespace base
-{
-class Cancellable;
-}
+#include <memory>
 
 namespace storage
 {
 namespace diffs
 {
-class Manager final
+class DiffsDataSource;
+using DiffsSourcePtr = std::shared_ptr<diffs::DiffsDataSource>;
+
+class DiffsDataSource final
 {
 public:
-  struct ApplyDiffParams
-  {
-    std::string m_diffReadyPath;
-    LocalFilePtr m_diffFile;
-    LocalFilePtr m_oldMwmFile;
-  };
-
-  using OnDiffApplicationFinished = std::function<void(generator::mwm_diff::DiffApplicationResult)>;
-
+  void SetDiffInfo(NameDiffInfoMap && info);
   // If the diff is available, sets |size| to its size and returns true.
   // Otherwise, returns false.
   bool SizeFor(storage::CountryId const & countryId, uint64_t & size) const;
@@ -58,10 +41,6 @@ public:
 
   Status GetStatus() const;
 
-  void Load(NameDiffInfoMap && info);
-  static void ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancellable,
-                        OnDiffApplicationFinished const & task);
-
 private:
   template <typename Fn>
   bool WithNotAppliedDiff(storage::CountryId const & countryId, Fn && fn) const
@@ -76,6 +55,8 @@ private:
     fn(it->second);
     return true;
   }
+
+  ThreadChecker m_threadChecker;
 
   Status m_status = Status::Undefined;
   NameDiffInfoMap m_diffs;

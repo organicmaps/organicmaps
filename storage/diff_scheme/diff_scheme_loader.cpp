@@ -53,34 +53,34 @@ NameDiffInfoMap DeserializeResponse(string const & response, LocalMapsInfo::Name
   if (response.empty())
   {
     LOG(LERROR, ("Diff response shouldn't be empty."));
-    return NameDiffInfoMap{};
+    return {};
   }
 
   base::Json const json(response.c_str());
   if (json.get() == nullptr)
-    return NameDiffInfoMap{};
+    return {};
 
   auto const root = json_object_get(json.get(), kMwmsKey);
   if (root == nullptr || !json_is_array(root))
-    return NameDiffInfoMap{};
+    return {};
 
-  auto const size = json_array_size(root);
-  if (size == 0 || size != nameVersionMap.size())
+  auto const count = json_array_size(root);
+  if (count == 0 || count != nameVersionMap.size())
   {
     LOG(LERROR, ("Diff list size in response must be equal to mwm list size in request."));
-    return NameDiffInfoMap{};
+    return {};
   }
 
   NameDiffInfoMap diffs;
 
-  for (size_t i = 0; i < size; ++i)
+  for (size_t i = 0; i < count; ++i)
   {
     auto const node = json_array_get(root, i);
 
     if (!node)
     {
       LOG(LERROR, ("Incorrect server response."));
-      return NameDiffInfoMap{};
+      return {};
     }
 
     string name;
@@ -94,7 +94,7 @@ NameDiffInfoMap DeserializeResponse(string const & response, LocalMapsInfo::Name
     if (nameVersionMap.find(name) == nameVersionMap.end())
     {
       LOG(LERROR, ("Incorrect country name in response:", name));
-      return NameDiffInfoMap{};
+      return {};
     }
 
     DiffInfo info(size, nameVersionMap.at(name));
@@ -107,7 +107,7 @@ NameDiffInfoMap DeserializeResponse(string const & response, LocalMapsInfo::Name
 NameDiffInfoMap Load(LocalMapsInfo const & info)
 {
   if (info.m_localMaps.empty())
-    return NameDiffInfoMap();
+    return {};
 
   platform::HttpClient request(DIFF_LIST_URL);
   string const body = SerializeCheckerData(info);

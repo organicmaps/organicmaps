@@ -30,8 +30,7 @@ std::vector<std::string> MakeUrlList(MapFilesDownloader::ServersList const & ser
 }
 }  // namespace
 
-void MapFilesDownloader::DownloadMapFile(std::string const & relativeUrl,
-                                         std::string const & path, int64_t size,
+void MapFilesDownloader::DownloadMapFile(QueuedCountry & country,
                                          FileDownloadedCallback const & onDownloaded,
                                          DownloadingProgressCallback const & onProgress)
 {
@@ -40,28 +39,17 @@ void MapFilesDownloader::DownloadMapFile(std::string const & relativeUrl,
     GetServersList([=](ServersList const & serversList)
                    {
                      m_serversList = serversList;
-                     auto const urls = MakeUrlList(m_serversList, relativeUrl);
-                     Download(urls, path, size, onDownloaded, onProgress);
+                     auto const urls = MakeUrlList(m_serversList, country.GetRelativeUrl());
+                     Download(urls, country.GetFileDownloadPath(), country.GetDownloadSize(),
+                              onDownloaded, onProgress);
                    });
   }
   else
   {
-    auto const urls = MakeUrlList(m_serversList, relativeUrl);
-    Download(urls, path, size, onDownloaded, onProgress);
+    auto const urls = MakeUrlList(m_serversList, country.GetRelativeUrl());
+    Download(urls, country.GetFileDownloadPath(), country.GetDownloadSize(), onDownloaded,
+             onProgress);
   }
-}
-
-// static
-std::string MapFilesDownloader::MakeRelativeUrl(std::string const & fileName, int64_t dataVersion,
-                                                uint64_t diffVersion)
-{
-  std::ostringstream url;
-  if (diffVersion != 0)
-    url << "diffs/" << dataVersion << "/" << diffVersion;
-  else
-    url << OMIM_OS_NAME "/" << dataVersion;
-
-  return base::url::Join(url.str(), UrlEncode(fileName));
 }
 
 // static
@@ -75,11 +63,6 @@ std::string MapFilesDownloader::MakeFullUrlLegacy(std::string const & baseUrl,
 void MapFilesDownloader::SetServersList(ServersList const & serversList)
 {
   m_serversList = serversList;
-}
-
-void MapFilesDownloader::SetDiffs(diffs::NameDiffInfoMap const & diffs)
-{
-  m_diffs = diffs;
 }
 
 // static

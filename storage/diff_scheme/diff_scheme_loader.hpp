@@ -8,6 +8,14 @@ namespace storage
 {
 namespace diffs
 {
+struct LocalMapsInfo final
+{
+  using NameVersionMap = std::unordered_map<storage::CountryId, uint64_t>;
+
+  uint64_t m_currentDataVersion = 0;
+  NameVersionMap m_localMaps;
+};
+
 using DiffsReceivedCallback = std::function<void(diffs::NameDiffInfoMap && diffs)>;
 
 class Loader final

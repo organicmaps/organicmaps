@@ -1,11 +1,13 @@
 #pragma once
 
-#include "geometry/point2d.hpp"
-#include "geometry/rect2d.hpp"
+#include "storage/diff_scheme/diff_manager.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "platform/country_defines.hpp"
+#include "platform/country_file.hpp"
 
-#include "storage/storage_defines.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
 namespace storage
 {
@@ -29,4 +31,7 @@ bool IsEnoughSpaceForUpdate(CountryId const & countryId, Storage const & storage
 /// \returns bounding box in mercator coordinates.
 m2::RectD CalcLimitRect(CountryId const & countryId, Storage const & storage,
                         CountryInfoGetter const & countryInfoGetter);
+
+MwmSize GetRemoteSize(diffs::DiffsDataSource const & diffsDataSource,
+                      platform::CountryFile const & file, int64_t version);
 }  // namespace storage
