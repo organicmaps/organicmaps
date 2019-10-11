@@ -26,7 +26,7 @@ class PaidRouteViewController: MWMViewController {
 
   private var product: IStoreProduct?
   private var subscription: ISubscription?
-  private let subscriptionManager: SubscriptionManager
+  private let subscriptionManager: ISubscriptionManager
 
   override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
     get { return [.portrait] }

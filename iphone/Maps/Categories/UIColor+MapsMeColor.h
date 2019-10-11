@@ -58,6 +58,10 @@
 + (UIColor *)subscriptionCellBorder;
 + (UIColor *)subscriptionCellBackground;
 + (UIColor *)subscriptionCellTitle;
++ (UIColor *)discountBackground;
++ (UIColor *)bookmarkSubscriptionScrollBackground;
++ (UIColor *)bookmarkSubscriptionBackground;
++ (UIColor *)bookmarkSubscriptionFooterBackground;
 
 + (UIColor *)colorWithName:(NSString *)colorName;
 + (UIColor *)colorFromHexString:(NSString *)hexString;

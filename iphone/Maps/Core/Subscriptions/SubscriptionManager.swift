@@ -1,3 +1,16 @@
+@objc protocol ISubscriptionManager: class{
+  typealias SuscriptionsCompletion = ([ISubscription]?, Error?) -> Void
+  typealias ValidationCompletion = (MWMValidationResult) -> Void
+  
+  @objc static func canMakePayments() -> Bool
+  @objc func getAvailableSubscriptions(_ completion: @escaping SuscriptionsCompletion)
+  @objc func subscribe(to subscription: ISubscription)
+  @objc func addListener(_ listener: SubscriptionManagerListener)
+  @objc func removeListener(_ listener: SubscriptionManagerListener)
+  @objc func validate(completion: ValidationCompletion?)
+  @objc func restore(_ callback: @escaping ValidationCompletion)
+}
+
 @objc protocol SubscriptionManagerListener: AnyObject {
   func didFailToSubscribe(_ subscription: ISubscription, error: Error?)
   func didSubscribe(_ subscription: ISubscription)
@@ -6,10 +19,7 @@
   func didValidate(_ isValid: Bool)
 }
 
-class SubscriptionManager: NSObject {
-  typealias SuscriptionsCompletion = ([ISubscription]?, Error?) -> Void
-  typealias ValidationCompletion = (MWMValidationResult) -> Void
-
+class SubscriptionManager: NSObject, ISubscriptionManager {
   private let paymentQueue = SKPaymentQueue.default()
   private var productsRequest: SKProductsRequest?
   private var subscriptionsComplection: SuscriptionsCompletion?

@@ -1,19 +1,21 @@
 import SafariServices
 
 @objc class BookmarksSubscriptionViewController: MWMViewController {
-  @IBOutlet private var annualView: UIView!
-  @IBOutlet private var monthlyView: UIView!
-  @IBOutlet private var gradientView: GradientView!
-  @IBOutlet private var scrollView: UIScrollView!
-  @IBOutlet private var continueButton: UIButton!
-  @IBOutlet var loadingView: UIView!
-
-  private let annualViewController = BookmarksSubscriptionCellViewController()
-  private let monthlyViewController = BookmarksSubscriptionCellViewController()
+  //MARK: outlets
+  @IBOutlet private var annualSubscriptionButton: BookmarksSubscriptionButton!
+  @IBOutlet private var annualDiscountView: UIView!
+  @IBOutlet private var annualDiscountLabel: UILabel!
+  @IBOutlet private var monthlySubscriptionButton: BookmarksSubscriptionButton!
+  @IBOutlet private var loadingView: UIView!
+  
+  //MARK: locals
   private var priceFormatter: NumberFormatter?
   private var monthlySubscription: ISubscription?
   private var annualSubscription: ISubscription?
-  private var selectedSubscription: ISubscription?
+  
+  //MARK: dependency
+  private let subscriptionManager: ISubscriptionManager = InAppPurchase.bookmarksSubscriptionManager
+  private let bookmarksManager: MWMBookmarksManager = MWMBookmarksManager.shared()
 
   @objc var onSubscribe: MWMVoidBlock?
   @objc var onCancel: MWMVoidBlock?
@@ -29,7 +31,7 @@ import SafariServices
 
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    InAppPurchase.bookmarksSubscriptionManager.addListener(self)
+    subscriptionManager.addListener(self)
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -37,53 +39,40 @@ import SafariServices
   }
 
   deinit {
-    InAppPurchase.bookmarksSubscriptionManager.removeListener(self)
+    subscriptionManager.removeListener(self)
   }
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    gradientView.isHidden = UIColor.isNightMode()
-
-    addChildViewController(annualViewController)
-    annualView.addSubview(annualViewController.view)
-    annualViewController.view.alignToSuperview()
-    annualViewController.didMove(toParentViewController: self)
-
-    addChildViewController(monthlyViewController)
-    monthlyView.addSubview(monthlyViewController.view)
-    monthlyViewController.view.alignToSuperview()
-    monthlyViewController.didMove(toParentViewController: self)
-
-    annualViewController.config(title: L("annual_subscription_title"),
-                                subtitle: L("annual_subscription_message"),
-                                price: "...",
-                                image: UIImage(named: "bookmarksSubscriptionYear")!,
-                                discount: "...")
-    monthlyViewController.config(title: L("montly_subscription_title"),
-                                subtitle: L("montly_subscription_message"),
-                                price: "...",
-                                image: UIImage(named: "bookmarksSubscriptionMonth")!)
-    annualViewController.setSelected(true, animated: false)
-    continueButton.setTitle(L("current_location_unknown_continue_button").uppercased(), for: .normal)
-    continueButton.isEnabled = false
-    scrollView.isUserInteractionEnabled = false
-
+    annualSubscriptionButton.config(title: L("annual_subscription_title"),
+                                    price: "...",
+                                    enabled: false)
+    monthlySubscriptionButton.config(title: L("montly_subscription_title"),
+                                    price: "...",
+                                    enabled: false)
+    
+    if !UIColor.isNightMode() {
+      annualDiscountView.layer.shadowRadius = 4
+      annualDiscountView.layer.shadowOffset = CGSize(width: 0, height: 2)
+      annualDiscountView.layer.shadowColor = UIColor.blackHintText().cgColor
+      annualDiscountView.layer.shadowOpacity = 0.62
+    }
+    annualDiscountView.isHidden = true
+    
     Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: MWMPurchaseManager.bookmarksSubscriptionVendorId(),
                                                          kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId(),
                                                          kStatProduct: BOOKMARKS_SUBSCRIPTION_YEARLY_PRODUCT_ID,
                                                          kStatFrom: source], with: .realtime)
-    InAppPurchase.bookmarksSubscriptionManager.getAvailableSubscriptions { [weak self] (subscriptions, error) in
+    subscriptionManager.getAvailableSubscriptions { [weak self] (subscriptions, error) in
       guard let subscriptions = subscriptions, subscriptions.count == 2 else {
         MWMAlertViewController.activeAlert().presentInfoAlert(L("price_error_title"),
                                                               text: L("price_error_subtitle"))
         self?.onCancel?()
         return
       }
-
       self?.monthlySubscription = subscriptions[0]
       self?.annualSubscription = subscriptions[1]
-      self?.selectedSubscription = self?.annualSubscription
 
       let s = subscriptions[0]
       let formatter = NumberFormatter()
@@ -96,49 +85,30 @@ import SafariServices
       let twelveMonthPrice = monthlyPrice.multiplying(by: 12)
       let discount = twelveMonthPrice.subtracting(annualPrice).dividing(by: twelveMonthPrice).multiplying(by: 100)
 
-      self?.monthlyViewController.config(title: L("montly_subscription_title"),
-                                         subtitle: L("montly_subscription_message"),
-                                         price: formatter.string(from: monthlyPrice) ?? "",
-                                         image: UIImage(named: "bookmarksSubscriptionMonth")!)
-      self?.annualViewController.config(title: L("annual_subscription_title"),
-                                        subtitle: L("annual_subscription_message"),
-                                        price: formatter.string(from: annualPrice) ?? "",
-                                        image: UIImage(named: "bookmarksSubscriptionYear")!,
-                                        discount: "- \(discount.rounding(accordingToBehavior: nil).intValue) %")
-      self?.continueButton.isEnabled = true
-      self?.scrollView.isUserInteractionEnabled = true
+      self?.annualSubscriptionButton.config(title: L("annual_subscription_title"),
+                                      price: formatter.string(from: annualPrice) ?? "",
+                                      enabled: true)
+      self?.monthlySubscriptionButton.config(title: L("montly_subscription_title"),
+                                      price: formatter.string(from: monthlyPrice) ?? "",
+                                      enabled: true)
+      self?.annualDiscountView.isHidden = false
+      self?.annualDiscountLabel.text = "- \(discount.rounding(accordingToBehavior: nil).intValue) %"
     }
   }
 
-  @IBAction func onAnnualViewTap(_ sender: UITapGestureRecognizer) {
-    guard !annualViewController.isSelected else {
-      return
-    }
-    selectedSubscription = annualSubscription
-    annualViewController.setSelected(true, animated: true)
-    monthlyViewController.setSelected(false, animated: true)
-    scrollView.scrollRectToVisible(annualView.convert(annualView.bounds, to: scrollView), animated: true)
-    Statistics.logEvent(kStatInappSelect, withParameters: [kStatProduct: selectedSubscription!.productId,
-                                                           kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId()])
+  @IBAction func onAnnualButtonTap(_ sender: UIButton) {
+    purchase(sender: sender, subscription: annualSubscription)
   }
 
-  @IBAction func onMonthlyViewTap(_ sender: UITapGestureRecognizer) {
-    guard !monthlyViewController.isSelected else {
-      return
-    }
-    selectedSubscription = monthlySubscription
-    annualViewController.setSelected(false, animated: true)
-    monthlyViewController.setSelected(true, animated: true)
-    scrollView.scrollRectToVisible(monthlyView.convert(monthlyView.bounds, to: scrollView), animated: true)
-    Statistics.logEvent(kStatInappSelect, withParameters: [kStatProduct: selectedSubscription!.productId,
-                                                           kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId()])
+  @IBAction func onMonthlyButtonTap(_ sender: UIButton) {
+    purchase(sender: sender, subscription: monthlySubscription)
   }
 
-  @IBAction func onContinue(_ sender: UIButton) {
+  private func purchase(sender: UIButton, subscription: ISubscription?) {
     signup(anchor: sender) { [weak self] success in
       guard success else { return }
       self?.loadingView.isHidden = false
-      MWMBookmarksManager.shared().ping { success in
+      self?.bookmarksManager.ping { success in
         guard success else {
           self?.loadingView.isHidden = true
           let errorDialog = BookmarksSubscriptionFailViewController { [weak self] in
@@ -148,11 +118,11 @@ import SafariServices
           return
         }
 
-        guard let subscription = self?.selectedSubscription else {
+        guard let subscription = subscription else {
           return
         }
 
-        InAppPurchase.bookmarksSubscriptionManager.subscribe(to: subscription)
+        self?.subscriptionManager.subscribe(to: subscription)
       }
     }
     Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId()],
@@ -164,7 +134,7 @@ import SafariServices
     signup(anchor: sender) { [weak self] (success) in
       guard success else { return }
       self?.loadingView.isHidden = false
-      InAppPurchase.bookmarksSubscriptionManager.restore { result in
+      self?.subscriptionManager.restore { result in
         self?.loadingView.isHidden = true
         let alertText: String
         switch result {
@@ -223,7 +193,7 @@ extension BookmarksSubscriptionViewController: SubscriptionManagerListener {
 
   func didSubscribe(_ subscription: ISubscription) {
     MWMPurchaseManager.setBookmarksSubscriptionActive(true)
-    MWMBookmarksManager.shared().resetInvalidCategories()
+    bookmarksManager.resetInvalidCategories()
   }
 
   func didDefer(_ subscription: ISubscription) {
