@@ -289,6 +289,40 @@ void GetUKPostcodes(string const & filename, storage::CountryId const & countryI
   }
 }
 
+// Returns true iff feature name was indexed as postcode and should be ignored for name indexing.
+bool InsertPostcodes(FeatureType & f, function<void(strings::UniString const &)> const & fn)
+{
+  using namespace search;
+
+  auto const & postBoxChecker = ftypes::IsPostBoxChecker::Instance();
+  string const postcode = f.GetMetadata().Get(feature::Metadata::FMD_POSTCODE);
+  vector<string> postcodes;
+  if (!postcode.empty())
+    postcodes.push_back(postcode);
+
+  bool useNameAsPostcode = false;
+  if (postBoxChecker(f))
+  {
+    auto const & names = f.GetNames();
+    if (names.CountLangs() == 1)
+    {
+      string defaultName;
+      names.GetString(StringUtf8Multilang::kDefaultCode, defaultName);
+      if (!defaultName.empty() && LooksLikePostcode(defaultName, false /* isPrefix */))
+      {
+        // In UK it's common practice to set outer postcode as postcode and outer + inner as ref.
+        // We convert ref to name at FeatureBuilder.
+        postcodes.push_back(defaultName);
+        useNameAsPostcode = true;
+      }
+    }
+  }
+
+  for (auto const & pc : postcodes)
+    SplitUniString(NormalizeAndSimplifyString(pc), fn, Delimiters());
+  return useNameAsPostcode;
+}
+
 template <typename Key, typename Value>
 class FeatureInserter
 {
@@ -325,40 +359,8 @@ public:
     FeatureNameInserter<Key, Value> inserter(index, isCountryOrState(types) ? m_synonyms : nullptr,
                                              m_keyValuePairs, hasStreetType);
 
-    auto const & postBoxChecker = ftypes::IsPostBoxChecker::Instance();
-    string const postcode = f.GetMetadata().Get(feature::Metadata::FMD_POSTCODE);
-    vector<string> postcodes;
-    if (!postcode.empty())
-      postcodes.push_back(postcode);
-
-    bool useNameAsPostcode = false;
-    if (postBoxChecker(types))
-    {
-      auto const & names = f.GetNames();
-      if (names.CountLangs() == 1)
-      {
-        string defaultName;
-        names.GetString(StringUtf8Multilang::kDefaultCode, defaultName);
-        if (!defaultName.empty() && LooksLikePostcode(defaultName, false /* isPrefix */))
-        {
-          // In UK it's common practice to set outer postcode as postcode and outer + inner as ref.
-          // We convert ref to name at FeatureBuilder.
-          postcodes.push_back(defaultName);
-          useNameAsPostcode = true;
-        }
-      }
-    }
-
-    for (auto const & pc : postcodes)
-    {
-      // See OSM TagInfo or Wiki about modern postcodes format. The
-      // mean number of tokens is less than two.
-      buffer_vector<strings::UniString, 2> tokens;
-      SplitUniString(NormalizeAndSimplifyString(pc), base::MakeBackInsertFunctor(tokens),
-                     Delimiters());
-      for (auto const & token : tokens)
-        inserter.AddToken(kPostcodesLang, token);
-    }
+    bool const useNameAsPostcode = InsertPostcodes(
+        f, [&inserter](auto const & token) { inserter.AddToken(kPostcodesLang, token); });
 
     if (!useNameAsPostcode)
       f.ForEachName(inserter);
