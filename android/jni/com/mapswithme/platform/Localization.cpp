@@ -22,11 +22,10 @@ std::string GetLocalizedStringByUtil(jmethodID const & methodId, std::string con
   JNIEnv * env = jni::GetEnv();
 
   jni::TScopedLocalRef strRef(env, jni::ToJavaString(env, str));
-  auto localizedString = env->CallStaticObjectMethod(g_utilsClazz, methodId,
-                                                     android::Platform::Instance().GetContext(),
-                                                     strRef.get());
-
-  return jni::ToNativeString(env, static_cast<jstring>(localizedString));
+  jobject context = android::Platform::Instance().GetContext();
+  jni::TScopedLocalRef localizedStrRef(env, env->CallStaticObjectMethod(g_utilsClazz, methodId,
+                                                                        context, strRef.get()));
+  return jni::ToNativeString(env, static_cast<jstring>(localizedStrRef.get()));
 }
 }  // namespace
 
