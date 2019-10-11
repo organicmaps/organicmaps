@@ -23,6 +23,8 @@
 		4403990C2359CA7C0098EB7F /* segment2d_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D9D64922A92D0A00F3D443 /* segment2d_tests.cpp */; };
 		4403990D2359CA7F0098EB7F /* point3d_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44A4BF17235732A5005857C4 /* point3d_tests.cpp */; };
 		4403990E2359CA8D0098EB7F /* mercator_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E92D8BD01C15AF9100A98D17 /* mercator_test.cpp */; };
+		440CF0C2236734820017C2A8 /* area_on_earth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 440CF0C0236734820017C2A8 /* area_on_earth.cpp */; };
+		440CF0C3236734820017C2A8 /* area_on_earth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 440CF0C1236734820017C2A8 /* area_on_earth.hpp */; };
 		446531E2234DEEF3000C348F /* point3d.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 446531E1234DEEF3000C348F /* point3d.hpp */; };
 		45A2D9BE1F7526E6003310A0 /* bounding_box.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A2D9B71F7526E6003310A0 /* bounding_box.cpp */; };
 		45A2D9BF1F7526E6003310A0 /* bounding_box.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45A2D9B81F7526E6003310A0 /* bounding_box.hpp */; };
@@ -135,6 +137,8 @@
 		39B2B96E1FB4680500AB85A1 /* diamond_box.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = diamond_box.hpp; sourceTree = "<group>"; };
 		39B2B96F1FB4680500AB85A1 /* diamond_box.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = diamond_box.cpp; sourceTree = "<group>"; };
 		39B2B9721FB4681400AB85A1 /* line2d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = line2d.hpp; sourceTree = "<group>"; };
+		440CF0C0236734820017C2A8 /* area_on_earth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = area_on_earth.cpp; sourceTree = "<group>"; };
+		440CF0C1236734820017C2A8 /* area_on_earth.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = area_on_earth.hpp; sourceTree = "<group>"; };
 		446531E1234DEEF3000C348F /* point3d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = point3d.hpp; sourceTree = "<group>"; };
 		44A4BF17235732A5005857C4 /* point3d_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point3d_tests.cpp; sourceTree = "<group>"; };
 		45A2D9B71F7526E6003310A0 /* bounding_box.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bounding_box.cpp; sourceTree = "<group>"; };
@@ -317,6 +321,8 @@
 			children = (
 				D53836332366DAF3007E7EDB /* oblate_spheroid.cpp */,
 				D53836342366DAF3007E7EDB /* oblate_spheroid.hpp */,
+				440CF0C0236734820017C2A8 /* area_on_earth.cpp */,
+				440CF0C1236734820017C2A8 /* area_on_earth.hpp */,
 				56D545681C74A46D00E3719C /* algorithm.cpp */,
 				56D545691C74A46D00E3719C /* algorithm.hpp */,
 				6753449F1A3F687400A0A8C3 /* angles.cpp */,
@@ -413,6 +419,7 @@
 				675344CC1A3F687400A0A8C3 /* rect_intersect.hpp in Headers */,
 				675344C71A3F687400A0A8C3 /* packer.hpp in Headers */,
 				675344C41A3F687400A0A8C3 /* distance_on_sphere.hpp in Headers */,
+				440CF0C3236734820017C2A8 /* area_on_earth.hpp in Headers */,
 				45A2D9C11F7526E6003310A0 /* calipers_box.hpp in Headers */,
 				675344CA1A3F687400A0A8C3 /* polygon.hpp in Headers */,
 				675344C11A3F687400A0A8C3 /* covering_utils.hpp in Headers */,
@@ -559,6 +566,7 @@
 				675344D41A3F687400A0A8C3 /* spline.cpp in Sources */,
 				45A2D9C41F7526E6003310A0 /* line2d.cpp in Sources */,
 				675344D11A3F687400A0A8C3 /* screenbase.cpp in Sources */,
+				440CF0C2236734820017C2A8 /* area_on_earth.cpp in Sources */,
 				45A2D9BE1F7526E6003310A0 /* bounding_box.cpp in Sources */,
 				45A2D9C01F7526E6003310A0 /* calipers_box.cpp in Sources */,
 				344A713C1F3DA07000B8DDB8 /* nearby_points_sweeper.cpp in Sources */,

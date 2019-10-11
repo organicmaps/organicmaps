@@ -7,6 +7,7 @@ set(
   algorithm_test.cpp
   angle_test.cpp
   anyrect_test.cpp
+  area_on_earth_tests.cpp
   bounding_box_tests.cpp
   calipers_box_tests.cpp
   cellid_test.cpp

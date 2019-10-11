@@ -7,6 +7,8 @@ set(
   angles.cpp
   angles.hpp
   any_rect2d.hpp
+  area_on_earth.cpp
+  area_on_earth.hpp
   avg_vector.hpp
   bounding_box.cpp
   bounding_box.hpp

@@ -1,5 +1,6 @@
 #include "geometry/mercator.hpp"
 
+#include "geometry/area_on_earth.hpp"
 #include "geometry/distance_on_sphere.hpp"
 
 #include <algorithm>
