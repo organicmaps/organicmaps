@@ -67,7 +67,7 @@ dependencies {
   implementation 'com.facebook.android:facebook-android-sdk:4.40.0'
   implementation 'com.facebook.android:audience-network-sdk:4.28.2'
   implementation 'com.google.code.gson:gson:2.6.1'
-  implementation 'com.pushwoosh:pushwoosh:5.17.0'
+  implementation 'com.pushwoosh:pushwoosh:5.19.1'
   implementation 'com.pushwoosh:pushwoosh-gcm:5.12.1'
   implementation 'com.my.tracker:mytracker-sdk:1.5.3'
   implementation ('com.my.target:mytarget-sdk:5.2.2') {
@@ -133,6 +133,7 @@ configurations.all {
     force 'com.android.support:support-core-utils:' + propSupportLibraryVersion
     force 'com.android.support:support-annotations:' + propSupportLibraryVersion
     force 'com.android.support:support-compat:' + propSupportLibraryVersion
+    force 'com.android.support:support-fragment:' + propSupportLibraryVersion
 
     force 'com.google.android.gms:play-services-ads:' + propPlayServicesVersion
     force 'com.google.android.gms:play-services-location:' + propPlayServicesVersion
@@ -141,6 +142,9 @@ configurations.all {
     force 'com.google.android.gms:play-services-gcm:' + propPlayServicesVersion
     force 'com.google.android.gms:play-services-auth:' + propPlayServicesVersion
     force 'com.google.android.gms:play-services-basement:' + propPlayServicesVersion
+
+    force 'android.arch.core:runtime:1.1.1'
+    force 'android.arch.core:common:1.1.1'
 
     failOnVersionConflict();
   }
