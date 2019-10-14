@@ -1,7 +1,6 @@
 #import "MWMPlacePageManagerHelper.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMPlacePageManager.h"
-#import "MWMUGCReviewSource.h"
 
 @interface MWMMapViewControlsManager ()
 

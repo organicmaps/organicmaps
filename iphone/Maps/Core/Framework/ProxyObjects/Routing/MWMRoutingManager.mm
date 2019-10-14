@@ -3,16 +3,11 @@
 #import "MWMLocationObserver.h"
 #import "MWMFrameworkListener.h"
 #import "MWMCoreRouterType.h"
-#import "MWMRouterResultCode.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMCoreUnits.h"
 #import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
-
-#include "routing/following_info.hpp"
-#include "routing/turns.hpp"
-#include "routing/routing_session.hpp"
 
 @interface MWMRoutingManager()<MWMFrameworkRouteBuilderObserver, MWMLocationObserver>
 @property(nonatomic, readonly) RoutingManager & rm;

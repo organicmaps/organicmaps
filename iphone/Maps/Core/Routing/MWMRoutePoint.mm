@@ -5,9 +5,6 @@
 
 #include "platform/measurement_utils.hpp"
 
-#include "geometry/mercator.hpp"
-#include "geometry/point2d.hpp"
-
 @interface MWMRoutePoint ()
 
 @property(nonatomic, readonly) m2::PointD point;

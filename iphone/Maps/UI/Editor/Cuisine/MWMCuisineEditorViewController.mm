@@ -6,9 +6,6 @@
 #include "indexer/cuisines.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include <algorithm>
-#include <utility>
-
 namespace
 {
 NSString * const kCuisineEditorCell = @"MWMCuisineEditorTableViewCell";

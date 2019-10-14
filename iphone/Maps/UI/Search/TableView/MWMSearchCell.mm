@@ -3,10 +3,6 @@
 
 #include <CoreApi/Framework.h>
 
-#include "base/logging.hpp"
-
-#include <string>
-
 @interface MWMSearchCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel * titleLabel;

@@ -12,27 +12,9 @@
 #import "MWMRouter.h"
 #import "MWMSearchManager+Filter.h"
 #import "Statistics.h"
-#import "UIKitCategories.h"
 #import "SwiftBridge.h"
 
-#include "map/discovery/discovery_client_params.hpp"
-#include "map/search_product_info.hpp"
-
-#include "search/result.hpp"
-
-#include "partners_api/locals_api.hpp"
-#include "partners_api/promo_api.hpp"
-
 #include "platform/localization.hpp"
-#include "platform/platform.hpp"
-
-#include "geometry/point2d.hpp"
-
-#include "base/assert.hpp"
-
-#include <functional>
-#include <utility>
-#include <vector>
 
 using namespace std;
 using namespace std::placeholders;

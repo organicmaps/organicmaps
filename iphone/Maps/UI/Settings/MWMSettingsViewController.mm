@@ -4,16 +4,9 @@
 #import "MWMTextToSpeech+CPP.h"
 #import "SwiftBridge.h"
 
-#include "LocaleTranslator.h"
-
 #import <CoreApi/CoreApi.h>
 
-#include "routing/speed_camera_manager.hpp"
-
 #include "map/gps_tracker.hpp"
-#include "map/routing_manager.hpp"
-
-#include "base/assert.hpp"
 
 extern NSString * const kAlohalyticsTapEventKey;
 

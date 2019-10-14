@@ -2,9 +2,6 @@
 
 #include <CoreApi/Framework.h>
 
-#include "storage/storage.hpp"
-#include "storage/storage_defines.hpp"
-
 namespace
 {
 using Observer = id<MWMFrameworkObserver>;

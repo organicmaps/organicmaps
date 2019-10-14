@@ -4,9 +4,6 @@
 #import "MWMStorage.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
-#import "UIButton+RuntimeAttributes.h"
-
-#include <unordered_set>
 
 namespace
 {

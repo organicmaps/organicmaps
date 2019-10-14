@@ -10,7 +10,6 @@
 #import "MWMEditorAdditionalNamesTableViewController.h"
 #import "MWMEditorCategoryCell.h"
 #import "MWMEditorCellType.h"
-#import "MWMEditorCommon.h"
 #import "MWMEditorNotesFooter.h"
 #import "MWMEditorSelectTableViewCell.h"
 #import "MWMEditorSwitchTableViewCell.h"
@@ -24,11 +23,6 @@
 #import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
-
-#include "editor/osm_editor.hpp"
-
-#include "indexer/classificator.hpp"
-#include "indexer/feature_source.hpp"
 
 #include "platform/localization.hpp"
 

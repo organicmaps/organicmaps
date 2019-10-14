@@ -1,9 +1,6 @@
 #import "MWMBookmarkColorViewController.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
-#import "UIViewController+Navigation.h"
-
-#include <array>
 
 namespace
 {

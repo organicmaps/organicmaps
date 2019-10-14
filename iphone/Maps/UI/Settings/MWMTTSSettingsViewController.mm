@@ -3,22 +3,9 @@
 #import "MWMTextToSpeech+CPP.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
-#import "WebViewController.h"
 
 #include <CoreApi/Framework.h>
 #include "LocaleTranslator.h"
-
-#include "routing/speed_camera_manager.hpp"
-
-#include "map/routing_manager.hpp"
-
-#include "base/assert.hpp"
-#include "base/stl_helpers.hpp"
-
-#include <algorithm>
-#include <memory>
-#include <type_traits>
-#include <unordered_map>
 
 using namespace locale_translator;
 using namespace routing;

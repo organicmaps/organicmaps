@@ -6,8 +6,6 @@
 #import "MWMPlacePageData.h"
 #import "SelectSetVC.h"
 #import "SwiftBridge.h"
-#import "UIImageView+Coloring.h"
-#import "UIViewController+Navigation.h"
 
 #include <CoreApi/Framework.h>
 

@@ -2,10 +2,6 @@
 #import "MWMPlacePageData.h"
 #import "SwiftBridge.h"
 
-#include "ugc/types.hpp"
-
-#include <chrono>
-
 using namespace place_page;
 
 namespace

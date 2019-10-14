@@ -1,7 +1,6 @@
 #import "MWMBaseMapDownloaderViewController.h"
 #import "MWMButton.h"
 #import "MWMFrameworkListener.h"
-#import "MWMFrameworkObservers.h"
 #import "MWMMapDownloaderAdsTableViewCell.h"
 #import "MWMMapDownloaderCellHeader.h"
 #import "MWMMapDownloaderDefaultDataSource.h"
@@ -9,12 +8,10 @@
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 #import "MWMMapDownloaderSubplaceTableViewCell.h"
-#import "MWMMapDownloaderTableViewCell.h"
 #import "MWMMyTarget.h"
 #import "MWMSegue.h"
 #import "MWMStorage.h"
 #import "SwiftBridge.h"
-#import "UIViewController+Navigation.h"
 
 #include <CoreApi/Framework.h>
 

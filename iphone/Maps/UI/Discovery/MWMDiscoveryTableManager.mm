@@ -11,24 +11,7 @@
 
 #include "map/place_page_info.hpp"
 
-#include "partners_api/locals_api.hpp"
-
 #include "search/result.hpp"
-
-#include "platform/localization.hpp"
-#include "platform/measurement_utils.hpp"
-
-#include "geometry/distance_on_sphere.hpp"
-#include "geometry/mercator.hpp"
-#include "geometry/point2d.hpp"
-
-#include "base/logging.hpp"
-
-#include <algorithm>
-#include <iterator>
-#include <string>
-#include <utility>
-#include <tuple>
 
 using namespace std;
 

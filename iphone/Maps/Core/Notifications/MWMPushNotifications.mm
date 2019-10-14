@@ -1,7 +1,6 @@
 #import "MWMPushNotifications.h"
 #import <Crashlytics/Crashlytics.h>
 #import <Pushwoosh/PushNotificationManager.h>
-#import <UserNotifications/UserNotifications.h>
 #import "Statistics.h"
 
 #include "platform/marketing_service.hpp"
@@ -11,9 +10,6 @@
 
 // If you have a "missing header error" here, then please run configure.sh script in the root repo
 // folder.
-#import "private.h"
-
-#include <string>
 
 namespace
 {

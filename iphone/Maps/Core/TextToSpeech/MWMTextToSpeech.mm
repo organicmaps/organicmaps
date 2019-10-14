@@ -1,5 +1,4 @@
 #import <AVFoundation/AVFoundation.h>
-#import <Crashlytics/Crashlytics.h>
 #import "MWMRouter.h"
 #import "MWMTextToSpeech+CPP.h"
 #import "Statistics.h"
@@ -10,9 +9,6 @@
 #include <CoreApi/Framework.h>
 
 #include "platform/languages.hpp"
-
-#include "base/assert.hpp"
-#include "base/logging.hpp"
 
 using namespace locale_translator;
 

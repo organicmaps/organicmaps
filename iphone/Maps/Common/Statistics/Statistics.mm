@@ -12,9 +12,6 @@
 #import <CoreApi/AppInfo.h>
 
 #include "platform/platform.hpp"
-#include "platform/settings.hpp"
-
-#include "base/macros.hpp"
 
 // If you have a "missing header error" here, then please run configure.sh script in the root repo folder.
 #import "private.h"

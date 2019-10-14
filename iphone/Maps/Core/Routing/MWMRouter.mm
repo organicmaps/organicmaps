@@ -4,30 +4,18 @@
 #import "MWMCoreRouterType.h"
 #import "MWMFrameworkListener.h"
 #import "MWMLocationHelpers.h"
-#import "MWMLocationManager.h"
 #import "MWMLocationObserver.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNavigationDashboardManager+Entity.h"
 #import "MWMRoutePoint+CPP.h"
-#import "MWMRouterRecommendation.h"
 #import "MWMStorage.h"
-#import "MapViewController.h"
 #import "MapsAppDelegate.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 #import "UIImage+RGBAData.h"
 
 #include <CoreApi/Framework.h>
 
-#include "routing/following_info.hpp"
-
-#include "indexer/feature_altitude.hpp"
-
 #include "platform/local_country_file_utils.hpp"
-
-#include <cstdint>
-#include <memory>
-#include <vector>
 
 using namespace routing;
 

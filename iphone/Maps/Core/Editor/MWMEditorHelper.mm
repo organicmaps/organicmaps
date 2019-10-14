@@ -4,8 +4,6 @@
 
 #include "editor/osm_editor.hpp"
 
-#include "platform/platform.hpp"
-
 @implementation MWMEditorHelper
 
 + (void)uploadEdits:(void (^)(UIBackgroundFetchResult))completionHandler

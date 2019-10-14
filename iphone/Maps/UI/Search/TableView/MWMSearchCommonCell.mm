@@ -4,16 +4,8 @@
 
 #include "map/place_page_info.hpp"
 
-#include "search/result.hpp"
-
-#include "indexer/classificator.hpp"
-
-#include "geometry/mercator.hpp"
-
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
-
-#include "defines.hpp"
 
 namespace
 {

@@ -6,7 +6,6 @@
 #import "MWMTableViewCell.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
-#import "UIViewController+Navigation.h"
 
 #include <CoreApi/Framework.h>
 

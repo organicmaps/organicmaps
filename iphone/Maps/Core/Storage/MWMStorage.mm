@@ -3,11 +3,8 @@
 #import "MWMRouter.h"
 
 #include <CoreApi/Framework.h>
-#import <CoreApi/MWMFrameworkHelper.h>
 
 #include "storage/storage_helpers.hpp"
-
-#include <numeric>
 
 using namespace storage;
 

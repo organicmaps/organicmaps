@@ -2,7 +2,6 @@
 #import "MWMSearch.h"
 #include "platform/localization.hpp"
 #include "search/result.hpp"
-#include "map/everywhere_search_callback.hpp"
 
 @interface MWMCarPlaySearchResultObject()
 @property(assign, nonatomic, readwrite) NSInteger originalRow;

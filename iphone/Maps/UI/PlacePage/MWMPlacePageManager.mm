@@ -1,36 +1,22 @@
 #import "MWMPlacePageManager.h"
 #import "CLLocation+Mercator.h"
-#import "MWMAPIBar.h"
 #import "MWMActivityViewController.h"
 //#import "MWMBookmarksManager.h"
 #import "MWMFrameworkListener.h"
-#import "MWMFrameworkObservers.h"
 #import "MWMLocationHelpers.h"
-#import "MWMLocationManager.h"
 #import "MWMLocationObserver.h"
 #import "MWMPlacePageData.h"
 #import "MWMPlacePageLayout.h"
 #import "MWMRoutePoint+CPP.h"
-#import "MWMRouter.h"
 #import "MWMSearchManager+Filter.h"
 #import "MWMStorage.h"
-#import "MWMUGCViewModel.h"
-#import "MapViewController.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #import <CoreApi/CoreApi.h>
 
-#include "map/bookmark.hpp"
 #include "map/utils.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
-
-#include "base/assert.hpp"
-#include "base/logging.hpp"
-#include "base/stl_helpers.hpp"
-
-#include <utility>
 
 namespace
 {

@@ -1,11 +1,7 @@
 #import "MWMAuthorizationViewModel.h"
-#import <FBSDKCoreKit/FBSDKAccessToken.h>
-#import <GoogleSignIn/GoogleSignIn.h>
 #import "Statistics.h"
 
 #include <CoreApi/Framework.h>
-
-#include <memory>
 
 @implementation MWMAuthorizationViewModel
 

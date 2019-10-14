@@ -2,11 +2,8 @@
 #import <CoreApi/MWMCommon.h>
 #import "MWMOpeningHoursCommon.h"
 #import "MWMPlacePageOpeningHoursDayView.h"
-#import "Statistics.h"
 #import "UIImageView+Coloring.h"
 
-#include "3party/opening_hours/opening_hours.hpp"
-#include "editor/opening_hours_ui.hpp"
 #include "editor/ui2oh.hpp"
 
 using namespace editor;

@@ -4,8 +4,6 @@
 
 #include <CoreApi/Framework.h>
 
-#include "storage/country_info_getter.hpp"
-
 using namespace storage;
 
 namespace

@@ -1,7 +1,6 @@
 #import "MWMCarPlaySearchService.h"
 #import "MWMCarPlaySearchResultObject.h"
 #import "MWMSearch.h"
-#import <CarPlay/CarPlay.h>
 
 API_AVAILABLE(ios(12.0))
 @interface MWMCarPlaySearchService ()<MWMSearchObserver>

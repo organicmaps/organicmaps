@@ -1,8 +1,6 @@
 #import "WebViewController.h"
 #include <CoreApi/Framework.h>
 
-#include "base/assert.hpp"
-
 @interface WebViewController()
 
 @property(copy, nonatomic) MWMVoidBlock onFailure;

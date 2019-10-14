@@ -1,6 +1,5 @@
 #import "MWMSearch.h"
 #import "MWMSearchManager+Filter.h"
-#import "Statistics.h"
 #import <objc/runtime.h>
 
 @interface MWMSearchManager ()

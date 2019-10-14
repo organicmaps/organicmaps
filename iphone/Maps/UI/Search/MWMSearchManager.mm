@@ -7,11 +7,9 @@
 #import "MWMSearchChangeModeView.h"
 #import "MWMSearchManager+Filter.h"
 #import "MWMSearchManager+Layout.h"
-#import "MWMSearchTableViewController.h"
 #import "MapViewController.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 extern NSString * const kAlohalyticsTapEventKey;
 extern NSString * const kSearchStateKey = @"SearchStateKey";

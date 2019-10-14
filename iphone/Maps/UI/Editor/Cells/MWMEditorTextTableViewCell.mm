@@ -1,7 +1,6 @@
 #import "MWMEditorTextTableViewCell.h"
 #import "MWMEditorCommon.h"
 #import "UIImageView+Coloring.h"
-#import "UITextField+RuntimeAttributes.h"
 
 namespace
 {

@@ -1,8 +1,6 @@
 #import "MWMOpeningHoursCommon.h"
 #import "MWMOpeningHoursModel.h"
-#import "MWMOpeningHoursSection.h"
 
-#include "editor/opening_hours_ui.hpp"
 #include "editor/ui2oh.hpp"
 
 extern UITableViewRowAnimation const kMWMOpeningHoursEditorRowAnimation = UITableViewRowAnimationFade;

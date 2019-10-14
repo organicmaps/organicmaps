@@ -14,13 +14,8 @@
 
 #include "partners_api/downloader_promo.hpp"
 
-#include "storage/country_info_getter.hpp"
-
 #include "platform/local_country_file_utils.hpp"
 #include "platform/network_policy.hpp"
-#include "platform/preferred_languages.hpp"
-
-#include "base/assert.hpp"
 
 namespace {
 CGSize constexpr kInitialDialogSize = {200, 200};

@@ -6,7 +6,6 @@
 #import "Statistics.h"
 
 #include <CoreApi/Framework.h>
-#import <CoreApi/MWMFrameworkHelper.h>
 
 using namespace storage;
 

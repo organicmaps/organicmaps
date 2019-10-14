@@ -3,10 +3,6 @@
 #import "MWMOpeningHoursTableViewCell.h"
 #import "SwiftBridge.h"
 
-#include "editor/opening_hours_ui.hpp"
-
-#include "3party/opening_hours/opening_hours.hpp"
-
 extern NSDictionary * const kMWMOpeningHoursEditorTableCells;
 
 extern UITableViewRowAnimation const kMWMOpeningHoursEditorRowAnimation;

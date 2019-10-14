@@ -1,8 +1,6 @@
 #import "MWMOpeningHoursDaysSelectorTableViewCell.h"
 #import "UIImageView+Coloring.h"
 
-#include "3party/opening_hours/opening_hours.hpp"
-
 @interface MWMOpeningHoursDaysSelectorTableViewCell ()
 
 @property (nonatomic) IBOutletCollection(UIButton) NSArray * buttons;

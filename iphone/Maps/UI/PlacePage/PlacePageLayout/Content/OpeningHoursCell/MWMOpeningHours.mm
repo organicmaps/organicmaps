@@ -1,8 +1,6 @@
 #import "MWMOpeningHours.h"
 #import "MWMOpeningHoursCommon.h"
 
-#include "3party/opening_hours/opening_hours.hpp"
-#include "editor/opening_hours_ui.hpp"
 #include "editor/ui2oh.hpp"
 
 using namespace editor;

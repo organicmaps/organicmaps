@@ -1,5 +1,4 @@
 #import "MWMMyTarget.h"
-#import <MyTargetSDK/MTRGManager.h>
 #import <MyTargetSDK/MTRGNativeAppwallAd.h>
 #import "MWMSettings.h"
 #import "MapsAppDelegate.h"

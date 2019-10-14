@@ -1,6 +1,5 @@
 #import "MWMBottomMenuCollectionViewCell.h"
 #import "SwiftBridge.h"
-#import "UIImageView+Coloring.h"
 
 @interface MWMBottomMenuCollectionViewCell ()
 

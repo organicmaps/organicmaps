@@ -2,12 +2,9 @@
 #import "MWMCoreUnits.h"
 #import "MWMMapViewControlsManager.h"
 #import "SwiftBridge.h"
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 #import "Flurry.h"
 
 #include <CoreApi/Framework.h>
-
-#include "platform/settings.hpp"
 
 namespace
 {

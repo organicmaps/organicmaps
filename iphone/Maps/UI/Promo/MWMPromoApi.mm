@@ -4,7 +4,6 @@
 #include <CoreApi/Framework.h>
 
 #include "platform/network_policy.hpp"
-#include "platform/preferred_languages.hpp"
 
 @implementation MWMPromoApi
 

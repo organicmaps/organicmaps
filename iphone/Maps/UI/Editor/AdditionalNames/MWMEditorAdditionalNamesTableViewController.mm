@@ -1,8 +1,6 @@
 #import "MWMEditorAdditionalNamesTableViewController.h"
 #import "MWMTableViewCell.h"
 
-#include "indexer/editable_map_object.hpp"
-
 @interface MWMEditorAdditionalNamesTableViewController ()
 
 @property (nonatomic) NSInteger selectedLanguageCode;

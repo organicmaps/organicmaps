@@ -4,17 +4,7 @@
 
 #include <CoreApi/Framework.h>
 
-#include "indexer/classificator.hpp"
-
 #include "platform/localization.hpp"
-
-#include "editor/new_feature_categories.hpp"
-
-#include <algorithm>
-#include <string>
-#include <unordered_map>
-#include <utility>
-#include <vector>
 
 using namespace osm;
 

@@ -1,24 +1,11 @@
 #import "MWMSearch.h"
-#import <Crashlytics/Crashlytics.h>
 #import "MWMBannerHelpers.h"
 #import "MWMFrameworkListener.h"
 #import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
 
-#include "partners_api/booking_availability_params.hpp"
 #include "partners_api/ads_engine.hpp"
-
-#include "map/everywhere_search_params.hpp"
-#include "map/viewport_search_params.hpp"
-
-#include "map/booking_filter_params.hpp"
-
-#include "platform/network_policy.hpp"
-
-#include <chrono>
-#include <memory>
-#include <utility>
 
 namespace
 {

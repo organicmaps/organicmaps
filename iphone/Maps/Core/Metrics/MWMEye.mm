@@ -1,7 +1,6 @@
 #import "MWMEye.h"
 
 #include <CoreApi/Framework.h>
-#include "metrics/eye.hpp"
 
 @implementation MWMEye
 

@@ -18,11 +18,8 @@
 #import "MWMiPhonePlacePageLayoutImpl.h"
 #import "MapViewController.h"
 #import "SwiftBridge.h"
-#import "Statistics.h"
 
 #include "partners_api/booking_api.hpp"
-
-#include "storage/storage_defines.hpp"
 
 #import <CoreApi/CoreApi.h>
 

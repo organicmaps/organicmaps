@@ -1,14 +1,10 @@
 #import "MWMLocationManager.h"
-#import <Pushwoosh/PushNotificationManager.h>
 #import "MWMAlertViewController.h"
-#import "MWMGeoTrackerCore.h"
 #import "MWMLocationObserver.h"
 #import "MWMLocationPredictor.h"
 #import "MWMRouter.h"
 #import "MapsAppDelegate.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include <CoreApi/Framework.h>
 

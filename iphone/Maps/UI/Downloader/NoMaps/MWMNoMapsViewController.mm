@@ -2,7 +2,6 @@
 #import "MWMMapDownloaderMode.h"
 #import "MWMMapViewControlsManager.h"
 #import "SwiftBridge.h"
-#import "UIViewController+Navigation.h"
 
 @implementation MWMNoMapsViewController
 

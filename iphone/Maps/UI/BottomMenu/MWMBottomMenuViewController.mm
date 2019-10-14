@@ -14,8 +14,6 @@
 
 #include <CoreApi/Framework.h>
 
-#include "platform/platform.hpp"
-
 extern NSString * const kAlohalyticsTapEventKey;
 extern NSString * const kSearchStateKey;
 

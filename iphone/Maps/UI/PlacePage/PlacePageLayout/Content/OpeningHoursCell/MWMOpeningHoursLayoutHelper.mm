@@ -4,9 +4,6 @@
 #import "MWMTableViewCell.h"
 #import "SwiftBridge.h"
 
-#include <array>
-#include <vector>
-
 @interface MWMPlacePageData()
 
 - (std::vector<place_page::MetainfoRows> &)mutableMetainfoRows;

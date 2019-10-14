@@ -4,7 +4,6 @@
 #import "MWMDiscoveryHotelViewModel.h"
 #import "MWMDiscoverySearchViewModel.h"
 #import "MWMDiscoveryGuideViewModel.h"
-#import "MWMRatingSummaryViewValueType.h"
 
 #include "map/place_page_info.hpp"
 
@@ -12,7 +11,6 @@
 #include "platform/measurement_utils.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
-#include "geometry/mercator.hpp"
 
 using namespace discovery;
 

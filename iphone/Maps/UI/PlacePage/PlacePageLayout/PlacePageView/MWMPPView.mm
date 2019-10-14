@@ -1,5 +1,4 @@
 #import "MWMPPView.h"
-#import "MWMPlacePageActionBar.h"
 #import "SwiftBridge.h"
 
 namespace

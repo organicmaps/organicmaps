@@ -5,8 +5,6 @@
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
-#include "indexer/classificator.hpp"
-
 #include "platform/localization.hpp"
 
 namespace

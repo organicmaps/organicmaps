@@ -5,11 +5,8 @@
 #import "MWMOpeningHoursClosedSpanTableViewCell.h"
 #import "MWMOpeningHoursDaysSelectorTableViewCell.h"
 #import "MWMOpeningHoursDeleteScheduleTableViewCell.h"
-#import "MWMOpeningHoursModel.h"
-#import "MWMOpeningHoursSection.h"
 #import "MWMOpeningHoursTimeSelectorTableViewCell.h"
 #import "MWMOpeningHoursTimeSpanTableViewCell.h"
-#import "MWMTextView.h"
 #import "SwiftBridge.h"
 
 extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{

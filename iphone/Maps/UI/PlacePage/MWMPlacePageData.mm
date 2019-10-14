@@ -1,28 +1,14 @@
 #import "MWMPlacePageData.h"
-#import "LocaleTranslator.h"
 #import "MWMDiscoveryCityGalleryObjects.h"
 #import "MWMDiscoveryGuideViewModel.h"
 #import "MWMBannerHelpers.h"
 #import "MWMUGCViewModel.h"
-#import "Statistics.h"
 
 #import <CoreApi/CoreApi.h>
 
-#include "local_ads/event.hpp"
-
-#include "map/bookmark_helpers.hpp"
 #include "map/utils.hpp"
 
-#include "platform/preferred_languages.hpp"
-
-#include "partners_api/booking_api.hpp"
-#include "partners_api/booking_block_params.hpp"
-#include "partners_api/promo_api.hpp"
-
 #include "3party/opening_hours/opening_hours.hpp"
-
-#include <string>
-#include <utility>
 
 using namespace place_page;
 
