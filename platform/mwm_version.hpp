@@ -75,8 +75,8 @@ bool IsSingleMwm(int64_t version);
 /// Returns MwmType (SeparateMwms/SingleMwm/Unknown) on the basis of mwm version and format.
 MwmType GetMwmType(MwmVersion const & version);
 
-/// \brief This enum sets constants which are used for writing test to set a version of mwm
-/// which should be processed as either single or two components (mwm and routing) mwms.
+/// \brief This enum sets constants which are used for
+/// writing test to set a version of mwm which should be processed.
 enum ForTesting
 {
   FOR_TESTING_MWM1 = 991215,

@@ -516,6 +516,11 @@ Framework::Framework(FrameworkParams const & params)
 
   m_promoApi->SetDelegate(make_unique<PromoDelegate>(m_featuresFetcher.GetDataSource(), *m_cityFinder));
   eye::Eye::Instance().Subscribe(m_promoApi.get());
+
+  // Clean the no longer used key from old devices.
+  // Remove this line after April 2020 (assuming the majority of devices
+  // will have updated by then).
+  GetPlatform().RunTask(Platform::Thread::Gui, [] { settings::Delete("LastMigration"); });
 }
 
 Framework::~Framework()

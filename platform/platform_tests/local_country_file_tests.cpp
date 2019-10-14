@@ -121,6 +121,45 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
   }
 }
 
+UNIT_TEST(LocalCountryFile_CleanupMapFiles)
+{
+  Platform & platform = GetPlatform();
+  string const mapsDir = platform.WritableDir();
+
+  // Two fake directories for test country files and indexes.
+  ScopedDir dir3("3");
+  ScopedDir dir4("4");
+
+  ScopedDir absentCountryIndexesDir(dir4, "Absent");
+  ScopedDir irelandIndexesDir(dir4, "Ireland");
+
+  CountryFile irelandFile("Ireland");
+
+  LocalCountryFile irelandLocalFile(dir4.GetFullPath(), irelandFile, 4 /* version */);
+  ScopedFile irelandMapFile(dir4, irelandFile, MapFileType::Map);
+
+  // Check FindAllLocalMaps()
+  vector<LocalCountryFile> localFiles;
+  FindAllLocalMapsAndCleanup(4 /* latestVersion */, localFiles);
+  TEST(Contains(localFiles, irelandLocalFile), (irelandLocalFile, localFiles));
+
+  irelandLocalFile.SyncWithDisk();
+  TEST(irelandLocalFile.OnDisk(MapFileType::Map), ());
+  irelandLocalFile.DeleteFromDisk(MapFileType::Map);
+  TEST(!irelandMapFile.Exists(), (irelandMapFile));
+  irelandMapFile.Reset();
+
+  TEST(!dir3.Exists(), ("Empty directory", dir3, "wasn't removed."));
+  dir3.Reset();
+
+  TEST(dir4.Exists(), ());
+
+  TEST(!absentCountryIndexesDir.Exists(), ("Indexes for absent country weren't deleted."));
+  absentCountryIndexesDir.Reset();
+
+  TEST(irelandIndexesDir.Exists(), ());
+}
+
 UNIT_TEST(LocalCountryFile_CleanupPartiallyDownloadedFiles)
 {
   ScopedDir oldDir("101009");

@@ -40,9 +40,7 @@ public:
   // The directory must contain a full path to the country file.
   LocalCountryFile(std::string const & directory, CountryFile const & countryFile, int64_t version);
 
-  // Syncs internal state like availability of map and routing files,
-  // their sizes etc. with disk.
-  // In case of one component (single) mwm this method assumed the every mwm has a routing section.
+  // Syncs internal state like availability of files, their sizes etc. with disk.
   // Generality speaking it's not always true. To know it for sure it's necessary to read a mwm in
   // this method but it's not implemented by performance reasons. This check is done on
   // building routes stage.

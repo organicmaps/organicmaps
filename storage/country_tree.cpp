@@ -326,7 +326,7 @@ CountryTree::Node const * const CountryTree::FindFirstLeaf(CountryId const & key
 }
 
 MwmSubtreeAttrs LoadGroupImpl(size_t depth, json_t * node, CountryId const & parent,
-                                        StoreInterface & store)
+                              StoreInterface & store)
 {
   CountryId id;
   FromJSONObject(node, "id", id);
@@ -336,7 +336,6 @@ MwmSubtreeAttrs LoadGroupImpl(size_t depth, json_t * node, CountryId const & par
   for (auto const & synonym : countryNameSynonyms)
     store.InsertCountryNameSynonym(id, synonym);
 
-  // Mapping affiliations to one component (small) mwms.
   vector<string> affiliations;
   FromJSONObjectOptionalField(node, "affiliations", affiliations);
   for (auto const & affilationValue : affiliations)

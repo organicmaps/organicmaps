@@ -167,7 +167,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
 
     Map<String, String> group = new HashMap<>();
     group.put(GROUP_NAME, getString(R.string.maps) + " (" + mMissingMaps.size() + ") ");
-    group.put(GROUP_SIZE, (StringUtils.getFileSizeString(size)));
+    group.put(GROUP_SIZE, StringUtils.getFileSizeString(size));
 
     List<Map<String, String>> groups = new ArrayList<>();
     groups.add(group);
