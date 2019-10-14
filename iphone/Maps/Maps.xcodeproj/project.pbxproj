@@ -20,7 +20,6 @@
 		33603C85219F0F6300B11FFE /* SharingPropertiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33603C84219F0F6300B11FFE /* SharingPropertiesViewController.swift */; };
 		337F98A321D37B5800C8AC27 /* SearchHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 337F98A021D37B5700C8AC27 /* SearchHistoryViewController.xib */; };
 		337F98A621D37B7400C8AC27 /* SearchTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337F98A521D37B7400C8AC27 /* SearchTabViewController.swift */; };
-		337F98B021D3B60600C8AC27 /* MWMSearchFrameworkHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 337F98AF21D3B60600C8AC27 /* MWMSearchFrameworkHelper.mm */; };
 		337F98B221D3BAE600C8AC27 /* SearchCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337F98B121D3BAE600C8AC27 /* SearchCategoriesViewController.swift */; };
 		337F98B421D3C9F200C8AC27 /* SearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337F98B321D3C9F200C8AC27 /* SearchHistoryViewController.swift */; };
 		337F98B821D3D67E00C8AC27 /* SearchHistoryQueryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337F98B721D3D67E00C8AC27 /* SearchHistoryQueryCell.swift */; };
@@ -57,7 +56,6 @@
 		3404756E1E081A4600C92850 /* MWMSearch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3404753D1E081A4600C92850 /* MWMSearch.mm */; };
 		340475711E081A4600C92850 /* MWMSettings.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475411E081A4600C92850 /* MWMSettings.mm */; };
 		340475741E081A4600C92850 /* MWMStorage.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475441E081A4600C92850 /* MWMStorage.mm */; };
-		340475771E081A4600C92850 /* MWMTrafficManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475471E081A4600C92850 /* MWMTrafficManager.mm */; };
 		3404757E1E081B3300C92850 /* iosOGLContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3404757A1E081B3300C92850 /* iosOGLContext.mm */; };
 		340475811E081B3300C92850 /* iosOGLContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3404757C1E081B3300C92850 /* iosOGLContextFactory.mm */; };
 		3404F48B202894EA0090E401 /* BMCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404F489202894EA0090E401 /* BMCViewController.swift */; };
@@ -153,7 +151,6 @@
 		3472B5CF200F4A2B00DC6CD5 /* BackgroundFetchTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5CD200F4A2B00DC6CD5 /* BackgroundFetchTask.swift */; };
 		3472B5D3200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5D1200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift */; };
 		3472B5E1200F86C800DC6CD5 /* MWMEditorHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5DF200F86C800DC6CD5 /* MWMEditorHelper.mm */; };
-		3472B5EB200F8CFF00DC6CD5 /* MWMUGCHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5E9200F8CFF00DC6CD5 /* MWMUGCHelper.mm */; };
 		34763EE71F2F392300F4D2D3 /* MWMTextToSpeech.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34763EE51F2F392300F4D2D3 /* MWMTextToSpeech.mm */; };
 		34763F071F3092E700F4D2D3 /* String+Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34763F051F3092E700F4D2D3 /* String+Format.swift */; };
 		3476B8DD1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */; };
@@ -386,7 +383,6 @@
 		474AC76C2139E4F2002F9BF9 /* RemoveAdsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474AC76A2139E4F2002F9BF9 /* RemoveAdsViewController.swift */; };
 		474AC76D2139E4F2002F9BF9 /* RemoveAdsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 474AC76B2139E4F2002F9BF9 /* RemoveAdsViewController.xib */; };
 		474C9F5A213FF75800369009 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 474C9F59213FF75800369009 /* StoreKit.framework */; };
-		474C9F632141896800369009 /* MWMEye.mm in Sources */ = {isa = PBXBuildFile; fileRef = 474C9F622141896800369009 /* MWMEye.mm */; };
 		4767CD9F20AAD48A00BD8166 /* Checkmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CD9E20AAD48A00BD8166 /* Checkmark.swift */; };
 		4767CDA420AAF66B00BD8166 /* NSAttributedString+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */; };
 		4767CDA620AB1F6200BD8166 /* LeftAlignedIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA520AB1F6200BD8166 /* LeftAlignedIconButton.swift */; };
@@ -870,8 +866,6 @@
 		33603C84219F0F6300B11FFE /* SharingPropertiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingPropertiesViewController.swift; sourceTree = "<group>"; };
 		337F98A021D37B5700C8AC27 /* SearchHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchHistoryViewController.xib; sourceTree = "<group>"; };
 		337F98A521D37B7400C8AC27 /* SearchTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTabViewController.swift; sourceTree = "<group>"; };
-		337F98AE21D3B60600C8AC27 /* MWMSearchFrameworkHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSearchFrameworkHelper.h; sourceTree = "<group>"; };
-		337F98AF21D3B60600C8AC27 /* MWMSearchFrameworkHelper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchFrameworkHelper.mm; sourceTree = "<group>"; };
 		337F98B121D3BAE600C8AC27 /* SearchCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoriesViewController.swift; sourceTree = "<group>"; };
 		337F98B321D3C9F200C8AC27 /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
 		337F98B721D3D67E00C8AC27 /* SearchHistoryQueryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryQueryCell.swift; sourceTree = "<group>"; };
@@ -931,8 +925,6 @@
 		340475411E081A4600C92850 /* MWMSettings.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSettings.mm; sourceTree = "<group>"; };
 		340475431E081A4600C92850 /* MWMStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMStorage.h; sourceTree = "<group>"; };
 		340475441E081A4600C92850 /* MWMStorage.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMStorage.mm; sourceTree = "<group>"; };
-		340475461E081A4600C92850 /* MWMTrafficManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTrafficManager.h; sourceTree = "<group>"; };
-		340475471E081A4600C92850 /* MWMTrafficManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTrafficManager.mm; sourceTree = "<group>"; };
 		340475791E081B3300C92850 /* iosOGLContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iosOGLContext.h; sourceTree = "<group>"; };
 		3404757A1E081B3300C92850 /* iosOGLContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = iosOGLContext.mm; sourceTree = "<group>"; };
 		3404757B1E081B3300C92850 /* iosOGLContextFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iosOGLContextFactory.h; sourceTree = "<group>"; };
@@ -1076,8 +1068,6 @@
 		3472B5D1200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundFetchTaskFrameworkType.swift; sourceTree = "<group>"; };
 		3472B5DE200F86C800DC6CD5 /* MWMEditorHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMEditorHelper.h; sourceTree = "<group>"; };
 		3472B5DF200F86C800DC6CD5 /* MWMEditorHelper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorHelper.mm; sourceTree = "<group>"; };
-		3472B5E8200F8CFF00DC6CD5 /* MWMUGCHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMUGCHelper.h; sourceTree = "<group>"; };
-		3472B5E9200F8CFF00DC6CD5 /* MWMUGCHelper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMUGCHelper.mm; sourceTree = "<group>"; };
 		347526FA1DC0B00F00918CF5 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../../xcode/common-debug.xcconfig"; sourceTree = "<group>"; };
 		347526FB1DC0B00F00918CF5 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../../xcode/common-release.xcconfig"; sourceTree = "<group>"; };
 		34763EE41F2F392300F4D2D3 /* MWMTextToSpeech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTextToSpeech.h; sourceTree = "<group>"; };
@@ -1468,8 +1458,6 @@
 		474AC76A2139E4F2002F9BF9 /* RemoveAdsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAdsViewController.swift; sourceTree = "<group>"; };
 		474AC76B2139E4F2002F9BF9 /* RemoveAdsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoveAdsViewController.xib; sourceTree = "<group>"; };
 		474C9F59213FF75800369009 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		474C9F612141896800369009 /* MWMEye.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMEye.h; sourceTree = "<group>"; };
-		474C9F622141896800369009 /* MWMEye.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEye.mm; sourceTree = "<group>"; };
 		4767CD9E20AAD48A00BD8166 /* Checkmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkmark.swift; sourceTree = "<group>"; };
 		4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+HTML.swift"; sourceTree = "<group>"; };
 		4767CDA520AB1F6200BD8166 /* LeftAlignedIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedIconButton.swift; sourceTree = "<group>"; };
@@ -2485,7 +2473,6 @@
 				470F5A7B2189BA7200754295 /* InappPurchase */,
 				474C9F602141894300369009 /* Metrics */,
 				472E3F4221468AF40020E412 /* Subscriptions */,
-				3472B5E7200F8CEB00DC6CD5 /* UGC */,
 				3472B5DD200F868E00DC6CD5 /* Editor */,
 				3472B5C8200F436700DC6CD5 /* BackgroundFetchScheduler */,
 				34F4071C1E9E1AFF00E57AC0 /* Ads */,
@@ -2500,7 +2487,6 @@
 				3404753F1E081A4600C92850 /* Settings */,
 				340475421E081A4600C92850 /* Storage */,
 				34763EE31F2F392300F4D2D3 /* TextToSpeech */,
-				340475451E081A4600C92850 /* Traffic */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -2583,15 +2569,6 @@
 				340475441E081A4600C92850 /* MWMStorage.mm */,
 			);
 			path = Storage;
-			sourceTree = "<group>";
-		};
-		340475451E081A4600C92850 /* Traffic */ = {
-			isa = PBXGroup;
-			children = (
-				340475461E081A4600C92850 /* MWMTrafficManager.h */,
-				340475471E081A4600C92850 /* MWMTrafficManager.mm */,
-			);
-			path = Traffic;
 			sourceTree = "<group>";
 		};
 		3404F4A02028A6C00090E401 /* Categories */ = {
@@ -2997,15 +2974,6 @@
 				3472B5CD200F4A2B00DC6CD5 /* BackgroundFetchTask.swift */,
 			);
 			path = BackgroundFetchTask;
-			sourceTree = "<group>";
-		};
-		3472B5E7200F8CEB00DC6CD5 /* UGC */ = {
-			isa = PBXGroup;
-			children = (
-				3472B5E8200F8CFF00DC6CD5 /* MWMUGCHelper.h */,
-				3472B5E9200F8CFF00DC6CD5 /* MWMUGCHelper.mm */,
-			);
-			path = UGC;
 			sourceTree = "<group>";
 		};
 		34763EE31F2F392300F4D2D3 /* TextToSpeech */ = {
@@ -3534,8 +3502,6 @@
 		474C9F602141894300369009 /* Metrics */ = {
 			isa = PBXGroup;
 			children = (
-				474C9F612141896800369009 /* MWMEye.h */,
-				474C9F622141896800369009 /* MWMEye.mm */,
 			);
 			path = Metrics;
 			sourceTree = "<group>";
@@ -4530,8 +4496,6 @@
 				F6E2FD0F1E097B9F0083EBEC /* HistoryTab */,
 				F6E2FD231E097BA00083EBEC /* MWMSearchTabbedViewProtocol.h */,
 				337F98A521D37B7400C8AC27 /* SearchTabViewController.swift */,
-				337F98AE21D3B60600C8AC27 /* MWMSearchFrameworkHelper.h */,
-				337F98AF21D3B60600C8AC27 /* MWMSearchFrameworkHelper.mm */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
@@ -5195,7 +5159,6 @@
 				349FC5481F680DAE00968C9F /* ExpandableReviewView.swift in Sources */,
 				F6E2FF5A1E097BA00083EBEC /* MWMNightModeController.mm in Sources */,
 				47F86D0120C93D8D00FEE291 /* TabViewController.swift in Sources */,
-				337F98B021D3B60600C8AC27 /* MWMSearchFrameworkHelper.mm in Sources */,
 				6741A9A51BF340DE002C974C /* MWMShareActivityItem.mm in Sources */,
 				3408963F1F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm in Sources */,
 				F6E2FE1F1E097BA00083EBEC /* MWMOpeningHoursCommon.mm in Sources */,
@@ -5309,7 +5272,6 @@
 				47E3C72D2111E6A2008B3B27 /* FadeTransitioning.swift in Sources */,
 				34845DAF1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */,
 				CD6E8677226774C700D1EDF7 /* CPConstants.swift in Sources */,
-				474C9F632141896800369009 /* MWMEye.mm in Sources */,
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */,
 				479D306522C664CE00D18278 /* MWMDownloadBannerViewController.m in Sources */,
 				F6E2FEDF1E097BA00083EBEC /* MWMSearchManager+Layout.mm in Sources */,
@@ -5432,7 +5394,7 @@
 				348A8DFB1F66775A00D83026 /* RatingViewSettings.swift in Sources */,
 				3472B5E1200F86C800DC6CD5 /* MWMEditorHelper.mm in Sources */,
 				47B06DF021B697230094CCAD /* MWMGeoTrackerCore.mm in Sources */,
-				F6E2FD501E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
+				F6E2FD501E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.m in Sources */,
 				4719A643219CB61D009F9AA7 /* BillingPendingTransaction.swift in Sources */,
 				CD9AD96F2281DF3600EC174A /* CategoryInfo.swift in Sources */,
 				F6E2FE881E097BA00083EBEC /* MWMPlacePageRegularCell.mm in Sources */,
@@ -5477,7 +5439,6 @@
 				F6E2FF3C1E097BA00083EBEC /* MWMSearchTableView.mm in Sources */,
 				F6E2FF661E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
 				3DD1A20F22D8DD1100B158F4 /* MWMPromoApi.mm in Sources */,
-				3472B5EB200F8CFF00DC6CD5 /* MWMUGCHelper.mm in Sources */,
 				3454D7C21E07F045004AF2AD /* NSString+Categories.mm in Sources */,
 				6741A9FE1BF340DE002C974C /* SelectSetVC.mm in Sources */,
 				4767CDC120B477BA00BD8166 /* WelcomeViewController.swift in Sources */,
@@ -5622,7 +5583,6 @@
 				F6E2FE971E097BA00083EBEC /* ContextViews.mm in Sources */,
 				344532561F7155540059FBCC /* UGCReviewModel.swift in Sources */,
 				6741AA1D1BF340DE002C974C /* MWMDownloadTransitMapAlert.mm in Sources */,
-				340475771E081A4600C92850 /* MWMTrafficManager.mm in Sources */,
 				346B42AC1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm in Sources */,
 				340475091E08199E00C92850 /* MWMMyTarget.mm in Sources */,
 				340416501E7C086000E2B6D6 /* PhotoViewController.swift in Sources */,

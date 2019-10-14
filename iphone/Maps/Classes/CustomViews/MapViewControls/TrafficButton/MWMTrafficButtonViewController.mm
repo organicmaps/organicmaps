@@ -1,9 +1,11 @@
 #import "MWMTrafficButtonViewController.h"
+
+#import <CoreApi/MWMTrafficManager.h>
+
 #import "MWMAlertViewController.h"
 #import "MWMButton.h"
 #import "MWMMapViewControlsCommon.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMTrafficManager.h"
 #import "MapViewController.h"
 #import "SwiftBridge.h"
 

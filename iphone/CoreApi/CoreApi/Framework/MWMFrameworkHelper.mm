@@ -1,27 +1,25 @@
 #import "MWMFrameworkHelper.h"
 
-#include <CoreApi/Framework.h>
+#include "Framework.h"
 
 #include "base/sunrise_sunset.hpp"
 
 #include "map/crown.hpp"
 
-#include "platform/network_policy_ios.h"
 #include "platform/local_country_file_utils.hpp"
+#include "platform/network_policy_ios.h"
 
 @implementation MWMFrameworkHelper
 
-+ (void)processFirstLaunch:(BOOL)hasLocation
-{
-  auto & f = GetFramework();
++ (void)processFirstLaunch:(BOOL)hasLocation {
+  auto &f = GetFramework();
   if (!hasLocation)
     f.SwitchMyPositionNextMode();
   else
     f.RunFirstLaunchAnimation();
 }
 
-+ (void)setVisibleViewport:(CGRect)rect scaleFactor:(CGFloat)scale
-{
++ (void)setVisibleViewport:(CGRect)rect scaleFactor:(CGFloat)scale {
   CGFloat const x0 = rect.origin.x * scale;
   CGFloat const y0 = rect.origin.y * scale;
   CGFloat const x1 = x0 + rect.size.width * scale;
@@ -29,19 +27,23 @@
   GetFramework().SetVisibleViewport(m2::RectD(x0, y0, x1, y1));
 }
 
-+ (void)setTheme:(MWMTheme)theme
-{
-  auto & f = GetFramework();
++ (void)setTheme:(MWMTheme)theme {
+  auto &f = GetFramework();
 
   auto const style = f.GetMapStyle();
   auto const newStyle = ^MapStyle(MWMTheme theme) {
-    switch (theme)
-    {
-    case MWMThemeDay: return MapStyleClear;
-    case MWMThemeVehicleDay: return MapStyleVehicleClear;
-    case MWMThemeNight: return MapStyleDark;
-    case MWMThemeVehicleNight: return MapStyleVehicleDark;
-    case MWMThemeAuto: NSAssert(NO, @"Invalid theme"); return MapStyleClear;
+    switch (theme) {
+      case MWMThemeDay:
+        return MapStyleClear;
+      case MWMThemeVehicleDay:
+        return MapStyleVehicleClear;
+      case MWMThemeNight:
+        return MapStyleDark;
+      case MWMThemeVehicleNight:
+        return MapStyleVehicleDark;
+      case MWMThemeAuto:
+        NSAssert(NO, @"Invalid theme");
+        return MapStyleClear;
     }
   }(theme);
 
@@ -49,36 +51,34 @@
     f.SetMapStyle(newStyle);
 }
 
-+ (MWMDayTime)daytimeAtLocation:(CLLocation *)location
-{
++ (MWMDayTime)daytimeAtLocation:(CLLocation *)location {
   if (!location)
     return MWMDayTimeDay;
-  DayTimeType dayTime = GetDayTime(NSDate.date.timeIntervalSince1970,
-                                   location.coordinate.latitude,
-                                   location.coordinate.longitude);
-  switch (dayTime)
-  {
-  case DayTimeType::Day:
-  case DayTimeType::PolarDay: return MWMDayTimeDay;
-  case DayTimeType::Night:
-  case DayTimeType::PolarNight: return MWMDayTimeNight;
+  DayTimeType dayTime =
+    GetDayTime(NSDate.date.timeIntervalSince1970, location.coordinate.latitude, location.coordinate.longitude);
+  switch (dayTime) {
+    case DayTimeType::Day:
+    case DayTimeType::PolarDay:
+      return MWMDayTimeDay;
+    case DayTimeType::Night:
+    case DayTimeType::PolarNight:
+      return MWMDayTimeNight;
   }
 }
 
-+ (void)createFramework { UNUSED_VALUE(GetFramework()); }
++ (void)createFramework {
+  UNUSED_VALUE(GetFramework());
+}
 
-+ (BOOL)canUseNetwork
-{
++ (BOOL)canUseNetwork {
   return network_policy::CanUseNetwork();
 }
 
-+ (BOOL)isNetworkConnected
-{
++ (BOOL)isNetworkConnected {
   return GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_NONE;
 }
 
-+ (BOOL)isWiFiConnected
-{
++ (BOOL)isWiFiConnected {
   return GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI;
 }
 
@@ -93,14 +93,14 @@
   }
 }
 
-+ (MWMMarkGroupID)invalidCategoryId { return kml::kInvalidMarkGroupId; }
++ (MWMMarkGroupID)invalidCategoryId {
+  return kml::kInvalidMarkGroupId;
+}
 
-+ (NSArray<NSString *> *)obtainLastSearchQueries
-{
-  NSMutableArray * result = [NSMutableArray array];
-  auto const & queries = GetFramework().GetLastSearchQueries();
-  for (auto const & item : queries)
-  {
++ (NSArray<NSString *> *)obtainLastSearchQueries {
+  NSMutableArray *result = [NSMutableArray array];
+  auto const &queries = GetFramework().GetLastSearchQueries();
+  for (auto const &item : queries) {
     [result addObject:@(item.second.c_str())];
   }
   return [result copy];
@@ -108,9 +108,8 @@
 
 #pragma mark - Map Interaction
 
-+ (void)zoomMap:(MWMZoomMode)mode
-{
-  switch(mode) {
++ (void)zoomMap:(MWMZoomMode)mode {
+  switch (mode) {
     case MWMZoomModeIn:
       GetFramework().Scale(Framework::SCALE_MAG, true);
       break;
@@ -120,23 +119,19 @@
   }
 }
 
-+ (void)moveMap:(UIOffset)offset
-{
++ (void)moveMap:(UIOffset)offset {
   GetFramework().Move(offset.horizontal, offset.vertical, true);
 }
 
-+ (void)deactivateMapSelection:(BOOL)notifyUI
-{
++ (void)deactivateMapSelection:(BOOL)notifyUI {
   GetFramework().DeactivateMapSelection(notifyUI);
 }
 
-+ (void)switchMyPositionMode
-{
++ (void)switchMyPositionMode {
   GetFramework().SwitchMyPositionNextMode();
 }
 
-+ (void)stopLocationFollow
-{
++ (void)stopLocationFollow {
   GetFramework().StopLocationFollow();
 }
 
@@ -150,6 +145,12 @@
 
 + (BOOL)shouldShowCrown {
   return crown::NeedToShow(GetFramework().GetPurchase());
+}
+
++ (void)uploadUGC:(void (^)(UIBackgroundFetchResult))completionHandler {
+  GetFramework().UploadUGC([completionHandler](bool isSuccessful) {
+    completionHandler(isSuccessful ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultFailed);
+  });
 }
 
 @end

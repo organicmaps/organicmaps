@@ -1,6 +1,6 @@
 #import "MWMEye.h"
 
-#include <CoreApi/Framework.h>
+#include "Framework.h"
 
 @implementation MWMEye
 

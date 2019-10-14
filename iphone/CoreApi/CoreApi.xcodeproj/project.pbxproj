@@ -18,8 +18,8 @@
 		479834EB2342697400724D1E /* MWMTagGroup+Convenience.mm in Sources */ = {isa = PBXBuildFile; fileRef = 479834E72342697200724D1E /* MWMTagGroup+Convenience.mm */; };
 		479834F023426C0100724D1E /* common-debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 479834EE23426C0100724D1E /* common-debug.xcconfig */; };
 		479834F123426C0100724D1E /* common-release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 479834EF23426C0100724D1E /* common-release.xcconfig */; };
-		479834F223426CCC00724D1E /* MWMTag+Convenience.h in Headers */ = {isa = PBXBuildFile; fileRef = 479834E82342697200724D1E /* MWMTag+Convenience.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		479834F323426CD200724D1E /* MWMTagGroup+Convenience.h in Headers */ = {isa = PBXBuildFile; fileRef = 479834E92342697300724D1E /* MWMTagGroup+Convenience.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		479834F223426CCC00724D1E /* MWMTag+Convenience.h in Headers */ = {isa = PBXBuildFile; fileRef = 479834E82342697200724D1E /* MWMTag+Convenience.h */; };
+		479834F323426CD200724D1E /* MWMTagGroup+Convenience.h in Headers */ = {isa = PBXBuildFile; fileRef = 479834E92342697300724D1E /* MWMTagGroup+Convenience.h */; };
 		479F7047234F774100011E2E /* MWMFrameworkHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 479F7046234F774000011E2E /* MWMFrameworkHelper.mm */; };
 		479F704A234F785B00011E2E /* MWMTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F7049234F785B00011E2E /* MWMTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		479F704B234F78AB00011E2E /* MWMFrameworkHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F7045234F774000011E2E /* MWMFrameworkHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -34,6 +34,12 @@
 		479F7062234FBC4700011E2E /* MWMCarPlayBookmarkObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 479F7061234FBC4600011E2E /* MWMCarPlayBookmarkObject.mm */; };
 		479F7063234FBC5900011E2E /* MWMCarPlayBookmarkObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F7060234FBC4500011E2E /* MWMCarPlayBookmarkObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47A65CAF235008E100DCD85F /* CoreApi-swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 47A65CAE235008C700DCD85F /* CoreApi-swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47C637D12354A6FB00E12DE0 /* MWMEye.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47C637CF2354A6FA00E12DE0 /* MWMEye.mm */; };
+		47C637D22354A6FB00E12DE0 /* MWMEye.h in Headers */ = {isa = PBXBuildFile; fileRef = 47C637D02354A6FB00E12DE0 /* MWMEye.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47C637D62354AEBE00E12DE0 /* MWMTrafficManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47C637D42354AEBD00E12DE0 /* MWMTrafficManager.mm */; };
+		47C637D72354AEBE00E12DE0 /* MWMTrafficManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 47C637D52354AEBE00E12DE0 /* MWMTrafficManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47C637DC2354B79B00E12DE0 /* MWMSearchFrameworkHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47C637DA2354B79A00E12DE0 /* MWMSearchFrameworkHelper.mm */; };
+		47C637DD2354B79B00E12DE0 /* MWMSearchFrameworkHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 47C637DB2354B79B00E12DE0 /* MWMSearchFrameworkHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47D609DC234FE625008ECC47 /* MWMBookmarksObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 47D609DB234FE625008ECC47 /* MWMBookmarksObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47EEAFF42350CEDB005CF316 /* AppInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47EEAFF22350CEDA005CF316 /* AppInfo.mm */; };
 		47EEAFF62350CF48005CF316 /* AppInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 47EEAFF32350CEDB005CF316 /* AppInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -72,6 +78,12 @@
 		479F7060234FBC4500011E2E /* MWMCarPlayBookmarkObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCarPlayBookmarkObject.h; sourceTree = "<group>"; };
 		479F7061234FBC4600011E2E /* MWMCarPlayBookmarkObject.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCarPlayBookmarkObject.mm; sourceTree = "<group>"; };
 		47A65CAE235008C700DCD85F /* CoreApi-swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CoreApi-swift.h"; sourceTree = "<group>"; };
+		47C637CF2354A6FA00E12DE0 /* MWMEye.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEye.mm; sourceTree = "<group>"; };
+		47C637D02354A6FB00E12DE0 /* MWMEye.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEye.h; sourceTree = "<group>"; };
+		47C637D42354AEBD00E12DE0 /* MWMTrafficManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTrafficManager.mm; sourceTree = "<group>"; };
+		47C637D52354AEBE00E12DE0 /* MWMTrafficManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTrafficManager.h; sourceTree = "<group>"; };
+		47C637DA2354B79A00E12DE0 /* MWMSearchFrameworkHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchFrameworkHelper.mm; sourceTree = "<group>"; };
+		47C637DB2354B79B00E12DE0 /* MWMSearchFrameworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchFrameworkHelper.h; sourceTree = "<group>"; };
 		47D609DB234FE625008ECC47 /* MWMBookmarksObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBookmarksObserver.h; sourceTree = "<group>"; };
 		47EEAFF22350CEDA005CF316 /* AppInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = AppInfo.mm; sourceTree = "<group>"; };
 		47EEAFF32350CEDB005CF316 /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfo.h; sourceTree = "<group>"; };
@@ -112,17 +124,12 @@
 		470015F12342509C00EBF03D /* CoreApi */ = {
 			isa = PBXGroup;
 			children = (
+				47C637D92354B76700E12DE0 /* Search */,
+				47C637D32354AEA800E12DE0 /* Traffic */,
+				47C637CE2354A6E600E12DE0 /* Metrics */,
 				479F704C234FB5C800011E2E /* Bookmarks */,
 				479F7048234F784B00011E2E /* Common */,
 				477C775523435B69001C5B4E /* Framework */,
-				470016042342540F00EBF03D /* MWMTag.h */,
-				470016062342541100EBF03D /* MWMTag.m */,
-				470016032342540E00EBF03D /* MWMTagGroup.h */,
-				470016052342541000EBF03D /* MWMTagGroup.m */,
-				479834E82342697200724D1E /* MWMTag+Convenience.h */,
-				479834E62342697100724D1E /* MWMTag+Convenience.mm */,
-				479834E92342697300724D1E /* MWMTagGroup+Convenience.h */,
-				479834E72342697200724D1E /* MWMTagGroup+Convenience.mm */,
 				470015F22342509C00EBF03D /* CoreApi.h */,
 				47A65CAE235008C700DCD85F /* CoreApi-swift.h */,
 				470015F32342509C00EBF03D /* Info.plist */,
@@ -186,12 +193,55 @@
 		479F7051234FB62A00011E2E /* Catalog */ = {
 			isa = PBXGroup;
 			children = (
+				47C637D82354B75200E12DE0 /* Tags */,
 				479F7052234FB65F00011E2E /* MWMCatalogCommon.h */,
 				479F704D234FB60400011E2E /* MWMCatalogObserver.h */,
 				479F704E234FB60400011E2E /* MWMCatalogObserver.mm */,
 				479F705A234FBAC200011E2E /* MWMUTM.h */,
 			);
 			path = Catalog;
+			sourceTree = "<group>";
+		};
+		47C637CE2354A6E600E12DE0 /* Metrics */ = {
+			isa = PBXGroup;
+			children = (
+				47C637D02354A6FB00E12DE0 /* MWMEye.h */,
+				47C637CF2354A6FA00E12DE0 /* MWMEye.mm */,
+			);
+			path = Metrics;
+			sourceTree = "<group>";
+		};
+		47C637D32354AEA800E12DE0 /* Traffic */ = {
+			isa = PBXGroup;
+			children = (
+				47C637D52354AEBE00E12DE0 /* MWMTrafficManager.h */,
+				47C637D42354AEBD00E12DE0 /* MWMTrafficManager.mm */,
+			);
+			path = Traffic;
+			sourceTree = "<group>";
+		};
+		47C637D82354B75200E12DE0 /* Tags */ = {
+			isa = PBXGroup;
+			children = (
+				470016042342540F00EBF03D /* MWMTag.h */,
+				470016062342541100EBF03D /* MWMTag.m */,
+				470016032342540E00EBF03D /* MWMTagGroup.h */,
+				470016052342541000EBF03D /* MWMTagGroup.m */,
+				479834E82342697200724D1E /* MWMTag+Convenience.h */,
+				479834E62342697100724D1E /* MWMTag+Convenience.mm */,
+				479834E92342697300724D1E /* MWMTagGroup+Convenience.h */,
+				479834E72342697200724D1E /* MWMTagGroup+Convenience.mm */,
+			);
+			path = Tags;
+			sourceTree = "<group>";
+		};
+		47C637D92354B76700E12DE0 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				47C637DB2354B79B00E12DE0 /* MWMSearchFrameworkHelper.h */,
+				47C637DA2354B79A00E12DE0 /* MWMSearchFrameworkHelper.mm */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,6 +258,7 @@
 				479F704F234FB60400011E2E /* MWMCatalogObserver.h in Headers */,
 				47EEAFF72350D060005CF316 /* MWMCommon.h in Headers */,
 				479F7056234FB7F200011E2E /* MWMBookmarksManager.h in Headers */,
+				47C637DD2354B79B00E12DE0 /* MWMSearchFrameworkHelper.h in Headers */,
 				479F704B234F78AB00011E2E /* MWMFrameworkHelper.h in Headers */,
 				479834F323426CD200724D1E /* MWMTagGroup+Convenience.h in Headers */,
 				470016102342579200EBF03D /* MWMTagGroup.h in Headers */,
@@ -217,8 +268,10 @@
 				4700160F2342579000EBF03D /* MWMTag.h in Headers */,
 				479F705B234FBB1100011E2E /* MWMUTM.h in Headers */,
 				479F704A234F785B00011E2E /* MWMTypes.h in Headers */,
+				47C637D72354AEBE00E12DE0 /* MWMTrafficManager.h in Headers */,
 				47D609DC234FE625008ECC47 /* MWMBookmarksObserver.h in Headers */,
 				475784C22344B422008291A4 /* Framework.h in Headers */,
+				47C637D22354A6FB00E12DE0 /* MWMEye.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +345,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				479F7050234FB60400011E2E /* MWMCatalogObserver.mm in Sources */,
+				47C637D12354A6FB00E12DE0 /* MWMEye.mm in Sources */,
+				47C637DC2354B79B00E12DE0 /* MWMSearchFrameworkHelper.mm in Sources */,
 				479F7062234FBC4700011E2E /* MWMCarPlayBookmarkObject.mm in Sources */,
 				479F705E234FBB8C00011E2E /* MWMCategory.m in Sources */,
 				479834EB2342697400724D1E /* MWMTagGroup+Convenience.mm in Sources */,
@@ -300,6 +355,7 @@
 				479F7047234F774100011E2E /* MWMFrameworkHelper.mm in Sources */,
 				470016072342541100EBF03D /* MWMTag.m in Sources */,
 				479834EA2342697400724D1E /* MWMTag+Convenience.mm in Sources */,
+				47C637D62354AEBE00E12DE0 /* MWMTrafficManager.mm in Sources */,
 				475784C32344B422008291A4 /* Framework.cpp in Sources */,
 				47EEAFF42350CEDB005CF316 /* AppInfo.mm in Sources */,
 			);
@@ -430,6 +486,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 479834EE23426C0100724D1E /* common-debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_COMMA = NO;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -464,6 +522,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 479834EF23426C0100724D1E /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_COMMA = NO;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;

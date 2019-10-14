@@ -4,7 +4,7 @@
 
 #include "platform/preferred_languages.hpp"
 
-#include <CoreApi/Framework.h>
+#include "Framework.h"
 
 @implementation MWMSearchFrameworkHelper
 

@@ -1,12 +1,12 @@
 #import "MWMDiscoveryController.h"
 
-#include <CoreApi/Framework.h>
+#import <CoreApi/CoreApi.h>
+
 #import "MWMDiscoveryControllerViewModel.h"
 #import "MWMDiscoveryCityGalleryObjects.h"
 #import "MWMDiscoveryMapObjects.h"
 #import "MWMDiscoveryTableManager.h"
 #import "MWMDiscoveryTapDelegate.h"
-#import "MWMEye.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"

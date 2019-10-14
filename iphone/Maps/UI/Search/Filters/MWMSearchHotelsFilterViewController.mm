@@ -1,6 +1,8 @@
 #import "MWMSearchHotelsFilterViewController.h"
+
+#import <CoreApi/MWMEye.h>
+
 #import "ActionSheetPicker.h"
-#import "MWMEye.h"
 #import "MWMSearchFilterViewController_Protected.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"

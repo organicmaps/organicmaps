@@ -1,5 +1,6 @@
 framework module CoreApi {
   header "AppInfo.h"
+  header "MWMEye.h"
   header "MWMCommon.h"
   header "MWMTypes.h"
   header "MWMBookmarksObserver.h"
@@ -11,4 +12,6 @@ framework module CoreApi {
   header "MWMTagGroup.h"
   header "MWMFrameworkHelper.h"
   header "MWMCarPlayBookmarkObject.h"
+  header "MWMTrafficManager.h"
+  header "MWMSearchFrameworkHelper.h"
 }
