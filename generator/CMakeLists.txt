@@ -206,7 +206,6 @@ set(
   translator_world.hpp
   translators_pool.cpp
   translators_pool.hpp
-  tree_node.hpp
   type_helper.cpp
   type_helper.hpp
   ugc_db.cpp

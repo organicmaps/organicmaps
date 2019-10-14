@@ -118,6 +118,7 @@ set(
   string_slice.hpp
   succinct_trie_builder.hpp
   succinct_trie_reader.hpp
+  tree_node.hpp
   tree_structure.hpp
   trie.hpp
   trie_builder.hpp

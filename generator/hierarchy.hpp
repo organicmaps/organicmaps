@@ -3,11 +3,11 @@
 #include "generator/feature_builder.hpp"
 #include "generator/gen_mwm_info.hpp"
 #include "generator/platform_helpers.hpp"
-#include "generator/tree_node.hpp"
 #include "generator/utils.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/tree_node.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/tree4d.hpp"
