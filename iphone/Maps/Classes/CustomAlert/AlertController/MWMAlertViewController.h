@@ -1,5 +1,6 @@
 #import "MWMAlert.h"
 #import "MWMViewController.h"
+#import "MWMMobileInternetAlert.h"
 
 @interface MWMAlertViewController : MWMViewController
 
@@ -39,7 +40,7 @@
 - (void)presentPersonalInfoWarningAlertWithBlock:(nonnull MWMVoidBlock)block;
 - (void)presentTrackWarningAlertWithCancelBlock:(nonnull MWMVoidBlock)block;
 - (void)presentSearchNoResultsAlert;
-- (void)presentMobileInternetAlertWithBlock:(nonnull MWMVoidBlock)block;
+- (void)presentMobileInternetAlertWithBlock:(nonnull MWMMobileInternetAlertCompletionBlock)block;
 - (void)presentInfoAlert:(nonnull NSString *)title text:(nonnull NSString *)text;
 - (void)presentCreateBookmarkCategoryAlertWithMaxCharacterNum:(NSUInteger)max
                                               minCharacterNum:(NSUInteger)min

@@ -8,12 +8,6 @@ typedef NS_ENUM(NSUInteger, MWMZoomMode) {
   MWMZoomModeOut
 };
 
-typedef NS_ENUM(NSInteger, MWMConnectionType) {
-  MWMConnectionTypeNone,
-  MWMConnectionTypeWifi,
-  MWMConnectionTypeCellular
-} NS_SWIFT_NAME(ConnectionType);
-
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(FrameworkHelper)
@@ -27,7 +21,6 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (BOOL)canUseNetwork;
 + (BOOL)isNetworkConnected;
 + (BOOL)isWiFiConnected;
-+ (MWMConnectionType)connectionType;
 + (MWMMarkGroupID)invalidCategoryId;
 + (void)zoomMap:(MWMZoomMode)mode;
 + (void)moveMap:(UIOffset)offset;

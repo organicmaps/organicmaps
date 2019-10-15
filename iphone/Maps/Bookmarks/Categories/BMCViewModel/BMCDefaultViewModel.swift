@@ -228,7 +228,7 @@ extension BMCDefaultViewModel {
 
   func requestRestoring() {
     let statusStr: String;
-    switch FrameworkHelper.connectionType() {
+    switch NetworkPolicy.shared().connectionType {
     case .none:
       statusStr = kStatOffline
     case .wifi:

@@ -6,7 +6,7 @@
 #import "MWMButton.h"
 #import "MWMDiscoveryController.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMNetworkPolicy.h"
+#import "MWMNetworkPolicy+UI.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
@@ -319,13 +319,12 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 - (IBAction)discoveryTap
 {
   [Statistics logEvent:kStatToolbarClick withParameters:@{kStatButton : kStatDiscovery}];
-
   self.state = self.restoreState;
 
-  network_policy::CallPartnersApi([self](auto const & canUseNetwork) {
-    auto discovery = [MWMDiscoveryController instanceWithConnection:canUseNetwork.CanUse()];
+  [[MWMNetworkPolicy sharedPolicy] callOnlineApi:^(BOOL canUseNetwork) {
+    MWMDiscoveryController *discovery = [MWMDiscoveryController instanceWithConnection:canUseNetwork];
     [self.mapViewController.navigationController pushViewController:discovery animated:YES];
-  });
+  }];
 }
 
 - (IBAction)bookmarksButtonTouchUpInside

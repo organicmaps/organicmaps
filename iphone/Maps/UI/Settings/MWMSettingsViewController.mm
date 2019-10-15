@@ -1,6 +1,5 @@
 #import "MWMSettingsViewController.h"
 #import "MWMAuthorizationCommon.h"
-#import "MWMNetworkPolicy.h"
 #import "MWMTextToSpeech+CPP.h"
 #import "SwiftBridge.h"
 
@@ -102,13 +101,18 @@ using namespace power_management;
                                           isOn:[[MWMBookmarksManager sharedManager] isCloudEnabled]];
 
   NSString * mobileInternet = nil;
-  switch (network_policy::GetStage())
-  {
-  case network_policy::Ask:
-  case network_policy::Today:
-  case network_policy::NotToday: mobileInternet = L(@"mobile_data_option_ask"); break;
-  case network_policy::Always: mobileInternet = L(@"mobile_data_option_always"); break;
-  case network_policy::Never: mobileInternet = L(@"mobile_data_option_never"); break;
+  switch([MWMNetworkPolicy sharedPolicy].permission) {
+    case MWMNetworkPolicyPermissionAlways:
+      mobileInternet = L(@"mobile_data_option_always");
+      break;
+    case MWMNetworkPolicyPermissionNever:
+      mobileInternet = L(@"mobile_data_option_never");
+      break;
+    case MWMNetworkPolicyPermissionToday:
+    case MWMNetworkPolicyPermissionNotToday:
+    case MWMNetworkPolicyPermissionAsk:
+      mobileInternet = L(@"mobile_data_option_ask");
+      break;
   }
   [self.mobileInternetCell configWithTitle:L(@"mobile_data") info:mobileInternet];
   

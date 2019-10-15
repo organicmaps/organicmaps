@@ -17,23 +17,21 @@ namespace network_policy
 {
 void SetStage(Stage stage)
 {
-  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
-  [ud setInteger:static_cast<NSInteger>(stage) forKey:kNetworkingPolicyStage];
-  [ud setObject:[NSDate dateWithTimeIntervalSinceNow:kSessionDurationSeconds]
-         forKey:kNetworkingPolicyTimeStamp];
+  NSUserDefaults *ud = NSUserDefaults.standardUserDefaults;
+  [ud setInteger:stage forKey:kNetworkingPolicyStage];
+  [ud setObject:[NSDate dateWithTimeIntervalSinceNow:kSessionDurationSeconds] forKey:kNetworkingPolicyTimeStamp];
 }
 
 Stage GetStage()
 {
-  return static_cast<Stage>(
-    [NSUserDefaults.standardUserDefaults integerForKey:kNetworkingPolicyStage]);
+  return (Stage)[NSUserDefaults.standardUserDefaults integerForKey:kNetworkingPolicyStage];
 }
 
 NSDate * GetPolicyDate()
 {
   return [NSUserDefaults.standardUserDefaults objectForKey:kNetworkingPolicyTimeStamp];
 }
-  
+
 bool IsActivePolicyDate()
 {
   return [GetPolicyDate() compare:[NSDate date]] == NSOrderedDescending;

@@ -14,4 +14,5 @@ framework module CoreApi {
   header "MWMCarPlayBookmarkObject.h"
   header "MWMTrafficManager.h"
   header "MWMSearchFrameworkHelper.h"
+  header "MWMNetworkPolicy.h"
 }

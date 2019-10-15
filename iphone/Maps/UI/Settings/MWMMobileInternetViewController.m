@@ -1,10 +1,6 @@
 #import "MWMMobileInternetViewController.h"
-#import "MWMNetworkPolicy.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
-
-using namespace network_policy;
-using np = platform::NetworkPolicy;
 
 @interface MWMMobileInternetViewController ()
 
@@ -23,13 +19,18 @@ using np = platform::NetworkPolicy;
   self.title = L(@"mobile_data");
 
   SettingsTableViewSelectableCell * selected;
-  switch (GetStage())
-  {
-  case Always: selected = self.always; break;
-  case Never: selected = self.never; break;
-  case Ask:
-  case Today:
-  case NotToday: selected = self.ask; break;
+  switch ([MWMNetworkPolicy sharedPolicy].permission) {
+    case MWMNetworkPolicyPermissionAlways:
+      selected = self.always;
+      break;
+    case MWMNetworkPolicyPermissionNever:
+      selected = self.never;
+      break;
+    case MWMNetworkPolicyPermissionToday:
+    case MWMNetworkPolicyPermissionNotToday:
+    case MWMNetworkPolicyPermissionAsk:
+      selected = self.ask;
+      break;
   }
   selected.accessoryType = UITableViewCellAccessoryCheckmark;
   self.selected = selected;
@@ -45,17 +46,17 @@ using np = platform::NetworkPolicy;
   if ([selected isEqual:self.always])
   {
     statValue = kStatAlways;
-    SetStage(Always);
+    [MWMNetworkPolicy sharedPolicy].permission = MWMNetworkPolicyPermissionAlways;
   }
   else if ([selected isEqual:self.ask])
   {
     statValue = kStatAsk;
-    SetStage(Ask);
+    [MWMNetworkPolicy sharedPolicy].permission = MWMNetworkPolicyPermissionAsk;
   }
   else if ([selected isEqual:self.never])
   {
     statValue = kStatNever;
-    SetStage(Never);
+    [MWMNetworkPolicy sharedPolicy].permission = MWMNetworkPolicyPermissionNever;
   }
 
   [Statistics logEvent:kStatSettingsMobileInternetChange withParameters:@{kStatValue : statValue}];

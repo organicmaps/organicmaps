@@ -1,6 +1,5 @@
 #import "MWMPlacePageActionBar.h"
 #import "MWMRatingSummaryViewValueType.h"
-#import "MWMNetworkPolicy.h"
 
 #include "partners_api/taxi_provider.hpp"
 
@@ -8,6 +7,8 @@
 
 #include "map/place_page_info.hpp"
 #include "map/routing_mark.hpp"
+
+#include "platform/network_policy.hpp"
 
 #include <vector>
 
@@ -289,7 +290,7 @@ typedef void (^RefreshPromoCallbackBlock)(NSIndexSet *insertedSections);
 // TODO(Vlad): Use MWMSettings to store coordinate format.
 + (void)toggleCoordinateSystem;
 
-- (void)reguestPromoCatalog:(platform::NetworkPolicy const &)canUseNetwork;
+- (void)reguestPromoCatalog;
 - (NSInteger)bookmarkSectionPosition;
 
 @end

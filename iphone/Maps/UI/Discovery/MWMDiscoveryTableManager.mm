@@ -5,7 +5,7 @@
 #import "MWMDiscoveryHotelViewModel.h"
 #import "MWMDiscoverySearchViewModel.h"
 #import "MWMDiscoveryGuideViewModel.h"
-#import "MWMNetworkPolicy.h"
+#import "MWMNetworkPolicy+UI.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
@@ -88,9 +88,9 @@ using namespace discovery;
 }
 
 - (void)reloadGuidesIfNeeded {
-  MWMNetworkConnectionType connectionType = MWMPlatform.networkConnectionType;
-  BOOL isNetworkAvailable = connectionType == MWMNetworkConnectionTypeWifi ||
-                            (connectionType == MWMNetworkConnectionTypeWwan && self.canUseNetwork);
+  MWMConnectionType connectionType = [MWMNetworkPolicy sharedPolicy].connectionType;
+  BOOL isNetworkAvailable = connectionType == MWMConnectionTypeWifi ||
+                            (connectionType == MWMConnectionTypeCellular && self.canUseNetwork);
   
   if (m_failedTypes.size() != 0 && isNetworkAvailable) {
     m_failedTypes.erase(remove(m_failedTypes.begin(), m_failedTypes.end(), ItemType:: Promo), m_failedTypes.end());
@@ -279,16 +279,15 @@ using namespace discovery;
                canUseNetwork: self.canUseNetwork
                          tap:^{
                            __strong __typeof__(weakSelf) strongSelf = weakSelf;
-                           if (MWMPlatform.networkConnectionType == MWMNetworkConnectionTypeNone) {
+                           if (![MWMFrameworkHelper isNetworkConnected]) {
                              NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
                              UIApplication * app = UIApplication.sharedApplication;
                              if ([app canOpenURL:url])
                                [app openURL:url options:@{} completionHandler:nil];
                            } else {
-                             network_policy::CallPartnersApi([strongSelf](auto const & canUseNetwork) {
-                               strongSelf.canUseNetwork = canUseNetwork.CanUse();
+                             [[MWMNetworkPolicy sharedPolicy] callOnlineApi:^(BOOL) {
                                [strongSelf reloadGuidesIfNeeded];
-                             }, false, true);
+                             } forceAskPermission:YES];
                            }
                          }];
         return cell;

@@ -82,17 +82,6 @@
   return GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI;
 }
 
-+ (MWMConnectionType)connectionType {
-  switch (GetPlatform().ConnectionStatus()) {
-    case Platform::EConnectionType::CONNECTION_NONE:
-      return MWMConnectionTypeNone;
-    case Platform::EConnectionType::CONNECTION_WIFI:
-      return MWMConnectionTypeWifi;
-    case Platform::EConnectionType::CONNECTION_WWAN:
-      return MWMConnectionTypeCellular;
-  }
-}
-
 + (MWMMarkGroupID)invalidCategoryId {
   return kml::kInvalidMarkGroupId;
 }

@@ -3,7 +3,6 @@
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMLocationAlert.h"
 #import "MWMLocationNotFoundAlert.h"
-#import "MWMMobileInternetAlert.h"
 #import "MWMSearchNoResultsAlert.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
@@ -195,7 +194,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [alert update];
 }
 
-- (void)presentMobileInternetAlertWithBlock:(nonnull MWMVoidBlock)block
+- (void)presentMobileInternetAlertWithBlock:(nonnull MWMMobileInternetAlertCompletionBlock)block
 {
   [self displayAlert:[MWMMobileInternetAlert alertWithBlock:block]];
 }

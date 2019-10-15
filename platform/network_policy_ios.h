@@ -2,6 +2,8 @@
 
 #include "platform/network_policy.hpp"
 
+@class NSDate;
+
 namespace network_policy
 {
 enum Stage
@@ -18,4 +20,5 @@ Stage GetStage();
 
 bool CanUseNetwork();
 bool IsActivePolicyDate();
+NSDate* GetPolicyDate();
 }  // namespace network_policy

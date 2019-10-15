@@ -2,7 +2,7 @@
 #import "MWMAddPlaceNavigationBar.h"
 #import "MWMBottomMenuControllerProtocol.h"
 #import "MWMMapDownloadDialog.h"
-#import "MWMNetworkPolicy.h"
+#import "MWMNetworkPolicy+UI.h"
 #import "MWMPlacePageManager.h"
 #import "MWMPlacePageProtocol.h"
 #import "MWMPromoAfterBooking.h"
@@ -130,10 +130,10 @@ extern NSString * const kAlohalyticsTapEventKey;
 }
 
 - (void)showPlacePage {
-  network_policy::CallPartnersApi([self](auto const & /* canUseNetwork */) {
+  [[MWMNetworkPolicy sharedPolicy] callOnlineApi:^(BOOL) {
     self.trafficButtonHidden = YES;
     [self.placePageManager show];
-  });
+  }];
 }
 
 - (void)updatePlacePage {
@@ -141,10 +141,10 @@ extern NSString * const kAlohalyticsTapEventKey;
 }
 
 - (void)showPlacePageReview {
-  network_policy::CallPartnersApi([self](auto const & /* canUseNetwork */) {
+  [[MWMNetworkPolicy sharedPolicy] callOnlineApi:^(BOOL) {
     self.trafficButtonHidden = YES;
     [self.placePageManager showReview];
-  });
+  }];
 }
 
 - (void)searchTextOnMap:(NSString *)text forInputLocale:(NSString *)locale

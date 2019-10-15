@@ -1,19 +1,15 @@
 #import "MWMMobileInternetAlert.h"
-#import "MWMNetworkPolicy.h"
 #import "Statistics.h"
-
-using namespace network_policy;
-using np = platform::NetworkPolicy;
 
 @interface MWMMobileInternetAlert ()
 
-@property(copy, nonatomic) MWMVoidBlock completionBlock;
+@property(copy, nonatomic) MWMMobileInternetAlertCompletionBlock completionBlock;
 
 @end
 
 @implementation MWMMobileInternetAlert
 
-+ (nonnull instancetype)alertWithBlock:(nonnull MWMVoidBlock)block
++ (instancetype)alertWithBlock:(MWMMobileInternetAlertCompletionBlock)block;
 {
   MWMMobileInternetAlert * alert =
       [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
@@ -24,22 +20,25 @@ using np = platform::NetworkPolicy;
 - (IBAction)alwaysTap
 {
   [Statistics logEvent:kStatMobileInternetAlert withParameters:@{kStatValue : kStatAlways}];
-  SetStage(Stage::Always);
-  [self close:self.completionBlock];
+  [self close:^{
+    self.completionBlock(MWMMobileInternetAlertResultAlways);
+  }];
 }
 
 - (IBAction)askTap
 {
   [Statistics logEvent:kStatMobileInternetAlert withParameters:@{kStatValue: kStatToday}];
-  SetStage(Stage::Today);
-  [self close:self.completionBlock];
+  [self close:^{
+    self.completionBlock(MWMMobileInternetAlertResultToday);
+  }];
 }
 
 - (IBAction)neverTap
 {
   [Statistics logEvent:kStatMobileInternetAlert withParameters:@{kStatAction: kStatNotToday}];
-  SetStage(Stage::NotToday);
-  [self close:self.completionBlock];
+  [self close:^{
+    self.completionBlock(MWMMobileInternetAlertResultNotToday);
+  }];
 }
 
 @end

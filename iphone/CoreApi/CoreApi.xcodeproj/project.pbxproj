@@ -12,6 +12,8 @@
 		470016082342541100EBF03D /* MWMTagGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 470016052342541000EBF03D /* MWMTagGroup.m */; };
 		4700160F2342579000EBF03D /* MWMTag.h in Headers */ = {isa = PBXBuildFile; fileRef = 470016042342540F00EBF03D /* MWMTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		470016102342579200EBF03D /* MWMTagGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 470016032342540E00EBF03D /* MWMTagGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4718C4322355FC3C00640DF1 /* MWMNetworkPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 4718C4302355FC3C00640DF1 /* MWMNetworkPolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4718C4332355FC3C00640DF1 /* MWMNetworkPolicy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4718C4312355FC3C00640DF1 /* MWMNetworkPolicy.mm */; };
 		475784C22344B422008291A4 /* Framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 475784C02344B421008291A4 /* Framework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		475784C32344B422008291A4 /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 475784C12344B422008291A4 /* Framework.cpp */; };
 		479834EA2342697400724D1E /* MWMTag+Convenience.mm in Sources */ = {isa = PBXBuildFile; fileRef = 479834E62342697100724D1E /* MWMTag+Convenience.mm */; };
@@ -56,6 +58,8 @@
 		470016062342541100EBF03D /* MWMTag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMTag.m; sourceTree = "<group>"; };
 		4700161223425CFD00EBF03D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		470016142342633D00EBF03D /* CoreApi.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = CoreApi.modulemap; sourceTree = "<group>"; };
+		4718C4302355FC3C00640DF1 /* MWMNetworkPolicy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNetworkPolicy.h; sourceTree = "<group>"; };
+		4718C4312355FC3C00640DF1 /* MWMNetworkPolicy.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNetworkPolicy.mm; sourceTree = "<group>"; };
 		475784C02344B421008291A4 /* Framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Framework.h; sourceTree = "<group>"; };
 		475784C12344B422008291A4 /* Framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Framework.cpp; sourceTree = "<group>"; };
 		479834E62342697100724D1E /* MWMTag+Convenience.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMTag+Convenience.mm"; sourceTree = "<group>"; };
@@ -124,6 +128,7 @@
 		470015F12342509C00EBF03D /* CoreApi */ = {
 			isa = PBXGroup;
 			children = (
+				4718C42F2355FC0D00640DF1 /* NetworkPolicy */,
 				47C637D92354B76700E12DE0 /* Search */,
 				47C637D32354AEA800E12DE0 /* Traffic */,
 				47C637CE2354A6E600E12DE0 /* Metrics */,
@@ -151,6 +156,15 @@
 				4700161223425CFD00EBF03D /* UIKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4718C42F2355FC0D00640DF1 /* NetworkPolicy */ = {
+			isa = PBXGroup;
+			children = (
+				4718C4302355FC3C00640DF1 /* MWMNetworkPolicy.h */,
+				4718C4312355FC3C00640DF1 /* MWMNetworkPolicy.mm */,
+			);
+			path = NetworkPolicy;
 			sourceTree = "<group>";
 		};
 		477C775523435B69001C5B4E /* Framework */ = {
@@ -258,6 +272,7 @@
 				479F704F234FB60400011E2E /* MWMCatalogObserver.h in Headers */,
 				47EEAFF72350D060005CF316 /* MWMCommon.h in Headers */,
 				479F7056234FB7F200011E2E /* MWMBookmarksManager.h in Headers */,
+				4718C4322355FC3C00640DF1 /* MWMNetworkPolicy.h in Headers */,
 				47C637DD2354B79B00E12DE0 /* MWMSearchFrameworkHelper.h in Headers */,
 				479F704B234F78AB00011E2E /* MWMFrameworkHelper.h in Headers */,
 				479834F323426CD200724D1E /* MWMTagGroup+Convenience.h in Headers */,
@@ -357,6 +372,7 @@
 				479834EA2342697400724D1E /* MWMTag+Convenience.mm in Sources */,
 				47C637D62354AEBE00E12DE0 /* MWMTrafficManager.mm in Sources */,
 				475784C32344B422008291A4 /* Framework.cpp in Sources */,
+				4718C4332355FC3C00640DF1 /* MWMNetworkPolicy.mm in Sources */,
 				47EEAFF42350CEDB005CF316 /* AppInfo.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
