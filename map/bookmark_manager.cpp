@@ -2472,21 +2472,22 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
 bool BookmarkManager::HasDuplicatedIds(kml::FileData const & fileData) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  if (fileData.m_categoryData.m_id == kml::kInvalidMarkGroupId)
-    return false;
 
-  if (m_categories.find(fileData.m_categoryData.m_id) != m_categories.cend())
+  if (fileData.m_categoryData.m_id != kml::kInvalidMarkGroupId &&
+      m_categories.find(fileData.m_categoryData.m_id) != m_categories.cend())
+  {
     return true;
+  }
 
   for (auto const & b : fileData.m_bookmarksData)
   {
-    if (m_bookmarks.count(b.m_id) > 0)
+    if (b.m_id != kml::kInvalidMarkId && m_bookmarks.count(b.m_id) > 0)
       return true;
   }
 
   for (auto const & t : fileData.m_tracksData)
   {
-    if (m_tracks.count(t.m_id) > 0)
+    if (t.m_id != kml::kInvalidTrackId && m_tracks.count(t.m_id) > 0)
       return true;
   }
   return false;

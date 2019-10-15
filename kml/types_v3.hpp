@@ -180,7 +180,7 @@ struct CategoryDataV3
   {
     // We don't convert m_cities to m_toponyms, since m_cities have been never used.
     CategoryData data;
-    data.m_id = kInvalidMarkGroupId;
+    data.m_id = m_id;
     data.m_name = m_name;
     data.m_imageUrl = m_imageUrl;
     data.m_annotation = m_annotation;

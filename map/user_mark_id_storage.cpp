@@ -68,10 +68,6 @@ void UserMarkIdStorage::ResetCategoryId()
 
 bool UserMarkIdStorage::CheckIds(kml::FileData const & fileData) const
 {
-  // File has no ids. Check passed.
-  if (fileData.m_categoryData.m_id == kml::kInvalidMarkGroupId)
-    return true;
-
   // Storage is just created. Check failed.
   if (m_isJustCreated)
     return false;
@@ -82,18 +78,21 @@ bool UserMarkIdStorage::CheckIds(kml::FileData const & fileData) const
 
   // There are ids of categories, bookmarks or tracks with values
   // more than last stored maximums. Check failed.
-  if (fileData.m_categoryData.m_id > m_initialLastCategoryId)
+  if (fileData.m_categoryData.m_id != kml::kInvalidMarkGroupId &&
+      fileData.m_categoryData.m_id > m_initialLastCategoryId)
+  {
     return false;
+  }
 
   for (auto const & b : fileData.m_bookmarksData)
   {
-    if (b.m_id > m_initialLastBookmarkId)
+    if (b.m_id != kml::kInvalidMarkId && b.m_id > m_initialLastBookmarkId)
       return false;
   }
 
   for (auto const & t : fileData.m_tracksData)
   {
-    if (t.m_id > m_initialLastTrackId)
+    if (t.m_id != kml::kInvalidTrackId && t.m_id > m_initialLastTrackId)
       return false;
   }
 
