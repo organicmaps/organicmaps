@@ -3008,10 +3008,9 @@ void BookmarkManager::SetCatalogHandlers(OnCatalogDownloadStartedHandler && onCa
   m_onCatalogUploadFinishedHandler = std::move(onCatalogUploadFinishedHandler);
 }
 
-void BookmarkManager::DownloadFromCatalogAndImport(std::string const & id, std::string const & deviceId,
-                                                   std::string const & name)
+void BookmarkManager::DownloadFromCatalogAndImport(std::string const & id, std::string const & name)
 {
-  m_bookmarkCatalog.Download(id, m_user.GetAccessToken(), deviceId, [this, id]()
+  m_bookmarkCatalog.Download(id, m_user.GetAccessToken(), [this, id]()
   {
     if (m_onCatalogDownloadStarted)
       m_onCatalogDownloadStarted(id);
@@ -3282,8 +3281,7 @@ void BookmarkManager::EnableTestMode(bool enable)
   m_testModeEnabled = enable;
 }
 
-void BookmarkManager::CheckInvalidCategories(std::string const & deviceId,
-                                             CheckInvalidCategoriesHandler && handler)
+void BookmarkManager::CheckInvalidCategories(CheckInvalidCategoriesHandler && handler)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -3304,7 +3302,7 @@ void BookmarkManager::CheckInvalidCategories(std::string const & deviceId,
   };
 
   m_bookmarkCatalog.RequestBookmarksToDelete(m_user.GetAccessToken(), m_user.GetUserId(),
-                                             deviceId, GetAllPaidCategoriesIds(), f);
+                                             GetAllPaidCategoriesIds(), f);
 }
 
 void BookmarkManager::DeleteInvalidCategories()

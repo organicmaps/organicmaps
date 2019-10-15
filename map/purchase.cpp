@@ -1,5 +1,7 @@
 #include "map/purchase.hpp"
 
+#include "web_api/utils.hpp"
+
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 
@@ -238,7 +240,7 @@ void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & vali
     using Sink = MemWriter<std::string>;
     Sink sink(jsonStr);
     coding::SerializerJson<Sink> serializer(sink);
-    serializer(ValidationData(validationInfo, kReceiptType, GetDeviceId()));
+    serializer(ValidationData(validationInfo, kReceiptType, web_api::DeviceId()));
   }
   request.SetBodyData(std::move(jsonStr), "application/json");
 
@@ -317,10 +319,4 @@ void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & vali
       }
     });
   }
-}
-
-// static
-std::string Purchase::GetDeviceId()
-{
-  return coding::SHA1::CalculateBase64ForString(GetPlatform().UniqueClientId());
 }

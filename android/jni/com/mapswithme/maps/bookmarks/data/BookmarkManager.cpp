@@ -1119,8 +1119,7 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeCheckInvalidCategories(JNIEnv * env,
                                                                                      jobject)
 {
-  frm()->GetBookmarkManager().CheckInvalidCategories(Purchase::GetDeviceId(),
-    [env](bool hasInvalidCategories)
+  frm()->GetBookmarkManager().CheckInvalidCategories([env](bool hasInvalidCategories)
   {
     OnCheckInvalidCategories(env, hasInvalidCategories);
   });

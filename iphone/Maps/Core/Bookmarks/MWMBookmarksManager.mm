@@ -14,6 +14,8 @@
 
 #include "partners_api/utm.hpp"
 
+#include "web_api/utils.hpp"
+
 #include "coding/internal/file_data.hpp"
 
 #include "base/stl_helpers.hpp"
@@ -632,7 +634,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   observer.progressBlock = progress;
   observer.downloadCompletionBlock = completion;
   [self.catalogObservers setObject:observer forKey:itemId];
-  self.bm.DownloadFromCatalogAndImport(itemId.UTF8String, Purchase::GetDeviceId(), name.UTF8String);
+  self.bm.DownloadFromCatalogAndImport(itemId.UTF8String, name.UTF8String);
 }
 
 - (void)uploadAndGetDirectLinkCategoryWithId:(MWMMarkGroupID)itemId
@@ -770,7 +772,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 }
 
 - (void)checkForInvalidCategories:(MWMBoolBlock)completion {
-  self.bm.CheckInvalidCategories(Purchase::GetDeviceId(), [completion] (bool hasInvalidCategories) {
+  self.bm.CheckInvalidCategories([completion] (bool hasInvalidCategories) {
     completion(hasInvalidCategories);
   });
 }
@@ -822,7 +824,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 }
 
 - (NSString *)deviceId {
-  return @(Purchase::GetDeviceId().c_str());
+  return @(web_api::DeviceId().c_str());
 }
 
 @end

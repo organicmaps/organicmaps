@@ -392,8 +392,7 @@ public:
                           OnCatalogImportFinishedHandler && onCatalogImportFinished,
                           OnCatalogUploadStartedHandler && onCatalogUploadStartedHandler,
                           OnCatalogUploadFinishedHandler && onCatalogUploadFinishedHandler);
-  void DownloadFromCatalogAndImport(std::string const & id, std::string const & deviceId,
-                                    std::string const & name);
+  void DownloadFromCatalogAndImport(std::string const & id, std::string const & name);
   void ImportDownloadedFromCatalog(std::string const & id, std::string const & filePath);
   void UploadToCatalog(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
   bool IsCategoryFromCatalog(kml::MarkGroupId categoryId) const;
@@ -407,7 +406,7 @@ public:
   // CheckInvalidCategories checks invalid categories asynchronously, it prepares a state for following
   // functions calls.
   using CheckInvalidCategoriesHandler = std::function<void(bool hasInvalidCategories)>;
-  void CheckInvalidCategories(std::string const & deviceId, CheckInvalidCategoriesHandler && handler);
+  void CheckInvalidCategories(CheckInvalidCategoriesHandler && handler);
 
   // The following 2 functions allow to delete invalid categories or forget about them.
   // These functions are stateful, so they must be called after finishing CheckInvalidCategoriesHandler.

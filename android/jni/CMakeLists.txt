@@ -129,6 +129,7 @@ target_link_libraries(
   metrics
   platform
   partners_api
+  web_api
   local_ads
   mwm_diff
   bsdiff

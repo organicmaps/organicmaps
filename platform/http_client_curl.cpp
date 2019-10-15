@@ -118,12 +118,12 @@ std::string GetTmpFileName()
   return GetPlatform().TmpPathForFile(ss.str());
 }
 
-using Headers = std::vector<std::pair<std::string, std::string>>;
+using HeadersVector = std::vector<std::pair<std::string, std::string>>;
 
-Headers ParseHeaders(std::string const & raw)
+HeadersVector ParseHeaders(std::string const & raw)
 {
   std::istringstream stream(raw);
-  Headers headers;
+  HeadersVector headers;
   std::string line;
   while (getline(stream, line))
   {
@@ -238,7 +238,7 @@ bool HttpClient::RunHttpRequest()
   }
 
   m_headers.clear();
-  Headers const headers = ParseHeaders(ReadFileAsString(headers_deleter.m_fileName));
+  auto const headers = ParseHeaders(ReadFileAsString(headers_deleter.m_fileName));
   std::string serverCookies;
   std::string headerKey;
   for (auto const & header : headers)

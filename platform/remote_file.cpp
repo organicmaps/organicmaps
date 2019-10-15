@@ -15,10 +15,11 @@ double constexpr kRequestTimeoutInSec = 5.0;
 }  // namespace
 
 RemoteFile::RemoteFile(std::string url, std::string accessToken /* = {} */,
-                       std::string deviceId /* = {} */, bool allowRedirection /* = true */)
+                       HttpClient::Headers const & defaultHeaders /* = {} */,
+                       bool allowRedirection /* = true */)
   : m_url(std::move(url))
   , m_accessToken(std::move(accessToken))
-  , m_deviceId(std::move(deviceId))
+  , m_defaultHeaders(defaultHeaders)
   , m_allowRedirection(allowRedirection)
 {}
 
@@ -28,12 +29,10 @@ RemoteFile::Result RemoteFile::Download(std::string const & filePath) const
     return {m_url, Status::NetworkError, "Empty URL"};
 
   platform::HttpClient request(m_url);
+  request.SetRawHeaders(m_defaultHeaders);
   request.SetTimeout(kRequestTimeoutInSec);
   if (!m_accessToken.empty())
     request.SetRawHeader("Authorization", "Bearer " + m_accessToken);
-  if (!m_deviceId.empty())
-    request.SetRawHeader("X-Mapsme-Device-Id", m_deviceId);
-  request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
   if (request.RunHttpRequest())
   {
     if (!m_allowRedirection && request.WasRedirected())

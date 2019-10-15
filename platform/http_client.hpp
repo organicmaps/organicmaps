@@ -37,6 +37,8 @@ class HttpClient
 public:
   static auto constexpr kNoError = -1;
 
+  using Headers = std::unordered_map<std::string, std::string>;
+
   HttpClient() = default;
   explicit HttpClient(std::string const & url);
 
@@ -83,6 +85,7 @@ public:
   // TODO: "false" is now supported on Android only.
   HttpClient & SetHandleRedirects(bool handle_redirects);
   HttpClient & SetRawHeader(std::string const & key, std::string const & value);
+  HttpClient & SetRawHeaders(Headers const & headers);
   void SetTimeout(double timeoutSec);
 
   std::string const & UrlRequested() const;
@@ -99,7 +102,7 @@ public:
   // Returns cookie value or empty string if it's not present.
   std::string CookieByName(std::string name) const;
   void LoadHeaders(bool loadHeaders);
-  std::unordered_map<std::string, std::string> const & GetHeaders() const;
+  Headers const & GetHeaders() const;
 
 private:
   // Internal helper to convert cookies like this:
@@ -121,7 +124,7 @@ private:
   std::string m_httpMethod = "GET";
   // Cookies set by the client before request is run.
   std::string m_cookies;
-  std::unordered_map<std::string, std::string> m_headers;
+  Headers m_headers;
   bool m_handleRedirects = true;
   bool m_loadHeaders = false;
   // Use 30 seconds timeout by default.

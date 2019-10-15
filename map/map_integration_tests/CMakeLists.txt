@@ -10,6 +10,7 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   map
+  web_api
   search_tests_support
   editor_tests_support
   generator_tests_support

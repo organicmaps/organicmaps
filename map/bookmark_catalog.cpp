@@ -1,5 +1,9 @@
 #include "map/bookmark_catalog.hpp"
+
 #include "map/bookmark_helpers.hpp"
+
+#include "web_api/request_headers.hpp"
+#include "web_api/utils.hpp"
 
 #include "platform/http_client.hpp"
 #include "platform/http_uploader.hpp"
@@ -198,8 +202,8 @@ int RequestNewServerId(std::string const & accessToken,
   if (hashUrl.empty())
     return kInvalidHash;
   platform::HttpClient request(hashUrl);
+  request.SetRawHeaders(web_api::GetDefaultCatalogHeaders());
   request.SetRawHeader("Accept", "application/json");
-  request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
   request.SetRawHeader("Authorization", "Bearer " + accessToken);
   request.SetHttpMethod("POST");
   if (request.RunHttpRequest())
@@ -255,7 +259,7 @@ bool BookmarkCatalog::HasDownloaded(std::string const & id) const
 }
 
 void BookmarkCatalog::Download(std::string const & id, std::string const & accessToken,
-                               std::string const & deviceId, DownloadStartCallback && startHandler,
+                               DownloadStartCallback && startHandler,
                                DownloadFinishCallback && finishHandler)
 {
   if (IsDownloading(id) || HasDownloaded(id))
@@ -266,7 +270,7 @@ void BookmarkCatalog::Download(std::string const & id, std::string const & acces
   static uint32_t counter = 0;
   auto const path = base::JoinPath(GetPlatform().TmpDir(), "file" + strings::to_string(++counter));
 
-  platform::RemoteFile remoteFile(BuildCatalogDownloadUrl(id), accessToken, deviceId);
+  platform::RemoteFile remoteFile(BuildCatalogDownloadUrl(id), accessToken);
   remoteFile.DownloadAsync(path, [startHandler = std::move(startHandler)](std::string const &)
   {
     if (startHandler)
@@ -340,8 +344,8 @@ void BookmarkCatalog::RequestTagGroups(std::string const & language,
   GetPlatform().RunTask(Platform::Thread::Network, [tagsUrl, callback = std::move(callback)]()
   {
     platform::HttpClient request(tagsUrl);
+    request.SetRawHeaders(web_api::GetDefaultCatalogHeaders());
     request.SetRawHeader("Accept", "application/json");
-    request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
     if (request.RunHttpRequest())
     {
       auto const resultCode = request.ErrorCode();
@@ -409,8 +413,8 @@ void BookmarkCatalog::RequestCustomProperties(std::string const & language,
   GetPlatform().RunTask(Platform::Thread::Network, [url, callback = std::move(callback)]()
   {
     platform::HttpClient request(url);
+    request.SetRawHeaders(web_api::GetDefaultCatalogHeaders());
     request.SetRawHeader("Accept", "application/json");
-    request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
     if (request.RunHttpRequest())
     {
       auto const resultCode = request.ErrorCode();
@@ -643,7 +647,7 @@ void BookmarkCatalog::Ping(PingCallback && callback) const
   GetPlatform().RunTask(Platform::Thread::Network, [url, callback = std::move(callback)]()
   {
     platform::HttpClient request(url);
-    request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
+    request.SetRawHeaders(web_api::GetDefaultCatalogHeaders());
     uint32_t constexpr kPingTimeoutInSec = 10;
     request.SetTimeout(kPingTimeoutInSec);
     if (request.RunHttpRequest())
@@ -663,7 +667,7 @@ void BookmarkCatalog::Ping(PingCallback && callback) const
 }
 
 void BookmarkCatalog::RequestBookmarksToDelete(std::string const & accessToken, std::string const & userId,
-                                               std::string const & deviceId, std::vector<std::string> const & serverIds,
+                                               std::vector<std::string> const & serverIds,
                                                BookmarksToDeleteCallback && callback) const
 {
   auto const url = BuildDeleteRequestUrl();
@@ -675,11 +679,11 @@ void BookmarkCatalog::RequestBookmarksToDelete(std::string const & accessToken, 
   }
 
   GetPlatform().RunTask(Platform::Thread::Network,
-                        [url, accessToken, userId, deviceId, serverIds, callback = std::move(callback)]()
+                        [url, accessToken, userId, serverIds, callback = std::move(callback)]()
   {
     platform::HttpClient request(url);
+    request.SetRawHeaders(web_api::GetDefaultCatalogHeaders());
     request.SetRawHeader("Accept", "application/json");
-    request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
     if (!accessToken.empty())
       request.SetRawHeader("Authorization", "Bearer " + accessToken);
     request.SetHttpMethod("POST");
@@ -689,7 +693,7 @@ void BookmarkCatalog::RequestBookmarksToDelete(std::string const & accessToken, 
       using Sink = MemWriter<std::string>;
       Sink sink(jsonStr);
       coding::SerializerJson<Sink> serializer(sink);
-      serializer(DeleteRequestData(deviceId, userId, serverIds));
+      serializer(DeleteRequestData(web_api::DeviceId(), userId, serverIds));
     }
     request.SetBodyData(std::move(jsonStr), "application/json");
 

@@ -57,6 +57,7 @@ omim_link_libraries(
   descriptions
   ugc
   partners_api
+  web_api
   local_ads
   kml
   editor

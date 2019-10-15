@@ -98,8 +98,7 @@ void GetInt(ScopedEnv & env, jobject const params, jfieldID const fieldId, int &
   RethrowOnJniException(env);
 }
 
-void SetHeaders(ScopedEnv & env, jobject const params,
-                std::unordered_map<std::string, std::string> const & headers)
+void SetHeaders(ScopedEnv & env, jobject const params, platform::HttpClient::Headers const & headers)
 {
   if (headers.empty())
     return;
@@ -114,7 +113,7 @@ void SetHeaders(ScopedEnv & env, jobject const params,
   RethrowOnJniException(env);
 }
 
-void LoadHeaders(ScopedEnv & env, jobject const params, std::unordered_map<std::string, std::string> & headers)
+void LoadHeaders(ScopedEnv & env, jobject const params, platform::HttpClient::Headers & headers)
 {
   static jmethodID const getHeaders =
       env->GetMethodID(g_httpParamsClazz, "getHeaders", "()[Ljava/lang/Object;");

@@ -1,5 +1,7 @@
 #include "partners_api/promo_api.hpp"
 
+#include "web_api/request_headers.hpp"
+
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
@@ -174,6 +176,7 @@ void GetPromoCityGalleryImpl(std::string const & url, UTM utm,
     CityGallery result;
     std::string httpResult;
     platform::HttpClient request(url);
+    request.SetRawHeaders(web_api::GetDefaultCatalogHeaders());
     if (!request.RunHttpRequest(httpResult))
     {
       onError();
@@ -222,6 +225,7 @@ bool WebApi::GetCityGalleryById(std::string const & baseUrl, std::string const &
                                 std::string const & lang, std::string & result)
 {
   platform::HttpClient request(MakeCityGalleryUrl(baseUrl, id, lang));
+  request.SetRawHeaders(web_api::GetDefaultCatalogHeaders());
   return request.RunHttpRequest(result);
 }
 

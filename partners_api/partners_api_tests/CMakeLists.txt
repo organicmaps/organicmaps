@@ -27,6 +27,7 @@ omim_link_libraries(
   platform_tests_support
   metrics_tests_support
   partners_api
+  web_api
   metrics
   storage
   indexer

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "platform/http_client.hpp"
+
 #include <functional>
 #include <memory>
 #include <string>
@@ -36,7 +38,8 @@ public:
     {}
   };
 
-  explicit RemoteFile(std::string url, std::string accessToken = {}, std::string deviceId = {},
+  explicit RemoteFile(std::string url, std::string accessToken = {},
+                      HttpClient::Headers const & defaultHeaders = {},
                       bool allowRedirection = true);
 
   Result Download(std::string const & filePath) const;
@@ -50,7 +53,7 @@ public:
 private:
   std::string const m_url;
   std::string const m_accessToken;
-  std::string const m_deviceId;
+  HttpClient::Headers const m_defaultHeaders;
   bool const m_allowRedirection;
 };
 }  // namespace platform

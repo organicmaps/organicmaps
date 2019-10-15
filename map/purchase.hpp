@@ -65,8 +65,6 @@ public:
   void StartTransaction(std::string const & serverId, std::string const & vendorId,
                         std::string const & accessToken);
 
-  static std::string GetDeviceId();
-
 private:
   void ValidateImpl(std::string const & url, ValidationInfo const & validationInfo,
                     std::string const & accessToken, bool startTransaction,

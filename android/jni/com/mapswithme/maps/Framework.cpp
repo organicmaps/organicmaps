@@ -20,6 +20,8 @@
 #include "partners_api/mopub_ads.hpp"
 #include "partners_api/megafon_countries.hpp"
 
+#include "web_api/utils.hpp"
+
 #include "storage/storage_defines.hpp"
 #include "storage/storage_helpers.hpp"
 
@@ -1273,7 +1275,7 @@ Java_com_mapswithme_maps_Framework_nativeGetUserAgent(JNIEnv * env, jclass)
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetDeviceId(JNIEnv * env, jclass)
 {
-  return jni::ToJavaString(env, Purchase::GetDeviceId());
+  return jni::ToJavaString(env, web_api::DeviceId());
 }
 
 JNIEXPORT jobjectArray JNICALL
