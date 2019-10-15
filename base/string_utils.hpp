@@ -376,6 +376,7 @@ WARN_UNUSED_RESULT bool to_int(char const * s, int & i, int base = 10);
 WARN_UNUSED_RESULT bool to_uint(char const * s, unsigned int & i, int base = 10);
 WARN_UNUSED_RESULT bool to_uint64(char const * s, uint64_t & i, int base = 10);
 WARN_UNUSED_RESULT bool to_int64(char const * s, int64_t & i);
+WARN_UNUSED_RESULT bool to_size_t(char const * s, size_t & i, int base = 10);
 WARN_UNUSED_RESULT bool to_float(char const * s, float & f);
 WARN_UNUSED_RESULT bool to_double(char const * s, double & d);
 
@@ -401,6 +402,10 @@ WARN_UNUSED_RESULT inline bool to_uint64(std::string const & s, uint64_t & i, in
 WARN_UNUSED_RESULT inline bool to_int64(std::string const & s, int64_t & i)
 {
   return to_int64(s.c_str(), i);
+}
+WARN_UNUSED_RESULT inline bool to_size_t(std::string const & s, size_t & i)
+{
+  return to_size_t(s.c_str(), i);
 }
 WARN_UNUSED_RESULT inline bool to_float(std::string const & s, float & f)
 {

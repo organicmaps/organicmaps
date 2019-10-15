@@ -1,5 +1,7 @@
-#include "base/assert.hpp"
 #include "base/string_utils.hpp"
+
+#include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 
 #include "std/target_os.hpp"
 
@@ -101,6 +103,16 @@ bool to_int64(char const * s, int64_t & i)
   i = strtoll(s, &stop, 10);
 #endif
   return *stop == 0 && s != stop;
+}
+
+bool to_size_t(char const * s, size_t & i, int base)
+{
+  uint64_t num = 0;
+  if (!to_uint64(s, num, base))
+    return false;
+
+  i = static_cast<size_t>(num);
+  return i == num;
 }
 
 bool to_float(char const * s, float & f)
