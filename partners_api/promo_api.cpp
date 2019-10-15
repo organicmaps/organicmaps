@@ -120,13 +120,16 @@ std::string MakePoiGalleryUrl(std::string const & baseUrl, std::string const & i
                               m2::PointD const & point, std::string const & lang,
                               std::vector<std::string> const & tags, bool useCoordinates)
 {
-  auto cityUrl = MakeCityGalleryUrl(baseUrl, id, lang);
-  if (cityUrl.empty())
+  // Support opensource build.
+  if (baseUrl.empty())
     return {};
-
+    
   url::Params params;
 
-  if (useCoordinates)
+  if (!id.empty())
+    params.emplace_back("city_id", ToSignedId(id));
+
+  if (id.empty() || useCoordinates)
   {
     auto const latLon = MercatorBounds::ToLatLon(point);
     std::ostringstream os;
@@ -135,8 +138,9 @@ std::string MakePoiGalleryUrl(std::string const & baseUrl, std::string const & i
   }
 
   params.emplace_back("tags", strings::JoinStrings(tags, ","));
+  params.emplace_back("lang", lang);
 
-  return url::Make(cityUrl, params);
+  return url::Make(url::Join(baseUrl, "gallery/v1/search/"), params);
 }
 
 std::string GetPictureUrl(std::string const & baseUrl, std::string const & id)
