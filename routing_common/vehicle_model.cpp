@@ -199,7 +199,11 @@ SpeedKMpH VehicleModel::GetSpeedOnFeatureWithoutMaxspeed(HighwayType const & typ
 
   SpeedKMpH const speed = speedIt->second.GetSpeed(isCityRoad);
   ASSERT(speed.IsValid(), (speed));
-  return Pick<min>(factorIt->second.GetFactor(isCityRoad) * speed, maxModelSpeed);
+  // Note. Weight speeds put to |m_highwayBasedInfo| are taken from the former code and should not
+  // be multiplied to the factor. On the contrary eta speed should be multiplied.
+  return SpeedKMpH(
+      min(speed.m_weight, maxModelSpeed.m_weight),
+      min(factorIt->second.GetFactor(isCityRoad).m_eta * speed.m_eta, maxModelSpeed.m_eta));
 }
 
 SpeedKMpH VehicleModel::GetTypeSpeed(feature::TypesHolder const & types,
