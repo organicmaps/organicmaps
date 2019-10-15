@@ -415,9 +415,7 @@ uint32_t Classificator::GetTypeByPath(initializer_list<char const *> const & lst
 uint32_t Classificator::GetTypeByReadableObjectName(string const & name) const
 {
   ASSERT(!name.empty(), ());
-  vector<string> v;
-  strings::Tokenize(name, "-", [&v] (string const & s) { v.push_back(s); } );
-  return GetTypeByPathSafe(v);
+  return GetTypeByPathSafe(strings::Tokenize(name, "-"));
 }
 
 void Classificator::ReadTypesMapping(istream & s)
