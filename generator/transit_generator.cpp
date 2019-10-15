@@ -55,7 +55,7 @@ void LoadBorders(string const & dir, CountryId const & countryId, vector<m2::Reg
 void FillOsmIdToFeatureIdsMap(string const & osmIdToFeatureIdsPath, OsmIdToFeatureIdsMap & mapping)
 {
   CHECK(ForEachOsmId2FeatureId(osmIdToFeatureIdsPath,
-                               [&mapping](generator::CompositeId const & compositeId, uint32_t featureId) {
+                               [&mapping](auto const & compositeId, auto featureId) {
                                  mapping[compositeId.m_mainId].push_back(featureId);
                                }),
         (osmIdToFeatureIdsPath));

@@ -103,7 +103,7 @@ bool ParseFeatureIdToOsmIdMapping(std::string const & path,
                                   std::unordered_map<uint32_t, base::GeoObjectId> & mapping)
 {
   return ForEachOsmId2FeatureId(
-      path, [&](generator::CompositeId const & compositeId, uint32_t const featureId) {
+      path, [&](auto const & compositeId, auto featureId) {
         CHECK(mapping.emplace(featureId, compositeId.m_mainId).second,
               ("Several osm ids for feature", featureId, "in file", path));
       });

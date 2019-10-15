@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "generator/composite_id.hpp"
 #include "generator/gen_mwm_info.hpp"
 
 #include "coding/file_writer.hpp"

@@ -546,28 +546,28 @@ std::shared_ptr<hierarchy::HierarchyLineEnricher> ComplexFinalProcessor::CreateE
 void ComplexFinalProcessor::Process()
 {
   ThreadPool pool(m_threadsCount);
-  std::vector<std::future<std::vector<hierarchy::HierarchyEntry>>> futures;
+  std::vector<std::future<std::vector<HierarchyEntry>>> futures;
   ForEachCountry(m_mwmTmpPath, [&](auto const & filename) {
     auto future = pool.Submit([&, filename]() {
       auto countryName = filename;
       strings::ReplaceLast(countryName, DATA_FILE_EXTENSION_TMP, "");
 
       hierarchy::HierarchyBuilder builder(base::JoinPath(m_mwmTmpPath, filename));
-      builder.SetGetMainTypeFunction(hierarchy::popularity::GetMainType);
-      builder.SetGetNameFunction(hierarchy::popularity::GetName);
+      builder.SetGetMainTypeFunction(popularity::GetMainType);
+      builder.SetGetNameFunction(popularity::GetName);
       auto nodes = builder.Build();
 
       auto const enricher = CreateEnricher(countryName);
       hierarchy::HierarchyLinesBuilder linesBuilder(std::move(nodes));
       linesBuilder.SetHierarchyLineEnricher(enricher);
       linesBuilder.SetCountryName(countryName);
-      linesBuilder.SetGetMainTypeFunction(hierarchy::popularity::GetMainType);
-      linesBuilder.SetGetNameFunction(hierarchy::popularity::GetName);
+      linesBuilder.SetGetMainTypeFunction(popularity::GetMainType);
+      linesBuilder.SetGetNameFunction(popularity::GetName);
       return linesBuilder.GetHierarchyLines();
     });
     futures.emplace_back(std::move(future));
   });
-  std::vector<hierarchy::HierarchyEntry> allLines;
+  std::vector<HierarchyEntry> allLines;
   for (auto & f : futures)
   {
     auto const lines = f.get();
@@ -576,7 +576,7 @@ void ComplexFinalProcessor::Process()
   WriteLines(allLines);
 }
 
-void ComplexFinalProcessor::WriteLines(std::vector<hierarchy::HierarchyEntry> const & lines)
+void ComplexFinalProcessor::WriteLines(std::vector<HierarchyEntry> const & lines)
 {
   std::ofstream stream;
   stream.exceptions(std::fstream::failbit | std::fstream::badbit);

@@ -1,16 +1,20 @@
 #pragma once
 
+#include "generator/composite_id.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/gen_mwm_info.hpp"
+#include "generator/hierarchy_entry.hpp"
 #include "generator/platform_helpers.hpp"
 #include "generator/utils.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/complex/tree_node.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/tree_node.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/tree4d.hpp"
+
+#include "coding/csv_reader.hpp"
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
@@ -31,8 +35,6 @@ namespace generator
 {
 namespace hierarchy
 {
-struct HierarchyEntry;
-
 using GetMainType = std::function<uint32_t(FeatureParams::Types const &)>;
 using GetName = std::function<std::string(StringUtf8Multilang const &)>;
 using PrintFunction = std::function<std::string(HierarchyEntry const &)>;
@@ -127,20 +129,6 @@ private:
   FeatureGetter m_featureGetter;
 };
 
-// Intermediate view for hierarchy node.
-struct HierarchyEntry
-{
-  CompositeId m_id;
-  boost::optional<CompositeId> m_parentId;
-  size_t m_depth = 0;
-  std::string m_name;
-  std::string m_countryName;
-  m2::PointD m_center;
-  uint32_t m_type = ftype::GetEmptyValue();
-};
-
-std::string DebugPrint(HierarchyEntry const & line);
-
 class HierarchyLinesBuilder
 {
 public:
@@ -163,12 +151,5 @@ private:
   std::string m_countryName;
   std::shared_ptr<HierarchyLineEnricher> m_enricher;
 };
-
-namespace popularity
-{
-uint32_t GetMainType(FeatureParams::Types const & types);
-std::string GetName(StringUtf8Multilang const & str);
-std::string Print(HierarchyEntry const & line);
-}  // namespace popularity
 }  // namespace hierarchy
 }  // namespace generator

@@ -3,6 +3,7 @@
 #include "generator/coastlines_generator.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/hierarchy.hpp"
+#include "generator/hierarchy_entry.hpp"
 #include "generator/world_map_generator.hpp"
 
 #include <cstddef>
@@ -141,7 +142,7 @@ public:
 private:
   std::shared_ptr<hierarchy::HierarchyLineEnricher> CreateEnricher(
       std::string const & countryName) const;
-  void WriteLines(std::vector<hierarchy::HierarchyEntry> const & lines);
+  void WriteLines(std::vector<HierarchyEntry> const & lines);
 
   hierarchy::PrintFunction m_printFunction = hierarchy::PrintDefault;
   std::string m_mwmTmpPath;

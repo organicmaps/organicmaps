@@ -1,7 +1,8 @@
+#include "indexer/feature_utils.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
-#include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/scales.hpp"
 

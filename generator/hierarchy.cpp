@@ -1,19 +1,11 @@
 #include "generator/hierarchy.hpp"
 
-#include "generator/boost_helpers.hpp"
-#include "generator/place_processor.hpp"
-
-#include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
-#include "indexer/feature_utils.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_helpers.hpp"
-#include "base/string_utils.hpp"
-
 #include <algorithm>
 #include <cmath>
 #include <fstream>
@@ -39,18 +31,6 @@ namespace hierarchy
 {
 namespace
 {
-// GetRussianName returns a russian feature name if it's possible.
-// Otherwise, GetRussianName function returns a name that GetReadableName returns.
-std::string GetRussianName(StringUtf8Multilang const & str)
-{
-  auto const deviceLang = StringUtf8Multilang::GetLangIndex("ru");
-  std::string result;
-  GetReadableName({} /* regionData */, str, deviceLang, false /* allowTranslit */, result);
-  for (auto const & ch : {';', '\n', '\t'})
-    std::replace(std::begin(result), std::end(result), ch, ',');
-  return result;
-}
-
 double CalculateOverlapPercentage(std::vector<m2::PointD> const & lhs,
                                   std::vector<m2::PointD> const & rhs)
 {
@@ -223,23 +203,6 @@ boost::optional<m2::PointD> HierarchyLineEnricher::GetFeatureCenter(CompositeId 
   return ftPtr ? feature::GetCenter(*ftPtr) : boost::optional<m2::PointD>();
 }
 
-std::string DebugPrint(HierarchyEntry const & line)
-{
-  std::stringstream stream;
-  stream << std::fixed << std::setprecision(7);
-  stream << DebugPrint(line.m_id) << ';';
-  if (line.m_parentId)
-    stream << DebugPrint(*line.m_parentId);
-  stream << ';';
-  stream << line.m_depth << ';';
-  stream << line.m_center.x << ';';
-  stream << line.m_center.y << ';';
-  stream << classif().GetReadableObjectName(line.m_type) << ';';
-  stream << line.m_name << ';';
-  stream << line.m_countryName;
-  return stream.str();
-}
-
 HierarchyLinesBuilder::HierarchyLinesBuilder(HierarchyBuilder::Node::PtrList && nodes)
   : m_nodes(std::move(nodes))
 {
@@ -295,48 +258,5 @@ HierarchyEntry HierarchyLinesBuilder::Transform(HierarchyBuilder::Node::Ptr cons
   line.m_center = GetCenter(node);
   return line;
 }
-
-namespace popularity
-{
-uint32_t GetMainType(FeatureParams::Types const & types)
-{
-  auto const & airportChecker = ftypes::IsAirportChecker::Instance();
-  auto it = base::FindIf(types, airportChecker);
-  if (it != std::cend(types))
-    return *it;
-
-  auto const & attractChecker = ftypes::AttractionsChecker::Instance();
-  auto const type = attractChecker.GetBestType(types);
-  if (type != ftype::GetEmptyValue())
-    return type;
-
-  auto const & eatChecker = ftypes::IsEatChecker::Instance();
-  it = base::FindIf(types, eatChecker);
-  return it != std::cend(types) ? *it : ftype::GetEmptyValue();
-}
-
-std::string GetName(StringUtf8Multilang const & str) { return GetRussianName(str); }
-
-std::string Print(HierarchyEntry const & line)
-{
-  std::stringstream stream;
-  stream << std::fixed << std::setprecision(7);
-  stream << line.m_id.m_mainId.GetEncodedId() << '|' << line.m_id.m_additionalId.GetEncodedId()
-         << ';';
-  if (line.m_parentId)
-  {
-    auto const parentId = *line.m_parentId;
-    stream << parentId.m_mainId.GetEncodedId() << '|' << parentId.m_additionalId.GetEncodedId()
-           << ';';
-  }
-  stream << ';';
-  stream << line.m_center.x << ';';
-  stream << line.m_center.y << ';';
-  stream << classif().GetReadableObjectName(line.m_type) << ';';
-  stream << line.m_name;
-  return stream.str();
-}
-
-}  // namespace popularity
 }  // namespace hierarchy
 }  // namespace generator

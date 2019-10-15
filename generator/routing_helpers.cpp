@@ -16,7 +16,7 @@ template <class ToDo>
 bool ForEachRoadFromFile(string const & filename, ToDo && toDo)
 {
   return generator::ForEachOsmId2FeatureId(
-      filename, [&](generator::CompositeId const & compositeOsmId, uint32_t const featureId) {
+      filename, [&](auto const & compositeOsmId, auto featureId) {
         auto const osmId = compositeOsmId.m_mainId;
         if (osmId.GetType() == base::GeoObjectId::Type::ObsoleteOsmWay)
           toDo(featureId, osmId);

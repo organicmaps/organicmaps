@@ -18,6 +18,7 @@
 #include "generator/final_processor_intermediate_mwm.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/hierarchy.hpp"
+#include "generator/hierarchy_entry.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/processor_factory.hpp"
 #include "generator/raw_generator.hpp"
@@ -100,8 +101,13 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv) {
   if (FLAGS_debug)
   {
     finalProcessor->SetPrintFunction(
-        static_cast<std::string (*)(generator::hierarchy::HierarchyEntry const &)>(
-            generator::hierarchy::DebugPrint));
+        static_cast<std::string (*)(generator::HierarchyEntry const &)>(generator::DebugPrint));
+  }
+  else
+  {
+    finalProcessor->SetPrintFunction([](auto const & entry) {
+      return generator::popularity::HierarchyEntryToCsvString(entry);
+    });
   }
   rawGenerator.GenerateCustom(translator, finalProcessor);
   CHECK(rawGenerator.Execute(), ());

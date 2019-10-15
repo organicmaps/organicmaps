@@ -49,6 +49,8 @@ set(
   collector_interface.hpp
   collector_tag.cpp
   collector_tag.hpp
+  composite_id.cpp
+  composite_id.hpp
   cross_mwm_osm_ways_collector.cpp
   cross_mwm_osm_ways_collector.hpp
   descriptions_section_builder.cpp
@@ -95,6 +97,8 @@ set(
   geometry_holder.hpp
   hierarchy.cpp
   hierarchy.hpp
+  hierarchy_entry.cpp
+  hierarchy_entry.hpp
   holes.cpp
   holes.hpp
   intermediate_data.cpp

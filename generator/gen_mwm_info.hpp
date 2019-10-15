@@ -1,5 +1,6 @@
 #pragma once
 
+#include "generator/composite_id.hpp"
 #include "generator/feature_builder.hpp"
 
 #include "coding/file_reader.hpp"
@@ -12,55 +13,16 @@
 
 #include <algorithm>
 #include <iterator>
+#include <string>
 #include <utility>
 #include <vector>
 
-#include <boost/functional/hash.hpp>
 #include <boost/optional.hpp>
 
 namespace generator
 {
-// This struct represents a composite Id.
-// This will be useful if we want to distinguish between polygons in a multipolygon.
-struct CompositeId
-{
-  CompositeId() = default;
-  explicit CompositeId(std::string const & str);
-  explicit CompositeId(base::GeoObjectId mainId, base::GeoObjectId additionalId);
-  explicit CompositeId(base::GeoObjectId mainId);
-
-  bool operator<(CompositeId const & other) const;
-  bool operator==(CompositeId const & other) const;
-  bool operator!=(CompositeId const & other) const;
-
-  std::string ToString() const;
-
-  base::GeoObjectId m_mainId;
-  base::GeoObjectId m_additionalId;
-};
-
 CompositeId MakeCompositeId(feature::FeatureBuilder const & fb);
 
-std::string DebugPrint(CompositeId const & id);
-}  // namespace generator
-
-namespace std
-{
-template <>
-struct hash<generator::CompositeId>
-{
-  std::size_t operator()(generator::CompositeId const & id) const
-  {
-    std::size_t seed = 0;
-    boost::hash_combine(seed, std::hash<base::GeoObjectId>()(id.m_mainId));
-    boost::hash_combine(seed, std::hash<base::GeoObjectId>()(id.m_additionalId));
-    return seed;
-  }
-};
-}  // namespace std
-
-namespace generator
-{
 class OsmID2FeatureID
 {
 public:
