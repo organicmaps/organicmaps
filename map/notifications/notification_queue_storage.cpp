@@ -64,9 +64,8 @@ bool QueueStorage::Load(std::vector<int8_t> & dst)
   catch (FileReader::Exception const &)
   {
     dst.clear();
-    return false;
   }
 
-  return true;
+  return !dst.empty();
 }
 }  // namespace notifications
