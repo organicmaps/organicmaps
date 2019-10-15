@@ -374,7 +374,6 @@ HighwayBasedFactors GetOneFactorsForBicycleAndPedestrianModel()
       {HighwayType::HighwaySteps, InOutCityFactor(1.0)},
       {HighwayType::HighwayPedestrian, InOutCityFactor(1.0)},
       {HighwayType::HighwayFootway, InOutCityFactor(1.0)},
-      {HighwayType::HighwayPlatform, InOutCityFactor(1.0)},
       {HighwayType::ManMadePier, InOutCityFactor(1.0)},
       {HighwayType::RouteFerry, InOutCityFactor(1.0)},
   };
