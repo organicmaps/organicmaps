@@ -261,8 +261,8 @@ using namespace std;
     self.myCategoryToolbar.hidden = YES;
     self.downloadedCategoryToolbar.hidden = NO;
   }
-  self.showSearchBar.priority = searchAllowed ? UILayoutPriorityRequired : UILayoutPriorityDefaultLow;
-  self.hideSearchBar.priority = searchAllowed ? UILayoutPriorityDefaultLow : UILayoutPriorityRequired;
+  self.showSearchBar.priority = searchAllowed ? UILayoutPriorityRequired - 1 : UILayoutPriorityDefaultLow;
+  self.hideSearchBar.priority = searchAllowed ? UILayoutPriorityDefaultLow : UILayoutPriorityRequired - 1;
 
   [super viewWillAppear:animated];
 
