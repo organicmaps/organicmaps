@@ -287,8 +287,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   controller.onSubscribe = ^{
     MapViewController *mapViewController = self.ownerController;
     [mapViewController dismissViewControllerAnimated:YES completion:nil];
-    BookmarksSubscriptionGoToCatalogViewController *successDialog =
-    [[BookmarksSubscriptionGoToCatalogViewController alloc] initOnOk:^{
+    SubscriptionGoToCatalogViewController *successDialog =
+    [[SubscriptionGoToCatalogViewController alloc] initOnOk:^{
       [mapViewController dismissViewControllerAnimated:YES completion:nil];
       [mapViewController openCatalogAnimated:YES utm:MWMUTMCrownButton];
     } onCancel:^{

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SubscriptionFailViewController" customModule="maps_me" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="LxW-jP-dXy" id="LjI-6j-3V1"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="LxW-jP-dXy">
+            <rect key="frame" x="0.0" y="0.0" width="284" height="343"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="bookmarksSubscriptionFail" translatesAutoresizingMaskIntoConstraints="NO" id="QsQ-Qr-kgU">
+                    <rect key="frame" x="-5" y="16" width="294" height="134"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Purchase has failed" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQC-4m-6q5">
+                    <rect key="frame" x="16" y="166" width="252" height="25.5"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="subscription_error_ping_title"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold22"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N2j-Or-SOC" userLabel="Continue">
+                    <rect key="frame" x="16" y="269" width="252" height="50"/>
+                    <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="8lg-7m-LsE"/>
+                        <constraint firstAttribute="width" constant="252" id="R62-U1-Ob4"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                    <state key="normal" title="Got It!">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="subscription_error_button"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onOk:" destination="-1" eventType="touchUpInside" id="TOs-X1-qKX"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="The service is currently unavailable in your region. Please try again later." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrT-fS-BfP">
+                    <rect key="frame" x="16" y="207.5" width="252" height="33.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="0.0" alpha="0.39696596750000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="subscription_error_message"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="QsQ-Qr-kgU" firstAttribute="top" secondItem="LxW-jP-dXy" secondAttribute="top" constant="16" id="8Bi-kX-LCG"/>
+                <constraint firstAttribute="bottom" secondItem="N2j-Or-SOC" secondAttribute="bottom" constant="24" id="AWo-J4-6A9"/>
+                <constraint firstItem="N2j-Or-SOC" firstAttribute="top" secondItem="lrT-fS-BfP" secondAttribute="bottom" constant="28" id="E4s-tH-edG"/>
+                <constraint firstItem="BQC-4m-6q5" firstAttribute="leading" secondItem="LxW-jP-dXy" secondAttribute="leading" constant="16" id="IWo-M7-dRf"/>
+                <constraint firstItem="QsQ-Qr-kgU" firstAttribute="centerX" secondItem="LxW-jP-dXy" secondAttribute="centerX" id="Kuw-sI-C7B"/>
+                <constraint firstAttribute="trailing" secondItem="BQC-4m-6q5" secondAttribute="trailing" constant="16" id="ZmH-bY-Gbh"/>
+                <constraint firstItem="lrT-fS-BfP" firstAttribute="leading" secondItem="LxW-jP-dXy" secondAttribute="leading" constant="16" id="bHj-RY-p3j"/>
+                <constraint firstAttribute="trailing" secondItem="N2j-Or-SOC" secondAttribute="trailing" constant="16" id="gMq-ke-Kd8"/>
+                <constraint firstItem="lrT-fS-BfP" firstAttribute="top" secondItem="BQC-4m-6q5" secondAttribute="bottom" constant="16" id="j5K-I7-Qrv"/>
+                <constraint firstItem="N2j-Or-SOC" firstAttribute="leading" secondItem="LxW-jP-dXy" secondAttribute="leading" constant="16" id="lJM-4J-pzP"/>
+                <constraint firstAttribute="trailing" secondItem="lrT-fS-BfP" secondAttribute="trailing" constant="16" id="mIZ-Xr-mbT"/>
+                <constraint firstItem="BQC-4m-6q5" firstAttribute="top" secondItem="QsQ-Qr-kgU" secondAttribute="bottom" constant="16" id="ptg-2t-gke"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="Eiv-TN-MZz"/>
+            <point key="canvasLocation" x="46.399999999999999" y="155.17241379310346"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bookmarksSubscriptionFail" width="147" height="134"/>
+    </resources>
+</document>

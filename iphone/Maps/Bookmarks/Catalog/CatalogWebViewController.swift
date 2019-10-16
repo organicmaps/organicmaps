@@ -223,7 +223,7 @@ final class CatalogWebViewController: WebViewController {
     subscribeViewController.onSubscribe = { [weak self] in
       self?.webView.reloadFromOrigin()
       self?.dismiss(animated: true)
-      let successDialog = BookmarksSubscriptionSuccessViewController { [weak self] in
+      let successDialog = SubscriptionSuccessViewController { [weak self] in
         self?.dismiss(animated: true)
       }
       self?.present(successDialog, animated: true)

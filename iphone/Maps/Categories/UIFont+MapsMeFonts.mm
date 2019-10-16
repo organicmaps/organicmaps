@@ -43,11 +43,15 @@ NSString * const kLightFontName = @"HelveticaNeue-Light";
 + (UIFont *)bold22 { return [UIFont boldSystemFontOfSize:22]; }
 + (UIFont *)bold24 { return [UIFont boldSystemFontOfSize:24]; }
 + (UIFont *)bold28 { return [UIFont boldSystemFontOfSize:28]; }
++ (UIFont *)bold34 { return [UIFont boldSystemFontOfSize:34]; }
 + (UIFont *)bold36 { return [UIFont boldSystemFontOfSize:26]; }
 + (UIFont *)bold48 { return [UIFont boldSystemFontOfSize:48]; }
 + (UIFont *)italic16 { return [UIFont italicSystemFontOfSize:16]; }
++ (UIFont *)semibold12 { return [UIFont systemFontOfSize:14 weight:UIFontWeightSemibold]; }
 + (UIFont *)semibold14 { return [UIFont systemFontOfSize:14 weight:UIFontWeightSemibold]; }
 + (UIFont *)semibold16 { return [UIFont systemFontOfSize:16 weight:UIFontWeightSemibold]; }
++ (UIFont *)fredokaRegular25 { return [UIFont fontWithName:@"FredokaOne-Regular" size:25]; }
+
 + (UIFont *)fontWithName:(NSString *)fontName
 {
 #pragma clang diagnostic push

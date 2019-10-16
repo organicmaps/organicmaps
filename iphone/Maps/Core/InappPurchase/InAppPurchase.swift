@@ -38,4 +38,10 @@ final class InAppPurchase: NSObject {
                                serverId: MWMPurchaseManager.bookmarksSubscriptionServerId(),
                                vendorId: MWMPurchaseManager.bookmarksSubscriptionVendorId())
   } ()
+
+  @objc static var allPassSubscriptionManager: ISubscriptionManager = {
+    return SubscriptionManager(productIds: MWMPurchaseManager.allPassProductIds(),
+                               serverId: MWMPurchaseManager.allPassSubscriptionServerId(),
+                               vendorId: MWMPurchaseManager.allPassSubscriptionVendorId())
+  } ()
 }

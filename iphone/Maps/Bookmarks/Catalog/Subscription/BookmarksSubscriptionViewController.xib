@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookmarksSubscriptionViewController" customModule="maps_me" customModuleProvider="target">
+            <connections>
+                <outlet property="annualDiscountLabel" destination="YH0-h4-ZEb" id="onk-lS-6im"/>
+                <outlet property="annualDiscountView" destination="8Qf-I6-xXL" id="CNZ-eh-LJj"/>
+                <outlet property="annualSubscriptionButton" destination="neX-0h-hs4" id="I6s-8S-Qks"/>
+                <outlet property="loadingView" destination="BHb-cU-Ze3" id="bfe-6a-BJf"/>
+                <outlet property="monthlySubscriptionButton" destination="sj5-ey-SEv" id="nUs-dU-WOI"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="always" translatesAutoresizingMaskIntoConstraints="NO" id="0eE-hs-sId">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eiz-QQ-h0b">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="1015"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookmarksSubscriptionHeader" translatesAutoresizingMaskIntoConstraints="NO" id="Y38-kF-ZnW">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="212"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="212" id="YbO-Ju-JzM"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sightseeing" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bOS-sQ-rkD">
+                                    <rect key="frame" x="24" y="232" width="366" height="33.666666666666686"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold28"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="linkBlue"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="sightseeing_subscription_header_sightseeing"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subscription" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzD-qz-Fwt">
+                                    <rect key="frame" x="24" y="269.66666666666669" width="366" height="33.666666666666686"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold28"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="sightseeing_subscription_header_subscription"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="PSz-Kf-Ihe">
+                                    <rect key="frame" x="16" y="327.33333333333331" width="382" height="192.99999999999994"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6wz-nj-9Hk">
+                                            <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookmarksSubscriptionBullet" translatesAutoresizingMaskIntoConstraints="NO" id="v8f-bu-XRf">
+                                                    <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="16" id="9uz-Gn-4dK"/>
+                                                        <constraint firstAttribute="width" constant="16" id="v33-uE-cyp"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="700+ cities and 100+ countries" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yb-rS-wW6">
+                                                    <rect key="frame" x="32" y="-4" width="350" height="50"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="sightseeing_subscription_message"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="v8f-bu-XRf" firstAttribute="leading" secondItem="6wz-nj-9Hk" secondAttribute="leading" id="6qd-3D-YnN"/>
+                                                <constraint firstItem="0Yb-rS-wW6" firstAttribute="leading" secondItem="v8f-bu-XRf" secondAttribute="trailing" constant="16" id="ZXr-Ei-8iB"/>
+                                                <constraint firstAttribute="trailing" secondItem="0Yb-rS-wW6" secondAttribute="trailing" id="d33-Y9-0BY"/>
+                                                <constraint firstAttribute="height" secondItem="0Yb-rS-wW6" secondAttribute="height" id="jW8-zs-I4k"/>
+                                                <constraint firstItem="v8f-bu-XRf" firstAttribute="top" secondItem="6wz-nj-9Hk" secondAttribute="top" id="o1E-GY-Jsr"/>
+                                                <constraint firstItem="0Yb-rS-wW6" firstAttribute="top" secondItem="v8f-bu-XRf" secondAttribute="top" constant="-4" id="vYU-Ps-E1X"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mF9-z9-HWN">
+                                            <rect key="frame" x="0.0" y="66" width="382" height="61"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookmarksSubscriptionBullet" translatesAutoresizingMaskIntoConstraints="NO" id="FOL-e3-sHY">
+                                                    <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="16" id="IZr-8y-6VR"/>
+                                                        <constraint firstAttribute="width" constant="16" id="W4F-Fw-jXu"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detailed descriptions" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3W-d3-0t1">
+                                                    <rect key="frame" x="32" y="-4" width="350" height="61"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="sightseeing_subscription_message_2"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="FOL-e3-sHY" firstAttribute="leading" secondItem="mF9-z9-HWN" secondAttribute="leading" id="Bxw-V5-GPB"/>
+                                                <constraint firstItem="FOL-e3-sHY" firstAttribute="top" secondItem="mF9-z9-HWN" secondAttribute="top" id="Efh-b4-3CU"/>
+                                                <constraint firstItem="f3W-d3-0t1" firstAttribute="top" secondItem="FOL-e3-sHY" secondAttribute="top" constant="-4" id="GDe-wG-JEm"/>
+                                                <constraint firstItem="f3W-d3-0t1" firstAttribute="leading" secondItem="FOL-e3-sHY" secondAttribute="trailing" constant="16" id="Tpf-lQ-ASZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="f3W-d3-0t1" secondAttribute="trailing" id="Ua8-y7-ggf"/>
+                                                <constraint firstAttribute="height" secondItem="f3W-d3-0t1" secondAttribute="height" id="Zwn-Ri-YNB"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mtL-ar-cGM">
+                                            <rect key="frame" x="0.0" y="143" width="382" height="50"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookmarksSubscriptionBullet" translatesAutoresizingMaskIntoConstraints="NO" id="PSK-Ys-mFZ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="16" id="FPa-mC-5hG"/>
+                                                        <constraint firstAttribute="height" constant="16" id="xzI-O9-glP"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rich content: photos and tracks" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahr-bo-V6W">
+                                                    <rect key="frame" x="32" y="-4" width="350" height="50"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="sightseeing_subscription_message_3"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="ahr-bo-V6W" firstAttribute="top" secondItem="PSK-Ys-mFZ" secondAttribute="top" constant="-4" id="25q-3a-RFA"/>
+                                                <constraint firstItem="ahr-bo-V6W" firstAttribute="leading" secondItem="PSK-Ys-mFZ" secondAttribute="trailing" constant="16" id="FKU-iT-1dV"/>
+                                                <constraint firstItem="PSK-Ys-mFZ" firstAttribute="top" secondItem="mtL-ar-cGM" secondAttribute="top" id="IuY-vv-OCR"/>
+                                                <constraint firstAttribute="trailing" secondItem="ahr-bo-V6W" secondAttribute="trailing" id="bLU-Eh-O9Y"/>
+                                                <constraint firstAttribute="height" secondItem="ahr-bo-V6W" secondAttribute="height" id="bb7-EL-YyX"/>
+                                                <constraint firstItem="PSK-Ys-mFZ" firstAttribute="leading" secondItem="mtL-ar-cGM" secondAttribute="leading" id="fEj-Bj-7VH"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="mF9-z9-HWN" firstAttribute="width" secondItem="PSz-Kf-Ihe" secondAttribute="width" id="XnH-V7-TZc"/>
+                                        <constraint firstItem="6wz-nj-9Hk" firstAttribute="width" secondItem="PSz-Kf-Ihe" secondAttribute="width" id="iKl-Zj-mQ5"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="pJI-V4-7Ss"/>
+                                        <constraint firstItem="mtL-ar-cGM" firstAttribute="width" secondItem="PSz-Kf-Ihe" secondAttribute="width" id="z7N-mA-IV4"/>
+                                    </constraints>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="pHi-wc-Fah">
+                                    <rect key="frame" x="20" y="564.33333333333337" width="374" height="144"/>
+                                    <subviews>
+                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neX-0h-hs4" userLabel="Continue" customClass="BookmarksSubscriptionButton" customModule="maps_me" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="64"/>
+                                            <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_subscription_annual"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="64" id="fov-Od-QwC"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                            <state key="normal" title="!! Annual">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="6"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="onAnnualButtonTap:" destination="-1" eventType="touchUpInside" id="KEE-ZN-J9Y"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sj5-ey-SEv" userLabel="Continue" customClass="BookmarksSubscriptionButton" customModule="maps_me" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="80" width="374" height="64"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_subscription_monthly"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="64" id="uHO-Gb-tBx"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                            <state key="normal" title="!! Monthly">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="6"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="blackHintText"/>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                    <integer key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="borderColorName" value="blackHintText"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="blackDividers"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="onMonthlyButtonTap:" destination="-1" eventType="touchUpInside" id="Uc2-Qk-Flp"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Qf-I6-xXL">
+                                    <rect key="frame" x="28" y="541.33333333333337" width="68.333333333333329" height="35"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- $38" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YH0-h4-ZEb">
+                                            <rect key="frame" x="10.000000000000004" y="6.6666666666666305" width="48.333333333333343" height="21.666666666666671"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.63921568630000003" green="0.20784313730000001" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="YH0-h4-ZEb" firstAttribute="leading" secondItem="8Qf-I6-xXL" secondAttribute="leading" constant="10" id="C0N-aA-9E7"/>
+                                        <constraint firstAttribute="trailing" secondItem="YH0-h4-ZEb" secondAttribute="trailing" constant="10" id="Dp8-du-XOO"/>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="HAR-vc-83l"/>
+                                        <constraint firstItem="YH0-h4-ZEb" firstAttribute="centerY" secondItem="8Qf-I6-xXL" secondAttribute="centerY" id="fDL-BG-gMf"/>
+                                        <constraint firstAttribute="height" constant="35" id="jRh-2M-BXj"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="6"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="discountBackground"/>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a64-qc-DrZ" userLabel="Restore">
+                                    <rect key="frame" x="50" y="718.33333333333337" width="314" height="50"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="1uG-VX-pBy"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                    <state key="normal" title="Restore purchases">
+                                        <color key="titleColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlueHighlighted"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="restore_purchase"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onRestore:" destination="-1" eventType="touchUpInside" id="3br-rR-hqk"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWZ-GP-RxW">
+                                    <rect key="frame" x="20" y="776.33333333333337" width="374" height="64.666666666666629"/>
+                                    <string key="text">Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.</string>
+                                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                    <color key="textColor" white="0.0" alpha="0.31555008561643838" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular9"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackHintText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="subscription_terms_guides"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awa-we-Pjk" userLabel="TermsOfUse">
+                                    <rect key="frame" x="20" y="841" width="66" height="44"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="A7q-HV-LBa"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
+                                    <state key="normal" title="Terms of Use">
+                                        <color key="titleColor" white="0.5591291287173964" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="blackHintText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium10"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="blackSecondaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="terms_of_use"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onTerms:" destination="-1" eventType="touchUpInside" id="Khm-jH-zzz"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="60B-kT-Eev" userLabel="PrivacyPolicy">
+                                    <rect key="frame" x="325" y="841" width="69" height="44"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="HTR-mY-eCe"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
+                                    <state key="normal" title="Privacy Policy">
+                                        <color key="titleColor" white="0.55912912869999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="blackHintText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium10"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="blackSecondaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="privacy_policy"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onPrivacy:" destination="-1" eventType="touchUpInside" id="ySf-IG-mMz"/>
+                                    </connections>
+                                </button>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookmarksSubscriptionFooter" translatesAutoresizingMaskIntoConstraints="NO" id="GUc-JW-T3W">
+                                    <rect key="frame" x="0.0" y="786.33333333333337" width="414" height="228.66666666666663"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="GUc-JW-T3W" secondAttribute="height" multiplier="375:207" id="yvv-rm-Tjg"/>
+                                    </constraints>
+                                </imageView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MPt-NS-DbA">
+                                    <rect key="frame" x="0.0" y="1015" width="414" height="736"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="bookmarkSubscriptionFooterBackground"/>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v0Z-5m-unD">
+                                    <rect key="frame" x="362" y="4" width="44" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="9dL-YL-GLY"/>
+                                        <constraint firstAttribute="width" constant="44" id="tIs-g1-eI6"/>
+                                    </constraints>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal" image="bookmarksSubscriptionClose"/>
+                                    <connections>
+                                        <action selector="onClose:" destination="-1" eventType="touchUpInside" id="VMj-IW-RNx"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="MPt-NS-DbA" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" id="1QZ-Ze-yR5"/>
+                                <constraint firstItem="bOS-sQ-rkD" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" constant="24" id="2dJ-3J-bOG"/>
+                                <constraint firstAttribute="trailing" secondItem="vzD-qz-Fwt" secondAttribute="trailing" constant="24" id="3Xf-Bz-ISk"/>
+                                <constraint firstAttribute="trailing" secondItem="GUc-JW-T3W" secondAttribute="trailing" id="5eY-po-9Sf"/>
+                                <constraint firstItem="awa-we-Pjk" firstAttribute="top" secondItem="tWZ-GP-RxW" secondAttribute="bottom" id="7ey-rc-AJD"/>
+                                <constraint firstItem="vzD-qz-Fwt" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" constant="24" id="819-Wz-tmt"/>
+                                <constraint firstItem="pHi-wc-Fah" firstAttribute="top" secondItem="8Qf-I6-xXL" secondAttribute="bottom" constant="-12" id="Av2-tQ-YYz"/>
+                                <constraint firstAttribute="bottom" secondItem="GUc-JW-T3W" secondAttribute="bottom" id="DbY-me-8DS"/>
+                                <constraint firstItem="Y38-kF-ZnW" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" id="Egn-no-uGA"/>
+                                <constraint firstItem="60B-kT-Eev" firstAttribute="top" secondItem="tWZ-GP-RxW" secondAttribute="bottom" id="HNk-gd-Qc6"/>
+                                <constraint firstAttribute="trailing" secondItem="a64-qc-DrZ" secondAttribute="trailing" constant="50" id="INc-Pv-5M3"/>
+                                <constraint firstItem="8Qf-I6-xXL" firstAttribute="leading" secondItem="pHi-wc-Fah" secondAttribute="leading" constant="8" id="Ifx-No-gEE"/>
+                                <constraint firstItem="pHi-wc-Fah" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" constant="20" id="J0P-76-RPl"/>
+                                <constraint firstItem="awa-we-Pjk" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" constant="20" id="Loh-WS-cJr"/>
+                                <constraint firstItem="a64-qc-DrZ" firstAttribute="top" secondItem="pHi-wc-Fah" secondAttribute="bottom" constant="10" id="N8l-CI-D02"/>
+                                <constraint firstItem="Y38-kF-ZnW" firstAttribute="top" secondItem="Eiz-QQ-h0b" secondAttribute="top" id="NJc-wc-d8G"/>
+                                <constraint firstItem="GUc-JW-T3W" firstAttribute="centerX" secondItem="Eiz-QQ-h0b" secondAttribute="centerX" id="NUr-Gl-90a"/>
+                                <constraint firstAttribute="trailing" secondItem="tWZ-GP-RxW" secondAttribute="trailing" constant="20" id="OFb-vM-2cl"/>
+                                <constraint firstAttribute="bottom" secondItem="60B-kT-Eev" secondAttribute="bottom" constant="130" id="Oal-d1-061"/>
+                                <constraint firstItem="a64-qc-DrZ" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" constant="50" id="R8g-2f-TIi"/>
+                                <constraint firstAttribute="trailing" secondItem="pHi-wc-Fah" secondAttribute="trailing" constant="20" id="SMh-T1-d1h"/>
+                                <constraint firstAttribute="trailing" secondItem="bOS-sQ-rkD" secondAttribute="trailing" constant="24" id="UBz-JQ-dSq"/>
+                                <constraint firstAttribute="trailing" secondItem="v0Z-5m-unD" secondAttribute="trailing" constant="8" id="aj5-SM-A2m"/>
+                                <constraint firstItem="60B-kT-Eev" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="awa-we-Pjk" secondAttribute="trailing" constant="16" id="bOW-rf-yBR"/>
+                                <constraint firstItem="PSz-Kf-Ihe" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" constant="16" id="cbD-Jg-kMl"/>
+                                <constraint firstItem="vzD-qz-Fwt" firstAttribute="top" secondItem="bOS-sQ-rkD" secondAttribute="bottom" constant="4" id="f5X-2e-9pD"/>
+                                <constraint firstItem="tWZ-GP-RxW" firstAttribute="top" secondItem="a64-qc-DrZ" secondAttribute="bottom" constant="8" id="fUL-gY-evu"/>
+                                <constraint firstAttribute="trailing" secondItem="Y38-kF-ZnW" secondAttribute="trailing" id="g3S-MI-Ade"/>
+                                <constraint firstAttribute="trailing" secondItem="MPt-NS-DbA" secondAttribute="trailing" id="h6E-wP-Tod"/>
+                                <constraint firstItem="pHi-wc-Fah" firstAttribute="top" secondItem="PSz-Kf-Ihe" secondAttribute="bottom" constant="44" id="hJY-HS-z7Q"/>
+                                <constraint firstAttribute="trailing" secondItem="PSz-Kf-Ihe" secondAttribute="trailing" constant="16" id="jgx-hb-G4E"/>
+                                <constraint firstItem="tWZ-GP-RxW" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" constant="20" id="km3-TI-Nnc"/>
+                                <constraint firstItem="v0Z-5m-unD" firstAttribute="top" secondItem="Eiz-QQ-h0b" secondAttribute="top" constant="4" id="qdm-IQ-Y6J"/>
+                                <constraint firstItem="GUc-JW-T3W" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" id="rj2-o4-Jw3"/>
+                                <constraint firstItem="PSz-Kf-Ihe" firstAttribute="top" secondItem="vzD-qz-Fwt" secondAttribute="bottom" constant="24" id="syy-VW-Tlt"/>
+                                <constraint firstItem="MPt-NS-DbA" firstAttribute="top" secondItem="Eiz-QQ-h0b" secondAttribute="bottom" id="vy8-dM-4jS"/>
+                                <constraint firstAttribute="trailing" secondItem="60B-kT-Eev" secondAttribute="trailing" constant="20" id="wEX-hK-g2z"/>
+                                <constraint firstItem="bOS-sQ-rkD" firstAttribute="top" secondItem="Y38-kF-ZnW" secondAttribute="bottom" constant="20" id="xYU-mb-XeF"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="bookmarkSubscriptionBackground"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Eiz-QQ-h0b" firstAttribute="top" secondItem="0eE-hs-sId" secondAttribute="top" id="9jr-XF-OP2"/>
+                        <constraint firstItem="Eiz-QQ-h0b" firstAttribute="leading" secondItem="0eE-hs-sId" secondAttribute="leading" id="DjF-kC-58d"/>
+                        <constraint firstAttribute="trailing" secondItem="Eiz-QQ-h0b" secondAttribute="trailing" id="GL8-iC-MmT"/>
+                        <constraint firstItem="MPt-NS-DbA" firstAttribute="height" secondItem="0eE-hs-sId" secondAttribute="height" id="Hu8-4c-2lH"/>
+                        <constraint firstAttribute="bottom" secondItem="Eiz-QQ-h0b" secondAttribute="bottom" id="amI-MH-1yy"/>
+                        <constraint firstItem="Eiz-QQ-h0b" firstAttribute="width" secondItem="0eE-hs-sId" secondAttribute="width" id="ke9-ke-QPG"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="bookmarkSubscriptionScrollBackground"/>
+                    </userDefinedRuntimeAttributes>
+                </scrollView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BHb-cU-Ze3">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="XZg-yN-Jtv">
+                            <rect key="frame" x="188.66666666666666" y="349.66666666666669" width="37" height="37"/>
+                            <color key="color" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="0.89998929790000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="XZg-yN-Jtv" firstAttribute="centerX" secondItem="BHb-cU-Ze3" secondAttribute="centerX" id="Ade-4z-Spa"/>
+                        <constraint firstItem="XZg-yN-Jtv" firstAttribute="centerY" secondItem="BHb-cU-Ze3" secondAttribute="centerY" id="CQX-i5-ZcY"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="toastBackground"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="0eE-hs-sId" secondAttribute="trailing" id="7gZ-TD-rRu"/>
+                <constraint firstItem="0eE-hs-sId" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Avd-W3-cXU"/>
+                <constraint firstAttribute="bottom" secondItem="BHb-cU-Ze3" secondAttribute="bottom" id="X6W-ia-1Mi"/>
+                <constraint firstAttribute="trailing" secondItem="BHb-cU-Ze3" secondAttribute="trailing" id="dNr-7E-k98"/>
+                <constraint firstItem="BHb-cU-Ze3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ipn-ug-1wp"/>
+                <constraint firstAttribute="bottom" secondItem="0eE-hs-sId" secondAttribute="bottom" id="ku8-zI-AI4"/>
+                <constraint firstItem="0eE-hs-sId" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="sv4-ek-sAP"/>
+                <constraint firstAttribute="top" secondItem="BHb-cU-Ze3" secondAttribute="top" id="vTu-oZ-veb"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="k4r-ns-RCJ"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="46.376811594202906" y="110.86956521739131"/>
+        </view>
+        <tapGestureRecognizer id="CPT-bP-cim">
+            <connections>
+                <action selector="onAnnualViewTap:" destination="-1" id="Hzt-LN-ieo"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="6bt-Wj-I8y">
+            <connections>
+                <action selector="onMonthlyViewTap:" destination="-1" id="Chj-Fs-aef"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+    <resources>
+        <image name="bookmarksSubscriptionBullet" width="16" height="16"/>
+        <image name="bookmarksSubscriptionClose" width="24" height="24"/>
+        <image name="bookmarksSubscriptionFooter" width="375" height="208"/>
+        <image name="bookmarksSubscriptionHeader" width="375" height="212.33332824707031"/>
+    </resources>
+</document>

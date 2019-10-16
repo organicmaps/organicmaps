@@ -57,6 +57,15 @@ NSDictionary<NSString *, UIColor *> * night = @{
   @"bookmarkSubscriptionBackground" : [UIColor colorWithRed:scaled(60.) green:scaled(64.) blue:scaled(68.) alpha:alpha100],
   @"bookmarkSubscriptionScrollBackground" : [UIColor colorWithRed:scaled(137) green:scaled(217) blue:scaled(255) alpha:alpha100],
   @"bookmarkSubscriptionFooterBackground" : [UIColor colorWithRed:scaled(47) green:scaled(58) blue:scaled(73) alpha:alpha100],
+  //NO NIGHT
+  @"allPassSubscriptionTitle" : [UIColor colorWithWhite:1. alpha:alpha40],
+  @"allPassSubscriptionSubTitle" :[UIColor colorWithRed:scaled(30.) green:scaled(150.) blue:scaled(240.) alpha:alpha100],
+  @"allPassSubscriptionDescription" : [UIColor colorWithWhite:1. alpha:alpha100],
+  @"allPassSubscriptionMonthlyBackground" :[UIColor colorWithWhite:0.88 alpha:alpha80],
+  @"allPassSubscriptionMonthlyTitle" :[UIColor colorWithWhite:0 alpha:alpha87],
+  @"allPassSubscriptionDiscountBackground" :[UIColor colorWithRed:scaled(245.) green:scaled(210.) blue:scaled(12.) alpha:alpha100],
+  @"allPassSubscriptionTermsTitle" :[UIColor colorWithWhite:1 alpha:alpha70],
+  //END NO NIGHT
 };
 
 NSDictionary<NSString *, UIColor *> * day = @{
@@ -110,6 +119,15 @@ NSDictionary<NSString *, UIColor *> * day = @{
   @"bookmarkSubscriptionBackground" : [UIColor colorWithRed:scaled(240) green:scaled(252) blue:scaled(255) alpha:alpha100],
   @"bookmarkSubscriptionScrollBackground" : [UIColor colorWithRed:scaled(137) green:scaled(217) blue:scaled(255) alpha:alpha100],
   @"bookmarkSubscriptionFooterBackground" : [UIColor colorWithRed:scaled(47) green:scaled(58) blue:scaled(73) alpha:alpha100],
+  //NO NIGHT
+  @"allPassSubscriptionTitle" : [UIColor colorWithWhite:1. alpha:alpha40],
+  @"allPassSubscriptionSubTitle" :[UIColor colorWithRed:scaled(30.) green:scaled(150.) blue:scaled(240.) alpha:alpha100],
+  @"allPassSubscriptionDescription" : [UIColor colorWithWhite:1. alpha:alpha100],
+  @"allPassSubscriptionMonthlyBackground" :[UIColor colorWithWhite:0.88 alpha:alpha80],
+  @"allPassSubscriptionMonthlyTitle" :[UIColor colorWithWhite:0 alpha:alpha87],
+  @"allPassSubscriptionDiscountBackground" :[UIColor colorWithRed:scaled(245.) green:scaled(210.) blue:scaled(12.) alpha:alpha100],
+  @"allPassSubscriptionTermsTitle" :[UIColor colorWithWhite:1 alpha:alpha70],
+  //END NO NIGHT
 };
 
 UIColor * color(SEL cmd)
@@ -444,4 +462,37 @@ UIColor * color(SEL cmd)
   return color(_cmd);
 }
 
+//NO NIGHT COLORS
++ (UIColor *)allPassSubscriptionTitle
+{
+  return color(_cmd);
+}
+
++ (UIColor *)allPassSubscriptionDescription
+{
+  return color(_cmd);
+}
+
++ (UIColor *)allPassSubscriptionSubTitle
+{
+  return color(_cmd);
+}
++ (UIColor *)allPassSubscriptionMonthlyBackground
+{
+  return color(_cmd);
+}
+
++ (UIColor *)allPassSubscriptionMonthlyTitle
+{
+  return color(_cmd);
+}
++ (UIColor *)allPassSubscriptionDiscountBackground
+{
+  return color(_cmd);
+}
++ (UIColor *)allPassSubscriptionTermsTitle
+{
+  return color(_cmd);
+}
+//END NO NIGHT
 @end

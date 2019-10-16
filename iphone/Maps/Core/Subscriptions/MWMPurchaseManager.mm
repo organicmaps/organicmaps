@@ -34,6 +34,22 @@
            @(BOOKMARKS_SUBSCRIPTION_MONTHLY_PRODUCT_ID)];
 }
 
++ (NSString *)allPassSubscriptionServerId
+{
+  return @(BOOKMARKS_SUBSCRIPTION_SERVER_ID);
+}
+
++ (NSString *)allPassSubscriptionVendorId
+{
+  return @(BOOKMARKS_SUBSCRIPTION_VENDOR);
+}
+
++ (NSArray *)allPassProductIds
+{
+  return @[@(BOOKMARKS_SUBSCRIPTION_YEARLY_PRODUCT_ID),
+           @(BOOKMARKS_SUBSCRIPTION_MONTHLY_PRODUCT_ID)];
+}
+
 + (NSString *)adsRemovalServerId
 {
   return @(ADS_REMOVAL_SERVER_ID);

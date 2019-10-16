@@ -41,3 +41,23 @@ extension UIColor {
     }
   }
 }
+
+extension UIColor {
+  func components() -> (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat)? {
+    var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+    return getRed(&r, green: &g, blue: &b, alpha: &a) ? (r,g,b,a) : nil
+  }
+
+  static func intermediateColor( color1: UIColor,  color2: UIColor, _ scale: CGFloat) -> UIColor? {
+    guard let comp1 = color1.components(),
+          let comp2 = color2.components() else {
+            return nil
+    }
+    let scale = min(1, max(0, scale))
+    let r = comp1.red + (comp2.red - comp1.red) * scale
+    let g = comp1.green + (comp2.green - comp1.green) * scale
+    let b = comp1.blue + (comp2.blue - comp1.blue) * scale
+    let a = comp1.alpha + (comp2.alpha - comp1.alpha) * scale
+    return UIColor(red: r, green: g, blue: b, alpha: a)
+  }
+}

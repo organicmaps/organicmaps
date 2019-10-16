@@ -103,6 +103,8 @@
 	<string>185237551520383</string>
 	<key>FacebookDisplayName</key>
 	<string>MapsWithMe, offline maps</string>
+	<key>Item 0</key>
+	<string>FedokaOne-Regular.ttf</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -173,6 +175,10 @@
 	<string>84E00-0F767</string>
 	<key>Pushwoosh_LOG_LEVEL</key>
 	<string>WARNING</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>FredokaOne-Regular.ttf</string>
+	</array>
 	<key>UIApplicationShortcutItems</key>
 	<array>
 		<dict>

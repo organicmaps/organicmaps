@@ -154,7 +154,7 @@ class PaidRouteViewController: MWMViewController {
     pingServer { [weak self] (success) in
       guard success else {
         self?.loadingView.isHidden = true
-        let errorDialog = BookmarksSubscriptionFailViewController { [weak self] in
+        let errorDialog = SubscriptionFailViewController { [weak self] in
           self?.dismiss(animated: true)
         }
         self?.present(errorDialog, animated: true)
@@ -200,7 +200,7 @@ class PaidRouteViewController: MWMViewController {
     pingServer { [weak self] (success) in
       guard success else {
         self?.loadingView.isHidden = true
-        let errorDialog = BookmarksSubscriptionFailViewController { [weak self] in
+        let errorDialog = SubscriptionFailViewController { [weak self] in
           self?.dismiss(animated: true)
         }
         self?.present(errorDialog, animated: true)
@@ -245,7 +245,7 @@ extension PaidRouteViewController : SubscriptionManagerListener {
     loadingView.isHidden = true
     if (isValid) {
       delegate?.didCompleteSubscription(self)
-      let successDialog = BookmarksSubscriptionSuccessViewController { [weak self] in
+      let successDialog = SubscriptionSuccessViewController { [weak self] in
         self?.dismiss(animated: true)
       }
       present(successDialog, animated: true)

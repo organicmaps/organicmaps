@@ -24,7 +24,7 @@ extension UIViewController {
         MWMBookmarksManager.shared().deleteInvalidCategories()
         completion?(true)
       }
-      let subscriptionExpiredDialog = BookmarksSubscriptionExpiredViewController(onSubscribe: onSubscribe, onDelete: onDelete)
+      let subscriptionExpiredDialog = SubscriptionExpiredViewController(onSubscribe: onSubscribe, onDelete: onDelete)
       self?.present(subscriptionExpiredDialog, animated: true)
     }
   }
