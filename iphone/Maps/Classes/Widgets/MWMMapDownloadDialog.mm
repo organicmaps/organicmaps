@@ -184,12 +184,8 @@ using namespace storage;
 - (void)addToSuperview {
   if (self.superview)
     return;
-  auto superview = self.controller.view;
-  auto bottomMenuView = [MWMBottomMenuViewController controller].view;
-  if (bottomMenuView)
-    [superview insertSubview:self belowSubview:bottomMenuView];
-  else
-    [superview addSubview:self];
+  MapViewController *controller = self.controller;
+  [controller.view insertSubview:self aboveSubview:controller.mapView];
   [MWMFrameworkListener addObserver:self];
 }
 
