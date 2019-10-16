@@ -8,13 +8,15 @@
   @IBOutlet var openCatalogButton: UIButton!
   @IBOutlet var moreButtonHeightConstraint: NSLayoutConstraint!
   @IBOutlet var guideContainerView: UIView!
+  @IBOutlet var headerLabel: UILabel!
 
   @objc var onMore: MWMVoidBlock?
   @objc var onView: MWMVoidBlock?
 
   override func awakeFromNib() {
     super.awakeFromNib()
-    guideContainerView.layer.borderColor = UIColor.blackDividers().cgColor
+    guideContainerView.layer.borderColor = UIColor.blackDividers()?.cgColor
+    headerLabel.text = L("pp_discovery_place_related_header").uppercased()
   }
 
   @objc func config(_ promoItem: CatalogPromoItem) {

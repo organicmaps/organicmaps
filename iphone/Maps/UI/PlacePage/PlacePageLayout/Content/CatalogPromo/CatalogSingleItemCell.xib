@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,7 +14,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="454"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="453.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="454"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="THIS PLACE IN GUIDES CATALOG" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bhy-Em-Lsy">
@@ -33,10 +31,10 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kay-Ql-Q4u">
-                        <rect key="frame" x="0.0" y="48" width="375" height="175.5"/>
+                        <rect key="frame" x="0.0" y="48" width="375" height="176"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Государственный музей изобразительных искусств имени А.С. Пушкина" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tjG-Xk-PW2">
-                                <rect key="frame" x="16" y="16" width="343" height="33.5"/>
+                                <rect key="frame" x="16" y="16" width="343" height="34"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -45,8 +43,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kpd-Fx-T2M">
-                                <rect key="frame" x="16" y="57.5" width="343" height="84"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kpd-Fx-T2M">
+                                <rect key="frame" x="16" y="58" width="343" height="84"/>
                                 <string key="text">музейный комплекс, обладающий одим из крупнейших в России художественных собраний зарубежного искусства. хранящий артефакты, созданные мастерами разных эпох - от Древнего Египта и античной Греции до наших...</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
@@ -57,7 +55,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="88F-wd-Imb">
-                                <rect key="frame" x="16" y="141.5" width="343" height="30"/>
+                                <rect key="frame" x="16" y="142" width="343" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="rDb-rD-JRG"/>
                                 </constraints>
@@ -93,7 +91,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="evd-YR-GpP">
-                        <rect key="frame" x="0.0" y="224" width="375" height="230"/>
+                        <rect key="frame" x="0.0" y="224.5" width="375" height="230"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ghb-tP-72g">
                                 <rect key="frame" x="8" y="8" width="359" height="214"/>
@@ -254,6 +252,7 @@
                 <outlet property="guideAuthorLabel" destination="Waz-Lf-ctY" id="T4F-L6-HTu"/>
                 <outlet property="guideContainerView" destination="Ghb-tP-72g" id="aHA-6o-eAq"/>
                 <outlet property="guideNameLabel" destination="upe-j8-l1G" id="glR-SC-J3U"/>
+                <outlet property="headerLabel" destination="Bhy-Em-Lsy" id="HCr-bt-obJ"/>
                 <outlet property="moreButton" destination="88F-wd-Imb" id="f6t-sm-CHR"/>
                 <outlet property="moreButtonHeightConstraint" destination="rDb-rD-JRG" id="gsR-hZ-ucq"/>
                 <outlet property="openCatalogButton" destination="ze9-RJ-Rq3" id="8aT-Dt-HuW"/>
