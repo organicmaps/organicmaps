@@ -909,6 +909,10 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   auto const row = canUseNetwork.CanUse() ? PromoCatalogRow::GuidesRequestError : PromoCatalogRow::GuidesNoInternetError;
   if (!api) {
     m_promoCatalogRows.push_back(row);
+    m_sections.insert(m_sections.begin() + 1, Sections::Description);
+    if (self.refreshPromoCallback) {
+      self.refreshPromoCallback([NSIndexSet indexSetWithIndex:1]);
+    }
     [Statistics logEvent:kStatPlacepageSponsoredError
           withParameters:@{
                            kStatProvider: kStatMapsmeGuides,
