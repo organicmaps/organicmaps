@@ -252,10 +252,6 @@ def stage_external_resources(env):
     for ttf_file in resources:
         shutil.copy2(ttf_file, env.mwm_path)
 
-    shutil.copy2(
-        os.path.join(env.user_resource_path, "WorldCoasts_obsolete.mwm"),
-        env.mwm_path)
-
     for file in os.listdir(env.mwm_path):
         if file.startswith(WORLD_NAME) and file.endswith(".mwm"):
             resources.append(os.path.join(env.mwm_path, file))

@@ -181,7 +181,6 @@ copy_resources(
   colors.txt
   copyright.html
   countries.txt
-  countries_obsolete.txt
   drules_proto_clear.bin
   drules_proto_dark.bin
   drules_proto_vehicle_clear.bin
@@ -190,14 +189,12 @@ copy_resources(
   fonts_blacklist.txt
   fonts_whitelist.txt
   packed_polygons.bin
-  packed_polygons_obsolete.bin
   patterns.txt
   transit_colors.txt
   types.txt
   unicode_blocks.txt
   World.mwm
   WorldCoasts.mwm
-  WorldCoasts_obsolete.mwm
   icudt57l.dat
   local_ads_symbols.txt
 
