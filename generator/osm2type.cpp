@@ -479,6 +479,8 @@ string DetermineSurface(OsmElement * p)
       surface_grade = tag.m_value;
     else if (tag.m_key == "highway")
       isHighway = true;
+    else if (tag.m_key == "4wd_only" && (tag.m_value == "yes" || tag.m_value == "recommended"))
+      return "unpaved_bad";
   }
 
   if (!isHighway || (surface.empty() && smoothness.empty()))
