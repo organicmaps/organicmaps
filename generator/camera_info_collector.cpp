@@ -168,7 +168,7 @@ void CamerasInfoCollector::Camera::FindClosestSegment(FrozenDataSource const & d
   if (!m_data.m_ways.empty() && FindClosestSegmentInInnerWays(dataSource, mwmId))
     return;
 
-  FindClosestSegmentWithGeometryIndex(dataSource, mwmId);
+  FindClosestSegmentWithGeometryIndex(dataSource);
 }
 
 
@@ -195,8 +195,7 @@ bool CamerasInfoCollector::Camera::FindClosestSegmentInInnerWays(FrozenDataSourc
   return !m_data.m_ways.empty();
 }
 
-void CamerasInfoCollector::Camera::FindClosestSegmentWithGeometryIndex(FrozenDataSource const & dataSource,
-                                                                       MwmSet::MwmId const & mwmId)
+void CamerasInfoCollector::Camera::FindClosestSegmentWithGeometryIndex(FrozenDataSource const & dataSource)
 {
   uint32_t bestFeatureId = 0;
   uint32_t bestSegmentId = 0;

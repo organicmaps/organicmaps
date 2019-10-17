@@ -64,7 +64,7 @@ private:
     bool FindClosestSegmentInInnerWays(FrozenDataSource const & dataSource, MwmSet::MwmId const & mwmId);
 
     /// \brief Use when |m_ways| is empty. Try to FindClosestSegment using geometry index.
-    void FindClosestSegmentWithGeometryIndex(FrozenDataSource const & dataSource, MwmSet::MwmId const & mwmId);
+    void FindClosestSegmentWithGeometryIndex(FrozenDataSource const & dataSource);
 
     // Returns empty object, if current feature - |wayId| is not the car road.
     // Otherwise returns id of segment from feature with id - |wayId|, which starts (or ends) at camera's
