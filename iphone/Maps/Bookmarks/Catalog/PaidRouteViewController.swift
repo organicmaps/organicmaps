@@ -7,14 +7,15 @@ protocol PaidRouteViewControllerDelegate: AnyObject {
 }
 
 class PaidRouteViewController: MWMViewController {
-  @IBOutlet weak var previewImageView: UIImageView!
-  @IBOutlet weak var productNameLabel: UILabel!
-  @IBOutlet weak var routeTitleLabel: UILabel!
-  @IBOutlet weak var routeAuthorLabel: UILabel!
-  @IBOutlet weak var subscribeButton: UIButton!
-  @IBOutlet weak var buyButton: UIButton!
-  @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
-  @IBOutlet weak var loadingView: UIView!
+  @IBOutlet var scrollView: UIScrollView!
+  @IBOutlet var previewImageView: UIImageView!
+  @IBOutlet var productNameLabel: UILabel!
+  @IBOutlet var routeTitleLabel: UILabel!
+  @IBOutlet var routeAuthorLabel: UILabel!
+  @IBOutlet var subscribeButton: UIButton!
+  @IBOutlet var buyButton: UIButton!
+  @IBOutlet var loadingIndicator: UIActivityIndicatorView!
+  @IBOutlet var loadingView: UIView!
 
   weak var delegate: PaidRouteViewControllerDelegate?
 
@@ -23,6 +24,7 @@ class PaidRouteViewController: MWMViewController {
   private let name: String
   private let author: String?
   private let imageUrl: URL?
+  private var adjustScroll = true
 
   private var product: IStoreProduct?
   private var subscription: ISubscription?
@@ -117,6 +119,25 @@ class PaidRouteViewController: MWMViewController {
 
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .lightContent
+  }
+
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    adjustScroll = false
+  }
+
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    guard adjustScroll else {
+      return
+    }
+    if previewImageView.height < 222 {
+      let adjustment = 222 - previewImageView.height
+      scrollView.contentInset = UIEdgeInsets(top: adjustment, left: 0, bottom: 0, right: 0)
+      scrollView.contentOffset = CGPoint(x: 0, y: -adjustment)
+    } else {
+      scrollView.contentInset = UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0)
+    }
   }
 
   private func pingServer(_ completion: @escaping (_ success: Bool) -> Void) {
