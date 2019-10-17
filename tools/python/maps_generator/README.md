@@ -123,6 +123,11 @@ optional arguments:
                         break, for which maps will be built. The names of the
                         regions can be seen in omim/data/borders. It is
                         necessary to set names without any extension.
+
+  --without_countries COUNTRIES
+                        Syntax the same with --countries. List of regions
+                        which you want to exclude from building.
+
   --skip SKIP           List of stages, separated by a comma or a semicolon,
                         for which building will be skipped. Available skip
                         stages: download_external,
@@ -217,4 +222,10 @@ PLANET_MD5_URL: https://download.geofabrik.de/russia/central-fed-district-latest
 3. Run
 ```sh
 python$ python3.6 -m maps_generator --countries="Russia_Moscow" --skip="coastline"
+```
+
+#### Generate all possible mwms from .osm.pbf file
+If you cut some area (with http://geojson.io and osmium tool for example) and you don't want to think what mwms got into this .osm.pbf file, you just:
+```sh
+python$ python3.6 -m maps_generator --skip="coastline" --without_countries="World*"
 ```

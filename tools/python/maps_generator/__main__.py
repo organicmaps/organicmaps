@@ -91,6 +91,11 @@ def parse_options():
              "in omim/data/borders. It is necessary to set names without "
              "any extension.")
     parser.add_argument(
+        "--without_countries",
+        type=str,
+        default="",
+        help="List of regions to exclude them from generation. Syntax is the same as for --countries.")
+    parser.add_argument(
         "--skip",
         type=str,
         default="",
@@ -138,21 +143,16 @@ def main():
     options["build_name"] = build_name
 
     countries_line = ""
+    without_countries_line = ""
     if "COUNTRIES" in os.environ:
         countries_line = os.environ["COUNTRIES"]
     if options["countries"]:
-        options["build_all_countries"] = False
         countries_line = options["countries"]
     else:
-        options["build_all_countries"] = True
-    raw_countries = []
-    if os.path.isfile(countries_line):
-        with open(countries_line) as f:
-            raw_countries = [x.strip() for x in f]
-    if countries_line:
-        raw_countries = [
-            x.strip() for x in countries_line.replace(";", ",").split(",")
-        ]
+        countries_line = "*"
+
+    if options["without_countries"]:
+      without_countries_line = options["without_countries"]
 
     borders_path = os.path.join(settings.USER_RESOURCE_PATH, "borders")
     all_countries = [
@@ -160,8 +160,6 @@ def main():
         if os.path.isfile(os.path.join(borders_path, f))
     ]
     all_countries += list(WORLDS_NAMES)
-    countries = []
-    used_countries = set()
 
     def end_star_compare(prefix, full):
         return full.startswith(prefix)
@@ -169,23 +167,45 @@ def main():
     def compare(a, b):
         return a == b
 
-    for raw_country in raw_countries:
-        cmp = compare
-        _raw_country = raw_country[:]
-        if _raw_country and _raw_country[-1] == "*":
-            _raw_country = _raw_country.replace("*", "")
-            cmp = end_star_compare
+    def get_countries_set_from_line(line):
+      countries = []
+      used_countries = set()
+      countries_list = []
+      if os.path.isfile(line):
+          with open(line) as f:
+              countries_list = [x.strip() for x in f]
+      elif line:
+          countries_list = [
+              x.strip() for x in line.replace(";", ",").split(",")
+          ]
 
-        for country in all_countries:
+      for country_item in countries_list:
+          cmp = compare
+          _raw_country = country_item[:]
+          if _raw_country and _raw_country[-1] == "*":
+              _raw_country = _raw_country.replace("*", "")
+              cmp = end_star_compare
+
+          for country in all_countries:
             if cmp(_raw_country, country):
-                used_countries.add(raw_country)
+                used_countries.add(country_item)
                 countries.append(country)
 
-    countries = unique(countries)
-    diff = set(raw_countries) - used_countries
-    if diff:
-        raise ValidationError(f"Bad input countries {', '.join(diff)}")
+      countries = unique(countries)
+      diff = set(countries_list) - used_countries
+      if diff:
+          raise ValidationError(f"Bad input countries {', '.join(diff)}")
+      return set(countries)
+
+    countries = get_countries_set_from_line(countries_line)
+    without_countries = get_countries_set_from_line(without_countries_line)
+    countries -= without_countries
+    countries = list(countries)
     options["countries"] = countries if countries else all_countries
+
+    options["build_all_countries"] = False
+    if len(countries) == len(all_countries):
+      options["build_all_countries"] = True
 
     if options["order"]:
         ordered_countries = []
@@ -231,7 +251,8 @@ def main():
         worlds_names = [x for x in options["countries"] if x in WORLDS_NAMES]
         if worlds_names:
             raise SkipError(f"You can not skip {stages_as_string(stage_coastline)}"
-                            f" if you want to generate {countries}")
+                            f" if you want to generate {WORLDS_NAMES}."
+                            f" You can exclude them with --without_countries option.")
 
     env = Env(options)
     if env.from_stage:
