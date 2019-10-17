@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -19,7 +18,7 @@ public class ParallaxBackgroundViewPager extends ViewPager
   private static final int DEFAULT_AUTO_SCROLL_PERIOD = 3000;
   private static final int CAROUSEL_ITEMS_MIN_COUNT = 2;
   private final int mAutoScrollPeriod;
-  private final boolean mHasAutoScroll;
+  private final boolean mAutoScroll;
   @NonNull
   private final Handler mAutoScrollHandler;
   @NonNull
@@ -35,11 +34,11 @@ public class ParallaxBackgroundViewPager extends ViewPager
   {
     super(context, attrs);
     TypedArray a = context.getTheme()
-                          .obtainStyledAttributes(attrs, R.styleable.ParallaxBgViewPager, 0, 0);
+                          .obtainStyledAttributes(attrs, R.styleable.ParallaxViewPagerBg, 0, 0);
     try
     {
-      mHasAutoScroll = a.getBoolean(R.styleable.ParallaxBgViewPager_autoScroll, false);
-      mAutoScrollPeriod = a.getInt(R.styleable.ParallaxBgViewPager_scrollPeriod,
+      mAutoScroll = a.getBoolean(R.styleable.ParallaxViewPagerBg_autoScroll, false);
+      mAutoScrollPeriod = a.getInt(R.styleable.ParallaxViewPagerBg_scrollPeriod,
                                    DEFAULT_AUTO_SCROLL_PERIOD);
     }
     finally
@@ -63,9 +62,9 @@ public class ParallaxBackgroundViewPager extends ViewPager
   @Override
   public boolean dispatchTouchEvent(MotionEvent ev)
   {
-    int action = MotionEventCompat.getActionMasked(ev);
+    int action = ev.getAction();
 
-    if (action == MotionEvent.ACTION_DOWN && mHasAutoScroll)
+    if (action == MotionEvent.ACTION_DOWN && mAutoScroll)
       stopAutoScroll();
     else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_OUTSIDE)
       startAutoScroll();
@@ -118,7 +117,7 @@ public class ParallaxBackgroundViewPager extends ViewPager
       PagerAdapter adapter = getAdapter();
       if (adapter == null
           || adapter.getCount() < CAROUSEL_ITEMS_MIN_COUNT
-          || !mHasAutoScroll)
+          || !mAutoScroll)
         return;
 
       if (isLastAutoScrollPosition())
