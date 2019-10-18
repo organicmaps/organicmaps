@@ -3392,7 +3392,7 @@
 
   [type.boundary.administrative.county]
     en = boundary-administrative-county
-    pl = Granica państwa
+    pl = Granica hrabstwa
 
   [type.boundary.administrative.municipality]
     en = boundary-administrative-municipality
@@ -10679,6 +10679,7 @@
 
   [type.landuse]
     en = landuse
+    pl = Zagospodarowanie ziemi
 
   [type.landuse.allotments]
     en = Allotments
@@ -11177,6 +11178,7 @@
 
   [type.leisure]
     en = leisure
+    pl = Wypoczynek
 
   [type.leisure.common]
     en = leisure-common
@@ -13275,6 +13277,7 @@
 
   [type.olympics]
     en = olympics
+    pl = Olimpiada
 
   [type.olympics.attraction]
     en = olympics-attraction
@@ -13289,6 +13292,7 @@
 
   [type.olympics.official_building]
     en = olympics-official_building
+    pl = Oficjalny budynek olimpijski
 
   [type.olympics.stadium]
     en = olympics-stadium
@@ -13296,6 +13300,7 @@
 
   [type.olympics.stadium_main]
     en = olympics-stadium_main
+    pl = Główny stadion olimpijski
 
   [type.olympics.transport_airport]
     en = olympics-transport_airport
@@ -13320,9 +13325,11 @@
 
   [type.olympics.water_sport]
     en = olympics-water_sport
+    pl = Olimpijskie sporty wodne
 
   [type.place]
     en = place
+    pl = Miejsce
 
   [type.place.city]
     en = City
