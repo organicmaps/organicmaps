@@ -24,7 +24,7 @@ DEFAULT_DOWNLOAD_DIRECTORY = OMIM_ROOT / 'data'
 COUNTRIES_TXT = OMIM_ROOT / 'data' / 'countries.txt'
 TIMEOUT = 3
 
-URL_PATTERN = 'http://{prefix}.mapswithme.com/direct/{version}/{name}.mwm'
+URL_PATTERN = 'http://{prefix}.mapswithme.com/maps/{version}/{name}.mwm'
 MAP_SERVERS = ('maps-dl-ru1', 'maps-dl-ru2', 'maps-dl-ru3', 'maps-dl-ams1',
                'maps-dl-eu2', 'maps-dl-us1')
 MWM_NAME_REGEXP = re.compile(r'"(\S+\.mwm)"')
