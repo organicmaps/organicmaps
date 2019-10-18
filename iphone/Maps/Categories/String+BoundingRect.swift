@@ -13,8 +13,8 @@ extension String {
     paragraph.lineBreakMode = .byWordWrapping
     paragraph.alignment = .natural
     let attributes = [
-      NSAttributedStringKey.font: font,
-      NSAttributedStringKey.paragraphStyle: paragraph,
+      NSAttributedString.Key.font: font,
+      NSAttributedString.Key.paragraphStyle: paragraph,
     ]
     var rect = (self as NSString).boundingRect(with: constraintSize, options: options, attributes: attributes, context: nil)
     var numberOfLines = ceil(rect.height / lineHeight)

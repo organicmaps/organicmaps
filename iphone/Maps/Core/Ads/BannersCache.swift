@@ -102,12 +102,12 @@ final class BannersCache: NSObject {
   }
 
   private func appendLoadState(_ state: LoadState) {
-    guard loadStates.index(of: state) == nil else { return }
+    guard loadStates.firstIndex(of: state) == nil else { return }
     loadStates.append(state)
   }
 
   private func notLoadedIndex(bannerType: BannerType) -> Array<LoadState>.Index? {
-    return loadStates.index(where: {
+    return loadStates.firstIndex(where: {
       if case let .notLoaded(type) = $0, type == bannerType {
         return true
       }
@@ -122,7 +122,7 @@ final class BannersCache: NSObject {
 
     guard loadStates != nil else { return }
 
-    if let notLoadedIndex = loadStates.index(of: .notLoaded(bannerType)) {
+    if let notLoadedIndex = loadStates.firstIndex(of: .notLoaded(bannerType)) {
       loadStates[notLoadedIndex] = .loaded(bannerType)
     }
     if !cacheOnly {
@@ -135,7 +135,7 @@ final class BannersCache: NSObject {
 
     guard loadStates != nil else { return }
 
-    if let notLoadedIndex = loadStates.index(of: .notLoaded(bannerType)) {
+    if let notLoadedIndex = loadStates.firstIndex(of: .notLoaded(bannerType)) {
       loadStates[notLoadedIndex] = .error(bannerType)
     }
     if !cacheOnly {

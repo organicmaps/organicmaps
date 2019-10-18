@@ -12,7 +12,7 @@ struct RatingSummaryViewSettings {
       .excellent: UIColor.blue,
     ]
     static let images: [MWMRatingSummaryViewValueType: UIImage] = [:]
-    static let textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote)
+    static let textFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.footnote)
     static let textSize = textFont.pointSize
     static let value = "2.2"
     static let topOffset: CGFloat = 8

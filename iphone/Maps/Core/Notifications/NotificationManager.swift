@@ -12,7 +12,7 @@ final class NotificationManager: NSObject {
     let notificationContent = UNMutableNotificationContent()
     notificationContent.title = notification.title
     notificationContent.body = notification.text
-    notificationContent.sound = UNNotificationSound.default()
+    notificationContent.sound = UNNotificationSound.default
     notificationContent.userInfo = notification.userInfo
     let notificationRequest = UNNotificationRequest(identifier: notification.identifier,
                                                     content: notificationContent,

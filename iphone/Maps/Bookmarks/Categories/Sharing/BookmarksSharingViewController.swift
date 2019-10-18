@@ -51,8 +51,8 @@ final class BookmarksSharingViewController: MWMTableViewController {
     didSet {
       let htmlString = String(coreFormat: L("ugc_routes_user_agreement"),
                               arguments: [MWMAuthorizationViewModel.termsOfUseLink()])
-      let attributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.font: UIFont.regular14(),
-                                                       NSAttributedStringKey.foregroundColor: UIColor.blackSecondaryText()]
+      let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.font: UIFont.regular14(),
+                                                       NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText()]
       licenseAgreementTextView.attributedText = NSAttributedString.string(withHtml: htmlString,
                                                                           defaultAttributes: attributes)
       licenseAgreementTextView.delegate = self
@@ -100,7 +100,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
   }
   
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return UITableViewAutomaticDimension
+    return UITableView.automaticDimension
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

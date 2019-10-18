@@ -2,8 +2,8 @@ class TabViewController: MWMViewController {
   var viewControllers: [UIViewController] = [] {
     didSet {
       viewControllers.forEach {
-        self.addChildViewController($0)
-        $0.didMove(toParentViewController: self)
+        self.addChild($0)
+        $0.didMove(toParent: self)
       }
     }
   }

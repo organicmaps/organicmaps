@@ -55,7 +55,7 @@ class AvailableArea: UIView {
     UIDevice.current.beginGeneratingDeviceOrientationNotifications()
 
     let nc = NotificationCenter.default
-    nc.addObserver(forName: .UIDeviceOrientationDidChange, object: nil, queue: .main) { _ in
+    nc.addObserver(forName: UIDevice.orientationDidChangeNotification, object: nil, queue: .main) { _ in
       let orientation = UIDevice.current.orientation
       guard !orientation.isFlat && orientation != .portraitUpsideDown else { return }
       self.orientation = orientation
@@ -102,7 +102,7 @@ class AvailableArea: UIView {
 
   func addConstraints(otherView: UIView, directions: MWMAvailableAreaAffectDirections) {
     precondition(!directions.isEmpty)
-    let add = { (sa: NSLayoutAttribute, oa: NSLayoutAttribute, rel: NSLayoutRelation) in
+    let add = { (sa: NSLayoutConstraint.Attribute, oa: NSLayoutConstraint.Attribute, rel: NSLayoutConstraint.Relation) in
       let c = NSLayoutConstraint(item: self, attribute: sa, relatedBy: rel, toItem: otherView, attribute: oa, multiplier: 1, constant: 0)
       c.priority = UILayoutPriority.defaultHigh
       c.isActive = true

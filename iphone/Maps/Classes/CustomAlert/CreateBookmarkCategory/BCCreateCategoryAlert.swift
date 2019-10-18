@@ -34,7 +34,7 @@ final class BCCreateCategoryAlert: MWMAlert {
 
     alert.titleLabel.text = L("bookmarks_create_new_group")
     let text = L("create").capitalized
-    for s in [.normal, .highlighted, .disabled] as [UIControlState] {
+    for s in [.normal, .highlighted, .disabled] as [UIControl.State] {
       alert.rightButton.setTitle(text, for: s)
     }
 

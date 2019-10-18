@@ -4,7 +4,7 @@ import UIKit
 final class PhotosViewController: MWMViewController {
   @objc var referenceViewForPhotoWhenDismissingHandler: ((GalleryItemModel) -> UIView?)?
 
-  private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [UIPageViewControllerOptionInterPageSpacingKey: 16.0])
+  private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: convertToOptionalUIPageViewControllerOptionsKeyDictionary([convertFromUIPageViewControllerOptionsKey(UIPageViewController.OptionsKey.interPageSpacing): 16.0]))
   private(set) var photos: GalleryModel
 
   fileprivate let transitionAnimator = PhotosTransitionAnimator()
@@ -84,10 +84,10 @@ final class PhotosViewController: MWMViewController {
     pageViewController.view.addGestureRecognizer(singleTapGestureRecognizer)
     pageViewController.view.addGestureRecognizer(panGestureRecognizer)
 
-    addChildViewController(pageViewController)
+    addChild(pageViewController)
     view.addSubview(pageViewController.view)
     pageViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    pageViewController.didMove(toParentViewController: self)
+    pageViewController.didMove(toParent: self)
 
     setupOverlayView()
   }
@@ -192,7 +192,7 @@ extension PhotosViewController: UIViewControllerTransitioningDelegate {
 extension PhotosViewController: UIPageViewControllerDataSource {
   func pageViewController(_: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
     guard let photoViewController = viewController as? PhotoViewController,
-      let photoIndex = photos.items.index(where: { $0 === photoViewController.photo }),
+      let photoIndex = photos.items.firstIndex(where: { $0 === photoViewController.photo }),
       photoIndex - 1 >= 0 else {
       return nil
     }
@@ -202,7 +202,7 @@ extension PhotosViewController: UIPageViewControllerDataSource {
 
   func pageViewController(_: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
     guard let photoViewController = viewController as? PhotoViewController,
-      let photoIndex = photos.items.index(where: { $0 === photoViewController.photo }),
+      let photoIndex = photos.items.firstIndex(where: { $0 === photoViewController.photo }),
       photoIndex + 1 < photos.items.count else {
       return nil
     }
@@ -219,4 +219,15 @@ extension PhotosViewController: UIPageViewControllerDelegate {
       }
     }
   }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalUIPageViewControllerOptionsKeyDictionary(_ input: [String: Any]?) -> [UIPageViewController.OptionsKey: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIPageViewController.OptionsKey(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIPageViewControllerOptionsKey(_ input: UIPageViewController.OptionsKey) -> String {
+	return input.rawValue
 }

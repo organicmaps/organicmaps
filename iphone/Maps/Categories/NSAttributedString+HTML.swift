@@ -1,6 +1,6 @@
 extension NSAttributedString {
   @objc
-  public class func string(withHtml htmlString:String, defaultAttributes attributes:[NSAttributedStringKey : Any]) -> NSAttributedString? {
+  public class func string(withHtml htmlString:String, defaultAttributes attributes:[NSAttributedString.Key : Any]) -> NSAttributedString? {
     guard let data = htmlString.data(using: .utf8) else { return nil }
     guard let text = try? NSMutableAttributedString(data: data,
                                                     options: [.documentType: NSAttributedString.DocumentType.html,

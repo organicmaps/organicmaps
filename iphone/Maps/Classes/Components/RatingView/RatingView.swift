@@ -435,7 +435,7 @@ import UIKit
     var layers: [RatingViewSettings.TextSide: CALayer] = [:]
     for (side, text) in texts {
       let font = settings.textFonts[side]!.withSize(settings.textSizes[side]!)
-      let size = NSString(string: text).size(withAttributes: [NSAttributedStringKey.font: font])
+      let size = NSString(string: text).size(withAttributes: [NSAttributedString.Key.font: font])
 
       let layer = CATextLayer()
       layer.bounds = CGRect(origin: CGPoint(),
@@ -505,7 +505,7 @@ import UIKit
       let imageLayer = createContainerLayer(size)
       imageLayer.frame = containerLayer.bounds
       imageLayer.contents = image.cgImage
-      imageLayer.contentsGravity = kCAGravityResizeAspect
+      imageLayer.contentsGravity = CALayerContentsGravity.resizeAspect
       if image.renderingMode == .alwaysTemplate {
         containerLayer.mask = imageLayer
         containerLayer.backgroundColor = (isFilled ? settings.filledColor : settings.emptyColor).cgColor
@@ -545,11 +545,11 @@ import UIKit
     layer.anchorPoint = CGPoint()
     layer.contentsScale = UIScreen.main.scale
     layer.strokeColor = strokeColor.cgColor
-    layer.fillRule = kCAFillRuleEvenOdd
+    layer.fillRule = CAShapeLayerFillRule.evenOdd
     layer.fillColor = fillColor.cgColor
     layer.lineWidth = lineWidth
-    layer.lineJoin = kCALineJoinRound
-    layer.lineCap = kCALineCapRound
+    layer.lineJoin = CAShapeLayerLineJoin.round
+    layer.lineCap = CAShapeLayerLineCap.round
     layer.bounds.size = CGSize(width: size, height: size)
     layer.masksToBounds = true
     layer.path = path

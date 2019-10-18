@@ -169,7 +169,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
                                      completion: { image, elevation in
                                        self.heightProfileImage.image = image
                                        guard let elevation = elevation else { return }
-                                       let attributes: [NSAttributedStringKey: Any] =
+                                       let attributes: [NSAttributedString.Key: Any] =
                                          [
                                            .foregroundColor: UIColor.linkBlue(),
                                            .font: UIFont.medium14(),

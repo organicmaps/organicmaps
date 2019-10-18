@@ -4794,7 +4794,7 @@
 				TargetAttributes = {
 					6741A93D1BF340DE002C974C = {
 						DevelopmentTeam = N9X2A789QT;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1110;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
@@ -5869,6 +5869,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mapswithme.full;
 				PROVISIONING_PROFILE_SPECIFIER = "Maps.me Carplay";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -5891,6 +5892,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mapswithme.full;
 				PROVISIONING_PROFILE_SPECIFIER = "Maps.me Carplay";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -5910,6 +5912,7 @@
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mapswithme.full;
+				SWIFT_VERSION = 5.0;
 			};
 			name = "Production Full";
 		};

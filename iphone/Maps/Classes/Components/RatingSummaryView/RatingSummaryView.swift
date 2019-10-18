@@ -279,7 +279,7 @@ import UIKit
     guard let image = settings.images[type] else { return nil }
     let imageLayer = createContainerLayer(size)
     imageLayer.contents = image.cgImage
-    imageLayer.contentsGravity = kCAGravityResizeAspect
+    imageLayer.contentsGravity = CALayerContentsGravity.resizeAspect
 
     let containerLayer = createContainerLayer(size)
     if image.renderingMode == .alwaysTemplate {
@@ -293,7 +293,7 @@ import UIKit
 
   private func createTextLayer() -> CALayer {
     let font = textFont.withSize(textSize)
-    let size = NSString(string: value).size(withAttributes: [NSAttributedStringKey.font: font])
+    let size = NSString(string: value).size(withAttributes: [NSAttributedString.Key.font: font])
 
     let layer = CATextLayer()
     layer.bounds = CGRect(origin: CGPoint(),
@@ -312,7 +312,7 @@ import UIKit
     let layer = CALayer()
     layer.bounds = CGRect(origin: CGPoint(), size: CGSize(width: size, height: size))
     layer.anchorPoint = CGPoint()
-    layer.contentsGravity = kCAGravityResizeAspect
+    layer.contentsGravity = CALayerContentsGravity.resizeAspect
     layer.contentsScale = UIScreen.main.scale
     layer.masksToBounds = true
     layer.isOpaque = true

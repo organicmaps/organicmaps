@@ -40,7 +40,7 @@ class CategorySettingsViewController: MWMTableViewController {
   
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
-    if isMovingFromParentViewController && !changesMade {
+    if isMovingFromParent && !changesMade {
       Statistics.logEvent(kStatBookmarkSettingsCancel)
     }
   }
@@ -84,7 +84,7 @@ class CategorySettingsViewController: MWMTableViewController {
   }
   
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return UITableViewAutomaticDimension
+    return UITableView.automaticDimension
   }
 }
 

@@ -31,7 +31,7 @@ struct RatingViewSettings {
     static let starMargin: CGFloat = 4
     static let starSize: CGFloat = 20
     static let textColor = UIColor.lightText
-    static let textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote)
+    static let textFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.footnote)
     static let textMargin: CGFloat = 4
     static let textSize = textFont.pointSize
     static let starsCount = 5

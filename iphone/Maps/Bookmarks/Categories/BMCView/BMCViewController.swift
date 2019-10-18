@@ -250,7 +250,7 @@ extension BMCViewController: UITableViewDelegate {
   }
 
   func tableView(_ tableView: UITableView,
-                 commit editingStyle: UITableViewCellEditingStyle,
+                 commit editingStyle: UITableViewCell.EditingStyle,
                  forRowAt indexPath: IndexPath) {
     guard editingStyle == .delete,
       viewModel.sectionType(section: indexPath.section) == .categories else {

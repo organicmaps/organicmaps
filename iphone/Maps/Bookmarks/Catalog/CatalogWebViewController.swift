@@ -22,7 +22,7 @@ final class CatalogWebViewController: WebViewController {
     UIBlurEffect(style: UIColor.isNightMode() ? .light : .dark))
   let progressView = ActivityIndicator()
   let numberOfTasksLabel = UILabel()
-  let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+  let loadingIndicator = UIActivityIndicatorView(style: .gray)
   let pendingTransactionsHandler = InAppPurchase.pendingTransactionsHandler()
   var deeplink: URL?
   var categoryInfo: CatalogCategoryInfo?

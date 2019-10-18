@@ -95,7 +95,7 @@ extension BMCDefaultViewModel {
   }
 
   func sectionIndex(section: BMCSection) -> Int {
-    return sections.index(of: section)!
+    return sections.firstIndex(of: section)!
   }
 
   func numberOfRows(section: Int) -> Int {
@@ -138,7 +138,7 @@ extension BMCDefaultViewModel {
   }
 
   func addCategory(name: String) {
-    guard let section = sections.index(of: .categories) else {
+    guard let section = sections.firstIndex(of: .categories) else {
       assertionFailure()
       return
     }
@@ -148,7 +148,7 @@ extension BMCDefaultViewModel {
   }
 
   func deleteCategory(at index: Int) {
-    guard let section = sections.index(of: .categories) else {
+    guard let section = sections.firstIndex(of: .categories) else {
       assertionFailure()
       return
     }

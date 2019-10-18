@@ -94,11 +94,11 @@ final class FacebookBanner: NSObject, Banner {
     let center = NotificationCenter.default
     center.addObserver(self,
                        selector: #selector(enterForeground),
-                       name: .UIApplicationWillEnterForeground,
+                       name: UIApplication.willEnterForegroundNotification,
                        object: nil)
     center.addObserver(self,
                        selector: #selector(enterBackground),
-                       name: .UIApplicationDidEnterBackground,
+                       name: UIApplication.didEnterBackgroundNotification,
                        object: nil)
   }
 

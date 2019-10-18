@@ -93,6 +93,6 @@ final class PPPReview: MWMTableViewCell {
   override func layoutSubviews() {
     super.layoutSubviews()
     let inset = width / 2
-    separatorInset = UIEdgeInsetsMake(0, inset, 0, inset)
+    separatorInset = UIEdgeInsets.init(top: 0, left: inset, bottom: 0, right: inset)
   }
 }

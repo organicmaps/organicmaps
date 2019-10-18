@@ -88,7 +88,7 @@ class TabView: UIView {
     }
   }
 
-  var headerTextAttributes: [NSAttributedStringKey : Any] = [
+  var headerTextAttributes: [NSAttributedString.Key : Any] = [
     .foregroundColor : UIColor.white,
     .font : UIFont.systemFont(ofSize: 14, weight: .semibold)
     ] {
@@ -296,7 +296,7 @@ extension TabView : UICollectionViewDelegateFlowLayout {
                       sizeForItemAt indexPath: IndexPath) -> CGSize {
     var bounds = collectionView.bounds
     if #available(iOS 11.0, *) {
-      bounds = UIEdgeInsetsInsetRect(bounds, collectionView.adjustedContentInset)
+      bounds = bounds.inset(by: collectionView.adjustedContentInset)
     }
 
     if collectionView == tabsContentCollectionView {

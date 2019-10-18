@@ -5,7 +5,7 @@ final class SettingsTableViewSelectableProgressCell: MWMTableViewCell {
 
   @objc func config(title: String) {
     backgroundColor = UIColor.white()
-    progress.activityIndicatorViewStyle =  UIColor.isNightMode() ? .white : .gray
+    progress.style =  UIColor.isNightMode() ? .white : .gray
 
     self.title.text = title
     styleTitle()

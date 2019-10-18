@@ -152,15 +152,15 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
     navigationInfo = info
     guard !MWMRouter.isTaxi() else { return }
 
-    let routingNumberAttributes: [NSAttributedStringKey: Any] =
+    let routingNumberAttributes: [NSAttributedString.Key: Any] =
       [
-        NSAttributedStringKey.foregroundColor: UIColor.blackPrimaryText(),
-        NSAttributedStringKey.font: UIFont.bold24(),
+        NSAttributedString.Key.foregroundColor: UIColor.blackPrimaryText(),
+        NSAttributedString.Key.font: UIFont.bold24(),
       ]
-    let routingLegendAttributes: [NSAttributedStringKey: Any] =
+    let routingLegendAttributes: [NSAttributedString.Key: Any] =
       [
-        NSAttributedStringKey.foregroundColor: UIColor.blackSecondaryText(),
-        NSAttributedStringKey.font: UIFont.bold14(),
+        NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText(),
+        NSAttributedString.Key.font: UIFont.bold14(),
       ]
 
     if timePageControl.currentPage == 0 {

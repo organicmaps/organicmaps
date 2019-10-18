@@ -153,8 +153,8 @@ final class AuthorizationViewController: MWMViewController {
   @IBOutlet private weak var privacyPolicyTextView: UITextView! {
     didSet {
       let htmlString = String(coreFormat: L("sign_agree_pp_gdpr"), arguments: [ViewModel.privacyPolicyLink()])
-      let attributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.font: UIFont.regular16(),
-                                                       NSAttributedStringKey.foregroundColor: UIColor.blackPrimaryText()]
+      let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.font: UIFont.regular16(),
+                                                       NSAttributedString.Key.foregroundColor: UIColor.blackPrimaryText()]
       privacyPolicyTextView.attributedText = NSAttributedString.string(withHtml: htmlString,
                                                                        defaultAttributes: attributes)
       privacyPolicyTextView.delegate = self
@@ -164,8 +164,8 @@ final class AuthorizationViewController: MWMViewController {
   @IBOutlet private weak var termsOfUseTextView: UITextView! {
     didSet {
       let htmlString = String(coreFormat: L("sign_agree_tof_gdpr"), arguments: [ViewModel.termsOfUseLink()])
-      let attributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.font: UIFont.regular16(),
-                                                       NSAttributedStringKey.foregroundColor: UIColor.blackPrimaryText()]
+      let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.font: UIFont.regular16(),
+                                                       NSAttributedString.Key.foregroundColor: UIColor.blackPrimaryText()]
       termsOfUseTextView.attributedText = NSAttributedString.string(withHtml: htmlString,
                                                                     defaultAttributes: attributes)
       termsOfUseTextView.delegate = self
@@ -175,8 +175,8 @@ final class AuthorizationViewController: MWMViewController {
   @IBOutlet private weak var latestNewsTextView: UITextView! {
     didSet {
       let text = L("sign_agree_news_gdpr")
-      let attributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.font: UIFont.regular16(),
-                                                       NSAttributedStringKey.foregroundColor: UIColor.blackPrimaryText()]
+      let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.font: UIFont.regular16(),
+                                                       NSAttributedString.Key.foregroundColor: UIColor.blackPrimaryText()]
       latestNewsTextView.attributedText = NSAttributedString(string: text, attributes: attributes)
     }
   }

@@ -43,7 +43,7 @@ final class PhotoScalingView: UIScrollView {
     showsVerticalScrollIndicator = false
     showsHorizontalScrollIndicator = false
     bouncesZoom = true
-    decelerationRate = UIScrollViewDecelerationRateFast
+    decelerationRate = UIScrollView.DecelerationRate.fast
   }
 
   private func centerScrollViewContents() {

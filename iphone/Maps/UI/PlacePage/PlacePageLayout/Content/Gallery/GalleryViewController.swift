@@ -71,7 +71,7 @@ final class GalleryViewController: MWMCollectionViewController {
     let photoVC = PhotosViewController(photos: model, initialPhoto: currentPhoto, referenceView: cell)
 
     photoVC.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
-      if let index = self?.model.items.index(where: { $0 === photo }) {
+      if let index = self?.model.items.firstIndex(where: { $0 === photo }) {
         let indexPath = IndexPath(item: index, section: 0)
         return collectionView.cellForItem(at: indexPath)
       }

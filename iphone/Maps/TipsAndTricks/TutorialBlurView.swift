@@ -6,7 +6,7 @@ class TutorialBlurView: UIVisualEffectView {
   private let layoutView = UIView(frame: CGRect(x: -100, y: -100, width: 0, height: 0))
 
   private func setup() {
-    maskLayer.fillRule = kCAFillRuleEvenOdd
+    maskLayer.fillRule = CAShapeLayerFillRule.evenOdd
     layer.mask = maskLayer
     layoutView.translatesAutoresizingMaskIntoConstraints = false
     layoutView.isUserInteractionEnabled = false
@@ -94,7 +94,7 @@ class TutorialBlurView: UIVisualEffectView {
     animation.fromValue = maskLayer.path
     animation.toValue = path.cgPath
     animation.autoreverses = true
-    animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+    animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
     animation.repeatCount = 2
 
     let animationGroup = CAAnimationGroup()

@@ -13,7 +13,7 @@ final class PhotosOverlayView: UIView {
         return
       }
       guard let photosViewController = photosViewController else { return }
-      if let index = photosViewController.photos.items.index(where: { $0 === photo }) {
+      if let index = photosViewController.photos.items.firstIndex(where: { $0 === photo }) {
         navigationItem.title = "\(index + 1) / \(photosViewController.photos.items.count)"
       }
     }

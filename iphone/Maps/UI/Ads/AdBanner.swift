@@ -34,9 +34,9 @@ private func attributedTitle(title: String, indent: CGFloat) -> NSAttributedStri
   paragraphStyle.firstLineHeadIndent = indent
   paragraphStyle.lineBreakMode = .byTruncatingTail
   return NSAttributedString(string: title,
-                        attributes: [NSAttributedStringKey.paragraphStyle: paragraphStyle,
-                                     NSAttributedStringKey.font: UIFont.bold12(),
-                                     NSAttributedStringKey.foregroundColor: UIColor.blackSecondaryText()
+                        attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                                     NSAttributedString.Key.font: UIFont.bold12(),
+                                     NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText()
                                     ])
 }
 

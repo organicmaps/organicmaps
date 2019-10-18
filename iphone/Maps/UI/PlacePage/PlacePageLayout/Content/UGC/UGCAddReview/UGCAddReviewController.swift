@@ -43,7 +43,7 @@ final class UGCAddReviewController: MWMTableViewController {
 
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
-    if isMovingFromParentViewController && !reviewPosted {
+    if isMovingFromParent && !reviewPosted {
       Statistics.logEvent(kStatUGCReviewCancel)
     }
   }
@@ -58,7 +58,7 @@ final class UGCAddReviewController: MWMTableViewController {
     tableView.register(cellClass: UGCAddReviewTextCell.self)
 
     tableView.estimatedRowHeight = 48
-    tableView.rowHeight = UITableViewAutomaticDimension
+    tableView.rowHeight = UITableView.automaticDimension
   }
 
   @objc private func onDone() {
