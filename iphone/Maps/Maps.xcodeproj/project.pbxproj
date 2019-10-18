@@ -5855,10 +5855,9 @@
 			baseConfigurationReference = 0B07BBB5C2EFC6F60EF51BC8 /* Pods-MAPS.ME.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Aleksey Belousov (927TL2MZMM)";
+				CODE_SIGN_IDENTITY = "Apple Development: Aleksey Belousov (8P35JSY4C8)";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = N9X2A789QT;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5878,10 +5877,9 @@
 			baseConfigurationReference = 8022FD18AD3EEA9E8C75A7A7 /* Pods-MAPS.ME.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "maps.me rel.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Aleksey Belousov (927TL2MZMM)";
+				CODE_SIGN_IDENTITY = "Apple Development: Aleksey Belousov (8P35JSY4C8)";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = N9X2A789QT;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5901,10 +5899,7 @@
 			baseConfigurationReference = 166595280BE641CF8ADE2209 /* Pods-MAPS.ME.production full.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "maps.me full.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Aleksey Belousov (927TL2MZMM)";
-				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = N9X2A789QT;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5915,7 +5910,6 @@
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mapswithme.full;
-				PROVISIONING_PROFILE_SPECIFIER = "Maps.me Carplay";
 			};
 			name = "Production Full";
 		};
@@ -5926,7 +5920,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_IDENTIFIER = mapsme.debug;
-				DEVELOPMENT_TEAM = 3T6FSDE8C7;
+				DEVELOPMENT_TEAM = N9X2A789QT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party",
@@ -6024,7 +6018,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_IDENTIFIER = mapsme.release;
-				DEVELOPMENT_TEAM = 3T6FSDE8C7;
+				DEVELOPMENT_TEAM = N9X2A789QT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party",
