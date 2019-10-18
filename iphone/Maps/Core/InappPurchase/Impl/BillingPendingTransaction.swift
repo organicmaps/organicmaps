@@ -11,7 +11,7 @@ final class BillingPendingTransaction: NSObject, IBillingPendingTransaction {
   }
 
   var status: TransactionStatus {
-    var routeTransactions = SKPaymentQueue.default().transactions.filter {
+    let routeTransactions = SKPaymentQueue.default().transactions.filter {
       var isOk = !Subscription.legacyProductIds.contains($0.payment.productIdentifier) &&
         !Subscription.productIds.contains($0.payment.productIdentifier)
       if isOk && $0.transactionState == .purchasing {

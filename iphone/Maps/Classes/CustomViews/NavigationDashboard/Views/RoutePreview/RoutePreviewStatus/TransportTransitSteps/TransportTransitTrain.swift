@@ -2,7 +2,7 @@ final class TransportTransitTrain: TransportTransitCell {
   enum Config {
     static let backgroundCornerRadius: CGFloat = 4
     static var labelTextColor: UIColor { return .white }
-    static let labelTextFont = UIFont.bold12()!
+    static let labelTextFont = UIFont.bold12()
     static let labelTrailing: CGFloat = 4
   }
 

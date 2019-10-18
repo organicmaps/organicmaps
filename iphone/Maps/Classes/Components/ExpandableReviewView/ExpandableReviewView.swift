@@ -103,7 +103,7 @@ final class ExpandableReviewView: UIView {
       let height = (text as NSString).boundingRect(with: CGSize(width: contentLabel.bounds.width,
                                                                 height: .greatestFiniteMagnitude),
                                                    options: .usesLineFragmentOrigin,
-                                                   attributes: [.font: contentLabel.font],
+                                                   attributes: [.font: contentLabel.font ?? UIFont.regular16],
                                                    context: nil).height
       if height > contentLabel.bounds.height {
         moreLabelZeroHeight.isActive = false

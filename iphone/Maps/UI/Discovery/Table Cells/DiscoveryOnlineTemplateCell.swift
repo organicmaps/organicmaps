@@ -18,7 +18,7 @@ final class DiscoveryOnlineTemplateCell: MWMTableViewCell {
       containerView.backgroundColor = UIColor.white()
       containerView.layer.cornerRadius = 6.0
       containerView.layer.borderWidth = 1.0
-      containerView.layer.borderColor = UIColor.blackDividers()?.cgColor
+      containerView.layer.borderColor = UIColor.blackDividers().cgColor
     }
   }
   @IBOutlet var header: UILabel!

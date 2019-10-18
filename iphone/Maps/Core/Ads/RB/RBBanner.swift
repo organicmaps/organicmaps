@@ -134,9 +134,9 @@ extension RBBanner: MTRGNativeAdDelegate {
   func onNoAd(withReason reason: String!, nativeAd: MTRGNativeAd!) {
     guard nativeAd === self else { return }
     let params: [String: Any] = [
-      kStatBanner: bannerID,
+      kStatBanner: bannerID ?? "",
       kStatProvider: kStatRB,
-      kStatReason: reason,
+      kStatReason: reason ?? "",
     ]
     let event = kStatPlacePageBannerError
     let error = NSError(domain: kMapsmeErrorDomain, code: 1001, userInfo: params)

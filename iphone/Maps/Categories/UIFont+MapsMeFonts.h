@@ -1,3 +1,4 @@
+NS_ASSUME_NONNULL_BEGIN
 @interface UIFont (MapsMeFonts)
 
 + (UIFont *)regular9;
@@ -47,3 +48,4 @@
 + (UIFont *)fontWithName:(NSString *)fontName;
 
 @end
+NS_ASSUME_NONNULL_END

@@ -91,7 +91,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
                                                                      withCompletionHandler:completionHandler];
 }
 
-+ (NSString *)formattedTimestamp {
++ (NSString * _Nonnull)formattedTimestamp {
   return @(GetPlatform().GetMarketingService().GetPushWooshTimestamp().c_str());
 }
 

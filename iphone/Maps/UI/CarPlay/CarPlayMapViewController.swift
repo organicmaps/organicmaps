@@ -71,7 +71,7 @@ final class CarPlayMapViewController: MWMViewController {
   private func updateSpeedControl() {
     currentSpeedLabel.text = "\(currentSpeed)"
     if isCameraOnRoute {
-      speedLimitContainer.layer.borderColor = UIColor.speedLimitRed()?.cgColor
+      speedLimitContainer.layer.borderColor = UIColor.speedLimitRed().cgColor
       speedLimitContainer.layer.borderWidth = 2.0
       if let speedLimit = speedLimit {
         speedCamImageView.alpha = 0.0
@@ -92,7 +92,7 @@ final class CarPlayMapViewController: MWMViewController {
         currentSpeedView.backgroundColor = UIColor.speedLimitWhite()
       }
     } else {
-      speedLimitContainer.layer.borderColor = UIColor.speedLimitLightGray()?.cgColor
+      speedLimitContainer.layer.borderColor = UIColor.speedLimitLightGray().cgColor
       speedLimitContainer.layer.borderWidth = 2.0
       speedLimitLabel.alpha = 0.0
       speedCamImageView.tintColor = UIColor.speedLimitLightGray()

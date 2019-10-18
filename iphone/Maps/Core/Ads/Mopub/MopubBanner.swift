@@ -46,7 +46,7 @@ final class MopubBanner: NSObject, Banner {
 
   var type: BannerType { return .mopub(bannerID) }
   var mwmType: MWMBannerType { return type.mwmType }
-  var bannerID: String! { return placementID }
+  var bannerID: String { return placementID }
 
   var statisticsDescription: [String: String] {
     return [kStatBanner: bannerID, kStatProvider: kStatMopub]

@@ -18,6 +18,6 @@
 didReceiveNotificationResponse:(UNNotificationResponse *)response
          withCompletionHandler:(void(^)(void))completionHandler;
 
-+ (NSString *)formattedTimestamp;
++ (NSString * _Nonnull)formattedTimestamp;
 
 @end

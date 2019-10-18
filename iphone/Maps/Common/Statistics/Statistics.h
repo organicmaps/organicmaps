@@ -22,6 +22,6 @@ typedef NS_ENUM(NSInteger, StatisticsChannel) {
 + (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters atLocation:(CLLocation *)location
      withChannel:(StatisticsChannel)channel;
 
-+ (NSString *)connectionTypeString;
++ (NSString * _Nonnull)connectionTypeString;
 
 @end

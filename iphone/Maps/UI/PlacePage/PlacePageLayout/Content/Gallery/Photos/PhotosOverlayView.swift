@@ -52,10 +52,9 @@ final class PhotosOverlayView: UIView {
     navigationBar.items = [navigationItem]
     addSubview(navigationBar)
 
-    let topConstraint = NSLayoutConstraint(item: navigationBar, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: statusBarHeight())
-    let widthConstraint = NSLayoutConstraint(item: navigationBar, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1.0, constant: 0.0)
-    let horizontalPositionConstraint = NSLayoutConstraint(item: navigationBar, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0.0)
-    addConstraints([topConstraint, widthConstraint, horizontalPositionConstraint])
+    navigationBar.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+    navigationBar.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+    navigationBar.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
 
     navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_nav_bar_back"), style: .plain, target: self, action: #selector(closeButtonTapped(_:)))
   }

@@ -20,7 +20,7 @@
 
   fileprivate func finish(_ result: UIBackgroundFetchResult) {
     guard backgroundTaskIdentifier != UIBackgroundTaskIdentifier.invalid else { return }
-    UIApplication.shared.endBackgroundTask(convertToUIBackgroundTaskIdentifier(backgroundTaskIdentifier.rawValue))
+    UIApplication.shared.endBackgroundTask(UIBackgroundTaskIdentifier(rawValue: backgroundTaskIdentifier.rawValue))
     backgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
     completionHandler?(result)
   }
@@ -59,9 +59,4 @@ final class BackgroundUGCUpload: BackgroundFetchTask {
   override var description: String {
     return "UGC upload"
   }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToUIBackgroundTaskIdentifier(_ input: Int) -> UIBackgroundTaskIdentifier {
-	return UIBackgroundTaskIdentifier(rawValue: input)
 }

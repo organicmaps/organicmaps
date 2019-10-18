@@ -14,7 +14,7 @@
 
   override func awakeFromNib() {
     super.awakeFromNib()
-    guideContainerView.layer.borderColor = UIColor.blackDividers()?.cgColor
+    guideContainerView.layer.borderColor = UIColor.blackDividers().cgColor
   }
 
   @objc func config(_ promoItem: CatalogPromoItem) {

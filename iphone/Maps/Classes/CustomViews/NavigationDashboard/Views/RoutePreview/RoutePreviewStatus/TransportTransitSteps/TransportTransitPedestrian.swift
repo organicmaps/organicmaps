@@ -1,8 +1,8 @@
 final class TransportTransitPedestrian: TransportTransitCell {
   enum Config {
     static let backgroundCornerRadius: CGFloat = 4
-    static var backgroundColor: UIColor { return UIColor.blackOpaque()! }
-    static var imageColor: UIColor { return UIColor.blackSecondaryText()! }
+    static var backgroundColor: UIColor { return UIColor.blackOpaque() }
+    static var imageColor: UIColor { return UIColor.blackSecondaryText() }
   }
 
   @IBOutlet private weak var background: UIView! {

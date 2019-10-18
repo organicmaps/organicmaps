@@ -48,12 +48,12 @@ extension BannerType: Equatable {
 }
 
 extension BannerType: Hashable {
-  var hashValue: Int {
+  func hash(into hasher: inout Hasher){
     switch self {
-    case .none: return mwmType.hashValue
-    case let .facebook(id): return mwmType.hashValue ^ id.hashValue
-    case let .rb(id): return mwmType.hashValue ^ id.hashValue
-    case let .mopub(id): return mwmType.hashValue ^ id.hashValue
+    case .none: hasher.combine(mwmType.hashValue)
+    case let .facebook(id): hasher.combine(mwmType.hashValue ^ id.hashValue)
+    case let .rb(id): hasher.combine(mwmType.hashValue ^ id.hashValue)
+    case let .mopub(id): hasher.combine(mwmType.hashValue ^ id.hashValue)
     }
   }
 }

@@ -276,7 +276,7 @@ extension CarPlayRouter {
                                                                         longitude: startPoint.longitude))
     let endPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: endPoint.latitude,
                                                                       longitude: endPoint.longitude),
-                                   addressDictionary: [CNPostalAddressStreetKey: endPoint.subtitle])
+                                   addressDictionary: [CNPostalAddressStreetKey: endPoint.subtitle ?? ""])
     let startItem = MKMapItem(placemark: startPlacemark)
     let endItem = MKMapItem(placemark: endPlacemark)
     endItem.name = endPoint.title

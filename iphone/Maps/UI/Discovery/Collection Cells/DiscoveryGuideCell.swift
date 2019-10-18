@@ -90,7 +90,7 @@ final class DiscoveryGuideCell: UICollectionViewCell {
     }
     proLabel.text = label
     if let labelHexColor = labelHexColor, labelHexColor.count == 6 {
-      proContainer.backgroundColor = UIColor(fromHexString: labelHexColor) ?? UIColor.ratingRed()
+      proContainer.backgroundColor = UIColor(fromHexString: labelHexColor) 
     } else {
       proContainer.backgroundColor = UIColor.ratingRed()
     }
