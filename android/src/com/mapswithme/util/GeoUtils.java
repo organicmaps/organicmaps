@@ -1,6 +1,6 @@
 package com.mapswithme.util;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.bookmarks.data.ParcelablePointD;
 
