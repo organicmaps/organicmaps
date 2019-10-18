@@ -5301,6 +5301,7 @@
     el = Ημερομηνία έκδοσης: %d
     fa = ورژن داده: %d
     fr = Version de données: %d
+    pl = Wersja danych: %d
 
   [are_you_sure]
     comment = Confirmation in downloading countries dialog
@@ -5480,6 +5481,7 @@
     ru = Общие настройки
     fa = تنظیمات عمومی
     fr = Paramètres généraux
+    pl = Ustawienia ogólne
 
   [prefs_group_information]
     comment = Settings information group in settings screen
@@ -5487,6 +5489,7 @@
     en = Information
     ru = Информация
     fa = اطلاعات
+    pl = Informacje
 
   [prefs_group_map]
     comment = Settings screen: "Map" category title
@@ -6112,7 +6115,7 @@
     ja = 自動ズーム
     ko = 자동 줌
     nb = Automatisk zooming
-    pl = Auto zoom
+    pl = Automatyczne powiększanie
     pt = Zoom automático
     ro = Zoom automat
     es = Autozoom
@@ -21083,7 +21086,7 @@
     ja = • ナビゲーションエレメントに必要なスペースが削減されました。\n• 速度の表示と自動ズームが追加されました。
     ko = • 탐색 요소는 더 적은 공간을 차지합니다.\n• 저희는 속도를 표시하고 자동 줌을 추가했습니다.
     nb = • Navigeringselementene tar mindre plass.\n• Programmet viser farten du reiser i og innebærer en automatisk zoomingsfunksjon.
-    pl = • Elementy nawigacji zajmują mniej miejsca.\n• Wyświetlamy prędkość i dodaliśmy automatyczny zoom.
+    pl = • Elementy nawigacji zajmują mniej miejsca.\n• Wyświetlamy prędkość i dodaliśmy automatyczne powiększanie.
     pt = • Os elementos da navegação ocupam menos espaço.\n• Exibimos a velocidade e acrescentamos ampliação automática.
     ro = • Elementele aparținând navigației ocupă mai puțin spațiu.\n• Afișăm viteza și am adăugat o funcție de zoom automat.
     es = • Los elementos de navegación ocupan menos espacio.\n• Se muestra la velocidad y se ha añadido zoom automático.
