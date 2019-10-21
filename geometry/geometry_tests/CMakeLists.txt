@@ -23,6 +23,7 @@ set(
   line2d_tests.cpp
   mercator_test.cpp
   nearby_points_sweeper_test.cpp
+  oblate_spheroid_tests.cpp
   packer_test.cpp
   parametrized_segment_tests.cpp
   point3d_tests.cpp

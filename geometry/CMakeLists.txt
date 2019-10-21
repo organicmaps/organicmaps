@@ -32,6 +32,8 @@ set(
   meter.hpp
   nearby_points_sweeper.cpp
   nearby_points_sweeper.hpp
+  oblate_spheroid.cpp
+  oblate_spheroid.hpp
   packer.cpp
   packer.hpp
   parametrized_segment.hpp
