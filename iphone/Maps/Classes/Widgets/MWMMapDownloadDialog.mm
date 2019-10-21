@@ -185,7 +185,7 @@ using namespace storage;
   if (self.superview)
     return;
   MapViewController *controller = self.controller;
-  [controller.view insertSubview:self aboveSubview:controller.mapView];
+  [controller.view insertSubview:self aboveSubview:controller.controlsView];
   [MWMFrameworkListener addObserver:self];
 }
 
