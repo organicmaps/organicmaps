@@ -255,7 +255,7 @@ void DataSource::ForEachInRect(FeatureCallback const & f, m2::RectD const & rect
 void DataSource::ForClosestToPoint(FeatureCallback const & f, StopSearchCallback const & stop,
                                    m2::PointD const & center, double sizeM, int scale) const
 {
-  auto const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(center, sizeM);
+  auto const rect = mercator::RectByCenterXYAndSizeInMeters(center, sizeM);
 
   auto readFeatureType = [&f](uint32_t index, FeatureSource & src) {
     ReadFeatureType(f, src, index);

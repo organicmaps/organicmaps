@@ -21,14 +21,13 @@ Junction CalcProjectionToSegment(Junction const & begin, Junction const & end,
   m2::ParametrizedSegment<m2::PointD> segment(begin.GetPoint(), end.GetPoint());
 
   auto const projectedPoint = segment.ClosestPointTo(point);
-  auto const distBeginToEnd = MercatorBounds::DistanceOnEarth(begin.GetPoint(), end.GetPoint());
+  auto const distBeginToEnd = mercator::DistanceOnEarth(begin.GetPoint(), end.GetPoint());
 
   double constexpr kEpsMeters = 2.0;
   if (base::AlmostEqualAbs(distBeginToEnd, 0.0, kEpsMeters))
     return Junction(projectedPoint, begin.GetAltitude());
 
-  auto const distBeginToProjection =
-      MercatorBounds::DistanceOnEarth(begin.GetPoint(), projectedPoint);
+  auto const distBeginToProjection = mercator::DistanceOnEarth(begin.GetPoint(), projectedPoint);
   auto const altitude = begin.GetAltitude() + (end.GetAltitude() - begin.GetAltitude()) *
                                                   distBeginToProjection / distBeginToEnd;
   return Junction(projectedPoint, altitude);

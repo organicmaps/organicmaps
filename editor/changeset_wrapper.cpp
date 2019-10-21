@@ -28,7 +28,7 @@ m2::RectD GetBoundingRect(vector<m2::PointD> const & geometry)
   m2::RectD rect;
   for (auto const & p : geometry)
   {
-    auto const latLon = MercatorBounds::ToLatLon(p);
+    auto const latLon = mercator::ToLatLon(p);
     rect.Add({latLon.m_lon, latLon.m_lat});
   }
   return rect;
@@ -157,7 +157,7 @@ void ChangesetWrapper::LoadXmlFromOSM(ms::LatLon const & min, ms::LatLon const &
 XMLFeature ChangesetWrapper::GetMatchingNodeFeatureFromOSM(m2::PointD const & center)
 {
   // Match with OSM node.
-  ms::LatLon const ll = MercatorBounds::ToLatLon(center);
+  ms::LatLon const ll = mercator::ToLatLon(center);
   pugi::xml_document doc;
   // Throws!
   LoadXmlFromOSM(ll, doc);
@@ -187,7 +187,7 @@ XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(vector<m2::PointD> co
   // Try several points in case of poor osm response.
   for (auto const & pt : NaiveSample(geometry, kSamplePointsCount))
   {
-    ms::LatLon const ll = MercatorBounds::ToLatLon(pt);
+    ms::LatLon const ll = mercator::ToLatLon(pt);
     pugi::xml_document doc;
     // Throws!
     LoadXmlFromOSM(ll, doc);

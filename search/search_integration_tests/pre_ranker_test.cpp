@@ -151,7 +151,7 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
     preRanker.Emplace(id, PreRankingInfo(Model::TYPE_POI, TokenRange(0, 1)), provenance);
 
     TEST_LESS(index, pois.size(), ());
-    distances[index] = MercatorBounds::DistanceOnEarth(feature::GetCenter(ft), kPivot);
+    distances[index] = mercator::DistanceOnEarth(feature::GetCenter(ft), kPivot);
     emit[index] = true;
   });
 

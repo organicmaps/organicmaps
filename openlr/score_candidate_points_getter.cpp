@@ -37,14 +37,13 @@ void ScoreCandidatePointsGetter::GetJunctionPointCandidates(m2::PointD const & p
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
     ft.ForEachPoint(
         [&p, &pointCandidates, this](m2::PointD const & candidate) {
-          if (MercatorBounds::DistanceOnEarth(p, candidate) < kRadius)
+          if (mercator::DistanceOnEarth(p, candidate) < kRadius)
             pointCandidates.emplace_back(GetScoreByDistance(p, candidate), candidate);
         },
         scales::GetUpperScale());
   };
 
-  m_dataSource.ForEachInRect(selectCandidates,
-                             MercatorBounds::RectByCenterXYAndSizeInMeters(p, kRadius),
+  m_dataSource.ForEachInRect(selectCandidates, mercator::RectByCenterXYAndSizeInMeters(p, kRadius),
                              scales::GetUpperScale());
 
   base::SortUnique(pointCandidates);
@@ -80,7 +79,7 @@ void ScoreCandidatePointsGetter::EnrichWithProjectionPoints(m2::PointD const & p
     CHECK(edge.HasRealPart(), ());
     CHECK(!edge.IsFake(), ());
 
-    if (MercatorBounds::DistanceOnEarth(p, proj.GetPoint()) >= kRadius)
+    if (mercator::DistanceOnEarth(p, proj.GetPoint()) >= kRadius)
       continue;
 
     edgeCandidates.emplace_back(GetScoreByDistance(p, proj.GetPoint()), edge);
@@ -122,7 +121,7 @@ Score ScoreCandidatePointsGetter::GetScoreByDistance(m2::PointD const & point,
   // that openlr and osm are based on different graphs, the score of junction should be increased.
   double const junctionFactor = IsJunction(candidate) ? 1.1 : 1.0;
 
-  double const distM = MercatorBounds::DistanceOnEarth(point, candidate);
+  double const distM = mercator::DistanceOnEarth(point, candidate);
   double const score =
       distM <= kMaxScoreDistM
           ? kMaxScoreForDist * junctionFactor

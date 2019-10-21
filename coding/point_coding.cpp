@@ -35,13 +35,13 @@ double Uint32ToDouble(uint32_t x, double min, double max, uint8_t coordBits)
 
 m2::PointU PointDToPointU(double x, double y, uint8_t coordBits)
 {
-  x = base::Clamp(x, MercatorBounds::kMinX, MercatorBounds::kMaxX);
-  y = base::Clamp(y, MercatorBounds::kMinY, MercatorBounds::kMaxY);
+  x = base::Clamp(x, mercator::Bounds::kMinX, mercator::Bounds::kMaxX);
+  y = base::Clamp(y, mercator::Bounds::kMinY, mercator::Bounds::kMaxY);
 
   uint32_t const ix = static_cast<uint32_t>(
-      0.5 + (x - MercatorBounds::kMinX) / MercatorBounds::kRangeX * CoordSize(coordBits));
+      0.5 + (x - mercator::Bounds::kMinX) / mercator::Bounds::kRangeX * CoordSize(coordBits));
   uint32_t const iy = static_cast<uint32_t>(
-      0.5 + (y - MercatorBounds::kMinY) / MercatorBounds::kRangeY * CoordSize(coordBits));
+      0.5 + (y - mercator::Bounds::kMinY) / mercator::Bounds::kRangeY * CoordSize(coordBits));
 
   ASSERT_LESS_OR_EQUAL(ix, CoordSize(coordBits), ());
   ASSERT_LESS_OR_EQUAL(iy, CoordSize(coordBits), ());
@@ -65,10 +65,11 @@ m2::PointU PointDToPointU(m2::PointD const & pt, uint8_t coordBits, m2::RectD co
 
 m2::PointD PointUToPointD(m2::PointU const & pt, uint8_t coordBits)
 {
-  return m2::PointD(static_cast<double>(pt.x) * MercatorBounds::kRangeX / CoordSize(coordBits) +
-                        MercatorBounds::kMinX,
-                    static_cast<double>(pt.y) * MercatorBounds::kRangeY / CoordSize(coordBits) +
-                        MercatorBounds::kMinY);
+  return m2::PointD(
+      static_cast<double>(pt.x) * mercator::Bounds::kRangeX / CoordSize(coordBits) +
+          mercator::Bounds::kMinX,
+      static_cast<double>(pt.y) * mercator::Bounds::kRangeY / CoordSize(coordBits) +
+          mercator::Bounds::kMinY);
 }
 
 m2::PointD PointUToPointD(m2::PointU const & pt, uint8_t coordBits, m2::RectD const & limitRect)

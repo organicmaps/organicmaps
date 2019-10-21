@@ -87,7 +87,7 @@ private:
     m2::RectD bbox;
     auto const dist = m_radiusFunc(*it);
     GetLimitRect(*it).ForEachCorner([&](auto const & p) {
-      bbox.Add(MercatorBounds::RectByCenterXYAndSizeInMeters(p, dist));
+      bbox.Add(mercator::RectByCenterXYAndSizeInMeters(p, dist));
     });
 
     return bbox;

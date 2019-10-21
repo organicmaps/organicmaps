@@ -150,7 +150,7 @@ Java_com_mapswithme_maps_promo_Promo_nativeRequestCityGallery(JNIEnv * env, jcla
                                                               jdouble lon, jint utm)
 {
   PrepareClassRefs(env);
-  auto const point = MercatorBounds::FromLatLon(static_cast<double>(lat), static_cast<double>(lon));
+  auto const point = mercator::FromLatLon(static_cast<double>(lat), static_cast<double>(lon));
   ++g_lastRequestId;
   g_framework->GetPromoCityGallery(env, policy, point, static_cast<UTM>(utm),
                                    std::bind(OnSuccess, g_lastRequestId, _1),
@@ -164,7 +164,7 @@ Java_com_mapswithme_maps_promo_Promo_nativeRequestPoiGallery(JNIEnv * env, jclas
                                                              jint utm)
 {
   PrepareClassRefs(env);
-  auto const point = MercatorBounds::FromLatLon(static_cast<double>(lat), static_cast<double>(lon));
+  auto const point = mercator::FromLatLon(static_cast<double>(lat), static_cast<double>(lon));
   jsize const size = env->GetArrayLength(tags);
   promo::Tags nativeTags;
   for (jsize i = 0; i < size; ++i)

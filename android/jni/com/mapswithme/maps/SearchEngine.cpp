@@ -312,12 +312,12 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
   if (result.HasPoint())
   {
     auto const center = result.GetFeatureCenter();
-    ll = MercatorBounds::ToLatLon(center);
+    ll = mercator::ToLatLon(center);
     if (hasPosition)
     {
       distanceInMeters = ms::DistanceOnEarth(lat, lon,
-                                             MercatorBounds::YToLat(center.y),
-                                             MercatorBounds::XToLon(center.x));
+                                             mercator::YToLat(center.y),
+                                             mercator::XToLon(center.x));
       measurement_utils::FormatDistance(distanceInMeters, distance);
     }
   }

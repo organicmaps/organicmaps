@@ -274,7 +274,7 @@ void GetUKPostcodes(string const & filename, storage::CountryId const & countryI
     double lon;
     CHECK(strings::to_double(fields[kLongIndex], lon), ());
 
-    auto const p = MercatorBounds::FromLatLon(lat, lon);
+    auto const p = mercator::FromLatLon(lat, lon);
 
     vector<storage::CountryId> countries;
     infoGetter.GetRegionsCountryId(p, countries, 200.0 /* lookupRadiusM */);

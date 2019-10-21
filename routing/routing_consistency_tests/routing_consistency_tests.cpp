@@ -72,8 +72,8 @@ bool ParseUserString(string const & incomeString, UserRoutingRecord & result)
 
   // Extract numbers from a record.
   result.distance = GetDouble(incomeString, "distance");
-  result.start = MercatorBounds::FromLatLon(GetDouble(incomeString, "startLat"), GetDouble(incomeString, "startLon"));
-  result.stop = MercatorBounds::FromLatLon(GetDouble(incomeString, "finalLat"), GetDouble(incomeString, "finalLon"));
+  result.start = mercator::FromLatLon(GetDouble(incomeString, "startLat"), GetDouble(incomeString, "startLon"));
+  result.stop = mercator::FromLatLon(GetDouble(incomeString, "finalLat"), GetDouble(incomeString, "finalLon"));
   return true;
 }
 

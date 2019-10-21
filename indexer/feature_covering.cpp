@@ -89,7 +89,7 @@ public:
     return CELL_OBJECT_NO_INTERSECTION;
   }
 
-  using Converter = CellIdConverter<MercatorBounds, m2::CellId<DEPTH_LEVELS>>;
+  using Converter = CellIdConverter<mercator::Bounds, m2::CellId<DEPTH_LEVELS>>;
 
   m2::PointD ConvertPoint(m2::PointD const & p)
   {

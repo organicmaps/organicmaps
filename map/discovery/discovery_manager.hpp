@@ -95,7 +95,7 @@ public:
       }
       case ItemType::LocalExperts:
       {
-        auto const latLon = MercatorBounds::ToLatLon(params.m_viewportCenter);
+        auto const latLon = mercator::ToLatLon(params.m_viewportCenter);
         auto constexpr pageNumber = 1;
         m_localsApi.GetLocals(
             latLon.m_lat, latLon.m_lon, params.m_lang, params.m_itemsCount, pageNumber,

@@ -207,7 +207,7 @@ void OnRouteStartBuild(DataSource const & dataSource,
     if (pt.m_isMyPosition || pt.m_pointType == RouteMarkType::Start)
       continue;
 
-    m2::RectD rect = MercatorBounds::RectByCenterXYAndOffset(pt.m_position, kMwmPointAccuracy);
+    m2::RectD rect = mercator::RectByCenterXYAndOffset(pt.m_position, kMwmPointAccuracy);
     bool found = false;
     dataSource.ForEachInRect([&userPos, &pt, &found](FeatureType & ft)
     {
@@ -607,7 +607,7 @@ void Framework::OnCountryFileDownloaded(storage::CountryId const & countryId,
   // Soft reset to signal that mwm file may be out of date in routing caches.
   m_routingManager.ResetRoutingSession();
 
-  m2::RectD rect = MercatorBounds::FullRect();
+  m2::RectD rect = mercator::Bounds::FullRect();
 
   if (localFile && localFile->OnDisk(MapFileType::Map))
   {
@@ -635,7 +635,7 @@ bool Framework::OnCountryFileDelete(storage::CountryId const & countryId,
 
   CancelAllSearches();
 
-  m2::RectD rect = MercatorBounds::FullRect();
+  m2::RectD rect = mercator::Bounds::FullRect();
 
   bool deferredDelete = false;
   if (localFile)
@@ -949,7 +949,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
     info.SetLocalAdsStatus(place_page::LocalAdsStatus::NotAvailable);
   }
 
-  auto const latlon = MercatorBounds::ToLatLon(feature::GetCenter(ft));
+  auto const latlon = mercator::ToLatLon(feature::GetCenter(ft));
   ASSERT(m_taxiEngine, ());
   info.SetReachableByTaxiProviders(m_taxiEngine->GetProvidersAtPos(latlon));
   info.SetPopularity(m_popularityLoader.Get(ft.GetID()));
@@ -1429,7 +1429,7 @@ void Framework::EnterBackground()
   m_trafficManager.OnEnterBackground();
   m_routingManager.SetAllowSendingPoints(false);
 
-  ms::LatLon const ll = MercatorBounds::ToLatLon(GetViewportCenter());
+  ms::LatLon const ll = mercator::ToLatLon(GetViewportCenter());
   alohalytics::Stats::Instance().LogEvent("Framework::EnterBackground", {{"zoom", strings::to_string(GetDrawScale())},
                                           {"foregroundSeconds", strings::to_string(
                                            static_cast<int>(m_startBackgroundTime - m_startForegroundTime))}},
@@ -1789,9 +1789,7 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
   m_fixedPos.GetNorth(north);
 #endif
 
-  double const d = ms::DistanceOnEarth(lat, lon,
-                                       MercatorBounds::YToLat(point.y),
-                                       MercatorBounds::XToLon(point.x));
+  double const d = ms::DistanceOnEarth(lat, lon, mercator::YToLat(point.y), mercator::XToLon(point.x));
 
   // Distance may be less than 1.0
   UNUSED_VALUE(measurement_utils::FormatDistance(d, distance));
@@ -1801,7 +1799,7 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
     // We calculate azimut even when distance is very short (d ~ 0),
     // because return value has 2 states (near me or far from me).
 
-    azimut = ang::Azimuth(MercatorBounds::FromLatLon(lat, lon), point, north);
+    azimut = ang::Azimuth(mercator::FromLatLon(lat, lon), point, north);
 
     double const pi2 = 2.0*math::pi;
     if (azimut < 0.0)
@@ -1861,8 +1859,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
       statEvents.emplace_back(local_ads::EventType::ShowPoint,
                               mwmInfo->GetVersion(), mwmInfo->GetCountryName(),
                               event.m_feature.m_index, event.m_zoomLevel, event.m_timestamp,
-                              MercatorBounds::YToLat(event.m_myPosition.y),
-                              MercatorBounds::XToLon(event.m_myPosition.x),
+                              mercator::YToLat(event.m_myPosition.y),
+                              mercator::XToLon(event.m_myPosition.x),
                               static_cast<uint16_t>(event.m_gpsAccuracy));
     }
     m_localAdsManager.GetStatistics().RegisterEvents(std::move(statEvents));
@@ -2080,7 +2078,7 @@ void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::Gps
     pt.m_id = static_cast<uint32_t>(ip.first);
     pt.m_speedMPS = ip.second.m_speed;
     pt.m_timestamp = ip.second.m_timestamp;
-    pt.m_point = MercatorBounds::FromLatLon(ip.second.m_latitude, ip.second.m_longitude);
+    pt.m_point = mercator::FromLatLon(ip.second.m_latitude, ip.second.m_longitude);
     pointsAdd.emplace_back(pt);
   }
 
@@ -2166,7 +2164,7 @@ bool Framework::ShowMapForURL(string const & url)
 
     if (parser.Parse(url, pt, zoom))
     {
-      point = MercatorBounds::FromLatLon(pt.m_lat, pt.m_lon);
+      point = mercator::FromLatLon(pt.m_lat, pt.m_lon);
       rect = df::GetRectForDrawScale(zoom, point);
       name = pt.m_name;
       result = NEED_CLICK;
@@ -2186,7 +2184,7 @@ bool Framework::ShowMapForURL(string const & url)
     ParseGeoURL(url, info);
     if (info.IsValid())
     {
-      point = MercatorBounds::FromLatLon(info.m_lat, info.m_lon);
+      point = mercator::FromLatLon(info.m_lat, info.m_lon);
       rect = df::GetRectForDrawScale(info.m_zoom, point);
       result = NEED_CLICK;
     }
@@ -2284,7 +2282,7 @@ FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator,
       if (feature::TypesHolder(ft).Has(classif().GetCoastType()))
         return;
       haveBuilding = ftypes::IsBuildingChecker::Instance()(ft);
-      currentDistance = MercatorBounds::DistanceOnEarth(mercator, feature::GetCenter(ft));
+      currentDistance = mercator::DistanceOnEarth(mercator, feature::GetCenter(ft));
       // Choose the first matching building or, if no buildings are matched,
       // the first among the closest matching non-buildings.
       if (!haveBuilding && currentDistance >= closestDistanceToCenter)
@@ -2406,8 +2404,8 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
       }
       else if (auto const position = GetCurrentPosition())
       {
-        auto const tapPoint = MercatorBounds::FromLatLon(ll);
-        metersToTap = MercatorBounds::DistanceOnEarth(*position, tapPoint);
+        auto const tapPoint = mercator::FromLatLon(ll);
+        metersToTap = mercator::DistanceOnEarth(*position, tapPoint);
       }
 
       alohalytics::TStringMap kv = {{"longTap", buildInfo.m_isLongTap ? "1" : "0"},
@@ -2491,7 +2489,8 @@ FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator) const
   {
     constexpr int kScale = scales::GetUpperScale();
     constexpr double kSelectRectWidthInMeters = 1.1;
-    m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(mercator, kSelectRectWidthInMeters);
+    m2::RectD const rect =
+        mercator::RectByCenterXYAndSizeInMeters(mercator, kSelectRectWidthInMeters);
     m_featuresFetcher.ForEachFeature(rect, [&](FeatureType & ft)
     {
       if (!featureId.IsValid() &&
@@ -2657,10 +2656,10 @@ void Framework::PredictLocation(double & lat, double & lon, double accuracy,
   double offsetInM = speed * elapsedSeconds;
   double angle = base::DegToRad(90.0 - bearing);
 
-  m2::PointD mercatorPt = MercatorBounds::MetersToXY(lon, lat, accuracy).Center();
-  mercatorPt = MercatorBounds::GetSmPoint(mercatorPt, offsetInM * cos(angle), offsetInM * sin(angle));
-  lon = MercatorBounds::XToLon(mercatorPt.x);
-  lat = MercatorBounds::YToLat(mercatorPt.y);
+  m2::PointD mercatorPt = mercator::MetersToXY(lon, lat, accuracy).Center();
+  mercatorPt = mercator::GetSmPoint(mercatorPt, offsetInM * cos(angle), offsetInM * sin(angle));
+  lon = mercator::XToLon(mercatorPt.x);
+  lat = mercator::YToLat(mercatorPt.y);
 }
 
 StringsBundle const & Framework::GetStringsBundle()
@@ -2670,8 +2669,8 @@ StringsBundle const & Framework::GetStringsBundle()
 
 string Framework::CodeGe0url(Bookmark const * bmk, bool addName)
 {
-  double lat = MercatorBounds::YToLat(bmk->GetPivot().y);
-  double lon = MercatorBounds::XToLon(bmk->GetPivot().x);
+  double lat = mercator::YToLat(bmk->GetPivot().y);
+  double lon = mercator::XToLon(bmk->GetPivot().x);
   return CodeGe0url(lat, lon, bmk->GetScale(), addName ? bmk->GetPreferredName() : "");
 }
 
@@ -2886,7 +2885,7 @@ discovery::Manager::Params Framework::GetDiscoveryParams(
   auto constexpr kRectSideM = 2000.0;
   discovery::Manager::Params p;
   p.m_viewportCenter = GetDiscoveryViewportCenter();
-  p.m_viewport = MercatorBounds::RectByCenterXYAndSizeInMeters(p.m_viewportCenter, kRectSideM);
+  p.m_viewport = mercator::RectByCenterXYAndSizeInMeters(p.m_viewportCenter, kRectSideM);
   p.m_curency = clientParams.m_currency;
   p.m_lang = clientParams.m_lang;
   p.m_itemsCount = clientParams.m_itemsCount;
@@ -3108,7 +3107,7 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
         }
 
         // Log found features.
-        LOG(LINFO, ("Feature found:", fid, MercatorBounds::ToLatLon(feature::GetCenter(*ft))));
+        LOG(LINFO, ("Feature found:", fid, mercator::ToLatLon(feature::GetCenter(*ft))));
       }
     }
     return true;
@@ -3348,7 +3347,7 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
     if (!hostingBuildingFeature)
       break;
 
-    issueLatLon = MercatorBounds::ToLatLon(feature::GetCenter(*hostingBuildingFeature));
+    issueLatLon = mercator::ToLatLon(feature::GetCenter(*hostingBuildingFeature));
 
     search::ReverseGeocoder::Address hostingBuildingAddress;
     search::ReverseGeocoder const coder(m_featuresFetcher.GetDataSource());
@@ -3488,7 +3487,7 @@ void Framework::CreateNote(osm::MapObject const & mapObject,
 
 storage::CountriesVec Framework::GetTopmostCountries(ms::LatLon const & latlon) const
 {
-  m2::PointD const point = MercatorBounds::FromLatLon(latlon);
+  m2::PointD const point = mercator::FromLatLon(latlon);
   auto const countryId = m_infoGetter->GetRegionCountryId(point);
   storage::CountriesVec topmostCountryIds;
   GetStorage().GetTopmostNodesFor(countryId, topmostCountryIds);
@@ -4100,7 +4099,7 @@ bool Framework::MakePlacePageForNotification(NotificationCandidate const & notif
   if (notification.GetType() != NotificationCandidate::Type::UgcReview)
     return false;
 
-  m2::RectD rect = MercatorBounds::RectByCenterXYAndOffset(notification.GetPos(), kMwmPointAccuracy);
+  m2::RectD rect = mercator::RectByCenterXYAndOffset(notification.GetPos(), kMwmPointAccuracy);
   bool found = false;
 
   m_featuresFetcher.GetDataSource().ForEachInRect(

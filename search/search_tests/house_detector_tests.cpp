@@ -469,8 +469,8 @@ UNIT_TEST(HS_MWMSearch)
     {
       search::House const * h = houses[j].m_house;
       m2::PointD p = h->GetPosition();
-      p.x = MercatorBounds::XToLon(p.x);
-      p.y = MercatorBounds::YToLat(p.y);
+      p.x = mercator::XToLon(p.x);
+      p.y = mercator::YToLat(p.y);
 
       //double const eps = 3.0E-4;
       //if (fabs(p.x - a.m_lon) < eps && fabs(p.y - a.m_lat) < eps)

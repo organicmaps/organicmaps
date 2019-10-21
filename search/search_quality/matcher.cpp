@@ -81,8 +81,7 @@ bool Matcher::Matches(Sample::Result const & golden, FeatureType & ft)
     houseNumberMatches = golden.m_houseNumber == houseNumber;
 
   return nameMatches && houseNumberMatches &&
-         MercatorBounds::DistanceOnEarth(golden.m_pos, center) <
-             kToleranceMeters;
+         mercator::DistanceOnEarth(golden.m_pos, center) < kToleranceMeters;
 }
 
 bool Matcher::Matches(Sample::Result const & golden, search::Result const & actual)

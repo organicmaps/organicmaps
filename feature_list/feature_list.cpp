@@ -213,7 +213,7 @@ public:
       return;
     }
     m2::PointD const & center = FindCenter(f);
-    ms::LatLon const & ll = MercatorBounds::ToLatLon(center);
+    ms::LatLon const & ll = mercator::ToLatLon(center);
     osm::MapObject obj;
     obj.SetFromFeatureType(f);
 

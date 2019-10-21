@@ -24,6 +24,7 @@ omim_link_libraries(
   platform_tests_support
   platform
   coding
+  geometry
   base
   jansson
   minizip

@@ -31,8 +31,8 @@ public:
     routing::Route routeFoundByAstarBidirectional("", 0 /* route id */);
     auto router = CreateRouter("test-astar-bidirectional");
 
-    m2::PointD const startMerc = MercatorBounds::FromLatLon(start);
-    m2::PointD const finalMerc = MercatorBounds::FromLatLon(final);
+    m2::PointD const startMerc = mercator::FromLatLon(start);
+    m2::PointD const finalMerc = mercator::FromLatLon(final);
     for (size_t i = 0; i < reiterations; ++i)
       TestRouter(*router, startMerc, finalMerc, routeFoundByAstarBidirectional);
   }

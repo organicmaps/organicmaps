@@ -327,8 +327,8 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     // Distance from the last known projection on route
     // (check if we are moving far from the last known projection).
     auto const & lastGoodPoint = m_route->GetFollowedPolyline().GetCurrentIter().m_pt;
-    double const dist = MercatorBounds::DistanceOnEarth(lastGoodPoint,
-                                                        MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude));
+    double const dist = mercator::DistanceOnEarth(lastGoodPoint,
+                                                  mercator::FromLatLon(info.m_latitude, info.m_longitude));
     if (base::AlmostEqualAbs(dist, m_lastDistance, kRunawayDistanceSensitivityMeters))
       return m_state;
 
@@ -350,8 +350,8 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
           {"rebuildCount", strings::to_string(m_routingRebuildCount)}};
       alohalytics::LogEvent(
           "RouteTracking_RouteNeedRebuild", params,
-          alohalytics::Location::FromLatLon(MercatorBounds::YToLat(lastGoodPoint.y),
-                                            MercatorBounds::XToLon(lastGoodPoint.x)));
+          alohalytics::Location::FromLatLon(mercator::YToLat(lastGoodPoint.y),
+                                            mercator::XToLon(lastGoodPoint.x)));
     }
   }
 
@@ -421,7 +421,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   // Pedestrian info
   m2::PointD pos;
   m_route->GetCurrentDirectionPoint(pos);
-  info.m_pedestrianDirectionPos = MercatorBounds::ToLatLon(pos);
+  info.m_pedestrianDirectionPos = mercator::ToLatLon(pos);
   info.m_pedestrianTurn =
       (distanceToTurnMeters < kShowPedestrianTurnInMeters) ? turn.m_pedestrianTurn : turns::PedestrianDirection::None;
 }
@@ -441,7 +441,7 @@ double RoutingSession::GetCompletionPercent() const
   if (percent - m_lastCompletionPercent > kCompletionPercentAccuracy)
   {
     auto const lastGoodPoint =
-        MercatorBounds::ToLatLon(m_route->GetFollowedPolyline().GetCurrentIter().m_pt);
+        mercator::ToLatLon(m_route->GetFollowedPolyline().GetCurrentIter().m_pt);
     alohalytics::Stats::Instance().LogEvent(
         "RouteTracking_PercentUpdate", {{"percent", strings::to_string(percent)}},
         alohalytics::Location::FromLatLon(lastGoodPoint.m_lat, lastGoodPoint.m_lon));
@@ -687,7 +687,7 @@ void RoutingSession::EmitCloseRoutingEvent() const
     return;
   }
   auto const lastGoodPoint =
-      MercatorBounds::ToLatLon(m_route->GetFollowedPolyline().GetCurrentIter().m_pt);
+      mercator::ToLatLon(m_route->GetFollowedPolyline().GetCurrentIter().m_pt);
   alohalytics::Stats::Instance().LogEvent(
       "RouteTracking_RouteClosing",
       {{"percent", strings::to_string(GetCompletionPercent())},

@@ -89,8 +89,8 @@ void BuildRoutes(std::string const & routesPath,
         continue;
       }
 
-      auto const startPoint = MercatorBounds::FromLatLon(start);
-      auto const finishPoint = MercatorBounds::FromLatLon(finish);
+      auto const startPoint = mercator::FromLatLon(start);
+      auto const finishPoint = mercator::FromLatLon(finish);
 
       params.m_checkpoints = Checkpoints(std::vector<m2::PointD>({startPoint, finishPoint}));
       tasks.emplace_back(routesBuilder.ProcessTaskAsync(params));
@@ -236,8 +236,7 @@ void BuildRoutesWithApi(std::unique_ptr<api::RoutingApi> routingApi,
     }
 
     std::tie(start, finish, utcOffset) = *parsedData;
-    params.m_waypoints = routing::Checkpoints(MercatorBounds::FromLatLon(start),
-                                              MercatorBounds::FromLatLon(finish));
+    params.m_waypoints = routing::Checkpoints(mercator::FromLatLon(start), mercator::FromLatLon(finish));
 
     result[count] = routingApi->CalculateRoute(params, utcOffset);
 

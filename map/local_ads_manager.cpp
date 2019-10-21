@@ -855,16 +855,16 @@ void LocalAdsManager::OnLocationUpdate(location::GpsInfo const & info, int zoomL
   if (std::chrono::steady_clock::now() < (m_lastCheckTime + kMinCheckInterval))
     return;
 
-  auto const pt = MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude);
+  auto const pt = mercator::FromLatLon(info.m_latitude, info.m_longitude);
 
   if ((m_foundFeatureHitCount == 0 || m_foundFeatureHitCount == kMaxHitCount) &&
-    MercatorBounds::DistanceOnEarth(m_lastCheckedPos, pt) < kMinCheckDistanceInMeters)
+      mercator::DistanceOnEarth(m_lastCheckedPos, pt) < kMinCheckDistanceInMeters)
   {
     return;
   }
 
   auto const radius = std::max(info.m_horizontalAccuracy, kMinSearchRadiusInMeters);
-  auto searchRect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, radius);
+  auto searchRect = mercator::RectByCenterXYAndSizeInMeters(pt, radius);
 
   FeatureID fid;
   {
@@ -875,7 +875,7 @@ void LocalAdsManager::OnLocationUpdate(location::GpsInfo const & info, int zoomL
       auto const & pos = pair.second.m_position;
       if (!searchRect.IsPointInside(pos))
         continue;
-      auto const dist = MercatorBounds::DistanceOnEarth(pos, pt);
+      auto const dist = mercator::DistanceOnEarth(pos, pt);
       if (dist < radius && dist < minDist)
       {
         minDist = dist;
@@ -939,7 +939,7 @@ void LocalAdsFeaturesReader::ReadCampaignFeaturesFile()
       {
         auto const pos = Int64ToPointObsolete(data.m_mercator, kPointCoordBits);
         m_features.push_back(CampaignFeature(mwmVersion, countryId, data.m_featureIndex,
-                                             MercatorBounds::YToLat(pos.y), MercatorBounds::XToLon(pos.x)));
+                                             mercator::YToLat(pos.y), mercator::XToLon(pos.x)));
       }
     }
   }
@@ -962,16 +962,16 @@ std::vector<CampaignFeature> LocalAdsFeaturesReader::GetCampaignFeatures(double 
   if (m_features.empty())
     return {};
 
-  auto const pt = MercatorBounds::FromLatLon(lat, lon);
-  auto searchRect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, radiusInMeters);
+  auto const pt = mercator::FromLatLon(lat, lon);
+  auto searchRect = mercator::RectByCenterXYAndSizeInMeters(pt, radiusInMeters);
 
   std::multimap<uint32_t, CampaignFeature> sortedFeatures;
   for (auto const & f : m_features)
   {
-    auto const pos = MercatorBounds::FromLatLon(f.m_lat, f.m_lon);
+    auto const pos = mercator::FromLatLon(f.m_lat, f.m_lon);
     if (!searchRect.IsPointInside(pos))
       continue;
-    auto const dist = static_cast<uint32_t>(MercatorBounds::DistanceOnEarth(pos, pt));
+    auto const dist = static_cast<uint32_t>(mercator::DistanceOnEarth(pos, pt));
     sortedFeatures.insert(std::make_pair(dist, f));
   }
 

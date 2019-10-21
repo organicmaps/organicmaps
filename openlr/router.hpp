@@ -161,8 +161,8 @@ private:
 
   double GetWeight(routing::Edge const & e) const
   {
-    return MercatorBounds::DistanceOnEarth(e.GetStartJunction().GetPoint(),
-                                           e.GetEndJunction().GetPoint());
+    return mercator::DistanceOnEarth(e.GetStartJunction().GetPoint(),
+                                     e.GetEndJunction().GetPoint());
   }
 
   double GetWeight(Edge const & e) const { return GetWeight(e.m_raw); }

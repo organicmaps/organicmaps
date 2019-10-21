@@ -52,7 +52,7 @@ UNIT_TEST(XMLFeature_Setters)
 {
   XMLFeature feature(XMLFeature::Type::Node);
 
-  feature.SetCenter(MercatorBounds::FromLatLon(55.7978998, 37.4745280));
+  feature.SetCenter(mercator::FromLatLon(55.7978998, 37.4745280));
   feature.SetModificationTime(base::StringToTimestamp("2015-11-27T21:13:32Z"));
 
   feature.SetName("Gorki Park");
@@ -86,7 +86,7 @@ UNIT_TEST(XMLFeature_UintLang)
 {
   XMLFeature feature(XMLFeature::Type::Node);
 
-  feature.SetCenter(MercatorBounds::FromLatLon(55.79, 37.47));
+  feature.SetCenter(mercator::FromLatLon(55.79, 37.47));
   feature.SetModificationTime(base::StringToTimestamp("2015-11-27T21:13:32Z"));
 
   feature.SetName(StringUtf8Multilang::kDefaultCode, "Gorki Park");
@@ -119,7 +119,7 @@ UNIT_TEST(XMLFeature_UintLang)
 UNIT_TEST(XMLFeature_ToOSMString)
 {
   XMLFeature feature(XMLFeature::Type::Node);
-  feature.SetCenter(MercatorBounds::FromLatLon(55.7978998, 37.4745280));
+  feature.SetCenter(mercator::FromLatLon(55.7978998, 37.4745280));
   feature.SetName("OSM");
   feature.SetTagValue("amenity", "atm");
 

@@ -84,13 +84,13 @@ UNIT_TEST(CountryInfoGetter_GetByPoint_Smoke)
   CountryInfo info;
 
   // Minsk
-  getter->GetRegionInfo(MercatorBounds::FromLatLon(53.9022651, 27.5618818), info);
+  getter->GetRegionInfo(mercator::FromLatLon(53.9022651, 27.5618818), info);
   TEST_EQUAL(info.m_name, "Belarus, Minsk Region", ());
 
-  getter->GetRegionInfo(MercatorBounds::FromLatLon(-6.4146288, -38.0098101), info);
+  getter->GetRegionInfo(mercator::FromLatLon(-6.4146288, -38.0098101), info);
   TEST_EQUAL(info.m_name, "Brazil, Rio Grande do Norte", ());
 
-  getter->GetRegionInfo(MercatorBounds::FromLatLon(34.6509, 135.5018), info);
+  getter->GetRegionInfo(mercator::FromLatLon(34.6509, 135.5018), info);
   TEST_EQUAL(info.m_name, "Japan, Kinki Region_Osaka_Osaka", ());
 }
 
@@ -98,7 +98,7 @@ UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Smoke)
 {
   auto const getter = CreateCountryInfoGetter();
 
-  m2::PointD const p = MercatorBounds::FromLatLon(52.537695, 32.203884);
+  m2::PointD const p = mercator::FromLatLon(52.537695, 32.203884);
 
   // Single mwm.
   m2::PointD const halfSize = m2::PointD(0.1, 0.1);
@@ -167,7 +167,7 @@ UNIT_TEST(CountryInfoGetter_HitsInRadius)
 {
   auto const getter = CreateCountryInfoGetter();
   CountriesVec results;
-  getter->GetRegionsCountryId(MercatorBounds::FromLatLon(56.1702, 28.1505), results);
+  getter->GetRegionsCountryId(mercator::FromLatLon(56.1702, 28.1505), results);
   TEST_EQUAL(results.size(), 3, ());
   TEST(find(results.begin(), results.end(), "Belarus_Vitebsk Region") != results.end(), ());
   TEST(find(results.begin(), results.end(), "Latvia") != results.end(), ());
@@ -178,7 +178,7 @@ UNIT_TEST(CountryInfoGetter_HitsOnLongLine)
 {
   auto const getter = CreateCountryInfoGetter();
   CountriesVec results;
-  getter->GetRegionsCountryId(MercatorBounds::FromLatLon(62.2507, -102.0753), results);
+  getter->GetRegionsCountryId(mercator::FromLatLon(62.2507, -102.0753), results);
   TEST_EQUAL(results.size(), 2, ());
   TEST(find(results.begin(), results.end(), "Canada_Northwest Territories_East") != results.end(),
        ());
@@ -189,7 +189,7 @@ UNIT_TEST(CountryInfoGetter_HitsInTheMiddleOfNowhere)
 {
   auto const getter = CreateCountryInfoGetter();
   CountriesVec results;
-  getter->GetRegionsCountryId(MercatorBounds::FromLatLon(62.2900, -103.9423), results);
+  getter->GetRegionsCountryId(mercator::FromLatLon(62.2900, -103.9423), results);
   TEST_EQUAL(results.size(), 1, ());
   TEST(find(results.begin(), results.end(), "Canada_Northwest Territories_East") != results.end(),
        ());
@@ -258,7 +258,7 @@ UNIT_TEST(CountryInfoGetter_Countries_And_Polygons)
     TEST_GREATER(storageLeaves.count(countryDef.m_countryId), 0, (countryDef.m_countryId));
 
     auto const & p = countryDef.m_rect.Center();
-    auto const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(p.x, p.y, kRectSize, kRectSize);
+    auto const rect = mercator::RectByCenterXYAndSizeInMeters(p.x, p.y, kRectSize, kRectSize);
     auto vec = getter->GetRegionsCountryIdByRect(rect, false /* rough */);
     for (auto const & countryId : vec)
     {
@@ -323,8 +323,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
     map<CountryId, int> hits;
     for (auto const & pt : points)
     {
-      auto const rect =
-          MercatorBounds::RectByCenterXYAndSizeInMeters(pt.x, pt.y, kRectSize, kRectSize);
+      auto const rect = mercator::RectByCenterXYAndSizeInMeters(pt.x, pt.y, kRectSize, kRectSize);
       auto vec = getter->GetRegionsCountryIdByRect(rect, false /* rough */);
       for (auto const & countryId : vec)
         ++hits[countryId];
@@ -349,8 +348,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
       for (size_t i = 0; i < times.size(); ++i)
       {
         auto const pt = pointGen();
-        auto const rect =
-            MercatorBounds::RectByCenterXYAndSizeInMeters(pt.x, pt.y, kRectSize, kRectSize);
+        auto const rect = mercator::RectByCenterXYAndSizeInMeters(pt.x, pt.y, kRectSize, kRectSize);
         double const t0 = timer.ElapsedSeconds();
         auto vec = getter->GetRegionsCountryIdByRect(rect, false /* rough */);
         double const t1 = timer.ElapsedSeconds();
@@ -393,8 +391,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
       {
         auto const & side = sides[distr(rng)];
         auto const pt = side.first.Mid(side.second);
-        auto const rect =
-            MercatorBounds::RectByCenterXYAndSizeInMeters(pt.x, pt.y, kRectSize, kRectSize);
+        auto const rect = mercator::RectByCenterXYAndSizeInMeters(pt.x, pt.y, kRectSize, kRectSize);
         double const t0 = timer.ElapsedSeconds();
         auto vec = getter->GetRegionsCountryIdByRect(rect, false /* rough */);
         double const t1 = timer.ElapsedSeconds();

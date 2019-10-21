@@ -13,7 +13,7 @@ CoverageResult CalcTilesCoverage(m2::RectD const & rect, int targetZoom,
                                  std::function<void(int, int)> const & processTile)
 {
   ASSERT_GREATER(targetZoom, 0, ());
-  double const rectSize = MercatorBounds::kRangeX / (1 << (targetZoom - 1));
+  double const rectSize = mercator::Bounds::kRangeX / (1 << (targetZoom - 1));
 
   CoverageResult result;
   result.m_minTileX = static_cast<int>(floor(rect.minX() / rectSize));
@@ -47,7 +47,7 @@ int ClipTileZoomByMaxDataZoom(int zoom)
 TileKey GetTileKeyByPoint(m2::PointD const & pt, int zoom)
 {
   ASSERT_GREATER(zoom, 0, ());
-  double const rectSize = MercatorBounds::kRangeX / (1 << (zoom - 1));
+  double const rectSize = mercator::Bounds::kRangeX / (1 << (zoom - 1));
   return TileKey(static_cast<int>(floor(pt.x / rectSize)),
                  static_cast<int>(floor(pt.y / rectSize)), zoom);
 }

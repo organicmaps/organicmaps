@@ -40,11 +40,11 @@ template <int DEPTH_LEVELS>
 m2::CellId<DEPTH_LEVELS> GetRectIdAsIs(m2::RectD const & r)
 {
   double const eps = kMwmPointAccuracy;
-  using Converter = CellIdConverter<MercatorBounds, m2::CellId<DEPTH_LEVELS>>;
+  using Converter = CellIdConverter<mercator::Bounds, m2::CellId<DEPTH_LEVELS>>;
 
   return Converter::Cover2PointsWithCell(
-      MercatorBounds::ClampX(r.minX() + eps), MercatorBounds::ClampY(r.minY() + eps),
-      MercatorBounds::ClampX(r.maxX() - eps), MercatorBounds::ClampY(r.maxY() - eps));
+      mercator::ClampX(r.minX() + eps), mercator::ClampY(r.minY() + eps),
+      mercator::ClampX(r.maxX() - eps), mercator::ClampY(r.maxY() - eps));
 }
 
 // Calculate cell coding depth according to max visual scale for mwm.
@@ -74,7 +74,7 @@ void CoverViewportAndAppendLowerLevels(m2::RectD const & r, int cellDepth, Inter
 {
   std::vector<m2::CellId<DEPTH_LEVELS>> ids;
   ids.reserve(SPLIT_RECT_CELLS_COUNT);
-  CoverRect<MercatorBounds, m2::CellId<DEPTH_LEVELS>>(r, SPLIT_RECT_CELLS_COUNT, cellDepth - 1, ids);
+  CoverRect<mercator::Bounds, m2::CellId<DEPTH_LEVELS>>(r, SPLIT_RECT_CELLS_COUNT, cellDepth - 1, ids);
 
   Intervals intervals;
   for (auto const & id : ids)
@@ -149,7 +149,7 @@ public:
       case Spiral:
       {
         std::vector<m2::CellId<DEPTH_LEVELS>> ids;
-        CoverSpiral<MercatorBounds, m2::CellId<DEPTH_LEVELS>>(m_rect, cellDepth - 1, ids);
+        CoverSpiral<mercator::Bounds, m2::CellId<DEPTH_LEVELS>>(m_rect, cellDepth - 1, ids);
 
         std::set<Interval> uniqueIds;
         auto insertInterval = [this, ind, &uniqueIds](Interval const & interval) {

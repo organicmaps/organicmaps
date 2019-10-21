@@ -127,8 +127,8 @@ std::string GoogleApi::GetDirectionsURL(Params const & params, int32_t startTime
 
   static std::string const kBaseUrl = "https://maps.googleapis.com/maps/api/directions/json?";
 
-  auto const start = MercatorBounds::ToLatLon(params.m_waypoints.GetPointFrom());
-  auto const finish = MercatorBounds::ToLatLon(params.m_waypoints.GetPointTo());
+  auto const start = mercator::ToLatLon(params.m_waypoints.GetPointFrom());
+  auto const finish = mercator::ToLatLon(params.m_waypoints.GetPointTo());
 
   auto const nextDayAtNight = GetNextDayAtNight(startTimeZoneUTC);
   auto const secondFromEpoch = nextDayAtNight.time_since_epoch().count() / 1000000;

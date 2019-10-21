@@ -23,7 +23,7 @@ void CandidatePointsGetter::FillJunctionPointCandidates(m2::PointD const & p,
   // Or start with small radius and scale it up when there are too few points.
   size_t const kRectSideMeters = 110;
 
-  auto const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(p, kRectSideMeters);
+  auto const rect = mercator::RectByCenterXYAndSizeInMeters(p, kRectSideMeters);
   auto const selectCandidates = [&rect, &candidates](FeatureType & ft) {
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
     ft.ForEachPoint(
@@ -44,8 +44,7 @@ void CandidatePointsGetter::FillJunctionPointCandidates(m2::PointD const & p,
 
   base::SortUnique(candidates,
                    [&p](m2::PointD const & a, m2::PointD const & b) {
-                     return MercatorBounds::DistanceOnEarth(a, p) <
-                            MercatorBounds::DistanceOnEarth(b, p);
+                     return mercator::DistanceOnEarth(a, p) < mercator::DistanceOnEarth(b, p);
                    },
                    [](m2::PointD const & a, m2::PointD const & b) { return a == b; });
 

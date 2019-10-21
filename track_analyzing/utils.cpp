@@ -29,7 +29,8 @@ double CalcSubtrackLength(MatchedTrack::const_iterator begin, MatchedTrack::cons
     Segment const & segment = point.GetSegment();
     if (segment != prevSegment)
     {
-      length += MercatorBounds::DistanceOnEarth(
+      length +=
+          mercator::DistanceOnEarth(
           geometry.GetPoint(segment.GetRoadPoint(false /* front */)),
           geometry.GetPoint(segment.GetRoadPoint(true /* front */)));
       prevSegment = segment;

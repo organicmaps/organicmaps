@@ -148,13 +148,13 @@ void FormatLatLonAsDMS(double lat, double lon, string & latText, string & lonTex
 
 void FormatMercatorAsDMS(m2::PointD const & mercator, string & lat, string & lon, int dac)
 {
-  lat = FormatLatLonAsDMSImpl(MercatorBounds::YToLat(mercator.y), 'N', 'S', dac);
-  lon = FormatLatLonAsDMSImpl(MercatorBounds::XToLon(mercator.x), 'E', 'W', dac);
+  lat = FormatLatLonAsDMSImpl(mercator::YToLat(mercator.y), 'N', 'S', dac);
+  lon = FormatLatLonAsDMSImpl(mercator::XToLon(mercator.x), 'E', 'W', dac);
 }
 
 string FormatMercatorAsDMS(m2::PointD const & mercator, int dac)
 {
-  return FormatLatLonAsDMS(MercatorBounds::YToLat(mercator.y), MercatorBounds::XToLon(mercator.x), dac);
+  return FormatLatLonAsDMS(mercator::YToLat(mercator.y), mercator::XToLon(mercator.x), dac);
 }
 
 // @TODO take into account decimal points or commas as separators in different locales
@@ -176,13 +176,13 @@ void FormatLatLon(double lat, double lon, string & latText, string & lonText, in
 
 string FormatMercator(m2::PointD const & mercator, int dac)
 {
-  return FormatLatLon(MercatorBounds::YToLat(mercator.y), MercatorBounds::XToLon(mercator.x), dac);
+  return FormatLatLon(mercator::YToLat(mercator.y), mercator::XToLon(mercator.x), dac);
 }
 
 void FormatMercator(m2::PointD const & mercator, string & lat, string & lon, int dac)
 {
-  lat = to_string_dac(MercatorBounds::YToLat(mercator.y), dac);
-  lon = to_string_dac(MercatorBounds::XToLon(mercator.x), dac);
+  lat = to_string_dac(mercator::YToLat(mercator.y), dac);
+  lon = to_string_dac(mercator::XToLon(mercator.x), dac);
 }
 
 string FormatAltitude(double altitudeInMeters)

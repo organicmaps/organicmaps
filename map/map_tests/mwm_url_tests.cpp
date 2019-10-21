@@ -24,8 +24,8 @@ static FrameworkParams const kFrameworkParams(false /* m_enableLocalAds */, fals
 
 void ToMercatoToLatLon(double & lat, double & lon)
 {
-  lon = MercatorBounds::XToLon(MercatorBounds::LonToX(lon));
-  lat = MercatorBounds::YToLat(MercatorBounds::LatToY(lat));
+  lon = mercator::XToLon(mercator::LonToX(lon));
+  lat = mercator::YToLat(mercator::LatToY(lat));
 }
 
 UserMark::Type const type = UserMark::Type::API;
@@ -73,7 +73,7 @@ public:
   bool TestRoutePoint(int index, double lat, double lon, string const & name)
   {
     RoutePoint const pt = GetRoutePoints()[index];
-    return pt.m_org == MercatorBounds::FromLatLon(lat, lon) && pt.m_name == name;
+    return pt.m_org == mercator::FromLatLon(lat, lon) && pt.m_name == name;
   }
 
   bool TestName(int index, string const & name) const

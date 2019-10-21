@@ -74,8 +74,8 @@ void OnlineCrossFetcher::Do()
     if (mwmFrom == mwmTo)
       continue;
 
-    string const url = GenerateOnlineRequest(m_serverURL, MercatorBounds::ToLatLon(pointFrom),
-                                             MercatorBounds::ToLatLon(pointTo));
+    string const url = GenerateOnlineRequest(m_serverURL, mercator::ToLatLon(pointFrom),
+                                             mercator::ToLatLon(pointTo));
     platform::HttpClient request(url);
     request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
     LOG(LINFO, ("Check mwms by URL: ", url));

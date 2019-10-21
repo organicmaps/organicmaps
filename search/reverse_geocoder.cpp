@@ -40,7 +40,7 @@ using FillStreets =
 
 m2::RectD GetLookupRect(m2::PointD const & center, double radiusM)
 {
-  return MercatorBounds::RectByCenterXYAndSizeInMeters(center, radiusM);
+  return mercator::RectByCenterXYAndSizeInMeters(center, radiusM);
 }
 
 void AddStreet(FeatureType & ft, m2::PointD const & center, bool includeSquaresAndSuburbs,

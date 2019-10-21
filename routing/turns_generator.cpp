@@ -404,7 +404,7 @@ m2::PointD GetPointForTurn(IRoutingResult const & result, size_t outgoingSegment
     if (point == nextPoint && outgoingSegmentIndex + 1 == segments.size())
       return nextPoint;
 
-    curDistanceMeters += MercatorBounds::DistanceOnEarth(point, nextPoint);
+    curDistanceMeters += mercator::DistanceOnEarth(point, nextPoint);
     if (curDistanceMeters > maxDistMeters || ++count >= maxPointsCount)
       return nextPoint;
 
@@ -687,7 +687,7 @@ void FixupTurns(vector<Junction> const & junctions, Route::TTurns & turnsDir)
   {
     double res = 0.0;
     for (uint32_t i = start + 1; i < end; ++i)
-      res += MercatorBounds::DistanceOnEarth(junctions[i - 1].GetPoint(), junctions[i].GetPoint());
+      res += mercator::DistanceOnEarth(junctions[i - 1].GetPoint(), junctions[i].GetPoint());
     return res;
   };
 
@@ -887,8 +887,8 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
 
   ASSERT(!turnInfo.m_ingoing.m_path.empty(), ());
   ASSERT(!turnInfo.m_outgoing.m_path.empty(), ());
-  ASSERT_LESS(MercatorBounds::DistanceOnEarth(turnInfo.m_ingoing.m_path.back().GetPoint(),
-                                              turnInfo.m_outgoing.m_path.front().GetPoint()),
+  ASSERT_LESS(mercator::DistanceOnEarth(turnInfo.m_ingoing.m_path.back().GetPoint(),
+                                        turnInfo.m_outgoing.m_path.front().GetPoint()),
               kFeaturesNearTurnMeters, ());
 
   m2::PointD const junctionPoint = turnInfo.m_ingoing.m_path.back().GetPoint();

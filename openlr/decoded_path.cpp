@@ -109,7 +109,7 @@ void WriteAsMappingForSpark(std::ostream & ost, std::vector<DecodedPath> const &
           << kFieldSep << fid.m_index
           << kFieldSep << it->GetSegId()
           << kFieldSep << (it->IsForward() ? "fwd" : "bwd")
-          << kFieldSep << MercatorBounds::DistanceOnEarth(GetStart(*it), GetEnd(*it));
+          << kFieldSep << mercator::DistanceOnEarth(GetStart(*it), GetEnd(*it));
 
       if (next(it) != end(p.m_path))
         ost << kSegmentSep;
@@ -137,8 +137,8 @@ void PathFromXML(pugi::xml_node const & node, DataSource const & dataSource, Pat
 
     p.push_back(Edge::MakeReal(
         fid, isForward, segmentId,
-        routing::Junction(MercatorBounds::FromLatLon(start), feature::kDefaultAltitudeMeters),
-        routing::Junction(MercatorBounds::FromLatLon(end), feature::kDefaultAltitudeMeters)));
+        routing::Junction(mercator::FromLatLon(start), feature::kDefaultAltitudeMeters),
+        routing::Junction(mercator::FromLatLon(end), feature::kDefaultAltitudeMeters)));
   }
 }
 
@@ -158,8 +158,8 @@ void PathToXML(Path const & path, pugi::xml_node & node)
     {
       auto start = edge.append_child("StartJunction");
       auto end = edge.append_child("EndJunction");
-      LatLonToXML(MercatorBounds::ToLatLon(GetStart(e)), start);
-      LatLonToXML(MercatorBounds::ToLatLon(GetEnd(e)), end);
+      LatLonToXML(mercator::ToLatLon(GetStart(e)), start);
+      LatLonToXML(mercator::ToLatLon(GetEnd(e)), end);
     }
   }
 }

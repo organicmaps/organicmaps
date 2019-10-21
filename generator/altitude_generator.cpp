@@ -50,7 +50,7 @@ public:
   // AltitudeGetter overrides:
   feature::TAltitude GetAltitude(m2::PointD const & p) override
   {
-    return m_srtmManager.GetHeight(MercatorBounds::ToLatLon(p));
+    return m_srtmManager.GetHeight(mercator::ToLatLon(p));
   }
 
 private:

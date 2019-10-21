@@ -188,11 +188,11 @@ OsmOAuth::Response ServerApi06::GetXmlFeaturesInRect(double minLat, double minLo
 
 OsmOAuth::Response ServerApi06::GetXmlFeaturesAtLatLon(double lat, double lon, double radiusInMeters) const
 {
-  double const latDegreeOffset = radiusInMeters * MercatorBounds::kDegreesInMeter;
+  double const latDegreeOffset = radiusInMeters * mercator::Bounds::kDegreesInMeter;
   double const minLat = std::max(-90.0, lat - latDegreeOffset);
   double const maxLat = std::min( 90.0, lat + latDegreeOffset);
   double const cosL = std::max(cos(base::DegToRad(std::max(fabs(minLat), fabs(maxLat)))), 0.00001);
-  double const lonDegreeOffset = radiusInMeters * MercatorBounds::kDegreesInMeter / cosL;
+  double const lonDegreeOffset = radiusInMeters * mercator::Bounds::kDegreesInMeter / cosL;
   double const minLon = std::max(-180.0, lon - lonDegreeOffset);
   double const maxLon = std::min( 180.0, lon + lonDegreeOffset);
   return GetXmlFeaturesInRect(minLat, minLon, maxLat, maxLon);

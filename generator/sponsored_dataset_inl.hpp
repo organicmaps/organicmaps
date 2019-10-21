@@ -32,7 +32,7 @@ public:
   void operator()(SponsoredObject & object)
   {
     search::ReverseGeocoder::Address addr;
-    m_coder->GetNearbyAddress(MercatorBounds::FromLatLon(object.m_latLon), addr);
+    m_coder->GetNearbyAddress(mercator::FromLatLon(object.m_latLon), addr);
     object.m_street = addr.GetStreetName();
     object.m_houseNumber = addr.GetHouseNumber();
   }

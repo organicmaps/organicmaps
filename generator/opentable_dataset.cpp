@@ -78,7 +78,7 @@ OpentableDataset::ObjectId OpentableDataset::FindMatchingObjectIdImpl(FeatureBui
     return Object::InvalidObjectId();
 
   // Find |kMaxSelectedElements| nearest values to a point.
-  auto const nearbyIds = m_storage.GetNearestObjects(MercatorBounds::ToLatLon(fb.GetKeyPoint()));
+  auto const nearbyIds = m_storage.GetNearestObjects(mercator::ToLatLon(fb.GetKeyPoint()));
 
   for (auto const objId : nearbyIds)
   {

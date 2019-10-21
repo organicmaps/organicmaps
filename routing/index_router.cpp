@@ -356,7 +356,7 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
         finalPoint == m_lastRoute->GetFinish())
     {
       double const distanceToRoute = m_lastRoute->CalcDistance(startPoint);
-      double const distanceToFinish = MercatorBounds::DistanceOnEarth(startPoint, finalPoint);
+      double const distanceToFinish = mercator::DistanceOnEarth(startPoint, finalPoint);
       if (distanceToRoute <= kAdjustRangeM && distanceToFinish >= kMinDistanceToFinishM)
       {
         auto const code = AdjustRoute(checkpoints, startDirection, delegate, route);
@@ -364,9 +364,7 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
           return code;
 
         LOG(LWARNING, ("Can't adjust route, do full rebuild, prev start:",
-          MercatorBounds::ToLatLon(m_lastRoute->GetStart()), ", start:",
-          MercatorBounds::ToLatLon(startPoint), ", finish:",
-          MercatorBounds::ToLatLon(finalPoint)));
+                       mercator::ToLatLon(m_lastRoute->GetStart()), ", start:", mercator::ToLatLon(startPoint), ", finish:", mercator::ToLatLon(finalPoint)));
       }
     }
 
@@ -374,8 +372,8 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
   }
   catch (RootException const & e)
   {
-    LOG(LERROR, ("Can't find path from", MercatorBounds::ToLatLon(startPoint), "to",
-      MercatorBounds::ToLatLon(finalPoint), ":\n ", e.what()));
+    LOG(LERROR, ("Can't find path from", mercator::ToLatLon(startPoint), "to",
+                 mercator::ToLatLon(finalPoint), ":\n ", e.what()));
     return RouterResultCode::InternalError;
   }
 }
@@ -391,7 +389,7 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
     string const countryName = m_countryFileFn(checkpoint);
     if (countryName.empty())
     {
-      LOG(LWARNING, ("For point", MercatorBounds::ToLatLon(checkpoint),
+      LOG(LWARNING, ("For point", mercator::ToLatLon(checkpoint),
                    "CountryInfoGetter returns an empty CountryFile(). It happens when checkpoint"
                    "is put at gaps between mwm."));
       return RouterResultCode::InternalError;
@@ -454,8 +452,7 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
     vector<Segment> subroute;
     static double constexpr kEpsAlmostZero = 1e-7;
     double const contributionCoef =
-        !base::AlmostEqualAbs(checkpointsLength, 0.0, kEpsAlmostZero) ?
-          MercatorBounds::DistanceOnEarth(startCheckpoint, finishCheckpoint) / checkpointsLength :
+        !base::AlmostEqualAbs(checkpointsLength, 0.0, kEpsAlmostZero) ? mercator::DistanceOnEarth(startCheckpoint, finishCheckpoint) / checkpointsLength :
           kEpsAlmostZero;
 
     AStarSubProgress subProgress(startCheckpoint, finishCheckpoint, contributionCoef);
@@ -973,7 +970,7 @@ bool IndexRouter::FindBestEdges(m2::PointD const & point,
   if (!handle.IsAlive())
     MYTHROW(MwmIsNotAliveException, ("Can't get mwm handle for", pointCountryFile));
 
-  auto const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(point, closestEdgesRadiusM);
+  auto const rect = mercator::RectByCenterXYAndSizeInMeters(point, closestEdgesRadiusM);
   auto const isGoodFeature = [this](FeatureID const & fid) {
     auto const & info = fid.m_mwmId.GetInfo();
     return m_numMwmIds->ContainsFile(info->GetLocalFile().GetCountryFile());
@@ -1207,10 +1204,8 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
     }
 
     LOG(LINFO, ("Can not find path",
-      "from:",
-      MercatorBounds::ToLatLon(starter.GetPoint(input[start], input[start].IsForward())),
-      "to:",
-      MercatorBounds::ToLatLon(starter.GetPoint(input[end], input[end].IsForward()))));
+      "from:", mercator::ToLatLon(starter.GetPoint(input[start], input[start].IsForward())),
+      "to:", mercator::ToLatLon(starter.GetPoint(input[end], input[end].IsForward()))));
 
     return false;
   };
@@ -1246,13 +1241,13 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       while (next + 2 < finishLeapStart && next != finishLeapStart)
       {
         auto const point = starter.GetPoint(input[next + 2], true);
-        double const distBetweenExistsMeters = MercatorBounds::DistanceOnEarth(point, prevPoint);
+        double const distBetweenExistsMeters = mercator::DistanceOnEarth(point, prevPoint);
 
         static double constexpr kMinDistBetweenExitsM = 100000;  // 100 km
         if (distBetweenExistsMeters > kMinDistBetweenExitsM)
           break;
 
-        LOG(LINFO, ("Exit:", MercatorBounds::ToLatLon(point),
+        LOG(LINFO, ("Exit:", mercator::ToLatLon(point),
                     "too close(", distBetweenExistsMeters / 1000, "km ), try get next."));
         next += 2;
       }

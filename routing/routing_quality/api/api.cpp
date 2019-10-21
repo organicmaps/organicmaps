@@ -14,8 +14,8 @@ namespace api
 // static
 void Params::Dump(Params const & route, FileWriter & writer)
 {
-  auto const start = MercatorBounds::ToLatLon(route.m_waypoints.GetPointFrom());
-  auto const finish = MercatorBounds::ToLatLon(route.m_waypoints.GetPointTo());
+  auto const start = mercator::ToLatLon(route.m_waypoints.GetPointFrom());
+  auto const finish = mercator::ToLatLon(route.m_waypoints.GetPointTo());
 
   WriteToSink(writer, static_cast<int>(route.m_type));
 
@@ -40,8 +40,8 @@ Params Params::Load(ReaderSource<FileReader> & src)
   finish.m_lat = ReadPrimitiveFromSource<double>(src);
   finish.m_lon = ReadPrimitiveFromSource<double>(src);
 
-  auto const startPoint = MercatorBounds::FromLatLon(start);
-  auto const finishPoint = MercatorBounds::FromLatLon(finish);
+  auto const startPoint = mercator::FromLatLon(start);
+  auto const finishPoint = mercator::FromLatLon(finish);
 
   params.m_waypoints = routing::Checkpoints(startPoint, finishPoint);
 

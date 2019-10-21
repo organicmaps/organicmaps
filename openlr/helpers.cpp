@@ -114,12 +114,12 @@ m2::PointD BearingPointsSelector::GetEndPoint(Graph::Edge const & e, double dist
 bool PointsAreClose(m2::PointD const & p1, m2::PointD const & p2)
 {
   double const kMwmRoadCrossingRadiusMeters = routing::GetRoadCrossingRadiusMeters();
-  return MercatorBounds::DistanceOnEarth(p1, p2) < kMwmRoadCrossingRadiusMeters;
+  return mercator::DistanceOnEarth(p1, p2) < kMwmRoadCrossingRadiusMeters;
 }
 
 double EdgeLength(Graph::Edge const & e)
 {
-  return MercatorBounds::DistanceOnEarth(e.GetStartPoint(), e.GetEndPoint());
+  return mercator::DistanceOnEarth(e.GetStartPoint(), e.GetEndPoint());
 }
 
 bool EdgesAreAlmostEqual(Graph::Edge const & e1, Graph::Edge const & e2)
@@ -136,16 +136,16 @@ string LogAs2GisPath(Graph::EdgeVector const & path)
   ostringstream ost;
   ost << "https://2gis.ru/moscow?queryState=";
 
-  auto ll = MercatorBounds::ToLatLon(path.front().GetStartPoint());
+  auto ll = mercator::ToLatLon(path.front().GetStartPoint());
   ost << "center%2F" << ll.m_lon << "%2C" << ll.m_lat << "%2F";
   ost << "zoom%2F" << 17 << "%2F";
   ost << "ruler%2Fpoints%2F";
   for (auto const & e : path)
   {
-    ll = MercatorBounds::ToLatLon(e.GetStartPoint());
+    ll = mercator::ToLatLon(e.GetStartPoint());
     ost << ll.m_lon << "%20" << ll.m_lat << "%2C";
   }
-  ll = MercatorBounds::ToLatLon(path.back().GetEndPoint());
+  ll = mercator::ToLatLon(path.back().GetEndPoint());
   ost << ll.m_lon << "%20" << ll.m_lat;
 
   return ost.str();
@@ -225,7 +225,7 @@ m2::PointD PointAtSegmentM(m2::PointD const & p1, m2::PointD const & p2, double 
 {
   auto const v = p2 - p1;
   auto const l = v.Length();
-  auto const L = MercatorBounds::DistanceOnEarth(p1, p2);
+  auto const L = mercator::DistanceOnEarth(p1, p2);
   auto const delta = distanceM * l / L;
   return PointAtSegment(p1, p2, delta);
 }

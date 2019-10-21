@@ -154,7 +154,7 @@ RankerResult::RankerResult(FeatureType & f, m2::PointD const & center, m2::Point
 RankerResult::RankerResult(double lat, double lon)
   : m_str("(" + measurement_utils::FormatLatLon(lat, lon) + ")"), m_resultType(Type::LatLon)
 {
-  m_region.SetParams(string(), MercatorBounds::FromLatLon(lat, lon));
+  m_region.SetParams(string(), mercator::FromLatLon(lat, lon));
 }
 
 RankerResult::RankerResult(m2::PointD const & coord, string const & postcode)

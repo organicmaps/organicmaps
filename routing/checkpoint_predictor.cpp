@@ -14,9 +14,9 @@ using namespace std;
 double CheckpointPredictor::CalculateDeltaMeters(m2::PointD const & from, m2::PointD const & to,
                                                  m2::PointD const & between)
 {
-  double const directDist = MercatorBounds::DistanceOnEarth(from, to);
-  double const distThroughPoint = MercatorBounds::DistanceOnEarth(from, between) +
-                                  MercatorBounds::DistanceOnEarth(between, to);
+  double const directDist = mercator::DistanceOnEarth(from, to);
+  double const distThroughPoint =
+      mercator::DistanceOnEarth(from, between) + mercator::DistanceOnEarth(between, to);
   return distThroughPoint - directDist;
 }
 

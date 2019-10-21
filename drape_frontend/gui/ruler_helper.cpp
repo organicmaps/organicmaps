@@ -114,7 +114,7 @@ void RulerHelper::Update(ScreenBase const & screen)
   m2::PointD pt1 = screen.PtoG(pivot);
   m2::PointD pt0 = screen.PtoG(pivot - m2::PointD(minPxWidth, 0));
 
-  double const distanceInMeters = MercatorBounds::DistanceOnEarth(pt0, pt1);
+  double const distanceInMeters = mercator::DistanceOnEarth(pt0, pt1);
 
   // convert metres to units for calculating m_metresDiff.
   double metersDiff = CalcMetersDiff(distanceInMeters);
@@ -128,7 +128,7 @@ void RulerHelper::Update(ScreenBase const & screen)
   else if (!lessThanMin)
   {
     double const a = ang::AngleTo(pt1, pt0);
-    pt0 = MercatorBounds::GetSmPoint(pt1, cos(a) * metersDiff, sin(a) * metersDiff);
+    pt0 = mercator::GetSmPoint(pt1, cos(a) * metersDiff, sin(a) * metersDiff);
 
     m_pixelLength = base::SignedRound(pivot.Length(screen.GtoP(pt0)));
   }

@@ -35,12 +35,12 @@ double Track::GetLengthMeters() const
   double res = 0.0;
 
   auto it = m_data.m_points.begin();
-  double lat1 = MercatorBounds::YToLat(it->y);
-  double lon1 = MercatorBounds::XToLon(it->x);
+  double lat1 = mercator::YToLat(it->y);
+  double lon1 = mercator::XToLon(it->x);
   for (++it; it != m_data.m_points.end(); ++it)
   {
-    double const lat2 = MercatorBounds::YToLat(it->y);
-    double const lon2 = MercatorBounds::XToLon(it->x);
+    double const lat2 = mercator::YToLat(it->y);
+    double const lon2 = mercator::XToLon(it->x);
     res += ms::DistanceOnEarth(lat1, lon1, lat2, lon2);
     lat1 = lat2;
     lon1 = lon2;

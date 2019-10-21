@@ -53,7 +53,7 @@ UNIT_CLASS_TEST(PostcodePointsTest, Smoke)
   auto infoGetter = std::make_shared<storage::CountryInfoGetterForTesting>();
   infoGetter->AddCountry(storage::CountryDef(
       countryName,
-      m2::RectD(MercatorBounds::FromLatLon(0.99, 0.99), MercatorBounds::FromLatLon(3.01, 3.01))));
+      m2::RectD(mercator::FromLatLon(0.99, 0.99), mercator::FromLatLon(3.01, 3.01))));
 
   auto const id = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
     builder.SetPostcodesData(postcodesRelativePath, infoGetter);
@@ -69,21 +69,21 @@ UNIT_CLASS_TEST(PostcodePointsTest, Smoke)
     vector<m2::PointD> points;
     p.Get(NormalizeAndSimplifyString("aa11 0"), points);
     TEST_EQUAL(points.size(), 1, ());
-    TEST(base::AlmostEqualAbs(points[0], MercatorBounds::FromLatLon(1.0, 1.0), kMwmPointAccuracy),
+    TEST(base::AlmostEqualAbs(points[0], mercator::FromLatLon(1.0, 1.0), kMwmPointAccuracy),
          ());
   }
   {
     vector<m2::PointD> points;
     p.Get(NormalizeAndSimplifyString("aa11 1"), points);
     TEST_EQUAL(points.size(), 1, ());
-    TEST(base::AlmostEqualAbs(points[0], MercatorBounds::FromLatLon(2.0, 2.0), kMwmPointAccuracy),
+    TEST(base::AlmostEqualAbs(points[0], mercator::FromLatLon(2.0, 2.0), kMwmPointAccuracy),
          ());
   }
   {
     vector<m2::PointD> points;
     p.Get(NormalizeAndSimplifyString("aa11 2"), points);
     TEST_EQUAL(points.size(), 1, ());
-    TEST(base::AlmostEqualAbs(points[0], MercatorBounds::FromLatLon(3.0, 3.0), kMwmPointAccuracy),
+    TEST(base::AlmostEqualAbs(points[0], mercator::FromLatLon(3.0, 3.0), kMwmPointAccuracy),
          ());
   }
   {
@@ -91,11 +91,11 @@ UNIT_CLASS_TEST(PostcodePointsTest, Smoke)
     p.Get(NormalizeAndSimplifyString("aa11"), points);
     TEST_EQUAL(points.size(), 3, ());
     sort(points.begin(), points.end());
-    TEST(base::AlmostEqualAbs(points[0], MercatorBounds::FromLatLon(1.0, 1.0), kMwmPointAccuracy),
+    TEST(base::AlmostEqualAbs(points[0], mercator::FromLatLon(1.0, 1.0), kMwmPointAccuracy),
          ());
-    TEST(base::AlmostEqualAbs(points[1], MercatorBounds::FromLatLon(2.0, 2.0), kMwmPointAccuracy),
+    TEST(base::AlmostEqualAbs(points[1], mercator::FromLatLon(2.0, 2.0), kMwmPointAccuracy),
          ());
-    TEST(base::AlmostEqualAbs(points[2], MercatorBounds::FromLatLon(3.0, 3.0), kMwmPointAccuracy),
+    TEST(base::AlmostEqualAbs(points[2], mercator::FromLatLon(3.0, 3.0), kMwmPointAccuracy),
          ());
   }
 }
@@ -117,7 +117,7 @@ UNIT_CLASS_TEST(PostcodePointsTest, SearchPostcode)
   auto infoGetter = std::make_shared<storage::CountryInfoGetterForTesting>();
   infoGetter->AddCountry(storage::CountryDef(
       countryName,
-      m2::RectD(MercatorBounds::FromLatLon(3.0, 3.0), MercatorBounds::FromLatLon(7.0, 7.0))));
+      m2::RectD(mercator::FromLatLon(3.0, 3.0), mercator::FromLatLon(7.0, 7.0))));
 
   auto const id = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
     builder.SetPostcodesData(postcodesRelativePath, infoGetter);
@@ -136,13 +136,13 @@ UNIT_CLASS_TEST(PostcodePointsTest, SearchPostcode)
     TEST(base::AlmostEqualAbs(expected, actual, kMwmPointAccuracy), ());
   };
 
-  test("BA6 7JP", MercatorBounds::FromLatLon(5.0, 4.0));
-  test("BA6 7JP ", MercatorBounds::FromLatLon(5.0, 4.0));
-  test("BA6 8JP", MercatorBounds::FromLatLon(5.0, 6.0));
-  test("BA6 8JP ", MercatorBounds::FromLatLon(5.0, 6.0));
+  test("BA6 7JP", mercator::FromLatLon(5.0, 4.0));
+  test("BA6 7JP ", mercator::FromLatLon(5.0, 4.0));
+  test("BA6 8JP", mercator::FromLatLon(5.0, 6.0));
+  test("BA6 8JP ", mercator::FromLatLon(5.0, 6.0));
   // Search should return center of all inward codes for outward query.
-  test("BA6", MercatorBounds::FromLatLon(5.0, 5.0));
-  test("BA6 ", MercatorBounds::FromLatLon(5.0, 5.0));
+  test("BA6", mercator::FromLatLon(5.0, 5.0));
+  test("BA6 ", mercator::FromLatLon(5.0, 5.0));
 }
 
 UNIT_CLASS_TEST(PostcodePointsTest, SearchStreetWithPostcode)
@@ -183,27 +183,23 @@ UNIT_CLASS_TEST(PostcodePointsTest, SearchStreetWithPostcode)
       "CC1 020, 5.0, 5.0\n");
 
   auto const rect =
-      m2::RectD(MercatorBounds::FromLatLon(3.99, 3.99), MercatorBounds::FromLatLon(6.01, 6.01));
+      m2::RectD(mercator::FromLatLon(3.99, 3.99), mercator::FromLatLon(6.01, 6.01));
   auto infoGetter = std::make_shared<storage::CountryInfoGetterForTesting>();
   infoGetter->AddCountry(storage::CountryDef(countryName, rect));
 
-  TestStreet streetA(vector<m2::PointD>{MercatorBounds::FromLatLon(3.99, 3.99),
-                                        MercatorBounds::FromLatLon(4.01, 4.01)},
+  TestStreet streetA(vector<m2::PointD>{mercator::FromLatLon(3.99, 3.99), mercator::FromLatLon(4.01, 4.01)},
                      "Garden street", "en");
-  TestPOI houseA(MercatorBounds::FromLatLon(4.0, 4.0), "", "en");
+  TestPOI houseA(mercator::FromLatLon(4.0, 4.0), "", "en");
   houseA.SetHouseNumber("1");
   houseA.SetStreetName(streetA.GetName("en"));
-  TestStreet streetB(vector<m2::PointD>{MercatorBounds::FromLatLon(5.99, 5.99),
-                                        MercatorBounds::FromLatLon(6.01, 6.01)},
+  TestStreet streetB(vector<m2::PointD>{mercator::FromLatLon(5.99, 5.99), mercator::FromLatLon(6.01, 6.01)},
                      "Garden street", "en");
-  TestPOI houseB(MercatorBounds::FromLatLon(6.0, 6.0), "", "en");
+  TestPOI houseB(mercator::FromLatLon(6.0, 6.0), "", "en");
   houseB.SetHouseNumber("1");
   houseB.SetStreetName(streetB.GetName("en"));
-  TestStreet streetX(vector<m2::PointD>{MercatorBounds::FromLatLon(3.99, 5.99),
-                                        MercatorBounds::FromLatLon(4.01, 6.01)},
+  TestStreet streetX(vector<m2::PointD>{mercator::FromLatLon(3.99, 5.99), mercator::FromLatLon(4.01, 6.01)},
                      "Main street", "en");
-  TestStreet streetY(vector<m2::PointD>{MercatorBounds::FromLatLon(5.99, 3.99),
-                                        MercatorBounds::FromLatLon(6.01, 4.01)},
+  TestStreet streetY(vector<m2::PointD>{mercator::FromLatLon(5.99, 3.99), mercator::FromLatLon(6.01, 4.01)},
                      "Main street", "en");
 
   auto const id = BuildCountry(countryName, [&](TestMwmBuilder & builder) {

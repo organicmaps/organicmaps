@@ -22,7 +22,7 @@ void Ruler::SetActive(bool status)
 void Ruler::AddPoint(m2::PointD const & point)
 {
   m_pointsPair[0] = m_pointsPair[1];
-  m_pointsPair[1] = MercatorBounds::ToLatLon(point);
+  m_pointsPair[1] = mercator::ToLatLon(point);
   m_polyline.insert(m_polyline.begin(), point);
   if (IsValidPolyline())
     SetDistance();

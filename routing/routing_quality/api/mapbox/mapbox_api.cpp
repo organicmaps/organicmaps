@@ -123,7 +123,7 @@ string MapboxApi::GetDirectionsURL(Params const & params) const
   vector<ms::LatLon> coords;
   coords.reserve(params.m_waypoints.GetPoints().size());
   for (auto const & point : params.m_waypoints.GetPoints())
-    coords.emplace_back(MercatorBounds::ToLatLon(point));
+    coords.emplace_back(mercator::ToLatLon(point));
 
   ostringstream oss;
   oss << kBaseURL << "directions/" << kDirectionsApiVersion << "/"

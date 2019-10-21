@@ -268,7 +268,7 @@ public:
   {
     // get rect cell
     double minX, minY, maxX, maxY;
-    CellIdConverter<MercatorBounds, TCell>::GetCellBounds(cell, minX, minY, maxX, maxY);
+    CellIdConverter<mercator::Bounds, TCell>::GetCellBounds(cell, minX, minY, maxX, maxY);
 
     // create rect region
     PointT arr[] = {D2I(m2::PointD(minX, minY)), D2I(m2::PointD(minX, maxY)),

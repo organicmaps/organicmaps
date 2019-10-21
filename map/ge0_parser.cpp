@@ -54,8 +54,8 @@ bool Ge0Parser::Parse(string const & url, url_scheme::ApiPoint & outPoint, doubl
 
   DecodeLatLon(url.substr(LATLON_POSITION, LATLON_LENGTH), outPoint.m_lat, outPoint.m_lon);
 
-  ASSERT(MercatorBounds::ValidLon(outPoint.m_lon), (outPoint.m_lon));
-  ASSERT(MercatorBounds::ValidLat(outPoint.m_lat), (outPoint.m_lat));
+  ASSERT(mercator::ValidLon(outPoint.m_lon), (outPoint.m_lon));
+  ASSERT(mercator::ValidLat(outPoint.m_lat), (outPoint.m_lat));
 
   if (url.size() >= NAME_POSITON_IN_URL)
   {

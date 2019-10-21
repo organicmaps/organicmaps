@@ -28,11 +28,12 @@ Similarity CompareByNumberOfMatchedWaypoints(routing::FollowedPolyline polyline,
   for (size_t i = 0; i < size; ++i)
   {
     auto const & ll = waypoints[i];
-    m2::RectD const rect = MercatorBounds::MetersToXY(ll.m_lon, ll.m_lat, kMaxDistanceFromRouteM /* metresR */);
+    m2::RectD const rect =
+        mercator::MetersToXY(ll.m_lon, ll.m_lat, kMaxDistanceFromRouteM /* metresR */);
     auto const iter = polyline.UpdateProjection(rect);
     if (iter.IsValid())
     {
-      auto const distFromRouteM = MercatorBounds::DistanceOnEarth(iter.m_pt, MercatorBounds::FromLatLon(ll));
+      auto const distFromRouteM = mercator::DistanceOnEarth(iter.m_pt, mercator::FromLatLon(ll));
       if (distFromRouteM <= kMaxDistanceFromRouteM)
         continue;
     }

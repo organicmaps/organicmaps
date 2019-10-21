@@ -117,7 +117,7 @@ private:
 bool PointsMatch(m2::PointD const & a, m2::PointD const & b)
 {
   auto constexpr kToleranceDistanceM = 1.0;
-  return MercatorBounds::DistanceOnEarth(a, b) < kToleranceDistanceM;
+  return mercator::DistanceOnEarth(a, b) < kToleranceDistanceM;
 }
 
 class PointsControllerDelegate : public PointsControllerDelegateBase
@@ -180,7 +180,7 @@ public:
         for (size_t i = 0; i < ft.GetPointsCount(); ++i)
         {
           auto const & fp = ft.GetPoint(i);
-          auto const distance = MercatorBounds::DistanceOnEarth(fp, p);
+          auto const distance = mercator::DistanceOnEarth(fp, p);
           if (PointsMatch(fp, p) && distance < minDistance)
           {
             bestPointIndex = i;

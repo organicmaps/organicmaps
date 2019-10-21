@@ -37,7 +37,7 @@ namespace
 using BookmarkIdDoc = pair<bookmarks::Id, bookmarks::Doc>;
 
 double const kDistEqualQueryMeters = 100.0;
-double const kDistEqualQueryMercator = MercatorBounds::MetersToMercator(kDistEqualQueryMeters);
+double const kDistEqualQueryMercator = mercator::MetersToMercator(kDistEqualQueryMeters);
 
 // 200 squared kilometers.
 double const kMaxAreaToLoadAllHotelsInViewport = 2e8;
@@ -368,7 +368,7 @@ void SearchAPI::FilterResultsForHotelsQuery(booking::filter::Tasks const & filte
 void SearchAPI::FilterAllHotelsInViewport(m2::RectD const & viewport,
                                           booking::filter::Tasks const & filterTasks)
 {
-  if (MercatorBounds::AreaOnEarth(viewport) > kMaxAreaToLoadAllHotelsInViewport)
+  if (mercator::AreaOnEarth(viewport) > kMaxAreaToLoadAllHotelsInViewport)
     return;
 
   auto constexpr kMaxHotelFeatures = booking::RawApi::GetMaxHotelsInAvailabilityRequest();
@@ -522,7 +522,7 @@ bool SearchAPI::QueryMayBeSkipped(SearchParams const & prevParams,
   }
 
   if (prevParams.m_position && currParams.m_position &&
-      MercatorBounds::DistanceOnEarth(*prevParams.m_position, *currParams.m_position) >
+      mercator::DistanceOnEarth(*prevParams.m_position, *currParams.m_position) >
           kDistEqualQueryMercator)
   {
     return false;

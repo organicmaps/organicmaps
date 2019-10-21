@@ -53,7 +53,7 @@ void NearestEdgeFinder::AddInformationSource(IRoadGraph::FullRoadInfo const & ro
                                               junctions[idx].GetPoint());
   m2::PointD const closestPoint = segment.ClosestPointTo(m_point);
 
-  double const segLenM = MercatorBounds::DistanceOnEarth(segStart.GetPoint(), segEnd.GetPoint());
+  double const segLenM = mercator::DistanceOnEarth(segStart.GetPoint(), segEnd.GetPoint());
   feature::TAltitude projPointAlt = feature::kDefaultAltitudeMeters;
   if (segLenM == 0.0)
   {
@@ -61,7 +61,7 @@ void NearestEdgeFinder::AddInformationSource(IRoadGraph::FullRoadInfo const & ro
   }
   else
   {
-    double const distFromStartM = MercatorBounds::DistanceOnEarth(segStart.GetPoint(), closestPoint);
+    double const distFromStartM = mercator::DistanceOnEarth(segStart.GetPoint(), closestPoint);
     ASSERT_LESS_OR_EQUAL(distFromStartM, segLenM, (roadInfo.m_featureId));
     projPointAlt =
         startAlt + static_cast<feature::TAltitude>((endAlt - startAlt) * distFromStartM / segLenM);

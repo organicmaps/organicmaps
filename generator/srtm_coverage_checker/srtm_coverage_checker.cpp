@@ -79,7 +79,7 @@ int main(int argc, char * argv[])
 
       for (size_t i = 0; i < ft.GetPointsCount(); ++i)
       {
-        auto const height = manager.GetHeight(MercatorBounds::ToLatLon(ft.GetPoint(i)));
+        auto const height = manager.GetHeight(mercator::ToLatLon(ft.GetPoint(i)));
         if (height != feature::kInvalidAltitude)
           good++;
       }

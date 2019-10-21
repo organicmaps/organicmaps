@@ -550,7 +550,7 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
     m2::RectD const tileRect = tileKey.GetGlobalRect();
 
-    double const maxLength = MercatorBounds::kRangeX / (1 << (tileKey.m_zoomLevel - 1));
+    double const maxLength = mercator::Bounds::kRangeX / (1 << (tileKey.m_zoomLevel - 1));
 
     bool intersected = false;
     ProcessSplineSegmentRects(renderInfo.m_spline, maxLength,

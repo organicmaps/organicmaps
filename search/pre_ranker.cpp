@@ -112,7 +112,7 @@ void PreRanker::FillMissingFieldsInPreResults()
     m2::PointD center;
     if (centers && centers->Get(id.m_index, center))
     {
-      r.SetDistanceToPivot(MercatorBounds::DistanceOnEarth(m_params.m_accuratePivotCenter, center));
+      r.SetDistanceToPivot(mercator::DistanceOnEarth(m_params.m_accuratePivotCenter, center));
       r.SetCenter(center);
     }
     else
@@ -222,9 +222,9 @@ void PreRanker::Filter(bool viewportSearch)
       PreRankerResult::CategoriesComparator comparator;
       comparator.m_positionIsInsideViewport =
           m_params.m_position && m_params.m_viewport.IsPointInside(*m_params.m_position);
-      comparator.m_detailedScale = MercatorBounds::DistanceOnEarth(
-                                       m_params.m_viewport.LeftTop(),
-                                       m_params.m_viewport.RightBottom()) < 2 * kPedestrianRadiusMeters;
+      comparator.m_detailedScale = mercator::DistanceOnEarth(m_params.m_viewport.LeftTop(),
+                                                             m_params.m_viewport.RightBottom()) <
+                                   2 * kPedestrianRadiusMeters;
       comparator.m_viewport = m_params.m_viewport;
       nth_element(m_results.begin(), m_results.begin() + numResults, m_results.end(), comparator);
       filtered.insert(m_results.begin(), m_results.begin() + numResults);

@@ -74,7 +74,7 @@ enum LanguageTier
 m2::RectD GetRectAroundPosition(m2::PointD const & position)
 {
   double constexpr kMaxPositionRadiusM = 50.0 * 1000;
-  return MercatorBounds::RectByCenterXYAndSizeInMeters(position, kMaxPositionRadiusM);
+  return mercator::RectByCenterXYAndSizeInMeters(position, kMaxPositionRadiusM);
 }
 
 string GetStatisticsMode(SearchParams const & params)
@@ -183,7 +183,7 @@ void Processor::SetViewport(m2::RectD const & viewport)
   if (m_viewport.IsValid())
   {
     double constexpr kEpsMeters = 10.0;
-    double const kEps = MercatorBounds::MetersToMercator(kEpsMeters);
+    double const kEps = mercator::MetersToMercator(kEpsMeters);
     if (IsEqualMercator(m_viewport, viewport, kEps))
       return;
   }
@@ -524,7 +524,7 @@ void Processor::SearchPlusCode()
   {
     if (!m_position)
       return;
-    ms::LatLon const latLon = MercatorBounds::ToLatLon(*m_position);
+    ms::LatLon const latLon = mercator::ToLatLon(*m_position);
     code = openlocationcode::RecoverNearest(query, {latLon.m_lat, latLon.m_lon});
   }
 

@@ -32,7 +32,7 @@ m2::PointD const & UserMark::GetPivot() const
 
 ms::LatLon UserMark::GetLatLon() const
 {
-  return MercatorBounds::ToLatLon(m_ptOrg);
+  return mercator::ToLatLon(m_ptOrg);
 }
 
 StaticMarkPoint::StaticMarkPoint(m2::PointD const & ptOrg)

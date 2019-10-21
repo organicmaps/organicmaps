@@ -103,8 +103,8 @@ CountriesFilesIndexAffiliation::CountriesFilesIndexAffiliation(std::string const
     }
   }
   auto const net = generator::cells_merger::MakeNet(0.2 /* step */,
-                                                    MercatorBounds::kMinX, MercatorBounds::kMinY,
-                                                    MercatorBounds::kMaxX, MercatorBounds::kMaxY);
+                                                    mercator::Bounds::kMinX, mercator::Bounds::kMinY,
+                                                    mercator::Bounds::kMaxX, mercator::Bounds::kMaxY);
   auto const index = BuildIndex(net);
   m_index = index;
   std::lock_guard<std::mutex> lock(cacheMutex);

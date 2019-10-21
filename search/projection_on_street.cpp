@@ -39,7 +39,7 @@ bool ProjectionOnStreetCalculator::GetProjection(m2::PointD const & point,
   for (size_t index = 0; index < m_segments.size(); ++index)
   {
     m2::PointD const ptProj = m_segments[index].ClosestPointTo(point);
-    double const distMeters = MercatorBounds::DistanceOnEarth(point, ptProj);
+    double const distMeters = mercator::DistanceOnEarth(point, ptProj);
     if (distMeters < proj.m_distMeters)
     {
       proj.m_proj = ptProj;

@@ -102,7 +102,7 @@ bool ScoreCandidatePathsGetter::GetLineCandidatesForPoints(
         (isLastPoint ? points[i - 1] : points[i]).m_distanceToNextPoint;
 
     ScoreEdgeVec edgesCandidates;
-    m_pointsGetter.GetEdgeCandidates(MercatorBounds::FromLatLon(points[i].m_latLon),
+    m_pointsGetter.GetEdgeCandidates(mercator::FromLatLon(points[i].m_latLon),
                                      isLastPoint, edgesCandidates);
 
     GetLineCandidates(points[i], source, isLastPoint, distanceToNextPointM, edgesCandidates,
@@ -277,7 +277,7 @@ void ScoreCandidatePathsGetter::GetLineCandidates(openlr::LocationReferencePoint
   for (auto const & e : startLines)
     LOG(LDEBUG, (LogAs2GisPath(e.m_edge)));
 
-  auto const startPoint = MercatorBounds::FromLatLon(p.m_latLon);
+  auto const startPoint = mercator::FromLatLon(p.m_latLon);
 
   vector<shared_ptr<Link>> allPaths;
   GetAllSuitablePaths(startLines, source, isLastPoint, bearDistM, p.m_functionalRoadClass,

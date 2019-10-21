@@ -384,8 +384,8 @@ bool FeatureParams::FormatFullAddress(m2::PointD const & pt, string & res) const
   if (!street.empty() && !house.IsEmpty())
   {
     res = street + "|" + house.Get() + "|"
-        + strings::to_string_dac(MercatorBounds::YToLat(pt.y), 8) + "|"
-        + strings::to_string_dac(MercatorBounds::XToLon(pt.x), 8) + '\n';
+        + strings::to_string_dac(mercator::YToLat(pt.y), 8) + "|"
+        + strings::to_string_dac(mercator::XToLon(pt.x), 8) + '\n';
     return true;
   }
 

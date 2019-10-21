@@ -13,7 +13,7 @@ vector<m2::PointD> LinearSegment::GetMercatorPoints() const
 {
   vector<m2::PointD> points;
   for (auto const & point : m_locationReference.m_points)
-    points.push_back(MercatorBounds::FromLatLon(point.m_latLon));
+    points.push_back(mercator::FromLatLon(point.m_latLon));
   return points;
 }
 

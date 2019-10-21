@@ -66,7 +66,7 @@ IndexGraphStarter::IndexGraphStarter(FakeEnding const & startEnding,
   AddFinish(finishEnding, startEnding, fakeNumerationStart);
   auto const startPoint = GetPoint(GetStartSegment(), false /* front */);
   auto const finishPoint = GetPoint(GetFinishSegment(), true /* front */);
-  m_startToFinishDistanceM = MercatorBounds::DistanceOnEarth(startPoint, finishPoint);
+  m_startToFinishDistanceM = mercator::DistanceOnEarth(startPoint, finishPoint);
 }
 
 void IndexGraphStarter::Append(FakeEdgesContainer const & container)
@@ -78,7 +78,7 @@ void IndexGraphStarter::Append(FakeEdgesContainer const & container)
   // we don't have finish segment in fake graph before m_fake.Append().
   auto const startPoint = GetPoint(GetStartSegment(), false /* front */);
   auto const finishPoint = GetPoint(GetFinishSegment(), true /* front */);
-  m_startToFinishDistanceM = MercatorBounds::DistanceOnEarth(startPoint, finishPoint);
+  m_startToFinishDistanceM = mercator::DistanceOnEarth(startPoint, finishPoint);
 }
 
 Junction const & IndexGraphStarter::GetStartJunction() const
@@ -254,9 +254,9 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment,
   Segment real;
   if (m_fake.FindReal(segment, real))
   {
-    auto const partLen = MercatorBounds::DistanceOnEarth(vertex.GetPointFrom(), vertex.GetPointTo());
-    auto const fullLen = MercatorBounds::DistanceOnEarth(GetPoint(real, false /* front */),
-                                                         GetPoint(real, true /* front */));
+    auto const partLen = mercator::DistanceOnEarth(vertex.GetPointFrom(), vertex.GetPointTo());
+    auto const fullLen = mercator::DistanceOnEarth(GetPoint(real, false /* front */),
+                                                   GetPoint(real, true /* front */));
     // Note 1. |fullLen| == 0.0 in case of Segment(s) with the same ends.
     // Note 2. There is the following logic behind |return 0.0 * m_graph.CalcSegmentWeight(real, ...);|:
     // it's necessary to return a instance of the structure |RouteWeight| with zero wight.
@@ -335,10 +335,10 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
     if (it != otherSegments.end())
     {
       auto const & otherJunction = it->second;
-      auto const distBackToThis = MercatorBounds::DistanceOnEarth(backJunction.GetPoint(),
-                                                                  projection.m_junction.GetPoint());
-      auto const distBackToOther = MercatorBounds::DistanceOnEarth(backJunction.GetPoint(),
-                                                                   otherJunction.GetPoint());
+      auto const distBackToThis = mercator::DistanceOnEarth(backJunction.GetPoint(),
+                                                            projection.m_junction.GetPoint());
+      auto const distBackToOther = mercator::DistanceOnEarth(backJunction.GetPoint(),
+                                                             otherJunction.GetPoint());
       if (distBackToThis < distBackToOther)
         frontJunction = otherJunction;
       else if (distBackToOther < distBackToThis)

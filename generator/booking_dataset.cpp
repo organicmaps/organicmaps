@@ -89,7 +89,7 @@ void BookingDataset::BuildObject(Object const & hotel,
 {
   FeatureBuilder fb;
 
-  fb.SetCenter(MercatorBounds::FromLatLon(hotel.m_latLon.m_lat, hotel.m_latLon.m_lon));
+  fb.SetCenter(mercator::FromLatLon(hotel.m_latLon.m_lat, hotel.m_latLon.m_lon));
 
   auto & metadata = fb.GetMetadata();
   metadata.Set(Metadata::FMD_SPONSORED_ID, strings::to_string(hotel.m_id.Get()));
@@ -190,7 +190,7 @@ BookingDataset::ObjectId BookingDataset::FindMatchingObjectIdImpl(FeatureBuilder
 
   // Find |kMaxSelectedElements| nearest values to a point.
   auto const bookingIndexes =
-      m_storage.GetNearestObjects(MercatorBounds::ToLatLon(fb.GetKeyPoint()));
+      m_storage.GetNearestObjects(mercator::ToLatLon(fb.GetKeyPoint()));
 
   for (auto const j : bookingIndexes)
   {

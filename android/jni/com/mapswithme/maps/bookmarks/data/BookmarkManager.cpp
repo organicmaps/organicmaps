@@ -629,7 +629,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastE
   kml::BookmarkData bmData;
   bmData.m_name = info.FormatNewBookmarkName();
   bmData.m_color.m_predefinedColor = frm()->LastEditedBMColor();
-  bmData.m_point = MercatorBounds::FromLatLon(lat, lon);
+  bmData.m_point = mercator::FromLatLon(lat, lon);
   auto const lastEditedCategory = frm()->LastEditedBMCategory();
 
   if (info.IsFeature())
@@ -1267,7 +1267,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetSortedCategory(
   sortParams.m_groupId = static_cast<kml::MarkGroupId>(catId);
   sortParams.m_sortingType = static_cast<BookmarkManager::SortingType>(sortingType);
   sortParams.m_hasMyPosition = static_cast<bool>(hasMyPosition);
-  sortParams.m_myPosition = MercatorBounds::FromLatLon(static_cast<double>(lat),
+  sortParams.m_myPosition = mercator::FromLatLon(static_cast<double>(lat),
       static_cast<double>(lon));
   sortParams.m_onResults = bind(&OnCategorySortingResults, env, timestamp, _1, _2);
 

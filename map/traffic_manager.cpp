@@ -219,7 +219,7 @@ void TrafficManager::UpdateMyPosition(MyPosition const & myPosition)
     return;
 
   m2::RectD const rect =
-      MercatorBounds::RectByCenterXYAndSizeInMeters(myPosition.m_position, kSquareSideM / 2.0);
+      mercator::RectByCenterXYAndSizeInMeters(myPosition.m_position, kSquareSideM / 2.0);
   // Request traffic.
   UpdateActiveMwms(rect, m_lastRoutingMwmsByRect, m_activeRoutingMwms);
 

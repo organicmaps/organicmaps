@@ -207,13 +207,13 @@ m2::PointD GenerateNearbyPosition(m2::PointD const & point)
 {
   auto const maxDistance = FLAGS_max_distance_to_object;
   uniform_real_distribution<double> dis(-maxDistance, maxDistance);
-  return MercatorBounds::GetSmPoint(point, dis(g_rng) /* dX */, dis(g_rng) /* dY */);
+  return mercator::GetSmPoint(point, dis(g_rng) /* dX */, dis(g_rng) /* dY */);
 }
 
 m2::RectD GenerateNearbyViewport(m2::PointD const & point)
 {
   uniform_real_distribution<double> dis(FLAGS_min_viewport_size, FLAGS_max_viewport_size);
-  return MercatorBounds::RectByCenterXYAndSizeInMeters(GenerateNearbyPosition(point), dis(g_rng));
+  return mercator::RectByCenterXYAndSizeInMeters(GenerateNearbyPosition(point), dis(g_rng));
 }
 
 bool GetBuildingInfo(FeatureType & ft, search::ReverseGeocoder const & coder, string & street)

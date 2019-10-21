@@ -71,7 +71,7 @@ string PrintBuilder(FeatureBuilder const & fb)
   if (!address.empty())
     s << "Address: " << address << '\t';
 
-  auto const center = MercatorBounds::ToLatLon(fb.GetKeyPoint());
+  auto const center = mercator::ToLatLon(fb.GetKeyPoint());
   s << "lat: " << center.m_lat << " lon: " << center.m_lon << '\t';
 
   if (fb.GetGeomType() == GeomType::Point)
@@ -216,7 +216,7 @@ void GenerateFactors(Dataset const & dataset,
 
     auto const score = generator::sponsored_scoring::Match(object, feature);
 
-    auto const center = MercatorBounds::ToLatLon(feature.GetKeyPoint());
+    auto const center = mercator::ToLatLon(feature.GetKeyPoint());
     double const distanceMeters = ms::DistanceOnEarth(center, object.m_latLon);
     auto const matched = score.IsMatched();
 
@@ -261,15 +261,14 @@ void GenerateSample(Dataset const & dataset,
   for (auto osmId : elementIndexes)
   {
     auto const & fb = features.at(osmId);
-    auto const sponsoredIndexes = dataset.GetStorage().GetNearestObjects(
-        MercatorBounds::ToLatLon(fb.GetKeyPoint()));
+    auto const sponsoredIndexes = dataset.GetStorage().GetNearestObjects(mercator::ToLatLon(fb.GetKeyPoint()));
 
     for (auto const sponsoredId : sponsoredIndexes)
     {
       auto const & object = dataset.GetStorage().GetObjectById(sponsoredId);
       auto const score = sponsored_scoring::Match(object, fb);
 
-      auto const center = MercatorBounds::ToLatLon(fb.GetKeyPoint());
+      auto const center = mercator::ToLatLon(fb.GetKeyPoint());
       double const distanceMeters = ms::DistanceOnEarth(center, object.m_latLon);
       auto const matched = score.IsMatched();
 

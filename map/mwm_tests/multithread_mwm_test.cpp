@@ -73,7 +73,7 @@ namespace
     m2::RectD const r = src.GetWorldRect();
     TEST ( r.IsValid(), () );
 
-    m2::RectD world(MercatorBounds::FullRect());
+    m2::RectD world(mercator::Bounds::FullRect());
     world.Inflate(-10.0, -10.0);
 
     TEST ( world.IsRectInside(r), () );

@@ -98,7 +98,7 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
     if (result.HasPoint())
     {
       distanceInMeters =
-          MercatorBounds::DistanceOnEarth(lastLocation.mercator, result.GetFeatureCenter());
+          mercator::DistanceOnEarth(lastLocation.mercator, result.GetFeatureCenter());
       std::string distanceStr;
       measurement_utils::FormatDistance(distanceInMeters, distanceStr);
 

@@ -55,7 +55,7 @@ namespace routes_builder
 // RoutesBuilder::Params ---------------------------------------------------------------------------
 
 RoutesBuilder::Params::Params(VehicleType type, ms::LatLon const & start, ms::LatLon const & finish)
-  : Params(type, {MercatorBounds::FromLatLon(start), MercatorBounds::FromLatLon(finish)})
+  : Params(type, {mercator::FromLatLon(start), mercator::FromLatLon(finish)})
 {}
 
 RoutesBuilder::Params::Params(VehicleType type, std::vector<m2::PointD> && checkpoints)
@@ -216,7 +216,7 @@ std::vector<ms::LatLon> RoutesBuilder::Route::GetWaypoints() const
   std::vector<ms::LatLon> latlonPoints;
   latlonPoints.reserve(points.size());
   for (auto const & point : points)
-    latlonPoints.emplace_back(MercatorBounds::ToLatLon(point));
+    latlonPoints.emplace_back(mercator::ToLatLon(point));
 
   return latlonPoints;
 }

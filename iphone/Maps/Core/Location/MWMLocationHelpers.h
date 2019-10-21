@@ -75,14 +75,14 @@ static inline double headingToNorthRad(CLHeading * heading)
   return north;
 }
 
-static inline ms::LatLon ToLatLon(m2::PointD const & p) { return MercatorBounds::ToLatLon(p); }
+static inline ms::LatLon ToLatLon(m2::PointD const & p) { return mercator::ToLatLon(p); }
 
 static inline m2::PointD ToMercator(CLLocationCoordinate2D const & l)
 {
-  return MercatorBounds::FromLatLon(l.latitude, l.longitude);
+  return mercator::FromLatLon(l.latitude, l.longitude);
 }
 
-static inline m2::PointD ToMercator(ms::LatLon const & l) { return MercatorBounds::FromLatLon(l); }
+static inline m2::PointD ToMercator(ms::LatLon const & l) { return mercator::FromLatLon(l); }
 static inline MWMMyPositionMode mwmMyPositionMode(location::EMyPositionMode mode)
 {
   switch (mode)

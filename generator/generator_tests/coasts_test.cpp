@@ -112,7 +112,7 @@ UNIT_TEST(CellID_CheckRectPoints)
   int const count = 1 << 2 * level;
 
   using Id = m2::CellId<19>;
-  using Converter = CellIdConverter<MercatorBounds, Id>;
+  using Converter = CellIdConverter<mercator::Bounds, Id>;
 
   for (size_t i = 0; i < count; ++i)
   {

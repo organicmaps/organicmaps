@@ -142,7 +142,7 @@ private:
       {
         auto const center = feature::GetCenter(*buildingFt, FeatureType::WORST_GEOMETRY);
         buildingRects.emplace_back(
-            MercatorBounds::RectByCenterXYAndSizeInMeters(center, kBuildingRadiusMeters),
+            mercator::RectByCenterXYAndSizeInMeters(center, kBuildingRadiusMeters),
             i /* id */);
       }
       else
@@ -173,8 +173,8 @@ private:
     for (size_t i = 0; i < pois.size(); ++i)
     {
       m_context->ForEachFeature(
-          MercatorBounds::RectByCenterXYAndSizeInMeters(poiCenters[i].m_point,
-                                                        kBuildingRadiusMeters),
+          mercator::RectByCenterXYAndSizeInMeters(poiCenters[i].m_point,
+                                                  kBuildingRadiusMeters),
           [&](FeatureType & ft) {
             if (m_postcodes && !m_postcodes->HasBit(ft.GetID().m_index) &&
                 !m_postcodes->HasBit(GetMatchingStreet(ft)))
@@ -185,7 +185,7 @@ private:
                                                  queryParse))
             {
               double const distanceM =
-                  MercatorBounds::DistanceOnEarth(feature::GetCenter(ft), poiCenters[i].m_point);
+                  mercator::DistanceOnEarth(feature::GetCenter(ft), poiCenters[i].m_point);
               if (distanceM < kBuildingRadiusMeters)
                 fn(pois[i], ft.GetID().m_index);
             }
@@ -234,8 +234,8 @@ private:
       // Any point is good enough here, and feature::GetCenter would re-read the geometry.
       if (streetFt->GetPointsCount() > 0)
       {
-        inflationRect = MercatorBounds::RectByCenterXYAndSizeInMeters(streetFt->GetPoint(0),
-                                                                      0.5 * kStreetRadiusMeters);
+        inflationRect = mercator::RectByCenterXYAndSizeInMeters(streetFt->GetPoint(0),
+                                                                0.5 * kStreetRadiusMeters);
       }
 
       for (size_t j = 0; j + 1 < streetFt->GetPointsCount(); ++j)

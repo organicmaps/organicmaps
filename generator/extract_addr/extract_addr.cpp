@@ -52,7 +52,7 @@ void PrintFeature(FeatureBuilder const & fb, uint64_t)
   if ((house.empty() && !isPOI) || fb.GetGeomType() == GeomType::Line)
     return;
 
-  auto const center = MercatorBounds::ToLatLon(fb.GetKeyPoint());
+  auto const center = mercator::ToLatLon(fb.GetKeyPoint());
   auto coordinates = base::NewJSONArray();
   ToJSONArray(*coordinates, std::round(center.m_lon * kRoundDigits) / kRoundDigits);
   ToJSONArray(*coordinates, std::round(center.m_lat * kRoundDigits) / kRoundDigits);

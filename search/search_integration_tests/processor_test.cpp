@@ -985,9 +985,9 @@ UNIT_CLASS_TEST(ProcessorTest, TestCoords)
   TEST_EQUAL(result.GetResultType(), Result::Type::LatLon, ());
   TEST(result.HasPoint(), ());
 
-  m2::PointD const expected = MercatorBounds::FromLatLon(51.681644, 39.183481);
+  m2::PointD const expected = mercator::FromLatLon(51.681644, 39.183481);
   auto const actual = result.GetFeatureCenter();
-  TEST(MercatorBounds::DistanceOnEarth(expected, actual) <= 1.0, ());
+  TEST(mercator::DistanceOnEarth(expected, actual) <= 1.0, ());
 }
 
 UNIT_CLASS_TEST(ProcessorTest, HotelsFiltering)

@@ -140,7 +140,7 @@ void RoutingTest::GetNearestEdges(m2::PointD const & pt,
                                   vector<pair<routing::Edge, routing::Junction>> & edges)
 {
   routing::FeaturesRoadGraph graph(m_dataSource, m_mode, CreateModelFactory());
-  graph.FindClosestEdges(MercatorBounds::RectByCenterXYAndSizeInMeters(
+  graph.FindClosestEdges(mercator::RectByCenterXYAndSizeInMeters(
                              pt, routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
                          1 /* count */, edges);
 }

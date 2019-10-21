@@ -128,7 +128,7 @@ bool CamerasInfoCollector::ParseIntermediateInfo(std::string const & camerasInfo
     ReadPrimitiveFromSource(src, maxSpeedKmPH);
     ReadPrimitiveFromSource(src, relatedWaysNumber);
 
-    center = MercatorBounds::FromLatLon(lat, lon);
+    center = mercator::FromLatLon(lat, lon);
 
     if (maxSpeedKmPH >= routing::kMaxCameraSpeedKmpH)
     {
@@ -220,7 +220,7 @@ void CamerasInfoCollector::Camera::FindClosestSegmentWithGeometryIndex(FrozenDat
 
     routing::FollowedPolyline polyline(points.begin(), points.end());
     m2::RectD const rect =
-      MercatorBounds::RectByCenterXYAndSizeInMeters(m_data.m_center, kSearchCameraRadiusMeters);
+      mercator::RectByCenterXYAndSizeInMeters(m_data.m_center, kSearchCameraRadiusMeters);
     auto curSegment = polyline.UpdateProjection(rect);
     double curCoef = 0.0;
 
@@ -237,10 +237,10 @@ void CamerasInfoCollector::Camera::FindClosestSegmentWithGeometryIndex(FrozenDat
 
     m2::ParametrizedSegment<m2::PointD> st(p1, p2);
     auto const cameraProjOnSegment = st.ClosestPointTo(m_data.m_center);
-    curMinDist = MercatorBounds::DistanceOnEarth(cameraProjOnSegment, m_data.m_center);
+    curMinDist = mercator::DistanceOnEarth(cameraProjOnSegment, m_data.m_center);
 
-    curCoef = MercatorBounds::DistanceOnEarth(p1, cameraProjOnSegment) /
-              MercatorBounds::DistanceOnEarth(p1, p2);
+    curCoef = mercator::DistanceOnEarth(p1, cameraProjOnSegment) /
+              mercator::DistanceOnEarth(p1, p2);
 
     if (curMinDist < bestMinDist)
     {
@@ -254,7 +254,7 @@ void CamerasInfoCollector::Camera::FindClosestSegmentWithGeometryIndex(FrozenDat
 
   dataSource.ForEachInRect(
     updateClosestFeatureCallback,
-    MercatorBounds::RectByCenterXYAndSizeInMeters(m_data.m_center, kSearchCameraRadiusMeters),
+    mercator::RectByCenterXYAndSizeInMeters(m_data.m_center, kSearchCameraRadiusMeters),
     scales::GetUpperScale());
 
   if (found)
@@ -287,7 +287,7 @@ boost::optional<std::pair<double, uint32_t>> CamerasInfoCollector::Camera::FindM
     ft.ForEachPoint(findPoint, scales::GetUpperScale());
 
     CHECK(found, ("Cannot find camera point at the feature:", wayFeatureId,
-                  "; camera center:", MercatorBounds::ToLatLon(m_data.m_center)));
+                  "; camera center:", mercator::ToLatLon(m_data.m_center)));
 
     // If point with number - N, is end of feature, we cannot say: segmentId = N,
     // because number of segments is N - 1, so we say segmentId = N - 1, and coef = 1

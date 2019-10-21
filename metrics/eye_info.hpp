@@ -244,7 +244,7 @@ public:
   void SetPos(m2::PointD const & pos)
   {
     m_pos = pos;
-    m_limitRect = MercatorBounds::RectByCenterXYAndOffset(pos, kMwmPointAccuracy);
+    m_limitRect = mercator::RectByCenterXYAndOffset(pos, kMwmPointAccuracy);
   }
 
   std::string const & GetDefaultName() const { return m_defaultName; }

@@ -32,7 +32,7 @@ FeatureID MigrateNodeFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach
         fid = ft.GetID();
         ++count;
       },
-      MercatorBounds::FromLatLon(xml.GetCenter()));
+      mercator::FromLatLon(xml.GetCenter()));
 
   if (count == 0)
     MYTHROW(MigrationError, ("No pointed features returned."));
@@ -40,7 +40,7 @@ FeatureID MigrateNodeFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach
   if (count > 1)
   {
     LOG(LWARNING,
-        (count, "features returned for point", MercatorBounds::FromLatLon(xml.GetCenter())));
+        (count, "features returned for point", mercator::FromLatLon(xml.GetCenter())));
   }
 
   return fid;

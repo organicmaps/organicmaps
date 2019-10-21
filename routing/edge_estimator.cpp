@@ -25,9 +25,9 @@ feature::TAltitude constexpr kMountainSicknessAltitudeM = 2500;
 double TimeBetweenSec(m2::PointD const & from, m2::PointD const & to, double speedMpS)
 {
   CHECK_GREATER(speedMpS, 0.0,
-                ("from:", MercatorBounds::ToLatLon(from), "to:", MercatorBounds::ToLatLon(to)));
+                ("from:", mercator::ToLatLon(from), "to:", mercator::ToLatLon(to)));
 
-  double const distanceM = MercatorBounds::DistanceOnEarth(from, to);
+  double const distanceM = mercator::DistanceOnEarth(from, to);
   return distanceM / speedMpS;
 }
 
@@ -81,11 +81,11 @@ double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
   Junction const & to = road.GetJunction(segment.GetPointId(true /* front */));
   SpeedKMpH const & speed = road.GetSpeed(segment.IsForward());
 
-  double const distance = MercatorBounds::DistanceOnEarth(from.GetPoint(), to.GetPoint());
+  double const distance = mercator::DistanceOnEarth(from.GetPoint(), to.GetPoint());
   double const speedMpS = KMPH2MPS(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
   CHECK_GREATER(speedMpS, 0.0,
-                ("from:", MercatorBounds::ToLatLon(from.GetPoint()),
-                 "to:", MercatorBounds::ToLatLon(to.GetPoint()), "speed:", speed));
+                ("from:", mercator::ToLatLon(from.GetPoint()),
+                 "to:", mercator::ToLatLon(to.GetPoint()), "speed:", speed));
   double const timeSec = distance / speedMpS;
 
   if (base::AlmostEqualAbs(distance, 0.0, 0.1))

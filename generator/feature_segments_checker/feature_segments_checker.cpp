@@ -195,7 +195,7 @@ public:
     for (uint32_t i = 0; i < numPoints; ++i)
     {
       // Feature segment altitude.
-      TAltitude altitude = m_srtmManager.GetHeight(MercatorBounds::ToLatLon(f.GetPoint(i)));
+      TAltitude altitude = m_srtmManager.GetHeight(mercator::ToLatLon(f.GetPoint(i)));
       pointAltitudes[i] = altitude == kInvalidAltitude ? 0 : altitude;
       if (i == 0)
       {
@@ -204,7 +204,7 @@ public:
       }
       // Feature segment length.
       double const segmentLengthMeters =
-          MercatorBounds::DistanceOnEarth(f.GetPoint(i - 1), f.GetPoint(i));
+          mercator::DistanceOnEarth(f.GetPoint(i - 1), f.GetPoint(i));
       distFromStartMeters += segmentLengthMeters;
       pointDists[i] = distFromStartMeters;
     }

@@ -23,7 +23,7 @@
     self.mercatorPoint = CGPointMake(pivot.x, pivot.y);
     auto const & address = GetFramework().GetAddressAtPoint(pivot);
     self.address = @(address.FormatAddress().c_str());
-    auto const location = MercatorBounds::ToLatLon(pivot);
+    auto const location = mercator::ToLatLon(pivot);
     self.coordinate = CLLocationCoordinate2DMake(location.m_lat, location.m_lon);
   }
   return self;

@@ -15,7 +15,7 @@ void ForEachFeatureAtPoint(DataSource const & dataSource, function<void(FeatureT
   double constexpr kMetersToLinearFeature = 3;
   int constexpr kScale = scales::GetUpperScale();
   m2::RectD const rect =
-      MercatorBounds::RectByCenterXYAndSizeInMeters(mercator, kSelectRectWidthInMeters);
+      mercator::RectByCenterXYAndSizeInMeters(mercator, kSelectRectWidthInMeters);
 
   auto const emitter = [&fn, &rect, &mercator, toleranceInMeters](FeatureType & ft) {
     switch (ft.GetGeomType())

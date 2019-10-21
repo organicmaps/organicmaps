@@ -215,10 +215,10 @@ int FindResult(DataSource & dataSource, string const & mwmName, uint32_t const f
   {
     auto const & r = results[i];
     if (r.HasPoint() &&
-        base::AlmostEqualAbs(r.GetFeatureCenter(), MercatorBounds::FromLatLon(lat, lon), kEps))
+        base::AlmostEqualAbs(r.GetFeatureCenter(), mercator::FromLatLon(lat, lon), kEps))
     {
-      double const dist = MercatorBounds::DistanceOnEarth(r.GetFeatureCenter(),
-                                                          MercatorBounds::FromLatLon(lat, lon));
+      double const dist =
+          mercator::DistanceOnEarth(r.GetFeatureCenter(), mercator::FromLatLon(lat, lon));
       LOG(LDEBUG, ("dist =", dist));
       return static_cast<int>(i);
     }

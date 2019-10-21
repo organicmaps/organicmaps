@@ -392,7 +392,7 @@ void CountryFinalProcessor::AddFakeNodes()
   std::vector<feature::FeatureBuilder> fbs;
   MixFakeNodes(m_fakeNodesFilename, [&](auto & element) {
     FeatureBuilder fb;
-    fb.SetCenter(MercatorBounds::FromLatLon(element.m_lat, element.m_lon));
+    fb.SetCenter(mercator::FromLatLon(element.m_lat, element.m_lon));
     fb.SetOsmId(base::MakeOsmNode(element.m_id));
     ftype::GetNameAndType(&element, fb.GetParams());
     fbs.emplace_back(std::move(fb));

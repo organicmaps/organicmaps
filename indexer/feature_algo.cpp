@@ -46,7 +46,7 @@ double GetMinDistanceMeters(FeatureType & ft, m2::PointD const & pt, int scale)
   double res = std::numeric_limits<double>::max();
   auto updateDistanceFn = [&] (m2::PointD const & p)
   {
-    double const d = MercatorBounds::DistanceOnEarth(p, pt);
+    double const d = mercator::DistanceOnEarth(p, pt);
     if (d < res)
       res = d;
   };

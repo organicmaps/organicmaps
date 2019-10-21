@@ -146,8 +146,8 @@ MultiPolygon TrianglesToPolygon(vector<m2::PointD> const & points)
 /// Returns value form (-Inf, 1]. Negative values are used as penalty, positive as score.
 double ScoreLatLon(XMLFeature const & xmlFt, ms::LatLon const & latLon)
 {
-  auto const a = MercatorBounds::FromLatLon(xmlFt.GetCenter());
-  auto const b = MercatorBounds::FromLatLon(latLon);
+  auto const a = mercator::FromLatLon(xmlFt.GetCenter());
+  auto const b = mercator::FromLatLon(latLon);
   return 1.0 - (a.Length(b) / kPointDiffEps);
 }
 

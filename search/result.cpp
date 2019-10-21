@@ -146,9 +146,9 @@ string Result::ToStringForStats() const
   s.append("|");
   s.append(IsSuggest() ? "1" : "0");
   s.append("|");
-  s.append(to_string(MercatorBounds::YToLat(m_center.y)));
+  s.append(to_string(mercator::YToLat(m_center.y)));
   s.append("|");
-  s.append(to_string(MercatorBounds::XToLon(m_center.x)));
+  s.append(to_string(mercator::XToLon(m_center.x)));
   return s;
 }
 

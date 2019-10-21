@@ -159,7 +159,7 @@ bool ParseLatLon(string const & key, string const & value, double & lat, double 
     return false;
   }
 
-  if (!MercatorBounds::ValidLat(lat) || !MercatorBounds::ValidLon(lon))
+  if (!mercator::ValidLat(lat) || !mercator::ValidLon(lon))
   {
     LOG(LWARNING, ("Map API: incorrect value for lat and/or lon", key, value, lat, lon));
     return false;
@@ -211,7 +211,7 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
       auto editSession = m_bmManager->GetEditSession();
       for (auto const & p : points)
       {
-        m2::PointD glPoint(MercatorBounds::FromLatLon(p.m_lat, p.m_lon));
+        m2::PointD glPoint(mercator::FromLatLon(p.m_lat, p.m_lon));
         auto * mark = editSession.CreateUserMark<ApiMarkPoint>(glPoint);
         mark->SetName(p.m_name);
         mark->SetApiID(p.m_id);
@@ -326,7 +326,7 @@ bool ParsedMapApi::RouteKeyValue(string const & key, string const & value, vecto
       return false;
 
     RoutePoint p;
-    p.m_org = MercatorBounds::FromLatLon(lat, lon);
+    p.m_org = mercator::FromLatLon(lat, lon);
     m_routePoints.push_back(p);
   }
   else if (key == kSourceName || key == kDestName)

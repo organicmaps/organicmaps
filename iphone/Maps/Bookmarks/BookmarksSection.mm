@@ -62,7 +62,7 @@ CGFloat const kPinDiameter = 22.0f;
   if (location) {
     m2::PointD const pos = bookmark->GetPivot();
     double const meters = ms::DistanceOnEarth(location.coordinate.latitude, location.coordinate.longitude,
-                                              MercatorBounds::YToLat(pos.y), MercatorBounds::XToLon(pos.x));
+                                              mercator::YToLat(pos.y), mercator::XToLon(pos.x));
     details.push_back(location_helpers::formattedDistance(meters).UTF8String);
   }
 

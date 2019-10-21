@@ -67,7 +67,7 @@ void Graph::FindClosestEdges(m2::PointD const & point, uint32_t const count,
                              vector<pair<Edge, Junction>> & vicinities) const
 {
   m_graph.FindClosestEdges(
-      MercatorBounds::RectByCenterXYAndSizeInMeters(point, FeaturesRoadGraph::kClosestEdgesRadiusM),
+      mercator::RectByCenterXYAndSizeInMeters(point, FeaturesRoadGraph::kClosestEdgesRadiusM),
       count, vicinities);
 }
 

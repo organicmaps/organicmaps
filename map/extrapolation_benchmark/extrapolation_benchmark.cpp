@@ -239,7 +239,7 @@ int main(int argc, char * argv[])
 
     m2::PolylineD poly;
     for (auto const & p : t)
-      poly.Add(MercatorBounds::FromLatLon(p.m_lat, p.m_lon));
+      poly.Add(mercator::FromLatLon(p.m_lat, p.m_lon));
     CHECK_EQUAL(poly.GetSize(), t.size(), ());
     FollowedPolyline followedPoly(poly.Begin(), poly.End());
     CHECK(followedPoly.IsValid(), ());
@@ -264,12 +264,12 @@ int main(int argc, char * argv[])
       {
         GpsInfo const extrapolated = LinearExtrapolation(info1, info2, timeMs);
         m2::PointD const extrapolatedMerc =
-            MercatorBounds::FromLatLon(extrapolated.m_latitude, extrapolated.m_longitude);
+            mercator::FromLatLon(extrapolated.m_latitude, extrapolated.m_longitude);
 
         double const kHalfSquareSide = 100.0;
         // |kHalfSquareSide| is chosen based on maximum value of GpsInfo::m_horizontalAccuracy
         // which is used calculation of projection in production code.
-        m2::RectD const posSquare = MercatorBounds::MetersToXY(
+        m2::RectD const posSquare = mercator::MetersToXY(
             extrapolated.m_longitude, extrapolated.m_latitude, kHalfSquareSide);
         // One is deducted from polyline size because in GetClosestProjectionInInterval()
         // is used segment indices but not point indices.
@@ -277,7 +277,7 @@ int main(int argc, char * argv[])
             posSquare,
             [&extrapolatedMerc](FollowedPolyline::Iter const & it) {
               ASSERT(it.IsValid(), ());
-              return MercatorBounds::DistanceOnEarth(it.m_pt, extrapolatedMerc);
+              return mercator::DistanceOnEarth(it.m_pt, extrapolatedMerc);
             },
             0 /* start segment index */, followedPoly.GetPolyline().GetSize() - 1);
 
@@ -294,7 +294,7 @@ int main(int argc, char * argv[])
           break;
         }
 
-        double const distFromPoly = MercatorBounds::DistanceOnEarth(iter.m_pt, extrapolatedMerc);
+        double const distFromPoly = mercator::DistanceOnEarth(iter.m_pt, extrapolatedMerc);
         onePointDeviations.push_back(distFromPoly);
         onePointDeviationsSquared.push_back(distFromPoly * distFromPoly);
       }

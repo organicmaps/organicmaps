@@ -282,8 +282,8 @@ void BookmarkDialog::FillTree()
         auto name = GetPreferredBookmarkStr(bookmark->GetName());
         if (name.empty())
         {
-          name = measurement_utils::FormatLatLon(MercatorBounds::YToLat(bookmark->GetPivot().y),
-                                                 MercatorBounds::XToLon(bookmark->GetPivot().x),
+          name = measurement_utils::FormatLatLon(mercator::YToLat(bookmark->GetPivot().y),
+                                                 mercator::XToLon(bookmark->GetPivot().x),
                                                  true /* withSemicolon */);
         }
         auto bookmarkItem = CreateTreeItem(name + " (Bookmark)", categoryItem);

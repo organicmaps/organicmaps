@@ -48,7 +48,7 @@ double Checkpoints::GetSummaryLengthBetweenPointsMeters() const
 {
   double dist = 0.0;
   for (size_t i = 1; i < m_points.size(); ++i)
-    dist += MercatorBounds::DistanceOnEarth(m_points[i - 1], m_points[i]);
+    dist += mercator::DistanceOnEarth(m_points[i - 1], m_points[i]);
 
   return dist;
 }
@@ -60,7 +60,7 @@ std::string DebugPrint(Checkpoints const & checkpoints)
   out << "Checkpoints(";
   for (auto const & point : checkpoints.GetPoints())
   {
-    auto const latlon = MercatorBounds::ToLatLon(point);
+    auto const latlon = mercator::ToLatLon(point);
     out << latlon.m_lat << ", " << latlon.m_lon << "; ";
   }
   out << "passed: " << checkpoints.GetPassedIdx() << ")";

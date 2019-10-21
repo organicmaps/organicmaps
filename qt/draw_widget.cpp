@@ -489,7 +489,7 @@ std::string DrawWidget::GetDistance(search::Result const & res) const
   std::string dist;
   if (auto const position = m_framework.GetCurrentPosition())
   {
-    auto const ll = MercatorBounds::ToLatLon(*position);
+    auto const ll = mercator::ToLatLon(*position);
     double dummy;
     (void)m_framework.GetDistanceAndAzimut(res.GetFeatureCenter(), ll.m_lat, ll.m_lon, -1.0, dist,
                                            dummy);
@@ -739,7 +739,7 @@ void DrawWidget::RefreshDrawingRules()
 m2::PointD DrawWidget::GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt)
 {
   if (auto optional = RoutingSettings::GetCoords(start))
-    return MercatorBounds::FromLatLon(*optional);
+    return mercator::FromLatLon(*optional);
 
   return m_framework.P3dtoG(pt);
 }

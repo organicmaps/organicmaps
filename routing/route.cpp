@@ -252,7 +252,7 @@ void Route::SetFakeSegmentsOnPolyline()
 
 Route::MovedIteratorInfo Route::MoveIteratorToReal(location::GpsInfo const & info)
 {
-  m2::RectD const rect = MercatorBounds::MetersToXY(
+  m2::RectD const rect = mercator::MetersToXY(
       info.m_longitude, info.m_latitude,
       max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
   auto const resUpdate = m_poly.UpdateMatchingProjection(rect);
@@ -285,12 +285,12 @@ void Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMa
   if (m_poly.IsValid())
   {
     auto const & iter = m_poly.GetCurrentIter();
-    m2::PointD const locationMerc = MercatorBounds::FromLatLon(location.m_latitude, location.m_longitude);
-    double const distFromRouteM = MercatorBounds::DistanceOnEarth(iter.m_pt, locationMerc);
+    m2::PointD const locationMerc = mercator::FromLatLon(location.m_latitude, location.m_longitude);
+    double const distFromRouteM = mercator::DistanceOnEarth(iter.m_pt, locationMerc);
     if (distFromRouteM < m_routingSettings.m_matchingThresholdM)
     {
-      location.m_latitude = MercatorBounds::YToLat(iter.m_pt.y);
-      location.m_longitude = MercatorBounds::XToLon(iter.m_pt.x);
+      location.m_latitude = mercator::YToLat(iter.m_pt.y);
+      location.m_longitude = mercator::XToLon(iter.m_pt.x);
       if (m_routingSettings.m_matchRoute)
         location.m_bearing = location::AngleToBearing(GetPolySegAngle(iter.m_ind));
 

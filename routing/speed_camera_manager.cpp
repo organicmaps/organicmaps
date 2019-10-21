@@ -377,7 +377,7 @@ void SpeedCameraManager::SendEnterZoneStat(double distToCameraMeters, double spe
     return;
   m_hasEnteredTheZone = true;
 
-  auto const latlon = MercatorBounds::ToLatLon(camera.m_position);
+  auto const latlon = mercator::ToLatLon(camera.m_position);
   alohalytics::TStringMap params = {
     {"distance", to_string(distToCameraMeters)},
     {"speed", to_string(measurement_utils::MpsToKmph(speedMpS))},

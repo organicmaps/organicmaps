@@ -499,8 +499,8 @@ Tizen::Base::String BookMarkManager::GetSMSTextMark(UserMark const * pMark)
 Tizen::Base::String BookMarkManager::GetEmailTextMyPosition(double lat, double lon)
 {
   search::AddressInfo info;
-  double y = MercatorBounds::LatToY(lat);
-  double x = MercatorBounds::LonToX(lon);
+  double y = mercator::LatToY(lat);
+  double x = mercator::LonToX(lon);
   Framework * pFW = GetFramework();
   pFW->GetAddressInfoForGlobalPoint(m2::PointD(x, y), info);
   String const & description = info.FormatNameAndAddress().c_str();

@@ -18,7 +18,7 @@ AStarSubProgress::AStarSubProgress(m2::PointD const & start, m2::PointD const & 
 {
   ASSERT_GREATER(m_contributionCoef, 0.0, ());
 
-  m_fullDistance = MercatorBounds::DistanceOnEarth(start, finish);
+  m_fullDistance = mercator::DistanceOnEarth(start, finish);
   m_forwardDistance = m_fullDistance;
   m_backwardDistance = m_fullDistance;
 }
@@ -33,7 +33,7 @@ double AStarSubProgress::UpdateProgress(m2::PointD const & current, m2::PointD c
 {
   ASSERT_NOT_EQUAL(m_fullDistance, 0.0, ());
 
-  double const dist = MercatorBounds::DistanceOnEarth(current, finish);
+  double const dist = mercator::DistanceOnEarth(current, finish);
   double & toUpdate = finish == m_finishPoint ? m_forwardDistance : m_backwardDistance;
 
   toUpdate = std::min(toUpdate, dist);

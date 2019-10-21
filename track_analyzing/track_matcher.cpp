@@ -29,7 +29,7 @@ double DistanceToSegment(m2::PointD const & segmentBegin, m2::PointD const & seg
 {
   m2::ParametrizedSegment<m2::PointD> const segment(segmentBegin, segmentEnd);
   m2::PointD const projectionPoint = segment.ClosestPointTo(point);
-  return MercatorBounds::DistanceOnEarth(point, projectionPoint);
+  return mercator::DistanceOnEarth(point, projectionPoint);
 }
 
 double DistanceToSegment(Segment const & segment, m2::PointD const & point, IndexGraph & indexGraph)
@@ -129,7 +129,7 @@ void TrackMatcher::MatchTrack(vector<DataPoint> const & track, vector<MatchedTra
 
 // TrackMatcher::Step ------------------------------------------------------------------------------
 TrackMatcher::Step::Step(DataPoint const & dataPoint)
-  : m_dataPoint(dataPoint), m_point(MercatorBounds::FromLatLon(dataPoint.m_latLon))
+  : m_dataPoint(dataPoint), m_point(mercator::FromLatLon(dataPoint.m_latLon))
 {
 }
 
@@ -169,7 +169,7 @@ void TrackMatcher::Step::FillCandidatesWithNearbySegments(
           }
         }
       },
-      MercatorBounds::RectByCenterXYAndSizeInMeters(m_point, kMatchingRange),
+      mercator::RectByCenterXYAndSizeInMeters(m_point, kMatchingRange),
       scales::GetUpperScale());
 }
 

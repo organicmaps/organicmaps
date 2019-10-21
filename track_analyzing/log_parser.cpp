@@ -53,7 +53,7 @@ public:
       return expectedId;
 
     routing::NumMwmId result = routing::kFakeNumMwmId;
-    m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(point, 1);
+    m2::RectD const rect = mercator::RectByCenterXYAndSizeInMeters(point, 1);
     m_mwmTree->ForEachInRect(rect, [&](routing::NumMwmId numMwmId) {
       if (result == routing::kFakeNumMwmId && m2::RegionsContain(GetBorders(numMwmId), point))
         result = numMwmId;
@@ -153,7 +153,7 @@ void LogParser::SplitIntoMwms(UserToTrack const & userToTrack, MwmToTracks & mwm
     routing::NumMwmId mwmId = routing::kFakeNumMwmId;
     for (DataPoint const & point : track)
     {
-      mwmId = pointToMwmId.FindMwmId(MercatorBounds::FromLatLon(point.m_latLon), mwmId);
+      mwmId = pointToMwmId.FindMwmId(mercator::FromLatLon(point.m_latLon), mwmId);
       if (mwmId != routing::kFakeNumMwmId)
         mwmToTracks[mwmId][user].push_back(point);
       else

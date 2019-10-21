@@ -202,7 +202,7 @@ void RouteShape::PrepareGeometry(std::vector<m2::PointD> const & path, m2::Point
   geometryBufferData.emplace_back(GeometryBufferData<GeometryBuffer>());
 
   uint32_t constexpr kMinVertices = 5000;
-  double constexpr kMinExtent = MercatorBounds::kRangeX / (1 << 10);
+  double constexpr kMinExtent = mercator::Bounds::kRangeX / (1 << 10);
 
   float depth = baseDepth;
   float const depthStep = kRouteDepth / (1 + segments.size());

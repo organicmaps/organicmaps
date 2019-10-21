@@ -93,7 +93,7 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
 }
 
 FeatureID const & MapObject::GetID() const { return m_featureID; }
-ms::LatLon MapObject::GetLatLon() const { return MercatorBounds::ToLatLon(m_mercator); }
+ms::LatLon MapObject::GetLatLon() const { return mercator::ToLatLon(m_mercator); }
 m2::PointD const & MapObject::GetMercator() const { return m_mercator; }
 vector<m2::PointD> const & MapObject::GetTriangesAsPoints() const { return m_triangles; }
 vector<m2::PointD> const & MapObject::GetPoints() const { return m_points; }

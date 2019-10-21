@@ -813,7 +813,7 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
   
   f.StopLocationFollow();
   
-  auto const center = MercatorBounds::FromLatLon(lat, lon);
+  auto const center = mercator::FromLatLon(lat, lon);
   f.SetViewportCenter(center, zoomLevel, false);
 }
 

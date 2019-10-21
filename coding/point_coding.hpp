@@ -15,9 +15,9 @@ uint8_t constexpr kFeatureSorterPointCoordBits = 27;
 // another we consider the points equal. In other words, |kMwmPointAccuracy| may
 // be used as the eps value for both x and y in Point::EqualDxDy, base::AlmostEqualAbs and such.
 //
-// The constant is loosely tied to MercatorBounds::kRangeX / (1 << kPointCoordBits):
+// The constant is loosely tied to mercator::Bounds::kRangeX / (1 << kPointCoordBits):
 //   The range of possible values for point coordinates
-//      MercatorBounds::kRangeX = 360.0
+//      mercator::Bounds::kRangeX = 360.0
 //   The number of distinct values for each coordinate after encoding
 //      (1 << kPointCoordBits) = 1073741824 ≈ 1e9
 //   Distance between two discernible points in the uniform case

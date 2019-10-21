@@ -24,7 +24,7 @@ void TestAddress(ReverseGeocoder & coder, ms::LatLon const & ll, std::string con
                  std::string const & houseNumber)
 {
   ReverseGeocoder::Address addr;
-  coder.GetNearbyAddress(MercatorBounds::FromLatLon(ll), addr);
+  coder.GetNearbyAddress(mercator::FromLatLon(ll), addr);
 
   std::string const expectedKey =
       strings::ToUtf8(GetStreetNameAsKey(street, false /* ignoreStreetSynonyms */));

@@ -1116,7 +1116,7 @@ void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
   if (state == SessionState::RouteNeedRebuild)
   {
     m_routingSession.RebuildRoute(
-        MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude),
+        mercator::FromLatLon(info.m_latitude, info.m_longitude),
         [this](Route const & route, RouterResultCode code) { OnRebuildRouteReady(route, code); },
         nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */, 0 /* timeoutSec */,
         SessionState::RouteRebuilding, true /* adjustToPrevRoute */);
@@ -1508,7 +1508,7 @@ m2::RectD RoutingManager::ShowPreviewSegments(vector<RouteMarkData> const & rout
 {
   df::DrapeEngineLockGuard lock(m_drapeEngine);
   if (!lock)
-    return MercatorBounds::FullRect();
+    return mercator::Bounds::FullRect();
 
   m2::RectD rect;
   for (size_t pointIndex = 0; pointIndex + 1 < routePoints.size(); pointIndex++)

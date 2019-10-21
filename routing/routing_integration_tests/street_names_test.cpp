@@ -24,8 +24,8 @@ UNIT_TEST(RussiaTulskayaToPaveletskayaStreetNamesTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
-                                  MercatorBounds::FromLatLon(55.70839, 37.62145), {0., 0.},
-                                  MercatorBounds::FromLatLon(55.73198, 37.63945));
+                                  mercator::FromLatLon(55.70839, 37.62145), {0., 0.},
+                                  mercator::FromLatLon(55.73198, 37.63945));
 
   Route & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;

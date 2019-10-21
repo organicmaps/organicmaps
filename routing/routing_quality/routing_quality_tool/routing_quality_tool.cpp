@@ -109,8 +109,8 @@ void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> &&
     auto const & anotherResult = anotherResultPair.first;
     auto const & anotherFile = anotherResultPair.second;
 
-    auto const & startLatLon = MercatorBounds::ToLatLon(anotherResult.GetStartPoint());
-    auto const & finishLatLon = MercatorBounds::ToLatLon(anotherResult.GetFinishPoint());
+    auto const & startLatLon = mercator::ToLatLon(anotherResult.GetStartPoint());
+    auto const & finishLatLon = mercator::ToLatLon(anotherResult.GetFinishPoint());
 
     if (!mapsmeResult.IsCodeOK() && anotherResult.IsCodeOK())
     {

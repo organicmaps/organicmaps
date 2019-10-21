@@ -15,7 +15,7 @@ SearchTest::SearchTest()
   : m_scopedLog(LDEBUG)
   , m_engine(m_dataSource, make_unique<storage::CountryInfoGetterForTesting>(), Engine::Params{})
 {
-  SetViewport(MercatorBounds::FullRect());
+  SetViewport(mercator::Bounds::FullRect());
 }
 
 void SearchTest::RegisterCountry(string const & name, m2::RectD const & rect)

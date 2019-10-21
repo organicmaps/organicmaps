@@ -170,7 +170,7 @@ void MainView::MoveViewportToResult(search::Sample::Result const & result)
 {
   int constexpr kViewportAroundResultSizeM = 100;
   auto const rect =
-      MercatorBounds::RectByCenterXYAndSizeInMeters(result.m_pos, kViewportAroundResultSizeM);
+      mercator::RectByCenterXYAndSizeInMeters(result.m_pos, kViewportAroundResultSizeM);
   MoveViewportToRect(rect);
 }
 

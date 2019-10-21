@@ -149,7 +149,7 @@ void RunGraphicsBenchmark(Framework * framework)
             FromJSONObject(centerNode, "lon", lon);
             json_int_t zoomLevel = -1;
             FromJSONObject(stepElem, "zoomLevel", zoomLevel);
-            m2::PointD const pt = MercatorBounds::FromLatLon(lat, lon);
+            m2::PointD const pt = mercator::FromLatLon(lat, lon);
             points.push_back(pt);
             scenario.push_back(std::unique_ptr<ScenarioManager::Action>(
                                  new ScenarioManager::CenterViewportAction(pt, static_cast<int>(zoomLevel))));

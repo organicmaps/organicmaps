@@ -226,8 +226,8 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
   {
     auto const & id = feature.GetID();
     CHECK(!m_junctions.empty(), ("mwm:", id.GetMwmName(), ", featureId:", id.m_index));
-    auto const begin = MercatorBounds::ToLatLon(m_junctions.front().GetPoint());
-    auto const end = MercatorBounds::ToLatLon(m_junctions.back().GetPoint());
+    auto const begin = mercator::ToLatLon(m_junctions.front().GetPoint());
+    auto const end = mercator::ToLatLon(m_junctions.back().GetPoint());
     LOG(LERROR,
         ("Invalid speed m_forwardSpeed:", m_forwardSpeed, "m_backwardSpeed:", m_backwardSpeed,
          "mwm:", id.GetMwmName(), ", featureId:", id.m_index, ", begin:", begin, "end:", end));
@@ -245,8 +245,7 @@ double RoadGeometry::GetRoadLengthM() const
   double lenM = 0.0;
   for (size_t i = 1; i < GetPointsCount(); ++i)
   {
-    lenM +=
-        MercatorBounds::DistanceOnEarth(m_junctions[i - 1].GetPoint(), m_junctions[i].GetPoint());
+    lenM += mercator::DistanceOnEarth(m_junctions[i - 1].GetPoint(), m_junctions[i].GetPoint());
   }
 
   return lenM;

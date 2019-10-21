@@ -65,7 +65,7 @@ UNIT_CLASS_TEST(CentersTableTest, Smoke)
 
       m2::PointD expected = feature::GetCenter(ft);
 
-      TEST_LESS_OR_EQUAL(MercatorBounds::DistanceOnEarth(actual, expected), 1.0, (id));
+      TEST_LESS_OR_EQUAL(mercator::DistanceOnEarth(actual, expected), 1.0, (id));
     });
   }
 }
@@ -103,7 +103,7 @@ UNIT_CLASS_TEST(CentersTableTest, SmokeV0)
 
       m2::PointD expected = feature::GetCenter(ft);
 
-      TEST_LESS_OR_EQUAL(MercatorBounds::DistanceOnEarth(actual, expected), 1.0, (id));
+      TEST_LESS_OR_EQUAL(mercator::DistanceOnEarth(actual, expected), 1.0, (id));
     });
   }
 }
@@ -141,7 +141,7 @@ UNIT_CLASS_TEST(CentersTableTest, Subset)
       if (j != features.size() && i == features[j].first)
       {
         TEST(table->Get(i, actual), ());
-        TEST_LESS_OR_EQUAL(MercatorBounds::DistanceOnEarth(actual, features[j].second), 1.0, ());
+        TEST_LESS_OR_EQUAL(mercator::DistanceOnEarth(actual, features[j].second), 1.0, ());
       }
       else
       {

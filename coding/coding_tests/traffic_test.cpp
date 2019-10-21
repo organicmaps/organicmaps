@@ -21,9 +21,9 @@ double CalculateLength(vector<TrafficGPSEncoder::DataPoint> const & path)
   double res = 0;
   for (size_t i = 1; i < path.size(); ++i)
   {
-    auto p1 = MercatorBounds::FromLatLon(path[i - 1].m_latLon.m_lat, path[i - 1].m_latLon.m_lon);
-    auto p2 = MercatorBounds::FromLatLon(path[i].m_latLon.m_lat, path[i].m_latLon.m_lon);
-    res += MercatorBounds::DistanceOnEarth(p1, p2);
+    auto p1 = mercator::FromLatLon(path[i - 1].m_latLon.m_lat, path[i - 1].m_latLon.m_lon);
+    auto p2 = mercator::FromLatLon(path[i].m_latLon.m_lat, path[i].m_latLon.m_lon);
+    res += mercator::DistanceOnEarth(p1, p2);
   }
   return res;
 }

@@ -70,7 +70,7 @@ string GetSampleString(FeatureType & hotel, m2::PointD const & userPos, string c
   }
   sample.m_locale = "en";
   sample.m_pos = userPos;
-  sample.m_viewport = MercatorBounds::RectByCenterXYAndSizeInMeters(userPos, kViewportRadiusM);
+  sample.m_viewport = mercator::RectByCenterXYAndSizeInMeters(userPos, kViewportRadiusM);
   sample.m_results.push_back(Sample::Result::Build(hotel, Sample::Result::Relevance::Vital));
   string json;
   Sample::SerializeToJSONLines({sample}, json);
@@ -213,7 +213,7 @@ int main(int argc, char * argv[])
         if (!hotelChecker(hotel))
           return;
 
-        if (MercatorBounds::DistanceOnEarth(airportPos, feature::GetCenter(hotel)) >
+        if (mercator::DistanceOnEarth(airportPos, feature::GetCenter(hotel)) >
             kDistanceToHotelM)
         {
           return;
@@ -235,7 +235,7 @@ int main(int argc, char * argv[])
       };
 
       dataSource.ForEachInRect(
-          addHotel, MercatorBounds::RectByCenterXYAndSizeInMeters(airportPos, kDistanceToHotelM),
+          addHotel, mercator::RectByCenterXYAndSizeInMeters(airportPos, kDistanceToHotelM),
           scales::GetUpperScale());
     }
     LOG(LINFO, (hotelsNextToAirport.size(), "hotels have nearby airport."));
@@ -273,7 +273,7 @@ int main(int argc, char * argv[])
       static double kRadiusToHotelM = kDistanceToHotelM / sqrt(2.0);
       string json = GetSampleString(
           *hotel,
-          MercatorBounds::GetSmPoint(feature::GetCenter(*hotel), kRadiusToHotelM, kRadiusToHotelM),
+          mercator::GetSmPoint(feature::GetCenter(*hotel), kRadiusToHotelM, kRadiusToHotelM),
           address);
 
       if (!json.empty())

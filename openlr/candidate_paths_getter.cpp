@@ -80,7 +80,7 @@ bool CandidatePathsGetter::GetLineCandidatesForPoints(
         (isLastPoint ? points[i - 1] : points[i]).m_distanceToNextPoint;
 
     vector<m2::PointD> pointCandidates;
-    m_pointsGetter.GetCandidatePoints(MercatorBounds::FromLatLon(points[i].m_latLon),
+    m_pointsGetter.GetCandidatePoints(mercator::FromLatLon(points[i].m_latLon),
                                       pointCandidates);
     GetLineCandidates(points[i], isLastPoint, distanceToNextPointM, pointCandidates,
                       lineCandidates.back());
@@ -185,7 +185,7 @@ void CandidatePathsGetter::GetBestCandidatePaths(
   for (auto const & l : allPaths)
   {
     auto const bearStartPoint = pointsSelector.GetStartPoint(l->GetStartEdge());
-    auto const startPointsDistance = MercatorBounds::DistanceOnEarth(bearStartPoint, startPoint);
+    auto const startPointsDistance = mercator::DistanceOnEarth(bearStartPoint, startPoint);
 
     // Number of edges counting from the last one to check bearing on. Accorfing to OpenLR spec
     // we have to check bearing on a point that is no longer than 25 meters traveling down the path.
@@ -272,7 +272,7 @@ void CandidatePathsGetter::GetLineCandidates(openlr::LocationReferencePoint cons
   for (auto const & e : startLines)
     LOG(LDEBUG, (LogAs2GisPath(e)));
 
-  auto const startPoint = MercatorBounds::FromLatLon(p.m_latLon);
+  auto const startPoint = mercator::FromLatLon(p.m_latLon);
 
   vector<LinkPtr> allPaths;
   GetAllSuitablePaths(startLines, isLastPoint, bearDistM, p.m_functionalRoadClass, p.m_formOfWay,

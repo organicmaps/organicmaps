@@ -39,8 +39,7 @@ void TownsDumper::FilterTowns()
     auto const & top = towns.back();
     bool isUniq = true;
     resultTree.ForEachInRect(
-        MercatorBounds::RectByCenterXYAndSizeInMeters(MercatorBounds::FromLatLon(top.point),
-                                                      kTownsEqualityMeters),
+        mercator::RectByCenterXYAndSizeInMeters(mercator::FromLatLon(top.point), kTownsEqualityMeters),
         [&top, &isUniq](Town const & candidate)
         {
           if (ms::DistanceOnEarth(top.point, candidate.point) < kTownsEqualityMeters)

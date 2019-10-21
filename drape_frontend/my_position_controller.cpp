@@ -405,11 +405,11 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   m2::PointD const oldPos = GetDrawablePosition();
   double const oldAzimut = GetDrawableAzimut();
 
-  m2::RectD const rect = MercatorBounds::MetersToXY(info.m_longitude, info.m_latitude,
-                                                    info.m_horizontalAccuracy);
+  m2::RectD const rect =
+      mercator::MetersToXY(info.m_longitude, info.m_latitude, info.m_horizontalAccuracy);
   // Use FromLatLon instead of rect.Center() since in case of large info.m_horizontalAccuracy
   // there is significant difference between the real location and the estimated one.
-  m_position = MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude);
+  m_position = mercator::FromLatLon(info.m_latitude, info.m_longitude);
   m_errorRadius = rect.SizeX() * 0.5;
   m_horizontalAccuracy = info.m_horizontalAccuracy;
 

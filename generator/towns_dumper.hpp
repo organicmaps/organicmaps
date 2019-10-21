@@ -38,7 +38,7 @@ private:
     bool operator<(Town const & rhs) const { return population < rhs.population; }
     m2::RectD GetLimitRect() const
     {
-      return m2::RectD(MercatorBounds::FromLatLon(point), MercatorBounds::FromLatLon(point));
+      return m2::RectD(mercator::FromLatLon(point), mercator::FromLatLon(point));
     }
   };
 

@@ -149,7 +149,7 @@ std::vector<taxi::Product> GetMaximSynchronous(ms::LatLon const & from, ms::LatL
 std::vector<taxi::Product> GetRutaxiSynchronous(ms::LatLon const & from, ms::LatLon const & to,
                                                 taxi::Delegate & delegate, std::string const & url)
 {
-  auto const city = delegate.GetCityName(MercatorBounds::FromLatLon(from));
+  auto const city = delegate.GetCityName(mercator::FromLatLon(from));
 
   std::string fromHttpResult;
   TEST(taxi::rutaxi::RawApi::GetNearObject(from, city, fromHttpResult, url), ());

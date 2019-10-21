@@ -312,8 +312,7 @@ void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPo
     return false;
   };
   routing::OnlineAbsentCountriesFetcher fetcher(countryFileGetter, localFileChecker);
-  fetcher.GenerateRequest(Checkpoints(MercatorBounds::FromLatLon(startPoint),
-                                      MercatorBounds::FromLatLon(finalPoint)));
+  fetcher.GenerateRequest(Checkpoints(mercator::FromLatLon(startPoint), mercator::FromLatLon(finalPoint)));
   set<string> absent;
   fetcher.GetAbsentCountries(absent);
   if (expected.size() < 2)
@@ -335,8 +334,7 @@ void TestOnlineCrosses(ms::LatLon const & startPoint, ms::LatLon const & finalPo
     return routerComponents.GetCountryInfoGetter().GetRegionCountryId(p);
   };
   routing::OnlineCrossFetcher fetcher(countryFileGetter, OSRM_ONLINE_SERVER_URL,
-                                      Checkpoints(MercatorBounds::FromLatLon(startPoint),
-                                                  MercatorBounds::FromLatLon(finalPoint)));
+                                      Checkpoints(mercator::FromLatLon(startPoint), mercator::FromLatLon(finalPoint)));
   fetcher.Do();
   vector<m2::PointD> const & points = fetcher.GetMwmPoints();
   set<string> foundMwms;

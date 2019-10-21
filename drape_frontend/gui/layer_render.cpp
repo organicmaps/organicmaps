@@ -262,8 +262,7 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheDebugLabels(ref_ptr<dp::GraphicsCon
     m2::PointD const p2 = screen.PtoG(screen.P3dtoP(m2::PointD(sizeX, sizeY)));
     m2::PointD const p3 = screen.PtoG(screen.P3dtoP(m2::PointD(sizeX, 0.0)));
 
-    double const areaG = MercatorBounds::AreaOnEarth(p0, p1, p2) +
-        MercatorBounds::AreaOnEarth(p2, p3, p0);
+    double const areaG = mercator::AreaOnEarth(p0, p1, p2) + mercator::AreaOnEarth(p2, p3, p0);
 
     double const sizeX_2d = screen.PixelRect().SizeX();
     double const sizeY_2d = screen.PixelRect().SizeY();
@@ -273,8 +272,8 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheDebugLabels(ref_ptr<dp::GraphicsCon
     m2::PointD const p2_2d = screen.PtoG(m2::PointD(sizeX_2d, sizeY_2d));
     m2::PointD const p3_2d = screen.PtoG(m2::PointD(sizeX_2d, 0.0));
 
-    double const areaGTotal = MercatorBounds::AreaOnEarth(p0_2d, p1_2d, p2_2d) +
-        MercatorBounds::AreaOnEarth(p2_2d, p3_2d, p0_2d);
+    double const areaGTotal = mercator::AreaOnEarth(p0_2d, p1_2d, p2_2d) +
+        mercator::AreaOnEarth(p2_2d, p3_2d, p0_2d);
 
     std::ostringstream out;
     out << std::fixed << std::setprecision(2)
@@ -288,8 +287,8 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheDebugLabels(ref_ptr<dp::GraphicsCon
   debugLabels.AddLabel(textures, "scale2d: m/px, scale2d * vs: m/px",
                        [](ScreenBase const & screen, string & content) -> bool
   {
-    double const distanceG = MercatorBounds::DistanceOnEarth(screen.PtoG(screen.PixelRect().LeftBottom()),
-                                                            screen.PtoG(screen.PixelRect().RightBottom()));
+    double const distanceG = mercator::DistanceOnEarth(screen.PtoG(screen.PixelRect().LeftBottom()),
+                                                       screen.PtoG(screen.PixelRect().RightBottom()));
 
     double const vs = df::VisualParams::Instance().GetVisualScale();
     double const scale = distanceG / screen.PixelRect().SizeX();
@@ -308,7 +307,7 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheDebugLabels(ref_ptr<dp::GraphicsCon
     double const sizeX = screen.PixelRectIn3d().SizeX();
     double const sizeY = screen.PixelRectIn3d().SizeY();
 
-    double const distance = MercatorBounds::DistanceOnEarth(
+    double const distance = mercator::DistanceOnEarth(
       screen.PtoG(screen.P3dtoP(m2::PointD(sizeX / 2.0, 0.0))),
       screen.PtoG(screen.P3dtoP(m2::PointD(sizeX / 2.0, sizeY))));
 

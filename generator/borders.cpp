@@ -173,7 +173,7 @@ bool ReadPolygon(std::istream & stream, m2::RegionD & region, std::string const 
     iss >> lon >> lat;
     CHECK(!iss.fail(), ("Incorrect data in", filename));
 
-    region.AddPoint(MercatorBounds::FromLatLon(lat, lon));
+    region.AddPoint(mercator::FromLatLon(lat, lon));
   }
 
   // drop inner rings
@@ -264,7 +264,7 @@ void DumpBorderToPolyFile(std::string const & targetDir, storage::CountryId cons
     ++polygonId;
     for (auto const & point : points.Data())
     {
-      ms::LatLon const ll = MercatorBounds::ToLatLon(point);
+      ms::LatLon const ll = mercator::ToLatLon(point);
       poly << "    " << std::scientific << ll.m_lon << "    " << ll.m_lat << std::endl;
     }
     poly << "END" << std::endl;

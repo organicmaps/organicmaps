@@ -8,7 +8,7 @@ namespace search
 {
 double PointDistance(m2::PointD const & a, m2::PointD const & b)
 {
-  return MercatorBounds::DistanceOnEarth(a, b);
+  return mercator::DistanceOnEarth(a, b);
 }
 
 bool IsEqualMercator(m2::RectD const & r1, m2::RectD const & r2, double eps)

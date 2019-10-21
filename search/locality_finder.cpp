@@ -165,7 +165,7 @@ void LocalitySelector::operator()(LocalityItem const & item)
 
   // TODO (@y, @m): replace this naive score by p-values on
   // multivariate Gaussian.
-  double const distance = MercatorBounds::DistanceOnEarth(item.m_center, m_p);
+  double const distance = mercator::DistanceOnEarth(item.m_center, m_p);
 
   double const score =
       ftypes::GetPopulationByRadius(distance) / static_cast<double>(item.m_population);
@@ -211,12 +211,12 @@ void LocalityFinder::Holder::ForEachInVicinity(m2::RectD const & rect,
 
 m2::RectD LocalityFinder::Holder::GetRect(m2::PointD const & p) const
 {
-  return MercatorBounds::RectByCenterXYAndSizeInMeters(p, m_radiusMeters);
+  return mercator::RectByCenterXYAndSizeInMeters(p, m_radiusMeters);
 }
 
 m2::RectD LocalityFinder::Holder::GetDRect(m2::PointD const & p) const
 {
-  return MercatorBounds::RectByCenterXYAndSizeInMeters(p, 2 * m_radiusMeters);
+  return mercator::RectByCenterXYAndSizeInMeters(p, 2 * m_radiusMeters);
 }
 
 void LocalityFinder::Holder::Clear()

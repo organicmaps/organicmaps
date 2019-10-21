@@ -70,7 +70,7 @@ public:
     {
       std::string result;
       m_finder.GetLocality(
-          MercatorBounds::FromLatLon(input[i]), [&](search::LocalityItem const & item) {
+          mercator::FromLatLon(input[i]), [&](search::LocalityItem const & item) {
             item.GetSpecifiedOrDefaultName(StringUtf8Multilang::kEnglishCode, result);
           });
       TEST_EQUAL(result, results[i], ());

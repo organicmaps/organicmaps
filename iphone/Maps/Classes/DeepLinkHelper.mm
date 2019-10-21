@@ -87,7 +87,7 @@
         // will not notify subscribers when search view is shown.
         if (!request.m_isSearchOnMap)
         {
-          auto const center = MercatorBounds::FromLatLon(request.m_centerLat, request.m_centerLon);
+          auto const center = mercator::FromLatLon(request.m_centerLat, request.m_centerLon);
           auto const rect = df::GetRectForDrawScale(kSearchInViewportZoom, center);
           f.GetSearchAPI().OnViewportChanged(rect);
         }

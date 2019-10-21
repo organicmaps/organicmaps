@@ -33,7 +33,7 @@ MatchStats<OpentableRestaurant> Match(OpentableRestaurant const & r, FeatureBuil
 {
   MatchStats<OpentableRestaurant> score;
 
-  auto const fbCenter = MercatorBounds::ToLatLon(fb.GetKeyPoint());
+  auto const fbCenter = mercator::ToLatLon(fb.GetKeyPoint());
   auto const distance = ms::DistanceOnEarth(fbCenter, r.m_latLon);
   score.m_linearNormDistanceScore =
       impl::GetLinearNormDistanceScore(distance, OpentableDataset::kDistanceLimitInMeters);

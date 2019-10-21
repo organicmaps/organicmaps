@@ -618,7 +618,7 @@ Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bm, kml::MarkGro
     if (i + 1 < bm.m_featureTypes.size())
       ss << ",";
   }
-  auto const latLon = MercatorBounds::ToLatLon(bm.m_point);
+  auto const latLon = mercator::ToLatLon(bm.m_point);
   alohalytics::TStringMap details{
     {"action", "create"},
     {"lat", strings::to_string(latLon.m_lat)},
@@ -1119,7 +1119,7 @@ void BookmarkManager::SortByDistance(std::vector<SortBookmarkData> const & bookm
   sortedMarks.reserve(bookmarksForSort.size());
   for (auto const & mark : bookmarksForSort)
   {
-    auto const distance = MercatorBounds::DistanceOnEarth(mark.m_point, myPosition);
+    auto const distance = mercator::DistanceOnEarth(mark.m_point, myPosition);
     sortedMarks.push_back(std::make_pair(&mark, distance));
   }
 

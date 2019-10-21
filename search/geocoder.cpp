@@ -250,7 +250,7 @@ double GetDistanceMeters(m2::PointD const & pivot, m2::RectD const & rect)
 
   rect.ForEachSide([&](m2::PointD const & a, m2::PointD const & b) {
     m2::ParametrizedSegment<m2::PointD> segment(a, b);
-    distance = min(distance, MercatorBounds::DistanceOnEarth(pivot, segment.ClosestPointTo(pivot)));
+    distance = min(distance, mercator::DistanceOnEarth(pivot, segment.ClosestPointTo(pivot)));
   });
 
   return distance;
@@ -705,7 +705,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
           auto const center = feature::GetCenter(*ft);
           auto const population = ftypes::GetPopulation(*ft);
           auto const radius = ftypes::GetRadiusByPopulation(population);
-          city.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(center, radius);
+          city.m_rect = mercator::RectByCenterXYAndSizeInMeters(center, radius);
         }
 
 #if defined(DEBUG)
@@ -713,9 +713,9 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
         LOG(LINFO,
             ("City =", city.m_defaultName, "rect =", city.m_rect, "rect source:", haveBoundary ? "table" : "population",
              "sizeX =",
-             MercatorBounds::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.RightTop()),
+             mercator::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.RightTop()),
              "sizeY =",
-             MercatorBounds::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.LeftBottom())));
+             mercator::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.LeftBottom())));
 #endif
 
         m_cities[city.m_tokenRange].push_back(city);
@@ -760,7 +760,7 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
 
     auto const population = ftypes::GetPopulation(*ft);
     auto const radius = ftypes::GetRadiusByPopulation(population);
-    village.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(center, radius);
+    village.m_rect = mercator::RectByCenterXYAndSizeInMeters(center, radius);
 
 #if defined(DEBUG)
     ft->GetName(StringUtf8Multilang::kDefaultCode, village.m_defaultName);
@@ -1031,7 +1031,7 @@ void Geocoder::WithPostcodes(BaseContext & ctx, Fn && fn)
       postcodePoints.Get(postcodeQuery, points);
       for (auto const & p : points)
       {
-        auto const rect = MercatorBounds::RectByCenterXYAndOffset(p, postcodePoints.GetRadius());
+        auto const rect = mercator::RectByCenterXYAndOffset(p, postcodePoints.GetRadius());
         postcodes = postcodes.Union(RetrieveGeometryFeatures(*m_context, rect, RectId::Postcode));
       }
     }

@@ -139,7 +139,7 @@ void ExpandFake(Graph::EdgeVector & path, Graph::EdgeVector::iterator edgeIt, Da
       auto const projectedPoint = realGeometry.ClosestPointTo(fakePoint);
 
       auto constexpr kCrossMwmMatchDistanceM = 1.0;
-      if (MercatorBounds::DistanceOnEarth(fakePoint, projectedPoint) < kCrossMwmMatchDistanceM)
+      if (mercator::DistanceOnEarth(fakePoint, projectedPoint) < kCrossMwmMatchDistanceM)
         return true;
       return false;
     });
@@ -411,7 +411,7 @@ public:
       LOG(LINFO, ("Connections not found:", segment.m_segmentId));
       auto const mercatorPoints = segment.GetMercatorPoints();
       for (auto const & mercatorPoint : mercatorPoints)
-        LOG(LINFO, (MercatorBounds::ToLatLon(mercatorPoint)));
+        LOG(LINFO, (mercator::ToLatLon(mercatorPoint)));
       return false;
     }
 

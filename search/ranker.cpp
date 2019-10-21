@@ -349,7 +349,7 @@ class RankerResultMaker
 
     auto const & pivot = m_ranker.m_params.m_accuratePivotCenter;
 
-    info.m_distanceToPivot = MercatorBounds::DistanceOnEarth(center, pivot);
+    info.m_distanceToPivot = mercator::DistanceOnEarth(center, pivot);
     info.m_rank = preInfo.m_rank;
     info.m_popularity = preInfo.m_popularity;
     info.m_rating = preInfo.m_rating;

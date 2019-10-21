@@ -25,12 +25,12 @@ map<string, string> PrepareStatisticsData(string const & routerName,
   int constexpr precision = 5;
 
   return {{"name", routerName},
-          {"startLon", strings::to_string_dac(MercatorBounds::XToLon(startPoint.x), precision)},
-          {"startLat", strings::to_string_dac(MercatorBounds::YToLat(startPoint.y), precision)},
+          {"startLon", strings::to_string_dac(mercator::XToLon(startPoint.x), precision)},
+          {"startLat", strings::to_string_dac(mercator::YToLat(startPoint.y), precision)},
           {"startDirectionX", strings::to_string_dac(startDirection.x, precision)},
           {"startDirectionY", strings::to_string_dac(startDirection.y, precision)},
-          {"finalLon", strings::to_string_dac(MercatorBounds::XToLon(finalPoint.x), precision)},
-          {"finalLat", strings::to_string_dac(MercatorBounds::YToLat(finalPoint.y), precision)}};
+          {"finalLon", strings::to_string_dac(mercator::XToLon(finalPoint.x), precision)},
+          {"finalLat", strings::to_string_dac(mercator::YToLat(finalPoint.y), precision)}};
 }
 
 void SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,

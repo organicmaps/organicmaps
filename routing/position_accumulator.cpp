@@ -15,7 +15,7 @@ double constexpr PositionAccumulator::kMaxValidSegmentLengthM;
 void PositionAccumulator::PushNextPoint(m2::PointD const & point)
 {
   double const lenM =
-      m_points.empty() ? 0.0 : MercatorBounds::DistanceOnEarth(point, m_points.back());
+      m_points.empty() ? 0.0 : mercator::DistanceOnEarth(point, m_points.back());
 
   // If the last segment is too long it tells nothing about an end user direction.
   // And the history is not actual.
@@ -43,7 +43,7 @@ void PositionAccumulator::PushNextPoint(m2::PointD const & point)
 
   // If after adding |point| to |m_points| and removing the farthest point the segment length
   // is less than |kMinTrackLengthM| we just adding |point|.
-  double oldestSegmentLenM = MercatorBounds::DistanceOnEarth(m_points[1], m_points[0]);
+  double oldestSegmentLenM = mercator::DistanceOnEarth(m_points[1], m_points[0]);
   if (m_trackLengthM + lenM - oldestSegmentLenM <= kMinTrackLengthM)
   {
     m_trackLengthM += lenM;
@@ -57,7 +57,7 @@ void PositionAccumulator::PushNextPoint(m2::PointD const & point)
   {
     m_trackLengthM -= oldestSegmentLenM;
     m_points.pop_front();
-    oldestSegmentLenM = MercatorBounds::DistanceOnEarth(m_points[1], m_points[0]);
+    oldestSegmentLenM = mercator::DistanceOnEarth(m_points[1], m_points[0]);
   }
 
   m_trackLengthM += lenM;

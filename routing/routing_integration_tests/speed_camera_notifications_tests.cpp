@@ -53,8 +53,8 @@ void InitRoutingSession(ms::LatLon const & from, ms::LatLon const & to, RoutingS
 {
   TRouteResult const routeResult =
     integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
-                                MercatorBounds::FromLatLon(from), m2::PointD::Zero(),
-                                MercatorBounds::FromLatLon(to));
+                                mercator::FromLatLon(from), m2::PointD::Zero(),
+                                mercator::FromLatLon(to));
 
   Route & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;

@@ -28,7 +28,7 @@ void FeatureMakerSimple::ParseParams(FeatureParams & params, OsmElement & p) con
 bool FeatureMakerSimple::BuildFromNode(OsmElement & p, FeatureParams const & params)
 {
   FeatureBuilder fb;
-  fb.SetCenter(MercatorBounds::FromLatLon(p.m_lat, p.m_lon));
+  fb.SetCenter(mercator::FromLatLon(p.m_lat, p.m_lon));
   fb.SetOsmId(base::MakeOsmNode(p.m_id));
   fb.SetParams(params);
   m_queue.push(std::move(fb));

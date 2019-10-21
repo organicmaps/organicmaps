@@ -69,8 +69,8 @@ struct DiscoveryCallback
     ASSERT(g_discoveryManagerClass != nullptr, ());
     JNIEnv * env = jni::GetEnv();
 
-    auto const lat = MercatorBounds::YToLat(viewportCenter.y);
-    auto const lon = MercatorBounds::XToLon(viewportCenter.x);
+    auto const lat = mercator::YToLat(viewportCenter.y);
+    auto const lon = mercator::XToLon(viewportCenter.x);
     jni::TScopedLocalObjectArrayRef jResults(
         env, BuildSearchResults(results, productInfo, true /* hasPosition */, lat, lon));
     jobject discoveryManagerInstance = env->GetStaticObjectField(g_discoveryManagerClass,

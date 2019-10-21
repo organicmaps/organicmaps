@@ -32,8 +32,8 @@ location::GpsInfo MakeGpsInfo(m2::PointD const & point)
 {
   location::GpsInfo info;
   info.m_source = location::EUser;
-  info.m_latitude = MercatorBounds::YToLat(point.y);
-  info.m_longitude = MercatorBounds::XToLon(point.x);
+  info.m_latitude = mercator::YToLat(point.y);
+  info.m_longitude = mercator::XToLon(point.x);
   info.m_horizontalAccuracy = 10;
   info.m_timestamp = QDateTime::currentMSecsSinceEpoch() / 1000.0;
   return info;

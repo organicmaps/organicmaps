@@ -172,8 +172,8 @@ void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
   m2::PointD org = bm->GetPivot();
 
   double const kEps = 1e-6;
-  TEST(base::AlmostEqualAbs(MercatorBounds::XToLon(org.x), 27.566765, kEps), ());
-  TEST(base::AlmostEqualAbs(MercatorBounds::YToLat(org.y), 53.900047, kEps), ());
+  TEST(base::AlmostEqualAbs(mercator::XToLon(org.x), 27.566765, kEps), ());
+  TEST(base::AlmostEqualAbs(mercator::YToLat(org.y), 53.900047, kEps), ());
   TEST_EQUAL(kml::GetDefaultStr(bm->GetName()), "From: Минск, Минская область, Беларусь", ());
   TEST_EQUAL(bm->GetColor(), kml::PredefinedColor::Blue, ());
   TEST_EQUAL(bm->GetDescription(), "", ());
@@ -181,8 +181,8 @@ void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
 
   bm = bmManager.GetBookmark(*it++);
   org = bm->GetPivot();
-  TEST(base::AlmostEqualAbs(MercatorBounds::XToLon(org.x), 27.551532, kEps), ());
-  TEST(base::AlmostEqualAbs(MercatorBounds::YToLat(org.y), 53.89306, kEps), ());
+  TEST(base::AlmostEqualAbs(mercator::XToLon(org.x), 27.551532, kEps), ());
+  TEST(base::AlmostEqualAbs(mercator::YToLat(org.y), 53.89306, kEps), ());
   TEST_EQUAL(kml::GetDefaultStr(bm->GetName()), "<MWM & Sons>", ());
   TEST_EQUAL(bm->GetDescription(), "Amps & <brackets>", ());
   TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetTimeStamp()), 0, ());
@@ -451,7 +451,7 @@ namespace
 void CheckPlace(Framework const & fm, shared_ptr<MwmInfo> mwmInfo, double lat, double lon,
                 StringUtf8Multilang const & streetNames, string const & houseNumber)
 {
-  auto const info = fm.GetAddressAtPoint(MercatorBounds::FromLatLon(lat, lon));
+  auto const info = fm.GetAddressAtPoint(mercator::FromLatLon(lat, lon));
 
   string streetName;
   auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
@@ -635,27 +635,27 @@ UNIT_TEST(Bookmarks_Sorting)
     std::chrono::hours m_hoursSinceCreation;
   };
 
-  auto const kMoscowCenter = MercatorBounds::FromLatLon(55.750441, 37.6175138);
+  auto const kMoscowCenter = mercator::FromLatLon(55.750441, 37.6175138);
 
   auto const addrMoscow = fm.GetBookmarkManager().GetLocalizedRegionAddress(kMoscowCenter);
 
   double constexpr kNearR = 20 * 1000;
-  m2::PointD const myPos = MercatorBounds::GetSmPoint(kMoscowCenter, -kNearR, 0.0);
+  m2::PointD const myPos = mercator::GetSmPoint(kMoscowCenter, -kNearR, 0.0);
 
   std::vector<TestMarkData> testMarksData = {
-    {0,  MercatorBounds::GetSmPoint(myPos, kNearR * 0.07, 0.0), kDay + std::chrono::hours(1), {"historic-ruins"}},
-    {1,  MercatorBounds::GetSmPoint(myPos, kNearR * 0.06, 0.0), kUnknownTime, {"amenity-restaurant", "cuisine-sushi"}},
-    {2,  MercatorBounds::GetSmPoint(myPos, kNearR * 0.05, 0.0), kUnknownTime, {"shop-music", "shop-gift"}},
-    {3,  MercatorBounds::GetSmPoint(myPos, kNearR * 1.01, 0.0), kWeek + std::chrono::hours(2), {"historic-castle"}},
-    {4,  MercatorBounds::GetSmPoint(myPos, kNearR * 0.04, 0.0), kWeek + std::chrono::hours(3), {"amenity-fast_food"}},
-    {5,  MercatorBounds::GetSmPoint(myPos, kNearR * 1.02, 0.0), kMonth + std::chrono::hours(1), {"historic-memorial"}},
-    {6,  MercatorBounds::GetSmPoint(myPos, kNearR * 0.03, 0.0), kMonth + std::chrono::hours(2), {"shop-music"}},
-    {7,  MercatorBounds::GetSmPoint(myPos, kNearR * 1.05, 0.0), kUnknownTime, {"amenity-cinema"}},
-    {8,  MercatorBounds::GetSmPoint(myPos, kNearR * 0.02, 0.0), std::chrono::hours(1), {"leisure-stadium"}},
-    {9,  MercatorBounds::GetSmPoint(myPos, kNearR * 1.06, 0.0), kDay + std::chrono::hours(3), {"amenity-bar"}},
-    {10, MercatorBounds::GetSmPoint(myPos, kNearR * 1.03, 0.0), kYear + std::chrono::hours(3), {"historic-castle"}},
+    {0, mercator::GetSmPoint(myPos, kNearR * 0.07, 0.0), kDay + std::chrono::hours(1), {"historic-ruins"}},
+    {1, mercator::GetSmPoint(myPos, kNearR * 0.06, 0.0), kUnknownTime, {"amenity-restaurant", "cuisine-sushi"}},
+    {2, mercator::GetSmPoint(myPos, kNearR * 0.05, 0.0), kUnknownTime, {"shop-music", "shop-gift"}},
+    {3, mercator::GetSmPoint(myPos, kNearR * 1.01, 0.0), kWeek + std::chrono::hours(2), {"historic-castle"}},
+    {4, mercator::GetSmPoint(myPos, kNearR * 0.04, 0.0), kWeek + std::chrono::hours(3), {"amenity-fast_food"}},
+    {5, mercator::GetSmPoint(myPos, kNearR * 1.02, 0.0), kMonth + std::chrono::hours(1), {"historic-memorial"}},
+    {6, mercator::GetSmPoint(myPos, kNearR * 0.03, 0.0), kMonth + std::chrono::hours(2), {"shop-music"}},
+    {7, mercator::GetSmPoint(myPos, kNearR * 1.05, 0.0), kUnknownTime, {"amenity-cinema"}},
+    {8, mercator::GetSmPoint(myPos, kNearR * 0.02, 0.0), std::chrono::hours(1), {"leisure-stadium"}},
+    {9, mercator::GetSmPoint(myPos, kNearR * 1.06, 0.0), kDay + std::chrono::hours(3), {"amenity-bar"}},
+    {10, mercator::GetSmPoint(myPos, kNearR * 1.03, 0.0), kYear + std::chrono::hours(3), {"historic-castle"}},
     {11, m2::PointD(0.0, 0.0), kWeek + std::chrono::hours(1), {}},
-    {12, MercatorBounds::GetSmPoint(myPos, kNearR * 1.04, 0.0), kDay + std::chrono::hours(2), {"shop-music"}},
+    {12, mercator::GetSmPoint(myPos, kNearR * 1.04, 0.0), kDay + std::chrono::hours(2), {"shop-music"}},
   };
 
   std::vector<TestTrackData> testTracksData = {
@@ -685,19 +685,19 @@ UNIT_TEST(Bookmarks_Sorting)
     {GetLocalizedBookmarkBaseType(BookmarkBaseType::Shop), {12, 6, 2}, {}},
     {BookmarkManager::GetOthersSortedBlockName(), {8, 11, 7}, {}}};
 
-  auto const kBerlin1 = MercatorBounds::FromLatLon(52.5038994, 13.3982282);
-  auto const kBerlin2 = MercatorBounds::FromLatLon(52.5007139, 13.4005403);
-  auto const kBerlin3 = MercatorBounds::FromLatLon(52.437256, 13.3026692);
-  auto const kMinsk1 = MercatorBounds::FromLatLon(53.9040184, 27.5567595);
-  auto const kMinsk2 = MercatorBounds::FromLatLon(53.9042397, 27.5593612);
-  auto const kMinsk3 = MercatorBounds::FromLatLon(53.9005419, 27.5416291);
-  auto const kMoscow1 = MercatorBounds::FromLatLon(55.7640256, 37.5922593);
-  auto const kMoscow2 = MercatorBounds::FromLatLon(55.7496148, 37.6137586);
-  auto const kGreenland = MercatorBounds::FromLatLon(62.730205, -46.939619);
-  auto const kWashington = MercatorBounds::FromLatLon(38.9005971, -77.0385621);
-  auto const kKathmandu = MercatorBounds::FromLatLon(27.6739262, 85.3255313);
-  auto const kVladimir = MercatorBounds::FromLatLon(56.2102137, 40.5195297);
-  auto const kBermuda = MercatorBounds::FromLatLon(32.2946391, -64.7820014);
+  auto const kBerlin1 = mercator::FromLatLon(52.5038994, 13.3982282);
+  auto const kBerlin2 = mercator::FromLatLon(52.5007139, 13.4005403);
+  auto const kBerlin3 = mercator::FromLatLon(52.437256, 13.3026692);
+  auto const kMinsk1 = mercator::FromLatLon(53.9040184, 27.5567595);
+  auto const kMinsk2 = mercator::FromLatLon(53.9042397, 27.5593612);
+  auto const kMinsk3 = mercator::FromLatLon(53.9005419, 27.5416291);
+  auto const kMoscow1 = mercator::FromLatLon(55.7640256, 37.5922593);
+  auto const kMoscow2 = mercator::FromLatLon(55.7496148, 37.6137586);
+  auto const kGreenland = mercator::FromLatLon(62.730205, -46.939619);
+  auto const kWashington = mercator::FromLatLon(38.9005971, -77.0385621);
+  auto const kKathmandu = mercator::FromLatLon(27.6739262, 85.3255313);
+  auto const kVladimir = mercator::FromLatLon(56.2102137, 40.5195297);
+  auto const kBermuda = mercator::FromLatLon(32.2946391, -64.7820014);
 
   std::vector<TestMarkData> testMarksData2 = {
     {100,  kBerlin1, kUnknownTime, {"amenity", "building", "wheelchair-yes", "tourism-museum"}},
@@ -715,7 +715,7 @@ UNIT_TEST(Bookmarks_Sorting)
     {112, kMoscow1, kUnknownTime, {"leisure-park"}},
   };
 
-  m2::PointD const myPos2 = MercatorBounds::GetSmPoint(kVladimir, 2.0 * kNearR, 2.0 * kNearR);
+  m2::PointD const myPos2 = mercator::GetSmPoint(kVladimir, 2.0 * kNearR, 2.0 * kNearR);
 
   auto const addrBerlin = fm.GetBookmarkManager().GetLocalizedRegionAddress(kBerlin1);
   auto const addrMinsk = fm.GetBookmarkManager().GetLocalizedRegionAddress(kMinsk1);

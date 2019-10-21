@@ -48,7 +48,7 @@ bool CheckUgcNotSavedTrigger(eye::MapObject const & poi)
 
 bool IsSmallDistance(eye::MapObject const & poi, eye::MapObject::Event const & event)
 {
-  auto const distanceToUser = MercatorBounds::DistanceOnEarth(event.m_userPos, poi.GetPos());
+  auto const distanceToUser = mercator::DistanceOnEarth(event.m_userPos, poi.GetPos());
   return distanceToUser <= kMinDistanceToTriggerUgcRateInMeters;
 }
 

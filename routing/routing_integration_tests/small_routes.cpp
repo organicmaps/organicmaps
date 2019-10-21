@@ -136,8 +136,8 @@ UNIT_TEST(SmallRoutes_JustNoError)
     LOG(LINFO, ("Start test without direction, number:", number));
     TRouteResult result =
         integration::CalculateRoute(integration::GetVehicleComponents(type),
-                                    MercatorBounds::FromLatLon(start), {0., 0.},
-                                    MercatorBounds::FromLatLon(finish));
+                                    mercator::FromLatLon(start), {0., 0.},
+                                    mercator::FromLatLon(finish));
     TEST_EQUAL(result.second, RouterResultCode::NoError,
                (std::get<0>(route), std::get<1>(route), std::get<2>(route)));
   }
@@ -155,8 +155,8 @@ UNIT_TEST(SmallRoutes_JustNoError)
     LOG(LINFO, ("Start test with direction, number:", number));
     TRouteResult result =
         integration::CalculateRoute(integration::GetVehicleComponents(type),
-                                    MercatorBounds::FromLatLon(start), direction,
-                                    MercatorBounds::FromLatLon(finish));
+                                    mercator::FromLatLon(start), direction,
+                                    mercator::FromLatLon(finish));
     TEST_EQUAL(result.second, RouterResultCode::NoError, ());
   }
 }

@@ -99,7 +99,7 @@ void DrapeMeasurer::Stop(bool forceProcessRealtimeStats /* = false */ )
     auto const avgMs = duration_cast<milliseconds>(m_realtimeTotalFrameRenderTime).count() /
                        m_realtimeTotalFramesCount;
 
-    auto const latLonRect = MercatorBounds::ToLatLonRect(m_realtimeRenderingBox);
+    auto const latLonRect = mercator::ToLatLonRect(m_realtimeRenderingBox);
     alohalytics::Stats::Instance().LogEvent(
         "RenderingStats", {{"version", GetPlatform().GetAppUserAgent().GetAppVersion()},
                            {"device", GetPlatform().DeviceModel()},
@@ -286,7 +286,7 @@ void DrapeMeasurer::AfterRenderFrame(bool isActiveFrame, m2::PointD const & view
   auto const frameTime = steady_clock::now() - m_startFrameRenderTime;
   if (isActiveFrame)
   {
-    if (MercatorBounds::FullRect().IsPointInside(viewportCenter))
+    if (mercator::Bounds::FullRect().IsPointInside(viewportCenter))
       m_realtimeRenderingBox.Add(viewportCenter);
     m_realtimeTotalFrameRenderTime += frameTime;
     m_realtimeMinFrameRenderTime = std::min(m_realtimeMinFrameRenderTime, frameTime);

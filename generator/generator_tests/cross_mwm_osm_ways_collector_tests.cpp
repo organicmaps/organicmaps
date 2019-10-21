@@ -142,11 +142,11 @@ void AppendFirstWayFromRomaniaToHungary(std::shared_ptr<CollectorInterface> cons
 {
   {
     // In "Romania_North_West", out of "Hungary_Northern Great Plain"
-    auto const & a = MercatorBounds::FromLatLon({47.48897, 22.22737});
+    auto const & a = mercator::FromLatLon({47.48897, 22.22737});
     // In "Romania_North_West", out of "Hungary_Northern Great Plain"
-    auto const & b = MercatorBounds::FromLatLon({47.52341, 22.24097});
+    auto const & b = mercator::FromLatLon({47.52341, 22.24097});
     // Out of "Romania_North_West", in "Hungary_Northern Great Plain"
-    auto const & c = MercatorBounds::FromLatLon({47.63462, 22.04041});
+    auto const & c = mercator::FromLatLon({47.63462, 22.04041});
     AddOsmWayByPoints(1 /* osmId */, {a, b, c} /* points */, collection);
   }
 }
@@ -155,9 +155,9 @@ void AppendSecondWayFromRomaniaToHungary(std::shared_ptr<CollectorInterface> con
 {
   {
     // In "Romania_North_West", out of "Hungary_Northern Great Plain"
-    auto const & a = MercatorBounds::FromLatLon({47.36594, 22.16958});
+    auto const & a = mercator::FromLatLon({47.36594, 22.16958});
     // Out of "Romania_North_West", in "Hungary_Northern Great Plain"
-    auto const & b = MercatorBounds::FromLatLon({47.49356, 21.77018});
+    auto const & b = mercator::FromLatLon({47.49356, 21.77018});
     AddOsmWayByPoints(2 /* osmId */, {a, b} /* points */, collection);
   }
 }
@@ -166,9 +166,9 @@ void AppendThirdWayEndsExactlyAtRussiaMoscowBorder(std::shared_ptr<CollectorInte
 {
   {
     // At "Russia_Moscow" border
-    auto const a = MercatorBounds::FromLatLon({55.50334, 36.82098});
+    auto const a = mercator::FromLatLon({55.50334, 36.82098});
     // In "Russia_Moscow", out of "Russia_Moscow Oblast_West"
-    auto const b = MercatorBounds::FromLatLon({55.50222, 36.82246});
+    auto const b = mercator::FromLatLon({55.50222, 36.82246});
     AddOsmWayByPoints(3 /* osmId */, {a, b} /* points */, collection);
   }
 }

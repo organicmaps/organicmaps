@@ -59,9 +59,8 @@ void CmdTrack(string const & trackFile, string const & mwmName, string const & u
     {
       MatchedTrackPoint const & prevPoint = track[i - 1];
       elapsed = point.GetDataPoint().m_timestamp - prevPoint.GetDataPoint().m_timestamp;
-      distance = MercatorBounds::DistanceOnEarth(
-          MercatorBounds::FromLatLon(prevPoint.GetDataPoint().m_latLon),
-          MercatorBounds::FromLatLon(point.GetDataPoint().m_latLon));
+      distance = mercator::DistanceOnEarth(mercator::FromLatLon(prevPoint.GetDataPoint().m_latLon),
+                                           mercator::FromLatLon(point.GetDataPoint().m_latLon));
     }
 
     if (elapsed != 0)

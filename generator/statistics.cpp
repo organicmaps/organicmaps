@@ -84,7 +84,7 @@ namespace stats
           if (firstPoint)
             firstPoint = false;
           else
-            len += MercatorBounds::DistanceOnEarth(lastPoint, pt);
+            len += mercator::DistanceOnEarth(lastPoint, pt);
           lastPoint = pt;
         }, FeatureType::BEST_GEOMETRY);
       }
@@ -92,7 +92,7 @@ namespace stats
       {
         f.ForEachTriangle([&area](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
         {
-          area += MercatorBounds::AreaOnEarth(p1, p2, p3);
+          area += mercator::AreaOnEarth(p1, p2, p3);
         }, FeatureType::BEST_GEOMETRY);
       }
 

@@ -213,8 +213,8 @@ void MainModel::OnShowPositionClicked()
   auto boundingBox = m2::ApplyCalculator(points, m2::CalculateBoundingBox());
   boundingBox.Scale(kViewportAroundTopResultsScale);
 
-  auto const minRect = MercatorBounds::RectByCenterXYAndSizeInMeters(
-      boundingBox.Center(), kViewportAroundTopResultsSizeM);
+  auto const minRect =
+      mercator::RectByCenterXYAndSizeInMeters(boundingBox.Center(), kViewportAroundTopResultsSizeM);
   m_view->MoveViewportToRect(m2::Add(boundingBox, minRect));
 }
 

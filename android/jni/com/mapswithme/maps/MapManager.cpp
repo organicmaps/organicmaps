@@ -268,7 +268,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
   if (hasLocation && !myMapsMode)
   {
     CountriesVec near;
-    g_framework->NativeFramework()->GetCountryInfoGetter().GetRegionsCountryId(MercatorBounds::FromLatLon(lat, lon), near);
+    g_framework->NativeFramework()->GetCountryInfoGetter().GetRegionsCountryId(mercator::FromLatLon(lat, lon), near);
     PutItemsToList(env, result, near, ItemCategory::NEAR_ME,
                    [](CountryId const & countryId, NodeAttrs const & attrs) -> bool {
                      return !attrs.m_present;
@@ -328,7 +328,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetName(JNIEnv * env, jclas
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeFindCountry(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
 {
-  return jni::ToJavaString(env, g_framework->NativeFramework()->GetCountryInfoGetter().GetRegionCountryId(MercatorBounds::FromLatLon(lat, lon)));
+  return jni::ToJavaString(env, g_framework->NativeFramework()->GetCountryInfoGetter().GetRegionCountryId(mercator::FromLatLon(lat, lon)));
 }
 
 // static boolean nativeIsDownloading();

@@ -191,7 +191,7 @@ void XMLFeature::ApplyPatch(XMLFeature const & featureWithChanges)
 
 m2::PointD XMLFeature::GetMercatorCenter() const
 {
-  return MercatorBounds::FromLatLon(GetLatLonFromNode(GetRootNode()));
+  return mercator::FromLatLon(GetLatLonFromNode(GetRootNode()));
 }
 
 ms::LatLon XMLFeature::GetCenter() const
@@ -209,7 +209,7 @@ void XMLFeature::SetCenter(ms::LatLon const & ll)
 
 void XMLFeature::SetCenter(m2::PointD const & mercatorCenter)
 {
-  SetCenter(MercatorBounds::ToLatLon(mercatorCenter));
+  SetCenter(mercator::ToLatLon(mercatorCenter));
 }
 
 vector<m2::PointD> XMLFeature::GetGeometry() const

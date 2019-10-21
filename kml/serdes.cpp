@@ -65,8 +65,8 @@ static std::string const kIndent10 = Indent(10);
 
 std::string PointToString(m2::PointD const & org)
 {
-  double const lon = MercatorBounds::XToLon(org.x);
-  double const lat = MercatorBounds::YToLat(org.y);
+  double const lon = mercator::XToLon(org.x);
+  double const lat = mercator::YToLat(org.y);
 
   std::ostringstream ss;
   ss.precision(8);
@@ -554,12 +554,12 @@ bool KmlParser::ParsePoint(std::string const & s, char const * delim, m2::PointD
     return false;
 
   double lon;
-  if (strings::to_double(*iter, lon) && MercatorBounds::ValidLon(lon) && ++iter)
+  if (strings::to_double(*iter, lon) && mercator::ValidLon(lon) && ++iter)
   {
     double lat;
-    if (strings::to_double(*iter, lat) && MercatorBounds::ValidLat(lat))
+    if (strings::to_double(*iter, lat) && mercator::ValidLat(lat))
     {
-      pt = MercatorBounds::FromLatLon(lat, lon);
+      pt = mercator::FromLatLon(lat, lon);
       return true;
     }
   }
@@ -597,7 +597,7 @@ bool KmlParser::MakeValid()
 {
   if (GEOMETRY_TYPE_POINT == m_geometryType)
   {
-    if (MercatorBounds::ValidX(m_org.x) && MercatorBounds::ValidY(m_org.y))
+    if (mercator::ValidX(m_org.x) && mercator::ValidY(m_org.y))
     {
       // Set default name.
       if (m_name.empty() && m_featureTypes.empty())

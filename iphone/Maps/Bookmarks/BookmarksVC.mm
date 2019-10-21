@@ -449,7 +449,7 @@ using namespace std;
     if (!lastLocation)
       return;
     hasMyPosition = true;
-    myPosition = MercatorBounds::FromLatLon(lastLocation.coordinate.latitude, lastLocation.coordinate.longitude);
+    myPosition = mercator::FromLatLon(lastLocation.coordinate.latitude, lastLocation.coordinate.longitude);
   }
 
   auto const sortId = ++self.lastSortId;

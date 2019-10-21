@@ -46,7 +46,7 @@ DiscoverySearchParams Manager::GetSearchParams(Manager::Params const & params, I
 
 std::string Manager::GetLocalExpertsUrl(m2::PointD const & point) const
 {
-  ms::LatLon const ll(MercatorBounds::ToLatLon(point));
+  ms::LatLon const ll(mercator::ToLatLon(point));
   std::ostringstream os;
   os << locals::Api::GetLocalsPageUrl() << "?lat=" << ll.m_lat << "&lon=" << ll.m_lon;
   return os.str();

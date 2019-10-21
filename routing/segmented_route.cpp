@@ -23,7 +23,7 @@ double SegmentedRoute::CalcDistance(m2::PointD const & point) const
 
   double result = std::numeric_limits<double>::max();
   for (auto const & step : m_steps)
-    result = std::min(result, MercatorBounds::DistanceOnEarth(point, step.GetPoint()));
+    result = std::min(result, mercator::DistanceOnEarth(point, step.GetPoint()));
 
   return result;
 }

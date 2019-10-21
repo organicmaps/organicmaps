@@ -163,8 +163,8 @@ UNIT_TEST(TestFixupTurns)
 {
   double const kHalfSquareSideMeters = 10.;
   m2::PointD const kSquareCenterLonLat = {0., 0.};
-  m2::RectD const kSquareNearZero = MercatorBounds::MetersToXY(kSquareCenterLonLat.x,
-                                                               kSquareCenterLonLat.y, kHalfSquareSideMeters);
+  m2::RectD const kSquareNearZero =
+      mercator::MetersToXY(kSquareCenterLonLat.x, kSquareCenterLonLat.y, kHalfSquareSideMeters);
   // Removing a turn in case staying on a roundabout.
   vector<Junction> const pointsMerc1 = {
     {{ kSquareNearZero.minX(), kSquareNearZero.minY() }, feature::kDefaultAltitudeMeters},

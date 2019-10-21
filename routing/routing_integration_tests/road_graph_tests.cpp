@@ -40,9 +40,10 @@ UNIT_TEST(FakeEdgesCombinatorialExplosion)
 
   FeaturesRoadGraph graph(dataSource, IRoadGraph::Mode::ObeyOnewayTag,
                           std::make_shared<CarModelFactory>(CountryParentNameGetterFn()));
-  Junction const j(m2::PointD(MercatorBounds::FromLatLon(50.73208, -1.21279)), feature::kDefaultAltitudeMeters);
+  Junction const j(m2::PointD(mercator::FromLatLon(50.73208, -1.21279)),
+                   feature::kDefaultAltitudeMeters);
   std::vector<std::pair<routing::Edge, routing::Junction>> sourceVicinity;
-  graph.FindClosestEdges(MercatorBounds::RectByCenterXYAndSizeInMeters(
+  graph.FindClosestEdges(mercator::RectByCenterXYAndSizeInMeters(
                              j.GetPoint(), FeaturesRoadGraph::kClosestEdgesRadiusM),
                          20 /* count */, sourceVicinity);
   // In case of the combinatorial explosion mentioned above all the memory was consumed for

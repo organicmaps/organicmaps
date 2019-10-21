@@ -33,7 +33,7 @@
   if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
     return NO;
   
-  auto const latLon = MercatorBounds::ToLatLon(position.get());
+  auto const latLon = mercator::ToLatLon(position.get());
   return ads::HasMegafonCategoryBanner(f.GetStorage(), f.GetTopmostCountries(latLon),
                                        languages::GetCurrentNorm());
 }

@@ -95,7 +95,7 @@ Track GetTrackFrom(routing::Route const & route)
   Track res;
   res.reserve(segments.size());
   for (auto const & s : segments)
-    res.emplace_back(MercatorBounds::ToLatLon(s.GetJunction().GetPoint()));
+    res.emplace_back(mercator::ToLatLon(s.GetJunction().GetPoint()));
 
   return res;
 }

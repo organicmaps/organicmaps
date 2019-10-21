@@ -117,8 +117,8 @@
   NSAssert(_intermediateIndex >= 0 && _intermediateIndex <= 2, @"Invalid intermediateIndex");
 }
 
-- (double)latitude { return MercatorBounds::YToLat(self.point.y); }
-- (double)longitude { return MercatorBounds::XToLon(self.point.x); }
+- (double)latitude { return mercator::YToLat(self.point.y); }
+- (double)longitude { return mercator::XToLon(self.point.x); }
 
 - (NSString *)latLonString
 {

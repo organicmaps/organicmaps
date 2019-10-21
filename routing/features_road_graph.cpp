@@ -170,7 +170,8 @@ void FeaturesRoadGraph::ForEachFeatureClosestToCross(m2::PointD const & cross,
                                                      ICrossEdgesLoader & edgesLoader) const
 {
   CrossFeaturesLoader featuresLoader(*this, edgesLoader);
-  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(cross, kMwmRoadCrossingRadiusMeters);
+  m2::RectD const rect =
+      mercator::RectByCenterXYAndSizeInMeters(cross, kMwmRoadCrossingRadiusMeters);
   m_dataSource.ForEachInRect(featuresLoader, rect, GetStreetReadScale());
 }
 
@@ -254,7 +255,8 @@ void FeaturesRoadGraph::GetJunctionTypes(Junction const & junction, feature::Typ
       types = typesHolder;
   };
 
-  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(cross, kMwmRoadCrossingRadiusMeters);
+  m2::RectD const rect =
+      mercator::RectByCenterXYAndSizeInMeters(cross, kMwmRoadCrossingRadiusMeters);
   m_dataSource.ForEachInRect(f, rect, GetStreetReadScale());
 }
 

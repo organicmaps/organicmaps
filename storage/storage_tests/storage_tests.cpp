@@ -859,7 +859,7 @@ UNIT_CLASS_TEST(StorageTest, IsPointCoveredByDownloadedMaps)
   auto const countryInfoGetter = CreateCountryInfoGetter();
   ASSERT(countryInfoGetter, ());
   string const uruguayId = string("Uruguay");
-  m2::PointD const montevideoUruguay = MercatorBounds::FromLatLon(-34.8094, -56.1558);
+  m2::PointD const montevideoUruguay = mercator::FromLatLon(-34.8094, -56.1558);
 
   storage.DeleteCountry(uruguayId, MapFileType::Map);
   TEST(!storage::IsPointCoveredByDownloadedMaps(montevideoUruguay, storage, *countryInfoGetter), ());

@@ -832,7 +832,7 @@ std::string Framework::GetPromoCityUrl(JNIEnv * env, jobject policy, jdouble lat
   auto api = NativeFramework()->GetPromoApi(ToNativeNetworkPolicy(env, policy));
   if (api == nullptr)
     return {};
-  auto const point = MercatorBounds::FromLatLon(static_cast<double>(lat), static_cast<double>(lon));
+  auto const point = mercator::FromLatLon(static_cast<double>(lat), static_cast<double>(lon));
   return api->GetCityUrl(point);
 }
 
@@ -941,7 +941,7 @@ void CallStartPurchaseTransactionListener(shared_ptr<jobject> listener, bool suc
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetAddress(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
 {
-  auto const info = frm()->GetAddressAtPoint(MercatorBounds::FromLatLon(lat, lon));
+  auto const info = frm()->GetAddressAtPoint(mercator::FromLatLon(lat, lon));
   return jni::ToJavaString(env, info.FormatAddress());
 }
 
@@ -975,8 +975,8 @@ Java_com_mapswithme_maps_Framework_nativeGetParsedRoutingData(JNIEnv * env, jcla
                                          {
                                            jni::TScopedLocalRef const name(env, jni::ToJavaString(env, point.m_name));
                                            return env->NewObject(pointClazz, pointConstructor,
-                                                                 MercatorBounds::YToLat(point.m_org.y),
-                                                                 MercatorBounds::XToLon(point.m_org.x), name.get());
+                                                                 mercator::YToLat(point.m_org.y),
+                                                                 mercator::XToLon(point.m_org.x), name.get());
                                          });
 
   return env->NewObject(routeDataClazz, routeDataConstructor, points, routingData.m_type);
@@ -1060,8 +1060,8 @@ JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetDistanceAndAzimuthFromLatLon(
     JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jdouble cLat, jdouble cLon, jdouble north)
 {
-  double const merY = MercatorBounds::LatToY(lat);
-  double const merX = MercatorBounds::LonToX(lon);
+  double const merY = mercator::LatToY(lat);
+  double const merX = mercator::LonToX(lon);
   return Java_com_mapswithme_maps_Framework_nativeGetDistanceAndAzimuth(env, clazz, merX, merY, cLat, cLon, north);
 }
 
@@ -1164,7 +1164,7 @@ Java_com_mapswithme_maps_Framework_nativeGetScreenRectCenter(JNIEnv * env, jclas
 {
   m2::PointD const center = frm()->GetViewportCenter();
 
-  double latlon[] = {MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x)};
+  double latlon[] = {mercator::YToLat(center.y), mercator::XToLon(center.x)};
   jdoubleArray jLatLon = env->NewDoubleArray(2);
   env->SetDoubleArrayRegion(jLatLon, 0, 2, latlon);
 
@@ -1545,7 +1545,7 @@ Java_com_mapswithme_maps_Framework_nativeGetBestRouter(JNIEnv * env, jclass,
                                                        jdouble dstLat, jdouble dstLon)
 {
   return static_cast<jint>(frm()->GetRoutingManager().GetBestRouter(
-      MercatorBounds::FromLatLon(srcLat, srcLon), MercatorBounds::FromLatLon(dstLat, dstLon)));
+      mercator::FromLatLon(srcLat, srcLon), mercator::FromLatLon(dstLat, dstLon)));
 }
 
 JNIEXPORT void JNICALL
@@ -1561,7 +1561,7 @@ Java_com_mapswithme_maps_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jst
   data.m_pointType = static_cast<RouteMarkType>(markType);
   data.m_intermediateIndex = static_cast<size_t>(intermediateIndex);
   data.m_isMyPosition = static_cast<bool>(isMyPosition);
-  data.m_position = m2::PointD(MercatorBounds::FromLatLon(lat, lon));
+  data.m_position = m2::PointD(mercator::FromLatLon(lat, lon));
 
   frm()->GetRoutingManager().AddRoutePoint(std::move(data));
 }
@@ -1610,8 +1610,8 @@ Java_com_mapswithme_maps_Framework_nativeGetRoutePoints(JNIEnv * env, jclass)
                           static_cast<jboolean>(data.m_isVisible),
                           static_cast<jboolean>(data.m_isMyPosition),
                           static_cast<jboolean>(data.m_isPassed),
-                          MercatorBounds::YToLat(data.m_position.y),
-                          MercatorBounds::XToLon(data.m_position.x));
+                          mercator::YToLat(data.m_position.y),
+                          mercator::XToLon(data.m_position.x));
   });
 }
 
@@ -1744,7 +1744,7 @@ Java_com_mapswithme_maps_Framework_nativeGetAutoZoomEnabled(JNIEnv *, jclass)
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeZoomToPoint(JNIEnv * env, jclass, jdouble lat, jdouble lon, jint zoom, jboolean animate)
 {
-  g_framework->Scale(m2::PointD(MercatorBounds::FromLatLon(lat, lon)), zoom, animate);
+  g_framework->Scale(m2::PointD(mercator::FromLatLon(lat, lon)), zoom, animate);
 }
 
 JNIEXPORT jobject JNICALL
@@ -1937,7 +1937,7 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeShowFeatureByLatLon(JNIEnv * env, jclass,
                                                              jdouble lat, jdouble lon)
 {
-  frm()->ShowFeatureByMercator(MercatorBounds::FromLatLon(ms::LatLon(lat, lon)));
+  frm()->ShowFeatureByMercator(mercator::FromLatLon(ms::LatLon(lat, lon)));
 }
 
 JNIEXPORT void JNICALL
@@ -1999,7 +1999,7 @@ Java_com_mapswithme_maps_Framework_nativeHasMegafonCategoryBanner(JNIEnv * env, 
   if (!position)
     return static_cast<jboolean>(false);
 
-  auto const latLon = MercatorBounds::ToLatLon(position.get());
+  auto const latLon = mercator::ToLatLon(position.get());
   return static_cast<jboolean>(ads::HasMegafonCategoryBanner(frm()->GetStorage(),
                                                              frm()->GetTopmostCountries(latLon),
                                                              languages::GetCurrentNorm()));
@@ -2191,8 +2191,8 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetViewportCenter(JNIEnv *, jclass, jdouble lat,
                                                            jdouble lon, jint zoom, jboolean isAnim)
 {
-  auto const center = MercatorBounds::FromLatLon(static_cast<double>(lat),
-                                                 static_cast<double>(lon));
+  auto const center = mercator::FromLatLon(static_cast<double>(lat),
+                                           static_cast<double>(lon));
   frm()->SetViewportCenter(center, static_cast<int>(zoom), static_cast<bool>(isAnim));
 }
 
@@ -2206,8 +2206,8 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetSearchViewport(JNIEnv *, jclass, jdouble lat,
                                                            jdouble lon, jint zoom)
 {
-  auto const center = MercatorBounds::FromLatLon(static_cast<double>(lat),
-                                                 static_cast<double>(lon));
+  auto const center = mercator::FromLatLon(static_cast<double>(lat),
+                                           static_cast<double>(lon));
   auto const rect = df::GetRectForDrawScale(static_cast<int>(zoom), center);
   frm()->GetSearchAPI().OnViewportChanged(rect);
 }

@@ -27,8 +27,8 @@ double constexpr kCosine45degrees = 0.70710678118;
 
 m2::PointD GetDirection(location::GpsInfo const & from, location::GpsInfo const & to)
 {
-  m2::PointD const pt0 = MercatorBounds::FromLatLon(from.m_latitude, from.m_longitude);
-  m2::PointD const pt1 = MercatorBounds::FromLatLon(to.m_latitude, to.m_longitude);
+  m2::PointD const pt0 = mercator::FromLatLon(from.m_latitude, from.m_longitude);
+  m2::PointD const pt1 = mercator::FromLatLon(to.m_latitude, to.m_longitude);
   m2::PointD const d = pt1 - pt0;
   return d.IsAlmostZero() ? m2::PointD::Zero() : d.Normalize();
 }

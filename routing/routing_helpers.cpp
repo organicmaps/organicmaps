@@ -84,7 +84,7 @@ void FillSegmentInfo(vector<Segment> const & segments, vector<Junction> const & 
     }
 
     routeLengthMeters +=
-      MercatorBounds::DistanceOnEarth(junctions[i].GetPoint(), junctions[i + 1].GetPoint());
+      mercator::DistanceOnEarth(junctions[i].GetPoint(), junctions[i + 1].GetPoint());
     routeLengthMerc += junctions[i].GetPoint().Length(junctions[i + 1].GetPoint());
 
     routeSegment.emplace_back(

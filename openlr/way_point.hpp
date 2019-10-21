@@ -12,7 +12,7 @@ namespace openlr
 struct WayPoint final
 {
   explicit WayPoint(openlr::LocationReferencePoint const & lrp)
-    : m_point(MercatorBounds::FromLatLon(lrp.m_latLon))
+    : m_point(mercator::FromLatLon(lrp.m_latLon))
     , m_distanceToNextPointM(lrp.m_distanceToNextPoint)
     , m_bearing(lrp.m_bearing)
     , m_lfrcnp(lrp.m_functionalRoadClass)

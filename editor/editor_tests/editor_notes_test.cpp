@@ -19,17 +19,17 @@ UNIT_TEST(Notes_Smoke)
   ScopedFile sf(fileName, ScopedFile::Mode::DoNotCreate);
   {
     auto const notes = Notes::MakeNotes(fullFileName, true);
-    notes->CreateNote(MercatorBounds::ToLatLon({1, 2}), "Some note1");
-    notes->CreateNote(MercatorBounds::ToLatLon({2, 2}), "Some note2");
-    notes->CreateNote(MercatorBounds::ToLatLon({1, 1}), "Some note3");
+    notes->CreateNote(mercator::ToLatLon({1, 2}), "Some note1");
+    notes->CreateNote(mercator::ToLatLon({2, 2}), "Some note2");
+    notes->CreateNote(mercator::ToLatLon({1, 1}), "Some note3");
   }
   {
     auto const notes = Notes::MakeNotes(fullFileName, true);
     auto const result = notes->GetNotes();
     TEST_EQUAL(result.size(), 3, ());
-    std::vector<Note> const expected{{MercatorBounds::ToLatLon({1, 2}), "Some note1"},
-                                     {MercatorBounds::ToLatLon({2, 2}), "Some note2"},
-                                     {MercatorBounds::ToLatLon({1, 1}), "Some note3"}};
+    std::vector<Note> const expected{{mercator::ToLatLon({1, 2}), "Some note1"},
+                                     {mercator::ToLatLon({2, 2}), "Some note2"},
+                                     {mercator::ToLatLon({1, 1}), "Some note3"}};
 
     auto const isEqual = std::equal(
         result.begin(), result.end(), expected.begin(), [](Note const & lhs, Note const & rhs) {

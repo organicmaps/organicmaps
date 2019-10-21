@@ -157,7 +157,7 @@ void RenderPlace(Framework & framework, Place const & place, string const & file
   // It is almost UpperComfortScale but there is some magic involved.
   int constexpr kMagicBaseScale = 17;
 
-  DrawFrame(framework, MercatorBounds::FromLatLon(place.lat, place.lon),
+  DrawFrame(framework, mercator::FromLatLon(place.lat, place.lon),
             place.zoom - kMagicBaseScale, place.width, place.height, sym, frame);
 
   ofstream file(filename.c_str());

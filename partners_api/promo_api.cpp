@@ -131,7 +131,7 @@ std::string MakePoiGalleryUrl(std::string const & baseUrl, std::string const & i
 
   if (id.empty() || useCoordinates)
   {
-    auto const latLon = MercatorBounds::ToLatLon(point);
+    auto const latLon = mercator::ToLatLon(point);
     std::ostringstream os;
     os << std::fixed << std::setprecision(6) << latLon.m_lat << "," << latLon.m_lon;
     params.emplace_back("lat_lon", os.str());

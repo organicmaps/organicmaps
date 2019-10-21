@@ -36,7 +36,7 @@ std::vector<m2::PointD> ConvertToPointDVector(std::vector<ms::LatLon> const & la
 {
   std::vector<m2::PointD> result(latlons.size());
   for (size_t i = 0; i < latlons.size(); ++i)
-    result[i] = MercatorBounds::FromLatLon(latlons[i]);
+    result[i] = mercator::FromLatLon(latlons[i]);
 
   return result;
 }

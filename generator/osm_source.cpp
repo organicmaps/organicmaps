@@ -57,7 +57,7 @@ void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement & eleme
   {
   case OsmElement::EntityType::Node:
   {
-    auto const pt = MercatorBounds::FromLatLon(element.m_lat, element.m_lon);
+    auto const pt = mercator::FromLatLon(element.m_lat, element.m_lon);
     cache.AddNode(element.m_id, pt.y, pt.x);
     break;
   }

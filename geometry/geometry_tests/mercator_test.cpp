@@ -13,10 +13,10 @@ UNIT_TEST(Mercator_Grid)
   {
     for (int lon = -180; lon <= 180; ++lon)
     {
-      double const x = MercatorBounds::LonToX(lon);
-      double const y = MercatorBounds::LatToY(lat);
-      double const lat1 = MercatorBounds::YToLat(y);
-      double const lon1 = MercatorBounds::XToLon(x);
+      double const x = mercator::LonToX(lon);
+      double const y = mercator::LatToY(lat);
+      double const lat1 = mercator::YToLat(y);
+      double const lon1 = mercator::XToLon(x);
 
       // Normal assumption for any projection.
       TEST_ALMOST_EQUAL_ULPS(static_cast<double>(lat), lat1, ());
@@ -32,15 +32,15 @@ UNIT_TEST(Mercator_DirectInferseF)
 {
   double const eps = 0.0000001;
   double lon = 63.45421;
-  double x = MercatorBounds::LonToX(lon);
-  double lon1 = MercatorBounds::XToLon(x);
+  double x = mercator::LonToX(lon);
+  double lon1 = mercator::XToLon(x);
   TEST_LESS(fabs(lon - lon1), eps, ("Too big round error"));
   double lat = 34.28754;
-  double y = MercatorBounds::LatToY(lat);
-  double lat1 = MercatorBounds::YToLat(y);
+  double y = mercator::LatToY(lat);
+  double lat1 = mercator::YToLat(y);
   TEST_LESS(fabs(lat - lat1), eps, ("Too big round error"));
-  TEST_LESS(fabs(MercatorBounds::kMaxX - MercatorBounds::kMaxY), eps, ("Non-square maxX and maxY"));
-  TEST_LESS(fabs(MercatorBounds::kMinX - MercatorBounds::kMinY), eps, ("Non-square minX and minY"));
+  TEST_LESS(fabs(mercator::Bounds::kMaxX - mercator::Bounds::kMaxY), eps, ("Non-square maxX and maxY"));
+  TEST_LESS(fabs(mercator::Bounds::kMinX - mercator::Bounds::kMinY), eps, ("Non-square minX and minY"));
 }
 
 UNIT_TEST(Mercator_ErrorToRadius)
@@ -56,13 +56,13 @@ UNIT_TEST(Mercator_ErrorToRadius)
     {
       double const lon = points[i];
       double const lat = points[j];
-      m2::PointD const mercPoint(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
+      m2::PointD const mercPoint(mercator::LonToX(lon), mercator::LatToY(lat));
 
-      m2::RectD const radius1 = MercatorBounds::MetersToXY(lon, lat, error1);
+      m2::RectD const radius1 = mercator::MetersToXY(lon, lat, error1);
       TEST(radius1.IsPointInside(mercPoint), (lat, lon));
       TEST(radius1.Center().EqualDxDy(mercPoint, 1.0E-8), ());
 
-      m2::RectD const radius10 = MercatorBounds::MetersToXY(lon, lat, error10);
+      m2::RectD const radius10 = mercator::MetersToXY(lon, lat, error10);
       TEST(radius10.IsPointInside(mercPoint), (lat, lon));
       TEST(radius10.Center().EqualDxDy(mercPoint, 1.0E-8), ());
 
@@ -78,6 +78,6 @@ UNIT_TEST(Mercator_ErrorToRadius)
 
 UNIT_TEST(Mercator_Sample1)
 {
-  LOG(LINFO, (MercatorBounds::XToLon(27.531491200000001385),
-              MercatorBounds::YToLat(64.392864299248202542)));
+  LOG(LINFO, (mercator::XToLon(27.531491200000001385),
+              mercator::YToLat(64.392864299248202542)));
 }

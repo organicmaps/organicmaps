@@ -91,8 +91,8 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
   ASSERT(errorFn, ());
   ASSERT(m_delegate, ());
 
-  auto const fromCity = m_delegate->GetCityName(MercatorBounds::FromLatLon(from));
-  auto const toCity = m_delegate->GetCityName(MercatorBounds::FromLatLon(to));
+  auto const fromCity = m_delegate->GetCityName(mercator::FromLatLon(from));
+  auto const toCity = m_delegate->GetCityName(mercator::FromLatLon(to));
   auto const cityIdIt = m_cityMapping.find(toCity);
 
   // TODO(a): Add ErrorCode::FarDistance and provide this error code.

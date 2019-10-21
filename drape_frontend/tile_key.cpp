@@ -94,7 +94,7 @@ m2::RectD TileKey::GetGlobalRect(bool clipByDataMaxZoom) const
   ASSERT_GREATER(zoomLevel, 0, ());
   double const worldSizeDivisor = 1 << (zoomLevel - 1);
   // Mercator SizeX and SizeY are equal.
-  double const rectSize = MercatorBounds::kRangeX / worldSizeDivisor;
+  double const rectSize = mercator::Bounds::kRangeX / worldSizeDivisor;
 
   double const startX = m_x * rectSize;
   double const startY = m_y * rectSize;

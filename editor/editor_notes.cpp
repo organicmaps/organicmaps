@@ -144,7 +144,7 @@ void Notes::CreateNote(ms::LatLon const & latLon, std::string const & text)
     return;
   }
 
-  if (!MercatorBounds::ValidLat(latLon.m_lat) || !MercatorBounds::ValidLon(latLon.m_lon))
+  if (!mercator::ValidLat(latLon.m_lat) || !mercator::ValidLon(latLon.m_lon))
   {
     LOG(LWARNING, ("A note attached to a wrong latLon", latLon));
     return;

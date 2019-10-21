@@ -196,8 +196,8 @@ void Info::SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string
   else
   {
     m_uiTitle = name;
-    m_uiSubtitle = measurement_utils::FormatLatLon(MercatorBounds::YToLat(mercator.y),
-                                                   MercatorBounds::XToLon(mercator.x),
+    m_uiSubtitle = measurement_utils::FormatLatLon(
+        mercator::YToLat(mercator.y), mercator::XToLon(mercator.x),
                                                    true /* withSemicolon */);
   }
   m_customName = name;
