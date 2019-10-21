@@ -426,11 +426,8 @@ void MainWindow::CreateNavigationBar()
                           this, SLOT(OnSwitchMwmsBordersSelectionMode()));
     m_selectionMwmsBordersMode->setCheckable(true);
 
-    m_clearSelection = pToolBar->addAction(QIcon(":/navig64/clear.png"), tr("Clear selection"),
-                                           this, SLOT(OnClearSelection()));
-    m_clearSelection->setToolTip(tr("Clear selection"));
-
     pToolBar->addSeparator();
+
 #endif // NOT BUILD_DESIGNER
 
     // Add search button with "checked" behavior.
@@ -439,6 +436,17 @@ void MainWindow::CreateNavigationBar()
     m_pSearchAction->setCheckable(true);
     m_pSearchAction->setToolTip(tr("Offline Search"));
     m_pSearchAction->setShortcut(QKeySequence::Find);
+
+    m_rulerAction = pToolBar->addAction(QIcon(":/navig64/ruler.png"), tr("Ruler"),
+                                        this, SLOT(OnRulerEnabled()));
+    m_rulerAction->setCheckable(true);
+    m_rulerAction->setChecked(false);
+
+    pToolBar->addSeparator();
+
+    m_clearSelection = pToolBar->addAction(QIcon(":/navig64/clear.png"), tr("Clear selection"),
+                                           this, SLOT(OnClearSelection()));
+    m_clearSelection->setToolTip(tr("Clear selection"));
 
     pToolBar->addSeparator();
 
@@ -961,6 +969,11 @@ void MainWindow::OnTrafficEnabled()
   bool const enabled = m_trafficEnableAction->isChecked();
   m_pDrawWidget->GetFramework().GetTrafficManager().SetEnabled(enabled);
   m_pDrawWidget->GetFramework().SaveTrafficEnabled(enabled);
+}
+
+void MainWindow::OnRulerEnabled()
+{
+  m_pDrawWidget->SetRuler(m_rulerAction->isChecked());
 }
 
 void MainWindow::OnStartPointSelected()

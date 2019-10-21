@@ -27,6 +27,7 @@
         <file>geom.png</file>
         <file>phonepack.png</file>
         <file>bookmark.png</file>
+        <file>ruler.png</file>
         <file>settings-routing.png</file>
         <file>borders_selection.png</file>
     </qresource>
