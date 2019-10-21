@@ -1,5 +1,6 @@
 #pragma once
 
+#include "search/cancel_exception.hpp"
 #include "search/features_layer.hpp"
 #include "search/intersection_result.hpp"
 
@@ -77,6 +78,8 @@ public:
   static void SetModeForTesting(Mode mode) { m_mode = mode; }
 
 private:
+  void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
+
   void FindReachableVertices(FeaturesLayerMatcher & matcher,
                              std::vector<FeaturesLayer const *> const & layers,
                              std::vector<IntersectionResult> & results);

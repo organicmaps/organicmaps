@@ -671,8 +671,6 @@ void Ranker::UpdateResults(bool lastUpdate)
   }
   m_tentativeResults.erase(m_tentativeResults.begin(), m_tentativeResults.begin() + i);
 
-  m_preRankerResults.clear();
-
   // The last update must be handled by a call to Finish().
   if (!lastUpdate)
   {
@@ -709,6 +707,8 @@ void Ranker::MakeRankerResults(Geocoder::Params const & geocoderParams,
     if (!ResultExists(*p, results, m_params.m_minDistanceBetweenResultsM))
       results.push_back(move(*p));
   };
+
+  m_preRankerResults.clear();
 }
 
 void Ranker::GetBestMatchName(FeatureType & f, string & name) const

@@ -1,6 +1,5 @@
 #include "search/features_layer_path_finder.hpp"
 
-#include "search/cancel_exception.hpp"
 #include "search/features_layer_matcher.hpp"
 #include "search/house_numbers_matcher.hpp"
 
@@ -133,7 +132,7 @@ void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
 
   for (size_t i = layers.size() - 1; i != 0; --i)
   {
-    BailIfCancelled(m_cancellable);
+    BailIfCancelled();
 
     parentGraph.emplace_back();
     FeaturesLayer parent(*layers[i]);
@@ -197,7 +196,7 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
 
   for (size_t i = 0; i + 1 != layers.size(); ++i)
   {
-    BailIfCancelled(m_cancellable);
+    BailIfCancelled();
 
     parentGraph.emplace_front();
     FeaturesLayer child(*layers[i]);

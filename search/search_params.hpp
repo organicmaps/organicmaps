@@ -8,6 +8,7 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
+#include <chrono>
 #include <cstddef>
 #include <functional>
 #include <memory>
@@ -26,6 +27,8 @@ struct SearchParams
   static size_t const kDefaultBatchSizeEverywhere = 10;
   static size_t const kDefaultNumResultsEverywhere = 30;
   static size_t const kDefaultNumResultsInViewport = 200;
+  static std::chrono::steady_clock::duration const kDefaultTimeout;
+  static std::chrono::steady_clock::duration const kDefaultDesktopTimeout;
 
   using OnStarted = std::function<void()>;
   using OnResults = std::function<void(Results const &)>;
@@ -82,6 +85,9 @@ struct SearchParams
   std::shared_ptr<hotels_filter::Rule> m_hotelsFilter;
 
   bookmarks::GroupId m_bookmarksGroupId = bookmarks::kInvalidGroupId;
+
+  // Amount of time after which the search is aborted.
+  std::chrono::steady_clock::duration m_timeout = kDefaultTimeout;
 
   std::shared_ptr<Tracer> m_tracer;
 };

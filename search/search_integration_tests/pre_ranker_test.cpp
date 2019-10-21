@@ -68,7 +68,7 @@ public:
   inline bool Finished() const { return m_finished; }
 
   // Ranker overrides:
-  void SetPreRankerResults(vector<PreRankerResult> && preRankerResults) override
+  void AddPreRankerResults(vector<PreRankerResult> && preRankerResults) override
   {
     CHECK(!Finished(), ());
     move(preRankerResults.begin(), preRankerResults.end(), back_inserter(m_results));

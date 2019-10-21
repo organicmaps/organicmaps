@@ -65,7 +65,10 @@ public:
   void Emplace(Args &&... args)
   {
     if (m_numSentResults >= Limit())
+    {
+      // todo(@m) Geocoder can be safely cancelled here, can't it?
       return;
+    }
     m_results.emplace_back(std::forward<Args>(args)...);
   }
 
@@ -78,10 +81,10 @@ public:
   // Use |lastUpdate| to indicate that no more results will be added.
   void UpdateResults(bool lastUpdate);
 
-  inline size_t Size() const { return m_results.size(); }
-  inline size_t BatchSize() const { return m_params.m_batchSize; }
-  inline size_t NumSentResults() const { return m_numSentResults; }
-  inline size_t Limit() const { return m_params.m_limit; }
+  size_t Size() const { return m_results.size(); }
+  size_t BatchSize() const { return m_params.m_batchSize; }
+  size_t NumSentResults() const { return m_numSentResults; }
+  size_t Limit() const { return m_params.m_limit; }
 
   template <typename Fn>
   void ForEach(Fn && fn)

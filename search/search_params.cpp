@@ -9,9 +9,14 @@
 #include <sstream>
 
 using namespace std;
+using namespace std::chrono;
 
 namespace search
 {
+// static
+steady_clock::duration const SearchParams::kDefaultTimeout = seconds(3);
+steady_clock::duration const SearchParams::kDefaultDesktopTimeout = milliseconds(1500);
+
 bool SearchParams::IsEqualCommon(SearchParams const & rhs) const
 {
   return m_query == rhs.m_query && m_inputLocale == rhs.m_inputLocale &&

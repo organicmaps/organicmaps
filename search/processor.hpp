@@ -85,10 +85,8 @@ public:
 
   void InitParams(QueryParams & params) const;
 
-  void InitGeocoder(Geocoder::Params &geocoderParams,
-                    SearchParams const &searchParams);
-  void InitPreRanker(Geocoder::Params const &geocoderParams,
-                     SearchParams const &searchParams);
+  void InitGeocoder(Geocoder::Params & geocoderParams, SearchParams const & searchParams);
+  void InitPreRanker(Geocoder::Params const & geocoderParams, SearchParams const & searchParams);
   void InitRanker(Geocoder::Params const & geocoderParams, SearchParams const & searchParams);
   void InitEmitter(SearchParams const & searchParams);
 
@@ -109,6 +107,10 @@ public:
                                   std::vector<bookmarks::Id> const & marks);
   void OnBookmarksDetachedFromGroup(bookmarks::GroupId const & groupId,
                                     std::vector<bookmarks::Id> const & marks);
+
+  // base::Cancellable overrides:
+  void Reset() override;
+  bool IsCancelled() const override;
 
 protected:
   Locales GetCategoryLocales() const;
@@ -137,6 +139,8 @@ protected:
 
   m2::RectD m_viewport;
   boost::optional<m2::PointD> m_position;
+
+  bool m_lastUpdate = false;
 
   // Suggestions language code, not the same as we use in mwm data
   int8_t m_inputLocaleCode = StringUtf8Multilang::kUnsupportedLanguageCode;

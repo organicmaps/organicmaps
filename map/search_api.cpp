@@ -190,6 +190,8 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
   p.m_needAddress = true;
   p.m_needHighlighting = true;
   p.m_hotelsFilter = params.m_hotelsFilter;
+  if (params.m_timeout)
+    p.m_timeout = *params.m_timeout;
 
   p.m_onResults = EverywhereSearchCallback(
       static_cast<EverywhereSearchCallback::Delegate &>(*this),

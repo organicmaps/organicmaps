@@ -240,7 +240,7 @@ void PreRanker::UpdateResults(bool lastUpdate)
   FillMissingFieldsInPreResults();
   Filter(m_params.m_viewportSearch);
   m_numSentResults += m_results.size();
-  m_ranker.SetPreRankerResults(move(m_results));
+  m_ranker.AddPreRankerResults(move(m_results));
   m_results.clear();
   m_ranker.UpdateResults(lastUpdate);
 

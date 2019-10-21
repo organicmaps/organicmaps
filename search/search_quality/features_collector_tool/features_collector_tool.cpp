@@ -152,6 +152,7 @@ int main(int argc, char * argv[])
     sample.FillSearchParams(params);
     params.m_batchSize = 100;
     params.m_maxNumResults = 300;
+    params.m_timeout = search::SearchParams::kDefaultDesktopTimeout;
     TestSearchRequest request(*engine, params);
     request.Run();
 

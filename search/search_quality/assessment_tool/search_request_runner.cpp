@@ -5,6 +5,7 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
+#include <chrono>
 #include <utility>
 
 using namespace std;
@@ -89,6 +90,7 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
 
   search::SearchParams params;
   sample.FillSearchParams(params);
+  params.m_timeout = search::SearchParams::kDefaultDesktopTimeout;
   params.m_onResults = [=](search::Results const & results) {
     vector<boost::optional<ResultsEdits::Relevance>> relevances;
     vector<size_t> goldenMatching;

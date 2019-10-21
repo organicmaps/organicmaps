@@ -1,4 +1,4 @@
-#include "processor.hpp"
+#include "search/processor.hpp"
 
 #include "search/common.hpp"
 #include "search/cuisine_filter.hpp"
@@ -395,6 +395,29 @@ void Processor::OnBookmarksDetachedFromGroup(bookmarks::GroupId const & groupId,
     m_bookmarksProcessor.DetachFromGroup(id, groupId);
 }
 
+void Processor::Reset()
+{
+  base::Cancellable::Reset();
+  m_lastUpdate = false;
+}
+
+bool Processor::IsCancelled() const
+{
+  if (m_lastUpdate)
+    return false;
+
+  bool const ret = base::Cancellable::IsCancelled();
+  bool const byDeadline = CancellationStatus() == base::Cancellable::Status::DeadlineExceeded;
+
+  // todo(@m) This is a "soft deadline": we ignore it if nothing has been
+  //          found so far. We could also implement a "hard deadline"
+  //          that would be impossible to ignore.
+  if (byDeadline && m_preRanker.Size() == 0 && m_preRanker.NumSentResults() == 0)
+    return false;
+
+  return ret;
+}
+
 Locales Processor::GetCategoryLocales() const
 {
   static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");
@@ -425,10 +448,15 @@ void Processor::ForEachCategoryTypeFuzzy(StringSliceBase const & slice, ToDo && 
 
 void Processor::Search(SearchParams const & params)
 {
+  SetDeadline(chrono::steady_clock::now() + params.m_timeout);
+
+  InitEmitter(params);
+
   if (params.m_onStarted)
     params.m_onStarted();
 
-  if (IsCancelled())
+  // IsCancelled is not enough here because it depends on PreRanker being initialized.
+  if (IsCancelled() && CancellationStatus() == base::Cancellable::Status::CancelCalled)
   {
     Results results;
     results.SetEndMarker(true /* isCancelled */);
@@ -452,7 +480,11 @@ void Processor::Search(SearchParams const & params)
   SetQuery(params.m_query);
   SetViewport(viewport);
 
-  InitEmitter(params);
+  // Used to store the earliest available cancellation status:
+  // if the search has been cancelled, we need to pinpoint the reason
+  // for cancellation and a further call to CancellationStatus() may
+  // return a different result.
+  auto cancellationStatus = base::Cancellable::Status::Active;
 
   switch (params.m_mode)
   {
@@ -483,18 +515,28 @@ void Processor::Search(SearchParams const & params)
     }
     catch (CancelException const &)
     {
-      LOG(LDEBUG, ("Search has been cancelled."));
+      LOG(LDEBUG, ("Search has been cancelled. Reason:", CancellationStatus()));
+    }
+
+    cancellationStatus = CancellationStatus();
+    if (cancellationStatus != base::Cancellable::Status::CancelCalled)
+    {
+      m_lastUpdate = true;
+      // Cancellable is effectively disabled now, so
+      // this call must not result in a CancelException.
+      m_preRanker.UpdateResults(true /* lastUpdate */);
     }
 
     // Emit finish marker to client.
-    m_geocoder.Finish(IsCancelled());
+    m_geocoder.Finish(cancellationStatus == Cancellable::Status::CancelCalled);
     break;
   }
   case Mode::Bookmarks: SearchBookmarks(params.m_bookmarksGroupId); break;
   case Mode::Count: ASSERT(false, ("Invalid mode")); break;
   }
 
-  if (!viewportSearch && !IsCancelled())
+  // todo(@m) Send the fact of cancelling by timeout to stats?
+  if (!viewportSearch && cancellationStatus != Cancellable::Status::CancelCalled)
     SendStatistics(params, viewport, m_emitter.GetResults());
 }
 

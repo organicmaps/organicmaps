@@ -21,10 +21,11 @@
 
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdint>
+#include <iterator>
 #include <string>
-#include <utility>
 #include <vector>
 
 class CategoriesHolder;
@@ -97,9 +98,10 @@ public:
 
   void SuggestStrings();
 
-  virtual void SetPreRankerResults(std::vector<PreRankerResult> && preRankerResults)
+  virtual void AddPreRankerResults(std::vector<PreRankerResult> && preRankerResults)
   {
-    m_preRankerResults = std::move(preRankerResults);
+    std::move(preRankerResults.begin(), preRankerResults.end(),
+              std::back_inserter(m_preRankerResults));
   }
 
   virtual void UpdateResults(bool lastUpdate);

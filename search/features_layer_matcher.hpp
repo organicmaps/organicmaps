@@ -108,6 +108,8 @@ public:
   void OnQueryFinished();
 
 private:
+  void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
+
   template <typename Fn>
   void MatchPOIsWithBuildings(FeaturesLayer const & child, FeaturesLayer const & parent, Fn && fn)
   {
@@ -121,7 +123,7 @@ private:
     auto const & pois = *child.m_sortedFeatures;
     auto const & buildings = *parent.m_sortedFeatures;
 
-    BailIfCancelled(m_cancellable);
+    BailIfCancelled();
 
     std::vector<PointRectMatcher::PointIdPair> poiCenters;
     poiCenters.reserve(pois.size());
@@ -139,6 +141,8 @@ private:
     buildingRects.reserve(buildings.size());
     for (size_t i = 0; i < buildings.size(); ++i)
     {
+      BailIfCancelled();
+
       auto buildingFt = GetByIndex(buildings[i]);
       if (!buildingFt)
         continue;
@@ -177,10 +181,13 @@ private:
 
     for (size_t i = 0; i < pois.size(); ++i)
     {
+      BailIfCancelled();
+
       m_context->ForEachFeature(
-          mercator::RectByCenterXYAndSizeInMeters(poiCenters[i].m_point,
-                                                  kBuildingRadiusMeters),
+          mercator::RectByCenterXYAndSizeInMeters(poiCenters[i].m_point, kBuildingRadiusMeters),
           [&](FeatureType & ft) {
+            BailIfCancelled();
+
             if (m_postcodes && !m_postcodes->HasBit(ft.GetID().m_index) &&
                 !m_postcodes->HasBit(GetMatchingStreet(ft)))
             {
@@ -201,7 +208,7 @@ private:
   template <typename Fn>
   void MatchPOIsWithStreets(FeaturesLayer const & child, FeaturesLayer const & parent, Fn && fn)
   {
-    BailIfCancelled(m_cancellable);
+    BailIfCancelled();
 
     ASSERT_EQUAL(child.m_type, Model::TYPE_POI, ());
     ASSERT_EQUAL(parent.m_type, Model::TYPE_STREET, ());
@@ -259,7 +266,7 @@ private:
       streetProjectors.emplace_back(streetPoints);
     }
 
-    BailIfCancelled(m_cancellable);
+    BailIfCancelled();
     PointRectMatcher::Match(poiCenters, streetRects, PointRectMatcher::RequestType::All,
                             [&](size_t poiId, size_t streetId) {
                               ASSERT_LESS(poiId, pois.size(), ());
@@ -292,6 +299,8 @@ private:
     {
       for (uint32_t const houseId : buildings)
       {
+        BailIfCancelled();
+
         uint32_t const streetId = GetMatchingStreet(houseId);
         if (std::binary_search(streets.begin(), streets.end(), streetId))
           fn(houseId, streetId);
@@ -307,7 +316,7 @@ private:
                                  std::unique_ptr<FeatureType> & feature, bool & loaded) -> bool {
       ++numFilterInvocations;
       if ((numFilterInvocations & 0xFF) == 0)
-        BailIfCancelled(m_cancellable);
+        BailIfCancelled();
 
       if (std::binary_search(buildings.begin(), buildings.end(), houseId))
         return true;
@@ -346,7 +355,8 @@ private:
     ProjectionOnStreet proj;
     for (uint32_t streetId : streets)
     {
-      BailIfCancelled(m_cancellable);
+      BailIfCancelled();
+
       StreetVicinityLoader::Street const & street = m_loader.GetStreet(streetId);
       if (street.IsEmpty())
         continue;

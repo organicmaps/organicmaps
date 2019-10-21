@@ -187,7 +187,7 @@ private:
   void ForEachCountry(std::vector<std::shared_ptr<MwmInfo>> const & infos, Fn && fn);
 
   // Throws CancelException if cancelled.
-  inline void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
+  void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
 
   // A fast-path branch for categorial requests.
   void MatchCategories(BaseContext & ctx, bool aroundPivot);
