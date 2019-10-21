@@ -31,9 +31,9 @@ protected:
     return info;
   }
 
-  std::unique_ptr<MwmValueBase> CreateValue(MwmInfo &) const override
+  std::unique_ptr<MwmValue> CreateValue(MwmInfo & info) const override
   {
-    return std::make_unique<MwmValueBase>();
+    return std::make_unique<MwmValue>(info.GetLocalFile());
   }
   //@}
 };

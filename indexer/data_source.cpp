@@ -178,7 +178,7 @@ unique_ptr<MwmInfo> DataSource::CreateInfo(platform::LocalCountryFile const & lo
   return unique_ptr<MwmInfo>(move(info));
 }
 
-unique_ptr<MwmSet::MwmValueBase> DataSource::CreateValue(MwmInfo & info) const
+unique_ptr<MwmValue> DataSource::CreateValue(MwmInfo & info) const
 {
   // Create a section with rank table if it does not exist.
   platform::LocalCountryFile const & localFile = info.GetLocalFile();
@@ -188,7 +188,7 @@ unique_ptr<MwmSet::MwmValueBase> DataSource::CreateValue(MwmInfo & info) const
 
   p->SetTable(dynamic_cast<MwmInfoEx &>(info));
   ASSERT(p->GetHeader().IsMWMSuitable(), ());
-  return unique_ptr<MwmSet::MwmValueBase>(move(p));
+  return unique_ptr<MwmValue>(move(p));
 }
 
 pair<MwmSet::MwmId, MwmSet::RegResult> DataSource::RegisterMap(LocalCountryFile const & localFile)

@@ -49,9 +49,9 @@ private:
     info->m_version.SetFormat(version::Format::lastFormat);
     return info;
   }
-  unique_ptr<MwmValueBase> CreateValue(MwmInfo &) const override
+  unique_ptr<MwmValue> CreateValue(MwmInfo & info) const override
   {
-    return make_unique<MwmValueBase>();
+    return make_unique<MwmValue>(info.GetLocalFile());
   }
   //@}
 

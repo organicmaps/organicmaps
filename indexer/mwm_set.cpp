@@ -51,7 +51,7 @@ string DebugPrint(MwmSet::MwmId const & id)
 MwmSet::MwmHandle::MwmHandle() : m_mwmSet(nullptr), m_value(nullptr) {}
 
 MwmSet::MwmHandle::MwmHandle(MwmSet & mwmSet, MwmId const & mwmId,
-                             unique_ptr<MwmSet::MwmValueBase> && value)
+                             unique_ptr<MwmValue> && value)
   : m_mwmId(mwmId), m_mwmSet(&mwmSet), m_value(move(value))
 {
 }
@@ -254,9 +254,9 @@ void MwmSet::ProcessEventList(EventList & events)
   }
 }
 
-unique_ptr<MwmSet::MwmValueBase> MwmSet::LockValue(MwmId const & id)
+unique_ptr<MwmValue> MwmSet::LockValue(MwmId const & id)
 {
-  unique_ptr<MwmSet::MwmValueBase> result;
+  unique_ptr<MwmValue> result;
   WithEventLog([&](EventList & events)
                {
                  result = LockValueImpl(id, events);
@@ -264,7 +264,7 @@ unique_ptr<MwmSet::MwmValueBase> MwmSet::LockValue(MwmId const & id)
   return result;
 }
 
-unique_ptr<MwmSet::MwmValueBase> MwmSet::LockValueImpl(MwmId const & id, EventList & events)
+unique_ptr<MwmValue> MwmSet::LockValueImpl(MwmId const & id, EventList & events)
 {
   if (!id.IsAlive())
     return nullptr;
@@ -273,7 +273,7 @@ unique_ptr<MwmSet::MwmValueBase> MwmSet::LockValueImpl(MwmId const & id, EventLi
   // It's better to return valid "value pointer" even for "out-of-date" files,
   // because they can be locked for a long time by other algos.
   //if (!info->IsUpToDate())
-  //  return TMwmValueBasePtr();
+  //  return TMwmValuePtr();
 
   ++info->m_numRefs;
 
@@ -282,7 +282,7 @@ unique_ptr<MwmSet::MwmValueBase> MwmSet::LockValueImpl(MwmId const & id, EventLi
   {
     if (it->first == id)
     {
-      unique_ptr<MwmValueBase> result = move(it->second);
+      unique_ptr<MwmValue> result = move(it->second);
       m_cache.erase(it);
       return result;
     }
@@ -308,7 +308,7 @@ unique_ptr<MwmSet::MwmValueBase> MwmSet::LockValueImpl(MwmId const & id, EventLi
   }
 }
 
-void MwmSet::UnlockValue(MwmId const & id, unique_ptr<MwmValueBase> p)
+void MwmSet::UnlockValue(MwmId const & id, unique_ptr<MwmValue> p)
 {
   WithEventLog([&](EventList & events)
                {
@@ -316,7 +316,7 @@ void MwmSet::UnlockValue(MwmId const & id, unique_ptr<MwmValueBase> p)
                });
 }
 
-void MwmSet::UnlockValueImpl(MwmId const & id, unique_ptr<MwmValueBase> p, EventList & events)
+void MwmSet::UnlockValueImpl(MwmId const & id, unique_ptr<MwmValue> p, EventList & events)
 {
   ASSERT(id.IsAlive(), (id));
   ASSERT(p.get() != nullptr, ());
@@ -384,7 +384,7 @@ MwmSet::MwmHandle MwmSet::GetMwmHandleById(MwmId const & id)
 
 MwmSet::MwmHandle MwmSet::GetMwmHandleByIdImpl(MwmId const & id, EventList & events)
 {
-  unique_ptr<MwmValueBase> value;
+  unique_ptr<MwmValue> value;
   if (id.IsAlive())
     value = LockValueImpl(id, events);
   return MwmHandle(*this, id, move(value));
@@ -394,7 +394,7 @@ void MwmSet::ClearCacheImpl(Cache::iterator beg, Cache::iterator end) { m_cache.
 
 void MwmSet::ClearCache(MwmId const & id)
 {
-  auto sameId = [&id](pair<MwmSet::MwmId, unique_ptr<MwmSet::MwmValueBase>> const & p)
+  auto sameId = [&id](pair<MwmSet::MwmId, unique_ptr<MwmValue>> const & p)
   {
     return (p.first == id);
   };

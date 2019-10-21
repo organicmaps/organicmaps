@@ -71,7 +71,7 @@ protected:
 
   /// MwmSet overrides:
   std::unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const & localFile) const override;
-  std::unique_ptr<MwmValueBase> CreateValue(MwmInfo & info) const override;
+  std::unique_ptr<MwmValue> CreateValue(MwmInfo & info) const override;
 
 private:
   friend class FeaturesLoaderGuard;
