@@ -11,7 +11,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookmarksSubscriptionViewController" customModule="maps_me" customModuleProvider="target">
             <connections>
                 <outlet property="annualDiscountLabel" destination="YH0-h4-ZEb" id="onk-lS-6im"/>
-                <outlet property="annualDiscountView" destination="8Qf-I6-xXL" id="CNZ-eh-LJj"/>
                 <outlet property="annualSubscriptionButton" destination="neX-0h-hs4" id="I6s-8S-Qks"/>
                 <outlet property="loadingView" destination="BHb-cU-Ze3" id="bfe-6a-BJf"/>
                 <outlet property="monthlySubscriptionButton" destination="sj5-ey-SEv" id="nUs-dU-WOI"/>
@@ -224,31 +223,19 @@
                                         </button>
                                     </subviews>
                                 </stackView>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Qf-I6-xXL">
-                                    <rect key="frame" x="28" y="541.33333333333337" width="68.333333333333329" height="35"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- $38" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YH0-h4-ZEb">
-                                            <rect key="frame" x="10.000000000000004" y="6.6666666666666305" width="48.333333333333343" height="21.666666666666671"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" red="0.63921568630000003" green="0.20784313730000001" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- $38" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YH0-h4-ZEb" customClass="BookmarksSubscriptionDiscountLabel" customModule="maps_me" customModuleProvider="target">
+                                    <rect key="frame" x="28.000000000000004" y="541.33333333333337" width="48.333333333333343" height="35"/>
+                                    <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
-                                        <constraint firstItem="YH0-h4-ZEb" firstAttribute="leading" secondItem="8Qf-I6-xXL" secondAttribute="leading" constant="10" id="C0N-aA-9E7"/>
-                                        <constraint firstAttribute="trailing" secondItem="YH0-h4-ZEb" secondAttribute="trailing" constant="10" id="Dp8-du-XOO"/>
-                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="HAR-vc-83l"/>
-                                        <constraint firstItem="YH0-h4-ZEb" firstAttribute="centerY" secondItem="8Qf-I6-xXL" secondAttribute="centerY" id="fDL-BG-gMf"/>
-                                        <constraint firstAttribute="height" constant="35" id="jRh-2M-BXj"/>
+                                        <constraint firstAttribute="height" constant="35" id="ix5-N3-6ov"/>
                                     </constraints>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                            <integer key="value" value="6"/>
-                                        </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="discountBackground"/>
                                     </userDefinedRuntimeAttributes>
-                                </view>
+                                </label>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a64-qc-DrZ" userLabel="Restore">
                                     <rect key="frame" x="50" y="718.33333333333337" width="314" height="50"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -355,15 +342,14 @@
                                 <constraint firstItem="MPt-NS-DbA" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" id="1QZ-Ze-yR5"/>
                                 <constraint firstItem="bOS-sQ-rkD" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" constant="24" id="2dJ-3J-bOG"/>
                                 <constraint firstAttribute="trailing" secondItem="vzD-qz-Fwt" secondAttribute="trailing" constant="24" id="3Xf-Bz-ISk"/>
+                                <constraint firstItem="YH0-h4-ZEb" firstAttribute="bottom" secondItem="pHi-wc-Fah" secondAttribute="top" constant="12" id="3dD-bj-E3I"/>
                                 <constraint firstAttribute="trailing" secondItem="GUc-JW-T3W" secondAttribute="trailing" id="5eY-po-9Sf"/>
                                 <constraint firstItem="awa-we-Pjk" firstAttribute="top" secondItem="tWZ-GP-RxW" secondAttribute="bottom" id="7ey-rc-AJD"/>
                                 <constraint firstItem="vzD-qz-Fwt" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" constant="24" id="819-Wz-tmt"/>
-                                <constraint firstItem="pHi-wc-Fah" firstAttribute="top" secondItem="8Qf-I6-xXL" secondAttribute="bottom" constant="-12" id="Av2-tQ-YYz"/>
                                 <constraint firstAttribute="bottom" secondItem="GUc-JW-T3W" secondAttribute="bottom" id="DbY-me-8DS"/>
                                 <constraint firstItem="Y38-kF-ZnW" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" id="Egn-no-uGA"/>
                                 <constraint firstItem="60B-kT-Eev" firstAttribute="top" secondItem="tWZ-GP-RxW" secondAttribute="bottom" id="HNk-gd-Qc6"/>
                                 <constraint firstAttribute="trailing" secondItem="a64-qc-DrZ" secondAttribute="trailing" constant="50" id="INc-Pv-5M3"/>
-                                <constraint firstItem="8Qf-I6-xXL" firstAttribute="leading" secondItem="pHi-wc-Fah" secondAttribute="leading" constant="8" id="Ifx-No-gEE"/>
                                 <constraint firstItem="pHi-wc-Fah" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" constant="20" id="J0P-76-RPl"/>
                                 <constraint firstItem="awa-we-Pjk" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" constant="20" id="Loh-WS-cJr"/>
                                 <constraint firstItem="a64-qc-DrZ" firstAttribute="top" secondItem="pHi-wc-Fah" secondAttribute="bottom" constant="10" id="N8l-CI-D02"/>
@@ -385,6 +371,7 @@
                                 <constraint firstAttribute="trailing" secondItem="PSz-Kf-Ihe" secondAttribute="trailing" constant="16" id="jgx-hb-G4E"/>
                                 <constraint firstItem="tWZ-GP-RxW" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" constant="20" id="km3-TI-Nnc"/>
                                 <constraint firstItem="v0Z-5m-unD" firstAttribute="top" secondItem="Eiz-QQ-h0b" secondAttribute="top" constant="4" id="qdm-IQ-Y6J"/>
+                                <constraint firstItem="YH0-h4-ZEb" firstAttribute="leading" secondItem="pHi-wc-Fah" secondAttribute="leading" constant="8" id="qfu-zV-pgd"/>
                                 <constraint firstItem="GUc-JW-T3W" firstAttribute="leading" secondItem="Eiz-QQ-h0b" secondAttribute="leading" id="rj2-o4-Jw3"/>
                                 <constraint firstItem="PSz-Kf-Ihe" firstAttribute="top" secondItem="vzD-qz-Fwt" secondAttribute="bottom" constant="24" id="syy-VW-Tlt"/>
                                 <constraint firstItem="MPt-NS-DbA" firstAttribute="top" secondItem="Eiz-QQ-h0b" secondAttribute="bottom" id="vy8-dM-4jS"/>

@@ -15,8 +15,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AllPassSubscriptionViewController" customModule="maps_me" customModuleProvider="target">
             <connections>
-                <outlet property="annualDiscountLabel" destination="Zd8-3s-FUz" id="7Wb-NZ-IIc"/>
-                <outlet property="annualDiscountView" destination="JKt-iA-TiF" id="Eu5-dr-o61"/>
+                <outlet property="annualDiscountLabel" destination="HUV-kf-oUo" id="eNl-h8-mGe"/>
                 <outlet property="annualSubscriptionButton" destination="Lg7-Sn-MNZ" id="Dfz-gM-gDd"/>
                 <outlet property="backgroundImageView" destination="MVh-rE-VHd" id="aK3-Tk-Q82"/>
                 <outlet property="descriptionPageScrollView" destination="pyJ-8x-bjL" id="763-Gg-LfT"/>
@@ -262,34 +261,19 @@
                                         </button>
                                     </subviews>
                                 </stackView>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JKt-iA-TiF">
-                                    <rect key="frame" x="28" y="371.66666666666669" width="68.333333333333329" height="35"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- $38" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zd8-3s-FUz">
-                                            <rect key="frame" x="10.000000000000004" y="6.6666666666666305" width="48.333333333333343" height="21.666666666666671"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="allPassSubscriptionMonthlyTitle"/>
-                                            </userDefinedRuntimeAttributes>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" red="0.63921568630000003" green="0.20784313730000001" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- $38" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HUV-kf-oUo" customClass="BookmarksSubscriptionDiscountLabel" customModule="maps_me" customModuleProvider="target">
+                                    <rect key="frame" x="28.000000000000004" y="371.66666666666669" width="48.333333333333343" height="35"/>
+                                    <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="35" id="56G-rz-ypw"/>
-                                        <constraint firstItem="Zd8-3s-FUz" firstAttribute="centerY" secondItem="JKt-iA-TiF" secondAttribute="centerY" id="7s7-4f-TPE"/>
-                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="EWS-Yf-4mf"/>
-                                        <constraint firstItem="Zd8-3s-FUz" firstAttribute="leading" secondItem="JKt-iA-TiF" secondAttribute="leading" constant="10" id="YHT-vA-aVn"/>
-                                        <constraint firstAttribute="trailing" secondItem="Zd8-3s-FUz" secondAttribute="trailing" constant="10" id="kT5-qY-MU3"/>
+                                        <constraint firstAttribute="height" constant="35" id="BYp-RT-R6I"/>
                                     </constraints>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                            <integer key="value" value="6"/>
-                                        </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="allPassSubscriptionDiscountBackground"/>
                                     </userDefinedRuntimeAttributes>
-                                </view>
+                                </label>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wL2-uQ-ivp" userLabel="Restore">
                                     <rect key="frame" x="50" y="548.66666666666663" width="314" height="50"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -395,14 +379,14 @@
                                 <constraint firstItem="PQG-Je-4JN" firstAttribute="top" secondItem="v4o-CM-FZh" secondAttribute="bottom" constant="8" id="LrZ-TT-NBu"/>
                                 <constraint firstItem="kgh-BN-Pin" firstAttribute="leading" secondItem="TaY-K1-Hdb" secondAttribute="leading" constant="20" id="N9e-ZN-k2x"/>
                                 <constraint firstItem="Frp-JY-kuq" firstAttribute="leading" secondItem="TaY-K1-Hdb" secondAttribute="leading" constant="20" id="OZR-HV-yMB"/>
+                                <constraint firstItem="HUV-kf-oUo" firstAttribute="bottom" secondItem="kgh-BN-Pin" secondAttribute="top" constant="12" id="PvG-gQ-X6Z"/>
                                 <constraint firstAttribute="trailing" secondItem="sqn-U5-uoO" secondAttribute="trailing" constant="8" id="SDh-Bg-4qw"/>
                                 <constraint firstItem="PQG-Je-4JN" firstAttribute="leading" secondItem="TaY-K1-Hdb" secondAttribute="leading" constant="24" id="Sa8-ra-H4D"/>
-                                <constraint firstItem="kgh-BN-Pin" firstAttribute="top" secondItem="JKt-iA-TiF" secondAttribute="bottom" constant="-12" id="ZXU-ku-kg9"/>
                                 <constraint firstItem="2G3-Jk-HS0" firstAttribute="top" secondItem="pyJ-8x-bjL" secondAttribute="bottom" id="ZlG-eL-ldY"/>
                                 <constraint firstItem="Lg7-Sn-MNZ" firstAttribute="top" secondItem="2G3-Jk-HS0" secondAttribute="bottom" constant="70" id="dn8-F9-r9b"/>
                                 <constraint firstItem="v4o-CM-FZh" firstAttribute="top" secondItem="TaY-K1-Hdb" secondAttribute="top" constant="62" id="hbo-sM-hkk"/>
                                 <constraint firstItem="2O1-n3-hBU" firstAttribute="leading" secondItem="TaY-K1-Hdb" secondAttribute="leading" constant="20" id="hgm-Kf-otC"/>
-                                <constraint firstItem="JKt-iA-TiF" firstAttribute="leading" secondItem="kgh-BN-Pin" secondAttribute="leading" constant="8" id="lli-5H-c8Z"/>
+                                <constraint firstItem="HUV-kf-oUo" firstAttribute="leading" secondItem="kgh-BN-Pin" secondAttribute="leading" constant="8" id="loB-it-eSM"/>
                                 <constraint firstItem="FUY-sv-eiY" firstAttribute="top" secondItem="Frp-JY-kuq" secondAttribute="bottom" id="rL1-VE-ZEa"/>
                                 <constraint firstAttribute="trailing" secondItem="FUY-sv-eiY" secondAttribute="trailing" constant="20" id="rxK-OW-Kk4"/>
                                 <constraint firstItem="sqn-U5-uoO" firstAttribute="top" secondItem="TaY-K1-Hdb" secondAttribute="top" constant="4" id="snI-hf-xS5"/>
