@@ -20,7 +20,8 @@ promo::TypesList kSightseeingsTypes = {
   {"amenity", "nightclub"},
   {"amenity", "cinema"},
   {"amenity", "theatre"},
-  {"tourism", "viewpoint"}
+  {"tourism", "viewpoint"},
+  {"amenity", "place_of_worship"},
 };
 }  // namespace
 
