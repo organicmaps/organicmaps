@@ -145,6 +145,13 @@ configurations.all {
 
     force 'android.arch.core:runtime:1.1.1'
     force 'android.arch.core:common:1.1.1'
+    force 'androidx.legacy:legacy-support-core-utils:1.0.0-rc01'
+    force 'androidx.loader:loader:1.0.0-rc01'
+    force 'androidx.lifecycle:lifecycle-viewmodel:2.0.0-rc01'
+    force 'androidx.lifecycle:lifecycle-common:2.0.0-rc01'
+    force 'androidx.arch.core:core-common:2.0.0-rc01'
+    force 'androidx.arch.core:core-runtime:2.0.0-rc01'
+    force 'androidx.lifecycle:lifecycle-livedata-core:2.0.0-rc01'
 
     failOnVersionConflict();
   }
