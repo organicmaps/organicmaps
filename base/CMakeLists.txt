@@ -14,6 +14,7 @@ set(
   bwt.cpp
   bwt.hpp
   cache.hpp
+  cancellable.cpp
   cancellable.hpp
   checked_cast.hpp
   clustering_map.hpp
