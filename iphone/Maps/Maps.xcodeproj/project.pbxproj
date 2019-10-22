@@ -5869,7 +5869,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mapswithme.full;
 				PROVISIONING_PROFILE_SPECIFIER = "Maps.me Carplay";
-				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -5892,7 +5891,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mapswithme.full;
 				PROVISIONING_PROFILE_SPECIFIER = "Maps.me Carplay";
-				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -5912,7 +5910,6 @@
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mapswithme.full;
-				SWIFT_VERSION = 5.0;
 			};
 			name = "Production Full";
 		};
