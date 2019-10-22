@@ -15,7 +15,7 @@
 
   override func awakeFromNib() {
     super.awakeFromNib()
-    guideContainerView.layer.borderColor = UIColor.blackDividers()?.cgColor
+    guideContainerView.layer.borderColor = UIColor.blackDividers().cgColor
     headerLabel.text = L("pp_discovery_place_related_header").uppercased()
   }
 
