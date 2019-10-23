@@ -185,7 +185,7 @@ std::vector<feature::FeatureBuilder> HierarchyBuilder::ReadFeatures(
   ForEachFromDatRawFormat<serialization_policy::MaxAccuracy>(
       dataFilename, [&](FeatureBuilder const & fb, uint64_t /* currPos */) {
         if (m_getMainType(fb.GetTypes()) != ftype::GetEmptyValue() &&
-            !m_getName(fb.GetMultilangName()).empty() && !fb.GetOsmIds().empty() &&
+            !fb.GetOsmIds().empty() &&
             (fb.IsPoint() || fb.IsArea()))
         {
           fbs.emplace_back(fb);
