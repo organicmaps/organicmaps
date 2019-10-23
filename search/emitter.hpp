@@ -21,6 +21,7 @@ public:
   {
     m_onResults = onResults;
     m_results.Clear();
+    m_prevEmitSize = 0;
   }
 
   bool AddResult(Result && res) { return m_results.AddResult(std::move(res)); }
@@ -30,6 +31,10 @@ public:
 
   void Emit()
   {
+    if (m_prevEmitSize == m_results.GetCount())
+      return;
+    m_prevEmitSize = m_results.GetCount();
+
     if (m_onResults)
       m_onResults(m_results);
     else
@@ -50,5 +55,6 @@ public:
 private:
   SearchParams::OnResults m_onResults;
   Results m_results;
+  size_t m_prevEmitSize = 0;
 };
 }  // namespace search
