@@ -19,6 +19,7 @@
 #include <iomanip>
 #include <iterator>
 #include <limits>
+#include <numeric>
 
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/register/point.hpp>
@@ -46,6 +47,21 @@ std::string GetRussianName(StringUtf8Multilang const & str)
   for (auto const & ch : {';', '\n', '\t'})
     std::replace(std::begin(result), std::end(result), ch, ',');
   return result;
+}
+
+double CalculateOverlapPercentage(std::vector<m2::PointD> const & lhs,
+                                  std::vector<m2::PointD> const & rhs)
+{
+  if (!boost::geometry::intersects(lhs, rhs))
+    return 0.0;
+
+  using BoostPolygon = boost::geometry::model::polygon<m2::PointD>;
+  std::vector<BoostPolygon> coll;
+  boost::geometry::intersection(lhs, rhs, coll);
+  auto const min = std::min(boost::geometry::area(lhs), boost::geometry::area(rhs));
+  auto const binOp = [](double x, BoostPolygon const & y) { return x + boost::geometry::area(y); };
+  auto const sum = std::accumulate(std::cbegin(coll), std::cend(coll), 0.0, binOp);
+  return sum * 100 / min;
 }
 }  // namespace
 
@@ -82,8 +98,8 @@ bool HierarchyPlace::Contains(HierarchyPlace const & smaller) const
   if (smaller.IsPoint())
     return Contains(smaller.GetCenter());
 
-  return m_rect.IsRectInside(smaller.GetLimitRect()) &&
-         boost::geometry::covered_by(smaller.m_polygon, m_polygon);
+  return smaller.GetArea() <= GetArea() &&
+      CalculateOverlapPercentage(m_polygon, smaller.m_polygon) > 80.0;
 }
 
 bool HierarchyPlace::Contains(m2::PointD const & point) const
