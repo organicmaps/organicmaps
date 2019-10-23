@@ -10,10 +10,12 @@
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <fstream>
 #include <functional>
 #include <iomanip>
@@ -59,6 +61,7 @@ double CalculateOverlapPercentage(std::vector<m2::PointD> const & lhs,
   std::vector<BoostPolygon> coll;
   boost::geometry::intersection(lhs, rhs, coll);
   auto const min = std::min(boost::geometry::area(lhs), boost::geometry::area(rhs));
+  CHECK_GREATER(min, 0.0, (min));
   auto const binOp = [](double x, BoostPolygon const & y) { return x + boost::geometry::area(y); };
   auto const sum = std::accumulate(std::cbegin(coll), std::cend(coll), 0.0, binOp);
   return sum * 100 / min;
@@ -99,7 +102,7 @@ bool HierarchyPlace::Contains(HierarchyPlace const & smaller) const
     return Contains(smaller.GetCenter());
 
   return smaller.GetArea() <= GetArea() &&
-      CalculateOverlapPercentage(m_polygon, smaller.m_polygon) > 80.0;
+         CalculateOverlapPercentage(m_polygon, smaller.m_polygon) > 80.0;
 }
 
 bool HierarchyPlace::Contains(m2::PointD const & point) const
@@ -184,8 +187,7 @@ std::vector<feature::FeatureBuilder> HierarchyBuilder::ReadFeatures(
   std::vector<feature::FeatureBuilder> fbs;
   ForEachFromDatRawFormat<serialization_policy::MaxAccuracy>(
       dataFilename, [&](FeatureBuilder const & fb, uint64_t /* currPos */) {
-        if (m_getMainType(fb.GetTypes()) != ftype::GetEmptyValue() &&
-            !fb.GetOsmIds().empty() &&
+        if (m_getMainType(fb.GetTypes()) != ftype::GetEmptyValue() && !fb.GetOsmIds().empty() &&
             (fb.IsPoint() || fb.IsArea()))
         {
           fbs.emplace_back(fb);
