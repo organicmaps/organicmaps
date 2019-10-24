@@ -26,7 +26,7 @@ class Fixed3BitsTable : public HouseToStreetTable
 public:
   using Vector = FixedBitsDDVector<3, ModelReaderPtr>;
 
-  explicit Fixed3BitsTable(MwmValue & value)
+  explicit Fixed3BitsTable(MwmValue const & value)
     : m_vector(Vector::Create(value.m_cont.GetReader(SEARCH_ADDRESS_FILE_TAG)))
   {
     ASSERT(m_vector.get(), ("Can't instantiate Fixed3BitsDDVector."));
@@ -49,7 +49,7 @@ class EliasFanoMap : public HouseToStreetTable
 public:
   using Map = MapUint32ToValue<uint32_t>;
 
-  explicit EliasFanoMap(MwmValue & value) : m_reader(unique_ptr<ModelReader>())
+  explicit EliasFanoMap(MwmValue const & value) : m_reader(unique_ptr<ModelReader>())
   {
     auto const readBlockCallback = [&](NonOwningReaderSource & source, uint32_t blockSize,
                                        vector<uint32_t> & values) {
@@ -95,7 +95,7 @@ public:
 };
 }  // namespace
 
-unique_ptr<HouseToStreetTable> HouseToStreetTable::Load(MwmValue & value)
+unique_ptr<HouseToStreetTable> HouseToStreetTable::Load(MwmValue const & value)
 {
   version::MwmTraits traits(value.GetMwmVersion());
   auto const format = traits.GetHouseToStreetTableFormat();

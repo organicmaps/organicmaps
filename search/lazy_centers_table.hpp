@@ -23,7 +23,7 @@ public:
     STATE_FAILED
   };
 
-  explicit LazyCentersTable(MwmValue & value);
+  explicit LazyCentersTable(MwmValue const & value);
 
   inline State GetState() const { return m_state; }
 
@@ -32,7 +32,7 @@ public:
   WARN_UNUSED_RESULT bool Get(uint32_t id, m2::PointD & center);
 
 private:
-  MwmValue & m_value;
+  MwmValue const & m_value;
   State m_state;
 
   FilesContainerR::TReader m_reader;

@@ -337,7 +337,7 @@ struct RetrievePostcodeFeaturesAdaptor
 };
 
 template <typename Value>
-unique_ptr<Retrieval::TrieRoot<Value>> ReadTrie(MwmValue & value, ModelReaderPtr & reader)
+unique_ptr<Retrieval::TrieRoot<Value>> ReadTrie(MwmValue const & value, ModelReaderPtr & reader)
 {
   return trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<Value>>(
       SubReaderWrapper<Reader>(reader.GetPtr()), SingleValueSerializer<Value>());
@@ -349,7 +349,7 @@ Retrieval::Retrieval(MwmContext const & context, base::Cancellable const & cance
   , m_cancellable(cancellable)
   , m_reader(context.m_value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG))
 {
-  auto & value = context.m_value;
+  auto const & value = context.m_value;
 
   version::MwmTraits mwmTraits(value.GetMwmVersion());
   auto const format = mwmTraits.GetSearchIndexFormat();

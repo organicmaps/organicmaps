@@ -184,7 +184,7 @@ CrossMwmGraph::MwmStatus CrossMwmGraph::GetMwmStatus(NumMwmId numMwmId,
   if (!handle.IsAlive())
     return MwmStatus::NotLoaded;
 
-  MwmValue * value = handle.GetValue();
+  MwmValue const * value = handle.GetValue();
   CHECK(value != nullptr, ("Country file:", m_numMwmIds->GetFile(numMwmId)));
   return value->m_cont.IsExist(sectionName) ? MwmStatus::SectionExists : MwmStatus::NoSection;
 }

@@ -148,7 +148,7 @@ public:
     ~MwmHandle();
 
     // Returns a non-owning ptr.
-    MwmValue * GetValue() const { return m_value.get(); }
+    MwmValue const * GetValue() const { return m_value.get(); }
 
     bool IsAlive() const { return m_value.get() != nullptr; }
     MwmId const & GetId() const { return m_mwmId; }
@@ -387,8 +387,8 @@ public:
   version::MwmVersion const & GetMwmVersion() const { return m_factory.GetMwmVersion(); }
   std::string const & GetCountryFileName() const { return m_file.GetCountryFile().GetName(); }
 
-  bool HasSearchIndex() { return m_cont.IsExist(SEARCH_INDEX_FILE_TAG); }
-  bool HasGeometryIndex() { return m_cont.IsExist(INDEX_FILE_TAG); }
+  bool HasSearchIndex() const { return m_cont.IsExist(SEARCH_INDEX_FILE_TAG); }
+  bool HasGeometryIndex() const { return m_cont.IsExist(INDEX_FILE_TAG); }
 }; // class MwmValue
 
 

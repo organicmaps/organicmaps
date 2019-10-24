@@ -245,7 +245,7 @@ private:
     if (!handle.IsAlive())
       MYTHROW(RoutingException, ("Mwm", m_numMwmIds->GetFile(numMwmId), "cannot be loaded."));
 
-    MwmValue * value = handle.GetValue();
+    MwmValue const * value = handle.GetValue();
     CHECK(value != nullptr, ("Country file:", m_numMwmIds->GetFile(numMwmId)));
 
     FilesContainerR::TReader const reader =

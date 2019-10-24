@@ -8,7 +8,7 @@
 
 namespace search
 {
-LazyCentersTable::LazyCentersTable(MwmValue & value)
+LazyCentersTable::LazyCentersTable(MwmValue const & value)
   : m_value(value), m_state(STATE_NOT_LOADED), m_reader(std::unique_ptr<ModelReader>())
 {
 }

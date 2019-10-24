@@ -25,7 +25,7 @@ public:
 
   /// @todo Actually, value may be nullptr in the very common case.
   /// It's better to construct a table from MwmHandle.
-  static std::unique_ptr<HouseToStreetTable> Load(MwmValue & value);
+  static std::unique_ptr<HouseToStreetTable> Load(MwmValue const & value);
 
   // Returns true and stores street identifier to |streetIndex|.
   // Street identifier type depends on data version. See StreetIdType.

@@ -86,7 +86,7 @@ public:
   }
 
   MwmSet::MwmHandle m_handle;
-  MwmValue & m_value;
+  MwmValue const & m_value;
 
 private:
   FeatureStatus GetEditedStatus(uint32_t index) const
