@@ -32,6 +32,7 @@ set(
   succinct_trie_test.cpp
   test_mwm_set.hpp
   test_type.cpp
+  tree_node_tests.cpp
   trie_test.cpp
   ugc_types_test.cpp
   visibility_test.cpp

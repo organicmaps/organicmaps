@@ -88,13 +88,18 @@ template <typename Data, typename Fn>
 void PreOrderVisit(types::Ptr<Data> const & node, Fn && fn)
 {
   base::ControlFlowWrapper<Fn> wrapper(std::forward<Fn>(fn));
-  std::function<void(types::Ptr<Data> const &)> preOrderVisitDetail;
+  std::function<base::ControlFlow(types::Ptr<Data> const &)> preOrderVisitDetail;
   preOrderVisitDetail = [&](auto const & node) {
     if (wrapper(node) == base::ControlFlow::Break)
-      return;
+      return base::ControlFlow::Break;
 
     for (auto const & ch : node->GetChildren())
-      preOrderVisitDetail(ch);
+    {
+      if (preOrderVisitDetail(ch) == base::ControlFlow::Break)
+        return base::ControlFlow::Break;
+    }
+
+    return base::ControlFlow::Continue;
   };
   preOrderVisitDetail(node);
 }

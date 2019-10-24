@@ -133,7 +133,7 @@ tree_node::types::PtrList<HierarchyEntry> LoadHierachy(std::string const & filen
 {
   std::unordered_map<CompositeId, tree_node::types::Ptr<HierarchyEntry>> nodes;
   for (auto const & row : coding::CSVRunner(
-         coding::CSVReader(filename, false /* header */, kCsvDelimiter)))
+         coding::CSVReader(filename, false /* hasHeader */, kCsvDelimiter)))
   {
     auto entry = HierarchyEntryFromCsvRow(row);
     auto const id = entry.m_id;

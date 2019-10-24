@@ -6,9 +6,9 @@
 
 #include "indexer/complex/tree_node.hpp"
 
-#include "base/geo_object_id.hpp"
-
 #include "platform/platform_tests_support/scoped_file.hpp"
+
+#include "base/geo_object_id.hpp"
 
 using generator::tests_support::TestWithClassificator;
 using platform::tests_support::ScopedFile;
@@ -79,10 +79,9 @@ std::string const kCsv1 =
     "Николай Егорович Жуковский;"
     "Russia_Moscow";
 
-generator::CompositeId MakeId(unsigned long long f, unsigned long long s)
+generator::CompositeId MakeId(uint64_t f, uint64_t s)
 {
-  return generator::CompositeId(base::GeoObjectId(static_cast<uint64_t>(f)),
-                                base::GeoObjectId(static_cast<uint64_t>(s)));
+  return generator::CompositeId(base::GeoObjectId(f), base::GeoObjectId(s));
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, Complex_HierarchyEntryCsv)
