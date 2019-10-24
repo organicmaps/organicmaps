@@ -60,6 +60,7 @@ public:
 
     VehicleType m_type = VehicleType::Car;
     Checkpoints m_checkpoints;
+    uint32_t m_timeoutSeconds = 0;
   };
 
   struct Route

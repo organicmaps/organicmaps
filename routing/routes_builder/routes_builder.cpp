@@ -291,6 +291,8 @@ RoutesBuilder::Processor::operator()(Params const & params)
   RouterResultCode resultCode;
   routing::Route route("" /* router */, 0 /* routeId */);
 
+  m_delegate->SetTimeout(params.m_timeoutSeconds);
+
   CHECK(m_dataSource, ());
   resultCode =
       m_router->CalculateRoute(params.m_checkpoints,

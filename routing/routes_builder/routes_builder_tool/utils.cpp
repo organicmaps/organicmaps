@@ -49,17 +49,18 @@ namespace routing
 {
 namespace routes_builder
 {
-std::vector<RoutesBuilder::Result> BuildRoutes(std::string const & routesPath,
-                                               std::string const & dumpPath,
-                                               int64_t startFrom,
-                                               uint64_t threadsNumber)
+void BuildRoutes(std::string const & routesPath,
+                 std::string const & dumpPath,
+                 uint64_t startFrom,
+                 uint64_t threadsNumber,
+                 uint32_t timeoutPerRouteSeconds)
 {
   CHECK(Platform::IsFileExistsByFullPath(routesPath), ("Can not find file:", routesPath));
+  CHECK(!dumpPath.empty(), ("Empty dumpPath."));
 
   std::ifstream input(routesPath);
   CHECK(input.good(), ("Error during opening:", routesPath));
 
-  std::vector<RoutesBuilder::Result> result;
   if (!threadsNumber)
   {
     auto const hardwareConcurrency = std::thread::hardware_concurrency();
@@ -74,6 +75,7 @@ std::vector<RoutesBuilder::Result> BuildRoutes(std::string const & routesPath,
   {
     RoutesBuilder::Params params;
     params.m_type = VehicleType::Car;
+    params.m_timeoutSeconds = timeoutPerRouteSeconds;
 
     base::ScopedLogLevelChanger changer(base::LogLevel::LERROR);
     ms::LatLon start;
@@ -101,16 +103,18 @@ std::vector<RoutesBuilder::Result> BuildRoutes(std::string const & routesPath,
       auto & task = tasks[i];
       task.wait();
 
-      result.emplace_back(task.get());
-      if (!dumpPath.empty())
-      {
-        std::string const fullPath =
-            base::JoinPath(dumpPath, std::to_string(shiftIndex) + RoutesBuilder::Result::kDumpExtension);
+      auto const result = task.get();
+      if (result.m_code == RouterResultCode::Cancelled)
+        LOG_FORCE(LINFO, ("Route:", i, "(", i + 1, "line of file) was building too long."));
 
-        RoutesBuilder::Result::Dump(result.back(), fullPath);
-      }
+      std::string const fullPath =
+          base::JoinPath(dumpPath, std::to_string(shiftIndex) + RoutesBuilder::Result::kDumpExtension);
 
-      double const curPercent = static_cast<double>(shiftIndex + 1) / tasks.size() * 100.0;
+      RoutesBuilder::Result::Dump(result, fullPath);
+
+      double const curPercent =
+          static_cast<double>(shiftIndex + 1) / (tasks.size() + startFrom) * 100.0;
+
       if (curPercent - lastPercent > 1.0 || shiftIndex + 1 == tasks.size())
       {
         lastPercent = curPercent;
@@ -118,8 +122,6 @@ std::vector<RoutesBuilder::Result> BuildRoutes(std::string const & routesPath,
       }
     }
   }
-
-  return result;
 }
 
 boost::optional<std::tuple<ms::LatLon, ms::LatLon, int32_t>> ParseApiLine(std::ifstream & input)

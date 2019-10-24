@@ -13,10 +13,11 @@ namespace routing
 {
 namespace routes_builder
 {
-std::vector<RoutesBuilder::Result> BuildRoutes(std::string const & routesPath,
-                                               std::string const & dumpPath,
-                                               int64_t startFrom,
-                                               uint64_t threadsNumber);
+void BuildRoutes(std::string const & routesPath,
+                 std::string const & dumpPath,
+                 uint64_t startFrom,
+                 uint64_t threadsNumber,
+                 uint32_t timeoutPerRouteSeconds);
 
 void BuildRoutesWithApi(std::unique_ptr<routing_quality::api::RoutingApi> routingApi,
                         std::string const & routesPath,

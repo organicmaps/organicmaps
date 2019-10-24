@@ -32,7 +32,10 @@ DEFINE_string(resources_path, "", "Resources path.");
 DEFINE_string(api_name, "", "Api name, current options: mapbox,google");
 DEFINE_string(api_token, "", "Token for chosen api.");
 
-DEFINE_int64(start_from, 0, "The line number from which the tool should start reading.");
+DEFINE_uint64(start_from, 0, "The line number from which the tool should start reading.");
+
+DEFINE_int32(timeout, 10 * 60, "Timeout in seconds for each route building. "
+                               "0 means without timeout (default: 10 minutes).");
 
 using namespace routing;
 using namespace routes_builder;
@@ -61,6 +64,8 @@ int Main(int argc, char ** argv)
   google::SetUsageMessage("This tool provides routes building for them further analyze.");
   google::ParseCommandLineFlags(&argc, &argv, true);
 
+  CHECK_GREATER_OR_EQUAL(FLAGS_timeout, 0, ("Timeout should be greater than zero."));
+
   CHECK(!FLAGS_routes_file.empty(),
         ("\n\n\t--routes_file is required.",
          "\n\nType --help for usage."));
@@ -86,9 +91,8 @@ int Main(int argc, char ** argv)
   else
     CHECK_EQUAL(Platform::MkDir(FLAGS_dump_path), Platform::EError::ERR_OK,());
 
-  std::vector<RoutesBuilder::Result> results;
   if (IsLocalBuild())
-    results = BuildRoutes(FLAGS_routes_file, FLAGS_dump_path, FLAGS_start_from, FLAGS_threads);
+    BuildRoutes(FLAGS_routes_file, FLAGS_dump_path, FLAGS_start_from, FLAGS_threads, FLAGS_timeout);
 
   if (IsApiBuild())
   {
