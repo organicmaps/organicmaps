@@ -1,4 +1,4 @@
-#include "storage/diff_scheme/diff_manager.hpp"
+#include "storage/diff_scheme/diffs_data_source.hpp"
 
 #include <algorithm>
 

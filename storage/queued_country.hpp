@@ -1,6 +1,6 @@
 #pragma once
 
-#include "storage/diff_scheme/diff_manager.hpp"
+#include "storage/diff_scheme/diffs_data_source.hpp"
 #include "storage/storage_defines.hpp"
 
 #include "platform/country_defines.hpp"

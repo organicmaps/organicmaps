@@ -3,7 +3,7 @@
 #include "storage/country.hpp"
 #include "storage/country_name_getter.hpp"
 #include "storage/country_tree.hpp"
-#include "storage/diff_scheme/diff_manager.hpp"
+#include "storage/diff_scheme/diffs_data_source.hpp"
 #include "storage/downloading_policy.hpp"
 #include "storage/map_files_downloader.hpp"
 #include "storage/queued_country.hpp"
