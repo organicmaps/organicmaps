@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  xmlns:tools="http://schemas.android.com/tools">
+  <RelativeLayout
+    android:id="@+id/button_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_base"
+    android:minHeight="@dimen/height_block_base"
+    android:layout_marginTop="@dimen/margin_base_plus_quarter"
+    tools:background="?primaryButtonBackground">
+    <TextView
+      android:id="@+id/name"
+      android:layout_toStartOf="@id/price"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:textColor="@color/white_primary"
+      android:fontFamily="@string/robotoMedium"
+      android:textSize="@dimen/text_size_body_3"
+      android:textAllCaps="true"
+      android:letterSpacing="0.04"
+      tools:text="ANNUAL"
+      tools:targetApi="lollipop" />
+    <TextView
+      android:id="@id/price"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:textColor="@color/white_primary"
+      android:fontFamily="@string/robotoMedium"
+      android:textSize="@dimen/text_size_body_3"
+      android:textAllCaps="true"
+      android:letterSpacing="0.04"
+      tools:text="VNG 29000 / MO"
+      tools:targetApi="lollipop" />
+  </RelativeLayout>
+  <TextView
+    android:id="@+id/sale"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_quarter"
+    android:paddingLeft="@dimen/margin_half_plus"
+    android:paddingStart="@dimen/margin_half_plus"
+    android:paddingRight="@dimen/margin_half_plus"
+    android:paddingEnd="@dimen/margin_half_plus"
+    android:paddingTop="@dimen/margin_quarter"
+    android:paddingBottom="@dimen/margin_quarter"
+    android:layout_gravity="top|start"
+    android:gravity="center_horizontal|top"
+    android:textSize="@dimen/text_size_toolbar"
+    android:textColor="@color/white_primary"
+    android:fontFamily="@string/robotoMedium"
+    android:letterSpacing="0.15"
+    android:elevation="@dimen/margin_eighth"
+    tools:text="-30%"
+    tools:background="@color/sale_view_bg"
+    tools:targetApi="lollipop" />
+</FrameLayout>

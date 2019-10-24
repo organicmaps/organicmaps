@@ -98,4 +98,10 @@
     <attr name="autoScroll" format="boolean" />
     <attr name="scrollPeriod" format="integer" />
   </declare-styleable>
+  <declare-styleable name="SubscriptionButton">
+    <attr name="buttonBackground" />
+    <attr name="buttonTextColor" />
+    <attr name="saleBackground" format="reference" />
+    <attr name="saleTextColor" format="color" />
+  </declare-styleable>
 </resources>
