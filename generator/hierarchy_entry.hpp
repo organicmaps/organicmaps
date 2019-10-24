@@ -3,6 +3,7 @@
 #include "generator/composite_id.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/complex/tree_node.hpp"
 #include "indexer/feature_data.hpp"
 
 #include "geometry/point2d.hpp"
@@ -31,7 +32,7 @@ bool operator==(HierarchyEntry const & lhs, HierarchyEntry const & rhs);
 
 std::string DebugPrint(HierarchyEntry const & entry);
 
-namespace popularity
+namespace hierarchy
 {
 static char const kCsvDelimiter = ';';
 
@@ -42,5 +43,7 @@ coding::CSVReader::Row HierarchyEntryToCsvRow(HierarchyEntry const & entry);
 HierarchyEntry HierarchyEntryFromCsvRow(coding::CSVReader::Row const & row);
 
 std::string HierarchyEntryToCsvString(HierarchyEntry const & entry, char delim = kCsvDelimiter);
-}  // namespace popularity
+
+tree_node::types::PtrList<HierarchyEntry> LoadHierachy(std::string const & filename);
+}  // namespace hierarchy
 }  // namespace generator

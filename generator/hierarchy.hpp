@@ -35,9 +35,9 @@ namespace generator
 {
 namespace hierarchy
 {
-using GetMainType = std::function<uint32_t(FeatureParams::Types const &)>;
-using GetName = std::function<std::string(StringUtf8Multilang const &)>;
-using PrintFunction = std::function<std::string(HierarchyEntry const &)>;
+using GetMainTypeFn = std::function<uint32_t(FeatureParams::Types const &)>;
+using GetNameFn = std::function<std::string(StringUtf8Multilang const &)>;
+using PrintFn = std::function<std::string(HierarchyEntry const &)>;
 
 // These are dummy functions.
 uint32_t GetTypeDefault(FeatureParams::Types const &);
@@ -104,8 +104,8 @@ public:
 
   explicit HierarchyBuilder(std::string const & dataFilename);
 
-  void SetGetMainTypeFunction(GetMainType const & getMainType);
-  void SetGetNameFunction(GetName const & getName);
+  void SetGetMainTypeFunction(GetMainTypeFn const & getMainType);
+  void SetGetNameFunction(GetNameFn const & getName);
 
   Node::PtrList Build();
 
@@ -113,8 +113,8 @@ protected:
   std::vector<feature::FeatureBuilder> ReadFeatures(std::string const & dataFilename);
 
   std::string m_dataFullFilename;
-  GetMainType m_getMainType = GetTypeDefault;
-  GetName m_getName = GetNameDefault;
+  GetMainTypeFn m_getMainType = GetTypeDefault;
+  GetNameFn m_getName = GetNameDefault;
 };
 
 class HierarchyLineEnricher
@@ -134,8 +134,8 @@ class HierarchyLinesBuilder
 public:
   HierarchyLinesBuilder(HierarchyBuilder::Node::PtrList && nodes);
 
-  void SetGetMainTypeFunction(GetMainType const & getMainType);
-  void SetGetNameFunction(GetName const & getName);
+  void SetGetMainTypeFunction(GetMainTypeFn const & getMainType);
+  void SetGetNameFunction(GetNameFn const & getName);
   void SetCountryName(std::string const & name);
   void SetHierarchyLineEnricher(std::shared_ptr<HierarchyLineEnricher> const & enricher);
 
@@ -146,8 +146,8 @@ private:
   HierarchyEntry Transform(HierarchyBuilder::Node::Ptr const & node);
 
   HierarchyBuilder::Node::PtrList m_nodes;
-  GetMainType m_getMainType = GetTypeDefault;
-  GetName m_getName = GetNameDefault;
+  GetMainTypeFn m_getMainType = GetTypeDefault;
+  GetNameFn m_getName = GetNameDefault;
   std::string m_countryName;
   std::shared_ptr<HierarchyLineEnricher> m_enricher;
 };

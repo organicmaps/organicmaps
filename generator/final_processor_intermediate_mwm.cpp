@@ -527,7 +527,7 @@ void ComplexFinalProcessor::SetMwmAndFt2OsmPath(std::string const & mwmPath,
   m_osm2ftPath = osm2ftPath;
 }
 
-void ComplexFinalProcessor::SetPrintFunction(hierarchy::PrintFunction const & printFunction)
+void ComplexFinalProcessor::SetPrintFunction(hierarchy::PrintFn const & printFunction)
 {
   m_printFunction = printFunction;
 }
@@ -553,16 +553,16 @@ void ComplexFinalProcessor::Process()
       strings::ReplaceLast(countryName, DATA_FILE_EXTENSION_TMP, "");
 
       hierarchy::HierarchyBuilder builder(base::JoinPath(m_mwmTmpPath, filename));
-      builder.SetGetMainTypeFunction(popularity::GetMainType);
-      builder.SetGetNameFunction(popularity::GetName);
+      builder.SetGetMainTypeFunction(hierarchy::GetMainType);
+      builder.SetGetNameFunction(hierarchy::GetName);
       auto nodes = builder.Build();
 
       auto const enricher = CreateEnricher(countryName);
       hierarchy::HierarchyLinesBuilder linesBuilder(std::move(nodes));
       linesBuilder.SetHierarchyLineEnricher(enricher);
       linesBuilder.SetCountryName(countryName);
-      linesBuilder.SetGetMainTypeFunction(popularity::GetMainType);
-      linesBuilder.SetGetNameFunction(popularity::GetName);
+      linesBuilder.SetGetMainTypeFunction(hierarchy::GetMainType);
+      linesBuilder.SetGetNameFunction(hierarchy::GetName);
       return linesBuilder.GetHierarchyLines();
     });
     futures.emplace_back(std::move(future));

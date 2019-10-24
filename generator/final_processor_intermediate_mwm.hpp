@@ -134,7 +134,7 @@ public:
                         size_t threadsCount);
 
   void SetMwmAndFt2OsmPath(std::string const & mwmPath, std::string const & osm2ftPath);
-  void SetPrintFunction(hierarchy::PrintFunction const & printFunction);
+  void SetPrintFunction(hierarchy::PrintFn const & printFunction);
 
   // FinalProcessorIntermediateMwmInterface overrides:
   void Process() override;
@@ -144,7 +144,7 @@ private:
       std::string const & countryName) const;
   void WriteLines(std::vector<HierarchyEntry> const & lines);
 
-  hierarchy::PrintFunction m_printFunction = hierarchy::PrintDefault;
+  hierarchy::PrintFn m_printFunction = hierarchy::PrintDefault;
   std::string m_mwmTmpPath;
   std::string m_outFilename;
   std::string m_mwmPath;

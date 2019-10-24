@@ -5,6 +5,7 @@
 #include <utility>
 #include <vector>
 
+#include "base/control_flow.hpp"
 #include "base/stl_helpers.hpp"
 
 namespace tree_node
@@ -59,6 +60,12 @@ private:
 };
 
 template <typename Data>
+decltype(auto) MakeTreeNode(Data && data)
+{
+  return std::make_shared<TreeNode<Data>>(std::forward<Data>(data));
+}
+
+template <typename Data>
 void Link(types::Ptr<Data> const & node, types::Ptr<Data> const & parent)
 {
   parent->AddChild(node);
@@ -75,5 +82,43 @@ size_t GetDepth(types::Ptr<Data> node)
     ++depth;
   }
   return depth;
+}
+
+template <typename Data, typename Fn>
+void PreOrderVisit(types::Ptr<Data> const & node, Fn && fn)
+{
+  base::ControlFlowWrapper<Fn> wrapper(std::forward<Fn>(fn));
+  std::function<void(types::Ptr<Data> const &)> preOrderVisitDetail;
+  preOrderVisitDetail = [&](auto const & node) {
+    if (wrapper(node) == base::ControlFlow::Break)
+      return;
+
+    for (auto const & ch : node->GetChildren())
+      preOrderVisitDetail(ch);
+  };
+  preOrderVisitDetail(node);
+}
+
+template <typename Data, typename Fn>
+decltype(auto) FindIf(types::Ptr<Data> const & node, Fn && fn)
+{
+  types::Ptr<Data> res = nullptr;
+  PreOrderVisit(node, [&](auto const & node) {
+    if (fn(node->GetData()))
+    {
+      res = node;
+      return base::ControlFlow::Break;
+    }
+    return base::ControlFlow::Continue;
+  });
+  return res;
+}
+
+template <typename Data>
+size_t Size(types::Ptr<Data> const & node)
+{
+  size_t size = 0;
+  PreOrderVisit(node, [&](auto const &) { ++size; });
+  return size;
 }
 }  // namespace tree_node

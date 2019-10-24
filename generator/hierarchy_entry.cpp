@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <sstream>
 #include <tuple>
+#include <unordered_map>
 
 #include "3party/jansson/myjansson.hpp"
 
@@ -57,7 +58,7 @@ std::string DebugPrint(HierarchyEntry const & entry)
   return DumpToString(obj);
 }
 
-namespace popularity
+namespace hierarchy
 {
 uint32_t GetMainType(FeatureParams::Types const & types)
 {
@@ -127,5 +128,32 @@ HierarchyEntry HierarchyEntryFromCsvRow(coding::CSVReader::Row const & row)
   entry.m_countryName = country;
   return entry;
 }
-}  // namespace popularity
+
+tree_node::types::PtrList<HierarchyEntry> LoadHierachy(std::string const & filename)
+{
+  std::unordered_map<CompositeId, tree_node::types::Ptr<HierarchyEntry>> nodes;
+  for (auto const & row : coding::CSVRunner(
+         coding::CSVReader(filename, false /* header */, kCsvDelimiter)))
+  {
+    auto entry = HierarchyEntryFromCsvRow(row);
+    auto const id = entry.m_id;
+    nodes.emplace(id, tree_node::MakeTreeNode(std::move(entry)));
+  }
+  for (auto const & pair : nodes)
+  {
+    auto const & node = pair.second;
+    auto const parentIdOpt = node->GetData().m_parentId;
+    if (parentIdOpt)
+    {
+      auto const it = nodes.find(*parentIdOpt);
+      CHECK(it != std::cend(nodes), (*it));
+      tree_node::Link(node, it->second);
+    }
+  }
+  std::vector<tree_node::types::Ptr<HierarchyEntry>> trees;
+  base::Transform(nodes, std::back_inserter(trees), base::RetrieveSecond());
+  base::EraseIf(trees, [](auto const & node) { return node->HasParent(); });
+  return trees;
+}
+}  // namespace hierarchy
 }  // namespace generator

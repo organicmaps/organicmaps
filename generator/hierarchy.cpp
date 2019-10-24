@@ -154,12 +154,12 @@ HierarchyBuilder::HierarchyBuilder(std::string const & dataFilename)
 {
 }
 
-void HierarchyBuilder::SetGetMainTypeFunction(GetMainType const & getMainType)
+void HierarchyBuilder::SetGetMainTypeFunction(GetMainTypeFn const & getMainType)
 {
   m_getMainType = getMainType;
 }
 
-void HierarchyBuilder::SetGetNameFunction(GetName const & getName) { m_getName = getName; }
+void HierarchyBuilder::SetGetNameFunction(GetNameFn const & getName) { m_getName = getName; }
 
 std::vector<feature::FeatureBuilder> HierarchyBuilder::ReadFeatures(
     std::string const & dataFilename)
@@ -208,12 +208,12 @@ HierarchyLinesBuilder::HierarchyLinesBuilder(HierarchyBuilder::Node::PtrList && 
 {
 }
 
-void HierarchyLinesBuilder::SetGetMainTypeFunction(GetMainType const & getMainType)
+void HierarchyLinesBuilder::SetGetMainTypeFunction(GetMainTypeFn const & getMainType)
 {
   m_getMainType = getMainType;
 }
 
-void HierarchyLinesBuilder::SetGetNameFunction(GetName const & getName) { m_getName = getName; }
+void HierarchyLinesBuilder::SetGetNameFunction(GetNameFn const & getName) { m_getName = getName; }
 
 void HierarchyLinesBuilder::SetCountryName(std::string const & name) { m_countryName = name; }
 
