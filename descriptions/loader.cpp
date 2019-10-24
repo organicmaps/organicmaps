@@ -16,7 +16,7 @@ bool Loader::GetDescription(FeatureID const & featureId, std::vector<int8_t> con
   if (!handle.IsAlive())
     return false;
 
-  auto const & value = *handle.GetValue<MwmValue>();
+  auto const & value = *handle.GetValue();
 
   if (!value.m_cont.IsExist(DESCRIPTIONS_FILE_TAG))
     return false;

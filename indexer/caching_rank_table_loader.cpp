@@ -29,7 +29,7 @@ uint8_t CachingRankTableLoader::Get(FeatureID const & featureId) const
 
   if (it == m_deserializers.end())
   {
-    auto rankTable = search::RankTable::Load(handle.GetValue<MwmValue>()->m_cont, m_sectionName);
+    auto rankTable = search::RankTable::Load(handle.GetValue()->m_cont, m_sectionName);
 
     if (!rankTable)
       rankTable = std::make_unique<search::DummyRankTable>();

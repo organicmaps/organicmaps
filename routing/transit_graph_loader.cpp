@@ -75,7 +75,7 @@ unique_ptr<TransitGraph> TransitGraphLoaderImpl::CreateTransitGraph(NumMwmId num
 
   base::Timer timer;
   auto graph = make_unique<TransitGraph>(numMwmId, m_estimator);
-  MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
+  MwmValue const & mwmValue = *handle.GetValue();
   if (!mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG))
     return graph;
 

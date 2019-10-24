@@ -4108,7 +4108,7 @@ bool Framework::HaveTransit(m2::PointD const & pt) const
   if (!handle.IsAlive())
     return false;
 
-  return handle.GetValue<MwmValue>()->m_cont.IsExist(TRANSIT_FILE_TAG);
+  return handle.GetValue()->m_cont.IsExist(TRANSIT_FILE_TAG);
 }
 
 double Framework::GetLastBackgroundTime() const

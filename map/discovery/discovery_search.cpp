@@ -157,7 +157,7 @@ void SearchPopularPlaces::OnMwmChanged(MwmSet::MwmHandle const & handle)
   if (handle.IsAlive())
   {
     m_popularityRanks =
-        search::RankTable::Load(handle.GetValue<MwmValue>()->m_cont, POPULARITY_RANKS_FILE_TAG);
+        search::RankTable::Load(handle.GetValue()->m_cont, POPULARITY_RANKS_FILE_TAG);
   }
 }
 

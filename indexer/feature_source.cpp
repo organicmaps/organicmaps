@@ -20,7 +20,7 @@ FeatureSource::FeatureSource(MwmSet::MwmHandle const & handle) : m_handle(handle
   if (!m_handle.IsAlive())
     return;
 
-  auto const & value = *m_handle.GetValue<MwmValue>();
+  auto const & value = *m_handle.GetValue();
   m_vector = make_unique<FeaturesVector>(value.m_cont, value.GetHeader(), value.m_table.get());
 }
 

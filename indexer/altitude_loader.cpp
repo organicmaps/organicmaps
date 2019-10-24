@@ -39,7 +39,7 @@ AltitudeLoader::AltitudeLoader(DataSource const & dataSource, MwmSet::MwmId cons
   if (!m_handle.IsAlive())
     return;
 
-  auto const & mwmValue = *m_handle.GetValue<MwmValue>();
+  auto const & mwmValue = *m_handle.GetValue();
 
   m_countryFileName = mwmValue.GetCountryFileName();
 

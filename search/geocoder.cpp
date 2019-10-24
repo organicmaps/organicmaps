@@ -482,7 +482,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
     MwmSet::MwmHandle handle = indexer::FindWorld(m_dataSource, infos);
     if (handle.IsAlive())
     {
-      auto & value = *handle.GetValue<MwmValue>();
+      auto & value = *handle.GetValue();
 
       // All MwmIds are unique during the application lifetime, so
       // it's ok to save MwmId.
@@ -796,7 +796,7 @@ void Geocoder::ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, Fn && f
     auto handle = m_dataSource.GetMwmHandleById(MwmSet::MwmId(info));
     if (!handle.IsAlive())
       continue;
-    auto & value = *handle.GetValue<MwmValue>();
+    auto & value = *handle.GetValue();
     if (!value.HasSearchIndex() || !value.HasGeometryIndex())
       continue;
     fn(i, make_unique<MwmContext>(move(handle)));

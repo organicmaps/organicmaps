@@ -60,7 +60,7 @@ UNIT_CLASS_TEST(PostcodePointsTest, Smoke)
   });
 
   auto handle = m_dataSource.GetMwmHandleById(id);
-  auto value = handle.GetValue<MwmValue>();
+  auto value = handle.GetValue();
   CHECK(value, ());
   TEST(value->m_cont.IsExist(POSTCODE_POINTS_FILE_TAG), ());
 

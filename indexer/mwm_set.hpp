@@ -148,11 +148,7 @@ public:
     ~MwmHandle();
 
     // Returns a non-owning ptr.
-    template <typename T>
-    T * GetValue() const
-    {
-      return static_cast<T *>(m_value.get());
-    }
+    MwmValue * GetValue() const { return m_value.get(); }
 
     bool IsAlive() const { return m_value.get() != nullptr; }
     MwmId const & GetId() const { return m_mwmId; }

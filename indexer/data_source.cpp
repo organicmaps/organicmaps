@@ -36,7 +36,7 @@ public:
   {
     auto src = m_factory(handle);
 
-    MwmValue const * mwmValue = handle.GetValue<MwmValue>();
+    MwmValue const * mwmValue = handle.GetValue();
     if (mwmValue)
     {
       // Untouched (original) features reading. Applies covering |cov| to geometry index, gets
@@ -111,7 +111,7 @@ string FeaturesLoaderGuard::GetCountryFileName() const
   if (!m_handle.IsAlive())
     return string();
 
-  return m_handle.GetValue<MwmValue>()->GetCountryFileName();
+  return m_handle.GetValue()->GetCountryFileName();
 }
 
 bool FeaturesLoaderGuard::IsWorld() const
@@ -119,7 +119,7 @@ bool FeaturesLoaderGuard::IsWorld() const
   if (!m_handle.IsAlive())
     return false;
 
-  return m_handle.GetValue<MwmValue>()->GetHeader().GetType() ==
+  return m_handle.GetValue()->GetHeader().GetType() ==
          feature::DataHeader::MapType::World;
 }
 

@@ -1399,7 +1399,7 @@ bool IndexRouter::DoesTransitSectionExist(NumMwmId numMwmId) const
   if (!handle.IsAlive())
     MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 
-  MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
+  MwmValue const & mwmValue = *handle.GetValue();
   return mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG);
 }
 

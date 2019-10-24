@@ -30,7 +30,7 @@ bool FeatureIdToGeoObjectIdOneWay::Load()
   if (handle.GetId() == m_mwmId)
     return true;
 
-  auto const & cont = handle.GetValue<MwmValue>()->m_cont;
+  auto const & cont = handle.GetValue()->m_cont;
 
   if (!cont.IsExist(FEATURE_TO_OSM_FILE_TAG))
   {
@@ -110,7 +110,7 @@ bool FeatureIdToGeoObjectIdTwoWay::Load()
   if (handle.GetId() == m_mwmId)
     return true;
 
-  auto const & cont = handle.GetValue<MwmValue>()->m_cont;
+  auto const & cont = handle.GetValue()->m_cont;
 
   if (!cont.IsExist(FEATURE_TO_OSM_FILE_TAG))
   {

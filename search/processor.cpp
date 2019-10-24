@@ -555,7 +555,7 @@ void Processor::SearchPostcode()
     auto handle = m_dataSource.GetMwmHandleById(MwmSet::MwmId(info));
     if (!handle.IsAlive())
       continue;
-    auto & value = *handle.GetValue<MwmValue>();
+    auto & value = *handle.GetValue();
     if (!value.m_cont.IsExist(POSTCODE_POINTS_FILE_TAG))
       continue;
 

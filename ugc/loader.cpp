@@ -16,7 +16,7 @@ UGC Loader::GetUGC(FeatureID const & featureId)
   if (!handle.IsAlive())
     return {};
 
-  auto const & value = *handle.GetValue<MwmValue>();
+  auto const & value = *handle.GetValue();
 
   if (!value.m_cont.IsExist(UGC_FILE_TAG))
     return {};

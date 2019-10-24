@@ -429,7 +429,7 @@ int main(int argc, char * argv[])
     mwmInfo->GetRegionData().GetLanguages(mwmLangCodes);
 
     auto handle = dataSource.GetMwmHandleById(mwmId);
-    auto & value = *handle.GetValue<MwmValue>();
+    auto & value = *handle.GetValue();
     // WorldCoasts.
     if (!value.HasSearchIndex())
       continue;

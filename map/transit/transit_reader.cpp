@@ -68,7 +68,7 @@ void ReadTransitTask::Do()
     m_success = false;
     return;
   }
-  MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
+  MwmValue const & mwmValue = *handle.GetValue();
   if (!m_loadSubset && !mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG))
   {
     m_success = true;

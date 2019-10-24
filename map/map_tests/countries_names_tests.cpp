@@ -39,7 +39,7 @@ UNIT_TEST(CountriesNamesTest)
 
   FeaturesLoaderGuard g(f.GetDataSource(), handle.GetId());
 
-  auto & value = *handle.GetValue<MwmValue>();
+  auto & value = *handle.GetValue();
   TEST(value.HasSearchIndex(), ());
   search::MwmContext const mwmContext(move(handle));
   base::Cancellable const cancellable;

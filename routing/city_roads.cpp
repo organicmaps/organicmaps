@@ -36,7 +36,7 @@ std::unique_ptr<CityRoads> LoadCityRoads(DataSource const & dataSource,
                                          MwmSet::MwmHandle const & handle)
 {
   auto cityRoads = std::make_unique<CityRoads>();
-  auto const & mwmValue = *handle.GetValue<MwmValue>();
+  auto const & mwmValue = *handle.GetValue();
   if (!mwmValue.m_cont.IsExist(CITY_ROADS_FILE_TAG))
     return cityRoads;
 

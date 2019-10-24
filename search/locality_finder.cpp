@@ -261,7 +261,7 @@ void LocalityFinder::LoadVicinity(m2::PointD const & p, bool loadCities, bool lo
     auto handle = m_dataSource.GetMwmHandleById(m_worldId);
     if (handle.IsAlive())
     {
-      auto const & value = *handle.GetValue<MwmValue>();
+      auto const & value = *handle.GetValue();
       if (!m_ranks)
         m_ranks = RankTable::Load(value.m_cont, SEARCH_RANKS_FILE_TAG);
       if (!m_ranks)

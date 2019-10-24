@@ -73,7 +73,7 @@ std::unique_ptr<Maxspeeds> LoadMaxspeeds(DataSource const & dataSource,
                                          MwmSet::MwmHandle const & handle)
 {
   auto maxspeeds = std::make_unique<Maxspeeds>();
-  auto const value = handle.GetValue<MwmValue>();
+  auto const value = handle.GetValue();
   CHECK(value, ());
   auto const & mwmValue = *value;
   if (!mwmValue.m_cont.IsExist(MAXSPEEDS_FILE_TAG))

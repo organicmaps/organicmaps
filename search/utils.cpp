@@ -53,7 +53,7 @@ void ForEachOfTypesInRect(DataSource const & dataSource, vector<uint32_t> const 
       continue;
 
     auto handle = dataSource.GetMwmHandleById(MwmSet::MwmId(info));
-    auto & value = *handle.GetValue<MwmValue>();
+    auto & value = *handle.GetValue();
     if (!value.HasSearchIndex())
       continue;
 

@@ -59,7 +59,7 @@ UNIT_TEST(FeaturesVectorTest_ParseMetadata)
   MwmSet::MwmHandle handle = dataSource.GetMwmHandleById(id);
   TEST(handle.IsAlive(), ());
 
-  auto const * value = handle.GetValue<MwmValue>();
+  auto const * value = handle.GetValue();
   FeaturesVector fv(value->m_cont, value->GetHeader(), value->m_table.get());
 
   map<string, int> actual;

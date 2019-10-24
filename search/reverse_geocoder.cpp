@@ -393,7 +393,7 @@ bool ReverseGeocoder::HouseTable::Get(FeatureID const & fid,
       LOG(LWARNING, ("MWM", fid, "is dead"));
       return false;
     }
-    m_table = search::HouseToStreetTable::Load(*m_handle.GetValue<MwmValue>());
+    m_table = search::HouseToStreetTable::Load(*m_handle.GetValue());
   }
 
   type = m_table->GetStreetIdType();
