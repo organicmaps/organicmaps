@@ -65,7 +65,7 @@
 - A reviewer should note not only to code base but also to the description of the PR and commits
 - A PR may be merged by a reviewer if all the following items are fulfilled: (1) the PR isn't marked as a draft or [DNM];
   (2) all reviewers which have started to review the PR, approved it; (3) all reviewers which are added as reviewers
-  of the PR, have approved it; (4) at least one more reviewer has approved the PR.
+  of the PR, have approved it
 - If a reviewer doesn’t have time to review all the PR they should write about it explicitly. For example, LGTM for
   android part
 - If a reviewer and a developer cannot find a compromise, the third opinion about it should be asked
