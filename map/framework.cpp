@@ -3555,17 +3555,10 @@ void VisualizeFeatureInRect(m2::RectD const & rect, FeatureType & ft, df::DrapeA
 void Framework::DrawMwmBorder(std::string const & mwmName,
                               std::vector<m2::RegionD> const & regions, bool withVertices)
 {
-  size_t index = 0;
-  auto const nextName = [&]() {
-    if (index == 1)
-      return mwmName;
-
-    return mwmName + std::to_string(index - 1);
-  };
-
-  for (auto const & region : regions)
+  for (size_t i = 0; i < regions.size(); ++i)
   {
-    auto const points = region.Data();
+    auto const & region = regions[i];
+    auto const & points = region.Data();
     if (points.empty())
       return;
 
@@ -3575,7 +3568,8 @@ void Framework::DrawMwmBorder(std::string const & mwmName,
     if (withVertices)
       lineData.ShowPoints(true /* markPoints */);
 
-    m_drapeApi.AddLine(nextName(), lineData);
+    auto const & name = i == 0 ? mwmName : mwmName + "_" + std::to_string(i);
+    m_drapeApi.AddLine(name, lineData);
 
     kColorCounter = (kColorCounter + 1) % colorList.size();
   }
