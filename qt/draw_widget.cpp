@@ -51,6 +51,38 @@
 
 using namespace qt::common;
 
+namespace
+{
+std::vector<dp::Color> colorList = {
+    dp::Color(255, 0, 0, 255),   dp::Color(0, 255, 0, 255),   dp::Color(0, 0, 255, 255),
+    dp::Color(255, 255, 0, 255), dp::Color(0, 255, 255, 255), dp::Color(255, 0, 255, 255),
+    dp::Color(100, 0, 0, 255),   dp::Color(0, 100, 0, 255),   dp::Color(0, 0, 100, 255),
+    dp::Color(100, 100, 0, 255), dp::Color(0, 100, 100, 255), dp::Color(100, 0, 100, 255)};
+
+void DrawMwmBorder(df::DrapeApi & drapeApi, std::string const & mwmName,
+                   std::vector<m2::RegionD> const & regions, bool withVertices)
+{
+  for (size_t i = 0; i < regions.size(); ++i)
+  {
+    auto const & region = regions[i];
+    auto const & points = region.Data();
+    if (points.empty())
+      return;
+
+    static uint32_t kColorCounter = 0;
+
+    auto lineData = df::DrapeApiLineData(points, colorList[kColorCounter]).Width(4.0f).ShowId();
+    if (withVertices)
+      lineData.ShowPoints(true /* markPoints */);
+
+    auto const & name = i == 0 ? mwmName : mwmName + "_" + std::to_string(i);
+    drapeApi.AddLine(name, lineData);
+
+    kColorCounter = (kColorCounter + 1) % colorList.size();
+  }
+}
+}  // namespace
+
 namespace qt
 {
 DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, std::unique_ptr<ScreenshotParams> && screenshotParams,
@@ -305,7 +337,7 @@ void DrawWidget::VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withVer
       regions = std::move(boxes);
       mwmName += ".box";
     }
-    m_framework.DrawMwmBorder(mwmName, regions, withVertices);
+    DrawMwmBorder(m_framework.GetDrapeApi(), mwmName, regions, withVertices);
   }
 }
 

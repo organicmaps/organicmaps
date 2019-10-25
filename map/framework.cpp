@@ -3552,29 +3552,6 @@ void VisualizeFeatureInRect(m2::RectD const & rect, FeatureType & ft, df::DrapeA
 }
 }  // namespace
 
-void Framework::DrawMwmBorder(std::string const & mwmName,
-                              std::vector<m2::RegionD> const & regions, bool withVertices)
-{
-  for (size_t i = 0; i < regions.size(); ++i)
-  {
-    auto const & region = regions[i];
-    auto const & points = region.Data();
-    if (points.empty())
-      return;
-
-    static uint32_t kColorCounter = 0;
-
-    auto lineData = df::DrapeApiLineData(points, colorList[kColorCounter]).Width(4.0f).ShowId();
-    if (withVertices)
-      lineData.ShowPoints(true /* markPoints */);
-
-    auto const & name = i == 0 ? mwmName : mwmName + "_" + std::to_string(i);
-    m_drapeApi.AddLine(name, lineData);
-
-    kColorCounter = (kColorCounter + 1) % colorList.size();
-  }
-}
-
 std::vector<std::string> Framework::GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const
 {
   return m_infoGetter->GetRegionsCountryIdByRect(rect, rough);

@@ -361,7 +361,6 @@ public:
   BookmarkManager const & GetBookmarkManager() const;
 
   // Utilities
-  void VisualizeMwmsBordersInRect(m2::RectD const & rect);
   void VisualizeRoadsInRect(m2::RectD const & rect);
   void VisualizeCityBoundariesInRect(m2::RectD const & rect);
   void VisualizeCityRoadsInRect(m2::RectD const & rect);
@@ -393,9 +392,6 @@ public:
   void DeactivateMapSelection(bool notifyUI);
   /// Used to "refresh" UI in some cases (e.g. feature editing).
   void UpdatePlacePageInfoForCurrentSelection(boost::optional<place_page::BuildInfo> const & overrideInfo = {});
-
-  void DrawMwmBorder(std::string const & mwmName, std::vector<m2::RegionD> const & regions,
-                     bool withVertices);
 
   struct PlacePageEvent
   {
@@ -437,7 +433,6 @@ public:
 
 private:
   boost::optional<place_page::Info> m_currentPlacePageInfo;
-  bool m_isViewportInitialized = false;
 
   void OnTapEvent(place_page::BuildInfo const & buildInfo);
   boost::optional<place_page::Info> BuildPlacePageInfo(place_page::BuildInfo const & buildInfo);
