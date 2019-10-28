@@ -1,11 +1,12 @@
 package com.mapswithme.maps.widget;
 
-import androidx.annotation.NonNull;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.FragmentActivity;
-import androidx.app.Activity;
+import android.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import java.util.Collections;
 import java.util.List;
@@ -56,10 +57,10 @@ public class ParallaxBackgroundPageListener implements ViewPager.OnPageChangeLis
   @Override
   public void onPageScrollStateChanged(int state)
   {
-    if (state == ViewPager.SCROLL_STATE_IDLE)
+    boolean isIdle = state == ViewPager.SCROLL_STATE_IDLE;
+    if (isIdle)
       setIdlePosition();
 
-    boolean isIdle = state == ViewPager.SCROLL_STATE_IDLE;
     mScrollStarted  = isIdle && !mScrollStarted;
 
     if (mScrollStarted)

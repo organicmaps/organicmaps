@@ -1,7 +1,6 @@
 package com.mapswithme.maps.purchase;
 
-import android.support.v4.app.Fragment;
-
+import androidx.fragment.app.Fragment;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
 public class AllPassPremiumActivity extends BaseMwmFragmentActivity

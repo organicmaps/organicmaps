@@ -40,6 +40,7 @@
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="@dimen/subscription_view_pager_height"
+        android:overScrollMode="never"
         app:autoScroll="true"
         app:scrollPeriod="4000"/>
 
