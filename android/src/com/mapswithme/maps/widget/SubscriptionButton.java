@@ -7,6 +7,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import com.mapswithme.maps.R;
+import com.mapswithme.util.UiUtils;
 
 public class SubscriptionButton extends FrameLayout
 {
@@ -35,6 +37,7 @@ public class SubscriptionButton extends FrameLayout
   @SuppressWarnings("NullableProblems")
   @NonNull
   private TextView mPriceView;
+  private boolean mShowSale;
 
   public SubscriptionButton(@NonNull Context context)
   {
@@ -71,6 +74,7 @@ public class SubscriptionButton extends FrameLayout
       mButtonTextColor = a.getColor(R.styleable.SubscriptionButton_buttonTextColor, 0);
       mSaleBackground = a.getDrawable(R.styleable.SubscriptionButton_saleBackground);
       mSaleTextColor = a.getColor(R.styleable.SubscriptionButton_saleTextColor, 0);
+      mShowSale = a.getBoolean(R.styleable.SubscriptionButton_showSale, false);
       LayoutInflater.from(getContext()).inflate(R.layout.subscription_button, this, true);
     }
     finally
@@ -90,8 +94,19 @@ public class SubscriptionButton extends FrameLayout
     mPriceView = buttonContainer.findViewById(R.id.price);
     mPriceView.setTextColor(mButtonTextColor);
     mSaleView = findViewById(R.id.sale);
-    mSaleView.setBackground(mSaleBackground);
-    mSaleView.setTextColor(mSaleTextColor);
+    if (mShowSale)
+    {
+      UiUtils.show(mSaleView);
+      mSaleView.setBackground(mSaleBackground);
+      mSaleView.setTextColor(mSaleTextColor);
+    }
+    else
+    {
+      UiUtils.hide(mSaleView);
+      ViewGroup.MarginLayoutParams params
+          = (ViewGroup.MarginLayoutParams) buttonContainer.getLayoutParams();
+      params.topMargin = 0;
+    }
   }
 
   public void setName(@NonNull String name)

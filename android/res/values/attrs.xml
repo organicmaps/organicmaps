@@ -103,5 +103,6 @@
     <attr name="buttonTextColor" />
     <attr name="saleBackground" format="reference" />
     <attr name="saleTextColor" format="color" />
+    <attr name="showSale" format="boolean" />
   </declare-styleable>
 </resources>
