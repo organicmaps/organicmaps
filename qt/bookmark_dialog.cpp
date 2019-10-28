@@ -129,13 +129,17 @@ void BookmarkDialog::OnCloseClick()
 
 void BookmarkDialog::OnImportClick()
 {
-  auto const name = QFileDialog::getOpenFileName(this /* parent */, tr("Open KML/KMZ..."),
-                                                 QString() /* dir */, "KML/KMZ files (*.kml *.kmz)");
-  auto const file = name.toStdString();
-  if (file.empty())
-    return;
+  auto const files = QFileDialog::getOpenFileNames(this /* parent */, tr("Open KML/KMZ..."),
+                                                   QString() /* dir */, "KML/KMZ files (*.kml *.kmz)");
 
-  m_framework.GetBookmarkManager().LoadBookmark(file, false /* isTemporaryFile */);
+  for (auto const & name : files)
+  {
+    auto const file = name.toStdString();
+    if (file.empty())
+      continue;
+
+    m_framework.GetBookmarkManager().LoadBookmark(file, false /* isTemporaryFile */);
+  }
 }
 
 void BookmarkDialog::OnExportClick()
