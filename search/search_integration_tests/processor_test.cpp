@@ -2390,5 +2390,65 @@ UNIT_CLASS_TEST(ProcessorTest, Postbox)
   }
 }
 
+UNIT_CLASS_TEST(ProcessorTest, OrderCountries)
+{
+  string const cafeLandName = "CafeLand";
+  string const UkCountryName = "UK";
+  TestCity london(m2::PointD(1.0, 1.0), "London", "en", 100 /* rank */);
+  TestStreet piccadilly(vector<m2::PointD>{m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5)},
+                        "Piccadilly Circus", "en");
+  TestVillage cambridge(m2::PointD(3.0, 3.0), "Cambridge", "en", 5 /* rank */);
+  TestStreet wheeling(vector<m2::PointD>{m2::PointD(2.5, 2.5), m2::PointD(3.5, 3.5)},
+                      "Wheeling Avenue", "en");
+
+  TestPOI dummyPoi(m2::PointD(0.0, 4.0), "dummy", "en");
+  TestCafe londonCafe(m2::PointD(-10.01, 14.0), "London Piccadilly cafe", "en");
+  TestCafe cambridgeCafe(m2::PointD(-10.02, 14.01), "Cambridge Wheeling cafe", "en");
+
+  auto worldId = BuildWorld([&](TestMwmBuilder & builder) { builder.Add(london); });
+  auto UkId = BuildCountry(UkCountryName, [&](TestMwmBuilder & builder) {
+    builder.Add(london);
+    builder.Add(piccadilly);
+    builder.Add(cambridge);
+    builder.Add(wheeling);
+  });
+  auto const UkCountryRect = m2::RectD(m2::PointD(0.5, 0.5), m2::PointD(3.5, 3.5));
+  RegisterCountry(UkCountryName, UkCountryRect);
+
+  auto cafeLandId = BuildCountry(cafeLandName, [&](TestMwmBuilder & builder) {
+    builder.Add(dummyPoi);
+    builder.Add(londonCafe);
+    builder.Add(cambridgeCafe);
+  });
+
+  auto const cafeLandRect = m2::RectD(m2::PointD(-10.5, 4.0), m2::PointD(0.0, 14.5));
+  RegisterCountry(cafeLandName, cafeLandRect);
+
+  auto const viewportRect = m2::RectD(m2::PointD(-1.0, 5.0), m2::PointD(0.0, 4.0));
+  SetViewport(viewportRect);
+  CHECK(!viewportRect.IsIntersect(UkCountryRect), ());
+  CHECK(viewportRect.IsIntersect(cafeLandRect), ());
+  {
+    auto request = MakeRequest("London Piccadilly");
+    auto const & results = request->Results();
+
+    TEST_EQUAL(results.size(), 2, ("Unexpected number of results."));
+    // (UkId, piccadilly) should be ranked first, it means it was in the first batch.
+    TEST(ResultsMatch({results[0]}, {ExactMatch(UkId, piccadilly)}), ());
+    TEST(ResultsMatch({results[1]}, {ExactMatch(cafeLandId, londonCafe)}), ());
+  }
+  {
+    auto request = MakeRequest("Cambridge Wheeling");
+    auto const & results = request->Results();
+
+    TEST_EQUAL(results.size(), 2, ("Unexpected number of results."));
+    TEST(ResultsMatch({results[0]}, {ExactMatch(cafeLandId, cambridgeCafe)}), ());
+    TEST(ResultsMatch({results[1]}, {ExactMatch(UkId, wheeling)}), ());
+    // (UkId, wheeling) has higher rank but it's second in results because it was not in the first
+    // batch.
+    TEST_GREATER(results[1].GetRankingInfo().GetLinearModelRank(),
+                 results[0].GetRankingInfo().GetLinearModelRank(), ());
+  }
+}
 }  // namespace
 }  // namespace search

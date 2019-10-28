@@ -281,41 +281,6 @@ struct KeyedMwmInfo
   double m_distance;
 };
 
-// Reorders maps in a way that prefix consists of maps intersecting
-// with pivot, suffix consists of all other maps ordered by minimum
-// distance from pivot. Returns number of maps in prefix.
-// In viewport search mode, prefers mwms that contain the user's position.
-size_t OrderCountries(boost::optional<m2::PointD> const & position, m2::RectD const & pivot,
-                      bool inViewport, vector<shared_ptr<MwmInfo>> & infos)
-{
-  // TODO (@y): remove this if crashes in this function
-  // disappear. Otherwise, remove null infos and re-check MwmSet
-  // again.
-  for (auto const & info : infos)
-  {
-    CHECK(info.get(),
-          ("MwmSet invariant violated. Please, contact @y if you know how to reproduce this."));
-  }
-
-  vector<KeyedMwmInfo> keyedInfos;
-  keyedInfos.reserve(infos.size());
-  for (auto const & info : infos)
-    keyedInfos.emplace_back(info, position, pivot, inViewport);
-  sort(keyedInfos.begin(), keyedInfos.end());
-
-  infos.clear();
-  for (auto const & info : keyedInfos)
-    infos.emplace_back(info.m_info);
-
-  auto intersects = [&](shared_ptr<MwmInfo> const & info) -> bool {
-    if (!inViewport && position && info->m_bordersRect.IsPointInside(*position))
-      return true;
-    return pivot.IsIntersect(info->m_bordersRect);
-  };
-  auto const sep = stable_partition(infos.begin(), infos.end(), intersects);
-  return distance(infos.begin(), sep);
-}
-
 unique_ptr<MwmContext> GetWorldContext(DataSource const & dataSource)
 {
   vector<shared_ptr<MwmInfo>> infos;
@@ -470,6 +435,51 @@ void Geocoder::SetParamsForCategorialSearch(Params const & params)
   LOG(LDEBUG, (static_cast<QueryParams const &>(m_params)));
 }
 
+size_t Geocoder::OrderCountries(bool inViewport, vector<shared_ptr<MwmInfo>> & infos)
+{
+  // TODO (@y): remove this if crashes in this function
+  // disappear. Otherwise, remove null infos and re-check MwmSet
+  // again.
+  for (auto const & info : infos)
+  {
+    CHECK(info.get(),
+          ("MwmSet invariant violated. Please, contact @y if you know how to reproduce this."));
+  }
+
+  vector<KeyedMwmInfo> keyedInfos;
+  keyedInfos.reserve(infos.size());
+  for (auto const & info : infos)
+    keyedInfos.emplace_back(info, m_params.m_position, m_params.m_pivot, inViewport);
+  sort(keyedInfos.begin(), keyedInfos.end());
+
+  infos.clear();
+  for (auto const & info : keyedInfos)
+    infos.emplace_back(info.m_info);
+
+  set<storage::CountryId> mwmsWithCities;
+  if (!inViewport)
+  {
+    for (auto const & p : m_cities)
+    {
+      for (auto const & city : p.second)
+        mwmsWithCities.insert(m_infoGetter.GetRegionCountryId(city.m_rect.Center()));
+    }
+  }
+
+  auto const firstBatch = [&](shared_ptr<MwmInfo> const & info) {
+    if (!inViewport)
+    {
+      if (m_params.m_position && info->m_bordersRect.IsPointInside(*m_params.m_position))
+        return true;
+      if (mwmsWithCities.count(info->GetCountryName()) != 0)
+        return true;
+    }
+    return m_params.m_pivot.IsIntersect(info->m_bordersRect);
+  };
+  auto const sep = stable_partition(infos.begin(), infos.end(), firstBatch);
+  return distance(infos.begin(), sep);
+}
+
 void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
 {
   // base::PProf pprof("/tmp/geocoder.prof");
@@ -511,8 +521,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
   // maps are ordered by distance from pivot, and we stop to call
   // MatchAroundPivot() on them as soon as at least one feature is
   // found.
-  size_t const numIntersectingMaps =
-      OrderCountries(m_params.m_position, m_params.m_pivot, inViewport, infos);
+  size_t const numIntersectingMaps = OrderCountries(inViewport, infos);
 
   // MatchAroundPivot() should always be matched in mwms
   // intersecting with position and viewport.
