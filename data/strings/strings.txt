@@ -44407,3 +44407,63 @@
     zh-Hans = 现在的数据更新速度提高了2倍
     zh-Hant = 現在的數據更新速度提高了2倍
     fa = از این پس سرعت بروزرسانی اطلاعات دو برابر است
+
+  [all_pass_subscription_header]
+    comment = FIXME
+    en = all_pass_subscription_header
+
+  [all_pass_subscription_subheader]
+    comment = FIXME
+    en = all_pass_subscription_subheader
+
+  [all_pass_subscription_message_title]
+    comment = FIXME
+    en = all_pass_subscription_message_title
+
+  [all_pass_subscription_message_subtitle]
+    comment = FIXME
+    en = all_pass_subscription_message_subtitle
+
+  [all_pass_subscription_message_title_2]
+    comment = FIXME
+    en = all_pass_subscription_message_title_2
+
+  [all_pass_subscription_message_subtitle_2]
+    comment = FIXME
+    en = all_pass_subscription_message_subtitle_2
+
+  [all_pass_subscription_message_title_3]
+    comment = FIXME
+    en = all_pass_subscription_message_subtitle_3
+
+  [all_pass_subscription_message_subtitle_3]
+    comment = FIXME
+    en = all_pass_subscription_message_subtitle_3
+
+  [sightseeing_subscription_header_sightseeing]
+    comment = FIXME
+    en = sightseeing_subscription_header_sightseeing
+
+  [sightseeing_subscription_header_subscription]
+    comment = FIXME
+    en = sightseeing_subscription_header_subscription
+
+  [sightseeing_subscription_message]
+    comment = FIXME
+    en = bookmarks_public_access
+
+  [sightseeing_subscription_message_2]
+    comment = FIXME
+    en = sightseeing_subscription_message_2
+
+  [sightseeing_subscription_message_3]
+    comment = FIXME
+    en = sightseeing_subscription_message_3
+
+  [subscription_success_dialog_title_sightseeing_pass]
+    comment = FIXME
+    en = subscription_success_dialog_title_sightseeing_pass
+
+  [subscription_success_dialog_message_sightseeing_pass]
+    comment = FIXME
+    en = subscription_success_dialog_message_sightseeing_pass
