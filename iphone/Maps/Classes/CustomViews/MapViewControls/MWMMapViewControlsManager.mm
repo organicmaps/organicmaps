@@ -5,8 +5,6 @@
 #import "MWMNetworkPolicy+UI.h"
 #import "MWMPlacePageManager.h"
 #import "MWMPlacePageProtocol.h"
-#import "MWMPromoAfterBooking.h"
-#import "MWMPromoApi.h"
 #import "MWMSearchManager.h"
 #import "MWMSideButtons.h"
 #import "MWMTrafficButtonViewController.h"
@@ -33,7 +31,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 @property(nonatomic) MWMSideButtons * sideButtons;
 @property(nonatomic) MWMTrafficButtonViewController * trafficButton;
-@property(nonatomic) UIButton * crownButton;
+@property(nonatomic) UIButton * promoButton;
 @property(nonatomic) MWMBottomMenuViewController * menuController;
 @property(nonatomic) id<MWMPlacePageProtocol> placePageManager;
 @property(nonatomic) MWMNavigationDashboardManager * navigationManager;
@@ -44,6 +42,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 @property(nonatomic) BOOL disableStandbyOnRouteFollowing;
 @property(nonatomic) MWMTip tutorialType;
 @property(nonatomic) MWMTutorialViewController * tutorialViewContoller;
+@property(nonatomic) PromoDiscoveryCampaign * promoDiscoveryCampaign;
 
 @end
 
@@ -63,13 +62,13 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   self.trafficButtonHidden = NO;
   self.isDirectionViewHidden = YES;
   self.menuRestoreState = MWMBottomMenuStateInactive;
-  if ([MWMFrameworkHelper shouldShowCrown]) {
-    [controller.controlsView addSubview:self.crownButton];
-    self.crownButton.translatesAutoresizingMaskIntoConstraints = NO;
+  self.promoDiscoveryCampaign = [PromoCampaignManager manager].promoDiscoveryCampaign;
+  if (_promoDiscoveryCampaign.enabled){
+    [controller.controlsView addSubview:self.promoButton];
+    self.promoButton.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:
-     @[[self.crownButton.leftAnchor constraintEqualToAnchor:self.trafficButton.view.leftAnchor constant:-4],
-       [self.crownButton.topAnchor constraintEqualToAnchor:self.sideButtons.view.topAnchor]]];
-    [Statistics logEvent:kStatMapCrownButtonShow withParameters:@{kStatTarget : kStatGuidesSubscription}];
+     @[[self.promoButton.centerXAnchor constraintEqualToAnchor:self.trafficButton.view.centerXAnchor],
+       [self.promoButton.topAnchor constraintEqualToAnchor:self.sideButtons.view.topAnchor]]];
   }
   return self;
 }
@@ -108,6 +107,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   [self.searchManager mwm_refreshUI];
   [self.menuController mwm_refreshUI];
   [self.placePageManager mwm_refreshUI];
+  [self.promoButton mwm_refreshUI];
   [self.ownerController setNeedsStatusBarAppearanceUpdate];
 }
 
@@ -239,7 +239,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   auto nm = self.navigationManager;
   [nm onRoutePrepare];
   [nm onRoutePointsUpdated];
-  self.crownButton.hidden = YES;
+  self.promoButton.hidden = YES;
 }
 
 - (void)onRouteRebuild
@@ -248,14 +248,14 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
     self.searchManager.state = MWMSearchManagerStateHidden;
 
   [self.navigationManager onRoutePlanning];
-  self.crownButton.hidden = YES;
+  self.promoButton.hidden = YES;
 }
 
 - (void)onRouteReady:(BOOL)hasWarnings
 {
   self.searchManager.state = MWMSearchManagerStateHidden;
   [self.navigationManager onRouteReady:hasWarnings];
-  self.crownButton.hidden = YES;
+  self.promoButton.hidden = YES;
 }
 
 - (void)onRouteStart
@@ -266,7 +266,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   self.disableStandbyOnRouteFollowing = YES;
   self.trafficButtonHidden = YES;
   [self.navigationManager onRouteStart];
-  self.crownButton.hidden = YES;
+  self.promoButton.hidden = YES;
 }
 
 - (void)onRouteStop
@@ -276,47 +276,19 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   [self.navigationManager onRouteStop];
   self.disableStandbyOnRouteFollowing = NO;
   self.trafficButtonHidden = NO;
-  self.crownButton.hidden = NO;
+  self.promoButton.hidden = NO;
 }
 
-- (void)onCrown:(UIButton *)sender {
-  [Statistics logEvent:kStatMapCrownButtonClick withParameters:@{kStatTarget : kStatGuidesSubscription}];
-  BookmarksSubscriptionViewController *controller = [[BookmarksSubscriptionViewController alloc] init];
-  controller.onSubscribe = ^{
-    MapViewController *mapViewController = self.ownerController;
-    [mapViewController dismissViewControllerAnimated:YES completion:nil];
-    SubscriptionGoToCatalogViewController *successDialog =
-    [[SubscriptionGoToCatalogViewController alloc] init:SubscriptionScreenTypeSightseeing
-                                                   onOk:^{
-      [mapViewController dismissViewControllerAnimated:YES completion:nil];
-      [mapViewController openCatalogAnimated:YES utm:MWMUTMCrownButton];
-    } onCancel:^{
-      [mapViewController dismissViewControllerAnimated:YES completion:nil];
-    }];
-    [mapViewController presentViewController:successDialog animated:YES completion:nil];
-  };
-
-  controller.onCancel = ^{
-    [self.ownerController dismissViewControllerAnimated:YES completion:nil];
-  };
-
-  controller.source = kStatSponsoredButton;
-
-  [self.ownerController presentViewController:controller animated:YES completion:^{
-    self.crownButton.hidden = YES;
-  }];
-  [MWMEye crownClicked];
-}
 
 #pragma mark - Properties
 
-- (UIButton *)crownButton {
-  if (!_crownButton) {
-    _crownButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_crownButton setImage:[UIImage imageNamed:@"bookmarksSubscriptionPromo"] forState:UIControlStateNormal];
-    [_crownButton addTarget:self action:@selector(onCrown:) forControlEvents:UIControlEventTouchUpInside];
+- (UIButton *)promoButton {
+  if (!_promoButton) {
+    PromoCoordinator * coordinator = [[PromoCoordinator alloc] initWithViewController:self.ownerController
+                                                                             campaign:_promoDiscoveryCampaign];
+    _promoButton = [[PromoButton alloc] initWithCoordinator:coordinator];
   }
-  return _crownButton;
+  return _promoButton;
 }
 
 - (MWMSideButtons *)sideButtons
@@ -477,9 +449,9 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 - (BOOL)showPromoBookingIfNeeded {
-  MWMPromoAfterBooking *afterBooking = [MWMPromoApi afterBooking];
-  
-  if (!afterBooking)
+  PromoAfterBookingCampaign * afterBooking = [PromoCampaignManager manager].promoAfterBookingCampaign;
+
+  if (!afterBooking.enabled)
     return NO;
 
   MWMVoidBlock ok = ^{

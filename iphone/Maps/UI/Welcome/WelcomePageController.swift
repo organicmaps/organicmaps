@@ -2,7 +2,6 @@ import UIKit
 
 @objc(MWMWelcomePageControllerProtocol)
 protocol WelcomePageControllerProtocol {
-
   var view: UIView! { get set }
 
   func addChildViewController(_ childController: UIViewController)
@@ -33,34 +32,40 @@ final class WelcomePageController: UIPageViewController {
     }
   }
 
-  @objc static func controller(parent: WelcomePageControllerProtocol) -> WelcomePageController? {
-    var controllersToShow: [WelcomeViewController] = []
+  static func shouldShowWelcome() -> Bool {
+    return WelcomeStorage.shouldShowTerms ||
+      Alohalytics.isFirstSession() ||
+      (WelcomeStorage.shouldShowWhatsNew && !DeepLinkHandler.shared.isLaunchedByDeeplink)
+  }
 
-    if TermsOfUseController.needTerms {
-      controllersToShow.append(TermsOfUseController.controller())
-      controllersToShow.append(contentsOf: FirstLaunchController.controllers())
+  @objc static func controller(parent: WelcomePageControllerProtocol) -> WelcomePageController? {
+    guard WelcomePageController.shouldShowWelcome() else {
+      return nil
+    }
+
+    let vc = WelcomePageController(transitionStyle: .scroll ,
+                                   navigationOrientation: .horizontal,
+                                   options: convertToOptionalUIPageViewControllerOptionsKeyDictionary([:]))
+    vc.parentController = parent
+
+    var controllersToShow: [UIViewController] = []
+
+    if WelcomeStorage.shouldShowTerms {
+      controllersToShow.append(TermsOfUseBuilder.build(delegate: vc))
+      controllersToShow.append(contentsOf: FirstLaunchBuilder.build(delegate: vc))
     } else {
       if Alohalytics.isFirstSession() {
-        TermsOfUseController.needTerms = true
-        controllersToShow.append(TermsOfUseController.controller())
-        controllersToShow.append(contentsOf: FirstLaunchController.controllers())
+        WelcomeStorage.shouldShowTerms = true
+        controllersToShow.append(TermsOfUseBuilder.build(delegate: vc))
+        controllersToShow.append(contentsOf: FirstLaunchBuilder.build(delegate: vc))
       } else {
         NSLog("deeplinking: whats new check")
-        if (WhatsNewController.shouldShowWhatsNew && !DeepLinkHandler.shared.isLaunchedByDeeplink) {
-          controllersToShow.append(contentsOf: WhatsNewController.controllers())
+        if (WelcomeStorage.shouldShowWhatsNew && !DeepLinkHandler.shared.isLaunchedByDeeplink) {
+          controllersToShow.append(contentsOf: WhatsNewBuilder.build(delegate: vc))
         }
       }
     }
 
-    if controllersToShow.count == 0 { return nil }
-
-    let vc = WelcomePageController(transitionStyle: controllersToShow.count > 1 ? .scroll : .pageCurl,
-                                   navigationOrientation: .horizontal,
-                                   options: convertToOptionalUIPageViewControllerOptionsKeyDictionary([:]))
-    vc.parentController = parent
-    controllersToShow.forEach { (controller) in
-      controller.delegate = vc
-    }
     vc.controllers = controllersToShow
     return vc
   }
@@ -78,21 +83,21 @@ final class WelcomePageController: UIPageViewController {
       view.clipsToBounds = true
     }
     currentController = controllers.first
-    WhatsNewController.shouldShowWhatsNew = false
+    WelcomeStorage.shouldShowWhatsNew = false
   }
 
   func nextPage() {
     currentController = pageViewController(self, viewControllerAfter: currentController)
     if let controller = currentController as? WelcomeViewController {
-      Statistics.logEvent(kStatEventName(kStatWhatsNew, type(of: controller).key),
+      Statistics.logEvent(kStatEventName(kStatWhatsNew, controller.key),
                           withParameters: [kStatAction: kStatNext])
     }
   }
 
   func close() {
     if let controller = currentController as? WelcomeViewController {
-      Statistics.logEvent(kStatEventName(kStatWhatsNew, type(of: controller).key),
-                        withParameters: [kStatAction: kStatClose])
+      Statistics.logEvent(kStatEventName(kStatWhatsNew, controller.key),
+                          withParameters: [kStatAction: kStatClose])
     }
     iPadBackgroundView?.removeFromSuperview()
     view.removeFromSuperview()
@@ -103,7 +108,7 @@ final class WelcomePageController: UIPageViewController {
 
   @objc func show() {
     if let controller = currentController as? WelcomeViewController {
-      Statistics.logEvent(kStatEventName(kStatWhatsNew, type(of: controller).key),
+      Statistics.logEvent(kStatEventName(kStatWhatsNew, controller.key),
                           withParameters: [kStatAction: kStatOpen])
     }
     parentController.addChildViewController(self)
@@ -147,8 +152,8 @@ extension WelcomePageController: UIPageViewControllerDataSource {
   }
 }
 
-extension WelcomePageController: WelcomeViewControllerDelegate {
-  func welcomeViewControllerDidPressNext(_ viewContoller: WelcomeViewController) {
+extension WelcomePageController: WelcomeViewDelegate {
+  func welcomeDidPressNext(_ viewContoller: UIViewController) {
     guard let index = controllers.firstIndex(of: viewContoller) else {
       close()
       return
@@ -157,10 +162,7 @@ extension WelcomePageController: WelcomeViewControllerDelegate {
       nextPage()
     } else {
       if DeepLinkHandler.shared.needExtraWelcomeScreen {
-        let sb = UIStoryboard.instance(.welcome)
-        let vc = sb.instantiateViewController(withIdentifier: "DeeplinkInfoViewController") as! DeeplinkInfoViewController
-        vc.delegate = self
-        vc.deeplinkURL = DeepLinkHandler.shared.deeplinkURL
+        let vc = DeepLinkInfoBuilder.build(delegate: self)
         controllers.append(vc)
         nextPage()
       } else {
@@ -169,14 +171,14 @@ extension WelcomePageController: WelcomeViewControllerDelegate {
       }
     }
   }
-  
-  func welcomeViewControllerDidPressClose(_ viewContoller: WelcomeViewController) {
+
+  func welcomeDidPressClose(_ viewContoller: UIViewController) {
     close()
   }
 }
 
 extension WelcomePageController: DeeplinkInfoViewControllerDelegate {
-  func deeplinkInfoViewControllerDidFinish(_ viewController: DeeplinkInfoViewController, deeplink: URL?) {
+  func deeplinkInfoViewControllerDidFinish(_ viewController: UIViewController, deeplink: URL?) {
     close()
     guard let dl = deeplink else { return }
     DeepLinkHandler.shared.handleDeeplink(dl)
@@ -185,6 +187,6 @@ extension WelcomePageController: DeeplinkInfoViewControllerDelegate {
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToOptionalUIPageViewControllerOptionsKeyDictionary(_ input: [String: Any]?) -> [UIPageViewController.OptionsKey: Any]? {
-	guard let input = input else { return nil }
-	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIPageViewController.OptionsKey(rawValue: key), value)})
+  guard let input = input else { return nil }
+  return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIPageViewController.OptionsKey(rawValue: key), value)})
 }

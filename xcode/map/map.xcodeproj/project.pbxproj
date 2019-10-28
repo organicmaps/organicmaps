@@ -210,6 +210,8 @@
 		67F183811BD5049500AB1840 /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F1837D1BD5049500AB1840 /* libagg.a */; };
 		67F183831BD5049500AB1840 /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F1837F1BD5049500AB1840 /* libminizip.a */; };
 		67F183841BD5049500AB1840 /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F183801BD5049500AB1840 /* libtess2.a */; };
+		991CE2D02372BDB1009EB02A /* onboarding.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 991CE2CE2372BDB0009EB02A /* onboarding.hpp */; };
+		991CE2D12372BDB1009EB02A /* onboarding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2CF2372BDB1009EB02A /* onboarding.cpp */; };
 		BB421D6C1E8C0031005BFA4D /* transliteration_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB421D6A1E8C0026005BFA4D /* transliteration_test.cpp */; };
 		BB4E5F251FCC664A00A77250 /* transit_display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4E5F211FCC664A00A77250 /* transit_display.cpp */; };
 		BB4E5F261FCC664A00A77250 /* transit_display.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB4E5F221FCC664A00A77250 /* transit_display.hpp */; };
@@ -481,6 +483,8 @@
 		67F183801BD5049500AB1840 /* libtess2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtess2.a; path = "../../../omim-xcode-build/Debug/libtess2.a"; sourceTree = "<group>"; };
 		67F183851BD504ED00AB1840 /* libsystem_configuration.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsystem_configuration.tbd; path = usr/lib/system/libsystem_configuration.tbd; sourceTree = SDKROOT; };
 		67F183871BD5050900AB1840 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		991CE2CE2372BDB0009EB02A /* onboarding.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = onboarding.hpp; sourceTree = "<group>"; };
+		991CE2CF2372BDB1009EB02A /* onboarding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = onboarding.cpp; sourceTree = "<group>"; };
 		BB421D6A1E8C0026005BFA4D /* transliteration_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transliteration_test.cpp; sourceTree = "<group>"; };
 		BB4E5F211FCC664A00A77250 /* transit_display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = transit_display.cpp; path = transit/transit_display.cpp; sourceTree = "<group>"; };
 		BB4E5F221FCC664A00A77250 /* transit_display.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = transit_display.hpp; path = transit/transit_display.hpp; sourceTree = "<group>"; };
@@ -828,6 +832,8 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				991CE2CF2372BDB1009EB02A /* onboarding.cpp */,
+				991CE2CE2372BDB0009EB02A /* onboarding.hpp */,
 				45201E921CE4AC90008A4842 /* api_mark_point.cpp */,
 				34921F611BFA0A6900737D6E /* api_mark_point.hpp */,
 				45580ABC1E2CBD5E00CD535D /* benchmark_tools.cpp */,
@@ -1037,6 +1043,7 @@
 				3DEE1ADF21EE03B400054A91 /* power_manager.hpp in Headers */,
 				F6D2CE7F1EDEB7F500636DFD /* routing_manager.hpp in Headers */,
 				451E692921494C2700764A97 /* purchase.hpp in Headers */,
+				991CE2D02372BDB1009EB02A /* onboarding.hpp in Headers */,
 				670E39411C46C5C700E9C0A6 /* gps_tracker.hpp in Headers */,
 				45580ABF1E2CBD5E00CD535D /* benchmark_tools.hpp in Headers */,
 				456E1B3B1F9A3C2A009C32E1 /* search_mark.hpp in Headers */,
@@ -1260,6 +1267,7 @@
 				3DD692B12209E272001C3C62 /* notification_manager_delegate.cpp in Sources */,
 				3DEE1AE121EE03B400054A91 /* power_management_schemas.cpp in Sources */,
 				BBD9E2C61EE9D01900DF189A /* routing_mark.cpp in Sources */,
+				991CE2D12372BDB1009EB02A /* onboarding.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
