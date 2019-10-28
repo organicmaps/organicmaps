@@ -8,7 +8,6 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.View;
 
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 public class FragmentPageViewProvider implements PageViewProvider
 {
@@ -40,7 +39,7 @@ public class FragmentPageViewProvider implements PageViewProvider
     }
   }
 
-  @NonNull
+  @Nullable
   @Override
   public View findViewByIndex(int index)
   {
@@ -49,7 +48,7 @@ public class FragmentPageViewProvider implements PageViewProvider
     if (page == null)
       throw new NoSuchElementException("No such element for tag  : " + tag);
 
-    return Objects.requireNonNull(page.getView());
+    return page.getView();
   }
 
   private int getId()

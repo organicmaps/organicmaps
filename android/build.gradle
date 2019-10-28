@@ -153,13 +153,18 @@ configurations.all {
     force 'androidx.arch.core:core-common:2.0.0-rc01'
     force 'androidx.arch.core:core-runtime:2.0.0-rc01'
     force 'androidx.lifecycle:lifecycle-livedata-core:2.0.0-rc01'
-
+    force "org.jetbrains.kotlin:kotlin-stdlib:1.3.31"
+    force "com.google.code.gson:gson:2.8.5"
     failOnVersionConflict();
   }
 }
 
 android {
   // All properties are read from gradle.properties file
+
+  dataBinding {
+    enabled = true
+  }
   compileSdkVersion propCompileSdkVersion.toInteger()
 
   defaultConfig {

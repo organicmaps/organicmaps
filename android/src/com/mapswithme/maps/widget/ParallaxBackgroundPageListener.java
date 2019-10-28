@@ -2,7 +2,8 @@ package com.mapswithme.maps.widget;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.FragmentActivity;
+import androidx.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -23,7 +24,7 @@ public class ParallaxBackgroundPageListener implements ViewPager.OnPageChangeLis
   @NonNull
   private final ViewPager mPager;
   @NonNull
-  private final AppCompatActivity mActivity;
+  private final Activity mActivity;
   @NonNull
   private final List<Integer> mItems;
 
@@ -34,7 +35,7 @@ public class ParallaxBackgroundPageListener implements ViewPager.OnPageChangeLis
   @NonNull
   private final PageViewProvider mPageViewProvider;
 
-  public ParallaxBackgroundPageListener(@NonNull AppCompatActivity activity,
+  public ParallaxBackgroundPageListener(@NonNull Activity activity,
                                         @NonNull ViewPager pager,
                                         @NonNull List<Integer> items,
                                         @NonNull PageViewProvider pageViewProvider)
@@ -45,7 +46,7 @@ public class ParallaxBackgroundPageListener implements ViewPager.OnPageChangeLis
     mPageViewProvider = pageViewProvider;
   }
 
-  public ParallaxBackgroundPageListener(@NonNull AppCompatActivity activity,
+  public ParallaxBackgroundPageListener(@NonNull FragmentActivity activity,
                                         @NonNull ViewPager pager,
                                         @NonNull List<Integer> items)
   {
@@ -58,8 +59,8 @@ public class ParallaxBackgroundPageListener implements ViewPager.OnPageChangeLis
     if (state == ViewPager.SCROLL_STATE_IDLE)
       setIdlePosition();
 
-    boolean isDragging = state == ViewPager.SCROLL_STATE_DRAGGING;
-    mScrollStarted  = isDragging && !mScrollStarted;
+    boolean isIdle = state == ViewPager.SCROLL_STATE_IDLE;
+    mScrollStarted  = isIdle && !mScrollStarted;
 
     if (mScrollStarted)
       mShouldCalculateScrollDirection = true;
@@ -68,14 +69,17 @@ public class ParallaxBackgroundPageListener implements ViewPager.OnPageChangeLis
   private void setIdlePosition()
   {
     mCurrentPagePosition = mPager.getCurrentItem();
-    mScrollToRight = true;
   }
 
   @Override
   public void onPageSelected(int position)
   {
     if (position == 0)
-      setIdlePosition();
+      onPageScrollStateChanged(ViewPager.SCROLL_STATE_IDLE);
+
+    if (Math.abs(mCurrentPagePosition - position) > 1)
+      mCurrentPagePosition = mScrollToRight ? Math.max(0, position - 1)
+                                            : Math.min(position + 1, mItems.size() - 1);
   }
 
   @Override
@@ -89,10 +93,8 @@ public class ParallaxBackgroundPageListener implements ViewPager.OnPageChangeLis
     }
 
     int scrollX = mPager.getScrollX();
-    if (scrollX == 0 && !mScrollToRight || scrollX == mPager.getWidth() * mItems.size())
-      return;
-
-    int animatedItemIndex = mScrollToRight ? mCurrentPagePosition : mCurrentPagePosition - 1;
+    int animatedItemIndex = mScrollToRight ? Math.min(mCurrentPagePosition, mItems.size() - 1)
+                                           : Math.max(0, mCurrentPagePosition - 1);
     setAlpha(animatedItemIndex, scrollX);
 
     if (scrollX == 0)
@@ -102,6 +104,9 @@ public class ParallaxBackgroundPageListener implements ViewPager.OnPageChangeLis
   private void setAlpha(int animatedItemIndex, int scrollX)
   {
     View view = mPageViewProvider.findViewByIndex(animatedItemIndex);
+    if (view == null)
+      return;
+
     ViewPager.LayoutParams lp = (ViewPager.LayoutParams) view.getLayoutParams();
     if (lp.isDecor)
       return;

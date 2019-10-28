@@ -33,17 +33,17 @@ public class ParallaxBackgroundViewPager extends ViewPager
   public ParallaxBackgroundViewPager(@NonNull Context context, @Nullable AttributeSet attrs)
   {
     super(context, attrs);
-    TypedArray a = context.getTheme()
-                          .obtainStyledAttributes(attrs, R.styleable.ParallaxViewPagerBg, 0, 0);
+    TypedArray array = context.getTheme()
+                              .obtainStyledAttributes(attrs, R.styleable.ParallaxViewPagerBg, 0, 0);
     try
     {
-      mAutoScroll = a.getBoolean(R.styleable.ParallaxViewPagerBg_autoScroll, false);
-      mAutoScrollPeriod = a.getInt(R.styleable.ParallaxViewPagerBg_scrollPeriod,
-                                   DEFAULT_AUTO_SCROLL_PERIOD);
+      mAutoScroll = array.getBoolean(R.styleable.ParallaxViewPagerBg_autoScroll, false);
+      mAutoScrollPeriod = array.getInt(R.styleable.ParallaxViewPagerBg_scrollPeriod,
+                                       DEFAULT_AUTO_SCROLL_PERIOD);
     }
     finally
     {
-      a.recycle();
+      array.recycle();
     }
     mAutoScrollHandler = new Handler();
     mAutoScrollMessage = new AutoScrollMessage();

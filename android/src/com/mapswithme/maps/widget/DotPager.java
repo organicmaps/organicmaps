@@ -46,6 +46,9 @@ public class DotPager implements ViewPager.OnPageChangeListener
   private final Context mContext;
   @Nullable
   private final OnPageChangedListener mListener;
+  private final int mActiveDotDrawableResId;
+  private final int mInactiveDotDrawableResId;
+
 
   private DotPager(@NonNull Builder builder)
   {
@@ -55,6 +58,8 @@ public class DotPager implements ViewPager.OnPageChangeListener
     mIndicator = builder.mIndicatorContainer;
     mListener = builder.mListener;
     mDots = new ImageView[mAdapter.getCount()];
+    mActiveDotDrawableResId = builder.mActiveDotDrawableResId;
+    mInactiveDotDrawableResId = builder.mInactiveDotDrawableResId;
   }
 
   public void show()
@@ -72,7 +77,6 @@ public class DotPager implements ViewPager.OnPageChangeListener
   private void configurePager()
   {
     mPager.setAdapter(mAdapter);
-    mPager.clearOnPageChangeListeners();
     mPager.addOnPageChangeListener(this);
   }
 
@@ -119,7 +123,7 @@ public class DotPager implements ViewPager.OnPageChangeListener
       if (ThemeUtils.isNightTheme())
         dotDrawable = isCurPage ? R.drawable.news_marker_active_night : R.drawable.news_marker_inactive_night;
       else
-        dotDrawable = isCurPage ? R.drawable.news_marker_active : R.drawable.news_marker_inactive;
+        dotDrawable = isCurPage ? mActiveDotDrawableResId : mInactiveDotDrawableResId;
       mDots[i].setImageResource(dotDrawable);
     }
   }
@@ -148,6 +152,8 @@ public class DotPager implements ViewPager.OnPageChangeListener
     private final Context mContext;
     @Nullable
     private OnPageChangedListener mListener;
+    private int mActiveDotDrawableResId = R.drawable.news_marker_active;
+    private int mInactiveDotDrawableResId = R.drawable.news_marker_inactive;
 
     public Builder(@NonNull Context context, @NonNull ViewPager pager, @NonNull PagerAdapter adapter)
     {
@@ -165,6 +171,18 @@ public class DotPager implements ViewPager.OnPageChangeListener
     public Builder setPageChangedListener(@Nullable OnPageChangedListener listener)
     {
       mListener = listener;
+      return this;
+    }
+
+    public Builder setActiveDotDrawable(int resId)
+    {
+      mActiveDotDrawableResId = resId;
+      return this;
+    }
+
+    public Builder setInactiveDotDrawable(int resId)
+    {
+      mInactiveDotDrawableResId = resId;
       return this;
     }
 

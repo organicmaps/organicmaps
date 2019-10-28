@@ -277,4 +277,5 @@
   <dimen name="subs_card_min_width">164dp</dimen>
   <dimen name="pro_label_margin">52dp</dimen>
   <dimen name="promo_single_place_container_height">194dp</dimen>
+  <dimen name="subscription_view_pager_height">144dp</dimen>
 </resources>
