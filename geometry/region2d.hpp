@@ -272,7 +272,8 @@ public:
   template <typename EqualFn>
   bool AtBorder(Point const & pt, double const delta, EqualFn equalF) const
   {
-    if (!m_rect.IsPointInside(pt))
+    auto const rectDelta = static_cast<Coord>(delta);
+    if (!Inflate(m_rect, rectDelta, rectDelta).IsPointInside(pt))
       return false;
 
     const double squaredDelta = delta * delta;

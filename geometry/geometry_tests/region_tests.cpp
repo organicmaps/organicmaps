@@ -235,7 +235,7 @@ UNIT_TEST(Region_ForEachPoint)
 UNIT_TEST(Region_point_at_border_test)
 {
   using P = m2::PointF;
-  P const points[] = {P(0.0, 1.0), P(0.0, 10.0), P(10.0, 10.0), P(10.0, 1.0)};
+  P const points[] = {P(0.0, 1.0), P(0.0, 10.0), P(5.0, 7.0), P(10.0, 10.0), P(10.0, 1.0)};
   m2::Region<P> region(points, points + ARRAY_SIZE(points));
 
   P p1(0, 0);
@@ -243,12 +243,22 @@ UNIT_TEST(Region_point_at_border_test)
   P p3(0.0, 1.0);
   P p4(5.0, 1.0);
   P p5(5.0, 1.01);
+  P p6(5.0, 0.99);
+  P p7(5.0, 7.0);
+  P p8(5.0, 6.98);
+  P p9(5.0, 6.995);
+  P p10(5.0, 7.01);
 
   TEST(!region.AtBorder(p1, 0.01), ("Point lies outside the border"));
   TEST(!region.AtBorder(p2, 0.01), ("Point lies strictly inside the border"));
   TEST(region.AtBorder(p3, 0.01), ("Point has same point with the border"));
   TEST(region.AtBorder(p4, 0.01), ("Point lies at the border"));
-  TEST(region.AtBorder(p5, 0.01), ("Point lies at delta interval near the border"));
+  TEST(region.AtBorder(p5, 0.01), ("Point lies at delta interval near the border inside polygon"));
+  TEST(region.AtBorder(p6, 0.01), ("Point lies at delta interval near the border outside polygon"));
+  TEST(region.AtBorder(p7, 0.01), ("Point has same point with the border"));
+  TEST(!region.AtBorder(p8, 0.01), ("Point is too far from border"));
+  TEST(region.AtBorder(p9, 0.01), ("Point lies at delta interval near the border outside polygon"));
+  TEST(region.AtBorder(p10, 0.01), ("Point lies at delta interval near the border inside polygon"));
 }
 
 UNIT_TEST(Region_border_intersecion_Test)
