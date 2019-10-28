@@ -1749,6 +1749,36 @@
 	<string name="catalog_no_internet_button">Try again</string>
 	<string name="whatsnew_map_updates_title">Lightning-fast map updates</string>
 	<string name="whatsnew_map_updates_message">From now on we update the data twice as fast</string>
+	<!-- FIXME -->
+	<string name="all_pass_subscription_header">all_pass_subscription_header</string>
+	<!-- FIXME -->
+	<string name="all_pass_subscription_subheader">all_pass_subscription_subheader</string>
+	<!-- FIXME -->
+	<string name="all_pass_subscription_message_title">all_pass_subscription_message_title</string>
+	<!-- FIXME -->
+	<string name="all_pass_subscription_message_subtitle">all_pass_subscription_message_subtitle</string>
+	<!-- FIXME -->
+	<string name="all_pass_subscription_message_title_2">all_pass_subscription_message_title_2</string>
+	<!-- FIXME -->
+	<string name="all_pass_subscription_message_subtitle_2">all_pass_subscription_message_subtitle_2</string>
+	<!-- FIXME -->
+	<string name="all_pass_subscription_message_title_3">all_pass_subscription_message_subtitle_3</string>
+	<!-- FIXME -->
+	<string name="all_pass_subscription_message_subtitle_3">all_pass_subscription_message_subtitle_3</string>
+	<!-- FIXME -->
+	<string name="sightseeing_subscription_header_sightseeing">sightseeing_subscription_header_sightseeing</string>
+	<!-- FIXME -->
+	<string name="sightseeing_subscription_header_subscription">sightseeing_subscription_header_subscription</string>
+	<!-- FIXME -->
+	<string name="sightseeing_subscription_message">bookmarks_public_access</string>
+	<!-- FIXME -->
+	<string name="sightseeing_subscription_message_2">sightseeing_subscription_message_2</string>
+	<!-- FIXME -->
+	<string name="sightseeing_subscription_message_3">sightseeing_subscription_message_3</string>
+	<!-- FIXME -->
+	<string name="subscription_success_dialog_title_sightseeing_pass">subscription_success_dialog_title_sightseeing_pass</string>
+	<!-- FIXME -->
+	<string name="subscription_success_dialog_message_sightseeing_pass">subscription_success_dialog_message_sightseeing_pass</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
