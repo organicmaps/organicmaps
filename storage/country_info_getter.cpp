@@ -88,17 +88,16 @@ std::vector<CountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD co
   return result;
 }
 
-void CountryInfoGetter::GetRegionsCountryId(m2::PointD const & pt, CountriesVec & closestCoutryIds)
+void CountryInfoGetter::GetRegionsCountryId(m2::PointD const & pt, CountriesVec & closestCoutryIds,
+                                            double lookupRadiusM)
 {
-  double const kLookupRadiusM = 30 /* km */ * 1000;
-
   closestCoutryIds.clear();
 
-  m2::RectD const lookupRect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, kLookupRadiusM);
+  m2::RectD const lookupRect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, lookupRadiusM);
 
   for (size_t id = 0; id < m_countries.size(); ++id)
   {
-    if (m_countries[id].m_rect.IsIntersect(lookupRect) && IsCloseEnough(id, pt, kLookupRadiusM))
+    if (m_countries[id].m_rect.IsIntersect(lookupRect) && IsCloseEnough(id, pt, lookupRadiusM))
       closestCoutryIds.emplace_back(m_countries[id].m_countryId);
   }
 }

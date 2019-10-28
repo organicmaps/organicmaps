@@ -73,7 +73,8 @@ public:
   // |closestCoutryIds| is filled with country ids of mwms that cover |pt| or are close to it
   // with the exception of World.mwm and custom user-provided mwms.
   // The result may be empty, for example if |pt| is somewhere in an ocean.
-  void GetRegionsCountryId(m2::PointD const & pt, CountriesVec & closestCoutryIds);
+  void GetRegionsCountryId(m2::PointD const & pt, CountriesVec & closestCoutryIds,
+                           double lookupRadiusM = 30000.0 /* 30 km */);
 
   // Fills info for the region |pt| belongs to.
   void GetRegionInfo(m2::PointD const & pt, CountryInfo & info) const;
