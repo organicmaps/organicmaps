@@ -144,7 +144,7 @@
   auto const pointsCount = points.size();
   
   if (pointsCount > 1) {
-    self.rm.BuildRoute(0 /* timeoutSec */);
+    self.rm.BuildRoute();
   } else {
     if (errorPtr) {
       if (pointsCount == 0) {

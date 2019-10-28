@@ -4,6 +4,7 @@
 
 #include "routing/checkpoints.hpp"
 #include "routing/index_router.hpp"
+#include "routing/router_delegate.hpp"
 #include "routing/routing_callbacks.hpp"
 #include "routing/segment.hpp"
 #include "routing/vehicle_mask.hpp"
@@ -60,7 +61,7 @@ public:
 
     VehicleType m_type = VehicleType::Car;
     Checkpoints m_checkpoints;
-    uint32_t m_timeoutSeconds = 0;
+    uint32_t m_timeoutSeconds = RouterDelegate::kNoTimeout;
   };
 
   struct Route

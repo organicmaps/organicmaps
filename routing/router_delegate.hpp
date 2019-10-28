@@ -10,26 +10,11 @@
 
 namespace routing
 {
-class TimeoutCancellable : public base::Cancellable
+class RouterDelegate
 {
 public:
-  TimeoutCancellable();
+  static auto constexpr kNoTimeout = std::numeric_limits<uint32_t>::max();
 
-  /// Sets timeout before cancellation. 0 means an infinite timeout.
-  void SetTimeout(uint32_t timeoutSec);
-
-  // Cancellable overrides:
-  bool IsCancelled() const override;
-  void Reset() override;
-
-private:
-  base::Timer m_timer;
-  uint32_t m_timeoutSec;
-};
-
-class RouterDelegate : public TimeoutCancellable
-{
-public:
   RouterDelegate();
 
   /// Set routing progress. Waits current progress status from 0 to 100.
@@ -39,11 +24,17 @@ public:
   void SetProgressCallback(ProgressCallback const & progressCallback);
   void SetPointCheckCallback(PointCheckCallback const & pointCallback);
 
-  void Reset() override;
+  void SetTimeout(uint32_t timeoutSec);
+
+  base::Cancellable const & GetCancellable() const { return m_cancellable; }
+  void Reset() { return m_cancellable.Reset(); }
+  void Cancel() { return m_cancellable.Cancel(); }
+  bool IsCancelled() const { return m_cancellable.IsCancelled(); }
 
 private:
-  mutable std::mutex m_guard;
   ProgressCallback m_progressCallback;
   PointCheckCallback m_pointCallback;
+
+  base::Cancellable m_cancellable;
 };
 } //  namespace routing

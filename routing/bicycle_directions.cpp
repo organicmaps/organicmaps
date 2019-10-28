@@ -178,7 +178,7 @@ bool BicycleDirectionsEngine::Generate(IndexRoadGraph const & graph, vector<Junc
   streetNames.clear();
   routeGeometry.clear();
   segments.clear();
-  
+
   size_t const pathSize = path.size();
   // Note. According to Route::IsValid() method route of zero or one point is invalid.
   if (pathSize <= 1)
@@ -199,9 +199,8 @@ bool BicycleDirectionsEngine::Generate(IndexRoadGraph const & graph, vector<Junc
     return false;
 
   ::RoutingResult resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
-  RouterDelegate delegate;
-
-  MakeTurnAnnotation(resultGraph, *m_numMwmIds, delegate, routeGeometry, turns, streetNames, segments);
+  MakeTurnAnnotation(resultGraph, *m_numMwmIds, cancellable, routeGeometry, turns, streetNames,
+                     segments);
   CHECK_EQUAL(routeGeometry.size(), pathSize, ());
   // In case of bicycle routing |m_pathSegments| may have an empty
   // |LoadedPathSegment::m_segments| fields. In that case |segments| is empty

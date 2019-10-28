@@ -53,7 +53,7 @@ public:
                       NeedMoreMapsCallback const & needMoreMapsCallback,
                       RemoveRouteCallback const & removeRouteCallback,
                       ProgressCallback const & progressCallback,
-                      uint32_t timeoutSec);
+                      uint32_t timeoutSec = RouterDelegate::kNoTimeout);
 
   /// Interrupt routing and clear buffers
   void ClearState();

@@ -192,9 +192,10 @@ TestAStarBidirectionalAlgo::Result TestAStarBidirectionalAlgo::CalculateRoute(
     RoutingResult<IRoadGraph::Vertex, IRoadGraph::Weight> & path)
 {
   RoadGraph roadGraph(graph);
-  base::Cancellable const cancellable;
+  base::Cancellable cancellable;
   Algorithm::Params params(roadGraph, startPos, finalPos, {} /* prevRoute */,
-                           cancellable, {} /* onVisitJunctionFn */, {} /* checkLength */);
+                           cancellable, {} /* onVisitJunctionFn */,
+                           {} /* checkLength */);
   Algorithm::Result const res = Algorithm().FindPathBidirectional(params, path);
   return Convert(res);
 }

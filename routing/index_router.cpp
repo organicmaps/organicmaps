@@ -494,7 +494,7 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
 
   // TODO (@gmoryes) https://jira.mail.ru/browse/MAPSME-10694
   //  We should do RedressRoute for each subroute separately.
-  auto redressResult = RedressRoute(segments, delegate, *starter, route);
+  auto redressResult = RedressRoute(segments, delegate.GetCancellable(), *starter, route);
   if (redressResult != RouterResultCode::NoError)
     return redressResult;
 
@@ -602,7 +602,7 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
 
     AStarAlgorithm<Vertex, Edge, Weight>::Params params(
       jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(), nullptr /* prevRoute */,
-      delegate, onVisitJunctionJoints, checkLength);
+      delegate.GetCancellable(), onVisitJunctionJoints, checkLength);
 
     set<NumMwmId> const mwmIds = starter.GetMwms();
     RouterResultCode const result = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult, mode);
@@ -647,7 +647,7 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
     RoutingResult<Segment, RouteWeight> routingResult;
     AStarAlgorithm<Vertex, Edge, Weight>::Params params(
       starter, starter.GetStartSegment(), starter.GetFinishSegment(), nullptr /* prevRoute */,
-      delegate, onVisitJunction, checkLength);
+      delegate.GetCancellable(), onVisitJunction, checkLength);
 
     set<NumMwmId> const mwmIds = starter.GetMwms();
     RouterResultCode const result = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult, mode);
@@ -745,8 +745,9 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
 
   AStarAlgorithm<Vertex, Edge, Weight> algorithm;
   AStarAlgorithm<Vertex, Edge, Weight>::Params params(starter, starter.GetStartSegment(),
-                                                      {} /* finalVertex */, &prevEdges, delegate,
-                                                      onVisitJunction, checkLength);
+                                                      {} /* finalVertex */, &prevEdges,
+                                                      delegate.GetCancellable(), onVisitJunction,
+                                                      checkLength);
   RoutingResult<Segment, RouteWeight> result;
   auto const resultCode =
       ConvertResult<Vertex, Edge, Weight>(algorithm.AdjustRoute(params, result));
@@ -780,7 +781,7 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   route.SetCurrentSubrouteIdx(checkpoints.GetPassedIdx());
   route.SetSubroteAttrs(move(subroutes));
 
-  auto const redressResult = RedressRoute(result.m_path, delegate, starter, route);
+  auto const redressResult = RedressRoute(result.m_path, delegate.GetCancellable(), starter, route);
   if (redressResult != RouterResultCode::NoError)
     return redressResult;
 
@@ -1173,8 +1174,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
 
     AStarAlgorithm<Vertex, Edge, Weight>::Params params(
       jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(),
-      nullptr /* prevRoute */, delegate,
-      onVisitJunctionJoints, checkLength);
+      nullptr /* prevRoute */, delegate.GetCancellable(), onVisitJunctionJoints, checkLength);
 
     resultCode = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult, mode);
     return resultCode;
@@ -1290,7 +1290,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
 }
 
 RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
-                                           RouterDelegate const & delegate,
+                                           base::Cancellable const & cancellable,
                                            IndexGraphStarter & starter, Route & route) const
 {
   CHECK(!segments.empty(), ());
@@ -1321,8 +1321,8 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   }
 
   CHECK(m_directionsEngine, ());
-  ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, delegate, junctions, move(times),
-                   route);
+  ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, cancellable, junctions,
+                   move(times), route);
 
   CHECK(m_numMwmIds, ());
   auto & worldGraph = starter.GetGraph();
@@ -1353,7 +1353,7 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   FillSpeedCamProhibitedMwms(segments, speedCamProhibited);
   route.SetMwmsPartlyProhibitedForSpeedCams(move(speedCamProhibited));
 
-  if (delegate.IsCancelled())
+  if (cancellable.IsCancelled())
     return RouterResultCode::Cancelled;
 
   if (!route.IsValid())

@@ -427,7 +427,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
     self.type = routerType(rm.GetBestRouter(points.front().m_position, points.back().m_position));
 
   [[MWMMapViewControlsManager manager] onRouteRebuild];
-  rm.BuildRoute(0 /* timeoutSec */);
+  rm.BuildRoute();
 }
 
 + (void)start

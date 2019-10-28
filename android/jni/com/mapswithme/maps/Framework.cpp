@@ -1245,7 +1245,7 @@ Java_com_mapswithme_maps_Framework_nativeCloseRouting(JNIEnv * env, jclass)
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeBuildRoute(JNIEnv * env, jclass)
 {
-  frm()->GetRoutingManager().BuildRoute(0 /* timeoutSec */);
+  frm()->GetRoutingManager().BuildRoute();
 }
 
 JNIEXPORT void JNICALL

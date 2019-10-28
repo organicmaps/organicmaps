@@ -121,7 +121,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTest, NeedMoreMapsSignalTest)
   async.CalculateRoute(Checkpoints({1, 2} /* start */, {5, 6} /* finish */), {3, 4}, false,
                        bind(ref(resultCallback), _1, _2) /* readyCallback */,
                        bind(ref(resultCallback), _1, _2) /* needMoreMapsCallback */,
-                       nullptr /* removeRouteCallback */, nullptr /* progressCallback */, 0);
+                       nullptr /* removeRouteCallback */, nullptr /* progressCallback */);
 
   resultCallback.WaitFinish();
 
@@ -143,7 +143,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTest, StandardAsyncFogTest)
   async.SetRouter(move(router), move(fetcher));
   async.CalculateRoute(Checkpoints({1, 2} /* start */, {5, 6} /* finish */), {3, 4}, false,
                        bind(ref(resultCallback), _1, _2), nullptr /* needMoreMapsCallback */,
-                       nullptr /* progressCallback */, nullptr /* removeRouteCallback */, 0);
+                       nullptr /* progressCallback */, nullptr /* removeRouteCallback */);
 
   resultCallback.WaitFinish();
 

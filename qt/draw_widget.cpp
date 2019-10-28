@@ -223,7 +223,7 @@ void DrawWidget::initializeGL()
   m_framework.GetRoutingManager().LoadRoutePoints([this](bool success)
   {
     if (success)
-      m_framework.GetRoutingManager().BuildRoute(0 /* timeoutSec */);
+      m_framework.GetRoutingManager().BuildRoute();
   });
 
   if (m_screenshotMode)
@@ -586,7 +586,7 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
   routingManager.AddRoutePoint(std::move(point));
 
   if (routingManager.GetRoutePoints().size() >= 2)
-    routingManager.BuildRoute(0 /* timeoutSec */);
+    routingManager.BuildRoute();
 }
 
 void DrawWidget::SubmitBookmark(m2::PointD const & pt)
@@ -648,7 +648,7 @@ void DrawWidget::OnRouteRecommendation(RoutingManager::Recommendation recommenda
     routingManager.AddRoutePoint(std::move(startPoint));
 
     if (routingManager.GetRoutePoints().size() >= 2)
-      routingManager.BuildRoute(0 /* timeoutSec */);
+      routingManager.BuildRoute();
   }
 }
 

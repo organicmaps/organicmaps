@@ -1,4 +1,5 @@
 #include "routing/routing_helpers.hpp"
+
 #include "routing/road_point.hpp"
 #include "routing/segment.hpp"
 

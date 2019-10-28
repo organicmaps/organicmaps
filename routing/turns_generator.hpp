@@ -94,9 +94,9 @@ bool GetNextRoutePointIndex(IRoutingResult const & result, RoutePointIndex const
  * \return routing operation result code.
  */
 RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds const & numMwmIds,
-                                       RouterDelegate const & delegate, std::vector<Junction> & points,
-                                       Route::TTurns & turnsDir, Route::TStreets & streets,
-                                       std::vector<Segment> & segments);
+                                    base::Cancellable const & cancellable,
+                                    std::vector<Junction> & points, Route::TTurns & turnsDir,
+                                    Route::TStreets & streets, std::vector<Segment> & segments);
 
 // Returns the distance in meractor units for the path of points for the range [startPointIndex, endPointIndex].
 double CalculateMercatorDistanceAlongPath(uint32_t startPointIndex, uint32_t endPointIndex,

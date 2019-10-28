@@ -569,13 +569,13 @@ bool GetNextRoutePointIndex(IRoutingResult const & result, RoutePointIndex const
 }
 
 RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds const & numMwmIds,
-                                    RouterDelegate const & delegate,
+                                    base::Cancellable const & cancellable,
                                     vector<Junction> & junctions, Route::TTurns & turnsDir,
                                     Route::TStreets & streets, vector<Segment> & segments)
 {
   LOG(LDEBUG, ("Shortest th length:", result.GetPathLength()));
 
-  if (delegate.IsCancelled())
+  if (cancellable.IsCancelled())
     return RouterResultCode::Cancelled;
   // Annotate turns.
   size_t skipTurnSegments = 0;

@@ -153,8 +153,10 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteBuilding)
           LOG(LINFO, ("Ready"));
           timedSignal.Signal();
         },
-        nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
-    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
+        nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */,
+        nullptr /* removeRouteCallback */);
+    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()),
+                          RouterDelegate::kNoTimeout);
   });
 
   // Manual check of the routeBuilding mutex to avoid spurious results.
@@ -185,7 +187,8 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingA
         [&alongTimedSignal](Route const &, RouterResultCode) { alongTimedSignal.Signal(); },
         nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */,
         nullptr /* removeRouteCallback */);
-    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
+    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()),
+                          RouterDelegate::RouterDelegate::kNoTimeout);
   });
   TEST(alongTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
   TEST_EQUAL(counter, 1, ());
@@ -219,7 +222,8 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingA
           {SessionState::OnRoute, SessionState::RoutingNotActive, SessionState::RouteBuilding},
           *m_session);
 
-      m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
+      m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()),
+                            RouterDelegate::kNoTimeout);
     }
   });
   TEST(oppositeTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
@@ -265,7 +269,8 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingT
         [&alongTimedSignal](Route const &, RouterResultCode) { alongTimedSignal.Signal(); },
         nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */,
         nullptr /* removeRouteCallback */);
-    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
+    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()),
+                          RouterDelegate::kNoTimeout);
   });
   TEST(alongTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
   TEST_EQUAL(counter, 1, ());
@@ -314,7 +319,8 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
         [&alongTimedSignal](Route const &, RouterResultCode) { alongTimedSignal.Signal(); },
         nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */,
         nullptr /* removeRouteCallback */);
-    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
+    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()),
+                          RouterDelegate::kNoTimeout);
   });
   TEST(alongTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
 
@@ -342,7 +348,8 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
         [&oppositeTimedSignal](Route const &, RouterResultCode) { oppositeTimedSignal.Signal(); },
         nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */,
         nullptr /* removeRouteCallback */);
-    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
+    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()),
+                          RouterDelegate::kNoTimeout);
   });
   TEST(oppositeTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
 
@@ -367,7 +374,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
     m_session->RebuildRoute(
         kTestRoute.front(),
         [&rebuildTimedSignal](Route const &, RouterResultCode) { rebuildTimedSignal.Signal(); },
-        nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */, 0,
+        nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */, RouterDelegate::kNoTimeout,
         SessionState::RouteBuilding, false /* adjust */);
   });
   TEST(rebuildTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
@@ -401,7 +408,8 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRoutePercentTest
         [&alongTimedSignal](Route const &, RouterResultCode) { alongTimedSignal.Signal(); },
         nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */,
         nullptr /* removeRouteCallback */);
-    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
+    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()),
+                          RouterDelegate::kNoTimeout);
   });
   TEST(alongTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
 

@@ -153,7 +153,7 @@ private:
                                       IndexGraphStarter & starter, AStarProgress & progress,
                                       std::vector<Segment> & output);
   RouterResultCode RedressRoute(std::vector<Segment> const & segments,
-                                RouterDelegate const & delegate, IndexGraphStarter & starter,
+                                base::Cancellable const & cancellable, IndexGraphStarter & starter,
                                 Route & route) const;
 
   bool AreMwmsNear(IndexGraphStarter const & starter) const;
