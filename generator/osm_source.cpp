@@ -185,7 +185,7 @@ bool ProcessorOsmElementsFromO5M::TryRead(OsmElement & element)
   // iterating in loop. Furthermore, into Tags() method calls Nodes.Skip() and Members.Skip(),
   // thus first call of Nodes (Members) after Tags() will not return any results.
   // So don not reorder the "for" loops (!).
-  auto const entity = *m_pos;
+  auto const & entity = *m_pos;
   element.m_id = entity.id;
   switch (entity.type)
   {
