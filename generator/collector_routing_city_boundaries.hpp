@@ -1,0 +1,99 @@
+#pragma once
+
+#include "generator/collector_interface.hpp"
+#include "generator/feature_builder.hpp"
+#include "generator/feature_maker.hpp"
+#include "generator/intermediate_data.hpp"
+
+#include "indexer/ftypes_matcher.hpp"
+
+#include "coding/reader.hpp"
+
+#include <cstdint>
+#include <memory>
+
+namespace generator
+{
+namespace cache
+{
+class IntermediateDataReader;
+}  // namespace cache
+
+class RoutingCityBoundariesWriter;
+
+class RoutingCityBoundariesCollector : public CollectorInterface
+{
+public:
+  struct LocalityData
+  {
+    LocalityData() = default;
+    LocalityData(uint64_t population, ftypes::LocalityType place, m2::PointD const & position)
+      : m_population(population), m_place(place), m_position(position)
+    {
+    }
+
+    static void Serialize(FileWriter & writer, LocalityData const & localityData);
+    static LocalityData Deserialize(ReaderSource<FileReader> & reader);
+
+    uint64_t m_population = 0;
+    ftypes::LocalityType m_place = ftypes::LocalityType::None;
+    m2::PointD m_position = m2::PointD::Zero();
+  };
+
+  RoutingCityBoundariesCollector(std::string const & filename,
+                                 std::shared_ptr<cache::IntermediateData> cache);
+
+  // CollectorInterface overrides:
+  std::shared_ptr<CollectorInterface> Clone(
+      std::shared_ptr<cache::IntermediateDataReader> const & = {}) const override;
+
+  void Collect(OsmElement const & osmElement) override;
+  void Finish() override;
+  void Save() override;
+
+  void Merge(generator::CollectorInterface const & collector) override;
+  void MergeInto(RoutingCityBoundariesCollector & collector) const override;
+
+  void Process(feature::FeatureBuilder & feature, OsmElement const & osmElement);
+private:
+
+  std::unique_ptr<RoutingCityBoundariesWriter> m_writer;
+  std::shared_ptr<cache::IntermediateData> m_cache;
+  FeatureMakerSimple m_featureMakerSimple;
+};
+
+class RoutingCityBoundariesWriter
+{
+public:
+  using LocalityData = RoutingCityBoundariesCollector::LocalityData;
+
+  static std::string GetNodeToLocalityDataFilename(std::string const & filename);
+  static std::string GetNodeToBoundariesFilename(std::string const & filename);
+  static std::string GetFeaturesBuilderFilename(std::string const & filename);
+
+  explicit RoutingCityBoundariesWriter(std::string const & filename);
+
+  void Process(uint64_t nodeOsmId, LocalityData const & localityData);
+  void Process(uint64_t nodeOsmId, feature::FeatureBuilder const & feature);
+  void Process(feature::FeatureBuilder const & feature);
+
+  void Reset();
+  void MergeInto(RoutingCityBoundariesWriter & writer);
+  void Save(std::string const & finalFileName);
+
+private:
+  using MinAccuracy = feature::serialization_policy::MinSize;
+  using FeatureWriter = feature::FeatureBuilderWriter<MinAccuracy>;
+
+  std::string m_nodeOsmIdToLocalityDataFilename;
+  std::string m_nodeOsmIdToBoundariesFilename;
+  std::string m_featureBuilderFilename;
+
+  uint64_t m_nodeOsmIdToLocalityDataCount = 0;
+  uint64_t m_nodeOsmIdToBoundariesCount = 0;
+
+  std::unique_ptr<FileWriter> m_nodeOsmIdToLocalityDataWriter;
+  std::unique_ptr<FileWriter> m_nodeOsmIdToBoundariesWriter;
+  std::unique_ptr<FeatureWriter> m_featureBuilderWriter;
+};
+}  // namespace generator

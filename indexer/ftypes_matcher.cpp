@@ -103,6 +103,21 @@ string DebugPrint(HighwayClass const cls)
   return out.str();
 }
 
+std::string DebugPrint(LocalityType const localityType)
+{
+  switch (localityType)
+  {
+  case LocalityType::None: return "None";
+  case LocalityType::Country: return "Country";
+  case LocalityType::State: return "State";
+  case LocalityType::City: return "City";
+  case LocalityType::Town: return "Town";
+  case LocalityType::Village: return "Village";
+  case LocalityType::Count: return "Count";
+  }
+  UNREACHABLE();
+}
+
 HighwayClass GetHighwayClass(feature::TypesHolder const & types)
 {
   uint8_t constexpr kTruncLevel = 2;
@@ -706,7 +721,24 @@ uint64_t GetPopulation(FeatureType & ft)
 
 double GetRadiusByPopulation(uint64_t p)
 {
-  return pow(static_cast<double>(p), 0.277778) * 550.0;
+  return pow(static_cast<double>(p), 1 / 3.6) * 550.0;
+}
+
+// Look to: https://confluence.mail.ru/pages/viewpage.action?pageId=287950469
+// for details about factors.
+// Shortly, we assume: radius = (population ^ (1 / base)) * mult
+// We knew area info about some cities|towns|villages and did grid search.
+// Interval for base: [0.1, 100].
+// Interval for mult: [10, 1000].
+double GetRadiusByPopulationForRouting(uint64_t p, LocalityType localityType)
+{
+  switch (localityType)
+  {
+  case LocalityType::City: return pow(static_cast<double>(p), 1.0 / 2.6) * 50;
+  case LocalityType::Town: return pow(static_cast<double>(p), 1.0 / 4.4) * 210.0;
+  case LocalityType::Village: return pow(static_cast<double>(p), 1.0 / 15.3) * 730.0;
+  default: UNREACHABLE();
+  }
 }
 
 uint64_t GetPopulationByRadius(double r)

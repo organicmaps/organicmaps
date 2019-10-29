@@ -425,6 +425,7 @@ bool IsCityTownOrVillage(Types const & types)
 //@{
 uint64_t GetPopulation(FeatureType & ft);
 double GetRadiusByPopulation(uint64_t p);
+double GetRadiusByPopulationForRouting(uint64_t p, LocalityType localityType);
 uint64_t GetPopulationByRadius(double r);
 //@}
 
@@ -452,6 +453,7 @@ enum class HighwayClass
 };
 
 std::string DebugPrint(HighwayClass const cls);
+std::string DebugPrint(LocalityType const localityType);
 
 HighwayClass GetHighwayClass(feature::TypesHolder const & types);
 }  // namespace ftypes

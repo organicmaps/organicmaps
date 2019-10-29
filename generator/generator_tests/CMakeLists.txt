@@ -13,6 +13,7 @@ set(
   cluster_finder_tests.cpp
   coasts_test.cpp
   collector_city_area_tests.cpp
+  collector_routing_city_boundaries_tests.cpp
   common.cpp
   common.hpp
   complex_loader_tests.cpp
@@ -31,6 +32,7 @@ set(
   mini_roundabout_tests.cpp
   node_mixer_test.cpp
   osm2meta_test.cpp
+  osm_element_helpers_tests.cpp
   osm_o5m_source_test.cpp
   osm_type_test.cpp
   place_processor_tests.cpp

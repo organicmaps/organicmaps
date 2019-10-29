@@ -101,6 +101,8 @@
 #define MINI_ROUNDABOUTS_FILENAME "mini_roundabouts.bin"
 #define MAXSPEEDS_FILENAME "maxspeeds.csv"
 #define CITIES_AREAS_TMP_FILENAME "cities_areas" DATA_FILE_EXTENSION_TMP
+#define ROUTING_CITY_BOUNDARIES_TMP_FILENAME "routing_city_boundaries" DATA_FILE_EXTENSION_TMP
+#define ROUTING_CITY_BOUNDARIES_DUMP_FILENAME "routing_city_boundaries.bin"
 #define CROSS_MWM_OSM_WAYS_DIR "cross_mwm_osm_ways"
 
 #define TRAFFIC_FILE_EXTENSION ".traffic"

@@ -47,6 +47,8 @@ set(
   collector_interface.hpp
   collector_mini_roundabout.cpp
   collector_mini_roundabout.hpp
+  collector_routing_city_boundaries.cpp
+  collector_routing_city_boundaries.hpp
   collector_tag.cpp
   collector_tag.hpp
   complex_loader.cpp
@@ -78,8 +80,6 @@ set(
   feature_sorter.cpp
   feature_sorter.hpp
   features_processing_helpers.hpp
-  filter_roads.cpp
-  filter_roads.hpp
   filter_collection.cpp
   filter_collection.hpp
   filter_complex.cpp
@@ -89,6 +89,8 @@ set(
   filter_interface.hpp
   filter_planet.cpp
   filter_planet.hpp
+  filter_roads.cpp
+  filter_roads.hpp
   filter_world.cpp
   filter_world.hpp
   final_processor_intermediate_mwm.cpp
@@ -175,6 +177,8 @@ set(
   restriction_writer.hpp
   road_access_generator.cpp
   road_access_generator.hpp
+  routing_city_boundaries_processor.cpp
+  routing_city_boundaries_processor.hpp
   routing_helpers.cpp
   routing_helpers.hpp
   routing_index_generator.cpp

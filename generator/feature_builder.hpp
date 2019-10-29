@@ -403,10 +403,16 @@ public:
 
   void Write(FeatureBuilder const & fb)
   {
+    Write(m_writer, fb);
+  }
+
+  template <typename Sink>
+  static void Write(Sink & writer, FeatureBuilder const & fb)
+  {
     FeatureBuilder::Buffer buffer;
     SerializationPolicy::Serialize(fb, buffer);
-    WriteVarUint(m_writer, static_cast<uint32_t>(buffer.size()));
-    m_writer.Write(buffer.data(), buffer.size() * sizeof(FeatureBuilder::Buffer::value_type));
+    WriteVarUint(writer, static_cast<uint32_t>(buffer.size()));
+    writer.Write(buffer.data(), buffer.size() * sizeof(FeatureBuilder::Buffer::value_type));
   }
 
 private:

@@ -57,12 +57,15 @@ public:
   void SetMiniRoundabouts(std::string const & filename);
 
   void DumpCitiesBoundaries(std::string const & filename);
+  void DumpRoutingCitiesBoundariesFilename(std::string const & collectorFilename,
+                                           std::string const & dumpPath);
 
   // FinalProcessorIntermediateMwmInterface overrides:
   void Process() override;
 
 private:
   void ProcessBooking();
+  void ProcessRoutingCityBoundaries();
   void ProcessCities();
   void ProcessCoastline();
   void ProcessRoundabouts();
@@ -79,6 +82,10 @@ private:
   std::string m_citiesFilename;
   std::string m_fakeNodesFilename;
   std::string m_miniRoundaboutsFilename;
+
+  std::string m_routingCityBoundariesCollectorFilename;
+  std::string m_routingCityBoundariesDumpPath;
+
   bool m_haveBordersForWholeWorld;
   size_t m_threadsCount;
 };
