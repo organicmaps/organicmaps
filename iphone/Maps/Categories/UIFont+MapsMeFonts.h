@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIFont *)semibold12;
 + (UIFont *)semibold14;
 + (UIFont *)semibold16;
-+ (UIFont *)fredoka25;
++ (UIFont *)fredokaRegular25;
 
 + (UIFont *)fontWithName:(NSString *)fontName;
 
