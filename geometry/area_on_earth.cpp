@@ -1,11 +1,7 @@
 #include "geometry/area_on_earth.hpp"
 
-#include "geometry/convex_hull.hpp"
 #include "geometry/distance_on_sphere.hpp"
-#include "geometry/mercator.hpp"
 #include "geometry/point3d.hpp"
-#include "geometry/polygon.hpp"
-#include "geometry/segment2d.hpp"
 
 #include "base/assert.hpp"
 
@@ -15,6 +11,21 @@
 namespace
 {
 double const kEarthRadiusMetersSquared = ms::kEarthRadiusMeters * ms::kEarthRadiusMeters;
+
+m3::PointD GetPointOnSphere(ms::LatLon const & ll, double sphereRadius)
+{
+  ASSERT(ms::LatLon::kMinLat <= ll.m_lat && ll.m_lat <= ms::LatLon::kMaxLat, (ll));
+  ASSERT(ms::LatLon::kMinLon <= ll.m_lon && ll.m_lon <= ms::LatLon::kMaxLon, (ll));
+
+  double const latRad = base::DegToRad(ll.m_lat);
+  double const lonRad = base::DegToRad(ll.m_lon);
+
+  double const x = sphereRadius * cos(latRad) * cos(lonRad);
+  double const y = sphereRadius * cos(latRad) * sin(lonRad);
+  double const z = sphereRadius * sin(latRad);
+
+  return {x, y, z};
+}
 }  // namespace
 
 namespace ms
@@ -46,7 +57,7 @@ double AreaOnEarth(LatLon const & ll1, LatLon const & ll2, LatLon const & ll3)
   double const halfSolidAngle = atan(tanFromHalfSolidAngle);
   double const solidAngle = halfSolidAngle * 2.0;
   double const area = solidAngle * kEarthRadiusMetersSquared;
-  return abs(area);
+  return fabs(area);
 }
 
 // Look to https://en.wikipedia.org/wiki/Solid_angle for details.

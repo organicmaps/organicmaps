@@ -17,6 +17,4 @@ double DistanceOnSphere(double lat1Deg, double lon1Deg, double lat2Deg, double l
 // lat1, lat2, lon1, lon2 - in degrees.
 double DistanceOnEarth(double lat1Deg, double lon1Deg, double lat2Deg, double lon2Deg);
 double DistanceOnEarth(LatLon const & ll1, LatLon const & ll2);
-
-m3::PointD GetPointOnSphere(LatLon const & ll, double sphereRadius);
 }  // namespace ms

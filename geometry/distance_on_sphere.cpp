@@ -31,19 +31,4 @@ double DistanceOnEarth(LatLon const & ll1, LatLon const & ll2)
 {
   return DistanceOnEarth(ll1.m_lat, ll1.m_lon, ll2.m_lat, ll2.m_lon);
 }
-
-m3::PointD GetPointOnSphere(ms::LatLon const & ll, double sphereRadius)
-{
-  ASSERT(LatLon::kMinLat <= ll.m_lat && ll.m_lat <= LatLon::kMaxLat, (ll));
-  ASSERT(LatLon::kMinLon <= ll.m_lon && ll.m_lon <= LatLon::kMaxLon, (ll));
-
-  double const latRad = base::DegToRad(ll.m_lat);
-  double const lonRad = base::DegToRad(ll.m_lon);
-
-  double const x = sphereRadius * cos(latRad) * cos(lonRad);
-  double const y = sphereRadius * cos(latRad) * sin(lonRad);
-  double const z = sphereRadius * sin(latRad);
-
-  return {x, y, z};
-}
 }  // namespace ms
