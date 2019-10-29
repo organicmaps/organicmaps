@@ -293,17 +293,22 @@ using namespace std;
 }
 
 - (IBAction)onMore:(UIBarButtonItem *)sender {
+  MWMTrackIDCollection trackIds = [[MWMBookmarksManager sharedManager] trackIdsForCategory:self.categoryId];
+  MWMMarkIDCollection bookmarkdsIds = [[MWMBookmarksManager sharedManager] bookmarkIdsForCategory:self.categoryId];
+
   auto actionSheet = [UIAlertController alertControllerWithTitle:nil
                                                          message:nil
                                                   preferredStyle:UIAlertControllerStyleActionSheet];
 
-  [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"sharing_options")
+  if (trackIds.count > 0 || bookmarkdsIds.count > 0) {
+    [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"sharing_options")
                                                   style:UIAlertActionStyleDefault
                                                 handler:^(UIAlertAction *_Nonnull action) {
                                                   [self shareCategory];
                                                   [Statistics logEvent:kStatBookmarksListItemSettings
                                                         withParameters:@{kStatOption: kStatSharingOptions}];
                                                 }]];
+  }
 
   [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"search_show_on_map")
                                                   style:UIAlertActionStyleDefault
