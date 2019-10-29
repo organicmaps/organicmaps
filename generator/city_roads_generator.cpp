@@ -1,13 +1,18 @@
 #include "generator/city_roads_generator.hpp"
 
 #include "generator/cities_boundaries_checker.hpp"
+#include "generator/feature_builder.hpp"
 
 #include "routing/city_roads_serialization.hpp"
 #include "routing/routing_helpers.hpp"
 
+#include "platform/platform.hpp"
+
 #include "indexer/feature.hpp"
 #include "indexer/feature_data.cpp"
 #include "indexer/feature_processor.hpp"
+
+#include "coding/read_write_utils.hpp"
 
 #include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
@@ -21,29 +26,43 @@ using namespace std;
 
 namespace
 {
-void TableToVector(OsmIdToBoundariesTable & table,
-                   CitiesBoundariesChecker::CitiesBoundaries & result)
+void LoadFeatureBuildersToVector(string const & boundariesPath,
+                                 CitiesBoundariesChecker::CitiesBoundaries & result)
 {
-  table.ForEachCluster([&result](vector<base::GeoObjectId> const & /* id */,
-                                 vector<indexer::CityBoundary> const & cb) {
-    result.insert(result.end(), cb.cbegin(), cb.cend());
-  });
+  if (!Platform::IsFileExistsByFullPath(boundariesPath))
+  {
+    LOG(LINFO, ("No info about city boundaries for routing. No such file:", boundariesPath));
+    return;
+  }
+
+  FileReader reader(boundariesPath);
+  ReaderSource<FileReader> source(reader);
+
+  size_t n = 0;
+  while (source.Size() > 0)
+  {
+    vector<m2::PointD> boundary;
+    rw::ReadVectorOfPOD(source, boundary);
+    result.emplace_back(boundary);
+    ++n;
+  }
+
+  LOG(LINFO, ("Read:", n, "boundaries from:", boundariesPath));
 }
 
 /// \brief Fills |cityRoadFeatureIds| with road feature ids if more then
 /// |kInCityPointsRatio| * <feature point number> points of the feature belongs to a city or a town
 /// according to |table|.
-void CalcRoadFeatureIds(string const & dataPath, OsmIdToBoundariesTable & table,
-                        vector<uint64_t> & cityRoadFeatureIds)
+vector<uint32_t> CalcRoadFeatureIds(string const & dataPath, string const & boundariesPath)
 {
-  double constexpr kInCityPointsRatio = 0.2;
 
   CitiesBoundariesChecker::CitiesBoundaries citiesBoundaries;
-  TableToVector(table, citiesBoundaries);
+  LoadFeatureBuildersToVector(boundariesPath, citiesBoundaries);
   CitiesBoundariesChecker const checker(citiesBoundaries);
 
+  vector<uint32_t> cityRoadFeatureIds;
   ForEachFromDat(dataPath, [&cityRoadFeatureIds, &checker](FeatureType & ft, uint32_t fid) {
-    if (!routing::IsRoad(TypesHolder(ft)))
+    if (!routing::IsCarRoad(TypesHolder(ft)))
       return;
 
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
@@ -55,15 +74,18 @@ void CalcRoadFeatureIds(string const & dataPath, OsmIdToBoundariesTable & table,
         ++inCityPointsCounter;
     }
 
+    double constexpr kInCityPointsRatio = 0.8;
     if (inCityPointsCounter > kInCityPointsRatio * ft.GetPointsCount())
       cityRoadFeatureIds.push_back(ft.GetID().m_index);
   });
+
+  return cityRoadFeatureIds;
 }
 }  // namespace
 
 namespace routing
 {
-void SerializeCityRoads(string const & dataPath, vector<uint64_t> && cityRoadFeatureIds)
+void SerializeCityRoads(string const & dataPath, vector<uint32_t> && cityRoadFeatureIds)
 {
   if (cityRoadFeatureIds.empty())
     return;
@@ -74,10 +96,9 @@ void SerializeCityRoads(string const & dataPath, vector<uint64_t> && cityRoadFea
   routing::CityRoadsSerializer::Serialize(*w, move(cityRoadFeatureIds));
 }
 
-bool BuildCityRoads(string const & dataPath, OsmIdToBoundariesTable & table)
+bool BuildCityRoads(string const & mwmPath, string const & boundariesPath)
 {
-  LOG(LINFO, ("BuildCityRoads(", dataPath, ");"));
-  vector<uint64_t> cityRoadFeatureIds;
+  vector<uint32_t> cityRoadFeatureIds;
   try
   {
     // @TODO(bykoianko) The generation city roads section process is based on two stages now:
@@ -89,12 +110,12 @@ bool BuildCityRoads(string const & dataPath, OsmIdToBoundariesTable & table)
     // features. That mean that the real geometry of cities boundaries should be dumped
     // on the first step. And then to try using the real geometry should be used for generating city
     // road features. But there's a chance that it takes to long time.
-    CalcRoadFeatureIds(dataPath, table, cityRoadFeatureIds);
-    SerializeCityRoads(dataPath, move(cityRoadFeatureIds));
+    cityRoadFeatureIds = CalcRoadFeatureIds(mwmPath, boundariesPath);
+    SerializeCityRoads(mwmPath, move(cityRoadFeatureIds));
   }
   catch (Reader::Exception const & e)
   {
-    LOG(LERROR, ("Error while building section city_roads in", dataPath, ". Message:", e.Msg()));
+    LOG(LERROR, ("Error while building section city_roads in", mwmPath, ". Message:", e.Msg()));
     return false;
   }
   return true;

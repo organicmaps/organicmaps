@@ -63,6 +63,12 @@ ftypes::LocalityType GetPlaceType(FeatureBuilder const & feature)
 {
   return ftypes::IsLocalityChecker::Instance().GetType(feature.GetTypesHolder());
 }
+
+void TruncateAndWriteCount(std::string const & file, size_t n)
+{
+  FileWriter writer(file, FileWriter::Op::OP_WRITE_TRUNCATE);
+  writer.Write(&n, sizeof(n));
+}
 }  // namespace
 
 namespace generator
@@ -94,7 +100,7 @@ RoutingCityBoundariesCollector::LocalityData::Deserialize(ReaderSource<FileReade
 
   m2::PointU pointU;
   reader.Read(&pointU.x, sizeof(pointU.x));
-  reader.Read(&pointU.x, sizeof(pointU.y));
+  reader.Read(&pointU.y, sizeof(pointU.y));
   localityData.m_position = PointUToPointD(pointU, kPointCoordBits);
 
   return localityData;
@@ -200,18 +206,18 @@ std::string RoutingCityBoundariesWriter::GetNodeToBoundariesFilename(std::string
 }
 
 // static
-std::string RoutingCityBoundariesWriter::GetFeaturesBuilderFilename(std::string const & filename)
+std::string RoutingCityBoundariesWriter::GetBoundariesFilename(std::string const & filename)
 {
-  return filename + ".features";
+  return filename + ".boundaries";
 }
 
 RoutingCityBoundariesWriter::RoutingCityBoundariesWriter(std::string const & filename)
   : m_nodeOsmIdToLocalityDataFilename(GetNodeToLocalityDataFilename(filename))
   , m_nodeOsmIdToBoundariesFilename(GetNodeToBoundariesFilename(filename))
-  , m_featureBuilderFilename(GetFeaturesBuilderFilename(filename))
+  , m_finalBoundariesGeometryFilename(GetBoundariesFilename(filename))
   , m_nodeOsmIdToLocalityDataWriter(std::make_unique<FileWriter>(m_nodeOsmIdToLocalityDataFilename))
   , m_nodeOsmIdToBoundariesWriter(std::make_unique<FileWriter>(m_nodeOsmIdToBoundariesFilename))
-  , m_featureBuilderWriter(std::make_unique<FeatureWriter>(m_featureBuilderFilename))
+  , m_finalBoundariesGeometryWriter(std::make_unique<FileWriter>(m_finalBoundariesGeometryFilename))
 {
 }
 
@@ -234,14 +240,14 @@ void RoutingCityBoundariesWriter::Process(uint64_t nodeOsmId,
 
 void RoutingCityBoundariesWriter::Process(feature::FeatureBuilder const & feature)
 {
-  m_featureBuilderWriter->Write(feature);
+  rw::WriteVectorOfPOD(*m_finalBoundariesGeometryWriter, feature.GetOuterGeometry());
 }
 
 void RoutingCityBoundariesWriter::Reset()
 {
   m_nodeOsmIdToLocalityDataWriter.reset({});
   m_nodeOsmIdToBoundariesWriter.reset({});
-  m_featureBuilderWriter.reset({});
+  m_finalBoundariesGeometryWriter.reset({});
 }
 
 void RoutingCityBoundariesWriter::MergeInto(RoutingCityBoundariesWriter & writer)
@@ -256,10 +262,10 @@ void RoutingCityBoundariesWriter::MergeInto(RoutingCityBoundariesWriter & writer
   base::AppendFileToFile(m_nodeOsmIdToBoundariesFilename,
                          writer.m_nodeOsmIdToBoundariesFilename);
 
-  CHECK(!m_featureBuilderWriter || !writer.m_featureBuilderWriter,
+  CHECK(!m_finalBoundariesGeometryWriter || !writer.m_finalBoundariesGeometryWriter,
         ("Finish() has not been called."));
-  base::AppendFileToFile(m_featureBuilderFilename,
-                         writer.m_featureBuilderFilename);
+  base::AppendFileToFile(m_finalBoundariesGeometryFilename,
+                         writer.m_finalBoundariesGeometryFilename);
 
   writer.m_nodeOsmIdToLocalityDataCount += m_nodeOsmIdToLocalityDataCount;
   writer.m_nodeOsmIdToBoundariesCount += m_nodeOsmIdToBoundariesCount;
@@ -269,20 +275,13 @@ void RoutingCityBoundariesWriter::Save(std::string const & finalFileName)
 {
   auto const nodeToLocalityFilename = GetNodeToLocalityDataFilename(finalFileName);
   auto const nodeToBoundariesFilename = GetNodeToBoundariesFilename(finalFileName);
+  auto const finalBoundariesGeometry = GetBoundariesFilename(finalFileName);
 
-  {
-    FileWriter writer(nodeToLocalityFilename, FileWriter::Op::OP_WRITE_TRUNCATE);
-    writer.Write(&m_nodeOsmIdToLocalityDataCount, sizeof(m_nodeOsmIdToLocalityDataCount));
-  }
-  {
-    FileWriter writer(nodeToBoundariesFilename, FileWriter::Op::OP_WRITE_TRUNCATE);
-    writer.Write(&m_nodeOsmIdToBoundariesCount, sizeof(m_nodeOsmIdToBoundariesCount));
-  }
+  TruncateAndWriteCount(nodeToLocalityFilename, m_nodeOsmIdToLocalityDataCount);
+  TruncateAndWriteCount(nodeToBoundariesFilename, m_nodeOsmIdToBoundariesCount);
 
   base::AppendFileToFile(m_nodeOsmIdToLocalityDataFilename, nodeToLocalityFilename);
   base::AppendFileToFile(m_nodeOsmIdToBoundariesFilename, nodeToBoundariesFilename);
-
-  CHECK(base::CopyFileX(m_featureBuilderFilename,
-                        GetFeaturesBuilderFilename(finalFileName)), ());
+  base::CopyFileX(m_finalBoundariesGeometryFilename, finalBoundariesGeometry);
 }
 }  // namespace generator

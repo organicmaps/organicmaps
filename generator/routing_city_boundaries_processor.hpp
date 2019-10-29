@@ -34,3 +34,4 @@ private:
   std::string m_filename;
 };
 }  // namespace generator
+

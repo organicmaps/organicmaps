@@ -49,7 +49,7 @@ public:
   CityRoadsSerializer() = delete;
 
   template <typename Sink>
-  static void Serialize(Sink & sink, std::vector<uint64_t> && cityRoadFeatureIds)
+  static void Serialize(Sink & sink, std::vector<uint32_t> && cityRoadFeatureIds)
   {
     CityRoadsHeader header;
     auto const startOffset = sink.Pos();

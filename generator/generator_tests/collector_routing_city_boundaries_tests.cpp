@@ -106,7 +106,7 @@ void Check(std::string const & filename)
 {
   using Writer = RoutingCityBoundariesWriter;
 
-  auto const featuresFileName = Writer::GetFeaturesBuilderFilename(filename);
+  auto const featuresFileName = Writer::GetBoundariesFilename(filename);
 
   auto const fbs = ReadAllDatRawFormat<serialization_policy::MinSize>(featuresFileName);
   TEST(HasRelationWithId(fbs, 1), ());
@@ -287,3 +287,4 @@ UNIT_TEST(AreaOnEarth_Concave_Polygon)
                             areaOnEarth,
                             1e-6), ());
 }
+

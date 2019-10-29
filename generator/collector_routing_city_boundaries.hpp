@@ -69,7 +69,7 @@ public:
 
   static std::string GetNodeToLocalityDataFilename(std::string const & filename);
   static std::string GetNodeToBoundariesFilename(std::string const & filename);
-  static std::string GetFeaturesBuilderFilename(std::string const & filename);
+  static std::string GetBoundariesFilename(std::string const & filename);
 
   explicit RoutingCityBoundariesWriter(std::string const & filename);
 
@@ -87,13 +87,13 @@ private:
 
   std::string m_nodeOsmIdToLocalityDataFilename;
   std::string m_nodeOsmIdToBoundariesFilename;
-  std::string m_featureBuilderFilename;
+  std::string m_finalBoundariesGeometryFilename;
 
   uint64_t m_nodeOsmIdToLocalityDataCount = 0;
   uint64_t m_nodeOsmIdToBoundariesCount = 0;
 
   std::unique_ptr<FileWriter> m_nodeOsmIdToLocalityDataWriter;
   std::unique_ptr<FileWriter> m_nodeOsmIdToBoundariesWriter;
-  std::unique_ptr<FeatureWriter> m_featureBuilderWriter;
+  std::unique_ptr<FileWriter> m_finalBoundariesGeometryWriter;
 };
 }  // namespace generator

@@ -68,7 +68,7 @@ unique_ptr<CityRoads> LoadCityRoads(LocalCountryFile const & country)
 /// and read ones.
 /// \cityRoadFeatureIds a vector of feature ids which should be saved to city_roads
 /// section and then read from it.
-void TestCityRoadsBuilding(vector<uint64_t> && cityRoadFeatureIds)
+void TestCityRoadsBuilding(vector<uint32_t> && cityRoadFeatureIds)
 {
   string const writableDir = GetPlatform().WritableDir();
 
@@ -83,7 +83,7 @@ void TestCityRoadsBuilding(vector<uint64_t> && cityRoadFeatureIds)
 
   // Adding city_roads section to mwm.
   string const mwmFullPath = base::JoinPath(writableDir, mwmRelativePath);
-  vector<uint64_t> originalCityRoadFeatureIds = cityRoadFeatureIds;
+  vector<uint32_t> originalCityRoadFeatureIds = cityRoadFeatureIds;
   SerializeCityRoads(mwmFullPath, move(cityRoadFeatureIds));
 
   auto const cityRoads = LoadCityRoads(country);
@@ -112,47 +112,47 @@ void TestCityRoadsBuilding(vector<uint64_t> && cityRoadFeatureIds)
 
 UNIT_TEST(CityRoadsGenerationTest_Empty)
 {
-  TestCityRoadsBuilding(vector<uint64_t>({}));
+  TestCityRoadsBuilding(vector<uint32_t>({}));
 }
 
 UNIT_TEST(CityRoadsGenerationTest_FromZero)
 {
-  TestCityRoadsBuilding(vector<uint64_t>({0, 1, 10}));
+  TestCityRoadsBuilding(vector<uint32_t>({0, 1, 10}));
 }
 
 UNIT_TEST(CityRoadsGenerationTest_CommonCase)
 {
-  TestCityRoadsBuilding(vector<uint64_t>({100, 203, 204, 1008, 1009}));
+  TestCityRoadsBuilding(vector<uint32_t>({100, 203, 204, 1008, 1009}));
 }
 
 UNIT_TEST(CityRoadsGenerationTest_SortedIds1)
 {
   TestCityRoadsBuilding(
-      vector<uint64_t>({1000,  1203,  11004,  11008, 11009, 11010, 11011, 11012, 11013, 11014, 11015,
+      vector<uint32_t>({1000,  1203,  11004,  11008, 11009, 11010, 11011, 11012, 11013, 11014, 11015,
                         11016, 11017, 11018, 11019, 11020, 11021, 11022, 11023, 11024, 11025}));
 }
 
 UNIT_TEST(CityRoadsGenerationTest_SortedIds2)
 {
   TestCityRoadsBuilding(
-      vector<uint64_t>({75000,  75001,  75004,  250000, 250001, 330003, 330007}));
+      vector<uint32_t>({75000,  75001,  75004,  250000, 250001, 330003, 330007}));
 }
 
 UNIT_TEST(CityRoadsGenerationTest_UnsortedIds)
 {
-  TestCityRoadsBuilding(vector<uint64_t>({100, 1, 101, 2, 204, 1008, 1009}));
+  TestCityRoadsBuilding(vector<uint32_t>({100, 1, 101, 2, 204, 1008, 1009}));
 }
 
 UNIT_TEST(CityRoadsGenerationTest_UnsortedIds2)
 {
   TestCityRoadsBuilding(
-      vector<uint64_t>({1000,  1203, 1, 11004,  11, 11009, 11010, 1011, 11012, 11013, 4, 11015,
+      vector<uint32_t>({1000,  1203, 1, 11004,  11, 11009, 11010, 1011, 11012, 11013, 4, 11015,
                         11016, 11017, 11018, 11019, 11020, 11021, 11022, 11023, 11024, 11025, 2}));
 }
 
 UNIT_TEST(CityRoadsGenerationTest_UnsortedIds3)
 {
-  TestCityRoadsBuilding(vector<uint64_t>(
+  TestCityRoadsBuilding(vector<uint32_t>(
       {181998, 354195, 470394, 356217, 331537, 272789, 449031, 420305, 139273, 482371, 85866,
        142591, 105206, 217360, 380898, 390284, 96547, 110547, 201338, 428964, 246086, 29141,
        179975, 493052, 53822, 238723, 316810, 349592, 154010, 107966, 113307, 97285, 145351,

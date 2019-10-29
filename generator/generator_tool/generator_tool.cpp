@@ -450,10 +450,9 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
     {
       CHECK(!FLAGS_cities_boundaries_data.empty(), ());
       LOG(LINFO, ("Generating cities boundaries roads for", datFile));
-      generator::OsmIdToBoundariesTable table;
-      if (!generator::DeserializeBoundariesTable(FLAGS_cities_boundaries_data, table))
-        LOG(LCRITICAL, ("Deserializing boundaries table error."));
-      if (!routing::BuildCityRoads(datFile, table))
+      auto const boundariesPath =
+          genInfo.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_DUMP_FILENAME);
+      if (!routing::BuildCityRoads(datFile, boundariesPath))
         LOG(LCRITICAL, ("Generating city roads error."));
     }
 
