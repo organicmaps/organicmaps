@@ -281,10 +281,21 @@ void GetUKPostcodes(string const & filename, storage::CountryId const & countryI
     if (find(countries.begin(), countries.end(), countryId) == countries.end())
       continue;
 
+    // UK postcodes formats are: aana naa, ana naa, an naa, ann naa, aan naa, aann naa.
+
+    auto postcode = fields[kPostcodeIndex];
+    // Do not index outer postcodes.
+    if (postcode.size() < 5)
+      continue;
+
+    // Space is skipped in dataset for |aana naa| and |aann naa| to make it fit 7 symbols in csv.
+    // Let's fix it here.
+    if (postcode.find(' ') == string::npos)
+      postcode.insert(static_cast<size_t>(postcode.size() - 3), " ");
+
     CHECK_EQUAL(valueMapping.size(), index, ());
     valueMapping.push_back(p);
-    keyValuePairs.emplace_back(search::NormalizeAndSimplifyString(fields[kPostcodeIndex]),
-                               Value(index));
+    keyValuePairs.emplace_back(search::NormalizeAndSimplifyString(postcode), Value(index));
     ++index;
   }
 }

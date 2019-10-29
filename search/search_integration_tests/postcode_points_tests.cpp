@@ -46,9 +46,14 @@ UNIT_CLASS_TEST(PostcodePointsTest, Smoke)
   auto const postcodesRelativePath = base::JoinPath(writableDir, testFile);
 
   ScopedFile const osmScopedFile(testFile,
-                                 "aa11 0, 1.0, 1.0\n"
-                                 "aa11 1, 2.0, 2.0\n"
-                                 "aa11 2, 3.0, 3.0\n");
+                                 "aa11 0bb, 1.0, 1.0\n"
+                                 "aa11 1bb, 2.0, 2.0\n"
+                                 // Missing space. Postcode should be converted to |aa11 2bb|
+                                 // for index.
+                                 "aa112bb, 3.0, 3.0\n"
+                                 // Put here some wrong location to make sure outer postcode
+                                 // will be skipped in index and calculated from inners.
+                                 "aa11, 100.0, 1.0\n");
 
   auto infoGetter = std::make_shared<storage::CountryInfoGetterForTesting>();
   infoGetter->AddCountry(storage::CountryDef(
@@ -67,21 +72,21 @@ UNIT_CLASS_TEST(PostcodePointsTest, Smoke)
   PostcodePoints p(*value);
   {
     vector<m2::PointD> points;
-    p.Get(NormalizeAndSimplifyString("aa11 0"), points);
+    p.Get(NormalizeAndSimplifyString("aa11 0bb"), points);
     TEST_EQUAL(points.size(), 1, ());
     TEST(base::AlmostEqualAbs(points[0], mercator::FromLatLon(1.0, 1.0), kMwmPointAccuracy),
          ());
   }
   {
     vector<m2::PointD> points;
-    p.Get(NormalizeAndSimplifyString("aa11 1"), points);
+    p.Get(NormalizeAndSimplifyString("aa11 1bb"), points);
     TEST_EQUAL(points.size(), 1, ());
     TEST(base::AlmostEqualAbs(points[0], mercator::FromLatLon(2.0, 2.0), kMwmPointAccuracy),
          ());
   }
   {
     vector<m2::PointD> points;
-    p.Get(NormalizeAndSimplifyString("aa11 2"), points);
+    p.Get(NormalizeAndSimplifyString("aa11 2bb"), points);
     TEST_EQUAL(points.size(), 1, ());
     TEST(base::AlmostEqualAbs(points[0], mercator::FromLatLon(3.0, 3.0), kMwmPointAccuracy),
          ());
@@ -161,26 +166,26 @@ UNIT_CLASS_TEST(PostcodePointsTest, SearchStreetWithPostcode)
       "XX6 7KL, 4.0, 6.0\n"
       "YY8 9MN, 6.0, 4.0\n"
       // Some dummy postcodes to make postcode radius approximation not too big.
-      "CC1 001, 5.0, 5.0\n"
-      "CC1 002, 5.0, 5.0\n"
-      "CC1 003, 5.0, 5.0\n"
-      "CC1 004, 5.0, 5.0\n"
-      "CC1 005, 5.0, 5.0\n"
-      "CC1 006, 5.0, 5.0\n"
-      "CC1 007, 5.0, 5.0\n"
-      "CC1 008, 5.0, 5.0\n"
-      "CC1 009, 5.0, 5.0\n"
-      "CC1 010, 5.0, 5.0\n"
-      "CC1 011, 5.0, 5.0\n"
-      "CC1 012, 5.0, 5.0\n"
-      "CC1 013, 5.0, 5.0\n"
-      "CC1 014, 5.0, 5.0\n"
-      "CC1 015, 5.0, 5.0\n"
-      "CC1 016, 5.0, 5.0\n"
-      "CC1 017, 5.0, 5.0\n"
-      "CC1 018, 5.0, 5.0\n"
-      "CC1 019, 5.0, 5.0\n"
-      "CC1 020, 5.0, 5.0\n");
+      "CC1 0AA, 5.0, 5.0\n"
+      "CC1 0AB, 5.0, 5.0\n"
+      "CC1 0AC, 5.0, 5.0\n"
+      "CC1 0AD, 5.0, 5.0\n"
+      "CC1 0AE, 5.0, 5.0\n"
+      "CC1 0AF, 5.0, 5.0\n"
+      "CC1 0AG, 5.0, 5.0\n"
+      "CC1 0AH, 5.0, 5.0\n"
+      "CC1 0AI, 5.0, 5.0\n"
+      "CC1 0AJ, 5.0, 5.0\n"
+      "CC1 0AK, 5.0, 5.0\n"
+      "CC1 0AL, 5.0, 5.0\n"
+      "CC1 0AM, 5.0, 5.0\n"
+      "CC1 0AN, 5.0, 5.0\n"
+      "CC1 0AO, 5.0, 5.0\n"
+      "CC1 0AP, 5.0, 5.0\n"
+      "CC1 0AQ, 5.0, 5.0\n"
+      "CC1 0AR, 5.0, 5.0\n"
+      "CC1 0AS, 5.0, 5.0\n"
+      "CC1 0AT, 5.0, 5.0\n");
 
   auto const rect =
       m2::RectD(mercator::FromLatLon(3.99, 3.99), mercator::FromLatLon(6.01, 6.01));
