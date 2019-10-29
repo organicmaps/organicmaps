@@ -96,8 +96,8 @@ UNIT_TEST(TreeNode_GetPath)
 {
   auto const tree = MakeTree();
   auto const node33 = tree_node::FindIf(tree, [](auto const & d) { return d == 33; });
-  auto const path = tree_node::GetPath(node33);
-  tree_node::types::PtrList<int> expected = {
+  auto const path = tree_node::GetPathToRoot(node33);
+  tree_node::types::Ptrs<int> expected = {
     tree_node::FindIf(tree, [](auto const & d) { return d == 33; }),
     tree_node::FindIf(tree, [](auto const & d) { return d == 21; }),
     tree_node::FindIf(tree, [](auto const & d) { return d == 1; })

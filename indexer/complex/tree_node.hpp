@@ -23,7 +23,7 @@ template <typename Data>
 using WeakPtr = std::weak_ptr<TreeNode<Data>>;
 
 template <typename Data>
-using PtrList = std::vector<Ptr<Data>>;
+using Ptrs = std::vector<Ptr<Data>>;
 }  // namespace types
 
 template <typename Data>
@@ -32,19 +32,19 @@ class TreeNode
 public:
   using Ptr = types::Ptr<Data>;
   using WeakPtr = types::WeakPtr<Data>;
-  using PtrList = types::PtrList<Data>;
+  using Ptrs = types::Ptrs<Data>;
 
   explicit TreeNode(Data && data) : m_data(std::move(data)) {}
 
   bool HasChildren() const { return !m_children.empty(); }
-  PtrList const & GetChildren() const { return m_children; }
+  Ptrs const & GetChildren() const { return m_children; }
   void AddChild(Ptr const & child) { m_children.push_back(child); }
-  void AddChildren(PtrList && children)
+  void AddChildren(Ptrs && children)
   {
     std::move(std::begin(children), std::end(children), std::end(m_children));
   }
 
-  void SetChildren(PtrList && children) { m_children = std::move(children); }
+  void SetChildren(Ptrs && children) { m_children = std::move(children); }
   void RemoveChildren() { m_children.clear(); }
 
   bool HasParent() const { return m_parent.lock() != nullptr; }
@@ -56,7 +56,7 @@ public:
 
 private:
   Data m_data;
-  PtrList m_children;
+  Ptrs m_children;
   WeakPtr m_parent;
 };
 
@@ -137,9 +137,9 @@ decltype(auto) GetRoot(types::Ptr<Data> node)
 }
 
 template <typename Data>
-decltype(auto) GetPath(types::Ptr<Data> node)
+decltype(auto) GetPathToRoot(types::Ptr<Data> node)
 {
-  types::PtrList<Data> path;
+  types::Ptrs<Data> path;
   while (node)
   {
     path.emplace_back(node);
@@ -161,7 +161,7 @@ types::Ptr<typename std::result_of<Fn(Data const &)>::type> TransformToTree(
 template <typename Data>
 bool IsEqual(types::Ptr<Data> const & lhs, types::Ptr<Data> const & rhs)
 {
-  if (lhs->GetData() != rhs->GetData())
+  if (!(lhs->GetData() == rhs->GetData()))
     return false;
 
   auto const & lhsCh = lhs->GetChildren();
@@ -256,7 +256,7 @@ public:
   }
 
 private:
-  types::PtrList<Data> m_trees;
+  types::Ptrs<Data> m_trees;
 };
 
 template <typename Data, typename Fn>

@@ -44,6 +44,6 @@ HierarchyEntry HierarchyEntryFromCsvRow(coding::CSVReader::Row const & row);
 
 std::string HierarchyEntryToCsvString(HierarchyEntry const & entry, char delim = kCsvDelimiter);
 
-tree_node::types::PtrList<HierarchyEntry> LoadHierachy(std::string const & filename);
+tree_node::types::Ptrs<HierarchyEntry> LoadHierachy(std::string const & filename);
 }  // namespace hierarchy
 }  // namespace generator

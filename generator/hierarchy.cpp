@@ -96,13 +96,13 @@ bool HierarchyPlace::IsEqualGeometry(HierarchyPlace const & other) const
                    : boost::geometry::equals(m_polygon, other.m_polygon);
 }
 
-HierarchyLinker::HierarchyLinker(Node::PtrList && nodes)
+HierarchyLinker::HierarchyLinker(Node::Ptrs && nodes)
   : m_nodes(std::move(nodes)), m_tree(MakeTree4d(m_nodes))
 {
 }
 
 // static
-HierarchyLinker::Tree4d HierarchyLinker::MakeTree4d(Node::PtrList const & nodes)
+HierarchyLinker::Tree4d HierarchyLinker::MakeTree4d(Node::Ptrs const & nodes)
 {
   Tree4d tree;
   for (auto const & n : nodes)
@@ -135,7 +135,7 @@ HierarchyLinker::Node::Ptr HierarchyLinker::FindPlaceParent(HierarchyPlace const
   return parent;
 }
 
-HierarchyLinker::Node::PtrList HierarchyLinker::Link()
+HierarchyLinker::Node::Ptrs HierarchyLinker::Link()
 {
   for (auto & node : m_nodes)
   {
@@ -176,10 +176,10 @@ std::vector<feature::FeatureBuilder> HierarchyBuilder::ReadFeatures(
   return fbs;
 }
 
-HierarchyBuilder::Node::PtrList HierarchyBuilder::Build()
+HierarchyBuilder::Node::Ptrs HierarchyBuilder::Build()
 {
   auto const fbs = ReadFeatures(m_dataFullFilename);
-  Node::PtrList places;
+  Node::Ptrs places;
   places.reserve(fbs.size());
   std::transform(std::cbegin(fbs), std::cend(fbs), std::back_inserter(places),
                  [](auto const & fb) { return std::make_shared<Node>(HierarchyPlace(fb)); });
@@ -203,7 +203,7 @@ boost::optional<m2::PointD> HierarchyLineEnricher::GetFeatureCenter(CompositeId 
   return ftPtr ? feature::GetCenter(*ftPtr) : boost::optional<m2::PointD>();
 }
 
-HierarchyLinesBuilder::HierarchyLinesBuilder(HierarchyBuilder::Node::PtrList && nodes)
+HierarchyLinesBuilder::HierarchyLinesBuilder(HierarchyBuilder::Node::Ptrs && nodes)
   : m_nodes(std::move(nodes))
 {
 }

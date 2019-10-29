@@ -83,16 +83,16 @@ public:
   using Node = tree_node::TreeNode<HierarchyPlace>;
   using Tree4d = m4::Tree<Node::Ptr>;
 
-  explicit HierarchyLinker(Node::PtrList && nodes);
+  explicit HierarchyLinker(Node::Ptrs && nodes);
 
-  Node::PtrList Link();
+  Node::Ptrs Link();
 
 private:
-  static Tree4d MakeTree4d(Node::PtrList const & nodes);
+  static Tree4d MakeTree4d(Node::Ptrs const & nodes);
 
   Node::Ptr FindPlaceParent(HierarchyPlace const & place);
 
-  Node::PtrList m_nodes;
+  Node::Ptrs m_nodes;
   Tree4d m_tree;
 };
 
@@ -107,7 +107,7 @@ public:
   void SetGetMainTypeFunction(GetMainTypeFn const & getMainType);
   void SetGetNameFunction(GetNameFn const & getName);
 
-  Node::PtrList Build();
+  Node::Ptrs Build();
 
 protected:
   std::vector<feature::FeatureBuilder> ReadFeatures(std::string const & dataFilename);
@@ -132,7 +132,7 @@ private:
 class HierarchyLinesBuilder
 {
 public:
-  HierarchyLinesBuilder(HierarchyBuilder::Node::PtrList && nodes);
+  HierarchyLinesBuilder(HierarchyBuilder::Node::Ptrs && nodes);
 
   void SetGetMainTypeFunction(GetMainTypeFn const & getMainType);
   void SetGetNameFunction(GetNameFn const & getName);
@@ -145,7 +145,7 @@ private:
   m2::PointD GetCenter(HierarchyBuilder::Node::Ptr const & node);
   HierarchyEntry Transform(HierarchyBuilder::Node::Ptr const & node);
 
-  HierarchyBuilder::Node::PtrList m_nodes;
+  HierarchyBuilder::Node::Ptrs m_nodes;
   GetMainTypeFn m_getMainType = GetTypeDefault;
   GetNameFn m_getName = GetNameDefault;
   std::string m_countryName;
