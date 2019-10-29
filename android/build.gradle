@@ -99,6 +99,7 @@ dependencies {
   implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
   implementation 'com.google.android:flexbox:1.0.0'
   implementation 'com.trafi:anchor-bottom-sheet-behavior:0.13-alpha'
+  implementation 'com.google.firebase:firebase-messaging:11.8.0'
 }
 
 def getDate() {
