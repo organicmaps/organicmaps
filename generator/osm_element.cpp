@@ -9,6 +9,27 @@
 #include <cstring>
 #include <sstream>
 
+namespace
+{
+std::string & Ltrim(std::string & s)
+{
+    s.erase(s.begin(), std::find_if(s.cbegin(), s.cend(), [](auto c) {return !std::isspace(c); }));
+    return s;
+}
+
+std::string & Rtrim(std::string & s)
+{
+    s.erase(std::find_if(s.crbegin(), s.crend(), [](auto c) {return !std::isspace(c); }).base(),
+            s.end());
+    return s;
+}
+
+std::string & Trim(std::string & s)
+{
+    return Ltrim(Rtrim(s));
+}
+}  // namespace
+
 std::string DebugPrint(OsmElement::EntityType type)
 {
   switch (type)
@@ -69,8 +90,7 @@ void OsmElement::AddTag(char const * key, char const * value)
 #undef SKIP_KEY_BY_PREFIX
 
   std::string val{value};
-  strings::Trim(val);
-  m_tags.emplace_back(key, std::move(val));
+  m_tags.emplace_back(key, std::move(Trim(val)));
 }
 
 void OsmElement::AddTag(std::string const & key, std::string const & value)
