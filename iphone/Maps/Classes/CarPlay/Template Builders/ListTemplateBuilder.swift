@@ -79,7 +79,7 @@ final class ListTemplateBuilder {
     let categories = bookmarkManager.userCategories()
     let items: [CPListItem] = categories.compactMap({ category in
       if category.bookmarksCount == 0 { return nil }
-      let placesString = String(format: L("bookmarks_places"), category.bookmarksCount)
+      let placesString = category.placesCountTitle()
       let item = CPListItem(text: category.title, detailText: placesString)
       item.userInfo = ListItemInfo(type: CPConstants.ListItemType.bookmarkLists,
                                    metadata: CategoryInfo(category: category))

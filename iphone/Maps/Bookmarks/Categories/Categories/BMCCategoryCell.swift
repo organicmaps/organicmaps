@@ -79,7 +79,7 @@ final class BMCCategoryCell: MWMTableViewCell {
       accessString = ""
     }
 
-    let placesString = String(format: L("bookmarks_places"), category.bookmarksCount + category.trackCount)
+    let placesString = category.placesCountTitle()
     subtitleLabel.text = accessString.count > 0 ? "\(accessString) • \(placesString)" : placesString
     visibleCheckmark.isChecked = category.isVisible
   }

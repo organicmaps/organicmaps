@@ -37,7 +37,7 @@ final class CatalogCategoryCell: MWMTableViewCell {
 
   func update(with category: MWMCategory, delegate: CatalogCategoryCellDelegate?) {
     titleLabel.text = category.title
-    let placesString = String(format: L("bookmarks_places"), category.bookmarksCount)
+    let placesString = category.placesCountTitle()
     let authorString = String(coreFormat: L("author_name_by_prefix"), arguments: [category.author])
     subtitleLabel.text = "\(placesString) • \(authorString)"
     visibleCheckmark.isChecked = category.isVisible

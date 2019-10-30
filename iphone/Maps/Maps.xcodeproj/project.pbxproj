@@ -570,6 +570,7 @@
 		99D363172358647700941BF4 /* SubscriptionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D363162358647700941BF4 /* SubscriptionGroup.swift */; };
 		99D363192358685300941BF4 /* SubscriptionGroupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D363182358685300941BF4 /* SubscriptionGroupItem.swift */; };
 		99D3631E23589BE800941BF4 /* FredokaOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99D3631D23589BE800941BF4 /* FredokaOne-Regular.ttf */; };
+		99E2B0122368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E2B0112368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift */; };
 		A630D1EA207CA95900976DEA /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A630D1E8207CA95900976DEA /* Localizable.stringsdict */; };
 		B32FE74020D2844600EF7446 /* DownloadedBookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32FE73E20D2844600EF7446 /* DownloadedBookmarksViewController.swift */; };
 		B32FE74120D2844600EF7446 /* DownloadedBookmarksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B32FE73F20D2844600EF7446 /* DownloadedBookmarksViewController.xib */; };
@@ -1608,6 +1609,7 @@
 		99D363162358647700941BF4 /* SubscriptionGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionGroup.swift; sourceTree = "<group>"; };
 		99D363182358685300941BF4 /* SubscriptionGroupItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionGroupItem.swift; sourceTree = "<group>"; };
 		99D3631D23589BE800941BF4 /* FredokaOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FredokaOne-Regular.ttf"; sourceTree = "<group>"; };
+		99E2B0112368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWMCategory+PlacesCountTitle.swift"; sourceTree = "<group>"; };
 		9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "02_droidsans-fallback.ttf"; path = "../../data/02_droidsans-fallback.ttf"; sourceTree = "<group>"; };
 		A367C93A1B17334800E2B6E7 /* resources-default */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-default"; path = "../../data/resources-default"; sourceTree = "<group>"; };
 		A630D1E9207CA95900976DEA /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ar; path = ar.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -2769,6 +2771,7 @@
 				4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */,
 				47699A0621F08E37009E6585 /* NSDate+TimeDistance.h */,
 				47699A0721F08E37009E6585 /* NSDate+TimeDistance.m */,
+				99E2B0112368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -5590,6 +5593,7 @@
 				F6E2FE731E097BA00083EBEC /* MWMOpeningHours.mm in Sources */,
 				CD96C70C22A681C400DB7CFE /* DiscoveryGuideCell.swift in Sources */,
 				47E3C7312111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift in Sources */,
+				99E2B0122368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift in Sources */,
 				F6D67CDC2062B9C00032FD38 /* BCCreateCategoryAlert.swift in Sources */,
 				F6E2FF601E097BA00083EBEC /* MWMSettingsViewController.mm in Sources */,
 				F6E2FE2B1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.mm in Sources */,
