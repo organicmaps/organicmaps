@@ -11,6 +11,8 @@
 #include "indexer/complex/tree_node.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
+#include "storage/storage_defines.hpp"
+
 #include "geometry/point2d.hpp"
 #include "geometry/tree4d.hpp"
 
@@ -136,7 +138,7 @@ public:
 
   void SetGetMainTypeFunction(GetMainTypeFn const & getMainType);
   void SetGetNameFunction(GetNameFn const & getName);
-  void SetCountryName(std::string const & name);
+  void SetCountry(storage::CountryId const & country);
   void SetHierarchyLineEnricher(std::shared_ptr<HierarchyLineEnricher> const & enricher);
 
   std::vector<HierarchyEntry> GetHierarchyLines();
@@ -148,7 +150,7 @@ private:
   HierarchyBuilder::Node::Ptrs m_nodes;
   GetMainTypeFn m_getMainType = GetTypeDefault;
   GetNameFn m_getName = GetNameDefault;
-  std::string m_countryName;
+  storage::CountryId m_countryName;
   std::shared_ptr<HierarchyLineEnricher> m_enricher;
 };
 }  // namespace hierarchy

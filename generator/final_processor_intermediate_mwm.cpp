@@ -560,7 +560,7 @@ void ComplexFinalProcessor::Process()
       auto const enricher = CreateEnricher(countryName);
       hierarchy::HierarchyLinesBuilder linesBuilder(std::move(nodes));
       linesBuilder.SetHierarchyLineEnricher(enricher);
-      linesBuilder.SetCountryName(countryName);
+      linesBuilder.SetCountry(countryName);
       linesBuilder.SetGetMainTypeFunction(hierarchy::GetMainType);
       linesBuilder.SetGetNameFunction(hierarchy::GetName);
       return linesBuilder.GetHierarchyLines();

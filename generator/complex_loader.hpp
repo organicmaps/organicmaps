@@ -4,6 +4,8 @@
 
 #include "indexer/complex/tree_node.hpp"
 
+#include "storage/storage_defines.hpp"
+
 #include <functional>
 #include <string>
 #include <unordered_map>
@@ -24,7 +26,7 @@ class ComplexLoader
 public:
   explicit ComplexLoader(std::string const & filename);
 
-  tree_node::Forest<HierarchyEntry> const & GetForest(std::string const & country) const;
+  tree_node::Forest<HierarchyEntry> const & GetForest(storage::CountryId const & country) const;
 
   // fn accepts country name and tree.
   template <typename Fn>
@@ -37,15 +39,15 @@ public:
   std::unordered_set<CompositeId> GetIdsSet() const;
 
 private:
-  std::unordered_map<std::string, tree_node::Forest<HierarchyEntry>> m_forests;
+  std::unordered_map<storage::CountryId, tree_node::Forest<HierarchyEntry>> m_forests;
 };
 
 // Returns true if hierarchy tree is complex; otherwise returns false.
 // Complex is defined at https://confluence.mail.ru/display/MAPSME/Complexes.
 bool IsComplex(tree_node::types::Ptr<HierarchyEntry> const & tree);
 
-// Returns country name of tree.
-std::string GetCountry(tree_node::types::Ptr<HierarchyEntry> const & tree);
+// Returns country id of hierarchy.
+storage::CountryId GetCountry(tree_node::types::Ptr<HierarchyEntry> const & tree);
 
 // Returns initilized ComplexLoader by filename.
 // It loads only at the time of the first call.

@@ -36,8 +36,8 @@ namespace generator
 bool operator==(HierarchyEntry const & lhs, HierarchyEntry const & rhs)
 {
   return base::AlmostEqualAbs(lhs.m_center, rhs.m_center, 1e-7) &&
-      (std::tie(lhs.m_id, lhs.m_parentId, lhs.m_depth, lhs.m_name, lhs.m_countryName, lhs.m_type) ==
-       std::tie(rhs.m_id, rhs.m_parentId, rhs.m_depth, rhs.m_name, rhs.m_countryName, rhs.m_type));
+      (std::tie(lhs.m_id, lhs.m_parentId, lhs.m_depth, lhs.m_name, lhs.m_country, lhs.m_type) ==
+       std::tie(rhs.m_id, rhs.m_parentId, rhs.m_depth, rhs.m_name, rhs.m_country, rhs.m_type));
 }
 
 std::string DebugPrint(HierarchyEntry const & entry)
@@ -49,7 +49,7 @@ std::string DebugPrint(HierarchyEntry const & entry)
   ToJSONObject(*obj, "depth", entry.m_depth);
   ToJSONObject(*obj, "type", classif().GetReadableObjectName(entry.m_type));
   ToJSONObject(*obj, "name", entry.m_name);
-  ToJSONObject(*obj, "country", entry.m_countryName);
+  ToJSONObject(*obj, "country", entry.m_country);
 
   auto center = base::NewJSONObject();
   ToJSONObject(*center, "x", entry.m_center.x);
@@ -98,7 +98,7 @@ coding::CSVReader::Row HierarchyEntryToCsvRow(HierarchyEntry const & entry)
   row.emplace_back(strings::to_string_dac(entry.m_center.y, 7));
   row.emplace_back(strings::to_string(classif().GetReadableObjectName(entry.m_type)));
   row.emplace_back(strings::to_string(entry.m_name));
-  row.emplace_back(strings::to_string(entry.m_countryName));
+  row.emplace_back(strings::to_string(entry.m_country));
   return row;
 }
 
@@ -125,7 +125,7 @@ HierarchyEntry HierarchyEntryFromCsvRow(coding::CSVReader::Row const & row)
   VERIFY(strings::to_double(y, entry.m_center.y), (row));
   entry.m_type = classif().GetTypeByReadableObjectName(type);
   entry.m_name = name;
-  entry.m_countryName = country;
+  entry.m_country = country;
   return entry;
 }
 

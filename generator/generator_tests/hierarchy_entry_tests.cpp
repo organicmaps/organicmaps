@@ -94,7 +94,7 @@ UNIT_CLASS_TEST(TestWithClassificator, Complex_HierarchyEntryCsv)
   e.m_center.y = 67.6098812;
   e.m_type = classif().GetTypeByPath({"amenity", "restaurant"});
   e.m_name = "Rybatskoye podvor'ye";
-  e.m_countryName = "Russia_Moscow";
+  e.m_country = "Russia_Moscow";
 
   auto const row = generator::hierarchy::HierarchyEntryToCsvRow(e);
   TEST_EQUAL(row.size(), 8, ());

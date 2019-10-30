@@ -215,7 +215,7 @@ void HierarchyLinesBuilder::SetGetMainTypeFunction(GetMainTypeFn const & getMain
 
 void HierarchyLinesBuilder::SetGetNameFunction(GetNameFn const & getName) { m_getName = getName; }
 
-void HierarchyLinesBuilder::SetCountryName(std::string const & name) { m_countryName = name; }
+void HierarchyLinesBuilder::SetCountry(storage::CountryId const & country) { m_countryName = country; }
 
 void HierarchyLinesBuilder::SetHierarchyLineEnricher(
     std::shared_ptr<HierarchyLineEnricher> const & enricher)
@@ -251,7 +251,7 @@ HierarchyEntry HierarchyLinesBuilder::Transform(HierarchyBuilder::Node::Ptr cons
   if (parent)
     line.m_parentId = parent->GetData().GetCompositeId();
 
-  line.m_countryName = m_countryName;
+  line.m_country = m_countryName;
   line.m_depth = GetDepth(node);
   line.m_name = m_getName(data.GetName());
   line.m_type = m_getMainType(data.GetTypes());

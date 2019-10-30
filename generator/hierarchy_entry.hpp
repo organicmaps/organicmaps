@@ -6,6 +6,8 @@
 #include "indexer/complex/tree_node.hpp"
 #include "indexer/feature_data.hpp"
 
+#include "storage/storage_defines.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "coding/csv_reader.hpp"
@@ -23,7 +25,7 @@ struct HierarchyEntry
   boost::optional<CompositeId> m_parentId;
   size_t m_depth = 0;
   std::string m_name;
-  std::string m_countryName;
+  storage::CountryId m_country;
   m2::PointD m_center;
   uint32_t m_type = ftype::GetEmptyValue();
 };
