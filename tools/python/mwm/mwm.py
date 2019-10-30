@@ -519,10 +519,7 @@ def unpack_osmid(num):
     return typ, OsmIdCode.get_id(num)
 
 
-# TODO(zverik, mgsergio): Move this to a separate module, cause it has nothing
-# to do with mwm.
-def read_osm2ft(f, ft2osm=False, tuples=True):
-    """Reads mwm.osm2ft file, returning a dict of feature id <-> osm id."""
+def _read_osm2ft_v0(f, ft2osm, tuples):
     count = read_varuint(f)
     result = {}
     for i in range(count):
@@ -537,3 +534,38 @@ def read_osm2ft(f, ft2osm=False, tuples=True):
             else:
                 result[osmid] = fid
     return result
+
+
+def _read_osm2ft_v1(f, ft2osm, tuples):
+    count = read_varuint(f)
+    result = {}
+    for i in range(count):
+        osmid = read_uint(f, 8)
+        read_uint(f, 8)
+        if tuples:
+            osmid = unpack_osmid(osmid)
+        fid = read_uint(f, 4)
+        read_uint(f, 4)  # filler
+        if osmid is not None:
+            if ft2osm:
+                result[fid] = osmid
+            else:
+                result[osmid] = fid
+    return result
+
+
+# TODO(zverik, mgsergio): Move this to a separate module, cause it has nothing
+# to do with mwm.
+def read_osm2ft(f, ft2osm=False, tuples=True):
+    """Reads mwm.osm2ft file, returning a dict of feature id <-> osm id."""
+    header = read_uint(f, 4)
+    is_new_format = header == 0xFFFFFFFF
+    if is_new_format:
+        version = read_uint(f, 1)
+        if version == 1:
+            return _read_osm2ft_v1(f, ft2osm, tuples)
+        else:
+            raise Exception('Format {0} is not supported'.format(version))
+    else:
+        f.seek(0)
+        return _read_osm2ft_v0(f, ft2osm, tuples)
