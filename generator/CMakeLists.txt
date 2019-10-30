@@ -49,6 +49,8 @@ set(
   collector_interface.hpp
   collector_tag.cpp
   collector_tag.hpp
+  complex_loader.cpp
+  complex_loader.hpp
   composite_id.cpp
   composite_id.hpp
   cross_mwm_osm_ways_collector.cpp

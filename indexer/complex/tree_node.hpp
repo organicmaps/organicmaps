@@ -106,6 +106,14 @@ void PreOrderVisit(types::Ptr<Data> const & node, Fn && fn)
 }
 
 template <typename Data, typename Fn>
+void ForEach(types::Ptr<Data> const & node, Fn && fn)
+{
+  PreOrderVisit(node, [&](auto const & node) {
+    fn(node->GetData());
+  });
+}
+
+template <typename Data, typename Fn>
 decltype(auto) FindIf(types::Ptr<Data> const & node, Fn && fn)
 {
   types::Ptr<Data> res = nullptr;
