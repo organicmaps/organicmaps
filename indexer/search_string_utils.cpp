@@ -141,6 +141,10 @@ UniString NormalizeAndSimplifyString(string const & s)
 
   RemoveNumeroSigns(uniString);
 
+  // Replace sequence of spaces with single one.
+  auto const spacesChecker = [](UniChar lhs, UniChar rhs) { return (lhs == rhs) && (lhs == ' '); };
+  uniString.erase(unique(uniString.begin(), uniString.end(), spacesChecker), uniString.end());
+
   return uniString;
 
   /// @todo Restore this logic to distinguish и-й in future.

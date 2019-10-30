@@ -92,6 +92,7 @@ UNIT_TEST(NormalizeAndSimplifyStringWithOurTambourines)
                         "aaaaaooooeeeeiduuuuyaadeoou",  // Vietnamese
                         "ăâț", "aat",                   // Romanian
                         "Триу́мф-Пала́с", "триумф-палас", // Russian accent
+                        "  a   b  c d ", " a b c d ",   // Multiple spaces
                        };
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); i += 2)
@@ -257,9 +258,9 @@ UNIT_TEST(StreetTokensFilter)
 
 UNIT_TEST(NormalizeAndSimplifyString_Numero)
 {
-  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Зона №51"), "зона  51", ());
-  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Зона № 51"), "зона   51", ());
-  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Area #51"), "area  51", ());
-  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Area # "), "area   ", ());
+  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Зона №51"), "зона 51", ());
+  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Зона № 51"), "зона 51", ());
+  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Area #51"), "area 51", ());
+  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Area # "), "area ", ());
   TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Area #One"), "area #one", ());
 }
