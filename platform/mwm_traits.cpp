@@ -31,7 +31,7 @@ MwmTraits::CentersTableFormat MwmTraits::GetCentersTableFormat() const
   if (GetFormat() < version::Format::v9)
     return CentersTableFormat::PlainEliasFanoMap;
 
-  uint32_t constexpr kLastVersionWithPlainEliasFanoMap = 190923;
+  uint32_t constexpr kLastVersionWithPlainEliasFanoMap = 191019;
   if (GetVersion() <= kLastVersionWithPlainEliasFanoMap)
     return CentersTableFormat::PlainEliasFanoMap;
 
