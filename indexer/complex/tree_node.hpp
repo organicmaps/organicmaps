@@ -2,7 +2,9 @@
 
 #include <algorithm>
 #include <memory>
+#include <limits>
 #include <sstream>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -194,6 +196,16 @@ size_t CountIf(types::Ptr<Data> const & node, Fn && fn)
       ++count;
   });
   return count;
+}
+
+template <typename Data, typename Fn>
+decltype(auto) Min(types::Ptr<Data> const & node, Fn && fn)
+{
+  auto m = std::numeric_limits<decltype(fn(node->GetData()))>::max();
+  PreOrderVisit(node, [&](auto const & node) {
+    m = std::min(fn(node->GetData()), m);
+  });
+  return m;
 }
 
 template <typename Data>
