@@ -4,6 +4,7 @@ import android.content.Context;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import android.view.ViewGroup;
@@ -46,7 +47,9 @@ public class DotPager implements ViewPager.OnPageChangeListener
   private final Context mContext;
   @Nullable
   private final OnPageChangedListener mListener;
+  @StringRes
   private final int mActiveDotDrawableResId;
+  @StringRes
   private final int mInactiveDotDrawableResId;
 
 
@@ -174,13 +177,15 @@ public class DotPager implements ViewPager.OnPageChangeListener
       return this;
     }
 
-    public Builder setActiveDotDrawable(int resId)
+    @NonNull
+    public Builder setActiveDotDrawable(@StringRes int resId)
     {
       mActiveDotDrawableResId = resId;
       return this;
     }
 
-    public Builder setInactiveDotDrawable(int resId)
+    @NonNull
+    public Builder setInactiveDotDrawable(@StringRes int resId)
     {
       mInactiveDotDrawableResId = resId;
       return this;

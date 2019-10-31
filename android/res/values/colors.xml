@@ -212,4 +212,5 @@
 
   <color name="notification">#82E510</color>
   <color name="yellow">#FFC800</color>
+  <color name="all_pass_subtitle">#67BEFF</color>
 </resources>

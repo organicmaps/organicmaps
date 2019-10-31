@@ -279,5 +279,5 @@
   <dimen name="promo_single_place_container_height">194dp</dimen>
   <dimen name="subscription_view_pager_height">144dp</dimen>
   <dimen name="zero">0dp</dimen>
-  <dimen name="subscription_view_pager_margin">28dp</dimen>
+  <dimen name="all_pass_top_offset">62dp</dimen>
 </resources>

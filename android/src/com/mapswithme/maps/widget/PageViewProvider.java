@@ -1,8 +1,8 @@
 package com.mapswithme.maps.widget;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.View;
+
+import androidx.annotation.Nullable;
 
 interface PageViewProvider
 {

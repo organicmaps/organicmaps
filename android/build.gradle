@@ -160,11 +160,10 @@ configurations.all {
 }
 
 android {
-  // All properties are read from gradle.properties file
-
   dataBinding {
     enabled = true
   }
+  // All properties are read from gradle.properties file
   compileSdkVersion propCompileSdkVersion.toInteger()
 
   defaultConfig {

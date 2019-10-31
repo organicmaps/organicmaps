@@ -10,11 +10,11 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.databinding.FragmentAllPassPremiumBinding;
+import com.mapswithme.maps.databinding.FragmentAllPassSubscriptionBinding;
 
 import java.util.Objects;
 
-public class AllPassPremiumFragment extends Fragment
+public class AllPassSubscriptionFragment extends Fragment
 {
   private static final String BUNDLE_INDEX = "index";
 
@@ -24,23 +24,23 @@ public class AllPassPremiumFragment extends Fragment
                            @Nullable Bundle savedInstanceState)
   {
     int index = Objects.requireNonNull(getArguments()).getInt(BUNDLE_INDEX);
-    AllPassSubscriptionType type = AllPassSubscriptionType.values()[index];
-    FragmentAllPassPremiumBinding binding = makeBinding(inflater, container);
-    binding.setModel(type);
+    AllPassSubscriptionPage page = AllPassSubscriptionPage.values()[index];
+    FragmentAllPassSubscriptionBinding binding = makeBinding(inflater, container);
+    binding.setPage(page);
     return binding.getRoot();
   }
 
   @NonNull
-  private static FragmentAllPassPremiumBinding makeBinding(@NonNull LayoutInflater inflater,
-                                                           @Nullable ViewGroup container)
+  private static FragmentAllPassSubscriptionBinding makeBinding(@NonNull LayoutInflater inflater,
+                                                                @Nullable ViewGroup container)
   {
-    return DataBindingUtil.inflate(inflater, R.layout.fragment_all_pass_premium, container, false);
+    return DataBindingUtil.inflate(inflater, R.layout.fragment_all_pass_subscription, container, false);
   }
 
   @NonNull
-  public static AllPassPremiumFragment newInstance(int index)
+  public static AllPassSubscriptionFragment newFragment(int index)
   {
-    AllPassPremiumFragment fragment = new AllPassPremiumFragment();
+    AllPassSubscriptionFragment fragment = new AllPassSubscriptionFragment();
     Bundle args = new Bundle();
     args.putInt(BUNDLE_INDEX, index);
     fragment.setArguments(args);

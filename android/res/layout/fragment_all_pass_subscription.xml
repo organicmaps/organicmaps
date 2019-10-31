@@ -3,8 +3,8 @@
   xmlns:android="http://schemas.android.com/apk/res/android">
   <data>
     <variable
-      name="model"
-      type="com.mapswithme.maps.purchase.AllPassSubscriptionType"/>
+      name="page"
+      type="com.mapswithme.maps.purchase.AllPassSubscriptionPage" />
   </data>
   <RelativeLayout
     xmlns:tools="http://schemas.android.com/tools"
@@ -20,7 +20,7 @@
       android:maxLines="2"
       android:fontFamily="@string/robotoMedium"
       android:textSize="@dimen/text_size_display_0"
-      android:text="@{model.titleId}"
+      android:text="@{page.titleId}"
       android:textColor="@color/white_primary"
       android:layout_marginEnd="@dimen/margin_base_plus_quarter"
       android:layout_marginRight="@dimen/margin_base_plus_quarter"
@@ -38,7 +38,7 @@
       android:fontFamily="@string/robotoRegular"
       android:textColor="@color/white_primary"
       android:textSize="@dimen/text_size_body_0"
-      android:text="@{model.descriptionId}"
+      android:text="@{page.descriptionId}"
       android:layout_marginTop="@dimen/margin_half_plus"
       android:layout_marginEnd="@dimen/margin_base_plus_quarter"
       android:layout_marginRight="@dimen/margin_base_plus_quarter"

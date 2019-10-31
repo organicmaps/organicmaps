@@ -36,10 +36,10 @@ public class ParallaxBackgroundPageListener implements ViewPager.OnPageChangeLis
   @NonNull
   private final PageViewProvider mPageViewProvider;
 
-  public ParallaxBackgroundPageListener(@NonNull Activity activity,
-                                        @NonNull ViewPager pager,
-                                        @NonNull List<Integer> items,
-                                        @NonNull PageViewProvider pageViewProvider)
+  ParallaxBackgroundPageListener(@NonNull Activity activity,
+                                 @NonNull ViewPager pager,
+                                 @NonNull List<Integer> items,
+                                 @NonNull PageViewProvider pageViewProvider)
   {
     mPager = pager;
     mActivity = activity;

@@ -468,7 +468,7 @@
       android:screenOrientation="portrait"
       android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"/>
     <activity
-      android:name="com.mapswithme.maps.purchase.AllPassPremiumActivity"
+      android:name="com.mapswithme.maps.purchase.AllPassSubscriptionActivity"
       android:screenOrientation="portrait"
       android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"/>
     <activity

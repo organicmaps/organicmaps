@@ -15,7 +15,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
-import com.mapswithme.maps.databinding.PagerFragmentAllPassPremiumBinding;
+import com.mapswithme.maps.databinding.PagerFragmentAllPassSubscriptionBinding;
 import com.mapswithme.maps.widget.DotPager;
 import com.mapswithme.maps.widget.ParallaxBackgroundPageListener;
 import com.mapswithme.maps.widget.ParallaxBackgroundViewPager;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AllPassPremiumPagerFragment extends BaseMwmFragment
+public class AllPassSubscriptionPagerFragment extends BaseMwmFragment
 {
 
   @Nullable
@@ -33,13 +33,13 @@ public class AllPassPremiumPagerFragment extends BaseMwmFragment
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
-    PagerFragmentAllPassPremiumBinding dataBinding
-        = DataBindingUtil.inflate(inflater, R.layout.pager_fragment_all_pass_premium, container, false);
+    PagerFragmentAllPassSubscriptionBinding dataBinding
+        = DataBindingUtil.inflate(inflater, R.layout.pager_fragment_all_pass_subscription, container, false);
     View root = dataBinding.getRoot();
     dataBinding.setButtons(makeButtons());
     dataBinding.setAnnualClickListener(v -> {});
     dataBinding.setMonthClickListener(v -> {});
-    initStatusBarPlaceholder(root);
+    setTopStatusBarOffset(dataBinding);
     initViewPager(root);
     return root;
   }
@@ -51,12 +51,15 @@ public class AllPassPremiumPagerFragment extends BaseMwmFragment
                          new SubsButtonEntity("sadasdasdsd", "30usd"));
   }
 
-  private void initStatusBarPlaceholder(@NonNull View root)
+  private void setTopStatusBarOffset(@NonNull PagerFragmentAllPassSubscriptionBinding binding)
   {
-    View statusBarPlaceholder = root.findViewById(R.id.status_bar_placeholder);
-    ViewGroup.LayoutParams params = statusBarPlaceholder.getLayoutParams();
-    params.height = UiUtils.getStatusBarHeight(requireContext());
-    statusBarPlaceholder.setLayoutParams(params);
+    ViewGroup.LayoutParams params = binding.statusBarPlaceholder.getLayoutParams();
+    int statusBarHeight = UiUtils.getStatusBarHeight(requireContext());
+    params.height = statusBarHeight;
+    binding.statusBarPlaceholder.setLayoutParams(params);
+    ViewGroup.MarginLayoutParams headerParams = (ViewGroup.MarginLayoutParams) binding.header.getLayoutParams();
+    headerParams.topMargin  = Math.max(0, headerParams.topMargin - statusBarHeight);
+    binding.header.setLayoutParams(headerParams);
   }
 
   private void initViewPager(@NonNull View root)
@@ -110,7 +113,7 @@ public class AllPassPremiumPagerFragment extends BaseMwmFragment
     @Override
     public Fragment getItem(int i)
     {
-      return AllPassPremiumFragment.newInstance(i);
+      return AllPassSubscriptionFragment.newFragment(i);
     }
 
     @Override
