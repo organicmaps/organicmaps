@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -14,25 +15,40 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
+import com.mapswithme.maps.databinding.PagerFragmentAllPassPremiumBinding;
 import com.mapswithme.maps.widget.DotPager;
 import com.mapswithme.maps.widget.ParallaxBackgroundPageListener;
 import com.mapswithme.maps.widget.ParallaxBackgroundViewPager;
 import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AllPassPremiumPagerFragment extends BaseMwmFragment
 {
+
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
-    View root = inflater.inflate(R.layout.pager_fragment_all_pass_premium, container, false);
+    PagerFragmentAllPassPremiumBinding dataBinding
+        = DataBindingUtil.inflate(inflater, R.layout.pager_fragment_all_pass_premium, container, false);
+    View root = dataBinding.getRoot();
+    dataBinding.setButtons(makeButtons());
+    dataBinding.setAnnualClickListener(v -> {});
+    dataBinding.setMonthClickListener(v -> {});
     initStatusBarPlaceholder(root);
     initViewPager(root);
     return root;
+  }
+
+  @NonNull
+  private static List<SubsButtonEntity> makeButtons()
+  {
+    return Arrays.asList(new SubsButtonEntity("sadasdasdsd", "20usd", "-20%"),
+                         new SubsButtonEntity("sadasdasdsd", "30usd"));
   }
 
   private void initStatusBarPlaceholder(@NonNull View root)

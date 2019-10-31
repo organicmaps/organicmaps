@@ -1,63 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<layout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  xmlns:bind="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+  <data>
+    <import
+      alias="v"
+      type="android.view.View" />
+    <import
+      alias="listener"
+      type="android.view.View.OnClickListener" />
+    <import
+      alias="btn"
+      type="com.mapswithme.maps.purchase.SubsButtonEntity" />
+    <import type="java.util.List" />
+    <variable
+      name="buttons"
+      type="List&lt;btn&gt;" />
+    <variable
+      name="annualClickListener"
+      type="listener" />
+    <variable
+      name="monthClickListener"
+      type="listener" />
+    <variable
+      name="restoreClickListener"
+      type="listener" />
+    <variable
+      name="termOfUseClickListener"
+      type="listener" />
+    <variable
+      name="privacyPolicyClickListener"
+      type="listener" />
+  </data>
+  <RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <ImageView
-      android:id="@+id/img1"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:scaleType="centerCrop"
-      android:src="@drawable/img1"/>
-    <ImageView
-      android:id="@+id/img2"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:scaleType="centerCrop"
-      android:src="@drawable/img2"/>
-    <ImageView
-      android:id="@+id/img3"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:scaleType="centerCrop"
-      android:src="@drawable/img3"/>
-
-    <LinearLayout
-      android:orientation="vertical"
-      android:gravity="center_horizontal"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-
-      <View
-        android:id="@+id/status_bar_placeholder"
+      <ImageView
+        android:id="@+id/img1"
         android:layout_width="match_parent"
-        android:background="@android:color/transparent"
-        android:layout_height="wrap_content"/>
-
-      <com.mapswithme.maps.widget.ParallaxBackgroundViewPager
-        android:id="@+id/pager"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img1"/>
+      <ImageView
+        android:id="@+id/img2"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/subscription_view_pager_height"
-        android:overScrollMode="never"
-        app:autoScroll="true"
-        app:scrollPeriod="4000"/>
-
-      <LinearLayout
-        android:id="@+id/bottom_container"
-        android:gravity="center_horizontal"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img2"/>
+      <ImageView
+        android:id="@+id/img3"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img3"/>
+
+      <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
         <LinearLayout
-          android:id="@+id/indicator"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          android:layout_marginTop="@dimen/margin_base_plus"/>
-      </LinearLayout>
+          android:orientation="vertical"
+          android:gravity="center_horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
 
-    </LinearLayout>
-</RelativeLayout>
+          <View
+            android:id="@+id/status_bar_placeholder"
+            android:layout_width="match_parent"
+            android:background="@android:color/transparent"
+            android:layout_height="wrap_content"/>
+
+          <com.mapswithme.maps.widget.ParallaxBackgroundViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/subscription_view_pager_margin"
+            android:layout_height="@dimen/subscription_view_pager_height"
+            android:overScrollMode="never"
+            app:autoScroll="true"
+            app:scrollPeriod="4000"/>
+
+          <LinearLayout
+            android:id="@+id/bottom_container"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <LinearLayout
+              android:id="@+id/indicator"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:layout_marginTop="@dimen/margin_base_plus"/>
+
+            <FrameLayout
+              android:layout_marginTop="@dimen/nav_street_height"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center">
+              <LinearLayout
+                android:id="@+id/sub_buttons_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{buttons == null || buttons.isEmpty() ? v.GONE : v.VISIBLE}"
+                android:orientation="vertical">
+                <include
+                  bind:entity="@{buttons[0]}"
+                  bind:clickListener="@{annualClickListener}"
+                  bind:saleTextColor="@{@color/tips_and_triks_primary_text_night}"
+                  bind:saleBackground="@{@drawable/all_pass_sale_bg}"
+                  android:layout_height="wrap_content"
+                  android:layout_width="match_parent"
+                  android:layout_marginStart="@dimen/margin_base_plus"
+                  android:layout_marginEnd="@dimen/margin_base_plus"
+                  layout="@layout/subscription_button" />
+                <include
+                  bind:entity="@{buttons[1]}"
+                  bind:clickListener="@{monthClickListener}"
+                  bind:buttonBackground="@{@drawable/button_accent}"
+                  bind:buttonTextColor="@{@color/black_primary}"
+                  android:layout_marginTop="@dimen/margin_base"
+                  android:layout_height="wrap_content"
+                  android:layout_width="match_parent"
+                  android:layout_marginStart="@dimen/margin_base_plus"
+                  android:layout_marginEnd="@dimen/margin_base_plus"
+                  layout="@layout/subscription_button" />
+              </LinearLayout>
+              <ProgressBar
+                android:id="@+id/progress"
+                android:visibility="@{buttons == null || buttons.isEmpty() ? v.VISIBLE : v.GONE}"
+                android:layout_width="@dimen/primary_button_min_height"
+                android:layout_height="@dimen/primary_button_min_height"
+                android:layout_gravity="center"
+                tools:visibility="visible"/>
+            </FrameLayout>
+
+          </LinearLayout>
+        </LinearLayout>
+      </androidx.core.widget.NestedScrollView>
+
+  </RelativeLayout>
+</layout>
