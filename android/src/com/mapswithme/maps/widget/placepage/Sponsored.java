@@ -30,10 +30,11 @@ public final class Sponsored
   public static final int TYPE_HOLIDAY = 4;
   public static final int TYPE_PROMO_CATALOG_CITY = 5;
   public static final int TYPE_PROMO_CATALOG_SIGHTSEEINGS = 6;
+  public static final int TYPE_PROMO_CATALOG_OUTDOOR = 7;
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ TYPE_NONE, TYPE_BOOKING, TYPE_OPENTABLE, TYPE_PARTNER, TYPE_HOLIDAY,
-            TYPE_PROMO_CATALOG_CITY, TYPE_PROMO_CATALOG_SIGHTSEEINGS })
+            TYPE_PROMO_CATALOG_CITY, TYPE_PROMO_CATALOG_SIGHTSEEINGS, TYPE_PROMO_CATALOG_OUTDOOR })
   public @interface SponsoredType {}
 
   static class FacilityType

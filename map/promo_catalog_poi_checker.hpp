@@ -20,14 +20,17 @@ protected:
   }
 };
 
-class IsPromoCatalogSightseeingsChecker : public IsPromoCatalogPoiChecker
-{
-public:
-  DECLARE_CHECKER_INSTANCE(IsPromoCatalogSightseeingsChecker);
+#define PROMO_CATALOG_CHECKER(ClassName, TypesGetter) \
+    class ClassName : public IsPromoCatalogPoiChecker \
+    {                                                 \
+    public:                                           \
+      DECLARE_CHECKER_INSTANCE(ClassName);            \
+    private:                                          \
+      ClassName()                                     \
+        : IsPromoCatalogPoiChecker(TypesGetter)       \
+      {}                                              \
+    };
 
-private:
-  IsPromoCatalogSightseeingsChecker()
-    : IsPromoCatalogPoiChecker(promo::GetPromoCatalogSightseeingsTypes())
-  {}
-};
+PROMO_CATALOG_CHECKER(IsPromoCatalogSightseeingsChecker, promo::GetPromoCatalogSightseeingsTypes())
+PROMO_CATALOG_CHECKER(IsPromoCatalogOutdoorChecker, promo::GetPromoCatalogOutdoorTypes())
 }  // namespace ftypes

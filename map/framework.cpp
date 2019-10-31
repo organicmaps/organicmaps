@@ -925,6 +925,13 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
                         : place_page::OpeningMode::PreviewPlus);
     info.SetSponsoredType(SponsoredType::PromoCatalogSightseeings);
   }
+  else if (ftypes::IsPromoCatalogOutdoorChecker::Instance()(ft))
+  {
+    info.SetOpeningMode(m_routingManager.IsRoutingActive() || !GetPlatform().IsConnected()
+                        ? place_page::OpeningMode::Preview
+                        : place_page::OpeningMode::PreviewPlus);
+    info.SetSponsoredType(SponsoredType::PromoCatalogOutdoor);
+  }
 
   FillLocalExperts(ft, info);
   FillDescription(ft, info);

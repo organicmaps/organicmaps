@@ -23,6 +23,25 @@ promo::TypesList kSightseeingsTypes = {
   {"tourism", "viewpoint"},
   {"amenity", "place_of_worship"},
 };
+
+promo::TypesList kOutdoorTypes = {
+  {"place", "village"},
+  {"place", "hamlet"},
+  {"natural", "volcano"},
+  {"waterway", "waterfall"},
+  {"natural", "cave_entrance"},
+  {"landuse", "forest"},
+  {"leisure", "nature_reserve"},
+  {"natural", "cliff"},
+  {"natural", "peak"},
+  {"natural", "rock"},
+  {"natural", "wood"},
+  {"natural", "bare_rock"},
+  {"natural", "glacier"},
+  {"leisure", "park"},
+  {"boundary", "national_park"}
+};
+
 }  // namespace
 
 namespace promo
@@ -30,5 +49,10 @@ namespace promo
 TypesList const & GetPromoCatalogSightseeingsTypes()
 {
   return kSightseeingsTypes;
+}
+
+TypesList const & GetPromoCatalogOutdoorTypes()
+{
+  return kOutdoorTypes;
 }
 }  // namespace promo
