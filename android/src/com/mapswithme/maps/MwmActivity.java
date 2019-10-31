@@ -513,7 +513,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     SearchEngine.INSTANCE.addListener(this);
 
     SharingHelper.INSTANCE.initialize();
-    startActivity(new Intent(this, AllPassSubscriptionActivity.class));
 
     initControllersAndValidatePurchases(savedInstanceState);
 

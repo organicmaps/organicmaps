@@ -178,14 +178,14 @@ public class DotPager implements ViewPager.OnPageChangeListener
     }
 
     @NonNull
-    public Builder setActiveDotDrawable(@StringRes int resId)
+    public Builder setActiveDotDrawable(@DrawableRes int resId)
     {
       mActiveDotDrawableResId = resId;
       return this;
     }
 
     @NonNull
-    public Builder setInactiveDotDrawable(@StringRes int resId)
+    public Builder setInactiveDotDrawable(@DrawableRes int resId)
     {
       mInactiveDotDrawableResId = resId;
       return this;

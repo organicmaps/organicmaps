@@ -1,105 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
-
-  <data>
-    <import
-      alias="v"
-      type="android.view.View" />
-    <import type="androidx.core.content.ContextCompat" />
-    <import type="android.text.TextUtils" />
-    <import type="com.mapswithme.maps.R" />
-    <import
-      alias="listener"
-      type="android.view.View.OnClickListener" />
-
-    <variable
-      name="entity"
-      type="com.mapswithme.maps.purchase.SubsButtonEntity" />
-    <variable
-      name="clickListener"
-      type="listener" />
-    <variable
-      name="buttonBackground"
-      type="android.graphics.drawable.Drawable" />
-    <variable
-      name="buttonTextColor"
-      type="java.lang.Integer" />
-    <variable
-      name="saleBackground"
-      type="android.graphics.drawable.Drawable" />
-    <variable
-      name="saleTextColor"
-      type="java.lang.Integer" />
-  </data>
-
-  <FrameLayout
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  xmlns:tools="http://schemas.android.com/tools">
+  <RelativeLayout
+    android:id="@+id/button_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
-    <RelativeLayout
-      android:id="@+id/button_container"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_base"
+    android:minHeight="@dimen/height_block_base"
+    android:layout_marginTop="@dimen/margin_base_plus_quarter"
+    tools:background="?primaryButtonBackground">
+    <TextView
+      android:id="@+id/name"
+      android:layout_toStartOf="@id/price"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:minHeight="@dimen/height_block_base"
-      android:orientation="horizontal"
-      android:padding="@dimen/margin_base"
-      android:onClick="@{(view) -> clickListener.onClick(view)}"
-      android:background="@{buttonBackground ?? @drawable/button_accent}"
-      app:layout_marginTop_subs_button="@{TextUtils.isEmpty(entity.sale) ? @dimen/zero : @dimen/margin_base_plus_quarter}"
-      tools:background="?primaryButtonBackground">
-      <TextView
-        android:id="@+id/name"
-        android:layout_toStartOf="@id/price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:textColor="@{buttonTextColor ?? @color/white_primary}"
-        android:fontFamily="@string/robotoMedium"
-        android:textSize="@dimen/text_size_body_3"
-        android:textAllCaps="true"
-        android:letterSpacing="0.04"
-        android:text="@{entity.name}"
-        tools:text="ANNUAL"
-        tools:targetApi="lollipop" />
-      <TextView
-        android:id="@id/price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:textColor="@{buttonTextColor ?? @color/white_primary}"
-        android:fontFamily="@string/robotoMedium"
-        android:textSize="@dimen/text_size_body_3"
-        android:textAllCaps="true"
-        android:text="@{entity.price}"
-        android:letterSpacing="0.04"
-        tools:text="VNG 29000 / MO"
-        tools:targetApi="lollipop" />
-    </RelativeLayout>
+      android:layout_alignParentStart="true"
+      android:textColor="@color/white_primary"
+      android:fontFamily="@string/robotoMedium"
+      android:textSize="@dimen/text_size_body_3"
+      android:textAllCaps="true"
+      android:letterSpacing="0.04"
+      tools:text="ANNUAL"
+      tools:targetApi="lollipop" />
     <TextView
-      android:id="@+id/sale"
+      android:id="@id/price"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/margin_quarter"
-      android:paddingLeft="@dimen/margin_half_plus"
-      android:paddingStart="@dimen/margin_half_plus"
-      android:paddingRight="@dimen/margin_half_plus"
-      android:paddingEnd="@dimen/margin_half_plus"
-      android:paddingTop="@dimen/margin_quarter"
-      android:paddingBottom="@dimen/margin_quarter"
-      android:layout_gravity="top|start"
-      android:gravity="center_horizontal|top"
-      android:textSize="@dimen/text_size_toolbar"
-      android:textColor="@{saleTextColor ?? @color/white_primary}"
+      android:layout_alignParentEnd="true"
+      android:textColor="@color/white_primary"
       android:fontFamily="@string/robotoMedium"
-      android:background="@{saleBackground ?? @drawable/button_accent}"
-      android:visibility="@{TextUtils.isEmpty(entity.sale) ? v.GONE : v.VISIBLE}"
-      android:text="@{entity.sale}"
-      android:letterSpacing="0.15"
-      android:elevation="@dimen/margin_eighth"
-      tools:text="-30%"
-      tools:background="@color/sale_view_bg"
+      android:textSize="@dimen/text_size_body_3"
+      android:textAllCaps="true"
+      android:letterSpacing="0.04"
+      tools:text="VNG 29000 / MO"
       tools:targetApi="lollipop" />
-  </FrameLayout>
-</layout>
+  </RelativeLayout>
+  <TextView
+    android:id="@+id/sale"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_quarter"
+    android:paddingLeft="@dimen/margin_half_plus"
+    android:paddingStart="@dimen/margin_half_plus"
+    android:paddingRight="@dimen/margin_half_plus"
+    android:paddingEnd="@dimen/margin_half_plus"
+    android:paddingTop="@dimen/margin_quarter"
+    android:paddingBottom="@dimen/margin_quarter"
+    android:layout_gravity="top|start"
+    android:gravity="center_horizontal|top"
+    android:textSize="@dimen/text_size_toolbar"
+    android:textColor="@color/white_primary"
+    android:fontFamily="@string/robotoMedium"
+    android:letterSpacing="0.15"
+    android:elevation="@dimen/margin_eighth"
+    tools:text="-30%"
+    tools:background="@color/sale_view_bg"
+    tools:targetApi="lollipop" />
+</FrameLayout>

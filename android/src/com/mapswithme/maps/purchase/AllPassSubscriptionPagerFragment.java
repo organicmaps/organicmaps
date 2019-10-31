@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -15,14 +14,13 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
-import com.mapswithme.maps.databinding.PagerFragmentAllPassSubscriptionBinding;
 import com.mapswithme.maps.widget.DotPager;
 import com.mapswithme.maps.widget.ParallaxBackgroundPageListener;
 import com.mapswithme.maps.widget.ParallaxBackgroundViewPager;
+import com.mapswithme.maps.widget.SubscriptionButton;
 import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class AllPassSubscriptionPagerFragment extends BaseMwmFragment
@@ -33,33 +31,37 @@ public class AllPassSubscriptionPagerFragment extends BaseMwmFragment
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
-    PagerFragmentAllPassSubscriptionBinding dataBinding
-        = DataBindingUtil.inflate(inflater, R.layout.pager_fragment_all_pass_subscription, container, false);
-    View root = dataBinding.getRoot();
-    dataBinding.setButtons(makeButtons());
-    dataBinding.setAnnualClickListener(v -> {});
-    dataBinding.setMonthClickListener(v -> {});
-    setTopStatusBarOffset(dataBinding);
+    View root = inflater.inflate(R.layout.pager_fragment_all_pass_subscription, container,
+                                    false);
+
+    SubscriptionButton annualSubBtn = root.findViewById(R.id.annual_sub_btn);
+    annualSubBtn.setOnClickListener(v -> {});
+    SubscriptionButton monthSubBtn = root.findViewById(R.id.month_sub_btn);
+    monthSubBtn.setOnClickListener(v -> {});
+
+    monthSubBtn.setName("Name");
+    monthSubBtn.setPrice("20usd");
+
+    annualSubBtn.setName("Name1");
+    annualSubBtn.setPrice("30usd");
+    annualSubBtn.setSale("-20%");
+
+    setTopStatusBarOffset(root);
     initViewPager(root);
     return root;
   }
 
-  @NonNull
-  private static List<SubsButtonEntity> makeButtons()
+  private void setTopStatusBarOffset(@NonNull View view)
   {
-    return Arrays.asList(new SubsButtonEntity("sadasdasdsd", "20usd", "-20%"),
-                         new SubsButtonEntity("sadasdasdsd", "30usd"));
-  }
-
-  private void setTopStatusBarOffset(@NonNull PagerFragmentAllPassSubscriptionBinding binding)
-  {
-    ViewGroup.LayoutParams params = binding.statusBarPlaceholder.getLayoutParams();
+    View statusBarPlaceholder = view.findViewById(R.id.status_bar_placeholder);
+    ViewGroup.LayoutParams params = statusBarPlaceholder.getLayoutParams();
     int statusBarHeight = UiUtils.getStatusBarHeight(requireContext());
     params.height = statusBarHeight;
-    binding.statusBarPlaceholder.setLayoutParams(params);
-    ViewGroup.MarginLayoutParams headerParams = (ViewGroup.MarginLayoutParams) binding.header.getLayoutParams();
+    statusBarPlaceholder.setLayoutParams(params);
+    View header = view.findViewById(R.id.header);
+    ViewGroup.MarginLayoutParams headerParams = (ViewGroup.MarginLayoutParams) header.getLayoutParams();
     headerParams.topMargin  = Math.max(0, headerParams.topMargin - statusBarHeight);
-    binding.header.setLayoutParams(headerParams);
+    header.setLayoutParams(headerParams);
   }
 
   private void initViewPager(@NonNull View root)
