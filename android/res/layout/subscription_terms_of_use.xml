@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  tools:showIn="@layout/bookmark_subscription_fragment">
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:textAppearance"
+    android:textSize="@dimen/text_size_icon_title"
+    android:fontFamily="@string/robotoRegular"
+    android:textStyle="normal"
+    android:justificationMode="inter_word"
+    android:text="@string/subscription_terms_android"
+    android:textColor="?attr/secondary"
+    android:letterSpacing="-0.01"
+    android:lineSpacingExtra="@dimen/terms_of_use_line_spacing"
+    tools:targetApi="o" />
+  <LinearLayout
+    android:layout_marginTop="@dimen/margin_base"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+      android:layout_weight="1"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content">
+      <TextView
+        android:id="@+id/term_of_use_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_body_5"
+        android:fontFamily="@string/robotoMedium"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textStyle="normal"
+        android:textColor="?attr/secondary"
+        android:letterSpacing="-0.01"
+        tools:targetApi="lollipop"
+        tools:text="Terms of UseTerms of UseTerms of UseTerms of UseTerms of UseTerms of UseTerms of UseTerms of UseTerms of UseTerms of UseTerms of Use"
+        android:text="@string/terms_of_use"
+        android:background="?selectableItemBackground" />
+    </LinearLayout>
+    <LinearLayout
+      android:layout_weight="1"
+      android:gravity="end"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content">
+      <TextView
+        android:id="@+id/privacy_policy_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_body_5"
+        android:fontFamily="@string/robotoMedium"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textStyle="normal"
+        android:textColor="?attr/secondary"
+        android:layout_gravity="end"
+        android:gravity="end"
+        android:letterSpacing="-0.01"
+        tools:targetApi="lollipop"
+        tools:text="lollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipop"
+        android:text="@string/privacy_policy"
+        android:background="?selectableItemBackground" />
+    </LinearLayout>
+  </LinearLayout>
+</LinearLayout>

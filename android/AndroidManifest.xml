@@ -467,6 +467,10 @@
       android:name="com.mapswithme.maps.purchase.BookmarkSubscriptionActivity"
       android:screenOrientation="portrait"
       android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"/>
+    <activity
+      android:name="com.mapswithme.maps.purchase.SightseeingSubscriptionActivity"
+      android:screenOrientation="portrait"
+      android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"/>
     <service
       android:name="com.mapswithme.maps.background.WorkerService"
       android:permission="android.permission.BIND_JOB_SERVICE"

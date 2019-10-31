@@ -8,7 +8,7 @@
   <color name="text_light_subtitle">@color/white_secondary</color>
   <color name="text_light_hint">@color/white_lightest</color>
 
-  <color name="base_accent">#FF1E96F0</color>
+  <color name="base_accent">#FF249CF2</color>
   <color name="base_accent_night">#FF4BB9E6</color>
   <color name="base_accent_pressed">#FF1C85D6</color>
   <color name="base_accent_pressed_night">#FF3C9BBE</color>
@@ -207,6 +207,8 @@
   <color name="bookmarks_subs_subtitle">#c6152b1c</color>
   <color name="bookmarks_subs_subtitle_night">#c6ffffff</color>
   <color name="sale_view_bg">#A335F4</color>
+  <color name="sightseeing_subs_sale_view_bg">#E54E35</color>
+  <color name="bg_sightseeing_subs">#F0FCFF</color>
 
   <color name="notification">#82E510</color>
 </resources>
