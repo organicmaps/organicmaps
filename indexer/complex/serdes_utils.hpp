@@ -3,9 +3,8 @@
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 
+#include "base/assert.hpp"
 #include "base/checked_cast.hpp"
-
-#include <type_traits>
 
 namespace coding_utils
 {
@@ -59,7 +58,7 @@ void DeltaEncodeAs(Sink & sink, Cont const & container, Fn && fn)
          ());
 
   auto const contSize = base::checked_cast<CollectionSizeType>(container.size());
-  detail::WriteVarIntegral(sink, contSize);
+  WriteVarUint(sink, contSize);
   if (contSize == 0)
     return;
 
@@ -70,8 +69,8 @@ void DeltaEncodeAs(Sink & sink, Cont const & container, Fn && fn)
   while (++first != last)
   {
     auto const val = fn(*first);
-    auto const delta = base::checked_cast<ValueType>(val - acc);
-    detail::WriteVarIntegral(sink, delta);
+    auto const delta = base::checked_cast<uint64_t>(val - acc);
+    WriteVarUint(sink, delta);
     acc = val;
   }
 }
@@ -81,7 +80,7 @@ void DeltaEncodeAs(Sink & sink, Cont const & container, Fn && fn)
 template <typename ValueType, typename Source, typename OutIt, typename Fn>
 void DeltaDecodeAs(Source & src, OutIt it, Fn && fn)
 {
-  auto contSize = detail::ReadVarIntegral<CollectionSizeType>(src);
+  auto contSize = ReadVarUint<CollectionSizeType>(src);
   if (contSize == 0)
     return;
 
@@ -89,18 +88,18 @@ void DeltaDecodeAs(Source & src, OutIt it, Fn && fn)
   *it++ = fn(sum);
   while (--contSize)
   {
-    sum = sum + detail::ReadVarIntegral<ValueType>(src);
+    sum += base::checked_cast<ValueType>(ReadVarUint<uint64_t>(src));
     *it++ = fn(sum);
   }
 }
 
-template <typename ValueType, typename Sink, typename Cont>
+template <typename Sink, typename Cont, typename ValueType = typename Cont::value_type>
 void DeltaEncode(Sink & sink, Cont const & container, ValueType base = {})
 {
   DeltaEncodeAs<ValueType>(sink, container, [&](ValueType val) { return val - base; });
 }
 
-template <typename ValueType, typename Source, typename OutIt>
+template <typename Source, typename OutIt, typename ValueType = typename OutIt::container_type::value_type>
 void DeltaDecode(Source & src, OutIt it, ValueType base = {})
 {
   DeltaDecodeAs<ValueType>(src, it, [&](ValueType val) { return val + base; });
@@ -110,7 +109,7 @@ void DeltaDecode(Source & src, OutIt it, ValueType base = {})
 template <typename Sink, typename Cont>
 void WriteCollectionPrimitive(Sink & sink, Cont const & container)
 {
-  auto const contSize = static_cast<CollectionSizeType>(container.size());
+  auto const contSize = base::checked_cast<CollectionSizeType>(container.size());
   WriteVarUint(sink, contSize);
   for (auto value : container)
     WriteToSink(sink, value);

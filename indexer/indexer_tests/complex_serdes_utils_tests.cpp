@@ -21,12 +21,12 @@ void DeltaEncodeDecodelTest(T const & cont, ValueType base = {})
   ByteVector buffer;
   MemWriter<decltype(buffer)> writer(buffer);
   WriterSink<decltype(writer)> sink(writer);
-  coding_utils::DeltaEncode<ValueType>(sink, cont, base);
+  coding_utils::DeltaEncode(sink, cont, base);
 
   MemReader reader(buffer.data(), buffer.size());
   ReaderSource<decltype(reader)> src(reader);
   T res;
-  coding_utils::DeltaDecode<ValueType>(src, std::inserter(res, std::end(res)), base);
+  coding_utils::DeltaDecode(src, std::inserter(res, std::end(res)), base);
   TEST_EQUAL(cont, res, ());
 }
 

@@ -67,32 +67,22 @@ public:
   }
 
 private:
-  using ByteVector = std::vector<uint8_t>;
-
   class V0
   {
   public:
     template <typename Sink>
     static void Serialize(Sink & sink, tree_node::Forest<Ids> const & forest)
     {
-      ByteVector forestBuffer;
-      MemWriter<decltype(forestBuffer)> forestWriter(forestBuffer);
-      WriterSink<decltype(forestWriter)> forestMemSink(forestWriter);
-      forest.ForEachTree([&](auto const & tree) { Serialize(forestMemSink, tree); });
-      coding_utils::WriteCollectionPrimitive(sink, forestBuffer);
+      forest.ForEachTree([&](auto const & tree) { Serialize(sink, tree); });
     }
 
     template <typename Src>
     static bool Deserialize(Src & src, tree_node::Forest<Ids> & forest)
     {
-      ByteVector forestBuffer;
-      coding_utils::ReadCollectionPrimitive(src, std::back_inserter(forestBuffer));
-      MemReader forestReader(forestBuffer.data(), forestBuffer.size());
-      ReaderSource<decltype(forestReader)> forestSrc(forestReader);
-      while (forestSrc.Size() > 0)
+      while (src.Size() > 0)
       {
         tree_node::types::Ptr<Ids> tree;
-        if (!Deserialize(forestSrc, tree))
+        if (!Deserialize(src, tree))
           return false;
 
         forest.Append(tree);
@@ -111,7 +101,7 @@ private:
       });
       WriteVarUint(sink, base);
       tree_node::PreOrderVisit(tree, [&](auto const & node) {
-        coding_utils::DeltaEncode<uint32_t>(sink, node->GetData(), base);
+        coding_utils::DeltaEncode(sink, node->GetData(), base);
         auto const size = base::checked_cast<coding_utils::CollectionSizeType>(node->GetChildren().size());
         WriteVarUint(sink, size);
       });
@@ -127,7 +117,7 @@ private:
           return true;
 
         Ids ids;
-        coding_utils::DeltaDecode<uint32_t>(src, std::back_inserter(ids), base);
+        coding_utils::DeltaDecode(src, std::back_inserter(ids), base);
         tree = tree_node::MakeTreeNode(std::move(ids));
         auto const size = ReadVarUint<coding_utils::CollectionSizeType>(src);
         tree_node::types::Ptrs<Ids> children(size);
