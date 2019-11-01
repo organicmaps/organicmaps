@@ -1,4 +1,4 @@
-package com.mapswithme.maps.news;
+package com.mapswithme.maps.onboarding;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
