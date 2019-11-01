@@ -3,7 +3,8 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="match_parent"
+  xmlns:tools="http://schemas.android.com/tools">
 
   <ImageView
     android:id="@+id/img1"
@@ -87,8 +88,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/margin_base_plus"
-          android:layout_marginTop="@dimen/nav_street_height"
           android:layout_marginEnd="@dimen/margin_base_plus"
+          android:layout_marginTop="@dimen/nav_street_height"
           app:buttonBackground="@drawable/button_accent"
           app:saleBackground="@drawable/all_pass_sale_bg"
           app:saleTextColor="@color/tips_and_triks_primary_text_night"
@@ -98,10 +99,100 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/margin_base_plus"
-          android:layout_marginTop="@dimen/margin_base"
           android:layout_marginEnd="@dimen/margin_base_plus"
+          android:layout_marginTop="@dimen/margin_base"
           app:buttonBackground="@drawable/button_secondary_transparent"
           app:buttonTextColor="@color/black_primary" />
+
+        <TextView
+          android:id="@+id/restore_purchase_btn"
+          android:background="?attr/selectableItemBackground"
+          android:layout_gravity="center"
+          android:layout_marginTop="@dimen/downloader_status_size"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textAllCaps="true"
+          android:textColor="@color/white_primary"
+          android:layout_marginStart="@dimen/margin_base_plus"
+          android:layout_marginEnd="@dimen/margin_base_plus"
+          android:gravity="center"
+          android:fontFamily="@string/robotoMedium"
+          android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+          android:text="@string/restore"
+          tools:text="Restore purchases"
+          tools:ignore="UnusedAttribute"/>
+
+        <LinearLayout
+          android:layout_marginTop="@dimen/margin_double_and_half"
+          android:layout_marginBottom="@dimen/bookmarks_subs_margin_top"
+          android:layout_marginStart="@dimen/margin_base_plus"
+          android:layout_marginEnd="@dimen/margin_base_plus"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearance"
+            android:textSize="@dimen/text_size_icon_title"
+            android:fontFamily="@string/robotoRegular"
+            android:textStyle="normal"
+            android:justificationMode="inter_word"
+            android:text="@string/subscription_terms_android"
+            android:textColor="@color/white_lightest"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="@dimen/terms_of_use_line_spacing"
+            tools:targetApi="o" />
+          <LinearLayout
+            android:layout_marginTop="@dimen/margin_base"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+              android:layout_weight="1"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content">
+              <TextView
+                android:id="@+id/term_of_use_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_body_5"
+                android:fontFamily="@string/robotoMedium"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textStyle="normal"
+                android:textColor="@color/white_lightest"
+                android:letterSpacing="-0.01"
+                tools:targetApi="lollipop"
+                tools:text="Terms of UseTerms of UseTerms of UseTerms of UseTerms of UseTerms of UseTerms of UseTerms of UseTerms of UseTerms of UseTerms of Use"
+                android:text="@string/terms_of_use"
+                android:background="?selectableItemBackground" />
+            </LinearLayout>
+            <LinearLayout
+              android:layout_weight="1"
+              android:gravity="end"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content">
+              <TextView
+                android:id="@+id/privacy_policy_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_body_5"
+                android:fontFamily="@string/robotoMedium"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textStyle="normal"
+                android:textColor="@color/white_lightest"
+                android:layout_gravity="end"
+                android:gravity="end"
+                android:letterSpacing="-0.01"
+                tools:targetApi="lollipop"
+                tools:text="lollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipoplollipop"
+                android:text="@string/privacy_policy"
+                android:background="?selectableItemBackground" />
+            </LinearLayout>
+          </LinearLayout>
+        </LinearLayout>
+
       </LinearLayout>
     </LinearLayout>
   </androidx.core.widget.NestedScrollView>
