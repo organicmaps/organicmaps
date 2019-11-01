@@ -17,7 +17,7 @@ public enum AllPassSubscriptionPage
   @StringRes
   private final int mDescriptionId;
 
-  AllPassSubscriptionPage(int titleId, int descriptionId)
+  AllPassSubscriptionPage(@StringRes int titleId, @StringRes int descriptionId)
   {
     mTitleId = titleId;
     mDescriptionId = descriptionId;

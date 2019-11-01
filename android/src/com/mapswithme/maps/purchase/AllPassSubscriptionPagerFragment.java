@@ -115,7 +115,7 @@ public class AllPassSubscriptionPagerFragment extends BaseMwmFragment
     @Override
     public Fragment getItem(int i)
     {
-      return AllPassSubscriptionFragment.newFragment(i);
+      return AllPassSubscriptionFragment.newInstance(i);
     }
 
     @Override

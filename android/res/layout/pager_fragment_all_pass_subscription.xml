@@ -1,114 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-  <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <ImageView
+    android:id="@+id/img1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-      <ImageView
-        android:id="@+id/img1"
+    android:layout_height="match_parent"
+    android:scaleType="centerCrop"
+    android:src="@drawable/img_bonfire" />
+  <ImageView
+    android:id="@+id/img2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scaleType="centerCrop"
+    android:src="@drawable/img_camping" />
+  <ImageView
+    android:id="@+id/img3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scaleType="centerCrop"
+    android:src="@drawable/img_winter" />
+  <androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center_horizontal"
+      android:orientation="vertical">
+      <View
+        android:id="@+id/status_bar_placeholder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img_bonfire"/>
-      <ImageView
-        android:id="@+id/img2"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent" />
+      <TextView
+        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img_camping"/>
-      <ImageView
-        android:id="@+id/img3"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_base_plus_quarter"
+        android:layout_marginTop="@dimen/all_pass_top_offset"
+        android:layout_marginEnd="@dimen/margin_base_plus_quarter"
+        android:fontFamily="@string/robotoMedium"
+        android:gravity="center"
+        android:text="@string/all_pass_subscription_header"
+        android:textAllCaps="true"
+        android:textColor="@color/white_lightest"
+        android:textSize="@dimen/text_size_body_4" />
+      <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img_winter"/>
-
-      <androidx.core.widget.NestedScrollView
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_base_plus_quarter"
+        android:layout_marginTop="@dimen/margin_half"
+        android:layout_marginEnd="@dimen/margin_base_plus_quarter"
+        android:fontFamily="@font/fredoka_one"
+        android:gravity="center"
+        android:text="@string/all_pass_subscription_subheader"
+        android:textColor="@color/all_pass_subtitle"
+        android:textSize="@dimen/text_size_title" />
+      <com.mapswithme.maps.widget.ParallaxBackgroundViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="@dimen/subscription_view_pager_height"
+        android:layout_marginTop="@dimen/auth_dialog_padding_top"
+        android:overScrollMode="never"
+        app:autoScroll="true"
+        app:scrollPeriod="4000" />
+      <LinearLayout
+        android:id="@+id/bottom_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
         <LinearLayout
-          android:orientation="vertical"
-          android:gravity="center_horizontal"
+          android:id="@+id/indicator"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_base_plus"
+          android:orientation="horizontal" />
+        <com.mapswithme.maps.widget.SubscriptionButton
+          android:id="@+id/annual_sub_btn"
           android:layout_width="match_parent"
-          android:layout_height="match_parent">
-
-          <View
-            android:id="@+id/status_bar_placeholder"
-            android:layout_width="match_parent"
-            android:background="@android:color/transparent"
-            android:layout_height="wrap_content"/>
-          <TextView
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_base_plus_quarter"
-            android:layout_marginEnd="@dimen/margin_base_plus_quarter"
-            android:layout_marginTop="@dimen/all_pass_top_offset"
-            android:fontFamily="@string/robotoMedium"
-            android:gravity="center"
-            android:textAllCaps="true"
-            android:text="@string/all_pass_subscription_header"
-            android:textColor="@color/white_lightest"
-            android:textSize="@dimen/text_size_body_4" />
-          <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_half"
-            android:layout_marginStart="@dimen/margin_base_plus_quarter"
-            android:layout_marginEnd="@dimen/margin_base_plus_quarter"
-            android:fontFamily="@font/fredoka_one"
-            android:gravity="center"
-            android:text="@string/all_pass_subscription_subheader"
-            android:textColor="@color/all_pass_subtitle"
-            android:textSize="@dimen/text_size_title" />
-
-          <com.mapswithme.maps.widget.ParallaxBackgroundViewPager
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/auth_dialog_padding_top"
-            android:layout_height="@dimen/subscription_view_pager_height"
-            android:overScrollMode="never"
-            app:autoScroll="true"
-            app:scrollPeriod="4000"/>
-
-          <LinearLayout
-            android:id="@+id/bottom_container"
-            android:gravity="center_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <LinearLayout
-              android:id="@+id/indicator"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal"
-              android:layout_marginTop="@dimen/margin_base_plus"/>
-            <com.mapswithme.maps.widget.SubscriptionButton
-              android:id="@+id/annual_sub_btn"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="@dimen/margin_base_plus"
-              android:layout_marginTop="@dimen/nav_street_height"
-              android:layout_marginEnd="@dimen/margin_base_plus"
-              app:buttonBackground="@drawable/button_accent"
-              app:saleBackground="@drawable/all_pass_sale_bg"
-              app:saleTextColor="@color/tips_and_triks_primary_text_night"
-              app:showSale="true" />
-            <com.mapswithme.maps.widget.SubscriptionButton
-              android:id="@+id/month_sub_btn"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="@dimen/margin_base_plus"
-              android:layout_marginTop="@dimen/margin_base"
-              android:layout_marginEnd="@dimen/margin_base_plus"
-              app:buttonBackground="@drawable/button_secondary_transparent"
-              app:buttonTextColor="@color/black_primary" />
-
-          </LinearLayout>
-        </LinearLayout>
-      </androidx.core.widget.NestedScrollView>
-
-  </RelativeLayout>
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_base_plus"
+          android:layout_marginTop="@dimen/nav_street_height"
+          android:layout_marginEnd="@dimen/margin_base_plus"
+          app:buttonBackground="@drawable/button_accent"
+          app:saleBackground="@drawable/all_pass_sale_bg"
+          app:saleTextColor="@color/tips_and_triks_primary_text_night"
+          app:showSale="true" />
+        <com.mapswithme.maps.widget.SubscriptionButton
+          android:id="@+id/month_sub_btn"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_base_plus"
+          android:layout_marginTop="@dimen/margin_base"
+          android:layout_marginEnd="@dimen/margin_base_plus"
+          app:buttonBackground="@drawable/button_secondary_transparent"
+          app:buttonTextColor="@color/black_primary" />
+      </LinearLayout>
+    </LinearLayout>
+  </androidx.core.widget.NestedScrollView>
+</RelativeLayout>

@@ -155,7 +155,9 @@ public class DotPager implements ViewPager.OnPageChangeListener
     private final Context mContext;
     @Nullable
     private OnPageChangedListener mListener;
+    @DrawableRes
     private int mActiveDotDrawableResId = R.drawable.news_marker_active;
+    @DrawableRes
     private int mInactiveDotDrawableResId = R.drawable.news_marker_inactive;
 
     public Builder(@NonNull Context context, @NonNull ViewPager pager, @NonNull PagerAdapter adapter)

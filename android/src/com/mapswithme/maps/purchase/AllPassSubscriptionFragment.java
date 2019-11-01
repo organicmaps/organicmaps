@@ -38,7 +38,7 @@ public class AllPassSubscriptionFragment extends Fragment
   }
 
   @NonNull
-  public static AllPassSubscriptionFragment newFragment(int index)
+  static Fragment newInstance(int index)
   {
     AllPassSubscriptionFragment fragment = new AllPassSubscriptionFragment();
     Bundle args = new Bundle();
