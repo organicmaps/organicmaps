@@ -13,7 +13,7 @@ public class SightseeingSubscriptionActivity extends BaseMwmFragmentActivity
   public static void startForResult(@NonNull FragmentActivity activity)
   {
     Intent intent = new Intent(activity, SightseeingSubscriptionActivity.class);
-    activity.startActivityForResult(intent, PurchaseUtils.REQ_CODE_PAY_SIGHTSEEING_SUBSCRIPTION);
+    activity.startActivityForResult(intent, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION);
   }
 
   @Override
