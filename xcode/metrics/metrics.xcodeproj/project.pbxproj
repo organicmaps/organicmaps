@@ -22,6 +22,7 @@
 		3D4F457A21354EB70005E765 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F457921354EB70005E765 /* libalohalitics.a */; };
 		3D4F457C21354F150005E765 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F457B21354F150005E765 /* libz.tbd */; };
 		56DAC378239925C4000BC50D /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC377239925C4000BC50D /* libgeometry.a */; };
+		D5D5DC4F2396AE02003E9A83 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5D5DC4E2396AE02003E9A83 /* liboauthcpp.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -69,6 +70,7 @@
 		3D4F457921354EB70005E765 /* libalohalitics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libalohalitics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D4F457B21354F150005E765 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		56DAC377239925C4000BC50D /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5D5DC4E2396AE02003E9A83 /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				3D4F457621354E4B0005E765 /* libplatform.a in Frameworks */,
 				3D4F457421354E430005E765 /* libcoding.a in Frameworks */,
 				3D4F457221354E3A0005E765 /* libbase.a in Frameworks */,
+				D5D5DC4F2396AE02003E9A83 /* liboauthcpp.a in Frameworks */,
 				3D4F457A21354EB70005E765 /* libalohalitics.a in Frameworks */,
 				3D4F457021354E0C0005E765 /* libjansson.a in Frameworks */,
 				3D4F457C21354F150005E765 /* libz.tbd in Frameworks */,
@@ -167,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				56DAC377239925C4000BC50D /* libgeometry.a */,
+				D5D5DC4E2396AE02003E9A83 /* liboauthcpp.a */,
 				3D4F457B21354F150005E765 /* libz.tbd */,
 				3D4F457921354EB70005E765 /* libalohalitics.a */,
 				3D4F457521354E4B0005E765 /* libplatform.a */,

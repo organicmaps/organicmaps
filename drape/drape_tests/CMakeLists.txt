@@ -52,6 +52,7 @@ omim_link_libraries(
   icu
   expat
   stats_client
+  oauthcpp
   freetype
   gmock
   stb_image

@@ -270,6 +270,8 @@ public:
 
   std::string UniqueClientId() const;
 
+  std::string UniqueIdHash() const;
+
   std::string AdvertisingId() const;
 
   std::string MacAddress(bool md5Decoded) const;

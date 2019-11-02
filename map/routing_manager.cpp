@@ -314,6 +314,7 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   , m_delegate(delegate)
   , m_trackingReporter(platform::CreateSocket(), TRACKING_REALTIME_HOST, TRACKING_REALTIME_PORT,
                        tracking::Reporter::kPushDelayMs)
+  , m_trackingReporterArchive(TRACKING_HISTORICAL_HOST)
   , m_extrapolator(
         [this](location::GpsInfo const & gpsInfo) { this->OnExtrapolatedLocationUpdate(gpsInfo); })
 {
@@ -481,6 +482,14 @@ void RoutingManager::OnRoutePointPassed(RouteMarkType type, size_t intermediateI
 void RoutingManager::OnLocationUpdate(location::GpsInfo const & info)
 {
   m_extrapolator.OnLocationUpdate(info);
+
+  if (IsTrackingReporterArchiveEnabled())
+  {
+    location::GpsInfo gpsInfo(info);
+    auto routeMatchingInfo = GetRouteMatchingInfo(gpsInfo);
+    m_trackingReporterArchive.Insert(m_currentRouterType, info,
+                                     m_routingSession.MatchTraffic(routeMatchingInfo));
+  }
 }
 
 RouterType RoutingManager::GetBestRouter(m2::PointD const & startPoint,
@@ -1252,6 +1261,23 @@ bool RoutingManager::IsTrackingReporterEnabled() const
 
   if (m_currentRouterType != RouterType::Vehicle)
     return false;
+
+  if (!m_routingSession.IsFollowing())
+    return false;
+
+  bool enableTracking = true;
+  settings::TryGet(tracking::Reporter::kEnableTrackingKey, enableTracking);
+
+  return enableTracking;
+}
+
+bool RoutingManager::IsTrackingReporterArchiveEnabled() const
+{
+  if (m_currentRouterType != RouterType::Vehicle && m_currentRouterType != RouterType::Bicycle &&
+      m_currentRouterType != RouterType::Pedestrian)
+  {
+    return false;
+  }
 
   if (!m_routingSession.IsFollowing())
     return false;

@@ -8,7 +8,6 @@
 
 #include "coding/file_writer.hpp"
 #include "coding/point_coding.hpp"
-#include "coding/sha1.hpp"
 #include "coding/url_encode.hpp"
 #include "coding/write_to_sink.hpp"
 #include "coding/zlib.hpp"
@@ -128,11 +127,6 @@ local_ads::Timestamp GetMaxTimestamp(std::list<local_ads::Event> const & events,
   return maxTimestamp;
 }
 
-std::string GetClientIdHash()
-{
-  return coding::SHA1::CalculateBase64ForString(GetPlatform().UniqueClientId());
-}
-
 std::string GetPath(std::string const & fileName)
 {
   return base::JoinPath(GetPlatform().SettingsDir(), kStatisticsFolderName, fileName);
@@ -243,7 +237,7 @@ bool CanUpload()
 namespace local_ads
 {
 Statistics::Statistics()
-  : m_userId(GetClientIdHash())
+  : m_userId(GetPlatform().UniqueIdHash())
 {}
   
 void Statistics::Startup()

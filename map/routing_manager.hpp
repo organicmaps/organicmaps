@@ -18,6 +18,7 @@
 
 #include "drape/pointers.hpp"
 
+#include "tracking/archival_reporter.hpp"
 #include "tracking/reporter.hpp"
 
 #include "geometry/point2d.hpp"
@@ -333,6 +334,7 @@ private:
   void CreateRoadWarningMarks(RoadWarningsCollection && roadWarnings);
 
   bool IsTrackingReporterEnabled() const;
+  bool IsTrackingReporterArchiveEnabled() const;
   void MatchLocationToRoute(location::GpsInfo & info,
                             location::RouteMatchingInfo & routeMatchingInfo) const;
   location::RouteMatchingInfo GetRouteMatchingInfo(location::GpsInfo & info);
@@ -365,6 +367,7 @@ private:
   routing::RoutingSession m_routingSession;
   Delegate & m_delegate;
   tracking::Reporter m_trackingReporter;
+  tracking::ArchivalReporter m_trackingReporterArchive;
   BookmarkManager * m_bmManager = nullptr;
   extrapolation::Extrapolator m_extrapolator;
 

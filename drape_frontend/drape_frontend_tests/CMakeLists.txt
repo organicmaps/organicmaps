@@ -28,6 +28,7 @@ omim_link_libraries(
   base
   expat
   stats_client
+  oauthcpp
   freetype
   stb_image
   sdf_image

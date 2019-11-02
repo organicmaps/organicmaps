@@ -20,6 +20,7 @@ omim_link_libraries(
   storage
   indexer
   platform
+  oauthcpp
   coding
   geometry
   base

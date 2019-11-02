@@ -14,6 +14,7 @@ omim_link_libraries(
   coding
   base
   stats_client
+  oauthcpp
   ${LIBZ}
 )
 

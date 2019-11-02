@@ -14,6 +14,7 @@ omim_link_libraries(
   mwm_diff
   bsdiff
   platform
+  oauthcpp
   coding
   base
   stats_client

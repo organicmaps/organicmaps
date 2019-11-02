@@ -60,6 +60,7 @@ omim_link_libraries(
   minizip
   succinct
   stats_client
+  oauthcpp
   ${Qt5Widgets_LIBRARIES}
   ${LIBZ}
 )

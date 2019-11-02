@@ -13,6 +13,8 @@
 #define LOC_IDX_FILE_EXTENSION ".locidx"
 #define LOC_DATA_FILE_EXTENSION ".locdata"
 #define OSM_DATA_FILE_EXTENSION ".osm"
+#define ARCHIVE_TRACKS_FILE_EXTENSION ".track"
+#define ARCHIVE_TRACKS_ZIPPED_FILE_EXTENSION ".track.zip"
 
 #define NODES_FILE "nodes.dat"
 #define WAYS_FILE "ways.dat"

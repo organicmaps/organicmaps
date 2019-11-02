@@ -33,6 +33,7 @@ omim_link_libraries(
   succinct
   pugixml
   stats_client
+  oauthcpp
   ${LIBZ}
 )
 

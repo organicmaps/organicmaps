@@ -57,7 +57,6 @@ void Connection::Shutdown()
   m_socket->Close();
 }
 
-// TODO: implement historical
 bool Connection::Send(boost::circular_buffer<DataPoint> const & points)
 {
   if (!m_socket)

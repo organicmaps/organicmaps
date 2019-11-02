@@ -4,6 +4,7 @@
 
 #include "coding/base64.hpp"
 #include "coding/internal/file_data.hpp"
+#include "coding/sha1.hpp"
 #include "coding/writer.hpp"
 
 #include "base/file_name_utils.hpp"
@@ -81,6 +82,11 @@ Platform::EError Platform::ErrnoToError()
   default:
     return ERR_UNKNOWN;
   }
+}
+
+std::string Platform::UniqueIdHash() const
+{
+  return coding::SHA1::CalculateBase64ForString(UniqueClientId());
 }
 
 // static
