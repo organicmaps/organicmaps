@@ -1,6 +1,6 @@
 #import "MWMInputLoginValidator.h"
 
-NSUInteger constexpr minLoginLength = 3;
+static NSUInteger const minLoginLength = 3;
 
 @implementation MWMInputLoginValidator
 

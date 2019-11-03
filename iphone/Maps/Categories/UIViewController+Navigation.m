@@ -1,10 +1,7 @@
 #import "UIButton+Orientation.h"
 #import "UIViewController+Navigation.h"
 
-namespace
-{
-CGFloat constexpr kButtonExtraWidth = 16.0;
-}  // namespace
+static CGFloat const kButtonExtraWidth = 16.0;
 
 @implementation UIViewController (Navigation)
 
@@ -20,8 +17,7 @@ CGFloat constexpr kButtonExtraWidth = 16.0;
 
 - (UIBarButtonItem *)buttonWithImage:(UIImage *)image action:(SEL)action
 {
-  CGSize const buttonSize = {image.size.width + kButtonExtraWidth, image.size.height};
-  UIButton * button = [[UIButton alloc] initWithFrame:{{}, buttonSize}];
+  UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, image.size.width + kButtonExtraWidth, image.size.height)];
   [button setImage:image forState:UIControlStateNormal];
   [button matchInterfaceOrientation];
   [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];

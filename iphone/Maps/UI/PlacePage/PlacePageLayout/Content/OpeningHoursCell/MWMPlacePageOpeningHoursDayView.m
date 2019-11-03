@@ -43,18 +43,18 @@
 
 - (void)setBreaks:(NSArray<NSString *> *)breaks
 {
-  NSUInteger const breaksCount = breaks.count;
-  BOOL const haveBreaks = breaksCount != 0;
+  NSUInteger breaksCount = breaks.count;
+  BOOL haveBreaks = breaksCount != 0;
   [self.breaksHolder.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
   if (haveBreaks)
   {
-    CGFloat const breakSpacerHeight = 4.0;
+    CGFloat breakSpacerHeight = 4.0;
     self.breakLabel.hidden = NO;
     self.breaksHolder.hidden = NO;
     CGFloat labelY = 0.0;
     for (NSString * br in breaks)
     {
-      UILabel * label = [[UILabel alloc] initWithFrame:{{0, labelY},{}}];
+      UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, labelY, 0, 0)];
       label.text = br;
       label.font = self.currentDay ? [UIFont regular14] : [UIFont light12];
       label.textColor = [UIColor blackSecondaryText];
@@ -89,29 +89,29 @@
   if (self.isCompatibility)
   {
     [self.compatibilityLabel sizeToIntegralFit];
-    CGFloat const compatibilityLabelVerticalOffsets = 24.0;
+    CGFloat compatibilityLabelVerticalOffsets = 24.0;
     viewHeight = self.compatibilityLabel.height + compatibilityLabelVerticalOffsets;
   }
   else
   {
     UILabel * label = self.label;
     UILabel * openTime = self.openTime;
-    CGFloat const labelOpenTimeLabelSpacing = self.labelOpenTimeLabelSpacing.constant;
+    CGFloat labelOpenTimeLabelSpacing = self.labelOpenTimeLabelSpacing.constant;
     [label sizeToIntegralFit];
     self.labelWidth.constant = MIN(label.width, openTime.minX - label.minX - labelOpenTimeLabelSpacing);
 
     [self.breakLabel sizeToIntegralFit];
     self.breakLabelWidth.constant = self.breakLabel.width;
 
-    CGFloat const verticalSuperviewSpacing = self.labelTopSpacing.constant;
-    CGFloat const minHeight = label.height + 2 * verticalSuperviewSpacing;
-    CGFloat const breaksHolderHeight = self.breaksHolderHeight.constant;
-    CGFloat const additionalHeight = (breaksHolderHeight > 0 ? 4.0 : 0.0);
+    CGFloat verticalSuperviewSpacing = self.labelTopSpacing.constant;
+    CGFloat minHeight = label.height + 2 * verticalSuperviewSpacing;
+    CGFloat breaksHolderHeight = self.breaksHolderHeight.constant;
+    CGFloat additionalHeight = (breaksHolderHeight > 0 ? 4.0 : 0.0);
     viewHeight = minHeight + breaksHolderHeight + additionalHeight;
 
     if (self.closedLabel && !self.closedLabel.hidden)
     {
-      CGFloat const heightForClosedLabel = 20.0;
+      CGFloat heightForClosedLabel = 20.0;
       viewHeight += heightForClosedLabel;
     }
   }

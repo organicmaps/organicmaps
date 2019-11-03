@@ -1,9 +1,6 @@
 #import "MWMEditorAdditionalNameTableViewCell.h"
 
-namespace
-{
-CGFloat const kErrorLabelHeight = 16;
-}  // namespace
+static CGFloat const kErrorLabelHeight = 16;
 
 @interface MWMEditorAdditionalNameTableViewCell ()
 

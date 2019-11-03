@@ -1,11 +1,9 @@
 #import "MWMAboutController.h"
 
-#import <CoreApi/CoreApi.h>
+#import <CoreApi/MWMFrameworkHelper.h>
 
 #import "Statistics.h"
 #import "SwiftBridge.h"
-
-extern NSString * const kAlohalyticsTapEventKey;
 
 @interface MWMAboutController () <SettingsTableViewSwitchCellDelegate>
 
@@ -43,8 +41,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     version = [NSString stringWithFormat:@"%@.%@", version, appInfo.buildNumber];
   self.versionLabel.text = [NSString stringWithFormat:L(@"version"), version];
 
-  auto const dataVersion = GetFramework().GetCurrentDataVersion();
-  self.dateLabel.text = [NSString stringWithFormat:L(@"date"), dataVersion];
+  self.dateLabel.text = [NSString stringWithFormat:L(@"date"), [MWMFrameworkHelper dataVersion]];
 
   [self.crashlyticsCell configWithDelegate:self title:L(@"opt_out_fabric") isOn:![MWMSettings crashReportingDisabled]];
 }
@@ -52,7 +49,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
-  auto cell = static_cast<SettingsTableViewLinkCell *>([tableView cellForRowAtIndexPath:indexPath]);
+  SettingsTableViewLinkCell *cell = [tableView cellForRowAtIndexPath:indexPath];
   if (cell == self.websiteCell)
   {
     [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"website"];

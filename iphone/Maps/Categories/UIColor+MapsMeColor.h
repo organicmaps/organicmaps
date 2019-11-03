@@ -1,5 +1,7 @@
 #import "UIColor+PartnerColor.h"
+
 NS_ASSUME_NONNULL_BEGIN
+
 @interface UIColor (MapsMeColor)
 
 + (UIColor *)primaryDark;
@@ -75,4 +77,5 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIColor *)facebookButtonBackgroundDisabled;
 
 @end
+
 NS_ASSUME_NONNULL_END

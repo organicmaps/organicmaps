@@ -2,10 +2,7 @@
 #import "MWMEditorCommon.h"
 #import "UIImageView+Coloring.h"
 
-namespace
-{
-CGFloat const kErrorLabelDefaultTopSpace = 4.;
-}  // namespace
+static CGFloat const kErrorLabelDefaultTopSpace = 4.;
 
 @interface MWMEditorTextTableViewCell ()<UITextFieldDelegate>
 

@@ -44,11 +44,11 @@
 
 - (void)configForSize:(CGSize)size
 {
-  CGSize const iPadSize = {520, 600};
-  CGSize const newSize = IPAD ? iPadSize : size;
-  CGFloat const width = newSize.width;
-  CGFloat const height = newSize.height;
-  BOOL const hideImage = (self.imageHeight.multiplier * height <= self.imageMinHeight.constant);
+  CGSize iPadSize = CGSizeMake(520, 600);
+  CGSize newSize = IPAD ? iPadSize : size;
+  CGFloat width = newSize.width;
+  CGFloat height = newSize.height;
+  BOOL hideImage = (self.imageHeight.multiplier * height <= self.imageMinHeight.constant);
   if (hideImage)
   {
     self.titleImageOffset.priority = UILayoutPriorityDefaultLow;

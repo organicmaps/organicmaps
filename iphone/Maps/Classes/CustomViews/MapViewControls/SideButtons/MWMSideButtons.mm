@@ -11,8 +11,6 @@
 
 #include <CoreApi/Framework.h>
 
-extern NSString * const kAlohalyticsTapEventKey;
-
 namespace
 {
 NSString * const kMWMSideButtonsViewNibName = @"MWMSideButtonsView";

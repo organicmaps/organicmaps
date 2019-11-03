@@ -6,7 +6,6 @@
 
 @class MWMWelcomePageController;
 @class MWMMapViewControlsManager;
-@class MWMAPIBar;
 @class MWMPlacePageData;
 @class EAGLView;
 @class MWMMapDownloadDialog;
@@ -50,7 +49,6 @@
 - (void)disableCarPlayRepresentation;
 
 @property(nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
-@property(nonatomic) MWMAPIBar * apiBar;
 @property(nonatomic) MWMWelcomePageController * welcomePageController;
 @property(nonatomic, readonly) MWMMapDownloadDialog * downloadDialog;
 

@@ -1,6 +1,6 @@
 #import "MWMInputPasswordValidator.h"
 
-NSUInteger constexpr minPasswordLength = 8;
+static NSUInteger const minPasswordLength = 8;
 
 @implementation MWMInputPasswordValidator
 

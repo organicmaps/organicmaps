@@ -24,8 +24,7 @@
 
 - (MWMImageColoring)mwm_coloring
 {
-  return static_cast<MWMImageColoring>(
-      [objc_getAssociatedObject(self, @selector(mwm_coloring)) integerValue]);
+  return [objc_getAssociatedObject(self, @selector(mwm_coloring)) integerValue];
 }
 
 - (void)applyColoring

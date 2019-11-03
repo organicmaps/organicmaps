@@ -1,23 +1,13 @@
 #import "MWMHelpController.h"
 #import <CoreApi/AppInfo.h>
+#import <CoreApi/MWMFrameworkHelper.h>
 #import "MWMMailViewController.h"
 #import "Statistics.h"
 #import "WebViewController.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
-#include "platform/platform.hpp"
-
-extern NSString * const kAlohalyticsTapEventKey;
-extern NSString * const kLocaleUsedInSupportEmails = @"en_gb";
-
-namespace
-{
-NSString * const kCommonReportActionTitle = L(@"feedback_general");
-NSString * const kBugReportActionTitle = L(@"report_a_bug");
-NSString * const kCancelActionTitle = L(@"cancel");
-NSString * const kiOSEmail = @"ios@maps.me";
-}
+static NSString * const kiOSEmail = @"ios@maps.me";
 
 @interface MWMHelpController ()<MFMailComposeViewControllerDelegate>
 
@@ -36,17 +26,13 @@ NSString * const kiOSEmail = @"ios@maps.me";
   self.title = L(@"help");
 
   NSString * html;
-  if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
-  {
-    NSString * path = [NSBundle.mainBundle pathForResource:@"faq" ofType:@"html"];
-    html = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    self.aboutViewController =
-        [[WebViewController alloc] initWithHtml:html baseUrl:nil title:nil];
-  }
-  else
-  {
-    NSURL * url = [NSURL URLWithString:@"https://support.maps.me"];
+  if ([MWMFrameworkHelper isNetworkConnected]) {
+    NSURL *url = [NSURL URLWithString:@"https://support.maps.me"];
     self.aboutViewController = [[WebViewController alloc] initWithUrl:url title:nil];
+  } else {
+    NSString *path = [NSBundle.mainBundle pathForResource:@"faq" ofType:@"html"];
+    html = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    self.aboutViewController = [[WebViewController alloc] initWithHtml:html baseUrl:nil title:nil];
   }
 
   self.aboutViewController.openInSafari = NO;
@@ -94,14 +80,14 @@ NSString * const kiOSEmail = @"ios@maps.me";
                                           message:nil
                                    preferredStyle:UIAlertControllerStyleAlert];
 
-  UIAlertAction * commonReport = [UIAlertAction actionWithTitle:kCommonReportActionTitle
+  UIAlertAction * commonReport = [UIAlertAction actionWithTitle:L(@"feedback_general")
                                                           style:UIAlertActionStyleDefault
                                                         handler:^(UIAlertAction * _Nonnull action) {
                                                           [self commonReportAction];
                                                         }];
   [alert addAction:commonReport];
 
-  UIAlertAction * bugReport = [UIAlertAction actionWithTitle:kBugReportActionTitle
+  UIAlertAction * bugReport = [UIAlertAction actionWithTitle:L(@"report_a_bug")
                                                        style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction * _Nonnull action) {
                                                        [self bugReportAction];
@@ -109,7 +95,7 @@ NSString * const kiOSEmail = @"ios@maps.me";
   [alert addAction:bugReport];
 
   UIAlertAction * cancel =
-      [UIAlertAction actionWithTitle:kCancelActionTitle style:UIAlertActionStyleCancel handler:nil];
+      [UIAlertAction actionWithTitle:L(@"cancel") style:UIAlertActionStyleCancel handler:nil];
   [alert addAction:cancel];
   alert.preferredAction = cancel;
 

@@ -1,6 +1,3 @@
-NSString * const kMediumFontName = @"HelveticaNeue-Medium";
-NSString * const kLightFontName = @"HelveticaNeue-Light";
-
 @implementation UIFont (MapsMeFonts)
 
 + (UIFont *)regular9 { return [UIFont systemFontOfSize:9]; }

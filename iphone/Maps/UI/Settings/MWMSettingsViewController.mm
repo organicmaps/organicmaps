@@ -7,8 +7,6 @@
 
 #include "map/gps_tracker.hpp"
 
-extern NSString * const kAlohalyticsTapEventKey;
-
 using namespace power_management;
 
 @interface MWMSettingsViewController ()<SettingsTableViewSwitchCellDelegate, RemoveAdsViewControllerDelegate>

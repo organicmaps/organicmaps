@@ -4,7 +4,8 @@
 
 #include "editor/osm_auth.hpp"
 
-extern NSString * const kMap2OsmLoginSegue;
+static NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
+
 extern NSString * const kMap2FBLoginSegue;
 extern NSString * const kMap2GoogleLoginSegue;
 

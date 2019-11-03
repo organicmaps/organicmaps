@@ -2,8 +2,6 @@
 #import "MWMButton.h"
 #import "UIButton+RuntimeAttributes.h"
 
-extern NSString * const kSearchStateKey;
-
 @interface MWMSearchChangeModeView ()<MWMSearchObserver>
 
 @property(weak, nonatomic) IBOutlet UIButton * changeModeButton;

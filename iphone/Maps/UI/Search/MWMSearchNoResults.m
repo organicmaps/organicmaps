@@ -1,10 +1,7 @@
 #import "MWMSearchNoResults.h"
 
-namespace
-{
-CGFloat constexpr kCompactHeight = 216;
-CGFloat constexpr kExtraCompactHeight = 52;
-}  // namespace
+static CGFloat const kCompactHeight = 216;
+static CGFloat const kExtraCompactHeight = 52;
 
 @interface MWMSearchNoResults ()
 
@@ -18,17 +15,13 @@ CGFloat constexpr kExtraCompactHeight = 52;
 
 @implementation MWMSearchNoResults
 
-+ (instancetype)viewWithImage:(UIImage *)image title:(NSString *)title text:(NSString *)text
-{
++ (instancetype)viewWithImage:(UIImage *)image title:(NSString *)title text:(NSString *)text {
   MWMSearchNoResults * view =
       [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   view.image.image = image;
-  if (title)
-  {
+  if (title) {
     view.title.text = title;
-  }
-  else
-  {
+  } else {
     [view.title removeFromSuperview];
     view.textOffsetToImage.priority = UILayoutPriorityDefaultHigh;
   }
@@ -36,15 +29,13 @@ CGFloat constexpr kExtraCompactHeight = 52;
   return view;
 }
 
-- (void)layoutSubviews
-{
+- (void)layoutSubviews {
   [super layoutSubviews];
   self.frame = self.superview.bounds;
-  BOOL const compact = self.height < kCompactHeight;
+  BOOL compact = self.height < kCompactHeight;
   self.image.hidden = compact;
-  self.textCenterY.priority =
-      compact ? UILayoutPriorityDefaultHigh : UILayoutPriorityFittingSizeLevel;
-  BOOL const extraCompact = self.height < kExtraCompactHeight;
+  self.textCenterY.priority = compact ? UILayoutPriorityDefaultHigh : UILayoutPriorityFittingSizeLevel;
+  BOOL extraCompact = self.height < kExtraCompactHeight;
   self.title.hidden = extraCompact;
 }
 

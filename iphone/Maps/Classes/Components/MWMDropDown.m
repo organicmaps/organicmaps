@@ -1,13 +1,8 @@
 #import "MWMDropDown.h"
 
-namespace
-{
-
-CGFloat const kLeadingOffset = 16.;
-CGFloat const kBottomOffset = 3.;
-CGFloat const kTopOffset = 25.;
-
-} // namespace
+static CGFloat const kLeadingOffset = 16.;
+static CGFloat const kBottomOffset = 3.;
+static CGFloat const kTopOffset = 25.;
 
 #pragma mark - _MWMDropDownView (private)
 
@@ -21,10 +16,10 @@ CGFloat const kTopOffset = 25.;
 
 - (void)layoutSubviews
 {
-  CGFloat const superviewWidth = self.superview.width;
+  CGFloat superviewWidth = self.superview.width;
   self.message.width = superviewWidth - 2 * kLeadingOffset;
   [self.message sizeToFit];
-  self.size = {superviewWidth, kTopOffset + kBottomOffset + self.message.height};
+  self.size = CGSizeMake(superviewWidth, kTopOffset + kBottomOffset + self.message.height);
   self.message.midX = self.superview.midX;
   [super layoutSubviews];
 }
@@ -62,7 +57,7 @@ CGFloat const kTopOffset = 25.;
   self.dropDown.alpha = 0.;
   [self.dropDown setNeedsLayout];
   [self.superview addSubview:self.dropDown];
-  self.dropDown.origin = {0., -self.dropDown.height};
+  self.dropDown.origin = CGPointMake(0., -self.dropDown.height);
   [self show];
 }
 
@@ -71,7 +66,7 @@ CGFloat const kTopOffset = 25.;
   [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     self.dropDown.alpha = 0.;
-    self.dropDown.origin = {0., -self.dropDown.height};
+    self.dropDown.origin = CGPointMake(0., -self.dropDown.height);
   }
   completion:^(BOOL finished)
   {
@@ -86,7 +81,7 @@ CGFloat const kTopOffset = 25.;
   [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
     self.dropDown.alpha = 1.;
-    self.dropDown.origin = {};
+    self.dropDown.origin = CGPointZero;
   }];
 
   [self performAfterDelay:3 block:^

@@ -1,7 +1,6 @@
 #import "MapViewController.h"
 #import "BookmarksVC.h"
 #import "EAGLView.h"
-#import "MWMAPIBar.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationWebViewLoginViewController.h"
 #import "MWMAutoupdateController.h"
@@ -32,8 +31,6 @@
 // folder.
 #import "../../../private.h"
 
-extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
-extern NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
 extern NSString * const kMap2FBLoginSegue = @"Map2FBLogin";
 extern NSString * const kMap2GoogleLoginSegue = @"Map2GoogleLogin";
 
@@ -704,15 +701,6 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
       [self performAction:action];
     });
   }
-}
-
-#pragma mark - API bar
-
-- (MWMAPIBar *)apiBar
-{
-  if (!_apiBar)
-    _apiBar = [[MWMAPIBar alloc] initWithController:self];
-  return _apiBar;
 }
 
 #pragma mark - ShowDialog callback

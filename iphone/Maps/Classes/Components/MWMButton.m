@@ -1,11 +1,8 @@
 #import "MWMButton.h"
 
-namespace
-{
-  NSString * const kDefaultPattern = @"%@_%@";
-  NSString * const kHighlightedPattern = @"%@_highlighted_%@";
-  NSString * const kSelectedPattern = @"%@_selected_%@";
-} // namespace
+static NSString * const kDefaultPattern = @"%@_%@";
+static NSString * const kHighlightedPattern = @"%@_highlighted_%@";
+static NSString * const kSelectedPattern = @"%@_selected_%@";
 
 @implementation MWMButton
 

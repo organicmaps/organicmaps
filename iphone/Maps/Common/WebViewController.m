@@ -1,5 +1,5 @@
 #import "WebViewController.h"
-#include <CoreApi/Framework.h>
+#import <CoreApi/MWMFrameworkHelper.h>
 
 @interface WebViewController()
 
@@ -39,7 +39,7 @@
 
 - (NSString *)configuredHtmlWithText:(NSString *)htmlText
 {
-  auto html = [htmlText stringByReplacingOccurrencesOfString:@"<body>"
+  NSString *html = [htmlText stringByReplacingOccurrencesOfString:@"<body>"
                                                   withString:@"<body><font face=\"helvetica\" size=\"14pt\">"];
   html = [htmlText stringByReplacingOccurrencesOfString:@"</body>" withString:@"</font></body>"];
   return html;
@@ -64,7 +64,7 @@
   UIView * view = self.view;
   view.backgroundColor = UIColor.whiteColor;
 
-  self.webView = [[WKWebView alloc] initWithFrame:{}];
+  self.webView = [[WKWebView alloc] initWithFrame:CGRectZero];
   self.webView.navigationDelegate = self;
   [view addSubview:self.webView];
 
@@ -105,16 +105,15 @@
       }
       else
       {
-        auto request = [NSMutableURLRequest requestWithURL:self.m_url];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.m_url];
         for (NSString *header in headers.allKeys) {
           [request setValue:headers[header] forHTTPHeaderField:header];
         }
         
-        [request setValue:@(GetPlatform().GetAppUserAgent().Get().c_str()) forHTTPHeaderField:@"User-Agent"];
+        [request setValue:[MWMFrameworkHelper userAgent] forHTTPHeaderField:@"User-Agent"];
         if (self.shouldAddAccessToken)
         {
-          auto authHeader = [NSString stringWithFormat:@"Bearer %@",
-                             @(GetFramework().GetUser().GetAccessToken().c_str())];
+          NSString *authHeader = [NSString stringWithFormat:@"Bearer %@", [MWMFrameworkHelper userAccessToken]];
           [request setValue:authHeader forHTTPHeaderField:@"Authorization"];
         }
         [self.webView loadRequest:request];
@@ -149,11 +148,11 @@
   NSURLRequest * inRequest = navigationAction.request;
   if ([inRequest.URL.host isEqualToString:@"localhost"])
   {
-    auto query = inRequest.URL.query;
+    NSString *query = inRequest.URL.query;
     NSArray<NSString *> * components = [query componentsSeparatedByString:@"="];
     if (components.count != 2)
     {
-      ASSERT(false, ("Incorrect query:", query.UTF8String));
+      NSAssert(false, @"Incorrect query:", query);
       [self pop];
       decisionHandler(WKNavigationActionPolicyCancel);
       return;

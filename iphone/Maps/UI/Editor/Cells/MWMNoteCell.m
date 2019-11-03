@@ -1,13 +1,9 @@
 #import "MWMNoteCell.h"
 #import "MWMTextView.h"
 
-namespace
-{
-CGFloat const kTopTextViewOffset = 12.;
-NSString * const kTextViewContentSizeKeyPath = @"contentSize";
-CGFloat const kMinimalTextViewHeight = 104.;
-
-}  // namespace
+static CGFloat const kTopTextViewOffset = 12.;
+static NSString * const kTextViewContentSizeKeyPath = @"contentSize";
+static CGFloat const kMinimalTextViewHeight = 104.;
 
 @interface MWMNoteCell ()<UITextViewDelegate>
 
@@ -42,7 +38,7 @@ static void * kContext = &kContext;
   }
   else
   {
-    CGFloat const currentHeight = self.textViewHeight.constant;
+    CGFloat currentHeight = self.textViewHeight.constant;
     if (currentHeight > kMinimalTextViewHeight)
     {
       self.textViewHeight.constant = kMinimalTextViewHeight;
@@ -61,7 +57,7 @@ static void * kContext = &kContext;
   if (context == kContext)
   {
     NSValue * s = change[@"new"];
-    CGFloat const height = s.CGSizeValue.height;
+    CGFloat height = s.CGSizeValue.height;
     [self updateTextViewForHeight:height];
     return;
   }

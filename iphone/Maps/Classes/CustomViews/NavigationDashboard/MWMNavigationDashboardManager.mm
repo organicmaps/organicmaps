@@ -7,8 +7,6 @@
 
 #import "SwiftBridge.h"
 
-extern NSString * const kAlohalyticsTapEventKey;
-
 namespace
 {
 NSString * const kRoutePreviewIPADXibName = @"MWMiPadRoutePreview";

@@ -29,8 +29,6 @@ namespace
 NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }  // namespace
 
-extern NSString * const kAlohalyticsTapEventKey;
-
 @interface MWMMapViewControlsManager ()<MWMBottomMenuControllerProtocol, MWMSearchManagerObserver, MWMTutorialViewControllerDelegate>
 
 @property(nonatomic) MWMSideButtons * sideButtons;

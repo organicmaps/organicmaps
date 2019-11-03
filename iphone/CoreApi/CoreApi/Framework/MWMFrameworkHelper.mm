@@ -142,4 +142,16 @@
   });
 }
 
++ (NSString *)userAccessToken {
+  return @(GetFramework().GetUser().GetAccessToken().c_str());
+}
+
++ (NSString *)userAgent {
+  return @(GetPlatform().GetAppUserAgent().Get().c_str());
+}
+
++ (NSNumber *)dataVersion {
+  return @(GetFramework().GetCurrentDataVersion());
+}
+
 @end

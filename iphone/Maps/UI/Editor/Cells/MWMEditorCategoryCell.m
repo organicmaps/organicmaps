@@ -1,10 +1,7 @@
 #import "MWMEditorCategoryCell.h"
 #import "MWMEditorCommon.h"
 
-namespace
-{
 CGFloat const kDetailShortRightSpace = 16;
-}  // namespace
 
 @interface MWMEditorCategoryCell ()
 

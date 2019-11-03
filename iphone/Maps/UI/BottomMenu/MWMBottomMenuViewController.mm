@@ -14,9 +14,6 @@
 
 #include <CoreApi/Framework.h>
 
-extern NSString * const kAlohalyticsTapEventKey;
-extern NSString * const kSearchStateKey;
-
 namespace
 {
 CGFloat constexpr kLayoutThreshold = 420.0;

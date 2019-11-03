@@ -44,10 +44,8 @@
 // If you have a "missing header error" here, then please run configure.sh script in the root repo
 // folder.
 
-extern NSString * const MapsStatusChangedNotification = @"MapsStatusChangedNotification";
 // Alert keys.
 extern NSString * const kUDAlreadyRatedKey = @"UserAlreadyRatedApp";
-extern NSString * const kUDAlreadySharedKey = @"UserAlreadyShared";
 
 namespace
 {

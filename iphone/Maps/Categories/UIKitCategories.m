@@ -270,7 +270,7 @@
   if (!url)
   {
     NSAssert(false, @"URL is nil!");
-    auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
+    NSError *err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
                                           code:0
                                       userInfo:@{
                                         @"Trying to open nil url" : @YES
@@ -282,8 +282,8 @@
   if (!([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]))
   {
     NSAssert(false, @"Incorrect url's scheme!");
-    auto urlString = url.absoluteString;
-    auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
+    NSString *urlString = url.absoluteString;
+    NSError *err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
                                           code:0
                                       userInfo:@{
                                         @"Trying to open incorrect url" : urlString

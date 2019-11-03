@@ -11,9 +11,6 @@
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
-extern NSString * const kAlohalyticsTapEventKey;
-extern NSString * const kSearchStateKey = @"SearchStateKey";
-
 namespace
 {
 typedef NS_ENUM(NSUInteger, MWMSearchManagerActionBarState) {

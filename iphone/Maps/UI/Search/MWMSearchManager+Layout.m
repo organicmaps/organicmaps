@@ -2,10 +2,7 @@
 
 #import <CoreApi/MWMCommon.h>
 
-namespace
-{
-CGFloat const kWidthForiPad = 320.0;
-}  // namespace
+static CGFloat const kWidthForiPad = 320.0;
 
 @interface MWMSearchManager ()
 

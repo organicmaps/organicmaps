@@ -1,6 +1,6 @@
 #import "UIButton+Orientation.h"
 
-#import <CoreApi/CoreApi.h>
+#import <CoreApi/MWMCommon.h>
 
 @implementation UIButton (Orientation)
 
