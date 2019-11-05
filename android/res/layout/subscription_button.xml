@@ -38,6 +38,13 @@
       android:letterSpacing="0.04"
       tools:text="VNG 29000 / MO"
       tools:targetApi="lollipop" />
+    <ProgressBar
+      android:id="@+id/progress"
+      android:layout_width="@dimen/progress_bar_size"
+      android:layout_height="@dimen/progress_bar_size"
+      android:layout_centerInParent="true"
+      android:visibility="gone"
+      tools:visibility="visible" />
   </RelativeLayout>
   <TextView
     android:id="@+id/sale"

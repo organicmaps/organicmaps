@@ -127,6 +127,7 @@
         android:minHeight="@dimen/height_block_base"
         app:buttonBackground="?primaryButtonBackground"
         app:saleBackground="@drawable/sightseeing_subs_sale_bg"
+        app:progressColor="@color/white_primary"
         app:showSale="true"
         app:buttonTextColor="@color/white_primary"
         app:saleTextColor="@color/white_primary"/>
@@ -140,6 +141,7 @@
         android:layout_marginEnd="@dimen/margin_base"
         android:minHeight="@dimen/height_block_base"
         app:buttonBackground="?ghostButtonBackground"
+        app:progressColor="@color/base_accent"
         app:showSale="false"
         app:buttonTextColor="@color/black_primary"
         app:saleTextColor="@color/white_primary"/>

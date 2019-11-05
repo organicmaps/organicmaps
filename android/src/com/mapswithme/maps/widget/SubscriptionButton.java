@@ -1,14 +1,16 @@
 package com.mapswithme.maps.widget;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
@@ -17,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 
 public class SubscriptionButton extends FrameLayout
 {
@@ -28,6 +31,8 @@ public class SubscriptionButton extends FrameLayout
   private Drawable mSaleBackground;
   @ColorInt
   private int mSaleTextColor;
+  @ColorInt
+  private int mProgressColor;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private TextView mSaleView;
@@ -37,6 +42,12 @@ public class SubscriptionButton extends FrameLayout
   @SuppressWarnings("NullableProblems")
   @NonNull
   private TextView mPriceView;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private ProgressBar mProgressBar;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mButtonContainer;
   private boolean mShowSale;
 
   public SubscriptionButton(@NonNull Context context)
@@ -72,6 +83,7 @@ public class SubscriptionButton extends FrameLayout
     {
       mButtonBackground = a.getDrawable(R.styleable.SubscriptionButton_buttonBackground);
       mButtonTextColor = a.getColor(R.styleable.SubscriptionButton_buttonTextColor, 0);
+      mProgressColor = a.getColor(R.styleable.SubscriptionButton_progressColor, 0);
       mSaleBackground = a.getDrawable(R.styleable.SubscriptionButton_saleBackground);
       mSaleTextColor = a.getColor(R.styleable.SubscriptionButton_saleTextColor, 0);
       mShowSale = a.getBoolean(R.styleable.SubscriptionButton_showSale, false);
@@ -87,12 +99,14 @@ public class SubscriptionButton extends FrameLayout
   protected void onFinishInflate()
   {
     super.onFinishInflate();
-    View buttonContainer = findViewById(R.id.button_container);
-    buttonContainer.setBackground(mButtonBackground);
-    mNameView = buttonContainer.findViewById(R.id.name);
+    mButtonContainer = findViewById(R.id.button_container);
+    mButtonContainer.setBackground(mButtonBackground);
+    mNameView = mButtonContainer.findViewById(R.id.name);
     mNameView.setTextColor(mButtonTextColor);
-    mPriceView = buttonContainer.findViewById(R.id.price);
+    mPriceView = mButtonContainer.findViewById(R.id.price);
     mPriceView.setTextColor(mButtonTextColor);
+    mProgressBar = mButtonContainer.findViewById(R.id.progress);
+    setProgressBarColor();
     mSaleView = findViewById(R.id.sale);
     if (mShowSale)
     {
@@ -103,10 +117,18 @@ public class SubscriptionButton extends FrameLayout
     else
     {
       UiUtils.hide(mSaleView);
-      ViewGroup.MarginLayoutParams params
-          = (ViewGroup.MarginLayoutParams) buttonContainer.getLayoutParams();
+      MarginLayoutParams params
+          = (MarginLayoutParams) mButtonContainer.getLayoutParams();
       params.topMargin = 0;
     }
+  }
+
+  private void setProgressBarColor()
+  {
+    if (Utils.isLollipopOrLater())
+      mProgressBar.setIndeterminateTintList(ColorStateList.valueOf(mProgressColor));
+    else
+      mProgressBar.getIndeterminateDrawable().setColorFilter(mProgressColor, PorterDuff.Mode.SRC_IN);
   }
 
   public void setName(@NonNull String name)
@@ -122,5 +144,23 @@ public class SubscriptionButton extends FrameLayout
   public void setSale(@NonNull String sale)
   {
     mSaleView.setText(sale);
+  }
+
+  public void showProgress()
+  {
+    UiUtils.hide(mNameView, mPriceView);
+    UiUtils.show(mProgressBar);
+  }
+
+  public void hideProgress()
+  {
+    UiUtils.hide(mProgressBar);
+    UiUtils.show(mNameView, mPriceView);
+  }
+
+  @Override
+  public void setOnClickListener(@Nullable OnClickListener listener)
+  {
+    mButtonContainer.setOnClickListener(listener);
   }
 }

@@ -104,5 +104,6 @@
     <attr name="saleBackground" format="reference" />
     <attr name="saleTextColor" format="color" />
     <attr name="showSale" format="boolean" />
+    <attr name="progressColor" />
   </declare-styleable>
 </resources>

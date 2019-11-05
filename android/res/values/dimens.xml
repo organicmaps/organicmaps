@@ -38,6 +38,7 @@
   <dimen name="dialog_min_width">288dp</dimen>
   <dimen name="dialog_min_height">100dp</dimen>
   <dimen name="default_elevation">2dp</dimen>
+  <dimen name="progress_bar_size">24dp</dimen>
 
   <dimen name="dialog_max_height">320dp</dimen>
   <dimen name="search_item_height">56dp</dimen>
