@@ -35,6 +35,7 @@ public:
     TYPE_BUILDING,
 
     TYPE_STREET,
+    TYPE_SUBURB,
 
     // All low-level features except POI, BUILDING and STREET.
     TYPE_UNCLASSIFIED,

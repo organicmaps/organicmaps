@@ -4,6 +4,7 @@
 #include "search/model.hpp"
 #include "search/token_range.hpp"
 
+#include "indexer/feature_decl.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "storage/country_info_getter.hpp"
@@ -77,6 +78,17 @@ struct City : public Locality
 #if defined(DEBUG)
   std::string m_defaultName;
 #endif
+};
+
+struct Suburb
+{
+  Suburb(FeatureID const & featureId, TokenRange const & tokenRange)
+    : m_featureId(featureId), m_tokenRange(tokenRange)
+  {
+  }
+
+  FeatureID m_featureId;
+  TokenRange m_tokenRange;
 };
 
 std::string DebugPrint(Locality const & locality);

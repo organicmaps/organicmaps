@@ -254,13 +254,11 @@ IsWayChecker::IsWayChecker()
     m_types.push_back(c.GetTypeByPath({p[0], p[1]}));
 }
 
-IsStreetOrSuburbChecker::IsStreetOrSuburbChecker()
+IsStreetOrSquareChecker::IsStreetOrSquareChecker()
 {
   for (auto const t : IsWayChecker::Instance().m_types)
     m_types.push_back(t);
   for (auto const t : IsSquareChecker::Instance().m_types)
-    m_types.push_back(t);
-  for (auto const t : IsSuburbChecker::Instance().m_types)
     m_types.push_back(t);
 }
 

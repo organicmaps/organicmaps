@@ -186,7 +186,7 @@ bool RankerResult::IsEqualCommon(RankerResult const & r) const
   return checker(bestType) && checker(rBestType);
 }
 
-bool RankerResult::IsStreet() const { return ftypes::IsStreetOrSuburbChecker::Instance()(m_types); }
+bool RankerResult::IsStreet() const { return ftypes::IsStreetOrSquareChecker::Instance()(m_types); }
 
 uint32_t RankerResult::GetBestType(vector<uint32_t> const & preferredTypes) const
 {

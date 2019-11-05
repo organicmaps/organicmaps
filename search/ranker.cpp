@@ -395,6 +395,19 @@ class RankerResultMaker
         }
       }
 
+      if (info.m_type != Model::TYPE_SUBURB && preInfo.m_suburbId.IsValid())
+      {
+        auto suburb = LoadFeature(preInfo.m_suburbId);
+        if (suburb)
+        {
+          auto const type = Model::TYPE_SUBURB;
+          auto const & range = preInfo.m_tokenRange[type];
+          auto const matchingResult = MatchTokenRange(*suburb, m_params, range, type);
+          errorsMade += matchingResult.first;
+          matchedLength += matchingResult.second;
+        }
+      }
+
       if (!Model::IsLocalityType(info.m_type) && preInfo.m_cityId.IsValid())
       {
         auto city = LoadFeature(preInfo.m_cityId);

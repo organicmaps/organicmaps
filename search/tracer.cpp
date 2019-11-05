@@ -94,6 +94,8 @@ string DebugPrint(ResultTracer::Branch branch)
   case ResultTracer::Branch::MatchAroundPivot: return "MatchAroundPivot";
   case ResultTracer::Branch::MatchPOIsAndBuildings: return "MatchPOIsAndBuildings";
   case ResultTracer::Branch::GreedilyMatchStreets: return "GreedilyMatchStreets";
+  case ResultTracer::Branch::GreedilyMatchStreetsWithSuburbs:
+    return "GreedilyMatchStreetsWithSuburbs";
   case ResultTracer::Branch::WithPostcodes: return "WithPostcodes";
   case ResultTracer::Branch::MatchUnclassified: return "MatchUnclassified";
   case ResultTracer::Branch::Relaxed: return "Relaxed";

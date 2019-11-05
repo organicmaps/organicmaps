@@ -14,6 +14,7 @@ void IntersectionResult::Set(Model::Type type, uint32_t id)
   case Model::TYPE_POI: m_poi = id; break;
   case Model::TYPE_BUILDING: m_building = id; break;
   case Model::TYPE_STREET: m_street = id; break;
+  case Model::TYPE_SUBURB:
   case Model::TYPE_CITY:
   case Model::TYPE_VILLAGE:
   case Model::TYPE_STATE:

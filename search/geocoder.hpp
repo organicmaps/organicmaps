@@ -131,6 +131,7 @@ private:
     Pivot,
     Locality,
     Postcode,
+    Suburb,
     Count
   };
 
@@ -216,6 +217,8 @@ private:
   // Tries to match some adjacent tokens in the query as streets and
   // then performs geocoding in street vicinities.
   void GreedilyMatchStreets(BaseContext & ctx);
+  // Matches suburbs and streets inside suburbs like |GreedilyMatchStreets|.
+  void GreedilyMatchStreetsWithSuburbs(BaseContext & ctx);
 
   void CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
                                              StreetsMatcher::Prediction const & prediction);
@@ -275,6 +278,7 @@ private:
   CategoriesHolder const & m_categories;
 
   StreetsCache m_streetsCache;
+  SuburbsCache m_suburbsCache;
   VillagesCache & m_villagesCache;
   LocalitiesCache & m_localitiesCache;
   HotelsCache m_hotelsCache;
@@ -310,6 +314,7 @@ private:
   // all of them are needed.
   PivotRectsCache m_pivotRectsCache;
   PivotRectsCache m_postcodesRectsCache;
+  PivotRectsCache m_suburbsRectsCache;
   LocalityRectsCache m_localityRectsCache;
 
   PostcodePointsCache m_postcodePointsCache;

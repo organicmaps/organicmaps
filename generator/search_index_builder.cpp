@@ -362,7 +362,7 @@ public:
 
     feature::TypesHolder types(f);
 
-    auto const & streetChecker = ftypes::IsStreetOrSuburbChecker::Instance();
+    auto const & streetChecker = ftypes::IsStreetOrSquareChecker::Instance();
     bool const hasStreetType = streetChecker(types);
 
     // Init inserter with serialized value.

@@ -68,8 +68,8 @@ bool EqualsByHashAndMisprints(StreetsMatcher::Prediction const & lhs,
   return lhs.m_withMisprints == rhs.m_withMisprints && lhs.m_hash == rhs.m_hash;
 }
 
-void FindStreets(BaseContext const & ctx, FeaturesFilter const & filter, QueryParams const & params,
-                 size_t startToken, bool withMisprints,
+void FindStreets(BaseContext const & ctx, CBV const & candidates, FeaturesFilter const & filter,
+                 QueryParams const & params, size_t startToken, bool withMisprints,
                  vector<StreetsMatcher::Prediction> & predictions)
 {
   // Here we try to match as many tokens as possible while
@@ -78,7 +78,7 @@ void FindStreets(BaseContext const & ctx, FeaturesFilter const & filter, QueryPa
   // each time a token that looks like a beginning of a house number
   // is met, we try to use current intersection of tokens as a
   // street layer and try to match BUILDINGs or POIs.
-  CBV streets(ctx.m_streets);
+  CBV streets(candidates);
 
   CBV all;
   all.SetFull();
@@ -176,14 +176,15 @@ void FindStreets(BaseContext const & ctx, FeaturesFilter const & filter, QueryPa
 }  // namespace
 
 // static
-void StreetsMatcher::Go(BaseContext const & ctx, FeaturesFilter const & filter,
-                        QueryParams const & params, vector<Prediction> & predictions)
+void StreetsMatcher::Go(BaseContext const & ctx, CBV const & candidates,
+                        FeaturesFilter const & filter, QueryParams const & params,
+                        vector<Prediction> & predictions)
 {
   size_t const kMaxNumOfImprobablePredictions = 3;
   double const kTailProbability = 0.05;
 
   predictions.clear();
-  FindStreets(ctx, filter, params, predictions);
+  FindStreets(ctx, candidates, filter, params, predictions);
 
   if (predictions.empty())
     return;
@@ -214,16 +215,19 @@ void StreetsMatcher::Go(BaseContext const & ctx, FeaturesFilter const & filter,
 }
 
 // static
-void StreetsMatcher::FindStreets(BaseContext const & ctx, FeaturesFilter const & filter,
-                                 QueryParams const & params, vector<Prediction> & predictions)
+void StreetsMatcher::FindStreets(BaseContext const & ctx, CBV const & candidates,
+                                 FeaturesFilter const & filter, QueryParams const & params,
+                                 vector<Prediction> & predictions)
 {
   for (size_t startToken = 0; startToken < ctx.m_numTokens; ++startToken)
   {
     if (ctx.IsTokenUsed(startToken))
       continue;
 
-    ::search::FindStreets(ctx, filter, params, startToken, false /* withMisprints */, predictions);
-    ::search::FindStreets(ctx, filter, params, startToken, true /* withMisprints */, predictions);
+    ::search::FindStreets(ctx, candidates, filter, params, startToken, false /* withMisprints */,
+                          predictions);
+    ::search::FindStreets(ctx, candidates, filter, params, startToken, true /* withMisprints */,
+                          predictions);
   }
 }
 }  // namespace search

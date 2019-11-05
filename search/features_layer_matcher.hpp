@@ -82,6 +82,8 @@ public:
     case Model::TYPE_STATE:
     case Model::TYPE_COUNTRY:
     case Model::TYPE_UNCLASSIFIED:
+    // todo(@t.yan): match pois and buildings with suburbs
+    case Model::TYPE_SUBURB:
     case Model::TYPE_COUNT:
       ASSERT(false, ("Invalid parent layer type:", parent.m_type));
       break;

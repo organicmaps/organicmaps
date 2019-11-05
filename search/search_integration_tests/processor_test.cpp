@@ -2450,5 +2450,41 @@ UNIT_CLASS_TEST(ProcessorTest, OrderCountries)
                  results[0].GetRankingInfo().GetLinearModelRank(), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, Suburbs)
+{
+  string const countryName = "Wonderland";
+
+  TestPOI suburb(m2::PointD(0, 0), "Bloomsbury", "en");
+  suburb.SetTypes({{"place", "suburb"}});
+
+  TestStreet street(
+      vector<m2::PointD>{m2::PointD(-0.5, -0.5), m2::PointD(0, 0), m2::PointD(0.5, 0.5)},
+      "Malet place", "en");
+
+  TestPOI house(m2::PointD(0.5, 0.5), "", "en");
+  house.SetHouseNumber("3");
+  house.SetStreetName(street.GetName("en"));
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(suburb);
+    builder.Add(street);
+    builder.Add(house);
+  });
+
+  SetViewport(m2::RectD(-1.0, -1.0, 1.0, 1.0));
+  {
+    auto request = MakeRequest("Malet place 3, Bloomsbury ");
+
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), 0, (results));
+    TEST(ResultMatches(results[0], ExactMatch(countryId, house)), (results));
+
+    auto const & info = results[0].GetRankingInfo();
+    TEST(info.m_exactMatch, ());
+    TEST(info.m_allTokensUsed, ());
+    TEST_ALMOST_EQUAL_ABS(info.m_matchedFraction, 1.0, 1e-12, ());
+  }
+}
 }  // namespace
 }  // namespace search

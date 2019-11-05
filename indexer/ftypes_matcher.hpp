@@ -109,7 +109,7 @@ public:
 class IsSquareChecker : public BaseChecker
 {
   IsSquareChecker();
-  friend class IsStreetOrSuburbChecker;
+  friend class IsStreetOrSquareChecker;
 
 public:
   DECLARE_CHECKER_INSTANCE(IsSquareChecker);
@@ -118,7 +118,6 @@ public:
 class IsSuburbChecker : public BaseChecker
 {
   IsSuburbChecker();
-  friend class IsStreetOrSuburbChecker;
 
 public:
   DECLARE_CHECKER_INSTANCE(IsSuburbChecker);
@@ -127,18 +126,18 @@ public:
 class IsWayChecker : public BaseChecker
 {
   IsWayChecker();
-  friend class IsStreetOrSuburbChecker;
+  friend class IsStreetOrSquareChecker;
 
 public:
   DECLARE_CHECKER_INSTANCE(IsWayChecker);
 };
 
-class IsStreetOrSuburbChecker : public BaseChecker
+class IsStreetOrSquareChecker : public BaseChecker
 {
-  IsStreetOrSuburbChecker();
+  IsStreetOrSquareChecker();
 
 public:
-  DECLARE_CHECKER_INSTANCE(IsStreetOrSuburbChecker);
+  DECLARE_CHECKER_INSTANCE(IsStreetOrSquareChecker);
 };
 
 class IsAddressObjectChecker : public BaseChecker

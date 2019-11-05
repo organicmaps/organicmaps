@@ -17,6 +17,7 @@ BaseContext::TokenType BaseContext::FromModelType(Model::Type type)
   case Model::TYPE_POI: return TOKEN_TYPE_POI;
   case Model::TYPE_BUILDING: return TOKEN_TYPE_BUILDING;
   case Model::TYPE_STREET: return TOKEN_TYPE_STREET;
+  case Model::TYPE_SUBURB: return TOKEN_TYPE_SUBURB;
   case Model::TYPE_UNCLASSIFIED: return TOKEN_TYPE_UNCLASSIFIED;
   case Model::TYPE_VILLAGE: return TOKEN_TYPE_VILLAGE;
   case Model::TYPE_CITY: return TOKEN_TYPE_CITY;
@@ -91,6 +92,7 @@ string ToString(BaseContext::TokenType type)
   case BaseContext::TOKEN_TYPE_POI: return "POI";
   case BaseContext::TOKEN_TYPE_BUILDING: return "BUILDING";
   case BaseContext::TOKEN_TYPE_STREET: return "STREET";
+  case BaseContext::TOKEN_TYPE_SUBURB: return "SUBURB";
   case BaseContext::TOKEN_TYPE_UNCLASSIFIED: return "UNCLASSIFIED";
   case BaseContext::TOKEN_TYPE_VILLAGE: return "VILLAGE";
   case BaseContext::TOKEN_TYPE_CITY: return "CITY";

@@ -63,6 +63,7 @@ public:
     MatchAroundPivot,
     MatchPOIsAndBuildings,
     GreedilyMatchStreets,
+    GreedilyMatchStreetsWithSuburbs,
     WithPostcodes,
     MatchUnclassified,
     Relaxed,

@@ -93,7 +93,8 @@ private:
 Model::Type Model::GetType(FeatureType & feature) const
 {
   static auto const & buildingChecker = CustomIsBuildingChecker::Instance();
-  static auto const & streetChecker = IsStreetOrSuburbChecker::Instance();
+  static auto const & streetChecker = IsStreetOrSquareChecker::Instance();
+  static auto const & suburbChecker = IsSuburbChecker::Instance();
   static auto const & localityChecker = IsLocalityChecker::Instance();
   static auto const & poiChecker = IsPoiChecker::Instance();
 
@@ -106,6 +107,9 @@ Model::Type Model::GetType(FeatureType & feature) const
 
   if (streetChecker(feature))
     return TYPE_STREET;
+
+  if (suburbChecker(feature))
+    return TYPE_SUBURB;
 
   if (localityChecker(feature))
   {
@@ -132,6 +136,7 @@ std::string DebugPrint(Model::Type type)
   case Model::TYPE_POI: return "POI";
   case Model::TYPE_BUILDING: return "Building";
   case Model::TYPE_STREET: return "Street";
+  case Model::TYPE_SUBURB: return "Suburb";
   case Model::TYPE_CITY: return "City";
   case Model::TYPE_VILLAGE: return "Village";
   case Model::TYPE_STATE: return "State";

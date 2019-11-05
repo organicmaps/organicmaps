@@ -52,6 +52,12 @@ public:
   StreetsCache(base::Cancellable const & cancellable);
 };
 
+class SuburbsCache : public CategoriesCache
+{
+public:
+  SuburbsCache(base::Cancellable const & cancellable);
+};
+
 class VillagesCache : public CategoriesCache
 {
 public:

@@ -66,6 +66,7 @@ size_t constexpr kMaxNumVillages = 5;
 size_t constexpr kMaxNumCountries = 5;
 double constexpr kMaxViewportRadiusM = 50.0 * 1000;
 double constexpr kMaxPostcodeRadiusM = 1000;
+double constexpr kMaxSuburbRadiusM = 2000;
 
 // This constant limits number of localities that will be extracted
 // from World map.  Villages are not counted here as they're not
@@ -75,6 +76,7 @@ size_t const kMaxNumLocalities = LocalityScorer::kDefaultReadLimit;
 
 size_t constexpr kPivotRectsCacheSize = 10;
 size_t constexpr kPostcodesRectsCacheSize = 10;
+size_t constexpr kSuburbsRectsCacheSize = 10;
 size_t constexpr kLocalityRectsCacheSize = 10;
 
 UniString const kUniSpace(MakeUniString(" "));
@@ -306,6 +308,7 @@ Geocoder::Geocoder(DataSource const & dataSource, storage::CountryInfoGetter con
   , m_infoGetter(infoGetter)
   , m_categories(categories)
   , m_streetsCache(cancellable)
+  , m_suburbsCache(cancellable)
   , m_villagesCache(villagesCache)
   , m_localitiesCache(localitiesCache)
   , m_hotelsCache(cancellable)
@@ -316,6 +319,7 @@ Geocoder::Geocoder(DataSource const & dataSource, storage::CountryInfoGetter con
   , m_citiesBoundaries(citiesBoundaries)
   , m_pivotRectsCache(kPivotRectsCacheSize, m_cancellable, kMaxViewportRadiusM)
   , m_postcodesRectsCache(kPostcodesRectsCacheSize, m_cancellable, kMaxPostcodeRadiusM)
+  , m_suburbsRectsCache(kSuburbsRectsCacheSize, m_cancellable, kMaxSuburbRadiusM)
   , m_localityRectsCache(kLocalityRectsCacheSize, m_cancellable)
   , m_filter(nullptr)
   , m_matcher(nullptr)
@@ -984,6 +988,9 @@ void Geocoder::LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter)
   if (!ctx.m_streets)
     ctx.m_streets = m_streetsCache.Get(*m_context);
 
+  if (!ctx.m_suburbs)
+    ctx.m_suburbs = m_suburbsCache.Get(*m_context);
+
   MatchUnclassified(ctx, 0 /* curToken */);
 
   auto const search = [this, &ctx]() {
@@ -1067,11 +1074,47 @@ void Geocoder::GreedilyMatchStreets(BaseContext & ctx)
 {
   TRACE(GreedilyMatchStreets);
 
+  // Match streets without suburbs.
   vector<StreetsMatcher::Prediction> predictions;
-  StreetsMatcher::Go(ctx, *m_filter, m_params, predictions);
+  StreetsMatcher::Go(ctx, ctx.m_streets, *m_filter, m_params, predictions);
 
   for (auto const & prediction : predictions)
     CreateStreetsLayerAndMatchLowerLayers(ctx, prediction);
+
+  GreedilyMatchStreetsWithSuburbs(ctx);
+}
+
+void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx)
+{
+  TRACE(GreedilyMatchStreetsWithSuburbs);
+  vector<StreetsMatcher::Prediction> suburbs;
+  StreetsMatcher::Go(ctx, ctx.m_suburbs, *m_filter, m_params, suburbs);
+
+  for (auto const & s : suburbs)
+  {
+    ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_SUBURB, s.m_tokenRange);
+
+    s.m_features.ForEach([&](uint64_t suburbId) {
+      auto ft = m_context->GetFeature(static_cast<uint32_t>(suburbId));
+      if (!ft)
+        return;
+
+      Suburb suburb(ft->GetID(), s.m_tokenRange);
+      ctx.m_suburb = &suburb;
+      SCOPE_GUARD(cleanup, [&ctx]() { ctx.m_suburb = nullptr; });
+
+      auto const rect =
+          mercator::RectByCenterXYAndSizeInMeters(feature::GetCenter(*ft), kMaxSuburbRadiusM);
+      auto const suburbStreets =
+          ctx.m_streets.Intersect(RetrieveGeometryFeatures(*m_context, rect, RectId::Suburb));
+
+      vector<StreetsMatcher::Prediction> predictions;
+      StreetsMatcher::Go(ctx, suburbStreets, *m_filter, m_params, predictions);
+
+      for (auto const & prediction : predictions)
+        CreateStreetsLayerAndMatchLowerLayers(ctx, prediction);
+    });
+  }
 }
 
 void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
@@ -1464,6 +1507,12 @@ void Geocoder::EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32
     info.m_cityId = FeatureID(city.m_countryId, city.m_featureId);
   }
 
+  if (ctx.m_suburb)
+  {
+    info.m_tokenRange[Model::TYPE_SUBURB] = ctx.m_suburb->m_tokenRange;
+    info.m_suburbId = ctx.m_suburb->m_featureId;
+  }
+
   if (geoParts)
     info.m_geoParts = *geoParts;
 
@@ -1551,6 +1600,7 @@ CBV Geocoder::RetrieveGeometryFeatures(MwmContext const & context, m2::RectD con
   case RectId::Pivot: return m_pivotRectsCache.Get(context, rect, m_params.GetScale());
   case RectId::Postcode: return m_postcodesRectsCache.Get(context, rect, m_params.GetScale());
   case RectId::Locality: return m_localityRectsCache.Get(context, rect, m_params.GetScale());
+  case RectId::Suburb: return m_localityRectsCache.Get(context, rect, m_params.GetScale());
   case RectId::Count: ASSERT(false, ("Invalid RectId.")); return CBV();
   }
   UNREACHABLE();
@@ -1561,6 +1611,11 @@ bool Geocoder::GetTypeInGeocoding(BaseContext const & ctx, uint32_t featureId, M
   if (ctx.m_streets.HasBit(featureId))
   {
     type = Model::TYPE_STREET;
+    return true;
+  }
+  if (ctx.m_suburbs.HasBit(featureId))
+  {
+    type = Model::TYPE_SUBURB;
     return true;
   }
   if (ctx.m_villages.HasBit(featureId))

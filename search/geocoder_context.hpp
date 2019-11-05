@@ -25,6 +25,7 @@ struct BaseContext
     TOKEN_TYPE_POI,
     TOKEN_TYPE_BUILDING,
     TOKEN_TYPE_STREET,
+    TOKEN_TYPE_SUBURB,
     TOKEN_TYPE_UNCLASSIFIED,
     TOKEN_TYPE_VILLAGE,
     TOKEN_TYPE_CITY,
@@ -59,6 +60,7 @@ struct BaseContext
   std::vector<Retrieval::ExtendedFeatures> m_features;
   CBV m_villages;
   CBV m_streets;
+  CBV m_suburbs;
 
   // Stack of layers filled during geocoding.
   std::vector<FeaturesLayer> m_layers;
@@ -67,6 +69,8 @@ struct BaseContext
   std::vector<Region const *> m_regions;
 
   City const * m_city = nullptr;
+
+  Suburb const * m_suburb = nullptr;
 
   // This vector is used to indicate what tokens were already matched
   // and can't be re-used during the geocoding process.
