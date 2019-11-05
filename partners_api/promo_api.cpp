@@ -166,7 +166,7 @@ std::string GetCityCatalogueUrl(std::string const & baseUrl, std::string const &
 }
 
 
-void GetPromoCityGalleryImpl(std::string const & url, UTM utm,
+void GetPromoGalleryImpl(std::string const & url, UTM utm,
                              CityGalleryCallback const & onSuccess, OnError const & onError)
 {
   if (url.empty())
@@ -269,7 +269,7 @@ void Api::GetCityGallery(m2::PointD const & point, std::string const & lang, UTM
 {
   CHECK(m_delegate, ());
   auto const url = MakeCityGalleryUrl(m_baseUrl, m_delegate->GetCityId(point), lang);
-  GetPromoCityGalleryImpl(url, utm, onSuccess, onError);
+  GetPromoGalleryImpl(url, utm, onSuccess, onError);
 }
 
 void Api::GetPoiGallery(m2::PointD const & point, std::string const & lang, Tags const & tags,
@@ -279,7 +279,7 @@ void Api::GetPoiGallery(m2::PointD const & point, std::string const & lang, Tags
   CHECK(m_delegate, ());
   auto const url =
       MakePoiGalleryUrl(m_baseUrl, m_delegate->GetCityId(point), point, lang, tags, useCoordinates);
-  GetPromoCityGalleryImpl(url, utm, onSuccess, onError);
+  GetPromoGalleryImpl(url, utm, onSuccess, onError);
 }
 
 void Api::OnTransitionToBooking(m2::PointD const & hotelPos)
