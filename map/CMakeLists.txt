@@ -91,6 +91,8 @@ set(
   notifications/notification_queue_serdes.hpp
   notifications/notification_queue_storage.cpp
   notifications/notification_queue_storage.hpp
+  onboarding.cpp
+  onboarding.hpp
   place_page_info.cpp
   place_page_info.hpp
   power_management/power_manager.cpp
