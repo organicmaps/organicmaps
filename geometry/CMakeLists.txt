@@ -15,6 +15,8 @@ set(
   calipers_box.cpp
   calipers_box.hpp
   cellid.hpp
+  circle_on_earth.cpp
+  circle_on_earth.hpp
   clipping.cpp
   clipping.hpp
   convex_hull.cpp

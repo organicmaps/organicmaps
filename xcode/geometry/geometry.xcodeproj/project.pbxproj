@@ -25,7 +25,9 @@
 		4403990E2359CA8D0098EB7F /* mercator_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E92D8BD01C15AF9100A98D17 /* mercator_test.cpp */; };
 		440CF0C2236734820017C2A8 /* area_on_earth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 440CF0C0236734820017C2A8 /* area_on_earth.cpp */; };
 		440CF0C3236734820017C2A8 /* area_on_earth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 440CF0C1236734820017C2A8 /* area_on_earth.hpp */; };
+		4435C7882372BB5600B4358C /* circle_on_earth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4435C7872372BB5500B4358C /* circle_on_earth.hpp */; };
 		446531E2234DEEF3000C348F /* point3d.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 446531E1234DEEF3000C348F /* point3d.hpp */; };
+		448425732372BB3F00C6AD04 /* circle_on_earth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 448425722372BB3F00C6AD04 /* circle_on_earth.cpp */; };
 		45A2D9BE1F7526E6003310A0 /* bounding_box.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A2D9B71F7526E6003310A0 /* bounding_box.cpp */; };
 		45A2D9BF1F7526E6003310A0 /* bounding_box.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45A2D9B81F7526E6003310A0 /* bounding_box.hpp */; };
 		45A2D9C01F7526E6003310A0 /* calipers_box.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A2D9B91F7526E6003310A0 /* calipers_box.cpp */; };
@@ -139,7 +141,9 @@
 		39B2B9721FB4681400AB85A1 /* line2d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = line2d.hpp; sourceTree = "<group>"; };
 		440CF0C0236734820017C2A8 /* area_on_earth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = area_on_earth.cpp; sourceTree = "<group>"; };
 		440CF0C1236734820017C2A8 /* area_on_earth.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = area_on_earth.hpp; sourceTree = "<group>"; };
+		4435C7872372BB5500B4358C /* circle_on_earth.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = circle_on_earth.hpp; sourceTree = "<group>"; };
 		446531E1234DEEF3000C348F /* point3d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = point3d.hpp; sourceTree = "<group>"; };
+		448425722372BB3F00C6AD04 /* circle_on_earth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = circle_on_earth.cpp; sourceTree = "<group>"; };
 		44A4BF17235732A5005857C4 /* point3d_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point3d_tests.cpp; sourceTree = "<group>"; };
 		45A2D9B71F7526E6003310A0 /* bounding_box.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bounding_box.cpp; sourceTree = "<group>"; };
 		45A2D9B81F7526E6003310A0 /* bounding_box.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bounding_box.hpp; sourceTree = "<group>"; };
@@ -319,6 +323,8 @@
 		675344931A3F684600A0A8C3 /* geometry */ = {
 			isa = PBXGroup;
 			children = (
+				4435C7872372BB5500B4358C /* circle_on_earth.hpp */,
+				448425722372BB3F00C6AD04 /* circle_on_earth.cpp */,
 				D53836332366DAF3007E7EDB /* oblate_spheroid.cpp */,
 				D53836342366DAF3007E7EDB /* oblate_spheroid.hpp */,
 				440CF0C0236734820017C2A8 /* area_on_earth.cpp */,
@@ -417,6 +423,7 @@
 				675344BF1A3F687400A0A8C3 /* avg_vector.hpp in Headers */,
 				675344D31A3F687400A0A8C3 /* simplification.hpp in Headers */,
 				675344CC1A3F687400A0A8C3 /* rect_intersect.hpp in Headers */,
+				4435C7882372BB5600B4358C /* circle_on_earth.hpp in Headers */,
 				675344C71A3F687400A0A8C3 /* packer.hpp in Headers */,
 				675344C41A3F687400A0A8C3 /* distance_on_sphere.hpp in Headers */,
 				440CF0C3236734820017C2A8 /* area_on_earth.hpp in Headers */,
@@ -571,6 +578,7 @@
 				45A2D9C01F7526E6003310A0 /* calipers_box.cpp in Sources */,
 				344A713C1F3DA07000B8DDB8 /* nearby_points_sweeper.cpp in Sources */,
 				347F33701C454205009758CC /* triangle2d.cpp in Sources */,
+				448425732372BB3F00C6AD04 /* circle_on_earth.cpp in Sources */,
 				675344BC1A3F687400A0A8C3 /* angles.cpp in Sources */,
 				6741AAA01BF35476002C974C /* latlon.cpp in Sources */,
 				E92D8BD41C15AFAA00A98D17 /* mercator.cpp in Sources */,

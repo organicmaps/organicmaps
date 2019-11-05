@@ -1,5 +1,7 @@
 #pragma once
 
+#include "base/math.hpp"
+
 #include <cmath>
 #include <sstream>
 #include <string>
@@ -15,12 +17,49 @@ public:
 
   T Length() const { return std::sqrt(x * x + y * y + z * z); }
 
+  Point RotateAroundX(double angleDegree) const;
+  Point RotateAroundY(double angleDegree) const;
+  Point RotateAroundZ(double angleDegree) const;
+
   bool operator==(Point<T> const & rhs) const;
 
   T x;
   T y;
   T z;
 };
+
+template <typename T>
+Point<T> Point<T>::RotateAroundX(double angleDegree) const
+{
+  double const angleRad = base::DegToRad(angleDegree);
+  Point<T> res;
+  res.x = x;
+  res.y = y * cos(angleRad) - z * sin(angleRad);
+  res.z = y * sin(angleRad) + z * cos(angleRad);
+  return res;
+}
+
+template <typename T>
+Point<T> Point<T>::RotateAroundY(double angleDegree) const
+{
+  double const angleRad = base::DegToRad(angleDegree);
+  Point<T> res;
+  res.x = x * cos(angleRad) + z * sin(angleRad);
+  res.y = y;
+  res.z = -x * sin(angleRad) + z * cos(angleRad);
+  return res;
+}
+
+template <typename T>
+Point<T> Point<T>::RotateAroundZ(double angleDegree) const
+{
+  double const angleRad = base::DegToRad(angleDegree);
+  Point<T> res;
+  res.x = x * cos(angleRad) - y * sin(angleRad);
+  res.y = x * sin(angleRad) + y * cos(angleRad);
+  res.z = z;
+  return res;
+}
 
 template <typename T>
 bool Point<T>::operator==(m3::Point<T> const & rhs) const
@@ -54,3 +93,13 @@ std::string DebugPrint(Point<T> const & p)
   return out.str();
 }
 }  // namespace m3
+
+namespace base
+{
+template <typename T>
+bool AlmostEqualAbs(m3::Point<T> const & p1, m3::Point<T> const & p2, double const & eps)
+{
+  return base::AlmostEqualAbs(p1.x, p2.x, eps) && base::AlmostEqualAbs(p1.y, p2.y, eps) &&
+         base::AlmostEqualAbs(p1.z, p2.z, eps);
+}
+}  // namespace base

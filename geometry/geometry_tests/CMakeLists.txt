@@ -11,6 +11,7 @@ set(
   bounding_box_tests.cpp
   calipers_box_tests.cpp
   cellid_test.cpp
+  circle_on_earth_tests.cpp
   clipping_test.cpp
   common_test.cpp
   convex_hull_tests.cpp
