@@ -224,15 +224,6 @@ std::string LoadPromoIdForBooking(eye::Eye::InfoType const & eyeInfo)
 }
 }  // namespace
 
-// static
-bool WebApi::GetCityGalleryById(std::string const & baseUrl, std::string const & id,
-                                std::string const & lang, std::string & result)
-{
-  platform::HttpClient request(MakeCityGalleryUrl(baseUrl, id, lang));
-  request.SetRawHeaders(web_api::GetDefaultCatalogHeaders());
-  return request.RunHttpRequest(result);
-}
-
 Api::Api(std::string const & baseUrl /* = BOOKMARKS_CATALOG_FRONT_URL */,
          std::string const & basePicturesUrl /* = PICTURES_URL */)
   : m_baseUrl(baseUrl)

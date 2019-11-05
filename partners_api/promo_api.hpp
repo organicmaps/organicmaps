@@ -72,13 +72,6 @@ struct AfterBooking
   std::string m_pictureUrl;
 };
 
-class WebApi
-{
-public:
-  static bool GetCityGalleryById(std::string const & baseUrl, std::string const & id,
-                                 std::string const & lang, std::string & result);
-};
-
 using CityGalleryCallback = platform::SafeCallback<void(CityGallery const & gallery)>;
 using OnError = platform::SafeCallback<void()>;
 using Tags = std::vector<std::string>;
