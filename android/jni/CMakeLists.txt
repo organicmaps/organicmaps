@@ -57,6 +57,7 @@ set(
   com/mapswithme/maps/MapManager.cpp
   com/mapswithme/maps/MwmApplication.cpp
   com/mapswithme/maps/metrics/UserActionsLogger.cpp
+  com/mapswithme/maps/onboarding/Onboarding.cpp
   com/mapswithme/maps/PrivateVariables.cpp
   com/mapswithme/maps/promo/Promo.cpp
   com/mapswithme/maps/routing/RoutingOptions.cpp
