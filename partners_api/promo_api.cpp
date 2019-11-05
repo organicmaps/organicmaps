@@ -180,6 +180,7 @@ void GetPromoGalleryImpl(std::string const & url, UTM utm,
     CityGallery result;
     std::string httpResult;
     platform::HttpClient request(url);
+    request.SetTimeout(5 /* timeoutSec */);
     request.SetRawHeaders(web_api::GetDefaultCatalogHeaders());
     if (!request.RunHttpRequest(httpResult))
     {
