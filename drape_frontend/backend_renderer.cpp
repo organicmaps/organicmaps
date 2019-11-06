@@ -622,7 +622,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<NotifyGraphicsReadyMessage> msg = message;
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<NotifyGraphicsReadyMessage>(msg->GetCallback()),
+                                make_unique_dp<NotifyGraphicsReadyMessage>(msg->GetCallback(),
+                                                                           msg->NeedInvalidate()),
                                 MessagePriority::Normal);
       break;
     }

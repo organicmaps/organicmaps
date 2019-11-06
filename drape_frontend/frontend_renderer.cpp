@@ -1054,7 +1054,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         m_graphicsStage = GraphicsStage::WaitReady;
         if (m_notFinishedTiles.empty())
-          InvalidateRect(m_userEventStream.GetCurrentScreen().ClipRect());
+        {
+          if (msg->NeedInvalidate())
+            InvalidateRect(m_userEventStream.GetCurrentScreen().ClipRect());
+          else
+            m_graphicsStage = GraphicsStage::WaitRendering;
+        }
       }
       break;
     }

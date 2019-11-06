@@ -79,7 +79,7 @@ protected:
   void Build();
   void ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt);
 
-  virtual void OnViewportChanged(ScreenBase const & screen);
+  void OnViewportChanged(ScreenBase const & screen);
 
   // QOpenGLWidget overrides:
   void initializeGL() override;

@@ -8,14 +8,107 @@
 
 #include "platform/preferred_languages.hpp"
 
+#include "indexer/scales.hpp"
+
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include <QtGui/QPixmap>
 
 #include <chrono>
 #include <functional>
+#include <fstream>
 #include <sstream>
+
+namespace
+{
+bool ParsePoint(std::string const & s, char const * delim, m2::PointD & pt, int & zoom)
+{
+  // Order in string is: lat, lon, zoom.
+  strings::SimpleTokenizer iter(s, delim);
+  if (!iter)
+    return false;
+
+  double lat;
+  double lon;
+  int zoomLevel;
+  if (strings::to_double(*iter, lat) && mercator::ValidLat(lat) && ++iter &&
+      strings::to_double(*iter, lon) && mercator::ValidLon(lon) && ++iter &&
+      strings::to_int(*iter, zoomLevel) &&
+      zoomLevel >= 1 && zoomLevel <= scales::GetUpperStyleScale())
+  {
+    pt = mercator::FromLatLon(lat, lon);
+    zoom = zoomLevel;
+    return true;
+  }
+  return false;
+}
+
+bool ParseRect(std::string const & s, char const * delim, m2::RectD & rect)
+{
+  // Order in string is: latLeftBottom, lonLeftBottom, latRigthTop, lonRigthTop.
+  strings::SimpleTokenizer iter(s, delim);
+  if (!iter)
+    return false;
+
+  double latLeftBottom;
+  double lonLeftBottom;
+  double latRigthTop;
+  double lonRigthTop;
+  if (strings::to_double(*iter, latLeftBottom) && mercator::ValidLat(latLeftBottom) && ++iter &&
+      strings::to_double(*iter, lonLeftBottom) && mercator::ValidLon(lonLeftBottom) && ++iter &&
+      strings::to_double(*iter, latRigthTop) && mercator::ValidLat(latRigthTop) && ++iter &&
+      strings::to_double(*iter, lonRigthTop) && mercator::ValidLon(lonRigthTop))
+  {
+    rect = m2::RectD(mercator::FromLatLon(latLeftBottom, lonLeftBottom),
+                     mercator::FromLatLon(latRigthTop, lonRigthTop));
+    return true;
+  }
+  return false;
+}
+
+bool ParsePointsStr(std::string const & pointsStr, std::list<std::pair<m2::PointD, int>> & points)
+{
+  strings::SimpleTokenizer tupleIter(pointsStr, ";");
+  m2::PointD pt;
+  int zoom;
+  while (tupleIter)
+  {
+    if (ParsePoint(*tupleIter, ",", pt, zoom))
+    {
+      points.emplace_back(pt, zoom);
+    }
+    else
+    {
+      LOG(LWARNING, ("Failed to parse point and zoom:", *tupleIter));
+      return false;
+    }
+    ++tupleIter;
+  }
+  return true;
+}
+
+bool ParseRectsStr(std::string const & rectsStr, std::list<m2::RectD> & rects)
+{
+  strings::SimpleTokenizer tupleIter(rectsStr, ";");
+  m2::RectD rect;
+  while (tupleIter)
+  {
+    if (ParseRect(*tupleIter, ",", rect))
+    {
+      rects.push_back(rect);
+    }
+    else
+    {
+      LOG(LWARNING, ("Failed to parse rect:", *tupleIter));
+      return false;
+    }
+    ++tupleIter;
+  }
+  return true;
+}
+}  // namespace
 
 namespace qt
 {
@@ -37,36 +130,43 @@ void Screenshoter::Start()
     m_screenshotParams.m_dstPath = base::JoinPath(m_screenshotParams.m_kmlPath, "screenshots");
 
   LOG(LINFO, ("\nScreenshoter parameters:"
+    "\n  mode:", m_screenshotParams.m_mode,
     "\n  kml_path:", m_screenshotParams.m_kmlPath,
+    "\n  points:", m_screenshotParams.m_points,
+    "\n  rects:", m_screenshotParams.m_rects,
     "\n  dst_path:", m_screenshotParams.m_dstPath,
     "\n  width:", m_screenshotParams.m_width,
     "\n  height:", m_screenshotParams.m_height,
     "\n  dpi_scale:", m_screenshotParams.m_dpiScale));
 
-  if (!Platform::IsDirectory(m_screenshotParams.m_kmlPath) || !Platform::MkDirChecked(m_screenshotParams.m_dstPath))
+  if (!Platform::MkDirChecked(m_screenshotParams.m_dstPath))
   {
     ChangeState(State::FileError);
     return;
   }
 
-  Platform::FilesList files;
-  Platform::GetFilesByExt(m_screenshotParams.m_kmlPath, kKmlExtension, files);
-
-  for (auto const & file : files)
-  {
-    auto const filePath = base::JoinPath(m_screenshotParams.m_kmlPath, file);
-    m_filesToProcess.push_back(filePath);
-  }
-  m_filesCount = m_filesToProcess.size();
+  if (!PrepareItemsToProcess())
+    return;
 
   ChangeState(State::Ready);
-  ProcessNextKml();
+  ProcessNextItem();
+}
+
+void Screenshoter::ProcessNextItem()
+{
+  CHECK_EQUAL(m_state, State::Ready, ());
+
+  switch (m_screenshotParams.m_mode)
+  {
+  case ScreenshotParams::Mode::KmlFiles: return ProcessNextKml();
+  case ScreenshotParams::Mode::Points: return ProcessNextPoint();
+  case ScreenshotParams::Mode::Rects: return ProcessNextRect();
+  }
+  UNREACHABLE();
 }
 
 void Screenshoter::ProcessNextKml()
 {
-  CHECK_EQUAL(m_state, State::Ready, ());
-
   std::string const postfix = "_" + languages::GetCurrentNorm();
   std::unique_ptr<kml::FileData> kmlData;
   while (kmlData == nullptr && !m_filesToProcess.empty())
@@ -103,12 +203,61 @@ void Screenshoter::ProcessNextKml()
   ChangeState(State::WaitPosition);
   auto const newCatId = bookmarkManager.GetBmGroupsIdList().front();
 
-  m_dataRect = bookmarkManager.GetCategoryRect(newCatId);
-  ExpandBookmarksRectForPreview(m_dataRect);
-  CHECK(m_dataRect.IsValid(), ());
+  auto rect = bookmarkManager.GetCategoryRect(newCatId);
+  ExpandBookmarksRectForPreview(rect);
+  CHECK(rect.IsValid(), ());
 
-  if (!CheckViewport())
-    m_framework.ShowBookmarkCategory(newCatId, false);
+  m_framework.ShowBookmarkCategory(newCatId, false);
+  WaitPosition();
+}
+
+void Screenshoter::ProcessNextRect()
+{
+  if (m_rectsToProcess.empty())
+  {
+    ChangeState(State::Done);
+    return;
+  }
+
+  std::string const postfix = "_" + languages::GetCurrentNorm();
+  std::stringstream ss;
+  ss << "rect_" << std::setfill('0') << std::setw(4) <<
+     m_itemsCount - m_rectsToProcess.size() << postfix;
+
+  m_nextScreenshotName = ss.str();
+
+  auto const rect = m_rectsToProcess.front();
+  m_rectsToProcess.pop_front();
+
+  CHECK(rect.IsValid(), ());
+
+  ChangeState(State::WaitPosition);
+  m_framework.ShowRect(rect, -1 /* maxScale */,
+                       false /* animation */, false /* useVisibleViewport */);
+  WaitPosition();
+}
+
+void Screenshoter::ProcessNextPoint()
+{
+  if (m_pointsToProcess.empty())
+  {
+    ChangeState(State::Done);
+    return;
+  }
+
+  std::string const postfix = "_" + languages::GetCurrentNorm();
+  std::stringstream ss;
+  ss << "point_" << std::setfill('0') << std::setw(4) <<
+     m_itemsCount - m_pointsToProcess.size() << postfix;
+
+  m_nextScreenshotName = ss.str();
+
+  auto const pointZoom = m_pointsToProcess.front();
+  m_pointsToProcess.pop_front();
+
+  ChangeState(State::WaitPosition);
+  m_framework.SetViewportCenter(pointZoom.first, pointZoom.second, false /* animation */);
+  WaitPosition();
 }
 
 void Screenshoter::PrepareCountries()
@@ -158,25 +307,11 @@ void Screenshoter::OnCountryChanged(storage::CountryId countryId)
   }
 }
 
-bool Screenshoter::CheckViewport()
+void Screenshoter::OnPositionReady()
 {
   if (m_state != State::WaitPosition)
-    return false;
-
-  auto const currentViewport = m_framework.GetCurrentViewport();
-
-  double const kEpsRect = 1e-2;
-  double const kEpsCenter = 1e-3;
-  double const minCheckedZoomLevel = 5;
-  if (m_framework.GetDrawScale() < minCheckedZoomLevel ||
-      (m_dataRect.Center().EqualDxDy(currentViewport.Center(), kEpsCenter) &&
-        (fabs(m_dataRect.SizeX() - currentViewport.SizeX()) < kEpsRect ||
-         fabs(m_dataRect.SizeY() - currentViewport.SizeY()) < kEpsRect)))
-  {
-    PrepareCountries();
-    return true;
-  }
-  return false;
+    return;
+  PrepareCountries();
 }
 
 void Screenshoter::OnGraphicsReady()
@@ -188,12 +323,20 @@ void Screenshoter::OnGraphicsReady()
   SaveScreenshot();
 }
 
+void Screenshoter::WaitPosition()
+{
+  m_framework.NotifyGraphicsReady([this]()
+    {
+      GetPlatform().RunTask(Platform::Thread::Gui, [this] { OnPositionReady(); });
+    }, false /* needInvalidate */ );
+}
+
 void Screenshoter::WaitGraphics()
 {
   m_framework.NotifyGraphicsReady([this]()
-  {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this] { OnGraphicsReady(); });
-  });
+    {
+      GetPlatform().RunTask(Platform::Thread::Gui, [this] { OnGraphicsReady(); });
+    }, true /* needInvalidate */ );
 }
 
 void Screenshoter::SaveScreenshot()
@@ -216,20 +359,140 @@ void Screenshoter::SaveScreenshot()
   }
   m_nextScreenshotName.clear();
 
-  ProcessNextKml();
+  ProcessNextItem();
 }
 
-void Screenshoter::ChangeState(State newState)
+void Screenshoter::ChangeState(State newState, std::string const & msg)
 {
   m_state = newState;
   if (m_screenshotParams.m_statusChangedFn)
   {
     std::ostringstream ss;
-    ss << "[" << m_filesCount - m_filesToProcess.size() << "/" << m_filesCount << "] file: "
+    ss << "[" << m_itemsCount - GetItemsToProcessCount() << "/" << m_itemsCount << "] file: "
        << m_nextScreenshotName << " state: " << DebugPrint(newState);
+    if (!msg.empty())
+      ss << " msg: " << msg;
     LOG(LINFO, (ss.str()));
     m_screenshotParams.m_statusChangedFn(ss.str(), newState == Screenshoter::State::Done);
   }
+}
+
+size_t Screenshoter::GetItemsToProcessCount()
+{
+  switch (m_screenshotParams.m_mode)
+  {
+  case ScreenshotParams::Mode::KmlFiles: return m_filesToProcess.size();
+  case ScreenshotParams::Mode::Points: return m_pointsToProcess.size();
+  case ScreenshotParams::Mode::Rects: return m_rectsToProcess.size();
+  }
+  UNREACHABLE();
+}
+
+bool Screenshoter::PrepareItemsToProcess()
+{
+  switch (m_screenshotParams.m_mode)
+  {
+  case ScreenshotParams::Mode::KmlFiles: return PrepareKmlFiles();
+  case ScreenshotParams::Mode::Points: return PreparePoints();
+  case ScreenshotParams::Mode::Rects: return PrepareRects();
+  }
+  UNREACHABLE();
+}
+
+bool Screenshoter::PrepareKmlFiles()
+{
+  if (!Platform::IsDirectory(m_screenshotParams.m_kmlPath) &&
+    !Platform::IsFileExistsByFullPath(m_screenshotParams.m_kmlPath))
+  {
+    ChangeState(State::FileError, "Invalid kml path.");
+    return false;
+  }
+
+  if (!Platform::IsDirectory(m_screenshotParams.m_kmlPath))
+  {
+    m_filesToProcess.push_back(m_screenshotParams.m_kmlPath);
+  }
+  else
+  {
+    Platform::FilesList files;
+    Platform::GetFilesByExt(m_screenshotParams.m_kmlPath, kKmlExtension, files);
+    for (auto const & file : files)
+    {
+      auto const filePath = base::JoinPath(m_screenshotParams.m_kmlPath, file);
+      m_filesToProcess.push_back(filePath);
+    }
+  }
+
+  m_itemsCount = m_filesToProcess.size();
+  return true;
+}
+
+bool Screenshoter::PreparePoints()
+{
+  if (!LoadPoints(m_screenshotParams.m_points))
+  {
+    ChangeState(State::ParamsError, "Invalid points.");
+    return false;
+  }
+  m_itemsCount = m_pointsToProcess.size();
+  return true;
+}
+
+bool Screenshoter::PrepareRects()
+{
+  if (!LoadRects(m_screenshotParams.m_rects))
+  {
+    ChangeState(State::ParamsError, "Invalid rects.");
+    return false;
+  }
+  m_itemsCount = m_rectsToProcess.size();
+  return true;
+}
+
+bool Screenshoter::LoadRects(std::string const & rects)
+{
+  if (Platform::IsFileExistsByFullPath(rects))
+  {
+    std::ifstream fin(rects);
+    std::string line;
+    while (std::getline(fin, line))
+    {
+      if (!ParseRectsStr(line, m_rectsToProcess))
+      {
+        m_rectsToProcess.clear();
+        return false;
+      }
+    }
+  }
+  else if (!ParseRectsStr(rects, m_rectsToProcess))
+  {
+    m_rectsToProcess.clear();
+    return false;
+  }
+  return !m_rectsToProcess.empty();
+}
+
+bool Screenshoter::LoadPoints(std::string const & points)
+{
+  if (Platform::IsFileExistsByFullPath(points))
+  {
+    std::ifstream fin(points);
+    std::string line;
+    while (std::getline(fin, line))
+    {
+      if (!ParsePointsStr(line, m_pointsToProcess))
+      {
+        m_pointsToProcess.clear();
+        return false;
+      }
+    }
+  }
+  else if (!ParsePointsStr(points, m_pointsToProcess))
+  {
+    m_pointsToProcess.clear();
+    return false;
+  }
+  return !m_pointsToProcess.empty();
 }
 
 std::string DebugPrint(Screenshoter::State state)
@@ -243,7 +506,19 @@ std::string DebugPrint(Screenshoter::State state)
   case Screenshoter::State::WaitGraphics: return "WaitGraphics";
   case Screenshoter::State::Ready: return "Ready";
   case Screenshoter::State::FileError: return "FileError";
+  case Screenshoter::State::ParamsError: return "ParamsError";
   case Screenshoter::State::Done: return "Done";
+  }
+  UNREACHABLE();
+}
+
+std::string DebugPrint(ScreenshotParams::Mode mode)
+{
+  switch (mode)
+  {
+  case ScreenshotParams::Mode::KmlFiles: return "KmlFiles";
+  case ScreenshotParams::Mode::Points: return "Points";
+  case ScreenshotParams::Mode::Rects: return "Rects";
   }
   UNREACHABLE();
 }

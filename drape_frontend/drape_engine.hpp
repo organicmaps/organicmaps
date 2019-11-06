@@ -145,7 +145,7 @@ public:
 
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
   using GraphicsReadyHandler = FrontendRenderer::GraphicsReadyHandler;
-  void NotifyGraphicsReady(GraphicsReadyHandler const & fn);
+  void NotifyGraphicsReady(GraphicsReadyHandler const & fn, bool needInvalidate);
 #endif
 
   void ClearUserMarksGroup(kml::MarkGroupId groupId);

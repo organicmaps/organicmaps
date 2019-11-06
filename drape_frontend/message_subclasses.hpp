@@ -1014,15 +1014,18 @@ class NotifyGraphicsReadyMessage : public Message
 public:
   using GraphicsReadyCallback = std::function<void()>;
 
-  explicit NotifyGraphicsReadyMessage(GraphicsReadyCallback const & callback)
-    : m_callback(callback)
+  explicit NotifyGraphicsReadyMessage(GraphicsReadyCallback const & callback, bool needInvalidate)
+    : m_needInvalidate(needInvalidate)
+    , m_callback(callback)
   {}
 
   Type GetType() const override { return Type::NotifyGraphicsReady; }
 
+  bool NeedInvalidate() const { return m_needInvalidate; }
   GraphicsReadyCallback GetCallback() { return m_callback; }
 
 private:
+  bool m_needInvalidate;
   GraphicsReadyCallback m_callback;
 };
 

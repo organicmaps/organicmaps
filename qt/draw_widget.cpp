@@ -472,13 +472,6 @@ void DrawWidget::keyReleaseEvent(QKeyEvent * e)
     m_emulatingLocation = false;
 }
 
-void DrawWidget::OnViewportChanged(ScreenBase const & screen)
-{
-  TBase::OnViewportChanged(screen);
-  if (m_screenshotMode)
-    m_screenshoter->CheckViewport();
-}
-
 bool DrawWidget::Search(search::EverywhereSearchParams const & params)
 {
   return m_framework.SearchEverywhere(params);

@@ -525,10 +525,10 @@ void DrapeEngine::SetModelViewListener(ModelViewChangedHandler && fn)
 }
 
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
-void DrapeEngine::NotifyGraphicsReady(GraphicsReadyHandler const & fn)
+void DrapeEngine::NotifyGraphicsReady(GraphicsReadyHandler const & fn, bool needInvalidate)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<NotifyGraphicsReadyMessage>(fn),
+                                  make_unique_dp<NotifyGraphicsReadyMessage>(fn, needInvalidate),
                                   MessagePriority::Normal);
 }
 #endif

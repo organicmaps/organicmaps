@@ -627,7 +627,7 @@ public:
 
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
   using TGraphicsReadyFn = df::DrapeEngine::GraphicsReadyHandler;
-  void NotifyGraphicsReady(TGraphicsReadyFn const & fn);
+  void NotifyGraphicsReady(TGraphicsReadyFn const & fn, bool needInvalidate);
 #endif
 
   void StopLocationFollow();

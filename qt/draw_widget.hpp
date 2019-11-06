@@ -100,7 +100,6 @@ protected:
   void mousePressEvent(QMouseEvent * e) override;
   void mouseMoveEvent(QMouseEvent * e) override;
   void mouseReleaseEvent(QMouseEvent * e) override;
-  void OnViewportChanged(ScreenBase const & screen) override;
   //@}
 
   void keyPressEvent(QKeyEvent * e) override;

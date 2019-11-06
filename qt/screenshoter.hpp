@@ -22,6 +22,16 @@ struct ScreenshotParams
 
   using TStatusChangedFn = std::function<void(std::string const & /* status */, bool finished)>;
 
+  enum class Mode
+  {
+    Points,
+    Rects,
+    KmlFiles
+  };
+
+  Mode m_mode;
+  std::string m_points;
+  std::string m_rects;
   std::string m_kmlPath;
   std::string m_dstPath;
   uint32_t m_width = kDefaultWidth;
@@ -38,7 +48,8 @@ public:
   void Start();
 
   void OnCountryChanged(storage::CountryId countryId);
-  bool CheckViewport();
+
+  void OnPositionReady();
   void OnGraphicsReady();
 
 private:
@@ -51,14 +62,29 @@ private:
     WaitGraphics,
     Ready,
     FileError,
+    ParamsError,
     Done
   };
 
+  void ProcessNextItem();
   void ProcessNextKml();
+  void ProcessNextRect();
+  void ProcessNextPoint();
   void PrepareCountries();
   void SaveScreenshot();
+  void WaitPosition();
   void WaitGraphics();
-  void ChangeState(State newState);
+  void ChangeState(State newState, std::string const & msg = "");
+
+  size_t GetItemsToProcessCount();
+
+  bool PrepareItemsToProcess();
+  bool PrepareKmlFiles();
+  bool PreparePoints();
+  bool PrepareRects();
+
+  bool LoadRects(std::string const & rects);
+  bool LoadPoints(std::string const & points);
 
   friend std::string DebugPrint(State state);
 
@@ -67,11 +93,13 @@ private:
   Framework & m_framework;
   QWidget * m_widget;
   std::list<std::string> m_filesToProcess;
-  size_t m_filesCount = 0;
+  std::list<std::pair<m2::PointD, int>> m_pointsToProcess;
+  std::list<m2::RectD> m_rectsToProcess;
+  size_t m_itemsCount = 0;
   std::set<storage::CountryId> m_countriesToDownload;
   std::string m_nextScreenshotName;
-  m2::RectD m_dataRect;
 };
 
 std::string DebugPrint(Screenshoter::State state);
+std::string DebugPrint(ScreenshotParams::Mode mode);
 }  // namespace qt
