@@ -203,6 +203,11 @@ class Env:
         return os.path.join(self.intermediate_path, "promo_catalog_cities.json")
 
     @property
+    def promo_catalog_countries_path(self):
+        return os.path.join(self.intermediate_path,
+                            "promo_catalog_countries.json")
+
+    @property
     def popularity_path(self):
         return os.path.join(self.intermediate_path, "popular_places.csv")
 

@@ -4,7 +4,7 @@ import os
 import sys
 
 from .hierarchy_to_countries import hierarchy_to_countries as hierarchy_to_countries_
-from .inject_promo_ids import inject_promo_cities
+from .inject_promo_ids import inject_promo_ids
 from .localads_mwm_to_csv import create_csv
 
 
@@ -16,7 +16,7 @@ class PostGeneration:
 The post_generation commands are:
     localads_mwm_to_csv    Prepares CSV files for uploading to localads database from mwm files.
     hierarchy_to_countries Produces countries.txt from hierarchy.txt.
-    inject_promo_cities    Injects promo cities osm ids into countries.txt
+    inject_promo_ids       Injects promo osm ids into countries.txt
     """)
         parser.add_argument("command", help="Subcommand to run")
         args = parser.parse_args(sys.argv[1:2])
@@ -88,7 +88,7 @@ The post_generation commands are:
             print(countries_json)
 
     @staticmethod
-    def inject_promo_cities():
+    def inject_promo_ids():
         parser = argparse.ArgumentParser(
             description="Injects promo cities osm ids into countries.txt")
         parser.add_argument("--mwm", required=True, help="path to mwm files")
@@ -96,6 +96,8 @@ The post_generation commands are:
                             help="path to omim/data/types.txt")
         parser.add_argument("--promo_cities", required=True,
                             help="Path to promo cities file")
+        parser.add_argument("--promo_countries", required=True,
+                            help="Path to promo countries file")
         parser.add_argument("--osm2ft",
                             help="path to osm2ft files (default is the same as mwm)")
         parser.add_argument("--countries",
@@ -114,8 +116,8 @@ The post_generation commands are:
         with open(args.countries) as f:
             countries = json.load(f)
 
-        inject_promo_cities(countries, args.promo_cities, args.mwm, args.types,
-                            args.osm2ft)
+        inject_promo_ids(countries, args.promo_cities, args.promo_countries,
+                            args.mwm, args.types, args.osm2ft)
 
         with open(args.output, "w") as f:
             json.dump(countries, f, indent=1)

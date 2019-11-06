@@ -14,7 +14,7 @@ from descriptions.descriptions_downloader import (check_and_get_checker,
                                                   download_from_wikidata_tags)
 from filelock import FileLock
 from post_generation.hierarchy_to_countries import hierarchy_to_countries
-from post_generation.inject_promo_cities import inject_promo_cities
+from post_generation.inject_promo_ids import inject_promo_ids
 from post_generation.localads_mwm_to_csv import create_csv
 
 from .generator import stages
@@ -63,6 +63,7 @@ def stage_download_production_external(env):
         settings.UGC_URL: env.ugc_path,
         settings.HOTELS_URL: env.hotels_path,
         settings.PROMO_CATALOG_CITIES_URL: env.promo_catalog_cities_path,
+        settings.PROMO_CATALOG_COUNTRIES_URL: env.promo_catalog_countries_path,
         settings.POPULARITY_URL: env.popularity_path,
         settings.FOOD_URL: env.food_paths,
         settings.FOOD_TRANSLATIONS_URL: env.food_translations_path,
@@ -235,8 +236,9 @@ def stage_countries_txt(env):
                                        env.mwm_version)
     if env.is_accepted_stage(stage_download_production_external):
         countries_json = json.loads(countries)
-        inject_promo_cities(countries_json, env.promo_catalog_cities_path,
-                            env.mwm_path, env.types_path, env.mwm_path)
+        inject_promo_ids(countries_json, env.promo_catalog_cities_path,
+                         env.promo_catalog_countries_path, env.mwm_path,
+                         env.types_path, env.mwm_path)
         countries = json.dumps(countries_json, ensure_ascii=True, indent=1)
 
     with open(env.counties_txt_path, "w") as f:
