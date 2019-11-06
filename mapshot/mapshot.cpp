@@ -27,6 +27,9 @@ DEFINE_string(datapath, "", "Path to data directory");
 DEFINE_string(mwmpath, "", "Path to mwm files");
 DEFINE_int32(width, 480, "Resulting image width");
 DEFINE_int32(height, 640, "Resulting image height");
+DEFINE_double(vs, 2.0, "Visual scale (mdpi = 1.0, hdpi = 1.5, xhdpiScale = 2.0, "
+                       "6plus = 2.4, xxhdpi = 3.0, xxxhdpi = 3.5)");
+
 //----------------------------------------------------------------------------------------
 
 using namespace std;
@@ -81,6 +84,7 @@ void InitFrameRenderer(float visualScale)
 
   if (cpuDrawer == nullptr)
   {
+    df::VisualParams::Init(visualScale, 1024 /* dummy tile size */);
     string resPostfix = df::VisualParams::GetResourcePostfix(visualScale);
     cpuDrawer = make_unique_dp<CPUDrawer>(CPUDrawer::Params(resPostfix, visualScale));
   }
@@ -131,7 +135,8 @@ void DrawFrame(Framework & framework,
 
   int const upperScale = scales::GetUpperScale();
 
-  framework.GetIndex().ForEachInRect([&doDraw](FeatureType & ft) { doDraw(ft); }, selectRect, min(upperScale, drawScale));
+  framework.GetDataSource().ForEachInRect([&doDraw](FeatureType & ft) { doDraw(ft); },
+                                          selectRect, min(upperScale, drawScale));
 
   cpuDrawer->Flush();
   //cpuDrawer->DrawMyPosition(screen.GtoP(center));
@@ -198,10 +203,7 @@ int main(int argc, char * argv[])
       cout << "Rendering " << place << " into " << filename << " is finished." << endl;
     };
 
-    // This magic constant was determined in several attempts.
-    // It is a scale level, basically, dpi factor. 1 means 90 or 96, it seems,
-    // and with 1.1 the map looks subjectively better.
-    InitFrameRenderer(1.1 /* visualScale */);
+    InitFrameRenderer(FLAGS_vs);
 
     if (!FLAGS_place.empty())
       processPlace(FLAGS_place);

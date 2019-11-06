@@ -22,9 +22,12 @@ omim_link_libraries(
   routing
   search
   storage
+  metrics
   tracking
   traffic
   routing_common
+  transit
+  descriptions
   ugc
   drape
   partners_api
@@ -33,6 +36,8 @@ omim_link_libraries(
   kml
   indexer
   platform
+  mwm_diff
+  bsdiff
   editor
   geometry
   coding
@@ -44,7 +49,6 @@ omim_link_libraries(
   agg
   jansson
   protobuf
-  osrm
   stats_client
   minizip
   succinct

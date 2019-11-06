@@ -412,7 +412,7 @@ GlyphCacheImpl::~GlyphCacheImpl()
   }
 }
 
-int GlyphCacheImpl::getCharIDX(shared_ptr<Font> const & font, strings::UniChar symbolCode)
+int GlyphCacheImpl::getCharIDX(std::shared_ptr<Font> const & font, strings::UniChar symbolCode)
 {
   if (m_isDebugging)
     return 0;
@@ -471,7 +471,7 @@ std::pair<Font*, int> const GlyphCacheImpl::getCharIDX(GlyphKey const & key)
 
 GlyphMetrics const GlyphCacheImpl::getGlyphMetrics(GlyphKey const & key)
 {
-  pair<Font*, int> charIDX = getCharIDX(key);
+  std::pair<Font*, int> charIDX = getCharIDX(key);
 
   FTC_ScalerRec fontScaler =
   {
@@ -582,7 +582,7 @@ std::shared_ptr<GlyphBitmap> const GlyphCacheImpl::getGlyphBitmap(GlyphKey const
 
   FTC_Node_Unref(node, m_manager);
 
-  return shared_ptr<GlyphBitmap>(bitmap);
+  return std::shared_ptr<GlyphBitmap>(bitmap);
 }
 
 FT_Error GlyphCacheImpl::RequestFace(FTC_FaceID faceID, FT_Library library, FT_Pointer /*requestData*/, FT_Face * face)

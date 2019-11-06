@@ -25,7 +25,7 @@ namespace software_renderer
 /// - convert_point - convert point to screen coordinates;\n
 /// - m_rect - clip rect;\n
 
-struct base
+struct base_policy
 {
   struct params
   {
@@ -34,7 +34,7 @@ struct base
     {}
   };
 
-  explicit base(params const & p)
+  explicit base_policy(params const & p)
     : m_convertor(p.m_convertor)
   {
   }
@@ -48,7 +48,7 @@ struct base
 };
 
 /// in global coordinates
-struct base_global : public base
+struct base_global : public base_policy
 {
   m2::RectD const * m_rect;
 
@@ -57,24 +57,24 @@ struct base_global : public base
     return g2p(pt);
   }
 
-  struct params : base::params
+  struct params : base_policy::params
   {
     m2::RectD const * m_rect;
     params() : m_rect(0){}
   };
 
   explicit base_global(params const & p)
-    : base(p), m_rect(p.m_rect)
+    : base_policy(p), m_rect(p.m_rect)
   {
   }
 };
 
 /// in screen coordinates
-struct base_screen : public base
+struct base_screen : public base_policy
 {
   m2::RectD m_rect;
 
-  struct params : base::params
+  struct params : base_policy::params
   {
     m2::RectD const * m_rect;
     params() : m_rect(0)

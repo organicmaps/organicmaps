@@ -42,7 +42,7 @@ public:
                    ScreenBase const & convertor,
                    int zoomLevel);
 
-  bool operator()(FeatureType const & f);
+  bool operator()(FeatureType & f);
 
 private:
   ref_ptr<CPUDrawer> m_drawer;

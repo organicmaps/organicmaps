@@ -124,7 +124,7 @@ public:
   }
 
   template <typename Functor>
-  void ForEachTriangleEx(Functor && f, int scale) const
+  void ForEachTriangleEx(Functor && f, int scale)
   {
     f.StartPrimitive(m_triangles.size());
     ForEachTriangle(std::forward<Functor>(f), scale);

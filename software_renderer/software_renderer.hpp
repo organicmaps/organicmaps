@@ -114,7 +114,7 @@ public:
 
 private:
   std::unique_ptr<GlyphCache> m_glyphCache;
-  std::map<string, m2::RectU> m_symbolsIndex;
+  std::map<std::string, m2::RectU> m_symbolsIndex;
   std::vector<uint8_t> m_symbolsSkin;
   uint32_t m_skinWidth, m_skinHeight;
 

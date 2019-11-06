@@ -66,7 +66,7 @@ void GlyphCache::addFonts(std::vector<std::string> const & fontNames)
   m_impl->addFonts(fontNames);
 }
 
-pair<Font*, int> GlyphCache::getCharIDX(GlyphKey const & key)
+std::pair<Font*, int> GlyphCache::getCharIDX(GlyphKey const & key)
 {
   return m_impl->getCharIDX(key);
 }
@@ -76,7 +76,7 @@ GlyphMetrics const GlyphCache::getGlyphMetrics(GlyphKey const & key)
   return m_impl->getGlyphMetrics(key);
 }
 
-shared_ptr<GlyphBitmap> const GlyphCache::getGlyphBitmap(GlyphKey const & key)
+std::shared_ptr<GlyphBitmap> const GlyphCache::getGlyphBitmap(GlyphKey const & key)
 {
   return m_impl->getGlyphBitmap(key);
 }

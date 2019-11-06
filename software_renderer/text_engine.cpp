@@ -426,7 +426,7 @@ FT_Glyph face::glyph(unsigned int code, unsigned int prev_code, ml::point_d * ke
 
 ml::face & text_engine::get_face(size_t font_key, std::string const & name, size_t size)
 {
-  pair<size_t, size_t> key(font_key, size);
+  std::pair<size_t, size_t> key(font_key, size);
   face_cache_type::iterator entry = m_cache.find(key);
   if (entry == m_cache.end())
   {

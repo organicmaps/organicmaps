@@ -97,7 +97,7 @@ void ConvertStyle(SymbolRuleProto const * pSrc, IconInfo & dest)
 void ConvertStyle(CaptionDefProto const * pSrc, double scale, dp::FontDecl & dest, m2::PointD & offset)
 {
   // fonts smaller than 8px look "jumpy" on LDPI devices
-  uint8_t const h = max(8, static_cast<int>(pSrc->height() * scale));
+  uint8_t const h = std::max(8, static_cast<int>(pSrc->height() * scale));
 
   offset = m2::PointD(0, 0);
   if (pSrc->offset_x() != 0)
@@ -114,7 +114,7 @@ void ConvertStyle(CaptionDefProto const * pSrc, double scale, dp::FontDecl & des
 void ConvertStyle(ShieldRuleProto const * pSrc, double scale, dp::FontDecl & dest)
 {
   // fonts smaller than 8px look "jumpy" on LDPI devices
-  uint8_t const h = max(8, static_cast<int>(pSrc->height() * scale));
+  uint8_t const h = std::max(8, static_cast<int>(pSrc->height() * scale));
 
   dest = dp::FontDecl(ConvertColor(pSrc->color()), h);
 

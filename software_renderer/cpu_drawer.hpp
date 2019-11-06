@@ -9,6 +9,8 @@
 
 #include "geometry/screenbase.hpp"
 
+#include "base/assert.hpp"
+
 #include <cstdint>
 #include <functional>
 #include <list>
@@ -212,7 +214,7 @@ private:
   std::map<FeatureID, FeatureStyler> m_stylers;
   std::map<FeatureID, AreaInfo> m_areasGeometry;
   std::map<FeatureID, PathInfo> m_pathGeometry;
-  std::map<FeatureID, string> m_roadNames;
+  std::map<FeatureID, std::string> m_roadNames;
   dp::FontDecl m_roadNumberFont;
 
   double m_visualScale;

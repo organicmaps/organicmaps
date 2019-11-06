@@ -1,11 +1,14 @@
 #include "software_renderer/geometry_processors.hpp"
 
+#include "base/assert.hpp"
+#include "base/math.hpp"
+
 #include <functional>
 
 namespace software_renderer
 {
 base_screen::base_screen(params const & p)
-  : base(p)
+  : base_policy(p)
 {
   m_convertor->GtoP(*p.m_rect, m_rect);
 }

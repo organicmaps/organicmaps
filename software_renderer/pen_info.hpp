@@ -59,10 +59,10 @@ struct PenInfo
       else
       {
         // hack for Samsung GT-S5570 (GPU floor()'s texture pattern width)
-        m_w = max(m_w, 1.0);
+        m_w = std::max(m_w, 1.0);
 
         buffer_vector<double, 4> tmpV;
-        std::copy(pattern, pattern + patternSize, back_inserter(tmpV));
+        std::copy(pattern, pattern + patternSize, std::back_inserter(tmpV));
 
         if (tmpV.size() % 2)
           tmpV.push_back(0);
@@ -110,7 +110,7 @@ struct PenInfo
             curLen += tmpV[i++];
         }
 
-        int periods = max(int((256 - 4) / length), 1);
+        int periods = std::max(int((256 - 4) / length), 1);
         m_pat.reserve(periods * vec.size());
         for (int i = 0; i < periods; ++i)
           std::copy(vec.begin(), vec.end(), std::back_inserter(m_pat));

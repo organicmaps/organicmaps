@@ -1,11 +1,13 @@
 #pragma once
 
 #include "indexer/drawing_rules.hpp"
+#include "indexer/feature_decl.hpp"
 
 #include "geometry/rect2d.hpp"
 
 #include <cstddef>
 #include <cstdint>
+#include <string>
 
 class FeatureType;
 class ScreenBase;
@@ -32,7 +34,7 @@ struct DrawRule
 struct FeatureStyler
 {
   FeatureStyler() = default;
-  FeatureStyler(FeatureType const & f,
+  FeatureStyler(FeatureType & f,
                 int const zoom,
                 double const visualScale,
                 GlyphCache * glyphCache,
@@ -46,13 +48,13 @@ struct FeatureStyler
   bool m_hasLineStyles;
   bool m_hasPointStyles;
   bool m_hasPathText;
-  int m_geometryType;
+  feature::GeomType m_geometryType;
 
   double m_visualScale;
 
-  string m_primaryText;
-  string m_secondaryText;
-  string m_refText;
+  std::string m_primaryText;
+  std::string m_secondaryText;
+  std::string m_refText;
 
   typedef buffer_vector<double, 16> ClipIntervalsT;
   ClipIntervalsT m_intervals;
@@ -70,7 +72,7 @@ struct FeatureStyler
 
   bool IsEmpty() const;
 
-  string const GetPathName() const;
+  std::string const GetPathName() const;
 
   bool FilterTextSize(drule::BaseRule const * pRule) const;
 
