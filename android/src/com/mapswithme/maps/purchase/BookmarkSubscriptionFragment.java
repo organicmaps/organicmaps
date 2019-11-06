@@ -2,17 +2,17 @@ package com.mapswithme.maps.purchase;
 
 import android.app.Activity;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.cardview.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.PrivateVariables;
@@ -22,6 +22,9 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.dialog.ResolveFragmentManagerStrategy;
+import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.NetworkPolicy;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -31,9 +34,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class BookmarkSubscriptionFragment extends BaseAuthFragment
-    implements AlertDialogCallback, PurchaseStateActivator<BookmarkSubscriptionPaymentState>
+    implements AlertDialogCallback, PurchaseStateActivator<BookmarkSubscriptionPaymentState>,
+               SubscriptionUiChangeListener
 {
-  public static final String EXTRA_FROM = "extra_from";
+  static final String EXTRA_FROM = "extra_from";
 
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private static final String TAG = BookmarkSubscriptionFragment.class.getSimpleName();
@@ -152,7 +156,7 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
     activateState(BookmarkSubscriptionPaymentState.CHECK_NETWORK_CONNECTION);
   }
 
-  void queryProductDetails()
+  private void queryProductDetails()
   {
     mPurchaseController.queryProductDetails();
   }
@@ -194,7 +198,7 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
     }
   }
 
-  void updatePaymentButtons()
+  private void updatePaymentButtons()
   {
     updateYearlyButton();
     updateMonthlyButton();
@@ -269,7 +273,7 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
     mPingingResult = result;
   }
 
-  void finishValidation()
+  private void finishValidation()
   {
     if (mValidationResult)
       requireActivity().setResult(Activity.RESULT_OK);
@@ -277,7 +281,7 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
     requireActivity().finish();
   }
 
-  public void finishPinging()
+  private void finishPinging()
   {
     if (!mPingingResult)
     {
@@ -343,7 +347,7 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
     LOGGER.w(TAG, "Social authentication error = " + error + ",  auth type = " + type);
   }
 
-  public void onNetworkCheckPassed()
+  private void onNetworkCheckPassed()
   {
     activateState(BookmarkSubscriptionPaymentState.PRODUCT_DETAILS_LOADING);
   }
@@ -359,6 +363,111 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
 
     manager.beginTransaction().remove(outdatedInstance).commitAllowingStateLoss();
     manager.executePendingTransactions();
+  }
+
+  @Override
+  public void onReset()
+  {
+    hideAllUi();
+  }
+
+  @Override
+  public void onProductDetailsLoading()
+  {
+    showRootScreenProgress();
+    queryProductDetails();
+  }
+
+  @Override
+  public void onProductDetailsFailure()
+  {
+    PurchaseUtils.showProductDetailsFailureDialog(this, getClass().getSimpleName());
+  }
+
+  @Override
+  public void onPaymentFailure()
+  {
+    PurchaseUtils.showPaymentFailureDialog(this, getClass().getSimpleName());
+  }
+
+  @Override
+  public void onPriceSelection()
+  {
+    hideRootScreenProgress();
+    updatePaymentButtons();
+  }
+
+  @Override
+  public void onValidating()
+  {
+    showButtonProgress();
+  }
+
+  @Override
+  public void onValidationFinish()
+  {
+    hideButtonProgress();
+    finishValidation();
+  }
+
+  @Override
+  public void onPinging()
+  {
+    showButtonProgress();
+  }
+
+  @Override
+  public void onPingFinish()
+  {
+    hideButtonProgress();
+    finishPinging();
+  }
+
+  @Override
+  public void onCheckNetworkConnection()
+  {
+    if (ConnectionState.isConnected())
+      NetworkPolicy.checkNetworkPolicy(requireFragmentManager(),
+                                       this::onNetworkPolicyResult, true);
+    else
+      PurchaseUtils.showNoConnectionDialog(this);
+  }
+
+  private void onNetworkPolicyResult(@NonNull NetworkPolicy policy)
+  {
+    if (policy.canUseNetwork())
+      onNetworkCheckPassed();
+    else
+      requireActivity().finish();
+  }
+
+  private void showButtonProgress()
+  {
+    UiUtils.hide(getViewOrThrow(), R.id.continue_btn);
+    UiUtils.show(getViewOrThrow(), R.id.progress);
+  }
+
+  private void hideButtonProgress()
+  {
+    UiUtils.hide(getViewOrThrow(), R.id.progress);
+    UiUtils.show(getViewOrThrow(), R.id.continue_btn);
+  }
+
+  private void showRootScreenProgress()
+  {
+    UiUtils.show(getViewOrThrow(), R.id.root_screen_progress);
+    UiUtils.hide(getViewOrThrow(), R.id.content_view);
+  }
+
+  private void hideRootScreenProgress()
+  {
+    UiUtils.hide(getViewOrThrow(), R.id.root_screen_progress);
+    UiUtils.show(getViewOrThrow(), R.id.content_view);
+  }
+
+  private void hideAllUi()
+  {
+    UiUtils.hide(getViewOrThrow(), R.id.root_screen_progress, R.id.content_view);
   }
 
   private class AnnualCardClickListener implements View.OnClickListener
