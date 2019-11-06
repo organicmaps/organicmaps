@@ -17,7 +17,6 @@ import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseAuthFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
@@ -33,7 +32,7 @@ import com.mapswithme.util.statistics.Statistics;
 import java.util.Collections;
 import java.util.List;
 
-public class BookmarkSubscriptionFragment extends BaseAuthFragment
+public class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFragment
     implements AlertDialogCallback, PurchaseStateActivator<BookmarkSubscriptionPaymentState>,
                SubscriptionUiChangeListener
 {
@@ -51,25 +50,21 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
   @NonNull
   private final BookmarkSubscriptionCallback mPurchaseCallback = new BookmarkSubscriptionCallback();
   @NonNull
-  private final PingCallback mPingCallback = new PingCallback();
-  @NonNull
   private BookmarkSubscriptionPaymentState mState = BookmarkSubscriptionPaymentState.NONE;
   @Nullable
   private ProductDetails[] mProductDetails;
   private boolean mValidationResult;
-  private boolean mPingingResult;
 
   @Nullable
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                           @Nullable Bundle savedInstanceState)
+  View onSubscriptionCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                                @Nullable Bundle savedInstanceState)
   {
     mPurchaseController = PurchaseFactory.createBookmarksSubscriptionPurchaseController(requireContext());
     if (savedInstanceState != null)
       mPurchaseController.onRestore(savedInstanceState);
     mPurchaseController.initialize(requireActivity());
-    mPingCallback.attach(this);
-    BookmarkManager.INSTANCE.addCatalogPingListener(mPingCallback);
+
     View root = inflater.inflate(R.layout.bookmark_subscription_fragment, container, false);
     CardView annualPriceCard = root.findViewById(R.id.annual_price_card);
     CardView monthlyPriceCard = root.findViewById(R.id.monthly_price_card);
@@ -102,6 +97,12 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
     return root;
   }
 
+  @Override
+  void onSubscriptionDestroyView()
+  {
+    // Do nothing by default.
+  }
+
   @Nullable
   private String getExtraFrom()
   {
@@ -111,13 +112,6 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
     return getArguments().getString(EXTRA_FROM, null);
   }
 
-  @Override
-  public void onDestroyView()
-  {
-    super.onDestroyView();
-    mPingCallback.detach();
-    BookmarkManager.INSTANCE.removeCatalogPingListener(mPingCallback);
-  }
 
   private void openSubscriptionManagementSettings()
   {
@@ -268,28 +262,12 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
     mValidationResult = result;
   }
 
-  private void handlePingingResult(boolean result)
-  {
-    mPingingResult = result;
-  }
-
   private void finishValidation()
   {
     if (mValidationResult)
       requireActivity().setResult(Activity.RESULT_OK);
 
     requireActivity().finish();
-  }
-
-  private void finishPinging()
-  {
-    if (!mPingingResult)
-    {
-      PurchaseUtils.showPingFailureDialog(this);
-      return;
-    }
-
-    authorize();
   }
 
   @Override
@@ -419,8 +397,8 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
   @Override
   public void onPingFinish()
   {
+    super.onPingFinish();
     hideButtonProgress();
-    finishPinging();
   }
 
   @Override
@@ -606,36 +584,6 @@ public class BookmarkSubscriptionFragment extends BaseAuthFragment
       {
         bookmarkSubscriptionFragment.handleActivationResult(mPendingValidationResult);
         mPendingValidationResult = null;
-      }
-    }
-  }
-
-  private static class PingCallback
-      extends StatefulPurchaseCallback<BookmarkSubscriptionPaymentState,
-      BookmarkSubscriptionFragment> implements BookmarkManager.BookmarksCatalogPingListener
-
-  {
-    private Boolean mPendingPingingResult;
-
-    @Override
-    public void onPingFinished(boolean isServiceAvailable)
-    {
-      LOGGER.i(TAG, "Ping finished, isServiceAvailable: " + isServiceAvailable);
-      if (getUiObject() == null)
-        mPendingPingingResult = isServiceAvailable;
-      else
-        getUiObject().handlePingingResult(isServiceAvailable);
-
-      activateStateSafely(BookmarkSubscriptionPaymentState.PINGING_FINISH);
-    }
-
-    @Override
-    void onAttach(@NonNull BookmarkSubscriptionFragment fragment)
-    {
-      if (mPendingPingingResult != null)
-      {
-        fragment.handlePingingResult(mPendingPingingResult);
-        mPendingPingingResult = null;
       }
     }
   }
