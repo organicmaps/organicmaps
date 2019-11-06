@@ -4,7 +4,7 @@ import os
 import sys
 
 from .hierarchy_to_countries import hierarchy_to_countries as hierarchy_to_countries_
-from .inject_promo_cities import inject_promo_cities
+from .inject_promo_ids import inject_promo_cities
 from .localads_mwm_to_csv import create_csv
 
 
