@@ -8,8 +8,6 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +23,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.PrivateVariables;
@@ -159,7 +159,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     mFailedPurchaseController.initialize(requireActivity());
     mFailedPurchaseController.validateExistingPurchases();
     mPurchaseChecker = new FailedBookmarkPurchaseChecker();
-    mProductDetailsLoadingManager = PurchaseFactory.createInAppBillingManager(requireContext());
+    mProductDetailsLoadingManager = PurchaseFactory.createInAppBillingManager();
     mProductDetailsLoadingManager.initialize(requireActivity());
     mProductDetailsLoadingCallback = new ProductDetailsLoadingCallback();
     View root = inflater.inflate(R.layout.fragment_bookmarks_catalog, container, false);

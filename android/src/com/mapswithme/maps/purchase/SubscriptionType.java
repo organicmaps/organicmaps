@@ -1,8 +1,8 @@
 package com.mapswithme.maps.purchase;
 
 import androidx.annotation.NonNull;
-
 import com.mapswithme.maps.PrivateVariables;
+import com.mapswithme.util.Utils;
 
 public enum SubscriptionType
 {
@@ -21,6 +21,16 @@ public enum SubscriptionType
         {
           return PrivateVariables.adsRemovalVendor();
         }
+
+        @NonNull
+        @Override
+        String[] getProductIds()
+        {
+          return Utils.concatArrays(PrivateVariables.adsRemovalNotUsedList(),
+                                    PrivateVariables.adsRemovalYearlyProductId(),
+                                    PrivateVariables.adsRemovalMonthlyProductId(),
+                                    PrivateVariables.adsRemovalWeeklyProductId());
+        }
       },
   BOOKMARKS
       {
@@ -37,6 +47,15 @@ public enum SubscriptionType
         {
           return PrivateVariables.bookmarksSubscriptionVendor();
         }
+
+        @NonNull
+        @Override
+        String[] getProductIds()
+        {
+          return Utils.concatArrays(PrivateVariables.bookmarksSubscriptionNotUsedList(),
+                                    PrivateVariables.bookmarksSubscriptionYearlyProductId(),
+                                    PrivateVariables.bookmarksSubscriptionMonthlyProductId());
+        }
       };
 
   @NonNull
@@ -44,4 +63,7 @@ public enum SubscriptionType
 
   @NonNull
   abstract String getVendor();
+
+  @NonNull
+  abstract String[] getProductIds();
 }
