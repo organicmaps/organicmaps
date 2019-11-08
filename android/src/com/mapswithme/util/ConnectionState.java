@@ -1,5 +1,6 @@
 package com.mapswithme.util;
 
+import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -44,17 +45,50 @@ public class ConnectionState
     }
   }
 
+  /**
+   * Use the {@link #isNetworkConnected(Context, int)} method instead.
+   */
+  @Deprecated
   private static boolean isNetworkConnected(int networkType)
   {
     final NetworkInfo info = getActiveNetwork();
     return info != null && info.getType() == networkType && info.isConnected();
   }
 
-  public static
-  @Nullable
-  NetworkInfo getActiveNetwork()
+  private static boolean isNetworkConnected(@NonNull Context context, int networkType)
   {
-    return ((ConnectivityManager) MwmApplication.get().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+    final NetworkInfo info = getActiveNetwork(context);
+    return info != null && info.getType() == networkType && info.isConnected();
+  }
+
+  /**
+   * Use the {@link #getActiveNetwork(Context)} method instead.
+   */
+  @Nullable
+  @Deprecated
+  public static NetworkInfo getActiveNetwork()
+  {
+    Application context = MwmApplication.get();
+    if (context == null)
+      return null;
+
+    ConnectivityManager manager =
+        ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+    if (manager == null)
+      return null;
+
+    return manager.getActiveNetworkInfo();
+  }
+
+  @Nullable
+  public static NetworkInfo getActiveNetwork(@NonNull Context context)
+  {
+    ConnectivityManager manager =
+        ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+    if (manager == null)
+      return null;
+
+    return manager.getActiveNetworkInfo();
   }
 
   public static boolean isMobileConnected()
@@ -125,12 +159,27 @@ public class ConnectionState
     return requestCurrentType().getNativeRepresentation();
   }
 
+  /**
+   * Use the {@link #requestCurrentType(Context)} method instead.
+   */
   @NonNull
+  @Deprecated
   public static Type requestCurrentType()
   {
     for (ConnectionState.Type each : ConnectionState.Type.values())
     {
       if (isNetworkConnected(each.getPlatformRepresentation()))
+        return each;
+    }
+    return NONE;
+  }
+
+  @NonNull
+  public static Type requestCurrentType(@NonNull Context context)
+  {
+    for (ConnectionState.Type each : ConnectionState.Type.values())
+    {
+      if (isNetworkConnected(context, each.getPlatformRepresentation()))
         return each;
     }
     return NONE;
