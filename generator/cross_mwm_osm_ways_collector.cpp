@@ -62,7 +62,13 @@ void CrossMwmOsmWaysCollector::CollectFeature(feature::FeatureBuilder const & fb
     auto const & point = featurePoints[pointNumber];
     auto const & pointAffiliations = m_affiliation->GetAffiliations(point);
     for (auto const & mwmName : pointAffiliations)
-      featurePointsEntriesToMwm[mwmName][pointNumber] = true;
+    {
+      // Skip mwms which are not present in the map: these are GetAffiliations() false positives.
+      auto it = featurePointsEntriesToMwm.find(mwmName);
+      if (it == featurePointsEntriesToMwm.end())
+        continue;
+      it->second[pointNumber] = true;
+    }
 
     // TODO (@gmoryes)
     //  Uncomment this check after: https://github.com/mapsme/omim/pull/10996
