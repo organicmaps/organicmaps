@@ -10,6 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SubscriptionSuccessViewController" customModule="maps_me" customModuleProvider="target">
             <connections>
+                <outlet property="textLabel" destination="nK1-v6-zGB" id="JOA-51-yw9"/>
+                <outlet property="titleLabel" destination="Dfb-YF-W7t" id="Lzc-iK-wZ2"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

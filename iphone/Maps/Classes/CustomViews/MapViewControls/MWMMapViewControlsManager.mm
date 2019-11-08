@@ -286,7 +286,8 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
     MapViewController *mapViewController = self.ownerController;
     [mapViewController dismissViewControllerAnimated:YES completion:nil];
     SubscriptionGoToCatalogViewController *successDialog =
-    [[SubscriptionGoToCatalogViewController alloc] initOnOk:^{
+    [[SubscriptionGoToCatalogViewController alloc] init:SubscriptionScreenTypeSightseeing
+                                                   onOk:^{
       [mapViewController dismissViewControllerAnimated:YES completion:nil];
       [mapViewController openCatalogAnimated:YES utm:MWMUTMCrownButton];
     } onCancel:^{

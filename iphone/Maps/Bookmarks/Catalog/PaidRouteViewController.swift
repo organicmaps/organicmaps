@@ -245,7 +245,7 @@ extension PaidRouteViewController : SubscriptionManagerListener {
     loadingView.isHidden = true
     if (isValid) {
       delegate?.didCompleteSubscription(self)
-      let successDialog = SubscriptionSuccessViewController { [weak self] in
+      let successDialog = SubscriptionSuccessViewController(.sightseeing) { [weak self] in
         self?.dismiss(animated: true)
       }
       present(successDialog, animated: true)

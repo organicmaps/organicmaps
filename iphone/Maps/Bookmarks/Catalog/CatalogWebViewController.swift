@@ -185,7 +185,7 @@ final class CatalogWebViewController: WebViewController {
     }
 
     if url.path.contains(subscribePath) {
-      showSubscribe()
+      showSubscribe(type: .sightseeing)
       decisionHandler(.cancel);
       return
     }
@@ -218,12 +218,18 @@ final class CatalogWebViewController: WebViewController {
                         withParameters: [kStatError : kStatUnknown])
   }
 
-  private func showSubscribe() {
-    let subscribeViewController = BookmarksSubscriptionViewController()
+  private func showSubscribe(type: SubscriptionScreenType) {
+    let subscribeViewController: BaseSubscriptionViewController
+    switch type {
+    case .allPass:
+      subscribeViewController = AllPassSubscriptionViewController()
+    case .sightseeing:
+      subscribeViewController = BookmarksSubscriptionViewController()
+    }
     subscribeViewController.onSubscribe = { [weak self] in
       self?.webView.reloadFromOrigin()
       self?.dismiss(animated: true)
-      let successDialog = SubscriptionSuccessViewController { [weak self] in
+      let successDialog = SubscriptionSuccessViewController(type) { [weak self] in
         self?.dismiss(animated: true)
       }
       self?.present(successDialog, animated: true)
