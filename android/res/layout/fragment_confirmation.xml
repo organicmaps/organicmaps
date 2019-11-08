@@ -49,31 +49,10 @@
     android:layout_marginTop="@dimen/margin_half"
     tools:text="Now, you can add to your map detailed descriptiom of the best places"
     tools:ignore="UnusedAttribute"/>
-  <Button
-    android:id="@+id/accept_btn"
+  <include
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_base_plus"
-    style="@style/MwmWidget.Button.Primary"/>
-  <FrameLayout
-    android:layout_marginTop="@dimen/margin_base_plus"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <TextView
-      android:id="@+id/decline_btn"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textSize="@dimen/text_size_body_3"
-      android:fontFamily="@string/robotoMedium"
-      android:textStyle="normal"
-      android:letterSpacing="0.01"
-      android:layout_gravity="center"
-      android:gravity="center"
-      android:textAppearance="?android:attr/textAppearanceMedium"
-      android:textAllCaps="true"
-      tools:text="NOT NOW"
-      android:background="?attr/selectableItemBackground"
-      tools:ignore="UnusedAttribute"/>
-  </FrameLayout>
-
+    layout="@layout/accept_decline_button_container">
+  </include>
 </LinearLayout>

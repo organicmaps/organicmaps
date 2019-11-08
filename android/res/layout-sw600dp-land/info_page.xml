@@ -43,15 +43,5 @@
       android:layout_marginBottom="@dimen/margin_base"
       android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
       tools:text="@string/onboarding_welcome_first_subtitle"/>
-    <TextView
-      android:id="@+id/tv__subtitle2"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginRight="@dimen/margin_double"
-      android:layout_marginEnd="@dimen/margin_double"
-      android:layout_marginBottom="@dimen/margin_base"
-      android:textAppearance="@style/MwmTextAppearance.Body3"
-      android:linksClickable="true"
-      tools:text="@string/onboarding_welcome_second_subtitle"/>
   </LinearLayout>
 </LinearLayout>

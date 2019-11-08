@@ -11,30 +11,18 @@
     android:layout_above="@+id/btn_frame"/>
   <RelativeLayout
     android:id="@id/btn_frame"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/margin_double_plus"
+    android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
-    android:paddingTop="@dimen/margin_quarter_plus"
-    android:paddingBottom="@dimen/margin_quarter_plus"
-    android:paddingRight="@dimen/margin_half"
-    android:paddingLeft="@dimen/margin_half"
-    android:background="?accentButtonBackground"
-    android:gravity="center_vertical">
-    <TextView
-      android:id="@+id/btn__continue"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:paddingLeft="@dimen/margin_half"
-      android:paddingRight="@dimen/margin_half"
-      android:textAppearance="@style/MwmTextAppearance.Button"
-      android:textColor="?accentButtonTextColor"
-      android:fontFamily="@string/robotoMedium"
-      android:text="@string/accept_and_continue"
-      android:gravity="center_vertical"
-      android:layout_alignParentEnd="true"
-      android:layout_alignParentRight="true"
-      android:background="?clickableBackground"
-      tools:targetApi="jelly_bean"/>
+    android:gravity="center_vertical"
+    android:layout_marginEnd="@dimen/margin_base_plus"
+    android:layout_marginStart="@dimen/margin_base_plus"
+    android:layout_marginBottom="@dimen/margin_base_plus"
+    android:orientation="horizontal">
+    <include
+      layout="@layout/accept_decline_button_container"
+      android:layout_marginBottom="@dimen/margin_base_plus"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content" />
   </RelativeLayout>
 </RelativeLayout>

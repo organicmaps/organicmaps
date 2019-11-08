@@ -167,6 +167,7 @@ android {
   compileSdkVersion propCompileSdkVersion.toInteger()
 
   defaultConfig {
+    vectorDrawables.useSupportLibrary = true
     // Default package name is taken from the manifest and should be com.mapswithme.maps
     versionCode propVersionCode.toInteger()
     versionName propVersionName

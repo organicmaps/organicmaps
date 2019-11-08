@@ -3,31 +3,33 @@ package com.mapswithme.maps.onboarding;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
+import com.mapswithme.maps.news.WelcomeScreenBindingType;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.UiUtils;
 
 public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View.OnClickListener
 {
+  private static final String BUNDLE_WELCOME_SCREEN_TYPE = "welcome_screen_type";
+
   @Nullable
   private PolicyAgreementListener mListener;
+
+  @Nullable
+  private WelcomeScreenBindingType mWelcomeScreenBindingType;
 
   public static void show(@NonNull FragmentActivity activity)
   {
@@ -102,29 +104,60 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     res.requestWindowFeature(Window.FEATURE_NO_TITLE);
     res.setCancelable(false);
 
+    Bundle args = getArguments();
+    mWelcomeScreenBindingType = args != null && args.containsKey(BUNDLE_WELCOME_SCREEN_TYPE)
+                                ? makeWelcomeScreenType(args) : null;
     View content = View.inflate(getActivity(), R.layout.fragment_welcome, null);
     res.setContentView(content);
-    content.findViewById(R.id.btn__continue).setOnClickListener(this);
+    TextView acceptBtn = content.findViewById(R.id.accept_btn);
+    acceptBtn.setOnClickListener(this);
     ImageView image = content.findViewById(R.id.iv__image);
     image.setImageResource(R.drawable.img_welcome);
     TextView title = content.findViewById(R.id.tv__title);
     title.setText(R.string.onboarding_welcome_title);
     TextView subtitle = content.findViewById(R.id.tv__subtitle1);
     subtitle.setText(R.string.onboarding_welcome_first_subtitle);
-    TextView terms = content.findViewById(R.id.tv__subtitle2);
-    UiUtils.show(terms);
-    Resources rs = content.getResources();
-    terms.setText(Html.fromHtml(rs.getString(R.string.onboarding_welcome_second_subtitle,
-        Framework.nativeGetTermsOfUseLink(), Framework.nativeGetPrivacyPolicyLink())));
-    terms.setMovementMethod(LinkMovementMethod.getInstance());
+
+    bindWelcomeScreenType(content, image, title, subtitle, acceptBtn);
 
     return res;
+  }
+
+  private void bindWelcomeScreenType(@NonNull View content, @NonNull ImageView image,
+                                     @NonNull TextView title, @NonNull TextView subtitle,
+                                     @NonNull TextView acceptBtn)
+  {
+    boolean hasDeclineBtn = mWelcomeScreenBindingType != null
+                            && mWelcomeScreenBindingType.getDeclineButton() != null;
+    TextView declineBtn = content.findViewById(R.id.decline_btn);
+    UiUtils.showIf(hasDeclineBtn, declineBtn);
+    if (hasDeclineBtn)
+      declineBtn.setText(mWelcomeScreenBindingType.getDeclineButton());
+
+    if (mWelcomeScreenBindingType == null)
+      return;
+
+    title.setText(mWelcomeScreenBindingType.getTitle());
+    image.setImageResource(mWelcomeScreenBindingType.getImage());
+    acceptBtn.setText(mWelcomeScreenBindingType.getAcceptButton());
+    declineBtn.setOnClickListener(v -> {});
+
+    boolean hasSubtitle = mWelcomeScreenBindingType.getSubtitle() != null;
+    UiUtils.showIf(hasSubtitle, subtitle);
+    if (hasSubtitle)
+      subtitle.setText(mWelcomeScreenBindingType.getSubtitle());
+  }
+
+  @NonNull
+  private static WelcomeScreenBindingType makeWelcomeScreenType(@NonNull Bundle args)
+  {
+    return WelcomeScreenBindingType.values()[args.getInt(BUNDLE_WELCOME_SCREEN_TYPE)];
   }
 
   @Override
   public void onClick(View v)
   {
-    if (v.getId() != R.id.btn__continue)
+    if (v.getId() != R.id.accept_btn)
       return;
 
     if (mListener != null)
