@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.mapswithme.maps.widget.HeightLimitedFrameLayout
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+<com.mapswithme.maps.widget.HeightLimitedFrameLayout
+  android:layout_above="@id/btn_frame"
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
@@ -44,3 +48,13 @@
       tools:text="@string/onboarding_welcome_first_subtitle"/>
   </LinearLayout>
 </com.mapswithme.maps.widget.HeightLimitedFrameLayout>
+  <include
+    android:id="@+id/btn_frame"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_marginStart="@dimen/margin_base_plus"
+    android:layout_marginEnd="@dimen/margin_base_plus"
+    android:layout_marginBottom="@dimen/margin_base_plus"
+    layout="@layout/welcome_buttons_vertical_container"/>
+</RelativeLayout>

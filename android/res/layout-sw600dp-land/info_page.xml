@@ -8,28 +8,38 @@
   <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="40dp"
+    android:padding="@dimen/margin_base_plus"
     android:layout_weight="1">
     <ImageView
       android:id="@+id/iv__image"
       android:layout_width="@dimen/info_page_image_size"
       android:layout_height="@dimen/info_page_image_size"
-      android:layout_gravity="center|right"
+      android:layout_gravity="center"
       tools:src="@drawable/img_welcome"/>
   </FrameLayout>
-  <LinearLayout
+  <RelativeLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
+    android:gravity="center_horizontal"
+    android:layout_margin="@dimen/margin_base_plus"
     android:layout_weight="1">
+    <include
+      android:id="@+id/button_container"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      layout="@layout/welcome_buttons_horizontal_container"/>
+  <LinearLayout
+    android:layout_above="@+id/button_container"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <TextView
       android:id="@+id/tv__title"
+      android:layout_marginTop="@dimen/margin_half_double_plus"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginRight="@dimen/margin_double"
-      android:layout_marginEnd="@dimen/margin_double"
-      android:layout_marginBottom="@dimen/margin_base"
       android:textAppearance="@style/MwmTextAppearance.Title"
       android:fontFamily="@string/robotoMedium"
       tools:text="@string/onboarding_welcome_title"
@@ -38,10 +48,10 @@
       android:id="@+id/tv__subtitle1"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginRight="@dimen/margin_double"
-      android:layout_marginEnd="@dimen/margin_double"
-      android:layout_marginBottom="@dimen/margin_base"
+      android:layout_marginTop="@dimen/margin_base"
       android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
       tools:text="@string/onboarding_welcome_first_subtitle"/>
   </LinearLayout>
+  </RelativeLayout>
+
 </LinearLayout>

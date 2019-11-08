@@ -1,28 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
   <include
     layout="@layout/info_page"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_above="@+id/btn_frame"/>
-  <RelativeLayout
-    android:id="@id/btn_frame"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:gravity="center_vertical"
-    android:layout_marginEnd="@dimen/margin_base_plus"
-    android:layout_marginStart="@dimen/margin_base_plus"
-    android:layout_marginBottom="@dimen/margin_base_plus"
-    android:orientation="horizontal">
-    <include
-      layout="@layout/accept_decline_button_container"
-      android:layout_marginBottom="@dimen/margin_base_plus"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content" />
-  </RelativeLayout>
+    android:layout_height="match_parent"/>
 </RelativeLayout>

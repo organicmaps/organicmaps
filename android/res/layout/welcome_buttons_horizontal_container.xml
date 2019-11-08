@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content">
+  <Button
+    android:id="@+id/accept_btn"
+    style="@style/MwmWidget.Button.Primary"
+    android:layout_alignParentEnd="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:lines="1"
+    android:minWidth="@dimen/welcome_btn_min_height"
+    android:text="@string/accept" />
+  <TextView
+    android:id="@+id/decline_btn"
+    android:layout_toStartOf="@id/accept_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/margin_half"
+    android:background="?attr/selectableItemBackground"
+    android:fontFamily="@string/robotoMedium"
+    android:gravity="center"
+    android:letterSpacing="0.01"
+    android:minWidth="@dimen/welcome_btn_min_height"
+    android:textAllCaps="true"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:textSize="@dimen/text_size_body_3"
+    android:textStyle="normal"
+    android:layout_centerVertical="true"
+    android:lines="1"
+    tools:text="NOW"
+    tools:ignore="UnusedAttribute" />
+</RelativeLayout>

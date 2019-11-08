@@ -64,7 +64,7 @@ public class PermissionsDialogFragment extends BasePermissionsDialogFragment
   @Override
   protected int getFirstActionButton()
   {
-    return R.id.btn__learn_more;
+    return R.id.accept_btn;
   }
 
   @Override
