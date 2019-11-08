@@ -257,6 +257,7 @@ private:
   Affiliations m_affiliations;
   CountryNameSynonyms m_countryNameSynonyms;
   MwmTopCityGeoIds m_mwmTopCityGeoIds;
+  MwmTopCountryGeoIds m_mwmTopCountryGeoIds;
 
   MwmSize m_maxMwmSizeBytes = 0;
 
@@ -464,6 +465,7 @@ public:
   CountryNameSynonyms const & GetCountryNameSynonyms() const { return m_countryNameSynonyms; }
 
   MwmTopCityGeoIds const & GetMwmTopCityGeoIds() const { return m_mwmTopCityGeoIds; }
+  std::vector<base::GeoObjectId> GetTopCountryGeoIds(CountryId const & countryId) const;
 
   /// \brief Calls |toDo| for each node for subtree with |root|.
   /// For example ForEachInSubtree(GetRootId()) calls |toDo| for every node including

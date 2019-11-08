@@ -182,8 +182,10 @@ void InitStorageData(storage::Affiliations & affiliations,
 
   storage::CountryTree countries;
   storage::MwmTopCityGeoIds mwmTopCityGeoIds;
-  auto const rv = storage::LoadCountriesFromFile(COUNTRIES_FILE, countries, affiliations,
-                                                 countryNameSynonyms, mwmTopCityGeoIds);
+  storage::MwmTopCountryGeoIds mwmTopCountryGeoIds;
+  auto const rv =
+      storage::LoadCountriesFromFile(COUNTRIES_FILE, countries, affiliations, countryNameSynonyms,
+                                     mwmTopCityGeoIds, mwmTopCountryGeoIds);
   CHECK(rv != -1, ("Can't load countries from:", countriesFile));
 }
 

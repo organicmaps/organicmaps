@@ -27,6 +27,7 @@ using Affiliations = std::unordered_map<std::string, std::vector<CountryId>>;
 using CountryNameSynonyms = std::unordered_map<std::string, CountryId>;
 /// Map from CountryId into city GeoObject id.
 using MwmTopCityGeoIds = std::unordered_map<CountryId, base::GeoObjectId>;
+using MwmTopCountryGeoIds = std::unordered_map<CountryId, std::vector<base::GeoObjectId>>;
 
 extern const storage::CountryId kInvalidCountryId;
 

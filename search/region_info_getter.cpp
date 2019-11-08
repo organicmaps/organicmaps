@@ -44,8 +44,9 @@ void RegionInfoGetter::LoadCountriesTree()
   storage::Affiliations affiliations;
   storage::CountryNameSynonyms countryNameSynonyms;
   storage::MwmTopCityGeoIds mwmTopCityGeoIds;
+  storage::MwmTopCountryGeoIds mwmTopCountryGeoIds;
   storage::LoadCountriesFromFile(COUNTRIES_FILE, m_countries, affiliations, countryNameSynonyms,
-                                 mwmTopCityGeoIds);
+                                 mwmTopCityGeoIds, mwmTopCountryGeoIds);
 }
 
 void RegionInfoGetter::SetLocale(string const & locale)

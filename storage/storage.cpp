@@ -123,7 +123,7 @@ Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
 {
   m_currentVersion =
       LoadCountriesFromBuffer(referenceCountriesTxtJsonForTesting, m_countries, m_affiliations,
-                              m_countryNameSynonyms, m_mwmTopCityGeoIds);
+                              m_countryNameSynonyms, m_mwmTopCityGeoIds, m_mwmTopCountryGeoIds);
   CHECK_LESS_OR_EQUAL(0, m_currentVersion, ("Can't load test countries file"));
   CalcMaxMwmSizeBytes();
 }
@@ -659,8 +659,9 @@ void Storage::LoadCountriesFile(string const & pathToCountriesFile)
 {
   if (m_countries.IsEmpty())
   {
-    m_currentVersion = LoadCountriesFromFile(pathToCountriesFile, m_countries, m_affiliations,
-                                             m_countryNameSynonyms, m_mwmTopCityGeoIds);
+    m_currentVersion =
+        LoadCountriesFromFile(pathToCountriesFile, m_countries, m_affiliations,
+                              m_countryNameSynonyms, m_mwmTopCityGeoIds, m_mwmTopCountryGeoIds);
     LOG_SHORT(LINFO, ("Loaded countries list for version:", m_currentVersion));
     if (m_currentVersion < 0)
       LOG(LERROR, ("Can't load countries file", pathToCountriesFile));
@@ -1792,6 +1793,21 @@ bool Storage::GetUpdateInfo(CountryId const & countryId, UpdateInfo & updateInfo
   updateInfo = UpdateInfo();
   node->ForEachInSubtree(updateInfoAccumulator);
   return true;
+}
+
+std::vector<base::GeoObjectId> Storage::GetTopCountryGeoIds(CountryId const & countryId) const
+{
+  std::vector<base::GeoObjectId> result;
+
+  auto const collector = [this, &result](CountryId const & id, CountryTree::Node const &) {
+    auto const it = m_mwmTopCountryGeoIds.find(id);
+    if (it != m_mwmTopCountryGeoIds.cend())
+      result.insert(result.end(), it->second.cbegin(), it->second.cend());
+  };
+
+  ForEachAncestorExceptForTheRoot(countryId, collector);
+
+  return result;
 }
 
 void Storage::PushToJustDownloaded(Queue::iterator justDownloadedItem)
