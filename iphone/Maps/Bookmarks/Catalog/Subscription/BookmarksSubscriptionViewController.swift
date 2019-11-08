@@ -5,7 +5,8 @@ import SafariServices
   @IBOutlet private var annualSubscriptionButton: BookmarksSubscriptionButton!
   @IBOutlet private var annualDiscountLabel: BookmarksSubscriptionDiscountLabel!
   @IBOutlet private var monthlySubscriptionButton: BookmarksSubscriptionButton!
-  
+  @IBOutlet private var contentView: UIView!
+
   override var subscriptionManager: ISubscriptionManager? {
     get { return InAppPurchase.bookmarksSubscriptionManager }
   }
@@ -50,6 +51,8 @@ import SafariServices
       .month: monthlySubscriptionButton],
                    discountLabels:[
       .year: annualDiscountLabel])
+
+    self.preferredContentSize = CGSize(width: 414, height: contentView.frame.height)
 
     Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: MWMPurchaseManager.bookmarksSubscriptionVendorId(),
                                                          kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId(),

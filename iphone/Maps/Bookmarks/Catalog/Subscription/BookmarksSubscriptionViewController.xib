@@ -12,6 +12,7 @@
             <connections>
                 <outlet property="annualDiscountLabel" destination="YH0-h4-ZEb" id="onk-lS-6im"/>
                 <outlet property="annualSubscriptionButton" destination="neX-0h-hs4" id="I6s-8S-Qks"/>
+                <outlet property="contentView" destination="Eiz-QQ-h0b" id="Yqj-Hf-utg"/>
                 <outlet property="loadingView" destination="BHb-cU-Ze3" id="bfe-6a-BJf"/>
                 <outlet property="monthlySubscriptionButton" destination="sj5-ey-SEv" id="nUs-dU-WOI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

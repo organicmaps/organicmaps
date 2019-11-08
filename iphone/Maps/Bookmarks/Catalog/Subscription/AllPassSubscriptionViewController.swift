@@ -8,7 +8,8 @@ class AllPassSubscriptionViewController: BaseSubscriptionViewController {
   @IBOutlet private var monthlySubscriptionButton: BookmarksSubscriptionButton!
   @IBOutlet private var pageIndicator: PageIndicator!
   @IBOutlet private var descriptionPageScrollView: UIScrollView!
-  
+  @IBOutlet private var contentView: UIView!
+
   //MARK: locals
   private var pageWidth: CGFloat {
     return self.descriptionPageScrollView.frame.width;
@@ -73,6 +74,8 @@ class AllPassSubscriptionViewController: BaseSubscriptionViewController {
       .month: monthlySubscriptionButton],
                    discountLabels:[
       .year: annualDiscountLabel])
+
+    self.preferredContentSize = CGSize(width: 414, height: contentView.frame.height)
 
     Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: MWMPurchaseManager.allPassProductIds,
                                                          kStatPurchase: MWMPurchaseManager.allPassSubscriptionServerId(),

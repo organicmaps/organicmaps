@@ -24,7 +24,8 @@ class BaseSubscriptionViewController: MWMViewController {
 
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    subscriptionManager?.addListener(self)
+    self.modalTransitionStyle = .coverVertical
+    self.modalPresentationStyle = .formSheet
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -37,6 +38,7 @@ class BaseSubscriptionViewController: MWMViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    subscriptionManager?.addListener(self)
     self.presentationController?.delegate = self;
   }
 

@@ -18,6 +18,7 @@
                 <outlet property="annualDiscountLabel" destination="HUV-kf-oUo" id="eNl-h8-mGe"/>
                 <outlet property="annualSubscriptionButton" destination="Lg7-Sn-MNZ" id="Dfz-gM-gDd"/>
                 <outlet property="backgroundImageView" destination="MVh-rE-VHd" id="aK3-Tk-Q82"/>
+                <outlet property="contentView" destination="TaY-K1-Hdb" id="eX6-cq-BPU"/>
                 <outlet property="descriptionPageScrollView" destination="pyJ-8x-bjL" id="763-Gg-LfT"/>
                 <outlet property="loadingView" destination="je2-0p-PRM" id="q8x-ah-ZDN"/>
                 <outlet property="monthlySubscriptionButton" destination="UL9-YY-AHH" id="5ms-ia-Lwx"/>
