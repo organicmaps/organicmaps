@@ -14,7 +14,7 @@ void IntersectionResult::Set(Model::Type type, uint32_t id)
   case Model::TYPE_POI: m_poi = id; break;
   case Model::TYPE_BUILDING: m_building = id; break;
   case Model::TYPE_STREET: m_street = id; break;
-  case Model::TYPE_SUBURB:
+  case Model::TYPE_SUBURB: m_suburb = id; break;
   case Model::TYPE_CITY:
   case Model::TYPE_VILLAGE:
   case Model::TYPE_STATE:
@@ -32,6 +32,8 @@ uint32_t IntersectionResult::InnermostResult() const
     return m_building;
   if (m_street != kInvalidId)
     return m_street;
+  if (m_suburb != kInvalidId)
+    return m_suburb;
   return kInvalidId;
 }
 
@@ -40,6 +42,7 @@ void IntersectionResult::Clear()
   m_poi = kInvalidId;
   m_building = kInvalidId;
   m_street = kInvalidId;
+  m_suburb = kInvalidId;
 }
 
 std::string DebugPrint(IntersectionResult const & result)
@@ -52,6 +55,8 @@ std::string DebugPrint(IntersectionResult const & result)
     os << "BUILDING:" << result.m_building << " ";
   if (result.m_street != IntersectionResult::kInvalidId)
     os << "STREET:" << result.m_street << " ";
+  if (result.m_suburb != IntersectionResult::kInvalidId)
+    os << "SUBURB:" << result.m_suburb << " ";
   os << "]";
   return os.str();
 }

@@ -70,8 +70,6 @@ struct BaseContext
 
   City const * m_city = nullptr;
 
-  Suburb const * m_suburb = nullptr;
-
   // This vector is used to indicate what tokens were already matched
   // and can't be re-used during the geocoding process.
   std::vector<TokenType> m_tokens;

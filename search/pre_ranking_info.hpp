@@ -45,9 +45,6 @@ struct PreRankingInfo
   // building and street ids are in |m_geoParts|.
   IntersectionResult m_geoParts;
 
-  // Id of the matched suburb, if any.
-  FeatureID m_suburbId;
-
   // Id of the matched city, if any.
   FeatureID m_cityId;
 

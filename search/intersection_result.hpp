@@ -29,6 +29,7 @@ struct IntersectionResult
   uint32_t m_poi = kInvalidId;
   uint32_t m_building = kInvalidId;
   uint32_t m_street = kInvalidId;
+  uint32_t m_suburb = kInvalidId;
 };
 
 std::string DebugPrint(IntersectionResult const & result);

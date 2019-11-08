@@ -395,9 +395,11 @@ class RankerResultMaker
         }
       }
 
-      if (info.m_type != Model::TYPE_SUBURB && preInfo.m_suburbId.IsValid())
+      if (info.m_type != Model::TYPE_SUBURB &&
+          preInfo.m_geoParts.m_suburb != IntersectionResult::kInvalidId)
       {
-        auto suburb = LoadFeature(preInfo.m_suburbId);
+        auto const & mwmId = ft.GetID().m_mwmId;
+        auto suburb = LoadFeature(FeatureID(mwmId, preInfo.m_geoParts.m_suburb));
         if (suburb)
         {
           auto const type = Model::TYPE_SUBURB;

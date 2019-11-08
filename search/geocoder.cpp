@@ -1090,18 +1090,24 @@ void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx)
   vector<StreetsMatcher::Prediction> suburbs;
   StreetsMatcher::Go(ctx, ctx.m_suburbs, *m_filter, m_params, suburbs);
 
-  for (auto const & s : suburbs)
+  for (auto const & suburb : suburbs)
   {
-    ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_SUBURB, s.m_tokenRange);
+    ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_SUBURB, suburb.m_tokenRange);
 
-    s.m_features.ForEach([&](uint64_t suburbId) {
+    suburb.m_features.ForEach([&](uint64_t suburbId) {
       auto ft = m_context->GetFeature(static_cast<uint32_t>(suburbId));
       if (!ft)
         return;
 
-      Suburb suburb(ft->GetID(), s.m_tokenRange);
-      ctx.m_suburb = &suburb;
-      SCOPE_GUARD(cleanup, [&ctx]() { ctx.m_suburb = nullptr; });
+      auto & layers = ctx.m_layers;
+      ASSERT(layers.empty(), ());
+      layers.emplace_back();
+      SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &layers));
+
+      auto & layer = layers.back();
+      InitLayer(Model::TYPE_SUBURB, suburb.m_tokenRange, layer);
+      vector<uint32_t> suburbFeatures = {ft->GetID().m_index};
+      layer.m_sortedFeatures = &suburbFeatures;
 
       auto const rect =
           mercator::RectByCenterXYAndSizeInMeters(feature::GetCenter(*ft), kMaxSuburbRadiusM);
@@ -1121,7 +1127,6 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
                                                      StreetsMatcher::Prediction const & prediction)
 {
   auto & layers = ctx.m_layers;
-  ASSERT(layers.empty(), ());
 
   layers.emplace_back();
   SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &layers));
@@ -1505,12 +1510,6 @@ void Geocoder::EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32
     auto const & city = *ctx.m_city;
     info.m_tokenRange[Model::TYPE_CITY] = city.m_tokenRange;
     info.m_cityId = FeatureID(city.m_countryId, city.m_featureId);
-  }
-
-  if (ctx.m_suburb)
-  {
-    info.m_tokenRange[Model::TYPE_SUBURB] = ctx.m_suburb->m_tokenRange;
-    info.m_suburbId = ctx.m_suburb->m_featureId;
   }
 
   if (geoParts)

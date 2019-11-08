@@ -82,8 +82,6 @@ public:
     case Model::TYPE_STATE:
     case Model::TYPE_COUNTRY:
     case Model::TYPE_UNCLASSIFIED:
-    // todo(@t.yan): match pois and buildings with suburbs
-    case Model::TYPE_SUBURB:
     case Model::TYPE_COUNT:
       ASSERT(false, ("Invalid parent layer type:", parent.m_type));
       break;
@@ -98,6 +96,11 @@ public:
         MatchPOIsWithStreets(child, parent, std::forward<Fn>(fn));
       else
         MatchBuildingsWithStreets(child, parent, std::forward<Fn>(fn));
+      break;
+    case Model::TYPE_SUBURB:
+      // todo(@t.yan): match pois and buildings with suburbs
+      ASSERT(child.m_type == Model::TYPE_STREET, ("Invalid child layer type:", child.m_type));
+      MatchStreetsWithSuburbs(child, parent, std::forward<Fn>(fn));
       break;
     }
   }
@@ -365,6 +368,18 @@ private:
           fn(houseId, streetId);
       }
     }
+  }
+
+  template <typename Fn>
+  void MatchStreetsWithSuburbs(FeaturesLayer const & child, FeaturesLayer const & parent, Fn && fn)
+  {
+    // We have pre-matched streets from geocoder.
+    auto const & streets = *child.m_sortedFeatures;
+    CHECK_EQUAL(parent.m_sortedFeatures->size(), 1, ());
+    auto const & suburb = parent.m_sortedFeatures->front();
+
+    for (auto const & street : streets)
+      fn(street, suburb);
   }
 
   // Returns id of a street feature corresponding to a |houseId|/|houseFeature|, or
