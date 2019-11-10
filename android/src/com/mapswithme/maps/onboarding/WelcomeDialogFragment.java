@@ -19,6 +19,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.news.WelcomeScreenBindingType;
 import com.mapswithme.util.Counters;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 
 public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View.OnClickListener
@@ -93,7 +94,8 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   @Override
   protected int getCustomTheme()
   {
-    return getFullscreenTheme();
+    return ThemeUtils.isNightTheme() ? R.style.MwmTheme_DialogFragment_NoFullscreen_Night
+                                     : R.style.MwmTheme_DialogFragment_NoFullscreen;
   }
 
   @NonNull
@@ -141,11 +143,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     image.setImageResource(mWelcomeScreenBindingType.getImage());
     acceptBtn.setText(mWelcomeScreenBindingType.getAcceptButton());
     declineBtn.setOnClickListener(v -> {});
-
-    boolean hasSubtitle = mWelcomeScreenBindingType.getSubtitle() != null;
-    UiUtils.showIf(hasSubtitle, subtitle);
-    if (hasSubtitle)
-      subtitle.setText(mWelcomeScreenBindingType.getSubtitle());
+    subtitle.setText(mWelcomeScreenBindingType.getSubtitle());
   }
 
   @NonNull
