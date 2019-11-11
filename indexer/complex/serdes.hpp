@@ -13,8 +13,6 @@
 #include <string>
 #include <vector>
 
-#include <boost/optional.hpp>
-
 namespace complex
 {
 class ComplexSerdes
@@ -43,7 +41,7 @@ public:
   {
     ReaderSource<decltype(reader)> src(reader);
     auto const version = DeserializeVersion(src);
-    return version ? Deserialize(src, *version, forest) : false;
+    return Deserialize(src, version, forest);
   }
 
   template <typename Sink>
@@ -94,14 +92,8 @@ private:
     template <typename Sink>
     static void Serialize(Sink & sink, tree_node::types::Ptr<Ids> const & tree)
     {
-      uint32_t const base = tree_node::Min(tree, [](auto const & data) {
-        auto const it = std::min_element(std::cbegin(data), std::cend(data));
-        CHECK(it != std::cend(data), ());
-        return *it;
-      });
-      WriteVarUint(sink, base);
       tree_node::PreOrderVisit(tree, [&](auto const & node) {
-        coding_utils::DeltaEncode(sink, node->GetData(), base);
+        coding_utils::WriteCollectionPrimitive(sink, node->GetData());
         auto const size = base::checked_cast<coding_utils::CollectionSizeType>(node->GetChildren().size());
         WriteVarUint(sink, size);
       });
@@ -110,14 +102,10 @@ private:
     template <typename Src>
     static bool Deserialize(Src & src, tree_node::types::Ptr<Ids> & tree)
     {
-      auto const base = ReadVarUint<uint32_t>(src);
       std::function<bool(tree_node::types::Ptr<Ids> &)> deserializeTree;
       deserializeTree = [&](auto & tree) {
-        if (src.Size() == 0)
-          return true;
-
         Ids ids;
-        coding_utils::DeltaDecode(src, std::back_inserter(ids), base);
+        coding_utils::ReadCollectionPrimitive(src, std::back_inserter(ids));
         tree = tree_node::MakeTreeNode(std::move(ids));
         auto const size = ReadVarUint<coding_utils::CollectionSizeType>(src);
         tree_node::types::Ptrs<Ids> children(size);
@@ -142,14 +130,9 @@ private:
   }
 
   template <typename Src>
-  static boost::optional<Version> DeserializeVersion(Src & src)
+  static Version DeserializeVersion(Src & src)
   {
-    if (src.Size() < sizeof(kLatestVersion))
-    {
-      LOG(LERROR, ("Unable to deserialize complexes: wrong header version."));
-      return {};
-    }
-    return static_cast<Version>(ReadPrimitiveFromSource<std::underlying_type<Version>::type>(src));
+    return static_cast<Version>(ReadPrimitiveFromSource<std::underlying_type_t<Version>>(src));
   }
 };
 }  // namespace complex

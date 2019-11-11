@@ -198,16 +198,6 @@ size_t CountIf(types::Ptr<Data> const & node, Fn && fn)
   return count;
 }
 
-template <typename Data, typename Fn>
-decltype(auto) Min(types::Ptr<Data> const & node, Fn && fn)
-{
-  auto m = std::numeric_limits<decltype(fn(node->GetData()))>::max();
-  PreOrderVisit(node, [&](auto const & node) {
-    m = std::min(fn(node->GetData()), m);
-  });
-  return m;
-}
-
 template <typename Data>
 void Print(types::Ptr<Data> const & node, std::ostream & stream,
            std::string prefix = "", bool isTail = true)
