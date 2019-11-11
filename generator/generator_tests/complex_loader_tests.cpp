@@ -123,6 +123,7 @@ UNIT_CLASS_TEST(TestWithClassificator, Complex_IsComplex)
   auto const filename = "test.csv";
   ScopedFile sf(filename, kCsv1);
   auto forest = generator::hierarchy::LoadHierachy(sf.GetFullPath());
+  // We need to sort forest, because LoadHierachy() returns forest, where trees aren't ordered.
   SortForest(forest);
   TEST_EQUAL(forest.size(), 2, ());
   TEST(!generator::IsComplex(forest[0]), ());
@@ -134,6 +135,7 @@ UNIT_CLASS_TEST(TestWithClassificator, Complex_GetCountry)
   auto const filename = "test.csv";
   ScopedFile sf(filename, kCsv1);
   auto forest = generator::hierarchy::LoadHierachy(sf.GetFullPath());
+  // We need to sort forest, because LoadHierachy() returns forest, where trees aren't ordered.
   SortForest(forest);
   TEST_EQUAL(forest.size(), 2, ());
   TEST_EQUAL(generator::GetCountry(forest[0]), "Russia_Moscow", ());
