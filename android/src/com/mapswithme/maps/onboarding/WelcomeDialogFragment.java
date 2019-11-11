@@ -32,6 +32,26 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   @Nullable
   private WelcomeScreenBindingType mWelcomeScreenBindingType;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mContentView;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private ImageView mImage;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private TextView mTitle;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private TextView mSubtitle;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private TextView mAcceptBtn;
+
   public static void show(@NonNull FragmentActivity activity)
   {
     create(activity);
@@ -109,41 +129,39 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     Bundle args = getArguments();
     mWelcomeScreenBindingType = args != null && args.containsKey(BUNDLE_WELCOME_SCREEN_TYPE)
                                 ? makeWelcomeScreenType(args) : null;
-    View content = View.inflate(getActivity(), R.layout.fragment_welcome, null);
-    res.setContentView(content);
-    TextView acceptBtn = content.findViewById(R.id.accept_btn);
-    acceptBtn.setOnClickListener(this);
-    ImageView image = content.findViewById(R.id.iv__image);
-    image.setImageResource(R.drawable.img_welcome);
-    TextView title = content.findViewById(R.id.tv__title);
-    title.setText(R.string.onboarding_welcome_title);
-    TextView subtitle = content.findViewById(R.id.tv__subtitle1);
-    subtitle.setText(R.string.onboarding_welcome_first_subtitle);
+    mContentView = View.inflate(getActivity(), R.layout.fragment_welcome, null);
+    res.setContentView(mContentView);
+    mAcceptBtn = mContentView.findViewById(R.id.accept_btn);
+    mAcceptBtn.setOnClickListener(this);
+    mImage = mContentView.findViewById(R.id.iv__image);
+    mImage.setImageResource(R.drawable.img_welcome);
+    mTitle = mContentView.findViewById(R.id.tv__title);
+    mTitle.setText(R.string.onboarding_welcome_title);
+    mSubtitle = mContentView.findViewById(R.id.tv__subtitle1);
+    mSubtitle.setText(R.string.onboarding_welcome_first_subtitle);
 
-    bindWelcomeScreenType(content, image, title, subtitle, acceptBtn);
+    bindWelcomeScreenType();
 
     return res;
   }
 
-  private void bindWelcomeScreenType(@NonNull View content, @NonNull ImageView image,
-                                     @NonNull TextView title, @NonNull TextView subtitle,
-                                     @NonNull TextView acceptBtn)
+  private void bindWelcomeScreenType()
   {
     boolean hasDeclineBtn = mWelcomeScreenBindingType != null
-                            && mWelcomeScreenBindingType.getDeclineButton() != null;
-    TextView declineBtn = content.findViewById(R.id.decline_btn);
+                            && mWelcomeScreenBindingType.hasDeclinedButton();
+    TextView declineBtn = mContentView.findViewById(R.id.decline_btn);
     UiUtils.showIf(hasDeclineBtn, declineBtn);
     if (hasDeclineBtn)
-      declineBtn.setText(mWelcomeScreenBindingType.getDeclineButton());
+      declineBtn.setText(mWelcomeScreenBindingType.getDeclinedButtonResId());
 
     if (mWelcomeScreenBindingType == null)
       return;
 
-    title.setText(mWelcomeScreenBindingType.getTitle());
-    image.setImageResource(mWelcomeScreenBindingType.getImage());
-    acceptBtn.setText(mWelcomeScreenBindingType.getAcceptButton());
+    mTitle.setText(mWelcomeScreenBindingType.getTitle());
+    mImage.setImageResource(mWelcomeScreenBindingType.getImage());
+    mAcceptBtn.setText(mWelcomeScreenBindingType.getAcceptButtonResId());
     declineBtn.setOnClickListener(v -> {});
-    subtitle.setText(mWelcomeScreenBindingType.getSubtitle());
+    mSubtitle.setText(mWelcomeScreenBindingType.getSubtitle());
   }
 
   @NonNull

@@ -281,5 +281,5 @@
   <dimen name="subscription_view_pager_height">144dp</dimen>
   <dimen name="zero">0dp</dimen>
   <dimen name="all_pass_top_offset">62dp</dimen>
-  <dimen name="welcome_btn_min_height">148dp</dimen>
+  <dimen name="welcome_btn_min_width">148dp</dimen>
 </resources>
