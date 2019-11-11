@@ -110,28 +110,34 @@ std::string const kCsv1 =
     "ShakeUp;"
     "Russia_Moscow\n";
 
+
+void SortForest(tree_node::types::Ptrs<generator::HierarchyEntry> & forest)
+{
+  std::sort(std::begin(forest), std::end(forest), [](auto const & lhs, auto const & rhs) {
+    return lhs->GetData().m_id < rhs->GetData().m_id;
+  });
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, Complex_IsComplex)
 {
   auto const filename = "test.csv";
   ScopedFile sf(filename, kCsv1);
-  auto const forest = generator::hierarchy::LoadHierachy(sf.GetFullPath());
+  auto forest = generator::hierarchy::LoadHierachy(sf.GetFullPath());
+  SortForest(forest);
   TEST_EQUAL(forest.size(), 2, ());
-  auto const & complex = *forest.begin();
-  auto const & notComplex = *forest.end();
-  TEST(generator::IsComplex(complex), ());
-  TEST(!generator::IsComplex(notComplex), ());
+  TEST(!generator::IsComplex(forest[0]), ());
+  TEST(generator::IsComplex(forest[1]), ());
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, Complex_GetCountry)
 {
   auto const filename = "test.csv";
   ScopedFile sf(filename, kCsv1);
-  auto const forest = generator::hierarchy::LoadHierachy(sf.GetFullPath());
+  auto forest = generator::hierarchy::LoadHierachy(sf.GetFullPath());
+  SortForest(forest);
   TEST_EQUAL(forest.size(), 2, ());
-  auto const & complex = *forest.begin();
-  auto const & notComplex = *forest.end();
-  TEST_EQUAL(generator::GetCountry(complex), "Russia_Moscow", ());
-  TEST_EQUAL(generator::GetCountry(notComplex), "Russia_Moscow", ());
+  TEST_EQUAL(generator::GetCountry(forest[0]), "Russia_Moscow", ());
+  TEST_EQUAL(generator::GetCountry(forest[1]), "Russia_Moscow", ());
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, Complex_ComplexLoader)
