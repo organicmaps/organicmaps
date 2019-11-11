@@ -437,15 +437,6 @@ void Geocoder::SetParamsForCategorialSearch(Params const & params)
 
 size_t Geocoder::OrderCountries(bool inViewport, vector<shared_ptr<MwmInfo>> & infos)
 {
-  // TODO (@y): remove this if crashes in this function
-  // disappear. Otherwise, remove null infos and re-check MwmSet
-  // again.
-  for (auto const & info : infos)
-  {
-    CHECK(info.get(),
-          ("MwmSet invariant violated. Please, contact @y if you know how to reproduce this."));
-  }
-
   vector<KeyedMwmInfo> keyedInfos;
   keyedInfos.reserve(infos.size());
   for (auto const & info : infos)
