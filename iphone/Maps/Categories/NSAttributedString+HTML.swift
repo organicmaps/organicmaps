@@ -68,8 +68,8 @@ extension NSMutableAttributedString {
   
   func enumerateAttachments(estimatedWidth: CGFloat) {
     enumerateAttribute(.attachment, in: NSMakeRange(0, length), options: []) { (value, range, _) in
-      if let attachement = value as? NSTextAttachment {
-        let image = attachement.image(forBounds: attachement.bounds, textContainer: NSTextContainer(), characterIndex: range.location)!
+      if let attachement = value as? NSTextAttachment,
+        let image = attachement.image(forBounds: attachement.bounds, textContainer: NSTextContainer(), characterIndex: range.location) {
         if image.size.width > estimatedWidth {
           let newImage = resizeImage(image: image, scale: estimatedWidth/image.size.width) ?? image
           let resizedAttachment = NSTextAttachment()
