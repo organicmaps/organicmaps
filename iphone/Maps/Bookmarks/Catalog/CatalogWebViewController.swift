@@ -28,8 +28,6 @@ final class CatalogWebViewController: WebViewController {
   var categoryInfo: CatalogCategoryInfo?
   var statSent = false
   var backButton: UIBarButtonItem!
-  var fwdButton: UIBarButtonItem!
-  var toolbar = UIToolbar()
   var billing = InAppPurchase.inAppBilling()
   var noInternetView: CatalogConnectionErrorView!
 
@@ -60,12 +58,11 @@ final class CatalogWebViewController: WebViewController {
       }
     }
     super.init(url: catalogUrl, title: L("guides_catalogue_title"))!
-    backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_catalog_back"), style: .plain, target: self, action: #selector(onBack))
-    fwdButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_catalog_fwd"), style: .plain, target: self, action: #selector(onFwd))
-    backButton.tintColor = .blackSecondaryText()
-    fwdButton.tintColor = .blackSecondaryText()
-    backButton.isEnabled = false
-    fwdButton.isEnabled = false
+    let bButton = UIButton(type: .custom)
+    bButton.addTarget(self, action: #selector(onBack), for: .touchUpInside)
+    bButton.setTitle(L("back"), for: .normal)
+    bButton.setImage(UIImage(named: "ic_nav_bar_back"), for: .normal)
+    backButton = UIBarButtonItem(customView: bButton)
     noInternetView = CatalogConnectionErrorView(frame: .zero, actionCallback: { [weak self] in
       guard let self = self else { return }
       if !FrameworkHelper.isNetworkConnected() {
@@ -126,32 +123,16 @@ final class CatalogWebViewController: WebViewController {
     noInternetView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     noInternetView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20.0).isActive = true
 
-    view.addSubview(toolbar)
-    toolbar.translatesAutoresizingMaskIntoConstraints = false
-    toolbar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-    toolbar.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-    toolbar.topAnchor.constraint(equalTo: progressBgView.bottomAnchor, constant: 8).isActive = true
-
     if #available(iOS 11, *) {
-      toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
       progressBgView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 8).isActive = true
     } else {
-      toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
       progressBgView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
     }
 
     progressView.tintColor = UIColor.white()
     updateProgress()
-    navigationItem.leftBarButtonItem = nil
-    navigationItem.hidesBackButton = true
-    navigationItem.rightBarButtonItem = UIBarButtonItem(title: L("done"), style: .plain, target: self, action:  #selector(goBack))
-  }
-
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-    fixedSpace.width = 20
-    toolbar.setItems([backButton, fixedSpace, fwdButton], animated: true)
+    navigationItem.hidesBackButton = true;
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: L("core_exit"), style: .plain, target: self, action:  #selector(goBack))
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -200,8 +181,11 @@ final class CatalogWebViewController: WebViewController {
       MWMEye.boomarksCatalogShown()
     }
     loadingIndicator.stopAnimating()
-    backButton.isEnabled = webView.canGoBack
-    fwdButton.isEnabled = webView.canGoForward
+    if (webView.canGoBack) {
+      navigationItem.leftBarButtonItem = backButton
+    } else {
+      navigationItem.leftBarButtonItem = nil
+    }
   }
 
   override func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
@@ -279,8 +263,8 @@ final class CatalogWebViewController: WebViewController {
         completion(false)
         self?.loadingIndicator.stopAnimating()
       case .needAuth:
-        if let s = self {
-          s.signup(anchor: s.toolbar, onComplete: {
+        if let s = self, let navBar = s.navigationController?.navigationBar {
+          s.signup(anchor: navBar, onComplete: {
             if $0 {
               s.handlePendingTransactions(completion: completion)
             } else {
@@ -346,8 +330,8 @@ final class CatalogWebViewController: WebViewController {
           }
           switch (status) {
           case .needAuth:
-            if let s = self {
-              s.signup(anchor: s.toolbar) {
+            if let s = self, let navBar = s.navigationController?.navigationBar{
+              s.signup(anchor: navBar) {
                 if $0 { s.download() }
               }
             }
