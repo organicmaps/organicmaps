@@ -1,5 +1,5 @@
 #import "MWMOpeningHoursLayoutHelper.h"
-#import "MWMOpeningHours.h"
+#import <CoreApi/MWMOpeningHours.h>
 #import "MWMPlacePageData.h"
 #import "MWMTableViewCell.h"
 #import "SwiftBridge.h"
@@ -135,7 +135,7 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
   self.data = data;
   self.rawString = [data stringForRow:place_page::MetainfoRows::OpeningHours];
   self.isClosed = [data schedule] == place_page::OpeningHours::Closed;
-  m_days = [MWMOpeningHours processRawString:self.rawString];
+  m_days = osmoh::processRawString(self.rawString, nil);
 }
 
 - (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath

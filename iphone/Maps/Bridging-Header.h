@@ -24,7 +24,6 @@
 
 #import "BookmarksVC.h"
 #import "FacebookNativeAdAdapter.h"
-#import "CatalogPromoItem.h"
 #import "CoreNotificationWrapper.h"
 #import "MapViewController.h"
 #import "MWMActivityViewController.h"

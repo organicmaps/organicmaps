@@ -1,4 +1,3 @@
-#import "CatalogPromoItem+Core.h"
 #import "MWMPlacePageLayout.h"
 #import "MWMBookmarkCell.h"
 #import "MWMDiscoveryCityGalleryObjects.h"
@@ -22,6 +21,7 @@
 #include "partners_api/booking_api.hpp"
 
 #import <CoreApi/CoreApi.h>
+#import <CoreApi/CatalogPromoItem+Core.h>
 
 namespace
 {

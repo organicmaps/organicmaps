@@ -6,6 +6,8 @@ typedef NS_ENUM(NSInteger, MWMOpenGLDriver) {
   MWMOpenGLDriverMetal
 };
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface AppInfo : NSObject
 
 + (instancetype)sharedInfo;
@@ -21,3 +23,5 @@ typedef NS_ENUM(NSInteger, MWMOpenGLDriver) {
 @property(nonatomic, readonly) BOOL canMakeCalls;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -1,6 +1,6 @@
 #import "CatalogPromoItem.h"
 
-#include "partners_api/promo_api.hpp"
+#include <CoreApi/Framework.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

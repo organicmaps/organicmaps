@@ -1,5 +1,5 @@
 #import "MWMOpeningHoursSection.h"
-#import "MWMOpeningHoursCommon.h"
+#import <CoreApi/MWMOpeningHoursCommon.h>
 #import "MWMOpeningHoursTableViewCell.h"
 #import "SwiftBridge.h"
 

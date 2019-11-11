@@ -1,3 +1,5 @@
+#import <Foundation/Foundation.h>
+
 #include "3party/opening_hours/opening_hours.hpp"
 #include "editor/opening_hours_ui.hpp"
 #include "base/assert.hpp"

@@ -30,3 +30,18 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/MWMMapNodeAttributes.h>
 #import <CoreApi/MWMMapSearchResult.h>
 #import <CoreApi/MWMMapUpdateInfo.h>
+
+#pragma mark - Place Page
+
+#import <CoreApi/PlacePageData.h>
+#import <CoreApi/CatalogPromoData.h>
+#import <CoreApi/CatalogPromoItem.h>
+#import <CoreApi/PlacePageButtonsData.h>
+#import <CoreApi/PlacePageBookmarkData.h>
+#import <CoreApi/PlacePagePreviewData.h>
+#import <CoreApi/PlacePageInfoData.h>
+#import <CoreApi/HotelBookingData.h>
+#import <CoreApi/HotelRooms.h>
+#import <CoreApi/HotelRoom.h>
+#import <CoreApi/UgcData.h>
+#import <CoreApi/UgcSummaryRating.h>

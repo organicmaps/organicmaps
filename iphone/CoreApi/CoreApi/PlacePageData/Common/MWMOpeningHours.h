@@ -1,3 +1,7 @@
+#import <Foundation/Foundation.h>
+
+#import "IOpeningHoursLocalization.h"
+
 #include <vector>
 
 namespace osmoh
@@ -22,10 +26,6 @@ struct Day
   bool m_isOpen = true;
 };
 
+std::vector<osmoh::Day> processRawString(NSString *str, id<IOpeningHoursLocalization> localization);
+
 }  // namespace osmoh
-
-@interface MWMOpeningHours : NSObject
-
-+ (std::vector<osmoh::Day>)processRawString:(NSString *)str;
-
-@end

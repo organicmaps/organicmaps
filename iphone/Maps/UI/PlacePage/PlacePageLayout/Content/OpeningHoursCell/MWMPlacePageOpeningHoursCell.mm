@@ -1,6 +1,6 @@
 #import "MWMPlacePageOpeningHoursCell.h"
 #import <CoreApi/MWMCommon.h>
-#import "MWMOpeningHoursCommon.h"
+#import <CoreApi/MWMOpeningHoursCommon.h>
 #import "MWMPlacePageOpeningHoursDayView.h"
 #import "UIImageView+Coloring.h"
 

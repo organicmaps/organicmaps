@@ -10,6 +10,8 @@
 
 #include "3party/opening_hours/opening_hours.hpp"
 
+#import <CoreApi/PlacePageData.h>
+
 using namespace place_page;
 
 namespace
@@ -27,6 +29,9 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 @property(nonatomic, readwrite) MWMDiscoveryCityGalleryObjects *promoGallery;
 @property(nonatomic) NSInteger bookingDiscount;
 @property(nonatomic) BOOL isSmartDeal;
+
+
+@property(nonatomic, strong) PlacePageData *pd;
 
 @end
 
@@ -52,6 +57,12 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
 - (void)fillSections
 {
+  self.pd = [[PlacePageData alloc] init];
+  __weak __typeof(self) ws = self;
+  [self.pd loadOnlineDataWithCompletion:^{
+    NSLog(@"%@", ws);
+  }];
+  
   m_sections.clear();
   m_previewRows.clear();
   m_metainfoRows.clear();

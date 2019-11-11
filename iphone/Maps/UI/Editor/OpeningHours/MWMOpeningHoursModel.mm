@@ -1,4 +1,4 @@
-#import "MWMOpeningHoursCommon.h"
+#import <CoreApi/MWMOpeningHoursCommon.h>
 #import "MWMOpeningHoursModel.h"
 
 #include "editor/ui2oh.hpp"

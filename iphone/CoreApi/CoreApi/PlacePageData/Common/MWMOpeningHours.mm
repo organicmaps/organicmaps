@@ -14,7 +14,7 @@ NSString * stringFromTimeSpan(Timespan const & timeSpan)
                                     stringFromTime(timeSpan.GetEnd())];
 }
 
-NSString * breaksFromClosedTime(TTimespans const & closedTimes)
+NSString * breaksFromClosedTime(TTimespans const & closedTimes, id<IOpeningHoursLocalization> localization)
 {
   NSMutableString * breaks = [@"" mutableCopy];
   auto const size = closedTimes.size();
@@ -22,13 +22,13 @@ NSString * breaksFromClosedTime(TTimespans const & closedTimes)
   {
     if (i)
       [breaks appendString:@"\n"];
-    [breaks appendString:[NSString stringWithFormat:@"%@ %@", L(@"editor_hours_closed"),
+    [breaks appendString:[NSString stringWithFormat:@"%@ %@", localization.breakString,
                                                               stringFromTimeSpan(closedTimes[i])]];
   }
   return [breaks copy];
 }
 
-void addToday(ui::TimeTable const & tt, std::vector<Day> & allDays)
+void addToday(ui::TimeTable const & tt, std::vector<Day> & allDays, id<IOpeningHoursLocalization> localization)
 {
   NSString * workingDays;
   NSString * workingTimes;
@@ -37,38 +37,38 @@ void addToday(ui::TimeTable const & tt, std::vector<Day> & allDays)
   BOOL const everyDay = isEveryDay(tt);
   if (tt.IsTwentyFourHours())
   {
-    workingDays = everyDay ? L(@"twentyfour_seven") : L(@"editor_time_allday");
+    workingDays = everyDay ? localization.twentyFourSevenString : localization.allDayString;
     workingTimes = @"";
     breaks = @"";
   }
   else
   {
-    workingDays = everyDay ? L(@"daily") : L(@"today");
+    workingDays = everyDay ? localization.dailyString : localization.todayString;
     workingTimes = stringFromTimeSpan(tt.GetOpeningTime());
-    breaks = breaksFromClosedTime(tt.GetExcludeTime());
+    breaks = breaksFromClosedTime(tt.GetExcludeTime(), localization);
   }
 
   allDays.emplace(allDays.begin(), workingDays, workingTimes, breaks);
 }
 
-void addClosedToday(std::vector<Day> & allDays)
+void addClosedToday(std::vector<Day> & allDays, id<IOpeningHoursLocalization> localization)
 {
-  allDays.emplace(allDays.begin(), L(@"day_off_today"));
+  allDays.emplace(allDays.begin(), localization.dayOffString);
 }
 
-void addDay(ui::TimeTable const & tt, std::vector<Day> & allDays)
+void addDay(ui::TimeTable const & tt, std::vector<Day> & allDays, id<IOpeningHoursLocalization> localization)
 {
   NSString * workingDays = stringFromOpeningDays(tt.GetOpeningDays());
   NSString * workingTimes;
   NSString * breaks;
   if (tt.IsTwentyFourHours())
   {
-    workingTimes = L(@"editor_time_allday");
+    workingTimes = localization.allDayString;
   }
   else
   {
     workingTimes = stringFromTimeSpan(tt.GetOpeningTime());
-    breaks = breaksFromClosedTime(tt.GetExcludeTime());
+    breaks = breaksFromClosedTime(tt.GetExcludeTime(), localization);
   }
   allDays.emplace_back(workingDays, workingTimes, breaks);
 }
@@ -81,9 +81,9 @@ void addUnhandledDays(ui::OpeningDays const & days, std::vector<Day> & allDays)
 
 }  // namespace
 
-@implementation MWMOpeningHours
+namespace osmoh {
 
-+ (std::vector<Day>)processRawString:(NSString *)str
+std::vector<osmoh::Day> processRawString(NSString *str, id<IOpeningHoursLocalization> localization)
 {
   ui::TimeTableSet timeTableSet;
   osmoh::OpeningHours oh(str.UTF8String);
@@ -110,18 +110,18 @@ void addUnhandledDays(ui::OpeningDays const & days, std::vector<Day> & allDays)
     if (workingDays.find(today) != workingDays.end())
     {
       hasCurrentDay = YES;
-      addToday(tt, days);
+      addToday(tt, days, localization);
     }
 
     if (isExtendedSchedule)
-      addDay(tt, days);
+      addDay(tt, days, localization);
   }
 
   if (!hasCurrentDay)
-    addClosedToday(days);
+    addClosedToday(days, localization);
 
   addUnhandledDays(unhandledDays, days);
   return days;
 }
 
-@end
+} // namespace osmoh

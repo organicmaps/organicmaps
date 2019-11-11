@@ -1,5 +1,5 @@
 #import "MWMOpeningHoursAddScheduleTableViewCell.h"
-#import "MWMOpeningHoursCommon.h"
+#import <CoreApi/MWMOpeningHoursCommon.h>
 
 @interface MWMOpeningHoursAddScheduleTableViewCell ()
 
