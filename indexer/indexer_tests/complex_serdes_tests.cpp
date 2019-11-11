@@ -6,6 +6,9 @@
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
+#include <cstdint>
+#include <vector>
+
 namespace
 {
 using ByteVector = std::vector<uint8_t>;
@@ -33,35 +36,35 @@ decltype(auto) GetForest()
 UNIT_TEST(Complex_SerdesV0)
 {
   auto const expectedForest = GetForest();
-
   ByteVector buffer;
-  MemWriter<decltype(buffer)> writer(buffer);
-  WriterSink<decltype(writer)> sink(writer);
-  complex::ComplexSerdes::Serialize(sink, complex::ComplexSerdes::Version::V0, expectedForest);
-
-  MemReader reader(buffer.data(), buffer.size());
-  ReaderSource<decltype(reader)> src(reader);
-  tree_node::Forest<complex::ComplexSerdes::Ids> forest;
-  TEST(complex::ComplexSerdes::Deserialize(src, complex::ComplexSerdes::Version::V0, forest), ());
-  LOG(LINFO, (forest));
-  LOG(LINFO, (expectedForest));
-  TEST_EQUAL(forest, expectedForest, ());
+  {
+    MemWriter<decltype(buffer)> writer(buffer);
+    WriterSink<decltype(writer)> sink(writer);
+    complex::ComplexSerdes::Serialize(sink, complex::ComplexSerdes::Version::V0, expectedForest);
+  }
+  {
+    MemReader reader(buffer.data(), buffer.size());
+    ReaderSource<decltype(reader)> src(reader);
+    tree_node::Forest<complex::ComplexSerdes::Ids> forest;
+    complex::ComplexSerdes::Deserialize(src, complex::ComplexSerdes::Version::V0, forest);
+    TEST_EQUAL(forest, expectedForest, ());
+  }
 }
 
 UNIT_TEST(Complex_Serdes)
 {
   auto const expectedForest = GetForest();
-
   ByteVector buffer;
-  MemWriter<decltype(buffer)> writer(buffer);
-  WriterSink<decltype(writer)> sink(writer);
-  complex::ComplexSerdes::Serialize(sink, expectedForest);
-
-  MemReader reader(buffer.data(), buffer.size());
-  tree_node::Forest<complex::ComplexSerdes::Ids> forest;
-  TEST(complex::ComplexSerdes::Deserialize(reader, forest), ());
-  LOG(LINFO, (forest));
-  LOG(LINFO, (expectedForest));
-  TEST_EQUAL(forest, expectedForest, ());
+  {
+    MemWriter<decltype(buffer)> writer(buffer);
+    WriterSink<decltype(writer)> sink(writer);
+    complex::ComplexSerdes::Serialize(sink, expectedForest);
+  }
+  {
+    MemReader reader(buffer.data(), buffer.size());
+    tree_node::Forest<complex::ComplexSerdes::Ids> forest;
+    complex::ComplexSerdes::Deserialize(reader, forest);
+    TEST_EQUAL(forest, expectedForest, ());
+  }
 }
 }  // namespace

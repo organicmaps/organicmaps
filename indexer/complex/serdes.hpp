@@ -37,11 +37,11 @@ public:
   }
 
   template <typename Reader>
-  static bool Deserialize(Reader & reader, tree_node::Forest<Ids> & forest)
+  static void Deserialize(Reader & reader, tree_node::Forest<Ids> & forest)
   {
     ReaderSource<decltype(reader)> src(reader);
     auto const version = DeserializeVersion(src);
-    return Deserialize(src, version, forest);
+    Deserialize(src, version, forest);
   }
 
   template <typename Sink>
@@ -55,11 +55,11 @@ public:
   }
 
   template <typename Src>
-  static bool Deserialize(Src & src, Version version, tree_node::Forest<Ids> & forest)
+  static void Deserialize(Src & src, Version version, tree_node::Forest<Ids> & forest)
   {
     switch (version)
     {
-    case Version::V0: return V0::Deserialize(src, forest);
+    case Version::V0: V0::Deserialize(src, forest); break;
     default: UNREACHABLE();
     }
   }
@@ -75,17 +75,14 @@ private:
     }
 
     template <typename Src>
-    static bool Deserialize(Src & src, tree_node::Forest<Ids> & forest)
+    static void Deserialize(Src & src, tree_node::Forest<Ids> & forest)
     {
       while (src.Size() > 0)
       {
         tree_node::types::Ptr<Ids> tree;
-        if (!Deserialize(src, tree))
-          return false;
-
+        Deserialize(src, tree);
         forest.Append(tree);
       }
-      return true;
     }
 
   private:
@@ -100,9 +97,9 @@ private:
     }
 
     template <typename Src>
-    static bool Deserialize(Src & src, tree_node::types::Ptr<Ids> & tree)
+    static void Deserialize(Src & src, tree_node::types::Ptr<Ids> & tree)
     {
-      std::function<bool(tree_node::types::Ptr<Ids> &)> deserializeTree;
+      std::function<void(tree_node::types::Ptr<Ids> &)> deserializeTree;
       deserializeTree = [&](auto & tree) {
         Ids ids;
         coding_utils::ReadCollectionPrimitive(src, std::back_inserter(ids));
@@ -111,15 +108,12 @@ private:
         tree_node::types::Ptrs<Ids> children(size);
         for (auto & n : children)
         {
-          if (!deserializeTree(n))
-            return false;
-
+          deserializeTree(n);
           n->SetParent(tree);
         }
         tree->SetChildren(std::move(children));
-        return true;
       };
-      return deserializeTree(tree);
+      deserializeTree(tree);
     }
   };
 

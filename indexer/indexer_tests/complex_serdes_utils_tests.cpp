@@ -15,8 +15,8 @@ namespace
 {
 using ByteVector = std::vector<uint8_t>;
 
-template <typename T>
-void CollectionPrimitiveTest(T const & cont)
+template <typename Cont>
+void CollectionPrimitiveTest(Cont const & cont)
 {
   ByteVector buffer;
   MemWriter<decltype(buffer)> writer(buffer);
@@ -25,7 +25,7 @@ void CollectionPrimitiveTest(T const & cont)
 
   MemReader reader(buffer.data(), buffer.size());
   ReaderSource<decltype(reader)> src(reader);
-  T res;
+  Cont res;
   coding_utils::ReadCollectionPrimitive(src, std::inserter(res, std::end(res)));
   TEST_EQUAL(cont, res, ());
 }

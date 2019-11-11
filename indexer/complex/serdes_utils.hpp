@@ -8,10 +8,10 @@
 
 namespace coding_utils
 {
-// Type of collection size. It used for reading and writing collections.
+// Type of collection size. Used for reading and writing collections.
 using CollectionSizeType = uint64_t;
 
-// WriteCollectionPrimitive writes collection. It used WriteToSink function.
+// WriteCollectionPrimitive writes collection. It uses WriteToSink function.
 template <typename Sink, typename Cont>
 void WriteCollectionPrimitive(Sink & sink, Cont const & container)
 {
@@ -21,7 +21,7 @@ void WriteCollectionPrimitive(Sink & sink, Cont const & container)
     WriteToSink(sink, value);
 }
 
-// ReadCollectionPrimitive reads collection. It used ReadPrimitiveFromSource function.
+// ReadCollectionPrimitive reads collection. It uses ReadPrimitiveFromSource function.
 template <typename Source, typename OutIt>
 void ReadCollectionPrimitive(Source & src, OutIt it)
 {
