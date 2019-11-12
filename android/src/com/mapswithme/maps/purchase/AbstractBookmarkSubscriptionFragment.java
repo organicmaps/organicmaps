@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseAuthFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -23,6 +22,7 @@ import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.dialog.ResolveFragmentManagerStrategy;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.NetworkPolicy;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
@@ -34,17 +34,20 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
     implements PurchaseStateActivator<BookmarkSubscriptionPaymentState>,
                SubscriptionUiChangeListener, AlertDialogCallback
 {
+  static final String EXTRA_FROM = "extra_from";
+
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private static final String TAG = AbstractBookmarkSubscriptionFragment.class.getSimpleName();
-  private final static String EXTRA_CURRENT_STATE = "extra_current_state";
-  private final static String EXTRA_PRODUCT_DETAILS = "extra_product_details";
+  private static final String EXTRA_CURRENT_STATE = "extra_current_state";
+  private static final String EXTRA_PRODUCT_DETAILS = "extra_product_details";
 
   private boolean mPingingResult;
   private boolean mValidationResult;
   @NonNull
   private final PingCallback mPingCallback = new PingCallback();
+  @SuppressWarnings("NullableProblems")
   @NonNull
-  private final BookmarkSubscriptionCallback mPurchaseCallback = new BookmarkSubscriptionCallback();
+  private BookmarkSubscriptionCallback mPurchaseCallback;
   @NonNull
   private BookmarkSubscriptionPaymentState mState = BookmarkSubscriptionPaymentState.NONE;
   @Nullable
@@ -58,13 +61,39 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
   public final View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                                  @Nullable Bundle savedInstanceState)
   {
+    mPurchaseCallback = new BookmarkSubscriptionCallback(getSubscriptionType());
     mPurchaseController = createPurchaseController();
     if (savedInstanceState != null)
       mPurchaseController.onRestore(savedInstanceState);
     mPurchaseController.initialize(requireActivity());
     mPingCallback.attach(this);
     BookmarkManager.INSTANCE.addCatalogPingListener(mPingCallback);
-    return onSubscriptionCreateView(inflater, container, savedInstanceState);
+    Statistics.INSTANCE.trackPurchasePreviewShow(getSubscriptionType().getServerId(),
+                                                 getSubscriptionType().getVendor(),
+                                                 getSubscriptionType().getYearlyProductId(),
+                                                 getExtraFrom());
+    View root = onSubscriptionCreateView(inflater, container, savedInstanceState);
+    if (root != null)
+    {
+      View restoreButton = root.findViewById(R.id.restore_purchase_btn);
+      restoreButton.setOnClickListener(v -> openSubscriptionManagementSettings());
+
+      View termsOfUse = root.findViewById(R.id.term_of_use_link);
+      termsOfUse.setOnClickListener(v -> openTermsOfUseLink());
+      View privacyPolicy = root.findViewById(R.id.privacy_policy_link);
+      privacyPolicy.setOnClickListener(v -> openPrivacyPolicyLink());
+    }
+
+    return root;
+  }
+
+  @Nullable
+  private String getExtraFrom()
+  {
+    if (getArguments() == null)
+      return null;
+
+    return getArguments().getString(EXTRA_FROM, null);
   }
 
   @Override
@@ -118,7 +147,7 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
     mPurchaseController.queryProductDetails();
   }
 
-  void launchPurchaseFlow(@NonNull String productId)
+  private void launchPurchaseFlow(@NonNull String productId)
   {
     mPurchaseController.launchPurchaseFlow(productId);
   }
@@ -152,7 +181,7 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
       return;
     }
 
-    onAuthorizationFinishSuccessfully();
+    launchPurchaseFlow();
   }
 
   @Override
@@ -249,10 +278,17 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
   }
 
   @Override
+  public void onPinging()
+  {
+    showButtonProgress();
+  }
+
+  @Override
   @CallSuper
   public void onPingFinish()
   {
     finishPinging();
+    hideButtonProgress();
   }
 
   @Override
@@ -260,6 +296,7 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
   public void onValidationFinish()
   {
     finishValidation();
+    hideButtonProgress();
   }
 
   private void finishValidation()
@@ -321,7 +358,67 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
                                          @Nullable ViewGroup container,
                                          @Nullable Bundle savedInstanceState);
 
+  private void openTermsOfUseLink()
+  {
+    Utils.openUrl(requireActivity(), Framework.nativeGetTermsOfUseLink());
+  }
+
+  private void openPrivacyPolicyLink()
+  {
+    Utils.openUrl(requireActivity(), Framework.nativeGetPrivacyPolicyLink());
+  }
+
   abstract void onSubscriptionDestroyView();
+
+  @NonNull
+  abstract SubscriptionType getSubscriptionType();
+
+  abstract void hideButtonProgress();
+
+  @Override
+  public void onValidating()
+  {
+    showButtonProgress();
+  }
+
+  abstract void showButtonProgress();
+
+  @Override
+  public boolean onBackPressed()
+  {
+    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_CANCEL,
+                                           getSubscriptionType().getServerId());
+    return super.onBackPressed();
+  }
+
+  void pingBookmarkCatalog()
+  {
+    BookmarkManager.INSTANCE.pingBookmarkCatalog();
+    activateState(BookmarkSubscriptionPaymentState.PINGING);
+  }
+
+  @NonNull
+  abstract PurchaseUtils.Period getSelectedPeriod();
+
+  private void openSubscriptionManagementSettings()
+  {
+    Utils.openUrl(requireContext(), "https://play.google.com/store/account/subscriptions");
+    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_RESTORE,
+                                           getSubscriptionType().getServerId());
+  }
+
+  void trackPayEvent()
+  {
+    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_PAY,
+                                           getSubscriptionType().getServerId(),
+                                           Statistics.STATISTICS_CHANNEL_REALTIME);
+  }
+
+  private void launchPurchaseFlow()
+  {
+    ProductDetails details = getProductDetailsForPeriod(getSelectedPeriod());
+    launchPurchaseFlow(details.getProductId());
+  }
 
   int calculateYearlySaving()
   {
@@ -330,8 +427,17 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
     return (int) (100 * (1 - pricePerYear / (pricePerMonth * PurchaseUtils.MONTHS_IN_YEAR)));
   }
 
-  abstract void onAuthorizationFinishSuccessfully();
+  void trackYearlyProductSelected()
+  {
+    Statistics.INSTANCE.trackPurchasePreviewSelect(getSubscriptionType().getServerId(),
+                                                   getSubscriptionType().getYearlyProductId());
+  }
 
+  void trackMonthlyProductSelected()
+  {
+    Statistics.INSTANCE.trackPurchasePreviewSelect(getSubscriptionType().getServerId(),
+                                                   getSubscriptionType().getMonthlyProductId());
+  }
 
   private static class PingCallback
       extends StatefulPurchaseCallback<BookmarkSubscriptionPaymentState,
@@ -368,9 +474,16 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
       AbstractBookmarkSubscriptionFragment>
       implements PurchaseCallback
   {
+    @NonNull
+    private final SubscriptionType mType;
     @Nullable
     private List<SkuDetails> mPendingDetails;
     private Boolean mPendingValidationResult;
+
+    private BookmarkSubscriptionCallback(@NonNull SubscriptionType type)
+    {
+      mType = type;
+    }
 
     @Override
     public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
@@ -391,8 +504,7 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
     @Override
     public void onPaymentFailure(int error)
     {
-      Statistics.INSTANCE.trackPurchaseStoreError(PrivateVariables.bookmarksSubscriptionServerId(),
-                                                  error);
+      Statistics.INSTANCE.trackPurchaseStoreError(mType.getServerId(), error);
       activateStateSafely(BookmarkSubscriptionPaymentState.PAYMENT_FAILURE);
     }
 
@@ -412,7 +524,7 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
     public void onValidationStarted()
     {
       Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_STORE_SUCCESS,
-                                             PrivateVariables.bookmarksSubscriptionServerId());
+                                             mType.getServerId());
       activateStateSafely(BookmarkSubscriptionPaymentState.VALIDATION);
     }
 

@@ -31,6 +31,20 @@ public enum SubscriptionType
                                     PrivateVariables.adsRemovalMonthlyProductId(),
                                     PrivateVariables.adsRemovalWeeklyProductId());
         }
+
+        @NonNull
+        @Override
+        String getYearlyProductId()
+        {
+          return PrivateVariables.adsRemovalYearlyProductId();
+        }
+
+        @NonNull
+        @Override
+        String getMonthlyProductId()
+        {
+          return PrivateVariables.adsRemovalMonthlyProductId();
+        }
       },
   BOOKMARKS
       {
@@ -56,6 +70,20 @@ public enum SubscriptionType
                                     PrivateVariables.bookmarksSubscriptionYearlyProductId(),
                                     PrivateVariables.bookmarksSubscriptionMonthlyProductId());
         }
+
+        @NonNull
+        @Override
+        String getYearlyProductId()
+        {
+          return PrivateVariables.bookmarksSubscriptionYearlyProductId();
+        }
+
+        @NonNull
+        @Override
+        String getMonthlyProductId()
+        {
+          return PrivateVariables.bookmarksSubscriptionMonthlyProductId();
+        }
       };
 
   @NonNull
@@ -66,4 +94,10 @@ public enum SubscriptionType
 
   @NonNull
   abstract String[] getProductIds();
+
+  @NonNull
+  abstract String getYearlyProductId();
+
+  @NonNull
+  abstract String getMonthlyProductId();
 }

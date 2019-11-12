@@ -4,18 +4,18 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.PrivateVariables;
@@ -203,9 +203,8 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
   {
     ProductDetails details = getProductDetailsForPeriod(period);
     getControllerOrThrow().launchPurchaseFlow(details.getProductId());
-    String purchaseId = PrivateVariables.adsRemovalServerId();
-    Statistics.INSTANCE.trackPurchasePreviewSelect(PrivateVariables.adsRemovalServerId(),
-                                                   details.getProductId());
+    String purchaseId = SubscriptionType.ADS_REMOVAL.getServerId();
+    Statistics.INSTANCE.trackPurchasePreviewSelect(purchaseId, details.getProductId());
     Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_PAY,
                                            purchaseId, Statistics.STATISTICS_CHANNEL_REALTIME);
   }
@@ -255,7 +254,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
   {
     super.onCancel(dialog);
     Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_CANCEL,
-                                           PrivateVariables.adsRemovalServerId());
+                                           SubscriptionType.ADS_REMOVAL.getServerId());
   }
 
   @Override
@@ -407,7 +406,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     @Override
     public void onPaymentFailure(@BillingClient.BillingResponse int error)
     {
-      Statistics.INSTANCE.trackPurchaseStoreError(PrivateVariables.adsRemovalServerId(), error);
+      Statistics.INSTANCE.trackPurchaseStoreError(SubscriptionType.ADS_REMOVAL.getServerId(), error);
       activateStateSafely(AdsRemovalPaymentState.PAYMENT_FAILURE);
     }
 
@@ -427,7 +426,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     public void onValidationStarted()
     {
       Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_STORE_SUCCESS,
-                                             PrivateVariables.adsRemovalServerId());
+                                             SubscriptionType.ADS_REMOVAL.getServerId());
       activateStateSafely(AdsRemovalPaymentState.VALIDATION);
     }
 

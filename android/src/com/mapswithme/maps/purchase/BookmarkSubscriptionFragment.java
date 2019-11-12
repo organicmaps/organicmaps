@@ -9,18 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.statistics.Statistics;
 
 public class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFragment
 {
-  static final String EXTRA_FROM = "extra_from";
-
   private static final int DEF_ELEVATION = 0;
 
   @Nullable
@@ -38,9 +32,6 @@ public class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFr
                                                                                 annualPriceCard);
     monthlyPriceCard.setOnClickListener(monthlyCardListener);
 
-    TextView restorePurchasesBtn = root.findViewById(R.id.restore_purchase_btn);
-    restorePurchasesBtn.setOnClickListener(v -> openSubscriptionManagementSettings());
-
     View continueBtn = root.findViewById(R.id.continue_btn);
     continueBtn.setOnClickListener(v -> onContinueButtonClicked());
 
@@ -48,15 +39,6 @@ public class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFr
     monthlyPriceCard.setSelected(false);
     annualPriceCard.setCardElevation(getResources().getDimension(R.dimen.margin_base_plus_quarter));
 
-    View termsOfUse = root.findViewById(R.id.term_of_use_link);
-    termsOfUse.setOnClickListener(v -> Utils.openUrl(requireActivity(), Framework.nativeGetTermsOfUseLink()));
-    View privacyPolicy = root.findViewById(R.id.privacy_policy_link);
-    privacyPolicy.setOnClickListener(v -> Utils.openUrl(requireActivity(), Framework.nativeGetPrivacyPolicyLink()));
-
-    Statistics.INSTANCE.trackPurchasePreviewShow(PrivateVariables.bookmarksSubscriptionServerId(),
-                                                 PrivateVariables.bookmarksSubscriptionVendor(),
-                                                 PrivateVariables.bookmarksSubscriptionYearlyProductId(),
-                                                 getExtraFrom());
     return root;
   }
 
@@ -66,31 +48,17 @@ public class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFr
     // Do nothing by default.
   }
 
-  @Nullable
-  private String getExtraFrom()
+  @NonNull
+  @Override
+  SubscriptionType getSubscriptionType()
   {
-    if (getArguments() == null)
-      return null;
-
-    return getArguments().getString(EXTRA_FROM, null);
-  }
-
-
-  private void openSubscriptionManagementSettings()
-  {
-    Utils.openUrl(requireContext(), "https://play.google.com/store/account/subscriptions");
-    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_RESTORE,
-                                           PrivateVariables.bookmarksSubscriptionServerId());
+    return SubscriptionType.BOOKMARKS;
   }
 
   private void onContinueButtonClicked()
   {
-    BookmarkManager.INSTANCE.pingBookmarkCatalog();
-    activateState(BookmarkSubscriptionPaymentState.PINGING);
-
-    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_PAY,
-                                           PrivateVariables.bookmarksSubscriptionServerId(),
-                                           Statistics.STATISTICS_CHANNEL_REALTIME);
+    pingBookmarkCatalog();
+    trackPayEvent();
   }
 
   private void updatePaymentButtons()
@@ -118,27 +86,12 @@ public class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFr
     priceView.setText(price);
   }
 
+  @NonNull
   @Override
-  public boolean onBackPressed()
-  {
-    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_CANCEL,
-                                           PrivateVariables.bookmarksSubscriptionServerId());
-    return super.onBackPressed();
-  }
-
-  private void launchPurchaseFlow()
+  PurchaseUtils.Period getSelectedPeriod()
   {
     CardView annualCard = getViewOrThrow().findViewById(R.id.annual_price_card);
-    PurchaseUtils.Period period = annualCard.getCardElevation() > 0 ? PurchaseUtils.Period.P1Y
-                                                                    : PurchaseUtils.Period.P1M;
-    ProductDetails details = getProductDetailsForPeriod(period);
-    launchPurchaseFlow(details.getProductId());
-  }
-
-  @Override
-  void onAuthorizationFinishSuccessfully()
-  {
-    launchPurchaseFlow();
+    return annualCard.getCardElevation() > 0 ? PurchaseUtils.Period.P1Y : PurchaseUtils.Period.P1M;
   }
 
   @Override
@@ -161,19 +114,6 @@ public class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFr
     updatePaymentButtons();
   }
 
-  @Override
-  public void onValidating()
-  {
-    showButtonProgress();
-  }
-
-  @Override
-  public void onValidationFinish()
-  {
-    super.onValidationFinish();
-    hideButtonProgress();
-  }
-
   @NonNull
   @Override
   PurchaseController<PurchaseCallback> createPurchaseController()
@@ -182,25 +122,14 @@ public class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFr
   }
 
   @Override
-  public void onPinging()
-  {
-    showButtonProgress();
-  }
-
-  @Override
-  public void onPingFinish()
-  {
-    super.onPingFinish();
-    hideButtonProgress();
-  }
-
-  private void showButtonProgress()
+  void showButtonProgress()
   {
     UiUtils.hide(getViewOrThrow(), R.id.continue_btn);
     UiUtils.show(getViewOrThrow(), R.id.progress);
   }
 
-  private void hideButtonProgress()
+  @Override
+  void hideButtonProgress()
   {
     UiUtils.hide(getViewOrThrow(), R.id.progress);
     UiUtils.show(getViewOrThrow(), R.id.continue_btn);
@@ -245,8 +174,9 @@ public class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFr
       mAnnualPriceCard.setCardElevation(getResources().getDimension(R.dimen.margin_base_plus_quarter));
 
       if (!mAnnualPriceCard.isSelected())
-        Statistics.INSTANCE.trackPurchasePreviewSelect(PrivateVariables.bookmarksSubscriptionServerId(),
-                                                       PrivateVariables.bookmarksSubscriptionYearlyProductId());
+      {
+        trackYearlyProductSelected();
+      }
 
       mMonthlyPriceCard.setSelected(false);
       mAnnualPriceCard.setSelected(true);
@@ -275,8 +205,7 @@ public class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFr
       mAnnualPriceCard.setCardElevation(DEF_ELEVATION);
 
       if (!mMonthlyPriceCard.isSelected())
-        Statistics.INSTANCE.trackPurchasePreviewSelect(PrivateVariables.bookmarksSubscriptionServerId(),
-                                                       PrivateVariables.bookmarksSubscriptionMonthlyProductId());
+        trackMonthlyProductSelected();
 
       mMonthlyPriceCard.setSelected(true);
       mAnnualPriceCard.setSelected(false);

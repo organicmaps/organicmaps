@@ -50,9 +50,9 @@ enum AdsRemovalPaymentState
           View image = view.findViewById(R.id.image);
           alignPayButtonBelow(view, image == null ? R.id.title : R.id.image);
           dialog.updatePaymentButtons();
-          Statistics.INSTANCE.trackPurchasePreviewShow(PrivateVariables.adsRemovalServerId(),
-                                                       PrivateVariables.adsRemovalVendor(),
-                                                       PrivateVariables.adsRemovalYearlyProductId());
+          Statistics.INSTANCE.trackPurchasePreviewShow(SubscriptionType.ADS_REMOVAL.getServerId(),
+                                                       SubscriptionType.ADS_REMOVAL.getVendor(),
+                                                       SubscriptionType.ADS_REMOVAL.getYearlyProductId());
         }
       },
   EXPLANATION

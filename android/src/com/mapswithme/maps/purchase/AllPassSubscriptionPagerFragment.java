@@ -31,6 +31,8 @@ public class AllPassSubscriptionPagerFragment extends AbstractBookmarkSubscripti
   @SuppressWarnings("NullableProblems")
   @NonNull
   private SubscriptionButton mMonthlyButton;
+  @NonNull
+  private PurchaseUtils.Period mSelectedPeriod = PurchaseUtils.Period.P1Y;
 
   @NonNull
   @Override
@@ -48,9 +50,15 @@ public class AllPassSubscriptionPagerFragment extends AbstractBookmarkSubscripti
                                  false);
 
     mAnnualButton = root.findViewById(R.id.annual_sub_btn);
-    mAnnualButton.setOnClickListener(v -> {});
+    mAnnualButton.setOnClickListener(v -> {
+      mSelectedPeriod = PurchaseUtils.Period.P1Y;
+      pingBookmarkCatalog();
+    });
     mMonthlyButton = root.findViewById(R.id.month_sub_btn);
-    mMonthlyButton.setOnClickListener(v -> {});
+    mMonthlyButton.setOnClickListener(v -> {
+      mSelectedPeriod = PurchaseUtils.Period.P1M;
+      pingBookmarkCatalog();
+    });
 
     setTopStatusBarOffset(root);
     initViewPager(root);
@@ -63,10 +71,18 @@ public class AllPassSubscriptionPagerFragment extends AbstractBookmarkSubscripti
     // Do nothing by default.
   }
 
+  @NonNull
   @Override
-  void onAuthorizationFinishSuccessfully()
+  SubscriptionType getSubscriptionType()
   {
+    return SubscriptionType.BOOKMARKS;
+  }
 
+  @NonNull
+  @Override
+  PurchaseUtils.Period getSelectedPeriod()
+  {
+    return mSelectedPeriod;
   }
 
   private void setTopStatusBarOffset(@NonNull View view)
@@ -141,15 +157,21 @@ public class AllPassSubscriptionPagerFragment extends AbstractBookmarkSubscripti
   }
 
   @Override
-  public void onValidating()
+  void showButtonProgress()
   {
-
+    if (mSelectedPeriod == PurchaseUtils.Period.P1Y)
+      mAnnualButton.showProgress();
+    else
+      mMonthlyButton.showProgress();
   }
 
   @Override
-  public void onPinging()
+  void hideButtonProgress()
   {
-
+    if (mSelectedPeriod == PurchaseUtils.Period.P1Y)
+      mAnnualButton.hideProgress();
+    else
+      mMonthlyButton.hideProgress();
   }
 
   private void updatePaymentButtons()
@@ -163,6 +185,7 @@ public class AllPassSubscriptionPagerFragment extends AbstractBookmarkSubscripti
     ProductDetails details = getProductDetailsForPeriod(PurchaseUtils.Period.P1Y);
     String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
     mAnnualButton.setPrice(price);
+    mAnnualButton.setName(getString(R.string.annual_subscription_title));
     String sale = getString(R.string.annual_save_component, calculateYearlySaving());
     mAnnualButton.setSale(sale);
   }
@@ -172,6 +195,7 @@ public class AllPassSubscriptionPagerFragment extends AbstractBookmarkSubscripti
     ProductDetails details = getProductDetailsForPeriod(PurchaseUtils.Period.P1M);
     String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
     mMonthlyButton.setPrice(price);
+    mMonthlyButton.setName(getString(R.string.montly_subscription_title));
   }
 
   private class ParallaxFragmentPagerAdapter extends FragmentPagerAdapter
