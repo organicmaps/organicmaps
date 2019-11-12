@@ -378,20 +378,6 @@ void FeatureParams::AddPostcode(string const & s)
   m_addrTags.Add(AddressData::POSTCODE, s);
 }
 
-bool FeatureParams::FormatFullAddress(m2::PointD const & pt, string & res) const
-{
-  string const street = GetStreet();
-  if (!street.empty() && !house.IsEmpty())
-  {
-    res = street + "|" + house.Get() + "|"
-        + strings::to_string_dac(mercator::YToLat(pt.y), 8) + "|"
-        + strings::to_string_dac(mercator::XToLon(pt.x), 8) + '\n';
-    return true;
-  }
-
-  return false;
-}
-
 string FeatureParams::GetStreet() const
 {
   return m_addrTags.Get(AddressData::STREET);

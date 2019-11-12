@@ -214,11 +214,6 @@ bool FeatureBuilder::RemoveInvalidTypes()
                             m_params.IsEmptyNames());
 }
 
-bool FeatureBuilder::FormatFullAddress(string & res) const
-{
-  return m_params.FormatFullAddress(m_limitRect.Center(), res);
-}
-
 TypesHolder FeatureBuilder::GetTypesHolder() const
 {
   Check(*this);

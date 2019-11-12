@@ -65,7 +65,6 @@ struct GenerateInfo
   bool m_haveBordersForWholeWorld = false;
   bool m_makeCoasts = false;
   bool m_emitCoasts = false;
-  bool m_genAddresses = false;
   bool m_failOnCoasts = false;
   bool m_preloadCache = false;
   bool m_verbose = false;
@@ -110,12 +109,6 @@ struct GenerateInfo
                                       std::string const & ext = "") const
   {
     return base::JoinPath(m_intermediateDir, fileName + ext);
-  }
-
-  std::string GetAddressesFileName() const
-  {
-    return m_genAddresses && !m_fileName.empty() ?
-          GetTargetFileName(m_fileName, ADDR_FILE_EXTENSION) : "";
   }
 };
 }  // namespace feature

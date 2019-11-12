@@ -1,6 +1,5 @@
 #include "generator/translator_country.hpp"
 
-#include "generator/collector_addresses.hpp"
 #include "generator/collector_camera.hpp"
 #include "generator/collector_city_area.hpp"
 #include "generator/collector_collection.hpp"
@@ -120,8 +119,6 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
 
   collectors->Append(std::make_shared<CrossMwmOsmWaysCollector>(
       info.m_intermediateDir, info.m_targetDir, info.m_haveBordersForWholeWorld));
-  if (info.m_genAddresses)
-    collectors->Append(std::make_shared<CollectorAddresses>(info.GetAddressesFileName()));
   if (!info.m_idToWikidataFilename.empty())
   {
     collectors->Append(std::make_shared<CollectorTag>(info.m_idToWikidataFilename,

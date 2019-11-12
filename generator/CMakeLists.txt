@@ -38,8 +38,6 @@ set(
   coastlines_generator.cpp
   coastlines_generator.hpp
   collection_base.hpp
-  collector_addresses.cpp
-  collector_addresses.hpp
   collector_camera.cpp
   collector_camera.hpp
   collector_city_area.cpp

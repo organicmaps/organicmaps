@@ -241,8 +241,6 @@ public:
   void AddPlace(std::string const & s);
   void AddPostcode(std::string const & s);
   void AddAddress(std::string const & s);
-
-  bool FormatFullAddress(m2::PointD const & pt, std::string & res) const;
   //@}
 
   /// Used for testing purposes now.

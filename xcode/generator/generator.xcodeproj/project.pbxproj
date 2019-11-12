@@ -100,7 +100,6 @@
 		4032E721225D151D00D33617 /* feature_maker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4032E6FB225D151B00D33617 /* feature_maker.cpp */; };
 		4032E722225D151D00D33617 /* emitter_coastline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4032E6FC225D151B00D33617 /* emitter_coastline.cpp */; };
 		4032E723225D151D00D33617 /* translator_country.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4032E6FD225D151B00D33617 /* translator_country.cpp */; };
-		4032E724225D151D00D33617 /* collector_addresses.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4032E6FE225D151B00D33617 /* collector_addresses.hpp */; };
 		4032E725225D151D00D33617 /* feature_maker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4032E6FF225D151B00D33617 /* feature_maker.hpp */; };
 		4032E726225D151D00D33617 /* relation_tags_enricher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4032E700225D151B00D33617 /* relation_tags_enricher.cpp */; };
 		4032E727225D151D00D33617 /* emitter_world.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4032E701225D151B00D33617 /* emitter_world.hpp */; };
@@ -120,7 +119,6 @@
 		4032E735225D151D00D33617 /* feature_maker_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4032E70F225D151C00D33617 /* feature_maker_base.cpp */; };
 		4032E736225D151D00D33617 /* translator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4032E710225D151C00D33617 /* translator.cpp */; };
 		4032E737225D151D00D33617 /* feature_processing_layers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4032E711225D151C00D33617 /* feature_processing_layers.cpp */; };
-		4032E738225D151D00D33617 /* collector_addresses.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4032E712225D151C00D33617 /* collector_addresses.cpp */; };
 		4032E739225D151D00D33617 /* filter_planet.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4032E713225D151C00D33617 /* filter_planet.hpp */; };
 		4032E73A225D151D00D33617 /* translator_coastline.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4032E714225D151C00D33617 /* translator_coastline.hpp */; };
 		4032E73B225D151D00D33617 /* translator_coastline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4032E715225D151C00D33617 /* translator_coastline.cpp */; };
@@ -388,7 +386,6 @@
 		4032E6FB225D151B00D33617 /* feature_maker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_maker.cpp; sourceTree = "<group>"; };
 		4032E6FC225D151B00D33617 /* emitter_coastline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = emitter_coastline.cpp; sourceTree = "<group>"; };
 		4032E6FD225D151B00D33617 /* translator_country.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = translator_country.cpp; sourceTree = "<group>"; };
-		4032E6FE225D151B00D33617 /* collector_addresses.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = collector_addresses.hpp; sourceTree = "<group>"; };
 		4032E6FF225D151B00D33617 /* feature_maker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = feature_maker.hpp; sourceTree = "<group>"; };
 		4032E700225D151B00D33617 /* relation_tags_enricher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = relation_tags_enricher.cpp; sourceTree = "<group>"; };
 		4032E701225D151B00D33617 /* emitter_world.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = emitter_world.hpp; sourceTree = "<group>"; };
@@ -408,7 +405,6 @@
 		4032E70F225D151C00D33617 /* feature_maker_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_maker_base.cpp; sourceTree = "<group>"; };
 		4032E710225D151C00D33617 /* translator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = translator.cpp; sourceTree = "<group>"; };
 		4032E711225D151C00D33617 /* feature_processing_layers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_processing_layers.cpp; sourceTree = "<group>"; };
-		4032E712225D151C00D33617 /* collector_addresses.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collector_addresses.cpp; sourceTree = "<group>"; };
 		4032E713225D151C00D33617 /* filter_planet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = filter_planet.hpp; sourceTree = "<group>"; };
 		4032E714225D151C00D33617 /* translator_coastline.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = translator_coastline.hpp; sourceTree = "<group>"; };
 		4032E715225D151C00D33617 /* translator_coastline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = translator_coastline.cpp; sourceTree = "<group>"; };
@@ -691,8 +687,6 @@
 				407E8A112265FEE100C6E668 /* ratings_section_builder.cpp */,
 				407E8A102265FEE000C6E668 /* ratings_section_builder.hpp */,
 				4032E70D225D151C00D33617 /* collection_base.hpp */,
-				4032E712225D151C00D33617 /* collector_addresses.cpp */,
-				4032E6FE225D151B00D33617 /* collector_addresses.hpp */,
 				4032E70A225D151C00D33617 /* collector_collection.cpp */,
 				4032E6F8225D151B00D33617 /* collector_collection.hpp */,
 				4032E6FC225D151B00D33617 /* emitter_coastline.cpp */,
@@ -1052,7 +1046,6 @@
 				401E317C225C971400DE7EB8 /* platform_helpers.hpp in Headers */,
 				4032E739225D151D00D33617 /* filter_planet.hpp in Headers */,
 				4032E71E225D151D00D33617 /* collector_collection.hpp in Headers */,
-				4032E724225D151D00D33617 /* collector_addresses.hpp in Headers */,
 				401E3183225C971400DE7EB8 /* descriptions_section_builder.hpp in Headers */,
 				4003E3B92112FB2B007721B0 /* place.hpp in Headers */,
 				4032E73E225D151D00D33617 /* filter_interface.hpp in Headers */,
@@ -1196,7 +1189,6 @@
 				675340871A3F2A7400A0A8C3 /* unpack_mwm.cpp in Sources */,
 				670B84BC1A8CDB0000CE4492 /* osm_source.cpp in Sources */,
 				675340701A3F2A7400A0A8C3 /* feature_sorter.cpp in Sources */,
-				4032E738225D151D00D33617 /* collector_addresses.cpp in Sources */,
 				675340621A3F2A7400A0A8C3 /* coastlines_generator.cpp in Sources */,
 				56037E4F219AF97200C2193D /* emitter_simple.cpp in Sources */,
 				4032E73B225D151D00D33617 /* translator_coastline.cpp in Sources */,

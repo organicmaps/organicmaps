@@ -183,8 +183,6 @@ DEFINE_bool(unpack_mwm, false,
             "Unpack each section of mwm into a separate file with name filePath.sectionName.");
 DEFINE_bool(check_mwm, false, "Check map file to be correct.");
 DEFINE_string(delete_section, "", "Delete specified section (defines.hpp) from container.");
-DEFINE_bool(generate_addresses_file, false,
-            "Generate .addr file (for '--output' option) with full addresses list.");
 DEFINE_bool(generate_traffic_keys, false,
             "Generate keys for the traffic map (road segment -> speed group).");
 
@@ -255,7 +253,6 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   genInfo.m_makeCoasts = FLAGS_make_coasts;
   genInfo.m_emitCoasts = FLAGS_emit_coasts;
   genInfo.m_fileName = FLAGS_output;
-  genInfo.m_genAddresses = FLAGS_generate_addresses_file;
   genInfo.m_idToWikidataFilename = FLAGS_idToWikidata;
 
   // Use merged style.
