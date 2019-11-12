@@ -39,6 +39,8 @@ public:
   virtual bool IsMatched(uint32_t type) const;
   virtual void ForEachType(std::function<void(uint32_t)> && fn) const;
 
+  std::vector<uint32_t> const & GetTypes() const { return m_types; }
+
   bool operator()(feature::TypesHolder const & types) const;
   bool operator()(FeatureType & ft) const;
   bool operator()(std::vector<uint32_t> const & types) const;
@@ -109,7 +111,6 @@ public:
 class IsSquareChecker : public BaseChecker
 {
   IsSquareChecker();
-  friend class IsStreetOrSquareChecker;
 
 public:
   DECLARE_CHECKER_INSTANCE(IsSquareChecker);
@@ -126,7 +127,6 @@ public:
 class IsWayChecker : public BaseChecker
 {
   IsWayChecker();
-  friend class IsStreetOrSquareChecker;
 
 public:
   DECLARE_CHECKER_INSTANCE(IsWayChecker);
@@ -336,7 +336,6 @@ public:
 
   DECLARE_CHECKER_INSTANCE(IsEatChecker);
 
-  std::vector<uint32_t> const & GetTypes() const { return m_types; }
   Type GetType(uint32_t t) const;
 
 private:

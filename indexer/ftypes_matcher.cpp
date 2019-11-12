@@ -256,9 +256,9 @@ IsWayChecker::IsWayChecker()
 
 IsStreetOrSquareChecker::IsStreetOrSquareChecker()
 {
-  for (auto const t : IsWayChecker::Instance().m_types)
+  for (auto const t : IsWayChecker::Instance().GetTypes())
     m_types.push_back(t);
-  for (auto const t : IsSquareChecker::Instance().m_types)
+  for (auto const t : IsSquareChecker::Instance().GetTypes())
     m_types.push_back(t);
 }
 
