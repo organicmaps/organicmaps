@@ -13,42 +13,60 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.widget.DotPager;
 import com.mapswithme.maps.widget.ParallaxBackgroundPageListener;
 import com.mapswithme.maps.widget.ParallaxBackgroundViewPager;
 import com.mapswithme.maps.widget.SubscriptionButton;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllPassSubscriptionPagerFragment extends BaseMwmFragment
+public class AllPassSubscriptionPagerFragment extends AbstractBookmarkSubscriptionFragment
 {
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private SubscriptionButton mAnnualButton;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private SubscriptionButton mMonthlyButton;
+
+  @NonNull
+  @Override
+  PurchaseController<PurchaseCallback> createPurchaseController()
+  {
+    return PurchaseFactory.createBookmarksSubscriptionPurchaseController(requireContext());
+  }
 
   @Nullable
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                           @Nullable Bundle savedInstanceState)
+  View onSubscriptionCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                                @Nullable Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.pager_fragment_all_pass_subscription, container,
-                                    false);
+                                 false);
 
-    SubscriptionButton annualSubBtn = root.findViewById(R.id.annual_sub_btn);
-    annualSubBtn.setOnClickListener(v -> {});
-    SubscriptionButton monthSubBtn = root.findViewById(R.id.month_sub_btn);
-    monthSubBtn.setOnClickListener(v -> {});
-
-    monthSubBtn.setName("Name");
-    monthSubBtn.setPrice("20usd");
-
-    annualSubBtn.setName("Name1");
-    annualSubBtn.setPrice("30usd");
-    annualSubBtn.setSale("-20%");
+    mAnnualButton = root.findViewById(R.id.annual_sub_btn);
+    mAnnualButton.setOnClickListener(v -> {});
+    mMonthlyButton = root.findViewById(R.id.month_sub_btn);
+    mMonthlyButton.setOnClickListener(v -> {});
 
     setTopStatusBarOffset(root);
     initViewPager(root);
     return root;
+  }
+
+  @Override
+  void onSubscriptionDestroyView()
+  {
+    // Do nothing by default.
+  }
+
+  @Override
+  void onAuthorizationFinishSuccessfully()
+  {
+
   }
 
   private void setTopStatusBarOffset(@NonNull View view)
@@ -98,6 +116,62 @@ public class AllPassSubscriptionPagerFragment extends BaseMwmFragment
     items.add(R.id.img2);
     items.add(R.id.img1);
     return items;
+  }
+
+  @Override
+  public void onProductDetailsLoading()
+  {
+    super.onProductDetailsLoading();
+    mAnnualButton.showProgress();
+    mMonthlyButton.showProgress();
+  }
+
+  @Override
+  public void onReset()
+  {
+    // Do nothing
+  }
+
+  @Override
+  public void onPriceSelection()
+  {
+    mAnnualButton.hideProgress();
+    mMonthlyButton.hideProgress();
+    updatePaymentButtons();
+  }
+
+  @Override
+  public void onValidating()
+  {
+
+  }
+
+  @Override
+  public void onPinging()
+  {
+
+  }
+
+  private void updatePaymentButtons()
+  {
+    updateYearlyButton();
+    updateMonthlyButton();
+  }
+
+  private void updateMonthlyButton()
+  {
+    ProductDetails details = getProductDetailsForPeriod(PurchaseUtils.Period.P1Y);
+    String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
+    mAnnualButton.setPrice(price);
+    String sale = getString(R.string.annual_save_component, calculateYearlySaving());
+    mAnnualButton.setSale(sale);
+  }
+
+  private void updateYearlyButton()
+  {
+    ProductDetails details = getProductDetailsForPeriod(PurchaseUtils.Period.P1M);
+    String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
+    mMonthlyButton.setPrice(price);
   }
 
   private class ParallaxFragmentPagerAdapter extends FragmentPagerAdapter

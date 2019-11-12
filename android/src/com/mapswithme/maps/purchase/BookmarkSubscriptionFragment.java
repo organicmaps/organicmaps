@@ -118,13 +118,6 @@ public class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFr
     priceView.setText(price);
   }
 
-  private int calculateYearlySaving()
-  {
-    float pricePerMonth = getProductDetailsForPeriod(PurchaseUtils.Period.P1M).getPrice();
-    float pricePerYear = getProductDetailsForPeriod(PurchaseUtils.Period.P1Y).getPrice();
-    return (int) (100 * (1 - pricePerYear / (pricePerMonth * PurchaseUtils.MONTHS_IN_YEAR)));
-  }
-
   @Override
   public boolean onBackPressed()
   {
@@ -179,6 +172,13 @@ public class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFr
   {
     super.onValidationFinish();
     hideButtonProgress();
+  }
+
+  @NonNull
+  @Override
+  PurchaseController<PurchaseCallback> createPurchaseController()
+  {
+    return PurchaseFactory.createBookmarksSubscriptionPurchaseController(requireContext());
   }
 
   @Override

@@ -58,8 +58,7 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
   public final View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                                  @Nullable Bundle savedInstanceState)
   {
-    mPurchaseController =
-        PurchaseFactory.createBookmarksSubscriptionPurchaseController(requireContext());
+    mPurchaseController = createPurchaseController();
     if (savedInstanceState != null)
       mPurchaseController.onRestore(savedInstanceState);
     mPurchaseController.initialize(requireActivity());
@@ -314,12 +313,22 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
       requireActivity().finish();
   }
 
+  @NonNull
+  abstract PurchaseController<PurchaseCallback> createPurchaseController();
+
   @Nullable
   abstract View onSubscriptionCreateView(@NonNull LayoutInflater inflater,
                                          @Nullable ViewGroup container,
                                          @Nullable Bundle savedInstanceState);
 
   abstract void onSubscriptionDestroyView();
+
+  int calculateYearlySaving()
+  {
+    float pricePerMonth = getProductDetailsForPeriod(PurchaseUtils.Period.P1M).getPrice();
+    float pricePerYear = getProductDetailsForPeriod(PurchaseUtils.Period.P1Y).getPrice();
+    return (int) (100 * (1 - pricePerYear / (pricePerMonth * PurchaseUtils.MONTHS_IN_YEAR)));
+  }
 
   abstract void onAuthorizationFinishSuccessfully();
 
