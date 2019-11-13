@@ -22,7 +22,6 @@ import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.dialog.ResolveFragmentManagerStrategy;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.NetworkPolicy;
-import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
@@ -55,6 +54,9 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
   @SuppressWarnings("NullableProblems")
   @NonNull
   private PurchaseController<PurchaseCallback> mPurchaseController;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private SubscriptionFragmentDelegate mDelegate;
 
   @Nullable
   @Override
@@ -73,16 +75,9 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
                                                  getSubscriptionType().getYearlyProductId(),
                                                  getExtraFrom());
     View root = onSubscriptionCreateView(inflater, container, savedInstanceState);
+    mDelegate = createFragmentDelegate(this);
     if (root != null)
-    {
-      View restoreButton = root.findViewById(R.id.restore_purchase_btn);
-      restoreButton.setOnClickListener(v -> openSubscriptionManagementSettings());
-
-      View termsOfUse = root.findViewById(R.id.term_of_use_link);
-      termsOfUse.setOnClickListener(v -> openTermsOfUseLink());
-      View privacyPolicy = root.findViewById(R.id.privacy_policy_link);
-      privacyPolicy.setOnClickListener(v -> openPrivacyPolicyLink());
-    }
+      mDelegate.onCreateView(root);
 
     return root;
   }
@@ -123,7 +118,7 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
     super.onDestroyView();
     mPingCallback.detach();
     BookmarkManager.INSTANCE.removeCatalogPingListener(mPingCallback);
-    onSubscriptionDestroyView();
+    mDelegate.onDestroyView();
   }
 
   @Override
@@ -271,10 +266,24 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
   }
 
   @Override
+  public void onReset()
+  {
+    mDelegate.onReset();
+  }
+
+  @Override
+  public void onPriceSelection()
+  {
+    mDelegate.onPriceSelection();
+  }
+
+
+  @Override
   @CallSuper
   public void onProductDetailsLoading()
   {
     queryProductDetails();
+    mDelegate.onProductDetailsLoading();
   }
 
   @Override
@@ -353,27 +362,17 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
   @NonNull
   abstract PurchaseController<PurchaseCallback> createPurchaseController();
 
+  @NonNull
+  abstract SubscriptionFragmentDelegate createFragmentDelegate(
+      @NonNull AbstractBookmarkSubscriptionFragment fragment);
+
   @Nullable
   abstract View onSubscriptionCreateView(@NonNull LayoutInflater inflater,
                                          @Nullable ViewGroup container,
                                          @Nullable Bundle savedInstanceState);
 
-  private void openTermsOfUseLink()
-  {
-    Utils.openUrl(requireActivity(), Framework.nativeGetTermsOfUseLink());
-  }
-
-  private void openPrivacyPolicyLink()
-  {
-    Utils.openUrl(requireActivity(), Framework.nativeGetPrivacyPolicyLink());
-  }
-
-  abstract void onSubscriptionDestroyView();
-
   @NonNull
   abstract SubscriptionType getSubscriptionType();
-
-  abstract void hideButtonProgress();
 
   @Override
   public void onValidating()
@@ -381,7 +380,15 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
     showButtonProgress();
   }
 
-  abstract void showButtonProgress();
+  private void showButtonProgress()
+  {
+    mDelegate.showButtonProgress();
+  }
+
+  private void hideButtonProgress()
+  {
+    mDelegate.hideButtonProgress();
+  }
 
   @Override
   public boolean onBackPressed()
@@ -398,13 +405,9 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
   }
 
   @NonNull
-  abstract PurchaseUtils.Period getSelectedPeriod();
-
-  private void openSubscriptionManagementSettings()
+  private PurchaseUtils.Period getSelectedPeriod()
   {
-    Utils.openUrl(requireContext(), "https://play.google.com/store/account/subscriptions");
-    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_RESTORE,
-                                           getSubscriptionType().getServerId());
+    return mDelegate.getSelectedPeriod();
   }
 
   void trackPayEvent()

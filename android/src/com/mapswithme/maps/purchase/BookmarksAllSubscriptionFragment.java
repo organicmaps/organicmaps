@@ -21,17 +21,21 @@ import com.mapswithme.util.UiUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 public class BookmarksAllSubscriptionFragment extends AbstractBookmarkSubscriptionFragment
 {
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private SubscriptionFragmentDelegate mDelegate;
-
   @NonNull
   @Override
   PurchaseController<PurchaseCallback> createPurchaseController()
   {
     return PurchaseFactory.createBookmarksAllSubscriptionController(requireContext());
+  }
+
+  @NonNull
+  @Override
+  SubscriptionFragmentDelegate createFragmentDelegate(@NonNull AbstractBookmarkSubscriptionFragment fragment)
+  {
+    return new TwoButtonsSubscriptionFragmentDelegate(fragment);
   }
 
   @Nullable
@@ -41,18 +45,10 @@ public class BookmarksAllSubscriptionFragment extends AbstractBookmarkSubscripti
   {
     View root = inflater.inflate(R.layout.pager_fragment_all_pass_subscription, container,
                                  false);
-    mDelegate = new SubscriptionFragmentDelegate(this);
-    mDelegate.onSubscriptionCreateView(root);
 
     setTopStatusBarOffset(root);
     initViewPager(root);
     return root;
-  }
-
-  @Override
-  void onSubscriptionDestroyView()
-  {
-    mDelegate.onSubscriptionDestroyView();
   }
 
   @NonNull
@@ -60,13 +56,6 @@ public class BookmarksAllSubscriptionFragment extends AbstractBookmarkSubscripti
   SubscriptionType getSubscriptionType()
   {
     return SubscriptionType.BOOKMARKS_ALL;
-  }
-
-  @NonNull
-  @Override
-  PurchaseUtils.Period getSelectedPeriod()
-  {
-    return mDelegate.getSelectedPeriod();
   }
 
   private void setTopStatusBarOffset(@NonNull View view)
@@ -116,37 +105,6 @@ public class BookmarksAllSubscriptionFragment extends AbstractBookmarkSubscripti
     items.add(R.id.img2);
     items.add(R.id.img1);
     return items;
-  }
-
-  @Override
-  public void onProductDetailsLoading()
-  {
-    super.onProductDetailsLoading();
-    mDelegate.onProductDetailsLoading();
-  }
-
-  @Override
-  public void onReset()
-  {
-    mDelegate.onReset();
-  }
-
-  @Override
-  public void onPriceSelection()
-  {
-    mDelegate.onPriceSelection();
-  }
-
-  @Override
-  void showButtonProgress()
-  {
-    mDelegate.showButtonProgress();
-  }
-
-  @Override
-  void hideButtonProgress()
-  {
-    mDelegate.hideButtonProgress();
   }
 
   private class ParallaxFragmentPagerAdapter extends FragmentPagerAdapter

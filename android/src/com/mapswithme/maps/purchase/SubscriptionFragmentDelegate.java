@@ -2,21 +2,15 @@ package com.mapswithme.maps.purchase;
 
 import android.view.View;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.widget.SubscriptionButton;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.statistics.Statistics;
 
-class SubscriptionFragmentDelegate
+abstract class SubscriptionFragmentDelegate
 {
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private SubscriptionButton mAnnualButton;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private SubscriptionButton mMonthlyButton;
-  @NonNull
-  private PurchaseUtils.Period mSelectedPeriod = PurchaseUtils.Period.P1Y;
   @NonNull
   private final AbstractBookmarkSubscriptionFragment mFragment;
 
@@ -25,86 +19,60 @@ class SubscriptionFragmentDelegate
     mFragment = fragment;
   }
 
-  void onSubscriptionCreateView(@NonNull View root)
-  {
-    mAnnualButton = root.findViewById(R.id.annual_button);
-    mAnnualButton.setOnClickListener(v -> {
-      mSelectedPeriod = PurchaseUtils.Period.P1Y;
-      mFragment.pingBookmarkCatalog();
-    });
-    mMonthlyButton = root.findViewById(R.id.monthly_button);
-    mMonthlyButton.setOnClickListener(v -> {
-      mSelectedPeriod = PurchaseUtils.Period.P1M;
-      mFragment.pingBookmarkCatalog();
-    });
-  }
+  abstract void showButtonProgress();
 
-  void onSubscriptionDestroyView()
-  {
-    // Do nothing by default.
-  }
+  abstract void hideButtonProgress();
+
+  abstract void onProductDetailsLoading();
+
+  abstract void onPriceSelection();
 
   @NonNull
-  PurchaseUtils.Period getSelectedPeriod()
-  {
-    return mSelectedPeriod;
-  }
-
-  void onProductDetailsLoading()
-  {
-    mAnnualButton.showProgress();
-    mMonthlyButton.showProgress();
-  }
-
-  void onPriceSelection()
-  {
-    mAnnualButton.hideProgress();
-    mMonthlyButton.hideProgress();
-    updatePaymentButtons();
-  }
+  abstract PurchaseUtils.Period getSelectedPeriod();
 
   void onReset()
   {
     // Do nothing by default.
   }
 
-  private void updatePaymentButtons()
+
+  @CallSuper
+  void onCreateView(@NonNull View root)
   {
-    updateYearlyButton();
-    updateMonthlyButton();
+    View restoreButton = root.findViewById(R.id.restore_purchase_btn);
+    restoreButton.setOnClickListener(v -> openSubscriptionManagementSettings());
+
+    View termsOfUse = root.findViewById(R.id.term_of_use_link);
+    termsOfUse.setOnClickListener(v -> openTermsOfUseLink());
+    View privacyPolicy = root.findViewById(R.id.privacy_policy_link);
+    privacyPolicy.setOnClickListener(v -> openPrivacyPolicyLink());
   }
 
-  private void updateMonthlyButton()
+  void onDestroyView()
   {
-    ProductDetails details = mFragment.getProductDetailsForPeriod(PurchaseUtils.Period.P1Y);
-    String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
-    mAnnualButton.setPrice(price);
-    mAnnualButton.setName(mFragment.getString(R.string.annual_subscription_title));
-    String sale = mFragment.getString(R.string.annual_save_component, mFragment.calculateYearlySaving());
-    mAnnualButton.setSale(sale);
+    // Do nothing by default.
   }
 
-  private void updateYearlyButton()
+  private void openSubscriptionManagementSettings()
   {
-    ProductDetails details = mFragment.getProductDetailsForPeriod(PurchaseUtils.Period.P1M);
-    String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
-    mMonthlyButton.setPrice(price);
-    mMonthlyButton.setName(mFragment.getString(R.string.montly_subscription_title));
+    Utils.openUrl(mFragment.requireContext(), "https://play.google.com/store/account/subscriptions");
+    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_RESTORE,
+                                           mFragment.getSubscriptionType().getServerId());
   }
 
-  void showButtonProgress()
+  private void openTermsOfUseLink()
   {
-    if (mSelectedPeriod == PurchaseUtils.Period.P1Y)
-      mAnnualButton.showProgress();
-    else
-      mMonthlyButton.showProgress();
+    Utils.openUrl(mFragment.requireContext(), Framework.nativeGetTermsOfUseLink());
   }
 
-  void hideButtonProgress()
+  private void openPrivacyPolicyLink()
   {
-    if (mSelectedPeriod == PurchaseUtils.Period.P1Y)
-      mAnnualButton.hideProgress();
-    else
-      mMonthlyButton.hideProgress();
+    Utils.openUrl(mFragment.requireContext(), Framework.nativeGetPrivacyPolicyLink());
+  }
+
+  @NonNull
+  AbstractBookmarkSubscriptionFragment getFragment()
+  {
+    return mFragment;
   }
 }
