@@ -21,7 +21,7 @@ import com.mapswithme.util.UiUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllPassSubscriptionPagerFragment extends AbstractBookmarkSubscriptionFragment
+public class BookmarksAllSubscriptionFragment extends AbstractBookmarkSubscriptionFragment
 {
   @SuppressWarnings("NullableProblems")
   @NonNull

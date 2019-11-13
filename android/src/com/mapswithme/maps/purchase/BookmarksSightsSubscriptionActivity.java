@@ -8,18 +8,18 @@ import androidx.fragment.app.FragmentActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
-public class SightseeingSubscriptionActivity extends BaseMwmFragmentActivity
+public class BookmarksSightsSubscriptionActivity extends BaseMwmFragmentActivity
 {
   public static void startForResult(@NonNull FragmentActivity activity)
   {
-    Intent intent = new Intent(activity, SightseeingSubscriptionActivity.class);
+    Intent intent = new Intent(activity, BookmarksSightsSubscriptionActivity.class);
     activity.startActivityForResult(intent, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION);
   }
 
   @Override
   protected Class<? extends Fragment> getFragmentClass()
   {
-    return SightseeingSubscriptionFragment.class;
+    return BookmarksSightsSubscriptionFragment.class;
   }
 
   @Override

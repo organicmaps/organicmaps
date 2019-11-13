@@ -8,18 +8,18 @@ import androidx.fragment.app.FragmentActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
-public class AllPassSubscriptionActivity extends BaseMwmFragmentActivity
+public class BookmarksAllSubscriptionActivity extends BaseMwmFragmentActivity
 {
   public static void startForResult(@NonNull FragmentActivity activity)
   {
-    Intent intent = new Intent(activity, AllPassSubscriptionActivity.class);
+    Intent intent = new Intent(activity, BookmarksAllSubscriptionActivity.class);
     activity.startActivityForResult(intent, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION);
   }
 
   @Override
   protected Class<? extends Fragment> getFragmentClass()
   {
-    return AllPassSubscriptionPagerFragment.class;
+    return BookmarksAllSubscriptionFragment.class;
   }
 
   @Override

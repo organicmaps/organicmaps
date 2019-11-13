@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.mapswithme.maps.R;
 
-public class SightseeingSubscriptionFragment extends AbstractBookmarkSubscriptionFragment
+public class BookmarksSightsSubscriptionFragment extends AbstractBookmarkSubscriptionFragment
 {
   @SuppressWarnings("NullableProblems")
   @NonNull
