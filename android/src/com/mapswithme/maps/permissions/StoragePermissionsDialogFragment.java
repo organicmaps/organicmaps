@@ -66,8 +66,15 @@ public class StoragePermissionsDialogFragment extends BaseMwmDialogFragment impl
 
     View content = View.inflate(getActivity(), R.layout.fragment_storage_permissions, null);
     res.setContentView(content);
-    content.findViewById(R.id.accept_btn).setOnClickListener(this);
-    content.findViewById(R.id.decline_btn).setOnClickListener(this);
+
+    TextView acceptBtn = content.findViewById(R.id.accept_btn);
+    acceptBtn.setOnClickListener(this);
+    acceptBtn.setText(R.string.settings);
+
+    TextView declineBtn = content.findViewById(R.id.decline_btn);
+    declineBtn.setOnClickListener(this);
+    declineBtn.setText(R.string.back);
+
     ImageView image = (ImageView) content.findViewById(R.id.iv__image);
     image.setImageResource(R.drawable.img_no_storage_permission);
     TextView title = (TextView) content.findViewById(R.id.tv__title);
