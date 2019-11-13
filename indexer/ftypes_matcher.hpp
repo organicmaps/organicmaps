@@ -373,6 +373,13 @@ public:
   DECLARE_CHECKER_INSTANCE(IsMotorwayJunctionChecker);
 };
 
+class IsFerryChecker : public BaseChecker
+{
+  IsFerryChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsFerryChecker);
+};
+
 /// Type of locality (do not change values and order - they have detalization order)
 /// Country < State < City < ...
 enum class LocalityType

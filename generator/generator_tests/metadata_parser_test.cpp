@@ -1,10 +1,13 @@
 #include "testing/testing.hpp"
 
+#include "generator/generator_tests_support/test_with_classificator.hpp"
 #include "generator/osm2meta.hpp"
 
-#include "indexer/classificator_loader.hpp"
+#include "indexer/classificator.hpp"
 
 #include "base/logging.hpp"
+
+using namespace generator::tests_support;
 
 using feature::Metadata;
 
@@ -70,12 +73,10 @@ UNIT_TEST(Metadata_ValidateAndFormat_stars)
 
 }
 
-UNIT_TEST(Metadata_ValidateAndFormat_operator)
+UNIT_CLASS_TEST(TestWithClassificator, Metadata_ValidateAndFormat_operator)
 {
-  classificator::Load();
-  Classificator const & c = classif();
-  uint32_t const type_atm = c.GetTypeByPath({ "amenity", "atm" });
-  uint32_t const type_fuel = c.GetTypeByPath({ "amenity", "fuel" });
+  uint32_t const type_atm = classif().GetTypeByPath({ "amenity", "atm" });
+  uint32_t const type_fuel = classif().GetTypeByPath({ "amenity", "fuel" });
 
   FeatureParams params;
   MetadataTagProcessor p(params);
@@ -200,7 +201,7 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
 // Look at: https://wiki.openstreetmap.org/wiki/Key:duration for details
 // about "duration" format.
 
-UNIT_TEST(Metadata_ValidateAndFormat_duration)
+UNIT_CLASS_TEST(TestWithClassificator, Metadata_ValidateAndFormat_duration)
 {
   FeatureParams params;
   params.AddType(classif().GetTypeByPath({"route", "ferry"}));

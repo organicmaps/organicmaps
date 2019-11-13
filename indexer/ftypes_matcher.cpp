@@ -624,6 +624,12 @@ IsMotorwayJunctionChecker::IsMotorwayJunctionChecker()
   m_types.push_back(c.GetTypeByPath({"highway", "motorway_junction"}));
 }
 
+IsFerryChecker::IsFerryChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"route", "ferry"}));
+}
+
 IsLocalityChecker::IsLocalityChecker()
 {
   Classificator const & c = classif();

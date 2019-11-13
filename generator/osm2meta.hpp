@@ -1,8 +1,6 @@
 #pragma once
 
 #include "indexer/feature_data.hpp"
-#include "indexer/classificator.hpp"
-#include "indexer/ftypes_matcher.hpp"
 
 #include <string>
 
@@ -97,14 +95,7 @@ public:
     case Metadata::FMD_BANNER_URL: valid = ValidateAndFormat_url(v); break;
     case Metadata::FMD_LEVEL: valid = ValidateAndFormat_level(v); break;
     case Metadata::FMD_AIRPORT_IATA: valid = ValidateAndFormat_airport_iata(v); break;
-    case Metadata::FMD_DURATION:
-    {
-      static uint32_t const kFerryType = classif().GetTypeByPath({"route", "ferry"});
-      if (m_params.FindType(kFerryType, 2 /* level */) != ftype::GetEmptyValue())
-        valid = ValidateAndFormat_duration(v);
-
-      break;
-    }
+    case Metadata::FMD_DURATION: valid = ValidateAndFormat_duration(v); break;
     // Metadata types we do not get from OSM.
     case Metadata::FMD_SPONSORED_ID:
     case Metadata::FMD_PRICE_RATE:

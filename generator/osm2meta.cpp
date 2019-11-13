@@ -4,6 +4,8 @@
 
 #include "routing/routing_helpers.hpp"
 
+#include "indexer/ftypes_matcher.hpp"
+
 #include "coding/url_encode.hpp"
 
 #include "base/logging.hpp"
@@ -289,6 +291,9 @@ string MetadataTagProcessorImpl::ValidateAndFormat_airport_iata(string const & v
 
 string MetadataTagProcessorImpl::ValidateAndFormat_duration(string const & v) const
 {
+  if (!ftypes::IsFerryChecker::Instance()(m_params.m_types))
+    return {};
+
   auto const format = [](double hours) -> string {
     if (base::AlmostEqualAbs(hours, 0.0, 1e-5))
       return {};
