@@ -152,4 +152,31 @@ extern "C"
     std::vector<std::string> items = BOOKMARK_INAPP_IDS;
     return jni::ToJavaStringArray(env, items);
   }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_PrivateVariables_bookmarksSubscriptionSightsServerId(JNIEnv * env, jclass)
+  {
+    return env->NewStringUTF(BOOKMARKS_SUBSCRIPTION_SIGHTS_SERVER_ID);
+  }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_PrivateVariables_bookmarksSubscriptionSightsYearlyProductId(JNIEnv * env,
+                                                                                 jclass)
+  {
+    return env->NewStringUTF(BOOKMARKS_SUBSCRIPTION_SIGHTS_YEARLY_PRODUCT_ID);
+  }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_PrivateVariables_bookmarksSubscriptionSightsMonthlyProductId(JNIEnv * env,
+                                                                                  jclass)
+  {
+    return env->NewStringUTF(BOOKMARKS_SUBSCRIPTION_SIGHTS_MONTHLY_PRODUCT_ID);
+  }
+
+  JNIEXPORT jobjectArray JNICALL
+  Java_com_mapswithme_maps_PrivateVariables_bookmarksSubscriptionSightsNotUsedList(JNIEnv * env, jclass)
+  {
+    std::vector<std::string> items = BOOKMARKS_SUBSCRIPTION_SIGHTS_NOT_USED_LIST;
+    return jni::ToJavaStringArray(env, items);
+  }
 }

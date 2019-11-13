@@ -83,7 +83,7 @@
           android:layout_marginTop="@dimen/margin_base_plus"
           android:orientation="horizontal" />
         <com.mapswithme.maps.widget.SubscriptionButton
-          android:id="@+id/annual_sub_btn"
+          android:id="@+id/annual_button"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/margin_base_plus"
@@ -96,7 +96,7 @@
           app:progressColor="@color/white_primary"
           app:showSale="true" />
         <com.mapswithme.maps.widget.SubscriptionButton
-          android:id="@+id/month_sub_btn"
+          android:id="@+id/monthly_button"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/margin_base_plus"

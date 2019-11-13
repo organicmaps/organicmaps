@@ -52,7 +52,7 @@ public class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFr
   @Override
   SubscriptionType getSubscriptionType()
   {
-    return SubscriptionType.BOOKMARKS;
+    return SubscriptionType.BOOKMARKS_ALL;
   }
 
   private void onContinueButtonClicked()
@@ -118,7 +118,7 @@ public class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFr
   @Override
   PurchaseController<PurchaseCallback> createPurchaseController()
   {
-    return PurchaseFactory.createBookmarksSubscriptionPurchaseController(requireContext());
+    return PurchaseFactory.createBookmarksAllSubscriptionController(requireContext());
   }
 
   @Override

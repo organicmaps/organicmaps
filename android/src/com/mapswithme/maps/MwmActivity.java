@@ -542,7 +542,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mBookmarkInappPurchaseController.initialize(this);
 
     mBookmarksSubscriptionController
-        = PurchaseFactory.createBookmarksSubscriptionPurchaseController(this);
+        = PurchaseFactory.createBookmarksAllSubscriptionController(this);
     mBookmarksSubscriptionController.initialize(this);
 
     // To reduce number of parasite validation requests during orientation change.

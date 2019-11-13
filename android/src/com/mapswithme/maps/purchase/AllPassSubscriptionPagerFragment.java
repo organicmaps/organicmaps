@@ -16,9 +16,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.DotPager;
 import com.mapswithme.maps.widget.ParallaxBackgroundPageListener;
 import com.mapswithme.maps.widget.ParallaxBackgroundViewPager;
-import com.mapswithme.maps.widget.SubscriptionButton;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,18 +25,13 @@ public class AllPassSubscriptionPagerFragment extends AbstractBookmarkSubscripti
 {
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private SubscriptionButton mAnnualButton;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private SubscriptionButton mMonthlyButton;
-  @NonNull
-  private PurchaseUtils.Period mSelectedPeriod = PurchaseUtils.Period.P1Y;
+  private SubscriptionFragmentDelegate mDelegate;
 
   @NonNull
   @Override
   PurchaseController<PurchaseCallback> createPurchaseController()
   {
-    return PurchaseFactory.createBookmarksSubscriptionPurchaseController(requireContext());
+    return PurchaseFactory.createBookmarksAllSubscriptionController(requireContext());
   }
 
   @Nullable
@@ -48,17 +41,8 @@ public class AllPassSubscriptionPagerFragment extends AbstractBookmarkSubscripti
   {
     View root = inflater.inflate(R.layout.pager_fragment_all_pass_subscription, container,
                                  false);
-
-    mAnnualButton = root.findViewById(R.id.annual_sub_btn);
-    mAnnualButton.setOnClickListener(v -> {
-      mSelectedPeriod = PurchaseUtils.Period.P1Y;
-      pingBookmarkCatalog();
-    });
-    mMonthlyButton = root.findViewById(R.id.month_sub_btn);
-    mMonthlyButton.setOnClickListener(v -> {
-      mSelectedPeriod = PurchaseUtils.Period.P1M;
-      pingBookmarkCatalog();
-    });
+    mDelegate = new SubscriptionFragmentDelegate(this);
+    mDelegate.onSubscriptionCreateView(root);
 
     setTopStatusBarOffset(root);
     initViewPager(root);
@@ -68,21 +52,21 @@ public class AllPassSubscriptionPagerFragment extends AbstractBookmarkSubscripti
   @Override
   void onSubscriptionDestroyView()
   {
-    // Do nothing by default.
+    mDelegate.onSubscriptionDestroyView();
   }
 
   @NonNull
   @Override
   SubscriptionType getSubscriptionType()
   {
-    return SubscriptionType.BOOKMARKS;
+    return SubscriptionType.BOOKMARKS_ALL;
   }
 
   @NonNull
   @Override
   PurchaseUtils.Period getSelectedPeriod()
   {
-    return mSelectedPeriod;
+    return mDelegate.getSelectedPeriod();
   }
 
   private void setTopStatusBarOffset(@NonNull View view)
@@ -138,64 +122,31 @@ public class AllPassSubscriptionPagerFragment extends AbstractBookmarkSubscripti
   public void onProductDetailsLoading()
   {
     super.onProductDetailsLoading();
-    mAnnualButton.showProgress();
-    mMonthlyButton.showProgress();
+    mDelegate.onProductDetailsLoading();
   }
 
   @Override
   public void onReset()
   {
-    // Do nothing
+    mDelegate.onReset();
   }
 
   @Override
   public void onPriceSelection()
   {
-    mAnnualButton.hideProgress();
-    mMonthlyButton.hideProgress();
-    updatePaymentButtons();
+    mDelegate.onPriceSelection();
   }
 
   @Override
   void showButtonProgress()
   {
-    if (mSelectedPeriod == PurchaseUtils.Period.P1Y)
-      mAnnualButton.showProgress();
-    else
-      mMonthlyButton.showProgress();
+    mDelegate.showButtonProgress();
   }
 
   @Override
   void hideButtonProgress()
   {
-    if (mSelectedPeriod == PurchaseUtils.Period.P1Y)
-      mAnnualButton.hideProgress();
-    else
-      mMonthlyButton.hideProgress();
-  }
-
-  private void updatePaymentButtons()
-  {
-    updateYearlyButton();
-    updateMonthlyButton();
-  }
-
-  private void updateMonthlyButton()
-  {
-    ProductDetails details = getProductDetailsForPeriod(PurchaseUtils.Period.P1Y);
-    String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
-    mAnnualButton.setPrice(price);
-    mAnnualButton.setName(getString(R.string.annual_subscription_title));
-    String sale = getString(R.string.annual_save_component, calculateYearlySaving());
-    mAnnualButton.setSale(sale);
-  }
-
-  private void updateYearlyButton()
-  {
-    ProductDetails details = getProductDetailsForPeriod(PurchaseUtils.Period.P1M);
-    String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
-    mMonthlyButton.setPrice(price);
-    mMonthlyButton.setName(getString(R.string.montly_subscription_title));
+    mDelegate.hideButtonProgress();
   }
 
   private class ParallaxFragmentPagerAdapter extends FragmentPagerAdapter

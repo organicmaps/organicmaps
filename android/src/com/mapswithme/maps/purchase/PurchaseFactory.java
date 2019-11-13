@@ -20,10 +20,16 @@ public class PurchaseFactory
     return createSubscriptionPurchaseController(context, SubscriptionType.ADS_REMOVAL);
   }
 
-  public static PurchaseController<PurchaseCallback> createBookmarksSubscriptionPurchaseController(
+  public static PurchaseController<PurchaseCallback> createBookmarksAllSubscriptionController(
       @NonNull Context context)
   {
-    return createSubscriptionPurchaseController(context, SubscriptionType.BOOKMARKS);
+    return createSubscriptionPurchaseController(context, SubscriptionType.BOOKMARKS_ALL);
+  }
+
+  public static PurchaseController<PurchaseCallback> createBookmarksSightsSubscriptionController(
+      @NonNull Context context)
+  {
+    return createSubscriptionPurchaseController(context, SubscriptionType.BOOKMARKS_ALL);
   }
 
   @NonNull

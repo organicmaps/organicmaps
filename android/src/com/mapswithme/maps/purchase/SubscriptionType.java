@@ -46,7 +46,7 @@ public enum SubscriptionType
           return PrivateVariables.adsRemovalMonthlyProductId();
         }
       },
-  BOOKMARKS
+  BOOKMARKS_ALL
       {
         @NonNull
         @Override
@@ -83,6 +83,45 @@ public enum SubscriptionType
         String getMonthlyProductId()
         {
           return PrivateVariables.bookmarksSubscriptionMonthlyProductId();
+        }
+      },
+  BOOKMARKS_SIGHTS
+      {
+        @NonNull
+        @Override
+        String getServerId()
+        {
+          return PrivateVariables.bookmarksSubscriptionSightsServerId();
+        }
+
+        @NonNull
+        @Override
+        String getVendor()
+        {
+          return PrivateVariables.bookmarksSubscriptionVendor();
+        }
+
+        @NonNull
+        @Override
+        String[] getProductIds()
+        {
+          return Utils.concatArrays(PrivateVariables.bookmarksSubscriptionSightsNotUsedList(),
+                                    PrivateVariables.bookmarksSubscriptionSightsYearlyProductId(),
+                                    PrivateVariables.bookmarksSubscriptionSightsMonthlyProductId());
+        }
+
+        @NonNull
+        @Override
+        String getYearlyProductId()
+        {
+          return PrivateVariables.bookmarksSubscriptionSightsYearlyProductId();
+        }
+
+        @NonNull
+        @Override
+        String getMonthlyProductId()
+        {
+          return PrivateVariables.bookmarksSubscriptionSightsMonthlyProductId();
         }
       };
 

@@ -49,6 +49,14 @@ public class PrivateVariables
   public static native String bookmarksSubscriptionMonthlyProductId();
   @NonNull
   public static native String[] bookmarksSubscriptionNotUsedList();
+  @NonNull
+  public static native String bookmarksSubscriptionSightsServerId();
+  @NonNull
+  public static native String bookmarksSubscriptionSightsYearlyProductId();
+  @NonNull
+  public static native String bookmarksSubscriptionSightsMonthlyProductId();
+  @NonNull
+  public static native String[] bookmarksSubscriptionSightsNotUsedList();
   /**
    * @return interval in seconds
    */
