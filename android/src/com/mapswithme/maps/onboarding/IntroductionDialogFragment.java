@@ -42,7 +42,7 @@ public class IntroductionDialogFragment extends BaseMwmDialogFragment
     View content = View.inflate(getActivity(), R.layout.fragment_welcome, null);
     res.setContentView(content);
     IntroductionScreenFactory factory = getScreenFactory();
-    TextView button = content.findViewById(R.id.btn__continue);
+    TextView button = content.findViewById(R.id.accept_btn);
     button.setText(factory.getAction());
     button.setOnClickListener(v -> onAcceptClicked());
     ImageView image = content.findViewById(R.id.iv__image);

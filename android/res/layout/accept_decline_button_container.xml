@@ -29,6 +29,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="@dimen/text_size_body_3"
         android:textStyle="normal"
+        android:text="@string/learn_more"
         tools:ignore="UnusedAttribute"
         tools:text="NOT NOW" />
     </FrameLayout>

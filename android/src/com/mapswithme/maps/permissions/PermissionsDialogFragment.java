@@ -36,7 +36,7 @@ public class PermissionsDialogFragment extends BasePermissionsDialogFragment
   @Override
   protected int getImageRes()
   {
-    return R.drawable.img_permissions;
+    return R.drawable.img_permission_explanation;
   }
 
   @StringRes
@@ -64,7 +64,7 @@ public class PermissionsDialogFragment extends BasePermissionsDialogFragment
   @Override
   protected int getFirstActionButton()
   {
-    return R.id.accept_btn;
+    return R.id.decline_btn;
   }
 
   @Override
@@ -77,7 +77,7 @@ public class PermissionsDialogFragment extends BasePermissionsDialogFragment
   @Override
   protected int getContinueActionButton()
   {
-    return R.id.btn__continue;
+    return R.id.accept_btn;
   }
 
   @Override
