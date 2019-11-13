@@ -46,10 +46,21 @@
 		47EEAFF42350CEDB005CF316 /* AppInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47EEAFF22350CEDA005CF316 /* AppInfo.mm */; };
 		47EEAFF62350CF48005CF316 /* AppInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 47EEAFF32350CEDB005CF316 /* AppInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47EEAFF72350D060005CF316 /* MWMCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 47EEAFF52350CEF6005CF316 /* MWMCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		991CE2EA2375AF19009EB02A /* PromoAfterBookingCampaignAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2E82375AF19009EB02A /* PromoAfterBookingCampaignAdapter.mm */; };
-		991CE2EB2375AF19009EB02A /* PromoAfterBookingCampaignAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 991CE2E92375AF19009EB02A /* PromoAfterBookingCampaignAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		991CE2EE2375AF26009EB02A /* PromoDiscoveryCampaignAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2ED2375AF25009EB02A /* PromoDiscoveryCampaignAdapter.mm */; };
-		991CE2EF2375AF4E009EB02A /* PromoDiscoveryCampaignAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 991CE2EC2375AF25009EB02A /* PromoDiscoveryCampaignAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99103843237EDFA200893C9F /* DeepLinkData.h in Headers */ = {isa = PBXBuildFile; fileRef = 99103841237EDFA200893C9F /* DeepLinkData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99103844237EDFA200893C9F /* DeepLinkData.m in Sources */ = {isa = PBXBuildFile; fileRef = 99103842237EDFA200893C9F /* DeepLinkData.m */; };
+		993F54F2237C5D1100545511 /* PromoDiscoveryCampaignAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 993F54EE237C5D1000545511 /* PromoDiscoveryCampaignAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		993F54F3237C5D1100545511 /* PromoAfterBookingCampaignAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 993F54EF237C5D1000545511 /* PromoAfterBookingCampaignAdapter.mm */; };
+		993F54F4237C5D1100545511 /* PromoDiscoveryCampaignAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 993F54F0237C5D1000545511 /* PromoDiscoveryCampaignAdapter.mm */; };
+		993F54F5237C5D1100545511 /* PromoAfterBookingCampaignAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 993F54F1237C5D1000545511 /* PromoAfterBookingCampaignAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99447849238559F2004DAEE5 /* DeeplinkParsingResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 99447847238559F2004DAEE5 /* DeeplinkParsingResult.h */; };
+		9957FACE237AB01400855F48 /* DeepLinkParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 9957FACC237AB01400855F48 /* DeepLinkParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9957FACF237AB01400855F48 /* DeepLinkParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9957FACD237AB01400855F48 /* DeepLinkParser.mm */; };
+		9957FADB237ACB1100855F48 /* DeepLinkSearchData.h in Headers */ = {isa = PBXBuildFile; fileRef = 9957FAD9237ACB1100855F48 /* DeepLinkSearchData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9957FADC237ACB1100855F48 /* DeepLinkSearchData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9957FADA237ACB1100855F48 /* DeepLinkSearchData.mm */; };
+		9957FAE8237AE5B000855F48 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = 9957FAE6237AE5B000855F48 /* Logger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9957FAE9237AE5B000855F48 /* Logger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9957FAE7237AE5B000855F48 /* Logger.mm */; };
+		999D3A64237B097C00C5F7A8 /* DeepLinkSubscriptionData.h in Headers */ = {isa = PBXBuildFile; fileRef = 999D3A62237B097C00C5F7A8 /* DeepLinkSubscriptionData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		999D3A65237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 999D3A63237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,10 +107,25 @@
 		47EEAFF22350CEDA005CF316 /* AppInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = AppInfo.mm; sourceTree = "<group>"; };
 		47EEAFF32350CEDB005CF316 /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfo.h; sourceTree = "<group>"; };
 		47EEAFF52350CEF6005CF316 /* MWMCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCommon.h; sourceTree = "<group>"; };
+		99103841237EDFA200893C9F /* DeepLinkData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkData.h; sourceTree = "<group>"; };
+		99103842237EDFA200893C9F /* DeepLinkData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeepLinkData.m; sourceTree = "<group>"; };
 		991CE2E82375AF19009EB02A /* PromoAfterBookingCampaignAdapter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PromoAfterBookingCampaignAdapter.mm; sourceTree = "<group>"; };
 		991CE2E92375AF19009EB02A /* PromoAfterBookingCampaignAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoAfterBookingCampaignAdapter.h; sourceTree = "<group>"; };
 		991CE2EC2375AF25009EB02A /* PromoDiscoveryCampaignAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PromoDiscoveryCampaignAdapter.h; sourceTree = "<group>"; };
 		991CE2ED2375AF25009EB02A /* PromoDiscoveryCampaignAdapter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PromoDiscoveryCampaignAdapter.mm; sourceTree = "<group>"; };
+		993F54EE237C5D1000545511 /* PromoDiscoveryCampaignAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoDiscoveryCampaignAdapter.h; sourceTree = "<group>"; };
+		993F54EF237C5D1000545511 /* PromoAfterBookingCampaignAdapter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PromoAfterBookingCampaignAdapter.mm; sourceTree = "<group>"; };
+		993F54F0237C5D1000545511 /* PromoDiscoveryCampaignAdapter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PromoDiscoveryCampaignAdapter.mm; sourceTree = "<group>"; };
+		993F54F1237C5D1000545511 /* PromoAfterBookingCampaignAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoAfterBookingCampaignAdapter.h; sourceTree = "<group>"; };
+		99447847238559F2004DAEE5 /* DeeplinkParsingResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeeplinkParsingResult.h; sourceTree = "<group>"; };
+		9957FACC237AB01400855F48 /* DeepLinkParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkParser.h; sourceTree = "<group>"; };
+		9957FACD237AB01400855F48 /* DeepLinkParser.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkParser.mm; sourceTree = "<group>"; };
+		9957FAD9237ACB1100855F48 /* DeepLinkSearchData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkSearchData.h; sourceTree = "<group>"; };
+		9957FADA237ACB1100855F48 /* DeepLinkSearchData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkSearchData.mm; sourceTree = "<group>"; };
+		9957FAE6237AE5B000855F48 /* Logger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
+		9957FAE7237AE5B000855F48 /* Logger.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Logger.mm; sourceTree = "<group>"; };
+		999D3A62237B097C00C5F7A8 /* DeepLinkSubscriptionData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkSubscriptionData.h; sourceTree = "<group>"; };
+		999D3A63237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkSubscriptionData.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +148,7 @@
 				470015F12342509C00EBF03D /* CoreApi */,
 				470015F02342509C00EBF03D /* Products */,
 				4700161123425CFC00EBF03D /* Frameworks */,
+				993F54EC237C5CD800545511 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -136,7 +163,9 @@
 		470015F12342509C00EBF03D /* CoreApi */ = {
 			isa = PBXGroup;
 			children = (
-				991CE2E72375AEEF009EB02A /* Promo */,
+				993F54ED237C5D1000545511 /* Promo */,
+				9957FAE5237AE59C00855F48 /* Logger */,
+				9957FAC1237AABD800855F48 /* DeepLink */,
 				4718C42F2355FC0D00640DF1 /* NetworkPolicy */,
 				47C637D92354B76700E12DE0 /* Search */,
 				47C637D32354AEA800E12DE0 /* Traffic */,
@@ -267,15 +296,59 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
-		991CE2E72375AEEF009EB02A /* Promo */ = {
+		99103840237ED97600893C9F /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				991CE2EC2375AF25009EB02A /* PromoDiscoveryCampaignAdapter.h */,
-				991CE2ED2375AF25009EB02A /* PromoDiscoveryCampaignAdapter.mm */,
+				999D3A62237B097C00C5F7A8 /* DeepLinkSubscriptionData.h */,
+				999D3A63237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm */,
+				9957FAD9237ACB1100855F48 /* DeepLinkSearchData.h */,
+				9957FADA237ACB1100855F48 /* DeepLinkSearchData.mm */,
+				99103841237EDFA200893C9F /* DeepLinkData.h */,
+				99103842237EDFA200893C9F /* DeepLinkData.m */,
+				99447847238559F2004DAEE5 /* DeeplinkParsingResult.h */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		993F54EC237C5CD800545511 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
 				991CE2E92375AF19009EB02A /* PromoAfterBookingCampaignAdapter.h */,
+				991CE2EC2375AF25009EB02A /* PromoDiscoveryCampaignAdapter.h */,
 				991CE2E82375AF19009EB02A /* PromoAfterBookingCampaignAdapter.mm */,
+				991CE2ED2375AF25009EB02A /* PromoDiscoveryCampaignAdapter.mm */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		993F54ED237C5D1000545511 /* Promo */ = {
+			isa = PBXGroup;
+			children = (
+				993F54EE237C5D1000545511 /* PromoDiscoveryCampaignAdapter.h */,
+				993F54EF237C5D1000545511 /* PromoAfterBookingCampaignAdapter.mm */,
+				993F54F0237C5D1000545511 /* PromoDiscoveryCampaignAdapter.mm */,
+				993F54F1237C5D1000545511 /* PromoAfterBookingCampaignAdapter.h */,
 			);
 			path = Promo;
+			sourceTree = "<group>";
+		};
+		9957FAC1237AABD800855F48 /* DeepLink */ = {
+			isa = PBXGroup;
+			children = (
+				99103840237ED97600893C9F /* Data */,
+				9957FACC237AB01400855F48 /* DeepLinkParser.h */,
+				9957FACD237AB01400855F48 /* DeepLinkParser.mm */,
+			);
+			path = DeepLink;
+			sourceTree = "<group>";
+		};
+		9957FAE5237AE59C00855F48 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				9957FAE6237AE5B000855F48 /* Logger.h */,
+				9957FAE7237AE5B000855F48 /* Logger.mm */,
+			);
+			path = Logger;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,17 +358,23 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9957FAE8237AE5B000855F48 /* Logger.h in Headers */,
 				470015F42342509C00EBF03D /* CoreApi.h in Headers */,
 				479F705F234FBB8F00011E2E /* MWMCategory.h in Headers */,
 				47A65CAF235008E100DCD85F /* CoreApi-swift.h in Headers */,
+				9957FACE237AB01400855F48 /* DeepLinkParser.h in Headers */,
+				993F54F5237C5D1100545511 /* PromoAfterBookingCampaignAdapter.h in Headers */,
 				479834F223426CCC00724D1E /* MWMTag+Convenience.h in Headers */,
 				479F704F234FB60400011E2E /* MWMCatalogObserver.h in Headers */,
 				47EEAFF72350D060005CF316 /* MWMCommon.h in Headers */,
+				9957FADB237ACB1100855F48 /* DeepLinkSearchData.h in Headers */,
 				479F7056234FB7F200011E2E /* MWMBookmarksManager.h in Headers */,
 				4718C4322355FC3C00640DF1 /* MWMNetworkPolicy.h in Headers */,
+				99103843237EDFA200893C9F /* DeepLinkData.h in Headers */,
 				47C637DD2354B79B00E12DE0 /* MWMSearchFrameworkHelper.h in Headers */,
 				479F704B234F78AB00011E2E /* MWMFrameworkHelper.h in Headers */,
 				479834F323426CD200724D1E /* MWMTagGroup+Convenience.h in Headers */,
+				999D3A64237B097C00C5F7A8 /* DeepLinkSubscriptionData.h in Headers */,
 				470016102342579200EBF03D /* MWMTagGroup.h in Headers */,
 				479F7063234FBC5900011E2E /* MWMCarPlayBookmarkObject.h in Headers */,
 				47EEAFF62350CF48005CF316 /* AppInfo.h in Headers */,
@@ -303,9 +382,9 @@
 				4700160F2342579000EBF03D /* MWMTag.h in Headers */,
 				479F705B234FBB1100011E2E /* MWMUTM.h in Headers */,
 				479F704A234F785B00011E2E /* MWMTypes.h in Headers */,
-				991CE2EB2375AF19009EB02A /* PromoAfterBookingCampaignAdapter.h in Headers */,
-				991CE2EF2375AF4E009EB02A /* PromoDiscoveryCampaignAdapter.h in Headers */,
 				47C637D72354AEBE00E12DE0 /* MWMTrafficManager.h in Headers */,
+				993F54F2237C5D1100545511 /* PromoDiscoveryCampaignAdapter.h in Headers */,
+				99447849238559F2004DAEE5 /* DeeplinkParsingResult.h in Headers */,
 				47D609DC234FE625008ECC47 /* MWMBookmarksObserver.h in Headers */,
 				475784C22344B422008291A4 /* Framework.h in Headers */,
 				47C637D22354A6FB00E12DE0 /* MWMEye.h in Headers */,
@@ -381,11 +460,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9957FADC237ACB1100855F48 /* DeepLinkSearchData.mm in Sources */,
 				479F7050234FB60400011E2E /* MWMCatalogObserver.mm in Sources */,
+				9957FACF237AB01400855F48 /* DeepLinkParser.mm in Sources */,
+				99103844237EDFA200893C9F /* DeepLinkData.m in Sources */,
 				47C637D12354A6FB00E12DE0 /* MWMEye.mm in Sources */,
 				47C637DC2354B79B00E12DE0 /* MWMSearchFrameworkHelper.mm in Sources */,
+				993F54F4237C5D1100545511 /* PromoDiscoveryCampaignAdapter.mm in Sources */,
 				479F7062234FBC4700011E2E /* MWMCarPlayBookmarkObject.mm in Sources */,
-				991CE2EA2375AF19009EB02A /* PromoAfterBookingCampaignAdapter.mm in Sources */,
 				479F705E234FBB8C00011E2E /* MWMCategory.m in Sources */,
 				479834EB2342697400724D1E /* MWMTagGroup+Convenience.mm in Sources */,
 				470016082342541100EBF03D /* MWMTagGroup.m in Sources */,
@@ -394,10 +476,12 @@
 				470016072342541100EBF03D /* MWMTag.m in Sources */,
 				479834EA2342697400724D1E /* MWMTag+Convenience.mm in Sources */,
 				47C637D62354AEBE00E12DE0 /* MWMTrafficManager.mm in Sources */,
-				991CE2EE2375AF26009EB02A /* PromoDiscoveryCampaignAdapter.mm in Sources */,
 				475784C32344B422008291A4 /* Framework.cpp in Sources */,
 				4718C4332355FC3C00640DF1 /* MWMNetworkPolicy.mm in Sources */,
+				993F54F3237C5D1100545511 /* PromoAfterBookingCampaignAdapter.mm in Sources */,
 				47EEAFF42350CEDB005CF316 /* AppInfo.mm in Sources */,
+				9957FAE9237AE5B000855F48 /* Logger.mm in Sources */,
+				999D3A65237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

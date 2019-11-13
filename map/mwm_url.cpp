@@ -101,10 +101,15 @@ char const * kId = "id";
 char const * kName = "name";
 }  // namespace catalogue
 
-namespace cataloguePath
+namespace catalogue_path
 {
   char const * kUrl = "url";
-}  // namespace cataloguePath
+}  // namespace catalogue_path
+
+namespace subscription
+{
+  char const * kDeliverable = "deliverable";
+} // namespace subscription
 
 namespace
 {
@@ -116,7 +121,8 @@ enum class ApiURLType
   Search,
   Lead,
   Catalogue,
-  CataloguePath
+  CataloguePath,
+  Subscription
 };
 
 std::array<std::string, 3> const kAvailableSchemes = {{"mapswithme", "mwm", "mapsme"}};
@@ -139,6 +145,8 @@ ApiURLType URLType(Uri const & uri)
     return ApiURLType::Catalogue;
   if (path == "guides_page")
     return ApiURLType::CataloguePath;
+  if (path == "subscription")
+    return ApiURLType::Subscription;
 
   return ApiURLType::Incorrect;
 }
@@ -201,10 +209,8 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
                                               {
                                                 return AddKeyValue(key, value, points);
                                               });
-      if (!result)
-        return ParsingResult::Incorrect;
 
-      if (points.empty())
+      if (!result || points.empty())
         return ParsingResult::Incorrect;
 
       ASSERT(m_bmManager != nullptr, ());
@@ -230,10 +236,7 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
                                                 return RouteKeyValue(key, value, pattern);
                                               });
 
-      if (!result)
-        return ParsingResult::Incorrect;
-
-      if (pattern.size() != 0)
+      if (!result || pattern.size() != 0)
         return ParsingResult::Incorrect;
 
       if (m_routePoints.size() != 2)
@@ -264,10 +267,8 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
                                         {
                                           return LeadKeyValue(key, value, description);
                                         });
-      if (!result)
-        return ParsingResult::Incorrect;
 
-      if (!description.IsValid())
+      if (!result || !description.IsValid())
         return ParsingResult::Incorrect;
 
       description.Write();
@@ -275,38 +276,46 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
     }
     case ApiURLType::Catalogue:
     {
-      CatalogItem item;
+      Catalog item;
       auto const result = uri.ForEachKeyValue([&item, this](string const & key, string const & value)
                                               {
                                                 return CatalogKeyValue(key, value, item);
                                               });
 
-      if (!result)
+      if (!result || item.m_id.empty())
         return ParsingResult::Incorrect;
 
-      if (item.m_id.empty())
-        return ParsingResult::Incorrect;
-
-      m_catalogItem = item;
+      m_catalog = item;
       return ParsingResult::Catalogue;
     }
     case ApiURLType::CataloguePath:
     {
-      CatalogPathItem item;
+      CatalogPath item;
       auto const result = uri.ForEachKeyValue([&item, this](string const & key, string const & value)
                                               {
                                                 return CatalogPathKeyValue(key, value, item);
                                               });
 
-      if (!result)
+      if (!result || item.m_url.empty())
         return ParsingResult::Incorrect;
 
-      if (item.m_url.empty())
-        return ParsingResult::Incorrect;
-
-      m_catalogPathItem = item;
+      m_catalogPath = item;
       return ParsingResult::CataloguePath;
     }
+    case ApiURLType::Subscription:
+    {
+     Subscription item;
+     auto const result = uri.ForEachKeyValue([&item, this](string const & key, string const & value)
+                                            {
+                                              return SubscriptionKeyValue(key, value, item);
+                                            });
+
+     if (!result || item.m_deliverable.empty())
+       return ParsingResult::Incorrect;
+
+     m_subscription = item;
+     return ParsingResult::Subscription;
+   }
   }
   UNREACHABLE();
 }
@@ -484,7 +493,7 @@ bool ParsedMapApi::LeadKeyValue(string const & key, string const & value, lead::
   return true;
 }
 
-bool ParsedMapApi::CatalogKeyValue(string const & key, string const & value, CatalogItem & item) const
+bool ParsedMapApi::CatalogKeyValue(string const & key, string const & value, Catalog & item) const
 {
   using namespace catalogue;
 
@@ -496,12 +505,18 @@ bool ParsedMapApi::CatalogKeyValue(string const & key, string const & value, Cat
   return true;
 }
 
-bool ParsedMapApi::CatalogPathKeyValue(string const & key, string const & value, CatalogPathItem & item) const
+bool ParsedMapApi::CatalogPathKeyValue(string const & key, string const & value, CatalogPath & item) const
 {
-  using namespace cataloguePath;
-
-  if (key == kUrl)
+  if (key == catalogue_path::kUrl)
     item.m_url = value;
+
+  return true;
+}
+
+bool ParsedMapApi::SubscriptionKeyValue(string const & key, string const & value, Subscription & item) const
+{
+  if (key == subscription::kDeliverable)
+    item.m_deliverable = value;
 
   return true;
 }

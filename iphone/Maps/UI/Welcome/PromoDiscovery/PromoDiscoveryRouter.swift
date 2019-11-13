@@ -40,19 +40,14 @@ extension PromoDiscoveryRouter: IPromoDiscoveryRouter {
   }
 
   private func presentPromoDiscoverySubscribe() {
-    let subscribeViewController = AllPassSubscriptionViewController()
-    subscribeViewController.onSubscribe = { [weak self] in
-      self?.rootViewController?.dismiss(animated: true)
-      let successDialog = SubscriptionSuccessViewController(.allPass) { [weak self] in
-        self?.rootViewController?.dismiss(animated: true)
-      }
-      self?.rootViewController?.present(successDialog, animated: true)
+    guard let viewController = viewController else {
+      return;
     }
-    subscribeViewController.onCancel = { [weak self] in
-      self?.rootViewController?.dismiss(animated: true)
-    }
-
-    viewController?.present(subscribeViewController, animated: true)
+    let subscribeViewController = SubscriptionViewBuilder.build(type: .allPass,
+                                                                parentViewController: viewController,
+                                                                source: kStatOnboardingGuidesSubscription,
+                                                                completion: nil)
+    viewController.present(subscribeViewController, animated: true)
   }
 
   private func presentPromoDiscoveryFree() {

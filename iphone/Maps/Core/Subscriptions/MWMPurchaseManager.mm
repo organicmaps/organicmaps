@@ -19,7 +19,7 @@
 
 + (NSString *)bookmarksSubscriptionServerId
 {
-  return @(BOOKMARKS_SUBSCRIPTION_SERVER_ID);
+  return @(BOOKMARKS_SUBSCRIPTION_SIGHTS_SERVER_ID);
 }
 
 + (NSString *)bookmarksSubscriptionVendorId
@@ -29,8 +29,8 @@
 
 + (NSArray *)bookmakrsProductIds
 {
-  return @[@(BOOKMARKS_SUBSCRIPTION_YEARLY_PRODUCT_ID),
-           @(BOOKMARKS_SUBSCRIPTION_MONTHLY_PRODUCT_ID)];
+  return @[@(BOOKMARKS_SUBSCRIPTION_SIGHTS_YEARLY_PRODUCT_ID),
+           @(BOOKMARKS_SUBSCRIPTION_SIGHTS_MONTHLY_PRODUCT_ID)];
 }
 
 + (NSString *)allPassSubscriptionServerId

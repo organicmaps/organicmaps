@@ -114,9 +114,9 @@ class PaidRouteViewController: MWMViewController {
       self?.subscribeButton.setTitle(title, for: .normal)
       self?.subscribeButton.isEnabled = true
       self?.subscription = s
-      Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor : MWMPurchaseManager.bookmarksSubscriptionVendorId(),
+      Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor : self?.subscriptionManager.vendorId ?? "",
                                                            kStatProduct : s.productId,
-                                                           kStatPurchase : MWMPurchaseManager.bookmarksSubscriptionServerId()],
+                                                           kStatPurchase : self?.subscriptionManager.serverId ?? ""],
                           with: .realtime)
     }
 
@@ -214,8 +214,8 @@ class PaidRouteViewController: MWMViewController {
       }
 
       Statistics.logEvent(kStatInappSelect, withParameters: [kStatProduct : subscription.productId,
-                                                             kStatPurchase : MWMPurchaseManager.bookmarksSubscriptionServerId()])
-      Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase : MWMPurchaseManager.bookmarksSubscriptionServerId()],
+                                                             kStatPurchase : self?.subscriptionManager.serverId ?? ""])
+      Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase : self?.subscriptionManager.serverId ?? ""],
                           with: .realtime)
       self?.subscriptionManager.subscribe(to: subscription)
     }
@@ -223,7 +223,7 @@ class PaidRouteViewController: MWMViewController {
 
   @IBAction func onCancel(_ sender: UIButton) {
     statistics.logCancel()
-    Statistics.logEvent(kStatInappCancel, withParameters: [kStatPurchase : MWMPurchaseManager.bookmarksSubscriptionServerId()])
+    Statistics.logEvent(kStatInappCancel, withParameters: [kStatPurchase : subscriptionManager.serverId])
     delegate?.didCancelPurchase(self)
   }
 

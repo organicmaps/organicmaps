@@ -53,11 +53,6 @@ import SafariServices
       .year: annualDiscountLabel])
 
     self.preferredContentSize = CGSize(width: 414, height: contentView.frame.height)
-
-    Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: MWMPurchaseManager.bookmarksSubscriptionVendorId(),
-                                                         kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId(),
-                                                         kStatProduct: BOOKMARKS_SUBSCRIPTION_YEARLY_PRODUCT_ID,
-                                                         kStatFrom: source], with: .realtime)
   }
 
   @IBAction func onAnnualButtonTap(_ sender: UIButton) {

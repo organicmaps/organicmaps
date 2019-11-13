@@ -2260,6 +2260,11 @@ url_scheme::SearchRequest Framework::GetParsedSearchRequest() const
   return m_ParsedMapApi.GetSearchRequest();
 }
 
+url_scheme::Subscription Framework::GetParsedSubscription() const
+{
+  return m_ParsedMapApi.GetSubscription();
+}
+
 FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator,
                                        FeatureMatcher && matcher /* = nullptr */) const
 {

@@ -37,15 +37,20 @@ struct SearchRequest
   bool m_isSearchOnMap = false;
 };
 
-struct CatalogItem
+struct Catalog
 {
   std::string m_id;
   std::string m_name;
 };
 
-struct CatalogPathItem
+struct CatalogPath
 {
   std::string m_url;
+};
+
+struct Subscription
+{
+  std::string m_deliverable;
 };
 
 namespace lead
@@ -67,7 +72,8 @@ public:
     Search,
     Lead,
     Catalogue,
-    CataloguePath
+    CataloguePath,
+    Subscription
   };
 
   ParsedMapApi() = default;
@@ -88,22 +94,25 @@ public:
   std::vector<RoutePoint> const & GetRoutePoints() const { return m_routePoints; }
   std::string const & GetRoutingType() const { return m_routingType; }
   SearchRequest const & GetSearchRequest() const { return m_request; }
-  CatalogItem const & GetCatalogItem() const { return m_catalogItem; }
-  CatalogPathItem const & GetCatalogPathItem() const { return m_catalogPathItem; }
+  Catalog const & GetCatalog() const { return m_catalog; }
+  CatalogPath const & GetCatalogPath() const { return m_catalogPath; }
+  Subscription const & GetSubscription() const { return m_subscription; }
 private:
   ParsingResult Parse(Uri const & uri);
   bool AddKeyValue(std::string const & key, std::string const & value, std::vector<ApiPoint> & points);
   bool RouteKeyValue(std::string const & key, std::string const & value, std::vector<std::string> & pattern);
   bool SearchKeyValue(std::string const & key, std::string const & value, SearchRequest & request) const;
   bool LeadKeyValue(std::string const & key, std::string const & value, lead::CampaignDescription & description) const;
-  bool CatalogKeyValue(std::string const & key, std::string const & value, CatalogItem & item) const;
-  bool CatalogPathKeyValue(std::string const & key, std::string const & value, CatalogPathItem & item) const;
+  bool CatalogKeyValue(std::string const & key, std::string const & value, Catalog & item) const;
+  bool CatalogPathKeyValue(std::string const & key, std::string const & value, CatalogPath & item) const;
+  bool SubscriptionKeyValue(std::string const & key, std::string const & value, Subscription & item) const;
 
   BookmarkManager * m_bmManager = nullptr;
   std::vector<RoutePoint> m_routePoints;
   SearchRequest m_request;
-  CatalogItem m_catalogItem;
-  CatalogPathItem m_catalogPathItem;
+  Catalog m_catalog;
+  CatalogPath m_catalogPath;
+  Subscription m_subscription;
   std::string m_globalBackUrl;
   std::string m_appTitle;
   std::string m_routingType;

@@ -21,3 +21,7 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/MWMUTM.h>
 #import <CoreApi/PromoDiscoveryCampaignAdapter.h>
 #import <CoreApi/PromoAfterBookingCampaignAdapter.h>
+#import <CoreApi/DeepLinkParser.h>
+#import <CoreApi/DeepLinkSearchData.h>
+#import <CoreApi/DeepLinkSubscriptionData.h>
+#import <CoreApi/Logger.h>

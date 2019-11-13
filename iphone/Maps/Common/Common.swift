@@ -26,3 +26,15 @@ func statusBarHeight() -> CGFloat {
   let statusBarSize = UIApplication.shared.statusBarFrame.size
   return min(statusBarSize.height, statusBarSize.width)
 }
+
+func LOG(_ level: LogLevel,
+         _ message: @autoclosure () -> Any,
+         functionName: StaticString = #function,
+         fileName: StaticString = #file,
+         lineNumber: UInt = #line) {
+  if (Logger.canLog(level)) {
+    let shorFileName = URL(string: "\(fileName)")?.lastPathComponent ?? ""
+    let formattedMessage = "\(shorFileName):\(lineNumber) \(functionName): \(message())"
+    Logger.log(level, message: formattedMessage)
+  }
+}

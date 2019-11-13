@@ -390,8 +390,6 @@
 		4788738F20EE30B300F6826B /* LayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788738D20EE30B300F6826B /* LayersViewController.swift */; };
 		4788739020EE30B300F6826B /* LayersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4788738E20EE30B300F6826B /* LayersViewController.xib */; };
 		4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788739120EE326400F6826B /* VerticallyAlignedButton.swift */; };
-		4797A4DC226F4B2900D3A984 /* DeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4797A4DB226F4B2900D3A984 /* DeepLinkHandler.swift */; };
-		4797A4E22270997E00D3A984 /* DeepLinkHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4797A4E12270997E00D3A984 /* DeepLinkHelper.mm */; };
 		479D305722C627CB00D18278 /* MWMMegafonBannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 479D305522C627CB00D18278 /* MWMMegafonBannerViewController.xib */; };
 		479D305B22C62F4000D18278 /* MWMBookmarksBannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 479D305922C62F4000D18278 /* MWMBookmarksBannerViewController.xib */; };
 		479D306122C6634900D18278 /* MWMMegafonBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 479D305F22C6634900D18278 /* MWMMegafonBannerViewController.m */; };
@@ -554,6 +552,20 @@
 		991CE2C02371D349009EB02A /* PromoCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2BB2371D349009EB02A /* PromoCampaign.swift */; };
 		991CE2C22371D349009EB02A /* PromoDiscoveryCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2BE2371D349009EB02A /* PromoDiscoveryCampaign.swift */; };
 		991CE2DD2373145C009EB02A /* PromoAfterBookingCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2DC2373145C009EB02A /* PromoAfterBookingCampaign.swift */; };
+		993F5507237C622700545511 /* DeepLinkSearchStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54F8237C622700545511 /* DeepLinkSearchStrategy.swift */; };
+		993F5508237C622700545511 /* DeepLinkRouteStrategyAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 993F54F9237C622700545511 /* DeepLinkRouteStrategyAdapter.mm */; };
+		993F5509237C622700545511 /* DeepLinkHandlerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54FA237C622700545511 /* DeepLinkHandlerStrategy.swift */; };
+		993F550A237C622700545511 /* DeepLinkGeoStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54FB237C622700545511 /* DeepLinkGeoStrategy.swift */; };
+		993F550B237C622700545511 /* DeepLinkIncorrectStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54FC237C622700545511 /* DeepLinkIncorrectStrategy.swift */; };
+		993F550C237C622700545511 /* DeepLinkSubscriptionStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54FD237C622700545511 /* DeepLinkSubscriptionStrategy.swift */; };
+		993F550D237C622700545511 /* DeepLinkLeadStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54FE237C622700545511 /* DeepLinkLeadStrategy.swift */; };
+		993F550E237C622700545511 /* DeepLinkCataloguePathStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54FF237C622700545511 /* DeepLinkCataloguePathStrategy.swift */; };
+		993F550F237C622700545511 /* DeepLinkMapStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F5500237C622700545511 /* DeepLinkMapStrategy.swift */; };
+		993F5510237C622700545511 /* DeepLinkRouteStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F5501237C622700545511 /* DeepLinkRouteStrategy.swift */; };
+		993F5511237C622700545511 /* DeepLinkCatalogueStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F5502237C622700545511 /* DeepLinkCatalogueStrategy.swift */; };
+		993F5512237C622700545511 /* DeepLinkFileStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F5504237C622700545511 /* DeepLinkFileStrategy.swift */; };
+		993F5513237C622700545511 /* DeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F5505237C622700545511 /* DeepLinkHandler.swift */; };
+		993F5514237C622700545511 /* DeepLinkStrategyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F5506237C622700545511 /* DeepLinkStrategyFactory.swift */; };
 		99425AF4236855BB00D005C0 /* PromoDiscoveryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99425AF3236855BB00D005C0 /* PromoDiscoveryRouter.swift */; };
 		99425AFC23685F1E00D005C0 /* PromoDiscoveryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99425AFB23685F1E00D005C0 /* PromoDiscoveryPresenter.swift */; };
 		99536111235DABB1008B218F /* BaseSubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99536110235DABB1008B218F /* BaseSubscriptionViewController.swift */; };
@@ -563,6 +575,7 @@
 		995739062355CAC40019AEE7 /* ImageViewCrossDisolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995739052355CAC40019AEE7 /* ImageViewCrossDisolve.swift */; };
 		995739082355CB660019AEE7 /* AllPassSubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995739072355CB660019AEE7 /* AllPassSubscriptionViewController.swift */; };
 		9975225A236B187400ADF673 /* FirstLaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99752259236B187400ADF673 /* FirstLaunchController.swift */; };
+		999D3A67237BFA4600C5F7A8 /* SubscriptionViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999D3A66237BFA4600C5F7A8 /* SubscriptionViewBuilder.swift */; };
 		99B6A74C2362F5AA002C94CB /* PromoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B6A74B2362F5AA002C94CB /* PromoButton.swift */; };
 		99B6A74E2362F5CD002C94CB /* PromoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B6A74D2362F5CD002C94CB /* PromoCoordinator.swift */; };
 		99B6A77F23684573002C94CB /* PromoDiscoveryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B6A77E23684573002C94CB /* PromoDiscoveryBuilder.swift */; };
@@ -1474,8 +1487,6 @@
 		4788738E20EE30B300F6826B /* LayersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayersViewController.xib; sourceTree = "<group>"; };
 		4788739120EE326400F6826B /* VerticallyAlignedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticallyAlignedButton.swift; sourceTree = "<group>"; };
 		4797A4DB226F4B2900D3A984 /* DeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandler.swift; sourceTree = "<group>"; };
-		4797A4E02270997E00D3A984 /* DeepLinkHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkHelper.h; sourceTree = "<group>"; };
-		4797A4E12270997E00D3A984 /* DeepLinkHelper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkHelper.mm; sourceTree = "<group>"; };
 		479D305522C627CB00D18278 /* MWMMegafonBannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMMegafonBannerViewController.xib; sourceTree = "<group>"; };
 		479D305922C62F4000D18278 /* MWMBookmarksBannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMBookmarksBannerViewController.xib; sourceTree = "<group>"; };
 		479D305E22C6634900D18278 /* MWMMegafonBannerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMegafonBannerViewController.h; sourceTree = "<group>"; };
@@ -1602,6 +1613,24 @@
 		991CE2BB2371D349009EB02A /* PromoCampaign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoCampaign.swift; sourceTree = "<group>"; };
 		991CE2BE2371D349009EB02A /* PromoDiscoveryCampaign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoDiscoveryCampaign.swift; sourceTree = "<group>"; };
 		991CE2DC2373145C009EB02A /* PromoAfterBookingCampaign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoAfterBookingCampaign.swift; sourceTree = "<group>"; };
+		991CE2F92379B86B009EB02A /* DeepLinkHandlerStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandlerStrategy.swift; sourceTree = "<group>"; };
+		991CE2FB2379B8E5009EB02A /* DeepLinkGeoStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkGeoStrategy.swift; sourceTree = "<group>"; };
+		991CE300237AA8C2009EB02A /* DeepLinkStrategyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkStrategyFactory.swift; sourceTree = "<group>"; };
+		993F54F8237C622700545511 /* DeepLinkSearchStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkSearchStrategy.swift; sourceTree = "<group>"; };
+		993F54F9237C622700545511 /* DeepLinkRouteStrategyAdapter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkRouteStrategyAdapter.mm; sourceTree = "<group>"; };
+		993F54FA237C622700545511 /* DeepLinkHandlerStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkHandlerStrategy.swift; sourceTree = "<group>"; };
+		993F54FB237C622700545511 /* DeepLinkGeoStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkGeoStrategy.swift; sourceTree = "<group>"; };
+		993F54FC237C622700545511 /* DeepLinkIncorrectStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkIncorrectStrategy.swift; sourceTree = "<group>"; };
+		993F54FD237C622700545511 /* DeepLinkSubscriptionStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkSubscriptionStrategy.swift; sourceTree = "<group>"; };
+		993F54FE237C622700545511 /* DeepLinkLeadStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkLeadStrategy.swift; sourceTree = "<group>"; };
+		993F54FF237C622700545511 /* DeepLinkCataloguePathStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkCataloguePathStrategy.swift; sourceTree = "<group>"; };
+		993F5500237C622700545511 /* DeepLinkMapStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkMapStrategy.swift; sourceTree = "<group>"; };
+		993F5501237C622700545511 /* DeepLinkRouteStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkRouteStrategy.swift; sourceTree = "<group>"; };
+		993F5502237C622700545511 /* DeepLinkCatalogueStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkCatalogueStrategy.swift; sourceTree = "<group>"; };
+		993F5503237C622700545511 /* DeepLinkRouteStrategyAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeepLinkRouteStrategyAdapter.h; sourceTree = "<group>"; };
+		993F5504237C622700545511 /* DeepLinkFileStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkFileStrategy.swift; sourceTree = "<group>"; };
+		993F5505237C622700545511 /* DeepLinkHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkHandler.swift; sourceTree = "<group>"; };
+		993F5506237C622700545511 /* DeepLinkStrategyFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkStrategyFactory.swift; sourceTree = "<group>"; };
 		99425AF3236855BB00D005C0 /* PromoDiscoveryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoDiscoveryRouter.swift; sourceTree = "<group>"; };
 		99425AFB23685F1E00D005C0 /* PromoDiscoveryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoDiscoveryPresenter.swift; sourceTree = "<group>"; };
 		99536110235DABB1008B218F /* BaseSubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSubscriptionViewController.swift; sourceTree = "<group>"; };
@@ -1610,7 +1639,19 @@
 		995739032355CAA30019AEE7 /* PageIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIndicator.swift; sourceTree = "<group>"; };
 		995739052355CAC40019AEE7 /* ImageViewCrossDisolve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCrossDisolve.swift; sourceTree = "<group>"; };
 		995739072355CB660019AEE7 /* AllPassSubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPassSubscriptionViewController.swift; sourceTree = "<group>"; };
+		9957FAC6237AADAD00855F48 /* DeepLinkFileStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkFileStrategy.swift; sourceTree = "<group>"; };
+		9957FAD0237AB57400855F48 /* DeepLinkRouteStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkRouteStrategy.swift; sourceTree = "<group>"; };
+		9957FAD3237ABDFE00855F48 /* DeepLinkRouteStrategyAdapter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkRouteStrategyAdapter.mm; sourceTree = "<group>"; };
+		9957FAD7237AC9A400855F48 /* DeepLinkSearchStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkSearchStrategy.swift; sourceTree = "<group>"; };
+		9957FAE0237AE04900855F48 /* MWMMapViewControlsManager+AddPlace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMMapViewControlsManager+AddPlace.h"; sourceTree = "<group>"; };
+		9957FAE3237AE3CF00855F48 /* DeepLinkCatalogueStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkCatalogueStrategy.swift; sourceTree = "<group>"; };
+		9957FAEA237AF22800855F48 /* DeepLinkIncorrectStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkIncorrectStrategy.swift; sourceTree = "<group>"; };
 		99752259236B187400ADF673 /* FirstLaunchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchController.swift; sourceTree = "<group>"; };
+		999D3A60237B088C00C5F7A8 /* DeepLinkSubscriptionStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkSubscriptionStrategy.swift; sourceTree = "<group>"; };
+		999D3A66237BFA4600C5F7A8 /* SubscriptionViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionViewBuilder.swift; sourceTree = "<group>"; };
+		999D3A68237C0ADD00C5F7A8 /* DeepLinkMapStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkMapStrategy.swift; sourceTree = "<group>"; };
+		999D3A6A237C132B00C5F7A8 /* DeepLinkCataloguePathStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkCataloguePathStrategy.swift; sourceTree = "<group>"; };
+		999D3A6C237C1C0700C5F7A8 /* DeepLinkLeadStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkLeadStrategy.swift; sourceTree = "<group>"; };
 		99B6A74B2362F5AA002C94CB /* PromoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoButton.swift; sourceTree = "<group>"; };
 		99B6A74D2362F5CD002C94CB /* PromoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCoordinator.swift; sourceTree = "<group>"; };
 		99B6A77E23684573002C94CB /* PromoDiscoveryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoDiscoveryBuilder.swift; sourceTree = "<group>"; };
@@ -2222,9 +2263,6 @@
 				340837101B7243B500B5C185 /* Share */,
 				F6588E291B15C25C00EE1E58 /* TextView */,
 				34FE4C421BCC013500066718 /* Widgets */,
-				4797A4DB226F4B2900D3A984 /* DeepLinkHandler.swift */,
-				4797A4E02270997E00D3A984 /* DeepLinkHelper.h */,
-				4797A4E12270997E00D3A984 /* DeepLinkHelper.mm */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -2259,6 +2297,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				F6E2FBFB1E097B9F0083EBEC /* UI */,
 				044715AD432F538B6F731670 /* Pods */,
+				993F54EB237C5CD800545511 /* Recovered References */,
 			);
 			indentWidth = 2;
 			name = Maps;
@@ -2494,6 +2533,7 @@
 		340475281E081A4600C92850 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				993F54F6237C622700545511 /* DeepLink */,
 				991CE2B92371D349009EB02A /* PromoCampaign */,
 				CDCA27822245090900167D87 /* EventListening */,
 				47B9064821C7FA100079C85E /* WebImage */,
@@ -2796,6 +2836,7 @@
 				47699A0621F08E37009E6585 /* NSDate+TimeDistance.h */,
 				47699A0721F08E37009E6585 /* NSDate+TimeDistance.m */,
 				99E2B0112368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift */,
+				9957FAE0237AE04900855F48 /* MWMMapViewControlsManager+AddPlace.h */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -3646,6 +3687,57 @@
 			path = PromoAfterBookingCampaign;
 			sourceTree = "<group>";
 		};
+		993F54EB237C5CD800545511 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				9957FAD3237ABDFE00855F48 /* DeepLinkRouteStrategyAdapter.mm */,
+				991CE2F92379B86B009EB02A /* DeepLinkHandlerStrategy.swift */,
+				9957FAC6237AADAD00855F48 /* DeepLinkFileStrategy.swift */,
+				4797A4DB226F4B2900D3A984 /* DeepLinkHandler.swift */,
+				9957FAEA237AF22800855F48 /* DeepLinkIncorrectStrategy.swift */,
+				991CE300237AA8C2009EB02A /* DeepLinkStrategyFactory.swift */,
+				999D3A68237C0ADD00C5F7A8 /* DeepLinkMapStrategy.swift */,
+				9957FAD7237AC9A400855F48 /* DeepLinkSearchStrategy.swift */,
+				999D3A6A237C132B00C5F7A8 /* DeepLinkCataloguePathStrategy.swift */,
+				991CE2FB2379B8E5009EB02A /* DeepLinkGeoStrategy.swift */,
+				999D3A6C237C1C0700C5F7A8 /* DeepLinkLeadStrategy.swift */,
+				9957FAD0237AB57400855F48 /* DeepLinkRouteStrategy.swift */,
+				999D3A60237B088C00C5F7A8 /* DeepLinkSubscriptionStrategy.swift */,
+				9957FAE3237AE3CF00855F48 /* DeepLinkCatalogueStrategy.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		993F54F6237C622700545511 /* DeepLink */ = {
+			isa = PBXGroup;
+			children = (
+				993F54F7237C622700545511 /* Strategies */,
+				993F5505237C622700545511 /* DeepLinkHandler.swift */,
+				993F5506237C622700545511 /* DeepLinkStrategyFactory.swift */,
+			);
+			path = DeepLink;
+			sourceTree = "<group>";
+		};
+		993F54F7237C622700545511 /* Strategies */ = {
+			isa = PBXGroup;
+			children = (
+				993F54F8237C622700545511 /* DeepLinkSearchStrategy.swift */,
+				993F54F9237C622700545511 /* DeepLinkRouteStrategyAdapter.mm */,
+				993F5503237C622700545511 /* DeepLinkRouteStrategyAdapter.h */,
+				993F54FA237C622700545511 /* DeepLinkHandlerStrategy.swift */,
+				993F54FB237C622700545511 /* DeepLinkGeoStrategy.swift */,
+				993F54FC237C622700545511 /* DeepLinkIncorrectStrategy.swift */,
+				993F54FD237C622700545511 /* DeepLinkSubscriptionStrategy.swift */,
+				993F54FE237C622700545511 /* DeepLinkLeadStrategy.swift */,
+				993F54FF237C622700545511 /* DeepLinkCataloguePathStrategy.swift */,
+				993F5500237C622700545511 /* DeepLinkMapStrategy.swift */,
+				993F5501237C622700545511 /* DeepLinkRouteStrategy.swift */,
+				993F5502237C622700545511 /* DeepLinkCatalogueStrategy.swift */,
+				993F5504237C622700545511 /* DeepLinkFileStrategy.swift */,
+			);
+			path = Strategies;
+			sourceTree = "<group>";
+		};
 		995738D9235481FE0019AEE7 /* Subscription */ = {
 			isa = PBXGroup;
 			children = (
@@ -3656,6 +3748,7 @@
 				995738DA235484410019AEE7 /* AllPassSubscriptionViewController.xib */,
 				995739072355CB660019AEE7 /* AllPassSubscriptionViewController.swift */,
 				99536110235DABB1008B218F /* BaseSubscriptionViewController.swift */,
+				999D3A66237BFA4600C5F7A8 /* SubscriptionViewBuilder.swift */,
 			);
 			path = Subscription;
 			sourceTree = "<group>";
@@ -5339,6 +5432,7 @@
 				3404F48B202894EA0090E401 /* BMCViewController.swift in Sources */,
 				349D1ABC1E2D05EF004A2006 /* SearchBar.swift in Sources */,
 				F6E2FD7A1E097BA00083EBEC /* MWMMapDownloaderDefaultDataSource.mm in Sources */,
+				993F5511237C622700545511 /* DeepLinkCatalogueStrategy.swift in Sources */,
 				34E50DF81F6FCC96008EED49 /* UGCReviewCell.swift in Sources */,
 				F6E2FF3F1E097BA00083EBEC /* MWMSearchTableViewController.mm in Sources */,
 				F6E2FDE01E097BA00083EBEC /* MWMEditorViewController.mm in Sources */,
@@ -5354,6 +5448,7 @@
 				F6E2FE4C1E097BA00083EBEC /* MWMPlacePageManager.mm in Sources */,
 				3404757E1E081B3300C92850 /* iosOGLContext.mm in Sources */,
 				34763F071F3092E700F4D2D3 /* String+Format.swift in Sources */,
+				993F5513237C622700545511 /* DeepLinkHandler.swift in Sources */,
 				346DB83A1E5C4F6700E3123E /* GalleryItemModel.swift in Sources */,
 				F6E2FD5C1E097BA00083EBEC /* MWMMapDownloaderCellHeader.m in Sources */,
 				CDCA278E2248F34C00167D87 /* MWMRoutingManager.mm in Sources */,
@@ -5382,6 +5477,7 @@
 				34ABA62D1C2D57D500FE1BEC /* MWMInputPasswordValidator.m in Sources */,
 				BBED27022292F6C000788143 /* BookmarksSection.mm in Sources */,
 				F6E2FDA11E097BA00083EBEC /* MWMEditorAdditionalNamesTableViewController.mm in Sources */,
+				999D3A67237BFA4600C5F7A8 /* SubscriptionViewBuilder.swift in Sources */,
 				4767CDA620AB1F6200BD8166 /* LeftAlignedIconButton.swift in Sources */,
 				3454D7D41E07F045004AF2AD /* UIImageView+Coloring.m in Sources */,
 				3463BA671DE81DB90082417F /* MWMTrafficButtonViewController.mm in Sources */,
@@ -5509,6 +5605,7 @@
 				34F407321E9E1AFF00E57AC0 /* BannerType.swift in Sources */,
 				F63AF5131EA6250F00A1DB98 /* FilterCollectionHolderCell.swift in Sources */,
 				34AB663E1FC5AA330078E451 /* RouteManagerTransitioning.swift in Sources */,
+				993F550B237C622700545511 /* DeepLinkIncorrectStrategy.swift in Sources */,
 				34BBD65C1F826FD30070CA50 /* AuthorizationiPhonePresentationController.swift in Sources */,
 				56C74C391C74A3BC00B71B9F /* MWMInputEmailValidator.m in Sources */,
 				6741A9F51BF340DE002C974C /* BookmarksVC.mm in Sources */,
@@ -5518,8 +5615,8 @@
 				99CB34C5236B00FD001D28AD /* WelcomeStorage.swift in Sources */,
 				CDB92CF1229EB8A800EC757C /* MWMDiscoverySearchViewModel.m in Sources */,
 				34AB662F1FC5AA330078E451 /* RouteManageriPhonePresentationController.swift in Sources */,
+				993F5508237C622700545511 /* DeepLinkRouteStrategyAdapter.mm in Sources */,
 				BB87BF8D22FAF435008A8A72 /* InfoSection.mm in Sources */,
-				4797A4DC226F4B2900D3A984 /* DeepLinkHandler.swift in Sources */,
 				34AB66201FC5AA330078E451 /* RouteStartButton.swift in Sources */,
 				34F4072C1E9E1AFF00E57AC0 /* Banner.swift in Sources */,
 				F660DEE51EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift in Sources */,
@@ -5565,6 +5662,7 @@
 				340416581E7C0D4100E2B6D6 /* PhotosOverlayView.swift in Sources */,
 				F6E2FE821E097BA00083EBEC /* MWMPlacePageOpeningHoursDayView.m in Sources */,
 				340FDC092031C39E00F140AD /* BMCPermissionsPendingCell.swift in Sources */,
+				993F550C237C622700545511 /* DeepLinkSubscriptionStrategy.swift in Sources */,
 				F6E2FD6B1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.mm in Sources */,
 				CDCA27842245090900167D87 /* ListenerContainer.swift in Sources */,
 				47E3C7252111E41B008B3B27 /* DimmedModalPresentationController.swift in Sources */,
@@ -5580,6 +5678,7 @@
 				6741AA031BF340DE002C974C /* MWMActivityViewController.mm in Sources */,
 				F6E2FE9D1E097BA00083EBEC /* MWMiPhonePlacePageLayoutImpl.mm in Sources */,
 				CDCA27382237F1BD00167D87 /* BookmarkInfo.swift in Sources */,
+				993F5509237C622700545511 /* DeepLinkHandlerStrategy.swift in Sources */,
 				34AB668C1FC5AA330078E451 /* NavigationStreetNameView.swift in Sources */,
 				3454D7C81E07F045004AF2AD /* UIButton+RuntimeAttributes.m in Sources */,
 				337F98A621D37B7400C8AC27 /* SearchTabViewController.swift in Sources */,
@@ -5602,6 +5701,7 @@
 				3454D7BC1E07F045004AF2AD /* CLLocation+Mercator.mm in Sources */,
 				47E3C7272111E5A8008B3B27 /* AlertPresentationController.swift in Sources */,
 				F6E2FF4E1E097BA00083EBEC /* MWMAboutController.m in Sources */,
+				993F5512237C622700545511 /* DeepLinkFileStrategy.swift in Sources */,
 				47B06DF921B95F5E0094CCAD /* IGeoTracker.swift in Sources */,
 				CDCA27812243F59800167D87 /* CarPlayRouter.swift in Sources */,
 				34F407381E9E1AFF00E57AC0 /* FacebookBanner.swift in Sources */,
@@ -5651,6 +5751,7 @@
 				34943BBB1E2626B200B14F84 /* WelcomePageController.swift in Sources */,
 				34D3AFE21E376F7E004100F9 /* UITableView+Updates.swift in Sources */,
 				3404164C1E7BF42E00E2B6D6 /* UIView+Coordinates.swift in Sources */,
+				993F5510237C622700545511 /* DeepLinkRouteStrategy.swift in Sources */,
 				349D1ADB1E2E325C004A2006 /* MWMBottomMenuView.m in Sources */,
 				344BEAF61F66BDC30045DC45 /* RatingSummaryViewSettings.swift in Sources */,
 				F6E2FD921E097BA00083EBEC /* MWMBookmarkColorViewController.mm in Sources */,
@@ -5659,9 +5760,11 @@
 				347752881F725002000D46A3 /* UGCAddReviewRatingCell.swift in Sources */,
 				47E3C7332111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift in Sources */,
 				99E2B01E23698B0800FFABC5 /* WelcomeProtocols.swift in Sources */,
+				993F550F237C622700545511 /* DeepLinkMapStrategy.swift in Sources */,
 				34AB661A1FC5AA330078E451 /* MWMTaxiCollectionLayout.m in Sources */,
 				345C2F8A1F86361B009DB8B4 /* MWMUGCViewModel.mm in Sources */,
 				33F8BA4E2199AB9500ECA8EE /* TagsDataSource.swift in Sources */,
+				993F5507237C622700545511 /* DeepLinkSearchStrategy.swift in Sources */,
 				47F67D1521CAB21B0069754E /* MWMImageCoder.m in Sources */,
 				34AB66861FC5AA330078E451 /* MWMNavigationInfoView.mm in Sources */,
 				34C9BD051C6DB693000DC38D /* MWMViewController.m in Sources */,
@@ -5680,6 +5783,7 @@
 				340475711E081A4600C92850 /* MWMSettings.mm in Sources */,
 				33046832219C57180041F3A8 /* CategorySettingsViewController.swift in Sources */,
 				3404165C1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
+				993F550E237C622700545511 /* DeepLinkCataloguePathStrategy.swift in Sources */,
 				34E50DE01F6FCBA1008EED49 /* UGCAddReviewCell.swift in Sources */,
 				3404756E1E081A4600C92850 /* MWMSearch.mm in Sources */,
 				6741AA191BF340DE002C974C /* MWMDownloaderDialogCell.m in Sources */,
@@ -5718,6 +5822,7 @@
 				F69CE8D61E5C49B4002B5881 /* PPHotelCarouselCell.swift in Sources */,
 				47B9065321C7FA400079C85E /* MWMImageCache.m in Sources */,
 				472C40E8232BA810009AA777 /* CatalogPromoItem.m in Sources */,
+				993F550A237C622700545511 /* DeepLinkGeoStrategy.swift in Sources */,
 				F6FEA82E1C58F108007223CC /* MWMButton.m in Sources */,
 				3445324E1F714FD70059FBCC /* UGCAddReviewController.swift in Sources */,
 				34B924431DC8A29C0008D971 /* MWMMailViewController.m in Sources */,
@@ -5737,11 +5842,11 @@
 				34E50DD81F6FCAB1008EED49 /* UGCSummaryRatingCell.swift in Sources */,
 				6741AA281BF340DE002C974C /* MWMAlert.mm in Sources */,
 				F6E2FF571E097BA00083EBEC /* MWMMobileInternetViewController.m in Sources */,
-				4797A4E22270997E00D3A984 /* DeepLinkHelper.mm in Sources */,
 				47B06E0021BAAC270094CCAD /* GeoZoneTracker.swift in Sources */,
 				3404F4952028A1B80090E401 /* BMCPermissionsCell.swift in Sources */,
 				340416441E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift in Sources */,
 				34AB66261FC5AA330078E451 /* RouteManagerDimView.swift in Sources */,
+				993F5514237C622700545511 /* DeepLinkStrategyFactory.swift in Sources */,
 				6741AA291BF340DE002C974C /* ColorPickerView.mm in Sources */,
 				6741AA2B1BF340DE002C974C /* CircleView.m in Sources */,
 				F6E2FEEB1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
@@ -5753,6 +5858,7 @@
 				3451F4EE1F026DAF00A981F2 /* PlacePageTaxiCell.swift in Sources */,
 				3467CEB6202C6FA900D3C670 /* BMCNotificationsCell.swift in Sources */,
 				34B846A32029DFEB0081ECCD /* BMCPermissionsHeader.swift in Sources */,
+				993F550D237C622700545511 /* DeepLinkLeadStrategy.swift in Sources */,
 				F6E2FD9E1E097BA00083EBEC /* MWMEditBookmarkController.mm in Sources */,
 				337F98B221D3BAE600C8AC27 /* SearchCategoriesViewController.swift in Sources */,
 				47B06DED21B696C20094CCAD /* GeoTracker.swift in Sources */,

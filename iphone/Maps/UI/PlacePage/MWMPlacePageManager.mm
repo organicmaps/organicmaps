@@ -10,6 +10,7 @@
 #import "MWMSearchManager+Filter.h"
 #import "MWMStorage.h"
 #import "SwiftBridge.h"
+#import "MWMMapViewControlsManager+AddPlace.h"
 
 #import <CoreApi/CoreApi.h>
 

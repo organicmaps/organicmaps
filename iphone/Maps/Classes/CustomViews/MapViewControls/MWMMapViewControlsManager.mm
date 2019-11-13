@@ -1,4 +1,5 @@
 #import "MWMMapViewControlsManager.h"
+#import "MWMMapViewControlsManager+AddPlace.h"
 #import "MWMAddPlaceNavigationBar.h"
 #import "MWMBottomMenuControllerProtocol.h"
 #import "MWMMapDownloadDialog.h"

@@ -8,7 +8,7 @@
 #import "MWMMapViewControlsManager.h"
 #import "MapViewController.h"
 #import "SwiftBridge.h"
-
+#import "base/assert.hpp"
 namespace
 {
 CGFloat const kTopOffset = 6;

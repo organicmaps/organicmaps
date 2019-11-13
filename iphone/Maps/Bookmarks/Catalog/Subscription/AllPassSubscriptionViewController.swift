@@ -79,7 +79,7 @@ class AllPassSubscriptionViewController: BaseSubscriptionViewController {
 
     Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: MWMPurchaseManager.allPassProductIds,
                                                          kStatPurchase: MWMPurchaseManager.allPassSubscriptionServerId(),
-                                                         kStatProduct: BOOKMARKS_SUBSCRIPTION_YEARLY_PRODUCT_ID, //FIXME
+                                                         kStatProduct: MWMPurchaseManager.allPassProductIds()[0],
                                                          kStatFrom: source], with: .realtime)
   }
 

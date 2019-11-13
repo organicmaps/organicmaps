@@ -1,7 +1,11 @@
 @objc protocol ISubscriptionManager: class{
   typealias SuscriptionsCompletion = ([ISubscription]?, Error?) -> Void
   typealias ValidationCompletion = (MWMValidationResult) -> Void
-  
+
+  var productIds: [String] { get }
+  var serverId: String { get }
+  var vendorId: String { get }
+
   @objc static func canMakePayments() -> Bool
   @objc func getAvailableSubscriptions(_ completion: @escaping SuscriptionsCompletion)
   @objc func subscribe(to subscription: ISubscription)
@@ -28,22 +32,18 @@ class SubscriptionManager: NSObject, ISubscriptionManager {
   private var listeners = NSHashTable<SubscriptionManagerListener>.weakObjects()
   private var restorationCallback: ValidationCompletion?
 
-  private var productIds: [String] = []
-  private var serverId: String = ""
-  private var vendorId: String = ""
+  let productIds: [String]
+  let serverId: String
+  let vendorId: String
   private var purchaseManager: MWMPurchaseManager?
 
-  convenience init(productIds: [String], serverId: String, vendorId: String) {
-    self.init()
+  init(productIds: [String], serverId: String, vendorId: String) {
     self.productIds = productIds
     self.serverId = serverId
     self.vendorId = vendorId
-    self.purchaseManager = MWMPurchaseManager(vendorId: vendorId)
-  }
-
-  override private init() {
     super.init()
     paymentQueue.add(self)
+    self.purchaseManager = MWMPurchaseManager(vendorId: vendorId)
   }
 
   deinit {

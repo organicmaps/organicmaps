@@ -58,7 +58,7 @@ public:
     return m_m->GetUserMarkIds(type).size();
   }
 
-  CatalogItem const & GetCatalogItem() const { return m_api.GetCatalogItem(); }
+  Catalog const & GetCatalogItem() const { return m_api.GetCatalogItem(); }
   vector<RoutePoint> GetRoutePoints() const { return m_api.GetRoutePoints(); }
   url_scheme::SearchRequest const & GetSearchRequest() const { return m_api.GetSearchRequest(); }
   string const & GetGlobalBackUrl() const { return m_api.GetGlobalBackUrl(); }

@@ -3,20 +3,13 @@
 #import "MWMNavigationDashboardManager.h"
 #import "MWMSearchManager.h"
 
-#include "geometry/point2d.hpp"
-
 @class MapViewController;
 @protocol MWMFeatureHolder;
 @protocol MWMBookingInfoHolder;
 
-namespace place_page
-{
-class Info;
-}  // namespace place_page
-
 @interface MWMMapViewControlsManager : NSObject
 
-+ (MWMMapViewControlsManager *)manager;
++ (MWMMapViewControlsManager *)manager NS_SWIFT_NAME(manager());
 
 @property(nonatomic) BOOL hidden;
 @property(nonatomic) BOOL zoomHidden;
@@ -46,7 +39,6 @@ class Info;
 - (void)showPlacePage;
 - (void)updatePlacePage;
 - (void)showPlacePageReview;
-- (void)addPlace:(BOOL)isBusiness hasPoint:(BOOL)hasPoint point:(m2::PointD const &)point;
 
 #pragma mark - MWMNavigationDashboardManager
 

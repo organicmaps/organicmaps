@@ -678,6 +678,7 @@ public:
 
   ParsedRoutingData GetParsedRoutingData() const;
   url_scheme::SearchRequest GetParsedSearchRequest() const;
+  url_scheme::Subscription GetParsedSubscription() const;
 
   using FeatureMatcher = std::function<bool(FeatureType & ft)>;
 

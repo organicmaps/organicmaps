@@ -1,5 +1,6 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMPlacePageButtonsProtocol.h"
+#include "geometry/point2d.hpp"
 
 @class MWMViewController;
 

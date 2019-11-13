@@ -205,25 +205,13 @@ final class CatalogWebViewController: WebViewController {
   }
 
   private func showSubscribe(type: SubscriptionGroupType) {
-    let subscribeViewController: BaseSubscriptionViewController
-    switch type {
-    case .allPass:
-      subscribeViewController = AllPassSubscriptionViewController()
-    case .sightseeing:
-      subscribeViewController = BookmarksSubscriptionViewController()
+    let subscribeViewController = SubscriptionViewBuilder.build(type: type,
+                                                                parentViewController: self,
+                                                                source: kStatWebView) { [weak self] (success) in
+                                                                  if (success) {
+                                                                    self?.webView.reloadFromOrigin()
+                                                                  }
     }
-    subscribeViewController.onSubscribe = { [weak self] in
-      self?.webView.reloadFromOrigin()
-      self?.dismiss(animated: true)
-      let successDialog = SubscriptionSuccessViewController(type) { [weak self] in
-        self?.dismiss(animated: true)
-      }
-      self?.present(successDialog, animated: true)
-    }
-    subscribeViewController.onCancel = { [weak self] in
-      self?.dismiss(animated: true)
-    }
-
     present(subscribeViewController, animated: true)
   }
 

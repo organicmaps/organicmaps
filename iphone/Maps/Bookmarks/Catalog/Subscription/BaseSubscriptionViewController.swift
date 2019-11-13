@@ -66,6 +66,11 @@ class BaseSubscriptionViewController: MWMViewController {
         }
       }
     }
+
+    Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: subscriptionManager?.vendorId ?? "",
+                                                         kStatPurchase: subscriptionManager?.serverId ?? "",
+                                                         kStatProduct: subscriptionManager?.productIds[0] ?? "",
+                                                         kStatFrom: source], with: .realtime)
   }
 
   func purchase(sender: UIButton, period: SubscriptionPeriod) {
@@ -87,12 +92,12 @@ class BaseSubscriptionViewController: MWMViewController {
         self?.subscriptionManager?.subscribe(to: subscription)
       }
     }
-    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId()],
+    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: subscriptionManager?.serverId ?? ""],
                         with: .realtime)
   }
 
   @IBAction func onRestore(_ sender: UIButton) {
-    Statistics.logEvent(kStatInappRestore, withParameters: [kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId()])
+    Statistics.logEvent(kStatInappRestore, withParameters: [kStatPurchase: subscriptionManager?.serverId ?? ""])
     signup(anchor: sender) { [weak self] (success) in
       guard success else { return }
       self?.loadingView.isHidden = false
@@ -114,7 +119,7 @@ class BaseSubscriptionViewController: MWMViewController {
 
   @IBAction func onClose(_ sender: UIButton) {
     onCancel?()
-    Statistics.logEvent(kStatInappCancel, withParameters: [kStatPurchase: MWMPurchaseManager.bookmarksSubscriptionServerId()])
+    Statistics.logEvent(kStatInappCancel, withParameters: [kStatPurchase: subscriptionManager?.serverId ?? ""])
   }
 
   @IBAction func onTerms(_ sender: UIButton) {
