@@ -506,8 +506,8 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer, uint32_t th
     for (uint32_t i = beg; i < end; ++i)
     {
       uint32_t streetIndex;
-      bool const found = GetStreetIndex(*(contexts[threadIdx]), i,
-                                        addrs[i].Get(feature::AddressData::STREET), streetIndex);
+      bool const found = GetStreetIndex(
+          *(contexts[threadIdx]), i, addrs[i].Get(feature::AddressData::Type::Street), streetIndex);
 
       lock_guard<mutex> guard(resMutex);
 

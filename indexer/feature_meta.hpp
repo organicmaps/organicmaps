@@ -3,6 +3,8 @@
 #include "coding/reader.hpp"
 #include "coding/string_utf8_multilang.hpp"
 
+#include "base/stl_helpers.hpp"
+
 #include <algorithm>
 #include <map>
 #include <string>
@@ -187,13 +189,19 @@ private:
 class AddressData : public MetadataBase
 {
 public:
-  enum Type { PLACE, STREET, POSTCODE };
+  enum class Type : uint8_t
+  {
+    Street,
+    Postcode
+  };
 
   void Add(Type type, std::string const & s)
   {
     /// @todo Probably, we need to add separator here and store multiple values.
-    MetadataBase::Set(type, s);
+    MetadataBase::Set(base::Underlying(type), s);
   }
+
+  std::string Get(Type type) const { return MetadataBase::Get(base::Underlying(type)); }
 };
 
 class RegionData : public MetadataBase

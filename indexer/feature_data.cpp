@@ -341,7 +341,7 @@ void FeatureParams::AddStreet(string s)
   // Replace \n with spaces because we write addresses to txt file.
   replace(s.begin(), s.end(), '\n', ' ');
 
-  m_addrTags.Add(AddressData::STREET, s);
+  m_addrTags.Add(AddressData::Type::Street, s);
 }
 
 void FeatureParams::AddAddress(string const & s)
@@ -368,20 +368,12 @@ void FeatureParams::AddAddress(string const & s)
   AddStreet(s.substr(i));
 }
 
-void FeatureParams::AddPlace(string const & s)
-{
-  m_addrTags.Add(AddressData::PLACE, s);
-}
-
 void FeatureParams::AddPostcode(string const & s)
 {
-  m_addrTags.Add(AddressData::POSTCODE, s);
+  m_addrTags.Add(AddressData::Type::Postcode, s);
 }
 
-string FeatureParams::GetStreet() const
-{
-  return m_addrTags.Get(AddressData::STREET);
-}
+string FeatureParams::GetStreet() const { return m_addrTags.Get(AddressData::Type::Street); }
 
 void FeatureParams::SetGeomType(feature::GeomType t)
 {

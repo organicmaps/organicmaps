@@ -238,7 +238,6 @@ public:
   /// @name Used in storing full street address only.
   //@{
   void AddStreet(std::string s);
-  void AddPlace(std::string const & s);
   void AddPostcode(std::string const & s);
   void AddAddress(std::string const & s);
   //@}

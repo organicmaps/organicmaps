@@ -842,18 +842,6 @@ void GetNameAndType(OsmElement * p, FeatureParams & params, function<bool(uint32
 
   // Stage3: Process base feature tags.
   TagProcessor(p).ApplyRules<void(string &, string &)>({
-      {"addr:city", "*",
-       [&params](string & k, string & v) {
-         params.AddPlace(v);
-         k.clear();
-         v.clear();
-       }},
-      {"addr:place", "*",
-       [&params](string & k, string & v) {
-         params.AddPlace(v);
-         k.clear();
-         v.clear();
-       }},
       {"addr:housenumber", "*",
        [&params](string & k, string & v) {
          params.AddHouseName(v);
