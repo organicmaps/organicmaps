@@ -103,6 +103,9 @@
 		3DEE1ADF21EE03B400054A91 /* power_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DEE1ADB21EE03B400054A91 /* power_manager.hpp */; };
 		3DEE1AE021EE03B400054A91 /* power_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE1ADC21EE03B400054A91 /* power_manager.cpp */; };
 		3DEE1AE121EE03B400054A91 /* power_management_schemas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE1ADD21EE03B400054A91 /* power_management_schemas.cpp */; };
+		3DF528D7237DC82E000ED0D5 /* catalog_headers_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DF528D4237DC82E000ED0D5 /* catalog_headers_provider.cpp */; };
+		3DF528D8237DC82E000ED0D5 /* position_provider.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DF528D5237DC82E000ED0D5 /* position_provider.hpp */; };
+		3DF528D9237DC82E000ED0D5 /* catalog_headers_provider.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DF528D6237DC82E000ED0D5 /* catalog_headers_provider.hpp */; };
 		3DF54F80219DD21000D12E37 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DF54F7E219DD21000D12E37 /* utils.cpp */; };
 		3DF54F81219DD21000D12E37 /* utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DF54F7F219DD21000D12E37 /* utils.hpp */; };
 		3DF54F8A21AEA04A00D12E37 /* framework_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DF54F8921AEA04900D12E37 /* framework_light.cpp */; };
@@ -369,6 +372,9 @@
 		3DEE1ADB21EE03B400054A91 /* power_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = power_manager.hpp; sourceTree = "<group>"; };
 		3DEE1ADC21EE03B400054A91 /* power_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = power_manager.cpp; sourceTree = "<group>"; };
 		3DEE1ADD21EE03B400054A91 /* power_management_schemas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = power_management_schemas.cpp; sourceTree = "<group>"; };
+		3DF528D4237DC82E000ED0D5 /* catalog_headers_provider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = catalog_headers_provider.cpp; sourceTree = "<group>"; };
+		3DF528D5237DC82E000ED0D5 /* position_provider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = position_provider.hpp; sourceTree = "<group>"; };
+		3DF528D6237DC82E000ED0D5 /* catalog_headers_provider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = catalog_headers_provider.hpp; sourceTree = "<group>"; };
 		3DF54F7E219DD21000D12E37 /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
 		3DF54F7F219DD21000D12E37 /* utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = utils.hpp; sourceTree = "<group>"; };
 		3DF54F8921AEA04900D12E37 /* framework_light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = framework_light.cpp; sourceTree = "<group>"; };
@@ -832,6 +838,9 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				3DF528D4237DC82E000ED0D5 /* catalog_headers_provider.cpp */,
+				3DF528D6237DC82E000ED0D5 /* catalog_headers_provider.hpp */,
+				3DF528D5237DC82E000ED0D5 /* position_provider.hpp */,
 				991CE2CF2372BDB1009EB02A /* onboarding.cpp */,
 				991CE2CE2372BDB0009EB02A /* onboarding.hpp */,
 				45201E921CE4AC90008A4842 /* api_mark_point.cpp */,
@@ -1016,6 +1025,7 @@
 				348AB57D1D7EE0C6009F8301 /* chart_generator.hpp in Headers */,
 				45A2D9D61F7556EB003310A0 /* user.hpp in Headers */,
 				F63421F91DF9BF9100A96868 /* reachable_by_taxi_checker.hpp in Headers */,
+				3DF528D8237DC82E000ED0D5 /* position_provider.hpp in Headers */,
 				BBFC7E3B202D29C000531BE7 /* user_mark_layer.hpp in Headers */,
 				3D4E99A51FB4A6410025B48C /* booking_filter.hpp in Headers */,
 				56C116612090E5670068BBC0 /* extrapolator.hpp in Headers */,
@@ -1029,6 +1039,7 @@
 				F6D67CE32063F4980032FD38 /* framework_light.hpp in Headers */,
 				45F6EE9D1FB1C77600019892 /* search_api.hpp in Headers */,
 				3DA5723120C195ED007BDE27 /* everywhere_search_callback.hpp in Headers */,
+				3DF528D9237DC82E000ED0D5 /* catalog_headers_provider.hpp in Headers */,
 				3DD1166721888AAC007A2ED4 /* notification_queue.hpp in Headers */,
 				3DA5723020C195ED007BDE27 /* viewport_search_callback.hpp in Headers */,
 				F6FC3CB51FC323430001D929 /* discovery_client_params.hpp in Headers */,
@@ -1224,6 +1235,7 @@
 				3DD692AD2209E253001C3C62 /* notification_queue.cpp in Sources */,
 				F6B283031C1B03320081957A /* gps_track_collection.cpp in Sources */,
 				3D4E99A31FB4A6410025B48C /* booking_filter_cache.cpp in Sources */,
+				3DF528D7237DC82E000ED0D5 /* catalog_headers_provider.cpp in Sources */,
 				6753469B1A4054E800A0A8C3 /* track.cpp in Sources */,
 				454523A9202A0068009275C1 /* cloud.cpp in Sources */,
 				3DF54F8A21AEA04A00D12E37 /* framework_light.cpp in Sources */,

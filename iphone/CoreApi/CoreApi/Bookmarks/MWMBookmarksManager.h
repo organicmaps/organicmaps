@@ -117,6 +117,7 @@ typedef void (^PingCompletionBlock)(BOOL success);
 - (NSString *)getServerId:(MWMMarkGroupID)groupId;
 - (NSString *)getGuidesIds;
 - (NSString *)deviceId;
+- (NSDictionary<NSString *, NSString *> *)getCatalogHeaders;
 
 @end
 NS_ASSUME_NONNULL_END

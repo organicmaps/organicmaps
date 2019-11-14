@@ -759,4 +759,13 @@
   return @(web_api::DeviceId().c_str());
 }
 
+- (NSDictionary<NSString *, NSString *> *)getCatalogHeaders {
+  NSMutableDictionary<NSString *, NSString *> *result = [NSMutableDictionary dictionary];
+
+  for (auto const &header : self.bm.GetCatalog().GetHeaders())
+    [result setObject:@(header.second.c_str()) forKey:@(header.first.c_str())];
+
+  return [result copy];
+}
+
 @end
