@@ -248,7 +248,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Nullable
   private PurchaseController<FailedPurchaseChecker> mBookmarkInappPurchaseController;
   @Nullable
-  private PurchaseController<PurchaseCallback> mBookmarksSubscriptionController;
+  private PurchaseController<PurchaseCallback> mBookmarksAllSubscriptionController;
+  @Nullable
+  private PurchaseController<PurchaseCallback> mBookmarksSightsSubscriptionController;
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new CurrentPositionClickListener();
   @SuppressWarnings("NullableProblems")
@@ -256,6 +258,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private PlacePageController mPlacePageController;
   @Nullable
   private Tutorial mTutorial;
+
 
   public interface LeftAnimationTrackListener
   {
@@ -541,16 +544,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mBookmarkInappPurchaseController = PurchaseFactory.createFailedBookmarkPurchaseController(this);
     mBookmarkInappPurchaseController.initialize(this);
 
-    mBookmarksSubscriptionController
+    mBookmarksAllSubscriptionController
         = PurchaseFactory.createBookmarksAllSubscriptionController(this);
-    mBookmarksSubscriptionController.initialize(this);
+    mBookmarksAllSubscriptionController.initialize(this);
+
+    mBookmarksSightsSubscriptionController
+        = PurchaseFactory.createBookmarksSightsSubscriptionController(this);
+    mBookmarksSightsSubscriptionController.initialize(this);
 
     // To reduce number of parasite validation requests during orientation change.
     if (savedInstanceState == null)
     {
       mAdsRemovalPurchaseController.validateExistingPurchases();
       mBookmarkInappPurchaseController.validateExistingPurchases();
-      mBookmarksSubscriptionController.validateExistingPurchases();
+      mBookmarksAllSubscriptionController.validateExistingPurchases();
+      mBookmarksSightsSubscriptionController.validateExistingPurchases();
     }
   }
 
@@ -1379,9 +1387,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mAdsRemovalPurchaseController.destroy();
     if (mBookmarkInappPurchaseController != null)
       mBookmarkInappPurchaseController.destroy();
-    if (mBookmarksSubscriptionController != null)
-      mBookmarksSubscriptionController.destroy();
-
+    if (mBookmarksAllSubscriptionController != null)
+      mBookmarksAllSubscriptionController.destroy();
+    if (mBookmarksSightsSubscriptionController != null)
+      mBookmarksSightsSubscriptionController.destroy();
     mNavigationController.destroy();
     mToggleMapLayerController.detachCore();
     TrafficManager.INSTANCE.detachAll();
