@@ -110,20 +110,17 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
 
   private void onBuySubscriptionClicked()
   {
-    String bookmarksGroup = mPaymentData.getGroup();
+    SubscriptionType type = SubscriptionType.getTypeByBookmarksGroup(mPaymentData.getGroup());
 
-    if (bookmarksGroup.equals(SubscriptionType.BOOKMARKS_SIGHTS.getServerId()))
+    if (type.equals(SubscriptionType.BOOKMARKS_SIGHTS))
     {
       BookmarksSightsSubscriptionActivity.startForResult
           (this, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION, Statistics.ParamValue.CARD);
       return;
     }
 
-    if (bookmarksGroup.equals(SubscriptionType.BOOKMARKS_ALL.getServerId()))
-    {
-      BookmarksAllSubscriptionActivity.startForResult
-          (this, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION, Statistics.ParamValue.CARD);
-    }
+    BookmarksAllSubscriptionActivity.startForResult
+        (this, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION, Statistics.ParamValue.CARD);
   }
 
   @Override
@@ -340,7 +337,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     }
   }
 
-  public void updateProductDetails()
+  void updateProductDetails()
   {
     if (mProductDetails == null)
       throw new AssertionError("Product details must be obtained at this moment!");
@@ -353,7 +350,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     storeName.setText(mProductDetails.getTitle());
   }
 
-  public void updateSubsProductDetails()
+  void updateSubsProductDetails()
   {
     if (mSubsProductDetails == null)
       throw new AssertionError("Subs product details must be obtained at this moment!");
@@ -364,7 +361,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     subsButton.setText(getString(R.string.buy_btn_for_subscription_version_2, formattedPrice));
   }
 
-  public void finishValidation()
+  void finishValidation()
   {
     if (mValidationResult)
       requireActivity().setResult(Activity.RESULT_OK);

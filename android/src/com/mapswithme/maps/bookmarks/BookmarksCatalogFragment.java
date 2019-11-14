@@ -37,12 +37,14 @@ import com.mapswithme.maps.dialog.ConfirmationDialogFactory;
 import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.purchase.AbstractProductDetailsLoadingCallback;
 import com.mapswithme.maps.purchase.BillingManager;
-import com.mapswithme.maps.purchase.BookmarkSubscriptionActivity;
+import com.mapswithme.maps.purchase.BookmarksAllSubscriptionActivity;
+import com.mapswithme.maps.purchase.BookmarksSightsSubscriptionActivity;
 import com.mapswithme.maps.purchase.FailedPurchaseChecker;
 import com.mapswithme.maps.purchase.PlayStoreBillingCallback;
 import com.mapswithme.maps.purchase.PurchaseController;
 import com.mapswithme.maps.purchase.PurchaseFactory;
 import com.mapswithme.maps.purchase.PurchaseUtils;
+import com.mapswithme.maps.purchase.SubscriptionType;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.HttpClient;
@@ -374,21 +376,28 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       {
         if (TextUtils.equals(each, SUBSCRIBE_PATH_SEGMENT))
         {
-          openSubscriptionScreen();
+          String group = PurchaseUtils.getTargetBookmarkGroupFromUri(uri);
+          openSubscriptionScreen(SubscriptionType.getTypeByBookmarksGroup(group));
           return true;
         }
       }
       return result;
     }
 
-    private void openSubscriptionScreen()
+    private void openSubscriptionScreen(@NonNull SubscriptionType type)
     {
       BookmarksCatalogFragment frag = mReference.get();
       if (frag == null || frag.getActivity() == null)
         return;
 
-      BookmarkSubscriptionActivity.startForResult(frag, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION,
-                                                  Statistics.ParamValue.WEBVIEW);
+      if (type.equals(SubscriptionType.BOOKMARKS_ALL))
+        BookmarksAllSubscriptionActivity.startForResult(frag,
+                                                        PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION,
+                                                        Statistics.ParamValue.WEBVIEW);
+      else
+        BookmarksSightsSubscriptionActivity.startForResult(frag,
+                                                           PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION,
+                                                           Statistics.ParamValue.WEBVIEW);
     }
 
     @Override

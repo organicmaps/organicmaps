@@ -181,7 +181,7 @@ public class PurchaseUtils
   }
 
   @NonNull
-  static String getTargetBookmarkGroupFromUri(@NonNull Uri uri)
+  public static String getTargetBookmarkGroupFromUri(@NonNull Uri uri)
   {
     List<String> uriGroups = uri.getQueryParameters(BookmarkPaymentDataParser.GROUPS);
     if (uriGroups == null || uriGroups.isEmpty())

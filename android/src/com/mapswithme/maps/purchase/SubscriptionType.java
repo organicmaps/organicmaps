@@ -139,4 +139,16 @@ public enum SubscriptionType
 
   @NonNull
   abstract String getMonthlyProductId();
+
+  @NonNull
+  public static SubscriptionType getTypeByBookmarksGroup(@NonNull String group)
+  {
+    for (SubscriptionType type : values())
+    {
+      if (type.getServerId().equals(group))
+        return type;
+    }
+
+    return BOOKMARKS_ALL;
+  }
 }
