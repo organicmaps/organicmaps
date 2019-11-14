@@ -143,6 +143,7 @@ BookmarkManager::Callbacks const bmCallbacks(
     return dummyBundle;
   },
   static_cast<BookmarkManager::Callbacks::GetSeacrhAPIFn>(nullptr),
+  static_cast<BookmarkCatalog::HeadersProvider>(nullptr),
   static_cast<BookmarkManager::Callbacks::CreatedBookmarksCallback>(nullptr),
   static_cast<BookmarkManager::Callbacks::UpdatedBookmarksCallback>(nullptr),
   static_cast<BookmarkManager::Callbacks::DeletedBookmarksCallback>(nullptr),
@@ -1221,6 +1222,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
       return dummyBundle;
     },
     static_cast<BookmarkManager::Callbacks::GetSeacrhAPIFn>(nullptr),
+    static_cast<BookmarkCatalog::HeadersProvider>(nullptr),
     onCreate, onUpdate, onDelete, onAttach, onDetach);
 
   User user;

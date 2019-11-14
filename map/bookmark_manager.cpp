@@ -551,6 +551,8 @@ BookmarkManager::BookmarkManager(User & user, Callbacks && callbacks)
 
   m_bookmarkCloud.SetInvalidTokenHandler([this] { m_user.ResetAccessToken(); });
   m_bookmarkCatalog.SetInvalidTokenHandler([this] { m_user.ResetAccessToken(); });
+
+  m_bookmarkCatalog.SetHeadersProvider(m_callbacks.m_catalogHeadersProvider);
 }
 
 BookmarkManager::EditSession BookmarkManager::GetEditSession()

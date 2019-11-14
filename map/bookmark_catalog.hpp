@@ -2,8 +2,11 @@
 
 #include "partners_api/utm.hpp"
 
+#include "map/catalog_headers_provider.hpp"
+
 #include "kml/types.hpp"
 
+#include "platform/http_client.hpp"
 #include "platform/remote_file.hpp"
 #include "platform/safe_callback.hpp"
 
@@ -52,6 +55,8 @@ public:
   using CustomProperties = std::vector<CustomProperty>;
   using CustomPropertiesCallback = platform::SafeCallback<void(bool success, CustomProperties const &)>;
   using InvalidTokenHandler = std::function<void()>;
+
+  using HeadersProvider = std::function<platform::HttpClient::Headers()>;
 
   void RegisterByServerId(std::string const & id);
   void UnregisterByServerId(std::string const & id);
@@ -119,16 +124,20 @@ public:
   using PingCallback = platform::SafeCallback<void(bool isSuccessful)>;
   void Ping(PingCallback && callback) const;
 
-  // Handler can be called from non-UI thread.
-  void SetInvalidTokenHandler(InvalidTokenHandler && onInvalidToken);
-
   using BookmarksToDeleteCallback = platform::SafeCallback<void(std::vector<std::string> const & serverIds)>;
   void RequestBookmarksToDelete(std::string const & accessToken, std::string const & userId,
                                 std::vector<std::string> const & serverIds,
                                 BookmarksToDeleteCallback && callback) const;
 
+  // Handler can be called from non-UI thread.
+  void SetInvalidTokenHandler(InvalidTokenHandler && onInvalidToken);
+
+  void SetHeadersProvider(HeadersProvider const & provider);
+  platform::HttpClient::Headers GetHeaders() const;
+
 private:
   std::set<std::string> m_downloadingIds;
   std::set<std::string> m_registeredInCatalog;
   InvalidTokenHandler m_onInvalidToken;
+  HeadersProvider m_headersProvider;
 };

@@ -4,6 +4,7 @@
 
 #include "metrics/eye.hpp"
 
+#include "platform/http_client.hpp"
 #include "platform/safe_callback.hpp"
 
 #include "geometry/point2d.hpp"
@@ -85,6 +86,7 @@ public:
     virtual ~Delegate() = default;
 
     virtual std::string GetCityId(m2::PointD const & point) = 0;
+    virtual platform::HttpClient::Headers GetHeaders() = 0;
   };
 
   Api(std::string const & baseUrl = BOOKMARKS_CATALOG_FRONT_URL,

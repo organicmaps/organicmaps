@@ -53,8 +53,6 @@ public:
   // Check by default: ErrorCode() == 200
   bool RunHttpRequest(std::string & response, SuccessChecker checker = nullptr);
 
-  // Shared methods for all platforms, implemented at http_client.cpp
-  HttpClient & SetDebugMode(bool debug_mode);
   HttpClient & SetUrlRequested(std::string const & url);
   HttpClient & SetHttpMethod(std::string const & method);
   // This method is mutually exclusive with set_body_data().

@@ -13,6 +13,7 @@
 #include "map/mwm_url.hpp"
 #include "map/notifications/notification_manager.hpp"
 #include "map/place_page_info.hpp"
+#include "map/position_provider.hpp"
 #include "map/power_management/power_management_schemas.hpp"
 #include "map/power_management/power_manager.hpp"
 #include "map/purchase.hpp"
@@ -151,7 +152,8 @@ struct FrameworkParams
   {}
 };
 
-class Framework : public SearchAPI::Delegate,
+class Framework : public PositionProvider,
+                  public SearchAPI::Delegate,
                   public RoutingManager::Delegate,
                   public TipsApi::Delegate,
                   private power_management::PowerManager::Subscriber
@@ -378,7 +380,7 @@ public:
                                  search::Results::ConstIter end, bool clear,
                                  booking::filter::Types types) override;
   void ClearViewportSearchResults() override;
-  // SearchApi::Delegate and TipsApi::Delegate override.
+  // PositionProvider, SearchApi::Delegate and TipsApi::Delegate override.
   boost::optional<m2::PointD> GetCurrentPosition() const override;
   bool ParseSearchQueryCommand(search::SearchParams const & params) override;
   search::ProductInfo GetProductInfo(search::Result const & result) const override;

@@ -5,7 +5,6 @@
 #include "web_api/request_headers.hpp"
 #include "web_api/utils.hpp"
 
-#include "platform/http_client.hpp"
 #include "platform/http_uploader.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
@@ -728,4 +727,14 @@ void BookmarkCatalog::RequestBookmarksToDelete(std::string const & accessToken, 
 void BookmarkCatalog::SetInvalidTokenHandler(InvalidTokenHandler && onInvalidToken)
 {
   m_onInvalidToken = std::move(onInvalidToken);
+}
+
+void BookmarkCatalog::SetHeadersProvider(HeadersProvider const & provider)
+{
+  m_headersProvider = provider;
+}
+
+platform::HttpClient::Headers BookmarkCatalog::GetHeaders() const
+{
+  return m_headersProvider();
 }

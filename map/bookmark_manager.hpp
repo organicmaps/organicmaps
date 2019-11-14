@@ -82,14 +82,16 @@ public:
     using DetachedBookmarksCallback = std::function<void(std::vector<BookmarkGroupInfo> const &)>;
 
     template <typename StringsBundleProvider, typename SearchAPIProvider,
-              typename CreateListener, typename UpdateListener,
+              typename CatalogHeadersProvider, typename CreateListener, typename UpdateListener,
               typename DeleteListener, typename AttachListener, typename DetachListener>
     Callbacks(StringsBundleProvider && stringsBundleProvider,
-              SearchAPIProvider && searchAPIProvider, CreateListener && createListener,
-              UpdateListener && updateListener, DeleteListener && deleteListener,
-              AttachListener && attachListener, DetachListener && detachListener)
+              SearchAPIProvider && searchAPIProvider, CatalogHeadersProvider && catalogHeaders,
+              CreateListener && createListener, UpdateListener && updateListener,
+              DeleteListener && deleteListener, AttachListener && attachListener,
+              DetachListener && detachListener)
       : m_getStringsBundle(std::forward<StringsBundleProvider>(stringsBundleProvider))
       , m_getSearchAPI(std::forward<SearchAPIProvider>(searchAPIProvider))
+      , m_catalogHeadersProvider(std::forward<BookmarkCatalog::HeadersProvider>(catalogHeaders))
       , m_createdBookmarksCallback(std::forward<CreateListener>(createListener))
       , m_updatedBookmarksCallback(std::forward<UpdateListener>(updateListener))
       , m_deletedBookmarksCallback(std::forward<DeleteListener>(deleteListener))
@@ -99,6 +101,7 @@ public:
 
     GetStringsBundleFn m_getStringsBundle;
     GetSeacrhAPIFn m_getSearchAPI;
+    BookmarkCatalog::HeadersProvider m_catalogHeadersProvider;
     CreatedBookmarksCallback m_createdBookmarksCallback;
     UpdatedBookmarksCallback m_updatedBookmarksCallback;
     DeletedBookmarksCallback m_deletedBookmarksCallback;

@@ -8,7 +8,6 @@
 
 #include "platform/platform_tests_support/async_gui_thread.hpp"
 
-#include <algorithm>
 #include <memory>
 
 using namespace eye;
@@ -38,6 +37,7 @@ class DelegateForTesting : public promo::Api::Delegate
 {
 public:
   std::string GetCityId(m2::PointD const &) override { return kTestId; }
+  platform::HttpClient::Headers GetHeaders() override { return {}; }
 };
 }  // namespace
 

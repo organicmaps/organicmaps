@@ -1,7 +1,5 @@
 #include "partners_api/promo_api.hpp"
 
-#include "web_api/request_headers.hpp"
-
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
@@ -165,9 +163,8 @@ std::string GetCityCatalogueUrl(std::string const & baseUrl, std::string const &
   return baseUrl + "v2/mobilefront/city/" + ToSignedId(id);
 }
 
-
-void GetPromoGalleryImpl(std::string const & url, UTM utm,
-                             CityGalleryCallback const & onSuccess, OnError const & onError)
+void GetPromoGalleryImpl(std::string const & url, platform::HttpClient::Headers const & headers,
+                         UTM utm, CityGalleryCallback const & onSuccess, OnError const & onError)
 {
   if (url.empty())
   {
@@ -175,13 +172,13 @@ void GetPromoGalleryImpl(std::string const & url, UTM utm,
     return;
   }
 
-  GetPlatform().RunTask(Platform::Thread::Network, [url, utm, onSuccess, onError]()
+  GetPlatform().RunTask(Platform::Thread::Network, [url, headers, utm, onSuccess, onError]()
   {
     CityGallery result;
     std::string httpResult;
     platform::HttpClient request(url);
     request.SetTimeout(5 /* timeoutSec */);
-    request.SetRawHeaders(web_api::GetDefaultCatalogHeaders());
+    request.SetRawHeaders(headers);
     if (!request.RunHttpRequest(httpResult))
     {
       onError();
@@ -270,7 +267,8 @@ void Api::GetCityGallery(m2::PointD const & point, std::string const & lang, UTM
 {
   CHECK(m_delegate, ());
   auto const url = MakeCityGalleryUrl(m_baseUrl, m_delegate->GetCityId(point), lang);
-  GetPromoGalleryImpl(url, utm, onSuccess, onError);
+  auto const headers = m_delegate->GetHeaders();
+  GetPromoGalleryImpl(url, headers, utm, onSuccess, onError);
 }
 
 void Api::GetPoiGallery(m2::PointD const & point, std::string const & lang, Tags const & tags,
@@ -278,9 +276,11 @@ void Api::GetPoiGallery(m2::PointD const & point, std::string const & lang, Tags
                         OnError const & onError) const
 {
   CHECK(m_delegate, ());
+
   auto const url =
       MakePoiGalleryUrl(m_baseUrl, m_delegate->GetCityId(point), point, lang, tags, useCoordinates);
-  GetPromoGalleryImpl(url, utm, onSuccess, onError);
+  auto const headers = m_delegate->GetHeaders();
+  GetPromoGalleryImpl(url, headers, utm, onSuccess, onError);
 }
 
 void Api::OnTransitionToBooking(m2::PointD const & hotelPos)

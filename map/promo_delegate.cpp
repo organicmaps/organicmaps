@@ -7,8 +7,9 @@
 
 #include "base/string_utils.hpp"
 
-PromoDelegate::PromoDelegate(DataSource const & dataSource, search::CityFinder & cityFinder)
-  : m_dataSource(dataSource), m_cityFinder(cityFinder)
+PromoDelegate::PromoDelegate(DataSource const & dataSource, search::CityFinder & cityFinder,
+                             std::shared_ptr<CatalogHeadersProvider> const & headersProvider)
+  : m_dataSource(dataSource), m_cityFinder(cityFinder), m_headersProvider(headersProvider)
 {
 }
 
@@ -38,4 +39,12 @@ std::string PromoDelegate::GetCityId(m2::PointD const & point)
     return strings::to_string(id);
 
   return {};
+}
+
+platform::HttpClient::Headers PromoDelegate::GetHeaders()
+{
+  if (!m_headersProvider)
+    return {};
+
+  return m_headersProvider->GetHeaders();
 }

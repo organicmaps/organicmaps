@@ -1,5 +1,6 @@
 #include "map/framework.hpp"
 #include "map/benchmark_tools.hpp"
+#include "map/catalog_headers_provider.hpp"
 #include "map/chart_generator.hpp"
 #include "map/displayed_categories_modifiers.hpp"
 #include "map/everywhere_search_params.hpp"
@@ -421,10 +422,13 @@ Framework::Framework(FrameworkParams const & params)
 
   InitSearchAPI();
   LOG(LDEBUG, ("Search API initialized"));
+  
+  auto const catalogHeadersProvider = make_shared<CatalogHeadersProvider>(*this, m_storage);
 
   m_bmManager = make_unique<BookmarkManager>(m_user, BookmarkManager::Callbacks(
       [this]() -> StringsBundle const & { return m_stringsBundle; },
       [this]() -> SearchAPI & { return GetSearchAPI(); },
+      [catalogHeadersProvider]() { return catalogHeadersProvider->GetHeaders(); },
       [this](vector<BookmarkInfo> const & marks) { GetSearchAPI().OnBookmarksCreated(marks); },
       [this](vector<BookmarkInfo> const & marks) { GetSearchAPI().OnBookmarksUpdated(marks); },
       [this](vector<kml::MarkId> const & marks) { GetSearchAPI().OnBookmarksDeleted(marks); },
@@ -514,7 +518,8 @@ Framework::Framework(FrameworkParams const & params)
   GetPowerManager().Subscribe(this);
   GetPowerManager().Load();
 
-  m_promoApi->SetDelegate(make_unique<PromoDelegate>(m_featuresFetcher.GetDataSource(), *m_cityFinder));
+  m_promoApi->SetDelegate(make_unique<PromoDelegate>(m_featuresFetcher.GetDataSource(),
+                          *m_cityFinder, catalogHeadersProvider));
   eye::Eye::Instance().Subscribe(m_promoApi.get());
 
   // Clean the no longer used key from old devices.
