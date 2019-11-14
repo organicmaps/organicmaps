@@ -6,19 +6,19 @@ class FirstLaunchBuilder {
                                              text: "new_onboarding_step2_message",
                                              buttonNextTitle: "new_onboarding_button",
                                              isCloseButtonHidden: true,
-                                             requestPermission: .notifications),
+                                             requestPermission: .nothing),
       FirstLaunchPresenter.FirstLaunchConfig(image: UIImage(named: "img_onboarding_offlinemaps"),
                                              title: "new_onboarding_step3_header",
                                              text: "new_onboarding_step3_message",
                                              buttonNextTitle: "new_onboarding_button",
                                              isCloseButtonHidden: true,
-                                             requestPermission: .location),
+                                             requestPermission: .notifications),
       FirstLaunchPresenter.FirstLaunchConfig(image: UIImage(named: "img_onboarding_sharebookmarks"),
                                              title: "new_onboarding_step4_header",
                                              text: "new_onboarding_step4_message",
                                              buttonNextTitle: "new_onboarding_button_2",
                                              isCloseButtonHidden: true,
-                                             requestPermission: .nothing),
+                                             requestPermission: .location),
     ]
   }
 
