@@ -16,3 +16,4 @@ set(
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 add_subdirectory(track_analyzer)
+add_subdirectory(track_analyzing_tests)

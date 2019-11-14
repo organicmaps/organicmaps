@@ -1,0 +1,36 @@
+project(track_analyzing_tests)
+
+set(
+  SRC
+  ../track_analyzer/utils.cpp
+  ../track_analyzer/utils.hpp
+  statistics_tests.cpp
+)
+
+omim_add_test(${PROJECT_NAME} ${SRC})
+
+omim_link_libraries(
+  ${PROJECT_NAME}
+  track_analyzing
+  generator
+  routing
+  traffic
+  routing_common
+  storage
+  indexer
+  platform
+  mwm_diff
+  bsdiff
+  geometry
+  coding
+  base
+  icu
+  jansson
+  oauthcpp
+  protobuf
+  stats_client
+  gflags
+  ${LIBZ}
+)
+
+link_qt5_core(${PROJECT_NAME})
