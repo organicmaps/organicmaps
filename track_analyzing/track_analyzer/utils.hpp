@@ -14,6 +14,7 @@
 
 namespace track_analyzing
 {
+// @TODO Rename to Stats
 struct Stat
 {
   using NameToCountMapping = std::map<std::string, uint32_t>;

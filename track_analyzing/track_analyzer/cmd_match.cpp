@@ -1,3 +1,5 @@
+#include "track_analyzing/track_analyzer/utils.hpp"
+
 #include "track_analyzing/serialization.hpp"
 #include "track_analyzing/track.hpp"
 #include "track_analyzing/track_analyzer/utils.hpp"
@@ -160,7 +162,7 @@ void UnzipAndMatch(Iter begin, Iter end, string const & trackExt, Stat & stat)
   }
 }
 
-void CmdMatchDir(string const & logDir, string const & trackExt, Stat & stat)
+void CmdMatchDir(string const & logDir, string const & trackExt)
 {
   Platform::EFileType fileType = Platform::FILE_TYPE_UNKNOWN;
   Platform::EError const result = Platform::GetFileType(logDir, fileType);

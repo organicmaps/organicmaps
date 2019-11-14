@@ -1,5 +1,7 @@
 #include "track_analyzing/track_analyzer/crossroad_checker.hpp"
 
+#include "track_analyzing/track_analyzer/utils.hpp"
+
 #include "track_analyzing/track.hpp"
 #include "track_analyzing/utils.hpp"
 
@@ -39,6 +41,7 @@
 #include <array>
 #include <cstdint>
 #include <iostream>
+#include <iterator>
 #include <limits>
 #include <map>
 #include <memory>
@@ -245,11 +248,13 @@ private:
 class SpeedInfo final
 {
 public:
-  void Add(double distance, uint64_t time, IsCrossroadChecker::CrossroadInfo const & crossroads)
+  void Add(double distance, uint64_t time, IsCrossroadChecker::CrossroadInfo const & crossroads,
+           uint32_t dataPointsNumber)
   {
     m_totalDistance += distance;
     m_totalTime += time;
     IsCrossroadChecker::MergeCrossroads(crossroads, m_crossroads);
+    m_dataPointsNumber += dataPointsNumber;
   }
 
   string GetSummary() const
@@ -269,12 +274,16 @@ public:
     return out.str();
   }
 
+  uint32_t GetDataPointsNumber() const { return m_dataPointsNumber; }
+
 private:
   double m_totalDistance = 0.0;
   uint64_t m_totalTime = 0;
   IsCrossroadChecker::CrossroadInfo m_crossroads{};
+  uint32_t m_dataPointsNumber = 0;
 };
 
+// @TODO Make a ctor and pass string const & mwm, string const & country to it.
 class MoveTypeAggregator final
 {
 public:
@@ -297,10 +306,10 @@ public:
     }
 
     double const length = CalcSubtrackLength(begin, end, geometry);
-    m_moveInfos[moveType].Add(length, time, crossroads);
+    m_moveInfos[moveType].Add(length, time, crossroads, static_cast<uint32_t>(distance(begin, end)));
   }
 
-  string GetSummary(string const & user, string const & mwm) const
+  string GetSummary(string const & user, string const & mwmName, string const & countryName, Stat & stat) const
   {
     ostringstream out;
     for (auto const & it : m_moveInfos)
@@ -308,7 +317,9 @@ public:
       if (!it.first.IsValid())
         continue;
 
-      out << user << "," << mwm << "," << it.first.GetSummary() << "," << it.second.GetSummary() << '\n';
+      out << user << "," << countryName << "," << it.first.GetSummary() << "," << it.second.GetSummary() << '\n';
+      stat.m_mwmToTotalDataPoints[mwmName] += it.second.GetDataPointsNumber();
+      stat.m_countryToTotalDataPoints[countryName] += it.second.GetDataPointsNumber();
     }
 
     return out.str();
@@ -385,11 +396,19 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
   FrozenDataSource dataSource;
   auto numMwmIds = CreateNumMwmIds(storage);
 
+  Stat stat;
   auto processMwm = [&](string const & mwmName, UserToMatchedTracks const & userToMatchedTracks) {
     if (mwmFilter(mwmName))
       return;
 
     auto const countryName = storage.GetTopmostParentFor(mwmName);
+
+    // @TODO It's better to implement value as a class.
+    if (stat.m_mwmToTotalDataPoints.count(mwmName) == 0)
+      stat.m_mwmToTotalDataPoints[mwmName] = 0;
+    if (stat.m_countryToTotalDataPoints.count(countryName) == 0)
+      stat.m_countryToTotalDataPoints[countryName] = 0;
+
     auto const carModelFactory = make_shared<CarModelFactory>(VehicleModelFactory::CountryParentNameGetterFn{});
     shared_ptr<VehicleModelInterface> vehicleModel =
         carModelFactory->GetVehicleModelForCountry(mwmName);
@@ -452,7 +471,7 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
           info = move(crossroad);
         }
 
-        auto const summary = aggregator.GetSummary(user, countryName);
+        auto const summary = aggregator.GetSummary(user, mwmName, countryName, stat);
         if (!summary.empty())
           cout << summary;
       }
@@ -465,5 +484,9 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
   };
 
   ForEachTrackFile(filepath, trackExtension, numMwmIds, processTrack);
+
+  LOG(LINFO,
+      ("CmdTagsTable. DataPoint distribution by mwms and countries and match and table commands."));
+  LOG(LINFO, (stat));
 }
 }  // namespace track_analyzing
