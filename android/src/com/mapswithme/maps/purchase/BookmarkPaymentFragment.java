@@ -3,8 +3,6 @@ package com.mapswithme.maps.purchase;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.android.billingclient.api.SkuDetails;
 import com.bumptech.glide.Glide;
 import com.mapswithme.maps.Framework;
@@ -110,8 +110,20 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
 
   private void onBuySubscriptionClicked()
   {
-    BookmarkSubscriptionActivity.startForResult(this, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION,
-                                                Statistics.ParamValue.CARD);
+    String bookmarksGroup = mPaymentData.getGroup();
+
+    if (bookmarksGroup.equals(SubscriptionType.BOOKMARKS_SIGHTS.getServerId()))
+    {
+      BookmarksSightsSubscriptionActivity.startForResult
+          (this, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION, Statistics.ParamValue.CARD);
+      return;
+    }
+
+    if (bookmarksGroup.equals(SubscriptionType.BOOKMARKS_ALL.getServerId()))
+    {
+      BookmarksAllSubscriptionActivity.startForResult
+          (this, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION, Statistics.ParamValue.CARD);
+    }
   }
 
   @Override
@@ -135,7 +147,8 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     Statistics.INSTANCE.trackPurchasePreviewSelect(mPaymentData.getServerId(),
                                                    mPaymentData.getProductId());
     Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_PAY,
-                                           mPaymentData.getServerId(), Statistics.STATISTICS_CHANNEL_REALTIME);
+                                           mPaymentData.getServerId(),
+                                           Statistics.STATISTICS_CHANNEL_REALTIME);
     startPurchaseTransaction();
   }
 

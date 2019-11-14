@@ -1,22 +1,26 @@
-package com.mapswithme.maps.bookmarks;
+package com.mapswithme.maps.purchase;
 
 import android.net.Uri;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.mapswithme.maps.bookmarks.data.PaymentData;
 import com.mapswithme.util.CrashlyticsUtils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
-class BookmarkPaymentDataParser implements PaymentDataParser
+public class BookmarkPaymentDataParser implements PaymentDataParser
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private static final String TAG = BookmarkPaymentDataParser.class.getSimpleName();
 
-  final static String SERVER_ID = "id";
-  final static String PRODUCT_ID = "tier";
-  final static String NAME = "name";
-  final static String IMG_URL = "img";
-  final static String AUTHOR_NAME = "author_name";
+  public final static String SERVER_ID = "id";
+  public final static String PRODUCT_ID = "tier";
+  public final static String NAME = "name";
+  public final static String IMG_URL = "img";
+  public final static String AUTHOR_NAME = "author_name";
+  public final static String GROUPS = "groups";
 
   @NonNull
   @Override
@@ -27,15 +31,18 @@ class BookmarkPaymentDataParser implements PaymentDataParser
     String productId = getQueryRequiredParameter(uri, PRODUCT_ID);
     String name = getQueryRequiredParameter(uri, NAME);
     String authorName = getQueryRequiredParameter(uri, AUTHOR_NAME);
+    String group = PurchaseUtils.getTargetBookmarkGroupFromUri(uri);
+    LOGGER.i(TAG, "Found target group: " + group);
     String imgUrl = uri.getQueryParameter(IMG_URL);
-    return new PaymentData(serverId, productId, name, imgUrl, authorName);
+    return new PaymentData(serverId, productId, name, imgUrl, authorName, group);
   }
 
   @Nullable
-  String getParameter(@NonNull String url, @NonNull String parameterName)
+  @Override
+  public String getParameterByName(@NonNull String url, @NonNull String name)
   {
     Uri uri = Uri.parse(url);
-    return uri.getQueryParameter(parameterName);
+    return uri.getQueryParameter(name);
   }
 
   @NonNull

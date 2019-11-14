@@ -2,6 +2,7 @@ package com.mapswithme.maps.bookmarks.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -17,15 +18,18 @@ public class PaymentData implements Parcelable
   private final String mImgUrl;
   @NonNull
   private final String mAuthorName;
+  @NonNull
+  private final String mGroup;
 
   public PaymentData(@NonNull String serverId, @NonNull String productId, @NonNull String name,
-                     @Nullable String imgUrl, @NonNull String authorName)
+                     @Nullable String imgUrl, @NonNull String authorName, @NonNull String group)
   {
     mServerId = serverId;
     mProductId = productId;
     mName = name;
     mImgUrl = imgUrl;
     mAuthorName = authorName;
+    mGroup = group;
   }
 
   private PaymentData(Parcel in)
@@ -35,6 +39,7 @@ public class PaymentData implements Parcelable
     mName = in.readString();
     mImgUrl = in.readString();
     mAuthorName = in.readString();
+    mGroup = in.readString();
   }
 
   public static final Creator<PaymentData> CREATOR = new Creator<PaymentData>()
@@ -82,6 +87,12 @@ public class PaymentData implements Parcelable
     return mAuthorName;
   }
 
+  @NonNull
+  public String getGroup()
+  {
+    return mGroup;
+  }
+
   @Override
   public int describeContents()
   {
@@ -96,5 +107,6 @@ public class PaymentData implements Parcelable
     dest.writeString(mName);
     dest.writeString(mImgUrl);
     dest.writeString(mAuthorName);
+    dest.writeString(mGroup);
   }
 }

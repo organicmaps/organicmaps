@@ -6,15 +6,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.JobIntentService;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import android.text.TextUtils;
-
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.bookmarks.data.Error;
 import com.mapswithme.maps.bookmarks.data.Result;
+import com.mapswithme.maps.purchase.BookmarkPaymentDataParser;
+import com.mapswithme.maps.purchase.PaymentDataParser;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
@@ -152,9 +154,9 @@ public class SystemDownloadCompletedService extends JobIntentService
       decodedUrl = "";
     }
 
-    BookmarkPaymentDataParser p = new BookmarkPaymentDataParser();
-    String productId = p.getParameter(decodedUrl, BookmarkPaymentDataParser.PRODUCT_ID);
-    String name = p.getParameter(decodedUrl, BookmarkPaymentDataParser.NAME);
+    PaymentDataParser p = new BookmarkPaymentDataParser();
+    String productId = p.getParameterByName(decodedUrl, BookmarkPaymentDataParser.PRODUCT_ID);
+    String name = p.getParameterByName(decodedUrl, BookmarkPaymentDataParser.NAME);
 
     MwmApplication app = (MwmApplication) application;
     if (TextUtils.isEmpty(productId))

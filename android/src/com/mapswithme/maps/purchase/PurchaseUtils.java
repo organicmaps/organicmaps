@@ -1,10 +1,11 @@
 package com.mapswithme.maps.purchase;
 
+import android.net.Uri;
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import android.text.TextUtils;
-
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.R;
@@ -16,6 +17,7 @@ import com.mapswithme.util.log.LoggerFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class PurchaseUtils
@@ -176,6 +178,35 @@ public class PurchaseUtils
         .build();
     dialog.setTargetFragment(fragment, REQ_CODE_NO_NETWORK_CONNECTION_DIALOG);
     dialog.show(fragment, NO_NETWORK_CONNECTION_DIALOG_TAG);
+  }
+
+  @NonNull
+  static String getTargetBookmarkGroupFromUri(@NonNull Uri uri)
+  {
+    List<String> uriGroups = uri.getQueryParameters(BookmarkPaymentDataParser.GROUPS);
+    if (uriGroups == null || uriGroups.isEmpty())
+    {
+      CrashlyticsUtils.logException(
+          new IllegalArgumentException("'" + BookmarkPaymentDataParser.GROUPS
+                                       + "' parameter is required! URI: " + uri));
+      return SubscriptionType.BOOKMARKS_ALL.getServerId();
+    }
+
+
+    List<String> priorityGroups = Arrays.asList(SubscriptionType.BOOKMARKS_ALL.getServerId(),
+                                                SubscriptionType.BOOKMARKS_SIGHTS.getServerId());
+    for (String priorityGroup : priorityGroups)
+    {
+      for (String uriGroup : uriGroups)
+      {
+        if (priorityGroup.equals(uriGroup))
+        {
+          return priorityGroup;
+        }
+      }
+    }
+
+    return SubscriptionType.BOOKMARKS_ALL.getServerId();
   }
 
   enum Period
