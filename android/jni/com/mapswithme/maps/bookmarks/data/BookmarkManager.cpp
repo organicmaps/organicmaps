@@ -1064,6 +1064,14 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCatalogFrontend
   return ToJavaString(env, bm.GetCatalog().GetFrontendUrl(static_cast<UTM>(utm)));
 }
 
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCatalogHeaders(JNIEnv * env,
+                                                                                jobject)
+{
+  auto & bm = frm()->GetBookmarkManager();
+  return jni::ToKeyValueArray(env, bm.GetCatalog().GetHeaders());
+}
+
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeInjectCatalogUTMContent(JNIEnv * env,
         jobject, jstring url, jint content)

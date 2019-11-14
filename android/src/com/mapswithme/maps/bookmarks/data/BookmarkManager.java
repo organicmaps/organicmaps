@@ -10,6 +10,7 @@ import com.mapswithme.maps.base.DataChangedListener;
 import com.mapswithme.maps.base.Observable;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.metrics.UserActionsLogger;
+import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.UTM;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -715,6 +716,12 @@ public enum BookmarkManager
   }
 
   @NonNull
+  public KeyValue[] getCatalogHeaders()
+  {
+    return nativeGetCatalogHeaders();
+  }
+
+  @NonNull
   public String injectCatalogUTMContent(@NonNull String url,  @UTM.UTMContentType int content)
   {
     return nativeInjectCatalogUTMContent(url, content);
@@ -1033,6 +1040,9 @@ public enum BookmarkManager
 
   @NonNull
   private static native String nativeGetCatalogFrontendUrl(@UTM.UTMType int utm);
+
+  @NonNull
+  private static native KeyValue[] nativeGetCatalogHeaders();
 
   @NonNull
   private static native String nativeInjectCatalogUTMContent(@NonNull String url,

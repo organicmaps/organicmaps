@@ -31,6 +31,7 @@ import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseWebViewMwmFragment;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.dialog.ConfirmationDialogFactory;
@@ -48,6 +49,7 @@ import com.mapswithme.maps.purchase.SubscriptionType;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.HttpClient;
+import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
@@ -299,9 +301,11 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     if (!TextUtils.isEmpty(productDetailsBundle))
       headers.put(HttpClient.HEADER_BUNDLE_TIERS, productDetailsBundle);
 
-    String deviceId = Framework.nativeGetDeviceId();
-    if (!TextUtils.isEmpty(deviceId))
-      headers.put(HttpClient.HEADER_DEVICE_ID, deviceId);
+    for (KeyValue header : BookmarkManager.INSTANCE.getCatalogHeaders())
+    {
+      if (!TextUtils.isEmpty(header.mValue))
+        headers.put(header.mKey, header.mValue);
+    }
 
     mWebView.loadUrl(getCatalogUrlOrThrow(), headers);
     UserActionsLogger.logBookmarksCatalogShownEvent();
