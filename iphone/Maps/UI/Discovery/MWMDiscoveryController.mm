@@ -122,7 +122,7 @@ struct Callback
                                                             canUseNetwork:self.canUseNetwork
                                                                  delegate:self
                                                                     model:callback];
-  vector<ItemType> types = {ItemType::Hotels, ItemType::Attractions, ItemType::Cafes, ItemType:: Promo};
+  vector<ItemType> types = {ItemType::Promo, ItemType::Attractions, ItemType::Cafes, ItemType::Hotels};
   [self.tableManager loadItems:types];
   ClientParams p;
   p.m_itemTypes = move(types);
