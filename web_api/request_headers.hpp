@@ -16,8 +16,8 @@ class HeadersParams
 {
 public:
   boost::optional<m2::PointD> m_currentPosition;
-  std::vector<base::GeoObjectId> m_countryGeoids;
-  std::vector<base::GeoObjectId> m_cityGeoids;
+  std::vector<base::GeoObjectId> m_countryGeoIds;
+  std::vector<base::GeoObjectId> m_cityGeoIds;
 };
 
 platform::HttpClient::Headers GetDefaultCatalogHeaders();

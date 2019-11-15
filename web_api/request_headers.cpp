@@ -37,11 +37,11 @@ platform::HttpClient::Headers GetCatalogHeaders(HeadersParams const & params)
     result.emplace(kLatLonHeader, latLonStream.str());
   }
 
-  if (!params.m_cityGeoids.empty())
-    result.emplace(kCitiesHeader, strings::JoinAny(params.m_cityGeoids));
+  if (!params.m_cityGeoIds.empty())
+    result.emplace(kCitiesHeader, strings::JoinAny(params.m_cityGeoIds));
 
-  if (!params.m_countryGeoids.empty())
-    result.emplace(kCountriesHeader, strings::JoinAny(params.m_countryGeoids));
+  if (!params.m_countryGeoIds.empty())
+    result.emplace(kCountriesHeader, strings::JoinAny(params.m_countryGeoIds));
 
   return result;
 }

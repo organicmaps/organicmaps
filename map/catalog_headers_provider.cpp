@@ -15,8 +15,8 @@ platform::HttpClient::Headers CatalogHeadersProvider::GetHeaders()
   storage::CountriesVec localMaps;
   m_storage.GetLocalRealMaps(localMaps);
   auto const & countryToCity = m_storage.GetMwmTopCityGeoIds();
-  auto & countries = params.m_countryGeoids;
-  auto & cities = params.m_cityGeoids;
+  auto & countries = params.m_countryGeoIds;
+  auto & cities = params.m_cityGeoIds;
   for (auto const id : localMaps)
   {
     auto const countryIds = m_storage.GetTopCountryGeoIds(id);

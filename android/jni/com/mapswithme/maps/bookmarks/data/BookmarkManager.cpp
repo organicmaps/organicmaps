@@ -1068,7 +1068,7 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCatalogHeaders(JNIEnv * env,
                                                                                 jobject)
 {
-  auto & bm = frm()->GetBookmarkManager();
+  auto const & bm = frm()->GetBookmarkManager();
   return jni::ToKeyValueArray(env, bm.GetCatalog().GetHeaders());
 }
 
