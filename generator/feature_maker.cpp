@@ -37,7 +37,6 @@ bool FeatureMakerSimple::BuildFromNode(OsmElement & p, FeatureParams const & par
 
 bool FeatureMakerSimple::BuildFromWay(OsmElement & p, FeatureParams const & params)
 {
-  auto const & cache = m_cache->GetCache();
   auto const & nodes = p.Nodes();
   if (nodes.size() < 2)
     return false;
@@ -46,7 +45,7 @@ bool FeatureMakerSimple::BuildFromWay(OsmElement & p, FeatureParams const & para
   m2::PointD pt;
   for (uint64_t ref : nodes)
   {
-    if (!cache->GetNode(ref, pt.y, pt.x))
+    if (!m_cache->GetNode(ref, pt.y, pt.x))
       return false;
 
     fb.AddPoint(pt);
@@ -56,8 +55,8 @@ bool FeatureMakerSimple::BuildFromWay(OsmElement & p, FeatureParams const & para
   fb.SetParams(params);
   if (fb.IsGeometryClosed())
   {
-    HolesProcessor processor(p.m_id, cache);
-    cache->ForEachRelationByWay(p.m_id, processor);
+    HolesProcessor processor(p.m_id, m_cache);
+    m_cache->ForEachRelationByWay(p.m_id, processor);
     fb.SetHoles(processor.GetHoles());
     fb.SetArea();
   }
@@ -72,8 +71,7 @@ bool FeatureMakerSimple::BuildFromWay(OsmElement & p, FeatureParams const & para
 
 bool FeatureMakerSimple::BuildFromRelation(OsmElement & p, FeatureParams const & params)
 {
-  auto const & cache = m_cache->GetCache();
-  HolesRelation helper(cache);
+  HolesRelation helper(m_cache);
   helper.Build(&p);
   auto const & holesGeometry = helper.GetHoles();
   auto & outer = helper.GetOuter();

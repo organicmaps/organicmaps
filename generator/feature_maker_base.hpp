@@ -1,6 +1,7 @@
 #pragma once
 
 #include "generator/feature_builder.hpp"
+#include "generator/intermediate_data.hpp"
 
 #include <queue>
 
@@ -8,23 +9,18 @@ struct OsmElement;
 
 namespace generator
 {
-namespace cache
-{
-class IntermediateData;
-}  // namespace cache
-
 // Abstract class FeatureMakerBase is responsible for the conversion OsmElement to FeatureBuilder.
 // The main task of this class is to create features of the necessary types.
 // At least one feature should turn out from one OSM element. You can get several features from one element.
 class FeatureMakerBase
 {
 public:
-  explicit FeatureMakerBase(std::shared_ptr<cache::IntermediateData> const & cache = {});
+  explicit FeatureMakerBase(std::shared_ptr<cache::IntermediateDataReader> const & cache = {});
   virtual ~FeatureMakerBase() = default;
 
   virtual std::shared_ptr<FeatureMakerBase> Clone() const = 0;
 
-  void SetCache(std::shared_ptr<cache::IntermediateData> const & cache);
+  void SetCache(std::shared_ptr<cache::IntermediateDataReader> const & cache);
 
   // Reference on element is non const because ftype::GetNameAndType will be call.
   virtual bool Add(OsmElement & element);
@@ -40,7 +36,7 @@ protected:
 
   virtual void ParseParams(FeatureParams & params, OsmElement & element) const  = 0;
 
-  std::shared_ptr<cache::IntermediateData> m_cache;
+  std::shared_ptr<cache::IntermediateDataReader> m_cache;
   std::queue<feature::FeatureBuilder> m_queue;
 };
 

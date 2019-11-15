@@ -1,5 +1,6 @@
 #include "generator/feature_maker_base.hpp"
 
+#include "generator/intermediate_data.hpp"
 #include "generator/osm_element.hpp"
 
 #include "base/assert.hpp"
@@ -10,10 +11,10 @@ using namespace feature;
 
 namespace generator
 {
-FeatureMakerBase::FeatureMakerBase(std::shared_ptr<cache::IntermediateData> const & cache)
+FeatureMakerBase::FeatureMakerBase(std::shared_ptr<cache::IntermediateDataReader> const & cache)
   : m_cache(cache) {}
 
-void FeatureMakerBase::SetCache(std::shared_ptr<cache::IntermediateData> const & cache)
+void FeatureMakerBase::SetCache(std::shared_ptr<cache::IntermediateDataReader> const & cache)
 {
   m_cache = cache;
 }

@@ -25,7 +25,7 @@ namespace generator
 TranslatorWorld::TranslatorWorld(std::shared_ptr<FeatureProcessorInterface> const & processor,
                                  std::shared_ptr<cache::IntermediateData> const & cache,
                                  feature::GenerateInfo const & info, bool needMixTags)
-  : Translator(processor, cache, std::make_shared<FeatureMaker>(cache))
+  : Translator(processor, cache, std::make_shared<FeatureMaker>(cache->GetCache()))
   , m_tagAdmixer(std::make_shared<TagAdmixer>(info.GetIntermediateFileName("ways", ".csv"),
                                               info.GetIntermediateFileName("towns", ".csv")))
   , m_tagReplacer(std::make_shared<TagReplacer>(

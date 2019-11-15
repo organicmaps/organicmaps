@@ -2,6 +2,7 @@
 
 #include "generator/feature_builder.hpp"
 #include "generator/feature_maker_base.hpp"
+#include "generator/intermediate_data.hpp"
 
 struct OsmElement;
 

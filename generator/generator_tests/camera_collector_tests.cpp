@@ -57,7 +57,7 @@ class TranslatorForTest : public Translator
 public:
   explicit TranslatorForTest(shared_ptr<FeatureProcessorInterface> const & processor,
                              shared_ptr<generator::cache::IntermediateData> const & cache)
-    : Translator(processor, cache, make_shared<FeatureMaker>(cache))
+    : Translator(processor, cache, make_shared<FeatureMaker>(cache->GetCache()))
   {
     SetFilter(make_shared<FilterPlanet>());
   }

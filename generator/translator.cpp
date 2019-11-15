@@ -22,7 +22,7 @@ Translator::Translator(std::shared_ptr<FeatureProcessorInterface> const & proces
   , m_processor(processor)
   , m_cache(cache)
 {
-  m_featureMaker->SetCache(cache);
+  m_featureMaker->SetCache(cache->GetCache());
 }
 
 Translator::Translator(std::shared_ptr<FeatureProcessorInterface> const & processor,

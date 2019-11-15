@@ -20,7 +20,7 @@ namespace generator
 {
 TranslatorComplex::TranslatorComplex(std::shared_ptr<FeatureProcessorInterface> const & processor,
                                      std::shared_ptr<cache::IntermediateData> const & cache)
-  : Translator(processor, cache, std::make_shared<FeatureMaker>(cache))
+  : Translator(processor, cache, std::make_shared<FeatureMaker>(cache->GetCache()))
 {
   auto filters = std::make_shared<FilterCollection>();
   filters->Append(std::make_shared<FilterPlanet>());
