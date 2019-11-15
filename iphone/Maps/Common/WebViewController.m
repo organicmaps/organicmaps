@@ -90,6 +90,7 @@
 
   self.webView.backgroundColor = UIColor.whiteColor;
   self.webView.allowsLinkPreview = NO;
+  [self.webView setCustomUserAgent:[MWMFrameworkHelper userAgent]];
 
   [self performURLRequest];
 }
@@ -110,7 +111,6 @@
           [request setValue:headers[header] forHTTPHeaderField:header];
         }
         
-        [request setValue:[MWMFrameworkHelper userAgent] forHTTPHeaderField:@"User-Agent"];
         if (self.shouldAddAccessToken)
         {
           NSString *authHeader = [NSString stringWithFormat:@"Bearer %@", [MWMFrameworkHelper userAccessToken]];
