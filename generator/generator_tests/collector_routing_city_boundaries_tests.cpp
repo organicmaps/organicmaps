@@ -171,7 +171,7 @@ UNIT_CLASS_TEST(TestWithClassificator, CollectorRoutingCityBoundaries_1)
   auto const filename = generator_tests::GetFileName();
   SCOPE_GUARD(_, std::bind(Platform::RemoveFileIfExists, std::cref(filename)));
 
-  std::shared_ptr<cache::IntermediateData> cache;
+  std::shared_ptr<cache::IntermediateDataReader> cache;
   auto c1 = std::make_shared<BoundariesCollector>(filename, cache);
 
   Collect(*c1, {placeRelation1, placeRelation2, placeRelation3, placeRelation4});
@@ -189,7 +189,7 @@ UNIT_CLASS_TEST(TestWithClassificator, CollectorRoutingCityBoundaries_2)
   auto const filename = generator_tests::GetFileName();
   SCOPE_GUARD(_, std::bind(Platform::RemoveFileIfExists, std::cref(filename)));
 
-  std::shared_ptr<cache::IntermediateData> cache;
+  std::shared_ptr<cache::IntermediateDataReader> cache;
   auto c1 = std::make_shared<BoundariesCollector>(filename, cache);
   auto c2 = c1->Clone();
 

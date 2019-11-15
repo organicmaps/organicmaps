@@ -107,7 +107,7 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
       std::make_shared<CityAreaCollector>(info.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME)));
   // Collectors for gathering of additional information for the future building of routing section.
   collectors->Append(std::make_shared<RoutingCityBoundariesCollector>(
-      info.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_TMP_FILENAME), cache));
+      info.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_TMP_FILENAME), cache->GetCache()));
   collectors->Append(
       std::make_shared<MaxspeedsCollector>(info.GetIntermediateFileName(MAXSPEEDS_FILENAME)));
   collectors->Append(std::make_shared<routing::RestrictionWriter>(

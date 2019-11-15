@@ -41,11 +41,11 @@ public:
   };
 
   RoutingCityBoundariesCollector(std::string const & filename,
-                                 std::shared_ptr<cache::IntermediateData> cache);
+                                 std::shared_ptr<cache::IntermediateDataReader> const & cache);
 
   // CollectorInterface overrides:
   std::shared_ptr<CollectorInterface> Clone(
-      std::shared_ptr<cache::IntermediateDataReader> const & = {}) const override;
+      std::shared_ptr<cache::IntermediateDataReader> const & cache = {}) const override;
 
   void Collect(OsmElement const & osmElement) override;
   void Finish() override;
@@ -58,7 +58,7 @@ public:
 private:
 
   std::unique_ptr<RoutingCityBoundariesWriter> m_writer;
-  std::shared_ptr<cache::IntermediateData> m_cache;
+  std::shared_ptr<cache::IntermediateDataReader> m_cache;
   FeatureMakerSimple m_featureMakerSimple;
 };
 

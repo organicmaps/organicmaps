@@ -103,18 +103,18 @@ RoutingCityBoundariesCollector::LocalityData::Deserialize(ReaderSource<FileReade
 // RoutingCityBoundariesCollector ------------------------------------------------------------------
 
 RoutingCityBoundariesCollector::RoutingCityBoundariesCollector(
-    std::string const & filename, std::shared_ptr<cache::IntermediateData> cache)
+    std::string const & filename, std::shared_ptr<cache::IntermediateDataReader> const & cache)
   : CollectorInterface(filename)
   , m_writer(std::make_unique<RoutingCityBoundariesWriter>(GetTmpFilename()))
-  , m_cache(std::move(cache))
-  , m_featureMakerSimple(m_cache)
+  , m_cache(cache)
+  , m_featureMakerSimple(cache)
 {
 }
 
 std::shared_ptr<CollectorInterface> RoutingCityBoundariesCollector::Clone(
-    std::shared_ptr<cache::IntermediateDataReader> const &) const
+    std::shared_ptr<cache::IntermediateDataReader> const & cache) const
 {
-  return std::make_shared<RoutingCityBoundariesCollector>(GetFilename(), m_cache->Clone());
+  return std::make_shared<RoutingCityBoundariesCollector>(GetFilename(), cache ? m_cache : cache);
 }
 
 void RoutingCityBoundariesCollector::Collect(OsmElement const & osmElement)
