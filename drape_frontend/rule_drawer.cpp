@@ -268,7 +268,7 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
   if (f.GetLayer() >= 0)
   {
     bool const hasParts = IsBuildingHasPartsChecker::Instance()(f);
-    bool const isPart = IsBuildingPartChecker::Instance()(f);
+    bool const isPart = ftypes::IsBuildingPartChecker::Instance()(f);
 
     // Looks like nonsense, but there are some osm objects with types
     // highway-path-bridge and building (sic!) at the same time (pedestrian crossing).

@@ -1,6 +1,9 @@
 #pragma once
 
+#include "generator/filter_interface.hpp"
+#include "generator/hierarchy.hpp"
 #include "generator/processor_interface.hpp"
+#include "generator/tag_admixer.hpp"
 #include "generator/translator.hpp"
 
 #include <memory>
@@ -13,14 +16,17 @@ class IntermediateData;
 
 namespace generator
 {
-// The TranslatorComplex class implements translator for building map objects complex.
+// The TranslatorComplex class implements translator for building complexes.
 class TranslatorComplex : public Translator
 {
 public:
   explicit TranslatorComplex(std::shared_ptr<FeatureProcessorInterface> const & processor,
-                             std::shared_ptr<cache::IntermediateData> const & cache);
+                             std::shared_ptr<cache::IntermediateData> const & cache,
+                             feature::GenerateInfo const & info);
 
   // TranslatorInterface overrides:
+  void Preprocess(OsmElement & element) override;
+
   std::shared_ptr<TranslatorInterface> Clone() const override;
 
   void Merge(TranslatorInterface const & other) override;
@@ -28,5 +34,7 @@ public:
 
 protected:
   using Translator::Translator;
+
+  std::shared_ptr<TagReplacer> m_tagReplacer;
 };
 }  // namespace generator

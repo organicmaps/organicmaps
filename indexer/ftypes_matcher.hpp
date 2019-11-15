@@ -183,6 +183,13 @@ public:
   DECLARE_CHECKER_INSTANCE(IsBuildingChecker);
 };
 
+class IsBuildingPartChecker : public ftypes::BaseChecker
+{
+  IsBuildingPartChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsBuildingPartChecker);
+};
+
 class IsPoiChecker : public BaseChecker
 {
   IsPoiChecker();

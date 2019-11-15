@@ -118,4 +118,6 @@
 
 #define BOOKING_EXCLUDED_FILE "booking_excluded.txt"
 
+#define BUILDING_PARTS_MAPPING_FILE "building_parts_mapping.bin"
+
 auto constexpr kInvalidRatingValue = 0.0f;

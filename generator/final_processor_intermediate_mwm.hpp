@@ -1,7 +1,10 @@
 #pragma once
 
 #include "generator/coastlines_generator.hpp"
+#include "generator/collector_building_parts.hpp"
+#include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
+#include "generator/filter_interface.hpp"
 #include "generator/hierarchy.hpp"
 #include "generator/hierarchy_entry.hpp"
 #include "generator/world_map_generator.hpp"
@@ -143,22 +146,40 @@ public:
   ComplexFinalProcessor(std::string const & mwmTmpPath, std::string const & outFilename,
                         size_t threadsCount);
 
-  void SetMwmAndFt2OsmPath(std::string const & mwmPath, std::string const & osm2ftPath);
+  void SetGetMainTypeFunction(hierarchy::GetMainTypeFn const & getMainType);
+  void SetFilter(std::shared_ptr<FilterInterface> const & filter);
+  void SetGetNameFunction(hierarchy::GetNameFn const & getName);
   void SetPrintFunction(hierarchy::PrintFn const & printFunction);
+
+  void UseCentersEnricher(std::string const & mwmPath, std::string const & osm2ftPath);
+  void UseBuildingPartsInfo(std::string const & filename);
 
   // FinalProcessorIntermediateMwmInterface overrides:
   void Process() override;
 
 private:
-  std::shared_ptr<hierarchy::HierarchyLineEnricher> CreateEnricher(
+  static void FlattenBuildingParts(hierarchy::HierarchyBuilder::Node::Ptrs & nodes);
+
+  std::unique_ptr<hierarchy::HierarchyLineEnricher> CreateEnricher(
       std::string const & countryName) const;
   void WriteLines(std::vector<HierarchyEntry> const & lines);
+  std::unordered_map<base::GeoObjectId, feature::FeatureBuilder> RemoveRelationBuildingParts(
+      std::string const & mwmTmpFilename);
+  void AddRelationBuildingParts(
+      hierarchy::HierarchyBuilder::Node::Ptrs & nodes,
+      std::unordered_map<base::GeoObjectId, feature::FeatureBuilder> const & m);
 
-  hierarchy::PrintFn m_printFunction = hierarchy::PrintDefault;
+  hierarchy::GetMainTypeFn m_getMainType;
+  hierarchy::PrintFn m_printFunction;
+  hierarchy::GetNameFn m_getName;
+  std::shared_ptr<FilterInterface> m_filter;
+  std::unique_ptr<BuildingToBuildingPartsMap> m_buildingToBuildingParts;
+  bool m_useCentersEnricher = false;
   std::string m_mwmTmpPath;
   std::string m_outFilename;
   std::string m_mwmPath;
   std::string m_osm2ftPath;
+  std::string m_buildingPartsFilename;
   size_t m_threadsCount;
 };
 }  // namespace generator

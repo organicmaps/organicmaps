@@ -377,6 +377,7 @@ IntermediateDataReader::IntermediateDataReader(PointStorageReaderInterface const
   , m_relations(info.GetIntermediateFileName(RELATIONS_FILE), info.m_preloadCache, forceReload)
   , m_nodeToRelations(GetOrCreateIndexReader(info.GetIntermediateFileName(NODES_FILE, ID2REL_EXT), forceReload))
   , m_wayToRelations(GetOrCreateIndexReader(info.GetIntermediateFileName(WAYS_FILE, ID2REL_EXT), forceReload))
+  , m_relationToRelations(GetOrCreateIndexReader(info.GetIntermediateFileName(RELATIONS_FILE, ID2REL_EXT), forceReload))
 {}
 
 // IntermediateDataWriter
@@ -387,6 +388,7 @@ IntermediateDataWriter::IntermediateDataWriter(PointStorageWriterInterface & nod
   , m_relations(info.GetIntermediateFileName(RELATIONS_FILE), info.m_preloadCache)
   , m_nodeToRelations(info.GetIntermediateFileName(NODES_FILE, ID2REL_EXT))
   , m_wayToRelations(info.GetIntermediateFileName(WAYS_FILE, ID2REL_EXT))
+  , m_relationToRelations(info.GetIntermediateFileName(RELATIONS_FILE, ID2REL_EXT))
 {}
 
 void IntermediateDataWriter::AddRelation(Key id, RelationElement const & e)
@@ -400,6 +402,7 @@ void IntermediateDataWriter::AddRelation(Key id, RelationElement const & e)
   m_relations.Write(id, e);
   AddToIndex(m_nodeToRelations, id, e.m_nodes);
   AddToIndex(m_wayToRelations, id, e.m_ways);
+  AddToIndex(m_relationToRelations, id, e.m_relations);
 }
 
 void IntermediateDataWriter::SaveIndex()
@@ -409,6 +412,7 @@ void IntermediateDataWriter::SaveIndex()
 
   m_nodeToRelations.WriteAll();
   m_wayToRelations.WriteAll();
+  m_relationToRelations.WriteAll();
 }
 
 // Functions

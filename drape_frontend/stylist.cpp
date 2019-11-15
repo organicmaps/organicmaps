@@ -166,11 +166,6 @@ IsBuildingHasPartsChecker::IsBuildingHasPartsChecker()
   m_types.push_back(classif().GetTypeByPath({"building", "has_parts"}));
 }
 
-IsBuildingPartChecker::IsBuildingPartChecker() : BaseChecker(1 /* level */)
-{
-  m_types.push_back(classif().GetTypeByPath({"building:part"}));
-}
-
 IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
 {
   Classificator const & c = classif();
@@ -327,7 +322,7 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
 {
   feature::TypesHolder const types(f);
 
-  if (!buildings3d && IsBuildingPartChecker::Instance()(types) &&
+  if (!buildings3d && ftypes::IsBuildingPartChecker::Instance()(types) &&
       !ftypes::IsBuildingChecker::Instance()(types))
     return false;
 

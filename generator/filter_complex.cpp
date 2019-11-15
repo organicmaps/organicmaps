@@ -1,6 +1,7 @@
 #include "generator/filter_complex.hpp"
 
 #include "generator/feature_builder.hpp"
+#include "generator/hierarchy.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 
@@ -16,10 +17,6 @@ bool FilterComplex::IsAccepted(feature::FeatureBuilder const & fb)
   if (!fb.IsArea() && !fb.IsPoint())
     return false;
 
-  auto const & eatChecker = ftypes::IsEatChecker::Instance();
-  auto const & attractChecker = ftypes::AttractionsChecker::Instance();
-  auto const & airportChecker = ftypes::IsAirportChecker::Instance();
-  auto const & ts = fb.GetTypes();
-  return eatChecker(ts) || attractChecker(ts) || airportChecker(ts);
+  return hierarchy::GetMainType(fb.GetTypes()) != ftype::GetEmptyValue();
 }
 }  // namespace generator

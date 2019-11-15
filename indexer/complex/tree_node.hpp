@@ -36,7 +36,7 @@ public:
   using WeakPtr = types::WeakPtr<Data>;
   using Ptrs = types::Ptrs<Data>;
 
-  explicit TreeNode(Data && data) : m_data(std::move(data)) {}
+  explicit TreeNode(Data && data) : m_data(std::forward<Data>(data)) {}
 
   bool HasChildren() const { return !m_children.empty(); }
   Ptrs const & GetChildren() const { return m_children; }
@@ -48,6 +48,9 @@ public:
 
   void SetChildren(Ptrs && children) { m_children = std::move(children); }
   void RemoveChildren() { m_children.clear(); }
+
+  template <typename Fn>
+  void RemoveChildrenIf(Fn && fn) { base::EraseIf(m_children, std::forward<Fn>(fn)); }
 
   bool HasParent() const { return m_parent.lock() != nullptr; }
   Ptr GetParent() const { return m_parent.lock(); }
@@ -73,6 +76,13 @@ void Link(types::Ptr<Data> const & node, types::Ptr<Data> const & parent)
 {
   parent->AddChild(node);
   node->SetParent(parent);
+}
+
+template <typename Data>
+void Unlink(types::Ptr<Data> const & node, types::Ptr<Data> const & parent)
+{
+  parent->RemoveChildrenIf([&](auto const & n) { return n == node; });
+  node->SetParent(nullptr);
 }
 
 template <typename Data>
@@ -103,6 +113,23 @@ void PreOrderVisit(types::Ptr<Data> const & node, Fn && fn)
     }
 
     return base::ControlFlow::Continue;
+  };
+  preOrderVisitDetail(node);
+}
+
+template <typename Data, typename Fn>
+void PostOrderVisit(types::Ptr<Data> const & node, Fn && fn)
+{
+  base::ControlFlowWrapper<Fn> wrapper(std::forward<Fn>(fn));
+  std::function<base::ControlFlow(types::Ptr<Data> const &)> preOrderVisitDetail;
+  preOrderVisitDetail = [&](auto const & node) {
+    for (auto const & ch : node->GetChildren())
+    {
+      if (preOrderVisitDetail(ch) == base::ControlFlow::Break)
+        return base::ControlFlow::Break;
+    }
+
+    return wrapper(node);
   };
   preOrderVisitDetail(node);
 }

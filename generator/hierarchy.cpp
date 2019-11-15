@@ -5,8 +5,6 @@
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
-#include "base/assert.hpp"
-
 #include <algorithm>
 #include <cmath>
 #include <fstream>
@@ -15,6 +13,7 @@
 #include <iterator>
 #include <limits>
 #include <numeric>
+#include "base/assert.hpp"
 
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/register/point.hpp>
@@ -49,11 +48,7 @@ double CalculateOverlapPercentage(std::vector<m2::PointD> const & lhs,
 }
 }  // namespace
 
-uint32_t GetTypeDefault(FeatureParams::Types const &) { return ftype::GetEmptyValue(); }
-
-std::string GetNameDefault(StringUtf8Multilang const &) { return {}; }
-
-std::string PrintDefault(HierarchyEntry const &) { return {}; }
+bool FilterFeatureDefault(feature::FeatureBuilder const &) { return true; }
 
 HierarchyPlace::HierarchyPlace(FeatureBuilder const & fb)
   : m_id(MakeCompositeId(fb))
@@ -111,9 +106,26 @@ HierarchyLinker::Node::Ptr HierarchyLinker::FindPlaceParent(HierarchyPlace const
   auto minArea = std::numeric_limits<double>::max();
   auto const point = place.GetCenter();
   m_tree.ForEachInRect({point, point}, [&](auto const & candidateNode) {
+    // https://wiki.openstreetmap.org/wiki/Simple_3D_buildings
+    // An object with tag 'building:part' is a part of a releation with tag 'building' or contained
+    // in a object with tag 'building'. This case is second. We suppose a building part is only
+    // inside a building.
+    static auto const & buildingChecker = ftypes::IsBuildingChecker::Instance();
+    static auto const & buildingPartChecker = ftypes::IsBuildingPartChecker::Instance();
     auto const & candidate = candidateNode->GetData();
+    if (buildingPartChecker(place.GetTypes()) &&
+        !(buildingChecker(candidate.GetTypes()) || buildingPartChecker(candidate.GetTypes())))
+    {
+      return;
+    }
+
+    // A building part must have children only with 'building:part' type.
+    if (!buildingPartChecker(place.GetTypes()) && buildingPartChecker(candidate.GetTypes()))
+      return;
+
     if (place.GetCompositeId() == candidate.GetCompositeId())
       return;
+
     if (candidate.GetArea() < minArea && candidate.Contains(place))
     {
       // Sometimes there can be two places with the same geometry. We must check place node and
@@ -157,7 +169,10 @@ void HierarchyBuilder::SetGetMainTypeFunction(GetMainTypeFn const & getMainType)
   m_getMainType = getMainType;
 }
 
-void HierarchyBuilder::SetGetNameFunction(GetNameFn const & getName) { m_getName = getName; }
+void HierarchyBuilder::SetFilter(std::shared_ptr<FilterInterface> const & filter)
+{
+  m_filter = filter;
+}
 
 std::vector<feature::FeatureBuilder> HierarchyBuilder::ReadFeatures(
     std::string const & dataFilename)
@@ -165,17 +180,16 @@ std::vector<feature::FeatureBuilder> HierarchyBuilder::ReadFeatures(
   std::vector<feature::FeatureBuilder> fbs;
   ForEachFromDatRawFormat<serialization_policy::MaxAccuracy>(
       dataFilename, [&](FeatureBuilder const & fb, uint64_t /* currPos */) {
-        if (m_getMainType(fb.GetTypes()) != ftype::GetEmptyValue() && !fb.GetOsmIds().empty() &&
-            (fb.IsPoint() || fb.IsArea()))
-        {
+        if (m_filter->IsAccepted(fb))
           fbs.emplace_back(fb);
-        }
       });
   return fbs;
 }
 
 HierarchyBuilder::Node::Ptrs HierarchyBuilder::Build()
 {
+  CHECK(m_getMainType, ());
+
   auto const fbs = ReadFeatures(m_dataFullFilename);
   Node::Ptrs places;
   places.reserve(fbs.size());
@@ -213,13 +227,12 @@ boost::optional<m2::PointD> HierarchyLineEnricher::GetFeatureCenter(CompositeId 
           (id, optIds));
   }
 
-  for (auto type : {
-       base::Underlying(feature::GeomType::Point),
-       base::Underlying(feature::GeomType::Area),
-       base::Underlying(feature::GeomType::Line)})
+  for (auto type :
+       {base::Underlying(feature::GeomType::Point), base::Underlying(feature::GeomType::Area),
+        base::Underlying(feature::GeomType::Line)})
   {
     if (m.count(type) != 0)
-        return m[type];
+      return m[type];
   }
 
   return {};
@@ -237,16 +250,22 @@ void HierarchyLinesBuilder::SetGetMainTypeFunction(GetMainTypeFn const & getMain
 
 void HierarchyLinesBuilder::SetGetNameFunction(GetNameFn const & getName) { m_getName = getName; }
 
-void HierarchyLinesBuilder::SetCountry(storage::CountryId const & country) { m_countryName = country; }
+void HierarchyLinesBuilder::SetCountry(storage::CountryId const & country)
+{
+  m_countryName = country;
+}
 
 void HierarchyLinesBuilder::SetHierarchyLineEnricher(
-    std::shared_ptr<HierarchyLineEnricher> const & enricher)
+    std::unique_ptr<HierarchyLineEnricher> && enricher)
 {
-  m_enricher = enricher;
+  m_enricher = std::move(enricher);
 }
 
 std::vector<HierarchyEntry> HierarchyLinesBuilder::GetHierarchyLines()
 {
+  CHECK(m_getName, ());
+  CHECK(m_getMainType, ());
+
   std::vector<HierarchyEntry> lines;
   lines.reserve(m_nodes.size());
   std::transform(std::cbegin(m_nodes), std::cend(m_nodes), std::back_inserter(lines),

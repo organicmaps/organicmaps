@@ -74,6 +74,11 @@ uint32_t GetMainType(FeatureParams::Types const & types)
 
   auto const & eatChecker = ftypes::IsEatChecker::Instance();
   it = base::FindIf(types, eatChecker);
+  if (it != std::cend(types))
+    return *it;
+
+  auto const & buildingPartChecker = ftypes::IsBuildingPartChecker::Instance();
+  it = base::FindIf(types, buildingPartChecker);
   return it != std::cend(types) ? *it : ftype::GetEmptyValue();
 }
 

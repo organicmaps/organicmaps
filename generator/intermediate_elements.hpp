@@ -95,9 +95,10 @@ public:
 
   std::vector<Member> m_nodes;
   std::vector<Member> m_ways;
+  std::vector<Member> m_relations;
   std::map<std::string, std::string> m_tags;
 
-  bool IsValid() const { return !(m_nodes.empty() && m_ways.empty()); }
+  bool IsValid() const { return !(m_nodes.empty() && m_ways.empty() && m_relations.empty()); }
 
   std::string GetTagValue(std::string const & key) const
   {
@@ -108,6 +109,7 @@ public:
   std::string GetType() const { return GetTagValue("type"); }
   bool FindWay(uint64_t id, std::string & role) const { return FindRoleImpl(m_ways, id, role); }
   bool FindNode(uint64_t id, std::string & role) const { return FindRoleImpl(m_nodes, id, role); }
+  bool FindRelation(uint64_t id, std::string & role) const { return FindRoleImpl(m_relations, id, role); }
 
   template <class ToDo>
   void ForEachWay(ToDo & toDo) const
@@ -118,24 +120,30 @@ public:
 
   std::string GetNodeRole(uint64_t const id) const
   {
-    for (size_t i = 0; i < m_nodes.size(); ++i)
-      if (m_nodes[i].first == id)
-        return m_nodes[i].second;
-    return std::string();
+    std::string role;
+    UNUSED_VALUE(FindNode(id, role));
+    return role;
   }
 
   std::string GetWayRole(uint64_t const id) const
   {
-    for (size_t i = 0; i < m_ways.size(); ++i)
-      if (m_ways[i].first == id)
-        return m_ways[i].second;
-    return std::string();
+    std::string role;
+    UNUSED_VALUE(FindWay(id, role));
+    return role;
+  }
+
+  std::string GetRelationRole(uint64_t const id) const
+  {
+    std::string role;
+    UNUSED_VALUE(FindRelation(id, role));
+    return role;
   }
 
   void Swap(RelationElement & rhs)
   {
     m_nodes.swap(rhs.m_nodes);
     m_ways.swap(rhs.m_ways);
+    m_relations.swap(rhs.m_relations);
     m_tags.swap(rhs.m_tags);
   }
 
@@ -166,6 +174,7 @@ public:
 
     MembersWriter(m_nodes);
     MembersWriter(m_ways);
+    MembersWriter(m_relations);
 
     uint64_t count = m_tags.size();
     WriteVarUint(writer, count);
@@ -206,6 +215,7 @@ public:
 
     MembersReader(m_nodes);
     MembersReader(m_ways);
+    MembersReader(m_relations);
 
     // decode m_tags
     m_tags.clear();

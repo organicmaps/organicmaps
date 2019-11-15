@@ -24,13 +24,6 @@ public:
   DECLARE_CHECKER_INSTANCE(IsBuildingHasPartsChecker);
 };
 
-class IsBuildingPartChecker : public ftypes::BaseChecker
-{
-  IsBuildingPartChecker();
-public:
-  DECLARE_CHECKER_INSTANCE(IsBuildingPartChecker);
-};
-
 class IsHatchingTerritoryChecker : public ftypes::BaseChecker
 {
   IsHatchingTerritoryChecker();
