@@ -14,6 +14,7 @@
 #include <algorithm>
 #include <set>
 #include <sstream>
+#include <utility>
 
 using namespace routing;
 using namespace std;
@@ -22,15 +23,15 @@ using namespace track_analyzing;
 
 namespace
 {
-set<string> GetKeys(Stat::NameToCountMapping const & mapping)
+set<string> GetKeys(Stats::NameToCountMapping const & mapping)
 {
   set<string> keys;
   transform(mapping.begin(), mapping.end(), inserter(keys, keys.end()),
-                 [](auto const & kv) { return kv.first; });
+            [](auto const & kv) { return kv.first; });
   return keys;
 }
 
-inline void Add(Stat::NameToCountMapping const & addition, Stat::NameToCountMapping & base)
+void Add(Stats::NameToCountMapping const & addition, Stats::NameToCountMapping & base)
 {
   set<storage::CountryId> userKeys = GetKeys(addition);
   set<storage::CountryId> const userKeys2 = GetKeys(base);
@@ -52,14 +53,14 @@ inline void Add(Stat::NameToCountMapping const & addition, Stat::NameToCountMapp
 }
 
 void AddStat(uint32_t dataPointNum, routing::NumMwmId numMwmId,
-             NumMwmIds const & numMwmIds, Storage const & storage, Stat & stat)
+             NumMwmIds const & numMwmIds, Storage const & storage, Stats & stats)
 {
   auto const mwmName = numMwmIds.GetFile(numMwmId).GetName();
   auto const countryName = storage.GetTopmostParentFor(mwmName);
 
   // Note. In case of disputed mwms |countryName| will be empty.
-  stat.m_mwmToTotalDataPoints[mwmName] += dataPointNum;
-  stat.m_countryToTotalDataPoints[countryName] += dataPointNum;
+  stats.m_mwmToTotalDataPoints[mwmName] += dataPointNum;
+  stats.m_countryToTotalDataPoints[countryName] += dataPointNum;
 }
 
 void PrintMap(string const & keyType, string const & descr,
@@ -91,7 +92,7 @@ void PrintMap(string const & keyType, string const & descr,
   for (auto const & kv : keyValues)
     allValues += kv.m_value;
 
-  ss << keyType << ",number,percent";
+  ss << keyType << ",number,percent\n";
   for (auto const & kv : keyValues)
   {
     if (kv.m_value == 0)
@@ -106,17 +107,17 @@ void PrintMap(string const & keyType, string const & descr,
 
 namespace track_analyzing
 {
-// Stat ============================================================================================
-void Stat::Add(Stat const & stat)
+// Stats ===========================================================================================
+void Stats::Add(Stats const & stats)
 {
-  ::Add(stat.m_mwmToTotalDataPoints, m_mwmToTotalDataPoints);
-  ::Add(stat.m_countryToTotalDataPoints, m_countryToTotalDataPoints);
+  ::Add(stats.m_mwmToTotalDataPoints, m_mwmToTotalDataPoints);
+  ::Add(stats.m_countryToTotalDataPoints, m_countryToTotalDataPoints);
 }
 
-bool Stat::operator==(Stat const & stat) const
+bool Stats::operator==(Stats const & stats) const
 {
-  return m_mwmToTotalDataPoints == stat.m_mwmToTotalDataPoints &&
-         m_countryToTotalDataPoints == stat.m_countryToTotalDataPoints;
+  return m_mwmToTotalDataPoints == stats.m_mwmToTotalDataPoints &&
+         m_countryToTotalDataPoints == stats.m_countryToTotalDataPoints;
 }
 
 void ParseTracks(string const & logFile, shared_ptr<NumMwmIds> const & numMwmIds,
@@ -134,7 +135,7 @@ void ParseTracks(string const & logFile, shared_ptr<NumMwmIds> const & numMwmIds
 }
 
 void AddStat(MwmToTracks const & mwmToTracks, NumMwmIds const & numMwmIds, Storage const & storage,
-             Stat & stat)
+             Stats & stats)
 {
   for (auto const & kv : mwmToTracks)
   {
@@ -143,14 +144,14 @@ void AddStat(MwmToTracks const & mwmToTracks, NumMwmIds const & numMwmIds, Stora
     for (auto const & userTrack : userToTrack)
       dataPointNum += userTrack.second.size();
 
-    ::AddStat(dataPointNum, kv.first, numMwmIds, storage, stat);
+    ::AddStat(dataPointNum, kv.first, numMwmIds, storage, stats);
   }
 }
 
-string DebugPrint(Stat const & s)
+string DebugPrint(Stats const & s)
 {
   ostringstream ss;
-  ss << "Stat [\n";
+  ss << "Stats [\n";
   PrintMap("mwm", "Mwm to total data points number:", s.m_mwmToTotalDataPoints, ss);
   PrintMap("country", "Country name to data points number:", s.m_countryToTotalDataPoints, ss);
   ss << "]\n" << endl;

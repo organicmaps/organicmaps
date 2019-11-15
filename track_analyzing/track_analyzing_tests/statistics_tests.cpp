@@ -25,20 +25,20 @@ using namespace traffic;
 
 UNIT_TEST(StatTest)
 {
-  Stat mapping1 = {
+  Stats stats1 = {
       {{"Belarus_Minsk Region", 1}, {"Uzbekistan", 7}, {"Russia_Moscow", 5} /* Mwm to number */},
       {{"Russian Federation", 10}, {"Poland", 5} /* Country to number */}};
 
-  Stat const mapping2 = {{{"Belarus_Minsk Region", 2} /* Mwm to number */},
-                         {{"Russian Federation", 1}, {"Belarus", 8} /* Country to number */}};
+  Stats const stats2 = {{{"Belarus_Minsk Region", 2} /* Mwm to number */},
+                        {{"Russian Federation", 1}, {"Belarus", 8} /* Country to number */}};
 
-  mapping1.Add(mapping2);
+  stats1.Add(stats2);
 
-  Stat const expected = {
+  Stats const expected = {
       {{"Belarus_Minsk Region", 3}, {"Uzbekistan", 7}, {"Russia_Moscow", 5} /* Mwm to number */},
       {{"Russian Federation", 11}, {"Poland", 5}, {"Belarus", 8} /* Country to number */}};
 
-  TEST_EQUAL(mapping1, expected, ());
+  TEST_EQUAL(stats1, expected, ());
 }
 
 UNIT_TEST(AddStatTest)
@@ -62,13 +62,13 @@ UNIT_TEST(AddStatTest)
   auto numMwmIds = CreateNumMwmIds(storage);
   MwmToTracks const mwmToTracks = {{numMwmIds->GetId(CountryFile(kMwmName)), userToTrack}};
 
-  Stat stat;
+  Stats stat;
   AddStat(mwmToTracks, *numMwmIds, storage, stat);
 
-  Stat::NameToCountMapping const expectedMwmToTotalDataMapping = {{kMwmName, kDataPointNumber}};
+  Stats::NameToCountMapping const expectedMwmToTotalDataMapping = {{kMwmName, kDataPointNumber}};
   TEST_EQUAL(stat.m_mwmToTotalDataPoints, expectedMwmToTotalDataMapping, ());
 
-  Stat::NameToCountMapping expectedCountryToTotalDataMapping = {{"Italy", kDataPointNumber}};
+  Stats::NameToCountMapping expectedCountryToTotalDataMapping = {{"Italy", kDataPointNumber}};
   TEST_EQUAL(stat.m_countryToTotalDataPoints, expectedCountryToTotalDataMapping, ());
 }
 }  // namespace

@@ -23,6 +23,7 @@
 #include "base/timer.hpp"
 
 #include <algorithm>
+#include <exception>
 #include <memory>
 #include <string>
 #include <thread>
@@ -93,7 +94,7 @@ void MatchTracks(MwmToTracks const & mwmToTracks, storage::Storage const & stora
 namespace track_analyzing
 {
 void CmdMatch(string const & logFile, string const & trackFile,
-              shared_ptr<NumMwmIds> const & numMwmIds, Storage const & storage, Stat & stat)
+              shared_ptr<NumMwmIds> const & numMwmIds, Storage const & storage, Stats & stat)
 {
   MwmToTracks mwmToTracks;
   ParseTracks(logFile, numMwmIds, mwmToTracks);
@@ -115,13 +116,13 @@ void CmdMatch(string const & logFile, string const & trackFile)
   storage.RegisterAllLocalMaps(false /* enableDiffs */);
   shared_ptr<NumMwmIds> numMwmIds = CreateNumMwmIds(storage);
 
-  Stat stat;
+  Stats stat;
   CmdMatch(logFile, trackFile, numMwmIds, storage, stat);
-  LOG(LINFO, ("CmdMatch. DataPoint distribution by mwms and countries."));
+  LOG(LINFO, ("DataPoint distribution by mwms and countries."));
   LOG(LINFO, (stat));
 }
 
-void UnzipAndMatch(Iter begin, Iter end, string const & trackExt, Stat & stat)
+void UnzipAndMatch(Iter begin, Iter end, string const & trackExt, Stats & stats)
 {
   Storage storage;
   storage.RegisterAllLocalMaps(false /* enableDiffs */);
@@ -151,13 +152,13 @@ void UnzipAndMatch(Iter begin, Iter end, string const & trackExt, Stat & stat)
       FileWriter w(file);
       w.Write(track.data(), track.size());
     }
-    catch (FileWriter::WriteException const & e)
+    catch (std::exception const & e)
     {
       LOG(LWARNING, (e.what()));
       continue;
     }
 
-    CmdMatch(file, file + trackExt, numMwmIds, storage, stat);
+    CmdMatch(file, file + trackExt, numMwmIds, storage, stats);
     FileWriter::DeleteFileX(file);
   }
 }
@@ -200,7 +201,7 @@ void CmdMatchDir(string const & logDir, string const & trackExt)
   auto const threadsCount = min(size, hardwareConcurrency);
   auto const blockSize = size / threadsCount;
   vector<thread> threads(threadsCount - 1);
-  vector<Stat> stats(threadsCount);
+  vector<Stats> stats(threadsCount);
   auto begin = filesList.begin();
   for (size_t i = 0; i < threadsCount - 1; ++i)
   {
@@ -213,11 +214,11 @@ void CmdMatchDir(string const & logDir, string const & trackExt)
   for (auto & t : threads)
     t.join();
 
-  Stat statSum;
+  Stats statSum;
   for (auto const & s : stats)
     statSum.Add(s);
 
-  LOG(LINFO, ("CmdMatchDir. DataPoint distribution by mwms and countries."));
+  LOG(LINFO, ("DataPoint distribution by mwms and countries."));
   LOG(LINFO, (statSum));
 }
 }  // namespace track_analyzing

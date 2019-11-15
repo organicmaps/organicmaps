@@ -283,7 +283,6 @@ private:
   uint32_t m_dataPointsNumber = 0;
 };
 
-// @TODO Make a ctor and pass string const & mwm, string const & country to it.
 class MoveTypeAggregator final
 {
 public:
@@ -309,7 +308,8 @@ public:
     m_moveInfos[moveType].Add(length, time, crossroads, static_cast<uint32_t>(distance(begin, end)));
   }
 
-  string GetSummary(string const & user, string const & mwmName, string const & countryName, Stat & stat) const
+  string GetSummary(string const & user, string const & mwmName, string const & countryName,
+                    Stats & stats) const
   {
     ostringstream out;
     for (auto const & it : m_moveInfos)
@@ -317,9 +317,11 @@ public:
       if (!it.first.IsValid())
         continue;
 
-      out << user << "," << countryName << "," << it.first.GetSummary() << "," << it.second.GetSummary() << '\n';
-      stat.m_mwmToTotalDataPoints[mwmName] += it.second.GetDataPointsNumber();
-      stat.m_countryToTotalDataPoints[countryName] += it.second.GetDataPointsNumber();
+      out << user << "," << countryName << "," << it.first.GetSummary() << ","
+          << it.second.GetSummary() << '\n';
+
+      stats.m_mwmToTotalDataPoints[mwmName] += it.second.GetDataPointsNumber();
+      stats.m_countryToTotalDataPoints[countryName] += it.second.GetDataPointsNumber();
     }
 
     return out.str();
@@ -396,19 +398,12 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
   FrozenDataSource dataSource;
   auto numMwmIds = CreateNumMwmIds(storage);
 
-  Stat stat;
+  Stats stats;
   auto processMwm = [&](string const & mwmName, UserToMatchedTracks const & userToMatchedTracks) {
     if (mwmFilter(mwmName))
       return;
 
     auto const countryName = storage.GetTopmostParentFor(mwmName);
-
-    // @TODO It's better to implement value as a class.
-    if (stat.m_mwmToTotalDataPoints.count(mwmName) == 0)
-      stat.m_mwmToTotalDataPoints[mwmName] = 0;
-    if (stat.m_countryToTotalDataPoints.count(countryName) == 0)
-      stat.m_countryToTotalDataPoints[countryName] = 0;
-
     auto const carModelFactory = make_shared<CarModelFactory>(VehicleModelFactory::CountryParentNameGetterFn{});
     shared_ptr<VehicleModelInterface> vehicleModel =
         carModelFactory->GetVehicleModelForCountry(mwmName);
@@ -471,7 +466,7 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
           info = move(crossroad);
         }
 
-        auto const summary = aggregator.GetSummary(user, mwmName, countryName, stat);
+        auto const summary = aggregator.GetSummary(user, mwmName, countryName, stats);
         if (!summary.empty())
           cout << summary;
       }
@@ -486,7 +481,7 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
   ForEachTrackFile(filepath, trackExtension, numMwmIds, processTrack);
 
   LOG(LINFO,
-      ("CmdTagsTable. DataPoint distribution by mwms and countries and match and table commands."));
-  LOG(LINFO, (stat));
+      ("DataPoint distribution by mwms and countries and match and table commands."));
+  LOG(LINFO, (stats));
 }
 }  // namespace track_analyzing

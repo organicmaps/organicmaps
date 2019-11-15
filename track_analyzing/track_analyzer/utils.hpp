@@ -14,13 +14,12 @@
 
 namespace track_analyzing
 {
-// @TODO Rename to Stats
-struct Stat
+struct Stats
 {
   using NameToCountMapping = std::map<std::string, uint32_t>;
 
-  void Add(Stat const & stat);
-  bool operator==(Stat const & stat) const;
+  void Add(Stats const & stats);
+  bool operator==(Stats const & stats) const;
 
   /// \note These fields may present mapping from territory name to either DataPoints
   /// or MatchedTrackPoint count.
@@ -28,13 +27,13 @@ struct Stat
   NameToCountMapping m_countryToTotalDataPoints;
 };
 
-/// \brief Parses tracks from |logFile| and fills |numMwmIds|, |storage| and |mwmToTracks|.
+/// \brief Parses tracks from |logFile| and fills |mwmToTracks|.
 void ParseTracks(std::string const & logFile, std::shared_ptr<routing::NumMwmIds> const & numMwmIds,
                  MwmToTracks & mwmToTracks);
 
 /// \brief Fills |stat| according to |mwmToTracks|.
 void AddStat(MwmToTracks const & mwmToTracks, routing::NumMwmIds const & numMwmIds,
-             storage::Storage const & storage, Stat & stat);
+             storage::Storage const & storage, Stats & stats);
 
-std::string DebugPrint(Stat const & s);
+std::string DebugPrint(Stats const & s);
 }  // namespace track_analyzing
