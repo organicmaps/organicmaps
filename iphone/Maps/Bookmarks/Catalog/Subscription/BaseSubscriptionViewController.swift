@@ -1,10 +1,4 @@
-import Foundation
 import SafariServices
-
-@objc enum SubscriptionScreenType: Int{
-  case allPass
-  case sightseeing
-}
 
 class BaseSubscriptionViewController: MWMViewController {
   //MARK: base outlets

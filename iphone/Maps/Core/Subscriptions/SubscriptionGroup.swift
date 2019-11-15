@@ -1,4 +1,49 @@
-import Foundation
+@objc enum SubscriptionGroupType: Int {
+  case allPass
+  case sightseeing
+
+  init?(serverId: String) {
+    switch serverId {
+    case MWMPurchaseManager.bookmarksSubscriptionServerId():
+      self = .sightseeing
+    case MWMPurchaseManager.allPassSubscriptionServerId():
+      self = .allPass
+    default:
+      return nil
+    }
+  }
+
+  init(catalogURL: URL) {
+    guard let urlComponents = URLComponents(url: catalogURL, resolvingAgainstBaseURL: false) else {
+      self = .allPass
+      return
+    }
+    let subscriptionGroup = urlComponents.queryItems?
+      .filter({ $0.name == "groups" })
+      .map({ $0.value ?? "" })
+      .first(where: {
+        $0 == MWMPurchaseManager.allPassSubscriptionServerId() ||
+          $0 == MWMPurchaseManager.bookmarksSubscriptionServerId()
+      })
+    switch subscriptionGroup {
+    case MWMPurchaseManager.bookmarksSubscriptionServerId():
+      self = .sightseeing
+    case MWMPurchaseManager.allPassSubscriptionServerId():
+      self = .allPass
+    default:
+      self = .allPass
+    }
+  }
+
+  var serverId: String {
+    switch self {
+    case .sightseeing:
+      return MWMPurchaseManager.bookmarksSubscriptionServerId()
+    case .allPass:
+      return MWMPurchaseManager.allPassSubscriptionServerId()
+    }
+  }
+}
 
 protocol ISubscriptionGroup {
   var count: Int { get }

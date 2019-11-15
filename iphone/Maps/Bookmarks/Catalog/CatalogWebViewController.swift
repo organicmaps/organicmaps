@@ -4,8 +4,9 @@ struct CatalogCategoryInfo {
   var author: String?
   var productId: String?
   var imageUrl: String?
+  var subscriptionType: SubscriptionGroupType
 
-  init?(_ components: [String : String]) {
+  init?(_ components: [String : String], type: SubscriptionGroupType) {
     guard let id = components["id"],
       let name = components["name"] else { return nil }
     self.id = id
@@ -13,6 +14,7 @@ struct CatalogCategoryInfo {
     author = components["author_name"]
     productId = components["tier"]
     imageUrl = components["img"]
+    subscriptionType = type
   }
 }
 
@@ -166,7 +168,7 @@ final class CatalogWebViewController: WebViewController {
     }
 
     if url.path.contains(subscribePath) {
-      showSubscribe(type: .sightseeing)
+      showSubscribe(type: SubscriptionGroupType(catalogURL: url))
       decisionHandler(.cancel);
       return
     }
@@ -202,7 +204,7 @@ final class CatalogWebViewController: WebViewController {
                         withParameters: [kStatError : kStatUnknown])
   }
 
-  private func showSubscribe(type: SubscriptionScreenType) {
+  private func showSubscribe(type: SubscriptionGroupType) {
     let subscribeViewController: BaseSubscriptionViewController
     switch type {
     case .allPass:
@@ -286,7 +288,7 @@ final class CatalogWebViewController: WebViewController {
     guard let components = urlComponents.queryItems?.reduce(into: [:], { $0[$1.name] = $1.value })
       else { return nil }
 
-    return CatalogCategoryInfo(components)
+    return CatalogCategoryInfo(components, type: SubscriptionGroupType(catalogURL: url))
   }
 
   func processDeeplink(_ url: URL) {
@@ -379,6 +381,7 @@ final class CatalogWebViewController: WebViewController {
     let paymentVC = PaidRouteViewController(name: productInfo.name,
                                             author: productInfo.author,
                                             imageUrl: URL(string: productInfo.imageUrl ?? ""),
+                                            subscriptionType: productInfo.subscriptionType,
                                             purchase: purchase,
                                             statistics: stats)
     paymentVC.delegate = self

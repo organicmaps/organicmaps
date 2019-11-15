@@ -1,12 +1,12 @@
 class SubscriptionSuccessViewController: UIViewController {
   private let transitioning = FadeTransitioning<AlertPresentationController>()
   private let onOk: MWMVoidBlock
-  private let screenType: SubscriptionScreenType
+  private let screenType: SubscriptionGroupType
 
   @IBOutlet private var titleLabel: UILabel!
   @IBOutlet private var textLabel: UILabel!
 
-  init(_ screenType:SubscriptionScreenType, onOk: @escaping MWMVoidBlock) {
+  init(_ screenType:SubscriptionGroupType, onOk: @escaping MWMVoidBlock) {
     self.onOk = onOk
     self.screenType = screenType
     super.init(nibName: nil, bundle: nil)

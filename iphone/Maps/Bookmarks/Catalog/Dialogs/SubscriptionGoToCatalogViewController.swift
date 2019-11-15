@@ -2,12 +2,12 @@
   private let transitioning = FadeTransitioning<AlertPresentationController>()
   private let onOk: MWMVoidBlock
   private let onCancel: MWMVoidBlock
-  private let screenType: SubscriptionScreenType
+  private let screenType: SubscriptionGroupType
 
   @IBOutlet private var titleLabel: UILabel!
   @IBOutlet private var textLabel: UILabel!
   
-  @objc init(_ screenType:SubscriptionScreenType, onOk: @escaping MWMVoidBlock, onCancel: @escaping MWMVoidBlock) {
+  @objc init(_ screenType:SubscriptionGroupType, onOk: @escaping MWMVoidBlock, onCancel: @escaping MWMVoidBlock) {
     self.onOk = onOk
     self.onCancel = onCancel
     self.screenType = screenType

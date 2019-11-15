@@ -37,6 +37,7 @@ class PaidRouteViewController: MWMViewController {
   init(name: String,
        author: String?,
        imageUrl: URL?,
+       subscriptionType: SubscriptionGroupType,
        purchase: IPaidRoutePurchase,
        statistics: IPaidRouteStatistics) {
     self.name = name
@@ -44,7 +45,12 @@ class PaidRouteViewController: MWMViewController {
     self.imageUrl = imageUrl
     self.purchase = purchase
     self.statistics = statistics
-    self.subscriptionManager = InAppPurchase.bookmarksSubscriptionManager
+    switch subscriptionType {
+    case .sightseeing:
+      self.subscriptionManager = InAppPurchase.bookmarksSubscriptionManager
+    case .allPass:
+      self.subscriptionManager = InAppPurchase.allPassSubscriptionManager
+    }
     super.init(nibName: nil, bundle: nil)
     self.subscriptionManager.addListener(self)
   }
