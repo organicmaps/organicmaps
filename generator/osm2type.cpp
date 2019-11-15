@@ -867,9 +867,13 @@ void GetNameAndType(OsmElement * p, FeatureParams & params, function<bool(uint32
       //{ "addr:full", "*", [&params](string & k, string & v) { params.AddAddress(v); k.clear();
       // v.clear(); }},
 
-      // addr:postcode must be passed to the metadata processor.
-      // { "addr:postcode", "*", [&params](string & k, string & v) { params.AddPostcode(v);
-      // k.clear(); v.clear(); }},
+      {"addr:postcode", "*",
+       [&params](string & k, string & v) {
+         params.AddPostcode(v);
+         // todo @t.yan: uncomment when we stop to add postcodes to metadata
+         // k.clear();
+         // v.clear();
+      }},
 
       {"population", "*",
        [&params](string & k, string & v) {
