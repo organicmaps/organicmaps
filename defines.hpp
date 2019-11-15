@@ -29,6 +29,7 @@
 #define SEARCH_INDEX_FILE_TAG "sdx"
 #define SEARCH_ADDRESS_FILE_TAG "addr"
 #define POSTCODE_POINTS_FILE_TAG "postcode_points"
+#define POSTCODES_FILE_TAG "postcodes"
 #define CITIES_BOUNDARIES_FILE_TAG "cities_boundaries"
 #define FEATURE_TO_OSM_FILE_TAG "feature_to_osm"
 #define HEADER_FILE_TAG "header"
@@ -47,8 +48,8 @@
 #define REGION_INFO_FILE_TAG "rgninfo"
 #define METALINES_FILE_TAG "metalines"
 #define CAMERAS_INFO_FILE_TAG "speedcams"
-// Temporary addresses section that is used in search index generation.
-#define SEARCH_TOKENS_FILE_TAG "addrtags"
+// Temporary addresses section that is used in search index and postcodes generation.
+#define TEMP_ADDR_FILE_TAG "addrtags"
 #define TRAFFIC_KEYS_FILE_TAG "traffic"
 #define TRANSIT_CROSS_MWM_FILE_TAG "transit_cross_mwm"
 #define TRANSIT_FILE_TAG "transit"

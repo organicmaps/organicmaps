@@ -17,6 +17,7 @@
 #include "generator/osm_source.hpp"
 #include "generator/platform_helpers.hpp"
 #include "generator/popular_places_section_builder.hpp"
+#include "generator/postcodes_section_builder.hpp"
 #include "generator/processor_factory.hpp"
 #include "generator/ratings_section_builder.hpp"
 #include "generator/raw_generator.hpp"
@@ -342,6 +343,9 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       LOG(LINFO, ("Generating offsets table for", datFile));
       if (!feature::BuildOffsetsTable(datFile))
         continue;
+
+      if (!BuildPostcodesSection(datFile))
+        LOG(LCRITICAL, ("Error generating postcodes section."));
 
       if (mapType == MapType::Country)
       {

@@ -65,7 +65,7 @@ public:
 
     m_helperFile.resize(FILES_COUNT);
     m_helperFile[METADATA] = make_unique<TmpFile>(fName + METADATA_FILE_TAG);
-    m_helperFile[SEARCH_TOKENS] = make_unique<TmpFile>(fName + SEARCH_TOKENS_FILE_TAG);
+    m_helperFile[TEMP_ADDR] = make_unique<TmpFile>(fName + TEMP_ADDR_FILE_TAG);
   }
 
   ~FeaturesCollector2()
@@ -126,7 +126,7 @@ public:
     }
 
     finalizeFn(move(m_helperFile[METADATA]), METADATA_FILE_TAG);
-    finalizeFn(move(m_helperFile[SEARCH_TOKENS]), SEARCH_TOKENS_FILE_TAG);
+    finalizeFn(move(m_helperFile[TEMP_ADDR]), TEMP_ADDR_FILE_TAG);
 
     m_writer.Finish();
 
@@ -225,7 +225,7 @@ public:
 
       featureId = WriteFeatureBase(buffer.m_buffer, fb);
 
-      fb.GetAddressData().Serialize(*(m_helperFile[SEARCH_TOKENS]));
+      fb.GetAddressData().Serialize(*(m_helperFile[TEMP_ADDR]));
 
       if (!fb.GetMetadata().Empty())
       {
@@ -260,7 +260,7 @@ private:
   enum
   {
     METADATA = 0,
-    SEARCH_TOKENS = 1,
+    TEMP_ADDR = 1,
     FILES_COUNT = 2
   };
 

@@ -447,7 +447,7 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
 
 void ReadAddressData(FilesContainerR & container, vector<feature::AddressData> & addrs)
 {
-  ReaderSource<ModelReaderPtr> src(container.GetReader(SEARCH_TOKENS_FILE_TAG));
+  ReaderSource<ModelReaderPtr> src(container.GetReader(TEMP_ADDR_FILE_TAG));
   while (src.Size() > 0)
   {
     addrs.push_back({});
@@ -635,7 +635,7 @@ bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild, ui
       // todo(@m) Is it possible to make it work?
       {
         FilesContainerW writeContainer(readContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING);
-        writeContainer.DeleteSection(SEARCH_TOKENS_FILE_TAG);
+        writeContainer.DeleteSection(TEMP_ADDR_FILE_TAG);
       }
 
       // Separate scopes because FilesContainerW cannot write two sections at once.
