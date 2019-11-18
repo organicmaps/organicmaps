@@ -45,7 +45,7 @@ using Relevance = search::Sample::Result::Relevance;
 
 namespace
 {
-char const kJSON[] = "JSON files (*.json)";
+char const kJSON[] = "JSON Lines files (*.jsonl)";
 }  // namespace
 
 MainView::MainView(Framework & framework) : m_framework(framework)

@@ -46,8 +46,8 @@ size_t constexpr kMaxSamplesPerMwm = 20;
 
 DEFINE_string(data_path, "", "Path to data directory (resources dir).");
 DEFINE_string(mwm_path, "", "Path to mwm files (writable dir).");
-DEFINE_string(out_buildings_path, "buildings.json", "Path to output file for buildings samples.");
-DEFINE_string(out_cafes_path, "cafes.json", "Path to output file for cafes samples.");
+DEFINE_string(out_buildings_path, "buildings.jsonl", "Path to output file for buildings samples.");
+DEFINE_string(out_cafes_path, "cafes.jsonl", "Path to output file for cafes samples.");
 DEFINE_double(max_distance_to_object, kMaxDistanceToObjectM,
               "Maximal distance from user position to object (meters).");
 DEFINE_double(min_viewport_size, kMinViewportSizeM, "Minimal size of viewport (meters).");

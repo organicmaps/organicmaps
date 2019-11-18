@@ -27,17 +27,17 @@ This document describes how to use the tools for search quality analysis.
     i) Run gen-samples.lisp script to get search queries with lists of
        vital or relevant responses in JSON format. For example:
 
-       ./gen-samples.lisp < samples.lisp > samples.json
+       ./gen-samples.lisp < samples.lisp > samples.jsonl
 
    ii) Run features_collector_tool from the build directory.
        For example:
 
        features_collector_tool --mwm_path path-to-downloaded-maps \
-         --json_in samples.json \
+         --json_in samples.jsonl \
          --stats_path /tmp/stats.txt \
          2>/dev/null >samples.csv
 
-       runs search engine on all queries from samples.json, prints
+       runs search engine on all queries from samples.jsonl, prints
        useful info to /tmp/stats.txt and generates a CSV file with
        search engine output on each query.
 

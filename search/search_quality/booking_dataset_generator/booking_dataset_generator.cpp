@@ -44,7 +44,7 @@ using namespace storage;
 
 DEFINE_string(data_path, "", "Path to data directory (resources dir).");
 DEFINE_string(mwm_path, "", "Path to mwm files (writable dir).");
-DEFINE_string(out_path, "samples.json", "Path to output samples file.");
+DEFINE_string(out_path, "samples.jsonl", "Path to output samples file.");
 DEFINE_string(dataset_type, "name",
               "Dataset type: name (search hotel by name) or address (search hotel by address).");
 DEFINE_string(address_dataset_path, "", "Path to address dataset.");
