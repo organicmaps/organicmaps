@@ -62,17 +62,19 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <ImageButton
+    <ImageView
       android:id="@+id/dog_btn_bg"
       android:layout_gravity="center"
+      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
       style="@style/MwmWidget.MapButton.Traffic"
       android:src="?attr/bg_dog_btn"/>
 
-    <ImageButton
+    <ImageView
       android:id="@+id/subs_screen_btn"
-      style="@style/MwmWidget.MapButton.Traffic"
+      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
       android:layout_gravity="center"
-      android:background="@null"
       android:src="@drawable/ic_dog"/>
   </FrameLayout>
 </RelativeLayout>

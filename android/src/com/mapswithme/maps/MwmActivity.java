@@ -74,7 +74,6 @@ import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
 import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.onboarding.IntroductionDialogFragment;
 import com.mapswithme.maps.onboarding.IntroductionScreenFactory;
-import com.mapswithme.maps.onboarding.OnboardingScreen;
 import com.mapswithme.maps.onboarding.OnboardingTip;
 import com.mapswithme.maps.promo.Promo;
 import com.mapswithme.maps.promo.PromoAfterBooking;
@@ -724,7 +723,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     initToggleMapLayerController(frame);
     View openSubsScreenBtnContainer = frame.findViewById(R.id.subs_screen_btn_container);
-    boolean hasOnBoardingView = OnboardingTip.get() != null;
+    boolean hasOnBoardingView = OnboardingTip.get() != null
+                                && MwmApplication.from(this).isFirstLaunch();
 
     mNavAnimationController = new NavigationButtonsAnimationController(
         zoomIn, zoomOut, myPosition, getWindow().getDecorView().getRootView(), this,
@@ -744,9 +744,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     OnboardingTip tip = Objects.requireNonNull(OnboardingTip.get());
 
-    OnboardingScreen screen = OnboardingScreen.values()[tip.getType()];
-    screen.getOnboardingActivityLauncher().launchScreen(this, tip.getUrl());
-    UserActionsLogger.logCrownClicked();
     Statistics.ParameterBuilder builder = Statistics.makeGuidesSubscriptionBuilder();
     Statistics.INSTANCE.trackEvent(Statistics.EventName.MAP_SPONSORED_BUTTON_CLICK, builder);
     if (mNavAnimationController == null)
