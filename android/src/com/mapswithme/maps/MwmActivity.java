@@ -724,14 +724,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     initToggleMapLayerController(frame);
     View openSubsScreenBtnContainer = frame.findViewById(R.id.subs_screen_btn_container);
-    boolean hasCrownView = OnboardingTip.get() != null;
+    boolean hasOnBoardingView = OnboardingTip.get() != null;
 
     mNavAnimationController = new NavigationButtonsAnimationController(
         zoomIn, zoomOut, myPosition, getWindow().getDecorView().getRootView(), this,
-        hasCrownView ? openSubsScreenBtnContainer : null);
+        hasOnBoardingView ? openSubsScreenBtnContainer : null);
 
-    UiUtils.showIf(hasCrownView, openSubsScreenBtnContainer);
-    if (hasCrownView)
+    UiUtils.showIf(hasOnBoardingView, openSubsScreenBtnContainer);
+    if (hasOnBoardingView)
     {
       openSubsScreenBtnContainer.findViewById(R.id.subs_screen_btn)
                                 .setOnClickListener(v -> onBoardingBtnClicked());

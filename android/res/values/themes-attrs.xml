@@ -111,6 +111,7 @@
     <attr name="tipsPrimaryTextColor" format="color"/>
     <attr name="tipsSecondaryTextColor" format="color"/>
     <attr name="bg_crown" format="reference"/>
+    <attr name="bg_dog_btn" format="reference"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">

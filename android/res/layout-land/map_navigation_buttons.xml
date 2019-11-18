@@ -66,7 +66,7 @@
       android:id="@+id/dog_btn_bg"
       style="@style/MwmWidget.MapButton.Traffic"
       android:layout_gravity="center"
-      android:src="@drawable/ic_dog_bg"/>
+      android:src="?attr/bg_dog_btn"/>
 
     <ImageButton
       android:id="@+id/subs_screen_btn"

@@ -159,6 +159,7 @@
     <item name="subscriptionTitleColor">@color/bookmarks_subs_title</item>
     <item name="subscriptionSubtitleColor">@color/bookmarks_subs_subtitle</item>
     <item name="bg_crown">@drawable/bg_crown</item>
+    <item name="bg_dog_btn">@drawable/ic_dog_bg</item>
   </style>
 
   <!-- Night theme -->
@@ -317,5 +318,6 @@
     <item name="subscriptionTitleColor">@color/bookmarks_subs_title_night</item>
     <item name="subscriptionSubtitleColor">@color/bookmarks_subs_subtitle_night</item>
     <item name="bg_crown">@drawable/bg_crown_night</item>
+    <item name="bg_dog_btn">@drawable/ic_dog_bg_night</item>
   </style>
 </resources>
