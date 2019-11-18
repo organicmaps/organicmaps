@@ -16,8 +16,8 @@ UNIT_TEST(Cancellable_Smoke)
 {
   Cancellable cancellable;
 
-  promise<void> promise;
-  auto future = promise.get_future();
+  promise<void> syncPromise;
+  auto syncFuture = promise.get_future();
 
   double x = 0.123;
 
@@ -30,12 +30,12 @@ UNIT_TEST(Cancellable_Smoke)
       x = cos(x);
     }
 
-    promise.set_value();
+    syncPromise.set_value();
   };
 
   threads::SimpleThread thread(fn);
   cancellable.Cancel();
-  future.wait();
+  syncFuture.wait();
   thread.join();
 
   TEST(cancellable.IsCancelled(), ());
@@ -49,8 +49,8 @@ UNIT_TEST(Cancellable_Deadline)
   chrono::steady_clock::duration kTimeout = chrono::milliseconds(20);
   cancellable.SetDeadline(chrono::steady_clock::now() + kTimeout);
 
-  promise<void> promise;
-  auto future = promise.get_future();
+  promise<void> syncPromise;
+  auto syncFuture = syncPromise.get_future();
 
   double x = 0.123;
 
@@ -63,11 +63,11 @@ UNIT_TEST(Cancellable_Deadline)
       x = cos(x);
     }
 
-    promise.set_value();
+    syncPromise.set_value();
   };
 
   threads::SimpleThread thread(fn);
-  future.wait();
+  syncFuture.wait();
   thread.join();
 
   TEST(cancellable.IsCancelled(), ());

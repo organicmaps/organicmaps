@@ -152,8 +152,8 @@ UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
 
   auto runTest = [&](string const & query, kml::MarkGroupId const & groupId,
                      vector<kml::MarkId> const & expected) {
-    promise<vector<kml::MarkId>> promise;
-    auto future = promise.get_future();
+    promise<vector<kml::MarkId>> idsPromise;
+    auto idsFuture = idsPromise.get_future();
 
     BookmarksSearchParams params;
     params.m_query = query;
@@ -161,13 +161,13 @@ UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
                              BookmarksSearchParams::Status status) {
       if (status != BookmarksSearchParams::Status::Completed)
         return;
-      promise.set_value(results);
+      idsPromise.set_value(results);
     };
     params.m_groupId = groupId;
 
     m_api.SearchInBookmarks(params);
 
-    auto const ids = future.get();
+    auto const ids = idsFuture.get();
     TEST_EQUAL(ids, expected, ());
   };
 
