@@ -429,6 +429,9 @@ std::string to_string(T t)
   return ss.str();
 }
 
+template <typename T>
+struct ToString { std::string operator()(T const & v) { return to_string(v); } };
+
 WARN_UNUSED_RESULT inline bool to_any(std::string const & s, int & i) { return to_int(s, i); }
 WARN_UNUSED_RESULT inline bool to_any(std::string const & s, unsigned int & i)
 {
@@ -591,8 +594,7 @@ std::string JoinAny(Container const & container,
                     Delimiter const & delimiter = ',',
                     std::function<
                         std::string (typename Container::value_type const & v)> const & converter =
-                          [](typename Container::value_type const & item)
-                          { return to_string(item); })
+                          ToString<typename Container::value_type>())
 {
   return JoinAny(std::cbegin(container), std::cend(container), delimiter, converter);
 }
