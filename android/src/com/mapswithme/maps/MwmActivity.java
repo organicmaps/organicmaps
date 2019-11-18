@@ -74,12 +74,13 @@ import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
 import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.onboarding.IntroductionDialogFragment;
 import com.mapswithme.maps.onboarding.IntroductionScreenFactory;
+import com.mapswithme.maps.onboarding.OnboardingScreen;
+import com.mapswithme.maps.onboarding.OnboardingTip;
 import com.mapswithme.maps.promo.Promo;
 import com.mapswithme.maps.promo.PromoAfterBooking;
 import com.mapswithme.maps.promo.PromoBookingDialogFragment;
 import com.mapswithme.maps.purchase.AdsRemovalActivationCallback;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
-import com.mapswithme.maps.purchase.BookmarkSubscriptionActivity;
 import com.mapswithme.maps.purchase.FailedPurchaseChecker;
 import com.mapswithme.maps.purchase.PurchaseCallback;
 import com.mapswithme.maps.purchase.PurchaseController;
@@ -140,6 +141,7 @@ import com.mapswithme.util.statistics.Statistics;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Stack;
 
 public class MwmActivity extends BaseMwmFragmentActivity
@@ -721,37 +723,36 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavMyPosition = new MyPositionButton(myPosition, mOnMyPositionClickListener);
 
     initToggleMapLayerController(frame);
-    View openSubsScreenBtn = frame.findViewById(R.id.subs_screen_btn);
-    boolean hasCrownView = Framework.nativeNeedToShowCrown();
+    View openSubsScreenBtnContainer = frame.findViewById(R.id.subs_screen_btn_container);
+    boolean hasCrownView = OnboardingTip.get() != null;
 
     mNavAnimationController = new NavigationButtonsAnimationController(
         zoomIn, zoomOut, myPosition, getWindow().getDecorView().getRootView(), this,
-        hasCrownView ? openSubsScreenBtn : null);
+        hasCrownView ? openSubsScreenBtnContainer : null);
 
-    UiUtils.showIf(hasCrownView, openSubsScreenBtn);
+    UiUtils.showIf(hasCrownView, openSubsScreenBtnContainer);
     if (hasCrownView)
     {
-      openSubsScreenBtn.setOnClickListener(v -> onCrownClicked());
+      openSubsScreenBtnContainer.findViewById(R.id.subs_screen_btn)
+                                .setOnClickListener(v -> onBoardingBtnClicked());
       Statistics.ParameterBuilder builder = Statistics.makeGuidesSubscriptionBuilder();
       Statistics.INSTANCE.trackEvent(Statistics.EventName.MAP_SPONSORED_BUTTON_SHOW, builder);
     }
   }
 
-  private void onCrownClicked()
+  private void onBoardingBtnClicked()
   {
-    openBookmarkSubscriptionScreen();
+    OnboardingTip tip = Objects.requireNonNull(OnboardingTip.get());
+
+    OnboardingScreen screen = OnboardingScreen.values()[tip.getType()];
+    screen.getOnboardingActivityLauncher().launchScreen(this, tip.getUrl());
     UserActionsLogger.logCrownClicked();
     Statistics.ParameterBuilder builder = Statistics.makeGuidesSubscriptionBuilder();
     Statistics.INSTANCE.trackEvent(Statistics.EventName.MAP_SPONSORED_BUTTON_CLICK, builder);
     if (mNavAnimationController == null)
       return;
 
-    mNavAnimationController.hideCrownView();
-  }
-
-  private void openBookmarkSubscriptionScreen()
-  {
-    BookmarkSubscriptionActivity.startForResult(this);
+    mNavAnimationController.hideOnBoardingTipBtn();
   }
 
   private void initToggleMapLayerController(@NonNull View frame)

@@ -53,13 +53,26 @@
     android:layout_alignParentRight="true"
     android:layout_alignParentEnd="true"/>
 
-  <ImageButton
-    android:id="@+id/subs_screen_btn"
-    style="@style/MwmWidget.MapButton.Traffic"
-    android:background="?attr/bg_crown"
-    android:src="@drawable/ic_crown"
+  <FrameLayout
+    android:id="@+id/subs_screen_btn_container"
     android:layout_centerVertical="true"
     android:layout_alignBottom="@id/nav_zoom_in"
     android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"/>
+    android:layout_alignParentStart="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageButton
+      android:id="@+id/dog_btn_bg"
+      android:layout_gravity="center"
+      style="@style/MwmWidget.MapButton.Traffic"
+      android:src="@drawable/ic_dog_bg"/>
+
+    <ImageButton
+      android:id="@+id/subs_screen_btn"
+      style="@style/MwmWidget.MapButton.Traffic"
+      android:layout_gravity="center"
+      android:background="@null"
+      android:src="@drawable/ic_dog"/>
+  </FrameLayout>
 </RelativeLayout>
