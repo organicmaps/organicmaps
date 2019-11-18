@@ -57,8 +57,8 @@ public:
   void SetMiniRoundabouts(std::string const & filename);
 
   void DumpCitiesBoundaries(std::string const & filename);
-  void DumpRoutingCitiesBoundariesFilename(std::string const & collectorFilename,
-                                           std::string const & dumpPath);
+  void DumpRoutingCitiesBoundaries(std::string const & collectorFilename,
+                                   std::string const & dumpPath);
 
   // FinalProcessorIntermediateMwmInterface overrides:
   void Process() override;

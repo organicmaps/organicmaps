@@ -25,13 +25,12 @@ double AreaOnEarth(std::vector<m2::PointD> const & points);
 class RoutingCityBoundariesProcessor
 {
 public:
-  explicit RoutingCityBoundariesProcessor(std::string filename);
+  RoutingCityBoundariesProcessor(std::string tmpFilename, std::string dumpFilename);
 
   void ProcessDataFromCollector();
-  void DumpBoundaries(std::string const & dumpFilename);
 
 private:
-  std::string m_filename;
+  std::string m_tmpFilename;
+  std::string m_dumpFilename;
 };
 }  // namespace generator
-

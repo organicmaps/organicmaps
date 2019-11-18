@@ -32,12 +32,18 @@ bool IsCarRoad(Types const & types)
   return CarModel::AllLimitsInstance().HasRoadType(types);
 }
 
+template <typename Types>
+bool IsBicycleRoad(Types const & types)
+{
+  return BicycleModel::AllLimitsInstance().HasRoadType(types);
+}
+
 /// \returns true when there exists a routing mode where the feature with |types| can be used.
 template <typename Types>
 bool IsRoad(Types const & types)
 {
   return IsCarRoad(types) || PedestrianModel::AllLimitsInstance().HasRoadType(types) ||
-         BicycleModel::AllLimitsInstance().HasRoadType(types);
+         IsBicycleRoad(types);
 }
 
 void FillSegmentInfo(std::vector<Segment> const & segments, std::vector<Junction> const & junctions,

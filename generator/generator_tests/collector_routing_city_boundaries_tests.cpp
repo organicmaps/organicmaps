@@ -10,6 +10,8 @@
 
 #include "platform/platform.hpp"
 
+#include "coding/read_write_utils.hpp"
+
 #include "geometry/point2d.hpp"
 #include "geometry/area_on_earth.hpp"
 
@@ -29,19 +31,21 @@ namespace
 {
 using BoundariesCollector = RoutingCityBoundariesCollector;
 
-std::vector<m2::PointD> GetFeatureBuilderGeometry()
-{
-  static std::vector<m2::PointD> const kPolygon = {{0, 0}, {0, 2}, {2, 2}, {2, 0}, {0, 0}};
-  return kPolygon;
-}
+std::string const kDumpFileName = "dump.bin";
 
-feature::FeatureBuilder MakeAreaFeatureBuilder(OsmElement element)
+std::vector<m2::PointD> const kPolygon1 = {{1, 0}, {0, 2}, {2, 2}, {2, 0}, {0, 0}, {1, 0}};
+std::vector<m2::PointD> const kPolygon2 = {{2, 0}, {0, 2}, {2, 2}, {2, 0}, {0, 0}, {2, 0}};
+std::vector<m2::PointD> const kPolygon3 = {{3, 0}, {0, 2}, {2, 2}, {2, 0}, {0, 0}, {3, 0}};
+std::vector<m2::PointD> const kPolygon4 = {{4, 0}, {0, 2}, {2, 2}, {2, 0}, {0, 0}, {4, 0}};
+
+feature::FeatureBuilder MakeAreaFeatureBuilder(OsmElement element,
+                                               std::vector<m2::PointD> const & geometry)
 {
   feature::FeatureBuilder result;
   auto const filterType = [](uint32_t) { return true; };
   ftype::GetNameAndType(&element, result.GetParams(), filterType);
   result.SetOsmId(base::MakeOsmRelation(element.m_id));
-  auto polygon = GetFeatureBuilderGeometry();
+  auto polygon = geometry;
   result.AddPolygon(polygon);
   result.SetArea();
   return result;
@@ -64,12 +68,6 @@ OsmElement MakeAreaWithPlaceNode(uint64_t id, uint64_t placeId, std::string cons
   return area;
 }
 
-bool HasRelationWithId(std::vector<feature::FeatureBuilder> const & fbs, uint64_t id) {
-  return std::find_if(std::begin(fbs), std::end(fbs), [&](auto const & fb) {
-    return fb.GetMostGenericOsmId() == base::MakeOsmRelation(id);
-  }) != std::end(fbs);
-};
-
 auto const placeRelation1 = MakeOsmElement(1 /* id */, {{"place", "city"}}, OsmElement::EntityType::Relation);
 auto const placeRelation2 = MakeOsmElement(2 /* id */, {{"place", "town"}}, OsmElement::EntityType::Relation);
 auto const placeRelation3 = MakeOsmElement(3 /* id */, {{"place", "village"}}, OsmElement::EntityType::Relation);
@@ -85,34 +83,76 @@ auto const relationWithLabel2 = MakeAreaWithPlaceNode(6 /* id */, 10 /* placeId 
 auto const relationWithLabel3 = MakeAreaWithPlaceNode(7 /* id */, 11 /* placeId */, "label" /* role */);
 auto const relationWithLabel4 = MakeAreaWithPlaceNode(8 /* id */, 12 /* placeId */, "country" /* role */);
 
-void Collect(BoundariesCollector & collector, std::vector<OsmElement> const & elements)
+void Collect(BoundariesCollector & collector, std::vector<OsmElement> const & elements,
+             std::vector<std::vector<m2::PointD>> const & geometries = {})
 {
-  for (auto const & element : elements)
+  for (size_t i = 0; i < elements.size(); ++i)
   {
+    auto const & element = elements[i];
     auto featureBuilder = element.IsNode() ? MakeNodeFeatureBuilder(element)
-                                           : MakeAreaFeatureBuilder(element);
+                                           : MakeAreaFeatureBuilder(element, geometries[i]);
     collector.Process(featureBuilder, element);
   }
 }
 
 void Collect(std::shared_ptr<CollectorInterface> & collector,
-             std::vector<OsmElement> const & elements)
+             std::vector<OsmElement> const & elements,
+             std::vector<std::vector<m2::PointD>> const & geometries = {})
 {
   auto boundariesCollector = dynamic_cast<BoundariesCollector*>(collector.get());
-  Collect(*boundariesCollector, elements);
+  Collect(*boundariesCollector, elements, geometries);
 }
 
-void Check(std::string const & filename)
+std::vector<std::vector<m2::PointD>> ReadBoundaries(std::string const & dumpFilename)
+{
+  FileReader reader(dumpFilename);
+  ReaderSource<FileReader> src(reader);
+
+  std::vector<std::vector<m2::PointD>> result;
+  std::vector<m2::PointD> boundary;
+  while (src.Size() > 0)
+  {
+    rw::ReadVectorOfPOD(src, boundary);
+    result.emplace_back(std::move(boundary));
+  }
+  return result;
+}
+
+bool CheckPolygonExistance(std::vector<std::vector<m2::PointD>> const & polygons,
+                           std::vector<m2::PointD> const & polygonToFind)
+{
+  for (auto const & polygon : polygons)
+  {
+    bool same = true;
+    if (polygon.size() != polygonToFind.size())
+      continue;
+
+    for (size_t i = 0; i < polygon.size(); ++i)
+    {
+      if (!base::AlmostEqualAbs(polygon[i], polygonToFind[i], 1e-6))
+      {
+        same = false;
+        break;
+      }
+    }
+
+    if (same)
+      return true;
+  }
+
+  return false;
+}
+
+void Check(std::string const & filename, std::string const & dumpFilename)
 {
   using Writer = RoutingCityBoundariesWriter;
 
-  auto const featuresFileName = Writer::GetBoundariesFilename(filename);
+  auto const boundaries = ReadBoundaries(dumpFilename);
 
-  auto const fbs = ReadAllDatRawFormat<serialization_policy::MinSize>(featuresFileName);
-  TEST(HasRelationWithId(fbs, 1), ());
-  TEST(HasRelationWithId(fbs, 2), ());
-  TEST(HasRelationWithId(fbs, 3), ());
-  TEST(!HasRelationWithId(fbs, 4), ());
+  TEST(CheckPolygonExistance(boundaries, kPolygon1), ());
+  TEST(CheckPolygonExistance(boundaries, kPolygon2), ());
+  TEST(CheckPolygonExistance(boundaries, kPolygon3), ());
+  TEST(!CheckPolygonExistance(boundaries, kPolygon4), ());
 
   auto const nodeToBoundaryFilename = Writer::GetNodeToBoundariesFilename(filename);
   auto nodeToBoundary = routing_city_boundaries::LoadNodeToBoundariesData(nodeToBoundaryFilename);
@@ -121,13 +161,9 @@ void Check(std::string const & filename)
   TEST(nodeToBoundary.count(11), ());
   TEST(!nodeToBoundary.count(12), ());
 
-  auto const truePolygon = GetFeatureBuilderGeometry();
-  for (size_t id = 9; id <= 11; ++id)
-  {
-    auto const & geometryFromFile = nodeToBoundary[id].back().GetOuterGeometry();
-    for (size_t i = 0; i < geometryFromFile.size(); ++i)
-      TEST_ALMOST_EQUAL_ABS(geometryFromFile[i], truePolygon[i], 1e-6, ());
-  }
+  TEST(CheckPolygonExistance({nodeToBoundary[9].back().GetOuterGeometry()}, kPolygon1), ());
+  TEST(CheckPolygonExistance({nodeToBoundary[10].back().GetOuterGeometry()}, kPolygon2), ());
+  TEST(CheckPolygonExistance({nodeToBoundary[11].back().GetOuterGeometry()}, kPolygon3), ());
 
   auto const nodeToLocalityFilename = Writer::GetNodeToLocalityDataFilename(filename);
   auto nodeToLocality = routing_city_boundaries::LoadNodeToLocalityData(nodeToLocalityFilename);
@@ -170,34 +206,38 @@ UNIT_CLASS_TEST(TestWithClassificator, CollectorRoutingCityBoundaries_1)
 {
   auto const filename = generator_tests::GetFileName();
   SCOPE_GUARD(_, std::bind(Platform::RemoveFileIfExists, std::cref(filename)));
+  SCOPE_GUARD(rmDump, std::bind(Platform::RemoveFileIfExists, std::cref(kDumpFileName)));
 
   std::shared_ptr<cache::IntermediateDataReader> cache;
-  auto c1 = std::make_shared<BoundariesCollector>(filename, cache);
+  auto c1 = std::make_shared<BoundariesCollector>(filename, kDumpFileName, cache);
 
-  Collect(*c1, {placeRelation1, placeRelation2, placeRelation3, placeRelation4});
-  Collect(*c1, {relationWithLabel1, relationWithLabel2, relationWithLabel3, relationWithLabel4});
+  Collect(*c1, {placeRelation1, placeRelation2, placeRelation3, placeRelation4},
+               {kPolygon1, kPolygon2, kPolygon3, kPolygon4});
+  Collect(*c1, {relationWithLabel1, relationWithLabel2, relationWithLabel3, relationWithLabel4},
+               {kPolygon1, kPolygon2, kPolygon3, kPolygon4});
   Collect(*c1, {placeNode1, placeNode2, placeNode3, placeNode4});
 
   c1->Finish();
   c1->Save();
 
-  Check(filename);
+  Check(filename, kDumpFileName);
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, CollectorRoutingCityBoundaries_2)
 {
   auto const filename = generator_tests::GetFileName();
   SCOPE_GUARD(_, std::bind(Platform::RemoveFileIfExists, std::cref(filename)));
+  SCOPE_GUARD(rmDump, std::bind(Platform::RemoveFileIfExists, std::cref(kDumpFileName)));
 
   std::shared_ptr<cache::IntermediateDataReader> cache;
-  auto c1 = std::make_shared<BoundariesCollector>(filename, cache);
+  auto c1 = std::make_shared<BoundariesCollector>(filename, kDumpFileName, cache);
   auto c2 = c1->Clone();
 
-  Collect(*c1, {placeRelation1, placeRelation2});
-  Collect(c2, {placeRelation3, placeRelation4});
+  Collect(*c1, {placeRelation1, placeRelation2}, {kPolygon1, kPolygon2});
+  Collect(c2, {placeRelation3, placeRelation4}, {kPolygon3, kPolygon4});
 
-  Collect(*c1, {relationWithLabel1, relationWithLabel2});
-  Collect(c2, {relationWithLabel3, relationWithLabel4});
+  Collect(*c1, {relationWithLabel1, relationWithLabel2}, {kPolygon1, kPolygon2});
+  Collect(c2, {relationWithLabel3, relationWithLabel4}, {kPolygon3, kPolygon4});
 
   Collect(*c1, {placeNode1, placeNode2});
   Collect(c2, {placeNode3, placeNode4});
@@ -207,7 +247,7 @@ UNIT_CLASS_TEST(TestWithClassificator, CollectorRoutingCityBoundaries_2)
   c1->Merge(*c2);
   c1->Save();
 
-  Check(filename);
+  Check(filename, kDumpFileName);
 }
 
 UNIT_TEST(AreaOnEarth_Convex_Polygon_1)
@@ -287,4 +327,3 @@ UNIT_TEST(AreaOnEarth_Concave_Polygon)
                             areaOnEarth,
                             1e-6), ());
 }
-

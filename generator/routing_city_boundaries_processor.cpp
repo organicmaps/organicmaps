@@ -20,7 +20,7 @@
 #include "3party/boost/boost/geometry/geometries/polygon.hpp"
 
 #include <cstdint>
-#include <sstream>
+#include <tuple>
 #include <unordered_map>
 #include <utility>
 
@@ -115,17 +115,6 @@ std::pair<feature::FeatureBuilder, double> GetBoundaryWithSmallestArea(
 
   return {boundaries[bestIndex], minArea};
 }
-
-void TransformPointToCircle(feature::FeatureBuilder & feature, m2::PointD const & center,
-                            double radiusMeters)
-{
-  auto circleGeometry = ms::CreateCircleGeometryOnEarth(mercator::ToLatLon(center), radiusMeters,
-                                                        30.0 /* angleStepDegree */);
-
-  feature.SetArea();
-  feature.ResetGeometry();
-  feature.AddPolygon(circleGeometry);
-}
 }  // routing_city_boundaries
 }  // namespace generator
 
@@ -133,83 +122,63 @@ namespace generator
 {
 using namespace routing_city_boundaries;
 
-RoutingCityBoundariesProcessor::RoutingCityBoundariesProcessor(std::string filename)
-  : m_filename(std::move(filename))
+RoutingCityBoundariesProcessor::RoutingCityBoundariesProcessor(std::string tmpFilename,
+                                                               std::string dumpFilename)
+  : m_tmpFilename(std::move(tmpFilename))
+  , m_dumpFilename(std::move(dumpFilename))
 {
 }
 
 void RoutingCityBoundariesProcessor::ProcessDataFromCollector()
 {
-  auto nodeOsmIdToLocalityData = LoadNodeToLocalityData(
-      RoutingCityBoundariesWriter::GetNodeToLocalityDataFilename(m_filename));
+  auto const nodeOsmIdToLocalityData = LoadNodeToLocalityData(
+      RoutingCityBoundariesWriter::GetNodeToLocalityDataFilename(m_tmpFilename));
 
   auto const nodeOsmIdToBoundaries = LoadNodeToBoundariesData(
-      RoutingCityBoundariesWriter::GetNodeToBoundariesFilename(m_filename));
+      RoutingCityBoundariesWriter::GetNodeToBoundariesFilename(m_tmpFilename));
 
-  FileWriter boundariesWriter(RoutingCityBoundariesWriter::GetBoundariesFilename(m_filename),
-                              FileWriter::Op::OP_APPEND);
+  FileWriter boundariesWriter(m_dumpFilename, FileWriter::Op::OP_APPEND);
 
   uint32_t pointToCircle = 0;
   uint32_t matchedBoundary = 0;
 
-  for (auto const & item : nodeOsmIdToBoundaries)
+  for (auto const & item : nodeOsmIdToLocalityData)
   {
     uint64_t const nodeOsmId = item.first;
-    auto const & boundaries = item.second;
 
-    auto const it = nodeOsmIdToLocalityData.find(nodeOsmId);
-    if (it == nodeOsmIdToLocalityData.cend())
-      continue;
-
-    auto const & localityData = it->second;
+    auto const & localityData = item.second;
     if (localityData.m_population == 0)
       continue;
-
-    double bestFeatureBuilderArea = 0.0;
-    feature::FeatureBuilder bestFeatureBuilder;
-    std::tie(bestFeatureBuilder, bestFeatureBuilderArea) = GetBoundaryWithSmallestArea(boundaries);
 
     double const radiusMeters =
         ftypes::GetRadiusByPopulationForRouting(localityData.m_population, localityData.m_place);
     double const areaUpperBound = ms::CircleAreaOnEarth(radiusMeters);
 
-    if (bestFeatureBuilderArea > areaUpperBound)
-    {
-      ++pointToCircle;
-      TransformPointToCircle(bestFeatureBuilder, localityData.m_position, radiusMeters);
-    }
-    else
-    {
-      ++matchedBoundary;
-    }
-
-    rw::WriteVectorOfPOD(boundariesWriter, bestFeatureBuilder.GetOuterGeometry());
-    nodeOsmIdToLocalityData.erase(it);
-  }
-
-  for (auto const & item : nodeOsmIdToLocalityData)
-  {
-    auto const & localityWithoutBoundary = item.second;
-    if (localityWithoutBoundary.m_population == 0)
-      continue;
-
-    double const radiusMeters =
-        ftypes::GetRadiusByPopulationForRouting(localityWithoutBoundary.m_population,
-                                                localityWithoutBoundary.m_place);
-
     feature::FeatureBuilder feature;
-    TransformPointToCircle(feature, localityWithoutBoundary.m_position, radiusMeters);
-    ++pointToCircle;
 
-    rw::WriteVectorOfPOD(boundariesWriter, feature.GetOuterGeometry());
+    auto const boundariesIt = nodeOsmIdToBoundaries.find(nodeOsmId);
+    if (boundariesIt != nodeOsmIdToBoundaries.cend())
+    {
+      auto const & boundaries = boundariesIt->second;
+      double bestFeatureBuilderArea = 0.0;
+      std::tie(feature, bestFeatureBuilderArea) = GetBoundaryWithSmallestArea(boundaries);
+
+      if (bestFeatureBuilderArea <= areaUpperBound)
+      {
+        ++matchedBoundary;
+        rw::WriteVectorOfPOD(boundariesWriter, feature.GetOuterGeometry());
+        continue;
+      }
+    }
+
+    auto const circleGeometry = ms::CreateCircleGeometryOnEarth(
+        mercator::ToLatLon(localityData.m_position), radiusMeters, 30.0 /* angleStepDegree */);
+
+    ++pointToCircle;
+    rw::WriteVectorOfPOD(boundariesWriter, circleGeometry);
   }
 
   LOG(LINFO, (pointToCircle, "places were transformed to circle."));
   LOG(LINFO, (matchedBoundary, "boundaries were approved as city/town/village boundary."));
-}
-
-void RoutingCityBoundariesProcessor::DumpBoundaries(std::string const & dumpFilename)
-{
-  base::CopyFileX(RoutingCityBoundariesWriter::GetBoundariesFilename(m_filename), dumpFilename);
 }
 }  // namespace generator

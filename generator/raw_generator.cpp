@@ -121,7 +121,7 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(bool a
   }
 
   finalProcessor->DumpCitiesBoundaries(m_genInfo.m_citiesBoundariesFilename);
-  finalProcessor->DumpRoutingCitiesBoundariesFilename(
+  finalProcessor->DumpRoutingCitiesBoundaries(
       m_genInfo.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_TMP_FILENAME),
       m_genInfo.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_DUMP_FILENAME));
   return finalProcessor;

@@ -295,7 +295,7 @@ void CountryFinalProcessor::DumpCitiesBoundaries(std::string const & filename)
   m_citiesBoundariesFilename = filename;
 }
 
-void CountryFinalProcessor::DumpRoutingCitiesBoundariesFilename(
+void CountryFinalProcessor::DumpRoutingCitiesBoundaries(
     std::string const & collectorFilename, std::string const & dumpPath)
 {
   m_routingCityBoundariesCollectorFilename = collectorFilename;
@@ -405,9 +405,9 @@ void CountryFinalProcessor::ProcessRoutingCityBoundaries()
   CHECK(!m_routingCityBoundariesCollectorFilename.empty() &&
         !m_routingCityBoundariesDumpPath.empty(), ());
 
-  RoutingCityBoundariesProcessor processor(m_routingCityBoundariesCollectorFilename);
+  RoutingCityBoundariesProcessor processor(m_routingCityBoundariesCollectorFilename,
+                                           m_routingCityBoundariesDumpPath);
   processor.ProcessDataFromCollector();
-  processor.DumpBoundaries(m_routingCityBoundariesDumpPath);
 }
 
 void CountryFinalProcessor::ProcessCities()

@@ -41,6 +41,7 @@ public:
   };
 
   RoutingCityBoundariesCollector(std::string const & filename,
+                                 std::string const & dumpFilename,
                                  std::shared_ptr<cache::IntermediateDataReader> const & cache);
 
   // CollectorInterface overrides:
@@ -55,11 +56,12 @@ public:
   void MergeInto(RoutingCityBoundariesCollector & collector) const override;
 
   void Process(feature::FeatureBuilder & feature, OsmElement const & osmElement);
-private:
 
+private:
   std::unique_ptr<RoutingCityBoundariesWriter> m_writer;
   std::shared_ptr<cache::IntermediateDataReader> m_cache;
   FeatureMakerSimple m_featureMakerSimple;
+  std::string m_dumpFilename;
 };
 
 class RoutingCityBoundariesWriter
@@ -79,7 +81,7 @@ public:
 
   void Reset();
   void MergeInto(RoutingCityBoundariesWriter & writer);
-  void Save(std::string const & finalFileName);
+  void Save(std::string const & finalFileName, std::string const & dumpFilename);
 
 private:
   using MinAccuracy = feature::serialization_policy::MinSize;

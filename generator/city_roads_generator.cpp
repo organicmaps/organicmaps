@@ -16,6 +16,7 @@
 
 #include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
+#include "base/logging.hpp"
 
 #include <utility>
 
@@ -26,8 +27,8 @@ using namespace std;
 
 namespace
 {
-void LoadFeatureBuildersToVector(string const & boundariesPath,
-                                 CitiesBoundariesChecker::CitiesBoundaries & result)
+void LoadCitiesBoundariesGeometry(string const & boundariesPath,
+                                  CitiesBoundariesChecker::CitiesBoundaries & result)
 {
   if (!Platform::IsFileExistsByFullPath(boundariesPath))
   {
@@ -57,12 +58,14 @@ vector<uint32_t> CalcRoadFeatureIds(string const & dataPath, string const & boun
 {
 
   CitiesBoundariesChecker::CitiesBoundaries citiesBoundaries;
-  LoadFeatureBuildersToVector(boundariesPath, citiesBoundaries);
+  LoadCitiesBoundariesGeometry(boundariesPath, citiesBoundaries);
   CitiesBoundariesChecker const checker(citiesBoundaries);
 
   vector<uint32_t> cityRoadFeatureIds;
   ForEachFromDat(dataPath, [&cityRoadFeatureIds, &checker](FeatureType & ft, uint32_t fid) {
-    if (!routing::IsCarRoad(TypesHolder(ft)))
+    bool const needToProcess =
+        routing::IsCarRoad(TypesHolder(ft)) || routing::IsBicycleRoad(TypesHolder(ft));
+    if (!needToProcess)
       return;
 
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
@@ -74,8 +77,12 @@ vector<uint32_t> CalcRoadFeatureIds(string const & dataPath, string const & boun
         ++inCityPointsCounter;
     }
 
-    double constexpr kInCityPointsRatio = 0.8;
-    if (inCityPointsCounter > kInCityPointsRatio * ft.GetPointsCount())
+    // Our approximation of boundary overestimates it, because of different
+    // bounding boxes (in order to increase performance). So we don't want
+    // match some long roads as city roads, because they pass near city, but
+    // not though it.
+    double constexpr kPointsRatioInCity = 0.8;
+    if (inCityPointsCounter > kPointsRatioInCity * ft.GetPointsCount())
       cityRoadFeatureIds.push_back(ft.GetID().m_index);
   });
 
@@ -98,19 +105,14 @@ void SerializeCityRoads(string const & dataPath, vector<uint32_t> && cityRoadFea
 
 bool BuildCityRoads(string const & mwmPath, string const & boundariesPath)
 {
-  vector<uint32_t> cityRoadFeatureIds;
   try
   {
-    // @TODO(bykoianko) The generation city roads section process is based on two stages now:
+    // The generation city roads section process is based on two stages now:
     // * dumping cities boundaries on feature generation step
     // * calculating feature ids and building section when feature ids are available
     // As a result of dumping cities boundaries instances of indexer::CityBoundary objects
     // are generated and dumped. These objects are used for generating city roads section.
-    // Using real geometry of cities boundaries should be considered for generating city road
-    // features. That mean that the real geometry of cities boundaries should be dumped
-    // on the first step. And then to try using the real geometry should be used for generating city
-    // road features. But there's a chance that it takes to long time.
-    cityRoadFeatureIds = CalcRoadFeatureIds(mwmPath, boundariesPath);
+    auto cityRoadFeatureIds = CalcRoadFeatureIds(mwmPath, boundariesPath);
     SerializeCityRoads(mwmPath, move(cityRoadFeatureIds));
   }
   catch (Reader::Exception const & e)

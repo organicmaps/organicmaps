@@ -109,18 +109,21 @@ RoutingCityBoundariesCollector::LocalityData::Deserialize(ReaderSource<FileReade
 // RoutingCityBoundariesCollector ------------------------------------------------------------------
 
 RoutingCityBoundariesCollector::RoutingCityBoundariesCollector(
-    std::string const & filename, std::shared_ptr<cache::IntermediateDataReader> const & cache)
+    std::string const & filename, std::string const & dumpFilename, 
+    std::shared_ptr<cache::IntermediateDataReader> const & cache)
   : CollectorInterface(filename)
   , m_writer(std::make_unique<RoutingCityBoundariesWriter>(GetTmpFilename()))
   , m_cache(cache)
   , m_featureMakerSimple(cache)
+  , m_dumpFilename(dumpFilename)
 {
 }
 
 std::shared_ptr<CollectorInterface> RoutingCityBoundariesCollector::Clone(
     std::shared_ptr<cache::IntermediateDataReader> const & cache) const
 {
-  return std::make_shared<RoutingCityBoundariesCollector>(GetFilename(), cache ? m_cache : cache);
+  return std::make_shared<RoutingCityBoundariesCollector>(GetFilename(), m_dumpFilename, 
+                                                          cache ? cache : m_cache);
 }
 
 void RoutingCityBoundariesCollector::Collect(OsmElement const & osmElement)
@@ -178,7 +181,7 @@ void RoutingCityBoundariesCollector::Finish() { m_writer->Reset(); }
 
 void RoutingCityBoundariesCollector::Save()
 {
-  m_writer->Save(GetFilename());
+  m_writer->Save(GetFilename(), m_dumpFilename);
 }
 
 void RoutingCityBoundariesCollector::Merge(generator::CollectorInterface const & collector)
@@ -245,9 +248,9 @@ void RoutingCityBoundariesWriter::Process(feature::FeatureBuilder const & featur
 
 void RoutingCityBoundariesWriter::Reset()
 {
-  m_nodeOsmIdToLocalityDataWriter.reset({});
-  m_nodeOsmIdToBoundariesWriter.reset({});
-  m_finalBoundariesGeometryWriter.reset({});
+  m_nodeOsmIdToLocalityDataWriter.reset();
+  m_nodeOsmIdToBoundariesWriter.reset();
+  m_finalBoundariesGeometryWriter.reset();
 }
 
 void RoutingCityBoundariesWriter::MergeInto(RoutingCityBoundariesWriter & writer)
@@ -271,17 +274,18 @@ void RoutingCityBoundariesWriter::MergeInto(RoutingCityBoundariesWriter & writer
   writer.m_nodeOsmIdToBoundariesCount += m_nodeOsmIdToBoundariesCount;
 }
 
-void RoutingCityBoundariesWriter::Save(std::string const & finalFileName)
+void RoutingCityBoundariesWriter::Save(std::string const & finalFileName,
+                                       std::string const & dumpFilename)
 {
   auto const nodeToLocalityFilename = GetNodeToLocalityDataFilename(finalFileName);
   auto const nodeToBoundariesFilename = GetNodeToBoundariesFilename(finalFileName);
-  auto const finalBoundariesGeometry = GetBoundariesFilename(finalFileName);
 
   TruncateAndWriteCount(nodeToLocalityFilename, m_nodeOsmIdToLocalityDataCount);
   TruncateAndWriteCount(nodeToBoundariesFilename, m_nodeOsmIdToBoundariesCount);
 
   base::AppendFileToFile(m_nodeOsmIdToLocalityDataFilename, nodeToLocalityFilename);
   base::AppendFileToFile(m_nodeOsmIdToBoundariesFilename, nodeToBoundariesFilename);
-  base::CopyFileX(m_finalBoundariesGeometryFilename, finalBoundariesGeometry);
+  if (Platform::IsFileExistsByFullPath(m_finalBoundariesGeometryFilename))
+    CHECK(base::CopyFileX(m_finalBoundariesGeometryFilename, dumpFilename), ());
 }
 }  // namespace generator
