@@ -568,6 +568,35 @@ typename Container::value_type JoinStrings(Container const & container, Delimite
   return JoinStrings(begin(container), end(container), delimiter);
 }
 
+template <typename Iterator, typename Delimiter, typename Converter>
+std::string JoinAny(Iterator first, Iterator last, Delimiter const & delimiter,
+                    Converter const & converter)
+{
+  if (first == last)
+    return {};
+
+  std::string result(converter(*first));
+  ++first;
+
+  for (; first != last; ++first)
+  {
+    result += delimiter;
+    result += converter(*first);
+  }
+  return result;
+}
+
+template <typename Container, typename Delimiter = char const>
+std::string JoinAny(Container const & container,
+                    Delimiter const & delimiter = ',',
+                    std::function<
+                        std::string (typename Container::value_type const & v)> const & converter =
+                          [](typename Container::value_type const & item)
+                          { return to_string(item); })
+{
+  return JoinAny(std::cbegin(container), std::cend(container), delimiter, converter);
+}
+
 template <typename Fn>
 void ForEachMatched(std::string const & s, std::regex const & regex, Fn && fn)
 {

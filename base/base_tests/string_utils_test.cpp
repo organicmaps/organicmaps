@@ -6,6 +6,7 @@
 #include <fstream>
 #include <functional>
 #include <iomanip>
+#include <list>
 #include <map>
 #include <string>
 #include <unordered_map>
@@ -839,5 +840,47 @@ UNIT_TEST(UniString_Replace)
       }
     }
     TEST_EQUAL(testString, ToUtf8(uniStr), ());
+  }
+}
+
+UNIT_TEST(Strings_JoinAny)
+{
+  {
+    std::vector<int> testSequence{1, 2, 3};
+    std::string expected{"1,2,3"};
+    TEST_EQUAL(expected, strings::JoinAny(testSequence), ());
+  }
+  {
+    std::list<std::string> testSequence{"1", "2", "3"};
+    std::string expected{"1,2,3"};
+    TEST_EQUAL(expected, strings::JoinAny(testSequence), ());
+  }
+  {
+    std::vector<char> testSequence{'1', '2', '3'};
+    std::string expected{"1,2,3"};
+    TEST_EQUAL(expected, strings::JoinAny(testSequence), ());
+  }
+  {
+    std::list<std::string> testSequence{"1", "2", "3"};
+    std::string expected{"1xyz2xyz3"};
+    TEST_EQUAL(expected, strings::JoinAny(testSequence, "xyz"), ());
+  }
+  {
+    std::vector<std::string> testSequence{"name:X", "name:Y", "name:Z"};
+    std::string expected{"X; Y; Z"};
+    TEST_EQUAL(expected,
+               strings::JoinAny(testSequence, "; ",
+                                [](auto const & line) {
+                                  auto const pos = line.find(":");
+                                  return line.substr(pos + 1);
+                                }),
+               ());
+  }
+  {
+    std::map<int, std::string> testSequence{{1, "maps"}, {2, "."}, {3, "me"}};
+    std::string expected{"maps.me"};
+    TEST_EQUAL(expected,
+               strings::JoinAny(testSequence, "",
+                                [](auto const & item) { return item.second; }), ());
   }
 }
