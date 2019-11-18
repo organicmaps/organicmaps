@@ -29,16 +29,14 @@ void Cancellable::SetDeadline(std::chrono::steady_clock::time_point const & dead
 
 bool Cancellable::IsCancelled() const
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
-
-  CheckDeadline();
-  return m_status != Status::Active;
+  return CancellationStatus() != Status::Active;
 }
 
 Cancellable::Status Cancellable::CancellationStatus() const
 {
   std::lock_guard<std::mutex> lock(m_mutex);
 
+  CheckDeadline();
   return m_status;
 }
 

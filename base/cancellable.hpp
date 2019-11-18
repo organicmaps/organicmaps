@@ -35,12 +35,12 @@ public:
   // Sets a deadline after which the activity is cancelled.
   virtual void SetDeadline(std::chrono::steady_clock::time_point const & t);
 
+  // Updates the status.
   // Returns true iff current activity has been cancelled (either by the call
   // to Cancel or by timeout).
   virtual bool IsCancelled() const;
 
-  // Returns the latest known status. Does not update the status before returning,
-  // i.e. may miss crossing the deadline if the latest update was too long ago.
+  // Updates the status of current activity and returns its value.
   virtual Status CancellationStatus() const;
 
 private:

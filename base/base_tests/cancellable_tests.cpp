@@ -17,7 +17,7 @@ UNIT_TEST(Cancellable_Smoke)
   Cancellable cancellable;
 
   promise<void> syncPromise;
-  auto syncFuture = promise.get_future();
+  auto syncFuture = syncPromise.get_future();
 
   double x = 0.123;
 
