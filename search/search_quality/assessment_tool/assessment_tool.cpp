@@ -18,7 +18,7 @@ int main(int argc, char ** argv)
 {
   search::search_quality::ChangeMaxNumberOfOpenFiles(search::search_quality::kMaxOpenFiles);
 
-  google::SetUsageMessage("Features collector tool.");
+  google::SetUsageMessage("Assessment tool.");
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   Platform & platform = GetPlatform();
