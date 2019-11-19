@@ -17,7 +17,8 @@ void BuildRoutes(std::string const & routesPath,
                  std::string const & dumpPath,
                  uint64_t startFrom,
                  uint64_t threadsNumber,
-                 uint32_t timeoutPerRouteSeconds);
+                 uint32_t timeoutPerRouteSeconds,
+                 bool verbose);
 
 void BuildRoutesWithApi(std::unique_ptr<routing_quality::api::RoutingApi> routingApi,
                         std::string const & routesPath,

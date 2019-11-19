@@ -53,7 +53,8 @@ void BuildRoutes(std::string const & routesPath,
                  std::string const & dumpPath,
                  uint64_t startFrom,
                  uint64_t threadsNumber,
-                 uint32_t timeoutPerRouteSeconds)
+                 uint32_t timeoutPerRouteSeconds,
+                 bool verbose)
 {
   CHECK(Platform::IsFileExistsByFullPath(routesPath), ("Can not find file:", routesPath));
   CHECK(!dumpPath.empty(), ("Empty dumpPath."));
@@ -77,7 +78,7 @@ void BuildRoutes(std::string const & routesPath,
     params.m_type = VehicleType::Car;
     params.m_timeoutSeconds = timeoutPerRouteSeconds;
 
-    base::ScopedLogLevelChanger changer(base::LogLevel::LERROR);
+    base::ScopedLogLevelChanger changer(verbose ? base::LogLevel::LINFO : base::LogLevel::LERROR);
     ms::LatLon start;
     ms::LatLon finish;
     size_t startFromCopy = startFrom;

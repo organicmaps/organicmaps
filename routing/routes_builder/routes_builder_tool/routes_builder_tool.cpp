@@ -37,6 +37,8 @@ DEFINE_uint64(start_from, 0, "The line number from which the tool should start r
 DEFINE_int32(timeout, 10 * 60, "Timeout in seconds for each route building. "
                                "0 means without timeout (default: 10 minutes).");
 
+DEFINE_bool(verbose, false, "Verbose logging (default: false)");
+
 using namespace routing;
 using namespace routes_builder;
 using namespace routing_quality;
@@ -92,7 +94,10 @@ int Main(int argc, char ** argv)
     CHECK_EQUAL(Platform::MkDir(FLAGS_dump_path), Platform::EError::ERR_OK,());
 
   if (IsLocalBuild())
-    BuildRoutes(FLAGS_routes_file, FLAGS_dump_path, FLAGS_start_from, FLAGS_threads, FLAGS_timeout);
+  {
+    BuildRoutes(FLAGS_routes_file, FLAGS_dump_path, FLAGS_start_from, FLAGS_threads, FLAGS_timeout, 
+                FLAGS_verbose);
+  }
 
   if (IsApiBuild())
   {
