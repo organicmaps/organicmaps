@@ -51,10 +51,6 @@ class WelcomeViewController: MWMViewController, UIAdaptivePresentationController
   @IBAction func onCloseButton(_ sender: UIButton) {
     presenter?.onClose()
   }
-
-  var key: String {
-    return presenter?.key() ?? ""
-  }
 }
 
 extension WelcomeViewController: IWelcomeView {

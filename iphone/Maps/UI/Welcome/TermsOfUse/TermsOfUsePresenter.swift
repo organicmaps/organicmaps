@@ -25,12 +25,8 @@ extension TermsOfUsePresenter: ITermsOfUsePresenter {
     view?.setTermsOfUseTitle(String(coreFormat: L("sign_agree_tof_gdpr"), arguments: [termsOfUseLink]))
   }
 
-  func key() -> String {
-    return ""
-  }
-
   func onAppear() {
-    Statistics.logEvent("OnStart_MapsMeConsent_shown")
+    Statistics.logEvent(kStatOnboardingScreenShow, withParameters: [kStatType: kStatAgreement])
   }
 
   func onNext() {
@@ -39,7 +35,7 @@ extension TermsOfUsePresenter: ITermsOfUsePresenter {
     WelcomeStorage.termsOfUseLink = termsOfUseLink
     WelcomeStorage.acceptTime = Date()
     router.onNext()
-    Statistics.logEvent("OnStart_MapsMeConsent_accepted")
+    Statistics.logEvent(kStatOnboardingScreenAccept, withParameters: [kStatType: kStatAgreement])
   }
 
   func onClose() {

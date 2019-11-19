@@ -88,17 +88,9 @@ final class WelcomePageController: UIPageViewController {
 
   func nextPage() {
     currentController = pageViewController(self, viewControllerAfter: currentController)
-    if let controller = currentController as? WelcomeViewController {
-      Statistics.logEvent(kStatEventName(kStatWhatsNew, controller.key),
-                          withParameters: [kStatAction: kStatNext])
-    }
   }
 
   func close() {
-    if let controller = currentController as? WelcomeViewController {
-      Statistics.logEvent(kStatEventName(kStatWhatsNew, controller.key),
-                          withParameters: [kStatAction: kStatClose])
-    }
     iPadBackgroundView?.removeFromSuperview()
     view.removeFromSuperview()
     removeFromParent()
@@ -107,10 +99,6 @@ final class WelcomePageController: UIPageViewController {
   }
 
   @objc func show() {
-    if let controller = currentController as? WelcomeViewController {
-      Statistics.logEvent(kStatEventName(kStatWhatsNew, controller.key),
-                          withParameters: [kStatAction: kStatOpen])
-    }
     parentController.addChildViewController(self)
     parentController.view.addSubview(view)
     updateFrame()

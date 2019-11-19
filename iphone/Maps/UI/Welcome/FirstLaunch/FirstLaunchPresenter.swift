@@ -13,6 +13,7 @@ class FirstLaunchPresenter {
     var title: String
     var text: String
     var buttonNextTitle: String
+    var statType: String
     var isCloseButtonHidden: Bool
     let requestPermission: Permission
   }
@@ -35,10 +36,6 @@ extension FirstLaunchPresenter: IFirstLaunchPresenter {
     viewController?.configure(config: config)
   }
 
-  func key() -> String {
-    return FirstLaunchController.key
-  }
-
   func onAppear() {
     switch config.requestPermission {
     case .location:
@@ -52,9 +49,11 @@ extension FirstLaunchPresenter: IFirstLaunchPresenter {
 
   func onNext() {
     router.onNext()
+    Statistics.logEvent(kStatOnboardingScreenShow, withParameters: [kStatType: config.statType])
   }
 
   func onClose() {
     router.onClose()
+    Statistics.logEvent(kStatOnboardingScreenAccept, withParameters: [kStatType: config.statType])
   }
 }

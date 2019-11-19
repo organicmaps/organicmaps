@@ -8,7 +8,6 @@ protocol IWelcomeConfig {
 
 protocol IWelcomePresenter: class {
   func configure()
-  func key() -> String
   func onAppear()
   func onNext()
   func onClose()
