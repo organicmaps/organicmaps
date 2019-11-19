@@ -41,4 +41,12 @@ SharedLoadInfo::Reader SharedLoadInfo::GetTrianglesReader(int ind) const
 {
   return m_cont.GetReader(GetTagForIndex(TRIANGLE_FILE_TAG, ind));
 }
+
+boost::optional<SharedLoadInfo::Reader> SharedLoadInfo::GetPostcodesReader() const
+{
+  if (!m_cont.IsExist(POSTCODES_FILE_TAG))
+    return {};
+
+  return m_cont.GetReader(POSTCODES_FILE_TAG);
+}
 }  // namespace feature

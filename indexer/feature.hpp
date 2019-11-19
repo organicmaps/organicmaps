@@ -155,6 +155,8 @@ public:
   uint64_t GetPopulation();
   std::string GetRoadNumber();
 
+  std::string const & GetPostcode();
+
   feature::Metadata & GetMetadata();
 
   /// @name Statistic functions.
@@ -193,8 +195,12 @@ private:
     bool m_points = false;
     bool m_triangles = false;
     bool m_metadata = false;
+    bool m_postcode = false;
 
-    void Reset() { m_types = m_common = m_header2 = m_points = m_triangles = m_metadata = false; }
+    void Reset()
+    {
+      m_types = m_common = m_header2 = m_points = m_triangles = m_metadata = m_postcode = false;
+    }
   };
 
   struct Offsets
@@ -216,6 +222,7 @@ private:
   void ParseCommon();
   void ParseHeader2();
   void ParseMetadata();
+  void ParsePostcode();
   void ParseGeometryAndTriangles(int scale);
 
   uint8_t m_header = 0;
@@ -223,6 +230,7 @@ private:
 
   FeatureID m_id;
   FeatureParamsBase m_params;
+  std::string m_postcode;
 
   m2::PointD m_center;
   m2::RectD m_limitRect;

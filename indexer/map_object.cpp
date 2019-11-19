@@ -75,6 +75,7 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
   m_types = feature::TypesHolder(ft);
   m_metadata = ft.GetMetadata();
   m_houseNumber = ft.GetHouseNumber();
+  m_postcode = ft.GetPostcode();
   m_featureID = ft.GetID();
   m_geomType = ft.GetGeomType();
   if (m_geomType == feature::GeomType::Area)
@@ -112,6 +113,8 @@ StringUtf8Multilang const & MapObject::GetNameMultilang() const
 }
 
 string const & MapObject::GetHouseNumber() const { return m_houseNumber; }
+
+string const & MapObject::GetPostcode() const { return m_postcode; }
 
 string MapObject::GetLocalizedType() const
 {

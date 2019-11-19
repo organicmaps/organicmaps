@@ -30,7 +30,7 @@ struct EditableProperties
   }
 
   bool m_name = false;
-  /// If true, enables editing of house number, street address and post code.
+  /// If true, enables editing of house number, street address and postcode.
   bool m_address = false;
   std::vector<feature::Metadata::EType> m_metadata;
   bool IsEditable() const { return m_name || m_address || !m_metadata.empty(); }

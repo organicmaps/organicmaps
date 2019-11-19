@@ -61,6 +61,7 @@ UNIT_TEST(XMLFeature_Setters)
   feature.SetName("int_name", "Gorky Park");
 
   feature.SetHouse("10");
+  feature.SetPostcode("127001");
   feature.SetTagValue("opening_hours", "Mo-Fr 08:15-17:30");
   feature.SetTagValue("amenity", "atm");
 
@@ -74,6 +75,7 @@ UNIT_TEST(XMLFeature_Setters)
   <tag k="name:ru" v="Парк Горького" />
   <tag k="int_name" v="Gorky Park" />
   <tag k="addr:housenumber" v="10" />
+  <tag k="addr:postcode" v="127001" />
   <tag k="opening_hours" v="Mo-Fr 08:15-17:30" />
   <tag k="amenity" v="atm" />
 </node>
@@ -167,6 +169,7 @@ auto const kTestNode = R"(<?xml version="1.0"?>
   <tag k="name:ru" v="Парк Горького" />
   <tag k="int_name" v="Gorky Park" />
   <tag k="addr:housenumber" v="10" />
+  <tag k="addr:postcode" v="127001" />
   <tag k="opening_hours" v="Mo-Fr 08:15-17:30" />
   <tag k="amenity" v="atm" />
 </node>
@@ -186,6 +189,7 @@ UNIT_TEST(XMLFeature_FromXml)
   TEST(!feature.HasKey("FooBarBaz"), ());
 
   TEST_EQUAL(feature.GetHouse(), "10", ());
+  TEST_EQUAL(feature.GetPostcode(), "127001", ());
   TEST_EQUAL(feature.GetCenter(), ms::LatLon(55.7978998, 37.4745280), ());
   TEST_EQUAL(feature.GetName(), "Gorki Park", ());
   TEST_EQUAL(feature.GetName("default"), "Gorki Park", ());
@@ -361,6 +365,7 @@ UNIT_TEST(XMLFeature_FromXMLAndBackToXML)
   <tag k="name:en" v="Gorki Park" />
   <tag k="name:ru" v="Парк Горького" />
   <tag k="addr:housenumber" v="10" />
+  <tag k="addr:postcode" v="127001" />
   </node>
   )";
 

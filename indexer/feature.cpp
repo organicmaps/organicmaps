@@ -6,6 +6,7 @@
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/map_object.hpp"
+#include "indexer/postcodes.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/shared_load_info.hpp"
 
@@ -232,6 +233,9 @@ FeatureType::FeatureType(osm::MapObject const & emo)
   else
     m_params.house.Set(house);
   m_parsed.m_common = true;
+
+  m_postcode = emo.GetPostcode();
+  m_parsed.m_postcode = true;
 
   m_metadata = emo.GetMetadata();
   m_parsed.m_metadata = true;
@@ -548,6 +552,29 @@ void FeatureType::ParseMetadata()
   m_parsed.m_metadata = true;
 }
 
+void FeatureType::ParsePostcode()
+{
+  if (m_parsed.m_postcode)
+    return;
+
+  auto postcodesReader = m_loadInfo->GetPostcodesReader();
+  if (postcodesReader)
+  {
+    auto postcodes = indexer::Postcodes::Load(*postcodesReader->GetPtr());
+    CHECK(postcodes, ());
+    auto const havePostcode = postcodes->Get(m_id.m_index, m_postcode);
+    CHECK(!havePostcode || !m_postcode.empty(), (havePostcode, m_postcode));
+  }
+  else
+  {
+    // Old data compatibility.
+    ParseMetadata();
+    m_postcode = m_metadata.Get(feature::Metadata::FMD_POSTCODE);
+  }
+
+  m_parsed.m_postcode = true;
+}
+
 StringUtf8Multilang const & FeatureType::GetNames()
 {
   ParseCommon();
@@ -763,6 +790,12 @@ string FeatureType::GetRoadNumber()
 {
   ParseCommon();
   return m_params.ref;
+}
+
+string const & FeatureType::GetPostcode()
+{
+  ParsePostcode();
+  return m_postcode;
 }
 
 feature::Metadata & FeatureType::GetMetadata()

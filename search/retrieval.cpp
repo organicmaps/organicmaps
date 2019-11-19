@@ -225,7 +225,7 @@ pair<bool, bool> MatchFeatureByNameAndType(EditableMapObject const & emo,
 
 bool MatchFeatureByPostcode(EditableMapObject const & emo, TokenSlice const & slice)
 {
-  string const postcode = emo.GetMetadata().Get(feature::Metadata::FMD_POSTCODE);
+  string const postcode = emo.GetPostcode();
   vector<UniString> tokens;
   NormalizeAndTokenizeString(postcode, tokens, Delimiters());
   if (slice.Size() > tokens.size())

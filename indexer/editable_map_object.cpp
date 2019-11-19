@@ -281,10 +281,7 @@ NamesDataSource EditableMapObject::GetNamesDataSource(StringUtf8Multilang const 
 
 vector<LocalizedStreet> const & EditableMapObject::GetNearbyStreets() const { return m_nearbyStreets; }
 
-string EditableMapObject::GetPostcode() const
-{
-  return m_metadata.Get(feature::Metadata::FMD_POSTCODE);
-}
+string EditableMapObject::GetPostcode() const { return m_postcode; }
 
 string EditableMapObject::GetWikipedia() const
 {
@@ -453,10 +450,7 @@ bool EditableMapObject::UpdateMetadataValue(string const & key, string const & v
   return true;
 }
 
-void EditableMapObject::SetPostcode(string const & postcode)
-{
-  m_metadata.Set(feature::Metadata::FMD_POSTCODE, postcode);
-}
+void EditableMapObject::SetPostcode(string const & postcode) { m_postcode = postcode; }
 
 void EditableMapObject::SetPhone(string const & phone)
 {

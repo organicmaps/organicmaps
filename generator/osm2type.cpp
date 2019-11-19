@@ -870,9 +870,8 @@ void GetNameAndType(OsmElement * p, FeatureParams & params, function<bool(uint32
       {"addr:postcode", "*",
        [&params](string & k, string & v) {
          params.AddPostcode(v);
-         // todo @t.yan: uncomment when we stop to add postcodes to metadata
-         // k.clear();
-         // v.clear();
+         k.clear();
+         v.clear();
       }},
 
       {"population", "*",

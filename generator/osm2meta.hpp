@@ -23,7 +23,6 @@ struct MetadataTagProcessorImpl
   std::string ValidateAndFormat_turn_lanes_forward(std::string const & v) const;
   std::string ValidateAndFormat_turn_lanes_backward(std::string const & v) const;
   std::string ValidateAndFormat_email(std::string const & v) const;
-  std::string ValidateAndFormat_postcode(std::string const & v) const;
   std::string ValidateAndFormat_flats(std::string const & v) const;
   std::string ValidateAndFormat_internet(std::string v) const;
   std::string ValidateAndFormat_height(std::string const & v) const;
@@ -84,7 +83,6 @@ public:
     case Metadata::FMD_TURN_LANES_FORWARD: valid = ValidateAndFormat_turn_lanes_forward(v); break;
     case Metadata::FMD_TURN_LANES_BACKWARD: valid = ValidateAndFormat_turn_lanes_backward(v); break;
     case Metadata::FMD_EMAIL: valid = ValidateAndFormat_email(v); break;
-    case Metadata::FMD_POSTCODE: valid = ValidateAndFormat_postcode(v); break;
     case Metadata::FMD_WIKIPEDIA: valid = ValidateAndFormat_wikipedia(v); break;
     case Metadata::FMD_FLATS: valid = ValidateAndFormat_flats(v); break;
     case Metadata::FMD_MIN_HEIGHT:  // The same validator as for height.
@@ -96,13 +94,15 @@ public:
     case Metadata::FMD_LEVEL: valid = ValidateAndFormat_level(v); break;
     case Metadata::FMD_AIRPORT_IATA: valid = ValidateAndFormat_airport_iata(v); break;
     case Metadata::FMD_DURATION: valid = ValidateAndFormat_duration(v); break;
+    // Used for old data compatibility only and should not be set:
+    case Metadata::FMD_POSTCODE: CHECK(false, (mdType, "used for compatibility, should not be set."));
     // Metadata types we do not get from OSM.
     case Metadata::FMD_SPONSORED_ID:
     case Metadata::FMD_PRICE_RATE:
     case Metadata::FMD_RATING:
     case Metadata::FMD_BRAND:
     case Metadata::FMD_TEST_ID:
-    case Metadata::FMD_COUNT: CHECK(false, (mdType, "should not be parsed from OSM"));
+    case Metadata::FMD_COUNT: CHECK(false, (mdType, "should not be parsed from OSM."));
     }
     md.Set(mdType, valid);
     return false;

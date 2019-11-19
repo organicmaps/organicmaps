@@ -127,6 +127,9 @@ public:
   std::string GetHouse() const;
   void SetHouse(std::string const & house);
 
+  std::string GetPostcode() const;
+  void SetPostcode(std::string const & postcode);
+
   /// Our and OSM modification time are equal.
   time_t GetModificationTime() const;
   void SetModificationTime(time_t const time);

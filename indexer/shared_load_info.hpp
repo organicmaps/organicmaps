@@ -7,6 +7,8 @@
 
 #include "base/macros.hpp"
 
+#include <boost/optional.hpp>
+
 namespace feature
 {
 // This info is created once per FeaturesVector.
@@ -24,6 +26,7 @@ public:
   Reader GetAltitudeReader() const;
   Reader GetGeometryReader(int ind) const;
   Reader GetTrianglesReader(int ind) const;
+  boost::optional<Reader> GetPostcodesReader() const;
 
   version::Format GetMWMFormat() const { return m_header.GetFormat(); }
 
