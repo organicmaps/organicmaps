@@ -5,13 +5,14 @@
 #include "coding/internal/file_data.hpp"
 #include "coding/sha1.hpp"
 
-#include "platform/network_policy.hpp"
 #include "platform/http_client.hpp"
+#include "platform/http_payload.hpp"
+#include "platform/http_uploader.hpp"
+#include "platform/network_policy.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/remote_file.hpp"
 #include "platform/settings.hpp"
-#include "platform/http_uploader.hpp"
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
@@ -927,15 +928,18 @@ Cloud::RequestResult Cloud::ExecuteUploading(UploadingResponseData const & respo
   int code = 0;
   for (size_t i = 0; i < urls.size(); ++i)
   {
-    platform::HttpUploader request;
-    request.SetUrl(urls[i]);
-    request.SetMethod(responseData.m_method);
+    platform::HttpPayload payload;
+    payload.m_url = urls[i];
+    payload.m_method = responseData.m_method;
+
     for (auto const & f : responseData.m_fields)
     {
       ASSERT_EQUAL(f.size(), 2, ());
-      request.SetParam(f[0], f[1]);
+      payload.m_params[f[0]] = f[1];
     }
-    request.SetFilePath(filePath);
+    payload.m_filePath = filePath;
+
+    platform::HttpUploader request(payload);
 
     auto const result = request.Upload();
     code = result.m_httpCode;

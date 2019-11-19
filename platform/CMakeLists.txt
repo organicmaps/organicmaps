@@ -22,10 +22,13 @@ set(
   gui_thread.hpp
   http_client.cpp
   http_client.hpp
+  http_payload.cpp
+  http_payload.hpp
   http_request.cpp
   http_request.hpp
   http_thread_callback.hpp
   http_uploader.hpp
+  http_uploader_background.hpp
   http_user_agent.cpp
   http_user_agent.hpp
   local_country_file.cpp

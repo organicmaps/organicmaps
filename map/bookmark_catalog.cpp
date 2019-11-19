@@ -5,6 +5,7 @@
 #include "web_api/request_headers.hpp"
 #include "web_api/utils.hpp"
 
+#include "platform/http_payload.hpp"
 #include "platform/http_uploader.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
@@ -572,15 +573,18 @@ void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessTo
       FileWriter::DeleteFileX(filePath);
 
       // Upload zipped KML.
-      platform::HttpUploader request;
-      request.SetUrl(BuildUploadUrl());
-      request.SetHeaders({{"Authorization", "Bearer " + accessToken},
-                          {"User-Agent", GetPlatform().GetAppUserAgent()}});
-      request.SetParam("author_id", uploadData.m_userId);
-      request.SetParam("bundle_hash", uploadData.m_serverId);
-      request.SetParam("locale", languages::GetCurrentOrig());
-      request.SetFileKey("file_contents");
-      request.SetFilePath(zippedFilePath);
+      platform::HttpPayload payload;
+      payload.m_url = BuildUploadUrl();
+      payload.m_headers = {{"Authorization", "Bearer " + accessToken},
+                           {"User-Agent", GetPlatform().GetAppUserAgent()}};
+
+      payload.m_params = {{"author_id", uploadData.m_userId},
+                          {"bundle_hash", uploadData.m_serverId},
+                          {"locale", languages::GetCurrentOrig()}};
+      payload.m_fileKey = "file_contents";
+      payload.m_filePath = zippedFilePath;
+
+      platform::HttpUploader request(payload);
       auto const uploadCode = request.Upload();
       if (uploadCode.m_httpCode >= 200 && uploadCode.m_httpCode < 300)
       {

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "platform/http_payload.hpp"
+
 #include <cstdint>
 #include <functional>
 #include <map>
@@ -16,24 +18,12 @@ public:
     std::string m_description;
   };
 
-  void SetMethod(std::string const & method) { m_method = method; }
-  void SetUrl(std::string const & url) { m_url = url; }
-  void SetParams(std::map<std::string, std::string> const & params) { m_params = params; }
-  void SetParam(std::string const & key, std::string const & value) { m_params[key] = value; }
-  void SetHeaders(std::map<std::string, std::string> const & headers) { m_headers = headers; }
-  void SetFileKey(std::string const & fileKey) { m_fileKey = fileKey; }
-  void SetFilePath(std::string const & filePath) { m_filePath = filePath; }
-  void SetNeedClientAuth(bool needClientAuth) { m_needClientAuth = needClientAuth; }
-
+  HttpUploader() = delete;
+  explicit HttpUploader(HttpPayload const & payload) : m_payload(payload) {}
+  HttpPayload const & GetPayload() const { return m_payload; }
   Result Upload() const;
 
 private:
-  std::string m_method = "POST";
-  std::string m_url;
-  std::map<std::string, std::string> m_params;
-  std::map<std::string, std::string> m_headers;
-  std::string m_fileKey = "file";
-  std::string m_filePath;
-  bool m_needClientAuth = false;
+  HttpPayload const m_payload;
 };
 }  // namespace platform

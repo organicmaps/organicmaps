@@ -1,6 +1,7 @@
 #include "map/user.hpp"
 
 #include "platform/http_client.hpp"
+#include "platform/http_payload.hpp"
 #include "platform/http_uploader.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
@@ -641,13 +642,13 @@ void User::BindUser(CompleteUserBindingHandler && completionHandler)
                             [this, url, filePath, completionHandler = std::move(completionHandler)]()
       {
         SCOPE_GUARD(tmpFileGuard, std::bind(&base::DeleteFileX, std::cref(filePath)));
-        platform::HttpUploader request;
-        request.SetUrl(url);
-        request.SetNeedClientAuth(true);
-        request.SetHeaders({{"Authorization", BuildAuthorizationToken(m_accessToken)},
-                            {"User-Agent", GetPlatform().GetAppUserAgent()}});
-        request.SetFilePath(filePath);
-
+        platform::HttpPayload payload;
+        payload.m_url = url;
+        payload.m_needClientAuth = true;
+        payload.m_headers = {{"Authorization", BuildAuthorizationToken(m_accessToken)},
+                             {"User-Agent", GetPlatform().GetAppUserAgent()}};
+        payload.m_filePath = filePath;
+        platform::HttpUploader request(payload);
         auto const result = request.Upload();
         if (result.m_httpCode >= 200 && result.m_httpCode < 300)
         {

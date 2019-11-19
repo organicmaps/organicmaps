@@ -201,12 +201,12 @@ HttpUploader::Result HttpUploader::Upload() const
   };
 
   auto uploadTask = [[MultipartUploadTask alloc] init];
-  uploadTask.method = @(m_method.c_str());
-  uploadTask.urlString = @(m_url.c_str());
-  uploadTask.fileKey = @(m_fileKey.c_str());
-  uploadTask.filePath = @(m_filePath.c_str());
-  uploadTask.params = mapTransform(m_params);
-  uploadTask.headers = mapTransform(m_headers);
+  uploadTask.method = @(m_payload.m_method.c_str());
+  uploadTask.urlString = @(m_payload.m_url.c_str());
+  uploadTask.fileKey = @(m_payload.m_fileKey.c_str());
+  uploadTask.filePath = @(m_payload.m_filePath.c_str());
+  uploadTask.params = mapTransform(m_payload.m_params);
+  uploadTask.headers = mapTransform(m_payload.m_headers);
   [uploadTask uploadWithCompletion:[resultPtr, waiterPtr](NSInteger httpCode, NSString * description) {
     resultPtr->m_httpCode = static_cast<int32_t>(httpCode);
     resultPtr->m_description = description.UTF8String;
