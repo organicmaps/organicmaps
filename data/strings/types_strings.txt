@@ -10787,8 +10787,38 @@
     fa = قبرستان
 
   [type.landuse.churchyard]
-    en = landuse-churchyard
-    pl = Teren kościelny
+    en = Churchyard
+    ru = Церковный двор
+    ar = فناء الكنيسة
+    cs = Nádvoří kostela
+    da = Kirkegård
+    nl = Kerkhof
+    fi = Kirkon piha
+    fr = Cour d'église
+    de = Kirchenhof
+    hu = Templomtér
+    id = Halaman gereja
+    it = Sagrato della chiesa
+    ja = 教会付属墓地
+    ko = 교회
+    nb = Kirkegård
+    pl = Dziedziniec przykościelny
+    pt = Adro
+    pt-BR = Igreja
+    ro = Curtea Bisericii
+    es = Camposanto
+    es-MX = Camposanto
+    sv = Kyrkogård
+    th = บริเวณโบสถ์
+    tr = Kilise Bölgesi
+    uk = Церковний двір
+    vi = Nhà thờ
+    el = Αυλόγυρος εκκλησίας
+    sk = Cintorín
+    sw = Sehemu ya kanisa
+    zh-Hans = 教堂庭院
+    zh-Hant = 教堂庭院
+    fa = حیاط کلیسا
 
   [type.landuse.commercial]
     en = landuse-commercial
