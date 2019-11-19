@@ -43,7 +43,7 @@ namespace routing
 ///                         "130 kmh" - means 130 km per hour.
 /// See https://wiki.openstreetmap.org/wiki/Key:maxspeed
 /// for more details about input string.
-boost::optional<double> GetMaxSpeed(std::string const & maxSpeedString);
+boost::optional<double> GetMaxSpeedKmPH(std::string const & maxSpeedString);
 
 class CameraProcessor
 {
@@ -53,14 +53,12 @@ public:
 
   struct CameraInfo
   {
-    CameraInfo(const OsmElement & element);
-
-    bool IsValid() const { return m_speed >= 0; }
+    explicit CameraInfo(OsmElement const & element);
 
     uint64_t m_id = 0;
     double m_lon = 0.0;
     double m_lat = 0.0;
-    uint32_t m_speed = 0;
+    uint32_t m_speedKmPH = 0;
     std::vector<uint64_t> m_ways;
   };
 

@@ -35,13 +35,17 @@ namespace routing
 {
 size_t const CameraProcessor::kMaxSpeedSpeedStringLength = 32;
 
-boost::optional<double> GetMaxSpeed(std::string const & maxSpeedString)
+boost::optional<double> GetMaxSpeedKmPH(std::string const & maxSpeedString)
 {
   routing::SpeedInUnits speed;
   if (!generator::ParseMaxspeedTag(maxSpeedString, speed) || !speed.IsNumeric())
     return {};
 
-  return measurement_utils::ToSpeedKmPH(speed.GetSpeed(), speed.GetUnits());
+  auto const speedKmPh = measurement_utils::ToSpeedKmPH(speed.GetSpeed(), speed.GetUnits());
+  if (speedKmPh < 0.0)
+    return {};
+
+  return {speedKmPh};
 }
 
 CameraProcessor::CameraInfo::CameraInfo(OsmElement const & element)
@@ -53,8 +57,8 @@ CameraProcessor::CameraInfo::CameraInfo(OsmElement const & element)
   if (maxspeed.empty() || maxspeed.size() > kMaxSpeedSpeedStringLength)
     return;
 
-  if (auto const validatedMaxspeed = GetMaxSpeed(maxspeed))
-    m_speed = static_cast<uint32_t>(*validatedMaxspeed);
+  if (auto const validatedMaxspeed = GetMaxSpeedKmPH(maxspeed))
+    m_speedKmPH = static_cast<uint32_t>(*validatedMaxspeed);
   else
     LOG(LWARNING, ("Bad speed format of camera:", maxspeed, ", osmId:", element.m_id));
 }
@@ -106,8 +110,7 @@ void CameraProcessor::FillCameraInWays()
 void CameraProcessor::ProcessNode(OsmElement const & element)
 {
   CameraInfo camera(element);
-  if (camera.IsValid())
-    m_speedCameras.emplace(element.m_id, std::move(camera));
+  m_speedCameras.emplace(element.m_id, std::move(camera));
 }
 
 void CameraProcessor::Finish()
@@ -164,7 +167,7 @@ void CameraCollector::Write(FileWriter & writer, CameraProcessor::CameraInfo con
       DoubleToUint32(camera.m_lon, ms::LatLon::kMinLon, ms::LatLon::kMaxLon, kPointCoordBits);
   WriteToSink(writer, lon);
 
-  WriteToSink(writer, static_cast<uint32_t>(camera.m_speed));
+  WriteToSink(writer, camera.m_speedKmPH);
 
   auto const size = static_cast<uint32_t>(ways.size());
   WriteToSink(writer, size);
