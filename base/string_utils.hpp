@@ -571,9 +571,10 @@ typename Container::value_type JoinStrings(Container const & container, Delimite
   return JoinStrings(begin(container), end(container), delimiter);
 }
 
-template <typename Iterator, typename Delimiter, typename Converter>
+template <typename Iterator, typename Delimiter>
 std::string JoinAny(Iterator first, Iterator last, Delimiter const & delimiter,
-                    Converter const & converter)
+                    std::function<
+                      std::string (typename Iterator::value_type const & v)> const & converter)
 {
   if (first == last)
     return {};
