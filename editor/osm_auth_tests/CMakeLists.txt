@@ -23,6 +23,7 @@ omim_link_libraries(
   icu
   oauthcpp
   stats_client
+  succinct
   ${LIBZ}
   ${Qt5Widgets_LIBRARIES}
 )

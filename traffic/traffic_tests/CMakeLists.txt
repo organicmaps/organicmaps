@@ -29,6 +29,7 @@ omim_link_libraries(
   protobuf
   pugixml
   stats_client
+  succinct
   ${LIBZ}
 )
 

@@ -40,6 +40,7 @@ omim_link_libraries(
   base
   jansson
   stats_client
+  succinct
   pugixml
   protobuf
   oauthcpp

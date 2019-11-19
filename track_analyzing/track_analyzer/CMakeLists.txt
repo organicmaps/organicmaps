@@ -40,6 +40,7 @@ omim_link_libraries(
   oauthcpp
   protobuf
   stats_client
+  succinct
   gflags
   ${LIBZ}
 )

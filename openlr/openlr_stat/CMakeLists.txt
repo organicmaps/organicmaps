@@ -30,6 +30,7 @@ omim_link_libraries(${PROJECT_NAME}
   bsdiff
   pugixml
   stats_client
+  succinct
   ${Qt5Core_LIBRARIES}
   ${LIBZ}
 )
