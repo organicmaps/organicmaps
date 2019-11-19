@@ -1975,7 +1975,37 @@
 
   [type.amenity.parking_space]
     en = Parking space
+    ru = Парковочное место
+    ar = مكان لوقوف السيارات
+    cs = Prostor pro parkování
+    da = Parkeringsplads
+    nl = Parkeerplaats
+    fi = Parkkipaikka
+    fr = Parking
+    de = Parkplatz
+    hu = Parkolóhely
+    id = Tempat parkir
+    it = Parcheggio
+    ja = 駐車スペース
+    ko = 주차장
+    nb = Parkeringsplass
     pl = Miejsce parkingowe
+    pt = Lugar de estacionamento
+    pt-BR = Estacionamento
+    ro = Loc de parcare
+    es = Plaza de aparcamiento
+    es-MX = Plaza de aparcamiento
+    sv = Parkeringsplats
+    th = พื้นที่จอดรถ
+    tr = Park alanı
+    uk = Паркувальне місце
+    vi = Chỗ để xe
+    el = Χώρος στάθμευσης
+    sk = Parkovacie miesto
+    sw = Sehemu ya maegesho
+    zh-Hans = 停车地点
+    zh-Hant = 停車地點
+    fa = جای پارک
 
   [type.amenity.parking_space.permissive]
     en = Parking space
