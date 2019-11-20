@@ -58,7 +58,7 @@ public:
     return m_m->GetUserMarkIds(type).size();
   }
 
-  Catalog const & GetCatalogItem() const { return m_api.GetCatalogItem(); }
+  Catalog const & GetCatalog() const { return m_api.GetCatalog(); }
   vector<RoutePoint> GetRoutePoints() const { return m_api.GetRoutePoints(); }
   url_scheme::SearchRequest const & GetSearchRequest() const { return m_api.GetSearchRequest(); }
   string const & GetGlobalBackUrl() const { return m_api.GetGlobalBackUrl(); }
@@ -151,7 +151,7 @@ UNIT_TEST(CatalogueApiSmoke)
   ApiTest test(uriString);
   TEST(test.IsValid(), ());
 
-  auto const & catalogItem = test.GetCatalogItem();
+  auto const & catalogItem = test.GetCatalog();
   TEST_EQUAL(catalogItem.m_id, "440f02e5-ff38-45ed-95c0-44587c9a5fc7", ());
   TEST_EQUAL(catalogItem.m_name, "CatalogGroupName", ());
 }
