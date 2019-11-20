@@ -118,17 +118,7 @@ public:
     rawGenerator.GenerateCountries();
     TEST(rawGenerator.Execute(), ());
 
-    TestCountry(northAuckland, 1812220 /* fbsCnt */, 12197402 /* geometryPointsCnt */,
-                1007483 /* pointCnt */, 205623 /* lineCnt */, 599114 /* areaCnt */,
-                212342 /* poiCnt */, 521 /* cityTownOrVillageCnt */, 3557 /* bookingHotelsCnt */);
-
-    TestCountry(northWellington, 797963 /* fbsCnt */, 7773790 /* geometryPointsCnt */,
-                460516 /* pointCnt */, 87172 /* lineCnt */, 250275 /* areaCnt */,
-                95819 /* poiCnt */, 297 /* cityTownOrVillageCnt */, 1062 /* bookingHotelsCnt */);
-
-    TestCountry(southCanterbury, 637282 /* fbsCnt */, 6985124 /* geometryPointsCnt */,
-                397939 /* pointCnt */, 81755 /* lineCnt */, 157588 /* areaCnt */,
-                89534 /* poiCnt */, 331 /* cityTownOrVillageCnt */, 2085 /* bookingHotelsCnt */);
+    TestNorthAucklandNorthWellingtonSouthCanterbury(northAuckland, northWellington, southCanterbury);
 
     TestCountry(southSouthland, 340647 /* fbsCnt */, 5343244 /* geometryPointsCnt */, 185980 /* pointCnt */,
                 40141 /* lineCnt */, 114526 /* areaCnt */, 40647 /* poiCnt */,
@@ -157,17 +147,7 @@ public:
     rawGenerator.GenerateWorld(true /* needMixTags */);
     TEST(rawGenerator.Execute(), ());
 
-    TestCountry(northAuckland, 1812220 /* fbsCnt */, 12197402 /* geometryPointsCnt */,
-                1007483 /* pointCnt */, 205623 /* lineCnt */, 599114 /* areaCnt */,
-                212342 /* poiCnt */, 521 /* cityTownOrVillageCnt */, 3557 /* bookingHotelsCnt */);
-
-    TestCountry(northWellington, 797963 /* fbsCnt */, 7773790 /* geometryPointsCnt */,
-                460516 /* pointCnt */, 87172 /* lineCnt */, 250275 /* areaCnt */,
-                95819 /* poiCnt */, 297 /* cityTownOrVillageCnt */, 1062 /* bookingHotelsCnt */);
-
-    TestCountry(southCanterbury, 637282 /* fbsCnt */, 6985124 /* geometryPointsCnt */,
-                397939 /* pointCnt */, 81755 /* lineCnt */, 157588 /* areaCnt */,
-                89534 /* poiCnt */, 331 /* cityTownOrVillageCnt */, 2085 /* bookingHotelsCnt */);
+    TestNorthAucklandNorthWellingtonSouthCanterbury(northAuckland, northWellington, southCanterbury);
 
     size_t partner1CntReal = 0;
 
@@ -285,6 +265,23 @@ private:
     TEST_EQUAL(poiCntReal, poiCnt, ());
     TEST_EQUAL(cityTownOrVillageCntReal, cityTownOrVillageCnt, ());
     TEST_EQUAL(bookingHotelsCntReal, bookingHotelsCnt, ());
+  }
+
+  void TestNorthAucklandNorthWellingtonSouthCanterbury(std::string const & northAuckland,
+                                                       std::string const & northWellington,
+                                                       std::string const & southCanterbury)
+  {
+    TestCountry(northAuckland, 1812220 /* fbsCnt */, 12197402 /* geometryPointsCnt */,
+                1007483 /* pointCnt */, 205623 /* lineCnt */, 599114 /* areaCnt */,
+                212342 /* poiCnt */, 521 /* cityTownOrVillageCnt */, 3557 /* bookingHotelsCnt */);
+
+    TestCountry(northWellington, 797963 /* fbsCnt */, 7773790 /* geometryPointsCnt */,
+                460516 /* pointCnt */, 87172 /* lineCnt */, 250275 /* areaCnt */,
+                95819 /* poiCnt */, 297 /* cityTownOrVillageCnt */, 1062 /* bookingHotelsCnt */);
+
+    TestCountry(southCanterbury, 637282 /* fbsCnt */, 6985124 /* geometryPointsCnt */,
+                397939 /* pointCnt */, 81755 /* lineCnt */, 157588 /* areaCnt */,
+                89534 /* poiCnt */, 331 /* cityTownOrVillageCnt */, 2085 /* bookingHotelsCnt */);
   }
 
   void TestGeneratedFile(std::string const & path, size_t fileSize)
