@@ -25,16 +25,17 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
     <include
-      android:id="@+id/button_container"
-      layout="@layout/welcome_buttons_horizontal_container"
+      android:id="@+id/bottom_container"
+      layout="@layout/info_page_horizontal_bottom_container"
+      android:layout_alignParentBottom="true"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true" />
+      android:layout_height="wrap_content">
+    </include>
     <LinearLayout
       android:id="@+id/text_container"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_above="@id/button_container"
+      android:layout_above="@id/bottom_container"
       android:orientation="vertical">
       <TextView
         android:id="@+id/tv__title"
@@ -42,6 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_half_double_plus"
         android:fontFamily="@string/robotoMedium"
+        android:textSize="@dimen/text_size_toolbar"
         android:textAppearance="@style/MwmTextAppearance.Title"
         tools:targetApi="jelly_bean"
         tools:text="@string/onboarding_welcome_title" />
@@ -50,6 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_base"
+        android:textSize="@dimen/text_size_body_3"
         android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
         tools:text="@string/onboarding_welcome_first_subtitle" />
     </LinearLayout>

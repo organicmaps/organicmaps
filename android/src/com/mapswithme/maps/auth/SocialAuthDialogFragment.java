@@ -4,21 +4,17 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import android.text.Html;
+
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -32,6 +28,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
@@ -145,11 +142,11 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
                             R.id.google_button, R.id.facebook_button, R.id.phone_button);
     });
 
-    linkifyPolicyView(view, R.id.privacyPolicyLink, R.string.sign_agree_pp_gdpr,
-                      Framework.nativeGetPrivacyPolicyLink());
+    UiUtils.linkifyPolicyView(view, R.id.privacyPolicyLink, R.string.sign_agree_pp_gdpr,
+                              Framework.nativeGetPrivacyPolicyLink());
 
-    linkifyPolicyView(view, R.id.termOfUseLink, R.string.sign_agree_tof_gdpr,
-                      Framework.nativeGetTermsOfUseLink());
+    UiUtils.linkifyPolicyView(view, R.id.termOfUseLink, R.string.sign_agree_tof_gdpr,
+                              Framework.nativeGetTermsOfUseLink());
 
     setButtonAvailability(view, false, R.id.google_button, R.id.facebook_button,
                           R.id.phone_button);
@@ -161,15 +158,6 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   {
     View button = root.findViewById(id);
     button.setOnClickListener(clickListener);
-  }
-
-  private static void linkifyPolicyView(@NonNull View root, @IdRes int id, @StringRes int stringId,
-                                        @NonNull String link)
-  {
-    TextView policyView = root.findViewById(id);
-    Resources rs = policyView.getResources();
-    policyView.setText(Html.fromHtml(rs.getString(stringId, link)));
-    policyView.setMovementMethod(LinkMovementMethod.getInstance());
   }
 
   private static void setButtonAvailability(@NonNull View root, boolean available, @IdRes int... ids)

@@ -2,10 +2,13 @@ package com.mapswithme.maps.onboarding;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,10 +18,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.news.WelcomeScreenBindingType;
 import com.mapswithme.util.Counters;
+import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 
@@ -52,6 +58,14 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   @NonNull
   private TextView mAcceptBtn;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private CheckBox mTermOfUseCheckbox;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private CheckBox mPrivacyPolicyCheckbox;
+
   public static void show(@NonNull FragmentActivity activity)
   {
     create(activity);
@@ -62,6 +76,9 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   {
     if (Counters.getFirstInstallVersion() < BuildConfig.VERSION_CODE)
       return false;
+
+    if (isAgreementDenied(activity))
+      return true;
 
     FragmentManager fm = activity.getSupportFragmentManager();
     if (fm.isDestroyed())
@@ -139,22 +156,80 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     mTitle.setText(R.string.onboarding_welcome_title);
     mSubtitle = mContentView.findViewById(R.id.tv__subtitle1);
     mSubtitle.setText(R.string.onboarding_welcome_first_subtitle);
+    mContentView.findViewById(R.id.privacy_policy_welcome);
 
+    initUserAgreementViews();
     bindWelcomeScreenType();
 
     return res;
   }
 
+  private void initUserAgreementViews()
+  {
+    SharedPreferences prefs = MwmApplication.prefs(requireContext());
+
+    mTermOfUseCheckbox = mContentView.findViewById(R.id.term_of_use_welcome_checkbox);
+    mTermOfUseCheckbox.setChecked(prefs.getBoolean(SharedPropertiesUtils.USER_AGREEMENT_TERM_OF_USE, false));
+
+    mPrivacyPolicyCheckbox = mContentView.findViewById(R.id.privacy_policy_welcome_checkbox);
+    mPrivacyPolicyCheckbox.setChecked(prefs.getBoolean(SharedPropertiesUtils.USER_AGREEMENT_PRIVACY_POLICY, false));
+
+    mTermOfUseCheckbox.setOnCheckedChangeListener(
+        (buttonView, isChecked) -> onTermsOfUseViewChanged(isChecked));
+    mPrivacyPolicyCheckbox.setOnCheckedChangeListener(
+        (buttonView, isChecked) -> onPrivacyPolicyViewChanged(isChecked));
+
+    UiUtils.linkifyPolicyView(mContentView, R.id.privacy_policy_welcome,
+                              R.string.sign_agree_pp_gdpr, Framework.nativeGetPrivacyPolicyLink());
+
+    UiUtils.linkifyPolicyView(mContentView, R.id.term_of_use_welcome,
+                              R.string.sign_agree_tof_gdpr, Framework.nativeGetTermsOfUseLink());
+  }
+
+  private void onPrivacyPolicyViewChanged(boolean isChecked)
+  {
+    onCheckedValueChanged(isChecked, mTermOfUseCheckbox.isChecked(),
+                          SharedPropertiesUtils.USER_AGREEMENT_PRIVACY_POLICY);
+  }
+
+  private void onTermsOfUseViewChanged(boolean isChecked)
+  {
+    onCheckedValueChanged(isChecked, mPrivacyPolicyCheckbox.isChecked(),
+                          SharedPropertiesUtils.USER_AGREEMENT_TERM_OF_USE);
+  }
+
+  private void onCheckedValueChanged(boolean isChecked,
+                                     boolean isAnotherConditionChecked,
+                                     @NonNull String key)
+
+  {
+    applyPreferenceChanges(key, isChecked);
+    boolean isAgreementGranted = isChecked && isAnotherConditionChecked;
+    if (!isAgreementGranted)
+      return;
+
+    if (mListener != null)
+      mListener.onPolicyAgreementApplied();
+    dismiss();
+  }
+
   private void bindWelcomeScreenType()
   {
-    boolean hasDeclineBtn = mWelcomeScreenBindingType != null
+    boolean hasBindingType = mWelcomeScreenBindingType != null;
+    UiUtils.showIf(hasBindingType, mContentView, R.id.button_container);
+
+    boolean hasDeclineBtn = hasBindingType
                             && mWelcomeScreenBindingType.hasDeclinedButton();
     TextView declineBtn = mContentView.findViewById(R.id.decline_btn);
     UiUtils.showIf(hasDeclineBtn, declineBtn);
+
+    View userAgreementBlock = mContentView.findViewById(R.id.user_agreement_block);
+    UiUtils.hideIf(hasBindingType, userAgreementBlock);
+
     if (hasDeclineBtn)
       declineBtn.setText(mWelcomeScreenBindingType.getDeclinedButtonResId());
 
-    if (mWelcomeScreenBindingType == null)
+    if (!hasBindingType)
       return;
 
     mTitle.setText(mWelcomeScreenBindingType.getTitle());
@@ -186,6 +261,20 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   {
     super.onCancel(dialog);
     requireActivity().finish();
+  }
+
+  private void applyPreferenceChanges(@NonNull String key, boolean value)
+  {
+    SharedPreferences.Editor editor = MwmApplication.prefs(requireContext()).edit();
+    editor.putBoolean(key, value).apply();
+  }
+
+  private static boolean isAgreementDenied(@NonNull Context context)
+  {
+    SharedPreferences prefs = MwmApplication.prefs(context);
+    return !prefs.getBoolean(SharedPropertiesUtils.USER_AGREEMENT_TERM_OF_USE, false)
+           || !prefs.getBoolean(SharedPropertiesUtils.USER_AGREEMENT_PRIVACY_POLICY, false);
+
   }
 
   public interface PolicyAgreementListener

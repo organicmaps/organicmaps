@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:gravity="center"
+  android:paddingStart="@dimen/margin_base"
+  android:paddingEnd="@dimen/margin_base">
+  <LinearLayout
+    android:id="@+id/privacy_policy_checkbox_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:layout_alignParentTop="true"
+    android:orientation="horizontal">
+    <CheckBox
+      android:id="@+id/privacy_policy_welcome_checkbox"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content" />
+    <TextView
+      android:id="@+id/privacy_policy_welcome"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/margin_base_plus"
+      android:gravity="center_vertical"
+      android:text="@string/sign_agree_pp_gdpr"
+      android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
+      android:textColor="?android:textColorPrimary" />
+  </LinearLayout>
+  <LinearLayout
+    android:layout_below="@id/privacy_policy_checkbox_container"
+    android:id="@+id/term_of_use_checkbox_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+    <CheckBox
+      android:id="@+id/term_of_use_welcome_checkbox"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content" />
+    <TextView
+      android:id="@+id/term_of_use_welcome"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/margin_base_plus"
+      android:gravity="center_vertical"
+      android:text="@string/sign_agree_tof_gdpr"
+      android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
+      android:textColor="?android:textColorPrimary" />
+  </LinearLayout>
+</RelativeLayout>

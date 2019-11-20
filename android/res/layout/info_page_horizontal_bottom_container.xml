@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+  <include
+    android:id="@+id/button_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    layout="@layout/welcome_buttons_horizontal_container"/>
+  <include
+    android:id="@+id/user_agreement_block"
+    layout="@layout/user_agreement_block"
+    android:visibility="gone"
+    android:paddingBottom="@dimen/margin_base_plus"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+</FrameLayout>

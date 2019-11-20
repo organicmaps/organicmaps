@@ -36,7 +36,7 @@ public class PermissionsDialogFragment extends BasePermissionsDialogFragment
   @Override
   protected int getImageRes()
   {
-    return R.drawable.img_permission_explanation;
+    return R.drawable.img_welcome;
   }
 
   @StringRes

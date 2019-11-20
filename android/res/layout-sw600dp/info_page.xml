@@ -5,7 +5,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
   <com.mapswithme.maps.widget.HeightLimitedFrameLayout
-    android:layout_above="@id/btn_frame"
+    android:layout_above="@id/button_container"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -27,6 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_base"
+        android:textSize="@dimen/text_size_toolbar"
         android:textAppearance="@style/MwmTextAppearance.Title"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
@@ -39,13 +40,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_base"
         android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
+        android:textSize="@dimen/text_size_body_3"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         tools:text="@string/onboarding_welcome_first_subtitle"/>
     </LinearLayout>
   </com.mapswithme.maps.widget.HeightLimitedFrameLayout>
   <include
-    android:id="@+id/btn_frame"
+    android:id="@+id/button_container"
     layout="@layout/welcome_buttons_vertical_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

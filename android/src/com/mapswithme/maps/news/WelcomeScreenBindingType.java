@@ -51,7 +51,7 @@ public enum WelcomeScreenBindingType
                          R.string.visible,
                          R.string.view_campaign_button,
                          R.string.visible,
-                         R.drawable.img_permission_explanation);
+                         R.drawable.img_welcome);
 
   @StringRes
   private final int mAcceptButtonResId;

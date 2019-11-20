@@ -14,6 +14,8 @@ import static com.mapswithme.util.Config.KEY_PREF_STATISTICS;
 
 public final class SharedPropertiesUtils
 {
+  public static final String USER_AGREEMENT_TERM_OF_USE = "user_agreement_term_of_use";
+  public static final String USER_AGREEMENT_PRIVACY_POLICY = "user_agreement_privacy_policy";
   private static final String PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING = "ShowEmulateBadStorageSetting";
   private static final String PREFS_BACKUP_WIDGET_EXPANDED = "BackupWidgetExpanded";
   private static final String PREFS_WHATS_NEW_TITLE_CONCATENATION = "WhatsNewTitleConcatenation";

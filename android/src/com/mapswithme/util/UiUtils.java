@@ -11,7 +11,9 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
+import android.text.Html;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.Surface;
@@ -61,6 +63,15 @@ public final class UiUtils
       frontView.setZ(backView.getZ() + 1);
     else
       frontView.bringToFront();
+  }
+
+  public static void linkifyPolicyView(@NonNull View root, @IdRes int id, @StringRes int stringId,
+                                       @NonNull String link)
+  {
+    TextView policyView = root.findViewById(id);
+    Resources rs = policyView.getResources();
+    policyView.setText(Html.fromHtml(rs.getString(stringId, link)));
+    policyView.setMovementMethod(LinkMovementMethod.getInstance());
   }
 
   public static class SimpleAnimationListener implements AnimationListener
