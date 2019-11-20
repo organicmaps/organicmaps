@@ -37,7 +37,9 @@ DEFINE_string_ext(cmd, "",
                   "tracks - prints track statistics\n"
                   "track - prints info about single track\n"
                   "cpptrack - prints track coords to insert them to cpp code\n"
-                  "table - prints csv table based on matched tracks\n"
+                  "table - prints csv table based on matched tracks to stdout\n"
+                  "balance_csv - prints csv table based on csv table set in \"in\" param "
+                  "with a distribution set according to input_distribution param.\n"
                   "gpx - convert raw logs into gpx files\n");
 DEFINE_string_ext(in, "", "input log file name");
 DEFINE_string(out, "", "output track file name");
@@ -45,6 +47,15 @@ DEFINE_string_ext(output_dir, "", "output dir for gpx files");
 DEFINE_string_ext(mwm, "", "short mwm name");
 DEFINE_string_ext(user, "", "user id");
 DEFINE_int32(track, -1, "track index");
+DEFINE_string(
+    input_distribution, "",
+    "path to input data point distribution file. It's a csv file with data point count for "
+    "some mwms. Usage:\n"
+    "- It may be used with match and match_dir command. If so it's a path to save file with "
+    "data point distribution by mwm. If it's empty no file is saved.\n"
+    "- It may be used with table command. If so it's a path of a file with distribution which "
+    "will be used for normalization (balancing) the result of the command."
+    "If it's empty no distribution will be used.");
 
 DEFINE_string(track_extension, ".track", "track files extension");
 DEFINE_bool(no_world_logs, false, "don't print world summary logs");
@@ -81,9 +92,9 @@ namespace track_analyzing
 void CmdCppTrack(string const & trackFile, string const & mwmName, string const & user,
                  size_t trackIdx);
 // Match raw gps logs to tracks.
-void CmdMatch(string const & logFile, string const & trackFile);
+void CmdMatch(string const & logFile, string const & trackFile, string const & inputDistribution);
 // The same as match but applies for the directory with raw logs.
-void CmdMatchDir(string const & logDir, string const & trackExt);
+void CmdMatchDir(string const & logDir, string const & trackExt, string const & inputDistribution);
 // Parse |logFile| and save tracks (mwm name, aloha id, lats, lons, timestamps in seconds in csv).
 void CmdUnmatchedTracks(string const & logFile, string const & trackFileCsv);
 // Print aggregated tracks to csv table.
@@ -112,12 +123,12 @@ int main(int argc, char ** argv)
     if (cmd == "match")
     {
       string const & logFile = Checked_in();
-      CmdMatch(logFile, FLAGS_out.empty() ? logFile + ".track" : FLAGS_out);
+      CmdMatch(logFile, FLAGS_out.empty() ? logFile + ".track" : FLAGS_out, FLAGS_input_distribution);
     }
     else if (cmd == "match_dir")
     {
       string const & logDir = Checked_in();
-      CmdMatchDir(logDir, FLAGS_track_extension);
+      CmdMatchDir(logDir, FLAGS_track_extension, FLAGS_input_distribution);
     }
     else if (cmd == "unmatched_tracks")
     {
