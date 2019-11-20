@@ -52,6 +52,8 @@ public final class PromoCityGallery
     @NonNull
     private final String mTier;
     @NonNull
+    private final String mTourCategory;
+    @NonNull
     private final Place mPlace;
     @NonNull
     private final Author mAuthor;
@@ -59,14 +61,15 @@ public final class PromoCityGallery
     private final LuxCategory mLuxCategory;
 
     public Item(@NonNull String name, @NonNull String url, @NonNull String imageUrl,
-                @NonNull String access, @NonNull String tier, @NonNull Place place,
-                @NonNull Author author, @Nullable LuxCategory luxCategory)
+                @NonNull String access, @NonNull String tier, @NonNull String tourCategory,
+                @NonNull Place place, @NonNull Author author, @Nullable LuxCategory luxCategory)
     {
       mName = name;
       mUrl = url;
       mImageUrl = imageUrl;
       mAccess = access;
       mTier = tier;
+      mTourCategory = tourCategory;
       mPlace = place;
       mAuthor = author;
       mLuxCategory = luxCategory;
@@ -100,6 +103,12 @@ public final class PromoCityGallery
     public String getTier()
     {
       return mTier;
+    }
+
+    @NonNull
+    public String getTourCategory()
+    {
+      return mTourCategory;
     }
 
     @NonNull

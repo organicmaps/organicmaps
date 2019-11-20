@@ -64,6 +64,7 @@ void ParseCityGallery(std::string const & src, UTM utm, promo::CityGallery & res
     FromJSONObject(obj, "access", item.m_access);
     FromJSONObjectOptionalField(obj, "image_url", item.m_imageUrl);
     FromJSONObjectOptionalField(obj, "tier", item.m_tier);
+    FromJSONObjectOptionalField(obj, "tour_category", item.m_tourCategory);
 
     auto const placeObj = json_object_get(obj, "place");
     if (json_is_object(placeObj))

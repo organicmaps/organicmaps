@@ -44,6 +44,7 @@ struct CityGallery
     std::string m_imageUrl;
     std::string m_access;
     std::string m_tier;
+    std::string m_tourCategory;
     Place m_place;
     Author m_author;
     LuxCategory m_luxCategory;
