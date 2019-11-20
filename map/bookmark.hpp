@@ -61,10 +61,11 @@ public:
   void Detach();
 
 private:
+  drape_ptr<df::UserPointMark::SymbolNameZoomInfo> GetCustomSymbolNames() const;
+
   kml::BookmarkData m_data;
   kml::MarkGroupId m_groupId;
   search::ReverseGeocoder::RegionAddress m_address;
-  std::string m_customImageName;
 };
 
 class BookmarkCategory : public UserMarkLayer

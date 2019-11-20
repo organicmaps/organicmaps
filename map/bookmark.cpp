@@ -3,6 +3,8 @@
 
 #include "coding/url_encode.hpp"
 
+#include "base/string_utils.hpp"
+
 #include <sstream>
 
 #include "private.h"
@@ -60,10 +62,6 @@ Bookmark::Bookmark(kml::BookmarkData && data)
   , m_groupId(kml::kInvalidMarkGroupId)
 {
   m_data.m_id = GetId();
-
-  auto const it = m_data.m_properties.find(kCustomImageProperty);
-  if (it != m_data.m_properties.end())
-    m_customImageName = it->second;
 }
 
 void Bookmark::SetData(kml::BookmarkData const & data)
@@ -95,18 +93,41 @@ dp::Anchor Bookmark::GetAnchor() const
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetSymbolNames() const
 {
-  auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-  if (!m_customImageName.empty())
-  {
-    symbol->insert(std::make_pair(1 /* zoomLevel */, m_customImageName));
-    return symbol;
-  }
+  auto symbolNames = GetCustomSymbolNames();
+  if (symbolNames != nullptr)
+    return symbolNames;
 
-  symbol->insert(std::make_pair(1 /* zoomLevel */, "bookmark-default-xs"));
-  symbol->insert(std::make_pair(8 /* zoomLevel */, "bookmark-default-s"));
+  symbolNames = make_unique_dp<SymbolNameZoomInfo>();
+
+  symbolNames->insert(std::make_pair(1 /* zoomLevel */, "bookmark-default-xs"));
+  symbolNames->insert(std::make_pair(8 /* zoomLevel */, "bookmark-default-s"));
   auto const iconType = GetBookmarkIconType(m_data.m_icon);
-  symbol->insert(std::make_pair(14 /* zoomLevel */, "bookmark-" + iconType + "-m"));
-  return symbol;
+  symbolNames->insert(std::make_pair(14 /* zoomLevel */, "bookmark-" + iconType + "-m"));
+  return symbolNames;
+}
+
+drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetCustomSymbolNames() const
+{
+  auto const it = m_data.m_properties.find(kCustomImageProperty);
+  if (it == m_data.m_properties.end())
+    return nullptr;
+
+  auto symbolNames = make_unique_dp<SymbolNameZoomInfo>();
+  strings::Tokenize(it->second, ";", [&](std::string const & token)
+  {
+    int zoomLevel = 1;
+    std::string name = token;
+    auto pos = token.find(',');
+    if (pos != std::string::npos && strings::to_int(token.substr(0, pos), zoomLevel))
+      name = token.substr(pos + 1);
+    if (!name.empty() && zoomLevel >= 1 && zoomLevel <= 18)
+      symbolNames->insert(std::make_pair(zoomLevel, name));
+  });
+
+  if (symbolNames->empty())
+    return nullptr;
+
+  return symbolNames;
 }
 
 df::ColorConstant Bookmark::GetColorConstant() const
