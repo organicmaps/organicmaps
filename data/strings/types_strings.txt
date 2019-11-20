@@ -2000,11 +2000,11 @@
     tr = Park alanı
     uk = Паркувальне місце
     vi = Chỗ để xe
-    el = Χώρος στάθμευσης
-    sk = Parkovacie miesto
     sw = Sehemu ya maegesho
     zh-Hans = 停车地点
     zh-Hant = 停車地點
+    el = Χώρος στάθμευσης
+    sk = Parkovacie miesto
     fa = جای پارک
 
   [type.amenity.parking_space.permissive]
@@ -10832,7 +10832,7 @@
     ja = 教会付属墓地
     ko = 교회
     nb = Kirkegård
-    pl = Dziedziniec przykościelny
+    pl = Teren kościelny
     pt = Adro
     pt-BR = Igreja
     ro = Curtea Bisericii
@@ -10843,11 +10843,11 @@
     tr = Kilise Bölgesi
     uk = Церковний двір
     vi = Nhà thờ
-    el = Αυλόγυρος εκκλησίας
-    sk = Cintorín
     sw = Sehemu ya kanisa
     zh-Hans = 教堂庭院
     zh-Hant = 教堂庭院
+    el = Αυλόγυρος εκκλησίας
+    sk = Cintorín
     fa = حیاط کلیسا
 
   [type.landuse.commercial]
