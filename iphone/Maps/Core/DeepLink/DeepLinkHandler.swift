@@ -68,7 +68,7 @@ class DeepLinkURL {
   }
 
   func applicationDidReceiveUniversalLink(_ url: URL) -> Bool {
-    applicationDidReceiveUniversalLink(url, provider: .native)
+    return applicationDidReceiveUniversalLink(url, provider: .native)
   }
 
   func applicationDidReceiveUniversalLink(_ url: URL, provider: DeepLinkProvider) -> Bool {
