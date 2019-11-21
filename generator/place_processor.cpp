@@ -197,7 +197,7 @@ std::vector<PlaceProcessor::PlaceWithIds> PlaceProcessor::ProcessPlaces()
       if (bestFb.IsArea() && localityChecker.GetType(GetPlaceType(bestFb)) != ftypes::LocalityType::None)
       {
         LOG(LWARNING, (bestFb, "is transforming to point."));
-        TransformAreaToPoint(bestFb);
+        TransformToPoint(bestFb);
       }
       std::vector<base::GeoObjectId> ids;
       ids.reserve(cluster.size());

@@ -40,9 +40,9 @@ protected:
   std::queue<feature::FeatureBuilder> m_queue;
 };
 
-void TransformAreaToPoint(feature::FeatureBuilder & feature);
-void TransformAreaToLine(feature::FeatureBuilder & feature);
+void TransformToPoint(feature::FeatureBuilder & feature);
+void TransformToLine(feature::FeatureBuilder & feature);
 
-feature::FeatureBuilder MakePointFromArea(feature::FeatureBuilder const & feature);
-feature::FeatureBuilder MakeLineFromArea(feature::FeatureBuilder const & feature);
+feature::FeatureBuilder MakePoint(feature::FeatureBuilder const & feature);
+feature::FeatureBuilder MakeLine(feature::FeatureBuilder const & feature);
 }  // namespace generator

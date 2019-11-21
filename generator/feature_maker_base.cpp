@@ -58,9 +58,11 @@ bool FeatureMakerBase::GetNextFeature(FeatureBuilder & feature)
   return true;
 }
 
-void TransformAreaToPoint(FeatureBuilder & feature)
+void TransformToPoint(FeatureBuilder & feature)
 {
-  CHECK(feature.IsArea(), ());
+  if (!feature.IsArea() && !feature.IsLine())
+    return;
+
   auto const center = feature.GetGeometryCenter();
   feature.ResetGeometry();
   feature.SetCenter(center);
@@ -69,23 +71,25 @@ void TransformAreaToPoint(FeatureBuilder & feature)
     params.SetGeomTypePointEx();
 }
 
-void TransformAreaToLine(FeatureBuilder & feature)
+void TransformToLine(FeatureBuilder & feature)
 {
-  CHECK(feature.IsArea(), ());
-  feature.SetLinear(feature.GetParams().m_reverseGeometry);
+  if (feature.IsArea() || feature.IsLine())
+    feature.SetLinear(feature.GetParams().m_reverseGeometry);
+  else
+    CHECK(false, (feature));
 }
 
-FeatureBuilder MakePointFromArea(FeatureBuilder const & feature)
+FeatureBuilder MakePoint(FeatureBuilder const & feature)
 {
   FeatureBuilder tmp(feature);
-  TransformAreaToPoint(tmp);
+  TransformToPoint(tmp);
   return tmp;
 }
 
-FeatureBuilder MakeLineFromArea(FeatureBuilder const & feature)
+FeatureBuilder MakeLine(FeatureBuilder const & feature)
 {
   FeatureBuilder tmp(feature);
-  TransformAreaToLine(tmp);
+  TransformToLine(tmp);
   return tmp;
 }
 }  // namespace generator

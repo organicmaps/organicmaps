@@ -298,7 +298,7 @@ public:
       // because we do not need geometry for invisible features (just search index and placepage
       // data) and want to avoid size checks applied to areas.
       if (originalFeature.GetGeomType() != feature::GeomType::Point)
-        generator::TransformAreaToPoint(originalFeature);
+        generator::TransformToPoint(originalFeature);
 
       m_worldBucket.PushSure(originalFeature);
       return;

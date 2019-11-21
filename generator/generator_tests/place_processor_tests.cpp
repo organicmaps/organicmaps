@@ -173,7 +173,7 @@ UNIT_CLASS_TEST(TestPlaceProcessor, OnePlaceAreaTest)
   pp.Add(kArea);
 
   std::vector<generator::PlaceProcessor::PlaceWithIds> r{
-      {generator::MakePointFromArea(kArea), {kArea.GetMostGenericOsmId()}}};
+      {generator::MakePoint(kArea), {kArea.GetMostGenericOsmId()}}};
   Test(pp.ProcessPlaces(), r);
   TEST(TestTable(*table, {{{kArea.GetMostGenericOsmId()}, 1 /* cluster size */}}), ());
 }
@@ -210,7 +210,7 @@ UNIT_CLASS_TEST(TestPlaceProcessor, SameNamesButDifferentPlacesTest)
 
   std::vector<generator::PlaceProcessor::PlaceWithIds> r{
       {point, {point.GetMostGenericOsmId()}},
-      {generator::MakePointFromArea(kArea), {kArea.GetMostGenericOsmId()}}};
+      {generator::MakePoint(kArea), {kArea.GetMostGenericOsmId()}}};
   Test(pp.ProcessPlaces(), r);
   TEST(TestTable(*table, {{{kArea.GetMostGenericOsmId()}, 1 /* cluster size */}}), ());
 }

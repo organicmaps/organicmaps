@@ -136,7 +136,7 @@ void RepresentationLayer::Handle(FeatureBuilder & fb)
       HandleArea(fb, params);
       if (CanBeLine(params))
       {
-        auto featureLine = MakeLineFromArea(fb);
+        auto featureLine = MakeLine(fb);
         LayerBase::Handle(featureLine);
       }
       break;
@@ -178,7 +178,7 @@ void RepresentationLayer::HandleArea(FeatureBuilder & fb, FeatureParams const & 
   }
   else if (CanBePoint(params))
   {
-    auto featurePoint = MakePointFromArea(fb);
+    auto featurePoint = MakePoint(fb);
     LayerBase::Handle(featurePoint);
   }
 }
