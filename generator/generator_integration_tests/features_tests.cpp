@@ -17,11 +17,91 @@
 #include "base/scope_guard.hpp"
 
 #include <cstdio>
+#include <sstream>
 #include <string>
 
 #include "defines.hpp"
 
 using namespace generator_integration_tests;
+
+struct CountryFeaturesCounters
+{
+  size_t m_fbs = 0;
+  size_t m_geometryPoints = 0;
+  size_t m_point = 0;
+  size_t m_line = 0;
+  size_t m_area = 0;
+  size_t m_poi = 0;
+  size_t m_cityTownOrVillage = 0;
+  size_t m_bookingHotels = 0;
+
+  CountryFeaturesCounters() = default;
+
+  constexpr CountryFeaturesCounters(size_t fbs, size_t geometryPoints, size_t point, size_t line,
+                                    size_t area, size_t poi, size_t cityTownOrVillage,
+                                    size_t bookingHotels)
+    : m_fbs(fbs)
+    , m_geometryPoints(geometryPoints)
+    , m_point(point)
+    , m_line(line)
+    , m_area(area)
+    , m_poi(poi)
+    , m_cityTownOrVillage(cityTownOrVillage)
+    , m_bookingHotels(bookingHotels)
+  {
+  }
+
+  CountryFeaturesCounters operator+(CountryFeaturesCounters const & rhs) const
+  {
+    return CountryFeaturesCounters(m_fbs + rhs.m_fbs, m_geometryPoints + rhs.m_geometryPoints,
+                                   m_point + rhs.m_point, m_line + rhs.m_line, m_area + rhs.m_area,
+                                   m_poi + rhs.m_poi, m_cityTownOrVillage + rhs.m_cityTownOrVillage,
+                                   m_bookingHotels + rhs.m_bookingHotels);
+  }
+
+  bool operator==(CountryFeaturesCounters const & rhs) const
+  {
+    return m_fbs == rhs.m_fbs && m_geometryPoints == rhs.m_geometryPoints &&
+           m_point == rhs.m_point && m_line == rhs.m_line && m_area == rhs.m_area &&
+           m_poi == rhs.m_poi && m_cityTownOrVillage == rhs.m_cityTownOrVillage &&
+           m_bookingHotels == rhs.m_bookingHotels;
+  }
+};
+
+std::string DebugPrint(CountryFeaturesCounters const & cnt)
+{
+  std::ostringstream out;
+  out << "CountryFeaturesCount(fbs = " << cnt.m_fbs << ", geometryPoints = " << cnt.m_geometryPoints
+      << ", point = " << cnt.m_point << ", line = " << cnt.m_line << ", area = " << cnt.m_area
+      << ", poi = " << cnt.m_poi << ", cityTownOrVillage = " << cnt.m_cityTownOrVillage
+      << ", bookingHotels = " << cnt.m_bookingHotels << ")";
+  return out.str();
+}
+
+CountryFeaturesCounters constexpr kWorldCounters(945 /* fbs */, 364406 /* geometryPoints */,
+                                                 334 /* point */, 598 /* line */, 13 /* area */,
+                                                 428 /* poi */, 172 /* cityTownOrVillage */,
+                                                 0 /* bookingHotels */);
+
+CountryFeaturesCounters constexpr kNorthAucklandCounters(
+    1812220 /* fbs */, 12197402 /* geometryPoints */, 1007483 /* point */, 205623 /* line */,
+    599114 /* area */, 212342 /* poi */, 521 /* cityTownOrVillage */, 3557 /* bookingHotels */);
+
+CountryFeaturesCounters constexpr kNorthWellingtonCounters(
+    797963 /* fbs */, 7773790 /* geometryPoints */, 460516 /* point */, 87172 /* line */,
+    250275 /* area */, 95819 /* poi */, 297 /* cityTownOrVillage */, 1062 /* bookingHotels */);
+
+CountryFeaturesCounters constexpr kSouthCanterburyCounters(
+    637282 /* fbs */, 6985124 /* geometryPoints */, 397939 /* point */, 81755 /* line */,
+    157588 /* area */, 89534 /* poi */, 331 /* cityTownOrVillage */, 2085 /* bookingHotels */);
+
+CountryFeaturesCounters constexpr kSouthSouthlandCounters(
+    340647 /* fbs */, 5343244 /* geometryPoints */, 185980 /* point */, 40141 /* line */,
+    114526 /* area */, 40647 /* poi */, 297 /* cityTownOrVillage */, 1621 /* bookingHotels */);
+
+CountryFeaturesCounters constexpr kSouthSouthlandMixedNodesCounters(
+    2 /* fbs */, 2 /* geometryPoints */, 2 /* point */, 0 /* line */, 0 /* area */, 0 /* poi */,
+    0 /* cityTownOrVillage */, 0 /* bookingHotels */);
 
 class FeatureIntegrationTests
 {
@@ -94,9 +174,7 @@ public:
 
     TEST(Platform::IsFileExistsByFullPath(world), ());
 
-    TestCountry(world, 945 /* fbsCnt */, 364406 /* geometryPointsCnt */, 334 /* pointCnt */,
-                598 /* lineCnt */, 13 /* areaCnt */, 428 /* poiCnt */,
-                172 /* cityTownOrVillageCnt */, 0 /* bookingHotelsCnt */);
+    TestCountry(world, kWorldCounters);
   }
 
   void BuildCountries()
@@ -118,11 +196,10 @@ public:
     rawGenerator.GenerateCountries();
     TEST(rawGenerator.Execute(), ());
 
-    TestNorthAucklandNorthWellingtonSouthCanterbury(northAuckland, northWellington, southCanterbury);
-
-    TestCountry(southSouthland, 340647 /* fbsCnt */, 5343244 /* geometryPointsCnt */, 185980 /* pointCnt */,
-                40141 /* lineCnt */, 114526 /* areaCnt */, 40647 /* poiCnt */,
-                297 /* cityTownOrVillageCnt */, 1621 /* bookingHotelsCnt */);
+    TestCountry(northAuckland, kNorthAucklandCounters);
+    TestCountry(northWellington, kNorthWellingtonCounters);
+    TestCountry(southCanterbury, kSouthCanterburyCounters);
+    TestCountry(southSouthland, kSouthSouthlandCounters);
   }
 
   void CheckMixedTagsAndNodes()
@@ -147,13 +224,14 @@ public:
     rawGenerator.GenerateWorld(true /* needMixTags */);
     TEST(rawGenerator.Execute(), ());
 
-    TestNorthAucklandNorthWellingtonSouthCanterbury(northAuckland, northWellington, southCanterbury);
+    TestCountry(northAuckland, kNorthAucklandCounters);
+    TestCountry(northWellington, kNorthWellingtonCounters);
+    TestCountry(southCanterbury, kSouthCanterburyCounters);
 
     size_t partner1CntReal = 0;
 
-    TestCountry(southSouthland, 340649 /* fbsCnt */, 5343246 /* geometryPointsCnt */, 185982 /* pointCnt */,
-                40141 /* lineCnt */, 114526 /* areaCnt */, 40647 /* poiCnt */,
-                297 /* cityTownOrVillageCnt */, 1621 /* bookingHotelsCnt */, [&](auto const & fb) {
+    TestCountry(southSouthland, kSouthSouthlandCounters + kSouthSouthlandMixedNodesCounters,
+                [&](auto const & fb) {
                   static auto const partner1 = classif().GetTypeByPath({"sponsored", "partner1"});
                   if (fb.HasType(partner1))
                     ++partner1CntReal;
@@ -161,9 +239,7 @@ public:
 
     TEST_EQUAL(partner1CntReal, 4, ());
 
-    TestCountry(world, 945 /* fbsCnt */, 364406 /* geometryPointsCnt */, 334 /* pointCnt */,
-                598 /* lineCnt */, 13 /* areaCnt */, 428 /* poiCnt */,
-                172 /* cityTownOrVillageCnt */, 0 /* bookingHotelsCnt */);
+    TestCountry(world, kWorldCounters);
   }
 
   void CheckGeneratedData()
@@ -219,69 +295,39 @@ public:
 
 private:
   void TestCountry(
-      std::string const & path, size_t fbsCnt, size_t geometryPointsCnt, size_t pointCnt, size_t lineCnt,
-      size_t areaCnt, size_t poiCnt, size_t cityTownOrVillageCnt, size_t bookingHotelsCnt,
+      std::string const & path, CountryFeaturesCounters const & expected,
       std::function<void(feature::FeatureBuilder const &)> const & fn =
           [](feature::FeatureBuilder const &) {})
   {
     CHECK(Platform::IsFileExistsByFullPath(path), ());
     auto const fbs = feature::ReadAllDatRawFormat(path);
-    size_t geometryPointsCntReal = 0;
-    size_t pointCntReal = 0;
-    size_t lineCntReal = 0;
-    size_t areaCntReal = 0;
-    size_t poiCntReal = 0;
-    size_t cityTownOrVillageCntReal = 0;
-    size_t bookingHotelsCntReal = 0;
+    CountryFeaturesCounters actual;
+    actual.m_fbs = fbs.size();
     for (auto const & fb : fbs)
     {
-      geometryPointsCntReal += fb.IsPoint() ? 1 : fb.GetPointsCount();
+      actual.m_geometryPoints += fb.IsPoint() ? 1 : fb.GetPointsCount();
       if (fb.IsPoint())
-        ++pointCntReal;
+        ++actual.m_point;
       else if (fb.IsLine())
-        ++lineCntReal;
+        ++actual.m_line;
       else if (fb.IsArea())
-        ++areaCntReal;
+        ++actual.m_area;
 
       auto static const & poiChecker = ftypes::IsPoiChecker::Instance();
       if (poiChecker(fb.GetTypes()))
-        ++poiCntReal;
+        ++actual.m_poi;
 
       if (ftypes::IsCityTownOrVillage(fb.GetTypes()))
-        ++cityTownOrVillageCntReal;
+        ++actual.m_cityTownOrVillage;
 
       auto static const & bookingChecker = ftypes::IsBookingHotelChecker::Instance();
       if (bookingChecker(fb.GetTypes()))
-        ++bookingHotelsCntReal;
+        ++actual.m_bookingHotels;
 
       fn(fb);
     }
 
-    TEST_EQUAL(fbs.size(), fbsCnt, ());
-    TEST_EQUAL(geometryPointsCntReal, geometryPointsCnt, ());
-    TEST_EQUAL(pointCntReal, pointCnt, ());
-    TEST_EQUAL(lineCntReal, lineCnt, ());
-    TEST_EQUAL(areaCntReal, areaCnt, ());
-    TEST_EQUAL(poiCntReal, poiCnt, ());
-    TEST_EQUAL(cityTownOrVillageCntReal, cityTownOrVillageCnt, ());
-    TEST_EQUAL(bookingHotelsCntReal, bookingHotelsCnt, ());
-  }
-
-  void TestNorthAucklandNorthWellingtonSouthCanterbury(std::string const & northAuckland,
-                                                       std::string const & northWellington,
-                                                       std::string const & southCanterbury)
-  {
-    TestCountry(northAuckland, 1812220 /* fbsCnt */, 12197402 /* geometryPointsCnt */,
-                1007483 /* pointCnt */, 205623 /* lineCnt */, 599114 /* areaCnt */,
-                212342 /* poiCnt */, 521 /* cityTownOrVillageCnt */, 3557 /* bookingHotelsCnt */);
-
-    TestCountry(northWellington, 797963 /* fbsCnt */, 7773790 /* geometryPointsCnt */,
-                460516 /* pointCnt */, 87172 /* lineCnt */, 250275 /* areaCnt */,
-                95819 /* poiCnt */, 297 /* cityTownOrVillageCnt */, 1062 /* bookingHotelsCnt */);
-
-    TestCountry(southCanterbury, 637282 /* fbsCnt */, 6985124 /* geometryPointsCnt */,
-                397939 /* pointCnt */, 81755 /* lineCnt */, 157588 /* areaCnt */,
-                89534 /* poiCnt */, 331 /* cityTownOrVillageCnt */, 2085 /* bookingHotelsCnt */);
+    TEST_EQUAL(actual, expected, ());
   }
 
   void TestGeneratedFile(std::string const & path, size_t fileSize)
