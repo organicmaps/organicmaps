@@ -116,8 +116,8 @@ HierarchyLinker::Node::Ptr HierarchyLinker::FindPlaceParent(HierarchyPlace const
       return;
     if (candidate.GetArea() < minArea && candidate.Contains(place))
     {
-      // Sometimes there can be two places with the same geometry. We must check their to avoid
-      // cyclic connections.
+      // Sometimes there can be two places with the same geometry. We must check place node and
+      // its parents to avoid cyclic connections.
       auto node = candidateNode;
       while (node->HasParent())
       {
@@ -197,6 +197,11 @@ boost::optional<m2::PointD> HierarchyLineEnricher::GetFeatureCenter(CompositeId 
   if (optIds.empty())
     return {};
 
+  // A CompositeId id may correspond to several feature ids. These features can be represented by
+  // three types of geometry. Logically, their centers coincide, but in practice they don’t,
+  // because the centers are calculated differently. For example, for an object with a type area,
+  // the area will be computed using the triangles geometry, but for an object with a type line,
+  // the area will be computed using the outer geometry of a polygon.
   std::unordered_map<std::underlying_type_t<feature::GeomType>, m2::PointD> m;
   for (auto optId : optIds)
   {
@@ -204,7 +209,8 @@ boost::optional<m2::PointD> HierarchyLineEnricher::GetFeatureCenter(CompositeId 
     if (!ftPtr)
       continue;
 
-    m.emplace(base::Underlying(ftPtr->GetGeomType()), feature::GetCenter(*ftPtr));
+    CHECK(m.emplace(base::Underlying(ftPtr->GetGeomType()), feature::GetCenter(*ftPtr)).second,
+          (id, optIds));
   }
 
   for (auto type : {
