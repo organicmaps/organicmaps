@@ -1,5 +1,6 @@
 # maps_generator
 It's tool for generation maps for maps.me application.
+Use tool and application from the same release. Application does not support maps built by tool newer than app.
 
 ##  What are maps for maps.me?
 Maps for maps.me are data with special meta information for drawing, quick searching and routing and for other.
