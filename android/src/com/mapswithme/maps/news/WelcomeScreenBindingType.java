@@ -7,16 +7,6 @@ import com.mapswithme.util.UiUtils;
 
 public enum WelcomeScreenBindingType
 {
-  DOWNLOAD_GUIDE(R.string.visible,
-                 UiUtils.NO_ID,
-                 R.string.view_campaign_button,
-                 R.string.visible,
-                 R.drawable.img_download_guide, false),
-  READY_TO_USE_GUIDE(R.string.visible,
-                     UiUtils.NO_ID,
-                     R.string.view_campaign_button,
-                     R.string.visible,
-                     R.drawable.img_download_guide, false),
   CHECK_OUT_SIGHTS(R.string.visible,
                    R.string.visible,
                    R.string.view_campaign_button,

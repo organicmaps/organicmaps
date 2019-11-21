@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
 public class IntroductionDialogFragment extends BaseMwmDialogFragment
@@ -51,6 +52,7 @@ public class IntroductionDialogFragment extends BaseMwmDialogFragment
     title.setText(factory.getTitle());
     TextView subtitle = content.findViewById(R.id.tv__subtitle1);
     subtitle.setText(factory.getSubtitle());
+    UiUtils.hide(content, R.id.decline_btn);
 
     return res;
   }
