@@ -51,6 +51,8 @@ public:
   // coordinates is used.
   bool IsExactEq(FeatureBuilder const & fb) const;
 
+  bool IsValid() const;
+
   // To work with geometry.
   void AddPoint(m2::PointD const & p);
   void SetHoles(Geometry const & holes);
@@ -240,7 +242,6 @@ protected:
   int64_t m_coastCell;
 };
 
-void Check(FeatureBuilder const fb);
 std::string DebugPrint(FeatureBuilder const & fb);
 
 // SerializationPolicy serialization and deserialization.

@@ -134,7 +134,7 @@ void RoutingCityBoundariesCollector::Collect(OsmElement const & osmElement)
 
   while (m_featureMakerSimple.GetNextFeature(feature))
   {
-    if (feature.GetParams().IsValid())
+    if (feature.IsValid())
       Process(feature, osmElementCopy);
   }
 }

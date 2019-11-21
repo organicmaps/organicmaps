@@ -145,7 +145,7 @@ struct FeatureParamsBase
 
   bool operator == (FeatureParamsBase const & rhs) const;
 
-  bool CheckValid() const;
+  bool IsValid() const;
   std::string DebugString() const;
 
   /// @return true if feature doesn't have any drawable strings (names, houses, etc).
@@ -258,7 +258,6 @@ public:
     m_reverseGeometry = rhs.m_reverseGeometry;
   }
 
-  bool IsValid() const { return !m_types.empty(); }
   void SetGeomType(feature::GeomType t);
   void SetGeomTypePointEx();
   feature::GeomType GetGeomType() const;
@@ -284,7 +283,7 @@ public:
   /// Find type that matches "comp" with "level" in classificator hierarchy.
   uint32_t FindType(uint32_t comp, uint8_t level) const;
 
-  bool CheckValid() const;
+  bool IsValid() const;
 
   uint8_t GetHeader() const;
 

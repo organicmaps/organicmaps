@@ -220,9 +220,11 @@ bool FeatureParamsBase::operator == (FeatureParamsBase const & rhs) const
           layer == rhs.layer && rank == rhs.rank);
 }
 
-bool FeatureParamsBase::CheckValid() const
+bool FeatureParamsBase::IsValid() const
 {
-   CHECK(layer > LAYER_LOW && layer < LAYER_HIGH, ());
+   if (layer <= LAYER_LOW || layer >= LAYER_HIGH)
+     return false;
+
    return true;
 }
 
@@ -397,7 +399,6 @@ void FeatureParams::SetGeomTypePointEx()
 
 feature::GeomType FeatureParams::GetGeomType() const
 {
-  CheckValid();
   switch (m_geomType)
   {
   case HeaderGeomType::Line: return GeomType::Line;
@@ -408,7 +409,6 @@ feature::GeomType FeatureParams::GetGeomType() const
 
 HeaderGeomType FeatureParams::GetHeaderGeomType() const
 {
-  CheckValid();
   return m_geomType;
 }
 
@@ -552,11 +552,12 @@ uint32_t FeatureParams::FindType(uint32_t comp, uint8_t level) const
   return ftype::GetEmptyValue();
 }
 
-bool FeatureParams::CheckValid() const
+bool FeatureParams::IsValid() const
 {
-  CHECK(!m_types.empty() && m_types.size() <= kMaxTypesCount, ());
+  if (m_types.empty() || m_types.size() > kMaxTypesCount)
+    return false;
 
-  return FeatureParamsBase::CheckValid();
+  return FeatureParamsBase::IsValid();
 }
 
 uint8_t FeatureParams::GetHeader() const

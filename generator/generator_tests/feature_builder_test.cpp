@@ -50,7 +50,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ManyTypes)
   fb1.SetCenter(m2::PointD(0, 0));
 
   TEST(fb1.RemoveInvalidTypes(), ());
-  Check(fb1);
+  TEST(fb1.IsValid(), (fb1));
 
   FeatureBuilder::Buffer buffer;
   TEST(fb1.PreSerializeAndRemoveUselessNamesForIntermediate(), ());
@@ -59,7 +59,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ManyTypes)
   FeatureBuilder fb2;
   fb2.DeserializeFromIntermediate(buffer);
 
-  Check(fb2);
+  TEST(fb2.IsValid(), (fb2));
   TEST_EQUAL(fb1, fb2, ());
   TEST_EQUAL(fb2.GetTypesCount(), 6, ());
 }
@@ -86,7 +86,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_LineTypes)
   fb1.SetLinear();
 
   TEST(fb1.RemoveInvalidTypes(), ());
-  Check(fb1);
+  TEST(fb1.IsValid(), (fb1));
 
   FeatureBuilder::Buffer buffer;
   TEST(fb1.PreSerializeAndRemoveUselessNamesForIntermediate(), ());
@@ -95,7 +95,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_LineTypes)
   FeatureBuilder fb2;
   fb2.DeserializeFromIntermediate(buffer);
 
-  Check(fb2);
+  TEST(fb2.IsValid(), (fb2));
   TEST_EQUAL(fb1, fb2, ());
   TEST_EQUAL(fb2.GetTypesCount(), 5, ());
 }
@@ -113,7 +113,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_Waterfall)
   fb1.SetCenter(m2::PointD(1, 1));
 
   TEST(fb1.RemoveInvalidTypes(), ());
-  Check(fb1);
+  TEST(fb1.IsValid(), (fb1));
 
   FeatureBuilder::Buffer buffer;
   TEST(fb1.PreSerializeAndRemoveUselessNamesForIntermediate(), ());
@@ -122,7 +122,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_Waterfall)
   FeatureBuilder fb2;
   fb2.DeserializeFromIntermediate(buffer);
 
-  Check(fb2);
+  TEST(fb2.IsValid(), (fb2));
   TEST_EQUAL(fb1, fb2, ());
   TEST_EQUAL(fb2.GetTypesCount(), 1, ());;
 }
@@ -196,7 +196,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessNames)
   TEST(fb1.GetName(0).empty(), ());
   TEST(fb1.GetName(8).empty(), ());
 
-  Check(fb1);
+  TEST(fb1.IsValid(), (fb1));
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, FeatureParams_Parsing)
@@ -250,7 +250,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeLocalityObjectFor
   fb.SetCenter(m2::PointD(10.1, 15.8));
 
   TEST(fb.RemoveInvalidTypes(), ());
-  Check(fb);
+  TEST(fb.IsValid(), (fb));
 
   feature::DataHeader header;
   header.SetGeometryCodingParams(serial::GeometryCodingParams());
@@ -286,7 +286,7 @@ UNIT_TEST(FeatureBuilder_SerializeAccuratelyForIntermediate)
   fb1.SetLinear();
 
   TEST(fb1.RemoveInvalidTypes(), ());
-  Check(fb1);
+  TEST(fb1.IsValid(), (fb1));
 
   FeatureBuilder::Buffer buffer;
   TEST(fb1.PreSerializeAndRemoveUselessNamesForIntermediate(), ());
@@ -295,6 +295,6 @@ UNIT_TEST(FeatureBuilder_SerializeAccuratelyForIntermediate)
   FeatureBuilder fb2;
   fb2.DeserializeAccuratelyFromIntermediate(buffer);
 
-  Check(fb2);
+  TEST(fb2.IsValid(), (fb2));
   TEST(fb1.IsExactEq(fb2), ());
 }
