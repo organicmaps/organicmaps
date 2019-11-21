@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -14,12 +13,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.news.WelcomeScreenBindingType;
@@ -28,12 +27,21 @@ import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 
+import java.util.Stack;
+
 public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View.OnClickListener
 {
-  private static final String BUNDLE_WELCOME_SCREEN_TYPE = "welcome_screen_type";
+  private static final String ARG_HAS_SPECIFIC_STEP = "welcome_screen_type";
+  private static final String ARG_HAS_MANY_STEPS = "show_onboarding_steps";
+
+  @NonNull
+  private final Stack<WelcomeScreenBindingType> mOnboardingSteps = new Stack<>();
 
   @Nullable
-  private PolicyAgreementListener mListener;
+  private PolicyAgreementListener mPolicyAgreementListener;
+
+  @Nullable
+  private OnboardingStepPassedListener mOnboardingStepPassedListener;
 
   @Nullable
   private WelcomeScreenBindingType mWelcomeScreenBindingType;
@@ -68,8 +76,23 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
 
   public static void show(@NonNull FragmentActivity activity)
   {
-    create(activity);
-    Counters.setFirstStartDialogSeen();
+    create(activity, null);
+  }
+
+  public static void showOnboardinSteps(@NonNull FragmentActivity activity)
+  {
+    Bundle args = new Bundle();
+    args.putBoolean(ARG_HAS_MANY_STEPS, true);
+    create(activity, args);
+  }
+
+  public static void showOnboardinStepsStartWith(@NonNull FragmentActivity activity,
+                                                 @NonNull WelcomeScreenBindingType startStep)
+  {
+    Bundle args = new Bundle();
+    args.putBoolean(ARG_HAS_MANY_STEPS, true);
+    args.putInt(ARG_HAS_SPECIFIC_STEP, startStep.ordinal());
+    create(activity, args);
   }
 
   public static boolean isFirstLaunch(@NonNull FragmentActivity activity)
@@ -77,40 +100,32 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     if (Counters.getFirstInstallVersion() < BuildConfig.VERSION_CODE)
       return false;
 
-    if (isAgreementDeclined(activity))
-      return true;
-
     FragmentManager fm = activity.getSupportFragmentManager();
     if (fm.isDestroyed())
       return false;
 
-    return !Counters.isFirstStartDialogSeen();
+    return !Counters.isFirstStartDialogSeen(activity);
   }
 
-  private static void create(@NonNull FragmentActivity activity)
+  private static void create(@NonNull FragmentActivity activity, @Nullable Bundle args)
   {
     final WelcomeDialogFragment fragment = new WelcomeDialogFragment();
+    fragment.setArguments(args);
     activity.getSupportFragmentManager()
             .beginTransaction()
             .add(fragment, WelcomeDialogFragment.class.getName())
             .commitAllowingStateLoss();
   }
 
-  public static boolean recreate(@NonNull FragmentActivity activity)
+  @Nullable
+  public static DialogFragment find(@NonNull FragmentActivity activity)
   {
-    FragmentManager fm = activity.getSupportFragmentManager();
-    Fragment f = fm.findFragmentByTag(WelcomeDialogFragment.class.getName());
-    if (f == null)
-      return false;
+    final FragmentManager fm = activity.getSupportFragmentManager();
+    if (fm.isDestroyed())
+      return null;
 
-    // If we're here, it means that the user has rotated the screen.
-    // We use different dialog themes for landscape and portrait modes on tablets,
-    // so the fragment should be recreated to be displayed correctly.
-    fm.beginTransaction()
-      .remove(f)
-      .commitAllowingStateLoss();
-    fm.executePendingTransactions();
-    return true;
+    Fragment f = fm.findFragmentByTag(WelcomeDialogFragment.class.getName());
+    return (DialogFragment) f;
   }
 
   @Override
@@ -118,13 +133,15 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   {
     super.onAttach(activity);
     if (activity instanceof BaseNewsFragment.NewsDialogListener)
-      mListener = (PolicyAgreementListener) activity;
+      mPolicyAgreementListener = (PolicyAgreementListener) activity;
+    if (activity instanceof OnboardingStepPassedListener)
+      mOnboardingStepPassedListener = (OnboardingStepPassedListener) activity;
   }
 
   @Override
   public void onDetach()
   {
-    mListener = null;
+    mPolicyAgreementListener = null;
     super.onDetach();
   }
 
@@ -143,9 +160,8 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     res.requestWindowFeature(Window.FEATURE_NO_TITLE);
     res.setCancelable(false);
 
-    Bundle args = getArguments();
-    mWelcomeScreenBindingType = args != null && args.containsKey(BUNDLE_WELCOME_SCREEN_TYPE)
-                                ? makeWelcomeScreenType(args) : null;
+    hanldeOnboardingSteps();
+
     mContentView = View.inflate(getActivity(), R.layout.fragment_welcome, null);
     res.setContentView(mContentView);
     mAcceptBtn = mContentView.findViewById(R.id.accept_btn);
@@ -161,6 +177,40 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     bindWelcomeScreenType();
 
     return res;
+  }
+
+  private void hanldeOnboardingSteps()
+  {
+    Bundle args = getArguments();
+    if (args != null)
+    {
+      boolean hasManySteps = args.containsKey(ARG_HAS_MANY_STEPS);
+      if (hasManySteps)
+      {
+        mOnboardingSteps.push(WelcomeScreenBindingType.SHARE_EMOTIONS);
+        mOnboardingSteps.push(WelcomeScreenBindingType.EXPERIENCE);
+        mOnboardingSteps.push(WelcomeScreenBindingType.DREAM_AND_PLAN);
+      }
+
+      boolean hasSpecificStep = args.containsKey(ARG_HAS_SPECIFIC_STEP);
+      if (hasSpecificStep)
+        mWelcomeScreenBindingType =
+            WelcomeScreenBindingType.values()[args.getInt(ARG_HAS_SPECIFIC_STEP)];
+
+      if (hasManySteps && hasSpecificStep)
+      {
+        WelcomeScreenBindingType step = null;
+        while (!mWelcomeScreenBindingType.equals(step))
+        {
+          step = mOnboardingSteps.pop();
+        }
+        mWelcomeScreenBindingType = step;
+        return;
+      }
+
+      if (hasManySteps)
+        mWelcomeScreenBindingType = mOnboardingSteps.pop();
+    }
   }
 
   private void initUserAgreementViews()
@@ -205,9 +255,9 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     if (!isAgreementGranted)
       return;
 
-    if (mListener != null)
-      mListener.onPolicyAgreementApplied();
-    dismiss();
+    if (mPolicyAgreementListener != null)
+      mPolicyAgreementListener.onPolicyAgreementApplied();
+    dismissAllowingStateLoss();
   }
 
   private void bindWelcomeScreenType()
@@ -236,37 +286,41 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     mSubtitle.setText(mWelcomeScreenBindingType.getSubtitle());
   }
 
-  @NonNull
-  private static WelcomeScreenBindingType makeWelcomeScreenType(@NonNull Bundle args)
-  {
-    return WelcomeScreenBindingType.values()[args.getInt(BUNDLE_WELCOME_SCREEN_TYPE)];
-  }
-
   @Override
   public void onClick(View v)
   {
     if (v.getId() != R.id.accept_btn)
+    {
+      Counters.setFirstStartDialogSeen(requireContext());
       return;
+    }
 
-    if (mListener != null)
-      mListener.onPolicyAgreementApplied();
-    dismiss();
+    if (!mOnboardingSteps.isEmpty())
+    {
+      mWelcomeScreenBindingType = mOnboardingSteps.pop();
+      if (mOnboardingStepPassedListener != null)
+        mOnboardingStepPassedListener.onOnboardingStepPassed(mWelcomeScreenBindingType);
+      bindWelcomeScreenType();
+      return;
+    }
+
+    Counters.setFirstStartDialogSeen(requireContext());
+    dismissAllowingStateLoss();
+
+    if (mOnboardingStepPassedListener != null)
+      mOnboardingStepPassedListener.onLastOnboardingStepPassed();
   }
 
   @Override
   public void onCancel(DialogInterface dialog)
   {
     super.onCancel(dialog);
+    if (!isAgreementDeclined(requireContext()))
+      Counters.setFirstStartDialogSeen(requireContext());
     requireActivity().finish();
   }
 
-  private void applyPreferenceChanges(@NonNull String key, boolean value)
-  {
-    SharedPreferences.Editor editor = MwmApplication.prefs(requireContext()).edit();
-    editor.putBoolean(key, value).apply();
-  }
-
-  private static boolean isAgreementDeclined(@NonNull Context context)
+  public static boolean isAgreementDeclined(@NonNull Context context)
   {
     return !SharedPropertiesUtils.isTermOfUseAgreementConfirmed(context)
            || !SharedPropertiesUtils.isPrivacyPolicyAgreementConfirmed(context);
@@ -276,5 +330,11 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   public interface PolicyAgreementListener
   {
     void onPolicyAgreementApplied();
+  }
+
+  public interface OnboardingStepPassedListener
+  {
+    void onOnboardingStepPassed(@NonNull WelcomeScreenBindingType step);
+    void onLastOnboardingStepPassed();
   }
 }
