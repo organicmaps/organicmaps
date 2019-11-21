@@ -361,8 +361,10 @@ void CountryFinalProcessor::ProcessBooking()
           }
           else
           {
-            dataset.PreprocessMatchedOsmObject(
-                id, fb, [&](FeatureBuilder & newFeature) { writer.Write(newFeature); });
+            dataset.PreprocessMatchedOsmObject(id, fb, [&](FeatureBuilder & newFeature) {
+              if (newFeature.PreSerialize())
+                writer.Write(newFeature);
+            });
           }
         }
       });
