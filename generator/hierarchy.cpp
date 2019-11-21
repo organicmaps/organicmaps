@@ -6,6 +6,7 @@
 #include "geometry/rect2d.hpp"
 
 #include "base/assert.hpp"
+
 #include <algorithm>
 #include <cmath>
 #include <fstream>
@@ -192,12 +193,30 @@ HierarchyLineEnricher::HierarchyLineEnricher(std::string const & osm2FtIdsPath,
 
 boost::optional<m2::PointD> HierarchyLineEnricher::GetFeatureCenter(CompositeId const & id) const
 {
-  auto const optId = m_osm2FtIds.GetFeatureId(id);
-  if (!optId)
+  auto const optIds = m_osm2FtIds.GetFeatureIds(id);
+  if (optIds.empty())
     return {};
 
-  auto const ftPtr = m_featureGetter.GetFeatureByIndex(*optId);
-  return ftPtr ? feature::GetCenter(*ftPtr) : boost::optional<m2::PointD>();
+  std::unordered_map<std::underlying_type_t<feature::GeomType>, m2::PointD> m;
+  for (auto optId : optIds)
+  {
+    auto const ftPtr = m_featureGetter.GetFeatureByIndex(optId);
+    if (!ftPtr)
+      continue;
+
+    m.emplace(base::Underlying(ftPtr->GetGeomType()), feature::GetCenter(*ftPtr));
+  }
+
+  for (auto type : {
+       base::Underlying(feature::GeomType::Point),
+       base::Underlying(feature::GeomType::Area),
+       base::Underlying(feature::GeomType::Line)})
+  {
+    if (m.count(type) != 0)
+        return m[type];
+  }
+
+  return {};
 }
 
 HierarchyLinesBuilder::HierarchyLinesBuilder(HierarchyBuilder::Node::Ptrs && nodes)

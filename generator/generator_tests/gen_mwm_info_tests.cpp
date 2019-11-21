@@ -57,10 +57,28 @@ UNIT_TEST(OsmID2FeatureID_GetFeatureId)
     };
     TEST_EQUAL(mapping.GetFeatureIds(kCid1.m_additionalId), answer, ());
   }
-  TEST_EQUAL(*mapping.GetFeatureId(kCid1), kId1, ());
-  TEST_EQUAL(*mapping.GetFeatureId(kCid2), kId2, ());
-  TEST_EQUAL(*mapping.GetFeatureId(kCid3), kId3, ());
-  TEST(!mapping.GetFeatureId(generator::CompositeId(base::GeoObjectId())), ());
+  {
+    std::vector<uint32_t> const answer{
+        kId1,
+    };
+    TEST_EQUAL(mapping.GetFeatureIds(kCid1), answer, ());
+  }
+  {
+    std::vector<uint32_t> const answer{
+        kId2
+    };
+    TEST_EQUAL(mapping.GetFeatureIds(kCid3), answer, ());
+  }
+  {
+    std::vector<uint32_t> const answer{
+        kId3,
+    };
+    TEST_EQUAL(mapping.GetFeatureIds(kCid3), answer, ());
+  }
+  {
+    std::vector<uint32_t> const answer;
+    TEST_EQUAL(mapping.GetFeatureIds(generator::CompositeId(base::GeoObjectId())), answer, ());
+  }
 }
 
 UNIT_TEST(OsmID2FeatureID_ReadWrite)

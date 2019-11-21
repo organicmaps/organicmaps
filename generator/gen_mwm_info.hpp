@@ -37,7 +37,7 @@ public:
   bool ReadFromFile(std::string const & filename);
 
   void AddIds(CompositeId const & osmId, uint32_t featureId);
-  boost::optional<uint32_t> GetFeatureId(CompositeId const & id) const;
+  std::vector<uint32_t> GetFeatureIds(CompositeId const & id) const;
   std::vector<uint32_t> GetFeatureIds(base::GeoObjectId mainId) const;
 
   Version GetVersion() const;

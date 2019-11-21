@@ -41,15 +41,15 @@ void OsmID2FeatureID::AddIds(CompositeId const & osmId, uint32_t featureId)
   m_data.emplace_back(osmId, featureId);
 }
 
-boost::optional<uint32_t> OsmID2FeatureID::GetFeatureId(CompositeId const & id) const
+std::vector<uint32_t> OsmID2FeatureID::GetFeatureIds(CompositeId const & id) const
 {
-  auto const it = std::lower_bound(std::cbegin(m_data), std::cend(m_data), id,
-                                   [](auto const & l, auto const & r) { return l.first < r; });
-  if (it == std::cend(m_data) || it->first != id)
-    return {};
+  std::vector<uint32_t> ids;
+  auto it = std::lower_bound(std::cbegin(m_data), std::cend(m_data), id,
+                             [](auto const & l, auto const & r) { return l.first < r; });
+  while (it != std::cend(m_data) && it->first == id)
+    ids.emplace_back((it++)->second);
 
-  CHECK_NOT_EQUAL(std::next(it)->first, id, (id));
-  return it->second;
+  return ids;
 }
 
 std::vector<uint32_t> OsmID2FeatureID::GetFeatureIds(base::GeoObjectId mainId) const
