@@ -65,10 +65,10 @@ public final class UiUtils
       frontView.bringToFront();
   }
 
-  public static void linkifyPolicyView(@NonNull View root, @IdRes int id, @StringRes int stringId,
-                                       @NonNull String link)
+  public static void linkifyView(@NonNull View view, @IdRes int id, @StringRes int stringId,
+                                 @NonNull String link)
   {
-    TextView policyView = root.findViewById(id);
+    TextView policyView = view.findViewById(id);
     Resources rs = policyView.getResources();
     policyView.setText(Html.fromHtml(rs.getString(stringId, link)));
     policyView.setMovementMethod(LinkMovementMethod.getInstance());

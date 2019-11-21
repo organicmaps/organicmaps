@@ -12,6 +12,7 @@
   <include
     android:id="@+id/user_agreement_block"
     layout="@layout/user_agreement_block"
+    android:visibility="gone"
     android:layout_marginBottom="@dimen/margin_base_plus"
     android:layout_alignParentBottom="true"
     android:layout_width="match_parent"

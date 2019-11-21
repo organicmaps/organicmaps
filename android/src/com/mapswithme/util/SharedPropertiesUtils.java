@@ -14,8 +14,8 @@ import static com.mapswithme.util.Config.KEY_PREF_STATISTICS;
 
 public final class SharedPropertiesUtils
 {
-  public static final String USER_AGREEMENT_TERM_OF_USE = "user_agreement_term_of_use";
-  public static final String USER_AGREEMENT_PRIVACY_POLICY = "user_agreement_privacy_policy";
+  private static final String USER_AGREEMENT_TERM_OF_USE = "user_agreement_term_of_use";
+  private static final String USER_AGREEMENT_PRIVACY_POLICY = "user_agreement_privacy_policy";
   private static final String PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING = "ShowEmulateBadStorageSetting";
   private static final String PREFS_BACKUP_WIDGET_EXPANDED = "BackupWidgetExpanded";
   private static final String PREFS_WHATS_NEW_TITLE_CONCATENATION = "WhatsNewTitleConcatenation";
@@ -103,6 +103,39 @@ public final class SharedPropertiesUtils
     MwmApplication.prefs(context)
                   .edit()
                   .putInt(PREFS_BOOKMARK_CATEGORIES_LAST_VISIBLE_PAGE, pageIndex)
+                  .apply();
+  }
+
+  public static boolean isTermOfUseAgreementConfirmed(@NonNull Context context)
+  {
+    return getBoolean(context, USER_AGREEMENT_TERM_OF_USE);
+  }
+
+  public static boolean isPrivacyPolicyAgreementConfirmed(@NonNull Context context)
+  {
+    return getBoolean(context, USER_AGREEMENT_PRIVACY_POLICY);
+  }
+
+  public static void putPrivacyPolicyAgreement(@NonNull Context context, boolean isChecked)
+  {
+    putBoolean(context, USER_AGREEMENT_PRIVACY_POLICY, isChecked);
+  }
+
+  public static void putTermOfUseAgreement(@NonNull Context context, boolean isChecked)
+  {
+    putBoolean(context, USER_AGREEMENT_TERM_OF_USE, isChecked);
+  }
+
+  private static boolean getBoolean(@NonNull Context context,  @NonNull String key)
+  {
+    return MwmApplication.prefs(context).getBoolean(key, false);
+  }
+
+  private static void putBoolean(@NonNull Context context,  @NonNull String key, boolean value)
+  {
+    MwmApplication.prefs(context)
+                  .edit()
+                  .putBoolean(key, value)
                   .apply();
   }
 }

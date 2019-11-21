@@ -77,7 +77,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     if (Counters.getFirstInstallVersion() < BuildConfig.VERSION_CODE)
       return false;
 
-    if (isAgreementDenied(activity))
+    if (isAgreementDeclined(activity))
       return true;
 
     FragmentManager fm = activity.getSupportFragmentManager();
@@ -156,7 +156,6 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     mTitle.setText(R.string.onboarding_welcome_title);
     mSubtitle = mContentView.findViewById(R.id.tv__subtitle1);
     mSubtitle.setText(R.string.onboarding_welcome_first_subtitle);
-    mContentView.findViewById(R.id.privacy_policy_welcome);
 
     initUserAgreementViews();
     bindWelcomeScreenType();
@@ -166,44 +165,42 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
 
   private void initUserAgreementViews()
   {
-    SharedPreferences prefs = MwmApplication.prefs(requireContext());
-
     mTermOfUseCheckbox = mContentView.findViewById(R.id.term_of_use_welcome_checkbox);
-    mTermOfUseCheckbox.setChecked(prefs.getBoolean(SharedPropertiesUtils.USER_AGREEMENT_TERM_OF_USE, false));
+    mTermOfUseCheckbox.setChecked(
+        SharedPropertiesUtils.isTermOfUseAgreementConfirmed(requireContext()));
 
     mPrivacyPolicyCheckbox = mContentView.findViewById(R.id.privacy_policy_welcome_checkbox);
-    mPrivacyPolicyCheckbox.setChecked(prefs.getBoolean(SharedPropertiesUtils.USER_AGREEMENT_PRIVACY_POLICY, false));
+    mPrivacyPolicyCheckbox.setChecked(
+        SharedPropertiesUtils.isPrivacyPolicyAgreementConfirmed(requireContext()));
 
     mTermOfUseCheckbox.setOnCheckedChangeListener(
         (buttonView, isChecked) -> onTermsOfUseViewChanged(isChecked));
     mPrivacyPolicyCheckbox.setOnCheckedChangeListener(
         (buttonView, isChecked) -> onPrivacyPolicyViewChanged(isChecked));
 
-    UiUtils.linkifyPolicyView(mContentView, R.id.privacy_policy_welcome,
-                              R.string.sign_agree_pp_gdpr, Framework.nativeGetPrivacyPolicyLink());
+    UiUtils.linkifyView(mContentView, R.id.privacy_policy_welcome,
+                        R.string.sign_agree_pp_gdpr, Framework.nativeGetPrivacyPolicyLink());
 
-    UiUtils.linkifyPolicyView(mContentView, R.id.term_of_use_welcome,
-                              R.string.sign_agree_tof_gdpr, Framework.nativeGetTermsOfUseLink());
+    UiUtils.linkifyView(mContentView, R.id.term_of_use_welcome,
+                        R.string.sign_agree_tof_gdpr, Framework.nativeGetTermsOfUseLink());
   }
 
   private void onPrivacyPolicyViewChanged(boolean isChecked)
   {
-    onCheckedValueChanged(isChecked, mTermOfUseCheckbox.isChecked(),
-                          SharedPropertiesUtils.USER_AGREEMENT_PRIVACY_POLICY);
+    SharedPropertiesUtils.putPrivacyPolicyAgreement(requireContext(), isChecked);
+    onCheckedValueChanged(isChecked, mTermOfUseCheckbox.isChecked());
   }
 
   private void onTermsOfUseViewChanged(boolean isChecked)
   {
-    onCheckedValueChanged(isChecked, mPrivacyPolicyCheckbox.isChecked(),
-                          SharedPropertiesUtils.USER_AGREEMENT_TERM_OF_USE);
+    SharedPropertiesUtils.putTermOfUseAgreement(requireContext(), isChecked);
+    onCheckedValueChanged(isChecked, mPrivacyPolicyCheckbox.isChecked());
   }
 
   private void onCheckedValueChanged(boolean isChecked,
-                                     boolean isAnotherConditionChecked,
-                                     @NonNull String key)
+                                     boolean isAnotherConditionChecked)
 
   {
-    applyPreferenceChanges(key, isChecked);
     boolean isAgreementGranted = isChecked && isAnotherConditionChecked;
     if (!isAgreementGranted)
       return;
@@ -269,11 +266,10 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     editor.putBoolean(key, value).apply();
   }
 
-  private static boolean isAgreementDenied(@NonNull Context context)
+  private static boolean isAgreementDeclined(@NonNull Context context)
   {
-    SharedPreferences prefs = MwmApplication.prefs(context);
-    return !prefs.getBoolean(SharedPropertiesUtils.USER_AGREEMENT_TERM_OF_USE, false)
-           || !prefs.getBoolean(SharedPropertiesUtils.USER_AGREEMENT_PRIVACY_POLICY, false);
+    return !SharedPropertiesUtils.isTermOfUseAgreementConfirmed(context)
+           || !SharedPropertiesUtils.isPrivacyPolicyAgreementConfirmed(context);
 
   }
 

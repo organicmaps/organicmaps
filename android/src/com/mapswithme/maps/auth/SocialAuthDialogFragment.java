@@ -142,11 +142,11 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
                             R.id.google_button, R.id.facebook_button, R.id.phone_button);
     });
 
-    UiUtils.linkifyPolicyView(view, R.id.privacyPolicyLink, R.string.sign_agree_pp_gdpr,
-                              Framework.nativeGetPrivacyPolicyLink());
+    UiUtils.linkifyView(view, R.id.privacyPolicyLink, R.string.sign_agree_pp_gdpr,
+                        Framework.nativeGetPrivacyPolicyLink());
 
-    UiUtils.linkifyPolicyView(view, R.id.termOfUseLink, R.string.sign_agree_tof_gdpr,
-                              Framework.nativeGetTermsOfUseLink());
+    UiUtils.linkifyView(view, R.id.termOfUseLink, R.string.sign_agree_tof_gdpr,
+                        Framework.nativeGetTermsOfUseLink());
 
     setButtonAvailability(view, false, R.id.google_button, R.id.facebook_button,
                           R.id.phone_button);
