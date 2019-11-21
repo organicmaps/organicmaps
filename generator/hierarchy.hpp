@@ -62,7 +62,6 @@ public:
   bool IsPoint() const { return m_isPoint; }
 
   bool Contains(HierarchyPlace const & smaller) const;
-  bool IsEqualGeometry(HierarchyPlace const & other) const;
 
 private:
   bool Contains(m2::PointD const & point) const;

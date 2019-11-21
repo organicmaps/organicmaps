@@ -90,12 +90,6 @@ bool HierarchyPlace::Contains(m2::PointD const & point) const
   return boost::geometry::covered_by(point, m_polygon);
 }
 
-bool HierarchyPlace::IsEqualGeometry(HierarchyPlace const & other) const
-{
-  return IsPoint() ? boost::geometry::equals(m_center, other.m_center)
-                   : boost::geometry::equals(m_polygon, other.m_polygon);
-}
-
 HierarchyLinker::HierarchyLinker(Node::Ptrs && nodes)
   : m_nodes(std::move(nodes)), m_tree(MakeTree4d(m_nodes))
 {
@@ -115,20 +109,23 @@ HierarchyLinker::Node::Ptr HierarchyLinker::FindPlaceParent(HierarchyPlace const
   Node::Ptr parent = nullptr;
   auto minArea = std::numeric_limits<double>::max();
   auto const point = place.GetCenter();
-  m_tree.ForEachInRect({point, point}, [&](auto const & candidatePtr) {
-    auto const & candidate = candidatePtr->GetData();
+  m_tree.ForEachInRect({point, point}, [&](auto const & candidateNode) {
+    auto const & candidate = candidateNode->GetData();
     if (place.GetCompositeId() == candidate.GetCompositeId())
       return;
-    // Sometimes there can be two places with the same geometry. We must compare their ids
-    // to avoid cyclic connections.
-    if (place.IsEqualGeometry(candidate))
+    if (candidate.GetArea() < minArea && candidate.Contains(place))
     {
-      if (place.GetCompositeId() < candidate.GetCompositeId())
-        parent = candidatePtr;
-    }
-    else if (candidate.GetArea() < minArea && candidate.Contains(place))
-    {
-      parent = candidatePtr;
+      // Sometimes there can be two places with the same geometry. We must check their to avoid
+      // cyclic connections.
+      auto node = candidateNode;
+      while (node->HasParent())
+      {
+        node = node->GetParent();
+        if (node->GetData().GetCompositeId() == place.GetCompositeId())
+          return;
+      }
+
+      parent = candidateNode;
       minArea = candidate.GetArea();
     }
   });
