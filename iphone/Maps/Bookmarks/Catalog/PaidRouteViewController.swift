@@ -268,7 +268,7 @@ extension PaidRouteViewController : SubscriptionManagerListener {
   }
 
   func didSubscribe(_ subscription: ISubscription) {
-    MWMPurchaseManager.setBookmarksSubscriptionActive(true)
+    subscriptionManager.setSubscriptionActive(true)
     MWMBookmarksManager.shared().resetInvalidCategories()
   }
 

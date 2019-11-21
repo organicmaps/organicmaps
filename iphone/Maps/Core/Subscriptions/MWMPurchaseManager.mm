@@ -196,6 +196,10 @@
   GetFramework().GetPurchase()->SetSubscriptionEnabled(SubscriptionType::BookmarkCatalog, active);
 }
 
++ (void)setAllPassSubscriptionActive:(BOOL)active {
+  GetFramework().GetPurchase()->SetSubscriptionEnabled(SubscriptionType::AllPass, active);
+}
+
 #pragma mark - SKRequestDelegate
 
 - (void)requestDidFinish:(SKRequest *)request

@@ -207,7 +207,8 @@ final class CatalogWebViewController: WebViewController {
   private func showSubscribe(type: SubscriptionGroupType) {
     let subscribeViewController = SubscriptionViewBuilder.build(type: type,
                                                                 parentViewController: self,
-                                                                source: kStatWebView) { [weak self] (success) in
+                                                                source: kStatWebView,
+                                                                openCatalog: false) { [weak self] (success) in
                                                                   if (success) {
                                                                     self?.webView.reloadFromOrigin()
                                                                   }

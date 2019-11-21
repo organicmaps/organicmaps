@@ -3,7 +3,6 @@ import UIKit
 @objc class PromoButton: UIButton {
 
   private let coordinator: PromoCoordinator
-  private var timer: Timer?
   private let buttonSize: CGSize = CGSize(width: 48, height: 48)
 
   @objc init(coordinator: PromoCoordinator) {
@@ -18,8 +17,7 @@ import UIKit
 
   private func configure() {
     removeTarget(self, action: nil, for: .touchUpInside)
-    timer?.invalidate()
-    timer = nil
+    self.subviews.forEach({ $0.removeFromSuperview() })
 
     configureDiscovery()
   }
@@ -52,14 +50,13 @@ import UIKit
     animationGroup.duration = 3
     animationGroup.repeatCount = Float(Int.max)
     animationGroup.animations = [animation]
+    animationGroup.isRemovedOnCompletion = false
     imageView?.layer.add(animationGroup, forKey: "transform.rotation.z")
   }
 
   @objc private func onButtonPress(sender: UIButton) {
     coordinator.onPromoButtonPress(completion: { [weak self] in
       self?.isHidden = true;
-      self?.timer?.invalidate()
-      self?.timer = nil
     })
   }
 

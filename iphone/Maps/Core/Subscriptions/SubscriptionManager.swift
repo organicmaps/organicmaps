@@ -13,6 +13,7 @@
   @objc func removeListener(_ listener: SubscriptionManagerListener)
   @objc func validate(completion: ValidationCompletion?)
   @objc func restore(_ callback: @escaping ValidationCompletion)
+  @objc func setSubscriptionActive(_ value: Bool)
 }
 
 @objc protocol SubscriptionManagerListener: AnyObject {
@@ -82,6 +83,19 @@ class SubscriptionManager: NSObject, ISubscriptionManager {
   @objc func restore(_ callback: @escaping ValidationCompletion) {
     validate(true) {
       callback($0)
+    }
+  }
+
+  func setSubscriptionActive(_ value: Bool) {
+    switch serverId {
+    case MWMPurchaseManager.allPassSubscriptionServerId():
+      MWMPurchaseManager.setAllPassSubscriptionActive(value)
+    case MWMPurchaseManager.bookmarksSubscriptionServerId():
+      MWMPurchaseManager.setBookmarksSubscriptionActive(value)
+    case MWMPurchaseManager.adsRemovalServerId():
+      MWMPurchaseManager.setAdsDisabled(value)
+    default:
+      fatalError()
     }
   }
 

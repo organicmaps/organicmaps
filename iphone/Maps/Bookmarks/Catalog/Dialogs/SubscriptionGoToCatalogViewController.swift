@@ -23,10 +23,10 @@
   override func awakeFromNib() {
     super.awakeFromNib()
     switch screenType {
-    case .allPass:
+    case .sightseeing:
       titleLabel.text = L("subscription_success_dialog_title_sightseeing_pass")
       textLabel.text = L("subscription_success_dialog_message_sightseeing_pass")
-    case .sightseeing:
+    case .allPass:
       titleLabel.text = L("subscription_success_dialog_title")
       textLabel.text = L("subscription_success_dialog_message")
     }

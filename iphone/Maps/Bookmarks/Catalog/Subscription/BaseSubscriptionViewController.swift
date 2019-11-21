@@ -165,7 +165,7 @@ extension BaseSubscriptionViewController: SubscriptionManagerListener {
   }
 
   func didSubscribe(_ subscription: ISubscription) {
-    MWMPurchaseManager.setBookmarksSubscriptionActive(true)
+    subscriptionManager?.setSubscriptionActive(true)
     bookmarksManager.resetInvalidCategories()
   }
 

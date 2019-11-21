@@ -116,7 +116,7 @@ class DeepLinkURL {
       assertionFailure()
       return
     }
-    LOG(.info, "Handle deeplink: \(url)")
+    LOG(.info, "Handle deeplink: \(url.url)")
     let deeplinkHandlerStrategy = DeepLinkStrategyFactory.create(url: url)
     deeplinkHandlerStrategy.execute()
   }

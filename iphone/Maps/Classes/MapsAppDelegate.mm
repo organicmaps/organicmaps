@@ -252,6 +252,11 @@ using namespace osm_auth_ios;
         [MWMPurchaseManager setBookmarksSubscriptionActive:NO];
       }
     }];
+    [[InAppPurchase allPassSubscriptionManager] validateWithCompletion:^(MWMValidationResult result) {
+      if (result == MWMValidationResultNotValid) {
+        [MWMPurchaseManager setAllPassSubscriptionActive:NO];
+      }
+    }];
     [[InAppPurchase adsRemovalSubscriptionManager] validateWithCompletion:^(MWMValidationResult result) {
       [MWMPurchaseManager setAdsDisabled:result != MWMValidationResultNotValid];
     }];

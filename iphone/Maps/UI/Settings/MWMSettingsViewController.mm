@@ -437,6 +437,7 @@ using namespace power_management;
   self.restoringSubscription = YES;
   __block MWMValidationResult adsResult;
   __block MWMValidationResult bookmarksResult;
+  __block MWMValidationResult allPassResult;
 
   dispatch_group_enter(dispatchGroup);
   [[InAppPurchase adsRemovalSubscriptionManager] restore:^(MWMValidationResult result) {
@@ -450,15 +451,25 @@ using namespace power_management;
     dispatch_group_leave(dispatchGroup);
   }];
 
+  dispatch_group_enter(dispatchGroup);
+  [[InAppPurchase allPassSubscriptionManager] restore:^(MWMValidationResult result) {
+    allPassResult = result;
+    dispatch_group_leave(dispatchGroup);
+  }];
+
   __weak auto s = self;
   dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^{
     __strong auto self = s;
     self.restoringSubscription = NO;
     [self.restoreSubscriptionCell.progress stopAnimating];
     NSString *alertText;
-    if (adsResult == MWMValidationResultNotValid && bookmarksResult == MWMValidationResultNotValid) {
+    if (adsResult == MWMValidationResultNotValid &&
+        bookmarksResult == MWMValidationResultNotValid &&
+        allPassResult == MWMValidationResultNotValid) {
       alertText = L(@"restore_no_subscription_alert");
-    } else if (adsResult == MWMValidationResultValid || bookmarksResult == MWMValidationResultValid) {
+    } else if (adsResult == MWMValidationResultValid ||
+               bookmarksResult == MWMValidationResultValid ||
+               allPassResult == MWMValidationResultValid) {
       alertText = L(@"restore_success_alert");
     } else {
       alertText = L(@"restore_error_alert");

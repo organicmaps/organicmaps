@@ -46,6 +46,7 @@ extension PromoDiscoveryRouter: IPromoDiscoveryRouter {
     let subscribeViewController = SubscriptionViewBuilder.build(type: .allPass,
                                                                 parentViewController: viewController,
                                                                 source: kStatOnboardingGuidesSubscription,
+                                                                openCatalog: true,
                                                                 completion: nil)
     viewController.present(subscribeViewController, animated: true)
   }

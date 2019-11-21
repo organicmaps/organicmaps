@@ -7,7 +7,7 @@ extension UIViewController {
 
       let onSubscribe = {
         self?.dismiss(animated: true)
-        let subscriptionDialog = BookmarksSubscriptionViewController()
+        let subscriptionDialog = AllPassSubscriptionViewController()
         subscriptionDialog.onSubscribe = { [weak self] in
           self?.dismiss(animated: true)
         }
