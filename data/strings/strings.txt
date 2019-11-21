@@ -44467,3 +44467,19 @@
   [subscription_success_dialog_message_sightseeing_pass]
     comment = FIXME
     en = subscription_success_dialog_message_sightseeing_pass
+
+  [whatsnew_outdoor_guides_title]
+    comment = FIXME
+    en = whatsnew_outdoor_guides_title
+
+  [whatsnew_outdoor_guides_message]
+    comment = FIXME
+    en = whatsnew_outdoor_guides_message
+
+  [whatsnew_guides_galleries_title]
+    comment = FIXME
+    en = whatsnew_guides_galleries_title
+
+  [whatsnew_guides_galleries_message]
+    comment = FIXME
+    en = whatsnew_guides_galleries_message
