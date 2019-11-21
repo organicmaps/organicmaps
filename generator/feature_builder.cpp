@@ -88,8 +88,6 @@ bool FeatureBuilder::IsGeometryClosed() const
 
 m2::PointD FeatureBuilder::GetGeometryCenter() const
 {
-  //TODO(vng): Check requirements in this assert
-  //ASSERT ( IsGeometryClosed(), () );
   m2::PointD ret(0.0, 0.0);
 
   PointSeq const & poly = GetOuterGeometry();

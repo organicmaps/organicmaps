@@ -222,10 +222,7 @@ bool FeatureParamsBase::operator == (FeatureParamsBase const & rhs) const
 
 bool FeatureParamsBase::IsValid() const
 {
-   if (layer <= LAYER_LOW || layer >= LAYER_HIGH)
-     return false;
-
-   return true;
+  return layer > LAYER_LOW && layer < LAYER_HIGH;
 }
 
 string FeatureParamsBase::DebugString() const
@@ -399,6 +396,7 @@ void FeatureParams::SetGeomTypePointEx()
 
 feature::GeomType FeatureParams::GetGeomType() const
 {
+  CHECK(IsValid(), ());
   switch (m_geomType)
   {
   case HeaderGeomType::Line: return GeomType::Line;
@@ -409,6 +407,7 @@ feature::GeomType FeatureParams::GetGeomType() const
 
 HeaderGeomType FeatureParams::GetHeaderGeomType() const
 {
+  CHECK(IsValid(), ());
   return m_geomType;
 }
 

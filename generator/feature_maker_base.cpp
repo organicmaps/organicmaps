@@ -73,10 +73,11 @@ void TransformToPoint(FeatureBuilder & feature)
 
 void TransformToLine(FeatureBuilder & feature)
 {
-  if (feature.IsArea() || feature.IsLine())
-    feature.SetLinear(feature.GetParams().m_reverseGeometry);
-  else
-    CHECK(false, (feature));
+  if (feature.IsLine())
+    return;
+
+  CHECK(feature.IsArea(), (feature));
+  feature.SetLinear(feature.GetParams().m_reverseGeometry);
 }
 
 FeatureBuilder MakePoint(FeatureBuilder const & feature)
