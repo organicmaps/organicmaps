@@ -82,7 +82,7 @@ class MemoryHttpRequest : public HttpRequest, public IHttpThreadCallback
   virtual void OnFinish(long httpOrErrorCode, int64_t, int64_t)
   {
     if (httpOrErrorCode == 200)
-      m_status = Status::Completed;
+      m_status = DownloadStatus::Completed;
     else
     {
       auto const message = non_http_error_code::DebugPrint(httpOrErrorCode);
@@ -91,9 +91,9 @@ class MemoryHttpRequest : public HttpRequest, public IHttpThreadCallback
           "$httpRequestError",
           {{"url", m_requestUrl}, {"code", message}, {"servers", "1"}});
       if (httpOrErrorCode == 404)
-        m_status = Status::FileNotFound;
+        m_status = DownloadStatus::FileNotFound;
       else
-        m_status = Status::Failed;
+        m_status = DownloadStatus::Failed;
     }
 
     m_onFinish(*this);
@@ -247,30 +247,30 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
 
     ChunksDownloadStrategy::ResultT const result = StartThreads();
     if (result == ChunksDownloadStrategy::EDownloadFailed)
-      m_status = httpOrErrorCode == 404 ? Status::FileNotFound : Status::Failed;
+      m_status = httpOrErrorCode == 404 ? DownloadStatus::FileNotFound : DownloadStatus::Failed;
     else if (result == ChunksDownloadStrategy::EDownloadSucceeded)
-      m_status = Status::Completed;
+      m_status = DownloadStatus::Completed;
 
     if (isChunkOk)
     {
       // save information for download resume
       ++m_goodChunksCount;
-      if (m_status != Status::Completed && m_goodChunksCount % 10 == 0)
+      if (m_status != DownloadStatus::Completed && m_goodChunksCount % 10 == 0)
         SaveResumeChunks();
     }
 
-    if (m_status == Status::InProgress)
+    if (m_status == DownloadStatus::InProgress)
       return;
 
     // 1. Save downloaded chunks if some error occured.
-    if (m_status == Status::Failed || m_status == Status::FileNotFound)
+    if (m_status == DownloadStatus::Failed || m_status == DownloadStatus::FileNotFound)
       SaveResumeChunks();
 
     // 2. Free file handle.
     CloseWriter();
 
     // 3. Clean up resume file with chunks range on success
-    if (m_status == Status::Completed)
+    if (m_status == DownloadStatus::Completed)
     {
       Platform::RemoveFileIfExists(m_filePath + RESUME_FILE_EXTENSION);
 
@@ -295,7 +295,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     {
       LOG(LWARNING, ("Can't close file correctly", e.Msg()));
 
-      m_status = Status::Failed;
+      m_status = DownloadStatus::Failed;
     }
   }
 
@@ -345,7 +345,7 @@ public:
       DeleteNativeHttpThread(p);
     }
 
-    if (m_status == Status::InProgress)
+    if (m_status == DownloadStatus::InProgress)
     {
       // means that client canceled download process, so delete all temporary files
       CloseWriter();
@@ -366,8 +366,10 @@ public:
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 HttpRequest::HttpRequest(Callback const & onFinish, Callback const & onProgress)
-  : m_status(Status::InProgress), m_progress(make_pair(0, -1)),
-    m_onFinish(onFinish), m_onProgress(onProgress)
+  : m_status(DownloadStatus::InProgress)
+  , m_progress(make_pair(0, -1))
+  , m_onFinish(onFinish)
+  , m_onProgress(onProgress)
 {
 }
 
@@ -401,21 +403,5 @@ HttpRequest * HttpRequest::GetFile(vector<string> const & urls,
     LOG(LWARNING, ("Can't create file", filePath, "with size", fileSize, e.Msg()));
   }
   return nullptr;
-}
-
-string DebugPrint(HttpRequest::Status status)
-{
-  switch (status)
-  {
-  case HttpRequest::Status::InProgress:
-    return "In progress";
-  case HttpRequest::Status::Completed:
-    return "Completed";
-  case HttpRequest::Status::Failed:
-    return "Failed";
-  case HttpRequest::Status::FileNotFound:
-    return "File not found";
-  }
-  UNREACHABLE();
 }
 }  // namespace downloader

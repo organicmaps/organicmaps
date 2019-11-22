@@ -90,9 +90,9 @@ void GetQueuedCountries(Storage::Queue const & queue, CountriesSet & resultCount
     resultCountries.insert(country.GetCountryId());
 }
 
-MapFilesDownloader::Progress Storage::GetOverallProgress(CountriesVec const & countries) const
+Progress Storage::GetOverallProgress(CountriesVec const & countries) const
 {
-  MapFilesDownloader::Progress overallProgress = {0, 0};
+  Progress overallProgress = {0, 0};
   for (auto const & country : countries)
   {
     NodeAttrs attr;
@@ -599,7 +599,7 @@ void Storage::DownloadNextCountryFromQueue()
   if (stopDownload ||
       !PreparePlaceForCountryFiles(GetCurrentDataVersion(), m_dataDir, GetCountryFile(countryId)))
   {
-    OnMapDownloadFinished(countryId, HttpRequest::Status::Failed, queuedCountry.GetFileType());
+    OnMapDownloadFinished(countryId, DownloadStatus::Failed, queuedCountry.GetFileType());
     return;
   }
 
@@ -641,8 +641,7 @@ void Storage::DownloadNextFile(QueuedCountry const & country)
       // the current diff application process when it is completed or cancelled.
       return;
     }
-    OnMapFileDownloadFinished(HttpRequest::Status::Completed,
-                              MapFilesDownloader::Progress(size, size));
+    OnMapFileDownloadFinished(DownloadStatus::Completed, Progress(size, size));
     return;
   }
 
@@ -710,15 +709,14 @@ void Storage::Unsubscribe(int slotId)
   }
 }
 
-void Storage::OnMapFileDownloadFinished(HttpRequest::Status status,
-                                        MapFilesDownloader::Progress const & progress)
+void Storage::OnMapFileDownloadFinished(DownloadStatus status, Progress const & progress)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   if (m_queue.empty())
     return;
 
-  bool const success = status == HttpRequest::Status::Completed;
+  bool const success = status == DownloadStatus::Completed;
   QueuedCountry & queuedCountry = m_queue.front();
   CountryId const countryId = queuedCountry.GetCountryId();
 
@@ -740,15 +738,14 @@ void Storage::OnMapFileDownloadFinished(HttpRequest::Status status,
   OnMapDownloadFinished(countryId, status, queuedCountry.GetFileType());
 }
 
-void Storage::ReportProgress(CountryId const & countryId, MapFilesDownloader::Progress const & p)
+void Storage::ReportProgress(CountryId const & countryId, Progress const & p)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (CountryObservers const & o : m_observers)
     o.m_progressFn(countryId, p);
 }
 
-void Storage::ReportProgressForHierarchy(CountryId const & countryId,
-                                         MapFilesDownloader::Progress const & leafProgress)
+void Storage::ReportProgressForHierarchy(CountryId const & countryId, Progress const & leafProgress)
 {
   // Reporting progress for a leaf in country tree.
   ReportProgress(countryId, leafProgress);
@@ -763,7 +760,7 @@ void Storage::ReportProgressForHierarchy(CountryId const & countryId,
       descendants.push_back(container.Value().Name());
     });
 
-    MapFilesDownloader::Progress localAndRemoteBytes =
+    Progress localAndRemoteBytes =
         CalculateProgress(countryId, descendants, leafProgress, setQueue);
     ReportProgress(parentId, localAndRemoteBytes);
   };
@@ -771,7 +768,7 @@ void Storage::ReportProgressForHierarchy(CountryId const & countryId,
   ForEachAncestorExceptForTheRoot(countryId, calcProgress);
 }
 
-void Storage::OnMapFileDownloadProgress(MapFilesDownloader::Progress const & progress)
+void Storage::OnMapFileDownloadProgress(Progress const & progress)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -853,7 +850,7 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapFileType t
   fn(true);
 }
 
-void Storage::OnMapDownloadFinished(CountryId const & countryId, HttpRequest::Status status,
+void Storage::OnMapDownloadFinished(CountryId const & countryId, DownloadStatus status,
                                     MapFileType type)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -862,15 +859,15 @@ void Storage::OnMapDownloadFinished(CountryId const & countryId, HttpRequest::St
   alohalytics::LogEvent("$OnMapDownloadFinished",
                         alohalytics::TStringMap(
                             {{"name", countryId},
-                             {"status", status == HttpRequest::Status::Completed ? "ok" : "failed"},
+                             {"status", status == DownloadStatus::Completed ? "ok" : "failed"},
                              {"version", strings::to_string(GetCurrentDataVersion())},
                              {"option", DebugPrint(type)}}));
   GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kDownloaderMapActionFinished,
                                                          {{"action", "download"}});
 
-  if (status != HttpRequest::Status::Completed)
+  if (status != DownloadStatus::Completed)
   {
-    if (status == HttpRequest::Status::FileNotFound && type == MapFileType::Diff)
+    if (status == DownloadStatus::FileNotFound && type == MapFileType::Diff)
     {
       m_diffsDataSource->AbortDiffScheme();
       NotifyStatusChanged(GetRootId());
@@ -1514,7 +1511,7 @@ void Storage::GetNodeAttrs(CountryId const & countryId, NodeAttrs & nodeAttrs) c
         [&subtree](CountryTree::Node const & d) { subtree.push_back(d.Value().Name()); });
     CountryId const & downloadingMwm =
         IsDownloadInProgress() ? GetCurrentDownloadingCountryId() : kInvalidCountryId;
-    MapFilesDownloader::Progress downloadingMwmProgress(0, 0);
+    Progress downloadingMwmProgress(0, 0);
     if (!m_downloader->IsIdle())
     {
       downloadingMwmProgress = m_downloader->GetDownloadingProgress();
@@ -1612,14 +1609,13 @@ void Storage::DoClickOnDownloadMap(CountryId const & countryId)
     m_downloadMapOnTheMap(countryId);
 }
 
-MapFilesDownloader::Progress Storage::CalculateProgress(
-    CountryId const & downloadingMwm, CountriesVec const & mwms,
-    MapFilesDownloader::Progress const & downloadingMwmProgress,
-    CountriesSet const & mwmsInQueue) const
+Progress Storage::CalculateProgress(CountryId const & downloadingMwm, CountriesVec const & mwms,
+                                    Progress const & downloadingMwmProgress,
+                                    CountriesSet const & mwmsInQueue) const
 {
   // Function calculates progress correctly ONLY if |downloadingMwm| is leaf.
 
-  MapFilesDownloader::Progress localAndRemoteBytes = make_pair(0, 0);
+  Progress localAndRemoteBytes = make_pair(0, 0);
 
   for (auto const & d : mwms)
   {

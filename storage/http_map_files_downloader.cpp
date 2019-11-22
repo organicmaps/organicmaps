@@ -1,5 +1,6 @@
 #include "storage/http_map_files_downloader.hpp"
 
+#include "platform/downloader_defines.hpp"
 #include "platform/servers_list.hpp"
 
 #include "base/assert.hpp"
@@ -17,7 +18,7 @@ public:
   explicit ErrorHttpRequest(std::string const & filePath)
   : HttpRequest(Callback(), Callback()), m_filePath(filePath)
   {
-    m_status = Status::Failed;
+    m_status = downloader::DownloadStatus::Failed;
   }
 
   virtual std::string const & GetData() const { return m_filePath; }
@@ -57,7 +58,7 @@ void HttpMapFilesDownloader::Download(QueuedCountry & queuedCountry,
   }
 }
 
-MapFilesDownloader::Progress HttpMapFilesDownloader::GetDownloadingProgress()
+downloader::Progress HttpMapFilesDownloader::GetDownloadingProgress()
 {
   CHECK_THREAD_CHECKER(m_checker, ());
   ASSERT(nullptr != m_request, ());

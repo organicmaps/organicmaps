@@ -20,6 +20,7 @@
 #include "indexer/indexer_tests/test_mwm_set.hpp"
 
 #include "platform/country_file.hpp"
+#include "platform/downloader_defines.hpp"
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
@@ -1312,8 +1313,7 @@ UNIT_TEST(StorageTest_GetOverallProgressSmokeTest)
   TaskRunner runner;
   InitStorage(storage, runner);
 
-  MapFilesDownloader::Progress currentProgress =
-      storage.GetOverallProgress({"Abkhazia", "Algeria_Coast"});
+  auto const currentProgress = storage.GetOverallProgress({"Abkhazia", "Algeria_Coast"});
   TEST_EQUAL(currentProgress.first, 0, ());
   TEST_EQUAL(currentProgress.second, 0, ());
 }

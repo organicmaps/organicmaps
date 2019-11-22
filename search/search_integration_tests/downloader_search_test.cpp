@@ -14,6 +14,8 @@
 #include "storage/queued_country.hpp"
 #include "storage/storage.hpp"
 
+#include "platform/downloader_defines.hpp"
+
 #include "geometry/rect2d.hpp"
 
 #include "base/logging.hpp"
@@ -84,7 +86,7 @@ class TestMapFilesDownloader : public storage::MapFilesDownloader
 {
 public:
   // MapFilesDownloader overrides:
-  Progress GetDownloadingProgress() override { return Progress{}; }
+  downloader::Progress GetDownloadingProgress() override { return {}; }
 
   bool IsIdle() override { return false; }
   

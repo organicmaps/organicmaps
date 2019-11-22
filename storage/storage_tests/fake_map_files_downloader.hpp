@@ -3,6 +3,8 @@
 #include "storage/map_files_downloader.hpp"
 #include "storage/queued_country.hpp"
 
+#include "platform/downloader_defines.hpp"
+
 #include "coding/file_writer.hpp"
 
 #include "base/thread_checker.hpp"
@@ -31,7 +33,7 @@ public:
 
   ~FakeMapFilesDownloader();
 
-  Progress GetDownloadingProgress() override;
+  downloader::Progress GetDownloadingProgress() override;
   bool IsIdle() override;
   void Reset() override;
 
@@ -43,7 +45,7 @@ private:
 
   void DownloadNextChunk(uint64_t requestId);
 
-  Progress m_progress;
+  downloader::Progress m_progress;
   bool m_idle;
 
   std::unique_ptr<FileWriter> m_writer;

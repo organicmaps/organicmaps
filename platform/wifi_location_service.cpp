@@ -22,7 +22,7 @@ namespace location
 
     void OnHttpPostFinished(downloader::HttpRequest & response)
     {
-      if (response.GetStatus() == downloader::HttpRequest::Status::Completed)
+      if (response.GetStatus() == downloader::DownloadStatus::Completed)
       {
         // stop requesting wifi updates if reply from server is received
         m_wifiInfo.Stop();

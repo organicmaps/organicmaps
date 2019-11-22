@@ -2,6 +2,7 @@
 
 #include "storage/queued_country.hpp"
 
+#include "platform/downloader_defines.hpp"
 #include "platform/http_request.hpp"
 #include "platform/safe_callback.hpp"
 
@@ -20,12 +21,11 @@ class MapFilesDownloader
 {
 public:
   // Denotes bytes downloaded and total number of bytes.
-  using Progress = std::pair<int64_t, int64_t>;
   using ServersList = std::vector<std::string>;
 
   using FileDownloadedCallback =
-      std::function<void(downloader::HttpRequest::Status status, Progress const & progress)>;
-  using DownloadingProgressCallback = std::function<void(Progress const & progress)>;
+      std::function<void(downloader::DownloadStatus status, downloader::Progress const & progress)>;
+  using DownloadingProgressCallback = std::function<void(downloader::Progress const & progress)>;
   using ServersListCallback = platform::SafeCallback<void(ServersList const & serverList)>;
 
   virtual ~MapFilesDownloader() = default;
@@ -37,7 +37,7 @@ public:
                        DownloadingProgressCallback const & onProgress);
 
   /// Returns current downloading progress.
-  virtual Progress GetDownloadingProgress() = 0;
+  virtual downloader::Progress GetDownloadingProgress() = 0;
 
   /// Returns true when downloader does not perform any job.
   virtual bool IsIdle() = 0;

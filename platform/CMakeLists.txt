@@ -15,6 +15,7 @@ set(
   country_defines.hpp
   country_file.cpp
   country_file.hpp
+  downloader_defines.hpp
   file_logging.cpp
   file_logging.hpp
   get_text_by_id.cpp

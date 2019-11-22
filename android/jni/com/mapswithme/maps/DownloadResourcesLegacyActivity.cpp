@@ -5,8 +5,9 @@
 #include "storage/map_files_downloader.hpp"
 #include "storage/storage.hpp"
 
-#include "platform/platform.hpp"
+#include "platform/downloader_defines.hpp"
 #include "platform/http_request.hpp"
+#include "platform/platform.hpp"
 #include "platform/servers_list.hpp"
 
 #include "coding/internal/file_data.hpp"
@@ -151,10 +152,10 @@ extern "C"
   static void DownloadFileFinished(std::shared_ptr<jobject> obj, HttpRequest const & req)
   {
     auto const status = req.GetStatus();
-    ASSERT_NOT_EQUAL(status, HttpRequest::Status::InProgress, ());
+    ASSERT_NOT_EQUAL(status, DownloadStatus::InProgress, ());
 
     int errorCode = ERR_DOWNLOAD_ERROR;
-    if (status == HttpRequest::Status::Completed)
+    if (status == DownloadStatus::Completed)
       errorCode = ERR_DOWNLOAD_SUCCESS;
 
     g_currentRequest.reset();

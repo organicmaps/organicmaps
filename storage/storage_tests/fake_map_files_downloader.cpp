@@ -40,7 +40,7 @@ void FakeMapFilesDownloader::Download(QueuedCountry & queuedCountry,
 //  m_taskRunner.PostTask(std::bind(&FakeMapFilesDownloader::DownloadNextChunk, this, m_timestamp));
 }
 
-MapFilesDownloader::Progress FakeMapFilesDownloader::GetDownloadingProgress()
+downloader::Progress FakeMapFilesDownloader::GetDownloadingProgress()
 {
   CHECK(m_checker.CalledOnOriginalThread(), ());
   return m_progress;
@@ -74,7 +74,8 @@ void FakeMapFilesDownloader::DownloadNextChunk(uint64_t timestamp)
 
   if (m_progress.first == m_progress.second)
   {
-    m_taskRunner.PostTask(std::bind(m_onDownloaded, downloader::HttpRequest::Status::Completed, m_progress));
+    m_taskRunner.PostTask(
+        std::bind(m_onDownloaded, downloader::DownloadStatus::Completed, m_progress));
     Reset();
     return;
   }

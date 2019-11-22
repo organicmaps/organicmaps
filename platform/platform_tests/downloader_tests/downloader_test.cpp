@@ -35,7 +35,7 @@ class DownloadObserver
 {
   bool m_progressWasCalled;
   // Chunked downloads can return one status per chunk (thread).
-  vector<HttpRequest::Status> m_statuses;
+  vector<DownloadStatus> m_statuses;
   // Interrupt download after this number of chunks
   int m_chunksToFail;
   base::ScopedLogLevelChanger const m_debugLogLevel;
@@ -62,27 +62,27 @@ public:
     TEST_NOT_EQUAL(0, m_statuses.size(), ("Observer was not called."));
     TEST(m_progressWasCalled, ("Download progress wasn't called"));
     for (auto const & status : m_statuses)
-      TEST_EQUAL(status, HttpRequest::Status::Completed, ());
+      TEST_EQUAL(status, DownloadStatus::Completed, ());
   }
 
   void TestFailed()
   {
     TEST_NOT_EQUAL(0, m_statuses.size(), ("Observer was not called."));
     for (auto const & status : m_statuses)
-      TEST_EQUAL(status, HttpRequest::Status::Failed, ());
+      TEST_EQUAL(status, DownloadStatus::Failed, ());
   }
 
   void TestFileNotFound()
   {
     TEST_NOT_EQUAL(0, m_statuses.size(), ("Observer was not called."));
     for (auto const & status : m_statuses)
-      TEST_EQUAL(status, HttpRequest::Status::FileNotFound, ());
+      TEST_EQUAL(status, DownloadStatus::FileNotFound, ());
   }
 
   void OnDownloadProgress(HttpRequest & request)
   {
     m_progressWasCalled = true;
-    TEST_EQUAL(request.GetStatus(), HttpRequest::Status::InProgress, ());
+    TEST_EQUAL(request.GetStatus(), DownloadStatus::InProgress, ());
 
     // Cancel download if needed
     if (m_chunksToFail != -1)
@@ -101,7 +101,7 @@ public:
   {
     auto const status = request.GetStatus();
     m_statuses.emplace_back(status);
-    TEST(status != HttpRequest::Status::InProgress, ());
+    TEST(status != DownloadStatus::InProgress, ());
     QCoreApplication::quit();
   }
 };
@@ -517,11 +517,11 @@ namespace
     {
       if (m_counter == 0)
       {
-        TEST_EQUAL(request.GetProgress(), HttpRequest::Progress(beg2, FILESIZE), ());
+        TEST_EQUAL(request.GetProgress(), Progress(beg2, FILESIZE), ());
       }
       else if (m_counter == 1)
       {
-        TEST_EQUAL(request.GetProgress(), HttpRequest::Progress(FILESIZE, FILESIZE), ());
+        TEST_EQUAL(request.GetProgress(), Progress(FILESIZE, FILESIZE), ());
       }
       else
       {
@@ -532,7 +532,7 @@ namespace
 
     void OnFinish(HttpRequest & request)
     {
-      TEST_EQUAL(request.GetStatus(), HttpRequest::Status::Completed, ());
+      TEST_EQUAL(request.GetStatus(), DownloadStatus::Completed, ());
       QCoreApplication::exit();
     }
   };

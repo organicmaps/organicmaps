@@ -23,7 +23,7 @@ public:
   virtual ~HttpMapFilesDownloader();
 
   // MapFilesDownloader overrides:
-  Progress GetDownloadingProgress() override;
+  downloader::Progress GetDownloadingProgress() override;
   bool IsIdle() override;
   void Reset() override;
 

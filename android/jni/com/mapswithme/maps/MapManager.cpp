@@ -10,6 +10,7 @@
 
 #include "base/thread_checker.hpp"
 
+#include "platform/downloader_defines.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
 
@@ -537,7 +538,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetOverallProgress(JNIEnv *
     countries.push_back(jni::ToNativeString(env, static_cast<jstring>(item.get())));
   }
 
-  MapFilesDownloader::Progress const progress = GetStorage().GetOverallProgress(countries);
+  downloader::Progress const progress = GetStorage().GetOverallProgress(countries);
 
   jint res = 0;
   if (progress.second)

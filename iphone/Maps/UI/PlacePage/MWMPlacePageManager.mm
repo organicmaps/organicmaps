@@ -19,6 +19,8 @@
 
 #include "map/utils.hpp"
 
+#include "platform/downloader_defines.hpp"
+
 #include "geometry/distance_on_sphere.hpp"
 
 using namespace storage;

@@ -23,7 +23,7 @@
 
 #include "indexer/editable_map_object.hpp"
 
-#include "platform/settings.hpp"
+#include "platform/downloader_defines.hpp"
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
@@ -134,7 +134,7 @@ void DrawWidget::UpdateCountryStatus(storage::CountryId const & countryId)
     auto status = m_framework.GetStorage().CountryStatusEx(countryId);
 
     uint8_t progressInPercentage = 0;
-    storage::MapFilesDownloader::Progress progressInByte = std::make_pair(0, 0);
+    downloader::Progress progressInByte = std::make_pair(0, 0);
     if (!countryId.empty())
     {
       storage::NodeAttrs nodeAttrs;

@@ -6,6 +6,7 @@
 
 #include "storage/storage.hpp"
 
+#include "platform/downloader_defines.hpp"
 #include "platform/preferred_languages.hpp"
 
 #include "indexer/scales.hpp"
@@ -112,13 +113,15 @@ bool ParseRectsStr(std::string const & rectsStr, std::list<m2::RectD> & rects)
 
 namespace qt
 {
-Screenshoter::Screenshoter(ScreenshotParams const & screenshotParams, Framework & framework, QWidget * widget)
+Screenshoter::Screenshoter(ScreenshotParams const & screenshotParams, Framework & framework,
+                           QWidget * widget)
   : m_screenshotParams(screenshotParams)
   , m_framework(framework)
   , m_widget(widget)
 {
-  m_framework.GetStorage().Subscribe(std::bind(&Screenshoter::OnCountryChanged, this, std::placeholders::_1),
-                                     [](storage::CountryId const &, storage::MapFilesDownloader::Progress const &) {});
+  m_framework.GetStorage().Subscribe(
+      std::bind(&Screenshoter::OnCountryChanged, this, std::placeholders::_1),
+      [](storage::CountryId const &, downloader::Progress const &) {});
 }
 
 void Screenshoter::Start()

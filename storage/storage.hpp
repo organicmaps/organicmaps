@@ -9,6 +9,7 @@
 #include "storage/queued_country.hpp"
 #include "storage/storage_defines.hpp"
 
+#include "platform/downloader_defines.hpp"
 #include "platform/local_country_file.hpp"
 
 #include "base/cancellable.hpp"
@@ -106,7 +107,7 @@ struct NodeAttrs
   /// m_downloadingProgress.first is number of downloaded bytes.
   /// m_downloadingProgress.second is size of file(s) in bytes to download.
   /// So m_downloadingProgress.first <= m_downloadingProgress.second.
-  MapFilesDownloader::Progress m_downloadingProgress;
+  downloader::Progress m_downloadingProgress;
 
   /// Status of group and leaf node.
   /// For group nodes it's defined in the following way:
@@ -153,8 +154,7 @@ public:
   using UpdateCallback = std::function<void(storage::CountryId const &, LocalFilePtr const)>;
   using DeleteCallback = std::function<bool(storage::CountryId const &, LocalFilePtr const)>;
   using ChangeCountryFunction = std::function<void(CountryId const &)>;
-  using ProgressFunction =
-      std::function<void(CountryId const &, MapFilesDownloader::Progress const &)>;
+  using ProgressFunction = std::function<void(CountryId const &, downloader::Progress const &)>;
   using Queue = std::list<QueuedCountry>;
 
 private:
@@ -274,22 +274,22 @@ private:
 
   void LoadCountriesFile(std::string const & pathToCountriesFile);
 
-  void ReportProgress(CountryId const & countryId, MapFilesDownloader::Progress const & p);
+  void ReportProgress(CountryId const & countryId, downloader::Progress const & p);
   void ReportProgressForHierarchy(CountryId const & countryId,
-                                  MapFilesDownloader::Progress const & leafProgress);
+                                  downloader::Progress const & leafProgress);
 
   /// Called on the main thread by MapFilesDownloader when
   /// downloading of a map file succeeds/fails.
-  void OnMapFileDownloadFinished(downloader::HttpRequest::Status status,
-                                 MapFilesDownloader::Progress const & progress);
+  void OnMapFileDownloadFinished(downloader::DownloadStatus status,
+                                 downloader::Progress const & progress);
 
   /// Periodically called on the main thread by MapFilesDownloader
   /// during the downloading process.
-  void OnMapFileDownloadProgress(MapFilesDownloader::Progress const & progress);
+  void OnMapFileDownloadProgress(downloader::Progress const & progress);
 
   void RegisterDownloadedFiles(CountryId const & countryId, MapFileType type);
 
-  void OnMapDownloadFinished(CountryId const & countryId, downloader::HttpRequest::Status status,
+  void OnMapDownloadFinished(CountryId const & countryId, downloader::DownloadStatus status,
                              MapFileType type);
 
   /// Initiates downloading of the next file from the queue.
@@ -515,7 +515,7 @@ public:
 
   /// Returns information about selected counties downloading progress.
   /// |countries| - watched CountryId, ONLY leaf expected.
-  MapFilesDownloader::Progress GetOverallProgress(CountriesVec const & countries) const;
+  downloader::Progress GetOverallProgress(CountriesVec const & countries) const;
 
   Country const & CountryLeafByCountryId(CountryId const & countryId) const;
   Country const & CountryByCountryId(CountryId const & countryId) const;
@@ -659,10 +659,10 @@ private:
   /// the leaf node in bytes. |downloadingMwmProgress.first| == number of downloaded bytes.
   /// |downloadingMwmProgress.second| == number of bytes in downloading files.
   /// |mwmsInQueue| hash table made from |m_queue|.
-  MapFilesDownloader::Progress CalculateProgress(
-      CountryId const & downloadingMwm, CountriesVec const & descendants,
-      MapFilesDownloader::Progress const & downloadingMwmProgress,
-      CountriesSet const & mwmsInQueue) const;
+  downloader::Progress CalculateProgress(CountryId const & downloadingMwm,
+                                         CountriesVec const & descendants,
+                                         downloader::Progress const & downloadingMwmProgress,
+                                         CountriesSet const & mwmsInQueue) const;
 
   void PushToJustDownloaded(Queue::iterator justDownloadedItem);
   void PopFromQueue(Queue::iterator it);

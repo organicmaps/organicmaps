@@ -6,6 +6,10 @@
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
+#include "platform/downloader_defines.hpp"
+
+#include <unordered_set>
+
 namespace
 {
 NSString *RootId() { return @(GetFramework().GetStorage().GetRootId().c_str()); }

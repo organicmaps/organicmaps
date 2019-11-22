@@ -1,5 +1,7 @@
 #pragma once
 
+#include "platform/downloader_defines.hpp"
+
 #include <cstdint>
 #include <functional>
 #include <string>
@@ -22,20 +24,10 @@ auto constexpr kCancelled = -6;
 class HttpRequest
 {
 public:
-  enum class Status
-  {
-    InProgress,
-    Completed,
-    Failed,
-    FileNotFound
-  };
-
-  /// <current, total>, total can be -1 if size is unknown
-  using Progress = std::pair<int64_t, int64_t>;
   using Callback = std::function<void(HttpRequest & request)>;
 
 protected:
-  Status m_status;
+  DownloadStatus m_status;
   Progress m_progress;
   Callback m_onFinish;
   Callback m_onProgress;
@@ -45,7 +37,7 @@ protected:
 public:
   virtual ~HttpRequest() = 0;
 
-  Status GetStatus() const { return m_status; }
+  DownloadStatus GetStatus() const { return m_status; }
   Progress const & GetProgress() const { return m_progress; }
   /// Either file path (for chunks) or downloaded data
   virtual std::string const & GetData() const = 0;
@@ -69,6 +61,4 @@ public:
                                int64_t chunkSize = 512 * 1024,
                                bool doCleanOnCancel = true);
 };
-
-std::string DebugPrint(HttpRequest::Status status);
 } // namespace downloader

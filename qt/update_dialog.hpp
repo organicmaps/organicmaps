@@ -2,6 +2,8 @@
 
 #include "map/framework.hpp"
 
+#include "platform/downloader_defines.hpp"
+
 #include "base/thread_checker.hpp"
 
 #include <cstdint>
@@ -35,7 +37,7 @@ namespace qt
     //@{
     void OnCountryChanged(storage::CountryId const & countryId);
     void OnCountryDownloadProgress(storage::CountryId const & countryId,
-                                   storage::MapFilesDownloader::Progress const & progress);
+                                   downloader::Progress const & progress);
     //@}
 
     void ShowModal();

@@ -42,7 +42,7 @@ void GetServersList(std::string const & src, std::vector<std::string> & urls)
 
 void GetServersList(HttpRequest const & request, std::vector<std::string> & urls)
 {
-  auto const src = request.GetStatus() == HttpRequest::Status::Completed ? request.GetData() : "";
+  auto const src = request.GetStatus() == DownloadStatus::Completed ? request.GetData() : "";
   GetServersList(src, urls);
 }
 } // namespace downloader
