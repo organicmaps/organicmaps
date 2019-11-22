@@ -24,6 +24,8 @@ public class UTM
   public static final int UTM_TIPS_AND_TRICKS = 7;
   public static final int UTM_BOOKING_PROMO = 8;
   public static final int UTM_CROWN_BUTTON = 9;
+  public static final int UTM_DISCOVER_CATALOG_ONBOARDING = 10;
+  public static final int UTM_FREE_SAMPLES_ONBOADING = 11;
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ UTM_CONTENT_DESCRIPTION, UTM_CONTENT_VIEW, UTM_CONTENT_DETAILS, UTM_CONTENT_MORE })
