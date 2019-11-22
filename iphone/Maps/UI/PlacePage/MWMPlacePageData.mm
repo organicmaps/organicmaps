@@ -1,6 +1,6 @@
 #import "MWMPlacePageData.h"
 #import "MWMDiscoveryCityGalleryObjects.h"
-#import "MWMDiscoveryGuideViewModel.h"
+#import "CatalogPromoItem+Core.h"
 #import "MWMBannerHelpers.h"
 #import "MWMUGCViewModel.h"
 #import "SwiftBridge.h"
@@ -975,13 +975,9 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   }
 }
 
-- (MWMDiscoveryGuideViewModel *)guideAtIndex:(NSUInteger)index {
+- (CatalogPromoItem *)guideAtIndex:(NSUInteger)index {
   promo::CityGallery::Item const &item = [self.promoGallery galleryItemAtIndex:index];
-  return [[MWMDiscoveryGuideViewModel alloc] initWithTitle:@(item.m_name.c_str())
-                                                  subtitle:@(item.m_author.m_name.c_str())
-                                                     label:@(item.m_luxCategory.m_name.c_str())
-                                             labelHexColor:@(item.m_luxCategory.m_color.c_str())
-                                                  imageURL:@(item.m_imageUrl.c_str())];
+  return [[CatalogPromoItem alloc] initWithCoreItem:item];
 }
 
 @end

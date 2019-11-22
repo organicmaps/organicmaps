@@ -4,7 +4,7 @@
 #import "MWMDiscoveryControllerViewModel.h"
 #import "MWMDiscoveryHotelViewModel.h"
 #import "MWMDiscoverySearchViewModel.h"
-#import "MWMDiscoveryGuideViewModel.h"
+#import "CatalogPromoItem+Core.h"
 #import "MWMNetworkPolicy+UI.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
@@ -370,11 +370,11 @@ using namespace discovery;
       Class cls = [MWMDiscoveryGuideCell class];
       MWMDiscoveryGuideCell *cell = (MWMDiscoveryGuideCell *)
       [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
-      MWMDiscoveryGuideViewModel *objectVM = [self.viewModel guideAtIndex:indexPath.item];
+      CatalogPromoItem *objectVM = [self.viewModel guideAtIndex:indexPath.item];
       __weak __typeof__(self) weakSelf = self;
-      [cell configWithAvatarURL:objectVM.imagePath
-                          title:objectVM.title
-                       subtitle:objectVM.subtitle
+      [cell configWithAvatarURL:objectVM.imageUrl
+                          title:objectVM.guideName
+                       subtitle:objectVM.guideAuthor
                           label:objectVM.label
                   labelHexColor:objectVM.labelHexColor
                       onDetails:^{

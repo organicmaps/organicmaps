@@ -653,7 +653,6 @@
 		CD96C70C22A681C400DB7CFE /* DiscoveryGuideCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD96C70A22A681C400DB7CFE /* DiscoveryGuideCell.swift */; };
 		CD96C70D22A681C400DB7CFE /* DiscoveryGuideCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD96C70B22A681C400DB7CFE /* DiscoveryGuideCell.xib */; };
 		CD96C71122A6820800DB7CFE /* DiscoveryGuideCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD96C70F22A6820800DB7CFE /* DiscoveryGuideCollectionHolderCell.xib */; };
-		CD96C71422A6CBFD00DB7CFE /* MWMDiscoveryGuideViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CD96C71322A6CBFD00DB7CFE /* MWMDiscoveryGuideViewModel.m */; };
 		CD96C71722A7B5DE00DB7CFE /* MWMDiscoveryCityGalleryObjects.mm in Sources */ = {isa = PBXBuildFile; fileRef = CD96C71622A7B5DE00DB7CFE /* MWMDiscoveryCityGalleryObjects.mm */; };
 		CD96C71C22A8113100DB7CFE /* MWMDiscoveryControllerViewModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDB92CEA229E9ADF00EC757C /* MWMDiscoveryControllerViewModel.mm */; };
 		CD9AD967228067F500EC174A /* MapInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9AD966228067F500EC174A /* MapInfo.swift */; };
@@ -1780,8 +1779,6 @@
 		CD96C70A22A681C400DB7CFE /* DiscoveryGuideCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryGuideCell.swift; sourceTree = "<group>"; };
 		CD96C70B22A681C400DB7CFE /* DiscoveryGuideCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryGuideCell.xib; sourceTree = "<group>"; };
 		CD96C70F22A6820800DB7CFE /* DiscoveryGuideCollectionHolderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryGuideCollectionHolderCell.xib; sourceTree = "<group>"; };
-		CD96C71222A6CBFD00DB7CFE /* MWMDiscoveryGuideViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryGuideViewModel.h; sourceTree = "<group>"; };
-		CD96C71322A6CBFD00DB7CFE /* MWMDiscoveryGuideViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMDiscoveryGuideViewModel.m; sourceTree = "<group>"; };
 		CD96C71522A7B5DE00DB7CFE /* MWMDiscoveryCityGalleryObjects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryCityGalleryObjects.h; sourceTree = "<group>"; };
 		CD96C71622A7B5DE00DB7CFE /* MWMDiscoveryCityGalleryObjects.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDiscoveryCityGalleryObjects.mm; sourceTree = "<group>"; };
 		CD9AD966228067F500EC174A /* MapInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfo.swift; sourceTree = "<group>"; };
@@ -3920,8 +3917,6 @@
 				CDB92CF0229EB8A800EC757C /* MWMDiscoverySearchViewModel.m */,
 				CDB92CF622A5350500EC757C /* MWMDiscoveryHotelViewModel.h */,
 				CDB92CF722A5350500EC757C /* MWMDiscoveryHotelViewModel.m */,
-				CD96C71222A6CBFD00DB7CFE /* MWMDiscoveryGuideViewModel.h */,
-				CD96C71322A6CBFD00DB7CFE /* MWMDiscoveryGuideViewModel.m */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -5380,7 +5375,6 @@
 				34AB665F1FC5AA330078E451 /* TransportTransitIntermediatePoint.swift in Sources */,
 				34B846A82029E8110081ECCD /* BMCDefaultViewModel.swift in Sources */,
 				470F5A7F2189C30800754295 /* InAppPurchase.swift in Sources */,
-				CD96C71422A6CBFD00DB7CFE /* MWMDiscoveryGuideViewModel.m in Sources */,
 				348A8DF51F66775A00D83026 /* RatingView.swift in Sources */,
 				F63AF50F1EA6215100A1DB98 /* FilterPriceCategoryCell.swift in Sources */,
 				47A6F3C6235F47B90053FBA4 /* BookmarksSubscriptionViewController.swift in Sources */,

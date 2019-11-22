@@ -2,7 +2,7 @@
 #import "MWMBookmarkCell.h"
 #import "MWMDiscoveryCityGalleryObjects.h"
 #import "MWMDiscoveryCollectionView.h"
-#import "MWMDiscoveryGuideViewModel.h"
+#import "CatalogPromoItem+Core.h"
 #import "MWMPlaceDescriptionCell.h"
 #import "MWMOpeningHoursLayoutHelper.h"
 #import "MWMPPPreviewLayoutHelper.h"
@@ -858,11 +858,11 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
   Class cls = [MWMDiscoveryGuideCell class];
   MWMDiscoveryGuideCell *cell = (MWMDiscoveryGuideCell *)
   [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
-  MWMDiscoveryGuideViewModel *objectVM = [self.data guideAtIndex:indexPath.item];
+  CatalogPromoItem *objectVM = [self.data guideAtIndex:indexPath.item];
   __weak __typeof__(self) weakSelf = self;
-  [cell configWithAvatarURL:objectVM.imagePath
-                      title:objectVM.title
-                   subtitle:objectVM.subtitle
+  [cell configWithAvatarURL:objectVM.imageUrl
+                      title:objectVM.guideName
+                   subtitle:objectVM.guideAuthor
                       label:objectVM.label
               labelHexColor:objectVM.labelHexColor
                   onDetails:^{

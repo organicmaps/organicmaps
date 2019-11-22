@@ -149,7 +149,7 @@ typedef void (^RefreshPromoCallbackBlock)(NSIndexSet *insertedSections);
 @class MWMUGCReviewModel;
 @class MWMUGCRatingValueType;
 @class MWMDiscoveryCityGalleryObjects;
-@class MWMDiscoveryGuideViewModel;
+@class CatalogPromoItem;
 @protocol MWMBanner;
 
 /// ViewModel for place page.
@@ -243,7 +243,7 @@ typedef void (^RefreshPromoCallbackBlock)(NSIndexSet *insertedSections);
 
 // Promo Catalog
 - (void)fillPromoCatalogSection;
-- (MWMDiscoveryGuideViewModel *)guideAtIndex:(NSUInteger)index;
+- (CatalogPromoItem *)guideAtIndex:(NSUInteger)index;
 
 // Table view's data
 - (std::vector<place_page::Sections> const &)sections;
