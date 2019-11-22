@@ -84,6 +84,9 @@ class BottomPanel
       {
         if (mFragment.getAdapter() != null )
           mFragment.getAdapter().setAvailableMapsMode();
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_FAB_CLICK,
+                                       Statistics.params().add(Statistics.EventParam.BUTTON,
+                                                               Statistics.ParamValue.PLUS));
         update();
       }
     });

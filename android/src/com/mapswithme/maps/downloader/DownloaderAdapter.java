@@ -914,7 +914,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     mFragment.update();
   }
 
-  private boolean canGoUpwards()
+  boolean canGoUpwards()
   {
     return !mPath.isEmpty();
   }

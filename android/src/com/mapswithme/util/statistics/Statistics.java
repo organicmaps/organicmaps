@@ -367,6 +367,8 @@ public enum Statistics
 
     public static final String DOWNLOADER_BANNER_SHOW = "Downloader_Banner_show";
     public static final String DOWNLOADER_BANNER_CLICK = "Downloader_Banner_click";
+    public static final String DOWNLOADER_FAB_CLICK = "Downloader_AddMap_click";
+    public static final String DOWNLOADER_SEARCH_CLICK = "Downloader_Search_click";
     static final String DOWNLOADER_DIALOG_ERROR = "Downloader_OnStartScreen_error";
 
     // bookmarks
@@ -602,6 +604,8 @@ public enum Statistics
     public static final String SETTINGS = "settings";
     public static final String ROUTE = "route";
     public static final String SCENARIO = "scenario";
+    public static final String BUTTON = "button";
+    public static final String SCREEN = "screen";
     static final String TARGET = "target";
     static final String CATEGORY = "category";
     public static final String TAB = "tab";
@@ -662,7 +666,6 @@ public enum Statistics
     static final String HAS_AUTH = "has_auth";
     public static final String STATUS = "status";
     static final String INTERRUPTED = "interrupted";
-    static final String BUTTON = "button";
     static final String VENDOR = "vendor";
     static final String PRODUCT = "product";
     static final String PURCHASE = "purchase";
@@ -698,6 +701,8 @@ public enum Statistics
     public static final String SPONSORED_BUTTON = "sponsored_button";
     public static final String POPUP = "popup";
     public static final String WEBVIEW = "webview";
+    public static final String PLUS = "plus";
+    public static final String DOWNLOAD = "download";
     static final String GUIDES_SUBSCRIPTION = "GuidesSubscription";
     static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
     static final String OPENTABLE = "OpenTable";
