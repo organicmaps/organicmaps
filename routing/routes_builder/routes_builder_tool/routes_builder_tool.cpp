@@ -38,6 +38,7 @@ DEFINE_int32(timeout, 10 * 60, "Timeout in seconds for each route building. "
                                "0 means without timeout (default: 10 minutes).");
 
 DEFINE_bool(verbose, false, "Verbose logging (default: false)");
+DEFINE_bool(benchmark, false, "Builds each route 3 times and averages the time building.");
 
 using namespace routing;
 using namespace routes_builder;
@@ -95,8 +96,10 @@ int Main(int argc, char ** argv)
 
   if (IsLocalBuild())
   {
-    BuildRoutes(FLAGS_routes_file, FLAGS_dump_path, FLAGS_start_from, FLAGS_threads, FLAGS_timeout, 
-                FLAGS_verbose);
+    if (FLAGS_benchmark)
+      LOG(LINFO, ("Benchmark mode is activated. Each route will build 3 times."));
+    BuildRoutes(FLAGS_routes_file, FLAGS_dump_path, FLAGS_start_from, FLAGS_threads, FLAGS_timeout,
+                FLAGS_verbose, FLAGS_benchmark);
   }
 
   if (IsApiBuild())

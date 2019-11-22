@@ -222,19 +222,18 @@ void RoutesSaver::WriteStartAndFinish(std::ofstream & output,
 }
 
 // This function creates python script that shows the distribution error.
-void CreatePythonScriptForDistribution(std::string const & targetDir, std::string const & filename,
-                                       std::vector<Result> const & results)
+void CreatePythonScriptForDistribution(std::string const & pythonScriptPath,
+                                       std::string const & title,
+                                       std::vector<double> const & values)
 {
-  std::string const pythonScriptPath = base::JoinPath(targetDir, filename);
-
   std::ofstream python(pythonScriptPath);
   CHECK(python.good(), ("Can not open:", pythonScriptPath, "for writing."));
 
   std::string pythonArray = "[";
-  for (auto const & result : results)
-    pythonArray += std::to_string(result.m_similarity) + ",";
+  for (auto const & value : values)
+    pythonArray += std::to_string(value) + ",";
 
-  if (results.empty())
+  if (values.empty())
     pythonArray += "]";
   else
     pythonArray.back() = ']';
@@ -245,11 +244,123 @@ import matplotlib.pyplot as plt
 
 a = np.hstack()" + pythonArray + R"()
 plt.hist(a, bins='auto')  # arguments are passed to np.histogram
-plt.title("Similarity distribution")
+plt.title(")" + title + R"(")
 plt.show()
 )";
 
-  LOG(LINFO, ("Run: python", pythonScriptPath, "to look at similarity distribution."));
+  LOG(LINFO, ("Run: python", pythonScriptPath, "to look at:", title));
+}
+
+void CreatePythonGraphByPointsXY(std::string const & pythonScriptPath,
+                                 std::string const & xlabel,
+                                 std::string const & ylabel,
+                                 std::vector<m2::PointD> const & points)
+{
+  std::ofstream python(pythonScriptPath);
+  CHECK(python.good(), ("Can not open:", pythonScriptPath, "for writing."));
+
+  std::string pythonArrayX = "[";
+  std::string pythonArrayY = "[";
+  for (auto const & point : points)
+  {
+    pythonArrayX += std::to_string(point.x) + ",";
+    pythonArrayY += std::to_string(point.y) + ",";
+  }
+
+  if (points.empty())
+  {
+    pythonArrayX += "]";
+    pythonArrayY += "]";
+  }
+  else
+  {
+    pythonArrayX.back() = ']';
+    pythonArrayY.back() = ']';
+  }
+
+  python << R"(
+import pylab
+
+xlist = )" + pythonArrayX + R"(
+ylist = )" + pythonArrayY + R"(
+
+pylab.plot (xlist, ylist)
+pylab.xlabel(")" + xlabel + R"(")
+pylab.ylabel(")" + ylabel + R"(")
+pylab.show()
+)";
+
+  LOG(LINFO, ("Run: python", pythonScriptPath, "to look at:", ylabel, "versus", xlabel));
+}
+
+void CreatePythonBarByMap(std::string const & pythonScriptPath,
+                          std::map<std::string, size_t> const & stat,
+                          std::string const & xlabel,
+                          std::string const & ylabel)
+{
+  std::ofstream python(pythonScriptPath);
+  CHECK(python.good(), ("Can not open:", pythonScriptPath, "for writing."));
+
+  std::string labels = "[";
+  std::string counts = "[";
+  for (auto const & item : stat)
+  {
+    auto const & label = item.first;
+    auto const & count = item.second;
+
+    labels += "'" + label + "'" + ",";
+    counts += std::to_string(count) + ",";
+  }
+
+  if (stat.empty())
+  {
+    labels += "]";
+    counts += "]";
+  }
+  else
+  {
+    labels.back() = ']';
+    counts.back() = ']';
+  }
+
+  python << R"(
+import matplotlib
+import matplotlib.pyplot as plt
+
+labels = )" + labels + R"(
+counts = )" + counts + R"(
+
+summ = 0
+for count in counts:
+    summ += count
+
+x = range(len(labels))  # the label locations
+width = 0.35  # the width of the bars
+
+fig, ax = plt.subplots()
+rects = ax.bar(x, counts, width)
+
+ax.set_ylabel(')" + ylabel + R"(')
+ax.set_title(')" + xlabel + R"(')
+ax.set_xticks(x)
+ax.set_xticklabels(labels)
+ax.legend()
+
+def autolabel(rects):
+    for rect in rects:
+        height = rect.get_height()
+        ax.annotate('{} ({}%)'.format(height, height / summ * 100),
+                    xy=(rect.get_x() + rect.get_width() / 2, height),
+                    xytext=(0, 3),  # 3 points vertical offset
+                    textcoords="offset points",
+                    ha='center', va='bottom')
+
+autolabel(rects)
+fig.tight_layout()
+plt.show()
+)";
+
+  LOG(LINFO, ("Run: python", pythonScriptPath, "to look at bar:", ylabel, "versus", xlabel));
 }
 
 /// \brief |SimilarityCounter| groups routes that we compare by similarity, here we tune these groups.

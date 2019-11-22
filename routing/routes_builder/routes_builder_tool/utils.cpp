@@ -19,7 +19,6 @@
 #include <algorithm>
 #include <array>
 #include <chrono>
-#include <fstream>
 #include <future>
 #include <iostream>
 #include <thread>
@@ -54,7 +53,8 @@ void BuildRoutes(std::string const & routesPath,
                  uint64_t startFrom,
                  uint64_t threadsNumber,
                  uint32_t timeoutPerRouteSeconds,
-                 bool verbose)
+                 bool verbose,
+                 bool benchmarkMode)
 {
   CHECK(Platform::IsFileExistsByFullPath(routesPath), ("Can not find file:", routesPath));
   CHECK(!dumpPath.empty(), ("Empty dumpPath."));
@@ -77,6 +77,7 @@ void BuildRoutes(std::string const & routesPath,
     RoutesBuilder::Params params;
     params.m_type = VehicleType::Car;
     params.m_timeoutSeconds = timeoutPerRouteSeconds;
+    params.m_benchmarkMode = benchmarkMode;
 
     base::ScopedLogLevelChanger changer(verbose ? base::LogLevel::LINFO : base::LogLevel::LERROR);
     ms::LatLon start;
@@ -98,6 +99,7 @@ void BuildRoutes(std::string const & routesPath,
     }
 
     LOG_FORCE(LINFO, ("Created:", tasks.size(), "tasks"));
+    base::Timer timer;
     for (size_t i = 0; i < tasks.size(); ++i)
     {
       size_t shiftIndex = i + startFrom;
@@ -122,6 +124,7 @@ void BuildRoutes(std::string const & routesPath,
         LOG_FORCE(LINFO, ("Progress:", lastPercent, "%"));
       }
     }
+    LOG_FORCE(LINFO, ("BuildRoutes() took:", timer.ElapsedSeconds(), "seconds."));
   }
 }
 

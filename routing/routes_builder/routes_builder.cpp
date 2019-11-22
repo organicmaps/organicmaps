@@ -17,7 +17,6 @@
 #include "base/scope_guard.hpp"
 
 #include <limits>
-#include <utility>
 
 namespace
 {
@@ -55,11 +54,11 @@ namespace routes_builder
 // RoutesBuilder::Params ---------------------------------------------------------------------------
 
 RoutesBuilder::Params::Params(VehicleType type, ms::LatLon const & start, ms::LatLon const & finish)
-  : Params(type, {mercator::FromLatLon(start), mercator::FromLatLon(finish)})
+    : Params(type, {mercator::FromLatLon(start), mercator::FromLatLon(finish)})
 {}
 
 RoutesBuilder::Params::Params(VehicleType type, std::vector<m2::PointD> && checkpoints)
-  : m_type(type), m_checkpoints(std::move(checkpoints))
+    : m_type(type), m_checkpoints(std::move(checkpoints))
 {}
 
 // static
@@ -92,7 +91,7 @@ RoutesBuilder & RoutesBuilder::GetSimpleRoutesBuilder()
   return routesBuilder;
 }
 RoutesBuilder::RoutesBuilder(size_t threadsNumber)
-  : m_threadPool(threadsNumber)
+    : m_threadPool(threadsNumber)
 {
   CHECK_GREATER(threadsNumber, 0, ());
   LOG(LINFO, ("Threads number:", threadsNumber));
@@ -154,6 +153,8 @@ void RoutesBuilder::Result::Dump(Result const & result, std::string const & file
   FileWriter writer(filePath);
   WriteToSink(writer, static_cast<int>(result.m_code));
 
+  writer.Write(&result.m_buildTimeSeconds, sizeof(m_buildTimeSeconds));
+
   RoutesBuilder::Params::Dump(result.m_params, writer);
 
   size_t const routesNumber = result.m_routes.size();
@@ -171,6 +172,7 @@ RoutesBuilder::Result RoutesBuilder::Result::Load(std::string const & filePath)
 
   auto const code = ReadPrimitiveFromSource<int>(src);
   result.m_code = static_cast<RouterResultCode>(code);
+  result.m_buildTimeSeconds = ReadPrimitiveFromSource<double>(src);
   result.m_params = RoutesBuilder::Params::Load(src);
 
   auto const routesNumber = ReadPrimitiveFromSource<size_t>(src);
@@ -227,15 +229,15 @@ RoutesBuilder::Processor::Processor(std::shared_ptr<NumMwmIds> numMwmIds,
                                     DataSourceStorage & dataSourceStorage,
                                     std::weak_ptr<storage::CountryParentGetter> cpg,
                                     std::weak_ptr<storage::CountryInfoGetter> cig)
-  : m_numMwmIds(std::move(numMwmIds))
-  , m_dataSourceStorage(dataSourceStorage)
-  , m_cpg(std::move(cpg))
-  , m_cig(std::move(cig))
+    : m_numMwmIds(std::move(numMwmIds))
+    , m_dataSourceStorage(dataSourceStorage)
+    , m_cpg(std::move(cpg))
+    , m_cig(std::move(cig))
 {
 }
 
 RoutesBuilder::Processor::Processor(Processor && rhs) noexcept
-  : m_dataSourceStorage(rhs.m_dataSourceStorage)
+    : m_dataSourceStorage(rhs.m_dataSourceStorage)
 {
   m_start = rhs.m_start;
   m_finish = rhs.m_finish;
@@ -288,22 +290,32 @@ RoutesBuilder::Processor::operator()(Params const & params)
     m_dataSourceStorage.PushDataSource(std::move(m_dataSource));
   });
 
-  RouterResultCode resultCode;
+  LOG(LINFO, ("Start building route, checkpoints:", params.m_checkpoints));
+
+  RouterResultCode resultCode = RouterResultCode::RouteNotFound;
   routing::Route route("" /* router */, 0 /* routeId */);
 
-  m_delegate->SetTimeout(params.m_timeoutSeconds);
-
   CHECK(m_dataSource, ());
-  resultCode =
-      m_router->CalculateRoute(params.m_checkpoints,
-                               m2::PointD::Zero(),
-                               false /* adjustToPrevRoute */,
-                               *m_delegate,
-                               route);
+
+  double timeSum = 0;
+  size_t numberOfBuilds = params.m_benchmarkMode ? 3 : 1;
+  for (size_t i = 0; i < numberOfBuilds; ++i)
+  {
+    m_delegate->SetTimeout(params.m_timeoutSeconds);
+    base::Timer timer;
+    resultCode = m_router->CalculateRoute(params.m_checkpoints, m2::PointD::Zero(),
+                                          false /* adjustToPrevRoute */, *m_delegate, route);
+
+    if (resultCode != RouterResultCode::NoError)
+      break;
+
+    timeSum += timer.ElapsedSeconds();
+  }
 
   Result result;
   result.m_params.m_checkpoints = params.m_checkpoints;
   result.m_code = resultCode;
+  result.m_buildTimeSeconds = timeSum / static_cast<double>(numberOfBuilds);
 
   RoutesBuilder::Route routeResult;
   routeResult.m_distance = route.GetTotalDistanceMeters();
