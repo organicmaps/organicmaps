@@ -16,40 +16,23 @@
 
 namespace storage
 {
-namespace
-{
-std::vector<std::string> MakeUrlList(MapFilesDownloader::ServersList const & servers,
-                                     std::string const & relativeUrl)
-{
-  std::vector<std::string> urls;
-  urls.reserve(servers.size());
-  for (auto const & server : servers)
-    urls.emplace_back(base::url::Join(server, relativeUrl));
-
-  return urls;
-}
-}  // namespace
-
-void MapFilesDownloader::DownloadMapFile(QueuedCountry & country,
+void MapFilesDownloader::DownloadMapFile(QueuedCountry & queuedCountry,
                                          FileDownloadedCallback const & onDownloaded,
                                          DownloadingProgressCallback const & onProgress)
 {
-  if (m_serversList.empty())
+  if (!m_serversList.empty())
   {
-    GetServersList([=](ServersList const & serversList)
-                   {
-                     m_serversList = serversList;
-                     auto const urls = MakeUrlList(m_serversList, country.GetRelativeUrl());
-                     Download(urls, country.GetFileDownloadPath(), country.GetDownloadSize(),
-                              onDownloaded, onProgress);
-                   });
+    queuedCountry.ClarifyDownloadingType();
+    Download(queuedCountry, onDownloaded, onProgress);
+    return;
   }
-  else
-  {
-    auto const urls = MakeUrlList(m_serversList, country.GetRelativeUrl());
-    Download(urls, country.GetFileDownloadPath(), country.GetDownloadSize(), onDownloaded,
-             onProgress);
-  }
+
+  GetServersList([=](ServersList const & serversList) mutable
+                 {
+                   m_serversList = serversList;
+                   queuedCountry.ClarifyDownloadingType();
+                   Download(queuedCountry, onDownloaded, onProgress);
+                 });
 }
 
 // static
@@ -63,6 +46,16 @@ std::string MapFilesDownloader::MakeFullUrlLegacy(std::string const & baseUrl,
 void MapFilesDownloader::SetServersList(ServersList const & serversList)
 {
   m_serversList = serversList;
+}
+
+std::vector<std::string> MapFilesDownloader::MakeUrlList(std::string const & relativeUrl)
+{
+  std::vector<std::string> urls;
+  urls.reserve(m_serversList.size());
+  for (auto const & server : m_serversList)
+    urls.emplace_back(base::url::Join(server, relativeUrl));
+
+  return urls;
 }
 
 // static

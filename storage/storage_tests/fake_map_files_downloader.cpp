@@ -21,23 +21,23 @@ FakeMapFilesDownloader::FakeMapFilesDownloader(TaskRunner & taskRunner)
 
 FakeMapFilesDownloader::~FakeMapFilesDownloader() { CHECK(m_checker.CalledOnOriginalThread(), ()); }
 
-void FakeMapFilesDownloader::Download(std::vector<std::string> const & urls,
-                                      std::string const & path, int64_t size,
+void FakeMapFilesDownloader::Download(QueuedCountry & queuedCountry,
                                       FileDownloadedCallback const & onDownloaded,
                                       DownloadingProgressCallback const & onProgress)
 {
-  CHECK(m_checker.CalledOnOriginalThread(), ());
-
-  m_progress.first = 0;
-  m_progress.second = size;
-  m_idle = false;
-
-  m_writer.reset(new FileWriter(path));
-  m_onDownloaded = onDownloaded;
-  m_onProgress = onProgress;
-
-  ++m_timestamp;
-  m_taskRunner.PostTask(std::bind(&FakeMapFilesDownloader::DownloadNextChunk, this, m_timestamp));
+// Will be refactored in the followed commits.
+//  CHECK(m_checker.CalledOnOriginalThread(), ());
+//
+//  m_progress.first = 0;
+//  m_progress.second = size;
+//  m_idle = false;
+//
+//  m_writer.reset(new FileWriter(path));
+//  m_onDownloaded = onDownloaded;
+//  m_onProgress = onProgress;
+//
+//  ++m_timestamp;
+//  m_taskRunner.PostTask(std::bind(&FakeMapFilesDownloader::DownloadNextChunk, this, m_timestamp));
 }
 
 MapFilesDownloader::Progress FakeMapFilesDownloader::GetDownloadingProgress()

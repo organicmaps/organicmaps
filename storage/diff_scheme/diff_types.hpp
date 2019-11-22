@@ -13,7 +13,6 @@ namespace diffs
 // Status of the diffs data source as a whole.
 enum class Status
 {
-  Undefined,
   NotAvailable,
   Available
 };

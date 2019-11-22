@@ -278,10 +278,6 @@ private:
   void ReportProgressForHierarchy(CountryId const & countryId,
                                   MapFilesDownloader::Progress const & leafProgress);
 
-  void DoDownload();
-  void SetDeferDownloading();
-  void DoDeferredDownloadIfNeeded();
-
   /// Called on the main thread by MapFilesDownloader when
   /// downloading of a map file succeeds/fails.
   void OnMapFileDownloadFinished(downloader::HttpRequest::Status status,

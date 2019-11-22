@@ -34,12 +34,16 @@ HttpMapFilesDownloader::~HttpMapFilesDownloader()
   CHECK_THREAD_CHECKER(m_checker, ());
 }
 
-void HttpMapFilesDownloader::Download(std::vector<std::string> const & urls,
-                                      std::string const & path, int64_t size,
+void HttpMapFilesDownloader::Download(QueuedCountry & queuedCountry,
                                       FileDownloadedCallback const & onDownloaded,
                                       DownloadingProgressCallback const & onProgress)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
+
+  auto const urls = MakeUrlList(queuedCountry.GetRelativeUrl());
+  auto const path = queuedCountry.GetFileDownloadPath();
+  auto const size = queuedCountry.GetDownloadSize();
+
   m_request.reset(downloader::HttpRequest::GetFile(
       urls, path, size,
       std::bind(&HttpMapFilesDownloader::OnMapFileDownloaded, this, onDownloaded, _1),

@@ -646,7 +646,12 @@ void Storage::DownloadNextFile(QueuedCountry const & country)
     return;
   }
 
-  DoDownload();
+  if (!m_queue.empty())
+  {
+    m_downloader->DownloadMapFile(m_queue.front(),
+                                  bind(&Storage::OnMapFileDownloadFinished, this, _1, _2),
+                                  bind(&Storage::OnMapFileDownloadProgress, this, _1));
+  }
 }
 
 bool Storage::IsDownloadInProgress() const
@@ -764,57 +769,6 @@ void Storage::ReportProgressForHierarchy(CountryId const & countryId,
   };
 
   ForEachAncestorExceptForTheRoot(countryId, calcProgress);
-}
-
-void Storage::DoDownload()
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-
-  // Queue can be empty because countries were deleted from queue.
-  if (m_queue.empty())
-    return;
-
-  QueuedCountry & queuedCountry = m_queue.front();
-  if (queuedCountry.GetFileType() == MapFileType::Diff)
-  {
-    using diffs::Status;
-    auto const status = m_diffsDataSource->GetStatus();
-    switch (status)
-    {
-    case Status::Undefined:
-      SetDeferDownloading();
-      return;
-    case Status::NotAvailable:
-      queuedCountry.SetFileType(MapFileType::Map);
-      break;
-    case Status::Available:
-      if (!m_diffsDataSource->HasDiffFor(queuedCountry.GetCountryId()))
-        queuedCountry.SetFileType(MapFileType::Map);
-      break;
-    }
-  }
-
-  m_downloader->DownloadMapFile(queuedCountry,
-                                bind(&Storage::OnMapFileDownloadFinished, this, _1, _2),
-                                bind(&Storage::OnMapFileDownloadProgress, this, _1));
-}
-
-void Storage::SetDeferDownloading()
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-
-  m_needToStartDeferredDownloading = true;
-}
-
-void Storage::DoDeferredDownloadIfNeeded()
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-
-  if (!m_needToStartDeferredDownloading)
-    return;
-
-  m_needToStartDeferredDownloading = false;
-  DoDownload();
 }
 
 void Storage::OnMapFileDownloadProgress(MapFilesDownloader::Progress const & progress)
@@ -1474,8 +1428,6 @@ void Storage::OnDiffStatusReceived(diffs::NameDiffInfoMap && diffs)
 
     m_notAppliedDiffs.clear();
   }
-
-  DoDeferredDownloadIfNeeded();
 }
 
 StatusAndError Storage::GetNodeStatusInfo(CountryTree::Node const & node,

@@ -58,7 +58,7 @@ private:
 
   ThreadChecker m_threadChecker;
 
-  Status m_status = Status::Undefined;
+  Status m_status = Status::NotAvailable;
   NameDiffInfoMap m_diffs;
 };
 }  // namespace diffs

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "storage/map_files_downloader.hpp"
+#include "storage/queued_country.hpp"
 
 #include "coding/file_writer.hpp"
 
@@ -36,7 +37,7 @@ public:
 
 private:
   // MapFilesDownloader overrides:
-  void Download(std::vector<std::string> const & urls, std::string const & path, int64_t size,
+  void Download(QueuedCountry & queuedCountry,
                 FileDownloadedCallback const & onDownloaded,
                 DownloadingProgressCallback const & onProgress) override;
 

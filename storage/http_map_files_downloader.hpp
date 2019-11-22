@@ -29,8 +29,7 @@ public:
 
 private:
   // MapFilesDownloaderWithServerList overrides:
-  void Download(std::vector<std::string> const & urls, std::string const & path, int64_t size,
-                FileDownloadedCallback const & onDownloaded,
+  void Download(QueuedCountry & queuedCountry, FileDownloadedCallback const & onDownloaded,
                 DownloadingProgressCallback const & onProgress) override;
 
   void OnMapFileDownloaded(FileDownloadedCallback const & onDownloaded,

@@ -11,6 +11,7 @@
 
 #include "storage/downloader_search_params.hpp"
 #include "storage/map_files_downloader.hpp"
+#include "storage/queued_country.hpp"
 #include "storage/storage.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -92,7 +93,7 @@ public:
 private:
   void GetServersList(ServersListCallback const & /* callback */) override {}
 
-  void Download(vector<string> const & /* urls */, string const & /* path */, int64_t /* size */,
+  void Download(storage::QueuedCountry & queuedCountry,
                 FileDownloadedCallback const & /* onDownloaded */,
                 DownloadingProgressCallback const & /* onProgress */) override
   {

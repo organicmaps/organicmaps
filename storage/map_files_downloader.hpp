@@ -51,6 +51,8 @@ public:
   void SetServersList(ServersList const & serversList);
 
 protected:
+  std::vector<std::string> MakeUrlList(std::string const & relativeUrl);
+
   // Synchronously loads list of servers by http client.
   static ServersList LoadServersList();
 
@@ -59,8 +61,7 @@ private:
   /// for a map file and invokes callback on the main thread.
   virtual void GetServersList(ServersListCallback const & callback);
   /// Asynchronously downloads the file from provided |urls| and saves result to |path|.
-  virtual void Download(std::vector<std::string> const & urls, std::string const & path,
-                        int64_t size, FileDownloadedCallback const & onDownloaded,
+  virtual void Download(QueuedCountry & queuedCountry, FileDownloadedCallback const & onDownloaded,
                         DownloadingProgressCallback const & onProgress) = 0;
 
   ServersList m_serversList;

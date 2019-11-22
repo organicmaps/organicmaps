@@ -26,6 +26,8 @@ public:
   std::string GetFileDownloadPath() const;
   uint64_t GetDownloadSize() const;
 
+  void ClarifyDownloadingType();
+
   bool operator==(CountryId const & countryId) const;
 
 private:
