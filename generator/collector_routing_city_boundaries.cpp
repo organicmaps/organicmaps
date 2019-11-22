@@ -75,6 +75,39 @@ namespace generator
 {
 // RoutingCityBoundariesCollector::LocalityData ----------------------------------------------------
 
+// static
+bool RoutingCityBoundariesCollector::FilterOsmElement(OsmElement const & osmElement)
+{
+  static std::set<std::string> const kSuitablePlaceValues = {"city", "town", "village", "hamlet"};
+  if (osmElement.IsNode())
+  {
+    if (!osmElement.HasTag("population"))
+      return false;
+
+    auto const place = osmElement.GetTag("place");
+    if (place.empty())
+      return false;
+
+    return kSuitablePlaceValues.count(place) != 0;
+  }
+
+  auto const place = osmElement.GetTag("place");
+  if (!place.empty() && kSuitablePlaceValues.count(place) != 0)
+    return true;
+
+  if (osmElement.IsWay())
+    return false;
+
+  // We don't check here "type=boundary" and "boundary=administrative" because some OSM'ers prefer
+  // map boundaries without such tags in some countries (for example in Russia).
+  for (auto const & member : osmElement.m_members)
+  {
+    if (member.m_role == "admin_centre" || member.m_role == "label")
+      return true;
+  }
+  return false;
+}
+
 void RoutingCityBoundariesCollector::LocalityData::Serialize(FileWriter & writer,
                                                              LocalityData const & localityData)
 {
@@ -128,6 +161,9 @@ std::shared_ptr<CollectorInterface> RoutingCityBoundariesCollector::Clone(
 
 void RoutingCityBoundariesCollector::Collect(OsmElement const & osmElement)
 {
+  if (!FilterOsmElement(osmElement))
+    return;
+
   auto osmElementCopy = osmElement;
   feature::FeatureBuilder feature;
   m_featureMakerSimple.Add(osmElementCopy);
@@ -142,6 +178,8 @@ void RoutingCityBoundariesCollector::Collect(OsmElement const & osmElement)
 void RoutingCityBoundariesCollector::Process(feature::FeatureBuilder & feature,
                                              OsmElement const & osmElement)
 {
+  ASSERT(FilterOsmElement(osmElement), ());
+
   if (feature.IsArea() && IsSuitablePlaceType(GetPlaceType(feature)))
   {
     if (feature.PreSerialize())
@@ -152,8 +190,7 @@ void RoutingCityBoundariesCollector::Process(feature::FeatureBuilder & feature,
   if (feature.IsArea())
   {
     auto const placeOsmIdOp = GetPlaceNodeFromMembers(osmElement);
-    if (!placeOsmIdOp)
-      return;
+    ASSERT(placeOsmIdOp, ("FilterOsmElement() should filtered such elements:", osmElement));
 
     auto const placeOsmId = *placeOsmIdOp;
 
@@ -164,8 +201,8 @@ void RoutingCityBoundariesCollector::Process(feature::FeatureBuilder & feature,
   else if (feature.IsPoint())
   {
     auto const placeType = GetPlaceType(feature);
-    if (!IsSuitablePlaceType(placeType))
-      return;
+    ASSERT(IsSuitablePlaceType(placeType),
+           ("FilterOsmElement() should filtered such elements:", osmElement));
 
     uint64_t const population = osm_element::GetPopulation(osmElement);
     if (population == 0)

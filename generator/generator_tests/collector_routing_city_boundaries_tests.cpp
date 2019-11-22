@@ -91,7 +91,9 @@ void Collect(BoundariesCollector & collector, std::vector<OsmElement> const & el
     auto const & element = elements[i];
     auto featureBuilder = element.IsNode() ? MakeNodeFeatureBuilder(element)
                                            : MakeAreaFeatureBuilder(element, geometries[i]);
-    collector.Process(featureBuilder, element);
+
+    if (BoundariesCollector::FilterOsmElement(element))
+      collector.Process(featureBuilder, element);
   }
 }
 

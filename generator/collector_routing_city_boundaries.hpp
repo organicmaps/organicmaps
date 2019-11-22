@@ -55,6 +55,7 @@ public:
   void Merge(generator::CollectorInterface const & collector) override;
   void MergeInto(RoutingCityBoundariesCollector & collector) const override;
 
+  static bool FilterOsmElement(OsmElement const & osmElement);
   void Process(feature::FeatureBuilder & feature, OsmElement const & osmElement);
 
 private:
