@@ -5,7 +5,7 @@ import androidx.annotation.StringRes;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 
-public enum WelcomeScreenBindingType
+public enum OnboardingStep
 {
   CHECK_OUT_SIGHTS(R.string.visible,
                    R.string.visible,
@@ -56,16 +56,16 @@ public enum WelcomeScreenBindingType
 
   private final boolean mDeclinedButton;
 
-  WelcomeScreenBindingType(@StringRes int acceptButtonResId, @StringRes int declineButtonResId,
-                           @StringRes int title, @StringRes int subtitle, @DrawableRes int image)
+  OnboardingStep(@StringRes int acceptButtonResId, @StringRes int declineButtonResId,
+                 @StringRes int title, @StringRes int subtitle, @DrawableRes int image)
   {
 
     this(acceptButtonResId, declineButtonResId, title, subtitle, image, true);
   }
 
-  WelcomeScreenBindingType(@StringRes int acceptButtonResId, @StringRes int declineButtonResId,
-                           @StringRes int title, @StringRes int subtitle, @DrawableRes int image,
-                           boolean hasDeclinedButton)
+  OnboardingStep(@StringRes int acceptButtonResId, @StringRes int declineButtonResId,
+                 @StringRes int title, @StringRes int subtitle, @DrawableRes int image,
+                 boolean hasDeclinedButton)
   {
     mAcceptButtonResId = acceptButtonResId;
     mDeclineButtonResId = declineButtonResId;
@@ -113,5 +113,4 @@ public enum WelcomeScreenBindingType
 
     return mDeclineButtonResId;
   }
-
 }

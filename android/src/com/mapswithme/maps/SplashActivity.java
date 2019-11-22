@@ -22,7 +22,7 @@ import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.maps.downloader.UpdaterDialogFragment;
 import com.mapswithme.maps.editor.ViralFragment;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.news.WelcomeScreenBindingType;
+import com.mapswithme.maps.news.OnboardingStep;
 import com.mapswithme.maps.onboarding.BaseNewsFragment;
 import com.mapswithme.maps.onboarding.NewsFragment;
 import com.mapswithme.maps.onboarding.WelcomeDialogFragment;
@@ -163,7 +163,7 @@ public class SplashActivity extends AppCompatActivity
   @NonNull
   private final AdvertisingInfoObserver mAdvertisingObserver = new AdvertisingInfoObserver();
   @Nullable
-  private WelcomeScreenBindingType mCurrentOnboardingStep;
+  private OnboardingStep mCurrentOnboardingStep;
 
   public static void start(@NonNull Context context,
                            @Nullable Class<? extends Activity> activityToStart,
@@ -202,7 +202,7 @@ public class SplashActivity extends AppCompatActivity
       return;
 
     int step = savedInstanceState.getInt(EXTRA_CURRENT_ONBOARDING_STEP);
-    mCurrentOnboardingStep = WelcomeScreenBindingType.values()[step];
+    mCurrentOnboardingStep = OnboardingStep.values()[step];
   }
 
   @Override
@@ -467,7 +467,7 @@ public class SplashActivity extends AppCompatActivity
   }
 
   @Override
-  public void onOnboardingStepPassed(@NonNull WelcomeScreenBindingType step)
+  public void onOnboardingStepPassed(@NonNull OnboardingStep step)
   {
     mCurrentOnboardingStep = step;
   }

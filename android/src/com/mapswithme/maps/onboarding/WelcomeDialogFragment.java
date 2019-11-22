@@ -21,7 +21,7 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
-import com.mapswithme.maps.news.WelcomeScreenBindingType;
+import com.mapswithme.maps.news.OnboardingStep;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeUtils;
@@ -35,7 +35,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   private static final String ARG_HAS_MANY_STEPS = "show_onboarding_steps";
 
   @NonNull
-  private final Stack<WelcomeScreenBindingType> mOnboardingSteps = new Stack<>();
+  private final Stack<OnboardingStep> mOnboardingSteps = new Stack<>();
 
   @Nullable
   private PolicyAgreementListener mPolicyAgreementListener;
@@ -44,7 +44,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   private OnboardingStepPassedListener mOnboardingStepPassedListener;
 
   @Nullable
-  private WelcomeScreenBindingType mWelcomeScreenBindingType;
+  private OnboardingStep mOnboardinStep;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -87,7 +87,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   }
 
   public static void showOnboardinStepsStartWith(@NonNull FragmentActivity activity,
-                                                 @NonNull WelcomeScreenBindingType startStep)
+                                                 @NonNull OnboardingStep startStep)
   {
     Bundle args = new Bundle();
     args.putBoolean(ARG_HAS_MANY_STEPS, true);
@@ -187,29 +187,29 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
       boolean hasManySteps = args.containsKey(ARG_HAS_MANY_STEPS);
       if (hasManySteps)
       {
-        mOnboardingSteps.push(WelcomeScreenBindingType.SHARE_EMOTIONS);
-        mOnboardingSteps.push(WelcomeScreenBindingType.EXPERIENCE);
-        mOnboardingSteps.push(WelcomeScreenBindingType.DREAM_AND_PLAN);
+        mOnboardingSteps.push(OnboardingStep.SHARE_EMOTIONS);
+        mOnboardingSteps.push(OnboardingStep.EXPERIENCE);
+        mOnboardingSteps.push(OnboardingStep.DREAM_AND_PLAN);
       }
 
       boolean hasSpecificStep = args.containsKey(ARG_HAS_SPECIFIC_STEP);
       if (hasSpecificStep)
-        mWelcomeScreenBindingType =
-            WelcomeScreenBindingType.values()[args.getInt(ARG_HAS_SPECIFIC_STEP)];
+        mOnboardinStep =
+            OnboardingStep.values()[args.getInt(ARG_HAS_SPECIFIC_STEP)];
 
       if (hasManySteps && hasSpecificStep)
       {
-        WelcomeScreenBindingType step = null;
-        while (!mWelcomeScreenBindingType.equals(step))
+        OnboardingStep step = null;
+        while (!mOnboardinStep.equals(step))
         {
           step = mOnboardingSteps.pop();
         }
-        mWelcomeScreenBindingType = step;
+        mOnboardinStep = step;
         return;
       }
 
       if (hasManySteps)
-        mWelcomeScreenBindingType = mOnboardingSteps.pop();
+        mOnboardinStep = mOnboardingSteps.pop();
     }
   }
 
@@ -262,11 +262,11 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
 
   private void bindWelcomeScreenType()
   {
-    boolean hasBindingType = mWelcomeScreenBindingType != null;
+    boolean hasBindingType = mOnboardinStep != null;
     UiUtils.showIf(hasBindingType, mContentView, R.id.button_container);
 
     boolean hasDeclineBtn = hasBindingType
-                            && mWelcomeScreenBindingType.hasDeclinedButton();
+                            && mOnboardinStep.hasDeclinedButton();
     TextView declineBtn = mContentView.findViewById(R.id.decline_btn);
     UiUtils.showIf(hasDeclineBtn, declineBtn);
 
@@ -274,16 +274,16 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     UiUtils.hideIf(hasBindingType, userAgreementBlock);
 
     if (hasDeclineBtn)
-      declineBtn.setText(mWelcomeScreenBindingType.getDeclinedButtonResId());
+      declineBtn.setText(mOnboardinStep.getDeclinedButtonResId());
 
     if (!hasBindingType)
       return;
 
-    mTitle.setText(mWelcomeScreenBindingType.getTitle());
-    mImage.setImageResource(mWelcomeScreenBindingType.getImage());
-    mAcceptBtn.setText(mWelcomeScreenBindingType.getAcceptButtonResId());
+    mTitle.setText(mOnboardinStep.getTitle());
+    mImage.setImageResource(mOnboardinStep.getImage());
+    mAcceptBtn.setText(mOnboardinStep.getAcceptButtonResId());
     declineBtn.setOnClickListener(v -> {});
-    mSubtitle.setText(mWelcomeScreenBindingType.getSubtitle());
+    mSubtitle.setText(mOnboardinStep.getSubtitle());
   }
 
   @Override
@@ -297,9 +297,9 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
 
     if (!mOnboardingSteps.isEmpty())
     {
-      mWelcomeScreenBindingType = mOnboardingSteps.pop();
+      mOnboardinStep = mOnboardingSteps.pop();
       if (mOnboardingStepPassedListener != null)
-        mOnboardingStepPassedListener.onOnboardingStepPassed(mWelcomeScreenBindingType);
+        mOnboardingStepPassedListener.onOnboardingStepPassed(mOnboardinStep);
       bindWelcomeScreenType();
       return;
     }
@@ -334,7 +334,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
 
   public interface OnboardingStepPassedListener
   {
-    void onOnboardingStepPassed(@NonNull WelcomeScreenBindingType step);
+    void onOnboardingStepPassed(@NonNull OnboardingStep step);
     void onLastOnboardingStepPassed();
   }
 }
