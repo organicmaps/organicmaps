@@ -66,6 +66,7 @@ uint32_t constexpr kVisitPeriodForLeaps = 10;
 uint32_t constexpr kVisitPeriod = 40;
 
 double constexpr kLeapsStageContribution = 0.15;
+double constexpr kAlmostZeroContribution = 1e-7;
 
 // If user left the route within this range(meters), adjust the route. Else full rebuild.
 double constexpr kAdjustRangeM = 5000.0;
@@ -450,10 +451,12 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
                                       isStartSegmentStrictForward, *graph);
 
     vector<Segment> subroute;
-    static double constexpr kEpsAlmostZero = 1e-7;
-    double const contributionCoef =
-        !base::AlmostEqualAbs(checkpointsLength, 0.0, kEpsAlmostZero) ? mercator::DistanceOnEarth(startCheckpoint, finishCheckpoint) / checkpointsLength :
-          kEpsAlmostZero;
+    double contributionCoef = kAlmostZeroContribution;
+    if (!base::AlmostEqualAbs(checkpointsLength, 0.0, 1e-5))
+    {
+      contributionCoef =
+          mercator::DistanceOnEarth(startCheckpoint, finishCheckpoint) / checkpointsLength;
+    }
 
     AStarSubProgress subProgress(startCheckpoint, finishCheckpoint, contributionCoef);
     progress.AppendSubProgress(subProgress);
@@ -546,25 +549,7 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
 {
   subroute.clear();
 
-  // We use leaps for cars only. Other vehicle types do not have weights in their cross-mwm sections.
-  switch (m_vehicleType)
-  {
-    case VehicleType::Pedestrian:
-    case VehicleType::Bicycle:
-      starter.GetGraph().SetMode(WorldGraphMode::Joints);
-      break;
-    case VehicleType::Transit:
-      starter.GetGraph().SetMode(WorldGraphMode::NoLeaps);
-      break;
-    case VehicleType::Car:
-      starter.GetGraph().SetMode(AreMwmsNear(starter) ? WorldGraphMode::Joints
-                                                      : WorldGraphMode::LeapsOnly);
-      break;
-    case VehicleType::Count:
-      CHECK(false, ("Unknown vehicle type:", m_vehicleType));
-      break;
-  }
-
+  SetupAlgorithmMode(starter);
   LOG(LINFO, ("Routing in mode:", starter.GetGraph().GetMode()));
 
   auto checkLength = [&starter](RouteWeight const & weight) { return starter.CheckLength(weight); };
@@ -1431,6 +1416,28 @@ void IndexRouter::FillSpeedCamProhibitedMwms(vector<Segment> const & segments,
     auto const & country = m_numMwmIds->GetFile(id);
     if (AreSpeedCamerasPartlyProhibited(country))
       speedCamProhibitedMwms.emplace_back(country);
+  }
+}
+
+void IndexRouter::SetupAlgorithmMode(IndexGraphStarter & starter)
+{
+  // We use leaps for cars only. Other vehicle types do not have weights in their cross-mwm sections.
+  switch (m_vehicleType)
+  {
+  case VehicleType::Pedestrian:
+  case VehicleType::Bicycle:
+    starter.GetGraph().SetMode(WorldGraphMode::Joints);
+    break;
+  case VehicleType::Transit:
+    starter.GetGraph().SetMode(WorldGraphMode::NoLeaps);
+    break;
+  case VehicleType::Car:
+    starter.GetGraph().SetMode(AreMwmsNear(starter) ? WorldGraphMode::Joints
+                                                    : WorldGraphMode::LeapsOnly);
+    break;
+  case VehicleType::Count:
+    CHECK(false, ("Unknown vehicle type:", m_vehicleType));
+    break;
   }
 }
 }  // namespace routing

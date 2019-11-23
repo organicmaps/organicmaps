@@ -194,6 +194,8 @@ private:
         mwmIds, ConvertResult<Vertex, Edge, Weight>(algorithm.FindPathBidirectional(params, routingResult)));
   }
 
+  void SetupAlgorithmMode(IndexGraphStarter & starter);
+
   VehicleType m_vehicleType;
   bool m_loadAltitudes;
   std::string const m_name;
