@@ -19,7 +19,7 @@ void BuildRoutes(std::string const & routesPath,
                  uint64_t threadsNumber,
                  uint32_t timeoutPerRouteSeconds,
                  bool verbose,
-                 bool benchmarkMode);
+                 uint32_t launchNumber);
 
 void BuildRoutesWithApi(std::unique_ptr<routing_quality::api::RoutingApi> routingApi,
                         std::string const & routesPath,

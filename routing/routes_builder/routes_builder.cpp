@@ -298,8 +298,7 @@ RoutesBuilder::Processor::operator()(Params const & params)
   CHECK(m_dataSource, ());
 
   double timeSum = 0;
-  size_t numberOfBuilds = params.m_benchmarkMode ? 3 : 1;
-  for (size_t i = 0; i < numberOfBuilds; ++i)
+  for (size_t i = 0; i < params.m_lounchesNumber; ++i)
   {
     m_delegate->SetTimeout(params.m_timeoutSeconds);
     base::Timer timer;
@@ -315,7 +314,7 @@ RoutesBuilder::Processor::operator()(Params const & params)
   Result result;
   result.m_params.m_checkpoints = params.m_checkpoints;
   result.m_code = resultCode;
-  result.m_buildTimeSeconds = timeSum / static_cast<double>(numberOfBuilds);
+  result.m_buildTimeSeconds = timeSum / static_cast<double>(params.m_lounchesNumber);
 
   RoutesBuilder::Route routeResult;
   routeResult.m_distance = route.GetTotalDistanceMeters();
