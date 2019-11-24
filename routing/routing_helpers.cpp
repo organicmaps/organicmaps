@@ -205,4 +205,24 @@ bool RectCoversPolyline(IRoadGraph::JunctionVec const & junctions, m2::RectD con
 
   return false;
 }
+
+// AStarLengthChecker ------------------------------------------------------------------------------
+
+AStarLengthChecker::AStarLengthChecker(IndexGraphStarter & starter) : m_starter(starter) {}
+
+bool AStarLengthChecker::operator()(RouteWeight const & weight) const
+{
+  return m_starter.CheckLength(weight);
+}
+
+// AdjustLengthChecker -----------------------------------------------------------------------------
+
+AdjustLengthChecker::AdjustLengthChecker(IndexGraphStarter & starter) : m_starter(starter) {}
+
+bool AdjustLengthChecker::operator()(RouteWeight const & weight) const
+{
+  // Limit of adjust in seconds.
+  double constexpr kAdjustLimitSec = 5 * 60;
+  return weight <= RouteWeight(kAdjustLimitSec) && m_starter.CheckLength(weight);
+}
 }  // namespace routing

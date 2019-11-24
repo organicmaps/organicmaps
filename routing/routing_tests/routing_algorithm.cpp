@@ -193,9 +193,9 @@ TestAStarBidirectionalAlgo::Result TestAStarBidirectionalAlgo::CalculateRoute(
 {
   RoadGraph roadGraph(graph);
   base::Cancellable cancellable;
-  Algorithm::Params params(roadGraph, startPos, finalPos, {} /* prevRoute */,
-                           cancellable, {} /* onVisitJunctionFn */,
-                           {} /* checkLength */);
+  Algorithm::Params<> params(roadGraph, startPos, finalPos, {} /* prevRoute */,
+                             cancellable);
+
   Algorithm::Result const res = Algorithm().FindPathBidirectional(params, path);
   return Convert(res);
 }

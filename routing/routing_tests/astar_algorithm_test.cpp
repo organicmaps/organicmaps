@@ -22,8 +22,8 @@ void TestAStar(UndirectedGraph & graph, vector<unsigned> const & expectedRoute, 
 {
   Algorithm algo;
 
-  Algorithm::ParamsForTests params(graph, 0u /* startVertex */, 4u /* finishVertex */,
-                                    nullptr /* prevRoute */, {} /* checkLengthCallback */);
+  Algorithm::ParamsForTests<> params(graph, 0u /* startVertex */, 4u /* finishVertex */,
+                                     nullptr /* prevRoute */);
 
   RoutingResult<unsigned /* Vertex */, double /* Weight */> actualRoute;
   TEST_EQUAL(Algorithm::Result::OK, algo.FindPath(params, actualRoute), ());
@@ -63,10 +63,12 @@ UNIT_TEST(AStarAlgorithm_CheckLength)
   graph.AddEdge(2, 4, 10);
   graph.AddEdge(3, 4, 3);
 
+  auto checkLength = [](double weight) { return weight < 23; };
   Algorithm algo;
-  Algorithm::ParamsForTests params(graph, 0u /* startVertex */, 4u /* finishVertex */,
-                                    nullptr /* prevRoute */,
-                                    [](double weight) { return weight < 23; });
+  Algorithm::ParamsForTests<decltype(checkLength)> params(
+      graph, 0u /* startVertex */, 4u /* finishVertex */, nullptr /* prevRoute */,
+      move(checkLength));
+
   RoutingResult<unsigned /* Vertex */, double /* Weight */> routingResult;
   Algorithm::Result result = algo.FindPath(params, routingResult);
   // Best route weight is 23 so we expect to find no route with restriction |weight < 23|.
@@ -92,9 +94,11 @@ UNIT_TEST(AdjustRoute)
   // Each edge contains {vertexId, weight}.
   vector<SimpleEdge> const prevRoute = {{0, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
 
+  auto checkLength = [](double weight) { return weight <= 1.0; };
   Algorithm algo;
-  Algorithm::ParamsForTests params(graph, 6 /* startVertex */, {} /* finishVertex */, &prevRoute,
-                                    [](double weight) { return weight <= 1.0; });
+  Algorithm::ParamsForTests<decltype(checkLength)> params(
+      graph, 6 /* startVertex */, {} /* finishVertex */, &prevRoute, move(checkLength));
+
   RoutingResult<unsigned /* Vertex */, double /* Weight */> result;
   auto const code = algo.AdjustRoute(params, result);
 
@@ -114,9 +118,10 @@ UNIT_TEST(AdjustRouteNoPath)
   // Each edge contains {vertexId, weight}.
   vector<SimpleEdge> const prevRoute = {{0, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
 
+  auto checkLength = [](double weight) { return weight <= 1.0; };
   Algorithm algo;
-  Algorithm::ParamsForTests params(graph, 6 /* startVertex */, {} /* finishVertex */, &prevRoute,
-                                    [](double weight) { return weight <= 1.0; });
+  Algorithm::ParamsForTests<decltype(checkLength)> params(graph, 6 /* startVertex */, {} /* finishVertex */, &prevRoute,
+                                    move(checkLength));
   RoutingResult<unsigned /* Vertex */, double /* Weight */> result;
   auto const code = algo.AdjustRoute(params, result);
 
@@ -136,9 +141,11 @@ UNIT_TEST(AdjustRouteOutOfLimit)
   // Each edge contains {vertexId, weight}.
   vector<SimpleEdge> const prevRoute = {{0, 0}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
 
+  auto checkLength = [](double weight) { return weight <= 1.0; };
   Algorithm algo;
-  Algorithm::ParamsForTests params(graph, 6 /* startVertex */, {} /* finishVertex */, &prevRoute,
-                                    [](double weight) { return weight <= 1.0; });
+  Algorithm::ParamsForTests<decltype(checkLength)> params(
+      graph, 6 /* startVertex */, {} /* finishVertex */, &prevRoute, move(checkLength));
+
   RoutingResult<unsigned /* Vertex */, double /* Weight */> result;
   auto const code = algo.AdjustRoute(params, result);
 

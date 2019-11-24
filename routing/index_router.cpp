@@ -10,6 +10,7 @@
 #include "routing/index_graph_serialization.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/index_road_graph.hpp"
+#include "routing/junction_visitor.hpp"
 #include "routing/leaps_postprocessor.hpp"
 #include "routing/pedestrian_directions.hpp"
 #include "routing/restriction_loader.hpp"
@@ -61,7 +62,6 @@ using namespace std;
 namespace
 {
 size_t constexpr kMaxRoadCandidates = 10;
-double constexpr kProgressInterval = 0.5;
 uint32_t constexpr kVisitPeriodForLeaps = 10;
 uint32_t constexpr kVisitPeriod = 40;
 
@@ -72,8 +72,6 @@ double constexpr kAlmostZeroContribution = 1e-7;
 double constexpr kAdjustRangeM = 5000.0;
 // Full rebuild if distance(meters) is less.
 double constexpr kMinDistanceToFinishM = 10000;
-// Limit of adjust in seconds.
-double constexpr kAdjustLimitSec = 5 * 60;
 
 double CalcMaxSpeed(NumMwmIds const & numMwmIds,
                     VehicleModelFactoryInterface const & vehicleModelFactory,
@@ -421,7 +419,7 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
   vector<Route::SubrouteAttrs> subroutes;
   PushPassedSubroutes(checkpoints, subroutes);
   unique_ptr<IndexGraphStarter> starter;
-  AStarProgress progress;
+  auto progress = make_shared<AStarProgress>();
   double const checkpointsLength = checkpoints.GetSummaryLengthBetweenPointsMeters();
 
   for (size_t i = checkpoints.GetPassedIdx(); i < checkpoints.GetNumSubroutes(); ++i)
@@ -459,13 +457,11 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
     }
 
     AStarSubProgress subProgress(startCheckpoint, finishCheckpoint, contributionCoef);
-    progress.AppendSubProgress(subProgress);
-    SCOPE_GUARD(eraseProgress, [&progress]() {
-      progress.PushAndDropLastSubProgress();
-    });
+    progress->AppendSubProgress(subProgress);
+    SCOPE_GUARD(eraseProgress, [&progress]() { progress->PushAndDropLastSubProgress(); });
 
-    auto const result = CalculateSubroute(checkpoints, i, delegate, progress, subrouteStarter,
-                                          subroute);
+    auto const result =
+        CalculateSubroute(checkpoints, i, delegate, progress, subrouteStarter, subroute);
 
     if (result != RouterResultCode::NoError)
       return result;
@@ -543,7 +539,7 @@ vector<Segment> ProcessJoints(vector<JointSegment> const & jointsPath,
 RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
                                                 size_t subrouteIdx,
                                                 RouterDelegate const & delegate,
-                                                AStarProgress & progress,
+                                                shared_ptr<AStarProgress> const & progress,
                                                 IndexGraphStarter & starter,
                                                 vector<Segment> & subroute)
 {
@@ -552,45 +548,29 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
   SetupAlgorithmMode(starter);
   LOG(LINFO, ("Routing in mode:", starter.GetGraph().GetMode()));
 
-  auto checkLength = [&starter](RouteWeight const & weight) { return starter.CheckLength(weight); };
-
   base::HighResTimer timer;
   WorldGraphMode const mode = starter.GetGraph().GetMode();
   if (mode == WorldGraphMode::Joints)
   {
-    IndexGraphStarterJoints<IndexGraphStarter> jointStarter(starter, starter.GetStartSegment(), starter.GetFinishSegment());
+    using JointsStarter = IndexGraphStarterJoints<IndexGraphStarter>;
+    JointsStarter jointStarter(starter, starter.GetStartSegment(), starter.GetFinishSegment());
     RoutingResult<JointSegment, RouteWeight> routingResult;
 
-    uint32_t visitCount = 0;
-    double lastValue = progress.GetLastPercent();
-    auto const onVisitJunctionJoints = [&](JointSegment const & from, JointSegment const & to)
-    {
-      ++visitCount;
-      if (visitCount % kVisitPeriod != 0)
-        return;
+    using Visitor = JunctionVisitor<JointSegment, JointsStarter>;
+    Visitor visitor(jointStarter, delegate, kVisitPeriod, progress);
 
-      m2::PointD const & pointFrom = jointStarter.GetPoint(from, true /* front */);
-      m2::PointD const & pointTo = jointStarter.GetPoint(to, true /* front */);
-      auto const newValue = progress.UpdateProgress(pointFrom, pointTo);
-      if (newValue - lastValue > kProgressInterval)
-      {
-        lastValue = newValue;
-        delegate.OnProgress(newValue);
-      }
+    using Vertex = JointsStarter::Vertex;
+    using Edge = JointsStarter::Edge;
+    using Weight = JointsStarter::Weight;
 
-      delegate.OnPointCheck(pointFrom);
-    };
-
-    using Vertex = IndexGraphStarterJoints<IndexGraphStarter>::Vertex;
-    using Edge = IndexGraphStarterJoints<IndexGraphStarter>::Edge;
-    using Weight = IndexGraphStarterJoints<IndexGraphStarter>::Weight;
-
-    AStarAlgorithm<Vertex, Edge, Weight>::Params params(
-      jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(), nullptr /* prevRoute */,
-      delegate.GetCancellable(), onVisitJunctionJoints, checkLength);
+    AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
+        jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(),
+        nullptr /* prevRoute */, delegate.GetCancellable(), move(visitor),
+        AStarLengthChecker(starter));
 
     set<NumMwmId> const mwmIds = starter.GetMwms();
-    RouterResultCode const result = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult, mode);
+    RouterResultCode const result =
+        FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult, mode);
     if (result != RouterResultCode::NoError)
       return result;
 
@@ -602,52 +582,38 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
     using Edge = IndexGraphStarter::Edge;
     using Weight = IndexGraphStarter::Weight;
 
-    uint32_t visitCount = 0;
-    auto lastValue = progress.GetLastPercent();
     if (mode == WorldGraphMode::LeapsOnly)
     {
       AStarSubProgress leapsProgress(checkpoints.GetPoint(subrouteIdx),
                                      checkpoints.GetPoint(subrouteIdx + 1),
                                      kLeapsStageContribution);
-      progress.AppendSubProgress(leapsProgress);
+      progress->AppendSubProgress(leapsProgress);
     }
 
-    auto eachCount = mode == WorldGraphMode::LeapsOnly ? kVisitPeriodForLeaps : kVisitPeriod;
-    auto onVisitJunction = [&](Segment const & from, Segment const & to) {
-      if (++visitCount % eachCount != 0)
-        return;
-
-      m2::PointD const & pointFrom = starter.GetPoint(from, true /* front */);
-      m2::PointD const & pointTo = starter.GetPoint(to, true /* front */);
-      auto const newValue = progress.UpdateProgress(pointFrom, pointTo);
-      if (newValue - lastValue > kProgressInterval)
-      {
-        lastValue = newValue;
-        delegate.OnProgress(newValue);
-      }
-
-      delegate.OnPointCheck(pointFrom);
-    };
+    using Visitor = JunctionVisitor<Segment, IndexGraphStarter>;
+    auto const visitPeriod =
+        mode == WorldGraphMode::LeapsOnly ? kVisitPeriodForLeaps : kVisitPeriod;
+    Visitor visitor(starter, delegate, visitPeriod, progress);
 
     RoutingResult<Segment, RouteWeight> routingResult;
-    AStarAlgorithm<Vertex, Edge, Weight>::Params params(
-      starter, starter.GetStartSegment(), starter.GetFinishSegment(), nullptr /* prevRoute */,
-      delegate.GetCancellable(), onVisitJunction, checkLength);
+    AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
+        starter, starter.GetStartSegment(), starter.GetFinishSegment(), nullptr /* prevRoute */,
+        delegate.GetCancellable(), move(visitor), AStarLengthChecker(starter));
 
     set<NumMwmId> const mwmIds = starter.GetMwms();
-    RouterResultCode const result = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult, mode);
+    RouterResultCode const result =
+        FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult, mode);
 
     if (mode == WorldGraphMode::LeapsOnly)
-      progress.PushAndDropLastSubProgress();
+      progress->PushAndDropLastSubProgress();
 
     if (result != RouterResultCode::NoError)
       return result;
 
     vector<Segment> subrouteWithoutPostprocessing;
-    RouterResultCode const leapsResult = ProcessLeapsJoints(routingResult.m_path, delegate, 
-                                                            starter.GetGraph().GetMode(),
-                                                            starter, progress,
-                                                            subrouteWithoutPostprocessing);
+    RouterResultCode const leapsResult =
+        ProcessLeapsJoints(routingResult.m_path, delegate, starter.GetGraph().GetMode(), starter,
+                           progress, subrouteWithoutPostprocessing);
 
     if (leapsResult != RouterResultCode::NoError)
       return leapsResult;
@@ -694,7 +660,7 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   auto const & steps = m_lastRoute->GetSteps();
   CHECK(!steps.empty(), ());
 
-  FakeEnding dummy;
+  FakeEnding dummy{};
   IndexGraphStarter starter(MakeFakeEnding(startSegments, pointFrom, *graph), dummy,
                             m_lastFakeEdges->GetNumFakeEdges(), bestSegmentIsAlmostCodirectional,
                             *graph);
@@ -710,29 +676,18 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
                            EdgeEstimator::Purpose::Weight));
   }
 
-  uint32_t visitCount = 0;
-
-  auto onVisitJunction = [&](Segment const & /* start */, Segment const & vertex) {
-    if (visitCount++ % kVisitPeriod != 0)
-      return;
-
-    m2::PointD const & point = starter.GetPoint(vertex, true /* front */);
-    delegate.OnPointCheck(point);
-  };
-
-  auto const checkLength = [&starter](RouteWeight const & weight) {
-    return weight <= RouteWeight(kAdjustLimitSec) && starter.CheckLength(weight);
-  };
+  using Visitor = JunctionVisitor<Segment, IndexGraphStarter>;
+  Visitor visitor(starter, delegate, kVisitPeriod);
 
   using Vertex = IndexGraphStarter::Vertex;
   using Edge = IndexGraphStarter::Edge;
   using Weight = IndexGraphStarter::Weight;
 
   AStarAlgorithm<Vertex, Edge, Weight> algorithm;
-  AStarAlgorithm<Vertex, Edge, Weight>::Params params(starter, starter.GetStartSegment(),
-                                                      {} /* finalVertex */, &prevEdges,
-                                                      delegate.GetCancellable(), onVisitJunction,
-                                                      checkLength);
+  AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AdjustLengthChecker> params(
+      starter, starter.GetStartSegment(), {} /* finalVertex */, &prevEdges,
+      delegate.GetCancellable(), move(visitor), AdjustLengthChecker(starter));
+
   RoutingResult<Segment, RouteWeight> result;
   auto const resultCode =
       ConvertResult<Vertex, Edge, Weight>(algorithm.AdjustRoute(params, result));
@@ -1031,7 +986,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
                                                  RouterDelegate const & delegate,
                                                  WorldGraphMode prevMode,
                                                  IndexGraphStarter & starter,
-                                                 AStarProgress & progress,
+                                                 shared_ptr<AStarProgress> const & progress,
                                                  vector<Segment> & output)
 {
   if (prevMode != WorldGraphMode::LeapsOnly)
@@ -1041,10 +996,10 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
   }
 
   SCOPE_GUARD(progressGuard, [&progress]() {
-    progress.PushAndDropLastSubProgress();
+    progress->PushAndDropLastSubProgress();
   });
 
-  progress.AppendSubProgress(AStarSubProgress(1.0 - kLeapsStageContribution));
+  progress->AppendSubProgress(AStarSubProgress(1.0 - kLeapsStageContribution));
 
   CHECK_GREATER_OR_EQUAL(input.size(), 4,
                          ("Route in LeapsOnly mode must have at least start and finish leaps."));
@@ -1076,10 +1031,6 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
   auto const finishLeapStartIt = find_if(startLeapEndIt, input.end(),
                                          [lastMwmId](Segment const & s) { return s.GetMwmId() == lastMwmId; });
   auto const finishLeapStart = static_cast<size_t>(distance(input.begin(), finishLeapStartIt));
-
-  auto checkLength = [&starter](RouteWeight const & weight) {
-    return starter.CheckLength(weight);
-  };
 
   auto fillMwmIds = [&](size_t start, size_t end, set<NumMwmId> & mwmIds)
   {
@@ -1119,47 +1070,33 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
 
     fillMwmIds(start, end, mwmIds);
 
-    using Vertex = IndexGraphStarterJoints<IndexGraphStarter>::Vertex;
-    using Edge = IndexGraphStarterJoints<IndexGraphStarter>::Edge;
-    using Weight = IndexGraphStarterJoints<IndexGraphStarter>::Weight;
+    using JointsStarter = IndexGraphStarterJoints<IndexGraphStarter>;
+
+    using Vertex = JointsStarter::Vertex;
+    using Edge = JointsStarter::Edge;
+    using Weight = JointsStarter::Weight;
 
     maxStart = max(maxStart, start);
     auto const contribCoef = static_cast<double>(end - maxStart + 1) / (input.size());
     auto const startPoint = starter.GetPoint(input[start], true /* front */);
     auto const endPoint = starter.GetPoint(input[end], true /* front */);
-    progress.AppendSubProgress({startPoint, endPoint, contribCoef});
+    progress->AppendSubProgress({startPoint, endPoint, contribCoef});
 
     RouterResultCode resultCode = RouterResultCode::NoError;
     SCOPE_GUARD(progressGuard, [&]() {
       if (resultCode == RouterResultCode::NoError)
-        progress.PushAndDropLastSubProgress();
+        progress->PushAndDropLastSubProgress();
       else
-        progress.DropLastSubProgress();
+        progress->DropLastSubProgress();
     });
 
-    uint32_t visitCount = 0;
-    auto lastValue = progress.GetLastPercent();
-    auto const onVisitJunctionJoints = [&](JointSegment const & from, JointSegment const & to)
-    {
-      ++visitCount;
-      if (visitCount % kVisitPeriod != 0)
-        return;
+    using Visitor = JunctionVisitor<JointSegment, JointsStarter>;
+    Visitor visitor(jointStarter, delegate, kVisitPeriod, progress);
 
-      m2::PointD const & pointFrom = jointStarter.GetPoint(from, true /* front */);
-      m2::PointD const & pointTo = jointStarter.GetPoint(to, true /* front */);
-      auto const newValue = progress.UpdateProgress(pointFrom, pointTo);
-      if (newValue - lastValue > kProgressInterval)
-      {
-        lastValue = newValue;
-        delegate.OnProgress(newValue);
-      }
-
-      delegate.OnPointCheck(pointFrom);
-    };
-
-    AStarAlgorithm<Vertex, Edge, Weight>::Params params(
-      jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(),
-      nullptr /* prevRoute */, delegate.GetCancellable(), onVisitJunctionJoints, checkLength);
+    AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
+        jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(),
+        nullptr /* prevRoute */, delegate.GetCancellable(), move(visitor),
+        AStarLengthChecker(starter));
 
     resultCode = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult, mode);
     return resultCode;

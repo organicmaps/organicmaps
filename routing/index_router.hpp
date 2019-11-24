@@ -99,7 +99,8 @@ private:
                                     m2::PointD const & startDirection,
                                     RouterDelegate const & delegate, Route & route);
   RouterResultCode CalculateSubroute(Checkpoints const & checkpoints, size_t subrouteIdx,
-                                     RouterDelegate const & delegate, AStarProgress & progress,
+                                     RouterDelegate const & delegate,
+                                     std::shared_ptr<AStarProgress> const & progress,
                                      IndexGraphStarter & graph, std::vector<Segment> & subroute);
 
   RouterResultCode AdjustRoute(Checkpoints const & checkpoints,
@@ -150,7 +151,8 @@ private:
   // ProcessLeaps replaces each leap with calculated route through mwm.
   RouterResultCode ProcessLeapsJoints(std::vector<Segment> const & input,
                                       RouterDelegate const & delegate, WorldGraphMode prevMode,
-                                      IndexGraphStarter & starter, AStarProgress & progress,
+                                      IndexGraphStarter & starter,
+                                      std::shared_ptr<AStarProgress> const & progress,
                                       std::vector<Segment> & output);
   RouterResultCode RedressRoute(std::vector<Segment> const & segments,
                                 base::Cancellable const & cancellable, IndexGraphStarter & starter,
@@ -179,9 +181,9 @@ private:
     UNREACHABLE();
   }
 
-  template <typename Vertex, typename Edge, typename Weight>
+  template <typename Vertex, typename Edge, typename Weight, typename AStarParams>
   RouterResultCode FindPath(
-      typename AStarAlgorithm<Vertex, Edge, Weight>::Params & params, std::set<NumMwmId> const & mwmIds,
+      AStarParams & params, std::set<NumMwmId> const & mwmIds,
       RoutingResult<Vertex, Weight> & routingResult, WorldGraphMode mode) const
   {
     AStarAlgorithm<Vertex, Edge, Weight> algorithm;

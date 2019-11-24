@@ -104,4 +104,18 @@ bool CheckGraphConnectivity(typename Graph::Vertex const & start, bool isOutgoin
 
   return marked.size() >= limit;
 }
+
+struct AStarLengthChecker
+{
+  explicit AStarLengthChecker(IndexGraphStarter & starter);
+  bool operator()(RouteWeight const & weight) const;
+  IndexGraphStarter & m_starter;
+};
+
+struct AdjustLengthChecker
+{
+  explicit AdjustLengthChecker(IndexGraphStarter & starter);
+  bool operator()(RouteWeight const & weight) const;
+  IndexGraphStarter & m_starter;
+};
 }  // namespace routing

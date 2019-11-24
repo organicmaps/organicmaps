@@ -6,7 +6,7 @@
 
 #include "routing/base/routing_result.hpp"
 
-#include "testing/testing.hpp"
+#include "routing/routing_helpers.hpp"
 
 #include "base/assert.hpp"
 #include "base/math.hpp"
@@ -81,9 +81,8 @@ void NoUTurnRestrictionTest::TestRouteGeom(Segment const & start, Segment const 
                                            vector<m2::PointD> const & expectedRouteGeom)
 {
   AlgorithmForWorldGraph algorithm;
-  AlgorithmForWorldGraph::ParamsForTests params(*m_graph, start, finish,
-                                                nullptr /* prevRoute */,
-                                                {} /* checkLengthCallback */);
+  AlgorithmForWorldGraph::ParamsForTests<> params(*m_graph, start, finish,
+                                                  nullptr /* prevRoute */);
 
   RoutingResult<Segment, RouteWeight> routingResult;
   auto const resultCode = algorithm.FindPathBidirectional(params, routingResult);
@@ -229,9 +228,8 @@ bool TestIndexGraphTopology::FindPath(Vertex start, Vertex finish, double & path
 
   WorldGraphForAStar graphForAStar(move(worldGraph));
 
-  AlgorithmForWorldGraph::ParamsForTests params(graphForAStar, startSegment, finishSegment,
-                                                nullptr /* prevRoute */,
-                                                {} /* checkLengthCallback */);
+  AlgorithmForWorldGraph::ParamsForTests<> params(graphForAStar, startSegment, finishSegment,
+                                                  nullptr /* prevRoute */);
   RoutingResult<Segment, RouteWeight> routingResult;
   auto const resultCode = algorithm.FindPathBidirectional(params, routingResult);
 
@@ -408,9 +406,9 @@ AlgorithmForWorldGraph::Result CalculateRoute(IndexGraphStarter & starter, vecto
   AlgorithmForWorldGraph algorithm;
   RoutingResult<Segment, RouteWeight> routingResult;
 
-  AlgorithmForWorldGraph::ParamsForTests params(
+  AlgorithmForWorldGraph::ParamsForTests<AStarLengthChecker> params(
       starter, starter.GetStartSegment(), starter.GetFinishSegment(), nullptr /* prevRoute */,
-      [&](RouteWeight const & weight) { return starter.CheckLength(weight); });
+      AStarLengthChecker(starter));
 
   auto const resultCode = algorithm.FindPathBidirectional(params, routingResult);
 

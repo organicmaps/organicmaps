@@ -12,7 +12,23 @@
 #include <iostream>
 #include <map>
 #include <queue>
+#include <type_traits>
 #include <vector>
+
+namespace
+{
+template <typename Vertex>
+struct DefaultVisitor
+{
+  void operator()(Vertex const & /* from */, Vertex const & /* to */) const {};
+};
+
+template <typename Weight>
+struct DefaultLengthChecker
+{
+  bool operator()(Weight const & /* weight */) const { return true; }
+};
+}
 
 namespace routing
 {
@@ -47,28 +63,24 @@ public:
     return os;
   }
 
-  using OnVisitedVertexCallback = std::function<void(Vertex const &, Vertex const &)>;
-  // Callback used to check path length from start/finish to the edge (including the edge itself)
-  // before adding the edge to AStar queue.
-  // Can be used to clip some path which does not meet restrictions.
-  using CheckLengthCallback = std::function<bool(Weight const &)>;
-
+  // |LengthChecker| callback used to check path length from start/finish to the edge (including the
+  // edge itself) before adding the edge to AStar queue. Can be used to clip some path which does
+  // not meet restrictions.
+  template <typename Visitor = DefaultVisitor<Vertex>,
+            typename LengthChecker = DefaultLengthChecker<Weight>>
   struct Params
   {
     Params(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
            std::vector<Edge> const * prevRoute, base::Cancellable const & cancellable,
-           OnVisitedVertexCallback const & onVisitedVertexCallback,
-           CheckLengthCallback const & checkLengthCallback)
+           Visitor && onVisitedVertexCallback = DefaultVisitor<Vertex>(),
+           LengthChecker && checkLengthCallback = DefaultLengthChecker<Weight>())
       : m_graph(graph)
       , m_startVertex(startVertex)
       , m_finalVertex(finalVertex)
       , m_prevRoute(prevRoute)
       , m_cancellable(cancellable)
-      , m_onVisitedVertexCallback(onVisitedVertexCallback ? onVisitedVertexCallback
-                                                          : [](Vertex const &, Vertex const &) {})
-      , m_checkLengthCallback(checkLengthCallback
-                                  ? checkLengthCallback
-                                  : [](Weight const & /* weight */) { return true; })
+      , m_onVisitedVertexCallback(std::forward<Visitor>(onVisitedVertexCallback))
+      , m_checkLengthCallback(std::forward<LengthChecker>(checkLengthCallback))
     {
     }
 
@@ -79,23 +91,21 @@ public:
     // Used for AdjustRoute.
     std::vector<Edge> const * const m_prevRoute;
     base::Cancellable const & m_cancellable;
-    OnVisitedVertexCallback const m_onVisitedVertexCallback;
-    CheckLengthCallback const m_checkLengthCallback;
+    Visitor m_onVisitedVertexCallback;
+    LengthChecker const m_checkLengthCallback;
   };
 
+  template <typename LengthChecker = DefaultLengthChecker<Weight>>
   struct ParamsForTests
   {
     ParamsForTests(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
                    std::vector<Edge> const * prevRoute,
-                   CheckLengthCallback const & checkLengthCallback)
+                   LengthChecker && checkLengthCallback = DefaultLengthChecker<Weight>())
       : m_graph(graph)
       , m_startVertex(startVertex)
       , m_finalVertex(finalVertex)
       , m_prevRoute(prevRoute)
-      , m_onVisitedVertexCallback([](Vertex const &, Vertex const &) {})
-      , m_checkLengthCallback(checkLengthCallback
-                                  ? checkLengthCallback
-                                  : [](Weight const & /* weight */) { return true; })
+      , m_checkLengthCallback(std::forward<LengthChecker>(checkLengthCallback))
     {
     }
 
@@ -106,8 +116,8 @@ public:
     // Used for AdjustRoute.
     std::vector<Edge> const * const m_prevRoute;
     base::Cancellable const m_cancellable;
-    OnVisitedVertexCallback const m_onVisitedVertexCallback;
-    CheckLengthCallback const m_checkLengthCallback;
+    DefaultVisitor<Vertex> const m_onVisitedVertexCallback = DefaultVisitor<Vertex>();
+    LengthChecker const m_checkLengthCallback;
   };
   class Context final
   {
@@ -651,8 +661,9 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result
 
   CHECK(!prevRoute.empty(), ());
 
-  CHECK(params.m_checkLengthCallback != nullptr,
-        ("CheckLengthCallback expected to be set to limit wave propagation."));
+  static_assert(
+      !std::is_same<decltype(params.m_checkLengthCallback), DefaultLengthChecker<Weight>>::value,
+      "CheckLengthCallback expected to be set to limit wave propagation.");
 
   result.Clear();
 
