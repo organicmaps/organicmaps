@@ -2,8 +2,8 @@
 
 namespace storage
 {
-void TestMapFilesDownloader::GetServersList(ServersListCallback const & callback)
+TestMapFilesDownloader::TestMapFilesDownloader() : HttpMapFilesDownloader()
 {
-  callback({"http://localhost:34568/unit_tests/"});
+  SetServersList({"http://localhost:34568/unit_tests/"});
 }
 }  // namespace storage

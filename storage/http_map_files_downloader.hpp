@@ -25,19 +25,24 @@ public:
   // MapFilesDownloader overrides:
   downloader::Progress GetDownloadingProgress() override;
   bool IsIdle() override;
-  void Reset() override;
+  void Pause() override;
+  void Resume() override;
+  void Remove(CountryId const & id) override;
+  void Clear() override;
+  Queue const & GetQueue() const override;
 
 private:
   // MapFilesDownloaderWithServerList overrides:
-  void Download(QueuedCountry & queuedCountry, FileDownloadedCallback const & onDownloaded,
-                DownloadingProgressCallback const & onProgress) override;
+  void Download(QueuedCountry & queuedCountry) override;
 
-  void OnMapFileDownloaded(FileDownloadedCallback const & onDownloaded,
-                           downloader::HttpRequest & request);
-  void OnMapFileDownloadingProgress(DownloadingProgressCallback const & onProgress,
+  void Download();
+
+  void OnMapFileDownloaded(QueuedCountry const & queuedCountry, downloader::HttpRequest & request);
+  void OnMapFileDownloadingProgress(QueuedCountry const & queuedCountry,
                                     downloader::HttpRequest & request);
 
   std::unique_ptr<downloader::HttpRequest> m_request;
+  Queue m_queue;
 
   DECLARE_THREAD_CHECKER(m_checker);
 };

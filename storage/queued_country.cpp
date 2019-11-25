@@ -97,6 +97,28 @@ void QueuedCountry::ClarifyDownloadingType()
   }
 }
 
+void QueuedCountry::SetOnFinishCallback(DownloadingFinishCallback const & onDownloaded)
+{
+  m_downloadingFinishCallback = onDownloaded;
+}
+
+void QueuedCountry::SetOnProgressCallback(DownloadingProgressCallback const & onProgress)
+{
+  m_downloadingProgressCallback = onProgress;
+}
+
+void QueuedCountry::OnDownloadFinished(downloader::DownloadStatus status) const
+{
+  if (m_downloadingFinishCallback)
+    m_downloadingFinishCallback(*this, status);
+}
+
+void QueuedCountry::OnDownloadProgress(downloader::Progress const & progress) const
+{
+  if (m_downloadingProgressCallback)
+    m_downloadingProgressCallback(*this, progress);
+}
+
 bool QueuedCountry::operator==(CountryId const & countryId) const
 {
   return m_countryId == countryId;

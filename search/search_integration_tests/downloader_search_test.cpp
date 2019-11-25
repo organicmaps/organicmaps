@@ -13,6 +13,7 @@
 #include "storage/map_files_downloader.hpp"
 #include "storage/queued_country.hpp"
 #include "storage/storage.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "platform/downloader_defines.hpp"
 
@@ -89,17 +90,20 @@ public:
   downloader::Progress GetDownloadingProgress() override { return {}; }
 
   bool IsIdle() override { return false; }
-  
-  void Reset() override {}
+
+  void Pause() override {}
+  void Resume() override {}
+  void Remove(storage::CountryId const & id) override {}
+  void Clear() override {}
+
+  storage::Queue const & GetQueue() const override { return m_queue; }
 
 private:
   void GetServersList(ServersListCallback const & /* callback */) override {}
 
-  void Download(storage::QueuedCountry & queuedCountry,
-                FileDownloadedCallback const & /* onDownloaded */,
-                DownloadingProgressCallback const & /* onProgress */) override
-  {
-  }
+  void Download(storage::QueuedCountry & queuedCountry) override {}
+
+  storage::Queue m_queue;
 };
 
 class TestDelegate : public DownloaderSearchCallback::Delegate

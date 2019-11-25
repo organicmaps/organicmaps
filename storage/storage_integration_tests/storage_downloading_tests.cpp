@@ -90,7 +90,7 @@ UNIT_CLASS_TEST(Runner, SmallMwms_InterruptDownloadResumeDownload_Test)
   {
     Storage storage;
 
-    auto onProgressFn = [](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {
+    auto const onProgressFn = [](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {
       TEST_EQUAL(countryId, kCountryId, ());
       // Interrupt download
       testing::StopEventLoop();
@@ -104,27 +104,52 @@ UNIT_CLASS_TEST(Runner, SmallMwms_InterruptDownloadResumeDownload_Test)
     testing::RunEventLoop();
 
     TEST(storage.IsDownloadInProgress(), ());
+
+    NodeAttrs attrs;
+    storage.GetNodeAttrs(kCountryId, attrs);
+    TEST_EQUAL(NodeStatus::Downloading, attrs.m_status, ());
   }
 
   // Continue download
   {
     Storage storage;
 
-    auto onProgressFn = [](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {
-      TEST_EQUAL(countryId, kCountryId, ());
-    };
+    bool onProgressIsCalled = false;
+    NodeAttrs onProgressAttrs;
+    auto const onProgressFn =
+      [&](CountryId const & countryId, LocalAndRemoteSize const & mapSize)
+      {
+        TEST_EQUAL(countryId, kCountryId, ());
+
+        if (onProgressIsCalled)
+          return;
+
+        onProgressIsCalled = true;
+        storage.GetNodeAttrs(kCountryId, onProgressAttrs);
+        testing::StopEventLoop();
+      };
 
     InitStorage(storage, onProgressFn);
+    storage.Init([](CountryId const &, storage::LocalFilePtr const localCountryFile)
+                 {
+                   TEST_EQUAL(localCountryFile->GetCountryName(), kCountryId, ());
+
+                   testing::StopEventLoop();
+                 },
+                 [](CountryId const &, storage::LocalFilePtr const)
+                 {
+                   return false;
+                 });
+
+    testing::RunEventLoop();
 
     TEST(storage.IsDownloadInProgress(), ());
 
-    NodeAttrs attrs;
-    storage.GetNodeAttrs(kCountryId, attrs);
-    TEST_EQUAL(NodeStatus::Downloading, attrs.m_status, ());
-
-    storage.DownloadNode(kCountryId);
     testing::RunEventLoop();
 
+    TEST_EQUAL(NodeStatus::Downloading, onProgressAttrs.m_status, ());
+
+    NodeAttrs attrs;
     storage.GetNodeAttrs(kCountryId, attrs);
     TEST_EQUAL(NodeStatus::OnDisk, attrs.m_status, ());
   }

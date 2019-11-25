@@ -12,14 +12,11 @@ void MapFilesDownloaderWithPing::GetServersList(ServersListCallback const & call
 {
   ASSERT(callback , ());
 
-  GetPlatform().RunTask(Platform::Thread::Network, [callback]()
-  {
-    auto urls = LoadServersList();
+  auto urls = LoadServersList();
 
-    CHECK(!urls.empty(), ());
+  CHECK(!urls.empty(), ());
 
-    auto const availableEndpoints = Pinger::ExcludeUnavailableEndpoints(urls);
-    callback(availableEndpoints.empty() ? urls : availableEndpoints);
-  });
+  auto const availableEndpoints = Pinger::ExcludeUnavailableEndpoints(urls);
+  callback(availableEndpoints.empty() ? urls : availableEndpoints);
 }
 }  // namespace storage

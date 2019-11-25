@@ -33,28 +33,32 @@ public:
 
   ~FakeMapFilesDownloader();
 
+  // MapFilesDownloader overrides:
   downloader::Progress GetDownloadingProgress() override;
   bool IsIdle() override;
-  void Reset() override;
+  void Pause() override;
+  void Resume() override;
+  void Remove(CountryId const & id) override;
+  void Clear() override;
+  Queue const & GetQueue() const override;
 
 private:
   // MapFilesDownloader overrides:
-  void Download(QueuedCountry & queuedCountry,
-                FileDownloadedCallback const & onDownloaded,
-                DownloadingProgressCallback const & onProgress) override;
+  void Download(QueuedCountry & queuedCountry) override;
 
+  void Download();
   void DownloadNextChunk(uint64_t requestId);
+  void OnFileDownloaded(QueuedCountry const & queuedCountry,
+                        downloader::DownloadStatus const & status);
 
   downloader::Progress m_progress;
-  bool m_idle;
 
   std::unique_ptr<FileWriter> m_writer;
-  FileDownloadedCallback m_onDownloaded;
-  DownloadingProgressCallback m_onProgress;
 
   uint64_t m_timestamp;
 
   TaskRunner & m_taskRunner;
   ThreadChecker m_checker;
+  Queue m_queue;
 };
 }  // namespace storage

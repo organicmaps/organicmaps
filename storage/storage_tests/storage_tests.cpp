@@ -29,8 +29,6 @@
 #include "platform/platform_tests_support/scoped_file.hpp"
 #include "platform/platform_tests_support/writable_dir_changer.hpp"
 
-#include "platform/platform_tests_support/scoped_dir.hpp"
-
 #include "geometry/mercator.hpp"
 
 #include "coding/file_writer.hpp"
@@ -272,7 +270,8 @@ protected:
     TEST_LESS(m_currStatus + 1, m_transitionList.size(), (m_countryFile));
     TEST_EQUAL(nexStatus, m_transitionList[m_currStatus + 1], (m_countryFile));
     ++m_currStatus;
-    if (m_transitionList[m_currStatus] == Status::EDownloading)
+    if (m_transitionList[m_currStatus] == Status::EDownloading ||
+        m_transitionList[m_currStatus] == Status::EInQueue)
     {
       LocalAndRemoteSize localAndRemoteSize = m_storage.CountrySizeInBytes(m_countryId);
       m_totalBytesToDownload = localAndRemoteSize.second;
@@ -775,8 +774,7 @@ UNIT_CLASS_TEST(StorageTest, DownloadedMap)
 
     auto algeriaCoastChecker = make_unique<CountryDownloaderChecker>(
         storage, algeriaCoastCountryId, MapFileType::Map,
-        vector<Status>{Status::ENotDownloaded, Status::EInQueue, Status::EDownloading,
-                       Status::EOnDisk});
+        vector<Status>{Status::ENotDownloaded, Status::EInQueue, Status::EOnDisk});
 
     algeriaCentralChecker->StartDownload();
     algeriaCoastChecker->StartDownload();

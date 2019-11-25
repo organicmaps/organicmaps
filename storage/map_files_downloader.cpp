@@ -12,27 +12,49 @@
 #include "base/string_utils.hpp"
 #include "base/url_helpers.hpp"
 
-#include <sstream>
-
 namespace storage
 {
-void MapFilesDownloader::DownloadMapFile(QueuedCountry & queuedCountry,
-                                         FileDownloadedCallback const & onDownloaded,
-                                         DownloadingProgressCallback const & onProgress)
+void MapFilesDownloader::DownloadMapFile(QueuedCountry & queuedCountry)
 {
   if (!m_serversList.empty())
   {
     queuedCountry.ClarifyDownloadingType();
-    Download(queuedCountry, onDownloaded, onProgress);
+    Download(queuedCountry);
     return;
   }
 
-  GetServersList([=](ServersList const & serversList) mutable
-                 {
-                   m_serversList = serversList;
-                   queuedCountry.ClarifyDownloadingType();
-                   Download(queuedCountry, onDownloaded, onProgress);
-                 });
+  GetPlatform().RunTask(Platform::Thread::Network, [=]()
+  {
+    if (m_isServersListRequested)
+    {
+      GetPlatform().RunTask(Platform::Thread::Gui, [=]() mutable
+      {
+        queuedCountry.ClarifyDownloadingType();
+        Download(queuedCountry);
+      });
+
+      return;
+    }
+
+    m_isServersListRequested = true;
+
+    GetServersList([=](ServersList const & serversList) mutable
+                   {
+                     m_serversList = serversList;
+                     queuedCountry.ClarifyDownloadingType();
+                     Download(queuedCountry);
+                   });
+  });
+}
+
+void MapFilesDownloader::Subscribe(Subscriber * subscriber)
+{
+  m_subscribers.push_back(subscriber);
+}
+
+void MapFilesDownloader::UnsubscribeAll()
+{
+  m_subscribers.clear();
 }
 
 // static
@@ -46,6 +68,16 @@ std::string MapFilesDownloader::MakeFullUrlLegacy(std::string const & baseUrl,
 void MapFilesDownloader::SetServersList(ServersList const & serversList)
 {
   m_serversList = serversList;
+}
+
+void MapFilesDownloader::SetDownloadingPolicy(DownloadingPolicy * policy)
+{
+  m_downloadingPolicy = policy;
+}
+
+bool MapFilesDownloader::IsDownloadingAllowed() const
+{
+  return m_downloadingPolicy == nullptr || m_downloadingPolicy->IsDownloadingAllowed();
 }
 
 std::vector<std::string> MapFilesDownloader::MakeUrlList(std::string const & relativeUrl)
@@ -75,9 +107,6 @@ MapFilesDownloader::ServersList MapFilesDownloader::LoadServersList()
 
 void MapFilesDownloader::GetServersList(ServersListCallback const & callback)
 {
-  GetPlatform().RunTask(Platform::Thread::Network, [callback]()
-  {
-    callback(LoadServersList());
-  });
+  callback(LoadServersList());
 }
 }  // namespace storage

@@ -5,11 +5,19 @@
 
 #include "platform/country_defines.hpp"
 #include "platform/country_file.hpp"
+#include "platform/downloader_defines.hpp"
 
 #include <string>
 
 namespace storage
 {
+class QueuedCountry;
+
+using DownloadingFinishCallback =
+    std::function<void(QueuedCountry const & queuedCountry, downloader::DownloadStatus status)>;
+using DownloadingProgressCallback =
+    std::function<void(QueuedCountry const & queuedCountry, downloader::Progress const & progress)>;
+
 class QueuedCountry
 {
 public:
@@ -28,6 +36,12 @@ public:
 
   void ClarifyDownloadingType();
 
+  void SetOnFinishCallback(DownloadingFinishCallback const & onDownloaded);
+  void SetOnProgressCallback(DownloadingProgressCallback const & onProgress);
+
+  void OnDownloadFinished(downloader::DownloadStatus status) const;
+  void OnDownloadProgress(downloader::Progress const & progress) const;
+
   bool operator==(CountryId const & countryId) const;
 
 private:
@@ -37,5 +51,8 @@ private:
   int64_t m_currentDataVersion;
   std::string m_dataDir;
   std::shared_ptr<diffs::DiffsDataSource> m_diffsDataSource;
+
+  DownloadingFinishCallback m_downloadingFinishCallback;
+  DownloadingProgressCallback m_downloadingProgressCallback;
 };
 }  // namespace storage

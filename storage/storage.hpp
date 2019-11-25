@@ -25,6 +25,7 @@
 #include <optional>
 #include <set>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -146,16 +147,16 @@ struct NodeStatuses
 // Downloading of only one mwm at a time is supported, so while the
 // mwm at the top of the queue is being downloaded (or updated by
 // applying a diff file) all other mwms have to wait.
-class Storage
+class Storage : public MapFilesDownloader::Subscriber
 {
 public:
   struct StatusCallback;
   using StartDownloadingCallback = std::function<void()>;
+  using FinishDownloadingCallback = std::function<void()>;
   using UpdateCallback = std::function<void(storage::CountryId const &, LocalFilePtr const)>;
   using DeleteCallback = std::function<bool(storage::CountryId const &, LocalFilePtr const)>;
   using ChangeCountryFunction = std::function<void(CountryId const &)>;
   using ProgressFunction = std::function<void(CountryId const &, downloader::Progress const &)>;
-  using Queue = std::list<QueuedCountry>;
 
 private:
   /// We support only one simultaneous request at the moment
@@ -166,20 +167,8 @@ private:
 
   CountryTree m_countries;
 
-  /// @todo. It appeared that our application uses m_queue from
-  /// different threads without any synchronization. To reproduce it
-  /// just download a map "from the map" on Android. (CountryStatus is
-  /// called from a different thread.)  It's necessary to check if we
-  /// can call all the methods from a single thread using
-  /// RunOnUIThread.  If not, at least use a syncronization object.
-  Queue m_queue;
-
-  // Keep downloading queue between application restarts.
-  bool m_keepDownloadingQueue = true;
-
   /// Set of mwm files which have been downloaded recently.
-  /// When a mwm file is downloaded it's moved from |m_queue| to |m_justDownloaded|.
-  /// When a new mwm file is added to |m_queue|, |m_justDownloaded| is cleared.
+  /// When a mwm file is downloaded it's added to |m_justDownloaded|.
   /// Note. This set is necessary for implementation of downloading progress of
   /// mwm group.
   CountriesSet m_justDownloaded;
@@ -193,20 +182,12 @@ private:
   // folder.
   std::map<platform::CountryFile, LocalFilePtr> m_localFilesForFakeCountries;
 
-  // Used to cancel an ongoing diff application.
-  // |m_diffsCancellable| is reset every time when a task to apply a diff is posted.
-  // We use the fact that at most one diff is being applied at a time and the
-  // calls to the diffs::ApplyDiff are coordinated from the storage thread.
-  base::Cancellable m_diffsCancellable;
-
-  std::optional<CountryId> m_latestDiffRequest;
-
   // Since the diffs applying runs on a different thread, the result
   // of diff application may return "Ok" when in fact the diff was
-  // cancelled. However, the storage thread knows for sure whether the
-  // latest request was to apply or to cancel the diff, and this knowledge
+  // cancelled. However, the storage thread knows for sure whether
+  // request was to apply or to cancel the diff, and this knowledge
   // is represented by |m_diffsBeingApplied|.
-  std::set<CountryId> m_diffsBeingApplied;
+  std::unordered_map<CountryId, std::unique_ptr<base::Cancellable>> m_diffsBeingApplied;
 
   std::vector<platform::LocalCountryFile> m_notAppliedDiffs;
 
@@ -270,8 +251,6 @@ private:
 
   StartDownloadingCallback m_startDownloadingCallback;
 
-  void DownloadNextCountryFromQueue();
-
   void LoadCountriesFile(std::string const & pathToCountriesFile);
 
   void ReportProgress(CountryId const & countryId, downloader::Progress const & p);
@@ -280,20 +259,18 @@ private:
 
   /// Called on the main thread by MapFilesDownloader when
   /// downloading of a map file succeeds/fails.
-  void OnMapFileDownloadFinished(downloader::DownloadStatus status,
-                                 downloader::Progress const & progress);
+  void OnMapFileDownloadFinished(QueuedCountry const & queuedCountry,
+                                 downloader::DownloadStatus status);
 
   /// Periodically called on the main thread by MapFilesDownloader
   /// during the downloading process.
-  void OnMapFileDownloadProgress(downloader::Progress const & progress);
+  void OnMapFileDownloadProgress(QueuedCountry const & queuedCountry,
+                                 downloader::Progress const & progress);
 
   void RegisterDownloadedFiles(CountryId const & countryId, MapFileType type);
 
   void OnMapDownloadFinished(CountryId const & countryId, downloader::DownloadStatus status,
                              MapFileType type);
-
-  /// Initiates downloading of the next file from the queue.
-  void DownloadNextFile(QueuedCountry const & country);
 
 public:
   ThreadChecker const & GetThreadChecker() const {return m_threadChecker;}
@@ -317,7 +294,7 @@ public:
 
   void Init(UpdateCallback const & didDownload, DeleteCallback const & willDelete);
 
-  inline void SetDownloadingPolicy(DownloadingPolicy * policy) { m_downloadingPolicy = policy; }
+  void SetDownloadingPolicy(DownloadingPolicy * policy);
 
   /// @name Interface with clients (Android/iOS).
   /// \brief It represents the interface which can be used by clients (Android/iOS).
@@ -556,7 +533,6 @@ public:
   bool IsDownloadInProgress() const;
 
   CountryId GetCurrentDownloadingCountryId() const;
-  void EnableKeepDownloadingQueue(bool enable) {m_keepDownloadingQueue = enable;}
 
   /// @param[out] res Populated with oudated countries.
   void GetOutdatedCountries(std::vector<Country const *> & countries) const;
@@ -580,17 +556,14 @@ public:
 
   void SetStartDownloadingCallback(StartDownloadingCallback const & cb);
 
+  void OnStartDownloading() override;
+  void OnFinishDownloading() override;
+
 private:
   friend struct UnitClass_StorageTest_DeleteCountry;
 
   void SaveDownloadQueue();
   void RestoreDownloadQueue();
-
-  // Returns a pointer to a country in the downloader's queue.
-  QueuedCountry * FindCountryInQueue(CountryId const & countryId);
-
-  // Returns a pointer to a country in the downloader's queue.
-  QueuedCountry const * FindCountryInQueue(CountryId const & countryId) const;
 
   // Returns true when country is in the downloader's queue.
   bool IsCountryInQueue(CountryId const & countryId) const;
@@ -630,8 +603,6 @@ private:
   // downloaded files.
   std::string GetFileDownloadPath(CountryId const & countryId, MapFileType file) const;
 
-  void CountryStatusEx(CountryId const & countryId, Status & status, MapFileType & type) const;
-
   /// Fast version, doesn't check if country is out of date
   Status CountryStatus(CountryId const & countryId) const;
 
@@ -664,9 +635,6 @@ private:
                                          downloader::Progress const & downloadingMwmProgress,
                                          CountriesSet const & mwmsInQueue) const;
 
-  void PushToJustDownloaded(Queue::iterator justDownloadedItem);
-  void PopFromQueue(Queue::iterator it);
-
   template <class ToDo>
   void ForEachAncestorExceptForTheRoot(std::vector<CountryTree::Node const *> const & nodes,
                                        ToDo && toDo) const;
@@ -686,7 +654,7 @@ private:
   void OnDiffStatusReceived(diffs::NameDiffInfoMap && diffs);
 };
 
-void GetQueuedCountries(Storage::Queue const & queue, CountriesSet & resultCountries);
+void GetQueuedCountries(Queue const & queue, CountriesSet & resultCountries);
 
 template <class ToDo>
 void Storage::ForEachInSubtree(CountryId const & root, ToDo && toDo) const
