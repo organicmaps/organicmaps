@@ -67,7 +67,7 @@ UNIT_TEST(OsmID2FeatureID_GetFeatureId)
     std::vector<uint32_t> const answer{
         kId2
     };
-    TEST_EQUAL(mapping.GetFeatureIds(kCid3), answer, ());
+    TEST_EQUAL(mapping.GetFeatureIds(kCid2), answer, ());
   }
   {
     std::vector<uint32_t> const answer{
