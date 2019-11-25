@@ -4,6 +4,7 @@
 #include "routing/index_road_graph.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/route.hpp"
+#include "routing/route_weight.hpp"
 #include "routing/traffic_stash.hpp"
 
 #include "traffic/traffic_info.hpp"
@@ -104,6 +105,8 @@ bool CheckGraphConnectivity(typename Graph::Vertex const & start, bool isOutgoin
 
   return marked.size() >= limit;
 }
+
+class IndexGraphStarter;
 
 struct AStarLengthChecker
 {

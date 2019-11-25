@@ -543,7 +543,7 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
                                                 IndexGraphStarter & starter,
                                                 vector<Segment> & subroute)
 {
-  CHECK(progress, ());
+  CHECK(progress, (checkpoints));
   subroute.clear();
 
   SetupAlgorithmMode(starter);
@@ -997,6 +997,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
   }
 
   SCOPE_GUARD(progressGuard, [&progress]() {
+    CHECK(progress, ());
     progress->PushAndDropLastSubProgress();
   });
 
