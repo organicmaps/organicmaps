@@ -150,6 +150,22 @@ df::ColorConstant Bookmark::GetColorConstant() const
       return "BookmarkGreen";
     case kml::PredefinedColor::Orange:
       return "BookmarkOrange";
+    case kml::PredefinedColor::DeepPurple:
+      return "BookmarkDeepPurple";
+    case kml::PredefinedColor::LightBlue:
+      return "BookmarkLightBlue";
+    case kml::PredefinedColor::Cyan:
+      return "BookmarkCyan";
+    case kml::PredefinedColor::Teal:
+      return "BookmarkTeal";
+    case kml::PredefinedColor::Lime:
+      return "BookmarkLime";
+    case kml::PredefinedColor::DeepOrange:
+      return "BookmarkDeepOrange";
+    case kml::PredefinedColor::Gray:
+      return "BookmarkGray";
+    case kml::PredefinedColor::BlueGray:
+      return "BookmarkBlueGray";
     case kml::PredefinedColor::None:
     case kml::PredefinedColor::Count:
       return "BookmarkRed";

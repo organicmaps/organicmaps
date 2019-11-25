@@ -101,6 +101,22 @@ PredefinedColor ExtractPlacemarkPredefinedColor(std::string const & s)
     return PredefinedColor::Green;
   if (s == "#placemark-orange")
     return PredefinedColor::Orange;
+  if (s == "#placemark-deeppurple")
+    return PredefinedColor::DeepPurple;
+  if (s == "#placemark-lightblue")
+    return PredefinedColor::LightBlue;
+  if (s == "#placemark-cyan")
+    return PredefinedColor::Cyan;
+  if (s == "#placemark-teal")
+    return PredefinedColor::Teal;
+  if (s == "#placemark-lime")
+    return PredefinedColor::Lime;
+  if (s == "#placemark-deeporange")
+    return PredefinedColor::DeepOrange;
+  if (s == "#placemark-gray")
+    return PredefinedColor::Gray;
+  if (s == "#placemark-bluegray")
+    return PredefinedColor::BlueGray;
 
   // Default color.
   return PredefinedColor::Red;
@@ -118,6 +134,14 @@ std::string GetStyleForPredefinedColor(PredefinedColor color)
   case PredefinedColor::Brown: return "placemark-brown";
   case PredefinedColor::Green: return "placemark-green";
   case PredefinedColor::Orange: return "placemark-orange";
+  case PredefinedColor::DeepPurple: return "placemark-deeppurple";
+  case PredefinedColor::LightBlue: return "placemark-lightblue";
+  case PredefinedColor::Cyan: return "placemark-cyan";
+  case PredefinedColor::Teal: return "placemark-teal";
+  case PredefinedColor::Lime: return "placemark-lime";
+  case PredefinedColor::DeepOrange: return "placemark-deeporange";
+  case PredefinedColor::Gray: return "placemark-gray";
+  case PredefinedColor::BlueGray: return "placemark-bluegray";
   case PredefinedColor::None:
   case PredefinedColor::Count:
     return {};

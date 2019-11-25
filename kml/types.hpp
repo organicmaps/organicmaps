@@ -26,6 +26,16 @@ enum class PredefinedColor : uint8_t
   Green,
   Orange,
 
+  // Extended colors.
+  DeepPurple,
+  LightBlue,
+  Cyan,
+  Teal,
+  Lime,
+  DeepOrange,
+  Gray,
+  BlueGray,
+
   Count
 };
 
@@ -42,6 +52,14 @@ inline std::string DebugPrint(PredefinedColor color)
   case PredefinedColor::Brown: return "Brown";
   case PredefinedColor::Green: return "Green";
   case PredefinedColor::Orange: return "Orange";
+  case PredefinedColor::DeepPurple: return "DeepPurple";
+  case PredefinedColor::LightBlue: return "LightBlue";
+  case PredefinedColor::Cyan: return "Cyan";
+  case PredefinedColor::Teal: return "Teal";
+  case PredefinedColor::Lime: return "Lime";
+  case PredefinedColor::DeepOrange: return "DeepOrange";
+  case PredefinedColor::Gray: return "Gray";
+  case PredefinedColor::BlueGray: return "BlueGray";
   case PredefinedColor::Count: return {};
   }
   UNREACHABLE();
