@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "تحديث (%s) والمتابعة";
 
-"dialog_pedestrian_route_is_long" = "طريق المشاة طويل جدًا";
-
 "whatsnew_toll_unpaved_title" = "نسق طرق السيارات يشمل جميع أنواع الطرق";
 
 "whatsnew_toll_unpaved_message" = "حدد الطرق التي تحتوي: نقط تحصيل رسوم، طرق غير ممهدة، تفاطعات العبارات";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "منالآن فصاعداً نقوم بتحديث البيانات مرتين بسرعة";
 
+"new_onboarding_button" = "التالي";
+
+"new_onboarding_button_2" = "ابدأ الآن";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "كل ما تريده في صديق سفر واحد";
+
+"new_onboarding_step2_header" = "احلم وخطط";
+
+"new_onboarding_step2_message" = "أكثر من 70 مليون مكان ودليل جاهز وحجز فندق من الخريطة مباشرةً – أنت جاهز للرحلة!";
+
+"new_onboarding_step3_message" = "لا تضيع أبدًا بسبب استخدام خرائط تفصيلية أو نظام ملاحة لأي دولة – كل شيء يعمل بدون اتصال!";
+
+"new_onboarding_step4_header" = "شارك الانطباعات";
+
+"new_onboarding_step4_message" = "ضع إشارات مرجعية على الأماكن المفضلة وأرسلها إلى أصدقائك";
+
+"new_onboarding_step5.1_header" = "شيء آخر قبل أن تبدأ…";
+
+"new_onboarding_step5.1_message" = "لا تنس زيارة قائمة الدلائل الجديد الخاصة بنا لتجد دليل رحلتك القادمة بدون اتصال!";
+
+"new_onboarding_step5.1_button" = "افتح القائمة";
+
+"new_onboarding_step5.2_message" = "الاشتراك في قائمة دلائل MAPS.ME ذو قيمة كبيرة. احصل على الوصول الكامل إلى دلائل المدينة والمناطق الخارجية في جميع أنحاء العالم!";
+
+"new_onboarding_step5.2_button" = "تحقق من الشروط";
+
+"new_onboarding_step5.3_message" = "تحقق من عينات مجانية لمسارات جاهزة للمدن والمناطق الخارجية مع مجموعة مختارة مجانية من MAPS.ME!";
+
+"new_onboarding_step5.3_button" = "تحميل مجاني";
+
+"new_onboarding_additional_steps_later_button" = "لاحقًا";
+
+"all_pass_subscription_header" = "اشتراك في الدلائل";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "أكثر من 20000 دليل ومسار";
+
+"all_pass_subscription_message_subtitle" = "تحميل غير محدود لطرق المدينة والمناطق الخارجية بدون اتصال";
+
+"all_pass_subscription_message_title_2" = "أكثر من 700 مدينة و 100 دولة";
+
+"all_pass_subscription_message_subtitle_2" = "خطط لرحلاتك في أي وقت من السنة";
+
+"all_pass_subscription_message_title_3" = "مجموعة كبيرة من المحتوى";
+
+"all_pass_subscription_message_subtitle_3" = "إشارات مرجعية وصور ومسارات المشي ووصف ونصائح";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "اشتراك الدلائل";
+
+"sightseeing_subscription_message" = "أكثر من 700 مدينة و 100 دولة";
+
+"sightseeing_subscription_message_2" = "متاح دون اتصال";
+
+"sightseeing_subscription_message_3" = "صور ومسارات للمشي";
+
+"subscription_success_dialog_title_sightseeing_pass" = "شكرًا للاشتراك!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "يمكنك الآن الوصول إلى جميع أدلة المعالم في القائمة";
+
+"downloader_main_gallery_header" = "خرائط ودلائل";
+
+"downloader_main_gallery_message" = "الآن في هذا القسم، يمكنك تحميل الخرائط وكذلك يمكنك التحقق من الدلائل لرحلتك القادمة";
+
+"downloader_main_1_element_gallery_header" = "كل الدلائل";
+
+"downloader_main_1_element_gallery_message" = "في أكثر من 100 دولة";
+
+"downloader_country_1_element_gallery_header" = "%s دلائل";
+
+"downloader_country_no_guides_gallery_header" = "لا توجد دلائل في هذه الدولة بعد";
+
+"downloader_country_no_guides_gallery_message" = "يمكنك الاطلاع على دلائل أخرى بدون اتصال في أكثر من 100 دولة للتعرف على أنشطة المدن والمناطق الخارجية";
+
+"dialog_pedestrian_route_is_long" = "طريق المشاة إلى نقطة ركوب وسيلة النقل طويل جدًا";
+
+"whatsnew_outdoor_guides_title" = "أضفنا أكثر من 15000 مسار خارجي!";
+
+"whatsnew_outdoor_guides_message" = "تتواجد الطرق من Outdooractive لرحلات الشتاء والصيف في القائمة!";
+
+"whatsnew_guides_galleries_title" = "خطط لرحلتك القادمة مع MAPS.ME";
+
+"whatsnew_guides_galleries_message" = "يمكنك الآن العثور على دلائل موصى بها في صفحات الأماكن للمدن والمعالم السياحية الشهيرة";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "موقف سيارات";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "مكان لوقوف السيارات";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "مقبرة";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "فناء الكنيسة";
 
 "type.landuse.commercial" = "landuse-commercial";
 

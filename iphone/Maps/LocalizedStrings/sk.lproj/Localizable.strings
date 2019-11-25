@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Aktualizovať (%s) a pokračovať";
 
-"dialog_pedestrian_route_is_long" = "Trasa pre chodcov je príliš dlhá";
-
 "whatsnew_toll_unpaved_title" = "Rozmiestnenie automobilových trás vzhľadom na všetky typy ciest";
 
 "whatsnew_toll_unpaved_message" = "Vyberte si obchádzky podľa spoplatnených ciest, prašných ciest a trajekty";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "Odteraz aktualizujeme dáta dvojnásobnou rýchlosťou";
 
+"new_onboarding_button" = "Ďalej";
+
+"new_onboarding_button_2" = "Začať";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "Všestranný pomocník na cestovanie";
+
+"new_onboarding_step2_header" = "Sen a plán";
+
+"new_onboarding_step2_message" = "70+ miliónov miest, hotových sprievodcov a rezervácie hotelov priamo z mapy – ste pripravení na cestu!";
+
+"new_onboarding_step3_message" = "Nikdy sa nestratíte pomocou podrobných máp ktorejkoľvek krajiny a navigácie – všetko funguje offline!";
+
+"new_onboarding_step4_header" = "Zdieľajte dojmy";
+
+"new_onboarding_step4_message" = "Umiestnite záložky na obľúbené miesta a pošlite ich priateľom";
+
+"new_onboarding_step5.1_header" = "Ešte jedna vec, než začnete…";
+
+"new_onboarding_step5.1_message" = "Nezabudnite navštíviť náš úplne nový katalóg sprievodcov a nájsť offline sprievodcu pre svoju nadchádzajúcu cestu!";
+
+"new_onboarding_step5.1_button" = "Otvoriť katalóg";
+
+"new_onboarding_step5.2_message" = "Predplatné katalógu sprievodcov MAPS.ME má veľkú hodnotu. Získajte plný prístup k mestským a vonkajším sprievodcom po celom svete!";
+
+"new_onboarding_step5.2_button" = "Skontrolovať podmienky";
+
+"new_onboarding_step5.3_message" = "Vyskúšajte bezplatné ukážky hotových mestských a vonkajších trás s bezplatným výberom MAPS.ME!";
+
+"new_onboarding_step5.3_button" = "Bezplatné stiahnutie";
+
+"new_onboarding_additional_steps_later_button" = "Neskôr";
+
+"all_pass_subscription_header" = "ODBER KATALÓGU";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "20000+ sprievodcov a trás";
+
+"all_pass_subscription_message_subtitle" = "Neobmedzené offline sťahovanie mestských a vonkajších trás";
+
+"all_pass_subscription_message_title_2" = "700+ miest a 100+ krajín";
+
+"all_pass_subscription_message_subtitle_2" = "Naplánujte si svoje cesty kedykoľvek v priebehu roka";
+
+"all_pass_subscription_message_title_3" = "Široký rozsah obsahu";
+
+"all_pass_subscription_message_subtitle_3" = "Záložky, fotografie, turistické trasy, popisy a tipy";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "Predplatné sprievodcov";
+
+"sightseeing_subscription_message" = "700+ miest a 100+ krajín";
+
+"sightseeing_subscription_message_2" = "Dostupné offline";
+
+"sightseeing_subscription_message_3" = "Fotografie a turistické trasy";
+
+"subscription_success_dialog_title_sightseeing_pass" = "Ďakujeme, že ste sa prihlásili na odber!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "Teraz máte prístup ku všetkým sprievodcom v katalógu";
+
+"downloader_main_gallery_header" = "Mapy a sprievodcovia";
+
+"downloader_main_gallery_message" = "Teraz v tejto sekcii môžete nielen sťahovať mapy, ale tiež si pozrieť sprievodcov pre svoju nadchádzajúcu cestu";
+
+"downloader_main_1_element_gallery_header" = "Všetci sprievodcovia";
+
+"downloader_main_1_element_gallery_message" = "vo viac ako 100 krajinách";
+
+"downloader_country_1_element_gallery_header" = "%s sprievodcov";
+
+"downloader_country_no_guides_gallery_header" = "V tejto krajine zatiaľ nie sú žiadni sprievodcovia";
+
+"downloader_country_no_guides_gallery_message" = "Môžete navštíviť ďalších sprievodcov offline vo viac ako 100 krajinách, v ktorých nájdete aktivity v meste a vonku";
+
+"dialog_pedestrian_route_is_long" = "Trasa pre chodcov k miestu nalodenia je príliš dlhá";
+
+"whatsnew_outdoor_guides_title" = "Pridali sme 15 000+ vonkajších trás!";
+
+"whatsnew_outdoor_guides_message" = "V katalógu čakajú trasy z Outdooractive na zimné a letné cesty!";
+
+"whatsnew_guides_galleries_title" = "Naplánujte si svoj nadchádzajúci výlet s MAPS.ME";
+
+"whatsnew_guides_galleries_message" = "Teraz nájdete odporúčaných sprievodcov na stránkach obľúbených turistických miest a pamiatok";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "Parkovisko";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "Parkovacie miesto";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "Cintorín";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "Cintorín";
 
 "type.landuse.commercial" = "landuse-commercial";
 

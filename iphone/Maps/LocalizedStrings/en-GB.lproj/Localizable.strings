@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Update (%s) and proceed";
 
-"dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
-
 "whatsnew_toll_unpaved_title" = "Consider road type when planning automobile routes";
 
 "whatsnew_toll_unpaved_message" = "Choose to avoid toll and unpaved roads and ferry crossings";
@@ -3077,6 +3075,96 @@
 "whatsnew_map_updates_title" = "Lightning-fast map updates";
 
 "whatsnew_map_updates_message" = "From now on we update the data twice as fast";
+
+"new_onboarding_button" = "Next";
+
+"new_onboarding_button_2" = "Get started";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "All-in-one travel buddy";
+
+"new_onboarding_step2_header" = "Dream and plan";
+
+"new_onboarding_step2_message" = "70+ million places, ready-made guides and hotel booking right from the map – you are ready for the trip!";
+
+"new_onboarding_step3_message" = "Never get lost with detailed maps of any country and navigation – everything works offline!";
+
+"new_onboarding_step4_header" = "Share impressions";
+
+"new_onboarding_step4_message" = "Place bookmarks on favorite places and send them to your friends";
+
+"new_onboarding_step5.1_header" = "One more thing before you start…";
+
+"new_onboarding_step5.1_message" = "Don't forget to visit our brand new guides catalog to find an offline guide for your upcoming journey!";
+
+"new_onboarding_step5.1_button" = "Open catalog";
+
+"new_onboarding_step5.2_message" = "Subscription to MAPS.ME guides catalog is a bargain. Get full access to city and outdoor guides around the world!";
+
+"new_onboarding_step5.2_button" = "Check out the terms";
+
+"new_onboarding_step5.3_message" = "Check out free samples of ready-made city and outdoor routes with a free selection of MAPS.ME!";
+
+"new_onboarding_step5.3_button" = "Free download";
+
+"new_onboarding_additional_steps_later_button" = "Later";
+
+"all_pass_subscription_header" = "SUBSCRIPTION TO CATALOG";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "20000+ guides & trails";
+
+"all_pass_subscription_message_subtitle" = "Unlimited downloads of city and outdoor routes available offline";
+
+"all_pass_subscription_message_title_2" = "700+ cities and 100+ countries";
+
+"all_pass_subscription_message_subtitle_2" = "Plan your journeys at any time of the year";
+
+"all_pass_subscription_message_title_3" = "Wide range of content";
+
+"all_pass_subscription_message_subtitle_3" = "Bookmarks, photos, walking tracks, descriptions and tips";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "Guides Subscription";
+
+"sightseeing_subscription_message" = "700+ cities and 100+ countries";
+
+"sightseeing_subscription_message_2" = "Available offline";
+
+"sightseeing_subscription_message_3" = "Photos and walking tracks";
+
+"subscription_success_dialog_title_sightseeing_pass" = "Thanks for subscribing!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "Now you have access to all sightseeing guides in the catalog";
+
+"downloader_main_gallery_header" = "Maps & guides";
+
+"downloader_main_gallery_message" = "From now on in this section you can not only download maps, but also check out guides for your upcoming journey";
+
+"downloader_main_1_element_gallery_header" = "All guides";
+
+"downloader_main_1_element_gallery_message" = "in 100+ countries";
+
+"downloader_country_1_element_gallery_header" = "%s guides";
+
+"downloader_country_no_guides_gallery_header" = "There are no guides in this country yet";
+
+"downloader_country_no_guides_gallery_message" = "You can check out other offline guides in 100+ countries for city and outdoor activities";
+
+"dialog_pedestrian_route_is_long" = "The pedestrian route to the transport boarding point is too long";
+
+"whatsnew_outdoor_guides_title" = "We've added 15000+ outdoor trails!";
+
+"whatsnew_outdoor_guides_message" = "Routes from Outdooractive for winter and summer journeys are waiting in the catalog!";
+
+"whatsnew_guides_galleries_title" = "Plan your upcoming trip with MAPS.ME";
+
+"whatsnew_guides_galleries_message" = "Now you can find recommended guides in place pages of popular touristic cities and sights";
 
 
 /**********  Partners  **********/
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "Christian graveyard";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "Churchyard";
 
 "type.landuse.commercial" = "landuse-commercial";
 

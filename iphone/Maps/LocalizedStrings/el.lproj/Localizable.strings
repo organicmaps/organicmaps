@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Ενημέρωση (%s) και συνέχεια";
 
-"dialog_pedestrian_route_is_long" = "Η πεζοπορική διαδρομή είναι πολύ μεγάλη";
-
 "whatsnew_toll_unpaved_title" = "Σχεδιάστε τις διαδρομές με αυτοκίνητο λαμβάνοντας υπόψη όλους τους τύπους δρόμων";
 
 "whatsnew_toll_unpaved_message" = "Επιλέγετε τις διαδρομές παρακάμπτοντας δρόμους με διόδια, χωματόδρομους και πορθμεία";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "Από εδώ και πέρα ενημερώνουμε τα δεδομένα 2 φορές πιο γρήγορα";
 
+"new_onboarding_button" = "Επόμενο";
+
+"new_onboarding_button_2" = "Εκκίνηση";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "Ολοκληρωμένος βοηθός στα ταξίδια";
+
+"new_onboarding_step2_header" = "Κάντε όνειρα και σχέδια";
+
+"new_onboarding_step2_message" = "70+ εκατομμύρια ενδιαφέρουσες τοποθεσίες, κατάλογος έτοιμων οδηγών και κρατήσεις ξενοδοχείων από τον χάρτη – είστε έτοιμοι να ταξιδέψετε!";
+
+"new_onboarding_step3_message" = "Οι λεπτομερείς χάρτες εκτός σύνδεσης και η πλοήγηση εκτός σύνδεσης θα σας βοηθήσουν να μην χαθείτε σε άγνωστα μέρη!";
+
+"new_onboarding_step4_header" = "Μοιραστείτε τις εντυπώσεις σας";
+
+"new_onboarding_step4_message" = "Να αποθηκεύετε τις τοποθεσίες που σας άρεσαν σε Αγαπημένα και να τις στέλνετε σε φίλους";
+
+"new_onboarding_step5.1_header" = "Προτού ξεκινήσετε…";
+
+"new_onboarding_step5.1_message" = "Μην ξεχάσετε να επισκεφθείτε τον καινούριο μας κατάλογο διαδρομών για να βρείτε τον οδηγό εκτός σύνδεσης για το επόμενο ταξίδι σας!";
+
+"new_onboarding_step5.1_button" = "Άνοιγμα καταλόγου";
+
+"new_onboarding_step5.2_message" = "Η συνδρομή στον κατάλογο οδηγών στο MAPS.ME συνφέρει. Αποκτήστε πλήρη πρόσβαση σε οδηγούς για περιπάτους στην πόλη και υπαίθριες δραστηριότητες!";
+
+"new_onboarding_step5.2_button" = "Προβολή όρων";
+
+"new_onboarding_step5.3_message" = "Κάντε λήψη και αξιολογήστε διαδρομές για περιπάτους στην πόλη και υπαίθριες δραστηριότητες με δωρεάν συλλογή του MAPS.ME!";
+
+"new_onboarding_step5.3_button" = "Δωρεάν λήψη";
+
+"new_onboarding_additional_steps_later_button" = "Αργότερα";
+
+"all_pass_subscription_header" = "ΕΓΓΡΑΦΗ ΣΤΟΝ ΚΑΤΑΛΟΓΟ";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "20.000+ οδηγών και μονοπατιών";
+
+"all_pass_subscription_message_subtitle" = "Απεριόριστες λήψεις διαδρομών χωρίς σύνδεση για περιπάτους στην πόλη και υπαίθριες δραστηριότητες";
+
+"all_pass_subscription_message_title_2" = "700+ πόλεις και 100+ χώρες";
+
+"all_pass_subscription_message_subtitle_2" = "Για ταξίδια σε οποιαδήποτε εποχή του χρόνου";
+
+"all_pass_subscription_message_title_3" = "Ποικιλία περιεχομένων";
+
+"all_pass_subscription_message_subtitle_3" = "Αγαπημένα, φωτογραφίες, μονοπάτια πεζοπορίας, περιγραφές και συμβουλές";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "Συνδρομή σε οδηγούς";
+
+"sightseeing_subscription_message" = "700+ πόλεις και 100+ χώρες";
+
+"sightseeing_subscription_message_2" = "Διαθέσιμα χωρίς σύνδεση";
+
+"sightseeing_subscription_message_3" = "Φωτογραφίες και μονοπάτια";
+
+"subscription_success_dialog_title_sightseeing_pass" = "Ευχαριστούμε για την εγγραφή!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "Τώρα έχετε πρόσβαση σε όλους τους οδηγούς περιηγήσεων στις πόλεις που υπάρχουν στον κατάλογο";
+
+"downloader_main_gallery_header" = "Χάρτες και οδηγοί";
+
+"downloader_main_gallery_message" = "Τώρα, σε αυτήν την ενότητα μπορείτε να κάνετε λήψη των χαρτών και επιπλέον να επιλέξετε τους οδηγούς για τα επόμενα ταξίδια σας";
+
+"downloader_main_1_element_gallery_header" = "Όλοι οδηγοί";
+
+"downloader_main_1_element_gallery_message" = "σε 100+ χώρες";
+
+"downloader_country_1_element_gallery_header" = "%s διαδρομών";
+
+"downloader_country_no_guides_gallery_header" = "Προς το παρόν δεν υπάρχουν οδηγοί γι' αυτή τη χώρα";
+
+"downloader_country_no_guides_gallery_message" = "Ρίξτε μια ματιά σε άλλες διαδρομές σε 100+ χώρες για τις αστικές και υπαίθριες δραστηριότητες";
+
+"dialog_pedestrian_route_is_long" = "Η διαδρομή με τα πόδια μέχρι το σημείο επιβίβασης είναι πολύ μεγάλη";
+
+"whatsnew_outdoor_guides_title" = "Έχουμε προσθέσει 15.000 + μονοπάτια για υπαίθριες δραστηριότητες!";
+
+"whatsnew_outdoor_guides_message" = "Οι διαδρομές από την Outdooractive για χειμερινές και καλοκαιρινές διακοπές σας περιμένουν στον κατάλογο!";
+
+"whatsnew_guides_galleries_title" = "Προγραμματίστε το επόμενο ταξίδι με το MAPS.ME";
+
+"whatsnew_guides_galleries_message" = "Τώρα μπορείτε να βρείτε τους συνιστώμενους οδηγούς στις κάρτες των δημοφιλών πόλεων και αξιοθέατων";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "Χώρος στάθμευσης";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "Χώρος στάθμευσης";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "Νεκροταφείο";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "Αυλόγυρος εκκλησίας";
 
 "type.landuse.commercial" = "landuse-commercial";
 

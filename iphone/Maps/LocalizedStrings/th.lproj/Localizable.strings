@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "อัพเดต (%s) และกำลังอยู่ในขั้นตอนการทำงาน";
 
-"dialog_pedestrian_route_is_long" = "เส้นทางเดินเท้านั้นไกลเกินไป";
-
 "whatsnew_toll_unpaved_title" = "วางเส้นทางสำหรับรถยนต์โดยพิจารณาใช้ถนนทุกประเภท";
 
 "whatsnew_toll_unpaved_message" = "เลือกเส้นทางอ้อมจากถนนที่เก็บค่าผ่านทาง ถนนดิน หรือจำเป็นต้องใช้เรือข้าม";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "นับตั้งแต่นี้ไปเราทำการปรับปรุงข้อมูลได้เร็วขึ้นเป็นสองเท่า";
 
+"new_onboarding_button" = "ถัดไป";
+
+"new_onboarding_button_2" = "เริ่มเลย";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "เพื่อนคู่การท่องเที่ยวแบบเบ็ดเสร็จ";
+
+"new_onboarding_step2_header" = "ฝันและวางแผน";
+
+"new_onboarding_step2_message" = "สถานที่มากกว่า 70 ล้านแห่ง คู่มือใช้งานแบบพร้อมใช้ และการจองโรงแรมทันทีจากแผนที่ คุณพร้อมแล้วที่จะสำหรับการไปทริป!";
+
+"new_onboarding_step3_message" = "ไม่มีวันหลงทางด้วยแผนที่อย่างละเอียดของประเทศใดๆ ก็ตามพร้อมอุปกรณ์นำทาง ทุกอย่างใช้ได้แบบออฟไลน์!";
+
+"new_onboarding_step4_header" = "แชร์ความประทับใจ";
+
+"new_onboarding_step4_message" = "แปะบุ๊กมาร์กไว้ยังสถานที่ที่ชื่นชอบและส่งมันไปให้กับเพื่อนๆ ของคุณ";
+
+"new_onboarding_step5.1_header" = "อีกขั้นเดียวก่อนที่คุณจะเริ่ม…";
+
+"new_onboarding_step5.1_message" = "อย่าลืมที่จะเข้าชมไกด์แคตตาล็อกใหม่เอี่ยมของเรา เพื่อหาคู่มือใช้งานแบบออฟไลน์สำหรับการเดินทางของคุณที่คุณกำลังไป!";
+
+"new_onboarding_step5.1_button" = "เปิดแคตตาล็อก";
+
+"new_onboarding_step5.2_message" = "สมัครสมาชิกไกด์แคตตาล็อกของ MAPS.ME นั้นคุ้มค่าอย่างยิ่ง ด้วยการเข้าถึงเมืองใหญ่ๆ และเส้นทางเอาท์ดอร์รอบโลก!";
+
+"new_onboarding_step5.2_button" = "เช็คเงื่อนไขการใช้งาน";
+
+"new_onboarding_step5.3_message" = "เช็คตัวอย่างของเส้นทางที่ถูกวางไว้แล้วของเมืองใหญ่ๆ และพื้นที่กลางแจ้ง ด้วยการเลือกสรรให้ฟรีๆ ของ MAPS.ME!";
+
+"new_onboarding_step5.3_button" = "ดาวน์โหลดฟรี";
+
+"new_onboarding_additional_steps_later_button" = "ภายหลัง";
+
+"all_pass_subscription_header" = "สมัครสมาชิกแคตตาล็อก";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "คู่มือใช้งาน และเส้นทางมากกว่า 20,000 แห่ง";
+
+"all_pass_subscription_message_subtitle" = "มีเส้นทางของเมืองใหญ่และเส้นทางเอาท์ดอร์ที่ใช้งานได้แบบออฟไลน์ให้ดาวน์โหลดได้ไม่จำกัด";
+
+"all_pass_subscription_message_title_2" = "มากกว่า 700 เมืองใหญ่ และมากกว่า 100 ประเทศ";
+
+"all_pass_subscription_message_subtitle_2" = "วางแผนการเดินทางของคุณได้ในทุกเวลาของปี";
+
+"all_pass_subscription_message_title_3" = "มีเนื้อหาที่กว้างขวาง";
+
+"all_pass_subscription_message_subtitle_3" = "บุ๊กมาร์ก ภาพถ่าย เส้นทางการเดินเท้า คำบรรยาย และเคล็ดลับ";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "สมัครสมาชิกคู่มือใช้งาน";
+
+"sightseeing_subscription_message" = "มากกว่า 700 เมืองใหญ่ และมากกว่า 100 ประเทศ";
+
+"sightseeing_subscription_message_2" = "ใช้งานได้แบบออฟไลน์";
+
+"sightseeing_subscription_message_3" = "ภาพถ่าย เส้นทางการเดิน";
+
+"subscription_success_dialog_title_sightseeing_pass" = "ขอบคุณที่สมัครใช้งานกับเรา!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "ตอนนี้คุณเข้าถึงคู่มือใช้งานในการเที่ยวชมในแคตตาล็อกได้แล้ว";
+
+"downloader_main_gallery_header" = "แผนที่และคู่มือใช้งาน";
+
+"downloader_main_gallery_message" = "ในส่วนนี้ทั้งหมด คุณไม่แค่ดาวน์โหลดแผนที่ แต่ยังตรวจดูคู่มือใช้งานเพื่อการเดินทางที่คุณกำลังไปได้ด้วย";
+
+"downloader_main_1_element_gallery_header" = "คู่มือใช้งานทั้งหมด";
+
+"downloader_main_1_element_gallery_message" = "ในมากกว่า 100 ประเทศ";
+
+"downloader_country_1_element_gallery_header" = "%s คู่มือใช้งาน";
+
+"downloader_country_no_guides_gallery_header" = "ยังไม่มีคู่มือใช้งานในประเทศนี้";
+
+"downloader_country_no_guides_gallery_message" = "คุณสามารถเช็คคู่มือใช้งานอื่นๆ ในมากกว่า 100 ประเทศสำหรับเมืองใหญ่และกิจกรรมเอาท์ดอร์";
+
+"dialog_pedestrian_route_is_long" = "เส้นทางเดินเท้าไปยังจุดขึ้นรถโดยสารนั้นไกลเกินไป";
+
+"whatsnew_outdoor_guides_title" = "เราเพิ่มเส้นทางเอาท์ดอร์มากกว่า 15000 เส้นทาง!";
+
+"whatsnew_outdoor_guides_message" = "เส้นทางจากOutdooractiveสำหรับการเดินทางในฤดูหนาวและฤดูร้อนนั้นรอยู่ในแคตตาล็อก!";
+
+"whatsnew_guides_galleries_title" = "วางแผนทริปที่คุณกำลังไปด้วย MAPS.ME";
+
+"whatsnew_guides_galleries_message" = "ตอนนี้คุณสามารถค้นหาคู่มือใช้งานที่เราแนะนำในเว็บเพจเกี่ยวกับสถานที่ของเมืองและสถานที่ที่เป็นสถานที่ท่องเที่ยวยอดนิยม";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "ที่จอดรถ";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "พื้นที่จอดรถ";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "สุสาน";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "บริเวณโบสถ์";
 
 "type.landuse.commercial" = "landuse-commercial";
 

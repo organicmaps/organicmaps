@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Обновить (%s) и продолжить";
 
-"dialog_pedestrian_route_is_long" = "Пешеходный маршрут слишком длинный";
-
 "whatsnew_toll_unpaved_title" = "Прокладывайте автомобильные маршруты с учетом типа дороги";
 
 "whatsnew_toll_unpaved_message" = "Объезжайте платные и грунтовые дороги и паромные переправы";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "Теперь обновляем данные в 2 раза быстрее";
 
+"new_onboarding_button" = "Далее";
+
+"new_onboarding_button_2" = "Начать";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "Универсальный помощник в путешествиях";
+
+"new_onboarding_step2_header" = "Мечтайте и планируйте";
+
+"new_onboarding_step2_message" = "70+ млн интересных мест, каталог готовых путеводителей и бронирование гостиниц с карты – вы готовы к путешествию!";
+
+"new_onboarding_step3_message" = "Детализированные офлайн карты и офлайн навигация помогут не потеряться в незнакомых местах!";
+
+"new_onboarding_step4_header" = "Делитесь впечатлениями";
+
+"new_onboarding_step4_message" = "Сохраняйте понравившиеся места в избранном и отправляйте их друзьям";
+
+"new_onboarding_step5.1_header" = "Перед тем как начать…";
+
+"new_onboarding_step5.1_message" = "Не забудьте посетить наш новый каталог путеводителей, чтобы найти офлайн гид к ближайшей поездке!";
+
+"new_onboarding_step5.1_button" = "Открыть каталог";
+
+"new_onboarding_step5.2_message" = "Подписка на каталог путеводителей в MAPS.ME – это выгодно. Получите полный доступ к путеводителям для городских прогулок и активного отдыха!";
+
+"new_onboarding_step5.2_button" = "Посмотреть условия";
+
+"new_onboarding_step5.3_message" = "Скачайте и оцените маршруты для городских прогулок и активного отдыха с бесплатной подборкой MAPS.ME!";
+
+"new_onboarding_step5.3_button" = "Скачать бесплатно";
+
+"new_onboarding_additional_steps_later_button" = "Не сейчас";
+
+"all_pass_subscription_header" = "ПОДПИСКА НА КАТАЛОГ";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "20000+ путеводителей и троп";
+
+"all_pass_subscription_message_subtitle" = "Безлимитное скачивание офлайн маршрутов для городских прогулок и активного отдыха";
+
+"all_pass_subscription_message_title_2" = "700+ городов и 100+ стран";
+
+"all_pass_subscription_message_subtitle_2" = "Для путешествий в любое время года";
+
+"all_pass_subscription_message_title_3" = "Разнообразный контент";
+
+"all_pass_subscription_message_subtitle_3" = "Метки, фото, пешеходные треки, описания и рекомендации";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "Подписка на путеводители";
+
+"sightseeing_subscription_message" = "700+ городов и 100+ стран";
+
+"sightseeing_subscription_message_2" = "Доступны офлайн";
+
+"sightseeing_subscription_message_3" = "Фото и пешеходные треки";
+
+"subscription_success_dialog_title_sightseeing_pass" = "Спасибо за подписку!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "Теперь у вас есть доступ ко всем городским путеводителям в каталоге";
+
+"downloader_main_gallery_header" = "Карты и путеводители";
+
+"downloader_main_gallery_message" = "Теперь в этом разделе вы можете не только загрузить карты, но и выбрать путеводители для ближайших путешествий";
+
+"downloader_main_1_element_gallery_header" = "Все путеводители";
+
+"downloader_main_1_element_gallery_message" = "в 100+ странах";
+
+"downloader_country_1_element_gallery_header" = "%s маршрутов";
+
+"downloader_country_no_guides_gallery_header" = "Пока нет путеводителей по этой стране";
+
+"downloader_country_no_guides_gallery_message" = "Ознакомьтесь с другими маршрутами в 100+ странах для городского и активного отдыха";
+
+"dialog_pedestrian_route_is_long" = "Добираться до транспорта пешком слишком долго";
+
+"whatsnew_outdoor_guides_title" = "Мы добавили 15000+ троп для активного отдыха!";
+
+"whatsnew_outdoor_guides_message" = "Маршруты от Outdooractive для зимних и летних отпусков ждут в каталоге!";
+
+"whatsnew_guides_galleries_title" = "Планируйте ближайшую поездку с MAPS.ME";
+
+"whatsnew_guides_galleries_message" = "Теперь вы можете найти рекомендованные путеводители в карточках популярных городов и достопримечательностей";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "Парковка";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "Парковочное место";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "Христианское кладбище";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "Церковный двор";
 
 "type.landuse.commercial" = "landuse-commercial";
 

@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Aggiorna (%s) e continua";
 
-"dialog_pedestrian_route_is_long" = "Percorso a piedi troppo lungo";
-
 "whatsnew_toll_unpaved_title" = "Pianificare percorsi in auto su tutti i tipi di strade";
 
 "whatsnew_toll_unpaved_message" = "Scegli modalità di percorso e deviazione su strade a pedaggio, strade sterrate e traghetti";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "Ora l'aggiornamento dei dati è 2 volte più veloce";
 
+"new_onboarding_button" = "Avanti";
+
+"new_onboarding_button_2" = "Avvia";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "Tutto per i viaggi in un'unica app";
+
+"new_onboarding_step2_header" = "Sogna e pianifica i tuoi viaggi";
+
+"new_onboarding_step2_message" = "+ di 70 milioni di luoghi d'interesse, catalogo di guide pronte all'uso e prenotazione degli hotel direttamente dalla mappa – tutto è pronto per il tuo viaggio!";
+
+"new_onboarding_step3_message" = "Carte e navigazione offline dettagliate ti aiuteranno a non perderti nei luoghi che non conosci!";
+
+"new_onboarding_step4_header" = "Condividi le tue esperienze";
+
+"new_onboarding_step4_message" = "Salva i posti che ti sono piaciuti nei preferiti e inviali agli amici";
+
+"new_onboarding_step5.1_header" = "Prima di iniziare…";
+
+"new_onboarding_step5.1_message" = "Non scordarti di dare un'occhiata al nostro nuovo catalogo per trovare la guida offline per il tuo prossimo viaggio!";
+
+"new_onboarding_step5.1_button" = "Apri il catalogo";
+
+"new_onboarding_step5.2_message" = "Abbonarsi al catalogo guide di MAPS.ME è vantaggioso. Ottieni accesso completo alle guide ai percorsi cittadini e alle attività all'aria aperta!";
+
+"new_onboarding_step5.2_button" = "Vedi i termini di utilizzo";
+
+"new_onboarding_step5.3_message" = "Scarica gratuitamente una selezione di percorsi cittadini e di attività all'aria aperta realizzata da MAPS.ME!";
+
+"new_onboarding_step5.3_button" = "Scarica gratis";
+
+"new_onboarding_additional_steps_later_button" = "Non ora";
+
+"all_pass_subscription_header" = "ISCRIVITI AL CATALOGO";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "+ di 20000 guide e sentieri";
+
+"all_pass_subscription_message_subtitle" = "Download illimitato di percorsi cittadini e di attività all'aria aperta";
+
+"all_pass_subscription_message_title_2" = "+ di 700 città e 100 Paesi";
+
+"all_pass_subscription_message_subtitle_2" = "Per viaggiare in qualsiasi momento dell'anno";
+
+"all_pass_subscription_message_title_3" = "Svariati contenuti";
+
+"all_pass_subscription_message_subtitle_3" = "Segnalibri, foto, percorsi pedonali, descrizioni e suggerimenti";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "Iscriviti alle guide";
+
+"sightseeing_subscription_message" = "+ di 700 città e 100 Paesi";
+
+"sightseeing_subscription_message_2" = "Disponibili offline";
+
+"sightseeing_subscription_message_3" = "Foto e percorsi pedonali";
+
+"subscription_success_dialog_title_sightseeing_pass" = "Grazie per l'acquisto!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "Adesso hai accesso a tutte le guide alle attrazioni delle città presenti nel catalogo";
+
+"downloader_main_gallery_header" = "Carte e guide";
+
+"downloader_main_gallery_message" = "Adesso in questa sezione puoi scaricare le mappe e scegliere le guide per i prossimi viaggi";
+
+"downloader_main_1_element_gallery_header" = "Tutte le guide";
+
+"downloader_main_1_element_gallery_message" = "per + di 100 Paesi";
+
+"downloader_country_1_element_gallery_header" = "%s guide";
+
+"downloader_country_no_guides_gallery_header" = "Le guide per questo Paese non sono ancora disponibili";
+
+"downloader_country_no_guides_gallery_message" = "Puoi dare un'occhiata ad altri percorsi cittadini e attività all'aria aperta in più di 100 Paesi";
+
+"dialog_pedestrian_route_is_long" = "Raggiungere la fermata dei mezzi di trasporto a piedi richiede troppo tempo";
+
+"whatsnew_outdoor_guides_title" = "Abbiamo aggiunto più di 15000 sentieri!";
+
+"whatsnew_outdoor_guides_message" = "I percorsi di Outdooractive ti aspettano all'interno del catalogo, sia per vacanze invernali che estive!";
+
+"whatsnew_guides_galleries_title" = "Pianifica il tuo prossimo viaggio con MAPS.ME";
+
+"whatsnew_guides_galleries_message" = "Adesso puoi trovare le guide consigliate sulle pagine dedicate alle città e alla attrazioni più popolari";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "Parcheggio";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "Parcheggio";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "Cimitero";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "Sagrato della chiesa";
 
 "type.landuse.commercial" = "landuse-commercial";
 

@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Perbarui (%s) dan lanjutkan";
 
-"dialog_pedestrian_route_is_long" = "Rute pejalan kaki terlalu panjang";
-
 "whatsnew_toll_unpaved_title" = "Susun rute mobil dengan mempertimbangkan semua jenis jalan";
 
 "whatsnew_toll_unpaved_message" = "Pilih jalan memutar untuk hindari jalan tol, jalan tanah, dan penyeberangan kapal feri";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "Mulai sekarang kami memperbarui data dua kali lebih cepat";
 
+"new_onboarding_button" = "Berikutnya";
+
+"new_onboarding_button_2" = "Memulai";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "Teman perjalanan yang lengkap";
+
+"new_onboarding_step2_header" = "Rencanakan dan impikan";
+
+"new_onboarding_step2_message" = "Lebih dari 70 juta tempat, peta panduan yang siap pakai dan memesan hotel langsung dari peta – Anda pun siap melakukan perjalanan!";
+
+"new_onboarding_step3_message" = "Tak perlu lagi tersesat dengan peta dan navigasi yang lengkap – semuanya bisa digunakan secara offline!";
+
+"new_onboarding_step4_header" = "Bagikan kesan";
+
+"new_onboarding_step4_message" = "Buat penanda pada tempat favorit dan kirimkan ke teman Anda";
+
+"new_onboarding_step5.1_header" = "Satu hal sebelum Anda mulai…";
+
+"new_onboarding_step5.1_message" = "Jangan lupa untuk mengunjungi katalog panduan baru kami dan temukan panduan offline untuk perjalanan Anda selanjutnya!";
+
+"new_onboarding_step5.1_button" = "Buka katalog";
+
+"new_onboarding_step5.2_message" = "Berlangganan katalog panduan MAPS.ME sangatlah menguntungkan. Dapatkan akses lengkap ke berbagai kota dan panduan perjalanan di seluruh dunia!";
+
+"new_onboarding_step5.2_button" = "Lihat ketentuannya";
+
+"new_onboarding_step5.3_message" = "Lihatlah contoh rute perjalanan dan kota secara gratis dengan berbagai macam pilihan dari MAPS.ME!";
+
+"new_onboarding_step5.3_button" = "Download Gratis";
+
+"new_onboarding_additional_steps_later_button" = "Nanti";
+
+"all_pass_subscription_header" = "BERLANGGANAN KATALOG";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "20000+ jalur & panduan";
+
+"all_pass_subscription_message_subtitle" = "Download berbagai macam rute perjalanan dan kota secara offline";
+
+"all_pass_subscription_message_title_2" = "700+ kota dan 100+ negara";
+
+"all_pass_subscription_message_subtitle_2" = "Rencanakan perjalanan Anda kapan saja";
+
+"all_pass_subscription_message_title_3" = "Konten yang beragam";
+
+"all_pass_subscription_message_subtitle_3" = "Penanda, foto, jalur pejalan kaki, tips dan deskripsi";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "Langganan Panduan";
+
+"sightseeing_subscription_message" = "700+ kota dan 100+ negara";
+
+"sightseeing_subscription_message_2" = "Tersedia secara Offline";
+
+"sightseeing_subscription_message_3" = "Foto dan jalur pejalan kaki";
+
+"subscription_success_dialog_title_sightseeing_pass" = "Terima kasih telah berlangganan!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "Kini Anda telah memiliki akses ke katalog panduan perjalanan";
+
+"downloader_main_gallery_header" = "Peta & panduan";
+
+"downloader_main_gallery_message" = "Kini, Anda tak hanya bisa mendownload peta, namun Anda juga bisa melihat panduan perjalanan Anda berikutnya";
+
+"downloader_main_1_element_gallery_header" = "Semua panduan";
+
+"downloader_main_1_element_gallery_message" = "di 100+ negara";
+
+"downloader_country_1_element_gallery_header" = "%s panduan";
+
+"downloader_country_no_guides_gallery_header" = "Belum ada panduan di negara ini";
+
+"downloader_country_no_guides_gallery_message" = "Anda bisa melihat panduan offline lainnya di 100+ negara yang berisi kota dan berbagai panduan perjalanan";
+
+"dialog_pedestrian_route_is_long" = "Rute pejalan kaki ke halte atau stasiun terlalu jauh";
+
+"whatsnew_outdoor_guides_title" = "Kami telah menambahkan 15000+ jalur luar ruangan!";
+
+"whatsnew_outdoor_guides_message" = "Rute dari Outdooractive untuk perjalanan musim dingin dan panas tengah menunggu di katalog!";
+
+"whatsnew_guides_galleries_title" = "Rencanakan perjalanan Anda selanjutnya dengan MAPS.ME";
+
+"whatsnew_guides_galleries_message" = "Kini Anda dapat menemukan panduan yang disarankan di halaman tempat wisata yang paling populer dikunjungi turis";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "Parkir";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "Tempat parkir";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "Pemakaman";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "Halaman gereja";
 
 "type.landuse.commercial" = "landuse-commercial";
 

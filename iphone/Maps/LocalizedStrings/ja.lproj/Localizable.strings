@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "アップデート(%s) して進む";
 
-"dialog_pedestrian_route_is_long" = "歩行ルートが長過ぎます";
-
 "whatsnew_toll_unpaved_title" = "全てのタイプの道を考慮に入れて自動車ルートをレイアウト";
 
 "whatsnew_toll_unpaved_message" = "有料道路、未舗装道路、およびフェリー航路を回避するために迂回路を選択";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "これからは更新速度が二倍になります";
 
+"new_onboarding_button" = "次へ";
+
+"new_onboarding_button_2" = "開始";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "オールインワンの旅の友";
+
+"new_onboarding_step2_header" = "夢を持って計画しましょう";
+
+"new_onboarding_step2_message" = "7000万以上の場所と、レディメイドなガイド、そしてホテル予約がマップから直接利用できます－旅行の準備に最適です！";
+
+"new_onboarding_step3_message" = "全ての国の詳細なマップとナビゲーションで決して迷う事はありません－全てがオフラインの機能します！";
+
+"new_onboarding_step4_header" = "感想を共有しましょう";
+
+"new_onboarding_step4_message" = "お気に入り場所にブックマークをして、友人に送信しましょう";
+
+"new_onboarding_step5.1_header" = "始める前にもう1点…";
+
+"new_onboarding_step5.1_message" = "今後の旅のオフラインのガイドを見つけるために新しいガイドのカタログを見る事をお忘れなく！";
+
+"new_onboarding_step5.1_button" = "カタログを開く";
+
+"new_onboarding_step5.2_message" = "MAPS.MEのガイドのカタログにサブスクライブすれば多くの利点があります。世界中の都市や戸外のガイドの全てにアクセスする事ができます！";
+
+"new_onboarding_step5.2_button" = "規約をご確認ください";
+
+"new_onboarding_step5.3_message" = "MAPS.MEの無料セレクションでレディメイドな都市と戸外のルートのサンプルをご覧ください！";
+
+"new_onboarding_step5.3_button" = "無料ダウンロード";
+
+"new_onboarding_additional_steps_later_button" = "後で";
+
+"all_pass_subscription_header" = "カタログにサブスクライブ";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "2万以上のガイド＆トレイル";
+
+"all_pass_subscription_message_subtitle" = "オフラインで利用できる都市と戸外のルートが無制限にダウンロードできます";
+
+"all_pass_subscription_message_title_2" = "700以上の都市と100以上の国";
+
+"all_pass_subscription_message_subtitle_2" = "いつでも旅の計画ができます";
+
+"all_pass_subscription_message_title_3" = "幅広いコンテンツ";
+
+"all_pass_subscription_message_subtitle_3" = "ブックマーク、写真、歩行経路、説明文、そしてヒント";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "ガイドのサブスクリプション";
+
+"sightseeing_subscription_message" = "700以上の都市と100以上の国";
+
+"sightseeing_subscription_message_2" = "オフラインで利用可能";
+
+"sightseeing_subscription_message_3" = "写真と歩行経路";
+
+"subscription_success_dialog_title_sightseeing_pass" = "ご登録ありがとうございます！";
+
+"subscription_success_dialog_message_sightseeing_pass" = "これでカタログ内の全ての観光ガイドにアクセスできるようになりました";
+
+"downloader_main_gallery_header" = "マップとガイド";
+
+"downloader_main_gallery_message" = "このセクションではマップをダウンロードできるだけでなく、今後の旅のためのガイドをチェックする事もできます";
+
+"downloader_main_1_element_gallery_header" = "全てのガイド";
+
+"downloader_main_1_element_gallery_message" = "100以上の国の";
+
+"downloader_country_1_element_gallery_header" = "%s個のガイド";
+
+"downloader_country_no_guides_gallery_header" = "この国にはまだガイドがありません";
+
+"downloader_country_no_guides_gallery_message" = "100以上の国の都市と戸外での活動のための他のオフラインガイドをチェックできます";
+
+"dialog_pedestrian_route_is_long" = "交通機関の登場ポイントまでの歩行ルートが長すぎます";
+
+"whatsnew_outdoor_guides_title" = "15000以上の戸外トレイルを追加しました！";
+
+"whatsnew_outdoor_guides_message" = "Outdooractiveが提供する冬と夏の旅のためのルートをカタログから利用できます!";
+
+"whatsnew_guides_galleries_title" = "MAPS.MEで今後の旅の計画を立てましょう";
+
+"whatsnew_guides_galleries_message" = "人気の観光都市と景色の場所のページでお勧めのガイドを見つける事ができるようになりました";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "駐車場";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "駐車スペース";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "墓地";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "教会付属墓地";
 
 "type.landuse.commercial" = "landuse-commercial";
 

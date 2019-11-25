@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "更新（%s）並繼續";
 
-"dialog_pedestrian_route_is_long" = "步行路線太長";
-
 "whatsnew_toll_unpaved_title" = "考慮到所有道路類型並設立路線";
 
 "whatsnew_toll_unpaved_message" = "請選擇通過收費公路、土路和渡輪過境的迂迴路線";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "現在的數據更新速度提高了2倍";
 
+"new_onboarding_button" = "繼續";
+
+"new_onboarding_button_2" = "開始";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "旅行中的萬能助手";
+
+"new_onboarding_step2_header" = "憧憬並付諸實踐";
+
+"new_onboarding_step2_message" = "超過7千萬個有趣的地方，指南目錄，從地圖上預定旅店-爲出行做好一切准備！";
+
+"new_onboarding_step3_message" = "周祥的離線地圖和離線導航在陌生的地方助你一臂之力！";
+
+"new_onboarding_step4_header" = "分享感受";
+
+"new_onboarding_step4_message" = "收藏喜歡的地方並分享給朋友們";
+
+"new_onboarding_step5.1_header" = "在開始前……";
+
+"new_onboarding_step5.1_message" = "不要忘記訪問我們新的線路，爲即將的出行找到離線導航！";
+
+"new_onboarding_step5.1_button" = "打開目錄";
+
+"new_onboarding_step5.2_message" = "在MAPS.ME 中訂閱指南目錄非常劃算。可訪問所有市內徒步旅行與休閑運動指南！";
+
+"new_onboarding_step5.2_button" = "查看條件";
+
+"new_onboarding_step5.3_message" = "下載或評論帶有 MAPS.ME免費編錄的市內旅行和休閑運動的線路！";
+
+"new_onboarding_step5.3_button" = "免費下載";
+
+"new_onboarding_additional_steps_later_button" = "稍後";
+
+"all_pass_subscription_header" = "訂閱目錄";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "超過20000個指南和人行道";
+
+"all_pass_subscription_message_subtitle" = "無限下載市內旅行與休閑運動的離線路線";
+
+"all_pass_subscription_message_title_2" = "超過700座城市和100個國家";
+
+"all_pass_subscription_message_subtitle_2" = "支持全年旅行";
+
+"all_pass_subscription_message_title_3" = "豐富多彩的內容";
+
+"all_pass_subscription_message_subtitle_3" = "標記，照片，人行道路，描述和推薦";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "訂閱指南";
+
+"sightseeing_subscription_message" = "超過700座城市和100個國家";
+
+"sightseeing_subscription_message_2" = "支持離線訪問";
+
+"sightseeing_subscription_message_3" = "照片與人行道路";
+
+"subscription_success_dialog_title_sightseeing_pass" = "感謝訂閱！";
+
+"subscription_success_dialog_message_sightseeing_pass" = "現在你可使用目錄中的全部城市指南";
+
+"downloader_main_gallery_header" = "地圖與指南";
+
+"downloader_main_gallery_message" = "在本單元中你不僅可以下載地圖，還可以爲即將到來的出行選擇指南";
+
+"downloader_main_1_element_gallery_header" = "所有指南";
+
+"downloader_main_1_element_gallery_message" = "超過100個國家";
+
+"downloader_country_1_element_gallery_header" = "%s 條線路";
+
+"downloader_country_no_guides_gallery_header" = "暫時沒有該國家的指南";
+
+"downloader_country_no_guides_gallery_message" = "了解其他100多個國家的城市與休閑活動線路";
+
+"dialog_pedestrian_route_is_long" = "步行到達交通工具處需要很長時間";
+
+"whatsnew_outdoor_guides_title" = "我們添加了超過15000條休閑運動道路！";
+
+"whatsnew_outdoor_guides_message" = "目錄中添加了Outdooractive 的冬季和夏季旅行線路！";
+
+"whatsnew_guides_galleries_title" = "與MAPS.ME共同規劃即將到來的旅行";
+
+"whatsnew_guides_galleries_message" = "現在你可在熱門城市與名勝古迹地圖上查找推薦的旅行指南";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "停車場";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "停車地點";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "墓地";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "教堂庭院";
 
 "type.landuse.commercial" = "landuse-commercial";
 

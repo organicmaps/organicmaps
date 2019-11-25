@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Opdater (%s) og fortsæt";
 
-"dialog_pedestrian_route_is_long" = "Rute til fods er for langt";
-
 "whatsnew_toll_unpaved_title" = "Layout for kørselsruter medtager alle typer af veje";
 
 "whatsnew_toll_unpaved_message" = "Vælg omveje for at undgå vejbaner, grusveje og færgeoverfarter";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "Fra nu af, opdaterer vi dataerne dobbelt så hurtigt";
 
+"new_onboarding_button" = "Næste";
+
+"new_onboarding_button_2" = "Kom i gang";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "Alt i en rejsekammerat";
+
+"new_onboarding_step2_header" = "Drøm og planlæg";
+
+"new_onboarding_step2_message" = "70+ millioner steder, færdige guides og hotelbooking lige fra kortet – du er klar til turen!";
+
+"new_onboarding_step3_message" = "Far aldrig vild med detaljerede kort over ethvert land og navigation – alt virker offline!";
+
+"new_onboarding_step4_header" = "Del indtryk";
+
+"new_onboarding_step4_message" = "Placer bogmærker på yndlingssteder og send dem til dine venner";
+
+"new_onboarding_step5.1_header" = "En ting mere før du starter…";
+
+"new_onboarding_step5.1_message" = "Glem ikke at besøge vores helt nye guidekatalog for at en finde en offline guide til din kommende rejse!";
+
+"new_onboarding_step5.1_button" = "Åbent katalog";
+
+"new_onboarding_step5.2_message" = "Abonnement til MAPS.ME guidekataloget har stor værdi. Få fuld adgang til byen og udendørs guides rundt om i verden!";
+
+"new_onboarding_step5.2_button" = "Check betingelserne ud";
+
+"new_onboarding_step5.3_message" = "Check de gratis prøver på færdige by- og udendørsruter med et gratis udvalg af MAPS.ME!";
+
+"new_onboarding_step5.3_button" = "Gratis download";
+
+"new_onboarding_additional_steps_later_button" = "Senere";
+
+"all_pass_subscription_header" = "ABONNEMENT TIL KATALOG";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "20000+ guides & ruter";
+
+"all_pass_subscription_message_subtitle" = "Ubegrænset downloads af by- og udendørsruter tilgængeligt offline";
+
+"all_pass_subscription_message_title_2" = "700+ byer og 100+ lande";
+
+"all_pass_subscription_message_subtitle_2" = "Planlæg din rejse på ethvert tidspunkt af året";
+
+"all_pass_subscription_message_title_3" = "Stor udvalg af indhold";
+
+"all_pass_subscription_message_subtitle_3" = "Bogmærker, fotos, gåture, beskrivelser og tips";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "Guides Abonnement";
+
+"sightseeing_subscription_message" = "700+ byer og 100+ lande";
+
+"sightseeing_subscription_message_2" = "Tilgængeligt offline";
+
+"sightseeing_subscription_message_3" = "Fotos og gåture";
+
+"subscription_success_dialog_title_sightseeing_pass" = "Tak for din tilmelding!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "Nu har du adgang til alle sightseeing-guides i kataloget";
+
+"downloader_main_gallery_header" = "Kort & kort";
+
+"downloader_main_gallery_message" = "I denne sektion kan du ikke kun downloade kort, men også checke guides ud til din kommen rejse";
+
+"downloader_main_1_element_gallery_header" = "Alle guides";
+
+"downloader_main_1_element_gallery_message" = "i 100+ lande";
+
+"downloader_country_1_element_gallery_header" = "%s guides";
+
+"downloader_country_no_guides_gallery_header" = "Der er ingen guides i dette land endnu";
+
+"downloader_country_no_guides_gallery_message" = "Du kan checke andre offline guides ud i 100+ lande til by- og udendørsaktiviteter";
+
+"dialog_pedestrian_route_is_long" = "Gåturen til transportens boardingsted er for lang";
+
+"whatsnew_outdoor_guides_title" = "Vi har tilføjet 15000+ udendørs ruter!";
+
+"whatsnew_outdoor_guides_message" = "Ruter fra Outdooractive til vinter- og summerture venter i kataloget!";
+
+"whatsnew_guides_galleries_title" = "Planlæg din kommende tur med MAPS.ME";
+
+"whatsnew_guides_galleries_message" = "Nu kan du finde anbefalede guides på stedsiderne om populære turistbyer og syn";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "Parkering";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "Parkeringsplads";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "Kirkegård";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "Kirkegård";
 
 "type.landuse.commercial" = "landuse-commercial";
 

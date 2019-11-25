@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Frissítés (%s) és folytatás";
 
-"dialog_pedestrian_route_is_long" = "A gyalogos útvonal túl hosszú";
-
 "whatsnew_toll_unpaved_title" = "Autó útvonalak elrendezése minden úttípus figyelembe vételével";
 
 "whatsnew_toll_unpaved_message" = "Kitérők választása fizetős utak, földutak és kompátvelők figyelembe vételével";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "Mostantól kétszer olyan gyorsan frissítjük az adatokat";
 
+"new_onboarding_button" = "Következő";
+
+"new_onboarding_button_2" = "Kezdés";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "A mindenes útitárs";
+
+"new_onboarding_step2_header" = "Álmodd meg és tervezd";
+
+"new_onboarding_step2_message" = "70+ millió látnivaló, kész útmutatók és hotelfoglalás egyenesen a térképről – készen állsz az indulásra?";
+
+"new_onboarding_step3_message" = "Maradj mindig az úton az országok részletes térképeivel – minden offline működik!";
+
+"new_onboarding_step4_header" = "Oszd meg tapasztalataid";
+
+"new_onboarding_step4_message" = "Helyezz könyvjelzőket a kedvenc helyekre és küldd tovább barátaidnak";
+
+"new_onboarding_step5.1_header" = "Még egy dolog kezdés előtt…";
+
+"new_onboarding_step5.1_message" = "Ne felejtsd el megnézni az új útmutató katalógusunkat és találd meg a következő utazásodhoz az offline útmutatókat!";
+
+"new_onboarding_step5.1_button" = "Katalógus megnyitása";
+
+"new_onboarding_step5.2_message" = "Az útmutató katalógusra MAPS.ME való előfizetés kiváló választás. Szerezz hozzáférést a városi és szabadtéri útmutatókhoz világszerte!";
+
+"new_onboarding_step5.2_button" = "Nézd meg a feltételeinket";
+
+"new_onboarding_step5.3_message" = "Nézd meg a szabadon válaztható városi és szabadtéri túrák ingyenes példáit a MAPS.ME-ről!";
+
+"new_onboarding_step5.3_button" = "Ingyenes letöltés";
+
+"new_onboarding_additional_steps_later_button" = "Később";
+
+"all_pass_subscription_header" = "ELŐFIZETÉS A KATALÓGUSRA";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "20 000+ útmutató és útvonal";
+
+"all_pass_subscription_message_subtitle" = "Korlátlan városi és szabadtéri útvonal elérhető offline letöltésre";
+
+"all_pass_subscription_message_title_2" = "700+ város és 100+ ország";
+
+"all_pass_subscription_message_subtitle_2" = "Tervezd meg az utazásod bármikor";
+
+"all_pass_subscription_message_title_3" = "Széles körű tartalom";
+
+"all_pass_subscription_message_subtitle_3" = "Könyvjezők, fényképek, séta úvonalak, leírások és tippek";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "Útmutató előfizetés";
+
+"sightseeing_subscription_message" = "700+ város és 100+ ország";
+
+"sightseeing_subscription_message_2" = "Elérhető offline";
+
+"sightseeing_subscription_message_3" = "Fényépek és séta útvonalak";
+
+"subscription_success_dialog_title_sightseeing_pass" = "Köszönjük előfizetését!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "Így minden városnéző útmutatóhoz hozzáférsz a katalógusból";
+
+"downloader_main_gallery_header" = "Térképek és útmutatók";
+
+"downloader_main_gallery_message" = "Ebben a részben nem csak térképeket tölthetsz le, de a következő utazásod útmutatóit is megtekintheted";
+
+"downloader_main_1_element_gallery_header" = "Minden útmutató";
+
+"downloader_main_1_element_gallery_message" = "100+ országban";
+
+"downloader_country_1_element_gallery_header" = "%s útmutató";
+
+"downloader_country_no_guides_gallery_header" = "Ebben az országban nincs elérhető útmutatónk még";
+
+"downloader_country_no_guides_gallery_message" = "Más offline útmutatókat is megnézhetsz 100+ országban városnézési és szabadtéri programokhoz";
+
+"dialog_pedestrian_route_is_long" = "A gyalogos útvonal az utazás indulási pontjáig túl hosszú";
+
+"whatsnew_outdoor_guides_title" = "Hozzáadásra került 15 000+ szabadtéri útvonal!";
+
+"whatsnew_outdoor_guides_message" = "Az Outdooractive téli és nyári utazásai várnak rád a katalógusban!";
+
+"whatsnew_guides_galleries_title" = "Tervezd meg a következő utad a MAPS.ME-vel";
+
+"whatsnew_guides_galleries_message" = "Megtalálhatod az ajánlott útmutatókat a népszerű túristavárosok és látnivalók helyoldalain";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "Parkoló";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "Parkolóhely";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "Temető";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "Templomtér";
 
 "type.landuse.commercial" = "landuse-commercial";
 

@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "(%s) güncelle ve devam et";
 
-"dialog_pedestrian_route_is_long" = "Yaya yolu çok uzun";
-
 "whatsnew_toll_unpaved_title" = "Her türlü yolu göz önünde bulundurarak otomobil rotalarını düzenleyin";
 
 "whatsnew_toll_unpaved_message" = "Paralı yollar, toprak yollar ve feribot seferlerine göre gideceğiniz dolambaçlı yolları seçin";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "Artık verilerimizi iki kat daha hızlı güncelliyoruz";
 
+"new_onboarding_button" = "İleri";
+
+"new_onboarding_button_2" = "Başla";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "Her şey dahil seyahat arkadaşı";
+
+"new_onboarding_step2_header" = "Düşle ve planla";
+
+"new_onboarding_step2_message" = "70 milyondan fazla yer, haritadan hazır rehberler ve otel rezervasyonuyla seyahate hazırsın!";
+
+"new_onboarding_step3_message" = "Tüm ülkelerin ayrıntılı haritaları ve navigasyonuyla asla kaybolmayın. Ayrıca her şey çevrimdışı da çalışıyor!";
+
+"new_onboarding_step4_header" = "İzlenimlerini paylaş";
+
+"new_onboarding_step4_message" = "Yer imlerini favori yerlere yerleştir ve arkadaşlarına gönder";
+
+"new_onboarding_step5.1_header" = "Başlamadan önce bir şey daha…";
+
+"new_onboarding_step5.1_message" = "Yaklaşan seyahatiniz için çevrimdışı bir rehber bulmak adına yeni rehber kataloğumuzu ziyaret etmeyi unutmayın!";
+
+"new_onboarding_step5.1_button" = "Kataloğu aç";
+
+"new_onboarding_step5.2_message" = "MAPS.ME rehber kataloğuna abone olmak çok karlıdır. Dünyanın her yerindeki şehir ve açık hava rehberlerine tam erişim elde edin!";
+
+"new_onboarding_step5.2_button" = "Şartlara göz at";
+
+"new_onboarding_step5.3_message" = "Ücretsiz MAPS.ME seçeneği ile hazır şehir ve açık hava güzergahlarından ücretsiz örnekleri inceleyin!";
+
+"new_onboarding_step5.3_button" = "Ücretsiz indir";
+
+"new_onboarding_additional_steps_later_button" = "Sonra";
+
+"all_pass_subscription_header" = "KATALOĞA ABONELİK";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "20.000+ rehber ve güzergah";
+
+"all_pass_subscription_message_subtitle" = "Sınırsız şehir ve açık hava güzergah indirmeleri çevrimdışı kullanılabilir";
+
+"all_pass_subscription_message_title_2" = "700+ şehir ve 100+ ülke";
+
+"all_pass_subscription_message_subtitle_2" = "Yolculuklarını yılın istediğin zamanında planla";
+
+"all_pass_subscription_message_title_3" = "Geniş içerik yelpazesi";
+
+"all_pass_subscription_message_subtitle_3" = "Yer imleri, fotoğraflar, yürüme güzergahları, açıklamalar ve ipuçları";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "Rehber Aboneliği";
+
+"sightseeing_subscription_message" = "700+ şehir ve 100+ ülke";
+
+"sightseeing_subscription_message_2" = "Çevrimdışı kullanılabilir";
+
+"sightseeing_subscription_message_3" = "Fotoğraflar ve yürüme güzergahları";
+
+"subscription_success_dialog_title_sightseeing_pass" = "Abone olduğunuz için teşekkürler!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "Artık katalogdaki tüm gezi rehberlerine erişim hakkınız var";
+
+"downloader_main_gallery_header" = "Haritalar ve rehberler";
+
+"downloader_main_gallery_message" = "Artık bu bölümde yalnızca haritaları indirmekle kalmayacak, aynı zamanda yaklaşan yolculuğun için rehberlere de göz atabileceksin";
+
+"downloader_main_1_element_gallery_header" = "Tüm rehberler";
+
+"downloader_main_1_element_gallery_message" = "100'den fazla şehirde";
+
+"downloader_country_1_element_gallery_header" = "%s rehber";
+
+"downloader_country_no_guides_gallery_header" = "Bu ülkede henüz rehber yok";
+
+"downloader_country_no_guides_gallery_message" = "Şehir ve açık hava etkinlikleri için 100'den fazla ülkedeki diğer çevrimdışı kılavuzlara göz atabilirsiniz";
+
+"dialog_pedestrian_route_is_long" = "Araç biniş noktasına giden yaya yolu çok uzun";
+
+"whatsnew_outdoor_guides_title" = "15000'den fazla açık hava güzergahı ekledik!";
+
+"whatsnew_outdoor_guides_message" = "Outdooractive'in kış ve yaz seyahatleri için güzergahlar katalogda bekliyor!";
+
+"whatsnew_guides_galleries_title" = "Yaklaşan seyahatinizi MAPS.ME ile planlayın";
+
+"whatsnew_guides_galleries_message" = "Artık popüler turistik şehirlerin ve turistik mekanların yer sayfalarında önerilen rehberleri bulabilirsiniz";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "Otopark";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "Park alanı";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "Mezarlık";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "Kilise Bölgesi";
 
 "type.landuse.commercial" = "landuse-commercial";
 

@@ -458,7 +458,7 @@
 "version" = "Wersja: %@";
 
 /* Data version in «About» screen */
-"data_version" = "Data version: %d";
+"data_version" = "Wersja danych: %d";
 
 /* Confirmation in downloading countries dialog */
 "are_you_sure" = "Kontynuować?";
@@ -474,10 +474,10 @@
 "menu_search" = "Wyszukaj";
 
 /* Settings general group in settings screen */
-"prefs_group_general" = "General settings";
+"prefs_group_general" = "Ustawienia ogólne";
 
 /* Settings information group in settings screen */
-"prefs_group_information" = "Information";
+"prefs_group_information" = "Informacje";
 
 /* Settings screen: "Map" category title */
 "prefs_group_map" = "Mapa";
@@ -529,7 +529,7 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Ostatnia trasa";
 
-"pref_map_auto_zoom" = "Auto zoom";
+"pref_map_auto_zoom" = "Automatyczne powiększanie";
 
 "duration_disabled" = "Wyłączona";
 
@@ -1596,7 +1596,7 @@
 
 "whatsnew_car_navigation_header" = "Przyjazna użytkownikowi nawigacja dla pojazdów";
 
-"whatsnew_car_navigation_message" = "• Elementy nawigacji zajmują mniej miejsca.\n• Wyświetlamy prędkość i dodaliśmy automatyczny zoom.";
+"whatsnew_car_navigation_message" = "• Elementy nawigacji zajmują mniej miejsca.\n• Wyświetlamy prędkość i dodaliśmy automatyczne powiększanie.";
 
 "whatsnew_cycle_navigation_2_header" = "Nawigacja dla rowerów";
 
@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Zaktualizuj (%s) i kontynuuj";
 
-"dialog_pedestrian_route_is_long" = "Trasa piesza jest zbyt długą";
-
 "whatsnew_toll_unpaved_title" = "Buduj trasy z uwzględnieniem wszystkich rodzajów dróg";
 
 "whatsnew_toll_unpaved_message" = "Wybierz trasy objazdowe przez płatne, drogi gruntowe i przeprawy promowe";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "Teraz aktualizujemy dane o 2 razy szybciej";
 
+"new_onboarding_button" = "Dalej";
+
+"new_onboarding_button_2" = "Rozpocznij";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "Uniwersalny pomocnik w podróżach";
+
+"new_onboarding_step2_header" = "Marz i planuj";
+
+"new_onboarding_step2_message" = "70+ mln niesamowitych miejsc, katalog gotowych przewodników i rezerwacja hoteli z mapy – jesteś gotów do podróży!";
+
+"new_onboarding_step3_message" = "Szczegółowe mapy offline i nawigacja offline pomogą Tobie nie zabłądzić się w nieznanych miejscach!";
+
+"new_onboarding_step4_header" = "Dziel się wrażeniami";
+
+"new_onboarding_step4_message" = "Zapisuj upodobane miejsca w ulubionych i wysyłaj je do znajomych i przyjaciół";
+
+"new_onboarding_step5.1_header" = "Zanim zaczniesz…";
+
+"new_onboarding_step5.1_message" = "Nie zapomnij sprawdzić nasz nowy katalog tras, aby znaleźć przewodnik offline do najbliższej podróży!";
+
+"new_onboarding_step5.1_button" = "Otwórz katalog";
+
+"new_onboarding_step5.2_message" = "Subskrypcja katalogu przewodników w MAPS.ME – to opłacalne. Uzyskaj pełny dostęp do przewodników do zwiedzania i aktywnego wypoczynku poza miastem!";
+
+"new_onboarding_step5.2_button" = "Sprawdź warunki";
+
+"new_onboarding_step5.3_message" = "Pobierz i oceń trasy do zwiedzania i aktywnego wypoczynku poza miastem z bezpłatnym doborem MAPS.ME!";
+
+"new_onboarding_step5.3_button" = "Darmowe pobieranie";
+
+"new_onboarding_additional_steps_later_button" = "Nie teraz";
+
+"all_pass_subscription_header" = "SUBSKRYPCJA KATALOGU";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "20000+ przewodników i szlaków";
+
+"all_pass_subscription_message_subtitle" = "Nieograniczone pobieranie tras offline do zwiedzania i aktywnego wypoczynku poza miastem";
+
+"all_pass_subscription_message_title_2" = "700+ miast i 100+ krajów";
+
+"all_pass_subscription_message_subtitle_2" = "Dla podróży o każdej porze roku";
+
+"all_pass_subscription_message_title_3" = "Szeroki zakres treści";
+
+"all_pass_subscription_message_subtitle_3" = "Znaczniki, zdjęcia, trasy spacerowe, opisy i wskazówki";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "Subskrypcja przewodników";
+
+"sightseeing_subscription_message" = "700+ miast i 100+ krajów";
+
+"sightseeing_subscription_message_2" = "Dostępne offline";
+
+"sightseeing_subscription_message_3" = "Zdjęcia i trasy spacerowe";
+
+"subscription_success_dialog_title_sightseeing_pass" = "Dziękujemy za subskrypcję!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "Teraz masz dostęp do wszystkich przewodników miejskich w katalogu";
+
+"downloader_main_gallery_header" = "Mapy i przewodniki";
+
+"downloader_main_gallery_message" = "Teraz w tej sekcji możesz nie tylko pobierać mapy, ale także wybrać przewodniki na najbliższą podróż";
+
+"downloader_main_1_element_gallery_header" = "Wszystkie przewodniki";
+
+"downloader_main_1_element_gallery_message" = "w 100+ krajach";
+
+"downloader_country_1_element_gallery_header" = "%s tras";
+
+"downloader_country_no_guides_gallery_header" = "Obecnie brak przewodników dla tego kraju";
+
+"downloader_country_no_guides_gallery_message" = "Zapoznaj się z innymi trasami w 100+ krajach dla zwiedzania i aktywnego wypoczynku poza miastem";
+
+"dialog_pedestrian_route_is_long" = "Zbyt długie dojście do transportu na piechotę";
+
+"whatsnew_outdoor_guides_title" = "Dodaliśmy 15000+ szlaków do aktywnego wypoczynku!";
+
+"whatsnew_outdoor_guides_message" = "Trasy z Outdooractive do zimowych i letnich wakacji czekają w katalogu!";
+
+"whatsnew_guides_galleries_title" = "Zaplanuj swoją nadchodzącą podróż z MAPS.ME";
+
+"whatsnew_guides_galleries_message" = "Teraz możesz znaleźć polecane przewodniki na stronach popularnych miast turystycznych i zabytków";
+
 
 /**********  Partners  **********/
 
@@ -3096,17 +3184,17 @@
 
 /********** Types **********/
 
-"type.aerialway" = "aerialway";
+"type.aerialway" = "Transport linowy";
 
-"type.aerialway.cable_car" = "aerialway-cable_car";
+"type.aerialway.cable_car" = "Kolej linowa";
 
-"type.aerialway.chair_lift" = "aerialway-chair_lift";
+"type.aerialway.chair_lift" = "Wyciąg krzesełkowy";
 
-"type.aerialway.drag_lift" = "aerialway-drag_lift";
+"type.aerialway.drag_lift" = "Wyciąg orczykowy";
 
-"type.aerialway.gondola" = "aerialway-gondola";
+"type.aerialway.gondola" = "Gondola kolejki linowej";
 
-"type.aerialway.mixed_lift" = "aerialway-mixed_lift";
+"type.aerialway.mixed_lift" = "Wyciąg mieszany";
 
 "type.aerialway.station" = "Stacja kolejki linowej";
 
@@ -3114,19 +3202,19 @@
 
 "type.aeroway.aerodrome" = "Lotnisko";
 
-"type.aeroway.aerodrome.international" = "Lotnisko";
+"type.aeroway.aerodrome.international" = "Lotnisko międzynarodowe";
 
-"type.aeroway.apron" = "aeroway-apron";
+"type.aeroway.apron" = "Płyta postojowa samolotów";
 
 "type.aeroway.gate" = "Wyjście lotniskowe";
 
 "type.aeroway.helipad" = "Lądowisko dla helikopterów";
 
-"type.aeroway.runway" = "aeroway-runway";
+"type.aeroway.runway" = "Droga startowa";
 
-"type.aeroway.taxiway" = "aeroway-taxiway";
+"type.aeroway.taxiway" = "Droga kołowania";
 
-"type.aeroway.terminal" = "aeroway-terminal";
+"type.aeroway.terminal" = "Terminal lotniskowy";
 
 "type.amenity" = "Obiekty infrastruktury";
 
@@ -3184,7 +3272,7 @@
 
 "type.amenity.drinking_water" = "Woda pitna";
 
-"type.amenity.driving_school" = "Szkoła jazdy";
+"type.amenity.driving_school" = "Szkoła nauki jazdy";
 
 "type.amenity.embassy" = "Ambasada";
 
@@ -3206,7 +3294,7 @@
 
 "type.amenity.hospital" = "Szpital";
 
-"type.amenity.hunting_stand" = "Budka myśliwska";
+"type.amenity.hunting_stand" = "Ambona myśliwska";
 
 "type.amenity.ice_cream" = "Stoisko z lodami";
 
@@ -3226,33 +3314,33 @@
 
 "type.amenity.parking" = "Parking";
 
-"type.amenity.parking.fee" = "Parking";
+"type.amenity.parking.fee" = "Parking płatny";
 
-"type.amenity.parking.multi.storey" = "Parking";
+"type.amenity.parking.multi.storey" = "Parking wielopoziomowy";
 
-"type.amenity.parking.multi.storey.fee" = "Parking";
+"type.amenity.parking.multi.storey.fee" = "Parking wielopoziomowy płatny";
 
 "type.amenity.parking.no.access" = "Parking";
 
-"type.amenity.parking.park_and_ride" = "Parking";
+"type.amenity.parking.park_and_ride" = "Parking \"Parkuj i Jedź\"";
 
-"type.amenity.parking.permissive" = "Parking";
+"type.amenity.parking.permissive" = "Parking ograniczony";
 
-"type.amenity.parking.permissive.fee" = "Parking";
+"type.amenity.parking.permissive.fee" = "Parking ograniczony płatny";
 
-"type.amenity.parking.private" = "Parking";
+"type.amenity.parking.private" = "Parking prywatny";
 
 "type.amenity.parking.underground" = "Parking podziemny";
 
-"type.amenity.parking.underground.fee" = "Parking";
+"type.amenity.parking.underground.fee" = "Parking podziemny płatny";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "Miejsce parkingowe";
 
-"type.amenity.parking_space.permissive" = "Parking space";
+"type.amenity.parking_space.permissive" = "Miejsce parkingowe ograniczone";
 
-"type.amenity.parking_space.private" = "Parking space";
+"type.amenity.parking_space.private" = "Miejsce parkingowe prywatne";
 
-"type.amenity.parking_space.underground" = "Parking space";
+"type.amenity.parking_space.underground" = "Miejsce parkingowe podziemne";
 
 "type.amenity.payment_terminal" = "Wpłatomat";
 
@@ -3292,13 +3380,13 @@
 
 "type.amenity.school" = "Szkoła";
 
-"type.amenity.shelter" = "Szopa";
+"type.amenity.shelter" = "Wiata";
 
 "type.amenity.shower" = "Prysznic";
 
-"type.amenity.speed_trap" = "amenity-speed_trap";
+"type.amenity.speed_trap" = "Kontrola radarowa";
 
-"type.amenity.taxi" = "Taxi";
+"type.amenity.taxi" = "Taksówka";
 
 "type.amenity.telephone" = "Telefon";
 
@@ -3338,7 +3426,7 @@
 
 "type.barrier.city_wall" = "Mur miejski";
 
-"type.barrier.cycle_barrier" = "Cycle barrier";
+"type.barrier.cycle_barrier" = "Bariera rowerowa";
 
 "type.barrier.entrance" = "Wejście";
 
@@ -3384,21 +3472,21 @@
 
 "type.boundary.administrative.9" = "boundary-administrative-9";
 
-"type.boundary.administrative.city" = "boundary-administrative-city";
+"type.boundary.administrative.city" = "Granica miasta";
 
-"type.boundary.administrative.country" = "boundary-administrative-country";
+"type.boundary.administrative.country" = "Granica państwa";
 
-"type.boundary.administrative.county" = "boundary-administrative-county";
+"type.boundary.administrative.county" = "Granica hrabstwa";
 
-"type.boundary.administrative.municipality" = "boundary-administrative-municipality";
+"type.boundary.administrative.municipality" = "Granica gminy";
 
 "type.boundary.administrative.nation" = "boundary-administrative-nation";
 
-"type.boundary.administrative.region" = "boundary-administrative-region";
+"type.boundary.administrative.region" = "Granica regionu";
 
-"type.boundary.administrative.state" = "boundary-administrative-state";
+"type.boundary.administrative.state" = "Granica województwa";
 
-"type.boundary.administrative.suburb" = "boundary-administrative-suburb";
+"type.boundary.administrative.suburb" = "Granica przedmieść";
 
 "type.boundary.national_park" = "Park narodowy";
 
@@ -3412,13 +3500,13 @@
 
 "type.building.train_station" = "Dworzec kolejowy";
 
-"type.communication" = "communication";
+"type.communication" = "Komunikacja";
 
-"type.communication.line" = "communication-line";
+"type.communication.line" = "Kabel komunikacyjny";
 
-"type.communication.line.underground" = "communication-line-underground";
+"type.communication.line.underground" = "Podziemny kabel komunikacyjny";
 
-"type.craft" = "craft";
+"type.craft" = "Rzemiosło";
 
 "type.craft.brewery" = "Browar";
 
@@ -3612,7 +3700,7 @@
 
 "type.cuisine.vietnamese" = "Kuchnia wietnamska";
 
-"type.emergency" = "emergency";
+"type.emergency" = "Ratunkowe";
 
 "type.emergency.defibrillator" = "Defibrylator";
 
@@ -3622,35 +3710,35 @@
 
 "type.entrance" = "Wejście";
 
-"type.highway" = "highway";
+"type.highway" = "Droga";
 
-"type.highway.bridleway" = "highway-bridleway";
+"type.highway.bridleway" = "Droga dla koni";
 
-"type.highway.bridleway.bridge" = "highway-bridleway-bridge";
+"type.highway.bridleway.bridge" = "Most drogowy dla koni";
 
-"type.highway.bridleway.permissive" = "highway-bridleway-permissive";
+"type.highway.bridleway.permissive" = "Droga dla koni ograniczona";
 
-"type.highway.bridleway.tunnel" = "highway-bridleway-tunnel";
+"type.highway.bridleway.tunnel" = "Tunel drogowy dla koni";
 
 "type.highway.bus_stop" = "Przystanek autobusowy";
 
 "type.highway.construction" = "Droga w trakcie budowy";
 
-"type.highway.cycleway" = "highway-cycleway";
+"type.highway.cycleway" = "Droga rowerowa";
 
-"type.highway.cycleway.bridge" = "highway-cycleway-bridge";
+"type.highway.cycleway.bridge" = "Most drogowy dla rowerów";
 
-"type.highway.cycleway.permissive" = "highway-cycleway-permissive";
+"type.highway.cycleway.permissive" = "Droga rowerowa ograniczona";
 
-"type.highway.cycleway.tunnel" = "highway-cycleway-tunnel";
+"type.highway.cycleway.tunnel" = "Tunel drogowy dla rowerów";
 
 "type.highway.footway" = "Chodnik";
 
-"type.highway.footway.alpine_hiking" = "Ścieżka";
+"type.highway.footway.alpine_hiking" = "Ścieżka wspinaczkowa";
 
 "type.highway.footway.area" = "Obszar chodnika";
 
-"type.highway.footway.bridge" = "Chodnik";
+"type.highway.footway.bridge" = "Most dla pieszych";
 
 "type.highway.footway.demanding_alpine_hiking" = "Ścieżka";
 
@@ -3664,11 +3752,11 @@
 
 "type.highway.footway.permissive" = "Chodnik";
 
-"type.highway.footway.tunnel" = "Tunel chodnikowy";
+"type.highway.footway.tunnel" = "Tunel dla pieszych";
 
-"type.highway.ford" = "highway-ford";
+"type.highway.ford" = "Bród";
 
-"type.highway.living_street" = "Ulica";
+"type.highway.living_street" = "Ulica w strefie zamieszkania";
 
 "type.highway.living_street.bridge" = "Ulica";
 
@@ -3690,9 +3778,9 @@
 
 "type.highway.path" = "Ścieżka";
 
-"type.highway.path.alpine_hiking" = "Ścieżka";
+"type.highway.path.alpine_hiking" = "Ścieżka wspinaczkowa";
 
-"type.highway.path.bicycle" = "Ścieżka";
+"type.highway.path.bicycle" = "Ścieżka dla rowerów";
 
 "type.highway.path.bridge" = "Ścieżka";
 
@@ -3720,7 +3808,7 @@
 
 "type.highway.pedestrian.tunnel" = "Tunel pasażu pieszego";
 
-"type.highway.platform" = "highway-platform";
+"type.highway.platform" = "Peron";
 
 "type.highway.primary" = "Ulica";
 
@@ -3734,7 +3822,7 @@
 
 "type.highway.primary_link.tunnel" = "Ulica";
 
-"type.highway.proposed" = "highway-proposed";
+"type.highway.proposed" = "Droga projektowana";
 
 "type.highway.raceway" = "Tor wyścigowy";
 
@@ -3784,15 +3872,15 @@
 
 "type.highway.service.tunnel" = "Tunel drogowy";
 
-"type.highway.services" = "highway-services";
+"type.highway.services" = "Miejsce obsługi podróżnych";
 
 "type.highway.speed_camera" = "Fotoradar";
 
-"type.highway.steps" = "Stopnie";
+"type.highway.steps" = "Schody";
 
-"type.highway.steps.bridge" = "Stopnie";
+"type.highway.steps.bridge" = "Schody";
 
-"type.highway.steps.tunnel" = "Stopnie";
+"type.highway.steps.tunnel" = "Schody";
 
 "type.highway.tertiary" = "Ulica";
 
@@ -3866,13 +3954,13 @@
 
 "type.highway.world_towns_level" = "highway-world_towns_level";
 
-"type.historic" = "historic";
+"type.historic" = "Historyczne";
 
 "type.historic.archaeological_site" = "Odkrywka archeologiczna";
 
 "type.historic.battlefield" = "Miejsce historycznej bitwy";
 
-"type.historic.boundary_stone" = "historic-boundary_stone";
+"type.historic.boundary_stone" = "Historyczny kamień graniczny";
 
 "type.historic.castle" = "Zamek";
 
@@ -3882,7 +3970,7 @@
 
 "type.historic.citywalls" = "Historyczne mury miasta";
 
-"type.historic.fort" = "historic-fort";
+"type.historic.fort" = "Historyczny fort";
 
 "type.historic.memorial" = "Pomnik";
 
@@ -3894,7 +3982,7 @@
 
 "type.historic.monument" = "Monument";
 
-"type.historic.museum" = "historic-museum";
+"type.historic.museum" = "Muzeum historyczne";
 
 "type.historic.ruins" = "Ruiny";
 
@@ -3902,9 +3990,9 @@
 
 "type.historic.tomb" = "Grobowiec";
 
-"type.historic.wayside_cross" = "historic-wayside_cross";
+"type.historic.wayside_cross" = "Krzyż przydrożny";
 
-"type.historic.wayside_shrine" = "historic-wayside_shrine";
+"type.historic.wayside_shrine" = "Kapliczka przydrożna";
 
 "type.hwtag" = "hwtag";
 
@@ -3934,11 +4022,11 @@
 
 "type.internet_access.wlan" = "Internet";
 
-"type.junction" = "junction";
+"type.junction" = "Skrzyżowanie";
 
-"type.junction.roundabout" = "junction-roundabout";
+"type.junction.roundabout" = "Rondo";
 
-"type.landuse" = "landuse";
+"type.landuse" = "Zagospodarowanie ziemi";
 
 "type.landuse.allotments" = "Działki";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "Cmentarz chrześcijański";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "Teren kościelny";
 
 "type.landuse.commercial" = "Teren handlu i usług";
 
@@ -3966,9 +4054,9 @@
 
 "type.landuse.forest" = "Las";
 
-"type.landuse.forest.coniferous" = "Las";
+"type.landuse.forest.coniferous" = "Las iglasty";
 
-"type.landuse.forest.deciduous" = "Las";
+"type.landuse.forest.deciduous" = "Las liściasty";
 
 "type.landuse.forest.mixed" = "Las mieszany";
 
@@ -3976,7 +4064,7 @@
 
 "type.landuse.grass" = "Trawnik";
 
-"type.landuse.greenfield" = "landuse-greenfield";
+"type.landuse.greenfield" = "Obszar pod zabudowę";
 
 "type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
 
@@ -4000,19 +4088,19 @@
 
 "type.landuse.residential" = "Tereny zamieszkania";
 
-"type.landuse.residential.rural" = "landuse-residential-rural";
+"type.landuse.residential.rural" = "Tereny wiejskie";
 
-"type.landuse.residential.urban" = "landuse-residential-urban";
+"type.landuse.residential.urban" = "Tereny miejskie";
 
 "type.landuse.retail" = "Obszar handlu";
 
-"type.landuse.salt_pond" = "landuse-salt_pond";
+"type.landuse.salt_pond" = "Słone jezioro";
 
-"type.landuse.village_green" = "landuse-village_green";
+"type.landuse.village_green" = "Nawsie";
 
 "type.landuse.vineyard" = "Winnica";
 
-"type.leisure" = "leisure";
+"type.leisure" = "Wypoczynek";
 
 "type.leisure.common" = "leisure-common";
 
@@ -4060,7 +4148,7 @@
 
 "type.leisure.sauna" = "Sauna";
 
-"type.leisure.slipway" = "leisure-slipway";
+"type.leisure.slipway" = "Pochylnia";
 
 "type.leisure.sports_centre" = "Centrum sportowe";
 
@@ -4082,21 +4170,21 @@
 
 "type.man_made" = "man_made";
 
-"type.man_made.breakwater" = "man_made-breakwater";
+"type.man_made.breakwater" = "Falochron";
 
-"type.man_made.cairn" = "man_made-cairn";
+"type.man_made.cairn" = "Kopiec";
 
 "type.man_made.chimney" = "Komin fabryki";
 
-"type.man_made.cutline" = "man_made-cutline";
+"type.man_made.cutline" = "Przecinka leśna";
 
 "type.man_made.lighthouse" = "Latarnia morska";
 
 "type.man_made.pier" = "Molo";
 
-"type.man_made.pipeline" = "man_made-pipeline";
+"type.man_made.pipeline" = "Rurociąg";
 
-"type.man_made.pipeline.overground" = "man_made-pipeline-overground";
+"type.man_made.pipeline.overground" = "Rurociąg nad ziemią";
 
 "type.man_made.surveillance" = "Kamera monitoringu";
 
@@ -4130,11 +4218,11 @@
 
 "type.marking.sport.white" = "marking-sport-white";
 
-"type.military" = "military";
+"type.military" = "Wojskowe";
 
 "type.military.bunker" = "Bunkier";
 
-"type.natural" = "natural";
+"type.natural" = "Natura";
 
 "type.natural.bare_rock" = "Skała macierzysta";
 
@@ -4224,7 +4312,7 @@
 
 "type.office.telecommunication" = "Biuro operatora telefonii komórkowej";
 
-"type.olympics" = "olympics";
+"type.olympics" = "Olimpiada";
 
 "type.olympics.attraction" = "Atrakcje olimpijskie";
 
@@ -4232,11 +4320,11 @@
 
 "type.olympics.live_site" = "olympics-live_site";
 
-"type.olympics.official_building" = "olympics-official_building";
+"type.olympics.official_building" = "Oficjalny budynek olimpijski";
 
 "type.olympics.stadium" = "Stadion olimpijski";
 
-"type.olympics.stadium_main" = "olympics-stadium_main";
+"type.olympics.stadium_main" = "Główny stadion olimpijski";
 
 "type.olympics.transport_airport" = "olympics-transport_airport";
 
@@ -4252,9 +4340,9 @@
 
 "type.olympics.transport_tram" = "olympics-transport_tram";
 
-"type.olympics.water_sport" = "olympics-water_sport";
+"type.olympics.water_sport" = "Olimpijskie sporty wodne";
 
-"type.place" = "place";
+"type.place" = "Miejsce";
 
 "type.place.city" = "Miasto";
 
@@ -4294,7 +4382,7 @@
 
 "type.place.islet" = "Wyspa";
 
-"type.place.isolated_dwelling" = "place-isolated_dwelling";
+"type.place.isolated_dwelling" = "Mała osada";
 
 "type.place.locality" = "Lokalne";
 
@@ -4306,7 +4394,7 @@
 
 "type.place.sea" = "Morze";
 
-"type.place.square" = "place-square";
+"type.place.square" = "Plac";
 
 "type.place.state" = "Stan";
 
@@ -4326,11 +4414,11 @@
 
 "type.power.generator.photovoltaic" = "power-generator-photovoltaic";
 
-"type.power.generator.wind" = "power-generator-wind";
+"type.power.generator.wind" = "Turbina wiatrowa";
 
 "type.power.line" = "Linia wysokiego napięcia";
 
-"type.power.line.underground" = "power-line-underground";
+"type.power.line.underground" = "Podziemna linia wysokiego napięcia";
 
 "type.power.minor_line" = "Linia niskiego napięcia";
 
@@ -4352,11 +4440,11 @@
 
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 
-"type.public_transport" = "public_transport";
+"type.public_transport" = "Transport publiczny";
 
-"type.public_transport.platform" = "public_transport-platform";
+"type.public_transport.platform" = "Przystanek transportu publicznego";
 
-"type.railway" = "railway";
+"type.railway" = "Kolej";
 
 "type.railway.abandoned" = "railway-abandoned";
 
@@ -4822,7 +4910,7 @@
 
 "type.sport.tennis" = "Kort tenisowy";
 
-"type.tourism" = "tourism";
+"type.tourism" = "Turystyka";
 
 "type.tourism.alpine_hut" = "Schronisko górskie";
 
@@ -4884,11 +4972,11 @@
 
 "type.tourism.zoo" = "Ogród zoologiczny";
 
-"type.traffic_calming" = "traffic_calming";
+"type.traffic_calming" = "Uspokojenie ruchu drogowego";
 
-"type.traffic_calming.bump" = "traffic_calming-bump";
+"type.traffic_calming.bump" = "Krótki próg zwalniający";
 
-"type.traffic_calming.hump" = "traffic_calming-hump";
+"type.traffic_calming.hump" = "Długi próg zwalniający";
 
 "type.waterway" = "waterway";
 

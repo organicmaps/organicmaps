@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "به روز رسانی (%s) و ادامه";
 
-"dialog_pedestrian_route_is_long" = "مسیر عابر پیاده خیلی طولانی است";
-
 "whatsnew_toll_unpaved_title" = "مسیرهای خودرویی را با توجه به انواع جاده ها تنظیم کنید";
 
 "whatsnew_toll_unpaved_message" = "مسیرهای فرعی از طریق مسیرهای دارای عوارض، جاده های خاکی و گذرگاه های جاده ای انتخاب کنید";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "از این پس سرعت بروزرسانی اطلاعات دو برابر است";
 
+"new_onboarding_button" = "بعدی";
+
+"new_onboarding_button_2" = "شروع کنید";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "همه چیز دریک سفر دوست من";
+
+"new_onboarding_step2_header" = "رویاپردازی و برایش برنامهریزی کنید";
+
+"new_onboarding_step2_message" = "70+ میلیون مکان، راهنمای آماده و رزرو هتل درست از روی نقشه – آمادهی سفر هستید!";
+
+"new_onboarding_step3_message" = "محال است با نقشهی دقیق و جهتیابی یک کشور گم شوید– کلیه خدمات به صورت آفلاین ارائه می";
+
+"new_onboarding_step4_header" = "حال و احساستان را به اشتراک بگذارید";
+
+"new_onboarding_step4_message" = "نشانکهایی بر روی مکانهای مورد علاقه خود بگذارید و آنها را برای دوستانتان بفرستید";
+
+"new_onboarding_step5.1_header" = "نکتهای دیگر قبل از شروع…";
+
+"new_onboarding_step5.1_message" = "فراموش نکنید کاتالوگ راهنمای جدید و برند ما را ملاحظه کنید تا برای سفر آتی خود راهنمای آفلاین پیدا کنید!";
+
+"new_onboarding_step5.1_button" = "کاتالوگ را باز کنید";
+
+"new_onboarding_step5.2_message" = "اشتراک در کاتالوگ راهنمای MAPS.ME بسیار با ارزش است. به راهنمای شهرها و فضای باز سراسر جهان دسترسی مییابید!";
+
+"new_onboarding_step5.2_button" = "شرایط را چک کنید";
+
+"new_onboarding_step5.3_message" = "با گزینش رایگان MAPS.ME نمونههای رایگان مسیرهای آماده شهرها و فضاهای باز را چک کنید!";
+
+"new_onboarding_step5.3_button" = "دانلود رایگان";
+
+"new_onboarding_additional_steps_later_button" = "بعداً";
+
+"all_pass_subscription_header" = "اشتراک کاتالوگ";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "20000+ راهنما و مسیرهای پیادهروی";
+
+"all_pass_subscription_message_subtitle" = "دانلود نامحدود مسیر شهرها و فضاهای باز موجود آفلاین";
+
+"all_pass_subscription_message_title_2" = "700+ شهر و 100+ کشور";
+
+"all_pass_subscription_message_subtitle_2" = "سفرهای خود را در هر زمانی از سال برنامهریزی کنید";
+
+"all_pass_subscription_message_title_3" = "دامنه وسیعی از اطلاعات";
+
+"all_pass_subscription_message_subtitle_3" = "نشانکها، تصاویر، مسیرهای پیاده‎روی، توصیفات و توصیهها";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "اشتراک راهنماها";
+
+"sightseeing_subscription_message" = "700+ شهر و 100+ کشور";
+
+"sightseeing_subscription_message_2" = "دسترسی آفلاین";
+
+"sightseeing_subscription_message_3" = "تصاویر و مسیرهای پیاده‎روی";
+
+"subscription_success_dialog_title_sightseeing_pass" = "با تشکر از اشتراک شما!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "حال به تمامی اطلاعات راهنمای گردشگری موجود در کاتالوگ دسترسی دار";
+
+"downloader_main_gallery_header" = "نقشه‎ها و راهنماها";
+
+"downloader_main_gallery_message" = "حال در این بخش نه تنها قادر به دانلود نقشهها خواهید بود، بلکه همچنین میتوانید راهنماها را برای سفر آتی خود چک کنید";
+
+"downloader_main_1_element_gallery_header" = "تمامی راهنماها";
+
+"downloader_main_1_element_gallery_message" = "در +100 کشور";
+
+"downloader_country_1_element_gallery_header" = "%s راهن";
+
+"downloader_country_no_guides_gallery_header" = "هیچ راهنمایی دربارهی این کشور وجود ندارد";
+
+"downloader_country_no_guides_gallery_message" = "میتوانید سایر راهنماهای آفلاین را برای فعالیتهای شهری و فضای باز +100 کشور چک کنید";
+
+"dialog_pedestrian_route_is_long" = "مسیر عابر پیاده تا نقطه حمل و انتقال بسیار طولانی است";
+
+"whatsnew_outdoor_guides_title" = "15000+ مسیر فضای باز اضافه کردهایم!";
+
+"whatsnew_outdoor_guides_message" = "مسیرهای Outdooractive برای سفرهای زمستانی و تابستانی در کاتالوگ در حال انتظار هستند!";
+
+"whatsnew_guides_galleries_title" = "سفر آتی خود را با MAPS.ME برنامهریزی کنید";
+
+"whatsnew_guides_galleries_message" = "حال میتوانید توصیههای پیشنهادی را در صفحه مربوط به مکان شهرها و مکان‎های توریستی مشهور مشاهده کنید";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "پارکینگ";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "جای پارک";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "قبرستان";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "حیاط کلیسا";
 
 "type.landuse.commercial" = "landuse-commercial";
 

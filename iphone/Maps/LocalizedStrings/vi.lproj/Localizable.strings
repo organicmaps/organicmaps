@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Cập nhận được (%s) và tiếp tục";
 
-"dialog_pedestrian_route_is_long" = "Tuyến đường đi bộ quá dài";
-
 "whatsnew_toll_unpaved_title" = "Hãy xây dựng tuyến đường có tính đến tất cả các loại đường";
 
 "whatsnew_toll_unpaved_message" = "Hãy lựa chọn những đường vòng qua đường thu phí, đường đất và các bến phà";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "Giờ thì dữ liệu sẽ được cập nhật nhanh hơn gấp 2 lần";
 
+"new_onboarding_button" = "Tiếp theo";
+
+"new_onboarding_button_2" = "Bắt đầu";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "Người trợ lý độc đáo cho các chuyến du lịch";
+
+"new_onboarding_step2_header" = "Hãy mơ ước và lên kế hoạch nào";
+
+"new_onboarding_step2_message" = "Hơn 70 triệu địa điểm hấp dẫn, danh sách các hướng dẫn đã được chuẩn bị sẵn và đặt phòng khách sạn từ bản đồ – bạn đã sẵn sàng để đi du lịch rồi!";
+
+"new_onboarding_step3_message" = "Bản đồ và điều hướng ngoại tuyến chi tiết sẽ giúp bạn không hề bị lạc ở những nơi xa lạ!";
+
+"new_onboarding_step4_header" = "Hãy chia sẻ cảm tưởng của bạn";
+
+"new_onboarding_step4_message" = "Lưu lại những địa điểm yêu thích và gửi chúng cho bạn bè của mình";
+
+"new_onboarding_step5.1_header" = "Trước khi bắt đầu…";
+
+"new_onboarding_step5.1_message" = "Đừng quên truy cập danh mục tuyến đường mới của chúng tôi để tìm hướng dẫn ngoại tuyến cho chuyến đi tiếp theo của bạn!";
+
+"new_onboarding_step5.1_button" = "Mở danh sách";
+
+"new_onboarding_step5.2_message" = "Việc đăng ký vào thư mục hướng dẫn trong MAPS.ME là một điều có lợi. Người đăng ký nhận được quyền truy cập đầy đủ tới những hướng dẫn cho các chuyến đi ở các thành phố và các hoạt động ngoài trời!";
+
+"new_onboarding_step5.2_button" = "Xem các điều khoản";
+
+"new_onboarding_step5.3_message" = "Tải xuống và đánh giá các tuyến đường cho các chuyến đi trong thành phố và các hoạt động ngoài trời với lựa chọn MAPS.ME miễn phí!";
+
+"new_onboarding_step5.3_button" = "Tải miễn phí";
+
+"new_onboarding_additional_steps_later_button" = "Không phải bây giờ";
+
+"all_pass_subscription_header" = "ĐĂNG KÝ DANH SÁCH";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "Hơn 20000 hướng dẫn và đường mòn";
+
+"all_pass_subscription_message_subtitle" = "Tải xuống không giới hạn các tuyến đường ngoại tuyến trong thành phố và những hoạt động ngoài trời";
+
+"all_pass_subscription_message_title_2" = "Hơn 700 thành phố và hơn 100 quốc gia";
+
+"all_pass_subscription_message_subtitle_2" = "Để du lịch vào bất cứ thời gian nào trong năm";
+
+"all_pass_subscription_message_title_3" = "Nội dung phong phú";
+
+"all_pass_subscription_message_subtitle_3" = "Đánh dấu, ảnh, lối đi bộ qua đường, mô tả và cả những đề xuất";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "Đăng ký hướng dẫn";
+
+"sightseeing_subscription_message" = "Hơn 700 thành phố và hơn 100 quốc gia";
+
+"sightseeing_subscription_message_2" = "Truy cập ngoại tuyến";
+
+"sightseeing_subscription_message_3" = "Ảnh và lối qua đường";
+
+"subscription_success_dialog_title_sightseeing_pass" = "Cảm ơn vì đã đăng ký!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "Giờ thì bạn có thể truy cập vào tất cả hướng dẫn của các thành phố trong danh sách";
+
+"downloader_main_gallery_header" = "Bản đồ và hướng dẫn";
+
+"downloader_main_gallery_message" = "Bây giờ, trong mục này ngoài việc tải bản đồ xuống, bạn còn có thể lựa chọn các hướng dẫn cho những chuyến đi sắp tới";
+
+"downloader_main_1_element_gallery_header" = "Tất cả các hướng dẫn";
+
+"downloader_main_1_element_gallery_message" = "ở hơn 100 quốc gia";
+
+"downloader_country_1_element_gallery_header" = "%s tuyến đường";
+
+"downloader_country_no_guides_gallery_header" = "Tạm thời không có hướng dẫn tại quốc gia này";
+
+"downloader_country_no_guides_gallery_message" = "Hãy tìm hiểu các tuyến đường khác ở hơn 100 quốc gia dùng cho khu vực đường phố hay hoạt động ngoài trời";
+
+"dialog_pedestrian_route_is_long" = "ĐI bộ đến phương tiện quá lâu";
+
+"whatsnew_outdoor_guides_title" = "Chúng tôi đã bổ sung hơn 15000 đường mòn cho các hoạt động ngoài trời!";
+
+"whatsnew_outdoor_guides_message" = "Các tuyến đường từ Outdooractive cho kỳ nghỉ mùa đông, mùa hè đang chờ đón bạn trong danh sách!";
+
+"whatsnew_guides_galleries_title" = "Hãy lên kế hoạch cho chuyến đi sắp tới cùng với MAPS.ME";
+
+"whatsnew_guides_galleries_message" = "Bây giờ bạn có thể tìm thấy hướng dẫn được đề xuất trong các thẻ của các thành phố và điểm tham quan nổi tiếng";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "đỗ xe";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "Chỗ để xe";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "Bãi tha ma";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "Nhà thờ";
 
 "type.landuse.commercial" = "landuse-commercial";
 

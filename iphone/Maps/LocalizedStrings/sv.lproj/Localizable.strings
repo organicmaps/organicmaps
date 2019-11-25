@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Uppdatera (%s) och fortsätt";
 
-"dialog_pedestrian_route_is_long" = "Vandringsrutten är för lång";
-
 "whatsnew_toll_unpaved_title" = "Bygga rutter med hänsyn till alla typer av vägar";
 
 "whatsnew_toll_unpaved_message" = "Välj omvägsvägar genom betalvägar, kärrvägar och färjetrafik";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "Nu uppdaterar vi data två gånger snabbare";
 
+"new_onboarding_button" = "Nästa";
+
+"new_onboarding_button_2" = "Börja";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "Universell reseassistent";
+
+"new_onboarding_step2_header" = "Dröm och planera";
+
+"new_onboarding_step2_message" = "70+ miljoner platser, färdiga guider och hotellbokning direkt från kartan – du är redo för resan!";
+
+"new_onboarding_step3_message" = "Detaljerade offlinekartor och offline-navigering hjälper dig att inte gå vilse på okända platser!";
+
+"new_onboarding_step4_header" = "Dela dina intryck";
+
+"new_onboarding_step4_message" = "Placera bokmärken på favoritplatser och skicka dem till dina vänner";
+
+"new_onboarding_step5.1_header" = "Innan du börjar…";
+
+"new_onboarding_step5.1_message" = "Glöm inte att se vår nya guider katalog för att hitta en offline guide för din kommande resa!";
+
+"new_onboarding_step5.1_button" = "Öppna katalog";
+
+"new_onboarding_step5.2_message" = "Prenumeration på katalogen över guider i MAPS.ME är lönsamt. Få full tillgång till guider för stadspromenader och utomhusaktiviteter!";
+
+"new_onboarding_step5.2_button" = "Kolla villkoren";
+
+"new_onboarding_step5.3_message" = "Ladda ner och betygsätt rutter för stadspromenader och utomhusaktiviteter med ett gratis urval av MAPS.ME!";
+
+"new_onboarding_step5.3_button" = "Ladda ner gratis";
+
+"new_onboarding_additional_steps_later_button" = "Senare";
+
+"all_pass_subscription_header" = "PRENUMERATION PÅ KATALOGEN";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "20 000+ guider och spår";
+
+"all_pass_subscription_message_subtitle" = "Obegränsad offline nedladdning av rutter för stadspromenader och utomhusaktiviteter";
+
+"all_pass_subscription_message_title_2" = "700+ städer och 100+ länder";
+
+"all_pass_subscription_message_subtitle_2" = "Planera dina resor när som helst på året";
+
+"all_pass_subscription_message_title_3" = "Olika innehåll";
+
+"all_pass_subscription_message_subtitle_3" = "Taggar, foton, vandringsleder, beskrivningar och rekommendationer";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "Prenumeration på guider";
+
+"sightseeing_subscription_message" = "700+ städer och 100+ länder";
+
+"sightseeing_subscription_message_2" = "Tillgänglig offline";
+
+"sightseeing_subscription_message_3" = "Foton och vandringsleder";
+
+"subscription_success_dialog_title_sightseeing_pass" = "Tack för att du prenumererar!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "Nu har du tillgång till alla stadsguider i katalogen";
+
+"downloader_main_gallery_header" = "Kartor och guider";
+
+"downloader_main_gallery_message" = "I det här avsnittet kan du inte bara ladda ner kartor utan också välja guider för din kommande resa";
+
+"downloader_main_1_element_gallery_header" = "Alla guider";
+
+"downloader_main_1_element_gallery_message" = "i 100+ länder";
+
+"downloader_country_1_element_gallery_header" = "%s rutter";
+
+"downloader_country_no_guides_gallery_header" = "Det finns inga guider i detta land än";
+
+"downloader_country_no_guides_gallery_message" = "Se andra offline-rutter i 100+ länder för stads- och utomhusaktiviteter";
+
+"dialog_pedestrian_route_is_long" = "Gångvägen till transportstigningen är för lång";
+
+"whatsnew_outdoor_guides_title" = "Vi har lagt till 15 000+ spår för utomhusaktiviteter!";
+
+"whatsnew_outdoor_guides_message" = "Rutter från Outdooractive för vinter- och sommarresor väntar i katalogen!";
+
+"whatsnew_guides_galleries_title" = "Planera din kommande resa med MAPS.ME";
+
+"whatsnew_guides_galleries_message" = "Nu kan du hitta rekommenderade guider på platssidor för populära städer och attraktioner";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "Parkering";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "Parkeringsplats";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "Begravningsplats";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "Kyrkogård";
 
 "type.landuse.commercial" = "landuse-commercial";
 

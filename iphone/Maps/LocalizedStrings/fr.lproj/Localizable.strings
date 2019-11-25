@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Mettre à jour (%s) et continuer";
 
-"dialog_pedestrian_route_is_long" = "La randonnée est trop long";
-
 "whatsnew_toll_unpaved_title" = "Frayez des itinéraires en tenant compte de tous les types de routes";
 
 "whatsnew_toll_unpaved_message" = "Choisissez des itinéraires de détour par péage, routes non revêtues et passages d'un cours d'eau";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "Maintenant, nous mettons à jour les données 2 fois plus rapidement";
 
+"new_onboarding_button" = "Suivant";
+
+"new_onboarding_button_2" = "Commencer";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "Assistant de voyage universel";
+
+"new_onboarding_step2_header" = "Rêvez et planifiez";
+
+"new_onboarding_step2_message" = "+ de 70 millions de lieux intéressants, un catalogue de guides prêts à l'emploi et des réservations d'hôtels sur la carte – vous êtes prêt à voyager !";
+
+"new_onboarding_step3_message" = "Des cartes détaillées avec navigation disponibles hors ligne vous aideront à ne pas vous perdre dans des endroits inconnus !";
+
+"new_onboarding_step4_header" = "Partagez vos impressions";
+
+"new_onboarding_step4_message" = "Enregistrez lieux que vous aimez dans vos favoris et partagez-les avec vos amis";
+
+"new_onboarding_step5.1_header" = "Avant de commencer…";
+
+"new_onboarding_step5.1_message" = "N'oubliez pas de consulter notre nouveau répertoire d'itinéraires pour trouver un guide pour votre prochain voyage disponible hors ligne !";
+
+"new_onboarding_step5.1_button" = "Ouvrir le catalogue";
+
+"new_onboarding_step5.2_message" = "L'abonnement au catalogue des guides dans MAPS.ME est avantageux. Obtenez un accès complet aux guides pour les promenades en ville et les activités de plein air !";
+
+"new_onboarding_step5.2_button" = "Voir les conditions";
+
+"new_onboarding_step5.3_message" = "Téléchargez et notez les itinéraires de promenades en ville et les activités de plein air grâce à une sélection gratuite de MAPS.ME !";
+
+"new_onboarding_step5.3_button" = "Télécharger gratuitement";
+
+"new_onboarding_additional_steps_later_button" = "Pas maintenant";
+
+"all_pass_subscription_header" = "S'ABONNER AU CATALOGUE";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "+ de 20 000 guides et sentiers";
+
+"all_pass_subscription_message_subtitle" = "Téléchargement illimité d'itinéraires de promenades en ville et d'activités de plein air avec l'accès hors ligne";
+
+"all_pass_subscription_message_title_2" = "+ de 700 villes et de 100 pays";
+
+"all_pass_subscription_message_subtitle_2" = "Pour voyager à tout moment de l'année";
+
+"all_pass_subscription_message_title_3" = "Contenu varié";
+
+"all_pass_subscription_message_subtitle_3" = "Tags, photos, parcours, descriptions et recommandations";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "Abonnement aux guides";
+
+"sightseeing_subscription_message" = "+ de 700 villes et de 100 pays";
+
+"sightseeing_subscription_message_2" = "Disponibles hors connexion";
+
+"sightseeing_subscription_message_3" = "Photo et parcours";
+
+"subscription_success_dialog_title_sightseeing_pass" = "Merci pour votre inscription !";
+
+"subscription_success_dialog_message_sightseeing_pass" = "Désormais vous avez accès à tous les guides touristiques des villes du catalogue";
+
+"downloader_main_gallery_header" = "Cartes et guides";
+
+"downloader_main_gallery_message" = "Maintenant dans cette section, vous pouvez non seulement télécharger les cartes, mais aussi choisir des guides touristiques pour vos prochains voyages";
+
+"downloader_main_1_element_gallery_header" = "Tous les guides";
+
+"downloader_main_1_element_gallery_message" = "dans + de 100 pays";
+
+"downloader_country_1_element_gallery_header" = "%s d'itinéraires";
+
+"downloader_country_no_guides_gallery_header" = "Les guides pour ce pays ne sont pas encore disponibles";
+
+"downloader_country_no_guides_gallery_message" = "Découvrez d'autres itinéraires dans + de 100 pays pour les activités en ville et de plein air";
+
+"dialog_pedestrian_route_is_long" = "Accéder aux transports à pieds prend trop longtemps";
+
+"whatsnew_outdoor_guides_title" = "Nous avons ajouté + de 15 000 sentiers pour les activités de plein air !";
+
+"whatsnew_outdoor_guides_message" = "Les itinéraires de vacances d'été et d'hiver de Outdooractive vous attendent dans le catalogue !";
+
+"whatsnew_guides_galleries_title" = "Planifiez votre prochain voyage avec MAPS.ME";
+
+"whatsnew_guides_galleries_message" = "Désormais vous pouvez trouver les guides recommandés dans les fiches des villes et des attractions touristiques populaires";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "Stationnement";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "Parking";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "Cimetière";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "Cour d'église";
 
 "type.landuse.commercial" = "landuse-commercial";
 

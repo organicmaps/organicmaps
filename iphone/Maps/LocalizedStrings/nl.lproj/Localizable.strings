@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Bijwerken (%s) en verder gaan";
 
-"dialog_pedestrian_route_is_long" = "De wandelroute is te lang";
-
 "whatsnew_toll_unpaved_title" = "Bouw routen met inachtneming van alle soorten wegen";
 
 "whatsnew_toll_unpaved_message" = "Kies omwegen via tolwegen, aardewegen en ferries";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "Nu updaten we de gegevens twee keer zo snel als vroeger";
 
+"new_onboarding_button" = "Verder";
+
+"new_onboarding_button_2" = "Start";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "Een universele reisadviseur";
+
+"new_onboarding_step2_header" = "Droom verder en plan";
+
+"new_onboarding_step2_message" = "70+ miljoen bezienswaardigheden, een catalogus van kant-en-klare handleidingen en hotelreserveringen met een kaart – u bent klaar om te reizen!";
+
+"new_onboarding_step3_message" = "Gedetailleerde offline kaarten en offline navigatie zullen helpen om niet te verdwalen in vreemde plaatsen!";
+
+"new_onboarding_step4_header" = "Deelt u uw indrukken";
+
+"new_onboarding_step4_message" = "Sla uw favoriete plaatsen op in uw blaadwijzers en stuur ze naar uw vrienden en kennissen";
+
+"new_onboarding_step5.1_header" = "Voordat we beginnen…";
+
+"new_onboarding_step5.1_message" = "Vergeet u niet onze nieuwe handleidingen te bekijken om een offline gids te vinden voor uw volgende reis!";
+
+"new_onboarding_step5.1_button" = "Catalogus openen";
+
+"new_onboarding_step5.2_message" = "Een abonnement op MAPS.ME's catalogus van handleidingen is gunstig. Krijg volledige toegang tot de handleidingen voor stadswandelingen en buitenactiviteiten!";
+
+"new_onboarding_step5.2_button" = "Bekijk de voorwaarden";
+
+"new_onboarding_step5.3_message" = "Bekijk gratis voorbeelden van kant-en-klare stads- en buitenroutes met een gratis selectie van MAPS.ME!";
+
+"new_onboarding_step5.3_button" = "Gratis downloaden";
+
+"new_onboarding_additional_steps_later_button" = "Niet nu";
+
+"all_pass_subscription_header" = "INSCHRIJVING OP DE CATALOGUS";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "20000+ gidsen & wandelroutes";
+
+"all_pass_subscription_message_subtitle" = "Onbeperkt downloaden van stads- en buitenroutes offline beschikbaar";
+
+"all_pass_subscription_message_title_2" = "700+ steden en 100+ landen";
+
+"all_pass_subscription_message_subtitle_2" = "Plan uw reizen op elk moment van het jaar";
+
+"all_pass_subscription_message_title_3" = "Diverse inhoud";
+
+"all_pass_subscription_message_subtitle_3" = "Bladwijzers, foto's, wandelroutes, beschrijvingen en tips";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "Gidsen abonnement";
+
+"sightseeing_subscription_message" = "700+ steden en 100+ landen";
+
+"sightseeing_subscription_message_2" = "Online beschikbaar";
+
+"sightseeing_subscription_message_3" = "Foto's en wandelroutes";
+
+"subscription_success_dialog_title_sightseeing_pass" = "Bedankt voor uw inschrijving!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "Nu heeft u toegang tot alle gidsen voor sightseeing in de catalogus";
+
+"downloader_main_gallery_header" = "Kaarten en handleidingen";
+
+"downloader_main_gallery_message" = "In deze sectie kunt u niet alleen kaarten downloaden, maar ook gidsen voor uw volgende reis bekijken";
+
+"downloader_main_1_element_gallery_header" = "Alle handleidingen";
+
+"downloader_main_1_element_gallery_message" = "in 100+ landen";
+
+"downloader_country_1_element_gallery_header" = "%s routes";
+
+"downloader_country_no_guides_gallery_header" = "Nog geen handleidingen in dit land";
+
+"downloader_country_no_guides_gallery_message" = "U kunt andere offline gidsen in 100+ landen bekijken voor stads- en buitenactiviteiten";
+
+"dialog_pedestrian_route_is_long" = "De voetgangersroute naar het instappunt is te lang";
+
+"whatsnew_outdoor_guides_title" = "We hebben 15000+ buitenpaden toegevoegd!";
+
+"whatsnew_outdoor_guides_message" = "Routes van Outdooractive voor winter- en zomerreizen wachten op u in de catalogus!";
+
+"whatsnew_guides_galleries_title" = "Plan uw volgende reis met MAPS.ME";
+
+"whatsnew_guides_galleries_message" = "Nu kunt u de aanbevolen handleidingen in de populaire steden en sightseeing kaarten vinden";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "Parkeerplaats";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "Parkeerplaats";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "Begraafplaats";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "Kerkhof";
 
 "type.landuse.commercial" = "landuse-commercial";
 

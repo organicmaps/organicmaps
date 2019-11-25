@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Erneuern (%s) und Fortsetzen";
 
-"dialog_pedestrian_route_is_long" = "Spazierweg ist zu lang";
-
 "whatsnew_toll_unpaved_title" = "Bahnen Sie Routen unter Berücksichtigung aller Straßenarten";
 
 "whatsnew_toll_unpaved_message" = "Wählen Sie die Umwege durch Mautstraßen, Erdwege und Fährstellen";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "Von nun an werden die Daten doppelt so schnell upgedatet";
 
+"new_onboarding_button" = "Weiter";
+
+"new_onboarding_button_2" = "Start";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "Mehrzweckhilfe für Reisen";
+
+"new_onboarding_step2_header" = "Träumen und planen Sie";
+
+"new_onboarding_step2_message" = "70+ Mio. interessanter Orte, Katalog fertiger Reiseführer und Hotelbuchung auf der Karte – Sie sind reisebereit!";
+
+"new_onboarding_step3_message" = "Detaillierte Offline-Karten und Offline-Navigation helfen Ihnen sich an unbekannten Orten zu orientieren!";
+
+"new_onboarding_step4_header" = "Teilen Sie Ihre Eindrücke";
+
+"new_onboarding_step4_message" = "Speichern Sie Orte, die Ihnen gefallen, in Favoriten und schicken Sie diese an Ihre Freunde";
+
+"new_onboarding_step5.1_header" = "Vor dem Start…";
+
+"new_onboarding_step5.1_message" = "Vergessen Sie nicht in den neuen Routenkatalog hineinzuschauen, um den Offline-Guide für die nächste Reise zu finden!";
+
+"new_onboarding_step5.1_button" = "Katalog öffnen";
+
+"new_onboarding_step5.2_message" = "Reiseführer-Katalog-Subskription in MAPS.ME: das ist günstig. Sie bekommen einen uneingeschränkten Zugriff auf alle Reiseführer für Spaziergänge durch die Stadt und aktive Erholung!";
+
+"new_onboarding_step5.2_button" = "Bedingungen ansehen";
+
+"new_onboarding_step5.3_message" = "Lade herunter und bewerte Routen für Spaziergänge durch die Stadt und aktive Erholung mit der gratis Sammlung von MAPS.ME!";
+
+"new_onboarding_step5.3_button" = "Download Gratis";
+
+"new_onboarding_additional_steps_later_button" = "Später";
+
+"all_pass_subscription_header" = "KATALOGSUBSKRIPTION";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "20000+ Reiseführer und Wanderwege";
+
+"all_pass_subscription_message_subtitle" = "Unlimitiertes Herunterladen von Offline-Routen für Spaziergänge durch die Stadt und aktive Erholung";
+
+"all_pass_subscription_message_title_2" = "700+ Städte und 100+ Länder";
+
+"all_pass_subscription_message_subtitle_2" = "Für Reisen zu jeder Jahreszeit";
+
+"all_pass_subscription_message_title_3" = "Mischcontent";
+
+"all_pass_subscription_message_subtitle_3" = "Lesezeichen, Fotos, Wanderwege, Beschreibungen und Empfehlungen";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "Reiseführer-Subskription";
+
+"sightseeing_subscription_message" = "700+ Städte und 100+ Länder";
+
+"sightseeing_subscription_message_2" = "Offline verfügbar";
+
+"sightseeing_subscription_message_3" = "Fotos und Wanderwege";
+
+"subscription_success_dialog_title_sightseeing_pass" = "Vielen Dank für Ihre Subskription!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "Jetzt haben Sie einen Zugriff auf alle Stadtreiseführer im Katalog";
+
+"downloader_main_gallery_header" = "Karten und Reiseführer";
+
+"downloader_main_gallery_message" = "Nun können Sie in dieser Rubrik nicht nur Karten herunterladen, sondern auch Reiseführer für die nächsten Reisen auswählen";
+
+"downloader_main_1_element_gallery_header" = "Alle Reiseführer";
+
+"downloader_main_1_element_gallery_message" = "in 100+ Ländern";
+
+"downloader_country_1_element_gallery_header" = "%s Routen";
+
+"downloader_country_no_guides_gallery_header" = "Für dieses Land sind noch keine Reiseführer vorhanden";
+
+"downloader_country_no_guides_gallery_message" = "Schauen Sie sich andere Routen in 100+ Ländern für Spaziergänge durch die Stadt und aktive Erholung an";
+
+"dialog_pedestrian_route_is_long" = "Zu Fuß dauert es zu lange bis man den Verkehr erreicht";
+
+"whatsnew_outdoor_guides_title" = "Wir haben 15000+ Wanderwege für aktive Erholung hinzugefügt!";
+
+"whatsnew_outdoor_guides_message" = "Routen von Outdooractive für Winter- und Sommerurlaub warten auf Sie im Katalog!";
+
+"whatsnew_guides_galleries_title" = "Planen Sie die nächste Reise mit MAPS.Me";
+
+"whatsnew_guides_galleries_message" = "Jetzt sind die empfohlenen Reiseführer in den Karten berühmter Städte und Sehenswürdigkeiten zu finden";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "Tiefgarage";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "Parkplatz";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "Friedhof";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "Kirchenhof";
 
 "type.landuse.commercial" = "landuse-commercial";
 

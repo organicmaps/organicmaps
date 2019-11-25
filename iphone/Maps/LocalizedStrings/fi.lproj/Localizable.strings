@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Päivitä (%s) ja jatka";
 
-"dialog_pedestrian_route_is_long" = "Jalankulkureitti on liian pitkä";
-
 "whatsnew_toll_unpaved_title" = "Luo reittejä ottaen huomioon kaikentyyppiset tiet";
 
 "whatsnew_toll_unpaved_message" = "Valitse kiertoreitit maksullisten teiden, päällystämättömien teiden ja lauttojen ohi";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "Nyt me päivitämme tietoja 2 kertaa nopeammin";
 
+"new_onboarding_button" = "Edelleen";
+
+"new_onboarding_button_2" = "Aloita";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "Yleisavustaja matkojen aikana";
+
+"new_onboarding_step2_header" = "Unelmoi ja suunnittele";
+
+"new_onboarding_step2_message" = "70+ miljoonaa mielenkiintoista paikkaa, luettelo valmiita matkaoppaita ja hotellivaraus kartalla – olet valmis matkustamaan!";
+
+"new_onboarding_step3_message" = "Yksityiskohtaisten offline-karttojen ja offline-navigoinnin avulla et eksy tuntemattomissa paikoissa!";
+
+"new_onboarding_step4_header" = "Jaa vaikutelmasi";
+
+"new_onboarding_step4_message" = "Tallenna suosikkipaikat suosikkeihin ja lähetä ne ystävillesi";
+
+"new_onboarding_step5.1_header" = "Ennen aloittamista…";
+
+"new_onboarding_step5.1_message" = "Muista vierailla meidän uuden reittiluettelossamme löytääksesi offline-oppaan seuraavaa matkaa varten!";
+
+"new_onboarding_step5.1_button" = "Avaa luettelo";
+
+"new_onboarding_step5.2_message" = "MAPS.ME:ssä matkaopasluettelon tilaaminen on kannattavaa. Saat täyden pääsyn matkaoppaisiin kaupungin kävelyretkiä ja ulkoilua varten!";
+
+"new_onboarding_step5.2_button" = "Näytä ehdot";
+
+"new_onboarding_step5.3_message" = "Lataa ja arvioi kaupunkikierroksia ja ulkoiluaktiviteetteja ilmaisella MAPS.ME-valinnalla!";
+
+"new_onboarding_step5.3_button" = "Lataa ilmaiseksi";
+
+"new_onboarding_additional_steps_later_button" = "Ei nyt";
+
+"all_pass_subscription_header" = "MATKAOPASLUETTELON TILAUS";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "20000+ matkaopasta ja polkua";
+
+"all_pass_subscription_message_subtitle" = "Rajoittamaton offlinessa käytettävien kaupunkikierre- ja ulkoilureittien lataus";
+
+"all_pass_subscription_message_title_2" = "700+ kaupunkia ja 100+ maata";
+
+"all_pass_subscription_message_subtitle_2" = "Matkoille minä tahansa vuodenaikana";
+
+"all_pass_subscription_message_title_3" = "Monipuolinen sisältö";
+
+"all_pass_subscription_message_subtitle_3" = "Merkit, valokuvat, kävelyreitit, kuvaukset ja suositukset";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "Matkaopastilaus";
+
+"sightseeing_subscription_message" = "700+ kaupunkia ja 100+ maata";
+
+"sightseeing_subscription_message_2" = "Saatavilla offline-tilassa";
+
+"sightseeing_subscription_message_3" = "Valokuvat ja kävelyreitit";
+
+"subscription_success_dialog_title_sightseeing_pass" = "Kiitos tilauksesta!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "Nyt teillä on pääsy kaikkiin luettelossa oleviin kaupunkioppaisiin";
+
+"downloader_main_gallery_header" = "Kartat ja matkaoppaat";
+
+"downloader_main_gallery_message" = "Nyt tässä jaksossa voit paitsi ladata karttoja myös valita matkaoppaita seuraavia matkojasi varten";
+
+"downloader_main_1_element_gallery_header" = "Kaikki matkaoppaat";
+
+"downloader_main_1_element_gallery_message" = "100+ maassa";
+
+"downloader_country_1_element_gallery_header" = "%s reittiä";
+
+"downloader_country_no_guides_gallery_header" = "Tätä maata varten ei ole vielä matkaoppaita";
+
+"downloader_country_no_guides_gallery_message" = "Tutustu muihin kaupunki- ja ulkoilureitteihin 100+ maassa";
+
+"dialog_pedestrian_route_is_long" = "Liian pitkä jalankulkumatka joukkoliikenteen pysäkille";
+
+"whatsnew_outdoor_guides_title" = "Me olemme lisänneet 15000+ polkua ulkoilua varten!";
+
+"whatsnew_outdoor_guides_message" = "Outdooractiven talvi- ja kesälomareitit odottavat luettelossa!";
+
+"whatsnew_guides_galleries_title" = "Suunnittele seuraava matka MAPS.ME:n kanssa";
+
+"whatsnew_guides_galleries_message" = "Nyt te voitte löytää suositeltuja matkaoppaita suosittujen kaupunkien ja nähtävyyksien korteista";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "Parkkipaikka";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "Parkkipaikka";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "Hautausmaa";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "Kirkon piha";
 
 "type.landuse.commercial" = "landuse-commercial";
 

@@ -2791,8 +2791,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Renovar (%s) y continuar";
 
-"dialog_pedestrian_route_is_long" = "La ruta a pie es demasiado larga";
-
 "whatsnew_toll_unpaved_title" = "Construye las rutas en auto teniendo en cuenta todo tipo de vías";
 
 "whatsnew_toll_unpaved_message" = "Elige rutas de desvío a través de peajes, caminos sin pavimentar y cruces de ferry";
@@ -3078,6 +3076,96 @@
 
 "whatsnew_map_updates_message" = "A partir de ahora actualizamos los datos el doble de rápido";
 
+"new_onboarding_button" = "Siguiente";
+
+"new_onboarding_button_2" = "Iniciar";
+
+"new_onboarding_step1_header" = "MAPS.ME";
+
+"new_onboarding_step1_header_2" = "Asistente de viaje universal";
+
+"new_onboarding_step2_header" = "Sueña y planifica";
+
+"new_onboarding_step2_message" = "Más de 70 millones de lugares, guías preparadas y reservas de hoteles directamente desde el mapa: ¡y estás listo para el viaje!";
+
+"new_onboarding_step3_message" = "Nunca te pierdas con los mapas detallados de cualquier país y la navegación: ¡todo funciona sin conexión!";
+
+"new_onboarding_step4_header" = "Comparte tus impresiones";
+
+"new_onboarding_step4_message" = "Coloca marcadores en tus lugares favoritos y envíalos a tus amigos";
+
+"new_onboarding_step5.1_header" = "Antes de iniciar…";
+
+"new_onboarding_step5.1_message" = "¡No olvides visitar nuestro nuevo catálogo de guías para encontrar una guía fuera de línea para tu próximo viaje!";
+
+"new_onboarding_step5.1_button" = "Abrir catálogo";
+
+"new_onboarding_step5.2_message" = "Suscribirse al directorio de guías en MAPS.ME es rentable. ¡Obtén acceso completo a guías de paseos por la ciudad y a actividades al aire libre!";
+
+"new_onboarding_step5.2_button" = "Mira los términos";
+
+"new_onboarding_step5.3_message" = "¡Descarga y califica las rutas para paseos por la ciudad y actividades al aire libre con una selección gratuita de MAPS.ME!";
+
+"new_onboarding_step5.3_button" = "Descarga gratis";
+
+"new_onboarding_additional_steps_later_button" = "Más tarde";
+
+"all_pass_subscription_header" = "SUSCRIPCIÓN AL CATÁLOGO";
+
+/* do not translate */
+"all_pass_subscription_subheader" = "City + Outdoor Pass";
+
+"all_pass_subscription_message_title" = "Más de 20.000 guías y senderos";
+
+"all_pass_subscription_message_subtitle" = "Descarga ilimitada de rutas sin conexión para paseos por la ciudad y actividades al aire libre";
+
+"all_pass_subscription_message_title_2" = "700+ ciudades y 100+ países";
+
+"all_pass_subscription_message_subtitle_2" = "Para viajar en cualquier época del año";
+
+"all_pass_subscription_message_title_3" = "Contenido diverso";
+
+"all_pass_subscription_message_subtitle_3" = "Etiquetas, fotos, senderos, descripciones y recomendaciones";
+
+/* do not translate */
+"sightseeing_subscription_header_sightseeing" = "City Pass";
+
+"sightseeing_subscription_header_subscription" = "Suscripción de Guías";
+
+"sightseeing_subscription_message" = "700+ ciudades y 100+ países";
+
+"sightseeing_subscription_message_2" = "Disponible sin conexión";
+
+"sightseeing_subscription_message_3" = "Fotos y senderos";
+
+"subscription_success_dialog_title_sightseeing_pass" = "¡Gracias por suscribirte!";
+
+"subscription_success_dialog_message_sightseeing_pass" = "Ahora tienes acceso a todas las guías de ciudades del catálogo";
+
+"downloader_main_gallery_header" = "Mapas y guías";
+
+"downloader_main_gallery_message" = "Ahora, en esta sección, no solo puedes descargar mapas, sino también consultar guías para tu próximo viaje";
+
+"downloader_main_1_element_gallery_header" = "Todas las guías";
+
+"downloader_main_1_element_gallery_message" = "en más de 100 países";
+
+"downloader_country_1_element_gallery_header" = "%s rutas";
+
+"downloader_country_no_guides_gallery_header" = "Aún no hay guías en este país";
+
+"downloader_country_no_guides_gallery_message" = "Mira otros itinerarios en más de 100 países para actividades en la ciudad y al aire libre";
+
+"dialog_pedestrian_route_is_long" = "La ruta a pie al punto de embarque del transporte es muy larga";
+
+"whatsnew_outdoor_guides_title" = "¡Hemos agregado más de 15.000 senderos de actividades al aire libre!";
+
+"whatsnew_outdoor_guides_message" = "¡Las rutas de Outdooractive para viajes de verano e invierno están a la espera en el catálogo!";
+
+"whatsnew_guides_galleries_title" = "Planifica tu próximo viaje con MAPS.ME";
+
+"whatsnew_guides_galleries_message" = "Ahora puedes encontrar guías recomendadas en las tarjetas de ciudades y sitios de atracción populares";
+
 
 /**********  Partners  **********/
 
@@ -3246,7 +3334,7 @@
 
 "type.amenity.parking.underground.fee" = "Aparcamiento";
 
-"type.amenity.parking_space" = "Parking space";
+"type.amenity.parking_space" = "Plaza de aparcamiento";
 
 "type.amenity.parking_space.permissive" = "Parking space";
 
@@ -3950,7 +4038,7 @@
 
 "type.landuse.cemetery.christian" = "Cementerio";
 
-"type.landuse.churchyard" = "landuse-churchyard";
+"type.landuse.churchyard" = "Camposanto";
 
 "type.landuse.commercial" = "landuse-commercial";
 
