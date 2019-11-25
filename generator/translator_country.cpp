@@ -1,5 +1,6 @@
 #include "generator/translator_country.hpp"
 
+#include "generator/collector_boundary_postcode.hpp"
 #include "generator/collector_camera.hpp"
 #include "generator/collector_city_area.hpp"
 #include "generator/collector_collection.hpp"
@@ -103,6 +104,8 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
   auto collectors = std::make_shared<CollectorCollection>();
   collectors->Append(std::make_shared<feature::MetalinesBuilder>(
       info.GetIntermediateFileName(METALINES_FILENAME)));
+  collectors->Append(std::make_shared<BoundaryPostcodeCollector>(
+      info.GetIntermediateFileName(BOUNDARY_POSTCODE_TMP_FILENAME), cache->GetCache()));
   collectors->Append(
       std::make_shared<CityAreaCollector>(info.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME)));
   // Collectors for gathering of additional information for the future building of routing section.

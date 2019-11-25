@@ -34,6 +34,7 @@ class RoadAccessWriter;
 }  // namespace routing
 namespace generator
 {
+class BoundaryPostcodeCollector;
 class CollectorAddresses;
 class CollectorCollection;
 class CollectorTag;
@@ -70,6 +71,7 @@ public:
 
   virtual void Merge(CollectorInterface const &) = 0;
 
+  virtual void MergeInto(BoundaryPostcodeCollector &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(CityAreaCollector &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(routing::CameraCollector &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(MiniRoundaboutCollector &) const { FailIfMethodUnsupported(); }
