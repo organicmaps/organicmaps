@@ -16,7 +16,10 @@ public class Icon implements Parcelable
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ PREDEFINED_COLOR_NONE, PREDEFINED_COLOR_RED, PREDEFINED_COLOR_BLUE,
             PREDEFINED_COLOR_PURPLE, PREDEFINED_COLOR_YELLOW, PREDEFINED_COLOR_PINK,
-            PREDEFINED_COLOR_BROWN, PREDEFINED_COLOR_GREEN, PREDEFINED_COLOR_ORANGE })
+            PREDEFINED_COLOR_BROWN, PREDEFINED_COLOR_GREEN, PREDEFINED_COLOR_ORANGE,
+            PREDEFINED_COLOR_DEEPPURPLE, PREDEFINED_COLOR_LIGHTBLUE, PREDEFINED_COLOR_CYAN,
+            PREDEFINED_COLOR_TEAL, PREDEFINED_COLOR_LIME, PREDEFINED_COLOR_DEEPORANGE,
+            PREDEFINED_COLOR_GRAY, PREDEFINED_COLOR_BLUEGRAY})
   @interface PredefinedColor {}
 
   static final int PREDEFINED_COLOR_NONE = 0;
@@ -28,34 +31,32 @@ public class Icon implements Parcelable
   static final int PREDEFINED_COLOR_BROWN = 6;
   static final int PREDEFINED_COLOR_GREEN = 7;
   static final int PREDEFINED_COLOR_ORANGE = 8;
+  static final int PREDEFINED_COLOR_DEEPPURPLE = 9;
+  static final int PREDEFINED_COLOR_LIGHTBLUE = 10;
+  static final int PREDEFINED_COLOR_CYAN = 11;
+  static final int PREDEFINED_COLOR_TEAL = 12;
+  static final int PREDEFINED_COLOR_LIME = 13;
+  static final int PREDEFINED_COLOR_DEEPORANGE = 14;
+  static final int PREDEFINED_COLOR_GRAY = 15;
+  static final int PREDEFINED_COLOR_BLUEGRAY = 16;
 
-  private static final String[] PREDEFINED_COLOR_NAMES = { "placemark-red", "placemark-red",
-                                                           "placemark-blue", "placemark-purple",
-                                                           "placemark-yellow", "placemark-pink",
-                                                           "placemark-brown", "placemark-green",
-                                                           "placemark-orange" };
-
-  @DrawableRes
-  private static final int[] COLOR_ICONS_ON = { R.drawable.ic_bookmark_marker_red_on,
-                                                R.drawable.ic_bookmark_marker_red_on,
-                                                R.drawable.ic_bookmark_marker_blue_on,
-                                                R.drawable.ic_bookmark_marker_purple_on,
-                                                R.drawable.ic_bookmark_marker_yellow_on,
-                                                R.drawable.ic_bookmark_marker_pink_on,
-                                                R.drawable.ic_bookmark_marker_brown_on,
-                                                R.drawable.ic_bookmark_marker_green_on,
-                                                R.drawable.ic_bookmark_marker_orange_on };
-
-  @DrawableRes
-  private static final int[] COLOR_ICONS_OFF = { R.drawable.ic_bookmark_marker_red_off,
-                                                 R.drawable.ic_bookmark_marker_red_off,
-                                                 R.drawable.ic_bookmark_marker_blue_off,
-                                                 R.drawable.ic_bookmark_marker_purple_off,
-                                                 R.drawable.ic_bookmark_marker_yellow_off,
-                                                 R.drawable.ic_bookmark_marker_pink_off,
-                                                 R.drawable.ic_bookmark_marker_brown_off,
-                                                 R.drawable.ic_bookmark_marker_green_off,
-                                                 R.drawable.ic_bookmark_marker_orange_off };
+  private static final String[] PREDEFINED_COLOR_NAMES = { "placemark-red",
+                                                           "placemark-red",
+                                                           "placemark-blue",
+                                                           "placemark-purple",
+                                                           "placemark-yellow",
+                                                           "placemark-pink",
+                                                           "placemark-brown",
+                                                           "placemark-green",
+                                                           "placemark-orange",
+                                                           "placemark-deeppurple",
+                                                           "placemark-lightblue",
+                                                           "placemark-cyan",
+                                                           "placemark-teal",
+                                                           "placemark-lime",
+                                                           "placemark-deeporange",
+                                                           "placemark-gray",
+                                                           "placemark-bluegray" };
 
   private static int shift(int v, int bitCount) { return v << bitCount; }
   private static int toARGB(int r, int g, int b)
@@ -63,15 +64,23 @@ public class Icon implements Parcelable
     return shift(255, 24) + shift(r, 16) + shift(g, 8) + b;
   }
 
-  private static final int[] ARGB_COLORS = { toARGB(229, 27, 35),
-                                             toARGB(229, 27, 35),
-                                             toARGB(0, 110, 199),
-                                             toARGB(156, 39, 176),
-                                             toARGB(255, 200, 0),
-                                             toARGB(255, 65, 130),
-                                             toARGB(121, 85, 72),
-                                             toARGB(56, 142, 60),
-                                             toARGB(255, 160, 0) };
+  private static final int[] ARGB_COLORS = { toARGB(229, 27, 35), // none
+                                             toARGB(229, 27, 35), // red
+                                             toARGB(0, 110, 199), // blue
+                                             toARGB(156, 39, 176), // purple
+                                             toARGB(255, 200, 0), // yellow
+                                             toARGB(255, 65, 130), // pink
+                                             toARGB(121, 85, 72), // brown
+                                             toARGB(56, 142, 60), // green
+                                             toARGB(255, 160, 0), // orange
+                                             toARGB(102, 57, 191), // deeppurple
+                                             toARGB(36, 156, 242), // lightblue
+                                             toARGB(20, 190, 205), // cyan
+                                             toARGB(0, 165, 140), // teal
+                                             toARGB(147, 191, 57), // lime
+                                             toARGB(240, 100, 50), // deeporange
+                                             toARGB(115, 115, 115), // gray
+                                             toARGB(89, 115, 128) }; // bluegray
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ BOOKMARK_ICON_TYPE_NONE,
@@ -182,18 +191,6 @@ public class Icon implements Parcelable
   public String getName()
   {
     return PREDEFINED_COLOR_NAMES[mColor];
-  }
-
-  @DrawableRes
-  public int getCheckedResId()
-  {
-    return COLOR_ICONS_ON[mColor];
-  }
-
-  @DrawableRes
-  public int getUncheckedResId()
-  {
-    return COLOR_ICONS_OFF[mColor];
   }
 
   public int argb()

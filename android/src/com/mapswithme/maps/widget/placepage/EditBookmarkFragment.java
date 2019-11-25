@@ -1,6 +1,7 @@
 package com.mapswithme.maps.widget.placepage;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.FilterStrategy;
 import com.mapswithme.maps.bookmarks.data.Icon;
+import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -208,7 +210,14 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   private void refreshColorMarker()
   {
     if (mIcon != null)
-      mIvColor.setImageResource(mIcon.getCheckedResId());
+    {
+      Drawable circle = Graphics.drawCircleAndImage(mIcon.argb(),
+                                                    R.dimen.track_circle_size,
+                                                    R.drawable.ic_bookmark_none,
+                                                    R.dimen.bookmark_icon_size,
+                                                    getContext().getResources());
+      mIvColor.setImageDrawable(circle);
+    }
   }
 
   private void refreshCategory()

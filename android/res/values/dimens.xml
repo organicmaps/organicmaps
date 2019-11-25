@@ -2,6 +2,7 @@
 <resources>
   <item name="match_parent" type="dimen">-1</item>
   <dimen name="track_circle_size">40dp</dimen>
+  <dimen name="select_color_circle_size">24dp</dimen>
   <dimen name="bookmark_icon_size">24dp</dimen>
 
   <!-- margins -->

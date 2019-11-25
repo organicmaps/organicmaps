@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="?clickableBackground"
-                android:padding="@dimen/margin_half_plus">
+                android:background="?clickableBackground">
 
   <ImageView
       android:id="@+id/iv__color"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_width="@dimen/track_circle_size"
+      android:layout_height="@dimen/track_circle_size"
+      android:layout_margin="@dimen/margin_half"
       android:layout_centerInParent="true"
       android:background="@null"
       android:contentDescription="@null"
