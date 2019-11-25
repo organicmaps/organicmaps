@@ -193,11 +193,11 @@
 }
 
 + (void)setBookmarksSubscriptionActive:(BOOL)active {
-  GetFramework().GetPurchase()->SetSubscriptionEnabled(SubscriptionType::BookmarkCatalog, active);
+  GetFramework().GetPurchase()->SetSubscriptionEnabled(SubscriptionType::BookmarksSights, active);
 }
 
 + (void)setAllPassSubscriptionActive:(BOOL)active {
-  GetFramework().GetPurchase()->SetSubscriptionEnabled(SubscriptionType::AllPass, active);
+  GetFramework().GetPurchase()->SetSubscriptionEnabled(SubscriptionType::BookmarksAll, active);
 }
 
 #pragma mark - SKRequestDelegate

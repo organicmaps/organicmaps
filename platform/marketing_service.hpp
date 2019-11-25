@@ -30,8 +30,10 @@ extern char const * const kEditorEditDiscovered;
 extern char const * const kTrafficDiscovered;
 extern char const * const kDiscoveryButtonDiscovered;
 extern char const * const kBookHotelOnBookingComDiscovered;
-extern char const * const kBookmarkCatalogSubscriptionEnabled;
-extern char const * const kBookmarkCatalogSubscriptionDisabled;
+extern char const * const kSubscriptionBookmarksAllEnabled;
+extern char const * const kSubscriptionBookmarksAllDisabled;
+extern char const * const kSubscriptionBookmarksSightsEnabled;
+extern char const * const kSubscriptionBookmarksSightsDisabled;
 extern char const * const kRemoveAdsSubscriptionEnabled;
 extern char const * const kRemoveAdsSubscriptionDisabled;
 

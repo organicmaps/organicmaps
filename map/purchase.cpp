@@ -34,8 +34,9 @@ std::string const kReceiptType {};
 
 std::array<std::string, static_cast<size_t>(SubscriptionType::Count)> const kSubscriptionSuffix =
 {
-  "",  // RemoveAds (empty string for back compatibility)
-  "_BookmarkCatalog",  // BookmarkCatalog
+  "",  // removeAds (empty string for back compatibility)
+  "_BookmarkCatalog",  // bookmarks city + outdoor (AllPass)
+  "_BookmarksSights"   // bookmarks city
 };
 
 uint32_t constexpr kFirstWaitingTimeInSec = 1;
@@ -166,11 +167,17 @@ void Purchase::SetSubscriptionEnabled(SubscriptionType type, bool isEnabled)
     listener->OnSubscriptionChanged(type, isEnabled);
 
   auto const nowStr = GetPlatform().GetMarketingService().GetPushWooshTimestamp();
-  if (type == SubscriptionType::BookmarkCatalog)
+  if (type == SubscriptionType::BookmarksSights)
   {
     GetPlatform().GetMarketingService().SendPushWooshTag(isEnabled ?
-      marketing::kBookmarkCatalogSubscriptionEnabled :
-      marketing::kBookmarkCatalogSubscriptionDisabled, nowStr);
+      marketing::kSubscriptionBookmarksSightsEnabled :
+      marketing::kSubscriptionBookmarksSightsDisabled, nowStr);
+  }
+  else if (type == SubscriptionType::BookmarksAll)
+  {
+    GetPlatform().GetMarketingService().SendPushWooshTag(isEnabled ?
+      marketing::kSubscriptionBookmarksAllEnabled :
+      marketing::kSubscriptionBookmarksAllDisabled, nowStr);
   }
   else if (type == SubscriptionType::RemoveAds)
   {

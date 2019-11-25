@@ -29,7 +29,7 @@ public class PurchaseFactory
   public static PurchaseController<PurchaseCallback> createBookmarksSightsSubscriptionController(
       @NonNull Context context)
   {
-    return createSubscriptionPurchaseController(context, SubscriptionType.BOOKMARKS_ALL);
+    return createSubscriptionPurchaseController(context, SubscriptionType.BOOKMARKS_SIGHTS);
   }
 
   @NonNull

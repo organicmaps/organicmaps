@@ -26,8 +26,14 @@ char const * const kEditorEditDiscovered = "editor_edit_discovered";
 char const * const kTrafficDiscovered = "traffic_discovered";
 char const * const kDiscoveryButtonDiscovered = "discovery_button_discovered";
 char const * const kBookHotelOnBookingComDiscovered = "hotel_book_bcom_discovered";
-char const * const kBookmarkCatalogSubscriptionEnabled = "bookmark_catalog_subscription_enabled";
-char const * const kBookmarkCatalogSubscriptionDisabled = "bookmark_catalog_subscription_disabled";
+char const * const kSubscriptionBookmarksAllEnabled =
+  "bookmark_catalog_subscription_city_outdoor_enabled";
+char const * const kSubscriptionBookmarksAllDisabled =
+  "bookmark_catalog_subscription_city_outdoor_disabled";
+char const * const kSubscriptionBookmarksSightsEnabled =
+  "bookmark_catalog_subscription_city_enabled";
+char const * const kSubscriptionBookmarksSightsDisabled =
+  "bookmark_catalog_subscription_city_disabled";
 char const * const kRemoveAdsSubscriptionEnabled = "remove_ads_subscription_enabled";
 char const * const kRemoveAdsSubscriptionDisabled = "remove_ads_subscription_disabled";
 

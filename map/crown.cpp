@@ -22,7 +22,7 @@ namespace crown
 {
 bool NeedToShow(std::unique_ptr<Purchase> const & purchase)
 {
-  if (!purchase || purchase->IsSubscriptionActive(SubscriptionType::BookmarkCatalog) ||
+  if (!purchase || purchase->IsSubscriptionActive(SubscriptionType::BookmarksAll) ||
       !GetPlatform().IsConnected())
   {
     return false;
