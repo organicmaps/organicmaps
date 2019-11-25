@@ -543,6 +543,7 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
                                                 IndexGraphStarter & starter,
                                                 vector<Segment> & subroute)
 {
+  CHECK(progress, ());
   subroute.clear();
 
   SetupAlgorithmMode(starter);
