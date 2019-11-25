@@ -62879,8 +62879,8 @@ cont {
       }
       priority: 15781
     }
-    apply_if: "rating>=8"
     apply_if: "extra_tag=tourism=apartment"
+    apply_if: "rating>=8"
   }
   element {
     scale: 16
@@ -63104,25 +63104,6 @@ cont {
       priority: 15609
     }
     apply_if: "extra_tag=tourism=apartment"
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "apartment-m"
-      priority: 16781
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        stroke_color: 872415231
-        offset_y: 1
-      }
-      priority: 15781
-    }
-    apply_if: "extra_tag=tourism=apartment"
-    apply_if: "rating>=8"
   }
   element {
     scale: 17
@@ -63368,8 +63349,8 @@ cont {
       }
       priority: 15781
     }
-    apply_if: "rating>=8"
     apply_if: "extra_tag=tourism=apartment"
+    apply_if: "rating>=8"
   }
   element {
     scale: 17
@@ -63593,25 +63574,6 @@ cont {
       priority: 15609
     }
     apply_if: "extra_tag=tourism=apartment"
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "apartment-m"
-      priority: 16781
-      min_distance: 16
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        stroke_color: 872415231
-        offset_y: 1
-      }
-      priority: 15781
-    }
-    apply_if: "extra_tag=tourism=apartment"
-    apply_if: "rating>=8"
   }
   element {
     scale: 18
@@ -63857,8 +63819,8 @@ cont {
       }
       priority: 15781
     }
-    apply_if: "rating>=8"
     apply_if: "extra_tag=tourism=apartment"
+    apply_if: "rating>=8"
   }
   element {
     scale: 18
@@ -64082,25 +64044,6 @@ cont {
       priority: 15609
     }
     apply_if: "extra_tag=tourism=apartment"
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "apartment-m"
-      priority: 16781
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        stroke_color: 872415231
-        offset_y: 1
-      }
-      priority: 15781
-    }
-    apply_if: "extra_tag=tourism=apartment"
-    apply_if: "rating>=8"
   }
   element {
     scale: 19
@@ -64346,8 +64289,8 @@ cont {
       }
       priority: 15781
     }
-    apply_if: "rating>=8"
     apply_if: "extra_tag=tourism=apartment"
+    apply_if: "rating>=8"
   }
   element {
     scale: 19
@@ -64571,25 +64514,6 @@ cont {
       priority: 15609
     }
     apply_if: "extra_tag=tourism=apartment"
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "apartment-m"
-      priority: 16781
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        stroke_color: 872415231
-        offset_y: 1
-      }
-      priority: 15781
-    }
-    apply_if: "extra_tag=tourism=apartment"
-    apply_if: "rating>=8"
   }
 }
 cont {
@@ -69912,7 +69836,7 @@ colors {
   }
   value {
     name: "BookmarkDeepOrange"
-    color: 6323595
+    color: 15754290
   }
   value {
     name: "RoadShieldOrangeBackground"
@@ -69920,7 +69844,7 @@ colors {
   }
   value {
     name: "BookmarkDeepPurple"
-    color: 6765239
+    color: 6699455
   }
   value {
     name: "RouteOutline"
@@ -69932,7 +69856,7 @@ colors {
   }
   value {
     name: "BookmarkTeal"
-    color: 38280
+    color: 42380
   }
   value {
     name: "TransitMarkSecondaryText"
@@ -69969,7 +69893,7 @@ colors {
   }
   value {
     name: "BookmarkBlue"
-    color: 28359
+    color: 26316
   }
   value {
     name: "MyPositionAccuracy"
@@ -69977,7 +69901,7 @@ colors {
   }
   value {
     name: "BookmarkOrange"
-    color: 16752640
+    color: 16750080
   }
   value {
     name: "TrafficArrowLight"
@@ -70001,11 +69925,11 @@ colors {
   }
   value {
     name: "BookmarkCyan"
-    color: 113876
+    color: 1359565
   }
   value {
     name: "BookmarkGray"
-    color: 7697781
+    color: 7566195
   }
   value {
     name: "TransitBackground"
@@ -70039,7 +69963,7 @@ colors {
   }
   value {
     name: "BookmarkGreen"
-    color: 3706428
+    color: 3968060
   }
   value {
     name: "TrafficG3"
@@ -70047,7 +69971,7 @@ colors {
   }
   value {
     name: "BookmarkBlueGray"
-    color: 6323595
+    color: 5862272
   }
   value {
     name: "TrafficG1"
@@ -70075,7 +69999,7 @@ colors {
   }
   value {
     name: "BookmarkLime"
-    color: 8306489
+    color: 9682745
   }
   value {
     name: "RouteBicycle"
@@ -70168,7 +70092,7 @@ colors {
   }
   value {
     name: "BookmarkPurple"
-    color: 10233776
+    color: 10167474
   }
   value {
     name: "TransitMarkPrimaryText"
@@ -70187,11 +70111,11 @@ colors {
   }
   value {
     name: "BookmarkBrown"
-    color: 7951688
+    color: 8406579
   }
   value {
     name: "BookmarkLightBlue"
-    color: 240116
+    color: 2399474
   }
   value {
     name: "RatingNormal"

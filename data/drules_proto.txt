@@ -63407,8 +63407,8 @@ cont {
       }
       priority: 15781
     }
-    apply_if: "rating>=8"
     apply_if: "extra_tag=tourism=apartment"
+    apply_if: "rating>=8"
   }
   element {
     scale: 16
@@ -63632,25 +63632,6 @@ cont {
       priority: 15609
     }
     apply_if: "extra_tag=tourism=apartment"
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "apartment-m"
-      priority: 16781
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        stroke_color: 872415231
-        offset_y: 1
-      }
-      priority: 15781
-    }
-    apply_if: "extra_tag=tourism=apartment"
-    apply_if: "rating>=8"
   }
   element {
     scale: 17
@@ -63896,8 +63877,8 @@ cont {
       }
       priority: 15781
     }
-    apply_if: "rating>=8"
     apply_if: "extra_tag=tourism=apartment"
+    apply_if: "rating>=8"
   }
   element {
     scale: 17
@@ -64121,25 +64102,6 @@ cont {
       priority: 15609
     }
     apply_if: "extra_tag=tourism=apartment"
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "apartment-m"
-      priority: 16781
-      min_distance: 16
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        stroke_color: 872415231
-        offset_y: 1
-      }
-      priority: 15781
-    }
-    apply_if: "extra_tag=tourism=apartment"
-    apply_if: "rating>=8"
   }
   element {
     scale: 18
@@ -64385,8 +64347,8 @@ cont {
       }
       priority: 15781
     }
-    apply_if: "rating>=8"
     apply_if: "extra_tag=tourism=apartment"
+    apply_if: "rating>=8"
   }
   element {
     scale: 18
@@ -64610,25 +64572,6 @@ cont {
       priority: 15609
     }
     apply_if: "extra_tag=tourism=apartment"
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "apartment-m"
-      priority: 16781
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        stroke_color: 872415231
-        offset_y: 1
-      }
-      priority: 15781
-    }
-    apply_if: "extra_tag=tourism=apartment"
-    apply_if: "rating>=8"
   }
   element {
     scale: 19
@@ -64874,8 +64817,8 @@ cont {
       }
       priority: 15781
     }
-    apply_if: "rating>=8"
     apply_if: "extra_tag=tourism=apartment"
+    apply_if: "rating>=8"
   }
   element {
     scale: 19
@@ -65099,25 +65042,6 @@ cont {
       priority: 15609
     }
     apply_if: "extra_tag=tourism=apartment"
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "apartment-m"
-      priority: 16781
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        stroke_color: 872415231
-        offset_y: 1
-      }
-      priority: 15781
-    }
-    apply_if: "extra_tag=tourism=apartment"
-    apply_if: "rating>=8"
   }
 }
 cont {
