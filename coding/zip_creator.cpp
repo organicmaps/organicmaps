@@ -130,7 +130,7 @@ bool CreateZipFromFiles(std::vector<std::string> const & files, std::string cons
   if (!zip.Handle())
     return false;
 
-  int const compressionLevel = GetCompressionLevel(compression);
+  auto const compressionLevel = GetCompressionLevel(compression);
   zip_fileinfo const fileInfo = {};
 
   try
