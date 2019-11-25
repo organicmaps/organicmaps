@@ -90,8 +90,7 @@ RoutesBuilder & RoutesBuilder::GetSimpleRoutesBuilder()
   static RoutesBuilder routesBuilder(1 /* threadsNumber */);
   return routesBuilder;
 }
-RoutesBuilder::RoutesBuilder(size_t threadsNumber)
-    : m_threadPool(threadsNumber)
+RoutesBuilder::RoutesBuilder(size_t threadsNumber) : m_threadPool(threadsNumber)
 {
   CHECK_GREATER(threadsNumber, 0, ());
   LOG(LINFO, ("Threads number:", threadsNumber));
@@ -297,7 +296,7 @@ RoutesBuilder::Processor::operator()(Params const & params)
 
   CHECK(m_dataSource, ());
 
-  double timeSum = 0;
+  double timeSum = 0.0;
   for (size_t i = 0; i < params.m_launchesNumber; ++i)
   {
     m_delegate->SetTimeout(params.m_timeoutSeconds);

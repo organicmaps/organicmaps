@@ -179,6 +179,8 @@ void CreatePythonGraphByPointsXY(std::string const & pythonScriptPath,
                                  std::string const & ylabel,
                                  std::vector<m2::PointD> const & points);
 
+/// \brief Create python file, that show bar graph, where labels of bars are keys of |stat| and
+/// heights area values of |stat|.
 void CreatePythonBarByMap(std::string const & pythonScriptPath,
                           std::map<std::string, size_t> const & stat,
                           std::string const & xlabel,

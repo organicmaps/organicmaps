@@ -103,7 +103,7 @@ int Main(int argc, char ** argv)
     if (launchesNumber > 1)
     {
       LOG(LINFO,
-          ("Benchmark mode is activated. Each route will be build", launchesNumber, "times."));
+          ("Benchmark mode is activated. Each route will be built", launchesNumber, "times."));
     }
 
     BuildRoutes(FLAGS_routes_file, FLAGS_dump_path, FLAGS_start_from, FLAGS_threads, FLAGS_timeout,
