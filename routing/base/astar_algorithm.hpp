@@ -238,12 +238,17 @@ private:
   // comment for FindPath for more information.
   struct State
   {
-    State(Vertex const & vertex, Weight const & distance) : vertex(vertex), distance(distance) {}
+    State(Vertex const & vertex, Weight const & distance, Weight const & heuristic)
+      : vertex(vertex), distance(distance), heuristic(heuristic)
+    {
+    }
+    State(Vertex const & vertex, Weight const & distance) : State(vertex, distance, Weight()) {}
 
     inline bool operator>(State const & rhs) const { return distance > rhs.distance; }
 
     Vertex vertex;
     Weight distance;
+    Weight heuristic;
   };
 
   // BidirectionalStepContext keeps all the information that is needed to
@@ -257,8 +262,6 @@ private:
       , startVertex(startVertex)
       , finalVertex(finalVertex)
       , graph(graph)
-      , m_piRT(graph.HeuristicCostEstimate(finalVertex, startVertex))
-      , m_piFS(graph.HeuristicCostEstimate(startVertex, finalVertex))
     {
       bestVertex = forward ? startVertex : finalVertex;
       pS = ConsistentHeuristic(bestVertex);
@@ -288,12 +291,12 @@ private:
         /// @todo careful: with this "return" here and below in the Backward case
         /// the heuristic becomes inconsistent but still seems to work.
         /// return HeuristicCostEstimate(v, finalVertex);
-        return 0.5 * (piF - piR + m_piRT);
+        return 0.5 * (piF - piR);
       }
       else
       {
         // return HeuristicCostEstimate(v, startVertex);
-        return 0.5 * (piR - piF + m_piFS);
+        return 0.5 * (piR - piF);
       }
     }
 
@@ -311,8 +314,6 @@ private:
     Vertex const & startVertex;
     Vertex const & finalVertex;
     Graph & graph;
-    Weight const m_piRT;
-    Weight const m_piFS;
 
     std::priority_queue<State, std::vector<State>, std::greater<State>> queue;
     std::map<Vertex, Weight> bestDistance;
@@ -512,10 +513,10 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
   auto bestPathRealLength = kZeroDistance;
 
   forward.bestDistance[startVertex] = kZeroDistance;
-  forward.queue.push(State(startVertex, kZeroDistance));
+  forward.queue.push(State(startVertex, kZeroDistance, forward.ConsistentHeuristic(startVertex)));
 
   backward.bestDistance[finalVertex] = kZeroDistance;
-  backward.queue.push(State(finalVertex, kZeroDistance));
+  backward.queue.push(State(finalVertex, kZeroDistance, backward.ConsistentHeuristic(finalVertex)));
 
   // To use the search code both for backward and forward directions
   // we keep the pointers to everything related to the search in the
@@ -586,6 +587,7 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
                                      cur->forward ? cur->finalVertex : cur->startVertex);
 
     cur->GetAdjacencyList(stateV.vertex, adj);
+    auto const pV = stateV.heuristic;
     for (auto const & edge : adj)
     {
       State stateW(edge.GetTarget(), kZeroDistance);
@@ -594,7 +596,6 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
         continue;
 
       auto const weight = edge.GetWeight();
-      auto const pV = cur->ConsistentHeuristic(stateV.vertex);
       auto const pW = cur->ConsistentHeuristic(stateW.vertex);
       auto const reducedWeight = weight + pW - pV;
 
@@ -612,6 +613,7 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
         continue;
 
       stateW.distance = newReducedDist;
+      stateW.heuristic = pW;
       cur->bestDistance[stateW.vertex] = newReducedDist;
       cur->parent[stateW.vertex] = stateV.vertex;
 
