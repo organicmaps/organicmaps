@@ -4,16 +4,24 @@
 
 namespace
 {
-std::array<kml::PredefinedColor, 8> const kBookmarkColorsVariant
+std::array<kml::PredefinedColor, 16> const kBookmarkColorsVariant
 {{
   kml::PredefinedColor::Red,
-  kml::PredefinedColor::Yellow,
-  kml::PredefinedColor::Blue,
-  kml::PredefinedColor::Green,
+  kml::PredefinedColor::Pink,
   kml::PredefinedColor::Purple,
+  kml::PredefinedColor::DeepPurple,
+  kml::PredefinedColor::Blue,
+  kml::PredefinedColor::LightBlue,
+  kml::PredefinedColor::Cyan,
+  kml::PredefinedColor::Teal,
+  kml::PredefinedColor::Green,
+  kml::PredefinedColor::Lime,
+  kml::PredefinedColor::Yellow,
   kml::PredefinedColor::Orange,
+  kml::PredefinedColor::DeepOrange,
   kml::PredefinedColor::Brown,
-  kml::PredefinedColor::Pink
+  kml::PredefinedColor::Gray,
+  kml::PredefinedColor::BlueGray
 }};
 
 } // namespace

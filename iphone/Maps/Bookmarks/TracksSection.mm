@@ -1,6 +1,6 @@
 #import "TracksSection.h"
-#import "CircleView.h"
 #import <CoreApi/MWMBookmarksManager.h>
+#import "MWMBookmarkColorViewController.h"
 #import "Statistics.h"
 
 #include <CoreApi/Framework.h>
@@ -68,11 +68,7 @@ CGFloat const kPinDiameter = 22.0f;
   else
     cell.detailTextLabel.text = nil;
   dp::Color const c = track->GetColor(0);
-  cell.imageView.image = [CircleView createCircleImageWith:kPinDiameter
-                                                  andColor:[UIColor colorWithRed:c.GetRedF()
-                                                                           green:c.GetGreenF()
-                                                                            blue:c.GetBlueF()
-                                                                           alpha:1.f]];
+  cell.imageView.image = ios_bookmark_ui_helper::ImageForTrack(c.GetRedF(), c.GetGreenF(), c.GetBlueF());
   return cell;
 }
 

@@ -534,7 +534,6 @@
 		6741AA1C1BF340DE002C974C /* MWMRoutingDisclaimerAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = F63774E91B59376F00BCF54D /* MWMRoutingDisclaimerAlert.m */; };
 		6741AA1D1BF340DE002C974C /* MWMDownloadTransitMapAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F19971AB81A00006EAF7E /* MWMDownloadTransitMapAlert.mm */; };
 		6741AA281BF340DE002C974C /* MWMAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F19861AB81A00006EAF7E /* MWMAlert.mm */; };
-		6741AA291BF340DE002C974C /* ColorPickerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */; };
 		6741AA2B1BF340DE002C974C /* CircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB917C2B1E2003E7E92 /* CircleView.m */; };
 		6741AA361BF340DE002C974C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A3A1B13222600E6D4FD /* libz.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
 		6741AABD1BF356BA002C974C /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA21BF356B9002C974C /* libagg.a */; };
@@ -1815,8 +1814,6 @@
 		CDCA278C2248F34C00167D87 /* MWMRouterResultCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouterResultCode.h; sourceTree = "<group>"; };
 		CDCA278F2248F3B800167D87 /* MWMLocationModeListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMLocationModeListener.h; sourceTree = "<group>"; };
 		CDE0F3AD225B8D45008BA5C3 /* MWMSpeedCameraManagerMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSpeedCameraManagerMode.h; sourceTree = "<group>"; };
-		ED48BBB317C267F5003E7E92 /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
-		ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ColorPickerView.mm; sourceTree = "<group>"; };
 		ED48BBB817C2B1E2003E7E92 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
 		ED48BBB917C2B1E2003E7E92 /* CircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleView.m; sourceTree = "<group>"; };
 		EE026F0511D6AC0D00645242 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = classificator.txt; path = ../../data/classificator.txt; sourceTree = SOURCE_ROOT; };
@@ -3665,8 +3662,6 @@
 				ED48BBB817C2B1E2003E7E92 /* CircleView.h */,
 				ED48BBB917C2B1E2003E7E92 /* CircleView.m */,
 				349A35741B53D4C9009677EE /* CircularProgress */,
-				ED48BBB317C267F5003E7E92 /* ColorPickerView.h */,
-				ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */,
 				34ABA60F1C2D17C200FE1BEC /* Login */,
 				34BC72091B0DECAE0012A34B /* MapViewControls */,
 				34AB65C41FC5AA320078E451 /* NavigationDashboard */,
@@ -5870,7 +5865,6 @@
 				479388F92395A4D3006ECACC /* ActionBarViewController.swift in Sources */,
 				34AB66261FC5AA330078E451 /* RouteManagerDimView.swift in Sources */,
 				993F5514237C622700545511 /* DeepLinkStrategyFactory.swift in Sources */,
-				6741AA291BF340DE002C974C /* ColorPickerView.mm in Sources */,
 				6741AA2B1BF340DE002C974C /* CircleView.m in Sources */,
 				F6E2FEEB1E097BA00083EBEC /* MWMSearchTextField.mm in Sources */,
 				99CB34982369C291001D28AD /* FirstLaunchPresenter.swift in Sources */,
