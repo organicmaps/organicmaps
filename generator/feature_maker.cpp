@@ -54,16 +54,9 @@ bool FeatureMakerSimple::BuildFromWay(OsmElement & p, FeatureParams const & para
   fb.SetOsmId(base::MakeOsmWay(p.m_id));
   fb.SetParams(params);
   if (fb.IsGeometryClosed())
-  {
-    HolesProcessor processor(p.m_id, m_cache);
-    m_cache->ForEachRelationByWay(p.m_id, processor);
-    fb.SetHoles(processor.GetHoles());
     fb.SetArea();
-  }
   else
-  {
     fb.SetLinear(params.m_reverseGeometry);
-  }
 
   m_queue.push(std::move(fb));
   return true;

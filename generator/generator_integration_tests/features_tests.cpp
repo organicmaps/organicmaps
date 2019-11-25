@@ -84,19 +84,19 @@ CountryFeaturesCounters constexpr kWorldCounters(945 /* fbs */, 364406 /* geomet
                                                  0 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kNorthAucklandCounters(
-    1812220 /* fbs */, 12197402 /* geometryPoints */, 1007483 /* point */, 205623 /* line */,
+    1812220 /* fbs */, 12197083 /* geometryPoints */, 1007483 /* point */, 205623 /* line */,
     599114 /* area */, 212342 /* poi */, 521 /* cityTownOrVillage */, 3557 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kNorthWellingtonCounters(
-    797963 /* fbs */, 7773790 /* geometryPoints */, 460516 /* point */, 87172 /* line */,
+    797963 /* fbs */, 7773101 /* geometryPoints */, 460516 /* point */, 87172 /* line */,
     250275 /* area */, 95819 /* poi */, 297 /* cityTownOrVillage */, 1062 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kSouthCanterburyCounters(
-    637282 /* fbs */, 6985124 /* geometryPoints */, 397939 /* point */, 81755 /* line */,
+    637282 /* fbs */, 6985098 /* geometryPoints */, 397939 /* point */, 81755 /* line */,
     157588 /* area */, 89534 /* poi */, 331 /* cityTownOrVillage */, 2085 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kSouthSouthlandCounters(
-    340647 /* fbs */, 5343244 /* geometryPoints */, 185980 /* point */, 40141 /* line */,
+    340647 /* fbs */, 5342775 /* geometryPoints */, 185980 /* point */, 40141 /* line */,
     114526 /* area */, 40647 /* poi */, 297 /* cityTownOrVillage */, 1621 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kSouthSouthlandMixedNodesCounters(
@@ -157,8 +157,8 @@ public:
     }
 
     TEST_EQUAL(fbs.size(), 340, ());
-    TEST_EQUAL(geomeriesCnt, 6832, ());
-    TEST_EQUAL(geometryPointsCnt, 512330, ());
+    TEST_EQUAL(geomeriesCnt, 6814, ());
+    TEST_EQUAL(geometryPointsCnt, 512102, ());
   }
 
   void BuildWorld()
