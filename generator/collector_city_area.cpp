@@ -23,8 +23,8 @@ CityAreaCollector::CityAreaCollector(std::string const & filename)
   : CollectorInterface(filename),
     m_writer(std::make_unique<FeatureBuilderWriter<MaxAccuracy>>(GetTmpFilename())) {}
 
-std::shared_ptr<CollectorInterface>
-CityAreaCollector::Clone(std::shared_ptr<cache::IntermediateDataReader> const &) const
+std::shared_ptr<CollectorInterface> CityAreaCollector::Clone(
+    std::shared_ptr<cache::IntermediateDataReaderInterface> const &) const
 {
   return std::make_shared<CityAreaCollector>(GetFilename());
 }

@@ -44,7 +44,7 @@ class CrossMwmOsmWaysCollector;
 class RoutingCityBoundariesCollector;
 namespace cache
 {
-class IntermediateDataReader;
+class IntermediateDataReaderInterface;
 }  // namespace cache
 namespace regions
 {
@@ -59,8 +59,8 @@ public:
   CollectorInterface(std::string const & filename = {}) : m_id(CreateId()), m_filename(filename) {}
   virtual ~CollectorInterface() { CHECK(Platform::RemoveFileIfExists(GetTmpFilename()), ()); }
 
-  virtual std::shared_ptr<CollectorInterface>
-  Clone(std::shared_ptr<cache::IntermediateDataReader> const & = {}) const = 0;
+  virtual std::shared_ptr<CollectorInterface> Clone(
+      std::shared_ptr<cache::IntermediateDataReaderInterface> const & = {}) const = 0;
 
   virtual void Collect(OsmElement const &) {}
   virtual void CollectRelation(RelationElement const &) {}

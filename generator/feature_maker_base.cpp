@@ -11,10 +11,14 @@ using namespace feature;
 
 namespace generator
 {
-FeatureMakerBase::FeatureMakerBase(std::shared_ptr<cache::IntermediateDataReader> const & cache)
-  : m_cache(cache) {}
+FeatureMakerBase::FeatureMakerBase(
+    std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
+  : m_cache(cache)
+{
+}
 
-void FeatureMakerBase::SetCache(std::shared_ptr<cache::IntermediateDataReader> const & cache)
+void FeatureMakerBase::SetCache(
+    std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
 {
   m_cache = cache;
 }

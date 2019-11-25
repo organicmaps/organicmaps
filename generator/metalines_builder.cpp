@@ -166,8 +166,8 @@ LineStringMerger::OutputData LineStringMerger::OrderData(InputData const & data)
 MetalinesBuilder::MetalinesBuilder(std::string const & filename)
   : generator::CollectorInterface(filename) {}
 
-std::shared_ptr<generator::CollectorInterface>
-MetalinesBuilder::Clone(std::shared_ptr<generator::cache::IntermediateDataReader> const &) const
+std::shared_ptr<generator::CollectorInterface> MetalinesBuilder::Clone(
+    std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const &) const
 {
   return std::make_shared<MetalinesBuilder>(GetFilename());
 }

@@ -17,7 +17,7 @@ namespace generator
 {
 namespace cache
 {
-class IntermediateDataReader;
+class IntermediateDataReaderInterface;
 }  // namespace cache
 
 // This class allows you to work with a group of collectors as with one.
@@ -25,8 +25,8 @@ class CollectorCollection : public CollectionBase<std::shared_ptr<CollectorInter
 {
 public:
   // CollectorInterface overrides:
-  std::shared_ptr<CollectorInterface>
-  Clone(std::shared_ptr<cache::IntermediateDataReader> const & cache = {}) const override;
+  std::shared_ptr<CollectorInterface> Clone(
+      std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache = {}) const override;
 
   void Collect(OsmElement const & element) override;
   void CollectRelation(RelationElement const & element) override;

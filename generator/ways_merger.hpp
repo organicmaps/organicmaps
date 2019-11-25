@@ -20,7 +20,7 @@ class AreaWayMerger
   using WayMapIterator = WayMap::iterator;
 
 public:
-  explicit AreaWayMerger(std::shared_ptr<cache::IntermediateDataReader> const & cache);
+  explicit AreaWayMerger(std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache);
 
   void AddWay(uint64_t id);
 
@@ -76,7 +76,7 @@ public:
   }
 
 private:
-  std::shared_ptr<cache::IntermediateDataReader> m_cache;
+  std::shared_ptr<cache::IntermediateDataReaderInterface> m_cache;
   WayMap m_map;
 };
 }  // namespace generator

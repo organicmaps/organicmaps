@@ -17,7 +17,7 @@ namespace generator
 {
 namespace cache
 {
-class IntermediateDataReader;
+class IntermediateDataReaderInterface;
 }  // namespace cache
 
 // CollectorTag class collects validated value of a tag and saves it to file with following
@@ -31,8 +31,8 @@ public:
                         Validator const & validator);
 
   // CollectorInterface overrides:
-  std::shared_ptr<CollectorInterface>
-  Clone(std::shared_ptr<cache::IntermediateDataReader> const & = {}) const override;
+  std::shared_ptr<CollectorInterface> Clone(
+      std::shared_ptr<cache::IntermediateDataReaderInterface> const & = {}) const override;
 
   void Collect(OsmElement const & el) override;
   void Finish() override;

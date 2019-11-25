@@ -16,7 +16,7 @@ namespace generator
 {
 namespace cache
 {
-class IntermediateDataReader;
+class IntermediateDataReaderInterface;
 }  // namespace cache
 }  // namespace generator
 
@@ -68,8 +68,9 @@ public:
   explicit MetalinesBuilder(std::string const & filename);
 
   // CollectorInterface overrides:
-  std::shared_ptr<CollectorInterface>
-  Clone(std::shared_ptr<generator::cache::IntermediateDataReader> const & = {}) const override;
+  std::shared_ptr<CollectorInterface> Clone(
+      std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const & = {})
+      const override;
 
   /// Add a highway segment to the collection of metalines.
   void CollectFeature(FeatureBuilder const & feature, OsmElement const & element) override;

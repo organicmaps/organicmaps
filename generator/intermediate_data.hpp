@@ -196,15 +196,28 @@ protected:
   bool m_preload = false;
 };
 
-class IntermediateDataReader
+class IntermediateDataReaderInterface
+{
+public:
+  virtual ~IntermediateDataReaderInterface() = default;
+
+  virtual bool GetNode(Key id, double & lat, double & lon) const = 0;
+  virtual bool GetWay(Key id, WayElement & e) = 0;
+};
+
+class IntermediateDataReader : public IntermediateDataReaderInterface
 {
 public:
   IntermediateDataReader(PointStorageReaderInterface const & nodes,
                          feature::GenerateInfo const & info, bool forceReload = false);
 
+  // IntermediateDataReaderInterface overrides
   // TODO |GetNode()|, |lat|, |lon| are used as y, x in real.
-  bool GetNode(Key id, double & lat, double & lon) const { return m_nodes.GetPoint(id, lat, lon); }
-  bool GetWay(Key id, WayElement & e) { return m_ways.Read(id, e); }
+  bool GetNode(Key id, double & lat, double & lon) const override
+  {
+    return m_nodes.GetPoint(id, lat, lon);
+  }
+  bool GetWay(Key id, WayElement & e) override { return m_ways.Read(id, e); }
 
   template <typename ToDo>
   void ForEachRelationByWay(Key id, ToDo && toDo)

@@ -95,18 +95,18 @@ namespace routing
 std::string const RestrictionWriter::kNodeString = "node";
 std::string const RestrictionWriter::kWayString = "way";
 
-RestrictionWriter::RestrictionWriter(std::string const & filename,
-                                     std::shared_ptr<generator::cache::IntermediateDataReader> const & cache)
-  : generator::CollectorInterface(filename)
-  , m_cache(cache)
+RestrictionWriter::RestrictionWriter(
+    std::string const & filename,
+    std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const & cache)
+  : generator::CollectorInterface(filename), m_cache(cache)
 {
   m_stream.exceptions(std::fstream::failbit | std::fstream::badbit);
   m_stream.open(GetTmpFilename());
   m_stream << std::setprecision(20);
 }
 
-std::shared_ptr<generator::CollectorInterface>
-RestrictionWriter::Clone(std::shared_ptr<generator::cache::IntermediateDataReader> const & cache) const
+std::shared_ptr<generator::CollectorInterface> RestrictionWriter::Clone(
+    std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const & cache) const
 { 
   return std::make_shared<RestrictionWriter>(GetFilename(), cache ? cache : m_cache);
 }

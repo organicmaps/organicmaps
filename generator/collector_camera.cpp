@@ -129,8 +129,8 @@ void CameraProcessor::Merge(CameraProcessor const & cameraProcessor)
 CameraCollector::CameraCollector(std::string const & filename) :
   generator::CollectorInterface(filename), m_processor(GetTmpFilename()) {}
 
-std::shared_ptr<generator::CollectorInterface>
-CameraCollector::Clone(std::shared_ptr<generator::cache::IntermediateDataReader> const &) const
+std::shared_ptr<generator::CollectorInterface> CameraCollector::Clone(
+    std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const &) const
 {
   return std::make_shared<CameraCollector>(GetFilename());
 }

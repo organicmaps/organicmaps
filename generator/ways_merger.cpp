@@ -2,8 +2,8 @@
 
 namespace generator
 {
-AreaWayMerger::AreaWayMerger(std::shared_ptr<cache::IntermediateDataReader> const & cache) :
-  m_cache(cache)
+AreaWayMerger::AreaWayMerger(std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
+  : m_cache(cache)
 {
 }
 

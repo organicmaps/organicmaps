@@ -12,7 +12,7 @@ namespace generator
 {
 namespace cache
 {
-class IntermediateDataReader;
+class IntermediateDataReaderInterface;
 }  // namespace cache
 
 /// \brief Collects all maxspeed tags value and saves them to a csv file.
@@ -25,8 +25,8 @@ public:
   explicit MaxspeedsCollector(std::string const & filename);
 
   // CollectorInterface overrides:
-  std::shared_ptr<CollectorInterface>
-  Clone(std::shared_ptr<cache::IntermediateDataReader> const & = {}) const override;
+  std::shared_ptr<CollectorInterface> Clone(
+      std::shared_ptr<cache::IntermediateDataReaderInterface> const & = {}) const override;
 
   void CollectFeature(feature::FeatureBuilder const &, OsmElement const & p) override;
   void Finish() override;

@@ -44,9 +44,8 @@ MaxspeedsCollector::MaxspeedsCollector(string const & filename)
   m_stream.open(GetTmpFilename());
 }
 
-
-shared_ptr<CollectorInterface>
-MaxspeedsCollector::Clone(shared_ptr<cache::IntermediateDataReader> const &) const
+shared_ptr<CollectorInterface> MaxspeedsCollector::Clone(
+    shared_ptr<cache::IntermediateDataReaderInterface> const &) const
 {
   return make_shared<MaxspeedsCollector>(GetFilename());
 }

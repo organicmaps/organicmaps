@@ -16,7 +16,7 @@ namespace generator
 {
 namespace cache
 {
-class IntermediateDataReader;
+class IntermediateDataReaderInterface;
 }  // namespace cache
 
 class RoutingCityBoundariesWriter;
@@ -40,13 +40,13 @@ public:
     m2::PointD m_position = m2::PointD::Zero();
   };
 
-  RoutingCityBoundariesCollector(std::string const & filename,
-                                 std::string const & dumpFilename,
-                                 std::shared_ptr<cache::IntermediateDataReader> const & cache);
+  RoutingCityBoundariesCollector(
+      std::string const & filename, std::string const & dumpFilename,
+      std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache);
 
   // CollectorInterface overrides:
   std::shared_ptr<CollectorInterface> Clone(
-      std::shared_ptr<cache::IntermediateDataReader> const & cache = {}) const override;
+      std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache = {}) const override;
 
   void Collect(OsmElement const & osmElement) override;
   void Finish() override;
@@ -60,7 +60,7 @@ public:
 
 private:
   std::unique_ptr<RoutingCityBoundariesWriter> m_writer;
-  std::shared_ptr<cache::IntermediateDataReader> m_cache;
+  std::shared_ptr<cache::IntermediateDataReaderInterface> m_cache;
   FeatureMakerSimple m_featureMakerSimple;
   std::string m_dumpFilename;
 };

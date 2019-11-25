@@ -398,8 +398,8 @@ RoadAccessWriter::~RoadAccessWriter()
   CHECK(Platform::RemoveFileIfExists(m_waysFilename), ());
 }
 
-shared_ptr<generator::CollectorInterface>
-RoadAccessWriter::Clone(shared_ptr<generator::cache::IntermediateDataReader> const &) const
+shared_ptr<generator::CollectorInterface> RoadAccessWriter::Clone(
+    shared_ptr<generator::cache::IntermediateDataReaderInterface> const &) const
 {
   return make_shared<RoadAccessWriter>(GetFilename());
 }

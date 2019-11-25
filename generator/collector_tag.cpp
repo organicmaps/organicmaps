@@ -23,8 +23,8 @@ CollectorTag::CollectorTag(std::string const & filename, std::string const & tag
   m_stream.open(GetTmpFilename());
 }
 
-std::shared_ptr<CollectorInterface>
-CollectorTag::Clone(std::shared_ptr<cache::IntermediateDataReader> const &) const
+std::shared_ptr<CollectorInterface> CollectorTag::Clone(
+    std::shared_ptr<cache::IntermediateDataReaderInterface> const &) const
 {
   return std::make_shared<CollectorTag>(GetFilename(), m_tagKey, m_validator);
 }

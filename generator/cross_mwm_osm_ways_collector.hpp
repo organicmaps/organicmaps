@@ -49,8 +49,8 @@ public:
 
   // generator::CollectorInterface overrides:
   // @{
-  std::shared_ptr<CollectorInterface>
-  Clone(std::shared_ptr<cache::IntermediateDataReader> const & = {}) const override;
+  std::shared_ptr<CollectorInterface> Clone(
+      std::shared_ptr<cache::IntermediateDataReaderInterface> const & = {}) const override;
 
   void CollectFeature(feature::FeatureBuilder const & fb, OsmElement const & element) override;
   void Save() override;

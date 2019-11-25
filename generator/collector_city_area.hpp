@@ -9,7 +9,7 @@ namespace generator
 {
 namespace cache
 {
-class IntermediateDataReader;
+class IntermediateDataReaderInterface;
 }  // namespace cache
 
 class CityAreaCollector : public CollectorInterface
@@ -18,8 +18,8 @@ public:
   explicit CityAreaCollector(std::string const & filename);
 
   // CollectorInterface overrides:
-  std::shared_ptr<CollectorInterface>
-  Clone(std::shared_ptr<cache::IntermediateDataReader> const & = {}) const override;
+  std::shared_ptr<CollectorInterface> Clone(
+      std::shared_ptr<cache::IntermediateDataReaderInterface> const & = {}) const override;
 
   void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const &) override;
   void Finish() override;
