@@ -62,7 +62,7 @@ public:
     VehicleType m_type = VehicleType::Car;
     Checkpoints m_checkpoints;
     uint32_t m_timeoutSeconds = RouterDelegate::kNoTimeout;
-    uint32_t m_lounchesNumber = 1;
+    uint32_t m_launchesNumber = 1;
   };
 
   struct Route
