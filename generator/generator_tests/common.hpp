@@ -29,16 +29,4 @@ struct Tag
 
   std::string m_name;
 };
-
-struct OsmElementData
-{
-  uint64_t m_id;
-  std::vector<TagValue> m_tags;
-  std::vector<m2::PointD> m_polygon;
-  std::vector<OsmElement::Member> m_members;
-};
-
-// Use cautiously, nothing means it works with your osm types.
-OsmElement MakeOsmElement(OsmElementData const & elementData);
-feature::FeatureBuilder FeatureBuilderFromOmsElementData(OsmElementData const & elementData);
 }  // namespace generator_tests
