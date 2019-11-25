@@ -40,7 +40,7 @@ void RelationTagsNode::Process(RelationElement const & e)
   bool const processAssociatedStreet = type == "associatedStreet" &&
                                        Base::IsKeyTagExists("addr:housenumber") &&
                                        !Base::IsKeyTagExists("addr:street");
-  for (auto const & p : e.tags)
+  for (auto const & p : e.m_tags)
   {
     // - used in railway station processing
     // - used in routing information
@@ -111,7 +111,7 @@ void RelationTagsWay::Process(RelationElement const & e)
                                        !Base::IsKeyTagExists("addr:street");
   bool const isHighway = Base::IsKeyTagExists("highway");
 
-  for (auto const & p : e.tags)
+  for (auto const & p : e.m_tags)
   {
     /// @todo Skip common key tags.
     if (p.first == "type" || p.first == "route" || p.first == "area")

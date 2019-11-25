@@ -398,8 +398,8 @@ void IntermediateDataWriter::AddRelation(Key id, RelationElement const & e)
     return;
 
   m_relations.Write(id, e);
-  AddToIndex(m_nodeToRelations, id, e.nodes);
-  AddToIndex(m_wayToRelations, id, e.ways);
+  AddToIndex(m_nodeToRelations, id, e.m_nodes);
+  AddToIndex(m_wayToRelations, id, e.m_ways);
 }
 
 void IntermediateDataWriter::SaveIndex()

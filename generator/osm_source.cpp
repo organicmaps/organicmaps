@@ -66,7 +66,7 @@ void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement & eleme
     // Store way.
     WayElement way(element.m_id);
     for (uint64_t nd : element.Nodes())
-      way.nodes.push_back(nd);
+      way.m_nodes.push_back(nd);
 
     if (way.IsValid())
       cache.AddWay(element.m_id, way);
@@ -80,10 +80,10 @@ void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement & eleme
     {
       switch (member.m_type) {
       case OsmElement::EntityType::Node:
-        relation.nodes.emplace_back(member.m_ref, string(member.m_role));
+        relation.m_nodes.emplace_back(member.m_ref, string(member.m_role));
         break;
       case OsmElement::EntityType::Way:
-        relation.ways.emplace_back(member.m_ref, string(member.m_role));
+        relation.m_ways.emplace_back(member.m_ref, string(member.m_role));
         break;
       case OsmElement::EntityType::Relation:
         // we just ignore type == "relation"
@@ -94,7 +94,7 @@ void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement & eleme
     }
 
     for (auto const & tag : element.Tags())
-      relation.tags.emplace(tag.m_key, tag.m_value);
+      relation.m_tags.emplace(tag.m_key, tag.m_value);
 
     if (relation.IsValid())
       cache.AddRelation(element.m_id, relation);

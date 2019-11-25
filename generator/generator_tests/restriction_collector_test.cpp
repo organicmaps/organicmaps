@@ -108,9 +108,9 @@ RelationElement MakeRelationElement(std::vector<RelationElement::Member> const &
                                     std::map<std::string, std::string> const & tags)
 {
   RelationElement r;
-  r.nodes = nodes;
-  r.ways = ways;
-  r.tags = tags;
+  r.m_nodes = nodes;
+  r.m_ways = ways;
+  r.m_tags = tags;
   return r;
 }
 
