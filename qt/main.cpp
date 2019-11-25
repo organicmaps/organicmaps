@@ -170,6 +170,7 @@ int main(int argc, char * argv[])
 
 #if defined(OMIM_OS_MAC)
     apiOpenGLES3 = a.arguments().contains("es3", Qt::CaseInsensitive);
+#endif
 
     if (!FLAGS_lang.empty())
       (void)::setenv("LANGUAGE", FLAGS_lang.c_str(), 1);
@@ -201,7 +202,7 @@ int main(int argc, char * argv[])
       if (FLAGS_dpi_scale >= df::VisualParams::kMdpiScale && FLAGS_dpi_scale <= df::VisualParams::kXxxhdpiScale)
         screenshotParams->m_dpiScale = FLAGS_dpi_scale;
     }
-#endif
+
     qt::MainWindow::SetDefaultSurfaceFormat(apiOpenGLES3);
 
     FrameworkParams frameworkParams;

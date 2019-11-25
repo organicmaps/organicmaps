@@ -75,7 +75,7 @@ bool ParsePointsStr(std::string const & pointsStr, std::list<std::pair<m2::Point
   int zoom;
   while (tupleIter)
   {
-    if (ParsePoint(*tupleIter, ",", pt, zoom))
+    if (ParsePoint(*tupleIter, ", \t", pt, zoom))
     {
       points.emplace_back(pt, zoom);
     }
@@ -95,7 +95,7 @@ bool ParseRectsStr(std::string const & rectsStr, std::list<m2::RectD> & rects)
   m2::RectD rect;
   while (tupleIter)
   {
-    if (ParseRect(*tupleIter, ",", rect))
+    if (ParseRect(*tupleIter, ", \t", rect))
     {
       rects.push_back(rect);
     }

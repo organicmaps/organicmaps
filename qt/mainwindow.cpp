@@ -177,18 +177,15 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
 
   m_pDrawWidget = new DrawWidget(framework, apiOpenGLES3, std::move(screenshotParams), this);
 
+  setCentralWidget(m_pDrawWidget);
+
   if (m_screenshotMode)
   {
-    QSizePolicy policy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    setSizePolicy(policy);
     QSize size(static_cast<int>(screenshotParams->m_width), static_cast<int>(screenshotParams->m_height));
-    m_pDrawWidget->resize(size);
     size.setHeight(size.height() + statusBar()->height());
-    setMaximumSize(size);
-    setMinimumSize(size);
+    m_pDrawWidget->setFixedSize(size);
+    setFixedSize(size);
   }
-
-  setCentralWidget(m_pDrawWidget);
 
   QObject::connect(m_pDrawWidget, SIGNAL(BeforeEngineCreation()), this, SLOT(OnBeforeEngineCreation()));
 
