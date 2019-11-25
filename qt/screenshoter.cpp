@@ -17,8 +17,8 @@
 #include <QtGui/QPixmap>
 
 #include <chrono>
-#include <functional>
 #include <fstream>
+#include <functional>
 #include <sstream>
 
 namespace
@@ -130,14 +130,12 @@ void Screenshoter::Start()
     m_screenshotParams.m_dstPath = base::JoinPath(m_screenshotParams.m_kmlPath, "screenshots");
 
   LOG(LINFO, ("\nScreenshoter parameters:"
-    "\n  mode:", m_screenshotParams.m_mode,
-    "\n  kml_path:", m_screenshotParams.m_kmlPath,
-    "\n  points:", m_screenshotParams.m_points,
-    "\n  rects:", m_screenshotParams.m_rects,
-    "\n  dst_path:", m_screenshotParams.m_dstPath,
-    "\n  width:", m_screenshotParams.m_width,
-    "\n  height:", m_screenshotParams.m_height,
-    "\n  dpi_scale:", m_screenshotParams.m_dpiScale));
+              "\n  mode:",
+              m_screenshotParams.m_mode, "\n  kml_path:", m_screenshotParams.m_kmlPath,
+              "\n  points:", m_screenshotParams.m_points, "\n  rects:", m_screenshotParams.m_rects,
+              "\n  dst_path:", m_screenshotParams.m_dstPath,
+              "\n  width:", m_screenshotParams.m_width, "\n  height:", m_screenshotParams.m_height,
+              "\n  dpi_scale:", m_screenshotParams.m_dpiScale));
 
   if (!Platform::MkDirChecked(m_screenshotParams.m_dstPath))
   {
@@ -221,8 +219,8 @@ void Screenshoter::ProcessNextRect()
 
   std::string const postfix = "_" + languages::GetCurrentNorm();
   std::stringstream ss;
-  ss << "rect_" << std::setfill('0') << std::setw(4) <<
-     m_itemsCount - m_rectsToProcess.size() << postfix;
+  ss << "rect_" << std::setfill('0') << std::setw(4) << m_itemsCount - m_rectsToProcess.size()
+     << postfix;
 
   m_nextScreenshotName = ss.str();
 
@@ -232,8 +230,8 @@ void Screenshoter::ProcessNextRect()
   CHECK(rect.IsValid(), ());
 
   ChangeState(State::WaitPosition);
-  m_framework.ShowRect(rect, -1 /* maxScale */,
-                       false /* animation */, false /* useVisibleViewport */);
+  m_framework.ShowRect(rect, -1 /* maxScale */, false /* animation */,
+                       false /* useVisibleViewport */);
   WaitPosition();
 }
 
@@ -247,8 +245,8 @@ void Screenshoter::ProcessNextPoint()
 
   std::string const postfix = "_" + languages::GetCurrentNorm();
   std::stringstream ss;
-  ss << "point_" << std::setfill('0') << std::setw(4) <<
-     m_itemsCount - m_pointsToProcess.size() << postfix;
+  ss << "point_" << std::setfill('0') << std::setw(4) << m_itemsCount - m_pointsToProcess.size()
+     << postfix;
 
   m_nextScreenshotName = ss.str();
 
@@ -325,18 +323,16 @@ void Screenshoter::OnGraphicsReady()
 
 void Screenshoter::WaitPosition()
 {
-  m_framework.NotifyGraphicsReady([this]()
-    {
-      GetPlatform().RunTask(Platform::Thread::Gui, [this] { OnPositionReady(); });
-    }, false /* needInvalidate */ );
+  m_framework.NotifyGraphicsReady(
+      [this]() { GetPlatform().RunTask(Platform::Thread::Gui, [this] { OnPositionReady(); }); },
+      false /* needInvalidate */);
 }
 
 void Screenshoter::WaitGraphics()
 {
-  m_framework.NotifyGraphicsReady([this]()
-    {
-      GetPlatform().RunTask(Platform::Thread::Gui, [this] { OnGraphicsReady(); });
-    }, true /* needInvalidate */ );
+  m_framework.NotifyGraphicsReady(
+      [this]() { GetPlatform().RunTask(Platform::Thread::Gui, [this] { OnGraphicsReady(); }); },
+      true /* needInvalidate */);
 }
 
 void Screenshoter::SaveScreenshot()
@@ -368,8 +364,8 @@ void Screenshoter::ChangeState(State newState, std::string const & msg)
   if (m_screenshotParams.m_statusChangedFn)
   {
     std::ostringstream ss;
-    ss << "[" << m_itemsCount - GetItemsToProcessCount() << "/" << m_itemsCount << "] file: "
-       << m_nextScreenshotName << " state: " << DebugPrint(newState);
+    ss << "[" << m_itemsCount - GetItemsToProcessCount() << "/" << m_itemsCount
+       << "] file: " << m_nextScreenshotName << " state: " << DebugPrint(newState);
     if (!msg.empty())
       ss << " msg: " << msg;
     LOG(LINFO, (ss.str()));
@@ -402,7 +398,7 @@ bool Screenshoter::PrepareItemsToProcess()
 bool Screenshoter::PrepareKmlFiles()
 {
   if (!Platform::IsDirectory(m_screenshotParams.m_kmlPath) &&
-    !Platform::IsFileExistsByFullPath(m_screenshotParams.m_kmlPath))
+      !Platform::IsFileExistsByFullPath(m_screenshotParams.m_kmlPath))
   {
     ChangeState(State::FileError, "Invalid kml path.");
     return false;
