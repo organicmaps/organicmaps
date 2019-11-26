@@ -3,16 +3,16 @@ package com.mapswithme.maps.promo;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.Resources;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.Detachable;
@@ -248,8 +248,9 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
            .into(poiImage);
       TextView bookmarkName = mPlacePageView.findViewById(R.id.place_single_bookmark_name);
       bookmarkName.setText(item.getName());
-      TextView authorName = mPlacePageView.findViewById(R.id.place_single_bookmark_author);
-      authorName.setText(item.getAuthor().getName());
+      TextView subtitle = mPlacePageView.findViewById(R.id.place_single_bookmark_subtitle);
+      subtitle.setText(TextUtils.isEmpty(item.getTourCategory()) ? item.getAuthor().getName()
+                                                                 : item.getTourCategory());
       View cta = mPlacePageView.findViewById(R.id.place_single_bookmark_cta);
       cta.setOnClickListener(v -> onCtaClicked(placement, item.getUrl()));
 

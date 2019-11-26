@@ -123,7 +123,7 @@
           android:textStyle="bold"
           tools:text="From the Alexander Gardens to the City centre" />
         <TextView
-          android:id="@+id/place_single_bookmark_author"
+          android:id="@+id/place_single_bookmark_subtitle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_half"
