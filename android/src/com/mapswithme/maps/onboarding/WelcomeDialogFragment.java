@@ -177,7 +177,9 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
 
     initUserAgreementViews();
     bindWelcomeScreenType();
-    trackStatisticEvent(Statistics.EventName.ONBOARDING_SCREEN_SHOW);
+    if (savedInstanceState == null)
+      trackStatisticEvent(Statistics.EventName.ONBOARDING_SCREEN_SHOW);
+
     return res;
   }
 
@@ -298,15 +300,10 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
 
   private void trackStatisticEvent(@NonNull String event)
   {
+    String value = mOnboardinStep == null ? DEF_STATISTICS_VALUE : mOnboardinStep.toStatisticValue();
     Statistics.ParameterBuilder builder = Statistics
-        .params().add(Statistics.EventParam.TYPE, getModeStatsValue());
+        .params().add(Statistics.EventParam.TYPE, value);
     Statistics.INSTANCE.trackEvent(event, builder);
-  }
-
-  @NonNull
-  private String getModeStatsValue()
-  {
-    return mOnboardinStep == null ? DEF_STATISTICS_VALUE : mOnboardinStep.toStatisticValue();
   }
 
   @Override

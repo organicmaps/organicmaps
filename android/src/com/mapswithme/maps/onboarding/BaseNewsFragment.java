@@ -350,7 +350,7 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
       @Override
       public void onClick(View v)
       {
-        trackStatistic(Statistics.ParamValue.NEXT);
+        trackStatisticEvent(Statistics.ParamValue.NEXT);
         mPager.setCurrentItem(mPager.getCurrentItem() + 1, true);
       }
     });
@@ -366,11 +366,11 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
 
     update();
 
-    trackStatistic(Statistics.ParamValue.OPEN);
+    trackStatisticEvent(Statistics.ParamValue.OPEN);
     return res;
   }
 
-  private void trackStatistic(@NonNull String value)
+  private void trackStatisticEvent(@NonNull String value)
   {
     Statistics.ParameterBuilder builder = Statistics
         .params()
@@ -385,7 +385,7 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
     dismissAllowingStateLoss();
     if (mListener != null)
       mListener.onDialogDone();
-    trackStatistic(Statistics.ParamValue.CLOSE);
+    trackStatisticEvent(Statistics.ParamValue.CLOSE);
   }
 
   @SuppressWarnings("TryWithIdenticalCatches")
