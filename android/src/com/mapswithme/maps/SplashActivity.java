@@ -467,6 +467,12 @@ public class SplashActivity extends AppCompatActivity
   }
 
   @Override
+  public void onOnboardingStepCancelled()
+  {
+    finish();
+  }
+
+  @Override
   public void onOnboardingStepPassed(@NonNull OnboardingStep step)
   {
     mCurrentOnboardingStep = step;

@@ -32,8 +32,8 @@ import java.util.Stack;
 
 public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View.OnClickListener
 {
-  private static final String ARG_HAS_SPECIFIC_STEP = "welcome_screen_type";
-  private static final String ARG_HAS_MANY_STEPS = "show_onboarding_steps";
+  private static final String ARG_SPECIFIC_STEP = "arg_specific_step";
+  private static final String ARG_HAS_MANY_STEPS = "arg_has_many_steps";
   private static final String DEF_STATISTICS_VALUE = "agreement";
 
   @NonNull
@@ -93,7 +93,15 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   {
     Bundle args = new Bundle();
     args.putBoolean(ARG_HAS_MANY_STEPS, true);
-    args.putInt(ARG_HAS_SPECIFIC_STEP, startStep.ordinal());
+    args.putInt(ARG_SPECIFIC_STEP, startStep.ordinal());
+    create(activity, args);
+  }
+
+  public static void showOnboardinStep(@NonNull FragmentActivity activity,
+                                       @NonNull OnboardingStep step)
+  {
+    Bundle args = new Bundle();
+    args.putInt(ARG_SPECIFIC_STEP, step.ordinal());
     create(activity, args);
   }
 
@@ -196,10 +204,10 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
         mOnboardingSteps.push(OnboardingStep.DREAM_AND_PLAN);
       }
 
-      boolean hasSpecificStep = args.containsKey(ARG_HAS_SPECIFIC_STEP);
+      boolean hasSpecificStep = args.containsKey(ARG_SPECIFIC_STEP);
       if (hasSpecificStep)
         mOnboardinStep =
-            OnboardingStep.values()[args.getInt(ARG_HAS_SPECIFIC_STEP)];
+            OnboardingStep.values()[args.getInt(ARG_SPECIFIC_STEP)];
 
       if (hasManySteps && hasSpecificStep)
       {
@@ -296,6 +304,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   {
     Counters.setFirstStartDialogSeen(requireContext());
     trackStatisticEvent(Statistics.EventName.ONBOARDING_SCREEN_DECLINE);
+    dismissAllowingStateLoss();
   }
 
   private void trackStatisticEvent(@NonNull String event)
@@ -323,6 +332,9 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
       return;
     }
 
+    if (mOnboardinStep != null && mOnboardingStepPassedListener != null)
+      mOnboardingStepPassedListener.onOnboardingStepPassed(mOnboardinStep);
+
     Counters.setFirstStartDialogSeen(requireContext());
     dismissAllowingStateLoss();
 
@@ -336,7 +348,8 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     super.onCancel(dialog);
     if (!isAgreementDeclined(requireContext()))
       Counters.setFirstStartDialogSeen(requireContext());
-    requireActivity().finish();
+    if (mOnboardingStepPassedListener != null)
+      mOnboardingStepPassedListener.onOnboardingStepCancelled();
   }
 
   public static boolean isAgreementDeclined(@NonNull Context context)
@@ -355,5 +368,6 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   {
     void onOnboardingStepPassed(@NonNull OnboardingStep step);
     void onLastOnboardingStepPassed();
+    void onOnboardingStepCancelled();
   }
 }

@@ -74,14 +74,17 @@ import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
 import com.mapswithme.maps.metrics.UserActionsLogger;
+import com.mapswithme.maps.news.OnboardingStep;
 import com.mapswithme.maps.onboarding.IntroductionDialogFragment;
 import com.mapswithme.maps.onboarding.IntroductionScreenFactory;
 import com.mapswithme.maps.onboarding.OnboardingTip;
+import com.mapswithme.maps.onboarding.WelcomeDialogFragment;
 import com.mapswithme.maps.promo.Promo;
 import com.mapswithme.maps.promo.PromoAfterBooking;
 import com.mapswithme.maps.promo.PromoBookingDialogFragment;
 import com.mapswithme.maps.purchase.AdsRemovalActivationCallback;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
+import com.mapswithme.maps.purchase.BookmarksAllSubscriptionActivity;
 import com.mapswithme.maps.purchase.FailedPurchaseChecker;
 import com.mapswithme.maps.purchase.PurchaseCallback;
 import com.mapswithme.maps.purchase.PurchaseController;
@@ -142,7 +145,6 @@ import com.mapswithme.util.statistics.Statistics;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Stack;
 
 public class MwmActivity extends BaseMwmFragmentActivity
@@ -169,7 +171,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  PlacePageController.SlideListener,
                                  AlertDialogCallback, RoutingModeListener,
                                  AppBackgroundTracker.OnTransitionListener,
-                                 MaterialTapTargetPrompt.PromptStateChangeListener
+                                 MaterialTapTargetPrompt.PromptStateChangeListener,
+                                 WelcomeDialogFragment.OnboardingStepPassedListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -178,6 +181,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static final String EXTRA_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
   public static final String EXTRA_BACK_URL = "back_url";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
+  private static final String EXTRA_ONBOARDING_TIP = "extra_onboarding_tip";
 
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
                                                      DownloaderFragment.class.getName(),
@@ -262,7 +266,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private PlacePageController mPlacePageController;
   @Nullable
   private Tutorial mTutorial;
-
+  @Nullable
+  private OnboardingTip mOnboardingTip;
 
   public interface LeftAnimationTrackListener
   {
@@ -497,7 +502,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onSafeCreate(savedInstanceState);
     if (savedInstanceState != null)
+    {
       mLocationErrorDialogAnnoying = savedInstanceState.getBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING);
+      mOnboardingTip = savedInstanceState.getParcelable(EXTRA_ONBOARDING_TIP);
+    }
     mIsTabletLayout = getResources().getBoolean(R.bool.tabletLayout);
 
     if (!mIsTabletLayout && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP))
@@ -726,8 +734,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     initToggleMapLayerController(frame);
     View openSubsScreenBtnContainer = frame.findViewById(R.id.subs_screen_btn_container);
-    boolean hasOnBoardingView = OnboardingTip.get() != null
-                                && MwmApplication.from(this).isFirstLaunch();
+    final OnboardingTip tip = OnboardingTip.get();
+    boolean hasOnBoardingView = tip != null && MwmApplication.from(this).isFirstLaunch();
 
     mNavAnimationController = new NavigationButtonsAnimationController(
         zoomIn, zoomOut, myPosition, getWindow().getDecorView().getRootView(), this,
@@ -737,22 +745,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (hasOnBoardingView)
     {
       openSubsScreenBtnContainer.findViewById(R.id.subs_screen_btn)
-                                .setOnClickListener(v -> onBoardingBtnClicked());
+                                .setOnClickListener(v -> onBoardingBtnClicked(tip));
       Statistics.ParameterBuilder builder = Statistics.makeGuidesSubscriptionBuilder();
       Statistics.INSTANCE.trackEvent(Statistics.EventName.MAP_SPONSORED_BUTTON_SHOW, builder);
     }
   }
 
-  private void onBoardingBtnClicked()
+  private void onBoardingBtnClicked(@NonNull OnboardingTip tip)
   {
-    OnboardingTip tip = Objects.requireNonNull(OnboardingTip.get());
-
     Statistics.ParameterBuilder builder = Statistics.makeGuidesSubscriptionBuilder();
     Statistics.INSTANCE.trackEvent(Statistics.EventName.MAP_SPONSORED_BUTTON_CLICK, builder);
     if (mNavAnimationController == null)
       return;
 
     mNavAnimationController.hideOnBoardingTipBtn();
+    mOnboardingTip = tip;
+    OnboardingStep step = com.mapswithme.maps.onboarding.Utils.getOnboardingStepByTip(mOnboardingTip);
+    WelcomeDialogFragment.showOnboardinStep(this, step);
   }
 
   private void initToggleMapLayerController(@NonNull View frame)
@@ -911,6 +920,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       // orientation changing, etc. Otherwise, the saved route might be restored at undesirable moment.
       RoutingController.get().deleteSavedRoute();
 
+    outState.putParcelable(EXTRA_ONBOARDING_TIP, mOnboardingTip);
     super.onSaveInstanceState(outState);
   }
 
@@ -1929,9 +1939,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       updateSearchBar();
     }
-
-    // TODO:
-//    mPlacePage.refreshViews();
   }
 
   private void adjustCompassAndTraffic(final int offsetY)
@@ -2477,6 +2484,40 @@ public class MwmActivity extends BaseMwmFragmentActivity
       default:
         return super.onKeyUp(keyCode, event);
     }
+  }
+
+  public void onOnboardingStepPassed(@NonNull OnboardingStep step)
+  {
+    if (mOnboardingTip == null)
+      throw new AssertionError("Onboarding tip must be non-null at this point!");
+
+    switch (step)
+    {
+      case DISCOVER_GUIDES:
+      case CHECK_OUT_SIGHTS:
+        BookmarksCatalogActivity.startForResult(this,
+                                                BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
+                                                mOnboardingTip.getUrl());
+        break;
+      case SUBSCRIBE_TO_CATALOG:
+        BookmarksAllSubscriptionActivity.startForResult(this);
+        break;
+      default:
+        throw new UnsupportedOperationException("Onboarding step '" + step + "' not supported " +
+                                                "for sponsored button");
+    }
+  }
+
+  @Override
+  public void onLastOnboardingStepPassed()
+  {
+    // Do nothing by default.
+  }
+
+  @Override
+  public void onOnboardingStepCancelled()
+  {
+    // Do nothing by default.
   }
 
   private class CurrentPositionClickListener implements OnClickListener
