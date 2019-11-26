@@ -57,7 +57,7 @@ class NavigationButtonsAnimationController
     {
       Animation animation = AnimationUtils.loadAnimation(onBoardingTipBtnContainer.getContext(),
                                                          R.anim.dog_btn_rotation);
-      onBoardingTipBtnContainer.findViewById(R.id.subs_screen_btn).setAnimation(animation);
+      onBoardingTipBtnContainer.findViewById(R.id.onboarding_btn).setAnimation(animation);
     }
   }
 

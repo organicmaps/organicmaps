@@ -137,7 +137,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
 
     mSearchButtonFrame = activity.findViewById(R.id.search_button_frame);
     mSearchWheel = new SearchWheel(mSearchButtonFrame);
-    mOnboardingBtn = activity.findViewById(R.id.subs_screen_btn);
+    mOnboardingBtn = activity.findViewById(R.id.onboarding_btn);
 
     ImageView bookmarkButton = (ImageView) mSearchButtonFrame.findViewById(R.id.btn_bookmarks);
     bookmarkButton.setImageDrawable(Graphics.tint(bookmarkButton.getContext(),

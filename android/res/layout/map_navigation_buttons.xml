@@ -71,7 +71,7 @@
       android:src="?attr/bg_dog_btn"/>
 
     <ImageView
-      android:id="@+id/subs_screen_btn"
+      android:id="@+id/onboarding_btn"
       android:layout_height="wrap_content"
       android:layout_width="wrap_content"
       android:layout_gravity="center"

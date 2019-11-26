@@ -744,7 +744,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     UiUtils.showIf(hasOnBoardingView, openSubsScreenBtnContainer);
     if (hasOnBoardingView)
     {
-      openSubsScreenBtnContainer.findViewById(R.id.subs_screen_btn)
+      openSubsScreenBtnContainer.findViewById(R.id.onboarding_btn)
                                 .setOnClickListener(v -> onBoardingBtnClicked(tip));
       Statistics.ParameterBuilder builder = Statistics.makeGuidesSubscriptionBuilder();
       Statistics.INSTANCE.trackEvent(Statistics.EventName.MAP_SPONSORED_BUTTON_SHOW, builder);
