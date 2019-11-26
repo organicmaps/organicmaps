@@ -1728,6 +1728,7 @@
 	<string name="whatsnew_outdoor_guides_message">Rutter från Outdooractive för vinter- och sommarresor väntar i katalogen!</string>
 	<string name="whatsnew_guides_galleries_title">Planera din kommande resa med MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Nu kan du hitta rekommenderade guider på platssidor för populära städer och attraktioner</string>
+	<string name="new_onboarding_step3_header">Resa</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

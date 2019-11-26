@@ -1729,6 +1729,7 @@
 	<string name="whatsnew_outdoor_guides_message">Outdooractive\'in kış ve yaz seyahatleri için güzergahlar katalogda bekliyor!</string>
 	<string name="whatsnew_guides_galleries_title">Yaklaşan seyahatinizi MAPS.ME ile planlayın</string>
 	<string name="whatsnew_guides_galleries_message">Artık popüler turistik şehirlerin ve turistik mekanların yer sayfalarında önerilen rehberleri bulabilirsiniz</string>
+	<string name="new_onboarding_step3_header">Deneyimle</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

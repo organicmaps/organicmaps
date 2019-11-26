@@ -1718,6 +1718,7 @@
 	<string name="whatsnew_outdoor_guides_message">¡Las rutas de Outdooractive para viajes de verano e invierno están a la espera en el catálogo!</string>
 	<string name="whatsnew_guides_galleries_title">Planifica tu próximo viaje con MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Ahora puedes encontrar guías recomendadas en las tarjetas de ciudades y sitios de atracción populares</string>
+	<string name="new_onboarding_step3_header">Viaja</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estación de teleférico</string>

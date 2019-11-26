@@ -1723,6 +1723,7 @@
 	<string name="whatsnew_outdoor_guides_message">Rute dari Outdooractive untuk perjalanan musim dingin dan panas tengah menunggu di katalog!</string>
 	<string name="whatsnew_guides_galleries_title">Rencanakan perjalanan Anda selanjutnya dengan MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Kini Anda dapat menemukan panduan yang disarankan di halaman tempat wisata yang paling populer dikunjungi turis</string>
+	<string name="new_onboarding_step3_header">Pengalaman</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

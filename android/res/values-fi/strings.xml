@@ -1724,6 +1724,7 @@
 	<string name="whatsnew_outdoor_guides_message">Outdooractiven talvi- ja kesälomareitit odottavat luettelossa!</string>
 	<string name="whatsnew_guides_galleries_title">Suunnittele seuraava matka MAPS.ME:n kanssa</string>
 	<string name="whatsnew_guides_galleries_message">Nyt te voitte löytää suositeltuja matkaoppaita suosittujen kaupunkien ja nähtävyyksien korteista</string>
+	<string name="new_onboarding_step3_header">Matkusta</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

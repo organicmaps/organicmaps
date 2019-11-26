@@ -1735,6 +1735,7 @@
 	<string name="whatsnew_outdoor_guides_message">Trasy z Outdooractive do zimowych i letnich wakacji czekają w katalogu!</string>
 	<string name="whatsnew_guides_galleries_title">Zaplanuj swoją nadchodzącą podróż z MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Teraz możesz znaleźć polecane przewodniki na stronach popularnych miast turystycznych i zabytków</string>
+	<string name="new_onboarding_step3_header">Podróżuj</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Wyprzedaże</string>

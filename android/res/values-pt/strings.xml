@@ -1728,6 +1728,7 @@
 	<string name="whatsnew_outdoor_guides_message">Percursos do Outdooractive para férias de inverno e de verão esperem no catálogo!</string>
 	<string name="whatsnew_guides_galleries_title">Planeja a próxima viagem com MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Agora pode encontrar guias recomendados nos cartões de cidades e pontos turísticos populares</string>
+	<string name="new_onboarding_step3_header">Viaje</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estação de teleférico</string>

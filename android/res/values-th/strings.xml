@@ -1729,6 +1729,7 @@
 	<string name="whatsnew_outdoor_guides_message">เส้นทางจากOutdooractiveสำหรับการเดินทางในฤดูหนาวและฤดูร้อนนั้นรอยู่ในแคตตาล็อก!</string>
 	<string name="whatsnew_guides_galleries_title">วางแผนทริปที่คุณกำลังไปด้วย MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">ตอนนี้คุณสามารถค้นหาคู่มือใช้งานที่เราแนะนำในเว็บเพจเกี่ยวกับสถานที่ของเมืองและสถานที่ที่เป็นสถานที่ท่องเที่ยวยอดนิยม</string>
+	<string name="new_onboarding_step3_header">ประสบการณ์</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

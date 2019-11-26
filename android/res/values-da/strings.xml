@@ -1728,6 +1728,7 @@
 	<string name="whatsnew_outdoor_guides_message">Ruter fra Outdooractive til vinter- og summerture venter i kataloget!</string>
 	<string name="whatsnew_guides_galleries_title">Planlæg din kommende tur med MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Nu kan du finde anbefalede guides på stedsiderne om populære turistbyer og syn</string>
+	<string name="new_onboarding_step3_header">Oplevelse</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

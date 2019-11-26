@@ -1730,6 +1730,7 @@
 	<string name="whatsnew_outdoor_guides_message">Маршрути від Outdooractive для зимових і літніх відпусток уже у каталозі!</string>
 	<string name="whatsnew_guides_galleries_title">Плануйте найближчу поїздку з MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Тепер ви можете знайти рекомендовані путівники в картках популярних міст і пам’яток</string>
+	<string name="new_onboarding_step3_header">Подорожуйте</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

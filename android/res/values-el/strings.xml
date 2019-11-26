@@ -1481,6 +1481,7 @@
 	<string name="whatsnew_outdoor_guides_message">Οι διαδρομές από την Outdooractive για χειμερινές και καλοκαιρινές διακοπές σας περιμένουν στον κατάλογο!</string>
 	<string name="whatsnew_guides_galleries_title">Προγραμματίστε το επόμενο ταξίδι με το MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Τώρα μπορείτε να βρείτε τους συνιστώμενους οδηγούς στις κάρτες των δημοφιλών πόλεων και αξιοθέατων</string>
+	<string name="new_onboarding_step3_header">Ταξιδέψτε</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Σταθμός αερομεταφοράς</string>

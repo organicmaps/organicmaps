@@ -1794,8 +1794,7 @@
 	<string name="whatsnew_outdoor_guides_message">Routes from Outdooractive for winter and summer journeys are waiting in the catalog!</string>
 	<string name="whatsnew_guides_galleries_title">Plan your upcoming trip with MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Now you can find recommended guides in place pages of popular touristic cities and sights</string>
-	<!-- FIXME -->
-	<string name="new_onboarding_step3_header">new_onboarding_step3_header</string>
+	<string name="new_onboarding_step3_header">Experience</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

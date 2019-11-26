@@ -1667,6 +1667,7 @@
 	<string name="whatsnew_outdoor_guides_message">مسیرهای Outdooractive برای سفرهای زمستانی و تابستانی در کاتالوگ در حال انتظار هستند!</string>
 	<string name="whatsnew_guides_galleries_title">سفر آتی خود را با MAPS.ME برنامهریزی کنید</string>
 	<string name="whatsnew_guides_galleries_message">حال میتوانید توصیههای پیشنهادی را در صفحه مربوط به مکان شهرها و مکان‎های توریستی مشهور مشاهده کنید</string>
+	<string name="new_onboarding_step3_header">تجربه کنید</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>

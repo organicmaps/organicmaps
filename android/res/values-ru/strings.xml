@@ -1777,6 +1777,7 @@
 	<string name="whatsnew_outdoor_guides_message">Маршруты от Outdooractive для зимних и летних отпусков ждут в каталоге!</string>
 	<string name="whatsnew_guides_galleries_title">Планируйте ближайшую поездку с MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Теперь вы можете найти рекомендованные путеводители в карточках популярных городов и достопримечательностей</string>
+	<string name="new_onboarding_step3_header">Путешествуйте</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

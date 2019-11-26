@@ -1720,6 +1720,7 @@
 	<string name="whatsnew_outdoor_guides_message">Rute Outdooractive de vacanță de iarnă și de vară te așteaptă în catalog!</string>
 	<string name="whatsnew_guides_galleries_title">Planificați-vă următoarea călătorie cu MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Acum puteți găsi ghiduri recomandate în cartelele orașelor și atracțiilor populare</string>
+	<string name="new_onboarding_step3_header">Călătoriți</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>

@@ -1728,6 +1728,7 @@
 	<string name="whatsnew_outdoor_guides_message">目录中添加了Outdooractive 的冬季和夏季旅行线路！</string>
 	<string name="whatsnew_guides_galleries_title">与MAPS.ME共同规划即将到来的旅行</string>
 	<string name="whatsnew_guides_galleries_message">现在你可在热门城市与名胜古迹地图上查找推荐的旅行指南</string>
+	<string name="new_onboarding_step3_header">去旅行吧</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">缆车车站</string>

@@ -1733,6 +1733,7 @@
 	<string name="whatsnew_outdoor_guides_message">V katalogu čekají trasy od Outdooractive pro zimní a letní cesty!</string>
 	<string name="whatsnew_guides_galleries_title">Plánujte váš nadcházející výlet s MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Nyní najdete doporučené průvodce na místě na stránkách oblíbených turistických měst a památek</string>
+	<string name="new_onboarding_step3_header">Zažijte</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>

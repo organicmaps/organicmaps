@@ -1729,6 +1729,7 @@
 	<string name="whatsnew_outdoor_guides_message">تتواجد الطرق من Outdooractive لرحلات الشتاء والصيف في القائمة!</string>
 	<string name="whatsnew_guides_galleries_title">خطط لرحلتك القادمة مع MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">يمكنك الآن العثور على دلائل موصى بها في صفحات الأماكن للمدن والمعالم السياحية الشهيرة</string>
+	<string name="new_onboarding_step3_header">جرب</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

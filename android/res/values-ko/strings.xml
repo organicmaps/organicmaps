@@ -1719,6 +1719,7 @@
 	<string name="whatsnew_outdoor_guides_message">여름과 겨울 여행을 위한 Outdooractive에서 온 경로들이 카탈로그에서 기다리고 있습니다!</string>
 	<string name="whatsnew_guides_galleries_title">MAPS.ME와 함께 앞으로의 여행을 계획해보세요</string>
 	<string name="whatsnew_guides_galleries_message">이제 인기 있는 관광 도시와 명소들의 장소 페이지에서 추천 가이드를 찾을 수 있습니다</string>
+	<string name="new_onboarding_step3_header">경험하세요</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">케이블카 역</string>

@@ -1729,6 +1729,7 @@
 	<string name="whatsnew_outdoor_guides_message">V katalógu čakajú trasy z Outdooractive na zimné a letné cesty!</string>
 	<string name="whatsnew_guides_galleries_title">Naplánujte si svoj nadchádzajúci výlet s MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Teraz nájdete odporúčaných sprievodcov na stránkach obľúbených turistických miest a pamiatok</string>
+	<string name="new_onboarding_step3_header">Zážitok</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>
