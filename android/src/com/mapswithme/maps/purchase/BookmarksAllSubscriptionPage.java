@@ -3,7 +3,7 @@ package com.mapswithme.maps.purchase;
 import androidx.annotation.StringRes;
 import com.mapswithme.maps.R;
 
-public enum AllPassSubscriptionPage
+public enum BookmarksAllSubscriptionPage
 {
   FIRST(R.string.all_pass_subscription_message_title,
         R.string.all_pass_subscription_message_subtitle),
@@ -17,7 +17,7 @@ public enum AllPassSubscriptionPage
   @StringRes
   private final int mDescriptionId;
 
-  AllPassSubscriptionPage(@StringRes int titleId, @StringRes int descriptionId)
+  BookmarksAllSubscriptionPage(@StringRes int titleId, @StringRes int descriptionId)
   {
     mTitleId = titleId;
     mDescriptionId = descriptionId;

@@ -4,7 +4,7 @@
   <data>
     <variable
       name="page"
-      type="com.mapswithme.maps.purchase.AllPassSubscriptionPage" />
+      type="com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage" />
   </data>
   <RelativeLayout
     xmlns:tools="http://schemas.android.com/tools"

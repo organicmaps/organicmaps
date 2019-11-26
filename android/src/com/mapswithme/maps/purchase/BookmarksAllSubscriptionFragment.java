@@ -43,7 +43,7 @@ public class BookmarksAllSubscriptionFragment extends AbstractBookmarkSubscripti
   View onSubscriptionCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                                 @Nullable Bundle savedInstanceState)
   {
-    View root = inflater.inflate(R.layout.pager_fragment_all_pass_subscription, container,
+    View root = inflater.inflate(R.layout.pager_fragment_bookmarks_all_subscription, container,
                                  false);
 
     setTopStatusBarOffset(root);
@@ -92,8 +92,8 @@ public class BookmarksAllSubscriptionFragment extends AbstractBookmarkSubscripti
   {
     return new DotPager.Builder(requireContext(), viewPager, adapter)
         .setIndicatorContainer(indicatorContainer)
-        .setActiveDotDrawable(R.drawable.all_pass_marker_active)
-        .setInactiveDotDrawable(R.drawable.all_pass_marker_inactive)
+        .setActiveDotDrawable(R.drawable.bookmarks_all_marker_active)
+        .setInactiveDotDrawable(R.drawable.bookmarks_all_marker_inactive)
         .build();
   }
 
@@ -122,7 +122,7 @@ public class BookmarksAllSubscriptionFragment extends AbstractBookmarkSubscripti
     @Override
     public Fragment getItem(int i)
     {
-      return AllPassSubscriptionFragment.newInstance(i);
+      return BookmarksAllSubscriptionPageFragment.newInstance(i);
     }
 
     @Override

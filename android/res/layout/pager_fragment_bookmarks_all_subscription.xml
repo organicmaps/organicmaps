@@ -91,7 +91,7 @@
           android:layout_marginEnd="@dimen/margin_base_plus"
           app:buttonBackground="@drawable/button_accent"
           app:buttonTextColor="@color/white_primary"
-          app:saleBackground="@drawable/all_pass_sale_bg"
+          app:saleBackground="@drawable/bookmarks_all_sale_bg"
           app:saleTextColor="@color/tips_and_triks_primary_text_night"
           app:progressColor="@color/white_primary"
           app:showSale="true" />
