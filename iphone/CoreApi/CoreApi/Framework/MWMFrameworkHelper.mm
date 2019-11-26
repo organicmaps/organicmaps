@@ -5,8 +5,6 @@
 
 #include "base/sunrise_sunset.hpp"
 
-#include "map/crown.hpp"
-
 #include "platform/local_country_file_utils.hpp"
 #include "platform/network_policy_ios.h"
 
@@ -131,10 +129,6 @@
 
 + (void)updatePositionArrowOffset:(BOOL)useDefault offset:(int)offsetY {
   GetFramework().UpdateMyPositionRoutingOffset(useDefault, offsetY);
-}
-
-+ (BOOL)shouldShowCrown {
-  return crown::NeedToShow(GetFramework().GetPurchase());
 }
 
 + (void)uploadUGC:(void (^)(UIBackgroundFetchResult))completionHandler {

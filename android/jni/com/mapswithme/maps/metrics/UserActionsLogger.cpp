@@ -112,10 +112,4 @@ Java_com_mapswithme_maps_metrics_UserActionsLogger_nativePromoAfterBookingShown(
 {
   eye::Eye::Event::PromoAfterBookingShown(jni::ToNativeString(env, id));
 }
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeCrownClicked(JNIEnv *, jclass)
-{
-  eye::Eye::Event::CrownClicked();
-}
 }

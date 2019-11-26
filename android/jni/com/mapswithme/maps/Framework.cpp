@@ -7,7 +7,6 @@
 #include "com/mapswithme/vulkan/android_vulkan_context_factory.hpp"
 
 #include "map/chart_generator.hpp"
-#include "map/crown.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/notifications/notification_queue.hpp"
 #include "map/user_mark.hpp"
@@ -2213,11 +2212,5 @@ Java_com_mapswithme_maps_Framework_nativeSetSearchViewport(JNIEnv *, jclass, jdo
                                            static_cast<double>(lon));
   auto const rect = df::GetRectForDrawScale(static_cast<int>(zoom), center);
   frm()->GetSearchAPI().OnViewportChanged(rect);
-}
-
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_Framework_nativeNeedToShowCrown(JNIEnv *, jclass)
-{
-  return static_cast<jboolean>(crown::NeedToShow(frm()->GetPurchase()));
 }
 }  // extern "C"

@@ -28,7 +28,6 @@ public:
   virtual void OnMapObjectEvent(MapObject const & poi) {}
   virtual void OnPromoAfterBookingShown(Time const & time, std::string const & cityId) {}
   virtual void OnTransitionToBooking(m2::PointD const & hotelPos) {}
-  virtual void OnCrownClicked(Time const & time) {}
 };
 
 // Note This class IS thread-safe.
@@ -55,7 +54,6 @@ public:
                                m2::PointD const & userPos);
     static void TransitionToBooking(m2::PointD const & hotelPos);
     static void PromoAfterBookingShown(std::string const & cityId);
-    static void CrownClicked();
   };
 
   static Eye & Instance();
@@ -86,7 +84,6 @@ private:
                               m2::PointD const & userPos);
   void RegisterTransitionToBooking(m2::PointD const & hotelPos);
   void RegisterPromoAfterBookingShown(std::string const & cityId);
-  void RegisterCrownClicked();
 
   base::AtomicSharedPtr<Info> m_info;
   // |m_subscribers| must be used on main thread only.

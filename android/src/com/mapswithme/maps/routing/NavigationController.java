@@ -79,7 +79,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
   @NonNull
   private final View mSpeedViewContainer;
   @NonNull
-  private final View mCrownBtn;
+  private final View mOnboardingBtn;
 
   private boolean mShowTimeLeft = true;
 
@@ -137,7 +137,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
 
     mSearchButtonFrame = activity.findViewById(R.id.search_button_frame);
     mSearchWheel = new SearchWheel(mSearchButtonFrame);
-    mCrownBtn = activity.findViewById(R.id.subs_screen_btn);
+    mOnboardingBtn = activity.findViewById(R.id.subs_screen_btn);
 
     ImageView bookmarkButton = (ImageView) mSearchButtonFrame.findViewById(R.id.btn_bookmarks);
     bookmarkButton.setImageDrawable(Graphics.tint(bookmarkButton.getContext(),
@@ -355,7 +355,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
 
   public void updateSearchButtonsTranslation(float translation)
   {
-    int offset = UiUtils.isVisible(mCrownBtn) ? mCrownBtn.getHeight() : 0;
+    int offset = UiUtils.isVisible(mOnboardingBtn) ? mOnboardingBtn.getHeight() : 0;
     mSearchButtonFrame.setTranslationY(translation + offset);
   }
 

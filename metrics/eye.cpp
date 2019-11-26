@@ -430,26 +430,6 @@ void Eye::RegisterPromoAfterBookingShown(std::string const & cityId)
   });
 }
 
-void Eye::RegisterCrownClicked()
-{
-  auto const info = m_info.Get();
-  auto editableInfo = std::make_shared<Info>(*info);
-  auto const now = Clock::now();
-
-  editableInfo->m_crown.m_clickedTime = now;
-
-  if (!Save(editableInfo))
-    return;
-
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, now]
-  {
-    for (auto subscriber : m_subscribers)
-    {
-      subscriber->OnCrownClicked(now);
-    }
-  });
-}
-
 // Eye::Event methods ------------------------------------------------------------------------------
 // static
 void Eye::Event::TipClicked(Tip::Type type, Tip::Event event)
@@ -545,15 +525,6 @@ void Eye::Event::PromoAfterBookingShown(std::string const & cityId)
   GetPlatform().RunTask(Platform::Thread::File, [cityId]
   {
     Instance().RegisterPromoAfterBookingShown(cityId);
-  });
-}
-
-// static
-void Eye::Event::CrownClicked()
-{
-  GetPlatform().RunTask(Platform::Thread::File, []
-  {
-    Instance().RegisterCrownClicked();
   });
 }
 }  // namespace eye

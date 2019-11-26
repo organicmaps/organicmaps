@@ -16,7 +16,6 @@ enum class UTM : uint8_t
   DiscoveryPageGallery,
   TipsAndTricks,
   BookingPromo,
-  CrownButton,
   DiscoverCatalogOnboarding,
   FreeSamplesOnboading
 };
@@ -69,10 +68,6 @@ inline std::string InjectUTM(std::string const & url, UTM utm)
   case UTM::BookingPromo:
     params.emplace_back("utm_medium", "popup");
     params.emplace_back("utm_campaign", "bookingcom");
-    break;
-  case UTM::CrownButton:
-    params.emplace_back("utm_medium", "button");
-    params.emplace_back("utm_campaign", "map_sponsored_button");
     break;
   case UTM::DiscoverCatalogOnboarding:
     params.emplace_back("utm_medium", "onboarding_button");

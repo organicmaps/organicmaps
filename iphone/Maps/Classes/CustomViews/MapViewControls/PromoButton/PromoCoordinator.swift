@@ -2,7 +2,6 @@ import UIKit
 
 @objc class PromoCoordinator: NSObject {
   @objc enum PromoType: Int{
-    case crown
     case discoveryGuide
     case discoverySubscribe
     case discoveryFree
