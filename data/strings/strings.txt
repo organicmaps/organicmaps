@@ -45780,5 +45780,35 @@
     fa = حال میتوانید توصیههای پیشنهادی را در صفحه مربوط به مکان شهرها و مکان‎های توریستی مشهور مشاهده کنید
 
   [new_onboarding_step3_header]
-    comment = FIXME
-    en = new_onboarding_step3_header
+    en = Experience
+    ru = Путешествуйте
+    ar = جرب
+    cs = Zažijte
+    da = Oplevelse
+    nl = Reist
+    fi = Matkusta
+    fr = Voyagez
+    de = Reisen Sie
+    hu = Éld át
+    id = Pengalaman
+    it = Viaggia
+    ja = 体験しましょう
+    ko = 경험하세요
+    nb = Reis
+    pl = Podróżuj
+    pt = Viaje
+    pt-BR = Experiência
+    ro = Călătoriți
+    es = Viaja
+    es-MX = Viaje
+    sv = Resa
+    th = ประสบการณ์
+    tr = Deneyimle
+    uk = Подорожуйте
+    vi = Đi du lịch nào
+    el = Ταξιδέψτε
+    sk = Zážitok
+    sw = Uzoefu
+    zh-Hans = 去旅行吧
+    zh-Hant = 去旅行吧
+    fa = تجربه کنید
