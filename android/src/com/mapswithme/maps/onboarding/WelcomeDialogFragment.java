@@ -26,6 +26,7 @@ import com.mapswithme.util.Counters;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Stack;
 
@@ -33,6 +34,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
 {
   private static final String ARG_HAS_SPECIFIC_STEP = "welcome_screen_type";
   private static final String ARG_HAS_MANY_STEPS = "show_onboarding_steps";
+  private static final String DEF_STATISTICS_VALUE = "agreement";
 
   @NonNull
   private final Stack<OnboardingStep> mOnboardingSteps = new Stack<>();
@@ -175,7 +177,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
 
     initUserAgreementViews();
     bindWelcomeScreenType();
-
+    trackStatisticEvent(Statistics.EventName.ONBOARDING_SCREEN_SHOW);
     return res;
   }
 
@@ -255,6 +257,8 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     if (!isAgreementGranted)
       return;
 
+    trackStatisticEvent(Statistics.EventName.ONBOARDING_SCREEN_ACCEPT);
+
     if (mPolicyAgreementListener != null)
       mPolicyAgreementListener.onPolicyAgreementApplied();
     dismissAllowingStateLoss();
@@ -282,18 +286,36 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     mTitle.setText(mOnboardinStep.getTitle());
     mImage.setImageResource(mOnboardinStep.getImage());
     mAcceptBtn.setText(mOnboardinStep.getAcceptButtonResId());
-    declineBtn.setOnClickListener(v -> {});
+    declineBtn.setOnClickListener(v -> onDeclineBtnClicked());
     mSubtitle.setText(mOnboardinStep.getSubtitle());
+  }
+
+  private void onDeclineBtnClicked()
+  {
+    Counters.setFirstStartDialogSeen(requireContext());
+    trackStatisticEvent(Statistics.EventName.ONBOARDING_SCREEN_DECLINE);
+  }
+
+  private void trackStatisticEvent(@NonNull String event)
+  {
+    Statistics.ParameterBuilder builder = Statistics
+        .params().add(Statistics.EventParam.TYPE, getModeStatsValue());
+    Statistics.INSTANCE.trackEvent(event, builder);
+  }
+
+  @NonNull
+  private String getModeStatsValue()
+  {
+    return mOnboardinStep == null ? DEF_STATISTICS_VALUE : mOnboardinStep.toStatisticValue();
   }
 
   @Override
   public void onClick(View v)
   {
     if (v.getId() != R.id.accept_btn)
-    {
-      Counters.setFirstStartDialogSeen(requireContext());
       return;
-    }
+
+    trackStatisticEvent(Statistics.EventName.ONBOARDING_SCREEN_ACCEPT);
 
     if (!mOnboardingSteps.isEmpty())
     {

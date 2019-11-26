@@ -1,47 +1,105 @@
 package com.mapswithme.maps.news;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.StatisticValueConverter;
 
-public enum OnboardingStep
+public enum OnboardingStep implements StatisticValueConverter<String>
 {
   CHECK_OUT_SIGHTS(R.string.visible,
                    R.string.visible,
                    R.string.view_campaign_button,
                    R.string.visible,
-                   R.drawable.img_check_sights_out),
+                   R.drawable.img_check_sights_out)
+      {
+        @NonNull
+        @Override
+        public String toStatisticValue()
+        {
+          return "sample_discovery";
+        }
+      },
   SUBSCRIBE_TO_CATALOG(R.string.visible,
                        R.string.visible,
                        R.string.view_campaign_button,
                        R.string.visible,
-                       R.drawable.img_discover_guides),
+                       R.drawable.img_discover_guides)
+      {
+        @NonNull
+        @Override
+        public String toStatisticValue()
+        {
+          return "buy_subscription";
+        }
+      },
   DISCOVER_GUIDES(R.string.visible,
                   R.string.visible,
                   R.string.view_campaign_button,
                   R.string.visible,
-                  R.drawable.img_discover_guides),
+                  R.drawable.img_discover_guides)
+      {
+        @NonNull
+        @Override
+        public String toStatisticValue()
+        {
+          return "catalog_discovery";
+        }
+      },
   SHARE_EMOTIONS(R.string.visible,
                  UiUtils.NO_ID,
                  R.string.view_campaign_button,
                  R.string.visible,
-                 R.drawable.img_share_emptions, false),
+                 R.drawable.img_share_emptions, false)
+      {
+        @NonNull
+        @Override
+        public String toStatisticValue()
+        {
+          return "share_emotions";
+        }
+      },
   EXPERIENCE(R.string.visible,
              UiUtils.NO_ID,
              R.string.view_campaign_button,
              R.string.visible,
-             R.drawable.img_experience, false),
+             R.drawable.img_experience, false)
+      {
+        @NonNull
+        @Override
+        public String toStatisticValue()
+        {
+          return "experience";
+        }
+      },
   DREAM_AND_PLAN(R.string.visible,
                  UiUtils.NO_ID,
                  R.string.view_campaign_button,
                  R.string.visible,
-                 R.drawable.img_dream_and_plan, false),
+                 R.drawable.img_dream_and_plan, false)
+      {
+        @NonNull
+        @Override
+        public String toStatisticValue()
+        {
+          return "dream_and_plan";
+        }
+      },
   PERMISSION_EXPLANATION(R.string.visible,
                          R.string.visible,
                          R.string.view_campaign_button,
                          R.string.visible,
-                         R.drawable.img_welcome);
+                         R.drawable.img_welcome)
+      {
+        @NonNull
+        @Override
+        public String toStatisticValue()
+        {
+          return "permissions";
+        }
+      };
 
   @StringRes
   private final int mAcceptButtonResId;
@@ -74,7 +132,6 @@ public enum OnboardingStep
     mImage = image;
     mDeclinedButton = hasDeclinedButton;
   }
-
 
   @StringRes
   public int getAcceptButtonResId()

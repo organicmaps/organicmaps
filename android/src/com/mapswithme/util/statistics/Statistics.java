@@ -369,6 +369,7 @@ public enum Statistics
     public static final String DOWNLOADER_BANNER_CLICK = "Downloader_Banner_click";
     public static final String DOWNLOADER_FAB_CLICK = "Downloader_AddMap_click";
     public static final String DOWNLOADER_SEARCH_CLICK = "Downloader_Search_click";
+    public static final String WHATS_NEW_ACTION = "WhatsNew_action";
     static final String DOWNLOADER_DIALOG_ERROR = "Downloader_OnStartScreen_error";
 
     // bookmarks
@@ -544,6 +545,10 @@ public enum Statistics
     static final String INAPP_PURCHASE_VALIDATION_ERROR  = "InAppPurchase_Validation_error";
     static final String INAPP_PURCHASE_PRODUCT_DELIVERED  = "InAppPurchase_Product_delivered";
 
+    public static final String ONBOARDING_SCREEN_SHOW = "OnboardingScreen_show";
+    public static final String ONBOARDING_SCREEN_ACCEPT = "OnboardingScreen_accept";
+    public static final String ONBOARDING_SCREEN_DECLINE = "OnboardingScreen_decline";
+
     public static final String ONBOARDING_DEEPLINK_SCREEN_SHOW = "OnboardingDeeplinkScreen_show";
     public static final String ONBOARDING_DEEPLINK_SCREEN_ACCEPT = "OnboardingDeeplinkScreen_accept";
     public static final String ONBOARDING_DEEPLINK_SCREEN_DECLINE = "OnboardingDeeplinkScreen_decline";
@@ -606,6 +611,7 @@ public enum Statistics
     public static final String SCENARIO = "scenario";
     public static final String BUTTON = "button";
     public static final String SCREEN = "screen";
+    public static final String VERSION = "version";
     static final String TARGET = "target";
     static final String CATEGORY = "category";
     public static final String TAB = "tab";
@@ -701,9 +707,13 @@ public enum Statistics
     public static final String SPONSORED_BUTTON = "sponsored_button";
     public static final String POPUP = "popup";
     public static final String WEBVIEW = "webview";
+    public static final String ONBOARDING_GUIDES_SUBSCRIPTION = "onboarding_guides_subscription";
     public static final String PLUS = "plus";
     public static final String DOWNLOAD = "download";
-    static final String GUIDES_SUBSCRIPTION = "GuidesSubscription";
+    public static final String OPEN = "open";
+    public static final String CLOSE = "close";
+    public static final String NEXT = "next";
+    static final String GUIDES_SUBSCRIPTION = "OnboardingGuidesSubscription";
     static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
     static final String OPENTABLE = "OpenTable";
     static final String LOCALS_EXPERTS = "Locals.Maps.Me";
