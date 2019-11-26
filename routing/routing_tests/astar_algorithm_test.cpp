@@ -121,7 +121,7 @@ UNIT_TEST(AdjustRouteNoPath)
   auto checkLength = [](double weight) { return weight <= 1.0; };
   Algorithm algo;
   Algorithm::ParamsForTests<decltype(checkLength)> params(graph, 6 /* startVertex */, {} /* finishVertex */, &prevRoute,
-                                    move(checkLength));
+                                     move(checkLength));
   RoutingResult<unsigned /* Vertex */, double /* Weight */> result;
   auto const code = algo.AdjustRoute(params, result);
 

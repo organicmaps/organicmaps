@@ -557,7 +557,7 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
     JointsStarter jointStarter(starter, starter.GetStartSegment(), starter.GetFinishSegment());
     RoutingResult<JointSegment, RouteWeight> routingResult;
 
-    using Visitor = JunctionVisitor<JointSegment, JointsStarter>;
+    using Visitor = JunctionVisitor<JointsStarter>;
     Visitor visitor(jointStarter, delegate, kVisitPeriod, progress);
 
     using Vertex = JointsStarter::Vertex;
@@ -591,7 +591,7 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
       progress->AppendSubProgress(leapsProgress);
     }
 
-    using Visitor = JunctionVisitor<Segment, IndexGraphStarter>;
+    using Visitor = JunctionVisitor<IndexGraphStarter>;
     auto const visitPeriod =
         mode == WorldGraphMode::LeapsOnly ? kVisitPeriodForLeaps : kVisitPeriod;
     Visitor visitor(starter, delegate, visitPeriod, progress);
@@ -677,7 +677,7 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
                            EdgeEstimator::Purpose::Weight));
   }
 
-  using Visitor = JunctionVisitor<Segment, IndexGraphStarter>;
+  using Visitor = JunctionVisitor<IndexGraphStarter>;
   Visitor visitor(starter, delegate, kVisitPeriod);
 
   using Vertex = IndexGraphStarter::Vertex;
@@ -996,8 +996,8 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
     return RouterResultCode::NoError;
   }
 
+  CHECK(progress, ());
   SCOPE_GUARD(progressGuard, [&progress]() {
-    CHECK(progress, ());
     progress->PushAndDropLastSubProgress();
   });
 
@@ -1092,7 +1092,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
         progress->DropLastSubProgress();
     });
 
-    using Visitor = JunctionVisitor<JointSegment, JointsStarter>;
+    using Visitor = JunctionVisitor<JointsStarter>;
     Visitor visitor(jointStarter, delegate, kVisitPeriod, progress);
 
     AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(

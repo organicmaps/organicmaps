@@ -13,12 +13,14 @@ namespace routing
 {
 double constexpr kProgressInterval = 0.5;
 
-template <typename Vertex, typename Graph>
+template <typename Graph>
 class JunctionVisitor
 {
 public:
-  explicit JunctionVisitor(Graph & graph, RouterDelegate const & delegate, uint32_t visitPeriod,
-                           std::shared_ptr<AStarProgress> const & progress = nullptr)
+  using Vertex = typename Graph::Vertex;
+
+  JunctionVisitor(Graph & graph, RouterDelegate const & delegate, uint32_t visitPeriod,
+                  std::shared_ptr<AStarProgress> const & progress = nullptr)
     : m_graph(graph), m_delegate(delegate), m_visitPeriod(visitPeriod), m_progress(progress)
   {
     if (progress)
