@@ -96,6 +96,20 @@ public:
   VehicleType GetVehicleType() const { return m_vehicleType; }
 
 private:
+  RouterResultCode CalculateSubrouteJointsMode(IndexGraphStarter & starter,
+                                               RouterDelegate const & delegate,
+                                               std::shared_ptr<AStarProgress> const & progress,
+                                               std::vector<Segment> & subroute);
+  RouterResultCode CalculateSubrouteNoLeapsMode(IndexGraphStarter & starter,
+                                                RouterDelegate const & delegate,
+                                                std::shared_ptr<AStarProgress> const & progress,
+                                                std::vector<Segment> & subroute);
+  RouterResultCode CalculateSubrouteLeapsOnlyMode(Checkpoints const & checkpoints,
+                                                  size_t subrouteIdx, IndexGraphStarter & starter,
+                                                  RouterDelegate const & delegate,
+                                                  std::shared_ptr<AStarProgress> const & progress,
+                                                  std::vector<Segment> & subroute);
+
   RouterResultCode DoCalculateRoute(Checkpoints const & checkpoints,
                                     m2::PointD const & startDirection,
                                     RouterDelegate const & delegate, Route & route);

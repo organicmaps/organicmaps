@@ -74,6 +74,25 @@ public:
   double ElapsedSeconds() const;
 };
 
+class ScopedTimerWithLog
+{
+public:
+  enum class Measure
+  {
+    MilliSeconds,
+    Seconds,
+  };
+
+  explicit ScopedTimerWithLog(std::string const & timerName,
+                              Measure measure = Measure::MilliSeconds);
+  ~ScopedTimerWithLog();
+
+private:
+  std::string m_name;
+  Measure m_measure;
+  HighResTimer m_timer;
+};
+
 time_t SecondsSinceEpochToTimeT(uint64_t secondsSinceEpoch);
 uint64_t TimeTToSecondsSinceEpoch(time_t time);
 }  // namespace base
