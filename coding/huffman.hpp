@@ -201,7 +201,6 @@ public:
   {
     BitReader<TSource> bitReader(src);
     size_t sz = static_cast<size_t>(ReadVarUint<uint32_t, TSource>(src));
-    std::vector<strings::UniChar> v(sz);
     for (size_t i = 0; i < sz; ++i)
       *out++ = ReadAndDecode(bitReader);
     return out;
