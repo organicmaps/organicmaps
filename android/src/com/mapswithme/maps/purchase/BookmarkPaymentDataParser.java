@@ -20,7 +20,6 @@ public class BookmarkPaymentDataParser implements PaymentDataParser
   public final static String NAME = "name";
   public final static String IMG_URL = "img";
   public final static String AUTHOR_NAME = "author_name";
-  public final static String GROUPS = "groups";
 
   @NonNull
   @Override

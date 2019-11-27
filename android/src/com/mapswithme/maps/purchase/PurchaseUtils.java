@@ -22,6 +22,7 @@ import java.util.List;
 
 public class PurchaseUtils
 {
+  public final static String GROUPS = "groups";
   final static int REQ_CODE_PRODUCT_DETAILS_FAILURE = 1;
   final static int REQ_CODE_PAYMENT_FAILURE = 2;
   final static int REQ_CODE_VALIDATION_SERVER_ERROR = 3;
@@ -183,11 +184,11 @@ public class PurchaseUtils
   @NonNull
   public static String getTargetBookmarkGroupFromUri(@NonNull Uri uri)
   {
-    List<String> uriGroups = uri.getQueryParameters(BookmarkPaymentDataParser.GROUPS);
+    List<String> uriGroups = uri.getQueryParameters(GROUPS);
     if (uriGroups == null || uriGroups.isEmpty())
     {
       CrashlyticsUtils.logException(
-          new IllegalArgumentException("'" + BookmarkPaymentDataParser.GROUPS
+          new IllegalArgumentException("'" + GROUPS
                                        + "' parameter is required! URI: " + uri));
       return SubscriptionType.BOOKMARKS_ALL.getServerId();
     }
