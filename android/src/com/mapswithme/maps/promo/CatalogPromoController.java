@@ -136,6 +136,8 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
         return new SightseeingsPromoRequester();
       case Sponsored.TYPE_PROMO_CATALOG_CITY:
         return new CityPromoRequester();
+      case Sponsored.TYPE_PROMO_CATALOG_OUTDOOR:
+        return new OutdoorPromoRequester();
       default:
         return null;
     }
@@ -146,7 +148,8 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
                                                           @NonNull PromoCityGallery promo)
   {
     if (type != Sponsored.TYPE_PROMO_CATALOG_CITY
-        && type != Sponsored.TYPE_PROMO_CATALOG_SIGHTSEEINGS)
+        && type != Sponsored.TYPE_PROMO_CATALOG_SIGHTSEEINGS
+        && type != Sponsored.TYPE_PROMO_CATALOG_OUTDOOR)
       return null;
 
     PromoCityGallery.Item[] items = promo.getItems();
@@ -188,6 +191,22 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
     public int getSponsoredType()
     {
       return Sponsored.TYPE_PROMO_CATALOG_SIGHTSEEINGS;
+    }
+  }
+
+  static class OutdoorPromoRequester implements PromoRequester
+  {
+    @Override
+    public void requestPromo(@NonNull NetworkPolicy policy, @NonNull MapObject mapObject)
+    {
+      Promo.INSTANCE.nativeRequestPoiGallery(policy, mapObject.getLat(), mapObject.getLon(),
+                                             mapObject.getRawTypes(), UTM.UTM_OUTDOOR_PLACEPAGE_GALLERY);
+    }
+
+    @Override
+    public int getSponsoredType()
+    {
+      return Sponsored.TYPE_PROMO_CATALOG_OUTDOOR;
     }
   }
 

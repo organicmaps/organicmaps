@@ -11,7 +11,7 @@ public class UTM
             UTM_DOWNLOAD_MWM_BANNER, UTM_LARGE_TOPONYMS_PLACEPAGE_GALLERY,
             UTM_SIGHTSEEINGS_PLACEPAGE_GALLERY, UTM_DISCOVERY_PAGE_GALLERY,
             UTM_TIPS_AND_TRICKS, UTM_BOOKING_PROMO, UTM_DISCOVER_CATALOG_ONBOARDING,
-            UTM_FREE_SAMPLES_ONBOADING})
+            UTM_FREE_SAMPLES_ONBOADING, UTM_OUTDOOR_PLACEPAGE_GALLERY})
   public @interface UTMType {}
 
   // The order of these constants must correspond to C++ enumeration in partners_api/utm.hpp.
@@ -26,6 +26,7 @@ public class UTM
   public static final int UTM_BOOKING_PROMO = 8;
   public static final int UTM_DISCOVER_CATALOG_ONBOARDING = 9;
   public static final int UTM_FREE_SAMPLES_ONBOADING = 10;
+  public static final int UTM_OUTDOOR_PLACEPAGE_GALLERY = 11;
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ UTM_CONTENT_DESCRIPTION, UTM_CONTENT_VIEW, UTM_CONTENT_DETAILS, UTM_CONTENT_MORE })

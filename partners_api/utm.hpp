@@ -17,7 +17,8 @@ enum class UTM : uint8_t
   TipsAndTricks,
   BookingPromo,
   DiscoverCatalogOnboarding,
-  FreeSamplesOnboading
+  FreeSamplesOnboading,
+  OutdoorPlacepageGallery,
 };
 
 enum class UTMContent : uint8_t
@@ -77,6 +78,10 @@ inline std::string InjectUTM(std::string const & url, UTM utm)
     params.emplace_back("utm_medium", "onboarding_button");
     params.emplace_back("utm_campaign", "sample_discovery");
     break;
+  case UTM::OutdoorPlacepageGallery:
+    params.emplace_back("utm_medium", "gallery");
+    params.emplace_back("utm_campaign", "outdoor_placepage_gallery");
+    break;
   case UTM::None:
     return url;
   }
@@ -102,4 +107,9 @@ inline std::string InjectUTMContent(std::string const & url, UTMContent content)
     break;
   }
   return base::url::Make(url, params);
+}
+
+inline std::string InjectUTMTerm(std::string const & url, std::string const & value)
+{
+  return base::url::Make(url, {{"utm_term", value}});
 }

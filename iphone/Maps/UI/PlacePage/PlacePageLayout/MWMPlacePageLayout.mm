@@ -895,7 +895,7 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
     [Statistics logEvent:kStatPlacepageSponsoredMoreSelected
           withParameters:@{
                            kStatProvider: kStatMapsmeGuides,
-                           kStatPlacement: self.data.isLargeToponim ? kStatPlacePageToponims : kStatPlacePageSightSeeing,
+                           kStatPlacement: self.data.isLargeToponym ? kStatPlacePageToponims : kStatPlacePageSightSeeing,
                            }];
   } else {
     promo::CityGallery::Item const &item = [self.data.promoGallery galleryItemAtIndex:indexPath.row];
@@ -908,7 +908,7 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
     [Statistics logEvent:kStatPlacepageSponsoredItemSelected
           withParameters:@{
                            kStatProvider: kStatMapsmeGuides,
-                           kStatPlacement: self.data.isLargeToponim ? kStatPlacePageToponims : kStatPlacePageSightSeeing,
+                           kStatPlacement: self.data.isLargeToponym ? kStatPlacePageToponims : kStatPlacePageSightSeeing,
                            kStatItem: @(indexPath.item + 1),
                            kStatDestination: kStatCatalogue
                            }];
