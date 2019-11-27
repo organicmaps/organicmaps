@@ -73,6 +73,8 @@ public:
   {
     m_graph->GetIngoingEdgesList(v, edges);
   }
+
+  RouteWeight GetAStarWeightEpsilon() override { return RouteWeight(0.0); }
   // @}
 
   WorldGraph & GetWorldGraph() { return *m_graph; }

@@ -130,6 +130,8 @@ public:
   {
     return m_graph.AreWavesConnectible(forwardParents, commonVertex, backwardParents, nullptr);
   }
+
+  RouteWeight GetAStarWeightEpsilon() override;
   // @}
 
   RouteWeight HeuristicCostEstimate(Vertex const & from, m2::PointD const & to) const

@@ -86,6 +86,7 @@ public:
     }
 
     Graph & m_graph;
+    Weight const m_weightEpsilon = m_graph.GetAStarWeightEpsilon();
     Vertex const m_startVertex;
     // Used for FindPath, FindPathBidirectional.
     Vertex const m_finalVertex;
@@ -111,6 +112,7 @@ public:
     }
 
     Graph & m_graph;
+    Weight const m_weightEpsilon = m_graph.GetAStarWeightEpsilon();
     Vertex const m_startVertex;
     // Used for FindPath, FindPathBidirectional.
     Vertex const m_finalVertex;
@@ -213,7 +215,6 @@ private:
   static uint32_t constexpr kQueueSwitchPeriod = 128;
 
   // Precision of comparison weights.
-  static Weight constexpr kEpsilon = GetAStarWeightEpsilon<Weight>();
   static Weight constexpr kZeroDistance = GetAStarWeightZero<Weight>();
   static Weight constexpr kInfiniteDistance = GetAStarWeightMax<Weight>();
 
@@ -340,8 +341,6 @@ private:
 };
 
 template <typename Vertex, typename Edge, typename Weight>
-constexpr Weight AStarAlgorithm<Vertex, Edge, Weight>::kEpsilon;
-template <typename Vertex, typename Edge, typename Weight>
 constexpr Weight AStarAlgorithm<Vertex, Edge, Weight>::kInfiniteDistance;
 template <typename Vertex, typename Edge, typename Weight>
 constexpr Weight AStarAlgorithm<Vertex, Edge, Weight>::kZeroDistance;
@@ -355,6 +354,8 @@ void AStarAlgorithm<Vertex, Edge, Weight>::PropagateWave(
   FilterStates && filterStates,
   AStarAlgorithm<Vertex, Edge, Weight>::Context & context) const
 {
+  auto const epsilon = graph.GetAStarWeightEpsilon();
+
   context.Clear();
 
   std::priority_queue<State, std::vector<State>, std::greater<State>> queue;
@@ -385,7 +386,7 @@ void AStarAlgorithm<Vertex, Edge, Weight>::PropagateWave(
       auto const edgeWeight = adjustEdgeWeight(stateV.vertex, edge);
       auto const newReducedDist = stateV.distance + edgeWeight;
 
-      if (newReducedDist >= context.GetDistance(stateW.vertex) - kEpsilon)
+      if (newReducedDist >= context.GetDistance(stateW.vertex) - epsilon)
         continue;
 
       stateW.distance = newReducedDist;
@@ -429,6 +430,8 @@ template <typename P>
 typename AStarAlgorithm<Vertex, Edge, Weight>::Result
 AStarAlgorithm<Vertex, Edge, Weight>::FindPath(P & params, RoutingResult<Vertex, Weight> & result) const
 {
+  auto const epsilon = params.m_weightEpsilon;
+
   result.Clear();
 
   auto & graph = params.m_graph;
@@ -475,7 +478,7 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPath(P & params, RoutingResult<Vertex,
   auto const adjustEdgeWeight = [&](Vertex const & vertexV, Edge const & edge) {
     auto const reducedWeight = fullToReducedLength(vertexV, edge.GetTarget(), edge.GetWeight());
 
-    CHECK_GREATER_OR_EQUAL(reducedWeight, -kEpsilon, ("Invariant violated."));
+    CHECK_GREATER_OR_EQUAL(reducedWeight, -epsilon, ("Invariant violated."));
 
     return std::max(reducedWeight, kZeroDistance);
   };
@@ -506,6 +509,7 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result
 AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
                                                             RoutingResult<Vertex, Weight> & result) const
 {
+  auto const epsilon = params.m_weightEpsilon;
   auto & graph = params.m_graph;
   auto const & finalVertex = params.m_finalVertex;
   auto const & startVertex = params.m_startVertex;
@@ -581,7 +585,7 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
       // several top states in a priority queue may have equal reduced path lengths and
       // different real path lengths.
 
-      if (curTop + nxtTop >= bestPathReducedLength - kEpsilon)
+      if (curTop + nxtTop >= bestPathReducedLength - epsilon)
         return getResult();
     }
 
@@ -607,7 +611,7 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
       auto const pW = cur->ConsistentHeuristic(stateW.vertex);
       auto const reducedWeight = weight + pW - pV;
 
-      CHECK_GREATER_OR_EQUAL(reducedWeight, -kEpsilon,
+      CHECK_GREATER_OR_EQUAL(reducedWeight, -epsilon,
                              ("Invariant violated for:", "v =", stateV.vertex, "w =", stateW.vertex));
 
       auto const newReducedDist = stateV.distance + std::max(reducedWeight, kZeroDistance);
@@ -617,7 +621,7 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
         continue;
 
       auto const itCur = cur->bestDistance.find(stateW.vertex);
-      if (itCur != cur->bestDistance.end() && newReducedDist >= itCur->second - kEpsilon)
+      if (itCur != cur->bestDistance.end() && newReducedDist >= itCur->second - epsilon)
         continue;
 
       stateW.distance = newReducedDist;

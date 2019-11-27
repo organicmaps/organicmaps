@@ -85,6 +85,8 @@ public:
     return m_graph.AreWavesConnectible(forwardParents, commonVertex, backwardParents,
                                        std::move(converter));
   }
+
+  RouteWeight GetAStarWeightEpsilon() override { return m_graph.GetAStarWeightEpsilon(); }
   // @}
 
   WorldGraphMode GetMode() const { return m_graph.GetMode(); }

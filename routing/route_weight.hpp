@@ -113,12 +113,4 @@ constexpr RouteWeight GetAStarWeightZero<RouteWeight>()
   return RouteWeight(0.0 /* weight */, 0 /* numPassThroughChanges */, 0 /* numAccessChanges */,
                      0.0 /* transitTime */);
 }
-
-template <>
-constexpr RouteWeight GetAStarWeightEpsilon<RouteWeight>()
-{
-  return RouteWeight(GetAStarWeightEpsilon<double>(), 0 /* numPassThroughChanges */,
-                     0 /* numAccessChanges */, 0.0 /* transitTime */);
-}
-
 }  // namespace routing

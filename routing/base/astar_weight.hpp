@@ -1,5 +1,7 @@
 #pragma once
 
+#include "base/assert.hpp"
+
 #include <limits>
 
 namespace routing
@@ -15,7 +17,10 @@ constexpr double GetAStarWeightZero<double>()
 
 // Precision of comparison weights.
 template <typename Weight>
-constexpr Weight GetAStarWeightEpsilon();
+constexpr Weight GetAStarWeightEpsilon()
+{
+  UNREACHABLE();
+}
 
 template <>
 constexpr double GetAStarWeightEpsilon<double>()
