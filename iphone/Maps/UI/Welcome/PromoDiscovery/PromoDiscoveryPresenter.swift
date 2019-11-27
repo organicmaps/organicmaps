@@ -26,12 +26,12 @@ extension PromoDiscoveryPresenter: IPromoRouterPresenter {
       viewController?.setNextButtonTitle(L("new_onboarding_step5.1_button"))
     case .buySubscription:
       viewController?.setTitleImage(UIImage(named: "img_onboarding_subscribeguides"))
-      viewController?.setTitle(L("new_onboarding_step5.2_header"))
+      viewController?.setTitle(L("new_onboarding_step5.1_header"))
       viewController?.setText(L("new_onboarding_step5.2_message"))
       viewController?.setNextButtonTitle(L("new_onboarding_step5.2_button"))
     case .downloadSamples:
       viewController?.setTitleImage(UIImage(named: "img_onboarding_samples"))
-      viewController?.setTitle(L("new_onboarding_step5.3_header"))
+      viewController?.setTitle(L("new_onboarding_step5.1_header"))
       viewController?.setText(L("new_onboarding_step5.3_message"))
       viewController?.setNextButtonTitle(L("new_onboarding_step5.3_button"))
     }

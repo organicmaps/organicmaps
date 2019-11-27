@@ -9,7 +9,7 @@ protocol IWelcomeView: class {
   var isCloseButtonHidden: Bool {get set}
 }
 
-class WelcomeViewController: MWMViewController {
+class WelcomeViewController: MWMViewController, UIAdaptivePresentationControllerDelegate {
   var presenter: IWelcomePresenter?
 
   @IBOutlet private var image: UIImageView!
@@ -18,6 +18,7 @@ class WelcomeViewController: MWMViewController {
   @IBOutlet private var nextButton: UIButton!
   @IBOutlet private var closeButton: UIButton!
   @IBOutlet private var closeButtonHeightConstraint: NSLayoutConstraint!
+  static var presentationSize = CGSize(width: 520, height: 600)
 
   var isCloseButtonHidden: Bool = false {
     didSet{
@@ -25,9 +26,17 @@ class WelcomeViewController: MWMViewController {
     }
   }
 
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+    self.modalTransitionStyle = .coverVertical
+    self.modalPresentationStyle = .formSheet
+    self.presentationController?.delegate = self;
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     presenter?.configure()
+    self.preferredContentSize = WelcomeViewController.presentationSize
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -73,4 +82,3 @@ extension WelcomeViewController: IWelcomeView {
     image.image = titleImage
   }
 }
-
