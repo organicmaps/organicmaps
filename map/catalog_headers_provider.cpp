@@ -1,5 +1,7 @@
 #include "map/catalog_headers_provider.hpp"
 
+#include <set>
+
 CatalogHeadersProvider::CatalogHeadersProvider(PositionProvider const & positionProvider,
                                                storage::Storage const & storage)
   : m_positionProvider(positionProvider)
@@ -15,17 +17,18 @@ platform::HttpClient::Headers CatalogHeadersProvider::GetHeaders()
   storage::CountriesVec localMaps;
   m_storage.GetLocalRealMaps(localMaps);
   auto const & countryToCity = m_storage.GetMwmTopCityGeoIds();
-  auto & countries = params.m_countryGeoIds;
+  std::set<base::GeoObjectId> countries;
   auto & cities = params.m_cityGeoIds;
   for (auto const id : localMaps)
   {
     auto const countryIds = m_storage.GetTopCountryGeoIds(id);
-    countries.insert(countries.end(), countryIds.cbegin(), countryIds.cend());
+    countries.insert(countryIds.cbegin(), countryIds.cend());
 
     auto const cityIt = countryToCity.find(id);
     if (cityIt != countryToCity.cend())
       cities.push_back(cityIt->second);
   }
+  params.m_countryGeoIds.assign(countries.cbegin(), countries.cend());
 
   return web_api::GetCatalogHeaders(params);
 }
