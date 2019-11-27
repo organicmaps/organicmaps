@@ -77,19 +77,7 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
 void SingleVehicleWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
                                           bool useRoutingOptions, vector<SegmentEdge> & edges)
 {
-  if (m_mode == WorldGraphMode::LeapsOnly)
-  {
-    CHECK(m_crossMwmGraph, ());
-    // Ingoing edges listing is not supported for leaps because we do not have enough information
-    // to calculate |segment| weight. See https://jira.mail.ru/browse/MAPSME-5743 for details.
-    CHECK(isOutgoing, ("Ingoing edges listing is not supported for LeapsOnly mode."));
-    if (m_crossMwmGraph->IsTransition(segment, isOutgoing))
-      GetTwins(segment, isOutgoing, useRoutingOptions, edges);
-    else
-      m_crossMwmGraph->GetOutgoingEdgeList(segment, edges);
-
-    return;
-  }
+  CHECK_NOT_EQUAL(m_mode, WorldGraphMode::LeapsOnly, ());
 
   ASSERT(m_parentsForSegments.forward && m_parentsForSegments.backward,
          ("m_parentsForSegments was not initialized in SingleVehicleWorldGraph."));

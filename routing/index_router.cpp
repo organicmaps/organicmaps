@@ -11,6 +11,7 @@
 #include "routing/index_graph_starter.hpp"
 #include "routing/index_road_graph.hpp"
 #include "routing/junction_visitor.hpp"
+#include "routing/leaps_graph.hpp"
 #include "routing/leaps_postprocessor.hpp"
 #include "routing/pedestrian_directions.hpp"
 #include "routing/restriction_loader.hpp"
@@ -629,19 +630,21 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
     RouterDelegate const & delegate, shared_ptr<AStarProgress> const & progress,
     vector<Segment> & subroute)
 {
-  using Vertex = IndexGraphStarter::Vertex;
-  using Edge = IndexGraphStarter::Edge;
-  using Weight = IndexGraphStarter::Weight;
+  LeapsGraph leapsGraph(starter);
+
+  using Vertex = LeapsGraph::Vertex;
+  using Edge = LeapsGraph::Edge;
+  using Weight = LeapsGraph::Weight;
 
   AStarSubProgress leapsProgress(checkpoints.GetPoint(subrouteIdx),
                                  checkpoints.GetPoint(subrouteIdx + 1), kLeapsStageContribution);
   progress->AppendSubProgress(leapsProgress);
 
-  using Visitor = JunctionVisitor<IndexGraphStarter>;
-  Visitor visitor(starter, delegate, kVisitPeriodForLeaps, progress);
+  using Visitor = JunctionVisitor<LeapsGraph>;
+  Visitor visitor(leapsGraph, delegate, kVisitPeriodForLeaps, progress);
 
   AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
-      starter, starter.GetStartSegment(), starter.GetFinishSegment(), nullptr /* prevRoute */,
+      leapsGraph, starter.GetStartSegment(), starter.GetFinishSegment(), nullptr /* prevRoute */,
       delegate.GetCancellable(), move(visitor), AStarLengthChecker(starter));
 
   RoutingResult<Vertex, Weight> routingResult;

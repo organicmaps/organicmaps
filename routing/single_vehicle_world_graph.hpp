@@ -100,6 +100,8 @@ public:
     return m_loader->GetIndexGraph(numMwmId);
   }
 
+  CrossMwmGraph & GetCrossMwmGraph() override { return *m_crossMwmGraph; }
+
 private:
   /// \brief Get parents' featureIds of |commonVertex| from forward AStar wave and join them with
   ///        parents' featureIds from backward wave.

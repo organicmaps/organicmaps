@@ -170,20 +170,25 @@ public:
   }
   // @}
 
-  ~IndexGraphStarter() override = default;
-
-private:
   // Start or finish ending information.
   struct Ending
   {
     bool OverlapsWithMwm(NumMwmId mwmId) const;
-
+    void FillMwmIds();
     // Fake segment id.
     uint32_t m_id = 0;
     // Real segments connected to the ending.
     std::set<Segment> m_real;
+    // Mwm ids of connected segments to the ending.
+    std::set<NumMwmId> m_mwmIds;
   };
 
+  Ending const & GetStartEnding() const { return m_start; }
+  Ending const & GetFinishEnding() const { return m_finish; }
+
+  ~IndexGraphStarter() override = default;
+
+private:
   static Segment GetFakeSegment(uint32_t segmentIdx)
   {
     // We currently ignore |isForward| and use FakeGraph to get ingoing/outgoing.

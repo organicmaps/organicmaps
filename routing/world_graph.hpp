@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/cross_mwm_graph.hpp"
 #include "routing/edge_estimator.hpp"
 #include "routing/geometry.hpp"
 #include "routing/index_graph.hpp"
@@ -113,12 +114,12 @@ public:
   virtual std::vector<RouteSegment::SpeedCamera> GetSpeedCamInfo(Segment const & segment);
 
   virtual IndexGraph & GetIndexGraph(NumMwmId numMwmId) = 0;
-
+  virtual CrossMwmGraph & GetCrossMwmGraph();
+  virtual void GetTwinsInner(Segment const & segment, bool isOutgoing,
+                             std::vector<Segment> & twins) = 0;
 protected:
   void GetTwins(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
                 std::vector<SegmentEdge> & edges);
-  virtual void GetTwinsInner(Segment const & segment, bool isOutgoing,
-                             std::vector<Segment> & twins) = 0;
 };
 
 std::string DebugPrint(WorldGraphMode mode);

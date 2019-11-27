@@ -10,19 +10,7 @@ void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, bool useRout
   std::vector<Segment> twins;
   GetTwinsInner(segment, isOutgoing, twins);
 
-  if (GetMode() == WorldGraphMode::LeapsOnly)
-  {
-    // Ingoing edges listing is not supported in LeapsOnly mode because we do not have enough
-    // information to calculate |segment| weight. See https://jira.mail.ru/browse/MAPSME-5743 for details.
-    CHECK(isOutgoing, ("Ingoing edges listing is not supported in LeapsOnly mode."));
-    // We need both enter to mwm and exit from mwm in LeapsOnly mode to reconstruct leap.
-    // That's why we need to duplicate twin segment here and than remove duplicate
-    // while processing leaps.
-    for (Segment const & twin : twins)
-      edges.emplace_back(twin, RouteWeight(0.0));
-
-    return;
-  }
+  CHECK_NOT_EQUAL(GetMode(), WorldGraphMode::LeapsOnly, ());
 
   auto prevMode = GetMode();
   SetMode(WorldGraphMode::SingleMwm);
@@ -72,6 +60,11 @@ std::vector<Segment> const & WorldGraph::GetTransitions(NumMwmId numMwmId, bool 
 {
   static std::vector<Segment> const kEmpty;
   return kEmpty;
+}
+
+CrossMwmGraph & WorldGraph::GetCrossMwmGraph()
+{
+  UNREACHABLE();
 }
 
 std::string DebugPrint(WorldGraphMode mode)
