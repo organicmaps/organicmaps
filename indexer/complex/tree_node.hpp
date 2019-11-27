@@ -121,17 +121,17 @@ template <typename Data, typename Fn>
 void PostOrderVisit(types::Ptr<Data> const & node, Fn && fn)
 {
   base::ControlFlowWrapper<Fn> wrapper(std::forward<Fn>(fn));
-  std::function<base::ControlFlow(types::Ptr<Data> const &)> preOrderVisitDetail;
-  preOrderVisitDetail = [&](auto const & node) {
+  std::function<base::ControlFlow(types::Ptr<Data> const &)> postOrderVisitDetail;
+  postOrderVisitDetail = [&](auto const & node) {
     for (auto const & ch : node->GetChildren())
     {
-      if (preOrderVisitDetail(ch) == base::ControlFlow::Break)
+      if (postOrderVisitDetail(ch) == base::ControlFlow::Break)
         return base::ControlFlow::Break;
     }
 
     return wrapper(node);
   };
-  preOrderVisitDetail(node);
+  postOrderVisitDetail(node);
 }
 
 template <typename Data, typename Fn>

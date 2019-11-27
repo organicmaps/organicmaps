@@ -216,7 +216,7 @@ public:
   // TODO |GetNode()|, |lat|, |lon| are used as y, x in real.
   bool GetNode(Key id, double & lat, double & lon) const override
   {
-    return m_nodes.GetPoint(id, lat, lon);
+  bool GetRalation(Key id, RelationElement & e) { return m_relations.Read(id, e); }
   }
   
   bool GetWay(Key id, WayElement & e) override { return m_ways.Read(id, e); }

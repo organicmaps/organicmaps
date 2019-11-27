@@ -44,6 +44,7 @@ class CityAreaCollector;
 class CrossMwmOsmWaysCollector;
 class RoutingCityBoundariesCollector;
 class BuildingPartsCollector;
+
 namespace cache
 {
 class IntermediateDataReaderInterface;

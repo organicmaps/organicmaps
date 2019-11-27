@@ -5,6 +5,8 @@
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/assert.hpp"
+
 #include <algorithm>
 #include <cmath>
 #include <fstream>
@@ -13,7 +15,6 @@
 #include <iterator>
 #include <limits>
 #include <numeric>
-#include "base/assert.hpp"
 
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/register/point.hpp>
@@ -107,9 +108,9 @@ HierarchyLinker::Node::Ptr HierarchyLinker::FindPlaceParent(HierarchyPlace const
   auto const point = place.GetCenter();
   m_tree.ForEachInRect({point, point}, [&](auto const & candidateNode) {
     // https://wiki.openstreetmap.org/wiki/Simple_3D_buildings
-    // An object with tag 'building:part' is a part of a releation with tag 'building' or contained
-    // in a object with tag 'building'. This case is second. We suppose a building part is only
-    // inside a building.
+    // An object with tag 'building:part' is a part of a relation with outline 'building' or
+    // is contained in a object with tag 'building'. This case is second. We suppose a building part is
+    // only inside a building.
     static auto const & buildingChecker = ftypes::IsBuildingChecker::Instance();
     static auto const & buildingPartChecker = ftypes::IsBuildingPartChecker::Instance();
     auto const & candidate = candidateNode->GetData();
@@ -195,17 +196,22 @@ HierarchyBuilder::Node::Ptrs HierarchyBuilder::Build()
   places.reserve(fbs.size());
   std::transform(std::cbegin(fbs), std::cend(fbs), std::back_inserter(places),
                  [](auto const & fb) { return std::make_shared<Node>(HierarchyPlace(fb)); });
-  return HierarchyLinker(std::move(places)).Link();
+  auto nodes = HierarchyLinker(std::move(places)).Link();
+  // We leave only the trees.
+  base::EraseIf(nodes, [](auto const & node) {
+    return node->HasParent();
+  });
+  return nodes;
 }
 
-HierarchyLineEnricher::HierarchyLineEnricher(std::string const & osm2FtIdsPath,
+HierarchyEntryEnricher::HierarchyEntryEnricher(std::string const & osm2FtIdsPath,
                                              std::string const & countryFullPath)
   : m_featureGetter(countryFullPath)
 {
   CHECK(m_osm2FtIds.ReadFromFile(osm2FtIdsPath), (osm2FtIdsPath));
 }
 
-boost::optional<m2::PointD> HierarchyLineEnricher::GetFeatureCenter(CompositeId const & id) const
+boost::optional<m2::PointD> HierarchyEntryEnricher::GetFeatureCenter(CompositeId const & id) const
 {
   auto const optIds = m_osm2FtIds.GetFeatureIds(id);
   if (optIds.empty())
@@ -227,9 +233,10 @@ boost::optional<m2::PointD> HierarchyLineEnricher::GetFeatureCenter(CompositeId 
           (id, optIds));
   }
 
-  for (auto type :
-       {base::Underlying(feature::GeomType::Point), base::Underlying(feature::GeomType::Area),
-        base::Underlying(feature::GeomType::Line)})
+  for (auto type : {
+       base::Underlying(feature::GeomType::Point),
+       base::Underlying(feature::GeomType::Area),
+       base::Underlying(feature::GeomType::Line)})
   {
     if (m.count(type) != 0)
       return m[type];
@@ -238,8 +245,8 @@ boost::optional<m2::PointD> HierarchyLineEnricher::GetFeatureCenter(CompositeId 
   return {};
 }
 
-HierarchyLinesBuilder::HierarchyLinesBuilder(HierarchyBuilder::Node::Ptrs && nodes)
-  : m_nodes(std::move(nodes))
+HierarchyLinesBuilder::HierarchyLinesBuilder(HierarchyBuilder::Node::Ptrs && trees)
+  : m_trees(std::move(trees))
 {
 }
 
@@ -255,8 +262,8 @@ void HierarchyLinesBuilder::SetCountry(storage::CountryId const & country)
   m_countryName = country;
 }
 
-void HierarchyLinesBuilder::SetHierarchyLineEnricher(
-    std::unique_ptr<HierarchyLineEnricher> && enricher)
+void HierarchyLinesBuilder::SetHierarchyEntryEnricher(
+    std::unique_ptr<HierarchyEntryEnricher> && enricher)
 {
   m_enricher = std::move(enricher);
 }
@@ -267,9 +274,13 @@ std::vector<HierarchyEntry> HierarchyLinesBuilder::GetHierarchyLines()
   CHECK(m_getMainType, ());
 
   std::vector<HierarchyEntry> lines;
-  lines.reserve(m_nodes.size());
-  std::transform(std::cbegin(m_nodes), std::cend(m_nodes), std::back_inserter(lines),
-                 [&](auto const & n) { return Transform(n); });
+  for (auto const & tree : m_trees)
+  {
+    tree_node::PreOrderVisit(tree, [&](auto const & node) {
+      lines.emplace_back(Transform(node));
+    });
+  }
+
   return lines;
 }
 

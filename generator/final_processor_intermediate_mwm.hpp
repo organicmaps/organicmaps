@@ -160,7 +160,7 @@ public:
 private:
   static void FlattenBuildingParts(hierarchy::HierarchyBuilder::Node::Ptrs & nodes);
 
-  std::unique_ptr<hierarchy::HierarchyLineEnricher> CreateEnricher(
+  std::unique_ptr<hierarchy::HierarchyEntryEnricher> CreateEnricher(
       std::string const & countryName) const;
   void WriteLines(std::vector<HierarchyEntry> const & lines);
   std::unordered_map<base::GeoObjectId, feature::FeatureBuilder> RemoveRelationBuildingParts(
@@ -173,7 +173,7 @@ private:
   hierarchy::PrintFn m_printFunction;
   hierarchy::GetNameFn m_getName;
   std::shared_ptr<FilterInterface> m_filter;
-  std::unique_ptr<BuildingToBuildingPartsMap> m_buildingToBuildingParts;
+  std::unique_ptr<BuildingToBuildingPartsMap> m_buildingToParts;
   bool m_useCentersEnricher = false;
   std::string m_mwmTmpPath;
   std::string m_outFilename;

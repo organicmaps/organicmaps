@@ -603,10 +603,10 @@ void ComplexFinalProcessor::UseCentersEnricher(std::string const & mwmPath,
   m_osm2ftPath = osm2ftPath;
 }
 
-std::unique_ptr<hierarchy::HierarchyLineEnricher> ComplexFinalProcessor::CreateEnricher(
+std::unique_ptr<hierarchy::HierarchyEntryEnricher> ComplexFinalProcessor::CreateEnricher(
     std::string const & countryName) const
 {
-  return std::make_unique<hierarchy::HierarchyLineEnricher>(
+  return std::make_unique<hierarchy::HierarchyEntryEnricher>(
       base::JoinPath(m_osm2ftPath, countryName + DATA_FILE_EXTENSION OSM2FEATURE_FILE_EXTENSION),
       base::JoinPath(m_mwmPath, countryName + DATA_FILE_EXTENSION));
 }
@@ -628,10 +628,10 @@ void ComplexFinalProcessor::Process()
       auto countryName = filename;
       strings::ReplaceLast(countryName, DATA_FILE_EXTENSION_TMP, "");
       // https://wiki.openstreetmap.org/wiki/Simple_3D_buildings
-      // An object with tag 'building:part' is a part of a releation with tag 'building' or
-      // contained in a object with tag 'building'. This case is first. We need to remove objects
-      // with tag 'building:part', which were saved by the collector. Then we will add them
-      // separately.
+      // An object with tag 'building:part' is a part of a relation with outline 'building' or
+      // is contained in an object with tag 'building'. We will split data and work with
+      // these cases separately. First of all let's remove objects with tag building:part is contained
+      // in relations. We will add them back after data processing.
       std::unordered_map<base::GeoObjectId, FeatureBuilder> relationBuildingParts;
       if (m_buildingToParts)
         relationBuildingParts = RemoveRelationBuildingParts(filename);
@@ -640,7 +640,14 @@ void ComplexFinalProcessor::Process()
       hierarchy::HierarchyBuilder builder(base::JoinPath(m_mwmTmpPath, filename));
       builder.SetGetMainTypeFunction(m_getMainType);
       builder.SetFilter(m_filter);
-      auto nodes = builder.Build();
+      auto trees = builder.Build();
+
+      // We remove tree roots with tag 'building:part'.
+      base::EraseIf(trees, [](auto const & node) {
+        static auto const & buildingPartChecker = ftypes::IsBuildingPartChecker::Instance();
+        return buildingPartChecker(node->GetData().GetTypes());
+      });
+
       // We want to transform
       // building
       //        |_building-part
@@ -649,19 +656,20 @@ void ComplexFinalProcessor::Process()
       // building
       //        |_building-part
       //        |_building-part
-      FlattenBuildingParts(nodes);
+      FlattenBuildingParts(trees);
       // In the end we add objects, which were saved by the collector.
       if (m_buildingToParts)
-        AddRelationBuildingParts(nodes, relationBuildingParts);
+        AddRelationBuildingParts(trees, relationBuildingParts);
 
-      hierarchy::HierarchyLinesBuilder linesBuilder(std::move(nodes));
+      // We create and save hierarchy lines.
+      hierarchy::HierarchyLinesBuilder hierarchyBuilder(std::move(trees));
       if (m_useCentersEnricher)
-        linesBuilder.SetHierarchyLineEnricher(CreateEnricher(countryName));
+        hierarchyBuilder.SetHierarchyEntryEnricher(CreateEnricher(countryName));
 
-      linesBuilder.SetCountry(countryName);
-      linesBuilder.SetGetMainTypeFunction(m_getMainType);
-      linesBuilder.SetGetNameFunction(m_getName);
-      return linesBuilder.GetHierarchyLines();
+      hierarchyBuilder.SetCountry(countryName);
+      hierarchyBuilder.SetGetMainTypeFunction(m_getMainType);
+      hierarchyBuilder.SetGetNameFunction(m_getName);
+      return hierarchyBuilder.GetHierarchyLines();
     });
     futures.emplace_back(std::move(future));
   });
@@ -708,7 +716,7 @@ void ComplexFinalProcessor::AddRelationBuildingParts(
 
     tree_node::PostOrderVisit(node, [&](auto const & n) {
       auto const buildingId = n->GetData().GetCompositeId();
-      auto const & ids = m_buildingToParts->GetBuildingPartByOutlineId(buildingId);
+      auto const & ids = m_buildingToParts->GetBuildingPartsByOutlineId(buildingId);
       for (auto const & id : ids)
       {
         if (m.count(id) == 0)
@@ -731,30 +739,33 @@ void ComplexFinalProcessor::FlattenBuildingParts(hierarchy::HierarchyBuilder::No
     if (node->HasParent())
       continue;
 
-    static auto const & buildingPartChecker = ftypes::IsBuildingPartChecker::Instance();
-    if (buildingPartChecker(node->GetData().GetTypes()))
-      continue;
-
     std::vector<
         std::pair<hierarchy::HierarchyBuilder::Node::Ptr, hierarchy::HierarchyBuilder::Node::Ptr>>
         buildingPartsTrees;
-    while (true)
-    {
-      auto buildingPartsTree = tree_node::FindIf(
-          node, [](auto const & data) { return buildingPartChecker(data.GetTypes()); });
 
-      if (!buildingPartsTree)
-        break;
+    static auto const & buildingPartChecker = ftypes::IsBuildingPartChecker::Instance();
+    std::function<void(hierarchy::HierarchyBuilder::Node::Ptr const &)> visit;
+    visit = [&](auto const & nd) {
+      if (buildingPartChecker(nd->GetData().GetTypes()))
+      {
+        CHECK(nd->HasParent(), ());
+        auto building = nd->GetParent();
+        buildingPartsTrees.emplace_back(building, nd);
+        return;
+      }
 
-      CHECK(buildingPartsTree->HasParent(), ());
-      auto building = buildingPartsTree->GetParent();
-      Unlink(buildingPartsTree, building);
-      buildingPartsTrees.emplace_back(building, buildingPartsTree);
-    }
+      CHECK(!buildingPartChecker(node->GetData().GetTypes()), ());
+      for (auto const & ch : nd->GetChildren())
+        visit(ch);
+    };
+
+    visit(node);
 
     for (auto const & buildingAndParts : buildingPartsTrees)
     {
+      Unlink(buildingAndParts.second, buildingAndParts.first);
       tree_node::PostOrderVisit(buildingAndParts.second, [&](auto const & buildingPartNode) {
+        CHECK(buildingPartChecker(buildingPartNode->GetData().GetTypes()), ());
         buildingPartNode->RemoveChildren();
         tree_node::Link(buildingPartNode, buildingAndParts.first);
       });

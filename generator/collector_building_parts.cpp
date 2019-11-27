@@ -18,7 +18,6 @@
 #include "base/control_flow.hpp"
 #include "base/stl_helpers.hpp"
 
-#include <mutex.h>
 #include <algorithm>
 #include <unordered_map>
 #include <utility>
@@ -32,15 +31,13 @@ class RelationFetcher
 public:
   RelationFetcher(IdRelationVec & elements) : m_elements(elements) {}
 
-  template <class Reader>
-  base::ControlFlow operator()(uint64_t id, Reader & reader)
+  void operator()(uint64_t id, generator::cache::OSMElementCacheReader & reader)
   {
     RelationElement element;
     if (reader.Read(id, element))
       m_elements.emplace_back(id, std::move(element));
     else
       LOG(LWARNING, ("Cannot read relation with id", id));
-    return base::ControlFlow::Continue;
   }
 
 private:
@@ -77,49 +74,50 @@ void BuildingPartsCollector::CollectFeature(feature::FeatureBuilder const & fb,
 
   auto const parts = FindAllBuildingParts(topId);
   if (!parts.empty())
-    WritePair(MakeCompositeId(fb), parts);
+    WriteBuildingParts(MakeCompositeId(fb), parts);
 }
 
 std::vector<base::GeoObjectId> BuildingPartsCollector::FindAllBuildingParts(
     base::GeoObjectId const & id)
 {
-  std::vector<base::GeoObjectId> buildingPatrs;
+  std::vector<base::GeoObjectId> buildingParts;
   RelationElement relation;
-  if (!m_cache->GetRalation(id.GetSerialId(), relation))
+  if (!m_cache->GetRelation(id.GetSerialId(), relation))
   {
     LOG(LWARNING, ("Cannot read relation with id", id));
-    return buildingPatrs;
+    return buildingParts;
   }
 
   for (auto const & v : relation.m_ways)
   {
     if (v.second == "part")
-      buildingPatrs.emplace_back(base::MakeOsmWay(v.first));
+      buildingParts.emplace_back(base::MakeOsmWay(v.first));
   }
 
   for (auto const & v : relation.m_relations)
   {
     if (v.second == "part")
-      buildingPatrs.emplace_back(base::MakeOsmRelation(v.first));
+      buildingParts.emplace_back(base::MakeOsmRelation(v.first));
   }
-  return buildingPatrs;
+  return buildingParts;
 }
 
 base::GeoObjectId BuildingPartsCollector::FindTopRelation(OsmElement const & element)
 {
   IdRelationVec elements;
   RelationFetcher fetcher(elements);
+  base::ControlFlowWrapper<decltype(fetcher)> wrapper(fetcher);
   IdRelationVec::const_iterator it;
   if (element.IsWay())
   {
-    m_cache->ForEachRelationByNodeCached(element.m_id, fetcher);
+    m_cache->ForEachRelationByWayCached(element.m_id, wrapper);
     it = base::FindIf(elements, [&](auto const & idRelation) {
       return idRelation.second.GetWayRole(element.m_id) == "outline";
     });
   }
   else if (element.IsRelation())
   {
-    m_cache->ForEachRelationByRelationCached(element.m_id, fetcher);
+    m_cache->ForEachRelationByRelationCached(element.m_id, wrapper);
     it = base::FindIf(elements, [&](auto const & idRelation) {
       return idRelation.second.GetRelationRole(element.m_id) == "outline";
     });
@@ -128,8 +126,8 @@ base::GeoObjectId BuildingPartsCollector::FindTopRelation(OsmElement const & ele
   return it != std::end(elements) ? base::MakeOsmRelation(it->first) : base::GeoObjectId();
 }
 
-void BuildingPartsCollector::WritePair(CompositeId const & id,
-                                       std::vector<base::GeoObjectId> const & buildingParts)
+void BuildingPartsCollector::WriteBuildingParts(CompositeId const & id,
+                                                std::vector<base::GeoObjectId> const & buildingParts)
 {
   WriteToSink(m_writer, id.m_mainId.GetEncodedId());
   WriteToSink(m_writer, id.m_additionalId.GetEncodedId());
@@ -166,16 +164,18 @@ BuildingToBuildingPartsMap::BuildingToBuildingPartsMap(std::string const & filen
   while (src.Size() > 0)
   {
     base::GeoObjectId const mainId(ReadPrimitiveFromSource<uint64_t>(src));
-    CompositeId const outlineId(mainId, base::GeoObjectId(ReadPrimitiveFromSource<uint64_t>(src)));
+    base::GeoObjectId const additionalId(ReadPrimitiveFromSource<uint64_t>(src));
+    CompositeId const outlineId(mainId, additionalId);
     std::vector<base::GeoObjectId> buildingParts;
     auto contSize = ReadVarUint<uint32_t>(src);
     buildingParts.reserve(contSize);
     while (contSize--)
     {
       base::GeoObjectId const id(ReadPrimitiveFromSource<uint64_t>(src));
-      m_buildingParts.emplace_back(id);
       buildingParts.emplace_back(id);
     }
+    m_buildingParts.insert(std::end(m_buildingParts),
+                           std::begin(buildingParts), std::end(buildingParts));
     m_outlineToBuildingPart.emplace_back(outlineId, std::move(buildingParts));
   }
 
@@ -190,7 +190,7 @@ bool BuildingToBuildingPartsMap::HasBuildingPart(base::GeoObjectId const & id)
   return std::binary_search(std::cbegin(m_buildingParts), std::cend(m_buildingParts), id);
 }
 
-std::vector<base::GeoObjectId> const & BuildingToBuildingPartsMap::GetBuildingPartByOutlineId(
+std::vector<base::GeoObjectId> const & BuildingToBuildingPartsMap::GetBuildingPartsByOutlineId(
     CompositeId const & id)
 {
   auto const it =

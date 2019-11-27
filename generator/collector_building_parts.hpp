@@ -48,7 +48,7 @@ public:
 private:
   base::GeoObjectId FindTopRelation(OsmElement const & element);
   std::vector<base::GeoObjectId> FindAllBuildingParts(base::GeoObjectId const & id);
-  void WritePair(CompositeId const & id, std::vector<base::GeoObjectId> const & buildingParts);
+  void WriteBuildingParts(CompositeId const & id, std::vector<base::GeoObjectId> const & buildingParts);
 
   std::shared_ptr<cache::IntermediateDataReader> m_cache;
   std::unique_ptr<FileWriter> m_writer;
@@ -60,7 +60,7 @@ public:
   explicit BuildingToBuildingPartsMap(std::string const & filename);
 
   bool HasBuildingPart(base::GeoObjectId const & id);
-  std::vector<base::GeoObjectId> const & GetBuildingPartByOutlineId(CompositeId const & id);
+  std::vector<base::GeoObjectId> const & GetBuildingPartsByOutlineId(CompositeId const & id);
 
 private:
   std::vector<base::GeoObjectId> m_buildingParts;

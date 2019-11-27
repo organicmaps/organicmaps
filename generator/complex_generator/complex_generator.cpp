@@ -54,7 +54,7 @@ DEFINE_string(maps_build_path, "",
               "Directory of any of the previous map generations. It is assumed that it will "
               "contain a directory with mwm(for example 190423) and a directory with mappings from "
               "osm is to a feature id.");
-DEFINE_bool(popularity, false, "Build complexes for caclulation of popularity of objects.");
+DEFINE_bool(popularity, false, "Build complexes for calculation of popularity of objects.");
 DEFINE_string(output, "", "Output filename");
 DEFINE_bool(debug, false, "Debug mode.");
 
@@ -119,7 +119,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv) {
     // Directory FLAGS_maps_build_path must contain 'osm2ft' directory with *.mwm.osm2ft
     auto const osm2FtPath = base::JoinPath(FLAGS_maps_build_path, "osm2ft");
     // Find directory with *.mwm. Directory FLAGS_maps_build_path must contain directory with *.mwm,
-    // which name must contain six digits.
+    // whose name must consist of six digits.
     Platform::FilesList files;
     pl.GetFilesByRegExp(FLAGS_maps_build_path, "[0-9]{6}", files);
     CHECK_EQUAL(files.size(), 1, ());

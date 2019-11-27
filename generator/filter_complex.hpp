@@ -6,7 +6,7 @@
 
 namespace generator
 {
-// The filter will leave only elements for complex.
+// The filter will leave only elements for complexes.
 class FilterComplex : public FilterInterface
 {
 public:
