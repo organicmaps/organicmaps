@@ -127,6 +127,7 @@ bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
     {"Adreno (TM) 506", {1, 0, 31}, {42, 264, 975}},
     {"Adreno (TM) 506", {1, 1, 66}, {512, 313, 0}},
     {"Adreno (TM) 530", {1, 1, 66}, {512, 313, 0}},
+    {"Mali-G76", {1, 1, 97}, {18, 0, 0}},
   };
 
   for (auto const & d : kBannedDevices)
