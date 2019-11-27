@@ -10227,6 +10227,7 @@
     pt-BR = Vermelho
     ro = Roșu
     es = Rojo
+    es-MX = Rojo
     sv = Röd
     th = สีแดง
     tr = Kırmızı
@@ -10235,14 +10236,14 @@
     zh-Hans = 红色
     zh-Hant = 紅色
     el = Κόκκινο
-    sk = červená
+    sk = Červená
     fa = قرمز
 
   [yellow]
     comment = yellow color
     tags = android, ios
     en = Yellow
-    ru = Желтый
+    ru = Жёлтый
     ar = أصفر
     cs = Žlutá
     da = Gul
@@ -10261,6 +10262,7 @@
     pt-BR = Amarelo
     ro = Galben
     es = Amarillo
+    es-MX = Amarillo
     sv = Gul
     th = สีเหลือง
     tr = Sarı
@@ -10269,7 +10271,7 @@
     zh-Hans = 黄色
     zh-Hant = 黃色
     el = Κίτρινο
-    sk = žltá
+    sk = Žltá
     fa = زرد
 
   [blue]
@@ -10295,6 +10297,7 @@
     pt-BR = Azul
     ro = Albastru
     es = Azul
+    es-MX = Azul
     sv = Blå
     th = สีน้ำเงิน
     tr = Mavi
@@ -10303,14 +10306,14 @@
     zh-Hans = 蓝色
     zh-Hant = 藍色
     el = Μπλε
-    sk = modrá
+    sk = Modrá
     fa = ابی
 
   [green]
     comment = green color
     tags = android, ios
     en = Green
-    ru = Зеленый
+    ru = Зелёный
     ar = أخضر
     cs = Zelená
     da = Grøn
@@ -10329,6 +10332,7 @@
     pt-BR = Verde
     ro = Verde
     es = Verde
+    es-MX = Verde
     sv = Grön
     th = สีเขียว
     tr = Yeşil
@@ -10337,17 +10341,17 @@
     zh-Hans = 绿色
     zh-Hant = 綠色
     el = Πράσινο
-    sk = zelená
+    sk = Zelená
     fa = سبز
 
   [purple]
     comment = purple color
     tags = android, ios
     en = Purple
-    ru = Фиолетовый
+    ru = Пурпурный
     ar = أرجواني
     cs = Purpurová
-    da = violet
+    da = Violet
     nl = Paars
     fi = Violetti
     fr = Pourpre
@@ -10363,6 +10367,7 @@
     pt-BR = Roxo
     ro = Purpuriu
     es = Morado
+    es-MX = Morado
     sv = Lila
     th = สีม่วง
     tr = Mor
@@ -10371,7 +10376,7 @@
     zh-Hans = 紫色
     zh-Hant = 紫色
     el = Μωβ
-    sk = purpurová
+    sk = Purpurová
     fa = بنفش
 
   [orange]
@@ -10397,6 +10402,7 @@
     pt-BR = Laranja
     ro = Portocaliu
     es = Naranja
+    es-MX = Naranja
     sv = Orange
     th = สีส้ม
     tr = Turuncu
@@ -10405,7 +10411,7 @@
     zh-Hans = 橘红色
     zh-Hant = 橘色
     el = Πορτοκαλί
-    sk = oranžová
+    sk = Oranžová
     fa = نارنجی
 
   [brown]
@@ -10431,6 +10437,7 @@
     pt-BR = Marrom
     ro = Maro
     es = Marrón
+    es-MX = Marrón
     sv = Brun
     th = สีน้ำตาล
     tr = Kahverengi
@@ -10439,7 +10446,7 @@
     zh-Hans = 棕色
     zh-Hant = 棕色
     el = Καφέ
-    sk = hnedá
+    sk = Hnedá
     fa = قهوای
 
   [pink]
@@ -10465,6 +10472,7 @@
     pt-BR = Rosa
     ro = Roz
     es = Rosa
+    es-MX = Rosa
     sv = Rosa
     th = สีชมพู
     tr = Pembe
@@ -10473,8 +10481,296 @@
     zh-Hans = 粉色
     zh-Hant = 粉色
     el = Ροζ
-    sk = ružová
+    sk = Ružová
     fa = صورتی
+
+  [deep_purple]
+    comment = deep purple color
+    tags = android, ios
+    en = Deep Purple
+    ru = Тёмно-пурпурный
+    ar = أرجواني داكن
+    cs = Tmavě fialová
+    da = Mørkelilla
+    nl = Donker paars
+    fi = Tumman purppuranpunainen
+    fr = Pourpre foncé
+    de = Dunkelpurpur
+    hu = Sötét lila
+    id = Ungu Gelap
+    it = Viola scuro
+    ja = ディープパープル
+    ko = 진보라색
+    nb = Mørkepurpur
+    pl = Ciemnopurpurowy
+    pt = Purpúreo escuro
+    pt-BR = Lilás escuro
+    ro = Purpuriu închis
+    es = Morado oscuro
+    es-MX = Morado oscuro
+    sv = Mörk purpur
+    th = สีม่วงเข้ม
+    tr = Koyu Mor
+    uk = Темно-пурпуровий
+    vi = Tía thẫm
+    el = Βαθύ πορφυρό
+    sk = Tmavofialová
+    sw = Zambarau Iliyoiva
+    zh-Hans = 暗紫色
+    zh-Hant = 暗紫色
+    fa = ارغوانی سیر
+
+  [light_blue]
+    comment = light blue color
+    tags = android, ios
+    en = Light Blue
+    ru = Голубой
+    ar = أزرق فاتح
+    cs = Světle modrá
+    da = Lyseblå
+    nl = Lichtblauw
+    fi = Vaaleansininen
+    fr = Bleu ciel
+    de = Hellblau
+    hu = Világoskék
+    id = Biru Muda
+    it = Azzurro
+    ja = ライトブルー
+    ko = 하늘색
+    nb = Lyseblå
+    pl = Jasnoniebieski
+    pt = Azul Claro
+    pt-BR = Azul Claro
+    ro = Albastru deschis
+    es = Azul Claro
+    es-MX = Celeste
+    sv = Ljusblå
+    th = สีฟ้าอ่อน
+    tr = Açık Mavi
+    uk = Блакитний
+    vi = Xanh da trời
+    el = Γαλάζιο
+    sk = Svetlo modrá
+    sw = Buluu Hafifu
+    zh-Hans = 天蓝色
+    zh-Hant = 天藍色
+    fa = آبی کمرنگ
+
+  [cyan]
+    comment = cyan color
+    tags = android, ios
+    en = Cyan
+    ru = Сине-зелёный
+    ar = أزرق سماوي
+    cs = Cyan
+    da = Cyan
+    nl = Blauwgroen
+    fi = Sinivihreä
+    fr = Cyan
+    de = Blaugrün
+    hu = Cián
+    id = Biru Kehijauan
+    it = Cyan
+    ja = シアン
+    ko = 시안
+    nb = Blågrønn
+    pl = Niebieskozielony
+    pt = Azul-verde
+    pt-BR = Ciano
+    ro = Albastru-verziu
+    es = Cian
+    es-MX = Cian
+    sv = Blågrön
+    th = สีฟ้าอมเขียว
+    tr = Cam Göbeği
+    uk = Синьо-зелений
+    vi = Xanh lơ
+    el = Κυανό
+    sk = Tyrkysová
+    sw = Siani
+    zh-Hans = 蓝绿色
+    zh-Hant = 藍綠色
+    fa = فیروزه ای
+
+  [teal]
+    comment = teal color
+    tags = android, ios
+    en = Teal
+    ru = Изумрудный
+    ar = أخضر فاتح
+    cs = Teal
+    da = Blågrøn
+    nl = Smaragdgroen
+    fi = Smaragdinvihreä
+    fr = Émeraude
+    de = Smaragdgrün
+    hu = Zöldeskék
+    id = Biru Gelap
+    it = Verde smeraldo
+    ja = ティール
+    ko = 틸
+    nb = Smaragdgrønn
+    pl = Szmaragdowy
+    pt = Esmeralda
+    pt-BR = Cerceta
+    ro = Smarald
+    es = Verde azulado
+    es-MX = Verde azulado
+    sv = Smaragdgrön
+    th = สีเขียวนกเป็ดน้ำ
+    tr = Deniz Mavisi
+    uk = Смарагдовий
+    vi = Lục bảo
+    el = Σμαραγδένιο
+    sk = Modrozelená
+    sw = Teal
+    zh-Hans = 碧绿色
+    zh-Hant = 碧綠色
+    fa = آبی سیر
+
+  [lime]
+    comment = lime color
+    tags = android, ios
+    en = Lime
+    ru = Лайм
+    ar = ليموني
+    cs = Limeta
+    da = Lime
+    nl = Lime
+    fi = Limen värinen
+    fr = Vert citron
+    de = Limette
+    hu = Lime
+    id = Kuning Gelap
+    it = Verde fluo
+    ja = ライム
+    ko = 라임
+    nb = Limegrønn
+    pl = Lima
+    pt = Lima
+    pt-BR = Lima
+    ro = Var
+    es = Lima
+    es-MX = Lima
+    sv = Limefärg
+    th = สีเขียวอมเหลือง
+    tr = Çim Rengi
+    uk = Лайм
+    vi = Màu xanh chanh
+    el = Κιτρινοπράσινο
+    sk = Limetková
+    sw = Chokaa
+    zh-Hans = 青柠
+    zh-Hant = 青檸
+    fa = زرد لیویی
+
+  [deep_orange]
+    comment = deep orange color
+    tags = android, ios
+    en = Deep Orange
+    ru = Тёмно-оранжевый
+    ar = برتقالي داكن
+    cs = Tmavě oranžová
+    da = Dyb orange
+    nl = Donkeroranje
+    fi = Tumman oranssi
+    fr = Orange foncé
+    de = Dunkelorange
+    hu = Sötét Narancs
+    id = Oranye Gelap
+    it = Arancione scuro
+    ja = ディープオレンジ
+    ko = 진주황색
+    nb = Mørkeoransje
+    pl = Ciemnopomarańczowy
+    pt = Laranja escuro
+    pt-BR = Laranja escuro
+    ro = Portocaliu închis
+    es = Naranja oscuro
+    es-MX = Naranja oscuro
+    sv = Mörkorange
+    th = สีส้มเข้ม
+    tr = Koyu Turuncu
+    uk = Темно-помаранчевий
+    vi = Cam đậm
+    el = Βαθύ πορτοκαλί
+    sk = Tmavo oranžová
+    sw = Chungwa Iliyokoza
+    zh-Hans = 深橘色
+    zh-Hant = 深橘色
+    fa = نارنجی سیر
+
+  [gray]
+    comment = gray color
+    tags = android, ios
+    en = Gray
+    ru = Серый
+    ar = رمادي
+    cs = Šedá
+    da = Grå
+    nl = Grijs
+    fi = Harmaa
+    fr = Gris
+    de = Grau
+    hu = Szürke
+    id = Abu-abu
+    it = Grigio
+    ja = グレイ
+    ko = 회색
+    nb = Grå
+    pl = Szary
+    pt = Cinza
+    pt-BR = Cinza
+    ro = Gri
+    es = Gris
+    es-MX = Gris
+    sv = Grå
+    th = สีเทา
+    tr = Gri
+    uk = Сірий
+    vi = Xám
+    el = Γκρι
+    sk = Sivá
+    sw = Kijivu
+    zh-Hans = 灰色
+    zh-Hant = 灰色
+    fa = خاکستری
+
+  [blue_gray]
+    comment = blue gray color
+    tags = android, ios
+    en = Blue Gray
+    ru = Серо-голубой
+    ar = رمادي أزرق
+    cs = Modrošedá
+    da = Blågrå
+    nl = Grijsblauw
+    fi = Harmaan sininen
+    fr = Gris-bleu
+    de = Graublau
+    hu = Kékes Szürke
+    id = Biru Keabu-abuan
+    it = Grigiazzurro
+    ja = ブルーグレイ
+    ko = 청회색
+    nb = Gråblå
+    pl = Szaroniebieski
+    pt = Azul-cinza
+    pt-BR = Azul escuro
+    ro = Gri albăstriu
+    es = Gris azulado
+    es-MX = Gris azulado
+    sv = Ljusblå grå
+    th = สีฟ้าอมเทา
+    tr = Mavi Gri
+    uk = Сіро-блакитний
+    vi = Xám xanh da trời
+    el = Γκρίζο μπλε
+    sk = Modro sivá
+    sw = Kijivu Buluu
+    zh-Hans = 蓝灰色
+    zh-Hant = 藍灰色
+    fa = خاکستری کبود
 
   [WiFi_available]
     comment = Wi-Fi available
