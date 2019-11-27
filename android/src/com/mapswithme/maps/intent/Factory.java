@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+
 import com.mapswithme.maps.DownloadResourcesLegacyActivity;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MapFragment;
@@ -29,6 +30,9 @@ import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.onboarding.IntroductionScreenFactory;
+import com.mapswithme.maps.purchase.BookmarksAllSubscriptionActivity;
+import com.mapswithme.maps.purchase.BookmarksSightsSubscriptionActivity;
+import com.mapswithme.maps.purchase.SubscriptionType;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchEngine;
@@ -94,6 +98,12 @@ public class Factory
   public static IntentProcessor createDlinkBookmarkGuidesPageProcessor()
   {
     return new DlinkGuidesPageIntentProcessor();
+  }
+
+  @NonNull
+  public static IntentProcessor createDlinkBookmarksSubscriptionProcessor()
+  {
+    return new DlinkBookmarksSubscriptionIntentProcessor();
   }
 
   @NonNull
@@ -355,6 +365,32 @@ public class Factory
     MapTask createTargetTask(@NonNull String url)
     {
       return new GuidesPageToOpenTask(url);
+    }
+  }
+
+  public static class DlinkBookmarksSubscriptionIntentProcessor extends DlinkIntentProcessor
+  {
+    static final String SUBSCRIPTION = "subscription";
+
+    @Override
+    boolean isLinkSupported(@NonNull Uri data)
+    {
+      return (File.separator + SUBSCRIPTION).equals(data.getPath());
+    }
+
+    @Nullable
+    @Override
+    MapTask createIntroductionTask(@NonNull String url)
+    {
+      // In release 9.5 the introduction screen for this deeplink is forgotten.
+      return null;
+    }
+
+    @NonNull
+    @Override
+    MapTask createTargetTask(@NonNull String url)
+    {
+      return new BookmarksSubscriptionTask(url);
     }
   }
 
@@ -680,6 +716,43 @@ public class Factory
       value = intent.getFloatExtra(key, 0.0f);
 
     return value;
+  }
+
+  public static class BookmarksSubscriptionTask implements MapTask
+  {
+    private static final long serialVersionUID = 8378582625122063605L;
+    @NonNull
+    private final String mUrl;
+
+    BookmarksSubscriptionTask(@NonNull String url)
+    {
+      mUrl = url;
+    }
+
+    @Override
+    public boolean run(@NonNull MwmActivity target)
+    {
+      Uri uri = Uri.parse(mUrl);
+      String serverId = uri.getQueryParameter("deliverable");
+      if (TextUtils.isEmpty(serverId))
+        return false;
+
+      SubscriptionType type = SubscriptionType.getTypeByBookmarksGroup(serverId);
+
+      if (type.equals(SubscriptionType.BOOKMARKS_ALL))
+      {
+        BookmarksAllSubscriptionActivity.startForResult(target);
+        return true;
+      }
+
+      if (type.equals(SubscriptionType.BOOKMARKS_SIGHTS))
+      {
+        BookmarksSightsSubscriptionActivity.startForResult(target);
+        return true;
+      }
+
+      return false;
+    }
   }
 
   public static class ImportBookmarkCatalogueTask implements MapTask
