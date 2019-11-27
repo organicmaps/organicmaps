@@ -50,7 +50,7 @@ struct CatalogPath
 
 struct Subscription
 {
-  std::string m_deliverable;
+  std::string m_groups;
 };
 
 namespace lead

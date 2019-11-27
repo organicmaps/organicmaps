@@ -108,7 +108,7 @@ namespace catalogue_path
 
 namespace subscription
 {
-  char const * kDeliverable = "deliverable";
+  char const * kGroups = "groups";
 } // namespace subscription
 
 namespace
@@ -310,7 +310,7 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
                                               return SubscriptionKeyValue(key, value, item);
                                             });
 
-     if (!result || item.m_deliverable.empty())
+     if (!result || item.m_groups.empty())
        return ParsingResult::Incorrect;
 
      m_subscription = item;
@@ -518,8 +518,8 @@ bool ParsedMapApi::CatalogPathKeyValue(string const & key, string const & value,
 
 bool ParsedMapApi::SubscriptionKeyValue(string const & key, string const & value, Subscription & item) const
 {
-  if (key == subscription::kDeliverable)
-    item.m_deliverable = value;
+  if (key == subscription::kGroups)
+    item.m_groups = value;
 
   return true;
 }

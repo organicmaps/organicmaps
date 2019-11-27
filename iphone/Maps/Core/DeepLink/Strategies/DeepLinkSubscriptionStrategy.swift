@@ -11,15 +11,9 @@ class DeepLinkSubscriptionStrategy: IDeepLinkHandlerStrategy {
     guard let mapViewController = MapViewController.shared() else {
       return;
     }
-    let type: SubscriptionGroupType
-    switch data.deliverable {
-    case MWMPurchaseManager.bookmarksSubscriptionServerId():
-      type = .sightseeing
-    case MWMPurchaseManager.allPassSubscriptionServerId():
-      type = .allPass
-    default:
-      LOG(.error, "Deliverable is wrong: \(deeplinkURL.url)");
-      return;
+    guard let type: SubscriptionGroupType = SubscriptionGroupType(serverId: data.groups) else {
+      LOG(.error, "Groups is wrong: \(deeplinkURL.url)");
+      return
     }
     mapViewController.dismiss(animated: false, completion: nil)
     mapViewController.navigationController?.popToRootViewController(animated: false)
