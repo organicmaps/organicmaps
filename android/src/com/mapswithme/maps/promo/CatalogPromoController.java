@@ -84,14 +84,27 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
     if (mRequester == null)
       return;
 
-    GalleryPlacement placement;
-    if (mRequester.getSponsoredType() == Sponsored.TYPE_PROMO_CATALOG_CITY)
-      placement = GalleryPlacement.PLACEPAGE_LARGE_TOPONYMS;
-    else
-      placement = GalleryPlacement.PLACEPAGE_SIGHTSEEINGS;
+    GalleryPlacement placement = getGalleryPlacement(mRequester.getSponsoredType());
 
     Statistics.INSTANCE.trackGalleryError(GalleryType.PROMO, placement,
                                           Statistics.ParamValue.NO_PRODUCTS);
+  }
+
+  @SuppressLint("SwitchIntDef")
+  @NonNull
+  private static GalleryPlacement getGalleryPlacement(@Sponsored.SponsoredType int type)
+  {
+    switch (type)
+    {
+      case Sponsored.TYPE_PROMO_CATALOG_CITY:
+        return GalleryPlacement.PLACEPAGE_LARGE_TOPONYMS;
+      case Sponsored.TYPE_PROMO_CATALOG_SIGHTSEEINGS:
+        return GalleryPlacement.PLACEPAGE_SIGHTSEEINGS;
+      case Sponsored.TYPE_PROMO_CATALOG_OUTDOOR:
+        return GalleryPlacement.PLACEPAGE_OUTDOOR;
+      default:
+        throw new AssertionError("Unsupported catalog gallery type '" + type + "'!");
+    }
   }
 
   public void updateCatalogPromo(@NonNull NetworkPolicy policy, @Nullable MapObject mapObject)
@@ -255,9 +268,6 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
       mTitle.setText(R.string.pp_discovery_place_related_header);
 
       final PromoCityGallery.Item item = items[0];
-      final GalleryPlacement placement = mSponsoredType == Sponsored.TYPE_PROMO_CATALOG_SIGHTSEEINGS
-                                         ? GalleryPlacement.PLACEPAGE_SIGHTSEEINGS
-                                         : GalleryPlacement.PLACEPAGE_LARGE_TOPONYMS;
 
       ImageView poiImage = mPlacePageView.findViewById(R.id.promo_poi_image);
       Glide.with(poiImage.getContext())
@@ -271,6 +281,7 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
       subtitle.setText(TextUtils.isEmpty(item.getTourCategory()) ? item.getAuthor().getName()
                                                                  : item.getTourCategory());
       View cta = mPlacePageView.findViewById(R.id.place_single_bookmark_cta);
+      final GalleryPlacement placement = getGalleryPlacement(mSponsoredType);
       cta.setOnClickListener(v -> onCtaClicked(placement, item.getUrl()));
 
       PromoCityGallery.Place place = item.getPlace();
@@ -337,8 +348,7 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
       mTitle.setText(title);
 
       String url = promo.getMoreUrl();
-      GalleryPlacement placement = isSightseeings ? GalleryPlacement.PLACEPAGE_SIGHTSEEINGS :
-                                   GalleryPlacement.PLACEPAGE_LARGE_TOPONYMS;
+      GalleryPlacement placement = getGalleryPlacement(mSponsoredType);
       RegularCatalogPromoListener promoListener = new RegularCatalogPromoListener(requireActivity(),
                                                                                   placement);
       GalleryAdapter adapter = Factory.createCatalogPromoAdapter(requireActivity(), promo, url,
