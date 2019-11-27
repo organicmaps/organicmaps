@@ -279,9 +279,17 @@ private:
       return bestDistance.at(queue.top().vertex);
     }
 
-    // p_f(v) = 0.5*(π_f(v) - π_r(v)) + 0.5*π_r(t)
-    // p_r(v) = 0.5*(π_r(v) - π_f(v)) + 0.5*π_f(s)
-    // p_r(v) + p_f(v) = const. Note: this condition is called consistence.
+    // p_f(v) = 0.5*(π_f(v) - π_r(v))
+    // p_r(v) = 0.5*(π_r(v) - π_f(v))
+    // p_r(v) + p_f(v) = const. This condition is called consistence.
+    //
+    // Note. Adding constant terms to p_f(v) or p_r(v) does
+    // not violate the consistence so a common choice is
+    //     p_f(v) = 0.5*(π_f(v) - π_r(v)) + 0.5*π_r(t)
+    //     p_r(v) = 0.5*(π_r(v) - π_f(v)) + 0.5*π_f(s)
+    // which leads to p_f(t) = 0 and p_r(s) = 0.
+    // However, with constants set to zero understanding
+    // particular routes when debugging turned out to be easier.
     Weight ConsistentHeuristic(Vertex const & v) const
     {
       auto const piF = graph.HeuristicCostEstimate(v, finalVertex);
@@ -568,7 +576,7 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
       // We do not yet have the proof that we will not miss a good path by doing so.
 
       // The shortest reduced path corresponds to the shortest real path
-      // because the heuristics we use are consistent.
+      // because the heuristic we use are consistent.
       // It would be a mistake to make a decision based on real path lengths because
       // several top states in a priority queue may have equal reduced path lengths and
       // different real path lengths.
@@ -587,7 +595,7 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
                                      cur->forward ? cur->finalVertex : cur->startVertex);
 
     cur->GetAdjacencyList(stateV.vertex, adj);
-    auto const pV = stateV.heuristic;
+    auto const & pV = stateV.heuristic;
     for (auto const & edge : adj)
     {
       State stateW(edge.GetTarget(), kZeroDistance);
