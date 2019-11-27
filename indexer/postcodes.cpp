@@ -57,6 +57,8 @@ unique_ptr<Postcodes> Postcodes::Load(Reader & reader)
   // Decodes block encoded by writeBlockCallback from PostcodesBuilder::Freeze.
   auto const readBlockCallback = [&](NonOwningReaderSource & source, uint32_t blockSize,
                                      vector<uint32_t> & values) {
+    // We may have some unused values it the tail of the last block but it's ok because
+    // default block size is 64.
     values.resize(blockSize);
     for (size_t i = 0; i < blockSize && source.Size() > 0; ++i)
       values[i] = ReadVarUint<uint32_t>(source);
@@ -84,8 +86,7 @@ void PostcodesBuilder::Put(uint32_t featureId, std::string const & postcode)
   {
     postcodeId = base::asserted_cast<uint32_t>(m_postcodeToId.size());
     m_postcodeToId[postcode] = postcodeId;
-    CHECK_EQUAL(m_idToPostcode.count(postcodeId), 0, ());
-    m_idToPostcode[postcodeId] = postcode;
+    CHECK(m_idToPostcode.emplace(postcodeId, postcode).second, ());
     CHECK_EQUAL(m_idToPostcode.size(), m_postcodeToId.size(), ());
   }
   m_builder.Put(featureId, postcodeId);

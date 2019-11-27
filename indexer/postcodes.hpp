@@ -49,9 +49,9 @@ public:
 
   static std::unique_ptr<Postcodes> Load(Reader & reader);
 
-  // Tries to get |postcode| of the feature identified by |id|.  Returns
-  // false if table does not have entry for the feature.
-  WARN_UNUSED_RESULT bool Get(uint32_t id, std::string & postcode);
+  // Tries to get |postcode| of the feature with id |featureId|. Returns false if table
+  // does not have entry for the feature.
+  WARN_UNUSED_RESULT bool Get(uint32_t featureId, std::string & postcode);
 
 private:
   using Map = MapUint32ToValue<uint32_t>;
