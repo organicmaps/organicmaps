@@ -630,7 +630,7 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
           [Statistics logEvent:kStatPlacepageSponsoredItemSelected
                 withParameters:@{
                                  kStatProvider: kStatMapsmeGuides,
-                                 kStatPlacement: kStatPlacePageSightSeeing,
+                                 kStatPlacement: [self.data statPlacement],
                                  kStatItem: @(0),
                                  kStatDestination: kStatCatalogue
                                  }];
@@ -643,7 +643,7 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
           [Statistics logEvent:kStatPlacepageSponsoredItemSelected
                 withParameters:@{
                                  kStatProvider: kStatMapsmeGuides,
-                                 kStatPlacement: kStatPlacePageSightSeeing,
+                                 kStatPlacement: [self.data statPlacement],
                                  kStatItem: @(0),
                                  kStatDestination: kStatCatalogue
                                  }];
@@ -895,7 +895,7 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
     [Statistics logEvent:kStatPlacepageSponsoredMoreSelected
           withParameters:@{
                            kStatProvider: kStatMapsmeGuides,
-                           kStatPlacement: self.data.isLargeToponym ? kStatPlacePageToponims : kStatPlacePageSightSeeing,
+                           kStatPlacement: [self.data statPlacement],
                            }];
   } else {
     promo::CityGallery::Item const &item = [self.data.promoGallery galleryItemAtIndex:indexPath.row];
@@ -908,7 +908,7 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
     [Statistics logEvent:kStatPlacepageSponsoredItemSelected
           withParameters:@{
                            kStatProvider: kStatMapsmeGuides,
-                           kStatPlacement: self.data.isLargeToponym ? kStatPlacePageToponims : kStatPlacePageSightSeeing,
+                           kStatPlacement: [self.data statPlacement],
                            kStatItem: @(indexPath.item + 1),
                            kStatDestination: kStatCatalogue
                            }];

@@ -324,6 +324,7 @@ static NSString * const kStatOverview = @"overview";
 static NSString * const kStatPedestrian = @"Pedestrian";
 static NSString * const kStatPhone = @"Phone";
 static NSString * const kStatPlacePage = @"placepage";
+static NSString * const kStatPlacePageOutdoor = @"placepage_outdoor";
 static NSString * const kStatPlacePageToponims = @"placepage_large_toponyms";
 static NSString * const kStatPlacePageSightSeeing = @"placepage_sightseeings";
 static NSString * const kStatPlacePageBannerBlank = @"Placepage_Banner_blank";
