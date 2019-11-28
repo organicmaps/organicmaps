@@ -63,9 +63,8 @@ public:
       m_trgFile.push_back(make_unique<TmpFile>(fName + TRIANGLE_FILE_TAG + postfix));
     }
 
-    m_helperFile.resize(FILES_COUNT);
-    m_helperFile[METADATA] = make_unique<TmpFile>(fName + METADATA_FILE_TAG);
-    m_helperFile[TEMP_ADDR] = make_unique<TmpFile>(fName + TEMP_ADDR_FILE_TAG);
+    m_metadataFile = make_unique<TmpFile>(fName + METADATA_FILE_TAG);
+    m_addrFile = make_unique<FileWriter>(fName + TEMP_ADDR_FILENAME);
   }
 
   ~FeaturesCollector2()
@@ -125,8 +124,7 @@ public:
       }
     }
 
-    finalizeFn(move(m_helperFile[METADATA]), METADATA_FILE_TAG);
-    finalizeFn(move(m_helperFile[TEMP_ADDR]), TEMP_ADDR_FILE_TAG);
+    finalizeFn(move(m_metadataFile), METADATA_FILE_TAG);
 
     m_writer.Finish();
 
@@ -225,17 +223,15 @@ public:
 
       featureId = WriteFeatureBase(buffer.m_buffer, fb);
 
-      fb.GetAddressData().Serialize(*(m_helperFile[TEMP_ADDR]));
+      fb.GetAddressData().Serialize(*m_addrFile);
 
       if (!fb.GetMetadata().Empty())
       {
-        auto const & w = m_helperFile[METADATA];
-
-        uint64_t const offset = w->Pos();
+        uint64_t const offset = m_metadataFile->Pos();
         ASSERT_LESS_OR_EQUAL(offset, numeric_limits<uint32_t>::max(), ());
 
         m_metadataOffset.emplace_back(featureId, static_cast<uint32_t>(offset));
-        fb.GetMetadata().Serialize(*w);
+        fb.GetMetadata().Serialize(*m_metadataFile);
       }
 
       if (fb.HasOsmIds())
@@ -256,13 +252,6 @@ private:
   };
 
   using TmpFiles = vector<unique_ptr<TmpFile>>;
-
-  enum
-  {
-    METADATA = 0,
-    TEMP_ADDR = 1,
-    FILES_COUNT = 2
-  };
 
   static bool IsGoodArea(Points const & poly, int level)
   {
@@ -294,7 +283,12 @@ private:
   }
 
   FilesContainerW m_writer;
-  TmpFiles m_helperFile;
+
+  // File used for postcodes and search sections build.
+  unique_ptr<FileWriter> m_addrFile;
+
+  // Temporary files for sections.
+  unique_ptr<TmpFile> m_metadataFile;
   TmpFiles m_geoFile, m_trgFile;
 
   // Mapping from feature id to offset in file section with the correspondent metadata.

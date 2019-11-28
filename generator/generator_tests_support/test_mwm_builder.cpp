@@ -23,6 +23,7 @@
 
 #include "coding/internal/file_data.hpp"
 
+#include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
 #include "defines.hpp"
@@ -141,7 +142,7 @@ void TestMwmBuilder::Finish()
   CHECK(base::DeleteFileX(tmpFilePath), ());
 
   string const path = m_file.GetPath(MapFileType::Map);
-  (void)base::DeleteFileX(path + OSM2FEATURE_FILE_EXTENSION);
+  UNUSED_VALUE(base::DeleteFileX(path + OSM2FEATURE_FILE_EXTENSION));
 
   CHECK(BuildOffsetsTable(path), ("Can't build feature offsets table."));
 
@@ -157,6 +158,8 @@ void TestMwmBuilder::Finish()
                                                 *m_postcodesCountryInfoGetter),
           ("Can't build postcodes section."));
   }
+
+  UNUSED_VALUE(base::DeleteFileX(path + TEMP_ADDR_FILENAME));
 
   if (m_type == DataHeader::MapType::World)
   {

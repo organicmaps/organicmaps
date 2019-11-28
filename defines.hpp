@@ -48,8 +48,6 @@
 #define REGION_INFO_FILE_TAG "rgninfo"
 #define METALINES_FILE_TAG "metalines"
 #define CAMERAS_INFO_FILE_TAG "speedcams"
-// Temporary addresses section that is used in search index and postcodes generation.
-#define TEMP_ADDR_FILE_TAG "tempaddr"
 #define TRAFFIC_KEYS_FILE_TAG "traffic"
 #define TRANSIT_CROSS_MWM_FILE_TAG "transit_cross_mwm"
 #define TRANSIT_FILE_TAG "transit"
@@ -106,6 +104,7 @@
 #define ROUTING_CITY_BOUNDARIES_TMP_FILENAME "routing_city_boundaries" DATA_FILE_EXTENSION_TMP
 #define ROUTING_CITY_BOUNDARIES_DUMP_FILENAME "routing_city_boundaries.bin"
 #define CROSS_MWM_OSM_WAYS_DIR "cross_mwm_osm_ways"
+#define TEMP_ADDR_FILENAME "tempaddr"
 
 #define TRAFFIC_FILE_EXTENSION ".traffic"
 

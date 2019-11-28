@@ -24,8 +24,8 @@ bool BuildPostcodesSection(std::string const & mwmFile)
 {
   LOG(LINFO, ("Building the Postcodes section"));
 
-  FilesContainerR container(GetPlatform().GetReader(mwmFile, "f"));
-  ReaderSource<ModelReaderPtr> src(container.GetReader(TEMP_ADDR_FILE_TAG));
+  FileReader reader(mwmFile + TEMP_ADDR_FILENAME);
+  ReaderSource<FileReader> src(reader);
   std::vector<feature::AddressData> addrs;
   while (src.Size() > 0)
   {

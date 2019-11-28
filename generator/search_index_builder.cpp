@@ -445,9 +445,10 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
       synonyms.get(), keyValuePairs, addrs, categoriesHolder, header.GetScaleRange()));
 }
 
-void ReadAddressData(FilesContainerR & container, vector<feature::AddressData> & addrs)
+void ReadAddressData(string const & filename, vector<feature::AddressData> & addrs)
 {
-  ReaderSource<ModelReaderPtr> src(container.GetReader(TEMP_ADDR_FILE_TAG));
+  FileReader reader(filename + TEMP_ADDR_FILENAME);
+  ReaderSource<FileReader> src(reader);
   while (src.Size() > 0)
   {
     addrs.push_back({});
@@ -611,7 +612,7 @@ bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild, ui
   try
   {
     vector<feature::AddressData> addrs;
-    ReadAddressData(readContainer, addrs);
+    ReadAddressData(filename, addrs);
     {
       FileWriter writer(indexFilePath);
       BuildSearchIndex(readContainer, addrs, writer);
@@ -624,20 +625,6 @@ bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild, ui
       LOG(LINFO, ("Search address table size =", writer.Size()));
     }
     {
-      // The behaviour of generator_tool's generate_search_index
-      // is currently broken: this section is generated elsewhere
-      // and is deleted here before the final step of the mwm generation
-      // so it does not pollute the resulting mwm.
-      // So using and deleting this section is fine when generating
-      // an mwm from scratch but does not work when regenerating the
-      // search index section. Comment out the call to DeleteSection
-      // if you need to regenerate the search intex.
-      // todo(@m) Is it possible to make it work?
-      {
-        FilesContainerW writeContainer(readContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING);
-        writeContainer.DeleteSection(TEMP_ADDR_FILE_TAG);
-      }
-
       // Separate scopes because FilesContainerW cannot write two sections at once.
       {
         FilesContainerW writeContainer(readContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING);
