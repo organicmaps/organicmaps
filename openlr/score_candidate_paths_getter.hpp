@@ -47,7 +47,7 @@ private:
       CHECK(!edge.IsFake(), ("Edge should not be fake:", edge));
     }
 
-    bool IsJunctionInPath(routing::Junction const & j) const;
+    bool IsJunctionInPath(geometry::PointWithAltitude const & j) const;
 
     Graph::Edge GetStartEdge() const;
 

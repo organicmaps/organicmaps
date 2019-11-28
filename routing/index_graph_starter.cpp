@@ -81,13 +81,13 @@ void IndexGraphStarter::Append(FakeEdgesContainer const & container)
   m_startToFinishDistanceM = mercator::DistanceOnEarth(startPoint, finishPoint);
 }
 
-Junction const & IndexGraphStarter::GetStartJunction() const
+geometry::PointWithAltitude const & IndexGraphStarter::GetStartJunction() const
 {
   auto const & startSegment = GetStartSegment();
   return m_fake.GetVertex(startSegment).GetJunctionFrom();
 }
 
-Junction const & IndexGraphStarter::GetFinishJunction() const
+geometry::PointWithAltitude const & IndexGraphStarter::GetFinishJunction() const
 {
   auto const & finishSegment = GetFinishSegment();
   return m_fake.GetVertex(finishSegment).GetJunctionTo();
@@ -101,7 +101,8 @@ bool IndexGraphStarter::ConvertToReal(Segment & segment) const
   return m_fake.FindReal(Segment(segment), segment);
 }
 
-Junction const & IndexGraphStarter::GetJunction(Segment const & segment, bool front) const
+geometry::PointWithAltitude const & IndexGraphStarter::GetJunction(Segment const & segment,
+                                                                   bool front) const
 {
   if (!IsFakeSegment(segment))
     return m_graph.GetJunction(segment, front);
@@ -110,8 +111,8 @@ Junction const & IndexGraphStarter::GetJunction(Segment const & segment, bool fr
   return front ? vertex.GetJunctionTo() : vertex.GetJunctionFrom();
 }
 
-Junction const & IndexGraphStarter::GetRouteJunction(vector<Segment> const & segments,
-                                                     size_t pointIndex) const
+geometry::PointWithAltitude const & IndexGraphStarter::GetRouteJunction(
+    vector<Segment> const & segments, size_t pointIndex) const
 {
   CHECK(!segments.empty(), ());
   CHECK_LESS_OR_EQUAL(
@@ -296,7 +297,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
 {
   Segment const dummy = Segment();
 
-  map<Segment, Junction> otherSegments;
+  map<Segment, geometry::PointWithAltitude> otherSegments;
   for (auto const & p : otherEnding.m_projections)
   {
     otherSegments[p.m_segment] = p.m_junction;

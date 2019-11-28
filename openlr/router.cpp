@@ -83,8 +83,9 @@ bool Router::Vertex::Score::operator==(Score const & rhs) const
 }
 
 // Router::Vertex ----------------------------------------------------------------------------------
-Router::Vertex::Vertex(routing::Junction const & junction, routing::Junction const & stageStart,
-                       double stageStartDistance, size_t stage, bool bearingChecked)
+Router::Vertex::Vertex(geometry::PointWithAltitude const & junction,
+                       geometry::PointWithAltitude const & stageStart, double stageStartDistance,
+                       size_t stage, bool bearingChecked)
   : m_junction(junction)
   , m_stageStart(stageStart)
   , m_stageStartDistance(stageStartDistance)
@@ -174,7 +175,7 @@ bool Router::Init(std::vector<WayPoint> const & points, double positiveOffsetM,
     m_pivots.emplace_back();
     auto & ps = m_pivots.back();
 
-    std::vector<std::pair<routing::Edge, routing::Junction>> vicinity;
+    std::vector<std::pair<routing::Edge, geometry::PointWithAltitude>> vicinity;
     m_graph.FindClosestEdges(
         mercator::RectByCenterXYAndSizeInMeters(m_points[i].m_point,
                                                 routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
@@ -194,8 +195,8 @@ bool Router::Init(std::vector<WayPoint> const & points, double positiveOffsetM,
   CHECK_EQUAL(m_pivots.size() + 1, m_points.size(), ());
 
   {
-    m_sourceJunction = routing::Junction(m_points.front().m_point, 0 /* altitude */);
-    std::vector<std::pair<routing::Edge, routing::Junction>> sourceVicinity;
+    m_sourceJunction = geometry::PointWithAltitude(m_points.front().m_point, 0 /* altitude */);
+    std::vector<std::pair<routing::Edge, geometry::PointWithAltitude>> sourceVicinity;
     m_graph.FindClosestEdges(
         mercator::RectByCenterXYAndSizeInMeters(m_sourceJunction.GetPoint(),
                                                 routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
@@ -204,8 +205,8 @@ bool Router::Init(std::vector<WayPoint> const & points, double positiveOffsetM,
   }
 
   {
-    m_targetJunction = routing::Junction(m_points.back().m_point, 0 /* altitude */);
-    std::vector<std::pair<routing::Edge, routing::Junction>> targetVicinity;
+    m_targetJunction = geometry::PointWithAltitude(m_points.back().m_point, 0 /* altitude */);
+    std::vector<std::pair<routing::Edge, geometry::PointWithAltitude>> targetVicinity;
     m_graph.FindClosestEdges(
         mercator::RectByCenterXYAndSizeInMeters(m_targetJunction.GetPoint(),
                                                 routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
@@ -452,22 +453,25 @@ void Router::ForEachEdge(Vertex const & u, bool outgoing, FunctionalRoadClass re
   }
 }
 
-void Router::GetOutgoingEdges(routing::Junction const & u, routing::IRoadGraph::EdgeVector & edges)
+void Router::GetOutgoingEdges(geometry::PointWithAltitude const & u,
+                              routing::IRoadGraph::EdgeVector & edges)
 {
   GetEdges(u, &routing::IRoadGraph::GetRegularOutgoingEdges,
            &routing::IRoadGraph::GetFakeOutgoingEdges, m_outgoingCache, edges);
 }
 
-void Router::GetIngoingEdges(routing::Junction const & u, routing::IRoadGraph::EdgeVector & edges)
+void Router::GetIngoingEdges(geometry::PointWithAltitude const & u,
+                             routing::IRoadGraph::EdgeVector & edges)
 {
   GetEdges(u, &routing::IRoadGraph::GetRegularIngoingEdges,
            &routing::IRoadGraph::GetFakeIngoingEdges, m_ingoingCache, edges);
 }
 
-void Router::GetEdges(routing::Junction const & u, RoadGraphEdgesGetter getRegular,
-                      RoadGraphEdgesGetter getFake,
-                      std::map<routing::Junction, routing::IRoadGraph::EdgeVector> & cache,
-                      routing::IRoadGraph::EdgeVector & edges)
+void Router::GetEdges(
+    geometry::PointWithAltitude const & u, RoadGraphEdgesGetter getRegular,
+    RoadGraphEdgesGetter getFake,
+    std::map<geometry::PointWithAltitude, routing::IRoadGraph::EdgeVector> & cache,
+    routing::IRoadGraph::EdgeVector & edges)
 {
   auto const it = cache.find(u);
   if (it == cache.end())
@@ -498,7 +502,7 @@ template <typename Fn>
 void Router::ForEachNonFakeClosestEdge(Vertex const & u, FunctionalRoadClass const restriction,
                                        Fn && fn)
 {
-  std::vector<std::pair<routing::Edge, routing::Junction>> vicinity;
+  std::vector<std::pair<routing::Edge, geometry::PointWithAltitude>> vicinity;
   m_graph.FindClosestEdges(
       mercator::RectByCenterXYAndSizeInMeters(u.m_junction.GetPoint(),
                                               routing::FeaturesRoadGraph::kClosestEdgesRadiusM),

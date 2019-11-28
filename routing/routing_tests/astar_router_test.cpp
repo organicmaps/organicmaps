@@ -12,6 +12,7 @@
 #include "indexer/feature_altitude.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -24,15 +25,16 @@ using namespace std;
 
 namespace
 {
-void TestAStarRouterMock(Junction const & startPos, Junction const & finalPos,
-                         vector<Junction> const & expected)
+void TestAStarRouterMock(geometry::PointWithAltitude const & startPos,
+                         geometry::PointWithAltitude const & finalPos,
+                         vector<geometry::PointWithAltitude> const & expected)
 {
   classificator::Load();
 
   RoadGraphMockSource graph;
   InitRoadGraphMockSourceWithTest2(graph);
 
-  RoutingResult<Junction, double /* Weight */> result;
+  RoutingResult<geometry::PointWithAltitude, double /* Weight */> result;
   TestAStarBidirectionalAlgo algorithm;
   TEST_EQUAL(TestAStarBidirectionalAlgo::Result::OK,
              algorithm.CalculateRoute(graph, startPos, finalPos, result), ());
@@ -55,27 +57,37 @@ void AddRoad(RoadGraphMockSource & graph, initializer_list<m2::PointD> const & p
 
 UNIT_TEST(AStarRouter_Graph2_Simple1)
 {
-  Junction const startPos = MakeJunctionForTesting(m2::PointD(0, 0));
-  Junction const finalPos = MakeJunctionForTesting(m2::PointD(80, 55));
+  geometry::PointWithAltitude const startPos =
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0));
+  geometry::PointWithAltitude const finalPos =
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(80, 55));
 
-  vector<Junction> const expected = {
-      MakeJunctionForTesting(m2::PointD(0, 0)),   MakeJunctionForTesting(m2::PointD(5, 10)),
-      MakeJunctionForTesting(m2::PointD(5, 40)),  MakeJunctionForTesting(m2::PointD(18, 55)),
-      MakeJunctionForTesting(m2::PointD(39, 55)), MakeJunctionForTesting(m2::PointD(80, 55))};
+  vector<geometry::PointWithAltitude> const expected = {
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0)),
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(5, 10)),
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(5, 40)),
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(18, 55)),
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(39, 55)),
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(80, 55))};
 
   TestAStarRouterMock(startPos, finalPos, expected);
 }
 
 UNIT_TEST(AStarRouter_Graph2_Simple2)
 {
-  Junction const startPos = MakeJunctionForTesting(m2::PointD(80, 55));
-  Junction const finalPos = MakeJunctionForTesting(m2::PointD(80, 0));
+  geometry::PointWithAltitude const startPos =
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(80, 55));
+  geometry::PointWithAltitude const finalPos =
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(80, 0));
 
-  vector<Junction> const expected = {
-      MakeJunctionForTesting(m2::PointD(80, 55)), MakeJunctionForTesting(m2::PointD(39, 55)),
-      MakeJunctionForTesting(m2::PointD(37, 30)), MakeJunctionForTesting(m2::PointD(70, 30)),
-      MakeJunctionForTesting(m2::PointD(70, 10)), MakeJunctionForTesting(m2::PointD(70, 0)),
-      MakeJunctionForTesting(m2::PointD(80, 0))};
+  vector<geometry::PointWithAltitude> const expected = {
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(80, 55)),
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(39, 55)),
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(37, 30)),
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(70, 30)),
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(70, 10)),
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(70, 0)),
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(80, 0))};
 
   TestAStarRouterMock(startPos, finalPos, expected);
 }
@@ -92,14 +104,18 @@ UNIT_TEST(AStarRouter_SimpleGraph_RouteIsFound)
   AddRoad(graph, {m2::PointD(0, 60), m2::PointD(0, 30)}); // feature 4
   AddRoad(graph, {m2::PointD(0, 30), m2::PointD(0, 0)}); // feature 5
 
-  Junction const startPos = MakeJunctionForTesting(m2::PointD(0, 0));
-  Junction const finalPos = MakeJunctionForTesting(m2::PointD(40, 100));
+  geometry::PointWithAltitude const startPos =
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0));
+  geometry::PointWithAltitude const finalPos =
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(40, 100));
 
-  vector<Junction> const expected = {
-      MakeJunctionForTesting(m2::PointD(0, 0)), MakeJunctionForTesting(m2::PointD(0, 30)),
-      MakeJunctionForTesting(m2::PointD(0, 60)), MakeJunctionForTesting(m2::PointD(40, 100))};
+  vector<geometry::PointWithAltitude> const expected = {
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0)),
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 30)),
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 60)),
+      geometry::MakePointWithAltitudeForTesting(m2::PointD(40, 100))};
 
-  RoutingResult<Junction, double /* Weight */> result;
+  RoutingResult<geometry::PointWithAltitude, double /* Weight */> result;
   TestAStarBidirectionalAlgo algorithm;
   TEST_EQUAL(TestAStarBidirectionalAlgo::Result::OK,
              algorithm.CalculateRoute(graph, startPos, finalPos, result), ());
@@ -117,34 +133,42 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
 
   // Roads in the first connected component.
   vector<IRoadGraph::RoadInfo> const roadInfo_1 = {
-      IRoadGraph::RoadInfo(true /* bidir */, speedKMpH,
-                           {MakeJunctionForTesting(m2::PointD(10, 10)),
-                            MakeJunctionForTesting(m2::PointD(90, 10))}),  // feature 0
-      IRoadGraph::RoadInfo(true /* bidir */, speedKMpH,
-                           {MakeJunctionForTesting(m2::PointD(90, 10)),
-                            MakeJunctionForTesting(m2::PointD(90, 90))}),  // feature 1
-      IRoadGraph::RoadInfo(true /* bidir */, speedKMpH,
-                           {MakeJunctionForTesting(m2::PointD(90, 90)),
-                            MakeJunctionForTesting(m2::PointD(10, 90))}),  // feature 2
-      IRoadGraph::RoadInfo(true /* bidir */, speedKMpH,
-                           {MakeJunctionForTesting(m2::PointD(10, 90)),
-                            MakeJunctionForTesting(m2::PointD(10, 10))}),  // feature 3
+      IRoadGraph::RoadInfo(
+          true /* bidir */, speedKMpH,
+          {geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 10)),
+           geometry::MakePointWithAltitudeForTesting(m2::PointD(90, 10))}),  // feature 0
+      IRoadGraph::RoadInfo(
+          true /* bidir */, speedKMpH,
+          {geometry::MakePointWithAltitudeForTesting(m2::PointD(90, 10)),
+           geometry::MakePointWithAltitudeForTesting(m2::PointD(90, 90))}),  // feature 1
+      IRoadGraph::RoadInfo(
+          true /* bidir */, speedKMpH,
+          {geometry::MakePointWithAltitudeForTesting(m2::PointD(90, 90)),
+           geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 90))}),  // feature 2
+      IRoadGraph::RoadInfo(
+          true /* bidir */, speedKMpH,
+          {geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 90)),
+           geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 10))}),  // feature 3
   };
 
   // Roads in the second connected component.
   vector<IRoadGraph::RoadInfo> const roadInfo_2 = {
-      IRoadGraph::RoadInfo(true /* bidir */, speedKMpH,
-                           {MakeJunctionForTesting(m2::PointD(30, 30)),
-                            MakeJunctionForTesting(m2::PointD(70, 30))}),  // feature 4
-      IRoadGraph::RoadInfo(true /* bidir */, speedKMpH,
-                           {MakeJunctionForTesting(m2::PointD(70, 30)),
-                            MakeJunctionForTesting(m2::PointD(70, 70))}),  // feature 5
-      IRoadGraph::RoadInfo(true /* bidir */, speedKMpH,
-                           {MakeJunctionForTesting(m2::PointD(70, 70)),
-                            MakeJunctionForTesting(m2::PointD(30, 70))}),  // feature 6
-      IRoadGraph::RoadInfo(true /* bidir */, speedKMpH,
-                           {MakeJunctionForTesting(m2::PointD(30, 70)),
-                            MakeJunctionForTesting(m2::PointD(30, 30))}),  // feature 7
+      IRoadGraph::RoadInfo(
+          true /* bidir */, speedKMpH,
+          {geometry::MakePointWithAltitudeForTesting(m2::PointD(30, 30)),
+           geometry::MakePointWithAltitudeForTesting(m2::PointD(70, 30))}),  // feature 4
+      IRoadGraph::RoadInfo(
+          true /* bidir */, speedKMpH,
+          {geometry::MakePointWithAltitudeForTesting(m2::PointD(70, 30)),
+           geometry::MakePointWithAltitudeForTesting(m2::PointD(70, 70))}),  // feature 5
+      IRoadGraph::RoadInfo(
+          true /* bidir */, speedKMpH,
+          {geometry::MakePointWithAltitudeForTesting(m2::PointD(70, 70)),
+           geometry::MakePointWithAltitudeForTesting(m2::PointD(30, 70))}),  // feature 6
+      IRoadGraph::RoadInfo(
+          true /* bidir */, speedKMpH,
+          {geometry::MakePointWithAltitudeForTesting(m2::PointD(30, 70)),
+           geometry::MakePointWithAltitudeForTesting(m2::PointD(30, 30))}),  // feature 7
   };
 
   for (auto const & ri : roadInfo_1)
@@ -161,11 +185,11 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
   // Check if there is no any route between points in different connected components.
   for (size_t i = 0; i < roadInfo_1.size(); ++i)
   {
-    Junction const startPos = roadInfo_1[i].m_junctions[0];
+    geometry::PointWithAltitude const startPos = roadInfo_1[i].m_junctions[0];
     for (size_t j = 0; j < roadInfo_2.size(); ++j)
     {
-      Junction const finalPos = roadInfo_2[j].m_junctions[0];
-      RoutingResult<Junction, double /* Weight */> result;
+      geometry::PointWithAltitude const finalPos = roadInfo_2[j].m_junctions[0];
+      RoutingResult<geometry::PointWithAltitude, double /* Weight */> result;
       TEST_EQUAL(TestAStarBidirectionalAlgo::Result::NoPath,
                  algorithm.CalculateRoute(graph, startPos, finalPos, result), ());
       TEST_EQUAL(TestAStarBidirectionalAlgo::Result::NoPath,
@@ -176,11 +200,11 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
   // Check if there is route between points in the first connected component.
   for (size_t i = 0; i < roadInfo_1.size(); ++i)
   {
-    Junction const startPos = roadInfo_1[i].m_junctions[0];
+    geometry::PointWithAltitude const startPos = roadInfo_1[i].m_junctions[0];
     for (size_t j = i + 1; j < roadInfo_1.size(); ++j)
     {
-      Junction const finalPos = roadInfo_1[j].m_junctions[0];
-      RoutingResult<Junction, double /* Weight */> result;
+      geometry::PointWithAltitude const finalPos = roadInfo_1[j].m_junctions[0];
+      RoutingResult<geometry::PointWithAltitude, double /* Weight */> result;
       TEST_EQUAL(TestAStarBidirectionalAlgo::Result::OK,
                  algorithm.CalculateRoute(graph, startPos, finalPos, result), ());
       TEST_EQUAL(TestAStarBidirectionalAlgo::Result::OK,
@@ -191,11 +215,11 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
   // Check if there is route between points in the second connected component.
   for (size_t i = 0; i < roadInfo_2.size(); ++i)
   {
-    Junction const startPos = roadInfo_2[i].m_junctions[0];
+    geometry::PointWithAltitude const startPos = roadInfo_2[i].m_junctions[0];
     for (size_t j = i + 1; j < roadInfo_2.size(); ++j)
     {
-      Junction const finalPos = roadInfo_2[j].m_junctions[0];
-      RoutingResult<Junction, double /* Weight */> result;
+      geometry::PointWithAltitude const finalPos = roadInfo_2[j].m_junctions[0];
+      RoutingResult<geometry::PointWithAltitude, double /* Weight */> result;
       TEST_EQUAL(TestAStarBidirectionalAlgo::Result::OK,
                  algorithm.CalculateRoute(graph, startPos, finalPos, result), ());
       TEST_EQUAL(TestAStarBidirectionalAlgo::Result::OK,
@@ -222,20 +246,23 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad1)
   // path2 = 8/3 = 2.666(6)
   // path3 = 1/5 + 8/4 + 1/5 = 2.4
 
-  RoutingResult<Junction, double /* Weight */> result;
+  RoutingResult<geometry::PointWithAltitude, double /* Weight */> result;
   TestAStarBidirectionalAlgo algorithm;
   TEST_EQUAL(TestAStarBidirectionalAlgo::Result::OK,
-             algorithm.CalculateRoute(graph, MakeJunctionForTesting(m2::PointD(2, 2)),
-                                      MakeJunctionForTesting(m2::PointD(10, 2)), result),
+             algorithm.CalculateRoute(
+                 graph, geometry::MakePointWithAltitudeForTesting(m2::PointD(2, 2)),
+                 geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 2)), result),
              ());
-  TEST_EQUAL(
-      result.m_path,
-      vector<Junction>(
-          {MakeJunctionForTesting(m2::PointD(2, 2)), MakeJunctionForTesting(m2::PointD(2, 3)),
-           MakeJunctionForTesting(m2::PointD(4, 3)), MakeJunctionForTesting(m2::PointD(6, 3)),
-           MakeJunctionForTesting(m2::PointD(8, 3)), MakeJunctionForTesting(m2::PointD(10, 3)),
-           MakeJunctionForTesting(m2::PointD(10, 2))}),
-      ());
+  TEST_EQUAL(result.m_path,
+             vector<geometry::PointWithAltitude>(
+                 {geometry::MakePointWithAltitudeForTesting(m2::PointD(2, 2)),
+                  geometry::MakePointWithAltitudeForTesting(m2::PointD(2, 3)),
+                  geometry::MakePointWithAltitudeForTesting(m2::PointD(4, 3)),
+                  geometry::MakePointWithAltitudeForTesting(m2::PointD(6, 3)),
+                  geometry::MakePointWithAltitudeForTesting(m2::PointD(8, 3)),
+                  geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 3)),
+                  geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 2))}),
+             ());
   TEST(base::AlmostEqualAbs(result.m_distance, 800451., 1.), ("Distance error:", result.m_distance));
 }
 
@@ -256,16 +283,18 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad2)
   // path2 = 8/4.1 = 1.95
   // path3 = 1/5 + 8/4.4 + 1/5 = 2.2
 
-  RoutingResult<Junction, double /* Weight */> result;
+  RoutingResult<geometry::PointWithAltitude, double /* Weight */> result;
   TestAStarBidirectionalAlgo algorithm;
   TEST_EQUAL(TestAStarBidirectionalAlgo::Result::OK,
-             algorithm.CalculateRoute(graph, MakeJunctionForTesting(m2::PointD(2, 2)),
-                                      MakeJunctionForTesting(m2::PointD(10, 2)), result),
+             algorithm.CalculateRoute(
+                 graph, geometry::MakePointWithAltitudeForTesting(m2::PointD(2, 2)),
+                 geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 2)), result),
              ());
   TEST_EQUAL(result.m_path,
-             vector<Junction>({MakeJunctionForTesting(m2::PointD(2, 2)),
-                               MakeJunctionForTesting(m2::PointD(6, 2)),
-                               MakeJunctionForTesting(m2::PointD(10, 2))}),
+             vector<geometry::PointWithAltitude>(
+                 {geometry::MakePointWithAltitudeForTesting(m2::PointD(2, 2)),
+                  geometry::MakePointWithAltitudeForTesting(m2::PointD(6, 2)),
+                  geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 2))}),
              ());
   TEST(base::AlmostEqualAbs(result.m_distance, 781458., 1.), ("Distance error:", result.m_distance));
 }
@@ -287,17 +316,19 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad3)
   // path2 = 8/3.9 = 2.05
   // path3 = 1/5 + 8/4.9 + 1/5 = 2.03
 
-  RoutingResult<Junction, double /* Weight */> result;
+  RoutingResult<geometry::PointWithAltitude, double /* Weight */> result;
   TestAStarBidirectionalAlgo algorithm;
   TEST_EQUAL(TestAStarBidirectionalAlgo::Result::OK,
-             algorithm.CalculateRoute(graph, MakeJunctionForTesting(m2::PointD(2, 2)),
-                                      MakeJunctionForTesting(m2::PointD(10, 2)), result),
+             algorithm.CalculateRoute(
+                 graph, geometry::MakePointWithAltitudeForTesting(m2::PointD(2, 2)),
+                 geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 2)), result),
              ());
-  TEST_EQUAL(
-      result.m_path,
-      vector<Junction>(
-          {MakeJunctionForTesting(m2::PointD(2, 2)), MakeJunctionForTesting(m2::PointD(2, 1)),
-           MakeJunctionForTesting(m2::PointD(10, 1)), MakeJunctionForTesting(m2::PointD(10, 2))}),
-      ());
+  TEST_EQUAL(result.m_path,
+             vector<geometry::PointWithAltitude>(
+                 {geometry::MakePointWithAltitudeForTesting(m2::PointD(2, 2)),
+                  geometry::MakePointWithAltitudeForTesting(m2::PointD(2, 1)),
+                  geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 1)),
+                  geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 2))}),
+             ());
   TEST(base::AlmostEqualAbs(result.m_distance, 814412., 1.), ("Distance error:", result.m_distance));
 }

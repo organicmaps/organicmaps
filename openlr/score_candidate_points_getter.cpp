@@ -11,6 +11,7 @@
 #include "indexer/scales.hpp"
 
 #include "geometry/mercator.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
@@ -55,9 +56,9 @@ void ScoreCandidatePointsGetter::GetJunctionPointCandidates(m2::PointD const & p
   {
     Graph::EdgeVector edges;
     if (!isLastPoint)
-      m_graph.GetOutgoingEdges(Junction(pc.m_point, 0 /* altitude */), edges);
+      m_graph.GetOutgoingEdges(geometry::PointWithAltitude(pc.m_point, 0 /* altitude */), edges);
     else
-      m_graph.GetIngoingEdges(Junction(pc.m_point, 0 /* altitude */), edges);
+      m_graph.GetIngoingEdges(geometry::PointWithAltitude(pc.m_point, 0 /* altitude */), edges);
 
     for (auto const & e : edges)
       edgeCandidates.emplace_back(pc.m_score, e);
@@ -69,7 +70,7 @@ void ScoreCandidatePointsGetter::EnrichWithProjectionPoints(m2::PointD const & p
 {
   m_graph.ResetFakes();
 
-  std::vector<std::pair<Graph::Edge, Junction>> vicinities;
+  std::vector<std::pair<Graph::Edge, geometry::PointWithAltitude>> vicinities;
   m_graph.FindClosestEdges(p, static_cast<uint32_t>(m_maxProjectionCandidates), vicinities);
   for (auto const & v : vicinities)
   {
@@ -89,10 +90,10 @@ void ScoreCandidatePointsGetter::EnrichWithProjectionPoints(m2::PointD const & p
 bool ScoreCandidatePointsGetter::IsJunction(m2::PointD const & p)
 {
   Graph::EdgeVector outgoing;
-  m_graph.GetRegularOutgoingEdges(Junction(p, 0 /* altitude */), outgoing);
+  m_graph.GetRegularOutgoingEdges(geometry::PointWithAltitude(p, 0 /* altitude */), outgoing);
 
   Graph::EdgeVector ingoing;
-  m_graph.GetRegularIngoingEdges(Junction(p, 0 /* altitude */), ingoing);
+  m_graph.GetRegularIngoingEdges(geometry::PointWithAltitude(p, 0 /* altitude */), ingoing);
 
   // Note. At mwm borders the size of |ids| may be bigger than two in case of straight
   // road because of road feature duplication at borders.

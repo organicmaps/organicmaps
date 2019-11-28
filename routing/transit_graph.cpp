@@ -17,8 +17,8 @@ Segment GetReverseSegment(Segment const & segment)
                  !segment.IsForward());
 }
 
-Junction const & GetStopJunction(map<transit::StopId, Junction> const & stopCoords,
-                                 transit::StopId stopId)
+geometry::PointWithAltitude const & GetStopJunction(
+    map<transit::StopId, geometry::PointWithAltitude> const & stopCoords, transit::StopId stopId)
 {
   auto const it = stopCoords.find(stopId);
   CHECK(it != stopCoords.cend(), ("Stop", stopId, "does not exist."));
@@ -43,7 +43,8 @@ TransitGraph::TransitGraph(NumMwmId numMwmId, shared_ptr<EdgeEstimator> estimato
 {
 }
 
-Junction const & TransitGraph::GetJunction(Segment const & segment, bool front) const
+geometry::PointWithAltitude const & TransitGraph::GetJunction(Segment const & segment,
+                                                              bool front) const
 {
   CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
   auto const & vertex = m_fake.GetVertex(segment);
@@ -132,9 +133,10 @@ void TransitGraph::Fill(transit::GraphData const & transitData, GateEndings cons
   for (auto const & line : transitData.GetLines())
     m_transferPenalties[line.GetId()] = line.GetInterval() / 2;
 
-  map<transit::StopId, Junction> stopCoords;
+  map<transit::StopId, geometry::PointWithAltitude> stopCoords;
   for (auto const & stop : transitData.GetStops())
-    stopCoords[stop.GetId()] = Junction(stop.GetPoint(), feature::kDefaultAltitudeMeters);
+    stopCoords[stop.GetId()] =
+        geometry::PointWithAltitude(stop.GetPoint(), geometry::kDefaultAltitudeMeters);
 
   StopToSegmentsMap stopToBack;
   StopToSegmentsMap stopToFront;
@@ -221,8 +223,9 @@ Segment TransitGraph::GetNewTransitSegment() const
 }
 
 void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending,
-                           map<transit::StopId, Junction> const & stopCoords, bool isEnter,
-                           StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
+                           map<transit::StopId, geometry::PointWithAltitude> const & stopCoords,
+                           bool isEnter, StopToSegmentsMap & stopToBack,
+                           StopToSegmentsMap & stopToFront)
 {
   Segment const dummy = Segment();
   for (auto const & projection : ending.m_projections)
@@ -275,7 +278,7 @@ void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending
 }
 
 Segment TransitGraph::AddEdge(transit::Edge const & edge,
-                              map<transit::StopId, Junction> const & stopCoords,
+                              map<transit::StopId, geometry::PointWithAltitude> const & stopCoords,
                               StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
   auto const edgeSegment = GetNewTransitSegment();

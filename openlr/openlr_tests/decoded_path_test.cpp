@@ -46,9 +46,9 @@ double RoughUpToFive(double d)
 
 m2::PointD RoughPoint(m2::PointD const & p) { return {RoughUpToFive(p.x), RoughUpToFive(p.y)}; }
 
-routing::Junction RoughJunction(routing::Junction const & j)
+geometry::PointWithAltitude RoughJunction(geometry::PointWithAltitude const & j)
 {
-  return routing::Junction(RoughPoint(j.GetPoint()), j.GetAltitude());
+  return geometry::PointWithAltitude(RoughPoint(j.GetPoint()), j.GetAltitude());
 }
 
 routing::Edge RoughEdgeJunctions(routing::Edge const & e)
@@ -106,7 +106,8 @@ openlr::Path MakePath(FeatureType const & road, bool const forward)
     path.push_back(routing::Edge::MakeReal(
         road.GetID(), forward,
         base::checked_cast<uint32_t>(current - static_cast<size_t>(!forward)) /* segId */,
-        routing::Junction(from, 0 /* altitude */), routing::Junction(to, 0 /* altitude */)));
+        geometry::PointWithAltitude(from, 0 /* altitude */),
+        geometry::PointWithAltitude(to, 0 /* altitude */)));
   }
 
   RoughJunctionsInPath(path);

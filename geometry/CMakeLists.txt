@@ -43,6 +43,8 @@ set(
   parametrized_segment.hpp
   point2d.hpp
   point3d.hpp
+  point_with_altitude.cpp
+  point_with_altitude.hpp
   polygon.hpp
   polyline2d.hpp
   rect2d.hpp

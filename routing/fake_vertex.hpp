@@ -5,6 +5,7 @@
 #include "routing_common/num_mwm_id.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include "base/visitor.hpp"
 
@@ -24,7 +25,8 @@ public:
     PartOfReal,
   };
 
-  FakeVertex(NumMwmId numMwmId, Junction const & from, Junction const & to, Type type)
+  FakeVertex(NumMwmId numMwmId, geometry::PointWithAltitude const & from,
+             geometry::PointWithAltitude const & to, Type type)
     : m_numMwmId(numMwmId), m_from(from), m_to(to), m_type(type)
   {
   }
@@ -43,9 +45,9 @@ public:
            std::tie(rhs.m_numMwmId, rhs.m_from, rhs.m_to, rhs.m_type);
   }
 
-  Junction const & GetJunctionFrom() const { return m_from; }
+  geometry::PointWithAltitude const & GetJunctionFrom() const { return m_from; }
   m2::PointD const & GetPointFrom() const { return m_from.GetPoint(); }
-  Junction const & GetJunctionTo() const { return m_to; }
+  geometry::PointWithAltitude const & GetJunctionTo() const { return m_to; }
   m2::PointD const & GetPointTo() const { return m_to.GetPoint(); }
   Type GetType() const { return m_type; }
 
@@ -57,8 +59,8 @@ private:
   // Note. It's important to know which mwm contains the FakeVertex if it is located
   // near an mwm borders along road features which are duplicated.
   NumMwmId m_numMwmId = kFakeNumMwmId;
-  Junction m_from;
-  Junction m_to;
+  geometry::PointWithAltitude m_from;
+  geometry::PointWithAltitude m_to;
   Type m_type = Type::PureFake;
 };
 

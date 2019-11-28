@@ -48,7 +48,7 @@ public:
   explicit SrtmGetter(std::string const & srtmDir) : m_srtmManager(srtmDir) {}
 
   // AltitudeGetter overrides:
-  feature::TAltitude GetAltitude(m2::PointD const & p) override
+  geometry::TAltitude GetAltitude(m2::PointD const & p) override
   {
     return m_srtmManager.GetHeight(mercator::ToLatLon(p));
   }
@@ -75,7 +75,7 @@ public:
   using TFeatureAltitudes = std::vector<FeatureAltitude>;
 
   explicit Processor(AltitudeGetter & altitudeGetter)
-    : m_altitudeGetter(altitudeGetter), m_minAltitude(kInvalidAltitude)
+    : m_altitudeGetter(altitudeGetter), m_minAltitude(geometry::kInvalidAltitude)
   {
   }
 
@@ -86,7 +86,7 @@ public:
     return m_altitudeAvailabilityBuilder;
   }
 
-  TAltitude GetMinAltitude() const { return m_minAltitude; }
+  geometry::TAltitude GetMinAltitude() const { return m_minAltitude; }
 
   void operator()(FeatureType & f, uint32_t const & id)
   {
@@ -108,18 +108,18 @@ public:
     if (pointsCount == 0)
       return;
 
-    TAltitudes altitudes;
-    TAltitude minFeatureAltitude = kInvalidAltitude;
+    geometry::TAltitudes altitudes;
+    geometry::TAltitude minFeatureAltitude = geometry::kInvalidAltitude;
     for (size_t i = 0; i < pointsCount; ++i)
     {
-      TAltitude const a = m_altitudeGetter.GetAltitude(f.GetPoint(i));
-      if (a == kInvalidAltitude)
+      geometry::TAltitude const a = m_altitudeGetter.GetAltitude(f.GetPoint(i));
+      if (a == geometry::kInvalidAltitude)
       {
         // One invalid point invalidates the whole feature.
         return;
       }
 
-      if (minFeatureAltitude == kInvalidAltitude)
+      if (minFeatureAltitude == geometry::kInvalidAltitude)
         minFeatureAltitude = a;
       else
         minFeatureAltitude = std::min(minFeatureAltitude, a);
@@ -130,7 +130,7 @@ public:
     hasAltitude = true;
     m_featureAltitudes.emplace_back(id, Altitudes(std::move(altitudes)));
 
-    if (m_minAltitude == kInvalidAltitude)
+    if (m_minAltitude == geometry::kInvalidAltitude)
       m_minAltitude = minFeatureAltitude;
     else
       m_minAltitude = std::min(minFeatureAltitude, m_minAltitude);
@@ -148,7 +148,7 @@ private:
   AltitudeGetter & m_altitudeGetter;
   TFeatureAltitudes m_featureAltitudes;
   succinct::bit_vector_builder m_altitudeAvailabilityBuilder;
-  TAltitude m_minAltitude;
+  geometry::TAltitude m_minAltitude;
 };
 }  // namespace
 

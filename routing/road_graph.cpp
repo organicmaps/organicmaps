@@ -21,14 +21,14 @@ namespace routing
 {
 namespace
 {
-bool OnEdge(Junction const & p, Edge const & ab)
+bool OnEdge(geometry::PointWithAltitude const & p, Edge const & ab)
 {
   auto const & a = ab.GetStartJunction();
   auto const & b = ab.GetEndJunction();
   return m2::IsPointOnSegmentEps(p.GetPoint(), a.GetPoint(), b.GetPoint(), 1e-9);
 }
 
-void SplitEdge(Edge const & ab, Junction const & p, vector<Edge> & edges)
+void SplitEdge(Edge const & ab, geometry::PointWithAltitude const & p, vector<Edge> & edges)
 {
   auto const & a = ab.GetStartJunction();
   auto const & b = ab.GetEndJunction();
@@ -42,48 +42,35 @@ void SplitEdge(Edge const & ab, Junction const & p, vector<Edge> & edges)
 }
 }  // namespace
 
-// Junction --------------------------------------------------------------------
-
-Junction::Junction() : m_point(m2::PointD::Zero()), m_altitude(feature::kDefaultAltitudeMeters) {}
-Junction::Junction(m2::PointD const & point, feature::TAltitude altitude)
-  : m_point(point), m_altitude(altitude)
-{}
-
-string DebugPrint(Junction const & r)
-{
-  ostringstream ss;
-  ss << "Junction{point:" << DebugPrint(r.m_point) << ", altitude:" << r.GetAltitude() << "}";
-  return ss.str();
-}
-
 // Edge ------------------------------------------------------------------------
 // static
 Edge Edge::MakeReal(FeatureID const & featureId, bool forward, uint32_t segId,
-                    Junction const & startJunction, Junction const & endJunction)
+                    geometry::PointWithAltitude const & startJunction,
+                    geometry::PointWithAltitude const & endJunction)
 {
   return {Type::Real, featureId, kInvalidFakeSegmentId, forward, segId, startJunction, endJunction};
 }
 
 // static
-Edge Edge::MakeFakeWithRealPart(FeatureID const & featureId, uint32_t fakeSegmentId,
-                                bool forward, uint32_t segId,
-                                Junction const & startJunction, Junction const & endJunction)
+Edge Edge::MakeFakeWithRealPart(FeatureID const & featureId, uint32_t fakeSegmentId, bool forward,
+                                uint32_t segId, geometry::PointWithAltitude const & startJunction,
+                                geometry::PointWithAltitude const & endJunction)
 {
   return {Type::FakeWithRealPart, featureId, fakeSegmentId, forward,
           segId, startJunction, endJunction};
 }
 
 // static
-Edge Edge::MakeFake(Junction const & startJunction,
-                    Junction const & endJunction)
+Edge Edge::MakeFake(geometry::PointWithAltitude const & startJunction,
+                    geometry::PointWithAltitude const & endJunction)
 {
   return {Type::FakeWithoutRealPart, FeatureID(), kInvalidFakeSegmentId, true /* forward */,
           0 /* segmentId */, startJunction, endJunction};
 }
 
 // static
-Edge Edge::MakeFake(Junction const & startJunction, Junction const & endJunction,
-                    Edge const & prototype)
+Edge Edge::MakeFake(geometry::PointWithAltitude const & startJunction,
+                    geometry::PointWithAltitude const & endJunction, Edge const & prototype)
 {
   auto e = prototype;
   e.m_startJunction = startJunction;
@@ -92,9 +79,9 @@ Edge Edge::MakeFake(Junction const & startJunction, Junction const & endJunction
   return e;
 }
 
-Edge::Edge(Type type, FeatureID const & featureId, uint32_t fakeSegmentId,
-           bool forward, uint32_t segId,
-           Junction const & startJunction, Junction const & endJunction)
+Edge::Edge(Type type, FeatureID const & featureId, uint32_t fakeSegmentId, bool forward,
+           uint32_t segId, geometry::PointWithAltitude const & startJunction,
+           geometry::PointWithAltitude const & endJunction)
   : m_type(type)
   , m_featureId(featureId)
   , m_forward(forward)
@@ -169,16 +156,18 @@ IRoadGraph::RoadInfo::RoadInfo(RoadInfo && ri)
 {}
 
 IRoadGraph::RoadInfo::RoadInfo(bool bidirectional, double speedKMPH,
-                               initializer_list<Junction> const & points)
+                               initializer_list<geometry::PointWithAltitude> const & points)
   : m_junctions(points), m_speedKMPH(speedKMPH), m_bidirectional(bidirectional)
 {}
 
 // IRoadGraph::CrossOutgoingLoader ---------------------------------------------
 void IRoadGraph::CrossOutgoingLoader::LoadEdges(FeatureID const & featureId,
-                                                JunctionVec const & junctions, bool bidirectional)
+                                                PointWithAltitudeVec const & junctions,
+                                                bool bidirectional)
 {
   ForEachEdge(junctions, [&featureId, bidirectional, this](
-                                        size_t segId, Junction const & endJunction, bool forward) {
+                             size_t segId, geometry::PointWithAltitude const & endJunction,
+                             bool forward) {
     if (forward || bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
     {
       m_edges.push_back(Edge::MakeReal(featureId, forward, base::asserted_cast<uint32_t>(segId),
@@ -189,10 +178,12 @@ void IRoadGraph::CrossOutgoingLoader::LoadEdges(FeatureID const & featureId,
 
 // IRoadGraph::CrossIngoingLoader ----------------------------------------------
 void IRoadGraph::CrossIngoingLoader::LoadEdges(FeatureID const & featureId,
-                                               JunctionVec const & junctions, bool bidirectional)
+                                               PointWithAltitudeVec const & junctions,
+                                               bool bidirectional)
 {
   ForEachEdge(junctions, [&featureId, bidirectional, this](
-                                        size_t segId, Junction const & endJunction, bool forward) {
+                             size_t segId, geometry::PointWithAltitude const & endJunction,
+                             bool forward) {
     if (!forward || bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
     {
       m_edges.push_back(Edge::MakeReal(featureId, !forward, base::asserted_cast<uint32_t>(segId),
@@ -202,38 +193,44 @@ void IRoadGraph::CrossIngoingLoader::LoadEdges(FeatureID const & featureId,
 }
 
 // IRoadGraph ------------------------------------------------------------------
-void IRoadGraph::GetOutgoingEdges(Junction const & junction, EdgeVector & edges) const
+void IRoadGraph::GetOutgoingEdges(geometry::PointWithAltitude const & junction,
+                                  EdgeVector & edges) const
 {
   GetFakeOutgoingEdges(junction, edges);
   GetRegularOutgoingEdges(junction, edges);
 }
 
-void IRoadGraph::GetIngoingEdges(Junction const & junction, EdgeVector & edges) const
+void IRoadGraph::GetIngoingEdges(geometry::PointWithAltitude const & junction,
+                                 EdgeVector & edges) const
 {
   GetFakeIngoingEdges(junction, edges);
   GetRegularIngoingEdges(junction, edges);
 }
 
-void IRoadGraph::GetRegularOutgoingEdges(Junction const & junction, EdgeVector & edges) const
+void IRoadGraph::GetRegularOutgoingEdges(geometry::PointWithAltitude const & junction,
+                                         EdgeVector & edges) const
 {
   CrossOutgoingLoader loader(junction, GetMode(), edges);
   ForEachFeatureClosestToCross(junction.GetPoint(), loader);
 }
 
-void IRoadGraph::GetRegularIngoingEdges(Junction const & junction, EdgeVector & edges) const
+void IRoadGraph::GetRegularIngoingEdges(geometry::PointWithAltitude const & junction,
+                                        EdgeVector & edges) const
 {
   CrossIngoingLoader loader(junction, GetMode(), edges);
   ForEachFeatureClosestToCross(junction.GetPoint(), loader);
 }
 
-void IRoadGraph::GetFakeOutgoingEdges(Junction const & junction, EdgeVector & edges) const
+void IRoadGraph::GetFakeOutgoingEdges(geometry::PointWithAltitude const & junction,
+                                      EdgeVector & edges) const
 {
   auto const it = m_fakeOutgoingEdges.find(junction);
   if (it != m_fakeOutgoingEdges.cend())
     edges.insert(edges.end(), it->second.cbegin(), it->second.cend());
 }
 
-void IRoadGraph::GetFakeIngoingEdges(Junction const & junction, EdgeVector & edges) const
+void IRoadGraph::GetFakeIngoingEdges(geometry::PointWithAltitude const & junction,
+                                     EdgeVector & edges) const
 {
   auto const it = m_fakeIngoingEdges.find(junction);
   if (it != m_fakeIngoingEdges.cend())
@@ -246,7 +243,8 @@ void IRoadGraph::ResetFakes()
   m_fakeIngoingEdges.clear();
 }
 
-void IRoadGraph::AddEdge(Junction const & j, Edge const & e, map<Junction, EdgeVector> & edges)
+void IRoadGraph::AddEdge(geometry::PointWithAltitude const & j, Edge const & e,
+                         map<geometry::PointWithAltitude, EdgeVector> & edges)
 {
   auto & cont = edges[j];
   ASSERT(is_sorted(cont.cbegin(), cont.cend()), ());
@@ -257,13 +255,13 @@ void IRoadGraph::AddEdge(Junction const & j, Edge const & e, map<Junction, EdgeV
     cont.insert(range.second, e);
 }
 
-void IRoadGraph::AddFakeEdges(Junction const & junction,
-                              vector<pair<Edge, Junction>> const & vicinity)
+void IRoadGraph::AddFakeEdges(geometry::PointWithAltitude const & junction,
+                              vector<pair<Edge, geometry::PointWithAltitude>> const & vicinity)
 {
   for (auto const & v : vicinity)
   {
     Edge const & ab = v.first;
-    Junction const p = v.second;
+    geometry::PointWithAltitude const p = v.second;
 
     vector<Edge> edges;
     SplitEdge(ab, p, edges);
@@ -327,7 +325,7 @@ IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH
 {
   IRoadGraph::RoadInfo ri(bidirectional, speedKMPH, {});
   for (auto const & p : points)
-    ri.m_junctions.emplace_back(MakeJunctionForTesting(p));
+    ri.m_junctions.emplace_back(geometry::MakePointWithAltitudeForTesting(p));
 
   return ri;
 }

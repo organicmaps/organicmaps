@@ -1198,7 +1198,7 @@ bool RoutingManager::HasRouteAltitude() const
 }
 
 bool RoutingManager::GetRouteAltitudesAndDistancesM(vector<double> & routePointDistanceM,
-                                                    feature::TAltitudes & altitudes) const
+                                                    geometry::TAltitudes & altitudes) const
 {
   if (!m_routingSession.GetRouteAltitudesAndDistancesM(routePointDistanceM, altitudes))
     return false;
@@ -1208,7 +1208,7 @@ bool RoutingManager::GetRouteAltitudesAndDistancesM(vector<double> & routePointD
 }
 
 bool RoutingManager::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
-                                                feature::TAltitudes const & altitudes,
+                                                geometry::TAltitudes const & altitudes,
                                                 vector<double> const & routePointDistanceM,
                                                 vector<uint8_t> & imageRGBAData,
                                                 int32_t & minRouteAltitude,
@@ -1224,8 +1224,8 @@ bool RoutingManager::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
     return false;
 
   auto const minMaxIt = minmax_element(altitudes.cbegin(), altitudes.cend());
-  feature::TAltitude const minRouteAltitudeM = *minMaxIt.first;
-  feature::TAltitude const maxRouteAltitudeM = *minMaxIt.second;
+  geometry::TAltitude const minRouteAltitudeM = *minMaxIt.first;
+  geometry::TAltitude const maxRouteAltitudeM = *minMaxIt.second;
 
   if (!settings::Get(settings::kMeasurementUnits, altitudeUnits))
     altitudeUnits = measurement_utils::Units::Metric;

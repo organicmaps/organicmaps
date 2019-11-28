@@ -10,6 +10,8 @@
 
 #include "indexer/ftypes_matcher.hpp"
 
+#include "geometry/point_with_altitude.hpp"
+
 #include "base/buffer_vector.hpp"
 
 #include <string>
@@ -24,7 +26,7 @@ namespace routing
  */
 struct LoadedPathSegment
 {
-  std::vector<Junction> m_path;
+  std::vector<geometry::PointWithAltitude> m_path;
   std::vector<turns::SingleLaneInfo> m_lanes;
   std::string m_name;
   double m_weight = 0.0; /*!< Time in seconds to pass the segment. */

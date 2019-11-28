@@ -9,6 +9,8 @@
 
 #include "indexer/feature_altitude.hpp"
 
+#include "geometry/point_with_altitude.hpp"
+
 #include "base/assert.hpp"
 
 #include <algorithm>
@@ -20,7 +22,7 @@ using namespace traffic;
 
 namespace
 {
-feature::TAltitude constexpr kMountainSicknessAltitudeM = 2500;
+geometry::TAltitude constexpr kMountainSicknessAltitudeM = 2500;
 
 double TimeBetweenSec(m2::PointD const & from, m2::PointD const & to, double speedMpS)
 {
@@ -45,7 +47,7 @@ double CalcTrafficFactor(SpeedGroup speedGroup)
   return 1.0 / percentage;
 }
 
-double GetPedestrianClimbPenalty(double tangent, feature::TAltitude altitudeM)
+double GetPedestrianClimbPenalty(double tangent, geometry::TAltitude altitudeM)
 {
   if (tangent <= 0) // Descent
     return 1.0 + 2.0 * (-tangent);
@@ -59,7 +61,7 @@ double GetPedestrianClimbPenalty(double tangent, feature::TAltitude altitudeM)
   return 1.0 + (10.0 + max(0, altitudeM - kMountainSicknessAltitudeM) * 10.0 / 1500) * tangent;
 }
 
-double GetBicycleClimbPenalty(double tangent, feature::TAltitude altitudeM)
+double GetBicycleClimbPenalty(double tangent, geometry::TAltitude altitudeM)
 {
   if (tangent <= 0) // Descent
     return 1.0;
@@ -71,14 +73,15 @@ double GetBicycleClimbPenalty(double tangent, feature::TAltitude altitudeM)
   return 1.0 + 50.0 * tangent;
 }
 
-double GetCarClimbPenalty(double /* tangent */, feature::TAltitude /* altitude */) { return 1.0; }
+double GetCarClimbPenalty(double /* tangent */, geometry::TAltitude /* altitude */) { return 1.0; }
 
 template <typename GetClimbPenalty>
 double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
                         RoadGeometry const & road, GetClimbPenalty && getClimbPenalty)
 {
-  Junction const & from = road.GetJunction(segment.GetPointId(false /* front */));
-  Junction const & to = road.GetJunction(segment.GetPointId(true /* front */));
+  geometry::PointWithAltitude const & from =
+      road.GetJunction(segment.GetPointId(false /* front */));
+  geometry::PointWithAltitude const & to = road.GetJunction(segment.GetPointId(true /* front */));
   SpeedKMpH const & speed = road.GetSpeed(segment.IsForward());
 
   double const distance = mercator::DistanceOnEarth(from.GetPoint(), to.GetPoint());

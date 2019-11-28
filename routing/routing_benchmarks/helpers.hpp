@@ -42,7 +42,7 @@ protected:
 
   std::unique_ptr<routing::IRouter> CreateRouter(std::string const & name);
   void GetNearestEdges(m2::PointD const & pt,
-                       std::vector<std::pair<routing::Edge, routing::Junction>> & edges);
+                       std::vector<std::pair<routing::Edge, geometry::PointWithAltitude>> & edges);
 
   routing::IRoadGraph::Mode const m_mode;
   routing::VehicleType m_type;

@@ -68,15 +68,18 @@ AltitudeLoader::AltitudeLoader(DataSource const & dataSource, MwmSet::MwmId cons
 
 bool AltitudeLoader::HasAltitudes() const
 {
-  return m_reader != nullptr && m_header.m_minAltitude != kInvalidAltitude;
+  return m_reader != nullptr && m_header.m_minAltitude != geometry::kInvalidAltitude;
 }
 
-TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t pointCount)
+geometry::TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t pointCount)
 {
   if (!HasAltitudes())
   {
     // The version of mwm is less than version::Format::v8 or there's no altitude section in mwm.
-    return m_cache.insert(make_pair(featureId, TAltitudes(pointCount, kDefaultAltitudeMeters))).first->second;
+    return m_cache
+        .insert(make_pair(featureId,
+                          geometry::TAltitudes(pointCount, geometry::kDefaultAltitudeMeters)))
+        .first->second;
   }
 
   auto const it = m_cache.find(featureId);
@@ -85,7 +88,8 @@ TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t point
 
   if (!m_altitudeAvailability[featureId])
   {
-    return m_cache.insert(make_pair(featureId, TAltitudes(pointCount, m_header.m_minAltitude)))
+    return m_cache
+        .insert(make_pair(featureId, geometry::TAltitudes(pointCount, m_header.m_minAltitude)))
         .first->second;
   }
 
@@ -105,14 +109,17 @@ TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t point
     bool const isDeserialized = altitudes.Deserialize(m_header.m_minAltitude, pointCount,
                                                       m_countryFileName, featureId,  src);
 
-    bool const allValid = isDeserialized
-        && none_of(altitudes.m_altitudes.begin(), altitudes.m_altitudes.end(),
-                   [](TAltitude a) { return a == kInvalidAltitude; });
+    bool const allValid =
+        isDeserialized &&
+        none_of(altitudes.m_altitudes.begin(), altitudes.m_altitudes.end(),
+                [](geometry::TAltitude a) { return a == geometry::kInvalidAltitude; });
     if (!allValid)
     {
       LOG(LERROR, ("Only a part point of a feature has a valid altitdue. Altitudes: ", altitudes.m_altitudes,
                    ". Feature Id", featureId, "of", m_countryFileName));
-      return m_cache.insert(make_pair(featureId, TAltitudes(pointCount, m_header.m_minAltitude))).first->second;
+      return m_cache
+          .insert(make_pair(featureId, geometry::TAltitudes(pointCount, m_header.m_minAltitude)))
+          .first->second;
     }
 
     return m_cache.insert(make_pair(featureId, move(altitudes.m_altitudes))).first->second;
@@ -120,7 +127,9 @@ TAltitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, size_t point
   catch (Reader::OpenException const & e)
   {
     LOG(LERROR, ("Feature Id", featureId, "of", m_countryFileName, ". Error while getting altitude data:", e.Msg()));
-    return m_cache.insert(make_pair(featureId, TAltitudes(pointCount, m_header.m_minAltitude))).first->second;
+    return m_cache
+        .insert(make_pair(featureId, geometry::TAltitudes(pointCount, m_header.m_minAltitude)))
+        .first->second;
   }
 }
 }  // namespace feature

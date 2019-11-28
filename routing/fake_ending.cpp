@@ -15,8 +15,9 @@ using namespace std;
 
 namespace
 {
-Junction CalcProjectionToSegment(Junction const & begin, Junction const & end,
-                                 m2::PointD const & point)
+geometry::PointWithAltitude CalcProjectionToSegment(geometry::PointWithAltitude const & begin,
+                                                    geometry::PointWithAltitude const & end,
+                                                    m2::PointD const & point)
 {
   m2::ParametrizedSegment<m2::PointD> segment(begin.GetPoint(), end.GetPoint());
 
@@ -25,12 +26,12 @@ Junction CalcProjectionToSegment(Junction const & begin, Junction const & end,
 
   double constexpr kEpsMeters = 2.0;
   if (base::AlmostEqualAbs(distBeginToEnd, 0.0, kEpsMeters))
-    return Junction(projectedPoint, begin.GetAltitude());
+    return geometry::PointWithAltitude(projectedPoint, begin.GetAltitude());
 
   auto const distBeginToProjection = mercator::DistanceOnEarth(begin.GetPoint(), projectedPoint);
   auto const altitude = begin.GetAltitude() + (end.GetAltitude() - begin.GetAltitude()) *
                                                   distBeginToProjection / distBeginToEnd;
-  return Junction(projectedPoint, altitude);
+  return geometry::PointWithAltitude(projectedPoint, altitude);
 }
 }  // namespace
 
@@ -57,7 +58,8 @@ FakeEnding MakeFakeEnding(vector<Segment> const & segments, m2::PointD const & p
     averageAltitude = (i * averageAltitude + projectedJunction.GetAltitude()) / (i + 1);
   }
 
-  ending.m_originJunction = Junction(point, static_cast<feature::TAltitude>(averageAltitude));
+  ending.m_originJunction =
+      geometry::PointWithAltitude(point, static_cast<geometry::TAltitude>(averageAltitude));
   return ending;
 }
 
@@ -70,7 +72,7 @@ FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point, Ind
   auto const & projectedJunction = CalcProjectionToSegment(backJunction, frontJunction, point);
 
   FakeEnding ending;
-  ending.m_originJunction = Junction(point, projectedJunction.GetAltitude());
+  ending.m_originJunction = geometry::PointWithAltitude(point, projectedJunction.GetAltitude());
   ending.m_projections.emplace_back(segment, oneWay, frontJunction, backJunction,
                                     projectedJunction);
   return ending;

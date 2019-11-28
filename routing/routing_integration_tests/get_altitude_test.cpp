@@ -13,6 +13,7 @@
 #include "routing/routing_helpers.hpp"
 
 #include "geometry/mercator.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include "platform/local_country_file.hpp"
 
@@ -42,8 +43,9 @@ LocalCountryFile GetLocalCountryFileByCountryId(CountryFile const & country)
   return {};
 }
 
-void TestAltitudeOfAllMwmFeatures(string const & countryId, TAltitude const altitudeLowerBoundMeters,
-                                  TAltitude const altitudeUpperBoundMeters)
+void TestAltitudeOfAllMwmFeatures(string const & countryId,
+                                  geometry::TAltitude const altitudeLowerBoundMeters,
+                                  geometry::TAltitude const altitudeUpperBoundMeters)
 {
   FrozenDataSource dataSource;
 
@@ -67,7 +69,7 @@ void TestAltitudeOfAllMwmFeatures(string const & countryId, TAltitude const alti
     if (pointsCount == 0)
       return;
 
-    TAltitudes altitudes = altitudeLoader->GetAltitudes(id, pointsCount);
+    geometry::TAltitudes altitudes = altitudeLoader->GetAltitudes(id, pointsCount);
     TEST(!altitudes.empty(),
          ("Empty altitude vector. MWM:", countryId, ", feature id:", id, ", altitudes:", altitudes));
 

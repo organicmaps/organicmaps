@@ -1,6 +1,7 @@
 #include "openlr/graph.hpp"
 
 #include "geometry/mercator.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include <map>
 #include <memory>
@@ -14,9 +15,10 @@ namespace openlr
 {
 namespace
 {
-using EdgeGetter = void (IRoadGraph::*)(Junction const &, RoadGraphBase::EdgeVector &) const;
+using EdgeGetter = void (IRoadGraph::*)(geometry::PointWithAltitude const &,
+                                        RoadGraphBase::EdgeVector &) const;
 
-void GetRegularEdges(Junction const & junction, IRoadGraph const & graph,
+void GetRegularEdges(geometry::PointWithAltitude const & junction, IRoadGraph const & graph,
                      EdgeGetter const edgeGetter,
                      map<openlr::Graph::Junction, Graph::EdgeVector> & cache,
                      Graph::EdgeVector & edges)

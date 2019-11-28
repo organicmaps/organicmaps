@@ -40,10 +40,10 @@ PedestrianDirectionsEngine::PedestrianDirectionsEngine(shared_ptr<NumMwmIds> num
 }
 
 bool PedestrianDirectionsEngine::Generate(IndexRoadGraph const & graph,
-                                          vector<Junction> const & path,
+                                          vector<geometry::PointWithAltitude> const & path,
                                           base::Cancellable const & cancellable,
                                           Route::TTurns & turns, Route::TStreets & streetNames,
-                                          vector<Junction> & routeGeometry,
+                                          vector<geometry::PointWithAltitude> & routeGeometry,
                                           vector<Segment> & segments)
 {
   turns.clear();

@@ -4,6 +4,8 @@
 #include "routing/road_graph.hpp"
 #include "routing/turn_candidate.hpp"
 
+#include "geometry/point_with_altitude.hpp"
+
 #include <cstddef>
 
 namespace routing
@@ -26,8 +28,8 @@ public:
   virtual void GetPossibleTurns(SegmentRange const & segmentRange, m2::PointD const & junctionPoint,
                                 size_t & ingoingCount, TurnCandidates & outgoingTurns) const = 0;
   virtual double GetPathLength() const = 0;
-  virtual Junction GetStartPoint() const = 0;
-  virtual Junction GetEndPoint() const = 0;
+  virtual geometry::PointWithAltitude GetStartPoint() const = 0;
+  virtual geometry::PointWithAltitude GetEndPoint() const = 0;
 
   virtual ~IRoutingResult() = default;
 };

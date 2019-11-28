@@ -121,7 +121,8 @@ void SingleVehicleWorldGraph::GetEdgeList(JointSegment const & parentJoint,
     CheckAndProcessTransitFeatures(parent, jointEdges, parentWeights, isOutgoing);
 }
 
-Junction const & SingleVehicleWorldGraph::GetJunction(Segment const & segment, bool front)
+geometry::PointWithAltitude const & SingleVehicleWorldGraph::GetJunction(Segment const & segment,
+                                                                         bool front)
 {
   return GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())
          .GetJunction(segment.GetPointId(front));

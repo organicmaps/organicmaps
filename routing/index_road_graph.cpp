@@ -12,7 +12,8 @@ using namespace std;
 namespace routing
 {
 IndexRoadGraph::IndexRoadGraph(shared_ptr<NumMwmIds> numMwmIds, IndexGraphStarter & starter,
-                               vector<Segment> const & segments, vector<Junction> const & junctions,
+                               vector<Segment> const & segments,
+                               vector<geometry::PointWithAltitude> const & junctions,
                                DataSource & dataSource)
   : m_dataSource(dataSource), m_numMwmIds(numMwmIds), m_starter(starter), m_segments(segments)
 {
@@ -22,7 +23,7 @@ IndexRoadGraph::IndexRoadGraph(shared_ptr<NumMwmIds> numMwmIds, IndexGraphStarte
 
   for (size_t i = 0; i < junctions.size(); ++i)
   {
-    Junction const & junction = junctions[i];
+    geometry::PointWithAltitude const & junction = junctions[i];
     if (i > 0)
       m_endToSegment[junction].push_back(segments[i - 1]);
     if (i < segments.size())
@@ -30,12 +31,14 @@ IndexRoadGraph::IndexRoadGraph(shared_ptr<NumMwmIds> numMwmIds, IndexGraphStarte
   }
 }
 
-void IndexRoadGraph::GetOutgoingEdges(Junction const & junction, EdgeVector & edges) const
+void IndexRoadGraph::GetOutgoingEdges(geometry::PointWithAltitude const & junction,
+                                      EdgeVector & edges) const
 {
   GetEdges(junction, true, edges);
 }
 
-void IndexRoadGraph::GetIngoingEdges(Junction const & junction, EdgeVector & edges) const
+void IndexRoadGraph::GetIngoingEdges(geometry::PointWithAltitude const & junction,
+                                     EdgeVector & edges) const
 {
   GetEdges(junction, false, edges);
 }
@@ -71,7 +74,8 @@ void IndexRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & type
   types = feature::TypesHolder(*ft);
 }
 
-void IndexRoadGraph::GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const
+void IndexRoadGraph::GetJunctionTypes(geometry::PointWithAltitude const & junction,
+                                      feature::TypesHolder & types) const
 {
   // TODO: implement method to support PedestrianDirection::LiftGate, PedestrianDirection::Gate
   types = feature::TypesHolder();
@@ -118,7 +122,8 @@ void IndexRoadGraph::GetRouteSegments(std::vector<Segment> & segments) const
   segments = m_segments;
 }
 
-void IndexRoadGraph::GetEdges(Junction const & junction, bool isOutgoing, EdgeVector & edges) const
+void IndexRoadGraph::GetEdges(geometry::PointWithAltitude const & junction, bool isOutgoing,
+                              EdgeVector & edges) const
 {
   edges.clear();
 
@@ -147,7 +152,7 @@ void IndexRoadGraph::GetEdges(Junction const & junction, bool isOutgoing, EdgeVe
   }
 }
 
-vector<Segment> const & IndexRoadGraph::GetSegments(Junction const & junction,
+vector<Segment> const & IndexRoadGraph::GetSegments(geometry::PointWithAltitude const & junction,
                                                     bool isOutgoing) const
 {
   auto const & junctionToSegment = isOutgoing ? m_endToSegment : m_beginToSegment;

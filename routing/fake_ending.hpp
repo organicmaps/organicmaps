@@ -4,6 +4,7 @@
 #include "routing/segment.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include <vector>
 
@@ -15,8 +16,10 @@ class WorldGraph;
 
 struct Projection final
 {
-  Projection(Segment const & segment, bool isOneWay, Junction const & segmentFront,
-             Junction const & segmentBack, Junction const & junction)
+  Projection(Segment const & segment, bool isOneWay,
+             geometry::PointWithAltitude const & segmentFront,
+             geometry::PointWithAltitude const & segmentBack,
+             geometry::PointWithAltitude const & junction)
     : m_segment(segment)
     , m_isOneWay(isOneWay)
     , m_segmentFront(segmentFront)
@@ -27,14 +30,14 @@ struct Projection final
 
   Segment m_segment;
   bool m_isOneWay = false;
-  Junction m_segmentFront;
-  Junction m_segmentBack;
-  Junction m_junction;
+  geometry::PointWithAltitude m_segmentFront;
+  geometry::PointWithAltitude m_segmentBack;
+  geometry::PointWithAltitude m_junction;
 };
 
 struct FakeEnding final
 {
-  Junction m_originJunction;
+  geometry::PointWithAltitude m_originJunction;
   std::vector<Projection> m_projections;
 };
 

@@ -75,13 +75,13 @@ public:
 
   double GetPathLength() const override { return m_routeLength; }
 
-  Junction GetStartPoint() const override
+  geometry::PointWithAltitude GetStartPoint() const override
   {
     CHECK(!m_routeEdges.empty(), ());
     return m_routeEdges.front().GetStartJunction();
   }
 
-  Junction GetEndPoint() const override
+  geometry::PointWithAltitude GetEndPoint() const override
   {
     CHECK(!m_routeEdges.empty(), ());
     return m_routeEdges.back().GetEndJunction();
@@ -165,10 +165,12 @@ BicycleDirectionsEngine::BicycleDirectionsEngine(DataSource const & dataSource,
   CHECK(m_numMwmIds, ());
 }
 
-bool BicycleDirectionsEngine::Generate(IndexRoadGraph const & graph, vector<Junction> const & path,
+bool BicycleDirectionsEngine::Generate(IndexRoadGraph const & graph,
+                                       vector<geometry::PointWithAltitude> const & path,
                                        base::Cancellable const & cancellable, Route::TTurns & turns,
                                        Route::TStreets & streetNames,
-                                       vector<Junction> & routeGeometry, vector<Segment> & segments)
+                                       vector<geometry::PointWithAltitude> & routeGeometry,
+                                       vector<Segment> & segments)
 {
   CHECK(m_numMwmIds, ());
 
@@ -297,7 +299,8 @@ void BicycleDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
     sort(outgoingTurns.candidates.begin(), outgoingTurns.candidates.end(), base::LessBy(&TurnCandidate::m_angle));
 }
 
-void BicycleDirectionsEngine::GetEdges(IndexRoadGraph const & graph, Junction const & currJunction,
+void BicycleDirectionsEngine::GetEdges(IndexRoadGraph const & graph,
+                                       geometry::PointWithAltitude const & currJunction,
                                        bool isCurrJunctionFinish, IRoadGraph::EdgeVector & outgoing,
                                        IRoadGraph::EdgeVector & ingoing)
 {
@@ -310,7 +313,7 @@ void BicycleDirectionsEngine::GetEdges(IndexRoadGraph const & graph, Junction co
 }
 
 void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
-    IndexRoadGraph const & graph, vector<Junction> const & path,
+    IndexRoadGraph const & graph, vector<geometry::PointWithAltitude> const & path,
     IRoadGraph::EdgeVector const & routeEdges, base::Cancellable const & cancellable)
 {
   size_t const pathSize = path.size();
@@ -320,15 +323,15 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
   auto constexpr kInvalidSegId = numeric_limits<uint32_t>::max();
   // |startSegId| is a value to keep start segment id of a new instance of LoadedPathSegment.
   uint32_t startSegId = kInvalidSegId;
-  vector<Junction> prevJunctions;
+  vector<geometry::PointWithAltitude> prevJunctions;
   vector<Segment> prevSegments;
   for (size_t i = 1; i < pathSize; ++i)
   {
     if (cancellable.IsCancelled())
       return;
 
-    Junction const & prevJunction = path[i - 1];
-    Junction const & currJunction = path[i];
+    geometry::PointWithAltitude const & prevJunction = path[i - 1];
+    geometry::PointWithAltitude const & currJunction = path[i];
 
     IRoadGraph::EdgeVector outgoingEdges;
     IRoadGraph::EdgeVector ingoingEdges;

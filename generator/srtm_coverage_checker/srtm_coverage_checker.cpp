@@ -9,6 +9,7 @@
 #include "indexer/feature_processor.hpp"
 
 #include "geometry/mercator.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
@@ -80,7 +81,7 @@ int main(int argc, char * argv[])
       for (size_t i = 0; i < ft.GetPointsCount(); ++i)
       {
         auto const height = manager.GetHeight(mercator::ToLatLon(ft.GetPoint(i)));
-        if (height != feature::kInvalidAltitude)
+        if (height != geometry::kInvalidAltitude)
           good++;
       }
     });

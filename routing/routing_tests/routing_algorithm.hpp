@@ -6,6 +6,8 @@
 #include "routing/road_graph.hpp"
 #include "routing/router.hpp"
 
+#include "geometry/point_with_altitude.hpp"
+
 #include <cstdint>
 #include <map>
 #include <string>
@@ -74,8 +76,8 @@ public:
     Cancelled
   };
 
-  Result CalculateRoute(IRoadGraph const & graph, Junction const & startPos,
-                        Junction const & finalPos,
+  Result CalculateRoute(IRoadGraph const & graph, geometry::PointWithAltitude const & startPos,
+                        geometry::PointWithAltitude const & finalPos,
                         RoutingResult<IRoadGraph::Vertex, IRoadGraph::Weight> & path);
 };
 

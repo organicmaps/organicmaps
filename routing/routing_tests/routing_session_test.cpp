@@ -9,6 +9,7 @@
 #include "routing/routing_session.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include "base/logging.hpp"
 
@@ -121,9 +122,9 @@ private:
 
 void FillSubroutesInfo(Route & route)
 {
-  vector<Junction> junctions;
+  vector<geometry::PointWithAltitude> junctions;
   for (auto const & point : kTestRoute)
-    junctions.emplace_back(point, feature::kDefaultAltitudeMeters);
+    junctions.emplace_back(point, geometry::kDefaultAltitudeMeters);
 
   vector<RouteSegment> segmentInfo;
   FillSegmentInfo(kTestSegments, junctions, kTestTurns, {}, kTestTimes,

@@ -20,6 +20,7 @@
 #include "platform/measurement_utils.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 #include "geometry/polyline2d.hpp"
 
 #include "base/thread_checker.hpp"
@@ -94,7 +95,7 @@ public:
   /// route altitude information to |routeSegDistanceM| and |routeAltitudes|.
   /// \returns true if there is valid route information. If the route is not valid returns false.
   bool GetRouteAltitudesAndDistancesM(std::vector<double> & routeSegDistanceM,
-                                      feature::TAltitudes & routeAltitudesM) const;
+                                      geometry::TAltitudes & routeAltitudesM) const;
 
   SessionState OnLocationPositionChanged(location::GpsInfo const & info);
   void GetRouteFollowingInfo(FollowingInfo & info) const;

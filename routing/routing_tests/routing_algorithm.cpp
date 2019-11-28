@@ -73,11 +73,12 @@ using namespace std;
 
 namespace
 {
-inline double TimeBetweenSec(Junction const & j1, Junction const & j2, double speedMPS)
+inline double TimeBetweenSec(geometry::PointWithAltitude const & j1,
+                             geometry::PointWithAltitude const & j2, double speedMPS)
 {
   ASSERT(speedMPS > 0.0, ());
-  ASSERT_NOT_EQUAL(j1.GetAltitude(), feature::kInvalidAltitude, ());
-  ASSERT_NOT_EQUAL(j2.GetAltitude(), feature::kInvalidAltitude, ());
+  ASSERT_NOT_EQUAL(j1.GetAltitude(), geometry::kInvalidAltitude, ());
+  ASSERT_NOT_EQUAL(j2.GetAltitude(), geometry::kInvalidAltitude, ());
 
   double const distanceM = mercator::DistanceOnEarth(j1.GetPoint(), j2.GetPoint());
   double const altitudeDiffM =
@@ -89,17 +90,20 @@ inline double TimeBetweenSec(Junction const & j1, Junction const & j2, double sp
 class WeightedEdge
 {
 public:
-  WeightedEdge(Junction const & target, double weight) : target(target), weight(weight) {}
+  WeightedEdge(geometry::PointWithAltitude const & target, double weight)
+    : target(target), weight(weight)
+  {
+  }
 
-  inline Junction const & GetTarget() const { return target; }
+  inline geometry::PointWithAltitude const & GetTarget() const { return target; }
   inline double GetWeight() const { return weight; }
 
 private:
-  Junction const target;
+  geometry::PointWithAltitude const target;
   double const weight;
 };
 
-using Algorithm = AStarAlgorithm<Junction, WeightedEdge, double>;
+using Algorithm = AStarAlgorithm<geometry::PointWithAltitude, WeightedEdge, double>;
 
 /// A wrapper around IRoadGraph, which makes it possible to use IRoadGraph with astar algorithms.
 class RoadGraph : public Algorithm::Graph
@@ -188,7 +192,8 @@ string DebugPrint(TestAStarBidirectionalAlgo::Result const & value)
 
 // *************************** AStar-bidirectional routing algorithm implementation ***********************
 TestAStarBidirectionalAlgo::Result TestAStarBidirectionalAlgo::CalculateRoute(
-    IRoadGraph const & graph, Junction const & startPos, Junction const & finalPos,
+    IRoadGraph const & graph, geometry::PointWithAltitude const & startPos,
+    geometry::PointWithAltitude const & finalPos,
     RoutingResult<IRoadGraph::Vertex, IRoadGraph::Weight> & path)
 {
   RoadGraph roadGraph(graph);

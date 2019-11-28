@@ -72,7 +72,8 @@ void TransitWorldGraph::GetEdgeList(JointSegment const & parentJoint,
   CHECK(false, ("TransitWorldGraph does not support Joints mode."));
 }
 
-Junction const & TransitWorldGraph::GetJunction(Segment const & segment, bool front)
+geometry::PointWithAltitude const & TransitWorldGraph::GetJunction(Segment const & segment,
+                                                                   bool front)
 {
   if (TransitGraph::IsTransitSegment(segment))
     return GetTransitGraph(segment.GetMwmId()).GetJunction(segment, front);

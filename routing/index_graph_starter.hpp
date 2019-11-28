@@ -16,6 +16,8 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
+#include "geometry/point_with_altitude.hpp"
+
 #include <cstddef>
 #include <cstdint>
 #include <functional>
@@ -54,16 +56,17 @@ public:
 
   WorldGraph & GetGraph() const { return m_graph; }
   WorldGraphMode GetMode() const { return m_graph.GetMode(); }
-  Junction const & GetStartJunction() const;
-  Junction const & GetFinishJunction() const;
+  geometry::PointWithAltitude const & GetStartJunction() const;
+  geometry::PointWithAltitude const & GetFinishJunction() const;
   Segment GetStartSegment() const { return GetFakeSegment(m_start.m_id); }
   Segment GetFinishSegment() const { return GetFakeSegment(m_finish.m_id); }
   // If segment is real returns true and does not modify segment.
   // If segment is part of real converts it to real and returns true.
   // Otherwise returns false and does not modify segment.
   bool ConvertToReal(Segment & segment) const;
-  Junction const & GetJunction(Segment const & segment, bool front) const;
-  Junction const & GetRouteJunction(std::vector<Segment> const & route, size_t pointIndex) const;
+  geometry::PointWithAltitude const & GetJunction(Segment const & segment, bool front) const;
+  geometry::PointWithAltitude const & GetRouteJunction(std::vector<Segment> const & route,
+                                                       size_t pointIndex) const;
   m2::PointD const & GetPoint(Segment const & segment, bool front) const;
 
   bool IsRoutingOptionsGood(Segment const & segment) const;

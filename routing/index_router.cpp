@@ -170,9 +170,10 @@ void PushPassedSubroutes(Checkpoints const & checkpoints, vector<Route::Subroute
 {
   for (size_t i = 0; i < checkpoints.GetPassedIdx(); ++i)
   {
-    subroutes.emplace_back(Junction(checkpoints.GetPoint(i), feature::kDefaultAltitudeMeters),
-                           Junction(checkpoints.GetPoint(i + 1), feature::kDefaultAltitudeMeters),
-                           0 /* beginSegmentIdx */, 0 /* endSegmentIdx */);
+    subroutes.emplace_back(
+        geometry::PointWithAltitude(checkpoints.GetPoint(i), geometry::kDefaultAltitudeMeters),
+        geometry::PointWithAltitude(checkpoints.GetPoint(i + 1), geometry::kDefaultAltitudeMeters),
+        0 /* beginSegmentIdx */, 0 /* endSegmentIdx */);
   }
 }
 
@@ -785,7 +786,8 @@ void IndexRouter::EraseIfDeadEnd(WorldGraph & worldGraph,
   });
 }
 
-bool IndexRouter::IsFencedOff(m2::PointD const & point, pair<Edge, Junction> const & edgeProjection,
+bool IndexRouter::IsFencedOff(m2::PointD const & point,
+                              pair<Edge, geometry::PointWithAltitude> const & edgeProjection,
                               vector<IRoadGraph::FullRoadInfo> const & fences) const
 {
   auto const & edge = edgeProjection.first;
@@ -821,10 +823,9 @@ bool IndexRouter::IsFencedOff(m2::PointD const & point, pair<Edge, Junction> con
   return false;
 }
 
-void IndexRouter::RoadsToNearestEdges(m2::PointD const & point,
-                                      vector<IRoadGraph::FullRoadInfo> const & roads,
-                                      IsEdgeProjGood const & isGood,
-                                      vector<pair<Edge, Junction>> & edgeProj) const
+void IndexRouter::RoadsToNearestEdges(
+    m2::PointD const & point, vector<IRoadGraph::FullRoadInfo> const & roads,
+    IsEdgeProjGood const & isGood, vector<pair<Edge, geometry::PointWithAltitude>> & edgeProj) const
 {
   NearestEdgeFinder finder(point, isGood);
   for (auto const & road : roads)
@@ -842,9 +843,10 @@ Segment IndexRouter::GetSegmentByEdge(Edge const & edge) const
   return Segment(numMwmId, edge.GetFeatureId().m_index, edge.GetSegId(), edge.IsForward());
 }
 
-bool IndexRouter::FindClosestCodirectionalEdge(m2::PointD const & point, m2::PointD const & direction,
-                                               vector<pair<Edge, Junction>> const & candidates,
-                                               Edge & closestCodirectionalEdge) const
+bool IndexRouter::FindClosestCodirectionalEdge(
+    m2::PointD const & point, m2::PointD const & direction,
+    vector<pair<Edge, geometry::PointWithAltitude>> const & candidates,
+    Edge & closestCodirectionalEdge) const
 {
   double constexpr kInvalidDist = numeric_limits<double>::max();
   double squareDistToClosestCodirectionalEdgeM = kInvalidDist;
@@ -947,7 +949,7 @@ bool IndexRouter::FindBestEdges(m2::PointD const & point,
   // candidates if it's a dead end taking into acount routing options. We ignore candidates as well
   // if they don't match RoutingOptions.
   set<Segment> deadEnds;
-  auto const isGood = [&](pair<Edge, Junction> const & edgeProj){
+  auto const isGood = [&](pair<Edge, geometry::PointWithAltitude> const & edgeProj) {
     auto const segment = GetSegmentByEdge(edgeProj.first);
     if (IsDeadEndCached(segment, isOutgoing, true /* useRoutingOptions */,  worldGraph, deadEnds))
       return false;
@@ -957,7 +959,7 @@ bool IndexRouter::FindBestEdges(m2::PointD const & point,
   };
 
   // Getting closest edges from |closestRoads| if they are correct according to isGood() function.
-  vector<pair<Edge, Junction>> candidates;
+  vector<pair<Edge, geometry::PointWithAltitude>> candidates;
   RoadsToNearestEdges(point, closestRoads, isGood, candidates);
 
   if (candidates.empty())
@@ -1218,7 +1220,7 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
                                            IndexGraphStarter & starter, Route & route) const
 {
   CHECK(!segments.empty(), ());
-  vector<Junction> junctions;
+  vector<geometry::PointWithAltitude> junctions;
   size_t const numPoints = IndexGraphStarter::GetRouteNumPoints(segments);
   junctions.reserve(numPoints);
 

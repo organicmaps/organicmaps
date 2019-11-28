@@ -6,6 +6,8 @@
 
 #include "storage/country_info_getter.hpp"
 
+#include "geometry/point_with_altitude.hpp"
+
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -56,7 +58,7 @@ void CandidatePointsGetter::EnrichWithProjectionPoints(m2::PointD const & p,
 {
   m_graph.ResetFakes();
 
-  std::vector<std::pair<Graph::Edge, Junction>> vicinities;
+  std::vector<std::pair<Graph::Edge, geometry::PointWithAltitude>> vicinities;
   m_graph.FindClosestEdges(p, static_cast<uint32_t>(m_maxProjectionCandidates), vicinities);
   for (auto const & v : vicinities)
   {

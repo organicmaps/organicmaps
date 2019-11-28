@@ -17,6 +17,7 @@
 
 #include "geometry/mercator.hpp"
 #include "geometry/polyline2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include "base/logging.hpp"
 #include "base/math.hpp"
@@ -105,11 +106,11 @@ void RoutingTest::TestRouters(m2::PointD const & startPos, m2::PointD const & fi
 
 void RoutingTest::TestTwoPointsOnFeature(m2::PointD const & startPos, m2::PointD const & finalPos)
 {
-  vector<pair<routing::Edge, routing::Junction>> startEdges;
+  vector<pair<routing::Edge, geometry::PointWithAltitude>> startEdges;
   GetNearestEdges(startPos, startEdges);
   TEST(!startEdges.empty(), ());
 
-  vector<pair<routing::Edge, routing::Junction>> finalEdges;
+  vector<pair<routing::Edge, geometry::PointWithAltitude>> finalEdges;
   GetNearestEdges(finalPos, finalEdges);
   TEST(!finalEdges.empty(), ());
 
@@ -137,7 +138,7 @@ unique_ptr<routing::IRouter> RoutingTest::CreateRouter(string const & name)
 }
 
 void RoutingTest::GetNearestEdges(m2::PointD const & pt,
-                                  vector<pair<routing::Edge, routing::Junction>> & edges)
+                                  vector<pair<routing::Edge, geometry::PointWithAltitude>> & edges)
 {
   routing::FeaturesRoadGraph graph(m_dataSource, m_mode, CreateModelFactory());
   graph.FindClosestEdges(mercator::RectByCenterXYAndSizeInMeters(
@@ -159,8 +160,8 @@ void TestRouter(routing::IRouter & router, m2::PointD const & startPos,
   TEST(route.IsValid(), ());
   m2::PolylineD const & poly = route.GetPoly();
   TEST_GREATER(poly.GetSize(), 0, ());
-  TEST(base::AlmostEqualAbs(poly.Front(), startPos, routing::kPointsEqualEpsilon), ());
-  TEST(base::AlmostEqualAbs(poly.Back(), finalPos, routing::kPointsEqualEpsilon), ());
+  TEST(base::AlmostEqualAbs(poly.Front(), startPos, geometry::kPointsEqualEpsilon), ());
+  TEST(base::AlmostEqualAbs(poly.Back(), finalPos, geometry::kPointsEqualEpsilon), ());
   LOG(LINFO, ("Route polyline size:", route.GetPoly().GetSize()));
   LOG(LINFO, ("Route distance, meters:", route.GetTotalDistanceMeters()));
   LOG(LINFO, ("Elapsed, seconds:", elapsedSec));

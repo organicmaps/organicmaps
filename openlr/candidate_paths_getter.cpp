@@ -10,6 +10,7 @@
 #include "platform/location.hpp"
 
 #include "geometry/angles.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include <algorithm>
 #include <iterator>
@@ -46,11 +47,11 @@ Graph::Edge CandidatePathsGetter::Link::GetStartEdge() const
   return start->m_edge;
 }
 
-bool CandidatePathsGetter::Link::IsJunctionInPath(routing::Junction const & j) const
+bool CandidatePathsGetter::Link::IsPointOnPath(geometry::PointWithAltitude const & point) const
 {
   for (auto * l = this; l; l = l->m_parent.get())
   {
-    if (l->m_edge.GetEndJunction() == j)
+    if (l->m_edge.GetEndJunction() == point)
     {
       LOG(LDEBUG, ("A loop detected, skipping..."));
       return true;
@@ -104,9 +105,9 @@ void CandidatePathsGetter::GetStartLines(vector<m2::PointD> const & points, bool
   for (auto const & pc : points)
   {
     if (!isLastPoint)
-      m_graph.GetOutgoingEdges(Junction(pc, 0 /* altitude */), edges);
+      m_graph.GetOutgoingEdges(geometry::PointWithAltitude(pc, 0 /* altitude */), edges);
     else
-      m_graph.GetIngoingEdges(Junction(pc, 0 /* altitude */), edges);
+      m_graph.GetIngoingEdges(geometry::PointWithAltitude(pc, 0 /* altitude */), edges);
   }
 
   // Same edges may start on different points if those points are close enough.
@@ -165,7 +166,7 @@ void CandidatePathsGetter::GetAllSuitablePaths(Graph::EdgeVector const & startLi
 
       // TODO(mgsergio): Should we check form of way as well?
 
-      if (u->IsJunctionInPath(e.GetEndJunction()))
+      if (u->IsPointOnPath(e.GetEndJunction()))
         continue;
 
       auto const p = make_shared<Link>(u, e, u->m_distanceM + currentEdgeLen);

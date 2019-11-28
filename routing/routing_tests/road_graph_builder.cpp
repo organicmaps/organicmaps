@@ -4,6 +4,8 @@
 
 #include "indexer/mwm_set.hpp"
 
+#include "geometry/point_with_altitude.hpp"
+
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -101,7 +103,8 @@ void RoadGraphMockSource::GetFeatureTypes(FeatureID const & featureId, feature::
   UNUSED_VALUE(types);
 }
 
-void RoadGraphMockSource::GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const
+void RoadGraphMockSource::GetJunctionTypes(geometry::PointWithAltitude const & junction,
+                                           feature::TypesHolder & types) const
 {
   UNUSED_VALUE(junction);
   UNUSED_VALUE(types);
@@ -123,34 +126,34 @@ void InitRoadGraphMockSourceWithTest1(RoadGraphMockSource & src)
   IRoadGraph::RoadInfo ri0;
   ri0.m_bidirectional = true;
   ri0.m_speedKMPH = kMaxSpeedKMpH;
-  ri0.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(0, 0)));
-  ri0.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(5, 0)));
-  ri0.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(10, 0)));
-  ri0.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(15, 0)));
-  ri0.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(20, 0)));
+  ri0.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0)));
+  ri0.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(5, 0)));
+  ri0.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 0)));
+  ri0.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(15, 0)));
+  ri0.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(20, 0)));
 
   IRoadGraph::RoadInfo ri1;
   ri1.m_bidirectional = true;
   ri1.m_speedKMPH = kMaxSpeedKMpH;
-  ri1.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(10, -10)));
-  ri1.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(10, -5)));
-  ri1.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(10, 0)));
-  ri1.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(10, 5)));
-  ri1.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(10, 10)));
+  ri1.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(10, -10)));
+  ri1.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(10, -5)));
+  ri1.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 0)));
+  ri1.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 5)));
+  ri1.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 10)));
 
   IRoadGraph::RoadInfo ri2;
   ri2.m_bidirectional = true;
   ri2.m_speedKMPH = kMaxSpeedKMpH;
-  ri2.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(15, -5)));
-  ri2.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(15, 0)));
+  ri2.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(15, -5)));
+  ri2.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(15, 0)));
 
   IRoadGraph::RoadInfo ri3;
   ri3.m_bidirectional = true;
   ri3.m_speedKMPH = kMaxSpeedKMpH;
-  ri3.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(20, 0)));
-  ri3.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(25, 5)));
-  ri3.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(15, 5)));
-  ri3.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(20, 0)));
+  ri3.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(20, 0)));
+  ri3.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(25, 5)));
+  ri3.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(15, 5)));
+  ri3.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(20, 0)));
 
   src.AddRoad(move(ri0));
   src.AddRoad(move(ri1));
@@ -163,72 +166,72 @@ void InitRoadGraphMockSourceWithTest2(RoadGraphMockSource & graph)
   IRoadGraph::RoadInfo ri0;
   ri0.m_bidirectional = true;
   ri0.m_speedKMPH = kMaxSpeedKMpH;
-  ri0.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(0, 0)));
-  ri0.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(10, 0)));
-  ri0.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(25, 0)));
-  ri0.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(35, 0)));
-  ri0.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(70, 0)));
-  ri0.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(80, 0)));
+  ri0.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0)));
+  ri0.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 0)));
+  ri0.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(25, 0)));
+  ri0.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(35, 0)));
+  ri0.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(70, 0)));
+  ri0.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(80, 0)));
 
   IRoadGraph::RoadInfo ri1;
   ri1.m_bidirectional = true;
   ri1.m_speedKMPH = kMaxSpeedKMpH;
-  ri1.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(0, 0)));
-  ri1.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(5, 10)));
-  ri1.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(5, 40)));
+  ri1.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0)));
+  ri1.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(5, 10)));
+  ri1.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(5, 40)));
 
   IRoadGraph::RoadInfo ri2;
   ri2.m_bidirectional = true;
   ri2.m_speedKMPH = kMaxSpeedKMpH;
-  ri2.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(12, 25)));
-  ri2.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(10, 10)));
-  ri2.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(10, 0)));
+  ri2.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(12, 25)));
+  ri2.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 10)));
+  ri2.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 0)));
 
   IRoadGraph::RoadInfo ri3;
   ri3.m_bidirectional = true;
   ri3.m_speedKMPH = kMaxSpeedKMpH;
-  ri3.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(5, 10)));
-  ri3.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(10, 10)));
-  ri3.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(70, 10)));
-  ri3.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(80, 10)));
+  ri3.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(5, 10)));
+  ri3.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 10)));
+  ri3.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(70, 10)));
+  ri3.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(80, 10)));
 
   IRoadGraph::RoadInfo ri4;
   ri4.m_bidirectional = true;
   ri4.m_speedKMPH = kMaxSpeedKMpH;
-  ri4.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(25, 0)));
-  ri4.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(27, 25)));
+  ri4.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(25, 0)));
+  ri4.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(27, 25)));
 
   IRoadGraph::RoadInfo ri5;
   ri5.m_bidirectional = true;
   ri5.m_speedKMPH = kMaxSpeedKMpH;
-  ri5.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(35, 0)));
-  ri5.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(37, 30)));
-  ri5.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(70, 30)));
-  ri5.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(80, 30)));
+  ri5.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(35, 0)));
+  ri5.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(37, 30)));
+  ri5.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(70, 30)));
+  ri5.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(80, 30)));
 
   IRoadGraph::RoadInfo ri6;
   ri6.m_bidirectional = true;
   ri6.m_speedKMPH = kMaxSpeedKMpH;
-  ri6.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(70, 0)));
-  ri6.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(70, 10)));
-  ri6.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(70, 30)));
+  ri6.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(70, 0)));
+  ri6.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(70, 10)));
+  ri6.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(70, 30)));
 
   IRoadGraph::RoadInfo ri7;
   ri7.m_bidirectional = true;
   ri7.m_speedKMPH = kMaxSpeedKMpH;
-  ri7.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(39, 55)));
-  ri7.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(80, 55)));
+  ri7.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(39, 55)));
+  ri7.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(80, 55)));
 
   IRoadGraph::RoadInfo ri8;
   ri8.m_bidirectional = true;
   ri8.m_speedKMPH = kMaxSpeedKMpH;
-  ri8.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(5, 40)));
-  ri8.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(18, 55)));
-  ri8.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(39, 55)));
-  ri8.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(37, 30)));
-  ri8.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(27, 25)));
-  ri8.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(12, 25)));
-  ri8.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(5, 40)));
+  ri8.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(5, 40)));
+  ri8.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(18, 55)));
+  ri8.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(39, 55)));
+  ri8.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(37, 30)));
+  ri8.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(27, 25)));
+  ri8.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(12, 25)));
+  ri8.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(5, 40)));
 
   graph.AddRoad(move(ri0));
   graph.AddRoad(move(ri1));

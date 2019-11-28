@@ -25,6 +25,7 @@
 #include "platform/country_file.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 #include "geometry/rect2d.hpp"
 #include "geometry/tree4d.hpp"
 
@@ -116,21 +117,23 @@ private:
 
   /// \returns true if a segment (|point|, |edgeProjection.second|) crosses one of segments
   /// in |fences| except for a one which has the same geometry with |edgeProjection.first|.
-  bool IsFencedOff(m2::PointD const & point, std::pair<Edge, Junction> const & edgeProjection,
+  bool IsFencedOff(m2::PointD const & point,
+                   std::pair<Edge, geometry::PointWithAltitude> const & edgeProjection,
                    std::vector<IRoadGraph::FullRoadInfo> const & fences) const;
 
-  void RoadsToNearestEdges(m2::PointD const & point,
-                           std::vector<IRoadGraph::FullRoadInfo> const & roads,
-                           IsEdgeProjGood const & isGood,
-                           std::vector<std::pair<Edge, Junction>> & edgeProj) const;
+  void RoadsToNearestEdges(
+      m2::PointD const & point, std::vector<IRoadGraph::FullRoadInfo> const & roads,
+      IsEdgeProjGood const & isGood,
+      std::vector<std::pair<Edge, geometry::PointWithAltitude>> & edgeProj) const;
 
   Segment GetSegmentByEdge(Edge const & edge) const;
 
   /// \brief Fills |closestCodirectionalEdge| with a codirectional edge which is closet to
   /// |point| and returns true if there's any. If not returns false.
-  bool FindClosestCodirectionalEdge(m2::PointD const & point, m2::PointD const & direction,
-                                    std::vector<std::pair<Edge, Junction>> const & candidates,
-                                    Edge & closestCodirectionalEdge) const;
+  bool FindClosestCodirectionalEdge(
+      m2::PointD const & point, m2::PointD const & direction,
+      std::vector<std::pair<Edge, geometry::PointWithAltitude>> const & candidates,
+      Edge & closestCodirectionalEdge) const;
 
   /// \brief Finds the best segments (edges) which may be considered as starts or finishes
   /// of the route. According to current implementation the closest to |point| segment which

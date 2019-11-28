@@ -45,16 +45,16 @@ void NearestEdgeFinder::AddInformationSource(IRoadGraph::FullRoadInfo const & ro
 
   // Closest point to |this->m_point| found. It has index |res.m_segId + 1| in |junctions|.
   size_t const idx = res.m_segId + 1;
-  Junction const & segStart = junctions[idx - 1];
-  Junction const & segEnd = junctions[idx];
-  feature::TAltitude const startAlt = segStart.GetAltitude();
-  feature::TAltitude const endAlt = segEnd.GetAltitude();
+  geometry::PointWithAltitude const & segStart = junctions[idx - 1];
+  geometry::PointWithAltitude const & segEnd = junctions[idx];
+  geometry::TAltitude const startAlt = segStart.GetAltitude();
+  geometry::TAltitude const endAlt = segEnd.GetAltitude();
   m2::ParametrizedSegment<m2::PointD> segment(junctions[idx - 1].GetPoint(),
                                               junctions[idx].GetPoint());
   m2::PointD const closestPoint = segment.ClosestPointTo(m_point);
 
   double const segLenM = mercator::DistanceOnEarth(segStart.GetPoint(), segEnd.GetPoint());
-  feature::TAltitude projPointAlt = feature::kDefaultAltitudeMeters;
+  geometry::TAltitude projPointAlt = geometry::kDefaultAltitudeMeters;
   if (segLenM == 0.0)
   {
     projPointAlt = startAlt;
@@ -64,7 +64,7 @@ void NearestEdgeFinder::AddInformationSource(IRoadGraph::FullRoadInfo const & ro
     double const distFromStartM = mercator::DistanceOnEarth(segStart.GetPoint(), closestPoint);
     ASSERT_LESS_OR_EQUAL(distFromStartM, segLenM, (roadInfo.m_featureId));
     projPointAlt =
-        startAlt + static_cast<feature::TAltitude>((endAlt - startAlt) * distFromStartM / segLenM);
+        startAlt + static_cast<geometry::TAltitude>((endAlt - startAlt) * distFromStartM / segLenM);
   }
 
   res.m_fid = roadInfo.m_featureId;
@@ -72,14 +72,15 @@ void NearestEdgeFinder::AddInformationSource(IRoadGraph::FullRoadInfo const & ro
   res.m_segEnd = segEnd;
   res.m_bidirectional = roadInfo.m_roadInfo.m_bidirectional;
 
-  ASSERT_NOT_EQUAL(res.m_segStart.GetAltitude(), feature::kInvalidAltitude, ());
-  ASSERT_NOT_EQUAL(res.m_segEnd.GetAltitude(), feature::kInvalidAltitude, ());
-  res.m_projPoint = Junction(closestPoint, projPointAlt);
+  ASSERT_NOT_EQUAL(res.m_segStart.GetAltitude(), geometry::kInvalidAltitude, ());
+  ASSERT_NOT_EQUAL(res.m_segEnd.GetAltitude(), geometry::kInvalidAltitude, ());
+  res.m_projPoint = geometry::PointWithAltitude(closestPoint, projPointAlt);
 
   m_candidates.emplace_back(res);
 }
 
-void NearestEdgeFinder::MakeResult(vector<pair<Edge, Junction>> & res, size_t maxCountFeatures)
+void NearestEdgeFinder::MakeResult(vector<pair<Edge, geometry::PointWithAltitude>> & res,
+                                   size_t maxCountFeatures)
 {
   sort(m_candidates.begin(), m_candidates.end(), [](Candidate const & r1, Candidate const & r2)
   {
@@ -97,9 +98,9 @@ void NearestEdgeFinder::MakeResult(vector<pair<Edge, Junction>> & res, size_t ma
   }
 }
 
-void NearestEdgeFinder::CandidateToResult(Candidate const & candidate,
-                                          size_t maxCountFeatures,
-                                          vector<pair<Edge, Junction>> & res) const
+void NearestEdgeFinder::CandidateToResult(
+    Candidate const & candidate, size_t maxCountFeatures,
+    vector<pair<Edge, geometry::PointWithAltitude>> & res) const
 {
   AddResIf(candidate, true /* forward */, maxCountFeatures, res);
 
@@ -108,13 +109,13 @@ void NearestEdgeFinder::CandidateToResult(Candidate const & candidate,
 }
 
 void NearestEdgeFinder::AddResIf(Candidate const & candidate, bool forward, size_t maxCountFeatures,
-                                 vector<pair<Edge, Junction>> & res) const
+                                 vector<pair<Edge, geometry::PointWithAltitude>> & res) const
 {
   if (res.size() >= maxCountFeatures)
     return;
 
-  Junction const & start = forward ? candidate.m_segStart : candidate.m_segEnd;
-  Junction const & end = forward ? candidate.m_segEnd : candidate.m_segStart;
+  geometry::PointWithAltitude const & start = forward ? candidate.m_segStart : candidate.m_segEnd;
+  geometry::PointWithAltitude const & end = forward ? candidate.m_segEnd : candidate.m_segStart;
   auto const & edge = Edge::MakeReal(candidate.m_fid, forward, candidate.m_segId, start,end);
   auto const & edgeProj = make_pair(edge, candidate.m_projPoint);
   if (m_isEdgeProjGood && !m_isEdgeProjGood(edgeProj))

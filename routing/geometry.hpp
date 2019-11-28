@@ -12,6 +12,7 @@
 #include "indexer/feature_altitude.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include "base/buffer_vector.hpp"
 #include "base/fifo_cache.hpp"
@@ -35,14 +36,14 @@ public:
   RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedKMpH, Points const & points);
 
   void Load(VehicleModelInterface const & vehicleModel, FeatureType & feature,
-            feature::TAltitudes const * altitudes, bool inCity, Maxspeed const & maxspeed);
+            geometry::TAltitudes const * altitudes, bool inCity, Maxspeed const & maxspeed);
 
   bool IsOneWay() const { return m_isOneWay; }
   SpeedKMpH const & GetSpeed(bool forward) const;
   HighwayType GetHighwayType() const { return *m_highwayType; }
   bool IsPassThroughAllowed() const { return m_isPassThroughAllowed; }
 
-  Junction const & GetJunction(uint32_t junctionId) const
+  geometry::PointWithAltitude const & GetJunction(uint32_t junctionId) const
   {
     ASSERT_LESS(junctionId, m_junctions.size(), ());
     return m_junctions[junctionId];
@@ -80,7 +81,7 @@ private:
 
   double GetRoadLengthM() const;
 
-  buffer_vector<Junction, 32> m_junctions;
+  buffer_vector<geometry::PointWithAltitude, 32> m_junctions;
   SpeedKMpH m_forwardSpeed;
   SpeedKMpH m_backwardSpeed;
   boost::optional<HighwayType> m_highwayType;

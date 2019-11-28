@@ -47,7 +47,7 @@ private:
     {
     }
 
-    bool IsJunctionInPath(routing::Junction const & j) const;
+    bool IsPointOnPath(geometry::PointWithAltitude const & point) const;
 
     Graph::Edge GetStartEdge() const;
 

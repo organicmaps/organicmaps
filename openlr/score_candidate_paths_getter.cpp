@@ -10,6 +10,7 @@
 
 #include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
@@ -66,7 +67,7 @@ Graph::Edge ScoreCandidatePathsGetter::Link::GetStartEdge() const
   return start->m_edge;
 }
 
-bool ScoreCandidatePathsGetter::Link::IsJunctionInPath(Junction const & j) const
+bool ScoreCandidatePathsGetter::Link::IsJunctionInPath(geometry::PointWithAltitude const & j) const
 {
   for (auto * l = this; l; l = l->m_parent.get())
   {

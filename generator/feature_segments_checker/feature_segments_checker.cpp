@@ -10,6 +10,7 @@
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include "platform/platform.hpp"
 
@@ -119,7 +120,7 @@ public:
   set<RoughPoint> m_uniqueRoadPoints;
   /// Key is an altitude difference for a feature in meters. If a feature goes up the key is greater then 0.
   /// Value is a number of features.
-  map<TAltitude, uint32_t> m_altitudeDiffs;
+  map<geometry::TAltitude, uint32_t> m_altitudeDiffs;
   /// Key is a length of a feature in meters. Value is a number of features.
   map<uint32_t, uint32_t> m_featureLength;
   /// Key is a length of a feature segment in meters. Value is a segment counter.
@@ -139,11 +140,11 @@ public:
   /// Key is number of meters. It shows altitude deviation of intermediate feature points
   /// from linear model.
   /// Value is a number of features.
-  map<TAltitude, uint32_t> m_diffFromLinear;
+  map<geometry::TAltitude, uint32_t> m_diffFromLinear;
   /// Key is number of meters. It shows altitude deviation of intermediate feature points
   /// from line calculated base on least squares method for all feature points.
   /// Value is a number of features.
-  map<TAltitude, uint32_t> m_leastSquaresDiff;
+  map<geometry::TAltitude, uint32_t> m_leastSquaresDiff;
   /// Number of features for GetBicycleModel().IsRoad(feature) == true.
   uint32_t m_roadCount;
   /// Number of features for empty features with GetBicycleModel().IsRoad(feature).
@@ -152,8 +153,8 @@ public:
   uint32_t m_roadPointCount;
   /// Number of features for GetBicycleModel().IsRoad(feature) != true.
   uint32_t m_notRoadCount;
-  TAltitude m_minAltitude = kInvalidAltitude;
-  TAltitude m_maxAltitude = kInvalidAltitude;
+  geometry::TAltitude m_minAltitude = geometry::kInvalidAltitude;
+  geometry::TAltitude m_maxAltitude = geometry::kInvalidAltitude;
 
   explicit Processor(generator::SrtmTileManager & manager)
     : m_srtmManager(manager)
@@ -189,14 +190,14 @@ public:
       m_uniqueRoadPoints.insert(RoughPoint(f.GetPoint(i)));
 
     // Preparing feature altitude and length.
-    TAltitudes pointAltitudes(numPoints);
+    geometry::TAltitudes pointAltitudes(numPoints);
     vector<double> pointDists(numPoints);
     double distFromStartMeters = 0;
     for (uint32_t i = 0; i < numPoints; ++i)
     {
       // Feature segment altitude.
-      TAltitude altitude = m_srtmManager.GetHeight(mercator::ToLatLon(f.GetPoint(i)));
-      pointAltitudes[i] = altitude == kInvalidAltitude ? 0 : altitude;
+      geometry::TAltitude altitude = m_srtmManager.GetHeight(mercator::ToLatLon(f.GetPoint(i)));
+      pointAltitudes[i] = altitude == geometry::kInvalidAltitude ? 0 : altitude;
       if (i == 0)
       {
         pointDists[i] = 0;
@@ -212,9 +213,9 @@ public:
     // Min and max altitudes.
     for (auto const a : pointAltitudes)
     {
-      if (m_minAltitude == kInvalidAltitude || a < m_minAltitude)
+      if (m_minAltitude == geometry::kInvalidAltitude || a < m_minAltitude)
         m_minAltitude = a;
-      if (m_maxAltitude == kInvalidAltitude || a > m_maxAltitude)
+      if (m_maxAltitude == geometry::kInvalidAltitude || a > m_maxAltitude)
         m_maxAltitude = a;
     }
 
@@ -232,8 +233,8 @@ public:
     m_featureLength[static_cast<uint32_t>(realFeatureLengthMeters)]++;
 
     // Feature altitude difference.
-    TAltitude const startAltitude = pointAltitudes[0];
-    TAltitude const endAltitude = pointAltitudes[numPoints - 1];
+    geometry::TAltitude const startAltitude = pointAltitudes[0];
+    geometry::TAltitude const endAltitude = pointAltitudes[numPoints - 1];
     int16_t const altitudeDiff = endAltitude - startAltitude;
     m_altitudeDiffs[altitudeDiff]++;
 
@@ -279,7 +280,8 @@ public:
     for (uint32_t i = 1; i + 1 < numPoints; ++i)
     {
       int32_t const deviation =
-          static_cast<TAltitude>(GetY(k, startAltitude, pointDists[i])) - pointAltitudes[i];
+          static_cast<geometry::TAltitude>(GetY(k, startAltitude, pointDists[i])) -
+          pointAltitudes[i];
       m_diffFromLinear[deviation]++;
     }
 
@@ -293,15 +295,15 @@ public:
 
       for (uint32_t i = 0; i < numPoints; ++i)
       {
-        TAltitude const deviation =
-            static_cast<TAltitude>(GetY(k, b, pointDists[i])) - pointAltitudes[i];
+        geometry::TAltitude const deviation =
+            static_cast<geometry::TAltitude>(GetY(k, b, pointDists[i])) - pointAltitudes[i];
         m_leastSquaresDiff[deviation]++;
       }
     }
   }
 };
 
-double CalculateEntropy(map<TAltitude, uint32_t> const & diffFromLinear)
+double CalculateEntropy(map<geometry::TAltitude, uint32_t> const & diffFromLinear)
 {
   uint32_t innerPointCount = 0;
   for (auto const & f : diffFromLinear)

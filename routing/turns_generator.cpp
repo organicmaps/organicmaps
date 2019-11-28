@@ -570,8 +570,9 @@ bool GetNextRoutePointIndex(IRoutingResult const & result, RoutePointIndex const
 
 RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds const & numMwmIds,
                                     base::Cancellable const & cancellable,
-                                    vector<Junction> & junctions, Route::TTurns & turnsDir,
-                                    Route::TStreets & streets, vector<Segment> & segments)
+                                    vector<geometry::PointWithAltitude> & junctions,
+                                    Route::TTurns & turnsDir, Route::TStreets & streets,
+                                    vector<Segment> & segments)
 {
   LOG(LDEBUG, ("Shortest th length:", result.GetPathLength()));
 
@@ -620,12 +621,13 @@ RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds con
     // Path geometry.
     CHECK_GREATER_OR_EQUAL(loadedSegmentIt->m_path.size(), 2, ());
     // Note. Every LoadedPathSegment in TUnpackedPathSegments contains LoadedPathSegment::m_path
-    // of several Junctions. Last Junction in a LoadedPathSegment::m_path is equal to first junction
-    // in next LoadedPathSegment::m_path in vector TUnpackedPathSegments:
+    // of several Junctions. Last PointWithAltitude in a LoadedPathSegment::m_path is equal to first
+    // junction in next LoadedPathSegment::m_path in vector TUnpackedPathSegments:
     // *---*---*---*---*       *---*           *---*---*---*
     //                 *---*---*   *---*---*---*
-    // To prevent having repetitions in |junctions| list it's necessary to take the first point only from the
-    // first item of |loadedSegments|. The beginning should be ignored for the rest |m_path|.
+    // To prevent having repetitions in |junctions| list it's necessary to take the first point only
+    // from the first item of |loadedSegments|. The beginning should be ignored for the rest
+    // |m_path|.
     junctions.insert(junctions.end(), loadedSegmentIt == loadedSegments.cbegin()
                                           ? loadedSegmentIt->m_path.cbegin()
                                           : loadedSegmentIt->m_path.cbegin() + 1,
@@ -671,7 +673,7 @@ double CalculateMercatorDistanceAlongPath(uint32_t startPointIndex, uint32_t end
   return mercatorDistanceBetweenTurns;
 }
 
-void FixupTurns(vector<Junction> const & junctions, Route::TTurns & turnsDir)
+void FixupTurns(vector<geometry::PointWithAltitude> const & junctions, Route::TTurns & turnsDir)
 {
   double const kMergeDistMeters = 30.0;
   // For turns that are not EnterRoundAbout exitNum is always equal to zero.

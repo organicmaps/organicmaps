@@ -16,6 +16,8 @@
 
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
+#include "geometry/point_with_altitude.hpp"
+
 #include <memory>
 #include <utility>
 #include <vector>
@@ -40,9 +42,9 @@ UNIT_TEST(FakeEdgesCombinatorialExplosion)
 
   FeaturesRoadGraph graph(dataSource, IRoadGraph::Mode::ObeyOnewayTag,
                           std::make_shared<CarModelFactory>(CountryParentNameGetterFn()));
-  Junction const j(m2::PointD(mercator::FromLatLon(50.73208, -1.21279)),
-                   feature::kDefaultAltitudeMeters);
-  std::vector<std::pair<routing::Edge, routing::Junction>> sourceVicinity;
+  geometry::PointWithAltitude const j(m2::PointD(mercator::FromLatLon(50.73208, -1.21279)),
+                                      geometry::kDefaultAltitudeMeters);
+  std::vector<std::pair<routing::Edge, geometry::PointWithAltitude>> sourceVicinity;
   graph.FindClosestEdges(mercator::RectByCenterXYAndSizeInMeters(
                              j.GetPoint(), FeaturesRoadGraph::kClosestEdgesRadiusM),
                          20 /* count */, sourceVicinity);

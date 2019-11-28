@@ -10,6 +10,7 @@
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include <set>
 #include <string>
@@ -57,11 +58,12 @@ void GetTestRouteSegments(vector<m2::PointD> const & routePoints, Route::TTurns 
   {
     routeLengthMeters += mercator::DistanceOnEarth(routePoints[i - 1], routePoints[i]);
     routeLengthMertc += routePoints[i - 1].Length(routePoints[i]);
-    routeSegments.emplace_back(Segment(0 /* mwm id */, static_cast<uint32_t>(i) /* feature id */,
-                                       0 /* seg id */, true /* forward */),
-                               turns[i], Junction(routePoints[i], feature::kInvalidAltitude),
-                               streets[i], routeLengthMeters, routeLengthMertc, times[i],
-                               traffic::SpeedGroup::Unknown, nullptr /* transitInfo */);
+    routeSegments.emplace_back(
+        Segment(0 /* mwm id */, static_cast<uint32_t>(i) /* feature id */, 0 /* seg id */,
+                true /* forward */),
+        turns[i], geometry::PointWithAltitude(routePoints[i], geometry::kInvalidAltitude),
+        streets[i], routeLengthMeters, routeLengthMertc, times[i], traffic::SpeedGroup::Unknown,
+        nullptr /* transitInfo */);
   }
 }
 

@@ -10,6 +10,8 @@
 
 #include "indexer/data_source.hpp"
 
+#include "geometry/point_with_altitude.hpp"
+
 #include <map>
 #include <memory>
 #include <vector>
@@ -33,9 +35,10 @@ public:
   BicycleDirectionsEngine(DataSource const & dataSource, std::shared_ptr<NumMwmIds> numMwmIds);
 
   // IDirectionsEngine override:
-  bool Generate(IndexRoadGraph const & graph, std::vector<Junction> const & path,
+  bool Generate(IndexRoadGraph const & graph, std::vector<geometry::PointWithAltitude> const & path,
                 base::Cancellable const & cancellable, Route::TTurns & turns,
-                Route::TStreets & streetNames, std::vector<Junction> & routeGeometry,
+                Route::TStreets & streetNames,
+                std::vector<geometry::PointWithAltitude> & routeGeometry,
                 std::vector<Segment> & segments) override;
   void Clear() override;
 
@@ -49,11 +52,11 @@ private:
   /// \brief The method gathers sequence of segments according to IsJoint() method
   /// and fills |m_adjacentEdges| and |m_pathSegments|.
   void FillPathSegmentsAndAdjacentEdgesMap(IndexRoadGraph const & graph,
-                                           std::vector<Junction> const & path,
+                                           std::vector<geometry::PointWithAltitude> const & path,
                                            IRoadGraph::EdgeVector const & routeEdges,
                                            base::Cancellable const & cancellable);
 
-  void GetEdges(IndexRoadGraph const & graph, Junction const & currJunction,
+  void GetEdges(IndexRoadGraph const & graph, geometry::PointWithAltitude const & currJunction,
                 bool isCurrJunctionFinish, IRoadGraph::EdgeVector & outgoing,
                 IRoadGraph::EdgeVector & ingoing);
 

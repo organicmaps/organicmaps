@@ -6,6 +6,8 @@
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
 
+#include "geometry/point_with_altitude.hpp"
+
 #include "base/assert.hpp"
 #include "base/bits.hpp"
 
@@ -16,12 +18,6 @@
 
 namespace feature
 {
-using TAltitude = int16_t;
-using TAltitudes = std::vector<feature::TAltitude>;
-
-TAltitude constexpr kInvalidAltitude = std::numeric_limits<TAltitude>::min();
-feature::TAltitude constexpr kDefaultAltitudeMeters = 0;
-
 struct AltitudeHeader
 {
   using TAltitudeSectionVersion = uint16_t;
@@ -42,7 +38,7 @@ struct AltitudeHeader
   void Deserialize(TSource & src)
   {
     m_version = ReadPrimitiveFromSource<TAltitudeSectionVersion>(src);
-    m_minAltitude = ReadPrimitiveFromSource<TAltitude>(src);
+    m_minAltitude = ReadPrimitiveFromSource<geometry::TAltitude>(src);
     m_featureTableOffset = ReadPrimitiveFromSource<uint32_t>(src);
     m_altitudesOffset = ReadPrimitiveFromSource<uint32_t>(src);
     m_endOffset = ReadPrimitiveFromSource<uint32_t>(src);
@@ -61,14 +57,14 @@ struct AltitudeHeader
   void Reset()
   {
     m_version = 0;
-    m_minAltitude = kDefaultAltitudeMeters;
+    m_minAltitude = geometry::kDefaultAltitudeMeters;
     m_featureTableOffset = 0;
     m_altitudesOffset = 0;
     m_endOffset = 0;
   }
 
   TAltitudeSectionVersion m_version;
-  TAltitude m_minAltitude;
+  geometry::TAltitude m_minAltitude;
   uint32_t m_featureTableOffset;
   uint32_t m_altitudesOffset;
   uint32_t m_endOffset;
@@ -81,15 +77,15 @@ class Altitudes
 public:
   Altitudes() = default;
 
-  explicit Altitudes(TAltitudes const & altitudes) : m_altitudes(altitudes) {}
+  explicit Altitudes(geometry::TAltitudes const & altitudes) : m_altitudes(altitudes) {}
 
   template <class TSink>
-  void Serialize(TAltitude minAltitude, TSink & sink) const
+  void Serialize(geometry::TAltitude minAltitude, TSink & sink) const
   {
     CHECK(!m_altitudes.empty(), ());
 
     BitWriter<TSink> bits(sink);
-    TAltitude prevAltitude = minAltitude;
+    geometry::TAltitude prevAltitude = minAltitude;
     for (auto const altitude : m_altitudes)
     {
       CHECK_LESS_OR_EQUAL(minAltitude, altitude, ("A point altitude is less than min mwm altitude"));
@@ -101,13 +97,13 @@ public:
   }
 
   template <class TSource>
-  bool Deserialize(TAltitude minAltitude, size_t pointCount, std::string const & countryFileName,
-                   uint32_t featureId, TSource & src)
+  bool Deserialize(geometry::TAltitude minAltitude, size_t pointCount,
+                   std::string const & countryFileName, uint32_t featureId, TSource & src)
   {
     ASSERT_NOT_EQUAL(pointCount, 0, ());
 
     BitReader<TSource> bits(src);
-    TAltitude prevAltitude = minAltitude;
+    geometry::TAltitude prevAltitude = minAltitude;
     m_altitudes.resize(pointCount);
 
     for (size_t i = 0; i < pointCount; ++i)
@@ -122,7 +118,7 @@ public:
       }
       uint64_t const delta = biasedDelta - 1;
 
-      m_altitudes[i] = static_cast<TAltitude>(bits::ZigZagDecode(delta) + prevAltitude);
+      m_altitudes[i] = static_cast<geometry::TAltitude>(bits::ZigZagDecode(delta) + prevAltitude);
       if (m_altitudes[i] < minAltitude)
       {
         LOG(LERROR, ("A point altitude read from file(", m_altitudes[i],
@@ -140,6 +136,6 @@ public:
   /// * |m_altitudes| is empty. It means there is no altitude information for this feature.
   /// * size of |m_pointAlt| is equal to the number of this feature's points. If so
   ///   all items of |m_altitudes| have valid value.
-  TAltitudes m_altitudes;
+  geometry::TAltitudes m_altitudes;
 };
 }  // namespace feature

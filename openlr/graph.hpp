@@ -26,14 +26,14 @@ class Graph
 public:
   using Edge = routing::Edge;
   using EdgeVector = routing::FeaturesRoadGraph::EdgeVector;
-  using Junction = routing::Junction;
+  using Junction = geometry::PointWithAltitude;
 
   Graph(DataSource const & dataSource, std::shared_ptr<routing::CarModelFactory> carModelFactory);
 
   // Appends edges such as that edge.GetStartJunction() == junction to the |edges|.
-  void GetOutgoingEdges(routing::Junction const & junction, EdgeVector & edges);
+  void GetOutgoingEdges(geometry::PointWithAltitude const & junction, EdgeVector & edges);
   // Appends edges such as that edge.GetEndJunction() == junction to the |edges|.
-  void GetIngoingEdges(routing::Junction const & junction, EdgeVector & edges);
+  void GetIngoingEdges(geometry::PointWithAltitude const & junction, EdgeVector & edges);
 
   // Appends edges such as that edge.GetStartJunction() == junction and edge.IsFake() == false
   // to the |edges|.

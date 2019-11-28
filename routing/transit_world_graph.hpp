@@ -16,6 +16,7 @@
 #include "transit/transit_types.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include <memory>
 #include <vector>
@@ -46,7 +47,7 @@ public:
     return weight.GetWeight() - weight.GetTransitTime() <=
            MaxPedestrianTimeSec(startToFinishDistanceM);
   }
-  Junction const & GetJunction(Segment const & segment, bool front) override;
+  geometry::PointWithAltitude const & GetJunction(Segment const & segment, bool front) override;
   m2::PointD const & GetPoint(Segment const & segment, bool front) override;
   // All transit features are oneway.
   bool IsOneWay(NumMwmId mwmId, uint32_t featureId) override;

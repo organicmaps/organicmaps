@@ -100,7 +100,7 @@ void GeometryLoaderImpl::Load(uint32_t featureId, RoadGeometry & road)
 
   feature->ParseGeometry(FeatureType::BEST_GEOMETRY);
 
-  feature::TAltitudes const * altitudes = nullptr;
+  geometry::TAltitudes const * altitudes = nullptr;
   if (m_loadAltitudes)
     altitudes = &(m_altitudeLoader.GetAltitudes(featureId, feature->GetPointsCount()));
 
@@ -176,11 +176,12 @@ RoadGeometry::RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedK
 
   m_junctions.reserve(points.size());
   for (auto const & point : points)
-    m_junctions.emplace_back(point, feature::kDefaultAltitudeMeters);
+    m_junctions.emplace_back(point, geometry::kDefaultAltitudeMeters);
 }
 
 void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType & feature,
-                        feature::TAltitudes const * altitudes, bool inCity, Maxspeed const & maxspeed)
+                        geometry::TAltitudes const * altitudes, bool inCity,
+                        Maxspeed const & maxspeed)
 {
   CHECK(altitudes == nullptr || altitudes->size() == feature.GetPointsCount(), ());
 
@@ -204,7 +205,7 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
   for (size_t i = 0; i < feature.GetPointsCount(); ++i)
   {
     m_junctions.emplace_back(feature.GetPoint(i),
-                             altitudes ? (*altitudes)[i] : feature::kDefaultAltitudeMeters);
+                             altitudes ? (*altitudes)[i] : geometry::kDefaultAltitudeMeters);
   }
 
   if (m_routingOptions.Has(RoutingOptions::Road::Ferry))

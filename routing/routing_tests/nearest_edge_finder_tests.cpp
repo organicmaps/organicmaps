@@ -7,6 +7,8 @@
 
 #include "routing_common/maxspeed_conversion.hpp"
 
+#include "geometry/point_with_altitude.hpp"
+
 #include "base/checked_cast.hpp"
 
 using namespace routing;
@@ -14,7 +16,7 @@ using namespace routing_test;
 using namespace std;
 
 void TestNearestOnMock1(m2::PointD const & point, size_t const candidatesCount,
-                        vector<pair<Edge, Junction>> const & expected)
+                        vector<pair<Edge, geometry::PointWithAltitude>> const & expected)
 {
   unique_ptr<RoadGraphMockSource> graph(new RoadGraphMockSource());
   InitRoadGraphMockSourceWithTest1(*graph);
@@ -28,7 +30,7 @@ void TestNearestOnMock1(m2::PointD const & point, size_t const candidatesCount,
     finder.AddInformationSource(IRoadGraph::FullRoadInfo(featureId, roadInfo));
   }
 
-  vector<pair<Edge, Junction>> result;
+  vector<pair<Edge, geometry::PointWithAltitude>> result;
   TEST(finder.HasCandidates(), ());
   finder.MakeResult(result, candidatesCount);
 
@@ -37,34 +39,34 @@ void TestNearestOnMock1(m2::PointD const & point, size_t const candidatesCount,
 
 UNIT_TEST(StarterPosAtBorder_Mock1Graph)
 {
-  vector<pair<Edge, Junction>> const expected = {
+  vector<pair<Edge, geometry::PointWithAltitude>> const expected = {
       make_pair(Edge::MakeReal(MakeTestFeatureID(0), true /* forward */, 0,
-                               MakeJunctionForTesting(m2::PointD(0, 0)),
-                               MakeJunctionForTesting(m2::PointD(5, 0))),
-                MakeJunctionForTesting(m2::PointD(0, 0)))};
+                               geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0)),
+                               geometry::MakePointWithAltitudeForTesting(m2::PointD(5, 0))),
+                geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0)))};
   TestNearestOnMock1(m2::PointD(0, 0), 1, expected);
 }
 
 UNIT_TEST(MiddleEdgeTest_Mock1Graph)
 {
-  vector<pair<Edge, Junction>> const expected = {
+  vector<pair<Edge, geometry::PointWithAltitude>> const expected = {
       make_pair(Edge::MakeReal(MakeTestFeatureID(0), true /* forward */, 0,
-                               MakeJunctionForTesting(m2::PointD(0, 0)),
-                               MakeJunctionForTesting(m2::PointD(5, 0))),
-                MakeJunctionForTesting(m2::PointD(3, 0)))};
+                               geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0)),
+                               geometry::MakePointWithAltitudeForTesting(m2::PointD(5, 0))),
+                geometry::MakePointWithAltitudeForTesting(m2::PointD(3, 0)))};
   TestNearestOnMock1(m2::PointD(3, 3), 1, expected);
 }
 
 UNIT_TEST(MiddleSegmentTest_Mock1Graph)
 {
-  vector<pair<Edge, Junction>> const expected = {
+  vector<pair<Edge, geometry::PointWithAltitude>> const expected = {
       make_pair(Edge::MakeReal(MakeTestFeatureID(0), true /* forward */, 2,
-                               MakeJunctionForTesting(m2::PointD(10, 0)),
-                               MakeJunctionForTesting(m2::PointD(15, 0))),
-                MakeJunctionForTesting(m2::PointD(12.5, 0))),
+                               geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 0)),
+                               geometry::MakePointWithAltitudeForTesting(m2::PointD(15, 0))),
+                geometry::MakePointWithAltitudeForTesting(m2::PointD(12.5, 0))),
       make_pair(Edge::MakeReal(MakeTestFeatureID(0), false /* forward */, 2,
-                               MakeJunctionForTesting(m2::PointD(15, 0)),
-                               MakeJunctionForTesting(m2::PointD(10, 0))),
-                MakeJunctionForTesting(m2::PointD(12.5, 0)))};
+                               geometry::MakePointWithAltitudeForTesting(m2::PointD(15, 0)),
+                               geometry::MakePointWithAltitudeForTesting(m2::PointD(10, 0))),
+                geometry::MakePointWithAltitudeForTesting(m2::PointD(12.5, 0)))};
   TestNearestOnMock1(m2::PointD(12.5, 2.5), 2, expected);
 }

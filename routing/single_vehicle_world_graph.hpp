@@ -15,6 +15,7 @@
 #include "routing_common/num_mwm_id.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include <functional>
 #include <map>
@@ -42,7 +43,7 @@ public:
 
   bool CheckLength(RouteWeight const &, double) const override { return true; }
 
-  Junction const & GetJunction(Segment const & segment, bool front) override;
+  geometry::PointWithAltitude const & GetJunction(Segment const & segment, bool front) override;
   m2::PointD const & GetPoint(Segment const & segment, bool front) override;
 
   bool IsOneWay(NumMwmId mwmId, uint32_t featureId) override;

@@ -175,8 +175,9 @@ void FeaturesRoadGraph::ForEachFeatureClosestToCross(m2::PointD const & cross,
   m_dataSource.ForEachInRect(featuresLoader, rect, GetStreetReadScale());
 }
 
-void FeaturesRoadGraph::FindClosestEdges(m2::RectD const & rect, uint32_t count,
-                                         vector<pair<Edge, Junction>> & vicinities) const
+void FeaturesRoadGraph::FindClosestEdges(
+    m2::RectD const & rect, uint32_t count,
+    vector<pair<Edge, geometry::PointWithAltitude>> & vicinities) const
 {
   NearestEdgeFinder finder(rect.Center(), nullptr /* IsEdgeProjGood */);
 
@@ -234,7 +235,8 @@ void FeaturesRoadGraph::GetFeatureTypes(FeatureID const & featureId, feature::Ty
   types = feature::TypesHolder(*ft);
 }
 
-void FeaturesRoadGraph::GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const
+void FeaturesRoadGraph::GetJunctionTypes(geometry::PointWithAltitude const & junction,
+                                         feature::TypesHolder & types) const
 {
   types = feature::TypesHolder();
 
@@ -247,7 +249,7 @@ void FeaturesRoadGraph::GetJunctionTypes(Junction const & junction, feature::Typ
     if (ft.GetGeomType() != feature::GeomType::Point)
       return;
 
-    if (!base::AlmostEqualAbs(ft.GetCenter(), cross, routing::kPointsEqualEpsilon))
+    if (!base::AlmostEqualAbs(ft.GetCenter(), cross, geometry::kPointsEqualEpsilon))
       return;
 
     feature::TypesHolder typesHolder(ft);
@@ -274,7 +276,7 @@ void FeaturesRoadGraph::ClearState()
 
 bool FeaturesRoadGraph::IsRoad(FeatureType & ft) const { return m_vehicleModel.IsRoad(ft); }
 
-IRoadGraph::JunctionVec FeaturesRoadGraph::GetRoadGeom(FeatureType & ft) const
+IRoadGraph::PointWithAltitudeVec FeaturesRoadGraph::GetRoadGeom(FeatureType & ft) const
 {
   FeatureID const & featureId = ft.GetID();
   IRoadGraph::RoadInfo const & roadInfo = GetCachedRoadInfo(featureId, ft, kInvalidSpeedKMPH);
@@ -302,7 +304,7 @@ void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType
   ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
   size_t const pointsCount = ft.GetPointsCount();
 
-  feature::TAltitudes altitudes;
+  geometry::TAltitudes altitudes;
   if (value.m_altitudeLoader)
   {
     altitudes = value.m_altitudeLoader->GetAltitudes(featureId.m_index, ft.GetPointsCount());
@@ -310,7 +312,7 @@ void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType
   else
   {
     ASSERT(false, ());
-    altitudes = feature::TAltitudes(ft.GetPointsCount(), feature::kDefaultAltitudeMeters);
+    altitudes = geometry::TAltitudes(ft.GetPointsCount(), geometry::kDefaultAltitudeMeters);
   }
 
   CHECK_EQUAL(altitudes.size(), pointsCount,
@@ -319,7 +321,7 @@ void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType
 
   ri.m_junctions.resize(pointsCount);
   for (size_t i = 0; i < pointsCount; ++i)
-    ri.m_junctions[i] = Junction(ft.GetPoint(i), altitudes[i]);
+    ri.m_junctions[i] = geometry::PointWithAltitude(ft.GetPoint(i), altitudes[i]);
 }
 
 IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID const & featureId,

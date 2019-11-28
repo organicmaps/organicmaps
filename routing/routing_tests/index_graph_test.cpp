@@ -18,6 +18,7 @@
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
@@ -747,10 +748,10 @@ UNIT_TEST(IndexGraph_OnlyTopology_3)
 // Test that a codirectional edge is always better than others.
 UNIT_TEST(BestEdgeComparator_OneCodirectionalEdge)
 {
-  Edge const edge1 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}),
-                                    MakeJunctionForTesting({-0.002, 0.002}));
-  Edge const edge2 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}),
-                                    MakeJunctionForTesting({0.002, 0.0}));
+  Edge const edge1 = Edge::MakeFake(geometry::MakePointWithAltitudeForTesting({-0.002, 0.0}),
+                                    geometry::MakePointWithAltitudeForTesting({-0.002, 0.002}));
+  Edge const edge2 = Edge::MakeFake(geometry::MakePointWithAltitudeForTesting({-0.002, 0.0}),
+                                    geometry::MakePointWithAltitudeForTesting({0.002, 0.0}));
   IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001));
 
   TEST_EQUAL(bestEdgeComparator.Compare(edge1, edge2), -1, ());
@@ -771,10 +772,10 @@ UNIT_TEST(BestEdgeComparator_OneCodirectionalEdge)
 // Test that if there are two codirectional edges the closest one to |point| is better.
 UNIT_TEST(BestEdgeComparator_TwoCodirectionalEdges)
 {
-  Edge const edge1 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}),
-                                    MakeJunctionForTesting({-0.002, 0.004}));
-  Edge const edge2 = Edge::MakeFake(MakeJunctionForTesting({0.0, 0.0}),
-                                    MakeJunctionForTesting({0.0, 0.002}));
+  Edge const edge1 = Edge::MakeFake(geometry::MakePointWithAltitudeForTesting({-0.002, 0.0}),
+                                    geometry::MakePointWithAltitudeForTesting({-0.002, 0.004}));
+  Edge const edge2 = Edge::MakeFake(geometry::MakePointWithAltitudeForTesting({0.0, 0.0}),
+                                    geometry::MakePointWithAltitudeForTesting({0.0, 0.002}));
   IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001));
 
   TEST_EQUAL(bestEdgeComparator.Compare(edge1, edge2), 1, ());
@@ -790,10 +791,10 @@ UNIT_TEST(BestEdgeComparator_TwoCodirectionalEdges)
 // Test that if two edges are not codirectional the closet one to |point| is better.
 UNIT_TEST(BestEdgeComparator_TwoNotCodirectionalEdges)
 {
-  Edge const edge1 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.002}),
-                                    MakeJunctionForTesting({0.002, 0.002}));
-  Edge const edge2 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}),
-                                    MakeJunctionForTesting({0.002, 0.0}));
+  Edge const edge1 = Edge::MakeFake(geometry::MakePointWithAltitudeForTesting({-0.002, 0.002}),
+                                    geometry::MakePointWithAltitudeForTesting({0.002, 0.002}));
+  Edge const edge2 = Edge::MakeFake(geometry::MakePointWithAltitudeForTesting({-0.002, 0.0}),
+                                    geometry::MakePointWithAltitudeForTesting({0.002, 0.0}));
   IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001));
 
   TEST_EQUAL(bestEdgeComparator.Compare(edge1, edge2), 1, ());
@@ -809,8 +810,8 @@ UNIT_TEST(BestEdgeComparator_TwoNotCodirectionalEdges)
 UNIT_TEST(BestEdgeComparator_TwoEdgesOfOneFeature)
 {
   // Please see a note in class Edge definition about start and end point of Edge.
-  Edge const edge1 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}),
-                                    MakeJunctionForTesting({0.002, 0.0}));
+  Edge const edge1 = Edge::MakeFake(geometry::MakePointWithAltitudeForTesting({-0.002, 0.0}),
+                                    geometry::MakePointWithAltitudeForTesting({0.002, 0.0}));
   Edge const edge2 = edge1.GetReverseEdge();
 
   IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.001), m2::PointD(0.001, 0.0));

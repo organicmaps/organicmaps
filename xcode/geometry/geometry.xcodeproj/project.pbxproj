@@ -101,6 +101,8 @@
 		675344DE1A3F68F900A0A8C3 /* binary_operators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675344DB1A3F68F900A0A8C3 /* binary_operators.cpp */; };
 		675344DF1A3F68F900A0A8C3 /* binary_operators.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344DC1A3F68F900A0A8C3 /* binary_operators.hpp */; };
 		675344E01A3F68F900A0A8C3 /* boost_concept.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344DD1A3F68F900A0A8C3 /* boost_concept.hpp */; };
+		D501ACA3238FDC6000B8C08E /* point_with_altitude.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D501ACA1238FDC6000B8C08E /* point_with_altitude.cpp */; };
+		D501ACA4238FDC6000B8C08E /* point_with_altitude.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D501ACA2238FDC6000B8C08E /* point_with_altitude.hpp */; };
 		D53836352366DAF3007E7EDB /* oblate_spheroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D53836332366DAF3007E7EDB /* oblate_spheroid.cpp */; };
 		D53836362366DAF3007E7EDB /* oblate_spheroid.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D53836342366DAF3007E7EDB /* oblate_spheroid.hpp */; };
 		D53836382366DB07007E7EDB /* oblate_spheroid_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D53836372366DB07007E7EDB /* oblate_spheroid_tests.cpp */; };
@@ -218,6 +220,8 @@
 		675344DB1A3F68F900A0A8C3 /* binary_operators.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = binary_operators.cpp; sourceTree = "<group>"; };
 		675344DC1A3F68F900A0A8C3 /* binary_operators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = binary_operators.hpp; sourceTree = "<group>"; };
 		675344DD1A3F68F900A0A8C3 /* boost_concept.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = boost_concept.hpp; sourceTree = "<group>"; };
+		D501ACA1238FDC6000B8C08E /* point_with_altitude.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point_with_altitude.cpp; sourceTree = "<group>"; };
+		D501ACA2238FDC6000B8C08E /* point_with_altitude.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = point_with_altitude.hpp; sourceTree = "<group>"; };
 		D53836332366DAF3007E7EDB /* oblate_spheroid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = oblate_spheroid.cpp; sourceTree = "<group>"; };
 		D53836342366DAF3007E7EDB /* oblate_spheroid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = oblate_spheroid.hpp; sourceTree = "<group>"; };
 		D53836372366DB07007E7EDB /* oblate_spheroid_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = oblate_spheroid_tests.cpp; sourceTree = "<group>"; };
@@ -328,6 +332,8 @@
 				D53836332366DAF3007E7EDB /* oblate_spheroid.cpp */,
 				D53836342366DAF3007E7EDB /* oblate_spheroid.hpp */,
 				440CF0C0236734820017C2A8 /* area_on_earth.cpp */,
+				D501ACA1238FDC6000B8C08E /* point_with_altitude.cpp */,
+				D501ACA2238FDC6000B8C08E /* point_with_altitude.hpp */,
 				440CF0C1236734820017C2A8 /* area_on_earth.hpp */,
 				56D545681C74A46D00E3719C /* algorithm.cpp */,
 				56D545691C74A46D00E3719C /* algorithm.hpp */,
@@ -444,6 +450,7 @@
 				675344DF1A3F68F900A0A8C3 /* binary_operators.hpp in Headers */,
 				45A2D9C31F7526E6003310A0 /* convex_hull.hpp in Headers */,
 				675344D61A3F687400A0A8C3 /* transformations.hpp in Headers */,
+				D501ACA4238FDC6000B8C08E /* point_with_altitude.hpp in Headers */,
 				39B2B9701FB4680500AB85A1 /* diamond_box.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -587,6 +594,7 @@
 				675344DE1A3F68F900A0A8C3 /* binary_operators.cpp in Sources */,
 				D53836352366DAF3007E7EDB /* oblate_spheroid.cpp in Sources */,
 				56EB1ED01C6B6DF30022D831 /* segment2d.cpp in Sources */,
+				D501ACA3238FDC6000B8C08E /* point_with_altitude.cpp in Sources */,
 				45A2D9C21F7526E6003310A0 /* convex_hull.cpp in Sources */,
 				345C55F51C93140A00B6783F /* clipping.cpp in Sources */,
 			);

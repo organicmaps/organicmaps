@@ -11,6 +11,7 @@
 #include "indexer/mwm_set.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include "base/cache.hpp"
 
@@ -80,17 +81,19 @@ public:
   double GetMaxSpeedKMpH() const override;
   void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                     ICrossEdgesLoader & edgesLoader) const override;
-  void FindClosestEdges(m2::RectD const & rect, uint32_t count,
-                        std::vector<std::pair<Edge, Junction>> & vicinities) const override;
+  void FindClosestEdges(
+      m2::RectD const & rect, uint32_t count,
+      std::vector<std::pair<Edge, geometry::PointWithAltitude>> & vicinities) const override;
   std::vector<IRoadGraph::FullRoadInfo>
   FindRoads(m2::RectD const & rect, IsGoodFeatureFn const & isGoodFeature) const override;
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const override;
-  void GetJunctionTypes(Junction const & junction, feature::TypesHolder & types) const override;
+  void GetJunctionTypes(geometry::PointWithAltitude const & junction,
+                        feature::TypesHolder & types) const override;
   IRoadGraph::Mode GetMode() const override;
   void ClearState() override;
 
   bool IsRoad(FeatureType & ft) const;
-  IRoadGraph::JunctionVec GetRoadGeom(FeatureType & ft) const;
+  IRoadGraph::PointWithAltitudeVec GetRoadGeom(FeatureType & ft) const;
 
 private:
   friend class CrossFeaturesLoader;

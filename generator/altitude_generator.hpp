@@ -1,6 +1,7 @@
 #pragma once
 
 #include "geometry/point2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include "indexer/feature_altitude.hpp"
 
@@ -11,7 +12,7 @@ namespace routing
 class AltitudeGetter
 {
 public:
-  virtual feature::TAltitude GetAltitude(m2::PointD const & p) = 0;
+  virtual geometry::TAltitude GetAltitude(m2::PointD const & p) = 0;
 };
 
 /// \brief Adds altitude section to mwm. It has the following format:

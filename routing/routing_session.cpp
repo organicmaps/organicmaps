@@ -718,7 +718,7 @@ bool RoutingSession::IsRouteValid() const
 }
 
 bool RoutingSession::GetRouteAltitudesAndDistancesM(vector<double> & routeSegDistanceM,
-                                                    feature::TAltitudes & routeAltitudesM) const
+                                                    geometry::TAltitudes & routeAltitudesM) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_route, ());
@@ -727,7 +727,7 @@ bool RoutingSession::GetRouteAltitudesAndDistancesM(vector<double> & routeSegDis
     return false;
 
   routeSegDistanceM = m_route->GetSegDistanceMeters();
-  feature::TAltitudes altitudes;
+  geometry::TAltitudes altitudes;
   m_route->GetAltitudes(routeAltitudesM);
   return true;
 }

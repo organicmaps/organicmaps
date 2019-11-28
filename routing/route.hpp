@@ -15,6 +15,7 @@
 
 #include "platform/country_file.hpp"
 
+#include "geometry/point_with_altitude.hpp"
 #include "geometry/polyline2d.hpp"
 
 #include "base/assert.hpp"
@@ -65,9 +66,10 @@ public:
     uint8_t m_maxSpeedKmPH = 0;
   };
 
-  RouteSegment(Segment const & segment, turns::TurnItem const & turn, Junction const & junction,
-               std::string const & street, double distFromBeginningMeters,
-               double distFromBeginningMerc, double timeFromBeginningS, traffic::SpeedGroup traffic,
+  RouteSegment(Segment const & segment, turns::TurnItem const & turn,
+               geometry::PointWithAltitude const & junction, std::string const & street,
+               double distFromBeginningMeters, double distFromBeginningMerc,
+               double timeFromBeginningS, traffic::SpeedGroup traffic,
                std::unique_ptr<TransitInfo> transitInfo)
     : m_segment(segment)
     , m_turn(turn)
@@ -88,7 +90,7 @@ public:
 
   Segment const & GetSegment() const { return m_segment; }
   Segment & GetSegment() { return m_segment; }
-  Junction const & GetJunction() const { return m_junction; }
+  geometry::PointWithAltitude const & GetJunction() const { return m_junction; }
   std::string const & GetStreet() const { return m_street; }
   traffic::SpeedGroup GetTraffic() const { return m_traffic; }
   turns::TurnItem const & GetTurn() const { return m_turn; }
@@ -114,7 +116,7 @@ private:
   turns::TurnItem m_turn;
 
   /// The furthest point of the segment from the beginning of the route along the route.
-  Junction m_junction;
+  geometry::PointWithAltitude m_junction;
 
   /// Street name of |m_segment| if any. Otherwise |m_street| is empty.
   std::string m_street;
@@ -155,7 +157,8 @@ public:
   public:
     SubrouteAttrs() = default;
 
-    SubrouteAttrs(Junction const & start, Junction const & finish, size_t beginSegmentIdx,
+    SubrouteAttrs(geometry::PointWithAltitude const & start,
+                  geometry::PointWithAltitude const & finish, size_t beginSegmentIdx,
                   size_t endSegmentIdx)
       : m_start(start)
       , m_finish(finish)
@@ -173,8 +176,8 @@ public:
     {
     }
 
-    Junction const & GetStart() const { return m_start; }
-    Junction const & GetFinish() const { return m_finish; }
+    geometry::PointWithAltitude const & GetStart() const { return m_start; }
+    geometry::PointWithAltitude const & GetFinish() const { return m_finish; }
 
     size_t GetBeginSegmentIdx() const { return m_beginSegmentIdx; }
     size_t GetEndSegmentIdx() const { return m_endSegmentIdx; }
@@ -182,9 +185,8 @@ public:
     size_t GetSize() const { return m_endSegmentIdx - m_beginSegmentIdx; }
 
   private:
-
-    Junction m_start;
-    Junction m_finish;
+    geometry::PointWithAltitude m_start;
+    geometry::PointWithAltitude m_finish;
 
     // Index of the first subroute segment in the whole route.
     size_t m_beginSegmentIdx = 0;
@@ -261,7 +263,7 @@ public:
     m_haveAltitudes = true;
     for (auto const & s : m_routeSegments)
     {
-      if (s.GetJunction().GetAltitude() == feature::kInvalidAltitude)
+      if (s.GetJunction().GetAltitude() == geometry::kInvalidAltitude)
       {
         m_haveAltitudes = false;
         return;
@@ -377,7 +379,7 @@ public:
   /// after the route is removed.
   void SetSubrouteUid(size_t segmentIdx, SubrouteUid subrouteUid);
 
-  void GetAltitudes(feature::TAltitudes & altitudes) const;
+  void GetAltitudes(geometry::TAltitudes & altitudes) const;
   bool HaveAltitudes() const { return m_haveAltitudes; }
   traffic::SpeedGroup GetTraffic(size_t segmentIdx) const;
 

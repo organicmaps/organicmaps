@@ -137,8 +137,8 @@ void PathFromXML(pugi::xml_node const & node, DataSource const & dataSource, Pat
 
     p.push_back(Edge::MakeReal(
         fid, isForward, segmentId,
-        routing::Junction(mercator::FromLatLon(start), feature::kDefaultAltitudeMeters),
-        routing::Junction(mercator::FromLatLon(end), feature::kDefaultAltitudeMeters)));
+        geometry::PointWithAltitude(mercator::FromLatLon(start), geometry::kDefaultAltitudeMeters),
+        geometry::PointWithAltitude(mercator::FromLatLon(end), geometry::kDefaultAltitudeMeters)));
   }
 }
 

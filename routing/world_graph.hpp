@@ -13,6 +13,7 @@
 #include "routing_common/num_mwm_id.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include <functional>
 #include <memory>
@@ -55,7 +56,7 @@ public:
   // start to finish of the route.
   virtual bool CheckLength(RouteWeight const & weight, double startToFinishDistanceM) const = 0;
 
-  virtual Junction const & GetJunction(Segment const & segment, bool front) = 0;
+  virtual geometry::PointWithAltitude const & GetJunction(Segment const & segment, bool front) = 0;
   virtual m2::PointD const & GetPoint(Segment const & segment, bool front) = 0;
   virtual bool IsOneWay(NumMwmId mwmId, uint32_t featureId) = 0;
 

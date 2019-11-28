@@ -73,8 +73,9 @@ private:
     };
 
     Vertex() = default;
-    Vertex(routing::Junction const & junction, routing::Junction const & stageStart,
-           double stageStartDistance, size_t stage, bool bearingChecked);
+    Vertex(geometry::PointWithAltitude const & junction,
+           geometry::PointWithAltitude const & stageStart, double stageStartDistance, size_t stage,
+           bool bearingChecked);
 
     bool operator<(Vertex const & rhs) const;
     bool operator==(Vertex const & rhs) const;
@@ -82,8 +83,8 @@ private:
 
     m2::PointD GetPoint() const { return m_junction.GetPoint(); }
 
-    routing::Junction m_junction;
-    routing::Junction m_stageStart;
+    geometry::PointWithAltitude m_junction;
+    geometry::PointWithAltitude m_stageStart;
     double m_stageStartDistance = 0.0;
     size_t m_stage = 0;
     bool m_bearingChecked = false;
@@ -137,7 +138,7 @@ private:
   using Links = std::map<Vertex, std::pair<Vertex, Edge>>;
 
   using RoadGraphEdgesGetter = void (routing::IRoadGraph::*)(
-      routing::Junction const & junction, routing::IRoadGraph::EdgeVector & edges) const;
+      geometry::PointWithAltitude const & junction, routing::IRoadGraph::EdgeVector & edges) const;
 
   bool Init(std::vector<WayPoint> const & points, double positiveOffsetM, double negativeOffsetM);
   bool FindPath(std::vector<routing::Edge> & path);
@@ -172,11 +173,13 @@ private:
   template <typename Fn>
   void ForEachEdge(Vertex const & u, bool outgoing, FunctionalRoadClass restriction, Fn && fn);
 
-  void GetOutgoingEdges(routing::Junction const & u, routing::IRoadGraph::EdgeVector & edges);
-  void GetIngoingEdges(routing::Junction const & u, routing::IRoadGraph::EdgeVector & edges);
-  void GetEdges(routing::Junction const & u, RoadGraphEdgesGetter getRegular,
+  void GetOutgoingEdges(geometry::PointWithAltitude const & u,
+                        routing::IRoadGraph::EdgeVector & edges);
+  void GetIngoingEdges(geometry::PointWithAltitude const & u,
+                       routing::IRoadGraph::EdgeVector & edges);
+  void GetEdges(geometry::PointWithAltitude const & u, RoadGraphEdgesGetter getRegular,
                 RoadGraphEdgesGetter getFake,
-                std::map<routing::Junction, routing::IRoadGraph::EdgeVector> & cache,
+                std::map<geometry::PointWithAltitude, routing::IRoadGraph::EdgeVector> & cache,
                 routing::IRoadGraph::EdgeVector & edges);
 
   template <typename Fn>
@@ -211,15 +214,15 @@ private:
   void FindSingleEdgeApproximation(std::vector<Edge> const & edges, std::vector<routing::Edge> & path);
 
   routing::FeaturesRoadGraph & m_graph;
-  std::map<routing::Junction, routing::IRoadGraph::EdgeVector> m_outgoingCache;
-  std::map<routing::Junction, routing::IRoadGraph::EdgeVector> m_ingoingCache;
+  std::map<geometry::PointWithAltitude, routing::IRoadGraph::EdgeVector> m_outgoingCache;
+  std::map<geometry::PointWithAltitude, routing::IRoadGraph::EdgeVector> m_ingoingCache;
   RoadInfoGetter & m_roadInfoGetter;
 
   std::vector<WayPoint> m_points;
   double m_positiveOffsetM;
   double m_negativeOffsetM;
   std::vector<std::vector<m2::PointD>> m_pivots;
-  routing::Junction m_sourceJunction;
-  routing::Junction m_targetJunction;
+  geometry::PointWithAltitude m_sourceJunction;
+  geometry::PointWithAltitude m_targetJunction;
 };
 }  // namespace openlr

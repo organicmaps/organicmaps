@@ -4,6 +4,7 @@
 #include "indexer/map_style.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include <cstdint>
 #include <vector>
@@ -21,7 +22,7 @@ void ReflectChartData(std::vector<double> & chartData);
 /// |resultPointCount| points. |distanceDataM| and |altitudeDataM| form a curve of route altitude.
 /// This method is used to generalize and evenly distribute points of the chart.
 bool NormalizeChartData(std::vector<double> const & distanceDataM,
-                        feature::TAltitudes const & altitudeDataM, size_t resultPointCount,
+                        geometry::TAltitudes const & altitudeDataM, size_t resultPointCount,
                         std::vector<double> & uniformAltitudeDataM);
 
 /// \brief fills |yAxisDataPxl|. |yAxisDataPxl| is formed to pevent displaying
@@ -47,6 +48,6 @@ bool GenerateChartByPoints(uint32_t width, uint32_t height,
                            std::vector<uint8_t> & frameBuffer);
 
 bool GenerateChart(uint32_t width, uint32_t height, std::vector<double> const & distanceDataM,
-                   feature::TAltitudes const & altitudeDataM, MapStyle mapStyle,
+                   geometry::TAltitudes const & altitudeDataM, MapStyle mapStyle,
                    std::vector<uint8_t> & frameBuffer);
 }  // namespace maps

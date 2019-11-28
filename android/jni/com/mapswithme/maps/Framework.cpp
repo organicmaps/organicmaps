@@ -36,6 +36,7 @@
 
 #include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include "indexer/feature_altitude.hpp"
 
@@ -1382,7 +1383,7 @@ Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv *
   ::Framework * fr = frm();
   ASSERT(fr, ());
 
-  feature::TAltitudes altitudes;
+  geometry::TAltitudes altitudes;
   vector<double> routePointDistanceM;
   if (!fr->GetRoutingManager().GetRouteAltitudesAndDistancesM(routePointDistanceM, altitudes))
   {

@@ -547,7 +547,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
     return;
 
   auto routePointDistanceM = std::make_shared<std::vector<double>>(std::vector<double>());
-  auto altitudes = std::make_shared<feature::TAltitudes>(feature::TAltitudes());
+  auto altitudes = std::make_shared<geometry::TAltitudes>(geometry::TAltitudes());
   if (!GetFramework().GetRoutingManager().GetRouteAltitudesAndDistancesM(*routePointDistanceM, *altitudes))
     return;
 
