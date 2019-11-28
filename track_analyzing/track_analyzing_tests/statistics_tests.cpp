@@ -14,6 +14,7 @@
 #include "geometry/latlon.hpp"
 
 #include <string>
+#include <sstream>
 
 namespace
 {
@@ -23,7 +24,33 @@ using namespace storage;
 using namespace track_analyzing;
 using namespace traffic;
 
-UNIT_TEST(StatTest)
+void TestSerializationToCsv(Stats::NameToCountMapping const & mapping)
+{
+  std::stringstream ss;
+  MappingToCsv("mwm", mapping, false /* printPercentage */, ss);
+
+  Stats::NameToCountMapping readMapping;
+  MappingFromCsv(ss, readMapping);
+
+  TEST_EQUAL(mapping, readMapping, (ss.str()));
+}
+
+UNIT_TEST(AddDataPointsTest)
+{
+  Stats stats;
+  stats.AddDataPoints("mwm1", "country1", 3);
+  stats.AddDataPoints("mwm1", "country1", 1);
+  stats.AddDataPoints("mwm2", "country1", 5);
+  stats.AddDataPoints("mwm3", "country3", 7);
+
+  Stats const expected = {
+      {{"mwm1", 4}, {"mwm2", 5}, {"mwm3", 7} /* Mwm to number */},
+      {{"country1", 9}, {"country3", 7} /* Country to number */}};
+
+  TEST_EQUAL(stats, expected, ());
+}
+
+UNIT_TEST(AddStatTest)
 {
   Stats stats1 = {
       {{"Belarus_Minsk Region", 1}, {"Uzbekistan", 7}, {"Russia_Moscow", 5} /* Mwm to number */},
@@ -41,7 +68,7 @@ UNIT_TEST(StatTest)
   TEST_EQUAL(stats1, expected, ());
 }
 
-UNIT_TEST(AddStatTest)
+UNIT_TEST(AddTracksStatsTest)
 {
   DataPoint const dp1(1 /* timestamp */, ms::LatLon(), static_cast<uint8_t>(SpeedGroup::G5));
   DataPoint const dp2(2 /* timestamp */, ms::LatLon(), static_cast<uint8_t>(SpeedGroup::G5));
@@ -62,13 +89,67 @@ UNIT_TEST(AddStatTest)
   auto numMwmIds = CreateNumMwmIds(storage);
   MwmToTracks const mwmToTracks = {{numMwmIds->GetId(CountryFile(kMwmName)), userToTrack}};
 
-  Stats stat;
-  AddStat(mwmToTracks, *numMwmIds, storage, stat);
+  Stats stats;
+  stats.AddTracksStats(mwmToTracks, *numMwmIds, storage);
 
   Stats::NameToCountMapping const expectedMwmToTotalDataMapping = {{kMwmName, kDataPointNumber}};
-  TEST_EQUAL(stat.m_mwmToTotalDataPoints, expectedMwmToTotalDataMapping, ());
+  TEST_EQUAL(stats.GetMwmToTotalDataPointsForTesting(), expectedMwmToTotalDataMapping, ());
 
   Stats::NameToCountMapping expectedCountryToTotalDataMapping = {{"Italy", kDataPointNumber}};
-  TEST_EQUAL(stat.m_countryToTotalDataPoints, expectedCountryToTotalDataMapping, ());
+  TEST_EQUAL(stats.GetCountryToTotalDataPointsForTesting(), expectedCountryToTotalDataMapping, ());
+}
+
+UNIT_TEST(MappingToCsvTest)
+{
+  Stats::NameToCountMapping const mapping = {
+      {{"Belarus_Minsk Region", 2}, {"Uzbekistan", 5}, {"Russia_Moscow", 3}}};
+  {
+    std::ostringstream ss;
+    MappingToCsv("mwm", mapping, true /* printPercentage */, ss);
+    std::string const expected = R"(mwm,number,percent
+Uzbekistan,5,50
+Russia_Moscow,3,30
+Belarus_Minsk Region,2,20
+)";
+    TEST_EQUAL(ss.str(), expected, ());
+  }
+  {
+    std::ostringstream ss;
+    MappingToCsv("mwm", mapping, false /* printPercentage */, ss);
+    std::string const expected = R"(mwm,number
+Uzbekistan,5
+Russia_Moscow,3
+Belarus_Minsk Region,2
+)";
+    TEST_EQUAL(ss.str(), expected, ());
+  }
+}
+
+UNIT_TEST(SerializationToCsvTest)
+{
+  Stats::NameToCountMapping const mapping1 = {{"Belarus_Minsk Region", 2},
+                                              {"Uzbekistan", 5},
+                                              {"Russia_Moscow", 1},
+                                              {"Russia_Moscow Oblast_East", 2}};
+  TestSerializationToCsv(mapping1);
+
+  Stats::NameToCountMapping const mapping2 = {
+      {{"Belarus_Minsk Region", 2}, {"Uzbekistan", 5}, {"Russia_Moscow", 3}}};
+  TestSerializationToCsv(mapping2);
+}
+
+UNIT_TEST(SerializationToCsvWithZeroValueTest)
+{
+  Stats::NameToCountMapping const mapping = {{"Russia_Moscow Oblast_East", 2},
+                                             {"Poland_Lesser Poland Voivodeship", 0}};
+  Stats::NameToCountMapping const expected = {{"Russia_Moscow Oblast_East", 2}};
+
+  std::stringstream ss;
+  MappingToCsv("mwm", mapping, false /* printPercentage */, ss);
+
+  Stats::NameToCountMapping readMapping;
+  MappingFromCsv(ss, readMapping);
+
+  TEST_EQUAL(readMapping, expected, (ss.str()));
 }
 }  // namespace

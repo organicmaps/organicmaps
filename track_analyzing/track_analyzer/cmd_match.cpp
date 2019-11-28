@@ -98,7 +98,7 @@ void CmdMatch(string const & logFile, string const & trackFile,
 {
   MwmToTracks mwmToTracks;
   ParseTracks(logFile, numMwmIds, mwmToTracks);
-  AddStat(mwmToTracks, *numMwmIds, storage, stat);
+  stat.AddTracksStats(mwmToTracks, *numMwmIds, storage);
 
   MwmToMatchedTracks mwmToMatchedTracks;
   MatchTracks(mwmToTracks, storage, *numMwmIds, mwmToMatchedTracks);

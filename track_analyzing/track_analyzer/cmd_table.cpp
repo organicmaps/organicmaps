@@ -320,8 +320,7 @@ public:
       out << user << "," << countryName << "," << it.first.GetSummary() << ","
           << it.second.GetSummary() << '\n';
 
-      stats.m_mwmToTotalDataPoints[mwmName] += it.second.GetDataPointsNumber();
-      stats.m_countryToTotalDataPoints[countryName] += it.second.GetDataPointsNumber();
+      stats.AddDataPoints(mwmName, countryName, it.second.GetDataPointsNumber());
     }
 
     return out.str();

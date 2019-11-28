@@ -9,7 +9,11 @@
 
 #include "platform/platform.hpp"
 
+#include "coding/csv_reader.hpp"
+
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <set>
@@ -52,19 +56,88 @@ void Add(Stats::NameToCountMapping const & addition, Stats::NameToCountMapping &
   }
 }
 
-void AddStat(uint32_t dataPointNum, routing::NumMwmId numMwmId,
-             NumMwmIds const & numMwmIds, Storage const & storage, Stats & stats)
+void PrintMap(string const & keyName, string const & descr,
+              Stats::NameToCountMapping const & mapping, ostringstream & ss)
 {
-  auto const mwmName = numMwmIds.GetFile(numMwmId).GetName();
-  auto const countryName = storage.GetTopmostParentFor(mwmName);
+  ss << descr << '\n';
+  if (mapping.empty())
+  {
+    ss << "Map is empty." << endl;
+    return;
+  }
 
-  // Note. In case of disputed mwms |countryName| will be empty.
-  stats.m_mwmToTotalDataPoints[mwmName] += dataPointNum;
-  stats.m_countryToTotalDataPoints[countryName] += dataPointNum;
+  MappingToCsv(keyName, mapping, true /* printPercentage */, ss);
+}
+}  // namespace
+
+namespace track_analyzing
+{
+// Stats ===========================================================================================
+Stats::Stats(NameToCountMapping const & mwmToTotalDataPoints,
+             NameToCountMapping const & countryToTotalDataPoint)
+  : m_mwmToTotalDataPoints(mwmToTotalDataPoints)
+  , m_countryToTotalDataPoints(countryToTotalDataPoint)
+{
 }
 
-void PrintMap(string const & keyType, string const & descr,
-              map<string, uint32_t> const & mapping, ostringstream & ss)
+bool Stats::operator==(Stats const & stats) const
+{
+  return m_mwmToTotalDataPoints == stats.m_mwmToTotalDataPoints &&
+      m_countryToTotalDataPoints == stats.m_countryToTotalDataPoints;
+}
+
+void Stats::Add(Stats const & stats)
+{
+  ::Add(stats.m_mwmToTotalDataPoints, m_mwmToTotalDataPoints);
+  ::Add(stats.m_countryToTotalDataPoints, m_countryToTotalDataPoints);
+}
+
+void Stats::AddTracksStats(MwmToTracks const & mwmToTracks, NumMwmIds const & numMwmIds,
+                           Storage const & storage)
+{
+  for (auto const & kv : mwmToTracks)
+  {
+    auto const & userToTrack = kv.second;
+    uint32_t dataPointNum = 0;
+    for (auto const & userTrack : userToTrack)
+      dataPointNum += userTrack.second.size();
+
+    NumMwmId const numMwmId = kv.first;
+    auto const mwmName = numMwmIds.GetFile(numMwmId).GetName();
+    auto const countryName = storage.GetTopmostParentFor(mwmName);
+    // Note. In case of disputed mwms |countryName| will be empty.
+    AddDataPoints(mwmName, countryName, dataPointNum);
+  }
+}
+
+void Stats::AddDataPoints(string const & mwmName, string const & countryName,
+                          uint32_t dataPointNum)
+{
+  m_mwmToTotalDataPoints[mwmName] += dataPointNum;
+  m_countryToTotalDataPoints[countryName] += dataPointNum;
+}
+
+void Stats::SaveMwmDistributionToCsv(string const & csvPath)
+{
+  if (csvPath.empty())
+    return;
+
+  ostringstream ss(csvPath);
+  MappingToCsv("mwm", m_mwmToTotalDataPoints, false /* printPercentage */, ss);
+}
+
+Stats::NameToCountMapping const & Stats::GetMwmToTotalDataPointsForTesting() const
+{
+  return m_mwmToTotalDataPoints;
+}
+
+Stats::NameToCountMapping const & Stats::GetCountryToTotalDataPointsForTesting() const
+{
+  return m_countryToTotalDataPoints;
+}
+
+void MappingToCsv(string const & keyName, Stats::NameToCountMapping const & mapping,
+                  bool printPercentage, basic_ostream<char> & ss)
 {
   struct KeyValue
   {
@@ -72,12 +145,14 @@ void PrintMap(string const & keyType, string const & descr,
     uint32_t m_value = 0;
   };
 
-  ss << descr << '\n';
   if (mapping.empty())
-  {
-    ss << "Map is empty." << endl;
     return;
-  }
+
+  ss << keyName;
+  if (printPercentage)
+    ss << ",number,percent\n";
+  else
+    ss << ",number\n";
 
   // Sorting from bigger to smaller values.
   vector<KeyValue> keyValues;
@@ -86,38 +161,37 @@ void PrintMap(string const & keyType, string const & descr,
     keyValues.push_back({kv.first, kv.second});
 
   sort(keyValues.begin(), keyValues.end(),
-            [](KeyValue const & a, KeyValue const & b) { return a.m_value > b.m_value; });
+       [](KeyValue const & a, KeyValue const & b) { return a.m_value > b.m_value; });
 
   uint32_t allValues = 0;
   for (auto const & kv : keyValues)
     allValues += kv.m_value;
 
-  ss << keyType << ",number,percent\n";
   for (auto const & kv : keyValues)
   {
     if (kv.m_value == 0)
       continue;
 
-    ss << kv.m_key << "," << kv.m_value << ","
-       << 100.0 * static_cast<double>(kv.m_value) / allValues << "\n";
+    ss << kv.m_key << "," << kv.m_value;
+    if (printPercentage)
+      ss << "," << 100.0 * static_cast<double>(kv.m_value) / allValues;
+    ss << '\n';
   }
-  ss << "\n" << endl;
-}
-}  // namespace
-
-namespace track_analyzing
-{
-// Stats ===========================================================================================
-void Stats::Add(Stats const & stats)
-{
-  ::Add(stats.m_mwmToTotalDataPoints, m_mwmToTotalDataPoints);
-  ::Add(stats.m_countryToTotalDataPoints, m_countryToTotalDataPoints);
+  ss.flush();
 }
 
-bool Stats::operator==(Stats const & stats) const
+void MappingFromCsv(basic_istream<char> & ss, Stats::NameToCountMapping & mapping)
 {
-  return m_mwmToTotalDataPoints == stats.m_mwmToTotalDataPoints &&
-         m_countryToTotalDataPoints == stats.m_countryToTotalDataPoints;
+  for (auto const & row :
+       coding::CSVRunner(coding::CSVReader(ss, true /* hasHeader */, ',' /* kCsvDelimiter */)))
+  {
+    CHECK_EQUAL(row.size(), 2, (row));
+    auto const & key = row[0];
+    uint64_t value = 0;
+    CHECK(strings::to_uint64(row[1], value), ());
+    auto const it = mapping.insert(make_pair(key, base::checked_cast<uint32_t>(value)));
+    CHECK(it.second, ());
+  }
 }
 
 void ParseTracks(string const & logFile, shared_ptr<NumMwmIds> const & numMwmIds,
@@ -134,27 +208,13 @@ void ParseTracks(string const & logFile, shared_ptr<NumMwmIds> const & numMwmIds
   parser.Parse(logFile, mwmToTracks);
 }
 
-void AddStat(MwmToTracks const & mwmToTracks, NumMwmIds const & numMwmIds, Storage const & storage,
-             Stats & stats)
-{
-  for (auto const & kv : mwmToTracks)
-  {
-    auto const & userToTrack = kv.second;
-    uint32_t dataPointNum = 0;
-    for (auto const & userTrack : userToTrack)
-      dataPointNum += userTrack.second.size();
-
-    ::AddStat(dataPointNum, kv.first, numMwmIds, storage, stats);
-  }
-}
-
 string DebugPrint(Stats const & s)
 {
   ostringstream ss;
   ss << "Stats [\n";
   PrintMap("mwm", "Mwm to total data points number:", s.m_mwmToTotalDataPoints, ss);
   PrintMap("country", "Country name to data points number:", s.m_countryToTotalDataPoints, ss);
-  ss << "]\n" << endl;
+  ss << "]" << endl;
 
   return ss.str();
 }
