@@ -77,6 +77,11 @@ class IntermediateDataReaderTest : public cache::IntermediateDataReaderInterface
     e = it->second;
     return true;
   }
+
+  bool GetRelation(uint64_t /* id */, RelationElement & /* e */) override
+  {
+    return false;
+  }
 };
 
 OsmElement MakePostcodeAreaRelation(uint64_t id, string postcode, uint64_t wayId)

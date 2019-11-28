@@ -21,7 +21,7 @@ class FeatureBuilder;
 
 namespace cache
 {
-class IntermediateDataReader;
+class IntermediateDataReaderInterface;
 }  // namespace cache
 
 namespace generator
@@ -31,11 +31,11 @@ class BuildingPartsCollector : public CollectorInterface
 {
 public:
   explicit BuildingPartsCollector(std::string const & filename,
-                                  std::shared_ptr<cache::IntermediateDataReader> const & cache);
+                                  std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache);
 
   // CollectorInterface overrides:
   std::shared_ptr<CollectorInterface> Clone(
-      std::shared_ptr<cache::IntermediateDataReader> const & cache) const override;
+      std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache) const override;
 
   void CollectFeature(feature::FeatureBuilder const & fb, OsmElement const & element) override;
 
@@ -50,7 +50,7 @@ private:
   std::vector<base::GeoObjectId> FindAllBuildingParts(base::GeoObjectId const & id);
   void WriteBuildingParts(CompositeId const & id, std::vector<base::GeoObjectId> const & buildingParts);
 
-  std::shared_ptr<cache::IntermediateDataReader> m_cache;
+  std::shared_ptr<cache::IntermediateDataReaderInterface> m_cache;
   std::unique_ptr<FileWriter> m_writer;
 };
 

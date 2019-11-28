@@ -48,7 +48,7 @@ private:
 namespace generator
 {
 BuildingPartsCollector::BuildingPartsCollector(
-    std::string const & filename, std::shared_ptr<cache::IntermediateDataReader> const & cache)
+    std::string const & filename, std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
   : CollectorInterface(filename)
   , m_cache(cache)
   , m_writer(std::make_unique<FileWriter>(GetTmpFilename()))
@@ -56,7 +56,7 @@ BuildingPartsCollector::BuildingPartsCollector(
 }
 
 std::shared_ptr<CollectorInterface> BuildingPartsCollector::Clone(
-    std::shared_ptr<cache::IntermediateDataReader> const & cache) const
+    std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache) const
 {
   return std::make_shared<BuildingPartsCollector>(GetFilename(), cache ? cache : m_cache);
 }
@@ -106,7 +106,8 @@ base::GeoObjectId BuildingPartsCollector::FindTopRelation(OsmElement const & ele
 {
   IdRelationVec elements;
   RelationFetcher fetcher(elements);
-  base::ControlFlowWrapper<decltype(fetcher)> wrapper(fetcher);
+  cache::IntermediateDataReaderInterface::ForEachRelationFn wrapper =
+      base::ControlFlowWrapper<RelationFetcher>(fetcher);
   IdRelationVec::const_iterator it;
   if (element.IsWay())
   {

@@ -159,10 +159,10 @@ void TranslatorCountry::MergeInto(TranslatorCountry & other) const { MergeIntoBa
 void TranslatorCountry::CollectFromRelations(OsmElement const & element)
 {
   auto const & cache = m_cache->GetCache();
-  RelationCollector collector(m_collector);
+  cache::IntermediateDataReaderInterface::ForEachRelationFn wrapper = RelationCollector(m_collector);
   if (element.IsNode())
-    cache->ForEachRelationByNodeCached(element.m_id, collector);
+    cache->ForEachRelationByNodeCached(element.m_id, wrapper);
   else if (element.IsWay())
-    cache->ForEachRelationByWayCached(element.m_id, collector);
+    cache->ForEachRelationByWayCached(element.m_id, wrapper);
 }
 }  // namespace generator
