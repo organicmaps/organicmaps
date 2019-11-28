@@ -1,4 +1,5 @@
 #pragma once
+
 #include "track_analyzing/track_analyzer/utils.hpp"
 
 #include <cstdint>
@@ -14,13 +15,13 @@ using MwmToDataPoints = Stats::NameToCountMapping;
 // Csv table row.
 using TableRow = std::vector<std::string>;
 // Mwm to data points percent in the mwm mapping. It's assumed that the sum of the values
-// should be equal to 100.0 percents.
+// should be equal to 100.0 percent.
 using MwmToDataPointFraction = std::map<std::string, double>;
 
 size_t constexpr kMwmNameCsvColumn = 1;
 
 /// \brief Fills a map |mwmToDataPoints| mwm to DataPoints number according to |tableCsvStream| and
-/// fills |table| with all the content of |tableCsv|.
+/// fills |matchedDataPoints| with all the content of |tableCsvStream|.
 void FillTable(std::basic_istream<char> & tableCsvStream, MwmToDataPoints & matchedDataPoints,
                std::vector<TableRow> & table);
 
@@ -29,24 +30,21 @@ void FillTable(std::basic_istream<char> & tableCsvStream, MwmToDataPoints & matc
 void RemoveKeysSmallValue(MwmToDataPoints & checkedMap, MwmToDataPoints & additionalMap,
                           uint32_t ignoreDataPointNumber);
 
-/// \brief Fills |fractionMapping|. It is the mapping from mwm to fraction of data points contained
-/// in the mwm.
-void FillsMwmToDataPointFraction(MwmToDataPoints const & numberMapping,
-                                 MwmToDataPointFraction & fractionMapping);
+/// \returns mapping from mwm to fraction of data points contained in the mwm.
+MwmToDataPointFraction GetMwmToDataPointFraction(MwmToDataPoints const & numberMapping);
 
-/// \brief Fills mapping |matchedDataPointsToKeepDistribution| fulfilling two conditions:
-/// *  number of data points in |matchedDataPointsToKeepDistribution| is less or equal
+/// \returns mapping mwm to matched data points fulfilling two conditions:
+/// *  number of data points in the returned mapping is less than or equal to
 ///    number of data points in |matchedDataPoints| for every mwm
 /// * distribution defined by |distributionFraction| is kept
-void CalcsMatchedDataPointsToKeepDistribution(MwmToDataPoints const & matchedDataPoints,
-                                              MwmToDataPointFraction const & distributionFractions,
-                                              MwmToDataPoints & matchedDataPointsToKeepDistribution);
+MwmToDataPoints CalcsMatchedDataPointsToKeepDistribution(
+    MwmToDataPoints const & matchedDataPoints,
+    MwmToDataPointFraction const & distributionFractions);
 
-/// \brief Fills |balancedDataPointNumber| with number of matched data points for every mwm
-/// to correspond to |distribution|.
-void BalanceDataPointNumber(MwmToDataPoints && distribution,
-                            MwmToDataPoints && matchedDataPoints, uint32_t ignoreDataPointsNumber,
-                            MwmToDataPoints & balancedDataPointNumber);
+/// \returns mapping with number of matched data points for every mwm to correspond to |distribution|.
+MwmToDataPoints BalancedDataPointNumber(MwmToDataPoints && distribution,
+                                        MwmToDataPoints && matchedDataPoints,
+                                        uint32_t ignoreDataPointsNumber);
 
 /// \breif Leaves in |table| only number of items according to |balancedDataPointNumbers|.
 /// \note |table| may have a significant size. It may be several tens millions records.

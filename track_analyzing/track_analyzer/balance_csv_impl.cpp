@@ -4,6 +4,8 @@
 
 #include "coding/csv_reader.hpp"
 
+#include "base/assert.hpp"
+#include "base/logging.hpp"
 #include "base/math.hpp"
 
 #include <algorithm>
@@ -22,10 +24,11 @@ using namespace std;
 void FillTable(basic_istream<char> & tableCsvStream, MwmToDataPoints & matchedDataPoints,
                vector<TableRow> & table)
 {
+  size_t constexpr kTableColumns = 19;
   for (auto const & row : coding::CSVRunner(
       coding::CSVReader(tableCsvStream, true /* hasHeader */, ',' /* delimiter */)))
   {
-    CHECK_EQUAL(row.size(), 19 /* number fields in table csv */, (row));
+    CHECK_EQUAL(row.size(), kTableColumns, (row));
     auto const & mwmName = row[kMwmNameCsvColumn];
     matchedDataPoints[mwmName] += 1;
     table.push_back(row);
@@ -53,19 +56,20 @@ void RemoveKeysSmallValue(MwmToDataPoints & checkedMap, MwmToDataPoints & additi
   }
 }
 
-void FillsMwmToDataPointFraction(MwmToDataPoints const & numberMapping, MwmToDataPointFraction & fractionMapping)
+MwmToDataPointFraction GetMwmToDataPointFraction(MwmToDataPoints const & numberMapping)
 {
   CHECK(!numberMapping.empty(), ());
   uint32_t const totalDataPointNumber = ValueSum(numberMapping);
 
-  fractionMapping.clear();
+  MwmToDataPointFraction fractionMapping;
   for (auto const & kv : numberMapping)
     fractionMapping.emplace(kv.first, static_cast<double>(kv.second) / totalDataPointNumber);
+
+  return fractionMapping;
 }
 
-void CalcsMatchedDataPointsToKeepDistribution(MwmToDataPoints const & matchedDataPoints,
-                                              MwmToDataPointFraction const & distributionFractions,
-                                              MwmToDataPoints & matchedDataPointsToKeepDistribution)
+MwmToDataPoints CalcsMatchedDataPointsToKeepDistribution(
+    MwmToDataPoints const & matchedDataPoints, MwmToDataPointFraction const & distributionFractions)
 {
   CHECK(!matchedDataPoints.empty(), ());
   CHECK(AreKeysEqual(matchedDataPoints, distributionFractions),
@@ -73,10 +77,7 @@ void CalcsMatchedDataPointsToKeepDistribution(MwmToDataPoints const & matchedDat
   CHECK(base::AlmostEqualAbs(ValueSum(distributionFractions), 1.0, kSumFractionEps),
         (ValueSum(distributionFractions)));
 
-  matchedDataPointsToKeepDistribution.clear();
-
-  MwmToDataPointFraction matchedFractions;
-  FillsMwmToDataPointFraction(matchedDataPoints, matchedFractions);
+  auto const matchedFractions = GetMwmToDataPointFraction(matchedDataPoints);
 
   double maxRatio = 0.0;
   double maxRationDistributionFraction = 0.0;
@@ -90,10 +91,12 @@ void CalcsMatchedDataPointsToKeepDistribution(MwmToDataPoints const & matchedDat
   {
     auto const & mwmName = kv.first;
     auto const matchedDataPointNumber = kv.second;
-    auto const it = distributionFractions.find(mwmName);
-    CHECK(it != distributionFractions.cend(), (mwmName));
-    auto const distributionFraction = it->second;
-    double const matchedFraction = matchedFractions[mwmName];
+    auto const itDistr = distributionFractions.find(mwmName);
+    CHECK(itDistr != distributionFractions.cend(), (mwmName));
+    auto const distributionFraction = itDistr->second;
+    auto const itMatched = matchedFractions.find(mwmName);
+    CHECK(itMatched != matchedFractions.cend(), (mwmName));
+    double const matchedFraction = itMatched->second;
 
     double const ratio = distributionFraction / matchedFraction;
     if (ratio > maxRatio)
@@ -116,25 +119,36 @@ void CalcsMatchedDataPointsToKeepDistribution(MwmToDataPoints const & matchedDat
   // and which fraction for each mwm should be used to correspond to the distribution
   // it's possible to find matched data point number which may be used for each mwm
   // to fulfil the distribution.
+  MwmToDataPoints matchedDataPointsToKeepDistribution;
   for (auto const & kv : distributionFractions)
   {
+    auto const & mwm = kv.first;
     auto const fraction = kv.second;
-    matchedDataPointsToKeepDistribution.emplace(
-        kv.first, static_cast<uint32_t>(fraction * totalMatchedPointNumberToKeepDistribution));
+    auto const matchedDataPointsToKeepDistributionForMwm =
+        static_cast<uint32_t>(fraction * totalMatchedPointNumberToKeepDistribution);
+    matchedDataPointsToKeepDistribution.emplace(mwm, matchedDataPointsToKeepDistributionForMwm);
+
+    if (matchedDataPointsToKeepDistributionForMwm == 0)
+    {
+      LOG(LWARNING, ("Zero points should be put to", mwm,
+                     "to keep the distribution. Distribution fraction:", fraction,
+                     "totalMatchedPointNumberToKeepDistribution:",
+                     totalMatchedPointNumberToKeepDistribution));
+    }
   }
+  return matchedDataPointsToKeepDistribution;
 }
 
-void BalanceDataPointNumber(MwmToDataPoints && distribution,
-                            MwmToDataPoints && matchedDataPoints, uint32_t ignoreDataPointsNumber,
-                            MwmToDataPoints & balancedDataPointNumber)
+MwmToDataPoints BalancedDataPointNumber(MwmToDataPoints && distribution,
+                                        MwmToDataPoints && matchedDataPoints,
+                                        uint32_t ignoreDataPointsNumber)
 {
   // Removing every mwm from |distribution| and |matchedDataPoints| if it has
   // |ignoreDataPointsNumber| data points or less in |matchedDataPoints|.
   RemoveKeysSmallValue(matchedDataPoints, distribution, ignoreDataPointsNumber);
 
   // Calculating how much percent data points in each mwm of |distribution|.
-  MwmToDataPointFraction distributionFraction;
-  FillsMwmToDataPointFraction(distribution, distributionFraction);
+  auto const distributionFraction = GetMwmToDataPointFraction(distribution);
 
   CHECK(AreKeysEqual(distribution, matchedDataPoints),
         ("Mwms in |checkedMap| and in |additionalMap| should have the same set of keys."));
@@ -142,10 +156,9 @@ void BalanceDataPointNumber(MwmToDataPoints && distribution,
   // may be different. (They are most likely different.) So to keep the distribution
   // defined in |distribution| after matching only a part of matched data points
   // should be used.
-  // Filling |balancedDataPointNumber| with information about how many data points
-  // form |distributionCsvStream| should be used for every mwm.
-  CalcsMatchedDataPointsToKeepDistribution(matchedDataPoints, distributionFraction,
-                                           balancedDataPointNumber);
+  // Returning mapping from mwm to balanced data point number with information about
+  // how many data points form |distributionCsvStream| should be used for every mwm.
+  return CalcsMatchedDataPointsToKeepDistribution(matchedDataPoints, distributionFraction);
 }
 
 void FilterTable(MwmToDataPoints const & balancedDataPointNumbers, vector<TableRow> & table)
@@ -192,13 +205,16 @@ void BalanceDataPoints(basic_istream<char> & distributionCsvStream,
                        basic_istream<char> & tableCsvStream, uint32_t ignoreDataPointsNumber,
                        vector<TableRow> & balancedTable)
 {
+  LOG(LINFO, ("Balancing data points..."));
   // Filling a map mwm to DataPoints number according to distribution csv file.
   MwmToDataPoints distribution;
   MappingFromCsv(distributionCsvStream, distribution);
+  uint32_t const totalDistributionDataPointsNumber = ValueSum(distribution);
 
   balancedTable.clear();
   MwmToDataPoints matchedDataPoints;
   FillTable(tableCsvStream, matchedDataPoints, balancedTable);
+  uint32_t const totalMatchedDataPointsNumber = ValueSum(matchedDataPoints);
 
   if (matchedDataPoints.empty())
   {
@@ -218,13 +234,17 @@ void BalanceDataPoints(basic_istream<char> & distributionCsvStream,
         ("Mwms in |distribution| and in |matchedDataPoints| should have the same set of keys."));
 
   // Calculating how many points should have every mwm to keep the |distribution|.
-  MwmToDataPoints balancedDataPointNumber;
-  BalanceDataPointNumber(move(distribution), move(matchedDataPoints), ignoreDataPointsNumber,
-                         balancedDataPointNumber);
+  MwmToDataPoints const balancedDataPointNumber =
+      BalancedDataPointNumber(move(distribution), move(matchedDataPoints), ignoreDataPointsNumber);
+  uint32_t const totalBalancedDataPointsNumber = ValueSum(balancedDataPointNumber);
 
   // |balancedTable| is filled now with all the items from |tableCsvStream|.
   // Removing some items form |tableCsvStream| (if it's necessary) to correspond to
   // the distribution.
   FilterTable(balancedDataPointNumber, balancedTable);
+  LOG(LINFO, ("Data points have balanced. Total distribution data points number:",
+              totalDistributionDataPointsNumber,
+              "Total matched data points number:", totalMatchedDataPointsNumber,
+              "Total balanced data points number:", totalBalancedDataPointsNumber));
 }
 }  // namespace track_analyzing

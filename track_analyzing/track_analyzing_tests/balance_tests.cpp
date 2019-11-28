@@ -103,29 +103,18 @@ UNIT_TEST(RemoveKeysSmallValueTest)
   TEST_EQUAL(additionalMap, expectedAdditionalMap, ());
 }
 
-UNIT_TEST(FillsMwmToDataPointFractionTest)
+UNIT_TEST(GetMwmToDataPointFractionTest)
 {
   MwmToDataPoints const numberMapping = {{"Russia_Moscow", 100 /* data points */},
                                          {"San Marino", 50 /* data points */},
                                          {"Slovakia", 50 /* data points */}};
-  MwmToDataPointFraction fractionMapping;
-  FillsMwmToDataPointFraction(numberMapping, fractionMapping);
+  auto const fractionMapping = GetMwmToDataPointFraction(numberMapping);
 
   MwmToDataPointFraction expectedFractionMapping{{"Russia_Moscow", 0.5 /* fraction */},
                                                  {"San Marino", 0.25 /* fraction */},
                                                  {"Slovakia", 0.25 /* fraction */}};
   TEST_EQUAL(fractionMapping, expectedFractionMapping, ());
 }
-
-//UNIT_TEST(CalcsMatchedDataPointsToKeepDistributionEmptyTest)
-//{
-//  MwmToDataPoints const matchedDataPoints;
-//  MwmToDataPointFraction const distributionFraction;
-//  MwmToDataPoints matchedDataPointsToKeepDistribution;
-//  CalcsMatchedDataPointsToKeepDistribution(matchedDataPoints, distributionFraction,
-//                                           matchedDataPointsToKeepDistribution);
-//  TEST(matchedDataPointsToKeepDistribution.empty(), ());
-//}
 
 UNIT_TEST(CalcsMatchedDataPointsToKeepDistributionTest)
 {
@@ -139,9 +128,8 @@ UNIT_TEST(CalcsMatchedDataPointsToKeepDistributionTest)
     MwmToDataPoints expected = {{"Russia_Moscow", 400 /* data points */},
                                 {"San Marino", 50 /* data points */},
                                 {"Slovakia", 50 /* data points */}};
-    MwmToDataPoints matchedDataPointsToKeepDistribution;
-    CalcsMatchedDataPointsToKeepDistribution(matchedDataPoints, distributionFraction,
-                                             matchedDataPointsToKeepDistribution);
+    MwmToDataPoints const matchedDataPointsToKeepDistribution =
+        CalcsMatchedDataPointsToKeepDistribution(matchedDataPoints, distributionFraction);
     TEST_EQUAL(matchedDataPointsToKeepDistribution, expected, ());
   }
   {
@@ -154,14 +142,13 @@ UNIT_TEST(CalcsMatchedDataPointsToKeepDistributionTest)
     MwmToDataPoints expected = {{"Russia_Moscow", 50 /* data points */},
                                 {"San Marino", 100 /* data points */},
                                 {"Slovakia", 100 /* data points */}};
-    MwmToDataPoints matchedDataPointsToKeepDistribution;
-    CalcsMatchedDataPointsToKeepDistribution(matchedDataPoints, distributionFraction,
-                                             matchedDataPointsToKeepDistribution);
+    MwmToDataPoints const matchedDataPointsToKeepDistribution =
+        CalcsMatchedDataPointsToKeepDistribution(matchedDataPoints, distributionFraction);
     TEST_EQUAL(matchedDataPointsToKeepDistribution, expected, ());
   }
 }
 
-UNIT_TEST(BalanceDataPointNumberTheSameTest)
+UNIT_TEST(BalancedDataPointNumberTheSameTest)
 {
   MwmToDataPoints const distribution = {{"Russia_Moscow", 100 /* data points */},
                                         {"San Marino", 50 /* data points */},
@@ -173,9 +160,8 @@ UNIT_TEST(BalanceDataPointNumberTheSameTest)
     // Case when the distribution is not changed. All mwms lose the same percent of data points.
     auto distr = distribution;
     auto matched = matchedDataPoints;
-    MwmToDataPoints balancedDataPointNumber;
-    BalanceDataPointNumber(move(distr), move(matched),
-                           0 /* ignoreDataPointsNumber */, balancedDataPointNumber);
+    auto const balancedDataPointNumber =
+        BalancedDataPointNumber(move(distr), move(matched), 0 /* ignoreDataPointsNumber */);
     TEST_EQUAL(balancedDataPointNumber, matchedDataPoints, ());
   }
 
@@ -184,15 +170,14 @@ UNIT_TEST(BalanceDataPointNumberTheSameTest)
     // the same percent of data points. But mwms with small number of points are moved.
     auto distr = distribution;
     auto matched = matchedDataPoints;
-    MwmToDataPoints balancedDataPointNumber;
-    BalanceDataPointNumber(move(distr), move(matched),
-                           7 /* ignoreDataPointsNumber */, balancedDataPointNumber);
+    auto const balancedDataPointNumber =
+        BalancedDataPointNumber(move(distr), move(matched), 7 /* ignoreDataPointsNumber */);
     MwmToDataPoints expectedBalancedDataPointNumber = {{"Russia_Moscow", 10 /* data points */}};
     TEST_EQUAL(balancedDataPointNumber, expectedBalancedDataPointNumber, ());
   }
 }
 
-UNIT_TEST(BalanceDataPointNumberTest)
+UNIT_TEST(BalancedDataPointNumberTest)
 {
   MwmToDataPoints distribution = {{"Russia_Moscow", 6000 /* data points */},
                                   {"San Marino", 3000 /* data points */},
@@ -203,9 +188,8 @@ UNIT_TEST(BalanceDataPointNumberTest)
   {
     auto distr = distribution;
     auto matched = matchedDataPoints;
-    MwmToDataPoints balancedDataPointNumber;
-    BalanceDataPointNumber(move(distr), move(matched),
-                           7 /* ignoreDataPointsNumber */, balancedDataPointNumber);
+    auto const balancedDataPointNumber =
+        BalancedDataPointNumber(move(distr), move(matched), 7 /* ignoreDataPointsNumber */);
     MwmToDataPoints expectedBalancedDataPointNumber = {{"Russia_Moscow", 60 /* data points */},
                                                        {"San Marino", 30 /* data points */},
                                                        {"Slovakia", 10 /* data points */}};
