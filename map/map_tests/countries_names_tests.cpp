@@ -52,19 +52,12 @@ UNIT_TEST(CountriesNamesTest)
   set<string> const kIgnoreList = {"Turkish Republic Of Northern Cyprus",
                                    "Transnistria",
                                    "Nagorno-Karabakh Republic",
+                                   "Republic of Artsakh",
                                    // MAPSME-10611
                                    "Mayorca Residencial",
                                    "Magnolias Residencial",
                                    "Residencial Magnolias",
-                                   // It's relevant only for relase-92.
-                                   "Municipio Guanarito",
-                                   "Municipio Esteller",
-                                   "Municipio Turén",
-                                   "Municipio Araure",
-                                   "Municipio Páez",
-                                   "Municipio Agua Blanca",
-                                   "Municipio Onoto",
-                                   "Municipio Santa Rosalía"};
+                                   };
 
   auto const features = cache.Get(mwmContext);
   features.ForEach([&](uint64_t fid) {
