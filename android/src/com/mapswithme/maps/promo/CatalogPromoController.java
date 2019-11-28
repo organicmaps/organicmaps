@@ -338,14 +338,20 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
 
       Resources resources = mPlacePageView.getResources();
       String category = promo.getCategory();
-      boolean isSightseeings = !TextUtils.isEmpty(category)
-                               && mSponsoredType == Sponsored.TYPE_PROMO_CATALOG_SIGHTSEEINGS;
-      String title;
-      if (isSightseeings)
-        title = resources.getString(R.string.pp_discovery_place_related_tag_header, promo.getCategory());
+      boolean showCategoryHeader = !TextUtils.isEmpty(category)
+                                   && (mSponsoredType == Sponsored.TYPE_PROMO_CATALOG_SIGHTSEEINGS
+                                       || mSponsoredType == Sponsored.TYPE_PROMO_CATALOG_OUTDOOR);
+      String galleryHeader;
+      if (showCategoryHeader)
+      {
+        galleryHeader = resources.getString(R.string.pp_discovery_place_related_tag_header,
+                                    promo.getCategory());
+      }
       else
-        title = resources.getString(R.string.guides);
-      mTitle.setText(title);
+      {
+        galleryHeader = resources.getString(R.string.guides);
+      }
+      mTitle.setText(galleryHeader);
 
       String url = promo.getMoreUrl();
       GalleryPlacement placement = getGalleryPlacement(mSponsoredType);
