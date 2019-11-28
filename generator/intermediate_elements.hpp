@@ -17,10 +17,14 @@
 
 struct WayElement
 {
-  std::vector<uint64_t> m_nodes;
   uint64_t m_wayOsmId;
+  std::vector<uint64_t> m_nodes;
 
   explicit WayElement(uint64_t osmId) : m_wayOsmId(osmId) {}
+  WayElement(uint64_t osmId, std::vector<uint64_t> const & nodes)
+    : m_wayOsmId(osmId), m_nodes(nodes)
+  {
+  }
 
   bool IsValid() const { return !m_nodes.empty(); }
 
