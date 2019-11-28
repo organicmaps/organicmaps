@@ -2,4 +2,5 @@
 <resources>
   <!-- Altitude chart -->
   <dimen name="altitude_chart_image_width">600dp</dimen>
+  <dimen name="bookmarks_all_subscription_pager_item_margin">0dp</dimen>
 </resources>
