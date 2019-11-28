@@ -21,6 +21,7 @@ IndentCaseLabels: false
 NamespaceIndentation: None
 PointerAlignment: Middle
 SortIncludes: true
+IncludeBlocks: Preserve
 Standard: Cpp11
 
 ---
