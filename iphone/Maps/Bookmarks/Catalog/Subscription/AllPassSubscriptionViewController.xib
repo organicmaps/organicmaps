@@ -289,7 +289,7 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlueHighlighted"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="allPassSubscriptionDescription"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="restore_purchase"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="restore_subscription"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="onRestore:" destination="-1" eventType="touchUpInside" id="Y63-jh-jyb"/>
