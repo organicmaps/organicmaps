@@ -153,10 +153,10 @@ public:
   void AddStreet(std::string const & streetName);
   void AddPostcode(std::string const & postcode);
   bool AddName(std::string const & lang, std::string const & name);
-  void SetParams(FeatureParams const & params) { m_params.SetParams(params); }
+  void SetParams(FeatureBuilderParams const & params) { m_params.SetParams(params); }
 
-  FeatureParams const & GetParams() const { return m_params; }
-  FeatureParams & GetParams() { return m_params; }
+  FeatureBuilderParams const & GetParams() const { return m_params; }
+  FeatureBuilderParams & GetParams() { return m_params; }
   std::string GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
   StringUtf8Multilang const & GetMultilangName() const { return m_params.name; }
   uint8_t GetRank() const { return m_params.rank; }
@@ -178,9 +178,6 @@ public:
 
   // Serialization.
   bool PreSerialize();
-  void SerializeBase(Buffer & data, serial::GeometryCodingParams const & params,
-                     bool saveAddInfo) const;
-
   bool PreSerializeAndRemoveUselessNamesForIntermediate();
   void SerializeForIntermediate(Buffer & data) const;
   void SerializeBorderForIntermediate(serial::GeometryCodingParams const & params,
@@ -237,7 +234,7 @@ protected:
   Geometry m_polygons;  // Check HEADER_IS_AREA
   m2::RectD m_limitRect;
   std::vector<base::GeoObjectId> m_osmIds;
-  FeatureParams m_params;
+  FeatureBuilderParams m_params;
   /// Not used in GEOM_POINTs
   int64_t m_coastCell;
 };

@@ -57,9 +57,6 @@ void OpentableDataset::PreprocessMatchedOsmObject(ObjectId const matchedObjId, F
   metadata.Set(Metadata::FMD_SPONSORED_ID, strings::to_string(restaurant.m_id.Get()));
 
   FeatureParams & params = fb.GetParams();
-  // params.AddAddress(restaurant.address);
-  // TODO(mgsergio): addr:full ???
-
   params.AddName(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode),
                  restaurant.m_name);
 

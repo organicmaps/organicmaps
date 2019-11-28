@@ -363,17 +363,6 @@ bool FeatureBuilder::IsExactEq(FeatureBuilder const & fb) const
       m_coastCell == fb.m_coastCell;
 }
 
-void FeatureBuilder::SerializeBase(Buffer & data, serial::GeometryCodingParams const & params,
-                                   bool saveAddInfo) const
-{
-  PushBackByteSink<Buffer> sink(data);
-
-  m_params.Write(sink, saveAddInfo);
-
-  if (m_params.GetGeomType() == GeomType::Point)
-    serial::SavePoint(sink, m_center, params);
-}
-
 void FeatureBuilder::SerializeForIntermediate(Buffer & data) const
 {
   CHECK(IsValid(), (*this));
@@ -382,11 +371,14 @@ void FeatureBuilder::SerializeForIntermediate(Buffer & data) const
 
   serial::GeometryCodingParams cp;
 
-  SerializeBase(data, cp, true /* store additional info from FeatureParams */);
-
   PushBackByteSink<Buffer> sink(data);
+  m_params.Write(sink);
 
-  if (m_params.GetGeomType() != GeomType::Point)
+  if (m_params.GetGeomType() == GeomType::Point)
+  {
+    serial::SavePoint(sink, m_center, cp);
+  }
+  else
   {
     WriteVarUint(sink, static_cast<uint32_t>(m_polygons.size()));
 
@@ -476,7 +468,7 @@ void FeatureBuilder::SerializeAccuratelyForIntermediate(Buffer & data) const
 
   data.clear();
   PushBackByteSink<Buffer> sink(data);
-  m_params.Write(sink, true /* store additional info from FeatureParams */);
+  m_params.Write(sink);
   if (IsPoint())
   {
     WritePOD(sink, m_center);
@@ -673,10 +665,14 @@ void FeatureBuilder::SerializeForMwm(SupportingData & data,
 {
   data.m_buffer.clear();
 
-  // header data serialization
-  SerializeBase(data.m_buffer, params, false /* don't store additional info from FeatureParams*/);
-
   PushBackByteSink<Buffer> sink(data.m_buffer);
+  FeatureParams(m_params).Write(sink);
+
+  if (m_params.GetGeomType() == GeomType::Point)
+  {
+    serial::SavePoint(sink, m_center, params);
+    return;
+  }
 
   uint8_t const ptsCount = base::asserted_cast<uint8_t>(data.m_innerPts.size());
   uint8_t trgCount = base::asserted_cast<uint8_t>(data.m_innerTrg.size());

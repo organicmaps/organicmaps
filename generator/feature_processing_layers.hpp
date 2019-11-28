@@ -101,7 +101,7 @@ private:
   static bool CanBePoint(FeatureParams const & params);
   static bool CanBeLine(FeatureParams const & params);
 
-  void HandleArea(feature::FeatureBuilder & fb, FeatureParams const & params);
+  void HandleArea(feature::FeatureBuilder & fb, FeatureBuilderParams const & params);
 };
 
 // Responsibility of class PrepareFeatureLayer is the removal of unused types and names,

@@ -13,7 +13,7 @@ using feature::Metadata;
 
 UNIT_TEST(Metadata_ValidateAndFormat_stars)
 {
-  FeatureParams params;
+  FeatureBuilderParams params;
   MetadataTagProcessor p(params);
   Metadata & md = params.GetMetadata();
 
@@ -78,7 +78,7 @@ UNIT_CLASS_TEST(TestWithClassificator, Metadata_ValidateAndFormat_operator)
   uint32_t const type_atm = classif().GetTypeByPath({ "amenity", "atm" });
   uint32_t const type_fuel = classif().GetTypeByPath({ "amenity", "fuel" });
 
-  FeatureParams params;
+  FeatureBuilderParams params;
   MetadataTagProcessor p(params);
   Metadata & md = params.GetMetadata();
 
@@ -105,7 +105,7 @@ UNIT_CLASS_TEST(TestWithClassificator, Metadata_ValidateAndFormat_operator)
 
 UNIT_TEST(Metadata_ValidateAndFormat_height)
 {
-  FeatureParams params;
+  FeatureBuilderParams params;
   MetadataTagProcessor p(params);
   Metadata & md = params.GetMetadata();
 
@@ -138,7 +138,7 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
 {
   char const * kWikiKey = "wikipedia";
 
-  FeatureParams params;
+  FeatureBuilderParams params;
   MetadataTagProcessor p(params);
   Metadata & md = params.GetMetadata();
 
@@ -203,7 +203,7 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
 
 UNIT_CLASS_TEST(TestWithClassificator, Metadata_ValidateAndFormat_duration)
 {
-  FeatureParams params;
+  FeatureBuilderParams params;
   params.AddType(classif().GetTypeByPath({"route", "ferry"}));
   MetadataTagProcessor p(params);
   Metadata & md = params.GetMetadata();

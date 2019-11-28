@@ -18,14 +18,14 @@ std::shared_ptr<FeatureMakerBase> FeatureMakerSimple::Clone() const
   return std::make_shared<FeatureMakerSimple>();
 }
 
-void FeatureMakerSimple::ParseParams(FeatureParams & params, OsmElement & p) const
+void FeatureMakerSimple::ParseParams(FeatureBuilderParams & params, OsmElement & p) const
 {
   ftype::GetNameAndType(&p, params, [] (uint32_t type) {
     return classif().IsTypeValid(type);
   });
 }
 
-bool FeatureMakerSimple::BuildFromNode(OsmElement & p, FeatureParams const & params)
+bool FeatureMakerSimple::BuildFromNode(OsmElement & p, FeatureBuilderParams const & params)
 {
   FeatureBuilder fb;
   fb.SetCenter(mercator::FromLatLon(p.m_lat, p.m_lon));
@@ -35,7 +35,7 @@ bool FeatureMakerSimple::BuildFromNode(OsmElement & p, FeatureParams const & par
   return true;
 }
 
-bool FeatureMakerSimple::BuildFromWay(OsmElement & p, FeatureParams const & params)
+bool FeatureMakerSimple::BuildFromWay(OsmElement & p, FeatureBuilderParams const & params)
 {
   auto const & nodes = p.Nodes();
   if (nodes.size() < 2)
@@ -56,13 +56,13 @@ bool FeatureMakerSimple::BuildFromWay(OsmElement & p, FeatureParams const & para
   if (fb.IsGeometryClosed())
     fb.SetArea();
   else
-    fb.SetLinear(params.m_reverseGeometry);
+    fb.SetLinear(params.GetReversedGeometry());
 
   m_queue.push(std::move(fb));
   return true;
 }
 
-bool FeatureMakerSimple::BuildFromRelation(OsmElement & p, FeatureParams const & params)
+bool FeatureMakerSimple::BuildFromRelation(OsmElement & p, FeatureBuilderParams const & params)
 {
   HolesRelation helper(m_cache);
   helper.Build(&p);
@@ -97,7 +97,7 @@ std::shared_ptr<FeatureMakerBase> FeatureMaker::Clone() const
   return std::make_shared<FeatureMaker>();
 }
 
-void FeatureMaker::ParseParams(FeatureParams & params, OsmElement & p) const
+void FeatureMaker::ParseParams(FeatureBuilderParams & params, OsmElement & p) const
 {
   ftype::GetNameAndType(&p, params);
 }

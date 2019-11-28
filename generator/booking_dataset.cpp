@@ -98,16 +98,13 @@ void BookingDataset::BuildObject(Object const & hotel,
   metadata.Set(Metadata::FMD_STARS, strings::to_string(hotel.m_stars));
   metadata.Set(Metadata::FMD_PRICE_RATE, strings::to_string(hotel.m_priceCategory));
 
-  auto & params = fb.GetParams();
-  // params.AddAddress(hotel.address);
-  // TODO(mgsergio): addr:full ???
-
   if (!hotel.m_street.empty())
     fb.AddStreet(hotel.m_street);
 
   if (!hotel.m_houseNumber.empty())
     fb.AddHouseNumber(hotel.m_houseNumber);
 
+  auto & params = fb.GetParams();
   if (!hotel.m_translations.empty())
   {
     // TODO(mgsergio): Move parsing to the hotel costruction stage.

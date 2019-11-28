@@ -27,7 +27,7 @@ bool FeatureMakerBase::Add(OsmElement & element)
 {
   ASSERT(m_cache, ());
 
-  FeatureParams params;
+  FeatureBuilderParams params;
   ParseParams(params, element);
   switch (element.m_type)
   {
@@ -81,7 +81,7 @@ void TransformToLine(FeatureBuilder & feature)
     return;
 
   CHECK(feature.IsArea(), (feature));
-  feature.SetLinear(feature.GetParams().m_reverseGeometry);
+  feature.SetLinear(feature.GetParams().GetReversedGeometry());
 }
 
 FeatureBuilder MakePoint(FeatureBuilder const & feature)

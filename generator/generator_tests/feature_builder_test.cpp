@@ -23,7 +23,7 @@ using namespace tests;
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ManyTypes)
 {
   FeatureBuilder fb1;
-  FeatureParams params;
+  FeatureBuilderParams params;
 
   char const * arr1[][1] = {
     { "building" },
@@ -67,7 +67,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ManyTypes)
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_LineTypes)
 {
   FeatureBuilder fb1;
-  FeatureParams params;
+  FeatureBuilderParams params;
 
   char const * arr2[][2] = {
     { "railway", "rail" },
@@ -103,7 +103,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_LineTypes)
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_Waterfall)
 {
   FeatureBuilder fb1;
-  FeatureParams params;
+  FeatureBuilderParams params;
 
   char const * arr[][2] = {{"waterway", "waterfall"}};
   AddTypes(params, arr);
@@ -170,7 +170,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FVisibility_RemoveUselessTypes)
 
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessNames)
 {
-  FeatureParams params;
+  FeatureBuilderParams params;
 
   char const * arr3[][3] = { { "boundary", "administrative", "2" } };
   AddTypes(params, arr3);
@@ -199,22 +199,16 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessNames)
   TEST(fb1.IsValid(), (fb1));
 }
 
-UNIT_CLASS_TEST(TestWithClassificator, FeatureParams_Parsing)
+UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilderParams_Parsing)
 {
   {
-    FeatureParams params;
+    FeatureBuilderParams params;
     params.AddStreet("Embarcadero\nstreet");
     TEST_EQUAL(params.GetStreet(), "Embarcadero street", ());
   }
 
   {
-    FeatureParams params;
-    params.AddAddress("165 \t\t Dolliver Street");
-    TEST_EQUAL(params.GetStreet(), "Dolliver Street", ());
-  }
-
-  {
-    FeatureParams params;
+    FeatureBuilderParams params;
 
     params.MakeZero();
     TEST(params.AddHouseNumber("123"), ());
@@ -233,7 +227,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureParams_Parsing)
 UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeLocalityObjectForBuildingPoint)
 {
   FeatureBuilder fb;
-  FeatureParams params;
+  FeatureBuilderParams params;
 
   char const * arr1[][1] = {
     { "building" },
@@ -265,7 +259,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeLocalityObjectFor
 UNIT_TEST(FeatureBuilder_SerializeAccuratelyForIntermediate)
 {
   FeatureBuilder fb1;
-  FeatureParams params;
+  FeatureBuilderParams params;
 
   char const * arr2[][2] = {
     { "railway", "rail" },

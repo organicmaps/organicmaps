@@ -6,10 +6,7 @@
 
 struct MetadataTagProcessorImpl
 {
-  MetadataTagProcessorImpl(FeatureParams &params)
-  : m_params(params)
-  {
-  }
+  MetadataTagProcessorImpl(FeatureBuilderParams & params) : m_params(params) {}
 
   std::string ValidateAndFormat_maxspeed(std::string const & v) const;
   std::string ValidateAndFormat_stars(std::string const & v) const;
@@ -34,7 +31,7 @@ struct MetadataTagProcessorImpl
   std::string ValidateAndFormat_duration(std::string const & v) const;
 
 protected:
-  FeatureParams & m_params;
+  FeatureBuilderParams & m_params;
 };
 
 class MetadataTagProcessor : private MetadataTagProcessorImpl

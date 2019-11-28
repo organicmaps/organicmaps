@@ -36,7 +36,7 @@ public:
     OsmElement e;
     e.AddTag(tag.first, tag.second);
 
-    FeatureParams params;
+    FeatureBuilderParams params;
     ftype::GetNameAndType(&e, params);
     params.AddName("en", "xxx");
 

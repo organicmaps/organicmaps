@@ -169,7 +169,7 @@ void RepresentationLayer::Handle(FeatureBuilder & fb)
   }
 }
 
-void RepresentationLayer::HandleArea(FeatureBuilder & fb, FeatureParams const & params)
+void RepresentationLayer::HandleArea(FeatureBuilder & fb, FeatureBuilderParams const & params)
 {
   if (CanBeArea(params))
   {

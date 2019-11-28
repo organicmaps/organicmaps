@@ -151,8 +151,8 @@ struct FeatureParamsBase
   /// @return true if feature doesn't have any drawable strings (names, houses, etc).
   bool IsEmptyNames() const;
 
-  template <class TSink>
-  void Write(TSink & sink, uint8_t header) const
+  template <class Sink>
+  void Write(Sink & sink, uint8_t header) const
   {
     using namespace feature;
 
@@ -214,49 +214,14 @@ struct FeatureParamsBase
 
 class FeatureParams : public FeatureParamsBase
 {
-  using Base = FeatureParamsBase;
-
-  feature::HeaderGeomType m_geomType = feature::HeaderGeomType::Point;
-
-  feature::Metadata m_metadata;
-  feature::AddressData m_addrTags;
-
 public:
   using Types = std::vector<uint32_t>;
-  Types m_types;
-
-  bool m_reverseGeometry;
-
-  FeatureParams() : m_reverseGeometry(false) {}
 
   void ClearName();
 
   bool AddName(std::string const & lang, std::string const & s);
   bool AddHouseName(std::string const & s);
   bool AddHouseNumber(std::string houseNumber);
-
-  /// @name Used in storing full street address only.
-  //@{
-  void AddStreet(std::string s);
-  void AddPostcode(std::string const & s);
-  void AddAddress(std::string const & s);
-  //@}
-
-  /// Used for testing purposes now.
-  std::string GetStreet() const;
-  feature::AddressData const & GetAddressData() const { return m_addrTags; }
-
-  /// Assign parameters except geometry type.
-  /// Geometry is independent state and it's set by FeatureType's geometry functions.
-  void SetParams(FeatureParams const & rhs)
-  {
-    Base::operator=(rhs);
-
-    m_types = rhs.m_types;
-    m_addrTags = rhs.m_addrTags;
-    m_metadata = rhs.m_metadata;
-    m_reverseGeometry = rhs.m_reverseGeometry;
-  }
 
   void SetGeomType(feature::GeomType t);
   void SetGeomTypePointEx();
@@ -287,52 +252,94 @@ public:
 
   uint8_t GetHeader() const;
 
-  feature::Metadata const & GetMetadata() const { return m_metadata; }
-  feature::Metadata & GetMetadata() { return m_metadata; }
-
-  /// @param[in] fullStoring \n
-  /// - true when saving in temporary files after first generation step \n
-  /// - false when final mwm saving
-  template <class TSink> void Write(TSink & sink, bool fullStoring) const
+  template <class Sink>
+  void Write(Sink & sink) const
   {
     uint8_t const header = GetHeader();
-
     WriteToSink(sink, header);
 
     for (size_t i = 0; i < m_types.size(); ++i)
       WriteVarUint(sink, GetIndexForType(m_types[i]));
 
-    if (fullStoring)
-    {
-      m_metadata.Serialize(sink);
-      m_addrTags.Serialize(sink);
-    }
-
     Base::Write(sink, header);
   }
 
-  template <class TSource> void Read(TSource & src)
+  template <class Source>
+  void Read(Source & src)
   {
     using namespace feature;
 
     uint8_t const header = ReadPrimitiveFromSource<uint8_t>(src);
-    m_geomType = static_cast<feature::HeaderGeomType>(header & HEADER_MASK_GEOMTYPE);
+    m_geomType = static_cast<HeaderGeomType>(header & HEADER_MASK_GEOMTYPE);
 
     size_t const count = (header & HEADER_MASK_TYPE) + 1;
     for (size_t i = 0; i < count; ++i)
       m_types.push_back(GetTypeForIndex(ReadVarUint<uint32_t>(src)));
 
-    m_metadata.Deserialize(src);
-    m_addrTags.Deserialize(src);
-
     Base::Read(src, header);
   }
 
-private:
-  feature::HeaderGeomType GetHeaderGeomType() const;
+  Types m_types;
 
+private:
+  using Base = FeatureParamsBase;
+
+  feature::HeaderGeomType GetHeaderGeomType() const;
   static uint32_t GetIndexForType(uint32_t t);
   static uint32_t GetTypeForIndex(uint32_t i);
+
+  feature::HeaderGeomType m_geomType = feature::HeaderGeomType::Point;
+};
+
+class FeatureBuilderParams : public FeatureParams
+{
+public:
+  /// Assign parameters except geometry type.
+  void SetParams(FeatureBuilderParams const & rhs)
+  {
+    FeatureParamsBase::operator=(rhs);
+
+    m_types = rhs.m_types;
+    m_addrTags = rhs.m_addrTags;
+    m_metadata = rhs.m_metadata;
+    m_reversedGeometry = rhs.m_reversedGeometry;
+  }
+
+  /// Used to store address to temporary TEMP_ADDR_FILE_TAG section.
+  void AddStreet(std::string s);
+  void AddPostcode(std::string const & s);
+
+  /// Used for generator/booking_quality_check.
+  std::string GetStreet() const;
+
+  feature::AddressData const & GetAddressData() const { return m_addrTags; }
+  feature::Metadata const & GetMetadata() const { return m_metadata; }
+  feature::Metadata & GetMetadata() { return m_metadata; }
+
+  template <class Sink>
+  void Write(Sink & sink) const
+  {
+    FeatureParams::Write(sink);
+    m_metadata.Serialize(sink);
+    m_addrTags.Serialize(sink);
+  }
+
+  template <class Source>
+  void Read(Source & src)
+  {
+    FeatureParams::Read(src);
+    m_metadata.Deserialize(src);
+    m_addrTags.Deserialize(src);
+  }
+
+  bool GetReversedGeometry() const { return m_reversedGeometry; }
+  void SetReversedGeometry(bool reversedGeometry) { m_reversedGeometry = reversedGeometry; }
+
+private:
+  bool m_reversedGeometry = false;
+  feature::Metadata m_metadata;
+  feature::AddressData m_addrTags;
 };
 
 std::string DebugPrint(FeatureParams const & p);
+std::string DebugPrint(FeatureBuilderParams const & p);

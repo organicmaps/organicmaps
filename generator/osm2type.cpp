@@ -112,7 +112,7 @@ Result ForEachTagEx(OsmElement * p, set<int> & skipTags, ToDo && toDo)
 class NamesExtractor
 {
 public:
-  explicit NamesExtractor(FeatureParams & params) : m_params(params) {}
+  explicit NamesExtractor(FeatureBuilderParams & params) : m_params(params) {}
 
   bool GetLangByKey(string const & k, string & lang)
   {
@@ -159,7 +159,7 @@ public:
 
 private:
   set<string> m_savedNames;
-  FeatureParams & m_params;
+  FeatureBuilderParams & m_params;
 };
 
 class TagProcessor
@@ -319,7 +319,7 @@ private:
 //   emergency=yes + phone=7777777 -> emergency-phone
 //   route=ferry + car=yes + foot=yes -> route-ferry-car
 // See https://jira.mail.ru/browse/MAPSME-10611.
-void MatchTypes(OsmElement * p, FeatureParams & params, function<bool(uint32_t)> filterType)
+void MatchTypes(OsmElement * p, FeatureBuilderParams & params, function<bool(uint32_t)> filterType)
 {
   set<int> skipRows;
   vector<ClassifObjectPtr> path;
@@ -702,7 +702,7 @@ void PreprocessElement(OsmElement * p)
   }
 }
 
-void PostprocessElement(OsmElement * p, FeatureParams & params)
+void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 {
   static CachedTypes const types;
 
@@ -736,7 +736,7 @@ void PostprocessElement(OsmElement * p, FeatureParams & params)
   bool noOneway = false;
 
   // Get a copy of source types, because we will modify params in the loop;
-  FeatureParams::Types const vTypes = params.m_types;
+  FeatureBuilderParams::Types const vTypes = params.m_types;
   for (size_t i = 0; i < vTypes.size(); ++i)
   {
     if (!highwayDone && types.IsHighway(vTypes[i]))
@@ -747,7 +747,7 @@ void PostprocessElement(OsmElement * p, FeatureParams & params)
           {"oneway", "-1",
            [&addOneway, &params] {
              addOneway = true;
-             params.m_reverseGeometry = true;
+             params.SetReversedGeometry(true);
            }},
           {"oneway", "!", [&noOneway] { noOneway = true; }},
           {"junction", "roundabout", [&addOneway] { addOneway = true; }},
@@ -833,7 +833,8 @@ void PostprocessElement(OsmElement * p, FeatureParams & params)
 }
 }  // namespace
 
-void GetNameAndType(OsmElement * p, FeatureParams & params, function<bool(uint32_t)> filterType)
+void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
+                    function<bool(uint32_t)> filterType)
 {
   // Stage1: Preprocess tags.
   PreprocessElement(p);
@@ -861,19 +862,12 @@ void GetNameAndType(OsmElement * p, FeatureParams & params, function<bool(uint32
          k.clear();
          v.clear();
        }},
-      //{ "addr:streetnumber", "*", [&params](string & k, string & v) { params.AddStreet(v);
-      // k.clear(); v.clear(); }},
-      // This line was first introduced by vng and was never used uncommented.
-      //{ "addr:full", "*", [&params](string & k, string & v) { params.AddAddress(v); k.clear();
-      // v.clear(); }},
-
       {"addr:postcode", "*",
        [&params](string & k, string & v) {
          params.AddPostcode(v);
          k.clear();
          v.clear();
       }},
-
       {"population", "*",
        [&params](string & k, string & v) {
          // Get population rank.

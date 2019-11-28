@@ -31,11 +31,11 @@ public:
   bool Empty() const;
 
 protected:
-  virtual bool BuildFromNode(OsmElement & element, FeatureParams const & params) = 0;
-  virtual bool BuildFromWay(OsmElement & element, FeatureParams const & params) = 0;
-  virtual bool BuildFromRelation(OsmElement & element, FeatureParams const & params) = 0;
+  virtual bool BuildFromNode(OsmElement & element, FeatureBuilderParams const & params) = 0;
+  virtual bool BuildFromWay(OsmElement & element, FeatureBuilderParams const & params) = 0;
+  virtual bool BuildFromRelation(OsmElement & element, FeatureBuilderParams const & params) = 0;
 
-  virtual void ParseParams(FeatureParams & params, OsmElement & element) const  = 0;
+  virtual void ParseParams(FeatureBuilderParams & params, OsmElement & element) const = 0;
 
   std::shared_ptr<cache::IntermediateDataReaderInterface> m_cache;
   std::queue<feature::FeatureBuilder> m_queue;
