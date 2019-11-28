@@ -9,6 +9,7 @@ class AllPassSubscriptionViewController: BaseSubscriptionViewController {
   @IBOutlet private var pageIndicator: PageIndicator!
   @IBOutlet private var descriptionPageScrollView: UIScrollView!
   @IBOutlet private var contentView: UIView!
+  @IBOutlet private var statusBarBackgroundView: UIVisualEffectView!
 
   //MARK: locals
   private var pageWidth: CGFloat {
@@ -22,13 +23,10 @@ class AllPassSubscriptionViewController: BaseSubscriptionViewController {
   private let animationDelay: TimeInterval = 2
   private let animationDuration: TimeInterval = 0.75
   private let animationBackDuration: TimeInterval = 0.3
+  private let statusBarBackVisibleThreshold: CGFloat = 60
 
   override var subscriptionManager: ISubscriptionManager? {
     get { return InAppPurchase.allPassSubscriptionManager }
-  }
-
-  override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-    get { return [.portrait] }
   }
   
   override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -45,7 +43,6 @@ class AllPassSubscriptionViewController: BaseSubscriptionViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.presentationController?.delegate = self;
 
     backgroundImageView.images = [
       UIImage.init(named: "AllPassSubscriptionBg1"),
@@ -73,7 +70,7 @@ class AllPassSubscriptionViewController: BaseSubscriptionViewController {
       .year: annualSubscriptionButton,
       .month: monthlySubscriptionButton],
                    discountLabels:[
-      .year: annualDiscountLabel])
+                    .year: annualDiscountLabel])
 
     self.preferredContentSize = CGSize(width: 414, height: contentView.frame.height)
 
@@ -140,9 +137,15 @@ extension AllPassSubscriptionViewController {
 
 extension AllPassSubscriptionViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    if scrollView == descriptionPageScrollView {
       let pageProgress = scrollView.contentOffset.x/self.pageWidth
       pageIndicator.currentPage = pageProgress
       backgroundImageView.currentPage = pageProgress
+    } else {
+      let statusBarAlpha = min(scrollView.contentOffset.y/self.statusBarBackVisibleThreshold, 1)
+      statusBarBackgroundView.alpha = statusBarAlpha
+    }
+
   }
 
   func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

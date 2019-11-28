@@ -11,10 +11,6 @@ import SafariServices
     get { return InAppPurchase.bookmarksSubscriptionManager }
   }
 
-  override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-    get { return [.portrait] }
-  }
-
   override var preferredStatusBarStyle: UIStatusBarStyle {
     get { return UIColor.isNightMode() ? .lightContent : .default }
   }

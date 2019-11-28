@@ -23,8 +23,12 @@ class BaseSubscriptionViewController: MWMViewController {
 
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    self.modalTransitionStyle = .coverVertical
-    self.modalPresentationStyle = .formSheet
+    if UIDevice.current.userInterfaceIdiom == .pad {
+      self.modalTransitionStyle = .coverVertical
+      self.modalPresentationStyle = .formSheet
+    } else {
+      self.modalPresentationStyle = .fullScreen
+    }
   }
 
   required init?(coder aDecoder: NSCoder) {
