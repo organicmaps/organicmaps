@@ -557,6 +557,22 @@
 	<string name="brown">茶色</string>
 	<!-- pink color -->
 	<string name="pink">ピンク</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">ディープパープル</string>
+	<!-- light blue color -->
+	<string name="light_blue">ライトブルー</string>
+	<!-- cyan color -->
+	<string name="cyan">シアン</string>
+	<!-- teal color -->
+	<string name="teal">ティール</string>
+	<!-- lime color -->
+	<string name="lime">ライム</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">ディープオレンジ</string>
+	<!-- gray color -->
+	<string name="gray">グレイ</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">ブルーグレイ</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">はい</string>
 

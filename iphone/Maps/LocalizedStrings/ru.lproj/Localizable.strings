@@ -875,16 +875,16 @@
 "red" = "Красный";
 
 /* yellow color */
-"yellow" = "Желтый";
+"yellow" = "Жёлтый";
 
 /* blue color */
 "blue" = "Синий";
 
 /* green color */
-"green" = "Зеленый";
+"green" = "Зелёный";
 
 /* purple color */
-"purple" = "Фиолетовый";
+"purple" = "Пурпурный";
 
 /* orange color */
 "orange" = "Оранжевый";
@@ -894,6 +894,30 @@
 
 /* pink color */
 "pink" = "Розовый";
+
+/* deep purple color */
+"deep_purple" = "Тёмно-пурпурный";
+
+/* light blue color */
+"light_blue" = "Голубой";
+
+/* cyan color */
+"cyan" = "Сине-зелёный";
+
+/* teal color */
+"teal" = "Изумрудный";
+
+/* lime color */
+"lime" = "Лайм";
+
+/* deep orange color */
+"deep_orange" = "Тёмно-оранжевый";
+
+/* gray color */
+"gray" = "Серый";
+
+/* blue gray color */
+"blue_gray" = "Серо-голубой";
 
 /* Wi-Fi available */
 "WiFi_available" = "Есть";

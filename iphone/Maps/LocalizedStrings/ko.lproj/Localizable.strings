@@ -895,6 +895,30 @@
 /* pink color */
 "pink" = "분홍색";
 
+/* deep purple color */
+"deep_purple" = "진보라색";
+
+/* light blue color */
+"light_blue" = "하늘색";
+
+/* cyan color */
+"cyan" = "시안";
+
+/* teal color */
+"teal" = "틸";
+
+/* lime color */
+"lime" = "라임";
+
+/* deep orange color */
+"deep_orange" = "진주황색";
+
+/* gray color */
+"gray" = "회색";
+
+/* blue gray color */
+"blue_gray" = "청회색";
+
 /* Wi-Fi available */
 "WiFi_available" = "네";
 

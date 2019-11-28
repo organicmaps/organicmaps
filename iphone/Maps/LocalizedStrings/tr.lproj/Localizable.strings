@@ -895,6 +895,30 @@
 /* pink color */
 "pink" = "Pembe";
 
+/* deep purple color */
+"deep_purple" = "Koyu Mor";
+
+/* light blue color */
+"light_blue" = "Açık Mavi";
+
+/* cyan color */
+"cyan" = "Cam Göbeği";
+
+/* teal color */
+"teal" = "Deniz Mavisi";
+
+/* lime color */
+"lime" = "Çim Rengi";
+
+/* deep orange color */
+"deep_orange" = "Koyu Turuncu";
+
+/* gray color */
+"gray" = "Gri";
+
+/* blue gray color */
+"blue_gray" = "Mavi Gri";
+
 /* Wi-Fi available */
 "WiFi_available" = "Evet";
 

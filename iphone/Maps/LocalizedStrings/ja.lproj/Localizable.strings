@@ -895,6 +895,30 @@
 /* pink color */
 "pink" = "ピンク";
 
+/* deep purple color */
+"deep_purple" = "ディープパープル";
+
+/* light blue color */
+"light_blue" = "ライトブルー";
+
+/* cyan color */
+"cyan" = "シアン";
+
+/* teal color */
+"teal" = "ティール";
+
+/* lime color */
+"lime" = "ライム";
+
+/* deep orange color */
+"deep_orange" = "ディープオレンジ";
+
+/* gray color */
+"gray" = "グレイ";
+
+/* blue gray color */
+"blue_gray" = "ブルーグレイ";
+
 /* Wi-Fi available */
 "WiFi_available" = "はい";
 

@@ -546,21 +546,37 @@
 	<string name="new_group">nová skupina</string>
 	<string name="create">vytvoriť</string>
 	<!-- red color -->
-	<string name="red">červená</string>
+	<string name="red">Červená</string>
 	<!-- yellow color -->
-	<string name="yellow">žltá</string>
+	<string name="yellow">Žltá</string>
 	<!-- blue color -->
-	<string name="blue">modrá</string>
+	<string name="blue">Modrá</string>
 	<!-- green color -->
-	<string name="green">zelená</string>
+	<string name="green">Zelená</string>
 	<!-- purple color -->
-	<string name="purple">purpurová</string>
+	<string name="purple">Purpurová</string>
 	<!-- orange color -->
-	<string name="orange">oranžová</string>
+	<string name="orange">Oranžová</string>
 	<!-- brown color -->
-	<string name="brown">hnedá</string>
+	<string name="brown">Hnedá</string>
 	<!-- pink color -->
-	<string name="pink">ružová</string>
+	<string name="pink">Ružová</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Tmavofialová</string>
+	<!-- light blue color -->
+	<string name="light_blue">Svetlo modrá</string>
+	<!-- cyan color -->
+	<string name="cyan">Tyrkysová</string>
+	<!-- teal color -->
+	<string name="teal">Modrozelená</string>
+	<!-- lime color -->
+	<string name="lime">Limetková</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Tmavo oranžová</string>
+	<!-- gray color -->
+	<string name="gray">Sivá</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Modro sivá</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Áno</string>
 

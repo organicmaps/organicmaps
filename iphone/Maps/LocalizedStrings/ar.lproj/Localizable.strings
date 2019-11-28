@@ -895,6 +895,30 @@
 /* pink color */
 "pink" = "وردي";
 
+/* deep purple color */
+"deep_purple" = "أرجواني داكن";
+
+/* light blue color */
+"light_blue" = "أزرق فاتح";
+
+/* cyan color */
+"cyan" = "أزرق سماوي";
+
+/* teal color */
+"teal" = "أخضر فاتح";
+
+/* lime color */
+"lime" = "ليموني";
+
+/* deep orange color */
+"deep_orange" = "برتقالي داكن";
+
+/* gray color */
+"gray" = "رمادي";
+
+/* blue gray color */
+"blue_gray" = "رمادي أزرق";
+
 /* Wi-Fi available */
 "WiFi_available" = "نعم";
 

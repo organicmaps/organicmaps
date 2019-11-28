@@ -565,6 +565,22 @@
 	<string name="brown">Hnědá</string>
 	<!-- pink color -->
 	<string name="pink">Růžová</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Tmavě fialová</string>
+	<!-- light blue color -->
+	<string name="light_blue">Světle modrá</string>
+	<!-- cyan color -->
+	<string name="cyan">Cyan</string>
+	<!-- teal color -->
+	<string name="teal">Teal</string>
+	<!-- lime color -->
+	<string name="lime">Limeta</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Tmavě oranžová</string>
+	<!-- gray color -->
+	<string name="gray">Šedá</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Modrošedá</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Ano</string>
 

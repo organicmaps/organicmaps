@@ -557,6 +557,22 @@
 	<string name="brown">Brun</string>
 	<!-- pink color -->
 	<string name="pink">Rosa</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Mørkepurpur</string>
+	<!-- light blue color -->
+	<string name="light_blue">Lyseblå</string>
+	<!-- cyan color -->
+	<string name="cyan">Blågrønn</string>
+	<!-- teal color -->
+	<string name="teal">Smaragdgrønn</string>
+	<!-- lime color -->
+	<string name="lime">Limegrønn</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Mørkeoransje</string>
+	<!-- gray color -->
+	<string name="gray">Grå</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Gråblå</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Ja</string>
 

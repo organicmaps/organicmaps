@@ -895,6 +895,30 @@
 /* pink color */
 "pink" = "Hồng";
 
+/* deep purple color */
+"deep_purple" = "Tía thẫm";
+
+/* light blue color */
+"light_blue" = "Xanh da trời";
+
+/* cyan color */
+"cyan" = "Xanh lơ";
+
+/* teal color */
+"teal" = "Lục bảo";
+
+/* lime color */
+"lime" = "Màu xanh chanh";
+
+/* deep orange color */
+"deep_orange" = "Cam đậm";
+
+/* gray color */
+"gray" = "Xám";
+
+/* blue gray color */
+"blue_gray" = "Xám xanh da trời";
+
 /* Wi-Fi available */
 "WiFi_available" = "Có";
 

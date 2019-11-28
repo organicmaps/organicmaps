@@ -557,6 +557,22 @@
 	<string name="brown">Ruskea</string>
 	<!-- pink color -->
 	<string name="pink">Pinkki</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Tumman purppuranpunainen</string>
+	<!-- light blue color -->
+	<string name="light_blue">Vaaleansininen</string>
+	<!-- cyan color -->
+	<string name="cyan">Sinivihreä</string>
+	<!-- teal color -->
+	<string name="teal">Smaragdinvihreä</string>
+	<!-- lime color -->
+	<string name="lime">Limen värinen</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Tumman oranssi</string>
+	<!-- gray color -->
+	<string name="gray">Harmaa</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Harmaan sininen</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Kyllä</string>
 

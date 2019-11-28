@@ -559,6 +559,22 @@
 	<string name="brown">Barna</string>
 	<!-- pink color -->
 	<string name="pink">Rózsaszín</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Sötét lila</string>
+	<!-- light blue color -->
+	<string name="light_blue">Világoskék</string>
+	<!-- cyan color -->
+	<string name="cyan">Cián</string>
+	<!-- teal color -->
+	<string name="teal">Zöldeskék</string>
+	<!-- lime color -->
+	<string name="lime">Lime</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Sötét Narancs</string>
+	<!-- gray color -->
+	<string name="gray">Szürke</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Kékes Szürke</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Igen</string>
 

@@ -562,6 +562,22 @@
 	<string name="brown">Коричневий</string>
 	<!-- pink color -->
 	<string name="pink">Рожевий</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Темно-пурпуровий</string>
+	<!-- light blue color -->
+	<string name="light_blue">Блакитний</string>
+	<!-- cyan color -->
+	<string name="cyan">Синьо-зелений</string>
+	<!-- teal color -->
+	<string name="teal">Смарагдовий</string>
+	<!-- lime color -->
+	<string name="lime">Лайм</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Темно-помаранчевий</string>
+	<!-- gray color -->
+	<string name="gray">Сірий</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Сіро-блакитний</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Так</string>
 

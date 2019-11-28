@@ -554,6 +554,22 @@
 	<string name="brown">Maro</string>
 	<!-- pink color -->
 	<string name="pink">Roz</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Purpuriu închis</string>
+	<!-- light blue color -->
+	<string name="light_blue">Albastru deschis</string>
+	<!-- cyan color -->
+	<string name="cyan">Albastru-verziu</string>
+	<!-- teal color -->
+	<string name="teal">Smarald</string>
+	<!-- lime color -->
+	<string name="lime">Var</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Portocaliu închis</string>
+	<!-- gray color -->
+	<string name="gray">Gri</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Gri albăstriu</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Da</string>
 

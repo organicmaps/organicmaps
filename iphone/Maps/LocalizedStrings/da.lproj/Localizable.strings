@@ -884,7 +884,7 @@
 "green" = "Grøn";
 
 /* purple color */
-"purple" = "violet";
+"purple" = "Violet";
 
 /* orange color */
 "orange" = "Orange";
@@ -894,6 +894,30 @@
 
 /* pink color */
 "pink" = "Pink";
+
+/* deep purple color */
+"deep_purple" = "Mørkelilla";
+
+/* light blue color */
+"light_blue" = "Lyseblå";
+
+/* cyan color */
+"cyan" = "Cyan";
+
+/* teal color */
+"teal" = "Blågrøn";
+
+/* lime color */
+"lime" = "Lime";
+
+/* deep orange color */
+"deep_orange" = "Dyb orange";
+
+/* gray color */
+"gray" = "Grå";
+
+/* blue gray color */
+"blue_gray" = "Blågrå";
 
 /* Wi-Fi available */
 "WiFi_available" = "Ja";

@@ -558,6 +558,22 @@
 	<string name="brown">Bruin</string>
 	<!-- pink color -->
 	<string name="pink">Roze</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Donker paars</string>
+	<!-- light blue color -->
+	<string name="light_blue">Lichtblauw</string>
+	<!-- cyan color -->
+	<string name="cyan">Blauwgroen</string>
+	<!-- teal color -->
+	<string name="teal">Smaragdgroen</string>
+	<!-- lime color -->
+	<string name="lime">Lime</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Donkeroranje</string>
+	<!-- gray color -->
+	<string name="gray">Grijs</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Grijsblauw</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Ja</string>
 

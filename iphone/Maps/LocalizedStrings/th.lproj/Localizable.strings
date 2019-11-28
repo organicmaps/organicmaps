@@ -895,6 +895,30 @@
 /* pink color */
 "pink" = "สีชมพู";
 
+/* deep purple color */
+"deep_purple" = "สีม่วงเข้ม";
+
+/* light blue color */
+"light_blue" = "สีฟ้าอ่อน";
+
+/* cyan color */
+"cyan" = "สีฟ้าอมเขียว";
+
+/* teal color */
+"teal" = "สีเขียวนกเป็ดน้ำ";
+
+/* lime color */
+"lime" = "สีเขียวอมเหลือง";
+
+/* deep orange color */
+"deep_orange" = "สีส้มเข้ม";
+
+/* gray color */
+"gray" = "สีเทา";
+
+/* blue gray color */
+"blue_gray" = "สีฟ้าอมเทา";
+
 /* Wi-Fi available */
 "WiFi_available" = "ใช่";
 

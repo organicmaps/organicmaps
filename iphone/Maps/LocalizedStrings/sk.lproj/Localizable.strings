@@ -872,28 +872,52 @@
 "create" = "vytvoriť";
 
 /* red color */
-"red" = "červená";
+"red" = "Červená";
 
 /* yellow color */
-"yellow" = "žltá";
+"yellow" = "Žltá";
 
 /* blue color */
-"blue" = "modrá";
+"blue" = "Modrá";
 
 /* green color */
-"green" = "zelená";
+"green" = "Zelená";
 
 /* purple color */
-"purple" = "purpurová";
+"purple" = "Purpurová";
 
 /* orange color */
-"orange" = "oranžová";
+"orange" = "Oranžová";
 
 /* brown color */
-"brown" = "hnedá";
+"brown" = "Hnedá";
 
 /* pink color */
-"pink" = "ružová";
+"pink" = "Ružová";
+
+/* deep purple color */
+"deep_purple" = "Tmavofialová";
+
+/* light blue color */
+"light_blue" = "Svetlo modrá";
+
+/* cyan color */
+"cyan" = "Tyrkysová";
+
+/* teal color */
+"teal" = "Modrozelená";
+
+/* lime color */
+"lime" = "Limetková";
+
+/* deep orange color */
+"deep_orange" = "Tmavo oranžová";
+
+/* gray color */
+"gray" = "Sivá";
+
+/* blue gray color */
+"blue_gray" = "Modro sivá";
 
 /* Wi-Fi available */
 "WiFi_available" = "Áno";

@@ -559,6 +559,22 @@
 	<string name="brown">Marrom</string>
 	<!-- pink color -->
 	<string name="pink">Rosa</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Purpúreo escuro</string>
+	<!-- light blue color -->
+	<string name="light_blue">Azul Claro</string>
+	<!-- cyan color -->
+	<string name="cyan">Azul-verde</string>
+	<!-- teal color -->
+	<string name="teal">Esmeralda</string>
+	<!-- lime color -->
+	<string name="lime">Lima</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Laranja escuro</string>
+	<!-- gray color -->
+	<string name="gray">Cinza</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Azul-cinza</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Sim</string>
 

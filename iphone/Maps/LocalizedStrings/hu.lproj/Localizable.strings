@@ -895,6 +895,30 @@
 /* pink color */
 "pink" = "Rózsaszín";
 
+/* deep purple color */
+"deep_purple" = "Sötét lila";
+
+/* light blue color */
+"light_blue" = "Világoskék";
+
+/* cyan color */
+"cyan" = "Cián";
+
+/* teal color */
+"teal" = "Zöldeskék";
+
+/* lime color */
+"lime" = "Lime";
+
+/* deep orange color */
+"deep_orange" = "Sötét Narancs";
+
+/* gray color */
+"gray" = "Szürke";
+
+/* blue gray color */
+"blue_gray" = "Kékes Szürke";
+
 /* Wi-Fi available */
 "WiFi_available" = "Igen";
 

@@ -563,6 +563,22 @@
 	<string name="brown">Kahverengi</string>
 	<!-- pink color -->
 	<string name="pink">Pembe</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Koyu Mor</string>
+	<!-- light blue color -->
+	<string name="light_blue">Açık Mavi</string>
+	<!-- cyan color -->
+	<string name="cyan">Cam Göbeği</string>
+	<!-- teal color -->
+	<string name="teal">Deniz Mavisi</string>
+	<!-- lime color -->
+	<string name="lime">Çim Rengi</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Koyu Turuncu</string>
+	<!-- gray color -->
+	<string name="gray">Gri</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Mavi Gri</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Evet</string>
 

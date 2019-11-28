@@ -895,6 +895,30 @@
 /* pink color */
 "pink" = "Rosa";
 
+/* deep purple color */
+"deep_purple" = "Dunkelpurpur";
+
+/* light blue color */
+"light_blue" = "Hellblau";
+
+/* cyan color */
+"cyan" = "Blaugrün";
+
+/* teal color */
+"teal" = "Smaragdgrün";
+
+/* lime color */
+"lime" = "Limette";
+
+/* deep orange color */
+"deep_orange" = "Dunkelorange";
+
+/* gray color */
+"gray" = "Grau";
+
+/* blue gray color */
+"blue_gray" = "Graublau";
+
 /* Wi-Fi available */
 "WiFi_available" = "Ja";
 

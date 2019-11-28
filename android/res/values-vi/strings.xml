@@ -557,6 +557,22 @@
 	<string name="brown">Nâu</string>
 	<!-- pink color -->
 	<string name="pink">Hồng</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Tía thẫm</string>
+	<!-- light blue color -->
+	<string name="light_blue">Xanh da trời</string>
+	<!-- cyan color -->
+	<string name="cyan">Xanh lơ</string>
+	<!-- teal color -->
+	<string name="teal">Lục bảo</string>
+	<!-- lime color -->
+	<string name="lime">Màu xanh chanh</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Cam đậm</string>
+	<!-- gray color -->
+	<string name="gray">Xám</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Xám xanh da trời</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Có</string>
 

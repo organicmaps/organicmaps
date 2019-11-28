@@ -563,6 +563,22 @@
 	<string name="brown">棕色</string>
 	<!-- pink color -->
 	<string name="pink">粉色</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">暗紫色</string>
+	<!-- light blue color -->
+	<string name="light_blue">天蓝色</string>
+	<!-- cyan color -->
+	<string name="cyan">蓝绿色</string>
+	<!-- teal color -->
+	<string name="teal">碧绿色</string>
+	<!-- lime color -->
+	<string name="lime">青柠</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">深橘色</string>
+	<!-- gray color -->
+	<string name="gray">灰色</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">蓝灰色</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">是</string>
 

@@ -895,6 +895,30 @@
 /* pink color */
 "pink" = "Ροζ";
 
+/* deep purple color */
+"deep_purple" = "Βαθύ πορφυρό";
+
+/* light blue color */
+"light_blue" = "Γαλάζιο";
+
+/* cyan color */
+"cyan" = "Κυανό";
+
+/* teal color */
+"teal" = "Σμαραγδένιο";
+
+/* lime color */
+"lime" = "Κιτρινοπράσινο";
+
+/* deep orange color */
+"deep_orange" = "Βαθύ πορτοκαλί";
+
+/* gray color */
+"gray" = "Γκρι";
+
+/* blue gray color */
+"blue_gray" = "Γκρίζο μπλε";
+
 /* Wi-Fi available */
 "WiFi_available" = "Ναι";
 

@@ -895,6 +895,30 @@
 /* pink color */
 "pink" = "Roz";
 
+/* deep purple color */
+"deep_purple" = "Purpuriu închis";
+
+/* light blue color */
+"light_blue" = "Albastru deschis";
+
+/* cyan color */
+"cyan" = "Albastru-verziu";
+
+/* teal color */
+"teal" = "Smarald";
+
+/* lime color */
+"lime" = "Var";
+
+/* deep orange color */
+"deep_orange" = "Portocaliu închis";
+
+/* gray color */
+"gray" = "Gri";
+
+/* blue gray color */
+"blue_gray" = "Gri albăstriu";
+
 /* Wi-Fi available */
 "WiFi_available" = "Da";
 

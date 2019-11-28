@@ -895,6 +895,30 @@
 /* pink color */
 "pink" = "Różowy";
 
+/* deep purple color */
+"deep_purple" = "Ciemnopurpurowy";
+
+/* light blue color */
+"light_blue" = "Jasnoniebieski";
+
+/* cyan color */
+"cyan" = "Niebieskozielony";
+
+/* teal color */
+"teal" = "Szmaragdowy";
+
+/* lime color */
+"lime" = "Lima";
+
+/* deep orange color */
+"deep_orange" = "Ciemnopomarańczowy";
+
+/* gray color */
+"gray" = "Szary";
+
+/* blue gray color */
+"blue_gray" = "Szaroniebieski";
+
 /* Wi-Fi available */
 "WiFi_available" = "Tak";
 

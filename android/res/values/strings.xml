@@ -578,6 +578,22 @@
 	<string name="brown">Brown</string>
 	<!-- pink color -->
 	<string name="pink">Pink</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Deep Purple</string>
+	<!-- light blue color -->
+	<string name="light_blue">Light Blue</string>
+	<!-- cyan color -->
+	<string name="cyan">Cyan</string>
+	<!-- teal color -->
+	<string name="teal">Teal</string>
+	<!-- lime color -->
+	<string name="lime">Lime</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Deep Orange</string>
+	<!-- gray color -->
+	<string name="gray">Gray</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Blue Gray</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Yes</string>
 

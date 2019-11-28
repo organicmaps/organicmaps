@@ -895,6 +895,30 @@
 /* pink color */
 "pink" = "Pinkki";
 
+/* deep purple color */
+"deep_purple" = "Tumman purppuranpunainen";
+
+/* light blue color */
+"light_blue" = "Vaaleansininen";
+
+/* cyan color */
+"cyan" = "Sinivihreä";
+
+/* teal color */
+"teal" = "Smaragdinvihreä";
+
+/* lime color */
+"lime" = "Limen värinen";
+
+/* deep orange color */
+"deep_orange" = "Tumman oranssi";
+
+/* gray color */
+"gray" = "Harmaa";
+
+/* blue gray color */
+"blue_gray" = "Harmaan sininen";
+
 /* Wi-Fi available */
 "WiFi_available" = "Kyllä";
 

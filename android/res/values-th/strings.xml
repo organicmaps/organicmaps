@@ -563,6 +563,22 @@
 	<string name="brown">สีน้ำตาล</string>
 	<!-- pink color -->
 	<string name="pink">สีชมพู</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">สีม่วงเข้ม</string>
+	<!-- light blue color -->
+	<string name="light_blue">สีฟ้าอ่อน</string>
+	<!-- cyan color -->
+	<string name="cyan">สีฟ้าอมเขียว</string>
+	<!-- teal color -->
+	<string name="teal">สีเขียวนกเป็ดน้ำ</string>
+	<!-- lime color -->
+	<string name="lime">สีเขียวอมเหลือง</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">สีส้มเข้ม</string>
+	<!-- gray color -->
+	<string name="gray">สีเทา</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">สีฟ้าอมเทา</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">ใช่</string>
 

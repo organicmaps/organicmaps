@@ -563,6 +563,22 @@
 	<string name="brown">بني</string>
 	<!-- pink color -->
 	<string name="pink">وردي</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">أرجواني داكن</string>
+	<!-- light blue color -->
+	<string name="light_blue">أزرق فاتح</string>
+	<!-- cyan color -->
+	<string name="cyan">أزرق سماوي</string>
+	<!-- teal color -->
+	<string name="teal">أخضر فاتح</string>
+	<!-- lime color -->
+	<string name="lime">ليموني</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">برتقالي داكن</string>
+	<!-- gray color -->
+	<string name="gray">رمادي</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">رمادي أزرق</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">نعم</string>
 

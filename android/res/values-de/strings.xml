@@ -571,6 +571,22 @@
 	<string name="brown">Braun</string>
 	<!-- pink color -->
 	<string name="pink">Rosa</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Dunkelpurpur</string>
+	<!-- light blue color -->
+	<string name="light_blue">Hellblau</string>
+	<!-- cyan color -->
+	<string name="cyan">Blaugrün</string>
+	<!-- teal color -->
+	<string name="teal">Smaragdgrün</string>
+	<!-- lime color -->
+	<string name="lime">Limette</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Dunkelorange</string>
+	<!-- gray color -->
+	<string name="gray">Grau</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Graublau</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Ja</string>
 

@@ -895,6 +895,30 @@
 /* pink color */
 "pink" = "Růžová";
 
+/* deep purple color */
+"deep_purple" = "Tmavě fialová";
+
+/* light blue color */
+"light_blue" = "Světle modrá";
+
+/* cyan color */
+"cyan" = "Cyan";
+
+/* teal color */
+"teal" = "Teal";
+
+/* lime color */
+"lime" = "Limeta";
+
+/* deep orange color */
+"deep_orange" = "Tmavě oranžová";
+
+/* gray color */
+"gray" = "Šedá";
+
+/* blue gray color */
+"blue_gray" = "Modrošedá";
+
 /* Wi-Fi available */
 "WiFi_available" = "Ano";
 

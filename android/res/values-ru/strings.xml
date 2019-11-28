@@ -564,19 +564,35 @@
 	<!-- red color -->
 	<string name="red">Красный</string>
 	<!-- yellow color -->
-	<string name="yellow">Желтый</string>
+	<string name="yellow">Жёлтый</string>
 	<!-- blue color -->
 	<string name="blue">Синий</string>
 	<!-- green color -->
-	<string name="green">Зеленый</string>
+	<string name="green">Зелёный</string>
 	<!-- purple color -->
-	<string name="purple">Фиолетовый</string>
+	<string name="purple">Пурпурный</string>
 	<!-- orange color -->
 	<string name="orange">Оранжевый</string>
 	<!-- brown color -->
 	<string name="brown">Коричневый</string>
 	<!-- pink color -->
 	<string name="pink">Розовый</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Тёмно-пурпурный</string>
+	<!-- light blue color -->
+	<string name="light_blue">Голубой</string>
+	<!-- cyan color -->
+	<string name="cyan">Сине-зелёный</string>
+	<!-- teal color -->
+	<string name="teal">Изумрудный</string>
+	<!-- lime color -->
+	<string name="lime">Лайм</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Тёмно-оранжевый</string>
+	<!-- gray color -->
+	<string name="gray">Серый</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Серо-голубой</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Есть</string>
 

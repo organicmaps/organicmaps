@@ -556,6 +556,22 @@
 	<string name="brown">Nâu</string>
 	<!-- pink color -->
 	<string name="pink">Hồng</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Ungu Gelap</string>
+	<!-- light blue color -->
+	<string name="light_blue">Biru Muda</string>
+	<!-- cyan color -->
+	<string name="cyan">Biru Kehijauan</string>
+	<!-- teal color -->
+	<string name="teal">Biru Gelap</string>
+	<!-- lime color -->
+	<string name="lime">Kuning Gelap</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Oranye Gelap</string>
+	<!-- gray color -->
+	<string name="gray">Abu-abu</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Biru Keabu-abuan</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Ya</string>
 

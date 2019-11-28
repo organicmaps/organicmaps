@@ -895,6 +895,30 @@
 /* pink color */
 "pink" = "Рожевий";
 
+/* deep purple color */
+"deep_purple" = "Темно-пурпуровий";
+
+/* light blue color */
+"light_blue" = "Блакитний";
+
+/* cyan color */
+"cyan" = "Синьо-зелений";
+
+/* teal color */
+"teal" = "Смарагдовий";
+
+/* lime color */
+"lime" = "Лайм";
+
+/* deep orange color */
+"deep_orange" = "Темно-помаранчевий";
+
+/* gray color */
+"gray" = "Сірий";
+
+/* blue gray color */
+"blue_gray" = "Сіро-блакитний";
+
 /* Wi-Fi available */
 "WiFi_available" = "Так";
 

@@ -895,6 +895,30 @@
 /* pink color */
 "pink" = "Hồng";
 
+/* deep purple color */
+"deep_purple" = "Ungu Gelap";
+
+/* light blue color */
+"light_blue" = "Biru Muda";
+
+/* cyan color */
+"cyan" = "Biru Kehijauan";
+
+/* teal color */
+"teal" = "Biru Gelap";
+
+/* lime color */
+"lime" = "Kuning Gelap";
+
+/* deep orange color */
+"deep_orange" = "Oranye Gelap";
+
+/* gray color */
+"gray" = "Abu-abu";
+
+/* blue gray color */
+"blue_gray" = "Biru Keabu-abuan";
+
 /* Wi-Fi available */
 "WiFi_available" = "Ya";
 

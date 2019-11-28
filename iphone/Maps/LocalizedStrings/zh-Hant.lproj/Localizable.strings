@@ -895,6 +895,30 @@
 /* pink color */
 "pink" = "粉色";
 
+/* deep purple color */
+"deep_purple" = "暗紫色";
+
+/* light blue color */
+"light_blue" = "天藍色";
+
+/* cyan color */
+"cyan" = "藍綠色";
+
+/* teal color */
+"teal" = "碧綠色";
+
+/* lime color */
+"lime" = "青檸";
+
+/* deep orange color */
+"deep_orange" = "深橘色";
+
+/* gray color */
+"gray" = "灰色";
+
+/* blue gray color */
+"blue_gray" = "藍灰色";
+
 /* Wi-Fi available */
 "WiFi_available" = "是";
 

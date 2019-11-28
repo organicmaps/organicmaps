@@ -895,6 +895,30 @@
 /* pink color */
 "pink" = "Rosa";
 
+/* deep purple color */
+"deep_purple" = "Mörk purpur";
+
+/* light blue color */
+"light_blue" = "Ljusblå";
+
+/* cyan color */
+"cyan" = "Blågrön";
+
+/* teal color */
+"teal" = "Smaragdgrön";
+
+/* lime color */
+"lime" = "Limefärg";
+
+/* deep orange color */
+"deep_orange" = "Mörkorange";
+
+/* gray color */
+"gray" = "Grå";
+
+/* blue gray color */
+"blue_gray" = "Ljusblå grå";
+
 /* Wi-Fi available */
 "WiFi_available" = "Ja";
 

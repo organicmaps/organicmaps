@@ -530,6 +530,22 @@
 	<string name="brown">قهوای</string>
 	<!-- pink color -->
 	<string name="pink">صورتی</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">ارغوانی سیر</string>
+	<!-- light blue color -->
+	<string name="light_blue">آبی کمرنگ</string>
+	<!-- cyan color -->
+	<string name="cyan">فیروزه ای</string>
+	<!-- teal color -->
+	<string name="teal">آبی سیر</string>
+	<!-- lime color -->
+	<string name="lime">زرد لیویی</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">نارنجی سیر</string>
+	<!-- gray color -->
+	<string name="gray">خاکستری</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">خاکستری کبود</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">بلی</string>
 

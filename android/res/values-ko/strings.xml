@@ -553,6 +553,22 @@
 	<string name="brown">갈색</string>
 	<!-- pink color -->
 	<string name="pink">분홍색</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">진보라색</string>
+	<!-- light blue color -->
+	<string name="light_blue">하늘색</string>
+	<!-- cyan color -->
+	<string name="cyan">시안</string>
+	<!-- teal color -->
+	<string name="teal">틸</string>
+	<!-- lime color -->
+	<string name="lime">라임</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">진주황색</string>
+	<!-- gray color -->
+	<string name="gray">회색</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">청회색</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">네</string>
 
