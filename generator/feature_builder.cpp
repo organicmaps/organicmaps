@@ -134,8 +134,6 @@ void FeatureBuilder::AddStreet(string const & streetName) { m_params.AddStreet(s
 void FeatureBuilder::AddPostcode(string const & postcode)
 {
   m_params.AddPostcode(postcode);
-  // todo @t.yan: remove when we stop to add postcodes to metadata
-  m_params.GetMetadata().Set(Metadata::FMD_POSTCODE, postcode);
 }
 
 void FeatureBuilder::AddPoint(m2::PointD const & p)
