@@ -23,7 +23,7 @@ void MapFilesDownloader::DownloadMapFile(QueuedCountry & queuedCountry)
     return;
   }
 
-  GetPlatform().RunTask(Platform::Thread::Network, [=]()
+  GetPlatform().RunTask(Platform::Thread::Network, [=]() mutable
   {
     if (m_isServersListRequested)
     {

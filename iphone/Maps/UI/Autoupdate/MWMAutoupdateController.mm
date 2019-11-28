@@ -8,6 +8,7 @@
 
 #include "platform/downloader_defines.hpp"
 
+#include <string>
 #include <unordered_set>
 
 namespace
