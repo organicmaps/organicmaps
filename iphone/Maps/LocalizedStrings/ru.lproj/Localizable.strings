@@ -3192,6 +3192,9 @@
 
 "new_onboarding_step3_header" = "Путешествуйте";
 
+/* FIXME */
+"all_pass_screen_best_value" = "Выгодная цена";
+
 
 /**********  Partners  **********/
 
