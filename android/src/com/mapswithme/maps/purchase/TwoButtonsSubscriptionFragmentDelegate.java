@@ -75,8 +75,7 @@ class TwoButtonsSubscriptionFragmentDelegate extends SubscriptionFragmentDelegat
     String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
     mAnnualButton.setPrice(price);
     mAnnualButton.setName(getFragment().getString(R.string.annual_subscription_title));
-    String sale = getFragment().getString(R.string.annual_save_component, getFragment().calculateYearlySaving());
-    mAnnualButton.setSale(sale);
+    mAnnualButton.setSale(getFragment().getString(R.string.all_pass_screen_best_value));
   }
 
   private void updateYearlyButton()
