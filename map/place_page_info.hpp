@@ -230,6 +230,7 @@ public:
 
   /// Feature status
   void SetFeatureStatus(FeatureStatus const status) { m_featureStatus = status; }
+  FeatureStatus GetFeatureStatus() const { return m_featureStatus; }
 
   /// Banner
   bool HasBanner() const;

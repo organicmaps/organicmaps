@@ -431,7 +431,9 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeDelete(JNIEnv * env, jclass clazz, jstring root)
 {
   StartBatchingCallbacks();
-  GetStorage().DeleteNode(jni::ToNativeString(env, root));
+  auto const countryId = jni::ToNativeString(env, root);
+  GetStorage().DeleteNode(countryId);
+  g_framework->NativeFramework()->GetNotificationManager().DeleteCandidatesForCountry(countryId);
   EndBatchingCallbacks(env);
 }
 

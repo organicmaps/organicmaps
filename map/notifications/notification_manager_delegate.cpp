@@ -1,12 +1,13 @@
-#include "notification_manager_delegate.hpp"
-
-#include "ugc/api.hpp"
+#include "map/notifications/notification_manager_delegate.hpp"
 
 #include "map/caching_address_getter.hpp"
 
+#include "ugc/api.hpp"
+
 #include "search/city_finder.hpp"
 
-#include "indexer/feature_decl.hpp"
+#include "storage/country_info_getter.hpp"
+#include "storage/storage.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -15,17 +16,41 @@ namespace notifications
 NotificationManagerDelegate::NotificationManagerDelegate(DataSource const & dataSource,
                                                          search::CityFinder & cityFinder,
                                                          CachingAddressGetter & addressGetter,
-                                                         ugc::Api & ugcApi)
+                                                         ugc::Api & ugcApi,
+                                                         storage::Storage & storage,
+                                                         storage::CountryInfoGetter & countryInfoGetter)
   : m_dataSource(dataSource)
   , m_cityFinder(cityFinder)
   , m_addressGetter(addressGetter)
   , m_ugcApi(ugcApi)
+  , m_storage(storage)
+  , m_countryInfoGetter(countryInfoGetter)
 {
 }
 
 ugc::Api & NotificationManagerDelegate::GetUGCApi()
 {
   return m_ugcApi;
+}
+
+std::unordered_set<storage::CountryId> NotificationManagerDelegate::GetDescendantCountries(
+    storage::CountryId const & country)
+{
+  std::unordered_set<storage::CountryId> result;
+  auto const fn = [&result](storage::CountryId const & countryId, bool isGroupNode)
+  {
+    if (isGroupNode)
+      return;
+    result.insert(countryId);
+  };
+  m_storage.ForEachInSubtree(country, fn);
+
+  return result;
+}
+
+storage::CountryId NotificationManagerDelegate::GetCountryAtPoint(m2::PointD const & pt)
+{
+  return m_countryInfoGetter.GetRegionCountryId(pt);
 }
 
 std::string NotificationManagerDelegate::GetAddress(m2::PointD const & pt)

@@ -3,7 +3,11 @@
 #include "map/notifications/notification_queue_serdes.hpp"
 #include "map/notifications/notification_queue_storage.hpp"
 
+#include "ugc/api.hpp"
+
 #include "indexer/classificator.hpp"
+
+#include "storage/storage_defines.hpp"
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -172,6 +176,26 @@ Notification NotificationManager::GetNotification()
 size_t NotificationManager::GetCandidatesCount() const
 {
   return m_queue.m_candidates.size();
+}
+
+void NotificationManager::DeleteCandidatesForCountry(storage::CountryId const & countryId)
+{
+  auto const countries = m_delegate->GetDescendantCountries(countryId);
+
+  auto & candidates = m_queue.m_candidates;
+  size_t const sizeBefore = candidates.size();
+
+  candidates.erase(std::remove_if(candidates.begin(), candidates.end(),
+                                  [this, &countries](auto const & item) {
+                                    auto const itemCountry =
+                                        m_delegate->GetCountryAtPoint(item.GetPos());
+                                    return std::find(countries.cbegin(), countries.cend(),
+                                                     itemCountry) != countries.cend();
+                                  }),
+                   candidates.end());
+
+  if (sizeBefore != candidates.size())
+    VERIFY(Save(), ());
 }
 
 void NotificationManager::OnMapObjectEvent(eye::MapObject const & poi)

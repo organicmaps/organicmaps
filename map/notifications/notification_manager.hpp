@@ -2,7 +2,7 @@
 
 #include "map/notifications/notification_queue.hpp"
 
-#include "ugc/api.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "metrics/eye.hpp"
 
@@ -10,6 +10,14 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <unordered_set>
+
+#include <boost/optional.hpp>
+
+namespace ugc
+{
+class Api;
+}
 
 namespace notifications
 {
@@ -24,6 +32,9 @@ public:
   public:
     virtual ~Delegate() = default;
     virtual ugc::Api & GetUGCApi() = 0;
+    virtual std::unordered_set<storage::CountryId> GetDescendantCountries(
+        storage::CountryId const & country) = 0;
+    virtual storage::CountryId GetCountryAtPoint(m2::PointD const & pt) = 0;
     virtual std::string GetAddress(m2::PointD const & pt) = 0;
   };
 
@@ -34,6 +45,8 @@ public:
 
   Notification GetNotification();
   size_t GetCandidatesCount() const;
+
+  void DeleteCandidatesForCountry(storage::CountryId const & countryId);
 
   // eye::Subscriber overrides:
   void OnMapObjectEvent(eye::MapObject const & poi) override;

@@ -214,8 +214,8 @@ void OnRouteStartBuild(DataSource const & dataSource,
     {
       if (found || !feature::GetCenter(ft).EqualDxDy(pt.m_position, kMwmPointAccuracy))
         return;
-
-      auto const mapObject = utils::MakeEyeMapObject(ft);
+      auto const & editor = osm::Editor::Instance();
+      auto const mapObject = utils::MakeEyeMapObject(ft, editor);
       if (!mapObject.IsEmpty())
       {
         eye::Eye::Event::MapObjectEvent(mapObject, MapObject::Event::Type::RouteToCreated, userPos);
@@ -505,7 +505,8 @@ Framework::Framework(FrameworkParams const & params)
 
   m_notificationManager.SetDelegate(
     std::make_unique<NotificationManagerDelegate>(m_featuresFetcher.GetDataSource(), *m_cityFinder,
-                                                  m_addressGetter, *m_ugcApi));
+                                                  m_addressGetter, *m_ugcApi, m_storage,
+                                                  *m_infoGetter));
   m_notificationManager.Load();
   m_notificationManager.TrimExpired();
 
@@ -4093,7 +4094,8 @@ bool Framework::MakePlacePageForNotification(NotificationCandidate const & notif
         if (found || !featureCenter.EqualDxDy(notification.GetPos(), kMwmPointAccuracy))
           return;
 
-        auto const foundMapObject = utils::MakeEyeMapObject(ft);
+        auto const & editor = osm::Editor::Instance();
+        auto const foundMapObject = utils::MakeEyeMapObject(ft, editor);
         if (!foundMapObject.IsEmpty() && notification.IsSameMapObject(foundMapObject))
         {
           place_page::BuildInfo buildInfo;
