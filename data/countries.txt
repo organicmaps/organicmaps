@@ -69,7 +69,10 @@
     "Shqip\u00ebria"
    ],
    "s": 26598758,
-   "sha1_base64": "SkpoZGjz+8FZACGYmCdKjF0qtig="
+   "sha1_base64": "SkpoZGjz+8FZACGYmCdKjF0qtig=",
+   "top_countries_geo_ids": [
+    4611686018851698505
+   ]
   },
   {
    "id": "Algeria",
@@ -144,6 +147,9 @@
      "s": 58223023,
      "sha1_base64": "Lffn0qEcxxtXopwT3Smvv00urtc="
     }
+   ],
+   "top_countries_geo_ids": [
+    4611686018859812830
    ]
   },
   {
@@ -553,6 +559,9 @@
      "s": 15916018,
      "sha1_base64": "HnXGhHU49G5qbUVe1GNNcaMfQ/Y="
     }
+   ],
+   "top_countries_geo_ids": [
+    4611686018676787184
    ]
   },
   {
@@ -577,7 +586,10 @@
     "\u0533\u0565\u0572\u0561\u0580\u0584\u0578\u0582\u0576\u056b\u0584"
    ],
    "s": 23145943,
-   "sha1_base64": "pr42ROyyV8iQi4SsV3pegankMSk="
+   "sha1_base64": "pr42ROyyV8iQi4SsV3pegankMSk=",
+   "top_countries_geo_ids": [
+    4611686018676787181
+   ]
   },
   {
    "id": "Austria",
@@ -983,6 +995,9 @@
      "sha1_base64": "77BTIn79UBC2bjs7P7AQamKkvcA=",
      "top_city_geo_id": 4611686020544738319
     }
+   ],
+   "top_countries_geo_ids": [
+    4611686018851701579
    ]
   },
   {
@@ -999,7 +1014,10 @@
     "\u0627\u0644\u0645\u062d\u0627\u0641\u0638\u0629 \u0627\u0644\u0634\u0645\u0627\u0644\u064a\u0629"
    ],
    "s": 5015622,
-   "sha1_base64": "EKQ94z9l54Q+8P6tRGZSy5HKZ+0="
+   "sha1_base64": "EKQ94z9l54Q+8P6tRGZSy5HKZ+0=",
+   "top_countries_geo_ids": [
+    4611686018851685111
+   ]
   },
   {
    "id": "Bangladesh",
@@ -1018,7 +1036,10 @@
     "\u099a\u099f\u09cd\u099f\u0997\u09cd\u09b0\u09be\u09ae \u09ac\u09bf\u09ad\u09be\u0997"
    ],
    "s": 228310987,
-   "sha1_base64": "ZUXqrya7ZvtqxXXpTHUmGqXujHU="
+   "sha1_base64": "ZUXqrya7ZvtqxXXpTHUmGqXujHU=",
+   "top_countries_geo_ids": [
+    4611686018859812841
+   ]
   },
   {
    "id": "Belarus",
@@ -1326,7 +1347,10 @@
     "\u0f56\u0f66\u0f58\u0f0b\u0f42\u0fb2\u0f74\u0f56\u0f0b\u0f63\u0f97\u0f7c\u0f44\u0f66\u0f0b\u0f58\u0f41\u0f62\u0f0b\u0f62\u0fab\u0f7c\u0f44\u0f0b\u0f41\u0f42\u0f0b"
    ],
    "s": 5335588,
-   "sha1_base64": "5r+YgCkZFDk9Xx4KgCX6VbBHFDA="
+   "sha1_base64": "5r+YgCkZFDk9Xx4KgCX6VbBHFDA=",
+   "top_countries_geo_ids": [
+    4611686018851698932
+   ]
   },
   {
    "id": "Bolivia",
@@ -1405,6 +1429,9 @@
      "s": 36538488,
      "sha1_base64": "SO17e5AlnV+RaEGbvXEv4vLOg3I="
     }
+   ],
+   "top_countries_geo_ids": [
+    4611686020411099766
    ]
   },
   {
@@ -1734,7 +1761,10 @@
     "Brunei Darussalam"
    ],
    "s": 3304905,
-   "sha1_base64": "Ml55mlGzRfr1uaEkEBXkKv3iUP8="
+   "sha1_base64": "Ml55mlGzRfr1uaEkEBXkKv3iUP8=",
+   "top_countries_geo_ids": [
+    4611686020121398758
+   ]
   },
   {
    "id": "Bulgaria",
@@ -2667,7 +2697,10 @@
     "Cabo Verde"
    ],
    "s": 5305697,
-   "sha1_base64": "LXYVEcwaipPdWb8mRz1Cn7XE95c="
+   "sha1_base64": "LXYVEcwaipPdWb8mRz1Cn7XE95c=",
+   "top_countries_geo_ids": [
+    4611686018851699055
+   ]
   },
   {
    "id": "Cayman Islands",
@@ -2918,7 +2951,10 @@
     "Cook Islands"
    ],
    "s": 799933,
-   "sha1_base64": "bEPipERx+zxILB8cmNudPGvovik="
+   "sha1_base64": "bEPipERx+zxILB8cmNudPGvovik=",
+   "top_countries_geo_ids": [
+    4611686018676787212
+   ]
   },
   {
    "id": "Costa Rica",
@@ -3372,7 +3408,10 @@
     "Valverde"
    ],
    "s": 16983342,
-   "sha1_base64": "ckEF1k64kXz71lPvG3hQO0vQPQQ="
+   "sha1_base64": "ckEF1k64kXz71lPvG3hQO0vQPQQ=",
+   "top_countries_geo_ids": [
+    4611686018673810062
+   ]
   },
   {
    "id": "East Timor",
@@ -3464,6 +3503,9 @@
      "s": 84814191,
      "sha1_base64": "0uJCo9bTWMqsyILKlQPk3Ap9qzM="
     }
+   ],
+   "top_countries_geo_ids": [
+    4611686018851699008
    ]
   },
   {
@@ -3523,6 +3565,9 @@
      "s": 34575397,
      "sha1_base64": "g7GTxTmwIPYLNaDUGtmlbxqJ8ec="
     }
+   ],
+   "top_countries_geo_ids": [
+    4611686018851686131
    ]
   },
   {
@@ -3674,7 +3719,10 @@
     "\u12a2\u1275\u12ee\u1335\u12eb Ethiopia"
    ],
    "s": 43263983,
-   "sha1_base64": "P3rgMjzQNotrbIzZoTBI6ER0C5U="
+   "sha1_base64": "P3rgMjzQNotrbIzZoTBI6ER0C5U=",
+   "top_countries_geo_ids": [
+    4611686020591302109
+   ]
   },
   {
    "id": "Faroe Islands",
@@ -3722,7 +3770,10 @@
     "Viti"
    ],
    "s": 8850162,
-   "sha1_base64": "aqMRLUH5AL8u6kFAwbTq8aWwqWU="
+   "sha1_base64": "aqMRLUH5AL8u6kFAwbTq8aWwqWU=",
+   "top_countries_geo_ids": [
+    4611686018851701727
+   ]
   },
   {
    "id": "Finland",
@@ -6165,7 +6216,10 @@
     "\u00cdsland"
    ],
    "s": 37742427,
-   "sha1_base64": "t0Dia+2YYIF8OxAVnsohRVHPKG0="
+   "sha1_base64": "t0Dia+2YYIF8OxAVnsohRVHPKG0=",
+   "top_countries_geo_ids": [
+    4611686018851702688
+   ]
   },
   {
    "id": "India",
@@ -6841,6 +6895,9 @@
      "s": 24585943,
      "sha1_base64": "4dvea7GrnCD8vdURqGmaBSh25Vg="
     }
+   ],
+   "top_countries_geo_ids": [
+    4611686018851704109
    ]
   },
   {
@@ -7706,7 +7763,10 @@
     "Jamaica"
    ],
    "s": 7880520,
-   "sha1_base64": "+F451FKuDaaJ6THtzAQac6x3GAM="
+   "sha1_base64": "+F451FKuDaaJ6THtzAQac6x3GAM=",
+   "top_countries_geo_ids": [
+    4611686018851701495
+   ]
   },
   {
    "id": "Japan",
@@ -8414,7 +8474,10 @@
     "\u0627\u0644\u0623\u0631\u062f\u0646"
    ],
    "s": 21698421,
-   "sha1_base64": "ntioXIjUELGbt/F61f0vVLF4Q2I="
+   "sha1_base64": "ntioXIjUELGbt/F61f0vVLF4Q2I=",
+   "top_countries_geo_ids": [
+    4611686018851704120
+   ]
   },
   {
    "id": "Kazakhstan",
@@ -8519,7 +8582,10 @@
     "West Pokot"
    ],
    "s": 111474781,
-   "sha1_base64": "wOt1CBZjeGbPERYWnKerFsjbWR4="
+   "sha1_base64": "wOt1CBZjeGbPERYWnKerFsjbWR4=",
+   "top_countries_geo_ids": [
+    4611686018851701807
+   ]
   },
   {
    "id": "Kingdom of Lesotho",
@@ -8561,7 +8627,10 @@
     "\u200f\u0627\u0644\u0643\u0648\u064a\u062a\u200e"
    ],
    "s": 12200236,
-   "sha1_base64": "qgRntbbJHZ+E9l7aKsD5pqxnnqU="
+   "sha1_base64": "qgRntbbJHZ+E9l7aKsD5pqxnnqU=",
+   "top_countries_geo_ids": [
+    4611686018851701840
+   ]
   },
   {
    "id": "Kyrgyzstan",
@@ -8666,7 +8735,10 @@
     "\u0642\u0636\u0627\u0621 \u0627\u0644\u0646\u0628\u0637\u064a\u0629"
    ],
    "s": 16773019,
-   "sha1_base64": "fKNAlAy9lhUycpVGVy2w7FNMtcI="
+   "sha1_base64": "fKNAlAy9lhUycpVGVy2w7FNMtcI=",
+   "top_countries_geo_ids": [
+    4611686018851685646
+   ]
   },
   {
    "id": "Liberia",
@@ -8725,7 +8797,10 @@
     "\u0627\u0644\u0632\u0627\u0648\u064a\u0629"
    ],
    "s": 23226361,
-   "sha1_base64": "aBhzO7l2kIysyT7gcicfPWg+x2k="
+   "sha1_base64": "aBhzO7l2kIysyT7gcicfPWg+x2k=",
+   "top_countries_geo_ids": [
+    4611686018859812927
+   ]
   },
   {
    "id": "Liechtenstein",
@@ -8815,6 +8890,9 @@
    ],
    "s": 18060147,
    "sha1_base64": "85RJ8x6nqIaVJ9SSRyAZ77FxrWo=",
+   "top_countries_geo_ids": [
+    4611686018851685714
+   ],
    "top_city_geo_id": 4611686018598180118
   },
   {
@@ -8917,7 +8995,10 @@
     "\u078b\u07a8\u0788\u07ac\u0780\u07a8\u0783\u07a7\u0787\u07b0\u0796\u07ad\u078e\u07ac \u0796\u07aa\u0789\u07aa\u0780\u07ab\u0783\u07a8\u0787\u07b0\u0794\u07a7"
    ],
    "s": 2006873,
-   "sha1_base64": "glJXfQm1vmcRD1M26B7r/JbaQmQ="
+   "sha1_base64": "glJXfQm1vmcRD1M26B7r/JbaQmQ=",
+   "top_countries_geo_ids": [
+    4611686018851699545
+   ]
   },
   {
    "id": "Mali",
@@ -8955,7 +9036,10 @@
     "Malta"
    ],
    "s": 4667679,
-   "sha1_base64": "+qKE0rTeXYwOYY/cvoEg/OvkSz4="
+   "sha1_base64": "+qKE0rTeXYwOYY/cvoEg/OvkSz4=",
+   "top_countries_geo_ids": [
+    4611686022503912765
+   ]
   },
   {
    "id": "Marshall Islands",
@@ -9026,7 +9110,10 @@
     "\u00cele Fr\u00e9gate"
    ],
    "s": 5888392,
-   "sha1_base64": "K9XWlTqgt8iFLUk8DAOh+s6uvx4="
+   "sha1_base64": "K9XWlTqgt8iFLUk8DAOh+s6uvx4=",
+   "top_countries_geo_ids": [
+    4611686020136368306
+   ]
   },
   {
    "id": "Mexico",
@@ -9182,7 +9269,10 @@
     "\u041f\u0440\u0438\u0434\u043d\u0435\u0441\u0442\u0440\u043e\u0432\u044c\u0435"
    ],
    "s": 35443266,
-   "sha1_base64": "tquYWvpd1JmdYAhIzYYBXAowLrk="
+   "sha1_base64": "tquYWvpd1JmdYAhIzYYBXAowLrk=",
+   "top_countries_geo_ids": [
+    4611686018851704321
+   ]
   },
   {
    "id": "Monaco",
@@ -9361,7 +9451,10 @@
     "\u1015\u103c\u100a\u103a\u1011\u1031\u102c\u1004\u103a\u1005\u102f\u1019\u103c\u1014\u103a\u1019\u102c\u1014\u102d\u102f\u1004\u103a\u1004\u1036\u1010\u1031\u102c\u103a\u200c"
    ],
    "s": 108993451,
-   "sha1_base64": "kcw+vPZfz/+agmVHHn1WeFzBeFQ="
+   "sha1_base64": "kcw+vPZfz/+agmVHHn1WeFzBeFQ=",
+   "top_countries_geo_ids": [
+    4611686018851704382
+   ]
   },
   {
    "id": "Namibia",
@@ -9394,7 +9487,10 @@
     "\u01c1Karas Region"
    ],
    "s": 20641553,
-   "sha1_base64": "2jOADInBGR6f9B+xUBXiT7l7wto="
+   "sha1_base64": "2jOADInBGR6f9B+xUBXiT7l7wto=",
+   "top_countries_geo_ids": [
+    4611686018851699566
+   ]
   },
   {
    "id": "Nauru",
@@ -9460,6 +9556,9 @@
      "s": 57381203,
      "sha1_base64": "YJH6mzFwNxOzbvogeXTZIWBg7Uc="
     }
+   ],
+   "top_countries_geo_ids": [
+    4611686018676787306
    ]
   },
   {
@@ -9813,7 +9912,10 @@
     "\u0645\u062d\u0627\u0641\u0638\u0629 \u0627\u0644\u0628\u0631\u064a\u0645\u064a"
    ],
    "s": 13325124,
-   "sha1_base64": "N9L/MmtOIoLW5bZyiLD0gSxGgc4="
+   "sha1_base64": "N9L/MmtOIoLW5bZyiLD0gSxGgc4=",
+   "top_countries_geo_ids": [
+    4611686018851703195
+   ]
   },
   {
    "id": "Pakistan",
@@ -10340,6 +10442,9 @@
      "s": 32396956,
      "sha1_base64": "7D7oquLS1rAzy/4VaVEIpi9ayJ8="
     }
+   ],
+   "top_countries_geo_ids": [
+    4611686018859813003
    ]
   },
   {
@@ -10903,7 +11008,10 @@
     "\u200f\u0642\u0637\u0631\u200e"
    ],
    "s": 7518171,
-   "sha1_base64": "NnbBpWZ1IdOt0aUnI6bav6eV4Xo="
+   "sha1_base64": "NnbBpWZ1IdOt0aUnI6bav6eV4Xo=",
+   "top_countries_geo_ids": [
+    4611686018859812966
+   ]
   },
   {
    "id": "Republic of Kosovo",
@@ -10917,7 +11025,10 @@
     "Kosovo"
    ],
    "s": 14868234,
-   "sha1_base64": "XSUsdiRev7wzazcOTtnQIyZTQso="
+   "sha1_base64": "XSUsdiRev7wzazcOTtnQIyZTQso=",
+   "top_countries_geo_ids": [
+    4611686022793622296
+   ]
   },
   {
    "id": "Romania",
@@ -12335,7 +12446,10 @@
     "S\u0101moa"
    ],
    "s": 2664418,
-   "sha1_base64": "6Dlx9R9iPvWeaMO6ZnkDAT0gOp4="
+   "sha1_base64": "6Dlx9R9iPvWeaMO6ZnkDAT0gOp4=",
+   "top_countries_geo_ids": [
+    4611686019956831983
+   ]
   },
   {
    "id": "San Marino",
@@ -12349,6 +12463,9 @@
    ],
    "s": 383103,
    "sha1_base64": "a9Pql5JsdLFBpl2P4N2m9uvETd0=",
+   "top_countries_geo_ids": [
+    4611686018851704929
+   ],
    "top_city_geo_id": 4611686018708370624
   },
   {
@@ -12408,7 +12525,10 @@
     "Senegal"
    ],
    "s": 36980115,
-   "sha1_base64": "6qkxSL/7gMkKhqtFFipXzhQxoQs="
+   "sha1_base64": "6qkxSL/7gMkKhqtFFipXzhQxoQs=",
+   "top_countries_geo_ids": [
+    4611686018859812979
+   ]
   },
   {
    "id": "Serbia",
@@ -12435,7 +12555,10 @@
     "Sesel"
    ],
    "s": 2161005,
-   "sha1_base64": "zWY8r8L0WskAXDTLt5JB5EsYj78="
+   "sha1_base64": "zWY8r8L0WskAXDTLt5JB5EsYj78=",
+   "top_countries_geo_ids": [
+    4611686018851686181
+   ]
   },
   {
    "id": "Sierra Leone",
@@ -13194,7 +13317,10 @@
     "\u0dc1\u0dca\u200d\u0dbb\u0dd3 \u0dbd\u0d82\u0d9a\u0dcf"
    ],
    "s": 78682687,
-   "sha1_base64": "MMXbQiNBfgS0Np4B8EZkJ2L+h0s="
+   "sha1_base64": "MMXbQiNBfgS0Np4B8EZkJ2L+h0s=",
+   "top_countries_geo_ids": [
+    4611686024407505411
+   ]
   },
   {
    "id": "Sudan",
@@ -13628,7 +13754,10 @@
     "Unguja Mjini Magharibi"
    ],
    "s": 351803704,
-   "sha1_base64": "tQmoZEK6SfBknkMvdXow86zRRrk="
+   "sha1_base64": "tQmoZEK6SfBknkMvdXow86zRRrk=",
+   "top_countries_geo_ids": [
+    4611686018851702239
+   ]
   },
   {
    "id": "Thailand",
@@ -13766,7 +13895,10 @@
     "Bahamas"
    ],
    "s": 9103838,
-   "sha1_base64": "wmLC9HNBV/l77L3HkaLL+1UvaTM="
+   "sha1_base64": "wmLC9HNBV/l77L3HkaLL+1UvaTM=",
+   "top_countries_geo_ids": [
+    4611686018676787200
+   ]
   },
   {
    "id": "The Gambia",
@@ -13786,7 +13918,10 @@
     "Senegal"
    ],
    "s": 5211599,
-   "sha1_base64": "U6V5vmATOpfi8jsA1cRrFf7H9Eo="
+   "sha1_base64": "U6V5vmATOpfi8jsA1cRrFf7H9Eo=",
+   "top_countries_geo_ids": [
+    4611686018851685483
+   ]
   },
   {
    "id": "Netherlands",
@@ -14127,7 +14262,10 @@
     "Vava\u02bbu"
    ],
    "s": 2933087,
-   "sha1_base64": "BYtcjSrlZOQt3rbdmN0dyYBi7zw="
+   "sha1_base64": "BYtcjSrlZOQt3rbdmN0dyYBi7zw=",
+   "top_countries_geo_ids": [
+    4611686018851699752
+   ]
   },
   {
    "id": "Tunisia",
@@ -17375,7 +17513,10 @@
     "Xorazm Viloyati"
    ],
    "s": 40306712,
-   "sha1_base64": "i+u74yBT2pb3D7fLnKDNuQmYgwQ="
+   "sha1_base64": "i+u74yBT2pb3D7fLnKDNuQmYgwQ=",
+   "top_countries_geo_ids": [
+    4611686018851705332
+   ]
   },
   {
    "id": "Vanuatu",
@@ -17392,7 +17533,10 @@
     "Torba"
    ],
    "s": 4172598,
-   "sha1_base64": "J8CnmgNKOXF5Xyff+XhHC7XTQTY="
+   "sha1_base64": "J8CnmgNKOXF5Xyff+XhHC7XTQTY=",
+   "top_countries_geo_ids": [
+    4611686018851701370
+   ]
   },
   {
    "id": "Venezuela",
@@ -17526,7 +17670,10 @@
     "Vi\u1ec7t Nam"
    ],
    "s": 75486784,
-   "sha1_base64": "tVO7Ymcj4Hpw4W50An8mxMPyN2E="
+   "sha1_base64": "tVO7Ymcj4Hpw4W50An8mxMPyN2E=",
+   "top_countries_geo_ids": [
+    4611686018851686054
+   ]
   },
   {
    "id": "Yemen",
@@ -17735,6 +17882,9 @@
      "s": 66749302,
      "sha1_base64": "lkThWzJs8HzZ4Tg/pqs2R56d7Qg="
     }
+   ],
+   "top_countries_geo_ids": [
+    4611686018676787266
    ]
   }
  ]
