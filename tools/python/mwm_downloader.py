@@ -118,7 +118,7 @@ def download_mwm_list(version=None, threads=8, folder=None, countries_path=COUNT
     try:
         countries = json.load(open(str(countries_path), 'r'))
     except (OSError, json.decoder.JSONDecodeError) as e:
-        logging.error('File \'omim/data/countries.txt\' is corrupted.', exc_info=True)
+        logging.error('File {} is corrupted.'.format(countries_path), exc_info=True)
         exit(1)
 
     mwm_names = country_names_generator(countries)
