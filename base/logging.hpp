@@ -3,9 +3,12 @@
 #include "base/base.hpp"
 #include "base/internal/message.hpp"
 #include "base/src_point.hpp"
+#include "base/thread.hpp"
+#include "base/timer.hpp"
 
 #include <array>
 #include <atomic>
+#include <map>
 #include <string>
 
 namespace base
@@ -19,6 +22,26 @@ enum LogLevel
   LCRITICAL,
 
   NUM_LOG_LEVELS
+};
+
+class LogHelper
+{
+public:
+  static LogHelper & Instance();
+
+  LogHelper();
+
+  int GetThreadID();
+  void WriteProlog(std::ostream & s, LogLevel level);
+
+private:
+  int m_threadsCount;
+  std::map<threads::ThreadID, int> m_threadID;
+
+  base::Timer m_timer;
+
+  std::array<char const *, NUM_LOG_LEVELS> m_names;
+  std::array<size_t, NUM_LOG_LEVELS> m_lens;
 };
 
 std::string ToString(LogLevel level);

@@ -2,6 +2,7 @@
 
 #include "base/assert.hpp"
 #include "base/exception.hpp"
+#include "base/logging.hpp"
 #include "base/src_point.hpp"
 
 #include "std/target_os.hpp"
@@ -12,7 +13,9 @@ namespace base
 {
 bool OnAssertFailedDefault(SrcPoint const & srcPoint, std::string const & msg)
 {
-  std::cerr << "ASSERT FAILED" << std::endl
+  auto & logger = LogHelper::Instance();
+
+  std::cerr << "TID(" << logger.GetThreadID() << ") ASSERT FAILED" << std::endl
             << srcPoint.FileName() << ":" << srcPoint.Line() << std::endl
             << msg << std::endl;
   return true;

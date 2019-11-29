@@ -1,11 +1,7 @@
 #include "base/logging.hpp"
 
 #include "base/assert.hpp"
-#include "base/macros.hpp"
 #include "base/thread.hpp"
-#include "base/timer.hpp"
-
-#include "std/target_os.hpp"
 
 #include <algorithm>
 #include <cassert>
@@ -13,7 +9,6 @@
 #include <iomanip>
 #include <iostream>
 #include <iterator>
-#include <map>
 #include <mutex>
 #include <sstream>
 
@@ -52,52 +47,47 @@ array<char const *, NUM_LOG_LEVELS> const & GetLogLevelNames()
   return kNames;
 }
 
-class LogHelper
+// static
+LogHelper & LogHelper::Instance()
 {
-  int m_threadsCount;
-  map<threads::ThreadID, int> m_threadID;
+  static LogHelper instance;
+  return instance;
+}
 
-  int GetThreadID()
-  {
-    int & id = m_threadID[threads::GetCurrentThreadID()];
-    if (id == 0)
-      id = ++m_threadsCount;
-    return id;
-  }
+LogHelper::LogHelper() : m_threadsCount(0)
+{
+  // This code highly depends on the fact that GetLogLevelNames()
+  // always returns the same constant array of strings.
 
-  base::Timer m_timer;
+  m_names = GetLogLevelNames();
+  for (size_t i = 0; i < m_lens.size(); ++i)
+    m_lens[i] = strlen(m_names[i]);
+}
 
-  array<char const *, NUM_LOG_LEVELS> m_names;
-  array<size_t, NUM_LOG_LEVELS> m_lens;
+int LogHelper::GetThreadID()
+{
+  int & id = m_threadID[threads::GetCurrentThreadID()];
+  if (id == 0)
+    id = ++m_threadsCount;
+  return id;
+}
 
-public:
-  LogHelper() : m_threadsCount(0)
-  {
-    // This code highly depends on the fact that GetLogLevelNames()
-    // always returns the same constant array of strings.
+void LogHelper::WriteProlog(ostream & s, LogLevel level)
+{
+  s << "LOG";
 
-    m_names = GetLogLevelNames();
-    for (size_t i = 0; i < m_lens.size(); ++i)
-      m_lens[i] = strlen(m_names[i]);
-  }
+  s << " TID(" << GetThreadID() << ")";
+  s << " " << m_names[level];
 
-  void WriteProlog(ostream & s, LogLevel level)
-  {
-    s << "LOG";
-
-    s << " TID(" << GetThreadID() << ")";
-    s << " " << m_names[level];
-
-    double const sec = m_timer.ElapsedSeconds();
-    s << " " << setfill(' ') << setw(static_cast<int>(16 - m_lens[level])) << sec << " ";
-  }
-};
+  double const sec = m_timer.ElapsedSeconds();
+  s << " " << setfill(' ') << setw(static_cast<int>(16 - m_lens[level])) << sec << " ";
+}
 
 void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, string const & msg)
 {
   lock_guard<mutex> lock(g_logMutex);
 
-  static LogHelper logger;
+  auto & logger = LogHelper::Instance();
 
   ostringstream out;
   logger.WriteProlog(out, level);
