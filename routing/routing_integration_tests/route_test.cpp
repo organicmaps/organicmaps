@@ -419,7 +419,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 6470.68);
+    integration::TestRouteTime(route, 6348.78);
   }
 
   // Test on removing speed cameras from the route for maps from Jan 2019,

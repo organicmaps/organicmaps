@@ -69,7 +69,7 @@ UNIT_TEST(Transit_Piter_TooLongPedestrian)
   TRouteResult routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
                                   mercator::FromLatLon(59.90511, 30.31425), {0.0, 0.0},
-                                  mercator::FromLatLon(59.80677, 30.44749));
+                                  mercator::FromLatLon(59.78014, 30.50036));
 
   TEST_EQUAL(routeResult.second, RouterResultCode::TransitRouteNotFoundTooLongPedestrian, ());
 }
@@ -124,7 +124,7 @@ UNIT_TEST(Transit_London_DeptfordBridgeToCyprus)
 
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
-  integration::TestRouteLength(*routeResult.first, 12293.4);
+  integration::TestRouteLength(*routeResult.first, 12758.9);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);
