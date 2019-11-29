@@ -62,6 +62,8 @@ public:
     m_map[c.GetTypeByPath({"highway", "steps"})] = ftypes::HighwayClass::Pedestrian;
     m_map[c.GetTypeByPath({"highway", "cycleway"})] = ftypes::HighwayClass::Pedestrian;
     m_map[c.GetTypeByPath({"highway", "path"})] = ftypes::HighwayClass::Pedestrian;
+    m_map[c.GetTypeByPath({"highway", "construction"})] = ftypes::HighwayClass::Pedestrian;
+
   }
 
   ftypes::HighwayClass Get(uint32_t t) const

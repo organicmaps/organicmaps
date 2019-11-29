@@ -268,8 +268,12 @@ void BicycleDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
       continue;
 
     auto const highwayClass = ftypes::GetHighwayClass(feature::TypesHolder(*ft));
-    ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
-    ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Undefined, ());
+    ASSERT_NOT_EQUAL(
+        highwayClass, ftypes::HighwayClass::Error,
+        (mercator::ToLatLon(edge.GetStartPoint()), mercator::ToLatLon(edge.GetEndPoint())));
+    ASSERT_NOT_EQUAL(
+        highwayClass, ftypes::HighwayClass::Undefined,
+        (mercator::ToLatLon(edge.GetStartPoint()), mercator::ToLatLon(edge.GetEndPoint())));
 
     bool const isLink = ftypes::IsLinkChecker::Instance()(*ft);
 
