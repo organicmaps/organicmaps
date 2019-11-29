@@ -48,6 +48,11 @@ class TermsOfUseViewController: MWMViewController {
     presenter?.configure()
   }
 
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    presenter?.onAppear()
+  }
+
   @IBAction func onCheck(_ sender: Checkmark) {
     if (privacyPolicyCheck.isChecked && termsOfUseCheck.isChecked){
       presenter?.onNext()

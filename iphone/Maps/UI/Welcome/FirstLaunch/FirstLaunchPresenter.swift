@@ -45,15 +45,16 @@ extension FirstLaunchPresenter: IFirstLaunchPresenter {
     case .nothing:
       break
     }
+    Statistics.logEvent(kStatOnboardingScreenShow, withParameters: [kStatType: config.statType])
   }
 
   func onNext() {
     router.onNext()
-    Statistics.logEvent(kStatOnboardingScreenShow, withParameters: [kStatType: config.statType])
+    Statistics.logEvent(kStatOnboardingScreenAccept, withParameters: [kStatType: config.statType])
   }
 
   func onClose() {
     router.onClose()
-    Statistics.logEvent(kStatOnboardingScreenAccept, withParameters: [kStatType: config.statType])
+    Statistics.logEvent(kStatOnboardingScreenDecline, withParameters: [kStatType: config.statType])
   }
 }
