@@ -62,7 +62,6 @@ final class CatalogWebViewController: WebViewController {
     super.init(url: catalogUrl, title: L("guides_catalogue_title"))!
     let bButton = UIButton(type: .custom)
     bButton.addTarget(self, action: #selector(onBack), for: .touchUpInside)
-    bButton.setTitle(L("back"), for: .normal)
     bButton.setImage(UIImage(named: "ic_nav_bar_back"), for: .normal)
     backButton = UIBarButtonItem(customView: bButton)
     noInternetView = CatalogConnectionErrorView(frame: .zero, actionCallback: { [weak self] in
