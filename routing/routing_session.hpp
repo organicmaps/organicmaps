@@ -95,7 +95,7 @@ public:
   /// route altitude information to |routeSegDistanceM| and |routeAltitudes|.
   /// \returns true if there is valid route information. If the route is not valid returns false.
   bool GetRouteAltitudesAndDistancesM(std::vector<double> & routeSegDistanceM,
-                                      geometry::TAltitudes & routeAltitudesM) const;
+                                      geometry::Altitudes & routeAltitudesM) const;
 
   SessionState OnLocationPositionChanged(location::GpsInfo const & info);
   void GetRouteFollowingInfo(FollowingInfo & info) const;

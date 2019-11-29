@@ -100,7 +100,7 @@ void GeometryLoaderImpl::Load(uint32_t featureId, RoadGeometry & road)
 
   feature->ParseGeometry(FeatureType::BEST_GEOMETRY);
 
-  geometry::TAltitudes const * altitudes = nullptr;
+  geometry::Altitudes const * altitudes = nullptr;
   if (m_loadAltitudes)
     altitudes = &(m_altitudeLoader.GetAltitudes(featureId, feature->GetPointsCount()));
 
@@ -180,7 +180,7 @@ RoadGeometry::RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedK
 }
 
 void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType & feature,
-                        geometry::TAltitudes const * altitudes, bool inCity,
+                        geometry::Altitudes const * altitudes, bool inCity,
                         Maxspeed const & maxspeed)
 {
   CHECK(altitudes == nullptr || altitudes->size() == feature.GetPointsCount(), ());

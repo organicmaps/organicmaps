@@ -48,7 +48,7 @@ public:
   explicit SrtmGetter(std::string const & srtmDir) : m_srtmManager(srtmDir) {}
 
   // AltitudeGetter overrides:
-  geometry::TAltitude GetAltitude(m2::PointD const & p) override
+  geometry::Altitude GetAltitude(m2::PointD const & p) override
   {
     return m_srtmManager.GetHeight(mercator::ToLatLon(p));
   }
@@ -86,7 +86,7 @@ public:
     return m_altitudeAvailabilityBuilder;
   }
 
-  geometry::TAltitude GetMinAltitude() const { return m_minAltitude; }
+  geometry::Altitude GetMinAltitude() const { return m_minAltitude; }
 
   void operator()(FeatureType & f, uint32_t const & id)
   {
@@ -108,11 +108,11 @@ public:
     if (pointsCount == 0)
       return;
 
-    geometry::TAltitudes altitudes;
-    geometry::TAltitude minFeatureAltitude = geometry::kInvalidAltitude;
+    geometry::Altitudes altitudes;
+    geometry::Altitude minFeatureAltitude = geometry::kInvalidAltitude;
     for (size_t i = 0; i < pointsCount; ++i)
     {
-      geometry::TAltitude const a = m_altitudeGetter.GetAltitude(f.GetPoint(i));
+      geometry::Altitude const a = m_altitudeGetter.GetAltitude(f.GetPoint(i));
       if (a == geometry::kInvalidAltitude)
       {
         // One invalid point invalidates the whole feature.
@@ -148,7 +148,7 @@ private:
   AltitudeGetter & m_altitudeGetter;
   TFeatureAltitudes m_featureAltitudes;
   succinct::bit_vector_builder m_altitudeAvailabilityBuilder;
-  geometry::TAltitude m_minAltitude;
+  geometry::Altitude m_minAltitude;
 };
 }  // namespace
 

@@ -304,7 +304,7 @@ void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType
   ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
   size_t const pointsCount = ft.GetPointsCount();
 
-  geometry::TAltitudes altitudes;
+  geometry::Altitudes altitudes;
   if (value.m_altitudeLoader)
   {
     altitudes = value.m_altitudeLoader->GetAltitudes(featureId.m_index, ft.GetPointsCount());
@@ -312,7 +312,7 @@ void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType
   else
   {
     ASSERT(false, ());
-    altitudes = geometry::TAltitudes(ft.GetPointsCount(), geometry::kDefaultAltitudeMeters);
+    altitudes = geometry::Altitudes(ft.GetPointsCount(), geometry::kDefaultAltitudeMeters);
   }
 
   CHECK_EQUAL(altitudes.size(), pointsCount,

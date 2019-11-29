@@ -9,7 +9,7 @@ PointWithAltitude::PointWithAltitude()
 {
 }
 
-PointWithAltitude::PointWithAltitude(m2::PointD const & point, TAltitude altitude)
+PointWithAltitude::PointWithAltitude(m2::PointD const & point, Altitude altitude)
   : m_point(point), m_altitude(altitude)
 {
 }

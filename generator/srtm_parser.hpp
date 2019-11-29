@@ -24,17 +24,17 @@ public:
 
   inline bool IsValid() const { return m_valid; }
   // Returns height in meters at |coord| or kInvalidAltitude.
-  geometry::TAltitude GetHeight(ms::LatLon const & coord);
+  geometry::Altitude GetHeight(ms::LatLon const & coord);
 
   static std::string GetBase(ms::LatLon coord);
 
 private:
-  inline geometry::TAltitude const * Data() const
+  inline geometry::Altitude const * Data() const
   {
-    return reinterpret_cast<geometry::TAltitude const *>(m_data.data());
+    return reinterpret_cast<geometry::Altitude const *>(m_data.data());
   };
 
-  inline size_t Size() const { return m_data.size() / sizeof(geometry::TAltitude); }
+  inline size_t Size() const { return m_data.size() / sizeof(geometry::Altitude); }
   void Invalidate();
 
   std::string m_data;
@@ -48,7 +48,7 @@ class SrtmTileManager
 public:
   SrtmTileManager(std::string const & dir);
 
-  geometry::TAltitude GetHeight(ms::LatLon const & coord);
+  geometry::Altitude GetHeight(ms::LatLon const & coord);
 
 private:
   std::string m_dir;

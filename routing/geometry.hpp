@@ -36,7 +36,7 @@ public:
   RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedKMpH, Points const & points);
 
   void Load(VehicleModelInterface const & vehicleModel, FeatureType & feature,
-            geometry::TAltitudes const * altitudes, bool inCity, Maxspeed const & maxspeed);
+            geometry::Altitudes const * altitudes, bool inCity, Maxspeed const & maxspeed);
 
   bool IsOneWay() const { return m_isOneWay; }
   SpeedKMpH const & GetSpeed(bool forward) const;

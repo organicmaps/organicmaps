@@ -59,7 +59,7 @@ FakeEnding MakeFakeEnding(vector<Segment> const & segments, m2::PointD const & p
   }
 
   ending.m_originJunction =
-      geometry::PointWithAltitude(point, static_cast<geometry::TAltitude>(averageAltitude));
+      geometry::PointWithAltitude(point, static_cast<geometry::Altitude>(averageAltitude));
   return ending;
 }
 

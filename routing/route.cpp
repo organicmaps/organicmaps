@@ -345,7 +345,7 @@ void Route::SetSubrouteUid(size_t segmentIdx, SubrouteUid subrouteUid)
   m_subrouteUid = subrouteUid;
 }
 
-void Route::GetAltitudes(geometry::TAltitudes & altitudes) const
+void Route::GetAltitudes(geometry::Altitudes & altitudes) const
 {
   altitudes.clear();
 

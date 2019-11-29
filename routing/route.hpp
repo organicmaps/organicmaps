@@ -379,7 +379,7 @@ public:
   /// after the route is removed.
   void SetSubrouteUid(size_t segmentIdx, SubrouteUid subrouteUid);
 
-  void GetAltitudes(geometry::TAltitudes & altitudes) const;
+  void GetAltitudes(geometry::Altitudes & altitudes) const;
   bool HaveAltitudes() const { return m_haveAltitudes; }
   traffic::SpeedGroup GetTraffic(size_t segmentIdx) const;
 

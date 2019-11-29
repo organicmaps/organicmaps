@@ -1383,7 +1383,7 @@ Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv *
   ::Framework * fr = frm();
   ASSERT(fr, ());
 
-  geometry::TAltitudes altitudes;
+  geometry::Altitudes altitudes;
   vector<double> routePointDistanceM;
   if (!fr->GetRoutingManager().GetRouteAltitudesAndDistancesM(routePointDistanceM, altitudes))
   {

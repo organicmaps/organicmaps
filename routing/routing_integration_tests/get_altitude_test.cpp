@@ -44,8 +44,8 @@ LocalCountryFile GetLocalCountryFileByCountryId(CountryFile const & country)
 }
 
 void TestAltitudeOfAllMwmFeatures(string const & countryId,
-                                  geometry::TAltitude const altitudeLowerBoundMeters,
-                                  geometry::TAltitude const altitudeUpperBoundMeters)
+                                  geometry::Altitude const altitudeLowerBoundMeters,
+                                  geometry::Altitude const altitudeUpperBoundMeters)
 {
   FrozenDataSource dataSource;
 
@@ -69,7 +69,7 @@ void TestAltitudeOfAllMwmFeatures(string const & countryId,
     if (pointsCount == 0)
       return;
 
-    geometry::TAltitudes altitudes = altitudeLoader->GetAltitudes(id, pointsCount);
+    geometry::Altitudes altitudes = altitudeLoader->GetAltitudes(id, pointsCount);
     TEST(!altitudes.empty(),
          ("Empty altitude vector. MWM:", countryId, ", feature id:", id, ", altitudes:", altitudes));
 

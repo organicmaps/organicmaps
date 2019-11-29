@@ -107,7 +107,7 @@ void ReflectChartData(vector<double> & chartData)
 }
 
 bool NormalizeChartData(vector<double> const & distanceDataM,
-                        geometry::TAltitudes const & altitudeDataM, size_t resultPointCount,
+                        geometry::Altitudes const & altitudeDataM, size_t resultPointCount,
                         vector<double> & uniformAltitudeDataM)
 {
   double constexpr kEpsilon = 1e-6;
@@ -272,7 +272,7 @@ bool GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> c
 }
 
 bool GenerateChart(uint32_t width, uint32_t height, vector<double> const & distanceDataM,
-                   geometry::TAltitudes const & altitudeDataM, MapStyle mapStyle,
+                   geometry::Altitudes const & altitudeDataM, MapStyle mapStyle,
                    vector<uint8_t> & frameBuffer)
 {
   if (distanceDataM.size() != altitudeDataM.size())

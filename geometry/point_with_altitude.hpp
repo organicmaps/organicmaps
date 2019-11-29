@@ -9,11 +9,11 @@
 
 namespace geometry
 {
-using TAltitude = int16_t;
-using TAltitudes = std::vector<TAltitude>;
+using Altitude = int16_t;
+using Altitudes = std::vector<Altitude>;
 
-TAltitude constexpr kInvalidAltitude = std::numeric_limits<TAltitude>::min();
-TAltitude constexpr kDefaultAltitudeMeters = 0;
+Altitude constexpr kInvalidAltitude = std::numeric_limits<Altitude>::min();
+Altitude constexpr kDefaultAltitudeMeters = 0;
 
 double constexpr kPointsEqualEpsilon = 1e-6;
 
@@ -21,7 +21,7 @@ class PointWithAltitude
 {
 public:
   PointWithAltitude();
-  PointWithAltitude(m2::PointD const & point, TAltitude altitude);
+  PointWithAltitude(m2::PointD const & point, Altitude altitude);
   PointWithAltitude(PointWithAltitude const &) = default;
   PointWithAltitude & operator=(PointWithAltitude const &) = default;
 
@@ -30,13 +30,13 @@ public:
   bool operator<(PointWithAltitude const & r) const { return m_point < r.m_point; }
 
   m2::PointD const & GetPoint() const { return m_point; }
-  TAltitude GetAltitude() const { return m_altitude; }
+  Altitude GetAltitude() const { return m_altitude; }
 
 private:
   friend std::string DebugPrint(PointWithAltitude const & r);
 
   m2::PointD m_point;
-  TAltitude m_altitude;
+  Altitude m_altitude;
 };
 
 std::string DebugPrint(PointWithAltitude const & r);

@@ -12,7 +12,7 @@ namespace routing
 class AltitudeGetter
 {
 public:
-  virtual geometry::TAltitude GetAltitude(m2::PointD const & p) = 0;
+  virtual geometry::Altitude GetAltitude(m2::PointD const & p) = 0;
 };
 
 /// \brief Adds altitude section to mwm. It has the following format:

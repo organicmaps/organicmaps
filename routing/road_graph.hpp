@@ -373,7 +373,7 @@ inline void JunctionsToPoints(std::vector<geometry::PointWithAltitude> const & j
 }
 
 inline void JunctionsToAltitudes(std::vector<geometry::PointWithAltitude> const & junctions,
-                                 geometry::TAltitudes & altitudes)
+                                 geometry::Altitudes & altitudes)
 {
   altitudes.resize(junctions.size());
   for (size_t i = 0; i < junctions.size(); ++i)

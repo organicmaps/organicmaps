@@ -56,10 +56,10 @@ std::string const kTestMwm = "test";
 
 struct Point3D
 {
-  Point3D(int32_t x, int32_t y, geometry::TAltitude a) : m_point(x, y), m_altitude(a) {}
+  Point3D(int32_t x, int32_t y, geometry::Altitude a) : m_point(x, y), m_altitude(a) {}
 
   m2::PointI m_point;
-  geometry::TAltitude m_altitude;
+  geometry::Altitude m_altitude;
 };
 
 using TPoint3DList = std::vector<Point3D>;
@@ -72,7 +72,7 @@ TPoint3DList const kRoad4 = {{-10, 1, -1}, {-20, 6, -100}, {-20, -11, -110}};
 class MockAltitudeGetter : public AltitudeGetter
 {
 public:
-  using TMockAltitudes = std::map<m2::PointI, geometry::TAltitude>;
+  using TMockAltitudes = std::map<m2::PointI, geometry::Altitude>;
 
   explicit MockAltitudeGetter(std::vector<TPoint3DList> const & roads)
   {
@@ -93,7 +93,7 @@ public:
   }
 
   // AltitudeGetter overrides:
-  geometry::TAltitude GetAltitude(m2::PointD const & p) override
+  geometry::Altitude GetAltitude(m2::PointD const & p) override
   {
     m2::PointI const rounded(static_cast<int32_t>(round(p.x)), static_cast<int32_t>(round(p.y)));
     auto const it = m_altitudes.find(rounded);
@@ -111,10 +111,7 @@ private:
 class MockNoAltitudeGetter : public AltitudeGetter
 {
 public:
-  geometry::TAltitude GetAltitude(m2::PointD const &) override
-  {
-    return geometry::kInvalidAltitude;
-  }
+  geometry::Altitude GetAltitude(m2::PointD const &) override { return geometry::kInvalidAltitude; }
 };
 
 std::vector<m2::PointD> ExtractPoints(TPoint3DList const & geom3D)
@@ -143,7 +140,7 @@ void TestAltitudes(DataSource const & dataSource, MwmSet::MwmId const & mwmId,
   auto processor = [&expectedAltitudes, &loader](FeatureType & f, uint32_t const & id) {
     f.ParseGeometry(FeatureType::BEST_GEOMETRY);
     size_t const pointsCount = f.GetPointsCount();
-    geometry::TAltitudes const altitudes = loader.GetAltitudes(id, pointsCount);
+    geometry::Altitudes const altitudes = loader.GetAltitudes(id, pointsCount);
 
     if (!routing::IsRoad(feature::TypesHolder(f)))
     {
@@ -155,8 +152,8 @@ void TestAltitudes(DataSource const & dataSource, MwmSet::MwmId const & mwmId,
 
     for (size_t i = 0; i < pointsCount; ++i)
     {
-      geometry::TAltitude const fromGetter = expectedAltitudes.GetAltitude(f.GetPoint(i));
-      geometry::TAltitude const expected =
+      geometry::Altitude const fromGetter = expectedAltitudes.GetAltitude(f.GetPoint(i));
+      geometry::Altitude const expected =
           (fromGetter == geometry::kInvalidAltitude ? geometry::kDefaultAltitudeMeters
                                                     : fromGetter);
       TEST_EQUAL(expected, altitudes[i], ("A wrong altitude"));

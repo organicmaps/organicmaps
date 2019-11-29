@@ -29,7 +29,7 @@ public:
 
   /// \returns altitude of feature with |featureId|. All items of the returned vector are valid
   /// or the returned vector is empty.
-  geometry::TAltitudes const & GetAltitudes(uint32_t featureId, size_t pointCount);
+  geometry::Altitudes const & GetAltitudes(uint32_t featureId, size_t pointCount);
 
   bool HasAltitudes() const;
 
@@ -43,7 +43,7 @@ private:
   succinct::elias_fano m_featureTable;
 
   std::unique_ptr<FilesContainerR::TReader> m_reader;
-  std::map<uint32_t, geometry::TAltitudes> m_cache;
+  std::map<uint32_t, geometry::Altitudes> m_cache;
   AltitudeHeader m_header;
   std::string m_countryFileName;
   MwmSet::MwmHandle m_handle;

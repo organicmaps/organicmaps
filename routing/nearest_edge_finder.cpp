@@ -47,14 +47,14 @@ void NearestEdgeFinder::AddInformationSource(IRoadGraph::FullRoadInfo const & ro
   size_t const idx = res.m_segId + 1;
   geometry::PointWithAltitude const & segStart = junctions[idx - 1];
   geometry::PointWithAltitude const & segEnd = junctions[idx];
-  geometry::TAltitude const startAlt = segStart.GetAltitude();
-  geometry::TAltitude const endAlt = segEnd.GetAltitude();
+  geometry::Altitude const startAlt = segStart.GetAltitude();
+  geometry::Altitude const endAlt = segEnd.GetAltitude();
   m2::ParametrizedSegment<m2::PointD> segment(junctions[idx - 1].GetPoint(),
                                               junctions[idx].GetPoint());
   m2::PointD const closestPoint = segment.ClosestPointTo(m_point);
 
   double const segLenM = mercator::DistanceOnEarth(segStart.GetPoint(), segEnd.GetPoint());
-  geometry::TAltitude projPointAlt = geometry::kDefaultAltitudeMeters;
+  geometry::Altitude projPointAlt = geometry::kDefaultAltitudeMeters;
   if (segLenM == 0.0)
   {
     projPointAlt = startAlt;
@@ -64,7 +64,7 @@ void NearestEdgeFinder::AddInformationSource(IRoadGraph::FullRoadInfo const & ro
     double const distFromStartM = mercator::DistanceOnEarth(segStart.GetPoint(), closestPoint);
     ASSERT_LESS_OR_EQUAL(distFromStartM, segLenM, (roadInfo.m_featureId));
     projPointAlt =
-        startAlt + static_cast<geometry::TAltitude>((endAlt - startAlt) * distFromStartM / segLenM);
+        startAlt + static_cast<geometry::Altitude>((endAlt - startAlt) * distFromStartM / segLenM);
   }
 
   res.m_fid = roadInfo.m_featureId;

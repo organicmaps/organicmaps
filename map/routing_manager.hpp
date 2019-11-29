@@ -264,7 +264,7 @@ public:
   /// \brief Fills altitude of current route points and distance in meters form the beginning
   /// of the route point based on the route in RoutingSession.
   bool GetRouteAltitudesAndDistancesM(std::vector<double> & routePointDistanceM,
-                                      geometry::TAltitudes & altitudes) const;
+                                      geometry::Altitudes & altitudes) const;
 
   /// \brief Generates 4 bytes per point image (RGBA) and put the data to |imageRGBAData|.
   /// \param width is width of chart shall be generated in pixels.
@@ -281,7 +281,7 @@ public:
   /// \note If HasRouteAltitude() method returns true, GenerateRouteAltitudeChart(...)
   /// could return false if route was deleted or rebuilt between the calls.
   bool GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
-                                  geometry::TAltitudes const & altitudes,
+                                  geometry::Altitudes const & altitudes,
                                   std::vector<double> const & routePointDistanceM,
                                   std::vector<uint8_t> & imageRGBAData, int32_t & minRouteAltitude,
                                   int32_t & maxRouteAltitude,
