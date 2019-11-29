@@ -215,8 +215,8 @@ bool IsDeadEndCached(Segment const & segment, bool isOutgoing, bool useRoutingOp
   set<Segment> visitedSegments;
   if (IsDeadEnd(segment, isOutgoing, useRoutingOptions, worldGraph, visitedSegments))
   {
-    auto const beginIt = std::make_move_iterator(visitedSegments.begin());
-    auto const endIt = std::make_move_iterator(visitedSegments.end());
+    auto const beginIt = make_move_iterator(visitedSegments.begin());
+    auto const endIt = make_move_iterator(visitedSegments.end());
     deadEnds.insert(beginIt, endIt);
     return true;
   }
@@ -568,7 +568,7 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
 
 RouterResultCode IndexRouter::CalculateSubrouteJointsMode(
     IndexGraphStarter & starter, RouterDelegate const & delegate,
-    std::shared_ptr<AStarProgress> const & progress, vector<Segment> & subroute)
+    shared_ptr<AStarProgress> const & progress, vector<Segment> & subroute)
 {
   using JointsStarter = IndexGraphStarterJoints<IndexGraphStarter>;
   JointsStarter jointStarter(starter, starter.GetStartSegment(), starter.GetFinishSegment());
@@ -598,7 +598,7 @@ RouterResultCode IndexRouter::CalculateSubrouteJointsMode(
 
 RouterResultCode IndexRouter::CalculateSubrouteNoLeapsMode(
     IndexGraphStarter & starter, RouterDelegate const & delegate,
-    std::shared_ptr<AStarProgress> const & progress, std::vector<Segment> & subroute)
+    shared_ptr<AStarProgress> const & progress, vector<Segment> & subroute)
 {
   using Vertex = IndexGraphStarter::Vertex;
   using Edge = IndexGraphStarter::Edge;
@@ -620,13 +620,13 @@ RouterResultCode IndexRouter::CalculateSubrouteNoLeapsMode(
     return result;
 
   subroute = move(routingResult.m_path);
-  return result;
+  return RouterResultCode::NoError;
 }
 
 RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
     Checkpoints const & checkpoints, size_t subrouteIdx, IndexGraphStarter & starter,
-    RouterDelegate const & delegate, std::shared_ptr<AStarProgress> const & progress,
-    std::vector<Segment> & subroute)
+    RouterDelegate const & delegate, shared_ptr<AStarProgress> const & progress,
+    vector<Segment> & subroute)
 {
   using Vertex = IndexGraphStarter::Vertex;
   using Edge = IndexGraphStarter::Edge;

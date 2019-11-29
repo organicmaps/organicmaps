@@ -217,25 +217,19 @@ ScopedTimerWithLog::ScopedTimerWithLog(std::string const & timerName, Measure me
 
 ScopedTimerWithLog::~ScopedTimerWithLog()
 {
-  double time = 0.0;
-  std::string suffix;
   switch (m_measure)
   {
   case Measure::MilliSeconds:
   {
-    time = m_timer.ElapsedMillis();
-    suffix = "ms";
+    LOG(LINFO, (m_name, "time:", m_timer.ElapsedMillis(), "ms"));
     break;
   }
   case Measure::Seconds:
   {
-    time = m_timer.ElapsedSeconds();
-    suffix = "s";
+    LOG(LINFO, (m_name, "time:", m_timer.ElapsedSeconds(), "s"));
     break;
   }
-  default: UNREACHABLE();
   }
-
-  LOG(LINFO, (m_name, "time:", time, suffix));
+  UNREACHABLE();
 }
 }  // namespace base
