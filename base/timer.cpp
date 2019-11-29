@@ -222,12 +222,12 @@ ScopedTimerWithLog::~ScopedTimerWithLog()
   case Measure::MilliSeconds:
   {
     LOG(LINFO, (m_name, "time:", m_timer.ElapsedMillis(), "ms"));
-    break;
+    return;
   }
   case Measure::Seconds:
   {
     LOG(LINFO, (m_name, "time:", m_timer.ElapsedSeconds(), "s"));
-    break;
+    return;
   }
   }
   UNREACHABLE();
