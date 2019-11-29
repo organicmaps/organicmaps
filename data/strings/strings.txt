@@ -46108,3 +46108,8 @@
     zh-Hans = 去旅行吧
     zh-Hant = 去旅行吧
     fa = تجربه کنید
+
+  [all_pass_screen_best_value]
+    comment = FIXME
+    en = Best Value
+    ru = Выгодная цена
