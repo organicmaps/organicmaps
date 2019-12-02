@@ -61,7 +61,7 @@ class BaseSubscriptionViewController: MWMViewController {
 
           if subscriptionItem.hasDiscount, let discountLabel = discountLabels[period] {
             discountLabel.isHidden = false;
-            discountLabel.text = subscriptionItem.formattedDisount
+            discountLabel.text = L("all_pass_screen_best_value")
           }
         }
       }
