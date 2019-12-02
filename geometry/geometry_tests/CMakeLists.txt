@@ -31,6 +31,7 @@ set(
   point3d_tests.cpp
   point_test.cpp
   polygon_test.cpp
+  polyline_tests.cpp
   rect_test.cpp
   region2d_binary_op_test.cpp
   region_tests.cpp
