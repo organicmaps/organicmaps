@@ -376,12 +376,13 @@ UNIT_TEST(USANewYorkEmpireStateBuildingToUnitedNations)
       mercator::FromLatLon(40.75047, -73.96759), 2265.);
 }
 
+// Test on walking around a ford on an mwm border.
 UNIT_TEST(CrossMwmRussiaPStaiToBelarusDrazdy)
 {
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(55.014, 30.95552), {0., 0.},
-      mercator::FromLatLon(55.01437, 30.8858), 4834.5);
+      mercator::FromLatLon(55.01437, 30.8858), 12137.3);
 }
 
 UNIT_TEST(RussiaZgradPanfilovskyUndergroundCrossing)
