@@ -1766,6 +1766,7 @@
 	<string name="whatsnew_guides_galleries_title">Planifiez votre prochain voyage avec MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Désormais vous pouvez trouver les guides recommandés dans les fiches des villes et des attractions touristiques populaires</string>
 	<string name="new_onboarding_step3_header">Voyagez</string>
+	<string name="all_pass_screen_best_value">Prix avantageux</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

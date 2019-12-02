@@ -1749,6 +1749,7 @@
 	<string name="whatsnew_guides_galleries_title">與MAPS.ME共同規劃即將到來的旅行</string>
 	<string name="whatsnew_guides_galleries_message">現在你可在熱門城市與名勝古迹地圖上查找推薦的旅行指南</string>
 	<string name="new_onboarding_step3_header">去旅行吧</string>
+	<string name="all_pass_screen_best_value">優惠的價格</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">纜車站</string>

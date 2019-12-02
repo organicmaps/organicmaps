@@ -1740,6 +1740,7 @@
 	<string name="whatsnew_guides_galleries_title">MAPS.MEで今後の旅の計画を立てましょう</string>
 	<string name="whatsnew_guides_galleries_message">人気の観光都市と景色の場所のページでお勧めのガイドを見つける事ができるようになりました</string>
 	<string name="new_onboarding_step3_header">体験しましょう</string>
+	<string name="all_pass_screen_best_value">ベストバリュー</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

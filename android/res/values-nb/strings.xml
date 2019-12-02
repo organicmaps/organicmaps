@@ -1639,6 +1639,7 @@
 	<string name="whatsnew_guides_galleries_title">Planlegg din neste reise med MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Nå kan du finne anbefalte guider i stedssidene med populære byer og severdigheter</string>
 	<string name="new_onboarding_step3_header">Reis</string>
+	<string name="all_pass_screen_best_value">Rimelig pris</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestasjon</string>

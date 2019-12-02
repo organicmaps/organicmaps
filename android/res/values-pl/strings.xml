@@ -1752,6 +1752,7 @@
 	<string name="whatsnew_guides_galleries_title">Zaplanuj swoją nadchodzącą podróż z MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Teraz możesz znaleźć polecane przewodniki na stronach popularnych miast turystycznych i zabytków</string>
 	<string name="new_onboarding_step3_header">Podróżuj</string>
+	<string name="all_pass_screen_best_value">Atrakcyjna cena</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Wyprzedaże</string>

@@ -1742,6 +1742,7 @@
 	<string name="whatsnew_guides_galleries_title">Tervezd meg a következő utad a MAPS.ME-vel</string>
 	<string name="whatsnew_guides_galleries_message">Megtalálhatod az ajánlott útmutatókat a népszerű túristavárosok és látnivalók helyoldalain</string>
 	<string name="new_onboarding_step3_header">Éld át</string>
+	<string name="all_pass_screen_best_value">Legjobb ajánlat</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>

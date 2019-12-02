@@ -1745,6 +1745,7 @@
 	<string name="whatsnew_guides_galleries_title">Planera din kommande resa med MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Nu kan du hitta rekommenderade guider på platssidor för populära städer och attraktioner</string>
 	<string name="new_onboarding_step3_header">Resa</string>
+	<string name="all_pass_screen_best_value">Lönsamt pris</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

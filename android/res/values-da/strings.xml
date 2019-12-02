@@ -1745,6 +1745,7 @@
 	<string name="whatsnew_guides_galleries_title">Planlæg din kommende tur med MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Nu kan du finde anbefalede guides på stedsiderne om populære turistbyer og syn</string>
 	<string name="new_onboarding_step3_header">Oplevelse</string>
+	<string name="all_pass_screen_best_value">Bedste værdi</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

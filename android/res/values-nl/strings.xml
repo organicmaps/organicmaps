@@ -1742,6 +1742,7 @@
 	<string name="whatsnew_guides_galleries_title">Plan uw volgende reis met MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Nu kunt u de aanbevolen handleidingen in de populaire steden en sightseeing kaarten vinden</string>
 	<string name="new_onboarding_step3_header">Reist</string>
+	<string name="all_pass_screen_best_value">Gunstige prijs</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

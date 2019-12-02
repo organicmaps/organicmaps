@@ -1745,6 +1745,7 @@
 	<string name="whatsnew_guides_galleries_title">Planeja a próxima viagem com MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Agora pode encontrar guias recomendados nos cartões de cidades e pontos turísticos populares</string>
 	<string name="new_onboarding_step3_header">Viaje</string>
+	<string name="all_pass_screen_best_value">Preço favorável</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estação de teleférico</string>

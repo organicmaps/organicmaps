@@ -1755,6 +1755,7 @@
 	<string name="whatsnew_guides_galleries_title">Planen Sie die nächste Reise mit MAPS.Me</string>
 	<string name="whatsnew_guides_galleries_message">Jetzt sind die empfohlenen Reiseführer in den Karten berühmter Städte und Sehenswürdigkeiten zu finden</string>
 	<string name="new_onboarding_step3_header">Reisen Sie</string>
+	<string name="all_pass_screen_best_value">Günstiger Preis</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>

@@ -1747,6 +1747,7 @@
 	<string name="whatsnew_guides_galleries_title">Плануйте найближчу поїздку з MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Тепер ви можете знайти рекомендовані путівники в картках популярних міст і пам’яток</string>
 	<string name="new_onboarding_step3_header">Подорожуйте</string>
+	<string name="all_pass_screen_best_value">Вигідна ціна</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

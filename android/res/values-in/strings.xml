@@ -1740,6 +1740,7 @@
 	<string name="whatsnew_guides_galleries_title">Rencanakan perjalanan Anda selanjutnya dengan MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Kini Anda dapat menemukan panduan yang disarankan di halaman tempat wisata yang paling populer dikunjungi turis</string>
 	<string name="new_onboarding_step3_header">Pengalaman</string>
+	<string name="all_pass_screen_best_value">Harga terbaik</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

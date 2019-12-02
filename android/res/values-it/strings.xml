@@ -1741,6 +1741,7 @@
 	<string name="whatsnew_guides_galleries_title">Pianifica il tuo prossimo viaggio con MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Adesso puoi trovare le guide consigliate sulle pagine dedicate alle città e alla attrazioni più popolari</string>
 	<string name="new_onboarding_step3_header">Viaggia</string>
+	<string name="all_pass_screen_best_value">Prezzo vantaggioso</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stazione di rifornimento per auto elettriche</string>

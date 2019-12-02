@@ -1737,6 +1737,7 @@
 	<string name="whatsnew_guides_galleries_title">Hãy lên kế hoạch cho chuyến đi sắp tới cùng với MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Bây giờ bạn có thể tìm thấy hướng dẫn được đề xuất trong các thẻ của các thành phố và điểm tham quan nổi tiếng</string>
 	<string name="new_onboarding_step3_header">Đi du lịch nào</string>
+	<string name="all_pass_screen_best_value">Giá tốt</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

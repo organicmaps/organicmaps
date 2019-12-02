@@ -1498,6 +1498,7 @@
 	<string name="whatsnew_guides_galleries_title">Προγραμματίστε το επόμενο ταξίδι με το MAPS.ME</string>
 	<string name="whatsnew_guides_galleries_message">Τώρα μπορείτε να βρείτε τους συνιστώμενους οδηγούς στις κάρτες των δημοφιλών πόλεων και αξιοθέατων</string>
 	<string name="new_onboarding_step3_header">Ταξιδέψτε</string>
+	<string name="all_pass_screen_best_value">Καλύτερη τιμή</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Σταθμός αερομεταφοράς</string>
