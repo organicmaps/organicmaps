@@ -46110,6 +46110,35 @@
     fa = تجربه کنید
 
   [all_pass_screen_best_value]
-    comment = FIXME
     en = Best Value
     ru = Выгодная цена
+    ar = أفضل قيمة
+    cs = Nejvýhodnější
+    da = Bedste værdi
+    nl = Gunstige prijs
+    fi = Edullinen hinta
+    fr = Prix avantageux
+    de = Günstiger Preis
+    hu = Legjobb ajánlat
+    id = Harga terbaik
+    it = Prezzo vantaggioso
+    ja = ベストバリュー
+    ko = 최고가치
+    nb = Rimelig pris
+    pl = Atrakcyjna cena
+    pt = Preço favorável
+    pt-BR = Melhor valor
+    ro = Preț avantajos
+    es = Precio ventajoso
+    es-MX = Precio ventajoso
+    sv = Lönsamt pris
+    th = คุ้มค่าที่สุด
+    tr = En İyi Teklif
+    uk = Вигідна ціна
+    vi = Giá tốt
+    el = Καλύτερη τιμή
+    sk = Najlepšia hodnota
+    sw = Thamani kubwa
+    zh-Hans = 优惠的价格
+    zh-Hant = 優惠的價格
+    fa = بهترین ارزش
