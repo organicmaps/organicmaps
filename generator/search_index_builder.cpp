@@ -301,13 +301,12 @@ void GetUKPostcodes(string const & filename, storage::CountryId const & countryI
 }
 
 // Returns true iff feature name was indexed as postcode and should be ignored for name indexing.
-bool InsertPostcodes(FeatureType & f, vector<feature::AddressData> const & addrs,
-                     function<void(strings::UniString const &)> const & fn)
+bool InsertPostcodes(FeatureType & f, function<void(strings::UniString const &)> const & fn)
 {
   using namespace search;
 
   auto const & postBoxChecker = ftypes::IsPostBoxChecker::Instance();
-  string const postcode = addrs[f.GetID().m_index].Get(feature::AddressData::Type::Postcode);
+  string const postcode = f.GetPostcode();
   vector<string> postcodes;
   if (!postcode.empty())
     postcodes.push_back(postcode);
@@ -340,11 +339,9 @@ class FeatureInserter
 {
 public:
   FeatureInserter(SynonymsHolder * synonyms, vector<pair<Key, Value>> & keyValuePairs,
-                  vector<feature::AddressData> const & addrs, CategoriesHolder const & catHolder,
-                  pair<int, int> const & scales)
+                  CategoriesHolder const & catHolder, pair<int, int> const & scales)
     : m_synonyms(synonyms)
     , m_keyValuePairs(keyValuePairs)
-    , m_addrs(addrs)
     , m_categories(catHolder)
     , m_scales(scales)
   {
@@ -374,7 +371,7 @@ public:
                                              m_keyValuePairs, hasStreetType);
 
     bool const useNameAsPostcode = InsertPostcodes(
-        f, m_addrs, [&inserter](auto const & token) { inserter.AddToken(kPostcodesLang, token); });
+        f, [&inserter](auto const & token) { inserter.AddToken(kPostcodesLang, token); });
 
     if (!useNameAsPostcode)
       f.ForEachName(inserter);
@@ -422,8 +419,6 @@ private:
   SynonymsHolder * m_synonyms;
   vector<pair<Key, Value>> & m_keyValuePairs;
 
-  vector<feature::AddressData> const & m_addrs;
-
   CategoriesHolder const & m_categories;
 
   pair<int, int> m_scales;
@@ -431,7 +426,6 @@ private:
 
 template <typename Key, typename Value>
 void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
-                              vector<feature::AddressData> const & addrs,
                               CategoriesHolder const & categoriesHolder,
                               vector<pair<Key, Value>> & keyValuePairs)
 {
@@ -442,7 +436,7 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
     synonyms.reset(new SynonymsHolder(base::JoinPath(GetPlatform().ResourcesDir(), SYNONYMS_FILE)));
 
   features.GetVector().ForEach(FeatureInserter<Key, Value>(
-      synonyms.get(), keyValuePairs, addrs, categoriesHolder, header.GetScaleRange()));
+      synonyms.get(), keyValuePairs, categoriesHolder, header.GetScaleRange()));
 }
 
 void ReadAddressData(string const & filename, vector<feature::AddressData> & addrs)
@@ -483,9 +477,12 @@ bool GetStreetIndex(search::MwmContext & ctx, uint32_t featureID, string const &
   return false;
 }
 
-void BuildAddressTable(FilesContainerR & container, vector<feature::AddressData> const & addrs,
-                       Writer & writer, uint32_t threadsCount)
+void BuildAddressTable(FilesContainerR & container, string const & addressDataFile, Writer & writer,
+                       uint32_t threadsCount)
 {
+  vector<feature::AddressData> addrs;
+  ReadAddressData(addressDataFile, addrs);
+
   uint32_t const featuresCount = base::checked_cast<uint32_t>(addrs.size());
 
   // Initialize temporary source for the current mwm file.
@@ -590,8 +587,7 @@ void BuildAddressTable(FilesContainerR & container, vector<feature::AddressData>
 
 namespace indexer
 {
-void BuildSearchIndex(FilesContainerR & container, vector<feature::AddressData> const & addrs,
-                      Writer & indexWriter);
+void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter);
 bool BuildPostcodesImpl(FilesContainerR & container, storage::CountryId const & country,
                         string const & dataset, string const & tmpFileName,
                         storage::CountryInfoGetter & infoGetter, Writer & indexWriter);
@@ -613,18 +609,16 @@ bool BuildSearchIndexFromDataFile(string const & path, string const & country, b
 
   try
   {
-    vector<feature::AddressData> addrs;
-    auto const addrsFile = base::JoinPath(path, country + DATA_FILE_EXTENSION + TEMP_ADDR_FILENAME);
-    ReadAddressData(addrsFile, addrs);
     {
       FileWriter writer(indexFilePath);
-      BuildSearchIndex(readContainer, addrs, writer);
+      BuildSearchIndex(readContainer, writer);
       LOG(LINFO, ("Search index size =", writer.Size()));
     }
     if (filename != WORLD_FILE_NAME && filename != WORLD_COASTS_FILE_NAME)
     {
       FileWriter writer(addrFilePath);
-      BuildAddressTable(readContainer, addrs, writer, threadsCount);
+      auto const addrsFile = base::JoinPath(path, country + DATA_FILE_EXTENSION + TEMP_ADDR_FILENAME);
+      BuildAddressTable(readContainer, addrsFile, writer, threadsCount);
       LOG(LINFO, ("Search address table size =", writer.Size()));
     }
     {
@@ -772,8 +766,7 @@ bool BuildPostcodesImpl(FilesContainerR & container, storage::CountryId const & 
   return true;
 }
 
-void BuildSearchIndex(FilesContainerR & container, vector<feature::AddressData> const & addrs,
-                      Writer & indexWriter)
+void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter)
 {
   using Key = strings::UniString;
   using Value = Uint64IndexValue;
@@ -787,7 +780,7 @@ void BuildSearchIndex(FilesContainerR & container, vector<feature::AddressData> 
   SingleValueSerializer<Value> serializer;
 
   vector<pair<Key, Value>> searchIndexKeyValuePairs;
-  AddFeatureNameIndexPairs(features, addrs, categoriesHolder, searchIndexKeyValuePairs);
+  AddFeatureNameIndexPairs(features, categoriesHolder, searchIndexKeyValuePairs);
 
   sort(searchIndexKeyValuePairs.begin(), searchIndexKeyValuePairs.end());
   LOG(LINFO, ("End sorting strings:", timer.ElapsedSeconds()));
