@@ -735,7 +735,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initToggleMapLayerController(frame);
     View openSubsScreenBtnContainer = frame.findViewById(R.id.subs_screen_btn_container);
     final OnboardingTip tip = OnboardingTip.get();
-    boolean hasOnBoardingView = tip != null && MwmApplication.from(this).isFirstLaunch();
+    boolean hasOnBoardingView = mOnboardingTip == null && tip != null
+                                && MwmApplication.from(this).isFirstLaunch();
 
     mNavAnimationController = new NavigationButtonsAnimationController(
         zoomIn, zoomOut, myPosition, getWindow().getDecorView().getRootView(), this,
