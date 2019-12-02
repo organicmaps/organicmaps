@@ -53,4 +53,5 @@
 
   <dimen name="text_size_banner">8sp</dimen>
   <dimen name="terms_of_use_line_spacing">2sp</dimen>
+  <dimen name="text_size_bookmark_all_subs_title">32sp</dimen>
 </resources>
