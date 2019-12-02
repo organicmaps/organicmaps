@@ -69,8 +69,8 @@ public:
   /// a zero-based closest segment index.
   std::pair<double, uint32_t> CalcMinSquaredDistance(m2::Point<T> const & point) const
   {
-    CHECK(!m_points.empty(), ());
-    auto squaredClosetSegDist = std::numeric_limits<double>::max();
+    CHECK_GREATER(m_points.size(), 1, ());
+    auto squaredClosestSegDist = std::numeric_limits<double>::max();
 
     Iter const beginning = Begin();
     Iter i = beginning;
@@ -79,14 +79,14 @@ public:
     {
       m2::ParametrizedSegment<m2::Point<T>> seg(*i, *j);
       auto const squaredSegDist = seg.SquaredDistanceToPoint(point);
-      if (squaredSegDist < squaredClosetSegDist)
+      if (squaredSegDist < squaredClosestSegDist)
       {
         closestSeg = i;
-        squaredClosetSegDist = squaredSegDist;
+        squaredClosestSegDist = squaredSegDist;
       }
     }
 
-    return std::make_pair(squaredClosetSegDist,
+    return std::make_pair(squaredClosestSegDist,
                           static_cast<uint32_t>(std::distance(beginning, closestSeg)));
   }
 

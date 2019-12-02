@@ -14,19 +14,18 @@ void TestClosest(m2::PolylineD const & poly, m2::PointD const & point, double ex
                  uint32_t expectedIndex)
 {
   auto const closest = poly.CalcMinSquaredDistance(m2::PointD(point));
-  TEST(base::AlmostEqualAbs(closest.first, expectedSquaredDist, kEps),
-       (closest.first, expectedSquaredDist));
-  TEST_EQUAL(closest.second, expectedIndex, (closest.second, expectedIndex));
+  TEST_ALMOST_EQUAL_ABS(closest.first, expectedSquaredDist, kEps, ());
+  TEST_EQUAL(closest.second, expectedIndex, ());
 }
 
 UNIT_TEST(Rect_PolylineSmokeTest)
 {
   m2::PolylineD poly = {{0.0, 0.0}, {1.0, 0.0}, {1.0, 1.0}};
   TEST_EQUAL(poly.GetSize(), 3, ());
-  TEST(base::AlmostEqualAbs(poly.GetLength(), 2.0, kEps), ());
+  TEST_ALMOST_EQUAL_ABS(poly.GetLength(), 2.0, kEps, ());
 
   auto const limitRect = poly.GetLimitRect();
-  TEST(base::AlmostEqualAbs(limitRect.LeftBottom(), m2::PointD(0.0, 0.0), kEps), ());
+  TEST_ALMOST_EQUAL_ABS(limitRect.LeftBottom(), m2::PointD(0.0, 0.0), kEps, ());
   TEST(base::AlmostEqualAbs(limitRect.RightTop(), m2::PointD(1.0, 1.0), kEps), ());
 
   poly.PopBack();
@@ -51,4 +50,3 @@ UNIT_TEST(Rect_PolylineMinDistanceTest)
   TestClosest(poly, m2::PointD(3.0, 1.0), 0.0 /* expectedSquaredDist */, 4 /* expectedIndex */);
 }
 }  // namespace
-
