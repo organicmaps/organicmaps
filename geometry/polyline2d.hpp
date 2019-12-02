@@ -9,8 +9,10 @@
 #include <algorithm>
 #include <cstddef>
 #include <initializer_list>
+#include <iterator>
 #include <limits>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace m2
@@ -63,18 +65,29 @@ public:
     return dist;
   }
 
-  double CalcMinSquaredDistance(m2::Point<T> const & point) const
+  /// \returns a pair of minimum squared distance from |point| to the closest segment and
+  /// a zero-based closest segment index.
+  std::pair<double, uint32_t> CalcMinSquaredDistance(m2::Point<T> const & point) const
   {
-    double res = std::numeric_limits<double>::max();
+    CHECK(!m_points.empty(), ());
+    auto squaredClosetSegDist = std::numeric_limits<double>::max();
 
-    Iter i = Begin();
+    Iter const beginning = Begin();
+    Iter i = beginning;
+    Iter closestSeg = beginning;
     for (Iter j = i + 1; j != End(); ++i, ++j)
     {
       m2::ParametrizedSegment<m2::Point<T>> seg(*i, *j);
-      res = std::min(res, seg.SquaredDistanceToPoint(point));
+      auto const squaredSegDist = seg.SquaredDistanceToPoint(point);
+      if (squaredSegDist < squaredClosetSegDist)
+      {
+        closestSeg = i;
+        squaredClosetSegDist = squaredSegDist;
+      }
     }
 
-    return res;
+    return std::make_pair(squaredClosetSegDist,
+                          static_cast<uint32_t>(std::distance(beginning, closestSeg)));
   }
 
   Rect<T> GetLimitRect() const
