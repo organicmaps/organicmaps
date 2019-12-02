@@ -145,8 +145,8 @@
   return @(GetPlatform().GetAppUserAgent().Get().c_str());
 }
 
-+ (NSNumber *)dataVersion {
-  return @(GetFramework().GetCurrentDataVersion());
++ (int64_t)dataVersion {
+  return GetFramework().GetCurrentDataVersion();
 }
 
 + (void)searchInDownloader:(NSString *)query

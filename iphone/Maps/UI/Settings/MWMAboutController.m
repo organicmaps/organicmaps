@@ -8,7 +8,7 @@
 @interface MWMAboutController () <SettingsTableViewSwitchCellDelegate>
 
 @property(weak, nonatomic) IBOutlet UILabel * versionLabel;
-@property(weak, nonatomic) IBOutlet UILabel * dateLabel;
+@property(weak, nonatomic) IBOutlet UILabel * dataVersionLabel;
 
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * websiteCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * facebookCell;
@@ -41,7 +41,7 @@
     version = [NSString stringWithFormat:@"%@.%@", version, appInfo.buildNumber];
   self.versionLabel.text = [NSString stringWithFormat:L(@"version"), version];
 
-  self.dateLabel.text = [NSString stringWithFormat:L(@"date"), [MWMFrameworkHelper dataVersion]];
+  self.dataVersionLabel.text = [NSString stringWithFormat:L(@"data_version"), [MWMFrameworkHelper dataVersion]];
 
   [self.crashlyticsCell configWithDelegate:self title:L(@"opt_out_fabric") isOn:![MWMSettings crashReportingDisabled]];
 }

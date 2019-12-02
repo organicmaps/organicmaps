@@ -37,7 +37,7 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (void)uploadUGC:(void (^)(UIBackgroundFetchResult))completionHandler;
 + (NSString *)userAccessToken;
 + (NSString *)userAgent;
-+ (NSNumber *)dataVersion;
++ (int64_t)dataVersion;
 + (void)searchInDownloader:(NSString *)query
                inputLocale:(NSString *)locale
                 completion:(SearchInDownloaderCompletions)completion;

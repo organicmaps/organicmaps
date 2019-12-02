@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMAboutController">
             <connections>
-                <outlet property="dateLabel" destination="2UY-CN-bbR" id="0ad-Y1-yZq"/>
+                <outlet property="dataVersionLabel" destination="2UY-CN-bbR" id="0ad-Y1-yZq"/>
                 <outlet property="headerView" destination="nNn-As-qvg" id="kwi-x5-YnF"/>
                 <outlet property="versionLabel" destination="eX4-Y6-p2e" id="4Kf-ae-nY1"/>
             </connections>
@@ -23,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgLogo" translatesAutoresizingMaskIntoConstraints="NO" id="MNH-d1-GMj">
-                    <rect key="frame" x="128" y="24" width="120" height="120"/>
+                    <rect key="frame" x="127.5" y="24" width="120" height="120"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="MNH-d1-GMj" secondAttribute="height" multiplier="1:1" id="1UQ-pV-hI7"/>
                         <constraint firstAttribute="height" priority="750" constant="120" id="9ug-0X-yk5"/>
