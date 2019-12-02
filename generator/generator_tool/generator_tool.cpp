@@ -345,7 +345,9 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       if (!feature::BuildOffsetsTable(datFile))
         continue;
 
-      if (!BuildPostcodesSection(datFile))
+      auto const boundaryPostcodesFilename =
+          genInfo.GetIntermediateFileName(BOUNDARY_POSTCODE_TMP_FILENAME);
+      if (!BuildPostcodesSection(path, country, boundaryPostcodesFilename))
         LOG(LCRITICAL, ("Error generating postcodes section."));
 
       if (mapType == MapType::Country)

@@ -150,7 +150,10 @@ void TestMwmBuilder::Finish()
 
   CHECK(indexer::BuildIndexFromDataFile(path, path), ("Can't build geometry index."));
 
-  CHECK(BuildPostcodesSection(path), ("Can't build postcodes section."));
+  // We do not have boundaryPostcodesFilename because we do not have osm elements stage.
+  CHECK(BuildPostcodesSection(m_file.GetDirectory(), m_file.GetCountryName(),
+                              "" /* boundaryPostcodesFilename */),
+        ("Can't build postcodes section."));
 
   CHECK(indexer::BuildSearchIndexFromDataFile(m_file.GetDirectory(), m_file.GetCountryName(),
                                               true /* forceRebuild */, 1 /* threadsCount */),

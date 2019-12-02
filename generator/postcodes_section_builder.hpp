@@ -4,5 +4,6 @@
 
 namespace generator
 {
-bool BuildPostcodesSection(std::string const & mwmFile);
+bool BuildPostcodesSection(std::string const & path, std::string const & country,
+                           std::string const & boundaryPostcodesFilename);
 }  // namespace generator
