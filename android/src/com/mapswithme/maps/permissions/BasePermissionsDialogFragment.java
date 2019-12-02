@@ -96,7 +96,7 @@ abstract class BasePermissionsDialogFragment extends BaseMwmDialogFragment
       button.setOnClickListener(this);
     button = content.findViewById(getContinueActionButton());
     if (button != null)
-      button.setOnClickListener(this);
+      button.setOnClickListener(this::onContinueBtnClicked);
 
     ImageView image = (ImageView) content.findViewById(R.id.iv__image);
     if (image != null)
@@ -109,6 +109,11 @@ abstract class BasePermissionsDialogFragment extends BaseMwmDialogFragment
       subtitle.setText(getSubtitleRes());
 
     return res;
+  }
+
+  protected void onContinueBtnClicked(View v)
+  {
+    PermissionsUtils.requestPermissions(requireActivity(), mRequestCode);
   }
 
   @DrawableRes
@@ -144,13 +149,7 @@ abstract class BasePermissionsDialogFragment extends BaseMwmDialogFragment
   public void onClick(@NonNull View v)
   {
     if (v.getId() == getFirstActionButton())
-    {
       onFirstActionClick();
-      return;
-    }
-
-    if (v.getId() == getContinueActionButton())
-      PermissionsUtils.requestPermissions(getActivity(), mRequestCode);
   }
 
   protected int getRequestCode()
