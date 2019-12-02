@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,20 +13,20 @@
             <objects>
                 <viewController storyboardIdentifier="TermsOfUseViewController" id="GEP-CE-a4y" customClass="TermsOfUseViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0my-eF-8kL" customClass="SolidTouchView">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8OW-T7-BM2">
-                                <rect key="frame" x="20" y="141.5" width="374" height="623.5"/>
+                                <rect key="frame" x="20" y="20" width="280" height="528"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" image="ic_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="NNh-bx-fiW">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="374"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" image="ic_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="NNh-bx-fiW">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="258.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="NNh-bx-fiW" secondAttribute="height" multiplier="1:1" priority="750" id="sgT-VJ-lNY"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbi-ym-j4p">
-                                        <rect key="frame" x="0.0" y="398" width="374" height="53"/>
+                                        <rect key="frame" x="0.0" y="282.5" width="280" height="53"/>
                                         <string key="text">MAPS.ME 
 All in one travel buddy</string>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
@@ -38,7 +38,7 @@ All in one travel buddy</string>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Leo-V1-UCZ">
-                                        <rect key="frame" x="0.0" y="467" width="374" height="38.5"/>
+                                        <rect key="frame" x="0.0" y="351.5" width="280" height="57.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -48,7 +48,7 @@ All in one travel buddy</string>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zz6-qx-Qge">
-                                        <rect key="frame" x="0.0" y="521.5" width="374" height="51.5"/>
+                                        <rect key="frame" x="0.0" y="425" width="280" height="51.5"/>
                                         <subviews>
                                             <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="60N-32-WZ3" customClass="Checkmark" customModule="maps_me" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="52" height="51.5"/>
@@ -65,7 +65,7 @@ All in one travel buddy</string>
                                                 </connections>
                                             </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" scrollEnabled="NO" editable="NO" text="I agree to Privacy Policy" translatesAutoresizingMaskIntoConstraints="NO" id="Ai2-v2-KXg" customClass="LinkTextView" customModule="maps_me" customModuleProvider="target">
-                                                <rect key="frame" x="52" y="8" width="322" height="35.5"/>
+                                                <rect key="frame" x="52" y="8" width="228" height="35.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.agree_privacy.text"/>
                                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
@@ -93,7 +93,7 @@ All in one travel buddy</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jbF-ri-Vws">
-                                        <rect key="frame" x="0.0" y="573" width="374" height="51.5"/>
+                                        <rect key="frame" x="0.0" y="476.5" width="280" height="51.5"/>
                                         <subviews>
                                             <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="fjg-ct-dro" customClass="Checkmark" customModule="maps_me" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="52" height="51.5"/>
@@ -110,7 +110,7 @@ All in one travel buddy</string>
                                                 </connections>
                                             </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" scrollEnabled="NO" editable="NO" text="I agree to Terms of Use" translatesAutoresizingMaskIntoConstraints="NO" id="Zoj-oq-U2G" customClass="LinkTextView" customModule="maps_me" customModuleProvider="target">
-                                                <rect key="frame" x="52" y="8" width="322" height="35.5"/>
+                                                <rect key="frame" x="52" y="8" width="228" height="35.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.agree_terms.text"/>
                                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
@@ -142,7 +142,9 @@ All in one travel buddy</string>
                                 <constraints>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Zz6-qx-Qge" secondAttribute="trailing" id="02m-Ay-dJv"/>
                                     <constraint firstItem="Zz6-qx-Qge" firstAttribute="leading" relation="lessThanOrEqual" secondItem="8OW-T7-BM2" secondAttribute="leading" id="0Ix-fi-Vyb"/>
+                                    <constraint firstItem="Zz6-qx-Qge" firstAttribute="leading" secondItem="NNh-bx-fiW" secondAttribute="trailing" constant="20" id="37b-F5-GjB"/>
                                     <constraint firstItem="jbF-ri-Vws" firstAttribute="top" secondItem="Zz6-qx-Qge" secondAttribute="bottom" id="ECt-zJ-VuI"/>
+                                    <constraint firstItem="bbi-ym-j4p" firstAttribute="top" secondItem="8OW-T7-BM2" secondAttribute="top" id="Emh-DI-90d"/>
                                     <constraint firstItem="Leo-V1-UCZ" firstAttribute="leading" secondItem="8OW-T7-BM2" secondAttribute="leading" id="FAP-kG-Gr2"/>
                                     <constraint firstItem="Zz6-qx-Qge" firstAttribute="centerX" secondItem="8OW-T7-BM2" secondAttribute="centerX" id="GNf-K3-Yca"/>
                                     <constraint firstAttribute="trailing" secondItem="bbi-ym-j4p" secondAttribute="trailing" id="KkQ-nz-qYP"/>
@@ -154,17 +156,72 @@ All in one travel buddy</string>
                                     <constraint firstItem="bbi-ym-j4p" firstAttribute="top" relation="greaterThanOrEqual" secondItem="NNh-bx-fiW" secondAttribute="bottom" constant="16" id="Ufw-p7-q7h"/>
                                     <constraint firstItem="bbi-ym-j4p" firstAttribute="leading" secondItem="8OW-T7-BM2" secondAttribute="leading" id="X2B-Iy-nlB"/>
                                     <constraint firstAttribute="trailing" secondItem="NNh-bx-fiW" secondAttribute="trailing" id="YY8-29-mrj"/>
+                                    <constraint firstItem="Leo-V1-UCZ" firstAttribute="leading" secondItem="NNh-bx-fiW" secondAttribute="trailing" constant="20" id="avo-gM-PAr"/>
+                                    <constraint firstItem="jbF-ri-Vws" firstAttribute="leading" secondItem="NNh-bx-fiW" secondAttribute="trailing" constant="20" id="ccg-0d-tmu"/>
                                     <constraint firstItem="Zz6-qx-Qge" firstAttribute="top" secondItem="Leo-V1-UCZ" secondAttribute="bottom" constant="16" id="eEe-cw-iG8"/>
-                                    <constraint firstAttribute="bottom" secondItem="jbF-ri-Vws" secondAttribute="bottom" constant="-0.99999999999988631" id="eZz-L3-cqu"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="jbF-ri-Vws" secondAttribute="bottom" id="eZz-L3-cqu"/>
+                                    <constraint firstAttribute="bottom" secondItem="NNh-bx-fiW" secondAttribute="bottom" id="gBc-rB-97l"/>
                                     <constraint firstAttribute="trailing" secondItem="Leo-V1-UCZ" secondAttribute="trailing" id="go5-v1-RkU"/>
                                     <constraint firstItem="Leo-V1-UCZ" firstAttribute="top" secondItem="bbi-ym-j4p" secondAttribute="bottom" constant="16" id="jB7-WG-dQx"/>
+                                    <constraint firstItem="bbi-ym-j4p" firstAttribute="leading" secondItem="NNh-bx-fiW" secondAttribute="trailing" constant="20" id="rJA-w1-xTR"/>
+                                    <constraint firstAttribute="trailing" secondItem="Zz6-qx-Qge" secondAttribute="trailing" id="tTl-au-by0"/>
+                                    <constraint firstItem="NNh-bx-fiW" firstAttribute="width" relation="lessThanOrEqual" secondItem="Leo-V1-UCZ" secondAttribute="width" multiplier="1.2039" id="uWO-D0-MHE"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="YY8-29-mrj"/>
+                                        <exclude reference="gBc-rB-97l"/>
+                                        <exclude reference="Emh-DI-90d"/>
+                                        <exclude reference="QzC-JR-Hnr"/>
+                                        <exclude reference="Ufw-p7-q7h"/>
+                                        <exclude reference="X2B-Iy-nlB"/>
+                                        <exclude reference="rJA-w1-xTR"/>
+                                        <exclude reference="FAP-kG-Gr2"/>
+                                        <exclude reference="avo-gM-PAr"/>
+                                        <exclude reference="02m-Ay-dJv"/>
+                                        <exclude reference="0Ix-fi-Vyb"/>
+                                        <exclude reference="37b-F5-GjB"/>
+                                        <exclude reference="GNf-K3-Yca"/>
+                                        <exclude reference="UBD-ci-a0o"/>
+                                        <exclude reference="tTl-au-by0"/>
+                                        <exclude reference="NVw-n9-a3H"/>
+                                        <exclude reference="ccg-0d-tmu"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="gBc-rB-97l"/>
+                                        <include reference="uWO-D0-MHE"/>
+                                        <include reference="Emh-DI-90d"/>
+                                        <include reference="rJA-w1-xTR"/>
+                                        <include reference="avo-gM-PAr"/>
+                                        <include reference="37b-F5-GjB"/>
+                                        <include reference="tTl-au-by0"/>
+                                        <include reference="ccg-0d-tmu"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="YY8-29-mrj"/>
+                                        <include reference="QzC-JR-Hnr"/>
+                                        <include reference="Ufw-p7-q7h"/>
+                                        <include reference="X2B-Iy-nlB"/>
+                                        <include reference="FAP-kG-Gr2"/>
+                                        <include reference="02m-Ay-dJv"/>
+                                        <include reference="0Ix-fi-Vyb"/>
+                                        <include reference="GNf-K3-Yca"/>
+                                        <include reference="UBD-ci-a0o"/>
+                                        <include reference="NVw-n9-a3H"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="Rtz-aH-hl2" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="8OW-T7-BM2" secondAttribute="bottom" constant="20" id="17x-Yz-Jk5"/>
                             <constraint firstItem="Rtz-aH-hl2" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="8OW-T7-BM2" secondAttribute="bottom" constant="20" id="B67-gv-7HH"/>
                             <constraint firstItem="8OW-T7-BM2" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Rtz-aH-hl2" secondAttribute="top" constant="20" id="H76-vh-rgi"/>
+                            <constraint firstItem="8OW-T7-BM2" firstAttribute="top" relation="lessThanOrEqual" secondItem="Rtz-aH-hl2" secondAttribute="top" constant="20" id="O0B-ik-2Ft"/>
                             <constraint firstItem="Rtz-aH-hl2" firstAttribute="trailing" secondItem="8OW-T7-BM2" secondAttribute="trailing" constant="20" id="SNP-Ih-gb0"/>
                             <constraint firstItem="8OW-T7-BM2" firstAttribute="leading" secondItem="Rtz-aH-hl2" secondAttribute="leading" constant="20" id="TpS-YD-Bnf"/>
                             <constraint firstItem="8OW-T7-BM2" firstAttribute="centerY" secondItem="Rtz-aH-hl2" secondAttribute="centerY" id="oNk-N2-40r"/>
@@ -173,6 +230,25 @@ All in one travel buddy</string>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                         </userDefinedRuntimeAttributes>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="B67-gv-7HH"/>
+                                <exclude reference="H76-vh-rgi"/>
+                                <exclude reference="O0B-ik-2Ft"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact">
+                            <mask key="constraints">
+                                <include reference="17x-Yz-Jk5"/>
+                                <include reference="O0B-ik-2Ft"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular">
+                            <mask key="constraints">
+                                <include reference="B67-gv-7HH"/>
+                                <include reference="H76-vh-rgi"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="alertText" destination="Leo-V1-UCZ" id="BHs-4Q-rDm"/>
@@ -186,30 +262,30 @@ All in one travel buddy</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zdQ-Ic-kNd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-122" y="0.0"/>
+            <point key="canvasLocation" x="-122.66009852216749" y="-0.80000000000000004"/>
         </scene>
         <!--Welcome View Controller-->
         <scene sceneID="n1B-sA-urT">
             <objects>
                 <viewController storyboardIdentifier="WelcomeViewController" id="297-Lh-69k" customClass="WelcomeViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PbT-65-BE7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KeI-mG-doa" userLabel="Container">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8JU-24-KmH">
-                                        <rect key="frame" x="20" y="100.5" width="374" height="505.5"/>
+                                        <rect key="frame" x="20" y="20" width="280" height="416"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" image="ic_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="28D-77-vUK">
-                                                <rect key="frame" x="0.0" y="0.0" width="374" height="374"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="280" height="265.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="28D-77-vUK" secondAttribute="height" multiplier="1:1" priority="750" id="DeA-AF-4UT"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TUB-Wi-cFX">
-                                                <rect key="frame" x="0.0" y="398" width="374" height="53"/>
+                                                <rect key="frame" x="0.0" y="289.5" width="280" height="53"/>
                                                 <string key="text">MAPS.ME 
 All in one travel buddy</string>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
@@ -221,7 +297,7 @@ All in one travel buddy</string>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E20-gb-nRV">
-                                                <rect key="frame" x="0.0" y="467" width="374" height="38.5"/>
+                                                <rect key="frame" x="0.0" y="358.5" width="280" height="57.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -232,21 +308,60 @@ All in one travel buddy</string>
                                             </label>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="28D-77-vUK" secondAttribute="bottom" id="2PG-ZC-UMS"/>
                                             <constraint firstAttribute="trailing" secondItem="28D-77-vUK" secondAttribute="trailing" id="4CG-c6-gra"/>
+                                            <constraint firstItem="TUB-Wi-cFX" firstAttribute="leading" secondItem="28D-77-vUK" secondAttribute="trailing" constant="20" id="5Eh-x0-Klp"/>
                                             <constraint firstItem="TUB-Wi-cFX" firstAttribute="leading" secondItem="8JU-24-KmH" secondAttribute="leading" id="FcB-Or-YSn"/>
                                             <constraint firstItem="TUB-Wi-cFX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="28D-77-vUK" secondAttribute="bottom" constant="16" id="Mk7-5c-Kyg"/>
                                             <constraint firstItem="TUB-Wi-cFX" firstAttribute="top" secondItem="28D-77-vUK" secondAttribute="bottom" priority="750" constant="24" id="Q4N-yM-quN"/>
                                             <constraint firstAttribute="trailing" secondItem="E20-gb-nRV" secondAttribute="trailing" id="VXC-hq-0a2"/>
+                                            <constraint firstItem="E20-gb-nRV" firstAttribute="leading" secondItem="28D-77-vUK" secondAttribute="trailing" constant="20" id="YlI-bH-xbk"/>
                                             <constraint firstItem="E20-gb-nRV" firstAttribute="top" secondItem="TUB-Wi-cFX" secondAttribute="bottom" constant="16" id="dlp-WK-1Ko"/>
                                             <constraint firstAttribute="bottom" secondItem="E20-gb-nRV" secondAttribute="bottom" id="f0a-0h-Ek6"/>
                                             <constraint firstItem="28D-77-vUK" firstAttribute="top" secondItem="8JU-24-KmH" secondAttribute="top" id="gRs-wZ-c2y"/>
                                             <constraint firstItem="28D-77-vUK" firstAttribute="leading" secondItem="8JU-24-KmH" secondAttribute="leading" id="h8V-Tz-mbb"/>
+                                            <constraint firstItem="28D-77-vUK" firstAttribute="width" relation="lessThanOrEqual" secondItem="E20-gb-nRV" secondAttribute="width" multiplier="1.10352" id="jZK-PG-H26"/>
+                                            <constraint firstItem="TUB-Wi-cFX" firstAttribute="top" secondItem="8JU-24-KmH" secondAttribute="top" id="jlQ-I2-XHR"/>
                                             <constraint firstAttribute="trailing" secondItem="TUB-Wi-cFX" secondAttribute="trailing" id="mEc-pZ-Gtt"/>
                                             <constraint firstItem="E20-gb-nRV" firstAttribute="leading" secondItem="8JU-24-KmH" secondAttribute="leading" id="qOb-Ji-KWC"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="2PG-ZC-UMS"/>
+                                                <exclude reference="4CG-c6-gra"/>
+                                                <exclude reference="jZK-PG-H26"/>
+                                                <exclude reference="5Eh-x0-Klp"/>
+                                                <exclude reference="FcB-Or-YSn"/>
+                                                <exclude reference="Mk7-5c-Kyg"/>
+                                                <exclude reference="Q4N-yM-quN"/>
+                                                <exclude reference="jlQ-I2-XHR"/>
+                                                <exclude reference="YlI-bH-xbk"/>
+                                                <exclude reference="f0a-0h-Ek6"/>
+                                                <exclude reference="qOb-Ji-KWC"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="2PG-ZC-UMS"/>
+                                                <include reference="jZK-PG-H26"/>
+                                                <include reference="5Eh-x0-Klp"/>
+                                                <include reference="jlQ-I2-XHR"/>
+                                                <include reference="YlI-bH-xbk"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular">
+                                            <mask key="constraints">
+                                                <include reference="4CG-c6-gra"/>
+                                                <include reference="FcB-Or-YSn"/>
+                                                <include reference="Mk7-5c-Kyg"/>
+                                                <include reference="Q4N-yM-quN"/>
+                                                <include reference="f0a-0h-Ek6"/>
+                                                <include reference="qOb-Ji-KWC"/>
+                                            </mask>
+                                        </variation>
                                     </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hQh-GR-Qe0" userLabel="NotNow">
-                                        <rect key="frame" x="32" y="706" width="350" height="48"/>
+                                        <rect key="frame" x="32" y="456" width="256" height="48"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
                                         <constraints>
@@ -272,18 +387,18 @@ All in one travel buddy</string>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="flm-sZ-NSs">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="100.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="20"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="zcR-fU-Ny5"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AkJ-r8-PHz">
-                                        <rect key="frame" x="0.0" y="606" width="414" height="100"/>
+                                        <rect key="frame" x="0.0" y="436" width="320" height="20"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qnh-Ec-P27" userLabel="NotNow">
-                                        <rect key="frame" x="32" y="766" width="350" height="32"/>
+                                        <rect key="frame" x="32" y="516" width="256" height="32"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
                                         <constraints>
@@ -310,8 +425,11 @@ All in one travel buddy</string>
                                     <constraint firstItem="AkJ-r8-PHz" firstAttribute="leading" secondItem="KeI-mG-doa" secondAttribute="leading" id="7es-nm-LDX"/>
                                     <constraint firstItem="8JU-24-KmH" firstAttribute="top" secondItem="flm-sZ-NSs" secondAttribute="bottom" id="9gg-5l-Bs8"/>
                                     <constraint firstAttribute="trailing" secondItem="qnh-Ec-P27" secondAttribute="trailing" constant="32" id="9iV-uA-YH1"/>
+                                    <constraint firstItem="hQh-GR-Qe0" firstAttribute="top" relation="greaterThanOrEqual" secondItem="E20-gb-nRV" secondAttribute="bottom" id="BsK-0C-rin"/>
                                     <constraint firstAttribute="trailing" secondItem="flm-sZ-NSs" secondAttribute="trailing" id="C8A-SE-odb"/>
                                     <constraint firstAttribute="bottom" secondItem="qnh-Ec-P27" secondAttribute="bottom" constant="20" id="GPA-Ep-YCh"/>
+                                    <constraint firstItem="qnh-Ec-P27" firstAttribute="leading" secondItem="28D-77-vUK" secondAttribute="trailing" constant="32" id="HCX-mN-XY2"/>
+                                    <constraint firstAttribute="bottom" secondItem="AkJ-r8-PHz" secondAttribute="bottom" id="KH5-vr-y8s"/>
                                     <constraint firstItem="AkJ-r8-PHz" firstAttribute="height" secondItem="flm-sZ-NSs" secondAttribute="height" id="Li8-UA-0HH"/>
                                     <constraint firstItem="8JU-24-KmH" firstAttribute="leading" secondItem="KeI-mG-doa" secondAttribute="leading" constant="20" id="PGA-Ja-7n6"/>
                                     <constraint firstAttribute="trailing" secondItem="AkJ-r8-PHz" secondAttribute="trailing" id="UFG-ec-3RB"/>
@@ -323,6 +441,7 @@ All in one travel buddy</string>
                                     <constraint firstItem="hQh-GR-Qe0" firstAttribute="leading" secondItem="KeI-mG-doa" secondAttribute="leading" constant="32" id="lcO-rk-tAq"/>
                                     <constraint firstItem="qnh-Ec-P27" firstAttribute="top" secondItem="hQh-GR-Qe0" secondAttribute="bottom" constant="12" id="uIK-6f-unN"/>
                                     <constraint firstItem="qnh-Ec-P27" firstAttribute="leading" secondItem="KeI-mG-doa" secondAttribute="leading" constant="32" id="ucB-CV-WpE"/>
+                                    <constraint firstItem="hQh-GR-Qe0" firstAttribute="leading" secondItem="28D-77-vUK" secondAttribute="trailing" constant="32" id="udk-eM-gGo"/>
                                     <constraint firstItem="flm-sZ-NSs" firstAttribute="leading" secondItem="KeI-mG-doa" secondAttribute="leading" id="v9T-fZ-09B"/>
                                     <constraint firstAttribute="trailing" secondItem="hQh-GR-Qe0" secondAttribute="trailing" constant="32" id="vN5-MZ-qAT"/>
                                 </constraints>
@@ -330,7 +449,27 @@ All in one travel buddy</string>
                                     <mask key="constraints">
                                         <exclude reference="YVt-cA-4XL"/>
                                         <exclude reference="jGR-Ek-jNg"/>
+                                        <exclude reference="KH5-vr-y8s"/>
+                                        <exclude reference="BsK-0C-rin"/>
+                                        <exclude reference="eJ5-aA-Ak2"/>
                                         <exclude reference="lcO-rk-tAq"/>
+                                        <exclude reference="udk-eM-gGo"/>
+                                        <exclude reference="HCX-mN-XY2"/>
+                                        <exclude reference="ucB-CV-WpE"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="KH5-vr-y8s"/>
+                                        <include reference="BsK-0C-rin"/>
+                                        <include reference="udk-eM-gGo"/>
+                                        <include reference="HCX-mN-XY2"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="eJ5-aA-Ak2"/>
+                                        <include reference="ucB-CV-WpE"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -370,7 +509,7 @@ All in one travel buddy</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NVp-pY-CfO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="696" y="0.0"/>
+            <point key="canvasLocation" x="695.07042253521126" y="0.0"/>
         </scene>
     </scenes>
     <resources>
