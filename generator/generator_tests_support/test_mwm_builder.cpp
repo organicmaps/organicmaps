@@ -148,7 +148,8 @@ void TestMwmBuilder::Finish()
 
   CHECK(indexer::BuildIndexFromDataFile(path, path), ("Can't build geometry index."));
 
-  CHECK(indexer::BuildSearchIndexFromDataFile(path, true /* forceRebuild */, 1 /* threadsCount */),
+  CHECK(indexer::BuildSearchIndexFromDataFile(m_file.GetDirectory(), m_file.GetCountryName(),
+                                              true /* forceRebuild */, 1 /* threadsCount */),
         ("Can't build search index."));
 
   if (!m_postcodesPath.empty() && m_postcodesCountryInfoGetter)

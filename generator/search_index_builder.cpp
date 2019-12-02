@@ -447,7 +447,7 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
 
 void ReadAddressData(string const & filename, vector<feature::AddressData> & addrs)
 {
-  FileReader reader(filename + TEMP_ADDR_FILENAME);
+  FileReader reader(filename);
   ReaderSource<FileReader> src(reader);
   while (src.Size() > 0)
   {
@@ -596,10 +596,12 @@ bool BuildPostcodesImpl(FilesContainerR & container, storage::CountryId const & 
                         string const & dataset, string const & tmpFileName,
                         storage::CountryInfoGetter & infoGetter, Writer & indexWriter);
 
-bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild, uint32_t threadsCount)
+bool BuildSearchIndexFromDataFile(string const & path, string const & country, bool forceRebuild,
+                                  uint32_t threadsCount)
 {
   Platform & platform = GetPlatform();
 
+  auto const filename = base::JoinPath(path, country + DATA_FILE_EXTENSION);
   FilesContainerR readContainer(platform.GetReader(filename, "f"));
   if (readContainer.IsExist(SEARCH_INDEX_FILE_TAG) && !forceRebuild)
     return true;
@@ -612,7 +614,8 @@ bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild, ui
   try
   {
     vector<feature::AddressData> addrs;
-    ReadAddressData(filename, addrs);
+    auto const addrsFile = base::JoinPath(path, country + DATA_FILE_EXTENSION + TEMP_ADDR_FILENAME);
+    ReadAddressData(addrsFile, addrs);
     {
       FileWriter writer(indexFilePath);
       BuildSearchIndex(readContainer, addrs, writer);

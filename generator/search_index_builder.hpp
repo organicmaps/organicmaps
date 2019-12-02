@@ -13,8 +13,8 @@ namespace indexer
 // An attempt to rewrite the search index of an old mwm may result in a future crash
 // when using search because this function does not update mwm's version. This results
 // in version mismatch when trying to read the index.
-bool BuildSearchIndexFromDataFile(std::string const & filename, bool forceRebuild,
-                                  uint32_t threadsCount);
+bool BuildSearchIndexFromDataFile(std::string const & path, std::string const & country,
+                                  bool forceRebuild, uint32_t threadsCount);
 
 // Builds postcodes section with external postcodes data and writes it to the mwm file.
 bool BuildPostcodes(std::string const & path, std::string const & country,

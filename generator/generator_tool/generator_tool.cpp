@@ -370,7 +370,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       LOG(LINFO, ("Generating search index for", datFile));
 
       /// @todo Make threads count according to environment (single mwm build or planet build).
-      if (!indexer::BuildSearchIndexFromDataFile(datFile, true /* forceRebuild */,
+      if (!indexer::BuildSearchIndexFromDataFile(path, country, true /* forceRebuild */,
                                                  1 /* threadsCount */))
       {
         LOG(LCRITICAL, ("Error generating search index."));
