@@ -2,6 +2,7 @@
 
 #include "geometry/parametrized_segment.hpp"
 #include "geometry/point2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 #include "geometry/rect2d.hpp"
 
 #include "base/internal/message.hpp"
@@ -17,6 +18,32 @@
 
 namespace m2
 {
+/// \returns a pair of minimum squared distance from |point| to the closest segment and
+/// a zero-based closest segment index in |points|.
+template <typename T>
+std::pair<double, uint32_t> CalcMinSquaredDistance(std::vector<Point<T>> const & points,
+                                                   Point<T> const & point)
+{
+  CHECK_GREATER(points.size(), 1, ());
+  auto squaredClosestSegDist = std::numeric_limits<double>::max();
+
+  auto i = points.begin();
+  auto closestSeg = points.begin();
+  for (auto j = i + 1; j != points.end(); ++i, ++j)
+  {
+    m2::ParametrizedSegment<m2::Point<T>> seg(geometry::GetPoint(*i), geometry::GetPoint(*j));
+    auto const squaredSegDist = seg.SquaredDistanceToPoint(point);
+    if (squaredSegDist < squaredClosestSegDist)
+    {
+      closestSeg = i;
+      squaredClosestSegDist = squaredSegDist;
+    }
+  }
+
+  return std::make_pair(squaredClosestSegDist,
+                        static_cast<uint32_t>(std::distance(points.begin(), closestSeg)));
+}
+
 template <typename T>
 class Polyline
 {
@@ -65,29 +92,9 @@ public:
     return dist;
   }
 
-  /// \returns a pair of minimum squared distance from |point| to the closest segment and
-  /// a zero-based closest segment index.
   std::pair<double, uint32_t> CalcMinSquaredDistance(m2::Point<T> const & point) const
   {
-    CHECK_GREATER(m_points.size(), 1, ());
-    auto squaredClosestSegDist = std::numeric_limits<double>::max();
-
-    Iter const beginning = Begin();
-    Iter i = beginning;
-    Iter closestSeg = beginning;
-    for (Iter j = i + 1; j != End(); ++i, ++j)
-    {
-      m2::ParametrizedSegment<m2::Point<T>> seg(*i, *j);
-      auto const squaredSegDist = seg.SquaredDistanceToPoint(point);
-      if (squaredSegDist < squaredClosestSegDist)
-      {
-        closestSeg = i;
-        squaredClosestSegDist = squaredSegDist;
-      }
-    }
-
-    return std::make_pair(squaredClosestSegDist,
-                          static_cast<uint32_t>(std::distance(beginning, closestSeg)));
+    return m2::CalcMinSquaredDistance(m_points, point);
   }
 
   Rect<T> GetLimitRect() const
