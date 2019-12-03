@@ -150,10 +150,23 @@ public:
   {
     auto const & transition = GetTransition(segment);
     CHECK_NOT_EQUAL(transition.m_enterIdx, connector::kFakeIndex, ());
-    for (size_t exitIdx = 0; exitIdx < m_exits.size(); ++exitIdx)
+    auto const enterIdx = transition.m_enterIdx;
+    for (uint32_t exitIdx = 0; exitIdx < static_cast<uint32_t>(m_exits.size()); ++exitIdx)
     {
-      auto const weight = GetWeight(base::asserted_cast<size_t>(transition.m_enterIdx), exitIdx);
+      auto const weight = GetWeight(enterIdx, exitIdx);
       AddEdge(m_exits[exitIdx], weight, edges);
+    }
+  }
+
+  void GetIngoingEdgeList(Segment const & segment, std::vector<SegmentEdge> & edges) const
+  {
+    auto const & transition = GetTransition(segment);
+    CHECK_NOT_EQUAL(transition.m_exitIdx, connector::kFakeIndex, ());
+    auto const exitIdx = transition.m_exitIdx;
+    for (uint32_t enterIdx = 0; enterIdx < static_cast<uint32_t>(m_enters.size()); ++enterIdx)
+    {
+      auto const weight = GetWeight(enterIdx, exitIdx);
+      AddEdge(m_enters[enterIdx], weight, edges);
     }
   }
 

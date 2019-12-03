@@ -152,6 +152,12 @@ public:
     c.GetOutgoingEdgeList(s, edges);
   }
 
+  void GetIngoingEdgeList(Segment const & s, std::vector<SegmentEdge> & edges)
+  {
+    CrossMwmConnector<CrossMwmId> const & c = GetCrossMwmConnectorWithWeights(s.GetMwmId());
+    c.GetIngoingEdgeList(s, edges);
+  }
+
   void Clear() { m_connectors.clear(); }
 
   bool InCache(NumMwmId numMwmId) const { return m_connectors.count(numMwmId) != 0; }

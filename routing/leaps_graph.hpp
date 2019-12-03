@@ -17,7 +17,7 @@ class LeapsGraph : public AStarGraph<Segment, SegmentEdge, RouteWeight>
 public:
   explicit LeapsGraph(IndexGraphStarter & starter);
 
-  // AStarGraph overridings:
+  // AStarGraph overrides:
   // @{
   void GetOutgoingEdgesList(Segment const & segment, std::vector<SegmentEdge> & edges) override;
   void GetIngoingEdgesList(Segment const & segment, std::vector<SegmentEdge> & edges) override;
@@ -25,14 +25,23 @@ public:
   RouteWeight GetAStarWeightEpsilon() override;
   // @}
 
-  m2::PointD const & GetPoint(Segment const & segment, bool front) const;
+  m2::PointD const & GetPoint(Segment const & segment, bool front);
+  Segment const & GetStartSegment() const;
+  Segment const & GetFinishSegment() const;
 
 private:
   void GetEdgesList(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges);
-  void GetEdgesListForStart(Segment const & segment, bool isOutgoing,
-                            std::vector<SegmentEdge> & edges);
-  void GetEdgesListForFinish(Segment const & segment, bool isOutgoing,
+
+  void GetEdgesListFromStart(Segment const & segment, bool isOutgoing,
                              std::vector<SegmentEdge> & edges);
+  void GetEdgesListToFinish(Segment const & segment, bool isOutgoing,
+                             std::vector<SegmentEdge> & edges);
+
+  m2::PointD m_startPoint;
+  m2::PointD m_finishPoint;
+
+  Segment m_startSegment;
+  Segment m_finishSegment;
 
   IndexGraphStarter & m_starter;
 };

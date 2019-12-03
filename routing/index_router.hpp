@@ -206,11 +206,6 @@ private:
       RoutingResult<Vertex, Weight> & routingResult, WorldGraphMode mode) const
   {
     AStarAlgorithm<Vertex, Edge, Weight> algorithm;
-    if (mode == WorldGraphMode::LeapsOnly)
-    {
-      return ConvertTransitResult(mwmIds,
-                                  ConvertResult<Vertex, Edge, Weight>(algorithm.FindPath(params, routingResult)));
-    }
     return ConvertTransitResult(
         mwmIds, ConvertResult<Vertex, Edge, Weight>(algorithm.FindPathBidirectional(params, routingResult)));
   }

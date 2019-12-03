@@ -89,6 +89,8 @@ public:
   /// to calculate |segment| weight.
   void GetOutgoingEdgeList(Segment const & s, std::vector<SegmentEdge> & edges);
 
+  void GetIngoingEdgeList(Segment const & s, std::vector<SegmentEdge> & edges);
+
   void Clear();
 
   // \returns transitions for mwm with id |numMwmId| for CrossMwmIndexGraph.
