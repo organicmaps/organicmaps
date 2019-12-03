@@ -39,6 +39,7 @@
 
 #include "geometry/mercator.hpp"
 #include "geometry/parametrized_segment.hpp"
+#include "geometry/polyline2d.hpp"
 #include "geometry/segment2d.hpp"
 
 #include "base/assert.hpp"
@@ -794,20 +795,24 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
                                         move(transitGraphLoader), m_estimator);
 }
 
-void IndexRouter::EraseIfDeadEnd(WorldGraph & worldGraph,
+void IndexRouter::EraseIfDeadEnd(WorldGraph & worldGraph, m2::PointD const & point,
                                  vector<IRoadGraph::FullRoadInfo> & roads) const
 {
   // |deadEnds| cache is necessary to minimize number of calls a time consumption IsDeadEnd() method.
   set<Segment> deadEnds;
-  base::EraseIf(roads, [&deadEnds, &worldGraph, this](auto const & fullRoadInfo) {
+  base::EraseIf(roads, [&deadEnds, &worldGraph, &point, this](auto const & fullRoadInfo) {
     CHECK_GREATER_OR_EQUAL(fullRoadInfo.m_roadInfo.m_junctions.size(), 2, ());
+    auto const squaredDistAndIndex = m2::CalcMinSquaredDistance(fullRoadInfo.m_roadInfo.m_junctions.begin(),
+                                                                fullRoadInfo.m_roadInfo.m_junctions.end(),
+                                                                point);
+    auto const segmentId = squaredDistAndIndex.second;
 
     // Note. Checking if an edge goes to a dead end is a time consumption process.
     // So the number of checked edges should be minimized as possible.
-    // Below a heuristic is used. If a first segment of a feature is forward direction is a dead end
-    // all segments of the feature is considered as dead ends.
+    // Below a heuristic is used. If the closest to |point| segment of a feature
+    // in forward direction is a dead end all segments of the feature is considered as dead ends.
     auto const segment = GetSegmentByEdge(Edge::MakeReal(fullRoadInfo.m_featureId, true /* forward */,
-                                                         0 /* segment id */,
+                                                         segmentId,
                                                          fullRoadInfo.m_roadInfo.m_junctions[0],
                                                          fullRoadInfo.m_roadInfo.m_junctions[1]));
     return IsDeadEndCached(segment, true /* isOutgoing */, false /* useRoutingOptions */, worldGraph,
@@ -955,7 +960,7 @@ bool IndexRouter::FindBestEdges(m2::PointD const & point,
   // If to remove all fenced off by other features from |point| candidates at first,
   // only dead ends candidates may be left. And then the dead end candidates will be removed
   // as well as dead ends. It often happens near airports.
-  EraseIfDeadEnd(worldGraph, closestRoads);
+  EraseIfDeadEnd(worldGraph, point, closestRoads);
 
   // Sorting from the closest features to the further ones. The idea is the closer
   // a feature to a |point| the more chances that it crosses the segment

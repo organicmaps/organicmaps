@@ -43,7 +43,7 @@ std::string DebugPrint(PointWithAltitude const & r);
 
 template <typename T>
 m2::Point<T> GetPoint(m2::Point<T> const & point) { return point; }
-m2::PointD GetPoint(PointWithAltitude const pwa) { return pwa.GetPoint(); }
+inline m2::PointD GetPoint(PointWithAltitude const & pwa) { return pwa.GetPoint(); }
 
 inline PointWithAltitude MakePointWithAltitudeForTesting(m2::PointD const & point)
 {

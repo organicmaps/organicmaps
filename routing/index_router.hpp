@@ -125,8 +125,10 @@ private:
   std::unique_ptr<WorldGraph> MakeWorldGraph();
 
   /// \brief Removes all roads from |roads| which goes to dead ends and all road which
-  /// is not good according to |worldGraph|. For car routing it's roads with hwtag nocar.
-  void EraseIfDeadEnd(WorldGraph & worldGraph,
+  /// is not good according to |worldGraph|. For car routing there are roads with hwtag nocar as well.
+  /// \param point which is used to look for the closest segment in a road. The closest segment
+  /// is used then to check if it's a dead end.
+  void EraseIfDeadEnd(WorldGraph & worldGraph, m2::PointD const & point,
                       std::vector<IRoadGraph::FullRoadInfo> & roads) const;
 
   /// \returns true if a segment (|point|, |edgeProjection.second|) crosses one of segments

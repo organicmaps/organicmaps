@@ -15,7 +15,7 @@ double constexpr kEps = 1e-5;
 void TestClosest(std::vector<m2::PointD> const & points, m2::PointD const & point,
                  double expectedSquaredDist, uint32_t expectedIndex)
 {
-  auto const closestByPoints = m2::CalcMinSquaredDistance(points, point);
+  auto const closestByPoints = m2::CalcMinSquaredDistance(points.begin(), points.end(), point);
   TEST_ALMOST_EQUAL_ABS(closestByPoints.first, expectedSquaredDist, kEps, ());
   TEST_EQUAL(closestByPoints.second, expectedIndex, ());
 

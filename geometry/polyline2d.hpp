@@ -19,17 +19,17 @@
 namespace m2
 {
 /// \returns a pair of minimum squared distance from |point| to the closest segment and
-/// a zero-based closest segment index in |points|.
-template <typename T>
-std::pair<double, uint32_t> CalcMinSquaredDistance(std::vector<Point<T>> const & points,
-                                                   Point<T> const & point)
+/// a zero-based closest segment index in points in range [|beginIt|, |endIt|).
+template <typename It, typename T>
+std::pair<double, uint32_t> CalcMinSquaredDistance(It beginIt, It endIt,
+                                                   m2::Point<T> const & point)
 {
-  CHECK_GREATER(points.size(), 1, ());
+  CHECK_GREATER(std::distance(beginIt, endIt), 1, ());
   auto squaredClosestSegDist = std::numeric_limits<double>::max();
 
-  auto i = points.begin();
-  auto closestSeg = points.begin();
-  for (auto j = i + 1; j != points.end(); ++i, ++j)
+  auto i = beginIt;
+  auto closestSeg = beginIt;
+  for (auto j = i + 1; j != endIt; ++i, ++j)
   {
     m2::ParametrizedSegment<m2::Point<T>> seg(geometry::GetPoint(*i), geometry::GetPoint(*j));
     auto const squaredSegDist = seg.SquaredDistanceToPoint(point);
@@ -41,7 +41,7 @@ std::pair<double, uint32_t> CalcMinSquaredDistance(std::vector<Point<T>> const &
   }
 
   return std::make_pair(squaredClosestSegDist,
-                        static_cast<uint32_t>(std::distance(points.begin(), closestSeg)));
+                        static_cast<uint32_t>(std::distance(beginIt, closestSeg)));
 }
 
 template <typename T>
@@ -94,7 +94,7 @@ public:
 
   std::pair<double, uint32_t> CalcMinSquaredDistance(m2::Point<T> const & point) const
   {
-    return m2::CalcMinSquaredDistance(m_points, point);
+    return m2::CalcMinSquaredDistance(m_points.begin(), m_points.end(), point);
   }
 
   Rect<T> GetLimitRect() const
