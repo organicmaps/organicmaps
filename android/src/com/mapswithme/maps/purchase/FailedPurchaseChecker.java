@@ -4,4 +4,5 @@ public interface FailedPurchaseChecker
 {
   void onFailedPurchaseDetected(boolean isDetected);
   void onAuthorizationRequired();
+  void onStoreConnectionFailed();
 }

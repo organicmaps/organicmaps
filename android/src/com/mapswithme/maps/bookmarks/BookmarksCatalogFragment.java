@@ -117,6 +117,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     super.onStart();
     mDelegate.onStart();
     mFailedPurchaseController.addCallback(mPurchaseChecker);
+    mFailedPurchaseController.validateExistingPurchases();
     mProductDetailsLoadingManager.addCallback(mProductDetailsLoadingCallback);
   }
 
@@ -161,7 +162,6 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     setHasOptionsMenu(true);
     mFailedPurchaseController = PurchaseFactory.createFailedBookmarkPurchaseController(requireContext());
     mFailedPurchaseController.initialize(requireActivity());
-    mFailedPurchaseController.validateExistingPurchases();
     mPurchaseChecker = new FailedBookmarkPurchaseChecker();
     mProductDetailsLoadingManager = PurchaseFactory.createInAppBillingManager();
     mProductDetailsLoadingManager.initialize(requireActivity());
@@ -505,6 +505,13 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     public void onAuthorizationRequired()
     {
       mDelegate.authorize(() -> mFailedPurchaseController.validateExistingPurchases());
+    }
+
+    @Override
+    public void onStoreConnectionFailed()
+    {
+      LOGGER.e(TAG, "Failed to check failed bookmarks due play store connection failure");
+      loadCatalog(null);
     }
   }
 
