@@ -125,6 +125,14 @@ public:
       if (twinSeg == nullptr)
         continue;
 
+      // Twins should have the same direction, because we assume that twins are the same segments
+      // with one difference - they are in the different mwms. Twins could have not same direction
+      // in case of different mwms versions. For example |s| is cross mwm Enter from elder version
+      // and somebody moved points of ways such that |twinSeg| became cross mwm Exit from newer
+      // version. Because of that |twinSeg.IsForward()| will differ from |s.IsForward()|.
+      if (twinSeg->IsForward() != s.IsForward())
+        continue;
+
       CHECK_NOT_EQUAL(twinSeg->GetMwmId(), s.GetMwmId(), ());
 
       // Checks twins for equality.
