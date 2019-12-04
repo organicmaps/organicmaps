@@ -97,6 +97,7 @@ void MainView::SetSamples(ContextList::SamplesSlice const & samples)
 {
   m_samplesView->SetSamples(samples);
   m_sampleView->Clear();
+  m_initiateBackgroundSearch->setEnabled(true);
 }
 
 void MainView::OnSearchStarted()
@@ -419,7 +420,6 @@ void MainView::Open()
     return;
 
   m_model->Open(file);
-  m_initiateBackgroundSearch->setEnabled(true);
 }
 
 void MainView::Save() { m_model->Save(); }
