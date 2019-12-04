@@ -1,10 +1,21 @@
-#include "platform/location.hpp"
+//#include "platform/location.hpp"
+
+typedef NS_ENUM(NSInteger, MWMLocationStatus) {
+  MWMLocationStatusNoError,
+  MWMLocationStatusNotSupported,
+  MWMLocationStatusDenied,
+  MWMLocationStatusGPSIsOff
+};
+
+NS_ASSUME_NONNULL_BEGIN
 
 @protocol MWMLocationObserver<NSObject>
 
 @optional
-- (void)onHeadingUpdate:(location::CompassInfo const &)compassinfo;
-- (void)onLocationUpdate:(location::GpsInfo const &)gpsInfo;
-- (void)onLocationError:(location::TLocationError)locationError;
+- (void)onHeadingUpdate:(CLHeading *)heading;
+- (void)onLocationUpdate:(CLLocation *)location;
+- (void)onLocationError:(MWMLocationStatus)locationError;
 
 @end
+
+NS_ASSUME_NONNULL_END

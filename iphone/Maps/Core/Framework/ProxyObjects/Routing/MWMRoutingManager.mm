@@ -238,7 +238,7 @@
 
 #pragma mark - MWMLocationObserver implementation
 
-- (void)onLocationUpdate:(location::GpsInfo const &)gpsInfo {
+- (void)onLocationUpdate:(CLLocation *)location {
   NSMutableArray<NSString *> * turnNotifications = [NSMutableArray array];
   std::vector<std::string> notifications;
   self.rm.GenerateNotifications(notifications);

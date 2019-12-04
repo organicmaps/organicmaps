@@ -98,7 +98,7 @@ final class EditOnWebViewController: MWMViewController {
 
   private func presentSharingOptions() {
     guard let url = MWMBookmarksManager.shared().webEditorUrl(forCategoryId: category.categoryId,
-                                                              language: AppInfo.shared()?.twoLetterLanguageId ?? "en") else {
+                                                              language: AppInfo.shared().twoLetterLanguageId ) else {
       assert(false, "Unexpected empty url for category \(category.title)")
       return
     }

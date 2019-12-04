@@ -612,7 +612,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 
 #pragma mark - MWMLocationObserver
 
-- (void)onLocationUpdate:(location::GpsInfo const &)info
+- (void)onLocationUpdate:(CLLocation *)location
 {
   if (![MWMRouter isRoutingActive])
     return;

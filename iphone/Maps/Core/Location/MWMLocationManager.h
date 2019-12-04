@@ -1,6 +1,5 @@
 #import "MWMMyPositionMode.h"
-
-@protocol MWMLocationObserver;
+#import "MWMLocationObserver.h"
 
 @interface MWMLocationManager : NSObject
 
@@ -8,8 +7,8 @@
 + (void)stop;
 + (BOOL)isStarted;
 
-+ (void)addObserver:(id<MWMLocationObserver>)observer;
-+ (void)removeObserver:(id<MWMLocationObserver>)observer;
++ (void)addObserver:(id<MWMLocationObserver>)observer NS_SWIFT_NAME(add(observer:));
++ (void)removeObserver:(id<MWMLocationObserver>)observer NS_SWIFT_NAME(remove(observer:));
 
 + (void)setMyPositionMode:(MWMMyPositionMode)mode;
 

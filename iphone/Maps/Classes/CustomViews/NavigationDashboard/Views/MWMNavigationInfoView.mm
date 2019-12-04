@@ -10,6 +10,7 @@
 #import "MapViewController.h"
 #import "SwiftBridge.h"
 #import "UIImageView+Coloring.h"
+#import "location_util.h"
 
 #include "geometry/angles.hpp"
 
@@ -339,20 +340,21 @@ BOOL defaultOrientation(CGSize const & size)
 
 #pragma mark - MWMLocationObserver
 
-- (void)onLocationUpdate:(location::GpsInfo const &)gpsInfo
+- (void)onLocationUpdate:(CLLocation *)location
 {
   BOOL const hasLocation = ([MWMLocationManager lastLocation] != nil);
   if (self.hasLocation != hasLocation)
     [self updateToastView];
 }
 
-- (void)onHeadingUpdate:(location::CompassInfo const &)info
+- (void)onHeadingUpdate:(CLHeading *)heading
 {
   auto transform = CATransform3DIdentity;
   auto lastLocation = [MWMLocationManager lastLocation];
   if (lastLocation && self.state == MWMNavigationInfoViewStateNavigation &&
       [MWMRouter type] == MWMRouterTypePedestrian)
   {
+    auto const info = location_util::compassInfoFromHeading(heading);
     auto const angle = ang::AngleTo(lastLocation.mercator,
                                     self.navigationInfo.pedestrianDirectionPosition.mercator);
     transform = CATransform3DMakeRotation(M_PI_2 - angle - info.m_bearing, 0, 0, 1);

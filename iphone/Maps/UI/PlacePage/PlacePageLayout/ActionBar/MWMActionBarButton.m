@@ -1,6 +1,6 @@
 #import "MWMActionBarButton.h"
 #import "MWMButton.h"
-#import "MWMCircularProgress.h"
+#import "MWMCircularProgress+Swift.h"
 
 NSString * titleForPartner(int partnerIndex)
 {
@@ -10,26 +10,26 @@ NSString * titleForPartner(int partnerIndex)
   return localizedStr;
 }
 
-NSString * titleForButton(EButton type, int partnerIndex, BOOL isSelected)
+NSString * titleForButton(MWMActionBarButtonType type, int partnerIndex, BOOL isSelected)
 {
   switch (type)
   {
-  case EButton::Download: return L(@"download");
-  case EButton::Booking:
-  case EButton::Opentable: return L(@"book_button");
-  case EButton::BookingSearch: return L(@"booking_search");
-  case EButton::Call: return L(@"placepage_call_button");
-  case EButton::Bookmark: return L(isSelected ? @"delete" : @"save");
-  case EButton::RouteFrom: return L(@"p2p_from_here");
-  case EButton::RouteTo: return L(@"p2p_to_here");
-  case EButton::Share: return L(@"share");
-  case EButton::More: return L(@"placepage_more_button");
-  case EButton::RouteAddStop: return L(@"placepage_add_stop");
-  case EButton::RouteRemoveStop: return L(@"placepage_remove_stop");
-  case EButton::AvoidToll: return L(@"avoid_toll_roads_placepage");
-  case EButton::AvoidDirty: return L(@"avoid_unpaved_roads_placepage");
-  case EButton::AvoidFerry: return L(@"avoid_ferry_crossing_placepage");
-  case EButton::Partner: return titleForPartner(partnerIndex);
+  case MWMActionBarButtonTypeDownload: return L(@"download");
+  case MWMActionBarButtonTypeBooking:
+  case MWMActionBarButtonTypeOpentable: return L(@"book_button");
+  case MWMActionBarButtonTypeBookingSearch: return L(@"booking_search");
+  case MWMActionBarButtonTypeCall: return L(@"placepage_call_button");
+  case MWMActionBarButtonTypeBookmark: return L(isSelected ? @"delete" : @"save");
+  case MWMActionBarButtonTypeRouteFrom: return L(@"p2p_from_here");
+  case MWMActionBarButtonTypeRouteTo: return L(@"p2p_to_here");
+  case MWMActionBarButtonTypeShare: return L(@"share");
+  case MWMActionBarButtonTypeMore: return L(@"placepage_more_button");
+  case MWMActionBarButtonTypeRouteAddStop: return L(@"placepage_add_stop");
+  case MWMActionBarButtonTypeRouteRemoveStop: return L(@"placepage_remove_stop");
+  case MWMActionBarButtonTypeAvoidToll: return L(@"avoid_toll_roads_placepage");
+  case MWMActionBarButtonTypeAvoidDirty: return L(@"avoid_unpaved_roads_placepage");
+  case MWMActionBarButtonTypeAvoidFerry: return L(@"avoid_ferry_crossing_placepage");
+  case MWMActionBarButtonTypePartner: return titleForPartner(partnerIndex);
   }
 }
 
@@ -63,7 +63,7 @@ UIColor * backgroundColorForPartner(int partnerIndex)
 
 @interface MWMActionBarButton () <MWMCircularProgressProtocol>
 
-@property(nonatomic) EButton type;
+@property(nonatomic) MWMActionBarButtonType type;
 @property(nonatomic) MWMCircularProgress * mapDownloadProgress;
 @property(nonatomic) int partnerIndex;
 @property(weak, nonatomic) IBOutlet MWMButton * button;
@@ -81,7 +81,7 @@ UIColor * backgroundColorForPartner(int partnerIndex)
   self.extraBackground.hidden = YES;
   switch (self.type)
   {
-  case EButton::Download:
+  case MWMActionBarButtonTypeDownload:
   {
     if (self.mapDownloadProgress)
       return;
@@ -96,7 +96,7 @@ UIColor * backgroundColorForPartner(int partnerIndex)
     [self.mapDownloadProgress setColoring:MWMButtonColoringBlue forStates:affectedStates];
     break;
     }
-    case EButton::Booking:
+    case MWMActionBarButtonTypeBooking:
       [self.button setImage:[UIImage imageNamed:@"ic_booking_logo"] forState:UIControlStateNormal];
       self.label.textColor = UIColor.whiteColor;
       self.backgroundColor = [UIColor bookingBackground];
@@ -106,7 +106,7 @@ UIColor * backgroundColorForPartner(int partnerIndex)
         self.extraBackground.hidden = NO;
       }
       break;
-    case EButton::BookingSearch:
+    case MWMActionBarButtonTypeBookingSearch:
       [self.button setImage:[UIImage imageNamed:@"ic_booking_search"]
                    forState:UIControlStateNormal];
       self.label.textColor = UIColor.whiteColor;
@@ -117,7 +117,7 @@ UIColor * backgroundColorForPartner(int partnerIndex)
         self.extraBackground.hidden = NO;
       }
       break;
-    case EButton::Opentable:
+    case MWMActionBarButtonTypeOpentable:
       [self.button setImage:[UIImage imageNamed:@"ic_opentable"] forState:UIControlStateNormal];
       self.label.textColor = UIColor.whiteColor;
       self.backgroundColor = [UIColor opentableBackground];
@@ -127,46 +127,46 @@ UIColor * backgroundColorForPartner(int partnerIndex)
         self.extraBackground.hidden = NO;
       }
       break;
-    case EButton::Call:
+    case MWMActionBarButtonTypeCall:
       [self.button setImage:[UIImage imageNamed:@"ic_placepage_phone_number"]
                    forState:UIControlStateNormal];
       break;
-    case EButton::Bookmark: [self setupBookmarkButton:isSelected]; break;
-    case EButton::RouteFrom:
+    case MWMActionBarButtonTypeBookmark: [self setupBookmarkButton:isSelected]; break;
+    case MWMActionBarButtonTypeRouteFrom:
       [self.button setImage:[UIImage imageNamed:@"ic_route_from"] forState:UIControlStateNormal];
       break;
-    case EButton::RouteTo:
+    case MWMActionBarButtonTypeRouteTo:
       [self.button setImage:[UIImage imageNamed:@"ic_route_to"] forState:UIControlStateNormal];
       break;
-    case EButton::Share:
+    case MWMActionBarButtonTypeShare:
       [self.button setImage:[UIImage imageNamed:@"ic_menu_share"] forState:UIControlStateNormal];
       break;
-    case EButton::More:
+    case MWMActionBarButtonTypeMore:
       [self.button setImage:[UIImage imageNamed:@"ic_placepage_more"]
                    forState:UIControlStateNormal];
       break;
-    case EButton::RouteAddStop:
+    case MWMActionBarButtonTypeRouteAddStop:
       [self.button setImage:[UIImage imageNamed:@"ic_add_route_point"]
                    forState:UIControlStateNormal];
       break;
-    case EButton::RouteRemoveStop:
+    case MWMActionBarButtonTypeRouteRemoveStop:
       [self.button setImage:[UIImage imageNamed:@"ic_remove_route_point"]
                    forState:UIControlStateNormal];
       break;
-    case EButton::Partner:
+    case MWMActionBarButtonTypePartner:
       [self.button setImage:imageForPartner(self.partnerIndex) forState:UIControlStateNormal];
       self.label.textColor = textColorForPartner(self.partnerIndex);
       self.backgroundColor = backgroundColorForPartner(self.partnerIndex);
       break;
-    case EButton::AvoidToll:
+    case MWMActionBarButtonTypeAvoidToll:
       [self.button setImage:[UIImage imageNamed:@"ic_avoid_tolls"]
                    forState:UIControlStateNormal];
      break;
-    case EButton::AvoidDirty:
+    case MWMActionBarButtonTypeAvoidDirty:
       [self.button setImage:[UIImage imageNamed:@"ic_avoid_dirty"]
                    forState:UIControlStateNormal];
      break;
-    case EButton::AvoidFerry:
+    case MWMActionBarButtonTypeAvoidFerry:
       [self.button setImage:[UIImage imageNamed:@"ic_avoid_ferry"]
                    forState:UIControlStateNormal];
       break; 
@@ -175,7 +175,7 @@ UIColor * backgroundColorForPartner(int partnerIndex)
 }
 
 + (MWMActionBarButton *)buttonWithDelegate:(id<MWMActionBarButtonDelegate>)delegate
-                                buttonType:(EButton)type
+                                buttonType:(MWMActionBarButtonType)type
                               partnerIndex:(int)partnerIndex
                                 isSelected:(BOOL)isSelected
                                 isDisabled:(BOOL)isDisabled
@@ -191,12 +191,12 @@ UIColor * backgroundColorForPartner(int partnerIndex)
 
 - (void)progressButtonPressed:(MWMCircularProgress *)progress
 {
-  [self.delegate tapOnButtonWithType:EButton::Download];
+  [self.delegate tapOnButtonWithType:MWMActionBarButtonTypeDownload];
 }
 
 - (IBAction)tap
 {
-  if (self.type == EButton::Bookmark)
+  if (self.type == MWMActionBarButtonTypeBookmark)
     [self setBookmarkSelected:!self.button.isSelected];
 
   [self.delegate tapOnButtonWithType:self.type];

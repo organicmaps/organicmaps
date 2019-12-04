@@ -1,43 +1,50 @@
-enum class EButton  // Required button's order
-{
-  Booking,
-  BookingSearch,
-  Bookmark,
-  Call,
-  Download,
-  More,
-  Opentable,
-  Partner,
-  RouteAddStop,
-  RouteFrom,
-  RouteRemoveStop,
-  RouteTo,
-  Share,
-  AvoidToll,
-  AvoidDirty,
-  AvoidFerry
-};
+typedef NS_ENUM(NSInteger, MWMActionBarButtonType) {
+  MWMActionBarButtonTypeBooking,
+  MWMActionBarButtonTypeBookingSearch,
+  MWMActionBarButtonTypeBookmark,
+  MWMActionBarButtonTypeCall,
+  MWMActionBarButtonTypeDownload,
+  MWMActionBarButtonTypeMore,
+  MWMActionBarButtonTypeOpentable,
+  MWMActionBarButtonTypePartner,
+  MWMActionBarButtonTypeRouteAddStop,
+  MWMActionBarButtonTypeRouteFrom,
+  MWMActionBarButtonTypeRouteRemoveStop,
+  MWMActionBarButtonTypeRouteTo,
+  MWMActionBarButtonTypeShare,
+  MWMActionBarButtonTypeAvoidToll,
+  MWMActionBarButtonTypeAvoidDirty,
+  MWMActionBarButtonTypeAvoidFerry
+} NS_SWIFT_NAME(ActionBarButtonType);
 
-NSString * titleForButton(EButton type, int partnerIndex, BOOL isSelected);
+#ifdef __cplusplus
+extern "C" {
+#endif
+NSString * titleForButton(MWMActionBarButtonType type, int partnerIndex, BOOL isSelected);
+#ifdef __cplusplus
+}
+#endif
 
 @class MWMActionBarButton;
 @class MWMCircularProgress;
 
+NS_SWIFT_NAME(ActionBarButtonDelegate)
 @protocol MWMActionBarButtonDelegate <NSObject>
 
-- (void)tapOnButtonWithType:(EButton)type;
+- (void)tapOnButtonWithType:(MWMActionBarButtonType)type;
 
 @end
 
+NS_SWIFT_NAME(ActionBarButton)
 @interface MWMActionBarButton : UIView
 
 + (MWMActionBarButton *)buttonWithDelegate:(id<MWMActionBarButtonDelegate>)delegate
-                                buttonType:(EButton)type
+                                buttonType:(MWMActionBarButtonType)type
                               partnerIndex:(int)partnerIndex
                                 isSelected:(BOOL)isSelected
                                 isDisabled:(BOOL)isDisabled;
 
-- (EButton)type;
+- (MWMActionBarButtonType)type;
 - (MWMCircularProgress *)mapDownloadProgress;
 - (int)partnerIndex;
 

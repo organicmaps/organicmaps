@@ -760,8 +760,7 @@ using namespace std;
 
 #pragma mark - MWMLocationObserver
 
-- (void)onLocationUpdate:(location::GpsInfo const &)info {
-  CLLocation *location = [[CLLocation alloc] initWithLatitude:info.m_latitude longitude:info.m_longitude];
+- (void)onLocationUpdate:(CLLocation *)location {
   [self.tableView.visibleCells enumerateObjectsUsingBlock:^(UITableViewCell *cell, NSUInteger idx, BOOL *stop) {
     auto const indexPath = [self.tableView indexPathForCell:cell];
     auto const &section = [self currentSections][indexPath.section];

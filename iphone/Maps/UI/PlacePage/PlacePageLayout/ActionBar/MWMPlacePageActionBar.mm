@@ -10,8 +10,8 @@
 
 @interface MWMPlacePageActionBar ()<MWMActionBarButtonDelegate>
 {
-  std::vector<EButton> m_visibleButtons;
-  std::vector<EButton> m_additionalButtons;
+  std::vector<MWMActionBarButtonType> m_visibleButtons;
+  std::vector<MWMActionBarButtonType> m_additionalButtons;
 }
 
 @property(nonatomic) NSLayoutConstraint * visibleConstraint;
@@ -49,39 +49,39 @@
 
 - (void)setFirstButton:(MWMPlacePageData *)data
 {
-  std::vector<EButton> buttons;
+  std::vector<MWMActionBarButtonType> buttons;
 
   if (self.isAreaNotDownloaded)
   {
-    buttons.push_back(EButton::Download);
+    buttons.push_back(MWMActionBarButtonTypeDownload);
   }
   else
   {
     BOOL const isRoutePlanning =
         [MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateHidden;
     if (isRoutePlanning)
-      buttons.push_back(EButton::RouteFrom);
+      buttons.push_back(MWMActionBarButtonTypeRouteFrom);
 
     BOOL const isBooking = [data isBooking];
     if (isBooking)
-      buttons.push_back(EButton::Booking);
+      buttons.push_back(MWMActionBarButtonTypeBooking);
     BOOL const isOpentable = [data isOpentable];
     if (isOpentable)
-      buttons.push_back(EButton::Opentable);
+      buttons.push_back(MWMActionBarButtonTypeOpentable);
     BOOL const isPartner = [data isPartner] && [data sponsoredURL] != nil;
     if (isPartner)
-      buttons.push_back(EButton::Partner);
+      buttons.push_back(MWMActionBarButtonTypePartner);
     BOOL const isBookingSearch = [data isBookingSearch];
     if (isBookingSearch)
-      buttons.push_back(EButton::BookingSearch);
+      buttons.push_back(MWMActionBarButtonTypeBookingSearch);
 
     BOOL const isPhoneCallAvailable =
         [AppInfo sharedInfo].canMakeCalls && [data phoneNumber].length > 0;
     if (isPhoneCallAvailable)
-      buttons.push_back(EButton::Call);
+      buttons.push_back(MWMActionBarButtonTypeCall);
 
     if (!isRoutePlanning)
-      buttons.push_back(EButton::RouteFrom);
+      buttons.push_back(MWMActionBarButtonTypeRouteFrom);
   }
 
   NSAssert(!buttons.empty(), @"Missing first action bar button");
@@ -93,14 +93,14 @@
 
 - (void)setSecondButton:(MWMPlacePageData *)data
 {
-  std::vector<EButton> buttons;
+  std::vector<MWMActionBarButtonType> buttons;
   BOOL const isCanAddIntermediatePoint = [MWMRouter canAddIntermediatePoint];
   BOOL const isNavigationReady =
       [MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateReady;
   if (isCanAddIntermediatePoint && isNavigationReady)
-    buttons.push_back(EButton::RouteAddStop);
+    buttons.push_back(MWMActionBarButtonTypeRouteAddStop);
 
-  buttons.push_back(EButton::Bookmark);
+  buttons.push_back(MWMActionBarButtonTypeBookmark);
 
   auto begin = buttons.begin();
   m_visibleButtons.push_back(*begin);
@@ -108,18 +108,18 @@
   std::copy(begin, buttons.end(), std::back_inserter(m_additionalButtons));
 }
 
-- (void)setThirdButton { m_visibleButtons.push_back(EButton::RouteTo); }
+- (void)setThirdButton { m_visibleButtons.push_back(MWMActionBarButtonTypeRouteTo); }
 
 - (void)setFourthButton
 {
   if (m_additionalButtons.empty())
   {
-    m_visibleButtons.push_back(EButton::Share);
+    m_visibleButtons.push_back(MWMActionBarButtonTypeShare);
   }
   else
   {
-    m_visibleButtons.push_back(EButton::More);
-    m_additionalButtons.push_back(EButton::Share);
+    m_visibleButtons.push_back(MWMActionBarButtonTypeMore);
+    m_additionalButtons.push_back(MWMActionBarButtonTypeShare);
   }
 }
 
@@ -130,8 +130,8 @@
 
   for (auto const buttonType : m_visibleButtons)
   {
-    auto const isSelected = (buttonType == EButton::Bookmark ? [data isBookmark] : NO);
-    auto const isDisabled = (buttonType == EButton::Bookmark && [data isBookmark] && !data.isBookmarkEditable);
+    auto const isSelected = (buttonType == MWMActionBarButtonTypeBookmark ? [data isBookmark] : NO);
+    auto const isDisabled = (buttonType == MWMActionBarButtonTypeBookmark && [data isBookmark] && !data.isBookmarkEditable);
     auto button = [MWMActionBarButton buttonWithDelegate:self
                                               buttonType:buttonType
                                             partnerIndex:partnerIndex
@@ -141,7 +141,7 @@
   }
 }
 
-- (void)setSingleButton { m_visibleButtons.push_back(EButton::RouteRemoveStop); }
+- (void)setSingleButton { m_visibleButtons.push_back(MWMActionBarButtonTypeRouteRemoveStop); }
 
 - (void)setButtons:(MWMPlacePageData *)data
 {
@@ -152,13 +152,13 @@
   } else if (roadType != RoadWarningMarkType::Count) {
     switch (roadType) {
       case RoadWarningMarkType::Toll:
-        m_visibleButtons.push_back(EButton::AvoidToll);
+        m_visibleButtons.push_back(MWMActionBarButtonTypeAvoidToll);
         break;
       case RoadWarningMarkType::Ferry:
-        m_visibleButtons.push_back(EButton::AvoidFerry);
+        m_visibleButtons.push_back(MWMActionBarButtonTypeAvoidFerry);
         break;
       case RoadWarningMarkType::Dirty:
-        m_visibleButtons.push_back(EButton::AvoidDirty);
+        m_visibleButtons.push_back(MWMActionBarButtonTypeAvoidDirty);
         break;
       default:
         break;
@@ -198,7 +198,7 @@
   {
     for (MWMActionBarButton * button in self.barButtons.subviews)
     {
-      if ([button type] == EButton::Download)
+      if ([button type] == MWMActionBarButtonTypeDownload)
         return button.mapDownloadProgress;
     }
   }
@@ -218,34 +218,34 @@
 
 #pragma mark - MWMActionBarButtonDelegate
 
-- (void)tapOnButtonWithType:(EButton)type
+- (void)tapOnButtonWithType:(MWMActionBarButtonType)type
 {
   id<MWMActionBarProtocol> delegate = self.delegate;
   auto data = self.data;
 
   switch (type)
   {
-  case EButton::Download: [delegate downloadSelectedArea]; break;
-  case EButton::Opentable:
-  case EButton::Booking: [delegate book]; break;
-  case EButton::BookingSearch: [delegate searchBookingHotels]; break;
-  case EButton::Call: [delegate call]; break;
-  case EButton::Bookmark:
+  case MWMActionBarButtonTypeDownload: [delegate downloadSelectedArea]; break;
+  case MWMActionBarButtonTypeOpentable:
+  case MWMActionBarButtonTypeBooking: [delegate book]; break;
+  case MWMActionBarButtonTypeBookingSearch: [delegate searchBookingHotels]; break;
+  case MWMActionBarButtonTypeCall: [delegate call]; break;
+  case MWMActionBarButtonTypeBookmark:
     if ([data isBookmark])
       [delegate removeBookmark];
     else
       [delegate addBookmark];
     break;
-  case EButton::RouteFrom: [delegate routeFrom]; break;
-  case EButton::RouteTo: [delegate routeTo]; break;
-  case EButton::Share: [delegate share]; break;
-  case EButton::More: [self showActionSheet]; break;
-  case EButton::RouteAddStop: [delegate routeAddStop]; break;
-  case EButton::RouteRemoveStop: [delegate routeRemoveStop]; break;
-  case EButton::AvoidToll: [delegate avoidToll]; break;
-  case EButton::AvoidDirty: [delegate avoidDirty]; break;
-  case EButton::AvoidFerry: [delegate avoidFerry]; break;
-  case EButton::Partner: [delegate openPartner]; break;
+  case MWMActionBarButtonTypeRouteFrom: [delegate routeFrom]; break;
+  case MWMActionBarButtonTypeRouteTo: [delegate routeTo]; break;
+  case MWMActionBarButtonTypeShare: [delegate share]; break;
+  case MWMActionBarButtonTypeMore: [self showActionSheet]; break;
+  case MWMActionBarButtonTypeRouteAddStop: [delegate routeAddStop]; break;
+  case MWMActionBarButtonTypeRouteRemoveStop: [delegate routeRemoveStop]; break;
+  case MWMActionBarButtonTypeAvoidToll: [delegate avoidToll]; break;
+  case MWMActionBarButtonTypeAvoidDirty: [delegate avoidDirty]; break;
+  case MWMActionBarButtonTypeAvoidFerry: [delegate avoidFerry]; break;
+  case MWMActionBarButtonTypePartner: [delegate openPartner]; break;
   }
 }
 
@@ -263,7 +263,7 @@
   NSMutableArray<NSString *> * titles = [@[] mutableCopy];
   for (auto const buttonType : m_additionalButtons)
   {
-    BOOL const isSelected = buttonType == EButton::Bookmark ? [data isBookmark] : NO;
+    BOOL const isSelected = buttonType == MWMActionBarButtonTypeBookmark ? [data isBookmark] : NO;
     if (NSString * title = titleForButton(buttonType, [data partnerIndex], isSelected))
       [titles addObject:title];
     else

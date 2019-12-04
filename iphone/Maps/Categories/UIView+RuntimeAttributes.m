@@ -10,7 +10,7 @@
   self.tintColor = [UIColor colorWithName:colorName];
 }
 
-- (void) setBorderColorName:(NSString*) colorName {
+- (void)setBorderColorName:(NSString *)colorName {
   self.layer.borderColor = [UIColor colorWithName:colorName].CGColor;
 }
 

@@ -21,6 +21,7 @@
 
 #include <CoreApi/Framework.h>
 #import <CoreApi/MWMFrameworkHelper.h>
+#import <CoreApi/PlacePageData.h>
 
 #include "drape_frontend/user_event_stream.hpp"
 
@@ -98,6 +99,7 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
 
 @property(nonatomic) BOOL needDeferFocusNotification;
 @property(nonatomic) BOOL deferredFocusValue;
+@property(nonatomic) PlacePageViewController *placePageVC;
 
 @end
 
@@ -108,7 +110,15 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
 
 #pragma mark - Map Navigation
 
-- (void)dismissPlacePage { [self.controlsManager dismissPlacePage]; }
+- (void)dismissPlacePage {
+  [self.placePageVC.view removeFromSuperview];
+  [self.placePageVC willMoveToParentViewController:nil];
+  [self.placePageVC removeFromParentViewController];
+  self.placePageVC = nil;
+//  [self dismissViewControllerAnimated:YES completion:nil];
+//  [self.controlsManager dismissPlacePage];
+}
+
 - (void)onMapObjectDeselected:(bool)switchFullScreenMode
 {
   [self dismissPlacePage];
@@ -127,12 +137,26 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
 }
 
 - (void)onMapObjectSelected {
-  self.controlsManager.hidden = NO;
-  [self.controlsManager showPlacePage];
+  [self dismissPlacePage];
+  self.placePageVC = (PlacePageViewController *)[[UIStoryboard instance:MWMStoryboardPlacePage] instantiateInitialViewController];
+  self.placePageVC.placePageData = [[PlacePageData alloc] init];
+  [self addChildViewController:self.placePageVC];
+  [self.view addSubview:self.placePageVC.view];
+  self.placePageVC.view.translatesAutoresizingMaskIntoConstraints = NO;
+  [NSLayoutConstraint activateConstraints:@[
+    [self.placePageVC.view.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+    [self.placePageVC.view.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
+    [self.placePageVC.view.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+    [self.placePageVC.view.rightAnchor constraintEqualToAnchor:self.view.rightAnchor]
+  ]];
+  [self.placePageVC didMoveToParentViewController:self];
+//  [self presentViewController:placePageVC animated:YES completion:nil];
+//  self.controlsManager.hidden = NO;
+//  [self.controlsManager showPlacePage];
 }
 
 - (void)onMapObjectUpdated {
-  [self.controlsManager updatePlacePage];
+//  [self.controlsManager updatePlacePage];
 }
 
 - (void)checkMaskedPointer:(UITouch *)touch withEvent:(df::TouchEvent &)e

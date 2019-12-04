@@ -1,6 +1,6 @@
 import UIKit
 
-@IBDesignable final class RatingSummaryView: UIView {
+final class RatingSummaryView: UIView {
   @IBInspectable var value: String = RatingSummaryViewSettings.Default.value {
     didSet {
       guard oldValue != value else { return }

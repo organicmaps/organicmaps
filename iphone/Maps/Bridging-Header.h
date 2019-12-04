@@ -26,6 +26,7 @@
 #import "FacebookNativeAdAdapter.h"
 #import "CoreNotificationWrapper.h"
 #import "MapViewController.h"
+#import "MWMActionBarButton.h"
 #import "MWMActivityViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMAvailableAreaAffectDirection.h"

@@ -25,5 +25,5 @@
 
 #pragma mark - MWMLocationObserver
 
-- (void)onLocationUpdate:(location::GpsInfo const &)gpsInfo { [self close:self.rightButtonAction]; }
+- (void)onLocationUpdate:(CLLocation *)location { [self close:self.rightButtonAction]; }
 @end

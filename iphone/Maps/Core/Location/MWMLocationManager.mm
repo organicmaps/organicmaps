@@ -5,6 +5,7 @@
 #import "MWMRouter.h"
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
+#import "location_util.h"
 
 #include <CoreApi/Framework.h>
 
@@ -14,42 +15,6 @@ namespace
 {
 using Observer = id<MWMLocationObserver>;
 using Observers = NSHashTable<Observer>;
-
-location::GpsInfo gpsInfoFromLocation(CLLocation * l, location::TLocationSource source)
-{
-  location::GpsInfo info;
-  info.m_source = source;
-
-  info.m_latitude = l.coordinate.latitude;
-  info.m_longitude = l.coordinate.longitude;
-  info.m_timestamp = l.timestamp.timeIntervalSince1970;
-
-  if (l.horizontalAccuracy >= 0.0)
-    info.m_horizontalAccuracy = l.horizontalAccuracy;
-
-  if (l.verticalAccuracy >= 0.0)
-  {
-    info.m_verticalAccuracy = l.verticalAccuracy;
-    info.m_altitude = l.altitude;
-  }
-
-  if (l.course >= 0.0)
-    info.m_bearing = l.course;
-
-  if (l.speed >= 0.0)
-    info.m_speedMpS = l.speed;
-  return info;
-}
-
-location::CompassInfo compassInfoFromHeading(CLHeading * h)
-{
-  location::CompassInfo info;
-  if (h.trueHeading >= 0.0)
-    info.m_bearing = base::DegToRad(h.trueHeading);
-  else if (h.headingAccuracy >= 0.0)
-    info.m_bearing = base::DegToRad(h.magneticHeading);
-  return info;
-}
 
 typedef NS_OPTIONS(NSUInteger, MWMLocationFrameworkUpdate) {
   MWMLocationFrameworkUpdateNone = 0,
@@ -160,7 +125,7 @@ void setShowLocationAlert(BOOL needShow) {
 @property(nonatomic) GeoMode geoMode;
 @property(nonatomic) CLHeading * lastHeadingInfo;
 @property(nonatomic) CLLocation * lastLocationInfo;
-@property(nonatomic) location::TLocationError lastLocationStatus;
+@property(nonatomic) MWMLocationStatus lastLocationStatus;
 @property(nonatomic) MWMLocationPredictor * predictor;
 @property(nonatomic) Observers * observers;
 @property(nonatomic) MWMLocationFrameworkUpdate frameworkUpdateMode;
@@ -252,7 +217,7 @@ void setShowLocationAlert(BOOL needShow) {
   MWMLocationManager * manager = [self manager];
   if (!manager.started || !manager.lastLocationInfo ||
       manager.lastLocationInfo.horizontalAccuracy < 0 ||
-      manager.lastLocationStatus != location::TLocationError::ENoError)
+      manager.lastLocationStatus != MWMLocationStatusNoError)
     return nil;
   return manager.lastLocationInfo;
 }
@@ -260,8 +225,8 @@ void setShowLocationAlert(BOOL needShow) {
 + (BOOL)isLocationProhibited
 {
   auto const status = [self manager].lastLocationStatus;
-  return status == location::TLocationError::EDenied ||
-         status == location::TLocationError::EGPSIsOff;
+  return status == MWMLocationStatusDenied ||
+         status == MWMLocationStatusGPSIsOff;
 }
 
 + (CLHeading *)lastHeading
@@ -274,10 +239,10 @@ void setShowLocationAlert(BOOL needShow) {
 
 #pragma mark - Observer notifications
 
-- (void)processLocationStatus:(location::TLocationError)locationError
+- (void)processLocationStatus:(MWMLocationStatus)locationError
 {
   self.lastLocationStatus = locationError;
-  if (self.lastLocationStatus != location::TLocationError::ENoError)
+  if (self.lastLocationStatus != MWMLocationStatusNoError)
     self.frameworkUpdateMode |= MWMLocationFrameworkUpdateStatus;
   for (Observer observer in self.observers)
   {
@@ -290,17 +255,17 @@ void setShowLocationAlert(BOOL needShow) {
 {
   self.lastHeadingInfo = headingInfo;
   self.frameworkUpdateMode |= MWMLocationFrameworkUpdateHeading;
-  location::CompassInfo const compassInfo = compassInfoFromHeading(headingInfo);
+//  location::CompassInfo const compassInfo = compassInfoFromHeading(headingInfo);
   for (Observer observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onHeadingUpdate:)])
-      [observer onHeadingUpdate:compassInfo];
+      [observer onHeadingUpdate:headingInfo];
   }
 }
 
 - (void)processLocationUpdate:(CLLocation *)locationInfo
 {
-  if (!locationInfo || self.lastLocationStatus != location::TLocationError::ENoError)
+  if (!locationInfo || self.lastLocationStatus != MWMLocationStatusNoError)
     return;
   [self onLocationUpdate:locationInfo source:self.locationSource];
   if (![self.lastLocationInfo isEqual:locationInfo])
@@ -309,7 +274,7 @@ void setShowLocationAlert(BOOL needShow) {
 
 - (void)onLocationUpdate:(CLLocation *)locationInfo source:(location::TLocationSource)source
 {
-  location::GpsInfo const gpsInfo = gpsInfoFromLocation(locationInfo, source);
+  location::GpsInfo const gpsInfo = location_util::gpsInfoFromLocation(locationInfo, source);
   GpsTracker::Instance().OnLocationUpdated(gpsInfo);
 
   self.lastLocationInfo = locationInfo;
@@ -318,23 +283,23 @@ void setShowLocationAlert(BOOL needShow) {
   for (Observer observer in self.observers)
   {
     if ([observer respondsToSelector:@selector(onLocationUpdate:)])
-      [observer onLocationUpdate:gpsInfo];
+      [observer onLocationUpdate:locationInfo];
   }
 }
 
 #pragma mark - Location Status
 
-- (void)setLastLocationStatus:(location::TLocationError)lastLocationStatus
+- (void)setLastLocationStatus:(MWMLocationStatus)lastLocationStatus
 {
   _lastLocationStatus = lastLocationStatus;
   switch (lastLocationStatus)
   {
-  case location::ENoError: break;
-  case location::ENotSupported:
+  case MWMLocationStatusNoError: break;
+  case MWMLocationStatusNotSupported:
     [[MWMAlertViewController activeAlertController] presentLocationServiceNotSupportedAlert];
     break;
-  case location::EDenied:
-  case location::EGPSIsOff:
+  case MWMLocationStatusDenied:
+  case MWMLocationStatusGPSIsOff:
     if (needShowLocationAlert()) {
       [[MWMAlertViewController activeAlertController] presentLocationAlertWithCancelBlock:^{
         setShowLocationAlert(NO);
@@ -465,15 +430,15 @@ void setShowLocationAlert(BOOL needShow) {
   if (location.horizontalAccuracy < 0.)
     return;
 
-  self.lastLocationStatus = location::TLocationError::ENoError;
+  self.lastLocationStatus = MWMLocationStatusNoError;
   self.locationSource = location::EAppleNative;
   [self processLocationUpdate:location];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-  if (self.lastLocationStatus == location::TLocationError::ENoError && error.code == kCLErrorDenied)
-    [self processLocationStatus:location::EDenied];
+  if (self.lastLocationStatus == MWMLocationStatusNoError && error.code == kCLErrorDenied)
+    [self processLocationStatus:MWMLocationStatusDenied];
 }
 
 #pragma mark - Start / Stop
@@ -528,12 +493,12 @@ void setShowLocationAlert(BOOL needShow) {
     case kCLAuthorizationStatusAuthorizedAlways:
     case kCLAuthorizationStatusNotDetermined: doStart(); return YES;
     case kCLAuthorizationStatusRestricted:
-    case kCLAuthorizationStatusDenied: [self processLocationStatus:location::EDenied]; break;
+    case kCLAuthorizationStatusDenied: [self processLocationStatus:MWMLocationStatusDenied]; break;
     }
   }
   else
   {
-    [self processLocationStatus:location::EGPSIsOff];
+    [self processLocationStatus:MWMLocationStatusGPSIsOff];
   }
   return NO;
 }
@@ -561,13 +526,13 @@ void setShowLocationAlert(BOOL needShow) {
     if (self.frameworkUpdateMode & MWMLocationFrameworkUpdateLocation)
     {
       location::GpsInfo const gpsInfo =
-          gpsInfoFromLocation(self.lastLocationInfo, self.locationSource);
+          location_util::gpsInfoFromLocation(self.lastLocationInfo, self.locationSource);
       f.OnLocationUpdate(gpsInfo);
     }
     if (self.frameworkUpdateMode & MWMLocationFrameworkUpdateHeading)
-      f.OnCompassUpdate(compassInfoFromHeading(self.lastHeadingInfo));
+      f.OnCompassUpdate(location_util::compassInfoFromHeading(self.lastHeadingInfo));
     if (self.frameworkUpdateMode & MWMLocationFrameworkUpdateStatus)
-      f.OnLocationError(self.lastLocationStatus);
+      f.OnLocationError((location::TLocationError)self.lastLocationStatus);
     self.frameworkUpdateMode = MWMLocationFrameworkUpdateNone;
   }
   else

@@ -12,6 +12,7 @@
 #import "MWMStorage+UI.h"
 #import "SwiftBridge.h"
 #import "MWMMapViewControlsManager+AddPlace.h"
+#import "location_util.h"
 
 #import <CoreApi/CoreApi.h>
 
@@ -298,7 +299,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 
 #pragma mark - MWMLocationObserver
 
-- (void)onHeadingUpdate:(location::CompassInfo const &)info
+- (void)onHeadingUpdate:(CLHeading *)heading
 {
   auto lastLocation = [MWMLocationManager lastLocation];
   auto data = self.data;
@@ -310,6 +311,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   if (base::AlmostEqualAbs(locationMercator, dataMercator, 1e-10))
     return;
 
+  auto const info = location_util::compassInfoFromHeading(heading);
   auto const angle = ang::AngleTo(locationMercator, dataMercator) + info.m_bearing;
   [self.layout rotateDirectionArrowToAngle:angle];
 }
@@ -321,7 +323,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
     [self.layout setSpeedAndAltitude:location_helpers::formattedSpeedAndAltitude(MWMLocationManager.lastLocation)];
 }
 
-- (void)onLocationUpdate:(location::GpsInfo const &)locationInfo
+- (void)onLocationUpdate:(CLLocation *)location
 {
   [self setupSpeedAndDistance];
 }
