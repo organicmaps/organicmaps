@@ -286,4 +286,5 @@
   <dimen name="bookmark_all_subscription_content_width">336dp</dimen>
   <dimen name="subs_btn_min_width">328dp</dimen>
   <dimen name="bookmarks_all_subscription_pager_item_margin">@dimen/margin_base_plus_quarter</dimen>
+  <dimen name="bookmarks_sightseeing_subs_central_content_margin">88dp</dimen>
 </resources>

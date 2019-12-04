@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:fillViewport="true">
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+      android:layout_above="@id/sightseeing_footer"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/bg_sightseeing_subs"
+      android:orientation="vertical">
+      <ImageView
+        android:id="@+id/header_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_sightseeing_subscription" />
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bookmarks_sightseeing_subs_central_content_bg"
+        android:maxWidth="@dimen/subs_btn_min_width"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/bookmarks_sightseeing_subs_central_content_margin"
+        android:paddingTop="@dimen/menu_line_button_width"
+        android:paddingEnd="@dimen/bookmarks_sightseeing_subs_central_content_margin"
+        android:paddingBottom="@dimen/menu_line_button_width">
+        <LinearLayout
+          android:orientation="vertical"
+          android:minWidth="@dimen/subs_btn_min_width"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content">
+          <TextView
+            android:id="@+id/sightseeing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_base_plus_quarter"
+            android:fontFamily="@string/robotoRegular"
+            android:text="@string/sightseeing_subscription_header_sightseeing"
+            android:textAllCaps="true"
+            android:textColor="@color/base_accent"
+            android:textSize="@dimen/text_size_title" />
+          <TextView
+            android:id="@+id/subscription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@string/robotoRegular"
+            android:text="@string/sightseeing_subscription_header_subscription"
+            android:textColor="@color/black_primary"
+            android:textSize="@dimen/text_size_title" />
+          <LinearLayout
+            android:id="@+id/message_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_base_plus"
+            android:gravity="center_vertical|start"
+            android:orientation="horizontal">
+            <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:src="@drawable/ic_sightseeing_checkox" />
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/margin_base"
+              android:ellipsize="end"
+              android:singleLine="true"
+              android:text="@string/sightseeing_subscription_message"
+              android:textColor="@color/black_primary"
+              android:textSize="@dimen/text_size_body_2" />
+          </LinearLayout>
+          <LinearLayout
+            android:id="@+id/message_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_base_plus_quarter"
+            android:gravity="center_vertical|start"
+            android:orientation="horizontal">
+            <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:src="@drawable/ic_sightseeing_checkox" />
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/margin_base"
+              android:ellipsize="end"
+              android:singleLine="true"
+              android:text="@string/sightseeing_subscription_message_2"
+              android:textColor="@color/black_primary"
+              android:textSize="@dimen/text_size_body_2" />
+          </LinearLayout>
+          <LinearLayout
+            android:id="@+id/message_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_base_plus_quarter"
+            android:gravity="center_vertical|start"
+            android:orientation="horizontal">
+            <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:src="@drawable/ic_sightseeing_checkox" />
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/margin_base"
+              android:ellipsize="end"
+              android:singleLine="true"
+              android:text="@string/sightseeing_subscription_message_3"
+              android:textColor="@color/black_primary"
+              android:textSize="@dimen/text_size_body_2" />
+          </LinearLayout>
+        </LinearLayout>
+        <com.mapswithme.maps.widget.SubscriptionButton
+          android:id="@+id/annual_button"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_double_and_half"
+          app:buttonBackground="?primaryButtonBackground"
+          app:buttonTextColor="@color/white_primary"
+          app:progressColor="@color/white_primary"
+          app:saleBackground="@drawable/sightseeing_subs_sale_bg"
+          app:saleTextColor="@color/white_primary"
+          app:showSale="true" />
+        <com.mapswithme.maps.widget.SubscriptionButton
+          android:id="@+id/monthly_button"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_base"
+          app:buttonBackground="@drawable/button_secondary_transparent"
+          app:buttonTextColor="@color/black_primary"
+          app:progressColor="@color/base_accent"
+          app:saleTextColor="@color/white_primary"
+          app:showSale="false" />
+        <TextView
+          android:id="@+id/restore_purchase_btn"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginTop="@dimen/margin_base_plus_quarter"
+          android:background="?attr/selectableItemBackground"
+          android:gravity="center"
+          android:minHeight="@dimen/primary_button_min_height"
+          android:paddingStart="@dimen/margin_half_plus"
+          android:paddingEnd="@dimen/margin_half_plus"
+          android:text="@string/restore"
+          android:textAllCaps="true"
+          android:textColor="?colorAccent"
+          tools:ignore="UnusedAttribute"
+          tools:text="Restore purchases" />
+      </LinearLayout>
+    </RelativeLayout>
+    <ImageView
+      android:id="@+id/sightseeing_footer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:scaleType="centerCrop"
+      android:src="@drawable/img_sightseeing_footer" />
+    <include
+      android:id="@+id/terms_of_use"
+      layout="@layout/subscription_terms_of_use"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_above="@id/sightseeing_footer"
+      android:layout_marginBottom="@dimen/margin_base_plus_quarter"
+      android:layout_marginStart="@dimen/routing_info_height"
+      android:layout_marginTop="@dimen/margin_base_plus_quarter"
+      android:layout_marginEnd="@dimen/routing_info_height" />
+  </RelativeLayout>
+</androidx.core.widget.NestedScrollView>
