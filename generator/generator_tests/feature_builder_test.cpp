@@ -201,27 +201,19 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessNames)
 
 UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilderParams_Parsing)
 {
-  {
-    FeatureBuilderParams params;
-    params.AddStreet("Embarcadero\nstreet");
-    TEST_EQUAL(params.GetStreet(), "Embarcadero street", ());
-  }
+  FeatureBuilderParams params;
 
-  {
-    FeatureBuilderParams params;
+  params.MakeZero();
+  TEST(params.AddHouseNumber("123"), ());
+  TEST_EQUAL(params.house.Get(), "123", ());
 
-    params.MakeZero();
-    TEST(params.AddHouseNumber("123"), ());
-    TEST_EQUAL(params.house.Get(), "123", ());
+  params.MakeZero();
+  TEST(params.AddHouseNumber("0000123"), ());
+  TEST_EQUAL(params.house.Get(), "123", ());
 
-    params.MakeZero();
-    TEST(params.AddHouseNumber("0000123"), ());
-    TEST_EQUAL(params.house.Get(), "123", ());
-
-    params.MakeZero();
-    TEST(params.AddHouseNumber("000000"), ());
-    TEST_EQUAL(params.house.Get(), "0", ());
-  }
+  params.MakeZero();
+  TEST(params.AddHouseNumber("000000"), ());
+  TEST_EQUAL(params.house.Get(), "0", ());
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeLocalityObjectForBuildingPoint)

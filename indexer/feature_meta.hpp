@@ -248,4 +248,5 @@ std::string ToString(feature::Metadata::EType type);
 inline std::string DebugPrint(feature::Metadata::EType type) { return ToString(type); }
 
 std::string DebugPrint(feature::Metadata const & metadata);
+std::string DebugPrint(feature::AddressData const & addressData);
 }  // namespace feature

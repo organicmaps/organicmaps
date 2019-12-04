@@ -309,9 +309,6 @@ public:
   void AddStreet(std::string s);
   void AddPostcode(std::string const & s);
 
-  /// Used for generator/booking_quality_check.
-  std::string GetStreet() const;
-
   feature::AddressData const & GetAddressData() const { return m_addrTags; }
   feature::Metadata const & GetMetadata() const { return m_metadata; }
   feature::Metadata & GetMetadata() { return m_metadata; }

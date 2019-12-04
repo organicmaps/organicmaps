@@ -13,6 +13,7 @@
 
 #include <algorithm>
 #include <functional>
+#include <sstream>
 #include <vector>
 
 using namespace feature;
@@ -548,8 +549,6 @@ void FeatureBuilderParams::AddPostcode(string const & s)
   m_addrTags.Add(AddressData::Type::Postcode, s);
 }
 
-string FeatureBuilderParams::GetStreet() const { return m_addrTags.Get(AddressData::Type::Street); }
-
 string DebugPrint(FeatureParams const & p)
 {
   Classificator const & c = classif();
@@ -561,4 +560,12 @@ string DebugPrint(FeatureParams const & p)
   return (res + p.DebugString());
 }
 
-string DebugPrint(FeatureBuilderParams const & p) { return DebugPrint(FeatureParams(p)); }
+string DebugPrint(FeatureBuilderParams const & p)
+{
+  ostringstream oss;
+  oss << "ReversedGeometry: " << (p.GetReversedGeometry() ? "true" : "false") << "; ";
+  oss << DebugPrint(p.GetMetadata()) << "; ";
+  oss << DebugPrint(p.GetAddressData()) << "; ";
+  oss << DebugPrint(FeatureParams(p));
+  return oss.str();
+}

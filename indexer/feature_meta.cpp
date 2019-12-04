@@ -222,4 +222,13 @@ string DebugPrint(Metadata const & metadata)
   oss << "]";
   return oss.str();
 }
+
+string DebugPrint(feature::AddressData const & addressData)
+{
+  ostringstream oss;
+  oss << "AddressData [";
+  oss << "Street = \"" << addressData.Get(AddressData::Type::Street) << "\"; ";
+  oss << "Postcode = \"" << addressData.Get(AddressData::Type::Postcode) << "\"]";
+  return oss.str();
+}
 }  // namespace feature

@@ -56,20 +56,7 @@ string PrintBuilder(FeatureBuilder const & fb)
   s << "Id: " << DebugPrint(fb.GetMostGenericOsmId()) << '\t'
     << "Name: " << fb.GetName(StringUtf8Multilang::kDefaultCode) << '\t';
 
-  auto const & params = fb.GetParams();
-  auto const street = params.GetStreet();
-  auto const house = params.house.Get();
-
-  string address = street;
-  if (!house.empty())
-  {
-    if (!street.empty())
-      address += ", ";
-    address += house;
-  }
-
-  if (!address.empty())
-    s << "Address: " << address << '\t';
+  s << "Params: " << DebugPrint(fb.GetParams()) << '\t';
 
   auto const center = mercator::ToLatLon(fb.GetKeyPoint());
   s << "lat: " << center.m_lat << " lon: " << center.m_lon << '\t';
