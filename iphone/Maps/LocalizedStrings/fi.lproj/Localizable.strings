@@ -3364,11 +3364,11 @@
 
 "type.amenity.parking_space" = "Parkkipaikka";
 
-"type.amenity.parking_space.permissive" = "Parking space";
+"type.amenity.parking_space.permissive" = "Parkkipaikka";
 
-"type.amenity.parking_space.private" = "Parking space";
+"type.amenity.parking_space.private" = "Parkkipaikka";
 
-"type.amenity.parking_space.underground" = "Parking space";
+"type.amenity.parking_space.underground" = "Parkkipaikka";
 
 "type.amenity.payment_terminal" = "Maksupääte";
 

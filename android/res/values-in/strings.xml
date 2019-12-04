@@ -1802,6 +1802,9 @@
 	<string name="type.amenity.parking.underground">Parkir</string>
 	<string name="type.amenity.parking.underground.fee">Parkir</string>
 	<string name="type.amenity.parking_space">Tempat parkir</string>
+	<string name="type.amenity.parking_space.permissive">Tempat parkir</string>
+	<string name="type.amenity.parking_space.private">Tempat parkir</string>
+	<string name="type.amenity.parking_space.underground">Tempat parkir</string>
 	<string name="type.amenity.payment_terminal">Terminal Pembayaran</string>
 	<string name="type.amenity.pharmacy">Apotek</string>
 	<string name="type.amenity.place_of_worship">Tempat ibadah</string>

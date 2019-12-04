@@ -3364,11 +3364,11 @@
 
 "type.amenity.parking_space" = "Parkovacie miesto";
 
-"type.amenity.parking_space.permissive" = "Parking space";
+"type.amenity.parking_space.permissive" = "Parkovacie miesto";
 
-"type.amenity.parking_space.private" = "Parking space";
+"type.amenity.parking_space.private" = "Parkovacie miesto";
 
-"type.amenity.parking_space.underground" = "Parking space";
+"type.amenity.parking_space.underground" = "Parkovacie miesto";
 
 "type.amenity.payment_terminal" = "Platobný terminál";
 

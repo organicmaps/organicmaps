@@ -1812,6 +1812,9 @@
 	<string name="type.amenity.parking.underground">موقف سيارات</string>
 	<string name="type.amenity.parking.underground.fee">موقف سيارات</string>
 	<string name="type.amenity.parking_space">مكان لوقوف السيارات</string>
+	<string name="type.amenity.parking_space.permissive">مكان لوقوف السيارات</string>
+	<string name="type.amenity.parking_space.private">مكان لوقوف السيارات</string>
+	<string name="type.amenity.parking_space.underground">مكان لوقوف السيارات</string>
 	<string name="type.amenity.payment_terminal">محطة دفع</string>
 	<string name="type.amenity.pharmacy">متجر أدوية</string>
 	<string name="type.amenity.place_of_worship">مكان عبادة</string>

@@ -3364,11 +3364,11 @@
 
 "type.amenity.parking_space" = "Park alanı";
 
-"type.amenity.parking_space.permissive" = "Parking space";
+"type.amenity.parking_space.permissive" = "Park alanı";
 
-"type.amenity.parking_space.private" = "Parking space";
+"type.amenity.parking_space.private" = "Park alanı";
 
-"type.amenity.parking_space.underground" = "Parking space";
+"type.amenity.parking_space.underground" = "Park alanı";
 
 "type.amenity.payment_terminal" = "Ödeme Noktası";
 

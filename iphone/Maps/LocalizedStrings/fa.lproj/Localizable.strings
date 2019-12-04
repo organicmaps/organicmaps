@@ -3364,11 +3364,11 @@
 
 "type.amenity.parking_space" = "جای پارک";
 
-"type.amenity.parking_space.permissive" = "Parking space";
+"type.amenity.parking_space.permissive" = "جای پارک";
 
-"type.amenity.parking_space.private" = "Parking space";
+"type.amenity.parking_space.private" = "جای پارک";
 
-"type.amenity.parking_space.underground" = "Parking space";
+"type.amenity.parking_space.underground" = "جای پارک";
 
 "type.amenity.payment_terminal" = "دستگاه کارتخوان";
 

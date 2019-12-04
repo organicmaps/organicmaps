@@ -1811,6 +1811,9 @@
 	<string name="type.amenity.parking.underground">停车</string>
 	<string name="type.amenity.parking.underground.fee">停车</string>
 	<string name="type.amenity.parking_space">停车地点</string>
+	<string name="type.amenity.parking_space.permissive">停车地点</string>
+	<string name="type.amenity.parking_space.private">停车地点</string>
+	<string name="type.amenity.parking_space.underground">停车地点</string>
 	<string name="type.amenity.payment_terminal">支付终端</string>
 	<string name="type.amenity.pharmacy">药店</string>
 	<string name="type.amenity.place_of_worship">礼拜场所</string>

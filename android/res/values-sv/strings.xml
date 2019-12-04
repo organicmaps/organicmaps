@@ -1809,6 +1809,9 @@
 	<string name="type.amenity.parking.underground">Parkering</string>
 	<string name="type.amenity.parking.underground.fee">Parkering</string>
 	<string name="type.amenity.parking_space">Parkeringsplats</string>
+	<string name="type.amenity.parking_space.permissive">Parkeringsplats</string>
+	<string name="type.amenity.parking_space.private">Parkeringsplats</string>
+	<string name="type.amenity.parking_space.underground">Parkeringsplats</string>
 	<string name="type.amenity.payment_terminal">Betalningsterminal</string>
 	<string name="type.amenity.pharmacy">Apotek</string>
 	<string name="type.amenity.place_of_worship">Plats för tillbedjan</string>

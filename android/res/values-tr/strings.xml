@@ -1809,6 +1809,9 @@
 	<string name="type.amenity.parking.underground">Otopark</string>
 	<string name="type.amenity.parking.underground.fee">Otopark</string>
 	<string name="type.amenity.parking_space">Park alanı</string>
+	<string name="type.amenity.parking_space.permissive">Park alanı</string>
+	<string name="type.amenity.parking_space.private">Park alanı</string>
+	<string name="type.amenity.parking_space.underground">Park alanı</string>
 	<string name="type.amenity.payment_terminal">Ödeme Noktası</string>
 	<string name="type.amenity.pharmacy">Eczane</string>
 	<string name="type.amenity.place_of_worship">Ibadet yerleri</string>

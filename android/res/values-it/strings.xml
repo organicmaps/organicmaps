@@ -1802,6 +1802,9 @@
 	<string name="type.amenity.parking.underground">Parcheggio</string>
 	<string name="type.amenity.parking.underground.fee">Parcheggio</string>
 	<string name="type.amenity.parking_space">Parcheggio</string>
+	<string name="type.amenity.parking_space.permissive">Parcheggio</string>
+	<string name="type.amenity.parking_space.private">Parcheggio</string>
+	<string name="type.amenity.parking_space.underground">Parcheggio</string>
 	<string name="type.amenity.payment_terminal">Terminale di pagamento</string>
 	<string name="type.amenity.pharmacy">Farmacia</string>
 	<string name="type.amenity.place_of_worship">Tempio</string>

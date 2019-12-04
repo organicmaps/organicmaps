@@ -3364,11 +3364,11 @@
 
 "type.amenity.parking_space" = "Loc de parcare";
 
-"type.amenity.parking_space.permissive" = "Parking space";
+"type.amenity.parking_space.permissive" = "Loc de parcare";
 
-"type.amenity.parking_space.private" = "Parking space";
+"type.amenity.parking_space.private" = "Loc de parcare";
 
-"type.amenity.parking_space.underground" = "Parking space";
+"type.amenity.parking_space.underground" = "Loc de parcare";
 
 "type.amenity.payment_terminal" = "Terminal de plăți";
 

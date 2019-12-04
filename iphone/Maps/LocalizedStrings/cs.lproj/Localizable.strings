@@ -3364,11 +3364,11 @@
 
 "type.amenity.parking_space" = "Prostor pro parkování";
 
-"type.amenity.parking_space.permissive" = "Parking space";
+"type.amenity.parking_space.permissive" = "Prostor pro parkování";
 
-"type.amenity.parking_space.private" = "Parking space";
+"type.amenity.parking_space.private" = "Prostor pro parkování";
 
-"type.amenity.parking_space.underground" = "Parking space";
+"type.amenity.parking_space.underground" = "Prostor pro parkování";
 
 "type.amenity.payment_terminal" = "Platební terminál";
 

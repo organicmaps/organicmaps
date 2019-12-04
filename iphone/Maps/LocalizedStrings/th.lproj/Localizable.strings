@@ -3364,11 +3364,11 @@
 
 "type.amenity.parking_space" = "พื้นที่จอดรถ";
 
-"type.amenity.parking_space.permissive" = "Parking space";
+"type.amenity.parking_space.permissive" = "พื้นที่จอดรถ";
 
-"type.amenity.parking_space.private" = "Parking space";
+"type.amenity.parking_space.private" = "พื้นที่จอดรถ";
 
-"type.amenity.parking_space.underground" = "Parking space";
+"type.amenity.parking_space.underground" = "พื้นที่จอดรถ";
 
 "type.amenity.payment_terminal" = "จุดชำระเงิน";
 

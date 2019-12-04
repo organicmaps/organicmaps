@@ -1563,6 +1563,9 @@
 	<string name="type.amenity.parking.underground">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.underground.fee">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking_space">Χώρος στάθμευσης</string>
+	<string name="type.amenity.parking_space.permissive">Χώρος στάθμευσης</string>
+	<string name="type.amenity.parking_space.private">Χώρος στάθμευσης</string>
+	<string name="type.amenity.parking_space.underground">Χώρος στάθμευσης</string>
 	<string name="type.amenity.payment_terminal">Τερματικό πληρωμών</string>
 	<string name="type.amenity.pharmacy">Φαρμακείο</string>
 	<string name="type.amenity.place_of_worship">Χώρος λατρείας</string>

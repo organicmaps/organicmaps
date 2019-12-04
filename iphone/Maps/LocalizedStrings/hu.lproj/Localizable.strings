@@ -3364,11 +3364,11 @@
 
 "type.amenity.parking_space" = "Parkolóhely";
 
-"type.amenity.parking_space.permissive" = "Parking space";
+"type.amenity.parking_space.permissive" = "Parkolóhely";
 
-"type.amenity.parking_space.private" = "Parking space";
+"type.amenity.parking_space.private" = "Parkolóhely";
 
-"type.amenity.parking_space.underground" = "Parking space";
+"type.amenity.parking_space.underground" = "Parkolóhely";
 
 "type.amenity.payment_terminal" = "Fizető terminál";
 

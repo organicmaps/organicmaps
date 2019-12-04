@@ -3364,11 +3364,11 @@
 
 "type.amenity.parking_space" = "Parkeerplaats";
 
-"type.amenity.parking_space.permissive" = "Parking space";
+"type.amenity.parking_space.permissive" = "Parkeerplaats";
 
-"type.amenity.parking_space.private" = "Parking space";
+"type.amenity.parking_space.private" = "Parkeerplaats";
 
-"type.amenity.parking_space.underground" = "Parking space";
+"type.amenity.parking_space.underground" = "Parkeerplaats";
 
 "type.amenity.payment_terminal" = "Betaalautomaat";
 

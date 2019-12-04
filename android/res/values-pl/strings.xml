@@ -1831,9 +1831,9 @@
 	<string name="type.amenity.parking.underground">Parking podziemny</string>
 	<string name="type.amenity.parking.underground.fee">Parking podziemny płatny</string>
 	<string name="type.amenity.parking_space">Miejsce parkingowe</string>
-	<string name="type.amenity.parking_space.permissive">Miejsce parkingowe ograniczone</string>
-	<string name="type.amenity.parking_space.private">Miejsce parkingowe prywatne</string>
-	<string name="type.amenity.parking_space.underground">Miejsce parkingowe podziemne</string>
+	<string name="type.amenity.parking_space.permissive">Miejsce parkingowe</string>
+	<string name="type.amenity.parking_space.private">Miejsce parkingowe</string>
+	<string name="type.amenity.parking_space.underground">Miejsce parkingowe</string>
 	<string name="type.amenity.payment_terminal">Wpłatomat</string>
 	<string name="type.amenity.pharmacy">Apteka</string>
 	<string name="type.amenity.place_of_worship">Świątynia</string>

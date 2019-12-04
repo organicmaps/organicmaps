@@ -3364,11 +3364,11 @@
 
 "type.amenity.parking_space" = "Χώρος στάθμευσης";
 
-"type.amenity.parking_space.permissive" = "Parking space";
+"type.amenity.parking_space.permissive" = "Χώρος στάθμευσης";
 
-"type.amenity.parking_space.private" = "Parking space";
+"type.amenity.parking_space.private" = "Χώρος στάθμευσης";
 
-"type.amenity.parking_space.underground" = "Parking space";
+"type.amenity.parking_space.underground" = "Χώρος στάθμευσης";
 
 "type.amenity.payment_terminal" = "Τερματικό πληρωμών";
 

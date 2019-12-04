@@ -3364,11 +3364,11 @@
 
 "type.amenity.parking_space" = "Miejsce parkingowe";
 
-"type.amenity.parking_space.permissive" = "Miejsce parkingowe ograniczone";
+"type.amenity.parking_space.permissive" = "Miejsce parkingowe";
 
-"type.amenity.parking_space.private" = "Miejsce parkingowe prywatne";
+"type.amenity.parking_space.private" = "Miejsce parkingowe";
 
-"type.amenity.parking_space.underground" = "Miejsce parkingowe podziemne";
+"type.amenity.parking_space.underground" = "Miejsce parkingowe";
 
 "type.amenity.payment_terminal" = "Wpłatomat";
 

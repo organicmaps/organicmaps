@@ -3364,11 +3364,11 @@
 
 "type.amenity.parking_space" = "Паркувальне місце";
 
-"type.amenity.parking_space.permissive" = "Parking space";
+"type.amenity.parking_space.permissive" = "Паркувальне місце";
 
-"type.amenity.parking_space.private" = "Parking space";
+"type.amenity.parking_space.private" = "Паркувальне місце";
 
-"type.amenity.parking_space.underground" = "Parking space";
+"type.amenity.parking_space.underground" = "Паркувальне місце";
 
 "type.amenity.payment_terminal" = "Платіжний термінал";
 
