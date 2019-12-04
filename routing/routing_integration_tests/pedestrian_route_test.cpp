@@ -535,3 +535,12 @@ UNIT_TEST(BudvaPrimaryRoad)
       mercator::FromLatLon(42.2884527, 18.8456794), {0., 0.},
       mercator::FromLatLon(42.2880575, 18.8492896), 368.85);
 }
+
+// Test on start and finish route which lies on a feature crossed by a mwm border and a ford.
+UNIT_TEST(RussiaSmolenskAriaFeatureCrossingBorderWithFord)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetVehicleComponents(VehicleType::Pedestrian),
+      mercator::FromLatLon(55.01727, 30.91566), {0., 0.},
+      mercator::FromLatLon(55.01867, 30.91285), 298.6);
+}
