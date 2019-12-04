@@ -13,7 +13,7 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
-#include "geometry/mercator.hpp"
+#include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
 #include "base/assert.hpp"
@@ -96,7 +96,7 @@ struct Result
     m_address = r.GetAddress();
     m_hasCenter = r.HasPoint();
     if (m_hasCenter)
-      m_center = r.GetFeatureCenter();
+      m_center = Mercator(r.GetFeatureCenter());
   }
 
   string ToString() const
@@ -134,7 +134,7 @@ struct SearchEngineProxy
   SearchEngineProxy()
   {
     search::search_quality::InitDataSource(m_dataSource, "" /* mwmListPath */);
-    search::search_quality::InitAffiliations(m_affiliations);
+    search::search_quality::InitStorageData(m_affiliations, m_countryNameSynonyms);
     m_engine = search::search_quality::InitSearchEngine(m_dataSource, m_affiliations,
                                                         "en" /* locale */, 1 /* numThreads */);
   }
@@ -196,6 +196,7 @@ struct SearchEngineProxy
   }
 
   storage::Affiliations m_affiliations;
+  storage::CountryNameSynonyms m_countryNameSynonyms;
   FrozenDataSource m_dataSource;
   unique_ptr<search::tests_support::TestSearchEngine> m_engine;
 };
