@@ -1,6 +1,8 @@
+// TODO Uncomment or delete binding when we decide whan to do with backend service.
+
 #include "routing/route.hpp"
 #include "routing/routing_callbacks.hpp"
-#include "routing/routing_quality/utils.hpp"
+#include "routing/routing_quality/routing_quality_tool/utils.hpp"
 
 #include "platform/platform.hpp"
 
@@ -29,7 +31,7 @@
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
 
 using namespace std;
-
+/*
 namespace
 {
 class RouteNotFoundException : public exception
@@ -66,7 +68,8 @@ void Translate(PyObject * object, Exception const & e)
 
 struct Params
 {
-  Params(string const & data, string const & userResources) : m_dataPath(data), m_userResourcesPath(userResources)
+  Params(string const & data, string const & userResources) : m_dataPath(data),
+m_userResourcesPath(userResources)
   {
     if (m_dataPath.empty())
       throw runtime_error("data_path parameter not specified");
@@ -78,8 +81,8 @@ struct Params
   string DebugPrint() const
   {
     ostringstream ss;
-    ss << "Params(data path: " << m_dataPath << ", user resources path: " << m_userResourcesPath << ")";
-    return ss.str();
+    ss << "Params(data path: " << m_dataPath << ", user resources path: " << m_userResourcesPath <<
+")"; return ss.str();
   }
 
   string m_dataPath;
@@ -124,31 +127,37 @@ struct Generator
   Params m_params;
 };
 }  // namespace
+ */
 
 using namespace boost::python;
-
+/*
 BOOST_PYTHON_MODULE(pytrack_generator)
-{
-  scope().attr("__version__") = PYBINDINGS_VERSION;
-  register_exception_translator<runtime_error>([](auto const & e) { Translate(PyExc_RuntimeError, e); });
+ {
+   scope().attr("__version__") = PYBINDINGS_VERSION;
+   register_exception_translator<runtime_error>([](auto const & e) { Translate(PyExc_RuntimeError,
+e); });
 
-  kRouteNotFoundException = CreateExceptionClass("RouteNotFoundException");
-  register_exception_translator<RouteNotFoundException>([](auto const & e) { Translate(kRouteNotFoundException, e); });
+   kRouteNotFoundException = CreateExceptionClass("RouteNotFoundException");
+   register_exception_translator<RouteNotFoundException>([](auto const & e) {
+Translate(kRouteNotFoundException, e); });
 
-  class_<Params>("Params", init<string, string>())
-      .def("__str__", &Params::DebugPrint)
-      .def_readonly("data_path", &Params::m_dataPath)
-      .def_readonly("user_resources_path", &Params::m_userResourcesPath);
+   class_<Params>("Params", init<string, string>())
+       .def("__str__", &Params::DebugPrint)
+       .def_readonly("data_path", &Params::m_dataPath)
+       .def_readonly("user_resources_path", &Params::m_userResourcesPath);
 
-  class_<ms::LatLon>("LatLon", init<double, double>())
-      .def("__str__", &ms::DebugPrint)
-      .def_readonly("lat", &ms::LatLon::m_lat)
-      .def_readonly("lon", &ms::LatLon::m_lon);
+   class_<ms::LatLon>("LatLon", init<double, double>())
+       .def("__str__", &ms::DebugPrint)
+       .def_readonly("lat", &ms::LatLon::m_lat)
+       .def_readonly("lon", &ms::LatLon::m_lon);
 
-  class_<vector<ms::LatLon>>("LatLonList")
-      .def(vector_indexing_suite<vector<ms::LatLon>>());
+   class_<vector<ms::LatLon>>("LatLonList")
+       .def(vector_indexing_suite<vector<ms::LatLon>>());
 
-  class_<Generator>("Generator", init<Params>())
-      .def("generate", &Generator::Generate)
-      .def_readonly("params", &Generator::m_params);
-}
+   class_<Generator>("Generator", init<Params>())
+       .def("generate", &Generator::Generate)
+       .def_readonly("params", &Generator::m_params);
+ }
+ */
+
+BOOST_PYTHON_MODULE(pytrack_generator) { scope().attr("__version__") = PYBINDINGS_VERSION; }
