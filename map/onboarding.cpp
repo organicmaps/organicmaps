@@ -17,7 +17,7 @@ namespace
 {
 auto constexpr kTipsCount = static_cast<uint8_t>(onboarding::Tip::Type::Count);
 
-std::string const kBaseUrl = "/v2/mobilefront/";
+std::string const kBaseUrl = "/v3/mobilefront/";
 std::array<std::string, kTipsCount> const kTipsLinks = {
   InjectUTM(kBaseUrl, UTM::DiscoverCatalogOnboarding),
   InjectUTM(kBaseUrl + "search/?tag=181", UTM::FreeSamplesOnboading),

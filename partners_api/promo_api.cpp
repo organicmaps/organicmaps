@@ -167,7 +167,7 @@ std::string GetCityCatalogueUrl(std::string const & baseUrl, std::string const &
 
   ASSERT_EQUAL(baseUrl.back(), '/', ());
 
-  return baseUrl + "v2/mobilefront/city/" + ToSignedId(id);
+  return baseUrl + "v3/mobilefront/city/" + ToSignedId(id);
 }
 
 void GetPromoGalleryImpl(std::string const & url, platform::HttpClient::Headers const & headers,
