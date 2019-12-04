@@ -53,7 +53,8 @@ UNIT_TEST(RoutingQuality_USAOklahoma)
 UNIT_TEST(RoutingQuality_IranSouth)
 {
   TEST(CheckCarRoute({32.45088, 51.76419} /* start */, {32.97067, 51.50399} /* finish */,
-                     {{{32.67021, 51.64323}, {32.68752, 51.63387}}} /* reference track */),
+                     {{{32.67021, 51.64323}, {32.68752, 51.63387}},
+                      {{32.67021, 51.64323}, {32.7501, 51.64661}}} /* reference track */),
        ());
 }
 
