@@ -300,6 +300,14 @@ std::string PredefinedColorToString(PredefinedColor c)
   case PredefinedColor::Brown: return "BROWN";
   case PredefinedColor::Green: return "GREEN";
   case PredefinedColor::Orange: return "ORANGE";
+  case PredefinedColor::DeepPurple: return "DEEPPURPLE";
+  case PredefinedColor::LightBlue: return "LIGHTBLUE";
+  case PredefinedColor::Cyan: return "CYAN";
+  case PredefinedColor::Teal: return "TEAL";
+  case PredefinedColor::Lime: return "LIME";
+  case PredefinedColor::DeepOrange: return "DEEPORANGE";
+  case PredefinedColor::Gray: return "GRAY";
+  case PredefinedColor::BlueGray: return "BLUEGRAY";
   case PredefinedColor::Count: CHECK(false, ("Unknown predefined color")); return {};
   }
 }
@@ -343,6 +351,12 @@ std::string BookmarkIconToString(BookmarkIcon icon)
   case BookmarkIcon::Sights: return "SIGHTS";
   case BookmarkIcon::Swim: return "SWIM";
   case BookmarkIcon::Water: return "WATER";
+  case BookmarkIcon::Bar: return "BAR";
+  case BookmarkIcon::Transport: return "TRANSPORT";
+  case BookmarkIcon::Viewpoint: return "VIEWPOINT";
+  case BookmarkIcon::Sport: return "SPORT";
+  case BookmarkIcon::Start: return "START";
+  case BookmarkIcon::Finish: return "FINISH";
   case BookmarkIcon::Count: CHECK(false, ("Unknown bookmark icon")); return {};
   }
 }
@@ -698,6 +712,12 @@ BOOST_PYTHON_MODULE(pykmlib)
     .value(BookmarkIconToString(BookmarkIcon::Sights).c_str(), BookmarkIcon::Sights)
     .value(BookmarkIconToString(BookmarkIcon::Swim).c_str(), BookmarkIcon::Swim)
     .value(BookmarkIconToString(BookmarkIcon::Water).c_str(), BookmarkIcon::Water)
+    .value(BookmarkIconToString(BookmarkIcon::Bar).c_str(), BookmarkIcon::Bar)
+    .value(BookmarkIconToString(BookmarkIcon::Transport).c_str(), BookmarkIcon::Transport)
+    .value(BookmarkIconToString(BookmarkIcon::Viewpoint).c_str(), BookmarkIcon::Viewpoint)
+    .value(BookmarkIconToString(BookmarkIcon::Sport).c_str(), BookmarkIcon::Sport)
+    .value(BookmarkIconToString(BookmarkIcon::Start).c_str(), BookmarkIcon::Start)
+    .value(BookmarkIconToString(BookmarkIcon::Finish).c_str(), BookmarkIcon::Finish)
     .export_values();
 
   class_<ColorData>("ColorData")

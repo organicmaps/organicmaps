@@ -154,7 +154,7 @@ BookmarkIcon GetIcon(std::string const & iconName)
   for (size_t i = 0; i < static_cast<size_t>(BookmarkIcon::Count); ++i)
   {
     auto const icon = static_cast<BookmarkIcon>(i);
-    if (iconName == DebugPrint(icon))
+    if (iconName == ToString(icon))
       return icon;
   }
   return BookmarkIcon::None;
@@ -375,7 +375,7 @@ void SaveBookmarkExtendedData(KmlWriter::WriterWrapper & writer, BookmarkData co
   }
 
   if (bookmarkData.m_icon != BookmarkIcon::None)
-    writer << kIndent6 << "<mwm:icon>" << DebugPrint(bookmarkData.m_icon) << "</mwm:icon>\n";
+    writer << kIndent6 << "<mwm:icon>" << ToString(bookmarkData.m_icon) << "</mwm:icon>\n";
 
   if (!bookmarkData.m_boundTracks.empty())
   {

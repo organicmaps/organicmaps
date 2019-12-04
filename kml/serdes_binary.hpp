@@ -26,7 +26,8 @@ enum class Version : uint8_t
   V3 = 3, // 7th May 2018 (persistent feature types).
   V4 = 4, // 26th August 2019 (key-value properties and nearestToponym for bookmarks and tracks, cities -> toponyms).
   V5 = 5, // 21st November 2019 (extended color palette).
-  Latest = V5
+  V6 = 6, // 3rd December 2019 (extended bookmark icons).
+  Latest = V6
 };
 
 class SerializerKml
@@ -138,8 +139,11 @@ public:
     NonOwningReaderSource source(reader);
     auto const v = ReadPrimitiveFromSource<Version>(source);
 
-    if (v != Version::Latest && v != Version::V2 && v != Version::V3 && v != Version::V4)
+    if (v != Version::Latest && v != Version::V2 && v != Version::V3 && v != Version::V4 &&
+        v != Version::V5)
+    {
       MYTHROW(DeserializeException, ("Incorrect file version."));
+    }
 
     ReadDeviceId(source);
     ReadServerId(source);
@@ -148,9 +152,9 @@ public:
     auto subReader = reader.CreateSubReader(source.Pos(), source.Size());
     InitializeIfNeeded(*subReader);
 
-    if (v == Version::V5 || v == Version::V4)
+    if (v == Version::V6 || v == Version::V5 || v == Version::V4)
     {
-      // NOTE: v.4 and v.5 are binary compatible.
+      // NOTE: v.4, v.5 and v.6 are binary compatible.
       DeserializeCategory(subReader, m_data);
       DeserializeBookmarks(subReader, m_data);
       DeserializeTracks(subReader, m_data);

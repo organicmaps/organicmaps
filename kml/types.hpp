@@ -117,6 +117,15 @@ enum class BookmarkIcon : uint16_t
   Sights,
   Swim,
   Water,
+
+  // Extended icons.
+  Bar,
+  Transport,
+  Viewpoint,
+  Sport,
+  Start,
+  Finish,
+
   Count
 };
 
@@ -145,6 +154,12 @@ inline std::string ToString(BookmarkIcon icon)
   case BookmarkIcon::Sights: return "Sights";
   case BookmarkIcon::Swim: return "Swim";
   case BookmarkIcon::Water: return "Water";
+  case BookmarkIcon::Bar: return "Bar";
+  case BookmarkIcon::Transport: return "Transport";
+  case BookmarkIcon::Viewpoint: return "Viewpoint";
+  case BookmarkIcon::Sport: return "Sport";
+  case BookmarkIcon::Start: return "Start";
+  case BookmarkIcon::Finish: return "Finish";
   case BookmarkIcon::Count: return {};
   }
   UNREACHABLE();
