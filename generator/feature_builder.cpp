@@ -124,18 +124,6 @@ void FeatureBuilder::SetRank(uint8_t rank)
   m_params.rank = rank;
 }
 
-void FeatureBuilder::AddHouseNumber(string const & houseNumber)
-{
-  m_params.AddHouseNumber(houseNumber);
-}
-
-void FeatureBuilder::AddStreet(string const & streetName) { m_params.AddStreet(streetName); }
-
-void FeatureBuilder::AddPostcode(string const & postcode)
-{
-  m_params.AddPostcode(postcode);
-}
-
 void FeatureBuilder::AddPoint(m2::PointD const & p)
 {
   m_polygons.front().push_back(p);

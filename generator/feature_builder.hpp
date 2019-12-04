@@ -149,9 +149,6 @@ public:
 
   // To work with additional information.
   void SetRank(uint8_t rank);
-  void AddHouseNumber(std::string const & houseNumber);
-  void AddStreet(std::string const & streetName);
-  void AddPostcode(std::string const & postcode);
   bool AddName(std::string const & lang, std::string const & name);
   void SetParams(FeatureBuilderParams const & params) { m_params.SetParams(params); }
 

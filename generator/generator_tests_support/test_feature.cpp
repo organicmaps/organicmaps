@@ -130,8 +130,9 @@ void TestFeature::Serialize(FeatureBuilder & fb) const
       CHECK(fb.AddName(lang, name), ("Can't set feature name:", name, "(", lang, ")"));
     }
   });
+
   if (!m_postcode.empty())
-    fb.AddPostcode(m_postcode);
+    fb.GetParams().AddPostcode(m_postcode);
 }
 
 // TestCountry -------------------------------------------------------------------------------------
@@ -298,10 +299,11 @@ void TestPOI::Serialize(FeatureBuilder & fb) const
   for (auto const & path : m_types)
     fb.AddType(classificator.GetTypeByPath(path));
 
+  auto & params = fb.GetParams();
   if (!m_houseNumber.empty())
-    fb.AddHouseNumber(m_houseNumber);
+    params.AddHouseNumber(m_houseNumber);
   if (!m_streetName.empty())
-    fb.AddStreet(m_streetName);
+    params.AddStreet(m_streetName);
 }
 
 string TestPOI::ToDebugString() const
@@ -383,9 +385,10 @@ void TestBuilding::Serialize(FeatureBuilder & fb) const
 {
   TestFeature::Serialize(fb);
 
-  fb.AddHouseNumber(m_houseNumber);
+  auto & params = fb.GetParams();
+  params.AddHouseNumber(m_houseNumber);
   if (!m_streetName.empty())
-    fb.AddStreet(m_streetName);
+    params.AddStreet(m_streetName);
 
   auto const & classificator = classif();
   fb.AddType(classificator.GetTypeByPath({"building"}));
