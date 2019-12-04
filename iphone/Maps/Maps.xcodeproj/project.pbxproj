@@ -573,6 +573,7 @@
 		6B653B951C7F2DE4007BEFC5 /* cuisine-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B653B931C7F2DE4007BEFC5 /* cuisine-strings */; };
 		6B9978361C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
 		7BD07E4A8D71CA41F082BEC7 /* Pods_MAPS_ME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E5736C23FC4E77509C9946 /* Pods_MAPS_ME.framework */; };
+		9917D1852397ECC800A7E06E /* IPadModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917D1842397ECC800A7E06E /* IPadModalPresentationController.swift */; };
 		991CE2BF2371D349009EB02A /* PromoCampaignManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2BA2371D349009EB02A /* PromoCampaignManager.swift */; };
 		991CE2C02371D349009EB02A /* PromoCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2BB2371D349009EB02A /* PromoCampaign.swift */; };
 		991CE2C22371D349009EB02A /* PromoDiscoveryCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2BE2371D349009EB02A /* PromoDiscoveryCampaign.swift */; };
@@ -1644,6 +1645,7 @@
 		8D1107310486CEB800E47090 /* MAPSME.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MAPSME.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		978D4A30199A11E600D72CA7 /* faq.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = faq.html; path = ../../data/faq.html; sourceTree = "<group>"; };
 		97A5967E19B9CD47007A963F /* copyright.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = copyright.html; path = ../../data/copyright.html; sourceTree = "<group>"; };
+		9917D1842397ECC800A7E06E /* IPadModalPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPadModalPresentationController.swift; sourceTree = "<group>"; };
 		991CE2BA2371D349009EB02A /* PromoCampaignManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoCampaignManager.swift; sourceTree = "<group>"; };
 		991CE2BB2371D349009EB02A /* PromoCampaign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoCampaign.swift; sourceTree = "<group>"; };
 		991CE2BE2371D349009EB02A /* PromoDiscoveryCampaign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoDiscoveryCampaign.swift; sourceTree = "<group>"; };
@@ -3626,6 +3628,7 @@
 				47E3C7242111E41B008B3B27 /* DimmedModalPresentationController.swift */,
 				47E3C7262111E5A8008B3B27 /* AlertPresentationController.swift */,
 				CD4A1F122305872700F2A6B6 /* PromoBookingPresentationController.swift */,
+				9917D1842397ECC800A7E06E /* IPadModalPresentationController.swift */,
 				47E3C7282111E614008B3B27 /* FadeInAnimatedTransitioning.swift */,
 				47E3C72A2111E62A008B3B27 /* FadeOutAnimatedTransitioning.swift */,
 				47E3C72C2111E6A2008B3B27 /* FadeTransitioning.swift */,
@@ -5798,6 +5801,7 @@
 				340475711E081A4600C92850 /* MWMSettings.mm in Sources */,
 				33046832219C57180041F3A8 /* CategorySettingsViewController.swift in Sources */,
 				3404165C1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
+				9917D1852397ECC800A7E06E /* IPadModalPresentationController.swift in Sources */,
 				993F550E237C622700545511 /* DeepLinkCataloguePathStrategy.swift in Sources */,
 				34E50DE01F6FCBA1008EED49 /* UGCAddReviewCell.swift in Sources */,
 				3404756E1E081A4600C92850 /* MWMSearch.mm in Sources */,

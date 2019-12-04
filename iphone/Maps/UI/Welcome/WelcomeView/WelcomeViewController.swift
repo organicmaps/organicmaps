@@ -19,6 +19,7 @@ class WelcomeViewController: MWMViewController, UIAdaptivePresentationController
   @IBOutlet private var closeButton: UIButton!
   @IBOutlet private var closeButtonHeightConstraint: NSLayoutConstraint!
   static var presentationSize = CGSize(width: 520, height: 600)
+  private let transitioning = FadeTransitioning<IPadModalPresentationController>()
 
   var isCloseButtonHidden: Bool = false {
     didSet{
@@ -28,9 +29,12 @@ class WelcomeViewController: MWMViewController, UIAdaptivePresentationController
 
   required init?(coder: NSCoder) {
     super.init(coder: coder)
-    self.modalTransitionStyle = .coverVertical
-    self.modalPresentationStyle = .formSheet
-    self.presentationController?.delegate = self;
+    if UIDevice.current.userInterfaceIdiom == .pad {
+      transitioningDelegate = transitioning
+      modalPresentationStyle = .custom
+    } else {
+      modalPresentationStyle = .fullScreen
+    }
   }
 
   override func viewDidLoad() {

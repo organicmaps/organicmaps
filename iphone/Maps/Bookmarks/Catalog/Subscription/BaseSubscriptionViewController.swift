@@ -12,6 +12,7 @@ class BaseSubscriptionViewController: MWMViewController {
   @objc var onSubscribe: MWMVoidBlock?
   @objc var onCancel: MWMVoidBlock?
   @objc var source: String = kStatWebView
+  private let transitioning = FadeTransitioning<IPadModalPresentationController>()
 
   override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
     get { return [.portrait] }
@@ -24,10 +25,10 @@ class BaseSubscriptionViewController: MWMViewController {
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     if UIDevice.current.userInterfaceIdiom == .pad {
-      self.modalTransitionStyle = .coverVertical
-      self.modalPresentationStyle = .formSheet
+      transitioningDelegate = transitioning
+      modalPresentationStyle = .custom
     } else {
-      self.modalPresentationStyle = .fullScreen
+      modalPresentationStyle = .fullScreen
     }
   }
 
@@ -42,7 +43,6 @@ class BaseSubscriptionViewController: MWMViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     subscriptionManager?.addListener(self)
-    self.presentationController?.delegate = self;
   }
 
   func configure(buttons: [SubscriptionPeriod: BookmarksSubscriptionButton],

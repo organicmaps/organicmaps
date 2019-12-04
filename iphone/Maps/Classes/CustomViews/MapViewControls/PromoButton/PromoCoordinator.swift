@@ -22,7 +22,6 @@ import UIKit
 
   private func presentPromoDiscoveryOnboarding(completion: @escaping () -> Void) {
     let vc = PromoDiscoveryBuilder.build(rootViewController: mapViewController, campaign: campaign)
-    vc.modalPresentationStyle = .fullScreen
     mapViewController?.present(vc, animated: true, completion: {
       completion()
     })
