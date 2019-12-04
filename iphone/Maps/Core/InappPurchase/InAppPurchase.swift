@@ -12,8 +12,9 @@ final class InAppPurchase: NSObject {
   }
 
   static func paidRouteStatistics(serverId: String,
-                                  productId: String) -> IPaidRouteStatistics {
-    return PaidRouteStatistics(serverId: serverId, productId: productId, vendor: BOOKMARKS_VENDOR)
+                                  productId: String,
+                                  testGroup: String) -> IPaidRouteStatistics {
+    return PaidRouteStatistics(serverId: serverId, productId: productId, vendor: BOOKMARKS_VENDOR, testGroup: testGroup)
   }
 
   @objc

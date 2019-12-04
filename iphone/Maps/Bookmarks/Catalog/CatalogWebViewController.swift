@@ -207,7 +207,7 @@ final class CatalogWebViewController: WebViewController {
     let subscribeViewController = SubscriptionViewBuilder.build(type: type,
                                                                 parentViewController: self,
                                                                 source: kStatWebView,
-                                                                openCatalog: false) { [weak self] (success) in
+                                                                successDialog: .success) { [weak self] (success) in
                                                                   if (success) {
                                                                     self?.webView.reloadFromOrigin()
                                                                   }
@@ -365,7 +365,10 @@ final class CatalogWebViewController: WebViewController {
 
     let purchase = InAppPurchase.paidRoutePurchase(serverId: productInfo.id,
                                                    productId: productId)
-    let stats = InAppPurchase.paidRouteStatistics(serverId: productInfo.id, productId: productId)
+    let testGroup = PromoCampaignManager.manager().paidRoutesSubscriptionCampaign.testGroupStatName
+    let stats = InAppPurchase.paidRouteStatistics(serverId: productInfo.id,
+                                                  productId: productId,
+                                                  testGroup: testGroup)
     let paymentVC = PaidRouteViewController(name: productInfo.name,
                                             author: productInfo.author,
                                             imageUrl: URL(string: productInfo.imageUrl ?? ""),

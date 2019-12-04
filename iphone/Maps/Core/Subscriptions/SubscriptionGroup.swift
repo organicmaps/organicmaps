@@ -18,19 +18,15 @@
       self = .allPass
       return
     }
-    let subscriptionGroup = urlComponents.queryItems?
+    let subscriptionGroups = urlComponents.queryItems?
       .filter({ $0.name == "groups" })
       .map({ $0.value ?? "" })
-      .first(where: {
-        $0 == MWMPurchaseManager.allPassSubscriptionServerId() ||
-          $0 == MWMPurchaseManager.bookmarksSubscriptionServerId()
-      })
-    switch subscriptionGroup {
-    case MWMPurchaseManager.bookmarksSubscriptionServerId():
-      self = .sightseeing
-    case MWMPurchaseManager.allPassSubscriptionServerId():
+
+    if subscriptionGroups?.first(where: { $0 == MWMPurchaseManager.allPassSubscriptionServerId() }) != nil {
       self = .allPass
-    default:
+    } else if subscriptionGroups?.first(where: { $0 == MWMPurchaseManager.bookmarksSubscriptionServerId() }) != nil {
+      self = .sightseeing
+    } else {
       self = .allPass
     }
   }

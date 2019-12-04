@@ -20,7 +20,7 @@ class DeepLinkSubscriptionStrategy: IDeepLinkHandlerStrategy {
     let subscriptionViewController = SubscriptionViewBuilder.build(type: type,
                                                          parentViewController: mapViewController,
                                                          source: kStatDeeplink,
-                                                         openCatalog: true,
+                                                         successDialog: .goToCatalog,
                                                          completion: nil)
     mapViewController.present(subscriptionViewController, animated: true, completion: nil)
     sendStatisticsOnSuccess(type: kStatSubscription)
