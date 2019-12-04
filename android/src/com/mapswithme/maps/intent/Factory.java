@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-
 import com.mapswithme.maps.DownloadResourcesLegacyActivity;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MapFragment;
@@ -59,6 +58,7 @@ import java.util.Locale;
 public class Factory
 {
   public static final String EXTRA_IS_FIRST_LAUNCH = "extra_is_first_launch";
+
   @NonNull
   public static IntentProcessor createBuildRouteProcessor()
   {
@@ -200,7 +200,7 @@ public class Factory
     @Override
     MapTask createMapTask(@NonNull String uri)
     {
-      return BackUrlMapTaskWrapper.wrap(new OpenUrlTask(uri), uri);
+      return BackUrlMapTaskWrapper.wrap(new OpenUrlTask(uri, Statistics.ParamValue.UNKNOWN), uri);
     }
   }
 
@@ -211,6 +211,13 @@ public class Factory
     {
       return (intent.getData() != null && "geo".equals(intent.getScheme()));
     }
+
+    @NonNull
+    @Override
+    MapTask createMapTask(@NonNull String uri)
+    {
+      return StatisticMapTaskWrapper.wrap(new OpenUrlTask(uri, "geo"));
+    }
   }
 
   private static class Ge0IntentProcessor extends BaseOpenUrlProcessor
@@ -220,6 +227,13 @@ public class Factory
     {
       return (intent.getData() != null && "ge0".equals(intent.getScheme()));
     }
+
+    @NonNull
+    @Override
+    MapTask createMapTask(@NonNull String uri)
+    {
+      return StatisticMapTaskWrapper.wrap(new OpenUrlTask(uri, "ge0"));
+    }
   }
 
   private static class MapsmeProcessor extends BaseOpenUrlProcessor
@@ -228,6 +242,13 @@ public class Factory
     public boolean isSupported(@NonNull Intent intent)
     {
       return "mapsme".equals(intent.getScheme());
+    }
+
+    @NonNull
+    @Override
+    MapTask createMapTask(@NonNull String uri)
+    {
+      return StatisticMapTaskWrapper.wrap(new OpenUrlTask(uri, "mapsme"));
     }
   }
 
@@ -253,7 +274,7 @@ public class Factory
       final Uri data = intent.getData();
       final String ge0Url = "ge0:/" + data.getPath();
       org.alohalytics.Statistics.logEvent("HttpGe0IntentProcessor::process", ge0Url);
-      return new OpenUrlTask(ge0Url);
+      return StatisticMapTaskWrapper.wrap(new OpenUrlTask(ge0Url, "http_ge0_me"));
     }
   }
 
@@ -283,7 +304,7 @@ public class Factory
         Statistics.INSTANCE.trackApiCall(request);
 
         if (!ParsedMwmRequest.isPickPointMode())
-          return new OpenUrlTask(apiUrl);
+          return StatisticMapTaskWrapper.wrap(new OpenUrlTask(apiUrl, "action_api_request"));
       }
 
       throw new AssertionError("Url must be provided!");
@@ -297,6 +318,13 @@ public class Factory
     {
       final Uri data = intent.getData();
       return (data != null && "maps.google.com".equals(data.getHost()));
+    }
+
+    @NonNull
+    @Override
+    MapTask createMapTask(@NonNull String uri)
+    {
+      return StatisticMapTaskWrapper.wrap(new OpenUrlTask(uri, "maps_google_com"));
     }
   }
 
@@ -316,6 +344,13 @@ public class Factory
         return false;
 
       return (scheme.equals("mapsme") || scheme.equals("mapswithme")) && "lead".equals(host);
+    }
+
+    @NonNull
+    @Override
+    MapTask createMapTask(@NonNull String uri)
+    {
+      return StatisticMapTaskWrapper.wrap(new OpenUrlTask(uri, "old_lead"));
     }
   }
 
@@ -340,7 +375,7 @@ public class Factory
     @Override
     MapTask createTargetTask(@NonNull String url)
     {
-      return new ImportBookmarkCatalogueTask(url);
+      return StatisticMapTaskWrapper.wrap(new ImportBookmarkCatalogueTask(url));
     }
   }
 
@@ -365,7 +400,7 @@ public class Factory
     @Override
     MapTask createTargetTask(@NonNull String url)
     {
-      return new GuidesPageToOpenTask(url);
+      return StatisticMapTaskWrapper.wrap(new GuidesPageToOpenTask(url));
     }
   }
 
@@ -391,7 +426,7 @@ public class Factory
     @Override
     MapTask createTargetTask(@NonNull String url)
     {
-      return new BookmarksSubscriptionTask(url);
+      return StatisticMapTaskWrapper.wrap(new BookmarksSubscriptionTask(url));
     }
   }
 
@@ -406,7 +441,7 @@ public class Factory
                       .authority(DlinkIntentProcessor.HOST)
                       .path(DlinkBookmarkCatalogueIntentProcessor.CATALOGUE)
                       .build().toString();
-      return new ImportBookmarkCatalogueTask(url);
+      return StatisticMapTaskWrapper.wrap(new ImportBookmarkCatalogueTask(url));
     }
 
     @Override
@@ -428,12 +463,6 @@ public class Factory
   {
     private static final String SCHEME_CORE = "mapsme";
 
-    @Override
-    protected boolean isLinkSupported(@NonNull Uri data)
-    {
-      return true;
-    }
-
     @NonNull
     @Override
     protected MapTask createTargetTask(@NonNull String url)
@@ -444,7 +473,19 @@ public class Factory
       Uri coreUri = uri.buildUpon()
                        .scheme(SCHEME_CORE)
                        .authority("").build();
-      return BackUrlMapTaskWrapper.wrap(new OpenUrlTask(coreUri.toString()), url);
+
+      String query = coreUri.getLastPathSegment();
+      MapTask statisticTask = StatisticMapTaskWrapper.wrap(new OpenUrlTask(coreUri.toString(),
+                                                                             TextUtils.isEmpty(query)
+                                                                             ? Statistics.ParamValue.UNKNOWN :
+                                                                             query));
+      return BackUrlMapTaskWrapper.wrap(statisticTask, url);
+    }
+
+    @Override
+    boolean isLinkSupported(@NonNull Uri data)
+    {
+      return true;
     }
 
     @Nullable
@@ -515,7 +556,7 @@ public class Factory
       org.alohalytics.Statistics.logEvent("OpenCountryTaskProcessor::process",
                                           new String[] { "autoDownload", "false" },
                                           LocationHelper.INSTANCE.getSavedLocation());
-      return new ShowCountryTask(countryId);
+      return StatisticMapTaskWrapper.wrap(new ShowCountryTask(countryId));
     }
   }
 
@@ -650,7 +691,7 @@ public class Factory
       double lat = getCoordinateFromIntent(intent, EXTRA_LAT);
       double lon = getCoordinateFromIntent(intent, EXTRA_LON);
 
-      return new ShowPointTask(lat, lon);
+      return StatisticMapTaskWrapper.wrap(new ShowPointTask(lat, lon));
     }
   }
 
@@ -754,6 +795,13 @@ public class Factory
 
       return false;
     }
+
+    @NonNull
+    @Override
+    public String toStatisticValue()
+    {
+      return "subscription";
+    }
   }
 
   public static class ImportBookmarkCatalogueTask implements MapTask
@@ -773,6 +821,13 @@ public class Factory
       BookmarkCategoriesActivity.startForResult(target, BookmarksPageFactory.DOWNLOADED.ordinal(), mUrl);
       return true;
     }
+
+    @NonNull
+    @Override
+    public String toStatisticValue()
+    {
+      return "catalogue";
+    }
   }
 
   public static class GuidesPageToOpenTask extends BaseUrlTask
@@ -791,6 +846,13 @@ public class Factory
       BookmarksCatalogActivity.start(target, deeplink);
       return true;
     }
+
+    @NonNull
+    @Override
+    public String toStatisticValue()
+    {
+      return "guides_page";
+    }
   }
 
   static class FreeGuideReadyToDownloadIntroductionTask extends BaseUrlTask
@@ -807,6 +869,13 @@ public class Factory
     {
       target.showIntroductionScreenForDeeplink(getUrl(), IntroductionScreenFactory.FREE_GUIDE);
       return true;
+    }
+
+    @NonNull
+    @Override
+    public String toStatisticValue()
+    {
+      throw new UnsupportedOperationException("This task not statistic tracked!");
     }
   }
 
@@ -825,6 +894,13 @@ public class Factory
       String deeplink = convertUrlToGuidesPageDeeplink(getUrl());
       target.showIntroductionScreenForDeeplink(deeplink, IntroductionScreenFactory.GUIDES_PAGE);
       return true;
+    }
+
+    @NonNull
+    @Override
+    public String toStatisticValue()
+    {
+      throw new UnsupportedOperationException("This task not statistic tracked!");
     }
   }
 
@@ -850,12 +926,16 @@ public class Factory
   {
     private static final long serialVersionUID = -7257820771228127413L;
     private static final int SEARCH_IN_VIEWPORT_ZOOM = 16;
+    @NonNull
     private final String mUrl;
+    @NonNull
+    private final String mStatisticValue;
 
-    OpenUrlTask(String url)
+    OpenUrlTask(@NonNull String url, @NonNull String statisticValue)
     {
       Utils.checkNotNull(url);
       mUrl = url;
+      mStatisticValue = statisticValue;
     }
 
     @Override
@@ -902,6 +982,13 @@ public class Factory
 
       return false;
     }
+
+    @NonNull
+    @Override
+    public String toStatisticValue()
+    {
+      return mStatisticValue;
+    }
   }
 
   public static class ShowCountryTask implements MapTask
@@ -920,9 +1007,16 @@ public class Factory
       Framework.nativeShowCountry(mCountryId, false);
       return true;
     }
+
+    @NonNull
+    @Override
+    public String toStatisticValue()
+    {
+      return "open_country";
+    }
   }
 
-  public static class ShowBookmarkCategoryTask implements MapTask
+  public static class ShowBookmarkCategoryTask extends RegularMapTask
   {
     private static final long serialVersionUID = 8285565041410550281L;
     final long mCategoryId;
@@ -939,7 +1033,7 @@ public class Factory
     }
   }
 
-  static abstract class BaseUserMarkTask implements MapTask
+  static abstract class BaseUserMarkTask extends RegularMapTask
   {
     private static final long serialVersionUID = -3348320422813422144L;
     final long mCategoryId;
@@ -1004,6 +1098,13 @@ public class Factory
       MapFragment.nativeShowMapForUrl(String.format(Locale.US,
                                                     "mapsme://map?ll=%f,%f", mLat, mLon));
       return true;
+    }
+
+    @NonNull
+    @Override
+    public String toStatisticValue()
+    {
+      return "show_on_map_intent";
     }
   }
 
@@ -1103,9 +1204,16 @@ public class Factory
       }
       return true;
     }
+
+    @NonNull
+    @Override
+    public String toStatisticValue()
+    {
+      return "build_route_intent";
+    }
   }
 
-  public static class RestoreRouteTask implements MapTask
+  public static class RestoreRouteTask extends RegularMapTask
   {
     private static final long serialVersionUID = 6123893958975977040L;
 
@@ -1117,7 +1225,7 @@ public class Factory
     }
   }
 
-  public static class ShowUGCEditorTask implements MapTask
+  public static class ShowUGCEditorTask extends RegularMapTask
   {
     private static final long serialVersionUID = 1636712824900113568L;
     // Nullable because of possible serialization from previous incompatible version of class.
@@ -1148,7 +1256,7 @@ public class Factory
     }
   }
 
-  public static class ShowDialogTask implements MapTask
+  public static class ShowDialogTask extends RegularMapTask
   {
     private static final long serialVersionUID = 1548931513812565018L;
     @NonNull

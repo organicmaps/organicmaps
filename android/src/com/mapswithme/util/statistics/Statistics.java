@@ -6,12 +6,12 @@ import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
-import androidx.annotation.IntDef;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.android.billingclient.api.BillingClient;
 import com.facebook.ads.AdError;
 import com.facebook.appevents.AppEventsLogger;
@@ -70,8 +70,8 @@ import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_PROPOS
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_SUCCESS;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.GUIDES_BOOKMARK_SELECT;
-import static com.mapswithme.util.statistics.Statistics.EventName.GUIDES_SHOWN;
 import static com.mapswithme.util.statistics.Statistics.EventName.GUIDES_OPEN;
+import static com.mapswithme.util.statistics.Statistics.EventName.GUIDES_SHOWN;
 import static com.mapswithme.util.statistics.Statistics.EventName.GUIDES_TRACK_SELECT;
 import static com.mapswithme.util.statistics.Statistics.EventName.INAPP_PURCHASE_PREVIEW_SELECT;
 import static com.mapswithme.util.statistics.Statistics.EventName.INAPP_PURCHASE_PREVIEW_SHOW;
@@ -111,6 +111,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_CODE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_MESSAGE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.FEATURE_ID;
+import static com.mapswithme.util.statistics.Statistics.EventParam.FIRST_LAUNCH;
 import static com.mapswithme.util.statistics.Statistics.EventParam.FROM;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HAS_AUTH;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL;
@@ -145,12 +146,15 @@ import static com.mapswithme.util.statistics.Statistics.ParamValue.BICYCLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.DISK_NO_SPACE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.FACEBOOK;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.FALSE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.GOOGLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.HOLIDAY;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.MAPSME;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.MAPSME_GUIDES;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.NO_BACKUP;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OFFSCREEEN;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.PARTNER;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.PEDESTRIAN;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.PHONE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.RESTORE;
@@ -158,10 +162,9 @@ import static com.mapswithme.util.statistics.Statistics.ParamValue.SEARCH_BOOKIN
 import static com.mapswithme.util.statistics.Statistics.ParamValue.TAXI;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.TRAFFIC;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.TRANSIT;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.TRUE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.UNKNOWN;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.VEHICLE;
-import static com.mapswithme.util.statistics.Statistics.ParamValue.MAPSME_GUIDES;
-import static com.mapswithme.util.statistics.Statistics.ParamValue.PARTNER;
 
 public enum Statistics
 {
@@ -568,6 +571,9 @@ public enum Statistics
     public static final String MAP_SPONSORED_BUTTON_CLICK = "Map_SponsoredButton_click";
     public static final String MAP_SPONSORED_BUTTON_SHOW = "Map_SponsoredButton_show";
 
+    public static final String DEEPLINK_CALL = "Deeplink_call";
+    public static final String DEEPLINK_CALL_MISSED = "Deeplink_call_missed";
+
     public static class Settings
     {
       public static final String WEB_SITE = "Setings. Go to website";
@@ -678,6 +684,7 @@ public enum Statistics
     static final String SERVER_ID = "server_id";
     static final String SERVER_IDS = "server_ids";
     public static final String SOURCE = "source";
+    static final String FIRST_LAUNCH = "first_launch";
 
     private EventParam() {}
   }
@@ -773,6 +780,8 @@ public enum Statistics
     public static final String BOOKMARKS_LIST = "BookmarksList";
     static final String PARTNER = "Partner";
     public static final String WIKIPEDIA = "wikipedia";
+    static final String TRUE = "True";
+    static final String FALSE = "False";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -1759,6 +1768,11 @@ public enum Statistics
   public void trackGuideTrackSelect(@NonNull String serverId)
   {
     trackEvent(GUIDES_TRACK_SELECT, params().add(SERVER_ID, serverId), STATISTICS_CHANNEL_REALTIME);
+  }
+
+  public void trackDeeplinkEvent(@NonNull String event, @NonNull String type, boolean isFirstLaunch)
+  {
+    trackEvent(event, params().add(TYPE, type).add(FIRST_LAUNCH, isFirstLaunch ? TRUE : FALSE));
   }
 
   public static ParameterBuilder params()
