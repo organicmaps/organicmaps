@@ -77,9 +77,9 @@ public:
               traffic::TrafficCache const & trafficCache, DataSource & dataSource);
 
   std::unique_ptr<WorldGraph> MakeSingleMwmWorldGraph();
-  bool FindBestSegments(m2::PointD const & point, m2::PointD const & direction, bool isOutgoing,
+  bool FindBestSegments(m2::PointD const & checkpoint, m2::PointD const & direction, bool isOutgoing,
                         WorldGraph & worldGraph, std::vector<Segment> & bestSegments);
-  bool FindBestEdges(m2::PointD const & point,
+  bool FindBestEdges(m2::PointD const & checkpoint,
                      platform::CountryFile const & pointCountryFile,
                      m2::PointD const & direction, bool isOutgoing,
                      double closestEdgesRadiusM, WorldGraph & worldGraph,
@@ -126,9 +126,9 @@ private:
 
   /// \brief Removes all roads from |roads| which goes to dead ends and all road which
   /// is not good according to |worldGraph|. For car routing there are roads with hwtag nocar as well.
-  /// \param point which is used to look for the closest segment in a road. The closest segment
+  /// \param checkpoint which is used to look for the closest segment in a road. The closest segment
   /// is used then to check if it's a dead end.
-  void EraseIfDeadEnd(WorldGraph & worldGraph, m2::PointD const & point,
+  void EraseIfDeadEnd(WorldGraph & worldGraph, m2::PointD const & checkpoint,
                       std::vector<IRoadGraph::FullRoadInfo> & roads) const;
 
   /// \returns true if a segment (|point|, |edgeProjection.second|) crosses one of segments
@@ -152,17 +152,17 @@ private:
       Edge & closestCodirectionalEdge) const;
 
   /// \brief Finds the best segments (edges) which may be considered as starts or finishes
-  /// of the route. According to current implementation the closest to |point| segment which
+  /// of the route. According to current implementation the closest to |checkpoint| segment which
   /// is almost codirectianal to |direction| is the best.
   /// If there's no an almost codirectional segment in the neighbourhood then all not dead end
   /// candidates which may be reached without crossing road graph will be added to |bestSegments|.
-  /// \param isOutgoing == true if |point| is considered as the start of the route.
-  /// isOutgoing == false if |point| is considered as the finish of the route.
+  /// \param isOutgoing == true if |checkpoint| is considered as the start of the route.
+  /// isOutgoing == false if |checkpoint| is considered as the finish of the route.
   /// \param bestSegmentIsAlmostCodirectional is filled with true if |bestSegment| is chosen
   /// because |direction| and direction of |bestSegment| are almost equal and with false otherwise.
   /// \return true if the best segment is found and false otherwise.
   /// \note Candidates in |bestSegments| are sorted from better to worse.
-  bool FindBestSegments(m2::PointD const & point, m2::PointD const & direction, bool isOutgoing,
+  bool FindBestSegments(m2::PointD const & checkpoint, m2::PointD const & direction, bool isOutgoing,
                         WorldGraph & worldGraph, std::vector<Segment> & bestSegments,
                         bool & bestSegmentIsAlmostCodirectional) const;
 

@@ -313,12 +313,12 @@ unique_ptr<WorldGraph> IndexRouter::MakeSingleMwmWorldGraph()
   return worldGraph;
 }
 
-bool IndexRouter::FindBestSegments(m2::PointD const & point, m2::PointD const & direction,
+bool IndexRouter::FindBestSegments(m2::PointD const & checkpoint, m2::PointD const & direction,
                                    bool isOutgoing, WorldGraph & worldGraph,
                                    vector<Segment> & bestSegments)
 {
   bool dummy;
-  return FindBestSegments(point, direction, isOutgoing, worldGraph, bestSegments,
+  return FindBestSegments(checkpoint, direction, isOutgoing, worldGraph, bestSegments,
                           dummy /* best segment is almost codirectional */);
 }
 
@@ -795,21 +795,21 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
                                         move(transitGraphLoader), m_estimator);
 }
 
-void IndexRouter::EraseIfDeadEnd(WorldGraph & worldGraph, m2::PointD const & point,
+void IndexRouter::EraseIfDeadEnd(WorldGraph & worldGraph, m2::PointD const & checkpoint,
                                  vector<IRoadGraph::FullRoadInfo> & roads) const
 {
   // |deadEnds| cache is necessary to minimize number of calls a time consumption IsDeadEnd() method.
   set<Segment> deadEnds;
-  base::EraseIf(roads, [&deadEnds, &worldGraph, &point, this](auto const & fullRoadInfo) {
+  base::EraseIf(roads, [&deadEnds, &worldGraph, &checkpoint, this](auto const & fullRoadInfo) {
     CHECK_GREATER_OR_EQUAL(fullRoadInfo.m_roadInfo.m_junctions.size(), 2, ());
     auto const squaredDistAndIndex = m2::CalcMinSquaredDistance(fullRoadInfo.m_roadInfo.m_junctions.begin(),
                                                                 fullRoadInfo.m_roadInfo.m_junctions.end(),
-                                                                point);
+                                                                checkpoint);
     auto const segmentId = squaredDistAndIndex.second;
 
     // Note. Checking if an edge goes to a dead end is a time consumption process.
     // So the number of checked edges should be minimized as possible.
-    // Below a heuristic is used. If the closest to |point| segment of a feature
+    // Below a heuristic is used. If the closest to |checkpoint| segment of a feature
     // in forward direction is a dead end all segments of the feature is considered as dead ends.
     auto const segment = GetSegmentByEdge(Edge::MakeReal(fullRoadInfo.m_featureId, true /* forward */,
                                                          segmentId,
@@ -906,22 +906,22 @@ bool IndexRouter::FindClosestCodirectionalEdge(
   return squareDistToClosestCodirectionalEdgeM != kInvalidDist;
 }
 
-bool IndexRouter::FindBestSegments(m2::PointD const & point, m2::PointD const & direction,
+bool IndexRouter::FindBestSegments(m2::PointD const & checkpoint, m2::PointD const & direction,
                                    bool isOutgoing, WorldGraph & worldGraph,
                                    vector<Segment> & bestSegments,
                                    bool & bestSegmentIsAlmostCodirectional) const
 {
-  auto const file = platform::CountryFile(m_countryFileFn(point));
+  auto const file = platform::CountryFile(m_countryFileFn(checkpoint));
 
   vector<Edge> bestEdges;
-  if (!FindBestEdges(point, file, direction, isOutgoing, 40.0 /* closestEdgesRadiusM */,
+  if (!FindBestEdges(checkpoint, file, direction, isOutgoing, 40.0 /* closestEdgesRadiusM */,
                      worldGraph, bestEdges, bestSegmentIsAlmostCodirectional))
   {
-    if (!FindBestEdges(point, file, direction, isOutgoing, 500.0 /* closestEdgesRadiusM */,
+    if (!FindBestEdges(checkpoint, file, direction, isOutgoing, 500.0 /* closestEdgesRadiusM */,
                        worldGraph, bestEdges, bestSegmentIsAlmostCodirectional) &&
                        bestEdges.size() < kMaxRoadCandidates)
     {
-      if (!FindBestEdges(point, file, direction, isOutgoing, 2000.0 /* closestEdgesRadiusM */,
+      if (!FindBestEdges(checkpoint, file, direction, isOutgoing, 2000.0 /* closestEdgesRadiusM */,
                          worldGraph, bestEdges, bestSegmentIsAlmostCodirectional))
       {
         return false;
@@ -936,7 +936,7 @@ bool IndexRouter::FindBestSegments(m2::PointD const & point, m2::PointD const & 
   return true;
 }
 
-bool IndexRouter::FindBestEdges(m2::PointD const & point,
+bool IndexRouter::FindBestEdges(m2::PointD const & checkpoint,
                                 platform::CountryFile const & pointCountryFile,
                                 m2::PointD const & direction, bool isOutgoing,
                                 double closestEdgesRadiusM, WorldGraph & worldGraph,
@@ -948,7 +948,7 @@ bool IndexRouter::FindBestEdges(m2::PointD const & point,
   if (!handle.IsAlive())
     MYTHROW(MwmIsNotAliveException, ("Can't get mwm handle for", pointCountryFile));
 
-  auto const rect = mercator::RectByCenterXYAndSizeInMeters(point, closestEdgesRadiusM);
+  auto const rect = mercator::RectByCenterXYAndSizeInMeters(checkpoint, closestEdgesRadiusM);
   auto const isGoodFeature = [this](FeatureID const & fid) {
     auto const & info = fid.m_mwmId.GetInfo();
     return m_numMwmIds->ContainsFile(info->GetLocalFile().GetCountryFile());
@@ -957,20 +957,20 @@ bool IndexRouter::FindBestEdges(m2::PointD const & point,
 
   // Removing all dead ends from |closestRoads|. Then some candidates will be taken from |closestRoads|.
   // It's necessary to remove all dead ends for all |closestRoads| before IsFencedOff().
-  // If to remove all fenced off by other features from |point| candidates at first,
+  // If to remove all fenced off by other features from |checkpoint| candidates at first,
   // only dead ends candidates may be left. And then the dead end candidates will be removed
   // as well as dead ends. It often happens near airports.
-  EraseIfDeadEnd(worldGraph, point, closestRoads);
+  EraseIfDeadEnd(worldGraph, checkpoint, closestRoads);
 
   // Sorting from the closest features to the further ones. The idea is the closer
-  // a feature to a |point| the more chances that it crosses the segment
-  // |point|, projections of |point| on feature edges. It confirmed with benchmarks.
+  // a feature to a |checkpoint| the more chances that it crosses the segment
+  // |checkpoint|, projections of |checkpoint| on feature edges. It confirmed with benchmarks.
   sort(closestRoads.begin(), closestRoads.end(),
-       [&point](IRoadGraph::FullRoadInfo const & lhs, IRoadGraph::FullRoadInfo const & rhs) {
+       [&checkpoint](IRoadGraph::FullRoadInfo const & lhs, IRoadGraph::FullRoadInfo const & rhs) {
     CHECK(!lhs.m_roadInfo.m_junctions.empty(), ());
     return
-        point.SquaredLength(lhs.m_roadInfo.m_junctions[0].GetPoint()) <
-        point.SquaredLength(rhs.m_roadInfo.m_junctions[0].GetPoint());
+        checkpoint.SquaredLength(lhs.m_roadInfo.m_junctions[0].GetPoint()) <
+            checkpoint.SquaredLength(rhs.m_roadInfo.m_junctions[0].GetPoint());
   });
 
   // Note about necessity of removing dead ends twice.
@@ -988,22 +988,22 @@ bool IndexRouter::FindBestEdges(m2::PointD const & point,
     if (IsDeadEndCached(segment, isOutgoing, true /* useRoutingOptions */,  worldGraph, deadEnds))
       return false;
 
-    // Removing all candidates which are fenced off by the road graph (|closestRoads|) from |point|.
-    return !IsFencedOff(point, edgeProj, closestRoads);
+    // Removing all candidates which are fenced off by the road graph (|closestRoads|) from |checkpoint|.
+    return !IsFencedOff(checkpoint, edgeProj, closestRoads);
   };
 
   // Getting closest edges from |closestRoads| if they are correct according to isGood() function.
   vector<pair<Edge, geometry::PointWithAltitude>> candidates;
-  RoadsToNearestEdges(point, closestRoads, isGood, candidates);
+  RoadsToNearestEdges(checkpoint, closestRoads, isGood, candidates);
 
   if (candidates.empty())
     return false;
 
   // Looking for the closest codirectional edge. If it's not found add all good candidates.
   Edge closestCodirectionalEdge;
-  BestEdgeComparator bestEdgeComparator(point, direction);
+  BestEdgeComparator bestEdgeComparator(checkpoint, direction);
   bestSegmentIsAlmostCodirectional =
-      FindClosestCodirectionalEdge(point, direction, candidates, closestCodirectionalEdge);
+      FindClosestCodirectionalEdge(checkpoint, direction, candidates, closestCodirectionalEdge);
 
   if (bestSegmentIsAlmostCodirectional)
   {
