@@ -125,12 +125,24 @@ private:
   FileWriter m_fileWriter;
 };
 
-class OSMElementCacheReader
+class OSMElementCacheReaderInterface
+{
+public:
+  virtual bool Read(Key id, WayElement & value) = 0;
+  virtual bool Read(Key id, RelationElement & value) = 0;
+};
+
+class OSMElementCacheReader : public OSMElementCacheReaderInterface
 {
 public:
   explicit OSMElementCacheReader(std::string const & name, bool preload = false,
                                  bool forceReload = false);
 
+  // OSMElementCacheReaderInterface overrides:
+  bool Read(Key id, WayElement & value) override { return Read<>(id, value); }
+  bool Read(Key id, RelationElement & value) override { return Read<>(id, value); }
+
+protected:
   template <class Value>
   bool Read(Key id, Value & value)
   {
@@ -158,7 +170,6 @@ public:
     return true;
   }
 
-protected:
   FileReader m_fileReader;
   IndexFileReader const & m_offsetsReader;
   std::string m_name;
@@ -199,7 +210,7 @@ protected:
 class IntermediateDataReaderInterface
 {
 public:
-  using ForEachRelationFn = std::function<base::ControlFlow(uint64_t, OSMElementCacheReader &)>;
+  using ForEachRelationFn = std::function<base::ControlFlow(uint64_t, OSMElementCacheReaderInterface &)>;
 
   virtual ~IntermediateDataReaderInterface() = default;
 

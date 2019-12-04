@@ -37,7 +37,7 @@ public:
   std::shared_ptr<CollectorInterface> Clone(
       std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache) const override;
 
-  void CollectFeature(feature::FeatureBuilder const & fb, OsmElement const & element) override;
+  void CollectFeature(feature::FeatureBuilder const & fb, OsmElement const &) override;
 
   void Finish() override;
   void Save() override;
@@ -46,7 +46,7 @@ public:
   void MergeInto(BuildingPartsCollector & collector) const override;
 
 private:
-  base::GeoObjectId FindTopRelation(OsmElement const & element);
+  base::GeoObjectId FindTopRelation(base::GeoObjectId elId);
   std::vector<base::GeoObjectId> FindAllBuildingParts(base::GeoObjectId const & id);
   void WriteBuildingParts(CompositeId const & id, std::vector<base::GeoObjectId> const & buildingParts);
 

@@ -31,7 +31,7 @@ class RelationFetcher
 public:
   RelationFetcher(IdRelationVec & elements) : m_elements(elements) {}
 
-  void operator()(uint64_t id, generator::cache::OSMElementCacheReader & reader)
+  void operator()(uint64_t id, generator::cache::OSMElementCacheReaderInterface & reader)
   {
     RelationElement element;
     if (reader.Read(id, element))
@@ -61,14 +61,13 @@ std::shared_ptr<CollectorInterface> BuildingPartsCollector::Clone(
   return std::make_shared<BuildingPartsCollector>(GetFilename(), cache ? cache : m_cache);
 }
 
-void BuildingPartsCollector::CollectFeature(feature::FeatureBuilder const & fb,
-                                            OsmElement const & element)
+void BuildingPartsCollector::CollectFeature(feature::FeatureBuilder const & fb, OsmElement const &)
 {
   static auto const & buildingChecker = ftypes::IsBuildingChecker::Instance();
   if (!fb.IsArea() || !buildingChecker(fb.GetTypes()))
     return;
 
-  auto const topId = FindTopRelation(element);
+  auto const topId = FindTopRelation(fb.GetMostGenericOsmId());
   if (topId == base::GeoObjectId())
     return;
 
@@ -102,25 +101,26 @@ std::vector<base::GeoObjectId> BuildingPartsCollector::FindAllBuildingParts(
   return buildingParts;
 }
 
-base::GeoObjectId BuildingPartsCollector::FindTopRelation(OsmElement const & element)
+base::GeoObjectId BuildingPartsCollector::FindTopRelation(base::GeoObjectId elId)
 {
   IdRelationVec elements;
   RelationFetcher fetcher(elements);
   cache::IntermediateDataReaderInterface::ForEachRelationFn wrapper =
       base::ControlFlowWrapper<RelationFetcher>(fetcher);
   IdRelationVec::const_iterator it;
-  if (element.IsWay())
+  auto const serialId = elId.GetSerialId();
+  if (elId.GetType() == base::GeoObjectId::Type::ObsoleteOsmWay)
   {
-    m_cache->ForEachRelationByWayCached(element.m_id, wrapper);
+    m_cache->ForEachRelationByWayCached(serialId, wrapper);
     it = base::FindIf(elements, [&](auto const & idRelation) {
-      return idRelation.second.GetWayRole(element.m_id) == "outline";
+      return idRelation.second.GetWayRole(serialId) == "outline";
     });
   }
-  else if (element.IsRelation())
+  else if (elId.GetType() == base::GeoObjectId::Type::ObsoleteOsmRelation)
   {
-    m_cache->ForEachRelationByRelationCached(element.m_id, wrapper);
+    m_cache->ForEachRelationByRelationCached(serialId, wrapper);
     it = base::FindIf(elements, [&](auto const & idRelation) {
-      return idRelation.second.GetRelationRole(element.m_id) == "outline";
+      return idRelation.second.GetRelationRole(serialId) == "outline";
     });
   }
 
