@@ -103,7 +103,13 @@ public class Icon implements Parcelable
             BOOKMARK_ICON_TYPE_SHOP,
             BOOKMARK_ICON_TYPE_SIGHTS,
             BOOKMARK_ICON_TYPE_SWIM,
-            BOOKMARK_ICON_TYPE_WATER })
+            BOOKMARK_ICON_TYPE_WATER,
+            BOOKMARK_ICON_TYPE_BAR,
+            BOOKMARK_ICON_TYPE_TRANSPORT,
+            BOOKMARK_ICON_TYPE_VIEWPOINT,
+            BOOKMARK_ICON_TYPE_SPORT,
+            BOOKMARK_ICON_TYPE_START,
+            BOOKMARK_ICON_TYPE_FINISH })
   @interface BookmarkIconType {}
 
   static final int BOOKMARK_ICON_TYPE_NONE = 0;
@@ -127,6 +133,12 @@ public class Icon implements Parcelable
   static final int BOOKMARK_ICON_TYPE_SIGHTS = 18;
   static final int BOOKMARK_ICON_TYPE_SWIM = 19;
   static final int BOOKMARK_ICON_TYPE_WATER = 20;
+  static final int BOOKMARK_ICON_TYPE_BAR = 21;
+  static final int BOOKMARK_ICON_TYPE_TRANSPORT = 22;
+  static final int BOOKMARK_ICON_TYPE_VIEWPOINT = 23;
+  static final int BOOKMARK_ICON_TYPE_SPORT = 24;
+  static final int BOOKMARK_ICON_TYPE_START = 25;
+  static final int BOOKMARK_ICON_TYPE_FINISH = 26;
 
   @DrawableRes
   private static final int[] TYPE_ICONS = { R.drawable.ic_bookmark_none,
@@ -149,7 +161,13 @@ public class Icon implements Parcelable
                                             R.drawable.ic_bookmark_shop,
                                             R.drawable.ic_bookmark_sights,
                                             R.drawable.ic_bookmark_swim,
-                                            R.drawable.ic_bookmark_water };
+                                            R.drawable.ic_bookmark_water,
+                                            R.drawable.ic_bookmark_bar,
+                                            R.drawable.ic_bookmark_transport,
+                                            R.drawable.ic_bookmark_viewpoint,
+                                            R.drawable.ic_bookmark_sport,
+                                            R.drawable.ic_bookmark_start,
+                                            R.drawable.ic_bookmark_finish };
 
   @PredefinedColor
   private final int mColor;
