@@ -1221,6 +1221,10 @@ void Framework::SetVisibleViewport(m2::RectD const & rect)
   if (m2::IsEqual(m_visibleViewport, rect, kEps, kEps))
     return;
 
+  double constexpr kMinSize = 100.0;
+  if (rect.SizeX() < kMinSize || rect.SizeY() < kMinSize)
+    return;
+
   m_visibleViewport = rect;
   m_drapeEngine->SetVisibleViewport(rect);
 }
