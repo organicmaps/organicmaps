@@ -453,6 +453,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -568,7 +569,7 @@
 		3496ABCE1DC2031900C5DDBA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.mail.editor_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -577,7 +578,7 @@
 		3496ABCF1DC2031900C5DDBA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.mail.editor_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -626,7 +627,7 @@
 		A8E541491F9FBD8400A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.mail.editor_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

@@ -13,6 +13,19 @@
 		45E4560120584DF200D9F45E /* serdes_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45E455FF20584DEF00D9F45E /* serdes_tests.cpp */; };
 		45E4560320584E1C00D9F45E /* libkml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45E4557D205849A600D9F45E /* libkml.a */; };
 		45E456142058509200D9F45E /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45E456122058508C00D9F45E /* testingmain.cpp */; };
+		56C633A6239932DD0003891E /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633A5239932DD0003891E /* libcoding.a */; };
+		56C633A8239932E20003891E /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633A7239932E20003891E /* libbase.a */; };
+		56C633AA239933050003891E /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633A9239933050003891E /* libexpat.a */; };
+		56C633AC239933190003891E /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633AB239933190003891E /* libplatform.a */; };
+		56C633AE2399331E0003891E /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633AD2399331E0003891E /* libgeometry.a */; };
+		56C633B0239933600003891E /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633AF239933600003891E /* libindexer.a */; };
+		56C633B2239933670003891E /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633B1239933670003891E /* libalohalitics.a */; };
+		56C633B4239933850003891E /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633B3239933850003891E /* libprotobuf.a */; };
+		56C633B62399338A0003891E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633B52399338A0003891E /* liboauthcpp.a */; };
+		56C633B8239933900003891E /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633B7239933900003891E /* libicu.a */; };
+		56C633BA239933A70003891E /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633B9239933A70003891E /* libjansson.a */; };
+		56C633BC239933AC0003891E /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633BB239933AC0003891E /* libsuccinct.a */; };
+		56C633C0239934260003891E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633BF239934260003891E /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,6 +56,20 @@
 		45E455ED20584DCB00D9F45E /* kml_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kml_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45E455FF20584DEF00D9F45E /* serdes_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = serdes_tests.cpp; sourceTree = "<group>"; };
 		45E456122058508C00D9F45E /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		56C633A5239932DD0003891E /* libcoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56C633A7239932E20003891E /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56C633A9239933050003891E /* libexpat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libexpat.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56C633AB239933190003891E /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56C633AD2399331E0003891E /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56C633AF239933600003891E /* libindexer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56C633B1239933670003891E /* libalohalitics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libalohalitics.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56C633B3239933850003891E /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56C633B52399338A0003891E /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56C633B7239933900003891E /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56C633B9239933A70003891E /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56C633BB239933AC0003891E /* libsuccinct.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsuccinct.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56C633BD239933D00003891E /* libminizip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libminizip.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56C633BF239934260003891E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +84,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56C633C0239934260003891E /* libz.tbd in Frameworks */,
+				56C633BC239933AC0003891E /* libsuccinct.a in Frameworks */,
+				56C633BA239933A70003891E /* libjansson.a in Frameworks */,
+				56C633B8239933900003891E /* libicu.a in Frameworks */,
+				56C633B62399338A0003891E /* liboauthcpp.a in Frameworks */,
+				56C633B4239933850003891E /* libprotobuf.a in Frameworks */,
+				56C633B2239933670003891E /* libalohalitics.a in Frameworks */,
+				56C633B0239933600003891E /* libindexer.a in Frameworks */,
+				56C633AE2399331E0003891E /* libgeometry.a in Frameworks */,
+				56C633AC239933190003891E /* libplatform.a in Frameworks */,
+				56C633AA239933050003891E /* libexpat.a in Frameworks */,
+				56C633A8239932E20003891E /* libbase.a in Frameworks */,
+				56C633A6239932DD0003891E /* libcoding.a in Frameworks */,
 				45E4560320584E1C00D9F45E /* libkml.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,6 +155,20 @@
 		45E4560220584E1C00D9F45E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56C633BF239934260003891E /* libz.tbd */,
+				56C633BD239933D00003891E /* libminizip.a */,
+				56C633BB239933AC0003891E /* libsuccinct.a */,
+				56C633B9239933A70003891E /* libjansson.a */,
+				56C633B7239933900003891E /* libicu.a */,
+				56C633B52399338A0003891E /* liboauthcpp.a */,
+				56C633B3239933850003891E /* libprotobuf.a */,
+				56C633B1239933670003891E /* libalohalitics.a */,
+				56C633AF239933600003891E /* libindexer.a */,
+				56C633AD2399331E0003891E /* libgeometry.a */,
+				56C633AB239933190003891E /* libplatform.a */,
+				56C633A9239933050003891E /* libexpat.a */,
+				56C633A7239932E20003891E /* libbase.a */,
+				56C633A5239932DD0003891E /* libcoding.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -271,21 +325,21 @@
 		45E455FC20584DCC00D9F45E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 			};
 			name = Debug;
 		};
 		45E455FD20584DCC00D9F45E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 			};
 			name = Release;
 		};
 		45E455FE20584DCC00D9F45E /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 			};
 			name = "Production Full";
 		};

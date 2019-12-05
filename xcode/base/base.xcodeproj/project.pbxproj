@@ -826,7 +826,7 @@
 					"$(inherited)",
 					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",
 				);
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.base_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -839,7 +839,7 @@
 					"$(inherited)",
 					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",
 				);
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.base_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;
@@ -901,7 +901,7 @@
 					"$(inherited)",
 					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",
 				);
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.base_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;

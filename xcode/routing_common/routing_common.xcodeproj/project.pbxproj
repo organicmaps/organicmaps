@@ -12,6 +12,7 @@
 		5631B666219B11D5009F47D4 /* maxspeed_conversion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5631B664219B11D5009F47D4 /* maxspeed_conversion.hpp */; };
 		5647A4511F72BEB600DE1125 /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5647A4521F72BEB600DE1125 /* libicu.a */; };
 		56D0E47D1F8E335D0084B18C /* num_mwm_id.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56D0E47C1F8E335D0084B18C /* num_mwm_id.hpp */; };
+		56DAC36223991F4C000BC50D /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC36123991F4C000BC50D /* libsuccinct.a */; };
 		56EE14D91FE80FA30036F20C /* libtransit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56EE14DA1FE80FA30036F20C /* libtransit.a */; };
 		671E78881E6A3C5D00B2859B /* bicycle_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671E78801E6A3C5D00B2859B /* bicycle_model.cpp */; };
 		671E78891E6A3C5D00B2859B /* bicycle_model.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 671E78811E6A3C5D00B2859B /* bicycle_model.hpp */; };
@@ -47,6 +48,7 @@
 		5647A4521F72BEB600DE1125 /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5667C1DE1F751F4200C6B31B /* routing_common.pro */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routing_common.pro; sourceTree = "<group>"; };
 		56D0E47C1F8E335D0084B18C /* num_mwm_id.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = num_mwm_id.hpp; sourceTree = "<group>"; };
+		56DAC36123991F4C000BC50D /* libsuccinct.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsuccinct.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56EE14DA1FE80FA30036F20C /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		671E78721E6A3BE200B2859B /* librouting_common.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = librouting_common.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		671E78801E6A3C5D00B2859B /* bicycle_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bicycle_model.cpp; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56DAC36223991F4C000BC50D /* libsuccinct.a in Frameworks */,
 				56EE14D91FE80FA30036F20C /* libtransit.a in Frameworks */,
 				5647A4511F72BEB600DE1125 /* libicu.a in Frameworks */,
 				671E78D11E6A414B00B2859B /* libopening_hours.a in Frameworks */,
@@ -169,6 +172,7 @@
 		671E78B41E6A404F00B2859B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56DAC36123991F4C000BC50D /* libsuccinct.a */,
 				56EE14DA1FE80FA30036F20C /* libtransit.a */,
 				5647A4521F72BEB600DE1125 /* libicu.a */,
 				671E78D01E6A414B00B2859B /* libopening_hours.a */,
@@ -267,6 +271,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -364,7 +369,7 @@
 		671E78AB1E6A3DA800B2859B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.routing-common-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -373,7 +378,7 @@
 		671E78AC1E6A3DA800B2859B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.routing-common-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -404,7 +409,7 @@
 		A8E541081F9FBC3500A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.routing-common-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

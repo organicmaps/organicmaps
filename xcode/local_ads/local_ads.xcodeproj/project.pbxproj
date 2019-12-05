@@ -31,6 +31,8 @@
 		45FFD6861E96636A00DB854E /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FFD6851E96636A00DB854E /* libcoding.a */; };
 		45FFD6881E96637C00DB854E /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FFD6871E96637C00DB854E /* libalohalitics.a */; };
 		45FFD68A1E96639400DB854E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FFD6891E96639400DB854E /* libz.tbd */; };
+		56DAC36A239923C1000BC50D /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC369239923C1000BC50D /* liboauthcpp.a */; };
+		56DAC36C239923E9000BC50D /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC36B239923E9000BC50D /* libjansson.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,8 @@
 		45FFD6851E96636A00DB854E /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "/Users/r.kuznetsov/Dev/Projects/omim/xcode/coding/../../../omim-build/xcode/Debug/libcoding.a"; sourceTree = "<absolute>"; };
 		45FFD6871E96637C00DB854E /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "/Users/r.kuznetsov/Dev/Projects/omim/xcode/alohalitics/../../../omim-build/xcode/Debug/libalohalitics.a"; sourceTree = "<absolute>"; };
 		45FFD6891E96639400DB854E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		56DAC369239923C1000BC50D /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56DAC36B239923E9000BC50D /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56DAC36C239923E9000BC50D /* libjansson.a in Frameworks */,
+				56DAC36A239923C1000BC50D /* liboauthcpp.a in Frameworks */,
 				4580DAC61E9D2C3D00E8BCDE /* libgeometry.a in Frameworks */,
 				45FFD68A1E96639400DB854E /* libz.tbd in Frameworks */,
 				45FFD6881E96637C00DB854E /* libalohalitics.a in Frameworks */,
@@ -145,6 +151,8 @@
 		45FFD6801E96634B00DB854E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56DAC36B239923E9000BC50D /* libjansson.a */,
+				56DAC369239923C1000BC50D /* liboauthcpp.a */,
 				4580DAC51E9D2C3D00E8BCDE /* libgeometry.a */,
 				45812AB41E9781D500D7D3B3 /* libplatform_tests_support.a */,
 				45FFD6891E96639400DB854E /* libz.tbd */,
@@ -234,6 +242,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -332,7 +341,7 @@
 		45FFD6771E965EFB00DB854E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.local-ads-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -341,7 +350,7 @@
 		45FFD6781E965EFB00DB854E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.local-ads-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -372,7 +381,7 @@
 		A8E541031F9FBBDA00A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.local-ads-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

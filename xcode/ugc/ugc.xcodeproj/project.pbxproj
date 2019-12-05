@@ -319,6 +319,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -376,7 +377,7 @@
 		670E7B901EF97C1000A8E9ED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.ugc-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -385,7 +386,7 @@
 		670E7B911EF97C1000A8E9ED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.ugc-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -415,7 +416,7 @@
 		A8E541001F9FBBB600A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.ugc-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

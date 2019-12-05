@@ -184,6 +184,10 @@
 		45A008541FE9088400D77690 /* idf_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A008501FE9088300D77690 /* idf_map.cpp */; };
 		56D5456E1C74A48C00E3719C /* mode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D5456C1C74A48C00E3719C /* mode.cpp */; };
 		56D5456F1C74A48C00E3719C /* mode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56D5456D1C74A48C00E3719C /* mode.hpp */; };
+		56DAC34123991253000BC50D /* helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56DAC33F23991253000BC50D /* helpers.hpp */; };
+		56DAC34223991253000BC50D /* helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56DAC34023991253000BC50D /* helpers.cpp */; };
+		56DAC34423991301000BC50D /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC34323991301000BC50D /* libplatform_tests_support.a */; };
+		56DAC34623991309000BC50D /* libkml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC34523991309000BC50D /* libkml.a */; };
 		670F88741CE4C032003F68BA /* types_skipper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F88721CE4C032003F68BA /* types_skipper.cpp */; };
 		670F88751CE4C032003F68BA /* types_skipper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670F88731CE4C032003F68BA /* types_skipper.hpp */; };
 		6715565720BF1019002BA3B4 /* libeditor_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6715565620BF1019002BA3B4 /* libeditor_tests_support.a */; };
@@ -454,6 +458,10 @@
 		45A008501FE9088300D77690 /* idf_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = idf_map.cpp; sourceTree = "<group>"; };
 		56D5456C1C74A48C00E3719C /* mode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mode.cpp; sourceTree = "<group>"; };
 		56D5456D1C74A48C00E3719C /* mode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mode.hpp; sourceTree = "<group>"; };
+		56DAC33F23991253000BC50D /* helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = helpers.hpp; sourceTree = "<group>"; };
+		56DAC34023991253000BC50D /* helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = helpers.cpp; sourceTree = "<group>"; };
+		56DAC34323991301000BC50D /* libplatform_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56DAC34523991309000BC50D /* libkml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libkml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		670F88721CE4C032003F68BA /* types_skipper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = types_skipper.cpp; sourceTree = "<group>"; };
 		670F88731CE4C032003F68BA /* types_skipper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types_skipper.hpp; sourceTree = "<group>"; };
 		6715565620BF1019002BA3B4 /* libeditor_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libeditor_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -600,6 +608,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56DAC34623991309000BC50D /* libkml.a in Frameworks */,
+				56DAC34423991301000BC50D /* libplatform_tests_support.a in Frameworks */,
 				671ED3D220D7AA0400D4317E /* libstorage.a in Frameworks */,
 				67935E7420D14D07002996B0 /* CoreLocation.framework in Frameworks */,
 				3D0AEB021FBB102C00AD042B /* libgenerator_tests_support.a in Frameworks */,
@@ -667,6 +677,8 @@
 		34F558391DBF2E0E00A4FC11 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56DAC34523991309000BC50D /* libkml.a */,
+				56DAC34323991301000BC50D /* libplatform_tests_support.a */,
 				67935E7320D14D06002996B0 /* CoreLocation.framework */,
 				6715565620BF1019002BA3B4 /* libeditor_tests_support.a */,
 				6715565820BF1019002BA3B4 /* libopen_location_code.a */,
@@ -966,6 +978,8 @@
 		6796248E1D10134200AE4E3C /* search_tests_support */ = {
 			isa = PBXGroup;
 			children = (
+				56DAC34023991253000BC50D /* helpers.cpp */,
+				56DAC33F23991253000BC50D /* helpers.hpp */,
 				3DA5722820C1956D007BDE27 /* integration_tests_helpers.cpp */,
 				3DA5722920C1956D007BDE27 /* integration_tests_helpers.hpp */,
 				6796248F1D10137D00AE4E3C /* test_results_matching.cpp */,
@@ -1090,6 +1104,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56DAC34123991253000BC50D /* helpers.hpp in Headers */,
 				3DA5722B20C1956D007BDE27 /* integration_tests_helpers.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1190,6 +1205,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 675346A71A4055CF00A0A8C3;
@@ -1361,6 +1377,7 @@
 				6796249B1D10138400AE4E3C /* test_results_matching.cpp in Sources */,
 				6796249C1D10138400AE4E3C /* test_search_engine.cpp in Sources */,
 				6796249D1D10138400AE4E3C /* test_search_request.cpp in Sources */,
+				56DAC34223991253000BC50D /* helpers.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1370,6 +1387,7 @@
 		34E7184D1FBB074300FC98CC /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				INFOPLIST_FILE = "";
 				PRODUCT_NAME = search_tests;
 			};
 			name = "Production Full";
@@ -1377,7 +1395,7 @@
 		39AEF87F1FB45E1600943FC9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.search_integration_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1386,7 +1404,7 @@
 		39AEF8801FB45E1600943FC9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.search_integration_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1395,7 +1413,7 @@
 		671C62111AE9225100076BD0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.search_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1404,7 +1422,7 @@
 		671C62121AE9225100076BD0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.search_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1477,7 +1495,7 @@
 		A8E541621F9FBDC400A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.search_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

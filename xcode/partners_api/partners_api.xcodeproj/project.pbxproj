@@ -73,6 +73,9 @@
 		45BABC34229812830060FA53 /* downloader_promo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45BABC32229812830060FA53 /* downloader_promo.hpp */; };
 		45C380772094C5B400C18D81 /* partners.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45C380752094C5B400C18D81 /* partners.cpp */; };
 		45C380782094C5B400C18D81 /* partners.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45C380762094C5B400C18D81 /* partners.hpp */; };
+		56DAC37A2399261E000BC50D /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC3792399261E000BC50D /* libsuccinct.a */; };
+		56DAC37C23992624000BC50D /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC37B23992624000BC50D /* libmwm_diff.a */; };
+		56DAC37E23992684000BC50D /* libbsdiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC37D23992684000BC50D /* libbsdiff.a */; };
 		BB1956E61F543D7C003ECE6C /* locals_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB1956E41F543D7B003ECE6C /* locals_api.cpp */; };
 		BB1956E71F543D7C003ECE6C /* locals_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB1956E51F543D7C003ECE6C /* locals_api.hpp */; };
 		F6539537207FBED70057B97C /* taxi_places_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DF9C21A207CAC3B00DA0793 /* taxi_places_loader.cpp */; };
@@ -170,6 +173,9 @@
 		45BABC32229812830060FA53 /* downloader_promo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = downloader_promo.hpp; sourceTree = "<group>"; };
 		45C380752094C5B400C18D81 /* partners.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = partners.cpp; sourceTree = "<group>"; };
 		45C380762094C5B400C18D81 /* partners.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = partners.hpp; sourceTree = "<group>"; };
+		56DAC3792399261E000BC50D /* libsuccinct.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsuccinct.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56DAC37B23992624000BC50D /* libmwm_diff.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmwm_diff.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56DAC37D23992684000BC50D /* libbsdiff.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbsdiff.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB1956E41F543D7B003ECE6C /* locals_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = locals_api.cpp; sourceTree = "<group>"; };
 		BB1956E51F543D7C003ECE6C /* locals_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = locals_api.hpp; sourceTree = "<group>"; };
 		F67E75231DB8F06F00D6741F /* opentable_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opentable_api.cpp; sourceTree = "<group>"; };
@@ -204,6 +210,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56DAC37E23992684000BC50D /* libbsdiff.a in Frameworks */,
+				56DAC37C23992624000BC50D /* libmwm_diff.a in Frameworks */,
+				56DAC37A2399261E000BC50D /* libsuccinct.a in Frameworks */,
 				4566605520D920220085E8C1 /* libstorage.a in Frameworks */,
 				349FEC5E2010D67B00FE5CA3 /* libopening_hours.a in Frameworks */,
 				349FEC5C2010D56400FE5CA3 /* libprotobuf.a in Frameworks */,
@@ -349,6 +358,9 @@
 		F6B536701DA523D60067EEA5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56DAC37D23992684000BC50D /* libbsdiff.a */,
+				56DAC37B23992624000BC50D /* libmwm_diff.a */,
+				56DAC3792399261E000BC50D /* libsuccinct.a */,
 				4566605420D920220085E8C1 /* libstorage.a */,
 				349FEC5F2010D67B00FE5CA3 /* libopening_hours.a */,
 				349FEC5D2010D56400FE5CA3 /* libprotobuf.a */,
@@ -581,7 +593,7 @@
 					"$(inherited)",
 					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/../../iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = partners_api_test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -635,7 +647,7 @@
 					"$(inherited)",
 					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/../../iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = partners_api_test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -649,7 +661,7 @@
 					"$(inherited)",
 					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/../../iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = partners_api_test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

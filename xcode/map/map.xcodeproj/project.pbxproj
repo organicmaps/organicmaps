@@ -60,7 +60,6 @@
 		3DA571F920C1935B007BDE27 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA571F820C1935B007BDE27 /* libeditor.a */; };
 		3DA571FB20C1935B007BDE27 /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA571FA20C1935B007BDE27 /* libgenerator_tests_support.a */; };
 		3DA571FD20C1935B007BDE27 /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA571FC20C1935B007BDE27 /* libicu.a */; };
-		3DA571FF20C1935B007BDE27 /* libindexer_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA571FE20C1935B007BDE27 /* libindexer_tests_support.a */; };
 		3DA5720120C1935C007BDE27 /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA5720020C1935C007BDE27 /* libindexer.a */; };
 		3DA5720320C1935C007BDE27 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA5720220C1935C007BDE27 /* libjansson.a */; };
 		3DA5720520C1935C007BDE27 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA5720420C1935C007BDE27 /* liboauthcpp.a */; };
@@ -140,6 +139,11 @@
 		56C116602090E5670068BBC0 /* extrapolator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C1165E2090E5670068BBC0 /* extrapolator.cpp */; };
 		56C116612090E5670068BBC0 /* extrapolator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56C1165F2090E5670068BBC0 /* extrapolator.hpp */; };
 		56D1C15E20A0AB9D005C689E /* extrapolator_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D1C15D20A0AB9D005C689E /* extrapolator_tests.cpp */; };
+		56DAC36E23992467000BC50D /* libvulkan_wrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC36D23992467000BC50D /* libvulkan_wrapper.a */; };
+		56DAC3702399248B000BC50D /* libdescriptions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC36F2399248B000BC50D /* libdescriptions.a */; };
+		56DAC37223992491000BC50D /* libweb_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC37123992491000BC50D /* libweb_api.a */; };
+		56DAC37423992505000BC50D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC37323992504000BC50D /* Security.framework */; };
+		56DAC37623992556000BC50D /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC37523992556000BC50D /* libtraffic.a */; };
 		56EE14D31FE80E900036F20C /* libtransit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56EE14D41FE80E900036F20C /* libtransit.a */; };
 		56EE14D51FE80EBD0036F20C /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56EE14D61FE80EBD0036F20C /* libmwm_diff.a */; };
 		56EE14D71FE80F290036F20C /* libbsdiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56EE14D81FE80F290036F20C /* libbsdiff.a */; };
@@ -408,6 +412,11 @@
 		56C1165E2090E5670068BBC0 /* extrapolator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = extrapolator.cpp; path = extrapolation/extrapolator.cpp; sourceTree = "<group>"; };
 		56C1165F2090E5670068BBC0 /* extrapolator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = extrapolator.hpp; path = extrapolation/extrapolator.hpp; sourceTree = "<group>"; };
 		56D1C15D20A0AB9D005C689E /* extrapolator_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = extrapolator_tests.cpp; sourceTree = "<group>"; };
+		56DAC36D23992467000BC50D /* libvulkan_wrapper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libvulkan_wrapper.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56DAC36F2399248B000BC50D /* libdescriptions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libdescriptions.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56DAC37123992491000BC50D /* libweb_api.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libweb_api.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56DAC37323992504000BC50D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		56DAC37523992556000BC50D /* libtraffic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtraffic.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56EE14D41FE80E900036F20C /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56EE14D61FE80EBD0036F20C /* libmwm_diff.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmwm_diff.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56EE14D81FE80F290036F20C /* libbsdiff.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbsdiff.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -538,6 +547,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56DAC37623992556000BC50D /* libtraffic.a in Frameworks */,
 				3DA5722720C1951D007BDE27 /* libz.tbd in Frameworks */,
 				3DA5721E20C194B8007BDE27 /* libgenerator.a in Frameworks */,
 				3DA5722020C194B8007BDE27 /* libopen_location_code.a in Frameworks */,
@@ -553,7 +563,6 @@
 				3DA571F920C1935B007BDE27 /* libeditor.a in Frameworks */,
 				3DA571FB20C1935B007BDE27 /* libgenerator_tests_support.a in Frameworks */,
 				3DA571FD20C1935B007BDE27 /* libicu.a in Frameworks */,
-				3DA571FF20C1935B007BDE27 /* libindexer_tests_support.a in Frameworks */,
 				3DA5720120C1935C007BDE27 /* libindexer.a in Frameworks */,
 				3DA5720320C1935C007BDE27 /* libjansson.a in Frameworks */,
 				3DA5720520C1935C007BDE27 /* liboauthcpp.a in Frameworks */,
@@ -573,6 +582,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56DAC37423992505000BC50D /* Security.framework in Frameworks */,
+				56DAC37223992491000BC50D /* libweb_api.a in Frameworks */,
+				56DAC3702399248B000BC50D /* libdescriptions.a in Frameworks */,
+				56DAC36E23992467000BC50D /* libvulkan_wrapper.a in Frameworks */,
 				3DD122BB2135708900EDFB53 /* libmetrics_tests_support.a in Frameworks */,
 				3DD122BD2135708900EDFB53 /* libmetrics.a in Frameworks */,
 				475BD61B211C5FDC00E298C6 /* libshaders.a in Frameworks */,
@@ -638,6 +651,11 @@
 		34DDA17E1DBE5DF40088A609 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56DAC37523992556000BC50D /* libtraffic.a */,
+				56DAC37323992504000BC50D /* Security.framework */,
+				56DAC37123992491000BC50D /* libweb_api.a */,
+				56DAC36F2399248B000BC50D /* libdescriptions.a */,
+				56DAC36D23992467000BC50D /* libvulkan_wrapper.a */,
 				3DD122BA2135708900EDFB53 /* libmetrics_tests_support.a */,
 				3DD122BC2135708900EDFB53 /* libmetrics.a */,
 				3D4F457D21354F720005E765 /* libeye_tests_support.a */,
@@ -1317,7 +1335,7 @@
 					"$(inherited)",
 					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
 				);
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.map_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1330,7 +1348,7 @@
 					"$(inherited)",
 					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
 				);
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.map_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1430,7 +1448,7 @@
 					"$(inherited)",
 					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
 				);
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.map_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

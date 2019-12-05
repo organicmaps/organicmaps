@@ -21,6 +21,7 @@
 		3D4F457821354E530005E765 /* libmetrics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F44FB21345FC50005E765 /* libmetrics.a */; };
 		3D4F457A21354EB70005E765 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F457921354EB70005E765 /* libalohalitics.a */; };
 		3D4F457C21354F150005E765 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F457B21354F150005E765 /* libz.tbd */; };
+		56DAC378239925C4000BC50D /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC377239925C4000BC50D /* libgeometry.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,6 +68,7 @@
 		3D4F457521354E4B0005E765 /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D4F457921354EB70005E765 /* libalohalitics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libalohalitics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D4F457B21354F150005E765 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		56DAC377239925C4000BC50D /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56DAC378239925C4000BC50D /* libgeometry.a in Frameworks */,
 				3D4F457721354E530005E765 /* libmetrics_tests_support.a in Frameworks */,
 				3D4F457821354E530005E765 /* libmetrics.a in Frameworks */,
 				3D4F457621354E4B0005E765 /* libplatform.a in Frameworks */,
@@ -163,6 +166,7 @@
 		3D4F456E21354E0C0005E765 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56DAC377239925C4000BC50D /* libgeometry.a */,
 				3D4F457B21354F150005E765 /* libz.tbd */,
 				3D4F457921354EB70005E765 /* libalohalitics.a */,
 				3D4F457521354E4B0005E765 /* libplatform.a */,
@@ -425,7 +429,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -484,7 +488,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -543,7 +547,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

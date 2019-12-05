@@ -91,6 +91,7 @@
 		56C74C231C749E4700B71B9F /* search_delimiters.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56C74C191C749E4700B71B9F /* search_delimiters.hpp */; };
 		56C74C241C749E4700B71B9F /* search_string_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C74C1A1C749E4700B71B9F /* search_string_utils.cpp */; };
 		56C74C251C749E4700B71B9F /* search_string_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56C74C1B1C749E4700B71B9F /* search_string_utils.hpp */; };
+		56DAC36823992325000BC50D /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC36723992325000BC50D /* libtraffic.a */; };
 		670BAA8C1D0B0673000302DA /* trie_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C74C2E1C749E8100B71B9F /* trie_test.cpp */; };
 		670BAA8D1D0B069A000302DA /* succinct_trie_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C74C2C1C749E8100B71B9F /* succinct_trie_test.cpp */; };
 		670BAA8E1D0B06A1000302DA /* search_string_utils_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C74C2B1C749E8100B71B9F /* search_string_utils_test.cpp */; };
@@ -322,6 +323,7 @@
 		56C74C2C1C749E8100B71B9F /* succinct_trie_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = succinct_trie_test.cpp; sourceTree = "<group>"; };
 		56C74C2D1C749E8100B71B9F /* test_mwm_set.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test_mwm_set.hpp; sourceTree = "<group>"; };
 		56C74C2E1C749E8100B71B9F /* trie_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = trie_test.cpp; sourceTree = "<group>"; };
+		56DAC36723992325000BC50D /* libtraffic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtraffic.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		670BAAA51D0B07AA000302DA /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
 		670BAAA61D0B07AA000302DA /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
 		670BAAA71D0B07AA000302DA /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-xcode-build/Debug/libeditor.a"; sourceTree = "<group>"; };
@@ -446,6 +448,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56DAC36823992325000BC50D /* libtraffic.a in Frameworks */,
 				671555E520BDC523002BA3B4 /* libeditor.a in Frameworks */,
 				671555E220BDA63C002BA3B4 /* libgenerator.a in Frameworks */,
 				45C108BF1E9D008D000FE1F6 /* librouting_common.a in Frameworks */,
@@ -518,6 +521,7 @@
 		45C108BB1E9D0067000FE1F6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56DAC36723992325000BC50D /* libtraffic.a */,
 				671555E420BDC523002BA3B4 /* libeditor.a */,
 				671555E120BDA63C002BA3B4 /* libgenerator.a */,
 				45C108BE1E9D008D000FE1F6 /* librouting_common.a */,
@@ -1065,7 +1069,7 @@
 			buildSettings = {
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.indexer-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1076,7 +1080,7 @@
 			buildSettings = {
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.indexer-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1147,7 +1151,7 @@
 			buildSettings = {
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.indexer-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

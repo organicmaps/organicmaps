@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		34222E871DF68BB30038B646 /* traffic_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34222E851DF68BB30038B646 /* traffic_cache.cpp */; };
 		34222E881DF68BB30038B646 /* traffic_cache.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34222E861DF68BB30038B646 /* traffic_cache.hpp */; };
+		56DAC38F2399305F000BC50D /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC38E2399305F000BC50D /* libicu.a */; };
+		56DAC39123993068000BC50D /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC39023993068000BC50D /* librouting_common.a */; };
+		56DAC3932399307A000BC50D /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC3922399307A000BC50D /* libsuccinct.a */; };
 		672292AB1DE2F673005BA3A7 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 672292AA1DE2F673005BA3A7 /* libalohalitics.a */; };
 		672292AD1DE2F683005BA3A7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 672292AC1DE2F683005BA3A7 /* libz.tbd */; };
 		672292AF1DE2FF0F005BA3A7 /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 672292AE1DE2FF0F005BA3A7 /* libindexer.a */; };
@@ -35,6 +38,9 @@
 /* Begin PBXFileReference section */
 		34222E851DF68BB30038B646 /* traffic_cache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = traffic_cache.cpp; sourceTree = "<group>"; };
 		34222E861DF68BB30038B646 /* traffic_cache.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = traffic_cache.hpp; sourceTree = "<group>"; };
+		56DAC38E2399305F000BC50D /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56DAC39023993068000BC50D /* librouting_common.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = librouting_common.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56DAC3922399307A000BC50D /* libsuccinct.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsuccinct.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		672292AA1DE2F673005BA3A7 /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-build/xcode/Debug/libalohalitics.a"; sourceTree = "<group>"; };
 		672292AC1DE2F683005BA3A7 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		672292AE1DE2FF0F005BA3A7 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-build/xcode/Debug/libindexer.a"; sourceTree = "<group>"; };
@@ -74,6 +80,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56DAC3932399307A000BC50D /* libsuccinct.a in Frameworks */,
+				56DAC39123993068000BC50D /* librouting_common.a in Frameworks */,
+				56DAC38F2399305F000BC50D /* libicu.a in Frameworks */,
 				674231DB1DFAB08C00913FEB /* librouting.a in Frameworks */,
 				674231D91DFAB06100913FEB /* libjansson.a in Frameworks */,
 				674231D31DFAB04C00913FEB /* libeditor.a in Frameworks */,
@@ -144,6 +153,9 @@
 		67BECB831DDA474400FC4E99 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56DAC3922399307A000BC50D /* libsuccinct.a */,
+				56DAC39023993068000BC50D /* librouting_common.a */,
+				56DAC38E2399305F000BC50D /* libicu.a */,
 				674231DA1DFAB08C00913FEB /* librouting.a */,
 				674231D81DFAB06100913FEB /* libjansson.a */,
 				674231CE1DFAB04C00913FEB /* libeditor.a */,
@@ -245,6 +257,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -327,7 +340,7 @@
 		67BECB7C1DDA466800FC4E99 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.traffic-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -336,7 +349,7 @@
 		67BECB7D1DDA466800FC4E99 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.traffic-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -361,7 +374,7 @@
 		A8E5416A1F9FBDD200A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.traffic-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

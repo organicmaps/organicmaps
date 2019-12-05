@@ -40,6 +40,7 @@
 		45789EE021343F70009955CC /* metal_program_pool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45789EDE21343F70009955CC /* metal_program_pool.mm */; };
 		45789EE421353CA3009955CC /* program_manager_metal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45789EE321353CA3009955CC /* program_manager_metal.mm */; };
 		45789EE72135464D009955CC /* metal_program_params.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45789EE62135464D009955CC /* metal_program_params.mm */; };
+		56DAC3662399214F000BC50D /* libvulkan_wrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC3652399214F000BC50D /* libvulkan_wrapper.a */; };
 		BBF791702146D8EC00D27BD8 /* system.metal in Sources */ = {isa = PBXBuildFile; fileRef = BBF7916F2146D8EC00D27BD8 /* system.metal */; };
 		BBF7917321493AFC00D27BD8 /* arrow3d.metal in Sources */ = {isa = PBXBuildFile; fileRef = BBF7917221493AFC00D27BD8 /* arrow3d.metal */; };
 		BBF7917521495FF900D27BD8 /* shapes.metal in Sources */ = {isa = PBXBuildFile; fileRef = BBF7917421495FF900D27BD8 /* shapes.metal */; };
@@ -190,6 +191,7 @@
 		45789EE52135464D009955CC /* metal_program_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = metal_program_params.hpp; sourceTree = "<group>"; };
 		45789EE62135464D009955CC /* metal_program_params.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = metal_program_params.mm; sourceTree = "<group>"; };
 		4598437C21394BE000F8CAB2 /* shaders_metal.metallib */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "archive.metal-library"; path = shaders_metal.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
+		56DAC3652399214F000BC50D /* libvulkan_wrapper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libvulkan_wrapper.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBF7916F2146D8EC00D27BD8 /* system.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = system.metal; sourceTree = "<group>"; };
 		BBF7917221493AFC00D27BD8 /* arrow3d.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = arrow3d.metal; sourceTree = "<group>"; };
 		BBF7917421495FF900D27BD8 /* shapes.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = shapes.metal; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56DAC3662399214F000BC50D /* libvulkan_wrapper.a in Frameworks */,
 				456660F720E25E360085E8C1 /* libshaders.a in Frameworks */,
 				456660F620E25E2E0085E8C1 /* libdrape.a in Frameworks */,
 				4566610520E25EF70085E8C1 /* libplatform.a in Frameworks */,
@@ -383,6 +386,7 @@
 		456660F420E25E2E0085E8C1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56DAC3652399214F000BC50D /* libvulkan_wrapper.a */,
 				4566610620E25F560085E8C1 /* libz.tbd */,
 				4566610420E25EF70085E8C1 /* libplatform.a */,
 				4566610220E25EEF0085E8C1 /* libcoding.a */,
@@ -727,7 +731,7 @@
 					"$(OMIM_ROOT)/3party/glm",
 					"$(QT_PATH)/include",
 				);
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 			};
 			name = Debug;
 		};
@@ -742,7 +746,7 @@
 					"$(OMIM_ROOT)/3party/glm",
 					"$(QT_PATH)/include",
 				);
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 			};
 			name = Release;
 		};
@@ -757,7 +761,7 @@
 					"$(OMIM_ROOT)/3party/glm",
 					"$(QT_PATH)/include",
 				);
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 			};
 			name = "Production Full";
 		};

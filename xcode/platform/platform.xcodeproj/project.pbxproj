@@ -37,6 +37,8 @@
 		45D7ADBB210F48E500160DE3 /* http_user_agent_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45D7ADB8210F48E400160DE3 /* http_user_agent_ios.mm */; };
 		45D7ADBC210F48E500160DE3 /* http_user_agent.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45D7ADB9210F48E400160DE3 /* http_user_agent.hpp */; };
 		5661A5CC20DD57DA00C6B1D1 /* async_gui_thread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5661A5CB20DD57DA00C6B1D1 /* async_gui_thread.hpp */; };
+		56DAC380239926EF000BC50D /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC37F239926EF000BC50D /* liboauthcpp.a */; };
+		56DAC38223992707000BC50D /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC38123992707000BC50D /* libgeometry.a */; };
 		56EB1EDC1C6B6E6C0022D831 /* file_logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1ED81C6B6E6C0022D831 /* file_logging.cpp */; };
 		56EB1EDD1C6B6E6C0022D831 /* file_logging.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EB1ED91C6B6E6C0022D831 /* file_logging.hpp */; };
 		56EB1EDE1C6B6E6C0022D831 /* mwm_traits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */; };
@@ -163,6 +165,8 @@
 		45D7ADB8210F48E400160DE3 /* http_user_agent_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = http_user_agent_ios.mm; sourceTree = "<group>"; };
 		45D7ADB9210F48E400160DE3 /* http_user_agent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = http_user_agent.hpp; sourceTree = "<group>"; };
 		5661A5CB20DD57DA00C6B1D1 /* async_gui_thread.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = async_gui_thread.hpp; sourceTree = "<group>"; };
+		56DAC37F239926EF000BC50D /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56DAC38123992707000BC50D /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56EB1ED81C6B6E6C0022D831 /* file_logging.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_logging.cpp; sourceTree = "<group>"; };
 		56EB1ED91C6B6E6C0022D831 /* file_logging.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = file_logging.hpp; sourceTree = "<group>"; };
 		56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_traits.cpp; sourceTree = "<group>"; };
@@ -274,6 +278,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56DAC38223992707000BC50D /* libgeometry.a in Frameworks */,
+				56DAC380239926EF000BC50D /* liboauthcpp.a in Frameworks */,
 				67B30B2A2084B7D8008AEBFD /* CoreLocation.framework in Frameworks */,
 				3496AB711DC1F5AB00C5DDBA /* libalohalitics.a in Frameworks */,
 				678338A71C6DE5E300FD6263 /* libplatform_tests_support.a in Frameworks */,
@@ -293,6 +299,8 @@
 		3496AB6F1DC1F5AB00C5DDBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56DAC38123992707000BC50D /* libgeometry.a */,
+				56DAC37F239926EF000BC50D /* liboauthcpp.a */,
 				67B30B292084B7D7008AEBFD /* CoreLocation.framework */,
 				3496AB701DC1F5AB00C5DDBA /* libalohalitics.a */,
 			);
@@ -916,7 +924,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.platform-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -928,7 +936,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.platform-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1023,7 +1031,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.platform-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
