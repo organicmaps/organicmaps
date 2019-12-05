@@ -3,6 +3,7 @@
 #include "generator/collector_building_parts.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/gen_mwm_info.hpp"
+#include "generator/generator_tests_support/test_with_classificator.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/osm_element.hpp"
 
@@ -18,10 +19,12 @@
 
 namespace
 {
-class OSMElementCacheReader : public generator::cache::OSMElementCacheReaderInterface
+using namespace generator::tests_support;
+
+class TestOSMElementCacheReader : public generator::cache::OSMElementCacheReaderInterface
 {
 public:
-  OSMElementCacheReader(std::unordered_map<generator::cache::Key, RelationElement> & m)
+  TestOSMElementCacheReader(std::unordered_map<generator::cache::Key, RelationElement> & m)
     : m_mapping(m)
   {
   }
@@ -131,7 +134,7 @@ private:
     if (it == std::cend(m))
       return;
 
-    OSMElementCacheReader reader(m_IdToRelation);
+    TestOSMElementCacheReader reader(m_IdToRelation);
     for (auto id : it->second)
       toDo(id, reader);
   }
@@ -149,17 +152,6 @@ generator::cache::Key const IntermediateDataReaderTest::kOutlineId1 = 1360656;
 generator::cache::Key const IntermediateDataReaderTest::kTopRelationId2 = 4271044;
 // static
 generator::cache::Key const IntermediateDataReaderTest::kOutlineId2 = 2360656;
-
-struct TestsBase
-{
-  TestsBase()
-  {
-    classificator::Load();
-    Platform & platform = GetPlatform();
-    auto const tmpDir = platform.TmpDir();
-    platform.SetWritableDirForTests(tmpDir);
-  }
-};
 
 void TestCollector(std::string const & filename, feature::FeatureBuilder const & fb,
                    IntermediateDataReaderTest & reader, generator::cache::Key topRelationId)
@@ -192,7 +184,7 @@ void TestCollector(std::string const & filename, feature::FeatureBuilder const &
   }
 }
 
-UNIT_CLASS_TEST(TestsBase, CollectorBuildingParts_Case1)
+UNIT_CLASS_TEST(TestWithClassificator, CollectorBuildingParts_Case1)
 {
   using namespace platform::tests_support;
   ScopedFile file("CollectorBuildingParts", ScopedFile::Mode::DoNotCreate);
@@ -212,7 +204,7 @@ UNIT_CLASS_TEST(TestsBase, CollectorBuildingParts_Case1)
                 IntermediateDataReaderTest::kTopRelationId1);
 }
 
-UNIT_CLASS_TEST(TestsBase, CollectorBuildingParts_Case2)
+UNIT_CLASS_TEST(TestWithClassificator, CollectorBuildingParts_Case2)
 {
   using namespace platform::tests_support;
   ScopedFile file("CollectorBuildingParts", ScopedFile::Mode::DoNotCreate);

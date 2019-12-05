@@ -128,6 +128,8 @@ private:
 class OSMElementCacheReaderInterface
 {
 public:
+  virtual ~OSMElementCacheReaderInterface() = default;
+
   virtual bool Read(Key id, WayElement & value) = 0;
   virtual bool Read(Key id, RelationElement & value) = 0;
 };
@@ -142,7 +144,7 @@ public:
   bool Read(Key id, WayElement & value) override { return Read<>(id, value); }
   bool Read(Key id, RelationElement & value) override { return Read<>(id, value); }
 
-protected:
+private:
   template <class Value>
   bool Read(Key id, Value & value)
   {
@@ -199,7 +201,7 @@ public:
 
   void SaveOffsets();
 
-protected:
+private:
   FileWriter m_fileWriter;
   IndexFileWriter m_offsets;
   std::string m_name;
