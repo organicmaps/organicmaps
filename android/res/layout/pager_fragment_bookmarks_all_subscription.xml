@@ -56,6 +56,7 @@
         android:layout_marginStart="@dimen/margin_base_plus_quarter"
         android:layout_marginTop="@dimen/margin_half"
         android:layout_marginEnd="@dimen/margin_base_plus_quarter"
+        android:layout_marginBottom="@dimen/auth_dialog_padding_top"
         android:fontFamily="@font/fredoka_one"
         android:gravity="center"
         android:text="@string/all_pass_subscription_subheader"
@@ -65,7 +66,6 @@
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="@dimen/subscription_view_pager_height"
-        android:layout_marginTop="@dimen/auth_dialog_padding_top"
         android:overScrollMode="never"
         app:autoScroll="true"
         app:scrollPeriod="4000" />

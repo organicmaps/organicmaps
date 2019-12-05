@@ -8,9 +8,11 @@
   </data>
   <RelativeLayout
     xmlns:tools="http://schemas.android.com/tools"
-    android:gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    tools:background="@color/black_primary"
+    tools:layout_height="180dp">
     <TextView
       android:id="@+id/title"
       android:layout_width="wrap_content"
@@ -19,8 +21,11 @@
       android:layout_centerHorizontal="true"
       android:gravity="center|top"
       android:ellipsize="end"
-      android:maxLines="2"
+      android:maxLines="@integer/bookmark_all_subs_pager_text_max_lines"
       android:fontFamily="@string/robotoMedium"
+      android:includeFontPadding="false"
+      android:letterSpacing="0"
+      android:lineSpacingExtra="@dimen/no_line_spacing_extra"
       android:textSize="@dimen/text_size_bookmark_all_subs_title"
       android:text="@{page.titleId}"
       android:textColor="@color/white_primary"
@@ -28,25 +33,32 @@
       android:layout_marginRight="@dimen/bookmarks_all_subscription_pager_item_margin"
       android:layout_marginLeft="@dimen/bookmarks_all_subscription_pager_item_margin"
       android:layout_marginStart="@dimen/bookmarks_all_subscription_pager_item_margin"
+      tools:text="700+ cities and 100+ countriesапваплвалжвлпжлв"
       tools:ignore="UnusedAttribute"/>
     <TextView
       android:id="@+id/description"
       android:layout_below="@id/title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:gravity="center|bottom"
-      android:layout_alignParentBottom="true"
+      android:gravity="center"
       android:layout_centerHorizontal="true"
-      android:maxLines="2"
+      android:maxLines="@integer/bookmark_all_subs_pager_text_max_lines"
       android:ellipsize="end"
       android:fontFamily="@string/robotoRegular"
       android:textColor="@color/white_primary"
       android:textSize="@dimen/text_size_body_1"
       android:text="@{page.descriptionId}"
+      android:letterSpacing="0"
+      android:lineSpacingExtra="@dimen/no_line_spacing_extra"
+      android:includeFontPadding="false"
+      android:layout_marginTop="@dimen/margin_half_plus"
       android:layout_marginEnd="@dimen/bookmarks_all_subscription_pager_item_margin"
       android:layout_marginRight="@dimen/bookmarks_all_subscription_pager_item_margin"
       android:layout_marginLeft="@dimen/bookmarks_all_subscription_pager_item_margin"
       android:layout_marginStart="@dimen/bookmarks_all_subscription_pager_item_margin"
+      tools:text="Every kind of journey. Whether alone
+or withваавпавпвпавпапап
+аврварваэжпдэжавдпэдваэжпдваэж "
       tools:ignore="UnusedAttribute"/>
   </RelativeLayout>
 </layout>
