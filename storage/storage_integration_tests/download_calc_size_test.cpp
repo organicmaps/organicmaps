@@ -24,7 +24,7 @@ void InitStorage(Storage & storage, Storage::UpdateCallback const & didDownload,
   storage.Init(didDownload, [](CountryId const &, LocalFilePtr const) { return false; });
   storage.RegisterAllLocalMaps(false /* enableDiffs */);
   storage.Subscribe(changeCountryFunction, progress);
-  storage.SetDownloadingUrlsForTesting({kTestWebServer});
+  storage.SetDownloadingServersForTesting({kTestWebServer});
 }
 
 UNIT_TEST(DownloadingTests_CalcOverallProgress)
@@ -36,7 +36,7 @@ UNIT_TEST(DownloadingTests_CalcOverallProgress)
 
   Storage s;
   
-  s.SetDownloadingUrlsForTesting({storage::kTestWebServer});
+  s.SetDownloadingServersForTesting({storage::kTestWebServer});
   MapFilesDownloader::Progress baseProgress = s.GetOverallProgress(kTestCountries);
 
   TEST_EQUAL(baseProgress.first, 0, ());
@@ -44,7 +44,7 @@ UNIT_TEST(DownloadingTests_CalcOverallProgress)
   
   for (auto const &country : kTestCountries)
   {
-    baseProgress.second += s.CountrySizeInBytes(country, MapOptions::Map).second;
+    baseProgress.second += s.CountrySizeInBytes(country).second;
   }
 
   auto progressChanged = [&s, &kTestCountries, &baseProgress](CountryId const & id,
