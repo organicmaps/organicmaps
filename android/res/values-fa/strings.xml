@@ -1663,8 +1663,8 @@
 	<string name="all_pass_subscription_message_subtitle">دانلود نامحدود مسیر شهرها و فضاهای باز موجود آفلاین</string>
 	<string name="all_pass_subscription_message_title_2">700+ شهر و 100+ کشور</string>
 	<string name="all_pass_subscription_message_subtitle_2">سفرهای خود را در هر زمانی از سال برنامهریزی کنید</string>
-	<string name="all_pass_subscription_message_title_3">دامنه وسیعی از اطلاعات</string>
-	<string name="all_pass_subscription_message_subtitle_3">نشانکها، تصاویر، مسیرهای پیاده‎روی، توصیفات و توصیهها</string>
+	<string name="all_pass_subscription_message_title_3">نشانه ها، عکس ها و پیشنهاد ها</string>
+	<string name="all_pass_subscription_message_subtitle_3">در نتیجهدلربا ترین مکان های شهری و فضای باز را از دست نمی دهید.</string>
 	<string name="sightseeing_subscription_header_subscription">اشتراک راهنماها</string>
 	<string name="sightseeing_subscription_message">700+ شهر و 100+ کشور</string>
 	<string name="sightseeing_subscription_message_2">دسترسی آفلاین</string>
@@ -1685,6 +1685,7 @@
 	<string name="whatsnew_guides_galleries_message">حال میتوانید توصیههای پیشنهادی را در صفحه مربوط به مکان شهرها و مکان‎های توریستی مشهور مشاهده کنید</string>
 	<string name="new_onboarding_step3_header">تجربه کنید</string>
 	<string name="all_pass_screen_best_value">بهترین ارزش</string>
+	<string name="buy_btn_for_subscription_3">کلیه کاتالوگ ها با %s در سال</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>

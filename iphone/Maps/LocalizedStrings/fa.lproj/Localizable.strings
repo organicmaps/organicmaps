@@ -3147,9 +3147,9 @@
 
 "all_pass_subscription_message_subtitle_2" = "سفرهای خود را در هر زمانی از سال برنامهریزی کنید";
 
-"all_pass_subscription_message_title_3" = "دامنه وسیعی از اطلاعات";
+"all_pass_subscription_message_title_3" = "نشانه ها، عکس ها و پیشنهاد ها";
 
-"all_pass_subscription_message_subtitle_3" = "نشانکها، تصاویر، مسیرهای پیاده‎روی، توصیفات و توصیهها";
+"all_pass_subscription_message_subtitle_3" = "در نتیجهدلربا ترین مکان های شهری و فضای باز را از دست نمی دهید.";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3193,6 +3193,8 @@
 "new_onboarding_step3_header" = "تجربه کنید";
 
 "all_pass_screen_best_value" = "بهترین ارزش";
+
+"buy_btn_for_subscription_3" = "کلیه کاتالوگ ها با %s در سال";
 
 
 /**********  Partners  **********/

@@ -3147,9 +3147,9 @@
 
 "all_pass_subscription_message_subtitle_2" = "いつでも旅の計画ができます";
 
-"all_pass_subscription_message_title_3" = "幅広いコンテンツ";
+"all_pass_subscription_message_title_3" = "ブックマークと、写真、そしてお薦め";
 
-"all_pass_subscription_message_subtitle_3" = "ブックマーク、写真、歩行経路、説明文、そしてヒント";
+"all_pass_subscription_message_subtitle_3" = "これで都市やアウトドアの最も興味深い場所を見逃す事はありません。";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3193,6 +3193,8 @@
 "new_onboarding_step3_header" = "体験しましょう";
 
 "all_pass_screen_best_value" = "ベストバリュー";
+
+"buy_btn_for_subscription_3" = "カタログ全体が年々%s";
 
 
 /**********  Partners  **********/

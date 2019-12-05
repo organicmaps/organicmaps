@@ -3147,9 +3147,9 @@
 
 "all_pass_subscription_message_subtitle_2" = "Matkoille minä tahansa vuodenaikana";
 
-"all_pass_subscription_message_title_3" = "Monipuolinen sisältö";
+"all_pass_subscription_message_title_3" = "Kirjanmerkit, valokuvat ja suositukset";
 
-"all_pass_subscription_message_subtitle_3" = "Merkit, valokuvat, kävelyreitit, kuvaukset ja suositukset";
+"all_pass_subscription_message_subtitle_3" = "Niin et menetä mielenkiintoisimpia kaupunki- tai luonnonpaikkoja.";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3193,6 +3193,8 @@
 "new_onboarding_step3_header" = "Matkusta";
 
 "all_pass_screen_best_value" = "Edullinen hinta";
+
+"buy_btn_for_subscription_3" = "Koko luettelo %s/vuosi";
 
 
 /**********  Partners  **********/

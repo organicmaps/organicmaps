@@ -1716,8 +1716,8 @@
 	<string name="all_pass_subscription_message_subtitle">Tải xuống không giới hạn các tuyến đường ngoại tuyến trong thành phố và những hoạt động ngoài trời</string>
 	<string name="all_pass_subscription_message_title_2">Hơn 700 thành phố và hơn 100 quốc gia</string>
 	<string name="all_pass_subscription_message_subtitle_2">Để du lịch vào bất cứ thời gian nào trong năm</string>
-	<string name="all_pass_subscription_message_title_3">Nội dung phong phú</string>
-	<string name="all_pass_subscription_message_subtitle_3">Đánh dấu, ảnh, lối đi bộ qua đường, mô tả và cả những đề xuất</string>
+	<string name="all_pass_subscription_message_title_3">Đánh dấu, ảnh và các khuyến nghị</string>
+	<string name="all_pass_subscription_message_subtitle_3">Để không bỏ qua những địa điểm hấp dẫn nhất trong thành phố và ngoài tự nhiên.</string>
 	<string name="sightseeing_subscription_header_subscription">Đăng ký hướng dẫn</string>
 	<string name="sightseeing_subscription_message">Hơn 700 thành phố và hơn 100 quốc gia</string>
 	<string name="sightseeing_subscription_message_2">Truy cập ngoại tuyến</string>
@@ -1738,6 +1738,7 @@
 	<string name="whatsnew_guides_galleries_message">Bây giờ bạn có thể tìm thấy hướng dẫn được đề xuất trong các thẻ của các thành phố và điểm tham quan nổi tiếng</string>
 	<string name="new_onboarding_step3_header">Đi du lịch nào</string>
 	<string name="all_pass_screen_best_value">Giá tốt</string>
+	<string name="buy_btn_for_subscription_3">Cả danh mục chỉ với %s/năm</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

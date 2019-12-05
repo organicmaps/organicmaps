@@ -1788,8 +1788,8 @@
 	<string name="all_pass_subscription_message_subtitle">Unlimited downloads of city and outdoor routes available offline</string>
 	<string name="all_pass_subscription_message_title_2">700+ cities and 100+ countries</string>
 	<string name="all_pass_subscription_message_subtitle_2">Plan your journeys at any time of the year</string>
-	<string name="all_pass_subscription_message_title_3">Wide range of content</string>
-	<string name="all_pass_subscription_message_subtitle_3">Bookmarks, photos, walking tracks, descriptions and tips</string>
+	<string name="all_pass_subscription_message_title_3">Bookmarks, photos and recommendations</string>
+	<string name="all_pass_subscription_message_subtitle_3">So you don\'t miss the most interesting places in the city and outdoors.</string>
 	<!-- do not translate -->
 	<string name="sightseeing_subscription_header_sightseeing">City Pass</string>
 	<string name="sightseeing_subscription_header_subscription">Guides Subscription</string>
@@ -1812,6 +1812,7 @@
 	<string name="whatsnew_guides_galleries_message">Now you can find recommended guides in place pages of popular touristic cities and sights</string>
 	<string name="new_onboarding_step3_header">Experience</string>
 	<string name="all_pass_screen_best_value">Best Value</string>
+	<string name="buy_btn_for_subscription_3">Entire catalog for %s/year</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

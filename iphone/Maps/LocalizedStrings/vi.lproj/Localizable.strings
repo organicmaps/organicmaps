@@ -3147,9 +3147,9 @@
 
 "all_pass_subscription_message_subtitle_2" = "Để du lịch vào bất cứ thời gian nào trong năm";
 
-"all_pass_subscription_message_title_3" = "Nội dung phong phú";
+"all_pass_subscription_message_title_3" = "Đánh dấu, ảnh và các khuyến nghị";
 
-"all_pass_subscription_message_subtitle_3" = "Đánh dấu, ảnh, lối đi bộ qua đường, mô tả và cả những đề xuất";
+"all_pass_subscription_message_subtitle_3" = "Để không bỏ qua những địa điểm hấp dẫn nhất trong thành phố và ngoài tự nhiên.";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3193,6 +3193,8 @@
 "new_onboarding_step3_header" = "Đi du lịch nào";
 
 "all_pass_screen_best_value" = "Giá tốt";
+
+"buy_btn_for_subscription_3" = "Cả danh mục chỉ với %s/năm";
 
 
 /**********  Partners  **********/

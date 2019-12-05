@@ -3147,9 +3147,9 @@
 
 "all_pass_subscription_message_subtitle_2" = "支持全年旅行";
 
-"all_pass_subscription_message_title_3" = "丰富多彩的内容";
+"all_pass_subscription_message_title_3" = "标记，照片和推荐";
 
-"all_pass_subscription_message_subtitle_3" = "标记，照片，人行道路，描述和推荐";
+"all_pass_subscription_message_subtitle_3" = "以免错过市内外有趣的景点。";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3193,6 +3193,8 @@
 "new_onboarding_step3_header" = "去旅行吧";
 
 "all_pass_screen_best_value" = "优惠的价格";
+
+"buy_btn_for_subscription_3" = "整个画册%s/年";
 
 
 /**********  Partners  **********/

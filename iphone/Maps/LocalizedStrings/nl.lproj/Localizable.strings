@@ -3147,9 +3147,9 @@
 
 "all_pass_subscription_message_subtitle_2" = "Plan uw reizen op elk moment van het jaar";
 
-"all_pass_subscription_message_title_3" = "Diverse inhoud";
+"all_pass_subscription_message_title_3" = "Bladwijzers, foto's en aanbevelingen";
 
-"all_pass_subscription_message_subtitle_3" = "Bladwijzers, foto's, wandelroutes, beschrijvingen en tips";
+"all_pass_subscription_message_subtitle_3" = "Om de meest interessante plaatsen in de stad en in de natuur niet te missen.";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3193,6 +3193,8 @@
 "new_onboarding_step3_header" = "Reist";
 
 "all_pass_screen_best_value" = "Gunstige prijs";
+
+"buy_btn_for_subscription_3" = "De hele catalogus voor %s per jaar";
 
 
 /**********  Partners  **********/

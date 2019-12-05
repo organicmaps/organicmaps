@@ -1729,8 +1729,8 @@
 	<string name="all_pass_subscription_message_subtitle">Neomezený počet stahování městských a venkovních tras dostupných offline</string>
 	<string name="all_pass_subscription_message_title_2">Více než 700 měst a 100 zemí</string>
 	<string name="all_pass_subscription_message_subtitle_2">Plánujte své cesty v jakémkoli období roku</string>
-	<string name="all_pass_subscription_message_title_3">Široká škála obsahu</string>
-	<string name="all_pass_subscription_message_subtitle_3">Záložky, fotografie, turistické trasy, popisy a tipy</string>
+	<string name="all_pass_subscription_message_title_3">Záložky, fotografie a doporučení</string>
+	<string name="all_pass_subscription_message_subtitle_3">Abyste nezmeškali nejzajímavější místa ve městě a venku.</string>
 	<string name="sightseeing_subscription_header_subscription">Předplatné průvodců</string>
 	<string name="sightseeing_subscription_message">Více než 700 měst a 100 zemí</string>
 	<string name="sightseeing_subscription_message_2">Dostupné offline</string>
@@ -1751,6 +1751,7 @@
 	<string name="whatsnew_guides_galleries_message">Nyní najdete doporučené průvodce na místě na stránkách oblíbených turistických měst a památek</string>
 	<string name="new_onboarding_step3_header">Zažijte</string>
 	<string name="all_pass_screen_best_value">Nejvýhodnější</string>
+	<string name="buy_btn_for_subscription_3">Celý katalog za %s/rok</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>

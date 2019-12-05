@@ -3147,9 +3147,9 @@
 
 "all_pass_subscription_message_subtitle_2" = "Tervezd meg az utazásod bármikor";
 
-"all_pass_subscription_message_title_3" = "Széles körű tartalom";
+"all_pass_subscription_message_title_3" = "Könyvjelzők, fotók és ajánlások";
 
-"all_pass_subscription_message_subtitle_3" = "Könyvjezők, fényképek, séta úvonalak, leírások és tippek";
+"all_pass_subscription_message_subtitle_3" = "Tehát ne hagyd ki a legérdekesebb helyeket a városban és a szabadtéren.";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3193,6 +3193,8 @@
 "new_onboarding_step3_header" = "Éld át";
 
 "all_pass_screen_best_value" = "Legjobb ajánlat";
+
+"buy_btn_for_subscription_3" = "A teljes katalógus %s/év";
 
 
 /**********  Partners  **********/

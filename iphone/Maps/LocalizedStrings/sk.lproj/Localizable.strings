@@ -3147,9 +3147,9 @@
 
 "all_pass_subscription_message_subtitle_2" = "Naplánujte si svoje cesty kedykoľvek v priebehu roka";
 
-"all_pass_subscription_message_title_3" = "Široký rozsah obsahu";
+"all_pass_subscription_message_title_3" = "Záložky, fotografie a odporúčania";
 
-"all_pass_subscription_message_subtitle_3" = "Záložky, fotografie, turistické trasy, popisy a tipy";
+"all_pass_subscription_message_subtitle_3" = "Nenechajte si teda ujsť najzaujímavejšie miesta v meste a v prírode.";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3193,6 +3193,8 @@
 "new_onboarding_step3_header" = "Zážitok";
 
 "all_pass_screen_best_value" = "Najlepšia hodnota";
+
+"buy_btn_for_subscription_3" = "Celý katalóg za %s/rok";
 
 
 /**********  Partners  **********/

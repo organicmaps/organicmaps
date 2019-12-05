@@ -3147,9 +3147,9 @@
 
 "all_pass_subscription_message_subtitle_2" = "Planera dina resor när som helst på året";
 
-"all_pass_subscription_message_title_3" = "Olika innehåll";
+"all_pass_subscription_message_title_3" = "Bokmärken, foton och rekommendationer";
 
-"all_pass_subscription_message_subtitle_3" = "Taggar, foton, vandringsleder, beskrivningar och rekommendationer";
+"all_pass_subscription_message_subtitle_3" = "För att inte missa de mest intressanta platserna i staden och i naturen.";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3193,6 +3193,8 @@
 "new_onboarding_step3_header" = "Resa";
 
 "all_pass_screen_best_value" = "Lönsamt pris";
+
+"buy_btn_for_subscription_3" = "Hela katalogen för %s/år";
 
 
 /**********  Partners  **********/

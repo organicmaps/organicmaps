@@ -1731,8 +1731,8 @@
 	<string name="all_pass_subscription_message_subtitle">Nieograniczone pobieranie tras offline do zwiedzania i aktywnego wypoczynku poza miastem</string>
 	<string name="all_pass_subscription_message_title_2">700+ miast i 100+ krajów</string>
 	<string name="all_pass_subscription_message_subtitle_2">Dla podróży o każdej porze roku</string>
-	<string name="all_pass_subscription_message_title_3">Szeroki zakres treści</string>
-	<string name="all_pass_subscription_message_subtitle_3">Znaczniki, zdjęcia, trasy spacerowe, opisy i wskazówki</string>
+	<string name="all_pass_subscription_message_title_3">Zakładki, zdjęcia i rekomendacje</string>
+	<string name="all_pass_subscription_message_subtitle_3">Aby nie przegapić najciekawszych miejsc w mieście i na łonie natury.</string>
 	<string name="sightseeing_subscription_header_subscription">Subskrypcja przewodników</string>
 	<string name="sightseeing_subscription_message">700+ miast i 100+ krajów</string>
 	<string name="sightseeing_subscription_message_2">Dostępne offline</string>
@@ -1753,6 +1753,7 @@
 	<string name="whatsnew_guides_galleries_message">Teraz możesz znaleźć polecane przewodniki na stronach popularnych miast turystycznych i zabytków</string>
 	<string name="new_onboarding_step3_header">Podróżuj</string>
 	<string name="all_pass_screen_best_value">Atrakcyjna cena</string>
+	<string name="buy_btn_for_subscription_3">Cały katalog za %s/rok</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Wyprzedaże</string>

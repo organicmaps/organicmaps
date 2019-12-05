@@ -3147,9 +3147,9 @@
 
 "all_pass_subscription_message_subtitle_2" = "Для путешествий в любое время года";
 
-"all_pass_subscription_message_title_3" = "Разнообразный контент";
+"all_pass_subscription_message_title_3" = "Метки, фото и рекомендации";
 
-"all_pass_subscription_message_subtitle_3" = "Метки, фото, пешеходные треки, описания и рекомендации";
+"all_pass_subscription_message_subtitle_3" = "Чтобы не пропустить самые интересные места в городе и на природе.";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3193,6 +3193,8 @@
 "new_onboarding_step3_header" = "Путешествуйте";
 
 "all_pass_screen_best_value" = "Выгодная цена";
+
+"buy_btn_for_subscription_3" = "Весь каталог за %s/год";
 
 
 /**********  Partners  **********/

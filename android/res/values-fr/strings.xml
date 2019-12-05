@@ -1745,8 +1745,8 @@
 	<string name="all_pass_subscription_message_subtitle">Téléchargement illimité d\'itinéraires de promenades en ville et d\'activités de plein air avec l\'accès hors ligne</string>
 	<string name="all_pass_subscription_message_title_2">+ de 700 villes et de 100 pays</string>
 	<string name="all_pass_subscription_message_subtitle_2">Pour voyager à tout moment de l\'année</string>
-	<string name="all_pass_subscription_message_title_3">Contenu varié</string>
-	<string name="all_pass_subscription_message_subtitle_3">Tags, photos, parcours, descriptions et recommandations</string>
+	<string name="all_pass_subscription_message_title_3">Signets, photos et recommandations</string>
+	<string name="all_pass_subscription_message_subtitle_3">Ainsi, vous ne passerez pas à côté des endroits les plus intéressants de la ville et en plein air.</string>
 	<string name="sightseeing_subscription_header_subscription">Abonnement aux guides</string>
 	<string name="sightseeing_subscription_message">+ de 700 villes et de 100 pays</string>
 	<string name="sightseeing_subscription_message_2">Disponibles hors connexion</string>
@@ -1767,6 +1767,7 @@
 	<string name="whatsnew_guides_galleries_message">Désormais vous pouvez trouver les guides recommandés dans les fiches des villes et des attractions touristiques populaires</string>
 	<string name="new_onboarding_step3_header">Voyagez</string>
 	<string name="all_pass_screen_best_value">Prix avantageux</string>
+	<string name="buy_btn_for_subscription_3">Le catalogue entier pour %s/an</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

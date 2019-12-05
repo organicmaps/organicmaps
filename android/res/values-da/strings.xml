@@ -1724,8 +1724,8 @@
 	<string name="all_pass_subscription_message_subtitle">Ubegrænset downloads af by- og udendørsruter tilgængeligt offline</string>
 	<string name="all_pass_subscription_message_title_2">700+ byer og 100+ lande</string>
 	<string name="all_pass_subscription_message_subtitle_2">Planlæg din rejse på ethvert tidspunkt af året</string>
-	<string name="all_pass_subscription_message_title_3">Stor udvalg af indhold</string>
-	<string name="all_pass_subscription_message_subtitle_3">Bogmærker, fotos, gåture, beskrivelser og tips</string>
+	<string name="all_pass_subscription_message_title_3">Bogmærker, fotos og anbefalinger</string>
+	<string name="all_pass_subscription_message_subtitle_3">Så du ikke går glip af de mest interessante steder i byen og udendørs.</string>
 	<string name="sightseeing_subscription_header_subscription">Guides Abonnement</string>
 	<string name="sightseeing_subscription_message">700+ byer og 100+ lande</string>
 	<string name="sightseeing_subscription_message_2">Tilgængeligt offline</string>
@@ -1746,6 +1746,7 @@
 	<string name="whatsnew_guides_galleries_message">Nu kan du finde anbefalede guides på stedsiderne om populære turistbyer og syn</string>
 	<string name="new_onboarding_step3_header">Oplevelse</string>
 	<string name="all_pass_screen_best_value">Bedste værdi</string>
+	<string name="buy_btn_for_subscription_3">Hele kataloget for %s/år</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

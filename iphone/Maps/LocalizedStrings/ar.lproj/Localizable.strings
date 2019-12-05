@@ -3147,9 +3147,9 @@
 
 "all_pass_subscription_message_subtitle_2" = "خطط لرحلاتك في أي وقت من السنة";
 
-"all_pass_subscription_message_title_3" = "مجموعة كبيرة من المحتوى";
+"all_pass_subscription_message_title_3" = "الإشارات المرجعية، والصور والتوصيات";
 
-"all_pass_subscription_message_subtitle_3" = "إشارات مرجعية وصور ومسارات المشي ووصف ونصائح";
+"all_pass_subscription_message_subtitle_3" = "لذا، لا تفوت الأماكن الأكثر إثارة في المدينة وفي الهواء الطلق.";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3193,6 +3193,8 @@
 "new_onboarding_step3_header" = "جرب";
 
 "all_pass_screen_best_value" = "أفضل قيمة";
+
+"buy_btn_for_subscription_3" = "كامل الكتالوج من أجل %s / سنة";
 
 
 /**********  Partners  **********/

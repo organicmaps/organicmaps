@@ -1724,8 +1724,8 @@
 	<string name="all_pass_subscription_message_subtitle">Download ilimitado de percursos offline para passeios pela cidade e recreação</string>
 	<string name="all_pass_subscription_message_title_2">700+ cidades e 100+ países</string>
 	<string name="all_pass_subscription_message_subtitle_2">Para viagens em qualquer época do ano</string>
-	<string name="all_pass_subscription_message_title_3">Conteúdo diversificado</string>
-	<string name="all_pass_subscription_message_subtitle_3">Tags, fotos, trilhas, descrições e recomendações</string>
+	<string name="all_pass_subscription_message_title_3">Tags, fotos e recomendações</string>
+	<string name="all_pass_subscription_message_subtitle_3">Para não deixar escapar os lugares mais curiosos dentro ou fora da cidade.</string>
 	<string name="sightseeing_subscription_header_subscription">Subscrição para guias</string>
 	<string name="sightseeing_subscription_message">700+ cidades e 100+ países</string>
 	<string name="sightseeing_subscription_message_2">Disponíveis off-line</string>
@@ -1746,6 +1746,7 @@
 	<string name="whatsnew_guides_galleries_message">Agora pode encontrar guias recomendados nos cartões de cidades e pontos turísticos populares</string>
 	<string name="new_onboarding_step3_header">Viaje</string>
 	<string name="all_pass_screen_best_value">Preço favorável</string>
+	<string name="buy_btn_for_subscription_3">Tudo o catálogo por %s/ano</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estação de teleférico</string>

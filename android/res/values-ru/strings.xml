@@ -1773,8 +1773,8 @@
 	<string name="all_pass_subscription_message_subtitle">Безлимитное скачивание офлайн маршрутов для городских прогулок и активного отдыха</string>
 	<string name="all_pass_subscription_message_title_2">700+ городов и 100+ стран</string>
 	<string name="all_pass_subscription_message_subtitle_2">Для путешествий в любое время года</string>
-	<string name="all_pass_subscription_message_title_3">Разнообразный контент</string>
-	<string name="all_pass_subscription_message_subtitle_3">Метки, фото, пешеходные треки, описания и рекомендации</string>
+	<string name="all_pass_subscription_message_title_3">Метки, фото и рекомендации</string>
+	<string name="all_pass_subscription_message_subtitle_3">Чтобы не пропустить самые интересные места в городе и на природе.</string>
 	<string name="sightseeing_subscription_header_subscription">Подписка на путеводители</string>
 	<string name="sightseeing_subscription_message">700+ городов и 100+ стран</string>
 	<string name="sightseeing_subscription_message_2">Доступны офлайн</string>
@@ -1795,6 +1795,7 @@
 	<string name="whatsnew_guides_galleries_message">Теперь вы можете найти рекомендованные путеводители в карточках популярных городов и достопримечательностей</string>
 	<string name="new_onboarding_step3_header">Путешествуйте</string>
 	<string name="all_pass_screen_best_value">Выгодная цена</string>
+	<string name="buy_btn_for_subscription_3">Весь каталог за %s/год</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

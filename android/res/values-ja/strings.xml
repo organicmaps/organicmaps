@@ -1719,8 +1719,8 @@
 	<string name="all_pass_subscription_message_subtitle">オフラインで利用できる都市と戸外のルートが無制限にダウンロードできます</string>
 	<string name="all_pass_subscription_message_title_2">700以上の都市と100以上の国</string>
 	<string name="all_pass_subscription_message_subtitle_2">いつでも旅の計画ができます</string>
-	<string name="all_pass_subscription_message_title_3">幅広いコンテンツ</string>
-	<string name="all_pass_subscription_message_subtitle_3">ブックマーク、写真、歩行経路、説明文、そしてヒント</string>
+	<string name="all_pass_subscription_message_title_3">ブックマークと、写真、そしてお薦め</string>
+	<string name="all_pass_subscription_message_subtitle_3">これで都市やアウトドアの最も興味深い場所を見逃す事はありません。</string>
 	<string name="sightseeing_subscription_header_subscription">ガイドのサブスクリプション</string>
 	<string name="sightseeing_subscription_message">700以上の都市と100以上の国</string>
 	<string name="sightseeing_subscription_message_2">オフラインで利用可能</string>
@@ -1741,6 +1741,7 @@
 	<string name="whatsnew_guides_galleries_message">人気の観光都市と景色の場所のページでお勧めのガイドを見つける事ができるようになりました</string>
 	<string name="new_onboarding_step3_header">体験しましょう</string>
 	<string name="all_pass_screen_best_value">ベストバリュー</string>
+	<string name="buy_btn_for_subscription_3">カタログ全体が年々%s</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

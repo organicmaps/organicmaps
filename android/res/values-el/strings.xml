@@ -1477,8 +1477,8 @@
 	<string name="all_pass_subscription_message_subtitle">Απεριόριστες λήψεις διαδρομών χωρίς σύνδεση για περιπάτους στην πόλη και υπαίθριες δραστηριότητες</string>
 	<string name="all_pass_subscription_message_title_2">700+ πόλεις και 100+ χώρες</string>
 	<string name="all_pass_subscription_message_subtitle_2">Για ταξίδια σε οποιαδήποτε εποχή του χρόνου</string>
-	<string name="all_pass_subscription_message_title_3">Ποικιλία περιεχομένων</string>
-	<string name="all_pass_subscription_message_subtitle_3">Αγαπημένα, φωτογραφίες, μονοπάτια πεζοπορίας, περιγραφές και συμβουλές</string>
+	<string name="all_pass_subscription_message_title_3">Αγαπημένα, φωτογραφίες και συστάσεις</string>
+	<string name="all_pass_subscription_message_subtitle_3">Για να μην χάσετε τα πιο ενδιαφέροντα σημεία και τοποθεσίες στην πόλη και στη φύση.</string>
 	<string name="sightseeing_subscription_header_subscription">Συνδρομή σε οδηγούς</string>
 	<string name="sightseeing_subscription_message">700+ πόλεις και 100+ χώρες</string>
 	<string name="sightseeing_subscription_message_2">Διαθέσιμα χωρίς σύνδεση</string>
@@ -1499,6 +1499,7 @@
 	<string name="whatsnew_guides_galleries_message">Τώρα μπορείτε να βρείτε τους συνιστώμενους οδηγούς στις κάρτες των δημοφιλών πόλεων και αξιοθέατων</string>
 	<string name="new_onboarding_step3_header">Ταξιδέψτε</string>
 	<string name="all_pass_screen_best_value">Καλύτερη τιμή</string>
+	<string name="buy_btn_for_subscription_3">Ολόκληρος κατάλογος με %s/έτος</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Σταθμός αερομεταφοράς</string>

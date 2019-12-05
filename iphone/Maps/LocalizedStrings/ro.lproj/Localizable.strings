@@ -3147,9 +3147,9 @@
 
 "all_pass_subscription_message_subtitle_2" = "Pentru călătorii în orice moment al anului";
 
-"all_pass_subscription_message_title_3" = "Conținut divers";
+"all_pass_subscription_message_title_3" = "Marcaje, fotografii și recomandări";
 
-"all_pass_subscription_message_subtitle_3" = "Etichete, fotografii, trasee de mers, descrieri și recomandări";
+"all_pass_subscription_message_subtitle_3" = "Pentru a nu pierde cele mai interesante locuri din oraș și în aer liber.";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3193,6 +3193,8 @@
 "new_onboarding_step3_header" = "Călătoriți";
 
 "all_pass_screen_best_value" = "Preț avantajos";
+
+"buy_btn_for_subscription_3" = "Tot catalogul pentru %s/an";
 
 
 /**********  Partners  **********/

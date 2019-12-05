@@ -3147,9 +3147,9 @@
 
 "all_pass_subscription_message_subtitle_2" = "Для подорожей у будь-яку пору року";
 
-"all_pass_subscription_message_title_3" = "Різноманітний контент";
+"all_pass_subscription_message_title_3" = "Мітки, фото та рекомендації";
 
-"all_pass_subscription_message_subtitle_3" = "Мітки, фото, піші треки, описи та рекомендації";
+"all_pass_subscription_message_subtitle_3" = "Аби не проґавити найцікавіші місця в місті та на природі.";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3193,6 +3193,8 @@
 "new_onboarding_step3_header" = "Подорожуйте";
 
 "all_pass_screen_best_value" = "Вигідна ціна";
+
+"buy_btn_for_subscription_3" = "Увесь каталог за %s/рік";
 
 
 /**********  Partners  **********/

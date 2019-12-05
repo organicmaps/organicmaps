@@ -3147,9 +3147,9 @@
 
 "all_pass_subscription_message_subtitle_2" = "연중 언제든지 여행 계획을 세워 보세요";
 
-"all_pass_subscription_message_title_3" = "다양한 내용의 콘텐츠들";
+"all_pass_subscription_message_title_3" = "북마크, 사진 및 추천 장소들";
 
-"all_pass_subscription_message_subtitle_3" = "북마크, 사진, 산책로, 자세한 설명과 팁들";
+"all_pass_subscription_message_subtitle_3" = "도시 및 야외에서 가장 흥미로운 장소들을 놓치지 않으실 수 있습니다.";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3193,6 +3193,8 @@
 "new_onboarding_step3_header" = "경험하세요";
 
 "all_pass_screen_best_value" = "최고가치";
+
+"buy_btn_for_subscription_3" = "모든 카탈로그가 %s/년";
 
 
 /**********  Partners  **********/

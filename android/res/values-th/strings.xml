@@ -1725,8 +1725,8 @@
 	<string name="all_pass_subscription_message_subtitle">มีเส้นทางของเมืองใหญ่และเส้นทางเอาท์ดอร์ที่ใช้งานได้แบบออฟไลน์ให้ดาวน์โหลดได้ไม่จำกัด</string>
 	<string name="all_pass_subscription_message_title_2">มากกว่า 700 เมืองใหญ่ และมากกว่า 100 ประเทศ</string>
 	<string name="all_pass_subscription_message_subtitle_2">วางแผนการเดินทางของคุณได้ในทุกเวลาของปี</string>
-	<string name="all_pass_subscription_message_title_3">มีเนื้อหาที่กว้างขวาง</string>
-	<string name="all_pass_subscription_message_subtitle_3">บุ๊กมาร์ก ภาพถ่าย เส้นทางการเดินเท้า คำบรรยาย และเคล็ดลับ</string>
+	<string name="all_pass_subscription_message_title_3">บุ๊กมาร์ก รูปภาพ และคำแนะนำ</string>
+	<string name="all_pass_subscription_message_subtitle_3">เพื่อให้คุณไม่พลาดสถานที่น่าสนใจทั้งสุดทั้งในเมืองและพื้นที่กลางแจ้ง</string>
 	<string name="sightseeing_subscription_header_subscription">สมัครสมาชิกคู่มือใช้งาน</string>
 	<string name="sightseeing_subscription_message">มากกว่า 700 เมืองใหญ่ และมากกว่า 100 ประเทศ</string>
 	<string name="sightseeing_subscription_message_2">ใช้งานได้แบบออฟไลน์</string>
@@ -1747,6 +1747,7 @@
 	<string name="whatsnew_guides_galleries_message">ตอนนี้คุณสามารถค้นหาคู่มือใช้งานที่เราแนะนำในเว็บเพจเกี่ยวกับสถานที่ของเมืองและสถานที่ที่เป็นสถานที่ท่องเที่ยวยอดนิยม</string>
 	<string name="new_onboarding_step3_header">ประสบการณ์</string>
 	<string name="all_pass_screen_best_value">คุ้มค่าที่สุด</string>
+	<string name="buy_btn_for_subscription_3">ทั้งแคตตาล็อคราคา %s/ปี</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

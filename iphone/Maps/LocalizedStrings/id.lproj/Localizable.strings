@@ -3147,9 +3147,9 @@
 
 "all_pass_subscription_message_subtitle_2" = "Rencanakan perjalanan Anda kapan saja";
 
-"all_pass_subscription_message_title_3" = "Konten yang beragam";
+"all_pass_subscription_message_title_3" = "Penanda, foto dan rekomendasi";
 
-"all_pass_subscription_message_subtitle_3" = "Penanda, foto, jalur pejalan kaki, tips dan deskripsi";
+"all_pass_subscription_message_subtitle_3" = "Sehingga Anda tidak akan melewatkan tempat-tempat menarik yang ada di kota dan di luar ruangan.";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3193,6 +3193,8 @@
 "new_onboarding_step3_header" = "Pengalaman";
 
 "all_pass_screen_best_value" = "Harga terbaik";
+
+"buy_btn_for_subscription_3" = "Katalog lengkap hanya dengan %s/tahun";
 
 
 /**********  Partners  **********/

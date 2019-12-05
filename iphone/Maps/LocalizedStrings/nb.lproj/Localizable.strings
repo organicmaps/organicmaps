@@ -3147,9 +3147,9 @@
 
 "all_pass_subscription_message_subtitle_2" = "For reiser i alle årstider";
 
-"all_pass_subscription_message_title_3" = "Variert innhold";
+"all_pass_subscription_message_title_3" = "Bokmerker, bilder og anbefalinger";
 
-"all_pass_subscription_message_subtitle_3" = "Bokmerker, bilder, fotturer, beskrivelser og anbefalinger";
+"all_pass_subscription_message_subtitle_3" = "For å ikke gå glipp av de mest interessante stedene i byen og ute i det fri.";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3193,6 +3193,8 @@
 "new_onboarding_step3_header" = "Reis";
 
 "all_pass_screen_best_value" = "Rimelig pris";
+
+"buy_btn_for_subscription_3" = "Hele katalogen for %s/år";
 
 
 /**********  Partners  **********/

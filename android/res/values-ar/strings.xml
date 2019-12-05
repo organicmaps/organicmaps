@@ -1725,8 +1725,8 @@
 	<string name="all_pass_subscription_message_subtitle">تحميل غير محدود لطرق المدينة والمناطق الخارجية بدون اتصال</string>
 	<string name="all_pass_subscription_message_title_2">أكثر من 700 مدينة و 100 دولة</string>
 	<string name="all_pass_subscription_message_subtitle_2">خطط لرحلاتك في أي وقت من السنة</string>
-	<string name="all_pass_subscription_message_title_3">مجموعة كبيرة من المحتوى</string>
-	<string name="all_pass_subscription_message_subtitle_3">إشارات مرجعية وصور ومسارات المشي ووصف ونصائح</string>
+	<string name="all_pass_subscription_message_title_3">الإشارات المرجعية، والصور والتوصيات</string>
+	<string name="all_pass_subscription_message_subtitle_3">لذا، لا تفوت الأماكن الأكثر إثارة في المدينة وفي الهواء الطلق.</string>
 	<string name="sightseeing_subscription_header_subscription">اشتراك الدلائل</string>
 	<string name="sightseeing_subscription_message">أكثر من 700 مدينة و 100 دولة</string>
 	<string name="sightseeing_subscription_message_2">متاح دون اتصال</string>
@@ -1747,6 +1747,7 @@
 	<string name="whatsnew_guides_galleries_message">يمكنك الآن العثور على دلائل موصى بها في صفحات الأماكن للمدن والمعالم السياحية الشهيرة</string>
 	<string name="new_onboarding_step3_header">جرب</string>
 	<string name="all_pass_screen_best_value">أفضل قيمة</string>
+	<string name="buy_btn_for_subscription_3">كامل الكتالوج من أجل %s / سنة</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

@@ -3147,9 +3147,9 @@
 
 "all_pass_subscription_message_subtitle_2" = "วางแผนการเดินทางของคุณได้ในทุกเวลาของปี";
 
-"all_pass_subscription_message_title_3" = "มีเนื้อหาที่กว้างขวาง";
+"all_pass_subscription_message_title_3" = "บุ๊กมาร์ก รูปภาพ และคำแนะนำ";
 
-"all_pass_subscription_message_subtitle_3" = "บุ๊กมาร์ก ภาพถ่าย เส้นทางการเดินเท้า คำบรรยาย และเคล็ดลับ";
+"all_pass_subscription_message_subtitle_3" = "เพื่อให้คุณไม่พลาดสถานที่น่าสนใจทั้งสุดทั้งในเมืองและพื้นที่กลางแจ้ง";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3193,6 +3193,8 @@
 "new_onboarding_step3_header" = "ประสบการณ์";
 
 "all_pass_screen_best_value" = "คุ้มค่าที่สุด";
+
+"buy_btn_for_subscription_3" = "ทั้งแคตตาล็อคราคา %s/ปี";
 
 
 /**********  Partners  **********/

@@ -3147,9 +3147,9 @@
 
 "all_pass_subscription_message_subtitle_2" = "Dla podróży o każdej porze roku";
 
-"all_pass_subscription_message_title_3" = "Szeroki zakres treści";
+"all_pass_subscription_message_title_3" = "Zakładki, zdjęcia i rekomendacje";
 
-"all_pass_subscription_message_subtitle_3" = "Znaczniki, zdjęcia, trasy spacerowe, opisy i wskazówki";
+"all_pass_subscription_message_subtitle_3" = "Aby nie przegapić najciekawszych miejsc w mieście i na łonie natury.";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3193,6 +3193,8 @@
 "new_onboarding_step3_header" = "Podróżuj";
 
 "all_pass_screen_best_value" = "Atrakcyjna cena";
+
+"buy_btn_for_subscription_3" = "Cały katalog za %s/rok";
 
 
 /**********  Partners  **********/

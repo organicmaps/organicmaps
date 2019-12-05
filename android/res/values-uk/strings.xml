@@ -1726,8 +1726,8 @@
 	<string name="all_pass_subscription_message_subtitle">Безлімітне завантаження офлайнових маршрутів для прогулянок містом і активного відпочинку</string>
 	<string name="all_pass_subscription_message_title_2">Понад 700 міст і 100 країн</string>
 	<string name="all_pass_subscription_message_subtitle_2">Для подорожей у будь-яку пору року</string>
-	<string name="all_pass_subscription_message_title_3">Різноманітний контент</string>
-	<string name="all_pass_subscription_message_subtitle_3">Мітки, фото, піші треки, описи та рекомендації</string>
+	<string name="all_pass_subscription_message_title_3">Мітки, фото та рекомендації</string>
+	<string name="all_pass_subscription_message_subtitle_3">Аби не проґавити найцікавіші місця в місті та на природі.</string>
 	<string name="sightseeing_subscription_header_subscription">Передплата путівників</string>
 	<string name="sightseeing_subscription_message">Понад 700 міст і 100 країн</string>
 	<string name="sightseeing_subscription_message_2">Доступні онлайн</string>
@@ -1748,6 +1748,7 @@
 	<string name="whatsnew_guides_galleries_message">Тепер ви можете знайти рекомендовані путівники в картках популярних міст і пам’яток</string>
 	<string name="new_onboarding_step3_header">Подорожуйте</string>
 	<string name="all_pass_screen_best_value">Вигідна ціна</string>
+	<string name="buy_btn_for_subscription_3">Увесь каталог за %s/рік</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>
