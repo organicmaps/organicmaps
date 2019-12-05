@@ -158,16 +158,11 @@ public:
   void Process() override;
 
 private:
-  static void FlattenBuildingParts(hierarchy::HierarchyBuilder::Node::Ptrs & nodes);
-
   std::unique_ptr<hierarchy::HierarchyEntryEnricher> CreateEnricher(
       std::string const & countryName) const;
   void WriteLines(std::vector<HierarchyEntry> const & lines);
   std::unordered_map<base::GeoObjectId, feature::FeatureBuilder> RemoveRelationBuildingParts(
       std::string const & mwmTmpFilename);
-  void AddRelationBuildingParts(
-      hierarchy::HierarchyBuilder::Node::Ptrs & nodes,
-      std::unordered_map<base::GeoObjectId, feature::FeatureBuilder> const & m);
 
   hierarchy::GetMainTypeFn m_getMainType;
   hierarchy::PrintFn m_printFunction;

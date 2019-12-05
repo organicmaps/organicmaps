@@ -310,5 +310,65 @@ HierarchyEntry HierarchyLinesBuilder::Transform(HierarchyBuilder::Node::Ptr cons
   line.m_center = GetCenter(node);
   return line;
 }
+
+void AddChildrenTo(HierarchyBuilder::Node::Ptrs & trees,
+                   std::function<std::vector<HierarchyPlace>(CompositeId const &)> const & fn)
+{
+  for (auto & tree : trees)
+  {
+    CHECK(!tree->HasParent(), ());
+
+    tree_node::PostOrderVisit(tree, [&](auto const & n) {
+      auto const id = n->GetData().GetCompositeId();
+      auto const & places = fn(id);
+      for (auto place : places)
+      {
+        auto const newNode = tree_node::MakeTreeNode(std::move(place));
+        tree_node::Link(newNode, n);
+      }
+    });
+  }
+}
+
+void FlattenBuildingParts(HierarchyBuilder::Node::Ptrs & trees)
+{
+  for (auto & tree : trees)
+  {
+
+    CHECK(!tree->HasParent(), ());
+
+    std::vector<
+        std::pair<hierarchy::HierarchyBuilder::Node::Ptr, hierarchy::HierarchyBuilder::Node::Ptr>>
+        buildingPartsTrees;
+
+    static auto const & buildingPartChecker = ftypes::IsBuildingPartChecker::Instance();
+    std::function<void(hierarchy::HierarchyBuilder::Node::Ptr const &)> visit;
+    visit = [&](auto const & n) {
+      if (buildingPartChecker(n->GetData().GetTypes()))
+      {
+        CHECK(n->HasParent(), ());
+        auto building = n->GetParent();
+        buildingPartsTrees.emplace_back(building, n);
+        return;
+      }
+
+      CHECK(!buildingPartChecker(n->GetData().GetTypes()), ());
+      for (auto const & ch : n->GetChildren())
+        visit(ch);
+    };
+
+    visit(tree);
+
+    for (auto const & buildingAndParts : buildingPartsTrees)
+    {
+      Unlink(buildingAndParts.second, buildingAndParts.first);
+      tree_node::PostOrderVisit(buildingAndParts.second, [&](auto const & buildingPartNode) {
+        CHECK(buildingPartChecker(buildingPartNode->GetData().GetTypes()), ());
+        buildingPartNode->RemoveChildren();
+        tree_node::Link(buildingPartNode, buildingAndParts.first);
+      });
+    }
+  }
+}
 }  // namespace hierarchy
 }  // namespace generator

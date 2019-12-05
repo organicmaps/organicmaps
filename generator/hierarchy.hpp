@@ -151,5 +151,20 @@ private:
   storage::CountryId m_countryName;
   std::unique_ptr<HierarchyEntryEnricher> m_enricher;
 };
+
+// AddChildrenTo adds children to node of tree if fn returns not empty vector of HierarchyPlaces
+// for node id.
+void AddChildrenTo(HierarchyBuilder::Node::Ptrs & trees,
+                   std::function<std::vector<HierarchyPlace>(CompositeId const &)> const & fn);
+
+// FlattenBuildingParts transforms trees from
+// building
+//        |_building-part
+//                       |_building-part
+// to
+// building
+//        |_building-part
+//        |_building-part
+void FlattenBuildingParts(HierarchyBuilder::Node::Ptrs & trees);
 }  // namespace hierarchy
 }  // namespace generator

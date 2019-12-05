@@ -656,10 +656,24 @@ void ComplexFinalProcessor::Process()
       // building
       //        |_building-part
       //        |_building-part
-      FlattenBuildingParts(trees);
+      hierarchy::FlattenBuildingParts(trees);
       // In the end we add objects, which were saved by the collector.
       if (m_buildingToParts)
-        AddRelationBuildingParts(trees, relationBuildingParts);
+      {
+        hierarchy::AddChildrenTo(trees, [&](auto const & compositeId) {
+          auto const & ids = m_buildingToParts->GetBuildingPartsByOutlineId(compositeId);
+          std::vector<hierarchy::HierarchyPlace> places;
+          places.reserve(ids.size());
+          for (auto const & id : ids)
+          {
+            if (relationBuildingParts.count(id) == 0)
+              continue;
+
+            places.emplace_back(hierarchy::HierarchyPlace(relationBuildingParts[id]));
+          }
+          return places;
+        });
+      }
 
       // We create and save hierarchy lines.
       hierarchy::HierarchyLinesBuilder hierarchyBuilder(std::move(trees));
@@ -700,77 +714,6 @@ ComplexFinalProcessor::RemoveRelationBuildingParts(std::string const & mwmTmpFil
   }
 
   return relationBuildingParts;
-}
-
-void ComplexFinalProcessor::AddRelationBuildingParts(
-    hierarchy::HierarchyBuilder::Node::Ptrs & nodes,
-    std::unordered_map<base::GeoObjectId, feature::FeatureBuilder> const & m)
-{
-  CHECK(m_buildingToParts, ());
-
-  hierarchy::HierarchyBuilder::Node::Ptrs newNodes;
-  for (auto & node : nodes)
-  {
-    if (node->HasParent())
-      continue;
-
-    tree_node::PostOrderVisit(node, [&](auto const & n) {
-      auto const buildingId = n->GetData().GetCompositeId();
-      auto const & ids = m_buildingToParts->GetBuildingPartsByOutlineId(buildingId);
-      for (auto const & id : ids)
-      {
-        if (m.count(id) == 0)
-          continue;
-
-        auto const newNode = tree_node::MakeTreeNode(hierarchy::HierarchyPlace(m.at(id)));
-        tree_node::Link(newNode, n);
-        newNodes.emplace_back(newNode);
-      }
-    });
-  }
-  std::move(std::begin(newNodes), std::end(newNodes), std::back_inserter(nodes));
-}
-
-// static
-void ComplexFinalProcessor::FlattenBuildingParts(hierarchy::HierarchyBuilder::Node::Ptrs & nodes)
-{
-  for (auto & node : nodes)
-  {
-    if (node->HasParent())
-      continue;
-
-    std::vector<
-        std::pair<hierarchy::HierarchyBuilder::Node::Ptr, hierarchy::HierarchyBuilder::Node::Ptr>>
-        buildingPartsTrees;
-
-    static auto const & buildingPartChecker = ftypes::IsBuildingPartChecker::Instance();
-    std::function<void(hierarchy::HierarchyBuilder::Node::Ptr const &)> visit;
-    visit = [&](auto const & nd) {
-      if (buildingPartChecker(nd->GetData().GetTypes()))
-      {
-        CHECK(nd->HasParent(), ());
-        auto building = nd->GetParent();
-        buildingPartsTrees.emplace_back(building, nd);
-        return;
-      }
-
-      CHECK(!buildingPartChecker(node->GetData().GetTypes()), ());
-      for (auto const & ch : nd->GetChildren())
-        visit(ch);
-    };
-
-    visit(node);
-
-    for (auto const & buildingAndParts : buildingPartsTrees)
-    {
-      Unlink(buildingAndParts.second, buildingAndParts.first);
-      tree_node::PostOrderVisit(buildingAndParts.second, [&](auto const & buildingPartNode) {
-        CHECK(buildingPartChecker(buildingPartNode->GetData().GetTypes()), ());
-        buildingPartNode->RemoveChildren();
-        tree_node::Link(buildingPartNode, buildingAndParts.first);
-      });
-    }
-  }
 }
 
 void ComplexFinalProcessor::WriteLines(std::vector<HierarchyEntry> const & lines)
