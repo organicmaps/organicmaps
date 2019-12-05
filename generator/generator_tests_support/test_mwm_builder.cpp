@@ -6,6 +6,7 @@
 #include "generator/feature_generator.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/generator_tests_support/test_feature.hpp"
+#include "generator/postcode_points_builder.hpp"
 #include "generator/postcodes_section_builder.hpp"
 #include "generator/search_index_builder.hpp"
 
@@ -157,9 +158,9 @@ void TestMwmBuilder::Finish()
 
   if (!m_postcodesPath.empty() && m_postcodesCountryInfoGetter)
   {
-    CHECK(indexer::BuildPostcodesWithInfoGetter(m_file.GetDirectory(), m_file.GetCountryName(),
-                                                m_postcodesPath, true /* forceRebuild */,
-                                                *m_postcodesCountryInfoGetter),
+    CHECK(indexer::BuildPostcodePointsWithInfoGetter(m_file.GetDirectory(), m_file.GetCountryName(),
+                                                     m_postcodesPath, true /* forceRebuild */,
+                                                     *m_postcodesCountryInfoGetter),
           ("Can't build postcodes section."));
   }
 

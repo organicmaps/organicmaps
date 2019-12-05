@@ -146,6 +146,8 @@ set(
   platform_helpers.hpp
   popular_places_section_builder.cpp
   popular_places_section_builder.hpp
+  postcode_points_builder.cpp
+  postcode_points_builder.hpp
   postcodes_section_builder.cpp
   postcodes_section_builder.hpp
   processor_booking.hpp

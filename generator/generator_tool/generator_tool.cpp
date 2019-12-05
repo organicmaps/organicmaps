@@ -17,6 +17,7 @@
 #include "generator/osm_source.hpp"
 #include "generator/platform_helpers.hpp"
 #include "generator/popular_places_section_builder.hpp"
+#include "generator/postcode_points_builder.hpp"
 #include "generator/postcodes_section_builder.hpp"
 #include "generator/processor_factory.hpp"
 #include "generator/ratings_section_builder.hpp"
@@ -378,7 +379,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
       if (!FLAGS_postcodes_dataset.empty())
       {
-        if (!indexer::BuildPostcodes(path, country, FLAGS_postcodes_dataset, true /*forceRebuild*/))
+        if (!indexer::BuildPostcodePoints(path, country, FLAGS_postcodes_dataset, true /*forceRebuild*/))
           LOG(LCRITICAL, ("Error generating postcodes section."));
       }
 
