@@ -2560,23 +2560,19 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
     selectedFeature = FindBuildingAtPoint(buildInfo.m_mercator);
 
   bool showMapSelection = false;
-  if (buildInfo.m_isLongTap || buildInfo.m_source != place_page::BuildInfo::Source::User)
-  {
-    if (isFeatureMatchingEnabled)
-    {
-      FillPointInfo(outInfo, buildInfo.m_mercator, {});
-      if (!outInfo.IsFeature() && selectedFeature.IsValid())
-        FillFeatureInfo(selectedFeature, outInfo);
-    }
-    else
-    {
-      FillNotMatchedPlaceInfo(outInfo, buildInfo.m_mercator, {});
-    }
-    showMapSelection = true;
-  }
-  else if (selectedFeature.IsValid())
+  if (selectedFeature.IsValid())
   {
     FillFeatureInfo(selectedFeature, outInfo);
+    if (buildInfo.m_isLongTap)
+      outInfo.SetMercator(buildInfo.m_mercator);
+    showMapSelection = true;
+  }
+  else if (buildInfo.m_isLongTap || buildInfo.m_source != place_page::BuildInfo::Source::User)
+  {
+    if (isFeatureMatchingEnabled)
+      FillPointInfo(outInfo, buildInfo.m_mercator, {});
+    else
+      FillNotMatchedPlaceInfo(outInfo, buildInfo.m_mercator, {});
     showMapSelection = true;
   }
 
