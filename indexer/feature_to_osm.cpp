@@ -158,12 +158,4 @@ bool FeatureIdToGeoObjectIdTwoWay::GetFeatureID(base::GeoObjectId const & id, Fe
   fid = FeatureID(m_mwmId, index);
   return true;
 }
-
-// FeatureIdToGeoObjectIdSerDes --------------------------------------------------------------------
-// static
-std::string const FeatureIdToGeoObjectIdSerDes::kHeaderMagic = "mwmftosm";
-FeatureIdToGeoObjectIdSerDes::Version const FeatureIdToGeoObjectIdSerDes::kLatestVersion =
-    FeatureIdToGeoObjectIdSerDes::Version::V0;
-size_t constexpr FeatureIdToGeoObjectIdSerDes::kMagicAndVersionSize = 9;
-size_t constexpr FeatureIdToGeoObjectIdSerDes::kHeaderOffset = 16;
 }  // namespace indexer
