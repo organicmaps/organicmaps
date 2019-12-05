@@ -8,7 +8,7 @@
 #include "indexer/ftypes_matcher.hpp"
 
 #include "coding/internal/file_data.hpp"
-#include "coding/point_coding.cpp"
+#include "coding/point_coding.hpp"
 
 #include "geometry/area_on_earth.hpp"
 #include "geometry/mercator.hpp"
