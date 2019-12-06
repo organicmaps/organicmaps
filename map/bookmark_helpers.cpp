@@ -112,7 +112,9 @@ std::map<std::string, kml::BookmarkIcon> const kFeatureTypeToBookmarkIcon = {
 
   {"boundary-national_park", kml::BookmarkIcon::Park},
   {"landuse-forest", kml::BookmarkIcon::Park},
+  {"leisure-garden", kml::BookmarkIcon::Park},
   {"leisure-nature_reserve", kml::BookmarkIcon::Park},
+  {"leisure-park", kml::BookmarkIcon::Park},
 
   {"amenity-bicycle_parking", kml::BookmarkIcon::Parking},
   {"amenity-motorcycle_parking", kml::BookmarkIcon::Parking},
@@ -249,6 +251,7 @@ std::map<std::string, kml::BookmarkIcon> const kFeatureTypeToBookmarkIcon = {
   {"highway-bus_stop", kml::BookmarkIcon::Transport},
   {"highway-platform", kml::BookmarkIcon::Transport},
   {"public_transport-platform", kml::BookmarkIcon::Transport},
+  {"railway-station", kml::BookmarkIcon::Transport},
   {"railway-station-light_rail", kml::BookmarkIcon::Transport},
   {"railway-station-monorail", kml::BookmarkIcon::Transport},
   {"railway-station-subway", kml::BookmarkIcon::Transport},
@@ -364,7 +367,9 @@ std::map<std::string, BookmarkBaseType> const kFeatureTypeToBookmarkType = {
 
   {"boundary-national_park", BookmarkBaseType::Park},
   {"landuse-forest", BookmarkBaseType::Park},
+  {"leisure-garden", BookmarkBaseType::Park},
   {"leisure-nature_reserve", BookmarkBaseType::Park},
+  {"leisure-park", BookmarkBaseType::Park},
 
   {"amenity-bicycle_parking", BookmarkBaseType::Parking},
   {"amenity-motorcycle_parking", BookmarkBaseType::Parking},
