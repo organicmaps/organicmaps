@@ -160,8 +160,13 @@ HierarchyLinker::Node::Ptrs HierarchyLinker::Link()
   return m_nodes;
 }
 
-HierarchyBuilder::HierarchyBuilder(std::string const & dataFilename)
-  : m_dataFullFilename(dataFilename)
+HierarchyBuilder::HierarchyBuilder(std::vector<feature::FeatureBuilder> && fbs)
+  : m_fbs(std::move(fbs))
+{
+}
+
+HierarchyBuilder::HierarchyBuilder(std::vector<feature::FeatureBuilder> const & fbs)
+  : m_fbs(fbs)
 {
 }
 
@@ -175,26 +180,14 @@ void HierarchyBuilder::SetFilter(std::shared_ptr<FilterInterface> const & filter
   m_filter = filter;
 }
 
-std::vector<feature::FeatureBuilder> HierarchyBuilder::ReadFeatures(
-    std::string const & dataFilename)
-{
-  std::vector<feature::FeatureBuilder> fbs;
-  ForEachFromDatRawFormat<serialization_policy::MaxAccuracy>(
-      dataFilename, [&](FeatureBuilder const & fb, uint64_t /* currPos */) {
-        if (m_filter->IsAccepted(fb))
-          fbs.emplace_back(fb);
-      });
-  return fbs;
-}
-
 HierarchyBuilder::Node::Ptrs HierarchyBuilder::Build()
 {
   CHECK(m_getMainType, ());
 
-  auto const fbs = ReadFeatures(m_dataFullFilename);
+  base::EraseIf(m_fbs, [&](auto const & fb) { return !m_filter->IsAccepted(fb); });
   Node::Ptrs places;
-  places.reserve(fbs.size());
-  std::transform(std::cbegin(fbs), std::cend(fbs), std::back_inserter(places),
+  places.reserve(m_fbs.size());
+  std::transform(std::cbegin(m_fbs), std::cend(m_fbs), std::back_inserter(places),
                  [](auto const & fb) { return std::make_shared<Node>(HierarchyPlace(fb)); });
   auto nodes = HierarchyLinker(std::move(places)).Link();
   // We leave only the trees.

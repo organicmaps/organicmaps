@@ -26,6 +26,7 @@ set(
   filter_elements_tests.cpp
   gen_mwm_info_tests.cpp
   hierarchy_entry_tests.cpp
+  hierarchy_tests.cpp
   intermediate_data_test.cpp
   maxspeeds_tests.cpp
   merge_collectors_tests.cpp

@@ -633,11 +633,14 @@ void ComplexFinalProcessor::Process()
       // these cases separately. First of all let's remove objects with tag building:part is contained
       // in relations. We will add them back after data processing.
       std::unordered_map<base::GeoObjectId, FeatureBuilder> relationBuildingParts;
+
+      auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(
+                   base::JoinPath(m_mwmTmpPath, filename));
       if (m_buildingToParts)
-        relationBuildingParts = RemoveRelationBuildingParts(filename);
+        relationBuildingParts = RemoveRelationBuildingParts(fbs);
 
       // This case is second. We build a hierarchy using the geometry of objects and their nesting.
-      hierarchy::HierarchyBuilder builder(base::JoinPath(m_mwmTmpPath, filename));
+      hierarchy::HierarchyBuilder builder(std::move(fbs));
       builder.SetGetMainTypeFunction(m_getMainType);
       builder.SetFilter(m_filter);
       auto trees = builder.Build();
@@ -697,22 +700,26 @@ void ComplexFinalProcessor::Process()
 }
 
 std::unordered_map<base::GeoObjectId, FeatureBuilder>
-ComplexFinalProcessor::RemoveRelationBuildingParts(std::string const & mwmTmpFilename)
+ComplexFinalProcessor::RemoveRelationBuildingParts(std::vector<FeatureBuilder> & fbs)
 {
   CHECK(m_buildingToParts, ());
 
   std::unordered_map<base::GeoObjectId, FeatureBuilder> relationBuildingParts;
-  auto const fullFilename = base::JoinPath(m_mwmTmpPath, mwmTmpFilename);
-  auto const fbs = ReadAllDatRawFormat<MaxAccuracy>(fullFilename);
-  FeatureBuilderWriter<MaxAccuracy> writer(fullFilename);
-  for (auto const & fb : fbs)
+  auto last = std::end(fbs);
+  for (auto it = std::begin(fbs); it != last;)
   {
-    if (!m_buildingToParts->HasBuildingPart(fb.GetMostGenericOsmId()))
-      writer.Write(fb);
+    if (m_buildingToParts->HasBuildingPart(it->GetMostGenericOsmId()))
+    {
+      relationBuildingParts.emplace(it->GetMostGenericOsmId(), *it);
+      std::iter_swap(it, --last);
+    }
     else
-      relationBuildingParts.emplace(fb.GetMostGenericOsmId(), fb);
+    {
+      ++it;
+    }
   }
 
+  fbs.erase(last, std::end(fbs));
   return relationBuildingParts;
 }
 

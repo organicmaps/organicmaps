@@ -102,7 +102,8 @@ class HierarchyBuilder
 public:
   using Node = HierarchyLinker::Node;
 
-  explicit HierarchyBuilder(std::string const & dataFilename);
+  explicit HierarchyBuilder(std::vector<feature::FeatureBuilder> && fbs);
+  explicit HierarchyBuilder(std::vector<feature::FeatureBuilder> const & fbs);
 
   void SetGetMainTypeFunction(GetMainTypeFn const & getMainType);
   void SetFilter(std::shared_ptr<FilterInterface> const & filter);
@@ -110,11 +111,9 @@ public:
   Node::Ptrs Build();
 
 protected:
-  std::vector<feature::FeatureBuilder> ReadFeatures(std::string const & dataFilename);
-
-  std::string m_dataFullFilename;
   GetMainTypeFn m_getMainType;
   std::shared_ptr<FilterInterface> m_filter;
+  std::vector<feature::FeatureBuilder> m_fbs;
 };
 
 class HierarchyEntryEnricher

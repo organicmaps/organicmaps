@@ -162,7 +162,7 @@ private:
       std::string const & countryName) const;
   void WriteLines(std::vector<HierarchyEntry> const & lines);
   std::unordered_map<base::GeoObjectId, feature::FeatureBuilder> RemoveRelationBuildingParts(
-      std::string const & mwmTmpFilename);
+      std::vector<feature::FeatureBuilder> & fbs);
 
   hierarchy::GetMainTypeFn m_getMainType;
   hierarchy::PrintFn m_printFunction;
