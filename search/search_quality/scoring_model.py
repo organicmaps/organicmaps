@@ -15,8 +15,8 @@ import sys
 
 
 MAX_DISTANCE_METERS = 2e6
-MAX_RANK = 255
-MAX_POPULARITY = 255
+MAX_RANK = 255.0
+MAX_POPULARITY = 255.0
 RELEVANCES = {'Harmful': -3, 'Irrelevant': 0, 'Relevant': 1, 'Vital': 3}
 NAME_SCORES = ['Zero', 'Substring', 'Prefix', 'Full Match']
 SEARCH_TYPES = ['POI', 'Building', 'Street', 'Unclassified', 'Village', 'City', 'State', 'Country']
