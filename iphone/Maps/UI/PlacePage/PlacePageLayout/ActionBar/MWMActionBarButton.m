@@ -2,15 +2,15 @@
 #import "MWMButton.h"
 #import "MWMCircularProgress+Swift.h"
 
-NSString * titleForPartner(int partnerIndex)
+NSString * titleForPartner(NSInteger partnerIndex)
 {
-  NSString * str = [NSString stringWithFormat:@"sponsored_partner%d_action", partnerIndex];
+  NSString * str = [NSString stringWithFormat:@"sponsored_partner%ld_action", (long)partnerIndex];
   NSString * localizedStr = L(str);
   NSCAssert(![str isEqualToString:localizedStr], @"Localization is absent.");
   return localizedStr;
 }
 
-NSString * titleForButton(MWMActionBarButtonType type, int partnerIndex, BOOL isSelected)
+NSString * titleForButton(MWMActionBarButtonType type, NSInteger partnerIndex, BOOL isSelected)
 {
   switch (type)
   {
@@ -33,29 +33,29 @@ NSString * titleForButton(MWMActionBarButtonType type, int partnerIndex, BOOL is
   }
 }
 
-NSString * imageNameForPartner(int partnerIndex)
+NSString * imageNameForPartner(NSInteger partnerIndex)
 {
-  return [NSString stringWithFormat:@"ic_28px_logo_partner%d", partnerIndex];
+  return [NSString stringWithFormat:@"ic_28px_logo_partner%ld", (long)partnerIndex];
 }
 
-UIImage * imageForPartner(int partnerIndex)
+UIImage * imageForPartner(NSInteger partnerIndex)
 {
   UIImage * img = [UIImage imageNamed:imageNameForPartner(partnerIndex)];
   NSCAssert(img != nil, @"Partner image is absent.");
   return img;
 }
 
-UIColor * textColorForPartner(int partnerIndex)
+UIColor * textColorForPartner(NSInteger partnerIndex)
 {
-  NSString * textColor = [NSString stringWithFormat:@"partner%dTextColor", partnerIndex];
+  NSString * textColor = [NSString stringWithFormat:@"partner%ldTextColor", (long)partnerIndex];
   UIColor * color = [UIColor colorWithName:textColor];
   NSCAssert(color != nil, @"Partner text color is absent.");
   return color;
 }
 
-UIColor * backgroundColorForPartner(int partnerIndex)
+UIColor * backgroundColorForPartner(NSInteger partnerIndex)
 {
-  NSString * colorName = [NSString stringWithFormat:@"partner%dBackground", partnerIndex];
+  NSString * colorName = [NSString stringWithFormat:@"partner%ldBackground", (long)partnerIndex];
   UIColor * color = [UIColor colorWithName:colorName];
   NSCAssert(color != nil, @"Partner background color is absent.");
   return color;
@@ -65,7 +65,7 @@ UIColor * backgroundColorForPartner(int partnerIndex)
 
 @property(nonatomic) MWMActionBarButtonType type;
 @property(nonatomic) MWMCircularProgress * mapDownloadProgress;
-@property(nonatomic) int partnerIndex;
+@property(nonatomic) NSInteger partnerIndex;
 @property(weak, nonatomic) IBOutlet MWMButton * button;
 @property(weak, nonatomic) IBOutlet UILabel * label;
 @property(weak, nonatomic) IBOutlet UIView * extraBackground;
@@ -176,7 +176,7 @@ UIColor * backgroundColorForPartner(int partnerIndex)
 
 + (MWMActionBarButton *)buttonWithDelegate:(id<MWMActionBarButtonDelegate>)delegate
                                 buttonType:(MWMActionBarButtonType)type
-                              partnerIndex:(int)partnerIndex
+                              partnerIndex:(NSInteger)partnerIndex
                                 isSelected:(BOOL)isSelected
                                 isDisabled:(BOOL)isDisabled
 {

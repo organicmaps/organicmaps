@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, MWMActionBarButtonType) {
 #ifdef __cplusplus
 extern "C" {
 #endif
-NSString * titleForButton(MWMActionBarButtonType type, int partnerIndex, BOOL isSelected);
+NSString * titleForButton(MWMActionBarButtonType type, NSInteger partnerIndex, BOOL isSelected);
 #ifdef __cplusplus
 }
 #endif
@@ -40,12 +40,12 @@ NS_SWIFT_NAME(ActionBarButton)
 
 + (MWMActionBarButton *)buttonWithDelegate:(id<MWMActionBarButtonDelegate>)delegate
                                 buttonType:(MWMActionBarButtonType)type
-                              partnerIndex:(int)partnerIndex
+                              partnerIndex:(NSInteger)partnerIndex
                                 isSelected:(BOOL)isSelected
                                 isDisabled:(BOOL)isDisabled;
 
 - (MWMActionBarButtonType)type;
 - (MWMCircularProgress *)mapDownloadProgress;
-- (int)partnerIndex;
+- (NSInteger)partnerIndex;
 
 @end

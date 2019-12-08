@@ -7,7 +7,6 @@
 #import <CoreApi/MWMBookmarksManager.h>
 #import "MWMEditBookmarkController.h"
 #import "MWMEditorViewController.h"
-#import "MWMFacilitiesController.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkStorageObserver.h"
 #import "MWMFrameworkObservers.h"
@@ -48,7 +47,6 @@ NSString * const kDownloaderSegue = @"Map2MapDownloaderSegue";
 NSString * const kEditorSegue = @"Map2EditorSegue";
 NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
 NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
-NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
 }  // namespace
 
 @interface NSValueWrapper : NSObject
@@ -454,7 +452,7 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
 {
   using namespace osm_auth_ios;
 
-  auto const & featureID = [self.controlsManager.featureHolder featureId];
+  auto const & featureID = GetFramework().GetCurrentPlacePageInfo().GetID();
 
   [Statistics logEvent:kStatEditorEditStart
         withParameters:@{
@@ -466,14 +464,9 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
   [self performSegueWithIdentifier:kEditorSegue sender:self.controlsManager.featureHolder];
 }
 
-- (void)openHotelFacilities
+- (void)openBookmarkEditor
 {
-  [self performSegueWithIdentifier:kHotelFacilitiesSegue sender:self.controlsManager.bookingInfoHolder];
-}
-
-- (void)openBookmarkEditorWithData:(MWMPlacePageData *)data
-{
-  [self performSegueWithIdentifier:kPP2BookmarkEditingSegue sender:data];
+  [self performSegueWithIdentifier:kPP2BookmarkEditingSegue sender:nil];
 }
 
 - (void)openFullPlaceDescriptionWithHtml:(NSString *)htmlString
@@ -753,8 +746,8 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
   }
   else if ([segue.identifier isEqualToString:kPP2BookmarkEditingSegue])
   {
-    MWMEditBookmarkController * dvc = segue.destinationViewController;
-    dvc.data = static_cast<MWMPlacePageData *>(sender);
+//    MWMEditBookmarkController * dvc = segue.destinationViewController;
+//    dvc.data = static_cast<MWMPlacePageData *>(sender);
   }
   else if ([segue.identifier isEqualToString:kDownloaderSegue])
   {
@@ -771,13 +764,6 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
   {
     MWMAuthorizationWebViewLoginViewController * dvc = segue.destinationViewController;
     dvc.authType = MWMWebViewAuthorizationTypeGoogle;
-  }
-  else if ([segue.identifier isEqualToString:kHotelFacilitiesSegue])
-  {
-    MWMFacilitiesController * dvc = segue.destinationViewController;
-    auto bookingInfo = id<MWMBookingInfoHolder>(sender);
-    dvc.facilities = bookingInfo.hotelFacilities;
-    dvc.hotelName = bookingInfo.hotelName;
   }
 }
 

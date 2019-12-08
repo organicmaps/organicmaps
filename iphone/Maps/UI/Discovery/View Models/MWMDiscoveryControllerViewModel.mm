@@ -106,7 +106,7 @@ using namespace discovery;
   NSString *title = result.GetString().empty() ? subtitle : @(result.GetString().c_str());
   
   NSString *ratingValue = [self ratingValueForProductInfo:info];
-  MWMRatingSummaryViewValueType ratingType = [self ratingTypeForProductInfo:info];
+  UgcSummaryRatingType ratingType = [self ratingTypeForProductInfo:info];
   
   NSString *distance = [self distanceFrom:center
                                        to:result.GetFeatureCenter()];
@@ -137,7 +137,7 @@ using namespace discovery;
   NSString *price = @(result.GetHotelApproximatePricing().c_str());
   
   NSString *ratingValue = [self ratingValueForProductInfo:info];
-  MWMRatingSummaryViewValueType ratingType = [self ratingTypeForProductInfo:info];
+  UgcSummaryRatingType ratingType = [self ratingTypeForProductInfo:info];
   
   NSString *distance = [self distanceFrom:center
                                        to:result.GetFeatureCenter()];
@@ -176,8 +176,8 @@ using namespace discovery;
   return @(place_page::rating::GetRatingFormatted(info.m_ugcRating).c_str());
 }
 
-- (MWMRatingSummaryViewValueType)ratingTypeForProductInfo:(search::ProductInfo const &)info {
-  return (MWMRatingSummaryViewValueType)place_page::rating::GetImpress(info.m_ugcRating);
+- (UgcSummaryRatingType)ratingTypeForProductInfo:(search::ProductInfo const &)info {
+  return (UgcSummaryRatingType)place_page::rating::GetImpress(info.m_ugcRating);
 }
 
 @end

@@ -28,8 +28,7 @@
 - (void)openBookmarks;
 - (void)openMapsDownloader:(MWMMapDownloaderMode)mode;
 - (void)openEditor;
-- (void)openHotelFacilities;
-- (void)openBookmarkEditorWithData:(MWMPlacePageData *)data;
+- (void)openBookmarkEditor;
 - (void)openFullPlaceDescriptionWithHtml:(NSString *)htmlString;
 - (void)showUGCAuth;
 - (void)showBookmarksLoadedAlert:(UInt64)categoryId;

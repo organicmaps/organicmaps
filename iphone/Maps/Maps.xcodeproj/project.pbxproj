@@ -705,7 +705,7 @@
 		F653CE121C6DEC8E00A453F1 /* MWMDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = F653CE101C6DEB5A00A453F1 /* MWMDropDown.m */; };
 		F653CE191C71F62700A453F1 /* MWMAddPlaceNavigationBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = F653CE151C71F60200A453F1 /* MWMAddPlaceNavigationBar.mm */; };
 		F6550C1F1FD81B3800352D88 /* RatingSummaryView+DefaultConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6550C1D1FD81B3800352D88 /* RatingSummaryView+DefaultConfig.swift */; };
-		F6558DA21E642CC0002203AE /* MWMFacilitiesController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6558DA01E642CC0002203AE /* MWMFacilitiesController.mm */; };
+		F6558DA21E642CC0002203AE /* MWMFacilitiesController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6558DA01E642CC0002203AE /* MWMFacilitiesController.m */; };
 		F655C027207278300048A241 /* DiscoveryMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F655C026207278300048A241 /* DiscoveryMoreCell.swift */; };
 		F655C02920727A630048A241 /* DiscoveryMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F655C02820727A630048A241 /* DiscoveryMoreCell.xib */; };
 		F65D1E1A20E4F11600FE31DD /* ugc_migration in Resources */ = {isa = PBXBuildFile; fileRef = F65D1E1920E4F11600FE31DD /* ugc_migration */; };
@@ -1138,7 +1138,6 @@
 		348B926B1FF3B5E100379009 /* UIView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animation.swift"; sourceTree = "<group>"; };
 		348F8A4D1F863A8500060C2A /* UGCYourReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UGCYourReview.swift; sourceTree = "<group>"; };
 		348F8A511F863B6100060C2A /* UGCReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UGCReview.swift; sourceTree = "<group>"; };
-		348F8A551F864A1700060C2A /* MWMRatingSummaryViewValueType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRatingSummaryViewValueType.h; sourceTree = "<group>"; };
 		3490D2D91CE9DD2500D0B838 /* MWMSideButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSideButtons.h; sourceTree = "<group>"; };
 		3490D2DA1CE9DD2500D0B838 /* MWMSideButtons.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSideButtons.mm; sourceTree = "<group>"; };
 		3490D2DB1CE9DD2500D0B838 /* MWMSideButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSideButtonsView.h; sourceTree = "<group>"; };
@@ -1889,7 +1888,7 @@
 		F653CE171C71F62400A453F1 /* MWMAddPlaceNavigationBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAddPlaceNavigationBar.xib; sourceTree = "<group>"; };
 		F6550C1D1FD81B3800352D88 /* RatingSummaryView+DefaultConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RatingSummaryView+DefaultConfig.swift"; sourceTree = "<group>"; };
 		F6558D9F1E642CC0002203AE /* MWMFacilitiesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFacilitiesController.h; sourceTree = "<group>"; };
-		F6558DA01E642CC0002203AE /* MWMFacilitiesController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFacilitiesController.mm; sourceTree = "<group>"; };
+		F6558DA01E642CC0002203AE /* MWMFacilitiesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMFacilitiesController.m; sourceTree = "<group>"; };
 		F655C026207278300048A241 /* DiscoveryMoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryMoreCell.swift; sourceTree = "<group>"; };
 		F655C02820727A630048A241 /* DiscoveryMoreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryMoreCell.xib; sourceTree = "<group>"; };
 		F6588E2A1B15C26700EE1E58 /* MWMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTextView.h; sourceTree = "<group>"; };
@@ -2787,7 +2786,6 @@
 			children = (
 				344BEAF01F66BDC30045DC45 /* RatingSummaryView.swift */,
 				344BEAF11F66BDC30045DC45 /* RatingSummaryViewSettings.swift */,
-				348F8A551F864A1700060C2A /* MWMRatingSummaryViewValueType.h */,
 			);
 			path = RatingSummaryView;
 			sourceTree = "<group>";
@@ -4164,7 +4162,7 @@
 			isa = PBXGroup;
 			children = (
 				F6558D9F1E642CC0002203AE /* MWMFacilitiesController.h */,
-				F6558DA01E642CC0002203AE /* MWMFacilitiesController.mm */,
+				F6558DA01E642CC0002203AE /* MWMFacilitiesController.m */,
 			);
 			name = Controllers;
 			path = ../Controllers;
@@ -5530,7 +5528,7 @@
 				47B9065421C7FA400079C85E /* UIImageView+WebImage.m in Sources */,
 				F6E2FF481E097BA00083EBEC /* SettingsTableViewSelectableCell.swift in Sources */,
 				34BBD6581F826F810070CA50 /* AuthorizationTransitioningManager.swift in Sources */,
-				F6558DA21E642CC0002203AE /* MWMFacilitiesController.mm in Sources */,
+				F6558DA21E642CC0002203AE /* MWMFacilitiesController.m in Sources */,
 				33F7668F21A57CDF00A88B16 /* EditOnWebViewController.swift in Sources */,
 				34AB664A1FC5AA330078E451 /* RouteManageriPadPresentationController.swift in Sources */,
 				B366130A20D5E2E000E7DC3E /* CatalogCategoryCell.swift in Sources */,

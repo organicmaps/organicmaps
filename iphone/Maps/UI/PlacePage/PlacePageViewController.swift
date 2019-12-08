@@ -122,7 +122,7 @@ class PlacePageScrollView: UIScrollView {
   lazy var actionBarViewController: ActionBarViewController = {
     let vc = storyboard!.instantiateViewController(ofType: ActionBarViewController.self)
     vc.placePageData = placePageData
-//    vc.delegate = self
+    vc.delegate = self
     return vc
   } ()
 
@@ -257,7 +257,8 @@ class PlacePageScrollView: UIScrollView {
     let bgView = UIView()
     bgView.backgroundColor = UIColor.white()
     stackView.insertSubview(bgView, at: 0)
-    bgView.alignToSuperview()    
+    bgView.alignToSuperview()
+    scrollView.decelerationRate = .fast
   }
 
   override func viewDidLayoutSubviews() {
@@ -267,10 +268,10 @@ class PlacePageScrollView: UIScrollView {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-//    let previewFrame = scrollView.convert(previewViewController.view.bounds, from: previewViewController.view)
-//    UIView.animate(withDuration: kDefaultAnimationDuration) {
-//      self.scrollView.contentOffset = CGPoint(x: 0, y: previewFrame.maxY - self.scrollView.height)
-//    }
+    let previewFrame = self.scrollView.convert(self.previewViewController.view.bounds, from: self.previewViewController.view)
+    UIView.animate(withDuration: kDefaultAnimationDuration) {
+      self.scrollView.contentOffset = CGPoint(x: 0, y: previewFrame.maxY - self.scrollView.height)
+    }
   }
 
   // MARK: private
@@ -284,25 +285,21 @@ class PlacePageScrollView: UIScrollView {
 
 extension PlacePageViewController: PlacePagePreviewViewControllerDelegate {
   func previewDidPressAddReview() {
-
+    MWMPlacePageManagerHelper.showUGCAddReview(placePageData, rating: .none, from: .placePagePreview)
   }
 
   func previewDidPressSimilarHotels() {
-
+    MWMPlacePageManagerHelper.searchSimilar()
   }
 }
 
 extension PlacePageViewController: PlacePageInfoViewControllerDelegate {
   func didPressCall() {
-    guard let phoneUrl = placePageData.infoData.phoneUrl,
-      UIApplication.shared.canOpenURL(phoneUrl) else { return }
-    UIApplication.shared.open(phoneUrl, options: [:])
+    MWMPlacePageManagerHelper.call(placePageData)
   }
 
   func didPressWebsite() {
-    guard let website = placePageData.infoData.website,
-      let url = URL(string: website) else { return }
-    UIApplication.shared.open(url, options: [:])
+    MWMPlacePageManagerHelper.openWebsite(placePageData)
   }
 
   func didPressEmail() {
@@ -310,25 +307,25 @@ extension PlacePageViewController: PlacePageInfoViewControllerDelegate {
   }
 
   func didPressLocalAd() {
-
+    MWMPlacePageManagerHelper.openLocalAdsURL(placePageData)
   }
 }
 
 extension PlacePageViewController: WikiDescriptionViewControllerDelegate {
   func didPressMore() {
-
+    MWMPlacePageManagerHelper.showPlaceDescription(placePageData.wikiDescriptionHtml)
   }
 }
 
 extension PlacePageViewController: TaxiViewControllerDelegate {
   func didPressOrder() {
-
+    MWMPlacePageManagerHelper.orderTaxi(placePageData)
   }
 }
 
 extension PlacePageViewController: AddReviewViewControllerDelegate {
   func didRate(_ rating: UgcSummaryRatingType) {
-
+    MWMPlacePageManagerHelper.showUGCAddReview(placePageData, rating: rating, from: .placePage)
   }
 }
 
@@ -340,19 +337,19 @@ extension PlacePageViewController: PlacePageReviewsViewControllerDelegate {
 
 extension PlacePageViewController: PlacePageButtonsViewControllerDelegate {
   func didPressHotels() {
-
+    MWMPlacePageManagerHelper.openDescriptionUrl(placePageData)
   }
 
   func didPressAddPlace() {
-
+    MWMPlacePageManagerHelper.addPlace(placePageData.locationCoordinate)
   }
 
   func didPressEditPlace() {
-
+    MWMPlacePageManagerHelper.editPlace()
   }
 
   func didPressAddBusiness() {
-
+    MWMPlacePageManagerHelper.addBusiness()
   }
 }
 
@@ -364,45 +361,90 @@ extension PlacePageViewController: HotelPhotosViewControllerDelegate {
 
 extension PlacePageViewController: HotelDescriptionViewControllerDelegate {
   func hotelDescriptionDidPressMore() {
-
+    MWMPlacePageManagerHelper.openMoreUrl(placePageData)
   }
 }
 
 extension PlacePageViewController: HotelFacilitiesViewControllerDelegate {
   func facilitiesDidPressMore() {
-
+    MWMPlacePageManagerHelper.showAllFacilities(placePageData)
   }
 }
 
 extension PlacePageViewController: HotelReviewsViewControllerDelegate {
   func hotelReviewsDidPressMore() {
-
+    MWMPlacePageManagerHelper.openReviewUrl(placePageData)
   }
 }
 
 extension PlacePageViewController: CatalogSingleItemViewControllerDelegate {
   func catalogPromoItemDidPressView() {
-
+    MWMPlacePageManagerHelper.openCatalogSingleItem(placePageData, at: 0)
   }
 
   func catalogPromoItemDidPressMore() {
-
+    MWMPlacePageManagerHelper.openCatalogSingleItem(placePageData, at: 0)
   }
 }
 
 extension PlacePageViewController: CatalogGalleryViewControllerDelegate {
   func promoGalleryDidPressMore() {
-    
+    MWMPlacePageManagerHelper.openCatalogMoreItems(placePageData)
   }
 
   func promoGalleryDidSelectItemAtIndex(_ index: Int) {
-
+    MWMPlacePageManagerHelper.openCatalogSingleItem(placePageData, at: index)
   }
 }
 
 extension PlacePageViewController: PlacePageBookmarkViewControllerDelegate {
   func bookmarkDidPressEdit() {
+    MWMPlacePageManagerHelper.editBookmark()
+  }
+}
 
+extension PlacePageViewController: ActionBarViewControllerDelegate {
+  func actionBarDidPressButton(_ type: ActionBarButtonType) {
+    switch type {
+    case .booking:
+      MWMPlacePageManagerHelper.book(placePageData)
+    case .bookingSearch:
+      MWMPlacePageManagerHelper.searchSimilar()
+    case .bookmark:
+      if placePageData.bookmarkData != nil {
+        MWMPlacePageManagerHelper.removeBookmark(placePageData)
+      } else {
+        MWMPlacePageManagerHelper.addBookmark(placePageData)
+      }
+    case .call:
+      MWMPlacePageManagerHelper.call(placePageData)
+    case .download:
+      fatalError()
+    case .opentable:
+      fatalError("Opentable is not supported and will be deleted")
+    case .partner:
+      MWMPlacePageManagerHelper.openPartner(placePageData)
+    case .routeAddStop:
+      MWMPlacePageManagerHelper.routeAddStop(placePageData)
+    case .routeFrom:
+      MWMPlacePageManagerHelper.route(from: placePageData)
+    case .routeRemoveStop:
+      MWMPlacePageManagerHelper.routeRemoveStop(placePageData)
+    case .routeTo:
+      MWMPlacePageManagerHelper.route(to: placePageData)
+    case .share:
+      MWMPlacePageManagerHelper.share(placePageData)
+    case .avoidToll:
+      MWMPlacePageManagerHelper.avoidToll()
+    case .avoidDirty:
+      MWMPlacePageManagerHelper.avoidDirty()
+    case .avoidFerry:
+      MWMPlacePageManagerHelper.avoidFerry()
+    case .more:
+      fatalError("More button should've been handled in ActionBarViewContoller")
+    @unknown default:
+      fatalError()
+    }
   }
 }
 
@@ -430,3 +472,40 @@ extension PlacePageViewController: MWMLocationObserver {
     
   }
 }
+
+extension UgcData: MWMReviewsViewModelProtocol {
+  public func numberOfReviews() -> Int {
+    reviews.count
+  }
+
+  public func review(with index: Int) -> MWMReviewProtocol {
+    UgcReviewAdapter(reviews[index])
+  }
+
+  public func isExpanded(_ review: MWMReviewProtocol) -> Bool {
+    false
+  }
+
+  public func markExpanded(_ review: MWMReviewProtocol) {
+
+  }
+}
+
+class UgcReviewAdapter: MWMReviewProtocol {
+  var date: String {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .long
+    formatter.timeStyle = .none
+    return formatter.string(from: ugcReview.date)
+  }
+
+  var text: String {
+    ugcReview.text
+  }
+
+  private let ugcReview: UgcReview
+  init(_ review: UgcReview) {
+    ugcReview = review
+  }
+}
+

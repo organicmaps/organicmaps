@@ -3,15 +3,15 @@ import UIKit
 struct RatingSummaryViewSettings {
   enum Default {
     static let backgroundOpacity: CGFloat = 0.16
-    static let colors: [MWMRatingSummaryViewValueType: UIColor] = [
-      .noValue: UIColor.lightGray,
+    static let colors: [UgcSummaryRatingType: UIColor] = [
+      .none: UIColor.lightGray,
       .horrible: UIColor.red,
       .bad: UIColor.orange,
       .normal: UIColor.yellow,
       .good: UIColor.green,
       .excellent: UIColor.blue,
     ]
-    static let images: [MWMRatingSummaryViewValueType: UIImage] = [:]
+    static let images: [UgcSummaryRatingType: UIImage] = [:]
     static let textFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.footnote)
     static let textSize = textFont.pointSize
     static let value = "2.2"

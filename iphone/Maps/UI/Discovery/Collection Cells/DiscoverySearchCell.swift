@@ -25,7 +25,7 @@ final class DiscoverySearchCell: UICollectionViewCell {
                     distance: String,
                     popular: Bool,
                     ratingValue: String,
-                    ratingType: MWMRatingSummaryViewValueType,
+                    ratingType: UgcSummaryRatingType,
                     tap: @escaping Tap) {
     titleLabel.text = title
     subtitleLabel.text = subtitle

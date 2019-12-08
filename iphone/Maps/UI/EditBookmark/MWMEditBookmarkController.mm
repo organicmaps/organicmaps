@@ -50,14 +50,13 @@ enum RowInMetaInfo
 {
   [super viewDidLoad];
   self.cachedNewBookmarkCatId = kml::kInvalidMarkGroupId;
-  auto data = self.data;
-  NSAssert(data, @"Data can't be nil!");
-  self.cachedDescription = data.bookmarkDescription;
-  self.cachedTitle = data.title;
-  self.cachedCategory = data.bookmarkCategory;
-  self.cachedColor = data.bookmarkColor;
-  m_cachedBookmarkId = data.bookmarkId;
-  m_cachedBookmarkCatId = data.bookmarkCategoryId;
+  auto const & info = GetFramework().GetCurrentPlacePageInfo();
+  self.cachedDescription = @(GetPreferredBookmarkStr(info.GetBookmarkData().m_description).c_str());
+  self.cachedTitle = info.GetTitle().empty() ? nil : @(info.GetTitle().c_str());
+  self.cachedCategory = @(info.GetBookmarkCategoryName().c_str());
+  self.cachedColor = info.GetBookmarkData().m_color.m_predefinedColor;
+  m_cachedBookmarkId = info.GetBookmarkId();
+  m_cachedBookmarkCatId = info.GetBookmarkCategoryId();
   [self configNavBar];
   [self registerCells];
 }
@@ -248,7 +247,7 @@ enum RowInMetaInfo
 
 - (void)cellSelect:(UITableViewCell *)cell
 {
-  [self.data updateBookmarkStatus:NO];
+  [[MWMBookmarksManager sharedManager] deleteBookmark:m_cachedBookmarkId];
   GetFramework().UpdatePlacePageInfoForCurrentSelection();
   [self goBack];
 }

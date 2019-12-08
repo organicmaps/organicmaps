@@ -70,6 +70,7 @@ static PlacePageDataLocalAdsStatus convertLocalAdsStatus(LocalAdsStatus status) 
     _rawCoordinates = @(rawData.GetFormattedCoordinate(true).c_str());
     _formattedCoordinates = @(rawData.GetFormattedCoordinate(false).c_str());
     _localAdsStatus = convertLocalAdsStatus(rawData.GetLocalAdsStatus());
+    _localAdsUrl = rawData.GetLocalAdsUrl().empty() ? nil : @(rawData.GetLocalAdsUrl().c_str());
   }
   return self;
 }

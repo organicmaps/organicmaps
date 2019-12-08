@@ -47,6 +47,6 @@ final class PlacePageTaxiCell: MWMTableViewCell {
   }
 
   @IBAction func orderAction() {
-    delegate.orderTaxi(type)
+//    delegate.orderTaxi(type)
   }
 }

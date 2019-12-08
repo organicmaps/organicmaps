@@ -1,3 +1,6 @@
+protocol ActionBarViewControllerDelegate: AnyObject {
+  func actionBarDidPressButton(_ type: ActionBarButtonType)
+}
 
 class ActionBarViewController: UIViewController {
   @IBOutlet var stackView: UIStackView!
@@ -8,6 +11,8 @@ class ActionBarViewController: UIViewController {
 
   private var visibleButtons: [ActionBarButtonType] = []
   private var additionalButtons: [ActionBarButtonType] = []
+
+  weak var delegate: ActionBarViewControllerDelegate?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -23,12 +28,12 @@ class ActionBarViewController: UIViewController {
       if buttonType == .bookmark {
         if let bookmarkData = placePageData.bookmarkData {
           selected = true
-          disabled = bookmarkData.isEditable
+          disabled = !bookmarkData.isEditable
         }
       }
       guard let button = ActionBarButton(delegate: self,
                                          buttonType: buttonType,
-                                         partnerIndex: -1,
+                                         partnerIndex: placePageData.partnerIndex,
                                          isSelected: selected,
                                          isDisabled: disabled) else { continue }
       stackView.addArrangedSubview(button)
@@ -43,7 +48,7 @@ class ActionBarViewController: UIViewController {
     if placePageData.previewData.isBookingPlace {
       buttons.append(.booking)
     }
-    if placePageData.sponsoredType == .partner {
+    if placePageData.isPartner {
       buttons.append(.partner)
     }
     if placePageData.bookingSearchUrl != nil {
@@ -89,10 +94,29 @@ class ActionBarViewController: UIViewController {
       visibleButtons.append(.more)
     }
   }
+
+  private func showMore() {
+    let actionSheet = UIAlertController(title: placePageData.previewData.title,
+                                        message: placePageData.previewData.subtitle,
+                                        preferredStyle: .actionSheet)
+    for button in additionalButtons {
+      actionSheet.addAction(UIAlertAction(title: titleForButton(button, placePageData.partnerIndex, false),
+                                          style: .default,
+                                          handler: { [weak self] _ in
+                                            self?.delegate?.actionBarDidPressButton(button)
+      }))
+    }
+    actionSheet.addAction(UIAlertAction(title: L("cancel"), style: .cancel))
+    present(actionSheet, animated: true)
+  }
 }
 
 extension ActionBarViewController: ActionBarButtonDelegate {
   func tapOnButton(with type: ActionBarButtonType) {
-    
+    if type == .more {
+      showMore()
+      return
+    }
+    delegate?.actionBarDidPressButton(type)
   }
 }

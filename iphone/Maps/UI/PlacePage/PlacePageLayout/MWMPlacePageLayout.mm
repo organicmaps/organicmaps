@@ -558,7 +558,7 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
       Class cls = [MWMUGCAddReviewCell class];
       auto c = static_cast<MWMUGCAddReviewCell *>(
           [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      c.onRateTap = ^(MWMRatingSummaryViewValueType value) {
+      c.onRateTap = ^(UgcSummaryRatingType value) {
         [delegate showUGCAddReview:value fromSource:MWMUGCReviewSourcePlacePage];
       };
       return c;

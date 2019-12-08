@@ -1,13 +1,6 @@
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, UgcSummaryRatingType) {
-  UgcSummaryRatingTypeNone,
-  UgcSummaryRatingTypeHorrible,
-  UgcSummaryRatingTypeBad,
-  UgcSummaryRatingTypeNormal,
-  UgcSummaryRatingTypeGood,
-  UgcSummaryRatingTypeExcellent
-};
+#import "UgcSummaryRatingType.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

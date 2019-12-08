@@ -83,7 +83,7 @@ final class UGCAddReviewCell: MWMTableViewCell {
     }
   }
 
-  @objc var onRateTap: ((MWMRatingSummaryViewValueType) -> Void)!
+  @objc var onRateTap: ((UgcSummaryRatingType) -> Void)!
 
   @IBAction private func rate(_ button: UIButton) {
     switch button {

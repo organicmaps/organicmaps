@@ -57,7 +57,6 @@
 #import "MWMPlacePageManagerHelper.h"
 #import "MWMPlacePageTaxiProvider.h"
 #import "MWMPushNotifications.h"
-#import "MWMRatingSummaryViewValueType.h"
 #import "MWMReviewsViewModelProtocol.h"
 #import "MWMRouteManagerPointType.h"
 #import "MWMRoutePreviewTaxiCellType.h"

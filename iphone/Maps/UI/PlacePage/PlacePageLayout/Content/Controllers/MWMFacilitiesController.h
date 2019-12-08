@@ -1,15 +1,10 @@
 #import "MWMTableViewController.h"
 
-#include <vector>
-
-namespace booking
-{
-struct HotelFacility;
-}
+@class HotelFacility;
 
 @interface MWMFacilitiesController : MWMTableViewController
 
-- (void)setHotelName:(NSString *)name;
-- (void)setFacilities:(std::vector<booking::HotelFacility> const &)facilities;
+@property(nonatomic, copy) NSString *name;
+@property(nonatomic, copy) NSArray<HotelFacility *> *facilities;
 
 @end

@@ -1,4 +1,4 @@
-#import "MWMRatingSummaryViewValueType.h"
+#import <CoreApi/UgcSummaryRatingType.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -9,14 +9,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) NSString *distance;
 @property(nonatomic, readonly) BOOL isPopular;
 @property(nonatomic, readonly) NSString *ratingValue;
-@property(nonatomic, readonly) MWMRatingSummaryViewValueType ratingType;
+@property(nonatomic, readonly) UgcSummaryRatingType ratingType;
 
 - (instancetype)initWithTitle:(NSString *)title
                      subtitle:(NSString *)subtitle
                      distance:(NSString *)distance
                     isPopular:(BOOL)isPopular
                   ratingValue:(NSString *) ratingValue
-                   ratingType:(MWMRatingSummaryViewValueType)ratingType;
+                   ratingType:(UgcSummaryRatingType)ratingType;
 @end
 
 NS_ASSUME_NONNULL_END

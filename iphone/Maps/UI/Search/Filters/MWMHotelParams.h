@@ -24,8 +24,6 @@ enum class Price {
 @property (nonatomic) NSDate * checkInDate;
 @property (nonatomic) NSDate * checkOutDate;
 
-- (instancetype)initWithPlacePageData:(MWMPlacePageData *)data;
-
 - (std::shared_ptr<search::hotels_filter::Rule>)rules;
 - (booking::filter::Params)availabilityParams;
 

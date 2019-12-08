@@ -38,8 +38,7 @@ class RatingSummaryViewController: UIViewController {
     guard let ugcData = ugcData else { return }
 
     ratingSummaryView.value = ugcData.summaryRating!.ratingString
-    let r = ugcData.summaryRating!.ratingType.rawValue
-    ratingSummaryView.type = MWMRatingSummaryViewValueType(rawValue: UInt(r))!
+    ratingSummaryView.type = ugcData.summaryRating!.ratingType
 
     countLabel.text = String(format:L("placepage_summary_rating_description"), ugcData.ratingsCount)
 

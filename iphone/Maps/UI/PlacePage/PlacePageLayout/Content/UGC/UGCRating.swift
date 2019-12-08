@@ -1,9 +1,9 @@
 @objc(MWMUGCRatingValueType)
 class UGCRatingValueType: NSObject {
   let value: String
-  let type: MWMRatingSummaryViewValueType
+  let type: UgcSummaryRatingType
 
-  @objc init(value: String, type: MWMRatingSummaryViewValueType) {
+  @objc init(value: String, type: UgcSummaryRatingType) {
     self.value = value
     self.type = type
     super.init()

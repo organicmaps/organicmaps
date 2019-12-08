@@ -80,9 +80,32 @@ static PlacePageTaxiProvider convertTaxiProvider(taxi::Provider::Type providerTy
     _isPromoCatalog = _isLargeToponim || _isSightseeing;
     _shouldShowUgc = rawData().ShouldShowUGC();
     _isMyPosition = rawData().IsMyPosition();
+    _isPartner = rawData().GetSponsoredType() == place_page::SponsoredType::Partner;
+    _partnerIndex = _isPartner ? rawData().GetPartnerIndex() : -1;
+    _partnerName = _isPartner ? @(rawData().GetPartnerName().c_str()) : nil;
     _bookingSearchUrl = rawData().GetBookingSearchUrl().empty() ? nil : @(rawData().GetBookingSearchUrl().c_str());
     auto latlon = rawData().GetLatLon();
     _locationCoordinate = CLLocationCoordinate2DMake(latlon.m_lat, latlon.m_lon);
+
+    NSMutableArray *ratingCategoriesArray = [NSMutableArray array];
+    for (auto ratingCategory : rawData().GetRatingCategories()) {
+      [ratingCategoriesArray addObject:@(ratingCategory.c_str())];
+    }
+    _ratingCategories = [ratingCategoriesArray copy];
+
+    NSMutableArray *tagsArray = [NSMutableArray array];
+    for (auto const & s : rawData().GetRawTypes()) {
+      [tagsArray addObject:@(s.c_str())];
+    }
+    _statisticsTags = [tagsArray componentsJoinedByString:@", "];
+
+    if (rawData().IsSponsored()) {
+      _sponsoredURL = @(rawData().GetSponsoredUrl().c_str());
+      _sponsoredDescriptionURL = @(rawData().GetSponsoredDescriptionUrl().c_str());
+      _sponsoredMoreURL = @(rawData().GetSponsoredMoreUrl().c_str());
+      _sponsoredReviewURL = @(rawData().GetSponsoredReviewUrl().c_str());
+      _sponsoredDeeplink = @(rawData().GetSponsoredDeepLink().c_str());
+    }
   }
   return self;
 }

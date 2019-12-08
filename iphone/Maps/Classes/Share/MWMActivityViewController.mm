@@ -34,12 +34,17 @@
   return shareVC;
 }
 
-+ (instancetype)shareControllerForPlacePageObject:(id<MWMPlacePageObject>)object
-{
-  MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForPlacePageObject:object];
++ (instancetype)shareControllerForPlacePage:(PlacePageData *)data {
+  MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForPlacePage:data];
   MWMActivityViewController *shareVC = [[self alloc] initWithActivityItem:item];
   shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypeAirDrop];
   return shareVC;
+}
+
++ (instancetype)shareControllerForPlacePageObject:(id<MWMPlacePageObject>)object
+{
+  NSAssert(false, @"deprecated");
+  return nil;
 }
 
 + (instancetype)shareControllerForURL:(NSURL *)url

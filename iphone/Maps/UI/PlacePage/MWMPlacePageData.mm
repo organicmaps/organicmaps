@@ -844,16 +844,16 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   return [UIApplication.sharedApplication canOpenURL:self.deepLink];
 }
 
-+ (MWMRatingSummaryViewValueType)ratingValueType:(rating::Impress)impress
++ (UgcSummaryRatingType)ratingValueType:(rating::Impress)impress
 {
   switch (impress)
   {
-  case rating::Impress::None: return MWMRatingSummaryViewValueTypeNoValue;
-  case rating::Impress::Horrible: return MWMRatingSummaryViewValueTypeHorrible;
-  case rating::Impress::Bad: return MWMRatingSummaryViewValueTypeBad;
-  case rating::Impress::Normal: return MWMRatingSummaryViewValueTypeNormal;
-  case rating::Impress::Good: return MWMRatingSummaryViewValueTypeGood;
-  case rating::Impress::Excellent: return MWMRatingSummaryViewValueTypeExcellent;
+  case rating::Impress::None: return UgcSummaryRatingTypeNone;
+  case rating::Impress::Horrible: return UgcSummaryRatingTypeHorrible;
+  case rating::Impress::Bad: return UgcSummaryRatingTypeBad;
+  case rating::Impress::Normal: return UgcSummaryRatingTypeNormal;
+  case rating::Impress::Good: return UgcSummaryRatingTypeGood;
+  case rating::Impress::Excellent: return UgcSummaryRatingTypeExcellent;
   }
 }
 #pragma mark - Coordinates

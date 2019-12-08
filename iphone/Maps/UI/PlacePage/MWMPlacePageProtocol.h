@@ -1,6 +1,5 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMPlacePageButtonsProtocol.h"
-#include "geometry/point2d.hpp"
 
 @class MWMViewController;
 
@@ -43,7 +42,6 @@ struct HotelFacility;
 
 @protocol MWMBookingInfoHolder<NSObject>
 
-- (std::vector<booking::HotelFacility> const &)hotelFacilities;
 - (NSString *)hotelName;
 
 @end

@@ -1,4 +1,5 @@
 @protocol MWMPlacePageObject;
+@class PlacePageData;
 
 @interface MWMActivityViewController : UIActivityViewController
 
@@ -7,6 +8,8 @@
 + (instancetype)shareControllerForMyPosition:(CLLocationCoordinate2D)location;
 
 + (instancetype)shareControllerForPlacePageObject:(id<MWMPlacePageObject>)object;
+
++ (instancetype)shareControllerForPlacePage:(PlacePageData *)data;
 
 + (instancetype)shareControllerForURL:(NSURL * _Nullable)url
                               message:(NSString *)message

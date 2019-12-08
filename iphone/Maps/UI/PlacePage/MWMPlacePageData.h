@@ -1,5 +1,4 @@
 #import "MWMPlacePageActionBar.h"
-#import "MWMRatingSummaryViewValueType.h"
 
 #include "partners_api/taxi_provider.hpp"
 
@@ -11,6 +10,8 @@
 #include "platform/network_policy.hpp"
 
 #include <optional>
+#import <CoreApi/UgcSummaryRatingType.h>
+
 #include <vector>
 
 @class MWMPlacePageData;
@@ -278,7 +279,7 @@ typedef void (^RefreshPromoCallbackBlock)(NSIndexSet *insertedSections);
 - (BOOL)isPreviewPlus;
 - (BOOL)isPartnerAppInstalled;
 
-+ (MWMRatingSummaryViewValueType)ratingValueType:(place_page::rating::Impress)impress;
++ (UgcSummaryRatingType)ratingValueType:(place_page::rating::Impress)impress;
 
 // Coordinates
 - (m2::PointD const &)mercator;

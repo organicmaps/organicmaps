@@ -1,4 +1,5 @@
 #import "MWMDiscoverySearchViewModel.h"
+#import <CoreApi/UgcSummaryRatingType.h>
 
 @interface MWMDiscoverySearchViewModel()
 
@@ -7,7 +8,7 @@
 @property(nonatomic, readwrite) NSString *distance;
 @property(nonatomic, readwrite) BOOL isPopular;
 @property(nonatomic, readwrite) NSString *ratingValue;
-@property(nonatomic, readwrite) MWMRatingSummaryViewValueType ratingType;
+@property(nonatomic, readwrite) UgcSummaryRatingType ratingType;
 
 @end
 
@@ -18,7 +19,7 @@
                      distance:(NSString *)distance
                     isPopular:(BOOL)isPopular
                   ratingValue:(NSString *) ratingValue
-                   ratingType:(MWMRatingSummaryViewValueType)ratingType {
+                   ratingType:(UgcSummaryRatingType)ratingType {
   self = [super init];
   if (self) {
     self.title = title;

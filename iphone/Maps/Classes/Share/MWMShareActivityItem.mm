@@ -4,6 +4,9 @@
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include <CoreApi/Framework.h>
+#import <CoreApi/PlacePageData.h>
+#import <CoreApi/PlacePagePreviewData.h>
+#import <CoreApi/PlacePageInfoData.h>
 
 NSString * httpGe0Url(NSString * shortUrl)
 {
@@ -13,7 +16,7 @@ NSString * httpGe0Url(NSString * shortUrl)
 
 @interface MWMShareActivityItem ()
 
-@property(nonatomic) id<MWMPlacePageObject> object;
+@property(nonatomic) PlacePageData *data;
 @property(nonatomic) CLLocationCoordinate2D location;
 @property(nonatomic) BOOL isMyPosition;
 
@@ -34,13 +37,18 @@ NSString * httpGe0Url(NSString * shortUrl)
 
 - (instancetype)initForPlacePageObject:(id<MWMPlacePageObject>)object
 {
+  NSAssert(false, @"deprecated");
+
+  return nil;
+}
+
+- (instancetype)initForPlacePage:(PlacePageData *)data {
   self = [super init];
   if (self)
   {
-    NSAssert(object, @"Entity can't be nil!");
-    BOOL const isMyPosition = object.isMyPosition;
-    _isMyPosition = isMyPosition;
-    _object = object;
+    NSAssert(data, @"Entity can't be nil!");
+    _isMyPosition = data.isMyPosition;
+    _data = data;
   }
   return self;
 }
@@ -49,23 +57,24 @@ NSString * httpGe0Url(NSString * shortUrl)
 {
   auto & f = GetFramework();
 
-  auto const title = ^NSString *(id<MWMPlacePageObject> obj)
+  auto const title = ^NSString *(PlacePageData *data)
   {
-    if (!obj || obj.isMyPosition)
+    if (!data || data.isMyPosition)
       return L(@"core_my_position");
-    else if (obj.title.length)
-      return obj.title;
-    else if (obj.subtitle.length)
-      return obj.subtitle;
-    else if (obj.address.length)
-      return obj.address;
+    else if (data.previewData.title.length > 0)
+      return data.previewData.title;
+    else if (data.previewData.subtitle.length)
+      return data.previewData.subtitle;
+    else if (data.previewData.address.length)
+      return data.previewData.address;
     else
       return @"";
   };
 
-  ms::LatLon const ll = self.object ? self.object.latLon
+  ms::LatLon const ll = self.data ? ms::LatLon(self.data.locationCoordinate.latitude,
+                                               self.data.locationCoordinate.longitude)
                                     : ms::LatLon(self.location.latitude, self.location.longitude);
-  std::string const & s = f.CodeGe0url(ll.m_lat, ll.m_lon, f.GetDrawScale(), title(self.object).UTF8String);
+  std::string const & s = f.CodeGe0url(ll.m_lat, ll.m_lon, f.GetDrawScale(), title(self.data).UTF8String);
 
   NSString * url = @(s.c_str());
   if (!isShort)
@@ -107,7 +116,7 @@ NSString * httpGe0Url(NSString * shortUrl)
   NSString * shortUrl = [self url:YES];
   return [NSString stringWithFormat:@"%@\n%@", httpGe0Url(shortUrl),
                                     self.isMyPosition ? L(@"my_position_share_email_subject")
-                                                      : self.object.title];
+                                                      : self.data.previewData.title];
 }
 
 - (NSString *)itemDefaultWithActivityType:(NSString *)activityType
@@ -124,17 +133,17 @@ NSString * httpGe0Url(NSString * shortUrl)
   }
 
   NSMutableString * result = [L(@"sharing_call_action_look") mutableCopy];
-  std::vector<NSString *> strings{self.object.title,
-                                 self.object.subtitle,
-                                 self.object.address,
-                                 self.object.phoneNumber,
+  std::vector<NSString *> strings{self.data.previewData.title,
+                                 self.data.previewData.subtitle,
+                                 self.data.previewData.address,
+                                 self.data.infoData.phone,
                                  url,
                                  ge0Url};
 
-  if (self.object.isBooking)
+  if (self.data.previewData.isBookingPlace)
   {
     strings.push_back(L(@"sharing_booking"));
-    strings.push_back(self.object.sponsoredDescriptionURL.absoluteString);
+    strings.push_back(self.data.sponsoredDescriptionURL);
   }
 
   for (auto const & str : strings)

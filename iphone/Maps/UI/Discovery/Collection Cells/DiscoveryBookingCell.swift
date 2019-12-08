@@ -67,7 +67,7 @@ final class DiscoveryBookingCell: UICollectionViewCell {
     }
   }
 
-  private func setRating(_ ratingValue: String, _ ratingType: MWMRatingSummaryViewValueType) {
+  private func setRating(_ ratingValue: String, _ ratingType: UgcSummaryRatingType) {
     rating.value = ratingValue
     rating.type = ratingType
   }
@@ -77,7 +77,7 @@ final class DiscoveryBookingCell: UICollectionViewCell {
                     subtitle: String,
                     price: String,
                     ratingValue: String,
-                    ratingType: MWMRatingSummaryViewValueType,
+                    ratingType: UgcSummaryRatingType,
                     distance: String,
                     onBuildRoute: @escaping OnBuildRoute) {
     setAvatar(avatarURL)

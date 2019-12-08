@@ -50,9 +50,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) BOOL isLargeToponim;
 @property(nonatomic, readonly) BOOL isSightseeing;
 @property(nonatomic, readonly) BOOL isPromoCatalog;
+@property(nonatomic, readonly) BOOL isPartner;
 @property(nonatomic, readonly) BOOL shouldShowUgc;
 @property(nonatomic, readonly) BOOL isMyPosition;
+@property(nonatomic, readonly) NSInteger partnerIndex;
+@property(nonatomic, readonly, nullable) NSString *partnerName;
 @property(nonatomic, readonly) CLLocationCoordinate2D locationCoordinate;
+@property(nonatomic, readonly) NSArray<NSString *> *ratingCategories;
+@property(nonatomic, readonly) NSString *statisticsTags;
+@property(nonatomic, readonly, nullable) NSString *sponsoredURL;
+@property(nonatomic, readonly, nullable) NSString *sponsoredDescriptionURL;
+@property(nonatomic, readonly, nullable) NSString *sponsoredMoreURL;
+@property(nonatomic, readonly, nullable) NSString *sponsoredReviewURL;
+@property(nonatomic, readonly, nullable) NSString *sponsoredDeeplink;
+
 
 - (void)loadOnlineDataWithCompletion:(MWMVoidBlock)completion;
 - (void)loadUgcWithCompletion:(MWMVoidBlock)completion;

@@ -8,7 +8,7 @@ final class RatingSummaryView: UIView {
     }
   }
 
-  var type = MWMRatingSummaryViewValueType.noValue {
+  var type = UgcSummaryRatingType.none {
     didSet {
       guard oldValue != type else { return }
       update()
@@ -88,17 +88,17 @@ final class RatingSummaryView: UIView {
   }
 
   @IBInspectable var noValueImage: UIImage? {
-    get { return settings.images[.noValue] }
+    get { return settings.images[.none] }
     set {
-      settings.images[.noValue] = newValue
+      settings.images[.none] = newValue
       update()
     }
   }
 
   @IBInspectable var noValueColor: UIColor? {
-    get { return settings.colors[.noValue] }
+    get { return settings.colors[.none] }
     set {
-      settings.colors[.noValue] = newValue
+      settings.colors[.none] = newValue
       update()
     }
   }

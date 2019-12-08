@@ -80,8 +80,7 @@ class PlacePagePreviewViewController: UIViewController {
     if let summaryRating = ugcData.summaryRating {
       ratingSummaryView.defaultConfig()
       ratingSummaryView.value = summaryRating.ratingString
-      let r = summaryRating.ratingType.rawValue
-      ratingSummaryView.type = MWMRatingSummaryViewValueType(rawValue: UInt(r))!
+      ratingSummaryView.type = summaryRating.ratingType
       reviewsLabel.text = String(format:L("placepage_summary_rating_description"), ugcData.ratingsCount)
     } else {
       if ugcData.isUpdateEmpty {
@@ -103,8 +102,8 @@ class PlacePagePreviewViewController: UIViewController {
     ugcContainerView.isHidden = false
     ratingSummaryView.defaultConfig()
     ratingSummaryView.value = NSNumber(value: bookingData.score).stringValue
-    let rawRating = UInt(bookingData.score / 2) + 1
-    ratingSummaryView.type = MWMRatingSummaryViewValueType(rawValue: rawRating) ?? .noValue
+    let rawRating = Int(bookingData.score / 2) + 1
+    ratingSummaryView.type = UgcSummaryRatingType(rawValue: rawRating) ?? .none
     guard let rooms = rooms else { return }
     priceLabel.text = String(coreFormat: L("place_page_starting_from"), arguments: [rooms.minPrice])
     priceLabel.isHidden = false

@@ -66,7 +66,7 @@ final class PPPReview: MWMTableViewCell {
     }
     pricingLabel.isHidden = true
     reviewsLabel.isHidden = false
-    if rating.type == .noValue {
+    if rating.type == .none {
       if isReviewedByUser {
         ratingSummaryView.noValueImage = #imageLiteral(resourceName: "ic_12px_radio_on")
         ratingSummaryView.noValueColor = UIColor.linkBlue()
