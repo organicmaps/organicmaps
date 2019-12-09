@@ -153,8 +153,6 @@ void RoutesBuilder::Result::Dump(Result const & result, std::string const & file
   WriteToSink(writer, static_cast<int>(result.m_code));
 
   writer.Write(&result.m_buildTimeSeconds, sizeof(m_buildTimeSeconds));
-//  auto const mode = static_cast<int>(result.m_routingAlgorithMode);
-//  writer.Write(&mode, sizeof(mode));
 
   RoutesBuilder::Params::Dump(result.m_params, writer);
 
@@ -174,7 +172,6 @@ RoutesBuilder::Result RoutesBuilder::Result::Load(std::string const & filePath)
   auto const code = ReadPrimitiveFromSource<int>(src);
   result.m_code = static_cast<RouterResultCode>(code);
   result.m_buildTimeSeconds = ReadPrimitiveFromSource<double>(src);
-//  result.m_routingAlgorithMode = static_cast<WorldGraphMode>(ReadPrimitiveFromSource<int>(src));
   result.m_params = RoutesBuilder::Params::Load(src);
 
   auto const routesNumber = ReadPrimitiveFromSource<size_t>(src);
@@ -317,7 +314,6 @@ RoutesBuilder::Processor::operator()(Params const & params)
   result.m_params.m_checkpoints = params.m_checkpoints;
   result.m_code = resultCode;
   result.m_buildTimeSeconds = timeSum / static_cast<double>(params.m_launchesNumber);
-  result.m_routingAlgorithMode = m_delegate->GetRoutingAlgorithmMode();
 
   RoutesBuilder::Route routeResult;
   routeResult.m_distance = route.GetTotalDistanceMeters();

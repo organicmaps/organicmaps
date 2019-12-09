@@ -11,7 +11,6 @@
 #include "routing/road_point.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/segment.hpp"
-#include "routing/world_graph_mode.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -27,6 +26,8 @@
 namespace routing
 {
 bool IsUTurn(Segment const & u, Segment const & v);
+
+enum class WorldGraphMode;
 
 class IndexGraph final
 {

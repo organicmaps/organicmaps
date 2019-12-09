@@ -83,7 +83,7 @@ private:
     void OnRemoveRoute(RouterResultCode resultCode);
     void Cancel();
 
-    RouterDelegate & GetDelegate() { return m_delegate; }
+    RouterDelegate const & GetDelegate() const { return m_delegate; }
 
   private:
     void OnProgress(float progress);

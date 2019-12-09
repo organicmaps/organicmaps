@@ -90,7 +90,7 @@ public:
   std::string GetName() const override { return m_name; }
   void ClearState() override;
   RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                  bool adjustToPrevRoute, RouterDelegate & delegate,
+                                  bool adjustToPrevRoute, RouterDelegate const & delegate,
                                   Route & route) override;
 
   VehicleType GetVehicleType() const { return m_vehicleType; }
@@ -112,9 +112,9 @@ private:
 
   RouterResultCode DoCalculateRoute(Checkpoints const & checkpoints,
                                     m2::PointD const & startDirection,
-                                    RouterDelegate & delegate, Route & route);
+                                    RouterDelegate const & delegate, Route & route);
   RouterResultCode CalculateSubroute(Checkpoints const & checkpoints, size_t subrouteIdx,
-                                     RouterDelegate & delegate,
+                                     RouterDelegate const & delegate,
                                      std::shared_ptr<AStarProgress> const & progress,
                                      IndexGraphStarter & graph, std::vector<Segment> & subroute);
 

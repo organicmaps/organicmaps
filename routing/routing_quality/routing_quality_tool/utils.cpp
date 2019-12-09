@@ -105,30 +105,6 @@ void SaveKmlFileDataTo(RoutesBuilder::Result const & mapsmeResult,
   FileWriter sink(kmlFile);
   ser.Serialize(sink);
 }
-
-template <typename T>
-std::string CreatePythonArray(std::vector<T> const & data, bool isString = false)
-{
-  std::stringstream ss;
-  ss << "[";
-  for (auto const & item : data)
-  {
-    if (isString)
-      ss << "\"";
-    ss << item;
-    if (isString)
-      ss << "\"";
-    ss << ",";
-  }
-
-  auto result = ss.str();
-  if (data.empty())
-    result += "]";
-  else
-    result.back() = ']';
-
-  return result;
-}
 }  // namespace
 
 namespace routing_quality
@@ -278,49 +254,39 @@ plt.show()
 void CreatePythonGraphByPointsXY(std::string const & pythonScriptPath,
                                  std::string const & xlabel,
                                  std::string const & ylabel,
-                                 std::vector<std::vector<m2::PointD>> const & graphics,
-                                 std::vector<std::string> const & legends)
+                                 std::vector<m2::PointD> const & points)
 {
-  CHECK_EQUAL(legends.size(), graphics.size(), ());
   std::ofstream python(pythonScriptPath);
   CHECK(python.good(), ("Can not open:", pythonScriptPath, "for writing."));
 
   std::string pythonArrayX = "[";
   std::string pythonArrayY = "[";
-  std::string legendsArray = "[";
-  for (size_t i = 0; i < graphics.size(); ++i)
+  for (auto const & point : points)
   {
-    auto const & points = graphics[i];
-    pythonArrayX += "[";
-    pythonArrayY += "[";
-    legendsArray += "\"" + legends[i] + "\",";
-    for (auto const & point : points)
-    {
-      pythonArrayX += std::to_string(point.x) + ",";
-      pythonArrayY += std::to_string(point.y) + ",";
-    }
-
-    pythonArrayX += "],";
-    pythonArrayY += "],";
+    pythonArrayX += std::to_string(point.x) + ",";
+    pythonArrayY += std::to_string(point.y) + ",";
   }
 
-  pythonArrayX.back() = ']';
-  pythonArrayY.back() = ']';
-  legendsArray.back() = ']';
+  if (points.empty())
+  {
+    pythonArrayX += "]";
+    pythonArrayY += "]";
+  }
+  else
+  {
+    pythonArrayX.back() = ']';
+    pythonArrayY.back() = ']';
+  }
 
   python << R"(
 import pylab
 
-legends = )" + legendsArray + R"(
 xlist = )" + pythonArrayX + R"(
 ylist = )" + pythonArrayY + R"(
-for (x, y, l) in zip(xlist, ylist, legends):
-  pylab.plot(x, y, label=l)
 
+pylab.plot (xlist, ylist)
 pylab.xlabel(")" + xlabel + R"(")
 pylab.ylabel(")" + ylabel + R"(")
-pylab.legend()
-pylab.tight_layout()
 pylab.show()
 )";
 
@@ -328,67 +294,68 @@ pylab.show()
 }
 
 void CreatePythonBarByMap(std::string const & pythonScriptPath,
-                          std::vector<std::string> const & barLabels,
-                          std::vector<std::vector<double>> const & barHeights,
-                          std::vector<std::string> const & legends,
+                          std::map<std::string, size_t> const & stat,
                           std::string const & xlabel,
                           std::string const & ylabel)
 {
   std::ofstream python(pythonScriptPath);
   CHECK(python.good(), ("Can not open:", pythonScriptPath, "for writing."));
 
-  std::string labelsArray = CreatePythonArray(barLabels, true /* isString */);
-  std::string legendsArray = CreatePythonArray(legends, true /* isString */);
+  std::string labels = "[";
   std::string counts = "[";
-  for (auto const & heights : barHeights)
-    counts += CreatePythonArray(heights) + ",";
+  for (auto const & item : stat)
+  {
+    auto const & label = item.first;
+    auto const & count = item.second;
 
-  if (barHeights.empty())
+    labels += "'" + label + "'" + ",";
+    counts += std::to_string(count) + ",";
+  }
+
+  if (stat.empty())
+  {
+    labels += "]";
     counts += "]";
+  }
   else
+  {
+    labels.back() = ']';
     counts.back() = ']';
+  }
 
   python << R"(
 import matplotlib
 import matplotlib.pyplot as plt
-import numpy as np
 
-bar_width = 0.35
-labels = )" + labelsArray + R"(
-legends = )" + legendsArray + R"(
+labels = )" + labels + R"(
 counts = )" + counts + R"(
 
-x = np.arange(len(labels))  # the label locations
+summ = 0
+for count in counts:
+    summ += count
+
+x = range(len(labels))  # the label locations
 width = 0.35  # the width of the bars
 
 fig, ax = plt.subplots()
-bars = []
-for i in range(len(counts)):
-    bar = ax.bar(x + i * bar_width, counts[i], bar_width, label=legends[i])
-    bars.append(bar)
+rects = ax.bar(x, counts, width)
 
 ax.set_ylabel(')" + ylabel + R"(')
 ax.set_title(')" + xlabel + R"(')
-pos = (bar_width * (len(counts) - 1)) / 2
-ax.set_xticks(x + pos)
+ax.set_xticks(x)
 ax.set_xticklabels(labels)
 ax.legend()
 
-def autolabel(rects, counts_ith):
-    summ = 0
-    for count in counts_ith:
-        summ += count
-
+def autolabel(rects):
     for rect in rects:
         height = rect.get_height()
-        ax.annotate('{}({:2.0f}%)'.format(height, height / summ * 100),
+        ax.annotate('{} ({}%)'.format(height, height / summ * 100),
                     xy=(rect.get_x() + rect.get_width() / 2, height),
                     xytext=(0, 3),  # 3 points vertical offset
                     textcoords="offset points",
                     ha='center', va='bottom')
 
-for i in range(len(counts)):
-    autolabel(bars[i], counts[i])
+autolabel(rects)
 fig.tight_layout()
 plt.show()
 )";

@@ -1,7 +1,5 @@
 #pragma once
-
 #include "routing/routing_callbacks.hpp"
-#include "routing/world_graph_mode.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -33,11 +31,7 @@ public:
   void Cancel() { return m_cancellable.Cancel(); }
   bool IsCancelled() const { return m_cancellable.IsCancelled(); }
 
-  void SetRoutingAlgorithmMode(WorldGraphMode mode) { m_routingAlgorithMode = mode; }
-  WorldGraphMode GetRoutingAlgorithmMode() const { return m_routingAlgorithMode; }
-
 private:
-  WorldGraphMode m_routingAlgorithMode;
   ProgressCallback m_progressCallback;
   PointCheckCallback m_pointCallback;
 

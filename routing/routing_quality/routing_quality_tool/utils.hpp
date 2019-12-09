@@ -177,15 +177,12 @@ void CreatePythonScriptForDistribution(std::string const & pythonScriptPath,
 void CreatePythonGraphByPointsXY(std::string const & pythonScriptPath,
                                  std::string const & xlabel,
                                  std::string const & ylabel,
-                                 std::vector<std::vector<m2::PointD>> const & graphics,
-                                 std::vector<std::string> const & legends);
+                                 std::vector<m2::PointD> const & points);
 
 /// \brief Create python file, that show bar graph, where labels of bars are keys of |stat| and
 /// heights area values of |stat|.
 void CreatePythonBarByMap(std::string const & pythonScriptPath,
-                          std::vector<std::string> const & barLabels,
-                          std::vector<std::vector<double>> const & barHeights,
-                          std::vector<std::string> const & legends,
+                          std::map<std::string, size_t> const & stat,
                           std::string const & xlabel,
                           std::string const & ylabel);
 }  // namespace routing_quality_tool

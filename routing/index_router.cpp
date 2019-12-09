@@ -25,7 +25,6 @@
 #include "routing/transit_world_graph.hpp"
 #include "routing/turns_generator.hpp"
 #include "routing/vehicle_mask.hpp"
-#include "routing/world_graph_mode.hpp"
 
 #include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
@@ -333,7 +332,7 @@ void IndexRouter::ClearState()
 RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
                                              m2::PointD const & startDirection,
                                              bool adjustToPrevRoute,
-                                             RouterDelegate & delegate, Route & route)
+                                             RouterDelegate const & delegate, Route & route)
 {
   vector<string> outdatedMwms;
   GetOutdatedMwms(m_dataSource, outdatedMwms);
@@ -383,7 +382,7 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
 
 RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
                                                m2::PointD const & startDirection,
-                                               RouterDelegate & delegate, Route & route)
+                                               RouterDelegate const & delegate, Route & route)
 {
   m_lastRoute.reset();
 
@@ -542,7 +541,7 @@ vector<Segment> ProcessJoints(vector<JointSegment> const & jointsPath,
 
 RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
                                                 size_t subrouteIdx,
-                                                RouterDelegate & delegate,
+                                                RouterDelegate const & delegate,
                                                 shared_ptr<AStarProgress> const & progress,
                                                 IndexGraphStarter & starter,
                                                 vector<Segment> & subroute)
@@ -551,7 +550,6 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
   subroute.clear();
 
   SetupAlgorithmMode(starter);
-  delegate.SetRoutingAlgorithmMode(starter.GetGraph().GetMode());
   LOG(LINFO, ("Routing in mode:", starter.GetGraph().GetMode()));
 
   base::ScopedTimerWithLog timer("Route build");
