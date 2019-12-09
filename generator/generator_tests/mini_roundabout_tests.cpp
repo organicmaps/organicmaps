@@ -213,8 +213,9 @@ UNIT_TEST(Manage_MiniRoundabout_1Road)
   AddPointToCircle(circlePlain, newPointOnRoad);
 
   std::vector<m2::PointD> const circlePlainExpected{
-      {11.50013, 85.06309}, {11.50012, 85.06310}, {11.50010, 85.06309},
-      {11.50010, 85.06306}, {11.50012, 85.06305}, {11.50013, 85.06306}};
+      {11.50013, 85.06309}, {11.50012, 85.06310}, {11.50011, 85.06310},
+      {11.50010, 85.06309},{11.50010, 85.06306}, {11.50012, 85.06305},
+      {11.50013, 85.06306}};
 
   TestRunCmpPoints(circlePlain, circlePlainExpected, r);
 }
@@ -236,7 +237,7 @@ UNIT_TEST(Manage_MiniRoundabout_4Roads)
   double const r = mercator::MetersToMercator(2.5);
 
   auto circlePlain = PointToPolygon(center, r, 6, 30.0);
-  auto circlePlainBeforeAdd = circlePlain;
+
   AddPointToCircle(circlePlain, TrimSegment(mercator::FromLatLon(stationRoadNode.m_lat,
                                                                        stationRoadNode.m_lon),
                                             center, r));
@@ -251,7 +252,27 @@ UNIT_TEST(Manage_MiniRoundabout_4Roads)
                                                           plaughRoundaboutRightNode.m_lon),
                                center, r));
 
-  // No road points are added to the circle, becouse all of them are too close to the
-  // original circle points.
-  TestRunCmpPoints(circlePlain, circlePlainBeforeAdd, r);
+  std::vector<m2::PointD> const circlePlainExpected{
+      {-0.47381, 60.67520}, {-0.47383, 60.67521}, {-0.47384, 60.67521},
+      {-0.47385, 60.67520},{-0.47386, 60.67520}, {-0.47385, 60.67518},
+      {-0.47385, 60.67518}, {-0.47383,60.67517}, {-0.47381,60.67518},
+      {-0.47381, 60.67518}};
+  TestRunCmpPoints(circlePlain, circlePlainExpected, r);
+}
+
+UNIT_TEST(Manage_MiniRoundabout_EqualPoints)
+{
+  auto const miniRoundabout = MiniRoundabout(1, 10.0, 10.0);
+
+  m2::PointD const center =
+      mercator::FromLatLon({miniRoundabout.m_lat, miniRoundabout.m_lon});
+
+  double const r = mercator::MetersToMercator(5.0);
+
+  auto circlePlain = PointToPolygon(center, r, 12, 30.0);
+  AddPointToCircle(circlePlain, circlePlain[12]);
+  AddPointToCircle(circlePlain, circlePlain[6]);
+  AddPointToCircle(circlePlain, circlePlain[0]);
+  AddPointToCircle(circlePlain, circlePlain[0]);
+  TEST_EQUAL(circlePlain.size(), 16, ());
 }

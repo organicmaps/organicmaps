@@ -254,9 +254,6 @@ void AddPointToCircle(std::vector<m2::PointD> & circle, m2::PointD const & point
 
   for (size_t i = 0; i < circle.size(); ++i)
   {
-    if (AlmostEqualAbs(circle[i], point, kMwmPointAccuracy))
-      return;
-
     double const dist = DistanceOnPlain(circle[i], point);
     if (dist < dist1)
     {
