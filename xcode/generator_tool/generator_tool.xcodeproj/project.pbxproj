@@ -185,6 +185,8 @@
 		67BC92C51D17FD5800A4A378 /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624BF1D11775300AE4E3C /* libstb_image.a */; };
 		67BC92C61D17FDE600A4A378 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624CE1D11779700AE4E3C /* OpenGL.framework */; };
 		67BC92C71D17FDF800A4A378 /* libapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 679624B61D11775300AE4E3C /* libapi.a */; };
+		E1DE929B239E61CB0073F304 /* hierarchy_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1DE9299239E61CB0073F304 /* hierarchy_tests.cpp */; };
+		E1DE929C239E61CB0073F304 /* collector_building_parts_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1DE929A239E61CB0073F304 /* collector_building_parts_tests.cpp */; };
 		E9502E301D2BD6E600CAB86B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 677E2A091CAAC771001DC42A /* libz.tbd */; };
 /* End PBXBuildFile section */
 
@@ -349,6 +351,8 @@
 		67AB92B41B738DE800AB5194 /* source_data.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = source_data.hpp; sourceTree = "<group>"; };
 		67AB92C61B73D03500AB5194 /* libmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmap.a; path = "../../../omim-xcode-build/Debug/libmap.a"; sourceTree = "<group>"; };
 		67AB92CA1B73D10B00AB5194 /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
+		E1DE9299239E61CB0073F304 /* hierarchy_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hierarchy_tests.cpp; sourceTree = "<group>"; };
+		E1DE929A239E61CB0073F304 /* collector_building_parts_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collector_building_parts_tests.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -548,6 +552,8 @@
 		6726C1D71A4C27A5005EEA39 /* generator_tests */ = {
 			isa = PBXGroup;
 			children = (
+				E1DE929A239E61CB0073F304 /* collector_building_parts_tests.cpp */,
+				E1DE9299239E61CB0073F304 /* hierarchy_tests.cpp */,
 				56DAC352239914C2000BC50D /* cells_merger_tests.cpp */,
 				56DAC348239914C2000BC50D /* cluster_finder_tests.cpp */,
 				56DAC349239914C2000BC50D /* collector_boundary_postcode_tests.cpp */,
@@ -870,6 +876,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				675341631A3F54F600A0A8C3 /* generator_tool.cpp in Sources */,
+				E1DE929B239E61CB0073F304 /* hierarchy_tests.cpp in Sources */,
+				E1DE929C239E61CB0073F304 /* collector_building_parts_tests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
