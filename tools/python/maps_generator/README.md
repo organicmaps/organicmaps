@@ -1,6 +1,8 @@
 # maps_generator
 It's tool for generation maps for maps.me application.
-Use tool and application from the same release. Application does not support maps built by tool newer than app.
+
+Note: **Use generator_tool and application from the same release. Application does not support
+maps built by generator_tool newer than app.**
 
 ##  What are maps for maps.me?
 Maps for maps.me are data with special meta information for drawing, quick searching and routing and for other.
@@ -12,22 +14,28 @@ Further we will call them world and coastlines.
 ## Setup
 You must have Python version not lower than 3.6 and complete the following steps:
 
-0. [Build and install generator_tool.](https://github.com/mapsme/omim/blob/master/docs/INSTALL.md#maps-generator)
-1. Change directory:
+0. Switch to the branch of your app's version (see the note of #maps_generator section). 
+For example, if you use MAPS.ME 9.2.3 you should do:
+```sh
+git checkout release-92
+```
+The app version can be found in the "About" section in the settings menu of MAPS.ME.
+1. [Build and install generator_tool.](https://github.com/mapsme/omim/blob/master/docs/INSTALL.md#maps-generator)
+2. Change directory:
 ```sh
 $ cd omim/tools/python/maps_generator
 ```
-2. Install dependencies:
+3. Install dependencies:
 ```sh
 maps_generator$ pip3 install -r requirements.txt
 ```
 
-3. Make ini file:
+4. Make ini file:
 ```sh
 maps_generator$ cp var/etc/map_generator.ini.default var/etc/map_generator.ini
 ```
 
-4. Edit ini file:
+5. Edit ini file:
 ```sh
 maps_generator$ vim var/etc/map_generator.ini
 ```
