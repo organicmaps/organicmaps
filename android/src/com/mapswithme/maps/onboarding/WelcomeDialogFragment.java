@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
@@ -28,6 +29,8 @@ import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Stack;
 
 public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View.OnClickListener
@@ -179,9 +182,12 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     mImage = mContentView.findViewById(R.id.iv__image);
     mImage.setImageResource(R.drawable.img_welcome);
     mTitle = mContentView.findViewById(R.id.tv__title);
-    mTitle.setText(R.string.onboarding_welcome_title);
+    List<String> headers = Arrays.asList(getString(R.string.new_onboarding_step1_header),
+                                         getString(R.string.new_onboarding_step1_header_2));
+    String titleText = TextUtils.join(UiUtils.NEW_STRING_DELIMITER, headers);
+    mTitle.setText(titleText);
     mSubtitle = mContentView.findViewById(R.id.tv__subtitle1);
-    mSubtitle.setText(R.string.onboarding_welcome_first_subtitle);
+    mSubtitle.setText(R.string.sign_message_gdpr);
 
     initUserAgreementViews();
     bindWelcomeScreenType();

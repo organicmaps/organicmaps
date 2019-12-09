@@ -8,13 +8,13 @@ import androidx.annotation.Nullable;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.placepage.Sponsored;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Arrays;
 
 class BookmarkInfoShareable<T extends ShareableInfoProvider> extends BaseShareable
 {
-  private static final String DELIMITER = "\n";
   @NonNull
   private final T mProvider;
 
@@ -33,7 +33,7 @@ class BookmarkInfoShareable<T extends ShareableInfoProvider> extends BaseShareab
   private static String makeEmailBody(@NonNull Activity activity, @Nullable Sponsored sponsored,
                                       @NonNull Iterable<String> emailBodyContent)
   {
-    String text = TextUtils.join(DELIMITER, emailBodyContent);
+    String text = TextUtils.join(UiUtils.NEW_STRING_DELIMITER, emailBodyContent);
 
     if (sponsored != null && sponsored.getType() == Sponsored.TYPE_BOOKING)
       text = concatSponsoredText(activity, sponsored, text);
@@ -45,8 +45,9 @@ class BookmarkInfoShareable<T extends ShareableInfoProvider> extends BaseShareab
   private static String concatSponsoredText(@NonNull Activity activity, @NonNull Sponsored sponsored,
                                             @NonNull String src)
   {
-    return TextUtils.join(DELIMITER, Arrays.asList(src, activity.getString(R.string.sharing_booking)))
-            + sponsored.getUrl();
+    String mainSegment = TextUtils.join(UiUtils.NEW_STRING_DELIMITER,
+                                        Arrays.asList(src, activity.getString(R.string.sharing_booking)));
+    return mainSegment + sponsored.getUrl();
   }
 
   @NonNull
