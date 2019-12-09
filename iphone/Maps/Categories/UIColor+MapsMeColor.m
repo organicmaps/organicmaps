@@ -60,6 +60,7 @@ static UIColor * color(SEL cmd) {
     @"bannerBackground" : [UIColor colorWithRed:scaled(249) green:scaled(251) blue:scaled(231) alpha:alpha100],
     @"border" : [UIColor colorWithWhite:0. alpha:alpha04],
     @"discountBackground" : [UIColor colorWithRed:scaled(240) green:scaled(100) blue:scaled(60) alpha:alpha100],
+    @"discountText" : [UIColor colorWithRed:scaled(60) green:scaled(64) blue:scaled(68) alpha:alpha100],
     @"bookmarkSubscriptionBackground" : [UIColor colorWithRed:scaled(240) green:scaled(252) blue:scaled(255) alpha:alpha100],
     @"bookmarkSubscriptionScrollBackground" : [UIColor colorWithRed:scaled(137) green:scaled(217) blue:scaled(255) alpha:alpha100],
     @"bookmarkSubscriptionFooterBackground" : [UIColor colorWithRed:scaled(47) green:scaled(58) blue:scaled(73) alpha:alpha100],
@@ -114,6 +115,7 @@ static UIColor * color(SEL cmd) {
     @"bannerBackground" : [UIColor colorWithRed:scaled(71) green:scaled(75) blue:scaled(79) alpha:alpha100],
     @"border" : [UIColor colorWithWhite:1. alpha:alpha04],
     @"discountBackground" : [UIColor colorWithRed:scaled(240) green:scaled(100) blue:scaled(60) alpha:alpha100],
+    @"discountText" : [UIColor colorWithRed:scaled(60) green:scaled(64) blue:scaled(68) alpha:alpha100],
     @"bookmarkSubscriptionBackground" : [UIColor colorWithRed:scaled(60.) green:scaled(64.) blue:scaled(68.) alpha:alpha100],
     @"bookmarkSubscriptionScrollBackground" : [UIColor colorWithRed:scaled(137) green:scaled(217) blue:scaled(255) alpha:alpha100],
     @"bookmarkSubscriptionFooterBackground" : [UIColor colorWithRed:scaled(47) green:scaled(58) blue:scaled(73) alpha:alpha100],
@@ -424,6 +426,11 @@ static UIColor * color(SEL cmd) {
 
 
 + (UIColor *)discountBackground
+{
+  return color(_cmd);
+}
+
++ (UIColor *)discountText
 {
   return color(_cmd);
 }

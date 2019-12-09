@@ -275,6 +275,8 @@
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="allPassSubscriptionDiscountBackground"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="discountText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold17"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wL2-uQ-ivp" userLabel="Restore">
@@ -400,6 +402,7 @@
                             </constraints>
                         </view>
                     </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="TaY-K1-Hdb" firstAttribute="width" secondItem="OgE-tu-SWu" secondAttribute="width" id="5EU-Ae-NUs"/>
                         <constraint firstAttribute="bottom" secondItem="TaY-K1-Hdb" secondAttribute="bottom" id="R5w-2Q-dOF"/>

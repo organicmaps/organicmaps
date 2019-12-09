@@ -40,15 +40,16 @@ extension PromoDiscoveryRouter: IPromoDiscoveryRouter {
   }
 
   private func presentPromoDiscoverySubscribe() {
-    guard let viewController = viewController else {
+    guard let rootViewController = rootViewController else {
       return;
     }
+    dissmiss()
     let subscribeViewController = SubscriptionViewBuilder.build(type: .allPass,
-                                                                parentViewController: viewController,
+                                                                parentViewController: rootViewController,
                                                                 source: kStatOnboardingGuidesSubscription,
                                                                 successDialog: .goToCatalog,
                                                                 completion: nil)
-    viewController.present(subscribeViewController, animated: true)
+    rootViewController.present(subscribeViewController, animated: true)
   }
 
   private func presentPromoDiscoveryFree() {

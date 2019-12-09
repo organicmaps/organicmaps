@@ -61,6 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIColor *)subscriptionCellBackground;
 + (UIColor *)subscriptionCellTitle;
 + (UIColor *)discountBackground;
++ (UIColor *)discountText;
 + (UIColor *)bookmarkSubscriptionScrollBackground;
 + (UIColor *)bookmarkSubscriptionBackground;
 + (UIColor *)bookmarkSubscriptionFooterBackground;
