@@ -8,6 +8,7 @@
 #include "routing/routing_callbacks.hpp"
 #include "routing/segment.hpp"
 #include "routing/vehicle_mask.hpp"
+#include "routing/world_graph_mode.hpp"
 
 #include "traffic/traffic_cache.hpp"
 
@@ -94,6 +95,7 @@ public:
     Params m_params;
     std::vector<Route> m_routes;
     double m_buildTimeSeconds = 0.0;
+    WorldGraphMode m_routingAlgorithMode = WorldGraphMode::Undefined;
   };
 
   Result ProcessTask(Params const & params);

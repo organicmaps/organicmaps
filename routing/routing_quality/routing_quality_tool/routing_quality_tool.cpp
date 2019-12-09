@@ -222,6 +222,14 @@ int Main(int argc, char ** argv)
     LOG(LINFO, ("Receive:", apiResults.size(), "routes from --api_results."));
     RunComparison(std::move(mapsmeResults), std::move(apiResults));
   }
+  else if (IsMapsmeVsMapsme() && IsBenchmarkStat())
+  {
+    LOG(LINFO, ("Benchmark different mapsme versions. Start loading old mapsme results."));
+    auto oldMapsmeResults = LoadResults<RoutesBuilder::Result>(FLAGS_mapsme_old_results);
+    LOG(LINFO, ("Receive:", oldMapsmeResults.size(), "routes from --mapsme_old_results."));
+    RunBenchmarkComparison(std::move(mapsmeResults), std::move(oldMapsmeResults),
+                           FLAGS_save_result);
+  }
   else if (IsMapsmeVsMapsme())
   {
     LOG(LINFO, ("Start loading another mapsme results."));
