@@ -96,26 +96,6 @@ private:
   Tree4d m_tree;
 };
 
-// HierarchyBuilder class filters input elements and builds hierarchy from file *.mwm.tmp.
-class HierarchyBuilder
-{
-public:
-  using Node = HierarchyLinker::Node;
-
-  explicit HierarchyBuilder(std::vector<feature::FeatureBuilder> && fbs);
-  explicit HierarchyBuilder(std::vector<feature::FeatureBuilder> const & fbs);
-
-  void SetGetMainTypeFunction(GetMainTypeFn const & getMainType);
-  void SetFilter(std::shared_ptr<FilterInterface> const & filter);
-
-  Node::Ptrs Build();
-
-protected:
-  GetMainTypeFn m_getMainType;
-  std::shared_ptr<FilterInterface> m_filter;
-  std::vector<feature::FeatureBuilder> m_fbs;
-};
-
 class HierarchyEntryEnricher
 {
 public:
@@ -131,7 +111,7 @@ private:
 class HierarchyLinesBuilder
 {
 public:
-  HierarchyLinesBuilder(HierarchyBuilder::Node::Ptrs && trees);
+  HierarchyLinesBuilder(HierarchyLinker::Node::Ptrs && trees);
 
   void SetGetMainTypeFunction(GetMainTypeFn const & getMainType);
   void SetGetNameFunction(GetNameFn const & getName);
@@ -141,19 +121,23 @@ public:
   std::vector<HierarchyEntry> GetHierarchyLines();
 
 private:
-  m2::PointD GetCenter(HierarchyBuilder::Node::Ptr const & node);
-  HierarchyEntry Transform(HierarchyBuilder::Node::Ptr const & node);
+  m2::PointD GetCenter(HierarchyLinker::Node::Ptr const & node);
+  HierarchyEntry Transform(HierarchyLinker::Node::Ptr const & node);
 
-  HierarchyBuilder::Node::Ptrs m_trees;
+  HierarchyLinker::Node::Ptrs m_trees;
   GetMainTypeFn m_getMainType;
   GetNameFn m_getName;
   storage::CountryId m_countryName;
   std::unique_ptr<HierarchyEntryEnricher> m_enricher;
 };
 
+HierarchyLinker::Node::Ptrs BuildHierarchy(std::vector<feature::FeatureBuilder> && fbs,
+                                           GetMainTypeFn const & getMainType,
+                                           std::shared_ptr<FilterInterface> const & filter);
+
 // AddChildrenTo adds children to node of tree if fn returns not empty vector of HierarchyPlaces
 // for node id.
-void AddChildrenTo(HierarchyBuilder::Node::Ptrs & trees,
+void AddChildrenTo(HierarchyLinker::Node::Ptrs & trees,
                    std::function<std::vector<HierarchyPlace>(CompositeId const &)> const & fn);
 
 // FlattenBuildingParts transforms trees from
@@ -164,6 +148,6 @@ void AddChildrenTo(HierarchyBuilder::Node::Ptrs & trees,
 // building
 //        |_building-part
 //        |_building-part
-void FlattenBuildingParts(HierarchyBuilder::Node::Ptrs & trees);
+void FlattenBuildingParts(HierarchyLinker::Node::Ptrs & trees);
 }  // namespace hierarchy
 }  // namespace generator

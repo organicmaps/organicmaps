@@ -60,7 +60,7 @@ std::vector<feature::FeatureBuilder> MakeTestSet1()
   return fbs;
 }
 
-void TestDepthNodeById(generator::hierarchy::HierarchyBuilder::Node::Ptr const & tree, uint64_t id,
+void TestDepthNodeById(generator::hierarchy::HierarchyLinker::Node::Ptr const & tree, uint64_t id,
                        size_t depth)
 {
   auto osmId = base::MakeOsmWay(id);
@@ -71,11 +71,10 @@ void TestDepthNodeById(generator::hierarchy::HierarchyBuilder::Node::Ptr const &
 
 UNIT_CLASS_TEST(TestWithClassificator, ComplexHierarchy_FlattenBuildingParts)
 {
-  generator::hierarchy::HierarchyBuilder builder(MakeTestSet1());
-  builder.SetGetMainTypeFunction(generator::hierarchy::GetMainType);
-  builder.SetFilter(std::make_shared<generator::FilterComplex>());
-  auto trees = builder.Build();
 
+  auto trees = generator::hierarchy::BuildHierarchy(MakeTestSet1(),
+                                                    generator::hierarchy::GetMainType,
+                                                    std::make_shared<generator::FilterComplex>());
   TEST_EQUAL(trees.size(), 1, ());
   TEST_EQUAL(tree_node::Size(trees[0]), 4, ());
 
@@ -95,11 +94,9 @@ UNIT_CLASS_TEST(TestWithClassificator, ComplexHierarchy_FlattenBuildingParts)
 
 UNIT_CLASS_TEST(TestWithClassificator, ComplexHierarchy_AddChildrenTo)
 {
-  generator::hierarchy::HierarchyBuilder builder(MakeTestSet1());
-  builder.SetGetMainTypeFunction(generator::hierarchy::GetMainType);
-  builder.SetFilter(std::make_shared<generator::FilterComplex>());
-  auto trees = builder.Build();
-
+  auto trees = generator::hierarchy::BuildHierarchy(MakeTestSet1(),
+                                                    generator::hierarchy::GetMainType,
+                                                    std::make_shared<generator::FilterComplex>());
   TEST_EQUAL(trees.size(), 1, ());
   TEST_EQUAL(tree_node::Size(trees[0]), 4, ());
 

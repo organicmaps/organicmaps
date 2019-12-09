@@ -640,10 +640,7 @@ void ComplexFinalProcessor::Process()
         relationBuildingParts = RemoveRelationBuildingParts(fbs);
 
       // This case is second. We build a hierarchy using the geometry of objects and their nesting.
-      hierarchy::HierarchyBuilder builder(std::move(fbs));
-      builder.SetGetMainTypeFunction(m_getMainType);
-      builder.SetFilter(m_filter);
-      auto trees = builder.Build();
+      auto trees = hierarchy::BuildHierarchy(std::move(fbs), m_getMainType, m_filter);
 
       // We remove tree roots with tag 'building:part'.
       base::EraseIf(trees, [](auto const & node) {
@@ -704,23 +701,20 @@ ComplexFinalProcessor::RemoveRelationBuildingParts(std::vector<FeatureBuilder> &
 {
   CHECK(m_buildingToParts, ());
 
-  std::unordered_map<base::GeoObjectId, FeatureBuilder> relationBuildingParts;
-  auto last = std::end(fbs);
-  for (auto it = std::begin(fbs); it != last;)
-  {
-    if (m_buildingToParts->HasBuildingPart(it->GetMostGenericOsmId()))
-    {
-      relationBuildingParts.emplace(it->GetMostGenericOsmId(), *it);
-      std::iter_swap(it, --last);
-    }
-    else
-    {
-      ++it;
-    }
-  }
+  auto it = std::partition(std::begin(fbs), std::end(fbs), [&](auto const & fb) {
+    return !m_buildingToParts->HasBuildingPart(fb.GetMostGenericOsmId());
+  });
 
-  fbs.erase(last, std::end(fbs));
-  return relationBuildingParts;
+  std::unordered_map<base::GeoObjectId, FeatureBuilder> buildingParts;
+  buildingParts.reserve(static_cast<size_t>(std::distance(it, std::end(fbs))));
+
+  std::transform(it, std::end(fbs), std::inserter(buildingParts, std::begin(buildingParts)), [](auto && fb) {
+    auto const id = fb.GetMostGenericOsmId();
+    return std::make_pair(id, std::move(fb));
+  });
+
+  fbs.resize(static_cast<size_t>(std::distance(std::begin(fbs), it)));
+  return buildingParts;
 }
 
 void ComplexFinalProcessor::WriteLines(std::vector<HierarchyEntry> const & lines)

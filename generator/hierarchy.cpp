@@ -160,43 +160,6 @@ HierarchyLinker::Node::Ptrs HierarchyLinker::Link()
   return m_nodes;
 }
 
-HierarchyBuilder::HierarchyBuilder(std::vector<feature::FeatureBuilder> && fbs)
-  : m_fbs(std::move(fbs))
-{
-}
-
-HierarchyBuilder::HierarchyBuilder(std::vector<feature::FeatureBuilder> const & fbs)
-  : m_fbs(fbs)
-{
-}
-
-void HierarchyBuilder::SetGetMainTypeFunction(GetMainTypeFn const & getMainType)
-{
-  m_getMainType = getMainType;
-}
-
-void HierarchyBuilder::SetFilter(std::shared_ptr<FilterInterface> const & filter)
-{
-  m_filter = filter;
-}
-
-HierarchyBuilder::Node::Ptrs HierarchyBuilder::Build()
-{
-  CHECK(m_getMainType, ());
-
-  base::EraseIf(m_fbs, [&](auto const & fb) { return !m_filter->IsAccepted(fb); });
-  Node::Ptrs places;
-  places.reserve(m_fbs.size());
-  std::transform(std::cbegin(m_fbs), std::cend(m_fbs), std::back_inserter(places),
-                 [](auto const & fb) { return std::make_shared<Node>(HierarchyPlace(fb)); });
-  auto nodes = HierarchyLinker(std::move(places)).Link();
-  // We leave only the trees.
-  base::EraseIf(nodes, [](auto const & node) {
-    return node->HasParent();
-  });
-  return nodes;
-}
-
 HierarchyEntryEnricher::HierarchyEntryEnricher(std::string const & osm2FtIdsPath,
                                              std::string const & countryFullPath)
   : m_featureGetter(countryFullPath)
@@ -238,7 +201,7 @@ boost::optional<m2::PointD> HierarchyEntryEnricher::GetFeatureCenter(CompositeId
   return {};
 }
 
-HierarchyLinesBuilder::HierarchyLinesBuilder(HierarchyBuilder::Node::Ptrs && trees)
+HierarchyLinesBuilder::HierarchyLinesBuilder(HierarchyLinker::Node::Ptrs && trees)
   : m_trees(std::move(trees))
 {
 }
@@ -277,7 +240,7 @@ std::vector<HierarchyEntry> HierarchyLinesBuilder::GetHierarchyLines()
   return lines;
 }
 
-m2::PointD HierarchyLinesBuilder::GetCenter(HierarchyBuilder::Node::Ptr const & node)
+m2::PointD HierarchyLinesBuilder::GetCenter(HierarchyLinker::Node::Ptr const & node)
 {
   auto const & data = node->GetData();
   if (!m_enricher)
@@ -287,7 +250,7 @@ m2::PointD HierarchyLinesBuilder::GetCenter(HierarchyBuilder::Node::Ptr const & 
   return optCenter ? *optCenter : data.GetCenter();
 }
 
-HierarchyEntry HierarchyLinesBuilder::Transform(HierarchyBuilder::Node::Ptr const & node)
+HierarchyEntry HierarchyLinesBuilder::Transform(HierarchyLinker::Node::Ptr const & node)
 {
   HierarchyEntry line;
   auto const & data = node->GetData();
@@ -304,7 +267,25 @@ HierarchyEntry HierarchyLinesBuilder::Transform(HierarchyBuilder::Node::Ptr cons
   return line;
 }
 
-void AddChildrenTo(HierarchyBuilder::Node::Ptrs & trees,
+HierarchyLinker::Node::Ptrs BuildHierarchy(std::vector<feature::FeatureBuilder> && fbs,
+                                           GetMainTypeFn const & getMainType,
+                                           std::shared_ptr<FilterInterface> const & filter)
+{
+  base::EraseIf(fbs, [&](auto const & fb) { return !filter->IsAccepted(fb); });
+  HierarchyLinker::Node::Ptrs places;
+  places.reserve(fbs.size());
+  std::transform(std::cbegin(fbs), std::cend(fbs), std::back_inserter(places),
+                 [](auto const & fb) { return tree_node::MakeTreeNode(HierarchyPlace(fb)); });
+  auto nodes = HierarchyLinker(std::move(places)).Link();
+  // We leave only the trees.
+  base::EraseIf(nodes, [](auto const & node) {
+    return node->HasParent();
+  });
+  return nodes;
+}
+
+
+void AddChildrenTo(HierarchyLinker::Node::Ptrs & trees,
                    std::function<std::vector<HierarchyPlace>(CompositeId const &)> const & fn)
 {
   for (auto & tree : trees)
@@ -323,7 +304,7 @@ void AddChildrenTo(HierarchyBuilder::Node::Ptrs & trees,
   }
 }
 
-void FlattenBuildingParts(HierarchyBuilder::Node::Ptrs & trees)
+void FlattenBuildingParts(HierarchyLinker::Node::Ptrs & trees)
 {
   for (auto & tree : trees)
   {
@@ -331,11 +312,11 @@ void FlattenBuildingParts(HierarchyBuilder::Node::Ptrs & trees)
     CHECK(!tree->HasParent(), ());
 
     std::vector<
-        std::pair<hierarchy::HierarchyBuilder::Node::Ptr, hierarchy::HierarchyBuilder::Node::Ptr>>
+        std::pair<hierarchy::HierarchyLinker::Node::Ptr, hierarchy::HierarchyLinker::Node::Ptr>>
         buildingPartsTrees;
 
     static auto const & buildingPartChecker = ftypes::IsBuildingPartChecker::Instance();
-    std::function<void(hierarchy::HierarchyBuilder::Node::Ptr const &)> visit;
+    std::function<void(hierarchy::HierarchyLinker::Node::Ptr const &)> visit;
     visit = [&](auto const & n) {
       if (buildingPartChecker(n->GetData().GetTypes()))
       {
