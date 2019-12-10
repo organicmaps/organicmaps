@@ -213,9 +213,8 @@ UNIT_TEST(Manage_MiniRoundabout_1Road)
   AddPointToCircle(circlePlain, newPointOnRoad);
 
   std::vector<m2::PointD> const circlePlainExpected{
-      {11.50013, 85.06309}, {11.50012, 85.06310}, {11.50011, 85.06310},
-      {11.50010, 85.06309},{11.50010, 85.06306}, {11.50012, 85.06305},
-      {11.50013, 85.06306}};
+      {11.50013, 85.06309}, {11.50012, 85.06310}, {11.50011, 85.06310}, {11.50010, 85.06309},
+      {11.50010, 85.06306}, {11.50012, 85.06305}, {11.50013, 85.06306}};
 
   TestRunCmpPoints(circlePlain, circlePlainExpected, r);
 }
@@ -253,10 +252,9 @@ UNIT_TEST(Manage_MiniRoundabout_4Roads)
                                center, r));
 
   std::vector<m2::PointD> const circlePlainExpected{
-      {-0.47381, 60.67520}, {-0.47383, 60.67521}, {-0.47384, 60.67521},
-      {-0.47385, 60.67520},{-0.47386, 60.67520}, {-0.47385, 60.67518},
-      {-0.47385, 60.67518}, {-0.47383,60.67517}, {-0.47381,60.67518},
-      {-0.47381, 60.67518}};
+      {-0.47381, 60.67520}, {-0.47383, 60.67521}, {-0.47384, 60.67521}, {-0.47385, 60.67520},
+      {-0.47386, 60.67520}, {-0.47385, 60.67518}, {-0.47385, 60.67518}, {-0.47383, 60.67517},
+      {-0.47381, 60.67518}, {-0.47381, 60.67518}};
   TestRunCmpPoints(circlePlain, circlePlainExpected, r);
 }
 
@@ -264,8 +262,7 @@ UNIT_TEST(Manage_MiniRoundabout_EqualPoints)
 {
   auto const miniRoundabout = MiniRoundabout(1, 10.0, 10.0);
 
-  m2::PointD const center =
-      mercator::FromLatLon({miniRoundabout.m_lat, miniRoundabout.m_lon});
+  m2::PointD const center = mercator::FromLatLon({miniRoundabout.m_lat, miniRoundabout.m_lon});
 
   double const r = mercator::MetersToMercator(5.0);
 
