@@ -20,11 +20,6 @@
 
 namespace generator
 {
-// TODO (@gmoryes) add "inline static ..." after moving to c++17
-double constexpr CamerasInfoCollector::Camera::kCoordEqualityEps;
-double constexpr CamerasInfoCollector::kMaxDistFromCameraToClosestSegmentMeters;
-double constexpr CamerasInfoCollector::kSearchCameraRadiusMeters;
-
 CamerasInfoCollector::CamerasInfoCollector(std::string const & dataFilePath,
                                            std::string const & camerasInfoPath,
                                            std::string const & osmIdsToFeatureIdsPath)

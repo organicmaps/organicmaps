@@ -41,7 +41,7 @@ public:
 private:
   struct Camera
   {
-    static double constexpr kCoordEqualityEps = 1e-5;
+    inline static double constexpr kCoordEqualityEps = 1e-5;
 
     Camera(m2::PointD const & center, uint8_t maxSpeed, std::vector<routing::SpeedCameraMwmPosition> && ways)
       : m_data(center, maxSpeed, std::move(ways))
@@ -77,8 +77,8 @@ private:
     routing::SpeedCameraMetadata m_data;
   };
 
-  static double constexpr kMaxDistFromCameraToClosestSegmentMeters = 20.0;
-  static double constexpr kSearchCameraRadiusMeters = 10.0;
+  inline static double constexpr kMaxDistFromCameraToClosestSegmentMeters = 20.0;
+  inline static double constexpr kSearchCameraRadiusMeters = 10.0;
 
   bool ParseIntermediateInfo(std::string const & camerasInfoPath,
                              std::map<base::GeoObjectId, uint32_t> const & osmIdToFeatureId);
