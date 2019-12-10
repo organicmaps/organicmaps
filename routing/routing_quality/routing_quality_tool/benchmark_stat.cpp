@@ -80,7 +80,33 @@ void RunBenchmarkStat(
                               "Percent of routes builded less than", countToTimes);
 
   pythonScriptPath = base::JoinPath(dirForResults, kPythonBarError);
-  CreatePythonBarByMap(pythonScriptPath, m_errorCounter, "Type of errors", "Number of errors");
+
+  std::vector<std::string> labels;
+  std::vector<double> heights;
+  for (auto const & item : benchmarkResults.GetErrorsDistribution())
+  {
+    labels.emplace_back(item.first);
+    heights.emplace_back(item.second);
+  }
+
+  CreatePythonBarByMap(pythonScriptPath, labels, {heights}, {"mapsme"} /* legends */,
+                       "Type of errors" /* xlabel */, "Number of errors" /* ylabel */);
+}
+
+void CheckConsistency(RoutesBuilder::Result const & oldRes, RoutesBuilder::Result const & newRes)
+{
+  auto const start = mercator::ToLatLon(oldRes.m_params.m_checkpoints.GetStart());
+  auto const finish = mercator::ToLatLon(oldRes.m_params.m_checkpoints.GetFinish());
+  auto const & oldRoute = oldRes.m_routes.back();
+  auto const & newRoute = newRes.m_routes.back();
+
+  bool const sameETA = base::AlmostEqualAbs(oldRoute.m_eta, newRoute.m_eta, 1.0);
+  bool const sameDistance = base::AlmostEqualAbs(oldRoute.m_distance, newRoute.m_distance, 1.0);
+  if (!sameETA || !sameDistance)
+  {
+    LOG(LINFO, ("old ETA:", oldRoute.m_eta, "old distance:", oldRoute.m_distance, "new ETA:",
+                newRoute.m_eta, "new distance:", newRoute.m_distance, start, finish));
+  }
 }
 
 void RunBenchmarkComparison(
@@ -88,7 +114,134 @@ void RunBenchmarkComparison(
     std::vector<std::pair<RoutesBuilder::Result, std::string>> && mapsmeOldResults,
     std::string const & dirForResults)
 {
-  UNREACHABLE();
+  BenchmarkResults benchmarkResults;
+  BenchmarkResults benchmarkOldResults;
+  std::vector<double> etaDiffsPercent;
+  std::vector<double> etaDiffs;
+
+  std::vector<std::future<RoutesBuilder::Result>> modes;
+  RoutesBuilder builder(std::thread::hardware_concurrency());
+  {
+    base::ScopedLogLevelChanger changer(base::LogLevel::LERROR);
+    for (auto & item : mapsmeResults)
+    {
+      auto const & mapsmeResult = item.first;
+      RoutesBuilder::Params params;
+      auto const & start = mapsmeResult.m_params.m_checkpoints.GetStart();
+      auto const & finish = mapsmeResult.m_params.m_checkpoints.GetFinish();
+      params.m_checkpoints = {start, finish};
+      params.m_timeoutSeconds = 0;
+      auto future = builder.ProcessTaskAsync(params);
+      modes.emplace_back(std::move(future));
+    }
+
+    for (size_t i = 0; i < mapsmeResults.size(); ++i)
+    {
+      auto const & mapsmeResult = mapsmeResults[i].first;
+
+      std::pair<RoutesBuilder::Result, std::string> mapsmeOldResultPair;
+      if (!FindAnotherResponse(mapsmeResult, mapsmeOldResults, mapsmeOldResultPair))
+      {
+        LOG(LDEBUG, ("Can not find pair for:", i));
+        continue;
+      }
+
+      auto const result = modes[i].get();
+      WorldGraphMode mode = result.m_routingAlgorithMode;
+      if (mode != WorldGraphMode::LeapsOnly)
+        continue;
+
+      auto const & mapsmeOldResult = mapsmeOldResultPair.first;
+
+      benchmarkResults.PushError(mapsmeResult.m_code);
+      benchmarkOldResults.PushError(mapsmeOldResult.m_code);
+
+      if (IsErrorCode(mapsmeResult.m_code) && !IsErrorCode(mapsmeOldResult.m_code))
+      {
+        auto const start = mercator::ToLatLon(mapsmeResult.m_params.m_checkpoints.GetStart());
+        auto const finish = mercator::ToLatLon(mapsmeResult.m_params.m_checkpoints.GetFinish());
+        LOG_FORCE(LWARNING, ("New version returns error code:", mapsmeResult.m_code,
+                             "but old returns NoError for:", start, finish));
+      }
+
+      if (IsErrorCode(mapsmeResult.m_code) || IsErrorCode(mapsmeOldResult.m_code))
+        continue;
+
+      CheckConsistency(mapsmeOldResult, mapsmeResult);
+      auto const etaDiff =
+          (mapsmeOldResult.m_routes.back().m_eta - mapsmeResult.m_routes.back().m_eta);
+      auto const etaDiffPercent = etaDiff / mapsmeOldResult.m_routes.back().m_eta * 100.0;
+
+      etaDiffs.emplace_back(etaDiff);
+      etaDiffsPercent.emplace_back(etaDiffPercent);
+
+      benchmarkResults.PushBuildTime(mapsmeResult.m_buildTimeSeconds);
+      benchmarkOldResults.PushBuildTime(mapsmeOldResult.m_buildTimeSeconds);
+    }
+  }
+
+  LOG(LINFO, ("Get", benchmarkResults.GetBuildTimes().size(), "routes after filter."));
+
+  LOG(LINFO,
+      ("Average route time building. "
+       "Old version:", benchmarkOldResults.GetAverageBuildTime(),
+       "new version:", benchmarkResults.GetAverageBuildTime()));
+
+  std::vector<std::vector<m2::PointD>> graphics;
+  for (auto const & results : {benchmarkOldResults, benchmarkResults})
+  {
+    auto times = results.GetBuildTimes();
+    std::sort(times.begin(), times.end());
+    std::vector<m2::PointD> countToTimes(times.size());
+    for (size_t i = 0; i < countToTimes.size(); ++i)
+    {
+      countToTimes[i].x = times[i];
+      countToTimes[i].y = static_cast<double>(i + 1) / times.size() * 100.0;
+    }
+
+    graphics.emplace_back(std::move(countToTimes));
+  }
+
+  auto pythonScriptPath = base::JoinPath(dirForResults, kPythonGraphTimeAndCount);
+  CreatePythonGraphByPointsXY(pythonScriptPath, "Building time, seconds" /* xlabel */,
+                              "Percent of routes built less than" /* ylabel */,
+                              graphics, {"old mapsme", "new mapsme"} /* legends */);
+
+  std::vector<std::string> labels;
+  std::vector<std::vector<double>> errorsCount(2);
+  for (auto const & item : benchmarkOldResults.GetErrorsDistribution())
+  {
+    labels.emplace_back(item.first);
+    errorsCount[0].emplace_back(item.second);
+  }
+
+  for (auto const & item : benchmarkResults.GetErrorsDistribution())
+    errorsCount[1].emplace_back(item.second);
+
+  pythonScriptPath = base::JoinPath(dirForResults, kPythonBarError);
+  CreatePythonBarByMap(pythonScriptPath, labels, errorsCount,
+                       {"old mapsme", "new mapsme"} /* legends */,
+                       "Type of errors" /* xlabel */, "Number of errors" /* ylabel */);
+
+  std::vector<double> boostPercents;
+  for (size_t i = 0; i < benchmarkOldResults.GetBuildTimes().size(); ++i)
+  {
+    auto const oldTime = benchmarkOldResults.GetBuildTimes()[i];
+    auto const newTime = benchmarkResults.GetBuildTimes()[i];
+    auto const diffPercent = (oldTime - newTime) / oldTime * 100.0;
+    boostPercents.emplace_back(diffPercent);
+  }
+
+  pythonScriptPath = base::JoinPath(dirForResults, kPythonBarBoostPercentDistr);
+  CreatePythonScriptForDistribution(pythonScriptPath, "Boost percent" /* title */, boostPercents);
+
+  pythonScriptPath = base::JoinPath(dirForResults, "eta_diff.py");
+  CreatePythonScriptForDistribution(pythonScriptPath, "Eta diff distribution" /* title */,
+                                    etaDiffs);
+
+  pythonScriptPath = base::JoinPath(dirForResults, "eta_diff_percent.py");
+  CreatePythonScriptForDistribution(pythonScriptPath, "Eta diff percent distribution" /* title */,
+                                    etaDiffsPercent);
 }
 }  // namespace routing_quality_tool
 }  // namespace routing_quality
