@@ -72,6 +72,12 @@ inline std::string GetDefaultStr(LocalizableString const & str)
 
 inline void SetDefaultStr(LocalizableString & localizableStr, std::string const & str)
 {
+  if (str.empty())
+  {
+    localizableStr.erase(kDefaultLangCode);
+    return;
+  }
+    
   localizableStr[kDefaultLangCode] = str;
 }
 

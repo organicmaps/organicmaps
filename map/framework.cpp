@@ -767,7 +767,8 @@ void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) 
   info.SetBookmarkData(bmk.GetData());
   info.SetBookmarkId(bmk.GetId());
   info.SetBookmarkCategoryId(bmk.GetGroupId());
-  auto openingMode = m_routingManager.IsRoutingActive()
+  auto const description = GetPreferredBookmarkStr(info.GetBookmarkData().m_description);
+  auto const openingMode = m_routingManager.IsRoutingActive() || description.empty()
                      ? place_page::OpeningMode::Preview
                      : place_page::OpeningMode::PreviewPlus;
   info.SetOpeningMode(openingMode);
