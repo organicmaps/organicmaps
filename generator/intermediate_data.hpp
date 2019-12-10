@@ -182,7 +182,7 @@ private:
 class OSMElementCacheWriter
 {
 public:
-  explicit OSMElementCacheWriter(std::string const & name, bool preload = false);
+  explicit OSMElementCacheWriter(std::string const & name);
 
   template <typename Value>
   void Write(Key id, Value const & value)
@@ -206,7 +206,6 @@ private:
   IndexFileWriter m_offsets;
   std::string m_name;
   std::vector<uint8_t> m_data;
-  bool m_preload = false;
 };
 
 class IntermediateDataReaderInterface

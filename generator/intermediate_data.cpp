@@ -362,8 +362,8 @@ OSMElementCacheReader::OSMElementCacheReader(string const & name, bool preload, 
 }
 
 // OSMElementCacheWriter ---------------------------------------------------------------------------
-OSMElementCacheWriter::OSMElementCacheWriter(string const & name, bool preload)
-  : m_fileWriter(name), m_offsets(name + OFFSET_EXT), m_name(name), m_preload(preload)
+OSMElementCacheWriter::OSMElementCacheWriter(string const & name)
+  : m_fileWriter(name), m_offsets(name + OFFSET_EXT), m_name(name)
 {
 }
 
@@ -384,8 +384,8 @@ IntermediateDataReader::IntermediateDataReader(PointStorageReaderInterface const
 IntermediateDataWriter::IntermediateDataWriter(PointStorageWriterInterface & nodes,
                                                feature::GenerateInfo const & info)
   : m_nodes(nodes)
-  , m_ways(info.GetIntermediateFileName(WAYS_FILE), info.m_preloadCache)
-  , m_relations(info.GetIntermediateFileName(RELATIONS_FILE), info.m_preloadCache)
+  , m_ways(info.GetIntermediateFileName(WAYS_FILE))
+  , m_relations(info.GetIntermediateFileName(RELATIONS_FILE))
   , m_nodeToRelations(info.GetIntermediateFileName(NODES_FILE, ID2REL_EXT))
   , m_wayToRelations(info.GetIntermediateFileName(WAYS_FILE, ID2REL_EXT))
   , m_relationToRelations(info.GetIntermediateFileName(RELATIONS_FILE, ID2REL_EXT))
