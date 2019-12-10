@@ -734,9 +734,6 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
 
   params.m_currentLocaleCode = m_currentLocaleCode;
 
-  if (viewportSearch)
-    params.m_viewport = GetViewport();
-
   params.m_batchSize = searchParams.m_batchSize;
   params.m_limit = searchParams.m_maxNumResults;
   params.m_pivot = m_position ? *m_position : GetViewport().Center();
@@ -751,6 +748,7 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
   params.m_categoryLocales = GetCategoryLocales();
   params.m_accuratePivotCenter = GetPivotPoint(viewportSearch);
   params.m_viewportSearch = viewportSearch;
+  params.m_viewport = GetViewport();
   params.m_categorialRequest = geocoderParams.IsCategorialRequest();
 
   m_ranker.Init(params, geocoderParams);
