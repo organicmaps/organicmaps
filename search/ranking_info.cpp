@@ -16,40 +16,45 @@ namespace
 {
 // See search/search_quality/scoring_model.py for details.  In short,
 // these coeffs correspond to coeffs in a linear model.
-double constexpr kDistanceToPivot = -0.6874177;
-double constexpr kRank = 1.0000000;
-// todo: (@t.yan) Adjust.
-double constexpr kPopularity = 0.0500000;
-// todo: (@t.yan) Adjust.
-double constexpr kRating = 0.0500000;
-double constexpr kFalseCats = -1.0000000;
-double constexpr kErrorsMade = -0.1676639;
-double constexpr kMatchedFraction = 0.3178023;
-double constexpr kAllTokensUsed = 0.5873744;
 double constexpr kHasName = 0.5;
+double constexpr kCategoriesPopularity = 0.05;
+double constexpr kCategoriesDistanceToPivot = -0.6874177;
+double constexpr kCategoriesRank = 1.0000000;
+double constexpr kCategoriesRating = 0.0500000;
+double constexpr kCategoriesFalseCats = -1.0000000;
+
+double constexpr kDistanceToPivot = -0.2123693;
+double constexpr kRank = 0.1065355;
+double constexpr kPopularity = 1.0000000;
+double constexpr kRating = 0.0716319;
+double constexpr kFalseCats = -0.4172461;
+double constexpr kErrorsMade = -0.0391331;
+double constexpr kMatchedFraction = 0.1876736;
+double constexpr kAllTokensUsed = 0.0478513;
 double constexpr kNameScore[NameScore::NAME_SCORE_COUNT] = {
-  0.0152243 /* Zero */,
-  -0.0259815 /* Substring */,
-  -0.0287346 /* Prefix */,
-  0.0394918 /* Full Match */
+  0.0085962 /* Zero */,
+  -0.0099698 /* Substring */,
+  -0.0158311 /* Prefix */,
+  0.0172047 /* Full Match */
 };
 double constexpr kType[Model::TYPE_COUNT] = {
-  -0.2041635 /* POI */,
-  -0.2041635 /* Building */,
-  -0.1595715 /* Street */,
-  -0.1821077 /* Unclassified */,
-  -0.1371902 /* Village */,
-  0.1800898 /* City */,
-  0.2355436 /* State */,
-  0.2673996 /* Country */
+  -0.0467816 /* POI */,
+  -0.0467816 /* Building */,
+  -0.0444630 /* Street */,
+  -0.0348396 /* Unclassified */,
+  -0.0725383 /* Village */,
+  0.0073583 /* City */,
+  0.0233254 /* State */,
+  0.1679389 /* Country */
 };
 
 // Coeffs sanity checks.
+static_assert(kHasName >= 0, "");
+static_assert(kCategoriesPopularity >= 0, "");
 static_assert(kDistanceToPivot <= 0, "");
 static_assert(kRank >= 0, "");
 static_assert(kPopularity >= 0, "");
 static_assert(kErrorsMade <= 0, "");
-static_assert(kHasName >= 0, "");
 
 double TransformDistance(double distance)
 {
@@ -158,13 +163,13 @@ double RankingInfo::GetLinearModelRank() const
   }
 
   double result = 0.0;
-  result += kDistanceToPivot * distanceToPivot;
-  result += kRank * rank;
-  result += kPopularity * popularity;
-  result += kRating * rating;
-  result += m_falseCats * kFalseCats;
   if (!m_categorialRequest)
   {
+    result += kDistanceToPivot * distanceToPivot;
+    result += kRank * rank;
+    result += kPopularity * popularity;
+    result += kRating * rating;
+    result += m_falseCats * kFalseCats;
     result += kType[m_type];
     result += kNameScore[nameScore];
     result += kErrorsMade * GetErrorsMadePerToken();
@@ -173,6 +178,11 @@ double RankingInfo::GetLinearModelRank() const
   }
   else
   {
+    result += kCategoriesDistanceToPivot * distanceToPivot;
+    result += kCategoriesRank * rank;
+    result += kCategoriesPopularity * popularity;
+    result += kCategoriesRating * rating;
+    result += kCategoriesFalseCats * kFalseCats;
     result += m_hasName * kHasName;
   }
   return result;
