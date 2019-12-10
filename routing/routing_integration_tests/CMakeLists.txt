@@ -15,6 +15,7 @@ set(
   online_cross_tests.cpp
   pedestrian_route_test.cpp
   road_graph_tests.cpp
+  roundabouts_tests.cpp
   route_test.cpp
   routing_test_tools.cpp
   routing_test_tools.hpp
