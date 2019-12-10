@@ -12,6 +12,8 @@
 #include "generator/type_helper.hpp"
 #include "generator/utils.hpp"
 
+#include "routing/speed_camera_prohibition.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
 
@@ -469,9 +471,19 @@ void CountryFinalProcessor::Finish()
       auto const fullPath = base::JoinPath(m_temporaryMwmPath, filename);
       auto fbs = ReadAllDatRawFormat<MaxAccuracy>(fullPath);
       Sort(fbs);
+
+      auto const isProhibited = routing::AreSpeedCamerasProhibited(platform::CountryFile(filename));
+      static auto const speedCameraType = classif().GetTypeByPath({"highway", "speed_camera"});
+
       FeatureBuilderWriter<> collector(fullPath);
       for (auto & fb : fbs)
+      {
+        // Removing point features with speed cameras type from geometry index for some countries.
+        if (isProhibited && fb.IsPoint() && fb.HasType(speedCameraType))
+          continue;
+
         collector.Write(fb);
+      }
     });
   });
 }

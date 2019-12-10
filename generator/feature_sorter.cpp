@@ -311,16 +311,8 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
 
   // stores cellIds for middle points
   CalculateMidPoints midPoints;
-  platform::CountryFile const country(name);
-  bool const speedCamerasProhibitedMwm = routing::AreSpeedCamerasProhibited(country);
-  uint32_t const speedCameraType = classif().GetTypeByPath({"highway", "speed_camera"});
-  ForEachFromDatRawFormat(srcFilePath, [&speedCamerasProhibitedMwm, &speedCameraType, &midPoints](
-                                           FeatureBuilder const & ft, uint64_t pos) {
-    // Removing point features with speed cameras type from geometry index for some countries.
-    if (speedCamerasProhibitedMwm && ft.IsPoint() && ft.HasType(speedCameraType))
-      return;
-
-    midPoints(ft, pos);
+  ForEachFromDatRawFormat(srcFilePath, [&midPoints](FeatureBuilder const & fb, uint64_t pos) {
+    midPoints(fb, pos);
   });
 
   // sort features by their middle point
