@@ -710,15 +710,12 @@ uint64_t GetPopulation(FeatureType & ft)
   {
     switch (IsLocalityChecker::Instance().GetType(ft))
     {
-    case LocalityType::City:
-    case LocalityType::Town:
-      population = 10000;
-      break;
-    case LocalityType::Village:
-      population = 100;
-      break;
-    default:
-      population = 0;
+    case LocalityType::Country: population = 500000; break;
+    case LocalityType::State: population = 100000; break;
+    case LocalityType::City: population = 50000; break;
+    case LocalityType::Town: population = 10000; break;
+    case LocalityType::Village: population = 100; break;
+    default: population = 0;
     }
   }
 
