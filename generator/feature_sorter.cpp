@@ -21,6 +21,7 @@
 
 #include "platform/country_file.hpp"
 #include "platform/mwm_version.hpp"
+#include "platform/platform.hpp"
 
 #include "coding/files_container.hpp"
 #include "coding/internal/file_data.hpp"
@@ -309,41 +310,33 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
   string const srcFilePath = info.GetTmpFileName(name);
   string const datFilePath = info.GetTargetFileName(name);
 
-  // stores cellIds for middle points
+  // Store cellIds for middle points.
   CalculateMidPoints midPoints;
   ForEachFromDatRawFormat(srcFilePath, [&midPoints](FeatureBuilder const & fb, uint64_t pos) {
     midPoints(fb, pos);
   });
 
-  // sort features by their middle point
+  // Sort features by their middle point.
   midPoints.Sort();
 
-  // store sorted features
+  // Store sorted features.
   {
     FileReader reader(srcFilePath);
-
-    bool const isWorld = (mapType != DataHeader::MapType::Country);
-
     // Fill mwm header.
     DataHeader header;
 
+    bool const isWorldOrWorldCoasts = (mapType != DataHeader::MapType::Country);
     uint8_t coordBits = kFeatureSorterPointCoordBits;
-    if (isWorld)
+    if (isWorldOrWorldCoasts)
       coordBits -= ((scales::GetUpperScale() - scales::GetUpperWorldScale()) / 2);
 
-    // coding params
+    header.SetType(static_cast<DataHeader::MapType>(mapType));
     header.SetGeometryCodingParams(serial::GeometryCodingParams(coordBits, midPoints.GetCenter()));
-
-    // scales
-    if (isWorld)
+    if (isWorldOrWorldCoasts)
       header.SetScales(g_arrWorldScales);
     else
       header.SetScales(g_arrCountryScales);
 
-    // type
-    header.SetType(static_cast<DataHeader::MapType>(mapType));
-
-    // region data
     RegionData regionData;
     if (!ReadRegionData(name, regionData))
       LOG(LWARNING, ("No extra data for country:", name));
@@ -351,6 +344,9 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
     // Transform features from raw format to optimized format.
     try
     {
+      // FeaturesCollector2 will create temprory file `datFilePath + DATA_FILE_TAG`.
+      // We cannot remove it in ~FeaturesCollector2(), we need to remove it in SCOPE_GUARD.
+      SCOPE_GUARD(_, [&](){ Platform::RemoveFileIfExists(datFilePath + DATA_FILE_TAG); });
       FeaturesCollector2 collector(datFilePath, header, regionData, info.m_versionDate);
 
       for (auto const & point : midPoints.GetVector())
@@ -360,8 +356,6 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
 
         FeatureBuilder fb;
         ReadFromSourceRawFormat(src, fb);
-
-        // emit the feature
         collector(fb);
       }
 
@@ -378,13 +372,9 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
     catch (RootException const & ex)
     {
       LOG(LCRITICAL, ("MWM writing error:", ex.Msg()));
+      return false;
     }
-
-    // at this point files should be closed
   }
-
-  // remove old not-sorted dat file
-  FileWriter::DeleteFileX(datFilePath + DATA_FILE_TAG);
 
   return true;
 }
