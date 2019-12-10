@@ -33,8 +33,8 @@ public:
     virtual ~Delegate() = default;
     virtual ugc::Api & GetUGCApi() = 0;
     virtual std::unordered_set<storage::CountryId> GetDescendantCountries(
-        storage::CountryId const & country) = 0;
-    virtual storage::CountryId GetCountryAtPoint(m2::PointD const & pt) = 0;
+        storage::CountryId const & country) const = 0;
+    virtual storage::CountryId GetCountryAtPoint(m2::PointD const & pt) const = 0;
     virtual std::string GetAddress(m2::PointD const & pt) = 0;
   };
 

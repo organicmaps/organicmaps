@@ -185,14 +185,11 @@ void NotificationManager::DeleteCandidatesForCountry(storage::CountryId const & 
   auto & candidates = m_queue.m_candidates;
   size_t const sizeBefore = candidates.size();
 
-  candidates.erase(std::remove_if(candidates.begin(), candidates.end(),
-                                  [this, &countries](auto const & item) {
-                                    auto const itemCountry =
-                                        m_delegate->GetCountryAtPoint(item.GetPos());
-                                    return std::find(countries.cbegin(), countries.cend(),
-                                                     itemCountry) != countries.cend();
-                                  }),
-                   candidates.end());
+  base::EraseIf(candidates, [this, &countries](auto const & item)
+  {
+    auto const itemCountry = m_delegate->GetCountryAtPoint(item.GetPos());
+    return countries.count(itemCountry) != 0;
+  });
 
   if (sizeBefore != candidates.size())
     VERIFY(Save(), ());

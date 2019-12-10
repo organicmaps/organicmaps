@@ -40,8 +40,8 @@ public:
   // NotificationManager::Delegate overrides:
   ugc::Api & GetUGCApi() override;
   std::unordered_set<storage::CountryId> GetDescendantCountries(
-      storage::CountryId const & country) override;
-  storage::CountryId GetCountryAtPoint(m2::PointD const & pt) override;
+      storage::CountryId const & country) const override;
+  storage::CountryId GetCountryAtPoint(m2::PointD const & pt) const override;
   std::string GetAddress(m2::PointD const & pt) override;
 
 private:

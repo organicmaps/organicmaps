@@ -34,7 +34,7 @@ ugc::Api & NotificationManagerDelegate::GetUGCApi()
 }
 
 std::unordered_set<storage::CountryId> NotificationManagerDelegate::GetDescendantCountries(
-    storage::CountryId const & country)
+    storage::CountryId const & country) const
 {
   std::unordered_set<storage::CountryId> result;
   auto const fn = [&result](storage::CountryId const & countryId, bool isGroupNode)
@@ -48,7 +48,7 @@ std::unordered_set<storage::CountryId> NotificationManagerDelegate::GetDescendan
   return result;
 }
 
-storage::CountryId NotificationManagerDelegate::GetCountryAtPoint(m2::PointD const & pt)
+storage::CountryId NotificationManagerDelegate::GetCountryAtPoint(m2::PointD const & pt) const
 {
   return m_countryInfoGetter.GetRegionCountryId(pt);
 }

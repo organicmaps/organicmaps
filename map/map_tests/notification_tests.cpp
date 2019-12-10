@@ -34,12 +34,12 @@ public:
     }
 
     std::unordered_set<storage::CountryId> GetDescendantCountries(
-        storage::CountryId const & country) override
+        storage::CountryId const & country) const override
     {
       return {{"South Korea_North"}, {"South Korea_South"}};
     }
 
-    storage::CountryId GetCountryAtPoint(m2::PointD const & pt) override
+    storage::CountryId GetCountryAtPoint(m2::PointD const & pt) const override
     {
       return "South Korea_North";
     }
@@ -327,6 +327,12 @@ UNIT_CLASS_TEST(ScopedNotificationsQueue, Notifications_DeleteCanidatesForCountr
 
   TEST_EQUAL(notificationManager.GetEditableQueue().m_candidates.size(), 1, ());
   notificationManager.DeleteCandidatesForCountry("South Korea_North");
+  TEST_EQUAL(notificationManager.GetEditableQueue().m_candidates.size(), 0, ());
+
+  notificationManager.GetEditableQueue().m_candidates.push_back({mapObject, ""});
+
+  TEST_EQUAL(notificationManager.GetEditableQueue().m_candidates.size(), 1, ());
+  notificationManager.DeleteCandidatesForCountry("South Korea");
   TEST_EQUAL(notificationManager.GetEditableQueue().m_candidates.size(), 0, ());
 }
 }  // namespace
