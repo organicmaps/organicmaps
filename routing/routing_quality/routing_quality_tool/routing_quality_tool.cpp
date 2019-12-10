@@ -25,7 +25,7 @@ DEFINE_string(mapsme_old_results, "", "Path to directory with previous mapsme ro
 DEFINE_string(mapsme_results, "", "Path to directory with mapsme router results.");
 DEFINE_string(api_results, "", "Path to directory with api router results.");
 
-DEFINE_string(save_result, "", "The directory where results of tool will be saved.");
+DEFINE_string(save_results, "", "The directory where results of tool will be saved.");
 
 DEFINE_double(kml_percent, 0.0, "The percent of routes for which kml file will be generated."
                                 "With kml files you can make screenshots with desktop app of MAPS.ME");
@@ -64,7 +64,7 @@ void PrintResults(std::vector<Result> && results, RoutesSaver & routesSaver)
   LOG(LINFO, ("Average similarity:", sumSimilarity / results.size()));
   LOG(LINFO, ("Average eta difference by fullmathed routes:", sumETADiffPercent / goodETANumber, "%"));
 
-  auto const pythonScriptPath = base::JoinPath(FLAGS_save_result, kPythonDistribution);
+  auto const pythonScriptPath = base::JoinPath(FLAGS_save_results, kPythonDistribution);
 
   std::vector<double> values;
   values.reserve(results.size());
@@ -92,9 +92,14 @@ bool IsMapsmeVsMapsme()
   return !FLAGS_mapsme_results.empty() && !FLAGS_mapsme_old_results.empty();
 }
 
-bool IsBenchmarkStat()
+bool IsMapsmeBenchmarkStat()
 {
-  return !FLAGS_mapsme_results.empty() && FLAGS_benchmark_stat;
+  return !FLAGS_mapsme_results.empty() && FLAGS_benchmark_stat && FLAGS_mapsme_old_results.empty();
+}
+
+bool IsMapsmeVsMapsmeBenchmarkStat()
+{
+  return !FLAGS_mapsme_results.empty() && FLAGS_benchmark_stat && !FLAGS_mapsme_old_results.empty();
 }
 
 void CheckDirExistence(std::string const & dir)
@@ -108,7 +113,7 @@ void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> &&
 {
   ComparisonType type = IsMapsmeVsApi() ? ComparisonType::MapsmeVsApi
                                         : ComparisonType::MapsmeVsMapsme;
-  RoutesSaver routesSaver(FLAGS_save_result, type);
+  RoutesSaver routesSaver(FLAGS_save_results, type);
   std::vector<Result> results;
   size_t apiErrors = 0;
 
@@ -172,41 +177,83 @@ void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> &&
   PrintResults(std::move(results), routesSaver);
 }
 
+void PrintHelp()
+{
+  static std::vector<std::pair<std::vector<std::string>, std::string>> kRequiredOptions = {
+      {{"--mapsme_results", "--api_results"},
+       "to compare mapsme and api."},
+
+      {{"--mapsme_results", "--mapsme_old_results"},
+       "to compare mapsme and old mapsme version."},
+
+      {{"--mapsme_results", "--benchmark_stat"},
+       "to calculate benchmark statistic of mapsme."},
+
+      {{"--mapsme_results", "--mapsme_old_results", "--benchmark_stat"},
+       "to calculate different statistics of comparison mapsme and old mapsme version."}};
+
+  std::stringstream ss;
+  ss << "\n\n";
+  for (size_t optionsId = 0; optionsId < kRequiredOptions.size(); ++optionsId)
+  {
+    auto const & options = kRequiredOptions[optionsId].first;
+    auto const & helpMessage = kRequiredOptions[optionsId].second;
+    ss << "\t";
+    for (size_t i = 0; i < options.size(); ++i)
+      ss << options[i] << (i + 1 != options.size() ? " and " : " are required");
+
+    ss << " " << helpMessage << "\n";
+
+    if (optionsId + 1 != kRequiredOptions.size())
+      ss << "\tor\n";
+  }
+
+  auto const addStringInfo = [&ss](auto const & arg, std::string const & argValue) {
+    ss << "\n\t" << arg << " is" << (argValue.empty() ? " not set" : " set to: ") << argValue;
+  };
+
+  auto const addBoolInfo = [&ss](auto const & arg, bool argValue) {
+    ss << "\n\t" << arg << " is" << (argValue ? " set" : " not set");
+  };
+
+  addStringInfo("--mapsme_results", FLAGS_mapsme_results);
+  addStringInfo("--api_results", FLAGS_api_results);
+  addStringInfo("--mapsme_old_results", FLAGS_mapsme_old_results);
+  addBoolInfo("--benchmark_stat", FLAGS_benchmark_stat);
+
+  ss << "\n\nType --help for usage.";
+  std::cout << ss.str() << std::endl;
+}
+
+void CheckArgs()
+{
+  bool const modeIsChosen = IsMapsmeVsApi() || IsMapsmeVsMapsme() || IsMapsmeBenchmarkStat() ||
+                            IsMapsmeVsMapsmeBenchmarkStat();
+  if (!modeIsChosen)
+  {
+    PrintHelp();
+    exit(1);
+  }
+
+  CHECK(!FLAGS_save_results.empty(),
+        ("\n\n\t--save_results is required. Tool will save results there.",
+         "\n\nType --help for usage."));
+}
+
 int Main(int argc, char ** argv)
 {
   google::SetUsageMessage("This tool takes two paths to directory with routes, that were dumped"
                           "by routes_builder_tool and calculate some metrics.");
   google::ParseCommandLineFlags(&argc, &argv, true);
 
-  CHECK(IsMapsmeVsApi() || IsMapsmeVsMapsme() || IsBenchmarkStat(),
-        ("\n\n"
-         "\t--mapsme_results and --api_results are required\n"
-         "\tor\n"
-         "\t--mapsme_results and --mapsme_old_results are required",
-            "\tor\n"
-            "\t--mapsme_results and --benchmark_stat are required",
-            "\n\tFLAGS_mapsme_results.empty():", FLAGS_mapsme_results.empty(),
-            "\n\tFLAGS_api_results.empty():", FLAGS_api_results.empty(),
-            "\n\tFLAGS_mapsme_old_results.empty():", FLAGS_mapsme_old_results.empty(),
-            "\n\nType --help for usage."));
+  CheckArgs();
 
-  CHECK(!FLAGS_save_result.empty(),
-        ("\n\n\t--save_result is required. Tool will save results there.",
-            "\n\nType --help for usage."));
-
-  if (Platform::IsFileExistsByFullPath(FLAGS_save_result))
-    CheckDirExistence(FLAGS_save_result);
+  if (Platform::IsFileExistsByFullPath(FLAGS_save_results))
+    CheckDirExistence(FLAGS_save_results);
   else
-    CHECK_EQUAL(Platform::MkDir(FLAGS_save_result), Platform::EError::ERR_OK,());
+    CHECK_EQUAL(Platform::MkDir(FLAGS_save_results), Platform::EError::ERR_OK,());
 
   CheckDirExistence(FLAGS_mapsme_results);
-
-  if (IsMapsmeVsApi())
-    CheckDirExistence(FLAGS_api_results);
-  else if (IsMapsmeVsMapsme())
-    CheckDirExistence(FLAGS_mapsme_old_results);
-  else if (!IsBenchmarkStat())
-    UNREACHABLE();
 
   CHECK(0.0 <= FLAGS_kml_percent && FLAGS_kml_percent <= 100.0,
         ("--kml_percent should be in interval: [0.0, 100.0]."));
@@ -222,6 +269,14 @@ int Main(int argc, char ** argv)
     LOG(LINFO, ("Receive:", apiResults.size(), "routes from --api_results."));
     RunComparison(std::move(mapsmeResults), std::move(apiResults));
   }
+  else if (IsMapsmeVsMapsmeBenchmarkStat())
+  {
+    LOG(LINFO, ("Benchmark different mapsme versions. Start loading old mapsme results."));
+    auto oldMapsmeResults = LoadResults<RoutesBuilder::Result>(FLAGS_mapsme_old_results);
+    LOG(LINFO, ("Receive:", oldMapsmeResults.size(), "routes from --mapsme_old_results."));
+    RunBenchmarkComparison(std::move(mapsmeResults), std::move(oldMapsmeResults),
+                           FLAGS_save_results);
+  }
   else if (IsMapsmeVsMapsme())
   {
     LOG(LINFO, ("Start loading another mapsme results."));
@@ -229,10 +284,10 @@ int Main(int argc, char ** argv)
     LOG(LINFO, ("Receive:", oldMapsmeResults.size(), "routes from --mapsme_old_results."));
     RunComparison(std::move(mapsmeResults), std::move(oldMapsmeResults));
   }
-  else if (IsBenchmarkStat())
+  else if (IsMapsmeBenchmarkStat())
   {
     LOG(LINFO, ("Running in benchmark stat mode."));
-    RunBenchmarkStat(mapsmeResults, FLAGS_save_result);
+    RunBenchmarkStat(mapsmeResults, FLAGS_save_results);
   }
   else
   {

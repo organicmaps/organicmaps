@@ -82,5 +82,13 @@ void RunBenchmarkStat(
   pythonScriptPath = base::JoinPath(dirForResults, kPythonBarError);
   CreatePythonBarByMap(pythonScriptPath, m_errorCounter, "Type of errors", "Number of errors");
 }
+
+void RunBenchmarkComparison(
+    std::vector<std::pair<RoutesBuilder::Result, std::string>> && mapsmeResults,
+    std::vector<std::pair<RoutesBuilder::Result, std::string>> && mapsmeOldResults,
+    std::string const & dirForResults)
+{
+  UNREACHABLE();
+}
 }  // namespace routing_quality_tool
 }  // namespace routing_quality
