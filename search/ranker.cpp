@@ -444,14 +444,17 @@ class RankerResultMaker
   }
 
   uint8_t NormalizeRank(uint8_t rank, Model::Type type, m2::PointD const & center,
-                        string const & country)
+                        string const & country, bool isCapital, bool isRelaxed)
   {
+    if (isRelaxed)
+      rank /= 5.0;
+
     switch (type)
     {
-    case Model::TYPE_VILLAGE: return rank / 1.5;
+    case Model::TYPE_VILLAGE: return rank / 2.5;
     case Model::TYPE_CITY:
     {
-      if (m_ranker.m_params.m_viewport.IsPointInside(center))
+      if (isCapital || m_ranker.m_params.m_viewport.IsPointInside(center))
         return base::Clamp(static_cast<int>(rank) * 2, 0, 0xFF);
 
       storage::CountryInfo info;
@@ -462,8 +465,8 @@ class RankerResultMaker
       if (info.IsNotEmpty() && info.m_name == m_ranker.m_params.m_pivotRegion)
         return base::Clamp(static_cast<int>(rank * 1.7), 0, 0xFF);
     }
-    case Model::TYPE_COUNTRY:
-      return rank / 1.5;
+    case Model::TYPE_STATE: return rank / 1.5;
+    case Model::TYPE_COUNTRY: return rank;
 
     default: return rank;
     }
@@ -490,7 +493,8 @@ public:
 
     search::RankingInfo info;
     InitRankingInfo(*ft, center, preRankerResult, info);
-    info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country);
+    info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country,
+                                ftypes::IsCapitalChecker::Instance()(*ft), !info.m_allTokensUsed);
     r.SetRankingInfo(move(info));
     r.m_provenance = move(preRankerResult.GetProvenance());
 

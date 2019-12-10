@@ -633,6 +633,11 @@ IsCityChecker::IsCityChecker()
   m_types.push_back(classif().GetTypeByPath({"place", "city"}));
 }
 
+IsCapitalChecker::IsCapitalChecker() : BaseChecker(3 /* level */)
+{
+  m_types.push_back(classif().GetTypeByPath({"place", "city", "capital"}));
+}
+
 IsPublicTransportStopChecker::IsPublicTransportStopChecker()
 {
   m_types.push_back(classif().GetTypeByPath({"highway", "bus_stop"}));

@@ -366,6 +366,13 @@ public:
   DECLARE_CHECKER_INSTANCE(IsCityChecker);
 };
 
+class IsCapitalChecker : public BaseChecker
+{
+  IsCapitalChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsCapitalChecker);
+};
+
 class IsPublicTransportStopChecker : public BaseChecker
 {
   IsPublicTransportStopChecker();
