@@ -448,11 +448,11 @@ class RankerResultMaker
   {
     switch (type)
     {
-    case Model::TYPE_VILLAGE: return rank /= 1.5;
+    case Model::TYPE_VILLAGE: return rank / 1.5;
     case Model::TYPE_CITY:
     {
       if (m_ranker.m_params.m_viewport.IsPointInside(center))
-        return rank * 2;
+        return base::Clamp(static_cast<int>(rank) * 2, 0, 0xFF);
 
       storage::CountryInfo info;
       if (country.empty())
@@ -460,10 +460,10 @@ class RankerResultMaker
       else
         m_infoGetter.GetRegionInfo(country, info);
       if (info.IsNotEmpty() && info.m_name == m_ranker.m_params.m_pivotRegion)
-        return rank *= 1.7;
+        return base::Clamp(static_cast<int>(rank * 1.7), 0, 0xFF);
     }
     case Model::TYPE_COUNTRY:
-      return rank /= 1.5;
+      return rank / 1.5;
 
     default: return rank;
     }
