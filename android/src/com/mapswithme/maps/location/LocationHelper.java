@@ -2,10 +2,10 @@ package com.mapswithme.maps.location;
 
 import android.app.Activity;
 import android.location.Location;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.Framework;
@@ -89,7 +89,7 @@ public enum LocationHelper
     public void onLocationError(int errorCode)
     {
       mLogger.d(TAG, "onLocationError errorCode = " + errorCode, new Throwable());
-
+      mSavedLocation = null;
       nativeOnLocationError(errorCode);
       mLogger.d(TAG, "nativeOnLocationError errorCode = " + errorCode +
                 ", current state = " + LocationState.nameOf(getMyPositionMode()));
@@ -111,6 +111,7 @@ public enum LocationHelper
   private final Logger mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
   @NonNull
   private final Listeners<LocationListener> mListeners = new Listeners<>();
+  @Nullable
   private Location mSavedLocation;
   private MapObject mMyPosition;
   private long mSavedLocationTime;

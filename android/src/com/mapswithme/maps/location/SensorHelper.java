@@ -5,9 +5,9 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.mapswithme.maps.MwmApplication;
 
 class SensorHelper implements SensorEventListener
@@ -56,7 +56,7 @@ class SensorHelper implements SensorEventListener
 
   void start()
   {
-    if (mRotation != null)
+    if (mRotation != null && mSensorManager != null)
       mSensorManager.registerListener(this, mRotation, SensorManager.SENSOR_DELAY_UI);
   }
 

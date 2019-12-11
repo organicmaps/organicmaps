@@ -8,8 +8,6 @@ import android.location.Location;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
@@ -17,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
@@ -219,10 +219,9 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
       info.nextCarDirection.setNextTurnDrawable(mNextNextTurnImage);
   }
 
-  private void updatePedestrian(RoutingInfo info)
+  private void updatePedestrian(RoutingInfo info, @NonNull Location location)
   {
     Location next = info.pedestrianNextDirection;
-    Location location = LocationHelper.INSTANCE.getSavedLocation();
     DistanceAndAzimut da = Framework.nativeGetDistanceAndAzimuthFromLatLon(next.getLatitude(), next.getLongitude(),
                                                                            location.getLatitude(), location.getLongitude(),
                                                                            mNorth);
@@ -250,8 +249,9 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
     if (info == null)
       return;
 
-    if (Framework.nativeGetRouter() == Framework.ROUTER_TYPE_PEDESTRIAN)
-      updatePedestrian(info);
+    Location location = LocationHelper.INSTANCE.getSavedLocation();
+    if (Framework.nativeGetRouter() == Framework.ROUTER_TYPE_PEDESTRIAN && location != null)
+      updatePedestrian(info, location);
     else
       updateVehicle(info);
 
