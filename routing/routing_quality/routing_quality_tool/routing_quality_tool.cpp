@@ -38,6 +38,57 @@ namespace
 static std::string const kPythonDistribution = "show_distribution.py";
 
 double constexpr kBadETADiffPercent = std::numeric_limits<double>::max();
+
+void PrintHelpAndExit()
+{
+  std::stringstream usage;
+  usage << std::boolalpha;
+  usage << R"(Description:
+This tool takes two paths to directory with routes, that were dumped by routes_builder_tool and calculate some metrics. Here possible options of execution:
+
+    --mapsme_results and --api_results are required to compare mapsme and api.
+    or
+    --mapsme_results and --mapsme_old_results are required to compare mapsme and old mapsme version.
+    or
+    --mapsme_results and --benchmark_stat are required to calculate benchmark statistic of mapsme.
+    or
+    --mapsme_results and --mapsme_old_results and --benchmark_stat are required to calculate different statistics of comparison mapsme and old mapsme version.
+
+    --save_results is required for saving results in this directory.
+    --kml_percent may be used in non-benchamrk mode for dumping kmls and visual comparison different routes.
+)";
+
+  auto const addStringInfo = [&usage](auto const & arg, auto const & argValue) {
+    using T = decltype(argValue);
+    usage << "\n\t" << arg << " is";
+    if (argValue == T{})
+      usage << " not set.";
+    else
+      usage << " set to: " << argValue;
+  };
+
+  addStringInfo("--mapsme_results", FLAGS_mapsme_results);
+  addStringInfo("--api_results", FLAGS_api_results);
+  addStringInfo("--mapsme_old_results", FLAGS_mapsme_old_results);
+  addStringInfo("--benchmark_stat", FLAGS_benchmark_stat);
+  addStringInfo("--save_results", FLAGS_save_results);
+  addStringInfo("--kml_percent", FLAGS_kml_percent);
+
+  usage << "\n\nType --help for usage.\n";
+  std::cout << usage.str();
+  exit(0);
+}
+
+bool HasHelpFlags(int argc, char ** argv)
+{
+  for (int i = 0; i < argc; ++i)
+  {
+    auto const value = std::string(argv[i]);
+    if (value == "--help" || value == "-h")
+      return true;
+  }
+  return false;
+}
 } // namespace
 
 using namespace routing;
@@ -89,7 +140,7 @@ bool IsMapsmeVsApi()
 
 bool IsMapsmeVsMapsme()
 {
-  return !FLAGS_mapsme_results.empty() && !FLAGS_mapsme_old_results.empty();
+  return !FLAGS_mapsme_results.empty() && !FLAGS_mapsme_old_results.empty() && !FLAGS_benchmark_stat;
 }
 
 bool IsMapsmeBenchmarkStat()
@@ -177,63 +228,12 @@ void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> &&
   PrintResults(std::move(results), routesSaver);
 }
 
-void PrintHelp()
-{
-  static std::vector<std::pair<std::vector<std::string>, std::string>> kRequiredOptions = {
-      {{"--mapsme_results", "--api_results"},
-       "to compare mapsme and api."},
-
-      {{"--mapsme_results", "--mapsme_old_results"},
-       "to compare mapsme and old mapsme version."},
-
-      {{"--mapsme_results", "--benchmark_stat"},
-       "to calculate benchmark statistic of mapsme."},
-
-      {{"--mapsme_results", "--mapsme_old_results", "--benchmark_stat"},
-       "to calculate different statistics of comparison mapsme and old mapsme version."}};
-
-  std::stringstream ss;
-  ss << "\n\n";
-  for (size_t optionsId = 0; optionsId < kRequiredOptions.size(); ++optionsId)
-  {
-    auto const & options = kRequiredOptions[optionsId].first;
-    auto const & helpMessage = kRequiredOptions[optionsId].second;
-    ss << "\t";
-    for (size_t i = 0; i < options.size(); ++i)
-      ss << options[i] << (i + 1 != options.size() ? " and " : " are required");
-
-    ss << " " << helpMessage << "\n";
-
-    if (optionsId + 1 != kRequiredOptions.size())
-      ss << "\tor\n";
-  }
-
-  auto const addStringInfo = [&ss](auto const & arg, std::string const & argValue) {
-    ss << "\n\t" << arg << " is" << (argValue.empty() ? " not set" : " set to: ") << argValue;
-  };
-
-  auto const addBoolInfo = [&ss](auto const & arg, bool argValue) {
-    ss << "\n\t" << arg << " is" << (argValue ? " set" : " not set");
-  };
-
-  addStringInfo("--mapsme_results", FLAGS_mapsme_results);
-  addStringInfo("--api_results", FLAGS_api_results);
-  addStringInfo("--mapsme_old_results", FLAGS_mapsme_old_results);
-  addBoolInfo("--benchmark_stat", FLAGS_benchmark_stat);
-
-  ss << "\n\nType --help for usage.";
-  std::cout << ss.str() << std::endl;
-}
-
 void CheckArgs()
 {
   bool const modeIsChosen = IsMapsmeVsApi() || IsMapsmeVsMapsme() || IsMapsmeBenchmarkStat() ||
                             IsMapsmeVsMapsmeBenchmarkStat();
   if (!modeIsChosen)
-  {
-    PrintHelp();
-    exit(1);
-  }
+    PrintHelpAndExit();
 
   CHECK(!FLAGS_save_results.empty(),
         ("\n\n\t--save_results is required. Tool will save results there.",
@@ -242,9 +242,10 @@ void CheckArgs()
 
 int Main(int argc, char ** argv)
 {
-  google::SetUsageMessage("This tool takes two paths to directory with routes, that were dumped"
-                          "by routes_builder_tool and calculate some metrics.");
-  google::ParseCommandLineFlags(&argc, &argv, true);
+  if (HasHelpFlags(argc, argv))
+    PrintHelpAndExit();
+
+  google::ParseCommandLineNonHelpFlags(&argc, &argv, true);
 
   CheckArgs();
 
