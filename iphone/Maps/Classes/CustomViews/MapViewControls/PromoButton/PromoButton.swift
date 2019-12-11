@@ -8,6 +8,12 @@ import UIKit
   @objc init(coordinator: PromoCoordinator) {
     self.coordinator = coordinator
     super.init(frame: CGRect(x: 0, y: 0, width: buttonSize.width, height: buttonSize.height))
+
+    let view = UIView(frame: CGRect(x: buttonSize.width - 14, y: 0, width: 12, height: 12))
+    view.layer.cornerRadius = view.size.width/2
+    view.backgroundColor = UIColor.red
+    addSubview(view)
+
     configure()
   }
 
@@ -17,8 +23,6 @@ import UIKit
 
   private func configure() {
     removeTarget(self, action: nil, for: .touchUpInside)
-    self.subviews.forEach({ $0.removeFromSuperview() })
-
     configureDiscovery()
   }
 
@@ -29,11 +33,6 @@ import UIKit
       setImage(UIImage.init(named: "promo_discovery_button_day"), for: .normal)
     }
     addTarget(self, action: #selector(onButtonPress), for: .touchUpInside)
-
-    let view = UIView(frame: CGRect(x: buttonSize.width - 14, y: 0, width: 12, height: 12))
-    view.layer.cornerRadius = view.size.width/2
-    view.backgroundColor = UIColor.red
-    addSubview(view)
 
     imageView?.clipsToBounds = false
     imageView?.contentMode = .center
@@ -56,6 +55,7 @@ import UIKit
 
   @objc private func onButtonPress(sender: UIButton) {
     coordinator.onPromoButtonPress(completion: { [weak self] in
+      PromoCampaignManager.manager().promoDiscoveryCampaign.onActivate();
       self?.isHidden = true;
     })
   }

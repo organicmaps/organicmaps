@@ -278,7 +278,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   [self.navigationManager onRouteStop];
   self.disableStandbyOnRouteFollowing = NO;
   self.trafficButtonHidden = NO;
-  self.promoButton.hidden = NO;
+  self.promoButton.hidden = _promoDiscoveryCampaign.hasBeenActivated;
 }
 
 

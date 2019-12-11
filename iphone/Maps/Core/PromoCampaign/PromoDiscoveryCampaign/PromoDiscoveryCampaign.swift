@@ -9,14 +9,19 @@
 
   let group: Group
   let url: URL?
+  @objc private(set) var hasBeenActivated: Bool = false
 
   var enabled: Bool {
-    return adapter.canShowTipButton() && Alohalytics.isFirstSession();
+    return adapter.canShowTipButton() && Alohalytics.isFirstSession() && !hasBeenActivated;
   }
 
   required override init() {
     adapter = PromoDiscoveryCampaignAdapter()
     group = Group(rawValue: adapter.type) ?? .discoverCatalog
     url = adapter.url
+  }
+
+  func onActivate() {
+    hasBeenActivated = true
   }
 }
