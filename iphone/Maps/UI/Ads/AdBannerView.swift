@@ -1,5 +1,34 @@
 import FBAudienceNetwork
 
+@objc(MWMAdBannerState)
+enum AdBannerState: Int {
+  case unset
+  case compact
+  case detailed
+  case search
+
+  func config() -> (priority: UILayoutPriority, numberOfTitleLines: Int, numberOfBodyLines: Int) {
+    switch self {
+    case .unset:
+      assert(false)
+      return (priority: UILayoutPriority(rawValue: 0), numberOfTitleLines: 0, numberOfBodyLines: 0)
+    case .compact:
+      return alternative(iPhone: (priority: UILayoutPriority.defaultLow, numberOfTitleLines: 1, numberOfBodyLines: 2),
+                         iPad: (priority: UILayoutPriority.defaultHigh, numberOfTitleLines: 0, numberOfBodyLines: 0))
+    case .search:
+      return (priority: UILayoutPriority.defaultLow, numberOfTitleLines: 2, numberOfBodyLines: 0)
+    case .detailed:
+      return (priority: UILayoutPriority.defaultHigh, numberOfTitleLines: 0, numberOfBodyLines: 0)
+    }
+  }
+}
+
+@objc(MWMAdBannerContainerType)
+enum AdBannerContainerType: Int {
+  case placePage
+  case search
+}
+
 private func attributedTitle(title: String, indent: CGFloat) -> NSAttributedString {
   let paragraphStyle = NSMutableParagraphStyle()
   paragraphStyle.firstLineHeadIndent = indent
@@ -11,8 +40,7 @@ private func attributedTitle(title: String, indent: CGFloat) -> NSAttributedStri
                                     ])
 }
 
-@objc(MWMAdBanner)
-final class AdBanner: UITableViewCell {
+class AdBannerView: UIView {
   @IBOutlet private var detailedModeConstraints: [NSLayoutConstraint]!
   @IBOutlet private weak var adCallToActionButtonCompactLeading: NSLayoutConstraint!
   @IBOutlet private weak var adIconImageView: UIImageView!
@@ -80,8 +108,7 @@ final class AdBanner: UITableViewCell {
 
   @objc weak var mpNativeAd: MPNativeAd?
 
-  override func prepareForReuse() {
-    super.prepareForReuse()
+  func cancelImageLoading() {
     adIconImageView.wi_cancelImageRequest()
     adIconImageView.image = nil;
   }
@@ -140,8 +167,8 @@ final class AdBanner: UITableViewCell {
     removeAdsImage.isHidden = !canRemoveAds
     ctaButtonLeftConstraint.priority = canRemoveAds ? .defaultLow : .defaultHigh
   }
-  
-  override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+
+  func setHighlighted(_ highlighted: Bool) {
       adCallToActionButtonCompact.isHighlighted = highlighted;
       adCallToActionButtonDetailed.isHighlighted = highlighted;
   }

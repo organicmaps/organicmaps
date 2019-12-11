@@ -25,9 +25,18 @@ class InfoItemViewController: UIViewController {
       }
     }
   }
+  var canShowMenu = false
 
   @IBAction func onTap(_ sender: UITapGestureRecognizer) {
     tapHandler?()
+  }
+
+  @IBAction func onLongPress(_ sender: UILongPressGestureRecognizer) {
+    guard sender.state == .began, canShowMenu else { return }
+    let menuController = UIMenuController.shared
+    menuController.setTargetRect(infoLabel.frame, in: self.view)
+    infoLabel.becomeFirstResponder()
+    menuController.setMenuVisible(true, animated: true)
   }
 
   override func viewDidLoad() {
@@ -48,6 +57,9 @@ protocol PlacePageInfoViewControllerDelegate: AnyObject {
 }
 
 class PlacePageInfoViewController: UIViewController {
+  private struct Const {
+    static let coordinatesKey = "PlacePageInfoViewController_coordinatesKey"
+  }
   private typealias TapHandler = InfoItemViewController.TapHandler
   private typealias Style = InfoItemViewController.Style
 
@@ -66,6 +78,14 @@ class PlacePageInfoViewController: UIViewController {
 
   var placePageInfoData: PlacePageInfoData!
   weak var delegate: PlacePageInfoViewControllerDelegate?
+  var showRawCoordinates: Bool {
+    get {
+      UserDefaults.standard.bool(forKey: Const.coordinatesKey)
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: Const.coordinatesKey)
+    }
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -116,13 +136,24 @@ class PlacePageInfoViewController: UIViewController {
       addressView = createInfoItem(address, icon: UIImage(named: "ic_placepage_adress"))
     }
 
-    if let coordinates = placePageInfoData.formattedCoordinates {
+    if let formattedCoordinates = placePageInfoData.formattedCoordinates,
+      let rawCoordinates = placePageInfoData.rawCoordinates {
+      let coordinates = showRawCoordinates ? rawCoordinates : formattedCoordinates
       coordinatesView = createInfoItem(coordinates, icon: UIImage(named: "ic_placepage_coordinate")) {
-
+        [unowned self] in
+        self.showRawCoordinates = !self.showRawCoordinates
+        let coordinates = self.showRawCoordinates ? rawCoordinates : formattedCoordinates
+        self.coordinatesView?.infoLabel.text = coordinates
       }
-      coordinatesView?.accessoryImage.image = UIImage(named: "ic_placepage_change")
-      coordinatesView?.accessoryImage.isHidden = false
+    } else if let formattedCoordinates = placePageInfoData.formattedCoordinates {
+      coordinatesView = createInfoItem(formattedCoordinates, icon: UIImage(named: "ic_placepage_coordinate"))
+    } else if let rawCoordinates = placePageInfoData.rawCoordinates {
+      coordinatesView = createInfoItem(rawCoordinates, icon: UIImage(named: "ic_placepage_coordinate"))
     }
+
+    coordinatesView?.accessoryImage.image = UIImage(named: "ic_placepage_change")
+    coordinatesView?.accessoryImage.isHidden = false
+    coordinatesView?.canShowMenu = true
 
     switch placePageInfoData.localAdsStatus {
     case .candidate:

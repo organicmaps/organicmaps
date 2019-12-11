@@ -2,6 +2,7 @@
 
 @class PlacePageScheduleData;
 @class UgcSummaryRating;
+@class CoreBanner;
 
 typedef NS_ENUM(NSInteger, PlacePageDataHotelType) {
   PlacePageDataHotelTypeHotel,
@@ -36,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) BOOL isPopular;
 @property(nonatomic, readonly) BOOL isBookingPlace;
 @property(nonatomic, readonly) BOOL showUgc;
-//@property(nonatomic, readonly, nullable) UgcSummaryRating *ugcSummaryRating;
+@property(nonatomic, readonly, nullable) NSArray<CoreBanner *> *banners;
 
 @end
 

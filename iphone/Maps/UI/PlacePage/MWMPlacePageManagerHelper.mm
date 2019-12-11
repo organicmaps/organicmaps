@@ -41,6 +41,7 @@
 - (void)avoidDirty;
 - (void)avoidFerry;
 - (void)avoidToll;
+- (void)showRemoveAds;
 
 @end
 
@@ -172,6 +173,10 @@
 
 + (void)avoidToll {
   [[MWMMapViewControlsManager manager].placePageManager avoidToll];
+}
+
++ (void)showRemoveAds {
+  [[MWMMapViewControlsManager manager].placePageManager showRemoveAds];
 }
 
 @end

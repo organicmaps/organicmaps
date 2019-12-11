@@ -5,9 +5,11 @@ class DirectionView: UIView {
 protocol PlacePagePreviewViewControllerDelegate: AnyObject {
   func previewDidPressAddReview()
   func previewDidPressSimilarHotels()
+  func previewDidPressRemoveAds()
 }
 
 class PlacePagePreviewViewController: UIViewController {
+  @IBOutlet var stackView: UIStackView!
   @IBOutlet var titleLabel: UILabel!
   @IBOutlet var titleContainerView: UIStackView!
   @IBOutlet var popularView: UIView!
@@ -34,6 +36,11 @@ class PlacePagePreviewViewController: UIViewController {
   @IBOutlet var addressDirectionView: DirectionView!
 
   var directionView: DirectionView?
+  lazy var adView: AdBannerView = {
+    let view = Bundle.main.load(viewClass: AdBannerView.self)?.first as! AdBannerView
+    view.isHidden = true
+    return view
+  }()
 
   var placePagePreviewData: PlacePagePreviewData!
   weak var delegate: PlacePagePreviewViewControllerDelegate?
@@ -72,7 +79,15 @@ class PlacePagePreviewViewController: UIViewController {
     ugcContainerView.isHidden = !placePagePreviewData.isBookingPlace
 
     directionView?.isHidden = false
-//    directionView?.button.imageView?.transform = CGAffineTransform(rotationAngle: 0.2)
+
+    stackView.addArrangedSubview(adView)
+  }
+
+  func updateBanner(_ banner: MWMBanner) {
+    adView.isHidden = false
+    adView.config(ad: banner, containerType: .placePage, canRemoveAds: true) { [weak self] in
+      self?.delegate?.previewDidPressRemoveAds()
+    }
   }
 
   func updateUgc(_ ugcData: UgcData) {

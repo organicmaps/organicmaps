@@ -4,6 +4,37 @@ class PlacePageScrollView: UIScrollView {
   }
 }
 
+class TouchTransparentView: UIView {
+  var targetView: UIView?
+  override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+    guard let targetView = targetView else {
+      return super.point(inside: point, with: event)
+    }
+    let targetPoint = convert(point, to: targetView)
+    return targetView.point(inside: targetPoint, with: event)
+  }
+}
+
+enum PlacePageState {
+  case closed(CGFloat)
+  case preview(CGFloat)
+  case previewPlus(CGFloat)
+  case expanded(CGFloat)
+
+  var offset: CGFloat {
+    switch self {
+    case .closed(let value):
+      return value
+    case .preview(let value):
+      return value
+    case .previewPlus(let value):
+      return value
+    case .expanded(let value):
+      return value
+    }
+  }
+}
+
 @objc class PlacePageViewController: UIViewController {
   @IBOutlet var scrollView: UIScrollView!
   @IBOutlet var stackView: UIStackView!
@@ -11,6 +42,8 @@ class PlacePageScrollView: UIScrollView {
   
   @objc var placePageData: PlacePageData!
 
+  var beginDragging = false
+  var scrollSteps: [PlacePageState] = []
   var rootViewController: MapViewController {
     MapViewController.shared()
   }
@@ -128,6 +161,10 @@ class PlacePageScrollView: UIScrollView {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    if let touchTransparentView = view as? TouchTransparentView {
+      touchTransparentView.targetView = scrollView
+    }
+
     addToStack(previewViewController)
 
     if placePageData.isPromoCatalog {
@@ -198,12 +235,18 @@ class PlacePageScrollView: UIScrollView {
             self.reviewsViewController.ugcData = ugcData
             self.reviewsViewController.view.isHidden = false
           }
-          self.view.layoutIfNeeded()
-          let previewFrame = self.scrollView.convert(self.previewViewController.view.bounds, from: self.previewViewController.view)
-          UIView.animate(withDuration: kDefaultAnimationDuration) {
-            self.scrollView.contentOffset = CGPoint(x: 0, y: previewFrame.maxY - self.scrollView.height)
-          }
+          self.updatePreviewOffset()
         }
+      }
+    }
+
+    if placePageData.previewData.hasBanner,
+      let banners = placePageData.previewData.banners {
+      BannersCache.cache.get(coreBanners: banners,
+                             cacheOnly: false,
+                             loadNew: true) { [weak self] (banner, _) in
+                              self?.previewViewController.updateBanner(banner)
+                              self?.updatePreviewOffset()
       }
     }
 
@@ -268,13 +311,31 @@ class PlacePageScrollView: UIScrollView {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    let previewFrame = self.scrollView.convert(self.previewViewController.view.bounds, from: self.previewViewController.view)
-    UIView.animate(withDuration: kDefaultAnimationDuration) {
-      self.scrollView.contentOffset = CGPoint(x: 0, y: previewFrame.maxY - self.scrollView.height)
-    }
+    updatePreviewOffset()
   }
 
-  // MARK: private
+  // MARK: Private
+
+  private func calculateSteps() -> [PlacePageState] {
+    var steps: [PlacePageState] = []
+    steps.append(.closed(-self.scrollView.height))
+    let previewFrame = scrollView.convert(previewViewController.view.bounds, from: previewViewController.view)
+    steps.append(.preview(previewFrame.maxY - self.scrollView.height))
+    if placePageData.isPreviewPlus {
+      steps.append(.previewPlus(-self.scrollView.height * 0.55))
+    }
+    steps.append(.expanded(-self.scrollView.height * 0.3))
+    return steps
+  }
+
+  private func updatePreviewOffset() {
+    self.view.layoutIfNeeded()
+    scrollSteps = calculateSteps()
+    let state = placePageData.isPreviewPlus ? scrollSteps[2] : scrollSteps[1]
+    UIView.animate(withDuration: kDefaultAnimationDuration) {
+      self.scrollView.contentOffset = CGPoint(x: 0, y: state.offset)
+    }
+  }
 
   private func addToStack(_ viewController: UIViewController) {
     addChild(viewController)
@@ -284,6 +345,10 @@ class PlacePageScrollView: UIScrollView {
 }
 
 extension PlacePageViewController: PlacePagePreviewViewControllerDelegate {
+  func previewDidPressRemoveAds() {
+    MWMPlacePageManagerHelper.showRemoveAds()
+  }
+
   func previewDidPressAddReview() {
     MWMPlacePageManagerHelper.showUGCAddReview(placePageData, rating: .none, from: .placePagePreview)
   }
@@ -445,6 +510,83 @@ extension PlacePageViewController: ActionBarViewControllerDelegate {
     @unknown default:
       fatalError()
     }
+  }
+}
+
+extension PlacePageViewController: UIScrollViewDelegate {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    if scrollView.contentOffset.y < -scrollView.height + 1 && beginDragging {
+      rootViewController.dismissPlacePage()
+    }
+  }
+
+  func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    beginDragging = true
+  }
+
+  func scrollViewWillEndDragging(_ scrollView: UIScrollView,
+                                 withVelocity velocity: CGPoint,
+                                 targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    print("scrollView willEndDragging: \(velocity)")
+    guard let maxOffset = scrollSteps.last else { return }
+    if targetContentOffset.pointee.y > maxOffset.offset {
+      previewViewController.adView.state = .detailed
+      return
+    }
+
+    let targetState = findNextStop(scrollView.contentOffset.y, velocity: velocity.y)
+    if targetState.offset > scrollView.contentSize.height - scrollView.contentInset.top {
+      previewViewController.adView.state = .detailed
+      return
+    }
+    switch targetState {
+    case .closed(_):
+      fallthrough
+    case .preview(_):
+      previewViewController.adView.state = .compact
+    case .previewPlus(_):
+      fallthrough
+    case .expanded(_):
+      previewViewController.adView.state = .detailed
+    }
+    targetContentOffset.pointee = CGPoint(x: 0, y: targetState.offset)
+  }
+
+  private func findNearestStop(_ offset: CGFloat) -> PlacePageState{
+    var result = scrollSteps[0]
+    scrollSteps.suffix(from: 1).forEach {
+      if abs(result.offset - offset) > abs($0.offset - offset) {
+        result = $0
+      }
+    }
+    return result
+  }
+
+  private func findNextStop(_ offset: CGFloat, velocity: CGFloat) -> PlacePageState {
+    if velocity == 0 {
+      return findNearestStop(offset)
+    }
+
+    var result: PlacePageState
+    if velocity < 0 {
+      guard let first = scrollSteps.first else { return .closed(-scrollView.height) }
+      result = first
+      scrollSteps.suffix(from: 1).forEach {
+        if offset > $0.offset {
+          result = $0
+        }
+      }
+    } else {
+      guard let last = scrollSteps.last else { return .closed(-scrollView.height) }
+      result = last
+      scrollSteps.reversed().suffix(from: 1).forEach {
+        if offset < $0.offset {
+          result = $0
+        }
+      }
+    }
+
+    return result
   }
 }
 

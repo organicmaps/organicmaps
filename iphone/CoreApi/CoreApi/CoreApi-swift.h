@@ -33,6 +33,7 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 
 #pragma mark - Place Page
 
+#import <CoreApi/CoreBanner.h>
 #import <CoreApi/PlacePageData.h>
 #import <CoreApi/CatalogPromoData.h>
 #import <CoreApi/CatalogPromoItem.h>

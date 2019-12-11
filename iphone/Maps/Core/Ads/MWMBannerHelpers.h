@@ -1,5 +1,4 @@
-#import "MWMBanner.h"
-#import "SwiftBridge.h"
+#import <CoreApi/CoreBanner.h>
 
 #include "partners_api/banner.hpp"
 
@@ -18,16 +17,16 @@ static inline MWMBannerType MatchBannerType(ads::Banner::Type coreType)
   }
 }
 
-static inline MWMCoreBanner * MatchBanner(ads::Banner const & banner, NSString * query)
+static inline CoreBanner * MatchBanner(ads::Banner const & banner, NSString * query)
 {
-  return [[MWMCoreBanner alloc] initWithMwmType:MatchBannerType(banner.m_type)
-                                       bannerID:@(banner.m_bannerId.c_str())
-                                          query:query];
+  return [[CoreBanner alloc] initWithMwmType:MatchBannerType(banner.m_type)
+                                    bannerID:@(banner.m_bannerId.c_str())
+                                       query:query];
 }
 
-static inline NSArray<MWMCoreBanner *> * MatchPriorityBanners(std::vector<ads::Banner> const & banners, NSString * query = @"")
+static inline NSArray<CoreBanner *> * MatchPriorityBanners(std::vector<ads::Banner> const & banners, NSString * query = @"")
 {
-  NSMutableArray<MWMCoreBanner *> * mBanners = [@[] mutableCopy];
+  NSMutableArray<CoreBanner *> * mBanners = [@[] mutableCopy];
   for (auto const & banner : banners)
     [mBanners addObject:MatchBanner(banner, query)];
   return [mBanners copy];

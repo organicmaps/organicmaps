@@ -47,6 +47,8 @@
 - (void)enableCarPlayRepresentation;
 - (void)disableCarPlayRepresentation;
 
+- (void)dismissPlacePage;
+
 @property(nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
 @property(nonatomic) MWMWelcomePageController * welcomePageController;
 @property(nonatomic, readonly) MWMMapDownloadDialog * downloadDialog;

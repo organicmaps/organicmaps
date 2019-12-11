@@ -1,6 +1,7 @@
 #import "PlacePagePreviewData+Core.h"
 
 #import "UgcSummaryRating.h"
+#import "CoreBanner+Core.h"
 
 #include "3party/opening_hours/opening_hours.hpp"
 
@@ -73,6 +74,14 @@ static PlacePageDataHotelType convertHotelType(boost::optional<ftypes::IsHotelCh
     _schedule = convertOpeningHours(rawData.GetOpeningHours());
     _hotelType = convertHotelType(rawData.GetHotelType());
     _showUgc = rawData.ShouldShowUGC();
+    if (_hasBanner) {
+      NSMutableArray *bannersArray = [NSMutableArray array];
+      for (auto const &b : rawData.GetBanners()) {
+        CoreBanner *banner = [[CoreBanner alloc] initWithAdBanner:b];
+        [bannersArray addObject:banner];
+      }
+      _banners = [bannersArray copy];
+    }
   }
   return self;
 }

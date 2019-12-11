@@ -38,5 +38,6 @@
 + (void)avoidDirty;
 + (void)avoidFerry;
 + (void)avoidToll;
++ (void)showRemoveAds;
 
 @end

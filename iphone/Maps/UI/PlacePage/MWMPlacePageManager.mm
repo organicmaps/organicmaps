@@ -1109,6 +1109,10 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
                          }];
 }
 
+- (void)showRemoveAds {
+  [[MapViewController sharedController] showRemoveAds];
+}
+
 #pragma mark - AvailableArea / PlacePageArea
 
 - (void)updateAvailableArea:(CGRect)frame

@@ -30,7 +30,6 @@
 #import "MWMActivityViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMAvailableAreaAffectDirection.h"
-#import "MWMBanner.h"
 #import "MWMBottomMenuViewController.h"
 #import "MWMCircularProgress.h"
 #import "MWMCollectionViewController.h"

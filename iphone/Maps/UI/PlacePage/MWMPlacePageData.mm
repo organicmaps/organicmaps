@@ -3,6 +3,7 @@
 #import "MWMDiscoveryGuideViewModel.h"
 #import "MWMBannerHelpers.h"
 #import "MWMUGCViewModel.h"
+#import "SwiftBridge.h"
 
 #import <CoreApi/CoreApi.h>
 

@@ -53,6 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) BOOL isPartner;
 @property(nonatomic, readonly) BOOL shouldShowUgc;
 @property(nonatomic, readonly) BOOL isMyPosition;
+@property(nonatomic, readonly) BOOL isPreviewPlus;
 @property(nonatomic, readonly) NSInteger partnerIndex;
 @property(nonatomic, readonly, nullable) NSString *partnerName;
 @property(nonatomic, readonly) CLLocationCoordinate2D locationCoordinate;

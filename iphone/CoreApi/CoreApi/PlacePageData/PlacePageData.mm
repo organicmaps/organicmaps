@@ -80,6 +80,7 @@ static PlacePageTaxiProvider convertTaxiProvider(taxi::Provider::Type providerTy
     _isPromoCatalog = _isLargeToponim || _isSightseeing;
     _shouldShowUgc = rawData().ShouldShowUGC();
     _isMyPosition = rawData().IsMyPosition();
+    _isPreviewPlus = rawData().GetOpeningMode() == place_page::OpeningMode::PreviewPlus;
     _isPartner = rawData().GetSponsoredType() == place_page::SponsoredType::Partner;
     _partnerIndex = _isPartner ? rawData().GetPartnerIndex() : -1;
     _partnerName = _isPartner ? @(rawData().GetPartnerName().c_str()) : nil;
