@@ -6,6 +6,8 @@ set(
   SRC
   benchmark_stat.cpp
   benchmark_stat.hpp
+  benchmark_results.cpp
+  benchmark_results.hpp
   routing_quality_tool.cpp
   utils.cpp
   utils.hpp

@@ -6,9 +6,7 @@
 #include <utility>
 #include <vector>
 
-namespace routing_quality
-{
-namespace routing_quality_tool
+namespace routing_quality::routing_quality_tool
 {
 using RouteResult = routing::routes_builder::RoutesBuilder::Result;
 void RunBenchmarkStat(std::vector<std::pair<RouteResult, std::string>> const & mapsmeResults,
@@ -18,5 +16,4 @@ void RunBenchmarkComparison(
     std::vector<std::pair<RouteResult, std::string>> && mapsmeResults,
     std::vector<std::pair<RouteResult, std::string>> && mapsmeOldResults,
     std::string const & dirForResults);
-}  // namespace routing_quality_tool
-}  // namespace routing_quality
+}  // namespace routing_quality::routing_quality_tool
