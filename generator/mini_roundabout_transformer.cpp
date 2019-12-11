@@ -272,11 +272,7 @@ void AddPointToCircle(std::vector<m2::PointD> & circle, m2::PointD const & point
 
   if (iDist1 > iDist2)
     std::swap(iDist1, iDist2);
-
-  CHECK(((iDist1 < iDist2) &&
-         ((iDist1 == 0 && iDist2 == circle.size() - 1) || (iDist2 - iDist1 == 1))),
-        ("Invalid conversion for point", mercator::ToLatLon(point)));
-
+  
   if (iDist1 == 0 && iDist2 == circle.size() - 1)
     circle.push_back(point);
   else

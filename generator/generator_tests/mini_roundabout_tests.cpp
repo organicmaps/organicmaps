@@ -267,7 +267,7 @@ UNIT_TEST(Manage_MiniRoundabout_EqualPoints)
   double const r = mercator::MetersToMercator(5.0);
 
   auto circlePlain = PointToPolygon(center, r, 12, 30.0);
-  AddPointToCircle(circlePlain, circlePlain[12]);
+  AddPointToCircle(circlePlain, circlePlain[11]);
   AddPointToCircle(circlePlain, circlePlain[6]);
   AddPointToCircle(circlePlain, circlePlain[0]);
   AddPointToCircle(circlePlain, circlePlain[0]);
