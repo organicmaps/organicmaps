@@ -12,12 +12,15 @@
   [alertController presentMobileInternetAlertWithBlock:^(MWMMobileInternetAlertResult result) {
     switch (result) {
       case MWMMobileInternetAlertResultAlways:
+        self.permission = MWMNetworkPolicyPermissionAlways;
         completion(YES);
         break;
       case MWMMobileInternetAlertResultToday:
+        self.permission = MWMNetworkPolicyPermissionToday;
         completion(YES);
         break;
       case MWMMobileInternetAlertResultNotToday:
+        self.permission = MWMNetworkPolicyPermissionNotToday;
         completion(NO);
         break;
     }
