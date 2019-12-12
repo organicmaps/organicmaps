@@ -2,6 +2,8 @@
 
 #include "track_analyzing/track_analyzer/utils.hpp"
 
+#include "storage/storage.hpp"
+
 #include "coding/csv_reader.hpp"
 
 #include "base/assert.hpp"
@@ -253,6 +255,9 @@ void BalanceDataPoints(basic_istream<char> & tableCsvStream,
 void CmdBalanceCsv(string const & csvPath, string const & distributionPath,
                    uint64_t ignoreDataPointsNumber)
 {
+  LOG(LINFO, ("Balancing csv fie", csvPath, "with distribution set in", distributionPath,
+              ". If an mwm has", ignoreDataPointsNumber,
+              "data points or less it will not be considered."));
   ifstream table(csvPath);
   CHECK(table.is_open(), ("Cannot open", csvPath));
   ifstream distribution(distributionPath);
@@ -260,6 +265,19 @@ void CmdBalanceCsv(string const & csvPath, string const & distributionPath,
   vector<TableRow> balancedTable;
 
   BalanceDataPoints(table, distribution, ignoreDataPointsNumber, balancedTable);
+
+  // Calculating statistics.
+  storage::Storage storage;
+  storage.RegisterAllLocalMaps(false /* enableDiffs */);
+  Stats stats;
+  for (auto const & row : balancedTable)
+  {
+    CHECK_EQUAL(row.size(), kTableColumns, (row));
+    auto const & mwmName = row[kMwmNameCsvColumn];
+    // Note. One record in csv means one data point.
+    stats.AddDataPoints(mwmName, storage, 1 /* data points number */);
+  }
+  stats.Log();
 
   WriteCsvTableHeader(cout);
   for (auto const & record : balancedTable)
@@ -274,5 +292,6 @@ void CmdBalanceCsv(string const & csvPath, string const & distributionPath,
     }
     cout << '\n';
   }
+  LOG(LINFO, ("Balanced."));
 }
 }  // namespace track_analyzing

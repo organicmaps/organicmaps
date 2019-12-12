@@ -37,17 +37,22 @@ public:
   void AddDataPoints(std::string const & mwmName, std::string const & countryName,
                      uint64_t dataPointNum);
 
+  void AddDataPoints(std::string const & mwmName, storage::Storage const & storage,
+                     uint32_t dataPointNum);
+
   /// \brief Saves csv file with numbers of DataPoints for each mwm to |csvPath|.
   /// If |csvPath| is empty it does nothing.
   void SaveMwmDistributionToCsv(std::string const & csvPath) const;
 
-  void LogMwms() const;
-  void LogCountries() const;
+  void Log() const;
 
   NameToCountMapping const & GetMwmToTotalDataPointsForTesting() const;
   NameToCountMapping const & GetCountryToTotalDataPointsForTesting() const;
 
 private:
+  void LogMwms() const;
+  void LogCountries() const;
+
   /// \note These fields may present mapping from territory name to either DataPoints
   /// or MatchedTrackPoint count.
   NameToCountMapping m_mwmToTotalDataPoints;

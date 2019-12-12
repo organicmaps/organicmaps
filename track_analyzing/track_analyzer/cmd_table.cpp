@@ -476,8 +476,6 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
 
   ForEachTrackFile(filepath, trackExtension, numMwmIds, processTrack);
 
-  LOG(LINFO,
-      ("DataPoint distribution by mwms and countries and match and table commands."));
-  LOG(LINFO, (stats));
+  stats.Log();
 }
 }  // namespace track_analyzing

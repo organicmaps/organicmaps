@@ -104,9 +104,7 @@ void Stats::AddTracksStats(MwmToTracks const & mwmToTracks, NumMwmIds const & nu
 
     NumMwmId const numMwmId = kv.first;
     auto const mwmName = numMwmIds.GetFile(numMwmId).GetName();
-    auto const countryName = storage.GetTopmostParentFor(mwmName);
-    // Note. In case of disputed mwms |countryName| will be empty.
-    AddDataPoints(mwmName, countryName, dataPointNum);
+    AddDataPoints(mwmName, storage, dataPointNum);
   }
 }
 
@@ -115,6 +113,14 @@ void Stats::AddDataPoints(string const & mwmName, string const & countryName,
 {
   m_mwmToTotalDataPoints[mwmName] += dataPointNum;
   m_countryToTotalDataPoints[countryName] += dataPointNum;
+}
+
+void Stats::AddDataPoints(std::string const & mwmName, storage::Storage const & storage,
+                          uint32_t dataPointNum)
+{
+  auto const countryName = storage.GetTopmostParentFor(mwmName);
+  // Note. In case of disputed mwms |countryName| will be empty.
+  AddDataPoints(mwmName, countryName, dataPointNum);
 }
 
 void Stats::SaveMwmDistributionToCsv(string const & csvPath) const
@@ -126,18 +132,10 @@ void Stats::SaveMwmDistributionToCsv(string const & csvPath) const
   MappingToCsv("mwm", m_mwmToTotalDataPoints, false /* printPercentage */, ss);
 }
 
-void Stats::LogMwms() const
+void Stats::Log() const
 {
-  ostringstream ss;
-  PrintMap("mwm", "Mwm to total data points number:", m_mwmToTotalDataPoints, ss);
-  LOG(LINFO, (ss.str()));
-}
-
-void Stats::LogCountries() const
-{
-  ostringstream ss;
-  PrintMap("country", "Country name to data points number:", m_countryToTotalDataPoints, ss);
-  LOG(LINFO, (ss.str()));
+  LogMwms();
+  LogCountries();
 }
 
 Stats::NameToCountMapping const & Stats::GetMwmToTotalDataPointsForTesting() const
@@ -148,6 +146,22 @@ Stats::NameToCountMapping const & Stats::GetMwmToTotalDataPointsForTesting() con
 Stats::NameToCountMapping const & Stats::GetCountryToTotalDataPointsForTesting() const
 {
   return m_countryToTotalDataPoints;
+}
+
+void Stats::LogMwms() const
+{
+  ostringstream ss;
+  LOG(LINFO, ("\n"));
+  PrintMap("mwm", "Mwm to total data points number:", m_mwmToTotalDataPoints, ss);
+  LOG(LINFO, (ss.str()));
+}
+
+void Stats::LogCountries() const
+{
+  ostringstream ss;
+  LOG(LINFO, ("\n"));
+  PrintMap("country", "Country name to data points number:", m_countryToTotalDataPoints, ss);
+  LOG(LINFO, (ss.str()));
 }
 
 void MappingToCsv(string const & keyName, Stats::NameToCountMapping const & mapping,
