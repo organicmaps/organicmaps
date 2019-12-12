@@ -64,7 +64,7 @@ UNIT_TEST(NetherlandsAmsterdamBicycleYes)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  TEST(base::AlmostEqualAbs(route.GetTotalTimeSec(), 347.4, 1.0), (route.GetTotalTimeSec()));
+  TEST(base::AlmostEqualAbs(route.GetTotalTimeSec(), 301.8, 1.0), (route.GetTotalTimeSec()));
 }
 
 // This test on tag cycleway=opposite for a streets which have oneway=yes.
@@ -148,7 +148,7 @@ UNIT_TEST(SpainTenerifeAdejeVilaflor)
   integration::CalculateRouteAndTestRouteTime(
       integration::GetVehicleComponents(VehicleType::Bicycle),
       mercator::FromLatLon(28.11984, -16.72592), {0.0, 0.0},
-      mercator::FromLatLon(28.15865, -16.63704), 18019.6 /* expectedTimeSeconds */);
+      mercator::FromLatLon(28.15865, -16.63704), 10787.6 /* expectedTimeSeconds */);
 }
 
 // Test on riding down from Vilaflor (altitude 1400 meters) to Adeje (sea level).
@@ -157,5 +157,5 @@ UNIT_TEST(SpainTenerifeVilaflorAdeje)
   integration::CalculateRouteAndTestRouteTime(
       integration::GetVehicleComponents(VehicleType::Bicycle),
       mercator::FromLatLon(28.15865, -16.63704), {0.0, 0.0},
-      mercator::FromLatLon(28.11984, -16.72592), 8868.36 /* expectedTimeSeconds */);
+      mercator::FromLatLon(28.11984, -16.72592), 7979.9 /* expectedTimeSeconds */);
 }

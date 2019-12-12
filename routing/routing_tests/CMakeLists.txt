@@ -12,6 +12,7 @@ set(
   coding_test.cpp
   cross_mwm_connector_test.cpp
   cumulative_restriction_test.cpp
+  edge_estimator_tests.cpp
   fake_graph_test.cpp
   followed_polyline_test.cpp
   index_graph_test.cpp

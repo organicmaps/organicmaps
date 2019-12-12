@@ -269,7 +269,7 @@ UNIT_TEST(CzechPragueHiltonToKarlovMost)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(50.0933, 14.4397), {0., 0.},
-      mercator::FromLatLon(50.0864, 14.4124), 2398.);
+      mercator::FromLatLon(50.0864, 14.4124), 2568.8);
 }
 
 UNIT_TEST(CzechPragueHiltonToNicholasChurch)
@@ -285,7 +285,7 @@ UNIT_TEST(CzechPragueHiltonToKvetniceViewpoint)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(50.0933, 14.4397), {0., 0.},
-      mercator::FromLatLon(50.0806, 14.3973), 4335.);
+      mercator::FromLatLon(50.0806, 14.3973), 4805.1);
 }
 
 UNIT_TEST(RussiaSaintPetersburgMoyka93ToAlexanderColumn)
@@ -524,7 +524,7 @@ UNIT_TEST(RussiaElbrusPriut11)
   integration::CalculateRouteAndTestRouteTime(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(43.35254, 42.43788), {0., 0.},
-      mercator::FromLatLon(43.31475, 42.46035), 5998.61 /* expectedTimeSeconds */);
+      mercator::FromLatLon(43.31475, 42.46035), 13708.4 /* expectedTimeSeconds */);
 }
 
 // Test on going straight forward on primary road.

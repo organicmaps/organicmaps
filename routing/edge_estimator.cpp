@@ -7,10 +7,6 @@
 #include "traffic/traffic_info.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
-#include "geometry/mercator.hpp"
-
-#include "indexer/feature_altitude.hpp"
-
 #include "geometry/point_with_altitude.hpp"
 
 #include "base/assert.hpp"
@@ -48,48 +44,18 @@ double CalcTrafficFactor(SpeedGroup speedGroup)
   return 1.0 / percentage;
 }
 
-double GetPedestrianClimbPenalty(double tangent, geometry::Altitude altitudeM)
-{
-  if (tangent <= 0) // Descent
-    return 1.0 + 2.0 * (-tangent);
-
-  // Climb.
-  // The upper the penalty is more:
-  // |1 + 10 * tangent| for altitudes lower than |kMountainSicknessAltitudeM|
-  // |1 + 20 * tangent| for 4000 meters
-  // |1 + 30 * tangent| for 5500 meters
-  // |1 + 40 * tangent| for 7000 meters
-  return 1.0 + (10.0 + max(0, altitudeM - kMountainSicknessAltitudeM) * 10.0 / 1500) * tangent;
-}
-
-double GetBicycleClimbPenalty(double tangent, geometry::Altitude altitudeM)
-{
-  if (tangent <= 0) // Descent
-    return 1.0;
-
-  // Climb.
-  if (altitudeM < kMountainSicknessAltitudeM)
-    return 1.0 + 30.0 * tangent;
-
-  return 1.0 + 50.0 * tangent;
-}
-
-double GetCarClimbPenalty(double /* tangent */, geometry::Altitude /* altitude */) { return 1.0; }
-
 template <typename GetClimbPenalty>
 double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
                         RoadGeometry const & road, GetClimbPenalty && getClimbPenalty)
 {
-  LatLonWithAltitude const & from =
-      road.GetJunction(segment.GetPointId(false /* front */));
+  LatLonWithAltitude const & from = road.GetJunction(segment.GetPointId(false /* front */));
   LatLonWithAltitude const & to = road.GetJunction(segment.GetPointId(true /* front */));
   SpeedKMpH const & speed = road.GetSpeed(segment.IsForward());
 
   double const distance = ms::DistanceOnEarth(from.GetLatLon(), to.GetLatLon());
-  double const speedMpS = KMPH2MPS(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
-  CHECK_GREATER(speedMpS, 0.0,
-                ("from:", from.GetLatLon(),
-                 "to:", to.GetLatLon(), "speed:", speed));
+  double const speedMpS =
+      KMPH2MPS(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
+  CHECK_GREATER(speedMpS, 0.0, ("from:", from.GetLatLon(), "to:", to.GetLatLon(), "speed:", speed));
   double const timeSec = distance / speedMpS;
 
   if (base::AlmostEqualAbs(distance, 0.0, 0.1))
@@ -97,12 +63,58 @@ double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
 
   double const altitudeDiff =
       static_cast<double>(to.GetAltitude()) - static_cast<double>(from.GetAltitude());
-  return timeSec * getClimbPenalty(altitudeDiff / distance, to.GetAltitude());
+  return timeSec * getClimbPenalty(purpose, altitudeDiff / distance, to.GetAltitude());
 }
 }  // namespace
 
 namespace routing
 {
+double GetPedestrianClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
+                                 geometry::Altitude altitudeM)
+{
+  double constexpr kMinPenalty = 1.0;
+  // Descent penalty is less then the ascent penalty.
+  double const impact = tangent >= 0.0 ? 1.0 : 0.35;
+  tangent = std::abs(tangent);
+
+  if (altitudeM >= kMountainSicknessAltitudeM)
+  {
+    return kMinPenalty + (10.0 + (altitudeM - kMountainSicknessAltitudeM) * 10.0 / 1500.0) *
+                             std::abs(tangent) * impact;
+  }
+
+  // ETA coefficients are calculated in https://github.com/mapsme/omim-scripts/pull/21
+  auto const penalty = purpose == EdgeEstimator::Purpose::Weight
+                           ? 5.0 * tangent + 7.0 * tangent * tangent
+                           : 3.01 * tangent + 3.54 * tangent * tangent;
+
+  return kMinPenalty + penalty * impact;
+}
+
+double GetBicycleClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
+                              geometry::Altitude altitudeM)
+{
+  double constexpr kMinPenalty = 1.0;
+  double const impact = tangent >= 0.0 ? 1.0 : 0.35;
+  tangent = std::abs(tangent);
+
+  if (altitudeM >= kMountainSicknessAltitudeM)
+    return kMinPenalty + 50.0 * tangent * impact;
+
+  // ETA coefficients are calculated in https://github.com/mapsme/omim-scripts/pull/22
+  auto const penalty = purpose == EdgeEstimator::Purpose::Weight
+                           ? 10.0 * tangent + 26.0 * tangent * tangent
+                           : 8.8 * tangent + 6.51 * tangent * tangent;
+
+  return kMinPenalty + penalty * impact;
+}
+
+double GetCarClimbPenalty(EdgeEstimator::Purpose /* purpose */, double /* tangent */,
+                          geometry::Altitude /* altitude */)
+{
+  return 1.0;
+}
+
 // EdgeEstimator -----------------------------------------------------------------------------------
 EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH)
   : m_maxWeightSpeedMpS(KMPH2MPS(maxWeightSpeedKMpH)), m_offroadSpeedKMpH(offroadSpeedKMpH)
@@ -132,8 +144,8 @@ double EdgeEstimator::CalcLeapWeight(ms::LatLon const & from, ms::LatLon const &
 double EdgeEstimator::CalcOffroad(ms::LatLon const & from, ms::LatLon const & to,
                                   Purpose purpose) const
 {
-  auto const offroadSpeedKMpH = purpose == Purpose::Weight ? m_offroadSpeedKMpH.m_weight
-                                                            : m_offroadSpeedKMpH.m_eta;
+  auto const offroadSpeedKMpH =
+      purpose == Purpose::Weight ? m_offroadSpeedKMpH.m_weight : m_offroadSpeedKMpH.m_eta;
   if (offroadSpeedKMpH == kNotUsed)
     return 0.0;
 
@@ -157,7 +169,7 @@ public:
     switch (purpose)
     {
     case Purpose::Weight: return 20.0 * 60.0;  // seconds
-    case Purpose::ETA: return 8.0 * 60.0;  // seconds
+    case Purpose::ETA: return 8.0 * 60.0;      // seconds
     }
     UNREACHABLE();
   }
@@ -186,7 +198,7 @@ public:
     switch (purpose)
     {
     case Purpose::Weight: return 20 * 60;  // seconds
-    case Purpose::ETA: return 8 * 60;  // seconds
+    case Purpose::ETA: return 8 * 60;      // seconds
     }
     UNREACHABLE();
   }
@@ -247,7 +259,8 @@ double CarEstimator::GetFerryLandingPenalty(Purpose purpose) const
   UNREACHABLE();
 }
 
-double CarEstimator::CalcSegment(Purpose purpose, Segment const & segment, RoadGeometry const & road) const
+double CarEstimator::CalcSegment(Purpose purpose, Segment const & segment,
+                                 RoadGeometry const & road) const
 {
   double result = CalcClimbSegment(purpose, segment, road, GetCarClimbPenalty);
 

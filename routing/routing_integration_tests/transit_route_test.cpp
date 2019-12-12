@@ -44,7 +44,7 @@ UNIT_TEST(Transit_Moscow_NoSubwayTest)
                                   mercator::FromLatLon(55.73470, 37.62617));
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
-  integration::TestRouteLength(*routeResult.first, 612.664);
+  integration::TestRouteLength(*routeResult.first, 588.9);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayAbsent(*routeResult.first);
