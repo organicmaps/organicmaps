@@ -24,7 +24,7 @@ struct GenerateInfo;
 
 namespace generator
 {
-class PlaceProcessor;
+class ComplexFeaturesMixer;
 // This is the base layer class. Inheriting from it allows you to create a chain of layers.
 class LayerBase : public std::enable_shared_from_this<LayerBase>
 {
@@ -52,15 +52,20 @@ private:
 // with type "leisure=playground" and line object with type "barrier=fence".
 class RepresentationLayer : public LayerBase
 {
+public:
+  explicit RepresentationLayer(std::shared_ptr<ComplexFeaturesMixer> const & complexFeaturesMixer = nullptr);
+
   // LayerBase overrides:
   void Handle(feature::FeatureBuilder & fb) override;
 
-private:
   static bool CanBeArea(FeatureParams const & params);
   static bool CanBePoint(FeatureParams const & params);
   static bool CanBeLine(FeatureParams const & params);
 
+private:
   void HandleArea(feature::FeatureBuilder & fb, FeatureBuilderParams const & params);
+
+  std::shared_ptr<ComplexFeaturesMixer> m_complexFeaturesMixer;
 };
 
 // Responsibility of class PrepareFeatureLayer is the removal of unused types and names,
@@ -155,5 +160,23 @@ private:
   std::vector<ProcessedData> m_buffer;
   std::shared_ptr<feature::AffiliationInterface> m_affiliation;
   std::shared_ptr<FeatureProcessorQueue> m_queue;
+};
+
+class ComplexFeaturesMixer
+{
+public:
+  explicit ComplexFeaturesMixer(std::unordered_set<CompositeId> const & hierarchyNodesSet);
+
+  void Process(std::function<void(feature::FeatureBuilder &)> next,
+               feature::FeatureBuilder const & fb);
+
+  std::shared_ptr<ComplexFeaturesMixer> Clone();
+
+private:
+  feature::FeatureBuilder MakeComplexLineFrom(feature::FeatureBuilder const & fb);
+  feature::FeatureBuilder MakeComplexAreaFrom(feature::FeatureBuilder const & fb);
+
+  std::unordered_set<CompositeId> const & m_hierarchyNodesSet;
+  uint32_t const m_complexEntryType;
 };
 }  // namespace generator

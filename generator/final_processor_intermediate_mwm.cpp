@@ -2,6 +2,7 @@
 
 #include "generator/affiliation.hpp"
 #include "generator/booking_dataset.hpp"
+#include "generator/complex_loader.hpp"
 #include "generator/feature_merger.hpp"
 #include "generator/mini_roundabout_transformer.hpp"
 #include "generator/node_mixer.hpp"
@@ -119,10 +120,15 @@ void Sort(std::vector<FeatureBuilder> & fbs)
   });
 }
 
-bool FilenameIsCountry(std::string filename, AffiliationInterface const & affiliation)
+std::string GetCountryNameFormTmpMwmPath(std::string filename)
 {
   strings::ReplaceLast(filename, DATA_FILE_EXTENSION_TMP, "");
-  return affiliation.HasRegionByName(filename);
+  return filename;
+}
+
+bool FilenameIsCountry(std::string const & filename, AffiliationInterface const & affiliation)
+{
+  return affiliation.HasRegionByName(GetCountryNameFormTmpMwmPath(filename));
 }
 
 class PlaceHelper
@@ -638,8 +644,7 @@ void ComplexFinalProcessor::Process()
   std::vector<std::future<std::vector<HierarchyEntry>>> futures;
   ForEachCountry(m_mwmTmpPath, [&](auto const & filename) {
     auto future = pool.Submit([&, filename]() {
-      auto countryName = filename;
-      strings::ReplaceLast(countryName, DATA_FILE_EXTENSION_TMP, "");
+      auto countryName = GetCountryNameFormTmpMwmPath(filename);
       // https://wiki.openstreetmap.org/wiki/Simple_3D_buildings
       // An object with tag 'building:part' is a part of a relation with outline 'building' or
       // is contained in an object with tag 'building'. We will split data and work with

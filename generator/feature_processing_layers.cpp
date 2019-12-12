@@ -71,8 +71,16 @@ std::shared_ptr<LayerBase> LayerBase::Add(std::shared_ptr<LayerBase> next)
   return next;
 }
 
+RepresentationLayer::RepresentationLayer(std::shared_ptr<ComplexFeaturesMixer> const & complexFeaturesMixer)
+  : m_complexFeaturesMixer(complexFeaturesMixer)
+{
+}
+
 void RepresentationLayer::Handle(FeatureBuilder & fb)
 {
+  if (m_complexFeaturesMixer)
+    m_complexFeaturesMixer->Process([&](FeatureBuilder & fb){ LayerBase::Handle(fb); }, fb);
+
   auto const sourceType = fb.GetMostGenericOsmId().GetType();
   auto const geomType = fb.GetGeomType();
   // There is a copy of params here, if there is a reference here, then the params can be
@@ -235,5 +243,80 @@ void PreserializeLayer::Handle(FeatureBuilder & fb)
 {
   if (fb.PreSerialize())
     LayerBase::Handle(fb);
+}
+
+ComplexFeaturesMixer::ComplexFeaturesMixer(std::unordered_set<CompositeId> const & hierarchyNodesSet)
+  : m_hierarchyNodesSet(hierarchyNodesSet)
+  , m_complexEntryType(classif().GetTypeByPath({"complex_entry"}))
+{
+}
+
+std::shared_ptr<ComplexFeaturesMixer> ComplexFeaturesMixer::Clone()
+{
+  return std::make_shared<ComplexFeaturesMixer>(m_hierarchyNodesSet);
+}
+
+void ComplexFeaturesMixer::Process(std::function<void(feature::FeatureBuilder &)> next,
+                                   feature::FeatureBuilder const & fb)
+{
+  if (!next)
+    return;
+
+  // For all objects in the hierarchy, there must be one areal object and one linear.
+  // Exceptions are point features and parts of buildings.
+  if (fb.IsPoint() || !fb.IsGeometryClosed())
+    return;
+
+  auto const id = MakeCompositeId(fb);
+  auto const it = m_hierarchyNodesSet.find(id);
+  if (it == std::end(m_hierarchyNodesSet))
+    return;
+
+  static auto const & buildingPartChecker = ftypes::IsBuildingPartChecker::Instance();
+  if (buildingPartChecker(fb.GetTypes()))
+    return;
+
+  auto const canBeArea = RepresentationLayer::CanBeArea(fb.GetParams());
+  auto const canBeLine = RepresentationLayer::CanBeLine(fb.GetParams());
+  if (!canBeArea)
+  {
+    LOG(LINFO, ("Add a areal complex feature for", fb.GetMostGenericOsmId()));
+    auto complexFb = MakeComplexAreaFrom(fb);
+    next(complexFb);
+  }
+
+  if (!canBeLine)
+  {
+    LOG(LINFO, ("Add a linear complex feature for", fb.GetMostGenericOsmId()));
+    auto complexFb = MakeComplexLineFrom(fb);
+    next(complexFb);
+  }
+}
+
+feature::FeatureBuilder ComplexFeaturesMixer::MakeComplexLineFrom(feature::FeatureBuilder const & fb)
+{
+  CHECK(fb.IsArea() || fb.IsLine(), ());
+  CHECK(fb.IsGeometryClosed(), ());
+
+  auto lineFb = MakeLine(fb);
+  auto & params = lineFb.GetParams();
+  params.ClearName();
+  params.GetMetadata() = {};
+  params.SetType(m_complexEntryType);
+  return lineFb;
+}
+
+feature::FeatureBuilder ComplexFeaturesMixer::MakeComplexAreaFrom(feature::FeatureBuilder const & fb)
+{
+  CHECK(fb.IsArea() || fb.IsLine(), ());
+  CHECK(fb.IsGeometryClosed(), ());
+
+  auto areaFb = fb;
+  areaFb.SetArea();
+  auto & params = areaFb.GetParams();
+  params.ClearName();
+  params.GetMetadata() = {};
+  params.SetType(m_complexEntryType);
+  return areaFb;
 }
 }  // namespace generator

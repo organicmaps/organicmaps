@@ -151,6 +151,7 @@ DEFINE_string(booking_data, "", "Path to booking data in tsv format.");
 DEFINE_string(opentable_data, "", "Path to opentable data in tsv format.");
 DEFINE_string(promo_catalog_cities, "",
               "Path to list geo object ids of cities which contain promo catalog in json format.");
+DEFINE_string(complex_hierarchy_data, "", "Path to complex hierarchy in csv format.");
 
 DEFINE_string(ugc_data, "", "Input UGC source database file name.");
 
@@ -257,6 +258,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   genInfo.m_emitCoasts = FLAGS_emit_coasts;
   genInfo.m_fileName = FLAGS_output;
   genInfo.m_idToWikidataFilename = FLAGS_idToWikidata;
+  genInfo.m_complexHierarchyFilename = FLAGS_complex_hierarchy_data;
 
   // Use merged style.
   GetStyleReader().SetCurrentStyle(MapStyleMerged);

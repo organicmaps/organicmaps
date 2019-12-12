@@ -57,6 +57,8 @@ struct GenerateInfo
 
   std::string m_citiesBoundariesFilename;
 
+  std::string m_complexHierarchyFilename;
+
   uint32_t m_versionDate = 0;
 
   std::vector<std::string> m_bucketNames;

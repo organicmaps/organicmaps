@@ -229,12 +229,16 @@ namespace
       return false;
 
     static uint32_t const internet = classif().GetTypeByPath({"internet_access"});
+    static uint32_t const complex_entry = classif().GetTypeByPath({"complex_entry"});
 
     if ((g == GeomType::Line || g == GeomType::Undefined) && HasRoutingExceptionType(type))
       return true;
 
     ftype::TruncValue(type, 1);
     if (g != GeomType::Line && type == internet)
+      return true;
+
+    if (type == complex_entry)
       return true;
 
     return false;
@@ -284,7 +288,6 @@ namespace
     // Reserved for custom event processing, e.g. fc2018.
     // if (event == type)
     //   return true;
-
     return false;
   }
 }  // namespace

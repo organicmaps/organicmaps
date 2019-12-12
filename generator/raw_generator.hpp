@@ -54,5 +54,6 @@ private:
   std::priority_queue<FinalProcessorPtr, std::vector<FinalProcessorPtr>, FinalProcessorPtrCmp>
       m_finalProcessors;
   std::vector<std::string> m_names;
+  std::unordered_set<CompositeId> m_hierarchyNodesSet;
 };
 }  // namespace generator

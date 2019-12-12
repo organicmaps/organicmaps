@@ -88,6 +88,7 @@ private:
 
   std::string m_routingCityBoundariesCollectorFilename;
   std::string m_routingCityBoundariesDumpPath;
+  std::string m_hierarchySrcFilename;
 
   bool m_haveBordersForWholeWorld;
   size_t m_threadsCount;

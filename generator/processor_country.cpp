@@ -10,12 +10,14 @@
 namespace generator
 {
 ProcessorCountry::ProcessorCountry(std::shared_ptr<FeatureProcessorQueue> const & queue,
-                                   std::string const & bordersPath, bool haveBordersForWholeWorld)
+                                   std::string const & bordersPath, bool haveBordersForWholeWorld,
+                                   std::shared_ptr<ComplexFeaturesMixer> const & complexFeaturesMixer)
   : m_bordersPath(bordersPath)
   , m_queue(queue)
+  , m_complexFeaturesMixer(complexFeaturesMixer)
   , m_haveBordersForWholeWorld(haveBordersForWholeWorld)
 {
-  m_processingChain = std::make_shared<RepresentationLayer>();
+  m_processingChain = std::make_shared<RepresentationLayer>(m_complexFeaturesMixer);
   m_processingChain->Add(std::make_shared<PrepareFeatureLayer>());
   m_processingChain->Add(std::make_shared<CountryLayer>());
   auto affiliation = std::make_shared<feature::CountriesFilesIndexAffiliation>(
@@ -27,7 +29,8 @@ ProcessorCountry::ProcessorCountry(std::shared_ptr<FeatureProcessorQueue> const 
 
 std::shared_ptr<FeatureProcessorInterface> ProcessorCountry::Clone() const
 {
-  return std::make_shared<ProcessorCountry>(m_queue, m_bordersPath, m_haveBordersForWholeWorld);
+  return std::make_shared<ProcessorCountry>(m_queue, m_bordersPath, m_haveBordersForWholeWorld,
+                                            m_complexFeaturesMixer->Clone());
 }
 
 void ProcessorCountry::Process(feature::FeatureBuilder & feature)

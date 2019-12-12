@@ -1,5 +1,6 @@
 #include "generator/raw_generator.hpp"
 
+#include "generator/complex_loader.hpp"
 #include "generator/osm_source.hpp"
 #include "generator/processor_factory.hpp"
 #include "generator/raw_generator_writer.hpp"
@@ -31,8 +32,13 @@ std::shared_ptr<FeatureProcessorQueue> RawGenerator::GetQueue() { return m_queue
 
 void RawGenerator::GenerateCountries(bool addAds)
 {
+  if (!m_genInfo.m_complexHierarchyFilename.empty())
+    m_hierarchyNodesSet = GetOrCreateComplexLoader(m_genInfo.m_complexHierarchyFilename).GetIdsSet();
+
+  auto const complexFeaturesMixer = std::make_shared<ComplexFeaturesMixer>(m_hierarchyNodesSet);
+
   auto processor = CreateProcessor(ProcessorType::Country, m_queue, m_genInfo.m_targetDir,
-                                   m_genInfo.m_haveBordersForWholeWorld);
+                                   m_genInfo.m_haveBordersForWholeWorld, complexFeaturesMixer);
   m_translators->Append(
       CreateTranslator(TranslatorType::Country, processor, m_cache, m_genInfo, addAds));
   m_finalProcessors.emplace(CreateCountryFinalProcessor(addAds));
