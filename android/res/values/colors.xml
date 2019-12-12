@@ -31,6 +31,7 @@
   <color name="black_24">#3D000000</color> <!-- 24% black -->
   <color name="black_38">#61000000</color>  <!-- 38% black -->
   <color name="black_40">#66000000</color>  <!-- 40% black -->
+  <color name="black_50">#80000000</color> <!-- 50% black -->
   <color name="black_60">#99000000</color> <!-- 60% black -->
   <color name="white_primary">#FFFFFFFF</color>   <!-- 100% white -->
   <color name="white_secondary">#B3FFFFFF</color> <!-- 70% white -->

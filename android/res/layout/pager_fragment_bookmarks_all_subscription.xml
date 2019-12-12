@@ -23,6 +23,10 @@
     android:layout_height="match_parent"
     android:scaleType="centerCrop"
     android:src="@drawable/img_winter" />
+  <FrameLayout
+    android:background="@color/black_50"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
   <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
