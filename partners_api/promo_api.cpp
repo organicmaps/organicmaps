@@ -118,7 +118,7 @@ std::string MakeCityGalleryUrl(std::string const & baseUrl, std::string const & 
   ASSERT_EQUAL(baseUrl.back(), '/', ());
 
   url::Params params = {{"city_id", ToSignedId(id)}, {"lang", lang}};
-  return url::Make(url::Join(baseUrl, "gallery/v1/search/"), params);
+  return url::Make(url::Join(baseUrl, "gallery/v2/search/"), params);
 }
 
 std::string MakePoiGalleryUrl(std::string const & baseUrl, std::string const & id,
@@ -145,7 +145,7 @@ std::string MakePoiGalleryUrl(std::string const & baseUrl, std::string const & i
   params.emplace_back("tags", strings::JoinStrings(tags, ","));
   params.emplace_back("lang", lang);
 
-  return url::Make(url::Join(baseUrl, "gallery/v1/search/"), params);
+  return url::Make(url::Join(baseUrl, "gallery/v2/search/"), params);
 }
 
 std::string GetPictureUrl(std::string const & baseUrl, std::string const & id)
