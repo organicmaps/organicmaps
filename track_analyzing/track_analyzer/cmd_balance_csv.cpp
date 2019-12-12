@@ -1,4 +1,4 @@
-#include "track_analyzing/track_analyzer/balance_csv_impl.hpp"
+#include "track_analyzing/track_analyzer/cmd_balance_csv.hpp"
 
 #include "track_analyzing/track_analyzer/utils.hpp"
 
@@ -9,12 +9,15 @@
 #include "base/math.hpp"
 
 #include <algorithm>
+#include <fstream>
+#include <ostream>
 #include <random>
 #include <utility>
 
 namespace
 {
 double constexpr kSumFractionEps = 1e-5;
+size_t constexpr kTableColumns = 19;
 }  // namespace
 
 namespace track_analyzing
@@ -24,7 +27,6 @@ using namespace std;
 void FillTable(basic_istream<char> & tableCsvStream, MwmToDataPoints & matchedDataPoints,
                vector<TableRow> & table)
 {
-  size_t constexpr kTableColumns = 19;
   for (auto const & row : coding::CSVRunner(
       coding::CSVReader(tableCsvStream, true /* hasHeader */, ',' /* delimiter */)))
   {
@@ -139,8 +141,8 @@ MwmToDataPoints CalcsMatchedDataPointsToKeepDistribution(
   return matchedDataPointsToKeepDistribution;
 }
 
-MwmToDataPoints BalancedDataPointNumber(MwmToDataPoints && distribution,
-                                        MwmToDataPoints && matchedDataPoints,
+MwmToDataPoints BalancedDataPointNumber(MwmToDataPoints && matchedDataPoints,
+                                        MwmToDataPoints && distribution,
                                         uint64_t ignoreDataPointsNumber)
 {
   // Removing every mwm from |distribution| and |matchedDataPoints| if it has
@@ -201,8 +203,8 @@ void FilterTable(MwmToDataPoints const & balancedDataPointNumbers, vector<TableR
   table = move(balancedTable);
 }
 
-void BalanceDataPoints(basic_istream<char> & distributionCsvStream,
-                       basic_istream<char> & tableCsvStream, uint64_t ignoreDataPointsNumber,
+void BalanceDataPoints(basic_istream<char> & tableCsvStream,
+                       basic_istream<char> & distributionCsvStream, uint64_t ignoreDataPointsNumber,
                        vector<TableRow> & balancedTable)
 {
   LOG(LINFO, ("Balancing data points..."));
@@ -235,7 +237,7 @@ void BalanceDataPoints(basic_istream<char> & distributionCsvStream,
 
   // Calculating how many points should have every mwm to keep the |distribution|.
   MwmToDataPoints const balancedDataPointNumber =
-      BalancedDataPointNumber(move(distribution), move(matchedDataPoints), ignoreDataPointsNumber);
+      BalancedDataPointNumber(move(matchedDataPoints), move(distribution), ignoreDataPointsNumber);
   uint64_t const totalBalancedDataPointsNumber = ValueSum(balancedDataPointNumber);
 
   // |balancedTable| is filled now with all the items from |tableCsvStream|.
@@ -246,5 +248,31 @@ void BalanceDataPoints(basic_istream<char> & distributionCsvStream,
               totalDistributionDataPointsNumber,
               "Total matched data points number:", totalMatchedDataPointsNumber,
               "Total balanced data points number:", totalBalancedDataPointsNumber));
+}
+
+void CmdBalanceCsv(string const & csvPath, string const & distributionPath,
+                   uint64_t ignoreDataPointsNumber)
+{
+  ifstream table(csvPath);
+  CHECK(table.is_open(), ("Cannot open", csvPath));
+  ifstream distribution(distributionPath);
+  CHECK(distribution.is_open(), ("Cannot open", distributionPath));
+  vector<TableRow> balancedTable;
+
+  BalanceDataPoints(table, distribution, ignoreDataPointsNumber, balancedTable);
+
+  WriteCsvTableHeader(cout);
+  for (auto const & record : balancedTable)
+  {
+    CHECK_EQUAL(record.size(), kTableColumns, ());
+    for (size_t i = 0; i < kTableColumns; ++i)
+    {
+      auto const & field = record[i];
+      cout << field;
+      if (i != kTableColumns - 1)
+        cout << ",";
+    }
+    cout << '\n';
+  }
 }
 }  // namespace track_analyzing

@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "track_analyzing/track_analyzer/balance_csv_impl.hpp"
+#include "track_analyzing/track_analyzer/cmd_balance_csv.hpp"
 
 #include <algorithm>
 #include <sstream>
@@ -161,7 +161,7 @@ UNIT_TEST(BalancedDataPointNumberTheSameTest)
     auto distr = distribution;
     auto matched = matchedDataPoints;
     auto const balancedDataPointNumber =
-        BalancedDataPointNumber(move(distr), move(matched), 0 /* ignoreDataPointsNumber */);
+        BalancedDataPointNumber(move(matched), move(distr), 0 /* ignoreDataPointsNumber */);
     TEST_EQUAL(balancedDataPointNumber, matchedDataPoints, ());
   }
 
@@ -171,7 +171,7 @@ UNIT_TEST(BalancedDataPointNumberTheSameTest)
     auto distr = distribution;
     auto matched = matchedDataPoints;
     auto const balancedDataPointNumber =
-        BalancedDataPointNumber(move(distr), move(matched), 7 /* ignoreDataPointsNumber */);
+        BalancedDataPointNumber(move(matched), move(distr), 7 /* ignoreDataPointsNumber */);
     MwmToDataPoints expectedBalancedDataPointNumber = {{"Russia_Moscow", 10 /* data points */}};
     TEST_EQUAL(balancedDataPointNumber, expectedBalancedDataPointNumber, ());
   }
@@ -189,7 +189,7 @@ UNIT_TEST(BalancedDataPointNumberTest)
     auto distr = distribution;
     auto matched = matchedDataPoints;
     auto const balancedDataPointNumber =
-        BalancedDataPointNumber(move(distr), move(matched), 7 /* ignoreDataPointsNumber */);
+        BalancedDataPointNumber(move(matched), move(distr), 7 /* ignoreDataPointsNumber */);
     MwmToDataPoints expectedBalancedDataPointNumber = {{"Russia_Moscow", 60 /* data points */},
                                                        {"San Marino", 30 /* data points */},
                                                        {"Slovakia", 10 /* data points */}};
@@ -209,7 +209,7 @@ UNIT_TEST(BalancedDataPointNumberUint64Test)
     auto distr = distribution;
     auto matched = matchedDataPoints;
     auto const balancedDataPointNumber =
-        BalancedDataPointNumber(move(distr), move(matched), 7'000'000'000 /* ignoreDataPointsNumber */);
+        BalancedDataPointNumber(move(matched), move(distr), 7'000'000'000 /* ignoreDataPointsNumber */);
     MwmToDataPoints expectedBalancedDataPointNumber = {{"Russia_Moscow", 60'000'000'000 /* data points */},
                                                        {"San Marino", 30'000'000'000 /* data points */},
                                                        {"Slovakia", 10'000'000'000 /* data points */}};

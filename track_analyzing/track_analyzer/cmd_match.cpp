@@ -118,8 +118,8 @@ void CmdMatch(string const & logFile, string const & trackFile, string const & i
 
   Stats stats;
   CmdMatch(logFile, trackFile, numMwmIds, storage, stats);
-  LOG(LINFO, ("DataPoint distribution by mwms and countries."));
-  LOG(LINFO, (stats));
+  stats.SaveMwmDistributionToCsv(inputDistribution);
+  stats.LogCountries();
 }
 
 void UnzipAndMatch(Iter begin, Iter end, string const & trackExt, Stats & stats)
@@ -218,7 +218,7 @@ void CmdMatchDir(string const & logDir, string const & trackExt, string const & 
   for (auto const & s : stats)
     statSum.Add(s);
 
-  LOG(LINFO, ("DataPoint distribution by mwms and countries."));
-  LOG(LINFO, (statSum));
+  statSum.SaveMwmDistributionToCsv(inputDistribution);
+  statSum.LogCountries();
 }
 }  // namespace track_analyzing

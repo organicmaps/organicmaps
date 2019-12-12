@@ -117,13 +117,27 @@ void Stats::AddDataPoints(string const & mwmName, string const & countryName,
   m_countryToTotalDataPoints[countryName] += dataPointNum;
 }
 
-void Stats::SaveMwmDistributionToCsv(string const & csvPath)
+void Stats::SaveMwmDistributionToCsv(string const & csvPath) const
 {
   if (csvPath.empty())
     return;
 
   ostringstream ss(csvPath);
   MappingToCsv("mwm", m_mwmToTotalDataPoints, false /* printPercentage */, ss);
+}
+
+void Stats::LogMwms() const
+{
+  ostringstream ss;
+  PrintMap("mwm", "Mwm to total data points number:", m_mwmToTotalDataPoints, ss);
+  LOG(LINFO, (ss.str()));
+}
+
+void Stats::LogCountries() const
+{
+  ostringstream ss;
+  PrintMap("country", "Country name to data points number:", m_countryToTotalDataPoints, ss);
+  LOG(LINFO, (ss.str()));
 }
 
 Stats::NameToCountMapping const & Stats::GetMwmToTotalDataPointsForTesting() const
@@ -205,6 +219,13 @@ void ParseTracks(string const & logFile, shared_ptr<NumMwmIds> const & numMwmIds
   LOG(LINFO, ("Parsing", logFile));
   LogParser parser(numMwmIds, move(mwmTree), dataDir);
   parser.Parse(logFile, mwmToTracks);
+}
+
+void WriteCsvTableHeader(basic_ostream<char> & stream)
+{
+  stream << "user,mwm,hw type,surface type,maxspeed km/h,is city road,is one way,is day,lat lon,distance,time,"
+            "mean speed km/h,turn from smaller to bigger,turn from bigger to smaller,from link,to link,"
+            "intersection with big,intersection with small,intersection with link\n";
 }
 
 string DebugPrint(Stats const & s)

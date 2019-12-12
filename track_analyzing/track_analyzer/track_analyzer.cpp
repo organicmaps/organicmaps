@@ -1,9 +1,13 @@
+#include "track_analyzing/track_analyzer/cmd_balance_csv.hpp"
+
 #include "track_analyzing/exceptions.hpp"
 #include "track_analyzing/track.hpp"
 #include "track_analyzing/utils.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
+
+#include "base/checked_cast.hpp"
 
 #include "3party/gflags/src/gflags/gflags.h"
 
@@ -53,9 +57,13 @@ DEFINE_string(
     "some mwms. Usage:\n"
     "- It may be used with match and match_dir command. If so it's a path to save file with "
     "data point distribution by mwm. If it's empty no file is saved.\n"
-    "- It may be used with table command. If so it's a path of a file with distribution which "
+    "- It may be used with balance_csv command. If so it's a path of a file with distribution which "
     "will be used for normalization (balancing) the result of the command."
     "If it's empty no distribution will be used.");
+DEFINE_uint64(
+    ignore_datapoints_number, 500,
+    "if the number of datapoints or less is contained in an mwm after matching and tabling the mwm "
+    "will not used for balancing. This param should be used with balance_csv command.");
 
 DEFINE_string(track_extension, ".track", "track files extension");
 DEFINE_bool(no_world_logs, false, "don't print world summary logs");
@@ -154,6 +162,17 @@ int main(int argc, char ** argv)
     {
       CmdTagsTable(Checked_in(), FLAGS_track_extension, MakeFilter(FLAGS_mwm),
                    MakeFilter(FLAGS_user));
+    }
+    else if (cmd == "balance_csv")
+    {
+      if (FLAGS_input_distribution.empty())
+      {
+        LOG(LERROR, ("input_distribution param should be set to a path to csv file with required "
+                     "distribution. Hint: this file may be saved by match or match_dir command."));
+        return 1;
+      }
+      CmdBalanceCsv(FLAGS_in, FLAGS_input_distribution,
+                    base::checked_cast<uint64_t>(FLAGS_ignore_datapoints_number));
     }
     else if (cmd == "gpx")
     {

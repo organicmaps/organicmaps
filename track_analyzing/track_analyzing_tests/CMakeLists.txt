@@ -2,8 +2,8 @@ project(track_analyzing_tests)
 
 set(
   SRC
-  ../track_analyzer/balance_csv_impl.cpp
-  ../track_analyzer/balance_csv_impl.hpp
+  ../track_analyzer/cmd_balance_csv.cpp
+  ../track_analyzer/cmd_balance_csv.hpp
   ../track_analyzer/utils.cpp
   ../track_analyzer/utils.hpp
   balance_tests.cpp
