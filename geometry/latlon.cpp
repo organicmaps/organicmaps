@@ -1,6 +1,7 @@
 #include "latlon.hpp"
 
 #include <sstream>
+#include <tuple>
 
 namespace ms
 {
@@ -14,7 +15,12 @@ double const LatLon::kMaxLon = 180.0;
 // So if you want to change the value you should change the code of processing the statistics.
 LatLon const LatLon::kInvalidValue = LatLon(-180.0, -180.0);
 
-bool LatLon::operator==(ms::LatLon const & p) const { return m_lat == p.m_lat && m_lon == p.m_lon; }
+bool LatLon::operator==(ms::LatLon const & rhs) const { return m_lat == rhs.m_lat && m_lon == rhs.m_lon; }
+
+bool LatLon::operator<(ms::LatLon const & rhs) const
+{
+  return std::tie(m_lat, m_lon) < std::tie(rhs.m_lat, rhs.m_lon);
+}
 
 bool LatLon::EqualDxDy(LatLon const & p, double eps) const
 {
@@ -29,3 +35,12 @@ std::string DebugPrint(LatLon const & t)
   return out.str();
 }
 }  // namespace ms
+
+namespace base
+{
+bool AlmostEqualAbs(ms::LatLon const & ll1, ms::LatLon const & ll2, double const & eps)
+{
+  return base::AlmostEqualAbs(ll1.m_lat, ll2.m_lat, eps) &&
+         base::AlmostEqualAbs(ll1.m_lon, ll2.m_lon, eps);
+}
+}  // namespace base

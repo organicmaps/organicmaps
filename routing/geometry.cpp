@@ -6,10 +6,10 @@
 #include "routing/routing_options.hpp"
 
 #include "indexer/altitude_loader.hpp"
-#include "indexer/classificator.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
+#include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
@@ -176,7 +176,7 @@ RoadGeometry::RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedK
 
   m_junctions.reserve(points.size());
   for (auto const & point : points)
-    m_junctions.emplace_back(point, geometry::kDefaultAltitudeMeters);
+    m_junctions.emplace_back(mercator::ToLatLon(point), geometry::kDefaultAltitudeMeters);
 }
 
 void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType & feature,
@@ -204,7 +204,7 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
   m_junctions.reserve(feature.GetPointsCount());
   for (size_t i = 0; i < feature.GetPointsCount(); ++i)
   {
-    m_junctions.emplace_back(feature.GetPoint(i),
+    m_junctions.emplace_back(mercator::ToLatLon(feature.GetPoint(i)),
                              altitudes ? (*altitudes)[i] : geometry::kDefaultAltitudeMeters);
   }
 
@@ -227,8 +227,8 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
   {
     auto const & id = feature.GetID();
     CHECK(!m_junctions.empty(), ("mwm:", id.GetMwmName(), ", featureId:", id.m_index));
-    auto const begin = mercator::ToLatLon(m_junctions.front().GetPoint());
-    auto const end = mercator::ToLatLon(m_junctions.back().GetPoint());
+    auto const & begin = m_junctions.front().GetLatLon();
+    auto const & end = m_junctions.back().GetLatLon();
     LOG(LERROR,
         ("Invalid speed m_forwardSpeed:", m_forwardSpeed, "m_backwardSpeed:", m_backwardSpeed,
          "mwm:", id.GetMwmName(), ", featureId:", id.m_index, ", begin:", begin, "end:", end));
@@ -246,7 +246,7 @@ double RoadGeometry::GetRoadLengthM() const
   double lenM = 0.0;
   for (size_t i = 1; i < GetPointsCount(); ++i)
   {
-    lenM += mercator::DistanceOnEarth(m_junctions[i - 1].GetPoint(), m_junctions[i].GetPoint());
+    lenM += ms::DistanceOnEarth(m_junctions[i - 1].GetLatLon(), m_junctions[i].GetLatLon());
   }
 
   return lenM;

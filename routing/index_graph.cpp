@@ -134,7 +134,6 @@ void IndexGraph::GetEdgeList(JointSegment const & parentJoint,
   vector<uint32_t> lastPoints;
   GetLastPointsForJoint(possibleChildren, isOutgoing, lastPoints);
 
-
   ReconstructJointSegment(parentJoint, parent, possibleChildren, lastPoints,
                           isOutgoing, edges, parentWeights, parents);
 }
@@ -377,8 +376,8 @@ void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bo
   if (m_roadAccess.GetPointType(rp) == RoadAccess::Type::No)
     return;
 
-  RouteWeight weight = CalculateEdgeWeight(EdgeEstimator::Purpose::Weight, isOutgoing, from, to);
-  edges.emplace_back(to, std::move(weight));
+  auto const weight = CalculateEdgeWeight(EdgeEstimator::Purpose::Weight, isOutgoing, from, to);
+  edges.emplace_back(to, weight);
 }
 
 IndexGraph::PenaltyData IndexGraph::GetRoadPenaltyData(Segment const & segment)

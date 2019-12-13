@@ -4,6 +4,7 @@
 #include "routing/fake_ending.hpp"
 #include "routing/fake_graph.hpp"
 #include "routing/fake_vertex.hpp"
+#include "routing/latlon_with_altitude.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/route_weight.hpp"
 #include "routing/segment.hpp"
@@ -12,8 +13,6 @@
 #include "transit/transit_types.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
-
-#include "geometry/point_with_altitude.hpp"
 
 #include <cstdint>
 #include <map>
@@ -35,7 +34,7 @@ public:
 
   TransitGraph(NumMwmId numMwmId, std::shared_ptr<EdgeEstimator> estimator);
 
-  geometry::PointWithAltitude const & GetJunction(Segment const & segment, bool front) const;
+  LatLonWithAltitude const & GetJunction(Segment const & segment, bool front) const;
   RouteWeight CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const;
   RouteWeight GetTransferPenalty(Segment const & from, Segment const & to) const;
   void GetTransitEdges(Segment const & segment, bool isOutgoing,
@@ -59,12 +58,12 @@ private:
   // Adds gate to fake graph. Also adds gate to temporary stopToBack, stopToFront maps used while
   // TransitGraph::Fill.
   void AddGate(transit::Gate const & gate, FakeEnding const & ending,
-               std::map<transit::StopId, geometry::PointWithAltitude> const & stopCoords,
+               std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
                bool isEnter, StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront);
   // Adds transit edge to fake graph, returns corresponding transit segment. Also adds gate to
   // temporary stopToBack, stopToFront maps used while TransitGraph::Fill.
   Segment AddEdge(transit::Edge const & edge,
-                  std::map<transit::StopId, geometry::PointWithAltitude> const & stopCoords,
+                  std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
                   StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront);
   // Adds connections to fake graph.
   void AddConnections(StopToSegmentsMap const & connections, StopToSegmentsMap const & stopToBack,

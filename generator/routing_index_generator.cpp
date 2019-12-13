@@ -168,7 +168,7 @@ public:
   Segment GetStartSegment() const { return m_start; }
   Segment GetFinishSegment() const { return {}; }
   bool ConvertToReal(Segment const & /* segment */) const { return false; }
-  RouteWeight HeuristicCostEstimate(Segment const & /* from */, m2::PointD const & /* to */)
+  RouteWeight HeuristicCostEstimate(Segment const & /* from */, ms::LatLon const & /* to */)
   {
     CHECK(false, ("This method exists only for compatibility with IndexGraphStarterJoints"));
     return GetAStarWeightZero<RouteWeight>();
@@ -195,7 +195,7 @@ public:
   RouteWeight GetAStarWeightEpsilon() { return RouteWeight(0.0); }
   // @}
 
-  m2::PointD const & GetPoint(Segment const & s, bool forward)
+  ms::LatLon const & GetPoint(Segment const & s, bool forward)
   {
     return m_graph.GetPoint(s, forward);
   }

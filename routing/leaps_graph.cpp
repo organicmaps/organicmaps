@@ -107,7 +107,7 @@ void LeapsGraph::GetEdgesListToFinish(Segment const & segment, std::vector<Segme
   }
 }
 
-m2::PointD const & LeapsGraph::GetPoint(Segment const & segment, bool front)
+ms::LatLon const & LeapsGraph::GetPoint(Segment const & segment, bool front) const
 {
   return m_starter.GetPoint(segment, front);
 }

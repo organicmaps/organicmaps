@@ -24,7 +24,8 @@ public:
 
   static LatLon Zero() { return LatLon(0.0, 0.0); }
 
-  bool operator==(ms::LatLon const & p) const;
+  bool operator==(ms::LatLon const & rhs) const;
+  bool operator<(ms::LatLon const & rhs) const;
 
   bool EqualDxDy(LatLon const & p, double eps) const;
 
@@ -36,3 +37,8 @@ public:
 
 std::string DebugPrint(LatLon const & t);
 }  // namespace ms
+
+namespace base
+{
+bool AlmostEqualAbs(ms::LatLon const & ll1, ms::LatLon const & ll2, double const & eps);
+}  // namespace base

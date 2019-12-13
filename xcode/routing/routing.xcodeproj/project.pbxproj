@@ -102,6 +102,8 @@
 		44E5574A2136EEC900B01439 /* speed_camera_ser_des.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44E557492136EEC800B01439 /* speed_camera_ser_des.hpp */; };
 		44E5574C2136EED000B01439 /* speed_camera_ser_des.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44E5574B2136EED000B01439 /* speed_camera_ser_des.cpp */; };
 		44F45B282136B069001B1618 /* speed_cameras_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44F45B272136B069001B1618 /* speed_cameras_tests.cpp */; };
+		44F4EDC723A78C2E005254C4 /* latlon_with_altitude.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44F4EDC523A78C2D005254C4 /* latlon_with_altitude.cpp */; };
+		44F4EDC823A78C2E005254C4 /* latlon_with_altitude.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44F4EDC623A78C2E005254C4 /* latlon_with_altitude.hpp */; };
 		56099E291CC7C97D00A7772A /* loaded_path_segment.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E251CC7C97D00A7772A /* loaded_path_segment.hpp */; };
 		56099E2A1CC7C97D00A7772A /* routing_result_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E261CC7C97D00A7772A /* routing_result_graph.hpp */; };
 		56099E2B1CC7C97D00A7772A /* turn_candidate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E271CC7C97D00A7772A /* turn_candidate.hpp */; };
@@ -412,6 +414,8 @@
 		44E557492136EEC800B01439 /* speed_camera_ser_des.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_camera_ser_des.hpp; sourceTree = "<group>"; };
 		44E5574B2136EED000B01439 /* speed_camera_ser_des.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_camera_ser_des.cpp; sourceTree = "<group>"; };
 		44F45B272136B069001B1618 /* speed_cameras_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_cameras_tests.cpp; sourceTree = "<group>"; };
+		44F4EDC523A78C2D005254C4 /* latlon_with_altitude.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = latlon_with_altitude.cpp; sourceTree = "<group>"; };
+		44F4EDC623A78C2E005254C4 /* latlon_with_altitude.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = latlon_with_altitude.hpp; sourceTree = "<group>"; };
 		56099E251CC7C97D00A7772A /* loaded_path_segment.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = loaded_path_segment.hpp; sourceTree = "<group>"; };
 		56099E261CC7C97D00A7772A /* routing_result_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_result_graph.hpp; sourceTree = "<group>"; };
 		56099E271CC7C97D00A7772A /* turn_candidate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turn_candidate.hpp; sourceTree = "<group>"; };
@@ -851,6 +855,8 @@
 			isa = PBXGroup;
 			children = (
 				441CC8C523ACF42C008B9A49 /* segment.cpp */,
+				44F4EDC523A78C2D005254C4 /* latlon_with_altitude.cpp */,
+				44F4EDC623A78C2E005254C4 /* latlon_with_altitude.hpp */,
 				56DAC2C72398F3C8000BC50D /* junction_visitor.hpp */,
 				4433A8EA23993BD700E1350B /* leaps_graph.hpp */,
 				4433A8E823993BD200E1350B /* leaps_graph.cpp */,
@@ -1056,6 +1062,7 @@
 				674F9BD71B0A580E00704FFA /* turns_generator.hpp in Headers */,
 				40655E741F8BA46B0065305E /* fake_feature_ids.hpp in Headers */,
 				6753441C1A3F644F00A0A8C3 /* route.hpp in Headers */,
+				44F4EDC823A78C2E005254C4 /* latlon_with_altitude.hpp in Headers */,
 				A1616E2C1B6B60AB003F078E /* router_delegate.hpp in Headers */,
 				349D1CE11E3F589900A878FD /* restrictions_serialization.hpp in Headers */,
 				56CC5A371E3884960016AC46 /* cross_mwm_index_graph.hpp in Headers */,
@@ -1365,6 +1372,7 @@
 				5694CECE1EBA25F7004576D3 /* vehicle_mask.cpp in Sources */,
 				0C45D7391F2F75500065C3ED /* routing_settings.cpp in Sources */,
 				56CBED5622E9CE2600D51AF7 /* position_accumulator.cpp in Sources */,
+				44F4EDC723A78C2E005254C4 /* latlon_with_altitude.cpp in Sources */,
 				0C5FEC691DDE193F0017688C /* road_index.cpp in Sources */,
 				0CF709361F05172200D5067E /* checkpoints.cpp in Sources */,
 				671F58BD1B874EC80032311E /* followed_polyline.cpp in Sources */,

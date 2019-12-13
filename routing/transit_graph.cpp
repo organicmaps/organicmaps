@@ -5,6 +5,8 @@
 
 #include "indexer/feature_altitude.hpp"
 
+#include "geometry/mercator.hpp"
+
 namespace routing
 {
 namespace
@@ -17,8 +19,8 @@ Segment GetReverseSegment(Segment const & segment)
                  !segment.IsForward());
 }
 
-geometry::PointWithAltitude const & GetStopJunction(
-    map<transit::StopId, geometry::PointWithAltitude> const & stopCoords, transit::StopId stopId)
+LatLonWithAltitude const & GetStopJunction(
+    map<transit::StopId, LatLonWithAltitude> const & stopCoords, transit::StopId stopId)
 {
   auto const it = stopCoords.find(stopId);
   CHECK(it != stopCoords.cend(), ("Stop", stopId, "does not exist."));
@@ -43,7 +45,7 @@ TransitGraph::TransitGraph(NumMwmId numMwmId, shared_ptr<EdgeEstimator> estimato
 {
 }
 
-geometry::PointWithAltitude const & TransitGraph::GetJunction(Segment const & segment,
+LatLonWithAltitude const & TransitGraph::GetJunction(Segment const & segment,
                                                               bool front) const
 {
   CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
@@ -70,8 +72,8 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment,
   }
 
   return RouteWeight(
-      m_estimator->CalcOffroad(GetJunction(segment, false /* front */).GetPoint(),
-                               GetJunction(segment, true /* front */).GetPoint(), purpose));
+      m_estimator->CalcOffroad(GetJunction(segment, false /* front */).GetLatLon(),
+                               GetJunction(segment, true /* front */).GetLatLon(), purpose));
 }
 
 RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const & to) const
@@ -133,10 +135,10 @@ void TransitGraph::Fill(transit::GraphData const & transitData, GateEndings cons
   for (auto const & line : transitData.GetLines())
     m_transferPenalties[line.GetId()] = line.GetInterval() / 2;
 
-  map<transit::StopId, geometry::PointWithAltitude> stopCoords;
+  map<transit::StopId, LatLonWithAltitude> stopCoords;
   for (auto const & stop : transitData.GetStops())
     stopCoords[stop.GetId()] =
-        geometry::PointWithAltitude(stop.GetPoint(), geometry::kDefaultAltitudeMeters);
+        LatLonWithAltitude(mercator::ToLatLon(stop.GetPoint()), geometry::kDefaultAltitudeMeters);
 
   StopToSegmentsMap stopToBack;
   StopToSegmentsMap stopToFront;
@@ -223,7 +225,7 @@ Segment TransitGraph::GetNewTransitSegment() const
 }
 
 void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending,
-                           map<transit::StopId, geometry::PointWithAltitude> const & stopCoords,
+                           map<transit::StopId, LatLonWithAltitude> const & stopCoords,
                            bool isEnter, StopToSegmentsMap & stopToBack,
                            StopToSegmentsMap & stopToFront)
 {
@@ -278,7 +280,7 @@ void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending
 }
 
 Segment TransitGraph::AddEdge(transit::Edge const & edge,
-                              map<transit::StopId, geometry::PointWithAltitude> const & stopCoords,
+                              map<transit::StopId, LatLonWithAltitude> const & stopCoords,
                               StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
   auto const edgeSegment = GetNewTransitSegment();

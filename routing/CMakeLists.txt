@@ -70,6 +70,8 @@ set(
   joint_segment.cpp
   joint_segment.hpp
   junction_visitor.hpp
+  latlon_with_altitude.cpp
+  latlon_with_altitude.hpp
   leaps_graph.cpp
   leaps_graph.hpp
   leaps_postprocessor.cpp

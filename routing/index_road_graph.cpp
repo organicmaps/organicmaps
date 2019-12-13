@@ -1,11 +1,13 @@
 #include "routing/index_road_graph.hpp"
 
+#include "routing/latlon_with_altitude.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/transit_graph.hpp"
 
 #include "indexer/data_source.hpp"
 
 #include <cstdint>
+#include <utility>
 
 using namespace std;
 
@@ -15,7 +17,7 @@ IndexRoadGraph::IndexRoadGraph(shared_ptr<NumMwmIds> numMwmIds, IndexGraphStarte
                                vector<Segment> const & segments,
                                vector<geometry::PointWithAltitude> const & junctions,
                                DataSource & dataSource)
-  : m_dataSource(dataSource), m_numMwmIds(numMwmIds), m_starter(starter), m_segments(segments)
+  : m_dataSource(dataSource), m_numMwmIds(move(numMwmIds)), m_starter(starter), m_segments(segments)
 {
   //    j0     j1     j2     j3
   //    *--s0--*--s1--*--s2--*
@@ -88,8 +90,11 @@ void IndexRoadGraph::GetRouteEdges(EdgeVector & edges) const
 
   for (Segment const & segment : m_segments)
   {
-    auto const & junctionFrom = m_starter.GetJunction(segment, false /* front */);
-    auto const & junctionTo = m_starter.GetJunction(segment, true /* front */);
+    auto const & junctionFrom =
+        m_starter.GetJunction(segment, false /* front */).ToPointWithAltitude();
+    auto const & junctionTo =
+        m_starter.GetJunction(segment, true /* front */).ToPointWithAltitude();
+
     if (IndexGraphStarter::IsFakeSegment(segment) || TransitGraph::IsTransitSegment(segment))
     {
       Segment real = segment;
@@ -145,10 +150,10 @@ void IndexRoadGraph::GetEdges(geometry::PointWithAltitude const & junction, bool
     platform::CountryFile const & file = m_numMwmIds->GetFile(segment.GetMwmId());
     MwmSet::MwmId const mwmId = m_dataSource.GetMwmIdByCountryFile(file);
 
-    edges.push_back(Edge::MakeReal(FeatureID(mwmId, segment.GetFeatureId()), segment.IsForward(),
-                                   segment.GetSegmentIdx(),
-                                   m_starter.GetJunction(segment, false /* front */),
-                                   m_starter.GetJunction(segment, true /* front */)));
+    edges.push_back(Edge::MakeReal(
+        FeatureID(mwmId, segment.GetFeatureId()), segment.IsForward(), segment.GetSegmentIdx(),
+        m_starter.GetJunction(segment, false /* front */).ToPointWithAltitude(),
+        m_starter.GetJunction(segment, true /* front */).ToPointWithAltitude()));
   }
 }
 

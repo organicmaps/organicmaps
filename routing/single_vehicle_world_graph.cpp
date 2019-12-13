@@ -109,16 +109,16 @@ void SingleVehicleWorldGraph::GetEdgeList(JointSegment const & parentJoint,
     CheckAndProcessTransitFeatures(parent, jointEdges, parentWeights, isOutgoing);
 }
 
-geometry::PointWithAltitude const & SingleVehicleWorldGraph::GetJunction(Segment const & segment,
+LatLonWithAltitude const & SingleVehicleWorldGraph::GetJunction(Segment const & segment,
                                                                          bool front)
 {
   return GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())
          .GetJunction(segment.GetPointId(front));
 }
 
-m2::PointD const & SingleVehicleWorldGraph::GetPoint(Segment const & segment, bool front)
+ms::LatLon const & SingleVehicleWorldGraph::GetPoint(Segment const & segment, bool front)
 {
-  return GetJunction(segment, front).GetPoint();
+  return GetJunction(segment, front).GetLatLon();
 }
 
 bool SingleVehicleWorldGraph::IsOneWay(NumMwmId mwmId, uint32_t featureId)
@@ -131,22 +131,12 @@ bool SingleVehicleWorldGraph::IsPassThroughAllowed(NumMwmId mwmId, uint32_t feat
   return GetRoadGeometry(mwmId, featureId).IsPassThroughAllowed();
 }
 
-RouteWeight SingleVehicleWorldGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)
-{
-  return HeuristicCostEstimate(GetPoint(from, true /* front */), GetPoint(to, true /* front */));
-}
-
-
-RouteWeight SingleVehicleWorldGraph::HeuristicCostEstimate(Segment const & from, m2::PointD const & to)
-{
-  return HeuristicCostEstimate(GetPoint(from, true /* front */), to);
-}
-
-RouteWeight SingleVehicleWorldGraph::HeuristicCostEstimate(m2::PointD const & from,
-                                                           m2::PointD const & to)
+RouteWeight SingleVehicleWorldGraph::HeuristicCostEstimate(ms::LatLon const & from,
+                                                           ms::LatLon const & to)
 {
   return RouteWeight(m_estimator->CalcHeuristic(from, to));
 }
+
 
 RouteWeight SingleVehicleWorldGraph::CalcSegmentWeight(Segment const & segment,
                                                        EdgeEstimator::Purpose purpose)
@@ -155,14 +145,14 @@ RouteWeight SingleVehicleWorldGraph::CalcSegmentWeight(Segment const & segment,
       segment, GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()), purpose));
 }
 
-RouteWeight SingleVehicleWorldGraph::CalcLeapWeight(m2::PointD const & from,
-                                                    m2::PointD const & to) const
+RouteWeight SingleVehicleWorldGraph::CalcLeapWeight(ms::LatLon const & from,
+                                                    ms::LatLon const & to) const
 {
   return RouteWeight(m_estimator->CalcLeapWeight(from, to));
 }
 
-RouteWeight SingleVehicleWorldGraph::CalcOffroadWeight(m2::PointD const & from,
-                                                       m2::PointD const & to,
+RouteWeight SingleVehicleWorldGraph::CalcOffroadWeight(ms::LatLon const & from,
+                                                       ms::LatLon const & to,
                                                        EdgeEstimator::Purpose purpose) const
 {
   return RouteWeight(m_estimator->CalcOffroad(from, to, purpose));

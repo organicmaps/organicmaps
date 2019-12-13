@@ -1,7 +1,8 @@
 #pragma once
+
 #include "routing/routing_callbacks.hpp"
 
-#include "geometry/point2d.hpp"
+#include "geometry/latlon.hpp"
 
 #include "base/cancellable.hpp"
 #include "base/timer.hpp"
@@ -19,7 +20,7 @@ public:
 
   /// Set routing progress. Waits current progress status from 0 to 100.
   void OnProgress(float progress) const;
-  void OnPointCheck(m2::PointD const & point) const;
+  void OnPointCheck(ms::LatLon const & point) const;
 
   void SetProgressCallback(ProgressCallback const & progressCallback);
   void SetPointCheckCallback(PointCheckCallback const & pointCallback);

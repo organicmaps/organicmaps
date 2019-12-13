@@ -87,7 +87,7 @@ private:
 
   private:
     void OnProgress(float progress);
-    void OnPointCheck(m2::PointD const & pt);
+    void OnPointCheck(ms::LatLon const & pt);
 
     std::mutex m_guard;
     ReadyCallbackOwnership const m_onReadyOwnership;

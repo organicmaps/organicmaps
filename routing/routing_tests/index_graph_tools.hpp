@@ -57,7 +57,8 @@ public:
   // @{
   Weight HeuristicCostEstimate(Vertex const & from, Vertex const & to) override
   {
-    return m_graph->HeuristicCostEstimate(from, to);
+    return m_graph->HeuristicCostEstimate(m_graph->GetPoint(from, true /* front */),
+                                          m_graph->GetPoint(to, true /* front */));
   }
 
   void GetOutgoingEdgesList(Vertex const & v, std::vector<Edge> & edges) override

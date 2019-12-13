@@ -6,7 +6,7 @@
 #include "routing/route_weight.hpp"
 #include "routing/segment.hpp"
 
-#include "geometry/point2d.hpp"
+#include "geometry/latlon.hpp"
 
 #include <vector>
 
@@ -25,9 +25,9 @@ public:
   RouteWeight GetAStarWeightEpsilon() override;
   // @}
 
-  m2::PointD const & GetPoint(Segment const & segment, bool front);
   Segment const & GetStartSegment() const;
   Segment const & GetFinishSegment() const;
+  ms::LatLon const & GetPoint(Segment const & segment, bool front) const;
 
 private:
   void GetEdgesList(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges);
@@ -35,8 +35,8 @@ private:
   void GetEdgesListFromStart(Segment const & segment, std::vector<SegmentEdge> & edges);
   void GetEdgesListToFinish(Segment const & segment, std::vector<SegmentEdge> & edges);
 
-  m2::PointD m_startPoint;
-  m2::PointD m_finishPoint;
+  ms::LatLon m_startPoint;
+  ms::LatLon m_finishPoint;
 
   Segment m_startSegment;
   Segment m_finishSegment;

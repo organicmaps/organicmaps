@@ -1,6 +1,6 @@
 #pragma once
 
-#include "geometry/point2d.hpp"
+#include "geometry/latlon.hpp"
 
 #include <list>
 
@@ -9,11 +9,11 @@ namespace routing
 class AStarSubProgress
 {
 public:
-  AStarSubProgress(m2::PointD const & start, m2::PointD const & finish, double contributionCoef);
+  AStarSubProgress(ms::LatLon const & start, ms::LatLon const & finish, double contributionCoef);
 
   explicit AStarSubProgress(double contributionCoef);
 
-  double UpdateProgress(m2::PointD const & current, m2::PointD const & finish);
+  double UpdateProgress(ms::LatLon const & current, ms::LatLon const & finish);
   /// \brief Some |AStarSubProgress| could have their own subProgresses (next item in
   /// AStarProgress::m_subProgresses after current), in order to return true progress
   /// back to the upper level of subProgresses, we should do progress backpropagation of
@@ -30,8 +30,8 @@ private:
   double m_forwardDistance = 0.0;
   double m_backwardDistance = 0.0;
 
-  m2::PointD m_startPoint;
-  m2::PointD m_finishPoint;
+  ms::LatLon m_startPoint;
+  ms::LatLon m_finishPoint;
 };
 
 class AStarProgress
@@ -46,13 +46,13 @@ public:
   void PushAndDropLastSubProgress();
   void DropLastSubProgress();
   void AppendSubProgress(AStarSubProgress const & subProgress);
-  double UpdateProgress(m2::PointD const & current, m2::PointD const & end);
+  double UpdateProgress(ms::LatLon const & current, ms::LatLon const & end);
 
 private:
   using ListItem = std::list<AStarSubProgress>::iterator;
 
-  double UpdateProgressImpl(ListItem subProgress, m2::PointD const & current,
-                            m2::PointD const & end);
+  double UpdateProgressImpl(ListItem subProgress, ms::LatLon const & current,
+                            ms::LatLon const & end);
 
   // This value is in range: [0, 1].
   double m_lastPercentValue = 0.0;

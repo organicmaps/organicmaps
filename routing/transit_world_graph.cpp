@@ -72,8 +72,7 @@ void TransitWorldGraph::GetEdgeList(JointSegment const & parentJoint,
   CHECK(false, ("TransitWorldGraph does not support Joints mode."));
 }
 
-geometry::PointWithAltitude const & TransitWorldGraph::GetJunction(Segment const & segment,
-                                                                   bool front)
+LatLonWithAltitude const & TransitWorldGraph::GetJunction(Segment const & segment, bool front)
 {
   if (TransitGraph::IsTransitSegment(segment))
     return GetTransitGraph(segment.GetMwmId()).GetJunction(segment, front);
@@ -82,9 +81,9 @@ geometry::PointWithAltitude const & TransitWorldGraph::GetJunction(Segment const
       .GetJunction(segment.GetPointId(front));
 }
 
-m2::PointD const & TransitWorldGraph::GetPoint(Segment const & segment, bool front)
+ms::LatLon const & TransitWorldGraph::GetPoint(Segment const & segment, bool front)
 {
-  return GetJunction(segment, front).GetPoint();
+  return GetJunction(segment, front).GetLatLon();
 }
 
 bool TransitWorldGraph::IsOneWay(NumMwmId mwmId, uint32_t featureId)
@@ -107,17 +106,7 @@ void TransitWorldGraph::ClearCachedGraphs()
   m_transitLoader->Clear();
 }
 
-RouteWeight TransitWorldGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)
-{
-  return HeuristicCostEstimate(GetPoint(from, true /* front */), GetPoint(to, true /* front */));
-}
-
-RouteWeight TransitWorldGraph::HeuristicCostEstimate(Segment const & from, m2::PointD const & to)
-{
-  return HeuristicCostEstimate(GetPoint(from, true /* front */), to);
-}
-
-RouteWeight TransitWorldGraph::HeuristicCostEstimate(m2::PointD const & from, m2::PointD const & to)
+RouteWeight TransitWorldGraph::HeuristicCostEstimate(ms::LatLon const & from, ms::LatLon const & to)
 {
   return RouteWeight(m_estimator->CalcHeuristic(from, to));
 }
@@ -135,13 +124,13 @@ RouteWeight TransitWorldGraph::CalcSegmentWeight(Segment const & segment,
       segment, GetRealRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()), purpose));
 }
 
-RouteWeight TransitWorldGraph::CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const
+RouteWeight TransitWorldGraph::CalcLeapWeight(ms::LatLon const & from, ms::LatLon const & to) const
 {
   return RouteWeight(m_estimator->CalcLeapWeight(from, to));
 }
 
-RouteWeight TransitWorldGraph::CalcOffroadWeight(m2::PointD const & from,
-                                                 m2::PointD const & to,
+RouteWeight TransitWorldGraph::CalcOffroadWeight(ms::LatLon const & from,
+                                                 ms::LatLon const & to,
                                                  EdgeEstimator::Purpose purpose) const
 {
   return RouteWeight(m_estimator->CalcOffroad(from, to, purpose));

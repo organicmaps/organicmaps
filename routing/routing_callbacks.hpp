@@ -1,5 +1,6 @@
 #pragma once
 
+#include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
@@ -70,7 +71,7 @@ enum class SessionState
 
 using CheckpointCallback = std::function<void(size_t passedCheckpointIdx)>;
 using NeedMoreMapsCallback = std::function<void(uint64_t, std::set<std::string> const &)>;
-using PointCheckCallback = std::function<void(m2::PointD const &)>;
+using PointCheckCallback = std::function<void(ms::LatLon const &)>;
 using ProgressCallback = std::function<void(float)>;
 using ReadyCallback = std::function<void(Route const &, RouterResultCode)>;
 using ReadyCallbackOwnership = std::function<void(std::shared_ptr<Route>, RouterResultCode)>;

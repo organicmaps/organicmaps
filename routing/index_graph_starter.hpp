@@ -9,14 +9,13 @@
 #include "routing/fake_vertex.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/joint.hpp"
+#include "routing/latlon_with_altitude.hpp"
 #include "routing/route_point.hpp"
 #include "routing/route_weight.hpp"
 #include "routing/segment.hpp"
 #include "routing/world_graph.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
-
-#include "geometry/point_with_altitude.hpp"
 
 #include <cstddef>
 #include <cstdint>
@@ -56,18 +55,18 @@ public:
 
   WorldGraph & GetGraph() const { return m_graph; }
   WorldGraphMode GetMode() const { return m_graph.GetMode(); }
-  geometry::PointWithAltitude const & GetStartJunction() const;
-  geometry::PointWithAltitude const & GetFinishJunction() const;
+  LatLonWithAltitude const & GetStartJunction() const;
+  LatLonWithAltitude const & GetFinishJunction() const;
   Segment GetStartSegment() const { return GetFakeSegment(m_start.m_id); }
   Segment GetFinishSegment() const { return GetFakeSegment(m_finish.m_id); }
   // If segment is real returns true and does not modify segment.
   // If segment is part of real converts it to real and returns true.
   // Otherwise returns false and does not modify segment.
   bool ConvertToReal(Segment & segment) const;
-  geometry::PointWithAltitude const & GetJunction(Segment const & segment, bool front) const;
-  geometry::PointWithAltitude const & GetRouteJunction(std::vector<Segment> const & route,
+  LatLonWithAltitude const & GetJunction(Segment const & segment, bool front) const;
+  LatLonWithAltitude const & GetRouteJunction(std::vector<Segment> const & route,
                                                        size_t pointIndex) const;
-  m2::PointD const & GetPoint(Segment const & segment, bool front) const;
+  ms::LatLon const & GetPoint(Segment const & segment, bool front) const;
 
   bool IsRoutingOptionsGood(Segment const & segment) const;
   RoutingOptions GetRoutingOptions(Segment const & segment) const;
@@ -134,7 +133,7 @@ public:
   RouteWeight GetAStarWeightEpsilon() override;
   // @}
 
-  RouteWeight HeuristicCostEstimate(Vertex const & from, m2::PointD const & to) const
+  RouteWeight HeuristicCostEstimate(Vertex const & from, ms::LatLon const & to) const
   {
     return m_graph.HeuristicCostEstimate(GetPoint(from, true /* front */), to);
   }

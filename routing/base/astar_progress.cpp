@@ -1,6 +1,6 @@
 #include "routing/base/astar_progress.hpp"
 
-#include "geometry/mercator.hpp"
+#include "geometry/distance_on_sphere.hpp"
 
 #include "base/assert.hpp"
 #include "base/math.hpp"
@@ -12,13 +12,13 @@ namespace routing
 {
 // AStarSubProgress ----------------------------------------------------------------------
 
-AStarSubProgress::AStarSubProgress(m2::PointD const & start, m2::PointD const & finish,
+AStarSubProgress::AStarSubProgress(ms::LatLon const & start, ms::LatLon const & finish,
                                    double contributionCoef)
   : m_contributionCoef(contributionCoef), m_startPoint(start), m_finishPoint(finish)
 {
   ASSERT_GREATER(m_contributionCoef, 0.0, ());
 
-  m_fullDistance = mercator::DistanceOnEarth(start, finish);
+  m_fullDistance = ms::DistanceOnEarth(start, finish);
   m_forwardDistance = m_fullDistance;
   m_backwardDistance = m_fullDistance;
 }
@@ -29,11 +29,11 @@ AStarSubProgress::AStarSubProgress(double contributionCoef)
   ASSERT_NOT_EQUAL(m_contributionCoef, 0.0, ());
 }
 
-double AStarSubProgress::UpdateProgress(m2::PointD const & current, m2::PointD const & finish)
+double AStarSubProgress::UpdateProgress(ms::LatLon const & current, ms::LatLon const & finish)
 {
   ASSERT_NOT_EQUAL(m_fullDistance, 0.0, ());
 
-  double const dist = mercator::DistanceOnEarth(current, finish);
+  double const dist = ms::DistanceOnEarth(current, finish);
   double & toUpdate = finish == m_finishPoint ? m_forwardDistance : m_backwardDistance;
 
   toUpdate = std::min(toUpdate, dist);
@@ -96,7 +96,7 @@ void AStarProgress::PushAndDropLastSubProgress()
   DropLastSubProgress();
 }
 
-double AStarProgress::UpdateProgress(m2::PointD const & current, m2::PointD const & end)
+double AStarProgress::UpdateProgress(ms::LatLon const & current, ms::LatLon const & end)
 {
   double const newProgress = UpdateProgressImpl(m_subProgresses.begin(), current, end) * 100.0;
   m_lastPercentValue = std::max(m_lastPercentValue, newProgress);
@@ -108,8 +108,8 @@ double AStarProgress::UpdateProgress(m2::PointD const & current, m2::PointD cons
 
 double AStarProgress::GetLastPercent() const { return m_lastPercentValue; }
 
-double AStarProgress::UpdateProgressImpl(ListItem subProgress, m2::PointD const & current,
-                                         m2::PointD const & end)
+double AStarProgress::UpdateProgressImpl(ListItem subProgress, ms::LatLon const & current,
+                                         ms::LatLon const & end)
 {
   if (std::next(subProgress) != m_subProgresses.end())
     return subProgress->UpdateProgress(UpdateProgressImpl(std::next(subProgress), current, end));

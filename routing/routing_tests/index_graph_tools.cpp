@@ -92,9 +92,7 @@ void NoUTurnRestrictionTest::TestRouteGeom(Segment const & start, Segment const 
   {
     static auto constexpr kEps = 1e-3;
     auto const point = m_graph->GetWorldGraph().GetPoint(routingResult.m_path[i], true /* forward */);
-    if (!base::AlmostEqualAbs(point,
-                              expectedRouteGeom[i],
-                              kEps))
+    if (!base::AlmostEqualAbs(mercator::FromLatLon(point), expectedRouteGeom[i], kEps))
     {
       TEST(false, ("Coords missmated at index:", i, "expected:", expectedRouteGeom[i],
                    "received:", point));
@@ -441,17 +439,18 @@ void TestRouteGeometry(IndexGraphStarter & starter,
   CHECK(!routeSegs.empty(), ());
   vector<m2::PointD> geom;
 
-  auto const pushPoint = [&geom](m2::PointD const & point) {
+  auto const pushPoint = [&geom](ms::LatLon const & ll) {
+    auto const point = mercator::FromLatLon(ll);
     if (geom.empty() || geom.back() != point)
       geom.push_back(point);
   };
 
   for (auto const & routeSeg : routeSegs)
   {
-    m2::PointD const & pnt = starter.GetPoint(routeSeg, false /* front */);
+    auto const & ll = starter.GetPoint(routeSeg, false /* front */);
     // Note. In case of A* router all internal points of route are duplicated.
     // So it's necessary to exclude the duplicates.
-    pushPoint(pnt);
+    pushPoint(ll);
   }
 
   pushPoint(starter.GetPoint(routeSegs.back(), false /* front */));
@@ -470,13 +469,14 @@ void TestRouteGeometry(IndexGraphStarter & starter,
 }
 
 void TestRestrictions(vector<m2::PointD> const & expectedRouteGeom,
-                       AlgorithmForWorldGraph::Result expectedRouteResult,
-                       FakeEnding const & start, FakeEnding const & finish,
-                       RestrictionVec && restrictions,
-                       RestrictionTest & restrictionTest)
+                      AlgorithmForWorldGraph::Result expectedRouteResult,
+                      FakeEnding const & start, FakeEnding const & finish,
+                      RestrictionVec && restrictions,
+                      RestrictionTest & restrictionTest)
 {
   restrictionTest.SetRestrictions(move(restrictions));
   restrictionTest.SetStarter(start, finish);
+
   TestRouteGeometry(*restrictionTest.m_starter, expectedRouteResult, expectedRouteGeom);
 }
 
@@ -511,8 +511,8 @@ void TestRestrictions(double expectedLength,
   double length = 0.0;
   for (auto const & segment : segments)
   {
-    auto const back = starter.GetPoint(segment, false /* front */);
-    auto const front = starter.GetPoint(segment, true /* front */);
+    auto const back = mercator::FromLatLon(starter.GetPoint(segment, false /* front */));
+    auto const front = mercator::FromLatLon(starter.GetPoint(segment, true /* front */));
 
     length += back.Length(front);
   }

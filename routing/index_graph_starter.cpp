@@ -6,7 +6,7 @@
 
 #include "coding/point_coding.hpp"
 
-#include "geometry/mercator.hpp"
+#include "geometry/distance_on_sphere.hpp"
 
 #include <algorithm>
 #include <map>
@@ -73,7 +73,7 @@ IndexGraphStarter::IndexGraphStarter(FakeEnding const & startEnding,
   AddFinish(finishEnding, startEnding, fakeNumerationStart);
   auto const startPoint = GetPoint(GetStartSegment(), false /* front */);
   auto const finishPoint = GetPoint(GetFinishSegment(), true /* front */);
-  m_startToFinishDistanceM = mercator::DistanceOnEarth(startPoint, finishPoint);
+  m_startToFinishDistanceM = ms::DistanceOnEarth(startPoint, finishPoint);
 }
 
 void IndexGraphStarter::Append(FakeEdgesContainer const & container)
@@ -85,16 +85,16 @@ void IndexGraphStarter::Append(FakeEdgesContainer const & container)
   // we don't have finish segment in fake graph before m_fake.Append().
   auto const startPoint = GetPoint(GetStartSegment(), false /* front */);
   auto const finishPoint = GetPoint(GetFinishSegment(), true /* front */);
-  m_startToFinishDistanceM = mercator::DistanceOnEarth(startPoint, finishPoint);
+  m_startToFinishDistanceM = ms::DistanceOnEarth(startPoint, finishPoint);
 }
 
-geometry::PointWithAltitude const & IndexGraphStarter::GetStartJunction() const
+LatLonWithAltitude const & IndexGraphStarter::GetStartJunction() const
 {
   auto const & startSegment = GetStartSegment();
   return m_fake.GetVertex(startSegment).GetJunctionFrom();
 }
 
-geometry::PointWithAltitude const & IndexGraphStarter::GetFinishJunction() const
+LatLonWithAltitude const & IndexGraphStarter::GetFinishJunction() const
 {
   auto const & finishSegment = GetFinishSegment();
   return m_fake.GetVertex(finishSegment).GetJunctionTo();
@@ -108,8 +108,7 @@ bool IndexGraphStarter::ConvertToReal(Segment & segment) const
   return m_fake.FindReal(Segment(segment), segment);
 }
 
-geometry::PointWithAltitude const & IndexGraphStarter::GetJunction(Segment const & segment,
-                                                                   bool front) const
+LatLonWithAltitude const & IndexGraphStarter::GetJunction(Segment const & segment, bool front) const
 {
   if (!IsFakeSegment(segment))
     return m_graph.GetJunction(segment, front);
@@ -118,7 +117,7 @@ geometry::PointWithAltitude const & IndexGraphStarter::GetJunction(Segment const
   return front ? vertex.GetJunctionTo() : vertex.GetJunctionFrom();
 }
 
-geometry::PointWithAltitude const & IndexGraphStarter::GetRouteJunction(
+LatLonWithAltitude const & IndexGraphStarter::GetRouteJunction(
     vector<Segment> const & segments, size_t pointIndex) const
 {
   CHECK(!segments.empty(), ());
@@ -130,9 +129,9 @@ geometry::PointWithAltitude const & IndexGraphStarter::GetRouteJunction(
   return GetJunction(segments[pointIndex], false);
 }
 
-m2::PointD const & IndexGraphStarter::GetPoint(Segment const & segment, bool front) const
+ms::LatLon const & IndexGraphStarter::GetPoint(Segment const & segment, bool front) const
 {
-  return GetJunction(segment, front).GetPoint();
+  return GetJunction(segment, front).GetLatLon();
 }
 
 bool IndexGraphStarter::IsRoutingOptionsGood(Segment const & segment) const
@@ -225,9 +224,9 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment,
   Segment real;
   if (m_fake.FindReal(segment, real))
   {
-    auto const partLen = mercator::DistanceOnEarth(vertex.GetPointFrom(), vertex.GetPointTo());
-    auto const fullLen = mercator::DistanceOnEarth(GetPoint(real, false /* front */),
-                                                   GetPoint(real, true /* front */));
+    auto const partLen = ms::DistanceOnEarth(vertex.GetPointFrom(), vertex.GetPointTo());
+    auto const fullLen =
+        ms::DistanceOnEarth(GetPoint(real, false /* front */), GetPoint(real, true /* front */));
     // Note 1. |fullLen| == 0.0 in case of Segment(s) with the same ends.
     // Note 2. There is the following logic behind |return 0.0 * m_graph.CalcSegmentWeight(real, ...);|:
     // it's necessary to return a instance of the structure |RouteWeight| with zero wight.
@@ -267,7 +266,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
 {
   Segment const dummy = Segment();
 
-  map<Segment, geometry::PointWithAltitude> otherSegments;
+  map<Segment, LatLonWithAltitude> otherSegments;
   for (auto const & p : otherEnding.m_projections)
   {
     otherSegments[p.m_segment] = p.m_junction;
@@ -306,10 +305,10 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
     if (it != otherSegments.end())
     {
       auto const & otherJunction = it->second;
-      auto const distBackToThis = mercator::DistanceOnEarth(backJunction.GetPoint(),
-                                                            projection.m_junction.GetPoint());
-      auto const distBackToOther = mercator::DistanceOnEarth(backJunction.GetPoint(),
-                                                             otherJunction.GetPoint());
+      auto const distBackToThis = ms::DistanceOnEarth(backJunction.GetLatLon(),
+                                                      projection.m_junction.GetLatLon());
+      auto const distBackToOther = ms::DistanceOnEarth(backJunction.GetLatLon(),
+                                                       otherJunction.GetLatLon());
       if (distBackToThis < distBackToOther)
         frontJunction = otherJunction;
       else if (distBackToOther < distBackToThis)
@@ -413,6 +412,6 @@ RouteWeight IndexGraphStarter::GetAStarWeightEpsilon()
   // distinguish the point geometry changing in |kMwmPointAccuracy| radius of the same segments from
   // mwms with different versions. So let's use such epsilon to maintain the A* invariant.
   return kEps +
-         m_graph.HeuristicCostEstimate(m2::PointD(0.0, 0.0), m2::PointD(kMwmPointAccuracy, 0.0));
+         m_graph.HeuristicCostEstimate(ms::LatLon(0.0, 0.0), ms::LatLon(0.0, kMwmPointAccuracy));
 }
 }  // namespace routing

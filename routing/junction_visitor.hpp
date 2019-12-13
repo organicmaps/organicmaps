@@ -33,14 +33,14 @@ public:
     if (m_visitCounter % m_visitPeriod != 0)
       return;
 
-    m2::PointD const & pointFrom = m_graph.GetPoint(from, true /* front */);
+    auto const & pointFrom = m_graph.GetPoint(from, true /* front */);
     m_delegate.OnPointCheck(pointFrom);
 
     auto progress = m_progress.lock();
     if (!progress)
       return;
 
-    m2::PointD const & pointTo = m_graph.GetPoint(to, true /* front */);
+    auto const & pointTo = m_graph.GetPoint(to, true /* front */);
     auto const currentPercent = progress->UpdateProgress(pointFrom, pointTo);
     if (currentPercent - m_lastProgressPercent > kProgressInterval)
     {

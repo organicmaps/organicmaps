@@ -3,6 +3,7 @@
 #include "routing/index_graph.hpp"
 #include "routing/world_graph.hpp"
 
+#include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/parametrized_segment.hpp"
 
@@ -15,23 +16,28 @@ using namespace std;
 
 namespace
 {
-geometry::PointWithAltitude CalcProjectionToSegment(geometry::PointWithAltitude const & begin,
-                                                    geometry::PointWithAltitude const & end,
-                                                    m2::PointD const & point)
+LatLonWithAltitude CalcProjectionToSegment(LatLonWithAltitude const & begin,
+                                           LatLonWithAltitude const & end,
+                                           m2::PointD const & point)
 {
-  m2::ParametrizedSegment<m2::PointD> segment(begin.GetPoint(), end.GetPoint());
+  m2::ParametrizedSegment<m2::PointD> segment(mercator::FromLatLon(begin.GetLatLon()),
+                                              mercator::FromLatLon(end.GetLatLon()));
 
   auto const projectedPoint = segment.ClosestPointTo(point);
-  auto const distBeginToEnd = mercator::DistanceOnEarth(begin.GetPoint(), end.GetPoint());
+  auto const distBeginToEnd = ms::DistanceOnEarth(begin.GetLatLon(), end.GetLatLon());
+
+  auto const projectedLatLon = mercator::ToLatLon(projectedPoint);
 
   double constexpr kEpsMeters = 2.0;
   if (base::AlmostEqualAbs(distBeginToEnd, 0.0, kEpsMeters))
-    return geometry::PointWithAltitude(projectedPoint, begin.GetAltitude());
+    return LatLonWithAltitude(projectedLatLon, begin.GetAltitude());
 
-  auto const distBeginToProjection = mercator::DistanceOnEarth(begin.GetPoint(), projectedPoint);
+  auto const distBeginToProjection =
+      ms::DistanceOnEarth(begin.GetLatLon(), projectedLatLon);
+
   auto const altitude = begin.GetAltitude() + (end.GetAltitude() - begin.GetAltitude()) *
                                                   distBeginToProjection / distBeginToEnd;
-  return geometry::PointWithAltitude(projectedPoint, altitude);
+  return LatLonWithAltitude(projectedLatLon, altitude);
 }
 }  // namespace
 
@@ -59,7 +65,7 @@ FakeEnding MakeFakeEnding(vector<Segment> const & segments, m2::PointD const & p
   }
 
   ending.m_originJunction =
-      geometry::PointWithAltitude(point, static_cast<geometry::Altitude>(averageAltitude));
+      LatLonWithAltitude(mercator::ToLatLon(point), static_cast<geometry::Altitude>(averageAltitude));
   return ending;
 }
 
@@ -72,7 +78,8 @@ FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point, Ind
   auto const & projectedJunction = CalcProjectionToSegment(backJunction, frontJunction, point);
 
   FakeEnding ending;
-  ending.m_originJunction = geometry::PointWithAltitude(point, projectedJunction.GetAltitude());
+  ending.m_originJunction =
+      LatLonWithAltitude(mercator::ToLatLon(point), projectedJunction.GetAltitude());
   ending.m_projections.emplace_back(segment, oneWay, frontJunction, backJunction,
                                     projectedJunction);
   return ending;

@@ -7,7 +7,8 @@
 #include "routing/joint_segment.hpp"
 #include "routing/segment.hpp"
 
-#include "geometry/point2d.hpp"
+#include "geometry/distance_on_sphere.hpp"
+#include "geometry/latlon.hpp"
 
 #include "base/assert.hpp"
 
@@ -36,7 +37,7 @@ public:
 
   void Init(Segment const & startSegment, Segment const & endSegment);
 
-  m2::PointD const & GetPoint(JointSegment const & jointSegment, bool start);
+  ms::LatLon const & GetPoint(JointSegment const & jointSegment, bool start);
   JointSegment const & GetStartJoint() const { return m_startJoint; }
   JointSegment const & GetFinishJoint() const { return m_endJoint; }
 
@@ -181,8 +182,8 @@ private:
   Segment m_startSegment;
   Segment m_endSegment;
 
-  m2::PointD m_startPoint;
-  m2::PointD m_endPoint;
+  ms::LatLon m_startPoint;
+  ms::LatLon m_endPoint;
 
   // See comments in |GetEdgeList()| about |m_savedWeight|.
   std::map<JointSegment, Weight> m_savedWeight;
@@ -232,7 +233,7 @@ IndexGraphStarterJoints<Graph>::IndexGraphStarterJoints(Graph & graph,
 
   m_endSegment = Segment();
   m_endJoint = JointSegment();
-  m_endPoint = m2::PointD::Zero();
+  m_endPoint = ms::LatLon();
 
   m_init = true;
 }
@@ -302,7 +303,7 @@ RouteWeight IndexGraphStarterJoints<Graph>::HeuristicCostEstimate(JointSegment c
 }
 
 template <typename Graph>
-m2::PointD const &
+ms::LatLon const &
 IndexGraphStarterJoints<Graph>::GetPoint(JointSegment const & jointSegment, bool start)
 {
   Segment segment = jointSegment.IsFake() ? m_fakeJointSegments[jointSegment].GetSegment(start)

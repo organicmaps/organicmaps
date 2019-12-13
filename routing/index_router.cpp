@@ -459,7 +459,8 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
           mercator::DistanceOnEarth(startCheckpoint, finishCheckpoint) / checkpointsLength;
     }
 
-    AStarSubProgress subProgress(startCheckpoint, finishCheckpoint, contributionCoef);
+    AStarSubProgress subProgress(mercator::ToLatLon(startCheckpoint),
+                                 mercator::ToLatLon(finishCheckpoint), contributionCoef);
     progress->AppendSubProgress(subProgress);
     SCOPE_GUARD(eraseProgress, [&progress]() { progress->PushAndDropLastSubProgress(); });
 
@@ -474,7 +475,8 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
     segments.insert(segments.end(), subroute.begin(), subroute.end());
 
     size_t subrouteSegmentsEnd = segments.size();
-    subroutes.emplace_back(subrouteStarter.GetStartJunction(), subrouteStarter.GetFinishJunction(),
+    subroutes.emplace_back(subrouteStarter.GetStartJunction().ToPointWithAltitude(),
+                           subrouteStarter.GetFinishJunction().ToPointWithAltitude(),
                            subrouteSegmentsBegin, subrouteSegmentsEnd);
     subrouteSegmentsBegin = subrouteSegmentsEnd;
     // For every subroute except for the first one the last real segment is used  as a start
@@ -506,7 +508,7 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
   m_lastRoute = make_unique<SegmentedRoute>(checkpoints.GetStart(), checkpoints.GetFinish(),
                                             route.GetSubroutes());
   for (Segment const & segment : segments)
-    m_lastRoute->AddStep(segment, starter->GetPoint(segment, true /* front */));
+    m_lastRoute->AddStep(segment, mercator::FromLatLon(starter->GetPoint(segment, true /* front */)));
 
   m_lastFakeEdges = make_unique<FakeEdgesContainer>(move(*starter));
 
@@ -636,8 +638,9 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
   using Edge = LeapsGraph::Edge;
   using Weight = LeapsGraph::Weight;
 
-  AStarSubProgress leapsProgress(checkpoints.GetPoint(subrouteIdx),
-                                 checkpoints.GetPoint(subrouteIdx + 1), kLeapsStageContribution);
+  AStarSubProgress leapsProgress(mercator::ToLatLon(checkpoints.GetPoint(subrouteIdx)),
+                                 mercator::ToLatLon(checkpoints.GetPoint(subrouteIdx + 1)),
+                                 kLeapsStageContribution);
   progress->AppendSubProgress(leapsProgress);
 
   using Visitor = JunctionVisitor<LeapsGraph>;
@@ -738,8 +741,9 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   PushPassedSubroutes(checkpoints, subroutes);
 
   size_t subrouteOffset = result.m_path.size();
-  subroutes.emplace_back(starter.GetStartJunction(), starter.GetFinishJunction(),
-                         0 /* beginSegmentIdx */, subrouteOffset);
+  subroutes.emplace_back(starter.GetStartJunction().ToPointWithAltitude(),
+                         starter.GetFinishJunction().ToPointWithAltitude(), 0 /* beginSegmentIdx */,
+                         subrouteOffset);
 
   for (size_t i = checkpoints.GetPassedIdx() + 1; i < lastSubroutes.size(); ++i)
   {
@@ -1164,8 +1168,8 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
     }
 
     LOG(LINFO, ("Can not find path",
-      "from:", mercator::ToLatLon(starter.GetPoint(input[start], input[start].IsForward())),
-      "to:", mercator::ToLatLon(starter.GetPoint(input[end], input[end].IsForward()))));
+      "from:", starter.GetPoint(input[start], input[start].IsForward()),
+      "to:", starter.GetPoint(input[end], input[end].IsForward())));
 
     return false;
   };
@@ -1201,13 +1205,13 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       while (next + 2 < finishLeapStart && next != finishLeapStart)
       {
         auto const point = starter.GetPoint(input[next + 2], true);
-        double const distBetweenExistsMeters = mercator::DistanceOnEarth(point, prevPoint);
+        double const distBetweenExistsMeters = ms::DistanceOnEarth(point, prevPoint);
 
         static double constexpr kMinDistBetweenExitsM = 100000;  // 100 km
         if (distBetweenExistsMeters > kMinDistBetweenExitsM)
           break;
 
-        LOG(LINFO, ("Exit:", mercator::ToLatLon(point),
+        LOG(LINFO, ("Exit:", point,
                     "too close(", distBetweenExistsMeters / 1000, "km ), try get next."));
         next += 2;
       }
@@ -1259,7 +1263,7 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   junctions.reserve(numPoints);
 
   for (size_t i = 0; i < numPoints; ++i)
-    junctions.emplace_back(starter.GetRouteJunction(segments, i));
+    junctions.emplace_back(starter.GetRouteJunction(segments, i).ToPointWithAltitude());
 
   IndexRoadGraph roadGraph(m_numMwmIds, starter, segments, junctions, m_dataSource);
   starter.GetGraph().SetMode(WorldGraphMode::NoLeaps);

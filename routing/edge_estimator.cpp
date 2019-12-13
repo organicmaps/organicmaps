@@ -1,10 +1,12 @@
 #include "routing/edge_estimator.hpp"
 
+#include "routing/latlon_with_altitude.hpp"
 #include "routing/routing_helpers.hpp"
 
 #include "traffic/speed_groups.hpp"
 #include "traffic/traffic_info.hpp"
 
+#include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 
 #include "indexer/feature_altitude.hpp"
@@ -24,12 +26,11 @@ namespace
 {
 geometry::Altitude constexpr kMountainSicknessAltitudeM = 2500;
 
-double TimeBetweenSec(m2::PointD const & from, m2::PointD const & to, double speedMpS)
+double TimeBetweenSec(ms::LatLon const & from, ms::LatLon const & to, double speedMpS)
 {
-  CHECK_GREATER(speedMpS, 0.0,
-                ("from:", mercator::ToLatLon(from), "to:", mercator::ToLatLon(to)));
+  CHECK_GREATER(speedMpS, 0.0, ("from:", from, "to:", to));
 
-  double const distanceM = mercator::DistanceOnEarth(from, to);
+  double const distanceM = ms::DistanceOnEarth(from, to);
   return distanceM / speedMpS;
 }
 
@@ -79,16 +80,16 @@ template <typename GetClimbPenalty>
 double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
                         RoadGeometry const & road, GetClimbPenalty && getClimbPenalty)
 {
-  geometry::PointWithAltitude const & from =
+  LatLonWithAltitude const & from =
       road.GetJunction(segment.GetPointId(false /* front */));
-  geometry::PointWithAltitude const & to = road.GetJunction(segment.GetPointId(true /* front */));
+  LatLonWithAltitude const & to = road.GetJunction(segment.GetPointId(true /* front */));
   SpeedKMpH const & speed = road.GetSpeed(segment.IsForward());
 
-  double const distance = mercator::DistanceOnEarth(from.GetPoint(), to.GetPoint());
+  double const distance = ms::DistanceOnEarth(from.GetLatLon(), to.GetLatLon());
   double const speedMpS = KMPH2MPS(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
   CHECK_GREATER(speedMpS, 0.0,
-                ("from:", mercator::ToLatLon(from.GetPoint()),
-                 "to:", mercator::ToLatLon(to.GetPoint()), "speed:", speed));
+                ("from:", from.GetLatLon(),
+                 "to:", to.GetLatLon(), "speed:", speed));
   double const timeSec = distance / speedMpS;
 
   if (base::AlmostEqualAbs(distance, 0.0, 0.1))
@@ -114,12 +115,12 @@ EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroa
     CHECK_GREATER_OR_EQUAL(m_maxWeightSpeedMpS, KMPH2MPS(m_offroadSpeedKMpH.m_eta), ());
 }
 
-double EdgeEstimator::CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const
+double EdgeEstimator::CalcHeuristic(ms::LatLon const & from, ms::LatLon const & to) const
 {
   return TimeBetweenSec(from, to, m_maxWeightSpeedMpS);
 }
 
-double EdgeEstimator::CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const
+double EdgeEstimator::CalcLeapWeight(ms::LatLon const & from, ms::LatLon const & to) const
 {
   // Let us assume for the time being that
   // leap edges will be added with a half of max speed.
@@ -128,7 +129,7 @@ double EdgeEstimator::CalcLeapWeight(m2::PointD const & from, m2::PointD const &
   return TimeBetweenSec(from, to, m_maxWeightSpeedMpS / 2.0);
 }
 
-double EdgeEstimator::CalcOffroad(m2::PointD const & from, m2::PointD const & to,
+double EdgeEstimator::CalcOffroad(ms::LatLon const & from, ms::LatLon const & to,
                                   Purpose purpose) const
 {
   auto const offroadSpeedKMpH = purpose == Purpose::Weight ? m_offroadSpeedKMpH.m_weight

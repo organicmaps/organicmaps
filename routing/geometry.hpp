@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/city_roads.hpp"
+#include "routing/latlon_with_altitude.hpp"
 #include "routing/maxspeeds.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/road_point.hpp"
@@ -11,8 +12,7 @@
 
 #include "indexer/feature_altitude.hpp"
 
-#include "geometry/point2d.hpp"
-#include "geometry/point_with_altitude.hpp"
+#include "geometry/latlon.hpp"
 
 #include "base/buffer_vector.hpp"
 #include "base/fifo_cache.hpp"
@@ -43,13 +43,13 @@ public:
   HighwayType GetHighwayType() const { return *m_highwayType; }
   bool IsPassThroughAllowed() const { return m_isPassThroughAllowed; }
 
-  geometry::PointWithAltitude const & GetJunction(uint32_t junctionId) const
+  LatLonWithAltitude const & GetJunction(uint32_t junctionId) const
   {
     ASSERT_LESS(junctionId, m_junctions.size(), ());
     return m_junctions[junctionId];
   }
 
-  m2::PointD const & GetPoint(uint32_t pointId) const { return GetJunction(pointId).GetPoint(); }
+  ms::LatLon const & GetPoint(uint32_t pointId) const { return GetJunction(pointId).GetLatLon(); }
 
   uint32_t GetPointsCount() const { return static_cast<uint32_t>(m_junctions.size()); }
 
@@ -81,7 +81,7 @@ private:
 
   double GetRoadLengthM() const;
 
-  buffer_vector<geometry::PointWithAltitude, 32> m_junctions;
+  buffer_vector<LatLonWithAltitude, 32> m_junctions;
   SpeedKMpH m_forwardSpeed;
   SpeedKMpH m_backwardSpeed;
   boost::optional<HighwayType> m_highwayType;
@@ -142,7 +142,7 @@ public:
 
   /// \note The reference returned by the method is valid until the next call of GetRoad()
   /// of GetPoint() methods.
-  m2::PointD const & GetPoint(RoadPoint const & rp)
+  ms::LatLon const & GetPoint(RoadPoint const & rp)
   {
     return GetRoad(rp.GetFeatureId()).GetPoint(rp.GetPointId());
   }

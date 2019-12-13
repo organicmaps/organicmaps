@@ -391,7 +391,7 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph_CheckOnlyRestriction)
                               restrictionsNo);
 
   // Check that without restrictions we can find path better.
-  test({start, {2, 0}, {1, 1}, {2, 2}, {3, 1}, finish, finish}, move(restrictionsNo));
-  test({start, {2, 0}, {3, 0}, finish, finish}, RestrictionVec());
+  test({start, {2, 0}, {1, 1}, {2, 2}, {3, 1}, finish}, move(restrictionsNo));
+  test({start, {2, 0}, {3, 0}, finish}, RestrictionVec());
 }
 }  // namespace

@@ -7,7 +7,7 @@ namespace routing
 namespace
 {
 void DefaultProgressFn(float /* progress */) {}
-void DefaultPointFn(m2::PointD const & /* point */) {}
+void DefaultPointFn(ms::LatLon const & /* point */) {}
 }  //  namespace
 
 RouterDelegate::RouterDelegate()
@@ -22,7 +22,7 @@ void RouterDelegate::OnProgress(float progress) const
     m_progressCallback(progress);
 }
 
-void RouterDelegate::OnPointCheck(m2::PointD const & point) const
+void RouterDelegate::OnPointCheck(ms::LatLon const & point) const
 {
   if (!m_cancellable.IsCancelled())
     m_pointCallback(point);

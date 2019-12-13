@@ -15,8 +15,7 @@
 
 #include "transit/transit_types.hpp"
 
-#include "geometry/point2d.hpp"
-#include "geometry/point_with_altitude.hpp"
+#include "geometry/latlon.hpp"
 
 #include <memory>
 #include <vector>
@@ -47,8 +46,8 @@ public:
     return weight.GetWeight() - weight.GetTransitTime() <=
            MaxPedestrianTimeSec(startToFinishDistanceM);
   }
-  geometry::PointWithAltitude const & GetJunction(Segment const & segment, bool front) override;
-  m2::PointD const & GetPoint(Segment const & segment, bool front) override;
+  LatLonWithAltitude const & GetJunction(Segment const & segment, bool front) override;
+  ms::LatLon const & GetPoint(Segment const & segment, bool front) override;
   // All transit features are oneway.
   bool IsOneWay(NumMwmId mwmId, uint32_t featureId) override;
   // All transit features are allowed for through passage.
@@ -56,12 +55,12 @@ public:
   void ClearCachedGraphs() override;
   void SetMode(WorldGraphMode mode) override { m_mode = mode; }
   WorldGraphMode GetMode() const override { return m_mode; }
-  RouteWeight HeuristicCostEstimate(Segment const & from, Segment const & to) override;
-  RouteWeight HeuristicCostEstimate(m2::PointD const & from, m2::PointD const & to) override;
-  RouteWeight HeuristicCostEstimate(Segment const & from, m2::PointD const & to) override;
+
+  RouteWeight HeuristicCostEstimate(ms::LatLon const & from, ms::LatLon const & to) override;
+
   RouteWeight CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) override;
-  RouteWeight CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const override;
-  RouteWeight CalcOffroadWeight(m2::PointD const & from, m2::PointD const & to,
+  RouteWeight CalcLeapWeight(ms::LatLon const & from, ms::LatLon const & to) const override;
+  RouteWeight CalcOffroadWeight(ms::LatLon const & from, ms::LatLon const & to,
                                 EdgeEstimator::Purpose purpose) const override;
   double CalculateETA(Segment const & from, Segment const & to) override;
   double CalculateETAWithoutPenalty(Segment const & segment) override;

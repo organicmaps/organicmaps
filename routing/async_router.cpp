@@ -148,7 +148,7 @@ void AsyncRouter::RouterDelegateProxy::OnProgress(float progress)
   }
 }
 
-void AsyncRouter::RouterDelegateProxy::OnPointCheck(m2::PointD const & pt)
+void AsyncRouter::RouterDelegateProxy::OnPointCheck(ms::LatLon const & pt)
 {
 #ifdef SHOW_ROUTE_DEBUG_MARKS
   PointCheckCallback onPointCheck = nullptr;
@@ -161,7 +161,7 @@ void AsyncRouter::RouterDelegateProxy::OnPointCheck(m2::PointD const & pt)
       return;
 
     onPointCheck = m_onPointCheck;
-    point = pt;
+    point = mercator::FromLatLon(pt);
   }
 
   GetPlatform().RunTask(Platform::Thread::Gui, [onPointCheck, point]() { onPointCheck(point); });

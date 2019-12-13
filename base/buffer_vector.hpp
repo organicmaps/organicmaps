@@ -22,6 +22,7 @@ template <class T, size_t N> class buffer_vector
 {
 private:
   enum { USE_DYNAMIC = N + 1 };
+  // TODO (@gmoryes) consider std::aligned_storage
   T m_static[N];
   size_t m_size;
   std::vector<T> m_dynamic;
