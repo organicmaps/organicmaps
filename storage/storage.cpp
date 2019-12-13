@@ -88,7 +88,7 @@ bool IsFileDownloaded(string const fileDownloadPath, MapFileType type)
   // Since a downloaded valid diff file may be either with .diff or .diff.ready extension,
   // we have to check these both cases in order to find
   // the diff file which is ready to apply.
-  // If there is a such file we have to cause the success download scenario.
+  // If there is such a file we have to cause the success download scenario.
   string const readyFilePath = fileDownloadPath;
   bool isDownloadedDiff = false;
   if (type == MapFileType::Diff)
@@ -98,7 +98,7 @@ bool IsFileDownloaded(string const fileDownloadPath, MapFileType type)
     isDownloadedDiff = GetPlatform().IsFileExistsByFullPath(filePath);
   }
 
-  // It may happen that the file already was downloaded, so there're
+  // It may happen that the file already was downloaded, so there is
   // no need to request servers list and download file.  Let's
   // switch to next file.
   return isDownloadedDiff || GetPlatform().IsFileExistsByFullPath(readyFilePath);
@@ -141,7 +141,7 @@ void GetQueuedCountries(Queue const & queue, CountriesSet & resultCountries)
 
 Progress Storage::GetOverallProgress(CountriesVec const & countries) const
 {
-  Progress overallProgress = {0, 0};
+  Progress overallProgress = {};
   for (auto const & country : countries)
   {
     NodeAttrs attr;
@@ -175,6 +175,7 @@ Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
                  unique_ptr<MapFilesDownloader> mapDownloaderForTesting)
   : m_downloader(move(mapDownloaderForTesting))
 {
+  m_downloader->SetDownloadingPolicy(m_downloadingPolicy);
   m_downloader->Subscribe(this);
 
   m_currentVersion =
@@ -378,15 +379,14 @@ LocalAndRemoteSize Storage::CountrySizeInBytes(CountryId const & countryId) cons
 {
   LocalFilePtr localFile = GetLatestLocalFile(countryId);
   CountryFile const & countryFile = GetCountryFile(countryId);
-  LocalAndRemoteSize sizes(0, GetRemoteSize(countryFile, GetCurrentDataVersion()));
+  LocalAndRemoteSize sizes(0, GetRemoteSize(countryFile));
 
   if (!IsCountryInQueue(countryId) && !IsDiffApplyingInProgressToCountry(countryId))
     sizes.first = localFile ? localFile->GetSize(MapFileType::Map) : 0;
 
   if (!m_downloader->IsIdle() && IsCountryFirstInQueue(countryId))
   {
-    sizes.first = m_downloader->GetDownloadingProgress().first +
-                  GetRemoteSize(countryFile, GetCurrentDataVersion());
+    sizes.first = m_downloader->GetDownloadingProgress().first + GetRemoteSize(countryFile);
   }
   return sizes;
 }
@@ -467,7 +467,7 @@ Status Storage::CountryStatusEx(CountryId const & countryId) const
     return Status::ENotDownloaded;
 
   auto const & countryFile = GetCountryFile(countryId);
-  if (GetRemoteSize(countryFile, GetCurrentDataVersion()) == 0)
+  if (GetRemoteSize(countryFile) == 0)
     return Status::EUnknown;
 
   if (localFile->GetVersion() != GetCurrentDataVersion())
@@ -526,8 +526,8 @@ void Storage::DownloadCountry(CountryId const & countryId, MapFileType type)
 
   m_failedCountries.erase(countryId);
   auto const countryFile = GetCountryFile(countryId);
-  // It's not even possible to prepare directory for files before
-  // downloading.  Mark this country as failed and switch to next
+  // If it's not even possible to prepare directory for files before
+  // downloading, then mark this country as failed and switch to next
   // country.
   if (!PreparePlaceForCountryFiles(GetCurrentDataVersion(), m_dataDir, countryFile))
   {
@@ -864,7 +864,10 @@ string Storage::GetLocale() const { return m_countryNameGetter.GetLocale(); }
 void Storage::SetDownloaderForTesting(unique_ptr<MapFilesDownloader> downloader)
 {
   if (m_downloader)
+  {
     m_downloader->UnsubscribeAll();
+    m_downloader->Clear();
+  }
 
   m_downloader = move(downloader);
   m_downloader->Subscribe(this);
@@ -1454,7 +1457,7 @@ void Storage::GetNodeAttrs(CountryId const & countryId, NodeAttrs & nodeAttrs) c
       downloadingMwmProgress = m_downloader->GetDownloadingProgress();
       // If we don't know estimated file size then we ignore its progress.
       if (downloadingMwmProgress.second == -1)
-        downloadingMwmProgress = {0, 0};
+        downloadingMwmProgress = {};
     }
 
     CountriesSet setQueue;
@@ -1552,22 +1555,22 @@ Progress Storage::CalculateProgress(CountryId const & downloadingMwm, CountriesV
 {
   // Function calculates progress correctly ONLY if |downloadingMwm| is leaf.
 
-  Progress localAndRemoteBytes = make_pair(0, 0);
+  Progress localAndRemoteBytes = {};
 
   for (auto const & d : mwms)
   {
     if (downloadingMwm == d && downloadingMwm != kInvalidCountryId)
     {
       localAndRemoteBytes.first += downloadingMwmProgress.first;
-      localAndRemoteBytes.second += GetRemoteSize(GetCountryFile(d), GetCurrentDataVersion());
+      localAndRemoteBytes.second += GetRemoteSize(GetCountryFile(d));
     }
     else if (mwmsInQueue.count(d) != 0)
     {
-      localAndRemoteBytes.second += GetRemoteSize(GetCountryFile(d), GetCurrentDataVersion());
+      localAndRemoteBytes.second += GetRemoteSize(GetCountryFile(d));
     }
     else if (m_justDownloaded.count(d) != 0)
     {
-      MwmSize const localCountryFileSz = GetRemoteSize(GetCountryFile(d), GetCurrentDataVersion());
+      MwmSize const localCountryFileSz = GetRemoteSize(GetCountryFile(d));
       localAndRemoteBytes.first += localCountryFileSz;
       localAndRemoteBytes.second += localCountryFileSz;
     }
@@ -1777,10 +1780,10 @@ CountryId const Storage::GetTopmostParentFor(CountryId const & countryId) const
   return result;
 }
 
-MwmSize Storage::GetRemoteSize(CountryFile const & file, int64_t version) const
+MwmSize Storage::GetRemoteSize(CountryFile const & file) const
 {
   ASSERT(m_diffsDataSource != nullptr, ());
-  return storage::GetRemoteSize(*m_diffsDataSource, file, version);
+  return storage::GetRemoteSize(*m_diffsDataSource, file);
 }
 
 void Storage::OnMapDownloadFailed(CountryId const & countryId)

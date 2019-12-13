@@ -79,7 +79,7 @@ private:
   /// Default implementation receives a list of all servers that can be asked
   /// for a map file and invokes callback on the main thread.
   virtual void GetServersList(ServersListCallback const & callback);
-  /// Asynchronously downloads the file from provided |urls| and saves result to |path|.
+  /// Asynchronously downloads the file and saves result to provided directory.
   virtual void Download(QueuedCountry & queuedCountry) = 0;
 
   ServersList m_serversList;

@@ -16,6 +16,10 @@ namespace storage
 {
 void MapFilesDownloader::DownloadMapFile(QueuedCountry & queuedCountry)
 {
+  // The goal is to call Download(queuedCountry) on the current (UI) thread
+  // after the server list has been received on the network thread.
+
+  // Fast path: the server list was received before.
   if (!m_serversList.empty())
   {
     queuedCountry.ClarifyDownloadingType();
@@ -23,27 +27,27 @@ void MapFilesDownloader::DownloadMapFile(QueuedCountry & queuedCountry)
     return;
   }
 
-  GetPlatform().RunTask(Platform::Thread::Network, [=]() mutable
+  // Slow path: until we know the servers list, we have to route all
+  // requests through the network thread, thus implicitly synchronizing them.
+  if (!m_isServersListRequested)
   {
-    if (m_isServersListRequested)
-    {
-      GetPlatform().RunTask(Platform::Thread::Gui, [=]() mutable
-      {
+    m_isServersListRequested = true;
+
+    GetPlatform().RunTask(Platform::Thread::Network, [=]() mutable {
+      GetServersList([=](ServersList const & serversList) mutable {
+                       m_serversList = serversList;
+                     });
+    });
+  }
+
+  GetPlatform().RunTask(Platform::Thread::Network, [=]() mutable {
+    // This task has arrived to the network thread after GetServersList
+    // synchronously downloaded the server list.
+    // It is now safe to repost the download task to the UI thread.
+      GetPlatform().RunTask(Platform::Thread::Gui, [=]() mutable {
         queuedCountry.ClarifyDownloadingType();
         Download(queuedCountry);
       });
-
-      return;
-    }
-
-    m_isServersListRequested = true;
-
-    GetServersList([=](ServersList const & serversList) mutable
-                   {
-                     m_serversList = serversList;
-                     queuedCountry.ClarifyDownloadingType();
-                     Download(queuedCountry);
-                   });
   });
 }
 

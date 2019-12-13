@@ -48,7 +48,7 @@ struct NodeAttrs
 {
   NodeAttrs() : m_mwmCounter(0), m_localMwmCounter(0), m_downloadingMwmCounter(0),
     m_mwmSize(0), m_localMwmSize(0), m_downloadingMwmSize(0),
-    m_downloadingProgress(std::make_pair(0, 0)),
+    m_downloadingProgress({}),
     m_status(NodeStatus::Undefined), m_error(NodeErrorCode::NoError), m_present(false) {}
 
   /// If the node is expandable (a big country) |m_mwmCounter| is number of mwm files (leaves)
@@ -509,7 +509,7 @@ public:
   bool IsInnerNode(CountryId const & countryId) const;
 
   LocalAndRemoteSize CountrySizeInBytes(CountryId const & countryId) const;
-  MwmSize GetRemoteSize(platform::CountryFile const & file, int64_t version) const;
+  MwmSize GetRemoteSize(platform::CountryFile const & file) const;
   platform::CountryFile const & GetCountryFile(CountryId const & countryId) const;
   LocalFilePtr GetLatestLocalFile(platform::CountryFile const & countryFile) const;
   LocalFilePtr GetLatestLocalFile(CountryId const & countryId) const;

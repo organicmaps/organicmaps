@@ -114,20 +114,14 @@ void HttpMapFilesDownloader::Remove(CountryId const & id)
     return;
 
   if (m_request && m_queue.front() == id)
-  {
     m_request.reset();
-    m_queue.pop_front();
-  }
-  else
-  {
-    auto it = std::find(m_queue.begin(), m_queue.end(), id);
-    if (it != m_queue.end())
-      m_queue.erase(it);
-  }
+
+  auto it = std::find(m_queue.begin(), m_queue.end(), id);
+  if (it != m_queue.end())
+    m_queue.erase(it);
 
   if (m_queue.empty())
   {
-    m_request.reset();
     for (auto const subscriber : m_subscribers)
       subscriber->OnFinishDownloading();
   }
@@ -137,8 +131,16 @@ void HttpMapFilesDownloader::Clear()
 {
   CHECK_THREAD_CHECKER(m_checker, ());
 
+  auto needNotify = m_request != nullptr;
+
   m_request.reset();
   m_queue.clear();
+
+  if (needNotify)
+  {
+    for (auto const subscriber : m_subscribers)
+      subscriber->OnFinishDownloading();
+  }
 }
 
 Queue const & HttpMapFilesDownloader::GetQueue() const
@@ -151,7 +153,7 @@ void HttpMapFilesDownloader::OnMapFileDownloaded(QueuedCountry const & queuedCou
                                                  downloader::HttpRequest & request)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
-  // Because of this method calls deferred on original thread,
+  // Because this method is called deferred on original thread,
   // it is possible the country is already removed from queue.
   if (m_queue.empty() || m_queue.front().GetCountryId() != queuedCountry.GetCountryId())
     return;
@@ -160,11 +162,14 @@ void HttpMapFilesDownloader::OnMapFileDownloaded(QueuedCountry const & queuedCou
 
   queuedCountry.OnDownloadFinished(request.GetStatus());
 
+  m_request.reset();
+
   if (!m_queue.empty())
+  {
     Download();
+  }
   else
   {
-    m_request.reset();
     for (auto const subscriber : m_subscribers)
       subscriber->OnFinishDownloading();
   }

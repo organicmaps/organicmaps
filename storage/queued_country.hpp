@@ -50,7 +50,7 @@ private:
   MapFileType m_fileType;
   int64_t m_currentDataVersion;
   std::string m_dataDir;
-  std::shared_ptr<diffs::DiffsDataSource> m_diffsDataSource;
+  diffs::DiffsSourcePtr m_diffsDataSource;
 
   DownloadingFinishCallback m_downloadingFinishCallback;
   DownloadingProgressCallback m_downloadingProgressCallback;

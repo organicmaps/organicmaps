@@ -1,8 +1,11 @@
 #pragma once
 
 #include "storage/diff_scheme/diff_types.hpp"
+#include "storage/storage_defines.hpp"
 
+#include <cstdint>
 #include <functional>
+#include <unordered_map>
 
 namespace storage
 {

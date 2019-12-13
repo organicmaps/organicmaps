@@ -33,5 +33,5 @@ m2::RectD CalcLimitRect(CountryId const & countryId, Storage const & storage,
                         CountryInfoGetter const & countryInfoGetter);
 
 MwmSize GetRemoteSize(diffs::DiffsDataSource const & diffsDataSource,
-                      platform::CountryFile const & file, int64_t version);
+                      platform::CountryFile const & file);
 }  // namespace storage

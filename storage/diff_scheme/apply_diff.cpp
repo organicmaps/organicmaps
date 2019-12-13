@@ -28,16 +28,16 @@ void ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancellable,
     auto result = DiffApplicationResult::Failed;
 
     diffFile->SyncWithDisk();
+    if (!diffFile->OnDisk(MapFileType::Diff))
+    {
+      base::RenameFileX(diffReadyPath, diffPath);
+      diffFile->SyncWithDisk();
+    }
 
-    auto const isOnDisk = diffFile->OnDisk(MapFileType::Diff);
-    auto const isFilePrepared = isOnDisk || base::RenameFileX(diffReadyPath, diffPath);
+    auto const isFilePrepared = diffFile->OnDisk(MapFileType::Diff);
 
     if (isFilePrepared)
     {
-      // Sync with disk after renaming.
-      if (!isOnDisk)
-        diffFile->SyncWithDisk();
-
       std::string const oldMwmPath = p.m_oldMwmFile->GetPath(MapFileType::Map);
       std::string const newMwmPath = diffFile->GetPath(MapFileType::Map);
       std::string const diffApplyingInProgressPath = newMwmPath + DIFF_APPLYING_FILE_EXTENSION;

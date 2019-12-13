@@ -82,7 +82,9 @@ class MemoryHttpRequest : public HttpRequest, public IHttpThreadCallback
   virtual void OnFinish(long httpOrErrorCode, int64_t, int64_t)
   {
     if (httpOrErrorCode == 200)
+    {
       m_status = DownloadStatus::Completed;
+    }
     else
     {
       auto const message = non_http_error_code::DebugPrint(httpOrErrorCode);

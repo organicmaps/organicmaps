@@ -69,7 +69,7 @@ m2::RectD CalcLimitRect(CountryId const & countryId, Storage const & storage,
 }
 
 MwmSize GetRemoteSize(diffs::DiffsDataSource const & diffsDataSource,
-                      platform::CountryFile const & file, int64_t version)
+                      platform::CountryFile const & file)
 {
   uint64_t size;
   if (diffsDataSource.SizeFor(file.GetName(), size))
