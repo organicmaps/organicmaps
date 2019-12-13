@@ -16,6 +16,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <fstream>
 #include <set>
 #include <sstream>
 #include <utility>
@@ -115,8 +116,8 @@ void Stats::AddDataPoints(string const & mwmName, string const & countryName,
   m_countryToTotalDataPoints[countryName] += dataPointNum;
 }
 
-void Stats::AddDataPoints(std::string const & mwmName, storage::Storage const & storage,
-                          uint32_t dataPointNum)
+void Stats::AddDataPoints(string const & mwmName, storage::Storage const & storage,
+                          uint64_t dataPointNum)
 {
   auto const countryName = storage.GetTopmostParentFor(mwmName);
   // Note. In case of disputed mwms |countryName| will be empty.
@@ -125,11 +126,14 @@ void Stats::AddDataPoints(std::string const & mwmName, storage::Storage const & 
 
 void Stats::SaveMwmDistributionToCsv(string const & csvPath) const
 {
+  LOG(LINFO, ("Saving mwm distribution to", csvPath, "m_mwmToTotalDataPoints size is",
+              m_mwmToTotalDataPoints.size()));
   if (csvPath.empty())
     return;
 
-  ostringstream ss(csvPath);
-  MappingToCsv("mwm", m_mwmToTotalDataPoints, false /* printPercentage */, ss);
+  ofstream ofs(csvPath);
+  CHECK(ofs.is_open(), ("Cannot open file", csvPath));
+  MappingToCsv("mwm", m_mwmToTotalDataPoints, false /* printPercentage */, ofs);
 }
 
 void Stats::Log() const
@@ -150,18 +154,12 @@ Stats::NameToCountMapping const & Stats::GetCountryToTotalDataPointsForTesting()
 
 void Stats::LogMwms() const
 {
-  ostringstream ss;
-  LOG(LINFO, ("\n"));
-  PrintMap("mwm", "Mwm to total data points number:", m_mwmToTotalDataPoints, ss);
-  LOG(LINFO, (ss.str()));
+  LogNameToCountMapping("mwm", "Mwm to total data points number:", m_mwmToTotalDataPoints);
 }
 
 void Stats::LogCountries() const
 {
-  ostringstream ss;
-  LOG(LINFO, ("\n"));
-  PrintMap("country", "Country name to data points number:", m_countryToTotalDataPoints, ss);
-  LOG(LINFO, (ss.str()));
+  LogNameToCountMapping("country", "Country name to data points number:", m_countryToTotalDataPoints);
 }
 
 void MappingToCsv(string const & keyName, Stats::NameToCountMapping const & mapping,
@@ -240,6 +238,15 @@ void WriteCsvTableHeader(basic_ostream<char> & stream)
   stream << "user,mwm,hw type,surface type,maxspeed km/h,is city road,is one way,is day,lat lon,distance,time,"
             "mean speed km/h,turn from smaller to bigger,turn from bigger to smaller,from link,to link,"
             "intersection with big,intersection with small,intersection with link\n";
+}
+
+void LogNameToCountMapping(string const & keyName, string const & descr,
+                           Stats::NameToCountMapping const & mapping)
+{
+  ostringstream ss;
+  LOG(LINFO, ("\n"));
+  PrintMap(keyName, descr, mapping, ss);
+  LOG(LINFO, (ss.str()));
 }
 
 string DebugPrint(Stats const & s)

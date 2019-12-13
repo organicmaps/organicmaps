@@ -58,12 +58,12 @@ DEFINE_string(
     "- It may be used with match and match_dir command. If so it's a path to save file with "
     "data point distribution by mwm. If it's empty no file is saved.\n"
     "- It may be used with balance_csv command. If so it's a path of a file with distribution which "
-    "will be used for normalization (balancing) the result of the command."
-    "If it's empty no distribution will be used.");
+    "will be used for normalization (balancing) the result of the command. It should not be empty.");
 DEFINE_uint64(
-    ignore_datapoints_number, 500,
-    "if the number of datapoints or less is contained in an mwm after matching and tabling the mwm "
-    "will not used for balancing. This param should be used with balance_csv command.");
+    ignore_datapoints_number, 100,
+    "The number of datapoints in an mwm to exclude the mwm from balancing process. If this number "
+    "of datapoints or less number is in an mwm after matching and tabling, the mwm will not used "
+    "for balancing. This param should be used with balance_csv command.");
 
 DEFINE_string(track_extension, ".track", "track files extension");
 DEFINE_bool(no_world_logs, false, "don't print world summary logs");

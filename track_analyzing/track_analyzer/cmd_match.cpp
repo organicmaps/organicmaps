@@ -165,6 +165,8 @@ void UnzipAndMatch(Iter begin, Iter end, string const & trackExt, Stats & stats)
 
 void CmdMatchDir(string const & logDir, string const & trackExt, string const & inputDistribution)
 {
+  LOG(LINFO,
+      ("Matching dir:", logDir, ". Input distribution will be saved to:", inputDistribution));
   Platform::EFileType fileType = Platform::FILE_TYPE_UNKNOWN;
   Platform::EError const result = Platform::GetFileType(logDir, fileType);
 

@@ -2,6 +2,8 @@
 
 #include "track_analyzing/track_analyzer/utils.hpp"
 
+#include "base/logging.hpp"
+
 #include <cstdint>
 #include <map>
 #include <sstream>
@@ -34,14 +36,19 @@ template<typename Map1, typename Map2>
 bool AreKeysEqual(Map1 const & map1, Map2 const & map2)
 {
   if (map1.size() != map2.size())
-    return false;
-
-  for (auto const & kv : map1)
   {
-    if (map2.count(kv.first) == 0)
-      return false;
+    LOG(LINFO,
+        ("AreKeysEqual() returns false. map1.size():", map1.size(), "map2.size()", map2.size()));
+    return false;
   }
-  return true;
+
+  return std::equal(map1.begin(), map1.end(), map2.begin(), [](auto const & kv1, auto const & kv2) {
+    if (kv1.first == kv2.first)
+      return true;
+
+    LOG(LINFO, ("Keys:", kv1.first, "and", kv2.first, "are not equal."));
+    return false;
+  });
 }
 
 /// \brief Fills a map |mwmToDataPoints| mwm to DataPoints number according to |tableCsvStream| and

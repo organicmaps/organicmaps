@@ -86,6 +86,7 @@ MwmToDataPoints CalcsMatchedDataPointsToKeepDistribution(
   double maxRatio = 0.0;
   double maxRationDistributionFraction = 0.0;
   uint64_t maxRationMatchedDataPointNumber = 0;
+  string maxMwmName;
   // First, let's find such mwm that all |matchedDataPoints| of it may be used and
   // the distribution set in |distributionFractions| will be kept. It's an mwm
   // on which the maximum of ratio
@@ -108,8 +109,10 @@ MwmToDataPoints CalcsMatchedDataPointsToKeepDistribution(
       maxRatio = ratio;
       maxRationDistributionFraction = distributionFraction;
       maxRationMatchedDataPointNumber = matchedDataPointNumber;
+      maxMwmName = mwmName;
     }
   }
+  LOG(LINFO, ("Max ration mwm name:", maxMwmName, "max ration:", maxRatio));
   CHECK_GREATER_OR_EQUAL(maxRatio, 1.0, ());
 
   // Having data points number in mwm on which the maximum is reached and
@@ -219,6 +222,7 @@ void BalanceDataPoints(basic_istream<char> & tableCsvStream,
   MwmToDataPoints matchedDataPoints;
   FillTable(tableCsvStream, matchedDataPoints, balancedTable);
   uint64_t const totalMatchedDataPointsNumber = ValueSum(matchedDataPoints);
+  LOG(LINFO, ("Total matched data points number:", totalMatchedDataPointsNumber));
 
   if (matchedDataPoints.empty())
   {
@@ -234,13 +238,15 @@ void BalanceDataPoints(basic_istream<char> & tableCsvStream,
     else
       ++it;
   }
+
   CHECK(AreKeysEqual(distribution, matchedDataPoints),
-        ("Mwms in |distribution| and in |matchedDataPoints| should have the same set of keys."));
+        ("Mwms in |distribution| and in |matchedDataPoints| should have the same set of keys.", distribution, matchedDataPoints));
 
   // Calculating how many points should have every mwm to keep the |distribution|.
   MwmToDataPoints const balancedDataPointNumber =
       BalancedDataPointNumber(move(matchedDataPoints), move(distribution), ignoreDataPointsNumber);
   uint64_t const totalBalancedDataPointsNumber = ValueSum(balancedDataPointNumber);
+  LOG(LINFO, ("Total balanced data points number:", totalBalancedDataPointsNumber));
 
   // |balancedTable| is filled now with all the items from |tableCsvStream|.
   // Removing some items form |tableCsvStream| (if it's necessary) to correspond to
@@ -255,7 +261,7 @@ void BalanceDataPoints(basic_istream<char> & tableCsvStream,
 void CmdBalanceCsv(string const & csvPath, string const & distributionPath,
                    uint64_t ignoreDataPointsNumber)
 {
-  LOG(LINFO, ("Balancing csv fie", csvPath, "with distribution set in", distributionPath,
+  LOG(LINFO, ("Balancing csv file", csvPath, "with distribution set in", distributionPath,
               ". If an mwm has", ignoreDataPointsNumber,
               "data points or less it will not be considered."));
   ifstream table(csvPath);
@@ -270,10 +276,10 @@ void CmdBalanceCsv(string const & csvPath, string const & distributionPath,
   storage::Storage storage;
   storage.RegisterAllLocalMaps(false /* enableDiffs */);
   Stats stats;
-  for (auto const & row : balancedTable)
+  for (auto const & record : balancedTable)
   {
-    CHECK_EQUAL(row.size(), kTableColumns, (row));
-    auto const & mwmName = row[kMwmNameCsvColumn];
+    CHECK_EQUAL(record.size(), kTableColumns, (record));
+    auto const & mwmName = record[kMwmNameCsvColumn];
     // Note. One record in csv means one data point.
     stats.AddDataPoints(mwmName, storage, 1 /* data points number */);
   }
@@ -282,7 +288,6 @@ void CmdBalanceCsv(string const & csvPath, string const & distributionPath,
   WriteCsvTableHeader(cout);
   for (auto const & record : balancedTable)
   {
-    CHECK_EQUAL(record.size(), kTableColumns, ());
     for (size_t i = 0; i < kTableColumns; ++i)
     {
       auto const & field = record[i];

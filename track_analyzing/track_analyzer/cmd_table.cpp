@@ -315,7 +315,7 @@ public:
       if (!it.first.IsValid())
         continue;
 
-      out << user << "," << countryName << "," << it.first.GetSummary() << ","
+      out << user << "," << mwmName << "," << it.first.GetSummary() << ","
           << it.second.GetSummary() << '\n';
 
       stats.AddDataPoints(mwmName, countryName, it.second.GetDataPointsNumber());

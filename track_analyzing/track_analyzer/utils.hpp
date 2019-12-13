@@ -38,7 +38,7 @@ public:
                      uint64_t dataPointNum);
 
   void AddDataPoints(std::string const & mwmName, storage::Storage const & storage,
-                     uint32_t dataPointNum);
+                     uint64_t dataPointNum);
 
   /// \brief Saves csv file with numbers of DataPoints for each mwm to |csvPath|.
   /// If |csvPath| is empty it does nothing.
@@ -70,6 +70,9 @@ void ParseTracks(std::string const & logFile, std::shared_ptr<routing::NumMwmIds
                  MwmToTracks & mwmToTracks);
 
 void WriteCsvTableHeader(std::basic_ostream<char> & stream);
+
+void LogNameToCountMapping(std::string const & keyName, std::string const & descr,
+                           Stats::NameToCountMapping const & mapping);
 
 std::string DebugPrint(Stats const & s);
 }  // namespace track_analyzing
