@@ -2377,11 +2377,12 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 {
   using place_page::SponsoredType;
 
-  bool const somethingWasAlreadySelected = (m_currentPlacePageInfo.has_value());
+  auto placePageInfo = BuildPlacePageInfo(buildInfo);
 
-  m_currentPlacePageInfo = BuildPlacePageInfo(buildInfo);
-  if (m_currentPlacePageInfo)
+  if (placePageInfo)
   {
+    m_currentPlacePageInfo = placePageInfo;
+
     // Log statistics events.
     {
       auto const ll = m_currentPlacePageInfo->GetLatLon();
@@ -2450,6 +2451,7 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
   }
   else
   {
+    bool const somethingWasAlreadySelected = (m_currentPlacePageInfo.has_value());
     alohalytics::Stats::Instance().LogEvent(somethingWasAlreadySelected ? "$DelectMapObject" : "$EmptyTapOnMap");
     // UI is always notified even if empty map is tapped,
     // because empty tap event switches on/off full screen map view mode.
