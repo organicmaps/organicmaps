@@ -2,9 +2,9 @@
 
 #include "routing/routing_callbacks.hpp"
 
-#include <vector>
 #include <map>
 #include <string>
+#include <vector>
 
 namespace routing_quality::routing_quality_tool
 {
@@ -25,4 +25,4 @@ private:
   // string representation of RouterResultCode to number of such codes.
   std::map<std::string, size_t> m_errorCounter;
 };
-}  // routing_quality::routing_quality_tool
+}  // namespace routing_quality::routing_quality_tool

@@ -27,6 +27,8 @@ void CheckConsistency(RoutesBuilder::Result const & oldRes, RoutesBuilder::Resul
 {
   auto const start = mercator::ToLatLon(oldRes.m_params.m_checkpoints.GetStart());
   auto const finish = mercator::ToLatLon(oldRes.m_params.m_checkpoints.GetFinish());
+  CHECK(!oldRes.m_routes.empty(), ());
+  CHECK(!newRes.m_routes.empty(), ());
   auto const & oldRoute = oldRes.m_routes.back();
   auto const & newRoute = newRes.m_routes.back();
 
@@ -38,7 +40,7 @@ void CheckConsistency(RoutesBuilder::Result const & oldRes, RoutesBuilder::Resul
                 newRoute.m_eta, "new distance:", newRoute.m_distance, start, finish));
   }
 }
-}
+}  // namespace
 
 namespace routing_quality::routing_quality_tool
 {

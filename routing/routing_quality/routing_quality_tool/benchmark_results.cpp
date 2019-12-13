@@ -19,6 +19,6 @@ void BenchmarkResults::PushBuildTime(double time)
 
 void BenchmarkResults::PushError(routing::RouterResultCode code)
 {
-  ++m_errorCounter[DebugPrint(code)];
+  ++m_errorCounter[routing::ToString(code)];
 }
 }  // namespace routing_quality::routing_quality_tool

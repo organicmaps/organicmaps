@@ -81,7 +81,7 @@ using RoutingStatisticsCallback = std::function<void(std::map<std::string, std::
 using SpeedCameraShowCallback = std::function<void(m2::PointD const & point, double cameraSpeedKmPH)>;
 using SpeedCameraClearCallback = std::function<void()>;
 
-inline std::string DebugPrint(RouterResultCode code)
+inline std::string ToString(RouterResultCode code)
 {
   switch (code)
   {
@@ -107,6 +107,11 @@ inline std::string DebugPrint(RouterResultCode code)
   std::string const result = "Unknown RouterResultCode: " + std::to_string(static_cast<int>(code));
   ASSERT(false, (result));
   return result;
+}
+
+inline std::string DebugPrint(RouterResultCode code)
+{
+  return ToString(code);
 }
 
 // This define should be set to see the spread of A* waves on the map.
