@@ -100,8 +100,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv) {
 
   generator::RawGenerator rawGenerator(genInfo, threadsCount);
   auto processor = CreateProcessor(generator::ProcessorType::Complex, rawGenerator.GetQueue(),
-                                   genInfo.m_intermediateDir, "" /* layerLogFilename */,
-                                   false /* haveBordersForWholeWorld */);
+                                   genInfo.m_intermediateDir, false /* haveBordersForWholeWorld */);
   auto const cache = std::make_shared<generator::cache::IntermediateData>(genInfo);
   auto translator = CreateTranslator(generator::TranslatorType::Complex, processor, cache, genInfo);
   auto finalProcessor = std::make_shared<generator::ComplexFinalProcessor>(

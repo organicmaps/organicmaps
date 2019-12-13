@@ -32,11 +32,4 @@ void ProcessorWorld::Process(feature::FeatureBuilder & feature)
 }
 
 void ProcessorWorld::Finish() { m_affiliationsLayer->AddBufferToQueue(); }
-
-void ProcessorWorld::Merge(FeatureProcessorInterface const & other) { other.MergeInto(*this); }
-
-void ProcessorWorld::MergeInto(ProcessorWorld & other) const
-{
-  other.m_processingChain->MergeChain(m_processingChain);
-}
 }  // namespace generator

@@ -37,36 +37,10 @@ void FixLandType(FeatureBuilder & fb)
 }
 }  // namespace
 
-std::string LogBuffer::GetAsString() const
-{
-  return m_buffer.str();
-}
-
 void LayerBase::Handle(FeatureBuilder & fb)
 {
   if (m_next)
     m_next->Handle(fb);
-}
-
-void LayerBase::Merge(std::shared_ptr<LayerBase> const & other)
-{
-  CHECK(other, ());
-
-  m_logBuffer.AppendLine(other->GetAsString());
-}
-
-void LayerBase::MergeChain(std::shared_ptr<LayerBase> const & other)
-{
-  CHECK_EQUAL(GetChainSize(), other->GetChainSize(), ());
-
-  auto left = shared_from_this();
-  auto right = other;
-  while (left && right)
-  {
-    left->Merge(right);
-    left = left->m_next;
-    right = right->m_next;
-  }
 }
 
 size_t LayerBase::GetChainSize() const
@@ -95,24 +69,6 @@ std::shared_ptr<LayerBase> LayerBase::Add(std::shared_ptr<LayerBase> next)
     m_next = next;
 
   return next;
-}
-
-std::string LayerBase::GetAsString() const
-{
-  return m_logBuffer.GetAsString();
-}
-
-std::string LayerBase::GetAsStringRecursive() const
-{
-  std::ostringstream buffer;
-  auto temp = shared_from_this();
-  while (temp)
-  {
-    buffer << temp->GetAsString();
-    temp = temp->m_next;
-  }
-
-  return buffer.str();
 }
 
 void RepresentationLayer::Handle(FeatureBuilder & fb)

@@ -20,8 +20,5 @@ public:
 
   void Process(feature::FeatureBuilder &) override {}
   void Finish() override {}
-
-  void Merge(FeatureProcessorInterface const &) override {}
-  void MergeInto(ProcessorNoop &) const override {}
 };
 }  // namespace generator

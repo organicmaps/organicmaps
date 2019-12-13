@@ -41,8 +41,6 @@ public:
 
   void Finish() override {}
 
-  void Merge(FeatureProcessorInterface const &) override { CHECK(false, ()); }
-
 private:
   Dataset const & m_dataset;
   std::map<base::GeoObjectId, feature::FeatureBuilder> & m_features;

@@ -36,11 +36,4 @@ void ProcessorCoastline::Process(feature::FeatureBuilder & feature)
 }
 
 void ProcessorCoastline::Finish() { m_affiliationsLayer->AddBufferToQueue(); }
-
-void ProcessorCoastline::Merge(FeatureProcessorInterface const & other) { other.MergeInto(*this); }
-
-void ProcessorCoastline::MergeInto(ProcessorCoastline & other) const
-{
-  other.m_processingChain->MergeChain(m_processingChain);
-}
 }  // namespace generator

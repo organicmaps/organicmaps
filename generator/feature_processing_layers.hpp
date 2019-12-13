@@ -25,34 +25,6 @@ struct GenerateInfo;
 namespace generator
 {
 class PlaceProcessor;
-// Responsibility of the class Log Buffer - encapsulation of the buffer for internal logs.
-class LogBuffer
-{
-public:
-  template <class T, class... Ts>
-  void AppendLine(T const & value, Ts... rest)
-  {
-    AppendImpl(value, rest...);
-    // The last "\t" is overwritten here
-    m_buffer.seekp(-1, std::ios_base::end);
-    m_buffer << "\n";
-  }
-
-  std::string GetAsString() const;
-
-private:
-  template <class T, class... Ts>
-  void AppendImpl(T const & value, Ts... rest)
-  {
-    m_buffer << value << "\t";
-    AppendImpl(rest...);
-  }
-
-  void AppendImpl() {}
-
-  std::ostringstream m_buffer;
-};
-
 // This is the base layer class. Inheriting from it allows you to create a chain of layers.
 class LayerBase : public std::enable_shared_from_this<LayerBase>
 {
@@ -63,25 +35,12 @@ public:
   // The function works in linear time from the number of layers that exist after that.
   virtual void Handle(feature::FeatureBuilder & fb);
 
-  void Merge(std::shared_ptr<LayerBase> const & other);
-  void MergeChain(std::shared_ptr<LayerBase> const & other);
-
   size_t GetChainSize() const;
 
   void SetNext(std::shared_ptr<LayerBase> next);
   std::shared_ptr<LayerBase> Add(std::shared_ptr<LayerBase> next);
 
-  template <class T, class... Ts>
-  constexpr void AppendLine(T const & value, Ts... rest)
-  {
-    m_logBuffer.AppendLine(value, rest...);
-  }
-
-  std::string GetAsString() const;
-  std::string GetAsStringRecursive() const;
-
 private:
-  LogBuffer m_logBuffer;
   std::shared_ptr<LayerBase> m_next;
 };
 

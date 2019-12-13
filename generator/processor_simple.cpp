@@ -27,11 +27,4 @@ std::shared_ptr<FeatureProcessorInterface> ProcessorSimple::Clone() const
 void ProcessorSimple::Process(feature::FeatureBuilder & fb) { m_processingChain->Handle(fb); }
 
 void ProcessorSimple::Finish() { m_affiliationsLayer->AddBufferToQueue(); }
-
-void ProcessorSimple::Merge(FeatureProcessorInterface const & other) { other.MergeInto(*this); }
-
-void ProcessorSimple::MergeInto(ProcessorSimple & other) const
-{
-  other.m_processingChain->MergeChain(m_processingChain);
-}
 }  // namespace generator

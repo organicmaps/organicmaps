@@ -31,7 +31,7 @@ std::shared_ptr<FeatureProcessorQueue> RawGenerator::GetQueue() { return m_queue
 
 void RawGenerator::GenerateCountries(bool addAds)
 {
-  auto processor = CreateProcessor(ProcessorType::Country, m_queue, m_genInfo.m_targetDir, "",
+  auto processor = CreateProcessor(ProcessorType::Country, m_queue, m_genInfo.m_targetDir,
                                    m_genInfo.m_haveBordersForWholeWorld);
   m_translators->Append(
       CreateTranslator(TranslatorType::Country, processor, m_cache, m_genInfo, addAds));

@@ -20,9 +20,6 @@ public:
   void Process(feature::FeatureBuilder & feature) override;
   void Finish() override;
 
-  void Merge(FeatureProcessorInterface const & other) override;
-  void MergeInto(ProcessorCoastline & other) const override;
-
 private:
   std::shared_ptr<AffiliationsFeatureLayer<>> m_affiliationsLayer;
   std::shared_ptr<FeatureProcessorQueue> m_queue;

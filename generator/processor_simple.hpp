@@ -23,9 +23,6 @@ public:
   void Process(feature::FeatureBuilder & fb) override;
   void Finish() override;
 
-  void Merge(FeatureProcessorInterface const & other) override;
-  void MergeInto(ProcessorSimple & other) const override;
-
   std::string GetFilename() const { return m_name; }
 
 private:
