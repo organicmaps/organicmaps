@@ -75,9 +75,8 @@ void LeapsGraph::GetEdgesListFromStart(Segment const & segment, bool isOutgoing,
   {
     // Connect start to all exits (|isEnter| == false).
     auto const & exits = m_starter.GetGraph().GetTransitions(mwmId, false /* isEnter */);
-    for (uint32_t exitId = 0; exitId < static_cast<uint32_t>(exits.size()); ++exitId)
+    for (auto const & exit : exits)
     {
-      auto const & exit = exits[exitId];
       auto const & exitFrontPoint = m_starter.GetPoint(exit, true /* front */);
       auto const weight = m_starter.GetGraph().CalcLeapWeight(m_startPoint, exitFrontPoint);
 
@@ -94,9 +93,8 @@ void LeapsGraph::GetEdgesListToFinish(Segment const & segment, bool isOutgoing,
   {
     // Connect finish to all enters (|isEnter| == true).
     auto const & enters = m_starter.GetGraph().GetTransitions(mwmId, true /* isEnter */);
-    for (uint32_t enterId = 0; enterId < static_cast<uint32_t>(enters.size()); ++enterId)
+    for (auto const & enter : enters)
     {
-      auto const & enter = enters[enterId];
       auto const & enterFrontPoint = m_starter.GetPoint(enter, true /* front */);
       auto const weight = m_starter.GetGraph().CalcLeapWeight(enterFrontPoint, m_finishPoint);
 
