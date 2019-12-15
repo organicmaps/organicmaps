@@ -332,7 +332,8 @@ void CreatePythonBarByMap(std::string const & pythonScriptPath,
                           std::vector<std::vector<double>> const & barHeights,
                           std::vector<std::string> const & legends,
                           std::string const & xlabel,
-                          std::string const & ylabel)
+                          std::string const & ylabel,
+                          bool drawPercents)
 {
   std::ofstream python(pythonScriptPath);
   CHECK(python.good(), ("Can not open:", pythonScriptPath, "for writing."));
@@ -347,6 +348,10 @@ void CreatePythonBarByMap(std::string const & pythonScriptPath,
     counts += "]";
   else
     counts.back() = ']';
+
+  std::string const formatString = drawPercents
+                                       ? "'{{:2.0f}}({:2.0f}%)'.format(height, height / summ * 100)"
+                                       : "'{:2.0f}'.format(height)";
 
   python << R"(
 import matplotlib
@@ -381,7 +386,7 @@ def autolabel(rects, counts_ith):
 
     for rect in rects:
         height = rect.get_height()
-        ax.annotate('{}({:2.0f}%)'.format(height, height / summ * 100),
+        ax.annotate()" + formatString + R"(,
                     xy=(rect.get_x() + rect.get_width() / 2, height),
                     xytext=(0, 3),  # 3 points vertical offset
                     textcoords="offset points",

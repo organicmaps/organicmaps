@@ -25,4 +25,11 @@ private:
   // string representation of RouterResultCode to number of such codes.
   std::map<std::string, size_t> m_errorCounter;
 };
+
+struct TimeInfo
+{
+  TimeInfo(double oldTime, double newTime) : m_oldTime(oldTime), m_newTime(newTime) {}
+  double m_oldTime;
+  double m_newTime;
+};
 }  // namespace routing_quality::routing_quality_tool
