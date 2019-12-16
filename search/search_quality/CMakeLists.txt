@@ -19,6 +19,7 @@ if (NOT SKIP_DESKTOP)
   add_subdirectory(assessment_tool)
 endif()
 
+add_subdirectory(aloha_to_samples_tool)
 add_subdirectory(booking_dataset_generator)
 add_subdirectory(features_collector_tool)
 add_subdirectory(samples_generation_tool)
