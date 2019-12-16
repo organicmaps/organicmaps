@@ -367,7 +367,8 @@ private:
   routing::RoutingSession m_routingSession;
   Delegate & m_delegate;
   tracking::Reporter m_trackingReporter;
-  tracking::ArchivalReporter m_trackingReporterArchive;
+  // TODO(o.khlopkova) uncomment after platform background uploader is ready.
+  // tracking::ArchivalReporter m_trackingReporterArchive;
   BookmarkManager * m_bmManager = nullptr;
   extrapolation::Extrapolator m_extrapolator;
 

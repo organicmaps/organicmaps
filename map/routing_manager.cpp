@@ -314,7 +314,8 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   , m_delegate(delegate)
   , m_trackingReporter(platform::CreateSocket(), TRACKING_REALTIME_HOST, TRACKING_REALTIME_PORT,
                        tracking::Reporter::kPushDelayMs)
-  , m_trackingReporterArchive(TRACKING_HISTORICAL_HOST)
+  // TODO(o.khlopkova) uncomment after platform background uploader is ready.
+  //, m_trackingReporterArchive(TRACKING_HISTORICAL_HOST)
   , m_extrapolator(
         [this](location::GpsInfo const & gpsInfo) { this->OnExtrapolatedLocationUpdate(gpsInfo); })
 {
@@ -487,8 +488,9 @@ void RoutingManager::OnLocationUpdate(location::GpsInfo const & info)
   {
     location::GpsInfo gpsInfo(info);
     auto routeMatchingInfo = GetRouteMatchingInfo(gpsInfo);
-    m_trackingReporterArchive.Insert(m_currentRouterType, info,
-                                     m_routingSession.MatchTraffic(routeMatchingInfo));
+    // TODO(o.khlopkova) uncomment after platform background uploader is ready.
+    // m_trackingReporterArchive.Insert(m_currentRouterType, info,
+    //                                m_routingSession.MatchTraffic(routeMatchingInfo));
   }
 }
 
