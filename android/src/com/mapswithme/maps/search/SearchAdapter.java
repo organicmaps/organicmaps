@@ -4,12 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.AttrRes;
-import androidx.annotation.ColorInt;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -21,6 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.AttrRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.HotelUtils;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
@@ -425,14 +425,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   public int getItemViewType(int position)
   {
     return mResults[position].type;
-  }
-
-  boolean showPopulateButton()
-  {
-    return (!RoutingController.get().isWaitingPoiPick() &&
-            mResults != null &&
-            mResults.length > 0 &&
-            mResults[0].type != TYPE_SUGGEST);
   }
 
   @Override

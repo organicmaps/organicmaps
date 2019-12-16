@@ -274,8 +274,7 @@ public class SearchFragment extends BaseMwmFragment
                         | AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL : 0);
     mToolbarLayout.setLayoutParams(lp);
     if (mFilterController != null)
-      mFilterController.show(hasQuery && mSearchAdapter.getItemCount() != 0,
-                             mSearchAdapter.showPopulateButton());
+      mFilterController.show(hasQuery, !RoutingController.get().isWaitingPoiPick());
 
     if (hasQuery)
       hideDownloadSuggest();
@@ -293,7 +292,8 @@ public class SearchFragment extends BaseMwmFragment
 
     UiUtils.showIf(show, mResultsPlaceholder);
     if (mFilterController != null)
-      mFilterController.showPopulateButton(mSearchAdapter.showPopulateButton() && !isTabletSearch());
+      mFilterController.showPopulateButton(!RoutingController.get()
+                                                             .isWaitingPoiPick() && !isTabletSearch());
   }
 
   @Override
