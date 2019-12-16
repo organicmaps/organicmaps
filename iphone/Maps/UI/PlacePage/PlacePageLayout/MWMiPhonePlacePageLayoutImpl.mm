@@ -38,6 +38,7 @@ typedef NS_ENUM(NSUInteger, MWMScrollDirection) {
 
 @property(nonatomic) CGRect availableArea;
 @property(nonatomic) BOOL isOffsetAnimated;
+@property(nonatomic) BOOL beginDragging;
 
 @end
 
@@ -59,6 +60,7 @@ typedef NS_ENUM(NSUInteger, MWMScrollDirection) {
     _placePageView = placePageView;
     placePageView.tableView.delegate = self;
     _delegate = delegate;
+    _beginDragging = NO;
     [self setScrollView:[[MWMPPScrollView alloc] initWithFrame:ownerView.frame
                                                   inactiveView:placePageView]];
     placePageView.frame = {{0, size.height}, size};
@@ -170,6 +172,10 @@ typedef NS_ENUM(NSUInteger, MWMScrollDirection) {
   return self.previewLayoutHelper.height + self.actionBar.height - self.placePageView.top.height;
 }
 
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+  self.beginDragging = YES;
+}
+
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
   dispatch_async(dispatch_get_main_queue(), ^{
     self.isOffsetAnimated = NO;
@@ -177,7 +183,7 @@ typedef NS_ENUM(NSUInteger, MWMScrollDirection) {
 }
 
 - (void)scrollViewDidScroll:(MWMPPScrollView *)scrollView {
-  if (self.isOffsetAnimated)
+  if (self.isOffsetAnimated || !self.beginDragging)
     return;
   auto ppView = self.placePageView;
   if ([scrollView isEqual:ppView.tableView])
