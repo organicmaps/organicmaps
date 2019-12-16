@@ -181,16 +181,15 @@ struct TraitsPacket<PacketCar>
 };
 
 template <typename Reader>
-ReaderSource<MemReaderWithExceptions> GetReaderSource(Reader & src)
+std::vector<uint8_t> InflateToBuffer(Reader & src)
 {
   std::vector<uint8_t> deflatedBuf(base::checked_cast<size_t>(src.Size()));
   src.Read(deflatedBuf.data(), deflatedBuf.size());
 
   coding::ZLib::Inflate inflate(coding::ZLib::Inflate::Format::ZLib);
-  std::vector<uint8_t> buf;
-  inflate(deflatedBuf.data(), deflatedBuf.size(), std::back_inserter(buf));
-
-  return ReaderSource<MemReaderWithExceptions>(MemReaderWithExceptions(buf.data(), buf.size()));
+  std::vector<uint8_t> buffer;
+  inflate(deflatedBuf.data(), deflatedBuf.size(), std::back_inserter(buffer));
+  return buffer;
 }
 
 template <typename Writer>
@@ -283,11 +282,13 @@ bool BasicArchive<Pack>::Read(Reader & src)
 {
   try
   {
-    auto reader = GetReaderSource(src);
+    auto const buffer = InflateToBuffer(src);
+    ReaderSource<MemReaderWithExceptions> reader(MemReaderWithExceptions(buffer.data(), buffer.size()));
     if (reader.Size() == 0)
       return false;
 
     m_buffer.clear();
+
     // Read first point.
     m_buffer.push_back(TraitsPacket<Pack>::Read(reader, false /* isDelta */));
 
