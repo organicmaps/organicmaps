@@ -208,6 +208,39 @@ bool RectCoversPolyline(IRoadGraph::PointWithAltitudeVec const & junctions, m2::
   return false;
 }
 
+bool CheckGraphConnectivity(Segment const & start, bool isOutgoing, bool useRoutingOptions,
+                            size_t limit, WorldGraph & graph, std::set<Segment> & marked)
+{
+  std::queue<Segment> q;
+  q.push(start);
+
+  marked.insert(start);
+
+  std::vector<SegmentEdge> edges;
+  while (!q.empty() && marked.size() < limit)
+  {
+    auto const u = q.front();
+    q.pop();
+
+    edges.clear();
+
+    // Note. If |isOutgoing| == true outgoing edges are looked for.
+    // If |isOutgoing| == false it's the finish. So ingoing edges are looked for.
+    graph.GetEdgeList(u, isOutgoing, useRoutingOptions, edges);
+    for (auto const & edge : edges)
+    {
+      auto const & v = edge.GetTarget();
+      if (marked.count(v) == 0)
+      {
+        q.push(v);
+        marked.insert(v);
+      }
+    }
+  }
+
+  return marked.size() >= limit;
+}
+
 // AStarLengthChecker ------------------------------------------------------------------------------
 
 AStarLengthChecker::AStarLengthChecker(IndexGraphStarter & starter) : m_starter(starter) {}

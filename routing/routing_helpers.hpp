@@ -26,6 +26,8 @@
 
 namespace routing
 {
+class IndexGraphStarter;
+
 inline double KMPH2MPS(double kmph) { return kmph * 1000.0 / (60 * 60); }
 
 template <typename Types>
@@ -75,42 +77,9 @@ bool RectCoversPolyline(IRoadGraph::PointWithAltitudeVec const & junctions, m2::
 /// of edges,
 /// if graph ends before this number is reached then junction is assumed as not connected to the
 /// world graph.
-template <typename Graph>
-bool CheckGraphConnectivity(typename Graph::Vertex const & start, bool isOutgoing,
-                            bool useRoutingOptions, size_t limit, Graph & graph,
-                            std::set<typename Graph::Vertex> & marked)
-{
-  std::queue<typename Graph::Vertex> q;
-  q.push(start);
-
-  marked.insert(start);
-
-  std::vector<typename Graph::Edge> edges;
-  while (!q.empty() && marked.size() < limit)
-  {
-    auto const u = q.front();
-    q.pop();
-
-    edges.clear();
-
-    // Note. If |isOutgoing| == true outgoing edges are looked for.
-    // If |isOutgoing| == false it's the finish. So ingoing edges are looked for.
-    graph.GetEdgeList(u, isOutgoing, useRoutingOptions, edges);
-    for (auto const & edge : edges)
-    {
-      auto const & v = edge.GetTarget();
-      if (marked.count(v) == 0)
-      {
-        q.push(v);
-        marked.insert(v);
-      }
-    }
-  }
-
-  return marked.size() >= limit;
-}
-
-class IndexGraphStarter;
+bool CheckGraphConnectivity(Segment const & start, bool isOutgoing,
+                            bool useRoutingOptions, size_t limit, WorldGraph & graph,
+                            std::set<Segment> & marked);
 
 struct AStarLengthChecker
 {

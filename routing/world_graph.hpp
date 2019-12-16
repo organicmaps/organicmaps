@@ -41,11 +41,6 @@ enum class WorldGraphMode
 class WorldGraph
 {
 public:
-  // AStarAlgorithm and CheckGraphConnectivity() types aliases:
-  using Vertex = IndexGraph::Vertex;
-  using Edge = IndexGraph::Edge;
-  using Weight = IndexGraph::Weight;
-
   virtual ~WorldGraph() = default;
 
   virtual void GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
@@ -68,9 +63,6 @@ public:
   virtual void ClearCachedGraphs() = 0;
   virtual void SetMode(WorldGraphMode mode) = 0;
   virtual WorldGraphMode GetMode() const = 0;
-
-  virtual void GetOutgoingEdgesList(Segment const & segment, std::vector<SegmentEdge> & edges) = 0;
-  virtual void GetIngoingEdgesList(Segment const & segment, std::vector<SegmentEdge> & edges) = 0;
 
   virtual RouteWeight HeuristicCostEstimate(Segment const & from, Segment const & to) = 0;
   virtual RouteWeight HeuristicCostEstimate(m2::PointD const & from, m2::PointD const & to) = 0;

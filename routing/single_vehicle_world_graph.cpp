@@ -131,20 +131,6 @@ bool SingleVehicleWorldGraph::IsPassThroughAllowed(NumMwmId mwmId, uint32_t feat
   return GetRoadGeometry(mwmId, featureId).IsPassThroughAllowed();
 }
 
-void SingleVehicleWorldGraph::GetOutgoingEdgesList(Segment const & segment,
-                                                   vector<SegmentEdge> & edges)
-{
-  edges.clear();
-  GetEdgeList(segment, true /* isOutgoing */, true /* useRoutingOptions */, edges);
-}
-
-void SingleVehicleWorldGraph::GetIngoingEdgesList(Segment const & segment,
-                                                  vector<SegmentEdge> & edges)
-{
-  edges.clear();
-  GetEdgeList(segment, false /* isOutgoing */, true /* useRoutingOptions */, edges);
-}
-
 RouteWeight SingleVehicleWorldGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)
 {
   return HeuristicCostEstimate(GetPoint(from, true /* front */), GetPoint(to, true /* front */));

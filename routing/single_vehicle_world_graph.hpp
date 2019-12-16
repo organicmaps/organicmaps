@@ -53,9 +53,6 @@ public:
   void SetMode(WorldGraphMode mode) override { m_mode = mode; }
   WorldGraphMode GetMode() const override { return m_mode; }
 
-  void GetOutgoingEdgesList(Segment const & segment, std::vector<SegmentEdge> & edges) override;
-  void GetIngoingEdgesList(Segment const & segment, std::vector<SegmentEdge> & edges) override;
-
   RouteWeight HeuristicCostEstimate(Segment const & from, Segment const & to) override;
   RouteWeight HeuristicCostEstimate(m2::PointD const & from, m2::PointD const & to) override;
   RouteWeight HeuristicCostEstimate(Segment const & from, m2::PointD const & to) override;

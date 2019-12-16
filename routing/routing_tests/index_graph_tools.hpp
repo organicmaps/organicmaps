@@ -50,10 +50,6 @@ using AlgorithmForWorldGraph = AStarAlgorithm<Segment, SegmentEdge, RouteWeight>
 class WorldGraphForAStar : public AStarGraph<Segment, SegmentEdge, RouteWeight>
 {
 public:
-  using Vertex = AStarGraph::Vertex;
-  using Edge = AStarGraph::Edge;
-  using Weight = AStarGraph::Weight;
-
   explicit WorldGraphForAStar(std::unique_ptr<SingleVehicleWorldGraph> graph) : m_graph(std::move(graph)) {}
   ~WorldGraphForAStar() override = default;
 
@@ -66,12 +62,14 @@ public:
 
   void GetOutgoingEdgesList(Vertex const & v, std::vector<Edge> & edges) override
   {
-    m_graph->GetOutgoingEdgesList(v, edges);
+    edges.clear();
+    m_graph->GetEdgeList(v, true /* isOutgoing */, true /* useRoutingOptions */, edges);
   }
 
   void GetIngoingEdgesList(Vertex const & v, std::vector<Edge> & edges) override
   {
-    m_graph->GetIngoingEdgesList(v, edges);
+    edges.clear();
+    m_graph->GetEdgeList(v, false /* isOutgoing */, true /* useRoutingOptions */, edges);
   }
 
   RouteWeight GetAStarWeightEpsilon() override { return RouteWeight(0.0); }

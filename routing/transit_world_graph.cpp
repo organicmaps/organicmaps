@@ -107,18 +107,6 @@ void TransitWorldGraph::ClearCachedGraphs()
   m_transitLoader->Clear();
 }
 
-void TransitWorldGraph::GetOutgoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges)
-{
-  edges.clear();
-  GetEdgeList(segment, true /* isOutgoing */, true /* useRoutingOptions */, edges);
-}
-
-void TransitWorldGraph::GetIngoingEdgesList(Segment const & segment, vector<SegmentEdge> & edges)
-{
-  edges.clear();
-  GetEdgeList(segment, false /* isOutgoing */, true /* useRoutingOptions */, edges);
-}
-
 RouteWeight TransitWorldGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)
 {
   return HeuristicCostEstimate(GetPoint(from, true /* front */), GetPoint(to, true /* front */));

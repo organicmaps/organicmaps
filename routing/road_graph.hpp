@@ -143,7 +143,6 @@ public:
 class IRoadGraph : public RoadGraphBase
 {
 public:
-  // CheckGraphConnectivity() types aliases:
   using Vertex = geometry::PointWithAltitude;
   using Edge = routing::Edge;
   using Weight = double;
