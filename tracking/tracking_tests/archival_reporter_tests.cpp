@@ -76,10 +76,9 @@ UNIT_TEST(PacketCar_OperationsConsistency)
   auto const track = archive.Extract();
 
   base::HighResTimer timerStartSaving;
-  std::string const filePath =
-      base::JoinPath(GetPlatform().WritableDir(), "archival_reporter_car.track");
+  std::string const fileName = "archival_reporter_car.track";
   {
-    FileWriter writer(filePath);
+    FileWriter writer(fileName);
     CHECK(archive.Write(writer), ());
   }
 
@@ -89,10 +88,10 @@ UNIT_TEST(PacketCar_OperationsConsistency)
       ("Duration of dumping", timerStart.ElapsedMillis() - timerStartSaving.ElapsedMillis(), "ms"));
 
   uint64_t sizeBytes;
-  CHECK(GetPlatform().GetFileSizeByFullPath(filePath, sizeBytes), ());
+  CHECK(GetPlatform().GetFileSizeByFullPath(fileName, sizeBytes), ());
   LOG(LINFO, ("File size", sizeBytes, "bytes"));
 
-  FileReader reader(filePath);
+  FileReader reader(fileName);
   ReaderSource<FileReader> src(reader);
 
   CHECK(archive.Read(src), ());
@@ -119,17 +118,16 @@ UNIT_TEST(PacketPedestrianBicycle_OperationsConsistency)
   }
   auto const track = archive.Extract();
 
-  std::string const filePath =
-      base::JoinPath(GetPlatform().WritableDir(), "archival_reporter_pedestrian_bicycle.track");
+  std::string const fileName = "archival_reporter_pedestrian_bicycle.track";
   {
-    FileWriter writer(filePath);
-    CHECK(archive.Write(writer), (filePath));
+    FileWriter writer(fileName);
+    CHECK(archive.Write(writer), (fileName));
   }
   uint64_t sizeBytes;
-  CHECK(GetPlatform().GetFileSizeByFullPath(filePath, sizeBytes), (filePath, sizeBytes));
+  CHECK(GetPlatform().GetFileSizeByFullPath(fileName, sizeBytes), (fileName, sizeBytes));
   LOG(LINFO, ("File size", sizeBytes, "bytes"));
 
-  FileReader reader(filePath);
+  FileReader reader(fileName);
   ReaderSource<FileReader> src(reader);
 
   CHECK(archive.Read(src), ());
