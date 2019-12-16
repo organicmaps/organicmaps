@@ -23,7 +23,7 @@ bool IsErrorCode(RouterResultCode code)
   return code != RouterResultCode::NoError;
 }
 
-void CheckConsistency(RoutesBuilder::Result const & oldRes, RoutesBuilder::Result const & newRes)
+void LogIfNotConsistent(RoutesBuilder::Result const & oldRes, RoutesBuilder::Result const & newRes)
 {
   auto const start = mercator::ToLatLon(oldRes.m_params.m_checkpoints.GetStart());
   auto const finish = mercator::ToLatLon(oldRes.m_params.m_checkpoints.GetFinish());
@@ -149,8 +149,9 @@ void RunBenchmarkComparison(
     if (IsErrorCode(mapsmeResult.m_code) || IsErrorCode(mapsmeOldResult.m_code))
       continue;
 
-    CheckConsistency(mapsmeOldResult, mapsmeResult);
+    LogIfNotConsistent(mapsmeOldResult, mapsmeResult);
 
+    CHECK(!mapsmeOldResult.m_routes.empty() && !mapsmeResult.m_routes.empty(), ());
     auto const etaDiff =
         (mapsmeOldResult.m_routes.back().m_eta - mapsmeResult.m_routes.back().m_eta);
     auto const etaDiffPercent = etaDiff / mapsmeOldResult.m_routes.back().m_eta * 100.0;

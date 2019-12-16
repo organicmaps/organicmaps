@@ -12,7 +12,7 @@ class BenchmarkResults
 {
 public:
   void PushError(routing::RouterResultCode code);
-  double GetAverageBuildTime();
+  double GetAverageBuildTime() const;
   void PushBuildTime(double time);
 
   std::vector<double> const & GetBuildTimes() const { return m_buildTimes; }

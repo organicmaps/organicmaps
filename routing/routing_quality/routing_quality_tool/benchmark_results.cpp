@@ -2,9 +2,9 @@
 
 namespace routing_quality::routing_quality_tool
 {
-double BenchmarkResults::GetAverageBuildTime()
+double BenchmarkResults::GetAverageBuildTime() const
 {
-  auto const n = m_errorCounter[DebugPrint(routing::RouterResultCode::NoError)];
+  auto const n = m_errorCounter.at(routing::ToString(routing::RouterResultCode::NoError));
   if (n == 0)
     return 0.0;
 
