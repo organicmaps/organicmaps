@@ -116,9 +116,6 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   {
     super.onStart();
     mDelegate.onStart();
-    mFailedPurchaseController.addCallback(mPurchaseChecker);
-    mFailedPurchaseController.validateExistingPurchases();
-    mProductDetailsLoadingManager.addCallback(mProductDetailsLoadingCallback);
   }
 
   @Override
@@ -140,8 +137,6 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   {
     super.onStop();
     mDelegate.onStop();
-    mFailedPurchaseController.removeCallback();
-    mProductDetailsLoadingManager.removeCallback(mProductDetailsLoadingCallback);
   }
 
   @Override
@@ -150,7 +145,9 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     super.onDestroyView();
     mDelegate.onDestroyView();
     mWebViewClient.clear();
+    mFailedPurchaseController.removeCallback();
     mFailedPurchaseController.destroy();
+    mProductDetailsLoadingManager.removeCallback(mProductDetailsLoadingCallback);
     mProductDetailsLoadingManager.destroy();
   }
 
@@ -160,12 +157,18 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
                            @Nullable Bundle savedInstanceState)
   {
     setHasOptionsMenu(true);
+
     mFailedPurchaseController = PurchaseFactory.createFailedBookmarkPurchaseController(requireContext());
     mFailedPurchaseController.initialize(requireActivity());
     mPurchaseChecker = new FailedBookmarkPurchaseChecker();
+    mFailedPurchaseController.addCallback(mPurchaseChecker);
+    mFailedPurchaseController.validateExistingPurchases();
+
     mProductDetailsLoadingManager = PurchaseFactory.createInAppBillingManager();
     mProductDetailsLoadingManager.initialize(requireActivity());
     mProductDetailsLoadingCallback = new ProductDetailsLoadingCallback();
+    mProductDetailsLoadingManager.addCallback(mProductDetailsLoadingCallback);
+
     View root = inflater.inflate(R.layout.fragment_bookmarks_catalog, container, false);
     mWebView = root.findViewById(getWebViewResId());
     mRetryBtn = root.findViewById(R.id.retry_btn);
