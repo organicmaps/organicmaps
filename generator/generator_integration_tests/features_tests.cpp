@@ -26,20 +26,20 @@ using namespace generator_integration_tests;
 
 struct CountryFeaturesCounters
 {
-  size_t m_fbs = 0;
-  size_t m_geometryPoints = 0;
-  size_t m_point = 0;
-  size_t m_line = 0;
-  size_t m_area = 0;
-  size_t m_poi = 0;
-  size_t m_cityTownOrVillage = 0;
-  size_t m_bookingHotels = 0;
+  int64_t m_fbs = 0;
+  int64_t m_geometryPoints = 0;
+  int64_t m_point = 0;
+  int64_t m_line = 0;
+  int64_t m_area = 0;
+  int64_t m_poi = 0;
+  int64_t m_cityTownOrVillage = 0;
+  int64_t m_bookingHotels = 0;
 
   CountryFeaturesCounters() = default;
 
-  constexpr CountryFeaturesCounters(size_t fbs, size_t geometryPoints, size_t point, size_t line,
-                                    size_t area, size_t poi, size_t cityTownOrVillage,
-                                    size_t bookingHotels)
+  constexpr CountryFeaturesCounters(int64_t fbs, int64_t geometryPoints, int64_t point, int64_t line,
+                                    int64_t area, int64_t poi, int64_t cityTownOrVillage,
+                                    int64_t bookingHotels)
     : m_fbs(fbs)
     , m_geometryPoints(geometryPoints)
     , m_point(point)
@@ -57,6 +57,14 @@ struct CountryFeaturesCounters
                                    m_point + rhs.m_point, m_line + rhs.m_line, m_area + rhs.m_area,
                                    m_poi + rhs.m_poi, m_cityTownOrVillage + rhs.m_cityTownOrVillage,
                                    m_bookingHotels + rhs.m_bookingHotels);
+  }
+
+  CountryFeaturesCounters operator-(CountryFeaturesCounters const & rhs) const
+  {
+    return CountryFeaturesCounters(m_fbs - rhs.m_fbs, m_geometryPoints - rhs.m_geometryPoints,
+                                   m_point - rhs.m_point, m_line - rhs.m_line, m_area - rhs.m_area,
+                                   m_poi - rhs.m_poi, m_cityTownOrVillage - rhs.m_cityTownOrVillage,
+                                   m_bookingHotels - rhs.m_bookingHotels);
   }
 
   bool operator==(CountryFeaturesCounters const & rhs) const
@@ -102,6 +110,22 @@ CountryFeaturesCounters constexpr kSouthSouthlandCounters(
 CountryFeaturesCounters constexpr kSouthSouthlandMixedNodesCounters(
     2 /* fbs */, 2 /* geometryPoints */, 2 /* point */, 0 /* line */, 0 /* area */, 0 /* poi */,
     0 /* cityTownOrVillage */, 0 /* bookingHotels */);
+
+CountryFeaturesCounters constexpr kNorthAucklandComplexFeaturesCounters(
+    283 /* fbs */, 16014 /* geometryPoints */, 0 /* point */, 247 /* line */, 36 /* area */,
+    0 /* poi */, 0 /* cityTownOrVillage */, 0 /* bookingHotels */);
+
+CountryFeaturesCounters constexpr kNorthWellingtonComplexFeaturesCounters(
+    253 /* fbs */, 18422 /* geometryPoints */, 0 /* point */, 243 /* line */, 10 /* area */,
+    0 /* poi */, 0 /* cityTownOrVillage */, 0 /* bookingHotels */);
+
+CountryFeaturesCounters constexpr kSouthCanterburyComplexFeaturesCounters(
+    1035 /* fbs */, 73795 /* geometryPoints */, 0 /* point */, 1014 /* line */, 21 /* area */,
+    0 /* poi */, 0 /* cityTownOrVillage */, 0 /* bookingHotels */);
+
+CountryFeaturesCounters constexpr kSouthSouthlandComplexFeaturesCounters(
+    1252 /* fbs */, 141706 /* geometryPoints */, 0 /* point */, 1245 /* line */, 7 /* area */,
+    0 /* poi */, 0 /* cityTownOrVillage */, 0 /* bookingHotels */);
 
 class FeatureIntegrationTests
 {
@@ -200,6 +224,32 @@ public:
     TestCountry(northWellington, kNorthWellingtonCounters);
     TestCountry(southCanterbury, kSouthCanterburyCounters);
     TestCountry(southSouthland, kSouthSouthlandCounters);
+  }
+
+  void BuildCountriesWithComplex()
+  {
+    m_genInfo.m_emitCoasts = true;
+    m_genInfo.m_citiesBoundariesFilename =
+        m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
+    m_genInfo.m_bookingDataFilename = m_genInfo.GetIntermediateFileName("hotels.csv");
+    m_genInfo.m_complexHierarchyFilename = base::JoinPath(m_testPath, "hierarchy.csv");
+
+    auto const northAuckland = m_genInfo.GetTmpFileName("New Zealand North_Auckland");
+    auto const northWellington = m_genInfo.GetTmpFileName("New Zealand North_Wellington");
+    auto const southCanterbury = m_genInfo.GetTmpFileName("New Zealand South_Canterbury");
+    auto const southSouthland = m_genInfo.GetTmpFileName("New Zealand South_Southland");
+    for (auto const & mwmTmp : {northAuckland, northWellington, southCanterbury, southSouthland})
+      CHECK(!Platform::IsFileExistsByFullPath(mwmTmp), (mwmTmp));
+
+    generator::RawGenerator rawGenerator(m_genInfo, m_threadCount);
+    rawGenerator.GenerateCoasts();
+    rawGenerator.GenerateCountries();
+    TEST(rawGenerator.Execute(), ());
+
+    TestCountry(northAuckland, kNorthAucklandCounters + kNorthAucklandComplexFeaturesCounters);
+    TestCountry(northWellington, kNorthWellingtonCounters + kNorthWellingtonComplexFeaturesCounters);
+    TestCountry(southCanterbury, kSouthCanterburyCounters + kSouthCanterburyComplexFeaturesCounters);
+    TestCountry(southSouthland, kSouthSouthlandCounters + kSouthSouthlandComplexFeaturesCounters);
   }
 
   void CheckMixedTagsAndNodes()
@@ -327,7 +377,7 @@ private:
       fn(fb);
     }
 
-    TEST_EQUAL(actual, expected, ());
+    TEST_EQUAL(actual, expected, ("The difference is:", actual - expected));
   }
 
   void TestGeneratedFile(std::string const & path, size_t fileSize)
@@ -420,6 +470,11 @@ UNIT_CLASS_TEST(FeatureIntegrationTests, BuildWorld)
 UNIT_CLASS_TEST(FeatureIntegrationTests, BuildCountries)
 {
   FeatureIntegrationTests::BuildCountries();
+}
+
+UNIT_CLASS_TEST(FeatureIntegrationTests, BuildCountriesWithComplex)
+{
+  FeatureIntegrationTests::BuildCountriesWithComplex();
 }
 
 UNIT_CLASS_TEST(FeatureIntegrationTests, CheckMixedTagsAndNodes)
