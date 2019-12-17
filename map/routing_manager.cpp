@@ -486,9 +486,9 @@ void RoutingManager::OnLocationUpdate(location::GpsInfo const & info)
 
   if (IsTrackingReporterArchiveEnabled())
   {
-    location::GpsInfo gpsInfo(info);
-    auto routeMatchingInfo = GetRouteMatchingInfo(gpsInfo);
     // TODO(o.khlopkova) uncomment after platform background uploader is ready.
+    // location::GpsInfo gpsInfo(info);
+    // auto routeMatchingInfo = GetRouteMatchingInfo(gpsInfo);
     // m_trackingReporterArchive.Insert(m_currentRouterType, info,
     //                                m_routingSession.MatchTraffic(routeMatchingInfo));
   }
