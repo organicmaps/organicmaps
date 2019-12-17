@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '10.0'
+platform :ios, '11.0'
 
 workspace './../../xcode/omim.xcworkspace'
 
@@ -13,5 +13,6 @@ pod 'Pushwoosh', '5.16.0'
 pod 'ActionSheetPicker-3.0', '2.3.0'
 pod 'FBSDKCoreKit', '4.42.0'
 pod 'FBSDKLoginKit', '4.42.0'
+pod 'Flurry-iOS-SDK/FlurrySDK', '10.1'
 
 end

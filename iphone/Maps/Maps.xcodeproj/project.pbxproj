@@ -400,7 +400,6 @@
 		47699A0A21F0C4C8009E6585 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47699A0921F0C4C8009E6585 /* NotificationManager.swift */; };
 		477219052243E79500E5B227 /* DrivingOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477219042243E79500E5B227 /* DrivingOptionsViewController.swift */; };
 		477D7AC7218F1515007EE2CB /* IPaidRoutePurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477D7AC6218F1515007EE2CB /* IPaidRoutePurchase.swift */; };
-		47800D2520C05E3200072F42 /* libFlurry_8.6.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47800D2420C05E3200072F42 /* libFlurry_8.6.1.a */; };
 		47868A7B22145A2C000AFC86 /* GuideNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47868A7A22145A2C000AFC86 /* GuideNameViewController.swift */; };
 		47868A7D22145A95000AFC86 /* GuideDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47868A7C22145A95000AFC86 /* GuideDescriptionViewController.swift */; };
 		4788738F20EE30B300F6826B /* LayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788738D20EE30B300F6826B /* LayersViewController.swift */; };
@@ -930,8 +929,6 @@
 		3404165A1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosInteractionAnimator.swift; sourceTree = "<group>"; };
 		340474DC1E08199D00C92850 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		340474DD1E08199D00C92850 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		340474E21E08199D00C92850 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
-		340474E31E08199D00C92850 /* FlurrySessionBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurrySessionBuilder.h; sourceTree = "<group>"; };
 		340474EA1E08199D00C92850 /* MWMMyTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMyTarget.h; sourceTree = "<group>"; };
 		340474EB1E08199D00C92850 /* MWMMyTarget.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMyTarget.mm; sourceTree = "<group>"; };
 		340474EC1E08199D00C92850 /* MWMMyTargetDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMyTargetDelegate.h; sourceTree = "<group>"; };
@@ -1504,8 +1501,6 @@
 		47699A0921F0C4C8009E6585 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		477219042243E79500E5B227 /* DrivingOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrivingOptionsViewController.swift; sourceTree = "<group>"; };
 		477D7AC6218F1515007EE2CB /* IPaidRoutePurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPaidRoutePurchase.swift; sourceTree = "<group>"; };
-		47800D2420C05E3200072F42 /* libFlurry_8.6.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_8.6.1.a; sourceTree = "<group>"; };
-		47800D2620C05E8700072F42 /* FlurryConsent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryConsent.h; sourceTree = "<group>"; };
 		47868A7A22145A2C000AFC86 /* GuideNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideNameViewController.swift; sourceTree = "<group>"; };
 		47868A7C22145A95000AFC86 /* GuideDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDescriptionViewController.swift; sourceTree = "<group>"; };
 		4788738D20EE30B300F6826B /* LayersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayersViewController.swift; sourceTree = "<group>"; };
@@ -2168,7 +2163,6 @@
 				4598438621394CFD00F8CAB2 /* MetalPerformanceShaders.framework in Frameworks */,
 				BB8123CF212C264700ADE512 /* Metal.framework in Frameworks */,
 				BB8123D0212C264700ADE512 /* MetalKit.framework in Frameworks */,
-				47800D2520C05E3200072F42 /* libFlurry_8.6.1.a in Frameworks */,
 				1DA7908820762CEB008BDD6B /* libopen_location_code.a in Frameworks */,
 				45CBCCBA20590AAB006B55C2 /* libkml.a in Frameworks */,
 				56EE14D11FE804550036F20C /* libtransit.a in Frameworks */,
@@ -2471,7 +2465,6 @@
 				45A37B9D20B33F5D005FBDBB /* FBAudienceNetwork.framework */,
 				340474DC1E08199D00C92850 /* Crashlytics.framework */,
 				340474DD1E08199D00C92850 /* Fabric.framework */,
-				340474E11E08199D00C92850 /* Flurry */,
 				347D15C71F82362900E86251 /* GoogleSignIn.framework */,
 				347D15C81F82362900E86251 /* GoogleSignInDependencies.framework */,
 				34F407581E9E1D7A00E57AC0 /* Mopub.xcodeproj */,
@@ -2479,17 +2472,6 @@
 				340474EE1E08199D00C92850 /* MyTrackerSDK.framework */,
 			);
 			path = 3party;
-			sourceTree = "<group>";
-		};
-		340474E11E08199D00C92850 /* Flurry */ = {
-			isa = PBXGroup;
-			children = (
-				47800D2420C05E3200072F42 /* libFlurry_8.6.1.a */,
-				47800D2620C05E8700072F42 /* FlurryConsent.h */,
-				340474E21E08199D00C92850 /* Flurry.h */,
-				340474E31E08199D00C92850 /* FlurrySessionBuilder.h */,
-			);
-			path = Flurry;
 			sourceTree = "<group>";
 		};
 		340474E91E08199D00C92850 /* MyTarget */ = {
@@ -3630,7 +3612,6 @@
 				47E3C7242111E41B008B3B27 /* DimmedModalPresentationController.swift */,
 				47E3C7262111E5A8008B3B27 /* AlertPresentationController.swift */,
 				CD4A1F122305872700F2A6B6 /* PromoBookingPresentationController.swift */,
-				9917D1842397ECC800A7E06E /* IPadModalPresentationController.swift */,
 				47E3C7282111E614008B3B27 /* FadeInAnimatedTransitioning.swift */,
 				47E3C72A2111E62A008B3B27 /* FadeOutAnimatedTransitioning.swift */,
 				9917D17E2397B1D600A7E06E /* IPadModalPresentationController.swift */,
@@ -5314,6 +5295,7 @@
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Flurry-iOS-SDK/Flurry_iOS_SDK.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -5321,6 +5303,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flurry_iOS_SDK.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -5815,7 +5798,6 @@
 				33046832219C57180041F3A8 /* CategorySettingsViewController.swift in Sources */,
 				9917D17D2396793A00A7E06E /* PaidRoutesSubscriptionCampaign.swift in Sources */,
 				3404165C1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
-				9917D1852397ECC800A7E06E /* IPadModalPresentationController.swift in Sources */,
 				993F550E237C622700545511 /* DeepLinkCataloguePathStrategy.swift in Sources */,
 				34E50DE01F6FCBA1008EED49 /* UGCAddReviewCell.swift in Sources */,
 				3404756E1E081A4600C92850 /* MWMSearch.mm in Sources */,
