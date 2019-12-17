@@ -1,18 +1,17 @@
 package com.mapswithme.util;
 
 import android.os.Build;
+import android.text.TextUtils;
+import android.util.Base64;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.text.TextUtils;
 
-import android.util.Base64;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSocketFactory;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,11 +24,11 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-public final class HttpUploader
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSocketFactory;
+
+public final class HttpUploader extends AbstractHttpUploader
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.NETWORK);
   private static final String TAG = HttpUploader.class.getSimpleName();
@@ -37,37 +36,19 @@ public final class HttpUploader
   private static final String CHARSET = "UTF-8";
   private static final int BUFFER = 8192;
   private static final int STATUS_CODE_UNKNOWN = -1;
-  @NonNull
-  private final String mMethod;
-  @NonNull
-  private final String mUrl;
-  @NonNull
-  private final List<KeyValue> mParams;
-  @NonNull
-  private final List<KeyValue> mHeaders;
-  @NonNull
-  private final String mFileKey;
-  @NonNull
-  private final String mFilePath;
+
   @NonNull
   private final String mBoundary;
   @NonNull
   private final String mEndPart;
-  private final boolean mNeedClientAuth;
 
   public HttpUploader(@NonNull String method, @NonNull String url, @NonNull KeyValue[] params,
                       @NonNull KeyValue[] headers, @NonNull String fileKey, @NonNull String filePath,
                       boolean needClientAuth)
   {
-    mMethod = method;
-    mUrl = url;
-    mFileKey = fileKey;
-    mFilePath = filePath;
+    super(method, url, params, headers, fileKey, filePath, needClientAuth);
     mBoundary = "----" + System.currentTimeMillis();
-    mParams = new ArrayList<>(Arrays.asList(params));
-    mHeaders = new ArrayList<>(Arrays.asList(headers));
     mEndPart = LINE_FEED + "--" + mBoundary + "--" + LINE_FEED;
-    mNeedClientAuth = needClientAuth;
   }
 
   public Result upload()
@@ -79,14 +60,14 @@ public final class HttpUploader
     HttpURLConnection connection = null;
     try
     {
-      URL url = new URL(mUrl);
+      URL url = new URL(getUrl());
       connection = (HttpURLConnection) url.openConnection();
       connection.setConnectTimeout(Constants.CONNECTION_TIMEOUT_MS);
       connection.setReadTimeout(Constants.READ_TIMEOUT_MS);
       connection.setUseCaches(false);
-      connection.setRequestMethod(mMethod);
-      connection.setDoOutput(mMethod.equals("POST"));
-      if ("https".equals(connection.getURL().getProtocol()) && mNeedClientAuth)
+      connection.setRequestMethod(getMethod());
+      connection.setDoOutput(getMethod().equals("POST"));
+      if ("https".equals(connection.getURL().getProtocol()) && needClientAuth())
       {
         HttpsURLConnection httpsConnection = (HttpsURLConnection) connection;
         String cert = HttpUploader.nativeUserBindingCertificate();
@@ -96,18 +77,18 @@ public final class HttpUploader
         httpsConnection.setSSLSocketFactory(socketFactory);
       }
 
-      long fileSize = StorageUtils.getFileSize(mFilePath);
+      long fileSize = StorageUtils.getFileSize(getFilePath());
       StringBuilder paramsBuilder = new StringBuilder();
       fillBodyParams(paramsBuilder);
-      File file = new File(mFilePath);
-      fillFileParams(paramsBuilder, mFileKey, file);
+      File file = new File(getFilePath());
+      fillFileParams(paramsBuilder, getFileKey(), file);
       int endPartSize = mEndPart.getBytes().length;
       int paramsSize = paramsBuilder.toString().getBytes().length;
       long bodyLength = paramsSize + fileSize + endPartSize;
       setStreamingMode(connection, bodyLength);
       setHeaders(connection, bodyLength);
       long startTime = System.currentTimeMillis();
-      LOGGER.d(TAG, "Start bookmarks upload on url: '" + Utils.makeUrlSafe(mUrl) + "'");
+      LOGGER.d(TAG, "Start bookmarks upload on url: '" + Utils.makeUrlSafe(getUrl()) + "'");
       OutputStream outputStream = connection.getOutputStream();
       writer = new PrintWriter(new OutputStreamWriter(outputStream, CHARSET));
       writeParams(writer, paramsBuilder);
@@ -124,7 +105,7 @@ public final class HttpUploader
     }
     catch (IOException e)
     {
-      message = "I/O exception '" + Utils.makeUrlSafe(mUrl) + "'";
+      message = "I/O exception '" + Utils.makeUrlSafe(getUrl()) + "'";
       if (connection != null)
       {
         String errMsg = readErrorResponse(connection);
@@ -201,17 +182,17 @@ public final class HttpUploader
 
   private void setHeaders(@NonNull URLConnection connection, long bodyLength)
   {
-    mHeaders.add(new KeyValue(HttpClient.HEADER_USER_AGENT, Framework.nativeGetUserAgent()));
-    mHeaders.add(new KeyValue("App-Version", BuildConfig.VERSION_NAME));
-    mHeaders.add(new KeyValue("Content-Type", "multipart/form-data; boundary=" + mBoundary));
-    mHeaders.add(new KeyValue("Content-Length", String.valueOf(bodyLength)));
-    for (KeyValue header : mHeaders)
+    getHeaders().add(new KeyValue(HttpClient.HEADER_USER_AGENT, Framework.nativeGetUserAgent()));
+    getHeaders().add(new KeyValue("App-Version", BuildConfig.VERSION_NAME));
+    getHeaders().add(new KeyValue("Content-Type", "multipart/form-data; boundary=" + mBoundary));
+    getHeaders().add(new KeyValue("Content-Length", String.valueOf(bodyLength)));
+    for (KeyValue header : getHeaders())
       connection.setRequestProperty(header.mKey, header.mValue);
   }
 
   private void fillBodyParams(@NonNull StringBuilder builder)
   {
-    for (KeyValue field : mParams)
+    for (KeyValue field : getParams())
       addParam(builder, field.mKey, field.mValue);
   }
 

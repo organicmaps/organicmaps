@@ -28,6 +28,7 @@ extern jclass g_ratingClazz;
 extern jclass g_loggerFactoryClazz;
 extern jclass g_keyValueClazz;
 extern jclass g_httpUploaderClazz;
+extern jclass g_httpUploaderBackgroundClazz;
 extern jclass g_httpUploaderResultClazz;
 extern jclass g_networkPolicyClazz;
 extern jclass g_storageUtilsClazz;

@@ -12,7 +12,7 @@ public:
   HttpPayload const & GetPayload() const { return m_payload; }
 
   // TODO add platform-specific implementation
-  void Upload() const {}
+  void Upload() const;
 
 private:
   HttpPayload m_payload;
