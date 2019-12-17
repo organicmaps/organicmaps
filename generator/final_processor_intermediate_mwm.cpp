@@ -120,7 +120,7 @@ void Sort(std::vector<FeatureBuilder> & fbs)
   });
 }
 
-std::string GetCountryNameFormTmpMwmPath(std::string filename)
+std::string GetCountryNameFromTmpMwmPath(std::string filename)
 {
   strings::ReplaceLast(filename, DATA_FILE_EXTENSION_TMP, "");
   return filename;
@@ -128,7 +128,7 @@ std::string GetCountryNameFormTmpMwmPath(std::string filename)
 
 bool FilenameIsCountry(std::string const & filename, AffiliationInterface const & affiliation)
 {
-  return affiliation.HasRegionByName(GetCountryNameFormTmpMwmPath(filename));
+  return affiliation.HasRegionByName(GetCountryNameFromTmpMwmPath(filename));
 }
 
 class PlaceHelper
@@ -644,7 +644,7 @@ void ComplexFinalProcessor::Process()
   std::vector<std::future<std::vector<HierarchyEntry>>> futures;
   ForEachCountry(m_mwmTmpPath, [&](auto const & filename) {
     auto future = pool.Submit([&, filename]() {
-      auto countryName = GetCountryNameFormTmpMwmPath(filename);
+      auto countryName = GetCountryNameFromTmpMwmPath(filename);
       // https://wiki.openstreetmap.org/wiki/Simple_3D_buildings
       // An object with tag 'building:part' is a part of a relation with outline 'building' or
       // is contained in an object with tag 'building'. We will split data and work with

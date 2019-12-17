@@ -223,13 +223,16 @@ namespace
 
   /// Add here all exception classificator types: needed for algorithms,
   /// but don't have drawing rules.
+  /// Warning: Geometry of features with always existing types will be indexed in mwm on all
+  /// zoom levels. If you add an always existing type to drawing types, the displacement of icons
+  /// may work not correctly.
   bool TypeAlwaysExists(uint32_t type, GeomType g = GeomType::Undefined)
   {
     if (!classif().IsTypeValid(type))
       return false;
 
     static uint32_t const internet = classif().GetTypeByPath({"internet_access"});
-    static uint32_t const complex_entry = classif().GetTypeByPath({"complex_entry"});
+    static uint32_t const complexEntry = classif().GetTypeByPath({"complex_entry"});
 
     if ((g == GeomType::Line || g == GeomType::Undefined) && HasRoutingExceptionType(type))
       return true;
@@ -238,7 +241,7 @@ namespace
     if (g != GeomType::Line && type == internet)
       return true;
 
-    if (type == complex_entry)
+    if (type == complexEntry)
       return true;
 
     return false;
@@ -288,6 +291,7 @@ namespace
     // Reserved for custom event processing, e.g. fc2018.
     // if (event == type)
     //   return true;
+
     return false;
   }
 }  // namespace

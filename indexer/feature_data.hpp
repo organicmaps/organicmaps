@@ -313,6 +313,9 @@ public:
   feature::Metadata const & GetMetadata() const { return m_metadata; }
   feature::Metadata & GetMetadata() { return m_metadata; }
 
+  void SetMetadata(feature::Metadata && metadata) { m_metadata = std::move(metadata); }
+  void ClearMetadata() { SetMetadata({}); }
+
   template <class Sink>
   void Write(Sink & sink) const
   {

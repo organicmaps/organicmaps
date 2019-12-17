@@ -11,9 +11,11 @@
 #include "generator/promo_catalog_cities.hpp"
 #include "generator/world_map_generator.hpp"
 
+#include <functional>
 #include <memory>
 #include <sstream>
 #include <string>
+#include <unordered_set>
 
 class CoastlineFeaturesGenerator;
 

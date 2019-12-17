@@ -262,14 +262,13 @@ void ComplexFeaturesMixer::Process(std::function<void(feature::FeatureBuilder &)
   if (!next)
     return;
 
-  // For all objects in the hierarchy, there must be one areal object and one linear.
-  // Exceptions are point features and parts of buildings.
+  // For rendering purposes all hierarchy objects with closed geometry except building parts must
+  // be stored as one areal object and one linear object.
   if (fb.IsPoint() || !fb.IsGeometryClosed())
     return;
 
   auto const id = MakeCompositeId(fb);
-  auto const it = m_hierarchyNodesSet.find(id);
-  if (it == std::end(m_hierarchyNodesSet))
+  if (m_hierarchyNodesSet.count(id) == 0)
     return;
 
   static auto const & buildingPartChecker = ftypes::IsBuildingPartChecker::Instance();
@@ -280,14 +279,14 @@ void ComplexFeaturesMixer::Process(std::function<void(feature::FeatureBuilder &)
   auto const canBeLine = RepresentationLayer::CanBeLine(fb.GetParams());
   if (!canBeArea)
   {
-    LOG(LINFO, ("Add a areal complex feature for", fb.GetMostGenericOsmId()));
+    LOG(LINFO, ("Adding an areal complex feature for", fb.GetMostGenericOsmId()));
     auto complexFb = MakeComplexAreaFrom(fb);
     next(complexFb);
   }
 
   if (!canBeLine)
   {
-    LOG(LINFO, ("Add a linear complex feature for", fb.GetMostGenericOsmId()));
+    LOG(LINFO, ("Adding a linear complex feature for", fb.GetMostGenericOsmId()));
     auto complexFb = MakeComplexLineFrom(fb);
     next(complexFb);
   }
@@ -301,7 +300,7 @@ feature::FeatureBuilder ComplexFeaturesMixer::MakeComplexLineFrom(feature::Featu
   auto lineFb = MakeLine(fb);
   auto & params = lineFb.GetParams();
   params.ClearName();
-  params.GetMetadata() = {};
+  params.ClearMetadata();
   params.SetType(m_complexEntryType);
   return lineFb;
 }
@@ -315,7 +314,7 @@ feature::FeatureBuilder ComplexFeaturesMixer::MakeComplexAreaFrom(feature::Featu
   areaFb.SetArea();
   auto & params = areaFb.GetParams();
   params.ClearName();
-  params.GetMetadata() = {};
+  params.ClearMetadata();
   params.SetType(m_complexEntryType);
   return areaFb;
 }
