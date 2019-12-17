@@ -42,10 +42,18 @@ void LeapsGraph::GetEdgesList(Segment const & segment, bool isOutgoing,
   edges.clear();
 
   if (segment == m_startSegment)
-    return GetEdgesListFromStart(segment, isOutgoing, edges);
+  {
+    CHECK(isOutgoing, ("Only forward wave of A* should get edges from start. Backward wave should "
+                       "stop when first time visit the |m_startSegment|."));
+    return GetEdgesListFromStart(segment, edges);
+  }
 
   if (segment == m_finishSegment)
-    return GetEdgesListToFinish(segment, isOutgoing, edges);
+  {
+    CHECK(!isOutgoing, ("Only backward wave of A* should get edges to finish. Forward wave should "
+                        "stop when first time visit the |m_finishSegment|."));
+    return GetEdgesListToFinish(segment, edges);
+  }
 
   if (!m_starter.IsRoutingOptionsGood(segment))
     return;
@@ -67,10 +75,8 @@ void LeapsGraph::GetEdgesList(Segment const & segment, bool isOutgoing,
     crossMwmGraph.GetIngoingEdgeList(segment, edges);
 }
 
-void LeapsGraph::GetEdgesListFromStart(Segment const & segment, bool isOutgoing,
-                                       std::vector<SegmentEdge> & edges)
+void LeapsGraph::GetEdgesListFromStart(Segment const & segment, std::vector<SegmentEdge> & edges)
 {
-  CHECK(isOutgoing, ());
   for (auto const mwmId : m_starter.GetStartEnding().m_mwmIds)
   {
     // Connect start to all exits (|isEnter| == false).
@@ -85,10 +91,8 @@ void LeapsGraph::GetEdgesListFromStart(Segment const & segment, bool isOutgoing,
   }
 }
 
-void LeapsGraph::GetEdgesListToFinish(Segment const & segment, bool isOutgoing,
-                                      std::vector<SegmentEdge> & edges)
+void LeapsGraph::GetEdgesListToFinish(Segment const & segment, std::vector<SegmentEdge> & edges)
 {
-  CHECK(!isOutgoing, ());
   for (auto const mwmId : m_starter.GetFinishEnding().m_mwmIds)
   {
     // Connect finish to all enters (|isEnter| == true).
