@@ -67,14 +67,15 @@ bool BuildPostcodesSection(std::string const & path, std::string const & country
   }
 
   indexer::PostcodesBuilder builder;
-  bool havePostcodes = false;
+  size_t postcodesFromAddr = 0;
+  size_t postcodesFromBoundaries = 0;
   auto const mwmFile = base::JoinPath(path, country + DATA_FILE_EXTENSION);
   feature::ForEachFromDat(mwmFile, [&](FeatureType & f, uint32_t featureId) {
     CHECK_LESS(featureId, featuresCount, ());
     auto const postcode = addrs[featureId].Get(feature::AddressData::Type::Postcode);
     if (!postcode.empty())
     {
-      havePostcodes = true;
+      ++postcodesFromAddr;
       builder.Put(featureId, postcode);
       return;
     }
@@ -99,14 +100,17 @@ bool BuildPostcodesSection(std::string const & path, std::string const & country
       if (!boundaryPostcodes[i].second.Contains(center))
         return false;
 
-      havePostcodes = true;
+      ++postcodesFromBoundaries;
       builder.Put(featureId, boundaryPostcodes[i].first);
       return true;
     });
   });
 
-  if (!havePostcodes)
+  if (postcodesFromBoundaries == 0 && postcodesFromAddr == 0)
     return true;
+
+  LOG(LINFO, ("Adding", postcodesFromAddr, "postcodes from addr:postalcode and",
+              postcodesFromBoundaries, "postcodes from boundary=postal_code relation."));
 
   FilesContainerW writeContainer(mwmFile, FileWriter::OP_WRITE_EXISTING);
   auto writer = writeContainer.GetWriter(POSTCODES_FILE_TAG);
