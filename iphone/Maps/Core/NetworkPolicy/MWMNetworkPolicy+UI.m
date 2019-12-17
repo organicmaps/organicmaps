@@ -57,10 +57,8 @@
         case MWMNetworkPolicyPermissionToday:
           if (self.isTempPermissionValid) {
             onlineCall(YES);
-          } else if (askPermission) {
-            [self askPermissionWithCompletion:onlineCall];
           } else {
-            onlineCall(NO);
+            [self askPermissionWithCompletion:onlineCall];
           }
           break;
         case MWMNetworkPolicyPermissionNotToday:
