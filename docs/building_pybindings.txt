@@ -40,6 +40,11 @@ Unfortunately, Boost's bootstrap.sh (called from omim's configures.sh) that gene
 this file is not sufficiently versatile to allow us provide the necessary paths
 at the ./configure.sh stage.
 
+We will append the python config to the end of project-config.jam.
+Boost.Build does not work well with duplicating "using python" rules for the same
+version so if you've made a mistake, manually edit the file instead of appending
+a version with corrected paths.
+
 Example for a macOS installation:
 
     $ pwd
@@ -56,15 +61,9 @@ using python
   ;
 EOF
 
-    $ ./b2 --with-python python=3.7
+    $ ./b2 --with-python python=3.7 --build-dir=build-python37 cxxflags="-fPIC"
 
-Boost.Build does not work well with duplicating "using python" rules for the same
-version so if you've made a mistake, manually edit the file instead of appending
-a version with corrected paths.
-
-(On some systems you may need to call
-    $ ./b2 --with-python python=3.7 cxxflags="-fPIC"
-instead)
+(On some systems "-fPIC" is not needed)
 
 The syntax is
     using python : <version> : <python binary> : <path to python headers> : <path to python libraries> ;
@@ -73,25 +72,24 @@ Newlines are allowed, semicolon is required.
 If there are several versions of Boost.Python that you want to build,
 they can all be added to the same .jam-file with this "using python" directive.
 
-To remove the python libraries, execute the script that installed them with the
-additional "--clean" flag:
-
-    $ ./b2 --with-python --clean
-
-Or you can remove them manually:
+If you want to remove the python libraries, you'll have to do it by manually removing
+the build directory. (b2 provides a "--clean" flag which seems to be broken)
 
    $ pwd
 
     /omim/3party/boost
 
-   $ rm -r bin.v2 stage
+   $ rm -r build-python37
 
 
 
 Building pybindings
 -------------------
 
-Now you're ready to build omim's CMake targets that link against Boost.Python:
+Now you're ready to build omim's CMake targets that link against Boost.Python.
+
+Do not forget to clean CMake's caches (by purging the build/ directory, for example)
+if something goes wrong during the CMake stage.
 
     $ pwd
 
@@ -102,7 +100,7 @@ Now you're ready to build omim's CMake targets that link against Boost.Python:
     $ cmake ../omim \
        -DPYBINDINGS=ON \
        -DPYBINDINGS_VERSION=9.5.0 \
-       -DPYTHON_VERSION=3.7.5 \
+       -DPYTHON_VERSION=3.7.5
 
     (make sure that the version match what you've provided in the .jam file
      when building the Boost.Python lib)
@@ -118,7 +116,7 @@ python installation on your system, you may need to help it:
          -DPYTHON_VERSION=3.7.5 \
          -DPYTHON_EXECUTABLE=/usr/local/opt/python3/Frameworks/Python.framework/Versions/3.7/bin/python3 \
          -DPYTHON_INCLUDE_DIRS=/usr/local/opt/python3/Frameworks/Python.framework/Versions/3.7/Headers \
-         -DPYTHON_LIBRARY=/usr/local/opt/python3/Frameworks/Python.framework/Versions/3.7/lib/libpython3.7m.dylib \
+         -DPYTHON_LIBRARY=/usr/local/opt/python3/Frameworks/Python.framework/Versions/3.7/lib/libpython3.7m.dylib
 
 
 Test your newly built target:
@@ -126,8 +124,4 @@ Test your newly built target:
     $ MWM_RESOURCES_DIR=../omim/data \
       MWM_WRITABLE_DIR=..omim/data \
       PYTHONPATH=. \
-      ../omim/search/pysearch/run_search_engine.py \
-
-
-Do not forget to clean CMake's caches (by purging the build/ directory, for example)
-if something goes wrong during the CMake stage.
+      ../omim/search/pysearch/run_search_engine.py
