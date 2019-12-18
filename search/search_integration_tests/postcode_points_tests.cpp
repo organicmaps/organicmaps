@@ -61,7 +61,7 @@ UNIT_CLASS_TEST(PostcodePointsTest, Smoke)
       m2::RectD(mercator::FromLatLon(0.99, 0.99), mercator::FromLatLon(3.01, 3.01))));
 
   auto const id = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
-    builder.SetPostcodesData(postcodesRelativePath, infoGetter);
+    builder.SetUKPostcodesData(postcodesRelativePath, infoGetter);
   });
 
   auto handle = m_dataSource.GetMwmHandleById(id);
@@ -125,7 +125,7 @@ UNIT_CLASS_TEST(PostcodePointsTest, SearchPostcode)
       m2::RectD(mercator::FromLatLon(3.0, 3.0), mercator::FromLatLon(7.0, 7.0))));
 
   auto const id = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
-    builder.SetPostcodesData(postcodesRelativePath, infoGetter);
+    builder.SetUKPostcodesData(postcodesRelativePath, infoGetter);
   });
 
   auto test = [&](string const & query, m2::PointD const & expected) {
@@ -208,7 +208,7 @@ UNIT_CLASS_TEST(PostcodePointsTest, SearchStreetWithPostcode)
                      "Main street", "en");
 
   auto const id = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
-    builder.SetPostcodesData(postcodesRelativePath, infoGetter);
+    builder.SetUKPostcodesData(postcodesRelativePath, infoGetter);
     builder.Add(streetA);
     builder.Add(houseA);
     builder.Add(streetB);

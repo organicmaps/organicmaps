@@ -96,9 +96,56 @@ void GetUKPostcodes(string const & filename, storage::CountryId const & countryI
   }
 }
 
+template <typename Key, typename Value>
+void GetUSPostcodes(string const & filename, storage::CountryId const & countryId,
+                    storage::CountryInfoGetter & infoGetter, vector<m2::PointD> & valueMapping,
+                    vector<pair<Key, Value>> & keyValuePairs)
+{
+  // Zip;City;State;Latitude;Longitude;Timezone;Daylight savings time flag;geopoint
+  size_t constexpr kPostcodeIndex = 0;
+  size_t constexpr kLatIndex = 3;
+  size_t constexpr kLongIndex = 4;
+  size_t constexpr kDatasetCount = 8;
+
+  ifstream data;
+  data.exceptions(fstream::failbit | fstream::badbit);
+  data.open(filename);
+  data.exceptions(fstream::badbit);
+
+  string line;
+  size_t index = 0;
+  while (getline(data, line))
+  {
+    vector<string> fields;
+    strings::ParseCSVRow(line, ';', fields);
+    CHECK_EQUAL(fields.size(), kDatasetCount, (line));
+
+    double lat;
+    CHECK(strings::to_double(fields[kLatIndex], lat), ());
+
+    double lon;
+    CHECK(strings::to_double(fields[kLongIndex], lon), ());
+
+    auto const p = mercator::FromLatLon(lat, lon);
+
+    vector<storage::CountryId> countries;
+    infoGetter.GetRegionsCountryId(p, countries, 200.0 /* lookupRadiusM */);
+    if (find(countries.begin(), countries.end(), countryId) == countries.end())
+      continue;
+
+    auto const postcode = fields[kPostcodeIndex];
+
+    CHECK_EQUAL(valueMapping.size(), index, ());
+    valueMapping.push_back(p);
+    keyValuePairs.emplace_back(search::NormalizeAndSimplifyString(postcode), Value(index));
+    ++index;
+  }
+}
+
 bool BuildPostcodePointsImpl(FilesContainerR & container, storage::CountryId const & country,
-                             string const & dataset, string const & tmpName,
-                             storage::CountryInfoGetter const & infoGetter, Writer & writer)
+                             string const & ukDatasetPath, string const & usDatasetPath,
+                             string const & tmpName, storage::CountryInfoGetter const & infoGetter,
+                             Writer & writer)
 {
   using Key = strings::UniString;
   using Value = Uint64IndexValue;
@@ -114,19 +161,39 @@ bool BuildPostcodePointsImpl(FilesContainerR & container, storage::CountryId con
   header.m_trieOffset = base::asserted_cast<uint32_t>(writer.Pos());
 
   vector<pair<Key, Value>> ukPostcodesKeyValuePairs;
-  vector<m2::PointD> valueMapping;
-  GetUKPostcodes(dataset, country, infoGetter, valueMapping, ukPostcodesKeyValuePairs);
+  vector<m2::PointD> ukPostcodesValueMapping;
+  if (!ukDatasetPath.empty())
+    GetUKPostcodes(ukDatasetPath, country, infoGetter, ukPostcodesValueMapping,
+                   ukPostcodesKeyValuePairs);
 
-  if (ukPostcodesKeyValuePairs.empty())
+  vector<pair<Key, Value>> usPostcodesKeyValuePairs;
+  vector<m2::PointD> usPostcodesValueMapping;
+  if (!usDatasetPath.empty())
+    GetUKPostcodes(usDatasetPath, country, infoGetter, usPostcodesValueMapping,
+                   usPostcodesKeyValuePairs);
+
+  if (ukPostcodesKeyValuePairs.empty() && usPostcodesKeyValuePairs.empty())
     return false;
 
-  sort(ukPostcodesKeyValuePairs.begin(), ukPostcodesKeyValuePairs.end());
+  if (!ukPostcodesKeyValuePairs.empty() && !usPostcodesKeyValuePairs.empty())
+  {
+    LOG(LWARNING,
+        ("Have both US and UK postcodes for", country, "Cannot mix postcodes due to license."));
+    return false;
+  }
+
+  auto & postcodesKeyValuePairs =
+      !ukPostcodesKeyValuePairs.empty() ? ukPostcodesKeyValuePairs : usPostcodesKeyValuePairs;
+  auto & valueMapping =
+      !ukPostcodesKeyValuePairs.empty() ? ukPostcodesValueMapping : usPostcodesValueMapping;
+
+  sort(postcodesKeyValuePairs.begin(), postcodesKeyValuePairs.end());
 
   {
     FileWriter tmpWriter(tmpName);
     SingleValueSerializer<Value> serializer;
     trie::Build<Writer, Key, SingleUint64Value, SingleValueSerializer<Value>>(
-        tmpWriter, serializer, ukPostcodesKeyValuePairs);
+        tmpWriter, serializer, postcodesKeyValuePairs);
   }
 
   rw_ops::Reverse(FileReader(tmpName), writer);
@@ -160,7 +227,8 @@ bool BuildPostcodePointsImpl(FilesContainerR & container, storage::CountryId con
 namespace indexer
 {
 bool BuildPostcodePointsWithInfoGetter(string const & path, string const & country,
-                                       string const & datasetPath, bool forceRebuild,
+                                       string const & ukDatasetPath, string const & usDatasetPath,
+                                       bool forceRebuild,
                                        storage::CountryInfoGetter const & infoGetter)
 {
   auto const filename = base::JoinPath(path, country + DATA_FILE_EXTENSION);
@@ -182,8 +250,8 @@ bool BuildPostcodePointsWithInfoGetter(string const & path, string const & count
   try
   {
     FileWriter writer(postcodesFilePath);
-    if (!BuildPostcodePointsImpl(readContainer, storage::CountryId(country), datasetPath,
-                                 trieTmpFilePath, infoGetter, writer))
+    if (!BuildPostcodePointsImpl(readContainer, storage::CountryId(country), ukDatasetPath,
+                                 usDatasetPath, trieTmpFilePath, infoGetter, writer))
     {
       // No postcodes for country.
       return true;
@@ -207,13 +275,14 @@ bool BuildPostcodePointsWithInfoGetter(string const & path, string const & count
   return true;
 }
 
-bool BuildPostcodePoints(string const & path, string const & country, string const & datasetPath,
-                         bool forceRebuild)
+bool BuildPostcodePoints(string const & path, string const & country, string const & ukDatasetPath,
+                         string const & usDatasetPath, bool forceRebuild)
 {
   auto const & platform = GetPlatform();
   auto const infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(platform);
   CHECK(infoGetter, ());
-  return BuildPostcodePointsWithInfoGetter(path, country, datasetPath, forceRebuild, *infoGetter);
+  return BuildPostcodePointsWithInfoGetter(path, country, ukDatasetPath, usDatasetPath,
+                                           forceRebuild, *infoGetter);
 }
 
 }  // namespace indexer

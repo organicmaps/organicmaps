@@ -39,8 +39,8 @@ public:
 
   void Add(TestFeature const & feature);
   bool Add(feature::FeatureBuilder & fb);
-  void SetPostcodesData(std::string const & postcodesPath,
-                        std::shared_ptr<storage::CountryInfoGetter> const & countryInfoGetter);
+  void SetUKPostcodesData(std::string const & postcodesPath,
+                          std::shared_ptr<storage::CountryInfoGetter> const & countryInfoGetter);
   void SetMwmLanguages(std::vector<std::string> const & languages);
 
   void Finish();
@@ -52,7 +52,7 @@ private:
   std::unique_ptr<feature::FeaturesCollector> m_collector;
   TestIdToBoundariesTable m_boundariesTable;
   std::shared_ptr<storage::CountryInfoGetter> m_postcodesCountryInfoGetter;
-  std::string m_postcodesPath;
+  std::string m_ukPostcodesPath;
   uint32_t m_version = 0;
 };
 }  // namespace tests_support

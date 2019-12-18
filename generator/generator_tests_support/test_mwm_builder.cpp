@@ -115,10 +115,10 @@ bool TestMwmBuilder::Add(FeatureBuilder & fb)
   return true;
 }
 
-void TestMwmBuilder::SetPostcodesData(
+void TestMwmBuilder::SetUKPostcodesData(
     string const & postcodesPath, shared_ptr<storage::CountryInfoGetter> const & countryInfoGetter)
 {
-  m_postcodesPath = postcodesPath;
+  m_ukPostcodesPath = postcodesPath;
   m_postcodesCountryInfoGetter = countryInfoGetter;
 }
 
@@ -159,11 +159,11 @@ void TestMwmBuilder::Finish()
                                               true /* forceRebuild */, 1 /* threadsCount */),
         ("Can't build search index."));
 
-  if (!m_postcodesPath.empty() && m_postcodesCountryInfoGetter)
+  if (!m_ukPostcodesPath.empty() && m_postcodesCountryInfoGetter)
   {
-    CHECK(indexer::BuildPostcodePointsWithInfoGetter(m_file.GetDirectory(), m_file.GetCountryName(),
-                                                     m_postcodesPath, true /* forceRebuild */,
-                                                     *m_postcodesCountryInfoGetter),
+    CHECK(indexer::BuildPostcodePointsWithInfoGetter(
+              m_file.GetDirectory(), m_file.GetCountryName(), m_ukPostcodesPath,
+              "" /* usPostcodesDataset */, true /* forceRebuild */, *m_postcodesCountryInfoGetter),
           ("Can't build postcodes section."));
   }
 

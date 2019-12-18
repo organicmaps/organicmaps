@@ -166,7 +166,8 @@ DEFINE_string(popular_places_data, "",
 DEFINE_string(brands_data, "", "Path to json with OSM objects to brand ID map.");
 DEFINE_string(brands_translations_data, "", "Path to json with brands translations and synonyms.");
 
-DEFINE_string(postcodes_dataset, "", "Path to dataset with postcodes data");
+DEFINE_string(uk_postcodes_dataset, "", "Path to dataset with UK postcodes.");
+DEFINE_string(us_postcodes_dataset, "", "Path to dataset with US postcodes.");
 
 // Printing stuff.
 DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files.");
@@ -379,10 +380,13 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
         LOG(LCRITICAL, ("Error generating search index."));
       }
 
-      if (!FLAGS_postcodes_dataset.empty())
+      if (!FLAGS_uk_postcodes_dataset.empty() || !FLAGS_us_postcodes_dataset.empty())
       {
-        if (!indexer::BuildPostcodePoints(path, country, FLAGS_postcodes_dataset, true /*forceRebuild*/))
+        if (!indexer::BuildPostcodePoints(path, country, FLAGS_uk_postcodes_dataset,
+                                          FLAGS_us_postcodes_dataset, true /*forceRebuild*/))
+        {
           LOG(LCRITICAL, ("Error generating postcodes section."));
+        }
       }
 
       LOG(LINFO, ("Generating rank table for", datFile));
