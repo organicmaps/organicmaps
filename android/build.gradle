@@ -8,8 +8,10 @@ buildscript {
   }
 
   dependencies {
+    // Don't update Gradle plugin until Fabric plugin supports it correctly,
+    // i.e. when OOM problem during native symbols upload is fixed.
+    classpath 'com.android.tools.build:gradle:3.4.1'
     classpath 'io.fabric.tools:gradle:1.27.0'
-    classpath 'com.android.tools.build:gradle:3.5.0'
   }
 }
 
