@@ -65,10 +65,10 @@ void GetUKPostcodes(string const & filename, storage::CountryId const & countryI
     CHECK_EQUAL(fields.size(), kDatasetCount, (line));
 
     double lat;
-    CHECK(strings::to_double(fields[kLatIndex], lat), ());
+    CHECK(strings::to_double(fields[kLatIndex], lat), (line));
 
     double lon;
-    CHECK(strings::to_double(fields[kLongIndex], lon), ());
+    CHECK(strings::to_double(fields[kLongIndex], lon), (line));
 
     auto const p = mercator::FromLatLon(lat, lon);
 
@@ -112,7 +112,11 @@ void GetUSPostcodes(string const & filename, storage::CountryId const & countryI
   data.open(filename);
   data.exceptions(fstream::badbit);
 
+  // Skip header.
   string line;
+  if (!getline(data, line))
+    return;
+
   size_t index = 0;
   while (getline(data, line))
   {
@@ -121,10 +125,10 @@ void GetUSPostcodes(string const & filename, storage::CountryId const & countryI
     CHECK_EQUAL(fields.size(), kDatasetCount, (line));
 
     double lat;
-    CHECK(strings::to_double(fields[kLatIndex], lat), ());
+    CHECK(strings::to_double(fields[kLatIndex], lat), (line));
 
     double lon;
-    CHECK(strings::to_double(fields[kLongIndex], lon), ());
+    CHECK(strings::to_double(fields[kLongIndex], lon), (line));
 
     auto const p = mercator::FromLatLon(lat, lon);
 
@@ -169,7 +173,7 @@ bool BuildPostcodePointsImpl(FilesContainerR & container, storage::CountryId con
   vector<pair<Key, Value>> usPostcodesKeyValuePairs;
   vector<m2::PointD> usPostcodesValueMapping;
   if (!usDatasetPath.empty())
-    GetUKPostcodes(usDatasetPath, country, infoGetter, usPostcodesValueMapping,
+    GetUSPostcodes(usDatasetPath, country, infoGetter, usPostcodesValueMapping,
                    usPostcodesKeyValuePairs);
 
   if (ukPostcodesKeyValuePairs.empty() && usPostcodesKeyValuePairs.empty())

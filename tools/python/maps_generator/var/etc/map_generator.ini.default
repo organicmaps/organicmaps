@@ -35,7 +35,8 @@ SUBWAY_URL: http://osm-subway.maps.me/mapsme/latest.json
 # POPULARITY_URL:
 # FOOD_URL:
 # FOOD_TRANSLATIONS_URL:
-# POSTCODES_URL:
+# UK_POSTCODES_URL:
+# US_POSTCODES_URL:
 # SRTM_PATH:
 
 [Stats]

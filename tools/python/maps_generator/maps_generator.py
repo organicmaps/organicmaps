@@ -67,7 +67,8 @@ def stage_download_production_external(env):
         settings.POPULARITY_URL: env.popularity_path,
         settings.FOOD_URL: env.food_paths,
         settings.FOOD_TRANSLATIONS_URL: env.food_translations_path,
-        settings.POSTCODES_URL: env.postcodes_path,
+        settings.UK_POSTCODES_URL: env.uk_postcodes_path,
+        settings.US_POSTCODES_URL: env.us_postcodes_path,
     })
 
 
@@ -124,7 +125,8 @@ def stage_index(env, country, **kwargs):
     else:
         extra = {}
         if env.is_accepted_stage(stage_download_production_external):
-            extra["postcodes_dataset"] = env.postcodes_path
+            extra["uk_postcodes_dataset"] = env.uk_postcodes_path
+            extra["us_postcodes_dataset"] = env.us_postcodes_path
         stages.stage_index(env, country, **kwargs, **extra)
 
 
