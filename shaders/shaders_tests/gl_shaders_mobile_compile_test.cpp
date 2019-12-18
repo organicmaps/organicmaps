@@ -86,7 +86,9 @@ void RunShaderTest(dp::ApiVersion apiVersion, std::string const & shaderName,
   p.start(glslCompiler, args, QIODevice::ReadOnly);
 
   TEST(p.waitForStarted(), ("GLSL compiler not started", glslCompiler));
-  TEST(p.waitForFinished(), ("GLSL compiler not finished in time", glslCompiler));
+
+  int32_t kFinishTimeoutInMs = 60000;
+  TEST(p.waitForFinished(kFinishTimeoutInMs), ("GLSL compiler not finished in time", glslCompiler));
 
   QString result = p.readAllStandardOutput();
   if (!successChecker(result))
