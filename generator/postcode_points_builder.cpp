@@ -30,6 +30,8 @@
 
 #include <cstdint>
 #include <fstream>
+#include <functional>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -39,18 +41,24 @@ using namespace std;
 
 namespace
 {
-template <typename Key, typename Value>
-void GetUKPostcodes(string const & filename, storage::CountryId const & countryId,
-                    storage::CountryInfoGetter const & infoGetter,
-                    vector<m2::PointD> & valueMapping, vector<pair<Key, Value>> & keyValuePairs)
+struct FieldIndices
 {
-  // Original dataset uses UK National Grid UTM coordinates.
-  // It was converted to WGS84 by https://pypi.org/project/OSGridConverter/.
-  size_t constexpr kPostcodeIndex = 0;
-  size_t constexpr kLatIndex = 1;
-  size_t constexpr kLongIndex = 2;
-  size_t constexpr kDatasetCount = 3;
+  size_t m_postcodeIndex = 0;
+  size_t m_latIndex = 0;
+  size_t m_longIndex = 0;
+  size_t m_datasetCount = 0;
+};
 
+template <typename Key, typename Value>
+void GetPostcodes(string const & filename, storage::CountryId const & countryId,
+                  FieldIndices const & fieldIndices, char separator, bool hasHeader,
+                  function<bool(string &)> const & transformPostcode,
+                  storage::CountryInfoGetter const & infoGetter, vector<m2::PointD> & valueMapping,
+                  vector<pair<Key, Value>> & keyValuePairs)
+{
+  CHECK_LESS(fieldIndices.m_postcodeIndex, fieldIndices.m_datasetCount, ());
+  CHECK_LESS(fieldIndices.m_latIndex, fieldIndices.m_datasetCount, ());
+  CHECK_LESS(fieldIndices.m_longIndex, fieldIndices.m_datasetCount, ());
   ifstream data;
   data.exceptions(fstream::failbit | fstream::badbit);
   data.open(filename);
@@ -58,17 +66,21 @@ void GetUKPostcodes(string const & filename, storage::CountryId const & countryI
 
   string line;
   size_t index = 0;
+
+  if (hasHeader && !getline(data, line))
+    return;
+
   while (getline(data, line))
   {
     vector<string> fields;
-    strings::ParseCSVRow(line, ',', fields);
-    CHECK_EQUAL(fields.size(), kDatasetCount, (line));
+    strings::ParseCSVRow(line, separator, fields);
+    CHECK_EQUAL(fields.size(), fieldIndices.m_datasetCount, (line));
 
     double lat;
-    CHECK(strings::to_double(fields[kLatIndex], lat), (line));
+    CHECK(strings::to_double(fields[fieldIndices.m_latIndex], lat), (line));
 
     double lon;
-    CHECK(strings::to_double(fields[kLongIndex], lon), (line));
+    CHECK(strings::to_double(fields[fieldIndices.m_longIndex], lon), (line));
 
     auto const p = mercator::FromLatLon(lat, lon);
 
@@ -77,17 +89,9 @@ void GetUKPostcodes(string const & filename, storage::CountryId const & countryI
     if (find(countries.begin(), countries.end(), countryId) == countries.end())
       continue;
 
-    // UK postcodes formats are: aana naa, ana naa, an naa, ann naa, aan naa, aann naa.
-
-    auto postcode = fields[kPostcodeIndex];
-    // Do not index outer postcodes.
-    if (postcode.size() < 5)
+    auto postcode = fields[fieldIndices.m_postcodeIndex];
+    if (!transformPostcode(postcode))
       continue;
-
-    // Space is skipped in dataset for |aana naa| and |aann naa| to make it fit 7 symbols in csv.
-    // Let's fix it here.
-    if (postcode.find(' ') == string::npos)
-      postcode.insert(static_cast<size_t>(postcode.size() - 3), " ");
 
     CHECK_EQUAL(valueMapping.size(), index, ());
     valueMapping.push_back(p);
@@ -97,53 +101,55 @@ void GetUKPostcodes(string const & filename, storage::CountryId const & countryI
 }
 
 template <typename Key, typename Value>
+void GetUKPostcodes(string const & filename, storage::CountryId const & countryId,
+                    storage::CountryInfoGetter const & infoGetter,
+                    vector<m2::PointD> & valueMapping, vector<pair<Key, Value>> & keyValuePairs)
+{
+  // Original dataset uses UK National Grid UTM coordinates.
+  // It was converted to WGS84 by https://pypi.org/project/OSGridConverter/.
+  FieldIndices ukFieldIndices;
+  ukFieldIndices.m_postcodeIndex = 0;
+  ukFieldIndices.m_latIndex = 1;
+  ukFieldIndices.m_longIndex = 2;
+  ukFieldIndices.m_datasetCount = 3;
+
+  auto const transformUkPostcode = [](string & postcode) {
+    // UK postcodes formats are: aana naa, ana naa, an naa, ann naa, aan naa, aann naa.
+
+    // Do not index outer postcodes.
+    if (postcode.size() < 5)
+      return false;
+
+    // Space is skipped in dataset for |aana naa| and |aann naa| to make it fit 7 symbols in csv.
+    // Let's fix it here.
+    if (postcode.find(' ') == string::npos)
+      postcode.insert(static_cast<size_t>(postcode.size() - 3), " ");
+
+    return true;
+  };
+
+  GetPostcodes(filename, countryId, ukFieldIndices, ',' /* separator */, false /* hasHeader */,
+               transformUkPostcode, infoGetter, valueMapping, keyValuePairs);
+}
+
+template <typename Key, typename Value>
 void GetUSPostcodes(string const & filename, storage::CountryId const & countryId,
-                    storage::CountryInfoGetter & infoGetter, vector<m2::PointD> & valueMapping,
-                    vector<pair<Key, Value>> & keyValuePairs)
+                    storage::CountryInfoGetter const & infoGetter,
+                    vector<m2::PointD> & valueMapping, vector<pair<Key, Value>> & keyValuePairs)
 {
   // Zip;City;State;Latitude;Longitude;Timezone;Daylight savings time flag;geopoint
-  size_t constexpr kPostcodeIndex = 0;
-  size_t constexpr kLatIndex = 3;
-  size_t constexpr kLongIndex = 4;
-  size_t constexpr kDatasetCount = 8;
+  FieldIndices usFieldIndices;
+  usFieldIndices.m_postcodeIndex = 0;
+  usFieldIndices.m_latIndex = 3;
+  usFieldIndices.m_longIndex = 4;
+  usFieldIndices.m_datasetCount = 8;
 
-  ifstream data;
-  data.exceptions(fstream::failbit | fstream::badbit);
-  data.open(filename);
-  data.exceptions(fstream::badbit);
+  auto const transformUsPostcode = [](string & postcode) { return true; };
 
-  // Skip header.
-  string line;
-  if (!getline(data, line))
-    return;
-
-  size_t index = 0;
-  while (getline(data, line))
-  {
-    vector<string> fields;
-    strings::ParseCSVRow(line, ';', fields);
-    CHECK_EQUAL(fields.size(), kDatasetCount, (line));
-
-    double lat;
-    CHECK(strings::to_double(fields[kLatIndex], lat), (line));
-
-    double lon;
-    CHECK(strings::to_double(fields[kLongIndex], lon), (line));
-
-    auto const p = mercator::FromLatLon(lat, lon);
-
-    vector<storage::CountryId> countries;
-    infoGetter.GetRegionsCountryId(p, countries, 200.0 /* lookupRadiusM */);
-    if (find(countries.begin(), countries.end(), countryId) == countries.end())
-      continue;
-
-    auto const postcode = fields[kPostcodeIndex];
-
-    CHECK_EQUAL(valueMapping.size(), index, ());
-    valueMapping.push_back(p);
-    keyValuePairs.emplace_back(search::NormalizeAndSimplifyString(postcode), Value(index));
-    ++index;
-  }
+  vector<pair<Key, Value>> usPostcodesKeyValuePairs;
+  vector<m2::PointD> usPostcodesValueMapping;
+  GetPostcodes(filename, countryId, usFieldIndices, ';' /* separator */, true /* hasHeader */,
+               transformUsPostcode, infoGetter, valueMapping, keyValuePairs);
 }
 
 bool BuildPostcodePointsImpl(FilesContainerR & container, storage::CountryId const & country,
@@ -167,14 +173,18 @@ bool BuildPostcodePointsImpl(FilesContainerR & container, storage::CountryId con
   vector<pair<Key, Value>> ukPostcodesKeyValuePairs;
   vector<m2::PointD> ukPostcodesValueMapping;
   if (!ukDatasetPath.empty())
+  {
     GetUKPostcodes(ukDatasetPath, country, infoGetter, ukPostcodesValueMapping,
                    ukPostcodesKeyValuePairs);
+  }
 
   vector<pair<Key, Value>> usPostcodesKeyValuePairs;
   vector<m2::PointD> usPostcodesValueMapping;
   if (!usDatasetPath.empty())
+  {
     GetUSPostcodes(usDatasetPath, country, infoGetter, usPostcodesValueMapping,
                    usPostcodesKeyValuePairs);
+  }
 
   if (ukPostcodesKeyValuePairs.empty() && usPostcodesKeyValuePairs.empty())
     return false;
