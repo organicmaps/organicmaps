@@ -357,6 +357,7 @@ class RankerResultMaker
     info.m_allTokensUsed = preInfo.m_allTokensUsed;
     info.m_exactMatch = preInfo.m_exactMatch;
     info.m_categorialRequest = m_params.IsCategorialRequest();
+    info.m_tokenRanges = preInfo.m_tokenRanges;
 
     // We do not compare result name and request for categorial requests but we prefer named
     // features.
@@ -386,7 +387,7 @@ class RankerResultMaker
         if (street)
         {
           auto const type = Model::TYPE_STREET;
-          auto const & range = preInfo.m_tokenRange[type];
+          auto const & range = preInfo.m_tokenRanges[type];
           auto const streetScores = GetNameScores(*street, m_params, range, type);
 
           nameScore = min(nameScore, streetScores.first.m_nameScore);
@@ -403,7 +404,7 @@ class RankerResultMaker
         if (suburb)
         {
           auto const type = Model::TYPE_SUBURB;
-          auto const & range = preInfo.m_tokenRange[type];
+          auto const & range = preInfo.m_tokenRanges[type];
           auto const matchingResult = MatchTokenRange(*suburb, m_params, range, type);
           errorsMade += matchingResult.first;
           matchedLength += matchingResult.second;
@@ -416,7 +417,7 @@ class RankerResultMaker
         if (city)
         {
           auto const type = Model::TYPE_CITY;
-          auto const & range = preInfo.m_tokenRange[type];
+          auto const & range = preInfo.m_tokenRanges[type];
           auto const matchingResult = MatchTokenRange(*city, m_params, range, type);
           errorsMade += matchingResult.first;
           matchedLength += matchingResult.second;

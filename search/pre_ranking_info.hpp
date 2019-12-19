@@ -10,6 +10,7 @@
 
 #include "base/assert.hpp"
 
+#include <array>
 #include <cstdint>
 #include <string>
 #include <utility>
@@ -22,13 +23,13 @@ struct PreRankingInfo
   {
     ASSERT_LESS(type, Model::TYPE_COUNT, ());
     m_type = type;
-    m_tokenRange[m_type] = range;
+    m_tokenRanges[m_type] = range;
   }
 
   TokenRange const & InnermostTokenRange() const
   {
     ASSERT_LESS(m_type, Model::TYPE_COUNT, ());
-    return m_tokenRange[m_type];
+    return m_tokenRanges[m_type];
   }
 
   // An abstract distance from the feature to the pivot.  Measurement
@@ -38,8 +39,8 @@ struct PreRankingInfo
   m2::PointD m_center = m2::PointD::Zero();
   bool m_centerLoaded = false;
 
-  // Tokens match to the feature name or house number.
-  TokenRange m_tokenRange[Model::TYPE_COUNT];
+  // Matched parts of the query.
+  std::array<TokenRange, Model::TYPE_COUNT> m_tokenRanges;
 
   // Different geo-parts extracted from query.  Currently only poi,
   // building and street ids are in |m_geoParts|.

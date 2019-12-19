@@ -1198,7 +1198,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
     if (!(layers.size() == 1 && layers[0].m_type == Model::TYPE_STREET))
       return FindPaths(ctx);
 
-    // If there're only one street layer but user also entered a
+    // If there's only one street layer but user also entered a
     // postcode, we need to emit all features matching to postcode on
     // the given street, including the street itself.
 
@@ -1357,7 +1357,7 @@ bool Geocoder::IsLayerSequenceSane(vector<FeaturesLayer> const & layers) const
   size_t buildingIndex = layers.size();
   size_t streetIndex = layers.size();
 
-  // Following loop returns false iff there're two different layers
+  // Following loop returns false iff there are two different layers
   // of the same search type.
   for (size_t i = 0; i < layers.size(); ++i)
   {
@@ -1498,23 +1498,23 @@ void Geocoder::EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32
   // Distance and rank will be filled at the end, for all results at once.
   //
   // TODO (@y, @m): need to skip zero rank features that are too
-  // distant from the pivot when there're enough results close to the
+  // distant from the pivot when there are enough results close to the
   // pivot.
   PreRankingInfo info(type, tokenRange);
   for (auto const & layer : ctx.m_layers)
-    info.m_tokenRange[layer.m_type] = layer.m_tokenRange;
+    info.m_tokenRanges[layer.m_type] = layer.m_tokenRange;
 
   for (auto const * region : ctx.m_regions)
   {
     auto const regionType = Region::ToModelType(region->m_type);
     ASSERT_NOT_EQUAL(regionType, Model::TYPE_COUNT, ());
-    info.m_tokenRange[regionType] = region->m_tokenRange;
+    info.m_tokenRanges[regionType] = region->m_tokenRange;
   }
 
   if (ctx.m_city)
   {
     auto const & city = *ctx.m_city;
-    info.m_tokenRange[Model::TYPE_CITY] = city.m_tokenRange;
+    info.m_tokenRanges[Model::TYPE_CITY] = city.m_tokenRange;
     info.m_cityId = FeatureID(city.m_countryId, city.m_featureId);
   }
 

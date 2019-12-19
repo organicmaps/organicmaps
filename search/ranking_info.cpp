@@ -4,6 +4,8 @@
 
 #include "indexer/search_string_utils.hpp"
 
+#include "base/assert.hpp"
+
 #include <iomanip>
 #include <limits>
 #include <sstream>
@@ -74,6 +76,30 @@ double TransformRating(pair<uint8_t, float> const & rating)
   }
   return r;
 }
+
+void PrintParse(ostringstream & oss, array<TokenRange, Model::TYPE_COUNT> const & ranges,
+                size_t numTokens)
+{
+  vector<Model::Type> types(numTokens, Model::Type::TYPE_COUNT);
+  for (size_t i = 0; i < ranges.size(); ++i)
+  {
+    for (size_t pos : ranges[i])
+    {
+      CHECK_LESS(pos, numTokens, ());
+      CHECK_EQUAL(types[pos], Model::Type::TYPE_COUNT, ());
+      types[pos] = static_cast<Model::Type>(i);
+    }
+  }
+
+  oss << "Parse [";
+  for (size_t i = 0; i < numTokens; ++i)
+  {
+    if (i > 0)
+      oss << " ";
+    oss << DebugPrint(types[i]);
+  }
+  oss << "]";
+}
 }  // namespace
 
 // static
@@ -101,7 +127,8 @@ string DebugPrint(RankingInfo const & info)
 {
   ostringstream os;
   os << boolalpha;
-  os << "RankingInfo [";
+  PrintParse(os, info.m_tokenRanges, info.m_numTokens);
+  os << ", RankingInfo [";
   os << "m_distanceToPivot:" << info.m_distanceToPivot;
   os << ", m_rank:" << static_cast<int>(info.m_rank);
   os << ", m_popularity:" << static_cast<int>(info.m_popularity);

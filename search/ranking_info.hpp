@@ -4,6 +4,7 @@
 #include "search/pre_ranking_info.hpp"
 #include "search/ranking_utils.hpp"
 
+#include <array>
 #include <cstddef>
 #include <cstdint>
 #include <ostream>
@@ -45,8 +46,14 @@ struct RankingInfo
 
   // Number of misprints.
   ErrorsMade m_errorsMade;
+
   // Query tokens number.
   size_t m_numTokens;
+
+  // Matched parts of the query.
+  // todo(@m) Using TokenType instead of ModelType here would
+  //          allow to distinguish postcodes too.
+  std::array<TokenRange, Model::TYPE_COUNT> m_tokenRanges;
 
   // Fraction of characters from original query matched to feature.
   double m_matchedFraction = 0.0;

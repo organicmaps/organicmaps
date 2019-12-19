@@ -73,7 +73,7 @@ PreRankerResult::PreRankerResult(FeatureID const & id, PreRankingInfo const & in
   ASSERT(m_id.IsValid(), ());
 
   m_matchedTokensNumber = 0;
-  for (auto const & r : m_info.m_tokenRange)
+  for (auto const & r : m_info.m_tokenRanges)
     m_matchedTokensNumber += r.Size();
 }
 
@@ -297,7 +297,7 @@ string DebugPrint(RankerResult const & r)
   stringstream ss;
   ss << "RankerResult ["
      << "Name: " << r.GetName()
-     << "; Type: " << r.GetBestType();
+     << "; Type: " << classif().GetReadableObjectName(r.GetBestType());
 
     if (!r.GetProvenance().empty())
       ss << "; Provenance: " << ::DebugPrint(r.GetProvenance());
