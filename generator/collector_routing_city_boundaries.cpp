@@ -201,8 +201,11 @@ void RoutingCityBoundariesCollector::Process(feature::FeatureBuilder & feature,
   else if (feature.IsPoint())
   {
     auto const placeType = GetPlaceType(feature);
-    ASSERT(IsSuitablePlaceType(placeType),
-           ("FilterOsmElement() should filtered such elements:", osmElement));
+
+    // Elements which have multiple place tags i.e. "place=country" + "place=city" will pass FilterOsmElement()
+    // but can have bad placeType here. As we do not know what's the real place type let's skip such places.
+    if (!IsSuitablePlaceType(placeType))
+      return;
 
     uint64_t const population = osm_element::GetPopulation(osmElement);
     if (population == 0)
