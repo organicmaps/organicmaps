@@ -12,7 +12,7 @@ class TwoButtonsSubscriptionFragmentDelegate extends SubscriptionFragmentDelegat
 {
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private SubscriptionButton mAnnualButton;
+  private SubscriptionButton mYearlyButton;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private SubscriptionButton mMonthlyButton;
@@ -29,8 +29,8 @@ class TwoButtonsSubscriptionFragmentDelegate extends SubscriptionFragmentDelegat
   public void onCreateView(@NonNull View root)
   {
     super.onCreateView(root);
-    mAnnualButton = root.findViewById(R.id.annual_button);
-    mAnnualButton.setOnClickListener(v -> {
+    mYearlyButton = root.findViewById(R.id.annual_button);
+    mYearlyButton.setOnClickListener(v -> {
       mSelectedPeriod = PurchaseUtils.Period.P1Y;
       getFragment().pingBookmarkCatalog();
     });
@@ -51,14 +51,14 @@ class TwoButtonsSubscriptionFragmentDelegate extends SubscriptionFragmentDelegat
   @Override
   void onProductDetailsLoading()
   {
-    mAnnualButton.showProgress();
+    mYearlyButton.showProgress();
     mMonthlyButton.showProgress();
   }
 
   @Override
   void onPriceSelection()
   {
-    mAnnualButton.hideProgress();
+    mYearlyButton.hideProgress();
     mMonthlyButton.hideProgress();
     updatePaymentButtons();
   }
@@ -69,16 +69,16 @@ class TwoButtonsSubscriptionFragmentDelegate extends SubscriptionFragmentDelegat
     updateMonthlyButton();
   }
 
-  private void updateMonthlyButton()
+  private void updateYearlyButton()
   {
     ProductDetails details = getFragment().getProductDetailsForPeriod(PurchaseUtils.Period.P1Y);
     String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
-    mAnnualButton.setPrice(price);
-    mAnnualButton.setName(getFragment().getString(R.string.annual_subscription_title));
-    mAnnualButton.setSale(getFragment().getString(R.string.all_pass_screen_best_value));
+    mYearlyButton.setPrice(price);
+    mYearlyButton.setName(getFragment().getString(R.string.annual_subscription_title));
+    mYearlyButton.setSale(getFragment().getString(R.string.all_pass_screen_best_value));
   }
 
-  private void updateYearlyButton()
+  private void updateMonthlyButton()
   {
     ProductDetails details = getFragment().getProductDetailsForPeriod(PurchaseUtils.Period.P1M);
     String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
@@ -90,7 +90,7 @@ class TwoButtonsSubscriptionFragmentDelegate extends SubscriptionFragmentDelegat
   void showButtonProgress()
   {
     if (mSelectedPeriod == PurchaseUtils.Period.P1Y)
-      mAnnualButton.showProgress();
+      mYearlyButton.showProgress();
     else
       mMonthlyButton.showProgress();
   }
@@ -99,7 +99,7 @@ class TwoButtonsSubscriptionFragmentDelegate extends SubscriptionFragmentDelegat
   void hideButtonProgress()
   {
     if (mSelectedPeriod == PurchaseUtils.Period.P1Y)
-      mAnnualButton.hideProgress();
+      mYearlyButton.hideProgress();
     else
       mMonthlyButton.hideProgress();
   }
