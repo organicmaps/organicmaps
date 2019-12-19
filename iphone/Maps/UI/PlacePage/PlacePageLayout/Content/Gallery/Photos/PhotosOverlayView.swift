@@ -52,7 +52,7 @@ final class PhotosOverlayView: UIView {
     navigationBar.items = [navigationItem]
     addSubview(navigationBar)
 
-    navigationBar.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+    navigationBar.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
     navigationBar.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
     navigationBar.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
 
