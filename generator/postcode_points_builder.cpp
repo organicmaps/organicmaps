@@ -153,7 +153,7 @@ void GetUSPostcodes(string const & filename, storage::CountryId const & countryI
 }
 
 bool BuildPostcodePointsImpl(FilesContainerR & container, storage::CountryId const & country,
-                             string const & ukDatasetPath, string const & usDatasetPath,
+                             indexer::PostcodePointsDatasetType type, string const & datasetPath,
                              string const & tmpName, storage::CountryInfoGetter const & infoGetter,
                              Writer & writer)
 {
@@ -170,36 +170,21 @@ bool BuildPostcodePointsImpl(FilesContainerR & container, storage::CountryId con
 
   header.m_trieOffset = base::asserted_cast<uint32_t>(writer.Pos());
 
-  vector<pair<Key, Value>> ukPostcodesKeyValuePairs;
-  vector<m2::PointD> ukPostcodesValueMapping;
-  if (!ukDatasetPath.empty())
+  vector<pair<Key, Value>> postcodesKeyValuePairs;
+  vector<m2::PointD> valueMapping;
+  switch (type)
   {
-    GetUKPostcodes(ukDatasetPath, country, infoGetter, ukPostcodesValueMapping,
-                   ukPostcodesKeyValuePairs);
+  case indexer::PostcodePointsDatasetType::UK:
+    GetUKPostcodes(datasetPath, country, infoGetter, valueMapping, postcodesKeyValuePairs);
+    break;
+  case indexer::PostcodePointsDatasetType::US:
+    GetUSPostcodes(datasetPath, country, infoGetter, valueMapping, postcodesKeyValuePairs);
+    break;
+  default: UNREACHABLE();
   }
 
-  vector<pair<Key, Value>> usPostcodesKeyValuePairs;
-  vector<m2::PointD> usPostcodesValueMapping;
-  if (!usDatasetPath.empty())
-  {
-    GetUSPostcodes(usDatasetPath, country, infoGetter, usPostcodesValueMapping,
-                   usPostcodesKeyValuePairs);
-  }
-
-  if (ukPostcodesKeyValuePairs.empty() && usPostcodesKeyValuePairs.empty())
+  if (postcodesKeyValuePairs.empty())
     return false;
-
-  if (!ukPostcodesKeyValuePairs.empty() && !usPostcodesKeyValuePairs.empty())
-  {
-    LOG(LWARNING,
-        ("Have both US and UK postcodes for", country, "Cannot mix postcodes due to license."));
-    return false;
-  }
-
-  auto & postcodesKeyValuePairs =
-      !ukPostcodesKeyValuePairs.empty() ? ukPostcodesKeyValuePairs : usPostcodesKeyValuePairs;
-  auto & valueMapping =
-      !ukPostcodesKeyValuePairs.empty() ? ukPostcodesValueMapping : usPostcodesValueMapping;
 
   sort(postcodesKeyValuePairs.begin(), postcodesKeyValuePairs.end());
 
@@ -240,15 +225,12 @@ bool BuildPostcodePointsImpl(FilesContainerR & container, storage::CountryId con
 
 namespace indexer
 {
-bool BuildPostcodePointsWithInfoGetter(string const & path, string const & country,
-                                       string const & ukDatasetPath, string const & usDatasetPath,
+bool BuildPostcodePointsWithInfoGetter(string const & path, storage::CountryId const & country,
+                                       PostcodePointsDatasetType type, string const & datasetPath,
                                        bool forceRebuild,
                                        storage::CountryInfoGetter const & infoGetter)
 {
   auto const filename = base::JoinPath(path, country + DATA_FILE_EXTENSION);
-  if (filename == WORLD_FILE_NAME || filename == WORLD_COASTS_FILE_NAME)
-    return true;
-
   Platform & platform = GetPlatform();
   FilesContainerR readContainer(platform.GetReader(filename, "f"));
   if (readContainer.IsExist(POSTCODE_POINTS_FILE_TAG) && !forceRebuild)
@@ -264,8 +246,8 @@ bool BuildPostcodePointsWithInfoGetter(string const & path, string const & count
   try
   {
     FileWriter writer(postcodesFilePath);
-    if (!BuildPostcodePointsImpl(readContainer, storage::CountryId(country), ukDatasetPath,
-                                 usDatasetPath, trieTmpFilePath, infoGetter, writer))
+    if (!BuildPostcodePointsImpl(readContainer, storage::CountryId(country), type, datasetPath,
+                                 trieTmpFilePath, infoGetter, writer))
     {
       // No postcodes for country.
       return true;
@@ -289,14 +271,15 @@ bool BuildPostcodePointsWithInfoGetter(string const & path, string const & count
   return true;
 }
 
-bool BuildPostcodePoints(string const & path, string const & country, string const & ukDatasetPath,
-                         string const & usDatasetPath, bool forceRebuild)
+bool BuildPostcodePoints(string const & path, storage::CountryId const & country,
+                         PostcodePointsDatasetType type, string const & datasetPath,
+                         bool forceRebuild)
 {
   auto const & platform = GetPlatform();
   auto const infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(platform);
   CHECK(infoGetter, ());
-  return BuildPostcodePointsWithInfoGetter(path, country, ukDatasetPath, usDatasetPath,
-                                           forceRebuild, *infoGetter);
+  return BuildPostcodePointsWithInfoGetter(path, country, type, datasetPath, forceRebuild,
+                                           *infoGetter);
 }
 
 }  // namespace indexer

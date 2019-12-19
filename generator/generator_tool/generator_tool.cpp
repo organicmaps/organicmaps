@@ -299,8 +299,11 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
   // Load mwm tree only if we need it
   unique_ptr<storage::CountryParentGetter> countryParentGetter;
-  if (FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm)
+  if (FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm ||
+      !FLAGS_uk_postcodes_dataset.empty() || !FLAGS_us_postcodes_dataset.empty())
+  {
     countryParentGetter = make_unique<storage::CountryParentGetter>();
+  }
 
   if (!FLAGS_dump_wikipedia_urls.empty())
   {
@@ -382,11 +385,30 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
       if (!FLAGS_uk_postcodes_dataset.empty() || !FLAGS_us_postcodes_dataset.empty())
       {
-        if (!indexer::BuildPostcodePoints(path, country, FLAGS_uk_postcodes_dataset,
-                                          FLAGS_us_postcodes_dataset, true /*forceRebuild*/))
+        if (!countryParentGetter)
         {
-          LOG(LCRITICAL, ("Error generating postcodes section."));
+          LOG(LCRITICAL,
+              ("Countries file is needed. Please set countries file name (countries.txt). "
+               "File must be located in data directory."));
+          return EXIT_FAILURE;
         }
+
+        auto const topmostCountry = (*countryParentGetter)(country);
+        bool res = true;
+        if (topmostCountry == "United Kingdom" && !FLAGS_uk_postcodes_dataset.empty())
+        {
+          res = indexer::BuildPostcodePoints(path, country, indexer::PostcodePointsDatasetType::UK,
+                                             FLAGS_uk_postcodes_dataset, true /*forceRebuild*/);
+        }
+        else if (topmostCountry == "United States of America" &&
+                 !FLAGS_us_postcodes_dataset.empty())
+        {
+          res = indexer::BuildPostcodePoints(path, country, indexer::PostcodePointsDatasetType::US,
+                                             FLAGS_us_postcodes_dataset, true /*forceRebuild*/);
+        }
+
+        if (!res)
+          LOG(LCRITICAL, ("Error generating postcodes section for", country));
       }
 
       LOG(LINFO, ("Generating rank table for", datFile));

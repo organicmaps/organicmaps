@@ -161,9 +161,10 @@ void TestMwmBuilder::Finish()
 
   if (!m_ukPostcodesPath.empty() && m_postcodesCountryInfoGetter)
   {
-    CHECK(indexer::BuildPostcodePointsWithInfoGetter(
-              m_file.GetDirectory(), m_file.GetCountryName(), m_ukPostcodesPath,
-              "" /* usPostcodesDataset */, true /* forceRebuild */, *m_postcodesCountryInfoGetter),
+    CHECK(indexer::BuildPostcodePointsWithInfoGetter(m_file.GetDirectory(), m_file.GetCountryName(),
+                                                     indexer::PostcodePointsDatasetType::UK,
+                                                     m_ukPostcodesPath, true /* forceRebuild */,
+                                                     *m_postcodesCountryInfoGetter),
           ("Can't build postcodes section."));
   }
 
