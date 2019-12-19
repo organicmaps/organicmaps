@@ -24,6 +24,7 @@ Container::Container()
                        {"sponsored", "promo_catalog"}});
 
   m_excludedTypes.Append(promo::GetPromoCatalogSightseeingsTypes());
+  m_excludedTypes.Append(promo::GetPromoCatalogOutdoorTypes());
 }
 
 void Container::AppendEntry(std::initializer_list<std::initializer_list<char const *>> && types,
