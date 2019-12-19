@@ -74,7 +74,7 @@ public:
   // with the exception of World.mwm and custom user-provided mwms.
   // The result may be empty, for example if |pt| is somewhere in an ocean.
   void GetRegionsCountryId(m2::PointD const & pt, CountriesVec & closestCoutryIds,
-                           double lookupRadiusM = 30000.0 /* 30 km */);
+                           double lookupRadiusM = 30000.0 /* 30 km */) const;
 
   // Fills info for the region |pt| belongs to.
   void GetRegionInfo(m2::PointD const & pt, CountryInfo & info) const;
@@ -118,7 +118,7 @@ protected:
   virtual bool IsIntersectedByRegion(m2::RectD const & rect, size_t id) const = 0;
 
   // Returns true when the distance from |pt| to country identified by |id| is less than |distance|.
-  virtual bool IsCloseEnough(size_t id, m2::PointD const & pt, double distance) = 0;
+  virtual bool IsCloseEnough(size_t id, m2::PointD const & pt, double distance) const = 0;
 
   // @TODO(bykoianko): consider getting rid of m_countryIndex.
   // Maps all leaf country id (file names) to their indices in m_countries.
@@ -148,7 +148,7 @@ protected:
   void ClearCachesImpl() const override;
   bool BelongsToRegion(m2::PointD const & pt, size_t id) const override;
   bool IsIntersectedByRegion(m2::RectD const & rect, size_t id) const override;
-  bool IsCloseEnough(size_t id, m2::PointD const & pt, double distance) override;
+  bool IsCloseEnough(size_t id, m2::PointD const & pt, double distance) const override;
 
   template <typename Fn>
   std::result_of_t<Fn(std::vector<m2::RegionD>)> WithRegion(size_t id, Fn && fn) const;
@@ -177,6 +177,6 @@ protected:
   void ClearCachesImpl() const override;
   bool BelongsToRegion(m2::PointD const & pt, size_t id) const override;
   bool IsIntersectedByRegion(m2::RectD const & rect, size_t id) const override;
-  bool IsCloseEnough(size_t id, m2::PointD const & pt, double distance) override;
+  bool IsCloseEnough(size_t id, m2::PointD const & pt, double distance) const override;
 };
 }  // namespace storage

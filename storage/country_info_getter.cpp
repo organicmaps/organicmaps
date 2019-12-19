@@ -89,7 +89,7 @@ std::vector<CountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD co
 }
 
 void CountryInfoGetter::GetRegionsCountryId(m2::PointD const & pt, CountriesVec & closestCoutryIds,
-                                            double lookupRadiusM)
+                                            double lookupRadiusM) const
 {
   closestCoutryIds.clear();
 
@@ -298,7 +298,7 @@ bool CountryInfoReader::IsIntersectedByRegion(m2::RectD const & rect, size_t id)
   return BelongsToRegion(rect.Center(), id);
 }
 
-bool CountryInfoReader::IsCloseEnough(size_t id, m2::PointD const & pt, double distance)
+bool CountryInfoReader::IsCloseEnough(size_t id, m2::PointD const & pt, double distance) const
 {
   m2::RectD const lookupRect = mercator::RectByCenterXYAndSizeInMeters(pt, distance);
   auto isCloseEnough = [&](std::vector<m2::RegionD> const & regions) {
@@ -351,7 +351,8 @@ bool CountryInfoGetterForTesting::IsIntersectedByRegion(m2::RectD const & rect, 
   return rect.IsIntersect(m_countries[id].m_rect);
 }
 
-bool CountryInfoGetterForTesting::IsCloseEnough(size_t id, m2::PointD const & pt, double distance)
+bool CountryInfoGetterForTesting::IsCloseEnough(size_t id, m2::PointD const & pt,
+                                                double distance) const
 {
   CHECK_LESS(id, m_countries.size(), ());
 

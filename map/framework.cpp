@@ -359,7 +359,7 @@ Framework::Framework(FrameworkParams const & params)
   , m_routingManager(
         RoutingManager::Callbacks(
             [this]() -> DataSource & { return m_featuresFetcher.GetDataSource(); },
-            [this]() -> storage::CountryInfoGetter & { return GetCountryInfoGetter(); },
+            [this]() -> storage::CountryInfoGetter const & { return GetCountryInfoGetter(); },
             [this](string const & id) -> string { return m_storage.GetParentIdFor(id); },
             [this]() -> StringsBundle const & { return m_stringsBundle; },
             [this]() -> power_management::PowerManager const & { return m_powerManager; }),

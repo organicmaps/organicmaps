@@ -15,5 +15,5 @@ bool BuildPostcodePoints(std::string const & path, std::string const & country,
 // Exposed for testing.
 bool BuildPostcodePointsWithInfoGetter(std::string const & path, std::string const & country,
                                        std::string const & datasetPath, bool forceRebuild,
-                                       storage::CountryInfoGetter & infoGetter);
+                                       storage::CountryInfoGetter const & infoGetter);
 }  // namespace indexer

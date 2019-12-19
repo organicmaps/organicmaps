@@ -41,8 +41,8 @@ namespace
 {
 template <typename Key, typename Value>
 void GetUKPostcodes(string const & filename, storage::CountryId const & countryId,
-                    storage::CountryInfoGetter & infoGetter, vector<m2::PointD> & valueMapping,
-                    vector<pair<Key, Value>> & keyValuePairs)
+                    storage::CountryInfoGetter const & infoGetter,
+                    vector<m2::PointD> & valueMapping, vector<pair<Key, Value>> & keyValuePairs)
 {
   // Original dataset uses UK National Grid UTM coordinates.
   // It was converted to WGS84 by https://pypi.org/project/OSGridConverter/.
@@ -98,7 +98,7 @@ void GetUKPostcodes(string const & filename, storage::CountryId const & countryI
 
 bool BuildPostcodePointsImpl(FilesContainerR & container, storage::CountryId const & country,
                              string const & dataset, string const & tmpName,
-                             storage::CountryInfoGetter & infoGetter, Writer & writer)
+                             storage::CountryInfoGetter const & infoGetter, Writer & writer)
 {
   using Key = strings::UniString;
   using Value = Uint64IndexValue;
@@ -161,7 +161,7 @@ namespace indexer
 {
 bool BuildPostcodePointsWithInfoGetter(string const & path, string const & country,
                                        string const & datasetPath, bool forceRebuild,
-                                       storage::CountryInfoGetter & infoGetter)
+                                       storage::CountryInfoGetter const & infoGetter)
 {
   auto const filename = base::JoinPath(path, country + DATA_FILE_EXTENSION);
   if (filename == WORLD_FILE_NAME || filename == WORLD_COASTS_FILE_NAME)
@@ -211,7 +211,7 @@ bool BuildPostcodePoints(string const & path, string const & country, string con
                          bool forceRebuild)
 {
   auto const & platform = GetPlatform();
-  auto infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(platform);
+  auto const infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(platform);
   CHECK(infoGetter, ());
   return BuildPostcodePointsWithInfoGetter(path, country, datasetPath, forceRebuild, *infoGetter);
 }

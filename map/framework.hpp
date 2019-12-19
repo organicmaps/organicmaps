@@ -333,7 +333,7 @@ public:
   storage::Storage & GetStorage() { return m_storage; }
   storage::Storage const & GetStorage() const { return m_storage; }
   search::DisplayedCategories const & GetDisplayedCategories();
-  storage::CountryInfoGetter & GetCountryInfoGetter() { return *m_infoGetter; }
+  storage::CountryInfoGetter const & GetCountryInfoGetter() { return *m_infoGetter; }
   StorageDownloadingPolicy & GetDownloadingPolicy() { return m_storageDownloadingPolicy; }
 
   DataSource const & GetDataSource() const { return m_featuresFetcher.GetDataSource(); }
