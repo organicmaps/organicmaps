@@ -4,14 +4,9 @@ import androidx.annotation.NonNull;
 
 public class HttpBackgroundUploader extends AbstractHttpUploader
 {
-
-  public HttpBackgroundUploader(@NonNull String method, @NonNull String url,
-                                @NonNull KeyValue[] params,
-                                @NonNull KeyValue[] headers, @NonNull String fileKey,
-                                @NonNull String filePath,
-                                boolean needClientAuth)
+  public HttpBackgroundUploader(@NonNull HttpPayload payload)
   {
-    super(method, url, params, headers, fileKey, filePath, needClientAuth);
+    super(payload);
   }
 
   public void upload()

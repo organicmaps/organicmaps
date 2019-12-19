@@ -3,15 +3,12 @@ package com.mapswithme.util;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Base64;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,7 +21,7 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-
+import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
 
@@ -42,11 +39,9 @@ public final class HttpUploader extends AbstractHttpUploader
   @NonNull
   private final String mEndPart;
 
-  public HttpUploader(@NonNull String method, @NonNull String url, @NonNull KeyValue[] params,
-                      @NonNull KeyValue[] headers, @NonNull String fileKey, @NonNull String filePath,
-                      boolean needClientAuth)
+  public HttpUploader(@NonNull HttpPayload payload)
   {
-    super(method, url, params, headers, fileKey, filePath, needClientAuth);
+    super(payload);
     mBoundary = "----" + System.currentTimeMillis();
     mEndPart = LINE_FEED + "--" + mBoundary + "--" + LINE_FEED;
   }
@@ -60,14 +55,14 @@ public final class HttpUploader extends AbstractHttpUploader
     HttpURLConnection connection = null;
     try
     {
-      URL url = new URL(getUrl());
+      URL url = new URL(getPayload().getUrl());
       connection = (HttpURLConnection) url.openConnection();
       connection.setConnectTimeout(Constants.CONNECTION_TIMEOUT_MS);
       connection.setReadTimeout(Constants.READ_TIMEOUT_MS);
       connection.setUseCaches(false);
-      connection.setRequestMethod(getMethod());
-      connection.setDoOutput(getMethod().equals("POST"));
-      if ("https".equals(connection.getURL().getProtocol()) && needClientAuth())
+      connection.setRequestMethod(getPayload().getMethod());
+      connection.setDoOutput(getPayload().getMethod().equals("POST"));
+      if ("https".equals(connection.getURL().getProtocol()) && getPayload().needClientAuth())
       {
         HttpsURLConnection httpsConnection = (HttpsURLConnection) connection;
         String cert = HttpUploader.nativeUserBindingCertificate();
@@ -77,18 +72,19 @@ public final class HttpUploader extends AbstractHttpUploader
         httpsConnection.setSSLSocketFactory(socketFactory);
       }
 
-      long fileSize = StorageUtils.getFileSize(getFilePath());
+      long fileSize = StorageUtils.getFileSize(getPayload().getFilePath());
       StringBuilder paramsBuilder = new StringBuilder();
       fillBodyParams(paramsBuilder);
-      File file = new File(getFilePath());
-      fillFileParams(paramsBuilder, getFileKey(), file);
+      File file = new File(getPayload().getFilePath());
+      fillFileParams(paramsBuilder, getPayload().getFileKey(), file);
       int endPartSize = mEndPart.getBytes().length;
       int paramsSize = paramsBuilder.toString().getBytes().length;
       long bodyLength = paramsSize + fileSize + endPartSize;
       setStreamingMode(connection, bodyLength);
       setHeaders(connection, bodyLength);
       long startTime = System.currentTimeMillis();
-      LOGGER.d(TAG, "Start bookmarks upload on url: '" + Utils.makeUrlSafe(getUrl()) + "'");
+      LOGGER.d(
+          TAG, "Start bookmarks upload on url: '" + Utils.makeUrlSafe(getPayload().getUrl()) + "'");
       OutputStream outputStream = connection.getOutputStream();
       writer = new PrintWriter(new OutputStreamWriter(outputStream, CHARSET));
       writeParams(writer, paramsBuilder);
@@ -105,7 +101,7 @@ public final class HttpUploader extends AbstractHttpUploader
     }
     catch (IOException e)
     {
-      message = "I/O exception '" + Utils.makeUrlSafe(getUrl()) + "'";
+      message = "I/O exception '" + Utils.makeUrlSafe(getPayload().getUrl()) + "'";
       if (connection != null)
       {
         String errMsg = readErrorResponse(connection);
@@ -182,17 +178,18 @@ public final class HttpUploader extends AbstractHttpUploader
 
   private void setHeaders(@NonNull URLConnection connection, long bodyLength)
   {
-    getHeaders().add(new KeyValue(HttpClient.HEADER_USER_AGENT, Framework.nativeGetUserAgent()));
-    getHeaders().add(new KeyValue("App-Version", BuildConfig.VERSION_NAME));
-    getHeaders().add(new KeyValue("Content-Type", "multipart/form-data; boundary=" + mBoundary));
-    getHeaders().add(new KeyValue("Content-Length", String.valueOf(bodyLength)));
-    for (KeyValue header : getHeaders())
+    List<KeyValue> headers = getPayload().getHeaders();
+    headers.add(new KeyValue(HttpClient.HEADER_USER_AGENT, Framework.nativeGetUserAgent()));
+    headers.add(new KeyValue("App-Version", BuildConfig.VERSION_NAME));
+    headers.add(new KeyValue("Content-Type", "multipart/form-data; boundary=" + mBoundary));
+    headers.add(new KeyValue("Content-Length", String.valueOf(bodyLength)));
+    for (KeyValue header : headers)
       connection.setRequestProperty(header.mKey, header.mValue);
   }
 
   private void fillBodyParams(@NonNull StringBuilder builder)
   {
-    for (KeyValue field : getParams())
+    for (KeyValue field : getPayload().getParams())
       addParam(builder, field.mKey, field.mValue);
   }
 

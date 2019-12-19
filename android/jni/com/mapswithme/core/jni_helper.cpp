@@ -27,7 +27,8 @@ jclass g_ratingClazz;
 jclass g_loggerFactoryClazz;
 jclass g_keyValueClazz;
 jclass g_httpUploaderClazz;
-jclass g_httpUploaderBackgroundClazz;
+jclass g_httpPayloadClazz;
+jclass g_httpBackgroundUploaderClazz;
 jclass g_httpUploaderResultClazz;
 jclass g_networkPolicyClazz;
 jclass g_storageUtilsClazz;
@@ -55,7 +56,9 @@ JNI_OnLoad(JavaVM * jvm, void *)
   g_loggerFactoryClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/log/LoggerFactory");
   g_keyValueClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/KeyValue");
   g_httpUploaderClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpUploader");
-  g_httpUploaderBackgroundClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpBackgroundUploader");
+  g_httpPayloadClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpPayload");
+  g_httpBackgroundUploaderClazz =
+      jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpBackgroundUploader");
   g_httpUploaderResultClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpUploader$Result");
   g_networkPolicyClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/NetworkPolicy");
   g_storageUtilsClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/StorageUtils");
@@ -81,7 +84,8 @@ JNI_OnUnload(JavaVM *, void *)
   env->DeleteGlobalRef(g_loggerFactoryClazz);
   env->DeleteGlobalRef(g_keyValueClazz);
   env->DeleteGlobalRef(g_httpUploaderClazz);
-  env->DeleteGlobalRef(g_httpUploaderBackgroundClazz);
+  env->DeleteGlobalRef(g_httpPayloadClazz);
+  env->DeleteGlobalRef(g_httpBackgroundUploaderClazz);
   env->DeleteGlobalRef(g_httpUploaderResultClazz);
   env->DeleteGlobalRef(g_networkPolicyClazz);
   env->DeleteGlobalRef(g_storageUtilsClazz);

@@ -11,6 +11,7 @@
 #include <cstdint>
 #include <functional>
 
+#include "HttpUploaderUtils.hpp"
 #include "private.h"
 
 namespace
@@ -42,31 +43,15 @@ HttpUploader::Result HttpUploader::Upload() const
 
   CHECK(env, ());
 
-  static jmethodID const httpUploaderConstructor =
-      jni::GetConstructorID(env, g_httpUploaderClazz,
-                            "(Ljava/lang/String;Ljava/lang/String;"
-                            "[Lcom/mapswithme/util/KeyValue;"
-                            "[Lcom/mapswithme/util/KeyValue;"
-                            "Ljava/lang/String;Ljava/lang/String;Z)V");
   HttpPayload const payload = GetPayload();
-  jni::ScopedLocalRef<jstring> const method(env, jni::ToJavaString(env, payload.m_method));
-  jni::ScopedLocalRef<jstring> const url(env, jni::ToJavaString(env, payload.m_url));
-  jni::ScopedLocalRef<jobjectArray> const params(env, jni::ToKeyValueArray(env, payload.m_params));
-  jni::ScopedLocalRef<jobjectArray> const headers(env,
-                                                  jni::ToKeyValueArray(env, payload.m_headers));
-  jni::ScopedLocalRef<jstring> const fileKey(env, jni::ToJavaString(env, payload.m_fileKey));
-  jni::ScopedLocalRef<jstring> const filePath(env, jni::ToJavaString(env, payload.m_filePath));
+  jobject uploader = platform::MakeHttpUploader(env, payload, g_httpUploaderClazz);
+  jni::ScopedLocalRef<jobject> const uploaderRef(env, uploader);
 
-  jni::ScopedLocalRef<jobject> const httpUploaderObject(
-      env, env->NewObject(g_httpUploaderClazz, httpUploaderConstructor, method.get(), url.get(),
-                          params.get(), headers.get(), fileKey.get(), filePath.get(),
-                          static_cast<jboolean>(payload.m_needClientAuth)));
-
-  static jmethodID const uploadId = jni::GetMethodID(env, httpUploaderObject, "upload",
+  static jmethodID const uploadId = jni::GetMethodID(env, uploaderRef.get(), "upload",
                                                      "()Lcom/mapswithme/util/HttpUploader$Result;");
 
   jni::ScopedLocalRef<jobject> const result(env,
-                                            env->CallObjectMethod(httpUploaderObject, uploadId));
+                                            env->CallObjectMethod(uploaderRef.get(), uploadId));
 
   if (jni::HandleJavaException(env))
   {
