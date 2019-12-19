@@ -190,7 +190,14 @@ void RoutingCityBoundariesCollector::Process(feature::FeatureBuilder & feature,
   if (feature.IsArea())
   {
     auto const placeOsmIdOp = GetPlaceNodeFromMembers(osmElement);
-    ASSERT(placeOsmIdOp, ("FilterOsmElement() should filtered such elements:", osmElement));
+    // Elements which have multiple place tags i.e. "place=country" + "place=city" and do not have place node
+    // will pass FilterOsmElement() but can have bad placeType for previous case (IsArea && IsSuitablePlaceType)
+    // and no place node for this case. As we do not know what's the real place type we skip such places.
+    if (!placeOsmIdOp)
+    {
+      LOG(LWARNING, ("Have multiple place tags for", osmElement));
+      return;
+    }
 
     auto const placeOsmId = *placeOsmIdOp;
 
@@ -205,7 +212,10 @@ void RoutingCityBoundariesCollector::Process(feature::FeatureBuilder & feature,
     // Elements which have multiple place tags i.e. "place=country" + "place=city" will pass FilterOsmElement()
     // but can have bad placeType here. As we do not know what's the real place type let's skip such places.
     if (!IsSuitablePlaceType(placeType))
+    {
+      LOG(LWARNING, ("Have multiple place tags for", osmElement));
       return;
+    }
 
     uint64_t const population = osm_element::GetPopulation(osmElement);
     if (population == 0)
