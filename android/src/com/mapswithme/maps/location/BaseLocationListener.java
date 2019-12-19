@@ -33,7 +33,6 @@ class BaseLocationListener implements LocationListener, com.google.android.gms.l
 
     if (mLocationFixChecker.isLocationBetterThanLast(location))
     {
-      LocationHelper.INSTANCE.resetMagneticField(location);
       LocationHelper.INSTANCE.onLocationUpdated(location);
       LocationHelper.INSTANCE.notifyLocationUpdated();
     }

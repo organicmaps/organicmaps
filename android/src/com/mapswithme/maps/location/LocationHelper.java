@@ -366,11 +366,6 @@ public enum LocationHelper
     mSensorHelper.start();
   }
 
-  void resetMagneticField(Location location)
-  {
-    mSensorHelper.resetMagneticField(mSavedLocation, location);
-  }
-
   private void calcLocationUpdatesInterval()
   {
     mLogger.d(TAG, "calcLocationUpdatesInterval()");
