@@ -2614,7 +2614,9 @@ UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo cons
 {
   if (buildInfo.m_userMarkId != kml::kInvalidMarkId)
   {
-    auto mark = GetBookmarkManager().GetUserMark(buildInfo.m_userMarkId);
+    auto const & bm = GetBookmarkManager();
+    auto mark = bm.IsBookmark(buildInfo.m_userMarkId) ? bm.GetBookmark(buildInfo.m_userMarkId)
+                                                      : bm.GetUserMark(buildInfo.m_userMarkId);
     if (mark != nullptr)
       return mark;
   }

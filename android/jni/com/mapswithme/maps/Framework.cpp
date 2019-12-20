@@ -1760,8 +1760,7 @@ Java_com_mapswithme_maps_Framework_nativeDeleteBookmarkFromMapObject(JNIEnv * en
   buildInfo.m_source = place_page::BuildInfo::Source::Other;
   frm()->UpdatePlacePageInfoForCurrentSelection(buildInfo);
 
-  place_page::Info const & updatedInfo = g_framework->GetPlacePageInfo();
-  return usermark_helper::CreateMapObject(env, updatedInfo);
+  return usermark_helper::CreateMapObject(env, g_framework->GetPlacePageInfo());
 }
 
 JNIEXPORT void JNICALL

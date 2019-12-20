@@ -624,7 +624,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastE
 {
   BookmarkManager & bmMng = frm()->GetBookmarkManager();
 
-  place_page::Info & info = g_framework->GetPlacePageInfo();
+  place_page::Info const & info = g_framework->GetPlacePageInfo();
 
   kml::BookmarkData bmData;
   bmData.m_name = info.FormatNewBookmarkName();
@@ -643,7 +643,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastE
   buildInfo.m_userMarkId = createdBookmark->GetId();
   frm()->UpdatePlacePageInfoForCurrentSelection(buildInfo);
 
-  return usermark_helper::CreateMapObject(env, info);
+  return usermark_helper::CreateMapObject(env, g_framework->GetPlacePageInfo());
 }
 
 JNIEXPORT jlong JNICALL
@@ -780,7 +780,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeUpdateBookmarkPlac
   buildInfo.m_userMarkId = static_cast<kml::MarkId>(bmkId);
   frm()->UpdatePlacePageInfoForCurrentSelection(buildInfo);
 
-  return usermark_helper::CreateMapObject(env, info);
+  return usermark_helper::CreateMapObject(env, g_framework->GetPlacePageInfo());
 }
 
 JNIEXPORT jobject JNICALL
