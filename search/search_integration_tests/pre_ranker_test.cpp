@@ -58,11 +58,15 @@ public:
   TestRanker(DataSource & dataSource, storage::CountryInfoGetter & infoGetter,
              CitiesBoundariesTable const & boundariesTable, KeywordLangMatcher & keywordsScorer,
              Emitter & emitter, vector<Suggest> const & suggests, VillagesCache & villagesCache,
-             base::Cancellable const & cancellable, vector<PreRankerResult> & results)
+             base::Cancellable const & cancellable, size_t limit, vector<PreRankerResult> & results)
     : Ranker(dataSource, boundariesTable, infoGetter, keywordsScorer, emitter,
              GetDefaultCategories(), suggests, villagesCache, cancellable)
     , m_results(results)
   {
+    Ranker::Params rankerParams;
+    Geocoder::Params geocoderParams;
+    rankerParams.m_limit = limit;
+    Init(rankerParams, geocoderParams);
   }
 
   inline bool Finished() const { return m_finished; }
@@ -128,8 +132,9 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
   CitiesBoundariesTable boundariesTable(m_dataSource);
   VillagesCache villagesCache(m_cancellable);
   KeywordLangMatcher keywordsScorer(0 /* maxLanguageTiers */);
+
   TestRanker ranker(m_dataSource, m_engine.GetCountryInfoGetter(), boundariesTable, keywordsScorer,
-                    emitter, m_suggests, villagesCache, m_cancellable, results);
+                    emitter, m_suggests, villagesCache, m_cancellable, pois.size(), results);
 
   PreRanker preRanker(m_dataSource, ranker);
   PreRanker::Params params;

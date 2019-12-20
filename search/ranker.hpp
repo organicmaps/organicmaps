@@ -1,6 +1,7 @@
 #pragma once
 
 #include "search/cancel_exception.hpp"
+#include "search/emitter.hpp"
 #include "search/geocoder.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/keyword_lang_matcher.hpp"
@@ -39,7 +40,6 @@ class CountryInfoGetter;
 namespace search
 {
 class CitiesBoundariesTable;
-class Emitter;
 class RankerResultMaker;
 class VillagesCache;
 
@@ -90,6 +90,8 @@ public:
   void Init(Params const & params, Geocoder::Params const & geocoderParams);
 
   void Finish(bool cancelled);
+
+  bool IsFull() const { return m_emitter.GetResults().GetCount() >= m_params.m_limit; }
 
   // Makes the final result that is shown to the user from a ranker's result.
   // |needAddress| and |needHighlighting| enable filling of optional fields

@@ -23,12 +23,15 @@ class Tracer;
 
 struct SearchParams
 {
-  static size_t const kDefaultNumBookmarksResults = 1000;
-  static size_t const kDefaultBatchSizeEverywhere = 10;
-  static size_t const kDefaultNumResultsEverywhere = 30;
-  static size_t const kDefaultNumResultsInViewport = 200;
-  static std::chrono::steady_clock::duration const kDefaultTimeout;
-  static std::chrono::steady_clock::duration const kDefaultDesktopTimeout;
+  inline static size_t const kDefaultNumBookmarksResults = 1000;
+  inline static size_t const kDefaultBatchSizeEverywhere = 10;
+  inline static size_t const kDefaultNumResultsEverywhere = 30;
+  inline static size_t const kDefaultNumResultsInViewport = 200;
+  inline static size_t const kPreResultsCount = 200;
+  inline static std::chrono::steady_clock::duration const kDefaultTimeout =
+      std::chrono::seconds(3);
+  inline static std::chrono::steady_clock::duration const kDefaultDesktopTimeout =
+      std::chrono::milliseconds(1500);
 
   using OnStarted = std::function<void()>;
   using OnResults = std::function<void(Results const &)>;

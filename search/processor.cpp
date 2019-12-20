@@ -13,6 +13,7 @@
 #include "search/ranking_info.hpp"
 #include "search/ranking_utils.hpp"
 #include "search/search_index_values.hpp"
+#include "search/search_params.hpp"
 #include "search/utils.hpp"
 
 #include "storage/country_info_getter.hpp"
@@ -145,9 +146,6 @@ void RemoveStopWordsIfNeeded(QueryTokens & tokens, strings::UniString & prefix)
   tokens.erase_if(&IsStopWord);
 }
 }  // namespace
-
-// static
-size_t const Processor::kPreResultsCount = 200;
 
 Processor::Processor(DataSource const & dataSource, CategoriesHolder const & categories,
                      vector<Suggest> const & suggests,
@@ -718,7 +716,7 @@ void Processor::InitPreRanker(Geocoder::Params const & geocoderParams,
   params.m_accuratePivotCenter = GetPivotPoint(viewportSearch);
   params.m_position = m_position;
   params.m_scale = geocoderParams.GetScale();
-  params.m_limit = max(kPreResultsCount, searchParams.m_maxNumResults);
+  params.m_limit = max(SearchParams::kPreResultsCount, searchParams.m_maxNumResults);
   params.m_viewportSearch = viewportSearch;
   params.m_categorialRequest = geocoderParams.IsCategorialRequest();
 

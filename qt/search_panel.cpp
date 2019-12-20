@@ -1,6 +1,8 @@
 #include "qt/search_panel.hpp"
 #include "qt/draw_widget.hpp"
 
+#include "search/search_params.hpp"
+
 #include "map/bookmark_manager.hpp"
 #include "map/framework.hpp"
 #include "map/user_mark_layer.hpp"
@@ -232,6 +234,7 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
       GetPlatform().RunTask(Platform::Thread::Gui,
                             std::bind(&SearchPanel::OnSearchResults, this, timestamp, results));
     };
+    m_params.m_timeout = search::SearchParams::kDefaultDesktopTimeout;
 
     if (m_pDrawWidget->Search(m_params))
     {

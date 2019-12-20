@@ -34,6 +34,7 @@
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
+#include "base/control_flow.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/pprof.hpp"
@@ -574,6 +575,11 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
 
     if (index + 1 >= numIntersectingMaps)
       m_preRanker.UpdateResults(false /* lastUpdate */);
+
+    if (m_preRanker.IsFull())
+      return base::ControlFlow::Break;
+
+    return base::ControlFlow::Continue;
   };
 
   // Iterates through all alive mwms and performs geocoding.
@@ -802,7 +808,8 @@ void Geocoder::ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, Fn && f
     auto & value = *handle.GetValue();
     if (!value.HasSearchIndex() || !value.HasGeometryIndex())
       continue;
-    fn(i, make_unique<MwmContext>(move(handle)));
+    if (fn(i, make_unique<MwmContext>(move(handle))) == base::ControlFlow::Break)
+      break;
   }
 }
 

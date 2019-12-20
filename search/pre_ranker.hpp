@@ -61,14 +61,14 @@ public:
 
   void Finish(bool cancelled);
 
+  bool IsFull() const { return m_numSentResults >= Limit() || m_ranker.IsFull(); }
+
   template <typename... Args>
   void Emplace(Args &&... args)
   {
-    if (m_numSentResults >= Limit())
-    {
-      // todo(@m) Geocoder can be safely cancelled here, can't it?
+    if (IsFull())
       return;
-    }
+
     m_results.emplace_back(std::forward<Args>(args)...);
   }
 
