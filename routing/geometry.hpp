@@ -22,6 +22,8 @@
 #include <optional>
 #include <string>
 
+#include "3party/skarupke/bytell_hash_map.hpp"
+
 class DataSource;
 
 namespace routing
@@ -147,7 +149,10 @@ public:
   }
 
 private:
+  using RoutingFifoCache =
+      FifoCache<uint32_t, RoadGeometry, ska::bytell_hash_map<uint32_t, RoadGeometry>>;
+
   std::unique_ptr<GeometryLoader> m_loader;
-  std::unique_ptr<FifoCache<uint32_t, RoadGeometry>> m_featureIdToRoad;
+  std::unique_ptr<RoutingFifoCache> m_featureIdToRoad;
 };
 }  // namespace routing

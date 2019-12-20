@@ -5,18 +5,19 @@
 #include <map>
 #include <vector>
 
+#include "3party/skarupke/bytell_hash_map.hpp"
+
 namespace routing
 {
 template <typename VertexType, typename EdgeType, typename WeightType>
 class AStarGraph
 {
 public:
-
   using Vertex = VertexType;
   using Edge = EdgeType;
   using Weight = WeightType;
 
-  using Parents = std::map<Vertex, Vertex>;
+  using Parents = ska::bytell_hash_map<Vertex, Vertex>;
 
   virtual Weight HeuristicCostEstimate(Vertex const & from, Vertex const & to) = 0;
 
@@ -35,7 +36,7 @@ public:
 
 template <typename VertexType, typename EdgeType, typename WeightType>
 void AStarGraph<VertexType, EdgeType, WeightType>::SetAStarParents(bool /* forward */,
-                                                                   std::map<Vertex, Vertex> & /* parents */) {}
+                                                                   Parents & /* parents */) {}
 
 template <typename VertexType, typename EdgeType, typename WeightType>
 void AStarGraph<VertexType, EdgeType, WeightType>::DropAStarParents() {}

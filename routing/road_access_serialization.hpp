@@ -23,13 +23,15 @@
 #include <utility>
 #include <vector>
 
+#include "3party/skarupke/flat_hash_map.hpp"
+
 namespace routing
 {
 class RoadAccessSerializer final
 {
 public:
-  using RoadAccessTypesFeatureMap = std::unordered_map<uint32_t, RoadAccess::Type>;
-  using RoadAccessTypesPointMap = std::unordered_map<RoadPoint, RoadAccess::Type, RoadPoint::Hash>;
+  using RoadAccessTypesFeatureMap = ska::flat_hash_map<uint32_t, RoadAccess::Type>;
+  using RoadAccessTypesPointMap = ska::flat_hash_map<RoadPoint, RoadAccess::Type, RoadPoint::Hash>;
   using RoadAccessByVehicleType = std::array<RoadAccess, static_cast<size_t>(VehicleType::Count)>;
 
   RoadAccessSerializer() = delete;

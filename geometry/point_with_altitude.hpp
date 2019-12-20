@@ -55,3 +55,12 @@ inline bool AlmostEqualAbs(PointWithAltitude const & lhs, PointWithAltitude cons
   return base::AlmostEqualAbs(lhs.GetPoint(), rhs.GetPoint(), kPointsEqualEpsilon);
 }
 }  // namespace geometry
+
+namespace std
+{
+template <>
+struct hash<geometry::PointWithAltitude>
+{
+  size_t operator()(geometry::PointWithAltitude const & point) const;
+};
+}  // namespace std

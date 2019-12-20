@@ -12,6 +12,8 @@
 #include "routing/segment.hpp"
 #include "routing/transit_info.hpp"
 
+#include "routing/base/astar_graph.hpp"
+
 #include "routing_common/num_mwm_id.hpp"
 
 #include "geometry/point2d.hpp"
@@ -42,6 +44,9 @@ enum class WorldGraphMode
 class WorldGraph
 {
 public:
+  template <typename VertexType>
+  using Parents = IndexGraph::Parents<VertexType>;
+
   virtual ~WorldGraph() = default;
 
   virtual void GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
@@ -85,19 +90,16 @@ public:
   virtual RoutingOptions GetRoutingOptions(Segment const & /* segment */);
   virtual void SetRoutingOptions(RoutingOptions /* routingOptions */);
 
-  using ParentSegments = std::map<Segment, Segment>;
-  using ParentJoints = std::map<JointSegment, JointSegment>;
-
-  virtual void SetAStarParents(bool forward, ParentSegments & parents);
-  virtual void SetAStarParents(bool forward, ParentJoints & parents);
+  virtual void SetAStarParents(bool forward, Parents<Segment> & parents);
+  virtual void SetAStarParents(bool forward, Parents<JointSegment> & parents);
   virtual void DropAStarParents();
 
-  virtual bool AreWavesConnectible(ParentSegments & forwardParents, Segment const & commonVertex,
-                                  ParentSegments & backwardParents,
-                                  std::function<uint32_t(Segment const &)> && fakeFeatureConverter);
-  virtual bool AreWavesConnectible(ParentJoints & forwardParents, JointSegment const & commonVertex,
-                                  ParentJoints & backwardParents,
-                                  std::function<uint32_t(JointSegment const &)> && fakeFeatureConverter);
+  virtual bool AreWavesConnectible(Parents<Segment> & forwardParents, Segment const & commonVertex,
+                                   Parents<Segment> & backwardParents,
+                                   std::function<uint32_t(Segment const &)> && fakeFeatureConverter);
+  virtual bool AreWavesConnectible(Parents<JointSegment> & forwardParents, JointSegment const & commonVertex,
+                                   Parents<JointSegment> & backwardParents,
+                                   std::function<uint32_t(JointSegment const &)> && fakeFeatureConverter);
 
   /// \returns transit-specific information for segment. For nontransit segments returns nullptr.
   virtual std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) = 0;

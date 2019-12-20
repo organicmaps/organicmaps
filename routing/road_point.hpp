@@ -5,6 +5,8 @@
 #include <sstream>
 #include <string>
 
+#include "3party/boost/boost/container_hash/hash.hpp"
+
 namespace routing
 {
 // RoadPoint is a unique identifier for any road point in mwm file.
@@ -41,13 +43,12 @@ public:
 
   struct Hash
   {
-    uint64_t operator()(RoadPoint const & roadPoint) const
+    size_t operator()(RoadPoint const & roadPoint) const
     {
-      uint32_t featureId = roadPoint.m_featureId;
-      uint32_t pointId = roadPoint.m_pointId;
-
-      return std::hash<uint64_t>()(
-        (static_cast<uint64_t>(featureId) << 32) + static_cast<uint64_t>(pointId));
+      size_t seed = 0;
+      boost::hash_combine(seed, roadPoint.m_featureId);
+      boost::hash_combine(seed, roadPoint.m_pointId);
+      return seed;
     }
   };
 

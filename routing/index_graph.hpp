@@ -12,6 +12,9 @@
 #include "routing/routing_options.hpp"
 #include "routing/segment.hpp"
 
+#include "routing/base/astar_algorithm.hpp"
+#include "routing/base/astar_graph.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include <cstdint>
@@ -36,21 +39,24 @@ public:
   using Edge = SegmentEdge;
   using Weight = RouteWeight;
 
+  template <typename VertexType>
+  using Parents = typename AStarGraph<VertexType, void, void>::Parents;
+  
   using Restrictions = std::unordered_map<uint32_t, std::vector<std::vector<uint32_t>>>;
 
   IndexGraph() = default;
   IndexGraph(std::shared_ptr<Geometry> geometry, std::shared_ptr<EdgeEstimator> estimator,
              RoutingOptions routingOptions = RoutingOptions());
 
-  static std::map<Segment, Segment> kEmptyParentsSegments;
+  inline static Parents<Segment> kEmptyParentsSegments = {};
   // Put outgoing (or ingoing) egdes for segment to the 'edges' vector.
   void GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
                    std::vector<SegmentEdge> & edges,
-                   std::map<Segment, Segment> & parents = kEmptyParentsSegments);
+                   Parents<Segment> & parents = kEmptyParentsSegments);
 
   void GetEdgeList(JointSegment const & parentJoint,
                    Segment const & parent, bool isOutgoing, std::vector<JointEdge> & edges,
-                   std::vector<RouteWeight> & parentWeights, std::map<JointSegment, JointSegment> & parents);
+                   std::vector<RouteWeight> & parentWeights, Parents<JointSegment> & parents);
 
   std::optional<JointEdge> GetJointEdgeByLastPoint(Segment const & parent,
                                                    Segment const & firstChild, bool isOutgoing,
@@ -109,11 +115,11 @@ public:
   /// \brief Check, that we can go to |currentFeatureId|.
   /// We pass |parentFeatureId| and don't use |parent.GetFeatureId()| because
   /// |parent| can be fake sometimes but |parentFeatureId| is almost non-fake.
-  template <typename Parent>
-  bool IsRestricted(Parent const & parent,
+  template <typename ParentVertex>
+  bool IsRestricted(ParentVertex const & parent,
                     uint32_t parentFeatureId,
                     uint32_t currentFeatureId, bool isOutgoing,
-                    std::map<Parent, Parent> & parents) const;
+                    Parents<ParentVertex> & parents) const;
 
   bool IsUTurnAndRestricted(Segment const & parent, Segment const & child, bool isOutgoing) const;
 
@@ -123,9 +129,9 @@ public:
 private:
   void GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
                            bool useRoutingOptions, std::vector<SegmentEdge> & edges,
-                           std::map<Segment, Segment> & parents);
+                           Parents<Segment> & parents);
   void GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
-                          std::vector<SegmentEdge> & edges, std::map<Segment, Segment> & parents);
+                          std::vector<SegmentEdge> & edges, Parents<Segment> & parents);
 
   struct PenaltyData
   {
@@ -150,7 +156,7 @@ private:
                                bool isOutgoing,
                                std::vector<JointEdge> & jointEdges,
                                std::vector<RouteWeight> & parentWeights,
-                               std::map<JointSegment, JointSegment> & parents);
+                               Parents<JointSegment> & parents);
 
   std::shared_ptr<Geometry> m_geometry;
   std::shared_ptr<EdgeEstimator> m_estimator;
@@ -177,12 +183,12 @@ private:
   RoutingOptions m_avoidRoutingOptions;
 };
 
-template <typename Parent>
-bool IndexGraph::IsRestricted(Parent const & parent,
+template <typename ParentVertex>
+bool IndexGraph::IsRestricted(ParentVertex const & parent,
                               uint32_t parentFeatureId,
                               uint32_t currentFeatureId,
                               bool isOutgoing,
-                              std::map<Parent, Parent> & parents) const
+                              Parents<ParentVertex> & parents) const
 {
   if (parentFeatureId == currentFeatureId)
     return false;
@@ -192,9 +198,9 @@ bool IndexGraph::IsRestricted(Parent const & parent,
   if (it == restrictions.cend())
     return false;
 
-  std::vector<Parent> parentsFromCurrent;
+  std::vector<ParentVertex> parentsFromCurrent;
   // Finds the first featureId from parents, that differ from |p.GetFeatureId()|.
-  auto const appendNextParent = [&parents](Parent const & p, auto & parentsVector)
+  auto const appendNextParent = [&parents](ParentVertex const & p, auto & parentsVector)
   {
     uint32_t prevFeatureId = p.GetFeatureId();
     uint32_t curFeatureId = prevFeatureId;

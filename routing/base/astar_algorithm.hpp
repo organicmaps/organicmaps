@@ -6,6 +6,7 @@
 
 #include "base/assert.hpp"
 #include "base/cancellable.hpp"
+#include "base/logging.hpp"
 
 #include <algorithm>
 #include <functional>
@@ -16,7 +17,9 @@
 #include <utility>
 #include <vector>
 
-namespace
+#include "3party/skarupke/bytell_hash_map.hpp"
+
+namespace astar_algorithm
 {
 template <typename Vertex>
 struct DefaultVisitor
@@ -51,15 +54,15 @@ public:
   {
     switch (result)
     {
-      case Result::OK:
-        os << "OK";
-        break;
-      case Result::NoPath:
-        os << "NoPath";
-        break;
-      case Result::Cancelled:
-        os << "Cancelled";
-        break;
+    case Result::OK:
+      os << "OK";
+      break;
+    case Result::NoPath:
+      os << "NoPath";
+      break;
+    case Result::Cancelled:
+      os << "Cancelled";
+      break;
     }
     return os;
   }
@@ -67,21 +70,21 @@ public:
   // |LengthChecker| callback used to check path length from start/finish to the edge (including the
   // edge itself) before adding the edge to AStar queue. Can be used to clip some path which does
   // not meet restrictions.
-  template <typename Visitor = DefaultVisitor<Vertex>,
-            typename LengthChecker = DefaultLengthChecker<Weight>>
+  template <typename Visitor = astar_algorithm::DefaultVisitor<Vertex>,
+            typename LengthChecker = astar_algorithm::DefaultLengthChecker<Weight>>
   struct Params
   {
     Params(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
            std::vector<Edge> const * prevRoute, base::Cancellable const & cancellable,
-           Visitor && onVisitedVertexCallback = DefaultVisitor<Vertex>(),
-           LengthChecker && checkLengthCallback = DefaultLengthChecker<Weight>())
-      : m_graph(graph)
-      , m_startVertex(startVertex)
-      , m_finalVertex(finalVertex)
-      , m_prevRoute(prevRoute)
-      , m_cancellable(cancellable)
-      , m_onVisitedVertexCallback(std::forward<Visitor>(onVisitedVertexCallback))
-      , m_checkLengthCallback(std::forward<LengthChecker>(checkLengthCallback))
+           Visitor && onVisitedVertexCallback = astar_algorithm::DefaultVisitor<Vertex>(),
+           LengthChecker && checkLengthCallback = astar_algorithm::DefaultLengthChecker<Weight>())
+        : m_graph(graph)
+        , m_startVertex(startVertex)
+        , m_finalVertex(finalVertex)
+        , m_prevRoute(prevRoute)
+        , m_cancellable(cancellable)
+        , m_onVisitedVertexCallback(std::forward<Visitor>(onVisitedVertexCallback))
+        , m_checkLengthCallback(std::forward<LengthChecker>(checkLengthCallback))
     {
     }
 
@@ -97,12 +100,13 @@ public:
     LengthChecker const m_checkLengthCallback;
   };
 
-  template <typename LengthChecker = DefaultLengthChecker<Weight>>
+  template <typename LengthChecker = astar_algorithm::DefaultLengthChecker<Weight>>
   struct ParamsForTests
   {
-    ParamsForTests(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
-                   std::vector<Edge> const * prevRoute,
-                   LengthChecker && checkLengthCallback = DefaultLengthChecker<Weight>())
+    ParamsForTests(
+        Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
+        std::vector<Edge> const * prevRoute,
+        LengthChecker && checkLengthCallback = astar_algorithm::DefaultLengthChecker<Weight>())
       : m_graph(graph)
       , m_startVertex(startVertex)
       , m_finalVertex(finalVertex)
@@ -119,7 +123,8 @@ public:
     // Used for AdjustRoute.
     std::vector<Edge> const * const m_prevRoute;
     base::Cancellable const m_cancellable;
-    DefaultVisitor<Vertex> const m_onVisitedVertexCallback = DefaultVisitor<Vertex>();
+    astar_algorithm::DefaultVisitor<Vertex> const m_onVisitedVertexCallback =
+        astar_algorithm::DefaultVisitor<Vertex>();
     LengthChecker const m_checkLengthCallback;
   };
   class Context final
@@ -177,14 +182,14 @@ public:
       return it->second;
     }
 
-    std::map<Vertex, Vertex> & GetParents() { return m_parents; }
+    typename Graph::Parents & GetParents() { return m_parents; }
 
     void ReconstructPath(Vertex const & v, std::vector<Vertex> & path) const;
 
   private:
     Graph & m_graph;
-    std::map<Vertex, Weight> m_distanceMap;
-    std::map<Vertex, Vertex> m_parents;
+    ska::bytell_hash_map<Vertex, Weight> m_distanceMap;
+    typename Graph::Parents m_parents;
   };
 
   // VisitVertex returns true: wave will continue
@@ -240,7 +245,7 @@ private:
   struct State
   {
     State(Vertex const & vertex, Weight const & distance, Weight const & heuristic)
-      : vertex(vertex), distance(distance), heuristic(heuristic)
+        : vertex(vertex), distance(distance), heuristic(heuristic)
     {
     }
     State(Vertex const & vertex, Weight const & distance) : State(vertex, distance, Weight()) {}
@@ -257,12 +262,14 @@ private:
   // purpose is to make the code that changes directions more readable.
   struct BidirectionalStepContext
   {
+    using Parents = typename Graph::Parents;
+
     BidirectionalStepContext(bool forward, Vertex const & startVertex, Vertex const & finalVertex,
                              Graph & graph)
-      : forward(forward)
-      , startVertex(startVertex)
-      , finalVertex(finalVertex)
-      , graph(graph)
+        : forward(forward)
+        , startVertex(startVertex)
+        , finalVertex(finalVertex)
+        , graph(graph)
     {
       bestVertex = forward ? startVertex : finalVertex;
       pS = ConsistentHeuristic(bestVertex);
@@ -309,6 +316,28 @@ private:
       }
     }
 
+    bool ExistsStateWithBetterDistance(State const & state, Weight const & eps = Weight(0.0)) const
+    {
+      auto const it = bestDistance.find(state.vertex);
+      return it != bestDistance.end() && state.distance > it->second - eps;
+    }
+
+    void UpdateDistance(State const & state)
+    {
+      bestDistance.insert_or_assign(state.vertex, state.distance);
+    }
+
+    std::optional<Weight> GetDistance(Vertex const & vertex)
+    {
+      auto const it = bestDistance.find(vertex);
+      return it != bestDistance.cend() ? std::optional<Weight>(it->second) : std::nullopt;
+    }
+
+    void UpdateParent(Vertex const & to, Vertex const & from)
+    {
+      parent.insert_or_assign(to, from);
+    }
+
     void GetAdjacencyList(Vertex const & v, std::vector<Edge> & adj)
     {
       if (forward)
@@ -317,7 +346,7 @@ private:
         graph.GetIngoingEdgesList(v, adj);
     }
 
-    std::map<Vertex, Vertex> & GetParents() { return parent; }
+    Parents & GetParents() { return parent; }
 
     bool const forward;
     Vertex const & startVertex;
@@ -325,19 +354,20 @@ private:
     Graph & graph;
 
     std::priority_queue<State, std::vector<State>, std::greater<State>> queue;
-    std::map<Vertex, Weight> bestDistance;
-    std::map<Vertex, Vertex> parent;
+    ska::bytell_hash_map<Vertex, Weight> bestDistance;
+    Parents parent;
     Vertex bestVertex;
 
     Weight pS;
   };
 
-  static void ReconstructPath(Vertex const & v, std::map<Vertex, Vertex> const & parent,
+  static void ReconstructPath(Vertex const & v,
+                              typename BidirectionalStepContext::Parents const & parent,
                               std::vector<Vertex> & path);
-  static void ReconstructPathBidirectional(Vertex const & v, Vertex const & w,
-                                           std::map<Vertex, Vertex> const & parentV,
-                                           std::map<Vertex, Vertex> const & parentW,
-                                           std::vector<Vertex> & path);
+  static void ReconstructPathBidirectional(
+      Vertex const & v, Vertex const & w,
+      typename BidirectionalStepContext::Parents const & parentV,
+      typename BidirectionalStepContext::Parents const & parentW, std::vector<Vertex> & path);
 };
 
 template <typename Vertex, typename Edge, typename Weight>
@@ -348,11 +378,11 @@ constexpr Weight AStarAlgorithm<Vertex, Edge, Weight>::kZeroDistance;
 template <typename Vertex, typename Edge, typename Weight>
 template <typename VisitVertex, typename AdjustEdgeWeight, typename FilterStates>
 void AStarAlgorithm<Vertex, Edge, Weight>::PropagateWave(
-  Graph & graph, Vertex const & startVertex,
-  VisitVertex && visitVertex,
-  AdjustEdgeWeight && adjustEdgeWeight,
-  FilterStates && filterStates,
-  AStarAlgorithm<Vertex, Edge, Weight>::Context & context) const
+    Graph & graph, Vertex const & startVertex,
+    VisitVertex && visitVertex,
+    AdjustEdgeWeight && adjustEdgeWeight,
+    FilterStates && filterStates,
+    AStarAlgorithm<Vertex, Edge, Weight>::Context & context) const
 {
   auto const epsilon = graph.GetAStarWeightEpsilon();
 
@@ -403,9 +433,9 @@ void AStarAlgorithm<Vertex, Edge, Weight>::PropagateWave(
 
 template <typename Vertex, typename Edge, typename Weight>
 template <typename VisitVertex>
-void AStarAlgorithm<Vertex, Edge, Weight>::PropagateWave(Graph & graph, Vertex const & startVertex,
-                                          VisitVertex && visitVertex,
-                                          AStarAlgorithm<Vertex, Edge, Weight>::Context & context) const
+void AStarAlgorithm<Vertex, Edge, Weight>::PropagateWave(
+    Graph & graph, Vertex const & startVertex, VisitVertex && visitVertex,
+    AStarAlgorithm<Vertex, Edge, Weight>::Context & context) const
 {
   auto const adjustEdgeWeight = [](Vertex const & /* vertex */, Edge const & edge) {
     return edge.GetWeight();
@@ -524,10 +554,10 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
   auto bestPathReducedLength = kZeroDistance;
   auto bestPathRealLength = kZeroDistance;
 
-  forward.bestDistance[startVertex] = kZeroDistance;
+  forward.UpdateDistance(State(startVertex, kZeroDistance));
   forward.queue.push(State(startVertex, kZeroDistance, forward.ConsistentHeuristic(startVertex)));
 
-  backward.bestDistance[finalVertex] = kZeroDistance;
+  backward.UpdateDistance(State(finalVertex, kZeroDistance));
   backward.queue.push(State(finalVertex, kZeroDistance, backward.ConsistentHeuristic(finalVertex)));
 
   // To use the search code both for backward and forward directions
@@ -592,7 +622,7 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
     State const stateV = cur->queue.top();
     cur->queue.pop();
 
-    if (stateV.distance > cur->bestDistance[stateV.vertex])
+    if (cur->ExistsStateWithBetterDistance(stateV))
       continue;
 
     params.m_onVisitedVertexCallback(stateV.vertex,
@@ -614,28 +644,25 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
       CHECK_GREATER_OR_EQUAL(reducedWeight, -epsilon,
                              ("Invariant violated for:", "v =", stateV.vertex, "w =", stateW.vertex));
 
-      auto const newReducedDist = stateV.distance + std::max(reducedWeight, kZeroDistance);
+      stateW.distance = stateV.distance + std::max(reducedWeight, kZeroDistance);
 
       auto const fullLength = weight + stateV.distance + cur->pS - pV;
       if (!params.m_checkLengthCallback(fullLength))
         continue;
 
-      auto const itCur = cur->bestDistance.find(stateW.vertex);
-      if (itCur != cur->bestDistance.end() && newReducedDist >= itCur->second - epsilon)
+      if (cur->ExistsStateWithBetterDistance(stateW, epsilon))
         continue;
 
-      stateW.distance = newReducedDist;
       stateW.heuristic = pW;
-      cur->bestDistance[stateW.vertex] = newReducedDist;
-      cur->parent[stateW.vertex] = stateV.vertex;
+      cur->UpdateDistance(stateW);
+      cur->UpdateParent(stateW.vertex, stateV.vertex);
 
-      auto const itNxt = nxt->bestDistance.find(stateW.vertex);
-      if (itNxt != nxt->bestDistance.end())
+      if (auto op = nxt->GetDistance(stateW.vertex); op)
       {
-        auto const distW = itNxt->second;
+        auto const & distW = *op;
         // Reduced length that the path we've just found has in the original graph:
         // find the reduced length of the path's parts in the reduced forward and backward graphs.
-        auto const curPathReducedLength = newReducedDist + distW;
+        auto const curPathReducedLength = stateW.distance + distW;
         // No epsilon here: it is ok to overshoot slightly.
         if ((!foundAnyPath || bestPathReducedLength > curPathReducedLength) &&
             graph.AreWavesConnectible(forwardParents, stateW.vertex, backwardParents))
@@ -666,8 +693,8 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
 template <typename Vertex, typename Edge, typename Weight>
 template <typename P>
 typename AStarAlgorithm<Vertex, Edge, Weight>::Result
-  AStarAlgorithm<Vertex, Edge, Weight>::AdjustRoute(P & params, RoutingResult<Vertex,
-                                                    Weight> & result) const
+AStarAlgorithm<Vertex, Edge, Weight>::AdjustRoute(P & params,
+                                                  RoutingResult<Vertex, Weight> & result) const
 {
   CHECK(params.m_prevRoute, ());
   auto & graph = params.m_graph;
@@ -676,9 +703,9 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result
 
   CHECK(!prevRoute.empty(), ());
 
-  static_assert(
-      !std::is_same<decltype(params.m_checkLengthCallback), DefaultLengthChecker<Weight>>::value,
-      "CheckLengthCallback expected to be set to limit wave propagation.");
+  static_assert(!std::is_same<decltype(params.m_checkLengthCallback),
+                              astar_algorithm::DefaultLengthChecker<Weight>>::value,
+                "CheckLengthCallback expected to be set to limit wave propagation.");
 
   result.Clear();
 
@@ -764,16 +791,16 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result
 
 // static
 template <typename Vertex, typename Edge, typename Weight>
-void AStarAlgorithm<Vertex, Edge, Weight>::ReconstructPath(Vertex const & v,
-                                                           std::map<Vertex, Vertex> const & parent,
-                                                           std::vector<Vertex> & path)
+void AStarAlgorithm<Vertex, Edge, Weight>::ReconstructPath(
+    Vertex const & v, typename BidirectionalStepContext::Parents const & parent,
+    std::vector<Vertex> & path)
 {
   path.clear();
   Vertex cur = v;
   while (true)
   {
     path.push_back(cur);
-    auto it = parent.find(cur);
+    auto const it = parent.find(cur);
     if (it == parent.end())
       break;
     cur = it->second;
@@ -784,11 +811,9 @@ void AStarAlgorithm<Vertex, Edge, Weight>::ReconstructPath(Vertex const & v,
 
 // static
 template <typename Vertex, typename Edge, typename Weight>
-void
-AStarAlgorithm<Vertex, Edge, Weight>::ReconstructPathBidirectional(Vertex const & v, Vertex const & w,
-                                                                   std::map<Vertex, Vertex> const & parentV,
-                                                                   std::map<Vertex, Vertex> const & parentW,
-                                                                   std::vector<Vertex> & path)
+void AStarAlgorithm<Vertex, Edge, Weight>::ReconstructPathBidirectional(
+    Vertex const & v, Vertex const & w, typename BidirectionalStepContext::Parents const & parentV,
+    typename BidirectionalStepContext::Parents const & parentW, std::vector<Vertex> & path)
 {
   std::vector<Vertex> pathV;
   ReconstructPath(v, parentV, pathV);

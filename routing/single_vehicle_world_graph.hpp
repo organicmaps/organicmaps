@@ -77,15 +77,15 @@ public:
     return m_loader->GetIndexGraph(numMwmId);
   }
 
-  void SetAStarParents(bool forward, ParentSegments & parents) override;
-  void SetAStarParents(bool forward, ParentJoints & parents) override;
+  void SetAStarParents(bool forward, Parents<Segment> & parents) override;
+  void SetAStarParents(bool forward, Parents<JointSegment> & parents) override;
   void DropAStarParents() override;
 
-  bool AreWavesConnectible(ParentSegments & forwardParents, Segment const & commonVertex,
-                           ParentSegments & backwardParents,
+  bool AreWavesConnectible(Parents<Segment> & forwardParents, Segment const & commonVertex,
+                           Parents<Segment> & backwardParents,
                            std::function<uint32_t(Segment const &)> && fakeFeatureConverter) override;
-  bool AreWavesConnectible(ParentJoints & forwardParents, JointSegment const & commonVertex,
-                           ParentJoints & backwardParents,
+  bool AreWavesConnectible(Parents<JointSegment> & forwardParents, JointSegment const & commonVertex,
+                           Parents<JointSegment> & backwardParents,
                            std::function<uint32_t(JointSegment const &)> && fakeFeatureConverter) override;
   // @}
 
@@ -103,9 +103,9 @@ private:
   /// \return The result chain of fetureIds are used to find restrictions on it and understand whether
   ///         waves are connectable or not.
   template <typename VertexType>
-  bool AreWavesConnectibleImpl(std::map<VertexType, VertexType> const & forwardParents,
+  bool AreWavesConnectibleImpl(Parents<VertexType> const & forwardParents,
                                VertexType const & commonVertex,
-                               std::map<VertexType, VertexType> const & backwardParents,
+                               Parents<VertexType> const & backwardParents,
                                std::function<uint32_t(VertexType const &)> && fakeFeatureConverter);
 
   // Retrieves the same |jointEdges|, but into others mwms.
@@ -128,7 +128,7 @@ private:
   template <typename Vertex>
   struct AStarParents
   {
-    using ParentType = std::map<Vertex, Vertex>;
+    using ParentType = Parents<Vertex>;
     static ParentType kEmpty;
     ParentType * forward = &kEmpty;
     ParentType * backward = &kEmpty;

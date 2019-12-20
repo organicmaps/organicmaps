@@ -307,8 +307,8 @@ void TestIndexGraphTopology::Builder::BuildJoints()
 
 void TestIndexGraphTopology::Builder::BuildGraphFromRequests(vector<EdgeRequest> const & requests)
 {
-  unordered_map<uint32_t, RoadAccess::Type> featureTypes;
-  unordered_map<RoadPoint, RoadAccess::Type, RoadPoint::Hash> pointTypes;
+  RoadAccess::FeatureTypeHashMap featureTypes;
+  RoadAccess::PointsTypeHashMap pointTypes;
   for (auto const & request : requests)
   {
     BuildSegmentFromEdge(request);

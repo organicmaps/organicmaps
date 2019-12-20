@@ -8,7 +8,7 @@
 
 #include <boost/circular_buffer.hpp>
 
-template<class Key, class Value>
+template<class Key, class Value, class HashContainer = std::unordered_map<Key, Value>>
 class FifoCache
 {
   template <typename K, typename V> friend class FifoCacheTest;
@@ -47,7 +47,7 @@ public:
 private:
   size_t Size() const { return m_map.size(); }
 
-  std::unordered_map<Key, Value> m_map;
+  HashContainer m_map;
   boost::circular_buffer<Key> m_fifo;
   size_t m_capacity;
   Loader m_loader;

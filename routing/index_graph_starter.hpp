@@ -34,6 +34,8 @@ class FakeEdgesContainer;
 class IndexGraphStarter : public AStarGraph<IndexGraph::Vertex, IndexGraph::Edge, IndexGraph::Weight>
 {
 public:
+  template <typename VertexType>
+  using Parents = IndexGraph::Parents<VertexType>;
 
   friend class FakeEdgesContainer;
 
@@ -114,7 +116,7 @@ public:
                                          GetPoint(to, true /* front */));
   }
 
-  void SetAStarParents(bool forward, std::map<Segment, Segment> & parents) override
+  void SetAStarParents(bool forward, Parents<Segment> & parents) override
   {
     m_graph.SetAStarParents(forward, parents);
   }
@@ -124,8 +126,8 @@ public:
     m_graph.DropAStarParents();
   }
 
-  bool AreWavesConnectible(std::map<Vertex, Vertex> & forwardParents, Vertex const & commonVertex,
-                           std::map<Vertex, Vertex> & backwardParents) override
+  bool AreWavesConnectible(Parents<Segment> & forwardParents, Vertex const & commonVertex,
+                           Parents<Segment> & backwardParents) override
   {
     return m_graph.AreWavesConnectible(forwardParents, commonVertex, backwardParents, nullptr);
   }
@@ -144,18 +146,17 @@ public:
 
   // For compatibility with IndexGraphStarterJoints
   // @{
-  void SetAStarParents(bool forward, std::map<JointSegment, JointSegment> & parents)
+  void SetAStarParents(bool forward, Parents<JointSegment> & parents)
   {
     m_graph.SetAStarParents(forward, parents);
   }
 
-  bool AreWavesConnectible(std::map<JointSegment, JointSegment> & forwardParents,
-                           JointSegment const & commonVertex,
-                           std::map<JointSegment, JointSegment> & backwardParents,
+  bool AreWavesConnectible(Parents<JointSegment> & forwardParents, JointSegment const & commonVertex,
+                           Parents<JointSegment> & backwardParents,
                            std::function<uint32_t(JointSegment const &)> && fakeFeatureConverter)
   {
     return m_graph.AreWavesConnectible(forwardParents, commonVertex, backwardParents,
-                                      std::move(fakeFeatureConverter));
+                                       std::move(fakeFeatureConverter));
   }
 
   bool IsJoint(Segment const & segment, bool fromStart)

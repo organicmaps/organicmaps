@@ -11,6 +11,8 @@
 #include <utility>
 #include <vector>
 
+#include "3party/skarupke/flat_hash_map.hpp"
+
 namespace routing
 {
 // This class provides information about road access classes.
@@ -41,12 +43,15 @@ public:
     Count
   };
 
-  std::unordered_map<uint32_t, RoadAccess::Type> const & GetFeatureTypes() const
+  using FeatureTypeHashMap = ska::flat_hash_map<uint32_t, RoadAccess::Type>;
+  using PointsTypeHashMap = ska::flat_hash_map<RoadPoint, RoadAccess::Type, RoadPoint::Hash>;
+
+  FeatureTypeHashMap const & GetFeatureTypes() const
   {
     return m_featureTypes;
   }
 
-  std::unordered_map<RoadPoint, RoadAccess::Type, RoadPoint::Hash> const & GetPointTypes() const
+  PointsTypeHashMap const & GetPointTypes() const
   {
     return m_pointTypes;
   }
@@ -77,8 +82,8 @@ private:
   // If segmentIdx of a key in this map is 0, it means the
   // entire feature has the corresponding access type.
   // Otherwise, the information is about the segment with number (segmentIdx-1).
-  std::unordered_map<uint32_t, RoadAccess::Type> m_featureTypes;
-  std::unordered_map<RoadPoint, RoadAccess::Type, RoadPoint::Hash> m_pointTypes;
+  FeatureTypeHashMap m_featureTypes;
+  PointsTypeHashMap m_pointTypes;
 };
 
 std::string ToString(RoadAccess::Type type);

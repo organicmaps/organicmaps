@@ -1,5 +1,7 @@
 #include "routing/single_vehicle_world_graph.hpp"
 
+#include "routing/base/astar_algorithm.hpp"
+
 #include <algorithm>
 #include <utility>
 
@@ -211,7 +213,7 @@ RoutingOptions SingleVehicleWorldGraph::GetRoutingOptions(Segment const & segmen
   return geometry.GetRoutingOptions();
 }
 
-void SingleVehicleWorldGraph::SetAStarParents(bool forward, map<Segment, Segment> & parents)
+void SingleVehicleWorldGraph::SetAStarParents(bool forward, Parents<Segment> & parents)
 {
   if (forward)
     m_parentsForSegments.forward = &parents;
@@ -219,7 +221,7 @@ void SingleVehicleWorldGraph::SetAStarParents(bool forward, map<Segment, Segment
     m_parentsForSegments.backward = &parents;
 }
 
-void SingleVehicleWorldGraph::SetAStarParents(bool forward, map<JointSegment, JointSegment> & parents)
+void SingleVehicleWorldGraph::SetAStarParents(bool forward, Parents<JointSegment> & parents)
 {
   if (forward)
     m_parentsForJoints.forward = &parents;
@@ -256,13 +258,13 @@ NumMwmId GetCommonMwmInChain(vector<VertexType> const & chain)
 
 template <typename VertexType>
 bool 
-SingleVehicleWorldGraph::AreWavesConnectibleImpl(map<VertexType, VertexType> const & forwardParents,
+SingleVehicleWorldGraph::AreWavesConnectibleImpl(Parents<VertexType> const & forwardParents,
                                                  VertexType const & commonVertex,
-                                                 map<VertexType, VertexType> const & backwardParents,
+                                                 Parents<VertexType> const & backwardParents,
                                                  function<uint32_t(VertexType const &)> && fakeFeatureConverter)
 {
   vector<VertexType> chain;
-  auto const fillUntilNextFeatureId = [&](VertexType const & cur, map<VertexType, VertexType> const & parents)
+  auto const fillUntilNextFeatureId = [&](VertexType const & cur, auto const & parents)
   {
     auto startFeatureId = cur.GetFeatureId();
     auto it = parents.find(cur);
@@ -279,7 +281,7 @@ SingleVehicleWorldGraph::AreWavesConnectibleImpl(map<VertexType, VertexType> con
     return true;
   };
 
-  auto const fillParents = [&](VertexType const & start, map<VertexType, VertexType> const & parents)
+  auto const fillParents = [&](VertexType const & start, auto const & parents)
   {
     VertexType current = start;
     static uint32_t constexpr kStepCountOneSide = 3;
@@ -312,7 +314,7 @@ SingleVehicleWorldGraph::AreWavesConnectibleImpl(map<VertexType, VertexType> con
   if (mwmId == kFakeNumMwmId)
     return true;
 
-  map<VertexType, VertexType> parents;
+  Parents<VertexType> parents;
   for (size_t i = 1; i < chain.size(); ++i)
     parents[chain[i]] = chain[i - 1];
 
@@ -334,17 +336,17 @@ SingleVehicleWorldGraph::AreWavesConnectibleImpl(map<VertexType, VertexType> con
   return true;
 }
 
-bool SingleVehicleWorldGraph::AreWavesConnectible(ParentSegments & forwardParents,
+bool SingleVehicleWorldGraph::AreWavesConnectible(Parents<Segment> & forwardParents,
                                                   Segment const & commonVertex,
-                                                  ParentSegments & backwardParents,
+                                                  Parents<Segment> & backwardParents,
                                                   function<uint32_t(Segment const &)> && fakeFeatureConverter)
 {
   return AreWavesConnectibleImpl(forwardParents, commonVertex, backwardParents, move(fakeFeatureConverter));
 }
 
-bool SingleVehicleWorldGraph::AreWavesConnectible(ParentJoints & forwardParents,
+bool SingleVehicleWorldGraph::AreWavesConnectible(Parents<JointSegment> & forwardParents,
                                                   JointSegment const & commonVertex,
-                                                  ParentJoints & backwardParents,
+                                                  Parents<JointSegment> & backwardParents,
                                                   function<uint32_t(JointSegment const &)> && fakeFeatureConverter)
 {
   return AreWavesConnectibleImpl(forwardParents, commonVertex, backwardParents, move(fakeFeatureConverter));
