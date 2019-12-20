@@ -4451,7 +4451,7 @@ sk:Pretekárska dráha
 fa:کانال
 
 # Skipped if empty name
-highway-path|highway-footway|highway-steps
+highway-path|highway-footway|highway-steps|highway-cycleway
 en:Path
 ru:Дорожка
 ar:مسار
@@ -4485,7 +4485,7 @@ sw:Jia
 fa:مسیر
 
 # Skipped if empty name
-highway-pedestrian|highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-unclassified|highway-motorway_link|highway-motorway
+highway-pedestrian|highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-unclassified|highway-motorway_link|highway-motorway|highway-cycleway
 en:Street|st|str|ave|road|rd
 ru:Улица|переулок|проезд|тракт|проспект|ул
 ar:شارع|طريق

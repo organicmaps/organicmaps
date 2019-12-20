@@ -249,6 +249,7 @@ IsWayChecker::IsWayChecker()
   Classificator const & c = classif();
   char const * arr[][2] = {{"highway", "living_street"},
                            {"highway", "footway"},
+                           {"highway", "cycleway"},
                            {"highway", "motorway"},
                            {"highway", "motorway_link"},
                            {"highway", "path"},
