@@ -1,4 +1,6 @@
-#import "MWMFrameworkObservers.h"
+#import "MWMFrameworkObserver.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface MWMFrameworkListener : NSObject
 
@@ -14,3 +16,5 @@
 + (instancetype) new __attribute__((unavailable("call +listener instead")));
 
 @end
+
+NS_ASSUME_NONNULL_END

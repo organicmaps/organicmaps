@@ -4,6 +4,7 @@
 #import "MWMBookmarksBannerViewController.h"
 #import "MWMCircularProgress.h"
 #import "MWMFrameworkListener.h"
+#import "MWMFrameworkStorageObserver.h"
 #import "MWMMegafonBannerViewController.h"
 #import "MWMStorage.h"
 #import "MapViewController.h"
@@ -133,7 +134,7 @@ using namespace storage;
                   kStatScenario: kStatDownload
                 }];
           m_autoDownloadCountryId = m_countryId;
-          [MWMStorage downloadNode:m_countryId
+          [MWMStorage downloadNode:@(m_countryId.c_str())
                          onSuccess:^{
                            [self showInQueue];
                          }
@@ -211,11 +212,11 @@ using namespace storage;
             kStatScenario: kStatDownload
           }];
     [self showInQueue];
-    [MWMStorage retryDownloadNode:self->m_countryId];
+    [MWMStorage retryDownloadNode:@(self->m_countryId.c_str())];
   };
   auto const cancelBlock = ^{
     [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom: kStatMap}];
-    [MWMStorage cancelDownloadNode:self->m_countryId];
+    [MWMStorage cancelDownloadNode:@(self->m_countryId.c_str())];
   };
   switch (errorCode) {
     case NodeErrorCode::NoError:
@@ -370,8 +371,8 @@ using namespace storage;
 
 #pragma mark - MWMFrameworkStorageObserver
 
-- (void)processCountryEvent:(CountryId const &)countryId {
-  if (m_countryId != countryId)
+- (void)processCountryEvent:(NSString *)countryId {
+  if (m_countryId != countryId.UTF8String)
     return;
   if (self.superview)
     [self configDialog];
@@ -379,9 +380,11 @@ using namespace storage;
     [self removeFromSuperview];
 }
 
-- (void)processCountry:(CountryId const &)countryId progress:(MapFilesDownloader::Progress const &)progress {
-  if (self.superview && m_countryId == countryId)
-    [self showDownloading:(CGFloat)progress.first / progress.second];
+- (void)processCountry:(NSString *)countryId
+       downloadedBytes:(uint64_t)downloadedBytes
+            totalBytes:(uint64_t)totalBytes {
+  if (self.superview && m_countryId == countryId.UTF8String)
+    [self showDownloading:(CGFloat)downloadedBytes / totalBytes];
 }
 
 #pragma mark - MWMCircularProgressDelegate
@@ -396,12 +399,12 @@ using namespace storage;
             kStatScenario: kStatDownload
           }];
     [self showInQueue];
-    [MWMStorage retryDownloadNode:m_countryId];
+    [MWMStorage retryDownloadNode:@(m_countryId.c_str())];
   } else {
     [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom: kStatMap}];
     if (m_autoDownloadCountryId == m_countryId)
       self.isAutoDownloadCancelled = YES;
-    [MWMStorage cancelDownloadNode:m_countryId];
+    [MWMStorage cancelDownloadNode:@(m_countryId.c_str())];
   }
 }
 
@@ -424,7 +427,7 @@ using namespace storage;
           kStatFrom: kStatMap,
           kStatScenario: kStatDownload
         }];
-  [MWMStorage downloadNode:m_countryId
+  [MWMStorage downloadNode:@(m_countryId.c_str())
                  onSuccess:^{ [self showInQueue]; }
                   onCancel:nil];
 }

@@ -25,3 +25,6 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/DeepLinkSearchData.h>
 #import <CoreApi/DeepLinkSubscriptionData.h>
 #import <CoreApi/Logger.h>
+#import <CoreApi/MWMMapNodeAttributes.h>
+#import <CoreApi/MWMMapSearchResult.h>
+#import <CoreApi/MWMMapUpdateInfo.h>

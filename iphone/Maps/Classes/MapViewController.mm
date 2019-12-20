@@ -9,9 +9,10 @@
 #import "MWMEditorViewController.h"
 #import "MWMFacilitiesController.h"
 #import "MWMFrameworkListener.h"
+#import "MWMFrameworkStorageObserver.h"
+#import "MWMFrameworkObservers.h"
 #import "MWMLocationHelpers.h"
 #import "MWMMapDownloadDialog.h"
-#import "MWMMapDownloaderViewController.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMPlacePageProtocol.h"
 #import "MapsAppDelegate.h"
@@ -630,9 +631,9 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
 
 #pragma mark - MWMFrameworkStorageObserver
 
-- (void)processCountryEvent:(CountryId const &)countryId
+- (void)processCountryEvent:(NSString *)countryId
 {
-  if (countryId.empty())
+  if (countryId.length == 0)
   {
 #ifdef OMIM_PRODUCTION
     auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain code:1
@@ -643,7 +644,7 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
   }
 
   NodeStatuses nodeStatuses{};
-  GetFramework().GetStorage().GetNodeStatuses(countryId, nodeStatuses);
+  GetFramework().GetStorage().GetNodeStatuses(countryId.UTF8String, nodeStatuses);
   if (nodeStatuses.m_status != NodeStatus::Error)
     return;
   switch (nodeStatuses.m_error)
@@ -733,10 +734,9 @@ NSString * const kHotelFacilitiesSegue = @"Map2FacilitiesSegue";
   }
   else if ([segue.identifier isEqualToString:kDownloaderSegue])
   {
-    MWMMapDownloaderViewController * dvc = segue.destinationViewController;
+    MWMDownloadMapsViewController * dvc = segue.destinationViewController;
     NSNumber * mode = sender;
-    [dvc setParentCountryId:@(GetFramework().GetStorage().GetRootId().c_str())
-                       mode:static_cast<MWMMapDownloaderMode>(mode.integerValue)];
+    dvc.mode = (MWMMapDownloaderMode)mode.integerValue;
   }
   else if ([segue.identifier isEqualToString:kMap2FBLoginSegue])
   {

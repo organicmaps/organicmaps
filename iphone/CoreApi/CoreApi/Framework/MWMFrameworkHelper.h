@@ -3,12 +3,16 @@
 
 #import "MWMTypes.h"
 
+@class MWMMapSearchResult;
+
 typedef NS_ENUM(NSUInteger, MWMZoomMode) {
   MWMZoomModeIn = 0,
   MWMZoomModeOut
 };
 
 NS_ASSUME_NONNULL_BEGIN
+
+typedef void (^SearchInDownloaderCompletions)(NSArray<MWMMapSearchResult *> *results, BOOL finished);
 
 NS_SWIFT_NAME(FrameworkHelper)
 @interface MWMFrameworkHelper : NSObject
@@ -35,6 +39,9 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (NSString *)userAccessToken;
 + (NSString *)userAgent;
 + (NSNumber *)dataVersion;
++ (void)searchInDownloader:(NSString *)query
+               inputLocale:(NSString *)locale
+                completion:(SearchInDownloaderCompletions)completion;
 
 @end
 

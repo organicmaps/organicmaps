@@ -1,19 +1,22 @@
 #import "MWMAutoupdateController.h"
 #import "MWMCircularProgress.h"
 #import "MWMFrameworkListener.h"
+#import "MWMFrameworkStorageObserver.h"
 #import "MWMStorage.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
 namespace
 {
-std::string RootId() { return GetFramework().GetStorage().GetRootId(); }
+NSString *RootId() { return @(GetFramework().GetStorage().GetRootId().c_str()); }
 enum class State
 {
   Downloading,
   Waiting
 };
 }  // namespace
+
+using namespace storage;
 
 @interface MWMAutoupdateView : UIView
 
@@ -246,7 +249,7 @@ enum class State
 {
   auto const & s = GetFramework().GetStorage();
   NodeAttrs nodeAttrs;
-  s.GetNodeAttrs(RootId(), nodeAttrs);
+  s.GetNodeAttrs(RootId().UTF8String, nodeAttrs);
   auto view = static_cast<MWMAutoupdateView *>(self.view);
   NSString * nodeName = @(s.GetNodeLocalName(countryId).c_str());
   [view setStatusForNodeName:nodeName rootAttributes:nodeAttrs];
@@ -260,10 +263,10 @@ enum class State
 
 #pragma mark - MWMFrameworkStorageObserver
 
-- (void)processCountryEvent:(CountryId const &)countryId
+- (void)processCountryEvent:(NSString *)countryId
 {
   NodeStatuses nodeStatuses;
-  GetFramework().GetStorage().GetNodeStatuses(countryId, nodeStatuses);
+  GetFramework().GetStorage().GetNodeStatuses(countryId.UTF8String, nodeStatuses);
   if (nodeStatuses.m_status == NodeStatus::Error)
   {
     self.errorCode = nodeStatuses.m_error;
@@ -277,15 +280,15 @@ enum class State
     switch (nodeStatuses.m_status)
     {
     case NodeStatus::Error:
-    case NodeStatus::OnDisk: m_updatingCountries.erase(countryId); break;
-    default: m_updatingCountries.insert(countryId);
+    case NodeStatus::OnDisk: m_updatingCountries.erase(countryId.UTF8String); break;
+    default: m_updatingCountries.insert(countryId.UTF8String);
     }
   }
   
   if (self.progressFinished && m_updatingCountries.empty())
     [self dismiss];
   else
-    [self updateProcessStatus:countryId];
+    [self updateProcessStatus:countryId.UTF8String];
 }
 
 - (void)processError
@@ -312,11 +315,12 @@ enum class State
         withParameters:@{kStatMapDataSize : @(self.sizeInMB), kStatType : errorType}];
 }
 
-- (void)processCountry:(CountryId const &)countryId
-              progress:(MapFilesDownloader::Progress const &)progress
+- (void)processCountry:(NSString *)countryId
+       downloadedBytes:(uint64_t)downloadedBytes
+            totalBytes:(uint64_t)totalBytes
 {
-  if (m_updatingCountries.find(countryId) != m_updatingCountries.end())
-    [self updateProcessStatus:countryId];
+  if (m_updatingCountries.find(countryId.UTF8String) != m_updatingCountries.end())
+    [self updateProcessStatus:countryId.UTF8String];
 }
 
 @end

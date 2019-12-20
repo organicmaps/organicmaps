@@ -1,4 +1,5 @@
 #import "MWMFrameworkListener.h"
+#import "MWMFrameworkObservers.h"
 
 #include <CoreApi/Framework.h>
 
@@ -144,13 +145,13 @@ void loopWrappers(Observers * observers, TLoopBlock block)
   s.Subscribe(
       [observers](CountryId const & countryId) {
         for (TStorageObserver observer in observers)
-          [observer processCountryEvent:countryId];
+          [observer processCountryEvent:@(countryId.c_str())];
       },
       [observers](CountryId const & countryId, MapFilesDownloader::Progress const & progress) {
         for (TStorageObserver observer in observers)
         {
-          if ([observer respondsToSelector:@selector(processCountry:progress:)])
-            [observer processCountry:countryId progress:progress];
+          if ([observer respondsToSelector:@selector(processCountry:downloadedBytes:totalBytes:)])
+            [observer processCountry:@(countryId.c_str()) downloadedBytes:progress.first totalBytes:progress.second];
         }
       });
 }

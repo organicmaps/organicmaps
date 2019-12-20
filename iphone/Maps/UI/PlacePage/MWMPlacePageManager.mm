@@ -2,6 +2,7 @@
 #import "CLLocation+Mercator.h"
 #import "MWMActivityViewController.h"
 #import "MWMFrameworkListener.h"
+#import "MWMFrameworkStorageObserver.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationObserver.h"
 #import "MWMPlacePageData.h"
@@ -17,6 +18,8 @@
 #include "map/utils.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
+
+using namespace storage;
 
 namespace
 {
@@ -104,7 +107,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   [self.layout showWithData:self.data];
   
   // Call for the first time to produce changes
-  [self processCountryEvent:[self.data countryId]];
+  [self processCountryEvent:@([self.data countryId].c_str())];
 }
 
 - (void)update {
@@ -165,13 +168,13 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   switch (nodeAttrs.m_status)
   {
   case NodeStatus::NotDownloaded:
-  case NodeStatus::Partly: [MWMStorage downloadNode:countryId onSuccess:nil onCancel:nil]; break;
+  case NodeStatus::Partly: [MWMStorage downloadNode:@(countryId.c_str()) onSuccess:nil onCancel:nil]; break;
   case NodeStatus::Undefined:
-  case NodeStatus::Error: [MWMStorage retryDownloadNode:countryId]; break;
-  case NodeStatus::OnDiskOutOfDate: [MWMStorage updateNode:countryId onCancel:nil]; break;
+  case NodeStatus::Error: [MWMStorage retryDownloadNode:@(countryId.c_str())]; break;
+  case NodeStatus::OnDiskOutOfDate: [MWMStorage updateNode:@(countryId.c_str()) onCancel:nil]; break;
   case NodeStatus::Downloading:
   case NodeStatus::Applying:
-  case NodeStatus::InQueue: [MWMStorage cancelDownloadNode:countryId]; break;
+  case NodeStatus::InQueue: [MWMStorage cancelDownloadNode:@(countryId.c_str())]; break;
   case NodeStatus::OnDisk: break;
   }
 }
@@ -210,10 +213,10 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 
 #pragma mark - MWMFrameworkStorageObserver
 
-- (void)processCountryEvent:(CountryId const &)countryId
+- (void)processCountryEvent:(NSString *)countryId
 {
   auto data = self.data;
-  if (!data || [data countryId] != countryId)
+  if (!data || [data countryId] != countryId.UTF8String)
     return;
 
   if ([data countryId] == kInvalidCountryId)
@@ -233,16 +236,17 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   [self.layout processDownloaderEventWithStatus:status progress:0];
 }
 
-- (void)processCountry:(CountryId const &)countryId
-              progress:(MapFilesDownloader::Progress const &)progress
+- (void)processCountry:(NSString *)countryId
+       downloadedBytes:(uint64_t)downloadedBytes
+            totalBytes:(uint64_t)totalBytes
 {
   auto data = self.data;
-  if (!data || countryId == kInvalidCountryId || [data countryId] != countryId)
+  if (!data || countryId.UTF8String == kInvalidCountryId || [data countryId] != countryId.UTF8String)
     return;
 
   [self.layout
       processDownloaderEventWithStatus:storage::NodeStatus::Downloading
-                              progress:static_cast<CGFloat>(progress.first) / progress.second];
+                              progress:static_cast<CGFloat>(downloadedBytes) / totalBytes];
 }
 
 #pragma mark - MWMPlacePageLayoutDelegate

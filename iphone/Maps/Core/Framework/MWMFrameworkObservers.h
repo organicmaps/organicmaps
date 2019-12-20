@@ -1,3 +1,5 @@
+#import "MWMFrameworkObserver.h"
+#import "MWMFrameworkStorageObserver.h"
 #import "MWMRouterRecommendation.h"
 
 #include "routing/router.hpp"
@@ -6,10 +8,6 @@
 #include "storage/storage_defines.hpp"
 
 using namespace storage;
-
-@protocol MWMFrameworkObserver<NSObject>
-
-@end
 
 @protocol MWMFrameworkRouteBuilderObserver<MWMFrameworkObserver>
 
@@ -22,17 +20,6 @@ using namespace storage;
 - (void)processRouteRecommendation:(MWMRouterRecommendation)recommendation;
 - (void)speedCameraShowedUpOnRoute:(double)speedLimit;
 - (void)speedCameraLeftVisibleArea;
-
-@end
-
-@protocol MWMFrameworkStorageObserver<MWMFrameworkObserver>
-
-- (void)processCountryEvent:(CountryId const &)countryId;
-
-@optional
-
-- (void)processCountry:(CountryId const &)countryId
-              progress:(MapFilesDownloader::Progress const &)progress;
 
 @end
 

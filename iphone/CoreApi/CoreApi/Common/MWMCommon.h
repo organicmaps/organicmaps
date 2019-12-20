@@ -1,5 +1,7 @@
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 static inline BOOL firstVersionIsLessThanSecond(NSString * first, NSString * second)
 {
   NSArray<NSString *> * f = [first componentsSeparatedByString:@"."];
@@ -51,3 +53,5 @@ static inline CGFloat statusBarHeight()
   CGSize const statusBarSize = UIApplication.sharedApplication.statusBarFrame.size;
   return MIN(statusBarSize.height, statusBarSize.width);
 }
+
+NS_ASSUME_NONNULL_END

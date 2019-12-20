@@ -3,6 +3,7 @@
 #import "MWMDownloaderDialogCell.h"
 #import "MWMDownloaderDialogHeader.h"
 #import "MWMFrameworkListener.h"
+#import "MWMFrameworkStorageObserver.h"
 #import "MWMStorage.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
@@ -118,7 +119,7 @@ CGFloat const kAnimationDuration = .05;
   auto const & s = GetFramework().GetStorage();
   m_countries.erase(
       remove_if(m_countries.begin(), m_countries.end(),
-                [&s](CountryId const & countryId) { return s.HasLatestVersion(countryId); }),
+                [&s](storage::CountryId const & countryId) { return s.HasLatestVersion(countryId); }),
       m_countries.end());
   NSMutableArray<NSString *> * titles = [@[] mutableCopy];
   MwmSize totalSize = 0;
@@ -138,15 +139,15 @@ CGFloat const kAnimationDuration = .05;
 - (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
 {
   for (auto const & countryId : m_countries)
-    [MWMStorage cancelDownloadNode:countryId];
+    [MWMStorage cancelDownloadNode:@(countryId.c_str())];
   [self cancelButtonTap];
 }
 
 #pragma mark - MWMFrameworkStorageObserver
 
-- (void)processCountryEvent:(CountryId const &)countryId
+- (void)processCountryEvent:(NSString *)countryId
 {
-  if (find(m_countries.begin(), m_countries.end(), countryId) == m_countries.end())
+  if (find(m_countries.begin(), m_countries.end(), countryId.UTF8String) == m_countries.end())
     return;
   if (self.rightButton.hidden)
   {
@@ -173,11 +174,12 @@ CGFloat const kAnimationDuration = .05;
   }
 }
 
-- (void)processCountry:(CountryId const &)countryId
-              progress:(MapFilesDownloader::Progress const &)progress
+- (void)processCountry:(NSString *)countryId
+       downloadedBytes:(uint64_t)downloadedBytes
+            totalBytes:(uint64_t)totalBytes
 {
   if (!self.rightButton.hidden ||
-      find(m_countries.begin(), m_countries.end(), countryId) == m_countries.end())
+      find(m_countries.begin(), m_countries.end(), countryId.UTF8String) == m_countries.end())
     return;
   auto const overallProgress = GetFramework().GetStorage().GetOverallProgress(m_countries);
   CGFloat const progressValue = static_cast<CGFloat>(overallProgress.first) / overallProgress.second;

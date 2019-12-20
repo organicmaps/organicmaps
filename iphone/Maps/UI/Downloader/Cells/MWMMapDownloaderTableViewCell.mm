@@ -5,43 +5,49 @@
 
 #include <CoreApi/Framework.h>
 #import <CoreApi/MWMCommon.h>
+#import <CoreApi/MWMFrameworkHelper.h>
+#import <CoreApi/MWMMapNodeAttributes.h>
 
-@interface MWMMapDownloaderTableViewCell ()<MWMCircularProgressProtocol>
+@interface MWMMapDownloaderTableViewCell () <MWMCircularProgressProtocol>
 
-@property(nonatomic) MWMCircularProgress * progress;
-@property(copy, nonatomic) NSString * searchQuery;
+@property(nonatomic) MWMCircularProgress *progress;
+@property(copy, nonatomic) NSString *searchQuery;
 
-@property(weak, nonatomic) IBOutlet UIView * stateWrapper;
-@property(weak, nonatomic) IBOutlet UILabel * title;
-@property(weak, nonatomic) IBOutlet UILabel * downloadSize;
+@property(weak, nonatomic) IBOutlet UIView *stateWrapper;
+@property(weak, nonatomic) IBOutlet UILabel *title;
+@property(weak, nonatomic) IBOutlet UILabel *downloadSize;
+
+@property(strong, nonatomic) MWMMapNodeAttributes *nodeAttrs;
 
 @end
 
 @implementation MWMMapDownloaderTableViewCell
-{
-  storage::CountryId m_countryId;
-}
 
-+ (CGFloat)estimatedHeight { return 52.0; }
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
   [super awakeFromNib];
-  m_countryId = kInvalidCountryId;
+  UILongPressGestureRecognizer *lpGR = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                     action:@selector(onLongPress:)];
+  [self addGestureRecognizer:lpGR];
 }
 
-- (void)prepareForReuse
-{
+- (void)prepareForReuse {
   [super prepareForReuse];
-  m_countryId = kInvalidCountryId;
+  self.nodeAttrs = nil;
+}
+
+- (void)onLongPress:(UILongPressGestureRecognizer *)sender {
+  if (sender.state != UIGestureRecognizerStateBegan) {
+    return;
+  }
+  [self.delegate mapDownloaderCellDidLongPress:self];
 }
 
 #pragma mark - Search matching
 
 - (NSAttributedString *)matchedString:(NSString *)str
                         selectedAttrs:(NSDictionary *)selectedAttrs
-                      unselectedAttrs:(NSDictionary *)unselectedAttrs
-{
-  NSMutableAttributedString * attrTitle = [[NSMutableAttributedString alloc] initWithString:str];
+                      unselectedAttrs:(NSDictionary *)unselectedAttrs {
+  NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:str];
   [attrTitle addAttributes:unselectedAttrs range:{0, str.length}];
   if (!self.searchQuery)
     return [attrTitle copy];
@@ -52,148 +58,94 @@
 
 #pragma mark - Config
 
-- (void)config:(storage::NodeAttrs const &)nodeAttrs
-{
+- (void)config:(MWMMapNodeAttributes *)nodeAttrs searchQuery:(NSString *)searchQuery {
+  self.searchQuery = searchQuery;
+  self.nodeAttrs = nodeAttrs;
   [self configProgress:nodeAttrs];
 
-  NSDictionary * const selectedTitleAttrs = @{NSFontAttributeName : [UIFont bold17]};
-  NSDictionary * const unselectedTitleAttrs = @{NSFontAttributeName : [UIFont regular17]};
-  self.title.attributedText = [self matchedString:@(nodeAttrs.m_nodeLocalName.c_str())
-                                    selectedAttrs:selectedTitleAttrs
-                                  unselectedAttrs:unselectedTitleAttrs];
+  self.title.attributedText = [self matchedString:nodeAttrs.nodeName
+                                    selectedAttrs:@{NSFontAttributeName: [UIFont bold17]}
+                                  unselectedAttrs:@{NSFontAttributeName: [UIFont regular17]}];
 
-  MwmSize size;
-  bool const isModeDownloaded = self.mode == MWMMapDownloaderModeDownloaded;
+  uint64_t size = 0;
+  BOOL isModeDownloaded = self.mode == MWMMapDownloaderModeDownloaded;
 
-  switch (nodeAttrs.m_status)
-  {
-  case storage::NodeStatus::Error:
-  case storage::NodeStatus::Undefined:
-  case storage::NodeStatus::NotDownloaded:
-  case storage::NodeStatus::OnDiskOutOfDate:
-    size = isModeDownloaded ? nodeAttrs.m_localMwmSize : nodeAttrs.m_mwmSize;
-    break;
-  case storage::NodeStatus::Downloading:
-    size = isModeDownloaded ? nodeAttrs.m_downloadingMwmSize
-                            : nodeAttrs.m_mwmSize - nodeAttrs.m_downloadingMwmSize;
-    break;
-  case storage::NodeStatus::Applying:
-  case storage::NodeStatus::InQueue:
-  case storage::NodeStatus::Partly:
-    size = isModeDownloaded ? nodeAttrs.m_localMwmSize : nodeAttrs.m_mwmSize;
-    break;
-  case storage::NodeStatus::OnDisk: size = isModeDownloaded ? nodeAttrs.m_mwmSize : 0; break;
+  switch (nodeAttrs.nodeStatus) {
+    case MWMMapNodeStatusUndefined:
+    case MWMMapNodeStatusError:
+    case MWMMapNodeStatusOnDiskOutOfDate:
+    case MWMMapNodeStatusNotDownloaded:
+    case MWMMapNodeStatusApplying:
+    case MWMMapNodeStatusInQueue:
+    case MWMMapNodeStatusPartly:
+      size = isModeDownloaded ? nodeAttrs.downloadedSize : nodeAttrs.totalSize;
+      break;
+    case MWMMapNodeStatusDownloading:
+      size = isModeDownloaded ? nodeAttrs.downloadingSize : nodeAttrs.totalSize - nodeAttrs.downloadingSize;
+      break;
+    case MWMMapNodeStatusOnDisk:
+      size = isModeDownloaded ? nodeAttrs.totalSize : 0;
+      break;
   }
 
   self.downloadSize.text = formattedSize(size);
   self.downloadSize.hidden = (size == 0);
 }
 
-- (void)configProgress:(storage::NodeAttrs const &)nodeAttrs
-{
-  MWMCircularProgress * progress = self.progress;
-  MWMButtonColoring const coloring =
-      self.mode == MWMMapDownloaderModeDownloaded ? MWMButtonColoringBlack : MWMButtonColoringBlue;
-  switch (nodeAttrs.m_status)
-  {
-  case NodeStatus::NotDownloaded:
-  case NodeStatus::Partly:
-  {
-    MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
-                                                        MWMCircularProgressStateSelected};
-    NSString * imageName = [self isKindOfClass:[MWMMapDownloaderLargeCountryTableViewCell class]]
-                               ? @"ic_folder"
-                               : @"ic_download";
-    [progress setImageName:imageName forStates:affectedStates];
-    [progress setColoring:coloring forStates:affectedStates];
-    progress.state = MWMCircularProgressStateNormal;
-    break;
-  }
-  case NodeStatus::Downloading:
-  {
-    auto const & prg = nodeAttrs.m_downloadingProgress;
-    progress.progress = kMaxProgress * static_cast<CGFloat>(prg.first) / prg.second;
-    break;
-  }
-  case NodeStatus::Applying:
-  case NodeStatus::InQueue: progress.state = MWMCircularProgressStateSpinner; break;
-  case NodeStatus::Undefined:
-  case NodeStatus::Error: progress.state = MWMCircularProgressStateFailed; break;
-  case NodeStatus::OnDisk: progress.state = MWMCircularProgressStateCompleted; break;
-  case NodeStatus::OnDiskOutOfDate:
-  {
-    MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
-                                                        MWMCircularProgressStateSelected};
-    [progress setImageName:@"ic_update" forStates:affectedStates];
-    [progress setColoring:MWMButtonColoringOther forStates:affectedStates];
-    progress.state = MWMCircularProgressStateNormal;
-    break;
-  }
+- (void)configProgress:(MWMMapNodeAttributes *)nodeAttrs {
+  MWMCircularProgress *progress = self.progress;
+  MWMButtonColoring coloring =
+    self.mode == MWMMapDownloaderModeDownloaded ? MWMButtonColoringBlack : MWMButtonColoringBlue;
+  switch (nodeAttrs.nodeStatus) {
+    case MWMMapNodeStatusNotDownloaded:
+    case MWMMapNodeStatusPartly: {
+      MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
+                                                          MWMCircularProgressStateSelected};
+      NSString *imageName =
+        [self isKindOfClass:[MWMMapDownloaderLargeCountryTableViewCell class]] ? @"ic_folder" : @"ic_download";
+      [progress setImageName:imageName forStates:affectedStates];
+      [progress setColoring:coloring forStates:affectedStates];
+      progress.state = MWMCircularProgressStateNormal;
+      break;
+    }
+    case MWMMapNodeStatusDownloading:
+      progress.progress = kMaxProgress * nodeAttrs.downloadedSize / nodeAttrs.totalSize;
+      break;
+    case MWMMapNodeStatusApplying:
+    case MWMMapNodeStatusInQueue:
+      progress.state = MWMCircularProgressStateSpinner;
+      break;
+    case MWMMapNodeStatusUndefined:
+    case MWMMapNodeStatusError:
+      progress.state = MWMCircularProgressStateFailed;
+      break;
+    case MWMMapNodeStatusOnDisk:
+      progress.state = MWMCircularProgressStateCompleted;
+      break;
+    case MWMMapNodeStatusOnDiskOutOfDate: {
+      MWMCircularProgressStateVec affectedStates = {MWMCircularProgressStateNormal, MWMCircularProgressStateSelected};
+      [progress setImageName:@"ic_update" forStates:affectedStates];
+      [progress setColoring:MWMButtonColoringOther forStates:affectedStates];
+      progress.state = MWMCircularProgressStateNormal;
+      break;
+    }
   }
 }
 
-#pragma mark - MWMFrameworkStorageObserver
-
-- (void)processCountryEvent:(CountryId const &)countryId
-{
-  if (countryId != m_countryId)
-    return;
-  storage::NodeAttrs nodeAttrs;
-  GetFramework().GetStorage().GetNodeAttrs(m_countryId, nodeAttrs);
-  [self config:nodeAttrs];
-}
-
-- (void)processCountry:(CountryId const &)countryId
-              progress:(MapFilesDownloader::Progress const &)progress
-{
-  if (countryId != m_countryId)
-    return;
-  self.progress.progress = kMaxProgress * static_cast<CGFloat>(progress.first) / progress.second;
+- (void)setDownloadProgress:(CGFloat)progress {
+  self.progress.progress = kMaxProgress * progress;
 }
 
 #pragma mark - MWMCircularProgressProtocol
 
-- (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
-{
-  storage::NodeAttrs nodeAttrs;
-  GetFramework().GetStorage().GetNodeAttrs(m_countryId, nodeAttrs);
-  id<MWMMapDownloaderProtocol> delegate = self.delegate;
-  switch (nodeAttrs.m_status)
-  {
-  case NodeStatus::NotDownloaded:
-  case NodeStatus::Partly:
-    if ([self isKindOfClass:[MWMMapDownloaderLargeCountryTableViewCell class]])
-      [delegate openNodeSubtree:m_countryId];
-    else
-      [delegate downloadNode:m_countryId];
-    break;
-  case NodeStatus::Undefined:
-  case NodeStatus::Error: [delegate retryDownloadNode:m_countryId]; break;
-  case NodeStatus::OnDiskOutOfDate: [delegate updateNode:m_countryId]; break;
-  case NodeStatus::Downloading:
-  case NodeStatus::Applying:
-  case NodeStatus::InQueue: [delegate cancelNode:m_countryId]; break;
-  case NodeStatus::OnDisk: break;
-  }
+- (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress {
+  [self.delegate mapDownloaderCellDidPressProgress:self];
 }
 
 #pragma mark - Properties
 
-- (void)setCountryId:(NSString *)countryId searchQuery:(NSString *)query
-{
-  if (m_countryId == countryId.UTF8String && [query isEqualToString:self.searchQuery])
-    return;
-  self.searchQuery = query;
-  m_countryId = countryId.UTF8String;
-  storage::NodeAttrs nodeAttrs;
-  GetFramework().GetStorage().GetNodeAttrs(m_countryId, nodeAttrs);
-  [self config:nodeAttrs];
-}
-
-- (MWMCircularProgress *)progress
-{
-  if (!_progress && !self.isHeightCell)
-  {
+- (MWMCircularProgress *)progress {
+  if (!_progress) {
     _progress = [MWMCircularProgress downloaderProgressForParentView:self.stateWrapper];
     _progress.delegate = self;
   }

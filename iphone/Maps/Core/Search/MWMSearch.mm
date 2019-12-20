@@ -1,6 +1,7 @@
 #import "MWMSearch.h"
 #import "MWMBannerHelpers.h"
 #import "MWMFrameworkListener.h"
+#import "MWMFrameworkObservers.h"
 #import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>

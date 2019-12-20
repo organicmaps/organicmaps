@@ -651,7 +651,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 #pragma mark - MWMFrameworkStorageObserver
 
-- (void)processCountryEvent:(storage::CountryId const &)countryId
+- (void)processCountryEvent:(NSString *)countryId
 {
   // Dispatch this method after delay since there are too many events for group mwms download.
   // We do not need to update badge frequently.

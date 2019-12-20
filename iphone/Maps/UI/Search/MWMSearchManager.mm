@@ -1,5 +1,6 @@
 #import "MWMSearchManager.h"
 #import "MWMFrameworkListener.h"
+#import "MWMFrameworkStorageObserver.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNoMapsViewController.h"
 #import "MWMRoutePoint+CPP.h"
@@ -188,11 +189,11 @@ using Observers = NSHashTable<Observer>;
 
 #pragma mark - MWMFrameworkStorageObserver
 
-- (void)processCountryEvent:(storage::CountryId const &)countryId
+- (void)processCountryEvent:(NSString *)countryId
 {
   using namespace storage;
   NodeStatuses nodeStatuses{};
-  GetFramework().GetStorage().GetNodeStatuses(countryId, nodeStatuses);
+  GetFramework().GetStorage().GetNodeStatuses(countryId.UTF8String, nodeStatuses);
   if (nodeStatuses.m_status != NodeStatus::OnDisk)
     return;
   [self updateTopController];

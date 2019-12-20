@@ -2,6 +2,7 @@
 #import "MWMLocationManager.h"
 #import "MWMLocationObserver.h"
 #import "MWMFrameworkListener.h"
+#import "MWMFrameworkObservers.h"
 #import "MWMCoreRouterType.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMCoreUnits.h"

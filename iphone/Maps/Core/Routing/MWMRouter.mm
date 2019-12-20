@@ -3,6 +3,7 @@
 #import "MWMAlertViewController+CPP.h"
 #import "MWMCoreRouterType.h"
 #import "MWMFrameworkListener.h"
+#import "MWMFrameworkObservers.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationObserver.h"
 #import "MWMMapViewControlsManager.h"
@@ -721,7 +722,11 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
             [MWMRouter stopRouting];
         }
         downloadBlock:^(storage::CountriesVec const & downloadCountries, MWMVoidBlock onSuccess) {
-          [MWMStorage downloadNodes:downloadCountries
+          NSMutableArray *array = [NSMutableArray arrayWithCapacity:downloadCountries.size()];
+          for (auto const &cid : downloadCountries) {
+            [array addObject:@(cid.c_str())];
+          }
+          [MWMStorage downloadNodes:array
                           onSuccess:onSuccess
                            onCancel:nil];
         }

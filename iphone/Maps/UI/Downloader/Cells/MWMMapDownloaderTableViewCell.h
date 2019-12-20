@@ -1,21 +1,27 @@
-#import "MWMFrameworkObservers.h"
 #import "MWMMapDownloaderMode.h"
-#import "MWMMapDownloaderProtocol.h"
-#import "MWMMapDownloaderTableViewCellProtocol.h"
 #import "MWMTableViewCell.h"
 
-namespace storage
-{
-struct NodeAttrs;
-}  // storage
+@class MWMMapNodeAttributes;
+@class MWMMapDownloaderTableViewCell;
 
-@interface MWMMapDownloaderTableViewCell : MWMTableViewCell <MWMMapDownloaderTableViewCellProtocol, MWMFrameworkStorageObserver>
+NS_ASSUME_NONNULL_BEGIN
 
-@property(nonatomic) BOOL isHeightCell;
-@property(weak, nonatomic) id<MWMMapDownloaderProtocol> delegate;
-@property(nonatomic) MWMMapDownloaderMode mode;
+@protocol MWMMapDownloaderTableViewCellDelegate <NSObject>
 
-- (void)config:(storage::NodeAttrs const &)nodeAttrs;
-- (void)setCountryId:(NSString *)countryId searchQuery:(NSString *)query;
+- (void)mapDownloaderCellDidPressProgress:(MWMMapDownloaderTableViewCell *)cell;
+- (void)mapDownloaderCellDidLongPress:(MWMMapDownloaderTableViewCell *)cell;
 
 @end
+
+@interface MWMMapDownloaderTableViewCell : MWMTableViewCell
+
+@property(weak, nonatomic) id<MWMMapDownloaderTableViewCellDelegate> delegate;
+@property(nonatomic) MWMMapDownloaderMode mode;
+@property(readonly, nonatomic) MWMMapNodeAttributes *nodeAttrs;
+
+- (void)config:(MWMMapNodeAttributes *)nodeAttrs searchQuery:(nullable NSString *)searchQuery;
+- (void)setDownloadProgress:(CGFloat)progress;
+
+@end
+
+NS_ASSUME_NONNULL_END
