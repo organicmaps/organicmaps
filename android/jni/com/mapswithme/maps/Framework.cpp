@@ -1750,16 +1750,18 @@ Java_com_mapswithme_maps_Framework_nativeZoomToPoint(JNIEnv * env, jclass, jdoub
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeDeleteBookmarkFromMapObject(JNIEnv * env, jclass)
 {
-  place_page::Info & info = g_framework->GetPlacePageInfo();
+  place_page::Info const & info = g_framework->GetPlacePageInfo();
   auto const bookmarkId = info.GetBookmarkId();
   frm()->GetBookmarkManager().GetEditSession().DeleteBookmark(bookmarkId);
 
   auto buildInfo = info.GetBuildInfo();
   buildInfo.m_match = place_page::BuildInfo::Match::FeatureOnly;
   buildInfo.m_userMarkId = kml::kInvalidMarkId;
+  buildInfo.m_source = place_page::BuildInfo::Source::Other;
   frm()->UpdatePlacePageInfoForCurrentSelection(buildInfo);
 
-  return usermark_helper::CreateMapObject(env, info);
+  place_page::Info const & updatedInfo = g_framework->GetPlacePageInfo();
+  return usermark_helper::CreateMapObject(env, updatedInfo);
 }
 
 JNIEXPORT void JNICALL
