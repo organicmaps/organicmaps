@@ -160,6 +160,7 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
                                                        {"place", "islet"},
                                                        {"power", "pole"},
                                                        {"highway", "footway"},
+                                                       {"highway", "cycleway"},
                                                        {"highway", "ford"}, // MAPSME-10683
                                                        {"highway", "living_street"},
                                                        {"highway", "motorway"},
