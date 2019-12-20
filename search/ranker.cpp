@@ -355,6 +355,7 @@ class RankerResultMaker
     info.m_rating = preInfo.m_rating;
     info.m_type = preInfo.m_type;
     info.m_allTokensUsed = preInfo.m_allTokensUsed;
+    info.m_numTokens = m_params.GetNumTokens();
     info.m_exactMatch = preInfo.m_exactMatch;
     info.m_categorialRequest = m_params.IsCategorialRequest();
     info.m_tokenRanges = preInfo.m_tokenRanges;
@@ -430,7 +431,6 @@ class RankerResultMaker
 
       info.m_nameScore = nameScore;
       info.m_errorsMade = errorsMade;
-      info.m_numTokens = m_params.GetNumTokens();
       info.m_matchedFraction =
           totalLength == 0 ? 1.0
                            : static_cast<double>(matchedLength) / static_cast<double>(totalLength);

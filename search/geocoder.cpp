@@ -943,7 +943,7 @@ void Geocoder::MatchCities(BaseContext & ctx)
         continue;
       }
 
-      ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_CITY, tokenRange);
+      ScopedMarkTokens mark(ctx.m_tokens, BaseContext::FromModelType(city.m_type), tokenRange);
       ctx.m_city = &city;
       SCOPE_GUARD(cleanup, [&ctx]() { ctx.m_city = nullptr; });
 
@@ -1514,7 +1514,7 @@ void Geocoder::EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32
   if (ctx.m_city)
   {
     auto const & city = *ctx.m_city;
-    info.m_tokenRanges[Model::TYPE_CITY] = city.m_tokenRange;
+    info.m_tokenRanges[city.m_type] = city.m_tokenRange;
     info.m_cityId = FeatureID(city.m_countryId, city.m_featureId);
   }
 
