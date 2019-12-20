@@ -122,6 +122,7 @@ set(
   routing_session.hpp
   routing_settings.cpp
   routing_settings.hpp
+  segment.cpp
   segment.hpp
   segmented_route.cpp
   segmented_route.hpp

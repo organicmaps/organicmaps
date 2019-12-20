@@ -1,6 +1,5 @@
 #pragma once
 
-#include "routing/fake_feature_ids.hpp"
 #include "routing/road_point.hpp"
 #include "routing/route_weight.hpp"
 
@@ -8,7 +7,6 @@
 
 #include <cstdint>
 #include <ios>
-#include <sstream>
 #include <string>
 
 namespace routing
@@ -38,57 +36,23 @@ public:
   uint32_t GetSegmentIdx() const { return m_segmentIdx; }
   bool IsForward() const { return m_forward; }
 
-  uint32_t GetPointId(bool front) const
-  {
-    return m_forward == front ? m_segmentIdx + 1 : m_segmentIdx;
-  }
+  uint32_t GetPointId(bool front) const;
 
   uint32_t GetMinPointId() const { return m_segmentIdx; }
   uint32_t GetMaxPointId() const { return m_segmentIdx + 1; }
 
   RoadPoint GetRoadPoint(bool front) const { return RoadPoint(m_featureId, GetPointId(front)); }
 
-  bool operator<(Segment const & seg) const
-  {
-    if (m_featureId != seg.m_featureId)
-      return m_featureId < seg.m_featureId;
+  bool operator<(Segment const & seg) const;
+  bool operator==(Segment const & seg) const;
+  bool operator!=(Segment const & seg) const;
 
-    if (m_segmentIdx != seg.m_segmentIdx)
-      return m_segmentIdx < seg.m_segmentIdx;
-
-    if (m_mwmId != seg.m_mwmId)
-      return m_mwmId < seg.m_mwmId;
-
-    return m_forward < seg.m_forward;
-  }
-
-  uint32_t GetStartSegmentId() const { return 0; }
-
-  bool operator==(Segment const & seg) const
-  {
-    return m_featureId == seg.m_featureId && m_segmentIdx == seg.m_segmentIdx &&
-           m_mwmId == seg.m_mwmId && m_forward == seg.m_forward;
-  }
-
-  bool operator!=(Segment const & seg) const { return !(*this == seg); }
-
-  bool IsInverse(Segment const & seg) const
-  {
-    return m_featureId == seg.m_featureId && m_segmentIdx == seg.m_segmentIdx &&
-           m_mwmId == seg.m_mwmId && m_forward != seg.m_forward;
-  }
-
+  bool IsInverse(Segment const & seg) const;
   void Inverse() { m_forward = !m_forward; }
 
-  bool IsRealSegment() const
-  {
-    return m_mwmId != kFakeNumMwmId && !FakeFeatureIds::IsTransitFeature(m_featureId);
-  }
+  bool IsRealSegment() const;
 
-  void Next(bool forward)
-  {
-    forward ? ++m_segmentIdx : --m_segmentIdx;
-  }
+  void Next(bool forward) { forward ? ++m_segmentIdx : --m_segmentIdx; }
 
 private:
   uint32_t m_featureId = 0;
@@ -105,20 +69,12 @@ public:
     : m_target(target), m_weight(weight)
   {
   }
+
   Segment const & GetTarget() const { return m_target; }
   RouteWeight const & GetWeight() const { return m_weight; }
 
-  bool operator==(SegmentEdge const & edge) const
-  {
-    return m_target == edge.m_target && m_weight == edge.m_weight;
-  }
-
-  bool operator<(SegmentEdge const & edge) const
-  {
-    if (m_target != edge.m_target)
-      return m_target < edge.m_target;
-    return m_weight < edge.m_weight;
-  }
+  bool operator==(SegmentEdge const & edge) const;
+  bool operator<(SegmentEdge const & edge) const;
 
 private:
   // Target is vertex going to for outgoing edges, vertex going from for ingoing edges.
@@ -126,18 +82,6 @@ private:
   RouteWeight m_weight;
 };
 
-inline std::string DebugPrint(Segment const & segment)
-{
-  std::ostringstream out;
-  out << std::boolalpha << "Segment(" << segment.GetMwmId() << ", " << segment.GetFeatureId() << ", "
-      << segment.GetSegmentIdx() << ", " << segment.IsForward() << ")";
-  return out.str();
-}
-
-inline std::string DebugPrint(SegmentEdge const & edge)
-{
-  std::ostringstream out;
-  out << "Edge(" << DebugPrint(edge.GetTarget()) << ", " << edge.GetWeight() << ")";
-  return out.str();
-}
+std::string DebugPrint(Segment const & segment);
+std::string DebugPrint(SegmentEdge const & edge);
 }  // namespace routing

@@ -85,6 +85,7 @@
 		440BE38622AFB31100C548FB /* world_graph_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 440BE38422AFB31100C548FB /* world_graph_builder.hpp */; };
 		440BE38822AFB31700C548FB /* uturn_restriction_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 440BE38722AFB31600C548FB /* uturn_restriction_tests.cpp */; };
 		44183280222D45BB00C70BD9 /* routing_options_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4418327F222D45BB00C70BD9 /* routing_options_tests.cpp */; };
+		441CC8C623ACF42C008B9A49 /* segment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 441CC8C523ACF42C008B9A49 /* segment.cpp */; };
 		4433A8E923993BD200E1350B /* leaps_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4433A8E823993BD200E1350B /* leaps_graph.cpp */; };
 		4433A8EB23993BD700E1350B /* leaps_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4433A8EA23993BD700E1350B /* leaps_graph.hpp */; };
 		4443DC3722789793000C8E32 /* leaps_postprocessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4443DC3522789793000C8E32 /* leaps_postprocessor.cpp */; };
@@ -394,6 +395,7 @@
 		440BE38422AFB31100C548FB /* world_graph_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = world_graph_builder.hpp; sourceTree = "<group>"; };
 		440BE38722AFB31600C548FB /* uturn_restriction_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uturn_restriction_tests.cpp; sourceTree = "<group>"; };
 		4418327F222D45BB00C70BD9 /* routing_options_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_options_tests.cpp; sourceTree = "<group>"; };
+		441CC8C523ACF42C008B9A49 /* segment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = segment.cpp; sourceTree = "<group>"; };
 		4433A8E823993BD200E1350B /* leaps_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = leaps_graph.cpp; sourceTree = "<group>"; };
 		4433A8EA23993BD700E1350B /* leaps_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = leaps_graph.hpp; sourceTree = "<group>"; };
 		4443DC3522789793000C8E32 /* leaps_postprocessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = leaps_postprocessor.cpp; sourceTree = "<group>"; };
@@ -848,6 +850,7 @@
 		675343FA1A3F640D00A0A8C3 /* routing */ = {
 			isa = PBXGroup;
 			children = (
+				441CC8C523ACF42C008B9A49 /* segment.cpp */,
 				56DAC2C72398F3C8000BC50D /* junction_visitor.hpp */,
 				4433A8EA23993BD700E1350B /* leaps_graph.hpp */,
 				4433A8E823993BD200E1350B /* leaps_graph.cpp */,
@@ -1345,6 +1348,7 @@
 				567F81942154D6FF0093C25B /* city_roads.cpp in Sources */,
 				6753441B1A3F644F00A0A8C3 /* route.cpp in Sources */,
 				44183280222D45BB00C70BD9 /* routing_options_tests.cpp in Sources */,
+				441CC8C623ACF42C008B9A49 /* segment.cpp in Sources */,
 				44AE4A12214FBB8E006321F5 /* speed_camera.cpp in Sources */,
 				674F9BCA1B0A580E00704FFA /* async_router.cpp in Sources */,
 				0C5F5D221E798B0400307B98 /* cross_mwm_connector.cpp in Sources */,
