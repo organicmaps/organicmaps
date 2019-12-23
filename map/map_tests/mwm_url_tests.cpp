@@ -5,15 +5,20 @@
 
 #include "drape_frontend/visual_params.hpp"
 
+#include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
+#include "coding/internal/file_data.hpp"
 #include "coding/uri.hpp"
 
+#include "base/macros.hpp"
 #include "base/string_format.hpp"
 
 #include <random>
 #include <sstream>
 #include <string>
+
+#include "defines.hpp"
 
 using namespace std;
 using namespace url_scheme;
@@ -198,6 +203,11 @@ UNIT_TEST(SearchApiInvalidUrl)
 
 UNIT_TEST(LeadApiSmoke)
 {
+  SCOPE_GUARD(cleanup, [] {
+    auto const path = GetPlatform().SettingsPathForFile(MARKETING_SETTINGS_FILE_NAME);
+    UNUSED_VALUE(base::DeleteFileX(path));
+  });
+
   string const uriString = "mapsme://lead?utm_source=a&utm_medium=b&utm_campaign=c&utm_content=d&utm_term=e";
   TEST(Uri(uriString).IsValid(), ());
   ApiTest test(uriString);
