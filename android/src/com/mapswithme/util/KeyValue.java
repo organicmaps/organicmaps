@@ -1,6 +1,7 @@
 package com.mapswithme.util;
 
 import androidx.annotation.NonNull;
+import com.google.gson.annotations.SerializedName;
 
 public final class KeyValue
 {
@@ -10,8 +11,10 @@ public final class KeyValue
     mValue = value;
   }
 
+  @SerializedName("key")
   @NonNull
   public final String mKey;
+  @SerializedName("value")
   @NonNull
   public final String mValue;
 }

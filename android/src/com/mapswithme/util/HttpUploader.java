@@ -238,7 +238,7 @@ public final class HttpUploader extends AbstractHttpUploader
     writer.flush();
   }
 
-  private static class Result
+  static class Result
   {
     private final int mHttpCode;
     @NonNull
