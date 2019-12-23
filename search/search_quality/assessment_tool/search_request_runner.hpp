@@ -64,5 +64,7 @@ private:
 
   size_t m_numProcessedRequests = 0;
 
+  std::vector<size_t> m_vitalsInLastBackgroundSearch;
+
   ThreadChecker m_threadChecker;
 };

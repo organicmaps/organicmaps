@@ -60,6 +60,7 @@ void SearchRequestRunner::InitiateBackgroundSearch(size_t from, size_t to)
     }
   }
 
+  m_vitalsInLastBackgroundSearch.clear();
   RunNextBackgroundRequest(m_backgroundTimestamp);
 }
 
@@ -70,6 +71,10 @@ void SearchRequestRunner::RunNextBackgroundRequest(size_t timestamp)
   {
     LOG(LINFO, ("All requests from", m_backgroundFirstIndex + 1, "to", m_backgroundLastIndex + 1,
                 "have been processed"));
+    LOG(LINFO, ("Vital results found:", m_vitalsInLastBackgroundSearch.size(), "out of",
+                m_backgroundLastIndex - m_backgroundFirstIndex + 1));
+    LOG(LINFO,
+        ("Vital results found for these queries (1-based):", m_vitalsInLastBackgroundSearch));
     return;
   }
   size_t index = m_backgroundQueue.front();
@@ -105,6 +110,7 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
       vector<search::Result> const actual(results.begin(), results.end());
       matcher.Match(sample, actual, goldenMatching, actualMatching);
       relevances.resize(actual.size());
+      bool foundVital = false;
       for (size_t i = 0; i < goldenMatching.size(); ++i)
       {
         auto const j = goldenMatching[i];
@@ -112,8 +118,16 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
         {
           CHECK_LESS(j, relevances.size(), ());
           relevances[j] = sample.m_results[i].m_relevance;
+
+          if (relevances[j] == search::Sample::Result::Relevance::Vital)
+          {
+            foundVital = true;
+          }
         }
       }
+
+      if (foundVital)
+        m_vitalsInLastBackgroundSearch.emplace_back(index + 1);
 
       LOG(LINFO, ("Request number", index + 1, "has been processed in the",
                   background ? "background" : "foreground"));
