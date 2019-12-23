@@ -75,9 +75,21 @@ location::GpsInfo GetGps(double x, double y)
   info.m_horizontalAccuracy = 2;
   return info;
 }
+
+std::vector<vector<Segment>> GetSegments()
+{
+  auto const segmentsAllReal = kTestSegments;
+  vector<Segment> segmentsAllFake = {{kFakeNumMwmId, 0, 0, true},
+                                     {kFakeNumMwmId, 0, 1, true},
+                                     {kFakeNumMwmId, 0, 2, true},
+                                     {kFakeNumMwmId, 0, 3, true}};
+  vector<Segment> segmentsFakeHeadAndTail = {
+      {kFakeNumMwmId, 0, 0, true}, {0, 0, 1, true}, {0, 0, 2, true}, {kFakeNumMwmId, 0, 3, true}};
+  return {segmentsAllReal, segmentsFakeHeadAndTail, segmentsAllFake};
+}
 }  // namespace
 
-UNIT_TEST(AddAdsentCountryToRouteTest)
+UNIT_TEST(AddAbsentCountryToRouteTest)
 {
   Route route("TestRouter", 0 /* route id */);
   route.AddAbsentCountry("A");
@@ -89,6 +101,54 @@ UNIT_TEST(AddAdsentCountryToRouteTest)
   TEST(absent.find("A") != absent.end(), ());
   TEST(absent.find("B") != absent.end(), ());
   TEST(absent.find("C") != absent.end(), ());
+}
+
+UNIT_TEST(FinshRouteOnSomeDistanceToTheFinishPointTest)
+{
+  for (auto const vehicleType :
+       {VehicleType::Car, VehicleType::Bicycle, VehicleType::Pedestrian, VehicleType::Transit})
+  {
+    auto const settings = GetRoutingSettings(vehicleType);
+    for (auto const & segments : GetSegments())
+    {
+      Route route("TestRouter", 0 /* route id */);
+      route.SetRoutingSettings(settings);
+
+      vector<geometry::PointWithAltitude> junctions;
+      for (auto const & point : kTestGeometry)
+        junctions.emplace_back(point, geometry::kDefaultAltitudeMeters);
+
+      vector<RouteSegment> segmentInfo;
+      FillSegmentInfo(segments, junctions, kTestTurns, kTestNames, kTestTimes,
+                      nullptr /* trafficStash */, segmentInfo);
+      route.SetRouteSegments(move(segmentInfo));
+
+      route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
+      route.SetSubroteAttrs(vector<Route::SubrouteAttrs>(
+          {Route::SubrouteAttrs(junctions.front(), junctions.back(), 0, kTestSegments.size())}));
+
+      // The route should be finished at some distance to the finish point.
+      double const distToFinish = settings.m_finishToleranceM;
+
+      route.MoveIterator(GetGps(1.0, 2.9));
+      TEST(!route.IsSubroutePassed(0), ());
+      TEST_GREATER(route.GetCurrentDistanceToEndMeters(), distToFinish, ());
+
+      route.MoveIterator(GetGps(1.0, 2.98));
+      TEST(!route.IsSubroutePassed(0), ());
+      TEST_GREATER(route.GetCurrentDistanceToEndMeters(), distToFinish, ());
+
+      // Finish tolerance value for cars is greater then for other vehicle types.
+      // The iterator for other types should be moved closer to the finish point.
+      if (vehicleType == VehicleType::Car)
+        route.MoveIterator(GetGps(1.0, 2.99956));
+      else
+        route.MoveIterator(GetGps(1.0, 2.99983));
+
+      TEST(route.IsSubroutePassed(0), ());
+      TEST_LESS(route.GetCurrentDistanceToEndMeters(), distToFinish, ());
+    }
+  }
 }
 
 UNIT_TEST(DistanceToCurrentTurnTest)

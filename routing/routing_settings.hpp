@@ -17,7 +17,7 @@ struct RoutingSettings
 private:
   RoutingSettings(bool useDirectionForRouteBuilding, bool matchRoute, bool soundDirection,
                   double matchingThresholdM, bool keepPedestrianInfo, bool showTurnAfterNext,
-                  double minSpeedForRouteRebuildMpS);
+                  double minSpeedForRouteRebuildMpS, double finishToleranceM);
 
 public:
   /// \brief We accumulate several positions to calculate current direction.
@@ -50,6 +50,9 @@ public:
   /// info we will penalize less than if it's would be.
   /// Penalty uses for route rebuilding during routing.
   double m_minSpeedForRouteRebuildMpS;
+
+  /// \brief The distance to the route finish point at which the route should be completed.
+  double m_finishToleranceM;
 };
 
 RoutingSettings GetRoutingSettings(VehicleType vehicleType);

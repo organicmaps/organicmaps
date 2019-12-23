@@ -347,7 +347,10 @@ bool Route::IsSubroutePassed(size_t subrouteIdx) const
   CHECK_LESS(segmentIdx, m_routeSegments.size(), ());
   double const lengthMeters = m_routeSegments[segmentIdx].GetDistFromBeginningMeters();
   double const passedDistanceMeters = m_poly.GetDistanceFromStartMeters();
-  return lengthMeters - passedDistanceMeters < kOnEndToleranceM;
+  double const finishToleranceM = segmentIdx == m_routeSegments.size() - 1
+                                      ? m_routingSettings.m_finishToleranceM
+                                      : kOnEndToleranceM;
+  return lengthMeters - passedDistanceMeters < finishToleranceM;
 }
 
 void Route::SetSubrouteUid(size_t segmentIdx, SubrouteUid subrouteUid)
