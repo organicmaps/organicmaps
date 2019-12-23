@@ -197,6 +197,26 @@ UNIT_TEST(BalancedDataPointNumberTest)
   }
 }
 
+UNIT_TEST(BalancedDataPointNumberUint64Test)
+{
+  MwmToDataPoints distribution = {{"Russia_Moscow", 6'000'000'000'000 /* data points */},
+                                  {"San Marino", 3'000'000'000'000 /* data points */},
+                                  {"Slovakia", 1'000'000'000'000 /* data points */}};
+  MwmToDataPoints matchedDataPoints = {{"Russia_Moscow", 500'000'000'000 /* data points */},
+                                       {"San Marino", 300'000'000'000 /* data points */},
+                                       {"Slovakia", 10'000'000'000 /* data points */}};
+  {
+    auto distr = distribution;
+    auto matched = matchedDataPoints;
+    auto const balancedDataPointNumber =
+        BalancedDataPointNumber(move(distr), move(matched), 7'000'000'000 /* ignoreDataPointsNumber */);
+    MwmToDataPoints expectedBalancedDataPointNumber = {{"Russia_Moscow", 60'000'000'000 /* data points */},
+                                                       {"San Marino", 30'000'000'000 /* data points */},
+                                                       {"Slovakia", 10'000'000'000 /* data points */}};
+    TEST_EQUAL(balancedDataPointNumber, expectedBalancedDataPointNumber, ());
+  }
+}
+
 UNIT_TEST(FilterTableTest)
 {
   std::stringstream ss;

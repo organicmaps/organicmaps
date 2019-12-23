@@ -125,6 +125,19 @@ Belarus_Minsk Region,2
   }
 }
 
+UNIT_TEST(MappingToCsvUint64Test)
+{
+  Stats::NameToCountMapping const mapping = {{"Belarus_Minsk Region", 5'000'000'000},
+                                             {"Uzbekistan", 15'000'000'000}};
+  std::stringstream ss;
+  MappingToCsv("mwm", mapping, true /* printPercentage */, ss);
+  std::string const expected = R"(mwm,number,percent
+Uzbekistan,15000000000,75
+Belarus_Minsk Region,5000000000,25
+)";
+  TEST_EQUAL(ss.str(), expected, ());
+}
+
 UNIT_TEST(SerializationToCsvTest)
 {
   Stats::NameToCountMapping const mapping1 = {{"Belarus_Minsk Region", 2},
@@ -151,5 +164,13 @@ UNIT_TEST(SerializationToCsvWithZeroValueTest)
   MappingFromCsv(ss, readMapping);
 
   TEST_EQUAL(readMapping, expected, (ss.str()));
+}
+
+UNIT_TEST(SerializationToCsvUint64Test)
+{
+  Stats::NameToCountMapping const mapping = {{"Belarus_Minsk Region", 20'000'000'000},
+                                             {"Uzbekistan", 5},
+                                             {"Russia_Moscow", 7'000'000'000}};
+  TestSerializationToCsv(mapping);
 }
 }  // namespace
