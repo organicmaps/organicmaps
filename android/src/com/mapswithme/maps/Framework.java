@@ -2,14 +2,14 @@ package com.mapswithme.maps;
 
 import android.graphics.Bitmap;
 import android.location.Location;
+import android.text.TextUtils;
+
 import androidx.annotation.IntDef;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 import androidx.annotation.UiThread;
-import android.text.TextUtils;
-
 import com.mapswithme.maps.ads.Banner;
 import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.api.ParsedRoutingData;
@@ -527,6 +527,15 @@ public class Framework
   public static native void nativeStopLocationFollow();
 
   public static native void nativeSetSearchViewport(double lat, double lon, int zoom);
+
+  /**
+   * In case of the app was dumped by system to the hard drive, Java map object can be
+   * restored from parcelable, but c++ framework is created from scratch and internal
+   * place page object is not initialized. So, do not restore place page in this case.
+   *
+   * @return true if c++ framework has initialized internal place page object, otherwise - false.
+   */
+  public static native boolean nativeHasPlacePageInfo();
 
   public enum LocalAdsEventType
   {

@@ -9,11 +9,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.view.GestureDetectorCompat;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -21,6 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GestureDetectorCompat;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.ads.CompoundNativeAdLoader;
@@ -524,6 +524,12 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
     mPlacePageTracker.onRestore(inState);
     if (mPlacePageBehavior.getState() == AnchorBottomSheetBehavior.STATE_HIDDEN)
       return;
+
+    if (!Framework.nativeHasPlacePageInfo())
+    {
+      close();
+      return;
+    }
 
     MapObject object = inState.getParcelable(EXTRA_MAP_OBJECT);
     if (object == null)

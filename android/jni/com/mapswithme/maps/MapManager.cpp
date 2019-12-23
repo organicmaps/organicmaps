@@ -572,6 +572,9 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeEnableDownloadOn3g(JNIEnv *
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeGetSelectedCountry(JNIEnv * env, jclass clazz)
 {
+  if (!g_framework->NativeFramework()->HasPlacePageInfo())
+    return nullptr;
+
   storage::CountryId const & res = g_framework->GetPlacePageInfo().GetCountryId();
   return (res == storage::kInvalidCountryId ? nullptr : jni::ToJavaString(env, res));
 }

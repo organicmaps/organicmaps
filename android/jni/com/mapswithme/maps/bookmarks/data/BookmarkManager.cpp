@@ -622,6 +622,9 @@ JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastEditedCategory(
     JNIEnv * env, jobject thiz, double lat, double lon)
 {
+  if (!frm()->HasPlacePageInfo())
+    return nullptr;
+
   BookmarkManager & bmMng = frm()->GetBookmarkManager();
 
   place_page::Info const & info = g_framework->GetPlacePageInfo();
@@ -775,6 +778,9 @@ JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeUpdateBookmarkPlacePage(
      JNIEnv * env, jobject thiz, jlong bmkId)
 {
+  if (!frm()->HasPlacePageInfo())
+    return nullptr;
+
   auto & info = g_framework->GetPlacePageInfo();
   auto buildInfo = info.GetBuildInfo();
   buildInfo.m_userMarkId = static_cast<kml::MarkId>(bmkId);

@@ -2214,4 +2214,10 @@ Java_com_mapswithme_maps_Framework_nativeSetSearchViewport(JNIEnv *, jclass, jdo
   auto const rect = df::GetRectForDrawScale(static_cast<int>(zoom), center);
   frm()->GetSearchAPI().OnViewportChanged(rect);
 }
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeHasPlacePageInfo(JNIEnv *, jclass)
+{
+  return static_cast<jboolean>(frm()->HasPlacePageInfo());
+}
 }  // extern "C"

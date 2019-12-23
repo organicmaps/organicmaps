@@ -408,7 +408,7 @@ public:
   void SetPlacePageListeners(PlacePageEvent::OnOpen const & onOpen,
                              PlacePageEvent::OnClose const & onClose,
                              PlacePageEvent::OnUpdate const & onUpdate);
-  bool IsPlacePageOpened() const { return m_currentPlacePageInfo.has_value(); }
+  bool HasPlacePageInfo() const { return m_currentPlacePageInfo.has_value(); }
   place_page::Info const & GetCurrentPlacePageInfo() const;
   place_page::Info & GetCurrentPlacePageInfo();
 

@@ -1,14 +1,13 @@
 package com.mapswithme.maps.bookmarks.data;
 
 import androidx.annotation.IntDef;
+import androidx.annotation.IntRange;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
-import androidx.annotation.IntRange;
 import androidx.annotation.Nullable;
-
+import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.base.DataChangedListener;
 import com.mapswithme.maps.base.Observable;
-import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.UTM;
@@ -125,11 +124,15 @@ public enum BookmarkManager
     setVisibility(catId, !isVisible);
   }
 
+  @Nullable
   public Bookmark addNewBookmark(double lat, double lon)
   {
     final Bookmark bookmark = nativeAddBookmarkToLastEditedCategory(lat, lon);
-    UserActionsLogger.logAddToBookmarkEvent();
-    Statistics.INSTANCE.trackBookmarkCreated();
+    if (bookmark != null)
+    {
+      UserActionsLogger.logAddToBookmarkEvent();
+      Statistics.INSTANCE.trackBookmarkCreated();
+    }
     return bookmark;
   }
 
@@ -466,7 +469,7 @@ public enum BookmarkManager
     nativeUploadToCatalog(rules.ordinal(), category.getId());
   }
 
-  @NonNull
+  @Nullable
   public Bookmark updateBookmarkPlacePage(long bmkId)
   {
     return nativeUpdateBookmarkPlacePage(bmkId);
@@ -930,7 +933,7 @@ public enum BookmarkManager
 
   private native int nativeGetTracksCount(long catId);
 
-  @NonNull
+  @Nullable
   private native Bookmark nativeUpdateBookmarkPlacePage(long bmkId);
 
   @Nullable
@@ -974,7 +977,7 @@ public enum BookmarkManager
 
   private native void nativeShowBookmarkCategoryOnMap(long catId);
 
-  @NonNull
+  @Nullable
   private native Bookmark nativeAddBookmarkToLastEditedCategory(double lat, double lon);
 
   private native long nativeGetLastEditedCategory();

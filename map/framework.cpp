@@ -2321,8 +2321,8 @@ void Framework::SetPlacePageListeners(PlacePageEvent::OnOpen const & onOpen,
 
 place_page::Info const & Framework::GetCurrentPlacePageInfo() const
 {
-  CHECK(IsPlacePageOpened(), ());
-  return *m_currentPlacePageInfo;
+  CHECK(HasPlacePageInfo(), ());
+  return m_currentPlacePageInfo.get();
 }
 
 place_page::Info & Framework::GetCurrentPlacePageInfo()

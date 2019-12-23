@@ -126,6 +126,9 @@ JNIEXPORT jobject JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_na
 {
   PrepareClassRefs(env, clazz);
 
+  if (!g_framework->NativeFramework()->HasPlacePageInfo())
+    return nullptr;
+
   place_page::Info const & ppInfo = g_framework->GetPlacePageInfo();
   if (!ppInfo.IsSponsored())
     return nullptr;
