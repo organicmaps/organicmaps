@@ -445,6 +445,7 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
           auto moveType = pointToMoveType.GetMoveType(*subtrackBegin);
           auto prev = subtrackBegin;
           auto end = subtrackBegin + 1;
+          // Splitting track with points where MoveType is changed.
           while (end != track.end() && pointToMoveType.GetMoveType(*end) == moveType)
           {
             IsCrossroadChecker::MergeCrossroads(checker(prev->GetSegment(), end->GetSegment()), info);
@@ -462,7 +463,7 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
 
           aggregator.Add(move(moveType), info, subtrackBegin, end, geometry);
           subtrackBegin = end;
-          info = move(crossroad);
+          info = {};
         }
 
         auto const summary = aggregator.GetSummary(user, mwmName, countryName, stats);
