@@ -3176,7 +3176,8 @@ vector<osm::LocalizedStreet> TakeSomeStreetsAndLocalize(
     auto const isDuplicate = find_if(begin(results), end(results),
                                      [&street](osm::LocalizedStreet const & s)
                                      {
-                                       return s.m_defaultName == street.m_name;
+                                       return s.m_defaultName == street.m_name ||
+                                              s.m_localizedName == street.m_name;
                                      }) != results.end();
     if (isDuplicate)
       continue;
