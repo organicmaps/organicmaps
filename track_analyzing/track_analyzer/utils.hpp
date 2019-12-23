@@ -19,7 +19,7 @@ class Stats
 public:
   friend std::string DebugPrint(Stats const & s);
 
-  using NameToCountMapping = std::map<std::string, uint32_t>;
+  using NameToCountMapping = std::map<std::string, uint64_t>;
 
   Stats() = default;
   Stats(NameToCountMapping const & mwmToTotalDataPoints,
@@ -34,7 +34,7 @@ public:
 
   /// \brief Adds |dataPointNum| to |m_mwmToTotalDataPoints| and |m_countryToTotalDataPoints|.
   void AddDataPoints(std::string const & mwmName, std::string const & countryName,
-                     uint32_t dataPointNum);
+                     uint64_t dataPointNum);
 
   /// \brief Saves csv file with numbers of DataPoints for each mwm to |csvPath|.
   /// If |csvPath| is empty it does nothing.

@@ -36,7 +36,7 @@ void FillTable(basic_istream<char> & tableCsvStream, MwmToDataPoints & matchedDa
 }
 
 void RemoveKeysSmallValue(MwmToDataPoints & checkedMap, MwmToDataPoints & additionalMap,
-                          uint32_t ignoreDataPointNumber)
+                          uint64_t ignoreDataPointNumber)
 {
   CHECK(AreKeysEqual(additionalMap, checkedMap),
         ("Mwms in |checkedMap| and in |additionalMap| should have the same set of keys."));
@@ -59,7 +59,7 @@ void RemoveKeysSmallValue(MwmToDataPoints & checkedMap, MwmToDataPoints & additi
 MwmToDataPointFraction GetMwmToDataPointFraction(MwmToDataPoints const & numberMapping)
 {
   CHECK(!numberMapping.empty(), ());
-  uint32_t const totalDataPointNumber = ValueSum(numberMapping);
+  uint64_t const totalDataPointNumber = ValueSum(numberMapping);
 
   MwmToDataPointFraction fractionMapping;
   for (auto const & kv : numberMapping)
@@ -81,7 +81,7 @@ MwmToDataPoints CalcsMatchedDataPointsToKeepDistribution(
 
   double maxRatio = 0.0;
   double maxRationDistributionFraction = 0.0;
-  uint32_t maxRationMatchedDataPointNumber = 0;
+  uint64_t maxRationMatchedDataPointNumber = 0;
   // First, let's find such mwm that all |matchedDataPoints| of it may be used and
   // the distribution set in |distributionFractions| will be kept. It's an mwm
   // on which the maximum of ratio
@@ -112,7 +112,7 @@ MwmToDataPoints CalcsMatchedDataPointsToKeepDistribution(
   // fraction of data point in the distribution for this mwm (less or equal 1.0) it's possible to
   // calculate the total matched points number which may be used to keep the distribution.
   auto const totalMatchedPointNumberToKeepDistribution =
-      static_cast<uint32_t>(maxRationMatchedDataPointNumber / maxRationDistributionFraction);
+      static_cast<uint64_t>(maxRationMatchedDataPointNumber / maxRationDistributionFraction);
   CHECK_LESS_OR_EQUAL(totalMatchedPointNumberToKeepDistribution, ValueSum(matchedDataPoints), ());
 
   // Having total maximum matched point number which let to keep the distribution
@@ -125,7 +125,7 @@ MwmToDataPoints CalcsMatchedDataPointsToKeepDistribution(
     auto const & mwm = kv.first;
     auto const fraction = kv.second;
     auto const matchedDataPointsToKeepDistributionForMwm =
-        static_cast<uint32_t>(fraction * totalMatchedPointNumberToKeepDistribution);
+        static_cast<uint64_t>(fraction * totalMatchedPointNumberToKeepDistribution);
     matchedDataPointsToKeepDistribution.emplace(mwm, matchedDataPointsToKeepDistributionForMwm);
 
     if (matchedDataPointsToKeepDistributionForMwm == 0)
@@ -141,7 +141,7 @@ MwmToDataPoints CalcsMatchedDataPointsToKeepDistribution(
 
 MwmToDataPoints BalancedDataPointNumber(MwmToDataPoints && distribution,
                                         MwmToDataPoints && matchedDataPoints,
-                                        uint32_t ignoreDataPointsNumber)
+                                        uint64_t ignoreDataPointsNumber)
 {
   // Removing every mwm from |distribution| and |matchedDataPoints| if it has
   // |ignoreDataPointsNumber| data points or less in |matchedDataPoints|.
@@ -202,19 +202,19 @@ void FilterTable(MwmToDataPoints const & balancedDataPointNumbers, vector<TableR
 }
 
 void BalanceDataPoints(basic_istream<char> & distributionCsvStream,
-                       basic_istream<char> & tableCsvStream, uint32_t ignoreDataPointsNumber,
+                       basic_istream<char> & tableCsvStream, uint64_t ignoreDataPointsNumber,
                        vector<TableRow> & balancedTable)
 {
   LOG(LINFO, ("Balancing data points..."));
   // Filling a map mwm to DataPoints number according to distribution csv file.
   MwmToDataPoints distribution;
   MappingFromCsv(distributionCsvStream, distribution);
-  uint32_t const totalDistributionDataPointsNumber = ValueSum(distribution);
+  uint64_t const totalDistributionDataPointsNumber = ValueSum(distribution);
 
   balancedTable.clear();
   MwmToDataPoints matchedDataPoints;
   FillTable(tableCsvStream, matchedDataPoints, balancedTable);
-  uint32_t const totalMatchedDataPointsNumber = ValueSum(matchedDataPoints);
+  uint64_t const totalMatchedDataPointsNumber = ValueSum(matchedDataPoints);
 
   if (matchedDataPoints.empty())
   {
@@ -236,7 +236,7 @@ void BalanceDataPoints(basic_istream<char> & distributionCsvStream,
   // Calculating how many points should have every mwm to keep the |distribution|.
   MwmToDataPoints const balancedDataPointNumber =
       BalancedDataPointNumber(move(distribution), move(matchedDataPoints), ignoreDataPointsNumber);
-  uint32_t const totalBalancedDataPointsNumber = ValueSum(balancedDataPointNumber);
+  uint64_t const totalBalancedDataPointsNumber = ValueSum(balancedDataPointNumber);
 
   // |balancedTable| is filled now with all the items from |tableCsvStream|.
   // Removing some items form |tableCsvStream| (if it's necessary) to correspond to

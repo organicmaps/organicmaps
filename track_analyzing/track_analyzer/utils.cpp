@@ -98,7 +98,7 @@ void Stats::AddTracksStats(MwmToTracks const & mwmToTracks, NumMwmIds const & nu
   for (auto const & kv : mwmToTracks)
   {
     auto const & userToTrack = kv.second;
-    uint32_t dataPointNum = 0;
+    uint64_t dataPointNum = 0;
     for (auto const & userTrack : userToTrack)
       dataPointNum += userTrack.second.size();
 
@@ -111,7 +111,7 @@ void Stats::AddTracksStats(MwmToTracks const & mwmToTracks, NumMwmIds const & nu
 }
 
 void Stats::AddDataPoints(string const & mwmName, string const & countryName,
-                          uint32_t dataPointNum)
+                          uint64_t dataPointNum)
 {
   m_mwmToTotalDataPoints[mwmName] += dataPointNum;
   m_countryToTotalDataPoints[countryName] += dataPointNum;
@@ -142,7 +142,7 @@ void MappingToCsv(string const & keyName, Stats::NameToCountMapping const & mapp
   struct KeyValue
   {
     string m_key;
-    uint32_t m_value = 0;
+    uint64_t m_value = 0;
   };
 
   if (mapping.empty())
@@ -163,7 +163,7 @@ void MappingToCsv(string const & keyName, Stats::NameToCountMapping const & mapp
   sort(keyValues.begin(), keyValues.end(),
        [](KeyValue const & a, KeyValue const & b) { return a.m_value > b.m_value; });
 
-  uint32_t allValues = 0;
+  uint64_t allValues = 0;
   for (auto const & kv : keyValues)
     allValues += kv.m_value;
 
@@ -189,7 +189,7 @@ void MappingFromCsv(basic_istream<char> & ss, Stats::NameToCountMapping & mappin
     auto const & key = row[0];
     uint64_t value = 0;
     CHECK(strings::to_uint64(row[1], value), ());
-    auto const it = mapping.insert(make_pair(key, base::checked_cast<uint32_t>(value)));
+    auto const it = mapping.insert(make_pair(key, value));
     CHECK(it.second, ());
   }
 }

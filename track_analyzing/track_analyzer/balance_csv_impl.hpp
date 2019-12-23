@@ -28,7 +28,7 @@ void FillTable(std::basic_istream<char> & tableCsvStream, MwmToDataPoints & matc
 /// \brief Removing every mwm from |checkedMap| and |additionalMap| if it has
 /// |ignoreDataPointsNumber| data points or less in |checkedMap|.
 void RemoveKeysSmallValue(MwmToDataPoints & checkedMap, MwmToDataPoints & additionalMap,
-                          uint32_t ignoreDataPointNumber);
+                          uint64_t ignoreDataPointNumber);
 
 /// \returns mapping from mwm to fraction of data points contained in the mwm.
 MwmToDataPointFraction GetMwmToDataPointFraction(MwmToDataPoints const & numberMapping);
@@ -44,7 +44,7 @@ MwmToDataPoints CalcsMatchedDataPointsToKeepDistribution(
 /// \returns mapping with number of matched data points for every mwm to correspond to |distribution|.
 MwmToDataPoints BalancedDataPointNumber(MwmToDataPoints && distribution,
                                         MwmToDataPoints && matchedDataPoints,
-                                        uint32_t ignoreDataPointsNumber);
+                                        uint64_t ignoreDataPointsNumber);
 
 /// \breif Leaves in |table| only number of items according to |balancedDataPointNumbers|.
 /// \note |table| may have a significant size. It may be several tens millions records.
@@ -53,7 +53,7 @@ void FilterTable(MwmToDataPoints const & balancedDataPointNumbers, std::vector<T
 /// \brief Fills |balancedTable| with TableRow(s) according to the distribution set in
 /// |distributionCsvStream|.
 void BalanceDataPoints(std::basic_istream<char> & distributionCsvStream,
-                       std::basic_istream<char> & tableCsvStream, uint32_t ignoreDataPointsNumber,
+                       std::basic_istream<char> & tableCsvStream, uint64_t ignoreDataPointsNumber,
                        std::vector<TableRow> & balancedTable);
 
 template <typename MapCont>
