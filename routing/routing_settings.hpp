@@ -2,11 +2,8 @@
 
 #include "routing/vehicle_mask.hpp"
 
-#include "base/assert.hpp"
-
 namespace routing
 {
-
 /// \brief The RoutingSettings struct is intended to collect all the settings of
 /// following along the route.
 /// For example, route matching properties, rerouting properties and so on.
@@ -16,8 +13,9 @@ struct RoutingSettings
 
 private:
   RoutingSettings(bool useDirectionForRouteBuilding, bool matchRoute, bool soundDirection,
-                  double matchingThresholdM, bool keepPedestrianInfo, bool showTurnAfterNext,
+                  double matchingThresholdM, bool showTurnAfterNext,
                   double minSpeedForRouteRebuildMpS, double finishToleranceM);
+
 
 public:
   /// \brief We accumulate several positions to calculate current direction.
@@ -37,10 +35,6 @@ public:
   /// m_matchingThresholdM to the route than the current position is moved to
   /// the closest point to the route.
   double m_matchingThresholdM;
-
-  /// \brief m_keepPedestrianInfo flag for keeping in memory additional information for pedestrian
-  /// routing.
-  bool m_keepPedestrianInfo;
 
   /// \brief if m_showTurnAfterNext is equal to true end users see a notification
   /// about the turn after the next in some cases.

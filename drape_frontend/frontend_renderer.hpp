@@ -254,7 +254,9 @@ private:
   using TRenderGroupRemovePredicate = std::function<bool(drape_ptr<RenderGroup> const &)>;
   void RemoveRenderGroupsLater(TRenderGroupRemovePredicate const & predicate);
 
-  void FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom);
+  void FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom,
+                   bool isArrowGlued);
+
   bool CheckRouteRecaching(ref_ptr<BaseSubrouteData> subrouteData);
 
   void InvalidateRect(m2::RectD const & gRect);
@@ -344,15 +346,18 @@ private:
 
   struct FollowRouteData
   {
-    FollowRouteData(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom)
+    FollowRouteData(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom,
+                    bool isArrowGlued)
       : m_preferredZoomLevel(preferredZoomLevel)
       , m_preferredZoomLevelIn3d(preferredZoomLevelIn3d)
       , m_enableAutoZoom(enableAutoZoom)
+      , m_isArrowGlued(isArrowGlued)
     {}
 
     int m_preferredZoomLevel;
     int m_preferredZoomLevelIn3d;
     bool m_enableAutoZoom;
+    bool m_isArrowGlued;
   };
 
   std::unique_ptr<FollowRouteData> m_pendingFollowRoute;

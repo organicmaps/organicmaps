@@ -2,19 +2,22 @@
 
 #include "routing/routing_helpers.hpp"
 
+#include "base/assert.hpp"
+
 namespace routing
 {
 // RoutingSettings ---------------------------------------------------------------------------------
 RoutingSettings::RoutingSettings(bool useDirectionForRouteBuilding, bool matchRoute,
                                  bool soundDirection, double matchingThresholdM,
-                                 bool keepPedestrianInfo, bool showTurnAfterNext,
+                                 bool showTurnAfterNext,
                                  double minSpeedForRouteRebuildMpS, double finishToleranceM)
+
   : m_useDirectionForRouteBuilding(useDirectionForRouteBuilding)
   , m_matchRoute(matchRoute)
   , m_soundDirection(soundDirection)
   , m_matchingThresholdM(matchingThresholdM)
-  , m_keepPedestrianInfo(keepPedestrianInfo)
   , m_showTurnAfterNext(showTurnAfterNext)
+  , m_minSpeedForRouteRebuildMpS(minSpeedForRouteRebuildMpS)
   , m_finishToleranceM(finishToleranceM)
 {
 }
@@ -25,10 +28,9 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
   {
   case VehicleType::Pedestrian:
     return {false /* useDirectionForRouteBuilding */,
-            true /* m_matchRoute */,
+            false /* m_matchRoute */,
             false /* m_soundDirection */,
             20.0 /* m_matchingThresholdM */,
-            true /* m_keepPedestrianInfo */,
             false /* m_showTurnAfterNext */,
             -1 /* m_minSpeedForRouteRebuildMpS */,
             20.0 /* m_finishToleranceM */};
@@ -37,7 +39,6 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
             true /* m_matchRoute */,
             false /* m_soundDirection */,
             40.0 /* m_matchingThresholdM */,
-            true /* m_keepPedestrianInfo */,
             false /* m_showTurnAfterNext */,
             -1 /* m_minSpeedForRouteRebuildMpS */,
             20.0 /* m_finishToleranceM */};
@@ -46,7 +47,6 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
             true /* m_matchRoute */,
             true /* m_soundDirection */,
             30.0 /* m_matchingThresholdM */,
-            false /* m_keepPedestrianInfo */,
             false /* m_showTurnAfterNext */,
             -1 /* m_minSpeedForRouteRebuildMpS */,
             20.0 /* m_finishToleranceM */};
@@ -55,7 +55,6 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
             true /* m_matchRoute */,
             true /* m_soundDirection */,
             50.0 /* m_matchingThresholdM */,
-            false /* m_keepPedestrianInfo */,
             true /* m_showTurnAfterNext */,
             routing::KMPH2MPS(3.0) /* m_minSpeedForRouteRebuildMpS */,
             50.0 /* m_finishToleranceM */};

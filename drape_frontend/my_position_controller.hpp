@@ -105,7 +105,7 @@ public:
                       drape_ptr<MyPosition> && shape);
   void ResetRenderShape();
 
-  void ActivateRouting(int zoomLevel, bool enableAutoZoom);
+  void ActivateRouting(int zoomLevel, bool enableAutoZoom, bool isArrowGlued);
   void DeactivateRouting();
 
   void EnablePerspectiveInRouting(bool enablePerspective);
@@ -167,7 +167,8 @@ private:
   location::TMyPositionModeChanged m_modeChangeCallback;
   Hints m_hints;
 
-  bool m_isInRouting;
+  bool m_isInRouting = false;
+  bool m_isArrowGluedInRouting = false;
 
   bool m_needBlockAnimation;
   bool m_wasRotationInScaling;
@@ -187,7 +188,6 @@ private:
   double m_autoScale2d;
   double m_autoScale3d;
 
-  base::Timer m_lastGPSBearing;
   base::Timer m_pendingTimer;
   bool m_pendingStarted = true;
   base::Timer m_routingNotFollowTimer;

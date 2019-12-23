@@ -756,10 +756,12 @@ public:
 class FollowRouteMessage : public Message
 {
 public:
-  FollowRouteMessage(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom)
+  FollowRouteMessage(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom,
+                     bool isArrowGlued)
     : m_preferredZoomLevel(preferredZoomLevel)
     , m_preferredZoomLevelIn3d(preferredZoomLevelIn3d)
     , m_enableAutoZoom(enableAutoZoom)
+    , m_isArrowGlued(isArrowGlued)
   {}
 
   Type GetType() const override { return Type::FollowRoute; }
@@ -767,11 +769,13 @@ public:
   int GetPreferredZoomLevel() const { return m_preferredZoomLevel; }
   int GetPreferredZoomLevelIn3d() const { return m_preferredZoomLevelIn3d; }
   bool EnableAutoZoom() const { return m_enableAutoZoom; }
+  bool IsArrowGlued() const { return m_isArrowGlued; }
 
 private:
   int const m_preferredZoomLevel;
   int const m_preferredZoomLevelIn3d;
   bool const m_enableAutoZoom;
+  bool const m_isArrowGlued;
 };
 
 class SwitchMapStyleMessage : public BaseBlockingMessage

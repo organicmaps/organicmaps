@@ -178,7 +178,8 @@ public:
   
   dp::DrapeID AddSubroute(SubrouteConstPtr subroute);
   void RemoveSubroute(dp::DrapeID subrouteId, bool deactivateFollowing);
-  void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom);
+  void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom,
+                   bool isArrowGlued);
   void DeactivateRouteFollowing();
   void SetSubrouteVisibility(dp::DrapeID subrouteId, bool isVisible);
   dp::DrapeID AddRoutePreviewSegment(m2::PointD const & startPt, m2::PointD const & finishPt);

@@ -3794,8 +3794,10 @@ void Framework::OnRouteFollow(routing::RouterType type)
     m_trafficManager.SetEnabled(false /* enabled */);
     SaveTrafficEnabled(false /* enabled */);
   }
-
-  m_drapeEngine->FollowRoute(scale, scale3d, enableAutoZoom);
+  // TODO. We need to sync two enums VehicleType and RouterType to be able to pass
+  // GetRoutingSettings(type).m_matchRoute to the FollowRoute() instead of |isPedestrianRoute|.
+  // |isArrowGlued| parameter fully corresponds to |m_matchRoute| in RoutingSettings.
+  m_drapeEngine->FollowRoute(scale, scale3d, enableAutoZoom, !isPedestrianRoute /* isArrowGlued */);
 }
 
 // RoutingManager::Delegate

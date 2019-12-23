@@ -511,12 +511,14 @@ void DrapeEngine::StopLocationFollow()
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom)
+void DrapeEngine::FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom,
+                              bool isArrowGlued)
 {
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<FollowRouteMessage>(preferredZoomLevel,
-                                                                     preferredZoomLevel3d, enableAutoZoom),
-                                  MessagePriority::Normal);
+  m_threadCommutator->PostMessage(
+      ThreadsCommutator::RenderThread,
+      make_unique_dp<FollowRouteMessage>(preferredZoomLevel, preferredZoomLevel3d, enableAutoZoom,
+                                         isArrowGlued),
+      MessagePriority::Normal);
 }
 
 void DrapeEngine::SetModelViewListener(ModelViewChangedHandler && fn)

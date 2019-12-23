@@ -559,7 +559,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         FollowRoute(m_pendingFollowRoute->m_preferredZoomLevel,
                     m_pendingFollowRoute->m_preferredZoomLevelIn3d,
-                    m_pendingFollowRoute->m_enableAutoZoom);
+                    m_pendingFollowRoute->m_enableAutoZoom, m_pendingFollowRoute->m_isArrowGlued);
         m_pendingFollowRoute.reset();
       }
       break;
@@ -633,13 +633,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       // receive FollowRoute message before FlushSubroute message, so we need to postpone its processing.
       if (m_routeRenderer->GetSubroutes().empty())
       {
-        m_pendingFollowRoute = std::make_unique<FollowRouteData>(msg->GetPreferredZoomLevel(),
-                                                                 msg->GetPreferredZoomLevelIn3d(),
-                                                                 msg->EnableAutoZoom());
+        m_pendingFollowRoute = std::make_unique<FollowRouteData>(
+            msg->GetPreferredZoomLevel(), msg->GetPreferredZoomLevelIn3d(), msg->EnableAutoZoom(),
+            msg->IsArrowGlued());
         break;
       }
 
-      FollowRoute(msg->GetPreferredZoomLevel(), msg->GetPreferredZoomLevelIn3d(), msg->EnableAutoZoom());
+      FollowRoute(msg->GetPreferredZoomLevel(), msg->GetPreferredZoomLevelIn3d(),
+                  msg->EnableAutoZoom(), msg->IsArrowGlued());
       break;
     }
 
@@ -1113,11 +1114,11 @@ void FrontendRenderer::UpdateContextDependentResources()
 }
 
 void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d,
-                                   bool enableAutoZoom)
+                                   bool enableAutoZoom, bool isArrowGlued)
 {
   m_myPositionController->ActivateRouting(
       !m_enablePerspectiveInNavigation ? preferredZoomLevel : preferredZoomLevelIn3d,
-      enableAutoZoom);
+      enableAutoZoom, isArrowGlued);
 
   if (m_enablePerspectiveInNavigation)
     AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(true /* isAutoPerspective */));
