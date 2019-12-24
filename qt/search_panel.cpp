@@ -81,6 +81,8 @@ void SearchPanel::ClearResults()
   m_pTable->clear();
   m_pTable->setRowCount(0);
   m_results.clear();
+  m_pDrawWidget->GetFramework().GetBookmarkManager().GetEditSession().ClearGroup(
+      UserMark::Type::SEARCH);
 }
 
 void SearchPanel::OnSearchResults(uint64_t timestamp, search::Results const & results)
@@ -92,6 +94,8 @@ void SearchPanel::OnSearchResults(uint64_t timestamp, search::Results const & re
     return;
 
   CHECK_LESS_OR_EQUAL(m_results.size(), results.GetCount(), ());
+
+  auto const sizeBeforeUpdate = m_results.size();
 
   for (size_t i = m_results.size(); i < results.GetCount(); ++i)
   {
@@ -125,6 +129,10 @@ void SearchPanel::OnSearchResults(uint64_t timestamp, search::Results const & re
 
     m_results.push_back(res);
   }
+
+  m_pDrawWidget->GetFramework().FillSearchResultsMarks(m_results.begin() + sizeBeforeUpdate,
+                                                       m_results.end(), false,
+                                                       Framework::SearchMarkPostProcessing());
 
   if (results.IsEndMarker())
   {
