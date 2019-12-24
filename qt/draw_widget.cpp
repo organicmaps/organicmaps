@@ -472,11 +472,6 @@ void DrawWidget::keyReleaseEvent(QKeyEvent * e)
     m_emulatingLocation = false;
 }
 
-bool DrawWidget::Search(search::EverywhereSearchParams const & params)
-{
-  return m_framework.SearchEverywhere(params);
-}
-
 std::string DrawWidget::GetDistance(search::Result const & res) const
 {
   std::string dist;
@@ -488,11 +483,6 @@ std::string DrawWidget::GetDistance(search::Result const & res) const
                                            dummy);
   }
   return dist;
-}
-
-void DrawWidget::ShowSearchResult(search::Result const & res)
-{
-  m_framework.ShowSearchResult(res);
 }
 
 void DrawWidget::CreateFeature()

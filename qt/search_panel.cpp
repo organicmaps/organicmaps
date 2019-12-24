@@ -19,13 +19,16 @@
 
 #include <QtCore/QTimer>
 #include <QtGui/QBitmap>
-#include <QtWidgets/QHeaderView>
-#include <QtWidgets/QTableWidget>
-#include <QtWidgets/QLineEdit>
-#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QPushButton>
+#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
+#include <QtWidgets/QTableWidget>
+#include <QtWidgets/QVBoxLayout>
 
 namespace qt
 {
@@ -33,6 +36,7 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   : QWidget(parent)
   , m_pDrawWidget(drawWidget)
   , m_busyIcon(":/ui/busy.png")
+  , m_mode(search::Mode::Everywhere)
   , m_timestamp(0)
 {
   m_pEditor = new QLineEdit(this);
@@ -57,11 +61,26 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   m_pAnimationTimer = new QTimer(this);
   connect(m_pAnimationTimer, SIGNAL(timeout()), this, SLOT(OnAnimationTimer()));
 
-  QHBoxLayout * horizontalLayout = new QHBoxLayout();
-  horizontalLayout->addWidget(m_pEditor);
-  horizontalLayout->addWidget(m_pClearButton);
+  m_pSearchModeButtons = new QButtonGroup(this);
+  QGroupBox * groupBox = new QGroupBox();
+  QHBoxLayout * modeLayout = new QHBoxLayout();
+  QRadioButton * buttonE = new QRadioButton("Everywhere");
+  modeLayout->addWidget(buttonE);
+  m_pSearchModeButtons->addButton(buttonE, static_cast<int>(search::Mode::Everywhere));
+  QRadioButton * buttonV = new QRadioButton("Viewport");
+  modeLayout->addWidget(buttonV);
+  m_pSearchModeButtons->addButton(buttonV, static_cast<int>(search::Mode::Viewport));
+  groupBox->setLayout(modeLayout);
+  groupBox->setFlat(true);
+  m_pSearchModeButtons->button(static_cast<int>(search::Mode::Everywhere))->setChecked(true);
+  connect(m_pSearchModeButtons, SIGNAL(buttonClicked(int)), this, SLOT(OnSearchModeChanged(int)));
+
+  QHBoxLayout * requestLayout = new QHBoxLayout();
+  requestLayout->addWidget(m_pEditor);
+  requestLayout->addWidget(m_pClearButton);
   QVBoxLayout * verticalLayout = new QVBoxLayout();
-  verticalLayout->addLayout(horizontalLayout);
+  verticalLayout->addWidget(groupBox);
+  verticalLayout->addLayout(requestLayout);
   verticalLayout->addWidget(m_pTable);
   setLayout(verticalLayout);
 }
@@ -85,7 +104,22 @@ void SearchPanel::ClearResults()
       UserMark::Type::SEARCH);
 }
 
-void SearchPanel::OnSearchResults(uint64_t timestamp, search::Results const & results)
+void SearchPanel::StartBusyIndicator()
+{
+  if (!m_pAnimationTimer->isActive())
+    m_pAnimationTimer->start(200 /* milliseconds */);
+
+  m_pClearButton->setFlat(true);
+  m_pClearButton->setVisible(true);
+}
+
+void SearchPanel::StopBusyIndicator()
+{
+  m_pAnimationTimer->stop();
+  m_pClearButton->setIcon(QIcon(":/ui/x.png"));
+}
+
+void SearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results const & results)
 {
   CHECK(m_threadChecker.CalledOnOriginalThread(), ());
   CHECK_LESS_OR_EQUAL(timestamp, m_timestamp, ());
@@ -131,15 +165,11 @@ void SearchPanel::OnSearchResults(uint64_t timestamp, search::Results const & re
   }
 
   m_pDrawWidget->GetFramework().FillSearchResultsMarks(m_results.begin() + sizeBeforeUpdate,
-                                                       m_results.end(), false,
+                                                       m_results.end(), false /* clear */,
                                                        Framework::SearchMarkPostProcessing());
 
   if (results.IsEndMarker())
-  {
-    // stop search busy indicator
-    m_pAnimationTimer->stop();
-    m_pClearButton->setIcon(QIcon(":/ui/x.png"));
-  }
+    StopBusyIndicator();
 }
 
 // TODO: This code only for demonstration purposes and will be removed soon
@@ -209,34 +239,82 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
 
   ClearResults();
 
-  // search even with empty query
-  if (!normalized.isEmpty())
+  if (normalized.isEmpty())
   {
-    m_params.m_query = normalized.toUtf8().constData();
-    auto const timestamp = ++m_timestamp;
-    m_params.m_onResults = [this, timestamp](search::Results const & results,
-                                             std::vector<search::ProductInfo> const & productInfo) {
-      GetPlatform().RunTask(Platform::Thread::Gui,
-                            std::bind(&SearchPanel::OnSearchResults, this, timestamp, results));
-    };
-    m_params.m_timeout = search::SearchParams::kDefaultDesktopTimeout;
-
-    if (m_pDrawWidget->Search(m_params))
-    {
-      // show busy indicator
-      if (!m_pAnimationTimer->isActive())
-        m_pAnimationTimer->start(200);
-
-      m_pClearButton->setFlat(true);
-      m_pClearButton->setVisible(true);
-    }
-  }
-  else
-  {
-    m_pDrawWidget->GetFramework().CancelSearch(search::Mode::Everywhere);
+    m_pDrawWidget->GetFramework().GetSearchAPI().CancelAllSearches();
 
     // hide X button
     m_pClearButton->setVisible(false);
+    return;
+  }
+
+  bool started = false;
+  auto const timestamp = ++m_timestamp;
+
+  switch (m_mode)
+  {
+  case search::Mode::Everywhere:
+  {
+    m_everywhereParams.m_query = normalized.toUtf8().constData();
+    m_everywhereParams.m_onResults = [this, timestamp](
+                                         search::Results const & results,
+                                         std::vector<search::ProductInfo> const & productInfo) {
+      GetPlatform().RunTask(
+          Platform::Thread::Gui,
+          std::bind(&SearchPanel::OnEverywhereSearchResults, this, timestamp, results));
+    };
+    m_everywhereParams.m_timeout = search::SearchParams::kDefaultDesktopTimeout;
+
+    started = m_pDrawWidget->GetFramework().GetSearchAPI().SearchEverywhere(m_everywhereParams);
+
+    m_viewportParams = {};
+  }
+  break;
+
+  case search::Mode::Viewport:
+  {
+    m_viewportParams.m_query = normalized.toUtf8().constData();
+    m_viewportParams.m_onCompleted = [this](search::Results const & results) {
+      GetPlatform().RunTask(Platform::Thread::Gui, [this, results] {
+        m_pDrawWidget->GetFramework().FillSearchResultsMarks(true /* clear */, results);
+        StopBusyIndicator();
+      });
+    };
+    m_viewportParams.m_timeout = search::SearchParams::kDefaultDesktopTimeout;
+
+    started = m_pDrawWidget->GetFramework().GetSearchAPI().SearchInViewport(m_viewportParams);
+
+    m_everywhereParams = {};
+  }
+  break;
+
+  default: started = false; break;
+  }
+
+  if (started)
+    StartBusyIndicator();
+}
+
+void SearchPanel::OnSearchModeChanged(int mode)
+{
+  auto const newMode = static_cast<search::Mode>(mode);
+  switch (newMode)
+  {
+  case search::Mode::Everywhere:
+  case search::Mode::Viewport:
+    break;
+  default:
+    UNREACHABLE();
+  }
+
+  if (m_mode != newMode)
+  {
+    m_mode = newMode;
+
+    // Run this query in the new mode.
+    auto const text = m_pEditor->text();
+    m_pEditor->setText(QString());
+    m_pEditor->setText(text);
   }
 }
 
@@ -253,7 +331,7 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
   else
   {
     // center viewport on clicked item
-    m_pDrawWidget->ShowSearchResult(m_results[row]);
+    m_pDrawWidget->GetFramework().ShowSearchResult(m_results[row]);
   }
 }
 

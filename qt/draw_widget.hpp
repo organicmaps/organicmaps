@@ -55,9 +55,7 @@ public:
              QWidget * parent);
   ~DrawWidget() override;
 
-  bool Search(search::EverywhereSearchParams const & params);
   std::string GetDistance(search::Result const & res) const;
-  void ShowSearchResult(search::Result const & res);
 
   void CreateFeature();
 

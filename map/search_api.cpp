@@ -222,6 +222,8 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
   p.m_needAddress = false;
   p.m_needHighlighting = false;
   p.m_hotelsFilter = params.m_hotelsFilter;
+  if (params.m_timeout)
+    p.m_timeout = *params.m_timeout;
 
   p.m_onStarted = [this, params] {
     if (params.m_onStarted)
