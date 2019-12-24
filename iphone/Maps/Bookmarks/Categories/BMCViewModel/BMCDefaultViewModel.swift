@@ -39,7 +39,7 @@ final class BMCDefaultViewModel: NSObject {
   }
 
   private func setPermissions() {
-    isAuthenticated = MWMAuthorizationViewModel.isAuthenticated()
+    isAuthenticated = User.isAuthenticated()
     if !isAuthenticated {
       Statistics.logEvent(kStatBookmarksSyncProposalShown, withParameters: [kStatHasAuthorization: 0])
       permissions = [.signup]

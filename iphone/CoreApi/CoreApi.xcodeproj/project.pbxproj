@@ -51,6 +51,8 @@
 		47D9019923AC236100D9364C /* MWMMapUpdateInfo+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47D9019723AC236100D9364C /* MWMMapUpdateInfo+Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47E8163623B1889C008FD836 /* MWMStorage.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47E8163423B1889B008FD836 /* MWMStorage.mm */; };
 		47E8163723B188D3008FD836 /* MWMStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 47E8163523B1889B008FD836 /* MWMStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47E8164023B2B98F008FD836 /* MWMUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 47E8163E23B2B98F008FD836 /* MWMUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47E8164123B2B98F008FD836 /* MWMUser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47E8163F23B2B98F008FD836 /* MWMUser.mm */; };
 		47EEAFF42350CEDB005CF316 /* AppInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47EEAFF22350CEDA005CF316 /* AppInfo.mm */; };
 		47EEAFF62350CF48005CF316 /* AppInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 47EEAFF32350CEDB005CF316 /* AppInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47EEAFF72350D060005CF316 /* MWMCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 47EEAFF52350CEF6005CF316 /* MWMCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -123,6 +125,8 @@
 		47D9019723AC236100D9364C /* MWMMapUpdateInfo+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMMapUpdateInfo+Core.h"; sourceTree = "<group>"; };
 		47E8163423B1889B008FD836 /* MWMStorage.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMStorage.mm; sourceTree = "<group>"; };
 		47E8163523B1889B008FD836 /* MWMStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMStorage.h; sourceTree = "<group>"; };
+		47E8163E23B2B98F008FD836 /* MWMUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMUser.h; sourceTree = "<group>"; };
+		47E8163F23B2B98F008FD836 /* MWMUser.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMUser.mm; sourceTree = "<group>"; };
 		47EEAFF22350CEDA005CF316 /* AppInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = AppInfo.mm; sourceTree = "<group>"; };
 		47EEAFF32350CEDB005CF316 /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfo.h; sourceTree = "<group>"; };
 		47EEAFF52350CEF6005CF316 /* MWMCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCommon.h; sourceTree = "<group>"; };
@@ -185,6 +189,7 @@
 		470015F12342509C00EBF03D /* CoreApi */ = {
 			isa = PBXGroup;
 			children = (
+				47E8163D23B2B97A008FD836 /* User */,
 				47F4F1F623A333280022FD56 /* Storage */,
 				993F54ED237C5D1000545511 /* Promo */,
 				9957FAE5237AE59C00855F48 /* Logger */,
@@ -319,6 +324,15 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		47E8163D23B2B97A008FD836 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				47E8163E23B2B98F008FD836 /* MWMUser.h */,
+				47E8163F23B2B98F008FD836 /* MWMUser.mm */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		47F4F1F623A333280022FD56 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,6 +422,7 @@
 				993F54F5237C5D1100545511 /* PromoAfterBookingCampaignAdapter.h in Headers */,
 				479834F223426CCC00724D1E /* MWMTag+Convenience.h in Headers */,
 				479F704F234FB60400011E2E /* MWMCatalogObserver.h in Headers */,
+				47E8164023B2B98F008FD836 /* MWMUser.h in Headers */,
 				47EEAFF72350D060005CF316 /* MWMCommon.h in Headers */,
 				47D9019523AC22E500D9364C /* MWMMapUpdateInfo.h in Headers */,
 				9957FADB237ACB1100855F48 /* DeepLinkSearchData.h in Headers */,
@@ -524,6 +539,7 @@
 				479F7047234F774100011E2E /* MWMFrameworkHelper.mm in Sources */,
 				470016072342541100EBF03D /* MWMTag.m in Sources */,
 				47D9019623AC22E500D9364C /* MWMMapUpdateInfo.mm in Sources */,
+				47E8164123B2B98F008FD836 /* MWMUser.mm in Sources */,
 				471AB98E23AB925D00F56D49 /* MWMMapSearchResult.mm in Sources */,
 				479834EA2342697400724D1E /* MWMTag+Convenience.mm in Sources */,
 				47C637D62354AEBE00E12DE0 /* MWMTrafficManager.mm in Sources */,

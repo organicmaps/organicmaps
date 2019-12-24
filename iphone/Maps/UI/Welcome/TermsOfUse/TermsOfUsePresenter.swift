@@ -7,8 +7,8 @@ class TermsOfUsePresenter {
   private weak var view: ITermsOfUseView?
   private let router: WelcomeRouterProtocol
 
-  let privacyPolicyLink = MWMAuthorizationViewModel.privacyPolicyLink()
-  let termsOfUseLink = MWMAuthorizationViewModel.termsOfUseLink()
+  let privacyPolicyLink = User.privacyPolicyLink()
+  let termsOfUseLink = User.termsOfUseLink()
 
   init(view: ITermsOfUseView, router: WelcomeRouterProtocol) {
     self.view = view

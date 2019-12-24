@@ -50,7 +50,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
   @IBOutlet private weak var licenseAgreementTextView: UITextView! {
     didSet {
       let htmlString = String(coreFormat: L("ugc_routes_user_agreement"),
-                              arguments: [MWMAuthorizationViewModel.termsOfUseLink()])
+                              arguments: [User.termsOfUseLink()])
       let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.font: UIFont.regular14(),
                                                        NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText()]
       licenseAgreementTextView.attributedText = NSAttributedString.string(withHtml: htmlString,

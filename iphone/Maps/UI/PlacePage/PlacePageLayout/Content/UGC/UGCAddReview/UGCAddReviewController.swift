@@ -84,8 +84,8 @@ final class UGCAddReviewController: MWMTableViewController {
       let onError = { Toast.toast(withText: L("ugc_thanks_message_not_auth")).show() }
       let onComplete = { () -> Void in nc.popToRootViewController(animated: true) }
       
-      if MWMAuthorizationViewModel.isAuthenticated() || !FrameworkHelper.isNetworkConnected() {
-        if MWMAuthorizationViewModel.isAuthenticated() {
+      if User.isAuthenticated() || !FrameworkHelper.isNetworkConnected() {
+        if User.isAuthenticated() {
           onSuccess()
         } else {
           onError()

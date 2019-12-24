@@ -19,6 +19,7 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/MWMTagGroup.h>
 #import <CoreApi/MWMTrafficManager.h>
 #import <CoreApi/MWMTypes.h>
+#import <CoreApi/MWMUser.h>
 #import <CoreApi/MWMUTM.h>
 #import <CoreApi/PromoDiscoveryCampaignAdapter.h>
 #import <CoreApi/PromoAfterBookingCampaignAdapter.h>

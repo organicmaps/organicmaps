@@ -2,7 +2,7 @@ class PhoneNumberAuthorizationViewController: WebViewController {
   var failure: MWMVoidBlock?
 
   init(success: @escaping MWMStringBlock, failure: @escaping MWMVoidBlock) {
-    super.init(authURL: MWMAuthorizationViewModel.phoneAuthURL()!, onSuccessAuth: success, onFailure: failure)!
+    super.init(authURL: User.phoneAuthURL()!, onSuccessAuth: success, onFailure: failure)!
     self.failure = failure
   }
   

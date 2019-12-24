@@ -123,13 +123,13 @@ class BaseSubscriptionViewController: MWMViewController {
   }
 
   @IBAction func onTerms(_ sender: UIButton) {
-    guard let url = URL(string: MWMAuthorizationViewModel.termsOfUseLink()) else { return }
+    guard let url = URL(string: User.termsOfUseLink()) else { return }
     let safari = SFSafariViewController(url: url)
     self.present(safari, animated: true, completion: nil)
   }
 
   @IBAction func onPrivacy(_ sender: UIButton) {
-    guard let url = URL(string: MWMAuthorizationViewModel.privacyPolicyLink()) else { return }
+    guard let url = URL(string: User.privacyPolicyLink()) else { return }
     let safari = SFSafariViewController(url: url)
     self.present(safari, animated: true, completion: nil)
   }

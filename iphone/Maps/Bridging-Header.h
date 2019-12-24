@@ -29,7 +29,6 @@
 #import "MapViewController.h"
 #import "MWMActivityViewController.h"
 #import "MWMAlertViewController.h"
-#import "MWMAuthorizationViewModel.h"
 #import "MWMAvailableAreaAffectDirection.h"
 #import "MWMBanner.h"
 #import "MWMBottomMenuViewController.h"

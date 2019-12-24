@@ -1,33 +1,36 @@
+#import <Foundation/Foundation.h>
+
+#import "MWMTypes.h"
+
 typedef NS_ENUM(NSInteger, MWMSocialTokenType) {
   MWMSocialTokenTypeGoogle,
   MWMSocialTokenTypeFacebook,
   MWMSocialTokenTypePhone
-};
+} NS_SWIFT_NAME(SocialTokenType);
 
 typedef NS_ENUM(NSInteger, MWMAuthorizationSource) {
   MWMAuthorizationSourceUGC,
   MWMAuthorizationSourceBookmarks
-};
+} NS_SWIFT_NAME(AuthorizationSource);
 
-typedef NS_ENUM(NSInteger, MWMAuthorizationError) {
-  MWMAuthorizationErrorCancelled,
-  MWMAuthorizationErrorPassportError
-};
+NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^MWMAuthorizationCompleteBlock)(BOOL);
+NS_SWIFT_NAME(User)
+@interface MWMUser : NSObject
 
-@interface MWMAuthorizationViewModel : NSObject
-
-+ (NSURL * _Nullable)phoneAuthURL;
++ (nullable NSURL *)phoneAuthURL;
 + (BOOL)isAuthenticated;
-+ (void)authenticateWithToken:(NSString * _Nonnull)token
++ (NSString *)termsOfUseLink;
++ (NSString *)privacyPolicyLink;
+
++ (void)authenticateWithToken:(NSString *)token
                          type:(MWMSocialTokenType)type
               privacyAccepted:(BOOL)privacyAccepted
                 termsAccepted:(BOOL)termsAccepted
                 promoAccepted:(BOOL)promoAccepted
                        source:(MWMAuthorizationSource)source
-                   onComplete:(MWMAuthorizationCompleteBlock _Nonnull)onComplete;
-+ (NSString * _Nonnull)termsOfUseLink;
-+ (NSString * _Nonnull)privacyPolicyLink;
+                   onComplete:(MWMBoolBlock)onComplete;
 
 @end
+
+NS_ASSUME_NONNULL_END

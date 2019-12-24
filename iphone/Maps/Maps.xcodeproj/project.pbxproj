@@ -70,7 +70,6 @@
 		3406FA191C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */; };
 		340708651F2905A500029ECC /* NavigationInfoArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340708631F2905A500029ECC /* NavigationInfoArea.swift */; };
 		340708781F2B5D6C00029ECC /* DimBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340708761F2B5D6C00029ECC /* DimBackground.swift */; };
-		3408963F1F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3408963D1F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm */; };
 		3409D50B1FC6D8D2000F9B3E /* FilterCheckCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3409D5091FC6D8D2000F9B3E /* FilterCheckCell.swift */; };
 		340B33C61F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340B33C41F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm */; };
 		340E1EEC1E2F614400CE49BF /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 340E1EE41E2F614400CE49BF /* Authorization.storyboard */; };
@@ -972,8 +971,6 @@
 		340837121B7243CE00B5C185 /* MWMActivityViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMActivityViewController.mm; sourceTree = "<group>"; };
 		340837141B72451A00B5C185 /* MWMShareActivityItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMShareActivityItem.h; sourceTree = "<group>"; };
 		340837151B72451A00B5C185 /* MWMShareActivityItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMShareActivityItem.mm; sourceTree = "<group>"; };
-		3408963C1F83CEDE00BC7117 /* MWMAuthorizationViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationViewModel.h; sourceTree = "<group>"; };
-		3408963D1F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationViewModel.mm; sourceTree = "<group>"; };
 		3409D5091FC6D8D2000F9B3E /* FilterCheckCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCheckCell.swift; sourceTree = "<group>"; };
 		340B33C41F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMRouter+RouteManager.mm"; sourceTree = "<group>"; };
 		340DC82B1C4E72C700EAA2CC /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-xcode-build/Debug/liboauthcpp.a"; sourceTree = "<group>"; };
@@ -3277,8 +3274,6 @@
 				34BBD6561F826F810070CA50 /* AuthorizationTransitioningManager.swift */,
 				34BBD64A1F826DB10070CA50 /* AuthorizationViewController.swift */,
 				34BBD6661F8273350070CA50 /* AuthorizationViewController.xib */,
-				3408963C1F83CEDE00BC7117 /* MWMAuthorizationViewModel.h */,
-				3408963D1F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm */,
 				47FA14D0230D52FC003DA979 /* PhoneNumberAuthorizationViewController.swift */,
 			);
 			path = Authorization;
@@ -5312,7 +5307,6 @@
 				47F86D0120C93D8D00FEE291 /* TabViewController.swift in Sources */,
 				99536113235DB86C008B218F /* BookmarksSubscriptionDiscountLabel.swift in Sources */,
 				6741A9A51BF340DE002C974C /* MWMShareActivityItem.mm in Sources */,
-				3408963F1F83CEDE00BC7117 /* MWMAuthorizationViewModel.mm in Sources */,
 				F6E2FE1F1E097BA00083EBEC /* MWMOpeningHoursCommon.mm in Sources */,
 				3454D7B91E07F045004AF2AD /* CALayer+RuntimeAttributes.m in Sources */,
 				99E2B0232369904800FFABC5 /* WelcomeViewController.swift in Sources */,
