@@ -135,27 +135,6 @@ void SearchPanel::OnSearchResults(uint64_t timestamp, search::Results const & re
 }
 
 // TODO: This code only for demonstration purposes and will be removed soon
-bool SearchPanel::TryChangeRouterCmd(QString const & str)
-{
-  routing::RouterType routerType;
-  if (str == "?pedestrian")
-    routerType = routing::RouterType::Pedestrian;
-  else if (str == "?vehicle")
-    routerType = routing::RouterType::Vehicle;
-  else if (str == "?bicycle")
-    routerType = routing::RouterType::Bicycle;
-  else if (str == "?transit")
-    routerType = routing::RouterType::Transit;
-  else
-    return false;
-
-  m_pEditor->setText("");
-  parentWidget()->hide();
-  m_pDrawWidget->SetRouter(routerType);
-  return true;
-}
-
-// TODO: This code only for demonstration purposes and will be removed soon
 bool SearchPanel::Try3dModeCmd(QString const & str)
 {
   bool const is3dModeOn = (str == "?3d");
@@ -213,8 +192,6 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   QString const normalized = str.normalized(QString::NormalizationForm_KC);
 
   // TODO: This code only for demonstration purposes and will be removed soon
-  if (TryChangeRouterCmd(normalized))
-    return;
   if (Try3dModeCmd(normalized))
     return;
   if (TryDisplacementModeCmd(normalized))

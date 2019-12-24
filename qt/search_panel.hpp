@@ -56,7 +56,6 @@ private slots:
   void OnAnimationTimer();
   void OnClearButton();
 
-  bool TryChangeRouterCmd(QString const & str);
   bool Try3dModeCmd(QString const & str);
   bool TryDisplacementModeCmd(QString const & str);
   bool TryTrafficSimplifiedColorsCmd(QString const & str);
