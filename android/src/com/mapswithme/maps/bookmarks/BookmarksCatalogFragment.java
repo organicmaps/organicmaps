@@ -193,7 +193,6 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     mWebViewClient = new WebViewBookmarksCatalogClient(this);
     mWebView.setWebViewClient(mWebViewClient);
     final WebSettings webSettings = mWebView.getSettings();
-    webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
     webSettings.setJavaScriptEnabled(true);
     webSettings.setUserAgentString(Framework.nativeGetUserAgent());
     if (Utils.isLollipopOrLater())
