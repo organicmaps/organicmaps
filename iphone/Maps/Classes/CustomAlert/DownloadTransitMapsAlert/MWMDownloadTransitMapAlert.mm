@@ -4,7 +4,7 @@
 #import "MWMDownloaderDialogHeader.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkStorageObserver.h"
-#import "MWMStorage.h"
+#import "MWMStorage+UI.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 #import "UILabel+RuntimeAttributes.h"

@@ -1,16 +1,13 @@
 #import "MWMMapDownloaderTableViewCell.h"
 #import "MWMCircularProgress.h"
-#import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "NSString+Categories.h"
 
-#include <CoreApi/Framework.h>
 #import <CoreApi/MWMCommon.h>
 #import <CoreApi/MWMFrameworkHelper.h>
 #import <CoreApi/MWMMapNodeAttributes.h>
 
 @interface MWMMapDownloaderTableViewCell () <MWMCircularProgressProtocol>
 
-@property(nonatomic) MWMCircularProgress *progress;
 @property(copy, nonatomic) NSString *searchQuery;
 
 @property(weak, nonatomic) IBOutlet UIView *stateWrapper;
@@ -48,10 +45,10 @@
                         selectedAttrs:(NSDictionary *)selectedAttrs
                       unselectedAttrs:(NSDictionary *)unselectedAttrs {
   NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:str];
-  [attrTitle addAttributes:unselectedAttrs range:{0, str.length}];
+  [attrTitle addAttributes:unselectedAttrs range:NSMakeRange(0, str.length)];
   if (!self.searchQuery)
     return [attrTitle copy];
-  for (NSValue *range : [str rangesOfString:self.searchQuery])
+  for (NSValue *range in [str rangesOfString:self.searchQuery])
     [attrTitle addAttributes:selectedAttrs range:range.rangeValue];
   return [attrTitle copy];
 }
@@ -99,11 +96,8 @@
   switch (nodeAttrs.nodeStatus) {
     case MWMMapNodeStatusNotDownloaded:
     case MWMMapNodeStatusPartly: {
-      MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
-                                                          MWMCircularProgressStateSelected};
-      NSString *imageName =
-        [self isKindOfClass:[MWMMapDownloaderLargeCountryTableViewCell class]] ? @"ic_folder" : @"ic_download";
-      [progress setImageName:imageName forStates:affectedStates];
+      MWMCircularProgressStateVec affectedStates = @[@(MWMCircularProgressStateNormal), @(MWMCircularProgressStateSelected)];
+      [progress setImageName:@"ic_download" forStates:affectedStates];
       [progress setColoring:coloring forStates:affectedStates];
       progress.state = MWMCircularProgressStateNormal;
       break;
@@ -123,7 +117,7 @@
       progress.state = MWMCircularProgressStateCompleted;
       break;
     case MWMMapNodeStatusOnDiskOutOfDate: {
-      MWMCircularProgressStateVec affectedStates = {MWMCircularProgressStateNormal, MWMCircularProgressStateSelected};
+      MWMCircularProgressStateVec affectedStates = @[@(MWMCircularProgressStateNormal), @(MWMCircularProgressStateSelected)];
       [progress setImageName:@"ic_update" forStates:affectedStates];
       [progress setColoring:MWMButtonColoringOther forStates:affectedStates];
       progress.state = MWMCircularProgressStateNormal;

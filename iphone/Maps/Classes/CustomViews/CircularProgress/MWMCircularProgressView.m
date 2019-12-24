@@ -2,15 +2,11 @@
 #import "SwiftBridge.h"
 #import "UIImageView+Coloring.h"
 
-#include <map>
+static CGFloat const kLineWidth = 2.0;
+static NSString * const kAnimationKey = @"CircleAnimation";
 
-namespace
-{
-CGFloat const kLineWidth = 2.0;
-NSString * const kAnimationKey = @"CircleAnimation";
+static CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_PI_2; }
 
-CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_PI_2; }
-}  // namespace
 @interface MWMCircularProgressView ()
 
 @property(nonatomic) CAShapeLayer * backgroundLayer;
@@ -20,6 +16,8 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
 @property(nonatomic, readonly) CGColorRef progressLayerColor;
 
 @property(nonatomic) NSMutableDictionary * colors;
+@property(nonatomic) NSMutableDictionary<NSNumber *, NSNumber *> * buttonColoring;
+@property(nonatomic) NSMutableDictionary<NSNumber *, NSString *> * images;
 
 @property(weak, nonatomic) IBOutlet MWMCircularProgress * owner;
 @property(weak, nonatomic) IBOutlet UIImageView * spinner;
@@ -30,10 +28,6 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
 @end
 
 @implementation MWMCircularProgressView
-{
-  std::map<MWMCircularProgressState, MWMButtonColoring> m_buttonColoring;
-  std::map<MWMCircularProgressState, NSString *> m_images;
-}
 
 - (void)awakeFromNib
 {
@@ -41,6 +35,7 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
   self.suspendRefreshProgress = YES;
   [self setupColors];
   [self setupButtonColoring];
+  self.images = [NSMutableDictionary dictionary];
   [self setupAnimationLayers];
   self.suspendRefreshProgress = NO;
 }
@@ -65,6 +60,7 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
 
 - (void)setupButtonColoring
 {
+  self.buttonColoring = [NSMutableDictionary dictionary];
   [self setColoring:MWMButtonColoringBlack forState:MWMCircularProgressStateNormal];
   [self setColoring:MWMButtonColoringBlue forState:MWMCircularProgressStateSelected];
   [self setColoring:MWMButtonColoringBlue forState:MWMCircularProgressStateProgress];
@@ -93,11 +89,11 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
 - (void)setSpinnerColoring:(MWMImageColoring)coloring { self.spinner.mwm_coloring = coloring; }
 - (void)setImageName:(nullable NSString *)imageName forState:(MWMCircularProgressState)state
 {
-  m_images[state] = imageName;
+  self.images[@(state)] = imageName;
   [self refreshProgress];
 }
 
-- (void)setColor:(nonnull UIColor *)color forState:(MWMCircularProgressState)state
+- (void)setColor:(UIColor *)color forState:(MWMCircularProgressState)state
 {
   self.colors[@(state)] = color;
   [self refreshProgress];
@@ -105,7 +101,7 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
 
 - (void)setColoring:(MWMButtonColoring)coloring forState:(MWMCircularProgressState)state
 {
-  m_buttonColoring[state] = coloring;
+  self.buttonColoring[@(state)] = @(coloring);
   [self refreshProgress];
 }
 
@@ -121,10 +117,12 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
   self.progressLayer.strokeColor = self.progressLayerColor;
   CGRect rect = CGRectInset(self.bounds, kLineWidth, kLineWidth);
   self.backgroundLayer.path = [UIBezierPath bezierPathWithOvalInRect:rect].CGPath;
-  if (auto imageName = m_images[self.state])
+  NSString * imageName = self.images[@(self.state)];
+  if (imageName)
   {
     [self.button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-    if (auto hl = [UIImage imageNamed:[imageName stringByAppendingString:@"_highlighted"]])
+    UIImage *hl = [UIImage imageNamed:[imageName stringByAppendingString:@"_highlighted"]];
+    if (hl)
       [self.button setImage:hl forState:UIControlStateHighlighted];
   }
   else
@@ -133,7 +131,7 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
     [self.button setImage:nil forState:UIControlStateHighlighted];
   }
 
-  self.button.coloring = m_buttonColoring[self.state];
+  self.button.coloring = (MWMButtonColoring)self.buttonColoring[@(self.state)].unsignedIntegerValue;
 }
 
 - (void)updatePath:(CGFloat)progress
@@ -144,9 +142,8 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
         progress < 1.0 ? MWMCircularProgressStateProgress : MWMCircularProgressStateCompleted;
     [self stopSpinner];
   }
-  CGPoint const center = {static_cast<CGFloat>(self.width / 2.0),
-                          static_cast<CGFloat>(self.height / 2.0)};
-  CGFloat const radius = MIN(center.x, center.y) - kLineWidth;
+  CGPoint center = CGPointMake(self.width / 2.0, self.height / 2.0);
+  CGFloat radius = MIN(center.x, center.y) - kLineWidth;
   UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:center
                                                        radius:radius
                                                    startAngle:angleWithProgress(0.0)
@@ -237,7 +234,7 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
 
 - (void)setFrame:(CGRect)frame
 {
-  BOOL const needrefreshProgress = !CGRectEqualToRect(self.frame, frame);
+  BOOL needrefreshProgress = !CGRectEqualToRect(self.frame, frame);
   super.frame = frame;
   if (needrefreshProgress)
     [self refreshProgress];

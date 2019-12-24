@@ -9,7 +9,7 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMNavigationDashboardManager+Entity.h"
 #import "MWMRoutePoint+CPP.h"
-#import "MWMStorage.h"
+#import "MWMStorage+UI.h"
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
 #import "UIImage+RGBAData.h"
@@ -727,8 +727,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
             [array addObject:@(cid.c_str())];
           }
           [MWMStorage downloadNodes:array
-                          onSuccess:onSuccess
-                           onCancel:nil];
+                          onSuccess:onSuccess];
         }
         downloadCompleteBlock:^{
           [MWMRouter rebuildWithBestRouter:NO];

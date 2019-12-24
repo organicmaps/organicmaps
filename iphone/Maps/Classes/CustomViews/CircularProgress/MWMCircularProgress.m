@@ -24,19 +24,17 @@
   progress.rootView.suspendRefreshProgress = YES;
 
   [progress setImageName:@"ic_download"
-           forStates:{MWMCircularProgressStateNormal, MWMCircularProgressStateSelected}];
+           forStates:@[@(MWMCircularProgressStateNormal), @(MWMCircularProgressStateSelected)]];
   [progress setImageName:@"ic_close_spinner"
-           forStates:{MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner}];
-  [progress setImageName:@"ic_download_error"
-           forStates:{MWMCircularProgressStateFailed}];
-  [progress setImageName:@"ic_check"
-           forStates:{MWMCircularProgressStateCompleted}];
+           forStates:@[@(MWMCircularProgressStateProgress), @(MWMCircularProgressStateSpinner)]];
+  [progress setImageName:@"ic_download_error" forStates:@[@(MWMCircularProgressStateFailed)]];
+  [progress setImageName:@"ic_check" forStates:@[@(MWMCircularProgressStateCompleted)]];
 
   [progress setColoring:MWMButtonColoringBlack
-              forStates:{MWMCircularProgressStateNormal, MWMCircularProgressStateSelected,
-                         MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner}];
-  [progress setColoring:MWMButtonColoringOther forStates:{MWMCircularProgressStateFailed}];
-  [progress setColoring:MWMButtonColoringBlue forStates:{MWMCircularProgressStateCompleted}];
+              forStates:@[@(MWMCircularProgressStateNormal), @(MWMCircularProgressStateSelected),
+                         @(MWMCircularProgressStateProgress), @(MWMCircularProgressStateSpinner)]];
+  [progress setColoring:MWMButtonColoringOther forStates:@[@(MWMCircularProgressStateFailed)]];
+  [progress setColoring:MWMButtonColoringBlue forStates:@[@(MWMCircularProgressStateCompleted)]];
 
   progress.rootView.suspendRefreshProgress = NO;
 
@@ -80,23 +78,23 @@
 }
 
 - (void)setImageName:(nullable NSString *)imageName
-           forStates:(MWMCircularProgressStateVec const &)states
+           forStates:(MWMCircularProgressStateVec)states
 {
-  for (auto const & state : states)
-    [self.rootView setImageName:imageName forState:state];
+  for (NSNumber *state in states)
+    [self.rootView setImageName:imageName forState:(MWMCircularProgressState)state.integerValue];
 }
 
-- (void)setColor:(nonnull UIColor *)color forStates:(MWMCircularProgressStateVec const &)states
+- (void)setColor:(UIColor *)color forStates:(MWMCircularProgressStateVec)states
 {
-  for (auto const & state : states)
-    [self.rootView setColor:color forState:state];
+  for (NSNumber *state in states)
+    [self.rootView setColor:color forState:(MWMCircularProgressState)state.integerValue];
 }
 
 - (void)setColoring:(MWMButtonColoring)coloring
-          forStates:(MWMCircularProgressStateVec const &)states
+          forStates:(MWMCircularProgressStateVec)states
 {
-  for (auto const & state : states)
-    [self.rootView setColoring:coloring forState:state];
+  for (NSNumber *state in states)
+    [self.rootView setColoring:coloring forState:(MWMCircularProgressState)state.integerValue];
 }
 
 - (void)setInvertColor:(BOOL)invertColor { self.rootView.isInvertColor = invertColor; }

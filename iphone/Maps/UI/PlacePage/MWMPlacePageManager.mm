@@ -9,7 +9,7 @@
 #import "MWMPlacePageLayout.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMSearchManager+Filter.h"
-#import "MWMStorage.h"
+#import "MWMStorage+UI.h"
 #import "SwiftBridge.h"
 #import "MWMMapViewControlsManager+AddPlace.h"
 
@@ -168,10 +168,10 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   switch (nodeAttrs.m_status)
   {
   case NodeStatus::NotDownloaded:
-  case NodeStatus::Partly: [MWMStorage downloadNode:@(countryId.c_str()) onSuccess:nil onCancel:nil]; break;
+  case NodeStatus::Partly: [MWMStorage downloadNode:@(countryId.c_str())]; break;
   case NodeStatus::Undefined:
   case NodeStatus::Error: [MWMStorage retryDownloadNode:@(countryId.c_str())]; break;
-  case NodeStatus::OnDiskOutOfDate: [MWMStorage updateNode:@(countryId.c_str()) onCancel:nil]; break;
+  case NodeStatus::OnDiskOutOfDate: [MWMStorage updateNode:@(countryId.c_str())]; break;
   case NodeStatus::Downloading:
   case NodeStatus::Applying:
   case NodeStatus::InQueue: [MWMStorage cancelDownloadNode:@(countryId.c_str())]; break;

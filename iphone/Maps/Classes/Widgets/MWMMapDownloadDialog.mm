@@ -6,7 +6,7 @@
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkStorageObserver.h"
 #import "MWMMegafonBannerViewController.h"
-#import "MWMStorage.h"
+#import "MWMStorage+UI.h"
 #import "MapViewController.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
@@ -137,8 +137,7 @@ using namespace storage;
           [MWMStorage downloadNode:@(m_countryId.c_str())
                          onSuccess:^{
                            [self showInQueue];
-                         }
-                          onCancel:nil];
+                         }];
         } else {
           m_autoDownloadCountryId = kInvalidCountryId;
           [self showDownloadRequest];
@@ -428,8 +427,7 @@ using namespace storage;
           kStatScenario: kStatDownload
         }];
   [MWMStorage downloadNode:@(m_countryId.c_str())
-                 onSuccess:^{ [self showInQueue]; }
-                  onCancel:nil];
+                 onSuccess:^{ [self showInQueue]; }];
 }
 
 #pragma mark - Properties

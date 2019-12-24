@@ -49,6 +49,8 @@
 		47D9019523AC22E500D9364C /* MWMMapUpdateInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 47D9019323AC22E500D9364C /* MWMMapUpdateInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47D9019623AC22E500D9364C /* MWMMapUpdateInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47D9019423AC22E500D9364C /* MWMMapUpdateInfo.mm */; };
 		47D9019923AC236100D9364C /* MWMMapUpdateInfo+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47D9019723AC236100D9364C /* MWMMapUpdateInfo+Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47E8163623B1889C008FD836 /* MWMStorage.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47E8163423B1889B008FD836 /* MWMStorage.mm */; };
+		47E8163723B188D3008FD836 /* MWMStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 47E8163523B1889B008FD836 /* MWMStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47EEAFF42350CEDB005CF316 /* AppInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47EEAFF22350CEDA005CF316 /* AppInfo.mm */; };
 		47EEAFF62350CF48005CF316 /* AppInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 47EEAFF32350CEDB005CF316 /* AppInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47EEAFF72350D060005CF316 /* MWMCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 47EEAFF52350CEF6005CF316 /* MWMCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -119,6 +121,8 @@
 		47D9019323AC22E500D9364C /* MWMMapUpdateInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapUpdateInfo.h; sourceTree = "<group>"; };
 		47D9019423AC22E500D9364C /* MWMMapUpdateInfo.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapUpdateInfo.mm; sourceTree = "<group>"; };
 		47D9019723AC236100D9364C /* MWMMapUpdateInfo+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMMapUpdateInfo+Core.h"; sourceTree = "<group>"; };
+		47E8163423B1889B008FD836 /* MWMStorage.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMStorage.mm; sourceTree = "<group>"; };
+		47E8163523B1889B008FD836 /* MWMStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMStorage.h; sourceTree = "<group>"; };
 		47EEAFF22350CEDA005CF316 /* AppInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = AppInfo.mm; sourceTree = "<group>"; };
 		47EEAFF32350CEDB005CF316 /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfo.h; sourceTree = "<group>"; };
 		47EEAFF52350CEF6005CF316 /* MWMCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCommon.h; sourceTree = "<group>"; };
@@ -318,6 +322,8 @@
 		47F4F1F623A333280022FD56 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				47E8163523B1889B008FD836 /* MWMStorage.h */,
+				47E8163423B1889B008FD836 /* MWMStorage.mm */,
 				47F4F1F723A3336B0022FD56 /* MWMMapNodeAttributes.h */,
 				47F4F1FB23A3D1AC0022FD56 /* MWMMapNodeAttributes+Core.h */,
 				47F4F1F823A3336C0022FD56 /* MWMMapNodeAttributes.mm */,
@@ -416,6 +422,7 @@
 				999D3A64237B097C00C5F7A8 /* DeepLinkSubscriptionData.h in Headers */,
 				470016102342579200EBF03D /* MWMTagGroup.h in Headers */,
 				479F7063234FBC5900011E2E /* MWMCarPlayBookmarkObject.h in Headers */,
+				47E8163723B188D3008FD836 /* MWMStorage.h in Headers */,
 				47EEAFF62350CF48005CF316 /* AppInfo.h in Headers */,
 				479F7053234FB7BC00011E2E /* MWMCatalogCommon.h in Headers */,
 				4700160F2342579000EBF03D /* MWMTag.h in Headers */,
@@ -524,6 +531,7 @@
 				4718C4332355FC3C00640DF1 /* MWMNetworkPolicy.mm in Sources */,
 				993F54F3237C5D1100545511 /* PromoAfterBookingCampaignAdapter.mm in Sources */,
 				47EEAFF42350CEDB005CF316 /* AppInfo.mm in Sources */,
+				47E8163623B1889C008FD836 /* MWMStorage.mm in Sources */,
 				9957FAE9237AE5B000855F48 /* Logger.mm in Sources */,
 				999D3A65237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm in Sources */,
 			);

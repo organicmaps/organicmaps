@@ -1,27 +1,35 @@
+#import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
+
 @class MWMMapNodeAttributes;
 @class MWMMapUpdateInfo;
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSErrorDomain const kStorageErrorDomain;
+
+extern NSInteger const kStorageNotEnoughSpace;
+extern NSInteger const kStorageNoConnection;
+extern NSInteger const kStorageCellularForbidden;
+extern NSInteger const kStorageRoutingActive;
+extern NSInteger const kStorageHaveUnsavedEdits;
+
 NS_SWIFT_NAME(Storage)
 @interface MWMStorage : NSObject
 
-+ (void)downloadNode:(NSString *)countryId
-           onSuccess:(nullable MWMVoidBlock)onSuccess
-            onCancel:(nullable MWMVoidBlock)onCancel;
++ (BOOL)downloadNode:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error;
 + (void)retryDownloadNode:(NSString *)countryId;
-+ (void)updateNode:(NSString *)countryId
-          onCancel:(nullable MWMVoidBlock)onCancel;
-+ (void)deleteNode:(NSString *)countryId;
++ (BOOL)updateNode:(NSString *)countryId error:(NSError * __autoreleasing _Nullable *)error;
++ (BOOL)deleteNode:(NSString *)countryId
+ignoreUnsavedEdits:(BOOL)force
+             error:(NSError * __autoreleasing _Nullable *)error;
 + (void)cancelDownloadNode:(NSString *)countryId;
 + (void)showNode:(NSString *)countryId;
-
-+ (void)downloadNodes:(NSArray<NSString *> *)countryIds
-            onSuccess:(nullable MWMVoidBlock)onSuccess
-             onCancel:(nullable MWMVoidBlock)onCancel;
++ (BOOL)downloadNodes:(NSArray<NSString *> *)countryIds error:(NSError * __autoreleasing _Nullable *)error;
 
 + (BOOL)haveDownloadedCountries;
 + (BOOL)downloadInProgress;
++ (void)enableCellularDownload:(BOOL)enable;
 
 #pragma mark - Attributes
 

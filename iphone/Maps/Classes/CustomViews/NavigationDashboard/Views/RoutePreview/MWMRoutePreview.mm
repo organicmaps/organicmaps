@@ -86,21 +86,21 @@ static CGFloat const kDrivingOptionsHeight = 48;
          routerType:(MWMRouterType)routerType
 {
   MWMCircularProgress * progress = [[MWMCircularProgress alloc] initWithParentView:parentView];
-  MWMCircularProgressStateVec const imageStates = {MWMCircularProgressStateNormal,
-    MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner};
+  MWMCircularProgressStateVec imageStates = @[@(MWMCircularProgressStateNormal),
+    @(MWMCircularProgressStateProgress), @(MWMCircularProgressStateSpinner)];
 
   [progress setImageName:imageName forStates:imageStates];
-  [progress setImageName:[imageName stringByAppendingString:@"_selected"] forStates:{MWMCircularProgressStateSelected, MWMCircularProgressStateCompleted}];
-  [progress setImageName:@"ic_error" forStates:{MWMCircularProgressStateFailed}];
+  [progress setImageName:[imageName stringByAppendingString:@"_selected"] forStates:@[@(MWMCircularProgressStateSelected), @(MWMCircularProgressStateCompleted)]];
+  [progress setImageName:@"ic_error" forStates:@[@(MWMCircularProgressStateFailed)]];
 
   [progress setColoring:MWMButtonColoringWhiteText
-              forStates:{MWMCircularProgressStateFailed, MWMCircularProgressStateSelected,
-                         MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner,
-                         MWMCircularProgressStateCompleted}];
+              forStates:@[@(MWMCircularProgressStateFailed), @(MWMCircularProgressStateSelected),
+                         @(MWMCircularProgressStateProgress), @(MWMCircularProgressStateSpinner),
+                         @(MWMCircularProgressStateCompleted)]];
 
   [progress setSpinnerBackgroundColor:UIColor.clearColor];
   [progress setColor:UIColor.whiteColor
-           forStates:{MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner}];
+           forStates:@[@(MWMCircularProgressStateProgress), @(MWMCircularProgressStateSpinner)]];
 
   progress.delegate = self;
   m_progresses[routerType] = progress;

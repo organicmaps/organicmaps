@@ -1,15 +1,6 @@
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 
-#include <CoreApi/Framework.h>
 #import <CoreApi/MWMMapNodeAttributes.h>
-
-@interface MWMMapDownloaderTableViewCell ()
-
-- (NSAttributedString *)matchedString:(NSString *)str
-                        selectedAttrs:(NSDictionary *)selectedAttrs
-                      unselectedAttrs:(NSDictionary *)unselectedAttrs;
-
-@end
 
 @interface MWMMapDownloaderPlaceTableViewCell ()
 
@@ -29,8 +20,7 @@
   NSDictionary *unselectedAreaAttrs = @{NSFontAttributeName : [UIFont regular12]};
   self.needDisplayArea = !nodeAttrs.hasParent;
   if (self.needDisplayArea && nodeAttrs.topmostParentInfo.count == 1) {
-    NSString *areaName = nodeAttrs.topmostParentInfo[0].countryId;
-    isDescriptionVisible = ![areaName isEqualToString:@(GetFramework().GetStorage().GetRootId().c_str())];
+    isDescriptionVisible = nodeAttrs.hasParent;
     if (isDescriptionVisible) {
       self.descriptionLabel.attributedText = [self matchedString:nodeAttrs.topmostParentInfo[0].countryName
                                                    selectedAttrs:selectedAreaAttrs

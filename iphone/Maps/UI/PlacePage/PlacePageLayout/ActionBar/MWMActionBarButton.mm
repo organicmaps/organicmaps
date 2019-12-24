@@ -89,8 +89,8 @@ UIColor * backgroundColorForPartner(int partnerIndex)
     self.mapDownloadProgress = [MWMCircularProgress downloaderProgressForParentView:self.button];
     self.mapDownloadProgress.delegate = self;
 
-    MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
-                                                        MWMCircularProgressStateSelected};
+    MWMCircularProgressStateVec affectedStates = @[@(MWMCircularProgressStateNormal),
+                                                        @(MWMCircularProgressStateSelected)];
 
     [self.mapDownloadProgress setImageName:@"ic_download" forStates:affectedStates];
     [self.mapDownloadProgress setColoring:MWMButtonColoringBlue forStates:affectedStates];

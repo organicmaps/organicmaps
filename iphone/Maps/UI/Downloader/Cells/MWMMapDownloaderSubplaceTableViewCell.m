@@ -1,13 +1,5 @@
 #import "MWMMapDownloaderSubplaceTableViewCell.h"
 
-@interface MWMMapDownloaderTableViewCell ()
-
-- (NSAttributedString *)matchedString:(NSString *)str
-                        selectedAttrs:(NSDictionary *)selectedAttrs
-                      unselectedAttrs:(NSDictionary *)unselectedAttrs;
-
-@end
-
 @interface MWMMapDownloaderSubplaceTableViewCell ()
 
 @property(weak, nonatomic) IBOutlet UILabel *subPlace;

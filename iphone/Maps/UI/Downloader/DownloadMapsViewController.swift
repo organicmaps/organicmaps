@@ -11,6 +11,12 @@ class DownloadMapsViewController: MWMViewController {
     case delete
   }
 
+  private enum AllMapsButtonState {
+    case none
+    case download(String)
+    case cancel(String)
+  }
+
   // MARK: - Outlets
 
   @IBOutlet var tableView: UITableView!
@@ -47,7 +53,7 @@ class DownloadMapsViewController: MWMViewController {
       case .downloaded:
         dataSource = DownloadedMapsDataSource()
       case .available:
-        dataSource = AvailableMapsDataSource()
+        dataSource = AvailableMapsDataSource(location: MWMLocationManager.lastLocation()?.coordinate)
       @unknown default:
         fatalError()
       }
@@ -118,7 +124,7 @@ class DownloadMapsViewController: MWMViewController {
         action = UIAlertAction(title: "\(prefix) (\(formattedSize(nodeAttrs.totalSize)))",
                                style: .default,
                                handler: { _ in
-                                Storage.downloadNode(nodeAttrs.countryId, onSuccess: nil)
+                                Storage.downloadNode(nodeAttrs.countryId)
         })
       case .update:
         let title = "\(L("downloader_status_outdated")) (TODO: updated size)"
@@ -142,45 +148,44 @@ class DownloadMapsViewController: MWMViewController {
     }
   }
 
+  private func setAllMapsButton(_ state: AllMapsButtonState) {
+    switch state {
+    case .none:
+      allMapsView.isHidden = true
+    case .download(let buttonTitle):
+      allMapsView.isHidden = false
+      allMapsButton.isHidden = false
+      allMapsButton.setTitle(buttonTitle, for: .normal)
+      allMapsCancelButton.isHidden = true
+    case .cancel(let buttonTitle):
+      allMapsView.isHidden = false
+      allMapsButton.isHidden = true
+      allMapsCancelButton.isHidden = false
+      allMapsCancelButton.setTitle(buttonTitle, for: .normal)
+    }
+  }
+
   fileprivate func configButtons() {
     allMapsView.isHidden = true
     if mode == .available {
       if dataSource.isRoot {
-        allMapsView.isHidden = true
+        setAllMapsButton(.none)
       } else {
         let parentAttributes = dataSource.parentAttributes()
         if parentAttributes.downloadingMwmCount > 0 {
-          allMapsView.isHidden = false
-          allMapsButton.isHidden = true
-          allMapsCancelButton.isHidden = false
-          allMapsCancelButton.setTitle(
-            "\(L("downloader_cancel_all")) (\(formattedSize(parentAttributes.downloadingSize)))",
-            for: .normal)
+          setAllMapsButton(.cancel("\(L("downloader_cancel_all")) (\(formattedSize(parentAttributes.downloadingSize)))"))
         } else if parentAttributes.downloadedMwmCount < parentAttributes.totalMwmCount {
-          allMapsView.isHidden = false
-          allMapsButton.isHidden = false
-          allMapsButton.setTitle(
-            "\(L("downloader_download_all_button")) (\(formattedSize(parentAttributes.totalSize - parentAttributes.downloadedSize)))",
-            for: .normal)
-          allMapsCancelButton.isHidden = true
+          setAllMapsButton(.download("\(L("downloader_download_all_button")) (\(formattedSize(parentAttributes.totalSize - parentAttributes.downloadedSize)))"))
         }
       }
     } else {
       let updateInfo = Storage.updateInfo(withParent: dataSource.parentAttributes().countryId)
       if updateInfo.numberOfFiles > 0 {
-        allMapsView.isHidden = false
-        allMapsButton.isHidden = false
-        allMapsButton.setTitle(
-          "\(L("downloader_update_all_button")) (\(formattedSize(updateInfo.updateSize)))",
-          for: .normal)
-        allMapsCancelButton.isHidden = true
+        setAllMapsButton(.download("\(L("downloader_update_all_button")) (\(formattedSize(updateInfo.updateSize)))"))
       } else {
         let parentAttributes = dataSource.parentAttributes()
         if parentAttributes.downloadingMwmCount > 0 {
-          allMapsView.isHidden = false
-          allMapsButton.isHidden = true
-          allMapsCancelButton.isHidden = false
-          allMapsCancelButton.setTitle(L("downloader_cancel_all"), for: .normal)
+          setAllMapsButton(.cancel(L("downloader_cancel_all")))
         }
       }
     }
@@ -195,9 +200,9 @@ class DownloadMapsViewController: MWMViewController {
   @IBAction func onAllMaps(_ sender: UIButton) {
     skipCountryEvent = true
     if mode == .downloaded {
-      Storage.updateNode(dataSource.parentAttributes().countryId, onCancel: nil)
+      Storage.updateNode(dataSource.parentAttributes().countryId)
     } else {
-      Storage.downloadNode(dataSource.parentAttributes().countryId, onSuccess: nil, onCancel: nil)
+      Storage.downloadNode(dataSource.parentAttributes().countryId)
     }
     skipCountryEvent = false
     self.processCountryEvent(dataSource.parentAttributes().countryId)
@@ -339,7 +344,7 @@ extension DownloadMapsViewController: MWMMapDownloaderTableViewCellDelegate {
       if nodeAttrs.hasChildren {
         showChildren(nodeAttrs)
       } else {
-        Storage.downloadNode(nodeAttrs.countryId, onSuccess: nil)
+        Storage.downloadNode(nodeAttrs.countryId)
       }
       break
     @unknown default:

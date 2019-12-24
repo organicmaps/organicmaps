@@ -1,88 +1,93 @@
 #import "MWMStorage.h"
-#import "MWMAlertViewController.h"
+#import "MWMMapNodeAttributes+Core.h"
+#import "MWMMapUpdateInfo+Core.h"
 
 #include <CoreApi/Framework.h>
-#import <CoreApi/MWMMapNodeAttributes+Core.h>
-#import <CoreApi/MWMMapUpdateInfo+Core.h>
-
 #include "storage/storage_helpers.hpp"
+
+NSErrorDomain const kStorageErrorDomain = @"com.mapswithme.storage";
+
+NSInteger const kStorageNotEnoughSpace = 1;
+NSInteger const kStorageNoConnection = 2;
+NSInteger const kStorageCellularForbidden = 3;
+NSInteger const kStorageRoutingActive = 4;
+NSInteger const kStorageHaveUnsavedEdits = 5;
 
 using namespace storage;
 
 @implementation MWMStorage
 
-+ (void)downloadNode:(NSString *)countryId onSuccess:(MWMVoidBlock)onSuccess onCancel:(MWMVoidBlock)onCancel
-{
-  if (IsEnoughSpaceForDownload(countryId.UTF8String, GetFramework().GetStorage()))
-  {
-    [self checkConnectionAndPerformAction:[countryId, onSuccess] {
++ (BOOL)downloadNode:(NSString *)countryId error:(NSError *__autoreleasing _Nullable *)error {
+  if (IsEnoughSpaceForDownload(countryId.UTF8String, GetFramework().GetStorage())) {
+    NSError *connectionError;
+    if ([self checkConnection:&connectionError]) {
       GetFramework().GetStorage().DownloadNode(countryId.UTF8String);
-      if (onSuccess)
-        onSuccess();
-    } cancelAction:onCancel];
+      return YES;
+    } else if (error) {
+      *error = connectionError;
+    }
+  } else if (error) {
+    *error = [NSError errorWithDomain:kStorageErrorDomain code:kStorageNotEnoughSpace userInfo:nil];
   }
-  else
-  {
-    [[MWMAlertViewController activeAlertController] presentNotEnoughSpaceAlert];
-    if (onCancel)
-      onCancel();
-  }
+
+  return NO;
 }
 
-+ (void)retryDownloadNode:(NSString *)countryId
-{
-  [self checkConnectionAndPerformAction:[countryId] {
++ (void)retryDownloadNode:(NSString *)countryId {
+  if ([self checkConnection:nil]) {
     GetFramework().GetStorage().RetryDownloadNode(countryId.UTF8String);
-  } cancelAction:nil];
+  }
 }
 
-+ (void)updateNode:(NSString *)countryId onCancel:(MWMVoidBlock)onCancel
-{
-  if (IsEnoughSpaceForUpdate(countryId.UTF8String, GetFramework().GetStorage()))
-  {
-    [self checkConnectionAndPerformAction:[countryId] {
++ (BOOL)updateNode:(NSString *)countryId error:(NSError *__autoreleasing _Nullable *)error {
+  if (IsEnoughSpaceForUpdate(countryId.UTF8String, GetFramework().GetStorage())) {
+    NSError *connectionError;
+    if ([self checkConnection:&connectionError]) {
       GetFramework().GetStorage().UpdateNode(countryId.UTF8String);
-    } cancelAction:onCancel];
+      return YES;
+    } else if (error) {
+      *error = connectionError;
+    }
+  } else if (error) {
+    *error = [NSError errorWithDomain:kStorageErrorDomain code:kStorageNotEnoughSpace userInfo:nil];
   }
-  else
-  {
-    [[MWMAlertViewController activeAlertController] presentNotEnoughSpaceAlert];
-    if (onCancel)
-      onCancel();
-  }
+
+  return NO;
 }
 
-+ (void)deleteNode:(NSString *)countryId
-{
-  auto & f = GetFramework();
-  if (f.GetRoutingManager().IsRoutingActive())
-  {
-    [[MWMAlertViewController activeAlertController] presentDeleteMapProhibitedAlert];
-    return;
++ (BOOL)deleteNode:(NSString *)countryId
+  ignoreUnsavedEdits:(BOOL)force
+               error:(NSError *__autoreleasing _Nullable *)error {
+  auto &f = GetFramework();
+  if (f.GetRoutingManager().IsRoutingActive()) {
+    if (error) {
+      *error = [NSError errorWithDomain:kStorageErrorDomain code:kStorageRoutingActive userInfo:nil];
+    }
+    return NO;
   }
 
-  if (f.HasUnsavedEdits(countryId.UTF8String))
-  {
-    [[MWMAlertViewController activeAlertController]
-        presentUnsavedEditsAlertWithOkBlock:[countryId] {
-          GetFramework().GetStorage().DeleteNode(countryId.UTF8String);
-        }];
-  }
-  else
-  {
+  if (!force && f.HasUnsavedEdits(countryId.UTF8String)) {
+    if (error) {
+      *error = [NSError errorWithDomain:kStorageErrorDomain code:kStorageHaveUnsavedEdits userInfo:nil];
+    }
+  } else {
     f.GetStorage().DeleteNode(countryId.UTF8String);
+    return YES;
   }
+
+  return NO;
 }
 
-+ (void)cancelDownloadNode:(NSString *)countryId
-{
++ (void)cancelDownloadNode:(NSString *)countryId {
   GetFramework().GetStorage().CancelDownloadNode(countryId.UTF8String);
 }
 
-+ (void)showNode:(NSString *)countryId { GetFramework().ShowNode(countryId.UTF8String); }
-+ (void)downloadNodes:(NSArray<NSString *> *)countryIds onSuccess:(MWMVoidBlock)onSuccess onCancel:(MWMVoidBlock)onCancel
-{
-  auto & s = GetFramework().GetStorage();
++ (void)showNode:(NSString *)countryId {
+  GetFramework().ShowNode(countryId.UTF8String);
+}
+
++ (BOOL)downloadNodes:(NSArray<NSString *> *)countryIds error:(NSError *__autoreleasing _Nullable *)error {
+  auto &s = GetFramework().GetStorage();
 
   MwmSize requiredSize = s.GetMaxMwmSizeBytes();
   for (NSString *countryId in countryIds) {
@@ -90,47 +95,49 @@ using namespace storage;
     GetFramework().GetStorage().GetNodeAttrs(countryId.UTF8String, nodeAttrs);
     requiredSize += nodeAttrs.m_mwmSize;
   }
-  if (storage::IsEnoughSpaceForDownload(requiredSize))
-  {
-    [self checkConnectionAndPerformAction:[countryIds, onSuccess, &s] {
-      for (NSString *countryId in countryIds)
+
+  if (storage::IsEnoughSpaceForDownload(requiredSize)) {
+    NSError *connectionError;
+    if ([self checkConnection:&connectionError]) {
+      for (NSString *countryId in countryIds) {
         s.DownloadNode(countryId.UTF8String);
-      if (onSuccess)
-        onSuccess();
-    } cancelAction: onCancel];
+      }
+      return YES;
+    } else if (error) {
+      *error = connectionError;
+    }
+  } else if (error) {
+    *error = [NSError errorWithDomain:kStorageErrorDomain code:kStorageNotEnoughSpace userInfo:nil];
   }
-  else
-  {
-    [[MWMAlertViewController activeAlertController] presentNotEnoughSpaceAlert];
-    if (onCancel)
-      onCancel();
-  }
+
+  return NO;
 }
 
-+ (void)checkConnectionAndPerformAction:(MWMVoidBlock)action cancelAction:(MWMVoidBlock)cancel
-{
-  switch (Platform::ConnectionStatus())
-  {
++ (BOOL)checkConnection:(NSError *__autoreleasing *)error {
+  switch (Platform::ConnectionStatus()) {
     case Platform::EConnectionType::CONNECTION_NONE:
-      [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
-      if (cancel)
-        cancel();
+      if (error) {
+        *error = [NSError errorWithDomain:kStorageErrorDomain code:kStorageNoConnection userInfo:nil];
+      }
+      return NO;
       break;
     case Platform::EConnectionType::CONNECTION_WIFI:
-      action();
-      break;
-    case Platform::EConnectionType::CONNECTION_WWAN:
-    {
-      if (!GetFramework().GetDownloadingPolicy().IsCellularDownloadEnabled())
-      {
-        [[MWMAlertViewController activeAlertController] presentNoWiFiAlertWithOkBlock:[action] {
-          GetFramework().GetDownloadingPolicy().EnableCellularDownload(true);
-          action();
-        } andCancelBlock:cancel];
+      if (error) {
+        *error = nil;
       }
-      else
-      {
-        action();
+      return YES;
+      break;
+    case Platform::EConnectionType::CONNECTION_WWAN: {
+      if (!GetFramework().GetDownloadingPolicy().IsCellularDownloadEnabled()) {
+        if (error) {
+          *error = [NSError errorWithDomain:kStorageErrorDomain code:kStorageCellularForbidden userInfo:nil];
+        }
+        return NO;
+      } else {
+        if (error) {
+          *error = nil;
+        }
+        return YES;
       }
       break;
     }
@@ -145,6 +152,10 @@ using namespace storage;
   return GetFramework().GetStorage().IsDownloadInProgress();
 }
 
++ (void)enableCellularDownload:(BOOL)enable {
+  GetFramework().GetDownloadingPolicy().EnableCellularDownload(enable);
+}
+
 #pragma mark - Attributes
 
 + (NSArray<NSString *> *)allCountries {
@@ -155,9 +166,7 @@ using namespace storage;
 + (NSArray<NSString *> *)allCountriesWithParent:(NSString *)countryId {
   storage::CountriesVec downloadedChildren;
   storage::CountriesVec availableChildren;
-  GetFramework().GetStorage().GetChildrenInGroups(countryId.UTF8String,
-                                                  downloadedChildren,
-                                                  availableChildren,
+  GetFramework().GetStorage().GetChildrenInGroups(countryId.UTF8String, downloadedChildren, availableChildren,
                                                   true /* keepAvailableChildren */);
 
   NSMutableArray *result = [NSMutableArray arrayWithCapacity:availableChildren.size()];
@@ -170,9 +179,7 @@ using namespace storage;
 + (NSArray<NSString *> *)availableCountriesWithParent:(NSString *)countryId {
   storage::CountriesVec downloadedChildren;
   storage::CountriesVec availableChildren;
-  GetFramework().GetStorage().GetChildrenInGroups(countryId.UTF8String,
-                                                  downloadedChildren,
-                                                  availableChildren);
+  GetFramework().GetStorage().GetChildrenInGroups(countryId.UTF8String, downloadedChildren, availableChildren);
 
   NSMutableArray *result = [NSMutableArray arrayWithCapacity:availableChildren.size()];
   for (auto const &cid : availableChildren) {
@@ -189,9 +196,7 @@ using namespace storage;
 + (NSArray<NSString *> *)downloadedCountriesWithParent:(NSString *)countryId {
   storage::CountriesVec downloadedChildren;
   storage::CountriesVec availableChildren;
-  GetFramework().GetStorage().GetChildrenInGroups(countryId.UTF8String,
-                                                  downloadedChildren,
-                                                  availableChildren);
+  GetFramework().GetStorage().GetChildrenInGroups(countryId.UTF8String, downloadedChildren, availableChildren);
 
   NSMutableArray *result = [NSMutableArray arrayWithCapacity:downloadedChildren.size()];
   for (auto const &cid : downloadedChildren) {
