@@ -433,9 +433,9 @@ Framework::Framework(FrameworkParams const & params)
   InitUGC();
   LOG(LDEBUG, ("UGC initialized"));
 
-  InitSearchAPI();
+  InitSearchAPI(params.m_numSearchAPIThreads);
   LOG(LDEBUG, ("Search API initialized"));
-  
+
   auto const catalogHeadersProvider = make_shared<CatalogHeadersProvider>(*this, m_storage);
 
   m_bmManager = make_unique<BookmarkManager>(m_user, BookmarkManager::Callbacks(
@@ -1496,7 +1496,7 @@ void Framework::InitUGC()
   }
 }
 
-void Framework::InitSearchAPI()
+void Framework::InitSearchAPI(size_t numThreads)
 {
   ASSERT(!m_searchAPI.get(), ("InitSearchAPI() must be called only once."));
   ASSERT(m_infoGetter.get(), ());
@@ -1504,7 +1504,7 @@ void Framework::InitSearchAPI()
   {
     m_searchAPI =
         make_unique<SearchAPI>(m_featuresFetcher.GetDataSource(), m_storage, *m_infoGetter,
-                               static_cast<SearchAPI::Delegate &>(*this));
+                               numThreads, static_cast<SearchAPI::Delegate &>(*this));
   }
   catch (RootException const & e)
   {

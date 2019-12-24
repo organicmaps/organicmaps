@@ -143,6 +143,7 @@ struct FrameworkParams
 {
   bool m_enableLocalAds = true;
   bool m_enableDiffs = true;
+  size_t m_numSearchAPIThreads = 1;
 
   FrameworkParams() = default;
   FrameworkParams(bool enableLocalAds, bool enableDiffs)
@@ -525,7 +526,7 @@ public:
 private:
   void InitCountryInfoGetter();
   void InitUGC();
-  void InitSearchAPI();
+  void InitSearchAPI(size_t numThreads);
   void InitDiscoveryManager();
 
   DisplacementModeManager m_displacementModeManager;

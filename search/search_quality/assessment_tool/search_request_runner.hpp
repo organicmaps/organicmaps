@@ -10,6 +10,7 @@
 #include <cstdint>
 #include <functional>
 #include <limits>
+#include <map>
 #include <memory>
 #include <queue>
 #include <vector>
@@ -38,9 +39,12 @@ public:
 private:
   static size_t constexpr kInvalidIndex = std::numeric_limits<size_t>::max();
 
+  // Tries to run the unprocessed request with the smallest index, if there is one.
   void RunNextBackgroundRequest(size_t timestamp);
 
   void RunRequest(size_t index, bool background, size_t timestamp);
+
+  void PrintBackgroundSearchStats() const;
 
   Framework & m_framework;
 
@@ -51,20 +55,16 @@ private:
   UpdateViewOnResults m_updateViewOnResults;
   UpdateSampleSearchState m_updateSampleSearchState;
 
-  std::weak_ptr<search::ProcessorHandle> m_backgroundQueryHandle;
   std::weak_ptr<search::ProcessorHandle> m_foregroundQueryHandle;
+  std::map<size_t, std::weak_ptr<search::ProcessorHandle>> m_backgroundQueryHandles;
 
   size_t m_foregroundTimestamp = 0;
   size_t m_backgroundTimestamp = 0;
 
   size_t m_backgroundFirstIndex = kInvalidIndex;
   size_t m_backgroundLastIndex = kInvalidIndex;
-
   std::queue<size_t> m_backgroundQueue;
-
-  size_t m_numProcessedRequests = 0;
-
-  std::vector<size_t> m_vitalsInLastBackgroundSearch;
+  size_t m_backgroundNumProcessed = 0;
 
   ThreadChecker m_threadChecker;
 };

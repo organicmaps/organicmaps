@@ -96,7 +96,7 @@ public:
   };
 
   SearchAPI(DataSource & dataSource, storage::Storage const & storage,
-            storage::CountryInfoGetter const & infoGetter, Delegate & delegate);
+            storage::CountryInfoGetter const & infoGetter, size_t numThreads, Delegate & delegate);
   virtual ~SearchAPI() = default;
 
   void OnViewportChanged(m2::RectD const & viewport);

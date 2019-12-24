@@ -5,6 +5,7 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
+#include <algorithm>
 #include <chrono>
 #include <utility>
 
@@ -44,7 +45,7 @@ void SearchRequestRunner::InitiateBackgroundSearch(size_t from, size_t to)
   --to;
   m_backgroundFirstIndex = from;
   m_backgroundLastIndex = to;
-  m_numProcessedRequests = 0;
+  m_backgroundNumProcessed = 0;
 
   for (size_t index = from; index <= to; ++index)
   {
@@ -57,26 +58,68 @@ void SearchRequestRunner::InitiateBackgroundSearch(size_t from, size_t to)
     else
     {
       CHECK(m_contexts[index].m_searchState == Context::SearchState::Completed, ());
+      ++m_backgroundNumProcessed;
     }
   }
 
-  m_vitalsInLastBackgroundSearch.clear();
-  RunNextBackgroundRequest(m_backgroundTimestamp);
+  size_t const numThreads = m_framework.GetSearchAPI().GetEngine().GetNumThreads();
+  for (size_t i = 0; i < numThreads; ++i)
+    RunNextBackgroundRequest(m_backgroundTimestamp);
+}
+
+void SearchRequestRunner::ResetForegroundSearch()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  ++m_foregroundTimestamp;
+  if (auto handle = m_foregroundQueryHandle.lock())
+    handle->Cancel();
+}
+
+void SearchRequestRunner::ResetBackgroundSearch()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  ++m_backgroundTimestamp;
+
+  queue<size_t>().swap(m_backgroundQueue);
+  m_backgroundNumProcessed = 0;
+
+  bool cancelledAny = false;
+  for (auto const & entry : m_backgroundQueryHandles)
+  {
+    auto handle = entry.second.lock();
+    if (handle)
+    {
+      handle->Cancel();
+      cancelledAny = true;
+    }
+  }
+  m_backgroundQueryHandles.clear();
+
+  if (cancelledAny)
+  {
+    for (size_t index = m_backgroundFirstIndex; index <= m_backgroundLastIndex; ++index)
+    {
+      if (m_contexts[index].m_searchState == Context::SearchState::InQueue)
+      {
+        m_contexts[index].m_searchState = Context::SearchState::Untouched;
+        m_updateSampleSearchState(index);
+      }
+    }
+  }
+
+  m_backgroundFirstIndex = kInvalidIndex;
+  m_backgroundLastIndex = kInvalidIndex;
 }
 
 void SearchRequestRunner::RunNextBackgroundRequest(size_t timestamp)
 {
-  // todo(@m) Process in batches instead?
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
   if (m_backgroundQueue.empty())
-  {
-    LOG(LINFO, ("All requests from", m_backgroundFirstIndex + 1, "to", m_backgroundLastIndex + 1,
-                "have been processed"));
-    LOG(LINFO, ("Vital results found:", m_vitalsInLastBackgroundSearch.size(), "out of",
-                m_backgroundLastIndex - m_backgroundFirstIndex + 1));
-    LOG(LINFO,
-        ("Vital results found for these queries (1-based):", m_vitalsInLastBackgroundSearch));
     return;
-  }
+
   size_t index = m_backgroundQueue.front();
   m_backgroundQueue.pop();
 
@@ -90,7 +133,6 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
   auto const & context = m_contexts[index];
   auto const & sample = context.m_sample;
 
-  // todo(@m) What if we want multiple threads in engine?
   auto & engine = m_framework.GetSearchAPI().GetEngine();
 
   search::SearchParams params;
@@ -110,7 +152,6 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
       vector<search::Result> const actual(results.begin(), results.end());
       matcher.Match(sample, actual, goldenMatching, actualMatching);
       relevances.resize(actual.size());
-      bool foundVital = false;
       for (size_t i = 0; i < goldenMatching.size(); ++i)
       {
         auto const j = goldenMatching[i];
@@ -118,16 +159,8 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
         {
           CHECK_LESS(j, relevances.size(), ());
           relevances[j] = sample.m_results[i].m_relevance;
-
-          if (relevances[j] == search::Sample::Result::Relevance::Vital)
-          {
-            foundVital = true;
-          }
         }
       }
-
-      if (foundVital)
-        m_vitalsInLastBackgroundSearch.emplace_back(index + 1);
 
       LOG(LINFO, ("Request number", index + 1, "has been processed in the",
                   background ? "background" : "foreground"));
@@ -180,7 +213,13 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
         }
 
         if (background)
-          RunNextBackgroundRequest(timestamp);
+        {
+          ++m_backgroundNumProcessed;
+          if (m_backgroundNumProcessed == m_backgroundLastIndex - m_backgroundFirstIndex + 1)
+            PrintBackgroundSearchStats();
+          else
+            RunNextBackgroundRequest(timestamp);
+        }
       }
 
       if (!background)
@@ -189,39 +228,37 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
   };
 
   if (background)
-    m_backgroundQueryHandle = engine.Search(params);
+    m_backgroundQueryHandles[index] = engine.Search(params);
   else
     m_foregroundQueryHandle = engine.Search(params);
 }
 
-void SearchRequestRunner::ResetForegroundSearch()
+void SearchRequestRunner::PrintBackgroundSearchStats() const
 {
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  LOG(LINFO, ("All requests from", m_backgroundFirstIndex + 1, "to", m_backgroundLastIndex + 1,
+              "have been processed"));
 
-  ++m_foregroundTimestamp;
-  if (auto handle = m_foregroundQueryHandle.lock())
-    handle->Cancel();
-}
-
-void SearchRequestRunner::ResetBackgroundSearch()
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-
-  ++m_backgroundTimestamp;
-  auto handle = m_backgroundQueryHandle.lock();
-  if (!handle)
-    return;
-
-  handle->Cancel();
-
+  vector<size_t> vitals;
+  vitals.reserve(m_backgroundLastIndex - m_backgroundFirstIndex + 1);
   for (size_t index = m_backgroundFirstIndex; index <= m_backgroundLastIndex; ++index)
   {
-    if (m_contexts[index].m_searchState == Context::SearchState::InQueue)
+    auto const & context = m_contexts[index];
+    auto const & edits = context.m_foundResultsEdits;
+    bool foundVital = false;
+    for (auto const & entry : edits.GetEntries())
     {
-      m_contexts[index].m_searchState = Context::SearchState::Untouched;
-      m_updateSampleSearchState(index);
+      if (entry.m_currRelevance == search::Sample::Result::Relevance::Vital)
+      {
+        foundVital = true;
+        break;
+      }
     }
+
+    if (foundVital)
+      vitals.emplace_back(index + 1);
   }
 
-  queue<size_t>().swap(m_backgroundQueue);
+  LOG(LINFO, ("Vital results found:", vitals.size(), "out of",
+              m_backgroundLastIndex - m_backgroundFirstIndex + 1));
+  LOG(LINFO, ("Vital results found for these queries (1-based):", vitals));
 }
