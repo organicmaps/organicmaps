@@ -83,4 +83,18 @@ public class HttpPayload
   {
     return mNeedClientAuth;
   }
+
+  @Override
+  public String toString()
+  {
+    return "HttpPayload{" +
+           "mMethod='" + mMethod + '\'' +
+           ", mUrl='" + mUrl + '\'' +
+           ", mParams=" + mParams +
+           ", mHeaders=" + mHeaders +
+           ", mFileKey='" + mFileKey + '\'' +
+           ", mFilePath='" + mFilePath + '\'' +
+           ", mNeedClientAuth=" + mNeedClientAuth +
+           '}';
+  }
 }

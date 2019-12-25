@@ -260,6 +260,15 @@ public final class HttpUploader extends AbstractHttpUploader
     {
       return mDescription;
     }
+
+    @Override
+    public String toString()
+    {
+      return "Result{" +
+             "mHttpCode=" + mHttpCode +
+             ", mDescription='" + mDescription + '\'' +
+             '}';
+    }
   }
 
   @NonNull
