@@ -498,7 +498,7 @@ using namespace std;
 }
 
 - (void)cancelSearch {
-  GetFramework().CancelSearch(search::Mode::Bookmarks);
+  GetFramework().GetSearchAPI().CancelSearch(search::Mode::Bookmarks);
 
   [self showNoResultsView:NO];
   self.searchSections = nil;
@@ -663,7 +663,7 @@ using namespace std;
     [Statistics logEvent:kStatBookmarksSearch withParameters:@{kStatFrom : kStatBookmarksList}];
   };
 
-  GetFramework().SearchInBookmarks(searchParams);
+  GetFramework().GetSearchAPI().SearchInBookmarks(searchParams);
 }
 
 #pragma mark - UITableViewDataSource

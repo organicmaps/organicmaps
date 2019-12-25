@@ -638,7 +638,7 @@ bool Framework::OnCountryFileDelete(storage::CountryId const & countryId,
   if (countryId == m_lastReportedCountry)
     m_lastReportedCountry = kInvalidCountryId;
 
-  CancelAllSearches();
+  GetSearchAPI().CancelAllSearches();
 
   m2::RectD rect = mercator::Bounds::FullRect();
 
@@ -1389,41 +1389,6 @@ void Framework::SetCurrentCountryChangedListener(TCurrentCountryChanged const & 
   m_lastReportedCountry = kInvalidCountryId;
 }
 
-void Framework::PokeSearchInViewport(bool forceSearch)
-{
-  return GetSearchAPI().PokeSearchInViewport(forceSearch);
-}
-
-bool Framework::SearchEverywhere(search::EverywhereSearchParams const & params)
-{
-  return GetSearchAPI().SearchEverywhere(params);
-}
-
-bool Framework::SearchInViewport(search::ViewportSearchParams const & params)
-{
-  return GetSearchAPI().SearchInViewport(params);
-}
-
-bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
-{
-  return GetSearchAPI().SearchInDownloader(params);
-}
-
-bool Framework::SearchInBookmarks(search::BookmarksSearchParams const & params)
-{
-  return GetSearchAPI().SearchInBookmarks(params);
-}
-
-void Framework::CancelSearch(search::Mode mode)
-{
-  return GetSearchAPI().CancelSearch(mode);
-}
-
-void Framework::CancelAllSearches()
-{
-  return GetSearchAPI().CancelAllSearches();
-}
-
 void Framework::MemoryWarning()
 {
   LOG(LINFO, ("MemoryWarning"));
@@ -1672,7 +1637,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
 
 void Framework::ShowSearchResult(search::Result const & res, bool animation)
 {
-  CancelAllSearches();
+  GetSearchAPI().CancelAllSearches();
   StopLocationFollow();
 
   alohalytics::LogEvent("searchShowResult", {{"pos", strings::to_string(res.GetPositionInResults())},

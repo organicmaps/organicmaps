@@ -549,27 +549,6 @@ private:
 public:
   using SearchRequest = search::QuerySaver::SearchRequest;
 
-  // When search in viewport is active or delayed, restarts search in
-  // viewport. When |forceSearch| is false, request is skipped when it
-  // is similar to the previous request in the current
-  // search-in-viewport session.
-  void PokeSearchInViewport(bool forceSearch = true);
-
-  // Search everywhere.
-  bool SearchEverywhere(search::EverywhereSearchParams const & params);
-
-  // Search in the viewport.
-  bool SearchInViewport(search::ViewportSearchParams const & params);
-
-  // Search for maps by countries or cities.
-  bool SearchInDownloader(storage::DownloaderSearchParams const & params);
-
-  // Search for bookmarks by query string.
-  bool SearchInBookmarks(search::BookmarksSearchParams const & params);
-
-  void CancelSearch(search::Mode mode);
-  void CancelAllSearches();
-
   // Moves viewport to the search result and taps on it.
   void SelectSearchResult(search::Result const & res, bool animation);
 

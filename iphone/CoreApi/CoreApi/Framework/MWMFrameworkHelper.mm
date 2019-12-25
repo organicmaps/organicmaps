@@ -169,7 +169,7 @@
     }
     completion([resultsArray copy], results.m_endMarker);
   };
-  GetFramework().SearchInDownloader(searchParams);
+  GetFramework().GetSearchAPI().SearchInDownloader(searchParams);
 }
 
 @end

@@ -395,7 +395,7 @@ void OnResults(Results const & results, vector<search::ProductInfo> const & prod
   {
     env->CallVoidMethod(g_javaListener, g_endResultsId, static_cast<jlong>(timestamp));
     if (isMapAndTable && results.IsEndedNormal())
-      g_framework->NativeFramework()->PokeSearchInViewport();
+      g_framework->NativeFramework()->GetSearchAPI().PokeSearchInViewport();
   }
 }
 
@@ -690,7 +690,7 @@ extern "C"
     params.m_bookingFilterTasks = g_bookingBuilder.BuildTasks(env, bookingFilterParams);
 
     g_lastBookingFilterTasks = params.m_bookingFilterTasks;
-    bool const searchStarted = g_framework->NativeFramework()->SearchEverywhere(params);
+    bool const searchStarted = g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(params);
     if (searchStarted)
       g_queryTimestamp = timestamp;
     return searchStarted;
@@ -710,7 +710,7 @@ extern "C"
 
     // TODO (@alexzatsepin): set up vparams.m_onCompleted here and use
     // HotelsClassifier for hotel queries detection.
-    g_framework->NativeFramework()->SearchInViewport(vparams);
+    g_framework->NativeFramework()->GetSearchAPI().SearchInViewport(vparams);
 
     if (isMapAndTable)
     {
@@ -722,7 +722,7 @@ extern "C"
       eparams.m_hotelsFilter = vparams.m_hotelsFilter;
       eparams.m_bookingFilterTasks = g_lastBookingFilterTasks;
 
-      if (g_framework->NativeFramework()->SearchEverywhere(eparams))
+      if (g_framework->NativeFramework()->GetSearchAPI().SearchEverywhere(eparams))
         g_queryTimestamp = timestamp;
     }
   }
@@ -735,7 +735,7 @@ extern "C"
     params.m_inputLocale = jni::ToNativeString(env, lang);
     params.m_onResults = bind(&OnMapSearchResults, _1, timestamp);
 
-    if (g_framework->NativeFramework()->SearchInDownloader(params))
+    if (g_framework->NativeFramework()->GetSearchAPI().SearchInDownloader(params))
       g_queryTimestamp = timestamp;
   }
 
@@ -748,7 +748,7 @@ extern "C"
     params.m_onStarted = bind(&OnBookmarksSearchStarted);
     params.m_onResults = bind(&OnBookmarksSearchResults, _1, _2, timestamp);
 
-    bool const searchStarted = g_framework->NativeFramework()->SearchInBookmarks(params);
+    bool const searchStarted = g_framework->NativeFramework()->GetSearchAPI().SearchInBookmarks(params);
     if (searchStarted)
       g_queryTimestamp = timestamp;
     return searchStarted;
@@ -763,19 +763,19 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeCancelInteractiveSearch(JNIEnv * env, jclass clazz)
   {
-    g_framework->NativeFramework()->CancelSearch(search::Mode::Viewport);
+    g_framework->NativeFramework()->GetSearchAPI().CancelSearch(search::Mode::Viewport);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeCancelEverywhereSearch(JNIEnv * env, jclass clazz)
   {
-    g_framework->NativeFramework()->CancelSearch(search::Mode::Everywhere);
+    g_framework->NativeFramework()->GetSearchAPI().CancelSearch(search::Mode::Everywhere);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeCancelAllSearches(JNIEnv * env, jclass clazz)
   {
-    g_framework->NativeFramework()->CancelAllSearches();
+    g_framework->NativeFramework()->GetSearchAPI().CancelAllSearches();
   }
 
   JNIEXPORT jobjectArray JNICALL

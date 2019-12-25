@@ -975,7 +975,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
     if (!f.RollBackChanges(fid))
       NSAssert(false, @"We shouldn't call this if we can't roll back!");
 
-    f.PokeSearchInViewport();
+    f.GetSearchAPI().PokeSearchInViewport();
     [self goBack];
   };
 

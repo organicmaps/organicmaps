@@ -550,7 +550,7 @@ void Framework::Scale(m2::PointD const & centerPt, int targetZoom, bool animate)
 bool Framework::Search(search::EverywhereSearchParams const & params)
 {
   m_searchQuery = params.m_query;
-  return m_work.SearchEverywhere(params);
+  return m_work.GetSearchAPI().SearchEverywhere(params);
 }
 
 void Framework::AddLocalMaps()
@@ -1157,7 +1157,7 @@ Java_com_mapswithme_maps_Framework_nativeGetDrawScale(JNIEnv * env, jclass)
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativePokeSearchInViewport(JNIEnv * env, jclass)
 {
-  frm()->PokeSearchInViewport();
+  frm()->GetSearchAPI().PokeSearchInViewport();
 }
 
 JNIEXPORT jdoubleArray JNICALL

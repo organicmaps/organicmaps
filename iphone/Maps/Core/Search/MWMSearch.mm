@@ -149,7 +149,7 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   [self enableCallbackFor:booking::filter::Type::Availability];
   [self enableCallbackFor:booking::filter::Type::Deals];
 
-  GetFramework().SearchEverywhere(m_everywhereParams);
+  GetFramework().GetSearchAPI().SearchEverywhere(m_everywhereParams);
   self.searchCount += 1;
 }
 
@@ -163,7 +163,7 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
     self.searchCount -= 1;
   };
 
-  GetFramework().SearchInViewport(m_viewportParams);
+  GetFramework().GetSearchAPI().SearchInViewport(m_viewportParams);
 }
 
 - (void)updateFilters
@@ -313,7 +313,7 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
 - (void)reset
 {
   self.lastSearchTimestamp += 1;
-  GetFramework().CancelAllSearches();
+  GetFramework().GetSearchAPI().CancelAllSearches();
 
   m_everywhereResults.Clear();
   m_viewportResults.Clear();

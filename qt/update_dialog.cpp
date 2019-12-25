@@ -277,7 +277,7 @@ namespace qt
       FillTree(filter, timestamp);
     };
 
-    m_framework.SearchInDownloader(params);
+    m_framework.GetSearchAPI().SearchInDownloader(params);
   }
 
   void UpdateDialog::FillTree(optional<Filter> const & filter, uint64_t timestamp)
