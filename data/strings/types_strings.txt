@@ -18137,36 +18137,6 @@
   [type.sponsored.banner]
     en = sponsored-banner
 
-  [type.sponsored.banner.deliveryclub]
-    en = sponsored-banner-deliveryclub
-
-  [type.sponsored.banner.geerbest_de]
-    en = sponsored-banner-geerbest_de
-
-  [type.sponsored.banner.geerbest_fr]
-    en = sponsored-banner-geerbest_fr
-
-  [type.sponsored.banner.geerbest_uk]
-    en = sponsored-banner-geerbest_uk
-
-  [type.sponsored.banner.lamoda_ru]
-    en = sponsored-banner-lamoda_ru
-
-  [type.sponsored.banner.lamoda_ua]
-    en = sponsored-banner-lamoda_ua
-
-  [type.sponsored.banner.raileurope]
-    en = sponsored-banner-raileurope
-
-  [type.sponsored.banner.rentalcars]
-    en = sponsored-banner-rentalcars
-
-  [type.sponsored.banner.tutu]
-    en = sponsored-banner-tutu
-
-  [type.sponsored.banner.viator]
-    en = sponsored-banner-viator
-
   [type.sponsored.booking]
     en = sponsored-booking
 
