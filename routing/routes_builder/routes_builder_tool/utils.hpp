@@ -18,6 +18,7 @@ void BuildRoutes(std::string const & routesPath,
                  uint64_t startFrom,
                  uint64_t threadsNumber,
                  uint32_t timeoutPerRouteSeconds,
+                 std::string const & vehicleType,
                  bool verbose,
                  uint32_t launchesNumber);
 

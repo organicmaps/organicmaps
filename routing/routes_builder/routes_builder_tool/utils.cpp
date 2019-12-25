@@ -42,6 +42,21 @@ size_t GetNumberOfLines(std::string const & filename)
 
   return count;
 }
+
+routing::VehicleType ConvertVehicleTypeFromString(std::string const & str)
+{
+  if (str == "car")
+    return routing::VehicleType::Car;
+  if (str == "pedestrian")
+    return routing::VehicleType::Pedestrian;
+  if (str == "bicycle")
+    return routing::VehicleType::Bicycle;
+  if (str == "transit")
+    return routing::VehicleType::Transit;
+
+  CHECK(false, ("Unknown vehicle type:", str));
+  UNREACHABLE();
+}
 }  // namespace
 
 namespace routing
@@ -53,6 +68,7 @@ void BuildRoutes(std::string const & routesPath,
                  uint64_t startFrom,
                  uint64_t threadsNumber,
                  uint32_t timeoutPerRouteSeconds,
+                 std::string const & vehicleTypeStr,
                  bool verbose,
                  uint32_t launchesNumber)
 {
@@ -73,9 +89,10 @@ void BuildRoutes(std::string const & routesPath,
   std::vector<std::future<RoutesBuilder::Result>> tasks;
   double lastPercent = 0.0;
 
+  auto const vehicleType = ConvertVehicleTypeFromString(vehicleTypeStr);
   {
     RoutesBuilder::Params params;
-    params.m_type = VehicleType::Car;
+    params.m_type = vehicleType;
     params.m_timeoutSeconds = timeoutPerRouteSeconds;
     params.m_launchesNumber = launchesNumber;
 
@@ -98,7 +115,7 @@ void BuildRoutes(std::string const & routesPath,
       tasks.emplace_back(routesBuilder.ProcessTaskAsync(params));
     }
 
-    LOG_FORCE(LINFO, ("Created:", tasks.size(), "tasks"));
+    LOG_FORCE(LINFO, ("Created:", tasks.size(), "tasks, vehicle type:", vehicleType));
     base::Timer timer;
     for (size_t i = 0; i < tasks.size(); ++i)
     {

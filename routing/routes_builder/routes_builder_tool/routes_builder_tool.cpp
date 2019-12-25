@@ -40,6 +40,7 @@ DEFINE_int32(timeout, 10 * 60, "Timeout in seconds for each route building. "
 DEFINE_bool(verbose, false, "Verbose logging (default: false)");
 
 DEFINE_int32(launches_number, 1, "Number of launches of routes buildings. Needs for benchmarking (default: 1)");
+DEFINE_string(vehicle_type, "car", "Vehicle type: car|pedestrian|bicycle|transit. (Only for mapsme).");
 
 using namespace routing;
 using namespace routes_builder;
@@ -107,7 +108,7 @@ int Main(int argc, char ** argv)
     }
 
     BuildRoutes(FLAGS_routes_file, FLAGS_dump_path, FLAGS_start_from, FLAGS_threads, FLAGS_timeout,
-                FLAGS_verbose, launchesNumber);
+                FLAGS_vehicle_type, FLAGS_verbose, launchesNumber);
   }
 
   if (IsApiBuild())
