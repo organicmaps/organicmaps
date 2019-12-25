@@ -45,15 +45,6 @@ public:
   /// callback. Both callbacks will be invoked on the main thread.
   void DownloadMapFile(QueuedCountry & queuedCountry);
 
-  /// Returns current downloading progress.
-  virtual downloader::Progress GetDownloadingProgress() = 0;
-
-  /// Returns true when downloader does not perform any job.
-  virtual bool IsIdle() = 0;
-
-  virtual void Pause() = 0;
-  virtual void Resume() = 0;
-
   // Removes item from m_quarantine queue when list of servers is not received.
   // Parent method must be called into override method.
   virtual void Remove(CountryId const & id);

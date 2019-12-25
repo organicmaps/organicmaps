@@ -315,7 +315,7 @@ public:
                                          TaskRunner & runner)
     : CountryDownloaderChecker(
           storage, countryId, MapFileType::Map,
-          vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::ENotDownloaded})
+          vector<Status>{Status::ENotDownloaded, Status::EInQueue, Status::EDownloading, Status::ENotDownloaded})
     , m_runner(runner)
   {
   }
@@ -345,7 +345,7 @@ unique_ptr<CountryDownloaderChecker> AbsentCountryDownloaderChecker(Storage & st
 {
   return make_unique<CountryDownloaderChecker>(
       storage, countryId, type,
-      vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::EOnDisk});
+      vector<Status>{Status::ENotDownloaded, Status::EInQueue, Status::EDownloading, Status::EOnDisk});
 }
 
 // Checks following state transitions:
@@ -356,7 +356,7 @@ unique_ptr<CountryDownloaderChecker> CancelledCountryDownloaderChecker(Storage &
 {
   return make_unique<CountryDownloaderChecker>(
       storage, countryId, type,
-      vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::ENotDownloaded});
+      vector<Status>{Status::ENotDownloaded, Status::EInQueue, Status::EDownloading, Status::ENotDownloaded});
 }
 
 class CountryStatusChecker
@@ -770,7 +770,8 @@ UNIT_CLASS_TEST(StorageTest, DownloadedMap)
   {
     auto algeriaCentralChecker = make_unique<CountryDownloaderChecker>(
         storage, algeriaCentralCountryId, MapFileType::Map,
-        vector<Status>{Status::ENotDownloaded, Status::EDownloading, Status::EOnDisk});
+        vector<Status>{Status::ENotDownloaded, Status::EInQueue, Status::EDownloading,
+                       Status::EOnDisk});
 
     auto algeriaCoastChecker = make_unique<CountryDownloaderChecker>(
         storage, algeriaCoastCountryId, MapFileType::Map,

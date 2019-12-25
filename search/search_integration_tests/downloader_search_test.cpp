@@ -87,12 +87,6 @@ class TestMapFilesDownloader : public storage::MapFilesDownloader
 {
 public:
   // MapFilesDownloader overrides:
-  downloader::Progress GetDownloadingProgress() override { return {}; }
-
-  bool IsIdle() override { return false; }
-
-  void Pause() override {}
-  void Resume() override {}
   void Remove(storage::CountryId const & id) override {}
   void Clear() override {}
 

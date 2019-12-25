@@ -342,7 +342,14 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeIsDownloading(JNIEnv * env,
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeGetCurrentDownloadingCountryId(JNIEnv * env, jclass)
 {
-  return jni::ToJavaString(env, GetStorage().GetCurrentDownloadingCountryId());
+  auto const & downloadingCountries = GetStorage().GetCurrentDownloadingCountries();
+
+  if (downloadingCountries.empty())
+    return nullptr;
+
+  ASSERT_EQUAL(downloadingCountries.size(), 1, ());
+
+  return jni::ToJavaString(env, downloadingCountries.begin()->first);
 }
 
 static void StartBatchingCallbacks()

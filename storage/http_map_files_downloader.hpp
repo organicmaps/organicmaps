@@ -23,10 +23,6 @@ public:
   virtual ~HttpMapFilesDownloader();
 
   // MapFilesDownloader overrides:
-  downloader::Progress GetDownloadingProgress() override;
-  bool IsIdle() override;
-  void Pause() override;
-  void Resume() override;
   void Remove(CountryId const & id) override;
   void Clear() override;
   Queue const & GetQueue() const override;

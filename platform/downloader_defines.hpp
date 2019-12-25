@@ -28,6 +28,7 @@ inline std::string DebugPrint(DownloadStatus status)
   UNREACHABLE();
 }
 
-/// <bytes downloaded, total number of bytes>, total can be -1 if size is unknown
+int64_t constexpr kUnknownTotalSize = -1;
+/// <bytes downloaded, total number of bytes>, total can be kUnknownTotalSize if size is unknown
 using Progress = std::pair<int64_t, int64_t>;
 }  // namespace downloader

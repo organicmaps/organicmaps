@@ -27,52 +27,16 @@ void FakeMapFilesDownloader::Download(QueuedCountry & queuedCountry)
 
   m_queue.push_back(queuedCountry);
 
-  if (m_queue.size() != 1)
-  {
-    for (auto const subscriber : m_subscribers)
-      subscriber->OnCountryInQueue(queuedCountry.GetCountryId());
+  for (auto const subscriber : m_subscribers)
+    subscriber->OnCountryInQueue(queuedCountry.GetCountryId());
 
+  if (m_queue.size() != 1)
     return;
-  }
 
   for (auto const subscriber : m_subscribers)
     subscriber->OnStartDownloading();
 
   Download();
-}
-
-downloader::Progress FakeMapFilesDownloader::GetDownloadingProgress()
-{
-  CHECK_THREAD_CHECKER(m_checker, ());
-
-  return m_progress;
-}
-
-bool FakeMapFilesDownloader::IsIdle()
-{
-  CHECK_THREAD_CHECKER(m_checker, ());
-
-  return m_writer.get() == nullptr;
-}
-
-void FakeMapFilesDownloader::Pause()
-{
-  CHECK_THREAD_CHECKER(m_checker, ());
-
-  m_writer.reset();
-  ++m_timestamp;
-}
-
-void FakeMapFilesDownloader::Resume()
-{
-  CHECK_THREAD_CHECKER(m_checker, ());
-
-  if (m_queue.empty() || m_writer)
-    return;
-
-  m_writer.reset(new FileWriter(m_queue.front().GetFileDownloadPath()));
-  ++m_timestamp;
-  m_taskRunner.PostTask(std::bind(&FakeMapFilesDownloader::DownloadNextChunk, this, m_timestamp));
 }
 
 void FakeMapFilesDownloader::Remove(CountryId const & id)

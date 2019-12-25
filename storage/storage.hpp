@@ -157,6 +157,7 @@ public:
   using DeleteCallback = std::function<bool(storage::CountryId const &, LocalFilePtr const)>;
   using ChangeCountryFunction = std::function<void(CountryId const &)>;
   using ProgressFunction = std::function<void(CountryId const &, downloader::Progress const &)>;
+  using DownloadingCountries = std::unordered_map<CountryId, downloader::Progress>;
 
 private:
   /// We support only one simultaneous request at the moment
@@ -250,6 +251,8 @@ private:
   bool m_needToStartDeferredDownloading = false;
 
   StartDownloadingCallback m_startDownloadingCallback;
+
+  DownloadingCountries m_downloadingCountries;
 
   void LoadCountriesFile(std::string const & pathToCountriesFile);
 
@@ -534,9 +537,9 @@ public:
   /// Notifies observers about country status change.
   void DeleteCustomCountryVersion(platform::LocalCountryFile const & localFile);
 
-  bool IsDownloadInProgress() const;
+  DownloadingCountries const & GetCurrentDownloadingCountries() const;
 
-  CountryId GetCurrentDownloadingCountryId() const;
+  bool IsDownloadInProgress() const;
 
   /// @param[out] res Populated with oudated countries.
   void GetOutdatedCountries(std::vector<Country const *> & countries) const;
@@ -573,9 +576,6 @@ private:
 
   // Returns true when country is in the downloader's queue.
   bool IsCountryInQueue(CountryId const & countryId) const;
-
-  // Returns true when country is first in the downloader's queue.
-  bool IsCountryFirstInQueue(CountryId const & countryId) const;
 
   // Returns true if we started the diff applying procedure for an mwm with countryId.
   bool IsDiffApplyingInProgressToCountry(CountryId const & countryId) const;
@@ -632,14 +632,7 @@ private:
   /// |descendants| All descendants of the parent node.
   /// |downloadingMwm| Downloading leaf node country id if any. If not, downloadingMwm == kInvalidCountryId.
   /// |downloadingMwm| Must be only leaf.
-  /// If downloadingMwm != kInvalidCountryId |downloadingMwmProgress| is a progress of downloading
-  /// the leaf node in bytes. |downloadingMwmProgress.first| == number of downloaded bytes.
-  /// |downloadingMwmProgress.second| == number of bytes in downloading files.
-  /// |mwmsInQueue| hash table made from |m_queue|.
-  downloader::Progress CalculateProgress(CountryId const & downloadingMwm,
-                                         CountriesVec const & descendants,
-                                         downloader::Progress const & downloadingMwmProgress,
-                                         CountriesSet const & mwmsInQueue) const;
+  downloader::Progress CalculateProgress(CountriesVec const & descendants) const;
 
   template <class ToDo>
   void ForEachAncestorExceptForTheRoot(std::vector<CountryTree::Node const *> const & nodes,

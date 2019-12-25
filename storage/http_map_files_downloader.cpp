@@ -86,33 +86,6 @@ void HttpMapFilesDownloader::Download()
   }
 }
 
-downloader::Progress HttpMapFilesDownloader::GetDownloadingProgress()
-{
-  CHECK_THREAD_CHECKER(m_checker, ());
-  ASSERT(nullptr != m_request, ());
-  return m_request->GetProgress();
-}
-
-bool HttpMapFilesDownloader::IsIdle()
-{
-  CHECK_THREAD_CHECKER(m_checker, ());
-  return m_request.get() == nullptr;
-}
-
-void HttpMapFilesDownloader::Pause()
-{
-  CHECK_THREAD_CHECKER(m_checker, ());
-  m_request.reset();
-}
-
-void HttpMapFilesDownloader::Resume()
-{
-  CHECK_THREAD_CHECKER(m_checker, ());
-
-  if (!m_request && !m_queue.empty())
-    Download();
-}
-
 void HttpMapFilesDownloader::Remove(CountryId const & id)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
@@ -133,6 +106,10 @@ void HttpMapFilesDownloader::Remove(CountryId const & id)
   {
     for (auto const subscriber : m_subscribers)
       subscriber->OnFinishDownloading();
+  }
+  else if (!m_request)
+  {
+    Download();
   }
 }
 
