@@ -953,17 +953,6 @@ world  +
         wine  -
         {}
     sponsored  +
-        banner  +
-            deliveryclub  -
-            geerbest_de  -
-            geerbest_fr  -
-            geerbest_uk  -
-            lamoda_ru  -
-            lamoda_ua  -
-            raileurope  -
-            rentalcars  -
-            tutu  -
-            {}
         booking  -
         holiday  -
         opentable  -
