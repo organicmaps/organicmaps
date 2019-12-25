@@ -5,14 +5,13 @@
 #include "coding/file_writer.hpp"
 
 #include <cstdint>
-#include <functional>
 #include <fstream>
+#include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <unordered_map>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 namespace generator_tests
 {
@@ -43,7 +42,7 @@ namespace routing
 ///                         "130 kmh" - means 130 km per hour.
 /// See https://wiki.openstreetmap.org/wiki/Key:maxspeed
 /// for more details about input string.
-boost::optional<double> GetMaxSpeedKmPH(std::string const & maxSpeedString);
+std::optional<double> GetMaxSpeedKmPH(std::string const & maxSpeedString);
 
 class CameraProcessor
 {

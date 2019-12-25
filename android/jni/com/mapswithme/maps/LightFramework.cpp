@@ -101,7 +101,7 @@ Java_com_mapswithme_maps_LightFramework_nativeGetNotification(JNIEnv * env, jcla
   if (!notification)
     return nullptr;
 
-  auto const & n = notification.get();
+  auto const & n = *notification;
   // Type::UgcReview is only supported.
   CHECK_EQUAL(n.GetType(), notifications::NotificationCandidate::Type::UgcReview, ());
 

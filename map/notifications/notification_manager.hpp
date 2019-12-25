@@ -8,13 +8,12 @@
 
 #include <ctime>
 #include <memory>
+#include <optional>
 #include <string>
-
-#include <boost/optional.hpp>
 
 namespace notifications
 {
-using Notification = boost::optional<NotificationCandidate>;
+using Notification = std::optional<NotificationCandidate>;
 class NotificationManager : public eye::Subscriber
 {
 public:

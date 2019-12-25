@@ -46,7 +46,7 @@ CSVReader::Rows CSVReader::ReadAll()
   return file;
 }
 
-boost::optional<CSVReader::Row> CSVReader::ReadRow()
+std::optional<CSVReader::Row> CSVReader::ReadRow()
 {
   auto const line = m_reader->ReadLine();
   if (!line)
@@ -62,15 +62,15 @@ size_t CSVReader::GetCurrentLineNumber() const { return m_currentLine; }
 
 CSVReader::IstreamWrapper::IstreamWrapper(std::istream & stream) : m_stream(stream) {}
 
-boost::optional<std::string> CSVReader::IstreamWrapper::ReadLine()
+std::optional<std::string> CSVReader::IstreamWrapper::ReadLine()
 {
   std::string line;
-  return std::getline(m_stream, line) ? line : boost::optional<std::string>();
+  return std::getline(m_stream, line) ? line : std::optional<std::string>();
 }
 
 CSVReader::ReaderWrapper::ReaderWrapper(Reader const & reader) : m_reader(reader) {}
 
-boost::optional<std::string> CSVReader::ReaderWrapper::ReadLine()
+std::optional<std::string> CSVReader::ReaderWrapper::ReadLine()
 {
   std::vector<char> line;
   char ch = '\0';
@@ -98,7 +98,7 @@ CSVReader::DefaultReader::DefaultReader(std::string const & filename)
   m_stream.exceptions(std::ios::badbit);
 }
 
-boost::optional<std::string> CSVReader::DefaultReader::ReadLine()
+std::optional<std::string> CSVReader::DefaultReader::ReadLine()
 {
   return IstreamWrapper(m_stream).ReadLine();
 }

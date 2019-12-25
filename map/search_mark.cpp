@@ -186,8 +186,8 @@ m2::PointD GetSize(SearchMarkType searchMarkType, bool hasLocalAds, bool isRated
   if (!SearchMarks::HaveSizes())
     return {};
 
-  auto const pixelSize =
-      SearchMarks::GetSize(GetSymbol(searchMarkType, hasLocalAds, isRated)).get_value_or({});
+  auto const pixelSize = SearchMarks::GetSize(GetSymbol(searchMarkType, hasLocalAds, isRated))
+                             .value_or(m2::PointD::Zero());
   double const pixelToMercator = modelView.GetScale();
   return {pixelToMercator * pixelSize.x, pixelToMercator * pixelSize.y};
 }
@@ -355,7 +355,7 @@ drape_ptr<df::UserPointMark::SymbolOffsets> SearchMarkPoint::GetSymbolOffsets() 
     return nullptr;
 
   auto const name = GetSymbolName();
-  auto const iconSz = SearchMarks::GetSize(name).get_value_or({});
+  auto const iconSz = SearchMarks::GetSize(name).value_or(m2::PointD::Zero());
 
   float horizontalOffset = 0.0f;
   if (SMT(m_type) != SearchMarkType::Booking && m_hasLocalAds)
@@ -366,7 +366,7 @@ drape_ptr<df::UserPointMark::SymbolOffsets> SearchMarkPoint::GetSymbolOffsets() 
   SymbolOffsets offsets(scales::UPPER_STYLE_SCALE);
   for (size_t i = 0; i < offsets.size(); i++)
   {
-    auto const badgeSz = SearchMarks::GetSize(badgeName).get_value_or({});
+    auto const badgeSz = SearchMarks::GetSize(badgeName).value_or(m2::PointD::Zero());
     offsets[i] = {(0.5f + horizontalOffset) * static_cast<float>(badgeSz.x - iconSz.x), 0.0};
   }
 
@@ -413,7 +413,7 @@ drape_ptr<df::UserPointMark::TitlesInfo> SearchMarkPoint::GetTitleDecl() const
     if (!sz)
       return nullptr;
     auto constexpr kShadowOffset = 4.0;
-    auto const centerOffset = -0.5 * sz.get().y - kShadowOffset;
+    auto const centerOffset = -0.5 * sz->y - kShadowOffset;
     titleDecl.m_primaryOffset.y =
         static_cast<float>(centerOffset / df::VisualParams::Instance().GetVisualScale()) -
         0.5f * titleDecl.m_primaryTextFont.m_size;
@@ -590,7 +590,7 @@ double SearchMarks::GetMaxDimension(ScreenBase const & modelView) const
 }
 
 // static
-boost::optional<m2::PointD> SearchMarks::GetSize(std::string const & symbolName)
+std::optional<m2::PointD> SearchMarks::GetSize(std::string const & symbolName)
 {
   auto const it = m_searchMarksSizes.find(symbolName);
   if (it == m_searchMarksSizes.end())

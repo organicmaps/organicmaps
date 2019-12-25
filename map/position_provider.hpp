@@ -2,12 +2,12 @@
 
 #include "geometry/point2d.hpp"
 
-#include <boost/optional.hpp>
+#include <optional>
 
 class PositionProvider
 {
 public:
   virtual ~PositionProvider() = default;
 
-  virtual boost::optional<m2::PointD> GetCurrentPosition() const = 0;
+  virtual std::optional<m2::PointD> GetCurrentPosition() const = 0;
 };

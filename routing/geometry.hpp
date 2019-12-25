@@ -19,9 +19,8 @@
 
 #include <cstdint>
 #include <memory>
+#include <optional>
 #include <string>
-
-#include <boost/optional.hpp>
 
 class DataSource;
 
@@ -84,7 +83,7 @@ private:
   buffer_vector<LatLonWithAltitude, 32> m_junctions;
   SpeedKMpH m_forwardSpeed;
   SpeedKMpH m_backwardSpeed;
-  boost::optional<HighwayType> m_highwayType;
+  std::optional<HighwayType> m_highwayType;
   bool m_isOneWay = false;
   bool m_valid = false;
   bool m_isPassThroughAllowed = false;

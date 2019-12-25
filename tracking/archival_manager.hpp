@@ -9,11 +9,10 @@
 #include <chrono>
 #include <cstdint>
 #include <exception>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
-
-#include "boost/optional.hpp"
 
 namespace tracking
 {
@@ -47,7 +46,7 @@ private:
   std::chrono::seconds ReadTimestamp(std::string const & filePath);
   void WriteTimestamp(std::string const & filePath);
 
-  boost::optional<FileWriter> GetFileWriter(routing::RouterType const & trackType) const;
+  std::optional<FileWriter> GetFileWriter(routing::RouterType const & trackType) const;
 
   std::vector<std::string> GetFilesOrderedByCreation(std::string const & extension) const;
   bool CreateTracksDir() const;
@@ -73,6 +72,6 @@ void ArchivalManager::Dump(T & archive, routing::RouterType const & trackType, b
     return;
 
   if (auto dst = GetFileWriter(trackType))
-    archive.Write(dst.get());
+    archive.Write(*dst);
 }
 }  // namespace tracking

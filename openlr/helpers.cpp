@@ -7,11 +7,10 @@
 #include "geometry/mercator.hpp"
 
 #include <algorithm>
+#include <optional>
 #include <sstream>
 #include <string>
 #include <type_traits>
-
-#include "boost/optional.hpp"
 
 namespace
 {
@@ -32,15 +31,15 @@ openlr::FunctionalRoadClass HighwayClassToFunctionalRoadClass(ftypes::HighwayCla
   }
 }
 
-/// \returns boost::none if |e| doesn't conform to |functionalRoadClass| and score otherwise.
-boost::optional<Score> GetFrcScore(Graph::Edge const & e, FunctionalRoadClass functionalRoadClass,
-                                   RoadInfoGetter & infoGetter)
+/// \returns nullopt if |e| doesn't conform to |functionalRoadClass| and score otherwise.
+optional<Score> GetFrcScore(Graph::Edge const & e, FunctionalRoadClass functionalRoadClass,
+                            RoadInfoGetter & infoGetter)
 {
   CHECK(!e.IsFake(), ());
   Score constexpr kMaxScoreForFrc = 25;
 
   if (functionalRoadClass == FunctionalRoadClass::NotAValue)
-    return boost::none;
+    return nullopt;
 
   auto const hwClass = infoGetter.Get(e.GetFeatureId()).m_hwClass;
 
@@ -48,35 +47,34 @@ boost::optional<Score> GetFrcScore(Graph::Edge const & e, FunctionalRoadClass fu
   {
   case FunctionalRoadClass::FRC0:
     // Note. HighwayClass::Trunk means motorway, motorway_link, trunk or trunk_link.
-    return hwClass == ftypes::HighwayClass::Trunk ? boost::optional<Score>(kMaxScoreForFrc)
-                                                  : boost::none;
+    return hwClass == ftypes::HighwayClass::Trunk ? optional<Score>(kMaxScoreForFrc) : nullopt;
 
   case FunctionalRoadClass::FRC1:
     return (hwClass == ftypes::HighwayClass::Trunk || hwClass == ftypes::HighwayClass::Primary)
-               ? boost::optional<Score>(kMaxScoreForFrc)
-               : boost::none;
+               ? optional<Score>(kMaxScoreForFrc)
+               : nullopt;
 
   case FunctionalRoadClass::FRC2:
   case FunctionalRoadClass::FRC3:
     if (hwClass == ftypes::HighwayClass::Secondary || hwClass == ftypes::HighwayClass::Tertiary)
-      return boost::optional<Score>(kMaxScoreForFrc);
+      return optional<Score>(kMaxScoreForFrc);
 
     return hwClass == ftypes::HighwayClass::Primary || hwClass == ftypes::HighwayClass::LivingStreet
-               ? boost::optional<Score>(0)
-               : boost::none;
+               ? optional<Score>(0)
+               : nullopt;
 
   case FunctionalRoadClass::FRC4:
     if (hwClass == ftypes::HighwayClass::LivingStreet || hwClass == ftypes::HighwayClass::Service)
-      return boost::optional<Score>(kMaxScoreForFrc);
+      return optional<Score>(kMaxScoreForFrc);
 
-    return hwClass == ftypes::HighwayClass::Tertiary ? boost::optional<Score>(0) : boost::none;
+    return hwClass == ftypes::HighwayClass::Tertiary ? optional<Score>(0) : nullopt;
 
   case FunctionalRoadClass::FRC5:
   case FunctionalRoadClass::FRC6:
   case FunctionalRoadClass::FRC7:
     return hwClass == ftypes::HighwayClass::LivingStreet || hwClass == ftypes::HighwayClass::Service
-               ? boost::optional<Score>(kMaxScoreForFrc)
-               : boost::none;
+               ? optional<Score>(kMaxScoreForFrc)
+               : nullopt;
 
   case FunctionalRoadClass::NotAValue:
     UNREACHABLE();
@@ -168,10 +166,10 @@ bool PassesRestrictionV3(Graph::Edge const & e, FunctionalRoadClass functionalRo
 {
   CHECK(!e.IsFake(), ("Edges should not be fake:", e));
   auto const frcScore = GetFrcScore(e, functionalRoadClass, infoGetter);
-  if (frcScore == boost::none)
+  if (!frcScore)
     return false;
 
-  score = frcScore.get();
+  score = *frcScore;
   Score constexpr kScoreForFormOfWay = 25;
   if (formOfWay == FormOfWay::Roundabout && infoGetter.Get(e.GetFeatureId()).m_isRoundabout)
     score += kScoreForFormOfWay;
@@ -192,7 +190,7 @@ bool ConformLfrcnp(Graph::Edge const & e, FunctionalRoadClass lowestFrcToNextPoi
 bool ConformLfrcnpV3(Graph::Edge const & e, FunctionalRoadClass lowestFrcToNextPoint,
                      RoadInfoGetter & infoGetter)
 {
-  return GetFrcScore(e, lowestFrcToNextPoint, infoGetter) != boost::none;
+  return GetFrcScore(e, lowestFrcToNextPoint, infoGetter).has_value();
 }
 
 size_t IntersectionLen(Graph::EdgeVector a, Graph::EdgeVector b)

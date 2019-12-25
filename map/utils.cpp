@@ -56,7 +56,7 @@ eye::MapObject MakeEyeMapObject(FeatureType & ft)
 }
 
 void RegisterEyeEventIfPossible(eye::MapObject::Event::Type const type,
-                                boost::optional<m2::PointD> const & userPos,
+                                std::optional<m2::PointD> const & userPos,
                                 place_page::Info const & info)
 {
   if (!userPos)

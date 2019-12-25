@@ -92,7 +92,7 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
   sample.FillSearchParams(params);
   params.m_timeout = search::SearchParams::kDefaultDesktopTimeout;
   params.m_onResults = [=](search::Results const & results) {
-    vector<boost::optional<ResultsEdits::Relevance>> relevances;
+    vector<optional<ResultsEdits::Relevance>> relevances;
     vector<size_t> goldenMatching;
     vector<size_t> actualMatching;
 
@@ -147,7 +147,7 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
           context.m_actualMatching = actualMatching;
 
           {
-            vector<boost::optional<ResultsEdits::Relevance>> relevances;
+            vector<optional<ResultsEdits::Relevance>> relevances;
 
             auto & nonFound = context.m_nonFoundResults;
             CHECK(nonFound.empty(), ());

@@ -50,7 +50,7 @@ bool ResultsEdits::Editor::Set(Relevance relevance)
   return m_parent.SetRelevance(m_index, relevance);
 }
 
-boost::optional<ResultsEdits::Relevance> const & ResultsEdits::Editor::Get() const
+optional<ResultsEdits::Relevance> const & ResultsEdits::Editor::Get() const
 {
   return m_parent.Get(m_index).m_currRelevance;
 }
@@ -75,7 +75,7 @@ void ResultsEdits::Apply()
   });
 }
 
-void ResultsEdits::Reset(vector<boost::optional<ResultsEdits::Relevance>> const & relevances)
+void ResultsEdits::Reset(vector<optional<ResultsEdits::Relevance>> const & relevances)
 {
   WithObserver(Update::MakeAll(), [this, &relevances]() {
     m_entries.resize(relevances.size());
@@ -170,9 +170,9 @@ ResultsEdits::Entry const & ResultsEdits::GetEntry(size_t index) const
   return m_entries[index];
 }
 
-vector<boost::optional<ResultsEdits::Relevance>> ResultsEdits::GetRelevances() const
+vector<optional<ResultsEdits::Relevance>> ResultsEdits::GetRelevances() const
 {
-  vector<boost::optional<ResultsEdits::Relevance>> relevances(m_entries.size());
+  vector<optional<ResultsEdits::Relevance>> relevances(m_entries.size());
   for (size_t i = 0; i < m_entries.size(); ++i)
     relevances[i] = m_entries[i].m_currRelevance;
   return relevances;

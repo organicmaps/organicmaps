@@ -4,7 +4,6 @@
 #include <utility>
 
 #include "base/assert.hpp"
-#include "boost/optional.hpp"
 
 namespace routing
 {

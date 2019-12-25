@@ -1,13 +1,12 @@
 #pragma once
 
 #include <cstdint>
+#include <optional>
 #include <set>
 #include <string>
 #include <type_traits>
 #include <unordered_map>
 #include <vector>
-
-#include "boost/optional.hpp"
 
 namespace routing
 {
@@ -50,7 +49,7 @@ class RoutingOptionsClassifier
 public:
   RoutingOptionsClassifier();
 
-  boost::optional<RoutingOptions::Road> Get(uint32_t type) const;
+  std::optional<RoutingOptions::Road> Get(uint32_t type) const;
   static RoutingOptionsClassifier const & Instance();
 
 private:

@@ -10,13 +10,12 @@
 #include <initializer_list>
 #include <limits>
 #include <memory>
+#include <optional>
 #include <sstream>
 #include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 class Classificator;
 class FeatureType;
@@ -397,9 +396,10 @@ private:
     SpeedFactor m_factor;
   };
 
-  boost::optional<HighwayType> GetHighwayType(uint32_t type) const;
+  std::optional<HighwayType> GetHighwayType(uint32_t type) const;
   void GetSurfaceFactor(uint32_t type, SpeedFactor & factor) const;
-  void GetAdditionalRoadSpeed(uint32_t type, bool isCityRoad, boost::optional<SpeedKMpH> & speed) const;
+  void GetAdditionalRoadSpeed(uint32_t type, bool isCityRoad,
+                              std::optional<SpeedKMpH> & speed) const;
 
   SpeedKMpH GetSpeedOnFeatureWithoutMaxspeed(HighwayType const & type,
                                              SpeedParams const & speedParams) const;

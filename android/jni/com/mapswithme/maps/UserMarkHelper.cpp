@@ -62,9 +62,8 @@ jobject CreateHotelType(JNIEnv * env, place_page::Info const & info)
   static jmethodID const hotelTypeCtorId =
     jni::GetConstructorID(env, hotelTypeClass, "(ILjava/lang/String;)V");
 
-  auto const tag = ftypes::IsHotelChecker::GetHotelTypeTag(info.GetHotelType().get());
-  return env->NewObject(hotelTypeClass, hotelTypeCtorId,
-                        static_cast<jint>(info.GetHotelType().get()),
+  auto const tag = ftypes::IsHotelChecker::GetHotelTypeTag(*info.GetHotelType());
+  return env->NewObject(hotelTypeClass, hotelTypeCtorId, static_cast<jint>(*info.GetHotelType()),
                         jni::ToJavaString(env, tag));
 }
 
@@ -148,7 +147,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
   jni::TScopedLocalRef hotelType(env, CreateHotelType(env, info));
   jni::TScopedLocalRef popularity(env, CreatePopularity(env, info));
 
-  int priceRate = info.GetRawApproximatePricing().get_value_or(kPriceRateUndefined);
+  int priceRate = info.GetRawApproximatePricing().value_or(kPriceRateUndefined);
 
   if (info.IsBookmark())
   {

@@ -22,11 +22,10 @@
 
 #include <cstdint>
 #include <map>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
-
-#include "boost/optional.hpp"
 
 namespace generator
 {
@@ -69,8 +68,9 @@ private:
     // Returns empty object, if current feature - |wayId| is not the car road.
     // Otherwise returns id of segment from feature with id - |wayId|, which starts (or ends) at camera's
     // center and coefficient - where it placed at the segment: 0.0 (or 1.0).
-    boost::optional<std::pair<double, uint32_t>> FindMyself(
-      uint32_t wayFeatureId, FrozenDataSource const & dataSource, MwmSet::MwmId const & mwmId) const;
+    std::optional<std::pair<double, uint32_t>> FindMyself(uint32_t wayFeatureId,
+                                                          FrozenDataSource const & dataSource,
+                                                          MwmSet::MwmId const & mwmId) const;
 
     void Serialize(FileWriter & writer, uint32_t & prevFeatureId) const;
 

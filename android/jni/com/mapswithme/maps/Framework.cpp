@@ -2000,7 +2000,7 @@ Java_com_mapswithme_maps_Framework_nativeHasMegafonCategoryBanner(JNIEnv * env, 
   if (!position)
     return static_cast<jboolean>(false);
 
-  auto const latLon = mercator::ToLatLon(position.get());
+  auto const latLon = mercator::ToLatLon(*position);
   return static_cast<jboolean>(ads::HasMegafonCategoryBanner(frm()->GetStorage(),
                                                              frm()->GetTopmostCountries(latLon),
                                                              languages::GetCurrentNorm()));
@@ -2111,7 +2111,9 @@ Java_com_mapswithme_maps_Framework_nativeGetCurrentTipIndex(JNIEnv * env, jclass
 {
   auto const & tipsApi = frm()->GetTipsApi();
   auto const tip = tipsApi.GetTip();
-  return tip.is_initialized() ? static_cast<jint>(tip.get()) : kUndefinedTip;
+  if (!tip)
+    return kUndefinedTip;
+  return static_cast<jint>(*tip);
 }
 
 JNIEXPORT void JNICALL

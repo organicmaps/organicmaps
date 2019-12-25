@@ -5,12 +5,11 @@
 #include "geometry/point2d.hpp"
 
 #include <array>
-#include <cstdint>
 #include <chrono>
+#include <cstdint>
 #include <functional>
 #include <memory>
-
-#include <boost/optional.hpp>
+#include <optional>
 
 class TipsApi
 {
@@ -24,7 +23,7 @@ public:
   public:
     virtual ~Delegate() = default;
 
-    virtual boost::optional<m2::PointD> GetCurrentPosition() const = 0;
+    virtual std::optional<m2::PointD> GetCurrentPosition() const = 0;
     virtual bool IsCountryLoaded(m2::PointD const & pt) const = 0;
     virtual bool HaveTransit(m2::PointD const & pt) const = 0;
     virtual double GetLastBackgroundTime() const = 0;
@@ -38,12 +37,12 @@ public:
 
   explicit TipsApi(Delegate const & delegate);
 
-  boost::optional<eye::Tip::Type> GetTip() const;
+  std::optional<eye::Tip::Type> GetTip() const;
 
-  static boost::optional<eye::Tip::Type> GetTipForTesting(Duration showAnyTipPeriod,
-                                                          Duration showSameTipPeriod,
-                                                          TipsApi::Delegate const & delegate,
-                                                          Conditions const & triggers);
+  static std::optional<eye::Tip::Type> GetTipForTesting(Duration showAnyTipPeriod,
+                                                        Duration showSameTipPeriod,
+                                                        TipsApi::Delegate const & delegate,
+                                                        Conditions const & triggers);
 
 private:
   Delegate const & m_delegate;

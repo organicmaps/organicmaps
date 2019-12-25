@@ -305,7 +305,7 @@ std::string Info::GetApproximatePricing() const
   return result;
 }
 
-boost::optional<int> Info::GetRawApproximatePricing() const
+std::optional<int> Info::GetRawApproximatePricing() const
 {
   if (!IsSponsored())
     return {};

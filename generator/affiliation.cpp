@@ -117,7 +117,8 @@ std::vector<std::string> CountriesFilesIndexAffiliation::GetAffiliations(Feature
   return oneCountry ? std::vector<std::string>{*oneCountry} : GetHonestAffiliations(fb);
 }
 
-boost::optional<std::string> CountriesFilesIndexAffiliation::IsOneCountryForBbox(FeatureBuilder const & fb) const
+std::optional<std::string> CountriesFilesIndexAffiliation::IsOneCountryForBbox(
+    FeatureBuilder const & fb) const
 {
   borders::CountryPolygons const * country = nullptr;
   std::vector<Value> values;
@@ -134,7 +135,7 @@ boost::optional<std::string> CountriesFilesIndexAffiliation::IsOneCountryForBbox
         return {};
     }
   }
-  return country ? country->GetName() : boost::optional<std::string>{};
+  return country ? country->GetName() : std::optional<std::string>{};
 }
 
 std::vector<std::string> CountriesFilesIndexAffiliation::GetHonestAffiliations(FeatureBuilder const & fb) const

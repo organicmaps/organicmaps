@@ -9,9 +9,8 @@
 #include <QtWidgets/QFormLayout>
 #include <QtWidgets/QLineEdit>
 
+#include <optional>
 #include <string>
-
-#include "boost/optional.hpp"
 
 class Framework;
 
@@ -21,7 +20,7 @@ class RoutingSettings : public QDialog
 {
 public:
   static bool IsCacheEnabled();
-  static boost::optional<ms::LatLon> GetCoords(bool start);
+  static std::optional<ms::LatLon> GetCoords(bool start);
   static void LoadSettings(Framework & framework);
   static void ResetSettings();
 
@@ -35,7 +34,7 @@ private:
   static std::string const kFinishCoordsCachedSettings;
   static std::string const kRouterTypeCachedSettings;
 
-  static boost::optional<ms::LatLon> GetCoordsFromString(std::string const & input);
+  static std::optional<ms::LatLon> GetCoordsFromString(std::string const & input);
 
   void AddLineEdit(std::string const & title, QLineEdit * lineEdit);
   void AddCheckBox();

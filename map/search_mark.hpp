@@ -9,11 +9,10 @@
 #include "geometry/point2d.hpp"
 #include "geometry/screenbase.hpp"
 
-#include <boost/optional.hpp>
-
 #include <cstdint>
 #include <functional>
 #include <map>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -94,7 +93,7 @@ public:
   void SetSales(std::vector<FeatureID> const & features, bool hasSale);
 
   static bool HaveSizes() { return !m_searchMarksSizes.empty(); };
-  static boost::optional<m2::PointD> GetSize(std::string const & symbolName);
+  static std::optional<m2::PointD> GetSize(std::string const & symbolName);
 
 private:
   void FilterAndProcessMarks(std::vector<FeatureID> const & features,

@@ -179,7 +179,7 @@ SampleView::SampleView(QWidget * parent, Framework & framework)
 }
 
 void SampleView::SetContents(search::Sample const & sample,
-                             boost::optional<m2::PointD> const & position)
+                             std::optional<m2::PointD> const & position)
 {
   if (!sample.m_query.empty())
   {
@@ -348,7 +348,7 @@ void SampleView::Clear()
 
   ClearAllResults();
   HideUserPosition();
-  m_position = boost::none;
+  m_position = std::nullopt;
   OnSearchCompleted();
 }
 

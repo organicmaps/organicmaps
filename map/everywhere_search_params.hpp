@@ -9,10 +9,9 @@
 #include <chrono>
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 namespace search
 {
@@ -25,7 +24,7 @@ struct EverywhereSearchParams
   std::string m_inputLocale;
   std::shared_ptr<hotels_filter::Rule> m_hotelsFilter;
   booking::filter::Tasks m_bookingFilterTasks;
-  boost::optional<std::chrono::steady_clock::duration> m_timeout;
+  std::optional<std::chrono::steady_clock::duration> m_timeout;
 
   OnResults m_onResults;
 };

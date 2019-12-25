@@ -11,12 +11,11 @@
 
 #include <algorithm>
 #include <cstddef>
+#include <optional>
 #include <random>
 #include <set>
 #include <utility>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 class DataSource;
 
@@ -41,7 +40,7 @@ public:
     // compute the distance from a feature to the pivot.
     m2::PointD m_accuratePivotCenter;
 
-    boost::optional<m2::PointD> m_position;
+    std::optional<m2::PointD> m_position;
     m2::RectD m_viewport;
 
     int m_scale = 0;

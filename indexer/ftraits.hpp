@@ -13,11 +13,10 @@
 #include <array>
 #include <cstdint>
 #include <initializer_list>
+#include <optional>
 #include <sstream>
 #include <string>
 #include <utility>
-
-#include <boost/optional.hpp>
 
 namespace ftraits
 {
@@ -25,22 +24,22 @@ template <typename Base, typename Value>
 class TraitsBase
 {
 public:
-  static boost::optional<Value> GetValue(feature::TypesHolder const & types)
+  static std::optional<Value> GetValue(feature::TypesHolder const & types)
   {
     auto const & instance = Instance();
     auto const it = Find(types);
     if (!instance.m_matcher.IsValid(it))
-      return boost::none;
+      return std::nullopt;
 
     return it->second;
   }
 
-  static boost::optional<uint32_t> GetType(feature::TypesHolder const & types)
+  static std::optional<uint32_t> GetType(feature::TypesHolder const & types)
   {
     auto const & instance = Instance();
     auto const it = Find(types);
     if (!instance.m_matcher.IsValid(it))
-      return boost::none;
+      return std::nullopt;
 
     return it->first;
   }

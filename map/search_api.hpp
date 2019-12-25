@@ -21,12 +21,11 @@
 #include <cstdint>
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <unordered_set>
 #include <utility>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 class DataSource;
 
@@ -71,7 +70,7 @@ public:
 
     virtual void ClearViewportSearchResults() {}
 
-    virtual boost::optional<m2::PointD> GetCurrentPosition() const { return {}; };
+    virtual std::optional<m2::PointD> GetCurrentPosition() const { return {}; };
 
     virtual bool ParseSearchQueryCommand(search::SearchParams const & /* params */)
     {

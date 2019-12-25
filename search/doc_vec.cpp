@@ -49,7 +49,7 @@ double SqrL2(IdfMap & idfs, vector<TokenFrequencyPair> const & tfs)
 
 // Computes squared L2 norm of vector of tokens + prefix token.
 double SqrL2(IdfMap & idfs, vector<TokenFrequencyPair> const & tfs,
-             boost::optional<strings::UniString> const & prefix)
+             optional<strings::UniString> const & prefix)
 {
   auto result = SqrL2(idfs, tfs);
   if (prefix)

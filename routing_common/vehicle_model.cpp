@@ -12,8 +12,6 @@
 #include <algorithm>
 #include <sstream>
 
-#include <boost/optional.hpp>
-
 using namespace routing;
 using namespace std;
 
@@ -117,7 +115,7 @@ SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, SpeedParams const & speedParam
 HighwayType VehicleModel::GetHighwayType(FeatureType & f) const
 {
   feature::TypesHolder const types(f);
-  boost::optional<HighwayType> ret;
+  optional<HighwayType> ret;
   for (auto const t : types)
   {
     ret = GetHighwayType(t);
@@ -136,9 +134,9 @@ double VehicleModel::GetMaxWeightSpeed() const
   return max(m_maxModelSpeed.m_inCity.m_weight, m_maxModelSpeed.m_outCity.m_weight);
 }
 
-boost::optional<HighwayType> VehicleModel::GetHighwayType(uint32_t type) const
+optional<HighwayType> VehicleModel::GetHighwayType(uint32_t type) const
 {
-  boost::optional<HighwayType> hwType;
+  optional<HighwayType> hwType;
   type = ftypes::BaseChecker::PrepareToMatch(type, 2);
   auto const it = m_roadTypes.find(type);
   if (it != m_roadTypes.cend())
@@ -161,7 +159,8 @@ void VehicleModel::GetSurfaceFactor(uint32_t type, SpeedFactor & factor) const
   CHECK_GREATER(factor.m_eta, 0.0, ());
 }
 
-void VehicleModel::GetAdditionalRoadSpeed(uint32_t type, bool isCityRoad, boost::optional<SpeedKMpH> & speed) const
+void VehicleModel::GetAdditionalRoadSpeed(uint32_t type, bool isCityRoad,
+                                          optional<SpeedKMpH> & speed) const
 {
   auto const it = FindAdditionalRoadType(type);
   if (it == m_addRoadTypes.cend())
@@ -258,9 +257,9 @@ SpeedKMpH VehicleModel::GetTypeSpeed(feature::TypesHolder const & types,
                                      SpeedParams const & speedParams) const
 {
   bool const isCityRoad = speedParams.m_inCity;
-  boost::optional<HighwayType> hwType;
+  optional<HighwayType> hwType;
   SpeedFactor surfaceFactor;
-  boost::optional<SpeedKMpH> additionalRoadSpeed;
+  optional<SpeedKMpH> additionalRoadSpeed;
   for (uint32_t t : types)
   {
     if (!hwType)

@@ -348,7 +348,7 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
 
     if (m_currentFramebuffer == nullptr)
     {
-      colorFormat = m_surfaceFormat.get().format;
+      colorFormat = m_surfaceFormat->format;
       depthFormat = VulkanFormatUnpacker::Unpack(TextureFormat::Depth);
 
       fbData.m_packedAttachmentOperations = packedAttachmentOperations;
@@ -766,19 +766,19 @@ ref_ptr<VulkanStagingBuffer> VulkanBaseContext::GetDefaultStagingBuffer() const
   
 void VulkanBaseContext::RecreateSwapchain()
 {
-  CHECK(m_surface.is_initialized(), ());
-  CHECK(m_surfaceFormat.is_initialized(), ());
+  CHECK(m_surface.has_value(), ());
+  CHECK(m_surfaceFormat.has_value(), ());
 
   DestroySwapchain();
 
   VkSwapchainCreateInfoKHR swapchainCI = {};
   swapchainCI.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
   swapchainCI.pNext = nullptr;
-  swapchainCI.surface = m_surface.get();
+  swapchainCI.surface = *m_surface;
   swapchainCI.minImageCount = std::min(m_surfaceCapabilities.minImageCount + 1,
                                        m_surfaceCapabilities.maxImageCount);
-  swapchainCI.imageFormat = m_surfaceFormat.get().format;
-  swapchainCI.imageColorSpace = m_surfaceFormat.get().colorSpace;
+  swapchainCI.imageFormat = m_surfaceFormat->format;
+  swapchainCI.imageColorSpace = m_surfaceFormat->colorSpace;
   swapchainCI.imageExtent = m_surfaceCapabilities.currentExtent;
 
   swapchainCI.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
@@ -819,7 +819,7 @@ void VulkanBaseContext::RecreateSwapchain()
     swapchainImageViewCI.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
     swapchainImageViewCI.image = m_swapchainImages[i];
     swapchainImageViewCI.viewType = VK_IMAGE_VIEW_TYPE_2D;
-    swapchainImageViewCI.format = m_surfaceFormat.get().format;
+    swapchainImageViewCI.format = m_surfaceFormat->format;
     swapchainImageViewCI.components = {VK_COMPONENT_SWIZZLE_R, VK_COMPONENT_SWIZZLE_G,
                                        VK_COMPONENT_SWIZZLE_B, VK_COMPONENT_SWIZZLE_A};
     swapchainImageViewCI.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;

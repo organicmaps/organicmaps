@@ -25,12 +25,11 @@
 
 #include <algorithm>
 #include <map>
+#include <optional>
 #include <utility>
 
 #include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/jansson/myjansson.hpp"
-
-#include <boost/optional/optional.hpp>
 
 using namespace std;
 using namespace ugc;
@@ -340,7 +339,7 @@ void Storage::Load()
   if (m_indexes.empty())
     return;
 
-  boost::optional<IndexVersion> version;
+  optional<IndexVersion> version;
   for (auto const & i : m_indexes)
   {
     if (i.m_deleted)

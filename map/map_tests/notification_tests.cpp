@@ -166,11 +166,11 @@ UNIT_CLASS_TEST(ScopedNotificationsQueue, Notifications_UgcRateCheckRouteToInSam
 
   auto result = notificationManager.GetNotification();
 
-  TEST(result.is_initialized(), ());
-  TEST_EQUAL(result.get().GetType(), NotificationCandidate::Type::UgcReview, ());
+  TEST(result.has_value(), ());
+  TEST_EQUAL(result->GetType(), NotificationCandidate::Type::UgcReview, ());
 
   result = notificationManager.GetNotification();
-  TEST(!result.is_initialized(), ());
+  TEST(!result.has_value(), ());
 }
 
 UNIT_CLASS_TEST(ScopedNotificationsQueue, Notifications_UgcRateCheckUgcNotSavedTrigger)
@@ -206,18 +206,18 @@ UNIT_CLASS_TEST(ScopedNotificationsQueue, Notifications_UgcRateCheckUgcNotSavedT
 
   auto result = notificationManager.GetNotification();
 
-  TEST(!result.is_initialized(), ());
+  TEST(!result.has_value(), ());
 
   auto & candidate = notificationManager.GetEditableQueue().m_candidates[0];
   NotificationManagerForTesting::SetCreatedTime(candidate, Clock::now() - hours(25));
 
   result = notificationManager.GetNotification();
 
-  TEST(result.is_initialized(), ());
-  TEST_EQUAL(result.get().GetType(), NotificationCandidate::Type::UgcReview, ());
+  TEST(result.has_value(), ());
+  TEST_EQUAL(result->GetType(), NotificationCandidate::Type::UgcReview, ());
 
   result = notificationManager.GetNotification();
-  TEST(!result.is_initialized(), ());
+  TEST(!result.has_value(), ());
 
   {
     eye::MapObject::Event event;
@@ -238,7 +238,7 @@ UNIT_CLASS_TEST(ScopedNotificationsQueue, Notifications_UgcRateCheckUgcNotSavedT
   }
 
   result = notificationManager.GetNotification();
-  TEST(!result.is_initialized(), ());
+  TEST(!result.has_value(), ());
 }
 
 UNIT_CLASS_TEST(ScopedNotificationsQueue, Notifications_UgcRateCheckPlannedTripTrigger)
@@ -285,17 +285,17 @@ UNIT_CLASS_TEST(ScopedNotificationsQueue, Notifications_UgcRateCheckPlannedTripT
 
   auto result = notificationManager.GetNotification();
 
-  TEST(!result.is_initialized(), ());
+  TEST(!result.has_value(), ());
 
   auto & candidate = notificationManager.GetEditableQueue().m_candidates[0];
   NotificationManagerForTesting::SetCreatedTime(candidate, Clock::now() - hours(25));
 
   result = notificationManager.GetNotification();
 
-  TEST(result.is_initialized(), ());
-  TEST_EQUAL(result.get().GetType(), NotificationCandidate::Type::UgcReview, ());
+  TEST(result.has_value(), ());
+  TEST_EQUAL(result->GetType(), NotificationCandidate::Type::UgcReview, ());
 
   result = notificationManager.GetNotification();
-  TEST(!result.is_initialized(), ());
+  TEST(!result.has_value(), ());
 }
 }  // namespace

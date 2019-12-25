@@ -21,12 +21,11 @@
 #include <functional>
 #include <list>
 #include <memory>
+#include <optional>
 #include <set>
 #include <string>
 #include <utility>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 namespace storage
 {
@@ -200,7 +199,7 @@ private:
   // calls to the diff manager's ApplyDiff are coordinated from the storage thread.
   base::Cancellable m_diffsCancellable;
 
-  boost::optional<CountryId> m_latestDiffRequest;
+  std::optional<CountryId> m_latestDiffRequest;
 
   // Since the diff manager runs on a different thread, the result
   // of diff application may return "Ok" when in fact the diff was

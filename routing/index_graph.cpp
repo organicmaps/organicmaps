@@ -138,9 +138,9 @@ void IndexGraph::GetEdgeList(JointSegment const & parentJoint,
                           isOutgoing, edges, parentWeights, parents);
 }
 
-boost::optional<JointEdge>
-IndexGraph::GetJointEdgeByLastPoint(Segment const & parent, Segment const & firstChild,
-                                    bool isOutgoing, uint32_t lastPoint)
+optional<JointEdge> IndexGraph::GetJointEdgeByLastPoint(Segment const & parent,
+                                                        Segment const & firstChild, bool isOutgoing,
+                                                        uint32_t lastPoint)
 {
   vector<Segment> const possibleChilds = {firstChild};
   vector<uint32_t> const lastPoints = {lastPoint};

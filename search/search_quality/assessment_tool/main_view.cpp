@@ -113,8 +113,7 @@ void MainView::OnSearchCompleted()
 }
 
 void MainView::ShowSample(size_t sampleIndex, search::Sample const & sample,
-                          boost::optional<m2::PointD> const & position, bool isUseless,
-                          bool hasEdits)
+                          std::optional<m2::PointD> const & position, bool isUseless, bool hasEdits)
 {
   m_sampleLocale = sample.m_locale;
 

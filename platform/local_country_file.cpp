@@ -67,7 +67,7 @@ uint64_t LocalCountryFile::GetSize(MapFileType type) const
   if (!m_files[base::Underlying(type)].has_value())
     return 0;
 
-  return m_files[base::Underlying(type)].get();
+  return *m_files[base::Underlying(type)];
 }
 
 bool LocalCountryFile::HasFiles() const
@@ -137,9 +137,8 @@ string DebugPrint(LocalCountryFile const & file)
   {
     if (mapFile)
     {
-      filesStream << (fileAdded ? ", " : "") << mapFile.get();
-      if (!fileAdded)
-        fileAdded = true;
+      filesStream << (fileAdded ? ", " : "") << *mapFile;
+      fileAdded = true;
     }
   }
   filesStream << "]";

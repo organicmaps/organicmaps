@@ -24,11 +24,10 @@
 #include <functional>
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 namespace editor
 {
@@ -140,7 +139,7 @@ public:
   void DeleteFeature(FeatureID const & fid);
 
   /// @returns empty object if feature wasn't edited.
-  boost::optional<osm::EditableMapObject> GetEditedFeature(FeatureID const & fid) const;
+  std::optional<osm::EditableMapObject> GetEditedFeature(FeatureID const & fid) const;
 
   /// @returns false if feature wasn't edited.
   /// @param outFeatureStreet is valid only if true was returned.

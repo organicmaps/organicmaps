@@ -10,9 +10,8 @@
 
 #include "platform/network_policy.hpp"
 
+#include <optional>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 @class MWMPlacePageData;
 @class MWMUGCReviewVM;
@@ -203,8 +202,8 @@ typedef void (^RefreshPromoCallbackBlock)(NSIndexSet *insertedSections);
 - (NSURL *)URLToAllReviews;
 - (NSArray<MWMGalleryItemModel *> *)photos;
 
-- (boost::optional<int>)hotelRawApproximatePricing;
-- (boost::optional<ftypes::IsHotelChecker::Type>)hotelType;
+- (std::optional<int>)hotelRawApproximatePricing;
+- (std::optional<ftypes::IsHotelChecker::Type>)hotelType;
 
 // Partners
 - (NSString *)partnerName;

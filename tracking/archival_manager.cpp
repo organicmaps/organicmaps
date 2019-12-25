@@ -59,18 +59,18 @@ ArchivalManager::ArchivalManager(uint32_t version, std::string const & url)
 {
 }
 
-boost::optional<FileWriter> ArchivalManager::GetFileWriter(
+std::optional<FileWriter> ArchivalManager::GetFileWriter(
     routing::RouterType const & trackType) const
 {
   std::string const fileName =
       archival_file::GetArchiveFilename(m_version, GetTimestamp(), trackType);
   try
   {
-    return boost::optional<FileWriter>(base::JoinPath(m_tracksDir, fileName));
+    return std::optional<FileWriter>(base::JoinPath(m_tracksDir, fileName));
   }
   catch (std::exception const & e)
   {
-    return boost::none;
+    return std::nullopt;
   }
 }
 

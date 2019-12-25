@@ -12,11 +12,10 @@
 
 #include <cstdint>
 #include <memory>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 class FeatureType;
 class DataSource;
@@ -118,8 +117,8 @@ public:
 
   /// Returns a feature id of street from |streets| whose name best matches |keyName|
   /// or empty value if the match was not found.
-  static boost::optional<uint32_t> GetMatchedStreetIndex(std::string const & keyName,
-                                                         std::vector<Street> const & streets);
+  static std::optional<uint32_t> GetMatchedStreetIndex(std::string const & keyName,
+                                                       std::vector<Street> const & streets);
 
   /// @return Sorted by distance streets vector for the specified MwmId.
   /// Parameter |includeSquaresAndSuburbs| needed for backward compatibility:

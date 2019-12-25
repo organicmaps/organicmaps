@@ -49,7 +49,7 @@ static NSString * const kLastUGCNotificationDate = @"LastUGCNotificationDate";
 
   if (notificationCandidate)
   {
-    auto const notification = notificationCandidate.get();
+    auto const notification = *notificationCandidate;
     if (notification.GetType() == notifications::NotificationCandidate::Type::UgcReview)
     {
       CoreNotificationWrapper * w = [[CoreNotificationWrapper alloc] initWithNotificationCandidate:notification];

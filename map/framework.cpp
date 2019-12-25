@@ -448,7 +448,7 @@ Framework::Framework(FrameworkParams const & params)
   {
     auto const userPos = GetCurrentPosition();
     if (userPos)
-      OnRouteStartBuild(m_featuresFetcher.GetDataSource(), points, userPos.get());
+      OnRouteStartBuild(m_featuresFetcher.GetDataSource(), points, *userPos);
   });
 
   InitCityFinder();
@@ -2351,16 +2351,16 @@ void Framework::SetPlacePageListeners(PlacePageEvent::OnOpen const & onOpen,
 place_page::Info const & Framework::GetCurrentPlacePageInfo() const
 {
   CHECK(IsPlacePageOpened(), ());
-  return m_currentPlacePageInfo.get();
+  return *m_currentPlacePageInfo;
 }
 
 place_page::Info & Framework::GetCurrentPlacePageInfo()
 {
   CHECK(IsPlacePageOpened(), ());
-  return m_currentPlacePageInfo.get();
+  return *m_currentPlacePageInfo;
 }
 
-void Framework::ActivateMapSelection(boost::optional<place_page::Info> const & info)
+void Framework::ActivateMapSelection(std::optional<place_page::Info> const & info)
 {
   if (!info)
     return;
@@ -2523,7 +2523,8 @@ FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator) const
   return featureId;
 }
 
-boost::optional<place_page::Info> Framework::BuildPlacePageInfo(place_page::BuildInfo const & buildInfo)
+std::optional<place_page::Info> Framework::BuildPlacePageInfo(
+    place_page::BuildInfo const & buildInfo)
 {
   place_page::Info outInfo;
   if (m_drapeEngine == nullptr)
@@ -2628,7 +2629,8 @@ boost::optional<place_page::Info> Framework::BuildPlacePageInfo(place_page::Buil
   return {};
 }
 
-void Framework::UpdatePlacePageInfoForCurrentSelection(boost::optional<place_page::BuildInfo> const & overrideInfo)
+void Framework::UpdatePlacePageInfoForCurrentSelection(
+    std::optional<place_page::BuildInfo> const & overrideInfo)
 {
   if (!m_currentPlacePageInfo)
     return;
@@ -3723,7 +3725,7 @@ void Framework::ClearViewportSearchResults()
   GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
 }
 
-boost::optional<m2::PointD> Framework::GetCurrentPosition() const
+std::optional<m2::PointD> Framework::GetCurrentPosition() const
 {
   auto const & myPosMark = GetBookmarkManager().MyPositionMark();
   if (!myPosMark.HasPosition())

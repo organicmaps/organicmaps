@@ -24,7 +24,7 @@ using namespace feature::serialization_policy;
 
 namespace
 {
-boost::optional<uint64_t> GetPlaceNodeFromMembers(OsmElement const & element)
+std::optional<uint64_t> GetPlaceNodeFromMembers(OsmElement const & element)
 {
   uint64_t adminCentreRef = 0;
   uint64_t labelRef = 0;

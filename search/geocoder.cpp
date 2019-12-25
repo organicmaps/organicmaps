@@ -261,7 +261,7 @@ double GetDistanceMeters(m2::PointD const & pivot, m2::RectD const & rect)
 
 struct KeyedMwmInfo
 {
-  KeyedMwmInfo(shared_ptr<MwmInfo> const & info, boost::optional<m2::PointD> const & position,
+  KeyedMwmInfo(shared_ptr<MwmInfo> const & info, optional<m2::PointD> const & position,
                m2::RectD const & pivot, bool inViewport)
     : m_info(info)
   {

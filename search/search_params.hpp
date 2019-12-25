@@ -12,9 +12,8 @@
 #include <cstddef>
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
-
-#include <boost/optional.hpp>
 
 namespace search
 {
@@ -64,7 +63,7 @@ struct SearchParams
   std::string m_query;
   std::string m_inputLocale;
 
-  boost::optional<m2::PointD> m_position;
+  std::optional<m2::PointD> m_position;
   m2::RectD m_viewport;
 
   size_t m_batchSize = kDefaultBatchSizeEverywhere;

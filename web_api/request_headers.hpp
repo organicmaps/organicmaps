@@ -6,16 +6,15 @@
 
 #include "base/geo_object_id.hpp"
 
+#include <optional>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 namespace web_api
 {
 class HeadersParams
 {
 public:
-  boost::optional<m2::PointD> m_currentPosition;
+  std::optional<m2::PointD> m_currentPosition;
   std::vector<base::GeoObjectId> m_countryGeoIds;
   std::vector<base::GeoObjectId> m_cityGeoIds;
 };

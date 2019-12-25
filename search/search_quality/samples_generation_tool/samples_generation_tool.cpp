@@ -297,7 +297,7 @@ string GetLocalizedCafeType(unordered_map<uint32_t, StringUtf8Multilang> const &
   return translation;
 }
 
-boost::optional<Sample> GenerateRequest(
+optional<Sample> GenerateRequest(
     FeatureType & ft, search::ReverseGeocoder const & coder,
     unordered_map<uint32_t, StringUtf8Multilang> const & typesTranslations,
     vector<int8_t> const & mwmLangCodes, RequestType requestType)

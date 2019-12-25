@@ -157,7 +157,7 @@ m2::PointI CellsMerger::FindBigSquare(m2::PointI const & xy, m2::PointI const & 
   }
 }
 
-boost::optional<m2::PointI> CellsMerger::FindDirection(m2::PointI const & startXy) const
+std::optional<m2::PointI> CellsMerger::FindDirection(m2::PointI const & startXy) const
 {
   std::array<std::pair<size_t, m2::PointI>, 4> directionsWithWeight;
   std::array<m2::PointI, 4> const directions{{{1, 1}, {-1, 1}, {1, -1}, {-1, -1}}};
@@ -171,7 +171,7 @@ boost::optional<m2::PointI> CellsMerger::FindDirection(m2::PointI const & startX
                  });
   auto const direction =
       std::max_element(std::cbegin(directionsWithWeight), std::cend(directionsWithWeight))->second;
-  return Has(startXy + direction) ? direction : boost::optional<m2::PointI>{};
+  return Has(startXy + direction) ? direction : std::optional<m2::PointI>{};
 }
 
 void CellsMerger::Remove(m2::PointI const & minXy, m2::PointI const & maxXy)
@@ -189,7 +189,7 @@ bool CellsMerger::Has(int32_t x, int32_t y) const { return m_matrix.count({x, y}
 
 bool CellsMerger::Has(const m2::PointI & xy) const { return Has(xy.x, xy.y); }
 
-boost::optional<m2::PointI> CellsMerger::FindMax() const
+std::optional<m2::PointI> CellsMerger::FindMax() const
 {
   m2::PointI max;
   size_t sum = 0;
@@ -202,7 +202,7 @@ boost::optional<m2::PointI> CellsMerger::FindMax() const
       max = pair.first;
     }
   }
-  return sum != 0 ? max : boost::optional<m2::PointI>{};
+  return sum != 0 ? max : std::optional<m2::PointI>{};
 }
 
 m2::RectD CellsMerger::Union(m2::PointI const & startXy)

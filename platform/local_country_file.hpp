@@ -7,10 +7,9 @@
 
 #include <array>
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 namespace platform
 {
@@ -98,7 +97,7 @@ private:
   CountryFile m_countryFile;
   int64_t m_version;
 
-  using File = boost::optional<uint64_t>;
+  using File = std::optional<uint64_t>;
   std::array<File, base::Underlying(MapFileType::Count)> m_files = {};
 };
 

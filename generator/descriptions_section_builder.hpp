@@ -21,11 +21,10 @@
 #include <cstddef>
 #include <cstdint>
 #include <functional>
+#include <optional>
 #include <string>
 #include <unordered_map>
 #include <utility>
-
-#include <boost/optional.hpp>
 
 namespace generator_tests
 {
@@ -40,7 +39,7 @@ public:
   WikidataHelper() = default;
   explicit WikidataHelper(std::string const & mwmPath, std::string const & idToWikidataPath);
 
-  boost::optional<std::string> GetWikidataId(uint32_t featureId) const;
+  std::optional<std::string> GetWikidataId(uint32_t featureId) const;
 
 private:
   std::string m_mwmPath;
@@ -158,7 +157,7 @@ public:
 private:
   static size_t FillStringFromFile(std::string const & fullPath, int8_t code,
                                    StringUtf8Multilang & str);
-  boost::optional<size_t> FindPageAndFill(std::string wikipediaUrl, StringUtf8Multilang & str);
+  std::optional<size_t> FindPageAndFill(std::string wikipediaUrl, StringUtf8Multilang & str);
   size_t GetFeatureDescription(std::string const & wikiUrl, uint32_t featureId,
                                descriptions::FeatureDescription & description);
 

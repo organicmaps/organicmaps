@@ -9,10 +9,9 @@
 #include "geometry/rect2d.hpp"
 
 #include <cstddef>
+#include <optional>
 #include <string>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 class ResultsEdits;
 class Model;
@@ -34,7 +33,7 @@ public:
   virtual void OnSearchStarted() = 0;
   virtual void OnSearchCompleted() = 0;
   virtual void ShowSample(size_t index, search::Sample const & sample,
-                          boost::optional<m2::PointD> const & position, bool isUseless,
+                          std::optional<m2::PointD> const & position, bool isUseless,
                           bool hasEdits) = 0;
 
   virtual void AddFoundResults(search::Results::ConstIter begin,

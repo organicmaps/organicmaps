@@ -85,10 +85,10 @@ string Join(string const & s, Args &&... args)
 ReverseGeocoder::ReverseGeocoder(DataSource const & dataSource) : m_dataSource(dataSource) {}
 
 // static
-boost::optional<uint32_t> ReverseGeocoder::GetMatchedStreetIndex(string const & keyName,
-                                                                 vector<Street> const & streets)
+optional<uint32_t> ReverseGeocoder::GetMatchedStreetIndex(string const & keyName,
+                                                          vector<Street> const & streets)
 {
-  auto matchStreet = [&](bool ignoreStreetSynonyms) -> boost::optional<uint32_t> {
+  auto matchStreet = [&](bool ignoreStreetSynonyms) -> optional<uint32_t> {
     // Find the exact match or the best match in kSimilarityTresholdPercent limit.
     uint32_t result;
     size_t minPercent = kSimilarityThresholdPercent + 1;

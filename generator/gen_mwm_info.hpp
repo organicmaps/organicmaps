@@ -17,8 +17,6 @@
 #include <utility>
 #include <vector>
 
-#include <boost/optional.hpp>
-
 namespace generator
 {
 CompositeId MakeCompositeId(feature::FeatureBuilder const & fb);

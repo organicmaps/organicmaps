@@ -37,10 +37,9 @@
 #include <array>
 #include <functional>
 #include <memory>
+#include <optional>
 #include <unordered_set>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 namespace dp
 {
@@ -302,7 +301,7 @@ private:
     m2::PointD m_startPos;
     m2::PointI m_snapSides = m2::PointI::Zero();
   };
-  boost::optional<SelectionTrackInfo> m_selectionTrackInfo;
+  std::optional<SelectionTrackInfo> m_selectionTrackInfo;
 
   drape_ptr<RouteRenderer> m_routeRenderer;
   drape_ptr<TrafficRenderer> m_trafficRenderer;

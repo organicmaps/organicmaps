@@ -13,16 +13,15 @@
 #include "coding/csv_reader.hpp"
 
 #include <cstdint>
+#include <optional>
 #include <string>
-
-#include <boost/optional.hpp>
 
 namespace generator
 {
 struct HierarchyEntry
 {
   CompositeId m_id;
-  boost::optional<CompositeId> m_parentId;
+  std::optional<CompositeId> m_parentId;
   size_t m_depth = 0;
   std::string m_name;
   storage::CountryId m_country;

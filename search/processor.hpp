@@ -27,11 +27,10 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 class FeatureType;
 class CategoriesHolder;
@@ -138,7 +137,7 @@ protected:
   std::vector<uint32_t> m_cuisineTypes;
 
   m2::RectD m_viewport;
-  boost::optional<m2::PointD> m_position;
+  std::optional<m2::PointD> m_position;
 
   bool m_lastUpdate = false;
 

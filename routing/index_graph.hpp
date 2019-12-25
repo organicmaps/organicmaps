@@ -17,11 +17,10 @@
 #include <cstdint>
 #include <map>
 #include <memory>
+#include <optional>
 #include <unordered_map>
 #include <utility>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 namespace routing
 {
@@ -53,8 +52,9 @@ public:
                    Segment const & parent, bool isOutgoing, std::vector<JointEdge> & edges,
                    std::vector<RouteWeight> & parentWeights, std::map<JointSegment, JointSegment> & parents);
 
-  boost::optional<JointEdge> GetJointEdgeByLastPoint(Segment const & parent, Segment const & firstChild,
-                                                     bool isOutgoing, uint32_t lastPoint);
+  std::optional<JointEdge> GetJointEdgeByLastPoint(Segment const & parent,
+                                                   Segment const & firstChild, bool isOutgoing,
+                                                   uint32_t lastPoint);
 
   Joint::Id GetJointId(RoadPoint const & rp) const { return m_roadIndex.GetJointId(rp); }
 

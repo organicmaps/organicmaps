@@ -30,8 +30,9 @@ std::array<uint32_t, VulkanMemoryManager::kResourcesCount> const kDesiredSizeInB
   100 * 1024 * 1024,                     // Image
 }};
 
-VkMemoryPropertyFlags GetMemoryPropertyFlags(VulkanMemoryManager::ResourceType resourceType,
-                                             boost::optional<VkMemoryPropertyFlags> & fallbackTypeBits)
+VkMemoryPropertyFlags GetMemoryPropertyFlags(
+    VulkanMemoryManager::ResourceType resourceType,
+    std::optional<VkMemoryPropertyFlags> & fallbackTypeBits)
 {
   switch (resourceType)
   {
@@ -93,8 +94,8 @@ VulkanMemoryManager::~VulkanMemoryManager()
   ASSERT_EQUAL(m_totalAllocationCounter, 0, ());
 }
 
-boost::optional<uint32_t> VulkanMemoryManager::GetMemoryTypeIndex(uint32_t typeBits,
-                                                                  VkMemoryPropertyFlags properties) const
+std::optional<uint32_t> VulkanMemoryManager::GetMemoryTypeIndex(
+    uint32_t typeBits, VkMemoryPropertyFlags properties) const
 {
   for (uint32_t i = 0; i < m_memoryProperties.memoryTypeCount; i++)
   {
@@ -189,12 +190,12 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
   }
 
   // Looking for memory index by memory properties.
-  boost::optional<VkMemoryPropertyFlags> fallbackFlags;
+  std::optional<VkMemoryPropertyFlags> fallbackFlags;
   auto flags = GetMemoryPropertyFlags(resourceType, fallbackFlags);
   auto memoryTypeIndex = GetMemoryTypeIndex(memReqs.memoryTypeBits, flags);
   if (!memoryTypeIndex && fallbackFlags)
   {
-    flags = fallbackFlags.value();
+    flags = *fallbackFlags;
     memoryTypeIndex = GetMemoryTypeIndex(memReqs.memoryTypeBits, flags);
   }
 
@@ -209,7 +210,7 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
   memAllocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
   memAllocInfo.pNext = nullptr;
   memAllocInfo.allocationSize = blockSize;
-  memAllocInfo.memoryTypeIndex = memoryTypeIndex.value();
+  memAllocInfo.memoryTypeIndex = *memoryTypeIndex;
   IncrementTotalAllocationsCount();
   CHECK_VK_CALL(vkAllocateMemory(m_device, &memAllocInfo, nullptr, &memory));
   m_sizes[static_cast<size_t>(resourceType)] += blockSize;

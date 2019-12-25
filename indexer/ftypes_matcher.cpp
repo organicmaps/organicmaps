@@ -104,7 +104,7 @@ string DebugPrint(HighwayClass const cls)
   return out.str();
 }
 
-std::string DebugPrint(LocalityType const localityType)
+string DebugPrint(LocalityType const localityType)
 {
   switch (localityType)
   {
@@ -545,7 +545,7 @@ uint32_t IsCoastlineChecker::GetCoastlineType() const
   return m_types[0];
 }
 
-boost::optional<IsHotelChecker::Type> IsHotelChecker::GetHotelType(FeatureType & ft) const
+optional<IsHotelChecker::Type> IsHotelChecker::GetHotelType(FeatureType & ft) const
 {
   feature::TypesHolder types(ft);
   buffer_vector<uint32_t, feature::kMaxTypesCount> sortedTypes(types.begin(), types.end());

@@ -52,7 +52,7 @@ WikidataHelper::WikidataHelper(std::string const & mwmPath, std::string const & 
   }
 }
 
-boost::optional<std::string> WikidataHelper::GetWikidataId(uint32_t featureId) const
+std::optional<std::string> WikidataHelper::GetWikidataId(uint32_t featureId) const
 {
   auto const itFeatureIdToOsmId = m_featureIdToOsmId.find(featureId);
   if (itFeatureIdToOsmId == std::end(m_featureIdToOsmId))
@@ -60,8 +60,8 @@ boost::optional<std::string> WikidataHelper::GetWikidataId(uint32_t featureId) c
 
   auto const osmId = itFeatureIdToOsmId->second;
   auto const itOsmIdToWikidataId = m_osmIdToWikidataId.find(osmId);
-  return itOsmIdToWikidataId == std::end(m_osmIdToWikidataId) ?
-        boost::optional<std::string>() : itOsmIdToWikidataId->second;
+  return itOsmIdToWikidataId == std::end(m_osmIdToWikidataId) ? std::optional<std::string>()
+                                                              : itOsmIdToWikidataId->second;
 }
 
 std::string DescriptionsCollectionBuilderStat::LangStatisticsToString() const
@@ -127,8 +127,8 @@ size_t DescriptionsCollectionBuilder::FillStringFromFile(std::string const & ful
   return contentSize;
 }
 
-boost::optional<size_t> DescriptionsCollectionBuilder::FindPageAndFill(std::string path,
-                                                                       StringUtf8Multilang & str)
+std::optional<size_t> DescriptionsCollectionBuilder::FindPageAndFill(std::string path,
+                                                                     StringUtf8Multilang & str)
 {
   if (!IsValidDir(path))
   {

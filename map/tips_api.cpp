@@ -34,10 +34,10 @@ size_t ToIndex(T type)
   return static_cast<size_t>(type);
 }
 
-boost::optional<eye::Tip::Type> GetTipImpl(TipsApi::Duration showAnyTipPeriod,
-                                           TipsApi::Duration showSameTipPeriod,
-                                           TipsApi::Delegate const & delegate,
-                                           TipsApi::Conditions const & conditions)
+std::optional<eye::Tip::Type> GetTipImpl(TipsApi::Duration showAnyTipPeriod,
+                                         TipsApi::Duration showSameTipPeriod,
+                                         TipsApi::Delegate const & delegate,
+                                         TipsApi::Conditions const & conditions)
 {
   auto const lastBackgroundTime = delegate.GetLastBackgroundTime();
   if (lastBackgroundTime != 0.0)
@@ -159,10 +159,10 @@ TipsApi::TipsApi(Delegate const & delegate)
       }
 
       auto const pos = m_delegate.GetCurrentPosition();
-      if (!pos.is_initialized())
+      if (!pos)
         return false;
 
-      return m_delegate.IsCountryLoaded(pos.get());
+      return m_delegate.IsCountryLoaded(*pos);
     },
     // Condition for Tips::Type::PublicTransport type.
     [this] (eye::Info const & info)
@@ -179,24 +179,24 @@ TipsApi::TipsApi(Delegate const & delegate)
       }
 
       auto const pos = m_delegate.GetCurrentPosition();
-      if (!pos.is_initialized())
+      if (!pos)
         return false;
 
-      return m_delegate.HaveTransit(pos.get());
+      return m_delegate.HaveTransit(*pos);
     }
   }};
 }
 
-boost::optional<eye::Tip::Type> TipsApi::GetTip() const
+std::optional<eye::Tip::Type> TipsApi::GetTip() const
 {
   return GetTipImpl(GetShowAnyTipPeriod(), GetShowSameTipPeriod(), m_delegate, m_conditions);
 }
 
 // static
-boost::optional<eye::Tip::Type> TipsApi::GetTipForTesting(Duration showAnyTipPeriod,
-                                                          Duration showSameTipPeriod,
-                                                          TipsApi::Delegate const & delegate,
-                                                          Conditions const & triggers)
+std::optional<eye::Tip::Type> TipsApi::GetTipForTesting(Duration showAnyTipPeriod,
+                                                        Duration showSameTipPeriod,
+                                                        TipsApi::Delegate const & delegate,
+                                                        Conditions const & triggers)
 {
   return GetTipImpl(showAnyTipPeriod, showSameTipPeriod, delegate, triggers);
 }

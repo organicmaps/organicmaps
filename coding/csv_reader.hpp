@@ -4,11 +4,10 @@
 
 #include <fstream>
 #include <functional>
+#include <optional>
 #include <sstream>
 #include <string>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 namespace coding
 {
@@ -26,7 +25,7 @@ public:
   char GetDelimiter() const;
 
   Row const & GetHeader() const;
-  boost::optional<Row> ReadRow();
+  std::optional<Row> ReadRow();
   Rows ReadAll();
 
   template <typename Fn>
@@ -45,7 +44,7 @@ private:
   public:
     virtual ~ReaderInterface() = default;
 
-    virtual boost::optional<std::string> ReadLine() = 0;
+    virtual std::optional<std::string> ReadLine() = 0;
   };
 
   class IstreamWrapper : public ReaderInterface
@@ -54,7 +53,7 @@ private:
     explicit IstreamWrapper(std::istream & stream);
 
     // ReaderInterface overrides:
-    boost::optional<std::string> ReadLine() override;
+    std::optional<std::string> ReadLine() override;
 
   private:
     std::istream & m_stream;
@@ -66,7 +65,7 @@ private:
     explicit ReaderWrapper(Reader const & reader);
 
     // ReaderInterface overrides:
-    boost::optional<std::string> ReadLine() override;
+    std::optional<std::string> ReadLine() override;
 
   private:
     size_t m_pos = 0;
@@ -79,7 +78,7 @@ private:
     explicit DefaultReader(std::string const & filename);
 
     // ReaderInterface overrides:
-    boost::optional<std::string> ReadLine() override;
+    std::optional<std::string> ReadLine() override;
 
   private:
     std::ifstream m_stream;
@@ -114,7 +113,7 @@ public:
 
   private:
     CSVReader & m_reader;
-    boost::optional<CSVReader::Row> m_current;
+    std::optional<CSVReader::Row> m_current;
   };
 
   // Warning: It reads first line.

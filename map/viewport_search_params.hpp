@@ -6,6 +6,7 @@
 
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 
 namespace search
@@ -21,7 +22,7 @@ struct ViewportSearchParams
   std::string m_inputLocale;
   std::shared_ptr<hotels_filter::Rule> m_hotelsFilter;
   booking::filter::Tasks m_bookingFilterTasks;
-  boost::optional<std::chrono::steady_clock::duration> m_timeout;
+  std::optional<std::chrono::steady_clock::duration> m_timeout;
 
   OnStarted m_onStarted;
   OnCompleted m_onCompleted;

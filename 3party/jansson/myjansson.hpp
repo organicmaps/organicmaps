@@ -7,10 +7,9 @@
 
 #include <cstdint>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 #include "3party/jansson/src/jansson.h"
 
@@ -163,13 +162,13 @@ void FromJSONObject(json_t * root, std::string const & field, T & result)
 }
 
 template <typename T>
-boost::optional<T> FromJSONObjectOptional(json_t const * root, char const * field)
+std::optional<T> FromJSONObjectOptional(json_t const * root, char const * field)
 {
   auto * json = base::GetJSONOptionalField(root, field);
   if (!json)
     return {};
 
-  boost::optional<T> result{T{}};
+  std::optional<T> result{T{}};
   FromJSON(json, *result);
   return result;
 }

@@ -9,11 +9,10 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
+#include <optional>
 #include <sstream>
 #include <string>
 #include <utility>
-
-#include <boost/optional.hpp>
 
 namespace search
 {
@@ -104,7 +103,7 @@ public:
     friend class QueryVec;
 
     std::vector<strings::UniString> m_tokens;
-    boost::optional<strings::UniString> m_prefix;
+    std::optional<strings::UniString> m_prefix;
   };
 
   explicit QueryVec(IdfMap & idfs) : m_idfs(&idfs) {}
@@ -134,6 +133,6 @@ private:
 
   IdfMap * m_idfs;
   std::vector<TokenFrequencyPair> m_tfs;
-  boost::optional<strings::UniString> m_prefix;
+  std::optional<strings::UniString> m_prefix;
 };
 }  // namespace search

@@ -51,8 +51,6 @@
 #include <utility>
 #include <vector>
 
-#include <boost/optional.hpp>
-
 #include "defines.hpp"
 
 using namespace routing;

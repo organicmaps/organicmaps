@@ -7,10 +7,9 @@
 
 #include "3party/jansson/myjansson.hpp"
 
+#include <optional>
 #include <string>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 class FeatureType;
 
@@ -72,7 +71,7 @@ struct Sample
 
   strings::UniString m_query;
   std::string m_locale;
-  boost::optional<m2::PointD> m_pos;
+  std::optional<m2::PointD> m_pos;
   m2::RectD m_viewport = m2::RectD(0, 0, 0, 0);
   std::vector<Result> m_results;
   std::vector<strings::UniString> m_relatedQueries;

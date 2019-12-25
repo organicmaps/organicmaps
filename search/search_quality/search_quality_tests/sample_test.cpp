@@ -55,7 +55,7 @@ void SampleTest::Init()
 
   m_tula.m_query = strings::MakeUniString("tula");
   m_tula.m_locale = "en";
-  m_tula.m_pos = boost::none;
+  m_tula.m_pos = nullopt;
   m_tula.m_viewport = {37.5064, 67.0476, 37.7799, 67.304};
 }
 }  // namespace

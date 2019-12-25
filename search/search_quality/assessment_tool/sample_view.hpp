@@ -8,7 +8,7 @@
 
 #include "kml/type_utils.hpp"
 
-#include <boost/optional.hpp>
+#include <optional>
 
 #include <QtCore/QMargins>
 #include <QtWidgets/QWidget>
@@ -29,7 +29,7 @@ public:
 
   SampleView(QWidget * parent, Framework & framework);
 
-  void SetContents(search::Sample const & sample, boost::optional<m2::PointD> const & position);
+  void SetContents(search::Sample const & sample, std::optional<m2::PointD> const & position);
   void OnSearchStarted();
   void OnSearchCompleted();
 
@@ -99,5 +99,5 @@ private:
 
   kml::MarkId m_positionMarkId = kml::kInvalidMarkId;
 
-  boost::optional<m2::PointD> m_position;
+  std::optional<m2::PointD> m_position;
 };

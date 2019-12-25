@@ -32,7 +32,7 @@ platform::HttpClient::Headers GetCatalogHeaders(HeadersParams const & params)
   if (params.m_currentPosition)
   {
     std::ostringstream latLonStream;
-    auto const latLon = mercator::ToLatLon(params.m_currentPosition.get());
+    auto const latLon = mercator::ToLatLon(*params.m_currentPosition);
     latLonStream << std::fixed << std::setprecision(3) << latLon.m_lat << "," << latLon.m_lon;
     result.emplace(kLatLonHeader, latLonStream.str());
   }

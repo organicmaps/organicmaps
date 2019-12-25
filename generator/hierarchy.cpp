@@ -167,7 +167,7 @@ HierarchyEntryEnricher::HierarchyEntryEnricher(std::string const & osm2FtIdsPath
   CHECK(m_osm2FtIds.ReadFromFile(osm2FtIdsPath), (osm2FtIdsPath));
 }
 
-boost::optional<m2::PointD> HierarchyEntryEnricher::GetFeatureCenter(CompositeId const & id) const
+std::optional<m2::PointD> HierarchyEntryEnricher::GetFeatureCenter(CompositeId const & id) const
 {
   auto const optIds = m_osm2FtIds.GetFeatureIds(id);
   if (optIds.empty())

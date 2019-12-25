@@ -16,8 +16,6 @@
 #include <memory>
 #include <vector>
 
-#include <boost/optional.hpp>
-
 class Framework;
 class DataSource;
 

@@ -1320,10 +1320,11 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
   if (msg->IsDismiss())
   {
     m_selectionShape->Hide();
-    if (!m_myPositionController->IsModeChangeViewport() && m_selectionTrackInfo.is_initialized())
+    if (!m_myPositionController->IsModeChangeViewport() && m_selectionTrackInfo.has_value())
     {
-      AddUserEvent(make_unique_dp<SetAnyRectEvent>(m_selectionTrackInfo.get().m_startRect, true /* isAnim */,
-                                                   false /* fitInViewport */, false /* useVisibleViewport */));
+      AddUserEvent(make_unique_dp<SetAnyRectEvent>(m_selectionTrackInfo->m_startRect,
+                                                   true /* isAnim */, false /* fitInViewport */,
+                                                   false /* useVisibleViewport */));
     }
     m_selectionTrackInfo.reset();
   }
@@ -2117,7 +2118,7 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
 
   gOffset = m2::PointD(0, 0);
   if (m_myPositionController->IsModeChangeViewport() || m_selectionShape == nullptr ||
-      oldViewport == newViewport || !m_selectionTrackInfo.is_initialized())
+      oldViewport == newViewport || !m_selectionTrackInfo.has_value())
   {
     return false;
   }
@@ -2170,34 +2171,34 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
 
   m2::PointD pOffset(0.0, 0.0);
   if ((oldViewport.IsIntersect(targetRect) && !newViewport.IsRectInside(rect)) ||
-      (newViewport.IsRectInside(rect) && m_selectionTrackInfo.get().m_snapSides != m2::PointI::Zero()))
+      (newViewport.IsRectInside(rect) && m_selectionTrackInfo->m_snapSides != m2::PointI::Zero()))
   {
     // In case the rect of the selection is [partly] hidden, scroll the map to keep it visible.
     // In case the rect of the selection is visible after the map scrolling,
     // try to rollback part of that scrolling to return the map to its original position.
-    if (rect.minX() < newViewport.minX() || m_selectionTrackInfo.get().m_snapSides.x < 0)
+    if (rect.minX() < newViewport.minX() || m_selectionTrackInfo->m_snapSides.x < 0)
     {
-      pOffset.x = std::max(m_selectionTrackInfo.get().m_startPos.x - pos.x, newViewport.minX() - rect.minX());
-      m_selectionTrackInfo.get().m_snapSides.x = -1;
+      pOffset.x = std::max(m_selectionTrackInfo->m_startPos.x - pos.x, newViewport.minX() - rect.minX());
+      m_selectionTrackInfo->m_snapSides.x = -1;
     }
-    else if (rect.maxX() > newViewport.maxX() || m_selectionTrackInfo.get().m_snapSides.x > 0)
+    else if (rect.maxX() > newViewport.maxX() || m_selectionTrackInfo->m_snapSides.x > 0)
     {
-      pOffset.x = std::min(m_selectionTrackInfo.get().m_startPos.x - pos.x, newViewport.maxX() - rect.maxX());
-      m_selectionTrackInfo.get().m_snapSides.x = 1;
+      pOffset.x = std::min(m_selectionTrackInfo->m_startPos.x - pos.x, newViewport.maxX() - rect.maxX());
+      m_selectionTrackInfo->m_snapSides.x = 1;
     }
 
-    if (rect.minY() < newViewport.minY() || m_selectionTrackInfo.get().m_snapSides.y < 0)
+    if (rect.minY() < newViewport.minY() || m_selectionTrackInfo->m_snapSides.y < 0)
     {
-      pOffset.y = std::max(m_selectionTrackInfo.get().m_startPos.y - pos.y, newViewport.minY() - rect.minY());
-      m_selectionTrackInfo.get().m_snapSides.y = -1;
+      pOffset.y = std::max(m_selectionTrackInfo->m_startPos.y - pos.y, newViewport.minY() - rect.minY());
+      m_selectionTrackInfo->m_snapSides.y = -1;
     }
-    else if (rect.maxY() > newViewport.maxY() || m_selectionTrackInfo.get().m_snapSides.y > 0)
+    else if (rect.maxY() > newViewport.maxY() || m_selectionTrackInfo->m_snapSides.y > 0)
     {
-      pOffset.y = std::min(m_selectionTrackInfo.get().m_startPos.y - pos.y, newViewport.maxY() - rect.maxY());
-      m_selectionTrackInfo.get().m_snapSides.y = 1;
+      pOffset.y = std::min(m_selectionTrackInfo->m_startPos.y - pos.y, newViewport.maxY() - rect.maxY());
+      m_selectionTrackInfo->m_snapSides.y = 1;
     }
   }
-  
+
   double const ptZ = m_selectionShape->GetPositionZ();
   gOffset = screen.PtoG(screen.P3dtoP(pos + pOffset, ptZ)) - screen.PtoG(screen.P3dtoP(pos, ptZ));
   return true;

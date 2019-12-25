@@ -91,11 +91,10 @@
 #include <functional>
 #include <list>
 #include <memory>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 namespace osm
 {
@@ -381,19 +380,20 @@ public:
                                  booking::filter::Types types) override;
   void ClearViewportSearchResults() override;
   // PositionProvider, SearchApi::Delegate and TipsApi::Delegate override.
-  boost::optional<m2::PointD> GetCurrentPosition() const override;
+  std::optional<m2::PointD> GetCurrentPosition() const override;
   bool ParseSearchQueryCommand(search::SearchParams const & params) override;
   search::ProductInfo GetProductInfo(search::Result const & result) const override;
   double GetMinDistanceBetweenResults() const override;
 
 private:
-  void ActivateMapSelection(boost::optional<place_page::Info> const & info);
+  void ActivateMapSelection(std::optional<place_page::Info> const & info);
   void InvalidateUserMarks();
 
 public:
   void DeactivateMapSelection(bool notifyUI);
   /// Used to "refresh" UI in some cases (e.g. feature editing).
-  void UpdatePlacePageInfoForCurrentSelection(boost::optional<place_page::BuildInfo> const & overrideInfo = {});
+  void UpdatePlacePageInfoForCurrentSelection(
+      std::optional<place_page::BuildInfo> const & overrideInfo = {});
 
   struct PlacePageEvent
   {
@@ -434,10 +434,10 @@ public:
                     std::vector<FeatureID> const & features);
 
 private:
-  boost::optional<place_page::Info> m_currentPlacePageInfo;
+  std::optional<place_page::Info> m_currentPlacePageInfo;
 
   void OnTapEvent(place_page::BuildInfo const & buildInfo);
-  boost::optional<place_page::Info> BuildPlacePageInfo(place_page::BuildInfo const & buildInfo);
+  std::optional<place_page::Info> BuildPlacePageInfo(place_page::BuildInfo const & buildInfo);
   UserMark const * FindUserMarkInTapPosition(place_page::BuildInfo const & buildInfo) const;
   FeatureID FindBuildingAtPoint(m2::PointD const & mercator) const;
 

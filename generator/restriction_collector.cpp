@@ -21,8 +21,6 @@
 #include <sstream>
 #include <unordered_set>
 
-#include "boost/optional.hpp"
-
 namespace
 {
 using namespace routing;

@@ -6,10 +6,9 @@
 #include <cstddef>
 #include <cstdint>
 #include <map>
+#include <optional>
 #include <utility>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 namespace generator
 {
@@ -63,8 +62,8 @@ private:
                              CellWrapper const & defaultValue = CellWrapper::kEmpty) const;
 
   void CalcSum();
-  boost::optional<m2::PointI> FindMax() const;
-  boost::optional<m2::PointI> FindDirection(m2::PointI const & startXy) const;
+  std::optional<m2::PointI> FindMax() const;
+  std::optional<m2::PointI> FindDirection(m2::PointI const & startXy) const;
   m2::PointI FindBigSquare(m2::PointI const & xy, m2::PointI const & direction) const;
   m2::RectD Union(m2::PointI const & startXy);
   void Remove(m2::PointI const & minXy, m2::PointI const & maxXy);

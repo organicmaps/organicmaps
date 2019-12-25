@@ -24,8 +24,7 @@
 
 #include <algorithm>
 #include <memory>
-
-#include <boost/optional.hpp>
+#include <optional>
 
 using namespace std;
 
@@ -480,7 +479,7 @@ public:
   {
   }
 
-  boost::optional<RankerResult> operator()(PreRankerResult const & preRankerResult)
+  optional<RankerResult> operator()(PreRankerResult const & preRankerResult)
   {
     m2::PointD center;
     string name;

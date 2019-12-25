@@ -15,13 +15,12 @@
 #include <vulkan_wrapper.h>
 #include <vulkan/vulkan.h>
 
-#include <boost/optional.hpp>
-
 #include <array>
 #include <atomic>
 #include <cstdint>
 #include <functional>
 #include <map>
+#include <optional>
 #include <vector>
 
 namespace dp
@@ -184,10 +183,10 @@ protected:
 
   ref_ptr<VulkanObjectManager> m_objectManager;
   drape_ptr<VulkanPipeline> m_pipeline;
-  boost::optional<VkSurfaceKHR> m_surface;
+  std::optional<VkSurfaceKHR> m_surface;
 
   VkSurfaceCapabilitiesKHR m_surfaceCapabilities;
-  boost::optional<VkSurfaceFormatKHR> m_surfaceFormat;
+  std::optional<VkSurfaceFormatKHR> m_surfaceFormat;
 
   VkSwapchainKHR m_swapchain = {};
   std::vector<VkImageView> m_swapchainImageViews;

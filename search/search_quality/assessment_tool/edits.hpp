@@ -7,10 +7,9 @@
 #include <cstddef>
 #include <functional>
 #include <limits>
+#include <optional>
 #include <type_traits>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 struct SampleEdits
 {
@@ -44,13 +43,13 @@ public:
     };
 
     Entry() = default;
-    Entry(boost::optional<Relevance> relevance, Type type)
+    Entry(std::optional<Relevance> relevance, Type type)
       : m_currRelevance(relevance), m_origRelevance(relevance), m_type(type)
     {
     }
 
-    boost::optional<Relevance> m_currRelevance = {};
-    boost::optional<Relevance> m_origRelevance = {};
+    std::optional<Relevance> m_currRelevance = {};
+    std::optional<Relevance> m_origRelevance = {};
     bool m_deleted = false;
     Type m_type = Type::Loaded;
   };
@@ -91,7 +90,7 @@ public:
     // Sets relevance to |relevance|. Returns true iff |relevance|
     // differs from the original one.
     bool Set(Relevance relevance);
-    boost::optional<Relevance> const & Get() const;
+    std::optional<Relevance> const & Get() const;
     bool HasChanges() const;
     Entry::Type GetType() const;
 
@@ -103,7 +102,7 @@ public:
   explicit ResultsEdits(OnUpdate onUpdate) : m_onUpdate(onUpdate) {}
 
   void Apply();
-  void Reset(std::vector<boost::optional<Relevance>> const & relevances);
+  void Reset(std::vector<std::optional<Relevance>> const & relevances);
 
   // Sets relevance at |index| to |relevance|. Returns true iff
   // |relevance| differs from the original one.
@@ -125,7 +124,7 @@ public:
   Entry & GetEntry(size_t index);
   Entry const & GetEntry(size_t index) const;
   size_t NumEntries() const { return m_entries.size(); }
-  std::vector<boost::optional<Relevance>> GetRelevances() const;
+  std::vector<std::optional<Relevance>> GetRelevances() const;
 
   Entry const & Get(size_t index) const;
 

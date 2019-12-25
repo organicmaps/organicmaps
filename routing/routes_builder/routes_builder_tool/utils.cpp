@@ -21,10 +21,9 @@
 #include <chrono>
 #include <future>
 #include <iostream>
+#include <optional>
 #include <thread>
 #include <tuple>
-
-#include "boost/optional.hpp"
 
 using namespace routing_quality;
 
@@ -145,7 +144,7 @@ void BuildRoutes(std::string const & routesPath,
   }
 }
 
-boost::optional<std::tuple<ms::LatLon, ms::LatLon, int32_t>> ParseApiLine(std::ifstream & input)
+std::optional<std::tuple<ms::LatLon, ms::LatLon, int32_t>> ParseApiLine(std::ifstream & input)
 {
   std::string line;
   if (!std::getline(input, line))

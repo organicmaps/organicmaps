@@ -10,7 +10,7 @@
 
 #include "base/logging.hpp"
 
-#include <boost/optional.hpp>
+#include <optional>
 
 namespace editor
 {
@@ -51,7 +51,7 @@ FeatureID MigrateWayOrRelatonFeatureIndex(
     FeatureStatus const /* Unused for now (we don't create/delete area features)*/,
     GenerateIDFn const & /*Unused for the same reason*/)
 {
-  boost::optional<FeatureID> fid;
+  std::optional<FeatureID> fid;
   auto bestScore = 0.6;  // initial score is used as a threshold.
   auto geometry = xml.GetGeometry();
   auto count = 0;
@@ -99,7 +99,7 @@ FeatureID MigrateWayOrRelatonFeatureIndex(
     MYTHROW(MigrationError,
             ("None of returned ways suffice. Possibly, the feature has been deleted."));
   }
-  return fid.get();
+  return *fid;
 }
 
 FeatureID MigrateFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach,

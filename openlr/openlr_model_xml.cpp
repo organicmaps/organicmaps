@@ -6,9 +6,8 @@
 #include "base/logging.hpp"
 
 #include <cstring>
+#include <optional>
 #include <type_traits>
-
-#include "boost/optional.hpp"
 
 #include "3party/pugixml/src/pugixml.hpp"
 
@@ -27,9 +26,9 @@ bool IntegerFromXML(pugi::xml_node const & node, Value & value)
   return true;
 }
 
-boost::optional<double> DoubleFromXML(pugi::xml_node const & node)
+std::optional<double> DoubleFromXML(pugi::xml_node const & node)
 {
-  return node ? node.text().as_double() : boost::optional<double>();
+  return node ? node.text().as_double() : std::optional<double>();
 }
 
 bool GetLatLon(pugi::xml_node const & node, int32_t & lat, int32_t & lon)
@@ -112,12 +111,12 @@ bool FirstCoordinateFromXML(pugi::xml_node const & node, ms::LatLon & latLon)
   return true;
 }
 
-boost::optional<ms::LatLon> LatLonFormXML(pugi::xml_node const & node)
+std::optional<ms::LatLon> LatLonFormXML(pugi::xml_node const & node)
 {
   auto const lat = DoubleFromXML(node.child("latitude"));
   auto const lon = DoubleFromXML(node.child("longitude"));
 
-  return lat && lon ? ms::LatLon(lat.get(), lon.get()) : ms::LatLon::Zero();
+  return lat && lon ? ms::LatLon(*lat, *lon) : ms::LatLon::Zero();
 }
 
 bool CoordinateFromXML(pugi::xml_node const & node, ms::LatLon const & prevCoord,
@@ -294,10 +293,10 @@ bool CoordinatesFromXML(pugi::xml_node const & coordsNode, openlr::LinearLocatio
     return false;
   }
 
-  LOG(LINFO, ("from:", latLonStart.get(), "to:", latLonEnd.get()));
+  LOG(LINFO, ("from:", *latLonStart, "to:", *latLonEnd));
   locRef.m_points.resize(2);
-  locRef.m_points[0].m_latLon = latLonStart.get();
-  locRef.m_points[1].m_latLon = latLonEnd.get();
+  locRef.m_points[0].m_latLon = *latLonStart;
+  locRef.m_points[1].m_latLon = *latLonEnd;
   return true;
 }
 }  // namespace

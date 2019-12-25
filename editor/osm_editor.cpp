@@ -501,7 +501,7 @@ void Editor::ForEachCreatedFeature(MwmSet::MwmId const & id, FeatureIndexFunctor
   }
 }
 
-boost::optional<osm::EditableMapObject> Editor::GetEditedFeature(FeatureID const & fid) const
+optional<osm::EditableMapObject> Editor::GetEditedFeature(FeatureID const & fid) const
 {
   auto const features = m_features.Get();
   auto const * featureInfo = GetFeatureTypeInfo(*features, fid.m_mwmId, fid.m_index);

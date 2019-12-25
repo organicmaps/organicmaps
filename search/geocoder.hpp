@@ -44,10 +44,9 @@
 #include <limits>
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 class CategoriesHolder;
 class DataSource;
@@ -87,7 +86,7 @@ public:
   {
     Mode m_mode = Mode::Everywhere;
     m2::RectD m_pivot;
-    boost::optional<m2::PointD> m_position;
+    std::optional<m2::PointD> m_position;
     Locales m_categoryLocales;
     std::shared_ptr<hotels_filter::Rule> m_hotelsFilter;
     std::vector<uint32_t> m_cuisineTypes;

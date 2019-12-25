@@ -18,8 +18,6 @@
 #include <string>
 #include <vector>
 
-#include <boost/optional.hpp>
-
 namespace lightweight
 {
 struct LightFrameworkTest;

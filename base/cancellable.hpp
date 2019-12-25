@@ -3,9 +3,8 @@
 #include <atomic>
 #include <chrono>
 #include <mutex>
+#include <optional>
 #include <string>
-
-#include <boost/optional.hpp>
 
 namespace base
 {
@@ -51,7 +50,7 @@ private:
 
   mutable Status m_status = Status::Active;
 
-  boost::optional<std::chrono::steady_clock::time_point> m_deadline;
+  std::optional<std::chrono::steady_clock::time_point> m_deadline;
 };
 
 std::string DebugPrint(Cancellable::Status status);

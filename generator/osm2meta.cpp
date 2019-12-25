@@ -16,11 +16,10 @@
 #include <cctype>
 #include <cmath>
 #include <cstdlib>
+#include <optional>
 #include <sstream>
 #include <unordered_map>
 #include <unordered_set>
-
-#include "boost/optional.hpp"
 
 using namespace std;
 
@@ -299,7 +298,7 @@ string MetadataTagProcessorImpl::ValidateAndFormat_duration(string const & v) co
     return ss.str();
   };
 
-  auto const readNumber = [&v](size_t & pos) -> boost::optional<uint32_t> {
+  auto const readNumber = [&v](size_t & pos) -> optional<uint32_t> {
     uint32_t number = 0;
     size_t const startPos = pos;
     while (pos < v.size() && isdigit(v[pos]))
@@ -315,7 +314,7 @@ string MetadataTagProcessorImpl::ValidateAndFormat_duration(string const & v) co
     return {number};
   };
 
-  auto const convert = [](char type, uint32_t number) -> boost::optional<double> {
+  auto const convert = [](char type, uint32_t number) -> optional<double> {
     switch (type)
     {
     case 'H': return number;
@@ -331,7 +330,7 @@ string MetadataTagProcessorImpl::ValidateAndFormat_duration(string const & v) co
 
   double hours = 0.0;
   size_t pos = 0;
-  boost::optional<uint32_t> op;
+  optional<uint32_t> op;
 
   if (strings::StartsWith(v, "PT"))
   {

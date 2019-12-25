@@ -1198,7 +1198,7 @@ void BookmarkManager::SortByTime(std::vector<SortBookmarkData> const & bookmarks
 
   auto const currentTime = std::chrono::system_clock::now();
 
-  boost::optional<SortedByTimeBlockType> lastBlockType;
+  std::optional<SortedByTimeBlockType> lastBlockType;
   SortedBlock currentBlock;
   for (auto mark : sortedMarks)
   {
@@ -1208,17 +1208,17 @@ void BookmarkManager::SortByTime(std::vector<SortBookmarkData> const & bookmarks
 
     if (!lastBlockType)
     {
-      lastBlockType.reset(currentBlockType);
+      lastBlockType = currentBlockType;
       currentBlock.m_blockName = GetSortedByTimeBlockName(currentBlockType);
     }
 
-    if (currentBlockType != lastBlockType.get())
+    if (currentBlockType != *lastBlockType)
     {
       sortedBlocks.push_back(currentBlock);
       currentBlock = SortedBlock();
       currentBlock.m_blockName = GetSortedByTimeBlockName(currentBlockType);
     }
-    lastBlockType.reset(currentBlockType);
+    lastBlockType = currentBlockType;
     currentBlock.m_markIds.push_back(mark->m_id);
   }
   if (!currentBlock.m_markIds.empty())
@@ -1897,7 +1897,7 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
     auto const savePath = GetKMLPath(filePath);
     if (savePath)
     {
-      auto fileSavePath = savePath.get();
+      auto fileSavePath = *savePath;
       auto kmlData = LoadKmlFile(fileSavePath, KmlFileType::Text);
       if (m_needTeardown)
         return;
@@ -2005,7 +2005,7 @@ void BookmarkManager::NotifyAboutFile(bool success, std::string const & filePath
   });
 }
 
-boost::optional<std::string> BookmarkManager::GetKMLPath(std::string const & filePath)
+std::optional<std::string> BookmarkManager::GetKMLPath(std::string const & filePath)
 {
   std::string const fileExt = GetFileExt(filePath);
   std::string fileSavePath;

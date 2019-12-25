@@ -10,13 +10,12 @@
 #include <cstdint>
 #include <functional>
 #include <initializer_list>
+#include <optional>
 #include <set>
 #include <string>
 #include <type_traits>
 #include <utility>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 namespace feature { class TypesHolder; }
 class FeatureType;
@@ -299,7 +298,7 @@ public:
 
   unsigned GetHotelTypesMask(FeatureType & ft) const;
 
-  boost::optional<Type> GetHotelType(FeatureType & ft) const;
+  std::optional<Type> GetHotelType(FeatureType & ft) const;
 
   DECLARE_CHECKER_INSTANCE(IsHotelChecker);
 private:

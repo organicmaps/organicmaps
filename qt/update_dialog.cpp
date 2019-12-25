@@ -280,7 +280,7 @@ namespace qt
     m_framework.SearchInDownloader(params);
   }
 
-  void UpdateDialog::FillTree(boost::optional<Filter> const & filter, uint64_t timestamp)
+  void UpdateDialog::FillTree(optional<Filter> const & filter, uint64_t timestamp)
   {
     CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -303,7 +303,7 @@ namespace qt
   }
 
   void UpdateDialog::FillTreeImpl(QTreeWidgetItem * parent, CountryId const & countryId,
-                                  boost::optional<Filter> const & filter)
+                                  optional<Filter> const & filter)
   {
     CountriesVec children;
     GetStorage().GetChildren(countryId, children);

@@ -27,11 +27,10 @@
 #include "defines.hpp"
 
 #include <memory>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 namespace ads
 {
@@ -178,7 +177,7 @@ public:
   float GetRatingRawValue() const;
   /// @returns string with |kPricingSymbol| signs or empty std::string if it isn't booking object
   std::string GetApproximatePricing() const;
-  boost::optional<int> GetRawApproximatePricing() const;
+  std::optional<int> GetRawApproximatePricing() const;
 
   /// UI setters
   void SetCustomName(std::string const & name);
@@ -294,7 +293,7 @@ public:
   void SetMercator(m2::PointD const & mercator) { m_mercator = mercator; }
   std::vector<std::string> GetRawTypes() const { return m_types.ToObjectNames(); }
 
-  boost::optional<ftypes::IsHotelChecker::Type> GetHotelType() const { return m_hotelType; }
+  std::optional<ftypes::IsHotelChecker::Type> GetHotelType() const { return m_hotelType; }
 
   void SetPopularity(uint8_t popularity) { m_popularity = popularity; }
   uint8_t GetPopularity() const { return m_popularity; }
@@ -394,7 +393,7 @@ private:
 
   feature::TypesHolder m_sortedTypes;
 
-  boost::optional<ftypes::IsHotelChecker::Type> m_hotelType;
+  std::optional<ftypes::IsHotelChecker::Type> m_hotelType;
 
   uint8_t m_popularity = 0;
 

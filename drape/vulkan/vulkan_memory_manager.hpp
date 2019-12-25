@@ -5,14 +5,13 @@
 #include <vulkan_wrapper.h>
 #include <vulkan/vulkan.h>
 
-#include <boost/optional.hpp>
-
 #include <array>
 #include <cstdint>
 #include <memory>
 #include <mutex>
-#include <vector>
+#include <optional>
 #include <unordered_map>
+#include <vector>
 
 namespace dp
 {
@@ -81,8 +80,8 @@ public:
   VkPhysicalDeviceLimits const & GetDeviceLimits() const;
 
 private:
-  boost::optional<uint32_t> GetMemoryTypeIndex(uint32_t typeBits,
-                                               VkMemoryPropertyFlags properties) const;
+  std::optional<uint32_t> GetMemoryTypeIndex(uint32_t typeBits,
+                                             VkMemoryPropertyFlags properties) const;
   void IncrementTotalAllocationsCount();
   void DecrementTotalAllocationsCount();
 

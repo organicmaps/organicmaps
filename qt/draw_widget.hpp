@@ -19,9 +19,8 @@
 #include <functional>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <string>
-
-#include "boost/optional.hpp"
 
 #include <QtWidgets/QRubberBand>
 
@@ -146,7 +145,7 @@ public:
 
 private:
   void ProcessSelectionMode();
-  boost::optional<SelectionMode> m_currentSelectionMode;
+  std::optional<SelectionMode> m_currentSelectionMode;
   RouteMarkType m_routePointAddMode = RouteMarkType::Finish;
 
   std::unique_ptr<Screenshoter> m_screenshoter;

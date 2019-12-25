@@ -35,7 +35,7 @@ namespace routing
 {
 size_t const CameraProcessor::kMaxSpeedSpeedStringLength = 32;
 
-boost::optional<double> GetMaxSpeedKmPH(std::string const & maxSpeedString)
+std::optional<double> GetMaxSpeedKmPH(std::string const & maxSpeedString)
 {
   routing::SpeedInUnits speed;
   if (!generator::ParseMaxspeedTag(maxSpeedString, speed) || !speed.IsNumeric())

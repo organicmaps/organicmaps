@@ -27,7 +27,7 @@
 #include <unordered_map>
 #include <utility>
 
-#include <boost/optional.hpp>
+#include <optional>
 
 #include "defines.hpp"
 
@@ -364,10 +364,10 @@ RoadAccess::Type RoadAccessTagProcessor::GetAccessType(OsmElement const & elem) 
     {
       auto const accessType = GetAccessTypeFromMapping(elem, tagMapping);
       if (accessType != RoadAccess::Type::Count)
-        return boost::optional<RoadAccess::Type>(accessType);
+        return optional<RoadAccess::Type>(accessType);
     }
 
-    return boost::optional<RoadAccess::Type>();
+    return optional<RoadAccess::Type>();
   };
 
   if (auto op = getType(m_accessMappings))

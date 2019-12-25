@@ -15,11 +15,10 @@
 #include <algorithm>
 #include <limits>
 #include <map>
+#include <optional>
 #include <queue>
 #include <set>
 #include <vector>
-
-#include "boost/optional.hpp"
 
 namespace routing
 {
@@ -152,9 +151,8 @@ private:
                                   std::vector<JointEdge> & edges,
                                   std::vector<Weight> & parentWeights);
 
-  boost::optional<Segment> GetParentSegment(JointSegment const & vertex,
-                                            bool isOutgoing,
-                                            std::vector<JointEdge> & edges);
+  std::optional<Segment> GetParentSegment(JointSegment const & vertex, bool isOutgoing,
+                                          std::vector<JointEdge> & edges);
 
   /// \brief Makes BFS from |startSegment| in direction |fromStart| and find the closest segments
   /// which end RoadPoints are joints. Thus we build fake joint segments graph.
@@ -384,11 +382,10 @@ Segment const & IndexGraphStarterJoints<Graph>::GetSegmentOfFakeJoint(JointSegme
 }
 
 template <typename Graph>
-boost::optional<Segment> IndexGraphStarterJoints<Graph>::GetParentSegment(JointSegment const & vertex,
-                                                                          bool isOutgoing,
-                                                                          std::vector<JointEdge> & edges)
+std::optional<Segment> IndexGraphStarterJoints<Graph>::GetParentSegment(
+    JointSegment const & vertex, bool isOutgoing, std::vector<JointEdge> & edges)
 {
-  boost::optional<Segment> parentSegment;
+  std::optional<Segment> parentSegment;
   bool const opposite = !isOutgoing;
   if (vertex.IsFake())
   {
@@ -462,7 +459,7 @@ bool IndexGraphStarterJoints<Graph>::FillEdgesAndParentsWeights(JointSegment con
     if (!optional)
       return false;
 
-    Segment const & parentSegment = optional.value();
+    Segment const & parentSegment = *optional;
     m_graph.GetEdgeList(vertex, parentSegment, isOutgoing, edges, parentWeights);
 
     firstFakeId = edges.size();

@@ -86,11 +86,11 @@ RoutingOptionsClassifier::RoutingOptionsClassifier()
   }
 }
 
-boost::optional<RoutingOptions::Road> RoutingOptionsClassifier::Get(uint32_t type) const
+optional<RoutingOptions::Road> RoutingOptionsClassifier::Get(uint32_t type) const
 {
   auto const it = m_data.find(type);
   if (it == m_data.cend())
-    return boost::none;
+    return {};
 
   return it->second;
 }

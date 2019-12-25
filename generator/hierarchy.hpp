@@ -26,13 +26,13 @@
 
 #include <cstddef>
 #include <memory>
+#include <optional>
 #include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
 
 #include <boost/geometry.hpp>
-#include <boost/optional.hpp>
 
 namespace generator
 {
@@ -101,7 +101,7 @@ class HierarchyEntryEnricher
 public:
   HierarchyEntryEnricher(std::string const & osm2FtIdsPath, std::string const & countryFullPath);
 
-  boost::optional<m2::PointD> GetFeatureCenter(CompositeId const & id) const;
+  std::optional<m2::PointD> GetFeatureCenter(CompositeId const & id) const;
 
 private:
   OsmID2FeatureID m_osm2FtIds;

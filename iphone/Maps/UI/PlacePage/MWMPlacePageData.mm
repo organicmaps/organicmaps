@@ -637,13 +637,11 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   return _photos;
 }
 
-- (boost::optional<int>)hotelRawApproximatePricing
-{
+- (std::optional<int>)hotelRawApproximatePricing {
   return [self getRawData].GetRawApproximatePricing();
 }
 
-- (boost::optional<ftypes::IsHotelChecker::Type>)hotelType
-{
+- (std::optional<ftypes::IsHotelChecker::Type>)hotelType {
   return [self getRawData].GetHotelType();
 }
 

@@ -256,8 +256,8 @@ void CamerasInfoCollector::Camera::FindClosestSegmentWithGeometryIndex(FrozenDat
     m_data.m_ways.emplace_back(bestFeatureId, bestSegmentId, bestCoef);
 }
 
-boost::optional<std::pair<double, uint32_t>> CamerasInfoCollector::Camera::FindMyself(
-  uint32_t wayFeatureId, FrozenDataSource const & dataSource, MwmSet::MwmId const & mwmId) const
+std::optional<std::pair<double, uint32_t>> CamerasInfoCollector::Camera::FindMyself(
+    uint32_t wayFeatureId, FrozenDataSource const & dataSource, MwmSet::MwmId const & mwmId) const
 {
   double coef = 0.0;
   bool isRoad = true;
@@ -299,7 +299,7 @@ boost::optional<std::pair<double, uint32_t>> CamerasInfoCollector::Camera::FindM
   dataSource.ReadFeature(readFeature, featureID);
 
   if (isRoad)
-    return boost::optional<std::pair<double, uint32_t>>({coef, result});
+    return std::optional<std::pair<double, uint32_t>>({coef, result});
 
   return {};
 }

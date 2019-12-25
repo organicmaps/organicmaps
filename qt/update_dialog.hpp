@@ -5,12 +5,11 @@
 #include "base/thread_checker.hpp"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
@@ -56,9 +55,9 @@ namespace qt
 
     // Adds only those countries present in |filter|.
     // Calls whose timestamp is not the latest are discarded.
-    void FillTree(boost::optional<Filter> const & filter, uint64_t timestamp);
+    void FillTree(std::optional<Filter> const & filter, uint64_t timestamp);
     void FillTreeImpl(QTreeWidgetItem * parent, storage::CountryId const & countryId,
-                      boost::optional<Filter> const & filter);
+                      std::optional<Filter> const & filter);
 
     void UpdateRowWithCountryInfo(storage::CountryId const & countryId);
     void UpdateRowWithCountryInfo(QTreeWidgetItem * item, storage::CountryId const & countryId);

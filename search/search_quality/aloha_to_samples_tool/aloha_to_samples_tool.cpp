@@ -16,11 +16,10 @@
 #include <iostream>
 #include <map>
 #include <memory>
+#include <optional>
 #include <stdexcept>
 #include <string>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 #include "3party/gflags/src/gflags/gflags.h"
 
@@ -78,7 +77,7 @@ bool IsCategorialRequest(string query, uint8_t locale)
   return isCategorialRequest;
 }
 
-boost::optional<EmitInfo> ParseEmitResultsAndCoords(map<string, string> const & kpePairs)
+optional<EmitInfo> ParseEmitResultsAndCoords(map<string, string> const & kpePairs)
 {
   EmitInfo info;
   try
@@ -117,7 +116,7 @@ boost::optional<EmitInfo> ParseEmitResultsAndCoords(map<string, string> const & 
   return info;
 }
 
-boost::optional<ResultInfo> ParseShowResult(map<string, string> const & kpePairs)
+optional<ResultInfo> ParseShowResult(map<string, string> const & kpePairs)
 {
   ResultInfo info;
   try
@@ -134,7 +133,7 @@ boost::optional<ResultInfo> ParseShowResult(map<string, string> const & kpePairs
   return info;
 }
 
-boost::optional<Sample::Result> ParseResultWithCoords(string const & str)
+optional<Sample::Result> ParseResultWithCoords(string const & str)
 {
   auto const tokens = Tokenize(str, "|");
   // No coords.
@@ -162,7 +161,7 @@ boost::optional<Sample::Result> ParseResultWithCoords(string const & str)
   return res;
 }
 
-boost::optional<Sample> MakeSample(EmitInfo const & info, size_t relevantPos)
+optional<Sample> MakeSample(EmitInfo const & info, size_t relevantPos)
 {
   Sample sample;
   sample.m_query = MakeUniString(info.m_query);
@@ -197,10 +196,10 @@ int main(int argc, char * argv[])
 
   classificator::Load();
 
-  cereal::BinaryInputArchive ar(std::cin);
+  cereal::BinaryInputArchive ar(cin);
   unique_ptr<AlohalyticsBaseEvent> ptr;
   bool newUser = true;
-  boost::optional<EmitInfo> info;
+  optional<EmitInfo> info;
 
   while (true)
   {

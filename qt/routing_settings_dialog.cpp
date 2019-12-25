@@ -47,7 +47,7 @@ void RoutingSettings::ResetSettings()
 }
 
 // static
-boost::optional<ms::LatLon> RoutingSettings::GetCoordsFromString(std::string const & input)
+std::optional<ms::LatLon> RoutingSettings::GetCoordsFromString(std::string const & input)
 {
   ms::LatLon coords{};
   strings::SimpleTokenizer iter(input, kDelim);
@@ -66,7 +66,7 @@ boost::optional<ms::LatLon> RoutingSettings::GetCoordsFromString(std::string con
 }
 
 // static
-boost::optional<ms::LatLon> RoutingSettings::GetCoords(bool start)
+std::optional<ms::LatLon> RoutingSettings::GetCoords(bool start)
 {
   std::string input;
   settings::TryGet(start ? kStartCoordsCachedSettings : kFinishCoordsCachedSettings, input);

@@ -4,11 +4,11 @@
 #include "generator/cells_merger.hpp"
 #include "generator/feature_builder.hpp"
 
+#include <optional>
 #include <string>
 #include <vector>
 
 #include <boost/geometry/index/rtree.hpp>
-#include <boost/optional.hpp>
 
 namespace feature
 {
@@ -55,7 +55,7 @@ public:
 private:
   static Box MakeBox(m2::RectD const & rect);
   std::shared_ptr<Tree> BuildIndex(std::vector<m2::RectD> const & net);
-  boost::optional<std::string> IsOneCountryForBbox(FeatureBuilder const & fb) const;
+  std::optional<std::string> IsOneCountryForBbox(FeatureBuilder const & fb) const;
   std::vector<std::string> GetHonestAffiliations(FeatureBuilder const & fb) const;
 
   std::shared_ptr<Tree> m_index;
