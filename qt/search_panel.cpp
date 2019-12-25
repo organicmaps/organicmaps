@@ -102,6 +102,9 @@ void SearchPanel::ClearResults()
   m_results.clear();
   m_pDrawWidget->GetFramework().GetBookmarkManager().GetEditSession().ClearGroup(
       UserMark::Type::SEARCH);
+
+  m_everywhereParams = {};
+  m_viewportParams = {};
 }
 
 void SearchPanel::StartBusyIndicator()
@@ -172,7 +175,6 @@ void SearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results 
     StopBusyIndicator();
 }
 
-// TODO: This code only for demonstration purposes and will be removed soon
 bool SearchPanel::Try3dModeCmd(QString const & str)
 {
   bool const is3dModeOn = (str == "?3d");
@@ -229,7 +231,6 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
 {
   QString const normalized = str.normalized(QString::NormalizationForm_KC);
 
-  // TODO: This code only for demonstration purposes and will be removed soon
   if (Try3dModeCmd(normalized))
     return;
   if (TryDisplacementModeCmd(normalized))
@@ -266,8 +267,6 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
     m_everywhereParams.m_timeout = search::SearchParams::kDefaultDesktopTimeout;
 
     started = m_pDrawWidget->GetFramework().GetSearchAPI().SearchEverywhere(m_everywhereParams);
-
-    m_viewportParams = {};
   }
   break;
 
@@ -276,6 +275,12 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
     m_viewportParams.m_query = normalized.toUtf8().constData();
     m_viewportParams.m_onCompleted = [this](search::Results const & results) {
       GetPlatform().RunTask(Platform::Thread::Gui, [this, results] {
+        // |m_pTable| is not updated here because the OnResults callback is recreated within
+        // SearchAPI when the viewport is changed. Thus a single call to SearchInViewport may
+        // initiate an arbitrary amount of actual search requests with different viewports, and
+        // clearing the table would require additional care (or, most likely, we would need a better
+        // API). This is similar to the Android and iOS clients where we do not show the list of
+        // results in the viewport search mode.
         m_pDrawWidget->GetFramework().FillSearchResultsMarks(true /* clear */, results);
         StopBusyIndicator();
       });
@@ -283,12 +288,12 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
     m_viewportParams.m_timeout = search::SearchParams::kDefaultDesktopTimeout;
 
     started = m_pDrawWidget->GetFramework().GetSearchAPI().SearchInViewport(m_viewportParams);
-
-    m_everywhereParams = {};
   }
   break;
 
-  default: started = false; break;
+  default:
+    started = false;
+  break;
   }
 
   if (started)
@@ -307,15 +312,15 @@ void SearchPanel::OnSearchModeChanged(int mode)
     UNREACHABLE();
   }
 
-  if (m_mode != newMode)
-  {
-    m_mode = newMode;
+  if (m_mode == newMode)
+    return;
 
-    // Run this query in the new mode.
-    auto const text = m_pEditor->text();
-    m_pEditor->setText(QString());
-    m_pEditor->setText(text);
-  }
+  m_mode = newMode;
+
+  // Run this query in the new mode.
+  auto const text = m_pEditor->text();
+  m_pEditor->setText(QString());
+  m_pEditor->setText(text);
 }
 
 void SearchPanel::OnSearchPanelItemClicked(int row, int)
