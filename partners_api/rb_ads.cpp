@@ -84,8 +84,6 @@ Rb::Rb()
 
   AppendEntry({{"building"}}, kBuildingPlacementId);
 
-  AppendExcludedTypes({{"sponsored", "banner"}});
-
   AppendSupportedCountries(kSupportedCountries);
   AppendSupportedUserLanguages(kSupportedLanguages);
 }

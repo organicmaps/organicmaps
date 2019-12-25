@@ -69,8 +69,6 @@ Mopub::Mopub()
                {"amenity", "bureau_de_change"}},
               kNonTourismPlacementId);
 
-  AppendEntry({{"sponsored", "banner"}}, kSponsoredBannerPlacementId);
-
   for (auto const & p : GetPartners())
   {
     auto const & placementId = p.GetBannerPlacementId();
