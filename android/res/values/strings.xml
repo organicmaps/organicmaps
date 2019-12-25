@@ -2610,16 +2610,6 @@
 	<string name="type.shop.wine">Wine Shop</string>
 	<string name="type.sponsored">sponsored</string>
 	<string name="type.sponsored.banner">sponsored-banner</string>
-	<string name="type.sponsored.banner.deliveryclub">sponsored-banner-deliveryclub</string>
-	<string name="type.sponsored.banner.geerbest_de">sponsored-banner-geerbest_de</string>
-	<string name="type.sponsored.banner.geerbest_fr">sponsored-banner-geerbest_fr</string>
-	<string name="type.sponsored.banner.geerbest_uk">sponsored-banner-geerbest_uk</string>
-	<string name="type.sponsored.banner.lamoda_ru">sponsored-banner-lamoda_ru</string>
-	<string name="type.sponsored.banner.lamoda_ua">sponsored-banner-lamoda_ua</string>
-	<string name="type.sponsored.banner.raileurope">sponsored-banner-raileurope</string>
-	<string name="type.sponsored.banner.rentalcars">sponsored-banner-rentalcars</string>
-	<string name="type.sponsored.banner.tutu">sponsored-banner-tutu</string>
-	<string name="type.sponsored.banner.viator">sponsored-banner-viator</string>
 	<string name="type.sponsored.booking">sponsored-booking</string>
 	<string name="type.sponsored.holiday">Christmas or New Year Celebrations</string>
 	<string name="type.sponsored.opentable">sponsored-opentable</string>
