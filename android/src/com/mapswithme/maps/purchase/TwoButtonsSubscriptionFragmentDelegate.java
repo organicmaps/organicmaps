@@ -8,6 +8,8 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.SubscriptionButton;
 import com.mapswithme.util.Utils;
 
+import java.util.List;
+
 class TwoButtonsSubscriptionFragmentDelegate extends SubscriptionFragmentDelegate
 {
   @SuppressWarnings("NullableProblems")
@@ -31,14 +33,22 @@ class TwoButtonsSubscriptionFragmentDelegate extends SubscriptionFragmentDelegat
     super.onCreateView(root);
     mYearlyButton = root.findViewById(R.id.annual_button);
     mYearlyButton.setOnClickListener(v -> {
-      mSelectedPeriod = PurchaseUtils.Period.P1Y;
-      getFragment().pingBookmarkCatalog();
+      onSubscriptionButtonClicked(PurchaseUtils.Period.P1Y);
     });
     mMonthlyButton = root.findViewById(R.id.monthly_button);
     mMonthlyButton.setOnClickListener(v -> {
-      mSelectedPeriod = PurchaseUtils.Period.P1M;
-      getFragment().pingBookmarkCatalog();
+      onSubscriptionButtonClicked(PurchaseUtils.Period.P1M);
     });
+  }
+
+  private void onSubscriptionButtonClicked(@NonNull PurchaseUtils.Period period)
+  {
+    List<ProductDetails> productDetails = getFragment().getProductDetails();
+    if (productDetails == null || productDetails.isEmpty())
+      return;
+
+    mSelectedPeriod = period;
+    getFragment().pingBookmarkCatalog();
   }
 
   @NonNull
