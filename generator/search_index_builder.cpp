@@ -291,6 +291,10 @@ public:
     using namespace search;
 
     static TypesSkipper skipIndex;
+    feature::TypesHolder types(f);
+
+    if (skipIndex.SkipAlways(types))
+      return;
 
     auto const isCountryOrState = [](auto types) {
       auto const & isLocalityChecker = ftypes::IsLocalityChecker::Instance();
@@ -298,8 +302,6 @@ public:
       return localityType == ftypes::LocalityType::Country ||
              localityType == ftypes::LocalityType::State;
     };
-
-    feature::TypesHolder types(f);
 
     auto const & streetChecker = ftypes::IsStreetOrSquareChecker::Instance();
     bool const hasStreetType = streetChecker(types);

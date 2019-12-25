@@ -16,6 +16,10 @@ public:
 
   void SkipEmptyNameTypes(feature::TypesHolder & types) const;
 
+  // Always skip feature for search index even it has name and other useful types.
+  // Useful for mixed features, sponsored objects.
+  bool SkipAlways(feature::TypesHolder const & types) const;
+
 private:
   using Cont = buffer_vector<uint32_t, 16>;
 
@@ -23,5 +27,6 @@ private:
 
   // Array index (0, 1) means type level for checking (1, 2).
   Cont m_skipIfEmptyName[2];
+  Cont m_skipAlways[2];
 };
 }  // namespace search

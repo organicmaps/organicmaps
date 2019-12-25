@@ -35,6 +35,8 @@ TypesSkipper::TypesSkipper()
   {
     m_skipIfEmptyName[1].push_back(c.GetTypeByPath(e));
   }
+  m_skipAlways[1].push_back(c.GetTypeByPath({"sponsored", "partner18"}));
+  m_skipAlways[1].push_back(c.GetTypeByPath({"sponsored", "partner19"}));
 }
 
 void TypesSkipper::SkipEmptyNameTypes(feature::TypesHolder & types) const
@@ -57,6 +59,21 @@ void TypesSkipper::SkipEmptyNameTypes(feature::TypesHolder & types) const
   };
 
   types.RemoveIf(shouldBeRemoved);
+}
+
+bool TypesSkipper::SkipAlways(feature::TypesHolder const & types) const
+{
+  for (auto type : types)
+  {
+    ftype::TruncValue(type, 2);
+    if (HasType(m_skipAlways[1], type))
+      return true;
+
+    ftype::TruncValue(type, 1);
+    if (HasType(m_skipAlways[0], type))
+      return true;
+  }
+  return false;
 }
 
 // static
