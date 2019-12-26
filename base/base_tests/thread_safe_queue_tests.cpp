@@ -5,26 +5,11 @@
 
 #include <chrono>
 #include <cstddef>
+#include <optional>
 #include <set>
 #include <thread>
 
 using namespace base::thread_pool::delayed;
-
-UNIT_TEST(DataWrapper_DataWrapper)
-{
-  base::threads::DataWrapper<size_t> dw1;
-  TEST(dw1.IsEmpty(), ());
-
-  base::threads::DataWrapper<size_t> dw2(101);
-  TEST(!dw2.IsEmpty(), ());
-}
-
-UNIT_TEST(DataWrapper_Get)
-{
-  base::threads::DataWrapper<size_t> dw(101);
-  TEST(!dw.IsEmpty(), ());
-  TEST_EQUAL(dw.Get(), 101, ());
-}
 
 UNIT_TEST(ThreadSafeQueue_ThreadSafeQueue)
 {
@@ -90,22 +75,18 @@ UNIT_TEST(ThreadSafeQueue_TryPop)
 UNIT_TEST(ThreadSafeQueue_ExampleWithDataWrapper)
 {
   size_t const kSize = 100000;
-  base::threads::ThreadSafeQueue<base::threads::DataWrapper<size_t>> queue;
+  base::threads::ThreadSafeQueue<std::optional<size_t>> queue;
 
   auto thread = std::thread([&]() {
     while (true)
     {
-      base::threads::DataWrapper<size_t> dw;
+      std::optional<size_t> dw;
       queue.WaitAndPop(dw);
-      if (dw.IsEmpty())
-      {
+      if (!dw.has_value())
         return;
-      }
-      else
-      {
-        ASSERT_GREATER_OR_EQUAL(dw.Get(), 0, ());
-        ASSERT_LESS_OR_EQUAL(dw.Get(), kSize, ());
-      }
+
+      ASSERT_GREATER_OR_EQUAL(*dw, 0, ());
+      ASSERT_LESS_OR_EQUAL(*dw, kSize, ());
     }
   });
 

@@ -25,10 +25,10 @@ void RawGeneratorWriter::Run()
       m_queue->WaitAndPop(chunk);
       // As a sign of the end of tasks, we use an empty message. We have the right to do that,
       // because there is only one reader.
-      if (chunk.IsEmpty())
+      if (!chunk.has_value())
         return;
 
-      Write(chunk.Get());
+      Write(*chunk);
     }
   });
 }

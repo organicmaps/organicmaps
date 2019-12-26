@@ -9,28 +9,6 @@ namespace base
 {
 namespace threads
 {
-// DataWrapper functionality is similar to boost::optional. DataWrapper is needed to help send a
-// signal to the thread, that there is no more data and it's time to finish the work, i.e. in fact,
-// it will be empty only once. I don't want to use boost::optional for this, because it allocates
-// memory on the heap, unlike DataWrapper, which allocates it on the stack.
-template <typename T>
-class DataWrapper
-{
-public:
-  DataWrapper() : m_isEmpty(true) {}
-  DataWrapper(T const & data) : m_data(data), m_isEmpty(false) {}
-  DataWrapper(T && data) : m_data(std::move(data)), m_isEmpty(false) {}
-
-  T const & Get() const { return m_data; }
-  T & Get() { return m_data; }
-
-  bool IsEmpty() const { return m_isEmpty; }
-
-private:
-  T m_data;
-  bool m_isEmpty;
-};
-
 template <typename T>
 class ThreadSafeQueue
 {

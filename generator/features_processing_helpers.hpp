@@ -5,6 +5,7 @@
 #include "base/thread_safe_queue.hpp"
 
 #include <cstddef>
+#include <optional>
 #include <utility>
 #include <string>
 #include <vector>
@@ -23,6 +24,6 @@ struct ProcessedData
   std::vector<std::string> m_affiliations;
 };
 
-using FeatureProcessorChunk = base::threads::DataWrapper<std::vector<ProcessedData>>;
+using FeatureProcessorChunk = std::optional<std::vector<ProcessedData>>;
 using FeatureProcessorQueue = base::threads::ThreadSafeQueue<FeatureProcessorChunk>;
 }  // namespace generator
