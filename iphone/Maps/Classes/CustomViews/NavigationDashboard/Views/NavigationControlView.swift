@@ -130,12 +130,18 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
     super.awakeFromNib()
     translatesAutoresizingMaskIntoConstraints = false
 
+    updateLegendSize()
+
     MWMTextToSpeech.add(self)
     MWMTrafficManager.add(self)
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
+    updateLegendSize()
+  }
+
+  func updateLegendSize() {
     let isCompact = traitCollection.verticalSizeClass == .compact
     distanceLabel.isHidden = isCompact
     distanceLegendLabel.isHidden = isCompact
