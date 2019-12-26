@@ -479,25 +479,26 @@ void Storage::SaveDownloadQueue()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  ostringstream download;
-  ostringstream update;
+  ostringstream ss;
   for (auto const & item : m_downloader->GetQueue())
   {
-    auto & ss = item.GetFileType() == MapFileType::Diff ? update : download;
     ss << (ss.str().empty() ? "" : ";") << item.GetCountryId();
   }
 
-  settings::Set(kDownloadQueueKey, download.str());
-  settings::Set(kUpdateQueueKey, update.str());
+  settings::Set(kDownloadQueueKey, ss.str());
 }
 
 void Storage::RestoreDownloadQueue()
 {
   string download, update;
-  if (!settings::Get(kDownloadQueueKey, download) && !settings::Get(kUpdateQueueKey, update))
+  // TODO(a): remove kUpdateQueueKey after 10.3 because we did switch to use kDownloadQueueKey only.
+  settings::TryGet(kDownloadQueueKey, download);
+  settings::TryGet(kUpdateQueueKey, update);
+
+  if (download.empty() && update.empty())
     return;
 
-  auto parse = [this](string const & token, bool isUpdate) {
+  auto parse = [this](string const & token) {
     if (token.empty())
       return;
 
@@ -509,12 +510,16 @@ void Storage::RestoreDownloadQueue()
                                   });
 
       if (diffIt == m_notAppliedDiffs.end())
+      {
+        auto localFile = GetLatestLocalFile(*iter);
+        auto isUpdate = localFile && localFile->OnDisk(MapFileType::Map);
         DownloadNode(*iter, isUpdate);
+      }
     }
   };
 
-  parse(download, false /* isUpdate */);
-  parse(update, true /* isUpdate */);
+  parse(download);
+  parse(update);
 }
 
 void Storage::DownloadCountry(CountryId const & countryId, MapFileType type)
@@ -1588,7 +1593,7 @@ void Storage::UpdateNode(CountryId const & countryId)
 {
   ForEachInSubtree(countryId, [this](CountryId const & descendantId, bool groupNode) {
     if (!groupNode && m_localFiles.find(descendantId) != m_localFiles.end())
-      this->DownloadNode(descendantId, true /* isUpdate */);
+      DownloadNode(descendantId, true /* isUpdate */);
   });
 }
 
