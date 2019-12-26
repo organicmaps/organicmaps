@@ -27,13 +27,13 @@ public class BackUrlMapTaskWrapper implements MapTask
   {
     final boolean success = mMapTask.run(target);
 
+    final Intent intent = target.getIntent();
+    if (intent == null)
+      return success;
+
     Uri uri = Uri.parse(mUrl);
     String backUrl = uri.getQueryParameter(BACK_URL_PARAMETER);
     if (TextUtils.isEmpty(backUrl))
-      return success;
-
-    Intent intent = target.getIntent();
-    if (intent == null)
       return success;
 
     intent.putExtra(MwmActivity.EXTRA_BACK_URL, backUrl);
