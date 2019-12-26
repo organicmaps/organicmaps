@@ -10,6 +10,8 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
+#include "coding/reader_streambuf.hpp"
+
 #include "base/assert.hpp"
 #include "base/cancellable.hpp"
 #include "base/exception.hpp"
@@ -137,5 +139,118 @@ search::CBV GetLocalities(std::string const & dataPath)
   search::MwmContext context(dataSource.GetMwmHandleById(result.first));
   base::Cancellable const cancellable;
   return search::CategoriesCache(search::LocalitiesSource{}, cancellable).Get(context);
+}
+
+bool MapcssRule::Matches(std::vector<OsmElement::Tag> const & tags) const
+{
+  for (auto const & tag : m_tags)
+  {
+    if (!std::any_of(tags.begin(), tags.end(), [&](auto const & t) { return t == tag; }))
+      return false;
+  }
+  for (auto const & key : m_mandatoryKeys)
+  {
+    if (!std::any_of(tags.begin(), tags.end(),
+                     [&](auto const & t) { return t.m_key == key && t.m_value != "no"; }))
+    {
+      return false;
+    }
+  }
+  for (auto const & key : m_forbiddenKeys)
+  {
+    if (!std::all_of(tags.begin(), tags.end(),
+                     [&](auto const & t) { return t.m_key != key || t.m_value == "no"; }))
+    {
+      return false;
+    }
+  }
+  return true;
+}
+
+MapcssRules ParseMapCSS(std::unique_ptr<Reader> reader)
+{
+  ReaderStreamBuf buffer(std::move(reader));
+  std::istream data(&buffer);
+  data.exceptions(std::fstream::badbit);
+
+  MapcssRules rules;
+
+  auto const processShort = [&rules](std::string const & typeString) {
+    auto const typeTokens = strings::Tokenize(typeString, "|");
+    CHECK(typeTokens.size() == 2, (typeString));
+    MapcssRule rule;
+    rule.m_tags = {{typeTokens[0], typeTokens[1]}};
+    rules.push_back({typeTokens, rule});
+  };
+
+  auto const processFull = [&rules](std::string const & typeString,
+                                    std::string const & selectorsString) {
+    auto const typeTokens = strings::Tokenize(typeString, "|");
+    for (auto const & selector : strings::Tokenize(selectorsString, ","))
+    {
+      CHECK(!selector.empty(), (selectorsString));
+      CHECK_EQUAL(selector[0], '[', (selectorsString));
+      CHECK_EQUAL(selector.back(), ']', (selectorsString));
+
+      MapcssRule rule;
+      auto tags = strings::Tokenize(selector, "[");
+      for (auto & rawTag : tags)
+      {
+        strings::Trim(rawTag, "]");
+        CHECK(!rawTag.empty(), (selector, tags));
+        auto tag = strings::Tokenize(rawTag, "=");
+        if (tag.size() == 1)
+        {
+          CHECK(!tag[0].empty(), (rawTag));
+          auto const forbidden = tag[0][0] == '!';
+          strings::Trim(tag[0], "?!");
+          if (forbidden)
+            rule.m_forbiddenKeys.push_back(tag[0]);
+          else
+            rule.m_mandatoryKeys.push_back(tag[0]);
+        }
+        else
+        {
+          CHECK_EQUAL(tag.size(), 2, (tag));
+          rule.m_tags.push_back({tag[0], tag[1]});
+        }
+      }
+      rules.push_back({typeTokens, rule});
+    }
+  };
+
+  // Mapcss-mapping maps tags to types.
+  // Types can be marked obsolete or replaced with a different type.
+  //
+  // Example row: highway|bus_stop;[highway=bus_stop];;name;int_name;22;
+  // It contains:
+  // - type name: "highway|bus_stop" ('|' is converted to '-' internally)
+  // - mapcss selectors for tags: "[highway=bus_stop]", multiple selectors are separated with comma
+  // - "x" for an obsolete type or an empty cell otherwise
+  // - primary title tag (usually "name")
+  // - secondary title tag (usually "int_name")
+  // - type id, sequential starting from 1
+  // - replacement type for an obsolete tag, if exists
+  //
+  // A shorter format for above example: highway|bus_stop;22;
+  // It leaves only columns 1, 6 and 7. For obsolete types with no replacement put "x" into the last
+  // column. It works only for simple types that are produced from tags replacing '=' with '|'.
+
+  std::string line;
+  while (getline(data, line))
+  {
+    std::vector<std::string> fields;
+    strings::ParseCSVRow(line, ';', fields);
+    CHECK(fields.size() == 3 || fields.size() == 7, (fields.size(), fields, line));
+    // Short format without replacement.
+    if (fields.size() == 3 && fields[2].empty())
+      processShort(fields[0]);
+
+    // Ful format, not obsolete.
+    if (fields.size() == 7 && fields[2] != "x")
+      processFull(fields[0], fields[1]);
+  }
+
+  return rules;
 }
 }  // namespace generator

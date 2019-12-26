@@ -3,9 +3,12 @@
 #include "generator/osm2meta.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/osm_element_helpers.hpp"
+#include "generator/utils.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_impl.hpp"
+
+#include "platform/platform.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -13,6 +16,7 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <initializer_list>
 #include <set>
 #include <string>
@@ -24,89 +28,11 @@ namespace ftype
 {
 namespace
 {
-bool NeedMatchValue(string const & k, string const & v)
+template <typename ToDo>
+void ForEachTag(OsmElement * p, ToDo && toDo)
 {
-  // Take numbers only for "capital" and "admin_level" now.
-  // NOTE! If you add a new type into classificator, which has a number in it
-  // (like admin_level=1 or capital=2), please don't forget to insert it here too.
-  // Otherwise generated data will not contain your newly added features.
-  return !strings::is_number(v) || k == "admin_level" || k == "capital";
-}
-
-bool IgnoreTag(string const & k, string const & v)
-{
-  static string const negativeValues[] = {"no", "false", "-1"};
-  // If second component of these pairs is true we need to process this key else ignore it
-  static pair<string const, bool const> const processedKeys[] = {
-      {"description", true},
-      // [highway=primary][cycleway=lane] parsed as [highway=cycleway]
-      {"cycleway", true},
-      // [highway=proposed][proposed=primary] parsed as [highway=primary]
-      {"proposed", true},
-      // [highway=primary][construction=primary] parsed as [highway=construction]
-      {"construction", true},
-      // [wheelchair=no] should be processed
-      {"wheelchair", false},
-      // process in any case
-      {"layer", false},
-      // process in any case
-      {"oneway", false}};
-
-  // Ignore empty key.
-  if (k.empty())
-    return true;
-
-  // Process special keys.
-  for (auto const & key : processedKeys)
-  {
-    if (k == key.first)
-      return key.second;
-  }
-
-  // Ignore keys with negative values.
-  for (auto const & value : negativeValues)
-  {
-    if (v == value)
-      return true;
-  }
-
-  return false;
-}
-
-template <typename Result, class ToDo>
-Result ForEachTag(OsmElement * p, ToDo && toDo)
-{
-  Result res = {};
   for (auto & e : p->m_tags)
-  {
-    if (IgnoreTag(e.m_key, e.m_value))
-      continue;
-
-    res = toDo(e.m_key, e.m_value);
-    if (res)
-      return res;
-  }
-  return res;
-}
-
-template <typename Result, class ToDo>
-Result ForEachTagEx(OsmElement * p, set<int> & skipTags, ToDo && toDo)
-{
-  int id = 0;
-  return ForEachTag<Result>(p, [&](string const & k, string const & v) {
-    int currentId = id++;
-    if (skipTags.count(currentId) != 0)
-      return Result();
-    if (string::npos != k.find("name"))
-    {
-      skipTags.insert(currentId);
-      return Result();
-    }
-    Result res = toDo(k, v);
-    if (res)
-      skipTags.insert(currentId);
-    return res;
-  });
+    toDo(e.m_key, e.m_value);
 }
 
 class NamesExtractor
@@ -145,16 +71,15 @@ public:
     return m_savedNames.insert(lang).second;
   }
 
-  bool operator()(string & k, string & v)
+  void operator()(string & k, string & v)
   {
     string lang;
     if (v.empty() || !GetLangByKey(k, lang))
-      return false;
+      return;
 
     m_params.AddName(lang, v);
     k.clear();
     v.clear();
-    return false;
   }
 
 private:
@@ -312,83 +237,56 @@ private:
   buffer_vector<uint32_t, static_cast<size_t>(Type::Count)> m_types;
 };
 
-// This function tries to match osm tags with classificator types:
-//   amenity=parking + parking=underground + fee=yes -> amenity-parking-underground-fee.
-// Now it works wrong with some tags combinations:
-//   place=quarter + country=MX -> place-country
-//   emergency=yes + phone=7777777 -> emergency-phone
-//   route=ferry + car=yes + foot=yes -> route-ferry-car
-// See https://jira.mail.ru/browse/MAPSME-10611.
-void MatchTypes(OsmElement * p, FeatureBuilderParams & params, function<bool(uint32_t)> filterType)
+void LeaveLongestTypes(vector<generator::TypeStrings> & matchedTypes)
 {
-  set<int> skipRows;
-  vector<ClassifObjectPtr> path;
-  ClassifObject const * current = nullptr;
+  auto const less = [](auto const & lhs, auto const & rhs) {
+    for (auto lhsIt = lhs.begin(), rhsIt = rhs.begin();; ++lhsIt, ++rhsIt)
+    {
+      if (lhsIt == lhs.end() && rhsIt == rhs.end())
+        return false;
+      if (lhsIt == lhs.end() && rhsIt != rhs.end())
+        return false;
+      if (lhsIt != lhs.end() && rhsIt == rhs.end())
+        return true;
 
-  auto matchTagToClassificator = [&path, &current](string const & k, string const & v) -> bool {
-    // First try to match key.
-    ClassifObjectPtr elem = current->BinaryFind(k);
-    if (!elem)
-      return false;
+      if (*lhsIt != *rhsIt)
+        return *lhsIt < *rhsIt;
+    }
+  };
 
-    path.push_back(elem);
-
-    // Now try to match correspondent value.
-    if (!NeedMatchValue(k, v))
-      return true;
-
-    if (ClassifObjectPtr velem = elem->BinaryFind(v))
-      path.push_back(velem);
-
+  auto const equals = [](auto const & lhs, auto const & rhs) {
+    for (auto lhsIt = lhs.begin(), rhsIt = rhs.begin(); lhsIt != lhs.end() && rhsIt != rhs.end();
+         ++lhsIt, ++rhsIt)
+    {
+      if (*lhsIt != *rhsIt)
+        return false;
+    }
     return true;
   };
 
-  do
+  base::SortUnique(matchedTypes, less, equals);
+}
+
+void MatchTypes(OsmElement * p, FeatureBuilderParams & params, function<bool(uint32_t)> filterType)
+{
+  auto static const rules = generator::ParseMapCSS(GetPlatform().GetReader("mapcss-mapping.csv"));
+
+  vector<generator::TypeStrings> matchedTypes;
+  for (auto const & rule : rules)
   {
-    current = classif().GetRoot();
-    path.clear();
+    if (rule.second.Matches(p->m_tags))
+      matchedTypes.push_back(rule.first);
+  }
 
-    // Find first root object by key.
-    if (!ForEachTagEx<bool>(p, skipRows, matchTagToClassificator))
-      break;
-    CHECK(!path.empty(), ());
+  LeaveLongestTypes(matchedTypes);
 
-    do
-    {
-      // Continue find path from last element.
-      current = path.back().get();
-
-      // Next objects trying to find by value first.
-      // Prevent merging different tags (e.g. shop=pet from shop=abandoned, was:shop=pet).
-
-      ClassifObjectPtr pObj;
-      if (path.size() != 1)
-      {
-        pObj = ForEachTagEx<ClassifObjectPtr>(
-            p, skipRows, [&current](string const & k, string const & v) {
-              return NeedMatchValue(k, v) ? current->BinaryFind(v) : ClassifObjectPtr();
-            });
-      }
-
-      if (pObj)
-      {
-        path.push_back(pObj);
-      }
-      else if (!ForEachTagEx<bool>(p, skipRows, matchTagToClassificator))
-      {
-        // If no - try find object by key (in case of k = "area", v = "yes").
-        break;
-      }
-    } while (true);
-
-    // Assign type.
-    uint32_t t = ftype::GetEmptyValue();
-    for (auto const & e : path)
-      ftype::PushValue(t, e.GetIndex());
+  for (auto const & path : matchedTypes)
+  {
+    uint32_t const t = classif().GetTypeByPath(path);
 
     if (filterType(t))
       params.AddType(t);
-  } while (true);
+  }
 }
 
 string MatchCity(OsmElement const * p)
@@ -840,7 +738,7 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
   PreprocessElement(p);
 
   // Stage2: Process feature name on all languages.
-  ForEachTag<bool>(p, NamesExtractor(params));
+  ForEachTag(p, NamesExtractor(params));
 
   // Stage3: Process base feature tags.
   TagProcessor(p).ApplyRules<void(string &, string &)>({
@@ -904,6 +802,6 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
 
   // Stage6: Collect additional information about feature such as
   // hotel stars, opening hours, cuisine, ...
-  ForEachTag<bool>(p, MetadataTagProcessor(params));
+  ForEachTag(p, MetadataTagProcessor(params));
 }
 }  // namespace ftype

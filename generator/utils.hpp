@@ -1,6 +1,7 @@
 #pragma once
 
 #include "generator/gen_mwm_info.hpp"
+#include "generator/osm_element.hpp"
 
 #include "search/cbv.hpp"
 
@@ -93,4 +94,18 @@ bool ParseFeatureIdToTestIdMapping(std::string const & path,
                                    std::unordered_map<uint32_t, uint64_t> & mapping);
 
 search::CBV GetLocalities(std::string const & dataPath);
+
+struct MapcssRule
+{
+  bool Matches(std::vector<OsmElement::Tag> const & tags) const;
+
+  std::vector<OsmElement::Tag> m_tags;
+  std::vector<std::string> m_mandatoryKeys;
+  std::vector<std::string> m_forbiddenKeys;
+};
+
+using TypeStrings = std::vector<std::string>;
+using MapcssRules = std::vector<std::pair<TypeStrings, MapcssRule>>;
+
+MapcssRules ParseMapCSS(std::unique_ptr<Reader> reader);
 }  // namespace generator

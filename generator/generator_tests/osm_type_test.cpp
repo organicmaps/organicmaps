@@ -317,7 +317,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Capital)
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
-    TEST(params.IsTypeExist(GetType({"place", "city", "capital", "6"})), ());
+    TEST(params.IsTypeExist(GetType({"place", "city", "capital", "6"})), (params));
   }
 
   {
@@ -335,18 +335,18 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Capital)
 
   {
     Tags const tags = {
-      { "place", "city" },
-      { "admin_level", "4" },
-      { "boundary", "administrative" },
-      { "capital", "2" },
-      { "place", "city" },
+      {"boundary", "administrative"},
+      {"capital", "2"},
+      {"place", "city"},
+      {"admin_level", "4"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    TEST_EQUAL(params.m_types.size(), 2, (params));
-    TEST(params.IsTypeExist(GetType({"place", "city", "capital", "2"})), ());
-    TEST(params.IsTypeExist(GetType({"boundary", "administrative", "4"})), ());
+    TEST_EQUAL(params.m_types.size(), 3, (params));
+    TEST(params.IsTypeExist(GetType({"place", "city", "capital", "2"})), (params));
+    TEST(params.IsTypeExist(GetType({"boundary", "administrative", "4"})), (params));
+    TEST(params.IsTypeExist(GetType({"place", "city", "capital", "4"})), (params));
   }
 }
 
@@ -543,7 +543,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
   TEST(carModel.IsRoadType(type), ());
 
   type = GetType({"route", "ferry", "motorcar"});
-  TEST(params.IsTypeExist(type), ());
+  TEST(params.IsTypeExist(type), (params));
   TEST(carModel.IsRoadType(type), ());
 
   type = GetType({"route", "ferry"});
@@ -655,11 +655,11 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Subway)
 
   {
     Tags const tags = {
-      { "name", "14th Street-8th Avenue (A,C,E,L)" },
-      { "network", "New York City Subway" },
-      { "railway", "station" },
-      { "wheelchair", "yes" },
-      { "route", "subway" },
+      {"name", "14th Street-8th Avenue (A,C,E,L)"},
+      {"network", "New York City Subway"},
+      {"railway", "station"},
+      {"wheelchair", "yes"},
+      {"transport", "subway"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -771,7 +771,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Entrance)
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Moscow)
 {
   {
-    Tags const tags  = {
+    Tags const tags = {
       { "addr:country", "RU" },
       { "addr:region", "Москва" },
       { "admin_level", "2" },
@@ -841,5 +841,98 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Cuisine)
     TEST(params.IsTypeExist(GetType({"cuisine", "indian"})), (params));
     TEST(params.IsTypeExist(GetType({"cuisine", "steak_house"})), (params));
     TEST(params.IsTypeExist(GetType({"cuisine", "coffee_shop"})), (params));
+  }
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_MergeTags)
+{
+  {
+    Tags const tags = {
+        {"amenity", "parking"},
+        {"parking", "multi-storey"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "parking", "multi-storey"})), (params));
+  }
+  {
+    Tags const tags = {
+        {"amenity", "parking"},
+        {"location", "underground"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "parking", "underground"})), (params));
+  }
+  {
+    Tags const tags = {
+        {"amenity", "parking_space"},
+        {"parking", "underground"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "parking_space", "underground"})), (params));
+  }
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_ReuseTags)
+{
+  {
+    Tags const tags = {
+        {"amenity", "parking"},
+        {"access", "private"},
+        {"fee", "yes"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "parking", "private"})), (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "parking", "fee"})), (params));
+  }
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_DoNotMergeTags)
+{
+  {
+    Tags const tags = {
+        {"place", "unknown_place_value"},
+        {"country", "unknown_country_value"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 0, (params));
+  }
+  {
+    Tags const tags = {
+        {"amenity", "hospital"},
+        {"emergency", "yes"},
+        {"phone", "77777777"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "hospital"})), (params));
+    TEST(!params.IsTypeExist(GetType({"emergency", "phone"})), (params));
+  }
+  {
+    Tags const tags = {
+        {"shop", "unknown_shop_value"},
+        {"photo", "photo_url"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"shop"})), (params));
+    TEST(!params.IsTypeExist(GetType({"shop", "photo"})), (params));
   }
 }

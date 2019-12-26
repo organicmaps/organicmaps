@@ -39,13 +39,11 @@ class MetadataTagProcessor : private MetadataTagProcessorImpl
 public:
   /// Make base class constructor public.
   using MetadataTagProcessorImpl::MetadataTagProcessorImpl;
-  /// Since it is used as a functor which stops iteration in ftype::ForEachTag
-  /// and the is no need for interrupting it always returns false.
   /// TODO(mgsergio): Move to cpp after merge with https://github.com/mapsme/omim/pull/1314
-  bool operator() (std::string const & k, std::string const & v)
+  void operator()(std::string const & k, std::string const & v)
   {
     if (v.empty())
-      return false;
+      return;
 
     using feature::Metadata;
     Metadata & md = m_params.GetMetadata();
@@ -60,7 +58,7 @@ public:
         if (!md.Has(Metadata::FMD_MIN_HEIGHT))
           md.Set(Metadata::FMD_MIN_HEIGHT, ValidateAndFormat_building_levels(v));
       }
-      return false;
+      return;
     }
 
     std::string valid;
@@ -102,6 +100,5 @@ public:
     case Metadata::FMD_COUNT: CHECK(false, (mdType, "should not be parsed from OSM."));
     }
     md.Set(mdType, valid);
-    return false;
   }
 };

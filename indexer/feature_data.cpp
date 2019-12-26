@@ -412,42 +412,7 @@ void FeatureParams::AddTypes(FeatureParams const & rhs, uint32_t skipType2)
 
 bool FeatureParams::FinishAddingTypes()
 {
-  static uint32_t const boundary = classif().GetTypeByPath({ "boundary", "administrative" });
-
-  vector<uint32_t> newTypes;
-  newTypes.reserve(m_types.size());
-
-  for (size_t i = 0; i < m_types.size(); ++i)
-  {
-    uint32_t candidate = m_types[i];
-
-    // Assume that classificator types are equal if they are equal for 2-arity dimension
-    // (e.g. "place-city-capital" is equal to "place-city" and we leave the longest one "place-city-capital").
-    // The only exception is "boundary-administrative" type.
-
-    uint32_t type = m_types[i];
-    ftype::TruncValue(type, 2);
-    if (type != boundary)
-    {
-      // Find all equal types (2-arity).
-      auto j = base::RemoveIfKeepValid(m_types.begin() + i + 1, m_types.end(), [type] (uint32_t t)
-      {
-        ftype::TruncValue(t, 2);
-        return (type == t);
-      });
-
-      // Choose the best type from equals by arity level.
-      for (auto k = j; k != m_types.end(); ++k)
-        if (ftype::GetLevel(*k) > ftype::GetLevel(candidate))
-          candidate = *k;
-
-      // Delete equal types.
-      m_types.erase(j, m_types.end());
-    }
-
-    newTypes.push_back(candidate);
-  }
-
+  vector<uint32_t> newTypes = m_types;
   base::SortUnique(newTypes);
 
   if (newTypes.size() > kMaxTypesCount)
