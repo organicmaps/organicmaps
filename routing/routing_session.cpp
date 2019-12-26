@@ -182,7 +182,7 @@ void RoutingSession::RebuildRouteOnTrafficUpdate()
   }
 
   RebuildRoute(startPoint, m_rebuildReadyCallback, nullptr /* needMoreMapsCallback */,
-               nullptr /* removeRouteCallback */, 0 /* timeoutSec */,
+               nullptr /* removeRouteCallback */, RouterDelegate::kNoTimeout,
                SessionState::RouteRebuilding, false /* adjustToPrevRoute */);
 }
 
