@@ -1129,8 +1129,8 @@ void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
     m_routingSession.RebuildRoute(
         mercator::FromLatLon(info.m_latitude, info.m_longitude),
         [this](Route const & route, RouterResultCode code) { OnRebuildRouteReady(route, code); },
-        nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */, 0 /* timeoutSec */,
-        SessionState::RouteRebuilding, true /* adjustToPrevRoute */);
+        nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */,
+        RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, true /* adjustToPrevRoute */);
   }
 }
 
