@@ -19,8 +19,8 @@
       let action = SubscribeActionType(rawValue: stored) {
       actionType = action;
     } else {
-      let stored = abs(Alohalytics.installationId().hashValue) % 2
-      actionType = SubscribeActionType(rawValue: stored) ?? .instant
+      let stored = arc4random()%2
+      actionType = SubscribeActionType(rawValue: Int(stored)) ?? .instant
       UserDefaults.standard.set(stored, forKey: storageKey)
     }
   }
