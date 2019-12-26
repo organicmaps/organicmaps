@@ -8,12 +8,11 @@
 #include "base/stl_helpers.hpp"
 
 #include <string>
+#include <utility>
 #include <vector>
-
 
 namespace tests
 {
-
 template <size_t N, size_t M>
 inline void AddTypes(FeatureParams & params, char const * (&arr)[N][M])
 {
@@ -23,16 +22,14 @@ inline void AddTypes(FeatureParams & params, char const * (&arr)[N][M])
     params.AddType(c.GetTypeByPath(std::vector<std::string>(arr[i], arr[i] + M)));
 }
 
-inline void FillXmlElement(char const * arr[][2], size_t count, OsmElement * p)
+inline void FillXmlElement(std::vector<OsmElement::Tag> const & tags, OsmElement * p)
 {
-  for (size_t i = 0; i < count; ++i)
-    p->AddTag(arr[i][0], arr[i][1]);
+  for (auto const & t : tags)
+    p->AddTag(t);
 }
 
-template <size_t N>
-inline uint32_t GetType(char const * (&arr)[N])
+inline uint32_t GetType(std::vector<std::string> const & path)
 {
-  std::vector<std::string> path(arr, arr + N);
   return classif().GetTypeByPath(path);
 }
 
@@ -40,5 +37,4 @@ inline uint32_t GetType(base::StringIL const & lst)
 {
   return classif().GetTypeByPath(lst);
 }
-
 } // namespace tests

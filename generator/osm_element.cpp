@@ -32,6 +32,8 @@ std::string DebugPrint(OsmElement::EntityType type)
   UNREACHABLE();
 }
 
+void OsmElement::AddTag(Tag const & tag) { AddTag(tag.m_key, tag.m_value); }
+
 void OsmElement::AddTag(char const * key, char const * value)
 {
   ASSERT(key, ());

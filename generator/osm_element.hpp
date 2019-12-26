@@ -123,6 +123,7 @@ struct OsmElement
     m_members.emplace_back(ref, type, role);
   }
 
+  void AddTag(Tag const & tag);
   void AddTag(char const * key, char const * value);
   void AddTag(std::string const & key, std::string const & value);
   bool HasTag(std::string const & key) const;
