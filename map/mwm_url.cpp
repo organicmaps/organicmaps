@@ -324,7 +324,10 @@ bool ParsedMapApi::RouteKeyValue(string const & key, string const & value, vecto
 {
   using namespace route;
 
-  if (pattern.empty() || key != pattern.front())
+  if (pattern.empty())
+    return true;
+
+  if (key != pattern.front())
     return false;
 
   if (key == kSourceLatLon || key == kDestLatLon)

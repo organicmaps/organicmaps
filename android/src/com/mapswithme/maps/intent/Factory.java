@@ -3,12 +3,12 @@ package com.mapswithme.maps.intent;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import android.text.TextUtils;
-
 import com.crashlytics.android.Crashlytics;
 import com.mapswithme.maps.DownloadResourcesLegacyActivity;
 import com.mapswithme.maps.Framework;
@@ -188,7 +188,7 @@ public class Factory
     @Override
     MapTask createMapTask(@NonNull String uri)
     {
-      return new OpenUrlTask(uri);
+      return BackUrlMapTaskWrapper.wrap(new OpenUrlTask(uri), uri);
     }
   }
 
@@ -406,7 +406,7 @@ public class Factory
       Uri coreUri = uri.buildUpon()
                        .scheme(SCHEME_CORE)
                        .authority("").build();
-      return new OpenUrlTask(coreUri.toString());
+      return BackUrlMapTaskWrapper.wrap(new OpenUrlTask(coreUri.toString()), url);
     }
 
     @Nullable

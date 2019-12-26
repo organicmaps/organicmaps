@@ -14,14 +14,6 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.provider.Settings;
-import androidx.annotation.DimenRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.fragment.app.Fragment;
-import androidx.core.app.NavUtils;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -31,6 +23,14 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
+import androidx.annotation.DimenRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
+import androidx.fragment.app.Fragment;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -243,6 +243,29 @@ public class Utils
       CrashlyticsUtils.logException(e);
       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       context.startActivity(intent);
+    }
+  }
+
+  public static boolean openUri(@NonNull Context context, @NonNull Uri uri)
+  {
+    final Intent intent = new Intent(Intent.ACTION_VIEW);
+    intent.setData(uri);
+    try
+    {
+      context.startActivity(intent);
+      return true;
+    }
+    catch (ActivityNotFoundException e)
+    {
+      CrashlyticsUtils.logException(e);
+      return false;
+    }
+    catch (AndroidRuntimeException e)
+    {
+      CrashlyticsUtils.logException(e);
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      context.startActivity(intent);
+      return false;
     }
   }
 

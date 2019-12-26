@@ -7,9 +7,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -174,6 +176,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public static final String EXTRA_TASK = "map_task";
   public static final String EXTRA_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
+  public static final String EXTRA_BACK_URL = "back_url";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
 
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
@@ -2442,6 +2445,38 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                 @NonNull IntroductionScreenFactory factory)
   {
     IntroductionDialogFragment.show(getSupportFragmentManager(), deepLink, factory);
+  }
+
+  @Override
+  public boolean onKeyUp(int keyCode, KeyEvent event)
+  {
+    switch (keyCode)
+    {
+      case KeyEvent.KEYCODE_DPAD_DOWN:
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.ZOOM_OUT);
+        MapFragment.nativeScaleMinus();
+        return true;
+      case KeyEvent.KEYCODE_DPAD_UP:
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.ZOOM_IN);
+        MapFragment.nativeScalePlus();
+        return true;
+      case KeyEvent.KEYCODE_ESCAPE:
+        Intent currIntent = getIntent();
+        if (currIntent == null || !currIntent.hasExtra(EXTRA_BACK_URL))
+          return super.onKeyUp(keyCode, event);
+
+        String backUrl = currIntent.getStringExtra(EXTRA_BACK_URL);
+        if (TextUtils.isEmpty(backUrl))
+          return super.onKeyUp(keyCode, event);
+
+        Uri back_uri = Uri.parse(backUrl);
+        if (back_uri == null)
+          return super.onKeyUp(keyCode, event);
+
+        return Utils.openUri(this, back_uri);
+      default:
+        return super.onKeyUp(keyCode, event);
+    }
   }
 
   private class CurrentPositionClickListener implements OnClickListener
