@@ -4,14 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import androidx.annotation.CallSuper;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,8 +12,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.cocosw.bottomsheet.BottomSheet;
-import com.crashlytics.android.Crashlytics;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
@@ -43,6 +43,7 @@ import com.mapswithme.maps.widget.placepage.EditBookmarkFragment;
 import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.BottomSheetHelper;
+import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
@@ -99,7 +100,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    Crashlytics.log("onCreate");
+    CrashlyticsUtils.log(Log.INFO, TAG, "onCreate");
     BookmarkCategory category = getCategoryOrThrow();
     mCategoryDataSource = new CategoryDataSource(category);
     mCatalogListener = new CatalogListenerDecorator(this);
@@ -134,7 +135,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    Crashlytics.log("onViewCreated");
+    CrashlyticsUtils.log(Log.INFO, TAG, "onViewCreated");
     configureAdapter();
     configureFab(view);
 
@@ -155,7 +156,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   public void onStart()
   {
     super.onStart();
-    Crashlytics.log("onStart");
+    CrashlyticsUtils.log(Log.INFO, TAG, "onStart");
     SearchEngine.INSTANCE.addBookmarkListener(this);
     BookmarkManager.INSTANCE.addSortingListener(this);
     BookmarkManager.INSTANCE.addSharingListener(this);
@@ -166,7 +167,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   public void onResume()
   {
     super.onResume();
-    Crashlytics.log("onResume");
+    CrashlyticsUtils.log(Log.INFO, TAG, "onResume");
     BookmarkListAdapter adapter = getAdapter();
     adapter.notifyDataSetChanged();
     updateSorting();
@@ -178,14 +179,14 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   public void onPause()
   {
     super.onPause();
-    Crashlytics.log("onPause");
+    CrashlyticsUtils.log(Log.INFO, TAG,"onPause");
   }
 
   @Override
   public void onStop()
   {
     super.onStop();
-    Crashlytics.log("onStop");
+    CrashlyticsUtils.log(Log.INFO, TAG, "onStop");
     SearchEngine.INSTANCE.removeBookmarkListener(this);
     BookmarkManager.INSTANCE.removeSortingListener(this);
     BookmarkManager.INSTANCE.removeSharingListener(this);

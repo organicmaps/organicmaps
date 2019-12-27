@@ -4,12 +4,12 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import com.crashlytics.android.Crashlytics;
 import com.mapswithme.maps.DownloadResourcesLegacyActivity;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MapFragment;
@@ -36,6 +36,7 @@ import com.mapswithme.maps.ugc.EditParams;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.maps.ugc.UGCEditorActivity;
 import com.mapswithme.util.Constants;
+import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.UTM;
 import com.mapswithme.util.Utils;
@@ -169,7 +170,7 @@ public class Factory
       String msg = this.getClass().getSimpleName() + ": incoming intent uri: " + uri;
       LOGGER.i(this.getClass().getSimpleName(), msg);
       org.alohalytics.Statistics.logEvent(msg);
-      Crashlytics.log(msg);
+      CrashlyticsUtils.log(Log.INFO, getClass().getSimpleName(), msg);
       return createMapTask(uri);
     }
 

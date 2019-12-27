@@ -6,9 +6,8 @@ import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
 import android.os.Build;
-import androidx.annotation.NonNull;
 
-import com.crashlytics.android.Crashlytics;
+import androidx.annotation.NonNull;
 import com.firebase.jobdispatcher.Constraint;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
@@ -18,6 +17,7 @@ import com.firebase.jobdispatcher.Trigger;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.Utils;
 
 import java.util.Objects;
@@ -127,7 +127,7 @@ public class ConnectivityJobScheduler implements ConnectivityListener
     {
       IllegalStateException exception = new IllegalStateException("Play services doesn't exist on" +
                                                                   " the device");
-      Crashlytics.logException(exception);
+      CrashlyticsUtils.logException(exception);
     }
 
     @Override
