@@ -73,12 +73,12 @@ public enum LocationHelper
     }
 
     @Override
-    public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
+    public void onCompassUpdated(long time, double north)
     {
       if (mCompassData == null)
         mCompassData = new CompassData();
 
-      mCompassData.update(magneticNorth, trueNorth);
+      mCompassData.update(north);
 
       if (mUiCallback != null)
         mUiCallback.onCompassUpdated(mCompassData);
@@ -251,10 +251,10 @@ public enum LocationHelper
     return mLocationUpdateStoppedByUser;
   }
 
-  void notifyCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
+  void notifyCompassUpdated(long time, double north)
   {
     for (LocationListener listener : mListeners)
-      listener.onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
+      listener.onCompassUpdated(time, north);
     mListeners.finishIterate();
   }
 
@@ -661,7 +661,6 @@ public enum LocationHelper
   private static native void nativeOnLocationError(int errorCode);
   private static native void nativeLocationUpdated(long time, double lat, double lon, float accuracy,
                                                    double altitude, float speed, float bearing);
-  static native float[] nativeUpdateCompassSensor(int ind, float[] arr);
 
   public interface UiCallback
   {

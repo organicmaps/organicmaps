@@ -379,7 +379,7 @@ public class MapFragment extends BaseMwmFragment
     return mSurfaceCreated;
   }
 
-  static native void nativeCompassUpdated(double magneticNorth, double trueNorth, boolean forceRedraw);
+  static native void nativeCompassUpdated(double north, boolean forceRedraw);
   static native void nativeScalePlus();
   static native void nativeScaleMinus();
   public static native boolean nativeShowMapForUrl(String url);

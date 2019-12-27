@@ -132,16 +132,11 @@ public class DirectionFragment extends BaseMwmDialogFragment
   }
 
   @Override
-  public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
+  public void onCompassUpdated(long time, double north)
   {
     final Location last = LocationHelper.INSTANCE.getSavedLocation();
     if (last == null || mMapObject == null)
       return;
-
-    final int rotation = getActivity().getWindowManager().getDefaultDisplay().getRotation();
-    magneticNorth = LocationUtils.correctCompassAngle(rotation, magneticNorth);
-    trueNorth = LocationUtils.correctCompassAngle(rotation, trueNorth);
-    final double north = (trueNorth >= 0.0) ? trueNorth : magneticNorth;
 
     final DistanceAndAzimut da = Framework.nativeGetDistanceAndAzimuthFromLatLon(
         mMapObject.getLat(), mMapObject.getLon(),

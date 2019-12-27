@@ -149,11 +149,6 @@ void Framework::OnCompassUpdated(location::CompassInfo const & info, bool forceR
   }
 }
 
-void Framework::UpdateCompassSensor(int ind, float * arr)
-{
-  m_sensors[ind].Next(arr);
-}
-
 void Framework::MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive)
 {
   if (m_myPositionModeSignal)

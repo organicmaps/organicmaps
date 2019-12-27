@@ -92,7 +92,6 @@ namespace android
     void OnLocationError(int/* == location::TLocationStatus*/ newStatus);
     void OnLocationUpdated(location::GpsInfo const & info);
     void OnCompassUpdated(location::CompassInfo const & info, bool forceRedraw);
-    void UpdateCompassSensor(int ind, float * arr);
 
     bool CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
                            bool launchByDeepLink, int appVersionCode);

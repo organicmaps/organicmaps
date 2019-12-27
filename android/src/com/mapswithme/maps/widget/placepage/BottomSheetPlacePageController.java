@@ -433,14 +433,13 @@ public class BottomSheetPlacePageController implements PlacePageController, Loca
   }
 
   @Override
-  public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
+  public void onCompassUpdated(long time, double north)
   {
     @AnchorBottomSheetBehavior.State
     int currentState = mPlacePageBehavior.getState();
     if (isHiddenState(currentState) || isDraggingState(currentState) || isSettlingState(currentState))
       return;
 
-    double north = trueNorth >= 0.0 ? trueNorth : magneticNorth;
     mPlacePage.refreshAzimuth(north);
   }
 

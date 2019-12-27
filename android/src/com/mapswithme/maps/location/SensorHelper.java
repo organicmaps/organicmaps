@@ -38,8 +38,7 @@ class SensorHelper implements SensorEventListener
       SensorManager.getOrientation(rotMatrix, rotVals);
 
       // rotVals indexes: 0 - yaw, 2 - roll, 1 - pitch.
-      double azimuth = rotVals[0];
-      LocationHelper.INSTANCE.notifyCompassUpdated(event.timestamp, azimuth, azimuth, 1.0);
+      LocationHelper.INSTANCE.notifyCompassUpdated(event.timestamp, rotVals[0]);
     }
   }
 

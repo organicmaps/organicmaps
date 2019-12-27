@@ -1704,7 +1704,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     CompassData compass = LocationHelper.INSTANCE.getCompassData();
     if (compass != null)
-      MapFragment.nativeCompassUpdated(compass.getMagneticNorth(), compass.getTrueNorth(), true);
+      MapFragment.nativeCompassUpdated(compass.getNorth(), true);
   }
 
   private void adjustBottomWidgets(int offsetY)
@@ -2207,7 +2207,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onCompassUpdated(@NonNull CompassData compass)
   {
-    MapFragment.nativeCompassUpdated(compass.getMagneticNorth(), compass.getTrueNorth(), false);
+    MapFragment.nativeCompassUpdated(compass.getNorth(), false);
     mNavigationController.updateNorth(compass.getNorth());
   }
 

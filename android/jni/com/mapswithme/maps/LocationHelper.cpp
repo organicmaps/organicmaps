@@ -42,20 +42,4 @@ extern "C"
       g_framework->OnLocationUpdated(info);
     GpsTracker::Instance().OnLocationUpdated(info);
   }
-
-  JNIEXPORT jfloatArray JNICALL
-  Java_com_mapswithme_maps_location_LocationHelper_nativeUpdateCompassSensor(JNIEnv * env, jclass clazz, jint ind, jfloatArray arr)
-  {
-    int const kCoordsCount = 3;
-
-    // Extract coords
-    jfloat coords[kCoordsCount];
-    env->GetFloatArrayRegion(arr, 0, kCoordsCount, coords);
-    g_framework->UpdateCompassSensor(ind, coords);
-
-    // Put coords back to java result array
-    jfloatArray ret = (jfloatArray)env->NewFloatArray(kCoordsCount);
-    env->SetFloatArrayRegion(ret, 0, kCoordsCount, coords);
-    return ret;
-  }
 }
