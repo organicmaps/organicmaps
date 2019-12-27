@@ -951,7 +951,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
   }
   [Statistics logEvent:kStatUGCReviewStart
         withParameters:@{
-          kStatIsAuthenticated: @([MWMAuthorizationViewModel isAuthenticated]),
+          kStatIsAuthenticated: @([MWMUser isAuthenticated]),
           kStatIsOnline: @(GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_NONE),
           kStatMode: kStatAdd,
           kStatFrom: sourceString

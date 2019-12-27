@@ -1,6 +1,6 @@
 #import "MWMActionBarButton.h"
 #import "MWMButton.h"
-#import "MWMCircularProgress+Swift.h"
+#import "MWMCircularProgress.h"
 
 NSString * titleForPartner(NSInteger partnerIndex)
 {

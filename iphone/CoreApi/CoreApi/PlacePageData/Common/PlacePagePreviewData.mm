@@ -28,12 +28,12 @@ static PlacePageDataSchedule convertOpeningHours(std::string rawOpeningHours) {
   return PlacePageDataOpeningHoursUnknown;
 }
 
-static PlacePageDataHotelType convertHotelType(boost::optional<ftypes::IsHotelChecker::Type> hotelType) {
+static PlacePageDataHotelType convertHotelType(std::optional<ftypes::IsHotelChecker::Type> hotelType) {
   if (!hotelType.has_value()) {
     return PlacePageDataHotelTypeNone;
   }
 
-  switch (hotelType.get()) {
+  switch (*hotelType) {
     case ftypes::IsHotelChecker::Type::Hotel:
       return PlacePageDataHotelTypeHotel;
     case ftypes::IsHotelChecker::Type::Apartment:
