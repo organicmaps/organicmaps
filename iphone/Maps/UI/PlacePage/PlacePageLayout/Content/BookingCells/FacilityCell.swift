@@ -1,5 +1,4 @@
-@objc(MWMPPFacilityCell)
-final class PPFacilityCell: MWMTableViewCell {
+final class FacilityCell: MWMTableViewCell {
   @IBOutlet private var facility: UILabel!
 
   @objc func config(with str: String) {

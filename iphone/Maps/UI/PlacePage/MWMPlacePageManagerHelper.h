@@ -6,7 +6,6 @@
 @interface MWMPlacePageManagerHelper : NSObject
 
 + (void)updateAvailableArea:(CGRect)frame;
-+ (void)showUGCAddReview:(UgcSummaryRatingType)value fromSource:(MWMUGCReviewSource)source;
 + (void)showUGCAddReview:(PlacePageData *)data
                   rating:(UgcSummaryRatingType)value
               fromSource:(MWMUGCReviewSource)source;

@@ -3,7 +3,6 @@
 #import "MWMBookmarkTitleCell.h"
 #import "MWMButtonCell.h"
 #import "MWMNoteCell.h"
-#import "MWMPlacePageData.h"
 #import "SelectSetVC.h"
 #import "SwiftBridge.h"
 

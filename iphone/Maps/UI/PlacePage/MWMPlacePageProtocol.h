@@ -1,31 +1,4 @@
 #import "MWMMapViewControlsManager.h"
-#import "MWMPlacePageButtonsProtocol.h"
-
-@class MWMViewController;
-
-@protocol MWMActionBarProtocol<NSObject>
-
-- (void)routeFrom;
-- (void)routeTo;
-- (void)routeAddStop;
-- (void)routeRemoveStop;
-
-- (void)share;
-
-- (void)addBookmark;
-- (void)removeBookmark;
-
-- (void)call;
-- (void)book;
-- (void)searchBookingHotels;
-
-- (void)openPartner;
-- (void)downloadSelectedArea;
-- (void)avoidToll;
-- (void)avoidDirty;
-- (void)avoidFerry;
-
-@end
 
 struct FeatureID;
 
@@ -35,24 +8,9 @@ struct FeatureID;
 
 @end
 
-namespace booking
-{
-struct HotelFacility;
-}
+@protocol MWMPlacePageProtocol<MWMFeatureHolder>
 
-@protocol MWMBookingInfoHolder<NSObject>
-
-- (NSString *)hotelName;
-
-@end
-
-@protocol MWMPlacePageProtocol<MWMActionBarProtocol, MWMPlacePageButtonsProtocol, MWMFeatureHolder, MWMBookingInfoHolder>
-
-- (void)show;
-- (void)update;
 - (void)showReview;
 - (BOOL)isPPShown;
-- (void)dismiss;
-- (void)mwm_refreshUI;
 
 @end

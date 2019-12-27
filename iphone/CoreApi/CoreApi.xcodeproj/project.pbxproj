@@ -220,8 +220,6 @@
 		47F4F1F723A3336B0022FD56 /* MWMMapNodeAttributes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapNodeAttributes.h; sourceTree = "<group>"; };
 		47F4F1F823A3336C0022FD56 /* MWMMapNodeAttributes.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapNodeAttributes.mm; sourceTree = "<group>"; };
 		47F4F1FB23A3D1AC0022FD56 /* MWMMapNodeAttributes+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMMapNodeAttributes+Core.h"; sourceTree = "<group>"; };
-		99103841237EDFA200893C9F /* DeepLinkData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkData.h; sourceTree = "<group>"; };
-		99103842237EDFA200893C9F /* DeepLinkData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeepLinkData.m; sourceTree = "<group>"; };
 		47F701ED238C86F000D18E95 /* PlacePageButtonsData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlacePageButtonsData.h; sourceTree = "<group>"; };
 		47F701EE238C86F000D18E95 /* PlacePageButtonsData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PlacePageButtonsData.mm; sourceTree = "<group>"; };
 		47F701F1238C877C00D18E95 /* PlacePageButtonsData+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlacePageButtonsData+Core.h"; sourceTree = "<group>"; };

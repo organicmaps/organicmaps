@@ -6,7 +6,6 @@
 
 @class MWMWelcomePageController;
 @class MWMMapViewControlsManager;
-@class MWMPlacePageData;
 @class EAGLView;
 @class MWMMapDownloadDialog;
 @protocol MWMLocationModeListener;

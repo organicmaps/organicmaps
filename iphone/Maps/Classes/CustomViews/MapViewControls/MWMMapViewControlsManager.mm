@@ -108,7 +108,6 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   [self.navigationManager mwm_refreshUI];
   [self.searchManager mwm_refreshUI];
   [self.menuController mwm_refreshUI];
-  [self.placePageManager mwm_refreshUI];
   [self.promoButton mwm_refreshUI];
   [self.ownerController setNeedsStatusBarAppearanceUpdate];
 }
@@ -122,23 +121,6 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 #pragma mark - MWMPlacePageViewManager
-
-- (void)dismissPlacePage
-{
-  self.trafficButtonHidden = NO;
-  [self.placePageManager dismiss];
-}
-
-- (void)showPlacePage {
-  [[MWMNetworkPolicy sharedPolicy] callOnlineApi:^(BOOL) {
-    self.trafficButtonHidden = YES;
-    [self.placePageManager show];
-  }];
-}
-
-- (void)updatePlacePage {
-  [self.placePageManager update];
-}
 
 - (void)showPlacePageReview {
   [[MWMNetworkPolicy sharedPolicy] callOnlineApi:^(BOOL) {
@@ -188,7 +170,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   self.trafficButtonHidden = YES;
   self.menuState = MWMBottomMenuStateHidden;
   MapViewController * ownerController = self.ownerController;
-  [self.placePageManager dismiss];
+  [ownerController dismissPlacePage];
   self.searchManager.state = MWMSearchManagerStateHidden;
 
   [MWMAddPlaceNavigationBar showInSuperview:ownerController.view
@@ -389,9 +371,6 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 #pragma mark - MWMFeatureHolder
 
 - (id<MWMFeatureHolder>)featureHolder { return self.placePageManager; }
-
-#pragma mark - MWMBookingInfoHolder
-- (id<MWMBookingInfoHolder>)bookingInfoHolder { return self.placePageManager; }
 
 - (MWMTutorialViewController *)tutorialWithType:(MWMTip)tutorialType
 {

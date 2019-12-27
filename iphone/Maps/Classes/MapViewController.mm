@@ -17,6 +17,7 @@
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
 #import "MWMLocationModeListener.h"
+#import "MWMNetworkPolicy+UI.h"
 
 #include <CoreApi/Framework.h>
 #import <CoreApi/MWMFrameworkHelper.h>
@@ -109,12 +110,30 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 #pragma mark - Map Navigation
 
+- (void)showPlacePage {
+  self.controlsManager.trafficButtonHidden = YES;
+  self.placePageVC = (PlacePageViewController *)[[UIStoryboard instance:MWMStoryboardPlacePage] instantiateInitialViewController];
+  self.placePageVC.placePageData = [[PlacePageData alloc] init];
+  [self addChildViewController:self.placePageVC];
+  self.placePageContainer.hidden = NO;
+  [self.placePageContainer addSubview:self.placePageVC.view];
+  self.placePageVC.view.translatesAutoresizingMaskIntoConstraints = NO;
+  [NSLayoutConstraint activateConstraints:@[
+    [self.placePageVC.view.topAnchor constraintEqualToAnchor:self.placePageContainer.safeAreaLayoutGuide.topAnchor],
+    [self.placePageVC.view.leftAnchor constraintEqualToAnchor:self.placePageContainer.leftAnchor],
+    [self.placePageVC.view.bottomAnchor constraintEqualToAnchor:self.placePageContainer.bottomAnchor],
+    [self.placePageVC.view.rightAnchor constraintEqualToAnchor:self.placePageContainer.rightAnchor]
+  ]];
+  [self.placePageVC didMoveToParentViewController:self];
+}
+
 - (void)dismissPlacePage {
   [self.placePageVC.view removeFromSuperview];
   [self.placePageVC willMoveToParentViewController:nil];
   [self.placePageVC removeFromParentViewController];
   self.placePageVC = nil;
   self.placePageContainer.hidden = YES;
+  self.controlsManager.trafficButtonHidden = NO;
 }
 
 - (void)onMapObjectDeselected:(bool)switchFullScreenMode
@@ -136,19 +155,9 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 - (void)onMapObjectSelected {
   [self dismissPlacePage];
-  self.placePageVC = (PlacePageViewController *)[[UIStoryboard instance:MWMStoryboardPlacePage] instantiateInitialViewController];
-  self.placePageVC.placePageData = [[PlacePageData alloc] init];
-  [self addChildViewController:self.placePageVC];
-  self.placePageContainer.hidden = NO;
-  [self.placePageContainer addSubview:self.placePageVC.view];
-  self.placePageVC.view.translatesAutoresizingMaskIntoConstraints = NO;
-  [NSLayoutConstraint activateConstraints:@[
-    [self.placePageVC.view.topAnchor constraintEqualToAnchor:self.placePageContainer.safeAreaLayoutGuide.topAnchor],
-    [self.placePageVC.view.leftAnchor constraintEqualToAnchor:self.placePageContainer.leftAnchor],
-    [self.placePageVC.view.bottomAnchor constraintEqualToAnchor:self.placePageContainer.bottomAnchor],
-    [self.placePageVC.view.rightAnchor constraintEqualToAnchor:self.placePageContainer.rightAnchor]
-  ]];
-  [self.placePageVC didMoveToParentViewController:self];
+  [[MWMNetworkPolicy sharedPolicy] callOnlineApi:^(BOOL) {
+    [self showPlacePage];
+  }];
 }
 
 - (void)onMapObjectUpdated {
@@ -741,11 +750,6 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   {
     MWMEditorViewController * dvc = segue.destinationViewController;
     [dvc setFeatureToEdit:static_cast<id<MWMFeatureHolder>>(sender).featureId];
-  }
-  else if ([segue.identifier isEqualToString:kPP2BookmarkEditingSegue])
-  {
-//    MWMEditBookmarkController * dvc = segue.destinationViewController;
-//    dvc.data = static_cast<MWMPlacePageData *>(sender);
   }
   else if ([segue.identifier isEqualToString:kDownloaderSegue])
   {

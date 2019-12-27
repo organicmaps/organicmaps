@@ -1,5 +1,3 @@
-#import "MWMPlacePageData.h"
-
 #include "map/place_page_info.hpp"
 #include "map/booking_filter_params.hpp"
 

@@ -1,6 +1,7 @@
 #import "MWMUGCViewModel.h"
-#import "MWMPlacePageData.h"
 #import "SwiftBridge.h"
+
+#include "map/place_page_info.hpp"
 
 using namespace place_page;
 
@@ -16,12 +17,25 @@ NSArray<MWMUGCRatingStars *> * starsRatings(ugc::Ratings const & ratings)
   return [mwmRatings copy];
 }
 
+UgcSummaryRatingType ratingValueType(rating::Impress impress)
+{
+  switch (impress)
+  {
+  case rating::Impress::None: return UgcSummaryRatingTypeNone;
+  case rating::Impress::Horrible: return UgcSummaryRatingTypeHorrible;
+  case rating::Impress::Bad: return UgcSummaryRatingTypeBad;
+  case rating::Impress::Normal: return UgcSummaryRatingTypeNormal;
+  case rating::Impress::Good: return UgcSummaryRatingTypeGood;
+  case rating::Impress::Excellent: return UgcSummaryRatingTypeExcellent;
+  }
+}
+
 MWMUGCRatingValueType * ratingValueType(float rating)
 {
   NSString *value = @(rating::GetRatingFormatted(rating).c_str());
   return [[MWMUGCRatingValueType alloc]
           initWithValue:value ?: @""
-               type:[MWMPlacePageData ratingValueType:rating::GetImpress(rating)]];
+               type:ratingValueType(rating::GetImpress(rating))];
 }
 }  // namespace
 

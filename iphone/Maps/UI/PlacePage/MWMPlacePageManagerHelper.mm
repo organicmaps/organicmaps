@@ -11,7 +11,6 @@
 @interface MWMPlacePageManager ()
 
 - (void)updateAvailableArea:(CGRect)frame;
-- (void)showUGCAddReview:(UgcSummaryRatingType)value fromPreview:(BOOL)fromPreview;
 - (void)showUGCAddReview:(PlacePageData *)data rating:(UgcSummaryRatingType)value fromSource:(MWMUGCReviewSource)source;
 - (void)searchSimilar;
 - (void)editPlace;
@@ -50,12 +49,6 @@
 + (void)updateAvailableArea:(CGRect)frame
 {
   [[MWMMapViewControlsManager manager].placePageManager updateAvailableArea:frame];
-}
-
-+ (void)showUGCAddReview:(UgcSummaryRatingType)value fromSource:(MWMUGCReviewSource)source
-{
-  [[MWMMapViewControlsManager manager].placePageManager showUGCAddReview:value
-                                                             fromSource:source];
 }
 
 + (void)showUGCAddReview:(PlacePageData *)data rating:(UgcSummaryRatingType)value fromSource:(MWMUGCReviewSource)source {

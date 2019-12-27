@@ -1,3 +1,0 @@
-@interface CopyLabel : UILabel
-
-@end
