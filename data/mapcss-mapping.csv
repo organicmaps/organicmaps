@@ -192,7 +192,7 @@ boundary|administrative|2;[boundary=administrative][admin_level=2];;name;int_nam
 leisure|common;192;
 highway|track|bridge;[highway=track][bridge?];;name;int_name;193;
 highway|path|bridge;[highway=path][bridge?];;name;int_name;194;
-piste:type|nordic;[piste:type=nordic];;name;int_name;195;
+piste:type|nordic;195;
 highway|motorway;196;
 railway|crossing;197;
 boundary|national_park;198;
