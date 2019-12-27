@@ -124,7 +124,7 @@ waterway|stream|tunnel;[waterway=stream][tunnel?];;name;int_name;123;
 tourism|information|guidepost;[tourism=information][information=guidepost];;name;int_name;124;
 amenity|parking|fee;[amenity=parking][fee?];;name;int_name;125;
 amenity|kindergarten;126;
-power|generator|wind;[power=generator][power_source=wind];;name;int_name;127;
+power|generator|wind;[power=generator][power_source=wind];;name;int_name;127;x
 place|suburb;128;
 landuse|allotments;129;
 landuse|forest|coniferous;[landuse=forest][wood=coniferous];;name;int_name;130;
@@ -330,7 +330,7 @@ sport|football;329;
 highway|steps|bridge;[highway=steps][bridge?];;name;int_name;330;
 highway|track|tunnel;[highway=track][tunnel?];;name;int_name;331;
 highway|pedestrian|tunnel;[highway=pedestrian][tunnel?];;name;int_name;332;
-power|generator|hydro;[power=generator][power_source=hydro];;name;int_name;333;
+power|generator|hydro;[power=generator][power_source=hydro];;name;int_name;333;x
 sport|cricket;334;
 sport|bowls;335;
 highway|path|tunnel;[highway=path][tunnel?];;name;int_name;336;
@@ -373,7 +373,7 @@ highway|primary_link|junction;[highway=primary_link][junction?];x;name;int_name;
 landuse|greenhouse_horticulture;373;
 highway|primary_link|motorroad;[highway=primary_link][motorroad?];x;name;int_name;374;highway|primary_link
 amenity|bureau_de_change;375;
-power|generator|photovoltaic;[power=generator][generator:type=photovoltaic];;name;int_name;376;
+power|generator|photovoltaic;[power=generator][generator:type=photovoltaic];;name;int_name;376;x
 highway|motorway_link|junction;[highway=motorway_link][junction?];x;name;int_name;377;highway|motorway_link
 highway|bridleway|bridge;[highway=bridleway][bridge?];;name;int_name;378;
 highway|service|driveway|tunnel;[highway=service][service=driveway][tunnel?];;name;int_name;379;
