@@ -77,7 +77,8 @@ static PlacePageTaxiProvider convertTaxiProvider(taxi::Provider::Type providerTy
 
     _isLargeToponim = rawData().GetSponsoredType() == place_page::SponsoredType::PromoCatalogCity;
     _isSightseeing = rawData().GetSponsoredType() == place_page::SponsoredType::PromoCatalogSightseeings;
-    _isPromoCatalog = _isLargeToponim || _isSightseeing;
+    _isOutdoor = rawData().GetSponsoredType() == place_page::SponsoredType::PromoCatalogOutdoor;
+    _isPromoCatalog = _isLargeToponim || _isSightseeing || _isOutdoor;
     _shouldShowUgc = rawData().ShouldShowUGC();
     _isMyPosition = rawData().IsMyPosition();
     _isPreviewPlus = rawData().GetOpeningMode() == place_page::OpeningMode::PreviewPlus;

@@ -49,6 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString *bookingSearchUrl;
 @property(nonatomic, readonly) BOOL isLargeToponim;
 @property(nonatomic, readonly) BOOL isSightseeing;
+@property(nonatomic, readonly) BOOL isOutdoor;
 @property(nonatomic, readonly) BOOL isPromoCatalog;
 @property(nonatomic, readonly) BOOL isPartner;
 @property(nonatomic, readonly) BOOL shouldShowUgc;
