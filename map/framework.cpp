@@ -2322,13 +2322,13 @@ void Framework::SetPlacePageListeners(PlacePageEvent::OnOpen const & onOpen,
 place_page::Info const & Framework::GetCurrentPlacePageInfo() const
 {
   CHECK(HasPlacePageInfo(), ());
-  return m_currentPlacePageInfo.value();
+  return *m_currentPlacePageInfo;
 }
 
 place_page::Info & Framework::GetCurrentPlacePageInfo()
 {
   CHECK(HasPlacePageInfo(), ());
-  return m_currentPlacePageInfo.value();
+  return *m_currentPlacePageInfo;
 }
 
 void Framework::ActivateMapSelection(std::optional<place_page::Info> const & info)

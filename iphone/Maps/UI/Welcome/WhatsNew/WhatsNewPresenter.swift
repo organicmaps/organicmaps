@@ -14,7 +14,7 @@ class WhatsNewPresenter {
   private weak var view: IWelcomeView?
   private let router: WelcomeRouter
   private let config: WhatsNewConfig
-  private let appVersion = AppInfo.shared()?.bundleVersion ?? ""
+  private let appVersion = AppInfo.shared().bundleVersion ?? ""
 
   init(view: IWelcomeView, router: WelcomeRouter, config: WhatsNewConfig) {
      self.view = view

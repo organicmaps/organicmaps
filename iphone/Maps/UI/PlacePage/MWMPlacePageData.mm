@@ -1,6 +1,5 @@
 #import "MWMPlacePageData.h"
 #import "MWMDiscoveryCityGalleryObjects.h"
-#import "CatalogPromoItem+Core.h"
 #import "MWMBannerHelpers.h"
 #import "MWMUGCViewModel.h"
 #import "SwiftBridge.h"
@@ -12,6 +11,7 @@
 #include "3party/opening_hours/opening_hours.hpp"
 
 #import <CoreApi/PlacePageData.h>
+#import <CoreApi/CatalogPromoItem+Core.h>
 
 using namespace place_page;
 
@@ -823,23 +823,23 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
 #pragma mark - Helpers
 
-- (NSString *)phoneNumber { return @(m_info.GetPhone().c_str()); }
-- (BOOL)isBookmark { return m_info.IsBookmark(); }
-- (BOOL)isApi { return m_info.HasApiUrl(); }
-- (BOOL)isBooking { return m_info.GetSponsoredType() == SponsoredType::Booking; }
-- (BOOL)isOpentable { return m_info.GetSponsoredType() == SponsoredType::Opentable; }
-- (BOOL)isPartner { return m_info.GetSponsoredType() == SponsoredType::Partner; }
-- (BOOL)isHolidayObject { return m_info.GetSponsoredType() == SponsoredType::Holiday; }
+- (NSString *)phoneNumber { return @([self getRawData].GetPhone().c_str()); }
+- (BOOL)isBookmark { return [self getRawData].IsBookmark(); }
+- (BOOL)isApi { return [self getRawData].HasApiUrl(); }
+- (BOOL)isBooking { return [self getRawData].GetSponsoredType() == SponsoredType::Booking; }
+- (BOOL)isOpentable { return [self getRawData].GetSponsoredType() == SponsoredType::Opentable; }
+- (BOOL)isPartner { return [self getRawData].GetSponsoredType() == SponsoredType::Partner; }
+- (BOOL)isHolidayObject { return [self getRawData].GetSponsoredType() == SponsoredType::Holiday; }
 - (BOOL)isPromoCatalog { return self.isLargeToponym || self.isSightseeing || self.isOutdoor; }
-- (BOOL)isLargeToponym { return m_info.GetSponsoredType() == SponsoredType::PromoCatalogCity; }
-- (BOOL)isSightseeing { return m_info.GetSponsoredType() == SponsoredType::PromoCatalogSightseeings; }
-- (BOOL)isOutdoor { return m_info.GetSponsoredType() == SponsoredType::PromoCatalogOutdoor; }
-- (BOOL)isBookingSearch { return !m_info.GetBookingSearchUrl().empty(); }
-- (BOOL)isMyPosition { return m_info.IsMyPosition(); }
-- (BOOL)isHTMLDescription { return strings::IsHTML(GetPreferredBookmarkStr(m_info.GetBookmarkData().m_description)); }
-- (BOOL)isRoutePoint { return m_info.IsRoutePoint(); }
-- (RoadWarningMarkType)roadType { return m_info.GetRoadType(); }
-- (BOOL)isPreviewPlus { return m_info.GetOpeningMode() == place_page::OpeningMode::PreviewPlus; }
+- (BOOL)isLargeToponym { return [self getRawData].GetSponsoredType() == SponsoredType::PromoCatalogCity; }
+- (BOOL)isSightseeing { return [self getRawData].GetSponsoredType() == SponsoredType::PromoCatalogSightseeings; }
+- (BOOL)isOutdoor { return [self getRawData].GetSponsoredType() == SponsoredType::PromoCatalogOutdoor; }
+- (BOOL)isBookingSearch { return ![self getRawData].GetBookingSearchUrl().empty(); }
+- (BOOL)isMyPosition { return [self getRawData].IsMyPosition(); }
+- (BOOL)isHTMLDescription { return strings::IsHTML(GetPreferredBookmarkStr([self getRawData].GetBookmarkData().m_description)); }
+- (BOOL)isRoutePoint { return [self getRawData].IsRoutePoint(); }
+- (RoadWarningMarkType)roadType { return [self getRawData].GetRoadType(); }
+- (BOOL)isPreviewPlus { return [self getRawData].GetOpeningMode() == place_page::OpeningMode::PreviewPlus; }
 - (BOOL)isPartnerAppInstalled
 {
   // TODO(): Load list of registered schemas from plist.
@@ -848,7 +848,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
 - (nonnull NSString*)statPlacement
 {
-  switch (m_info.GetSponsoredType())
+  switch ([self getRawData].GetSponsoredType())
   {
   case SponsoredType::PromoCatalogCity:
     return kStatPlacePageToponims;
@@ -861,7 +861,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   }
 }
 
-+ (MWMRatingSummaryViewValueType)ratingValueType:(rating::Impress)impress
++ (UgcSummaryRatingType)ratingValueType:(rating::Impress)impress
 {
   switch (impress)
   {
@@ -983,7 +983,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
       api->GetCityGallery(self.mercator, locale, UTM::LargeToponymsPlacepageGallery, resultHandler, errorHandler);
     } else {
       api->GetPoiGallery(self.mercator, locale,
-                         info.GetRawTypes(),
+                         [self getRawData].GetRawTypes(),
                          [MWMFrameworkHelper isWiFiConnected],
                          self.isOutdoor ? UTM::OutdoorPlacepageGallery : UTM::SightseeingsPlacepageGallery,
                          resultHandler,

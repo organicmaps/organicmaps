@@ -2,7 +2,6 @@
 #import "MWMBookmarkCell.h"
 #import "MWMDiscoveryCityGalleryObjects.h"
 #import "MWMDiscoveryCollectionView.h"
-#import "CatalogPromoItem+Core.h"
 #import "MWMPlaceDescriptionCell.h"
 #import "MWMOpeningHoursLayoutHelper.h"
 #import "MWMPPPreviewLayoutHelper.h"
@@ -863,8 +862,8 @@ std::map<MetainfoRows, Class> const kMetaInfoCells = {
   [cell configWithAvatarURL:objectVM.imageUrl
                       title:objectVM.guideName
                    subtitle:objectVM.guideAuthor
-                      label:objectVM.label
-              labelHexColor:objectVM.labelHexColor
+                      label:objectVM.categoryLabel
+              labelHexColor:objectVM.hexColor
                   onDetails:^{
                     __strong __typeof__(weakSelf) strongSelf = weakSelf;
                     if (!strongSelf) { return; }

@@ -3,7 +3,8 @@
 #import "MWMDiscoveryMapObjects.h"
 #import "MWMDiscoveryHotelViewModel.h"
 #import "MWMDiscoverySearchViewModel.h"
-#import "CatalogPromoItem+Core.h"
+
+#import <CoreApi/CatalogPromoItem+Core.h>
 
 #include "map/place_page_info.hpp"
 

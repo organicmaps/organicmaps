@@ -4,10 +4,11 @@
 #import "MWMDiscoveryControllerViewModel.h"
 #import "MWMDiscoveryHotelViewModel.h"
 #import "MWMDiscoverySearchViewModel.h"
-#import "CatalogPromoItem+Core.h"
 #import "MWMNetworkPolicy+UI.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
+
+#import <CoreApi/CatalogPromoItem+Core.h>
 
 #include "map/place_page_info.hpp"
 
@@ -375,8 +376,8 @@ using namespace discovery;
       [cell configWithAvatarURL:objectVM.imageUrl
                           title:objectVM.guideName
                        subtitle:objectVM.guideAuthor
-                          label:objectVM.label
-                  labelHexColor:objectVM.labelHexColor
+                          label:objectVM.categoryLabel
+                  labelHexColor:objectVM.hexColor
                       onDetails:^{
                             [weakSelf.delegate openURLForItem:ItemType::Promo atIndex:indexPath.row];
                           }];
