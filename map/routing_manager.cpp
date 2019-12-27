@@ -314,8 +314,10 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   , m_delegate(delegate)
   , m_trackingReporter(platform::CreateSocket(), TRACKING_REALTIME_HOST, TRACKING_REALTIME_PORT,
                        tracking::Reporter::kPushDelayMs)
-  // TODO(o.khlopkova) uncomment after platform background uploader is ready.
-  //, m_trackingReporterArchive(TRACKING_HISTORICAL_HOST)
+  //TODO (o.khlopkova) remove ifdef when all platforms are ready.
+#if defined(OMIM_OS_ANDROID)
+  , m_trackingReporterArchive(TRACKING_HISTORICAL_HOST)
+#endif
   , m_extrapolator(
         [this](location::GpsInfo const & gpsInfo) { this->OnExtrapolatedLocationUpdate(gpsInfo); })
 {
@@ -484,14 +486,16 @@ void RoutingManager::OnLocationUpdate(location::GpsInfo const & info)
 {
   m_extrapolator.OnLocationUpdate(info);
 
+  //TODO (o.khlopkova) remove ifdef when all platforms are ready.
+#if defined(OMIM_OS_ANDROID)
   if (IsTrackingReporterArchiveEnabled())
   {
-    // TODO(o.khlopkova) uncomment after platform background uploader is ready.
-    // location::GpsInfo gpsInfo(info);
-    // auto routeMatchingInfo = GetRouteMatchingInfo(gpsInfo);
-    // m_trackingReporterArchive.Insert(m_currentRouterType, info,
-    //                                m_routingSession.MatchTraffic(routeMatchingInfo));
+     location::GpsInfo gpsInfo(info);
+     auto routeMatchingInfo = GetRouteMatchingInfo(gpsInfo);
+     m_trackingReporterArchive.Insert(m_currentRouterType, info,
+                                    m_routingSession.MatchTraffic(routeMatchingInfo));
   }
+#endif
 }
 
 RouterType RoutingManager::GetBestRouter(m2::PointD const & startPoint,

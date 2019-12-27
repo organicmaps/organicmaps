@@ -26,6 +26,8 @@
 
 #include "base/thread_checker.hpp"
 
+#include "std/target_os.hpp"
+
 #include <chrono>
 #include <functional>
 #include <map>
@@ -367,8 +369,10 @@ private:
   routing::RoutingSession m_routingSession;
   Delegate & m_delegate;
   tracking::Reporter m_trackingReporter;
-  // TODO(o.khlopkova) uncomment after platform background uploader is ready.
-  // tracking::ArchivalReporter m_trackingReporterArchive;
+  // TODO(o.khlopkova) remove ifdef when all platforms are ready.
+#if defined(OMIM_OS_ANDROID)
+  tracking::ArchivalReporter m_trackingReporterArchive;
+#endif
   BookmarkManager * m_bmManager = nullptr;
   extrapolation::Extrapolator m_extrapolator;
 
