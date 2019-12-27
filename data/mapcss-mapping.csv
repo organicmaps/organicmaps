@@ -110,7 +110,7 @@ amenity|recycling;109;
 leisure|garden;110;
 landuse|commercial;111;
 railway|station;112;
-highway|path|hiking;[highway=path][route=hiking];;name;int_name;113;
+highway|path|hiking;[highway=path][route=hiking],[highway=path][sac_scale=hiking];;name;int_name;113;
 amenity|hospital;114;
 waterway|stream|ephemeral;[waterway=stream][intermittent=ephemeral];;name;int_name;115;
 highway|trunk|bridge;[highway=trunk][bridge?];;name;int_name;116;
