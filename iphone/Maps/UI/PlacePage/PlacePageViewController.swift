@@ -48,6 +48,8 @@ enum PlacePageState {
     MapViewController.shared()
   }
 
+  // MARK: - UI Components
+
   lazy var previewViewController: PlacePagePreviewViewController = {
     let vc = storyboard!.instantiateViewController(ofType: PlacePagePreviewViewController.self)
     vc.placePagePreviewData = placePageData.previewData
@@ -158,6 +160,8 @@ enum PlacePageState {
     vc.delegate = self
     return vc
   } ()
+
+  // MARK: - VC Lifecycle
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -306,15 +310,19 @@ enum PlacePageState {
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    scrollView.contentInset = UIEdgeInsets(top: scrollView.height, left: 0, bottom: 0, right: 0)
+    if traitCollection.horizontalSizeClass == .compact {
+      scrollView.contentInset = UIEdgeInsets(top: scrollView.height, left: 0, bottom: 0, right: 0)
+    }
   }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    updatePreviewOffset()
+    if !beginDragging {
+      updatePreviewOffset()
+    }
   }
 
-  // MARK: Private
+  // MARK: - Private
 
   private func calculateSteps() -> [PlacePageState] {
     var steps: [PlacePageState] = []
@@ -329,6 +337,9 @@ enum PlacePageState {
   }
 
   private func updatePreviewOffset() {
+    if traitCollection.horizontalSizeClass != .compact {
+      return
+    }
     self.view.layoutIfNeeded()
     scrollSteps = calculateSteps()
     let state = placePageData.isPreviewPlus ? scrollSteps[2] : scrollSteps[1]
@@ -344,6 +355,8 @@ enum PlacePageState {
   }
 }
 
+// MARK: - PlacePagePreviewViewControllerDelegate
+
 extension PlacePageViewController: PlacePagePreviewViewControllerDelegate {
   func previewDidPressRemoveAds() {
     MWMPlacePageManagerHelper.showRemoveAds()
@@ -357,6 +370,8 @@ extension PlacePageViewController: PlacePagePreviewViewControllerDelegate {
     MWMPlacePageManagerHelper.searchSimilar()
   }
 }
+
+// MARK: - PlacePageInfoViewControllerDelegate
 
 extension PlacePageViewController: PlacePageInfoViewControllerDelegate {
   func didPressCall() {
@@ -376,11 +391,15 @@ extension PlacePageViewController: PlacePageInfoViewControllerDelegate {
   }
 }
 
+// MARK: - WikiDescriptionViewControllerDelegate
+
 extension PlacePageViewController: WikiDescriptionViewControllerDelegate {
   func didPressMore() {
     MWMPlacePageManagerHelper.showPlaceDescription(placePageData.wikiDescriptionHtml)
   }
 }
+
+// MARK: - TaxiViewControllerDelegate
 
 extension PlacePageViewController: TaxiViewControllerDelegate {
   func didPressOrder() {
@@ -388,17 +407,23 @@ extension PlacePageViewController: TaxiViewControllerDelegate {
   }
 }
 
+// MARK: - AddReviewViewControllerDelegate
+
 extension PlacePageViewController: AddReviewViewControllerDelegate {
   func didRate(_ rating: UgcSummaryRatingType) {
     MWMPlacePageManagerHelper.showUGCAddReview(placePageData, rating: rating, from: .placePage)
   }
 }
 
+// MARK: - PlacePageReviewsViewControllerDelegate
+
 extension PlacePageViewController: PlacePageReviewsViewControllerDelegate {
   func didPressMoreReviews() {
 
   }
 }
+
+// MARK: - PlacePageButtonsViewControllerDelegate
 
 extension PlacePageViewController: PlacePageButtonsViewControllerDelegate {
   func didPressHotels() {
@@ -418,11 +443,15 @@ extension PlacePageViewController: PlacePageButtonsViewControllerDelegate {
   }
 }
 
+// MARK: - HotelPhotosViewControllerDelegate
+
 extension PlacePageViewController: HotelPhotosViewControllerDelegate {
   func didSelectItemAt(_ index: Int) {
 
   }
 }
+
+// MARK: - HotelDescriptionViewControllerDelegate
 
 extension PlacePageViewController: HotelDescriptionViewControllerDelegate {
   func hotelDescriptionDidPressMore() {
@@ -430,17 +459,23 @@ extension PlacePageViewController: HotelDescriptionViewControllerDelegate {
   }
 }
 
+// MARK: - HotelFacilitiesViewControllerDelegate
+
 extension PlacePageViewController: HotelFacilitiesViewControllerDelegate {
   func facilitiesDidPressMore() {
     MWMPlacePageManagerHelper.showAllFacilities(placePageData)
   }
 }
 
+// MARK: - HotelReviewsViewControllerDelegate
+
 extension PlacePageViewController: HotelReviewsViewControllerDelegate {
   func hotelReviewsDidPressMore() {
     MWMPlacePageManagerHelper.openReviewUrl(placePageData)
   }
 }
+
+// MARK: - CatalogSingleItemViewControllerDelegate
 
 extension PlacePageViewController: CatalogSingleItemViewControllerDelegate {
   func catalogPromoItemDidPressView() {
@@ -452,6 +487,8 @@ extension PlacePageViewController: CatalogSingleItemViewControllerDelegate {
   }
 }
 
+// MARK: - CatalogGalleryViewControllerDelegate
+
 extension PlacePageViewController: CatalogGalleryViewControllerDelegate {
   func promoGalleryDidPressMore() {
     MWMPlacePageManagerHelper.openCatalogMoreItems(placePageData)
@@ -462,11 +499,15 @@ extension PlacePageViewController: CatalogGalleryViewControllerDelegate {
   }
 }
 
+// MARK: - PlacePageBookmarkViewControllerDelegate
+
 extension PlacePageViewController: PlacePageBookmarkViewControllerDelegate {
   func bookmarkDidPressEdit() {
     MWMPlacePageManagerHelper.editBookmark()
   }
 }
+
+// MARK: - ActionBarViewControllerDelegate
 
 extension PlacePageViewController: ActionBarViewControllerDelegate {
   func actionBarDidPressButton(_ type: ActionBarButtonType) {
@@ -513,6 +554,8 @@ extension PlacePageViewController: ActionBarViewControllerDelegate {
   }
 }
 
+// MARK: - UIScrollViewDelegate
+
 extension PlacePageViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     if scrollView.contentOffset.y < -scrollView.height + 1 && beginDragging {
@@ -527,7 +570,6 @@ extension PlacePageViewController: UIScrollViewDelegate {
   func scrollViewWillEndDragging(_ scrollView: UIScrollView,
                                  withVelocity velocity: CGPoint,
                                  targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-    print("scrollView willEndDragging: \(velocity)")
     guard let maxOffset = scrollSteps.last else { return }
     if targetContentOffset.pointee.y > maxOffset.offset {
       previewViewController.adView.state = .detailed
@@ -554,9 +596,9 @@ extension PlacePageViewController: UIScrollViewDelegate {
 
   private func findNearestStop(_ offset: CGFloat) -> PlacePageState{
     var result = scrollSteps[0]
-    scrollSteps.suffix(from: 1).forEach {
-      if abs(result.offset - offset) > abs($0.offset - offset) {
-        result = $0
+    scrollSteps.suffix(from: 1).forEach { ppState in
+      if abs(result.offset - offset) > abs(ppState.offset - offset) {
+        result = ppState
       }
     }
     return result
@@ -589,6 +631,8 @@ extension PlacePageViewController: UIScrollViewDelegate {
     return result
   }
 }
+
+// MARK: - MWMLocationObserver
 
 extension PlacePageViewController: MWMLocationObserver {
   func onHeadingUpdate(_ heading: CLHeading) {

@@ -1,5 +1,6 @@
 class DirectionView: UIView {
-  @IBOutlet var button: UIButton!
+  @IBOutlet var imageView: UIImageView!
+  @IBOutlet var label: UILabel!
 }
 
 protocol PlacePagePreviewViewControllerDelegate: AnyObject {
@@ -132,12 +133,12 @@ class PlacePagePreviewViewController: UIViewController {
   }
 
   func updateDistance(_ distance: String) {
-    directionView?.button.setTitle(distance, for: .normal)
+    directionView?.label.text = distance
   }
 
   func updateHeading(_ angle: CGFloat) {
     UIView.animate(withDuration: kDefaultAnimationDuration, delay: 0, options: [.beginFromCurrentState, .curveEaseInOut], animations: {
-      self.directionView?.button.transform = CGAffineTransform(rotationAngle: angle)
+      self.directionView?.imageView.transform = CGAffineTransform(rotationAngle: angle)
     })
   }
 

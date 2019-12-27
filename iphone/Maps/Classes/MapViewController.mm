@@ -98,6 +98,7 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 @property(nonatomic) BOOL needDeferFocusNotification;
 @property(nonatomic) BOOL deferredFocusValue;
 @property(nonatomic) PlacePageViewController *placePageVC;
+@property(nonatomic) IBOutlet UIView *placePageContainer;
 
 @end
 
@@ -113,8 +114,7 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   [self.placePageVC willMoveToParentViewController:nil];
   [self.placePageVC removeFromParentViewController];
   self.placePageVC = nil;
-//  [self dismissViewControllerAnimated:YES completion:nil];
-//  [self.controlsManager dismissPlacePage];
+  self.placePageContainer.hidden = YES;
 }
 
 - (void)onMapObjectDeselected:(bool)switchFullScreenMode
@@ -139,18 +139,16 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   self.placePageVC = (PlacePageViewController *)[[UIStoryboard instance:MWMStoryboardPlacePage] instantiateInitialViewController];
   self.placePageVC.placePageData = [[PlacePageData alloc] init];
   [self addChildViewController:self.placePageVC];
-  [self.view addSubview:self.placePageVC.view];
+  self.placePageContainer.hidden = NO;
+  [self.placePageContainer addSubview:self.placePageVC.view];
   self.placePageVC.view.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
-    [self.placePageVC.view.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
-    [self.placePageVC.view.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
-    [self.placePageVC.view.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
-    [self.placePageVC.view.rightAnchor constraintEqualToAnchor:self.view.rightAnchor]
+    [self.placePageVC.view.topAnchor constraintEqualToAnchor:self.placePageContainer.safeAreaLayoutGuide.topAnchor],
+    [self.placePageVC.view.leftAnchor constraintEqualToAnchor:self.placePageContainer.leftAnchor],
+    [self.placePageVC.view.bottomAnchor constraintEqualToAnchor:self.placePageContainer.bottomAnchor],
+    [self.placePageVC.view.rightAnchor constraintEqualToAnchor:self.placePageContainer.rightAnchor]
   ]];
   [self.placePageVC didMoveToParentViewController:self];
-//  [self presentViewController:placePageVC animated:YES completion:nil];
-//  self.controlsManager.hidden = NO;
-//  [self.controlsManager showPlacePage];
 }
 
 - (void)onMapObjectUpdated {
