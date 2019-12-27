@@ -1328,4 +1328,4 @@ amenity|parking_space|underground;[amenity=parking_space][parking=underground];;
 amenity|parking_space|private;[amenity=parking_space][access=private];;name;int_name;1328;
 amenity|parking_space|permissive;[amenity=parking_space][access=permissive];;name;int_name;1329;
 landuse|churchyard;1330;
-complex_entry;1331;
+complex_entry;[complex_entry];;name;int_name;1331;
