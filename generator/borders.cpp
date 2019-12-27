@@ -47,35 +47,20 @@ public:
   {
     RegionsContainer regions;
     for (m2::RegionD const & border : borders)
-    {
-      m2::RectD const rect(border.GetRect());
-      m_rect.Add(rect);
-      regions.Add(border, rect);
-    }
+      regions.Add(border, border.GetRect());
 
-    m_polygons = CountryPolygons(name, regions);
-  }
+    CountryPolygons countryPolygons(name, regions);
 
-  void Finish()
-  {
-    if (!m_polygons.IsEmpty())
-    {
-      ASSERT_NOT_EQUAL(m_rect, m2::RectD::GetEmptyRect(), ());
-      m_countries.Add(std::move(m_polygons), std::move(m_rect));
-    }
-
-    m_polygons.Clear();
-    m_rect.MakeEmpty();
+    for (m2::RegionD const & border : borders)
+      m_countries.Add(countryPolygons, border.GetRect());
   }
 
 private:
   m4::Tree<CountryPolygons> & m_countries;
-  CountryPolygons m_polygons;
-  m2::RectD m_rect;
 };
 
 template <class ToDo>
-void ForEachCountry(std::string const & baseDir, ToDo & toDo)
+void ForEachCountry(std::string const & baseDir, ToDo && toDo)
 {
   std::string const bordersDir = base::JoinPath(baseDir, BORDERS_DIR);
   CHECK(Platform::IsFileExistsByFullPath(bordersDir),
@@ -90,7 +75,6 @@ void ForEachCountry(std::string const & baseDir, ToDo & toDo)
     {
       base::GetNameWithoutExt(file);
       toDo(file, borders);
-      toDo.Finish();
     }
   }
 }
@@ -132,8 +116,6 @@ public:
       serial::SaveOuterPath(out, cp, *w);
     }
   }
-
-  void Finish() {}
 
   void WritePolygonsInfo()
   {
@@ -221,23 +203,22 @@ bool GetBordersRect(std::string const & baseDir, std::string const & country,
   return true;
 }
 
-bool LoadCountriesList(std::string const & baseDir, CountriesContainer & countries)
+CountryPolygonsCollection LoadCountriesList(std::string const & baseDir)
 {
-  m4::Tree<CountryPolygons> regionsTree;
   LOG(LINFO, ("Loading countries."));
 
-  PolygonLoader loader(regionsTree);
-  ForEachCountry(baseDir, loader);
+  CountryPolygonsCollection countryPolygonsCollection;
+  ForEachCountry(baseDir, [&](auto const & name, auto const & borders) {
+    RegionsContainer regions;
+    for (m2::RegionD const & border : borders)
+      regions.Add(border, border.GetRect());
 
-  LOG(LINFO, ("Countries loaded:", regionsTree.GetSize()));
+    countryPolygonsCollection.Add(CountryPolygons(name, regions));
+  });
 
-  if (!regionsTree.IsEmpty())
-  {
-    countries = CountriesContainer(regionsTree);
-    return true;
-  }
-
-  return false;
+  LOG(LINFO, ("Countries loaded:", countryPolygonsCollection.GetSize()));
+  CHECK_NOT_EQUAL(countryPolygonsCollection.GetSize(), 0, (baseDir));
+  return countryPolygonsCollection;
 }
 
 void GeneratePackedBorders(std::string const & baseDir)
@@ -295,22 +276,18 @@ void UnpackBorders(std::string const & baseDir, std::string const & targetDir)
   }
 }
 
-// static
-std::mutex PackedBorders::m_mutex;
-// static
-std::unordered_map<std::string, CountriesContainer> PackedBorders::m_countries;
 
-// static
-CountriesContainer const & PackedBorders::GetOrCreate(std::string const & name)
+CountryPolygonsCollection const & GetOrCreateCountryPolygonsTree(std::string const & baseDir)
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
-  auto const it = m_countries.find(name);
-  if (it != m_countries.cend())
+  static std::mutex mutex;
+  static std::unordered_map<std::string, CountryPolygonsCollection> countriesMap;
+
+  std::lock_guard<std::mutex> lock(mutex);
+  auto const it = countriesMap.find(baseDir);
+  if (it != countriesMap.cend())
     return it->second;
 
-  CountriesContainer countries;
-  CHECK(LoadCountriesList(name, countries), ("Error loading country polygons files."));
-  auto const eIt = m_countries.emplace(name, countries);
+  auto const eIt = countriesMap.emplace(baseDir, LoadCountriesList(baseDir));
   return eIt.first->second;
 }
 }  // namespace borders

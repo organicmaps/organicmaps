@@ -36,7 +36,7 @@ public:
   bool HasRegionByName(std::string const & name) const override;
 
 protected:
-  borders::CountriesContainer const & m_countries;
+  borders::CountryPolygonsCollection const & m_countryPolygonsTree;
   bool m_haveBordersForWholeWorld;
 };
 

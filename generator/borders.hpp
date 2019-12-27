@@ -74,11 +74,15 @@ public:
   }
 
   template <typename Do>
-  bool ForAnyRegionGeometry(Do && fn) const
+  void ForEachRegion(Do && fn) const
   {
-    return m_regions.ForAny([&](auto const & region) {
-      return fn(region.Data());
-    });
+    m_regions.ForEach(std::forward<Do>(fn));
+  }
+
+  template <typename Do>
+  bool ForAnyRegion(Do && fn) const
+  {
+    return m_regions.ForAny(std::forward<Do>(fn));
   }
 
 private:
@@ -86,48 +90,43 @@ private:
   RegionsContainer m_regions;
 };
 
-class CountriesContainer
+class CountryPolygonsCollection
 {
 public:
-  CountriesContainer() = default;
-  explicit CountriesContainer(m4::Tree<CountryPolygons> const & tree)
-    : m_regionsTree(tree)
+  CountryPolygonsCollection() = default;
+
+  void Add(CountryPolygons const & countryPolygons)
   {
+    auto const it = m_countryPolygonsMap.emplace(countryPolygons.GetName(), countryPolygons);
+    countryPolygons.ForEachRegion([&](auto const & region){
+      m_regionsTree.Add(it.first->second, region.GetRect());
+      return true;
+    });
   }
 
+  size_t GetSize() const { return m_countryPolygonsMap.size(); }
+
   template <typename ToDo>
-  void ForEachInRect(m2::RectD const & rect, ToDo && toDo) const
+  void ForEachPolygonInRect(m2::RectD const & rect, ToDo && toDo) const
   {
     m_regionsTree.ForEachInRect(rect, std::forward<ToDo>(toDo));
   }
 
   bool HasRegionByName(std::string const & name) const
   {
-    return m_regionsTree.FindNode([&](auto const & countryPolygons) {
-      return countryPolygons.GetName() == name;
-    });
+    return m_countryPolygonsMap.count(name) != 0;
   }
 
   CountryPolygons const & GetRegionByName(std::string const & name) const
   {
     ASSERT(HasRegionByName(name), ());
 
-    CountryPolygons const * country = nullptr;
-    m_regionsTree.FindNode([&](auto const & countryPolygons) {
-      if (countryPolygons.GetName() == name)
-      {
-        country = &countryPolygons;
-        return true;
-      }
-
-      return false;
-    });
-
-    return *country;
+    return m_countryPolygonsMap.at(name);
   }
 
 private:
-  m4::Tree<CountryPolygons> m_regionsTree;
+  m4::Tree<std::reference_wrapper<const CountryPolygons>> m_regionsTree;
+  std::unordered_map<std::string, CountryPolygons> m_countryPolygonsMap;
 };
 
 /// @return false if borderFile can't be opened
@@ -136,7 +135,7 @@ bool LoadBorders(std::string const & borderFile, std::vector<m2::RegionD> & outB
 bool GetBordersRect(std::string const & baseDir, std::string const & country,
                     m2::RectD & bordersRect);
 
-bool LoadCountriesList(std::string const & baseDir, CountriesContainer & countries);
+bool LoadCountriesList(std::string const & baseDir, CountryPolygonsCollection & countries);
 
 void GeneratePackedBorders(std::string const & baseDir);
 
@@ -159,13 +158,5 @@ void DumpBorderToPolyFile(std::string const & filePath, storage::CountryId const
                           std::vector<m2::RegionD> const & polygons);
 void UnpackBorders(std::string const & baseDir, std::string const & targetDir);
 
-class PackedBorders
-{
-public:
-  static CountriesContainer const & GetOrCreate(std::string const & name);
-
-private:
-  static std::mutex m_mutex;
-  static std::unordered_map<std::string, CountriesContainer> m_countries;
-};
+CountryPolygonsCollection const & GetOrCreateCountryPolygonsTree(std::string const & baseDir);
 }  // namespace borders
