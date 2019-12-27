@@ -147,66 +147,88 @@ private:
 class TagReplacer
 {
 public:
+  using Replacements = std::map<OsmElement::Tag, std::vector<OsmElement::Tag>>;
+
   TagReplacer() = default;
 
   explicit TagReplacer(std::string const & filePath)
   {
     std::ifstream stream(filePath);
 
-    OsmElement::Tag tag;
-    std::vector<std::string> values;
     std::string line;
+    size_t lineNumber = 0;
     while (std::getline(stream, line))
     {
-      if (line.empty())
+      ++lineNumber;
+      strings::Trim(line);
+      if (line.empty() || line[0] == '#')
         continue;
 
-      strings::SimpleTokenizer iter(line, " \t=,:");
-      if (!iter)
-        continue;
-      tag.m_key = *iter;
-      ++iter;
-      if (!iter)
-        continue;
-      tag.m_value = *iter;
+      auto keyPos = line.find("=");
+      CHECK(keyPos != std::string::npos, ("Cannot find source tag key in", line));
+      auto key = line.substr(0, keyPos);
+      strings::Trim(key);
 
-      values.clear();
-      while (++iter)
-        values.push_back(*iter);
+      // Skip '='.
+      ++keyPos;
+      auto valuePos = line.find(" : ", keyPos);
+      CHECK(valuePos != std::string::npos, ("Cannot find source tag value in", line));
+      auto value = line.substr(keyPos, valuePos - keyPos);
+      strings::Trim(value);
 
-      if (values.size() >= 2 && values.size() % 2 == 0)
-        m_entries[tag].swap(values);
+      // Skip ' : '.
+      valuePos += 3;
+
+      auto rawReplacements = line.substr(valuePos);
+      strings::Trim(rawReplacements);
+      CHECK(!rawReplacements.empty(), ("Empty replacement in", line));
+
+      auto const replacements = strings::Tokenize(rawReplacements, ",");
+      for (auto const & replacement : replacements)
+      {
+        auto kv = strings::Tokenize(replacement, "=");
+        CHECK_EQUAL(kv.size(), 2,
+                    ("Cannot parse replacement tag:", replacement, "in line", lineNumber));
+        strings::Trim(kv[0]);
+        strings::Trim(kv[1]);
+        m_replacements[{key, value}].emplace_back(kv[0], kv[1]);
+      }
     }
   }
 
-  TagReplacer(TagReplacer const & other) : m_entries(other.m_entries) {}
+  TagReplacer(TagReplacer const & other) : m_replacements(other.m_replacements) {}
 
   TagReplacer & operator=(TagReplacer const & other)
   {
     if (this != &other)
-      m_entries = other.m_entries;
+      m_replacements = other.m_replacements;
 
     return *this;
   }
 
   void Process(OsmElement & element) const
   {
-    for (auto & tag : element.m_tags)
+    std::vector<OsmElement::Tag> add;
+    base::EraseIf(element.m_tags, [&](auto const & tag)
     {
-      auto const it = m_entries.find(tag);
-      if (it != m_entries.end())
+      auto const it = m_replacements.find(tag);
+      if (it != m_replacements.end())
       {
-        auto const & v = it->second;
-        tag.m_key = v[0];
-        tag.m_value = v[1];
-        for (size_t i = 2; i < v.size(); i += 2)
-          element.AddTag(v[i], v[i + 1]);
+        for (auto const & replacement : it->second)
+          add.push_back(replacement);
+        return true;
       }
-    }
+      return false;
+    });
+
+    for (auto const & tag : add)
+      element.AddTag(tag);
   }
 
+  Replacements const & GetReplacementsForTesting() const { return m_replacements; }
+
 private:
-  std::map<OsmElement::Tag, std::vector<std::string>> m_entries;
+  Replacements m_replacements;
 };
 
 class OsmTagMixer

@@ -1,3 +1,11 @@
+# Format:
+# <replacement>           ::= <original tag> ' : ' <replacement tags list>
+# <original tag>          ::= <tag>
+# <replacement tags list> ::= <tag>[', ' <replacement tags list>]
+# <tag>                   ::= <key> '=' <value>
+# <key>                   ::= string without spaces, '=' and ',' symbols
+# <value>                 ::= string without spaces, '=' and ',' symbols
+
 atm=yes : amenity=atm
 bench=yes : amenity=bench
 shelter=yes : amenity=shelter

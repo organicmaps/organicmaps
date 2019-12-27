@@ -2,9 +2,42 @@
 
 #include "generator/tag_admixer.hpp"
 
+#include "platform/platform_tests_support/scoped_file.hpp"
+
+#include <algorithm>
 #include <map>
 #include <set>
 #include <sstream>
+#include <string>
+
+using platform::tests_support::ScopedFile;
+
+namespace
+{
+void TestReplacer(std::string const & source,
+                  TagReplacer::Replacements const & expectedReplacements)
+{
+  auto const filename = "test.txt";
+  ScopedFile sf(filename, source);
+  TagReplacer replacer(sf.GetFullPath());
+  auto const & replacements = replacer.GetReplacementsForTesting();
+  TEST_EQUAL(replacements.size(), expectedReplacements.size(),
+             (source, replacements, expectedReplacements));
+  for (auto const & replacement : replacements)
+  {
+    auto const it = expectedReplacements.find(replacement.first);
+    TEST(it != expectedReplacements.end(),
+         ("Unexpected replacement for key", replacement.first, ":", replacement.second));
+    TEST_EQUAL(replacement.second.size(), it->second.size(),
+               ("Different rules number for tag", replacement.first));
+    for (auto const & tag : replacement.second)
+    {
+      auto const tagIt = std::find(it->second.begin(), it->second.end(), tag);
+      TEST(tagIt != it->second.end(), ("Unexpected rule for tag", replacement.first));
+    }
+  }
+}
+}  // namespace
 
 UNIT_TEST(WaysParserTests)
 {
@@ -31,4 +64,44 @@ UNIT_TEST(CapitalsParserTests)
   TEST(capitals.find(242715809) != capitals.end(), ());
   TEST(capitals.find(448768937) != capitals.end(), ());
   TEST(capitals.find(140247101) == capitals.end(), ());
+}
+
+UNIT_TEST(TagsReplacer_Smoke)
+{
+  {
+    std::string const source = "";
+    TagReplacer::Replacements replacements = {};
+    TestReplacer(source, replacements);
+  }
+  {
+    std::string const source = "aerodrome:type=international : aerodrome=international";
+    TagReplacer::Replacements replacements = {
+        {{"aerodrome:type", "international"}, {{"aerodrome", "international"}}}};
+    TestReplacer(source, replacements);
+  }
+  {
+    std::string const source =
+        "  aerodrome:type   =   international   :    aerodrome   =  international   ";
+    TagReplacer::Replacements replacements = {
+        {{"aerodrome:type", "international"}, {{"aerodrome", "international"}}}};
+    TestReplacer(source, replacements);
+  }
+  {
+    std::string const source = "natural=marsh : natural=wetland, wetland=marsh";
+    TagReplacer::Replacements replacements = {
+        {{"natural", "marsh"}, {{"natural", "wetland"}, {"wetland", "marsh"}}}};
+    TestReplacer(source, replacements);
+  }
+  {
+    std::string const source =
+        "natural = forest : natural = wood\n"
+        "# TODO\n"
+        "# natural = ridge + cliff=yes -> natural=cliff\n"
+        "\n"
+        "office=travel_agent : shop=travel_agency";
+    TagReplacer::Replacements replacements = {
+        {{"natural", "forest"}, {{"natural", "wood"}}},
+        {{"office", "travel_agent"}, {{"shop", "travel_agency"}}}};
+    TestReplacer(source, replacements);
+  }
 }
