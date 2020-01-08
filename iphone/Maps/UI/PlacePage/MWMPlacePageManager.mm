@@ -444,12 +444,6 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
   [self.ownerViewController openUrl:url];
 }
 
-- (void)openReviews:(id<MWMReviewsViewModelProtocol> _Nonnull)reviewsViewModel
-{
-  auto reviewsVC = [[MWMReviewsViewController alloc] initWithViewModel:reviewsViewModel];
-  [[MapViewController sharedController].navigationController pushViewController:reviewsVC animated:YES];
-}
-
 - (void)openWebsite:(PlacePageData *)data {
   NSURL *url = [NSURL URLWithString:data.infoData.website];
   if (url) {

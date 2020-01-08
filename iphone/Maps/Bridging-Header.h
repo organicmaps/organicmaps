@@ -50,7 +50,6 @@
 #import "MWMNoMapsViewController.h"
 #import "MWMPlacePageManagerHelper.h"
 #import "MWMPushNotifications.h"
-#import "MWMReviewsViewModelProtocol.h"
 #import "MWMRouteManagerPointType.h"
 #import "MWMRoutePreviewTaxiCellType.h"
 #import "MWMRouter.h"
