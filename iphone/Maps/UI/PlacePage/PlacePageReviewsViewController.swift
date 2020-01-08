@@ -2,7 +2,7 @@ protocol PlacePageReviewsViewControllerDelegate: AnyObject {
   func didPressMoreReviews()
 }
 
-class PlacePageReviewsViewController: UIViewController {
+final class PlacePageReviewsViewController: UIViewController {
   @IBOutlet var stackView: UIStackView!
 
   var ugcData: UgcData? {
@@ -10,33 +10,44 @@ class PlacePageReviewsViewController: UIViewController {
       updateReviews()
     }
   }
+  
   weak var delegate: PlacePageReviewsViewControllerDelegate?
 
-  lazy var myReviewViewController: MyReviewViewController = {
-    let vc = storyboard!.instantiateViewController(ofType: MyReviewViewController.self)
-    return vc
-  } ()
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-  }
-
   // MARK: private
+
+  private lazy var dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .long
+    formatter.timeStyle = .none
+    return formatter
+  } ()
 
   private func updateReviews() {
     guard let ugcData = ugcData else { return }
 
     if let myReview = ugcData.myReview {
-      myReviewViewController.myReview = myReview
-      addToStack(myReviewViewController)
+      let myReviewView = MyReviewView()
+      myReviewView.defaultConfig()
+      myReviewView.reviewView.authorLabel.text = L("placepage_reviews_your_comment")
+      myReviewView.reviewView.dateLabel.text = dateFormatter.string(from: myReview.date)
+      myReviewView.reviewView.reviewLabel.text = myReview.text
+
+      for i in 0..<3 {
+        if myReview.starRatings.count > i {
+          let starRating = myReview.starRatings[i]
+          myReviewView.ratingViews[i].nameLabel.text = L(starRating.title)
+          myReviewView.ratingViews[i].starRatingView.rating = Int(round(starRating.value))
+        } else {
+          myReviewView.ratingViews[i].isHidden = true
+        }
+      }
+      stackView.addArrangedSubview(myReviewView)
     }
 
     for i in 0..<3 {
       if i < ugcData.reviews.count {
         let review = ugcData.reviews[i]
-        let vc = storyboard!.instantiateViewController(ofType: PlacePageReviewViewController.self)
-        vc.review = review
-        addToStack(vc)
+        addReviewView(review)
       } else {
         break
       }
@@ -45,6 +56,16 @@ class PlacePageReviewsViewController: UIViewController {
     if ugcData.reviews.count > 3 {
       createMoreReviewsButton()
     }
+  }
+
+  private func addReviewView(_ review: UgcReview) {
+    let reviewView = ReviewView()
+    reviewView.defaultConfig()
+    reviewView.authorLabel.text = review.author
+    reviewView.dateLabel.text = dateFormatter.string(from: review.date)
+    reviewView.reviewLabel.text = review.text
+
+    stackView.addArrangedSubview(reviewView)
   }
 
   @objc private func onMoreReviewsButton(_ sender: UIButton) {
@@ -59,11 +80,5 @@ class PlacePageReviewsViewController: UIViewController {
     button.heightAnchor.constraint(equalToConstant: 44).isActive = true
     stackView.addArrangedSubview(button)
     button.addTarget(self, action: #selector(onMoreReviewsButton), for: .touchUpInside)
-  }
-
-  private func addToStack(_ viewController: UIViewController) {
-    addChild(viewController)
-    stackView.addArrangedSubview(viewController.view)
-    viewController.didMove(toParent: self)
   }
 }

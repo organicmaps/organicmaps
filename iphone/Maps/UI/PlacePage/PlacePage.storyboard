@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -1875,195 +1875,6 @@
             </objects>
             <point key="canvasLocation" x="929" y="1225"/>
         </scene>
-        <!--My Review View Controller-->
-        <scene sceneID="JfG-uh-TGE">
-            <objects>
-                <viewController storyboardIdentifier="MyReviewViewController" id="aI5-Bz-iIT" customClass="MyReviewViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Z6m-fj-o9a">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8zD-Hi-bKz">
-                                <rect key="frame" x="16" y="15.999999999999998" width="343" height="20.333333333333329"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="placepage_reviews_your_comment"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold14"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amG-6c-cww">
-                                <rect key="frame" x="16" y="40.333333333333336" width="343" height="20.333333333333336"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular12"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="50" translatesAutoresizingMaskIntoConstraints="NO" id="t2i-YK-GIT" customClass="ExpandableLabel" customModule="maps_me" customModuleProvider="target">
-                                <rect key="frame" x="16" y="68.666666666666686" width="343" height="77.333333333333314"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ja-0O-Ugm">
-                                <rect key="frame" x="16" y="154" width="359" height="1"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="tQz-kq-hmO"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="FLq-6F-G41">
-                                <rect key="frame" x="16" y="155" width="359" height="69"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bL2-ab-NQi">
-                                        <rect key="frame" x="0.0" y="0.0" width="119.66666666666667" height="69"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nt5-FZ-MhW">
-                                                <rect key="frame" x="0.0" y="8" width="119.66666666666667" height="14.333333333333336"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </label>
-                                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="15" translatesAutoresizingMaskIntoConstraints="NO" id="7Le-8Z-nd7" customClass="StarRatingView" customModule="maps_me" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="26.333333333333339" width="100" height="42.666666666666657"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="Nt5-FZ-MhW" secondAttribute="trailing" id="4Es-Ad-KQ1"/>
-                                            <constraint firstItem="Nt5-FZ-MhW" firstAttribute="top" secondItem="bL2-ab-NQi" secondAttribute="top" constant="8" id="E1h-0K-wcW"/>
-                                            <constraint firstItem="7Le-8Z-nd7" firstAttribute="leading" secondItem="bL2-ab-NQi" secondAttribute="leading" id="Xci-ur-2in"/>
-                                            <constraint firstItem="7Le-8Z-nd7" firstAttribute="top" secondItem="Nt5-FZ-MhW" secondAttribute="bottom" constant="4" id="d2L-Aj-4Wx"/>
-                                            <constraint firstAttribute="bottom" secondItem="7Le-8Z-nd7" secondAttribute="bottom" id="hJM-Gx-fMm"/>
-                                            <constraint firstItem="Nt5-FZ-MhW" firstAttribute="leading" secondItem="bL2-ab-NQi" secondAttribute="leading" id="rFP-8U-vOt"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Haz-z3-DWY">
-                                        <rect key="frame" x="119.66666666666666" y="0.0" width="119.66666666666666" height="69"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBw-rM-tLc">
-                                                <rect key="frame" x="0.0" y="8" width="119.66666666666667" height="14.333333333333336"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </label>
-                                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="15" translatesAutoresizingMaskIntoConstraints="NO" id="wK1-4N-yAu" customClass="StarRatingView" customModule="maps_me" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="26.333333333333339" width="100" height="42.666666666666657"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="SBw-rM-tLc" secondAttribute="trailing" id="RTK-WM-EFm"/>
-                                            <constraint firstItem="wK1-4N-yAu" firstAttribute="leading" secondItem="Haz-z3-DWY" secondAttribute="leading" id="beq-i6-Fzo"/>
-                                            <constraint firstItem="wK1-4N-yAu" firstAttribute="top" secondItem="SBw-rM-tLc" secondAttribute="bottom" constant="4" id="g5Z-GC-tWK"/>
-                                            <constraint firstAttribute="bottom" secondItem="wK1-4N-yAu" secondAttribute="bottom" id="hIx-k5-NFE"/>
-                                            <constraint firstItem="SBw-rM-tLc" firstAttribute="top" secondItem="Haz-z3-DWY" secondAttribute="top" constant="8" id="pXg-tL-0S5"/>
-                                            <constraint firstItem="SBw-rM-tLc" firstAttribute="leading" secondItem="Haz-z3-DWY" secondAttribute="leading" id="usw-SR-Lmg"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vCK-fD-xLD">
-                                        <rect key="frame" x="239.33333333333334" y="0.0" width="119.66666666666666" height="69"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lf4-8A-8j5">
-                                                <rect key="frame" x="0.0" y="8" width="119.66666666666667" height="14.333333333333336"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </label>
-                                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="15" translatesAutoresizingMaskIntoConstraints="NO" id="N1Q-Q0-IIJ" customClass="StarRatingView" customModule="maps_me" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="26.333333333333339" width="100" height="42.666666666666657"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="Lf4-8A-8j5" secondAttribute="trailing" id="MxB-0K-LM8"/>
-                                            <constraint firstAttribute="bottom" secondItem="N1Q-Q0-IIJ" secondAttribute="bottom" id="NO7-mA-Mya"/>
-                                            <constraint firstItem="Lf4-8A-8j5" firstAttribute="top" secondItem="vCK-fD-xLD" secondAttribute="top" constant="8" id="PI6-bI-QaF"/>
-                                            <constraint firstItem="N1Q-Q0-IIJ" firstAttribute="top" secondItem="Lf4-8A-8j5" secondAttribute="bottom" constant="4" id="gF5-wF-HQl"/>
-                                            <constraint firstItem="Lf4-8A-8j5" firstAttribute="leading" secondItem="vCK-fD-xLD" secondAttribute="leading" id="ugJ-YV-Whi"/>
-                                            <constraint firstItem="N1Q-Q0-IIJ" firstAttribute="leading" secondItem="vCK-fD-xLD" secondAttribute="leading" id="vTk-lS-dZJ"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                            </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1e8-3Q-gU6">
-                                <rect key="frame" x="0.0" y="239" width="375" height="1"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="RsA-aE-HDq"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="t2i-YK-GIT" firstAttribute="top" secondItem="amG-6c-cww" secondAttribute="bottom" constant="8" id="4MK-WA-NW2"/>
-                            <constraint firstItem="FLq-6F-G41" firstAttribute="top" secondItem="5Ja-0O-Ugm" secondAttribute="bottom" id="7E9-bE-vgf"/>
-                            <constraint firstItem="FLq-6F-G41" firstAttribute="leading" secondItem="Z6m-fj-o9a" secondAttribute="leading" constant="16" id="80E-tR-PH7"/>
-                            <constraint firstAttribute="bottom" secondItem="1e8-3Q-gU6" secondAttribute="bottom" id="DFf-6f-o5R"/>
-                            <constraint firstAttribute="trailing" secondItem="1e8-3Q-gU6" secondAttribute="trailing" id="PaS-q5-yoG"/>
-                            <constraint firstAttribute="trailing" secondItem="FLq-6F-G41" secondAttribute="trailing" id="RKc-Tz-Cm2"/>
-                            <constraint firstItem="5Ja-0O-Ugm" firstAttribute="top" secondItem="t2i-YK-GIT" secondAttribute="bottom" constant="8" id="ZMy-Tv-U8V"/>
-                            <constraint firstAttribute="trailing" secondItem="t2i-YK-GIT" secondAttribute="trailing" constant="16" id="ZvK-BS-cWj"/>
-                            <constraint firstAttribute="trailing" secondItem="amG-6c-cww" secondAttribute="trailing" constant="16" id="dCH-GR-m7q"/>
-                            <constraint firstItem="amG-6c-cww" firstAttribute="leading" secondItem="Z6m-fj-o9a" secondAttribute="leading" constant="16" id="e9b-zE-OYT"/>
-                            <constraint firstItem="t2i-YK-GIT" firstAttribute="leading" secondItem="Z6m-fj-o9a" secondAttribute="leading" constant="16" id="eSG-L5-oJo"/>
-                            <constraint firstItem="amG-6c-cww" firstAttribute="top" secondItem="8zD-Hi-bKz" secondAttribute="bottom" constant="4" id="fCB-q9-ul3"/>
-                            <constraint firstItem="5Ja-0O-Ugm" firstAttribute="leading" secondItem="Z6m-fj-o9a" secondAttribute="leading" constant="16" id="fCu-Kz-t8u"/>
-                            <constraint firstAttribute="trailing" secondItem="5Ja-0O-Ugm" secondAttribute="trailing" id="fXA-m8-4EM"/>
-                            <constraint firstAttribute="trailing" secondItem="8zD-Hi-bKz" secondAttribute="trailing" constant="16" id="jg2-27-lA9"/>
-                            <constraint firstItem="1e8-3Q-gU6" firstAttribute="leading" secondItem="Z6m-fj-o9a" secondAttribute="leading" id="jwo-VG-WRR"/>
-                            <constraint firstItem="8zD-Hi-bKz" firstAttribute="leading" secondItem="Z6m-fj-o9a" secondAttribute="leading" constant="16" id="mdm-qv-qAO"/>
-                            <constraint firstItem="1e8-3Q-gU6" firstAttribute="top" secondItem="FLq-6F-G41" secondAttribute="bottom" constant="15" id="uC2-fr-aJi"/>
-                            <constraint firstItem="8zD-Hi-bKz" firstAttribute="top" secondItem="Z6m-fj-o9a" secondAttribute="top" constant="16" id="xJV-Gi-doA"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="jYQ-pI-7Cc"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                        </userDefinedRuntimeAttributes>
-                    </view>
-                    <size key="freeformSize" width="375" height="240"/>
-                    <connections>
-                        <outlet property="dateLabel" destination="amG-6c-cww" id="ZON-6u-WAR"/>
-                        <outlet property="expandableLabel" destination="t2i-YK-GIT" id="7jV-Gy-gyj"/>
-                        <outletCollection property="ratingLabels" destination="Nt5-FZ-MhW" collectionClass="NSMutableArray" id="Q60-bd-GVB"/>
-                        <outletCollection property="ratingLabels" destination="SBw-rM-tLc" collectionClass="NSMutableArray" id="oP3-jm-RV5"/>
-                        <outletCollection property="ratingLabels" destination="Lf4-8A-8j5" collectionClass="NSMutableArray" id="sXi-2T-qBN"/>
-                        <outletCollection property="ratingViews" destination="bL2-ab-NQi" collectionClass="NSMutableArray" id="WOO-ho-byQ"/>
-                        <outletCollection property="ratingViews" destination="Haz-z3-DWY" collectionClass="NSMutableArray" id="c8j-Cr-ydJ"/>
-                        <outletCollection property="ratingViews" destination="vCK-fD-xLD" collectionClass="NSMutableArray" id="M4b-z2-Kke"/>
-                        <outletCollection property="starViews" destination="7Le-8Z-nd7" collectionClass="NSMutableArray" id="S3h-LE-Z3v"/>
-                        <outletCollection property="starViews" destination="wK1-4N-yAu" collectionClass="NSMutableArray" id="R7K-XM-qTd"/>
-                        <outletCollection property="starViews" destination="N1Q-Q0-IIJ" collectionClass="NSMutableArray" id="udv-S6-wYQ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GZq-KN-QJx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1604" y="312"/>
-        </scene>
         <!--Info Item View Controller-->
         <scene sceneID="f7X-K7-lgf">
             <objects>
@@ -2179,81 +1990,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="blE-Lt-Ju4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1566" y="-183"/>
-        </scene>
-        <!--Place Page Review View Controller-->
-        <scene sceneID="CHq-9h-et4">
-            <objects>
-                <viewController storyboardIdentifier="PlacePageReviewViewController" id="vNL-ae-DbY" customClass="PlacePageReviewViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="4g7-uy-zYe">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tqV-tM-Pas">
-                                <rect key="frame" x="16" y="16" width="343" height="20.666666666666671"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold14"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4AM-Q5-lT6">
-                                <rect key="frame" x="16" y="40.666666666666664" width="343" height="20.333333333333336"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular12"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="50" translatesAutoresizingMaskIntoConstraints="NO" id="Iys-0c-vVa" customClass="ExpandableLabel" customModule="maps_me" customModuleProvider="target">
-                                <rect key="frame" x="16" y="69" width="343" height="65"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o3A-Bf-2G1">
-                                <rect key="frame" x="0.0" y="149" width="375" height="1"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="6hd-D6-cbr"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="Iys-0c-vVa" firstAttribute="top" secondItem="4AM-Q5-lT6" secondAttribute="bottom" constant="8" id="32r-ZR-eyo"/>
-                            <constraint firstItem="4AM-Q5-lT6" firstAttribute="leading" secondItem="4g7-uy-zYe" secondAttribute="leading" constant="16" id="4Bc-bF-aib"/>
-                            <constraint firstItem="tqV-tM-Pas" firstAttribute="leading" secondItem="4g7-uy-zYe" secondAttribute="leading" constant="16" id="4rj-2x-qON"/>
-                            <constraint firstAttribute="bottom" secondItem="o3A-Bf-2G1" secondAttribute="bottom" id="6Mx-Ih-H0D"/>
-                            <constraint firstAttribute="trailing" secondItem="4AM-Q5-lT6" secondAttribute="trailing" constant="16" id="6iu-RJ-T0P"/>
-                            <constraint firstAttribute="trailing" secondItem="tqV-tM-Pas" secondAttribute="trailing" constant="16" id="8Vn-pT-vW2"/>
-                            <constraint firstAttribute="trailing" secondItem="o3A-Bf-2G1" secondAttribute="trailing" id="OYg-pB-InC"/>
-                            <constraint firstAttribute="trailing" secondItem="Iys-0c-vVa" secondAttribute="trailing" constant="16" id="QyR-Uq-FCR"/>
-                            <constraint firstItem="tqV-tM-Pas" firstAttribute="top" secondItem="4g7-uy-zYe" secondAttribute="top" constant="16" id="ZGh-2f-cgw"/>
-                            <constraint firstItem="Iys-0c-vVa" firstAttribute="leading" secondItem="4g7-uy-zYe" secondAttribute="leading" constant="16" id="gMZ-db-r7K"/>
-                            <constraint firstItem="o3A-Bf-2G1" firstAttribute="top" secondItem="Iys-0c-vVa" secondAttribute="bottom" constant="15" id="hct-xr-Sci"/>
-                            <constraint firstItem="o3A-Bf-2G1" firstAttribute="leading" secondItem="4g7-uy-zYe" secondAttribute="leading" id="mOI-IE-JRF"/>
-                            <constraint firstItem="4AM-Q5-lT6" firstAttribute="top" secondItem="tqV-tM-Pas" secondAttribute="bottom" constant="4" id="ryK-aq-xlO"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="Iyj-Gf-ueC"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                        </userDefinedRuntimeAttributes>
-                    </view>
-                    <size key="freeformSize" width="375" height="150"/>
-                    <connections>
-                        <outlet property="dateLabel" destination="4AM-Q5-lT6" id="Tnk-Pg-pnC"/>
-                        <outlet property="expandableLabel" destination="Iys-0c-vVa" id="dQD-z3-Xaf"/>
-                        <outlet property="titleLabel" destination="tqV-tM-Pas" id="Fjs-i5-zo3"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9DX-xE-SJs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1604" y="545"/>
         </scene>
         <!--Hotel Facility View Controller-->
         <scene sceneID="xAf-m3-ObI">
@@ -3203,6 +2939,72 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fcE-Xu-odc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="929" y="-703"/>
+        </scene>
+        <!--More Reviews View Controller-->
+        <scene sceneID="Mgr-vZ-eCK">
+            <objects>
+                <tableViewController storyboardIdentifier="MoreReviewsViewController" id="Feu-nQ-14K" customClass="MoreReviewsViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="P9x-VF-dIZ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MyReviewCell" id="V9w-Pe-h3w" customClass="MyReviewCell" customModule="maps_me" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="V9w-Pe-h3w" id="KiX-oB-Nax">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l1w-Q8-xNx" customClass="MyReviewView" customModule="maps_me" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="l1w-Q8-xNx" secondAttribute="trailing" id="B62-xc-EeM"/>
+                                        <constraint firstItem="l1w-Q8-xNx" firstAttribute="leading" secondItem="KiX-oB-Nax" secondAttribute="leading" id="Qyz-dF-RmB"/>
+                                        <constraint firstAttribute="bottom" secondItem="l1w-Q8-xNx" secondAttribute="bottom" id="YK9-Ke-9jn"/>
+                                        <constraint firstItem="l1w-Q8-xNx" firstAttribute="top" secondItem="KiX-oB-Nax" secondAttribute="top" id="oJf-Zf-fXh"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="myReviewView" destination="l1w-Q8-xNx" id="3cZ-N9-eF0"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserReviewCell" id="e8f-4y-rPO" customClass="UserReviewCell" customModule="maps_me" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="e8f-4y-rPO" id="1w2-rX-6Ae">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qRj-vE-LQ3" customClass="ReviewView" customModule="maps_me" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="qRj-vE-LQ3" secondAttribute="bottom" id="1mi-MU-uEx"/>
+                                        <constraint firstItem="qRj-vE-LQ3" firstAttribute="top" secondItem="1w2-rX-6Ae" secondAttribute="top" id="9JI-QI-dm5"/>
+                                        <constraint firstItem="qRj-vE-LQ3" firstAttribute="leading" secondItem="1w2-rX-6Ae" secondAttribute="leading" id="Sa9-Et-1JM"/>
+                                        <constraint firstAttribute="trailing" secondItem="qRj-vE-LQ3" secondAttribute="trailing" id="oNb-nd-oV0"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="reviewView" destination="qRj-vE-LQ3" id="3Wf-UI-5Aw"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Feu-nQ-14K" id="Udz-v3-V4w"/>
+                            <outlet property="delegate" destination="Feu-nQ-14K" id="Wwo-Mr-G62"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rKm-hT-EZt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1594" y="608"/>
         </scene>
     </scenes>
     <resources>

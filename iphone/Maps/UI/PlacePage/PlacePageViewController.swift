@@ -339,11 +339,11 @@ enum PlacePageState {
   }
 
   private func updatePreviewOffset() {
-    if traitCollection.horizontalSizeClass != .compact {
-      return
-    }
     self.view.layoutIfNeeded()
     scrollSteps = calculateSteps()
+    if traitCollection.horizontalSizeClass != .compact || beginDragging {
+      return
+    }
     let state = placePageData.isPreviewPlus ? scrollSteps[2] : scrollSteps[1]
     UIView.animate(withDuration: kDefaultAnimationDuration) {
       self.scrollView.contentOffset = CGPoint(x: 0, y: state.offset)
@@ -421,7 +421,10 @@ extension PlacePageViewController: AddReviewViewControllerDelegate {
 
 extension PlacePageViewController: PlacePageReviewsViewControllerDelegate {
   func didPressMoreReviews() {
-
+    let moreReviews = storyboard!.instantiateViewController(ofType: MoreReviewsViewController.self)
+    moreReviews.ugcData = placePageData.ugcData
+    moreReviews.title = placePageData.previewData.title
+    MapViewController.shared()?.navigationController?.pushViewController(moreReviews, animated: true)
   }
 }
 

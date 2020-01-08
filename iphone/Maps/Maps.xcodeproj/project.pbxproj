@@ -335,7 +335,6 @@
 		470A89FD21342A9D00D72FBF /* TutorialBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470A89FC21342A9D00D72FBF /* TutorialBlurView.swift */; };
 		470A89FF2134517600D72FBF /* BookmarksTutorialBlur.xib in Resources */ = {isa = PBXBuildFile; fileRef = 470A89FE2134517600D72FBF /* BookmarksTutorialBlur.xib */; };
 		470A8A012136097000D72FBF /* SubwayTutorialBlur.xib in Resources */ = {isa = PBXBuildFile; fileRef = 470A8A002136073000D72FBF /* SubwayTutorialBlur.xib */; };
-		470F0B7A23882955006AEC94 /* PlacePageReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F0B7923882955006AEC94 /* PlacePageReviewViewController.swift */; };
 		470F0B7D238842EA006AEC94 /* ExpandableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F0B7C238842EA006AEC94 /* ExpandableLabel.swift */; };
 		470F0B7F2388431E006AEC94 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F0B7E2388431E006AEC94 /* StarRatingView.swift */; };
 		470F5A5B2181DE7500754295 /* PaidRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F5A592181DE7400754295 /* PaidRouteViewController.swift */; };
@@ -359,7 +358,6 @@
 		472848FB238573EE00176158 /* RatingSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472848FA238573EE00176158 /* RatingSummaryViewController.swift */; };
 		472848FD2386A17500176158 /* AddReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472848FC2386A17300176158 /* AddReviewViewController.swift */; };
 		472848FF2386BE6E00176158 /* PlacePageReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472848FE2386BE6E00176158 /* PlacePageReviewsViewController.swift */; };
-		472849012388098300176158 /* MyReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472849002388098300176158 /* MyReviewViewController.swift */; };
 		47289E5A2212DFFF002ABFC0 /* EditOnWebAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47289E582212DFFF002ABFC0 /* EditOnWebAlertViewController.swift */; };
 		47289E5B2212DFFF002ABFC0 /* EditOnWebAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47289E592212DFFF002ABFC0 /* EditOnWebAlertViewController.xib */; };
 		4728F69322CF89A400E00028 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4728F69222CF89A400E00028 /* GradientView.swift */; };
@@ -393,6 +391,9 @@
 		4788738F20EE30B300F6826B /* LayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788738D20EE30B300F6826B /* LayersViewController.swift */; };
 		4788739020EE30B300F6826B /* LayersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4788738E20EE30B300F6826B /* LayersViewController.xib */; };
 		4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788739120EE326400F6826B /* VerticallyAlignedButton.swift */; };
+		478F6FA423C447E500054A53 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F6FA323C447E500054A53 /* ReviewView.swift */; };
+		478F6FA623C4521F00054A53 /* MoreReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F6FA523C4521F00054A53 /* MoreReviewsViewController.swift */; };
+		478F6FA823C5067C00054A53 /* MyReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F6FA723C5067C00054A53 /* MyReviewView.swift */; };
 		479388F92395A4D3006ECACC /* ActionBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479388F82395A4D3006ECACC /* ActionBarViewController.swift */; };
 		479D305722C627CB00D18278 /* MWMMegafonBannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 479D305522C627CB00D18278 /* MWMMegafonBannerViewController.xib */; };
 		479D305B22C62F4000D18278 /* MWMBookmarksBannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 479D305922C62F4000D18278 /* MWMBookmarksBannerViewController.xib */; };
@@ -1420,7 +1421,6 @@
 		470A89FC21342A9D00D72FBF /* TutorialBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialBlurView.swift; sourceTree = "<group>"; };
 		470A89FE2134517600D72FBF /* BookmarksTutorialBlur.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksTutorialBlur.xib; sourceTree = "<group>"; };
 		470A8A002136073000D72FBF /* SubwayTutorialBlur.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubwayTutorialBlur.xib; sourceTree = "<group>"; };
-		470F0B7923882955006AEC94 /* PlacePageReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageReviewViewController.swift; sourceTree = "<group>"; };
 		470F0B7C238842EA006AEC94 /* ExpandableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableLabel.swift; sourceTree = "<group>"; };
 		470F0B7E2388431E006AEC94 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		470F5A592181DE7400754295 /* PaidRouteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidRouteViewController.swift; sourceTree = "<group>"; };
@@ -1445,7 +1445,6 @@
 		472848FA238573EE00176158 /* RatingSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingSummaryViewController.swift; sourceTree = "<group>"; };
 		472848FC2386A17300176158 /* AddReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReviewViewController.swift; sourceTree = "<group>"; };
 		472848FE2386BE6E00176158 /* PlacePageReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageReviewsViewController.swift; sourceTree = "<group>"; };
-		472849002388098300176158 /* MyReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReviewViewController.swift; sourceTree = "<group>"; };
 		47289E582212DFFF002ABFC0 /* EditOnWebAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOnWebAlertViewController.swift; sourceTree = "<group>"; };
 		47289E592212DFFF002ABFC0 /* EditOnWebAlertViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditOnWebAlertViewController.xib; sourceTree = "<group>"; };
 		4728F69222CF89A400E00028 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GradientView.swift; path = CustomViews/GradientView.swift; sourceTree = "<group>"; };
@@ -1485,6 +1484,9 @@
 		4788738D20EE30B300F6826B /* LayersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayersViewController.swift; sourceTree = "<group>"; };
 		4788738E20EE30B300F6826B /* LayersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayersViewController.xib; sourceTree = "<group>"; };
 		4788739120EE326400F6826B /* VerticallyAlignedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticallyAlignedButton.swift; sourceTree = "<group>"; };
+		478F6FA323C447E500054A53 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
+		478F6FA523C4521F00054A53 /* MoreReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreReviewsViewController.swift; sourceTree = "<group>"; };
+		478F6FA723C5067C00054A53 /* MyReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReviewView.swift; sourceTree = "<group>"; };
 		479388F82395A4D3006ECACC /* ActionBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionBarViewController.swift; sourceTree = "<group>"; };
 		4797A4DB226F4B2900D3A984 /* DeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandler.swift; sourceTree = "<group>"; };
 		479D305522C627CB00D18278 /* MWMMegafonBannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMMegafonBannerViewController.xib; sourceTree = "<group>"; };
@@ -3392,6 +3394,8 @@
 			children = (
 				470F0B7C238842EA006AEC94 /* ExpandableLabel.swift */,
 				470F0B7E2388431E006AEC94 /* StarRatingView.swift */,
+				478F6FA323C447E500054A53 /* ReviewView.swift */,
+				478F6FA723C5067C00054A53 /* MyReviewView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4470,8 +4474,7 @@
 				472848FA238573EE00176158 /* RatingSummaryViewController.swift */,
 				472848FC2386A17300176158 /* AddReviewViewController.swift */,
 				472848FE2386BE6E00176158 /* PlacePageReviewsViewController.swift */,
-				472849002388098300176158 /* MyReviewViewController.swift */,
-				470F0B7923882955006AEC94 /* PlacePageReviewViewController.swift */,
+				478F6FA523C4521F00054A53 /* MoreReviewsViewController.swift */,
 				47F701F5238C8A8300D18E95 /* PlacePageButtonsViewController.swift */,
 				47A0416C238DBB6200D84E95 /* HotelPhotosViewController.swift */,
 				47A0416E238DD0FD00D84E95 /* HotelDescriptionViewController.swift */,
@@ -5481,6 +5484,7 @@
 				349D1ADE1E2E325C004A2006 /* MWMBottomMenuViewController.mm in Sources */,
 				BB87BF8A22FAF1CA008A8A72 /* TracksSection.mm in Sources */,
 				6741A9EC1BF340DE002C974C /* MWMCircularProgress.m in Sources */,
+				478F6FA423C447E500054A53 /* ReviewView.swift in Sources */,
 				99CB34C3236AEAEA001D28AD /* WhatsNewController.swift in Sources */,
 				470A89FD21342A9D00D72FBF /* TutorialBlurView.swift in Sources */,
 				342CC5F21C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */,
@@ -5578,7 +5582,6 @@
 				34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */,
 				F6E2FF691E097BA00083EBEC /* MWMUnitsController.mm in Sources */,
 				6741AA031BF340DE002C974C /* MWMActivityViewController.mm in Sources */,
-				472849012388098300176158 /* MyReviewViewController.swift in Sources */,
 				CDCA27382237F1BD00167D87 /* BookmarkInfo.swift in Sources */,
 				993F5509237C622700545511 /* DeepLinkHandlerStrategy.swift in Sources */,
 				34AB668C1FC5AA330078E451 /* NavigationStreetNameView.swift in Sources */,
@@ -5590,6 +5593,7 @@
 				472E3F472146BCD30020E412 /* SubscriptionManager.swift in Sources */,
 				F6E2FE131E097BA00083EBEC /* MWMOpeningHoursTimeSelectorTableViewCell.mm in Sources */,
 				344532311F6FE5880059FBCC /* UGCSummaryRatingStarsCell.swift in Sources */,
+				478F6FA623C4521F00054A53 /* MoreReviewsViewController.swift in Sources */,
 				F626D52F1C3E83F800C17D15 /* MWMTableViewCell.m in Sources */,
 				34AB66591FC5AA330078E451 /* TransportTransitFlowLayout.swift in Sources */,
 				99CB34962369C281001D28AD /* FirstLaunchBuilder.swift in Sources */,
@@ -5645,6 +5649,7 @@
 				B32FE74020D2844600EF7446 /* DownloadedBookmarksViewController.swift in Sources */,
 				4707E4B62375B2900017DF6E /* PlacePagePreviewViewController.swift in Sources */,
 				340416541E7C09C200E2B6D6 /* PhotoScalingView.swift in Sources */,
+				478F6FA823C5067C00054A53 /* MyReviewView.swift in Sources */,
 				4767CDA820AB401000BD8166 /* LinkTextView.swift in Sources */,
 				47289E5A2212DFFF002ABFC0 /* EditOnWebAlertViewController.swift in Sources */,
 				34763EE71F2F392300F4D2D3 /* MWMTextToSpeech.mm in Sources */,
@@ -5790,7 +5795,6 @@
 				F5BD29FF26AD58255766C51A /* DiscoverySpinnerCell.swift in Sources */,
 				47E3C72B2111E62A008B3B27 /* FadeOutAnimatedTransitioning.swift in Sources */,
 				F5BD255A0838E70EC012748E /* DiscoverySearchCell.swift in Sources */,
-				470F0B7A23882955006AEC94 /* PlacePageReviewViewController.swift in Sources */,
 				47C7F9732191E15A00C2760C /* InAppBilling.swift in Sources */,
 				F5BD2CA4DBEFACBC48195F39 /* DiscoveryCollectionHolderCell.swift in Sources */,
 			);

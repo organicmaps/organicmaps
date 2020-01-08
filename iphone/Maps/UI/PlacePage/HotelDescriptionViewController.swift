@@ -8,7 +8,7 @@ class HotelDescriptionViewController: UIViewController {
 
   var hotelDescription: String? {
     didSet {
-      descriptionExpandableLabel.textLabel.text = hotelDescription
+      descriptionExpandableLabel.text = hotelDescription
     }
   }
   weak var delegate: HotelDescriptionViewControllerDelegate?
@@ -16,13 +16,12 @@ class HotelDescriptionViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    descriptionExpandableLabel.textLabel.numberOfLines = 3
-    descriptionExpandableLabel.textLabel.text = hotelDescription
-    descriptionExpandableLabel.textLabel.font = UIFont.regular16()
-    descriptionExpandableLabel.textLabel.textColor = UIColor.blackPrimaryText()
-    descriptionExpandableLabel.expandButton.setTitleColor(UIColor.linkBlue(), for: .normal)
-    descriptionExpandableLabel.expandButton.titleLabel?.font = UIFont.regular16()
-    descriptionExpandableLabel.expandButton.setTitle(L("booking_show_more"), for: .normal)
+    descriptionExpandableLabel.numberOfLines = 3
+    descriptionExpandableLabel.text = hotelDescription
+    descriptionExpandableLabel.font = UIFont.regular16()
+    descriptionExpandableLabel.textColor = UIColor.blackPrimaryText()
+    descriptionExpandableLabel.expandColor = UIColor.linkBlue()
+    descriptionExpandableLabel.expandText = L("booking_show_more")
   }
 
   @IBAction func onMoreButton(_ sender: UIButton) {

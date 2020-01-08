@@ -8,12 +8,11 @@ class PlacePageBookmarkViewController: UIViewController {
   @IBOutlet var editButton: UIButton!
   @IBOutlet var expandableLabel: ExpandableLabel! {
     didSet {
-      expandableLabel.textLabel.font = UIFont.regular14()
-      expandableLabel.textLabel.textColor = UIColor.blackPrimaryText()
-      expandableLabel.textLabel.numberOfLines = 5
-      expandableLabel.expandButton.setTitleColor(UIColor.linkBlue(), for: .normal)
-      expandableLabel.expandButton.titleLabel?.font = UIFont.regular14()
-      expandableLabel.expandButton.setTitle(L("placepage_more_button"), for: .normal)
+      expandableLabel.font = UIFont.regular14()
+      expandableLabel.textColor = UIColor.blackPrimaryText()
+      expandableLabel.numberOfLines = 5
+      expandableLabel.expandColor = UIColor.linkBlue()
+      expandableLabel.expandText = L("placepage_more_button")
     }
   }
 
@@ -36,7 +35,7 @@ class PlacePageBookmarkViewController: UIViewController {
       if bookmarkData.isHtmlDescription {
         setHtmlDescription(description)
       } else {
-        expandableLabel.textLabel.text = description
+        expandableLabel.text = description
       }
     }
   }
@@ -62,7 +61,7 @@ class PlacePageBookmarkViewController: UIViewController {
       }
 
       DispatchQueue.main.async {
-        self.expandableLabel.textLabel.attributedText = attributedString
+        self.expandableLabel.attributedText = attributedString
       }
     }
   }
