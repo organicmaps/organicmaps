@@ -37,7 +37,7 @@ UNIT_TEST(DownloadingTests_CalcOverallProgress)
 
   Storage s;
 
-  s.SetDownloadingUrlsForTesting({storage::kTestWebServer});
+  s.SetDownloadingServersForTesting({storage::kTestWebServer});
   auto baseProgress = s.GetOverallProgress(kTestCountries);
 
   TEST_EQUAL(baseProgress.first, 0, ());
