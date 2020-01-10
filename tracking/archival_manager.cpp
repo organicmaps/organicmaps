@@ -24,11 +24,6 @@ std::chrono::seconds GetTimestamp()
   return std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch());
 }
 
-std::string GetTracksDirectory()
-{
-  return base::JoinPath(GetPlatform().WritableDir(), kTracksArchive);
-}
-
 std::string GetTimestampFile(std::string const & tracksDir)
 {
   return base::JoinPath(tracksDir, kFileTimestampName);
@@ -37,6 +32,11 @@ std::string GetTimestampFile(std::string const & tracksDir)
 
 namespace tracking
 {
+std::string GetTracksDirectory()
+{
+  return base::JoinPath(GetPlatform().WritableDir(), kTracksArchive);
+}
+
 ArchivalManager::ArchivalManager(std::string const & url)
   : m_url(url)
   , m_tracksDir(GetTracksDirectory())

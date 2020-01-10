@@ -369,10 +369,8 @@ private:
   routing::RoutingSession m_routingSession;
   Delegate & m_delegate;
   tracking::Reporter m_trackingReporter;
-  // TODO(o.khlopkova) remove ifdef when all platforms are ready.
-#if !defined(OMIM_OS_IPHONE)
   tracking::ArchivalReporter m_trackingReporterArchive;
-#endif
+
   BookmarkManager * m_bmManager = nullptr;
   extrapolation::Extrapolator m_extrapolator;
 

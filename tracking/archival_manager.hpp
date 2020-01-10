@@ -26,6 +26,9 @@ struct ArchivingSettings
   uint32_t m_version = 1;
 };
 
+/// \returns path to the directory with the tracks.
+std::string GetTracksDirectory();
+
 class ArchivalManager
 {
 public:
