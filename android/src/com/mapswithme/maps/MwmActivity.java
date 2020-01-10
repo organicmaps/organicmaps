@@ -68,6 +68,7 @@ import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.maplayer.MapLayerCompositeController;
 import com.mapswithme.maps.maplayer.Mode;
+import com.mapswithme.maps.maplayer.OnIsoLinesLayerToggleListener;
 import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
@@ -172,7 +173,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  AlertDialogCallback, RoutingModeListener,
                                  AppBackgroundTracker.OnTransitionListener,
                                  MaterialTapTargetPrompt.PromptStateChangeListener,
-                                 WelcomeDialogFragment.OnboardingStepPassedListener
+                                 WelcomeDialogFragment.OnboardingStepPassedListener,
+                                 OnIsoLinesLayerToggleListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -770,7 +772,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ImageButton trafficBtn = frame.findViewById(R.id.traffic);
     TrafficButton traffic = new TrafficButton(trafficBtn);
     View subway = frame.findViewById(R.id.subway);
-    mToggleMapLayerController = new MapLayerCompositeController(traffic, subway, this);
+    View isoLineView = frame.findViewById(R.id.iso_line);
+    mToggleMapLayerController = new MapLayerCompositeController(traffic, subway, isoLineView,this);
     mToggleMapLayerController.attachCore();
   }
 
@@ -1207,6 +1210,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onTrafficLayerSelected()
   {
     mToggleMapLayerController.toggleMode(Mode.TRAFFIC);
+  }
+
+  @Override
+  public void onIsoLinesLayerSelected()
+  {
+    mToggleMapLayerController.toggleMode(Mode.ISO_LINE);
   }
 
   @Override

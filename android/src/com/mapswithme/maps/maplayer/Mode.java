@@ -1,6 +1,7 @@
 package com.mapswithme.maps.maplayer;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
@@ -49,6 +50,28 @@ public enum Mode
         {
           SubwayManager.from(context).toggle();
           TrafficManager.INSTANCE.setEnabled(false);
+        }
+      },
+
+  ISO_LINE
+      {
+        boolean isEnabled;
+        @Override
+        public boolean isEnabled(@NonNull Context context)
+        {
+          return isEnabled;
+        }
+
+        @Override
+        public void setEnabled(@NonNull Context context, boolean isEnabled)
+        {
+          this.isEnabled = isEnabled;
+        }
+
+        @Override
+        public void toggle(@NonNull Context context)
+        {
+           isEnabled = !isEnabled;
         }
       };
 

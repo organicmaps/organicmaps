@@ -81,6 +81,15 @@
       android:background="?attr/nav_bg_subway"/>
 
     <ImageView
+      android:id="@+id/iso_line"
+      android:layout_weight="0.2"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/nav_icon_size"
+      android:scaleType="center"
+      android:visibility="gone"
+      android:background="@drawable/bg_iso_lines_light"/>
+
+    <ImageView
       android:id="@+id/settings"
       android:layout_weight="0.2"
       android:layout_width="0dp"

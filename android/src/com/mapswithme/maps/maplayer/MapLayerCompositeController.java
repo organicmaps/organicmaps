@@ -27,11 +27,11 @@ public class MapLayerCompositeController implements MapLayerController
   private ControllerAndMode mMasterEntry;
 
   public MapLayerCompositeController(@NonNull TrafficButton traffic, @NonNull View subway,
-                                     @NonNull AppCompatActivity activity)
+                                     View isoLineView, @NonNull AppCompatActivity activity)
   {
     View.OnClickListener listener = new OpenBottomDialogClickListener(activity, Tutorial.MAP_LAYERS);
     mActivity = activity;
-    mChildrenEntries = createEntries(traffic, subway, activity, listener);
+    mChildrenEntries = createEntries(traffic, subway, isoLineView, activity, listener);
     mMasterEntry = getCurrentLayer();
     toggleMode(mMasterEntry.getMode());
   }
@@ -39,6 +39,7 @@ public class MapLayerCompositeController implements MapLayerController
   @NonNull
   private static Collection<ControllerAndMode> createEntries(@NonNull TrafficButton traffic,
                                                              @NonNull View subway,
+                                                             View isoLineView,
                                                              @NonNull AppCompatActivity activity,
                                                              @NonNull View.OnClickListener dialogClickListener)
   {
@@ -48,10 +49,15 @@ public class MapLayerCompositeController implements MapLayerController
     subway.setOnClickListener(dialogClickListener);
     SubwayMapLayerController subwayMapLayerController = new SubwayMapLayerController(subway);
 
+    SubwayMapLayerController isoLineController = new SubwayMapLayerController(isoLineView);
+    isoLineView.setOnClickListener(dialogClickListener);
     ControllerAndMode subwayEntry = new ControllerAndMode(Mode.SUBWAY, subwayMapLayerController);
     ControllerAndMode trafficEntry = new ControllerAndMode(Mode.TRAFFIC, trafficButtonController);
+    ControllerAndMode isoLineEntry = new ControllerAndMode(Mode.ISO_LINE, isoLineController);
+
     Set<ControllerAndMode> entries = new LinkedHashSet<>();
     entries.add(subwayEntry);
+    entries.add(isoLineEntry);
     entries.add(trafficEntry);
     return Collections.unmodifiableSet(entries);
   }

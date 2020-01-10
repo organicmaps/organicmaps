@@ -132,6 +132,7 @@
     <item name="nav_bg_subway">@drawable/bg_subway_light</item>
     <item name="trafficMenuDisabled">@drawable/ic_traffic_menu_light_off</item>
     <item name="subwayMenuDisabled">@drawable/ic_subway_menu_light_off</item>
+    <item name="isoLinesMenuDisabled">@drawable/ic_planning_route_isomaps_off_light_off</item>
     <item name="toggleMapLayerBtnBg">@drawable/bg_toggle_map_layer_btn</item>
     <item name="accentColorSelector">@color/accent_color_selector</item>
     <item name="tipsBgColor">@color/tips_and_triks_bg_night</item>
@@ -295,6 +296,7 @@
     <item name="nav_bg_subway">@drawable/bg_subway_night</item>
     <item name="trafficMenuDisabled">@drawable/ic_traffic_menu_dark_off</item>
     <item name="subwayMenuDisabled">@drawable/ic_subway_menu_dark_off</item>
+    <item name="isoLinesMenuDisabled">@drawable/ic_planning_route_isomaps_off_dark_off</item>
     <item name="toggleMapLayerBtnBg">@drawable/bg_toggle_map_layer_btn_dark</item>
     <item name="accentColorSelector">@color/accent_color_selector_night</item>
     <item name="tipsBgColor">@color/tips_and_triks_bg</item>

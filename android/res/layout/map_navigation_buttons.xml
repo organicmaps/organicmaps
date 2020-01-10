@@ -27,6 +27,15 @@
     tools:src="@drawable/anim_traffic_loading"/>
 
   <ImageButton
+    android:id="@+id/iso_line"
+    style="@style/MwmWidget.MapButton.Traffic"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:visibility="invisible"
+    android:background="@drawable/bg_iso_lines_light"/>
+
+  <ImageButton
     android:id="@+id/my_position"
     style="@style/MwmWidget.MapButton"
     android:layout_alignParentEnd="true"
