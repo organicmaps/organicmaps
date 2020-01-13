@@ -23,6 +23,7 @@ import com.mapswithme.maps.geofence.GeofenceRegistry;
 import com.mapswithme.maps.geofence.GeofenceRegistryImpl;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.TrackRecorder;
+import com.mapswithme.maps.maplayer.isolines.IsoLinesManager;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.routing.RoutingController;
@@ -59,6 +60,10 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   @NonNull
   private SubwayManager mSubwayManager;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private IsoLinesManager mIsoLinesManager;
+
   private boolean mFrameworkInitialized;
   private boolean mPlatformInitialized;
 
@@ -92,6 +97,12 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   public SubwayManager getSubwayManager()
   {
     return mSubwayManager;
+  }
+
+  @NonNull
+  public IsoLinesManager getIsoLinesManager()
+  {
+    return mIsoLinesManager;
   }
 
   public MwmApplication()
@@ -179,6 +190,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     mBackgroundTracker = new AppBackgroundTracker();
     mBackgroundTracker.addListener(mVisibleAppLaunchListener);
     mSubwayManager = new SubwayManager(this);
+    mIsoLinesManager = new IsoLinesManager(this);
     mConnectivityListener = new ConnectivityJobScheduler(this);
     mConnectivityListener.listen();
 

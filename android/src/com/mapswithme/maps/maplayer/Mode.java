@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import com.mapswithme.maps.maplayer.isolines.IsoLinesManager;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 
@@ -29,6 +30,7 @@ public enum Mode
         {
           TrafficManager.INSTANCE.toggle();
           SubwayManager.from(context).setEnabled(false);
+          IsoLinesManager.from(context).setEnabled(false);
         }
       },
   SUBWAY
@@ -50,28 +52,30 @@ public enum Mode
         {
           SubwayManager.from(context).toggle();
           TrafficManager.INSTANCE.setEnabled(false);
+          IsoLinesManager.from(context).setEnabled(false);
         }
       },
 
   ISOLINES
       {
-        boolean isEnabled;
         @Override
         public boolean isEnabled(@NonNull Context context)
         {
-          return isEnabled;
+          return IsoLinesManager.from(context).isEnabled();
         }
 
         @Override
         public void setEnabled(@NonNull Context context, boolean isEnabled)
         {
-          this.isEnabled = isEnabled;
+          IsoLinesManager.from(context).setEnabled(isEnabled);
         }
 
         @Override
         public void toggle(@NonNull Context context)
         {
-           isEnabled = !isEnabled;
+          IsoLinesManager.from(context).toggle();
+          TrafficManager.INSTANCE.setEnabled(false);
+          SubwayManager.from(context).setEnabled(false);
         }
       };
 
