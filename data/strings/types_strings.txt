@@ -11367,14 +11367,6 @@
     zh-Hant = 遛狗區
     fa = محدوده مخصوص سگ
 
-  [type.leisure.dog_park.tennis]
-    en = Dog area
-    ru = Место для выгула собак
-    cs = Psí hřiště
-    fi = Koirapuisto
-    de = Hundezone
-    ja = ドッグラン
-
   [type.leisure.fitness_centre]
     en = Fitness Centre
     ru = Фитнес-клуб
@@ -11778,44 +11770,6 @@
     el = Παιδική χαρά
     sk = Ihrisko
     fa = زمین بازی
-
-  [type.leisure.playground.tennis]
-    en = Playground
-    ru = Детская площадка
-    ar = ملعب
-    cs = Hřiště
-    da = Legeplads
-    nl = Speeltuin
-    fi = Leikkikenttä
-    fr = Terrain de jeu
-    de = Spielplatz
-    hu = Játszótér
-    id = Taman bermain
-    it = Campo giochi
-    ja = 児童公園
-    ko = 운동장
-    nb = Lekeplass
-    pl = Plac zabaw
-    pt = Parquinho
-    pt-BR = Parquinho
-    ro = Loc de joacă
-    es = Patio de recreo
-    sv = Lekplats
-    th = สนามเด็กเล่น
-    tr = Oyun alanı
-    uk = Дитячий майданчик
-    vi = Sân chơi
-    zh-Hans = 操场
-    zh-Hant = 遊樂場
-    el = Παιδική χαρά
-    sk = Ihrisko
-    fa = زمین بازی
-
-  [type.leisure.playing_fields]
-    en = leisure-playing_fields
-
-  [type.leisure.playing_fields.tennis]
-    en = leisure-playing_fields-tennis
 
   [type.leisure.recreation_ground]
     en = Recreation ground
