@@ -601,7 +601,7 @@ landuse|raceway;600;x
 place|continent;601;
 natural|farmland;602;landuse|farmland
 highway|footpath|private;[highway=footpath][access=private];x;name;int_name;603;highway|footway
-boundary|administrative|nation;[boundary=administrative][type=nation];;name;int_name;604;
+boundary|administrative|nation;[boundary=administrative][border_type=nation];;name;int_name;604;
 railway|dismantled|bridge;[railway=dismantled][bridge?];x;name;int_name;605;
 natural|landfill;606;x
 highway|byway|tunnel;[highway=byway][tunnel?];x;name;int_name;607;highway|track
