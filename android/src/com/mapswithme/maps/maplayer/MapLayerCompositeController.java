@@ -57,7 +57,7 @@ public class MapLayerCompositeController implements MapLayerController
 
     Set<ControllerAndMode> entries = new LinkedHashSet<>();
     entries.add(subwayEntry);
-    entries.add(isoLineEntry);
+//    entries.add(isoLineEntry);
     entries.add(trafficEntry);
     return Collections.unmodifiableSet(entries);
   }
