@@ -981,7 +981,7 @@ craft|metal_construction;980;
 craft|hvac;981;
 craft|painter;982;
 craft|gardener;983;
-internet_access;[internet_access=yes];;name;int_name;984;
+internet_access;[internet_access];;name;int_name;984;
 internet_access|wlan;985;
 amenity|waste_disposal;986;
 amenity|bbq;987;
