@@ -845,7 +845,7 @@ landuse|scrub|coniferous;[landuse=scrub][wood=coniferous];x;name;int_name;844;
 landuse|scrub|mixed;[landuse=scrub][wood=mixed];x;name;int_name;845;
 leisure|dog_park|tennis;[leisure=dog_park][sport=tennis];x;name;int_name;846;
 leisure|park|no-access;[leisure=park][access=no];;name;int_name;847;
-leisure|playing_fields|tennis;[leisure=playing_fields][sport=tennis];;name;int_name;848;
+leisure|playing_fields|tennis;[leisure=playing_fields][sport=tennis];x;name;int_name;848;
 leisure|recreation_ground|private;[leisure=recreation_ground][access=private];x;name;int_name;849;leisure|recreation_ground
 leisure|recreation_ground|no-access;[leisure=recreation_ground][access=no];x;name;int_name;850;leisure|recreation_ground
 man_made|pipeline|gas|overground;[man_made=pipeline][type=gas][location=overground];x;name;int_name;851;man_made|pipeline
