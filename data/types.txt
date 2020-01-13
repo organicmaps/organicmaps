@@ -515,7 +515,7 @@ natural|water
 landuse|forest
 mapswithme
 mapswithme
-leisure|playground|tennis
+mapswithme
 mapswithme
 sport|diving
 highway|track|grade3
@@ -843,9 +843,9 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-leisure|dog_park|tennis
+mapswithme
 leisure|park|no-access
-leisure|playing_fields|tennis
+mapswithme
 leisure|recreation_ground
 leisure|recreation_ground
 man_made|pipeline

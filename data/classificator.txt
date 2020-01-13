@@ -541,9 +541,7 @@ world  +
         {}
     leisure  +
         common  -
-        dog_park  +
-            tennis  -
-            {}
+        dog_park  -
         fitness_centre  -
         fitness_station  -
         garden  -
@@ -560,12 +558,7 @@ world  +
         pitch  +
             tennis  -
             {}
-        playground  +
-            tennis  -
-            {}
-        playing_fields  +
-            tennis  -
-            {}
+        playground  -
         recreation_ground  -
         sauna  -
         slipway  -
