@@ -1775,6 +1775,11 @@ public class PlacePageView extends NestedScrollView
     switch (v.getId())
     {
       case R.id.ll__place_editor:
+        if (mMapObject == null)
+        {
+          LOGGER.e(TAG, "Cannot start editor, map object is null!");
+          break;
+        }
         getActivity().showEditor();
         break;
       case R.id.ll__add_organisation:

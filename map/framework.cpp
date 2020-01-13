@@ -4094,8 +4094,11 @@ bool Framework::MakePlacePageForNotification(NotificationCandidate const & notif
           buildInfo.m_mercator = featureCenter;
           buildInfo.m_featureId = ft.GetID();
           m_currentPlacePageInfo = BuildPlacePageInfo(buildInfo);
-          ActivateMapSelection(m_currentPlacePageInfo);
-          found = true;
+          if (m_currentPlacePageInfo)
+          {
+            ActivateMapSelection(m_currentPlacePageInfo);
+            found = true;
+          }
         }
       },
       rect, scales::GetUpperScale());
