@@ -37,6 +37,7 @@
 		45D7ADBA210F48E500160DE3 /* http_user_agent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45D7ADB7210F48E400160DE3 /* http_user_agent.cpp */; };
 		45D7ADBB210F48E500160DE3 /* http_user_agent_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45D7ADB8210F48E400160DE3 /* http_user_agent_ios.mm */; };
 		45D7ADBC210F48E500160DE3 /* http_user_agent.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45D7ADB9210F48E400160DE3 /* http_user_agent.hpp */; };
+		470C77CA23CCB04C006F6385 /* http_uploader_background.mm in Sources */ = {isa = PBXBuildFile; fileRef = 470C77C923CCB04C006F6385 /* http_uploader_background.mm */; };
 		5661A5CC20DD57DA00C6B1D1 /* async_gui_thread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5661A5CB20DD57DA00C6B1D1 /* async_gui_thread.hpp */; };
 		56DAC380239926EF000BC50D /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC37F239926EF000BC50D /* liboauthcpp.a */; };
 		56DAC38223992707000BC50D /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC38123992707000BC50D /* libgeometry.a */; };
@@ -166,6 +167,7 @@
 		45D7ADB7210F48E400160DE3 /* http_user_agent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_user_agent.cpp; sourceTree = "<group>"; };
 		45D7ADB8210F48E400160DE3 /* http_user_agent_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = http_user_agent_ios.mm; sourceTree = "<group>"; };
 		45D7ADB9210F48E400160DE3 /* http_user_agent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = http_user_agent.hpp; sourceTree = "<group>"; };
+		470C77C923CCB04C006F6385 /* http_uploader_background.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = http_uploader_background.mm; sourceTree = "<group>"; };
 		5661A5CB20DD57DA00C6B1D1 /* async_gui_thread.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = async_gui_thread.hpp; sourceTree = "<group>"; };
 		56DAC37F239926EF000BC50D /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56DAC38123992707000BC50D /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -390,6 +392,7 @@
 			children = (
 				3DF528EA238BFFC1000ED0D5 /* downloader_defines.hpp */,
 				D5B191CE2386C7E4009CD0D6 /* http_uploader_background.hpp */,
+				470C77C923CCB04C006F6385 /* http_uploader_background.mm */,
 				D50B2294238591570056820A /* http_payload.cpp */,
 				D50B2293238591570056820A /* http_payload.hpp */,
 				3DEE1AE521F7091100054A91 /* battery_tracker.cpp */,
@@ -717,6 +720,7 @@
 				3D97F64B1D9C05E800380945 /* http_client.cpp in Sources */,
 				67AB92EA1B7B3E9100AB5194 /* get_text_by_id.cpp in Sources */,
 				34C624BD1DABCCD100510300 /* socket_apple.mm in Sources */,
+				470C77CA23CCB04C006F6385 /* http_uploader_background.mm in Sources */,
 				333A416F21C3E13B00AF26F6 /* http_session_manager.mm in Sources */,
 				451E32A11F73A8B000964C9F /* secure_storage_qt.cpp in Sources */,
 				671C62061AE9014C00076BD0 /* measurement_utils.cpp in Sources */,
