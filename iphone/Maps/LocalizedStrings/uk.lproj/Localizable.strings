@@ -4136,8 +4136,6 @@
 
 "type.leisure.dog_park" = "Місце для вигулу собак";
 
-"type.leisure.dog_park.tennis" = "Dog area";
-
 "type.leisure.fitness_centre" = "Фітнес-зал";
 
 "type.leisure.fitness_station" = "Фітнес-зал";
@@ -4167,12 +4165,6 @@
 "type.leisure.pitch.tennis" = "Спортмайданчик";
 
 "type.leisure.playground" = "Дитячий майданчик";
-
-"type.leisure.playground.tennis" = "Дитячий майданчик";
-
-"type.leisure.playing_fields" = "leisure-playing_fields";
-
-"type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
 
 "type.leisure.recreation_ground" = "Recreation ground";
 

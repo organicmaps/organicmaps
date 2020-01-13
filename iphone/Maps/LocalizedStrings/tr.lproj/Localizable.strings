@@ -4136,8 +4136,6 @@
 
 "type.leisure.dog_park" = "Köpek alanı";
 
-"type.leisure.dog_park.tennis" = "Dog area";
-
 "type.leisure.fitness_centre" = "Centre fitness";
 
 "type.leisure.fitness_station" = "Fitness Salonu";
@@ -4167,12 +4165,6 @@
 "type.leisure.pitch.tennis" = "Spor sahası";
 
 "type.leisure.playground" = "Oyun alanı";
-
-"type.leisure.playground.tennis" = "Oyun alanı";
-
-"type.leisure.playing_fields" = "leisure-playing_fields";
-
-"type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
 
 "type.leisure.recreation_ground" = "Recreation ground";
 

@@ -2176,7 +2176,6 @@
 	<string name="type.landuse.railway">Железнодорожные сооружения</string>
 	<string name="type.landuse.reservoir">Водоём</string>
 	<string name="type.leisure.dog_park">Место для выгула собак</string>
-	<string name="type.leisure.dog_park.tennis">Место для выгула собак</string>
 	<string name="type.leisure.fitness_centre">Фитнес-клуб</string>
 	<string name="type.leisure.fitness_station">Спортивные снаряды</string>
 	<string name="type.leisure.garden">Сад</string>
@@ -2189,7 +2188,6 @@
 	<string name="type.leisure.pitch">Спортплощадка</string>
 	<string name="type.leisure.pitch.tennis">Спортплощадка</string>
 	<string name="type.leisure.playground">Детская площадка</string>
-	<string name="type.leisure.playground.tennis">Детская площадка</string>
 	<string name="type.leisure.sauna">Сауна</string>
 	<string name="type.leisure.sports_centre">Спорткомплекс</string>
 	<string name="type.leisure.sports_centre.climbing">Скалодром</string>

@@ -4136,8 +4136,6 @@
 
 "type.leisure.dog_park" = "Loc de plimbare a câinilor";
 
-"type.leisure.dog_park.tennis" = "Dog area";
-
 "type.leisure.fitness_centre" = "Centru fitness";
 
 "type.leisure.fitness_station" = "Sală de fitness";
@@ -4167,12 +4165,6 @@
 "type.leisure.pitch.tennis" = "Teren de sport";
 
 "type.leisure.playground" = "Loc de joacă";
-
-"type.leisure.playground.tennis" = "Loc de joacă";
-
-"type.leisure.playing_fields" = "leisure-playing_fields";
-
-"type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
 
 "type.leisure.recreation_ground" = "Recreation ground";
 

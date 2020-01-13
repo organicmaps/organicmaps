@@ -2092,7 +2092,6 @@
 	<string name="type.landuse.railway">鉄道施設</string>
 	<string name="type.landuse.reservoir">水地</string>
 	<string name="type.leisure.dog_park">ドッグエリア</string>
-	<string name="type.leisure.dog_park.tennis">ドッグラン</string>
 	<string name="type.leisure.fitness_centre">フィットネスセンター、ジム</string>
 	<string name="type.leisure.fitness_station">フィットネスステーション</string>
 	<string name="type.leisure.garden">庭園</string>
@@ -2105,7 +2104,6 @@
 	<string name="type.leisure.pitch">運動場</string>
 	<string name="type.leisure.pitch.tennis">運動場</string>
 	<string name="type.leisure.playground">児童公園</string>
-	<string name="type.leisure.playground.tennis">児童公園</string>
 	<string name="type.leisure.sauna">サウナ</string>
 	<string name="type.leisure.sports_centre">スポーツセンター</string>
 	<string name="type.leisure.sports_centre.climbing">クライミングセンター</string>

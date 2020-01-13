@@ -2284,7 +2284,6 @@
 	<string name="type.leisure">leisure</string>
 	<string name="type.leisure.common">leisure-common</string>
 	<string name="type.leisure.dog_park">Dog area</string>
-	<string name="type.leisure.dog_park.tennis">Dog area</string>
 	<string name="type.leisure.fitness_centre">Fitness Centre</string>
 	<string name="type.leisure.fitness_station">Fitness Station</string>
 	<string name="type.leisure.garden">Garden</string>
@@ -2300,9 +2299,6 @@
 	<string name="type.leisure.pitch">Sports Ground</string>
 	<string name="type.leisure.pitch.tennis">Sports Ground</string>
 	<string name="type.leisure.playground">Playground</string>
-	<string name="type.leisure.playground.tennis">Playground</string>
-	<string name="type.leisure.playing_fields">leisure-playing_fields</string>
-	<string name="type.leisure.playing_fields.tennis">leisure-playing_fields-tennis</string>
 	<string name="type.leisure.recreation_ground">Recreation ground</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.slipway">leisure-slipway</string>

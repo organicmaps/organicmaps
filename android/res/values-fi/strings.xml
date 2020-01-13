@@ -2090,7 +2090,6 @@
 	<string name="type.landuse.railway">Rautatierakennukset</string>
 	<string name="type.landuse.reservoir">Vesi</string>
 	<string name="type.leisure.dog_park">Koirien ulkoilupaikka</string>
-	<string name="type.leisure.dog_park.tennis">Koirapuisto</string>
 	<string name="type.leisure.fitness_centre">Kuntosali</string>
 	<string name="type.leisure.fitness_station">Kuntokeskus</string>
 	<string name="type.leisure.garden">Puutarha</string>
@@ -2103,7 +2102,6 @@
 	<string name="type.leisure.pitch">Urheilukenttä</string>
 	<string name="type.leisure.pitch.tennis">Urheilukenttä</string>
 	<string name="type.leisure.playground">Leikkikenttä</string>
-	<string name="type.leisure.playground.tennis">Leikkikenttä</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Urheilukeskus</string>
 	<string name="type.leisure.sports_centre.climbing">Kiipeilykeskus</string>

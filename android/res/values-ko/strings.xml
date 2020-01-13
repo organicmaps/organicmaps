@@ -2099,7 +2099,6 @@
 	<string name="type.leisure.pitch">경기장</string>
 	<string name="type.leisure.pitch.tennis">경기장</string>
 	<string name="type.leisure.playground">운동장</string>
-	<string name="type.leisure.playground.tennis">운동장</string>
 	<string name="type.leisure.sauna">사우나</string>
 	<string name="type.leisure.sports_centre">스포츠 센터</string>
 	<string name="type.leisure.sports_centre.climbing">등반 센터</string>

@@ -4136,8 +4136,6 @@
 
 "type.leisure.dog_park" = "Nơi cho chó đi dạo";
 
-"type.leisure.dog_park.tennis" = "Dog area";
-
 "type.leisure.fitness_centre" = "Phòng Tập";
 
 "type.leisure.fitness_station" = "Trạm tập thể hình";
@@ -4167,12 +4165,6 @@
 "type.leisure.pitch.tennis" = "Sân vận động";
 
 "type.leisure.playground" = "Sân chơi";
-
-"type.leisure.playground.tennis" = "Sân chơi";
-
-"type.leisure.playing_fields" = "leisure-playing_fields";
-
-"type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
 
 "type.leisure.recreation_ground" = "Recreation ground";
 

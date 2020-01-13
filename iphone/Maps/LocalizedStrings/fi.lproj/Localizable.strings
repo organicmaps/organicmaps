@@ -4136,8 +4136,6 @@
 
 "type.leisure.dog_park" = "Koirien ulkoilupaikka";
 
-"type.leisure.dog_park.tennis" = "Koirapuisto";
-
 "type.leisure.fitness_centre" = "Kuntosali";
 
 "type.leisure.fitness_station" = "Kuntokeskus";
@@ -4167,12 +4165,6 @@
 "type.leisure.pitch.tennis" = "Urheilukenttä";
 
 "type.leisure.playground" = "Leikkikenttä";
-
-"type.leisure.playground.tennis" = "Leikkikenttä";
-
-"type.leisure.playing_fields" = "leisure-playing_fields";
-
-"type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
 
 "type.leisure.recreation_ground" = "Recreation ground";
 

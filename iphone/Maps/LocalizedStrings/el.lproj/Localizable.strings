@@ -4136,8 +4136,6 @@
 
 "type.leisure.dog_park" = "Περιοχή για βόλτα σκύλων";
 
-"type.leisure.dog_park.tennis" = "Dog area";
-
 "type.leisure.fitness_centre" = "Κέντρο γυμναστικής";
 
 "type.leisure.fitness_station" = "Γυμναστήριο";
@@ -4167,12 +4165,6 @@
 "type.leisure.pitch.tennis" = "Γήπεδο αθλοπαιδιών";
 
 "type.leisure.playground" = "Παιδική χαρά";
-
-"type.leisure.playground.tennis" = "Παιδική χαρά";
-
-"type.leisure.playing_fields" = "leisure-playing_fields";
-
-"type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
 
 "type.leisure.recreation_ground" = "Recreation ground";
 

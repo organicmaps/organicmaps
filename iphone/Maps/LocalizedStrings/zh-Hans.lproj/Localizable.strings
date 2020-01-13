@@ -4136,8 +4136,6 @@
 
 "type.leisure.dog_park" = "遛狗区";
 
-"type.leisure.dog_park.tennis" = "Dog area";
-
 "type.leisure.fitness_centre" = "健身中心";
 
 "type.leisure.fitness_station" = "健身驿站";
@@ -4167,12 +4165,6 @@
 "type.leisure.pitch.tennis" = "球场";
 
 "type.leisure.playground" = "操场";
-
-"type.leisure.playground.tennis" = "操场";
-
-"type.leisure.playing_fields" = "leisure-playing_fields";
-
-"type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
 
 "type.leisure.recreation_ground" = "Recreation ground";
 

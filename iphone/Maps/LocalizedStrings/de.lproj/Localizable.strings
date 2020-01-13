@@ -4136,8 +4136,6 @@
 
 "type.leisure.dog_park" = "Hundeauslauffläche";
 
-"type.leisure.dog_park.tennis" = "Hundezone";
-
 "type.leisure.fitness_centre" = "Fitnessstudio";
 
 "type.leisure.fitness_station" = "Fitnessstation";
@@ -4167,12 +4165,6 @@
 "type.leisure.pitch.tennis" = "Tennisplatz";
 
 "type.leisure.playground" = "Spielplatz";
-
-"type.leisure.playground.tennis" = "Spielplatz";
-
-"type.leisure.playing_fields" = "leisure-playing_fields";
-
-"type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
 
 "type.leisure.recreation_ground" = "Recreation ground";
 

@@ -2097,7 +2097,6 @@
 	<string name="type.landuse.railway">Eisenbahnanlagen</string>
 	<string name="type.landuse.reservoir">Wasserfläche</string>
 	<string name="type.leisure.dog_park">Hundeauslauffläche</string>
-	<string name="type.leisure.dog_park.tennis">Hundezone</string>
 	<string name="type.leisure.fitness_centre">Fitnessstudio</string>
 	<string name="type.leisure.fitness_station">Fitnessstation</string>
 	<string name="type.leisure.garden">Garten</string>
@@ -2110,7 +2109,6 @@
 	<string name="type.leisure.pitch">Sportplatz</string>
 	<string name="type.leisure.pitch.tennis">Tennisplatz</string>
 	<string name="type.leisure.playground">Spielplatz</string>
-	<string name="type.leisure.playground.tennis">Spielplatz</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Sportzentrum</string>
 	<string name="type.leisure.sports_centre.climbing">Kletterzentrum</string>

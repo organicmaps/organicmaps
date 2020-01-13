@@ -4136,8 +4136,6 @@
 
 "type.leisure.dog_park" = "애완견 지역";
 
-"type.leisure.dog_park.tennis" = "Dog area";
-
 "type.leisure.fitness_centre" = "피트니스센터";
 
 "type.leisure.fitness_station" = "피트니스 센터";
@@ -4167,12 +4165,6 @@
 "type.leisure.pitch.tennis" = "경기장";
 
 "type.leisure.playground" = "운동장";
-
-"type.leisure.playground.tennis" = "운동장";
-
-"type.leisure.playing_fields" = "leisure-playing_fields";
-
-"type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
 
 "type.leisure.recreation_ground" = "Recreation ground";
 

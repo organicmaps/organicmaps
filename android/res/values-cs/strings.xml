@@ -2097,7 +2097,6 @@
 	<string name="type.landuse.railway">Areál železnice</string>
 	<string name="type.landuse.reservoir">Voda</string>
 	<string name="type.leisure.dog_park">Místo pro psy</string>
-	<string name="type.leisure.dog_park.tennis">Psí hřiště</string>
 	<string name="type.leisure.fitness_centre">Fitness</string>
 	<string name="type.leisure.fitness_station">Posilovna</string>
 	<string name="type.leisure.garden">Zahrada</string>
@@ -2110,7 +2109,6 @@
 	<string name="type.leisure.pitch">Sportovní hřiště</string>
 	<string name="type.leisure.pitch.tennis">Sportovní hřiště</string>
 	<string name="type.leisure.playground">Hřiště</string>
-	<string name="type.leisure.playground.tennis">Hřiště</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Sportovní centrum</string>
 	<string name="type.leisure.sports_centre.climbing">Horolezecké centrum</string>
