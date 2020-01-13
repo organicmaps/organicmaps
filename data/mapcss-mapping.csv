@@ -515,7 +515,7 @@ landuse|reservoir|evaporator;[landuse=reservoir][reservoir=evaporator];x;name;in
 landuse|wood|coniferous;[landuse=wood][wood=coniferous];x;name;int_name;515;landuse|forest
 natural|scrub|deciduous;[natural=scrub][wood=deciduous];x;name;int_name;516;
 highway|footway|disused;[highway=footway][disused?];x;name;int_name;517;
-leisure|playground|tennis;[leisure=playground][sport=tennis];;name;int_name;518;
+leisure|playground|tennis;[leisure=playground][sport=tennis];x;name;int_name;518;
 highway|secondary|area;[highway=secondary][area?];x;name;int_name;519;
 sport|diving;520;
 highway|track|grade3|private;[highway=track][tracktype=grade3][access=private];x;name;int_name;521;highway|track|grade3
