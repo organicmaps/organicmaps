@@ -843,7 +843,7 @@ landuse|conservation|no-access;[landuse=conservation][access=no];x;name;int_name
 landuse|conservation|permissive;[landuse=conservation][access=permissive];x;name;int_name;843;
 landuse|scrub|coniferous;[landuse=scrub][wood=coniferous];x;name;int_name;844;
 landuse|scrub|mixed;[landuse=scrub][wood=mixed];x;name;int_name;845;
-leisure|dog_park|tennis;[leisure=dog_park][sport=tennis];;name;int_name;846;
+leisure|dog_park|tennis;[leisure=dog_park][sport=tennis];x;name;int_name;846;
 leisure|park|no-access;[leisure=park][access=no];;name;int_name;847;
 leisure|playing_fields|tennis;[leisure=playing_fields][sport=tennis];;name;int_name;848;
 leisure|recreation_ground|private;[leisure=recreation_ground][access=private];x;name;int_name;849;leisure|recreation_ground
