@@ -25,12 +25,12 @@
     android:visibility="invisible"/>
 
   <ImageButton
-    android:id="@+id/iso_line"
+    android:id="@+id/isolines"
     style="@style/MwmWidget.MapButton.Traffic"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:layout_alignParentTop="true"
-    android:background="@drawable/bg_iso_lines_light"
+    android:background="?nav_bg_isolines"
     android:visibility="invisible"/>
 
   <ImageButton

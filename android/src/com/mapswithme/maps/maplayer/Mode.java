@@ -53,7 +53,7 @@ public enum Mode
         }
       },
 
-  ISO_LINE
+  ISOLINES
       {
         boolean isEnabled;
         @Override

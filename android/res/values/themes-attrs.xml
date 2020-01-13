@@ -117,6 +117,7 @@
   <declare-styleable name="ThemeAttrs.NavButtons">
     <attr name="nav_background" format="reference"/>
     <attr name="nav_bg_subway" format="reference"/>
+    <attr name="nav_bg_isolines" format="reference"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.Downloader">

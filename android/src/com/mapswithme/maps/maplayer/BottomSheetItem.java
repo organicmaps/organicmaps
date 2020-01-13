@@ -87,7 +87,7 @@ public abstract class BottomSheetItem
   {
     private IsoLines(int drawableResId, int disabledStateDrawableResId)
     {
-      super(drawableResId, disabledStateDrawableResId, R.string.button_layer_traffic, Mode.ISO_LINE);
+      super(drawableResId, disabledStateDrawableResId, R.string.button_layer_traffic, Mode.ISOLINES);
     }
 
     public static BottomSheetItem makeInstance(@NonNull Context mContext)
