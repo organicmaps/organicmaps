@@ -123,6 +123,7 @@
 		67B30B2A2084B7D8008AEBFD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B30B292084B7D7008AEBFD /* CoreLocation.framework */; };
 		D50B2296238591570056820A /* http_payload.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D50B2293238591570056820A /* http_payload.hpp */; };
 		D50B2297238591570056820A /* http_payload.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D50B2294238591570056820A /* http_payload.cpp */; };
+		D593E50423CDBC5F004D6B89 /* http_uploader_background_dummy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D593E50323CDBC5F004D6B89 /* http_uploader_background_dummy.cpp */; };
 		D5B191CF2386C7E4009CD0D6 /* http_uploader_background.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5B191CE2386C7E4009CD0D6 /* http_uploader_background.hpp */; };
 		EB60B4DC204C130300E4953B /* network_policy_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = EB60B4DB204C130300E4953B /* network_policy_ios.mm */; };
 		EB60B4DE204C175700E4953B /* network_policy_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = EB60B4DD204C175700E4953B /* network_policy_ios.h */; };
@@ -256,6 +257,7 @@
 		67B30B292084B7D7008AEBFD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D50B2293238591570056820A /* http_payload.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = http_payload.hpp; sourceTree = "<group>"; };
 		D50B2294238591570056820A /* http_payload.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_payload.cpp; sourceTree = "<group>"; };
+		D593E50323CDBC5F004D6B89 /* http_uploader_background_dummy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_uploader_background_dummy.cpp; sourceTree = "<group>"; };
 		D5B191CE2386C7E4009CD0D6 /* http_uploader_background.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = http_uploader_background.hpp; sourceTree = "<group>"; };
 		EB60B4DB204C130300E4953B /* network_policy_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = network_policy_ios.mm; sourceTree = "<group>"; };
 		EB60B4DD204C175700E4953B /* network_policy_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = network_policy_ios.h; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 		6753437A1A3F5CF500A0A8C3 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				D593E50323CDBC5F004D6B89 /* http_uploader_background_dummy.cpp */,
 				3DF528EA238BFFC1000ED0D5 /* downloader_defines.hpp */,
 				D5B191CE2386C7E4009CD0D6 /* http_uploader_background.hpp */,
 				470C77C923CCB04C006F6385 /* http_uploader_background.mm */,
@@ -718,6 +721,7 @@
 				34513AFB1DCB37C100471BDA /* marketing_service.cpp in Sources */,
 				6741250C1B4C00CC00A3E828 /* local_country_file_utils.cpp in Sources */,
 				3D97F64B1D9C05E800380945 /* http_client.cpp in Sources */,
+				D593E50423CDBC5F004D6B89 /* http_uploader_background_dummy.cpp in Sources */,
 				67AB92EA1B7B3E9100AB5194 /* get_text_by_id.cpp in Sources */,
 				34C624BD1DABCCD100510300 /* socket_apple.mm in Sources */,
 				470C77CA23CCB04C006F6385 /* http_uploader_background.mm in Sources */,

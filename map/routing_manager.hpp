@@ -251,6 +251,7 @@ public:
   {
     m_trackingReporter.SetAllowSendingPoints(isAllowed);
   }
+  void ConfigureArchivalReporter(tracking::ArchivingSettings const & settings);
 
   routing::SpeedCameraManager & GetSpeedCamManager() { return m_routingSession.GetSpeedCamManager(); }
   bool IsSpeedLimitExceeded() const;
@@ -370,7 +371,7 @@ private:
   Delegate & m_delegate;
   tracking::Reporter m_trackingReporter;
   // TODO(o.khlopkova) remove ifdef when all platforms are ready.
-#if defined(OMIM_OS_ANDROID)
+#if !defined(OMIM_OS_IPHONE)
   tracking::ArchivalReporter m_trackingReporterArchive;
 #endif
   BookmarkManager * m_bmManager = nullptr;

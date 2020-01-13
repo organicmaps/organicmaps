@@ -32,6 +32,8 @@ public:
   ArchivalReporter(ArchivalReporter const &) = delete;
   ArchivalReporter & operator=(ArchivalReporter const &) = delete;
 
+  void SetArchivalManagerSettings(ArchivingSettings const & settings);
+
   void Insert(routing::RouterType const & trackType, location::GpsInfo const & info,
               traffic::SpeedGroup const & speedGroup);
   void DumpToDisk(bool dumpAnyway = false);

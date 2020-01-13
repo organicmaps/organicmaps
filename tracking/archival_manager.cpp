@@ -15,20 +15,6 @@
 
 namespace
 {
-size_t constexpr KMinFreeSpaceOnDiskBytes = 30 * 1024 * 1024;  // 30 Mb
-
-#ifdef DEBUG
-size_t constexpr kDumpIntervalSeconds = 60;
-size_t constexpr kMaxFilesToSave = 100;
-size_t constexpr kMaxArchivesToSave = 10;
-size_t constexpr kUploadIntervalSeconds = 15 * 60;
-#else
-size_t constexpr kDumpIntervalSeconds = 10 * 60;  // One time per 10 minutes
-size_t constexpr kMaxFilesToSave = 1000;
-size_t constexpr kMaxArchivesToSave = 10;
-size_t constexpr kUploadIntervalSeconds = 12 * 60 * 60;  // One time per 12 hours
-#endif
-
 std::string const kTracksArchive = "tracks_archive";
 std::string const kFileTimestampName = "latest_upload";
 
@@ -51,19 +37,20 @@ std::string GetTimestampFile(std::string const & tracksDir)
 
 namespace tracking
 {
-ArchivalManager::ArchivalManager(uint32_t version, std::string const & url)
+ArchivalManager::ArchivalManager(std::string const & url)
   : m_url(url)
-  , m_version(version)
   , m_tracksDir(GetTracksDirectory())
   , m_timestampFile(GetTimestampFile(m_tracksDir))
 {
 }
 
+void ArchivalManager::SetSettings(ArchivingSettings const & settings) { m_settings = settings; }
+
 std::optional<FileWriter> ArchivalManager::GetFileWriter(
     routing::RouterType const & trackType) const
 {
   std::string const fileName =
-      archival_file::GetArchiveFilename(m_version, GetTimestamp(), trackType);
+      archival_file::GetArchiveFilename(m_settings.m_version, GetTimestamp(), trackType);
   try
   {
     return std::optional<FileWriter>(base::JoinPath(m_tracksDir, fileName));
@@ -84,8 +71,7 @@ bool ArchivalManager::CreateTracksDir() const
   return true;
 }
 
-// static
-size_t ArchivalManager::IntervalBetweenDumpsSeconds() { return kDumpIntervalSeconds; }
+size_t ArchivalManager::IntervalBetweenDumpsSeconds() { return m_settings.m_dumpIntervalSeconds; }
 
 std::vector<std::string> ArchivalManager::GetFilesOrderedByCreation(
     std::string const & extension) const
@@ -111,7 +97,7 @@ size_t ArchivalManager::GetTimeFromLastUploadSeconds()
 
 bool ArchivalManager::ReadyToUpload()
 {
-  return GetTimeFromLastUploadSeconds() > kUploadIntervalSeconds;
+  return GetTimeFromLastUploadSeconds() > m_settings.m_uploadIntervalSeconds;
 }
 
 void ArchivalManager::PrepareUpload(std::vector<std::string> const & files)
@@ -147,7 +133,7 @@ void ArchivalManager::CreateUploadTask(std::string const & filePath)
 
 bool ArchivalManager::CanDumpToDisk(size_t neededFreeSpace) const
 {
-  size_t const neededSize = std::max(KMinFreeSpaceOnDiskBytes, neededFreeSpace);
+  size_t const neededSize = std::max(m_settings.m_minFreeSpaceOnDiskBytes, neededFreeSpace);
   auto const storageStatus = GetPlatform().GetWritableStorageStatus(neededSize);
   if (storageStatus != Platform::TStorageStatus::STORAGE_OK)
   {
@@ -177,13 +163,12 @@ std::chrono::seconds ArchivalManager::ReadTimestamp(std::string const & filePath
   return std::chrono::seconds(0);
 }
 
-// static
-size_t ArchivalManager::GetMaxSavedFilesCount(std::string const & extension)
+size_t ArchivalManager::GetMaxSavedFilesCount(std::string const & extension) const
 {
   if (extension == ARCHIVE_TRACKS_FILE_EXTENSION)
-    return kMaxFilesToSave;
+    return m_settings.m_maxFilesToSave;
   if (extension == ARCHIVE_TRACKS_ZIPPED_FILE_EXTENSION)
-    return kMaxArchivesToSave;
+    return m_settings.m_maxArchivesToSave;
   UNREACHABLE();
 }
 

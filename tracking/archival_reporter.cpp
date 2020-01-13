@@ -9,7 +9,6 @@
 
 namespace
 {
-uint32_t constexpr kLatestVersion = 1;
 double constexpr kRequiredHorizontalAccuracyM = 15.0;
 
 double constexpr kMinDelaySecondsCar = 1.0;
@@ -29,7 +28,7 @@ ArchivalReporter::ArchivalReporter(std::string const & host)
   : m_archiveBicycle(kItemsForDump, kMinDelaySecondsBicycle)
   , m_archivePedestrian(kItemsForDump, kMinDelaySecondsPedestrian)
   , m_archiveCar(kItemsForDump, kMinDelaySecondsCar)
-  , m_manager(kLatestVersion, host)
+  , m_manager(host)
   , m_isAlive(true)
   , m_threadDump([this] { Run(); })
 {
@@ -44,6 +43,11 @@ ArchivalReporter::~ArchivalReporter()
   }
   m_cvDump.notify_one();
   m_threadDump.join();
+}
+
+void ArchivalReporter::SetArchivalManagerSettings(ArchivingSettings const & settings)
+{
+  m_manager.SetSettings(settings);
 }
 
 void ArchivalReporter::Run()

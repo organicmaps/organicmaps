@@ -314,8 +314,8 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   , m_delegate(delegate)
   , m_trackingReporter(platform::CreateSocket(), TRACKING_REALTIME_HOST, TRACKING_REALTIME_PORT,
                        tracking::Reporter::kPushDelayMs)
-  //TODO (o.khlopkova) remove ifdef when all platforms are ready.
-#if defined(OMIM_OS_ANDROID)
+// TODO (o.khlopkova) remove ifdef when all platforms are ready.
+#if !defined(OMIM_OS_IPHONE)
   , m_trackingReporterArchive(TRACKING_HISTORICAL_HOST)
 #endif
   , m_extrapolator(
@@ -487,7 +487,7 @@ void RoutingManager::OnLocationUpdate(location::GpsInfo const & info)
   m_extrapolator.OnLocationUpdate(info);
 
   //TODO (o.khlopkova) remove ifdef when all platforms are ready.
-#if defined(OMIM_OS_ANDROID)
+#if !defined(OMIM_OS_IPHONE)
   if (IsTrackingReporterArchiveEnabled())
   {
      location::GpsInfo gpsInfo(info);
@@ -1142,6 +1142,14 @@ void RoutingManager::CallRouteBuilded(RouterResultCode code,
                                       storage::CountriesSet const & absentCountries)
 {
   m_routingBuildingCallback(code, absentCountries);
+}
+
+void RoutingManager::ConfigureArchivalReporter(tracking::ArchivingSettings const & settings)
+{
+  // TODO (o.khlopkova) remove ifdef when all platforms are ready.
+#if !defined(OMIM_OS_IPHONE)
+  m_trackingReporterArchive.SetArchivalManagerSettings(settings);
+#endif
 }
 
 void RoutingManager::CallRouteBuildStart(std::vector<RouteMarkData> const & points)
