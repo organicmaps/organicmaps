@@ -64,6 +64,6 @@ or by mail to bugs@maps.me.
 
 ## Authors and License
 
-This source code is Copyright (C) 2019 My.com B.V. (Mail.Ru Group), published under Apache Public License 2.0,
+This source code is Copyright (C) 2020 My.com B.V. (Mail.Ru Group), published under Apache Public License 2.0,
 except third-party libraries. See [NOTICE](https://github.com/mapsme/omim/blob/master/NOTICE)
 and [data/copyright.html](http://htmlpreview.github.io/?https://github.com/mapsme/omim/blob/master/data/copyright.html) files for more information.
