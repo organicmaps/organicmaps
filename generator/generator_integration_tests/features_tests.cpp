@@ -462,12 +462,12 @@ UNIT_CLASS_TEST(FeatureIntegrationTests, BuildCoasts)
   FeatureIntegrationTests::BuildCoasts();
 }
 
-UNIT_CLASS_TEST(FeatureIntegrationTests, BuildWorld)
+UNIT_CLASS_TEST(FeatureIntegrationTests, BuildWorldMultithread)
 {
   FeatureIntegrationTests::BuildWorld();
 }
 
-UNIT_CLASS_TEST(FeatureIntegrationTests, BuildCountries)
+UNIT_CLASS_TEST(FeatureIntegrationTests, BuildCountriesMultithread)
 {
   FeatureIntegrationTests::BuildCountries();
 }
@@ -482,7 +482,7 @@ UNIT_CLASS_TEST(FeatureIntegrationTests, CheckMixedTagsAndNodes)
   FeatureIntegrationTests::CheckMixedTagsAndNodes();
 }
 
-UNIT_CLASS_TEST(FeatureIntegrationTests, CheckGeneratedData)
+UNIT_CLASS_TEST(FeatureIntegrationTests, CheckGeneratedDataMultithread)
 {
   FeatureIntegrationTests::CheckGeneratedData();
 }
