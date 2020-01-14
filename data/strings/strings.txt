@@ -46004,3 +46004,11 @@
     zh-Hans = 整个画册%s/年
     zh-Hant = 整個畫冊%s/年
     fa = کلیه کاتالوگ ها با %s در سال
+
+  [dialog_pedestrian_route_is_long_header]
+    comment = FIXME
+    en = dialog_pedestrian_route_is_long_header
+
+  [dialog_pedestrian_route_is_long_message]
+    comment = FIXME
+    en = dialog_pedestrian_route_is_long_header
