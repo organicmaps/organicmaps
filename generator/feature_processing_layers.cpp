@@ -98,6 +98,12 @@ void RepresentationLayer::Handle(FeatureBuilder & fb)
     case feature::GeomType::Area:
     {
       HandleArea(fb, params);
+      // CanBeLine ignores exceptional types from TypeAlwaysExists / IsUsefulNondrawableType.
+      // Areal object with types amenity=restaurant + wifi=yes + cuisine=* should be added as areal object with
+      // these types and no extra linear/point objects.
+      // We need extra line object only for case when object has type which is drawable like line:
+      // amenity=playground + barrier=fence shold be added as areal object with amenity=playground + linear object
+      // with barrier=fence.
       if (CanBeLine(params))
       {
         auto featureLine = MakeLine(fb);
@@ -142,6 +148,7 @@ void RepresentationLayer::HandleArea(FeatureBuilder & fb, FeatureBuilderParams c
   }
   else if (CanBePoint(params))
   {
+    // CanBePoint ignores exceptional types from TypeAlwaysExists / IsUsefulNondrawableType.
     auto featurePoint = MakePoint(fb);
     LayerBase::Handle(featurePoint);
   }
@@ -156,13 +163,13 @@ bool RepresentationLayer::CanBeArea(FeatureParams const & params)
 // static
 bool RepresentationLayer::CanBePoint(FeatureParams const & params)
 {
-  return feature::HasUsefulType(params.m_types, feature::GeomType::Point);
+  return feature::IsDrawableLike(params.m_types, feature::GeomType::Point);
 }
 
 // static
 bool RepresentationLayer::CanBeLine(FeatureParams const & params)
 {
-  return feature::HasUsefulType(params.m_types, feature::GeomType::Line);
+  return feature::IsDrawableLike(params.m_types, feature::GeomType::Line);
 }
 
 void PrepareFeatureLayer::Handle(FeatureBuilder & fb)
