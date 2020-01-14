@@ -190,19 +190,33 @@ UNIT_TEST(RoadAccessWriter_Merge)
                                           OsmElement::EntityType::Way, {10, 11, 12, 13});
   auto const w2 = MakeOsmElementWithNodes(2 /* id */, {{"highway", "service"}} /* tags */,
                                           OsmElement::EntityType::Way, {20, 21, 22, 23});
+  auto const w3 = MakeOsmElementWithNodes(3 /* id */, {{"highway", "motorway"}} /* tags */,
+                                          OsmElement::EntityType::Way, {30, 31, 32, 33});
 
   auto const p1 = generator_tests::MakeOsmElement(11 /* id */, {{"barrier", "lift_gate"}, {"motor_vehicle", "private"}}, OsmElement::EntityType::Node);
   auto const p2 = generator_tests::MakeOsmElement(22 /* id */, {{"barrier", "lift_gate"}, {"motor_vehicle", "private"}}, OsmElement::EntityType::Node);
+  // We should ignore this barrier because it's without access tag and placed on highway-motorway.
+  auto const p3 = generator_tests::MakeOsmElement(32 /* id */, {{"barrier", "lift_gate"}}, OsmElement::EntityType::Node);
 
   auto c1 = make_shared<RoadAccessWriter>(filename);
   auto c2 = c1->Clone();
+  auto c3 = c1->Clone();
+
   c1->CollectFeature(MakeFbForTest(p1), p1);
   c2->CollectFeature(MakeFbForTest(p2), p2);
+  c3->CollectFeature(MakeFbForTest(p3), p3);
+
   c1->CollectFeature(MakeFbForTest(w1), w1);
   c2->CollectFeature(MakeFbForTest(w2), w2);
+  c3->CollectFeature(MakeFbForTest(w3), w3);
+
   c1->Finish();
   c2->Finish();
+  c3->Finish();
+
   c1->Merge(*c2);
+  c1->Merge(*c3);
+
   c1->Save();
 
   ifstream stream;

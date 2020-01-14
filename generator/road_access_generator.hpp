@@ -13,6 +13,7 @@
 #include <fstream>
 #include <map>
 #include <memory>
+#include <optional>
 #include <ostream>
 #include <set>
 #include <sstream>
@@ -45,13 +46,11 @@ public:
 
   void Process(OsmElement const & elem);
   void WriteWayToAccess(std::ostream & stream);
-  void WriteBarrierTags(std::ostream & stream, uint64_t id, std::vector<uint64_t> const & points);
+  void WriteBarrierTags(std::ostream & stream, uint64_t id, std::vector<uint64_t> const & points,
+                        bool ignoreBarrierWithoutAccess);
   void Merge(RoadAccessTagProcessor const & roadAccessTagProcessor);
 
 private:
-  bool ShouldIgnoreBarrierWithoutAccess(OsmElement const & osmElement) const;
-  RoadAccess::Type GetAccessType(OsmElement const & elem) const;
-
   VehicleType m_vehicleType;
 
   std::vector<TagMapping const *> m_barrierMappings;
@@ -62,9 +61,10 @@ private:
 
   // We decided to ignore some barriers without access on some type of highways
   // because we almost always do not need to add penalty for passes through such nodes.
-  std::set<OsmElement::Tag> const * m_hwIgnoreBarriersWithoutAccess;
+  std::optional<std::set<OsmElement::Tag>> m_hwIgnoreBarriersWithoutAccess;
 
-  std::unordered_map<uint64_t, RoadAccess::Type> m_barriers;
+  std::unordered_map<uint64_t, RoadAccess::Type> m_barriersWithoutAccessTag;
+  std::unordered_map<uint64_t, RoadAccess::Type> m_barriersWithAccessTag;
   std::unordered_map<uint64_t, RoadAccess::Type> m_wayToAccess;
 };
 
