@@ -47,8 +47,11 @@ The most commonly used mwm commands are:
             description="Dumps some MWM structures.")
         parser.add_argument("--path", type=str, required=True,
                             help="Path to mwm.")
+        parser.add_argument("--format", type=str, default="meta",
+                            choices=("meta", "features"),
+                            help="Output format.")
         args = parser.parse_args(sys.argv[2:])
-        dump_mwm(args.path)
+        dump_mwm(args.path, args.format)
 
     @staticmethod
     def find_feature():
