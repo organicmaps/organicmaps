@@ -140,6 +140,7 @@ char const kAllow3dBuildingsKey[] = "Buildings3d";
 char const kAllowAutoZoom[] = "AutoZoom";
 char const kTrafficEnabledKey[] = "TrafficEnabled";
 char const kTransitSchemeEnabledKey[] = "TransitSchemeEnabled";
+char const kIsolinesEnabledKey[] = "IsolinesEnabled";
 char const kTrafficSimplifiedColorsKey[] = "TrafficSimplifiedColors";
 char const kLargeFontsSize[] = "LargeFontsSize";
 char const kTranslitMode[] = "TransliterationMode";
@@ -2842,6 +2843,20 @@ bool Framework::LoadTransitSchemeEnabled()
 void Framework::SaveTransitSchemeEnabled(bool enabled)
 {
   settings::Set(kTransitSchemeEnabledKey, enabled);
+}
+
+void Framework::EnableIsolines(bool enable)
+{
+  // TODO(darina): Implement.
+  settings::Set(kIsolinesEnabledKey, enable);
+}
+
+bool Framework::IsolinesEnabled() const
+{
+  bool enabled;
+  if (!settings::Get(kIsolinesEnabledKey, enabled))
+    enabled = false;
+  return enabled;
 }
 
 void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition,
