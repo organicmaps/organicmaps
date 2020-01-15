@@ -111,13 +111,16 @@ TagMapping const kBicycleBarriersTagMapping = {
 // Empty mapping leads to default RoadAccess::Type::Yes access type for all roads.
 TagMapping const kTransitTagMapping = {};
 
+TagMapping const kForbiddenRoadsTagMapping = {
+  {OsmElement::Tag("highway", "ford"), RoadAccess::Type::No}
+};
+
 TagMapping const kDefaultTagMapping = {
   {OsmElement::Tag("access", "yes"), RoadAccess::Type::Yes},
   {OsmElement::Tag("access", "permissive"), RoadAccess::Type::Yes},
   {OsmElement::Tag("access", "no"), RoadAccess::Type::No},
   {OsmElement::Tag("access", "private"), RoadAccess::Type::Private},
   {OsmElement::Tag("access", "destination"), RoadAccess::Type::Destination},
-  {OsmElement::Tag("highway", "ford"), RoadAccess::Type::No}
 };
 
 set<OsmElement::Tag> const kHighwaysWhereIgnorePrivateAccessForCar = {
@@ -260,6 +263,7 @@ RoadAccessTagProcessor::RoadAccessTagProcessor(VehicleType vehicleType)
   switch (vehicleType)
   {
   case VehicleType::Car:
+    m_accessMappings.push_back(&kForbiddenRoadsTagMapping);
     m_accessMappings.push_back(&kMotorCarTagMapping);
     m_accessMappings.push_back(&kMotorVehicleTagMapping);
     m_accessMappings.push_back(&kVehicleTagMapping);
@@ -268,11 +272,13 @@ RoadAccessTagProcessor::RoadAccessTagProcessor(VehicleType vehicleType)
     m_hwIgnoreBarriersWithoutAccess = &kHighwaysWhereIgnorePrivateAccessForCar;
     break;
   case VehicleType::Pedestrian:
+    m_accessMappings.push_back(&kForbiddenRoadsTagMapping);
     m_accessMappings.push_back(&kPedestrianTagMapping);
     m_accessMappings.push_back(&kDefaultTagMapping);
     m_hwIgnoreBarriersWithoutAccess = &kHighwaysWhereIgnorePrivateAccessEmpty;
     break;
   case VehicleType::Bicycle:
+    m_accessMappings.push_back(&kForbiddenRoadsTagMapping);
     m_accessMappings.push_back(&kBicycleTagMapping);
     m_accessMappings.push_back(&kVehicleTagMapping);
     m_accessMappings.push_back(&kDefaultTagMapping);
