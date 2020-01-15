@@ -15,6 +15,7 @@
 #include <mutex>
 #include <string>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 #define BORDERS_DIR "borders/"
@@ -39,16 +40,16 @@ namespace borders
 // unwanted consequences (for example, empty spaces may occur between mwms)
 // but currently we do not take any action against them.
 
-using Region = m2::RegionD;
-using RegionsContainer = m4::Tree<Region>;
+using Polygon = m2::RegionD;
+using PolygonsTree = m4::Tree<Polygon>;
 
 class CountryPolygons
 {
 public:
   CountryPolygons() = default;
-  explicit CountryPolygons(std::string const & name, RegionsContainer const & regions)
+  explicit CountryPolygons(std::string const & name, PolygonsTree const & regions)
     : m_name(name)
-    , m_regions(regions)
+    , m_polygons(regions)
   {
   }
 
@@ -59,35 +60,35 @@ public:
   CountryPolygons & operator=(CountryPolygons const & other) = default;
 
   std::string const & GetName() const { return m_name; }
-  bool IsEmpty() const { return m_regions.IsEmpty(); }
+  bool IsEmpty() const { return m_polygons.IsEmpty(); }
   void Clear()
   {
-    m_regions.Clear();
+    m_polygons.Clear();
     m_name.clear();
   }
 
   bool Contains(m2::PointD const & point) const
   {
-    return m_regions.ForAnyInRect(m2::RectD(point, point), [&](auto const & rgn) {
+    return m_polygons.ForAnyInRect(m2::RectD(point, point), [&](auto const & rgn) {
       return rgn.Contains(point);
     });
   }
 
   template <typename Do>
-  void ForEachRegion(Do && fn) const
+  void ForEachPolygon(Do && fn) const
   {
-    m_regions.ForEach(std::forward<Do>(fn));
+    m_polygons.ForEach(std::forward<Do>(fn));
   }
 
   template <typename Do>
-  bool ForAnyRegion(Do && fn) const
+  bool ForAnyPolygon(Do && fn) const
   {
-    return m_regions.ForAny(std::forward<Do>(fn));
+    return m_polygons.ForAny(std::forward<Do>(fn));
   }
 
 private:
   std::string m_name;
-  RegionsContainer m_regions;
+  PolygonsTree m_polygons;
 };
 
 class CountryPolygonsCollection
@@ -98,9 +99,8 @@ public:
   void Add(CountryPolygons const & countryPolygons)
   {
     auto const it = m_countryPolygonsMap.emplace(countryPolygons.GetName(), countryPolygons);
-    countryPolygons.ForEachRegion([&](auto const & region){
-      m_regionsTree.Add(it.first->second, region.GetRect());
-      return true;
+    countryPolygons.ForEachPolygon([&](auto const & polygon) {
+      m_regionsTree.Add(it.first->second, polygon.GetRect());
     });
   }
 

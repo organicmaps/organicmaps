@@ -128,7 +128,7 @@ std::string GetCountryNameFromTmpMwmPath(std::string filename)
 
 bool FilenameIsCountry(std::string const & filename, AffiliationInterface const & affiliation)
 {
-  return affiliation.HasRegionByName(GetCountryNameFromTmpMwmPath(filename));
+  return affiliation.HasCountryByName(GetCountryNameFromTmpMwmPath(filename));
 }
 
 class PlaceHelper

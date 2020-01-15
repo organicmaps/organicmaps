@@ -81,7 +81,7 @@ CountriesFilesAffiliation::GetAffiliations(m2::PointD const & point) const
   return countries;
 }
 
-bool CountriesFilesAffiliation::HasRegionByName(std::string const & name) const
+bool CountriesFilesAffiliation::HasCountryByName(std::string const & name) const
 {
   return m_countryPolygonsTree.HasRegionByName(name);
 }
@@ -203,8 +203,8 @@ CountriesFilesIndexAffiliation::BuildIndex(const std::vector<m2::RectD> & net)
           std::vector<std::reference_wrapper<borders::CountryPolygons const>> interCountries;
           for (borders::CountryPolygons const & cp : countries)
           {
-            cp.ForAnyRegion([&](auto const & region) {
-              if (!boost::geometry::intersects(region.Data(), box))
+            cp.ForAnyPolygon([&](auto const & polygon) {
+              if (!boost::geometry::intersects(polygon.Data(), box))
                 return false;
               interCountries.emplace_back(cp);
               return true;
@@ -256,7 +256,7 @@ std::vector<std::string> SingleAffiliation::GetAffiliations(FeatureBuilder const
   return {m_filename};
 }
 
-bool SingleAffiliation::HasRegionByName(std::string const & name) const
+bool SingleAffiliation::HasCountryByName(std::string const & name) const
 {
   return name == m_filename;
 }

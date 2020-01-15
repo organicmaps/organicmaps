@@ -38,27 +38,6 @@ namespace borders
 {
 namespace
 {
-class PolygonLoader
-{
-public:
-  explicit PolygonLoader(m4::Tree<CountryPolygons> & countries) : m_countries(countries) {}
-
-  void operator()(std::string const & name, std::vector<m2::RegionD> const & borders)
-  {
-    RegionsContainer regions;
-    for (m2::RegionD const & border : borders)
-      regions.Add(border, border.GetRect());
-
-    CountryPolygons countryPolygons(name, regions);
-
-    for (m2::RegionD const & border : borders)
-      m_countries.Add(countryPolygons, border.GetRect());
-  }
-
-private:
-  m4::Tree<CountryPolygons> & m_countries;
-};
-
 template <class ToDo>
 void ForEachCountry(std::string const & baseDir, ToDo && toDo)
 {
@@ -70,11 +49,11 @@ void ForEachCountry(std::string const & baseDir, ToDo && toDo)
   Platform::GetFilesByExt(bordersDir, BORDERS_EXTENSION, files);
   for (std::string file : files)
   {
-    std::vector<m2::RegionD> borders;
-    if (LoadBorders(bordersDir + file, borders))
+    std::vector<m2::RegionD> polygons;
+    if (LoadBorders(bordersDir + file, polygons))
     {
       base::GetNameWithoutExt(file);
-      toDo(file, borders);
+      toDo(file, polygons);
     }
   }
 }
@@ -172,12 +151,12 @@ bool LoadBorders(std::string const & borderFile, std::vector<m2::RegionD> & outB
     return false;
   }
 
-  m2::RegionD currentRegion;
-  while (ReadPolygon(stream, currentRegion, borderFile))
+  m2::RegionD currentPolygon;
+  while (ReadPolygon(stream, currentPolygon, borderFile))
   {
-    CHECK(currentRegion.IsValid(), ("Invalid region in", borderFile));
-    outBorders.push_back(currentRegion);
-    currentRegion = m2::RegionD();
+    CHECK(currentPolygon.IsValid(), ("Invalid region in", borderFile));
+    outBorders.emplace_back(std::move(currentPolygon));
+    currentPolygon = m2::RegionD();
   }
 
   CHECK(!outBorders.empty(), ("No borders were loaded from", borderFile));
@@ -209,11 +188,11 @@ CountryPolygonsCollection LoadCountriesList(std::string const & baseDir)
 
   CountryPolygonsCollection countryPolygonsCollection;
   ForEachCountry(baseDir, [&](auto const & name, auto const & borders) {
-    RegionsContainer regions;
+    PolygonsTree polygons;
     for (m2::RegionD const & border : borders)
-      regions.Add(border, border.GetRect());
+      polygons.Add(border, border.GetRect());
 
-    countryPolygonsCollection.Add(CountryPolygons(name, regions));
+    countryPolygonsCollection.Add(CountryPolygons(name, polygons));
   });
 
   LOG(LINFO, ("Countries loaded:", countryPolygonsCollection.GetSize()));

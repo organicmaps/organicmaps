@@ -20,7 +20,7 @@ public:
   // The method will return the names of the buckets to which the fb belongs.
   virtual std::vector<std::string> GetAffiliations(FeatureBuilder const & fb) const = 0;
   virtual std::vector<std::string> GetAffiliations(m2::PointD const & point) const = 0;
-  virtual bool HasRegionByName(std::string const & name) const = 0;
+  virtual bool HasCountryByName(std::string const & name) const = 0;
 
 };
 
@@ -33,7 +33,7 @@ public:
   std::vector<std::string> GetAffiliations(FeatureBuilder const & fb) const override;
   std::vector<std::string> GetAffiliations(m2::PointD const & point) const override;
 
-  bool HasRegionByName(std::string const & name) const override;
+  bool HasCountryByName(std::string const & name) const override;
 
 protected:
   borders::CountryPolygonsCollection const & m_countryPolygonsTree;
@@ -68,7 +68,7 @@ public:
 
   // AffiliationInterface overrides:
   std::vector<std::string> GetAffiliations(FeatureBuilder const &) const override;
-  bool HasRegionByName(std::string const & name) const override;
+  bool HasCountryByName(std::string const & name) const override;
   std::vector<std::string> GetAffiliations(m2::PointD const & point) const override;
 
 private:
