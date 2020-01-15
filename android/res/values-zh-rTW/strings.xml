@@ -1240,7 +1240,6 @@
 	<string name="downloader_percent">%1$s (%2$s，共%3$s)</string>
 	<string name="downloader_process">下載 %s 中……</string>
 	<string name="downloader_applying">應用 %s 中……</string>
-	<string name="transit_not_found">本區域還沒有交通導航</string>
 	<string name="whats_new_title_hotel_filter">有新的賓館篩選！</string>
 	<string name="whats_new_message_hotel_filter">預訂在您所選日期有空的賓館！用入住和離店篩選</string>
 	<string name="whats_new_title_ugc_travel">和其他旅客分享您的體驗！</string>
@@ -1739,6 +1738,11 @@
 	<string name="new_onboarding_step3_header">去旅行吧</string>
 	<string name="all_pass_screen_best_value">優惠的價格</string>
 	<string name="buy_btn_for_subscription_3">整個畫冊%s/年</string>
+	<string name="transit_not_found">本區域的地鐵導航目前不可用</string>
+	<string name="dialog_pedestrian_route_is_long_header">地鐵路線圖未找到</string>
+	<string name="dialog_pedestrian_route_is_long_message">選擇地鐵站附近的起點和終點</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">地鐵路線圖設計出錯</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">纜車站</string>

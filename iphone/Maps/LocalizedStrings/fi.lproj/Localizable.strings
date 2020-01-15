@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "%s otetaan käyttöön...";
 
-"transit_not_found" = "Navigointi kohteiden välillä ei ole vielä käytettävissä tällä alueella";
-
 "whats_new_title_hotel_filter" = "Uusia hotellisuodattimia on saatavana!";
 
 "whats_new_message_hotel_filter" = "Varaa hotelleja, joissa on tilaa valitseminasi päivinä! Käytä sisäänkirjautumis- ja uloskirjautumissuodattimia";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "Edullinen hinta";
 
 "buy_btn_for_subscription_3" = "Koko luettelo %s/vuosi";
+
+"transit_not_found" = "Metron reittiohjeet eivät ole vielä saatavilla tällä alueella";
+
+"dialog_pedestrian_route_is_long_header" = "Metroreittiä ei ole löytynyt";
+
+"dialog_pedestrian_route_is_long_message" = "Valitse reitin aloitus- tai loppupiste lähemmäksi metroasemaa";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "Virhe metroreitin luomisessa";
 
 
 /**********  Partners  **********/

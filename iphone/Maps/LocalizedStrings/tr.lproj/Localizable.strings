@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "%s uygulanıyor...";
 
-"transit_not_found" = "Transit navigasyon henüz bu bölgede kullanılamıyor";
-
 "whats_new_title_hotel_filter" = "Yeni otel filtreleri kullanımda!";
 
 "whats_new_message_hotel_filter" = "İstediğiniz tarihte otel rezervasyonu yapın! Check-in ve check-out filtrelerini kullanın";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "En İyi Teklif";
 
 "buy_btn_for_subscription_3" = "Tüm katalog %s/yıl";
+
+"transit_not_found" = "Metro navigasyonu bu bölgede henüz mevcut değil";
+
+"dialog_pedestrian_route_is_long_header" = "Metro güzergahı bulunamadı";
+
+"dialog_pedestrian_route_is_long_message" = "Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "Metro güzergahı oluşturma hatası";
 
 
 /**********  Partners  **********/

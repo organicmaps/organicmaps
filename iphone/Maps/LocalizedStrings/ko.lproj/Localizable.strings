@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "%s 적용 중...";
 
-"transit_not_found" = "이 지역에서 대중교통 내비게이션은 아직 사용 가능하지 않습니다.";
-
 "whats_new_title_hotel_filter" = "새로운 호텔 필터 사용 가능!";
 
 "whats_new_message_hotel_filter" = "해당 날짜에 이용 가능한 호텔을 예약하세요! 체크인 및 체크아웃 필터를 사용하세요.";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "최고가치";
 
 "buy_btn_for_subscription_3" = "모든 카탈로그가 %s/년";
+
+"transit_not_found" = "이 지역의 지하철 노선 기능이 아직 없습니다";
+
+"dialog_pedestrian_route_is_long_header" = "지하철 루트가 발견되지 않았습니다";
+
+"dialog_pedestrian_route_is_long_message" = "지하철역에서 가까운 출발점 또는 종점을 선택하세요";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "지하철 루트 계획 생성 실패";
 
 
 /**********  Partners  **********/

@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "Bruker %s ...";
 
-"transit_not_found" = "Transittnavigering i dette området er foreløpig ikke tilgjengelig";
-
 "whats_new_title_hotel_filter" = "Nye filter for hotell er tilgjengelig!";
 
 "whats_new_message_hotel_filter" = "Bestill hotell på datoene dine! Bruk filtre for inn- og utsjekking";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "Rimelig pris";
 
 "buy_btn_for_subscription_3" = "Hele katalogen for %s/år";
+
+"transit_not_found" = "T-bane navigasjon er ikke tilgjengelig i denne regionen ennå";
+
+"dialog_pedestrian_route_is_long_header" = "T-bane rute ikke funnet";
+
+"dialog_pedestrian_route_is_long_message" = "Velg utgangspunkt eller destinasjon som befinner seg nærmere en T-bane stasjon";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "Feil ved ruteplanlegging";
 
 
 /**********  Partners  **********/

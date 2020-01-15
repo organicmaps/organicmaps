@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "Použitie %s...";
 
-"transit_not_found" = "Tranzitná navigácia v tomto regióne zatiaľ nie je k dispozícii";
-
 "whats_new_title_hotel_filter" = "Nové filtre pre hotely k dispozícii!";
 
 "whats_new_message_hotel_filter" = "Rezervujte si hotely, ktoré sú k dispozícii vo vami požadovanom dátume! Použiť filtre pre prihlásenie a odhlásenie v hoteli";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "Najlepšia hodnota";
 
 "buy_btn_for_subscription_3" = "Celý katalóg za %s/rok";
+
+"transit_not_found" = "Navigácia metra v tejto oblasti ešte nie je k dispozícii";
+
+"dialog_pedestrian_route_is_long_header" = "Trasa metra sa nenašla";
+
+"dialog_pedestrian_route_is_long_message" = "Vyberte počiatočný alebo konečný bod bližšie k stanici metra";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "Plánovanie trasy metra zlyhalo";
 
 
 /**********  Partners  **********/

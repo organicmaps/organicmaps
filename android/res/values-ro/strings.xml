@@ -1226,7 +1226,6 @@
 	<string name="downloader_percent">%1$s (%2$s din %3$s)</string>
 	<string name="downloader_process">Descărcare %s...</string>
 	<string name="downloader_applying">Aplicare %s...</string>
-	<string name="transit_not_found">Navigarea în tranzit prin această regiune nu este disponibilă încă</string>
 	<string name="whats_new_title_hotel_filter">Sunt disponibile filtre noi pentru hoteluri!</string>
 	<string name="whats_new_message_hotel_filter">Rezervați camere la hoteluri disponibile la datele dorite de dvs.! Utilizați filtrele de cazare și plecare</string>
 	<string name="whats_new_title_ugc_travel">Comunicați-vă experiențele altor călători!</string>
@@ -1727,6 +1726,11 @@
 	<string name="new_onboarding_step3_header">Călătoriți</string>
 	<string name="all_pass_screen_best_value">Preț avantajos</string>
 	<string name="buy_btn_for_subscription_3">Tot catalogul pentru %s/an</string>
+	<string name="transit_not_found">Navigarea pentru metrou nu este încă disponibilă în această regiune</string>
+	<string name="dialog_pedestrian_route_is_long_header">Ruta metroului nu a fost găsită</string>
+	<string name="dialog_pedestrian_route_is_long_message">Selectați punctul de început sau de sfârșit al rutei mai aproape de stația de metrou</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">Eroare la construirea rutei metroului</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>

@@ -1241,7 +1241,6 @@
 	<string name="downloader_percent">%1$s (%2$s з %3$s)</string>
 	<string name="downloader_process">Завантаження %s...</string>
 	<string name="downloader_applying">Застосування %s...</string>
-	<string name="transit_not_found">Транзитна навігація в цьому регіоні ще недоступна</string>
 	<string name="whats_new_title_hotel_filter">Доступні нові фільтри для готелів!</string>
 	<string name="whats_new_message_hotel_filter">Бронюйте готелі, що доступні за вашими датами! Використовуйте фільтри в\'їзду та виїзду</string>
 	<string name="whats_new_title_ugc_travel">Поділіться вашими враженнями з іншими мандрівниками!</string>
@@ -1743,6 +1742,11 @@
 	<string name="new_onboarding_step3_header">Подорожуйте</string>
 	<string name="all_pass_screen_best_value">Вигідна ціна</string>
 	<string name="buy_btn_for_subscription_3">Увесь каталог за %s/рік</string>
+	<string name="transit_not_found">Навігація на метро ще недоступна в цьому регіоні</string>
+	<string name="dialog_pedestrian_route_is_long_header">Маршрут метро не знайдено</string>
+	<string name="dialog_pedestrian_route_is_long_message">Виберіть початкову чи кінцеву точку маршруту ближче до станції метро</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">Не вдалося прокласти маршрут метро</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

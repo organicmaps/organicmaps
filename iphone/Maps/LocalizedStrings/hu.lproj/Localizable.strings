@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "%s alkalmazása...";
 
-"transit_not_found" = "Tranzit navigáció ebben a régióban még nem áll rendelkezésre";
-
 "whats_new_title_hotel_filter" = "Új szálloda szűrők!";
 
 "whats_new_message_hotel_filter" = "Foglaljon elérhető szobát az Ön dátumain! Használja a be- ás kijelentkezési szűrőket";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "Legjobb ajánlat";
 
 "buy_btn_for_subscription_3" = "A teljes katalógus %s/év";
+
+"transit_not_found" = "Metró navigáció ebben a régióban még nem érhető el";
+
+"dialog_pedestrian_route_is_long_header" = "Metró útvonal nem található";
+
+"dialog_pedestrian_route_is_long_message" = "Válasszon indulási vagy végpontot közelebb a metróállomáshoz";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "A metró útvonaltervezése sikertelen";
 
 
 /**********  Partners  **********/

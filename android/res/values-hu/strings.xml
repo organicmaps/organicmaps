@@ -1237,7 +1237,6 @@
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>
 	<string name="downloader_process">%s letöltése...</string>
 	<string name="downloader_applying">%s alkalmazása...</string>
-	<string name="transit_not_found">Tranzit navigáció ebben a régióban még nem áll rendelkezésre</string>
 	<string name="whats_new_title_hotel_filter">Új szálloda szűrők!</string>
 	<string name="whats_new_message_hotel_filter">Foglaljon elérhető szobát az Ön dátumain! Használja a be- ás kijelentkezési szűrőket</string>
 	<string name="whats_new_title_ugc_travel">Ossza meg tapasztalatait más utasokkal!</string>
@@ -1738,6 +1737,11 @@
 	<string name="new_onboarding_step3_header">Éld át</string>
 	<string name="all_pass_screen_best_value">Legjobb ajánlat</string>
 	<string name="buy_btn_for_subscription_3">A teljes katalógus %s/év</string>
+	<string name="transit_not_found">Metró navigáció ebben a régióban még nem érhető el</string>
+	<string name="dialog_pedestrian_route_is_long_header">Metró útvonal nem található</string>
+	<string name="dialog_pedestrian_route_is_long_message">Válasszon indulási vagy végpontot közelebb a metróállomáshoz</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">A metró útvonaltervezése sikertelen</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>

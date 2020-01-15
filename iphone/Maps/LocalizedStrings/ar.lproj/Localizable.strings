@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "جار تطبيق %s...";
 
-"transit_not_found" = "الملاحة المؤقتة في هذه المنطقة غير متوفرة بعد";
-
 "whats_new_title_hotel_filter" = "يتوفر عوامل تصفية جديدة للفنادق!";
 
 "whats_new_message_hotel_filter" = "احجز الفنادق المتاحة في المواعيد الخاصة بك! استخدم عوامل تصفية تسجيل الوصول والمغادرة";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "أفضل قيمة";
 
 "buy_btn_for_subscription_3" = "كامل الكتالوج من أجل %s / سنة";
+
+"transit_not_found" = "التنقل باستخدام مترو الأنفاق في هذه المنطقة غير متاح حتى الآن";
+
+"dialog_pedestrian_route_is_long_header" = "لم يتم العثور على مترو الانفاق";
+
+"dialog_pedestrian_route_is_long_message" = "يرجى اختيار نقطة بداية أو نهاية أقرب لمحطة المترو";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "فشل تخطيط طريق لمترو الانفاق";
 
 
 /**********  Partners  **********/

@@ -1234,7 +1234,6 @@
 	<string name="downloader_percent">%1$s (%2$s z %3$s)</string>
 	<string name="downloader_process">Sťahovanie %s...</string>
 	<string name="downloader_applying">Použitie %s...</string>
-	<string name="transit_not_found">Tranzitná navigácia v tomto regióne zatiaľ nie je k dispozícii</string>
 	<string name="whats_new_title_hotel_filter">Nové filtre pre hotely k dispozícii!</string>
 	<string name="whats_new_message_hotel_filter">Rezervujte si hotely, ktoré sú k dispozícii vo vami požadovanom dátume! Použiť filtre pre prihlásenie a odhlásenie v hoteli</string>
 	<string name="whats_new_title_ugc_travel">Podeľte sa o svoje skúsenosti s ďalšími cestovateľmi!</string>
@@ -1736,6 +1735,11 @@
 	<string name="new_onboarding_step3_header">Zážitok</string>
 	<string name="all_pass_screen_best_value">Najlepšia hodnota</string>
 	<string name="buy_btn_for_subscription_3">Celý katalóg za %s/rok</string>
+	<string name="transit_not_found">Navigácia metra v tejto oblasti ešte nie je k dispozícii</string>
+	<string name="dialog_pedestrian_route_is_long_header">Trasa metra sa nenašla</string>
+	<string name="dialog_pedestrian_route_is_long_message">Vyberte počiatočný alebo konečný bod bližšie k stanici metra</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">Plánovanie trasy metra zlyhalo</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

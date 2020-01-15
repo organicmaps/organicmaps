@@ -1232,7 +1232,6 @@
 	<string name="downloader_percent">%1$s(%2$s / %3$s)</string>
 	<string name="downloader_process">%s 다운로드 중...</string>
 	<string name="downloader_applying">%s 적용 중...</string>
-	<string name="transit_not_found">이 지역에서 대중교통 내비게이션은 아직 사용 가능하지 않습니다.</string>
 	<string name="whats_new_title_hotel_filter">새로운 호텔 필터 사용 가능!</string>
 	<string name="whats_new_message_hotel_filter">해당 날짜에 이용 가능한 호텔을 예약하세요! 체크인 및 체크아웃 필터를 사용하세요.</string>
 	<string name="whats_new_title_ugc_travel">다른 여행자와 함께 경험을 나누세요!</string>
@@ -1732,6 +1731,11 @@
 	<string name="new_onboarding_step3_header">경험하세요</string>
 	<string name="all_pass_screen_best_value">최고가치</string>
 	<string name="buy_btn_for_subscription_3">모든 카탈로그가 %s/년</string>
+	<string name="transit_not_found">이 지역의 지하철 노선 기능이 아직 없습니다</string>
+	<string name="dialog_pedestrian_route_is_long_header">지하철 루트가 발견되지 않았습니다</string>
+	<string name="dialog_pedestrian_route_is_long_message">지하철역에서 가까운 출발점 또는 종점을 선택하세요</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">지하철 루트 계획 생성 실패</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">케이블카 역</string>

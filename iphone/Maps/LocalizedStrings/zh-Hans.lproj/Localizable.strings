@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "正在套用 %s...";
 
-"transit_not_found" = "尚無法使用本區域的過境導航";
-
 "whats_new_title_hotel_filter" = "新的飯店篩選條件可用！";
 
 "whats_new_message_hotel_filter" = "為您的日期安排預訂飯店！使用入住和退房篩選條件";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "优惠的价格";
 
 "buy_btn_for_subscription_3" = "整个画册%s/年";
+
+"transit_not_found" = "本区域的地铁导航目前不可用";
+
+"dialog_pedestrian_route_is_long_header" = "地铁路线图未找到";
+
+"dialog_pedestrian_route_is_long_message" = "选择地铁站附近的起点和终点";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "地铁路线图设计出错";
 
 
 /**********  Partners  **********/

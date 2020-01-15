@@ -1242,7 +1242,6 @@
 	<string name="downloader_percent">%1$s (%2$s จาก %3$s)</string>
 	<string name="downloader_process">กำลังดาวน์โหลด %s...</string>
 	<string name="downloader_applying">กำลังนำ %s ไปใช้งาน...</string>
-	<string name="transit_not_found">การนำทางการสัญจรในบริเวณนี้ยังไม่สามารถใช้ได้</string>
 	<string name="whats_new_title_hotel_filter">มีตัวกรองโรงแรมตัวใหม่ให้ใช้ได้แล้ว!</string>
 	<string name="whats_new_message_hotel_filter">จองโรงแรมที่มีสำหรับช่วงวันที่ของคุณ! ใช้ตัวกรองเช็คอินและเช็คเอาท์</string>
 	<string name="whats_new_title_ugc_travel">แบ่งปันประสบการณ์ของคุณกับนักท่องเที่ยวคนอื่น ๆ!</string>
@@ -1742,6 +1741,11 @@
 	<string name="new_onboarding_step3_header">ประสบการณ์</string>
 	<string name="all_pass_screen_best_value">คุ้มค่าที่สุด</string>
 	<string name="buy_btn_for_subscription_3">ทั้งแคตตาล็อคราคา %s/ปี</string>
+	<string name="transit_not_found">ยังไม่สามารถใช้การนำทางรถไฟใต้ดินในภูมิภาคนี้ได้</string>
+	<string name="dialog_pedestrian_route_is_long_header">ไม่พบเส้นทางของทางรถไฟใต้ดิน</string>
+	<string name="dialog_pedestrian_route_is_long_message">โปรดเลือกจุดเริ่มต้นและสิ้นสุดที่อยู่ใกล้สถานีรถไฟใต้ดิน</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">การวางแผนเส้นทางของทางรถไฟใต้ดินล้มเหลว</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

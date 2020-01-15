@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "Stosowanie zmian %s...";
 
-"transit_not_found" = "Nawigacja tranzytowa nie jest jeszcze dostępna dla tego regionu";
-
 "whats_new_title_hotel_filter" = "Dostępne nowe filtry hoteli!";
 
 "whats_new_message_hotel_filter" = "Zarezerwuj hotele dla wybranych dat! Użyj filtrów przyjazdu i wyjazdu";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "Atrakcyjna cena";
 
 "buy_btn_for_subscription_3" = "Cały katalog za %s/rok";
+
+"transit_not_found" = "Nawigacja metrem nie jest jeszcze tutaj dostępna";
+
+"dialog_pedestrian_route_is_long_header" = "Nie znaleziono trasy metra";
+
+"dialog_pedestrian_route_is_long_message" = "Wybierz punkt początkowy lub końcowy trasy najbliżej do stacji metra";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "Błąd tworzenia trasy metra";
 
 
 /**********  Partners  **********/

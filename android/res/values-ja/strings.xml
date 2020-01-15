@@ -1230,7 +1230,6 @@
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>
 	<string name="downloader_process">%s をダウンロードしています...</string>
 	<string name="downloader_applying">%s を適用中です...</string>
-	<string name="transit_not_found">この地域での乗り換え案内はまだご利用いただけません</string>
 	<string name="whats_new_title_hotel_filter">新しいホテルのフィルターをご利用いただけます！</string>
 	<string name="whats_new_message_hotel_filter">あなたの日程で空室のあるホテルを予約できます！チェックインおよびチェックアウトフィルターをご利用ください。</string>
 	<string name="whats_new_title_ugc_travel">あなたの体験を他の旅行者に共有してください！</string>
@@ -1730,6 +1729,11 @@
 	<string name="new_onboarding_step3_header">体験しましょう</string>
 	<string name="all_pass_screen_best_value">ベストバリュー</string>
 	<string name="buy_btn_for_subscription_3">カタログ全体が年々%s</string>
+	<string name="transit_not_found">この地域の地下鉄ナビはまだ利用できません</string>
+	<string name="dialog_pedestrian_route_is_long_header">地下鉄ルートが見つかりませんでした</string>
+	<string name="dialog_pedestrian_route_is_long_message">もっと地下鉄駅に近い出発地または目的地を選択してください</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">地下鉄ルートの計画ができませんでした</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

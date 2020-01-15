@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "Применение %s…";
 
-"transit_not_found" = "Навигация по общественному траспорту пока не доступна в данном регионе";
-
 "whats_new_title_hotel_filter" = "Новые фильтры при поиске отелей!";
 
 "whats_new_message_hotel_filter" = "При поиске отелей используйте фильтрацию по дате заезда и выезда";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "Выгодная цена";
 
 "buy_btn_for_subscription_3" = "Весь каталог за %s/год";
+
+"transit_not_found" = "Навигация на метро ещё недоступна в данном регионе";
+
+"dialog_pedestrian_route_is_long_header" = "Маршрут метро не найден";
+
+"dialog_pedestrian_route_is_long_message" = "Выберите начальную или конечную точку маршрута ближе к станции метро";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "Ошибка построения маршрута метро";
 
 
 /**********  Partners  **********/

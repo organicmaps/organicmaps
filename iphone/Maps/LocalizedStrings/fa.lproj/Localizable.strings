@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "اعمال %s...";
 
-"transit_not_found" = "ناوبری حمل و نقل در این منطقه هنوز در دسترس نیست";
-
 "whats_new_title_hotel_filter" = "فیلترهای جدید هتل در دسترس است!";
 
 "whats_new_message_hotel_filter" = "رزرو هتل در دسترس برای تاریخ خود را! از چک کردن استفاده کنید و فیلتر کنید";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "بهترین ارزش";
 
 "buy_btn_for_subscription_3" = "کلیه کاتالوگ ها با %s در سال";
+
+"transit_not_found" = "راهنمای مترو در این منطقه هنوز دردسترس نیست";
+
+"dialog_pedestrian_route_is_long_header" = "مسیر مترو یافت نشد";
+
+"dialog_pedestrian_route_is_long_message" = "لطفا نقطه آغاز و پایان نزدیک تری به ایستگاه مترو انتخاب کنید";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "برنامه ریزی مسیر مترو ناموفق ماند";
 
 
 /**********  Partners  **********/

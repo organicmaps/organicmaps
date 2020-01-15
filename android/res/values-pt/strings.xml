@@ -1240,7 +1240,6 @@
 	<string name="downloader_percent">%1$s (%2$s de %3$s)</string>
 	<string name="downloader_process">A transferir %s...</string>
 	<string name="downloader_applying">A aplicar %s...</string>
-	<string name="transit_not_found">A navegação de trânsito ainda não está disponível nesta região</string>
 	<string name="whats_new_title_hotel_filter">Novos filtros de hotel disponíveis!</string>
 	<string name="whats_new_message_hotel_filter">Reserve hotéis disponíveis para as suas datas! Utilize filtros de check in e de check out</string>
 	<string name="whats_new_title_ugc_travel">Partilhe a sua experiência com outros viajantes!</string>
@@ -1741,6 +1740,11 @@
 	<string name="new_onboarding_step3_header">Viaje</string>
 	<string name="all_pass_screen_best_value">Preço favorável</string>
 	<string name="buy_btn_for_subscription_3">Tudo o catálogo por %s/ano</string>
+	<string name="transit_not_found">Navegação de metro ainda indisponível nesta região</string>
+	<string name="dialog_pedestrian_route_is_long_header">Percurso de metro não encontrado</string>
+	<string name="dialog_pedestrian_route_is_long_message">Escolhe ponto inicial ou final de percurso próximo da estação de metro</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">Erro ao construir o percurso de metro</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estação de teleférico</string>

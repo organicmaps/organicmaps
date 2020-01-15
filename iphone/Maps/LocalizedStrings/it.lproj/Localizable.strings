@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "Applicazione di %s...";
 
-"transit_not_found" = "La navigazione in transito in questa regione non è ancora disponibile";
-
 "whats_new_title_hotel_filter" = "Nuovi filtri hotel disponibili!";
 
 "whats_new_message_hotel_filter" = "Prenota gli hotel disponibili nelle tue date! Usa i filtri per check-in e check-out";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "Prezzo vantaggioso";
 
 "buy_btn_for_subscription_3" = "Tutto il catalogo a %s all'anno";
+
+"transit_not_found" = "L'utilizzo della metro non è ancora disponibile in questa regione";
+
+"dialog_pedestrian_route_is_long_header" = "Percorso della metro non trovato";
+
+"dialog_pedestrian_route_is_long_message" = "Seleziona il punto iniziale o finale del percorso più vicino alla stazione della metro";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "Errore di creazione del percorso della metro";
 
 
 /**********  Partners  **********/

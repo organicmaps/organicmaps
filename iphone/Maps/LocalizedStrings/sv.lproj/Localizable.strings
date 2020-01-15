@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "Tillämpar %s...";
 
-"transit_not_found" = "Transitnavigering är inte tillgängligt i den här regionen ännu";
-
 "whats_new_title_hotel_filter" = "Nya hotellfilter finns tillgängliga!";
 
 "whats_new_message_hotel_filter" = "Boka hotell som är tillgängliga för dina datum! Använd filter för incheckning och utcheckning";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "Lönsamt pris";
 
 "buy_btn_for_subscription_3" = "Hela katalogen för %s/år";
+
+"transit_not_found" = "Metro-navigering är ännu inte tillgänglig i denna region";
+
+"dialog_pedestrian_route_is_long_header" = "Metro rutt hittades inte";
+
+"dialog_pedestrian_route_is_long_message" = "Välj ruttens start- eller slutpunkt närmare till tunnelbanestation";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "Fel vid byggande av metro rutt";
 
 
 /**********  Partners  **********/

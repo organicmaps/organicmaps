@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "%s toepassen...";
 
-"transit_not_found" = "Transit navigatie is in deze regio nog niet beschikbaar";
-
 "whats_new_title_hotel_filter" = "Nieuwe hotelfilters beschikbaar!";
 
 "whats_new_message_hotel_filter" = "Boek beschikbare hotels voor uw data! Gebruik de filters inchecken en uitchecken";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "Gunstige prijs";
 
 "buy_btn_for_subscription_3" = "De hele catalogus voor %s per jaar";
+
+"transit_not_found" = "Metro-navigatie is nog niet beschikbaar in deze regio";
+
+"dialog_pedestrian_route_is_long_header" = "Metroroute niet gevonden";
+
+"dialog_pedestrian_route_is_long_message" = "Kies een begin- of eindpunt dichter bij het metrostation";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "Routeplanner per metro is mislukt";
 
 
 /**********  Partners  **********/

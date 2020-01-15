@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "A aplicar %s...";
 
-"transit_not_found" = "A navegação de trânsito ainda não está disponível nesta região";
-
 "whats_new_title_hotel_filter" = "Novos filtros de hotel disponíveis!";
 
 "whats_new_message_hotel_filter" = "Reserve hotéis disponíveis para as suas datas! Utilize filtros de check in e de check out";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "Preço favorável";
 
 "buy_btn_for_subscription_3" = "Tudo o catálogo por %s/ano";
+
+"transit_not_found" = "Navegação de metro ainda indisponível nesta região";
+
+"dialog_pedestrian_route_is_long_header" = "Percurso de metro não encontrado";
+
+"dialog_pedestrian_route_is_long_message" = "Escolhe ponto inicial ou final de percurso próximo da estação de metro";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "Erro ao construir o percurso de metro";
 
 
 /**********  Partners  **********/

@@ -1242,7 +1242,6 @@
 	<string name="downloader_percent">%1$s (%2$s من %3$s)</string>
 	<string name="downloader_process">جار تنزيل %s...</string>
 	<string name="downloader_applying">جار تطبيق %s...</string>
-	<string name="transit_not_found">الملاحة المؤقتة في هذه المنطقة غير متوفرة بعد</string>
 	<string name="whats_new_title_hotel_filter">يتوفر عوامل تصفية جديدة للفنادق!</string>
 	<string name="whats_new_message_hotel_filter">احجز الفنادق المتاحة في المواعيد الخاصة بك! استخدم عوامل تصفية تسجيل الوصول والمغادرة</string>
 	<string name="whats_new_title_ugc_travel">شارك تجربتك مع المسافرين الآخرين!</string>
@@ -1742,6 +1741,11 @@
 	<string name="new_onboarding_step3_header">جرب</string>
 	<string name="all_pass_screen_best_value">أفضل قيمة</string>
 	<string name="buy_btn_for_subscription_3">كامل الكتالوج من أجل %s / سنة</string>
+	<string name="transit_not_found">التنقل باستخدام مترو الأنفاق في هذه المنطقة غير متاح حتى الآن</string>
+	<string name="dialog_pedestrian_route_is_long_header">لم يتم العثور على مترو الانفاق</string>
+	<string name="dialog_pedestrian_route_is_long_message">يرجى اختيار نقطة بداية أو نهاية أقرب لمحطة المترو</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">فشل تخطيط طريق لمترو الانفاق</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

@@ -1237,7 +1237,6 @@
 	<string name="downloader_percent">%1$s (%2$s van %3$s)</string>
 	<string name="downloader_process">%s downloaden...</string>
 	<string name="downloader_applying">%s toepassen...</string>
-	<string name="transit_not_found">Transit navigatie is in deze regio nog niet beschikbaar</string>
 	<string name="whats_new_title_hotel_filter">Nieuwe hotelfilters beschikbaar!</string>
 	<string name="whats_new_message_hotel_filter">Boek beschikbare hotels voor uw data! Gebruik de filters inchecken en uitchecken</string>
 	<string name="whats_new_title_ugc_travel">Deel uw ervaring met andere reizigers!</string>
@@ -1738,6 +1737,11 @@
 	<string name="new_onboarding_step3_header">Reist</string>
 	<string name="all_pass_screen_best_value">Gunstige prijs</string>
 	<string name="buy_btn_for_subscription_3">De hele catalogus voor %s per jaar</string>
+	<string name="transit_not_found">Metro-navigatie is nog niet beschikbaar in deze regio</string>
+	<string name="dialog_pedestrian_route_is_long_header">Metroroute niet gevonden</string>
+	<string name="dialog_pedestrian_route_is_long_message">Kies een begin- of eindpunt dichter bij het metrostation</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">Routeplanner per metro is mislukt</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

@@ -1263,7 +1263,6 @@
 	<string name="downloader_percent">%1$s (%2$s из %3$s)</string>
 	<string name="downloader_process">Загрузка %s…</string>
 	<string name="downloader_applying">Применение %s…</string>
-	<string name="transit_not_found">Навигация по общественному траспорту пока не доступна в данном регионе</string>
 	<string name="whats_new_title_hotel_filter">Новые фильтры при поиске отелей!</string>
 	<string name="whats_new_message_hotel_filter">При поиске отелей используйте фильтрацию по дате заезда и выезда</string>
 	<string name="whats_new_title_ugc_travel">Делитесь вашими впечатлениями с другими путешественниками!</string>
@@ -1784,6 +1783,11 @@
 	<string name="new_onboarding_step3_header">Путешествуйте</string>
 	<string name="all_pass_screen_best_value">Выгодная цена</string>
 	<string name="buy_btn_for_subscription_3">Весь каталог за %s/год</string>
+	<string name="transit_not_found">Навигация на метро ещё недоступна в данном регионе</string>
+	<string name="dialog_pedestrian_route_is_long_header">Маршрут метро не найден</string>
+	<string name="dialog_pedestrian_route_is_long_message">Выберите начальную или конечную точку маршрута ближе к станции метро</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">Ошибка построения маршрута метро</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

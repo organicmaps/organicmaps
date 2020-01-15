@@ -1230,7 +1230,6 @@
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>
 	<string name="downloader_process">Ladataan %s...</string>
 	<string name="downloader_applying">%s otetaan käyttöön...</string>
-	<string name="transit_not_found">Navigointi kohteiden välillä ei ole vielä käytettävissä tällä alueella</string>
 	<string name="whats_new_title_hotel_filter">Uusia hotellisuodattimia on saatavana!</string>
 	<string name="whats_new_message_hotel_filter">Varaa hotelleja, joissa on tilaa valitseminasi päivinä! Käytä sisäänkirjautumis- ja uloskirjautumissuodattimia</string>
 	<string name="whats_new_title_ugc_travel">Jaa kokemuksesi muille matkailijoille!</string>
@@ -1731,6 +1730,11 @@
 	<string name="new_onboarding_step3_header">Matkusta</string>
 	<string name="all_pass_screen_best_value">Edullinen hinta</string>
 	<string name="buy_btn_for_subscription_3">Koko luettelo %s/vuosi</string>
+	<string name="transit_not_found">Metron reittiohjeet eivät ole vielä saatavilla tällä alueella</string>
+	<string name="dialog_pedestrian_route_is_long_header">Metroreittiä ei ole löytynyt</string>
+	<string name="dialog_pedestrian_route_is_long_message">Valitse reitin aloitus- tai loppupiste lähemmäksi metroasemaa</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">Virhe metroreitin luomisessa</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "Áp dụng %s...";
 
-"transit_not_found" = "Chưa có tính năng dẫn đường quá cảnh cho khu vực này";
-
 "whats_new_title_hotel_filter" = "Đã có bộ lọc khách sạn mới!";
 
 "whats_new_message_hotel_filter" = "Đặt các khách sạn còn phòng cho ngày của bạn! Sử dụng các bộ lọc nhận phòng và trả phòng";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "Giá tốt";
 
 "buy_btn_for_subscription_3" = "Cả danh mục chỉ với %s/năm";
+
+"transit_not_found" = "Điều hướng đến Metro hiện chưa khả dụng cho khu vực này";
+
+"dialog_pedestrian_route_is_long_header" = "Không tìm thấy tuyến Metro";
+
+"dialog_pedestrian_route_is_long_message" = "Hãy chọn điểm đầu hoặc điểm cuối của tuyến gần với bến Metro";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "Lỗi xây dựng tuyến Metro";
 
 
 /**********  Partners  **********/

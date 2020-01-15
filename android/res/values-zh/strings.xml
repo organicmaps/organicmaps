@@ -1236,7 +1236,6 @@
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>
 	<string name="downloader_process">正在下載 %s...</string>
 	<string name="downloader_applying">正在套用 %s...</string>
-	<string name="transit_not_found">尚無法使用本區域的過境導航</string>
 	<string name="whats_new_title_hotel_filter">新的飯店篩選條件可用！</string>
 	<string name="whats_new_message_hotel_filter">為您的日期安排預訂飯店！使用入住和退房篩選條件</string>
 	<string name="whats_new_title_ugc_travel">與其他旅客分享您的體驗！</string>
@@ -1735,6 +1734,11 @@
 	<string name="new_onboarding_step3_header">去旅行吧</string>
 	<string name="all_pass_screen_best_value">优惠的价格</string>
 	<string name="buy_btn_for_subscription_3">整个画册%s/年</string>
+	<string name="transit_not_found">本区域的地铁导航目前不可用</string>
+	<string name="dialog_pedestrian_route_is_long_header">地铁路线图未找到</string>
+	<string name="dialog_pedestrian_route_is_long_message">选择地铁站附近的起点和终点</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">地铁路线图设计出错</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">缆车车站</string>

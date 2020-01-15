@@ -1242,7 +1242,6 @@
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>
 	<string name="downloader_process">%s indiriliyor...</string>
 	<string name="downloader_applying">%s uygulanıyor...</string>
-	<string name="transit_not_found">Transit navigasyon henüz bu bölgede kullanılamıyor</string>
 	<string name="whats_new_title_hotel_filter">Yeni otel filtreleri kullanımda!</string>
 	<string name="whats_new_message_hotel_filter">İstediğiniz tarihte otel rezervasyonu yapın! Check-in ve check-out filtrelerini kullanın</string>
 	<string name="whats_new_title_ugc_travel">Deneyimlerinizi diğer gezginlerle paylaşın!</string>
@@ -1742,6 +1741,11 @@
 	<string name="new_onboarding_step3_header">Deneyimle</string>
 	<string name="all_pass_screen_best_value">En İyi Teklif</string>
 	<string name="buy_btn_for_subscription_3">Tüm katalog %s/yıl</string>
+	<string name="transit_not_found">Metro navigasyonu bu bölgede henüz mevcut değil</string>
+	<string name="dialog_pedestrian_route_is_long_header">Metro güzergahı bulunamadı</string>
+	<string name="dialog_pedestrian_route_is_long_message">Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">Metro güzergahı oluşturma hatası</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

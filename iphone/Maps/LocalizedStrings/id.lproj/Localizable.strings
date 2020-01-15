@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "Menerapkan %s...";
 
-"transit_not_found" = "Navigasi transit di daerah ini masih belum tersedia";
-
 "whats_new_title_hotel_filter" = "Filter hotel baru tersedia!";
 
 "whats_new_message_hotel_filter" = "Pesan hotel yang tersedia untuk tanggal perjalanan Anda! Gunakan filter check-in dan check-out";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "Harga terbaik";
 
 "buy_btn_for_subscription_3" = "Katalog lengkap hanya dengan %s/tahun";
+
+"transit_not_found" = "Navigasi kereta bawah tanah di wilayah ini belum tersedia";
+
+"dialog_pedestrian_route_is_long_header" = "Jalur kereta bawah tanah tidak ditemukan";
+
+"dialog_pedestrian_route_is_long_message" = "Silakan pilih titik awal atau akhir yang lebih dekat ke stasiun kereta bawah tanah";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "Perencanaan jalur kereta bawah tanah gagal";
 
 
 /**********  Partners  **********/

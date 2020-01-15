@@ -1228,7 +1228,6 @@
 	<string name="downloader_percent">%1$s (%2$s av %3$s)</string>
 	<string name="downloader_process">Laster ned %s ...</string>
 	<string name="downloader_applying">Bruker %s ...</string>
-	<string name="transit_not_found">Transittnavigering i dette området er foreløpig ikke tilgjengelig</string>
 	<string name="whats_new_title_hotel_filter">Nye filter for hotell er tilgjengelig!</string>
 	<string name="whats_new_message_hotel_filter">Bestill hotell på datoene dine! Bruk filtre for inn- og utsjekking</string>
 	<string name="whats_new_title_ugc_travel">Del dine opplevelser med andre reisende!</string>
@@ -1629,6 +1628,11 @@
 	<string name="new_onboarding_step3_header">Reis</string>
 	<string name="all_pass_screen_best_value">Rimelig pris</string>
 	<string name="buy_btn_for_subscription_3">Hele katalogen for %s/år</string>
+	<string name="transit_not_found">T-bane navigasjon er ikke tilgjengelig i denne regionen ennå</string>
+	<string name="dialog_pedestrian_route_is_long_header">T-bane rute ikke funnet</string>
+	<string name="dialog_pedestrian_route_is_long_message">Velg utgangspunkt eller destinasjon som befinner seg nærmere en T-bane stasjon</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">Feil ved ruteplanlegging</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestasjon</string>

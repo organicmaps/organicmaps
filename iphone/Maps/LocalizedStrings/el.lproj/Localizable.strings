@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "Εφαρμογή %s...";
 
-"transit_not_found" = "Η πλοήγηση διαμετακόμισης στην περιοχή αυτή δεν είναι ακόμα διαθέσιμη";
-
 "whats_new_title_hotel_filter" = "Υπάρχουν διαθέσιμα νέα φίλτρα ξενοδοχείου!";
 
 "whats_new_message_hotel_filter" = "Κάντε κράτησ σε ξενοδοχεία που είναι διαθέσιμα τις ημερομηνίες σας! Χρησιμοποιήστε τα φίλτρα άφιξης και αναχώρισης";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "Καλύτερη τιμή";
 
 "buy_btn_for_subscription_3" = "Ολόκληρος κατάλογος με %s/έτος";
+
+"transit_not_found" = "Η πλοήγηση στο μετρό γι' αυτή την περιοχή δεν είναι ακόμα διαθέσιμη";
+
+"dialog_pedestrian_route_is_long_header" = "Η διαδρομή του μετρό δεν βρέθηκε";
+
+"dialog_pedestrian_route_is_long_message" = "Επιλέξτε το σημείο έναρξης ή τέλους διαδρομής πιο κοντά στο σταθμό του μετρό";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "Σφάλμα κατά την δημιουργία διαδρομής του μετρό";
 
 
 /**********  Partners  **********/

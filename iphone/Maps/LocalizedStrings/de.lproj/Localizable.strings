@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "%s anwenden...";
 
-"transit_not_found" = "Transit-Navigation in dieser Region ist noch nicht verfügbar";
-
 "whats_new_title_hotel_filter" = "Neue Hotelfilter verfügbar!";
 
 "whats_new_message_hotel_filter" = "Buchen Sie Hotels, die für Ihre Termine verfügbar sind! Nutzen Sie Anreise- und Abreise-Filter";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "Günstiger Preis";
 
 "buy_btn_for_subscription_3" = "Das ganze Katalog für %s/Jahr";
+
+"transit_not_found" = "Die U-Bahn-Navigation ist in dieser Region noch nicht verfügbar";
+
+"dialog_pedestrian_route_is_long_header" = "Keine U-Bahn-Route gefunden";
+
+"dialog_pedestrian_route_is_long_message" = "Wählen Sie den Start- und Endpunkt der Route, die am nächsten zur U-Bahn-Station liegen";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "Fehler bei der Erstellung der U-Bahn-Route";
 
 
 /**********  Partners  **********/

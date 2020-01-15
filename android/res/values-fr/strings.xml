@@ -1250,7 +1250,6 @@
 	<string name="downloader_percent">%1$s (%2$s de %3$s)</string>
 	<string name="downloader_process">Téléchargement de %s...</string>
 	<string name="downloader_applying">Application de %s...</string>
-	<string name="transit_not_found">La navigation en transit dans cette région n’est pas encore disponible</string>
 	<string name="whats_new_title_hotel_filter">Nouveaux filtres d’hôtel disponibles !</string>
 	<string name="whats_new_message_hotel_filter">Réservez des hôtels disponibles à vos dates ! Utilisez les filtres de check-in et check-out</string>
 	<string name="whats_new_title_ugc_travel">Partagez votre expérience avec d’autres voyageurs !</string>
@@ -1756,6 +1755,11 @@
 	<string name="new_onboarding_step3_header">Voyagez</string>
 	<string name="all_pass_screen_best_value">Prix avantageux</string>
 	<string name="buy_btn_for_subscription_3">Le catalogue entier pour %s/an</string>
+	<string name="transit_not_found">La navigation en métro n\'est pas encore disponible dans la région</string>
+	<string name="dialog_pedestrian_route_is_long_header">Itinéraire de métro non trouvé</string>
+	<string name="dialog_pedestrian_route_is_long_message">Choisissez le point de départ ou d\'arrivée de l\'itinéraire le plus proche de la station de métro</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">Erreur dans le tracé de l\'itinéraire du métro</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

@@ -1246,7 +1246,6 @@
 	<string name="downloader_percent">%1$s (%2$s z %3$s)</string>
 	<string name="downloader_process">Pobieranie %s...</string>
 	<string name="downloader_applying">Stosowanie zmian %s...</string>
-	<string name="transit_not_found">Nawigacja tranzytowa nie jest jeszcze dostępna dla tego regionu</string>
 	<string name="whats_new_title_hotel_filter">Dostępne nowe filtry hoteli!</string>
 	<string name="whats_new_message_hotel_filter">Zarezerwuj hotele dla wybranych dat! Użyj filtrów przyjazdu i wyjazdu</string>
 	<string name="whats_new_title_ugc_travel">Podziel się swoimi wrażeniami z innymi podróżnymi!</string>
@@ -1748,6 +1747,11 @@
 	<string name="new_onboarding_step3_header">Podróżuj</string>
 	<string name="all_pass_screen_best_value">Atrakcyjna cena</string>
 	<string name="buy_btn_for_subscription_3">Cały katalog za %s/rok</string>
+	<string name="transit_not_found">Nawigacja metrem nie jest jeszcze tutaj dostępna</string>
+	<string name="dialog_pedestrian_route_is_long_header">Nie znaleziono trasy metra</string>
+	<string name="dialog_pedestrian_route_is_long_message">Wybierz punkt początkowy lub końcowy trasy najbliżej do stacji metra</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">Błąd tworzenia trasy metra</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Wyprzedaże</string>

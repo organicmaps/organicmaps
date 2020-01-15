@@ -1236,7 +1236,6 @@
 	<string name="downloader_percent">%1$s (%2$s di %3$s)</string>
 	<string name="downloader_process">Download di %s...</string>
 	<string name="downloader_applying">Applicazione di %s...</string>
-	<string name="transit_not_found">La navigazione in transito in questa regione non è ancora disponibile</string>
 	<string name="whats_new_title_hotel_filter">Nuovi filtri hotel disponibili!</string>
 	<string name="whats_new_message_hotel_filter">Prenota gli hotel disponibili nelle tue date! Usa i filtri per check-in e check-out</string>
 	<string name="whats_new_title_ugc_travel">Condividi la tua esperienza con altri viaggiatori!</string>
@@ -1737,6 +1736,11 @@
 	<string name="new_onboarding_step3_header">Viaggia</string>
 	<string name="all_pass_screen_best_value">Prezzo vantaggioso</string>
 	<string name="buy_btn_for_subscription_3">Tutto il catalogo a %s all\'anno</string>
+	<string name="transit_not_found">L\'utilizzo della metro non è ancora disponibile in questa regione</string>
+	<string name="dialog_pedestrian_route_is_long_header">Percorso della metro non trovato</string>
+	<string name="dialog_pedestrian_route_is_long_message">Seleziona il punto iniziale o finale del percorso più vicino alla stazione della metro</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">Errore di creazione del percorso della metro</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stazione di rifornimento per auto elettriche</string>

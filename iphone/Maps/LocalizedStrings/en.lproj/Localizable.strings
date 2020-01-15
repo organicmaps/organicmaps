@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "Applying %s...";
 
-"transit_not_found" = "Transit navigation in this region is not yet available";
-
 "whats_new_title_hotel_filter" = "New hotel filters available!";
 
 "whats_new_message_hotel_filter" = "Book hotels available for your dates! Use check in and check out filters";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "Best Value";
 
 "buy_btn_for_subscription_3" = "Entire catalog for %s/year";
+
+"transit_not_found" = "Subway navigation in this region is not available yet";
+
+"dialog_pedestrian_route_is_long_header" = "Subway route is not found";
+
+"dialog_pedestrian_route_is_long_message" = "Please choose a start or end point closer to a subway station";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "Subway route planning failed";
 
 
 /**********  Partners  **********/

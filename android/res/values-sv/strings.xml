@@ -1236,7 +1236,6 @@
 	<string name="downloader_percent">%1$s (%2$s av %3$s)</string>
 	<string name="downloader_process">Ladda ned %s...</string>
 	<string name="downloader_applying">Tillämpar %s...</string>
-	<string name="transit_not_found">Transitnavigering är inte tillgängligt i den här regionen ännu</string>
 	<string name="whats_new_title_hotel_filter">Nya hotellfilter finns tillgängliga!</string>
 	<string name="whats_new_message_hotel_filter">Boka hotell som är tillgängliga för dina datum! Använd filter för incheckning och utcheckning</string>
 	<string name="whats_new_title_ugc_travel">Dela din upplevelse med andra resenärer!</string>
@@ -1737,6 +1736,11 @@
 	<string name="new_onboarding_step3_header">Resa</string>
 	<string name="all_pass_screen_best_value">Lönsamt pris</string>
 	<string name="buy_btn_for_subscription_3">Hela katalogen för %s/år</string>
+	<string name="transit_not_found">Metro-navigering är ännu inte tillgänglig i denna region</string>
+	<string name="dialog_pedestrian_route_is_long_header">Metro rutt hittades inte</string>
+	<string name="dialog_pedestrian_route_is_long_message">Välj ruttens start- eller slutpunkt närmare till tunnelbanestation</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">Fel vid byggande av metro rutt</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "%s を適用中です...";
 
-"transit_not_found" = "この地域での乗り換え案内はまだご利用いただけません";
-
 "whats_new_title_hotel_filter" = "新しいホテルのフィルターをご利用いただけます！";
 
 "whats_new_message_hotel_filter" = "あなたの日程で空室のあるホテルを予約できます！チェックインおよびチェックアウトフィルターをご利用ください。";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "ベストバリュー";
 
 "buy_btn_for_subscription_3" = "カタログ全体が年々%s";
+
+"transit_not_found" = "この地域の地下鉄ナビはまだ利用できません";
+
+"dialog_pedestrian_route_is_long_header" = "地下鉄ルートが見つかりませんでした";
+
+"dialog_pedestrian_route_is_long_message" = "もっと地下鉄駅に近い出発地または目的地を選択してください";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "地下鉄ルートの計画ができませんでした";
 
 
 /**********  Partners  **********/

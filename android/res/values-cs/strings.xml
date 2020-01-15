@@ -1238,7 +1238,6 @@
 	<string name="downloader_percent">%1$s (%2$s z %3$s)</string>
 	<string name="downloader_process">Stahování %s...</string>
 	<string name="downloader_applying">Aplikuji %s...</string>
-	<string name="transit_not_found">Tranzitní navigace v tomto regionu zatím není k dispozici</string>
 	<string name="whats_new_title_hotel_filter">Nové filtry pro hotely k dispozici!</string>
 	<string name="whats_new_message_hotel_filter">Rezervujte si hotely, které jsou k dispozici k vámi požadovaném datu! Použít filtry pro přihlášení a odhlášení v hotelu</string>
 	<string name="whats_new_title_ugc_travel">Podělte se o své zkušenosti s dalšími cestovateli!</string>
@@ -1740,6 +1739,11 @@
 	<string name="new_onboarding_step3_header">Zažijte</string>
 	<string name="all_pass_screen_best_value">Nejvýhodnější</string>
 	<string name="buy_btn_for_subscription_3">Celý katalog za %s/rok</string>
+	<string name="transit_not_found">Navigace metra v této oblasti zatím není k dispozici</string>
+	<string name="dialog_pedestrian_route_is_long_header">Trasa metra nebyla nalezena</string>
+	<string name="dialog_pedestrian_route_is_long_message">Zvolte prosím počáteční nebo koncový bod blíže k stanici metra</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">Plánování trasy metra selhalo</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>

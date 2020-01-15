@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "Aplicare %s...";
 
-"transit_not_found" = "Navigarea în tranzit prin această regiune nu este disponibilă încă";
-
 "whats_new_title_hotel_filter" = "Sunt disponibile filtre noi pentru hoteluri!";
 
 "whats_new_message_hotel_filter" = "Rezervați camere la hoteluri disponibile la datele dorite de dvs.! Utilizați filtrele de cazare și plecare";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "Preț avantajos";
 
 "buy_btn_for_subscription_3" = "Tot catalogul pentru %s/an";
+
+"transit_not_found" = "Navigarea pentru metrou nu este încă disponibilă în această regiune";
+
+"dialog_pedestrian_route_is_long_header" = "Ruta metroului nu a fost găsită";
+
+"dialog_pedestrian_route_is_long_message" = "Selectați punctul de început sau de sfârșit al rutei mai aproape de stația de metrou";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "Eroare la construirea rutei metroului";
 
 
 /**********  Partners  **********/

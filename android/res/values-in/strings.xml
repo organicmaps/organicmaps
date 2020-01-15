@@ -1229,7 +1229,6 @@
 	<string name="downloader_percent">%1$s (%2$s dari %3$s)</string>
 	<string name="downloader_process">Mengunduh %s...</string>
 	<string name="downloader_applying">Menerapkan %s...</string>
-	<string name="transit_not_found">Navigasi transit di daerah ini masih belum tersedia</string>
 	<string name="whats_new_title_hotel_filter">Filter hotel baru tersedia!</string>
 	<string name="whats_new_message_hotel_filter">Pesan hotel yang tersedia untuk tanggal perjalanan Anda! Gunakan filter check-in dan check-out</string>
 	<string name="whats_new_title_ugc_travel">Bagikan pengalaman Anda dengan musafir lain!</string>
@@ -1730,6 +1729,11 @@
 	<string name="new_onboarding_step3_header">Pengalaman</string>
 	<string name="all_pass_screen_best_value">Harga terbaik</string>
 	<string name="buy_btn_for_subscription_3">Katalog lengkap hanya dengan %s/tahun</string>
+	<string name="transit_not_found">Navigasi kereta bawah tanah di wilayah ini belum tersedia</string>
+	<string name="dialog_pedestrian_route_is_long_header">Jalur kereta bawah tanah tidak ditemukan</string>
+	<string name="dialog_pedestrian_route_is_long_message">Silakan pilih titik awal atau akhir yang lebih dekat ke stasiun kereta bawah tanah</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">Perencanaan jalur kereta bawah tanah gagal</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

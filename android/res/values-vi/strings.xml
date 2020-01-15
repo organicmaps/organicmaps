@@ -1230,7 +1230,6 @@
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>
 	<string name="downloader_process">Tải về %s...</string>
 	<string name="downloader_applying">Áp dụng %s...</string>
-	<string name="transit_not_found">Chưa có tính năng dẫn đường quá cảnh cho khu vực này</string>
 	<string name="whats_new_title_hotel_filter">Đã có bộ lọc khách sạn mới!</string>
 	<string name="whats_new_message_hotel_filter">Đặt các khách sạn còn phòng cho ngày của bạn! Sử dụng các bộ lọc nhận phòng và trả phòng</string>
 	<string name="whats_new_title_ugc_travel">Chia sẻ trải nghiệm của bạn với những du khách khác!</string>
@@ -1727,6 +1726,11 @@
 	<string name="new_onboarding_step3_header">Đi du lịch nào</string>
 	<string name="all_pass_screen_best_value">Giá tốt</string>
 	<string name="buy_btn_for_subscription_3">Cả danh mục chỉ với %s/năm</string>
+	<string name="transit_not_found">Điều hướng đến Metro hiện chưa khả dụng cho khu vực này</string>
+	<string name="dialog_pedestrian_route_is_long_header">Không tìm thấy tuyến Metro</string>
+	<string name="dialog_pedestrian_route_is_long_message">Hãy chọn điểm đầu hoặc điểm cuối của tuyến gần với bến Metro</string>
+	<!-- Failed planning SUBWAY route message in navigation view -->
+	<string name="routing_planning_error_subway_special">Lỗi xây dựng tuyến Metro</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

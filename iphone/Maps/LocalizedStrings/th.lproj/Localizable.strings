@@ -2185,8 +2185,6 @@
 
 "downloader_applying" = "กำลังนำ %s ไปใช้งาน...";
 
-"transit_not_found" = "การนำทางการสัญจรในบริเวณนี้ยังไม่สามารถใช้ได้";
-
 "whats_new_title_hotel_filter" = "มีตัวกรองโรงแรมตัวใหม่ให้ใช้ได้แล้ว!";
 
 "whats_new_message_hotel_filter" = "จองโรงแรมที่มีสำหรับช่วงวันที่ของคุณ! ใช้ตัวกรองเช็คอินและเช็คเอาท์";
@@ -3177,6 +3175,15 @@
 "all_pass_screen_best_value" = "คุ้มค่าที่สุด";
 
 "buy_btn_for_subscription_3" = "ทั้งแคตตาล็อคราคา %s/ปี";
+
+"transit_not_found" = "ยังไม่สามารถใช้การนำทางรถไฟใต้ดินในภูมิภาคนี้ได้";
+
+"dialog_pedestrian_route_is_long_header" = "ไม่พบเส้นทางของทางรถไฟใต้ดิน";
+
+"dialog_pedestrian_route_is_long_message" = "โปรดเลือกจุดเริ่มต้นและสิ้นสุดที่อยู่ใกล้สถานีรถไฟใต้ดิน";
+
+/* Failed planning SUBWAY route message in navigation view */
+"routing_planning_error_subway_special" = "การวางแผนเส้นทางของทางรถไฟใต้ดินล้มเหลว";
 
 
 /**********  Partners  **********/
