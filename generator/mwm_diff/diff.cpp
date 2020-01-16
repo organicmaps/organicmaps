@@ -143,22 +143,24 @@ DiffApplicationResult ApplyDiff(string const & oldMwmPath, string const & newMwm
 
     switch (version)
     {
-    case VERSION_V0: return ApplyDiffVersion0(oldReader, newWriter, diffFileSource, cancellable);
-    default: LOG(LERROR, ("Unknown version format of mwm diff:", version));
+    case VERSION_V0:
+      return ApplyDiffVersion0(oldReader, newWriter, diffFileSource, cancellable);
+    default:
+      LOG(LERROR, ("Unknown version format of mwm diff:", version));
+      return DiffApplicationResult::Failed;
     }
   }
   catch (Reader::Exception const & e)
   {
     LOG(LERROR, ("Could not open file for reading when applying a patch:", e.Msg()));
-    return DiffApplicationResult::Failed;
   }
   catch (Writer::Exception const & e)
   {
     LOG(LERROR, ("Could not open file for writing when applying a patch:", e.Msg()));
-    return DiffApplicationResult::Failed;
   }
 
-  return DiffApplicationResult::Failed;
+  return cancellable.IsCancelled() ? DiffApplicationResult::Cancelled
+                                   : DiffApplicationResult::Failed;
 }
 
 string DebugPrint(DiffApplicationResult const & result)
