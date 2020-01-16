@@ -138,7 +138,7 @@ highway|secondary|junction;[highway=secondary][junction?];x;name;int_name;137;hi
 amenity|fire_station;138;
 landuse|retail;139;
 leisure|nature_reserve;140;
-leisure|pitch|tennis;[leisure=pitch][sport=tennis];;name;int_name;141;
+leisure|pitch|tennis;[leisure=pitch][sport=tennis];x;name;int_name;141;leisure|pitch
 tourism|information;142;
 highway|motorway_link|bridge;[highway=motorway_link][bridge?];;name;int_name;143;
 railway|abandoned;144;
