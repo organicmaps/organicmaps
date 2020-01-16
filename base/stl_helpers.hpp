@@ -26,7 +26,7 @@ struct Less;
 template <typename T, typename C>
 struct Less<true, T, C>
 {
-  Less(T C::* p) : m_p(p) {}
+  explicit Less(T C::* p) : m_p(p) {}
 
   bool operator()(C const & lhs, C const & rhs) const { return lhs.*m_p < rhs.*m_p; }
 
@@ -41,7 +41,7 @@ struct Less<true, T, C>
 template <typename T, typename C>
 struct Less<false, T, C>
 {
-  Less(T (C::*p)() const) : m_p(p) {}
+  explicit Less(T (C::*p)() const) : m_p(p) {}
 
   bool operator()(C const & lhs, C const & rhs) const { return (lhs.*m_p)() < (rhs.*m_p)(); }
 
@@ -59,7 +59,7 @@ struct Equals;
 template <typename T, typename C>
 struct Equals<true, T, C>
 {
-  Equals(T C::* p) : m_p(p) {}
+  explicit Equals(T C::* p) : m_p(p) {}
 
   bool operator()(C const & lhs, C const & rhs) const { return lhs.*m_p == rhs.*m_p; }
 
@@ -74,7 +74,7 @@ struct Equals<true, T, C>
 template <typename T, typename C>
 struct Equals<false, T, C>
 {
-  Equals(T (C::*p)() const) : m_p(p) {}
+  explicit Equals(T (C::*p)() const) : m_p(p) {}
 
   bool operator()(C const & lhs, C const & rhs) const { return (lhs.*m_p)() == (rhs.*m_p)(); }
 
@@ -196,7 +196,7 @@ class IgnoreFirstArgument
 {
 public:
   template <typename Gn>
-  IgnoreFirstArgument(Gn && gn) : m_fn(std::forward<Gn>(gn)) {}
+  explicit IgnoreFirstArgument(Gn && gn) : m_fn(std::forward<Gn>(gn)) {}
 
   template <typename Arg, typename... Args>
   std::result_of_t<Fn(Args &&...)> operator()(Arg && arg, Args &&... args)
