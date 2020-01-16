@@ -284,9 +284,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
 
   m_turnNotificationsMgr.SetSpeedMetersPerSecond(info.m_speedMpS);
 
-  auto const iteratorAction = m_route->MoveIteratorToReal(info);
-
-  if (iteratorAction.m_movedIterator)
+  if (m_route->MoveIterator(info))
   {
     m_moveAwayCounter = 0;
     m_lastDistance = 0.0;
@@ -306,7 +304,6 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     else
     {
       SetState(SessionState::OnRoute);
-
       m_speedCameraManager.OnLocationPositionChanged(info);
     }
 
@@ -316,7 +313,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     return m_state;
   }
 
-  if (!iteratorAction.m_closerToFake && m_state != SessionState::RouteNeedRebuild && m_state != SessionState::RouteRebuilding)
+  if (m_state != SessionState::RouteNeedRebuild && m_state != SessionState::RouteRebuilding)
   {
     // Distance from the last known projection on route
     // (check if we are moving far from the last known projection).

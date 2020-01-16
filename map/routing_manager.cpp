@@ -1159,8 +1159,9 @@ void RoutingManager::MatchLocationToRoute(location::GpsInfo & location,
 
 location::RouteMatchingInfo RoutingManager::GetRouteMatchingInfo(location::GpsInfo & info)
 {
-  location::RouteMatchingInfo routeMatchingInfo;
   CheckLocationForRouting(info);
+
+  location::RouteMatchingInfo routeMatchingInfo;
   MatchLocationToRoute(info, routeMatchingInfo);
   return routeMatchingInfo;
 }
