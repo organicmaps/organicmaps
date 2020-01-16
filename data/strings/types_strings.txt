@@ -7304,7 +7304,8 @@
     fa = مسیر
 
   [type.highway.ford]
-    en = highway-ford
+    en = Ford
+    ru = Брод
     pl = Bród
 
   [type.highway.living_street]
