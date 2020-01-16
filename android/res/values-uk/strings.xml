@@ -1805,14 +1805,11 @@
 	<string name="type.amenity.parking">Парковка</string>
 	<string name="type.amenity.parking.fee">Парковка</string>
 	<string name="type.amenity.parking.multi.storey">Парковка</string>
-	<string name="type.amenity.parking.multi.storey.fee">Парковка</string>
 	<string name="type.amenity.parking.no.access">Парковка</string>
 	<string name="type.amenity.parking.park_and_ride">Парковка</string>
 	<string name="type.amenity.parking.permissive">Парковка</string>
-	<string name="type.amenity.parking.permissive.fee">Парковка</string>
 	<string name="type.amenity.parking.private">Парковка</string>
 	<string name="type.amenity.parking.underground">Парковка</string>
-	<string name="type.amenity.parking.underground.fee">Парковка</string>
 	<string name="type.amenity.parking_space">Паркувальне місце</string>
 	<string name="type.amenity.parking_space.permissive">Паркувальне місце</string>
 	<string name="type.amenity.parking_space.private">Паркувальне місце</string>
@@ -2029,9 +2026,6 @@
 	<string name="type.highway.service.area">Вулиця</string>
 	<string name="type.highway.service.bridge">Вулиця</string>
 	<string name="type.highway.service.driveway">Вулиця</string>
-	<string name="type.highway.service.driveway.area">Вулиця</string>
-	<string name="type.highway.service.driveway.bridge">Вулиця</string>
-	<string name="type.highway.service.driveway.tunnel">Вулиця</string>
 	<string name="type.highway.service.parking_aisle">Вулиця</string>
 	<string name="type.highway.service.tunnel">Вулиця</string>
 	<string name="type.highway.speed_camera">Камера безпеки дорожнього руху</string>
@@ -2050,14 +2044,8 @@
 	<string name="type.highway.track.grade1">Вулиця</string>
 	<string name="type.highway.track.grade2">Вулиця</string>
 	<string name="type.highway.track.grade3">Вулиця</string>
-	<string name="type.highway.track.grade3.no.access">Вулиця</string>
-	<string name="type.highway.track.grade3.permissive">Вулиця</string>
 	<string name="type.highway.track.grade4">Вулиця</string>
-	<string name="type.highway.track.grade4.no.access">Вулиця</string>
-	<string name="type.highway.track.grade4.permissive">Вулиця</string>
 	<string name="type.highway.track.grade5">Вулиця</string>
-	<string name="type.highway.track.grade5.no.access">Вулиця</string>
-	<string name="type.highway.track.grade5.permissive">Вулиця</string>
 	<string name="type.highway.track.no.access">Вулиця</string>
 	<string name="type.highway.track.permissive">Вулиця</string>
 	<string name="type.highway.track.tunnel">Вулиця</string>
@@ -2110,7 +2098,6 @@
 	<string name="type.leisure.park.permissive">Парк</string>
 	<string name="type.leisure.park.private">Парк</string>
 	<string name="type.leisure.pitch">Спортмайданчик</string>
-	<string name="type.leisure.pitch.tennis">Спортмайданчик</string>
 	<string name="type.leisure.playground">Дитячий майданчик</string>
 	<string name="type.leisure.sauna">Сауна</string>
 	<string name="type.leisure.sports_centre">Спорткомплекс</string>

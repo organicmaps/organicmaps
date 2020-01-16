@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "موقف سيارات";
 
-"type.amenity.parking.multi.storey.fee" = "موقف سيارات";
-
 "type.amenity.parking.no.access" = "موقف سيارات";
 
 "type.amenity.parking.park_and_ride" = "موقف سيارات";
 
 "type.amenity.parking.permissive" = "موقف سيارات";
 
-"type.amenity.parking.permissive.fee" = "موقف سيارات";
-
 "type.amenity.parking.private" = "موقف سيارات";
 
 "type.amenity.parking.underground" = "موقف سيارات";
-
-"type.amenity.parking.underground.fee" = "موقف سيارات";
 
 "type.amenity.parking_space" = "مكان لوقوف السيارات";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "شارع";
 
-"type.highway.service.driveway.area" = "شارع";
-
-"type.highway.service.driveway.bridge" = "شارع";
-
-"type.highway.service.driveway.tunnel" = "شارع";
-
 "type.highway.service.parking_aisle" = "شارع";
 
 "type.highway.service.tunnel" = "شارع";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "شارع";
 
-"type.highway.track.grade3.no.access" = "شارع";
-
-"type.highway.track.grade3.permissive" = "شارع";
-
 "type.highway.track.grade4" = "شارع";
 
-"type.highway.track.grade4.no.access" = "شارع";
-
-"type.highway.track.grade4.permissive" = "شارع";
-
 "type.highway.track.grade5" = "شارع";
-
-"type.highway.track.grade5.no.access" = "شارع";
-
-"type.highway.track.grade5.permissive" = "شارع";
 
 "type.highway.track.no.access" = "شارع";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "موقف سيارات";
 
 "type.leisure.pitch" = "ملعب رياضي";
-
-"type.leisure.pitch.tennis" = "ملعب رياضي";
 
 "type.leisure.playground" = "ملعب";
 

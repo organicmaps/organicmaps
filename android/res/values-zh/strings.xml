@@ -1803,14 +1803,11 @@
 	<string name="type.amenity.parking">停车</string>
 	<string name="type.amenity.parking.fee">停车</string>
 	<string name="type.amenity.parking.multi.storey">停车</string>
-	<string name="type.amenity.parking.multi.storey.fee">停车</string>
 	<string name="type.amenity.parking.no.access">停车</string>
 	<string name="type.amenity.parking.park_and_ride">停车</string>
 	<string name="type.amenity.parking.permissive">停车</string>
-	<string name="type.amenity.parking.permissive.fee">停车</string>
 	<string name="type.amenity.parking.private">停车</string>
 	<string name="type.amenity.parking.underground">停车</string>
-	<string name="type.amenity.parking.underground.fee">停车</string>
 	<string name="type.amenity.parking_space">停车地点</string>
 	<string name="type.amenity.parking_space.permissive">停车地点</string>
 	<string name="type.amenity.parking_space.private">停车地点</string>
@@ -2027,9 +2024,6 @@
 	<string name="type.highway.service.area">街头</string>
 	<string name="type.highway.service.bridge">街头</string>
 	<string name="type.highway.service.driveway">街头</string>
-	<string name="type.highway.service.driveway.area">街头</string>
-	<string name="type.highway.service.driveway.bridge">街头</string>
-	<string name="type.highway.service.driveway.tunnel">街头</string>
 	<string name="type.highway.service.parking_aisle">街头</string>
 	<string name="type.highway.service.tunnel">街头</string>
 	<string name="type.highway.speed_camera">测速照相机</string>
@@ -2048,14 +2042,8 @@
 	<string name="type.highway.track.grade1">街头</string>
 	<string name="type.highway.track.grade2">街头</string>
 	<string name="type.highway.track.grade3">街头</string>
-	<string name="type.highway.track.grade3.no.access">街头</string>
-	<string name="type.highway.track.grade3.permissive">街头</string>
 	<string name="type.highway.track.grade4">街头</string>
-	<string name="type.highway.track.grade4.no.access">街头</string>
-	<string name="type.highway.track.grade4.permissive">街头</string>
 	<string name="type.highway.track.grade5">街头</string>
-	<string name="type.highway.track.grade5.no.access">街头</string>
-	<string name="type.highway.track.grade5.permissive">街头</string>
 	<string name="type.highway.track.no.access">街头</string>
 	<string name="type.highway.track.permissive">街头</string>
 	<string name="type.highway.track.tunnel">街头</string>
@@ -2108,7 +2096,6 @@
 	<string name="type.leisure.park.permissive">公园</string>
 	<string name="type.leisure.park.private">公园</string>
 	<string name="type.leisure.pitch">球场</string>
-	<string name="type.leisure.pitch.tennis">球场</string>
 	<string name="type.leisure.playground">操场</string>
 	<string name="type.leisure.sauna">桑拿</string>
 	<string name="type.leisure.sports_centre">运动</string>

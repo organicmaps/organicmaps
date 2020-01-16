@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "Parkir";
 
-"type.amenity.parking.multi.storey.fee" = "Parkir";
-
 "type.amenity.parking.no.access" = "Parkir";
 
 "type.amenity.parking.park_and_ride" = "Parkir";
 
 "type.amenity.parking.permissive" = "Parkir";
 
-"type.amenity.parking.permissive.fee" = "Parkir";
-
 "type.amenity.parking.private" = "Parkir";
 
 "type.amenity.parking.underground" = "Parkir";
-
-"type.amenity.parking.underground.fee" = "Parkir";
 
 "type.amenity.parking_space" = "Tempat parkir";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "Jalan";
 
-"type.highway.service.driveway.area" = "Jalan";
-
-"type.highway.service.driveway.bridge" = "Jalan";
-
-"type.highway.service.driveway.tunnel" = "Jalan";
-
 "type.highway.service.parking_aisle" = "Jalan";
 
 "type.highway.service.tunnel" = "Jalan";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "Jalan";
 
-"type.highway.track.grade3.no.access" = "Jalan";
-
-"type.highway.track.grade3.permissive" = "Jalan";
-
 "type.highway.track.grade4" = "Jalan";
 
-"type.highway.track.grade4.no.access" = "Jalan";
-
-"type.highway.track.grade4.permissive" = "Jalan";
-
 "type.highway.track.grade5" = "Jalan";
-
-"type.highway.track.grade5.no.access" = "Jalan";
-
-"type.highway.track.grade5.permissive" = "Jalan";
 
 "type.highway.track.no.access" = "Jalan";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "Taman";
 
 "type.leisure.pitch" = "Lapangan olahraga";
-
-"type.leisure.pitch.tennis" = "Lapangan olahraga";
 
 "type.leisure.playground" = "Taman bermain";
 

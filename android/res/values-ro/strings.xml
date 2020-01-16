@@ -1789,14 +1789,11 @@
 	<string name="type.amenity.parking">Parcare</string>
 	<string name="type.amenity.parking.fee">Parcare</string>
 	<string name="type.amenity.parking.multi.storey">Parcare</string>
-	<string name="type.amenity.parking.multi.storey.fee">Parcare</string>
 	<string name="type.amenity.parking.no.access">Parcare</string>
 	<string name="type.amenity.parking.park_and_ride">Parcare</string>
 	<string name="type.amenity.parking.permissive">Parcare</string>
-	<string name="type.amenity.parking.permissive.fee">Parcare</string>
 	<string name="type.amenity.parking.private">Parcare</string>
 	<string name="type.amenity.parking.underground">Parcare</string>
-	<string name="type.amenity.parking.underground.fee">Parcare</string>
 	<string name="type.amenity.parking_space">Loc de parcare</string>
 	<string name="type.amenity.parking_space.permissive">Loc de parcare</string>
 	<string name="type.amenity.parking_space.private">Loc de parcare</string>
@@ -2008,9 +2005,6 @@
 	<string name="type.highway.service.area">Stradă</string>
 	<string name="type.highway.service.bridge">Stradă</string>
 	<string name="type.highway.service.driveway">Stradă</string>
-	<string name="type.highway.service.driveway.area">Stradă</string>
-	<string name="type.highway.service.driveway.bridge">Stradă</string>
-	<string name="type.highway.service.driveway.tunnel">Stradă</string>
 	<string name="type.highway.service.parking_aisle">Stradă</string>
 	<string name="type.highway.service.tunnel">Stradă</string>
 	<string name="type.highway.speed_camera">Detector de viteză</string>
@@ -2029,14 +2023,8 @@
 	<string name="type.highway.track.grade1">Stradă</string>
 	<string name="type.highway.track.grade2">Stradă</string>
 	<string name="type.highway.track.grade3">Stradă</string>
-	<string name="type.highway.track.grade3.no.access">Stradă</string>
-	<string name="type.highway.track.grade3.permissive">Stradă</string>
 	<string name="type.highway.track.grade4">Stradă</string>
-	<string name="type.highway.track.grade4.no.access">Stradă</string>
-	<string name="type.highway.track.grade4.permissive">Stradă</string>
 	<string name="type.highway.track.grade5">Stradă</string>
-	<string name="type.highway.track.grade5.no.access">Stradă</string>
-	<string name="type.highway.track.grade5.permissive">Stradă</string>
 	<string name="type.highway.track.no.access">Stradă</string>
 	<string name="type.highway.track.permissive">Stradă</string>
 	<string name="type.highway.track.tunnel">Stradă</string>
@@ -2086,7 +2074,6 @@
 	<string name="type.leisure.park.permissive">Parc</string>
 	<string name="type.leisure.park.private">Parc</string>
 	<string name="type.leisure.pitch">Teren de sport</string>
-	<string name="type.leisure.pitch.tennis">Teren de sport</string>
 	<string name="type.leisure.playground">Loc de joacă</string>
 	<string name="type.leisure.sauna">Saună</string>
 	<string name="type.leisure.sports_centre">Sport</string>

@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "Parkering";
 
-"type.amenity.parking.multi.storey.fee" = "Parkering";
-
 "type.amenity.parking.no.access" = "Parkering";
 
 "type.amenity.parking.park_and_ride" = "Parkering";
 
 "type.amenity.parking.permissive" = "Parkering";
 
-"type.amenity.parking.permissive.fee" = "Parkering";
-
 "type.amenity.parking.private" = "Parkering";
 
 "type.amenity.parking.underground" = "Parkering";
-
-"type.amenity.parking.underground.fee" = "Parkering";
 
 "type.amenity.parking_space" = "Parkeringsplats";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "Gata";
 
-"type.highway.service.driveway.area" = "Gata";
-
-"type.highway.service.driveway.bridge" = "Gata";
-
-"type.highway.service.driveway.tunnel" = "Gata";
-
 "type.highway.service.parking_aisle" = "Gata";
 
 "type.highway.service.tunnel" = "Gata";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "Gata";
 
-"type.highway.track.grade3.no.access" = "Gata";
-
-"type.highway.track.grade3.permissive" = "Gata";
-
 "type.highway.track.grade4" = "Gata";
 
-"type.highway.track.grade4.no.access" = "Gata";
-
-"type.highway.track.grade4.permissive" = "Gata";
-
 "type.highway.track.grade5" = "Gata";
-
-"type.highway.track.grade5.no.access" = "Gata";
-
-"type.highway.track.grade5.permissive" = "Gata";
 
 "type.highway.track.no.access" = "Gata";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "Parken";
 
 "type.leisure.pitch" = "Idrottsplats";
-
-"type.leisure.pitch.tennis" = "Idrottsplats";
 
 "type.leisure.playground" = "Lekplats";
 

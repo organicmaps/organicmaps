@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "Parkkipaikka";
 
-"type.amenity.parking.multi.storey.fee" = "Parkkipaikka";
-
 "type.amenity.parking.no.access" = "Parkkipaikka";
 
 "type.amenity.parking.park_and_ride" = "Parkkipaikka";
 
 "type.amenity.parking.permissive" = "Parkkipaikka";
 
-"type.amenity.parking.permissive.fee" = "Parkkipaikka";
-
 "type.amenity.parking.private" = "Parkkipaikka";
 
 "type.amenity.parking.underground" = "Parkkipaikka";
-
-"type.amenity.parking.underground.fee" = "Parkkipaikka";
 
 "type.amenity.parking_space" = "Parkkipaikka";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "Katu";
 
-"type.highway.service.driveway.area" = "Katu";
-
-"type.highway.service.driveway.bridge" = "Katu";
-
-"type.highway.service.driveway.tunnel" = "Katu";
-
 "type.highway.service.parking_aisle" = "Katu";
 
 "type.highway.service.tunnel" = "Katu";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "Katu";
 
-"type.highway.track.grade3.no.access" = "Katu";
-
-"type.highway.track.grade3.permissive" = "Katu";
-
 "type.highway.track.grade4" = "Katu";
 
-"type.highway.track.grade4.no.access" = "Katu";
-
-"type.highway.track.grade4.permissive" = "Katu";
-
 "type.highway.track.grade5" = "Katu";
-
-"type.highway.track.grade5.no.access" = "Katu";
-
-"type.highway.track.grade5.permissive" = "Katu";
 
 "type.highway.track.no.access" = "Katu";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "Puisto";
 
 "type.leisure.pitch" = "Urheilukenttä";
-
-"type.leisure.pitch.tennis" = "Urheilukenttä";
 
 "type.leisure.playground" = "Leikkikenttä";
 

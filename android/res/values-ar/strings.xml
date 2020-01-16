@@ -1804,14 +1804,11 @@
 	<string name="type.amenity.parking">موقف سيارات</string>
 	<string name="type.amenity.parking.fee">موقف سيارات</string>
 	<string name="type.amenity.parking.multi.storey">موقف سيارات</string>
-	<string name="type.amenity.parking.multi.storey.fee">موقف سيارات</string>
 	<string name="type.amenity.parking.no.access">موقف سيارات</string>
 	<string name="type.amenity.parking.park_and_ride">موقف سيارات</string>
 	<string name="type.amenity.parking.permissive">موقف سيارات</string>
-	<string name="type.amenity.parking.permissive.fee">موقف سيارات</string>
 	<string name="type.amenity.parking.private">موقف سيارات</string>
 	<string name="type.amenity.parking.underground">موقف سيارات</string>
-	<string name="type.amenity.parking.underground.fee">موقف سيارات</string>
 	<string name="type.amenity.parking_space">مكان لوقوف السيارات</string>
 	<string name="type.amenity.parking_space.permissive">مكان لوقوف السيارات</string>
 	<string name="type.amenity.parking_space.private">مكان لوقوف السيارات</string>
@@ -2028,9 +2025,6 @@
 	<string name="type.highway.service.area">شارع</string>
 	<string name="type.highway.service.bridge">شارع</string>
 	<string name="type.highway.service.driveway">شارع</string>
-	<string name="type.highway.service.driveway.area">شارع</string>
-	<string name="type.highway.service.driveway.bridge">شارع</string>
-	<string name="type.highway.service.driveway.tunnel">شارع</string>
 	<string name="type.highway.service.parking_aisle">شارع</string>
 	<string name="type.highway.service.tunnel">شارع</string>
 	<string name="type.highway.speed_camera">كاميرا لرصد السرعة</string>
@@ -2049,14 +2043,8 @@
 	<string name="type.highway.track.grade1">شارع</string>
 	<string name="type.highway.track.grade2">شارع</string>
 	<string name="type.highway.track.grade3">شارع</string>
-	<string name="type.highway.track.grade3.no.access">شارع</string>
-	<string name="type.highway.track.grade3.permissive">شارع</string>
 	<string name="type.highway.track.grade4">شارع</string>
-	<string name="type.highway.track.grade4.no.access">شارع</string>
-	<string name="type.highway.track.grade4.permissive">شارع</string>
 	<string name="type.highway.track.grade5">شارع</string>
-	<string name="type.highway.track.grade5.no.access">شارع</string>
-	<string name="type.highway.track.grade5.permissive">شارع</string>
 	<string name="type.highway.track.no.access">شارع</string>
 	<string name="type.highway.track.permissive">شارع</string>
 	<string name="type.highway.track.tunnel">شارع</string>
@@ -2109,7 +2097,6 @@
 	<string name="type.leisure.park.permissive">موقف سيارات</string>
 	<string name="type.leisure.park.private">موقف سيارات</string>
 	<string name="type.leisure.pitch">ملعب رياضي</string>
-	<string name="type.leisure.pitch.tennis">ملعب رياضي</string>
 	<string name="type.leisure.playground">ملعب</string>
 	<string name="type.leisure.sauna">ساونا</string>
 	<string name="type.leisure.sports_centre">رياضة</string>

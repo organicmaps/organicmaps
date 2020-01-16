@@ -1797,14 +1797,11 @@
 	<string name="type.amenity.parking">Parkkipaikka</string>
 	<string name="type.amenity.parking.fee">Parkkipaikka</string>
 	<string name="type.amenity.parking.multi.storey">Parkkipaikka</string>
-	<string name="type.amenity.parking.multi.storey.fee">Parkkipaikka</string>
 	<string name="type.amenity.parking.no.access">Parkkipaikka</string>
 	<string name="type.amenity.parking.park_and_ride">Parkkipaikka</string>
 	<string name="type.amenity.parking.permissive">Parkkipaikka</string>
-	<string name="type.amenity.parking.permissive.fee">Parkkipaikka</string>
 	<string name="type.amenity.parking.private">Parkkipaikka</string>
 	<string name="type.amenity.parking.underground">Parkkipaikka</string>
-	<string name="type.amenity.parking.underground.fee">Parkkipaikka</string>
 	<string name="type.amenity.parking_space">Parkkipaikka</string>
 	<string name="type.amenity.parking_space.permissive">Parkkipaikka</string>
 	<string name="type.amenity.parking_space.private">Parkkipaikka</string>
@@ -2021,9 +2018,6 @@
 	<string name="type.highway.service.area">Katu</string>
 	<string name="type.highway.service.bridge">Katu</string>
 	<string name="type.highway.service.driveway">Katu</string>
-	<string name="type.highway.service.driveway.area">Katu</string>
-	<string name="type.highway.service.driveway.bridge">Katu</string>
-	<string name="type.highway.service.driveway.tunnel">Katu</string>
 	<string name="type.highway.service.parking_aisle">Katu</string>
 	<string name="type.highway.service.tunnel">Katu</string>
 	<string name="type.highway.speed_camera">Nopeusvalvontakamera</string>
@@ -2042,14 +2036,8 @@
 	<string name="type.highway.track.grade1">Katu</string>
 	<string name="type.highway.track.grade2">Katu</string>
 	<string name="type.highway.track.grade3">Katu</string>
-	<string name="type.highway.track.grade3.no.access">Katu</string>
-	<string name="type.highway.track.grade3.permissive">Katu</string>
 	<string name="type.highway.track.grade4">Katu</string>
-	<string name="type.highway.track.grade4.no.access">Katu</string>
-	<string name="type.highway.track.grade4.permissive">Katu</string>
 	<string name="type.highway.track.grade5">Katu</string>
-	<string name="type.highway.track.grade5.no.access">Katu</string>
-	<string name="type.highway.track.grade5.permissive">Katu</string>
 	<string name="type.highway.track.no.access">Katu</string>
 	<string name="type.highway.track.permissive">Katu</string>
 	<string name="type.highway.track.tunnel">Katu</string>
@@ -2100,7 +2088,6 @@
 	<string name="type.leisure.park.permissive">Puisto</string>
 	<string name="type.leisure.park.private">Puisto</string>
 	<string name="type.leisure.pitch">Urheilukenttä</string>
-	<string name="type.leisure.pitch.tennis">Urheilukenttä</string>
 	<string name="type.leisure.playground">Leikkikenttä</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Urheilukeskus</string>

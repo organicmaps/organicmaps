@@ -1694,14 +1694,11 @@
 	<string name="type.amenity.parking">Parkering</string>
 	<string name="type.amenity.parking.fee">Parkering</string>
 	<string name="type.amenity.parking.multi.storey">Parkering</string>
-	<string name="type.amenity.parking.multi.storey.fee">Parkering</string>
 	<string name="type.amenity.parking.no.access">Parkering</string>
 	<string name="type.amenity.parking.park_and_ride">Parkering</string>
 	<string name="type.amenity.parking.permissive">Parkering</string>
-	<string name="type.amenity.parking.permissive.fee">Parkering</string>
 	<string name="type.amenity.parking.private">Parkering</string>
 	<string name="type.amenity.parking.underground">Parkering</string>
-	<string name="type.amenity.parking.underground.fee">Parkering</string>
 	<string name="type.amenity.parking_space">Parkeringsplass</string>
 	<string name="type.amenity.parking_space.permissive">Parkeringsplass</string>
 	<string name="type.amenity.parking_space.private">Parkeringsplass</string>
@@ -1915,9 +1912,6 @@
 	<string name="type.highway.service.area">Gate</string>
 	<string name="type.highway.service.bridge">Gate</string>
 	<string name="type.highway.service.driveway">Gate</string>
-	<string name="type.highway.service.driveway.area">Gate</string>
-	<string name="type.highway.service.driveway.bridge">Gate</string>
-	<string name="type.highway.service.driveway.tunnel">Gate</string>
 	<string name="type.highway.service.parking_aisle">Gate</string>
 	<string name="type.highway.service.tunnel">Gate</string>
 	<string name="type.highway.speed_camera">Fotoboks</string>
@@ -1936,14 +1930,8 @@
 	<string name="type.highway.track.grade1">Gate</string>
 	<string name="type.highway.track.grade2">Gate</string>
 	<string name="type.highway.track.grade3">Gate</string>
-	<string name="type.highway.track.grade3.no.access">Gate</string>
-	<string name="type.highway.track.grade3.permissive">Gate</string>
 	<string name="type.highway.track.grade4">Gate</string>
-	<string name="type.highway.track.grade4.no.access">Gate</string>
-	<string name="type.highway.track.grade4.permissive">Gate</string>
 	<string name="type.highway.track.grade5">Gate</string>
-	<string name="type.highway.track.grade5.no.access">Gate</string>
-	<string name="type.highway.track.grade5.permissive">Gate</string>
 	<string name="type.highway.track.no.access">Gate</string>
 	<string name="type.highway.track.permissive">Gate</string>
 	<string name="type.highway.track.tunnel">Gate</string>
@@ -1993,7 +1981,6 @@
 	<string name="type.leisure.park.permissive">Park</string>
 	<string name="type.leisure.park.private">Park</string>
 	<string name="type.leisure.pitch">Sportssenter</string>
-	<string name="type.leisure.pitch.tennis">Sportssenter</string>
 	<string name="type.leisure.playground">Lekeplass</string>
 	<string name="type.leisure.sauna">Badstue</string>
 	<string name="type.leisure.sports_centre">Sportssenter</string>

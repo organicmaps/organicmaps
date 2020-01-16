@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "Parkeerplaats";
 
-"type.amenity.parking.multi.storey.fee" = "Parkeerplaats";
-
 "type.amenity.parking.no.access" = "Parkeerplaats";
 
 "type.amenity.parking.park_and_ride" = "Parkeerplaats";
 
 "type.amenity.parking.permissive" = "Parkeerplaats";
 
-"type.amenity.parking.permissive.fee" = "Parkeerplaats";
-
 "type.amenity.parking.private" = "Parkeerplaats";
 
 "type.amenity.parking.underground" = "Parkeerplaats";
-
-"type.amenity.parking.underground.fee" = "Parkeerplaats";
 
 "type.amenity.parking_space" = "Parkeerplaats";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "Straat";
 
-"type.highway.service.driveway.area" = "Straat";
-
-"type.highway.service.driveway.bridge" = "Straat";
-
-"type.highway.service.driveway.tunnel" = "Straat";
-
 "type.highway.service.parking_aisle" = "Straat";
 
 "type.highway.service.tunnel" = "Straat";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "Straat";
 
-"type.highway.track.grade3.no.access" = "Straat";
-
-"type.highway.track.grade3.permissive" = "Straat";
-
 "type.highway.track.grade4" = "Straat";
 
-"type.highway.track.grade4.no.access" = "Straat";
-
-"type.highway.track.grade4.permissive" = "Straat";
-
 "type.highway.track.grade5" = "Straat";
-
-"type.highway.track.grade5.no.access" = "Straat";
-
-"type.highway.track.grade5.permissive" = "Straat";
 
 "type.highway.track.no.access" = "Straat";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "Park";
 
 "type.leisure.pitch" = "Sportveld";
-
-"type.leisure.pitch.tennis" = "Sportveld";
 
 "type.leisure.playground" = "Speeltuin";
 

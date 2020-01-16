@@ -1793,14 +1793,11 @@
 	<string name="type.amenity.parking">주차</string>
 	<string name="type.amenity.parking.fee">주차</string>
 	<string name="type.amenity.parking.multi.storey">주차</string>
-	<string name="type.amenity.parking.multi.storey.fee">주차</string>
 	<string name="type.amenity.parking.no.access">주차</string>
 	<string name="type.amenity.parking.park_and_ride">주차</string>
 	<string name="type.amenity.parking.permissive">주차</string>
-	<string name="type.amenity.parking.permissive.fee">주차</string>
 	<string name="type.amenity.parking.private">주차</string>
 	<string name="type.amenity.parking.underground">주차</string>
-	<string name="type.amenity.parking.underground.fee">주차</string>
 	<string name="type.amenity.parking_space">주차장</string>
 	<string name="type.amenity.parking_space.permissive">주차장</string>
 	<string name="type.amenity.parking_space.private">주차장</string>
@@ -2016,9 +2013,6 @@
 	<string name="type.highway.service.area">거리</string>
 	<string name="type.highway.service.bridge">거리</string>
 	<string name="type.highway.service.driveway">거리</string>
-	<string name="type.highway.service.driveway.area">거리</string>
-	<string name="type.highway.service.driveway.bridge">거리</string>
-	<string name="type.highway.service.driveway.tunnel">거리</string>
 	<string name="type.highway.service.parking_aisle">거리</string>
 	<string name="type.highway.service.tunnel">거리</string>
 	<string name="type.highway.speed_camera">스피드 카메라</string>
@@ -2037,14 +2031,8 @@
 	<string name="type.highway.track.grade1">거리</string>
 	<string name="type.highway.track.grade2">거리</string>
 	<string name="type.highway.track.grade3">거리</string>
-	<string name="type.highway.track.grade3.no.access">거리</string>
-	<string name="type.highway.track.grade3.permissive">거리</string>
 	<string name="type.highway.track.grade4">거리</string>
-	<string name="type.highway.track.grade4.no.access">거리</string>
-	<string name="type.highway.track.grade4.permissive">거리</string>
 	<string name="type.highway.track.grade5">거리</string>
-	<string name="type.highway.track.grade5.no.access">거리</string>
-	<string name="type.highway.track.grade5.permissive">거리</string>
 	<string name="type.highway.track.no.access">거리</string>
 	<string name="type.highway.track.permissive">거리</string>
 	<string name="type.highway.track.tunnel">거리</string>
@@ -2097,7 +2085,6 @@
 	<string name="type.leisure.park.permissive">공원</string>
 	<string name="type.leisure.park.private">공원</string>
 	<string name="type.leisure.pitch">경기장</string>
-	<string name="type.leisure.pitch.tennis">경기장</string>
 	<string name="type.leisure.playground">운동장</string>
 	<string name="type.leisure.sauna">사우나</string>
 	<string name="type.leisure.sports_centre">스포츠 센터</string>

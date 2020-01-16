@@ -1805,14 +1805,11 @@
 	<string name="type.amenity.parking">Parkoviště</string>
 	<string name="type.amenity.parking.fee">Parkoviště</string>
 	<string name="type.amenity.parking.multi.storey">Parkoviště</string>
-	<string name="type.amenity.parking.multi.storey.fee">Parkoviště</string>
 	<string name="type.amenity.parking.no.access">Parkoviště</string>
 	<string name="type.amenity.parking.park_and_ride">Parkoviště</string>
 	<string name="type.amenity.parking.permissive">Parkoviště</string>
-	<string name="type.amenity.parking.permissive.fee">Parkoviště</string>
 	<string name="type.amenity.parking.private">Parkoviště</string>
 	<string name="type.amenity.parking.underground">Parkoviště</string>
-	<string name="type.amenity.parking.underground.fee">Parkoviště</string>
 	<string name="type.amenity.parking_space">Prostor pro parkování</string>
 	<string name="type.amenity.parking_space.permissive">Prostor pro parkování</string>
 	<string name="type.amenity.parking_space.private">Prostor pro parkování</string>
@@ -2028,9 +2025,6 @@
 	<string name="type.highway.service.area">Ulice</string>
 	<string name="type.highway.service.bridge">Ulice</string>
 	<string name="type.highway.service.driveway">Ulice</string>
-	<string name="type.highway.service.driveway.area">Ulice</string>
-	<string name="type.highway.service.driveway.bridge">Ulice</string>
-	<string name="type.highway.service.driveway.tunnel">Ulice</string>
 	<string name="type.highway.service.parking_aisle">Ulice</string>
 	<string name="type.highway.service.tunnel">Ulice</string>
 	<string name="type.highway.speed_camera">Rychlostní kamera</string>
@@ -2049,14 +2043,8 @@
 	<string name="type.highway.track.grade1">Ulice</string>
 	<string name="type.highway.track.grade2">Ulice</string>
 	<string name="type.highway.track.grade3">Ulice</string>
-	<string name="type.highway.track.grade3.no.access">Ulice</string>
-	<string name="type.highway.track.grade3.permissive">Ulice</string>
 	<string name="type.highway.track.grade4">Ulice</string>
-	<string name="type.highway.track.grade4.no.access">Ulice</string>
-	<string name="type.highway.track.grade4.permissive">Ulice</string>
 	<string name="type.highway.track.grade5">Ulice</string>
-	<string name="type.highway.track.grade5.no.access">Ulice</string>
-	<string name="type.highway.track.grade5.permissive">Ulice</string>
 	<string name="type.highway.track.no.access">Ulice</string>
 	<string name="type.highway.track.permissive">Ulice</string>
 	<string name="type.highway.track.tunnel">Ulice</string>
@@ -2107,7 +2095,6 @@
 	<string name="type.leisure.park.permissive">Park</string>
 	<string name="type.leisure.park.private">Park</string>
 	<string name="type.leisure.pitch">Sportovní hřiště</string>
-	<string name="type.leisure.pitch.tennis">Sportovní hřiště</string>
 	<string name="type.leisure.playground">Hřiště</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Sportovní centrum</string>

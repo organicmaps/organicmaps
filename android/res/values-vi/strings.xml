@@ -1794,14 +1794,11 @@
 	<string name="type.amenity.parking">đỗ xe</string>
 	<string name="type.amenity.parking.fee">đỗ xe</string>
 	<string name="type.amenity.parking.multi.storey">đỗ xe</string>
-	<string name="type.amenity.parking.multi.storey.fee">đỗ xe</string>
 	<string name="type.amenity.parking.no.access">đỗ xe</string>
 	<string name="type.amenity.parking.park_and_ride">đỗ xe</string>
 	<string name="type.amenity.parking.permissive">đỗ xe</string>
-	<string name="type.amenity.parking.permissive.fee">đỗ xe</string>
 	<string name="type.amenity.parking.private">đỗ xe</string>
 	<string name="type.amenity.parking.underground">đỗ xe</string>
-	<string name="type.amenity.parking.underground.fee">đỗ xe</string>
 	<string name="type.amenity.parking_space">Chỗ để xe</string>
 	<string name="type.amenity.parking_space.permissive">Chỗ để xe</string>
 	<string name="type.amenity.parking_space.private">Chỗ để xe</string>
@@ -2017,9 +2014,6 @@
 	<string name="type.highway.service.area">Phố</string>
 	<string name="type.highway.service.bridge">Phố</string>
 	<string name="type.highway.service.driveway">Phố</string>
-	<string name="type.highway.service.driveway.area">Phố</string>
-	<string name="type.highway.service.driveway.bridge">Phố</string>
-	<string name="type.highway.service.driveway.tunnel">Phố</string>
 	<string name="type.highway.service.parking_aisle">Phố</string>
 	<string name="type.highway.service.tunnel">Phố</string>
 	<string name="type.highway.speed_camera">Camera bắn tốc độ</string>
@@ -2038,14 +2032,8 @@
 	<string name="type.highway.track.grade1">Phố</string>
 	<string name="type.highway.track.grade2">Phố</string>
 	<string name="type.highway.track.grade3">Phố</string>
-	<string name="type.highway.track.grade3.no.access">Phố</string>
-	<string name="type.highway.track.grade3.permissive">Phố</string>
 	<string name="type.highway.track.grade4">Phố</string>
-	<string name="type.highway.track.grade4.no.access">Phố</string>
-	<string name="type.highway.track.grade4.permissive">Phố</string>
 	<string name="type.highway.track.grade5">Phố</string>
-	<string name="type.highway.track.grade5.no.access">Phố</string>
-	<string name="type.highway.track.grade5.permissive">Phố</string>
 	<string name="type.highway.track.no.access">Phố</string>
 	<string name="type.highway.track.permissive">Phố</string>
 	<string name="type.highway.track.tunnel">Phố</string>
@@ -2096,7 +2084,6 @@
 	<string name="type.leisure.park.permissive">Công viên</string>
 	<string name="type.leisure.park.private">Công viên</string>
 	<string name="type.leisure.pitch">Sân vận động</string>
-	<string name="type.leisure.pitch.tennis">Sân vận động</string>
 	<string name="type.leisure.playground">Sân chơi</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Thể thao</string>

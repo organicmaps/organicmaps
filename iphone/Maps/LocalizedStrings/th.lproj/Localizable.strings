@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "ที่จอดรถ";
 
-"type.amenity.parking.multi.storey.fee" = "ที่จอดรถ";
-
 "type.amenity.parking.no.access" = "ที่จอดรถ";
 
 "type.amenity.parking.park_and_ride" = "ที่จอดรถ";
 
 "type.amenity.parking.permissive" = "ที่จอดรถ";
 
-"type.amenity.parking.permissive.fee" = "ที่จอดรถ";
-
 "type.amenity.parking.private" = "ที่จอดรถ";
 
 "type.amenity.parking.underground" = "ที่จอดรถ";
-
-"type.amenity.parking.underground.fee" = "ที่จอดรถ";
 
 "type.amenity.parking_space" = "พื้นที่จอดรถ";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "ถนน";
 
-"type.highway.service.driveway.area" = "ถนน";
-
-"type.highway.service.driveway.bridge" = "ถนน";
-
-"type.highway.service.driveway.tunnel" = "ถนน";
-
 "type.highway.service.parking_aisle" = "ถนน";
 
 "type.highway.service.tunnel" = "ถนน";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "ถนน";
 
-"type.highway.track.grade3.no.access" = "ถนน";
-
-"type.highway.track.grade3.permissive" = "ถนน";
-
 "type.highway.track.grade4" = "ถนน";
 
-"type.highway.track.grade4.no.access" = "ถนน";
-
-"type.highway.track.grade4.permissive" = "ถนน";
-
 "type.highway.track.grade5" = "ถนน";
-
-"type.highway.track.grade5.no.access" = "ถนน";
-
-"type.highway.track.grade5.permissive" = "ถนน";
 
 "type.highway.track.no.access" = "ถนน";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "สวนสาธารณะ";
 
 "type.leisure.pitch" = "พื้นสนามกีฬา";
-
-"type.leisure.pitch.tennis" = "พื้นสนามกีฬา";
 
 "type.leisure.playground" = "สนามเด็กเล่น";
 

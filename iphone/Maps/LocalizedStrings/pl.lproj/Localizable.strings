@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "Parking wielopoziomowy";
 
-"type.amenity.parking.multi.storey.fee" = "Parking wielopoziomowy płatny";
-
 "type.amenity.parking.no.access" = "Parking";
 
 "type.amenity.parking.park_and_ride" = "Parking \"Parkuj i Jedź\"";
 
 "type.amenity.parking.permissive" = "Parking ograniczony";
 
-"type.amenity.parking.permissive.fee" = "Parking ograniczony płatny";
-
 "type.amenity.parking.private" = "Parking prywatny";
 
 "type.amenity.parking.underground" = "Parking podziemny";
-
-"type.amenity.parking.underground.fee" = "Parking podziemny płatny";
 
 "type.amenity.parking_space" = "Miejsce parkingowe";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "Ulica";
 
-"type.highway.service.driveway.area" = "Ulica";
-
-"type.highway.service.driveway.bridge" = "Ulica";
-
-"type.highway.service.driveway.tunnel" = "Ulica";
-
 "type.highway.service.parking_aisle" = "Miejsca parkingowe";
 
 "type.highway.service.tunnel" = "Tunel drogowy";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "Ulica";
 
-"type.highway.track.grade3.no.access" = "Ulica";
-
-"type.highway.track.grade3.permissive" = "Ulica";
-
 "type.highway.track.grade4" = "Ulica";
 
-"type.highway.track.grade4.no.access" = "Ulica";
-
-"type.highway.track.grade4.permissive" = "Ulica";
-
 "type.highway.track.grade5" = "Ulica";
-
-"type.highway.track.grade5.no.access" = "Ulica";
-
-"type.highway.track.grade5.permissive" = "Ulica";
 
 "type.highway.track.no.access" = "Ulica";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "Park";
 
 "type.leisure.pitch" = "Boisko sportowe";
-
-"type.leisure.pitch.tennis" = "Korty tenisowe";
 
 "type.leisure.playground" = "Plac zabaw";
 

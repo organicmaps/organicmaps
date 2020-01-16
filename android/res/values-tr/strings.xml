@@ -1801,14 +1801,11 @@
 	<string name="type.amenity.parking">Otopark</string>
 	<string name="type.amenity.parking.fee">Otopark</string>
 	<string name="type.amenity.parking.multi.storey">Otopark</string>
-	<string name="type.amenity.parking.multi.storey.fee">Otopark</string>
 	<string name="type.amenity.parking.no.access">Otopark</string>
 	<string name="type.amenity.parking.park_and_ride">Otopark</string>
 	<string name="type.amenity.parking.permissive">Otopark</string>
-	<string name="type.amenity.parking.permissive.fee">Otopark</string>
 	<string name="type.amenity.parking.private">Otopark</string>
 	<string name="type.amenity.parking.underground">Otopark</string>
-	<string name="type.amenity.parking.underground.fee">Otopark</string>
 	<string name="type.amenity.parking_space">Park alanı</string>
 	<string name="type.amenity.parking_space.permissive">Park alanı</string>
 	<string name="type.amenity.parking_space.private">Park alanı</string>
@@ -2023,9 +2020,6 @@
 	<string name="type.highway.service.area">Cadde</string>
 	<string name="type.highway.service.bridge">Cadde</string>
 	<string name="type.highway.service.driveway">Cadde</string>
-	<string name="type.highway.service.driveway.area">Cadde</string>
-	<string name="type.highway.service.driveway.bridge">Cadde</string>
-	<string name="type.highway.service.driveway.tunnel">Cadde</string>
 	<string name="type.highway.service.parking_aisle">Cadde</string>
 	<string name="type.highway.service.tunnel">Cadde</string>
 	<string name="type.highway.speed_camera">Hız Kamerası</string>
@@ -2044,14 +2038,8 @@
 	<string name="type.highway.track.grade1">Cadde</string>
 	<string name="type.highway.track.grade2">Cadde</string>
 	<string name="type.highway.track.grade3">Cadde</string>
-	<string name="type.highway.track.grade3.no.access">Cadde</string>
-	<string name="type.highway.track.grade3.permissive">Cadde</string>
 	<string name="type.highway.track.grade4">Cadde</string>
-	<string name="type.highway.track.grade4.no.access">Cadde</string>
-	<string name="type.highway.track.grade4.permissive">Cadde</string>
 	<string name="type.highway.track.grade5">Cadde</string>
-	<string name="type.highway.track.grade5.no.access">Cadde</string>
-	<string name="type.highway.track.grade5.permissive">Cadde</string>
 	<string name="type.highway.track.no.access">Cadde</string>
 	<string name="type.highway.track.permissive">Cadde</string>
 	<string name="type.highway.track.tunnel">Cadde</string>
@@ -2102,7 +2090,6 @@
 	<string name="type.leisure.park.permissive">Park</string>
 	<string name="type.leisure.park.private">Park</string>
 	<string name="type.leisure.pitch">Spor sahası</string>
-	<string name="type.leisure.pitch.tennis">Spor sahası</string>
 	<string name="type.leisure.playground">Oyun alanı</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Spor</string>

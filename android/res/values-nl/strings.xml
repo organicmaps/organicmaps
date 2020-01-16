@@ -1796,14 +1796,11 @@
 	<string name="type.amenity.parking">Parkeerplaats</string>
 	<string name="type.amenity.parking.fee">Parkeerplaats</string>
 	<string name="type.amenity.parking.multi.storey">Parkeerplaats</string>
-	<string name="type.amenity.parking.multi.storey.fee">Parkeerplaats</string>
 	<string name="type.amenity.parking.no.access">Parkeerplaats</string>
 	<string name="type.amenity.parking.park_and_ride">Parkeerplaats</string>
 	<string name="type.amenity.parking.permissive">Parkeerplaats</string>
-	<string name="type.amenity.parking.permissive.fee">Parkeerplaats</string>
 	<string name="type.amenity.parking.private">Parkeerplaats</string>
 	<string name="type.amenity.parking.underground">Parkeerplaats</string>
-	<string name="type.amenity.parking.underground.fee">Parkeerplaats</string>
 	<string name="type.amenity.parking_space">Parkeerplaats</string>
 	<string name="type.amenity.parking_space.permissive">Parkeerplaats</string>
 	<string name="type.amenity.parking_space.private">Parkeerplaats</string>
@@ -2013,9 +2010,6 @@
 	<string name="type.highway.service.area">Straat</string>
 	<string name="type.highway.service.bridge">Straat</string>
 	<string name="type.highway.service.driveway">Straat</string>
-	<string name="type.highway.service.driveway.area">Straat</string>
-	<string name="type.highway.service.driveway.bridge">Straat</string>
-	<string name="type.highway.service.driveway.tunnel">Straat</string>
 	<string name="type.highway.service.parking_aisle">Straat</string>
 	<string name="type.highway.service.tunnel">Straat</string>
 	<string name="type.highway.speed_camera">Flitspaal</string>
@@ -2034,14 +2028,8 @@
 	<string name="type.highway.track.grade1">Straat</string>
 	<string name="type.highway.track.grade2">Straat</string>
 	<string name="type.highway.track.grade3">Straat</string>
-	<string name="type.highway.track.grade3.no.access">Straat</string>
-	<string name="type.highway.track.grade3.permissive">Straat</string>
 	<string name="type.highway.track.grade4">Straat</string>
-	<string name="type.highway.track.grade4.no.access">Straat</string>
-	<string name="type.highway.track.grade4.permissive">Straat</string>
 	<string name="type.highway.track.grade5">Straat</string>
-	<string name="type.highway.track.grade5.no.access">Straat</string>
-	<string name="type.highway.track.grade5.permissive">Straat</string>
 	<string name="type.highway.track.no.access">Straat</string>
 	<string name="type.highway.track.permissive">Straat</string>
 	<string name="type.highway.track.tunnel">Straat</string>
@@ -2089,7 +2077,6 @@
 	<string name="type.leisure.park.permissive">Park</string>
 	<string name="type.leisure.park.private">Park</string>
 	<string name="type.leisure.pitch">Sportveld</string>
-	<string name="type.leisure.pitch.tennis">Sportveld</string>
 	<string name="type.leisure.playground">Speeltuin</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Sportcentrum</string>

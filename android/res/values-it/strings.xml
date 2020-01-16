@@ -1794,14 +1794,11 @@
 	<string name="type.amenity.parking">Parcheggio</string>
 	<string name="type.amenity.parking.fee">Parcheggio</string>
 	<string name="type.amenity.parking.multi.storey">Parcheggio</string>
-	<string name="type.amenity.parking.multi.storey.fee">Parcheggio</string>
 	<string name="type.amenity.parking.no.access">Parcheggio</string>
 	<string name="type.amenity.parking.park_and_ride">Parcheggio</string>
 	<string name="type.amenity.parking.permissive">Parcheggio</string>
-	<string name="type.amenity.parking.permissive.fee">Parcheggio</string>
 	<string name="type.amenity.parking.private">Parcheggio</string>
 	<string name="type.amenity.parking.underground">Parcheggio</string>
-	<string name="type.amenity.parking.underground.fee">Parcheggio</string>
 	<string name="type.amenity.parking_space">Parcheggio</string>
 	<string name="type.amenity.parking_space.permissive">Parcheggio</string>
 	<string name="type.amenity.parking_space.private">Parcheggio</string>
@@ -2014,9 +2011,6 @@
 	<string name="type.highway.service.area">Via</string>
 	<string name="type.highway.service.bridge">Via</string>
 	<string name="type.highway.service.driveway">Via</string>
-	<string name="type.highway.service.driveway.area">Via</string>
-	<string name="type.highway.service.driveway.bridge">Via</string>
-	<string name="type.highway.service.driveway.tunnel">Via</string>
 	<string name="type.highway.service.parking_aisle">Via</string>
 	<string name="type.highway.service.tunnel">Via</string>
 	<string name="type.highway.speed_camera">Autovelox</string>
@@ -2035,14 +2029,8 @@
 	<string name="type.highway.track.grade1">Via</string>
 	<string name="type.highway.track.grade2">Via</string>
 	<string name="type.highway.track.grade3">Via</string>
-	<string name="type.highway.track.grade3.no.access">Via</string>
-	<string name="type.highway.track.grade3.permissive">Via</string>
 	<string name="type.highway.track.grade4">Via</string>
-	<string name="type.highway.track.grade4.no.access">Via</string>
-	<string name="type.highway.track.grade4.permissive">Via</string>
 	<string name="type.highway.track.grade5">Via</string>
-	<string name="type.highway.track.grade5.no.access">Via</string>
-	<string name="type.highway.track.grade5.permissive">Via</string>
 	<string name="type.highway.track.no.access">Via</string>
 	<string name="type.highway.track.permissive">Via</string>
 	<string name="type.highway.track.tunnel">Via</string>
@@ -2093,7 +2081,6 @@
 	<string name="type.leisure.park.permissive">Parco</string>
 	<string name="type.leisure.park.private">Parco</string>
 	<string name="type.leisure.pitch">Campo sportivo</string>
-	<string name="type.leisure.pitch.tennis">Campo sportivo</string>
 	<string name="type.leisure.playground">Campo giochi</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Centro sportivo</string>

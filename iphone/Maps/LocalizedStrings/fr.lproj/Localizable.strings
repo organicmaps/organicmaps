@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "Stationnement";
 
-"type.amenity.parking.multi.storey.fee" = "Stationnement";
-
 "type.amenity.parking.no.access" = "Stationnement";
 
 "type.amenity.parking.park_and_ride" = "Stationnement";
 
 "type.amenity.parking.permissive" = "Stationnement";
 
-"type.amenity.parking.permissive.fee" = "Stationnement";
-
 "type.amenity.parking.private" = "Stationnement";
 
 "type.amenity.parking.underground" = "Stationnement";
-
-"type.amenity.parking.underground.fee" = "Stationnement";
 
 "type.amenity.parking_space" = "Parking";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "Rue";
 
-"type.highway.service.driveway.area" = "Rue";
-
-"type.highway.service.driveway.bridge" = "Rue";
-
-"type.highway.service.driveway.tunnel" = "Rue";
-
 "type.highway.service.parking_aisle" = "Rue";
 
 "type.highway.service.tunnel" = "Rue";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "Rue";
 
-"type.highway.track.grade3.no.access" = "Rue";
-
-"type.highway.track.grade3.permissive" = "Rue";
-
 "type.highway.track.grade4" = "Rue";
 
-"type.highway.track.grade4.no.access" = "Rue";
-
-"type.highway.track.grade4.permissive" = "Rue";
-
 "type.highway.track.grade5" = "Rue";
-
-"type.highway.track.grade5.no.access" = "Rue";
-
-"type.highway.track.grade5.permissive" = "Rue";
 
 "type.highway.track.no.access" = "Rue";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "Parc";
 
 "type.leisure.pitch" = "Terrain de sport";
-
-"type.leisure.pitch.tennis" = "Terrain de sport";
 
 "type.leisure.playground" = "Terrain de jeu";
 

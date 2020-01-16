@@ -1804,14 +1804,11 @@
 	<string name="type.amenity.parking">ที่จอดรถ</string>
 	<string name="type.amenity.parking.fee">ที่จอดรถ</string>
 	<string name="type.amenity.parking.multi.storey">ที่จอดรถ</string>
-	<string name="type.amenity.parking.multi.storey.fee">ที่จอดรถ</string>
 	<string name="type.amenity.parking.no.access">ที่จอดรถ</string>
 	<string name="type.amenity.parking.park_and_ride">ที่จอดรถ</string>
 	<string name="type.amenity.parking.permissive">ที่จอดรถ</string>
-	<string name="type.amenity.parking.permissive.fee">ที่จอดรถ</string>
 	<string name="type.amenity.parking.private">ที่จอดรถ</string>
 	<string name="type.amenity.parking.underground">ที่จอดรถ</string>
-	<string name="type.amenity.parking.underground.fee">ที่จอดรถ</string>
 	<string name="type.amenity.parking_space">พื้นที่จอดรถ</string>
 	<string name="type.amenity.parking_space.permissive">พื้นที่จอดรถ</string>
 	<string name="type.amenity.parking_space.private">พื้นที่จอดรถ</string>
@@ -2028,9 +2025,6 @@
 	<string name="type.highway.service.area">ถนน</string>
 	<string name="type.highway.service.bridge">ถนน</string>
 	<string name="type.highway.service.driveway">ถนน</string>
-	<string name="type.highway.service.driveway.area">ถนน</string>
-	<string name="type.highway.service.driveway.bridge">ถนน</string>
-	<string name="type.highway.service.driveway.tunnel">ถนน</string>
 	<string name="type.highway.service.parking_aisle">ถนน</string>
 	<string name="type.highway.service.tunnel">ถนน</string>
 	<string name="type.highway.speed_camera">กล้องตรวจจับความเร็ว</string>
@@ -2049,14 +2043,8 @@
 	<string name="type.highway.track.grade1">ถนน</string>
 	<string name="type.highway.track.grade2">ถนน</string>
 	<string name="type.highway.track.grade3">ถนน</string>
-	<string name="type.highway.track.grade3.no.access">ถนน</string>
-	<string name="type.highway.track.grade3.permissive">ถนน</string>
 	<string name="type.highway.track.grade4">ถนน</string>
-	<string name="type.highway.track.grade4.no.access">ถนน</string>
-	<string name="type.highway.track.grade4.permissive">ถนน</string>
 	<string name="type.highway.track.grade5">ถนน</string>
-	<string name="type.highway.track.grade5.no.access">ถนน</string>
-	<string name="type.highway.track.grade5.permissive">ถนน</string>
 	<string name="type.highway.track.no.access">ถนน</string>
 	<string name="type.highway.track.permissive">ถนน</string>
 	<string name="type.highway.track.tunnel">ถนน</string>
@@ -2109,7 +2097,6 @@
 	<string name="type.leisure.park.permissive">สวนสาธารณะ</string>
 	<string name="type.leisure.park.private">สวนสาธารณะ</string>
 	<string name="type.leisure.pitch">พื้นสนามกีฬา</string>
-	<string name="type.leisure.pitch.tennis">พื้นสนามกีฬา</string>
 	<string name="type.leisure.playground">สนามเด็กเล่น</string>
 	<string name="type.leisure.sauna">เซาน่า</string>
 	<string name="type.leisure.sports_centre">กีฬา</string>

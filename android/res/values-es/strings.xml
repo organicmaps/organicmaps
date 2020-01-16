@@ -1789,14 +1789,11 @@
 	<string name="type.amenity.parking">Aparcamiento</string>
 	<string name="type.amenity.parking.fee">Aparcamiento</string>
 	<string name="type.amenity.parking.multi.storey">Aparcamiento</string>
-	<string name="type.amenity.parking.multi.storey.fee">Aparcamiento</string>
 	<string name="type.amenity.parking.no.access">Aparcamiento</string>
 	<string name="type.amenity.parking.park_and_ride">Aparcamiento</string>
 	<string name="type.amenity.parking.permissive">Aparcamiento</string>
-	<string name="type.amenity.parking.permissive.fee">Aparcamiento</string>
 	<string name="type.amenity.parking.private">Aparcamiento</string>
 	<string name="type.amenity.parking.underground">Aparcamiento</string>
-	<string name="type.amenity.parking.underground.fee">Aparcamiento</string>
 	<string name="type.amenity.parking_space">Plaza de aparcamiento</string>
 	<string name="type.amenity.parking_space.permissive">Plaza de aparcamiento</string>
 	<string name="type.amenity.parking_space.private">Plaza de aparcamiento</string>
@@ -2011,9 +2008,6 @@
 	<string name="type.highway.service.area">Calle</string>
 	<string name="type.highway.service.bridge">Calle</string>
 	<string name="type.highway.service.driveway">Calle</string>
-	<string name="type.highway.service.driveway.area">Calle</string>
-	<string name="type.highway.service.driveway.bridge">Calle</string>
-	<string name="type.highway.service.driveway.tunnel">Calle</string>
 	<string name="type.highway.service.parking_aisle">Calle</string>
 	<string name="type.highway.service.tunnel">Calle</string>
 	<string name="type.highway.speed_camera">Radar de velocidad</string>
@@ -2032,14 +2026,8 @@
 	<string name="type.highway.track.grade1">Calle</string>
 	<string name="type.highway.track.grade2">Calle</string>
 	<string name="type.highway.track.grade3">Calle</string>
-	<string name="type.highway.track.grade3.no.access">Calle</string>
-	<string name="type.highway.track.grade3.permissive">Calle</string>
 	<string name="type.highway.track.grade4">Calle</string>
-	<string name="type.highway.track.grade4.no.access">Calle</string>
-	<string name="type.highway.track.grade4.permissive">Calle</string>
 	<string name="type.highway.track.grade5">Calle</string>
-	<string name="type.highway.track.grade5.no.access">Calle</string>
-	<string name="type.highway.track.grade5.permissive">Calle</string>
 	<string name="type.highway.track.no.access">Calle</string>
 	<string name="type.highway.track.permissive">Calle</string>
 	<string name="type.highway.track.tunnel">Calle</string>
@@ -2086,7 +2074,6 @@
 	<string name="type.leisure.park.permissive">Parque</string>
 	<string name="type.leisure.park.private">Parque</string>
 	<string name="type.leisure.pitch">Complejo deportivo</string>
-	<string name="type.leisure.pitch.tennis">Complejo deportivo</string>
 	<string name="type.leisure.playground">Patio de recreo</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Polideportivo</string>

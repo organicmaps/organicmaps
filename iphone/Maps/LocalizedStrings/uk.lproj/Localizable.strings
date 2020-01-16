@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "Парковка";
 
-"type.amenity.parking.multi.storey.fee" = "Парковка";
-
 "type.amenity.parking.no.access" = "Парковка";
 
 "type.amenity.parking.park_and_ride" = "Парковка";
 
 "type.amenity.parking.permissive" = "Парковка";
 
-"type.amenity.parking.permissive.fee" = "Парковка";
-
 "type.amenity.parking.private" = "Парковка";
 
 "type.amenity.parking.underground" = "Парковка";
-
-"type.amenity.parking.underground.fee" = "Парковка";
 
 "type.amenity.parking_space" = "Паркувальне місце";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "Вулиця";
 
-"type.highway.service.driveway.area" = "Вулиця";
-
-"type.highway.service.driveway.bridge" = "Вулиця";
-
-"type.highway.service.driveway.tunnel" = "Вулиця";
-
 "type.highway.service.parking_aisle" = "Вулиця";
 
 "type.highway.service.tunnel" = "Вулиця";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "Вулиця";
 
-"type.highway.track.grade3.no.access" = "Вулиця";
-
-"type.highway.track.grade3.permissive" = "Вулиця";
-
 "type.highway.track.grade4" = "Вулиця";
 
-"type.highway.track.grade4.no.access" = "Вулиця";
-
-"type.highway.track.grade4.permissive" = "Вулиця";
-
 "type.highway.track.grade5" = "Вулиця";
-
-"type.highway.track.grade5.no.access" = "Вулиця";
-
-"type.highway.track.grade5.permissive" = "Вулиця";
 
 "type.highway.track.no.access" = "Вулиця";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "Парк";
 
 "type.leisure.pitch" = "Спортмайданчик";
-
-"type.leisure.pitch.tennis" = "Спортмайданчик";
 
 "type.leisure.playground" = "Дитячий майданчик";
 

@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "Парковка";
 
-"type.amenity.parking.multi.storey.fee" = "Парковка";
-
 "type.amenity.parking.no.access" = "Парковка";
 
 "type.amenity.parking.park_and_ride" = "Парковка";
 
 "type.amenity.parking.permissive" = "Парковка";
 
-"type.amenity.parking.permissive.fee" = "Парковка";
-
 "type.amenity.parking.private" = "Парковка";
 
 "type.amenity.parking.underground" = "Парковка";
-
-"type.amenity.parking.underground.fee" = "Парковка";
 
 "type.amenity.parking_space" = "Парковочное место";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "Улица";
 
-"type.highway.service.driveway.area" = "Улица";
-
-"type.highway.service.driveway.bridge" = "Улица";
-
-"type.highway.service.driveway.tunnel" = "Улица";
-
 "type.highway.service.parking_aisle" = "Улица";
 
 "type.highway.service.tunnel" = "Улица";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "Улица";
 
-"type.highway.track.grade3.no.access" = "Улица";
-
-"type.highway.track.grade3.permissive" = "Улица";
-
 "type.highway.track.grade4" = "Улица";
 
-"type.highway.track.grade4.no.access" = "Улица";
-
-"type.highway.track.grade4.permissive" = "Улица";
-
 "type.highway.track.grade5" = "Улица";
-
-"type.highway.track.grade5.no.access" = "Улица";
-
-"type.highway.track.grade5.permissive" = "Улица";
 
 "type.highway.track.no.access" = "Улица";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "Парк";
 
 "type.leisure.pitch" = "Спортплощадка";
-
-"type.leisure.pitch.tennis" = "Спортплощадка";
 
 "type.leisure.playground" = "Детская площадка";
 

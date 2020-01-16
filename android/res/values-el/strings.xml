@@ -1555,14 +1555,11 @@
 	<string name="type.amenity.parking">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.fee">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.multi.storey">Χώρος στάθμευσης</string>
-	<string name="type.amenity.parking.multi.storey.fee">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.no.access">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.park_and_ride">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.permissive">Χώρος στάθμευσης</string>
-	<string name="type.amenity.parking.permissive.fee">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.private">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.underground">Χώρος στάθμευσης</string>
-	<string name="type.amenity.parking.underground.fee">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking_space">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking_space.permissive">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking_space.private">Χώρος στάθμευσης</string>
@@ -1779,9 +1776,6 @@
 	<string name="type.highway.service.area">Οδός</string>
 	<string name="type.highway.service.bridge">Οδός</string>
 	<string name="type.highway.service.driveway">Οδός</string>
-	<string name="type.highway.service.driveway.area">Οδός</string>
-	<string name="type.highway.service.driveway.bridge">Οδός</string>
-	<string name="type.highway.service.driveway.tunnel">Οδός</string>
 	<string name="type.highway.service.parking_aisle">Οδός</string>
 	<string name="type.highway.service.tunnel">Οδός</string>
 	<string name="type.highway.speed_camera">Κάμερα ταχύτητας</string>
@@ -1800,14 +1794,8 @@
 	<string name="type.highway.track.grade1">Οδός</string>
 	<string name="type.highway.track.grade2">Οδός</string>
 	<string name="type.highway.track.grade3">Οδός</string>
-	<string name="type.highway.track.grade3.no.access">Οδός</string>
-	<string name="type.highway.track.grade3.permissive">Οδός</string>
 	<string name="type.highway.track.grade4">Οδός</string>
-	<string name="type.highway.track.grade4.no.access">Οδός</string>
-	<string name="type.highway.track.grade4.permissive">Οδός</string>
 	<string name="type.highway.track.grade5">Οδός</string>
-	<string name="type.highway.track.grade5.no.access">Οδός</string>
-	<string name="type.highway.track.grade5.permissive">Οδός</string>
 	<string name="type.highway.track.no.access">Οδός</string>
 	<string name="type.highway.track.permissive">Οδός</string>
 	<string name="type.highway.track.tunnel">Οδός</string>
@@ -1860,7 +1848,6 @@
 	<string name="type.leisure.park.permissive">Πάρκο</string>
 	<string name="type.leisure.park.private">Πάρκο</string>
 	<string name="type.leisure.pitch">Γήπεδο αθλοπαιδιών</string>
-	<string name="type.leisure.pitch.tennis">Γήπεδο αθλοπαιδιών</string>
 	<string name="type.leisure.playground">Παιδική χαρά</string>
 	<string name="type.leisure.sauna">Σάουνα</string>
 	<string name="type.leisure.sports_centre">Αθλητικό κέντρο</string>

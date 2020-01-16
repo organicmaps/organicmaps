@@ -1740,14 +1740,11 @@
 	<string name="type.amenity.parking">پارکینگ</string>
 	<string name="type.amenity.parking.fee">پارکینگ</string>
 	<string name="type.amenity.parking.multi.storey">پارکینگ</string>
-	<string name="type.amenity.parking.multi.storey.fee">پارکینگ</string>
 	<string name="type.amenity.parking.no.access">پارکینگ</string>
 	<string name="type.amenity.parking.park_and_ride">پارکینگ</string>
 	<string name="type.amenity.parking.permissive">پارکینگ</string>
-	<string name="type.amenity.parking.permissive.fee">پارکینگ</string>
 	<string name="type.amenity.parking.private">پارکینگ</string>
 	<string name="type.amenity.parking.underground">پارکینگ</string>
-	<string name="type.amenity.parking.underground.fee">پارکینگ</string>
 	<string name="type.amenity.parking_space">جای پارک</string>
 	<string name="type.amenity.parking_space.permissive">جای پارک</string>
 	<string name="type.amenity.parking_space.private">جای پارک</string>
@@ -1876,9 +1873,6 @@
 	<string name="type.highway.service.area">جاده</string>
 	<string name="type.highway.service.bridge">جاده</string>
 	<string name="type.highway.service.driveway">جاده</string>
-	<string name="type.highway.service.driveway.area">جاده</string>
-	<string name="type.highway.service.driveway.bridge">جاده</string>
-	<string name="type.highway.service.driveway.tunnel">جاده</string>
 	<string name="type.highway.service.parking_aisle">جاده</string>
 	<string name="type.highway.service.tunnel">جاده</string>
 	<string name="type.highway.speed_camera">دوربین سرعت سنج</string>
@@ -1897,14 +1891,8 @@
 	<string name="type.highway.track.grade1">جاده</string>
 	<string name="type.highway.track.grade2">جاده</string>
 	<string name="type.highway.track.grade3">جاده</string>
-	<string name="type.highway.track.grade3.no.access">جاده</string>
-	<string name="type.highway.track.grade3.permissive">جاده</string>
 	<string name="type.highway.track.grade4">جاده</string>
-	<string name="type.highway.track.grade4.no.access">جاده</string>
-	<string name="type.highway.track.grade4.permissive">جاده</string>
 	<string name="type.highway.track.grade5">جاده</string>
-	<string name="type.highway.track.grade5.no.access">جاده</string>
-	<string name="type.highway.track.grade5.permissive">جاده</string>
 	<string name="type.highway.track.no.access">جاده</string>
 	<string name="type.highway.track.permissive">جاده</string>
 	<string name="type.highway.track.tunnel">جاده</string>
@@ -1956,7 +1944,6 @@
 	<string name="type.leisure.park.permissive">پارک</string>
 	<string name="type.leisure.park.private">پارک</string>
 	<string name="type.leisure.pitch">زمین ورزشی</string>
-	<string name="type.leisure.pitch.tennis">زمین ورزشی</string>
 	<string name="type.leisure.playground">زمین بازی</string>
 	<string name="type.leisure.sauna">سونا</string>
 	<string name="type.leisure.sports_centre">مرکزورزشی</string>

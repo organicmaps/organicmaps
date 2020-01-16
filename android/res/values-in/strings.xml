@@ -1794,14 +1794,11 @@
 	<string name="type.amenity.parking">Parkir</string>
 	<string name="type.amenity.parking.fee">Parkir</string>
 	<string name="type.amenity.parking.multi.storey">Parkir</string>
-	<string name="type.amenity.parking.multi.storey.fee">Parkir</string>
 	<string name="type.amenity.parking.no.access">Parkir</string>
 	<string name="type.amenity.parking.park_and_ride">Parkir</string>
 	<string name="type.amenity.parking.permissive">Parkir</string>
-	<string name="type.amenity.parking.permissive.fee">Parkir</string>
 	<string name="type.amenity.parking.private">Parkir</string>
 	<string name="type.amenity.parking.underground">Parkir</string>
-	<string name="type.amenity.parking.underground.fee">Parkir</string>
 	<string name="type.amenity.parking_space">Tempat parkir</string>
 	<string name="type.amenity.parking_space.permissive">Tempat parkir</string>
 	<string name="type.amenity.parking_space.private">Tempat parkir</string>
@@ -2015,9 +2012,6 @@
 	<string name="type.highway.service.area">Jalan</string>
 	<string name="type.highway.service.bridge">Jalan</string>
 	<string name="type.highway.service.driveway">Jalan</string>
-	<string name="type.highway.service.driveway.area">Jalan</string>
-	<string name="type.highway.service.driveway.bridge">Jalan</string>
-	<string name="type.highway.service.driveway.tunnel">Jalan</string>
 	<string name="type.highway.service.parking_aisle">Jalan</string>
 	<string name="type.highway.service.tunnel">Jalan</string>
 	<string name="type.highway.speed_camera">Kamera Kecepatan</string>
@@ -2036,14 +2030,8 @@
 	<string name="type.highway.track.grade1">Jalan</string>
 	<string name="type.highway.track.grade2">Jalan</string>
 	<string name="type.highway.track.grade3">Jalan</string>
-	<string name="type.highway.track.grade3.no.access">Jalan</string>
-	<string name="type.highway.track.grade3.permissive">Jalan</string>
 	<string name="type.highway.track.grade4">Jalan</string>
-	<string name="type.highway.track.grade4.no.access">Jalan</string>
-	<string name="type.highway.track.grade4.permissive">Jalan</string>
 	<string name="type.highway.track.grade5">Jalan</string>
-	<string name="type.highway.track.grade5.no.access">Jalan</string>
-	<string name="type.highway.track.grade5.permissive">Jalan</string>
 	<string name="type.highway.track.no.access">Jalan</string>
 	<string name="type.highway.track.permissive">Jalan</string>
 	<string name="type.highway.track.tunnel">Jalan</string>
@@ -2094,7 +2082,6 @@
 	<string name="type.leisure.park.permissive">Taman</string>
 	<string name="type.leisure.park.private">Taman</string>
 	<string name="type.leisure.pitch">Lapangan olahraga</string>
-	<string name="type.leisure.pitch.tennis">Lapangan olahraga</string>
 	<string name="type.leisure.playground">Taman bermain</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Olahraga</string>

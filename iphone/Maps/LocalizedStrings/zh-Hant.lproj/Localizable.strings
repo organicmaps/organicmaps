@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "停車場";
 
-"type.amenity.parking.multi.storey.fee" = "停車場";
-
 "type.amenity.parking.no.access" = "停車場";
 
 "type.amenity.parking.park_and_ride" = "停車場";
 
 "type.amenity.parking.permissive" = "停車場";
 
-"type.amenity.parking.permissive.fee" = "停車場";
-
 "type.amenity.parking.private" = "停車場";
 
 "type.amenity.parking.underground" = "停車場";
-
-"type.amenity.parking.underground.fee" = "停車場";
 
 "type.amenity.parking_space" = "停車地點";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "路";
 
-"type.highway.service.driveway.area" = "路";
-
-"type.highway.service.driveway.bridge" = "路";
-
-"type.highway.service.driveway.tunnel" = "路";
-
 "type.highway.service.parking_aisle" = "路";
 
 "type.highway.service.tunnel" = "路";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "路";
 
-"type.highway.track.grade3.no.access" = "路";
-
-"type.highway.track.grade3.permissive" = "路";
-
 "type.highway.track.grade4" = "路";
 
-"type.highway.track.grade4.no.access" = "路";
-
-"type.highway.track.grade4.permissive" = "路";
-
 "type.highway.track.grade5" = "路";
-
-"type.highway.track.grade5.no.access" = "路";
-
-"type.highway.track.grade5.permissive" = "路";
 
 "type.highway.track.no.access" = "路";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "公園";
 
 "type.leisure.pitch" = "運動場";
-
-"type.leisure.pitch.tennis" = "運動場";
 
 "type.leisure.playground" = "遊樂場";
 

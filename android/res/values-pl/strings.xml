@@ -1824,13 +1824,10 @@
 	<string name="type.amenity.nursing_home">Dom opieki</string>
 	<string name="type.amenity.parking.fee">Parking płatny</string>
 	<string name="type.amenity.parking.multi.storey">Parking wielopoziomowy</string>
-	<string name="type.amenity.parking.multi.storey.fee">Parking wielopoziomowy płatny</string>
 	<string name="type.amenity.parking.park_and_ride">Parking \"Parkuj i Jedź\"</string>
 	<string name="type.amenity.parking.permissive">Parking ograniczony</string>
-	<string name="type.amenity.parking.permissive.fee">Parking ograniczony płatny</string>
 	<string name="type.amenity.parking.private">Parking prywatny</string>
 	<string name="type.amenity.parking.underground">Parking podziemny</string>
-	<string name="type.amenity.parking.underground.fee">Parking podziemny płatny</string>
 	<string name="type.amenity.parking_space">Miejsce parkingowe</string>
 	<string name="type.amenity.parking_space.permissive">Miejsce parkingowe</string>
 	<string name="type.amenity.parking_space.private">Miejsce parkingowe</string>
@@ -2082,9 +2079,6 @@
 	<string name="type.highway.service.area">Ulica</string>
 	<string name="type.highway.service.bridge">Most drogowy</string>
 	<string name="type.highway.service.driveway">Ulica</string>
-	<string name="type.highway.service.driveway.area">Ulica</string>
-	<string name="type.highway.service.driveway.bridge">Ulica</string>
-	<string name="type.highway.service.driveway.tunnel">Ulica</string>
 	<string name="type.highway.service.parking_aisle">Miejsca parkingowe</string>
 	<string name="type.highway.service.tunnel">Tunel drogowy</string>
 	<string name="type.highway.services">Miejsce obsługi podróżnych</string>
@@ -2104,14 +2098,8 @@
 	<string name="type.highway.track.grade1">Ulica</string>
 	<string name="type.highway.track.grade2">Ulica</string>
 	<string name="type.highway.track.grade3">Ulica</string>
-	<string name="type.highway.track.grade3.no.access">Ulica</string>
-	<string name="type.highway.track.grade3.permissive">Ulica</string>
 	<string name="type.highway.track.grade4">Ulica</string>
-	<string name="type.highway.track.grade4.no.access">Ulica</string>
-	<string name="type.highway.track.grade4.permissive">Ulica</string>
 	<string name="type.highway.track.grade5">Ulica</string>
-	<string name="type.highway.track.grade5.no.access">Ulica</string>
-	<string name="type.highway.track.grade5.permissive">Ulica</string>
 	<string name="type.highway.track.no.access">Ulica</string>
 	<string name="type.highway.track.permissive">Ulica</string>
 	<string name="type.highway.track.tunnel">Tunel drogowy</string>
@@ -2197,7 +2185,6 @@
 	<string name="type.leisure.park.permissive">Park</string>
 	<string name="type.leisure.park.private">Park</string>
 	<string name="type.leisure.pitch">Boisko sportowe</string>
-	<string name="type.leisure.pitch.tennis">Korty tenisowe</string>
 	<string name="type.leisure.playground">Plac zabaw</string>
 	<string name="type.leisure.recreation_ground">Teren rekreacji</string>
 	<string name="type.leisure.sauna">Sauna</string>

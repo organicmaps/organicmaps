@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "주차";
 
-"type.amenity.parking.multi.storey.fee" = "주차";
-
 "type.amenity.parking.no.access" = "주차";
 
 "type.amenity.parking.park_and_ride" = "주차";
 
 "type.amenity.parking.permissive" = "주차";
 
-"type.amenity.parking.permissive.fee" = "주차";
-
 "type.amenity.parking.private" = "주차";
 
 "type.amenity.parking.underground" = "주차";
-
-"type.amenity.parking.underground.fee" = "주차";
 
 "type.amenity.parking_space" = "주차장";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "거리";
 
-"type.highway.service.driveway.area" = "거리";
-
-"type.highway.service.driveway.bridge" = "거리";
-
-"type.highway.service.driveway.tunnel" = "거리";
-
 "type.highway.service.parking_aisle" = "거리";
 
 "type.highway.service.tunnel" = "거리";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "거리";
 
-"type.highway.track.grade3.no.access" = "거리";
-
-"type.highway.track.grade3.permissive" = "거리";
-
 "type.highway.track.grade4" = "거리";
 
-"type.highway.track.grade4.no.access" = "거리";
-
-"type.highway.track.grade4.permissive" = "거리";
-
 "type.highway.track.grade5" = "거리";
-
-"type.highway.track.grade5.no.access" = "거리";
-
-"type.highway.track.grade5.permissive" = "거리";
 
 "type.highway.track.no.access" = "거리";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "공원";
 
 "type.leisure.pitch" = "경기장";
-
-"type.leisure.pitch.tennis" = "경기장";
 
 "type.leisure.playground" = "운동장";
 

@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "Χώρος στάθμευσης";
 
-"type.amenity.parking.multi.storey.fee" = "Χώρος στάθμευσης";
-
 "type.amenity.parking.no.access" = "Χώρος στάθμευσης";
 
 "type.amenity.parking.park_and_ride" = "Χώρος στάθμευσης";
 
 "type.amenity.parking.permissive" = "Χώρος στάθμευσης";
 
-"type.amenity.parking.permissive.fee" = "Χώρος στάθμευσης";
-
 "type.amenity.parking.private" = "Χώρος στάθμευσης";
 
 "type.amenity.parking.underground" = "Χώρος στάθμευσης";
-
-"type.amenity.parking.underground.fee" = "Χώρος στάθμευσης";
 
 "type.amenity.parking_space" = "Χώρος στάθμευσης";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "Οδός";
 
-"type.highway.service.driveway.area" = "Οδός";
-
-"type.highway.service.driveway.bridge" = "Οδός";
-
-"type.highway.service.driveway.tunnel" = "Οδός";
-
 "type.highway.service.parking_aisle" = "Οδός";
 
 "type.highway.service.tunnel" = "Οδός";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "Οδός";
 
-"type.highway.track.grade3.no.access" = "Οδός";
-
-"type.highway.track.grade3.permissive" = "Οδός";
-
 "type.highway.track.grade4" = "Οδός";
 
-"type.highway.track.grade4.no.access" = "Οδός";
-
-"type.highway.track.grade4.permissive" = "Οδός";
-
 "type.highway.track.grade5" = "Οδός";
-
-"type.highway.track.grade5.no.access" = "Οδός";
-
-"type.highway.track.grade5.permissive" = "Οδός";
 
 "type.highway.track.no.access" = "Οδός";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "Πάρκο";
 
 "type.leisure.pitch" = "Γήπεδο αθλοπαιδιών";
-
-"type.leisure.pitch.tennis" = "Γήπεδο αθλοπαιδιών";
 
 "type.leisure.playground" = "Παιδική χαρά";
 

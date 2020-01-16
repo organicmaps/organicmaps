@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "Parkovisko";
 
-"type.amenity.parking.multi.storey.fee" = "Parkovisko";
-
 "type.amenity.parking.no.access" = "Parkovisko";
 
 "type.amenity.parking.park_and_ride" = "Parkovisko";
 
 "type.amenity.parking.permissive" = "Parkovisko";
 
-"type.amenity.parking.permissive.fee" = "Parkovisko";
-
 "type.amenity.parking.private" = "Parkovisko";
 
 "type.amenity.parking.underground" = "Parkovisko";
-
-"type.amenity.parking.underground.fee" = "Parkovisko";
 
 "type.amenity.parking_space" = "Parkovacie miesto";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "Ulica";
 
-"type.highway.service.driveway.area" = "Ulica";
-
-"type.highway.service.driveway.bridge" = "Ulica";
-
-"type.highway.service.driveway.tunnel" = "Ulica";
-
 "type.highway.service.parking_aisle" = "Ulica";
 
 "type.highway.service.tunnel" = "Ulica";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "Ulica";
 
-"type.highway.track.grade3.no.access" = "Ulica";
-
-"type.highway.track.grade3.permissive" = "Ulica";
-
 "type.highway.track.grade4" = "Ulica";
 
-"type.highway.track.grade4.no.access" = "Ulica";
-
-"type.highway.track.grade4.permissive" = "Ulica";
-
 "type.highway.track.grade5" = "Ulica";
-
-"type.highway.track.grade5.no.access" = "Ulica";
-
-"type.highway.track.grade5.permissive" = "Ulica";
 
 "type.highway.track.no.access" = "Ulica";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "Park";
 
 "type.leisure.pitch" = "Športovisko";
-
-"type.leisure.pitch.tennis" = "Športovisko";
 
 "type.leisure.playground" = "Ihrisko";
 

@@ -1860,14 +1860,11 @@
 	<string name="type.amenity.parking">Парковка</string>
 	<string name="type.amenity.parking.fee">Парковка</string>
 	<string name="type.amenity.parking.multi.storey">Парковка</string>
-	<string name="type.amenity.parking.multi.storey.fee">Парковка</string>
 	<string name="type.amenity.parking.no.access">Парковка</string>
 	<string name="type.amenity.parking.park_and_ride">Парковка</string>
 	<string name="type.amenity.parking.permissive">Парковка</string>
-	<string name="type.amenity.parking.permissive.fee">Парковка</string>
 	<string name="type.amenity.parking.private">Парковка</string>
 	<string name="type.amenity.parking.underground">Парковка</string>
-	<string name="type.amenity.parking.underground.fee">Парковка</string>
 	<string name="type.amenity.parking_space">Парковочное место</string>
 	<string name="type.amenity.parking_space.permissive">Парковочное место</string>
 	<string name="type.amenity.parking_space.private">Парковочное место</string>
@@ -2095,9 +2092,6 @@
 	<string name="type.highway.service.area">Улица</string>
 	<string name="type.highway.service.bridge">Улица</string>
 	<string name="type.highway.service.driveway">Улица</string>
-	<string name="type.highway.service.driveway.area">Улица</string>
-	<string name="type.highway.service.driveway.bridge">Улица</string>
-	<string name="type.highway.service.driveway.tunnel">Улица</string>
 	<string name="type.highway.service.parking_aisle">Улица</string>
 	<string name="type.highway.service.tunnel">Улица</string>
 	<string name="type.highway.speed_camera">Камера скорости</string>
@@ -2116,14 +2110,8 @@
 	<string name="type.highway.track.grade1">Улица</string>
 	<string name="type.highway.track.grade2">Улица</string>
 	<string name="type.highway.track.grade3">Улица</string>
-	<string name="type.highway.track.grade3.no.access">Улица</string>
-	<string name="type.highway.track.grade3.permissive">Улица</string>
 	<string name="type.highway.track.grade4">Улица</string>
-	<string name="type.highway.track.grade4.no.access">Улица</string>
-	<string name="type.highway.track.grade4.permissive">Улица</string>
 	<string name="type.highway.track.grade5">Улица</string>
-	<string name="type.highway.track.grade5.no.access">Улица</string>
-	<string name="type.highway.track.grade5.permissive">Улица</string>
 	<string name="type.highway.track.no.access">Улица</string>
 	<string name="type.highway.track.permissive">Улица</string>
 	<string name="type.highway.track.tunnel">Улица</string>
@@ -2187,7 +2175,6 @@
 	<string name="type.leisure.park.permissive">Парк</string>
 	<string name="type.leisure.park.private">Парк</string>
 	<string name="type.leisure.pitch">Спортплощадка</string>
-	<string name="type.leisure.pitch.tennis">Спортплощадка</string>
 	<string name="type.leisure.playground">Детская площадка</string>
 	<string name="type.leisure.sauna">Сауна</string>
 	<string name="type.leisure.sports_centre">Спорткомплекс</string>

@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "Parcare";
 
-"type.amenity.parking.multi.storey.fee" = "Parcare";
-
 "type.amenity.parking.no.access" = "Parcare";
 
 "type.amenity.parking.park_and_ride" = "Parcare";
 
 "type.amenity.parking.permissive" = "Parcare";
 
-"type.amenity.parking.permissive.fee" = "Parcare";
-
 "type.amenity.parking.private" = "Parcare";
 
 "type.amenity.parking.underground" = "Parcare";
-
-"type.amenity.parking.underground.fee" = "Parcare";
 
 "type.amenity.parking_space" = "Loc de parcare";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "Stradă";
 
-"type.highway.service.driveway.area" = "Stradă";
-
-"type.highway.service.driveway.bridge" = "Stradă";
-
-"type.highway.service.driveway.tunnel" = "Stradă";
-
 "type.highway.service.parking_aisle" = "Stradă";
 
 "type.highway.service.tunnel" = "Stradă";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "Stradă";
 
-"type.highway.track.grade3.no.access" = "Stradă";
-
-"type.highway.track.grade3.permissive" = "Stradă";
-
 "type.highway.track.grade4" = "Stradă";
 
-"type.highway.track.grade4.no.access" = "Stradă";
-
-"type.highway.track.grade4.permissive" = "Stradă";
-
 "type.highway.track.grade5" = "Stradă";
-
-"type.highway.track.grade5.no.access" = "Stradă";
-
-"type.highway.track.grade5.permissive" = "Stradă";
 
 "type.highway.track.no.access" = "Stradă";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "Parc";
 
 "type.leisure.pitch" = "Teren de sport";
-
-"type.leisure.pitch.tennis" = "Teren de sport";
 
 "type.leisure.playground" = "Loc de joacă";
 

@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "Otopark";
 
-"type.amenity.parking.multi.storey.fee" = "Otopark";
-
 "type.amenity.parking.no.access" = "Otopark";
 
 "type.amenity.parking.park_and_ride" = "Otopark";
 
 "type.amenity.parking.permissive" = "Otopark";
 
-"type.amenity.parking.permissive.fee" = "Otopark";
-
 "type.amenity.parking.private" = "Otopark";
 
 "type.amenity.parking.underground" = "Otopark";
-
-"type.amenity.parking.underground.fee" = "Otopark";
 
 "type.amenity.parking_space" = "Park alanı";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "Cadde";
 
-"type.highway.service.driveway.area" = "Cadde";
-
-"type.highway.service.driveway.bridge" = "Cadde";
-
-"type.highway.service.driveway.tunnel" = "Cadde";
-
 "type.highway.service.parking_aisle" = "Cadde";
 
 "type.highway.service.tunnel" = "Cadde";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "Cadde";
 
-"type.highway.track.grade3.no.access" = "Cadde";
-
-"type.highway.track.grade3.permissive" = "Cadde";
-
 "type.highway.track.grade4" = "Cadde";
 
-"type.highway.track.grade4.no.access" = "Cadde";
-
-"type.highway.track.grade4.permissive" = "Cadde";
-
 "type.highway.track.grade5" = "Cadde";
-
-"type.highway.track.grade5.no.access" = "Cadde";
-
-"type.highway.track.grade5.permissive" = "Cadde";
 
 "type.highway.track.no.access" = "Cadde";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "Park";
 
 "type.leisure.pitch" = "Spor sahası";
-
-"type.leisure.pitch.tennis" = "Spor sahası";
 
 "type.leisure.playground" = "Oyun alanı";
 

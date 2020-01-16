@@ -1799,14 +1799,11 @@
 	<string name="type.amenity.parking">Parkoló</string>
 	<string name="type.amenity.parking.fee">Parkoló</string>
 	<string name="type.amenity.parking.multi.storey">Parkoló</string>
-	<string name="type.amenity.parking.multi.storey.fee">Parkoló</string>
 	<string name="type.amenity.parking.no.access">Parkoló</string>
 	<string name="type.amenity.parking.park_and_ride">Parkoló</string>
 	<string name="type.amenity.parking.permissive">Parkoló</string>
-	<string name="type.amenity.parking.permissive.fee">Parkoló</string>
 	<string name="type.amenity.parking.private">Parkoló</string>
 	<string name="type.amenity.parking.underground">Parkoló</string>
-	<string name="type.amenity.parking.underground.fee">Parkoló</string>
 	<string name="type.amenity.parking_space">Parkolóhely</string>
 	<string name="type.amenity.parking_space.permissive">Parkolóhely</string>
 	<string name="type.amenity.parking_space.private">Parkolóhely</string>
@@ -2022,9 +2019,6 @@
 	<string name="type.highway.service.area">Utca</string>
 	<string name="type.highway.service.bridge">Utca</string>
 	<string name="type.highway.service.driveway">Utca</string>
-	<string name="type.highway.service.driveway.area">Utca</string>
-	<string name="type.highway.service.driveway.bridge">Utca</string>
-	<string name="type.highway.service.driveway.tunnel">Utca</string>
 	<string name="type.highway.service.parking_aisle">Utca</string>
 	<string name="type.highway.service.tunnel">Utca</string>
 	<string name="type.highway.speed_camera">Traffipax</string>
@@ -2043,14 +2037,8 @@
 	<string name="type.highway.track.grade1">Utca</string>
 	<string name="type.highway.track.grade2">Utca</string>
 	<string name="type.highway.track.grade3">Utca</string>
-	<string name="type.highway.track.grade3.no.access">Utca</string>
-	<string name="type.highway.track.grade3.permissive">Utca</string>
 	<string name="type.highway.track.grade4">Utca</string>
-	<string name="type.highway.track.grade4.no.access">Utca</string>
-	<string name="type.highway.track.grade4.permissive">Utca</string>
 	<string name="type.highway.track.grade5">Utca</string>
-	<string name="type.highway.track.grade5.no.access">Utca</string>
-	<string name="type.highway.track.grade5.permissive">Utca</string>
 	<string name="type.highway.track.no.access">Utca</string>
 	<string name="type.highway.track.permissive">Utca</string>
 	<string name="type.highway.track.tunnel">Utca</string>
@@ -2101,7 +2089,6 @@
 	<string name="type.leisure.park.permissive">Park</string>
 	<string name="type.leisure.park.private">Park</string>
 	<string name="type.leisure.pitch">Sportpálya</string>
-	<string name="type.leisure.pitch.tennis">Sportpálya</string>
 	<string name="type.leisure.playground">Játszótér</string>
 	<string name="type.leisure.sauna">Szauna</string>
 	<string name="type.leisure.sports_centre">Sportközpont</string>

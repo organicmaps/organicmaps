@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "Parkering";
 
-"type.amenity.parking.multi.storey.fee" = "Parkering";
-
 "type.amenity.parking.no.access" = "Parkering";
 
 "type.amenity.parking.park_and_ride" = "Parkering";
 
 "type.amenity.parking.permissive" = "Parkering";
 
-"type.amenity.parking.permissive.fee" = "Parkering";
-
 "type.amenity.parking.private" = "Parkering";
 
 "type.amenity.parking.underground" = "Parkering";
-
-"type.amenity.parking.underground.fee" = "Parkering";
 
 "type.amenity.parking_space" = "Parkeringsplads";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "Gade";
 
-"type.highway.service.driveway.area" = "Gade";
-
-"type.highway.service.driveway.bridge" = "Gade";
-
-"type.highway.service.driveway.tunnel" = "Gade";
-
 "type.highway.service.parking_aisle" = "Gade";
 
 "type.highway.service.tunnel" = "Gade";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "Gade";
 
-"type.highway.track.grade3.no.access" = "Gade";
-
-"type.highway.track.grade3.permissive" = "Gade";
-
 "type.highway.track.grade4" = "Gade";
 
-"type.highway.track.grade4.no.access" = "Gade";
-
-"type.highway.track.grade4.permissive" = "Gade";
-
 "type.highway.track.grade5" = "Gade";
-
-"type.highway.track.grade5.no.access" = "Gade";
-
-"type.highway.track.grade5.permissive" = "Gade";
 
 "type.highway.track.no.access" = "Gade";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "Park";
 
 "type.leisure.pitch" = "Sportsplads";
-
-"type.leisure.pitch.tennis" = "Sportsplads";
 
 "type.leisure.playground" = "Legeplads";
 

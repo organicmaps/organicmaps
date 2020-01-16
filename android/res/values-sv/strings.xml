@@ -1801,14 +1801,11 @@
 	<string name="type.amenity.parking">Parkering</string>
 	<string name="type.amenity.parking.fee">Parkering</string>
 	<string name="type.amenity.parking.multi.storey">Parkering</string>
-	<string name="type.amenity.parking.multi.storey.fee">Parkering</string>
 	<string name="type.amenity.parking.no.access">Parkering</string>
 	<string name="type.amenity.parking.park_and_ride">Parkering</string>
 	<string name="type.amenity.parking.permissive">Parkering</string>
-	<string name="type.amenity.parking.permissive.fee">Parkering</string>
 	<string name="type.amenity.parking.private">Parkering</string>
 	<string name="type.amenity.parking.underground">Parkering</string>
-	<string name="type.amenity.parking.underground.fee">Parkering</string>
 	<string name="type.amenity.parking_space">Parkeringsplats</string>
 	<string name="type.amenity.parking_space.permissive">Parkeringsplats</string>
 	<string name="type.amenity.parking_space.private">Parkeringsplats</string>
@@ -2021,9 +2018,6 @@
 	<string name="type.highway.service.area">Gata</string>
 	<string name="type.highway.service.bridge">Gata</string>
 	<string name="type.highway.service.driveway">Gata</string>
-	<string name="type.highway.service.driveway.area">Gata</string>
-	<string name="type.highway.service.driveway.bridge">Gata</string>
-	<string name="type.highway.service.driveway.tunnel">Gata</string>
 	<string name="type.highway.service.parking_aisle">Gata</string>
 	<string name="type.highway.service.tunnel">Gata</string>
 	<string name="type.highway.speed_camera">Hastighetskamera</string>
@@ -2042,14 +2036,8 @@
 	<string name="type.highway.track.grade1">Gata</string>
 	<string name="type.highway.track.grade2">Gata</string>
 	<string name="type.highway.track.grade3">Gata</string>
-	<string name="type.highway.track.grade3.no.access">Gata</string>
-	<string name="type.highway.track.grade3.permissive">Gata</string>
 	<string name="type.highway.track.grade4">Gata</string>
-	<string name="type.highway.track.grade4.no.access">Gata</string>
-	<string name="type.highway.track.grade4.permissive">Gata</string>
 	<string name="type.highway.track.grade5">Gata</string>
-	<string name="type.highway.track.grade5.no.access">Gata</string>
-	<string name="type.highway.track.grade5.permissive">Gata</string>
 	<string name="type.highway.track.no.access">Gata</string>
 	<string name="type.highway.track.permissive">Gata</string>
 	<string name="type.highway.track.tunnel">Gata</string>
@@ -2099,7 +2087,6 @@
 	<string name="type.leisure.park.permissive">Parken</string>
 	<string name="type.leisure.park.private">Parken</string>
 	<string name="type.leisure.pitch">Idrottsplats</string>
-	<string name="type.leisure.pitch.tennis">Idrottsplats</string>
 	<string name="type.leisure.playground">Lekplats</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Sportcenter</string>

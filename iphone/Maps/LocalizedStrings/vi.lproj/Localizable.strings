@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "đỗ xe";
 
-"type.amenity.parking.multi.storey.fee" = "đỗ xe";
-
 "type.amenity.parking.no.access" = "đỗ xe";
 
 "type.amenity.parking.park_and_ride" = "đỗ xe";
 
 "type.amenity.parking.permissive" = "đỗ xe";
 
-"type.amenity.parking.permissive.fee" = "đỗ xe";
-
 "type.amenity.parking.private" = "đỗ xe";
 
 "type.amenity.parking.underground" = "đỗ xe";
-
-"type.amenity.parking.underground.fee" = "đỗ xe";
 
 "type.amenity.parking_space" = "Chỗ để xe";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "Phố";
 
-"type.highway.service.driveway.area" = "Phố";
-
-"type.highway.service.driveway.bridge" = "Phố";
-
-"type.highway.service.driveway.tunnel" = "Phố";
-
 "type.highway.service.parking_aisle" = "Phố";
 
 "type.highway.service.tunnel" = "Phố";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "Phố";
 
-"type.highway.track.grade3.no.access" = "Phố";
-
-"type.highway.track.grade3.permissive" = "Phố";
-
 "type.highway.track.grade4" = "Phố";
 
-"type.highway.track.grade4.no.access" = "Phố";
-
-"type.highway.track.grade4.permissive" = "Phố";
-
 "type.highway.track.grade5" = "Phố";
-
-"type.highway.track.grade5.no.access" = "Phố";
-
-"type.highway.track.grade5.permissive" = "Phố";
 
 "type.highway.track.no.access" = "Phố";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "Công viên";
 
 "type.leisure.pitch" = "Sân vận động";
-
-"type.leisure.pitch.tennis" = "Sân vận động";
 
 "type.leisure.playground" = "Sân chơi";
 

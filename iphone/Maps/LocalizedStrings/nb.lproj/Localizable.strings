@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "Parkering";
 
-"type.amenity.parking.multi.storey.fee" = "Parkering";
-
 "type.amenity.parking.no.access" = "Parkering";
 
 "type.amenity.parking.park_and_ride" = "Parkering";
 
 "type.amenity.parking.permissive" = "Parkering";
 
-"type.amenity.parking.permissive.fee" = "Parkering";
-
 "type.amenity.parking.private" = "Parkering";
 
 "type.amenity.parking.underground" = "Parkering";
-
-"type.amenity.parking.underground.fee" = "Parkering";
 
 "type.amenity.parking_space" = "Parkeringsplass";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "Gate";
 
-"type.highway.service.driveway.area" = "Gate";
-
-"type.highway.service.driveway.bridge" = "Gate";
-
-"type.highway.service.driveway.tunnel" = "Gate";
-
 "type.highway.service.parking_aisle" = "Gate";
 
 "type.highway.service.tunnel" = "Gate";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "Gate";
 
-"type.highway.track.grade3.no.access" = "Gate";
-
-"type.highway.track.grade3.permissive" = "Gate";
-
 "type.highway.track.grade4" = "Gate";
 
-"type.highway.track.grade4.no.access" = "Gate";
-
-"type.highway.track.grade4.permissive" = "Gate";
-
 "type.highway.track.grade5" = "Gate";
-
-"type.highway.track.grade5.no.access" = "Gate";
-
-"type.highway.track.grade5.permissive" = "Gate";
 
 "type.highway.track.no.access" = "Gate";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "Park";
 
 "type.leisure.pitch" = "Sportssenter";
-
-"type.leisure.pitch.tennis" = "Sportssenter";
 
 "type.leisure.playground" = "Lekeplass";
 

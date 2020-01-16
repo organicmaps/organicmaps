@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "Parkoló";
 
-"type.amenity.parking.multi.storey.fee" = "Parkoló";
-
 "type.amenity.parking.no.access" = "Parkoló";
 
 "type.amenity.parking.park_and_ride" = "Parkoló";
 
 "type.amenity.parking.permissive" = "Parkoló";
 
-"type.amenity.parking.permissive.fee" = "Parkoló";
-
 "type.amenity.parking.private" = "Parkoló";
 
 "type.amenity.parking.underground" = "Parkoló";
-
-"type.amenity.parking.underground.fee" = "Parkoló";
 
 "type.amenity.parking_space" = "Parkolóhely";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "Utca";
 
-"type.highway.service.driveway.area" = "Utca";
-
-"type.highway.service.driveway.bridge" = "Utca";
-
-"type.highway.service.driveway.tunnel" = "Utca";
-
 "type.highway.service.parking_aisle" = "Utca";
 
 "type.highway.service.tunnel" = "Utca";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "Utca";
 
-"type.highway.track.grade3.no.access" = "Utca";
-
-"type.highway.track.grade3.permissive" = "Utca";
-
 "type.highway.track.grade4" = "Utca";
 
-"type.highway.track.grade4.no.access" = "Utca";
-
-"type.highway.track.grade4.permissive" = "Utca";
-
 "type.highway.track.grade5" = "Utca";
-
-"type.highway.track.grade5.no.access" = "Utca";
-
-"type.highway.track.grade5.permissive" = "Utca";
 
 "type.highway.track.no.access" = "Utca";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "Park";
 
 "type.leisure.pitch" = "Sportpálya";
-
-"type.leisure.pitch.tennis" = "Sportpálya";
 
 "type.leisure.playground" = "Játszótér";
 

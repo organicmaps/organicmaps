@@ -1799,14 +1799,11 @@
 	<string name="type.amenity.parking">Parkering</string>
 	<string name="type.amenity.parking.fee">Parkering</string>
 	<string name="type.amenity.parking.multi.storey">Parkering</string>
-	<string name="type.amenity.parking.multi.storey.fee">Parkering</string>
 	<string name="type.amenity.parking.no.access">Parkering</string>
 	<string name="type.amenity.parking.park_and_ride">Parkering</string>
 	<string name="type.amenity.parking.permissive">Parkering</string>
-	<string name="type.amenity.parking.permissive.fee">Parkering</string>
 	<string name="type.amenity.parking.private">Parkering</string>
 	<string name="type.amenity.parking.underground">Parkering</string>
-	<string name="type.amenity.parking.underground.fee">Parkering</string>
 	<string name="type.amenity.parking_space">Parkeringsplads</string>
 	<string name="type.amenity.parking_space.permissive">Parkeringsplads</string>
 	<string name="type.amenity.parking_space.private">Parkeringsplads</string>
@@ -2017,9 +2014,6 @@
 	<string name="type.highway.service.area">Gade</string>
 	<string name="type.highway.service.bridge">Gade</string>
 	<string name="type.highway.service.driveway">Gade</string>
-	<string name="type.highway.service.driveway.area">Gade</string>
-	<string name="type.highway.service.driveway.bridge">Gade</string>
-	<string name="type.highway.service.driveway.tunnel">Gade</string>
 	<string name="type.highway.service.parking_aisle">Gade</string>
 	<string name="type.highway.service.tunnel">Gade</string>
 	<string name="type.highway.speed_camera">Automatisk Trafikkontrol</string>
@@ -2038,14 +2032,8 @@
 	<string name="type.highway.track.grade1">Gade</string>
 	<string name="type.highway.track.grade2">Gade</string>
 	<string name="type.highway.track.grade3">Gade</string>
-	<string name="type.highway.track.grade3.no.access">Gade</string>
-	<string name="type.highway.track.grade3.permissive">Gade</string>
 	<string name="type.highway.track.grade4">Gade</string>
-	<string name="type.highway.track.grade4.no.access">Gade</string>
-	<string name="type.highway.track.grade4.permissive">Gade</string>
 	<string name="type.highway.track.grade5">Gade</string>
-	<string name="type.highway.track.grade5.no.access">Gade</string>
-	<string name="type.highway.track.grade5.permissive">Gade</string>
 	<string name="type.highway.track.no.access">Gade</string>
 	<string name="type.highway.track.permissive">Gade</string>
 	<string name="type.highway.track.tunnel">Gade</string>
@@ -2095,7 +2083,6 @@
 	<string name="type.leisure.park.permissive">Park</string>
 	<string name="type.leisure.park.private">Park</string>
 	<string name="type.leisure.pitch">Sportsplads</string>
-	<string name="type.leisure.pitch.tennis">Sportsplads</string>
 	<string name="type.leisure.playground">Legeplads</string>
 	<string name="type.leisure.sauna">Sauna</string>
 	<string name="type.leisure.sports_centre">Idrætscenter</string>

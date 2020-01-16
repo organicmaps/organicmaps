@@ -3348,21 +3348,15 @@
 
 "type.amenity.parking.multi.storey" = "Parkoviště";
 
-"type.amenity.parking.multi.storey.fee" = "Parkoviště";
-
 "type.amenity.parking.no.access" = "Parkoviště";
 
 "type.amenity.parking.park_and_ride" = "Parkoviště";
 
 "type.amenity.parking.permissive" = "Parkoviště";
 
-"type.amenity.parking.permissive.fee" = "Parkoviště";
-
 "type.amenity.parking.private" = "Parkoviště";
 
 "type.amenity.parking.underground" = "Parkoviště";
-
-"type.amenity.parking.underground.fee" = "Parkoviště";
 
 "type.amenity.parking_space" = "Prostor pro parkování";
 
@@ -3892,12 +3886,6 @@
 
 "type.highway.service.driveway" = "Ulice";
 
-"type.highway.service.driveway.area" = "Ulice";
-
-"type.highway.service.driveway.bridge" = "Ulice";
-
-"type.highway.service.driveway.tunnel" = "Ulice";
-
 "type.highway.service.parking_aisle" = "Ulice";
 
 "type.highway.service.tunnel" = "Ulice";
@@ -3936,21 +3924,9 @@
 
 "type.highway.track.grade3" = "Ulice";
 
-"type.highway.track.grade3.no.access" = "Ulice";
-
-"type.highway.track.grade3.permissive" = "Ulice";
-
 "type.highway.track.grade4" = "Ulice";
 
-"type.highway.track.grade4.no.access" = "Ulice";
-
-"type.highway.track.grade4.permissive" = "Ulice";
-
 "type.highway.track.grade5" = "Ulice";
-
-"type.highway.track.grade5.no.access" = "Ulice";
-
-"type.highway.track.grade5.permissive" = "Ulice";
 
 "type.highway.track.no.access" = "Ulice";
 
@@ -4161,8 +4137,6 @@
 "type.leisure.park.private" = "Park";
 
 "type.leisure.pitch" = "Sportovní hřiště";
-
-"type.leisure.pitch.tennis" = "Sportovní hřiště";
 
 "type.leisure.playground" = "Hřiště";
 
