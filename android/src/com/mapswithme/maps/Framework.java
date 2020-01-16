@@ -422,6 +422,10 @@ public class Framework
 
   public static native boolean nativeIsTransitSchemeEnabled();
 
+  public static native void nativeSetIsoLinesLayerEnabled(boolean enabled);
+
+  public static native boolean nativeIsIsoLinesLayerEnabled();
+
   @NonNull
   public static native MapObject nativeDeleteBookmarkFromMapObject();
 

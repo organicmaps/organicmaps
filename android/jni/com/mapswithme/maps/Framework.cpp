@@ -1724,6 +1724,18 @@ Java_com_mapswithme_maps_Framework_nativeIsTransitSchemeEnabled(JNIEnv * env, jc
 }
 
 JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetIsoLinesLayerEnabled(JNIEnv * env, jclass, jboolean enabled)
+{
+/*  frm()->...(static_cast<bool>(enabled));*/
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeIsIsoLinesLayerEnabled(JNIEnv * env, jclass)
+{
+  return /*static_cast<jboolean>(frm()->())*/ false;
+}
+
+JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSaveSettingSchemeEnabled(JNIEnv * env, jclass, jboolean enabled)
 {
   frm()->SaveTransitSchemeEnabled(static_cast<bool>(enabled));

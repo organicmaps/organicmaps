@@ -190,7 +190,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     mBackgroundTracker = new AppBackgroundTracker();
     mBackgroundTracker.addListener(mVisibleAppLaunchListener);
     mSubwayManager = new SubwayManager(this);
-    mIsoLinesManager = new IsoLinesManager(this);
+    mIsoLinesManager = new IsoLinesManager();
     mConnectivityListener = new ConnectivityJobScheduler(this);
     mConnectivityListener.listen();
 
