@@ -97,9 +97,10 @@ void SpeedCameraManager::GenerateNotifications(std::vector<std::string> & notifi
   if (VoiceSignalAvailable())
   {
     notifications.emplace_back(m_notificationManager.GenerateSpeedCameraText());
-    m_makeVoiceSignal = false;
     ++m_voiceSignalCounter;
   }
+
+  m_makeVoiceSignal = false;
 }
 
 bool SpeedCameraManager::ShouldPlayBeepSignal()
@@ -116,6 +117,7 @@ bool SpeedCameraManager::ShouldPlayBeepSignal()
     return true;
   }
 
+  m_makeBeepSignal = false;
   return false;
 }
 
@@ -360,7 +362,7 @@ void SpeedCameraManager::SendNotificationStat(double passedDistanceMeters, doubl
 
   auto const distToCameraMeters = camera.m_distFromBeginMeters - passedDistanceMeters;
 
-  ASSERT(m_makeBeepSignal != m_makeVoiceSignal, ("In each moment of time only one flag should be up."));
+  CHECK(m_makeBeepSignal != m_makeVoiceSignal, ("In each moment of time only one flag should be up."));
   alohalytics::TStringMap params = {{"type", m_makeBeepSignal ? "beep" : "voice"},
                                     {"distance", strings::to_string(distToCameraMeters)},
                                     {"speed", strings::to_string(measurement_utils::MpsToKmph(speedMpS))}};
