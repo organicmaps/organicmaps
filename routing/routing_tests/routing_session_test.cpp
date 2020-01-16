@@ -220,7 +220,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingA
         nullptr /* removeRouteCallback */);
     {
       SessionStateTest sessionStateTest(
-          {SessionState::OnRoute, SessionState::RoutingNotActive, SessionState::RouteBuilding},
+          {SessionState::OnRoute, SessionState::RouteBuilding},
           *m_session);
 
       m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()),
