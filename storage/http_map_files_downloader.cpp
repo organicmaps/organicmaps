@@ -55,7 +55,9 @@ void HttpMapFilesDownloader::Download()
 {
   CHECK_THREAD_CHECKER(m_checker, ());
 
-  auto const & queuedCountry = m_queue.front();
+  auto & queuedCountry = m_queue.front();
+
+  queuedCountry.ClarifyDownloadingType();
 
   auto const urls = MakeUrlList(queuedCountry.GetRelativeUrl());
   auto const path = queuedCountry.GetFileDownloadPath();

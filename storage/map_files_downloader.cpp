@@ -21,7 +21,6 @@ void MapFilesDownloader::DownloadMapFile(QueuedCountry & queuedCountry)
   // Fast path: the server list was received before.
   if (!m_serversList.empty())
   {
-    queuedCountry.ClarifyDownloadingType();
     Download(queuedCountry);
     return;
   }
@@ -44,7 +43,6 @@ void MapFilesDownloader::DownloadMapFile(QueuedCountry & queuedCountry)
     // synchronously downloaded the server list.
     // It is now safe to repost the download task to the UI thread.
       GetPlatform().RunTask(Platform::Thread::Gui, [=]() mutable {
-        queuedCountry.ClarifyDownloadingType();
         Download(queuedCountry);
       });
   });
