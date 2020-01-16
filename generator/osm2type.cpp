@@ -581,6 +581,18 @@ void PreprocessElement(OsmElement * p)
       ++iter;
     }
   }
+
+  // We replace a value of 'place' with a value of 'de: place' because most people regard
+  // places names as 'de: place' defines it.
+  // TODO(@m.andrianov): A better solution for the future is writing this rule in replaced_tags.txt
+  // file. But syntax for this isn't supported by relace tags mechanism.
+  auto const dePlace = p->GetTag("de:place");
+  if (!dePlace.empty())
+  {
+    p->UpdateTag("place", [&](auto & value) {
+      value = dePlace;
+    });
+  }
 }
 
 void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
