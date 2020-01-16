@@ -1,5 +1,5 @@
 @objc(MWMNavigationControlView)
-final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMTrafficManagerObserver {
+final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapOverlayManagerObserver {
   @IBOutlet private weak var distanceLabel: UILabel!
   @IBOutlet private weak var distanceLegendLabel: UILabel!
   @IBOutlet private weak var distanceWithLegendLabel: UILabel!
@@ -133,7 +133,7 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
     updateLegendSize()
 
     MWMTextToSpeech.add(self)
-    MWMTrafficManager.add(self)
+    MapOverlayManager.add(self)
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -276,7 +276,7 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
     guard MWMRouter.isRoutingActive() else { return }
     let isPedestrianRouting = MWMRouter.type() == .pedestrian
     trafficButton.isHidden = isPedestrianRouting
-    trafficButton.isSelected = MWMTrafficManager.trafficState() != .disabled
+    trafficButton.isSelected = MapOverlayManager.trafficState() != .disabled
     refreshDiminishTimer()
   }
 

@@ -96,7 +96,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
     [MWMRouter stopRouting];
   }
 
-  if ([MWMTrafficManager transitEnabled]) {
+  if ([MWMMapOverlayManager transitEnabled]) {
     [MWMRouter setType:MWMRouterTypePublicTransport];
   }
 
