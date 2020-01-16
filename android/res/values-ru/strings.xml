@@ -2043,6 +2043,7 @@
 	<string name="type.highway.footway.mountain_hiking">Дорожка</string>
 	<string name="type.highway.footway.permissive">Дорожка</string>
 	<string name="type.highway.footway.tunnel">Дорожка</string>
+	<string name="type.highway.ford">Брод</string>
 	<string name="type.highway.living_street">Улица</string>
 	<string name="type.highway.living_street.bridge">Улица</string>
 	<string name="type.highway.living_street.tunnel">Улица</string>

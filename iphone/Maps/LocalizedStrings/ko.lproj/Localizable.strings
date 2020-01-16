@@ -3784,7 +3784,7 @@
 
 "type.highway.footway.tunnel" = "경로";
 
-"type.highway.ford" = "highway-ford";
+"type.highway.ford" = "Ford";
 
 "type.highway.living_street" = "거리";
 

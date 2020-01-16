@@ -2108,7 +2108,7 @@
 	<string name="type.highway.footway.mountain_hiking">Path</string>
 	<string name="type.highway.footway.permissive">Path</string>
 	<string name="type.highway.footway.tunnel">Path</string>
-	<string name="type.highway.ford">highway-ford</string>
+	<string name="type.highway.ford">Ford</string>
 	<string name="type.highway.living_street">Street</string>
 	<string name="type.highway.living_street.bridge">Street</string>
 	<string name="type.highway.living_street.tunnel">Street</string>

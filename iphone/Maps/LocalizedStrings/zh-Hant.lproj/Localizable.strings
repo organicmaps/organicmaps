@@ -3784,7 +3784,7 @@
 
 "type.highway.footway.tunnel" = "人行步道";
 
-"type.highway.ford" = "highway-ford";
+"type.highway.ford" = "Ford";
 
 "type.highway.living_street" = "路";
 

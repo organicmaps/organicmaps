@@ -3784,7 +3784,7 @@
 
 "type.highway.footway.tunnel" = "Пішохідна доріжка";
 
-"type.highway.ford" = "highway-ford";
+"type.highway.ford" = "Ford";
 
 "type.highway.living_street" = "Вулиця";
 

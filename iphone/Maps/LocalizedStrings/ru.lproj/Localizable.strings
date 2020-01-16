@@ -3784,7 +3784,7 @@
 
 "type.highway.footway.tunnel" = "Дорожка";
 
-"type.highway.ford" = "highway-ford";
+"type.highway.ford" = "Брод";
 
 "type.highway.living_street" = "Улица";
 
