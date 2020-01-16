@@ -700,7 +700,7 @@ highway|tertiary_link|area;[highway=tertiary_link][area?];x;name;int_name;699;
 highway|unsurfaced|tunnel;[highway=unsurfaced][tunnel?];x;name;int_name;700;
 highway|secondary_link|area;[highway=secondary_link][area?];x;name;int_name;701;
 natural|allotments;702;x
-railway|station|subway;[railway=station][transport=subway];;name;int_name;703;
+railway|station|subway;[railway=station][transport=subway],[railway=station][station=subway];;name;int_name;703;
 amenity|police;704;
 amenity|car_rental;705;
 amenity|taxi;706;
