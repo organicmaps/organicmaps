@@ -57,8 +57,8 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 + (instancetype)routeNotFoundTooLongPedestrianAlert
 {
-  return [self defaultAlertWithTitle:L(@"dialog_pedestrian_route_is_long")
-                             message:nil
+  return [self defaultAlertWithTitle:L(@"dialog_pedestrian_route_is_long_header")
+                             message:L(@"dialog_pedestrian_route_is_long_message")
                     rightButtonTitle:L(@"ok")
                      leftButtonTitle:nil
                    rightButtonAction:nil
