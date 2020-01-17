@@ -728,7 +728,7 @@ shop|car_repair;727;
 shop|car;728;
 shop|kiosk;729;
 sport|multi;730;
-sport|golf;731;
+sport|golf;[sport=golf],[sport=miniature_golf];;name;int_name;731;
 sport|skiing;732;
 tourism|museum;733;
 tourism|guest_house;734;
