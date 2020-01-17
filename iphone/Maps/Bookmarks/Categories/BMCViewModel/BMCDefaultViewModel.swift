@@ -289,8 +289,7 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
         case .userInterrupted: break
         case .success:
           guard let s = self else { return }
-          s.setCategories()
-          s.view?.update(sections: [.categories])
+          s.reloadData()
       }
     }
   }
