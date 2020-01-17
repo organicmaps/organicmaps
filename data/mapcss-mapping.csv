@@ -359,7 +359,7 @@ man_made|pipeline|gas;[man_made=pipeline][gas];x;name;int_name;358;man_made|pipe
 amenity|parking|multi-storey;[amenity=parking][parking=multi-storey];;name;int_name;359;
 leisure|recreation_ground;360;
 highway|footway|mountain_hiking;[highway=footway][sac_scale=mountain_hiking];;name;int_name;361;
-highway|service|driveway|bridge;[highway=service][service=driveway][bridge?];;name;int_name;362;
+highway|service|driveway|bridge;[highway=service][service=driveway][bridge?];x;name;int_name;362;highway|service|driveway
 amenity|parking|multi-storey|fee;[amenity=parking][parking=multi-storey][fee?];x;name;int_name;363;amenity|parking|multi-storey
 leisure|track|area;[leisure=track][area?];x;name;int_name;364;
 highway|byway;365;highway|track
@@ -376,14 +376,14 @@ amenity|bureau_de_change;375;
 power|generator|photovoltaic;[power=generator][generator:type=photovoltaic];;name;int_name;376;x
 highway|motorway_link|junction;[highway=motorway_link][junction?];x;name;int_name;377;highway|motorway_link
 highway|bridleway|bridge;[highway=bridleway][bridge?];;name;int_name;378;
-highway|service|driveway|tunnel;[highway=service][service=driveway][tunnel?];;name;int_name;379;
+highway|service|driveway|tunnel;[highway=service][service=driveway][tunnel?];x;name;int_name;379;highway|service|driveway
 highway|track|cutting;[highway=track][cutting?];x;name;int_name;380;highway|track
 landuse|basin|retention;[landuse=basin][basin=retention];x;name;int_name;381;natural|water
 railway|narrow_gauge|tunnel;[railway=narrow_gauge][tunnel?];;name;int_name;382;
 railway|dismantled;383;x
 waterway|dock;384;
 natural|forest;385;natural|wood
-highway|service|driveway|area;[highway=service][service=driveway][area?];;name;int_name;386;
+highway|service|driveway|area;[highway=service][service=driveway][area?];x;name;int_name;386;highway|service|driveway
 man_made|pipeline|heat;[man_made=pipeline][type=heat];x;name;int_name;387;man_made|pipeline
 place|city|capital;[place=city][capital?];;name;int_name;388;
 aerialway|cable_car;389;
@@ -588,7 +588,7 @@ aerialway|mixed_lift;587;
 railway|planned;588;x
 highway|footway|cycleway;[highway=footway][cycleway?];x;name;int_name;589;highway|footway
 power|line|submarine;[power=line][location=submarine];x;name;int_name;590;power|line
-highway|track|grade3|permissive;[highway=track][tracktype=grade3][access=permissive];;name;int_name;591;
+highway|track|grade3|permissive;[highway=track][tracktype=grade3][access=permissive];x;name;int_name;591;highway|track|grade3
 highway|track|grade4|private;[highway=track][tracktype=grade4][access=private];x;name;int_name;592;highway|track|grade4
 highway|byway|permissive;[highway=byway][access=permissive];x;name;int_name;593;highway|track
 natural|railway;594;x
@@ -628,7 +628,7 @@ highway|footway|difficult_alpine_hiking;[highway=footway][sac_scale=difficult_al
 man_made|pipeline|oil|overground;[man_made=pipeline][type=oil][location=overground];x;name;int_name;628;
 highway|primary_link|area;[highway=primary_link][area?];x;name;int_name;629;
 highway|primary_link|disused;[highway=primary_link][disused?];x;name;int_name;630;highway|primary_link
-highway|track|grade5|permissive;[highway=track][tracktype=grade5][access=permissive];;name;int_name;631;
+highway|track|grade5|permissive;[highway=track][tracktype=grade5][access=permissive];x;name;int_name;631;highway|track|grade5
 landuse|reservoir|cooling;[landuse=reservoir][reservoir=cooling];x;name;int_name;632;natural|water
 aeroway|airport;633;aeroway|aerodrome
 highway|tertiary_link|tunnel;[highway=tertiary_link][tunnel?];;name;int_name;634;
@@ -672,7 +672,7 @@ highway|pedestrian|disused;[highway=pedestrian][disused?];x;name;int_name;671;
 highway|unsurfaced|area;[highway=unsurfaced][area?];x;name;int_name;672;
 highway|minor|tunnel;[highway=minor][tunnel?];x;name;int_name;673;highway|unclassified
 highway|minor|area;[highway=minor][area?];x;name;int_name;674;
-highway|track|grade4|permissive;[highway=track][tracktype=grade4][access=permissive];;name;int_name;675;
+highway|track|grade4|permissive;[highway=track][tracktype=grade4][access=permissive];x;name;int_name;675;highway|track|grade4
 highway|crossing|zebra;[highway=crossing][crossing=zebra];x;name;int_name;676;
 landuse|runway|dismantled;[landuse=runway][dismantled?];x;name;int_name;677;
 highway|bridleway|construction;[highway=bridleway][construction?];x;name;int_name;678;
@@ -818,9 +818,9 @@ highway|tertiary_link|construction;[highway=tertiary_link][construction?];x;name
 highway|tertiary_link|cycleway;[highway=tertiary_link][cycleway?];x;name;int_name;818;highway|tertiary_link
 highway|tertiary_link|cycleway-motorroad;[highway=tertiary_link][cycleway?][motorroad?];x;name;int_name;819;highway|tertiary_link
 highway|tertiary_link|disused;[highway=tertiary_link][disused?];x;name;int_name;820;highway|tertiary_link
-highway|track|grade3|no-access;[highway=track][tracktype=grade3][access=no];;name;int_name;821;
-highway|track|grade4|no-access;[highway=track][tracktype=grade4][access=no];;name;int_name;822;
-highway|track|grade5|no-access;[highway=track][tracktype=grade5][access=no];;name;int_name;823;
+highway|track|grade3|no-access;[highway=track][tracktype=grade3][access=no];x;name;int_name;821;highway|track|grade3
+highway|track|grade4|no-access;[highway=track][tracktype=grade4][access=no];x;name;int_name;822;highway|track|grade4
+highway|track|grade5|no-access;[highway=track][tracktype=grade5][access=no];x;name;int_name;823;highway|track|grade5
 highway|track|no-access;[highway=track][access=no];;name;int_name;824;
 highway|track|race;[highway=raceway];x;name;int_name;825;
 highway|trunk|cycleway;[highway=trunk][cycleway?];x;name;int_name;826;highway|trunk
