@@ -299,7 +299,7 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem)
     for (auto const tagMapping : mapping)
     {
       auto const accessType = GetAccessTypeFromMapping(elem, tagMapping);
-      if (accessType != RoadAccess::Type::Count && accessType != RoadAccess::Type::Yes)
+      if (accessType != RoadAccess::Type::Count)
         return optional<RoadAccess::Type>(accessType);
     }
 
@@ -308,6 +308,9 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem)
 
   if (auto op = getAccessType(m_accessMappings))
   {
+    if (*op == RoadAccess::Type::Yes)
+      return;
+
     switch (elem.m_type)
     {
     case OsmElement::EntityType::Node: m_barriersWithAccessTag.emplace(elem.m_id, *op); return;
