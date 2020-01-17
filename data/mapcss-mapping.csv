@@ -723,7 +723,7 @@ man_made|cutline;722;
 natural|bay;723;
 natural|spring;724;
 railway|platform;725;
-shop|clothes;726;
+shop|clothes;[shop=clothes],[shop=fashion];;name;int_name;726;
 shop|car_repair;727;
 shop|car;728;
 shop|kiosk;729;
