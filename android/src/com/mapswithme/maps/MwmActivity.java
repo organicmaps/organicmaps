@@ -68,7 +68,7 @@ import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.maplayer.MapLayerCompositeController;
 import com.mapswithme.maps.maplayer.Mode;
-import com.mapswithme.maps.maplayer.OnIsoLinesLayerToggleListener;
+import com.mapswithme.maps.maplayer.OnIsolinesLayerToggleListener;
 import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
@@ -174,7 +174,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  AppBackgroundTracker.OnTransitionListener,
                                  MaterialTapTargetPrompt.PromptStateChangeListener,
                                  WelcomeDialogFragment.OnboardingStepPassedListener,
-                                 OnIsoLinesLayerToggleListener
+                                 OnIsolinesLayerToggleListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -1213,7 +1213,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onIsoLinesLayerSelected()
+  public void onIsolinesLayerSelected()
   {
     mToggleMapLayerController.toggleMode(Mode.ISOLINES);
   }

@@ -83,9 +83,9 @@ public abstract class BottomSheetItem
     }
   }
 
-  public static class IsoLines extends BottomSheetItem
+  public static class Isolines extends BottomSheetItem
   {
-    private IsoLines(int drawableResId, int disabledStateDrawableResId)
+    private Isolines(int drawableResId, int disabledStateDrawableResId)
     {
       super(drawableResId, disabledStateDrawableResId, R.string.button_layer_traffic, Mode.ISOLINES);
     }
@@ -94,7 +94,7 @@ public abstract class BottomSheetItem
     {
       int disabled = ThemeUtils.getResource(mContext, R.attr.isoLinesMenuDisabled);
 
-      return new IsoLines(R.drawable.ic_planning_route_isomaps_dark_on, disabled);
+      return new Isolines(R.drawable.ic_planning_route_isomaps_dark_on, disabled);
     }
   }
 }

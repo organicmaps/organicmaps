@@ -6,18 +6,18 @@ import androidx.annotation.NonNull;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 
-public class IsoLinesManager
+public class IsolinesManager
 {
   @NonNull
-  public static IsoLinesManager from(@NonNull Context context)
+  public static IsolinesManager from(@NonNull Context context)
   {
     MwmApplication app = (MwmApplication) context.getApplicationContext();
-    return app.getIsoLinesManager();
+    return app.getIsolinesManager();
   }
 
   public boolean isEnabled()
   {
-    return Framework.nativeIsIsoLinesLayerEnabled();
+    return Framework.nativeIsIsolinesLayerEnabled();
   }
 
   public void setEnabled(boolean isEnabled)
@@ -25,7 +25,7 @@ public class IsoLinesManager
     if (isEnabled == isEnabled())
       return;
 
-    Framework.nativeSetIsoLinesLayerEnabled(isEnabled);
+    Framework.nativeSetIsolinesLayerEnabled(isEnabled);
   }
 
   public void toggle()

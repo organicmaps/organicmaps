@@ -1724,13 +1724,13 @@ Java_com_mapswithme_maps_Framework_nativeIsTransitSchemeEnabled(JNIEnv * env, jc
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeSetIsoLinesLayerEnabled(JNIEnv * env, jclass, jboolean enabled)
+Java_com_mapswithme_maps_Framework_nativeSetIsolinesLayerEnabled(JNIEnv * env, jclass, jboolean enabled)
 {
 /*  frm()->...(static_cast<bool>(enabled));*/
 }
 
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_Framework_nativeIsIsoLinesLayerEnabled(JNIEnv * env, jclass)
+Java_com_mapswithme_maps_Framework_nativeIsIsolinesLayerEnabled(JNIEnv * env, jclass)
 {
   return /*static_cast<jboolean>(frm()->())*/ false;
 }
