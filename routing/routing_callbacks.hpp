@@ -43,7 +43,7 @@ enum class RouterResultCode
 
 enum class SessionState
 {
-  RoutingNotActive,   // No valid route: no route after application launching or the route was removed.
+  NoValidRoute,       // No valid route: no route after application launching or the route was removed.
   RouteBuilding,      // We requested a route and wait when it will be built. User may be following
                       // the previous route.
   RouteBuildingError, // The route was not built because of an error.
@@ -57,7 +57,7 @@ enum class SessionState
 };
 
 /*
- * RoutingNotActive -> RouteBuilding    // start route building
+ * NoValidRoute -> RouteBuilding    // start route building
  * RouteBuilding -> RouteBuildingError       // route was built with an error
  * RouteBuilding -> RouteNotStarted     // route is built in case of building a new route
  * RouteRebuilding -> RouteBuildingError     // waiting for route in case of rebuilding

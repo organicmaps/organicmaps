@@ -53,7 +53,7 @@ void FormatDistance(double dist, string & value, string & suffix)
 RoutingSession::RoutingSession()
   : m_router(nullptr)
   , m_route(make_shared<Route>(string() /* router */, 0 /* route id */))
-  , m_state(SessionState::RoutingNotActive)
+  , m_state(SessionState::NoValidRoute)
   , m_isFollowing(false)
   , m_speedCameraManager(m_turnNotificationsMgr)
   , m_routingSettings(GetRoutingSettings(VehicleType::Car))
@@ -61,7 +61,7 @@ RoutingSession::RoutingSession()
   , m_lastCompletionPercent(0.0)
 {
   // To call |m_changeSessionStateCallback| on |m_state| initialization.
-  SetState(SessionState::RoutingNotActive);
+  SetState(SessionState::NoValidRoute);
   m_speedCameraManager.SetRoute(m_route);
 }
 
@@ -137,10 +137,12 @@ void RoutingSession::DoReadyCallback::operator()(shared_ptr<Route> route, Router
   m_callback(*m_rs.m_route, e);
 }
 
-void RoutingSession::RemoveRoute()
+void RoutingSession::RemoveRoute(bool changeStateToNoValidRoute)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  SetState(SessionState::RoutingNotActive);
+  if (changeStateToNoValidRoute)
+    SetState(SessionState::NoValidRoute);
+
   m_lastDistance = 0.0;
   m_moveAwayCounter = 0;
   m_turnNotificationsMgr.Reset();
@@ -160,7 +162,7 @@ void RoutingSession::RebuildRouteOnTrafficUpdate()
 
     switch (m_state)
     {
-    case SessionState::RoutingNotActive:
+    case SessionState::NoValidRoute:
     case SessionState::RouteBuildingError:
     case SessionState::RouteFinished: return;
 
@@ -187,7 +189,7 @@ void RoutingSession::RebuildRouteOnTrafficUpdate()
 bool RoutingSession::IsActive() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return (m_state != SessionState::RoutingNotActive);
+  return (m_state != SessionState::NoValidRoute);
 }
 
 bool RoutingSession::IsNavigable() const
@@ -256,7 +258,7 @@ void RoutingSession::Reset()
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_router != nullptr, ());
 
-  RemoveRoute();
+  RemoveRoute(true /* changeStateToNoValidRoute */);
   m_router->ClearState();
 
   m_passedDistanceOnRouteMeters = 0.0;
@@ -266,6 +268,7 @@ void RoutingSession::Reset()
 
 void RoutingSession::SetState(SessionState state)
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (m_changeSessionStateCallback && m_state != state)
     m_changeSessionStateCallback(m_state, state);
 
@@ -275,20 +278,18 @@ void RoutingSession::SetState(SessionState state)
 SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  ASSERT_NOT_EQUAL(m_state, SessionState::RoutingNotActive, ());
+  ASSERT_NOT_EQUAL(m_state, SessionState::NoValidRoute, ());
   ASSERT(m_router, ());
 
-  if (m_state == SessionState::RouteFinished || m_state == SessionState::RouteBuilding
-      || m_state == SessionState::RouteBuildingError || m_state == SessionState::RouteNoFollowing)
+  if (m_state == SessionState::RouteFinished || m_state == SessionState::RouteBuilding ||
+      m_state == SessionState::RouteBuildingError || m_state == SessionState::RouteNoFollowing ||
+      m_state == SessionState::NoValidRoute)
   {
     return m_state;
   }
 
-  // If a route cancelled while the first building |m_route| is invalid and still may be rebuild.
-  if (!m_route->IsValid())
-    return m_state;
-
-  ASSERT(m_route, ());
+  CHECK(m_route, ());
+  CHECK(m_route->IsValid(), ());
 
   m_turnNotificationsMgr.SetSpeedMetersPerSecond(info.m_speedMpS);
 
@@ -497,14 +498,15 @@ void RoutingSession::AssignRoute(shared_ptr<Route> route, RouterResultCode e)
     if (m_route->IsValid())
       SetState(SessionState::OnRoute);
     else
-      SetState(SessionState::RoutingNotActive);
+      SetState(SessionState::NoValidRoute);
     return;
   }
 
-  RemoveRoute();
+  // Note. RemoveRoute() should not change state to NoValidRoute in this case.
+  RemoveRoute(false /* changeStateToNoValidRoute */);
+  SetState(SessionState::RouteNotStarted);
   m_lastCompletionPercent = 0;
   m_checkpoints.SetPointFrom(route->GetPoly().Front());
-  SetState(SessionState::RouteNotStarted);
 
   route->SetRoutingSettings(m_routingSettings);
   m_route = route;
@@ -783,7 +785,7 @@ string DebugPrint(SessionState state)
 {
   switch (state)
   {
-  case SessionState::RoutingNotActive: return "RoutingNotActive";
+  case SessionState::NoValidRoute: return "NoValidRoute";
   case SessionState::RouteBuilding: return "RouteBuilding";
   case SessionState::RouteBuildingError: return "RouteBuildingError";
   case SessionState::RouteNotStarted: return "RouteNotStarted";

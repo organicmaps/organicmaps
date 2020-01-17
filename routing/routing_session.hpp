@@ -182,8 +182,8 @@ private:
   };
 
   void AssignRoute(std::shared_ptr<Route> route, RouterResultCode e);
-  /// RemoveRoute removes m_route and resets route attributes (m_state, m_lastDistance, m_moveAwayCounter).
-  void RemoveRoute();
+  /// RemoveRoute() removes m_route and resets route attributes (m_state, m_lastDistance, m_moveAwayCounter).
+  void RemoveRoute(bool changeStateToNoValidRoute);
   void RebuildRouteOnTrafficUpdate();
 
   double GetCompletionPercent() const;

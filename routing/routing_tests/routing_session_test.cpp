@@ -200,7 +200,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingA
     info.m_verticalAccuracy = 0.01;
     info.m_longitude = 0.;
     info.m_latitude = 1.;
-    SessionState code = SessionState::RoutingNotActive;
+    SessionState code = SessionState::NoValidRoute;
 
     {
       SessionStateTest sessionStateTest({SessionState::RouteNotStarted, SessionState::OnRoute},
@@ -235,7 +235,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingA
     info.m_longitude = 0.;
     info.m_latitude = 1.;
     info.m_speedMpS = routing::KMPH2MPS(60);
-    SessionState code = SessionState::RoutingNotActive;
+    SessionState code = SessionState::NoValidRoute;
     for (size_t i = 0; i < 10; ++i)
     {
       code = m_session->OnLocationPositionChanged(info);
@@ -282,7 +282,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingT
     info.m_longitude = 0.0;
     info.m_latitude = 0.0;
     info.m_speedMpS = routing::KMPH2MPS(60);
-    SessionState code = SessionState::RoutingNotActive;
+    SessionState code = SessionState::NoValidRoute;
     {
       SessionStateTest sessionStateTest(
           {SessionState::RouteNotStarted, SessionState::RouteNeedRebuild},
@@ -363,7 +363,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
     info.m_longitude = 0.;
     info.m_latitude = 1.;
     info.m_speedMpS = routing::KMPH2MPS(60);
-    SessionState code = SessionState::RoutingNotActive;
+    SessionState code = SessionState::NoValidRoute;
     for (size_t i = 0; i < 10; ++i)
     {
       code = m_session->OnLocationPositionChanged(info);
