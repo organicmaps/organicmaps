@@ -1074,7 +1074,7 @@ amenity|courthouse;1073;
 amenity|vending_machine|cigarettes;[amenity=vending_machine][vending=cigarettes];;name;int_name;1074;
 amenity|vending_machine|drinks;[amenity=vending_machine][vending=drinks];;name;int_name;1075;
 amenity|waste_basket;1076;
-building|garage;[building=garage];;addr:housenumber;name;1077;
+building|garage;[building=garage],[building=yes][garage];;addr:housenumber;name;1077;
 building|garages;1078;building|garage
 emergency|phone;1079;
 highway|rest_area;1080;
