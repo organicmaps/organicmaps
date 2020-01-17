@@ -22,22 +22,13 @@ import SafariServices
   @IBOutlet weak var saveLabel: UILabel!
   @IBOutlet weak var productsLoadingIndicator: UIActivityIndicatorView!
   @IBOutlet weak var whySupportView: UIView!
-  @IBOutlet weak var optionsView: UIView! {
-    didSet {
-      optionsView.layer.borderColor = UIColor.blackDividers().cgColor
-      optionsView.layer.borderWidth = 1
-    }
-  }
+  @IBOutlet weak var optionsView: UIView!
   @IBOutlet weak var moreOptionsButton: UIButton! {
     didSet {
       moreOptionsButton.setTitle(L("options_dropdown_title").uppercased(), for: .normal)
     }
   }
-  @IBOutlet weak var moreOptionsButtonImage: UIImageView! {
-    didSet {
-      moreOptionsButtonImage.tintColor = UIColor.blackSecondaryText()
-    }
-  }
+  @IBOutlet weak var moreOptionsButtonImage: UIImageView!
   @IBOutlet weak var titleLabel: UILabel! {
     didSet {
       titleLabel.text = L("remove_ads_title").uppercased()

@@ -32,7 +32,6 @@ final class BMCViewController: MWMViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     viewModel = BMCDefaultViewModel()
-    tableView.separatorColor = UIColor.blackDividers()
   }
 
   override func viewWillAppear(_ animated: Bool) {

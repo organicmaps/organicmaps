@@ -33,7 +33,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 
 @end
 
-@interface MWMTrafficButtonViewController ()<MWMMapOverlayManagerObserver>
+@interface MWMTrafficButtonViewController ()<MWMMapOverlayManagerObserver, ThemeListener>
 
 @property(nonatomic) NSLayoutConstraint * topOffset;
 @property(nonatomic) NSLayoutConstraint * leftOffset;
@@ -57,10 +57,15 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
     [ovc addChildViewController:self];
     [ovc.controlsView addSubview:self.view];
     [self configLayout];
-    [self refreshAppearance];
+    [[StyleManager instance] addListener: self];
     [MWMMapOverlayManager addObserver:self];
   }
   return self;
+}
+
+- (void)dealloc
+{
+  [[StyleManager instance] removeListener: self];
 }
 
 - (void)configLayout
@@ -73,12 +78,6 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   self.leftOffset = [sv.leadingAnchor constraintEqualToAnchor:ov.leadingAnchor
                                                      constant:kViewControlsOffsetToBounds];
   self.leftOffset.active = YES;
-}
-
-- (void)mwm_refreshUI
-{
-  [self.view mwm_refreshUI];
-  [self refreshAppearance];
 }
 
 - (void)setHidden:(BOOL)hidden
@@ -100,7 +99,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   });
 }
 
-- (void)refreshAppearance
+- (void)applyTheme
 {
   MWMButton * btn = static_cast<MWMButton *>(self.view);
   UIImageView * iv = btn.imageView;
@@ -189,8 +188,8 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 
 #pragma mark - MWMMapOverlayManagerObserver
 
-- (void)onTrafficStateUpdated { [self refreshAppearance]; }
-- (void)onTransitStateUpdated { [self refreshAppearance]; }
+- (void)onTrafficStateUpdated { [self applyTheme]; }
+- (void)onTransitStateUpdated { [self applyTheme]; }
 - (void)onIsoLinesStateUpdated { [self refreshAppearance]; }
 
 @end

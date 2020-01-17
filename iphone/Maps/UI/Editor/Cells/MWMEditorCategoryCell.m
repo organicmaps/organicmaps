@@ -1,5 +1,6 @@
 #import "MWMEditorCategoryCell.h"
 #import "MWMEditorCommon.h"
+#import "SwiftBridge.h"
 
 CGFloat const kDetailShortRightSpace = 16;
 
@@ -24,7 +25,7 @@ CGFloat const kDetailShortRightSpace = 16;
   if (isCreating)
   {
     self.selectedBackgroundView = [[UIView alloc] init];
-    self.selectedBackgroundView.backgroundColor = [UIColor pressBackground];
+    self.selectedBackgroundView.styleName = @"PressBackground";
   }
   else
   {

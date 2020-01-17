@@ -1,6 +1,7 @@
 #import "MWMBottomMenuView.h"
 #import "MWMAvailableAreaAffectDirection.h"
 #import "MWMButton.h"
+#import "SwiftBridge.h"
 //#import <CoreApi/MWMCommon.h>
 
 static CGFloat kAdditionalHeight = 64;
@@ -52,6 +53,12 @@ static CGFloat kDefaultMainButtonsHeight = 48;
   [super layoutSubviews];
 }
 
+- (void)applyTheme
+{
+  [super applyTheme];
+  [self updateAppearance];
+}
+
 - (void)updateAppearance
 {
   [self updateAlphaAndColor];
@@ -64,12 +71,12 @@ static CGFloat kDefaultMainButtonsHeight = 48;
   {
   case MWMBottomMenuStateHidden: break;
   case MWMBottomMenuStateInactive:
-    self.extraBottomView.backgroundColor = [UIColor menuBackground];
+    [self.extraBottomView setStyleAndApply: @"MenuBackground"];
     self.downloadBadge.alpha = [self isCompact] ? 0.0 : 1.0;
     self.additionalButtons.alpha = 0.0;
     break;
   case MWMBottomMenuStateActive:
-    self.extraBottomView.backgroundColor = [UIColor white];
+    [self.extraBottomView setStyleAndApply: @"Background"];
     self.downloadBadge.alpha = 0.0;
     self.additionalButtons.alpha = 1.0;
     break;

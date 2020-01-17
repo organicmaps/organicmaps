@@ -32,14 +32,6 @@ import SafariServices
     monthlySubscriptionButton.config(title: L("montly_subscription_title"),
                                      price: "...",
                                      enabled: false)
-    
-    if !UIColor.isNightMode() {
-      annualDiscountLabel.layer.shadowRadius = 4
-      annualDiscountLabel.layer.shadowOffset = CGSize(width: 0, height: 2)
-      annualDiscountLabel.layer.shadowColor = UIColor.blackHintText().cgColor
-      annualDiscountLabel.layer.shadowOpacity = 0.62
-    }
-    annualDiscountLabel.layer.cornerRadius = 6
     annualDiscountLabel.isHidden = true
 
     self.configure(buttons: [

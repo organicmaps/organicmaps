@@ -1,7 +1,7 @@
 #import "MWMEditorTextTableViewCell.h"
 #import "MWMEditorCommon.h"
 #import "UIImageView+Coloring.h"
-
+#import "SwiftBridge.h"
 static CGFloat const kErrorLabelDefaultTopSpace = 4.;
 
 @interface MWMEditorTextTableViewCell ()<UITextFieldDelegate>
@@ -49,7 +49,7 @@ static CGFloat const kErrorLabelDefaultTopSpace = 4.;
 {
   self.delegate = delegate;
   self.icon.image = icon;
-  self.icon.mwm_coloring = MWMImageColoringBlack;
+  [self.icon setStyleAndApply: @"MWMBlack"];
   self.icon.hidden = (icon == nil);
 
   self.textField.text = text;
@@ -70,13 +70,13 @@ static CGFloat const kErrorLabelDefaultTopSpace = 4.;
   {
     self.labelHeight.priority = UILayoutPriorityDefaultHigh;
     self.errorLabelTopSpace.constant = 0.;
-    self.contentView.backgroundColor = [UIColor white];
+    [self.contentView setStyleAndApply: @"Background"];
   }
   else
   {
     self.labelHeight.priority = UILayoutPriorityDefaultLow;
     self.errorLabelTopSpace.constant = kErrorLabelDefaultTopSpace;
-    self.contentView.backgroundColor = [UIColor errorPink];
+    [self.contentView setStyleAndApply: @"ErrorBackground"];
   }
   [self layoutIfNeeded];
 }

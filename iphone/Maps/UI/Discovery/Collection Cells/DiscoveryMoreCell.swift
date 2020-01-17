@@ -12,6 +12,5 @@ final class DiscoveryMoreCell: UICollectionViewCell {
 
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    layer.borderColor = UIColor.blackDividers().cgColor
   }
 }

@@ -1,16 +1,7 @@
 @objc(MWMFilterPriceCategoryCell)
 final class FilterPriceCategoryCell: MWMTableViewCell {
 
-  @IBOutlet private var priceButtons: [UIButton]! {
-    didSet {
-      priceButtons.map { $0.layer }.forEach {
-        $0.cornerRadius = 4
-        $0.borderWidth = 1
-        $0.borderColor = UIColor.blackDividers().cgColor
-      }
-    }
-  }
-
+  @IBOutlet private var priceButtons: [UIButton]!
   @IBOutlet weak var one: UIButton!
   @IBOutlet weak var two: UIButton!
   @IBOutlet weak var three: UIButton!
@@ -36,6 +27,5 @@ final class FilterPriceCategoryCell: MWMTableViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     isSeparatorHidden = true
-    backgroundColor = UIColor.clear
   }
 }

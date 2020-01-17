@@ -3,19 +3,8 @@ final class DiscoverySearchCell: UICollectionViewCell {
   @IBOutlet private weak var titleLabel: UILabel!
   @IBOutlet private weak var subtitleLabel: UILabel!
   @IBOutlet private weak var distanceLabel: UILabel!
-  @IBOutlet private weak var popularView: UIView! {
-    didSet {
-      popularView.tintColor = UIColor.linkBlue()
-    }
-  }
-  
-  @IBOutlet private weak var ratingView: RatingSummaryView! {
-    didSet {
-      ratingView.defaultConfig()
-      ratingView.textFont = UIFont.bold12()
-      ratingView.textSize = 12
-    }
-  }
+  @IBOutlet private weak var popularView: UIView!
+  @IBOutlet private weak var ratingView: RatingSummaryView!
 
   typealias Tap = () -> ()
   private var tap: Tap?
@@ -52,6 +41,5 @@ final class DiscoverySearchCell: UICollectionViewCell {
 
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    layer.borderColor = UIColor.blackDividers().cgColor
   }
 }

@@ -6,6 +6,4 @@
 
 @property (nonatomic, readonly) MWMAlertViewController * alertController;
 
-- (void)mwm_refreshUI;
-
 @end

@@ -73,11 +73,11 @@ final class WelcomePageController: UIPageViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.backgroundColor = UIColor.white()
+    view.styleName = "Background"
     iPadSpecific {
       let parentView = parentController.view!
       iPadBackgroundView = SolidTouchView(frame: parentView.bounds)
-      iPadBackgroundView!.backgroundColor = UIColor.fadeBackground()
+      iPadBackgroundView!.styleName = "FadeBackground"
       iPadBackgroundView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
       parentView.addSubview(iPadBackgroundView!)
       view.layer.cornerRadius = 5

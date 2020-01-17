@@ -28,14 +28,6 @@
   return NO;
 }
 
-- (void)mwm_refreshUI
-{
-  [self.navigationController.navigationBar mwm_refreshUI];
-  [self.view mwm_refreshUI];
-  if (![self isKindOfClass:[MapViewController class]])
-    [[MapViewController sharedController] mwm_refreshUI];
-}
-
 - (void)viewDidLoad
 {
   [super viewDidLoad];

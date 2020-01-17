@@ -101,17 +101,6 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   return self.menuController.view;
 }
 
-- (void)mwm_refreshUI
-{
-  [self.trafficButton mwm_refreshUI];
-  [self.sideButtons mwm_refreshUI];
-  [self.navigationManager mwm_refreshUI];
-  [self.searchManager mwm_refreshUI];
-  [self.menuController mwm_refreshUI];
-  [self.promoButton mwm_refreshUI];
-  [self.ownerController setNeedsStatusBarAppearanceUpdate];
-}
-
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {

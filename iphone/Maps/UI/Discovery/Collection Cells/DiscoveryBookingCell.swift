@@ -1,45 +1,14 @@
 @objc(MWMDiscoveryBookingCell)
 final class DiscoveryBookingCell: UICollectionViewCell {
   @IBOutlet private weak var avatar: UIImageView!
-  @IBOutlet private weak var name: UILabel! {
-    didSet {
-      name.font = UIFont.medium14()
-      name.textColor = UIColor.blackPrimaryText()
-    }
-  }
-
-  @IBOutlet private weak var stars: UILabel! {
-    didSet {
-      stars.font = UIFont.regular12()
-      stars.textColor = UIColor.blackSecondaryText()
-    }
-  }
-
-  @IBOutlet private weak var price: UILabel! {
-    didSet {
-      price.font = UIFont.medium14()
-      price.textColor = UIColor.blackSecondaryText()
-    }
-  }
-
-  @IBOutlet private weak var rating: RatingSummaryView! {
-    didSet {
-      rating.defaultConfig()
-      rating.textFont = UIFont.bold12()
-      rating.textSize = 12
-    }
-  }
-
-  @IBOutlet private weak var distance: UILabel! {
-    didSet {
-      distance.font = UIFont.medium14()
-      distance.textColor = UIColor.linkBlue()
-    }
-  }
+  @IBOutlet private weak var name: UILabel!
+  @IBOutlet private weak var stars: UILabel!
+  @IBOutlet private weak var price: UILabel!
+  @IBOutlet private weak var rating: RatingSummaryView!
+  @IBOutlet private weak var distance: UILabel!
 
   @IBOutlet private weak var buildRoute: UIButton! {
     didSet {
-      buildRoute.setTitleColor(UIColor.linkBlue(), for: .normal)
       buildRoute.setTitle(L("p2p_to_here"), for: .normal)
     }
   }
@@ -95,6 +64,5 @@ final class DiscoveryBookingCell: UICollectionViewCell {
 
   override func awakeFromNib() {
     super.awakeFromNib()
-    layer.borderColor = UIColor.blackDividers().cgColor
   }
 }

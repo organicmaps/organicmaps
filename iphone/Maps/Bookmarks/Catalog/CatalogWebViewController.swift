@@ -87,8 +87,7 @@ final class CatalogWebViewController: WebViewController {
     progressView.translatesAutoresizingMaskIntoConstraints = false
     progressBgView.translatesAutoresizingMaskIntoConstraints = false
     loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
-    numberOfTasksLabel.font = UIFont.medium14()
-    numberOfTasksLabel.textColor = UIColor.white
+    numberOfTasksLabel.styleName = "medium14:whiteText"
     numberOfTasksLabel.text = "0"
     progressBgView.layer.cornerRadius = 8
     progressBgView.clipsToBounds = true
@@ -125,7 +124,9 @@ final class CatalogWebViewController: WebViewController {
       progressBgView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
     }
 
-    progressView.tintColor = UIColor.white()
+    progressView.styleName = "MWMWhite"
+    self.view.styleName = "Background"
+    
     updateProgress()
     let backButton = UIBarButtonItem(image: UIImage(named: "ic_nav_bar_back"),
                                   style: .plain,

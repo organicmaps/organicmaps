@@ -251,7 +251,6 @@ struct FAQCellStrategy : BaseCellStategy
 {
   [super viewDidLoad];
   self.title = L(@"pref_tts_enable_title");
-  self.tableView.separatorColor = [UIColor blackDividers];
   MWMTextToSpeech * tts = [MWMTextToSpeech tts];
 
   m_languages.reserve(3);

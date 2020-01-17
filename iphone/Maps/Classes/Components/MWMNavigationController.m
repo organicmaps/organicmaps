@@ -1,5 +1,6 @@
 #import "MWMNavigationController.h"
 #import "MWMController.h"
+#import "SwiftBridge.h"
 
 #import <SafariServices/SafariServices.h>
 
@@ -20,6 +21,10 @@
   self.delegate = self;
   self.navigationItem.leftBarButtonItem.tintColor = [UIColor whitePrimaryText];
   self.navigationItem.rightBarButtonItem.tintColor = [UIColor whitePrimaryText];
+
+  if (@available(iOS 13.0, *)) {
+    [MWMThemeManager setDarkModeEnabled: self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark];
+  }
 }
 
 - (void)navigationController:(UINavigationController *)navigationController
@@ -58,6 +63,16 @@
                                                                           action:nil];
   }];
   [super setViewControllers:viewControllers animated:animated];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+  [super traitCollectionDidChange: previousTraitCollection];
+  if (@available(iOS 13.0, *)) {
+    if (self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle) {
+      [MWMThemeManager setDarkModeEnabled: self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark];
+    }
+  }
 }
 
 - (BOOL)shouldAutorotate

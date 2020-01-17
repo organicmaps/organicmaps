@@ -15,7 +15,7 @@ final class AuthorizationViewController: MWMViewController {
 
   lazy var chromeView: UIView = {
     let view = UIView()
-    view.backgroundColor = UIColor.blackStatusBarBackground()
+    view.styleName = "BlackStatusBarBackground"
     return view
   }()
 
@@ -25,45 +25,14 @@ final class AuthorizationViewController: MWMViewController {
     }
   }
 
-  @IBOutlet private weak var contentView: UIView! {
-    didSet {
-      contentView.backgroundColor = UIColor.white()
-    }
-  }
-
-  @IBOutlet private weak var titleLabel: UILabel! {
-    didSet {
-      titleLabel.font = UIFont.bold22()
-      titleLabel.textColor = UIColor.blackPrimaryText()
-      titleLabel.text = L("profile_authorization_title")
-    }
-  }
-
-  @IBOutlet weak var separator: UIView! {
-    didSet {
-      separator.backgroundColor = UIColor.blackDividers()
-    }
-  }
-
-  @IBOutlet private weak var textLabel: UILabel! {
-    didSet {
-      textLabel.font = UIFont.regular14()
-      textLabel.textColor = UIColor.blackSecondaryText()
-      textLabel.text = L("sign_message_gdpr")
-    }
-  }
+  @IBOutlet private weak var contentView: UIView!
+  @IBOutlet private weak var titleLabel: UILabel!
+  @IBOutlet weak var separator: UIView!
+  @IBOutlet private weak var textLabel: UILabel!
 
   @IBOutlet private weak var googleButton: UIButton! {
     didSet {
-      let layer = googleButton.layer
-      layer.cornerRadius = 8
-      layer.borderWidth = 1
-      layer.borderColor = UIColor.blackDividers().cgColor
-      googleButton.clipsToBounds = true
       googleButton.setTitle("Google", for: .normal)
-      googleButton.setTitleColor(UIColor.blackPrimaryText(), for: .normal)
-      googleButton.setTitleColor(UIColor.blackSecondaryText(), for: .disabled)
-      googleButton.titleLabel?.font = UIFont.bold14()
       googleButton.isEnabled = false
     }
   }
@@ -81,11 +50,6 @@ final class AuthorizationViewController: MWMViewController {
 
   @IBOutlet private weak var facebookButton: UIButton! {
     didSet {
-      facebookButton.layer.cornerRadius = 8
-      facebookButton.clipsToBounds = true
-      facebookButton.titleLabel?.font = UIFont.bold14()
-      facebookButton.setBackgroundColor(UIColor.facebookButtonBackground(), for: .normal)
-      facebookButton.setBackgroundColor(UIColor.facebookButtonBackgroundDisabled(), for: .disabled)
       facebookButton.isEnabled = false
     }
   }
@@ -120,29 +84,9 @@ final class AuthorizationViewController: MWMViewController {
     }
   }
 
-  @IBOutlet private weak var privacyPolicyCheck: Checkmark! {
-    didSet {
-      privacyPolicyCheck.offTintColor = .blackHintText()
-      privacyPolicyCheck.onTintColor = .linkBlue()
-      privacyPolicyCheck.contentHorizontalAlignment = .left
-    }
-  }
-  
-  @IBOutlet private weak var termsOfUseCheck: Checkmark! {
-    didSet {
-      termsOfUseCheck.offTintColor = .blackHintText()
-      termsOfUseCheck.onTintColor = .linkBlue()
-      termsOfUseCheck.contentHorizontalAlignment = .left
-    }
-  }
-  
-  @IBOutlet private weak var latestNewsCheck: Checkmark! {
-    didSet {
-      latestNewsCheck.offTintColor = .blackHintText()
-      latestNewsCheck.onTintColor = .linkBlue()
-      latestNewsCheck.contentHorizontalAlignment = .left
-    }
-  }
+  @IBOutlet private weak var privacyPolicyCheck: Checkmark!
+  @IBOutlet private weak var termsOfUseCheck: Checkmark!
+  @IBOutlet private weak var latestNewsCheck: Checkmark!
   
   @IBAction func onCheck(_ sender: Checkmark) {
     let allButtonsChecked = privacyPolicyCheck.isChecked &&
@@ -156,10 +100,8 @@ final class AuthorizationViewController: MWMViewController {
   @IBOutlet private weak var privacyPolicyTextView: UITextView! {
     didSet {
       let htmlString = String(coreFormat: L("sign_agree_pp_gdpr"), arguments: [User.privacyPolicyLink()])
-      let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.font: UIFont.regular16(),
-                                                       NSAttributedString.Key.foregroundColor: UIColor.blackPrimaryText()]
       privacyPolicyTextView.attributedText = NSAttributedString.string(withHtml: htmlString,
-                                                                       defaultAttributes: attributes)
+                                                                       defaultAttributes: [:])
       privacyPolicyTextView.delegate = self
     }
   }
@@ -167,10 +109,8 @@ final class AuthorizationViewController: MWMViewController {
   @IBOutlet private weak var termsOfUseTextView: UITextView! {
     didSet {
       let htmlString = String(coreFormat: L("sign_agree_tof_gdpr"), arguments: [User.termsOfUseLink()])
-      let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.font: UIFont.regular16(),
-                                                       NSAttributedString.Key.foregroundColor: UIColor.blackPrimaryText()]
       termsOfUseTextView.attributedText = NSAttributedString.string(withHtml: htmlString,
-                                                                    defaultAttributes: attributes)
+                                                                    defaultAttributes: [:])
       termsOfUseTextView.delegate = self
     }
   }
@@ -178,9 +118,7 @@ final class AuthorizationViewController: MWMViewController {
   @IBOutlet private weak var latestNewsTextView: UITextView! {
     didSet {
       let text = L("sign_agree_news_gdpr")
-      let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.font: UIFont.regular16(),
-                                                       NSAttributedString.Key.foregroundColor: UIColor.blackPrimaryText()]
-      latestNewsTextView.attributedText = NSAttributedString(string: text, attributes: attributes)
+      latestNewsTextView.attributedText = NSAttributedString(string: text, attributes: [:])
     }
   }
   

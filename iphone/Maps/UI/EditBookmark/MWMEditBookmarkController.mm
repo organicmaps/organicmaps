@@ -164,7 +164,7 @@ enum RowInMetaInfo
       auto cell = [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
       cell.textLabel.text = self.cachedCategory;
       cell.imageView.image = [UIImage imageNamed:@"ic_folder"];
-      cell.imageView.mwm_coloring = MWMImageColoringBlack;
+      cell.imageView.styleName = @"MWMBlack";
       cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
       return cell;
     }

@@ -27,8 +27,6 @@
 
 - (UIView *)anchorView;
 
-- (void)mwm_refreshUI;
-
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator;
 

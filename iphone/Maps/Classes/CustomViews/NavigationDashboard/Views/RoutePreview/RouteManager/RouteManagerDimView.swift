@@ -1,13 +1,6 @@
 final class RouteManagerDimView: UIView {
   @IBOutlet private weak var image: UIImageView!
-  @IBOutlet private weak var label: UILabel! {
-    didSet {
-      label.text = L("planning_route_remove_title")
-      label.font = UIFont.regular18()
-      label.textColor = UIColor.white()
-    }
-  }
-
+  @IBOutlet private weak var label: UILabel!
   @IBOutlet private weak var messageView: UIView!
   @IBOutlet private weak var messageViewContainer: UIView!
   @IBOutlet private var messageViewVerticalCenter: NSLayoutConstraint!
@@ -43,7 +36,7 @@ final class RouteManagerDimView: UIView {
     didSet {
       guard isVisible != oldValue else { return }
       let componentsAlpha: CGFloat = 0.5
-      backgroundColor = UIColor.blackStatusBarBackground()
+      setStyleAndApply("BlackStatusBarBackground")
       alpha = isVisible ? 0 : 1
       image.alpha = isVisible ? 0 : componentsAlpha
       label.alpha = isVisible ? 0 : componentsAlpha

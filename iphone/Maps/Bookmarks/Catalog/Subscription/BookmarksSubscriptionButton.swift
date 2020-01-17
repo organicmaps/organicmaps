@@ -25,8 +25,10 @@ class BookmarksSubscriptionButton: UIButton {
   
   override func setTitleColor(_ color: UIColor?, for state: UIControl.State) {
     super.setTitleColor(color, for: state)
-    descriptionLabel.textColor = color
-    priceLabel.textColor = color
+    if state == .normal {
+      descriptionLabel.textColor = color
+      priceLabel.textColor = color
+    }
   }
 
   override func setTitle(_ title: String?, for state: UIControl.State) {

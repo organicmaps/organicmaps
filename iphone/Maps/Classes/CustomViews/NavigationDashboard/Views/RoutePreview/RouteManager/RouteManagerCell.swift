@@ -1,19 +1,7 @@
 final class RouteManagerCell: MWMTableViewCell {
   @IBOutlet private weak var typeImage: UIImageView!
-  @IBOutlet private weak var titleLabel: UILabel! {
-    didSet {
-      titleLabel.textColor = UIColor.blackPrimaryText()
-      titleLabel.font = UIFont.regular16()
-    }
-  }
-
-  @IBOutlet weak var subtitleLabel: UILabel! {
-    didSet {
-      subtitleLabel.textColor = UIColor.blackSecondaryText()
-      subtitleLabel.font = UIFont.regular14()
-    }
-  }
-
+  @IBOutlet private weak var titleLabel: UILabel!
+  @IBOutlet weak var subtitleLabel: UILabel!
   @IBOutlet private weak var dragImage: UIImageView! {
     didSet {
       dragImage.image = #imageLiteral(resourceName: "ic_route_manager_move")
@@ -23,17 +11,11 @@ final class RouteManagerCell: MWMTableViewCell {
 
   @IBOutlet private weak var separator1: UIView! {
     didSet {
-      separator1.backgroundColor = UIColor.blackDividers()
       separator1.layer.cornerRadius = 2
     }
   }
 
-  @IBOutlet weak var separator2: UIView! {
-    didSet {
-      separator2.backgroundColor = UIColor.blackDividers()
-    }
-  }
-
+  @IBOutlet weak var separator2: UIView!
   private var index: Int!
   private var model: MWMRoutePoint!
   @IBOutlet var subtitleConstraints: [NSLayoutConstraint]!
@@ -41,9 +23,9 @@ final class RouteManagerCell: MWMTableViewCell {
   override var snapshot: UIView {
     let skipViews: [UIView] = [typeImage, separator1, separator2]
     skipViews.forEach { $0.isHidden = true }
-    backgroundColor = UIColor.blackOpaque()
+    setStyleAndApply("BlackOpaqueBackground")
     let snapshot = super.snapshot
-    backgroundColor = UIColor.white()
+    setStyleAndApply("Background")
     skipViews.forEach { $0.isHidden = false }
     return snapshot
   }
@@ -52,7 +34,6 @@ final class RouteManagerCell: MWMTableViewCell {
     self.model = model
     self.index = index
 
-    backgroundColor = UIColor.white()
     setupTypeImage()
     setupLabels()
     setupSeparators()
@@ -109,5 +90,10 @@ final class RouteManagerCell: MWMTableViewCell {
     let isSeparatorsHidden = model.type == .finish
     separator1.isHidden = isSeparatorsHidden
     separator2.isHidden = isSeparatorsHidden
+  }
+
+  override func applyTheme() {
+    super.applyTheme()
+    self.setupTypeImage()
   }
 }

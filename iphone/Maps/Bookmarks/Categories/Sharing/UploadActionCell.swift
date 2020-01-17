@@ -31,41 +31,36 @@ final class UploadActionCell: MWMTableViewCell {
       switch cellState {
       case .normal:
         progressView.isHidden = true
-        actionImage.tintColor = .linkBlue()
-        actionTitle.textColor = .linkBlue()
-        actionTitle.font = .regular16()
+        actionImage.setStyleAndApply("MWMBlue")
+        actionTitle.setStyleAndApply("regular16:linkBlueText")
         actionTitle.text = titles?[.normal]
         shareButton.isHidden = true
         selectionStyle = .default
       case .inProgress:
         progressView.isHidden = false
-        actionImage.tintColor = .blackSecondaryText()
-        actionTitle.textColor = .blackSecondaryText()
-        actionTitle.font = .italic16()
+        actionImage.setStyleAndApply("MWMBlack")
+        actionTitle.setStyleAndApply("italic16:blackSecondaryText")
         actionTitle.text = titles?[.inProgress]
         shareButton.isHidden = true
         selectionStyle = .none
       case .updating:
         progressView.isHidden = false
-        actionImage.tintColor = .blackSecondaryText()
-        actionTitle.textColor = .blackSecondaryText()
-        actionTitle.font = .italic16()
+        actionImage.setStyleAndApply("MWMBlack")
+        actionTitle.setStyleAndApply("italic16:blackSecondaryText")
         actionTitle.text = titles?[.updating]
         shareButton.isHidden = true
         selectionStyle = .none
       case .completed:
         progressView.isHidden = true
-        actionImage.tintColor = .blackSecondaryText()
-        actionTitle.textColor = .blackSecondaryText()
-        actionTitle.font = .regular16()
+        actionImage.setStyleAndApply("MWMBlack")
+        actionTitle.setStyleAndApply("regular16:blackSecondaryText")
         actionTitle.text = titles?[.completed]
         shareButton.isHidden = false
         selectionStyle = .none
       case .disabled:
         progressView.isHidden = true
-        actionImage.tintColor = .blackSecondaryText()
-        actionTitle.textColor = .blackSecondaryText()
-        actionTitle.font = .regular16()
+        actionImage.setStyleAndApply("MWMBlack")
+        actionTitle.setStyleAndApply("regular16:blackSecondaryText")
         actionTitle.text = titles?[.disabled]
         shareButton.isHidden = true
         selectionStyle = .none

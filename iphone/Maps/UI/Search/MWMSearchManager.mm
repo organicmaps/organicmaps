@@ -76,14 +76,6 @@ using Observers = NSHashTable<Observer>;
   return self;
 }
 
-- (void)mwm_refreshUI
-{
-  [self.searchBarView mwm_refreshUI];
-  [self.actionBarView mwm_refreshUI];
-  [self.tableViewController mwm_refreshUI];
-  [self.noMapsController mwm_refreshUI];
-}
-
 - (void)beginSearch
 {
   if (self.state != MWMSearchManagerStateHidden)
@@ -237,6 +229,7 @@ using Observers = NSHashTable<Observer>;
   [self viewHidden:NO];
   self.actionBarState = MWMSearchManagerActionBarStateHidden;
   [self.searchTextField becomeFirstResponder];
+  [self.searchBarView applyTheme];
 }
 
 - (void)changeToTableSearchState

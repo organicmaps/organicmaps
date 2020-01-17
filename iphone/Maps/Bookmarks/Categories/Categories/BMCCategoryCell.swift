@@ -5,33 +5,16 @@ protocol BMCCategoryCellDelegate {
 
 final class BMCCategoryCell: MWMTableViewCell {
   @IBOutlet private weak var accessImageView: UIImageView!
-  @IBOutlet private weak var titleLabel: UILabel! {
-    didSet {
-      titleLabel.font = .regular16()
-      titleLabel.textColor = .blackPrimaryText()
-    }
-  }
-
-  @IBOutlet private weak var subtitleLabel: UILabel! {
-    didSet {
-      subtitleLabel.font = .regular14()
-      subtitleLabel.textColor = .blackSecondaryText()
-    }
-  }
+  @IBOutlet private weak var titleLabel: UILabel!
+  @IBOutlet private weak var subtitleLabel: UILabel!
 
   @IBOutlet private weak var moreButton: UIButton! {
     didSet {
-      moreButton.tintColor = .blackSecondaryText()
       moreButton.setImage(#imageLiteral(resourceName: "ic24PxMore"), for: .normal)
     }
   }
 
-  @IBOutlet weak var visibleCheckmark: Checkmark! {
-    didSet {
-      visibleCheckmark.offTintColor = .blackHintText()
-      visibleCheckmark.onTintColor = .linkBlue()
-    }
-  }
+  @IBOutlet weak var visibleCheckmark: Checkmark!
 
   private var category: MWMCategory? {
     didSet {

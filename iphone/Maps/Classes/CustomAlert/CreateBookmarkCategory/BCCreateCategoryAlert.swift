@@ -13,11 +13,7 @@ final class BCCreateCategoryAlert: MWMAlert {
   @IBOutlet private weak var centerHorizontaly: NSLayoutConstraint!
   @IBOutlet private weak var errorLabel: UILabel!
   @IBOutlet private weak var charactersCountLabel: UILabel!
-  @IBOutlet private weak var rightButton: UIButton! {
-    didSet {
-      rightButton.setTitleColor(UIColor.blackHintText(), for: .disabled)
-    }
-  }
+  @IBOutlet private weak var rightButton: UIButton!
 
   private var maxCharactersNum: UInt?
   private var minCharactersNum: UInt?

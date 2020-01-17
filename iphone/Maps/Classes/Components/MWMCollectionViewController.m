@@ -2,6 +2,7 @@
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 #import "MWMAlertViewController.h"
 #import "MapViewController.h"
+#import "SwiftBridge.h"
 
 @interface MWMCollectionViewController ()
 
@@ -12,22 +13,11 @@
 @implementation MWMCollectionViewController
 
 - (BOOL)prefersStatusBarHidden { return NO; }
-- (void)mwm_refreshUI
-{
-  [self.navigationController.navigationBar mwm_refreshUI];
-  MapViewController * mapViewController = [MapViewController sharedController];
-  for (UIViewController * vc in self.navigationController.viewControllers.reverseObjectEnumerator)
-  {
-    if (![vc isEqual:mapViewController])
-      [vc.view mwm_refreshUI];
-  }
-  [mapViewController mwm_refreshUI];
-}
 
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.collectionView.backgroundColor = [UIColor pressBackground];
+  self.collectionView.styleName = @"PressBackground";
   [self.navigationController.navigationBar setTranslucent:NO];
 }
 

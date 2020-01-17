@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14865.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14819.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,28 +25,37 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="100" id="6em-0e-zym"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                            </userDefinedRuntimeAttributes>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="240" verticalHuggingPriority="240" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="OJ3-VB-hqA">
-                            <rect key="frame" x="0.0" y="0.0" width="971" height="48"/>
+                            <rect key="frame" x="0.0" y="0.0" width="951" height="48"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="oPW-KZ-iX3"/>
                             </constraints>
                             <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <inset key="titleEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Button" image="ic_search_toast"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalTransButton:MWMBlue:regular16"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="openSearch" destination="iN0-l3-epB" eventType="touchUpInside" id="rRN-4C-luO"/>
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pWX-NL-dy3">
-                            <rect key="frame" x="971" y="8" width="1" height="32"/>
+                            <rect key="frame" x="951" y="8" width="1" height="32"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="5sH-RH-vPb"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                            </userDefinedRuntimeAttributes>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="900" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="fh6-Nu-aYU">
-                            <rect key="frame" x="972" y="0.0" width="52" height="48"/>
+                            <rect key="frame" x="952" y="0.0" width="72" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="routePlaningButtomPanelUseLocation"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="1d3-V3-ab6"/>
@@ -56,6 +63,9 @@
                             </constraints>
                             <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                             <state key="normal" image="ic_get_position"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlue"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="addLocationRoutePoint" destination="iN0-l3-epB" eventType="touchUpInside" id="4bf-b1-JqQ"/>
                             </connections>
@@ -91,19 +101,7 @@
                             <rect key="frame" x="-100" y="-100" width="1424" height="157.5"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                    <integer key="value" value="2"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowUIColor">
-                                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.23999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                    <integer key="value" value="1"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                    <size key="value" width="0.0" height="1"/>
-                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="StreetNameBackgroundView"/>
                             </userDefinedRuntimeAttributes>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="600" verticalCompressionResistancePriority="600" text="Ленинградский проспект" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShI-bz-5g8">
@@ -115,7 +113,7 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="blackPrimaryText"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>
@@ -145,6 +143,9 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AJe-8N-rpk">
                                             <rect key="frame" x="0.0" y="0.0" width="72" height="72"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMWhite"/>
+                                            </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="teB-QQ-oib">
                                             <rect key="frame" x="30" y="21.5" width="12" height="29"/>
@@ -152,7 +153,7 @@
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="white"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="whiteText"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                     </subviews>
@@ -173,7 +174,7 @@
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="white"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="whiteText"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
@@ -188,22 +189,7 @@
                                 <constraint firstItem="KuR-1J-VI2" firstAttribute="top" secondItem="tnR-CA-hkI" secondAttribute="bottom" constant="4" id="y5u-lH-Ytt"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="4"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                    <integer key="value" value="2"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowUIColor">
-                                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.23999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                    <integer key="value" value="1"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                    <size key="value" width="0.0" height="1"/>
-                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FirstTurnView"/>
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Zu-Ff-6p2" userLabel="Second turn" customClass="SolidTouchView">
@@ -215,6 +201,9 @@
                                         <constraint firstAttribute="width" constant="24" id="4ye-1W-bU2"/>
                                         <constraint firstAttribute="height" constant="24" id="Fxo-9b-MUJ"/>
                                     </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
+                                    </userDefinedRuntimeAttributes>
                                 </imageView>
                             </subviews>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
@@ -224,22 +213,7 @@
                                 <constraint firstAttribute="height" constant="32" id="n57-ET-oyc"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="4"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                    <integer key="value" value="2"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowUIColor">
-                                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.23999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                    <integer key="value" value="1"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                    <size key="value" width="0.0" height="1"/>
-                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SecondTurnView"/>
                             </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
@@ -266,6 +240,9 @@
                         <constraint firstAttribute="height" constant="56" id="p3i-Ly-sTx"/>
                     </constraints>
                     <state key="normal" image="ic_routing_search_light"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="ButtonMapBookmarks"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="bookmarksButtonTouchUpInside" destination="iN0-l3-epB" eventType="touchUpInside" id="YwB-gA-E8p"/>
                     </connections>
@@ -274,54 +251,54 @@
                     <rect key="frame" x="-72" y="615" width="200" height="200"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Bv-7H-IZt" userLabel="Gas" customClass="MWMButton">
-                            <rect key="frame" x="78" y="14" width="44" height="44"/>
+                            <rect key="frame" x="76" y="14" width="48" height="48"/>
                             <constraints>
                                 <constraint firstAttribute="width" priority="750" constant="44" id="KKe-fH-h2n"/>
                                 <constraint firstAttribute="width" secondItem="2Bv-7H-IZt" secondAttribute="height" multiplier="1:1" id="mN1-Tu-Mon"/>
                             </constraints>
                             <state key="normal" image="ic_routing_fuel_on"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="14l-BK-iDr"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RP3-01-Pj7" userLabel="Parking" customClass="MWMButton">
-                            <rect key="frame" x="122" y="34" width="44" height="44"/>
+                            <rect key="frame" x="118" y="34" width="48" height="48"/>
                             <state key="normal" image="ic_routing_parking_on"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="uiN-0q-kol"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GcK-FI-VXw" userLabel="Eat" customClass="MWMButton">
-                            <rect key="frame" x="142" y="78" width="44" height="44"/>
+                            <rect key="frame" x="138" y="76" width="48" height="48"/>
                             <state key="normal" image="ic_routing_eat_on"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="3le-Cd-rvC"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ggf-tc-U3R" userLabel="Food" customClass="MWMButton">
-                            <rect key="frame" x="122" y="122" width="44" height="44"/>
+                            <rect key="frame" x="118" y="118" width="48" height="48"/>
                             <state key="normal" image="ic_routing_food_on"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="hkk-Xo-uPg"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoS-b2-FcN" userLabel="ATM" customClass="MWMButton">
-                            <rect key="frame" x="78" y="142" width="44" height="44"/>
+                            <rect key="frame" x="76" y="138" width="48" height="48"/>
                             <state key="normal" image="ic_routing_atm_on"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="searchButtonTouchUpInside:" destination="iN0-l3-epB" eventType="touchUpInside" id="Pqo-CT-Cog"/>
@@ -362,7 +339,7 @@
                         <constraint firstItem="Ggf-tc-U3R" firstAttribute="trailing" secondItem="uoS-b2-FcN" secondAttribute="leading" priority="250" id="vcn-Dj-WUu"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="menuBackground"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MenuBackground"/>
                     </userDefinedRuntimeAttributes>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xna-Q1-7zW" customClass="MWMButton">

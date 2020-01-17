@@ -15,9 +15,9 @@ final class RouteStartButton: UIButton {
     isEnabled = true
   }
 
-  override func mwm_refreshUI() {
-    super.mwm_refreshUI()
-    setBackgroundColor(UIColor.linkBlue(), for: .normal)
-    setBackgroundColor(UIColor.linkBlueHighlighted(), for: .highlighted)
+  override func applyTheme() {
+    super.applyTheme()
+    setBackgroundImage(UIColor.linkBlue().getImage(), for: .normal)
+    setBackgroundImage(UIColor.linkBlueHighlighted().getImage(), for: .highlighted)
   }
 }

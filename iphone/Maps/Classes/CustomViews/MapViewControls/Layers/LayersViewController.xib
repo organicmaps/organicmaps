@@ -31,7 +31,7 @@
                                 <constraint firstAttribute="height" constant="1" id="EIs-1H-8tP"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                             </userDefinedRuntimeAttributes>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Map Layers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kii-gP-WiK">
@@ -40,7 +40,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="blackPrimaryText"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="layers_title"/>
                             </userDefinedRuntimeAttributes>
                         </label>
@@ -62,7 +62,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="114.5" height="106"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ig-dd-0gQ" customClass="VerticallyAlignedButton" customModule="maps_me" customModuleProvider="target">
-                                    <rect key="frame" x="-9.5" y="33" width="133" height="40"/>
+                                    <rect key="frame" x="50" y="33.5" width="72" height="40"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <state key="normal" title="Traffic" image="btn_menu_traffic_off_light">
                                         <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -85,7 +85,7 @@
                             <rect key="frame" x="114.5" y="0.0" width="114" height="106"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cf2-qe-I3a" customClass="VerticallyAlignedButton" customModule="maps_me" customModuleProvider="target">
-                                    <rect key="frame" x="-13" y="33" width="140" height="40"/>
+                                    <rect key="frame" x="47" y="33.5" width="78" height="40"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <state key="normal" title="Contour" image="btn_menu_isomaps_off_light">
                                         <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -142,7 +142,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="Rhj-gh-MIj"/>
             <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="33.5" y="-237"/>
         </view>

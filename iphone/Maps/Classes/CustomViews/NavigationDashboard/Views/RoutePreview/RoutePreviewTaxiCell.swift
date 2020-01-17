@@ -2,19 +2,8 @@
 final class RoutePreviewTaxiCell: UICollectionViewCell {
 
   @IBOutlet private weak var icon: UIImageView!
-  @IBOutlet private weak var title: UILabel! {
-    didSet {
-      title.font = UIFont.bold14()
-      title.textColor = UIColor.blackPrimaryText()
-    }
-  }
-
-  @IBOutlet private weak var info: UILabel! {
-    didSet {
-      info.font = UIFont.regular14()
-      info.textColor = UIColor.blackSecondaryText()
-    }
-  }
+  @IBOutlet private weak var title: UILabel!
+  @IBOutlet private weak var info: UILabel!
 
   @objc func config(type: MWMRoutePreviewTaxiCellType, title: String, eta: String, price: String, currency: String) {
     let iconImage = { () -> UIImage in

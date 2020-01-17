@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina5_9" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,7 +20,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="zuH-WU-hiP" customClass="MWMBottomMenuView" propertyAccessControl="all">
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="zuH-WU-hiP" customClass="MWMBottomMenuView" propertyAccessControl="none">
             <rect key="frame" x="0.0" y="0.0" width="320" height="197"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -41,7 +36,7 @@
                             <accessibility key="accessibilityConfiguration" identifier="searchButton"/>
                             <state key="normal" image="ic_menu_search"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="searchButtonTouchUpInside" destination="-1" eventType="touchUpInside" id="uiJ-y8-jqM"/>
@@ -52,7 +47,7 @@
                             <accessibility key="accessibilityConfiguration" identifier="p2pButton"/>
                             <state key="normal" image="ic_menu_point_to_point"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="point2PointButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="Lss-d4-B9C"/>
@@ -63,7 +58,7 @@
                             <accessibility key="accessibilityConfiguration" identifier="discoveryButton"/>
                             <state key="normal" image="ic_menu_discovery"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="discoveryTap" destination="-1" eventType="touchUpInside" id="TlT-QN-jAJ"/>
@@ -74,7 +69,7 @@
                             <accessibility key="accessibilityConfiguration" identifier="bookmarksButton"/>
                             <state key="normal" image="ic_menu_bookmark_list"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="bookmarksButtonTouchUpInside" destination="-1" eventType="touchUpInside" id="SXl-Zi-E37"/>
@@ -85,7 +80,7 @@
                             <accessibility key="accessibilityConfiguration" identifier="menuButton"/>
                             <state key="normal" image="ic_menu"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="menuButtonTouchUpInside" destination="-1" eventType="touchUpInside" id="Bz9-ty-nzH"/>
@@ -99,10 +94,7 @@
                                 <constraint firstAttribute="height" constant="10" id="wNg-5Z-7AO"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="5"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="downloadBadgeBackground"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Badge"/>
                             </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
@@ -142,7 +134,7 @@
                         <constraint firstAttribute="height" constant="1" id="wSx-Bp-1WM"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="StyleName" value="Divider"/>
                     </userDefinedRuntimeAttributes>
                 </view>
                 <collectionView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="NfG-tt-q8G" userLabel="AdditionalButtons">

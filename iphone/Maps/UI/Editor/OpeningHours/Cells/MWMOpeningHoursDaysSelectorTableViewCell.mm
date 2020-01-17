@@ -1,5 +1,5 @@
 #import "MWMOpeningHoursDaysSelectorTableViewCell.h"
-#import "UIImageView+Coloring.h"
+#import "SwiftBridge.h"
 
 @interface MWMOpeningHoursDaysSelectorTableViewCell ()
 
@@ -73,7 +73,7 @@ using namespace osmoh;
     if (image.tag == tag)
     {
       image.image = [UIImage imageNamed:selected ? @"radioBtnOn" : @"radioBtnOff"];
-      image.mwm_coloring = selected ? MWMImageColoringBlue : MWMImageColoringGray;
+      [image setStyleAndApply: selected ? @"MWMBlue" : @"MWMGray"];
     }
   }
 }

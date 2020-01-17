@@ -3,18 +3,8 @@ protocol BMCCategoriesHeaderDelegate {
 }
 
 final class BMCCategoriesHeader: UITableViewHeaderFooterView {
-  @IBOutlet private weak var label: UILabel! {
-    didSet {
-      label.font = .medium14()
-      label.textColor = .blackSecondaryText()
-    }
-  }
-
-  @IBOutlet private weak var button: UIButton! {
-    didSet {
-      button.setTitleColor(.linkBlue(), for: .normal)
-    }
-  }
+  @IBOutlet private weak var label: UILabel!
+  @IBOutlet private weak var button: UIButton!
 
   var isShowAll = false {
     didSet {

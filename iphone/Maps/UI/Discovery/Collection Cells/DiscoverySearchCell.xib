@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c6x-nr-TLZ">
-                        <rect key="frame" x="0.0" y="103" width="160" height="40"/>
+                        <rect key="frame" x="0.0" y="102" width="160" height="40"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="160" id="2EQ-Jv-uS6"/>
@@ -27,15 +25,15 @@
                         </constraints>
                         <state key="normal" title="Button"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_to_here"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:linkBlueText"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="routeTo" destination="A42-0e-MgA" eventType="touchUpInside" id="yyq-fQ-hhq"/>
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L2e-OA-S0b">
-                        <rect key="frame" x="12" y="14" width="136" height="20.5"/>
+                        <rect key="frame" x="12" y="14" width="136" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="zqQ-pL-31M"/>
                         </constraints>
@@ -43,12 +41,11 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:blackPrimaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHT-YE-QdR">
-                        <rect key="frame" x="12" y="36.5" width="136" height="16"/>
+                        <rect key="frame" x="12" y="36" width="136" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="skf-mr-i6s"/>
                         </constraints>
@@ -56,23 +53,17 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular12"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular12:blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
                     <view contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="mdG-Tp-49e" customClass="RatingSummaryView" customModule="maps_me" customModuleProvider="target">
-                        <rect key="frame" x="12" y="55" width="48" height="20"/>
+                        <rect key="frame" x="12" y="54" width="48" height="20"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="48" id="9pH-0h-0fX"/>
                             <constraint firstAttribute="height" constant="20" id="uco-5I-Hin"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="image" keyPath="excellentImage" value="ic_24px_rating_excellent"/>
-                            <userDefinedRuntimeAttribute type="image" keyPath="goodImage" value="ic_24px_rating_excellent"/>
-                            <userDefinedRuntimeAttribute type="image" keyPath="normalImage" value="ic_24px_rating_normal"/>
-                            <userDefinedRuntimeAttribute type="image" keyPath="badImage" value="ic_24px_rating_bad"/>
-                            <userDefinedRuntimeAttribute type="image" keyPath="horribleImage" value="ic_24px_rating_horrible"/>
                             <userDefinedRuntimeAttribute type="number" keyPath="topOffset">
                                 <real key="value" value="2"/>
                             </userDefinedRuntimeAttribute>
@@ -88,11 +79,11 @@
                             <userDefinedRuntimeAttribute type="number" keyPath="trailingTextOffset">
                                 <real key="value" value="6"/>
                             </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="image" keyPath="noValueImage" value="ic_12px_rating_normal"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="RatingSummaryView24:bold12"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="euO-GA-D3Q">
-                        <rect key="frame" x="68" y="55" width="52.5" height="20"/>
+                        <rect key="frame" x="68" y="54" width="52.5" height="20"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popular" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.90000000000000002" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QPJ-wc-N0V">
                                 <rect key="frame" x="4" y="3" width="44.5" height="14.5"/>
@@ -101,8 +92,7 @@
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="popular_place"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="linkBlue"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold12"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="bold12:linkBlueText"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
@@ -115,20 +105,16 @@
                             <constraint firstAttribute="height" constant="20" id="gsx-gp-hHI"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="10"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlueHighlighted"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="DiscoveryPopularView"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JeJ-M3-EPg">
-                        <rect key="frame" x="12" y="75" width="136" height="20"/>
+                        <rect key="frame" x="12" y="74" width="136" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="linkBlue"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:linkBlueText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
                 </subviews>
@@ -156,13 +142,7 @@
             </constraints>
             <size key="customSize" width="160" height="161"/>
             <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                    <integer key="value" value="6"/>
-                </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                    <integer key="value" value="1"/>
-                </userDefinedRuntimeAttribute>
-                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="DiscoveryCell"/>
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="distanceLabel" destination="JeJ-M3-EPg" id="7oY-L4-1dO"/>
@@ -174,11 +154,4 @@
             <point key="canvasLocation" x="-261" y="-36.5"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="ic_12px_rating_normal" width="12" height="12"/>
-        <image name="ic_24px_rating_bad" width="24" height="24"/>
-        <image name="ic_24px_rating_excellent" width="24" height="24"/>
-        <image name="ic_24px_rating_horrible" width="24" height="24"/>
-        <image name="ic_24px_rating_normal" width="24" height="24"/>
-    </resources>
 </document>

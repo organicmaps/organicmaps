@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -43,14 +41,14 @@
                         <constraint firstAttribute="width" secondItem="eGH-Rr-EJq" secondAttribute="height" multiplier="1:1" priority="999" id="LzS-Q2-IYS"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                     </userDefinedRuntimeAttributes>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="sBT-45-bnw">
-                    <rect key="frame" x="0.0" y="76" width="375" height="547"/>
+                    <rect key="frame" x="0.0" y="56" width="375" height="567"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="TableView:PressBackground"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="iBs-44-PxC"/>
@@ -76,7 +74,7 @@
                         <barButtonItem width="8" style="plain" systemItem="fixedSpace" id="lFC-24-CEh"/>
                     </items>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                     </userDefinedRuntimeAttributes>
                 </toolbar>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uNd-fM-YVD">
@@ -98,18 +96,18 @@
                         <barButtonItem width="8" style="plain" systemItem="fixedSpace" id="YAt-eE-x2I"/>
                     </items>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                     </userDefinedRuntimeAttributes>
                 </toolbar>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S4A-UM-s8p">
-                    <rect key="frame" x="0.0" y="-32" width="375" height="108"/>
+                    <rect key="frame" x="0.0" y="-52" width="375" height="108"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="108" id="R0d-xI-qxQ"/>
                     </constraints>
                 </view>
                 <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="CQZ-YM-Mk4">
-                    <rect key="frame" x="0.0" y="20" width="375" height="56"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="44" id="GJx-FV-8CF"/>
                         <constraint firstAttribute="height" priority="250" id="rHp-eh-4pP"/>
@@ -143,7 +141,7 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PressBackground"/>
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
         </view>

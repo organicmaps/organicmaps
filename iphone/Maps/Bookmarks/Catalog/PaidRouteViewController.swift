@@ -73,7 +73,6 @@ class PaidRouteViewController: MWMViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    buyButton.layer.borderColor = UIColor.linkBlue().cgColor
     routeTitleLabel.text = name
     routeAuthorLabel.text = author
     if let url = imageUrl {

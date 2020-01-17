@@ -1,4 +1,5 @@
 #import "MWMPlacePageOpeningHoursDayView.h"
+#import "SwiftBridge.h"
 
 @interface MWMPlacePageOpeningHoursDayView ()
 
@@ -28,11 +29,11 @@
   UILabel * label = self.label;
   label.text = text;
   if (isRed)
-    label.textColor = [UIColor red];
+    [label setStyleAndApply:@"redText"];
   else if (self.currentDay)
-    label.textColor = [UIColor blackPrimaryText];
+    [label setStyleAndApply:@"blackPrimaryText"];
   else
-    label.textColor = [UIColor blackSecondaryText];
+    [label setStyleAndApply:@"blackSecondaryText"];
 }
 
 - (void)setOpenTimeText:(NSString *)text

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,8 +27,7 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium18:blackPrimaryText"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_place_doesnt_exist"/>
                             </userDefinedRuntimeAttributes>
                         </label>
@@ -42,8 +41,7 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_detailed_description"/>
                             </userDefinedRuntimeAttributes>
                         </label>
@@ -60,10 +58,9 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackPrimaryText"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="editor_comment_hint"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                     </userDefinedRuntimeAttributes>
                                 </textField>
                             </subviews>
@@ -76,13 +73,7 @@
                                 <constraint firstItem="0f8-vD-nJT" firstAttribute="height" secondItem="npf-dH-f50" secondAttribute="height" id="zHi-xB-aCQ"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
-                                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                    <real key="value" value="0.5"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AlertViewTextField"/>
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kEx-DM-ynC" userLabel="hDivider">
@@ -92,7 +83,7 @@
                                 <constraint firstAttribute="height" constant="1" id="JKX-3f-YE4"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                             </userDefinedRuntimeAttributes>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zaM-0A-71d" userLabel="left">
@@ -109,8 +100,7 @@
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="cancel"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium17:linkBlueText"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="leftButtonTap" destination="bh1-8l-voy" eventType="touchUpInside" id="Ge7-Dx-Pf3"/>
@@ -130,8 +120,7 @@
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_report_problem_send_button"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium17:linkBlueText"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="rightButtonTap" destination="bh1-8l-voy" eventType="touchUpInside" id="4FZ-zi-TAB"/>
@@ -145,7 +134,7 @@
                                 <constraint firstAttribute="height" constant="44" id="jEO-cN-3PZ"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                             </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
@@ -170,22 +159,7 @@
                         <constraint firstItem="kEx-DM-ynC" firstAttribute="centerX" secondItem="XjH-qf-m6h" secondAttribute="centerX" id="vop-cl-2u7"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                            <size key="value" width="0.0" height="3"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowUIColor">
-                            <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.22" colorSpace="custom" customColorSpace="sRGB"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                            <integer key="value" value="6"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="12"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                            <integer key="value" value="1"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="alertBackground"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AlertView"/>
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>

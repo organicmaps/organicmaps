@@ -14,7 +14,7 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
 
   lazy var chromeView: UIView = {
     let view = UIView()
-    view.backgroundColor = UIColor.blackStatusBarBackground()
+    view.styleName = "BlackStatusBarBackground"
     return view
   }()
 

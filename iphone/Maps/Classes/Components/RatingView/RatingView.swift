@@ -330,8 +330,8 @@ import UIKit
     return viewSize
   }
 
-  override func mwm_refreshUI() {
-    super.mwm_refreshUI()
+  override func applyTheme() {
+    super.applyTheme()
     leftTextColor = leftTextColor.opposite()
     rightTextColor = rightTextColor.opposite()
     topTextColor = topTextColor.opposite()

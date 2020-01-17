@@ -106,7 +106,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   [self refreshLayout];
 }
 
-- (void)mwm_refreshUI { [self.view mwm_refreshUI]; }
 - (void)updateBadgeVisible:(BOOL)visible { self.downloadBadge.hidden = !visible; }
 #pragma mark - Refresh Collection View layout
 

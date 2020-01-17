@@ -1,31 +1,9 @@
 @objc(MWMNavigationAddPointToastView)
 final class NavigationAddPointToastView: UIView {
-  @IBOutlet private var actionButton: UIButton! {
-    didSet {
-      actionButton.setTitleColor(UIColor.linkBlue(), for: .normal)
-      actionButton.tintColor = UIColor.linkBlue()
-      actionButton.titleLabel?.font = UIFont.regular16()
-    }
-  }
-
-  @IBOutlet private var locationButton: UIButton! {
-    didSet {
-      locationButton.tintColor = UIColor.linkBlue()
-    }
-  }
-
-  @IBOutlet private var separator: UIView! {
-    didSet {
-      separator.backgroundColor = UIColor.blackDividers()
-    }
-  }
-
-  @IBOutlet private weak var extraBottomBackground: UIView! {
-    didSet {
-      extraBottomBackground.backgroundColor = UIColor.white()
-    }
-  }
-
+  @IBOutlet private var actionButton: UIButton!
+  @IBOutlet private var locationButton: UIButton!
+  @IBOutlet private var separator: UIView!
+  @IBOutlet private weak var extraBottomBackground: UIView!
   @objc private(set) var isStart = true
 
   @objc func config(isStart: Bool, withLocationButton: Bool) {

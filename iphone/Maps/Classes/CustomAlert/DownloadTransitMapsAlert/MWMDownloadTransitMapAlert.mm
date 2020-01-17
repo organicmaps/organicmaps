@@ -321,7 +321,7 @@ CGFloat const kAnimationDuration = .05;
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
   UIView * view = [[UIView alloc] init];
-  view.backgroundColor = UIColor.blackOpaque;
+  view.styleName = @"BlackOpaqueBackground";
   return view;
 }
 

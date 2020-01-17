@@ -1,6 +1,7 @@
 #import "MWMSearchTextField.h"
 #import "MWMSearch.h"
 #import "UIImageView+Coloring.h"
+#import "SwiftBridge.h"
 
 namespace
 {
@@ -22,7 +23,6 @@ NSTimeInterval constexpr kOnSearchCompletedDelay = 0.2;
   {
     [self setStaticIcon];
     self.leftViewMode = UITextFieldViewModeAlways;
-    self.textColor = [UIColor blackSecondaryText];
     [MWMSearch addObserver:self];
   }
   return self;
@@ -50,6 +50,7 @@ NSTimeInterval constexpr kOnSearchCompletedDelay = 0.2;
         UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     [view startAnimating];
     view.bounds = self.leftView.bounds;
+   view.styleName = @"SearchSearchTextFieldIcon";
     self.leftView = view;
   }
   else
@@ -61,7 +62,7 @@ NSTimeInterval constexpr kOnSearchCompletedDelay = 0.2;
 - (void)setStaticIcon
 {
   self.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_search"]];
-  static_cast<UIImageView *>(self.leftView).mwm_coloring = MWMImageColoringBlack;
+  [self.leftView setStyleAndApply:@"SearchSearchTextFieldIcon"];
 }
 
 - (void)stopSpinner { self.isSearching = NO; }

@@ -38,14 +38,12 @@ final class LayersViewController: MWMViewController {
 
   private func updateTrafficButton() {
     let enabled = MapOverlayManager.trafficEnabled()
-    trafficButton.setTitleColor(enabled ? UIColor.linkBlue() : UIColor.blackSecondaryText(), for: .normal)
-    trafficButton.imageName = enabled ? "btn_menu_traffic_on" : "btn_menu_traffic_off"
+    trafficButton.setStyleAndApply(enabled ? "LayersTrafficButtonEnabled" : "LayersTrafficButtonDisabled")
   }
 
   private func updateSubwayButton() {
     let enabled = MapOverlayManager.transitEnabled()
-    subwayButton.setTitleColor(enabled ? UIColor.linkBlue() : UIColor.blackSecondaryText(), for: .normal)
-    subwayButton.imageName = enabled ? "btn_menu_subway_on" : "btn_menu_subway_off"
+    subwayButton.setStyleAndApply(enabled ? "LayersSubwayButtonEnabled" : "LayersSubwayButtonDisabled")
   }
 
   private func updateIsoLinesButton() {

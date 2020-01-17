@@ -5,7 +5,7 @@ class DimmedModalPresentationController: UIPresentationController {
 
   private lazy var dimView: UIView = {
     let view = UIView()
-    view.backgroundColor = UIColor.blackStatusBarBackground()
+    view.styleName = "BlackStatusBarBackground"
     if isCancellable {
       view.addGestureRecognizer(onTapGr)
     }

@@ -338,12 +338,10 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
     [self.mapView createDrapeEngine];
 }
 
-- (void)mwm_refreshUI
+- (void)applyTheme
 {
+  [super applyTheme];
   [MapsAppDelegate customizeAppearance];
-  [self.navigationController.navigationBar mwm_refreshUI];
-  [self.controlsManager mwm_refreshUI];
-  [self.downloadDialog mwm_refreshUI];
 }
 
 - (void)closePageController:(MWMWelcomePageController *)pageController

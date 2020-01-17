@@ -72,12 +72,6 @@ NSString * const kMWMSideButtonsViewNibName = @"MWMSideButtonsView";
   GetFramework().Scale(Framework::SCALE_MIN, true);
 }
 
-- (void)mwm_refreshUI
-{
-  [self.sideView mwm_refreshUI];
-  [self refreshLocationButtonState:self.locationMode];
-}
-
 - (void)processMyPositionStateModeEvent:(MWMMyPositionMode)mode
 {
   [self refreshLocationButtonState:mode];
@@ -94,14 +88,14 @@ NSString * const kMWMSideButtonsViewNibName = @"MWMSideButtonsView";
   {
     case MWMMyPositionModePendingPosition:
     {
-      locBtn.imageName = @"btn_pending";
+      [locBtn setStyleAndApply: @"ButtonPending"];
       [locBtn.imageView startRotation:1];
       break;
     }
     case MWMMyPositionModeNotFollow:
-    case MWMMyPositionModeNotFollowNoPosition: locBtn.imageName = @"btn_get_position"; break;
-    case MWMMyPositionModeFollow: locBtn.imageName = @"btn_follow"; break;
-    case MWMMyPositionModeFollowAndRotate: locBtn.imageName = @"btn_follow_and_rotate"; break;
+    case MWMMyPositionModeNotFollowNoPosition: [locBtn setStyleAndApply: @"ButtonGetPosition"]; break;
+    case MWMMyPositionModeFollow: [locBtn setStyleAndApply: @"ButtonFollow"]; break;
+    case MWMMyPositionModeFollowAndRotate: [locBtn setStyleAndApply: @"ButtonFollowAndRotate"]; break;
   }
 }
 

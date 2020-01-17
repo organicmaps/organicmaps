@@ -1,6 +1,6 @@
 import UIKit
 
-@objc class PromoButton: UIButton {
+@objc class PromoButton: MWMButton {
 
   private let coordinator: PromoCoordinator
   private let buttonSize: CGSize = CGSize(width: 48, height: 48)
@@ -27,11 +27,7 @@ import UIKit
   }
 
   private func configureDiscovery() {
-    if UIColor.isNightMode() {
-      setImage(UIImage.init(named: "promo_discovery_button_night"), for: .normal)
-    } else {
-      setImage(UIImage.init(named: "promo_discovery_button_day"), for: .normal)
-    }
+    setStyleAndApply("PromoDiscroveryButton")
     addTarget(self, action: #selector(onButtonPress), for: .touchUpInside)
 
     imageView?.clipsToBounds = false
@@ -58,10 +54,5 @@ import UIKit
       PromoCampaignManager.manager().promoDiscoveryCampaign.onActivate();
       self?.isHidden = true;
     })
-  }
-
-  override func mwm_refreshUI() {
-    super.mwm_refreshUI()
-    configure()
   }
 }

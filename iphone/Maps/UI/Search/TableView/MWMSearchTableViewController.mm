@@ -52,7 +52,6 @@ NSString * GetLocalizedTypeName(search::Result const & result)
   [self reloadData];
 }
 
-- (void)mwm_refreshUI { [self.view mwm_refreshUI]; }
 - (void)setupTableView
 {
   UITableView * tableView = self.tableView;

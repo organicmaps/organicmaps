@@ -3,25 +3,18 @@ final class DiscoveryGuideCell: UICollectionViewCell {
   @IBOutlet var avatar: UIImageView!
   @IBOutlet var titleLabel: UILabel! {
     didSet {
-      titleLabel.font = UIFont.medium14()
-      titleLabel.textColor = UIColor.blackPrimaryText()
       titleLabel.numberOfLines = 2
     }
   }
   
   @IBOutlet var subtitleLabel: UILabel! {
     didSet {
-      subtitleLabel.font = UIFont.regular12()
-      subtitleLabel.textColor = UIColor.blackSecondaryText()
       subtitleLabel.numberOfLines = 1
     }
   }
   
   @IBOutlet var proLabel: UILabel! {
     didSet {
-      proLabel.font = UIFont.bold12()
-      proLabel.textColor = UIColor.white()
-      proLabel.backgroundColor = .clear
       proLabel.text = "";
     }
   }
@@ -30,8 +23,6 @@ final class DiscoveryGuideCell: UICollectionViewCell {
   
   @IBOutlet var detailsButton: UIButton! {
     didSet {
-      detailsButton.titleLabel?.font = UIFont.semibold14()
-      detailsButton.setTitleColor(UIColor.linkBlue(), for: .normal)
       detailsButton.setTitle(L("details"), for: .normal)
     }
   }
@@ -51,7 +42,6 @@ final class DiscoveryGuideCell: UICollectionViewCell {
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    layer.borderColor = UIColor.blackDividers().cgColor
   }
   
   override func prepareForReuse() {
@@ -92,7 +82,7 @@ final class DiscoveryGuideCell: UICollectionViewCell {
     if let labelHexColor = labelHexColor, labelHexColor.count == 6 {
       proContainer.backgroundColor = UIColor(fromHexString: labelHexColor) 
     } else {
-      proContainer.backgroundColor = UIColor.ratingRed()
+      proContainer.backgroundColor = UIColor.red
     }
     proContainer.isHidden = false
   }

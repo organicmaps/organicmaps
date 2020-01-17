@@ -59,11 +59,6 @@ class AllPassSubscriptionViewController: BaseSubscriptionViewController {
                                      price: "...",
                                      enabled: false)
 
-    annualDiscountLabel.layer.shadowRadius = 4
-    annualDiscountLabel.layer.shadowOffset = CGSize(width: 0, height: 2)
-    annualDiscountLabel.layer.shadowColor = UIColor.blackHintText().cgColor
-    annualDiscountLabel.layer.shadowOpacity = 0.62
-    annualDiscountLabel.layer.cornerRadius = 6
     annualDiscountLabel.isHidden = true
     
     self.configure(buttons: [

@@ -15,7 +15,4 @@
   auto storyboard = [UIStoryboard instance:MWMStoryboardSearchFilters];
   return [storyboard instantiateViewControllerWithIdentifier:identifier];
 }
-
-- (void)mwm_refreshUI { [self.view mwm_refreshUI]; }
-
 @end

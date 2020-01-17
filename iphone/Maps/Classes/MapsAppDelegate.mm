@@ -279,7 +279,6 @@ using namespace osm_auth_ios;
     [MoPubKit grantConsent];
 
   [[DeepLinkHandler shared] applicationDidFinishLaunching:launchOptions];
-
   return YES;
 }
 
@@ -570,12 +569,6 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 + (void)customizeAppearanceForNavigationBar:(UINavigationBar *)navigationBar
 {
-  navigationBar.tintColor = [UIColor primary];
-  navigationBar.barTintColor = [UIColor primary];
-  navigationBar.titleTextAttributes = [self navigationBarTextAttributes];
-  navigationBar.translucent = NO;
-  [navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-  navigationBar.shadowImage = [UIImage new];
   auto backImage = [[UIImage imageNamed:@"ic_nav_bar_back_sys"]
                     imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
   navigationBar.backIndicatorImage = backImage;
@@ -597,29 +590,9 @@ continueUserActivity:(NSUserActivity *)userActivity
                                     forState:UIControlStateDisabled];
   [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UINavigationBar class]]].tintColor = [UIColor whitePrimaryText];
 
-  UIPageControl * pageControl = [UIPageControl appearance];
-  pageControl.pageIndicatorTintColor = [UIColor blackHintText];
-  pageControl.currentPageIndicatorTintColor = [UIColor blackSecondaryText];
-  pageControl.backgroundColor = [UIColor white];
-
   UITextField * textField = [UITextField appearance];
   textField.keyboardAppearance =
       [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
-
-  UISearchBar * searchBar = [UISearchBar appearance];
-  searchBar.barTintColor = [UIColor primary];
-
-  UIBarButtonItem *searchButtonApperance = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]];
-  searchButtonApperance.tintColor = [UIColor whitePrimaryText];
-
-  UITextField * textFieldInSearchBar =
-      [UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]];
-
-  textField.backgroundColor = [UIColor white];
-  textFieldInSearchBar.defaultTextAttributes = @{
-    NSForegroundColorAttributeName : [UIColor blackPrimaryText],
-    NSFontAttributeName : [UIFont regular14]
-  };
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options

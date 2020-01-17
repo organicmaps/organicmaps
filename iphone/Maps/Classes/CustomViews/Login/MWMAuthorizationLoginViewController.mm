@@ -63,11 +63,7 @@ using namespace osm_auth_ios;
   self.loginGoogleButton.enabled = isConnected;
   self.loginFacebookButton.enabled = isConnected;
   self.signupButton.enabled = isConnected;
-
-  AuthorizationConfigButton(self.loginGoogleButton, AuthorizationButtonType::AuthorizationButtonTypeGoogle);
-  AuthorizationConfigButton(self.loginFacebookButton, AuthorizationButtonType::AuthorizationButtonTypeFacebook);
-  AuthorizationConfigButton(self.loginOSMButton, AuthorizationButtonType::AuthorizationButtonTypeOSM);
-
+  
   if (!isConnected)
   {
     self.loginGoogleButton.layer.borderColor = UIColor.clearColor.CGColor;

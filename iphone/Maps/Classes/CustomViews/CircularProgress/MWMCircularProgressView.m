@@ -69,8 +69,9 @@ static CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progres
   [self setColoring:MWMButtonColoringBlue forState:MWMCircularProgressStateCompleted];
 }
 
-- (void)mwm_refreshUI
+- (void)applyTheme
 {
+  [super applyTheme];
   self.suspendRefreshProgress = YES;
   [self setupColors];
   self.suspendRefreshProgress = NO;

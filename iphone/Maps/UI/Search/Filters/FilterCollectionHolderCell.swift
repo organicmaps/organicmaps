@@ -34,7 +34,6 @@ final class FilterCollectionHolderCell: MWMTableViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     isSeparatorHidden = true
-    backgroundColor = UIColor.clear
   }
 
   override func layoutSubviews() {

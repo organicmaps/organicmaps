@@ -1,5 +1,5 @@
 #import "MWMButton.h"
-
+#import "SwiftBridge.h"
 static NSString * const kDefaultPattern = @"%@_%@";
 static NSString * const kHighlightedPattern = @"%@_highlighted_%@";
 static NSString * const kSelectedPattern = @"%@_selected_%@";
@@ -12,10 +12,10 @@ static NSString * const kSelectedPattern = @"%@_selected_%@";
   [self setDefaultImages];
 }
 
-- (void)mwm_refreshUI
+- (void)applyTheme
 {
   [self changeColoringToOpposite];
-  [super mwm_refreshUI];
+  [super applyTheme];
 }
 
 - (void)setColoring:(MWMButtonColoring)coloring

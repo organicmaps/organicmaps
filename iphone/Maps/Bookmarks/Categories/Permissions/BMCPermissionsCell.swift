@@ -3,23 +3,9 @@ protocol BMCPermissionsCellDelegate {
 }
 
 final class BMCPermissionsCell: MWMTableViewCell {
-  @IBOutlet private weak var label: UILabel! {
-    didSet {
-      label.font = .regular14()
-      label.textColor = .blackSecondaryText()
-    }
-  }
+  @IBOutlet private weak var label: UILabel!
 
-  @IBOutlet private weak var button: UIButton! {
-    didSet {
-      button.setTitleColor(UIColor.whitePrimaryText(), for: .normal)
-      button.setTitleColor(UIColor.whitePrimaryTextHighlighted(), for: .highlighted)
-      button.setBackgroundColor(.linkBlue(), for: .normal)
-      button.titleLabel?.font = .medium14()
-      button.layer.cornerRadius = 6
-      button.clipsToBounds = true
-    }
-  }
+  @IBOutlet private weak var button: UIButton!
 
   private var permission: BMCPermission! {
     didSet {

@@ -4,21 +4,8 @@ final class UGCYourReviewCell: MWMTableViewCell {
     static let defaultReviewBottomOffset: CGFloat = 16
   }
 
-  @IBOutlet private weak var titleLabel: UILabel! {
-    didSet {
-      titleLabel.font = UIFont.bold14()
-      titleLabel.textColor = UIColor.blackPrimaryText()
-      titleLabel.text = L("placepage_reviews_your_comment")
-    }
-  }
-
-  @IBOutlet private weak var dateLabel: UILabel! {
-    didSet {
-      dateLabel.font = UIFont.regular12()
-      dateLabel.textColor = UIColor.blackSecondaryText()
-    }
-  }
-
+  @IBOutlet private weak var titleLabel: UILabel!
+  @IBOutlet private weak var dateLabel: UILabel!
   @IBOutlet private weak var reviewLabel: ExpandableReviewView! {
     didSet {
       let settings = ExpandableReviewSettings(expandText: L("placepage_more_button"),

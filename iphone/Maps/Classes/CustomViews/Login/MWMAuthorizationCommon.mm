@@ -38,42 +38,6 @@ void SetEmptyOSMUserName()
   [ud synchronize];
 }
 
-UIColor * AuthorizationButtonTextColor(AuthorizationButtonType type)
-{
-  switch (type)
-  {
-  case AuthorizationButtonType::AuthorizationButtonTypeGoogle: return UIColor.blackColor;
-  case AuthorizationButtonType::AuthorizationButtonTypeFacebook: return UIColor.whiteColor;
-  case AuthorizationButtonType::AuthorizationButtonTypeOSM: return [UIColor white];
-  }
-  return UIColor.clearColor;
-}
-
-UIColor * AuthorizationButtonBackgroundColor(AuthorizationButtonType type)
-{
-  switch (type)
-  {
-  case AuthorizationButtonType::AuthorizationButtonTypeGoogle: return UIColor.whiteColor;
-  case AuthorizationButtonType::AuthorizationButtonTypeFacebook:
-    return [UIColor colorWithRed:72. / 255. green:97. / 255. blue:163. / 255. alpha:1.];
-  case AuthorizationButtonType::AuthorizationButtonTypeOSM: return [UIColor linkBlue];
-  }
-  return UIColor.clearColor;
-}
-
-void AuthorizationConfigButton(UIButton * btn, AuthorizationButtonType type)
-{
-  UIColor * txtCol = AuthorizationButtonTextColor(type);
-  UIColor * bgCol = AuthorizationButtonBackgroundColor(type);
-
-  CGFloat const highlightedAlpha = 0.3;
-  [btn setTitleColor:txtCol forState:UIControlStateNormal];
-  [btn setTitleColor:[txtCol colorWithAlphaComponent:highlightedAlpha] forState:UIControlStateHighlighted];
-
-  [btn setBackgroundColor:bgCol forState:UIControlStateNormal];
-  [btn setBackgroundColor:[bgCol colorWithAlphaComponent:highlightedAlpha] forState:UIControlStateHighlighted];
-}
-
 void AuthorizationStoreCredentials(osm::KeySecret const & keySecret)
 {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;

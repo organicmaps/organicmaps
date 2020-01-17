@@ -5,8 +5,6 @@ final class UGCSummaryRatingStarsCell: UICollectionViewCell {
     didSet {
       ratingView.topTextFont = UIFont.regular10()
       ratingView.topTextColor = UIColor.blackSecondaryText()
-      ratingView.filledColor = UIColor.ratingYellow()
-      ratingView.emptyColor = UIColor.blackDividers()
       ratingView.borderWidth = 0
     }
   }

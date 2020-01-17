@@ -25,8 +25,6 @@ class DownloadedBookmarksViewController: MWMViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    tableView.backgroundColor = UIColor.pressBackground()
-    tableView.separatorColor = UIColor.blackDividers()
     tableView.tableHeaderView = bottomView
     tableView.registerNib(cell: CatalogCategoryCell.self)
     tableView.registerNibForHeaderFooterView(BMCCategoriesHeader.self)

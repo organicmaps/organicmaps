@@ -35,8 +35,8 @@
     self.badgeCount.hidden = YES;
   }
   self.isEnabled = isEnabled;
-  self.icon.mwm_coloring = isEnabled ? MWMImageColoringBlack : MWMImageColoringGray;
-  self.label.textColor = isEnabled ? [UIColor blackPrimaryText] : [UIColor blackHintText];
+  [self.icon setStyleAndApply: isEnabled ? @"MWMBlack" : @"MWMGray" ];
+  [self.label setStyleAndApply: isEnabled ? @"blackPrimaryText" : @"blackHintText"];
   self.promo = NO;
 }
 
@@ -45,8 +45,8 @@
 {
   self.icon.image = [UIImage imageNamed:imageName];
   self.label.text = label;
-  self.icon.mwm_coloring = MWMImageColoringBlue;
-  self.label.textColor = [UIColor linkBlue];
+  [self.icon setStyleAndApply:@"MWMBlue"];
+  [self.label setStyleAndApply:@"linkBlueText"];
   self.badgeBackground.hidden = YES;
   self.badgeCount.hidden = YES;
   self.isEnabled = YES;
@@ -60,9 +60,9 @@
 
   [super setHighlighted:highlighted];
   if (self.promo)
-    self.label.textColor = highlighted ? [UIColor linkBlueHighlighted] : [UIColor linkBlue];
+    [self.label setStyleAndApply: highlighted ? @"linkBlueHighlightedText" : @"linkBlueText"];
   else
-    self.label.textColor = highlighted ? [UIColor blackHintText] : [UIColor blackPrimaryText];
+    [self.label setStyleAndApply: highlighted ? @"blackHintText" : @"blackPrimaryText"];
 }
 
 - (void)setSelected:(BOOL)selected

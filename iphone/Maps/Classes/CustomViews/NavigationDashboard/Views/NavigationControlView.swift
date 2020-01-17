@@ -120,12 +120,6 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
     })
   }
 
-  override func mwm_refreshUI() {
-    if isVisible {
-      super.mwm_refreshUI()
-    }
-  }
-
   override func awakeFromNib() {
     super.awakeFromNib()
     translatesAutoresizingMaskIntoConstraints = false

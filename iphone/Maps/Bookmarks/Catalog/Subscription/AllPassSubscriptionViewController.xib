@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -40,7 +40,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TaY-K1-Hdb">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="782.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="781.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="try to subscribe" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v4o-CM-FZh">
                                     <rect key="frame" x="24" y="62" width="272" height="14.5"/>
@@ -48,24 +48,22 @@
                                     <color key="textColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="semibold12"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionTitle"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_header"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="allPassSubscriptionTitle"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Pass Premium" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PQG-Je-4JN">
-                                    <rect key="frame" x="24" y="84.5" width="272" height="30.5"/>
+                                    <rect key="frame" x="24" y="84.5" width="272" height="29.5"/>
                                     <fontDescription key="fontDescription" name="FredokaOne-Regular" family="Fredoka One" pointSize="25"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="fredokaRegular25"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="allPassSubscriptionSubTitle"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionSubTitle"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_subheader"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pyJ-8x-bjL">
-                                    <rect key="frame" x="0.0" y="115" width="320" height="230"/>
+                                    <rect key="frame" x="0.0" y="114" width="320" height="230"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dDh-cr-cQb">
                                             <rect key="frame" x="0.0" y="0.0" width="960" height="230"/>
@@ -79,8 +77,7 @@
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="allPassSubscriptionDescription"/>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold34"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionDescription1"/>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_message_title"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
@@ -90,8 +87,7 @@
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="allPassSubscriptionDescription"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionDescription2"/>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_message_subtitle"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
@@ -117,8 +113,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold34"/>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="allPassSubscriptionDescription"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionDescription1"/>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_message_title_2"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
@@ -128,8 +123,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="allPassSubscriptionDescription"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionDescription2"/>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_message_subtitle_2"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
@@ -155,8 +149,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold34"/>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="allPassSubscriptionDescription"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionDescription1"/>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_message_title_3"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
@@ -166,8 +159,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="allPassSubscriptionDescription"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionDescription2"/>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_message_subtitle_3"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
@@ -200,11 +192,11 @@
                                     </connections>
                                 </scrollView>
                                 <view contentMode="scaleToFill" placeholderIntrinsicWidth="106" placeholderIntrinsicHeight="16" translatesAutoresizingMaskIntoConstraints="NO" id="2G3-Jk-HS0" customClass="PageIndicator" customModule="maps_me" customModuleProvider="target">
-                                    <rect key="frame" x="107" y="345" width="106" height="16"/>
+                                    <rect key="frame" x="107" y="344" width="106" height="16"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="kgh-BN-Pin">
-                                    <rect key="frame" x="20" y="431" width="280" height="144"/>
+                                    <rect key="frame" x="20" y="430" width="280" height="144"/>
                                     <subviews>
                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lg7-Sn-MNZ" userLabel="Continue" customClass="BookmarksSubscriptionButton" customModule="maps_me" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="280" height="64"/>
@@ -219,14 +211,7 @@
                                                 <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <integer key="value" value="6"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="allPassSubscriptionDescription"/>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="allPassSubscriptionSubTitle"/>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionYearlyButton"/>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="onAnnualButtonTap:" destination="-1" eventType="touchUpInside" id="95i-dj-7pg"/>
@@ -245,18 +230,7 @@
                                                 <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <integer key="value" value="6"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="allPassSubscriptionMonthlyTitle"/>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                    <integer key="value" value="1"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="borderColorName" value="blackHintText"/>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="blackDividers"/>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="allPassSubscriptionMonthlyBackground"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionMonthlyButton"/>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="onMonthlyButtonTap:" destination="-1" eventType="touchUpInside" id="iKa-Pf-ltA"/>
@@ -265,7 +239,7 @@
                                     </subviews>
                                 </stackView>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- $38" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HUV-kf-oUo" customClass="BookmarksSubscriptionDiscountLabel" customModule="maps_me" customModuleProvider="target">
-                                    <rect key="frame" x="28" y="408" width="48.5" height="35"/>
+                                    <rect key="frame" x="28" y="407" width="48.5" height="35"/>
                                     <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="35" id="BYp-RT-R6I"/>
@@ -274,13 +248,11 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="allPassSubscriptionDiscountBackground"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="discountText"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold17"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionDiscount"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wL2-uQ-ivp" userLabel="Restore">
-                                    <rect key="frame" x="50" y="585" width="220" height="50"/>
+                                    <rect key="frame" x="50" y="584" width="220" height="50"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
                                     <constraints>
@@ -291,9 +263,7 @@
                                         <color key="titleColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlueHighlighted"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="allPassSubscriptionDescription"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionRestoreButton"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="restore_subscription"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
@@ -301,19 +271,18 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Frp-JY-kuq">
-                                    <rect key="frame" x="20" y="643" width="280" height="75.5"/>
+                                    <rect key="frame" x="20" y="642" width="280" height="75.5"/>
                                     <string key="text">Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                     <color key="textColor" white="0.0" alpha="0.31555008559999997" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular9"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="allPassSubscriptionTermsTitle"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionTerms"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="subscription_terms_guides"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2O1-n3-hBU" userLabel="TermsOfUse">
-                                    <rect key="frame" x="20" y="718.5" width="66" height="44"/>
+                                    <rect key="frame" x="20" y="717.5" width="66" height="44"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
                                     <constraints>
@@ -324,9 +293,7 @@
                                         <color key="titleColor" white="0.55912912869999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="blackHintText"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium10"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="allPassSubscriptionTermsTitle"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionTitle"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="terms_of_use"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
@@ -334,7 +301,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUY-sv-eiY" userLabel="PrivacyPolicy">
-                                    <rect key="frame" x="231" y="718.5" width="69" height="44"/>
+                                    <rect key="frame" x="231" y="717.5" width="69" height="44"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
                                     <constraints>
@@ -345,10 +312,8 @@
                                         <color key="titleColor" white="0.55912912869999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="blackHintText"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium10"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="allPassSubscriptionTermsTitle"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="privacy_policy"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionTitle"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="onPrivacy:" destination="-1" eventType="touchUpInside" id="rNQ-Ud-B0f"/>
@@ -436,7 +401,7 @@
                         <constraint firstItem="JNf-wP-Nb4" firstAttribute="centerY" secondItem="je2-0p-PRM" secondAttribute="centerY" id="fkm-e4-8kG"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="toastBackground"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="ToastBackground"/>
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
@@ -462,7 +427,7 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="LdD-sY-6l2"/>
             <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="46.376811594202906" y="110.86956521739131"/>
         </view>

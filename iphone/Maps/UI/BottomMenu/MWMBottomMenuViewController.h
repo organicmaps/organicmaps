@@ -12,7 +12,6 @@
 - (instancetype)initWithParentController:(MapViewController *)controller
                                 delegate:(id<MWMBottomMenuControllerProtocol>)delegate;
 
-- (void)mwm_refreshUI;
 - (void)updateBadgeVisible:(BOOL)visible;
 
 + (void)updateAvailableArea:(CGRect)frame;

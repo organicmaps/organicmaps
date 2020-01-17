@@ -2,15 +2,13 @@
 final class SettingsTableViewSelectableCell: MWMTableViewCell {
   @IBOutlet fileprivate weak var title: UILabel!
 
-  @objc func config(title: String) {
-    backgroundColor = UIColor.white()
-
-    self.title.text = title
-    styleTitle()
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    self.styleName = "Background"
+    self.title.styleName = "regular17:blackPrimaryText"
   }
 
-  fileprivate func styleTitle() {
-    title.textColor = UIColor.blackPrimaryText()
-    title.font = UIFont.regular17()
+  @objc func config(title: String) {
+    self.title.text = title
   }
 }

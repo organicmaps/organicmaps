@@ -22,8 +22,6 @@ typedef NS_ENUM(NSInteger, MWMSearchManagerRoutingTooltipSearch) {
 
 @property(nonnull, nonatomic) IBOutletCollection(UIView) NSArray * topViews;
 
-- (void)mwm_refreshUI;
-
 - (void)searchText:(nonnull NSString *)text forInputLocale:(nullable NSString *)locale;
 
 #pragma mark - Layout

@@ -50,8 +50,6 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 
 - (void)configTable
 {
-  self.tableView.backgroundColor = [UIColor pressBackground];
-  self.tableView.separatorColor = [UIColor blackDividers];
   [self.tableView registerClass:[MWMTableViewCell class]
          forCellReuseIdentifier:[UITableViewCell className]];
 }
@@ -69,7 +67,6 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 - (void)configNavBar { self.title = L(@"editor_add_select_category"); }
 - (void)configSearchBar
 {
-  self.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor primary]];
   self.searchBar.placeholder = L(@"search");
 }
 

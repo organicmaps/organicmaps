@@ -76,8 +76,8 @@ final class ExpandableReviewView: UIView {
     self.moreLabel.text = settings.expandText
   }
 
-  override func mwm_refreshUI() {
-    super.mwm_refreshUI()
+  override func applyTheme() {
+    super.applyTheme()
     settings.textColor = settings.textColor.opposite()
     settings.expandTextColor = settings.expandTextColor.opposite()
   }

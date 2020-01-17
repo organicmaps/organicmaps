@@ -6,6 +6,7 @@
 
 @property(copy, nonatomic) MWMVoidBlock doneBlock;
 @property(copy, nonatomic) MWMVoidBlock cancelBlock;
+@property(assign, nonatomic) NSLayoutConstraint* topConstraint;
 
 @end
 
@@ -23,10 +24,14 @@
   navBar.width = superview.width;
   navBar.doneBlock = done;
   navBar.cancelBlock = cancel;
-  navBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-  [navBar setNeedsLayout];
-  navBar.origin = {0., -navBar.height};
+  navBar.translatesAutoresizingMaskIntoConstraints = false;
+  
   [superview addSubview:navBar];
+  navBar.topConstraint = [navBar.topAnchor constraintEqualToAnchor:superview.topAnchor];
+  navBar.topConstraint.active = true;
+  navBar.topConstraint.constant = -navBar.height;
+  [navBar.trailingAnchor constraintEqualToAnchor:superview.trailingAnchor].active = true;
+  [navBar.leadingAnchor constraintEqualToAnchor:superview.leadingAnchor].active = true;
   [navBar show:isBusiness applyPosition:applyPosition position:position];
 }
 
@@ -38,7 +43,7 @@
 
   [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
-    self.transform = CGAffineTransformMakeTranslation(0., self.height);
+   self.topConstraint.constant = 0;
   }];
 }
 
@@ -50,7 +55,7 @@
 
   [UIView animateWithDuration:kDefaultAnimationDuration animations:^
   {
-    self.transform = CGAffineTransformMakeTranslation(0., -self.height);
+   self.topConstraint.constant = -self.height;
   }
   completion:^(BOOL finished)
   {
@@ -67,13 +72,6 @@
 - (IBAction)cancelTap
 {
   [self dismissWithBlock:self.cancelBlock];
-}
-
-- (void)layoutSubviews
-{
-  if (self.superview)
-    self.width = self.superview.width;
-  [super layoutSubviews];
 }
 
 @end
