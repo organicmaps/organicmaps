@@ -335,7 +335,7 @@ sport|cricket;334;
 sport|bowls;335;
 highway|path|tunnel;[highway=path][tunnel?];;name;int_name;336;
 man_made|breakwater;337;
-amenity|parking|permissive|fee;[amenity=parking][access=permissive][fee?];;name;int_name;338;
+amenity|parking|permissive|fee;[amenity=parking][access=permissive][fee?];x;name;int_name;338;amenity|parking|permissive
 railway|disused|bridge;[railway][disused?][bridge?];x;name;int_name;339;
 tourism|zoo;340;
 sport|gymnastics;341;
@@ -353,14 +353,14 @@ sport|scuba_diving;352;
 highway|cycleway|permissive;[highway=cycleway][access=permissive];;name;int_name;353;
 highway|unclassified|area;[highway=unclassified][area?];;name;int_name;354;
 natural|volcano;355;
-amenity|parking|underground|fee;[amenity=parking][location=underground][fee?],[amenity=parking][parking=underground][fee?];;name;int_name;356;
+amenity|parking|underground|fee;[amenity=parking][location=underground][fee?],[amenity=parking][parking=underground][fee?];x;name;int_name;356;amenity|parking|underground
 amenity|parking|underground;[amenity=parking][location=underground],[amenity=parking][parking=underground];;name;int_name;357;
 man_made|pipeline|gas;[man_made=pipeline][gas];x;name;int_name;358;man_made|pipeline
 amenity|parking|multi-storey;[amenity=parking][parking=multi-storey];;name;int_name;359;
 leisure|recreation_ground;360;
 highway|footway|mountain_hiking;[highway=footway][sac_scale=mountain_hiking];;name;int_name;361;
 highway|service|driveway|bridge;[highway=service][service=driveway][bridge?];;name;int_name;362;
-amenity|parking|multi-storey|fee;[amenity=parking][parking=multi-storey][fee?];;name;int_name;363;
+amenity|parking|multi-storey|fee;[amenity=parking][parking=multi-storey][fee?];x;name;int_name;363;amenity|parking|multi-storey
 leisure|track|area;[leisure=track][area?];x;name;int_name;364;
 highway|byway;365;highway|track
 piste:type|downhill|novice;[piste:type=downhill][piste:difficulty=novice];;name;int_name;366;
