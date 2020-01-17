@@ -4,78 +4,39 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIColor (MapsMeColor)
 
-+ (UIColor *)primaryDark;
-+ (UIColor *)primary;
-+ (UIColor *)secondary;
-+ (UIColor *)primaryLight;
-+ (UIColor *)fadeBackground;
-+ (UIColor *)menuBackground;
-+ (UIColor *)downloadBadgeBackground;
-+ (UIColor *)pressBackground;
-+ (UIColor *)yellow;
-+ (UIColor *)green;
-+ (UIColor *)red;
-+ (UIColor *)errorPink;
-+ (UIColor *)orange;
-+ (UIColor *)linkBlue;
-+ (UIColor *)linkBlueHighlighted;
-+ (UIColor *)linkBlueDark;
-+ (UIColor *)buttonRed;
-+ (UIColor *)buttonRedHighlighted;
-+ (UIColor *)blackPrimaryText;
-+ (UIColor *)blackSecondaryText;
-+ (UIColor *)blackStatusBarBackground;
-+ (UIColor *)blackHintText;
-+ (UIColor *)blackDividers;
-+ (UIColor *)white;
-+ (UIColor *)whitePrimaryText;
-+ (UIColor *)whitePrimaryTextHighlighted;
-+ (UIColor *)whiteSecondaryText;
-+ (UIColor *)whiteHintText;
-+ (UIColor *)whiteDividers;
-+ (UIColor *)buttonDisabledBlueText;
-+ (UIColor *)buttonHighlightedBlueText;
-+ (UIColor *)alertBackground;
-+ (UIColor *)blackOpaque;
-+ (UIColor *)bookingBackground;
-+ (UIColor *)opentableBackground;
-+ (UIColor *)bannerBackground;
-+ (UIColor *)bannerButtonBackground;
-+ (UIColor *)toastBackground;
-+ (UIColor *)statusBarBackground;
-+ (UIColor *)transparentGreen;
-+ (UIColor *)ratingRed;
-+ (UIColor *)ratingOrange;
-+ (UIColor *)ratingYellow;
-+ (UIColor *)ratingLightGreen;
-+ (UIColor *)ratingGreen;
-+ (UIColor *)border;
-+ (UIColor *)speedLimitRed;
-+ (UIColor *)speedLimitGeen;
-+ (UIColor *)speedLimitWhite;
-+ (UIColor *)speedLimitLightGray;
-+ (UIColor *)speedLimitDarkGray;
-+ (UIColor *)shadowColorBlue;
-+ (UIColor *)shadowColorPurple;
-+ (UIColor *)subscriptionCellBorder;
-+ (UIColor *)subscriptionCellBackground;
-+ (UIColor *)subscriptionCellTitle;
-+ (UIColor *)discountBackground;
-+ (UIColor *)discountText;
-+ (UIColor *)bookmarkSubscriptionScrollBackground;
-+ (UIColor *)bookmarkSubscriptionBackground;
-+ (UIColor *)bookmarkSubscriptionFooterBackground;
++ (UIColor *)blackPrimaryText __attribute__ ((deprecated));
++ (UIColor *)blackSecondaryText __attribute__ ((deprecated));
++ (UIColor *)blackHintText __attribute__ ((deprecated));
++ (UIColor *)red __attribute__ ((deprecated));
++ (UIColor *)white __attribute__ ((deprecated));
++ (UIColor *)primary __attribute__ ((deprecated));
++ (UIColor *)pressBackground __attribute__ ((deprecated));
++ (UIColor *)linkBlue __attribute__ ((deprecated));
++ (UIColor *)linkBlueHighlighted __attribute__ ((deprecated));
++ (UIColor *)buttonRed __attribute__ ((deprecated));
++ (UIColor *)blackDividers __attribute__ ((deprecated));
++ (UIColor *)whitePrimaryText __attribute__ ((deprecated));
++ (UIColor *)whitePrimaryTextHighlighted __attribute__ ((deprecated));
++ (UIColor *)whiteHintText __attribute__ ((deprecated));
++ (UIColor *)buttonDisabledBlueText __attribute__ ((deprecated));
++ (UIColor *)blackOpaque __attribute__ ((deprecated));
++ (UIColor *)bookingBackground __attribute__ ((deprecated));
++ (UIColor *)opentableBackground __attribute__ ((deprecated));
++ (UIColor *)bannerBackground __attribute__ ((deprecated));
++ (UIColor *)transparentGreen __attribute__ ((deprecated));
++ (UIColor *)speedLimitRed __attribute__ ((deprecated));
++ (UIColor *)speedLimitGeen __attribute__ ((deprecated));
++ (UIColor *)speedLimitWhite __attribute__ ((deprecated));
++ (UIColor *)speedLimitLightGray __attribute__ ((deprecated));
++ (UIColor *)speedLimitDarkGray __attribute__ ((deprecated));
 
-+ (UIColor *)colorWithName:(NSString *)colorName;
++ (UIColor *)colorWithName:(NSString *)colorName __attribute__ ((deprecated));
 + (UIColor *)colorFromHexString:(NSString *)hexString;
 
 + (void)setNightMode:(BOOL)mode;
 + (BOOL)isNightMode;
 
-- (UIColor *)opposite;
-
-+ (UIColor *)facebookButtonBackground;
-+ (UIColor *)facebookButtonBackgroundDisabled;
+- (UIColor *)opposite __attribute__ ((deprecated));
 
 @end
 

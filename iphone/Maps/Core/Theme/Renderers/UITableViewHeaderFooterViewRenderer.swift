@@ -1,0 +1,24 @@
+extension UITableViewHeaderFooterView {
+  @objc override func applyTheme() {
+    if styleName.isEmpty {
+      styleName = "TableViewHeaderFooterView"
+    }
+    for style in StyleManager.instance().getStyle(styleName) {
+      UITableViewHeaderFooterViewRenderer.render(self, style: style)
+    }
+  }
+}
+
+class UITableViewHeaderFooterViewRenderer {
+  class func render(_ control: UITableViewHeaderFooterView, style: Style) {
+    if let backgroundColor = style.backgroundColor {
+      control.backgroundView = UIImageView(image: backgroundColor.getImage())
+    }
+    if let font = style.font {
+      control.textLabel?.font = font
+    }
+    if let fontColor = style.fontColor {
+      control.textLabel?.textColor = fontColor
+    }
+  }
+}

@@ -1,55 +1,29 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface UIFont (MapsMeFonts)
 
-+ (UIFont *)regular9;
-+ (UIFont *)regular10;
-+ (UIFont *)regular11;
-+ (UIFont *)regular12;
-+ (UIFont *)regular13;
-+ (UIFont *)regular14;
-+ (UIFont *)regular15;
-+ (UIFont *)regular16;
-+ (UIFont *)regular17;
-+ (UIFont *)regular18;
-+ (UIFont *)regular20;
-+ (UIFont *)regular24;
-+ (UIFont *)regular32;
-+ (UIFont *)regular52;
-+ (UIFont *)medium9;
-+ (UIFont *)medium10;
-+ (UIFont *)medium12;
-+ (UIFont *)medium14;
-+ (UIFont *)medium16;
-+ (UIFont *)medium17;
-+ (UIFont *)medium18;
-+ (UIFont *)medium20;
-+ (UIFont *)medium24;
-+ (UIFont *)medium28;
-+ (UIFont *)medium36;
-+ (UIFont *)medium40;
-+ (UIFont *)medium44;
-+ (UIFont *)light10;
-+ (UIFont *)light12;
-+ (UIFont *)light16;
-+ (UIFont *)light17;
-+ (UIFont *)bold12;
-+ (UIFont *)bold14;
-+ (UIFont *)bold16;
-+ (UIFont *)bold17;
-+ (UIFont *)bold22;
-+ (UIFont *)bold24;
-+ (UIFont *)bold28;
-+ (UIFont *)bold34;
-+ (UIFont *)bold36;
-+ (UIFont *)bold48;
-+ (UIFont *)italic16;
-+ (UIFont *)semibold12;
-+ (UIFont *)semibold14;
-+ (UIFont *)semibold15;
-+ (UIFont *)semibold16;
-+ (UIFont *)fredokaRegular25;
-
-+ (UIFont *)fontWithName:(NSString *)fontName;
++ (UIFont *)regular10 __attribute__ ((deprecated));
++ (UIFont *)regular12 __attribute__ ((deprecated));
++ (UIFont *)regular13 __attribute__ ((deprecated));
++ (UIFont *)regular14 __attribute__ ((deprecated));
++ (UIFont *)regular16 __attribute__ ((deprecated));
++ (UIFont *)regular17 __attribute__ ((deprecated));
++ (UIFont *)regular18 __attribute__ ((deprecated));
++ (UIFont *)regular24 __attribute__ ((deprecated));
++ (UIFont *)regular32 __attribute__ ((deprecated));
++ (UIFont *)regular52 __attribute__ ((deprecated));
++ (UIFont *)medium10 __attribute__ ((deprecated));
++ (UIFont *)medium14 __attribute__ ((deprecated));
++ (UIFont *)medium16 __attribute__ ((deprecated));
++ (UIFont *)medium17 __attribute__ ((deprecated));
++ (UIFont *)light12 __attribute__ ((deprecated));
++ (UIFont *)bold12 __attribute__ ((deprecated));
++ (UIFont *)bold14 __attribute__ ((deprecated));
++ (UIFont *)bold16 __attribute__ ((deprecated));
++ (UIFont *)bold17 __attribute__ ((deprecated));
++ (UIFont *)bold24 __attribute__ ((deprecated));
++ (UIFont *)bold28 __attribute__ ((deprecated));
++ (UIFont *)bold36 __attribute__ ((deprecated));
++ (UIFont *)semibold16 __attribute__ ((deprecated));
 
 @end
 NS_ASSUME_NONNULL_END

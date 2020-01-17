@@ -14,14 +14,4 @@
   return L(text);
 }
 
-- (void)setFontName:(NSString *)fontName
-{
-  self.font = [UIFont fontWithName:fontName];
-}
-
-- (void)setColorName:(NSString *)colorName
-{
-  self.textColor = [UIColor colorWithName:colorName];
-}
-
 @end

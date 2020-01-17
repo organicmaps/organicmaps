@@ -46,8 +46,6 @@ static inline CGFloat LengthCGPoint(CGPoint point)
 
 @interface UIView (Refresh)
 
-- (void)mwm_refreshUI;
-
 @end
 
 @interface UIApplication (URLs)

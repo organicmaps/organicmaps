@@ -103,132 +103,37 @@
 
 @implementation UIView (Refresh)
 
-- (void)mwm_refreshUI
-{
-  UIColor * opposite = self.backgroundColor.opposite;
-  if (opposite)
-    self.backgroundColor = opposite;
-
-  for (UIView * v in self.subviews)
-  {
-    if ([v respondsToSelector:@selector(mwm_refreshUI)])
-      [v mwm_refreshUI];
-  }
-  [self setNeedsDisplay];
-}
-
 @end
 
 @implementation UITableViewCell (Refresh)
-
-- (void)mwm_refreshUI
-{
-  [super mwm_refreshUI];
-  [self.selectedBackgroundView mwm_refreshUI];
-}
 
 @end
 
 @implementation UINavigationBar (Refresh)
 
-- (void)mwm_refreshUI
-{
-  UIColor * oppositeTint = self.tintColor.opposite;
-  UIColor * oppositeBar = self.barTintColor.opposite;
-  if (oppositeTint)
-    self.tintColor = oppositeTint;
-  if (oppositeBar)
-    self.barTintColor = oppositeBar;
-}
-
 @end
 
 @implementation UILabel (Refresh)
-
-- (void)mwm_refreshUI
-{
-  [super mwm_refreshUI];
-  UIColor * oppositeText = self.textColor.opposite;
-  if (oppositeText)
-    self.textColor = oppositeText;
-}
 
 @end
 
 @implementation UISlider (Refresh)
 
-- (void)mwm_refreshUI
-{
-  UIColor * opposite = self.minimumTrackTintColor.opposite;
-  if (opposite)
-    self.minimumTrackTintColor = opposite;
-}
-
 @end
 
 @implementation UISwitch (Refresh)
-
-- (void)mwm_refreshUI
-{
-  UIColor * opposite = self.onTintColor.opposite;
-  if (opposite)
-    self.onTintColor = opposite;
-}
 
 @end
 
 @implementation UIButton (Refresh)
 
-- (void)mwm_refreshUI
-{
-  UIColor * oppositeNormal = [self titleColorForState:UIControlStateNormal].opposite;
-  UIColor * oppositeSelected = [self titleColorForState:UIControlStateSelected].opposite;
-  UIColor * oppositeHightlighted = [self titleColorForState:UIControlStateHighlighted].opposite;
-  UIColor * oppositeDisabled = [self titleColorForState:UIControlStateDisabled].opposite;
-  if (oppositeNormal)
-    [self setTitleColor:oppositeNormal forState:UIControlStateNormal];
-  if (oppositeSelected)
-    [self setTitleColor:oppositeSelected forState:UIControlStateSelected];
-  if (oppositeHightlighted)
-    [self setTitleColor:oppositeHightlighted forState:UIControlStateHighlighted];
-  if (oppositeDisabled)
-    [self setTitleColor:oppositeDisabled forState:UIControlStateDisabled];
-
-  NSString * backgroundColorName = [self backgroundColorName];
-  NSString * backgroundHighlightedColorName = [self backgroundHighlightedColorName];
-  NSString * backgroundSelectedColorName = [self backgroundSelectedColorName];
-  if (backgroundColorName)
-    [self setBackgroundColorName:backgroundColorName];
-  if (backgroundHighlightedColorName)
-    [self setBackgroundHighlightedColorName:backgroundHighlightedColorName];
-  if (backgroundSelectedColorName)
-    [self setBackgroundSelectedColorName:backgroundSelectedColorName];
-}
-
 @end
 
 @implementation UITextView (Refresh)
 
-- (void)mwm_refreshUI
-{
-  [super mwm_refreshUI];
-  UIColor * oppositeText = self.textColor.opposite;
-  UIColor * oppositeTint = self.tintColor.opposite;
-  if (oppositeText)
-    self.textColor = oppositeText;
-  if (oppositeTint)
-    self.tintColor = oppositeTint;
-}
-
 @end
 
 @implementation UIImageView (Refresh)
-
-- (void)mwm_refreshUI
-{
-  [super mwm_refreshUI];
-  [self changeColoringToOpposite];
-}
 
 @end
 

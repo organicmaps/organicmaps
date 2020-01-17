@@ -15,16 +15,6 @@
   return L(placeholder);
 }
 
-- (void)setFontName:(NSString *)fontName
-{
-  self.font = [UIFont fontWithName:fontName];
-}
-
-- (void)setColorName:(NSString *)colorName
-{
-  self.textColor = [UIColor colorWithName:colorName];
-}
-
 - (void)setValidator:(MWMInputValidator *)validator
 {
   objc_setAssociatedObject(self, @selector(validator), validator, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
