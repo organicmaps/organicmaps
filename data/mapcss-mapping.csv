@@ -150,7 +150,7 @@ highway|track|private;[highway=track][access=private];x;name;int_name;149;highwa
 railway|tram;150;
 amenity|toilets;151;
 highway|residential|junction;[highway=residential][junction?];x;name;int_name;152;highway|residential
-highway|footway|permissive;[highway=footway][access=permissive];;name;int_name;153;
+highway|footway|permissive;[highway=footway][access=permissive],[highway=footway][foot=permissive];;name;int_name;153;
 highway|primary|junction;[highway=primary][junction?];x;name;int_name;154;highway|primary
 landuse|construction;155;
 tourism|viewpoint;156;
