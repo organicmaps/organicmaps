@@ -2,14 +2,9 @@ class WhatsNewBuilder {
 
   static var configs:[WhatsNewPresenter.WhatsNewConfig] {
     return [
-      WhatsNewPresenter.WhatsNewConfig(image: UIImage(named: "img_onboarding_outdoor"),
-                                       title: "whatsnew_outdoor_guides_title",
-                                       text: "whatsnew_outdoor_guides_message",
-                                       buttonNextTitle: "new_onboarding_button",
-                                       isCloseButtonHidden: true),
-      WhatsNewPresenter.WhatsNewConfig(image: UIImage(named: "img_onboarding_gallery"),
-                                       title: "whatsnew_guides_galleries_title",
-                                       text: "whatsnew_guides_galleries_message",
+      WhatsNewPresenter.WhatsNewConfig(image: UIImage(named: "img_wnew_isolines"),
+                                       title: "whatsnew_isolines_title",
+                                       text: "whatsnew_isolines_message",
                                        buttonNextTitle: "done",
                                        isCloseButtonHidden: true)
     ]

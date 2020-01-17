@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "img_onboarding_outdoor.png",
+      "filename" : "img_wnew_isolines.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "img_onboarding_outdoor@2x.png",
+      "filename" : "img_wnew_isolines@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "img_onboarding_outdoor@3x.png",
+      "filename" : "img_wnew_isolines@3x.png",
       "scale" : "3x"
     }
   ],

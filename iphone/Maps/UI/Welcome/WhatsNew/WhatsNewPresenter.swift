@@ -17,8 +17,8 @@ class WhatsNewPresenter {
   private let appVersion = AppInfo.shared().bundleVersion ?? ""
 
   init(view: IWelcomeView, router: WelcomeRouter, config: WhatsNewConfig) {
-     self.view = view
-     self.router = router
+    self.view = view
+    self.router = router
     self.config = config
   }
 }
