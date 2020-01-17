@@ -69,18 +69,12 @@ world  +
         nursing_home  -
         parking  +
             fee  -
-            multi-storey  +
-                fee  -
-                {}
+            multi-storey  -
             no-access  -
             park_and_ride  -
-            permissive  +
-                fee  -
-                {}
+            permissive  -
             private  -
-            underground  +
-                fee  -
-                {}
+            underground  -
             {}
         parking_space  +
             permissive  -
@@ -396,11 +390,7 @@ world  +
         service  +
             area  -
             bridge  -
-            driveway  +
-                area  -
-                bridge  -
-                tunnel  -
-                {}
+            driveway  -
             parking_aisle  -
             tunnel  -
             {}
@@ -423,18 +413,9 @@ world  +
             bridge  -
             grade1  -
             grade2  -
-            grade3  +
-                no-access  -
-                permissive  -
-                {}
-            grade4  +
-                no-access  -
-                permissive  -
-                {}
-            grade5  +
-                no-access  -
-                permissive  -
-                {}
+            grade3  -
+            grade4  -
+            grade5  -
             no-access  -
             permissive  -
             tunnel  -
@@ -555,9 +536,7 @@ world  +
             permissive  -
             private  -
             {}
-        pitch  +
-            tennis  -
-            {}
+        pitch  -
         playground  -
         recreation_ground  -
         sauna  -
