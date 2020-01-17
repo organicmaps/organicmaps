@@ -20,6 +20,8 @@ ford=stepping_stones : highway=ford
 ford=yes : highway=ford
 ruins=yes : historic=ruins
 drinkable=yes : amenity=drinking_water
+drinking_water=yes : amenity=drinking_water
+water_point=yes : amenity=water_point
 building=entrance : entrance=yes
 
 ice_road=yes : highway=ice_road
