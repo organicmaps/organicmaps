@@ -353,8 +353,8 @@ sport|scuba_diving;352;
 highway|cycleway|permissive;[highway=cycleway][access=permissive];;name;int_name;353;
 highway|unclassified|area;[highway=unclassified][area?];;name;int_name;354;
 natural|volcano;355;
-amenity|parking|underground|fee;[amenity=parking][location=underground][fee?];;name;int_name;356;
-amenity|parking|underground;[amenity=parking][location=underground];;name;int_name;357;
+amenity|parking|underground|fee;[amenity=parking][location=underground][fee?],[amenity=parking][parking=underground][fee?];;name;int_name;356;
+amenity|parking|underground;[amenity=parking][location=underground],[amenity=parking][parking=underground];;name;int_name;357;
 man_made|pipeline|gas;[man_made=pipeline][gas];x;name;int_name;358;man_made|pipeline
 amenity|parking|multi-storey;[amenity=parking][parking=multi-storey];;name;int_name;359;
 leisure|recreation_ground;360;
