@@ -1,25 +1,12 @@
 @objc class PromoAfterBookingCampaign: NSObject, IPromoCampaign {
-  private var adapter: PromoAfterBookingCampaignAdapter?
+  @objc var afterBookingData: PromoAfterBookingData {
+    return PromoAfterBookingCampaignAdapter.afterBookingData()
+  }
 
-  @objc let promoId: String
-  @objc let promoUrl: String
-  @objc let pictureUrl: String
-
-  var enabled: Bool {
-    return adapter != nil
+  @objc var enabled: Bool {
+    return true;
   }
 
   required override init() {
-    adapter = PromoAfterBookingCampaignAdapter()
-    guard let adapter = adapter else{
-      promoId = ""
-      promoUrl = ""
-      pictureUrl = ""
-      return;
-    }
-
-    promoId = adapter.promoId
-    promoUrl = adapter.promoUrl
-    pictureUrl = adapter.pictureUrl
   }
 }

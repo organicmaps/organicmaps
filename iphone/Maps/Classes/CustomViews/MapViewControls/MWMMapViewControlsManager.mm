@@ -430,13 +430,13 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 - (BOOL)showPromoBookingIfNeeded {
-  PromoAfterBookingCampaign * afterBooking = [PromoCampaignManager manager].promoAfterBookingCampaign;
-
-  if (!afterBooking.enabled)
+  PromoAfterBookingCampaign * afterBookingCampaign = [PromoCampaignManager manager].promoAfterBookingCampaign;
+  PromoAfterBookingData * afterBookingData = afterBookingCampaign.afterBookingData;
+  if (!afterBookingData.enabled)
     return NO;
 
   MWMVoidBlock ok = ^{
-    auto urlString = afterBooking.promoUrl;
+    auto urlString = afterBookingData.promoUrl;
     auto url = [NSURL URLWithString:urlString];
     [MapViewController.sharedController openCatalogAbsoluteUrl:url animated:YES utm:MWMUTMBookingPromo];
 
@@ -445,11 +445,11 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   MWMVoidBlock cancel = ^{
     [self.ownerController dismissViewControllerAnimated:YES completion:nil];
   };
-  NSString *cityImageUrl = afterBooking.pictureUrl;
+  NSString *cityImageUrl = afterBookingData.pictureUrl;
   PromoAfterBookingViewController *alert;
   alert = [[PromoAfterBookingViewController alloc] initWithCityImageUrl:cityImageUrl okClosure:ok cancelClosure:cancel];
   [self.ownerController presentViewController:alert animated:YES completion:nil];
-  [MWMEye promoAfterBookingShownWithCityId:afterBooking.promoId];
+  [MWMEye promoAfterBookingShownWithCityId:afterBookingData.promoId];
   return YES;
 }
 

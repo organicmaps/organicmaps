@@ -119,6 +119,9 @@
 		9957FAE9237AE5B000855F48 /* Logger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9957FAE7237AE5B000855F48 /* Logger.mm */; };
 		999D3A64237B097C00C5F7A8 /* DeepLinkSubscriptionData.h in Headers */ = {isa = PBXBuildFile; fileRef = 999D3A62237B097C00C5F7A8 /* DeepLinkSubscriptionData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		999D3A65237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 999D3A63237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm */; };
+		99F31EB823D5DD9000CE2CE1 /* PromoAfterBookingData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 99F31EB523D5DD8F00CE2CE1 /* PromoAfterBookingData.mm */; };
+		99F31EB923D5DD9000CE2CE1 /* PromoAfterBookingData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 99F31EB623D5DD8F00CE2CE1 /* PromoAfterBookingData+Core.h */; };
+		99F31EBA23D5DD9000CE2CE1 /* PromoAfterBookingData.h in Headers */ = {isa = PBXBuildFile; fileRef = 99F31EB723D5DD9000CE2CE1 /* PromoAfterBookingData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -242,6 +245,9 @@
 		9957FAE7237AE5B000855F48 /* Logger.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Logger.mm; sourceTree = "<group>"; };
 		999D3A62237B097C00C5F7A8 /* DeepLinkSubscriptionData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkSubscriptionData.h; sourceTree = "<group>"; };
 		999D3A63237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkSubscriptionData.mm; sourceTree = "<group>"; };
+		99F31EB523D5DD8F00CE2CE1 /* PromoAfterBookingData.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PromoAfterBookingData.mm; sourceTree = "<group>"; };
+		99F31EB623D5DD8F00CE2CE1 /* PromoAfterBookingData+Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PromoAfterBookingData+Core.h"; sourceTree = "<group>"; };
+		99F31EB723D5DD9000CE2CE1 /* PromoAfterBookingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoAfterBookingData.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -562,6 +568,9 @@
 		993F54ED237C5D1000545511 /* Promo */ = {
 			isa = PBXGroup;
 			children = (
+				99F31EB723D5DD9000CE2CE1 /* PromoAfterBookingData.h */,
+				99F31EB523D5DD8F00CE2CE1 /* PromoAfterBookingData.mm */,
+				99F31EB623D5DD8F00CE2CE1 /* PromoAfterBookingData+Core.h */,
 				993F54EE237C5D1000545511 /* PromoDiscoveryCampaignAdapter.h */,
 				993F54EF237C5D1000545511 /* PromoAfterBookingCampaignAdapter.mm */,
 				993F54F0237C5D1000545511 /* PromoDiscoveryCampaignAdapter.mm */,
@@ -626,6 +635,7 @@
 				47942D70237CC40400DEFAE3 /* PlacePageInfoData+Core.h in Headers */,
 				47942DA0237D954400DEFAE3 /* PlacePageBookmarkData+Core.h in Headers */,
 				479F704B234F78AB00011E2E /* MWMFrameworkHelper.h in Headers */,
+				99F31EBA23D5DD9000CE2CE1 /* PromoAfterBookingData.h in Headers */,
 				479834F323426CD200724D1E /* MWMTagGroup+Convenience.h in Headers */,
 				47D9019923AC236100D9364C /* MWMMapUpdateInfo+Core.h in Headers */,
 				999D3A64237B097C00C5F7A8 /* DeepLinkSubscriptionData.h in Headers */,
@@ -649,6 +659,7 @@
 				47942D98237D675400DEFAE3 /* CatalogPromoItem+Core.h in Headers */,
 				479F704A234F785B00011E2E /* MWMTypes.h in Headers */,
 				47C637D72354AEBE00E12DE0 /* MWMMapOverlayManager.h in Headers */,
+				99F31EB923D5DD9000CE2CE1 /* PromoAfterBookingData+Core.h in Headers */,
 				993F54F2237C5D1100545511 /* PromoDiscoveryCampaignAdapter.h in Headers */,
 				99447849238559F2004DAEE5 /* DeeplinkParsingResult.h in Headers */,
 				47942D9C237D927800DEFAE3 /* PlacePageBookmarkData.h in Headers */,
@@ -744,6 +755,7 @@
 				47942D88237CCA8800DEFAE3 /* PlacePagePreviewData.mm in Sources */,
 				479F7050234FB60400011E2E /* MWMCatalogObserver.mm in Sources */,
 				47942D7F237CC43300DEFAE3 /* UgcData.mm in Sources */,
+				99F31EB823D5DD9000CE2CE1 /* PromoAfterBookingData.mm in Sources */,
 				47C637D12354A6FB00E12DE0 /* MWMEye.mm in Sources */,
 				47942D9D237D927800DEFAE3 /* PlacePageBookmarkData.mm in Sources */,
 				4738A8E1239FACE7007C0F43 /* CoreBanner.mm in Sources */,
