@@ -92,16 +92,16 @@ CountryFeaturesCounters constexpr kWorldCounters(945 /* fbs */, 364406 /* geomet
                                                  0 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kNorthAucklandCounters(
-    1811973 /* fbs */, 12194857 /* geometryPoints */, 1007481 /* point */, 205378 /* line */,
-    599114 /* area */, 212342 /* poi */, 521 /* cityTownOrVillage */, 3557 /* bookingHotels */);
+    1811974 /* fbs */, 12194844 /* geometryPoints */, 1007482 /* point */, 205377 /* line */,
+    599115 /* area */, 212341 /* poi */, 521 /* cityTownOrVillage */, 3557 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kNorthWellingtonCounters(
-    797725 /* fbs */, 7771489 /* geometryPoints */, 460514 /* point */, 86936 /* line */,
-    250275 /* area */, 95819 /* poi */, 297 /* cityTownOrVillage */, 1062 /* bookingHotels */);
+    797726 /* fbs */, 7771495 /* geometryPoints */, 460513 /* point */, 86937 /* line */,
+    250276 /* area */, 95819 /* poi */, 297 /* cityTownOrVillage */, 1062 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kSouthCanterburyCounters(
-    637089 /* fbs */, 6983208 /* geometryPoints */, 397934 /* point */, 81567 /* line */,
-    157588 /* area */, 89534 /* poi */, 331 /* cityTownOrVillage */, 2085 /* bookingHotels */);
+    637098 /* fbs */, 6983175 /* geometryPoints */, 397946 /* point */, 81566 /* line */,
+    157586 /* area */, 89535 /* poi */, 331 /* cityTownOrVillage */, 2085 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kSouthSouthlandCounters(
     340601 /* fbs */, 5342296 /* geometryPoints */, 185978 /* point */, 40097 /* line */,
