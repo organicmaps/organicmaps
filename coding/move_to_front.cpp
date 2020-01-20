@@ -1,4 +1,4 @@
-#include "base/move_to_front.hpp"
+#include "coding/move_to_front.hpp"
 
 #include "base/assert.hpp"
 
@@ -8,7 +8,7 @@
 
 using namespace std;
 
-namespace base
+namespace coding
 {
 // static
 size_t constexpr MoveToFront::kNumBytes;
@@ -30,4 +30,4 @@ uint8_t MoveToFront::Transform(uint8_t b)
   ASSERT_EQUAL(m_order[0], b, ());
   return static_cast<uint8_t>(result);
 }
-}  // namespace base
+}  // namespace coding

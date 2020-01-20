@@ -18,6 +18,8 @@ set(
   buffer_reader.hpp
   buffered_file_writer.cpp
   buffered_file_writer.hpp
+  bwt.cpp
+  bwt.hpp
   bwt_coder.hpp
   byte_stream.hpp
   compressed_bit_vector.cpp
@@ -51,6 +53,8 @@ set(
   memory_region.hpp
   mmap_reader.cpp
   mmap_reader.hpp
+  move_to_front.cpp
+  move_to_front.hpp
   parse_xml.hpp
   point_coding.cpp
   point_coding.hpp

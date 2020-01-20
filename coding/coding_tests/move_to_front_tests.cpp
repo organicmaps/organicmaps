@@ -1,10 +1,10 @@
 #include "testing/testing.hpp"
 
-#include "base/move_to_front.hpp"
+#include "coding/move_to_front.hpp"
 
 #include <cstdint>
 
-using namespace base;
+using namespace coding;
 
 namespace
 {
@@ -14,10 +14,10 @@ UNIT_TEST(MoveToFront_Smoke)
   for (size_t i = 0; i < 256; ++i)
     TEST_EQUAL(mtf[i], i, ());
 
-  // Initially 3 should be on the 3-th position.
+  // Initially 3 should be on the 3rd position.
   TEST_EQUAL(mtf.Transform(3), 3, ());
 
-  // After the first transform, 3 should be moved to the 0-th position.
+  // After the first transform, 3 should be moved to the 0th position.
   TEST_EQUAL(mtf.Transform(3), 0, ());
   TEST_EQUAL(mtf.Transform(3), 0, ());
   TEST_EQUAL(mtf.Transform(3), 0, ());

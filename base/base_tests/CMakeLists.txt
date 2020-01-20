@@ -9,7 +9,6 @@ set(
   bidirectional_map_tests.cpp
   bits_test.cpp
   buffer_vector_test.cpp
-  bwt_tests.cpp
   cache_test.cpp
   cancellable_tests.cpp
   clustering_map_tests.cpp
@@ -25,7 +24,6 @@ set(
   math_test.cpp
   matrix_test.cpp
   mem_trie_test.cpp
-  move_to_front_tests.cpp
   newtype_test.cpp
   non_intersecting_intervals_tests.cpp
   observer_list_test.cpp

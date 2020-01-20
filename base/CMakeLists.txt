@@ -11,8 +11,6 @@ set(
   bidirectional_map.hpp
   bits.hpp
   buffer_vector.hpp
-  bwt.cpp
-  bwt.hpp
   cache.hpp
   cancellable.cpp
   cancellable.hpp
@@ -47,8 +45,6 @@ set(
   math.hpp
   matrix.hpp
   mem_trie.hpp
-  move_to_front.cpp
-  move_to_front.hpp
   mutex.hpp
   newtype.hpp
   normalize_unicode.cpp

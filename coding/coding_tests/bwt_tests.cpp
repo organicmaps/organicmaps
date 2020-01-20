@@ -1,12 +1,12 @@
 #include "testing/testing.hpp"
 
-#include "base/bwt.hpp"
+#include "coding/bwt.hpp"
 
 #include <algorithm>
 #include <random>
 #include <string>
 
-using namespace base;
+using namespace coding;
 using namespace std;
 
 namespace

@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <string>
 
-namespace base
+namespace coding
 {
 // Computes the Burrows-Wheeler transform of the string |s|, stores
 // result in the string |r|. Note - the size of |r| must be |n|.
@@ -57,4 +57,4 @@ size_t BWT(std::string const & s, std::string & r);
 // Complexity: O(n) time and O(n) memory.
 void RevBWT(size_t n, size_t start, uint8_t const * s, uint8_t * r);
 void RevBWT(size_t start, std::string const & s, std::string & r);
-}  // namespace base
+}  // namespace coding

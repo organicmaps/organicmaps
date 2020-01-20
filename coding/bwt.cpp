@@ -1,4 +1,4 @@
-#include "base/bwt.hpp"
+#include "coding/bwt.hpp"
 
 #include "base/assert.hpp"
 #include "base/suffix_array.hpp"
@@ -135,12 +135,12 @@ private:
 };
 }  // namespace
 
-namespace base
+namespace coding
 {
 size_t BWT(size_t n, uint8_t const * s, uint8_t * r)
 {
   vector<size_t> sa(n);
-  Skew(n, s, sa.data());
+  base::Skew(n, s, sa.data());
 
   size_t result = 0;
   for (size_t i = 0; i < n; ++i)
@@ -192,4 +192,4 @@ void RevBWT(size_t start, string const & s, string & r)
   r.assign(n, '\0');
   RevBWT(n, start, reinterpret_cast<uint8_t const *>(s.data()), reinterpret_cast<uint8_t *>(&r[0]));
 }
-}  // namespace base
+}  // namespace coding
