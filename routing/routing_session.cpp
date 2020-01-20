@@ -137,11 +137,9 @@ void RoutingSession::DoReadyCallback::operator()(shared_ptr<Route> route, Router
   m_callback(*m_rs.m_route, e);
 }
 
-void RoutingSession::RemoveRoute(bool changeStateToNoValidRoute)
+void RoutingSession::RemoveRoute()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  if (changeStateToNoValidRoute)
-    SetState(SessionState::NoValidRoute);
 
   m_lastDistance = 0.0;
   m_moveAwayCounter = 0;
@@ -258,7 +256,8 @@ void RoutingSession::Reset()
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_router != nullptr, ());
 
-  RemoveRoute(true /* changeStateToNoValidRoute */);
+  RemoveRoute();
+  SetState(SessionState::NoValidRoute);
   m_router->ClearState();
 
   m_passedDistanceOnRouteMeters = 0.0;
@@ -288,8 +287,8 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     return m_state;
   }
 
-  CHECK(m_route, ());
-  CHECK(m_route->IsValid(), ());
+  CHECK(m_route, (m_state));
+  CHECK(m_route->IsValid(), (m_state));
 
   m_turnNotificationsMgr.SetSpeedMetersPerSecond(info.m_speedMpS);
 
@@ -502,8 +501,7 @@ void RoutingSession::AssignRoute(shared_ptr<Route> route, RouterResultCode e)
     return;
   }
 
-  // Note. RemoveRoute() should not change state to NoValidRoute in this case.
-  RemoveRoute(false /* changeStateToNoValidRoute */);
+  RemoveRoute();
   SetState(SessionState::RouteNotStarted);
   m_lastCompletionPercent = 0;
   m_checkpoints.SetPointFrom(route->GetPoly().Front());

@@ -581,7 +581,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingError)
     TestMovingByUpdatingLat(sessionStateTest, latitudes, info, *m_session);
   }
 
-  // Leaving the route until switching to |SessionState::RouteNeedRebuild| state.
+  // Test 1. Leaving the route and returning to the route when state is |SessionState::RouteNeedRebuil|.
   TestLeavingRoute(*m_session, info);
 
   // Continue moving along the route.
@@ -592,18 +592,16 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingError)
     TestMovingByUpdatingLat(sessionStateTest, latitudes, info, *m_session);
   }
 
-  // Leaving the route until switching to |SessionState::RouteRebuilding| state.
+  // Test 2. Leaving the route until, can not rebuilding it, and going along an old route.
+  // It happens we the route is left and it's impossible to build a new route.
+  // In this case the navigation is continued based on the former route.
   TestLeavingRoute(*m_session, info);
   {
     SessionStateTest sessionStateTest(
-        {SessionState::RouteNeedRebuild, SessionState::RouteRebuilding,
-         SessionState::RouteNotStarted
-         },
-        *m_session);
+        {SessionState::RouteNeedRebuild, SessionState::RouteRebuilding}, *m_session);
     TimedSignal signal;
     GetPlatform().RunTask(Platform::Thread::Gui, [this, &signal]() {
       m_session->SetState(SessionState::RouteRebuilding);
-      m_session->SetState(SessionState::RouteNotStarted);
       signal.Signal();
     });
     TEST(signal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration),
@@ -612,7 +610,8 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingError)
 
   // Continue moving along the route again.
   {
-    SessionStateTest sessionStateTest({SessionState::RouteNotStarted, SessionState::OnRoute},
+    // Test on state is not changed.
+    SessionStateTest sessionStateTest({SessionState::RouteRebuilding, SessionState::OnRoute},
                                       *m_session);
     vector<double> const latitudes = {0.003, 0.0035, 0.004};
     TestMovingByUpdatingLat(sessionStateTest, latitudes, info, *m_session);

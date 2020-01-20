@@ -46,7 +46,7 @@ enum class SessionState
   NoValidRoute,       // No valid route: no route after application launching or the route was removed.
   RouteBuilding,      // We requested a route and wait when it will be built. User may be following
                       // the previous route.
-  RouteBuildingError, // The route was not built because of an error.
+  RouteBuildingError, // @TODO The state should be removed. The route was not built because of an error.
   RouteNotStarted,    // Route is built but the user isn't on it.
   OnRoute,            // User follows the route.
   RouteNeedRebuild,   // User left the route.
@@ -57,18 +57,20 @@ enum class SessionState
 };
 
 /*
- * NoValidRoute -> RouteBuilding    // start route building
- * RouteBuilding -> RouteBuildingError       // route was built with an error
- * RouteBuilding -> RouteNotStarted     // route is built in case of building a new route
- * RouteRebuilding -> RouteBuildingError     // waiting for route in case of rebuilding
- * RouteRebuilding -> RouteNotStarted   // route is built in case of rebuilding
- * RouteNotStarted -> OnRoute           // user started following the route
- * RouteNotStarted -> RouteNeedRebuild  // user doesn't like the route.
- * OnRoute -> RouteNeedRebuild          // user moves away from route - need to rebuild
- * OnRoute -> RouteNoFollowing          // following mode was disabled. Router doesn't track position
- * OnRoute -> RouteFinished             // user reached the end of route
- * OnRoute -> RouteBuilding             // while moving along a route user makes a new route
- * RouteNeedRebuild -> RouteRebuilding  // start rebuild route
+ * NoValidRoute -> RouteBuilding         // start route building
+ * RouteBuilding -> RouteBuildingError   // route was built with an error
+ * RouteBuilding -> RouteNotStarted      // route is built in case of building a new route
+ * RouteRebuilding -> RouteBuildingError // waiting for route in case of rebuilding
+ * RouteRebuilding -> RouteNotStarted    // route is built in case of rebuilding
+ * RouteNotStarted -> OnRoute            // user started following the route
+ * RouteNotStarted -> RouteNeedRebuild   // user doesn't like the route.
+ * OnRoute -> RouteNeedRebuild           // user moves away from route - need to rebuild
+ * RouteNeedRebuild -> RouteRebuilding   // the route is in process of rebuilding or
+ *                                       // while rebuilding an error happens
+ * RouteRebuilding -> OnRoute            // following along route after rebuilding
+ * OnRoute -> RouteNoFollowing           // following mode was disabled. Router doesn't track position
+ * OnRoute -> RouteFinished              // user reached the end of route
+ * OnRoute -> RouteBuilding              // while moving along a route user makes a new route
  */
 
 using CheckpointCallback = std::function<void(size_t passedCheckpointIdx)>;
