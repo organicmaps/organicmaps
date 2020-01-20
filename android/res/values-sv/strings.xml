@@ -2121,10 +2121,6 @@
 	<string name="type.natural.volcano">Vulkan</string>
 	<string name="type.natural.water">Vatten</string>
 	<string name="type.natural.wetland">Sumpmarken</string>
-	<string name="type.natural.wood">Skog</string>
-	<string name="type.natural.wood.coniferous">Skog</string>
-	<string name="type.natural.wood.deciduous">Skog</string>
-	<string name="type.natural.wood.mixed">Skog</string>
 	<string name="type.office">Kontor</string>
 	<string name="type.office.company">Företagskontor</string>
 	<string name="type.office.estate_agent">Fastighetsmäklare</string>

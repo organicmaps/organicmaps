@@ -4268,14 +4268,6 @@
 
 "type.natural.wetland.marsh" = "Wetland";
 
-"type.natural.wood" = "Ліс";
-
-"type.natural.wood.coniferous" = "Ліс";
-
-"type.natural.wood.deciduous" = "Ліс";
-
-"type.natural.wood.mixed" = "Ліс";
-
 "type.noexit" = "noexit";
 
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";

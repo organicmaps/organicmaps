@@ -2119,10 +2119,6 @@
 	<string name="type.natural.volcano">Núi lửa</string>
 	<string name="type.natural.water">Nước</string>
 	<string name="type.natural.wetland">Khu vực đầm lầy</string>
-	<string name="type.natural.wood">Rừng</string>
-	<string name="type.natural.wood.coniferous">Rừng</string>
-	<string name="type.natural.wood.deciduous">Rừng</string>
-	<string name="type.natural.wood.mixed">Rừng</string>
 	<string name="type.office">Văn phòng</string>
 	<string name="type.office.company">Văn phòng công ty</string>
 	<string name="type.office.estate_agent">Đại Lý Bất Động Sản</string>

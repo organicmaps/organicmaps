@@ -1978,10 +1978,6 @@
 	<string name="type.natural.volcano">اتشفشان</string>
 	<string name="type.natural.water">اب</string>
 	<string name="type.natural.wetland">ناحیه تالابی</string>
-	<string name="type.natural.wood">جنگل</string>
-	<string name="type.natural.wood.coniferous">جنگل</string>
-	<string name="type.natural.wood.deciduous">جنگل</string>
-	<string name="type.natural.wood.mixed">جنگل</string>
 	<string name="type.office">اداره</string>
 	<string name="type.office.company">دفتر شرکت</string>
 	<string name="type.office.estate_agent">بنگاه معاملات ملکی</string>

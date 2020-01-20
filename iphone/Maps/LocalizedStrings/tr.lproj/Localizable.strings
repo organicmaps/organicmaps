@@ -4268,14 +4268,6 @@
 
 "type.natural.wetland.marsh" = "Wetland";
 
-"type.natural.wood" = "Orman";
-
-"type.natural.wood.coniferous" = "Orman";
-
-"type.natural.wood.deciduous" = "Orman";
-
-"type.natural.wood.mixed" = "Orman";
-
 "type.noexit" = "noexit";
 
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";

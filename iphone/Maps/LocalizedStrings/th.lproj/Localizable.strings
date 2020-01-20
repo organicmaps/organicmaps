@@ -4268,14 +4268,6 @@
 
 "type.natural.wetland.marsh" = "Wetland";
 
-"type.natural.wood" = "ป่า";
-
-"type.natural.wood.coniferous" = "ป่า";
-
-"type.natural.wood.deciduous" = "ป่า";
-
-"type.natural.wood.mixed" = "ป่า";
-
 "type.noexit" = "noexit";
 
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";

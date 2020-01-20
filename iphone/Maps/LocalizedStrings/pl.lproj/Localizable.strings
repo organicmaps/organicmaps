@@ -4268,14 +4268,6 @@
 
 "type.natural.wetland.marsh" = "Moczary";
 
-"type.natural.wood" = "Las";
-
-"type.natural.wood.coniferous" = "Las iglasty";
-
-"type.natural.wood.deciduous" = "Las liściasty";
-
-"type.natural.wood.mixed" = "Las mieszany";
-
 "type.noexit" = "Ślepy koniec drogi";
 
 "type.noexit.motor_vehicle" = "Ślepy koniec drogi dla pojazdów mechanicznych";

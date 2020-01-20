@@ -2015,10 +2015,6 @@
 	<string name="type.natural.volcano">Vulkan</string>
 	<string name="type.natural.water">Vann</string>
 	<string name="type.natural.wetland">Våtmarksområde</string>
-	<string name="type.natural.wood">Skog</string>
-	<string name="type.natural.wood.coniferous">Skog</string>
-	<string name="type.natural.wood.deciduous">Skog</string>
-	<string name="type.natural.wood.mixed">Skog</string>
 	<string name="type.office">Kontor</string>
 	<string name="type.office.company">Firmakontor</string>
 	<string name="type.office.estate_agent">Eiendomsmegler</string>

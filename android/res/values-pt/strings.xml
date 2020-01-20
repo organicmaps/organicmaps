@@ -2120,10 +2120,6 @@
 	<string name="type.natural.volcano">Vulcão</string>
 	<string name="type.natural.water">Água</string>
 	<string name="type.natural.wetland">Pantanoso</string>
-	<string name="type.natural.wood">Floresta</string>
-	<string name="type.natural.wood.coniferous">Floresta</string>
-	<string name="type.natural.wood.deciduous">Floresta</string>
-	<string name="type.natural.wood.mixed">Floresta</string>
 	<string name="type.office">Escritório</string>
 	<string name="type.office.company">Escritório de empresa</string>
 	<string name="type.office.estate_agent">Corretor imobiliário</string>

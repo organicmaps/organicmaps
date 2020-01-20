@@ -2136,10 +2136,6 @@
 	<string name="type.natural.volcano">Volcan</string>
 	<string name="type.natural.water">Eau</string>
 	<string name="type.natural.wetland">Marais</string>
-	<string name="type.natural.wood">Forêt</string>
-	<string name="type.natural.wood.coniferous">Forêt</string>
-	<string name="type.natural.wood.deciduous">Forêt</string>
-	<string name="type.natural.wood.mixed">Forêt</string>
 	<string name="type.office">Bureau</string>
 	<string name="type.office.company">Bureaux d\'entreprise</string>
 	<string name="type.office.estate_agent">Agent immobilier</string>

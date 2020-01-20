@@ -2124,10 +2124,6 @@
 	<string name="type.natural.volcano">Volcan</string>
 	<string name="type.natural.water">Su</string>
 	<string name="type.natural.wetland">Sulak alan</string>
-	<string name="type.natural.wood">Orman</string>
-	<string name="type.natural.wood.coniferous">Orman</string>
-	<string name="type.natural.wood.deciduous">Orman</string>
-	<string name="type.natural.wood.mixed">Orman</string>
 	<string name="type.office">Ofis</string>
 	<string name="type.office.company">Şirket bürosu</string>
 	<string name="type.office.estate_agent">Agent immobilier</string>

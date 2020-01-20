@@ -2125,10 +2125,6 @@
 	<string name="type.natural.volcano">火山</string>
 	<string name="type.natural.water">水地</string>
 	<string name="type.natural.wetland">湿地帯</string>
-	<string name="type.natural.wood">森林</string>
-	<string name="type.natural.wood.coniferous">森林</string>
-	<string name="type.natural.wood.deciduous">森林</string>
-	<string name="type.natural.wood.mixed">森林</string>
 	<string name="type.office">オフィス</string>
 	<string name="type.office.company">会社事務所</string>
 	<string name="type.office.estate_agent">不動産業者</string>

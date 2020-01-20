@@ -2123,10 +2123,6 @@
 	<string name="type.natural.volcano">Tűzhányó</string>
 	<string name="type.natural.water">Víz</string>
 	<string name="type.natural.wetland">Vizes terület</string>
-	<string name="type.natural.wood">Erdő</string>
-	<string name="type.natural.wood.coniferous">Erdő</string>
-	<string name="type.natural.wood.deciduous">Erdő</string>
-	<string name="type.natural.wood.mixed">Erdő</string>
 	<string name="type.office">Hivatal</string>
 	<string name="type.office.company">Vállalati iroda</string>
 	<string name="type.office.estate_agent">Ingatlanügynök</string>

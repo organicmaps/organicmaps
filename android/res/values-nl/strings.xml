@@ -2109,10 +2109,6 @@
 	<string name="type.natural.tree">Boom</string>
 	<string name="type.natural.volcano">Vulkaan</string>
 	<string name="type.natural.wetland">Moerasland</string>
-	<string name="type.natural.wood">Bos</string>
-	<string name="type.natural.wood.coniferous">Bos</string>
-	<string name="type.natural.wood.deciduous">Bos</string>
-	<string name="type.natural.wood.mixed">Bos</string>
 	<string name="type.office">Kantoor</string>
 	<string name="type.office.company">Bedrijfskantoor</string>
 	<string name="type.office.estate_agent">Makelaar</string>

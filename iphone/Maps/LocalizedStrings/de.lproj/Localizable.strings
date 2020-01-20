@@ -4268,14 +4268,6 @@
 
 "type.natural.wetland.marsh" = "Wetland";
 
-"type.natural.wood" = "Wald";
-
-"type.natural.wood.coniferous" = "Nadelwald";
-
-"type.natural.wood.deciduous" = "Laubwald";
-
-"type.natural.wood.mixed" = "Mischwald";
-
 "type.noexit" = "noexit";
 
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";

@@ -2115,10 +2115,6 @@
 	<string name="type.natural.volcano">Vulcano</string>
 	<string name="type.natural.water">Bacino</string>
 	<string name="type.natural.wetland">Terreno paludoso</string>
-	<string name="type.natural.wood">Foresta</string>
-	<string name="type.natural.wood.coniferous">Foresta</string>
-	<string name="type.natural.wood.deciduous">Foresta</string>
-	<string name="type.natural.wood.mixed">Foresta</string>
 	<string name="type.office">Ufficio</string>
 	<string name="type.office.company">Ufficio aziendale</string>
 	<string name="type.office.estate_agent">Agenzia immobiliare</string>

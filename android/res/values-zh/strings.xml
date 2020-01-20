@@ -2130,10 +2130,6 @@
 	<string name="type.natural.volcano">火山</string>
 	<string name="type.natural.water">水</string>
 	<string name="type.natural.wetland">沼泽</string>
-	<string name="type.natural.wood">森林</string>
-	<string name="type.natural.wood.coniferous">森林</string>
-	<string name="type.natural.wood.deciduous">森林</string>
-	<string name="type.natural.wood.mixed">森林</string>
 	<string name="type.office">办公室</string>
 	<string name="type.office.company">公司办公室</string>
 	<string name="type.office.estate_agent">房屋中介</string>

@@ -4268,14 +4268,6 @@
 
 "type.natural.wetland.marsh" = "Wetland";
 
-"type.natural.wood" = "Hutan";
-
-"type.natural.wood.coniferous" = "Hutan";
-
-"type.natural.wood.deciduous" = "Hutan";
-
-"type.natural.wood.mixed" = "Hutan";
-
 "type.noexit" = "noexit";
 
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";

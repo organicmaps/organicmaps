@@ -4268,14 +4268,6 @@
 
 "type.natural.wetland.marsh" = "Wetland";
 
-"type.natural.wood" = "Metsä";
-
-"type.natural.wood.coniferous" = "Metsä";
-
-"type.natural.wood.deciduous" = "Metsä";
-
-"type.natural.wood.mixed" = "Metsä";
-
 "type.noexit" = "noexit";
 
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";

@@ -2133,10 +2133,6 @@
 	<string name="type.natural.volcano">Вулкан</string>
 	<string name="type.natural.water">Водоймище</string>
 	<string name="type.natural.wetland">Болотиста місцевість</string>
-	<string name="type.natural.wood">Ліс</string>
-	<string name="type.natural.wood.coniferous">Ліс</string>
-	<string name="type.natural.wood.deciduous">Ліс</string>
-	<string name="type.natural.wood.mixed">Ліс</string>
 	<string name="type.office">Офіс</string>
 	<string name="type.office.company">Організація</string>
 	<string name="type.office.estate_agent">Агенція нерухомості/ріелтор</string>

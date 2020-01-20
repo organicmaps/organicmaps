@@ -2116,10 +2116,6 @@
 	<string name="type.natural.volcano">Gunung berapi</string>
 	<string name="type.natural.water">Air</string>
 	<string name="type.natural.wetland">Area lahan basah</string>
-	<string name="type.natural.wood">Hutan</string>
-	<string name="type.natural.wood.coniferous">Hutan</string>
-	<string name="type.natural.wood.deciduous">Hutan</string>
-	<string name="type.natural.wood.mixed">Hutan</string>
 	<string name="type.office">Kantor</string>
 	<string name="type.office.company">Kantor perusahaan</string>
 	<string name="type.office.estate_agent">Agen ril estat</string>

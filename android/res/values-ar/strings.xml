@@ -2132,10 +2132,6 @@
 	<string name="type.natural.volcano">بركان</string>
 	<string name="type.natural.water">مياه</string>
 	<string name="type.natural.wetland">منطقة رطبة</string>
-	<string name="type.natural.wood">غابة</string>
-	<string name="type.natural.wood.coniferous">غابة</string>
-	<string name="type.natural.wood.deciduous">غابة</string>
-	<string name="type.natural.wood.mixed">غابة</string>
 	<string name="type.office">مكتب</string>
 	<string name="type.office.company">مكتب شركة</string>
 	<string name="type.office.estate_agent">وكيل عقاري</string>

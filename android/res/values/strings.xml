@@ -2350,10 +2350,6 @@
 	<string name="type.natural.wetland">Wetland area</string>
 	<string name="type.natural.wetland.bog">Wetland</string>
 	<string name="type.natural.wetland.marsh">Wetland</string>
-	<string name="type.natural.wood">Forest</string>
-	<string name="type.natural.wood.coniferous">Forest</string>
-	<string name="type.natural.wood.deciduous">Forest</string>
-	<string name="type.natural.wood.mixed">Forest</string>
 	<string name="type.noexit">noexit</string>
 	<string name="type.noexit.motor_vehicle">noexit-motor_vehicle</string>
 	<string name="type.office">Office</string>

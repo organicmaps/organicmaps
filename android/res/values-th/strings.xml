@@ -2132,10 +2132,6 @@
 	<string name="type.natural.volcano">ภูเขาไฟ</string>
 	<string name="type.natural.water">น้ำ</string>
 	<string name="type.natural.wetland">พื้นที่น้ำท่วมขัง</string>
-	<string name="type.natural.wood">ป่า</string>
-	<string name="type.natural.wood.coniferous">ป่า</string>
-	<string name="type.natural.wood.deciduous">ป่า</string>
-	<string name="type.natural.wood.mixed">ป่า</string>
 	<string name="type.office">สำนักงาน</string>
 	<string name="type.office.company">สำนักงานบริษัท</string>
 	<string name="type.office.estate_agent">นายหน้าอสังหาริมทรัพย์</string>

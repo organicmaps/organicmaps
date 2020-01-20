@@ -1883,10 +1883,6 @@
 	<string name="type.natural.volcano">Ηφαίστειο</string>
 	<string name="type.natural.water">Νερό</string>
 	<string name="type.natural.wetland">Υγρότοπος</string>
-	<string name="type.natural.wood">Δάσος</string>
-	<string name="type.natural.wood.coniferous">Δάσος</string>
-	<string name="type.natural.wood.deciduous">Δάσος</string>
-	<string name="type.natural.wood.mixed">Δάσος</string>
 	<string name="type.office">Γραφείο</string>
 	<string name="type.office.company">Γραφείο επιχείρησης</string>
 	<string name="type.office.estate_agent">Κτηματομεσίτης</string>

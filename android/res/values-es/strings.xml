@@ -2109,10 +2109,6 @@
 	<string name="type.natural.volcano">Volcán</string>
 	<string name="type.natural.water">Cuenca</string>
 	<string name="type.natural.wetland">Terreno pantanoso</string>
-	<string name="type.natural.wood">Bosque</string>
-	<string name="type.natural.wood.coniferous">Bosque</string>
-	<string name="type.natural.wood.deciduous">Bosque</string>
-	<string name="type.natural.wood.mixed">Bosque</string>
 	<string name="type.office">Oficina</string>
 	<string name="type.office.company">Oficina</string>
 	<string name="type.office.estate_agent">Agente inmobiliario</string>

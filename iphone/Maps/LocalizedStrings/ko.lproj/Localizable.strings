@@ -4268,14 +4268,6 @@
 
 "type.natural.wetland.marsh" = "Wetland";
 
-"type.natural.wood" = "숲";
-
-"type.natural.wood.coniferous" = "숲";
-
-"type.natural.wood.deciduous" = "숲";
-
-"type.natural.wood.mixed" = "숲";
-
 "type.noexit" = "noexit";
 
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";

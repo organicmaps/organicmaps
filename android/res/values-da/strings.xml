@@ -2116,10 +2116,6 @@
 	<string name="type.natural.volcano">Vulkan</string>
 	<string name="type.natural.water">Vand</string>
 	<string name="type.natural.wetland">Vådområde</string>
-	<string name="type.natural.wood">Skov</string>
-	<string name="type.natural.wood.coniferous">Skov</string>
-	<string name="type.natural.wood.deciduous">Skov</string>
-	<string name="type.natural.wood.mixed">Skov</string>
 	<string name="type.office">Kontor</string>
 	<string name="type.office.company">Selskabskontor</string>
 	<string name="type.office.estate_agent">Ejendomsmægler</string>

@@ -2244,10 +2244,6 @@
 	<string name="type.natural.wetland">Tereny podmokłe</string>
 	<string name="type.natural.wetland.bog">Torfowisko</string>
 	<string name="type.natural.wetland.marsh">Moczary</string>
-	<string name="type.natural.wood">Las</string>
-	<string name="type.natural.wood.coniferous">Las iglasty</string>
-	<string name="type.natural.wood.deciduous">Las liściasty</string>
-	<string name="type.natural.wood.mixed">Las mieszany</string>
 	<string name="type.noexit">Ślepy koniec drogi</string>
 	<string name="type.noexit.motor_vehicle">Ślepy koniec drogi dla pojazdów mechanicznych</string>
 	<string name="type.office">Biuro</string>

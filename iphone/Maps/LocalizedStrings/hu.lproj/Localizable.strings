@@ -4268,14 +4268,6 @@
 
 "type.natural.wetland.marsh" = "Wetland";
 
-"type.natural.wood" = "Erdő";
-
-"type.natural.wood.coniferous" = "Erdő";
-
-"type.natural.wood.deciduous" = "Erdő";
-
-"type.natural.wood.mixed" = "Erdő";
-
 "type.noexit" = "noexit";
 
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";

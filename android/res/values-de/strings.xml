@@ -2128,10 +2128,6 @@
 	<string name="type.natural.volcano">Vulkan</string>
 	<string name="type.natural.water">Wasserfläche</string>
 	<string name="type.natural.wetland">Moorgegend</string>
-	<string name="type.natural.wood">Wald</string>
-	<string name="type.natural.wood.coniferous">Nadelwald</string>
-	<string name="type.natural.wood.deciduous">Laubwald</string>
-	<string name="type.natural.wood.mixed">Mischwald</string>
 	<string name="type.office">Büro</string>
 	<string name="type.office.company">Niederlassung</string>
 	<string name="type.office.estate_agent">Immobilienmakler</string>

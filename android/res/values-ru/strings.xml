@@ -2212,10 +2212,6 @@
 	<string name="type.natural.volcano">Вулкан</string>
 	<string name="type.natural.water">Водоём</string>
 	<string name="type.natural.wetland">Болотистая местность</string>
-	<string name="type.natural.wood">Лес</string>
-	<string name="type.natural.wood.coniferous">Лес</string>
-	<string name="type.natural.wood.deciduous">Лес</string>
-	<string name="type.natural.wood.mixed">Лес</string>
 	<string name="type.office">Офис</string>
 	<string name="type.office.company">Организация</string>
 	<string name="type.office.estate_agent">Агентство недвижимости</string>

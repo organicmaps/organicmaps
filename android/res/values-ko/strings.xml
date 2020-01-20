@@ -2120,10 +2120,6 @@
 	<string name="type.natural.volcano">화산</string>
 	<string name="type.natural.water">연못</string>
 	<string name="type.natural.wetland">습지 구역</string>
-	<string name="type.natural.wood">숲</string>
-	<string name="type.natural.wood.coniferous">숲</string>
-	<string name="type.natural.wood.deciduous">숲</string>
-	<string name="type.natural.wood.mixed">숲</string>
 	<string name="type.office">사무실</string>
 	<string name="type.office.company">회사</string>
 	<string name="type.office.estate_agent">부동산중개소</string>

@@ -2109,10 +2109,6 @@
 	<string name="type.natural.volcano">Vulcan</string>
 	<string name="type.natural.water">Apă</string>
 	<string name="type.natural.wetland">Loc mlăștinos</string>
-	<string name="type.natural.wood">Pădure</string>
-	<string name="type.natural.wood.coniferous">Pădure</string>
-	<string name="type.natural.wood.deciduous">Pădure</string>
-	<string name="type.natural.wood.mixed">Pădure</string>
 	<string name="type.office">Birou</string>
 	<string name="type.office.company">Sediu companei</string>
 	<string name="type.office.estate_agent">Agent imobiliar</string>

@@ -4268,14 +4268,6 @@
 
 "type.natural.wetland.marsh" = "Wetland";
 
-"type.natural.wood" = "جنگل";
-
-"type.natural.wood.coniferous" = "جنگل";
-
-"type.natural.wood.deciduous" = "جنگل";
-
-"type.natural.wood.mixed" = "جنگل";
-
 "type.noexit" = "noexit";
 
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";

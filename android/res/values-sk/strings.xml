@@ -2126,10 +2126,6 @@
 	<string name="type.natural.volcano">Vulkán</string>
 	<string name="type.natural.water">Voda</string>
 	<string name="type.natural.wetland">Oblasť mokradí</string>
-	<string name="type.natural.wood">Les</string>
-	<string name="type.natural.wood.coniferous">Les</string>
-	<string name="type.natural.wood.deciduous">Les</string>
-	<string name="type.natural.wood.mixed">Les</string>
 	<string name="type.office">Kancelária</string>
 	<string name="type.office.company">Sídlo spoločnosti</string>
 	<string name="type.office.estate_agent">Realitný agent</string>
