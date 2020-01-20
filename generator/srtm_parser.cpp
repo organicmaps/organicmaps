@@ -187,12 +187,13 @@ geometry::Altitude SrtmTileManager::GetHeight(ms::LatLon const & coord)
     }
     catch (RootException const & e)
     {
+      std::string const base = SrtmTile::GetBase(coord);
       LOG(LINFO, ("Can't init SRTM tile:", base, "reason:", e.Msg()));
     }
 
     // It's OK to store even invalid tiles and return invalid height
     // for them later.
-    it = m_tiles.emplace(base, std::move(tile)).first;
+    it = m_tiles.emplace(key, std::move(tile)).first;
   }
 
   return it->second.GetHeight(coord);
