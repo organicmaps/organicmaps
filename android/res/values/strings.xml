@@ -2317,12 +2317,6 @@
 	<string name="type.man_made.works">man_made-works</string>
 	<string name="type.mapswithme">mapswithme</string>
 	<string name="type.mapswithme.grid">mapswithme-grid</string>
-	<string name="type.marking">marking</string>
-	<string name="type.marking.sport">marking-sport</string>
-	<string name="type.marking.sport.black">marking-sport-black</string>
-	<string name="type.marking.sport.blue">marking-sport-blue</string>
-	<string name="type.marking.sport.red">marking-sport-red</string>
-	<string name="type.marking.sport.white">marking-sport-white</string>
 	<string name="type.military">military</string>
 	<string name="type.military.bunker">Bunker</string>
 	<string name="type.natural">natural</string>
