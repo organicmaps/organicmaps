@@ -910,11 +910,11 @@ railway|station|subway|violet
 railway|subway|grey
 railway|station|subway|grey
 historic|ship
-marking|sport
-marking|sport|white
-marking|sport|red
-marking|sport|black
-marking|sport|blue
+mapswithme
+mapswithme
+mapswithme
+mapswithme
+mapswithme
 shop|mall
 shop|doityourself
 place|sea

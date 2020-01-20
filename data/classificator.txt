@@ -574,14 +574,6 @@ world  +
     mapswithme  +
         grid  -
         {}
-    marking  +
-        sport  +
-            black  -
-            blue  -
-            red  -
-            white  -
-            {}
-        {}
     military  +
         bunker  -
         {}
