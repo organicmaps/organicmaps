@@ -11949,24 +11949,6 @@
   [type.mapswithme.grid]
     en = mapswithme-grid
 
-  [type.marking]
-    en = marking
-
-  [type.marking.sport]
-    en = marking-sport
-
-  [type.marking.sport.black]
-    en = marking-sport-black
-
-  [type.marking.sport.blue]
-    en = marking-sport-blue
-
-  [type.marking.sport.red]
-    en = marking-sport-red
-
-  [type.marking.sport.white]
-    en = marking-sport-white
-
   [type.military]
     en = military
     pl = Wojskowe
