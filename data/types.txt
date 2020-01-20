@@ -11,7 +11,7 @@ power|tower
 landuse|forest
 landuse|grass
 highway|secondary
-natural|wood
+landuse|forest
 landuse|residential
 highway|path
 highway|bus_stop
@@ -129,7 +129,7 @@ place|suburb
 landuse|allotments
 landuse|forest|coniferous
 landuse|forest|mixed
-natural|wood|mixed
+landuse|forest|mixed
 sport|tennis
 landuse|vineyard
 aeroway|taxiway
@@ -169,7 +169,7 @@ highway|bridleway
 natural|heath
 landuse|basin
 amenity|library
-natural|wood|coniferous
+landuse|forest|coniferous
 landuse|recreation_ground
 landuse|village_green
 amenity|drinking_water
@@ -196,7 +196,7 @@ piste:type|nordic
 highway|motorway
 railway|crossing
 boundary|national_park
-natural|wood|deciduous
+landuse|forest|deciduous
 waterway|dam
 highway|motorway_link
 leisure|golf_course
@@ -382,7 +382,7 @@ natural|water
 railway|narrow_gauge|tunnel
 mapswithme
 waterway|dock
-natural|wood
+landuse|forest
 highway|service|driveway
 man_made|pipeline
 place|city|capital

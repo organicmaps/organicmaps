@@ -609,11 +609,6 @@ world  +
             bog  -
             marsh  -
             {}
-        wood  +
-            coniferous  -
-            deciduous  -
-            mixed  -
-            {}
         {}
     noexit  +
         motor_vehicle  -
