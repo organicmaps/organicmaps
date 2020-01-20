@@ -65,7 +65,6 @@ area[sport=soccer],
 area[amenity=parking]
 {z-index: 6;}
 
-area[natural=wood],
 area[landuse=forest]
 {z-index: 30;}
 
@@ -232,7 +231,6 @@ line|z10-[boundary=administrative][admin_level=4]
 
 /* 4.VEGETATION */
 
-area|z10-[natural=wood],
 area|z10-[landuse=forest],
 area|z10-[leisure=park],
 area|z10-[leisure=garden],
@@ -251,7 +249,6 @@ area|z12-[landuse=village_green],
 area|z12-[landuse=field],
 {fill-position: background; fill-opacity: 1;}
 
-area|z10[natural=wood],
 area|z10[landuse=forest],
 area|z14-[landuse=grass],
 area|z14-[natural=grassland],
@@ -268,13 +265,11 @@ area|z14-[landuse=village_green],
 area|z14-[landuse=field],
 {fill-color: @green1;}
 
-area|z11-12[natural=wood],
 area|z11-12[landuse=forest],
 area|z10-12[leisure=park],
 area|z12[leisure=garden],
 {fill-color: @green2;}
 
-area|z13[natural=wood],
 area|z13[landuse=forest],
 area|z13[leisure=park],
 area|z13[leisure=garden]
@@ -302,19 +297,16 @@ area|z14-[boundary=national_park],
 area|z14-[landuse=military]
 {fill-position: background; fill-opacity: 1; fill-color: @military;}
 
-area|z14[natural=wood],
 area|z14[landuse=forest],
 area|z14[leisure=park],
 area|z14[leisure=garden]
 {fill-color: @green4;}
 
-area|z15[natural=wood],
 area|z15[landuse=forest],
 area|z15[leisure=park],
 area|z15[leisure=garden]
 {fill-color: @green5;}
 
-area|z16-[natural=wood],
 area|z16-[landuse=forest],
 area|z16-[leisure=park],
 area|z16-[leisure=garden]
