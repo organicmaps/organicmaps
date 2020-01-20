@@ -1,0 +1,51 @@
+project(topography_generator_tool)
+
+include_directories(
+  ${OMIM_ROOT}/3party/gflags/src
+)
+
+set(
+  SRC
+  filters_impl.cpp
+  filters_impl.hpp
+  generator.cpp
+  generator.hpp
+  isolines_utils.cpp
+  isolines_utils.hpp
+  main.cpp
+  marching_squares/contours_builder.cpp
+  marching_squares/contours_builder.hpp
+  marching_squares/marching_squares.hpp
+  marching_squares/square.hpp
+  tile_filter.hpp
+  utils/contours.hpp
+  utils/contours_serdes.hpp
+  utils/values_provider.hpp
+)
+
+omim_add_executable(${PROJECT_NAME} ${SRC})
+
+omim_link_libraries(
+  ${PROJECT_NAME}
+  generator
+  routing
+  routing_common
+  traffic
+  storage
+  platform
+  indexer
+  geometry
+  coding
+  base
+  oauthcpp
+  expat
+  jansson
+  protobuf
+  minizip
+  icu
+  stats_client
+  gflags
+  ${LIBZ}
+)
+
+link_qt5_core(${PROJECT_NAME})
