@@ -910,11 +910,11 @@ railway|station|subway|violet;[railway=station][transport=subway][colour=violet]
 railway|subway|grey;[railway=subway][colour=grey];;name;int_name;910;
 railway|station|subway|grey;[railway=station][transport=subway][colour=grey],[railway=station][station=subway][colour=grey];;name;int_name;911;
 historic|ship;912;
-marking|sport;[marking=sport][!colour];;name;int_name;913;
-marking|sport|white;[marking=sport][colour=white];;name;int_name;914;
-marking|sport|red;[marking=sport][colour=red];;name;int_name;915;
-marking|sport|black;[marking=sport][colour=black];;name;int_name;916;
-marking|sport|blue;[marking=sport][colour=blue];;name;int_name;917;
+marking|sport;[marking=sport][!colour];x;name;int_name;913;
+marking|sport|white;[marking=sport][colour=white];x;name;int_name;914;
+marking|sport|red;[marking=sport][colour=red];x;name;int_name;915;
+marking|sport|black;[marking=sport][colour=black];x;name;int_name;916;
+marking|sport|blue;[marking=sport][colour=blue];x;name;int_name;917;
 shop|mall;918;
 shop|doityourself;919;
 place|sea;920;
