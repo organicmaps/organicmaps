@@ -237,7 +237,7 @@ MapcssRules ParseMapCSS(std::unique_ptr<Reader> reader)
   // column. It works only for simple types that are produced from tags replacing '=' with '|'.
 
   std::string line;
-  while (getline(data, line))
+  while (std::getline(data, line))
   {
     std::vector<std::string> fields;
     strings::ParseCSVRow(line, ';', fields);
@@ -246,7 +246,7 @@ MapcssRules ParseMapCSS(std::unique_ptr<Reader> reader)
     if (fields.size() == 3 && fields[2].empty())
       processShort(fields[0]);
 
-    // Ful format, not obsolete.
+    // Full format, not obsolete.
     if (fields.size() == 7 && fields[2] != "x")
       processFull(fields[0], fields[1]);
   }

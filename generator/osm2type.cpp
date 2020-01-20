@@ -239,20 +239,7 @@ private:
 
 void LeaveLongestTypes(vector<generator::TypeStrings> & matchedTypes)
 {
-  auto const less = [](auto const & lhs, auto const & rhs) {
-    for (auto lhsIt = lhs.begin(), rhsIt = rhs.begin();; ++lhsIt, ++rhsIt)
-    {
-      if (lhsIt == lhs.end() && rhsIt == rhs.end())
-        return false;
-      if (lhsIt == lhs.end() && rhsIt != rhs.end())
-        return false;
-      if (lhsIt != lhs.end() && rhsIt == rhs.end())
-        return true;
-
-      if (*lhsIt != *rhsIt)
-        return *lhsIt < *rhsIt;
-    }
-  };
+  auto const less = [](auto const & lhs, auto const & rhs) { return lhs > rhs; };
 
   auto const equals = [](auto const & lhs, auto const & rhs) {
     for (auto lhsIt = lhs.begin(), rhsIt = rhs.begin(); lhsIt != lhs.end() && rhsIt != rhs.end();
@@ -272,10 +259,10 @@ void MatchTypes(OsmElement * p, FeatureBuilderParams & params, function<bool(uin
   auto static const rules = generator::ParseMapCSS(GetPlatform().GetReader("mapcss-mapping.csv"));
 
   vector<generator::TypeStrings> matchedTypes;
-  for (auto const & rule : rules)
+  for (auto const & [typeString, rule] : rules)
   {
-    if (rule.second.Matches(p->m_tags))
-      matchedTypes.push_back(rule.first);
+    if (rule.Matches(p->m_tags))
+      matchedTypes.push_back(typeString);
   }
 
   LeaveLongestTypes(matchedTypes);

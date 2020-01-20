@@ -39,7 +39,7 @@ class MetadataTagProcessor : private MetadataTagProcessorImpl
 public:
   /// Make base class constructor public.
   using MetadataTagProcessorImpl::MetadataTagProcessorImpl;
-  /// TODO(mgsergio): Move to cpp after merge with https://github.com/mapsme/omim/pull/1314
+
   void operator()(std::string const & k, std::string const & v)
   {
     if (v.empty())

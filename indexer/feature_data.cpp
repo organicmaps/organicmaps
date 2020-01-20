@@ -412,19 +412,16 @@ void FeatureParams::AddTypes(FeatureParams const & rhs, uint32_t skipType2)
 
 bool FeatureParams::FinishAddingTypes()
 {
-  vector<uint32_t> newTypes = m_types;
-  base::SortUnique(newTypes);
+  base::SortUnique(m_types);
 
-  if (newTypes.size() > kMaxTypesCount)
+  if (m_types.size() > kMaxTypesCount)
   {
     // Put common types to the end to leave the most important types.
     auto const & checker = UselessTypesChecker::Instance();
-    UNUSED_VALUE(base::RemoveIfKeepValid(newTypes.begin(), newTypes.end(), checker));
-    newTypes.resize(kMaxTypesCount);
-    sort(newTypes.begin(), newTypes.end());
+    UNUSED_VALUE(base::RemoveIfKeepValid(m_types.begin(), m_types.end(), checker));
+    m_types.resize(kMaxTypesCount);
+    sort(m_types.begin(), m_types.end());
   }
-
-  m_types.swap(newTypes);
 
   // Patch fix that removes house number from localities.
   if (!house.IsEmpty() && ftypes::IsLocalityChecker::Instance()(m_types))
