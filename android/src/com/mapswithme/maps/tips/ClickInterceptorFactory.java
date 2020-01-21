@@ -1,7 +1,6 @@
 package com.mapswithme.maps.tips;
 
 import androidx.annotation.NonNull;
-
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
@@ -13,9 +12,9 @@ import com.mapswithme.util.UTM;
 class ClickInterceptorFactory
 {
   @NonNull
-  static ClickInterceptor createActivateSubwayLayerListener()
+  static ClickInterceptor createActivateIsolinesLayerListener()
   {
-    return new ActivateSubwayLayer();
+    return new ActivateIsolinesLayer();
   }
 
   @NonNull
@@ -53,9 +52,9 @@ class ClickInterceptorFactory
     }
   }
 
-  static class ActivateSubwayLayer extends AbstractClickInterceptor
+  static class ActivateIsolinesLayer extends AbstractClickInterceptor
   {
-    ActivateSubwayLayer()
+    ActivateIsolinesLayer()
     {
       super(Tutorial.MAP_LAYERS);
     }
@@ -63,8 +62,8 @@ class ClickInterceptorFactory
     @Override
     public void onInterceptClickInternal(@NonNull MwmActivity activity)
     {
-      Mode.SUBWAY.setEnabled(activity, true);
-      activity.onSubwayLayerSelected();
+      Mode.ISOLINES.setEnabled(activity, true);
+      activity.onIsolinesLayerSelected();
     }
   }
 

@@ -61,16 +61,16 @@ public enum Tutorial
         }
       },
 
-  MAP_LAYERS(R.string.tips_map_layers_title,
-             R.string.tips_map_layers_message,
-             R.id.subway, null, MwmActivity.class)
+  MAP_LAYERS(R.string.tips_map_layers_title_countour,
+             R.string.tips_map_layers_message_countour,
+             R.id.isolines, null, MwmActivity.class)
       {
 
         @NonNull
         @Override
         public ClickInterceptor createClickInterceptor()
         {
-          return ClickInterceptorFactory.createActivateSubwayLayerListener();
+          return ClickInterceptorFactory.createActivateIsolinesLayerListener();
         }
       },
 
