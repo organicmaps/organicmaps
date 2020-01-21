@@ -226,7 +226,7 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
                             ? [MWMSearch manager]->m_everywhereParams.m_inputLocale
                             : inputLocale.UTF8String;
   std::string const text = query.precomposedStringWithCompatibilityMapping.UTF8String;
-  GetFramework().SaveSearchQuery(make_pair(locale, text));
+  GetFramework().GetSearchAPI().SaveSearchQuery(make_pair(locale, text));
 }
 
 + (void)searchQuery:(NSString *)query forInputLocale:(NSString *)inputLocale

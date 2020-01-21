@@ -11,7 +11,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchRecents_nativeGetList(JNIEnv * env, jclass thiz, jobject result)
   {
-    auto const & items = g_framework->NativeFramework()->GetLastSearchQueries();
+    auto const & items = g_framework->NativeFramework()->GetSearchAPI().GetLastSearchQueries();
     if (items.empty())
       return;
 
@@ -34,12 +34,12 @@ extern "C"
   Java_com_mapswithme_maps_search_SearchRecents_nativeAdd(JNIEnv * env, jclass thiz, jstring locale, jstring query)
   {
     SearchRequest const sr(jni::ToNativeString(env, locale), jni::ToNativeString(env, query));
-    g_framework->NativeFramework()->SaveSearchQuery(sr);
+    g_framework->NativeFramework()->GetSearchAPI().SaveSearchQuery(sr);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchRecents_nativeClear(JNIEnv * env, jclass thiz)
   {
-    g_framework->NativeFramework()->ClearSearchHistory();
+    g_framework->NativeFramework()->GetSearchAPI().ClearSearchHistory();
   }
 }

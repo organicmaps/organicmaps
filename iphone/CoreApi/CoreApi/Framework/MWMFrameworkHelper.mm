@@ -87,7 +87,7 @@
 
 + (NSArray<NSString *> *)obtainLastSearchQueries {
   NSMutableArray *result = [NSMutableArray array];
-  auto const &queries = GetFramework().GetLastSearchQueries();
+  auto const & queries = GetFramework().GetSearchAPI().GetLastSearchQueries();
   for (auto const &item : queries) {
     [result addObject:@(item.second.c_str())];
   }

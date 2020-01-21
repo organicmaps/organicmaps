@@ -52,7 +52,6 @@
 #include "search/city_finder.hpp"
 #include "search/displayed_categories.hpp"
 #include "search/mode.hpp"
-#include "search/query_saver.hpp"
 #include "search/region_address_getter.hpp"
 #include "search/result.hpp"
 #include "search/reverse_geocoder.hpp"
@@ -205,8 +204,6 @@ protected:
   std::unique_ptr<ugc::Api> m_ugcApi;
 
   std::unique_ptr<SearchAPI> m_searchAPI;
-
-  search::QuerySaver m_searchQuerySaver;
 
   ScreenBase m_currentModelView;
   m2::RectD m_visibleViewport;
@@ -563,9 +560,6 @@ public:
   void FillSearchResultsMarks(bool clear, search::Results const & results);
   void FillSearchResultsMarks(search::Results::ConstIter begin, search::Results::ConstIter end,
                                 bool clear, SearchMarkPostProcessing fn = nullptr);
-  std::list<SearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
-  void SaveSearchQuery(SearchRequest const & query) { m_searchQuerySaver.Add(query); }
-  void ClearSearchHistory() { m_searchQuerySaver.Clear(); }
 
   /// Calculate distance and direction to POI for the given position.
   /// @param[in]  point             POI's position;

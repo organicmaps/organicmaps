@@ -46,13 +46,13 @@
 
 - (BOOL)isSearchHistoryEmpty
 {
-  return GetFramework().GetLastSearchQueries().empty();
+  return GetFramework().GetSearchAPI().GetLastSearchQueries().empty();
 }
 
 - (NSArray<NSString *> *)lastSearchQueries
 {
   NSMutableArray * result = [NSMutableArray array];
-  auto const & queries = GetFramework().GetLastSearchQueries();
+  auto const & queries = GetFramework().GetSearchAPI().GetLastSearchQueries();
   for (auto const & item : queries)
   {
     [result addObject:@(item.second.c_str())];
@@ -62,7 +62,7 @@
 
 - (void)clearSearchHistory
 {
-  GetFramework().ClearSearchHistory();
+  GetFramework().GetSearchAPI().ClearSearchHistory();
 }
 
 @end
