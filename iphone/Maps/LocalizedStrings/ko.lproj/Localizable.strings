@@ -3185,6 +3185,12 @@
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "지하철 루트 계획 생성 실패";
 
+/* FIXME */
+"whatsnew_isolines_title" = "whatsnew_isolines_title";
+
+/* FIXME */
+"whatsnew_isolines_message" = "whatsnew_isolines_message";
+
 
 /**********  Partners  **********/
 

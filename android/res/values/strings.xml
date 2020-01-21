@@ -1805,6 +1805,10 @@
 	<string name="dialog_pedestrian_route_is_long_message">Please choose a start or end point closer to a subway station</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Subway route planning failed</string>
+	<!-- FIXME -->
+	<string name="whatsnew_isolines_title">whatsnew_isolines_title</string>
+	<!-- FIXME -->
+	<string name="whatsnew_isolines_message">whatsnew_isolines_message</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
