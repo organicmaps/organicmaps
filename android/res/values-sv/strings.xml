@@ -1741,6 +1741,14 @@
 	<string name="dialog_pedestrian_route_is_long_message">Välj ruttens start- eller slutpunkt närmare till tunnelbanestation</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Fel vid byggande av metro rutt</string>
+	<string name="whatsnew_isolines_title">Nyhet för utomhusaktiviteter – höjdlinjer offline!</string>
+	<!-- as less symbols as possible -->
+	<string name="whatsnew_isolines_message">Navigera i högländerna – slå på lagret med knappen i det övre vänstra hörnet av skärmen</string>
+	<!-- Contour map -->
+	<string name="button_layer_isolines">Terräng</string>
+	<string name="tips_map_layers_title_countour">Höjningslinjer offline i MAPS.ME!</string>
+	<string name="tips_map_layers_message_countour">Höjdlinjer hjälper dig att planera din resa till naturen och inte gå vilse på marken</string>
+	<string name="isolines_activation_error_dialog">Om du vill använda höjdlinjer, uppdatera eller ladda ner en karta över önskat område</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

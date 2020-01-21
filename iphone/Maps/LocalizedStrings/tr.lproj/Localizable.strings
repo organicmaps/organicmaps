@@ -3185,17 +3185,19 @@
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Metro güzergahı oluşturma hatası";
 
-/* FIXME */
-"whatsnew_isolines_title" = "whatsnew_isolines_title";
+"whatsnew_isolines_title" = "Açık hava etkinlikleri için yenilik – yükseklik çizgileri çevrimdışı!";
 
-/* FIXME */
-"whatsnew_isolines_message" = "whatsnew_isolines_message";
+/* as less symbols as possible */
+"whatsnew_isolines_message" = "Dağlık alanda kendinizi yönlendirin – ekranın sol üst köşesindeki düğmeyi kullanarak katmanı açın";
 
-/* FIXME */
-"tips_map_layers_title_countour" = "tips_map_layers_title_countour";
+/* Contour map */
+"button_layer_isolines" = "Yükseklikler";
 
-/* FIXME */
-"tips_map_layers_message_countour" = "tips_map_layers_message_countour";
+"tips_map_layers_title_countour" = "MAPS.ME'de yükseklik çizgileri çevrimdışı!";
+
+"tips_map_layers_message_countour" = "Yükseklik çizgileri, doğaya bir gezi planlamanıza ve arazide kaybolmamanıza yardımcı olacaktır";
+
+"isolines_activation_error_dialog" = "Yükseklik çizgilerini kullanmak için, istediğiniz arazinin haritasını güncelleyin veya indirin";
 
 
 /**********  Partners  **********/

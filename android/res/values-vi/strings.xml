@@ -1731,6 +1731,14 @@
 	<string name="dialog_pedestrian_route_is_long_message">Hãy chọn điểm đầu hoặc điểm cuối của tuyến gần với bến Metro</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Lỗi xây dựng tuyến Metro</string>
+	<string name="whatsnew_isolines_title">Tính năng mới cho kỳ nghỉ năng động – đường chỉ độ cao ngoại tuyến!</string>
+	<!-- as less symbols as possible -->
+	<string name="whatsnew_isolines_message">Xác định phương hướng ở vùng đồi núi – hãy bật nút chỉ lớp ở góc trái trên màn hình</string>
+	<!-- Contour map -->
+	<string name="button_layer_isolines">Độ cao</string>
+	<string name="tips_map_layers_title_countour">Đường độ cao ngoại tuyến trong MAPS.ME!</string>
+	<string name="tips_map_layers_message_countour">Đường độ cao giúp lên kế hoạch du lịch hòa mình với thiên nhiên và không bị lạc khi di chuyển</string>
+	<string name="isolines_activation_error_dialog">Để sử dụng các đường chỉ độ cao, hãy cập nhật hoặc tải xuống bản đồ của khu vực bạn mong muốn</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

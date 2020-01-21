@@ -3185,17 +3185,19 @@
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Feil ved ruteplanlegging";
 
-/* FIXME */
-"whatsnew_isolines_title" = "whatsnew_isolines_title";
+"whatsnew_isolines_title" = "Nyhet i friluftsliv – høydekurver uten nett!";
 
-/* FIXME */
-"whatsnew_isolines_message" = "whatsnew_isolines_message";
+/* as less symbols as possible */
+"whatsnew_isolines_message" = "Orienter deg i fjellområde – slå på lag ved å trykke på knappen i hjørnet øverst til venstre på skjermen";
 
-/* FIXME */
-"tips_map_layers_title_countour" = "tips_map_layers_title_countour";
+/* Contour map */
+"button_layer_isolines" = "Høyder";
 
-/* FIXME */
-"tips_map_layers_message_countour" = "tips_map_layers_message_countour";
+"tips_map_layers_title_countour" = "Høydekurver uten nett med MAPS.ME!";
+
+"tips_map_layers_message_countour" = "Høydekurver hjelper deg å planlegge turen din og ikke gå seg vill";
+
+"isolines_activation_error_dialog" = "For å bruke høydekurver oppdater eller last opp kartet til nødvendig område";
 
 
 /**********  Partners  **********/

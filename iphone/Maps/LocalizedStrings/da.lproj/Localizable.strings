@@ -3185,17 +3185,19 @@
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Planlægning af metro-rute mislykkedes";
 
-/* FIXME */
-"whatsnew_isolines_title" = "whatsnew_isolines_title";
+"whatsnew_isolines_title" = "Nyt til udenfor: offline topografiske lag!";
 
-/* FIXME */
-"whatsnew_isolines_message" = "whatsnew_isolines_message";
+/* as less symbols as possible */
+"whatsnew_isolines_message" = "Følg dig selvsikker i det bjergrige område. Tænd bare for laget i det øverste venstre hjørne";
 
-/* FIXME */
-"tips_map_layers_title_countour" = "tips_map_layers_title_countour";
+/* Contour map */
+"button_layer_isolines" = "Konturkort";
 
-/* FIXME */
-"tips_map_layers_message_countour" = "tips_map_layers_message_countour";
+"tips_map_layers_title_countour" = "Nyt på MAPS.ME: offline topografiske lag!";
+
+"tips_map_layers_message_countour" = "Planlæg og nyd din naturtur ved at være sikker på, at du ved alt om området";
+
+"isolines_activation_error_dialog" = "For at aktivere og bruge de topografiske lag, opdater venligst eller download kortet for området";
 
 
 /**********  Partners  **********/

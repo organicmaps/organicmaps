@@ -3185,17 +3185,19 @@
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "برنامه ریزی مسیر مترو ناموفق ماند";
 
-/* FIXME */
-"whatsnew_isolines_title" = "whatsnew_isolines_title";
+"whatsnew_isolines_title" = "تازه های فضای باز: لایه توپوگرافی آفلاین!";
 
-/* FIXME */
-"whatsnew_isolines_message" = "whatsnew_isolines_message";
+/* as less symbols as possible */
+"whatsnew_isolines_message" = "در مناطق کوهستانی خاطر جمع باشید. فقط لایه را در قسمت بالا سمت چپ روشن کنید";
 
-/* FIXME */
-"tips_map_layers_title_countour" = "tips_map_layers_title_countour";
+/* Contour map */
+"button_layer_isolines" = "ایزومپ";
 
-/* FIXME */
-"tips_map_layers_message_countour" = "tips_map_layers_message_countour";
+"tips_map_layers_title_countour" = "تازه ها در MAPS.ME: لایه توپوگرافی آفلاین!";
+
+"tips_map_layers_message_countour" = "با اطمینان از این که همه چیز را در مورد منطقه می دانید طبیعت گردی خود را برنامه ریزی کنید و لذت ببرید";
+
+"isolines_activation_error_dialog" = "برای فعال سازی و استفاده از لایه توپوگرافی نقشه منطقه را به روزرسانی یا دانلود کنید";
 
 
 /**********  Partners  **********/

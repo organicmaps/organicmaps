@@ -3185,17 +3185,19 @@
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Błąd tworzenia trasy metra";
 
-/* FIXME */
-"whatsnew_isolines_title" = "whatsnew_isolines_title";
+"whatsnew_isolines_title" = "Nowość do wypoczynku aktywnego – linie wysokości offline!";
 
-/* FIXME */
-"whatsnew_isolines_message" = "whatsnew_isolines_message";
+/* as less symbols as possible */
+"whatsnew_isolines_message" = "Nawiguj w górach – włącz warstwę za pomocą przycisku w lewym górnym rogu ekranu";
 
-/* FIXME */
-"tips_map_layers_title_countour" = "tips_map_layers_title_countour";
+/* Contour map */
+"button_layer_isolines" = "Wysokości";
 
-/* FIXME */
-"tips_map_layers_message_countour" = "tips_map_layers_message_countour";
+"tips_map_layers_title_countour" = "Linie wysokości w trybie offline w MAPS.ME!";
+
+"tips_map_layers_message_countour" = "Linie wysokości pomogą zaplanować podróż i nie zgubić się w terenie";
+
+"isolines_activation_error_dialog" = "Do skorzystania z linii wysokości, zaktualizuj lub pobierz mapę obszaru, który potrzebujesz";
 
 
 /**********  Partners  **********/

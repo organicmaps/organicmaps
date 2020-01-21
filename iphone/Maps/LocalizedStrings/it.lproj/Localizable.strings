@@ -3185,17 +3185,19 @@
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Errore di creazione del percorso della metro";
 
-/* FIXME */
-"whatsnew_isolines_title" = "whatsnew_isolines_title";
+"whatsnew_isolines_title" = "Novità per le attività all'aria aperta: modalità topografica offline!";
 
-/* FIXME */
-"whatsnew_isolines_message" = "whatsnew_isolines_message";
+/* as less symbols as possible */
+"whatsnew_isolines_message" = "Orientatevi nelle aree montuose: attivate la modalità premendo nell'angolo in cima a sinistra";
 
-/* FIXME */
-"tips_map_layers_title_countour" = "tips_map_layers_title_countour";
+/* Contour map */
+"button_layer_isolines" = "Terreno";
 
-/* FIXME */
-"tips_map_layers_message_countour" = "tips_map_layers_message_countour";
+"tips_map_layers_title_countour" = "Novità su MAPS.ME modalità topografica offline!";
+
+"tips_map_layers_message_countour" = "La modalità topografica aiuta a programmare il viaggio nella natura e a non perdersi";
+
+"isolines_activation_error_dialog" = "Per utilizzare la modalità topografica, aggiornate o scaricate la mappa dell'area interessata";
 
 
 /**********  Partners  **********/

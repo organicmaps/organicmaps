@@ -1633,6 +1633,14 @@
 	<string name="dialog_pedestrian_route_is_long_message">Velg utgangspunkt eller destinasjon som befinner seg nærmere en T-bane stasjon</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Feil ved ruteplanlegging</string>
+	<string name="whatsnew_isolines_title">Nyhet i friluftsliv – høydekurver uten nett!</string>
+	<!-- as less symbols as possible -->
+	<string name="whatsnew_isolines_message">Orienter deg i fjellområde – slå på lag ved å trykke på knappen i hjørnet øverst til venstre på skjermen</string>
+	<!-- Contour map -->
+	<string name="button_layer_isolines">Høyder</string>
+	<string name="tips_map_layers_title_countour">Høydekurver uten nett med MAPS.ME!</string>
+	<string name="tips_map_layers_message_countour">Høydekurver hjelper deg å planlegge turen din og ikke gå seg vill</string>
+	<string name="isolines_activation_error_dialog">For å bruke høydekurver oppdater eller last opp kartet til nødvendig område</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestasjon</string>

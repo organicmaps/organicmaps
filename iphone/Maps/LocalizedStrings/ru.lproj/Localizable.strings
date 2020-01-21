@@ -3185,17 +3185,19 @@
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Ошибка построения маршрута метро";
 
-/* FIXME */
-"whatsnew_isolines_title" = "whatsnew_isolines_title";
+"whatsnew_isolines_title" = "Новинка для активного отдыха – линии высот офлайн!";
 
-/* FIXME */
-"whatsnew_isolines_message" = "whatsnew_isolines_message";
+/* as less symbols as possible */
+"whatsnew_isolines_message" = "Ориентируйтесь в горной местности – включите слой кнопкой в левом верхнем углу экрана";
 
-/* FIXME */
-"tips_map_layers_title_countour" = "tips_map_layers_title_countour";
+/* Contour map */
+"button_layer_isolines" = "Высоты";
 
-/* FIXME */
-"tips_map_layers_message_countour" = "tips_map_layers_message_countour";
+"tips_map_layers_title_countour" = "Линии высот офлайн в MAPS.ME!";
+
+"tips_map_layers_message_countour" = "Линии высот помогут спланировать путешествие на природу и не потеряться на местности";
+
+"isolines_activation_error_dialog" = "Чтобы воспользоваться линиями высот, обновите или загрузите карту нужной местности";
 
 
 /**********  Partners  **********/

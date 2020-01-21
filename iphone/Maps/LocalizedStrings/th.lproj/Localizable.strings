@@ -3185,17 +3185,19 @@
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "การวางแผนเส้นทางของทางรถไฟใต้ดินล้มเหลว";
 
-/* FIXME */
-"whatsnew_isolines_title" = "whatsnew_isolines_title";
+"whatsnew_isolines_title" = "เลเยอร์แผนที่ภูมิประเทศแบบออฟไลน์ ใหม่สำหรับกิจกรรมกลางแจ้ง!";
 
-/* FIXME */
-"whatsnew_isolines_message" = "whatsnew_isolines_message";
+/* as less symbols as possible */
+"whatsnew_isolines_message" = "รู้สึกมั่นใจได้ในพื้นที่แถบภูเขา เพียงแค่เปิดเลเยอร์ที่มุมบนซ้าย";
 
-/* FIXME */
-"tips_map_layers_title_countour" = "tips_map_layers_title_countour";
+/* Contour map */
+"button_layer_isolines" = "ความสูง";
 
-/* FIXME */
-"tips_map_layers_message_countour" = "tips_map_layers_message_countour";
+"tips_map_layers_title_countour" = "เลเยอร์แผนที่ภูมิประเทศแบบออฟไลน์ ใหม่ในแอป MAPS.ME!";
+
+"tips_map_layers_message_countour" = "วางแผนและสนุกไปกับทริปท่องธรรมชาติโดยมั่นใจว่าคุณรู้ทุกอย่างเกี่ยวกับพื้นที่นั้น";
+
+"isolines_activation_error_dialog" = "ในการเปิดใช้งานเลเยอร์แผนที่ภูมิประเทศโปรดอัปเดตหรือดาวน์โหลดแผนที่ของบริเวณนั้น";
 
 
 /**********  Partners  **********/

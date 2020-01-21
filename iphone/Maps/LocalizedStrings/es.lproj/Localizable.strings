@@ -3185,17 +3185,19 @@
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Error al construir la ruta en metro";
 
-/* FIXME */
-"whatsnew_isolines_title" = "whatsnew_isolines_title";
+"whatsnew_isolines_title" = "Novedad en actividades al aire libre: ¡altitud de relieve sin conexión!";
 
-/* FIXME */
-"whatsnew_isolines_message" = "whatsnew_isolines_message";
+/* as less symbols as possible */
+"whatsnew_isolines_message" = "Siéntete seguro en la zona montañosa. Activa la capa con el botón en la esquina superior izquierda de la pantalla";
 
-/* FIXME */
-"tips_map_layers_title_countour" = "tips_map_layers_title_countour";
+/* Contour map */
+"button_layer_isolines" = "Alturas";
 
-/* FIXME */
-"tips_map_layers_message_countour" = "tips_map_layers_message_countour";
+"tips_map_layers_title_countour" = "¡Altitud de relieve sin conexión en MAPS.ME!";
+
+"tips_map_layers_message_countour" = "La altitud de relieve te ayudará a planificar un viaje a la naturaleza y no perderte en la zona";
+
+"isolines_activation_error_dialog" = "Para usar la altitud de relieve, actualiza o descarga el mapa del área deseada";
 
 
 /**********  Partners  **********/

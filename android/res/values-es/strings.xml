@@ -1735,6 +1735,14 @@
 	<string name="dialog_pedestrian_route_is_long_message">Elige el punto de inicio o fin de ruta más cercano al metro</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Error al construir la ruta en metro</string>
+	<string name="whatsnew_isolines_title">Novedad en actividades al aire libre: ¡altitud de relieve sin conexión!</string>
+	<!-- as less symbols as possible -->
+	<string name="whatsnew_isolines_message">Siéntete seguro en la zona montañosa. Activa la capa con el botón en la esquina superior izquierda de la pantalla</string>
+	<!-- Contour map -->
+	<string name="button_layer_isolines">Alturas</string>
+	<string name="tips_map_layers_title_countour">¡Altitud de relieve sin conexión en MAPS.ME!</string>
+	<string name="tips_map_layers_message_countour">La altitud de relieve te ayudará a planificar un viaje a la naturaleza y no perderte en la zona</string>
+	<string name="isolines_activation_error_dialog">Para usar la altitud de relieve, actualiza o descarga el mapa del área deseada</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estación de teleférico</string>

@@ -1734,6 +1734,14 @@
 	<string name="dialog_pedestrian_route_is_long_message">もっと地下鉄駅に近い出発地または目的地を選択してください</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">地下鉄ルートの計画ができませんでした</string>
+	<string name="whatsnew_isolines_title">アウトドアの新要素：オフラインのトポグラフィーレイヤー！</string>
+	<!-- as less symbols as possible -->
+	<string name="whatsnew_isolines_message">山地でも安心。左上でレイヤーを起動するだけです</string>
+	<!-- Contour map -->
+	<string name="button_layer_isolines">等距離図</string>
+	<string name="tips_map_layers_title_countour">MAPS.MEの新要素：オフラインのトポグラフィーレイヤー！</string>
+	<string name="tips_map_layers_message_countour">自然の旅で訪れる地域を全てを把握しながら計画を立て楽しみましょう</string>
+	<string name="isolines_activation_error_dialog">トポグラフィーレイヤーを有効化して使用するには、このエリアのマップを更新もしくはダウンロードしてください</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

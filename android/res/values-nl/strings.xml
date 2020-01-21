@@ -1742,6 +1742,14 @@
 	<string name="dialog_pedestrian_route_is_long_message">Kies een begin- of eindpunt dichter bij het metrostation</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Routeplanner per metro is mislukt</string>
+	<string name="whatsnew_isolines_title">Nieuwigheid voor buitenactiviteiten: hoogtelijnen offline!</string>
+	<!-- as less symbols as possible -->
+	<string name="whatsnew_isolines_message">Navigeer probleemloos in bergachtig gebied. Schakel gewoon de hoogtelijn in via de toets in de linkerbovenhoek van het scherm</string>
+	<!-- Contour map -->
+	<string name="button_layer_isolines">Hoogtes</string>
+	<string name="tips_map_layers_title_countour">Hoogtelijnen offline in MAPS.ME!</string>
+	<string name="tips_map_layers_message_countour">Dankzij de hoogtelijnen kunt u probleemloos natuurreizen plannen en er zeker van zijn dat u niet verdwalen zult</string>
+	<string name="isolines_activation_error_dialog">Als u gebruik wilt maken van hoogtelijnen, moet u een kaart van het gewenste gebied bijwerken of downloaden</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

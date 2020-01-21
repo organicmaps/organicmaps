@@ -1788,6 +1788,14 @@
 	<string name="dialog_pedestrian_route_is_long_message">Выберите начальную или конечную точку маршрута ближе к станции метро</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Ошибка построения маршрута метро</string>
+	<string name="whatsnew_isolines_title">Новинка для активного отдыха – линии высот офлайн!</string>
+	<!-- as less symbols as possible -->
+	<string name="whatsnew_isolines_message">Ориентируйтесь в горной местности – включите слой кнопкой в левом верхнем углу экрана</string>
+	<!-- Contour map -->
+	<string name="button_layer_isolines">Высоты</string>
+	<string name="tips_map_layers_title_countour">Линии высот офлайн в MAPS.ME!</string>
+	<string name="tips_map_layers_message_countour">Линии высот помогут спланировать путешествие на природу и не потеряться на местности</string>
+	<string name="isolines_activation_error_dialog">Чтобы воспользоваться линиями высот, обновите или загрузите карту нужной местности</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

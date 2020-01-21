@@ -1735,6 +1735,14 @@
 	<string name="dialog_pedestrian_route_is_long_message">Valitse reitin aloitus- tai loppupiste lähemmäksi metroasemaa</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Virhe metroreitin luomisessa</string>
+	<string name="whatsnew_isolines_title">Uutuus aktiivilomalle – korkeus linjat offline-tilassa!</string>
+	<!-- as less symbols as possible -->
+	<string name="whatsnew_isolines_message">Suunnistaudu vuorimaastossa – käynnistä kerros päälle näytön vasemmassa yläkulmassa olevalla painikkeella</string>
+	<!-- Contour map -->
+	<string name="button_layer_isolines">Korkeudet</string>
+	<string name="tips_map_layers_title_countour">Korkeuslinjat offline-tilassa MAPS.ME:ssä!</string>
+	<string name="tips_map_layers_message_countour">Korkeuslinjat auttavat suunnittelemaan luontomatkan etkä enää eksy maastolla</string>
+	<string name="isolines_activation_error_dialog">Päivitä tai lataa haluamasi alueen kartta, voidaksesi käyttää korkeuslinjoja</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

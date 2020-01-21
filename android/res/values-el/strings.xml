@@ -1504,6 +1504,14 @@
 	<string name="dialog_pedestrian_route_is_long_message">Επιλέξτε το σημείο έναρξης ή τέλους διαδρομής πιο κοντά στο σταθμό του μετρό</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Σφάλμα κατά την δημιουργία διαδρομής του μετρό</string>
+	<string name="whatsnew_isolines_title">Νέο για υπαίθριες δραστηριότητες – τοπογραφικά στρώματα εκτός σύνδεσης!</string>
+	<!-- as less symbols as possible -->
+	<string name="whatsnew_isolines_message">Νιώστε σίγουροι στα ορεινά – ενεργοποιήστε το στρώμα στην πάνω αριστερή γωνία της οθόνης</string>
+	<!-- Contour map -->
+	<string name="button_layer_isolines">Υψόμετρα</string>
+	<string name="tips_map_layers_title_countour">Τοπογραφικά στρώματα εκτός σύνδεσης στο MAPS.ME!</string>
+	<string name="tips_map_layers_message_countour">Τα τοπογραφικά στρώματα θα σας βοηθήσουν να σχεδιάσετε το ταξίδι σας στη φύση και να μην χαθείτε στην περιοχή</string>
+	<string name="isolines_activation_error_dialog">Για να χρησιμοποιήσετε τοπογραφικά στρώματα, ενημερώστε ή κατεβάστε τον χάρτη της επιθυμητής περιοχής</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Σταθμός αερομεταφοράς</string>

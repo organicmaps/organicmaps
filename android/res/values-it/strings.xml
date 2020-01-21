@@ -1741,6 +1741,14 @@
 	<string name="dialog_pedestrian_route_is_long_message">Seleziona il punto iniziale o finale del percorso più vicino alla stazione della metro</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Errore di creazione del percorso della metro</string>
+	<string name="whatsnew_isolines_title">Novità per le attività all\'aria aperta: modalità topografica offline!</string>
+	<!-- as less symbols as possible -->
+	<string name="whatsnew_isolines_message">Orientatevi nelle aree montuose: attivate la modalità premendo nell\'angolo in cima a sinistra</string>
+	<!-- Contour map -->
+	<string name="button_layer_isolines">Terreno</string>
+	<string name="tips_map_layers_title_countour">Novità su MAPS.ME modalità topografica offline!</string>
+	<string name="tips_map_layers_message_countour">La modalità topografica aiuta a programmare il viaggio nella natura e a non perdersi</string>
+	<string name="isolines_activation_error_dialog">Per utilizzare la modalità topografica, aggiornate o scaricate la mappa dell\'area interessata</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stazione di rifornimento per auto elettriche</string>

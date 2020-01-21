@@ -1745,6 +1745,14 @@
 	<string name="dialog_pedestrian_route_is_long_message">Escolhe ponto inicial ou final de percurso próximo da estação de metro</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Erro ao construir o percurso de metro</string>
+	<string name="whatsnew_isolines_title">Novidade para férias ativas- linhas de alturas offline!</string>
+	<!-- as less symbols as possible -->
+	<string name="whatsnew_isolines_message">Oriente-se nas terras altas- ative a camada com o botão direito no canto superior esquerdo da tela</string>
+	<!-- Contour map -->
+	<string name="button_layer_isolines">Alturas</string>
+	<string name="tips_map_layers_title_countour">Linhas de alturas offline na MAPS.ME!</string>
+	<string name="tips_map_layers_message_countour">As linhas de alturas offline ajudarão planejar sua viagem à natureza e não se perder no local</string>
+	<string name="isolines_activation_error_dialog">Para usar as linhas de alturas, atualize ou carregue o mapa da área desejada</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estação de teleférico</string>

@@ -1746,6 +1746,14 @@
 	<string name="dialog_pedestrian_route_is_long_message">Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Metro güzergahı oluşturma hatası</string>
+	<string name="whatsnew_isolines_title">Açık hava etkinlikleri için yenilik – yükseklik çizgileri çevrimdışı!</string>
+	<!-- as less symbols as possible -->
+	<string name="whatsnew_isolines_message">Dağlık alanda kendinizi yönlendirin – ekranın sol üst köşesindeki düğmeyi kullanarak katmanı açın</string>
+	<!-- Contour map -->
+	<string name="button_layer_isolines">Yükseklikler</string>
+	<string name="tips_map_layers_title_countour">MAPS.ME\'de yükseklik çizgileri çevrimdışı!</string>
+	<string name="tips_map_layers_message_countour">Yükseklik çizgileri, doğaya bir gezi planlamanıza ve arazide kaybolmamanıza yardımcı olacaktır</string>
+	<string name="isolines_activation_error_dialog">Yükseklik çizgilerini kullanmak için, istediğiniz arazinin haritasını güncelleyin veya indirin</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

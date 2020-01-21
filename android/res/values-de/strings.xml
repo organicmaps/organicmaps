@@ -1749,6 +1749,14 @@
 	<string name="dialog_pedestrian_route_is_long_message">Wählen Sie den Start- und Endpunkt der Route, die am nächsten zur U-Bahn-Station liegen</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Fehler bei der Erstellung der U-Bahn-Route</string>
+	<string name="whatsnew_isolines_title">Neu für aktiven Urlaub – Topographie-Layer offline!</string>
+	<!-- as less symbols as possible -->
+	<string name="whatsnew_isolines_message">Verlaufen Sie sich nicht in den Berge. Um die Schicht zu aktivieren, klicken Sie auf den Button in der linken Bildschirmecke</string>
+	<!-- Contour map -->
+	<string name="button_layer_isolines">Terrain</string>
+	<string name="tips_map_layers_title_countour">Neu in MAPS.ME: Topographie-Layer offline!</string>
+	<string name="tips_map_layers_message_countour">Der Topographie-Layer hilft Ihnen Ihre Reise in die Natur zu planen und sich in der Gegen zurechtzufinden</string>
+	<string name="isolines_activation_error_dialog">Um den Topographie-Layer benutzen zu können, aktualisieren oder laden Sie die Karte der benötigten Gegend herunter</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>

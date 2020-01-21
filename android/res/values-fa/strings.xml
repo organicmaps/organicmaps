@@ -1682,6 +1682,14 @@
 	<string name="dialog_pedestrian_route_is_long_message">لطفا نقطه آغاز و پایان نزدیک تری به ایستگاه مترو انتخاب کنید</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">برنامه ریزی مسیر مترو ناموفق ماند</string>
+	<string name="whatsnew_isolines_title">تازه های فضای باز: لایه توپوگرافی آفلاین!</string>
+	<!-- as less symbols as possible -->
+	<string name="whatsnew_isolines_message">در مناطق کوهستانی خاطر جمع باشید. فقط لایه را در قسمت بالا سمت چپ روشن کنید</string>
+	<!-- Contour map -->
+	<string name="button_layer_isolines">ایزومپ</string>
+	<string name="tips_map_layers_title_countour">تازه ها در MAPS.ME: لایه توپوگرافی آفلاین!</string>
+	<string name="tips_map_layers_message_countour">با اطمینان از این که همه چیز را در مورد منطقه می دانید طبیعت گردی خود را برنامه ریزی کنید و لذت ببرید</string>
+	<string name="isolines_activation_error_dialog">برای فعال سازی و استفاده از لایه توپوگرافی نقشه منطقه را به روزرسانی یا دانلود کنید</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>

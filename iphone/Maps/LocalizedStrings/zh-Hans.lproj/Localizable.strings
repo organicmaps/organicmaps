@@ -3185,17 +3185,19 @@
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "地铁路线图设计出错";
 
-/* FIXME */
-"whatsnew_isolines_title" = "whatsnew_isolines_title";
+"whatsnew_isolines_title" = "户外活动的新产品–离线高度线！";
 
-/* FIXME */
-"whatsnew_isolines_message" = "whatsnew_isolines_message";
+/* as less symbols as possible */
+"whatsnew_isolines_message" = "在山地中导航–使用屏幕左上角的按钮打开图层";
 
-/* FIXME */
-"tips_map_layers_title_countour" = "tips_map_layers_title_countour";
+/* Contour map */
+"button_layer_isolines" = "高度";
 
-/* FIXME */
-"tips_map_layers_message_countour" = "tips_map_layers_message_countour";
+"tips_map_layers_title_countour" = "离线高度线在MAPS.ME中！";
+
+"tips_map_layers_message_countour" = "高度线可以帮您规划通往大自然地区的路线，不会迷路";
+
+"isolines_activation_error_dialog" = "如需使用高度線，請更新或下載所需區域的地圖";
 
 
 /**********  Partners  **********/

@@ -3185,17 +3185,19 @@
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "지하철 루트 계획 생성 실패";
 
-/* FIXME */
-"whatsnew_isolines_title" = "whatsnew_isolines_title";
+"whatsnew_isolines_title" = "아웃도어용 새 기능: 오프라인 지형 레이어!";
 
-/* FIXME */
-"whatsnew_isolines_message" = "whatsnew_isolines_message";
+/* as less symbols as possible */
+"whatsnew_isolines_message" = "산 지형에서도 자신감 있게. 왼쪽 구성 상단의 레이어를 키세요";
 
-/* FIXME */
-"tips_map_layers_title_countour" = "tips_map_layers_title_countour";
+/* Contour map */
+"button_layer_isolines" = "아이소맵";
 
-/* FIXME */
-"tips_map_layers_message_countour" = "tips_map_layers_message_countour";
+"tips_map_layers_title_countour" = "MAPS.ME의 새 기능: 오프라인 지형 레이어!";
+
+"tips_map_layers_message_countour" = "이 지역에 대한 모든 것을 알고 있는지 확인하면서 자연 여행을 계획하고 즐기세요";
+
+"isolines_activation_error_dialog" = "지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오";
 
 
 /**********  Partners  **********/

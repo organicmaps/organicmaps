@@ -1734,6 +1734,14 @@
 	<string name="dialog_pedestrian_route_is_long_message">Silakan pilih titik awal atau akhir yang lebih dekat ke stasiun kereta bawah tanah</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Perencanaan jalur kereta bawah tanah gagal</string>
+	<string name="whatsnew_isolines_title">Yang baru di outdoor: lapisan topografi offline!</string>
+	<!-- as less symbols as possible -->
+	<string name="whatsnew_isolines_message">Merasa percaya diri di daerah pegunungan. Cukup aktifkan layer di sudut kiri atas</string>
+	<!-- Contour map -->
+	<string name="button_layer_isolines">Isometrik</string>
+	<string name="tips_map_layers_title_countour">Yang baru di MAPS.ME: lapisan topografi offline!</string>
+	<string name="tips_map_layers_message_countour">Rencanakan dan nikmati perjalanan alam Anda dan pastikan Anda tahu segalanya tentang daerah tersebut</string>
+	<string name="isolines_activation_error_dialog">Untuk mengaktifkan dan menggunakan lapisan topografi, silakan perbarui atau unduh peta area</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

@@ -1805,14 +1805,14 @@
 	<string name="dialog_pedestrian_route_is_long_message">Please choose a start or end point closer to a subway station</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Subway route planning failed</string>
-	<!-- FIXME -->
-	<string name="whatsnew_isolines_title">whatsnew_isolines_title</string>
-	<!-- FIXME -->
-	<string name="whatsnew_isolines_message">whatsnew_isolines_message</string>
-	<!-- FIXME -->
-	<string name="tips_map_layers_title_countour">tips_map_layers_title_countour</string>
-	<!-- FIXME -->
-	<string name="tips_map_layers_message_countour">tips_map_layers_message_countour</string>
+	<string name="whatsnew_isolines_title">New for outdoors: offline topographic layer!</string>
+	<!-- as less symbols as possible -->
+	<string name="whatsnew_isolines_message">Feel confident in the mountainous area. Just turn on the layer in the upper-left corner</string>
+	<!-- Contour map -->
+	<string name="button_layer_isolines">Terrain</string>
+	<string name="tips_map_layers_title_countour">New in MAPS.ME: offline topographic layer!</string>
+	<string name="tips_map_layers_message_countour">Plan and enjoy your nature trips being sure you know everything about the area</string>
+	<string name="isolines_activation_error_dialog">To activate and use the topographic layer please update or download the map of the area</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

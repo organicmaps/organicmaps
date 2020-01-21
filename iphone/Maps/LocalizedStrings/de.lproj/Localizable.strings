@@ -3185,17 +3185,19 @@
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Fehler bei der Erstellung der U-Bahn-Route";
 
-/* FIXME */
-"whatsnew_isolines_title" = "whatsnew_isolines_title";
+"whatsnew_isolines_title" = "Neu für aktiven Urlaub – Topographie-Layer offline!";
 
-/* FIXME */
-"whatsnew_isolines_message" = "whatsnew_isolines_message";
+/* as less symbols as possible */
+"whatsnew_isolines_message" = "Verlaufen Sie sich nicht in den Berge. Um die Schicht zu aktivieren, klicken Sie auf den Button in der linken Bildschirmecke";
 
-/* FIXME */
-"tips_map_layers_title_countour" = "tips_map_layers_title_countour";
+/* Contour map */
+"button_layer_isolines" = "Terrain";
 
-/* FIXME */
-"tips_map_layers_message_countour" = "tips_map_layers_message_countour";
+"tips_map_layers_title_countour" = "Neu in MAPS.ME: Topographie-Layer offline!";
+
+"tips_map_layers_message_countour" = "Der Topographie-Layer hilft Ihnen Ihre Reise in die Natur zu planen und sich in der Gegen zurechtzufinden";
+
+"isolines_activation_error_dialog" = "Um den Topographie-Layer benutzen zu können, aktualisieren oder laden Sie die Karte der benötigten Gegend herunter";
 
 
 /**********  Partners  **********/

@@ -3185,17 +3185,19 @@
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "A metró útvonaltervezése sikertelen";
 
-/* FIXME */
-"whatsnew_isolines_title" = "whatsnew_isolines_title";
+"whatsnew_isolines_title" = "Újdonság a szabadtérhez: offline topográfiai réteg!";
 
-/* FIXME */
-"whatsnew_isolines_message" = "whatsnew_isolines_message";
+/* as less symbols as possible */
+"whatsnew_isolines_message" = "Legyen magabiztos a hegyvidéki területen. Csak kapcsolja be a réteget a bal felső sarokban";
 
-/* FIXME */
-"tips_map_layers_title_countour" = "tips_map_layers_title_countour";
+/* Contour map */
+"button_layer_isolines" = "Topográfia";
 
-/* FIXME */
-"tips_map_layers_message_countour" = "tips_map_layers_message_countour";
+"tips_map_layers_title_countour" = "Újdonság a MAPS.ME-n: offline topográfiai réteg!";
+
+"tips_map_layers_message_countour" = "Tervezze meg és élvezze a természetjáró kirándulásait, és tudjon meg mindent a környékről";
+
+"isolines_activation_error_dialog" = "A topográfiai réteg aktiválásához és használatához kérjük frissítse vagy töltse le az adott terület térképét";
 
 
 /**********  Partners  **********/

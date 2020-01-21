@@ -3185,17 +3185,19 @@
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "地下鉄ルートの計画ができませんでした";
 
-/* FIXME */
-"whatsnew_isolines_title" = "whatsnew_isolines_title";
+"whatsnew_isolines_title" = "アウトドアの新要素：オフラインのトポグラフィーレイヤー！";
 
-/* FIXME */
-"whatsnew_isolines_message" = "whatsnew_isolines_message";
+/* as less symbols as possible */
+"whatsnew_isolines_message" = "山地でも安心。左上でレイヤーを起動するだけです";
 
-/* FIXME */
-"tips_map_layers_title_countour" = "tips_map_layers_title_countour";
+/* Contour map */
+"button_layer_isolines" = "等距離図";
 
-/* FIXME */
-"tips_map_layers_message_countour" = "tips_map_layers_message_countour";
+"tips_map_layers_title_countour" = "MAPS.MEの新要素：オフラインのトポグラフィーレイヤー！";
+
+"tips_map_layers_message_countour" = "自然の旅で訪れる地域を全てを把握しながら計画を立て楽しみましょう";
+
+"isolines_activation_error_dialog" = "トポグラフィーレイヤーを有効化して使用するには、このエリアのマップを更新もしくはダウンロードしてください";
 
 
 /**********  Partners  **********/
