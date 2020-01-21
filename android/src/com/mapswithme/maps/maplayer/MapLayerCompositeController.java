@@ -29,7 +29,7 @@ public class MapLayerCompositeController implements MapLayerController
   public MapLayerCompositeController(@NonNull TrafficButton traffic, @NonNull View subway,
                                      @NonNull View isoLines, @NonNull AppCompatActivity activity)
   {
-    View.OnClickListener listener = new OpenBottomDialogClickListener(activity, Tutorial.MAP_LAYERS);
+    View.OnClickListener listener = new OpenBottomDialogClickListener(activity, Tutorial.SUBWAY);
     mActivity = activity;
     mChildrenEntries = createEntries(traffic, subway, isoLines, activity, listener);
     mMasterEntry = getCurrentLayer();

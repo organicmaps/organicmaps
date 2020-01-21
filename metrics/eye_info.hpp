@@ -172,6 +172,8 @@ struct Tip
     BookingHotels,
     DiscoverButton,
     PublicTransport,
+    // TODO: should be supported.
+    Isolines,
 
     Count
   };
@@ -322,6 +324,7 @@ inline std::string DebugPrint(Tip::Type const & type)
   case Tip::Type::BookingHotels: return "BookingHotels";
   case Tip::Type::DiscoverButton: return "DiscoverButton";
   case Tip::Type::PublicTransport: return "PublicTransport";
+  case Tip::Type::Isolines: return "Isolines";
   case Tip::Type::Count: return "Count";
   }
   UNREACHABLE();

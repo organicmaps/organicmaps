@@ -18,6 +18,12 @@ class ClickInterceptorFactory
   }
 
   @NonNull
+  static ClickInterceptor createActivateSubwayLayerListener()
+  {
+    return new ActivateSubwayLayer();
+  }
+
+  @NonNull
   static ClickInterceptor createOpenDiscoveryScreenListener()
   {
     return new OpenDiscoveryScreen();
@@ -56,7 +62,7 @@ class ClickInterceptorFactory
   {
     ActivateIsolinesLayer()
     {
-      super(Tutorial.MAP_LAYERS);
+      super(Tutorial.ISOLINES);
     }
 
     @Override
@@ -64,6 +70,22 @@ class ClickInterceptorFactory
     {
       Mode.ISOLINES.setEnabled(activity, true);
       activity.onIsolinesLayerSelected();
+    }
+  }
+
+  static class ActivateSubwayLayer extends AbstractClickInterceptor
+  {
+
+    ActivateSubwayLayer()
+    {
+      super(Tutorial.SUBWAY);
+    }
+
+    @Override
+    public void onInterceptClickInternal(@NonNull MwmActivity activity)
+    {
+      Mode.SUBWAY.setEnabled(activity, true);
+      activity.onSubwayLayerSelected();
     }
   }
 
