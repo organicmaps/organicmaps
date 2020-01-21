@@ -46110,3 +46110,11 @@
     zh-Hans = 地铁路线图设计出错
     zh-Hant = 地鐵路線圖設計出錯
     fa = برنامه ریزی مسیر مترو ناموفق ماند
+
+  [whatsnew_isolines_title]
+    comment = FIXME
+    en = whatsnew_isolines_title
+
+  [whatsnew_isolines_message]
+    comment = FIXME
+    en = whatsnew_isolines_message
