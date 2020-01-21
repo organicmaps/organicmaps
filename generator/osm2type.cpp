@@ -242,19 +242,15 @@ void LeaveLongestTypes(vector<generator::TypeStrings> & matchedTypes)
   auto const less = [](auto const & lhs, auto const & rhs) { return lhs > rhs; };
 
   auto const equals = [](auto const & lhs, auto const & rhs) {
-    for (auto lhsIt = lhs.begin(), rhsIt = rhs.begin(); lhsIt != lhs.end() && rhsIt != rhs.end();
-         ++lhsIt, ++rhsIt)
-    {
-      if (*lhsIt != *rhsIt)
-        return false;
-    }
-    return true;
+    if (rhs.size() > lhs.size())
+      return equal(lhs.begin(), lhs.end(), rhs.begin());
+    return equal(rhs.begin(), rhs.end(), lhs.begin());
   };
 
   base::SortUnique(matchedTypes, less, equals);
 }
 
-void MatchTypes(OsmElement * p, FeatureBuilderParams & params, function<bool(uint32_t)> filterType)
+void MatchTypes(OsmElement * p, FeatureBuilderParams & params, function<bool(uint32_t)> const & filterType)
 {
   auto static const rules = generator::ParseMapCSS(GetPlatform().GetReader("mapcss-mapping.csv"));
 
