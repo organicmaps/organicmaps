@@ -1809,6 +1809,10 @@
 	<string name="whatsnew_isolines_title">whatsnew_isolines_title</string>
 	<!-- FIXME -->
 	<string name="whatsnew_isolines_message">whatsnew_isolines_message</string>
+	<!-- FIXME -->
+	<string name="tips_map_layers_title_countour">tips_map_layers_title_countour</string>
+	<!-- FIXME -->
+	<string name="tips_map_layers_message_countour">tips_map_layers_message_countour</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

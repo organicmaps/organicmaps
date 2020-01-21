@@ -3191,6 +3191,12 @@
 /* FIXME */
 "whatsnew_isolines_message" = "whatsnew_isolines_message";
 
+/* FIXME */
+"tips_map_layers_title_countour" = "tips_map_layers_title_countour";
+
+/* FIXME */
+"tips_map_layers_message_countour" = "tips_map_layers_message_countour";
+
 
 /**********  Partners  **********/
 
