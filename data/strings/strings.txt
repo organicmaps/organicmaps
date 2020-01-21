@@ -46118,3 +46118,11 @@
   [whatsnew_isolines_message]
     comment = FIXME
     en = whatsnew_isolines_message
+
+  [tips_map_layers_title_countour]
+    comment = FIXME
+    en = tips_map_layers_title_countour
+
+  [tips_map_layers_message_countour]
+    comment = FIXME
+    en = tips_map_layers_message_countour
