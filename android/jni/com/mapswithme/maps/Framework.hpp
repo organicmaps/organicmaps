@@ -78,6 +78,7 @@ namespace android
 
     TrafficManager::TrafficStateChangedFn m_onTrafficStateChangedFn;
     TransitReadManager::TransitStateChangedFn m_onTransitStateChangedFn;
+    TransitReadManager::TransitStateChangedFn m_onIsolinesStateChangedFn;
 
     bool m_isChoosePositionMode;
 
@@ -167,6 +168,7 @@ namespace android
 
     void SetTrafficStateListener(TrafficManager::TrafficStateChangedFn const & fn);
     void SetTransitSchemeListener(TransitReadManager::TransitStateChangedFn const & fn);
+    void SetIsolinesListener(TransitReadManager::TransitStateChangedFn const & fn);
     bool IsTrafficEnabled();
     void EnableTraffic();
     void DisableTraffic();
