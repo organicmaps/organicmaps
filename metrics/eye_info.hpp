@@ -149,7 +149,8 @@ struct Layer
   enum class Type : uint8_t
   {
     TrafficJams,
-    PublicTransport
+    PublicTransport,
+    Isolines,
   };
 
   DECLARE_VISITOR_AND_DEBUG_PRINT(Layer, visitor(m_type, "type"), visitor(m_useCount, "use_count"),
@@ -172,7 +173,6 @@ struct Tip
     BookingHotels,
     DiscoverButton,
     PublicTransport,
-    // TODO: should be supported.
     Isolines,
 
     Count
@@ -347,6 +347,7 @@ inline std::string DebugPrint(Layer::Type const & type)
   {
   case Layer::Type::TrafficJams: return "TrafficJams";
   case Layer::Type::PublicTransport: return "PublicTransport";
+  case Layer::Type::Isolines: return "Isolines";
   }
   UNREACHABLE();
 }

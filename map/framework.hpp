@@ -153,7 +153,6 @@ struct FrameworkParams
 class Framework : public PositionProvider,
                   public SearchAPI::Delegate,
                   public RoutingManager::Delegate,
-                  public TipsApi::Delegate,
                   private power_management::PowerManager::Subscriber
 {
   DISALLOW_COPY(Framework);
@@ -305,7 +304,7 @@ public:
 
   // TipsApi::Delegate override.
   /// Checks, whether the country which contains the specified point is loaded.
-  bool IsCountryLoaded(m2::PointD const & pt) const override;
+  bool IsCountryLoaded(m2::PointD const & pt) const;
   /// Checks, whether the country is loaded.
   bool IsCountryLoadedByName(std::string const & name) const;
 
@@ -888,8 +887,8 @@ public:
   TipsApi const & GetTipsApi() const;
 
   // TipsApi::Delegate override.
-  bool HaveTransit(m2::PointD const & pt) const override;
-  double GetLastBackgroundTime() const override;
+  bool HaveTransit(m2::PointD const & pt) const;
+  double GetLastBackgroundTime() const;
 
   bool MakePlacePageForNotification(notifications::NotificationCandidate const & notification);
 

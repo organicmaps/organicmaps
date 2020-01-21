@@ -115,6 +115,8 @@ set(
   taxi_delegate.hpp
   tips_api.cpp
   tips_api.hpp
+  tips_api_delegate.cpp
+  tips_api_delegate.hpp
   track.cpp
   track.hpp
   traffic_manager.cpp

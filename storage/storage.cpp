@@ -1113,6 +1113,17 @@ bool Storage::HasLatestVersion(CountryId const & countryId) const
   return CountryStatusEx(countryId) == Status::EOnDisk;
 }
 
+int64_t Storage::GetVersion(CountryId const & countryId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  auto const localMap = GetLatestLocalFile(countryId);
+  if (localMap == nullptr)
+    return 0;
+
+  return localMap->GetVersion();
+}
+
 void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false */)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());

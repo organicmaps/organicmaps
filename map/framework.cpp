@@ -10,6 +10,7 @@
 #include "map/promo_catalog_poi_checker.hpp"
 #include "map/promo_delegate.hpp"
 #include "map/taxi_delegate.hpp"
+#include "map/tips_api_delegate.hpp"
 #include "map/user_mark.hpp"
 #include "map/utils.hpp"
 #include "map/viewport_search_params.hpp"
@@ -375,7 +376,7 @@ Framework::Framework(FrameworkParams const & params)
   , m_popularityLoader(m_featuresFetcher.GetDataSource(), POPULARITY_RANKS_FILE_TAG)
   , m_descriptionsLoader(std::make_unique<descriptions::Loader>(m_featuresFetcher.GetDataSource()))
   , m_purchase(std::make_unique<Purchase>([this] { m_user.ResetAccessToken(); }))
-  , m_tipsApi(static_cast<TipsApi::Delegate &>(*this))
+  , m_tipsApi(std::make_unique<TipsApiDelegate>(*this))
 {
   CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
 

@@ -387,6 +387,9 @@ public:
   /// \brief Returns true if the last version of countryId has been downloaded.
   bool HasLatestVersion(CountryId const & countryId) const;
 
+  /// Returns version of downloaded mwm or zero.
+  int64_t GetVersion(CountryId const & countryId) const;
+
   /// \brief Gets all the attributes for a node by its |countryId|.
   /// \param |nodeAttrs| is filled with attributes in this method.
   void GetNodeAttrs(CountryId const & countryId, NodeAttrs & nodeAttrs) const;
