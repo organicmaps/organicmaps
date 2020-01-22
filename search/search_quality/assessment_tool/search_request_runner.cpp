@@ -103,7 +103,7 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
       search::Matcher matcher(loader);
 
       vector<search::Result> const actual(results.begin(), results.end());
-      matcher.Match(sample.m_results, actual, goldenMatching, actualMatching);
+      matcher.Match(sample, actual, goldenMatching, actualMatching);
       relevances.resize(actual.size());
       for (size_t i = 0; i < goldenMatching.size(); ++i)
       {

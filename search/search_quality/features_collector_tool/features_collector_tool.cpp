@@ -170,7 +170,7 @@ int main(int argc, char * argv[])
 
     vector<size_t> goldenMatching;
     vector<size_t> actualMatching;
-    matcher.Match(sample.m_results, results, goldenMatching, actualMatching);
+    matcher.Match(sample, results, goldenMatching, actualMatching);
 
     for (size_t j = 0; j < results.size(); ++j)
     {

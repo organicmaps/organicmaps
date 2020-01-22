@@ -399,7 +399,7 @@ void MainModel::ForAnyMatchingEntry(Context & context, FeatureID const & id, Fn 
   for (size_t i = 0; i < nonFoundResults.size(); ++i)
   {
     auto const & result = context.m_nonFoundResults[i];
-    if (matcher.Matches(result, *ft))
+    if (matcher.Matches(context.m_sample.m_query, result, *ft))
       return fn(context.m_nonFoundResultsEdits, i);
   }
 }
