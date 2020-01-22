@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.util.Pair;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationHelper;
@@ -38,6 +39,7 @@ class ResultCodesHelper
     Resources resources = MwmApplication.get().getResources();
     int titleRes = 0;
     List<String> messages = new ArrayList<>();
+    @StringRes
     int cancelBtnResId = android.R.string.cancel;
     switch (errorCode)
     {
@@ -150,7 +152,7 @@ class ResultCodesHelper
     return resultCode == NEED_MORE_MAPS;
   }
 
-  public static class ResourcesHolder
+  static class ResourcesHolder
   {
     @NonNull
     private final Pair<String, String> mTitleMessage;
@@ -164,12 +166,12 @@ class ResultCodesHelper
     }
 
     @NonNull
-    public Pair<String, String> getTitleMessage()
+    Pair<String, String> getTitleMessage()
     {
       return mTitleMessage;
     }
 
-    public int getCancelBtnResId()
+    int getCancelBtnResId()
     {
       return mCancelBtnResId;
     }
