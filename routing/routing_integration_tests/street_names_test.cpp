@@ -17,7 +17,7 @@ void MoveRoute(Route & route, ms::LatLon const & coords)
   info.m_verticalAccuracy = 0.01;
   info.m_longitude = coords.m_lon;
   info.m_latitude = coords.m_lat;
-  route.MoveIteratorToReal(info);
+  route.MoveIterator(info);
 }
 
 UNIT_TEST(RussiaTulskayaToPaveletskayaStreetNamesTest)
