@@ -6,32 +6,44 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.maplayer.AbstractMapLayerListener;
-import com.mapswithme.maps.maplayer.OnTransitSchemeChangedListener;
+import com.mapswithme.maps.maplayer.subway.OnIsolinesChangedListener;
 
-public class IsolinesManager extends AbstractMapLayerListener
+public class IsolinesManager
 {
+  @NonNull
+  private final OnIsolinesChangedListener mListener;
+
   public IsolinesManager(@NonNull Application application)
   {
-    super(new IsolinesStateChangedListener(application));
+    mListener = new OnIsolinesChangedListenerImpl(application);
   }
 
-  @Override
   public boolean isEnabled()
   {
     return Framework.nativeIsIsolinesLayerEnabled();
   }
 
-  @Override
-  protected void setEnabledInternal(boolean isEnabled)
+  private void registerListener()
   {
+    nativeAddListener(mListener);
+  }
+
+  public void setEnabled(boolean isEnabled)
+  {
+    if (isEnabled == isEnabled())
+      return;
+
     Framework.nativeSetIsolinesLayerEnabled(isEnabled);
   }
 
-  @Override
-  protected void registerListener()
+  public void toggle()
   {
-    nativeAddListener(getSchemeChangedListener());
+    setEnabled(!isEnabled());
+  }
+
+  public void initialize()
+  {
+    registerListener();
   }
 
   @NonNull
@@ -41,6 +53,6 @@ public class IsolinesManager extends AbstractMapLayerListener
     return app.getIsolinesManager();
   }
 
-  private static native void nativeAddListener(@NonNull OnTransitSchemeChangedListener listener);
-  private static native void nativeRemoveListener(@NonNull OnTransitSchemeChangedListener listener);
+  private static native void nativeAddListener(@NonNull OnIsolinesChangedListener listener);
+  private static native void nativeRemoveListener(@NonNull OnIsolinesChangedListener listener);
 }

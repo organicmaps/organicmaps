@@ -291,6 +291,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     RoutingController.get().initialize();
     TrafficManager.INSTANCE.initialize();
     SubwayManager.from(this).initialize();
+    IsolinesManager.from(this).initialize();
     mPurchaseOperationObservable.initialize();
     mBackgroundTracker.addListener(this);
     mFrameworkInitialized = true;

@@ -6,29 +6,43 @@ import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.maplayer.AbstractMapLayerListener;
-import com.mapswithme.maps.maplayer.OnTransitSchemeChangedListener;
 
-public class SubwayManager extends AbstractMapLayerListener
+public class SubwayManager
 {
+  @NonNull
+  private final OnTransitSchemeChangedListener mSchemeChangedListener;
+
   public SubwayManager(@NonNull Application application) {
-    super(new SubwayStateChangedListener(application));
+    mSchemeChangedListener = new OnTransitSchemeChangedListener.Default(application);
   }
 
-  @Override
-  public boolean isEnabled() {
-    return Framework.nativeIsTransitSchemeEnabled();
-  }
+  public void setEnabled(boolean isEnabled)
+  {
+    if (isEnabled == isEnabled())
+      return;
 
-  @Override
-  protected void setEnabledInternal(boolean isEnabled) {
     Framework.nativeSetTransitSchemeEnabled(isEnabled);
     Framework.nativeSaveSettingSchemeEnabled(isEnabled);
   }
 
-  @Override
-  protected void registerListener() {
-    nativeAddListener(getSchemeChangedListener());
+  public boolean isEnabled()
+  {
+    return Framework.nativeIsTransitSchemeEnabled();
+  }
+
+  public void toggle()
+  {
+    setEnabled(!isEnabled());
+  }
+
+  public void initialize()
+  {
+    registerListener();
+  }
+
+  private void registerListener()
+  {
+    nativeAddListener(mSchemeChangedListener);
   }
 
   @NonNull
@@ -37,7 +51,7 @@ public class SubwayManager extends AbstractMapLayerListener
     MwmApplication app = (MwmApplication) context.getApplicationContext();
     return app.getSubwayManager();
   }
-
   private static native void nativeAddListener(@NonNull OnTransitSchemeChangedListener listener);
+
   private static native void nativeRemoveListener(@NonNull OnTransitSchemeChangedListener listener);
 }
