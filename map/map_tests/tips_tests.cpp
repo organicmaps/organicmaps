@@ -17,7 +17,7 @@ using namespace eye;
 
 namespace
 {
-class TipsApiDelegate : public TipsApi::Delegate
+class TipsApiDelegateForTesting : public TipsApi::Delegate
 {
 public:
   void SetLastBackgroundTime(double lastBackgroundTime)
@@ -34,8 +34,13 @@ public:
 
   double GetLastBackgroundTime() const override { return m_lastBackgroundTime; }
 
+  m2::PointD const & GetViewportCenter() const override { return m_point; }
+  storage::CountryId GetCountryId(m2::PointD const & pt) const override { return ""; }
+  int64_t GetCountryVersion(storage::CountryId const & countryId) const override { return 0; }
+
 private:
   double m_lastBackgroundTime = 0.0;
+  m2::PointD m_point;
 };
 
 void MakeLastShownTipAvailableByTime()
@@ -48,9 +53,9 @@ void MakeLastShownTipAvailableByTime()
   EyeForTesting::SetInfo(editableInfo);
 }
 
-std::optional<eye::Tip::Type> GetTipForTesting(TipsApi::Duration showAnyTipPeriod,
-                                               TipsApi::Duration showSameTipPeriod,
-                                               TipsApiDelegate const & delegate)
+boost::optional<eye::Tip::Type> GetTipForTesting(TipsApi::Duration showAnyTipPeriod,
+                                                 TipsApi::Duration showSameTipPeriod,
+                                                 TipsApiDelegateForTesting const & delegate)
 {
   // Do not use additional conditions for testing.
   TipsApi::Conditions conditions =
@@ -62,6 +67,8 @@ std::optional<eye::Tip::Type> GetTipForTesting(TipsApi::Duration showAnyTipPerio
     // Condition for Tips::Type::DiscoverButton type.
     [] (eye::Info const & info) { return true; },
      // Condition for Tips::Type::PublicTransport type.
+    [] (eye::Info const & info) { return true; },
+    // Condition for Tips::Type::Isolines type.
     [] (eye::Info const & info) { return true; }
   }};
   return TipsApi::GetTipForTesting(showAnyTipPeriod, showSameTipPeriod, delegate, conditions);
@@ -172,7 +179,7 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, ShowTipAndGotitClicked_Test)
 
 UNIT_CLASS_TEST(ScopedEyeForTesting, ShowTipAfterWarmStart)
 {
-  TipsApiDelegate d;
+  TipsApiDelegateForTesting d;
   d.SetLastBackgroundTime(base::Timer::LocalTime());
   auto tip = GetTipForTesting({}, TipsApi::GetShowSameTipPeriod(), d);
   TEST(!tip.has_value(), ());
