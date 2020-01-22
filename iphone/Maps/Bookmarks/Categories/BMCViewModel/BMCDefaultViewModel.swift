@@ -365,13 +365,4 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
     view?.update(sections: [.categories])
     view?.conversionFinished(success: success)
   }
-
-  func onBookmarksFileLoadSuccess() {
-    Statistics.logEvent(kStatEventName(kStatApplication, kStatImport), withParameters: [kStatValue : kStatKML])
-    MWMAlertViewController.activeAlert().presentInfoAlert(L("load_kmz_title"), text: L("load_kmz_successful"))
-  }
-
-  func onBookmarksFileLoadError() {
-    MWMAlertViewController.activeAlert().presentInfoAlert(L("load_kmz_title"), text: L("load_kmz_failed"))
-  }
 }
