@@ -1,4 +1,3 @@
-import UIKit
 
 final class RatingSummaryView: UIView {
   @IBInspectable var value: String = RatingSummaryViewSettings.Default.value {

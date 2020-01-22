@@ -1,20 +1,14 @@
 extension UITextField {
   @objc override func applyTheme() {
-    for style in StyleManager.instance().getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName) {
       UITextFieldRenderer.render(self, style: style)
     }
   }
 
-  @objc func sw_textRect(forBounds bounds: CGRect) -> CGRect {
-    if !isStyleApplied {
-      applyTheme()
-    }
+  @objc override func sw_didMoveToWindow() {
+    applyTheme()
     isStyleApplied = true
-    return self.sw_textRect(forBounds: bounds)
-  }
-
-  @objc func sw_editingRect(bounds: CGRect) -> CGRect {
-    return self.textRect(forBounds: bounds)
+    sw_didMoveToWindow();
   }
 }
 

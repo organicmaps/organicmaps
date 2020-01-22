@@ -3,7 +3,7 @@ extension UITableViewHeaderFooterView {
     if styleName.isEmpty {
       styleName = "TableViewHeaderFooterView"
     }
-    for style in StyleManager.instance().getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName) {
       UITableViewHeaderFooterViewRenderer.render(self, style: style)
     }
   }

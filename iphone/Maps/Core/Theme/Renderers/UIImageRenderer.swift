@@ -1,14 +1,14 @@
 extension UIImageView {
   @objc override func applyTheme() {
-    for style in StyleManager.instance().getStyle(styleName) {
-      UIViewRenderer.render(self, style: style)
+    for style in StyleManager.shared.getStyle(styleName) {
       UIImageViewRenderer.render(self, style: style)
     }
   }
 }
 
-class UIImageViewRenderer {
+class UIImageViewRenderer: UIViewRenderer {
   class func render(_ control: UIImageView, style: Style) {
+    super.render(control, style: style)
     if let image = style.image {
       control.image = UIImage(named: image)
     }

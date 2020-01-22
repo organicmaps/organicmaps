@@ -57,7 +57,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
     [ovc addChildViewController:self];
     [ovc.controlsView addSubview:self.view];
     [self configLayout];
-    [[StyleManager instance] addListener: self];
+    [StyleManager.shared addListener: self];
     [MWMMapOverlayManager addObserver:self];
   }
   return self;
@@ -65,7 +65,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 
 - (void)dealloc
 {
-  [[StyleManager instance] removeListener: self];
+  [StyleManager.shared removeListener: self];
 }
 
 - (void)configLayout
@@ -190,6 +190,6 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 
 - (void)onTrafficStateUpdated { [self applyTheme]; }
 - (void)onTransitStateUpdated { [self applyTheme]; }
-- (void)onIsoLinesStateUpdated { [self refreshAppearance]; }
+- (void)onIsoLinesStateUpdated { [self applyTheme]; }
 
 @end

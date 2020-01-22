@@ -1,4 +1,3 @@
-import UIKit
 
 @objc(MWMDownloaderNoResultsEmbedViewController)
 final class DownloaderNoResultsEmbed: UINavigationController {

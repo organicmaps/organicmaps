@@ -3,12 +3,9 @@
 }
 
 @objc class StyleManager: NSObject {
-  private struct Weak {
-    weak var listener: ThemeListener?
-  }
-  private static var _instance: StyleManager?
+  @objc static var shared = StyleManager()
   @objc private(set) var theme: Theme?
-  private var listeners: [Weak] = []
+  private var listeners: [Weak<ThemeListener>] = []
 
   func setTheme (_ theme: Theme) {
     self.theme = theme;
@@ -19,15 +16,7 @@
     return theme != nil
   }
 
-  @objc class func instance() -> StyleManager{
-    if StyleManager._instance == nil {
-      SwizzleStyle.addSwizzle();
-      StyleManager._instance = StyleManager()
-    }
-    return StyleManager._instance!
-  }
-
-  func update (){
+  func update () {
     for window in UIApplication.shared.windows {
       updateView(window.rootViewController?.view)
     }
@@ -43,7 +32,7 @@
     }
     
     for container in listeners {
-      if let listener = container.listener {
+      if let listener = container.value {
         listener.applyTheme()
       }
     }
@@ -69,16 +58,14 @@
     if theme != nil {
       themeListener.applyTheme()
     }
-    if listeners.contains(where: { (container) -> Bool in
-      return themeListener === container.listener
-      }) == false {
-      listeners.append(Weak(listener: themeListener))
+    if !listeners.contains(where: { themeListener === $0.value }) {
+      listeners.append(Weak(value: themeListener))
     }
   }
   
   @objc func removeListener(_ themeListener: ThemeListener) {
     listeners.removeAll { (container) -> Bool in
-      return container.listener === themeListener
+      return container.value === themeListener
     }
   }
 }

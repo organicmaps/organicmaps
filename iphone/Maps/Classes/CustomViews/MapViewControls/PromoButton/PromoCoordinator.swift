@@ -1,4 +1,3 @@
-import UIKit
 
 @objc class PromoCoordinator: NSObject {
   @objc enum PromoType: Int{

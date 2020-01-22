@@ -1,5 +1,3 @@
-import UIKit
-
 class AllPassSubscriptionViewController: BaseSubscriptionViewController {
   //MARK:outlets
   @IBOutlet private var backgroundImageView: ImageViewCrossDisolve!

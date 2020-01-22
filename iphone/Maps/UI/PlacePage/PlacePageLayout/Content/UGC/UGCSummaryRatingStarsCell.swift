@@ -1,4 +1,3 @@
-import UIKit
 
 final class UGCSummaryRatingStarsCell: UICollectionViewCell {
   @IBOutlet private weak var ratingView: RatingView! {

@@ -1,4 +1,3 @@
-import UIKit
 
 class DrivingOptionsViewController: MWMTableViewController {
   let options = RoutingOptions()

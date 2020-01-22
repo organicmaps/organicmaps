@@ -1,10 +1,9 @@
-import UIKit
 extension TabView {
   @objc override func applyTheme() {
     if styleName.isEmpty {
       styleName = "TabView"
     }
-    for style in StyleManager.instance().getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName) {
       TabViewRenderer.render(self, style: style)
     }
   }

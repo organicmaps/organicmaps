@@ -1,10 +1,13 @@
-import UIKit
 extension UINavigationItem {
   @objc func applyTheme() {
-    assertionFailure("Can't apply on non UIView")
+    if styleName.isEmpty {
+      styleName = "NavigationBarItem"
+    }
+    for style in StyleManager.shared.getStyle(styleName) {
+      UINavigationItemRenderer.render(self, style: style)
+    }
   }
 }
-
 class UINavigationItemRenderer {
   class func render(_ control: UINavigationItem, style: Style) {
     if let item = control.backBarButtonItem {

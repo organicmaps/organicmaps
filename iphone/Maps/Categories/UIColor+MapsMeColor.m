@@ -153,7 +153,7 @@ static UIColor * color(SEL cmd) {
 // Green color
 + (UIColor *)primary
 {
-  return [StyleManager instance].theme.colors.primary;
+  return StyleManager.shared.theme.colors.primary;
 }
 
 // Use for opaque fullscreen
@@ -165,56 +165,56 @@ static UIColor * color(SEL cmd) {
 // Background color && press color
 + (UIColor *)pressBackground
 {
-  return [StyleManager instance].theme.colors.pressBackground;
+  return StyleManager.shared.theme.colors.pressBackground;
 }
 // Red color (use for status closed in place page)
 + (UIColor *)red
 {
-  return [StyleManager instance].theme.colors.red;
+  return StyleManager.shared.theme.colors.red;
 }
 
 // Blue color (use for links and phone numbers)
 + (UIColor *)linkBlue
 {
-  return [StyleManager instance].theme.colors.linkBlue;
+  return StyleManager.shared.theme.colors.linkBlue;
 }
 
 + (UIColor *)linkBlueHighlighted
 {
-  return [StyleManager instance].theme.colors.linkBlueHighlighted;
+  return StyleManager.shared.theme.colors.linkBlueHighlighted;
 }
 
 + (UIColor *)linkBlueDark
 {
-  return [StyleManager instance].theme.colors.linkBlueDark;
+  return StyleManager.shared.theme.colors.linkBlueDark;
 }
 + (UIColor *)buttonRed
 {
-  return [StyleManager instance].theme.colors.buttonRed;
+  return StyleManager.shared.theme.colors.buttonRed;
 }
 + (UIColor *)blackPrimaryText
 {
-  return [StyleManager instance].theme.colors.blackPrimaryText;
+  return StyleManager.shared.theme.colors.blackPrimaryText;
 }
 
 + (UIColor *)blackSecondaryText
 {
-  return [StyleManager instance].theme.colors.blackSecondaryText;
+  return StyleManager.shared.theme.colors.blackSecondaryText;
 }
 
 + (UIColor *)blackHintText
 {
-  return [StyleManager instance].theme.colors.blackHintText;
+  return StyleManager.shared.theme.colors.blackHintText;
 }
 
 + (UIColor *)blackDividers
 {
-  return [StyleManager instance].theme.colors.blackDividers;
+  return StyleManager.shared.theme.colors.blackDividers;
 }
 
 + (UIColor *)white
 {
-  return [StyleManager instance].theme.colors.white;
+  return StyleManager.shared.theme.colors.white;
 }
 
 + (UIColor *)whitePrimaryText
@@ -230,12 +230,12 @@ static UIColor * color(SEL cmd) {
 
 + (UIColor *)whiteHintText
 {
-  return [StyleManager instance].theme.colors.whiteHintText;
+  return StyleManager.shared.theme.colors.whiteHintText;
 }
 
 + (UIColor *)buttonDisabledBlueText
 {
-  return [StyleManager instance].theme.colors.buttonDisabledBlueText;
+  return StyleManager.shared.theme.colors.buttonDisabledBlueText;
 }
 
 + (UIColor *)buttonHighlightedBlueText
@@ -245,7 +245,7 @@ static UIColor * color(SEL cmd) {
 
 + (UIColor *)blackOpaque
 {
-  return [StyleManager instance].theme.colors.blackOpaque;
+  return StyleManager.shared.theme.colors.blackOpaque;
 }
 
 + (UIColor *)bookingBackground
@@ -265,7 +265,7 @@ static UIColor * color(SEL cmd) {
 
 + (UIColor *)bannerBackground
 {
-  return [StyleManager instance].theme.colors.bannerBackground;
+  return StyleManager.shared.theme.colors.bannerBackground;
 }
 
 + (UIColor *)colorWithName:(NSString *)colorName

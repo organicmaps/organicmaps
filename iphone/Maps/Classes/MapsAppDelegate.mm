@@ -559,14 +559,6 @@ continueUserActivity:(NSUserActivity *)userActivity
   });
 }
 
-+ (NSDictionary *)navigationBarTextAttributes
-{
-  return @{
-    NSForegroundColorAttributeName : [UIColor whitePrimaryText],
-    NSFontAttributeName : [UIFont regular18]
-  };
-}
-
 + (void)customizeAppearanceForNavigationBar:(UINavigationBar *)navigationBar
 {
   auto backImage = [[UIImage imageNamed:@"ic_nav_bar_back_sys"]
@@ -580,15 +572,6 @@ continueUserActivity:(NSUserActivity *)userActivity
   [UIButton appearance].exclusiveTouch = YES;
 
   [self customizeAppearanceForNavigationBar:[UINavigationBar appearance]];
-  
-  UIBarButtonItem *barButtonApperance = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UINavigationBar class]]];
-  [barButtonApperance setTitleTextAttributes:[self navigationBarTextAttributes]
-                                    forState:UIControlStateNormal];
-  [barButtonApperance setTitleTextAttributes:@{
-                                               NSForegroundColorAttributeName : [UIColor lightGrayColor],
-                                               }
-                                    forState:UIControlStateDisabled];
-  [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UINavigationBar class]]].tintColor = [UIColor whitePrimaryText];
 
   UITextField * textField = [UITextField appearance];
   textField.keyboardAppearance =

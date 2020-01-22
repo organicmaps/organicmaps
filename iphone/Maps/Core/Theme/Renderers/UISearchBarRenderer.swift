@@ -4,15 +4,15 @@ extension UISearchBar {
     if styleName.isEmpty {
       styleName = "SearchBar"
     }
-    for style in StyleManager.instance().getStyle(styleName) {
-      UIViewRenderer.render(self, style: style)
+    for style in StyleManager.shared.getStyle(styleName) {
       UISearchBarRenderer.render(self, style: style)
     }
   }
 }
 
-class UISearchBarRenderer {
+class UISearchBarRenderer: UIViewRenderer {
   class func render(_ control: UISearchBar, style: Style) {
+    super.render(control, style: style)
     if let backgroundColor = style.backgroundColor {
       control.searchTextField.backgroundColor = backgroundColor
     }

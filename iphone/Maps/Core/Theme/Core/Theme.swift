@@ -25,32 +25,23 @@
     U.register(theme: self, colors: colors, fonts: fonts)
   }
 
-
-  func add(styleName: StyleName,
-           _ resolver:@escaping Resolver) {
+  func add(styleName: StyleName, _ resolver:@escaping Resolver) {
     resolvers[styleName] = resolver
   }
 
-  func add(styleName: StyleName,
-           from: StyleName,
-           _ resolver:@escaping Resolver) {
+  func add(styleName: StyleName, from: StyleName, _ resolver:@escaping Resolver) {
     resolvers[styleName] = resolver
     dependencies[styleName] = from
   }
 
-  func add(styleName: StyleName,
-           forType: ThemeType,
-           _ resolver:@escaping Resolver) {
+  func add(styleName: StyleName,  forType: ThemeType, _ resolver:@escaping Resolver) {
     guard themeType == forType else {
       return
     }
     resolvers[styleName] = resolver
   }
 
-  func add(styleName: StyleName,
-           from: StyleName,
-           forType: ThemeType,
-           _ resolver:@escaping Resolver) {
+  func add(styleName: StyleName, from: StyleName, forType: ThemeType, _ resolver:@escaping Resolver) {
     guard themeType == forType else {
       return
     }

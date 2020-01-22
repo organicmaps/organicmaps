@@ -1,19 +1,18 @@
-import UIKit
 
 extension UINavigationBar {
   @objc override func applyTheme() {
     if styleName.isEmpty {
       styleName = "NavigationBar"
     }
-    for style in StyleManager.instance().getStyle(styleName) {
-      UIViewRenderer.render(self, style:  style)
+    for style in StyleManager.shared.getStyle(styleName) {
       UINavigationBarRenderer.render(self, style: style)
     }
   }
 }
 
-class UINavigationBarRenderer {
+class UINavigationBarRenderer: UIViewRenderer {
   class func render(_ control: UINavigationBar, style: Style) {
+    super.render(control, style: style)
     if let barTintColor = style.barTintColor {
       control.barTintColor = barTintColor
     }

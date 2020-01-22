@@ -1,4 +1,3 @@
-import UIKit
 
 class ImageViewCrossDisolve: UIView {
   private var imageViews: [UIImageView] = []

@@ -4,7 +4,7 @@ extension MWMTableViewCell {
     if styleName.isEmpty {
       styleName = "MWMTableViewCell"
     }
-    for style in StyleManager.instance().getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName) {
       MWMTableViewCellRenderer.render(self, style: style)
     }
   }

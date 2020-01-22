@@ -1,4 +1,3 @@
-import UIKit
 
 fileprivate let kDotWidth: CGFloat = 6.0
 fileprivate let kExtraDotWidth: CGFloat = kDotWidth * 4

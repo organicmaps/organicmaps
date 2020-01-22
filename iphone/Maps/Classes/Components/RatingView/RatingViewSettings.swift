@@ -1,4 +1,3 @@
-import UIKit
 
 struct RatingViewSettings {
   enum FillMode: Int {

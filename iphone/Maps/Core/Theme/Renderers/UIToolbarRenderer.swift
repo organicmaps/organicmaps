@@ -1,6 +1,6 @@
 extension UIToolbar {
   @objc override func applyTheme() {
-    for style in StyleManager.instance().getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName) {
       UIToolbarRenderer.render(self, style: style)
     }
   }

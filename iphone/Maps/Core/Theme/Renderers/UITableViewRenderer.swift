@@ -3,15 +3,15 @@ extension UITableView {
     if styleName.isEmpty {
       styleName = "TableView"
     }
-    for style in StyleManager.instance().getStyle(styleName) {
-      UIViewRenderer.render(self, style: style)
+    for style in StyleManager.shared.getStyle(styleName) {
       UITableViewRenderer.render(self, style: style)
     }
   }
 }
 
-class UITableViewRenderer {
+class UITableViewRenderer: UIViewRenderer {
   class func render(_ control: UITableView, style: Style) {
+    super.render(control, style: style)
     if let backgroundColor = style.backgroundColor {
       control.backgroundView = UIImageView(image: backgroundColor.getImage())
     }

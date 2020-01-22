@@ -1,7 +1,6 @@
 extension UIWindow {
   @objc override func applyTheme() {
-    for style in StyleManager.instance().getStyle(styleName) {
-      UIViewRenderer.render(self, style: style)
+    for style in StyleManager.shared.getStyle(styleName) {
       UIWindowRenderer.render(self, style: style)
     }
   }

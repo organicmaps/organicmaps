@@ -3,7 +3,7 @@ extension UITableViewCell {
     if styleName.isEmpty {
       styleName = "TableCell"
     }
-    for style in StyleManager.instance().getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName) {
       UITableViewCellRenderer.render(self, style: style)
     }
   }

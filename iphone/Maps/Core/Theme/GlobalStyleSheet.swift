@@ -44,10 +44,12 @@ class GlobalStyleSheet: IStyleSheet {
       s.fontColor = colors.whitePrimaryText
     }
 
-    theme.add(styleName: "NavigationButton") { (s) -> (Void) in
+    theme.add(styleName: "NavigationBarItem") { (s) -> (Void) in
       s.font = fonts.regular18
       s.fontColor = colors.whitePrimaryText
+      s.fontColorDisabled = UIColor.lightGray
       s.fontColorHighlighted = colors.whitePrimaryTextHighlighted
+      s.tintColor = colors.whitePrimaryText
     }
 
     theme.add(styleName: "Checkmark") { (s) -> (Void) in

@@ -1,5 +1,3 @@
-import UIKit
-
 class CatalogConnectionErrorView: UIView {
   
   @IBOutlet var imageView: UIImageView!

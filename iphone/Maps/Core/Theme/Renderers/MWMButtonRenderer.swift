@@ -1,6 +1,6 @@
 extension MWMButton {
   @objc override func applyTheme() {
-    for style in StyleManager.instance().getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName) {
       MWMButtonRenderer.render(self, style: style)
     }
   }

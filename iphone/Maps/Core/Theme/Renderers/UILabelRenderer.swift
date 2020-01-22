@@ -12,9 +12,8 @@ extension UILabel {
   }
 
   @objc override func applyTheme() {
-    let styles = StyleManager.instance().getStyle(styleName)
+    let styles = StyleManager.shared.getStyle(styleName)
     for style in styles {
-      UIViewRenderer.render(self, style: style)
       UILabelRenderer.render(self, style: style)
     }
   }
@@ -22,7 +21,7 @@ extension UILabel {
   @objc func sw_setAttributedText(text: NSAttributedString) -> CGRect {
     var attributedString = text
     if styleName.isEmpty == false {
-      let styles = StyleManager.instance().getStyle(styleName)
+      let styles = StyleManager.shared.getStyle(styleName)
       for style in styles where style.attributes != nil {
         attributedString = UILabelRenderer.transformText(style: style,
                                                          text: attributedString)
@@ -32,8 +31,9 @@ extension UILabel {
   }
 }
 
-class UILabelRenderer {
+class UILabelRenderer: UIViewRenderer {
   class func render(_ control: UILabel, style: Style) {
+    super.render(control, style: style)
     if let font = style.font {
       control.font = font
     }

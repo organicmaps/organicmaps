@@ -48,7 +48,7 @@ extension BannerType: Equatable {
 }
 
 extension BannerType: Hashable {
-  func hash(into hasher: inout Hasher){
+  func hash(into hasher: inout Hasher) {
     switch self {
     case .none: hasher.combine(mwmType.hashValue)
     case let .facebook(id): hasher.combine(mwmType.hashValue ^ id.hashValue)

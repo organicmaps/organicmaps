@@ -1,4 +1,3 @@
-import UIKit
 
 final class ExpandableReviewView: UIView {
   var contentLabel: UILabel = {

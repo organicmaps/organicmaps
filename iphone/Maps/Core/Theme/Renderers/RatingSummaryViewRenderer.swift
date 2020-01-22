@@ -1,7 +1,7 @@
 import Foundation
 extension RatingSummaryView {
   @objc override func applyTheme() {
-    for style in StyleManager.instance().getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName) {
       RatingSummaryViewRenderer.render(self, style: style)
     }
   }

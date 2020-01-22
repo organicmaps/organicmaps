@@ -1,5 +1,3 @@
-import UIKit
-
 @objc(MWMStoryboard)
 enum Storyboard: Int {
   case authorization

@@ -18,7 +18,7 @@ class PromoDiscoveryPresenter {
 }
 
 extension PromoDiscoveryPresenter: IPromoRouterPresenter {
-  func configure(){
+  func configure() {
     switch campaign.group {
     case .discoverCatalog:
       viewController?.setTitleImage(UIImage(named: "img_onboarding_subscribeguides"))

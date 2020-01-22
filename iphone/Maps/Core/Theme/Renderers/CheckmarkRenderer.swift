@@ -4,7 +4,7 @@ extension Checkmark {
     if styleName.isEmpty {
       styleName = "Checkmark"
     }
-    for style in StyleManager.instance().getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName) {
       CheckmarkRenderer.render(self, style: style)
     }
   }

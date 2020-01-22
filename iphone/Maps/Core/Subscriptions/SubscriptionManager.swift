@@ -55,7 +55,7 @@ class SubscriptionManager: NSObject, ISubscriptionManager {
     return SKPaymentQueue.canMakePayments()
   }
 
-  @objc func getAvailableSubscriptions(_ completion: @escaping SuscriptionsCompletion){
+  @objc func getAvailableSubscriptions(_ completion: @escaping SuscriptionsCompletion) {
     subscriptionsComplection = completion
     productsRequest = SKProductsRequest(productIdentifiers: Set(productIds))
     productsRequest!.delegate = self

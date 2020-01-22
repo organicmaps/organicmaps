@@ -3,7 +3,7 @@ fileprivate struct AssociatedKeys {
   static var isStyleApplied: UInt8 = 1
 }
 
-@objc extension UIView {
+@objc extension UINavigationItem {
   @objc func sw_didMoveToWindow() {
     applyTheme()
     isStyleApplied = true
@@ -37,6 +37,6 @@ fileprivate struct AssociatedKeys {
 
   @objc func setStyleAndApply(_ styleName: String) {
     self.styleName = styleName
-    applyTheme()
+    self.applyTheme()
   }
 }

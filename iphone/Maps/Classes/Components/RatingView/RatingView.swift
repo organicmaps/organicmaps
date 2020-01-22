@@ -1,4 +1,3 @@
-import UIKit
 
 @IBDesignable final class RatingView: UIView {
   @IBInspectable var value: CGFloat = RatingViewSettings.Default.value {

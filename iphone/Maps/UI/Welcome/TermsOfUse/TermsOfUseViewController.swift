@@ -43,7 +43,7 @@ class TermsOfUseViewController: MWMViewController {
   }
 
   @IBAction func onCheck(_ sender: Checkmark) {
-    if (privacyPolicyCheck.isChecked && termsOfUseCheck.isChecked){
+    if (privacyPolicyCheck.isChecked && termsOfUseCheck.isChecked) {
       presenter?.onNext()
     }
   }

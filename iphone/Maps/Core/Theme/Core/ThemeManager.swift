@@ -50,12 +50,12 @@ final class ThemeManager: NSObject {
 
 
     FrameworkHelper.setTheme(actualTheme)
-    if nightMode != newNightMode || StyleManager.instance().hasTheme() == false{
+    if nightMode != newNightMode || StyleManager.shared.hasTheme() == false{
       UIColor.setNightMode(newNightMode)
       if newNightMode {
-        StyleManager.instance().setTheme(MainTheme(type: .dark, colors: NightColors(), fonts: Fonts()))
+        StyleManager.shared.setTheme(MainTheme(type: .dark, colors: NightColors(), fonts: Fonts()))
       } else {
-        StyleManager.instance().setTheme(MainTheme(type: .light, colors: DayColors(), fonts: Fonts()))
+        StyleManager.shared.setTheme(MainTheme(type: .light, colors: DayColors(), fonts: Fonts()))
       }
     }
   }
@@ -64,6 +64,7 @@ final class ThemeManager: NSObject {
     instance.update(theme: MWMSettings.theme())
   }
 
+  @available(iOS, deprecated:13.0)
   @objc static var autoUpdates: Bool {
     get {
       return instance.timer != nil

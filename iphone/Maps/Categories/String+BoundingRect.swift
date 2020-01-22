@@ -1,4 +1,3 @@
-import UIKit
 
 extension String {
   func size(width: CGFloat, font: UIFont, maxNumberOfLines: Int = 0) -> CGSize {

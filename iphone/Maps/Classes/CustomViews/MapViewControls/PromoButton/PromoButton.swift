@@ -1,4 +1,3 @@
-import UIKit
 
 @objc class PromoButton: MWMButton {
 

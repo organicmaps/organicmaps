@@ -1,5 +1,3 @@
-import UIKit
-
 class BookmarksSubscriptionButton: UIButton {
   private let descriptionLabel = UILabel()
   private let priceLabel = UILabel()

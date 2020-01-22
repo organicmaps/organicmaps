@@ -1,5 +1,3 @@
-import UIKit
-
 @objc(MWMWelcomePageControllerProtocol)
 protocol WelcomePageControllerProtocol {
   var view: UIView! { get set }

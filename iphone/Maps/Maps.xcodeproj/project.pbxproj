@@ -570,6 +570,11 @@
 		991FCA2423B11E61009AD684 /* BookmarksStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991FCA2323B11E61009AD684 /* BookmarksStyleSheet.swift */; };
 		991FCA2623B11EDE009AD684 /* UITextViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991FCA2523B11EDE009AD684 /* UITextViewRenderer.swift */; };
 		991FCA2823B12201009AD684 /* CheckmarkRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991FCA2723B12201009AD684 /* CheckmarkRenderer.swift */; };
+		9929693B23D89B7100B0D5D9 /* UIView+swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 9929693A23D89B7100B0D5D9 /* UIView+swizzle.m */; };
+		9929693E23D89C1400B0D5D9 /* UITextField+swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 9929693D23D89C1400B0D5D9 /* UITextField+swizzle.m */; };
+		9929694323D89D8A00B0D5D9 /* UIWindow+swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 9929694223D89D8A00B0D5D9 /* UIWindow+swizzle.m */; };
+		9929694623D8A32200B0D5D9 /* UINavigationItem+swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 9929694523D8A32200B0D5D9 /* UINavigationItem+swizzle.m */; };
+		9929694823D8A3CB00B0D5D9 /* UINavigationItem+styleName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9929694723D8A3CB00B0D5D9 /* UINavigationItem+styleName.swift */; };
 		993F5507237C622700545511 /* DeepLinkSearchStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54F8237C622700545511 /* DeepLinkSearchStrategy.swift */; };
 		993F5508237C622700545511 /* DeepLinkRouteStrategyAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 993F54F9237C622700545511 /* DeepLinkRouteStrategyAdapter.mm */; };
 		993F5509237C622700545511 /* DeepLinkHandlerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54FA237C622700545511 /* DeepLinkHandlerStrategy.swift */; };
@@ -1614,6 +1619,15 @@
 		991FCA2323B11E61009AD684 /* BookmarksStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksStyleSheet.swift; sourceTree = "<group>"; };
 		991FCA2523B11EDE009AD684 /* UITextViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewRenderer.swift; sourceTree = "<group>"; };
 		991FCA2723B12201009AD684 /* CheckmarkRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckmarkRenderer.swift; sourceTree = "<group>"; };
+		9929693923D89B7000B0D5D9 /* UIView+swizzle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+swizzle.h"; sourceTree = "<group>"; };
+		9929693A23D89B7100B0D5D9 /* UIView+swizzle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+swizzle.m"; sourceTree = "<group>"; };
+		9929693C23D89C1400B0D5D9 /* UITextField+swizzle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+swizzle.h"; sourceTree = "<group>"; };
+		9929693D23D89C1400B0D5D9 /* UITextField+swizzle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+swizzle.m"; sourceTree = "<group>"; };
+		9929694123D89D8A00B0D5D9 /* UIWindow+swizzle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIWindow+swizzle.h"; sourceTree = "<group>"; };
+		9929694223D89D8A00B0D5D9 /* UIWindow+swizzle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+swizzle.m"; sourceTree = "<group>"; };
+		9929694423D8A32200B0D5D9 /* UINavigationItem+swizzle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationItem+swizzle.h"; sourceTree = "<group>"; };
+		9929694523D8A32200B0D5D9 /* UINavigationItem+swizzle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationItem+swizzle.m"; sourceTree = "<group>"; };
+		9929694723D8A3CB00B0D5D9 /* UINavigationItem+styleName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+styleName.swift"; sourceTree = "<group>"; };
 		993F54F8237C622700545511 /* DeepLinkSearchStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkSearchStrategy.swift; sourceTree = "<group>"; };
 		993F54F9237C622700545511 /* DeepLinkRouteStrategyAdapter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkRouteStrategyAdapter.mm; sourceTree = "<group>"; };
 		993F54FA237C622700545511 /* DeepLinkHandlerStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkHandlerStrategy.swift; sourceTree = "<group>"; };
@@ -3587,6 +3601,23 @@
 			path = PromoAfterBookingCampaign;
 			sourceTree = "<group>";
 		};
+		9929694923D8A3D600B0D5D9 /* Swizzle */ = {
+			isa = PBXGroup;
+			children = (
+				994AEC0223AB763C0079B81F /* SwizzleStyle.h */,
+				994AEC0523AB763C0079B81F /* SwizzleStyle.m */,
+				9929693923D89B7000B0D5D9 /* UIView+swizzle.h */,
+				9929693A23D89B7100B0D5D9 /* UIView+swizzle.m */,
+				9929693C23D89C1400B0D5D9 /* UITextField+swizzle.h */,
+				9929693D23D89C1400B0D5D9 /* UITextField+swizzle.m */,
+				9929694123D89D8A00B0D5D9 /* UIWindow+swizzle.h */,
+				9929694223D89D8A00B0D5D9 /* UIWindow+swizzle.m */,
+				9929694423D8A32200B0D5D9 /* UINavigationItem+swizzle.h */,
+				9929694523D8A32200B0D5D9 /* UINavigationItem+swizzle.m */,
+			);
+			path = Swizzle;
+			sourceTree = "<group>";
+		};
 		993F54EB237C5CD800545511 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -3644,6 +3675,7 @@
 				999FC12523ABAF5200B0E6F9 /* Core */,
 				994AEBE523AB763C0079B81F /* Renderers */,
 				994AEBFF23AB763C0079B81F /* Extensions */,
+				9929694923D8A3D600B0D5D9 /* Swizzle */,
 				994AEC0623AB763C0079B81F /* Components */,
 				994AEBE423AB763C0079B81F /* Colors.swift */,
 				999FC12323ABACED00B0E6F9 /* Fonts.swift */,
@@ -3696,8 +3728,7 @@
 			isa = PBXGroup;
 			children = (
 				994AEC0023AB763C0079B81F /* UIView+styleName.swift */,
-				994AEC0223AB763C0079B81F /* SwizzleStyle.h */,
-				994AEC0523AB763C0079B81F /* SwizzleStyle.m */,
+				9929694723D8A3CB00B0D5D9 /* UINavigationItem+styleName.swift */,
 				994AEC0323AB763C0079B81F /* UIColor+rgba.swift */,
 				994AEC0423AB763C0079B81F /* UIColor+image.swift */,
 			);
@@ -5229,6 +5260,7 @@
 				BB8123D62130427E00ADE512 /* MetalContextFactory.mm in Sources */,
 				3467CEB2202C6EEE00D3C670 /* BMCNotificationsHeader.swift in Sources */,
 				34F4072F1E9E1AFF00E57AC0 /* BannersCache.swift in Sources */,
+				9929693E23D89C1400B0D5D9 /* UITextField+swizzle.m in Sources */,
 				34D3B0211E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.m in Sources */,
 				999FC12923ABAFFE00B0E6F9 /* GlobalStyleSheet.swift in Sources */,
 				99D363192358685300941BF4 /* SubscriptionGroupItem.swift in Sources */,
@@ -5249,6 +5281,7 @@
 				34D3B0421E389D05004100F9 /* MWMEditorTextTableViewCell.m in Sources */,
 				47FA14D1230D52FC003DA979 /* PhoneNumberAuthorizationViewController.swift in Sources */,
 				340708651F2905A500029ECC /* NavigationInfoArea.swift in Sources */,
+				9929694823D8A3CB00B0D5D9 /* UINavigationItem+styleName.swift in Sources */,
 				34AB666B1FC5AA330078E451 /* TransportTransitCell.swift in Sources */,
 				3404163C1E7BDFE000E2B6D6 /* PhotosViewController.swift in Sources */,
 				47E8163323B17734008FD836 /* MWMStorage+UI.m in Sources */,
@@ -5301,6 +5334,7 @@
 				47E3C7292111E614008B3B27 /* FadeInAnimatedTransitioning.swift in Sources */,
 				34AB667D1FC5AA330078E451 /* MWMRoutePreview.mm in Sources */,
 				99F50FCA23B3852F00E95228 /* UIToolbarRenderer.swift in Sources */,
+				9929693B23D89B7100B0D5D9 /* UIView+swizzle.m in Sources */,
 				B33D21AC20DA515800BAD749 /* MWMCategoryInfoCell.mm in Sources */,
 				473CBF9B2164DD470059BD54 /* SettingsTableViewSelectableProgressCell.swift in Sources */,
 				47E3C72D2111E6A2008B3B27 /* FadeTransitioning.swift in Sources */,
@@ -5310,6 +5344,7 @@
 				47A04171238DE8AE00D84E95 /* HotelFacilitiesViewController.swift in Sources */,
 				479D306522C664CE00D18278 /* MWMDownloadBannerViewController.m in Sources */,
 				F6E2FEDF1E097BA00083EBEC /* MWMSearchManager+Layout.m in Sources */,
+				9929694623D8A32200B0D5D9 /* UINavigationItem+swizzle.m in Sources */,
 				F64D9CA01C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */,
 				34AC8FD11EFC02C000E7F910 /* MWMRoutePoint.mm in Sources */,
 				CDB4D5012231412900104869 /* ListTemplateBuilder.swift in Sources */,
@@ -5352,6 +5387,7 @@
 				47B9065421C7FA400079C85E /* UIImageView+WebImage.m in Sources */,
 				F6E2FF481E097BA00083EBEC /* SettingsTableViewSelectableCell.swift in Sources */,
 				994AEC2D23AB763C0079B81F /* StyleManager.swift in Sources */,
+				9929694323D89D8A00B0D5D9 /* UIWindow+swizzle.m in Sources */,
 				34BBD6581F826F810070CA50 /* AuthorizationTransitioningManager.swift in Sources */,
 				33F7668F21A57CDF00A88B16 /* EditOnWebViewController.swift in Sources */,
 				34AB664A1FC5AA330078E451 /* RouteManageriPadPresentationController.swift in Sources */,

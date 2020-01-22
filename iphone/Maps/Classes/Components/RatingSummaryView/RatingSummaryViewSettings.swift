@@ -1,4 +1,3 @@
-import UIKit
 
 struct RatingSummaryViewSettings {
   enum Default {

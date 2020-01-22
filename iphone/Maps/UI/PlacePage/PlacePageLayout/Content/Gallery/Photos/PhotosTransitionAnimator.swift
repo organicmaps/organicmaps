@@ -1,4 +1,3 @@
-import UIKit
 
 final class PhotosTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
   private enum Settings {

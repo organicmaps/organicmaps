@@ -3,7 +3,7 @@ extension UIView {
     if type(of: self.superview) == UINavigationBar.self {
       return;
     }
-    for style in StyleManager.instance().getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName) {
       UIViewRenderer.render(self, style: style)
     }
   }

@@ -1,10 +1,9 @@
-import UIKit
 extension UIPageControl {
   @objc override func applyTheme() {
     if styleName.isEmpty {
       styleName = "PageControl"
     }
-    for style in StyleManager.instance().getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName) {
       UIPageControlenderer.render(self, style: style)
     }
   }
