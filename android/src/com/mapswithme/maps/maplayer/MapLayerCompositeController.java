@@ -12,10 +12,10 @@ import com.mapswithme.maps.tips.Tutorial;
 import com.mapswithme.maps.tips.TutorialClickListener;
 import com.mapswithme.util.InputUtils;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.List;
 
 public class MapLayerCompositeController implements MapLayerController
 {
@@ -29,19 +29,22 @@ public class MapLayerCompositeController implements MapLayerController
   public MapLayerCompositeController(@NonNull TrafficButton traffic, @NonNull View subway,
                                      @NonNull View isoLines, @NonNull AppCompatActivity activity)
   {
-    View.OnClickListener listener = new OpenBottomDialogClickListener(activity, Tutorial.SUBWAY);
+    Tutorial tutorial = Tutorial.requestCurrent(activity, activity.getClass());
+
+    View.OnClickListener listener = new OpenBottomDialogClickListener(activity, tutorial);
     mActivity = activity;
-    mChildrenEntries = createEntries(traffic, subway, isoLines, activity, listener);
+    mChildrenEntries = createEntries(traffic, subway, isoLines, activity, listener, tutorial);
     mMasterEntry = getCurrentLayer();
     toggleMode(mMasterEntry.getMode());
   }
 
   @NonNull
-  private static Collection<ControllerAndMode> createEntries(@NonNull TrafficButton traffic,
+  private static List<ControllerAndMode> createEntries(@NonNull TrafficButton traffic,
                                                              @NonNull View subway,
                                                              @NonNull View isoLinesView,
                                                              @NonNull AppCompatActivity activity,
-                                                             @NonNull View.OnClickListener dialogClickListener)
+                                                             @NonNull View.OnClickListener dialogClickListener,
+                                                             @NonNull Tutorial tutorial)
   {
     traffic.setOnclickListener(dialogClickListener);
     TrafficButtonController trafficButtonController = new TrafficButtonController(traffic,
@@ -51,15 +54,31 @@ public class MapLayerCompositeController implements MapLayerController
 
     SubwayMapLayerController isoLinesController = new SubwayMapLayerController(isoLinesView);
     isoLinesView.setOnClickListener(dialogClickListener);
-    ControllerAndMode subwayEntry = new ControllerAndMode(Mode.SUBWAY, subwayMapLayerController);
-    ControllerAndMode trafficEntry = new ControllerAndMode(Mode.TRAFFIC, trafficButtonController);
-    ControllerAndMode isoLineEntry = new ControllerAndMode(Mode.ISOLINES, isoLinesController);
+    ControllerAndMode subwayEntry = new ControllerAndMode(Mode.SUBWAY, Tutorial.SUBWAY,
+                                                          subwayMapLayerController);
+    ControllerAndMode trafficEntry = new ControllerAndMode(Mode.TRAFFIC, Tutorial.STUB,
+                                                           trafficButtonController);
+    ControllerAndMode isoLineEntry = new ControllerAndMode(Mode.ISOLINES, Tutorial.ISOLINES,
+                                                           isoLinesController);
 
-    Set<ControllerAndMode> entries = new LinkedHashSet<>();
+    List<ControllerAndMode> entries = new ArrayList<>();
     entries.add(subwayEntry);
 //    entries.add(isoLineEntry);
     entries.add(trafficEntry);
-    return Collections.unmodifiableSet(entries);
+
+    if (tutorial != Tutorial.STUB)
+    {
+      Collections.sort(entries, (lhs, rhs) ->
+      {
+        if (lhs.getTutorial().equals(tutorial))
+          return 1;
+        if (rhs.getTutorial().equals(tutorial))
+          return -1;
+        return 0;
+      });
+    }
+
+    return Collections.unmodifiableList(entries);
   }
 
   public void toggleMode(@NonNull Mode mode)
@@ -234,11 +253,15 @@ public class MapLayerCompositeController implements MapLayerController
     @NonNull
     private final Mode mMode;
     @NonNull
+    private final Tutorial mTutorial;
+    @NonNull
     private final MapLayerController mController;
 
-    ControllerAndMode(@NonNull Mode mode, @NonNull MapLayerController controller)
+    ControllerAndMode(@NonNull Mode mode, @NonNull Tutorial tutorial,
+                      @NonNull MapLayerController controller)
     {
       mMode = mode;
+      mTutorial = tutorial;
       mController = controller;
     }
 
@@ -267,6 +290,12 @@ public class MapLayerCompositeController implements MapLayerController
     Mode getMode()
     {
       return mMode;
+    }
+
+    @NonNull
+    Tutorial getTutorial()
+    {
+      return mTutorial;
     }
   }
 
