@@ -281,23 +281,7 @@ using namespace storage;
   [self layoutIfNeeded];
   if (self.bannerView.hidden) {
     switch (m_promoBanner.m_type) {
-      case promo::DownloaderPromo::Type::Megafon: {
-        __weak __typeof(self) ws = self;
-        self.bannerViewController = [[MWMMegafonBannerViewController alloc] initWithTapHandler:^{
-          [ws bannerAction];
-          [Statistics logEvent:kStatDownloaderBannerClick
-                withParameters:@{
-                                 kStatFrom: kStatMap,
-                                 kStatProvider: kStatMegafon
-                                 }];
-        }];
-        [Statistics logEvent:kStatDownloaderBannerShow
-              withParameters:@{
-                               kStatFrom: kStatMap,
-                               kStatProvider: kStatMegafon
-                               }];
-        break;
-      }
+      case promo::DownloaderPromo::Type::Megafon:
       case promo::DownloaderPromo::Type::BookmarkCatalog: {
         __weak __typeof(self) ws = self;
         self.bannerViewController = [[MWMBookmarksBannerViewController alloc] initWithTapHandler:^{
