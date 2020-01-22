@@ -101,6 +101,7 @@ private:
   {
     auto const tileName = generator::SrtmTile::GetBase(ms::LatLon(lat, lon));
     LOG(LINFO, ("Begin generating isolines for tile", tileName));
+
     ms::LatLon const leftBottom = ms::LatLon(lat, lon);
     ms::LatLon const rightTop = ms::LatLon(lat + 1.0, lon + 1.0);
     double const squaresStep = 1.0 / (kArcSecondsInDegree) * m_params.m_latLonStepFactor;
@@ -126,7 +127,11 @@ private:
       squares.GenerateContours(contours);
     }
 
+    LOG(LINFO, ("Isolines for tile", tileName, "min altitude", contours.m_minValue,
+      "max altitude", contours.m_maxValue, "invalid values count", contours.m_invalidValuesCount));
+
     SaveContrours(GetIsolinesFilePath(lat, lon, m_params.m_outputDir), std::move(contours));
+
     LOG(LINFO, ("End generating isolines for tile", tileName));
   }
 

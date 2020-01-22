@@ -40,7 +40,7 @@ void ContoursBuilder::AddSegment(size_t levelInd, ms::LatLon const & beginPos, m
   else if (connectEnd)
   {
     contourItAfter->m_countour.push_front(beginPos);
-    contourItBefore->m_active = true;
+    contourItAfter->m_active = true;
   }
   else
   {

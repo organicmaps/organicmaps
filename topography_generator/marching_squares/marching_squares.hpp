@@ -44,16 +44,16 @@ public:
 
     ContoursBuilder contoursBuilder(levelsCount);
 
-    for (size_t i = 0; i < m_stepsCountLat - 1; ++i)
+    for (size_t i = 0; i < m_stepsCountLat; ++i)
     {
       contoursBuilder.BeginLine();
-      for (size_t j = 0; j < m_stepsCountLon - 1; ++j)
+      for (size_t j = 0; j < m_stepsCountLon; ++j)
       {
         auto const pos = ms::LatLon(m_leftBottom.m_lat + m_step * i, m_leftBottom.m_lon + m_step * j);
         Square<ValueType> square(pos, m_step, result.m_minValue, m_valueStep, m_valuesProvider);
         square.GenerateSegments(contoursBuilder);
       }
-      auto const isLastLine = i == m_stepsCountLat - 2;
+      auto const isLastLine = i == m_stepsCountLat - 1;
       contoursBuilder.EndLine(isLastLine);
     }
 
@@ -66,9 +66,9 @@ private:
     minValue = maxValue = m_valuesProvider.GetValue(m_leftBottom);
     invalidValuesCount = 0;
 
-    for (size_t i = 0; i < m_stepsCountLat; ++i)
+    for (size_t i = 0; i <= m_stepsCountLat; ++i)
     {
-      for (size_t j = 0; j < m_stepsCountLon; ++j)
+      for (size_t j = 0; j <= m_stepsCountLon; ++j)
       {
         auto const pos = ms::LatLon(m_leftBottom.m_lat + m_step * i,
                                     m_leftBottom.m_lon + m_step * j);

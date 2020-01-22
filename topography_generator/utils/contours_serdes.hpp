@@ -20,6 +20,7 @@ public:
     WriteToSink(sink, m_contours.m_minValue);
     WriteToSink(sink, m_contours.m_maxValue);
     WriteToSink(sink, m_contours.m_valueStep);
+    WriteToSink(sink, static_cast<uint32_t>(m_contours.m_invalidValuesCount));
 
     WriteToSink(sink, static_cast<uint32_t>(m_contours.m_contours.size()));
     for (auto const & levelContours : m_contours.m_contours)
@@ -35,23 +36,17 @@ private:
     WriteToSink(sink, value);
     WriteToSink(sink, static_cast<uint32_t>(contours.size()));
     for (auto const & contour : contours)
-    {
       SerializeContour(sink, contour);
-    }
   }
 
   template <typename Sink>
   void SerializeContour(Sink & sink, topography_generator::Contour const & contour)
   {
-    WriteToSink(sink, static_cast<uint32_t>(contour.size()));
-    sink.Write(contour.data(), contour.size() * sizeof(contour[0]));
-    /*
-    serial::GeometryCodingParams codingParams(kFeatureSorterPointCoordBits, 0);
+    serial::GeometryCodingParams codingParams;
+    serial::SavePoint(sink, contour[0], codingParams);
     codingParams.SetBasePoint(contour[0]);
-    std::vector<m2::PointD> toSave;
-    toSave.insert(contour.begin() + 1, contour.end());
-    serial::SaveInnerPath(toSave, codingParams, sink);
-    */
+    std::vector<m2::PointD> toSave(contour.begin() + 1, contour.end());
+    serial::SaveOuterPath(contour, codingParams, sink);
   }
 
   Contours<ValueType> m_contours;
@@ -68,6 +63,7 @@ public:
     contours.m_minValue = ReadPrimitiveFromSource<ValueType>(source);
     contours.m_maxValue = ReadPrimitiveFromSource<ValueType>(source);
     contours.m_valueStep = ReadPrimitiveFromSource<ValueType>(source);
+    contours.m_invalidValuesCount = ReadPrimitiveFromSource<uint32_t>(source);
 
     size_t const levelsCount = ReadPrimitiveFromSource<uint32_t>(source);
     for (size_t i = 0; i < levelsCount; ++i)
@@ -93,9 +89,12 @@ private:
   void DeserializeContour(NonOwningReaderSource & source,
                           topography_generator::Contour & contour)
   {
-    size_t const pointsCount = ReadPrimitiveFromSource<uint32_t>(source);
-    contour.resize(pointsCount);
-    source.Read(contour.data(), pointsCount * sizeof(contour[0]));
+    serial::GeometryCodingParams codingParams;
+    auto const pt = serial::LoadPoint(source, codingParams);
+    codingParams.SetBasePoint(pt);
+    std::vector<m2::PointD> points;
+    serial::LoadOuterPath(source, codingParams, points);
+    contour.swap(points);
   }
 };
 
