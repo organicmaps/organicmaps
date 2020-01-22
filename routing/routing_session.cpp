@@ -161,7 +161,6 @@ void RoutingSession::RebuildRouteOnTrafficUpdate()
     switch (m_state)
     {
     case SessionState::NoValidRoute:
-    case SessionState::RouteBuildingError:
     case SessionState::RouteFinished: return;
 
     case SessionState::RouteBuilding:
@@ -221,12 +220,6 @@ bool RoutingSession::IsRebuildingOnly() const
   return m_state == SessionState::RouteRebuilding;
 }
 
-bool RoutingSession::IsNotReady() const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return m_state == SessionState::RouteBuildingError;
-}
-
 bool RoutingSession::IsFinished() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -281,8 +274,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
   ASSERT(m_router, ());
 
   if (m_state == SessionState::RouteFinished || m_state == SessionState::RouteBuilding ||
-      m_state == SessionState::RouteBuildingError || m_state == SessionState::RouteNoFollowing ||
-      m_state == SessionState::NoValidRoute)
+      m_state == SessionState::RouteNoFollowing || m_state == SessionState::NoValidRoute)
   {
     return m_state;
   }
@@ -785,7 +777,6 @@ string DebugPrint(SessionState state)
   {
   case SessionState::NoValidRoute: return "NoValidRoute";
   case SessionState::RouteBuilding: return "RouteBuilding";
-  case SessionState::RouteBuildingError: return "RouteBuildingError";
   case SessionState::RouteNotStarted: return "RouteNotStarted";
   case SessionState::OnRoute: return "OnRoute";
   case SessionState::RouteNeedRebuild: return "RouteNeedRebuild";

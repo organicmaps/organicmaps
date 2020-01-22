@@ -76,7 +76,6 @@ public:
   bool IsBuilding() const;
   bool IsBuildingOnly() const;
   bool IsRebuildingOnly() const;
-  bool IsNotReady() const;
   bool IsFinished() const;
   bool IsNoFollowing() const;
   bool IsOnRoute() const;

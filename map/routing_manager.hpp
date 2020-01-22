@@ -136,7 +136,6 @@ public:
   bool IsRouteBuilt() const { return m_routingSession.IsBuilt(); }
   bool IsRouteBuilding() const { return m_routingSession.IsBuilding(); }
   bool IsRouteRebuildingOnly() const { return m_routingSession.IsRebuildingOnly(); }
-  bool IsRouteNotReady() const { return m_routingSession.IsNotReady(); }
   bool IsRouteFinished() const { return m_routingSession.IsFinished(); }
   bool IsOnRoute() const { return m_routingSession.IsOnRoute(); }
   bool IsRoutingFollowing() const { return m_routingSession.IsFollowing(); }

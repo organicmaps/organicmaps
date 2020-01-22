@@ -46,7 +46,6 @@ enum class SessionState
   NoValidRoute,       // No valid route: no route after application launching or the route was removed.
   RouteBuilding,      // We requested a route and wait when it will be built. User may be following
                       // the previous route.
-  RouteBuildingError, // @TODO The state should be removed. The route was not built because of an error.
   RouteNotStarted,    // Route is built but the user isn't on it.
   OnRoute,            // User follows the route.
   RouteNeedRebuild,   // User left the route.
@@ -58,9 +57,7 @@ enum class SessionState
 
 /*
  * NoValidRoute -> RouteBuilding         // start route building
- * RouteBuilding -> RouteBuildingError   // route was built with an error
  * RouteBuilding -> RouteNotStarted      // route is built in case of building a new route
- * RouteRebuilding -> RouteBuildingError // waiting for route in case of rebuilding
  * RouteRebuilding -> RouteNotStarted    // route is built in case of rebuilding
  * RouteNotStarted -> OnRoute            // user started following the route
  * RouteNotStarted -> RouteNeedRebuild   // user doesn't like the route.
