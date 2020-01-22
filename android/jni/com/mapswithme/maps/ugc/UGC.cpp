@@ -26,11 +26,9 @@ public:
     Init(env);
 
     jstring jcountryName = static_cast<jstring>(env->GetObjectField(obj, m_countryName));
-    jlong jversion = env->GetLongField(obj, m_version);
     jint jindex = env->GetIntField(obj, m_index);
 
     auto const countryName = jni::ToNativeString(env, jcountryName);
-    auto const version = static_cast<int64_t>(jversion);
     auto const index = static_cast<uint32_t>(jindex);
 
     auto const & ds = g_framework->GetDataSource();
