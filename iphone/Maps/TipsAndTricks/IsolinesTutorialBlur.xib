@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMTutorialViewController">
+            <connections>
+                <outlet property="view" destination="rhI-FF-zxW" id="CRO-Un-KA8"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <visualEffectView opaque="NO" contentMode="scaleToFill" id="rhI-FF-zxW" customClass="MWMTutorialBlurView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="yEJ-mD-tE3">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5zP-Cp-6l4">
+                        <rect key="frame" x="40" y="264.5" width="91" height="36"/>
+                        <color key="backgroundColor" white="1" alpha="0.29981806506849318" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <accessibility key="accessibilityConfiguration" identifier="tips_subway_got_it"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="36" id="NHs-R6-v4C"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                        <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                        <state key="normal" title="Понятно">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="6"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="button_layer_got_it"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="onCancel:" destination="-1" eventType="touchUpInside" id="71M-01-Usd"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Линии высот офлайн в MAPS.ME!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ouh-SJ-3gL">
+                        <rect key="frame" x="40" y="130" width="295" height="48"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="tips_map_layers_title_countour"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Линии высот помогут спланировать путешествие на природу и не потеряться на местности" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sYr-oN-jn1">
+                        <rect key="frame" x="40" y="190" width="295" height="50.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="0.70232234589041098" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="tips_map_layers_message_countour"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Ouh-SJ-3gL" secondAttribute="trailing" constant="40" id="6yW-V4-4zD"/>
+                    <constraint firstItem="5zP-Cp-6l4" firstAttribute="leading" secondItem="yEJ-mD-tE3" secondAttribute="leading" constant="40" id="A6U-Mt-mV7"/>
+                    <constraint firstItem="5zP-Cp-6l4" firstAttribute="top" secondItem="sYr-oN-jn1" secondAttribute="bottom" constant="24" id="X0d-lX-ot9"/>
+                    <constraint firstItem="Ouh-SJ-3gL" firstAttribute="top" secondItem="yEJ-mD-tE3" secondAttribute="top" constant="130" id="bpL-kW-Igc"/>
+                    <constraint firstItem="Ouh-SJ-3gL" firstAttribute="leading" secondItem="yEJ-mD-tE3" secondAttribute="leading" constant="40" id="dM1-pn-WtX"/>
+                    <constraint firstItem="sYr-oN-jn1" firstAttribute="top" secondItem="Ouh-SJ-3gL" secondAttribute="bottom" constant="12" id="gkD-Fs-pNT"/>
+                    <constraint firstItem="sYr-oN-jn1" firstAttribute="leading" secondItem="yEJ-mD-tE3" secondAttribute="leading" constant="40" id="lqK-mM-Whv"/>
+                    <constraint firstAttribute="trailing" secondItem="sYr-oN-jn1" secondAttribute="trailing" constant="40" id="obz-rr-Z5o"/>
+                </constraints>
+            </view>
+            <viewLayoutGuide key="safeArea" id="xeI-hc-wDY"/>
+            <blurEffect style="dark"/>
+            <point key="canvasLocation" x="100.5" y="60"/>
+        </visualEffectView>
+    </objects>
+</document>

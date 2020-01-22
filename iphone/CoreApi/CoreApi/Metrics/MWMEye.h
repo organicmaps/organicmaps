@@ -6,6 +6,7 @@ typedef NS_ENUM(NSUInteger, MWMTip)
   MWMTipSearch,
   MWMTipDiscovery,
   MWMTipSubway,
+  MWMTipIsolines,
   MWMTipNone
 };
 

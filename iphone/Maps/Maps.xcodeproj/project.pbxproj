@@ -313,6 +313,7 @@
 		34F742321E0834F400AC1FD6 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F742301E0834F400AC1FD6 /* UIViewController+Navigation.m */; };
 		34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */; };
 		39CDE69123E1B6C8007CDA58 /* libge0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39CDE69023E1B6C8007CDA58 /* libge0.a */; };
+		3D0D2F7623D858BF00945C8D /* IsolinesTutorialBlur.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D0D2F7523D858BF00945C8D /* IsolinesTutorialBlur.xib */; };
 		3D15ACEE2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D15ACED2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm */; };
 		3D1958EB213804B6009A83EC /* libmetrics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D1958EA213804B6009A83EC /* libmetrics.a */; };
 		3DB1C57122D5DDA60097EC4C /* PromoAfterBookingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DB1C57022D5DDA60097EC4C /* PromoAfterBookingViewController.xib */; };
@@ -1347,6 +1348,7 @@
 		34FE4C441BCC013500066718 /* MWMMapWidgets.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgets.mm; sourceTree = "<group>"; };
 		34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrafficButtonArea.swift; sourceTree = "<group>"; };
 		39CDE69023E1B6C8007CDA58 /* libge0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libge0.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D0D2F7523D858BF00945C8D /* IsolinesTutorialBlur.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IsolinesTutorialBlur.xib; sourceTree = "<group>"; };
 		3D15ACED2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMObjectsCategorySelectorDataSource.mm; sourceTree = "<group>"; };
 		3D15ACEF2155118800F725D5 /* MWMObjectsCategorySelectorDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMObjectsCategorySelectorDataSource.h; sourceTree = "<group>"; };
 		3D1958EA213804B6009A83EC /* libmetrics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmetrics.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3362,6 +3364,7 @@
 		471BBD92213038E000EB17C9 /* TipsAndTricks */ = {
 			isa = PBXGroup;
 			children = (
+				3D0D2F7523D858BF00945C8D /* IsolinesTutorialBlur.xib */,
 				471BBD932130390F00EB17C9 /* TutorialViewController.swift */,
 				470A89FC21342A9D00D72FBF /* TutorialBlurView.swift */,
 				47B505522136AB41009CBB55 /* DiscoveryTutorialBlur.xib */,
@@ -4954,6 +4957,7 @@
 				6741A9421BF340DE002C974C /* sound-strings in Resources */,
 				F69018BD1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */,
 				34BBD6681F8273350070CA50 /* AuthorizationViewController.xib in Resources */,
+				3D0D2F7623D858BF00945C8D /* IsolinesTutorialBlur.xib in Resources */,
 				47B505552136B0CF009CBB55 /* SearchTutorialBlur.xib in Resources */,
 				6741A97D1BF340DE002C974C /* synonyms.txt in Resources */,
 				34E50DF31F6FCC41008EED49 /* UGCYourReviewCell.xib in Resources */,

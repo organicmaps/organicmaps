@@ -26,6 +26,8 @@
 		39E3C60423312BA800FB0C37 /* features_fetcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39E3C60223312BA800FB0C37 /* features_fetcher.cpp */; };
 		3D0AEAFC1FBB0FF400AD042B /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEAFF1FBB0FF400AD042B /* libgenerator_tests_support.a */; };
 		3D0AEAFE1FBB0FF400AD042B /* libsearch_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEB011FBB0FF400AD042B /* libsearch_tests_support.a */; };
+		3D0D2F7323D854AA00945C8D /* tips_api_delegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0D2F7123D854AA00945C8D /* tips_api_delegate.cpp */; };
+		3D0D2F7423D854AA00945C8D /* tips_api_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D0D2F7223D854AA00945C8D /* tips_api_delegate.hpp */; };
 		3D1775A42317E2FD00F8889C /* promo_catalog_poi_checker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D1775A22317E2FD00F8889C /* promo_catalog_poi_checker.hpp */; };
 		3D18DC3C22956DD100A583A6 /* framework_light_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D18DC3922956DD100A583A6 /* framework_light_delegate.hpp */; };
 		3D18DC3D22956DD100A583A6 /* promo_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D18DC3A22956DD100A583A6 /* promo_delegate.hpp */; };
@@ -291,6 +293,8 @@
 		3D0AEAFF1FBB0FF400AD042B /* libgenerator_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D0AEB001FBB0FF400AD042B /* libindexer_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D0AEB011FBB0FF400AD042B /* libsearch_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsearch_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D0D2F7123D854AA00945C8D /* tips_api_delegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tips_api_delegate.cpp; sourceTree = "<group>"; };
+		3D0D2F7223D854AA00945C8D /* tips_api_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tips_api_delegate.hpp; sourceTree = "<group>"; };
 		3D1775A22317E2FD00F8889C /* promo_catalog_poi_checker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = promo_catalog_poi_checker.hpp; sourceTree = "<group>"; };
 		3D18DC3922956DD100A583A6 /* framework_light_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = framework_light_delegate.hpp; sourceTree = "<group>"; };
 		3D18DC3A22956DD100A583A6 /* promo_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = promo_delegate.hpp; sourceTree = "<group>"; };
@@ -838,6 +842,8 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				3D0D2F7123D854AA00945C8D /* tips_api_delegate.cpp */,
+				3D0D2F7223D854AA00945C8D /* tips_api_delegate.hpp */,
 				3DF528D4237DC82E000ED0D5 /* catalog_headers_provider.cpp */,
 				3DF528D6237DC82E000ED0D5 /* catalog_headers_provider.hpp */,
 				3DF528D5237DC82E000ED0D5 /* position_provider.hpp */,
@@ -1023,6 +1029,7 @@
 				3DD692B3220AD240001C3C62 /* caching_address_getter.hpp in Headers */,
 				3D62CBDA20FF6C8B00E7BB6E /* discovery_search.hpp in Headers */,
 				3DD1166C21888AAD007A2ED4 /* notification_queue_serdes.hpp in Headers */,
+				3D0D2F7423D854AA00945C8D /* tips_api_delegate.hpp in Headers */,
 				675346491A4054E800A0A8C3 /* bookmark_manager.hpp in Headers */,
 				3DA5714320B5CC80007BDE27 /* booking_filter_processor.hpp in Headers */,
 				F6B2830A1C1B03320081957A /* gps_track.hpp in Headers */,
@@ -1208,6 +1215,7 @@
 				3DA5714120B5CC80007BDE27 /* booking_availability_filter.cpp in Sources */,
 				F6B283051C1B03320081957A /* gps_track_filter.cpp in Sources */,
 				675346481A4054E800A0A8C3 /* bookmark_manager.cpp in Sources */,
+				3D0D2F7323D854AA00945C8D /* tips_api_delegate.cpp in Sources */,
 				40ACC79923191C2600238E21 /* power_manager_tests.cpp in Sources */,
 				45F6EE9F1FB1C77600019892 /* search_api.cpp in Sources */,
 				BB4E5F251FCC664A00A77250 /* transit_display.cpp in Sources */,
