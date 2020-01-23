@@ -209,18 +209,17 @@ UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafSingleMwm)
 
 UNIT_TEST(CountryInfoGetter_RegionRects)
 {
-  auto const getterRaw = CountryInfoReader::CreateCountryInfoReader(GetPlatform());
-  CHECK(getterRaw != nullptr, ());
-  CountryInfoReader const * const getter = static_cast<CountryInfoReader const *>(getterRaw.get());
+  auto reader = CountryInfoReader::CreateCountryInfoReader(GetPlatform());
+  CHECK(reader != nullptr, ());
 
   Storage storage;
 
-  auto const & countries = getter->GetCountries();
+  auto const & countries = reader->GetCountries();
 
   for (size_t i = 0; i < countries.size(); ++i)
   {
     vector<m2::RegionD> regions;
-    getter->LoadRegionsFromDisk(i, regions);
+    reader->LoadRegionsFromDisk(i, regions);
 
     m2::RectD rect;
     for (auto const & region : regions)
@@ -233,15 +232,14 @@ UNIT_TEST(CountryInfoGetter_RegionRects)
 // This is a test for consistency between data/countries.txt and data/packed_polygons.bin.
 UNIT_TEST(CountryInfoGetter_Countries_And_Polygons)
 {
-  auto const getterRaw = CountryInfoReader::CreateCountryInfoReader(GetPlatform());
-  CHECK(getterRaw != nullptr, ());
-  CountryInfoReader const * const getter = static_cast<CountryInfoReader const *>(getterRaw.get());
+  auto reader = CountryInfoReader::CreateCountryInfoReader(GetPlatform());
+  CHECK(reader != nullptr, ());
 
   Storage storage;
 
   double const kRectSize = 10;
 
-  auto const & countries = getter->GetCountries();
+  auto const & countries = reader->GetCountries();
 
   // Set is used here because disputed territories may occur as leaves several times.
   set<CountryId> storageLeaves;
@@ -259,7 +257,7 @@ UNIT_TEST(CountryInfoGetter_Countries_And_Polygons)
 
     auto const & p = countryDef.m_rect.Center();
     auto const rect = mercator::RectByCenterXYAndSizeInMeters(p.x, p.y, kRectSize, kRectSize);
-    auto vec = getter->GetRegionsCountryIdByRect(rect, false /* rough */);
+    auto vec = reader->GetRegionsCountryIdByRect(rect, false /* rough */);
     for (auto const & countryId : vec)
     {
       // This call fails a CHECK if |countryId| is not found.
@@ -270,12 +268,12 @@ UNIT_TEST(CountryInfoGetter_Countries_And_Polygons)
 
 BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
 {
-  auto const getterRaw = CountryInfoReader::CreateCountryInfoReader(GetPlatform());
-  CountryInfoReader * getter = static_cast<CountryInfoReader *>(getterRaw.get());
+  auto reader = CountryInfoReader::CreateCountryInfoReader(GetPlatform());
+  CHECK(reader != nullptr, ());
 
   Storage storage;
 
-  auto const & countryDefs = getter->GetCountries();
+  auto const & countryDefs = reader->GetCountries();
 
   base::Timer timer;
 
@@ -288,7 +286,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
   for (size_t i = 0; i < countryDefs.size(); ++i)
   {
     vector<m2::RegionD> regions;
-    getter->LoadRegionsFromDisk(i, regions);
+    reader->LoadRegionsFromDisk(i, regions);
     allRegions.emplace_back(move(regions));
   }
 
@@ -324,7 +322,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
     for (auto const & pt : points)
     {
       auto const rect = mercator::RectByCenterXYAndSizeInMeters(pt.x, pt.y, kRectSize, kRectSize);
-      auto vec = getter->GetRegionsCountryIdByRect(rect, false /* rough */);
+      auto vec = reader->GetRegionsCountryIdByRect(rect, false /* rough */);
       for (auto const & countryId : vec)
         ++hits[countryId];
     }
@@ -350,7 +348,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
         auto const pt = pointGen();
         auto const rect = mercator::RectByCenterXYAndSizeInMeters(pt.x, pt.y, kRectSize, kRectSize);
         double const t0 = timer.ElapsedSeconds();
-        auto vec = getter->GetRegionsCountryIdByRect(rect, false /* rough */);
+        auto vec = reader->GetRegionsCountryIdByRect(rect, false /* rough */);
         double const t1 = timer.ElapsedSeconds();
         times[i] = t1 - t0;
       }
@@ -393,7 +391,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
         auto const pt = side.first.Mid(side.second);
         auto const rect = mercator::RectByCenterXYAndSizeInMeters(pt.x, pt.y, kRectSize, kRectSize);
         double const t0 = timer.ElapsedSeconds();
-        auto vec = getter->GetRegionsCountryIdByRect(rect, false /* rough */);
+        auto vec = reader->GetRegionsCountryIdByRect(rect, false /* rough */);
         double const t1 = timer.ElapsedSeconds();
         times[i] = t1 - t0;
       }

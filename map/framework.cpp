@@ -1443,7 +1443,7 @@ void Framework::InitCountryInfoGetter()
   ASSERT(!m_infoGetter.get(), ("InitCountryInfoGetter() must be called only once."));
 
   auto const & platform = GetPlatform();
-  m_infoGetter = CountryInfoReader::CreateCountryInfoReader(platform);
+  m_infoGetter = CountryInfoReader::CreateCountryInfoGetter(platform);
   m_infoGetter->SetAffiliations(&m_storage.GetAffiliations());
 }
 

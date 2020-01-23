@@ -186,8 +186,7 @@ void CountryInfoGetter::ForEachCountry(std::string const & prefix, ToDo && toDo)
 
 // CountryInfoReader -------------------------------------------------------------------------------
 // static
-std::unique_ptr<CountryInfoGetter> CountryInfoReader::CreateCountryInfoReader(
-    Platform const & platform)
+std::unique_ptr<CountryInfoReader> CountryInfoReader::CreateCountryInfoReader(Platform const & platform)
 {
   try
   {
@@ -200,6 +199,12 @@ std::unique_ptr<CountryInfoGetter> CountryInfoReader::CreateCountryInfoReader(
     LOG(LCRITICAL, ("Can't load needed resources for storage::CountryInfoGetter:", e.Msg()));
   }
   return std::unique_ptr<CountryInfoReader>();
+}
+
+// static
+std::unique_ptr<CountryInfoGetter> CountryInfoReader::CreateCountryInfoGetter(Platform const & platform)
+{
+  return CreateCountryInfoReader(platform);
 }
 
 void CountryInfoReader::LoadRegionsFromDisk(size_t id, std::vector<m2::RegionD> & regions) const

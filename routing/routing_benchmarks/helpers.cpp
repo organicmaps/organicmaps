@@ -48,7 +48,7 @@ RoutingTest::RoutingTest(routing::IRoadGraph::Mode mode, routing::VehicleType ty
   classificator::Load();
 
   Platform & platform = GetPlatform();
-  m_cig = storage::CountryInfoReader::CreateCountryInfoReader(platform);
+  m_cig = storage::CountryInfoReader::CreateCountryInfoGetter(platform);
 
   platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max(), m_localFiles);
 

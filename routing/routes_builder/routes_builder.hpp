@@ -136,7 +136,7 @@ private:
       std::make_shared<storage::CountryParentGetter>();
 
   std::shared_ptr<storage::CountryInfoGetter> m_cig =
-      storage::CountryInfoReader::CreateCountryInfoReader(GetPlatform());
+      storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
 
   std::shared_ptr<NumMwmIds> m_numMwmIds = std::make_shared<NumMwmIds>();
 

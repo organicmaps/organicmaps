@@ -276,7 +276,7 @@ bool BuildPostcodePoints(string const & path, storage::CountryId const & country
                          bool forceRebuild)
 {
   auto const & platform = GetPlatform();
-  auto const infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(platform);
+  auto const infoGetter = storage::CountryInfoReader::CreateCountryInfoGetter(platform);
   CHECK(infoGetter, ());
   return BuildPostcodePointsWithInfoGetter(path, country, type, datasetPath, forceRebuild,
                                            *infoGetter);

@@ -12,7 +12,7 @@ namespace storage
 {
 std::unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter()
 {
-  return CountryInfoReader::CreateCountryInfoReader(GetPlatform());
+  return CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
 }
 
 bool AlmostEqualRectsAbs(const m2::RectD & r1, const m2::RectD & r2)

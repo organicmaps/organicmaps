@@ -199,8 +199,7 @@ void ParseTracks(string const & logFile, shared_ptr<NumMwmIds> const & numMwmIds
 {
   Platform const & platform = GetPlatform();
   string const dataDir = platform.WritableDir();
-  unique_ptr<CountryInfoGetter> countryInfoGetter =
-      CountryInfoReader::CreateCountryInfoReader(platform);
+  auto countryInfoGetter = CountryInfoReader::CreateCountryInfoGetter(platform);
   unique_ptr<m4::Tree<NumMwmId>> mwmTree = MakeNumMwmTree(*numMwmIds, *countryInfoGetter);
 
   LOG(LINFO, ("Parsing", logFile));

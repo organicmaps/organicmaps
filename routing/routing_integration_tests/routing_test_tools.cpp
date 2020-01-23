@@ -80,7 +80,7 @@ shared_ptr<FeaturesFetcher> CreateFeaturesFetcher(vector<LocalCountryFile> const
 unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter()
 {
   Platform const & platform = GetPlatform();
-  return storage::CountryInfoReader::CreateCountryInfoReader(platform);
+  return storage::CountryInfoReader::CreateCountryInfoGetter(platform);
 }
 
 unique_ptr<IndexRouter> CreateVehicleRouter(DataSource & dataSource,

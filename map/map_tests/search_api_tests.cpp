@@ -61,7 +61,7 @@ class SearchAPITest : public generator::tests_support::TestWithCustomMwms
 {
 public:
   SearchAPITest()
-    : m_infoGetter(CountryInfoReader::CreateCountryInfoReader(GetPlatform()))
+    : m_infoGetter(CountryInfoReader::CreateCountryInfoGetter(GetPlatform()))
     , m_api(m_dataSource, m_storage, *m_infoGetter, m_delegate)
   {
   }

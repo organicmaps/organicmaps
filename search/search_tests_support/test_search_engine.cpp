@@ -21,7 +21,7 @@ TestSearchEngine::TestSearchEngine(DataSource & dataSource,
 }
 
 TestSearchEngine::TestSearchEngine(DataSource & dataSource, Engine::Params const & params)
-  : m_infoGetter(storage::CountryInfoReader::CreateCountryInfoReader(GetPlatform()))
+  : m_infoGetter(storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform()))
   , m_engine(dataSource, GetDefaultCategories(), *m_infoGetter, params)
 {
 }

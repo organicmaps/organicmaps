@@ -335,7 +335,7 @@ int main(int argc, char ** argv)
 
   storage::Storage storage(countriesFile, argv[1]);
   storage.Init(&DidDownload, &WillDelete);
-  auto infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(pl);
+  auto infoGetter = storage::CountryInfoReader::CreateCountryInfoGetter(pl);
   infoGetter->SetAffiliations(&storage.GetAffiliations());
 
   GetStyleReader().SetCurrentStyle(MapStyleMerged);

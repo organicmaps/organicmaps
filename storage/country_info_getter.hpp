@@ -135,8 +135,9 @@ protected:
 class CountryInfoReader : public CountryInfoGetter
 {
 public:
-  /// \returns CountryInfoGetter based on countries.txt and packed_polygons.bin.
-  static std::unique_ptr<CountryInfoGetter> CreateCountryInfoReader(Platform const & platform);
+  /// \returns CountryInfoReader/CountryInfoGetter based on countries.txt and packed_polygons.bin.
+  static std::unique_ptr<CountryInfoReader> CreateCountryInfoReader(Platform const & platform);
+  static std::unique_ptr<CountryInfoGetter> CreateCountryInfoGetter(Platform const & platform);
 
   // Loads all regions for country number |id| from |m_reader|.
   void LoadRegionsFromDisk(size_t id, std::vector<m2::RegionD> & regions) const;
