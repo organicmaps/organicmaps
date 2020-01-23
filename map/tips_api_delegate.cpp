@@ -1,6 +1,6 @@
 #include "map/tips_api_delegate.hpp"
 
-TipsApiDelegate::TipsApiDelegate(Framework & framework)
+TipsApiDelegate::TipsApiDelegate(Framework const & framework)
   : m_framework(framework)
 {
 }

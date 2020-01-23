@@ -7,7 +7,7 @@
 class TipsApiDelegate : public TipsApi::Delegate
 {
 public:
-  TipsApiDelegate(Framework & framework);
+  explicit TipsApiDelegate(Framework const & framework);
 
   boost::optional<m2::PointD> GetCurrentPosition() const override;
   bool IsCountryLoaded(m2::PointD const & pt) const override;

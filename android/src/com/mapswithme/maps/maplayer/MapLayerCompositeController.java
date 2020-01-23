@@ -2,6 +2,7 @@ package com.mapswithme.maps.maplayer;
 
 import android.app.Activity;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
@@ -56,7 +57,7 @@ public class MapLayerCompositeController implements MapLayerController
     isoLinesView.setOnClickListener(dialogClickListener);
     ControllerAndMode subwayEntry = new ControllerAndMode(Mode.SUBWAY, Tutorial.SUBWAY,
                                                           subwayMapLayerController);
-    ControllerAndMode trafficEntry = new ControllerAndMode(Mode.TRAFFIC, Tutorial.STUB,
+    ControllerAndMode trafficEntry = new ControllerAndMode(Mode.TRAFFIC, null,
                                                            trafficButtonController);
     ControllerAndMode isoLineEntry = new ControllerAndMode(Mode.ISOLINES, Tutorial.ISOLINES,
                                                            isoLinesController);
@@ -66,17 +67,14 @@ public class MapLayerCompositeController implements MapLayerController
 //    entries.add(isoLineEntry);
     entries.add(trafficEntry);
 
-    if (tutorial != Tutorial.STUB)
+    Collections.sort(entries, (lhs, rhs) ->
     {
-      Collections.sort(entries, (lhs, rhs) ->
-      {
-        if (lhs.getTutorial().equals(tutorial))
-          return 1;
-        if (rhs.getTutorial().equals(tutorial))
-          return -1;
-        return 0;
-      });
-    }
+      if (lhs.getTutorial() == tutorial)
+        return -1;
+      if (rhs.getTutorial() == tutorial)
+        return 1;
+      return 0;
+    });
 
     return Collections.unmodifiableList(entries);
   }
@@ -252,12 +250,12 @@ public class MapLayerCompositeController implements MapLayerController
   {
     @NonNull
     private final Mode mMode;
-    @NonNull
+    @Nullable
     private final Tutorial mTutorial;
     @NonNull
     private final MapLayerController mController;
 
-    ControllerAndMode(@NonNull Mode mode, @NonNull Tutorial tutorial,
+    ControllerAndMode(@NonNull Mode mode, @Nullable Tutorial tutorial,
                       @NonNull MapLayerController controller)
     {
       mMode = mode;
@@ -292,7 +290,7 @@ public class MapLayerCompositeController implements MapLayerController
       return mMode;
     }
 
-    @NonNull
+    @Nullable
     Tutorial getTutorial()
     {
       return mTutorial;

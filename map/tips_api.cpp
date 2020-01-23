@@ -8,6 +8,7 @@
 #include "base/timer.hpp"
 
 #include <type_traits>
+#include <unordered_set>
 #include <utility>
 
 using namespace eye;
@@ -27,7 +28,7 @@ size_t constexpr kActionClicksCountToDisable = 1;
 // If a user clicks 3 times on the button GOT IT the appropriate screen will never be shown again.
 size_t constexpr kGotitClicksCountToDisable = 3;
 
-auto constexpr kIsolinesExceptedMwms =
+std::unordered_set<std::string> const kIsolinesExceptedMwms =
 {
   "Argentina_Buenos Aires_Buenos Aires",
   "Australia_Melbourne",
@@ -110,7 +111,7 @@ std::optional<eye::Tip::Type> GetTipImpl(TipsApi::Duration showAnyTipPeriod,
     }
 
     // Iterates reversed because we need to show newest tip first.
-    for (auto c = candidates.crbegin(); c != candidates.rend(); ++c)
+    for (auto c = candidates.crbegin(); c != candidates.crend(); ++c)
     {
       if (c->second && conditions[ToIndex(c->first)](*info))
         return c->first;
@@ -199,12 +200,10 @@ TipsApi::TipsApi(std::unique_ptr<Delegate> delegate)
     {
       for (auto const & layer : info.m_layers)
       {
-        if (layer.m_type == Layer::Type::PublicTransport)
+        if (layer.m_type == Layer::Type::PublicTransport &&
+            layer.m_lastTimeUsed.time_since_epoch().count() != 0)
         {
-          if (layer.m_lastTimeUsed.time_since_epoch().count() != 0)
-          {
-            return false;
-          }
+          return false;
         }
       }
 
@@ -219,23 +218,18 @@ TipsApi::TipsApi(std::unique_ptr<Delegate> delegate)
    {
      for (auto const & layer : info.m_layers)
      {
-       if (layer.m_type == Layer::Type::Isolines)
+       if (layer.m_type == Layer::Type::Isolines &&
+           layer.m_lastTimeUsed.time_since_epoch().count() != 0)
        {
-         if (layer.m_lastTimeUsed.time_since_epoch().count() != 0)
-         {
-           return false;
-         }
+         return false;
        }
      }
 
      auto const pos = m_delegate->GetViewportCenter();
      auto const countryId = m_delegate->GetCountryId(pos);
 
-     for (auto const & exceptedMwmId : kIsolinesExceptedMwms)
-     {
-       if (exceptedMwmId == countryId)
+     if (kIsolinesExceptedMwms.find(countryId) != kIsolinesExceptedMwms.end())
          return false;
-     }
      
      return m_delegate->GetCountryVersion(countryId) > 191124;
    },
