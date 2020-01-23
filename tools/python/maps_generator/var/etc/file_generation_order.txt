@@ -74,6 +74,7 @@ Spain_Aragon	16962.515628
 US_New Mexico_Roswell	16947.283561
 UK_England_West Midlands	16911.308825
 India_Maharashtra	16834.364534
+Egypt	16806.341123
 US_Pennsylvania_Central	16030.384167
 Poland_Lodz Voivodeship	15949.361263
 Switzerland_Espace Mittelland_Bern	15935.191984
@@ -600,7 +601,6 @@ France_Ile-de-France_Paris	2374.285774
 France_Provence-Alpes-Cote dAzur_Vaucluse	2372.614775
 Slovakia_Region of Banska Bystrica	2361.529055
 Argentina_Santa Fe	2357.826023
-Egypt	2347.172608
 US_Maine	2346.790289
 US_Missouri_East	2332.769905
 Slovakia_Region of Kosice	2321.837483
