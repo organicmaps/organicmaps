@@ -1755,7 +1755,6 @@
 	<string name="whatsnew_isolines_title">Nowość do wypoczynku aktywnego – linie wysokości offline!</string>
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Nawiguj w górach – włącz warstwę za pomocą przycisku w lewym górnym rogu ekranu</string>
-	<!-- Contour map -->
 	<string name="button_layer_isolines">Wysokości</string>
 	<string name="tips_map_layers_title_countour">Linie wysokości w trybie offline w MAPS.ME!</string>
 	<string name="tips_map_layers_message_countour">Linie wysokości pomogą zaplanować podróż i nie zgubić się w terenie</string>

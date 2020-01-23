@@ -1791,7 +1791,6 @@
 	<string name="whatsnew_isolines_title">Новинка для активного отдыха – линии высот офлайн!</string>
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Ориентируйтесь в горной местности – включите слой кнопкой в левом верхнем углу экрана</string>
-	<!-- Contour map -->
 	<string name="button_layer_isolines">Высоты</string>
 	<string name="tips_map_layers_title_countour">Линии высот офлайн в MAPS.ME!</string>
 	<string name="tips_map_layers_message_countour">Линии высот помогут спланировать путешествие на природу и не потеряться на местности</string>

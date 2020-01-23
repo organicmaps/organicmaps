@@ -3190,8 +3190,7 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "山地でも安心。左上でレイヤーを起動するだけです";
 
-/* Contour map */
-"button_layer_isolines" = "等距離図";
+"button_layer_isolines" = "地形";
 
 "tips_map_layers_title_countour" = "MAPS.MEの新要素：オフラインのトポグラフィーレイヤー！";
 

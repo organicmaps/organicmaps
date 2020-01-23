@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Navigera i högländerna – slå på lagret med knappen i det övre vänstra hörnet av skärmen";
 
-/* Contour map */
 "button_layer_isolines" = "Terräng";
 
 "tips_map_layers_title_countour" = "Höjningslinjer offline i MAPS.ME!";

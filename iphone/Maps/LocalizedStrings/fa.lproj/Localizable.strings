@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "در مناطق کوهستانی خاطر جمع باشید. فقط لایه را در قسمت بالا سمت چپ روشن کنید";
 
-/* Contour map */
 "button_layer_isolines" = "ایزومپ";
 
 "tips_map_layers_title_countour" = "تازه ها در MAPS.ME: لایه توپوگرافی آفلاین!";

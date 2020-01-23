@@ -1742,7 +1742,6 @@
 	<string name="whatsnew_isolines_title">户外活动的新产品–离线高度线！</string>
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">在山地中导航–使用屏幕左上角的按钮打开图层</string>
-	<!-- Contour map -->
 	<string name="button_layer_isolines">高度</string>
 	<string name="tips_map_layers_title_countour">离线高度线在MAPS.ME中！</string>
 	<string name="tips_map_layers_message_countour">高度线可以帮您规划通往大自然地区的路线，不会迷路</string>

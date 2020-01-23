@@ -1745,7 +1745,6 @@
 	<string name="whatsnew_isolines_title">Nieuwigheid voor buitenactiviteiten: hoogtelijnen offline!</string>
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Navigeer probleemloos in bergachtig gebied. Schakel gewoon de hoogtelijn in via de toets in de linkerbovenhoek van het scherm</string>
-	<!-- Contour map -->
 	<string name="button_layer_isolines">Hoogtes</string>
 	<string name="tips_map_layers_title_countour">Hoogtelijnen offline in MAPS.ME!</string>
 	<string name="tips_map_layers_message_countour">Dankzij de hoogtelijnen kunt u probleemloos natuurreizen plannen en er zeker van zijn dat u niet verdwalen zult</string>

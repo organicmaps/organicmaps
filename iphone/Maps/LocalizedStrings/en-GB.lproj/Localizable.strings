@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Feel confident in the mountainous area. Just turn on the layer in the upper-left corner";
 
-/* Contour map */
 "button_layer_isolines" = "Terrain";
 
 "tips_map_layers_title_countour" = "New in MAPS.ME: offline topographic layer!";

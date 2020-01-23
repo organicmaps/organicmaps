@@ -1808,7 +1808,6 @@
 	<string name="whatsnew_isolines_title">New for outdoors: offline topographic layer!</string>
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Feel confident in the mountainous area. Just turn on the layer in the upper-left corner</string>
-	<!-- Contour map -->
 	<string name="button_layer_isolines">Terrain</string>
 	<string name="tips_map_layers_title_countour">New in MAPS.ME: offline topographic layer!</string>
 	<string name="tips_map_layers_message_countour">Plan and enjoy your nature trips being sure you know everything about the area</string>

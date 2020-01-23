@@ -3190,8 +3190,7 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Concentrez-vous sur le terrain montagneux – activez la couche avec le bouton dans le coin supérieur gauche de l'écran";
 
-/* Contour map */
-"button_layer_isolines" = "Altitudes";
+"button_layer_isolines" = "Terrain";
 
 "tips_map_layers_title_countour" = "Lignes d'altitude hors-ligne dans MAPS.ME !";
 

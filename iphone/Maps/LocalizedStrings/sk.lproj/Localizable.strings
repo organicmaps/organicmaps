@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Cíťte sa sebaisto v horskej oblasti. Stačí zapnúť vrstvu v ľavom hornom rohu";
 
-/* Contour map */
 "button_layer_isolines" = "Terén";
 
 "tips_map_layers_title_countour" = "Nové v MAPS.ME: offline topografická vrstva!";

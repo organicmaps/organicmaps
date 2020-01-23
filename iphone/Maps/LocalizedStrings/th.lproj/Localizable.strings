@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "รู้สึกมั่นใจได้ในพื้นที่แถบภูเขา เพียงแค่เปิดเลเยอร์ที่มุมบนซ้าย";
 
-/* Contour map */
 "button_layer_isolines" = "ความสูง";
 
 "tips_map_layers_title_countour" = "เลเยอร์แผนที่ภูมิประเทศแบบออฟไลน์ ใหม่ในแอป MAPS.ME!";

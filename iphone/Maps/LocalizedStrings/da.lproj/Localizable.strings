@@ -3190,8 +3190,7 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Følg dig selvsikker i det bjergrige område. Tænd bare for laget i det øverste venstre hjørne";
 
-/* Contour map */
-"button_layer_isolines" = "Konturkort";
+"button_layer_isolines" = "Terræn";
 
 "tips_map_layers_title_countour" = "Nyt på MAPS.ME: offline topografiske lag!";
 

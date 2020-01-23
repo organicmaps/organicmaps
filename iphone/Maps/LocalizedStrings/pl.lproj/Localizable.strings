@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Nawiguj w górach – włącz warstwę za pomocą przycisku w lewym górnym rogu ekranu";
 
-/* Contour map */
 "button_layer_isolines" = "Wysokości";
 
 "tips_map_layers_title_countour" = "Linie wysokości w trybie offline w MAPS.ME!";

@@ -3190,8 +3190,7 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "산 지형에서도 자신감 있게. 왼쪽 구성 상단의 레이어를 키세요";
 
-/* Contour map */
-"button_layer_isolines" = "아이소맵";
+"button_layer_isolines" = "지형";
 
 "tips_map_layers_title_countour" = "MAPS.ME의 새 기능: 오프라인 지형 레이어!";
 

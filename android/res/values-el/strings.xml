@@ -1507,7 +1507,6 @@
 	<string name="whatsnew_isolines_title">Νέο για υπαίθριες δραστηριότητες – τοπογραφικά στρώματα εκτός σύνδεσης!</string>
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Νιώστε σίγουροι στα ορεινά – ενεργοποιήστε το στρώμα στην πάνω αριστερή γωνία της οθόνης</string>
-	<!-- Contour map -->
 	<string name="button_layer_isolines">Υψόμετρα</string>
 	<string name="tips_map_layers_title_countour">Τοπογραφικά στρώματα εκτός σύνδεσης στο MAPS.ME!</string>
 	<string name="tips_map_layers_message_countour">Τα τοπογραφικά στρώματα θα σας βοηθήσουν να σχεδιάσετε το ταξίδι σας στη φύση και να μην χαθείτε στην περιοχή</string>

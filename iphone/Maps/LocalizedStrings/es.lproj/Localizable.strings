@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Siéntete seguro en la zona montañosa. Activa la capa con el botón en la esquina superior izquierda de la pantalla";
 
-/* Contour map */
 "button_layer_isolines" = "Alturas";
 
 "tips_map_layers_title_countour" = "¡Altitud de relieve sin conexión en MAPS.ME!";

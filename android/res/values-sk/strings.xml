@@ -1743,7 +1743,6 @@
 	<string name="whatsnew_isolines_title">Novinka pre outdoor: topografická vrstva offline!</string>
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Cíťte sa sebaisto v horskej oblasti. Stačí zapnúť vrstvu v ľavom hornom rohu</string>
-	<!-- Contour map -->
 	<string name="button_layer_isolines">Terén</string>
 	<string name="tips_map_layers_title_countour">Nové v MAPS.ME: offline topografická vrstva!</string>
 	<string name="tips_map_layers_message_countour">Naplánujte a užite si výlety do prírody s istotou, že viete o tejto oblasti všetko</string>

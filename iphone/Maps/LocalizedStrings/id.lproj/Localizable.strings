@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Merasa percaya diri di daerah pegunungan. Cukup aktifkan layer di sudut kiri atas";
 
-/* Contour map */
 "button_layer_isolines" = "Isometrik";
 
 "tips_map_layers_title_countour" = "Yang baru di MAPS.ME: lapisan topografi offline!";

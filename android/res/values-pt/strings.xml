@@ -1748,7 +1748,6 @@
 	<string name="whatsnew_isolines_title">Novidade para férias ativas- linhas de alturas offline!</string>
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Oriente-se nas terras altas- ative a camada com o botão direito no canto superior esquerdo da tela</string>
-	<!-- Contour map -->
 	<string name="button_layer_isolines">Alturas</string>
 	<string name="tips_map_layers_title_countour">Linhas de alturas offline na MAPS.ME!</string>
 	<string name="tips_map_layers_message_countour">As linhas de alturas offline ajudarão planejar sua viagem à natureza e não se perder no local</string>

@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Orientatevi nelle aree montuose: attivate la modalità premendo nell'angolo in cima a sinistra";
 
-/* Contour map */
 "button_layer_isolines" = "Terreno";
 
 "tips_map_layers_title_countour" = "Novità su MAPS.ME modalità topografica offline!";

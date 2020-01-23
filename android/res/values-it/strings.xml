@@ -1744,7 +1744,6 @@
 	<string name="whatsnew_isolines_title">Novità per le attività all\'aria aperta: modalità topografica offline!</string>
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Orientatevi nelle aree montuose: attivate la modalità premendo nell\'angolo in cima a sinistra</string>
-	<!-- Contour map -->
 	<string name="button_layer_isolines">Terreno</string>
 	<string name="tips_map_layers_title_countour">Novità su MAPS.ME modalità topografica offline!</string>
 	<string name="tips_map_layers_message_countour">La modalità topografica aiuta a programmare il viaggio nella natura e a non perdersi</string>

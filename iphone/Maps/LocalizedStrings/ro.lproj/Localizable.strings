@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Ghidați-vă în zona montană-activați butonul de strat în colțul din stânga sus pe ecran";
 
-/* Contour map */
 "button_layer_isolines" = "Înălțimi";
 
 "tips_map_layers_title_countour" = "Linii de înălțimi offline pe MAPS.ME!";

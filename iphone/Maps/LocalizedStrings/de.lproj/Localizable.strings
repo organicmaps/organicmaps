@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Verlaufen Sie sich nicht in den Berge. Um die Schicht zu aktivieren, klicken Sie auf den Button in der linken Bildschirmecke";
 
-/* Contour map */
 "button_layer_isolines" = "Terrain";
 
 "tips_map_layers_title_countour" = "Neu in MAPS.ME: Topographie-Layer offline!";

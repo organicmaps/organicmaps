@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Xác định phương hướng ở vùng đồi núi – hãy bật nút chỉ lớp ở góc trái trên màn hình";
 
-/* Contour map */
 "button_layer_isolines" = "Độ cao";
 
 "tips_map_layers_title_countour" = "Đường độ cao ngoại tuyến trong MAPS.ME!";

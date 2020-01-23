@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Oriente-se nas terras altas- ative a camada com o botão direito no canto superior esquerdo da tela";
 
-/* Contour map */
 "button_layer_isolines" = "Alturas";
 
 "tips_map_layers_title_countour" = "Linhas de alturas offline na MAPS.ME!";

@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Orienter deg i fjellområde – slå på lag ved å trykke på knappen i hjørnet øverst til venstre på skjermen";
 
-/* Contour map */
 "button_layer_isolines" = "Høyder";
 
 "tips_map_layers_title_countour" = "Høydekurver uten nett med MAPS.ME!";

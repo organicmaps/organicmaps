@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "在山地中導航–使用屏幕左上角的按鈕打開圖層";
 
-/* Contour map */
 "button_layer_isolines" = "高度";
 
 "tips_map_layers_title_countour" = "離線高度線在MAPS.ME中！";

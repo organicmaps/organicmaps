@@ -1744,7 +1744,6 @@
 	<string name="whatsnew_isolines_title">Nyhet för utomhusaktiviteter – höjdlinjer offline!</string>
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Navigera i högländerna – slå på lagret med knappen i det övre vänstra hörnet av skärmen</string>
-	<!-- Contour map -->
 	<string name="button_layer_isolines">Terräng</string>
 	<string name="tips_map_layers_title_countour">Höjningslinjer offline i MAPS.ME!</string>
 	<string name="tips_map_layers_message_countour">Höjdlinjer hjälper dig att planera din resa till naturen och inte gå vilse på marken</string>

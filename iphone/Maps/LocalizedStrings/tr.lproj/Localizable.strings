@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Dağlık alanda kendinizi yönlendirin – ekranın sol üst köşesindeki düğmeyi kullanarak katmanı açın";
 
-/* Contour map */
 "button_layer_isolines" = "Yükseklikler";
 
 "tips_map_layers_title_countour" = "MAPS.ME'de yükseklik çizgileri çevrimdışı!";

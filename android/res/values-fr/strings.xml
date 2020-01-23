@@ -1763,8 +1763,7 @@
 	<string name="whatsnew_isolines_title">Nouveauté pour les activités de plein air – lignes d\'altitude hors-ligne !</string>
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Concentrez-vous sur le terrain montagneux – activez la couche avec le bouton dans le coin supérieur gauche de l\'écran</string>
-	<!-- Contour map -->
-	<string name="button_layer_isolines">Altitudes</string>
+	<string name="button_layer_isolines">Terrain</string>
 	<string name="tips_map_layers_title_countour">Lignes d\'altitude hors-ligne dans MAPS.ME !</string>
 	<string name="tips_map_layers_message_countour">Les lignes d\'altitude vous aideront à planifier votre voyage à la campagne sans vous perdre dans les champs</string>
 	<string name="isolines_activation_error_dialog">Pour utiliser les lignes d\'altitude, mettez à jour ou téléchargez la carte de l\'endroit désiré</string>

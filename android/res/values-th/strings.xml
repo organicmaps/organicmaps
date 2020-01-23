@@ -1749,7 +1749,6 @@
 	<string name="whatsnew_isolines_title">เลเยอร์แผนที่ภูมิประเทศแบบออฟไลน์ ใหม่สำหรับกิจกรรมกลางแจ้ง!</string>
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">รู้สึกมั่นใจได้ในพื้นที่แถบภูเขา เพียงแค่เปิดเลเยอร์ที่มุมบนซ้าย</string>
-	<!-- Contour map -->
 	<string name="button_layer_isolines">ความสูง</string>
 	<string name="tips_map_layers_title_countour">เลเยอร์แผนที่ภูมิประเทศแบบออฟไลน์ ใหม่ในแอป MAPS.ME!</string>
 	<string name="tips_map_layers_message_countour">วางแผนและสนุกไปกับทริปท่องธรรมชาติโดยมั่นใจว่าคุณรู้ทุกอย่างเกี่ยวกับพื้นที่นั้น</string>

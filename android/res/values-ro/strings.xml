@@ -1734,7 +1734,6 @@
 	<string name="whatsnew_isolines_title">Noutatea pentru activități în aer liber – linii de înălțimi offline!</string>
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Ghidați-vă în zona montană-activați butonul de strat în colțul din stânga sus pe ecran</string>
-	<!-- Contour map -->
 	<string name="button_layer_isolines">Înălțimi</string>
 	<string name="tips_map_layers_title_countour">Linii de înălțimi offline pe MAPS.ME!</string>
 	<string name="tips_map_layers_message_countour">Liniile de înălțimi vă vor ajuta să planificați o călătorie în natură și să nu vă pierdeți</string>

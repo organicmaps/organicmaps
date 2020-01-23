@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Ориентируйтесь в горной местности – включите слой кнопкой в левом верхнем углу экрана";
 
-/* Contour map */
 "button_layer_isolines" = "Высоты";
 
 "tips_map_layers_title_countour" = "Линии высот офлайн в MAPS.ME!";

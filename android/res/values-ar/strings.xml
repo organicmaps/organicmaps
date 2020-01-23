@@ -1749,8 +1749,7 @@
 	<string name="whatsnew_isolines_title">الجديد في الخارج: طبقة طبوغرافية بدون انترنت!</string>
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">كن واثق في المنطقة الجبلية. فقط أشعل الطبقة في الزاوية العلوية اليسرى</string>
-	<!-- Contour map -->
-	<string name="button_layer_isolines">إسقاط</string>
+	<string name="button_layer_isolines">تضاريس</string>
 	<string name="tips_map_layers_title_countour">الجديد في MAPS.ME: طبقة طبوغرافية بدون انترنت!</string>
 	<string name="tips_map_layers_message_countour">خطط و استمتع برحلاتك في الطبيعة و أنت متأكد من أنك تعرف كل شيء عن المنطقة</string>
 	<string name="isolines_activation_error_dialog">لتفعيل الطبقة الطبوغرافية واستخدامها ، يرجى تحديث أوتنزيل خريطة المنطقة</string>

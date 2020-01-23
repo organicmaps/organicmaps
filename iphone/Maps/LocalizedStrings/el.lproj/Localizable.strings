@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Νιώστε σίγουροι στα ορεινά – ενεργοποιήστε το στρώμα στην πάνω αριστερή γωνία της οθόνης";
 
-/* Contour map */
 "button_layer_isolines" = "Υψόμετρα";
 
 "tips_map_layers_title_countour" = "Τοπογραφικά στρώματα εκτός σύνδεσης στο MAPS.ME!";

@@ -3190,7 +3190,6 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Suunnistaudu vuorimaastossa – käynnistä kerros päälle näytön vasemmassa yläkulmassa olevalla painikkeella";
 
-/* Contour map */
 "button_layer_isolines" = "Korkeudet";
 
 "tips_map_layers_title_countour" = "Korkeuslinjat offline-tilassa MAPS.ME:ssä!";

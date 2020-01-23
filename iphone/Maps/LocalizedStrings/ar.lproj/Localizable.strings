@@ -3190,8 +3190,7 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "كن واثق في المنطقة الجبلية. فقط أشعل الطبقة في الزاوية العلوية اليسرى";
 
-/* Contour map */
-"button_layer_isolines" = "إسقاط";
+"button_layer_isolines" = "تضاريس";
 
 "tips_map_layers_title_countour" = "الجديد في MAPS.ME: طبقة طبوغرافية بدون انترنت!";
 

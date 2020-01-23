@@ -1737,7 +1737,6 @@
 	<string name="whatsnew_isolines_title">Yang baru di outdoor: lapisan topografi offline!</string>
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Merasa percaya diri di daerah pegunungan. Cukup aktifkan layer di sudut kiri atas</string>
-	<!-- Contour map -->
 	<string name="button_layer_isolines">Isometrik</string>
 	<string name="tips_map_layers_title_countour">Yang baru di MAPS.ME: lapisan topografi offline!</string>
 	<string name="tips_map_layers_message_countour">Rencanakan dan nikmati perjalanan alam Anda dan pastikan Anda tahu segalanya tentang daerah tersebut</string>

@@ -1734,7 +1734,6 @@
 	<string name="whatsnew_isolines_title">Tính năng mới cho kỳ nghỉ năng động – đường chỉ độ cao ngoại tuyến!</string>
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Xác định phương hướng ở vùng đồi núi – hãy bật nút chỉ lớp ở góc trái trên màn hình</string>
-	<!-- Contour map -->
 	<string name="button_layer_isolines">Độ cao</string>
 	<string name="tips_map_layers_title_countour">Đường độ cao ngoại tuyến trong MAPS.ME!</string>
 	<string name="tips_map_layers_message_countour">Đường độ cao giúp lên kế hoạch du lịch hòa mình với thiên nhiên và không bị lạc khi di chuyển</string>

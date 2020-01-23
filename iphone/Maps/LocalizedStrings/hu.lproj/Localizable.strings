@@ -3190,8 +3190,7 @@
 /* as less symbols as possible */
 "whatsnew_isolines_message" = "Legyen magabiztos a hegyvidéki területen. Csak kapcsolja be a réteget a bal felső sarokban";
 
-/* Contour map */
-"button_layer_isolines" = "Topográfia";
+"button_layer_isolines" = "Terep";
 
 "tips_map_layers_title_countour" = "Újdonság a MAPS.ME-n: offline topográfiai réteg!";
 
