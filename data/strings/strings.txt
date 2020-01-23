@@ -46181,22 +46181,20 @@
     fa = در مناطق کوهستانی خاطر جمع باشید. فقط لایه را در قسمت بالا سمت چپ روشن کنید
 
   [button_layer_isolines]
-    comment = as less symbols as possible, 1 word
-    comment = Contour map
     en = Terrain
     ru = Высоты
-    ar = إسقاط
+    ar = تضاريس
     cs = Terén
-    da = Konturkort
+    da = Terræn
     nl = Hoogtes
     fi = Korkeudet
-    fr = Altitudes
+    fr = Terrain
     de = Terrain
-    hu = Topográfia
+    hu = Terep
     id = Isometrik
     it = Terreno
-    ja = 等距離図
-    ko = 아이소맵
+    ja = 地形
+    ko = 지형
     nb = Høyder
     pl = Wysokości
     pt = Alturas
