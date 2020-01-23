@@ -5748,7 +5748,7 @@
 				CODE_SIGN_ENTITLEMENTS = "maps.me rel.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development: Aleksey Belousov (8P35JSY4C8)";
 				CODE_SIGN_STYLE = Manual;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
 				FRAMEWORK_SEARCH_PATHS = (
