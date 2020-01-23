@@ -5,10 +5,10 @@
 namespace topography_generator
 {
 template <typename ValueType>
-class Filter
+class FilterInterface
 {
 public:
-  virtual ~Filter() = default;
+  virtual ~FilterInterface() = default;
 
   virtual size_t GetKernelRadius() const = 0;
   virtual void Process(size_t tileSize, size_t tileOffset,
@@ -17,7 +17,7 @@ public:
 };
 
 template <typename ValueType>
-class MedianFilter : public Filter<ValueType>
+class MedianFilter : public FilterInterface<ValueType>
 {
 public:
   explicit MedianFilter(size_t kernelRadius)
@@ -38,7 +38,7 @@ private:
 };
 
 template <typename ValueType>
-class GaussianFilter : public Filter<ValueType>
+class GaussianFilter : public FilterInterface<ValueType>
 {
 public:
   GaussianFilter(double standardDeviation, double radiusFactor)
@@ -59,7 +59,7 @@ private:
 };
 
 template <typename ValueType>
-using FiltersSequence = std::vector<std::unique_ptr<Filter<ValueType>>>;
+using FiltersSequence = std::vector<std::unique_ptr<FilterInterface<ValueType>>>;
 
 template <typename ValueType>
 std::vector<ValueType> FilterTile(FiltersSequence<ValueType> const & filters,

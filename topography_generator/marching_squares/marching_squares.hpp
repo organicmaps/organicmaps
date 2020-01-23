@@ -85,15 +85,7 @@ private:
       }
     }
 
-    if (minValue > 0)
-      minValue = m_valueStep * ((minValue + m_valueStep - 1) / m_valueStep);
-    else
-      minValue = m_valueStep * (minValue / m_valueStep);
-
-    if (maxValue > 0)
-      maxValue = m_valueStep * ((maxValue + m_valueStep) / m_valueStep);
-    else
-      maxValue = m_valueStep * (maxValue / m_valueStep);
+    Square<ValueType>::ToLevelsRange(m_valueStep, minValue, maxValue);
 
     CHECK_GREATER_OR_EQUAL(maxValue, minValue, ());
   }

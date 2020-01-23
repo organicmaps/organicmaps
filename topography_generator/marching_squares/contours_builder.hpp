@@ -4,6 +4,7 @@
 
 #include "geometry/latlon.hpp"
 
+#include <algorithm>
 #include <deque>
 #include <list>
 #include <vector>
@@ -33,8 +34,9 @@ public:
       {
         Contour contourMerc;
         contourMerc.reserve(contour.size());
-        for (auto const & pt : contour)
-          contourMerc.push_back(mercator::FromLatLon(pt));
+        std::transform(contour.begin(), contour.end(), std::back_inserter(contourMerc),
+                       [](ms::LatLon const & pt){ return mercator::FromLatLon(pt); });
+
         contours[levelValue].emplace_back(std::move(contourMerc));
       }
     }

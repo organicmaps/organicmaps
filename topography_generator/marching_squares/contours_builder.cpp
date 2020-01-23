@@ -8,10 +8,9 @@ double constexpr kEps = 1e-7;
 
 ContoursBuilder::ContoursBuilder(size_t levelsCount)
   : m_levelsCount(levelsCount)
-{
-  m_finalizedContours.resize(m_levelsCount);
-  m_activeContours.resize(m_levelsCount);
-}
+  , m_finalizedContours(levelsCount)
+  , m_activeContours(levelsCount)
+{}
 
 void ContoursBuilder::AddSegment(size_t levelInd, ms::LatLon const & beginPos, ms::LatLon const & endPos)
 {
@@ -28,7 +27,8 @@ void ContoursBuilder::AddSegment(size_t levelInd, ms::LatLon const & beginPos, m
   if (connectStart && connectEnd && contourItBefore != contourItAfter)
   {
     contourItBefore->m_countour.insert(contourItBefore->m_countour.end(),
-      contourItAfter->m_countour.begin(), contourItAfter->m_countour.end());
+                                       contourItAfter->m_countour.begin(),
+                                       contourItAfter->m_countour.end());
     contourItBefore->m_active = true;
     m_activeContours[levelInd].erase(contourItAfter);
   }
@@ -59,7 +59,7 @@ void ContoursBuilder::BeginLine()
 
 void ContoursBuilder::EndLine(bool finalLine)
 {
-  for (size_t levelInd = 0; levelInd < m_activeContours.size(); ++levelInd)
+  for (size_t levelInd = 0; levelInd < m_levelsCount; ++levelInd)
   {
     auto & contours = m_activeContours[levelInd];
     auto it = contours.begin();

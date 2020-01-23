@@ -150,7 +150,7 @@ Generator::Generator(std::string const & srtmPath, size_t threadsCount, size_t m
 {
   m_infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(GetPlatform());
   CHECK(m_infoGetter, ());
-  m_infoReader = dynamic_cast<storage::CountryInfoReader *>(m_infoGetter.get());
+  m_infoReader = static_cast<storage::CountryInfoReader *>(m_infoGetter.get());
 
   m_threadsPool = std::make_unique<base::thread_pool::routine::ThreadPool>(
     threadsCount, std::bind(&Generator::OnTaskFinished, this, std::placeholders::_1));
@@ -166,11 +166,11 @@ void Generator::GenerateIsolines(int left, int bottom, int right, int top,
 {
   std::vector<std::unique_ptr<TileIsolinesTask>> tasks;
 
-  CHECK_GREATER_OR_EQUAL(right, left, ());
-  CHECK_GREATER_OR_EQUAL(top, bottom, ());
+  CHECK_GREATER(right, left, ());
+  CHECK_GREATER(top, bottom, ());
 
-  int tilesRowPerTask = top - bottom + 1;
-  int tilesColPerTask = right - left + 1;
+  int tilesRowPerTask = top - bottom;
+  int tilesColPerTask = right - left;
 
   if (tilesRowPerTask * tilesColPerTask <= m_threadsCount)
   {
@@ -188,13 +188,14 @@ void Generator::GenerateIsolines(int left, int bottom, int right, int top,
     }
   }
 
-  for (int lat = bottom; lat <= top; lat += tilesRowPerTask)
+  for (int lat = bottom; lat < top; lat += tilesRowPerTask)
   {
-    int const topLat = std::min(lat + tilesRowPerTask - 1, top);
-    for (int lon = left; lon <= right; lon += tilesColPerTask)
+    int const topLat = std::min(lat + tilesRowPerTask - 1, top - 1);
+    for (int lon = left; lon < right; lon += tilesColPerTask)
     {
-      int const rightLon = std::min(lon + tilesColPerTask - 1, right);
-      tasks.emplace_back(new TileIsolinesTask(lon, lat, rightLon, topLat, m_srtmPath, params));
+      int const rightLon = std::min(lon + tilesColPerTask - 1, right - 1);
+      tasks.emplace_back(std::make_unique<TileIsolinesTask>(lon, lat, rightLon, topLat,
+                                                            m_srtmPath, params));
     }
   }
 
@@ -222,7 +223,7 @@ void Generator::OnTaskFinished(threads::IRoutine * task)
   }
 }
 
-void Generator::GetCountryRegions(std::string const & countryId, m2::RectD & countryRect,
+void Generator::GetCountryRegions(storage::CountryId const & countryId, m2::RectD & countryRect,
                                   std::vector<m2::RegionD> & countryRegions)
 {
   countryRect = m_infoReader->GetLimitRectForLeaf(countryId);
@@ -238,7 +239,7 @@ void Generator::GetCountryRegions(std::string const & countryId, m2::RectD & cou
   m_infoReader->LoadRegionsFromDisk(id, countryRegions);
 }
 
-void Generator::PackIsolinesForCountry(std::string const & countryId,
+void Generator::PackIsolinesForCountry(storage::CountryId const & countryId,
                                        std::string const & isolinesPath,
                                        std::string const & outDir,
                                        CountryIsolinesParams const & params)
@@ -267,17 +268,21 @@ void Generator::PackIsolinesForCountry(std::string const & countryId,
       if (!LoadContours(GetIsolinesFilePath(lat, lon, isolinesPath), isolines))
         continue;
 
+      CropContours(countryRect, countryRegions, params.m_maxIsolineLength,
+                   params.m_alitudesStepFactor, isolines);
       if (params.m_simplificationZoom > 0)
         SimplifyContours(params.m_simplificationZoom, isolines);
-      CropContours(countryRect, countryRegions, params.m_maxIsolineLenght, isolines);
 
       countryIsolines.m_minValue = std::min(isolines.m_minValue, countryIsolines.m_minValue);
       countryIsolines.m_maxValue = std::max(isolines.m_maxValue, countryIsolines.m_maxValue);
       countryIsolines.m_valueStep = isolines.m_valueStep;
+      countryIsolines.m_invalidValuesCount += isolines.m_invalidValuesCount;
+
       for (auto & levelIsolines : isolines.m_contours)
       {
         auto & dst = countryIsolines.m_contours[levelIsolines.first];
-        dst.insert(dst.end(), levelIsolines.second.begin(), levelIsolines.second.end());
+        std::move(levelIsolines.second.begin(), levelIsolines.second.end(),
+                  std::back_inserter(dst));
       }
     }
   }

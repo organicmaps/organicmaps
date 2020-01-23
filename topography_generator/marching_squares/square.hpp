@@ -29,25 +29,31 @@ public:
 
   void GenerateSegments(ContoursBuilder & builder)
   {
-    ValueType minAlt = std::min(m_valueLB, std::min(m_valueLT, std::min(m_valueRT, m_valueRB)));
-    ValueType maxAlt = std::max(m_valueLB, std::max(m_valueLT, std::max(m_valueRT, m_valueRB)));
+    ValueType minVal = std::min(m_valueLB, std::min(m_valueLT, std::min(m_valueRT, m_valueRB)));
+    ValueType maxVal = std::max(m_valueLB, std::max(m_valueLT, std::max(m_valueRT, m_valueRB)));
 
-    if (minAlt > 0)
-      minAlt = m_valueStep * ((minAlt + m_valueStep - 1) / m_valueStep);
-    else
-      minAlt = m_valueStep * (minAlt / m_valueStep);
-    if (maxAlt > 0)
-      maxAlt = m_valueStep * ((maxAlt + m_valueStep) / m_valueStep);
-    else
-      maxAlt = m_valueStep * (maxAlt / m_valueStep);
+    ToLevelsRange(m_valueStep, minVal, maxVal);
 
-    CHECK_GREATER_OR_EQUAL(minAlt, m_minValue, ());
+    CHECK_GREATER_OR_EQUAL(minVal, m_minValue, ());
 
-    for (auto alt = minAlt; alt < maxAlt; alt += m_valueStep)
-      AddSegments(alt, (alt - m_minValue) / m_valueStep, builder);
+    for (auto val = minVal; val < maxVal; val += m_valueStep)
+      AddSegments(val, (val - m_minValue) / m_valueStep, builder);
   }
 
-//private:
+  static void ToLevelsRange(ValueType step, ValueType & minVal, ValueType & maxVal)
+  {
+    if (minVal > 0)
+      minVal = step * ((minVal + step - 1) / step);
+    else
+      minVal = step * (minVal / step);
+
+    if (maxVal > 0)
+      maxVal = step * ((maxVal + step) / step);
+    else
+      maxVal = step * ((maxVal + 1) / step);
+  }
+
+private:
   enum class Rib
   {
     None,
@@ -60,6 +66,8 @@ public:
 
   ValueType GetValue(ms::LatLon const & pos, ValuesProvider<ValueType> & valuesProvider) const
   {
+    // If a contour goes right through the corner of the square false segments can be generated.
+    // Shift the value slightly from the corner.
     ValueType val = valuesProvider.GetValue(pos);
     if (val != valuesProvider.GetInvalidValue() && (val % m_valueStep == 0))
       return val + 1;
@@ -69,7 +77,7 @@ public:
   void AddSegments(ValueType val, uint16_t ind, ContoursBuilder & builder)
   {
     // Segment is a vector directed so that higher values is on the right.
-    std::pair<Rib, Rib> intersectedRibs[] =
+    static const std::pair<Rib, Rib> intersectedRibs[] =
       {
         {Rib::None, Rib::None},       // 0000
         {Rib::Left, Rib::Bottom},     // 0001
@@ -92,7 +100,7 @@ public:
     uint8_t const pattern =  (m_valueLB > val ? 1u : 0u) | ((m_valueLT > val ? 1u : 0u) << 1u) |
       ((m_valueRT > val ? 1u : 0u) << 2u) | ((m_valueRB > val ? 1u : 0u) << 3u);
 
-    auto ribs = intersectedRibs[pattern];
+    auto const ribs = intersectedRibs[pattern];
 
     if (ribs.first == Rib::None)
       return;
@@ -138,41 +146,41 @@ public:
     }
   }
 
-  ms::LatLon InterpolatePoint(Square::Rib rib, ValueType alt)
+  ms::LatLon InterpolatePoint(Square::Rib rib, ValueType val)
   {
-    double alt1;
-    double alt2;
+    double val1;
+    double val2;
     double lat;
     double lon;
 
     switch (rib)
     {
     case Rib::Left:
-      alt1 = static_cast<double>(m_valueLB);
-      alt2 = static_cast<double>(m_valueLT);
+      val1 = static_cast<double>(m_valueLB);
+      val2 = static_cast<double>(m_valueLT);
       lon = m_left;
       break;
     case Rib::Right:
-      alt1 = static_cast<double>(m_valueRB);
-      alt2 = static_cast<double>(m_valueRT);
+      val1 = static_cast<double>(m_valueRB);
+      val2 = static_cast<double>(m_valueRT);
       lon = m_right;
       break;
     case Rib::Top:
-      alt1 = static_cast<double>(m_valueLT);
-      alt2 = static_cast<double>(m_valueRT);
+      val1 = static_cast<double>(m_valueLT);
+      val2 = static_cast<double>(m_valueRT);
       lat = m_top;
       break;
     case Rib::Bottom:
-      alt1 = static_cast<double>(m_valueLB);
-      alt2 = static_cast<double>(m_valueRB);
+      val1 = static_cast<double>(m_valueLB);
+      val2 = static_cast<double>(m_valueRB);
       lat = m_bottom;
       break;
     default:
       UNREACHABLE();
     }
 
-    CHECK_NOT_EQUAL(alt, alt2, ());
-    double const coeff = (alt1 - alt) / (alt - alt2);
+    CHECK_NOT_EQUAL(val, val2, ());
+    double const coeff = (val1 - val) / (val - val2);
 
     switch (rib)
     {

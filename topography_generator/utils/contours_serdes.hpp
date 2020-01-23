@@ -17,6 +17,7 @@ public:
   template <typename Sink>
   void Serialize(Sink & sink)
   {
+    WriteToSink(sink, base::Underlying(Contours<ValueType>::Version::Latest));
     WriteToSink(sink, m_contours.m_minValue);
     WriteToSink(sink, m_contours.m_maxValue);
     WriteToSink(sink, m_contours.m_valueStep);
@@ -24,10 +25,9 @@ public:
 
     WriteToSink(sink, static_cast<uint32_t>(m_contours.m_contours.size()));
     for (auto const & levelContours : m_contours.m_contours)
-    {
       SerializeContours(sink, levelContours.first, levelContours.second);
-    }
   }
+
 private:
   template <typename Sink>
   void SerializeContours(Sink & sink, ValueType value,
@@ -45,7 +45,6 @@ private:
     serial::GeometryCodingParams codingParams;
     serial::SavePoint(sink, contour[0], codingParams);
     codingParams.SetBasePoint(contour[0]);
-    std::vector<m2::PointD> toSave(contour.begin() + 1, contour.end());
     serial::SaveOuterPath(contour, codingParams, sink);
   }
 
@@ -60,6 +59,11 @@ public:
   void Deserialize(Reader & reader, Contours<ValueType> & contours)
   {
     NonOwningReaderSource source(reader);
+
+    using VersT = typename Contours<ValueType>::Version;
+    auto const v = static_cast<VersT>(ReadPrimitiveFromSource<std::underlying_type_t<VersT>>(source));
+    CHECK(v == Contours<ValueType>::Version::Latest, ());
+
     contours.m_minValue = ReadPrimitiveFromSource<ValueType>(source);
     contours.m_maxValue = ReadPrimitiveFromSource<ValueType>(source);
     contours.m_valueStep = ReadPrimitiveFromSource<ValueType>(source);

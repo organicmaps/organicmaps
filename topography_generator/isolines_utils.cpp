@@ -2,6 +2,8 @@
 
 #include "generator/srtm_parser.hpp"
 
+#include "storage/storage_defines.hpp"
+
 #include "base/file_name_utils.hpp"
 
 namespace topography_generator
@@ -14,7 +16,7 @@ std::string GetIsolinesFilePath(int lat, int lon, std::string const & dir)
   return base::JoinPath(dir, fileName + kIsolinesExt);
 }
 
-std::string GetIsolinesFilePath(std::string const & countryId, std::string const & dir)
+std::string GetIsolinesFilePath(storage::CountryId const & countryId, std::string const & dir)
 {
   return base::JoinPath(dir, countryId + kIsolinesExt);
 }

@@ -27,8 +27,9 @@ struct TileIsolinesParams
 
 struct CountryIsolinesParams
 {
-  size_t m_maxIsolineLenght = 1000;
+  size_t m_maxIsolineLength = 1000;
   int m_simplificationZoom = 17;
+  size_t m_alitudesStepFactor = 1;
 };
 
 class Generator
@@ -39,12 +40,14 @@ public:
 
   void GenerateIsolines(int left, int bottom, int right, int top,
                         TileIsolinesParams const & params);
-  void PackIsolinesForCountry(std::string const & countryId, std::string const & isolinesPath,
+
+  void PackIsolinesForCountry(storage::CountryId const & countryId,
+                              std::string const & isolinesPath,
                               std::string const & outDir, CountryIsolinesParams const & params);
 
 private:
   void OnTaskFinished(threads::IRoutine * task);
-  void GetCountryRegions(std::string const & countryId, m2::RectD & countryRect,
+  void GetCountryRegions(storage::CountryId const & countryId, m2::RectD & countryRect,
                          std::vector<m2::RegionD> & countryRegions);
 
   std::unique_ptr<storage::CountryInfoGetter> m_infoGetter;

@@ -27,6 +27,7 @@ public:
   geometry::Altitude GetHeight(ms::LatLon const & coord);
 
   static std::string GetBase(ms::LatLon coord);
+  static std::string GetPath(std::string const & dir, std::string const & base);
 
 private:
   inline geometry::Altitude const * Data() const
@@ -52,7 +53,17 @@ public:
 
 private:
   std::string m_dir;
-  std::unordered_map<std::string, SrtmTile> m_tiles;
+
+  using LatLonKey = std::pair<int, int>;
+  struct Hash
+  {
+    size_t operator()(LatLonKey const & key) const
+    {
+      return (static_cast<size_t>(key.first) << 32u) | static_cast<size_t>(key.second);
+    }
+  };
+
+  std::unordered_map<LatLonKey, SrtmTile, Hash> m_tiles;
 
   DISALLOW_COPY(SrtmTileManager);
 };

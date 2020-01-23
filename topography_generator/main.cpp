@@ -5,22 +5,26 @@
 
 #include "3party/gflags/src/gflags/gflags.h"
 
+#include <cstdlib>
 
-DEFINE_string(out_dir, "/Users/daravolvenkova/isolines/", "Path to output directory.");
-DEFINE_string(countryId, "",//"France_Rhone-Alpes_Haute-Savoie",
+DEFINE_string(out_dir, "", "Path to output directory.");
+
+DEFINE_string(countryId, "",
               "Isolines packing mode. Pack isolines for countryId.");
-DEFINE_string(isolines_path, "/Users/daravolvenkova/isolines/",
+DEFINE_string(isolines_path, "",
               "Isolines packing mode. Path to the directory with isolines tiles.");
-DEFINE_uint64(simpl_zoom, 17, "Isolines packing mode. Isolines simplification zoom.");
+DEFINE_uint64(simpl_zoom, 16, "Isolines packing mode. Isolines simplification zoom.");
 DEFINE_uint64(max_length, 1000, "Isolines packing mode. Isolines max length.");
-DEFINE_string(srtm_path, "/Users/daravolvenkova/srtm/2000.02.11/",
+DEFINE_uint64(alt_step_factor, 1, "Isolines packing mode. Altitude step factor.");
+
+DEFINE_string(srtm_path, "",
               "Isolines generating mode. Path to srtm directory.");
-DEFINE_int32(left, 5, "Isolines generating mode. Left longitude of tiles rect.");
-DEFINE_int32(right, 6, "Isolines generating mode. Right longitude of tiles rect.");
-DEFINE_int32(bottom, 45, "Isolines generating mode. Bottom latitude of tiles rect.");
-DEFINE_int32(top, 46, "Isolines generating mode. Top latitude of tiles rect.");
+DEFINE_int32(left, 0, "Isolines generating mode. Left longitude of tiles rect [-180, 180].");
+DEFINE_int32(right, 0, "Isolines generating mode. Right longitude of tiles rect [-180, 180].");
+DEFINE_int32(bottom, 0, "Isolines generating mode. Bottom latitude of tiles rect [-90, 90].");
+DEFINE_int32(top, 0, "Isolines generating mode. Top latitude of tiles rect [-90, 90].");
 DEFINE_uint64(isolines_step, 10, "Isolines generating mode. Isolines step in meters.");
-DEFINE_uint64(latlon_step_factor, 1, "Isolines generating mode. Lat/lon step factor.");
+DEFINE_uint64(latlon_step_factor, 2, "Isolines generating mode. Lat/lon step factor.");
 DEFINE_double(gaussian_st_dev, 2.0, "Isolines generating mode. Gaussian filter standard deviation.");
 DEFINE_double(gaussian_r_factor, 1.0, "Isolines generating mode. Gaussian filter radius factor.");
 DEFINE_uint64(median_r, 1, "Isolines generating mode. Median filter radius.");
@@ -34,8 +38,8 @@ int main(int argc, char ** argv)
 
   if (FLAGS_out_dir.empty())
   {
-    LOG(LINFO, ("out_dir must be set."));
-    return 1;
+    LOG(LERROR, ("out_dir must be set."));
+    return EXIT_FAILURE;
   }
 
   topography_generator::Generator generator(FLAGS_srtm_path, FLAGS_threads,
@@ -44,37 +48,44 @@ int main(int argc, char ** argv)
   {
     if (FLAGS_isolines_path.empty())
     {
-      LOG(LINFO, ("isolines_path must be set."));
-      return 1;
+      LOG(LERROR, ("isolines_path must be set."));
+      return EXIT_FAILURE;
     }
 
     topography_generator::CountryIsolinesParams params;
     params.m_simplificationZoom = static_cast<int>(FLAGS_simpl_zoom);
-    params.m_maxIsolineLenght = FLAGS_max_length;
+    params.m_maxIsolineLength = FLAGS_max_length;
+    params.m_alitudesStepFactor = FLAGS_alt_step_factor;
 
     generator.PackIsolinesForCountry(FLAGS_countryId, FLAGS_isolines_path, FLAGS_out_dir, params);
-    return 0;
+    return EXIT_SUCCESS;
   }
 
   if (FLAGS_srtm_path.empty())
   {
-    LOG(LINFO, ("srtm_path must be set."));
-    return 1;
+    LOG(LERROR, ("srtm_path must be set."));
+    return EXIT_FAILURE;
   }
 
-  if (FLAGS_right < FLAGS_left || FLAGS_top < FLAGS_bottom)
+  if (FLAGS_right <= FLAGS_left || FLAGS_top <= FLAGS_bottom ||
+    FLAGS_right > 180 || FLAGS_left < -180 || FLAGS_top > 90 || FLAGS_bottom < -90)
   {
-    LOG(LINFO, ("Invalid tiles rect."));
-    return 1;
+    LOG(LERROR, ("Invalid tiles rect."));
+    return EXIT_FAILURE;
   }
 
   topography_generator::TileIsolinesParams params;
   if (FLAGS_median_r > 0)
-    params.m_filters.emplace_back(new topography_generator::MedianFilter<topography_generator::Altitude>(FLAGS_median_r));
-  if (FLAGS_gaussian_st_dev > 0.0)
   {
-    params.m_filters.emplace_back(new topography_generator::GaussianFilter<topography_generator::Altitude>(
-      FLAGS_gaussian_st_dev, FLAGS_gaussian_r_factor));
+    params.m_filters.emplace_back(
+      std::make_unique<topography_generator::MedianFilter<topography_generator::Altitude>>(
+        FLAGS_median_r));
+  }
+  if (FLAGS_gaussian_st_dev > 0.0 && FLAGS_gaussian_r_factor > 0)
+  {
+    params.m_filters.emplace_back(
+      std::make_unique<topography_generator::GaussianFilter<topography_generator::Altitude>>(
+        FLAGS_gaussian_st_dev, FLAGS_gaussian_r_factor));
   }
 
   params.m_outputDir = FLAGS_out_dir;
@@ -83,5 +94,5 @@ int main(int argc, char ** argv)
 
   generator.GenerateIsolines(FLAGS_left, FLAGS_bottom, FLAGS_right, FLAGS_top, params);
 
-  return 0;
+  return EXIT_SUCCESS;
 }

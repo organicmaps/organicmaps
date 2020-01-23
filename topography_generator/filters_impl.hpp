@@ -2,6 +2,11 @@
 
 #include "topography_generator/utils/values_provider.hpp"
 
+#include "geometry/latlon.hpp"
+
+#include <algorithm>
+#include <vector>
+
 namespace topography_generator
 {
 template <typename ValueType>
@@ -25,6 +30,7 @@ void GetExtendedTile(ms::LatLon const & leftBottom, size_t stepsInDegree,
     {
       auto const pos = ms::LatLon(startPos.m_lat - i * step,
                                   startPos.m_lon + j * step);
+
       extTileValues[i * extendedTileSize + j] = valuesProvider.GetValue(pos);
     }
   }
@@ -46,6 +52,7 @@ void ProcessWithLinearKernel(std::vector<double> const & kernel, size_t tileSize
   {
     for (size_t j = tileOffset; j < tileSize - tileOffset; ++j)
     {
+      tempValues[j] = 0.0;
       for (size_t k = 0; k < kernelSize; ++k)
       {
         size_t const srcIndex = i * tileSize + j - kernelRadius + k;
@@ -62,6 +69,7 @@ void ProcessWithLinearKernel(std::vector<double> const & kernel, size_t tileSize
   {
     for (size_t i = tileOffset; i < tileSize - tileOffset; ++i)
     {
+      tempValues[i] = 0.0;
       for (size_t k = 0; k < kernelSize; ++k)
       {
         size_t const srcIndex = (i - kernelRadius + k) * tileSize + j;
@@ -134,5 +142,6 @@ void ProcessMedian(size_t kernelRadius, size_t tileSize, size_t tileOffset,
   }
 }
 
+// Calculate separable kernel for Gaussian blur. https://en.wikipedia.org/wiki/Gaussian_blur
 std::vector<double> CalculateGaussianLinearKernel(double standardDeviation, double radiusFactor);
 }  // namespace topography_generator
