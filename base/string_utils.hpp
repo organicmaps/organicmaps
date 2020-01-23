@@ -361,15 +361,6 @@ void ParseCSVRow(std::string const & s, char const delimiter, std::vector<std::s
 /// @return code of last symbol in string or 0 if s is empty
 UniChar LastUniChar(std::string const & s);
 
-template <class T, size_t N, class TT>
-bool IsInArray(T (&arr)[N], TT const & t)
-{
-  for (size_t i = 0; i < N; ++i)
-    if (arr[i] == t)
-      return true;
-  return false;
-}
-
 /// @name From string to numeric.
 //@{
 WARN_UNUSED_RESULT bool to_int(char const * s, int & i, int base = 10);
