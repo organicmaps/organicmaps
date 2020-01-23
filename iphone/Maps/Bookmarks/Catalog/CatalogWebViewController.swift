@@ -60,10 +60,11 @@ final class CatalogWebViewController: WebViewController {
       }
     }
     super.init(url: catalogUrl, title: L("guides_catalogue_title"))!
-    let bButton = UIButton(type: .custom)
-    bButton.addTarget(self, action: #selector(onBack), for: .touchUpInside)
-    bButton.setImage(UIImage(named: "ic_nav_bar_back"), for: .normal)
-    backButton = UIBarButtonItem(customView: bButton)
+    backButton = UIBarButtonItem(image: UIImage(named: "ic_nav_bar_back"),
+                                  style: .plain,
+                                  target: navigationController,
+                                  action: #selector(onBack))
+    navigationItem.leftBarButtonItem = backButton
     noInternetView = CatalogConnectionErrorView(frame: .zero, actionCallback: { [weak self] in
       guard let self = self else { return }
       if !FrameworkHelper.isNetworkConnected() {
@@ -182,11 +183,6 @@ final class CatalogWebViewController: WebViewController {
       MWMEye.boomarksCatalogShown()
     }
     loadingIndicator.stopAnimating()
-    if (webView.canGoBack) {
-      navigationItem.leftBarButtonItem = backButton
-    } else {
-      navigationItem.leftBarButtonItem = nil
-    }
   }
 
   override func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
@@ -409,7 +405,11 @@ final class CatalogWebViewController: WebViewController {
   }
 
   @objc private func onBack() {
-    back()
+    if (webView.canGoBack) {
+      back()
+    } else {
+      navigationController?.popViewController(animated: true)
+    }
   }
 
   @objc private func onFwd() {
