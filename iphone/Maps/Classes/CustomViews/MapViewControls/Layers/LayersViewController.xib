@@ -62,7 +62,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="114.5" height="106"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ig-dd-0gQ" customClass="VerticallyAlignedButton" customModule="maps_me" customModuleProvider="target">
-                                    <rect key="frame" x="21" y="33" width="72" height="40"/>
+                                    <rect key="frame" x="-9.5" y="33" width="133" height="40"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <state key="normal" title="Traffic" image="btn_menu_traffic_off_light">
                                         <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -81,34 +81,11 @@
                                 <constraint firstItem="1Ig-dd-0gQ" firstAttribute="centerX" secondItem="aBL-Bk-1MS" secondAttribute="centerX" id="Par-LR-kSw"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F9J-as-uLu">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nfL-xp-reF">
                             <rect key="frame" x="114.5" y="0.0" width="114" height="106"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beC-fv-00o" customClass="VerticallyAlignedButton" customModule="maps_me" customModuleProvider="target">
-                                    <rect key="frame" x="18" y="33" width="78" height="40"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                    <state key="normal" title="Subway" image="btn_menu_subway_off_light">
-                                        <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </state>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="button_layer_subway"/>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="onSubwayButton:" destination="-1" eventType="touchUpInside" id="b8q-1N-aS9"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstItem="beC-fv-00o" firstAttribute="centerY" secondItem="F9J-as-uLu" secondAttribute="centerY" id="0NW-p4-wAv"/>
-                                <constraint firstItem="beC-fv-00o" firstAttribute="centerX" secondItem="F9J-as-uLu" secondAttribute="centerX" id="w6i-i1-e7F"/>
-                            </constraints>
-                        </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nfL-xp-reF">
-                            <rect key="frame" x="228.5" y="0.0" width="114.5" height="106"/>
-                            <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cf2-qe-I3a" customClass="VerticallyAlignedButton" customModule="maps_me" customModuleProvider="target">
-                                    <rect key="frame" x="18" y="33" width="79" height="40"/>
+                                    <rect key="frame" x="-13" y="33" width="140" height="40"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <state key="normal" title="Contour" image="btn_menu_isomaps_off_light">
                                         <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -125,6 +102,29 @@
                             <constraints>
                                 <constraint firstItem="cf2-qe-I3a" firstAttribute="centerY" secondItem="nfL-xp-reF" secondAttribute="centerY" id="Vgd-K6-1yq"/>
                                 <constraint firstItem="cf2-qe-I3a" firstAttribute="centerX" secondItem="nfL-xp-reF" secondAttribute="centerX" id="uDg-m2-fHv"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F9J-as-uLu">
+                            <rect key="frame" x="228.5" y="0.0" width="114.5" height="106"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beC-fv-00o" customClass="VerticallyAlignedButton" customModule="maps_me" customModuleProvider="target">
+                                    <rect key="frame" x="-12.5" y="33" width="140" height="40"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <state key="normal" title="Subway" image="btn_menu_subway_off_light">
+                                        <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="button_layer_subway"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onSubwayButton:" destination="-1" eventType="touchUpInside" id="b8q-1N-aS9"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="beC-fv-00o" firstAttribute="centerY" secondItem="F9J-as-uLu" secondAttribute="centerY" id="0NW-p4-wAv"/>
+                                <constraint firstItem="beC-fv-00o" firstAttribute="centerX" secondItem="F9J-as-uLu" secondAttribute="centerX" id="w6i-i1-e7F"/>
                             </constraints>
                         </view>
                     </subviews>
