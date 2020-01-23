@@ -1,10 +1,10 @@
-class PlacePageScrollView: UIScrollView {
+final class PlacePageScrollView: UIScrollView {
   override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
     return point.y > 0
   }
 }
 
-class TouchTransparentView: UIView {
+final class TouchTransparentView: UIView {
   var targetView: UIView?
   override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
     guard let targetView = targetView else {
@@ -35,7 +35,7 @@ enum PlacePageState {
   }
 }
 
-@objc class PlacePageViewController: UIViewController {
+@objc final class PlacePageViewController: UIViewController {
   @IBOutlet var scrollView: UIScrollView!
   @IBOutlet var stackView: UIStackView!
   @IBOutlet var actionBarContainerView: UIView!
@@ -446,8 +446,22 @@ extension PlacePageViewController: PlacePageButtonsViewControllerDelegate {
 // MARK: - HotelPhotosViewControllerDelegate
 
 extension PlacePageViewController: HotelPhotosViewControllerDelegate {
-  func didSelectItemAt(_ index: Int) {
+  func didSelectItemAt(_ index: Int, lastItemIndex: Int) {
+    guard let photos = placePageData.hotelBooking?.photos else { return }
+    if index == lastItemIndex {
+      let galleryController = GalleryViewController.instance(photos: photos)
+      galleryController.title = placePageData.previewData.title
+      MapViewController.shared()?.navigationController?.pushViewController(galleryController, animated: true)
+    } else {
+      let currentPhoto = photos[index]
+      let view = hotelPhotosViewController.viewForPhoto(currentPhoto)
+      let photoVC = PhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: view)
 
+      photoVC.referenceViewForPhotoWhenDismissingHandler = { [weak self] in
+        self?.hotelPhotosViewController.viewForPhoto($0)
+      }
+      present(photoVC, animated: true)
+    }
   }
 }
 

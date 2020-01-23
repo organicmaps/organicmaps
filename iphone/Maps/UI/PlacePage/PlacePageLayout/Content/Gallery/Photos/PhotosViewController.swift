@@ -1,11 +1,8 @@
-import UIKit
-
-@objc(MWMPhotosViewController)
 final class PhotosViewController: MWMViewController {
-  @objc var referenceViewForPhotoWhenDismissingHandler: ((GalleryItemModel) -> UIView?)?
+  var referenceViewForPhotoWhenDismissingHandler: ((HotelPhotoUrl) -> UIView?)?
 
   private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: convertToOptionalUIPageViewControllerOptionsKeyDictionary([convertFromUIPageViewControllerOptionsKey(UIPageViewController.OptionsKey.interPageSpacing): 16.0]))
-  private(set) var photos: GalleryModel
+  private(set) var photos: [HotelPhotoUrl]
 
   fileprivate let transitionAnimator = PhotosTransitionAnimator()
   fileprivate let interactiveAnimator = PhotosInteractionAnimator()
@@ -26,11 +23,11 @@ final class PhotosViewController: MWMViewController {
     return pageViewController.viewControllers?.first as? PhotoViewController
   }
 
-  fileprivate var currentPhoto: GalleryItemModel? {
+  fileprivate var currentPhoto: HotelPhotoUrl? {
     return currentPhotoViewController?.photo
   }
 
-  @objc init(photos: GalleryModel, initialPhoto: GalleryItemModel? = nil, referenceView: UIView? = nil) {
+  init(photos: [HotelPhotoUrl], initialPhoto: HotelPhotoUrl? = nil, referenceView: UIView? = nil) {
     self.photos = photos
     super.init(nibName: nil, bundle: nil)
     initialSetupWithInitialPhoto(initialPhoto)
@@ -42,7 +39,7 @@ final class PhotosViewController: MWMViewController {
     fatalError("init(coder:) has not been implemented")
   }
 
-  fileprivate func initialSetupWithInitialPhoto(_ initialPhoto: GalleryItemModel? = nil) {
+  fileprivate func initialSetupWithInitialPhoto(_ initialPhoto: HotelPhotoUrl? = nil) {
     overlayView.photosViewController = self
     setupPageViewController(initialPhoto: initialPhoto)
 
@@ -53,7 +50,7 @@ final class PhotosViewController: MWMViewController {
     overlayView.photosViewController = self
   }
 
-  private func setupPageViewController(initialPhoto: GalleryItemModel? = nil) {
+  private func setupPageViewController(initialPhoto: HotelPhotoUrl? = nil) {
     pageViewController.view.backgroundColor = UIColor.clear
     pageViewController.delegate = self
     pageViewController.dataSource = self
@@ -68,7 +65,7 @@ final class PhotosViewController: MWMViewController {
     overlayView.photo = initialPhoto
   }
 
-  fileprivate func initializePhotoViewController(photo: GalleryItemModel) -> PhotoViewController {
+  fileprivate func initializePhotoViewController(photo: HotelPhotoUrl) -> PhotoViewController {
     let photoViewController = PhotoViewController(photo: photo)
     singleTapGestureRecognizer.require(toFail: photoViewController.doubleTapGestureRecognizer)
     return photoViewController
@@ -192,21 +189,21 @@ extension PhotosViewController: UIViewControllerTransitioningDelegate {
 extension PhotosViewController: UIPageViewControllerDataSource {
   func pageViewController(_: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
     guard let photoViewController = viewController as? PhotoViewController,
-      let photoIndex = photos.items.firstIndex(where: { $0 === photoViewController.photo }),
+      let photoIndex = photos.firstIndex(where: { $0 === photoViewController.photo }),
       photoIndex - 1 >= 0 else {
       return nil
     }
-    let newPhoto = photos.items[photoIndex - 1]
+    let newPhoto = photos[photoIndex - 1]
     return initializePhotoViewController(photo: newPhoto)
   }
 
   func pageViewController(_: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
     guard let photoViewController = viewController as? PhotoViewController,
-      let photoIndex = photos.items.firstIndex(where: { $0 === photoViewController.photo }),
-      photoIndex + 1 < photos.items.count else {
+      let photoIndex = photos.firstIndex(where: { $0 === photoViewController.photo }),
+      photoIndex + 1 < photos.count else {
       return nil
     }
-    let newPhoto = photos.items[photoIndex + 1]
+    let newPhoto = photos[photoIndex + 1]
     return initializePhotoViewController(photo: newPhoto)
   }
 }

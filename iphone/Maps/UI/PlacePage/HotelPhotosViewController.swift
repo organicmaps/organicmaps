@@ -1,4 +1,4 @@
-class PhotoCell: UICollectionViewCell {
+final class PhotoCell: UICollectionViewCell {
   @IBOutlet var imageView: UIImageView!
   @IBOutlet var dimView: UIView!
 
@@ -15,10 +15,10 @@ class PhotoCell: UICollectionViewCell {
 }
 
 protocol HotelPhotosViewControllerDelegate: AnyObject {
-  func didSelectItemAt(_ index: Int)
+  func didSelectItemAt(_ index: Int, lastItemIndex: Int)
 }
 
-class HotelPhotosViewController: UIViewController {
+final class HotelPhotosViewController: UIViewController {
   @IBOutlet var collectionView: UICollectionView!
 
   var photos: [HotelPhotoUrl]? {
@@ -27,6 +27,17 @@ class HotelPhotosViewController: UIViewController {
     }
   }
   weak var delegate: HotelPhotosViewControllerDelegate?
+
+  func viewForPhoto(_ photo: HotelPhotoUrl) -> UIView? {
+    guard let index = photos?.firstIndex(where: {
+      photo === $0
+    }) else {
+      return nil
+    }
+
+    let indexPath = IndexPath(item: index, section: 0)
+    return collectionView.cellForItem(at: indexPath)
+  }
 }
 
 extension HotelPhotosViewController: UICollectionViewDataSource {
@@ -45,6 +56,6 @@ extension HotelPhotosViewController: UICollectionViewDataSource {
 
 extension HotelPhotosViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    delegate?.didSelectItemAt(indexPath.item)
+    delegate?.didSelectItemAt(indexPath.item, lastItemIndex: collectionView.numberOfItems(inSection: 0) - 1)
   }
 }

@@ -1,20 +1,18 @@
-import UIKit
-
 final class PhotosOverlayView: UIView {
   private var navigationBar: UINavigationBar!
   private var navigationItem: UINavigationItem!
 
   weak var photosViewController: PhotosViewController?
 
-  var photo: GalleryItemModel? {
+  var photo: HotelPhotoUrl? {
     didSet {
       guard let photo = photo else {
         navigationItem.title = nil
         return
       }
       guard let photosViewController = photosViewController else { return }
-      if let index = photosViewController.photos.items.firstIndex(where: { $0 === photo }) {
-        navigationItem.title = "\(index + 1) / \(photosViewController.photos.items.count)"
+      if let index = photosViewController.photos.firstIndex(where: { $0 === photo }) {
+        navigationItem.title = "\(index + 1) / \(photosViewController.photos.count)"
       }
     }
   }

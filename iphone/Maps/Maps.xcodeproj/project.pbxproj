@@ -138,8 +138,6 @@
 		346DB8311E5C4F6700E3123E /* GalleryItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346DB8211E5C4F6700E3123E /* GalleryItemViewController.xib */; };
 		346DB8341E5C4F6700E3123E /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB8221E5C4F6700E3123E /* GalleryViewController.swift */; };
 		346DB8371E5C4F6700E3123E /* GalleryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346DB8231E5C4F6700E3123E /* GalleryViewController.xib */; };
-		346DB83A1E5C4F6700E3123E /* GalleryItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB8251E5C4F6700E3123E /* GalleryItemModel.swift */; };
-		346DB83D1E5C4F6700E3123E /* GalleryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB8261E5C4F6700E3123E /* GalleryModel.swift */; };
 		347040301EA6470700038379 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3470402E1EA6470700038379 /* BorderedButton.swift */; };
 		3472B5CB200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5C9200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift */; };
 		3472B5CF200F4A2B00DC6CD5 /* BackgroundFetchTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5CD200F4A2B00DC6CD5 /* BackgroundFetchTask.swift */; };
@@ -1038,8 +1036,6 @@
 		346DB8211E5C4F6700E3123E /* GalleryItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryItemViewController.xib; sourceTree = "<group>"; };
 		346DB8221E5C4F6700E3123E /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		346DB8231E5C4F6700E3123E /* GalleryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryViewController.xib; sourceTree = "<group>"; };
-		346DB8251E5C4F6700E3123E /* GalleryItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryItemModel.swift; sourceTree = "<group>"; };
-		346DB8261E5C4F6700E3123E /* GalleryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryModel.swift; sourceTree = "<group>"; };
 		3470402E1EA6470700038379 /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
 		3472B5C9200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundFetchScheduler.swift; sourceTree = "<group>"; };
 		3472B5CD200F4A2B00DC6CD5 /* BackgroundFetchTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundFetchTask.swift; sourceTree = "<group>"; };
@@ -2804,7 +2800,6 @@
 				346DB8211E5C4F6700E3123E /* GalleryItemViewController.xib */,
 				346DB8221E5C4F6700E3123E /* GalleryViewController.swift */,
 				346DB8231E5C4F6700E3123E /* GalleryViewController.xib */,
-				346DB8241E5C4F6700E3123E /* Models */,
 			);
 			path = Gallery;
 			sourceTree = "<group>";
@@ -2816,15 +2811,6 @@
 				346DB81F1E5C4F6700E3123E /* GalleryCell.xib */,
 			);
 			path = Cells;
-			sourceTree = "<group>";
-		};
-		346DB8241E5C4F6700E3123E /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				346DB8251E5C4F6700E3123E /* GalleryItemModel.swift */,
-				346DB8261E5C4F6700E3123E /* GalleryModel.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		346EDAD81B9F0E15004F8DB5 /* Components */ = {
@@ -5191,7 +5177,6 @@
 				3404757E1E081B3300C92850 /* iosOGLContext.mm in Sources */,
 				34763F071F3092E700F4D2D3 /* String+Format.swift in Sources */,
 				993F5513237C622700545511 /* DeepLinkHandler.swift in Sources */,
-				346DB83A1E5C4F6700E3123E /* GalleryItemModel.swift in Sources */,
 				F6E2FD5C1E097BA00083EBEC /* MWMMapDownloaderCellHeader.m in Sources */,
 				CDCA278E2248F34C00167D87 /* MWMRoutingManager.mm in Sources */,
 				34D3AFF21E37945B004100F9 /* UITableView+Cells.swift in Sources */,
@@ -5564,7 +5549,6 @@
 				340475651E081A4600C92850 /* MWMRouter.mm in Sources */,
 				47E3C72F2111F472008B3B27 /* CoverVerticalModalTransitioning.swift in Sources */,
 				471C448C2322A7C800C307EC /* SubscriptionGoToCatalogViewController.swift in Sources */,
-				346DB83D1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
 				99CB34B02369DF2E001D28AD /* WhatsNewPresenter.swift in Sources */,
 				34E776101F14B165003040B3 /* VisibleArea.swift in Sources */,
 				330473EA21F7440C00DC4AEA /* MWMHotelParams.mm in Sources */,

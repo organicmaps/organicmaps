@@ -1,11 +1,10 @@
 final class GalleryCell: UICollectionViewCell {
-  typealias Model = GalleryItemModel
-
   @IBOutlet weak var imageView: UIImageView!
 
-  var model: Model! {
+  var photoUrl: HotelPhotoUrl! {
     didSet {
-      imageView.wi_setImage(with: model.imageURL, transitionDuration: kDefaultAnimationDuration)
+      guard let url = URL(string: photoUrl.original) else { return }
+      imageView.wi_setImage(with: url, transitionDuration: kDefaultAnimationDuration)
     }
   }
 

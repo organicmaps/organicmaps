@@ -1,5 +1,3 @@
-import UIKit
-
 final class PhotosInteractionAnimator: NSObject {
   private enum Settings {
     static let returnToCenterVelocityAnimationRatio: CGFloat = 0.00007
@@ -94,30 +92,11 @@ final class PhotosInteractionAnimator: NSObject {
                        s.transitionContext?.finishInteractiveTransition()
                      } else {
                        s.transitionContext?.cancelInteractiveTransition()
-                       if !s.isRadar20070670Fixed() {
-                         s.fixCancellationStatusBarAppearanceBug()
-                       }
                      }
                      s.viewToHideWhenBeginningTransition?.alpha = 1.0
                      s.transitionContext?.completeTransition(isDismissing && !(s.transitionContext?.transitionWasCancelled ?? false))
                      s.transitionContext = nil
     })
-  }
-
-  private func fixCancellationStatusBarAppearanceBug() {
-    guard let toViewController = self.transitionContext?.viewController(forKey: UITransitionContextViewControllerKey.to),
-      let fromViewController = self.transitionContext?.viewController(forKey: UITransitionContextViewControllerKey.from) else {
-      return
-    }
-
-    let statusBarViewControllerSelector = Selector("_setPresentedSta" + "tusBarViewController:")
-    if toViewController.responds(to: statusBarViewControllerSelector) && fromViewController.modalPresentationCapturesStatusBarAppearance {
-      toViewController.perform(statusBarViewControllerSelector, with: fromViewController)
-    }
-  }
-
-  private func isRadar20070670Fixed() -> Bool {
-    return ProcessInfo.processInfo.isOperatingSystemAtLeast(OperatingSystemVersion(majorVersion: 8, minorVersion: 3, patchVersion: 0))
   }
 
   private func backgroundAlphaForPanningWithVerticalDelta(_ delta: CGFloat) -> CGFloat {
