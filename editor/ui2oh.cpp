@@ -327,6 +327,9 @@ bool MakeTimeTableSet(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
   bool first = true;
   for (auto const & rulePart : oh.GetRule())
   {
+    if (rulePart.IsEmpty())
+      continue;
+
     ui::TimeTable tt = ui::TimeTable::GetUninitializedTimeTable();
     tt.SetOpeningTime(tt.GetPredefinedOpeningTime());
 

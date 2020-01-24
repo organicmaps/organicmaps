@@ -37,6 +37,58 @@ UNIT_TEST(OpeningHours2TimeTableSet)
     TEST_EQUAL(tt.GetOpeningTime().GetEnd().GetHourMinutes().GetHoursCount(), 22, ());
   }
   {
+    OpeningHours oh("Mo-Su 11:00-23:00;");
+    TEST(oh.IsValid(), ());
+
+    TimeTableSet tts;
+
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 1, ());
+
+    auto const tt = tts.Front();
+    TEST(!tt.IsTwentyFourHours(), ());
+    TEST_EQUAL(tt.GetOpeningDays().size(), 7, ());
+    TEST_EQUAL(tt.GetOpeningTime().GetStart().GetHourMinutes().GetHoursCount(), 11, ());
+    TEST_EQUAL(tt.GetOpeningTime().GetEnd().GetHourMinutes().GetHoursCount(), 23, ());
+  }
+  {
+    OpeningHours oh("Mo-Su 12:00-15:30, 19:30-23:00;"
+                    "Fr-Sa 12:00-15:30, 19:30-23:30;");
+    TEST(oh.IsValid(), ());
+
+    TimeTableSet tts;
+
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 2, ());
+    {
+      auto const tt = tts.Front();
+      TEST(!tt.IsTwentyFourHours(), ());
+      TEST_EQUAL(tt.GetOpeningDays().size(), 5, ());
+      TEST_EQUAL(tt.GetOpeningTime().GetStart().GetHourMinutes().GetHoursCount(), 12, ());
+      TEST_EQUAL(tt.GetOpeningTime().GetEnd().GetHourMinutes().GetHoursCount(), 23, ());
+
+      TEST_EQUAL(tt.GetExcludeTime().size(), 1, ());
+      TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 15, ());
+      TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetMinutesCount(), 30, ());
+      TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 19, ());
+      TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetMinutesCount(), 30, ());
+    }
+    {
+      auto const tt = tts.Back();
+      TEST(!tt.IsTwentyFourHours(), ());
+      TEST_EQUAL(tt.GetOpeningDays().size(), 2, ());
+      TEST_EQUAL(tt.GetOpeningTime().GetStart().GetHourMinutes().GetHoursCount(), 12, ());
+      TEST_EQUAL(tt.GetOpeningTime().GetEnd().GetHourMinutes().GetHoursCount(), 23, ());
+      TEST_EQUAL(tt.GetOpeningTime().GetEnd().GetHourMinutes().GetMinutesCount(), 30, ());
+
+      TEST_EQUAL(tt.GetExcludeTime().size(), 1, ());
+      TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetHoursCount(), 15, ());
+      TEST_EQUAL(tt.GetExcludeTime()[0].GetStart().GetHourMinutes().GetMinutesCount(), 30, ());
+      TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetHoursCount(), 19, ());
+      TEST_EQUAL(tt.GetExcludeTime()[0].GetEnd().GetHourMinutes().GetMinutesCount(), 30, ());
+    }
+  }
+  {
     OpeningHours oh("Mo-Fr 08:00-22:00");
     TEST(oh.IsValid(), ());
 
