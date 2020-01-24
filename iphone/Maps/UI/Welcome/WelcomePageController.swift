@@ -62,11 +62,11 @@ final class WelcomePageController: UIPageViewController {
         NSLog("deeplinking: whats new check")
         if (WelcomeStorage.shouldShowWhatsNew && !DeepLinkHandler.shared.isLaunchedByDeeplink) {
           controllersToShow.append(contentsOf: WhatsNewBuilder.build(delegate: vc))
-          WelcomeStorage.shouldShowWhatsNew = false
         }
       }
     }
-
+    
+    WelcomeStorage.shouldShowWhatsNew = false
     vc.controllers = controllersToShow
     return vc
   }
