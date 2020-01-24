@@ -8,11 +8,7 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/region2d.hpp"
 
-#include "base/thread_pool.hpp"
-
-#include <condition_variable>
 #include <memory>
-#include <mutex>
 #include <string>
 
 namespace topography_generator
@@ -36,7 +32,6 @@ class Generator
 {
 public:
   Generator(std::string const & srtmPath, size_t threadsCount, size_t maxCachedTilesPerThread);
-  ~Generator();
 
   void GenerateIsolines(int left, int bottom, int right, int top,
                         TileIsolinesParams const & params);
@@ -46,19 +41,14 @@ public:
                               std::string const & outDir, CountryIsolinesParams const & params);
 
 private:
-  void OnTaskFinished(threads::IRoutine * task);
   void GetCountryRegions(storage::CountryId const & countryId, m2::RectD & countryRect,
                          std::vector<m2::RegionD> & countryRegions);
 
   std::unique_ptr<storage::CountryInfoGetter> m_infoGetter;
   storage::CountryInfoReader * m_infoReader = nullptr;
 
-  std::unique_ptr<base::thread_pool::routine::ThreadPool> m_threadsPool;
   size_t m_threadsCount;
   size_t m_maxCachedTilesPerThread;
   std::string m_srtmPath;
-  std::mutex m_tasksMutex;
-  std::condition_variable m_tasksReadyCondition;
-  size_t m_activeTasksCount = 0;
 };
 }  // namespace topography_generator

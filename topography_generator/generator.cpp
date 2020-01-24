@@ -9,6 +9,8 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/thread_pool_computational.hpp"
+
 #include <algorithm>
 #include <vector>
 
@@ -164,7 +166,7 @@ private:
   MoveFromBorderFn m_moveFromBorderFn;
 };
 
-class TileIsolinesTask : public threads::IRoutine
+class TileIsolinesTask
 {
 public:
   TileIsolinesTask(int left, int bottom, int right, int top,
@@ -183,7 +185,7 @@ public:
     CHECK(bottom >= -90 && bottom <= 89, ());
   }
 
-  void Do() override
+  void Do()
   {
     for (int lat = m_bottom; lat <= m_top; ++lat)
     {
@@ -232,7 +234,7 @@ private:
   void GenerateSeamlessContours(int lat, int lon, ValuesProvider<Altitude> & altProvider,
                                 Contours<Altitude> & contours)
   {
-    auto const avoidSeam = lat == kAsterTilesLatTop || lat == kAsterTilesLatBottom;
+    auto const avoidSeam = lat == kAsterTilesLatTop || (lat == kAsterTilesLatBottom - 1);
     if (avoidSeam)
     {
       SeamlessAltitudeProvider seamlessAltProvider(m_srtmProvider, altProvider,
@@ -292,14 +294,6 @@ Generator::Generator(std::string const & srtmPath, size_t threadsCount, size_t m
   m_infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(GetPlatform());
   CHECK(m_infoGetter, ());
   m_infoReader = static_cast<storage::CountryInfoReader *>(m_infoGetter.get());
-
-  m_threadsPool = std::make_unique<base::thread_pool::routine::ThreadPool>(
-    threadsCount, std::bind(&Generator::OnTaskFinished, this, std::placeholders::_1));
-}
-
-Generator::~Generator()
-{
-  m_threadsPool->Stop();
 }
 
 void Generator::GenerateIsolines(int left, int bottom, int right, int top,
@@ -329,38 +323,17 @@ void Generator::GenerateIsolines(int left, int bottom, int right, int top,
     }
   }
 
+  base::thread_pool::computational::ThreadPool threadPool(m_threadsCount);
+
   for (int lat = bottom; lat < top; lat += tilesRowPerTask)
   {
     int const topLat = std::min(lat + tilesRowPerTask - 1, top - 1);
     for (int lon = left; lon < right; lon += tilesColPerTask)
     {
       int const rightLon = std::min(lon + tilesColPerTask - 1, right - 1);
-      tasks.emplace_back(std::make_unique<TileIsolinesTask>(lon, lat, rightLon, topLat,
-                                                            m_srtmPath, params));
+      auto task = std::make_unique<TileIsolinesTask>(lon, lat, rightLon, topLat, m_srtmPath, params);
+      threadPool.SubmitWork([task = std::move(task)](){ task->Do(); });
     }
-  }
-
-  {
-    std::lock_guard<std::mutex> lock(m_tasksMutex);
-    CHECK(m_activeTasksCount == 0, ());
-    m_activeTasksCount = tasks.size();
-  }
-
-  for (auto & task : tasks)
-    m_threadsPool->PushBack(task.get());
-
-  std::unique_lock<std::mutex> lock(m_tasksMutex);
-  m_tasksReadyCondition.wait(lock, [this] { return m_activeTasksCount == 0; });
-}
-
-void Generator::OnTaskFinished(threads::IRoutine * task)
-{
-  {
-    std::lock_guard<std::mutex> lock(m_tasksMutex);
-    CHECK(m_activeTasksCount > 0, ());
-    --m_activeTasksCount;
-    if (m_activeTasksCount == 0)
-      m_tasksReadyCondition.notify_one();
   }
 }
 

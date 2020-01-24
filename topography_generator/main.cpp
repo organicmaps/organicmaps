@@ -7,6 +7,26 @@
 
 #include <cstdlib>
 
+/* The tool for isoline generating works in two modes:
+ * 1. Isolines generating mode. Generates binary tile with isolines for each STRM tile in tile rect.
+ *    An isoline would be generated for each height isolines_step difference in height.
+ *    Tiles for lat >= 60.0 && lat < -60.0 (converted from ASTER source) can be filtered by
+ *    median and/or gaussian filters.
+ *    Median filter activates by nonzero filter kernel radius median_r.
+ *    Gaussian filter activates by gaussian_st_dev > 0.0 &&  gaussian_r_factor > 0.0 parameters.
+ *    Contours generating steps through altitudes matrix of SRTM tile can be adjusted by
+ *    latlon_step_factor parameter.
+ *    Mode activates by passing a valid tiles rect (left, right, top, bottom params are integer).
+ *
+ * 2. Packing isolines from ready tiles into a binary file for specified country id.
+ *    Tool gets isolines from the tiles, covered by the country regions, selects
+ *    altitude levels with alt_step_factor (if a tile stores altitudes for each 10 meters
+ *    and alt_step_factor == 5, the result binary file will store altitudes for each 50 meters).
+ *    While packing isolines being cropped by the country regions, cut by max_length
+ *    and simplified for simpl_zoom.
+ *    Mode activates by passing a country id.
+ */
+
 DEFINE_string(out_dir, "", "Path to output directory.");
 
 DEFINE_string(countryId, "",
@@ -87,7 +107,7 @@ int main(int argc, char ** argv)
     return EXIT_FAILURE;
   }
 
-  CHECK(!validTilesRect, ());
+  CHECK(validTilesRect, ());
 
   topography_generator::TileIsolinesParams params;
   if (FLAGS_median_r > 0)
