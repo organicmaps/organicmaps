@@ -19,10 +19,10 @@ DEFINE_uint64(alt_step_factor, 1, "Isolines packing mode. Altitude step factor."
 
 DEFINE_string(srtm_path, "",
               "Isolines generating mode. Path to srtm directory.");
-DEFINE_int32(left, 0, "Isolines generating mode. Left longitude of tiles rect [-180, 180].");
-DEFINE_int32(right, 0, "Isolines generating mode. Right longitude of tiles rect [-180, 180].");
-DEFINE_int32(bottom, 0, "Isolines generating mode. Bottom latitude of tiles rect [-90, 90].");
-DEFINE_int32(top, 0, "Isolines generating mode. Top latitude of tiles rect [-90, 90].");
+DEFINE_int32(left, 0, "Isolines generating mode. Left longitude of tiles rect [-180, 179].");
+DEFINE_int32(right, 0, "Isolines generating mode. Right longitude of tiles rect [-179, 180].");
+DEFINE_int32(bottom, 0, "Isolines generating mode. Bottom latitude of tiles rect [-90, 89].");
+DEFINE_int32(top, 0, "Isolines generating mode. Top latitude of tiles rect [-89, 90].");
 DEFINE_uint64(isolines_step, 10, "Isolines generating mode. Isolines step in meters.");
 DEFINE_uint64(latlon_step_factor, 2, "Isolines generating mode. Lat/lon step factor.");
 DEFINE_double(gaussian_st_dev, 2.0, "Isolines generating mode. Gaussian filter standard deviation.");
@@ -42,9 +42,29 @@ int main(int argc, char ** argv)
     return EXIT_FAILURE;
   }
 
+  auto const validTilesRect = FLAGS_right > FLAGS_left && FLAGS_top > FLAGS_bottom &&
+                              FLAGS_right <= 180 && FLAGS_left >= -180 &&
+                              FLAGS_top <= 90 && FLAGS_bottom >= -90;
+
+  auto const isGeneratingMode = validTilesRect;
+  auto const isPackingMode = !FLAGS_countryId.empty();
+
+  if (isGeneratingMode && isPackingMode)
+  {
+    LOG(LERROR, ("Both tiles rect and country id are set. Сhoose one operation: "
+                 "generation of tiles rect or packing tiles for the country"));
+    return EXIT_FAILURE;
+  }
+
+  if (!isGeneratingMode && !isPackingMode)
+  {
+    LOG(LERROR, ("Valid tiles rect or country id must be set."));
+    return EXIT_FAILURE;
+  }
+
   topography_generator::Generator generator(FLAGS_srtm_path, FLAGS_threads,
                                             FLAGS_tiles_per_thread);
-  if (!FLAGS_countryId.empty())
+  if (isPackingMode)
   {
     if (FLAGS_isolines_path.empty())
     {
@@ -67,12 +87,7 @@ int main(int argc, char ** argv)
     return EXIT_FAILURE;
   }
 
-  if (FLAGS_right <= FLAGS_left || FLAGS_top <= FLAGS_bottom ||
-    FLAGS_right > 180 || FLAGS_left < -180 || FLAGS_top > 90 || FLAGS_bottom < -90)
-  {
-    LOG(LERROR, ("Invalid tiles rect."));
-    return EXIT_FAILURE;
-  }
+  CHECK(!validTilesRect, ());
 
   topography_generator::TileIsolinesParams params;
   if (FLAGS_median_r > 0)

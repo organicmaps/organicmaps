@@ -55,7 +55,7 @@ public:
 private:
   std::string m_dir;
 
-  using LatLonKey = std::pair<int, int>;
+  using LatLonKey = std::pair<int32_t, int32_t>;
   struct Hash
   {
     size_t operator()(LatLonKey const & key) const

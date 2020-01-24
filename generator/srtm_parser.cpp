@@ -160,8 +160,8 @@ void SrtmTile::Invalidate()
 SrtmTileManager::SrtmTileManager(std::string const & dir) : m_dir(dir) {}
 geometry::Altitude SrtmTileManager::GetHeight(ms::LatLon const & coord)
 {
-  LatLonKey const key = {static_cast<int>(floor(coord.m_lat)),
-                         static_cast<int>(floor(coord.m_lon))};
+  LatLonKey const key = {static_cast<int32_t>(floor(coord.m_lat)),
+                         static_cast<int32_t>(floor(coord.m_lon))};
 
   auto it = m_tiles.find(key);
   if (it == m_tiles.end())
@@ -186,8 +186,8 @@ geometry::Altitude SrtmTileManager::GetHeight(ms::LatLon const & coord)
 
 bool SrtmTileManager::HasValidTile(ms::LatLon const & coord) const
 {
-  LatLonKey const key = {static_cast<int>(floor(coord.m_lat)),
-                         static_cast<int>(floor(coord.m_lon))};
+  LatLonKey const key = {static_cast<int32_t>(floor(coord.m_lat)),
+                         static_cast<int32_t>(floor(coord.m_lon))};
   auto it = m_tiles.find(key);
   if (it != m_tiles.end())
     return it->second.IsValid();

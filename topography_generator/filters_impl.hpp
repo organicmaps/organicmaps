@@ -57,6 +57,7 @@ void ProcessWithLinearKernel(std::vector<double> const & kernel, size_t tileSize
   auto const kernelRadius = kernel.size() / 2;
   CHECK_LESS_OR_EQUAL(kernelRadius, tileOffset, ());
   CHECK_GREATER(tileSize, tileOffset * 2, ());
+  CHECK_EQUAL(dstValues.size(), tileSize * tileSize, ());
 
   std::vector<ValueType> tempValues(tileSize, 0);
 
@@ -105,6 +106,7 @@ void ProcessWithSquareKernel(std::vector<double> const & kernel, size_t kernelSi
   size_t const kernelRadius = kernelSize / 2;
   CHECK_LESS_OR_EQUAL(kernelRadius, tileOffset, ());
   CHECK_GREATER(tileSize, tileOffset * 2, ());
+  CHECK_EQUAL(dstValues.size(), tileSize * tileSize, ());
 
   for (size_t i = tileOffset; i < tileSize - tileOffset; ++i)
   {
@@ -131,6 +133,7 @@ void ProcessMedian(size_t kernelRadius, size_t tileSize, size_t tileOffset,
 {
   CHECK_LESS_OR_EQUAL(kernelRadius, tileOffset, ());
   CHECK_GREATER(tileSize, tileOffset * 2, ());
+  CHECK_EQUAL(dstValues.size(), tileSize * tileSize, ());
 
   size_t const kernelSize = kernelRadius * 2 + 1;
   std::vector<ValueType> kernel(kernelSize * kernelSize);

@@ -26,9 +26,8 @@ void ContoursBuilder::AddSegment(size_t levelInd, ms::LatLon const & beginPos, m
 
   if (connectStart && connectEnd && contourItBefore != contourItAfter)
   {
-    contourItBefore->m_countour.insert(contourItBefore->m_countour.end(),
-                                       contourItAfter->m_countour.begin(),
-                                       contourItAfter->m_countour.end());
+    std::move(contourItAfter->m_countour.begin(), contourItAfter->m_countour.end(),
+              std::back_inserter(contourItBefore->m_countour));
     contourItBefore->m_active = true;
     m_activeContours[levelInd].erase(contourItAfter);
   }

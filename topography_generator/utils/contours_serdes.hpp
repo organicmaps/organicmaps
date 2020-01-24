@@ -42,9 +42,8 @@ private:
   template <typename Sink>
   void SerializeContour(Sink & sink, topography_generator::Contour const & contour)
   {
-    serial::GeometryCodingParams codingParams;
-    serial::SavePoint(sink, contour[0], codingParams);
-    codingParams.SetBasePoint(contour[0]);
+    serial::GeometryCodingParams codingParams(kPointCoordBits, contour[0]);
+    codingParams.Save(sink);
     serial::SaveOuterPath(contour, codingParams, sink);
   }
 
@@ -75,7 +74,7 @@ public:
       ValueType levelValue;
       std::vector<topography_generator::Contour> levelContours;
       DeserializeContours(source, levelValue, levelContours);
-      contours.m_contours[levelValue].swap(levelContours);
+      contours.m_contours[levelValue] = std::move(levelContours);
     }
   }
 
@@ -94,11 +93,10 @@ private:
                           topography_generator::Contour & contour)
   {
     serial::GeometryCodingParams codingParams;
-    auto const pt = serial::LoadPoint(source, codingParams);
-    codingParams.SetBasePoint(pt);
+    codingParams.Load(source);
     std::vector<m2::PointD> points;
     serial::LoadOuterPath(source, codingParams, points);
-    contour.swap(points);
+    contour = std::move(points);
   }
 };
 
@@ -123,19 +121,17 @@ bool SaveContrours(std::string const & filePath,
 template <typename ValueType>
 bool LoadContours(std::string const & filePath, Contours<ValueType> & contours)
 {
+  try
   {
-    try
-    {
-      FileReader file(filePath);
-      DeserializerContours<ValueType> des;
-      des.Deserialize(file, contours);
-    }
-    catch (FileReader::Exception const & ex)
-    {
-      LOG(LWARNING, ("File writer exception raised:", ex.what(), ", file", filePath));
-      return false;
-    }
-    return true;
+    FileReader file(filePath);
+    DeserializerContours<ValueType> des;
+    des.Deserialize(file, contours);
   }
+  catch (FileReader::Exception const & ex)
+  {
+    LOG(LWARNING, ("File reader exception raised:", ex.what(), ", file", filePath));
+    return false;
+  }
+  return true;
 }
 }  // namespace topography_generator

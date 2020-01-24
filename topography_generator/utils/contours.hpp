@@ -65,7 +65,7 @@ void CropContours(m2::RectD & rect, std::vector<m2::RegionD> & regions, size_t m
           levelCroppedContours.emplace_back(std::move(cropped));
       }
     }
-    it->second.swap(levelCroppedContours);
+    it->second = std::move(levelCroppedContours);
 
     if (!it->second.empty())
     {

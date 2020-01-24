@@ -176,7 +176,12 @@ public:
     , m_strmDir(srtmDir)
     , m_srtmProvider(srtmDir)
     , m_params(params)
-  {}
+  {
+    CHECK(right >= -180 && right <= 179, ());
+    CHECK(left >= -180 && left <= 179, ());
+    CHECK(top >= -90 && top <= 89, ());
+    CHECK(bottom >= -90 && bottom <= 89, ());
+  }
 
   void Do() override
   {

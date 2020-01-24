@@ -11,9 +11,9 @@
 #include "base/thread_pool.hpp"
 
 #include <condition_variable>
-#include <string>
 #include <memory>
 #include <mutex>
+#include <string>
 
 namespace topography_generator
 {
