@@ -29,7 +29,6 @@ final class CatalogWebViewController: WebViewController {
   var deeplink: URL?
   var categoryInfo: CatalogCategoryInfo?
   var statSent = false
-  var backButton: UIBarButtonItem!
   var billing = InAppPurchase.inAppBilling()
   var noInternetView: CatalogConnectionErrorView!
 
@@ -60,11 +59,6 @@ final class CatalogWebViewController: WebViewController {
       }
     }
     super.init(url: catalogUrl, title: L("guides_catalogue_title"))!
-    backButton = UIBarButtonItem(image: UIImage(named: "ic_nav_bar_back"),
-                                  style: .plain,
-                                  target: navigationController,
-                                  action: #selector(onBack))
-    navigationItem.leftBarButtonItem = backButton
     noInternetView = CatalogConnectionErrorView(frame: .zero, actionCallback: { [weak self] in
       guard let self = self else { return }
       if !FrameworkHelper.isNetworkConnected() {
@@ -133,8 +127,11 @@ final class CatalogWebViewController: WebViewController {
 
     progressView.tintColor = UIColor.white()
     updateProgress()
-    navigationItem.hidesBackButton = true;
-    navigationItem.rightBarButtonItem = UIBarButtonItem(title: L("core_exit"), style: .plain, target: self, action:  #selector(goBack))
+    let backButton = UIBarButtonItem(image: UIImage(named: "ic_nav_bar_back"),
+                                  style: .plain,
+                                  target: self,
+                                  action: #selector(onBack))
+    navigationItem.leftBarButtonItem = backButton
   }
 
   override func viewDidAppear(_ animated: Bool) {
