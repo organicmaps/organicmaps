@@ -24,7 +24,7 @@ public abstract class TutorialClickListener implements View.OnClickListener
   public final void onClick(View v)
   {
     Tutorial tutorial = Tutorial.requestCurrent(mActivity, mActivity.getClass());
-    if (tutorial == mTutorial)
+    if (tutorial == mTutorial && tutorial != Tutorial.STUB)
     {
       MwmActivity mwmActivity = (MwmActivity) mActivity;
       ClickInterceptor interceptor = tutorial.createClickInterceptor();
