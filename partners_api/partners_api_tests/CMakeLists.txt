@@ -9,7 +9,8 @@ set(
   facebook_tests.cpp
   google_tests.cpp
   maxim_tests.cpp
-  megafon_countries_tests.cpp
+# Megafon project is disabled until the contract is renewed or extended.
+# megafon_countries_tests.cpp
   mopub_tests.cpp
   promo_tests.cpp
   rb_tests.cpp
