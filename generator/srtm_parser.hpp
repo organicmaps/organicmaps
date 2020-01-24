@@ -49,7 +49,8 @@ class SrtmTileManager
 public:
   SrtmTileManager(std::string const & dir);
 
-  geometry::Altitude GetHeight(ms::LatLon const & coord);
+  feature::TAltitude GetHeight(ms::LatLon const & coord);
+  bool HasValidTile(ms::LatLon const & coord) const;
 
 private:
   std::string m_dir;

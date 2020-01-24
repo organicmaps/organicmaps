@@ -183,4 +183,14 @@ geometry::Altitude SrtmTileManager::GetHeight(ms::LatLon const & coord)
 
   return it->second.GetHeight(coord);
 }
+
+bool SrtmTileManager::HasValidTile(ms::LatLon const & coord) const
+{
+  LatLonKey const key = {static_cast<int>(floor(coord.m_lat)),
+                         static_cast<int>(floor(coord.m_lon))};
+  auto it = m_tiles.find(key);
+  if (it != m_tiles.end())
+    return it->second.IsValid();
+  return false;
+}
 }  // namespace generator

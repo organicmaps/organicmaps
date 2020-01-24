@@ -30,8 +30,20 @@ void GetExtendedTile(ms::LatLon const & leftBottom, size_t stepsInDegree,
     {
       auto const pos = ms::LatLon(startPos.m_lat - i * step,
                                   startPos.m_lon + j * step);
+      auto val = valuesProvider.GetValue(pos);
 
-      extTileValues[i * extendedTileSize + j] = valuesProvider.GetValue(pos);
+      if (val == valuesProvider.GetInvalidValue() &&
+          ((i < tileSizeExtension) || (i >= tileSizeExtension + tileSize) ||
+           (j < tileSizeExtension) || (j >= tileSizeExtension + tileSize)))
+      {
+        auto const ni = std::max(std::min(i, tileSizeExtension + tileSize - 1), tileSizeExtension);
+        auto const nj = std::max(std::min(j, tileSizeExtension + tileSize - 1), tileSizeExtension);
+
+        auto const npos = ms::LatLon(startPos.m_lat - ni * step,
+                                     startPos.m_lon + nj * step);
+        val = valuesProvider.GetValue(npos);
+      }
+      extTileValues[i * extendedTileSize + j] = val;
     }
   }
 }

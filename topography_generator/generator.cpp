@@ -9,11 +9,15 @@
 
 #include "geometry/mercator.hpp"
 
+#include <algorithm>
 #include <vector>
 
 namespace topography_generator
 {
+double const kEps = 1e-7;
 size_t constexpr kArcSecondsInDegree = 60 * 60;
+int constexpr kAsterTilesLatTop = 60;
+int constexpr kAsterTilesLatBottom = -60;
 
 class SrtmProvider : public ValuesProvider<Altitude>
 {
@@ -24,23 +28,85 @@ public:
 
   Altitude GetValue(ms::LatLon const & pos) override
   {
-    return m_srtmManager.GetHeight(pos);
+    auto const leftEdge = pos.m_lon - floor(pos.m_lon) < kEps;
+    auto const bottomEdge = pos.m_lat - floor(pos.m_lat) < kEps;
+    if ((leftEdge || bottomEdge) && !m_srtmManager.HasValidTile(pos))
+    {
+      // Each SRTM tile overlaps the top row in the bottom tile and the right row in the left tile.
+      // Try to prevent loading a new tile if the position can be found in the loaded ones.
+      if (leftEdge)
+      {
+        auto const shiftedPos = ms::LatLon(pos.m_lat, pos.m_lon - kEps);
+        if (m_srtmManager.HasValidTile(shiftedPos))
+          return GetSafeValue(shiftedPos);
+      }
+      if (bottomEdge)
+      {
+        auto const shiftedPos = ms::LatLon(pos.m_lat - kEps, pos.m_lon);
+        if (m_srtmManager.HasValidTile(shiftedPos))
+          return GetSafeValue(shiftedPos);
+      }
+      auto const shiftedPos = ms::LatLon(pos.m_lat - kEps, pos.m_lon - kEps);
+      if (m_srtmManager.HasValidTile(shiftedPos))
+        return GetSafeValue(shiftedPos);
+    }
+    return GetSafeValue(pos);
   }
 
-  Altitude GetInvalidValue() const override
+  Altitude GetInvalidValue() const override { return kInvalidAltitude; }
+
+private:
+  Altitude GetSafeValue(ms::LatLon const & pos)
   {
+    auto const alt = m_srtmManager.GetHeight(pos);
+    if (alt != kInvalidAltitude)
+      return alt;
+
+    if (m_srtmManager.HasValidTile(pos))
+      return GetMedianValue(pos);
+
     return kInvalidAltitude;
   }
 
-private:
+  Altitude GetMedianValue(ms::LatLon const & pos)
+  {
+    // Look around the position with invalid altitude
+    // and return median of surrounding valid altitudes.
+    double const step = 1.0 / kArcSecondsInDegree;
+    int const kMaxKernelRadius = 3;
+    std::vector<Altitude> kernel;
+    int kernelRadius = 0;
+    while (kernel.empty() && kernelRadius < kMaxKernelRadius)
+    {
+      ++kernelRadius;
+      auto const kernelSize = static_cast<size_t>(kernelRadius * 2 + 1);
+      kernel.reserve(4 * (kernelSize - 1));
+      for (int i = -kernelRadius; i <= kernelRadius; ++i)
+      {
+        for (int j = -kernelRadius; j <= kernelRadius; ++j)
+        {
+          if (abs(i) != kernelRadius && abs(j) != kernelRadius)
+            continue;
+          auto const alt = m_srtmManager.GetHeight({pos.m_lat + i * step, pos.m_lon + j * step});
+          if (alt == kInvalidAltitude)
+            continue;
+          kernel.push_back(alt);
+        }
+      }
+    }
+    CHECK(!kernel.empty(), (pos));
+    std::nth_element(kernel.begin(), kernel.begin() + kernel.size() / 2, kernel.end());
+    return kernel[kernel.size() / 2];
+  }
+
   generator::SrtmTileManager m_srtmManager;
 };
 
-class RawSrtmTile : public ValuesProvider<Altitude>
+class RawAltitudesTile : public ValuesProvider<Altitude>
 {
 public:
-  RawSrtmTile(std::vector<Altitude> const & values,
-              int leftLon, int bottomLat)
+  RawAltitudesTile(std::vector<Altitude> const & values,
+                   int leftLon, int bottomLat)
     : m_values(values)
     , m_leftLon(leftLon)
     , m_bottomLat(bottomLat)
@@ -48,30 +114,54 @@ public:
 
   Altitude GetValue(ms::LatLon const & pos) override
   {
-    // TODO: assert
-    CHECK_EQUAL(floor(pos.m_lat), m_bottomLat, ());
-    CHECK_EQUAL(floor(pos.m_lon), m_leftLon, ());
-
     double ln = pos.m_lon - m_leftLon;
     double lt = pos.m_lat - m_bottomLat;
-    lt = 1 - lt;  // from North to South
+    lt = 1 - lt;  // From North to South, the same direction as inside the SRTM tiles.
 
-    size_t const row = kArcSecondsInDegree * lt + 0.5;
-    size_t const col = kArcSecondsInDegree * ln + 0.5;
+    auto const row = static_cast<size_t>(std::round(kArcSecondsInDegree * lt));
+    auto const col = static_cast<size_t>(std::round(kArcSecondsInDegree * ln));
 
-    size_t const ix = row * (kArcSecondsInDegree + 1) + col;
-    return ix < m_values.size() ? m_values[ix] : kInvalidAltitude;
+    auto const ix = row * (kArcSecondsInDegree + 1) + col;
+    CHECK(ix < m_values.size(), ());
+
+    return m_values[ix];
   }
 
-  Altitude GetInvalidValue() const override
-  {
-    return kInvalidAltitude;
-  }
+  Altitude GetInvalidValue() const override { return kInvalidAltitude; }
 
 private:
   std::vector<Altitude> const & m_values;
   int m_leftLon;
   int m_bottomLat;
+};
+
+class SeamlessAltitudeProvider : public ValuesProvider<Altitude>
+{
+public:
+  using MoveFromBorderFn = std::function<bool (ms::LatLon & pos)>;
+
+  SeamlessAltitudeProvider(ValuesProvider<Altitude> & originalProvider,
+                           ValuesProvider<Altitude> & filteredProvider,
+                           MoveFromBorderFn && moveFromBorderFn)
+    : m_originalProvider(originalProvider)
+    , m_filteredProvider(filteredProvider)
+    , m_moveFromBorderFn(std::move(moveFromBorderFn))
+  {}
+
+  Altitude GetValue(ms::LatLon const & pos) override
+  {
+    auto movedPos = pos;
+    if (m_moveFromBorderFn(movedPos))
+      return m_originalProvider.GetValue(movedPos);
+    return m_filteredProvider.GetValue(pos);
+  }
+
+  Altitude GetInvalidValue() const override { return kInvalidAltitude; }
+
+private:
+  ValuesProvider<Altitude> & m_originalProvider;
+  ValuesProvider<Altitude> & m_filteredProvider;
+  MoveFromBorderFn m_moveFromBorderFn;
 };
 
 class TileIsolinesTask : public threads::IRoutine
@@ -83,6 +173,7 @@ public:
     , m_bottom(bottom)
     , m_right(right)
     , m_top(top)
+    , m_strmDir(srtmDir)
     , m_srtmProvider(srtmDir)
     , m_params(params)
   {}
@@ -100,31 +191,29 @@ private:
   void ProcessTile(int lat, int lon)
   {
     auto const tileName = generator::SrtmTile::GetBase(ms::LatLon(lat, lon));
+    if (!GetPlatform().IsFileExistsByFullPath(generator::SrtmTile::GetPath(m_strmDir, tileName)))
+    {
+      LOG(LINFO, ("SRTM tile", tileName, "doesn't exist, skip processing."));
+      return;
+    }
+
     LOG(LINFO, ("Begin generating isolines for tile", tileName));
 
-    ms::LatLon const leftBottom = ms::LatLon(lat, lon);
-    ms::LatLon const rightTop = ms::LatLon(lat + 1.0, lon + 1.0);
-    double const squaresStep = 1.0 / (kArcSecondsInDegree) * m_params.m_latLonStepFactor;
     Contours<Altitude> contours;
-    if (lat >= 60)
+    if (!m_params.m_filters.empty() && (lat >= kAsterTilesLatTop || lat < kAsterTilesLatBottom))
     {
       // Filter tiles converted from ASTER, cause they are noisy enough.
-      std::vector<Altitude> filteredValues = FilterTile(
-        m_params.m_filters, leftBottom, kArcSecondsInDegree,
-        kArcSecondsInDegree + 1, m_srtmProvider);
-      RawSrtmTile filteredProvider(filteredValues, lon, lat);
-
-      MarchingSquares<Altitude> squares(leftBottom, rightTop,
-                                        squaresStep, m_params.m_alitudesStep,
-                                        filteredProvider);
-      squares.GenerateContours(contours);
+      std::vector<Altitude> filteredValues = FilterTile(m_params.m_filters,
+                                                        ms::LatLon(lat, lon),
+                                                        kArcSecondsInDegree,
+                                                        kArcSecondsInDegree + 1,
+                                                        m_srtmProvider);
+      RawAltitudesTile filteredProvider(filteredValues, lon, lat);
+      GenerateSeamlessContours(lat, lon, filteredProvider, contours);
     }
     else
     {
-      MarchingSquares<Altitude> squares(leftBottom, rightTop,
-                                        squaresStep, m_params.m_alitudesStep,
-                                        m_srtmProvider);
-      squares.GenerateContours(contours);
+      GenerateContours(lat, lon, m_srtmProvider, contours);
     }
 
     LOG(LINFO, ("Isolines for tile", tileName, "min altitude", contours.m_minValue,
@@ -135,10 +224,57 @@ private:
     LOG(LINFO, ("End generating isolines for tile", tileName));
   }
 
+  void GenerateSeamlessContours(int lat, int lon, ValuesProvider<Altitude> & altProvider,
+                                Contours<Altitude> & contours)
+  {
+    auto const avoidSeam = lat == kAsterTilesLatTop || lat == kAsterTilesLatBottom;
+    if (avoidSeam)
+    {
+      SeamlessAltitudeProvider seamlessAltProvider(m_srtmProvider, altProvider,
+                                                   [](ms::LatLon & pos)
+      {
+        // In case when two altitudes sources are used for altitudes extraction,
+        // for the same position on the border could be returned different altitudes.
+        // Force to use altitudes near the srtm/aster border from srtm source,
+        // it helps to avoid contours gaps due to different altitudes for equal positions.
+        if  (fabs(pos.m_lat - kAsterTilesLatTop) < kEps)
+        {
+          pos.m_lat -= kEps;
+          return true;
+        }
+        if (fabs(pos.m_lat - kAsterTilesLatBottom) < kEps)
+        {
+          pos.m_lat += kEps;
+          return true;
+        }
+        return false;
+      });
+      GenerateContours(lat, lon, seamlessAltProvider, contours);
+    }
+    else
+    {
+      GenerateContours(lat, lon, altProvider, contours);
+    }
+  }
+
+  void GenerateContours(int lat, int lon, ValuesProvider<Altitude> & altProvider,
+                        Contours<Altitude> & contours)
+  {
+    ms::LatLon const leftBottom = ms::LatLon(lat, lon);
+    ms::LatLon const rightTop = ms::LatLon(lat + 1.0, lon + 1.0);
+    double const squaresStep = 1.0 / (kArcSecondsInDegree) * m_params.m_latLonStepFactor;
+
+    MarchingSquares<Altitude> squares(leftBottom, rightTop,
+                                      squaresStep, m_params.m_alitudesStep,
+                                      altProvider);
+    squares.GenerateContours(contours);
+  }
+
   int m_left;
   int m_bottom;
   int m_right;
   int m_top;
+  std::string m_strmDir;
   SrtmProvider m_srtmProvider;
   TileIsolinesParams const & m_params;
 };
