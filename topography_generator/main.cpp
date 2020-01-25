@@ -7,33 +7,14 @@
 
 #include <cstdlib>
 
-/* The tool for isoline generating works in two modes:
- * 1. Isolines generating mode. Generates binary tile with isolines for each STRM tile in tile rect.
- *    An isoline would be generated for each height isolines_step difference in height.
- *    Tiles for lat >= 60.0 && lat < -60.0 (converted from ASTER source) can be filtered by
- *    median and/or gaussian filters.
- *    Median filter activates by nonzero filter kernel radius median_r.
- *    Gaussian filter activates by gaussian_st_dev > 0.0 &&  gaussian_r_factor > 0.0 parameters.
- *    Contours generating steps through altitudes matrix of SRTM tile can be adjusted by
- *    latlon_step_factor parameter.
- *    Mode activates by passing a valid tiles rect (left, right, top, bottom params are integer).
- *
- * 2. Packing isolines from ready tiles into a binary file for specified country id.
- *    Tool gets isolines from the tiles, covered by the country regions, selects
- *    altitude levels with alt_step_factor (if a tile stores altitudes for each 10 meters
- *    and alt_step_factor == 5, the result binary file will store altitudes for each 50 meters).
- *    While packing isolines being cropped by the country regions, cut by max_length
- *    and simplified for simpl_zoom.
- *    Mode activates by passing a country id.
- */
-
 DEFINE_string(out_dir, "", "Path to output directory.");
+DEFINE_uint64(simpl_zoom, 16, "Isolines simplification zoom.");
 
 DEFINE_string(countryId, "",
               "Isolines packing mode. Pack isolines for countryId.");
+DEFINE_string(data_dir, "", "Isolines packing mode. Path to data directory.");
 DEFINE_string(isolines_path, "",
               "Isolines packing mode. Path to the directory with isolines tiles.");
-DEFINE_uint64(simpl_zoom, 16, "Isolines packing mode. Isolines simplification zoom.");
 DEFINE_uint64(max_length, 1000, "Isolines packing mode. Isolines max length.");
 DEFINE_uint64(alt_step_factor, 1, "Isolines packing mode. Altitude step factor.");
 
@@ -51,9 +32,30 @@ DEFINE_uint64(median_r, 1, "Isolines generating mode. Median filter radius.");
 DEFINE_uint64(threads, 4, "Number of threads.");
 DEFINE_uint64(tiles_per_thread, 9, "Max cached tiles per thread");
 
-
 int main(int argc, char ** argv)
 {
+  google::SetUsageMessage(
+    "\n\nThis tool generates isolines and works in two modes:\n"
+    "1. Isolines generating mode. Generates binary tile with isolines for each SRTM tile in the\n"
+    "   specified tile rect.\n"
+    "   Mode activates by passing a valid tiles rect.\n"
+    "   An isoline would be generated for each isolines_step difference in height.\n"
+    "   Tiles for lat >= 60 && lat < -60 (converted from ASTER source) can be filtered by\n"
+    "   median and/or gaussian filters.\n"
+    "   Median filter activates by nonzero filter kernel radius median_r.\n"
+    "   Gaussian filter activates by gaussian_st_dev > 0.0 && gaussian_r_factor > 0.0 parameters.\n"
+    "   Contours generating steps through altitudes matrix of SRTM tile can be adjusted by\n"
+    "   latlon_step_factor parameter.\n"
+    "   Isolines simplification activates by nonzero simpl_zoom [1..17]\n"
+    "\n"
+    "2. Packing isolines from ready tiles into a binary file for specified country id.\n"
+    "   Mode activates by passing a countryId parameter.\n"
+    "   Tool gets isolines from the tiles, covered by the country regions, selects\n"
+    "   altitude levels with alt_step_factor (if a tile stores altitudes for each 10 meters\n"
+    "   and alt_step_factor == 5, the result binary file will store altitudes for each 50 meters).\n"
+    "   Isolines cropped by the country regions and cut by max_length parameter.\n"
+    "   Isolines simplification activates by nonzero simpl_zoom [1..17]\n\n");
+
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   if (FLAGS_out_dir.empty())
@@ -86,6 +88,12 @@ int main(int argc, char ** argv)
                                             FLAGS_tiles_per_thread);
   if (isPackingMode)
   {
+    if (FLAGS_data_dir.empty())
+    {
+      LOG(LERROR, ("data_dir must be set."));
+      return EXIT_FAILURE;
+    }
+
     if (FLAGS_isolines_path.empty())
     {
       LOG(LERROR, ("isolines_path must be set."));
@@ -96,8 +104,11 @@ int main(int argc, char ** argv)
     params.m_simplificationZoom = static_cast<int>(FLAGS_simpl_zoom);
     params.m_maxIsolineLength = FLAGS_max_length;
     params.m_alitudesStepFactor = FLAGS_alt_step_factor;
+    params.m_isolinesTilesPath = FLAGS_isolines_path;
 
-    generator.PackIsolinesForCountry(FLAGS_countryId, FLAGS_isolines_path, FLAGS_out_dir, params);
+    generator.InitCountryInfoGetter(FLAGS_data_dir);
+    generator.PackIsolinesForCountry(FLAGS_countryId, params, FLAGS_out_dir);
+
     return EXIT_SUCCESS;
   }
 
@@ -126,6 +137,7 @@ int main(int argc, char ** argv)
   params.m_outputDir = FLAGS_out_dir;
   params.m_alitudesStep = FLAGS_isolines_step;
   params.m_latLonStepFactor = FLAGS_latlon_step_factor;
+  params.m_simplificationZoom = static_cast<int>(FLAGS_simpl_zoom);
 
   generator.GenerateIsolines(FLAGS_left, FLAGS_bottom, FLAGS_right, FLAGS_top, params);
 

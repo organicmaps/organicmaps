@@ -17,6 +17,7 @@ struct TileIsolinesParams
 {
   Altitude m_alitudesStep = 10;
   size_t m_latLonStepFactor = 1;
+  int m_simplificationZoom = 17;
   FiltersSequence<Altitude> m_filters;
   std::string m_outputDir;
 };
@@ -26,6 +27,7 @@ struct CountryIsolinesParams
   size_t m_maxIsolineLength = 1000;
   int m_simplificationZoom = 17;
   size_t m_alitudesStepFactor = 1;
+  std::string m_isolinesTilesPath;
 };
 
 class Generator
@@ -36,9 +38,11 @@ public:
   void GenerateIsolines(int left, int bottom, int right, int top,
                         TileIsolinesParams const & params);
 
+  void InitCountryInfoGetter(std::string const & dataDir);
+
   void PackIsolinesForCountry(storage::CountryId const & countryId,
-                              std::string const & isolinesPath,
-                              std::string const & outDir, CountryIsolinesParams const & params);
+                              CountryIsolinesParams const & params,
+                              std::string const & outDir);
 
 private:
   void GetCountryRegions(storage::CountryId const & countryId, m2::RectD & countryRect,

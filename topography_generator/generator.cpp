@@ -9,6 +9,7 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/string_utils.hpp"
 #include "base/thread_pool_computational.hpp"
 
 #include <algorithm>
@@ -124,7 +125,7 @@ public:
     auto const col = static_cast<size_t>(std::round(kArcSecondsInDegree * ln));
 
     auto const ix = row * (kArcSecondsInDegree + 1) + col;
-    CHECK(ix < m_values.size(), ());
+    CHECK(ix < m_values.size(), (pos));
 
     return m_values[ix];
   }
@@ -198,6 +199,11 @@ private:
   void ProcessTile(int lat, int lon)
   {
     auto const tileName = generator::SrtmTile::GetBase(ms::LatLon(lat, lon));
+
+    std::ostringstream os;
+    os << tileName << " (" << lat << ", " << lon << ")";
+    m_debugId = os.str();
+
     if (!GetPlatform().IsFileExistsByFullPath(generator::SrtmTile::GetPath(m_strmDir, tileName)))
     {
       LOG(LINFO, ("SRTM tile", tileName, "doesn't exist, skip processing."));
@@ -226,6 +232,8 @@ private:
     LOG(LINFO, ("Isolines for tile", tileName, "min altitude", contours.m_minValue,
       "max altitude", contours.m_maxValue, "invalid values count", contours.m_invalidValuesCount));
 
+    if (m_params.m_simplificationZoom > 0)
+      SimplifyContours(m_params.m_simplificationZoom, contours);
     SaveContrours(GetIsolinesFilePath(lat, lon, m_params.m_outputDir), std::move(contours));
 
     LOG(LINFO, ("End generating isolines for tile", tileName));
@@ -274,6 +282,7 @@ private:
     MarchingSquares<Altitude> squares(leftBottom, rightTop,
                                       squaresStep, m_params.m_alitudesStep,
                                       altProvider);
+    squares.SetDebugId(m_debugId);
     squares.GenerateContours(contours);
   }
 
@@ -284,17 +293,14 @@ private:
   std::string m_strmDir;
   SrtmProvider m_srtmProvider;
   TileIsolinesParams const & m_params;
+  std::string m_debugId;
 };
 
 Generator::Generator(std::string const & srtmPath, size_t threadsCount, size_t maxCachedTilesPerThread)
   : m_threadsCount(threadsCount)
   , m_maxCachedTilesPerThread(maxCachedTilesPerThread)
   , m_srtmPath(srtmPath)
-{
-  m_infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(GetPlatform());
-  CHECK(m_infoGetter, ());
-  m_infoReader = static_cast<storage::CountryInfoReader *>(m_infoGetter.get());
-}
+{}
 
 void Generator::GenerateIsolines(int left, int bottom, int right, int top,
                                  TileIsolinesParams const & params)
@@ -337,6 +343,17 @@ void Generator::GenerateIsolines(int left, int bottom, int right, int top,
   }
 }
 
+void Generator::InitCountryInfoGetter(std::string const & dataDir)
+{
+  CHECK(m_infoReader == nullptr, ());
+
+  GetPlatform().SetResourceDir(dataDir);
+
+  m_infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(GetPlatform());
+  CHECK(m_infoGetter, ());
+  m_infoReader = static_cast<storage::CountryInfoReader *>(m_infoGetter.get());
+}
+
 void Generator::GetCountryRegions(storage::CountryId const & countryId, m2::RectD & countryRect,
                                   std::vector<m2::RegionD> & countryRegions)
 {
@@ -354,10 +371,11 @@ void Generator::GetCountryRegions(storage::CountryId const & countryId, m2::Rect
 }
 
 void Generator::PackIsolinesForCountry(storage::CountryId const & countryId,
-                                       std::string const & isolinesPath,
-                                       std::string const & outDir,
-                                       CountryIsolinesParams const & params)
+                                       CountryIsolinesParams const & params,
+                                       std::string const & outDir)
 {
+  LOG(LINFO, ("Begin packing isolines for country", countryId));
+
   m2::RectD countryRect;
   std::vector<m2::RegionD> countryRegions;
   GetCountryRegions(countryId, countryRect, countryRegions);
@@ -379,8 +397,11 @@ void Generator::PackIsolinesForCountry(storage::CountryId const & countryId,
     for (int lon = left; lon <= right; ++lon)
     {
       Contours<Altitude> isolines;
-      if (!LoadContours(GetIsolinesFilePath(lat, lon, isolinesPath), isolines))
+      auto const tileFilePath = GetIsolinesFilePath(lat, lon, params.m_isolinesTilesPath);
+      if (!LoadContours(tileFilePath, isolines))
         continue;
+
+      LOG(LINFO, ("Begin packing isolines from tile", tileFilePath));
 
       CropContours(countryRect, countryRegions, params.m_maxIsolineLength,
                    params.m_alitudesStepFactor, isolines);
@@ -398,9 +419,18 @@ void Generator::PackIsolinesForCountry(storage::CountryId const & countryId,
         std::move(levelIsolines.second.begin(), levelIsolines.second.end(),
                   std::back_inserter(dst));
       }
+
+      LOG(LINFO, ("End packing isolines from tile", tileFilePath));
     }
   }
 
-  SaveContrours(GetIsolinesFilePath(countryId, outDir), std::move(countryIsolines));
+  LOG(LINFO, ("End packing isolines for country", countryId,
+              "min altitude", countryIsolines.m_minValue,
+              "max altitude", countryIsolines.m_maxValue));
+
+  auto const outFile = GetIsolinesFilePath(countryId, outDir);
+  SaveContrours(outFile, std::move(countryIsolines));
+
+  LOG(LINFO, ("Isolines saved to", outFile));
 }
 }  // namespace topography_generator

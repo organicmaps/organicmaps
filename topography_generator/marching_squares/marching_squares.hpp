@@ -43,6 +43,7 @@ public:
     }
 
     ContoursBuilder contoursBuilder(levelsCount);
+    contoursBuilder.SetDebugId(m_debugId);
 
     for (size_t i = 0; i < m_stepsCountLat; ++i)
     {
@@ -51,6 +52,7 @@ public:
       {
         auto const pos = ms::LatLon(m_leftBottom.m_lat + m_step * i, m_leftBottom.m_lon + m_step * j);
         Square<ValueType> square(pos, m_step, result.m_minValue, m_valueStep, m_valuesProvider);
+        square.SetDebugId(m_debugId);
         square.GenerateSegments(contoursBuilder);
       }
       auto const isLastLine = i == m_stepsCountLat - 1;
@@ -59,6 +61,8 @@ public:
 
     contoursBuilder.GetContours(result.m_minValue, result.m_valueStep, result.m_contours);
   }
+
+  void SetDebugId(std::string const & debugId) { m_debugId = debugId; }
 
 private:
   void ScanValuesInRect(ValueType & minValue, ValueType & maxValue, size_t & invalidValuesCount) const
@@ -87,7 +91,7 @@ private:
 
     Square<ValueType>::ToLevelsRange(m_valueStep, minValue, maxValue);
 
-    CHECK_GREATER_OR_EQUAL(maxValue, minValue, ());
+    CHECK_GREATER_OR_EQUAL(maxValue, minValue, (m_debugId));
   }
 
   ms::LatLon const m_leftBottom;
@@ -98,5 +102,7 @@ private:
 
   size_t m_stepsCountLon;
   size_t m_stepsCountLat;
+
+  std::string m_debugId;
 };
 }  // namespace topography_generator

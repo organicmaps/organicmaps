@@ -17,7 +17,7 @@ void ContoursBuilder::AddSegment(size_t levelInd, ms::LatLon const & beginPos, m
   if (beginPos.EqualDxDy(endPos, kEps))
     return;
 
-  CHECK_LESS(levelInd, m_levelsCount, ());
+  CHECK_LESS(levelInd, m_levelsCount, (m_debugId));
 
   auto contourItBefore = FindContourWithEndPoint(levelInd, beginPos);
   auto contourItAfter = FindContourWithStartPoint(levelInd, endPos);

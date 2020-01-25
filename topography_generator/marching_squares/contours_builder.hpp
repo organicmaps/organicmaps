@@ -42,6 +42,8 @@ public:
     }
   }
 
+  void SetDebugId(std::string const & debugId) { m_debugId = debugId; }
+
 private:
   using ContourRaw = std::deque<ms::LatLon>;
   using ContoursList = std::list<ContourRaw>;
@@ -65,5 +67,7 @@ private:
 
   std::vector<ContoursList> m_finalizedContours;
   std::vector<ActiveContoursList> m_activeContours;
+
+  std::string m_debugId;
 };
 }  // namespace topography_generator

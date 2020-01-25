@@ -34,7 +34,7 @@ public:
 
     ToLevelsRange(m_valueStep, minVal, maxVal);
 
-    CHECK_GREATER_OR_EQUAL(minVal, m_minValue, ());
+    CHECK_GREATER_OR_EQUAL(minVal, m_minValue, (m_debugId));
 
     for (auto val = minVal; val < maxVal; val += m_valueStep)
       AddSegments(val, (val - m_minValue) / m_valueStep, builder);
@@ -52,6 +52,8 @@ public:
     else
       maxVal = step * ((maxVal + 1) / step);
   }
+
+  void SetDebugId(std::string const & debugId) { m_debugId = debugId; }
 
 private:
   enum class Rib
@@ -179,7 +181,7 @@ private:
       UNREACHABLE();
     }
 
-    CHECK_NOT_EQUAL(val, val2, ());
+    CHECK_NOT_EQUAL(val, val2, (m_debugId));
     double const coeff = (val1 - val) / (val - val2);
 
     switch (rib)
@@ -211,5 +213,7 @@ private:
   ValueType m_valueLT;
   ValueType m_valueRT;
   ValueType m_valueRB;
+
+  std::string m_debugId;
 };
 }  // topography_generator
