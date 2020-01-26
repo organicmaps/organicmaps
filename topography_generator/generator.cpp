@@ -67,6 +67,9 @@ private:
 
   Altitude GetMedianValue(ms::LatLon const & pos)
   {
+    if (!m_srtmManager.GetTile(pos).IsValid())
+      return kInvalidAltitude;
+
     // Look around the position with invalid altitude
     // and return median of surrounding valid altitudes.
     double const step = kTileSizeInDegree / kArcSecondsInDegree;
@@ -151,7 +154,12 @@ public:
   {
     auto movedPos = pos;
     if (m_moveFromBorderFn(movedPos))
-      return m_originalProvider.GetValue(movedPos);
+    {
+      // Check that we have original neighboring tile, use filtered if haven't.
+      auto const alt = m_originalProvider.GetValue(movedPos);
+      if (alt != kInvalidAltitude)
+        return alt;
+    }
     return m_filteredProvider.GetValue(pos);
   }
 

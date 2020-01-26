@@ -9,15 +9,16 @@ template <typename ValueType>
 class Square
 {
 public:
-  Square(ms::LatLon const & leftBottom, double size,
+  Square(ms::LatLon const & leftBottom,
+         ms::LatLon const & rightTop,
          ValueType minValue, ValueType valueStep,
          ValuesProvider<ValueType> & valuesProvider)
     : m_minValue(minValue)
     , m_valueStep(valueStep)
     , m_left(leftBottom.m_lon)
-    , m_right(leftBottom.m_lon + size)
+    , m_right(rightTop.m_lon)
     , m_bottom(leftBottom.m_lat)
-    , m_top(leftBottom.m_lat + size)
+    , m_top(rightTop.m_lat)
   {
     static_assert(std::is_integral<ValueType>::value, "Only integral types are supported.");
 

@@ -50,8 +50,13 @@ public:
       contoursBuilder.BeginLine();
       for (size_t j = 0; j < m_stepsCountLon; ++j)
       {
-        auto const pos = ms::LatLon(m_leftBottom.m_lat + m_step * i, m_leftBottom.m_lon + m_step * j);
-        Square<ValueType> square(pos, m_step, result.m_minValue, m_valueStep, m_valuesProvider);
+        auto const leftBottom = ms::LatLon(m_leftBottom.m_lat + m_step * i,
+                                           m_leftBottom.m_lon + m_step * j);
+        // Use std::min to prevent floating-point number precision error.
+        auto const rightTop = ms::LatLon(std::min(leftBottom.m_lat + m_step, m_rightTop.m_lat),
+                                         std::min(leftBottom.m_lon + m_step, m_rightTop.m_lon));
+
+        Square<ValueType> square(leftBottom, rightTop, result.m_minValue, m_valueStep, m_valuesProvider);
         square.SetDebugId(m_debugId);
         square.GenerateSegments(contoursBuilder);
       }
