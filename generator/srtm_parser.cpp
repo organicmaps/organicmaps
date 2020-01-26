@@ -13,6 +13,7 @@ namespace generator
 {
 namespace
 {
+double constexpr kTileSizeInDegree = 1.0;
 size_t constexpr kArcSecondsInDegree = 60 * 60;
 size_t constexpr kSrtmTileSize = (kArcSecondsInDegree + 1) * (kArcSecondsInDegree + 1) * 2;
 
@@ -90,7 +91,11 @@ void SrtmTile::Init(std::string const & dir, ms::LatLon const & coord)
   m_valid = true;
 }
 
+<<<<<<< HEAD
 geometry::Altitude SrtmTile::GetHeight(ms::LatLon const & coord)
+=======
+feature::TAltitude SrtmTile::GetHeight(ms::LatLon const & coord) const
+>>>>>>> 877249c4d0... [topography_generator] Stable tiles addressing scheme for positive and negative latitudes and longitudes of theirs left bottom corner.
 {
   if (!IsValid())
     return geometry::kInvalidAltitude;
@@ -107,9 +112,13 @@ geometry::Altitude SrtmTile::GetHeight(ms::LatLon const & coord)
   auto const col = static_cast<size_t>(std::round(kArcSecondsInDegree * ln));
 
   size_t const ix = row * (kArcSecondsInDegree + 1) + col;
+<<<<<<< HEAD
 
   if (ix >= Size())
     return geometry::kInvalidAltitude;
+=======
+  CHECK_LESS(ix, Size(), (coord));
+>>>>>>> 877249c4d0... [topography_generator] Stable tiles addressing scheme for positive and negative latitudes and longitudes of theirs left bottom corner.
   return ReverseByteOrder(Data()[ix]);
 }
 
@@ -120,32 +129,40 @@ std::string SrtmTile::GetPath(std::string const & dir, std::string const & base)
 }
 
 // static
-std::string SrtmTile::GetBase(ms::LatLon coord)
+ms::LatLon SrtmTile::GetCenter(ms::LatLon const & coord)
 {
+  return {floor(coord.m_lat) + kTileSizeInDegree / 2.0,
+          floor(coord.m_lon) + kTileSizeInDegree / 2.0};
+}
+
+// static
+std::string SrtmTile::GetBase(ms::LatLon const & coord)
+{
+  auto center = GetCenter(coord);
   std::ostringstream ss;
-  if (coord.m_lat < 0)
+  if (center.m_lat < 0)
   {
     ss << "S";
-    coord.m_lat *= -1;
-    coord.m_lat += 1;
+    center.m_lat *= -1;
+    center.m_lat += 1;
   }
   else
   {
     ss << "N";
   }
-  ss << std::setw(2) << std::setfill('0') << static_cast<int>(coord.m_lat);
+  ss << std::setw(2) << std::setfill('0') << static_cast<int>(center.m_lat);
 
-  if (coord.m_lon < 0)
+  if (center.m_lon < 0)
   {
     ss << "W";
-    coord.m_lon *= -1;
-    coord.m_lon += 1;
+    center.m_lon *= -1;
+    center.m_lon += 1;
   }
   else
   {
     ss << "E";
   }
-  ss << std::setw(3) << static_cast<int>(coord.m_lon);
+  ss << std::setw(3) << static_cast<int>(center.m_lon);
   return ss.str();
 }
 
@@ -160,8 +177,7 @@ void SrtmTile::Invalidate()
 SrtmTileManager::SrtmTileManager(std::string const & dir) : m_dir(dir) {}
 geometry::Altitude SrtmTileManager::GetHeight(ms::LatLon const & coord)
 {
-  LatLonKey const key = {static_cast<int32_t>(floor(coord.m_lat)),
-                         static_cast<int32_t>(floor(coord.m_lon))};
+  auto const key = GetKey(coord);
 
   auto it = m_tiles.find(key);
   if (it == m_tiles.end())
@@ -184,13 +200,20 @@ geometry::Altitude SrtmTileManager::GetHeight(ms::LatLon const & coord)
   return it->second.GetHeight(coord);
 }
 
-bool SrtmTileManager::HasValidTile(ms::LatLon const & coord) const
+// static
+SrtmTileManager::LatLonKey SrtmTileManager::GetKey(ms::LatLon const & coord)
 {
-  LatLonKey const key = {static_cast<int32_t>(floor(coord.m_lat)),
-                         static_cast<int32_t>(floor(coord.m_lon))};
-  auto it = m_tiles.find(key);
-  if (it != m_tiles.end())
-    return it->second.IsValid();
-  return false;
+  auto const tileCenter = SrtmTile::GetCenter(coord);
+  return {static_cast<int32_t>(tileCenter.m_lat), static_cast<int32_t>(tileCenter.m_lon)};
+}
+
+SrtmTile const & SrtmTileManager::GetTile(ms::LatLon const & coord)
+{
+  // Touch the tile to force its loading.
+  GetHeight(coord);
+  auto const key = GetKey(coord);
+  auto const it = m_tiles.find(key);
+  CHECK(it != m_tiles.end(), (coord));
+  return it->second;
 }
 }  // namespace generator

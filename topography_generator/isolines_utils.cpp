@@ -10,9 +10,15 @@ namespace topography_generator
 {
 std::string const kIsolinesExt = ".isolines";
 
-std::string GetIsolinesFilePath(int lat, int lon, std::string const & dir)
+std::string GetIsolinesTileBase(int bottomLat, int leftLon)
 {
-  auto const fileName = generator::SrtmTile::GetBase(ms::LatLon(lat, lon));
+  auto const centerPoint = ms::LatLon(bottomLat + 0.5, leftLon + 0.5);
+  return generator::SrtmTile::GetBase(centerPoint);
+}
+
+std::string GetIsolinesFilePath(int bottomLat, int leftLon, std::string const & dir)
+{
+  auto const fileName = GetIsolinesTileBase(bottomLat, leftLon);
   return base::JoinPath(dir, fileName + kIsolinesExt);
 }
 

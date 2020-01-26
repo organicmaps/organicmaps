@@ -18,6 +18,7 @@
 namespace topography_generator
 {
 double const kEps = 1e-7;
+double constexpr kTileSizeInDegree = 1.0;
 size_t constexpr kArcSecondsInDegree = 60 * 60;
 int constexpr kAsterTilesLatTop = 60;
 int constexpr kAsterTilesLatBottom = -60;
@@ -29,53 +30,46 @@ public:
     m_srtmManager(srtmDir)
   {}
 
+  void SetPrefferedTile(ms::LatLon const & pos)
+  {
+    m_preferredTile = &m_srtmManager.GetTile(pos);
+    m_leftBottomOfPreferredTile = {std::floor(pos.m_lat), std::floor(pos.m_lon)};
+  }
+
   Altitude GetValue(ms::LatLon const & pos) override
   {
-    auto const leftEdge = pos.m_lon - floor(pos.m_lon) < kEps;
-    auto const bottomEdge = pos.m_lat - floor(pos.m_lat) < kEps;
-    if ((leftEdge || bottomEdge) && !m_srtmManager.HasValidTile(pos))
-    {
-      // Each SRTM tile overlaps the top row in the bottom tile and the right row in the left tile.
-      // Try to prevent loading a new tile if the position can be found in the loaded ones.
-      if (leftEdge)
-      {
-        auto const shiftedPos = ms::LatLon(pos.m_lat, pos.m_lon - kEps);
-        if (m_srtmManager.HasValidTile(shiftedPos))
-          return GetSafeValue(shiftedPos);
-      }
-      if (bottomEdge)
-      {
-        auto const shiftedPos = ms::LatLon(pos.m_lat - kEps, pos.m_lon);
-        if (m_srtmManager.HasValidTile(shiftedPos))
-          return GetSafeValue(shiftedPos);
-      }
-      auto const shiftedPos = ms::LatLon(pos.m_lat - kEps, pos.m_lon - kEps);
-      if (m_srtmManager.HasValidTile(shiftedPos))
-        return GetSafeValue(shiftedPos);
-    }
-    return GetSafeValue(pos);
+    auto const alt = GetValueImpl(pos);
+    if (alt != kInvalidAltitude)
+      return alt;
+    return GetMedianValue(pos);
   }
 
   Altitude GetInvalidValue() const override { return kInvalidAltitude; }
 
 private:
-  Altitude GetSafeValue(ms::LatLon const & pos)
+  Altitude GetValueImpl(ms::LatLon const & pos)
   {
-    auto const alt = m_srtmManager.GetHeight(pos);
-    if (alt != kInvalidAltitude)
-      return alt;
+    if (m_preferredTile != nullptr)
+    {
+      // Each SRTM tile overlaps the top row in the bottom tile and the right row in the left tile.
+      // Try to prevent loading a new tile if the position can be found in the loaded one.
+      auto const latDist = pos.m_lat - m_leftBottomOfPreferredTile.m_lat;
+      auto const lonDist = pos.m_lon - m_leftBottomOfPreferredTile.m_lon;
+      if (latDist >= 0.0 && latDist <= kTileSizeInDegree &&
+          lonDist >= 0.0 && lonDist <= kTileSizeInDegree)
+      {
+        return m_preferredTile->GetHeight(pos);
+      }
+    }
 
-    if (m_srtmManager.HasValidTile(pos))
-      return GetMedianValue(pos);
-
-    return kInvalidAltitude;
+    return m_srtmManager.GetHeight(pos);
   }
 
   Altitude GetMedianValue(ms::LatLon const & pos)
   {
     // Look around the position with invalid altitude
     // and return median of surrounding valid altitudes.
-    double const step = 1.0 / kArcSecondsInDegree;
+    double const step = kTileSizeInDegree / kArcSecondsInDegree;
     int const kMaxKernelRadius = 3;
     std::vector<Altitude> kernel;
     int kernelRadius = 0;
@@ -90,7 +84,7 @@ private:
         {
           if (abs(i) != kernelRadius && abs(j) != kernelRadius)
             continue;
-          auto const alt = m_srtmManager.GetHeight({pos.m_lat + i * step, pos.m_lon + j * step});
+          auto const alt = GetValueImpl({pos.m_lat + i * step, pos.m_lon + j * step});
           if (alt == kInvalidAltitude)
             continue;
           kernel.push_back(alt);
@@ -103,6 +97,8 @@ private:
   }
 
   generator::SrtmTileManager m_srtmManager;
+  generator::SrtmTile const * m_preferredTile = nullptr;
+  ms::LatLon m_leftBottomOfPreferredTile;
 };
 
 class RawAltitudesTile : public ValuesProvider<Altitude>
@@ -198,7 +194,7 @@ public:
 private:
   void ProcessTile(int lat, int lon)
   {
-    auto const tileName = generator::SrtmTile::GetBase(ms::LatLon(lat, lon));
+    auto const tileName = GetIsolinesTileBase(lat, lon);
 
     std::ostringstream os;
     os << tileName << " (" << lat << ", " << lon << ")";
@@ -211,6 +207,8 @@ private:
     }
 
     LOG(LINFO, ("Begin generating isolines for tile", tileName));
+
+    m_srtmProvider.SetPrefferedTile({lat + kTileSizeInDegree / 2.0, lon + kTileSizeInDegree / 2.0});
 
     Contours<Altitude> contours;
     if (!m_params.m_filters.empty() && (lat >= kAsterTilesLatTop || lat < kAsterTilesLatBottom))
@@ -275,9 +273,9 @@ private:
   void GenerateContours(int lat, int lon, ValuesProvider<Altitude> & altProvider,
                         Contours<Altitude> & contours)
   {
-    ms::LatLon const leftBottom = ms::LatLon(lat, lon);
-    ms::LatLon const rightTop = ms::LatLon(lat + 1.0, lon + 1.0);
-    double const squaresStep = 1.0 / (kArcSecondsInDegree) * m_params.m_latLonStepFactor;
+    auto const leftBottom = ms::LatLon(lat, lon);
+    auto const rightTop = ms::LatLon(lat + kTileSizeInDegree, lon + kTileSizeInDegree);
+    auto const squaresStep = kTileSizeInDegree / kArcSecondsInDegree * m_params.m_latLonStepFactor;
 
     MarchingSquares<Altitude> squares(leftBottom, rightTop,
                                       squaresStep, m_params.m_alitudesStep,

@@ -71,7 +71,9 @@ private:
     // If a contour goes right through the corner of the square false segments can be generated.
     // Shift the value slightly from the corner.
     ValueType val = valuesProvider.GetValue(pos);
-    if (val != valuesProvider.GetInvalidValue() && (val % m_valueStep == 0))
+    CHECK(val != valuesProvider.GetInvalidValue(), (m_debugId, pos));
+
+    if (val % m_valueStep == 0)
       return val + 1;
     return val;
   }
