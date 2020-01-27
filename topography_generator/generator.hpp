@@ -17,7 +17,7 @@ struct TileIsolinesParams
 {
   Altitude m_alitudesStep = 10;
   size_t m_latLonStepFactor = 1;
-  int m_simplificationZoom = 17;
+  int m_simplificationZoom = 17; // Value == 0 disables simplification.
   FiltersSequence<Altitude> m_filters;
   std::string m_outputDir;
 };
@@ -25,7 +25,7 @@ struct TileIsolinesParams
 struct CountryIsolinesParams
 {
   size_t m_maxIsolineLength = 1000;
-  int m_simplificationZoom = 17;
+  int m_simplificationZoom = 17; // Value == 0 disables simplification.
   size_t m_alitudesStepFactor = 1;
   std::string m_isolinesTilesPath;
 };

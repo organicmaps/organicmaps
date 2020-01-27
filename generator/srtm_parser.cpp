@@ -13,7 +13,6 @@ namespace generator
 {
 namespace
 {
-double constexpr kTileSizeInDegree = 1.0;
 size_t constexpr kArcSecondsInDegree = 60 * 60;
 size_t constexpr kSrtmTileSize = (kArcSecondsInDegree + 1) * (kArcSecondsInDegree + 1) * 2;
 
@@ -131,8 +130,7 @@ std::string SrtmTile::GetPath(std::string const & dir, std::string const & base)
 // static
 ms::LatLon SrtmTile::GetCenter(ms::LatLon const & coord)
 {
-  return {floor(coord.m_lat) + kTileSizeInDegree / 2.0,
-          floor(coord.m_lon) + kTileSizeInDegree / 2.0};
+  return {floor(coord.m_lat) + 0.5, floor(coord.m_lon) + 0.5};
 }
 
 // static

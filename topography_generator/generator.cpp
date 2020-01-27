@@ -18,7 +18,6 @@
 namespace topography_generator
 {
 double const kEps = 1e-7;
-double constexpr kTileSizeInDegree = 1.0;
 size_t constexpr kArcSecondsInDegree = 60 * 60;
 int constexpr kAsterTilesLatTop = 60;
 int constexpr kAsterTilesLatBottom = -60;
@@ -55,11 +54,8 @@ private:
       // Try to prevent loading a new tile if the position can be found in the loaded one.
       auto const latDist = pos.m_lat - m_leftBottomOfPreferredTile.m_lat;
       auto const lonDist = pos.m_lon - m_leftBottomOfPreferredTile.m_lon;
-      if (latDist >= 0.0 && latDist <= kTileSizeInDegree &&
-          lonDist >= 0.0 && lonDist <= kTileSizeInDegree)
-      {
+      if (latDist >= 0.0 && latDist <= 1.0 && lonDist >= 0.0 && lonDist <= 1.0)
         return m_preferredTile->GetHeight(pos);
-      }
     }
 
     return m_srtmManager.GetHeight(pos);
@@ -72,7 +68,7 @@ private:
 
     // Look around the position with invalid altitude
     // and return median of surrounding valid altitudes.
-    double const step = kTileSizeInDegree / kArcSecondsInDegree;
+    double const step = 1.0 / kArcSecondsInDegree;
     int const kMaxKernelRadius = 3;
     std::vector<Altitude> kernel;
     int kernelRadius = 0;
@@ -216,7 +212,7 @@ private:
 
     LOG(LINFO, ("Begin generating isolines for tile", tileName));
 
-    m_srtmProvider.SetPrefferedTile({lat + kTileSizeInDegree / 2.0, lon + kTileSizeInDegree / 2.0});
+    m_srtmProvider.SetPrefferedTile({lat + 0.5, lon + 0.5});
 
     Contours<Altitude> contours;
     if (!m_params.m_filters.empty() && (lat >= kAsterTilesLatTop || lat < kAsterTilesLatBottom))
@@ -282,8 +278,8 @@ private:
                         Contours<Altitude> & contours)
   {
     auto const leftBottom = ms::LatLon(lat, lon);
-    auto const rightTop = ms::LatLon(lat + kTileSizeInDegree, lon + kTileSizeInDegree);
-    auto const squaresStep = kTileSizeInDegree / kArcSecondsInDegree * m_params.m_latLonStepFactor;
+    auto const rightTop = ms::LatLon(lat + 1.0, lon + 1.0);
+    auto const squaresStep = 1.0 / kArcSecondsInDegree * m_params.m_latLonStepFactor;
 
     MarchingSquares<Altitude> squares(leftBottom, rightTop,
                                       squaresStep, m_params.m_alitudesStep,
