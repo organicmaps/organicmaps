@@ -36,6 +36,8 @@
         listener.applyTheme()
       }
     }
+
+    UISearchBarRenderer.setAppearance()
   }
 
   private func updateView(_ view: UIView?) {

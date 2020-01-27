@@ -31,7 +31,7 @@ class GlobalStyleSheet: IStyleSheet {
     theme.add(styleName: "SearchBar") { (s) -> (Void) in
       s.backgroundColor = colors.white
       s.barTintColor = colors.primary
-      s.tintColor = colors.blackPrimaryText
+      s.tintColor = UIColor.white
       s.fontColor = colors.blackSecondaryText
     }
 
