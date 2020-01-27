@@ -47,9 +47,10 @@ protected:
 class CountryFinalProcessor : public FinalProcessorIntermediateMwmInterface
 {
 public:
-  explicit CountryFinalProcessor(std::string const & borderPath,
-                                 std::string const & temporaryMwmPath,
-                                 bool haveBordersForWholeWorld, size_t threadsCount);
+  CountryFinalProcessor(std::string const & borderPath,
+                        std::string const & temporaryMwmPath,
+                        std::string const & isolinesPath,
+                        bool haveBordersForWholeWorld, size_t threadsCount);
 
   void SetBooking(std::string const & filename);
   void SetCitiesAreas(std::string const & filename);
@@ -72,11 +73,13 @@ private:
   void ProcessCities();
   void ProcessCoastline();
   void ProcessRoundabouts();
+  void AddIsolines();
   void AddFakeNodes();
   void Finish();
 
   std::string m_borderPath;
   std::string m_temporaryMwmPath;
+  std::string m_isolinesPath;
   std::string m_citiesAreasTmpFilename;
   std::string m_citiesBoundariesFilename;
   std::string m_hotelsFilename;

@@ -108,6 +108,7 @@ FOOD_TRANSLATIONS_URL = ""
 UK_POSTCODES_URL = ""
 US_POSTCODES_URL = ""
 SRTM_PATH = ""
+ISOLINES_PATH = ""
 
 # Stats section:
 STATS_TYPES_CONFIG = ""
@@ -130,6 +131,7 @@ OSM_TOOLS_CC_FLAGS = [
 CPU_COUNT = multiprocessing.cpu_count()
 
 # Planet and coasts:
+ISOLINES_PATH = _get_opt_path(config, "External", "ISOLINES_PATH", ISOLINES_PATH)
 PLANET_O5M = os.path.join(MAIN_OUT_PATH, PLANET + ".o5m")
 PLANET_PBF = os.path.join(MAIN_OUT_PATH, PLANET + ".osm.pbf")
 PLANET_COASTS_GEOM_URL = os.path.join(PLANET_COASTS_URL, "latest_coasts.geom")

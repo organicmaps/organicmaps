@@ -129,6 +129,8 @@ DEFINE_string(
     nodes_list_path, "",
     "Path to file containing list of node ids we need to add to locality index. May be empty.");
 
+DEFINE_string(isolines_path, "",
+              "Path to isolines directory. If set, adds isolines linear features.");
 // Routing.
 DEFINE_bool(make_routing_index, false, "Make sections with the routing information.");
 DEFINE_bool(make_cross_mwm, false,
@@ -259,6 +261,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   genInfo.m_fileName = FLAGS_output;
   genInfo.m_idToWikidataFilename = FLAGS_idToWikidata;
   genInfo.m_complexHierarchyFilename = FLAGS_complex_hierarchy_data;
+  genInfo.m_isolinesDir = FLAGS_isolines_path;
 
   // Use merged style.
   GetStyleReader().SetCurrentStyle(MapStyleMerged);

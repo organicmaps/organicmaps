@@ -309,6 +309,11 @@ class PathProvider:
     @staticmethod
     def srtm_path() -> AnyStr:
         return settings.SRTM_PATH
+        
+
+    @staticmethod
+    def isolines_path() -> AnyStr:
+        return settings.ISOLINES_PATH
 
     @staticmethod
     def borders_path() -> AnyStr:

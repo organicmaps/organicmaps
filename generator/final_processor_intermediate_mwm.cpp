@@ -4,6 +4,7 @@
 #include "generator/booking_dataset.hpp"
 #include "generator/complex_loader.hpp"
 #include "generator/feature_merger.hpp"
+#include "generator/isolines_generator.hpp"
 #include "generator/mini_roundabout_transformer.hpp"
 #include "generator/node_mixer.hpp"
 #include "generator/osm2type.hpp"
@@ -121,6 +122,11 @@ void Sort(std::vector<FeatureBuilder> & fbs)
 }
 
 std::string GetCountryNameFromTmpMwmPath(std::string filename)
+{
+  strings::ReplaceLast(filename, DATA_FILE_EXTENSION_TMP, "");
+  return filename;
+}
+
 {
   strings::ReplaceLast(filename, DATA_FILE_EXTENSION_TMP, "");
   return filename;
@@ -273,10 +279,12 @@ bool FinalProcessorIntermediateMwmInterface::operator!=(
 
 CountryFinalProcessor::CountryFinalProcessor(std::string const & borderPath,
                                              std::string const & temporaryMwmPath,
+                                             std::string const & isolinesPath,
                                              bool haveBordersForWholeWorld, size_t threadsCount)
   : FinalProcessorIntermediateMwmInterface(FinalProcessorPriority::CountriesOrWorld)
   , m_borderPath(borderPath)
   , m_temporaryMwmPath(temporaryMwmPath)
+  , m_isolinesPath(isolinesPath)
   , m_haveBordersForWholeWorld(haveBordersForWholeWorld)
   , m_threadsCount(threadsCount)
 {
@@ -340,7 +348,8 @@ void CountryFinalProcessor::Process()
     ProcessRoundabouts();
   if (!m_fakeNodesFilename.empty())
     AddFakeNodes();
-
+  if (!m_isolinesPath.empty())
+    AddIsolines();
   Finish();
 }
 
@@ -402,6 +411,30 @@ void CountryFinalProcessor::ProcessRoundabouts()
         // Adds new way features generated from mini-roundabout nodes with those nodes ids.
         // Transforms points on roads to connect them with these new roundabout junctions.
         helper.ProcessRoundabouts(affiliation, fbs);
+        for (auto const & fb : fbs)
+          writer.Write(fb);
+      });
+    });
+  }
+}
+
+void CountryFinalProcessor::AddIsolines()
+{
+  IsolineFeaturesGenerator isolineFeaturesGenerator(m_isolinesPath);
+  auto const affiliation = CountriesFilesIndexAffiliation(m_borderPath, m_haveBordersForWholeWorld);
+  {
+    ThreadPool pool(m_threadsCount);
+    ForEachCountry(m_temporaryMwmPath, [&](auto const & filename) {
+      pool.SubmitWork([&, filename]() {
+        if (!FilenameIsCountry(filename, affiliation))
+          return;
+        auto const countryName = GetCountryNameFromTmpMwmPath(filename);
+
+        std::vector<feature::FeatureBuilder> fbs;
+        isolineFeaturesGenerator.GenerateIsolines(countryName, fbs);
+
+        auto const fullPath = base::JoinPath(m_temporaryMwmPath, filename);
+        FeatureBuilderWriter<MaxAccuracy> writer(fullPath, FileWriter::Op::OP_APPEND);
         for (auto const & fb : fbs)
           writer.Write(fb);
       });

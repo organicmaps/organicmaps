@@ -10,7 +10,6 @@ set(
   filters_impl.hpp
   generator.cpp
   generator.hpp
-  isolines_utils.cpp
   isolines_utils.hpp
   main.cpp
   marching_squares/contours_builder.cpp

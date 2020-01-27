@@ -37,6 +37,9 @@ struct GenerateInfo
   // Directory for all intermediate files.
   std::string m_intermediateDir;
 
+  // Directory with isolines files.
+  std::string m_isolinesDir;
+
   // Current generated file name if --output option is defined.
   std::string m_fileName;
 
