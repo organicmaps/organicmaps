@@ -270,8 +270,7 @@ void BookmarkCatalog::Download(std::string const & id, std::string const & acces
   static uint32_t counter = 0;
   auto const path = base::JoinPath(GetPlatform().TmpDir(), "file" + strings::to_string(++counter));
 
-  platform::RemoteFile remoteFile(BuildCatalogDownloadUrl(id), accessToken,
-                                  web_api::GetDefaultCatalogHeaders());
+  platform::RemoteFile remoteFile(BuildCatalogDownloadUrl(id), accessToken, GetHeaders());
   remoteFile.DownloadAsync(path, [startHandler = std::move(startHandler)](std::string const &)
   {
     if (startHandler)
