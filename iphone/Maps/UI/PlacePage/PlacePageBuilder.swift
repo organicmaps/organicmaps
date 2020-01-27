@@ -1,9 +1,10 @@
 @objc class PlacePageBuilder: NSObject {    
-  @objc static func build(data: PlacePageData) -> UIViewController {
+  @objc static func build() -> UIViewController {
     let storyboard = UIStoryboard.instance(.placePage)
     guard let viewController = storyboard.instantiateInitialViewController() as? PlacePageViewController else {
       fatalError()
     }
+    let data = PlacePageData(localizationProvider: OpeinigHoursLocalization())
     let interactor = PlacePageInteractor(viewController: viewController, data: data)
     let layout:IPlacePageLayout
     if data.elevationProfileData != nil {

@@ -2,7 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol IOpeningHoursLocalization <NSObject>
+@protocol IOpeningHoursLocalization
 
 @property(nonatomic, readonly) NSString *closedString;
 @property(nonatomic, readonly) NSString *breakString;

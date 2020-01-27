@@ -71,6 +71,7 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 }
 
 - (BOOL)isEqual:(id)anObject { return [anObject isMemberOfClass:[NSValueWrapper class]]; }
+
 @end
 
 @interface MapViewController ()<MWMFrameworkDrapeObserver, MWMFrameworkStorageObserver,
@@ -112,7 +113,7 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 - (void)showPlacePage {
   self.controlsManager.trafficButtonHidden = YES;
-  self.placePageVC = [PlacePageBuilder buildWithData:[[PlacePageData alloc] init]];
+  self.placePageVC = [PlacePageBuilder build];
   [self addChildViewController:self.placePageVC];
   self.placePageContainer.hidden = NO;
   [self.placePageContainer addSubview:self.placePageVC.view];

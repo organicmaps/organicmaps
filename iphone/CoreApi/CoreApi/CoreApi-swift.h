@@ -53,3 +53,5 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/UgcData.h>
 #import <CoreApi/UgcSummaryRating.h>
 #import <CoreApi/ElevationProfileData.h>
+#import <CoreApi/OpeningHours.h>
+#import <CoreApi/IOpeningHoursLocalization.h>

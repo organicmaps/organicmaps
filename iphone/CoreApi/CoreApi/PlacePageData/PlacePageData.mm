@@ -53,12 +53,12 @@ static PlacePageTaxiProvider convertTaxiProvider(taxi::Provider::Type providerTy
 
 @implementation PlacePageData
 
-- (instancetype)init {
+- (instancetype)initWithLocalizationProvider:(id<IOpeningHoursLocalization>)localization {
   self = [super init];
   if (self) {
     _buttonsData = [[PlacePageButtonsData alloc] initWithRawData:rawData()];
     _previewData = [[PlacePagePreviewData alloc] initWithRawData:rawData()];
-    _infoData = [[PlacePageInfoData alloc] initWithRawData:rawData()];
+    _infoData = [[PlacePageInfoData alloc] initWithRawData:rawData() ohLocalization:localization];
 
     if (rawData().IsBookmark()) {
       _bookmarkData = [[PlacePageBookmarkData alloc] initWithRawData:rawData()];

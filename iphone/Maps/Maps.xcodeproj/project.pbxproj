@@ -413,6 +413,7 @@
 		47E3C72F2111F472008B3B27 /* CoverVerticalModalTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C72E2111F472008B3B27 /* CoverVerticalModalTransitioning.swift */; };
 		47E3C7312111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C7302111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift */; };
 		47E3C7332111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C7322111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift */; };
+		47E460AD240D737D00385B45 /* OpeinigHoursLocalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E460AC240D737D00385B45 /* OpeinigHoursLocalization.swift */; };
 		47E6688A23196F0100057733 /* UIViewController+Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E6688923196F0000057733 /* UIViewController+Subscription.swift */; };
 		47E6CB0B2178BA3600EA102B /* SearchBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E6CB092178BA3600EA102B /* SearchBannerCell.swift */; };
 		47E6CB0C2178BA3600EA102B /* SearchBannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47E6CB0A2178BA3600EA102B /* SearchBannerCell.xib */; };
@@ -1518,6 +1519,7 @@
 		47E3C72E2111F472008B3B27 /* CoverVerticalModalTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverVerticalModalTransitioning.swift; sourceTree = "<group>"; };
 		47E3C7302111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverVerticalPresentationAnimator.swift; sourceTree = "<group>"; };
 		47E3C7322111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverVerticalDismissalAnimator.swift; sourceTree = "<group>"; };
+		47E460AC240D737D00385B45 /* OpeinigHoursLocalization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeinigHoursLocalization.swift; sourceTree = "<group>"; };
 		47E6688923196F0000057733 /* UIViewController+Subscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Subscription.swift"; sourceTree = "<group>"; };
 		47E6CB092178BA3600EA102B /* SearchBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBannerCell.swift; sourceTree = "<group>"; };
 		47E6CB0A2178BA3600EA102B /* SearchBannerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBannerCell.xib; sourceTree = "<group>"; };
@@ -3523,6 +3525,14 @@
 			path = Modal;
 			sourceTree = "<group>";
 		};
+		47E460AB240D72F600385B45 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				47E460AC240D737D00385B45 /* OpeinigHoursLocalization.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 		47EF05B12150383A00EAC269 /* RemoveAds */ = {
 			isa = PBXGroup;
 			children = (
@@ -4472,6 +4482,7 @@
 		F6E2FC8F1E097B9F0083EBEC /* PlacePage */ = {
 			isa = PBXGroup;
 			children = (
+				47E460AB240D72F600385B45 /* Util */,
 				99F3EB0423F417BE00C713F8 /* PlacePageManager */,
 				99C6531F23F2F178004322F3 /* Components */,
 				F6E2FC931E097B9F0083EBEC /* DirectionView */,
@@ -5640,6 +5651,7 @@
 				34AB66381FC5AA330078E451 /* RouteManagerCell.swift in Sources */,
 				CD4A1F132305872700F2A6B6 /* PromoBookingPresentationController.swift in Sources */,
 				3472B5D3200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift in Sources */,
+				47E460AD240D737D00385B45 /* OpeinigHoursLocalization.swift in Sources */,
 				F6E2FF301E097BA00083EBEC /* MWMSearchCommonCell.mm in Sources */,
 				F655C027207278300048A241 /* DiscoveryMoreCell.swift in Sources */,
 				337F98B821D3D67E00C8AC27 /* SearchHistoryQueryCell.swift in Sources */,

@@ -3,12 +3,20 @@ final class FacilitiesController: MWMTableViewController {
   @objc var name: String?
   @objc var facilities: [HotelFacility]?
 
+  init() {
+    super.init(style: .grouped)
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
 
     tableView.estimatedRowHeight = 44
     tableView.rowHeight = UITableView.automaticDimension
-    tableView.register(cell: FacilityCell.self)
+    tableView.registerNib(cell: FacilityCell.self)
 
     title = name
   }

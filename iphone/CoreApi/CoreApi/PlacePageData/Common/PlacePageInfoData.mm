@@ -26,7 +26,7 @@ static PlacePageDataLocalAdsStatus convertLocalAdsStatus(LocalAdsStatus status) 
 
 @implementation PlacePageInfoData (Core)
 
-- (instancetype)initWithRawData:(Info const &)rawData {
+- (instancetype)initWithRawData:(Info const &)rawData ohLocalization:(id<IOpeningHoursLocalization>)localization {
   self = [super init];
   if (self) {
     auto availableProperties = rawData.AvailableProperties();
@@ -34,6 +34,8 @@ static PlacePageDataLocalAdsStatus convertLocalAdsStatus(LocalAdsStatus status) 
       switch (property) {
         case Props::OpeningHours:
           _openingHoursString = @(rawData.GetOpeningHours().c_str());
+          _openingHours = [[OpeningHours alloc] initWithRawString:@(rawData.GetOpeningHours().c_str())
+                                                     localization:localization];
           break;
         case Props::Phone: {
           _phone = @(rawData.GetPhone().c_str());
