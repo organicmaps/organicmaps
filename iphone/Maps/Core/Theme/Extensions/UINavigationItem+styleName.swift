@@ -4,12 +4,6 @@ fileprivate struct AssociatedKeys {
 }
 
 @objc extension UINavigationItem {
-  @objc func sw_didMoveToWindow() {
-    applyTheme()
-    isStyleApplied = true
-    sw_didMoveToWindow();
-  }
-
   @objc var styleName: String {
     get {
       isStyleApplied = false

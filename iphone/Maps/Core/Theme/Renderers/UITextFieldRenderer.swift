@@ -6,6 +6,10 @@ extension UITextField {
   }
 
   @objc override func sw_didMoveToWindow() {
+    guard UIApplication.shared.keyWindow === window else {
+      sw_didMoveToWindow();
+      return
+    }
     applyTheme()
     isStyleApplied = true
     sw_didMoveToWindow();

@@ -5,6 +5,10 @@ fileprivate struct AssociatedKeys {
 
 @objc extension UIView {
   @objc func sw_didMoveToWindow() {
+    guard UIApplication.shared.keyWindow === window else {
+      sw_didMoveToWindow();
+      return
+    }
     applyTheme()
     isStyleApplied = true
     sw_didMoveToWindow();
