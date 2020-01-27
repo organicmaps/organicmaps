@@ -190,8 +190,7 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
                                                        {"man_made", "water_well"},
                                                        {"natural", "glacier"},
                                                        {"natural", "pond"},
-                                                       {"natural", "tree"},
-                                                       {"natural", "wood"}};
+                                                       {"natural", "tree"}};
   set<uint32_t> invisibleTypes;
   for (auto const & tags : invisibleAsPointTags)
     invisibleTypes.insert(classif().GetTypeByPath(tags));

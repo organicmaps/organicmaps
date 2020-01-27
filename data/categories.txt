@@ -4687,7 +4687,7 @@ sw:Ziwa
 fa:دریاچه
 
 # Skipped if empty name
-natural-wood|landuse-forest
+landuse-forest
 en:Forest|U+1F332|U+1F333
 ru:Лес
 ar:غابة

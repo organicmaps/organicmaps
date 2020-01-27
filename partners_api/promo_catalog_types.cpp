@@ -35,7 +35,6 @@ promo::TypesList kOutdoorTypes = {
   {"natural", "cliff"},
   {"natural", "peak"},
   {"natural", "rock"},
-  {"natural", "wood"},
   {"natural", "bare_rock"},
   {"natural", "glacier"},
   {"boundary", "national_park"}

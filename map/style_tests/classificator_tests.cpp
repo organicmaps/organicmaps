@@ -234,7 +234,7 @@ void CheckPriority(vector<base::StringIL> const & arrT, vector<size_t> const & a
 // If someone is desagree with this order, please, refer to VNG :)
 // natural-coastline
 // place-island = natural-land
-// natural-wood,scrub,heath,grassland = landuse-grass,farm,farmland,forest
+// natural-scrub,heath,grassland = landuse-grass,farm,farmland,forest
 // natural-water,lake = landuse-basin
 
 UNIT_TEST(Classificator_AreaPriority)
@@ -246,7 +246,7 @@ UNIT_TEST(Classificator_AreaPriority)
     // 1
     {"place", "island"}, {"natural", "land"},
     // 2
-    {"natural", "wood"}, {"natural", "scrub"}, {"natural", "heath"}, {"natural", "grassland"},
+    {"natural", "scrub"}, {"natural", "heath"}, {"natural", "grassland"},
     {"landuse", "grass"}, {"landuse", "farm"}, {"landuse", "farmland"}, {"landuse", "forest"},
     // ?
     //{"leisure", "park"}, {"leisure", "garden"}, - maybe next time (too tricky to do it now)
@@ -254,7 +254,7 @@ UNIT_TEST(Classificator_AreaPriority)
     {"natural", "water"}, {"natural", "lake"}, {"landuse", "basin"}, {"waterway", "riverbank"}
   };
 
-  CheckPriority(types, {1, 2, 8, 4}, drule::area);
+  CheckPriority(types, {1, 2, 7, 4}, drule::area);
 }
 
 UNIT_TEST(Classificator_PoiPriority)

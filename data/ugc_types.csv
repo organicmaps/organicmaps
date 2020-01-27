@@ -76,7 +76,7 @@ natural-peak,1,1,0,rating
 natural-spring,1,1,0,rating
 natural-volcano,1,1,0,rating
 natural-water,1,1,0,rating
-natural-wood,1,1,0,rating
+landuse-forest,1,1,0,rating
 office,1,1,0,rating
 office-company,1,1,0,rating
 office-government,1,1,0,rating
