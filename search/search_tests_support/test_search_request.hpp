@@ -32,6 +32,12 @@ public:
   // Initiates the search and waits for it to finish.
   void Run();
 
+  // Initiates asynchronous search.
+  void Start();
+
+  // Waits for the search to finish.
+  void Wait();
+
   // Call these functions only after call to Wait().
   std::chrono::steady_clock::duration ResponseTime() const;
   std::vector<search::Result> const & Results() const;
@@ -41,12 +47,6 @@ protected:
                     std::string const & locale, Mode mode, m2::RectD const & viewport,
                     SearchParams::OnStarted const & onStarted,
                     SearchParams::OnResults const & onResults);
-
-  // Initiates the search.
-  void Start();
-
-  // Waits for the search to finish.
-  void Wait();
 
   void SetUpCallbacks();
   void SetUpResultParams();

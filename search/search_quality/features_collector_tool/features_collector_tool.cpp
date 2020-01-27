@@ -1,18 +1,20 @@
-#include "search/feature_loader.hpp"
-#include "search/ranking_info.hpp"
-#include "search/result.hpp"
 #include "search/search_quality/helpers.hpp"
 #include "search/search_quality/matcher.hpp"
 #include "search/search_quality/sample.hpp"
+
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
 
-#include "indexer/classificator_loader.hpp"
-#include "indexer/data_source.hpp"
+#include "search/feature_loader.hpp"
+#include "search/ranking_info.hpp"
+#include "search/result.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/storage.hpp"
 #include "storage/storage_defines.hpp"
+
+#include "indexer/classificator_loader.hpp"
+#include "indexer/data_source.hpp"
 
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
@@ -42,6 +44,7 @@ using namespace search;
 using namespace std;
 using namespace storage;
 
+DEFINE_int32(num_threads, 1, "Number of search engine threads");
 DEFINE_string(data_path, "", "Path to data directory (resources dir)");
 DEFINE_string(mwm_path, "", "Path to mwm files (writable dir)");
 DEFINE_string(stats_path, "", "Path to store stats about queries results (default: stderr)");
@@ -111,7 +114,7 @@ int main(int argc, char * argv[])
   storage::CountryNameSynonyms countryNameSynonyms;
   InitStorageData(affiliations, countryNameSynonyms);
 
-  auto engine = InitSearchEngine(dataSource, affiliations, "en" /* locale */, 1 /* numThreads */);
+  auto engine = InitSearchEngine(dataSource, affiliations, "en" /* locale */, FLAGS_num_threads);
 
   string lines;
   if (FLAGS_json_in.empty())
@@ -140,23 +143,30 @@ int main(int argc, char * argv[])
   FeatureLoader loader(dataSource);
   Matcher matcher(loader);
 
-  cout << "SampleId,";
-  RankingInfo::PrintCSVHeader(cout);
-  cout << ",Relevance" << endl;
+  vector<unique_ptr<TestSearchRequest>> requests;
+  requests.reserve(samples.size());
 
-  for (size_t i = 0; i < samples.size(); ++i)
+  for (auto const & sample : samples)
   {
-    auto const & sample = samples[i];
-
     search::SearchParams params;
     sample.FillSearchParams(params);
     params.m_batchSize = 100;
     params.m_maxNumResults = 300;
     params.m_timeout = search::SearchParams::kDefaultDesktopTimeout;
-    TestSearchRequest request(*engine, params);
-    request.Run();
+    requests.push_back(make_unique<TestSearchRequest>(*engine, params));
+    requests.back()->Start();
+  }
 
-    auto const & results = request.Results();
+  for (auto const & request : requests)
+    request->Wait();
+
+  cout << "SampleId,";
+  RankingInfo::PrintCSVHeader(cout);
+  cout << ",Relevance" << endl;
+  for (size_t i = 0; i < samples.size(); ++i)
+  {
+    auto const & sample = samples[i];
+    auto const & results = requests[i]->Results();
 
     vector<size_t> goldenMatching;
     vector<size_t> actualMatching;
