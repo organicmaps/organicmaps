@@ -23,7 +23,7 @@ Ge0Parser::Ge0Parser()
     m_base64ReverseCharTable[i] = 255;
   for (uint8_t i = 0; i < 64; ++i)
   {
-    char c = MapsWithMe_Base64Char(i);
+    char c = ge0::Base64Char(i);
     m_base64ReverseCharTable[static_cast<uint8_t>(c)] = i;
   }
 }
@@ -80,13 +80,13 @@ void Ge0Parser::DecodeLatLon(string const & url, double & lat, double & lon)
 {
   int latInt = 0, lonInt = 0;
   DecodeLatLonToInt(url, latInt, lonInt, url.size());
-  lat = DecodeLatFromInt(latInt, (1 << MAPSWITHME_MAX_COORD_BITS) - 1);
-  lon = DecodeLonFromInt(lonInt, (1 << MAPSWITHME_MAX_COORD_BITS) - 1);
+  lat = DecodeLatFromInt(latInt, (1 << ge0::kMaxCoordBits) - 1);
+  lon = DecodeLonFromInt(lonInt, (1 << ge0::kMaxCoordBits) - 1);
 }
 
 void Ge0Parser::DecodeLatLonToInt(string const & url, int & lat, int & lon, size_t const bytes)
 {
-  int shift = MAPSWITHME_MAX_COORD_BITS - 3;
+  int shift = ge0::kMaxCoordBits - 3;
   for (size_t i = 0; i < bytes; ++i, shift -= 3)
   {
     const uint8_t a = DecodeBase64Char(url[i]);
@@ -95,7 +95,7 @@ void Ge0Parser::DecodeLatLonToInt(string const & url, int & lat, int & lon, size
     lat |= lat1 << shift;
     lon |= lon1 << shift;
   }
-  const double middleOfSquare = 1 << (3 * (MAPSWITHME_MAX_POINT_BYTES - bytes) - 1);
+  const double middleOfSquare = 1 << (3 * (ge0::kMaxPointBytes - bytes) - 1);
   lat += middleOfSquare;
   lon += middleOfSquare;
 }

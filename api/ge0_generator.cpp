@@ -7,7 +7,11 @@
 #include <cstdlib>
 #include <cstring>
 
-char MapsWithMe_Base64Char(int x)
+using namespace std;
+
+namespace ge0
+{
+char Base64Char(int x)
 {
   CHECK_GREATER_OR_EQUAL(x, 0, ());
   CHECK_LESS(x, 64, ());
@@ -15,7 +19,7 @@ char MapsWithMe_Base64Char(int x)
 }
 
 // Map latitude: [-90, 90] -> [0, maxValue]
-int MapsWithMe_LatToInt(double lat, int maxValue)
+int LatToInt(double lat, int maxValue)
 {
   // M = maxValue, L = maxValue-1
   // lat: -90                        90
@@ -28,7 +32,7 @@ int MapsWithMe_LatToInt(double lat, int maxValue)
 }
 
 // Make lon in [-180, 180)
-double MapsWithMe_LonIn180180(double lon)
+double LonIn180180(double lon)
 {
   if (lon >= 0)
     return fmod(lon + 180.0, 360.0) - 180.0;
@@ -41,22 +45,22 @@ double MapsWithMe_LonIn180180(double lon)
 }
 
 // Map longitude: [-180, 180) -> [0, maxValue]
-int MapsWithMe_LonToInt(double lon, int maxValue)
+int LonToInt(double lon, int maxValue)
 {
-  double const x = (MapsWithMe_LonIn180180(lon) + 180.0) / 360.0 * (maxValue + 1.0) + 0.5;
+  double const x = (LonIn180180(lon) + 180.0) / 360.0 * (maxValue + 1.0) + 0.5;
   return (x <= 0 || x >= maxValue + 1) ? 0 : (int)x;
 }
 
-void MapsWithMe_LatLonToString(double lat, double lon, char * s, int nBytes)
+void LatLonToString(double lat, double lon, char * s, int nBytes)
 {
-  if (nBytes > MAPSWITHME_MAX_POINT_BYTES)
-    nBytes = MAPSWITHME_MAX_POINT_BYTES;
+  if (nBytes > kMaxPointBytes)
+    nBytes = kMaxPointBytes;
 
-  int const latI = MapsWithMe_LatToInt(lat, (1 << MAPSWITHME_MAX_COORD_BITS) - 1);
-  int const lonI = MapsWithMe_LonToInt(lon, (1 << MAPSWITHME_MAX_COORD_BITS) - 1);
+  int const latI = LatToInt(lat, (1 << kMaxCoordBits) - 1);
+  int const lonI = LonToInt(lon, (1 << kMaxCoordBits) - 1);
 
   int i, shift;
-  for (i = 0, shift = MAPSWITHME_MAX_COORD_BITS - 3; i < nBytes; ++i, shift -= 3)
+  for (i = 0, shift = kMaxCoordBits - 3; i < nBytes; ++i, shift -= 3)
   {
     int const latBits = latI >> shift & 7;
     int const lonBits = lonI >> shift & 7;
@@ -69,12 +73,12 @@ void MapsWithMe_LatLonToString(double lat, double lon, char * s, int nBytes)
       (latBits      & 1) << 1 |
       (lonBits      & 1);
 
-    s[i] = MapsWithMe_Base64Char(nextByte);
+    s[i] = Base64Char(nextByte);
   }
 }
 
 // Replaces ' ' with '_' and vice versa.
-void MapsWithMe_TransformName(char * s)
+void TransformName(char * s)
 {
   for (; *s != 0; ++s)
   {
@@ -90,7 +94,7 @@ void MapsWithMe_TransformName(char * s)
 // Returns the lenghts of the resulting string in bytes including terminating 0.
 // URL restricted / unsafe / unwise characters are %-encoded.
 // See rfc3986, rfc1738, rfc2396.
-size_t MapsWithMe_UrlEncodeString(char const * s, size_t size, char ** res)
+size_t UrlEncodeString(char const * s, size_t size, char ** res)
 {
   size_t i;
   char * out;
@@ -147,24 +151,27 @@ size_t MapsWithMe_UrlEncodeString(char const * s, size_t size, char ** res)
 }
 
 // Append s to buf (is there is space). Increment *bytesAppended by size.
-void MapsWithMe_AppendString(char * buf, int bufSize, int * bytesAppended, char const * s, size_t size)
+void AppendString(char * buf, int bufSize, int * bytesAppended, char const * s, size_t size)
 {
-  int64_t const bytesAvailable = static_cast<int64_t>(bufSize) - static_cast<int64_t>(*bytesAppended);
+  int64_t const bytesAvailable =
+      static_cast<int64_t>(bufSize) - static_cast<int64_t>(*bytesAppended);
   if (bytesAvailable > 0)
   {
-    int64_t const toCopy = static_cast<int64_t>(size) < bytesAvailable ? static_cast<int64_t>(size) : bytesAvailable;
+    int64_t const toCopy =
+        static_cast<int64_t>(size) < bytesAvailable ? static_cast<int64_t>(size) : bytesAvailable;
     memcpy(buf + *bytesAppended, s, static_cast<size_t>(toCopy));
   }
 
   *bytesAppended += size;
 }
 
-int MapsWithMe_GetMaxBufferSize(int nameSize)
+int GetMaxBufferSize(int nameSize)
 {
   return ((nameSize == 0) ? 17 : 17 + 3 * nameSize + 1);
 }
 
-int MapsWithMe_GenShortShowMapUrl(double lat, double lon, double zoom, char const * name, char * buf, int bufSize)
+int GenShortShowMapUrl(double lat, double lon, double zoom, char const * name, char * buf,
+                       int bufSize)
 {
   // URL format:
   //
@@ -179,23 +186,23 @@ int MapsWithMe_GenShortShowMapUrl(double lat, double lon, double zoom, char cons
   char urlPrefix[] = "ge0://ZCoord6789";
 
   int const zoomI = (zoom <= 4 ? 0 : (zoom >= 19.75 ? 63 : (int) ((zoom - 4) * 4)));
-  urlPrefix[6] = MapsWithMe_Base64Char(zoomI);
+  urlPrefix[6] = Base64Char(zoomI);
 
-  MapsWithMe_LatLonToString(lat, lon, urlPrefix + 7, 9);
+  LatLonToString(lat, lon, urlPrefix + 7, 9);
 
-  MapsWithMe_AppendString(buf, bufSize, &fullUrlSize, urlPrefix, 16);
+  AppendString(buf, bufSize, &fullUrlSize, urlPrefix, 16);
 
   if (name != 0 && name[0] != 0)
   {
-    MapsWithMe_AppendString(buf, bufSize, &fullUrlSize, "/", 1);
+    AppendString(buf, bufSize, &fullUrlSize, "/", 1);
 
     char * newName = strdup(name);
-    MapsWithMe_TransformName(newName);
+    TransformName(newName);
 
     char * encName;
-    size_t const encNameSize = MapsWithMe_UrlEncodeString(newName, strlen(newName), &encName);
+    size_t const encNameSize = UrlEncodeString(newName, strlen(newName), &encName);
 
-    MapsWithMe_AppendString(buf, bufSize, &fullUrlSize, encName, encNameSize);
+    AppendString(buf, bufSize, &fullUrlSize, encName, encNameSize);
 
     free(encName);
     free(newName);
@@ -203,3 +210,4 @@ int MapsWithMe_GenShortShowMapUrl(double lat, double lon, double zoom, char cons
 
   return fullUrlSize;
 }
+}  // namespace ge0

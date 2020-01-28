@@ -28,16 +28,16 @@ double GetLatEpsilon(size_t coordBytes)
 {
   // Should be / 2.0 but probably because of accumulates loss of precision, 1.77 works but 2.0
   // doesn't.
-  double infelicity = 1 << ((MAPSWITHME_MAX_POINT_BYTES - coordBytes) * 3);
-  return infelicity / ((1 << MAPSWITHME_MAX_COORD_BITS) - 1) * 180 / 1.77;
+  double infelicity = 1 << ((ge0::kMaxPointBytes - coordBytes) * 3);
+  return infelicity / ((1 << ge0::kMaxCoordBits) - 1) * 180 / 1.77;
 }
 
 double GetLonEpsilon(size_t coordBytes)
 {
   // Should be / 2.0 but probably because of accumulates loss of precision, 1.77 works but 2.0
   // doesn't.
-  double infelicity = 1 << ((MAPSWITHME_MAX_POINT_BYTES - coordBytes) * 3);
-  return (infelicity / ((1 << MAPSWITHME_MAX_COORD_BITS) - 1)) * 360 / 1.77;
+  double infelicity = 1 << ((ge0::kMaxPointBytes - coordBytes) * 3);
+  return (infelicity / ((1 << ge0::kMaxCoordBits) - 1)) * 360 / 1.77;
 }
 
 void TestSuccess(char const * s, double lat, double lon, double zoom, char const * name)
@@ -77,7 +77,7 @@ bool ConvergenceTest(double lat, double lon, double latEps, double lonEps)
   for (size_t i = 0; i < 100000; ++i)
   {
     char urlPrefix[] = "Coord6789";
-    MapsWithMe_LatLonToString(tmpLat, tmpLon, urlPrefix + 0, 9);
+    ge0::LatLonToString(tmpLat, tmpLon, urlPrefix + 0, 9);
     parser.DecodeLatLon(urlPrefix, tmpLat, tmpLon);
   }
   if (fabs(lat - tmpLat) <= latEps && fabs(lon - tmpLon) <= lonEps)
@@ -91,7 +91,7 @@ UNIT_TEST(Base64DecodingWorksForAValidChar)
   Ge0ParserForTest parser;
   for (int i = 0; i < 64; ++i)
   {
-    char c = MapsWithMe_Base64Char(i);
+    char c = ge0::Base64Char(i);
     int i1 = parser.DecodeBase64Char(c);
     TEST_EQUAL(i, i1, (c));
   }
@@ -244,7 +244,7 @@ UNIT_TEST(LatLonFullAndClippedCoordinates)
     for (double lon = -180; lon < 180; lon += 0.7)
     {
       char buf[20] = {0};
-      MapsWithMe_GenShortShowMapUrl(lat, lon, 4, "", buf, ARRAY_SIZE(buf));
+      ge0::GenShortShowMapUrl(lat, lon, 4, "", buf, ARRAY_SIZE(buf));
       for (int i = 9; i >= 1; --i)
       {
         string const str = string(buf).substr(7, i);
