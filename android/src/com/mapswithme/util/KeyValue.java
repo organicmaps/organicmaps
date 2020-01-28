@@ -5,16 +5,28 @@ import com.google.gson.annotations.SerializedName;
 
 public final class KeyValue
 {
+  @NonNull
+  @SerializedName("key")
+  private final String mKey;
+  @NonNull
+  @SerializedName("value")
+  private final String mValue;
+
   public KeyValue(@NonNull String key, @NonNull String value)
   {
     mKey = key;
     mValue = value;
   }
 
-  @SerializedName("key")
   @NonNull
-  public final String mKey;
-  @SerializedName("value")
+  public String getKey()
+  {
+    return mKey;
+  }
+
   @NonNull
-  public final String mValue;
+  public String getValue()
+  {
+    return mValue;
+  }
 }

@@ -25,9 +25,9 @@
 package com.mapswithme.util;
 
 import android.os.Build;
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
@@ -57,7 +57,6 @@ public final class HttpClient
   public static final String HEADER_AUTHORIZATION = "Authorization";
   public static final String HEADER_BEARER_PREFFIX = "Bearer ";
   public static final String HEADER_BUNDLE_TIERS = "X-Mapsme-Bundle-Tiers";
-  public static final String HEADER_DEVICE_ID = "X-Mapsme-Device-Id";
   private final static String TAG = HttpClient.class.getSimpleName();
   // TODO(AlexZ): tune for larger files
   private final static int STREAM_BUFFER_SIZE = 1024 * 64;
@@ -104,7 +103,7 @@ public final class HttpClient
 
       for (KeyValue header : p.headers)
       {
-        connection.setRequestProperty(header.mKey, header.mValue);
+        connection.setRequestProperty(header.getKey(), header.getValue());
       }
 
       if (!TextUtils.isEmpty(p.inputFilePath) || p.data != null)

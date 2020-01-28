@@ -303,8 +303,8 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 
     for (KeyValue header : BookmarkManager.INSTANCE.getCatalogHeaders())
     {
-      if (!TextUtils.isEmpty(header.mValue))
-        headers.put(header.mKey, header.mValue);
+      if (!TextUtils.isEmpty(header.getValue()))
+        headers.put(header.getKey(), header.getValue());
     }
 
     mWebView.loadUrl(getCatalogUrlOrThrow(), headers);

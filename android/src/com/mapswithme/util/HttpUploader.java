@@ -3,12 +3,16 @@ package com.mapswithme.util;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Base64;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSocketFactory;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,8 +26,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSocketFactory;
 
 public final class HttpUploader extends AbstractHttpUploader
 {
@@ -184,13 +186,13 @@ public final class HttpUploader extends AbstractHttpUploader
     headers.add(new KeyValue("Content-Type", "multipart/form-data; boundary=" + mBoundary));
     headers.add(new KeyValue("Content-Length", String.valueOf(bodyLength)));
     for (KeyValue header : headers)
-      connection.setRequestProperty(header.mKey, header.mValue);
+      connection.setRequestProperty(header.getKey(), header.getValue());
   }
 
   private void fillBodyParams(@NonNull StringBuilder builder)
   {
     for (KeyValue field : getPayload().getParams())
-      addParam(builder, field.mKey, field.mValue);
+      addParam(builder, field.getKey(), field.getValue());
   }
 
   private void addParam(@NonNull StringBuilder builder, @NonNull String key, @NonNull String value)

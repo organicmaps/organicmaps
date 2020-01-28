@@ -329,7 +329,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   {
     HashMap<String, Object> paramsMap = new HashMap<>();
     for (KeyValue p : params)
-      paramsMap.put(p.mKey, p.mValue);
+      paramsMap.put(p.getKey(), p.getValue());
     AppsFlyerLib.getInstance().trackEvent(this, tag, paramsMap);
   }
 
