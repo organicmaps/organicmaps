@@ -9,41 +9,47 @@ namespace generator
 {
 namespace
 {
-static std::vector<int> const kAltClasses = {1000, 500, 100, 50, 10};
-static std::vector<int> const kNamedAltClasses = {1000, 500, 100, 50};
-static std::string const kTypePrefix = "step_";
-
-std::string GetIsolineType(topography_generator::Altitude altitude)
-{
-  ASSERT(std::is_sorted(kAltClasses.cbegin(), kAltClasses.cend(), std::greater<int>()), ());
-  if (altitude == 0)
-    return kTypePrefix + strings::to_string(kAltClasses.back());
-
-  for (auto altStep : kAltClasses)
-  {
-    if (altitude % altStep == 0)
-      return kTypePrefix + strings::to_string(altStep);
-  }
-  return "";
-}
+std::vector<int> const kAltClasses = {1000, 500, 100, 50, 10};
+int const kNamedAltStep = 50;
+std::string const kTypePrefix = "step_";
+std::string const kTypeZero = "zero";
+uint32_t const kInvalidType = 0;
 
 std::string GetIsolineName(topography_generator::Altitude altitude)
 {
-  for (auto altStep : kNamedAltClasses)
-  {
-    if (altitude % altStep == 0)
-      return strings::to_string(altitude);
-  }
+  if (altitude % kNamedAltStep == 0)
+    return strings::to_string(altitude);
   return "";
 }
 }  // namespace
 
 IsolineFeaturesGenerator::IsolineFeaturesGenerator(std::string const & isolinesDir)
   : m_isolinesDir(isolinesDir)
-{}
+{
+  ASSERT(std::is_sorted(kAltClasses.cbegin(), kAltClasses.cend(), std::greater<int>()), ());
+  for (auto alt : kAltClasses)
+  {
+    auto const type = kTypePrefix + strings::to_string(alt);
+    m_altClassToType[alt] = classif().GetTypeByPath({"isoline", type});
+  }
+  m_altClassToType[0] = classif().GetTypeByPath({"isoline", kTypeZero});
+}
+
+uint32_t IsolineFeaturesGenerator::GetIsolineType(int altitude) const
+{
+  if (altitude == 0)
+    return m_altClassToType.at(0);
+
+  for (auto altStep : kAltClasses)
+  {
+    if (altitude % altStep == 0)
+      return m_altClassToType.at(altStep);
+  }
+  return kInvalidType;
+}
 
 void IsolineFeaturesGenerator::GenerateIsolines(std::string const & countryName,
-                                                std::vector<feature::FeatureBuilder> & fbs) const
+                                                FeaturesCollectFn const & fn) const
 {
   auto const isolinesPath = topography_generator::GetIsolinesFilePath(countryName,
                                                                       m_isolinesDir);
@@ -56,24 +62,22 @@ void IsolineFeaturesGenerator::GenerateIsolines(std::string const & countryName,
     auto const altitude = levelIsolines.first;
     auto const isolineName = GetIsolineName(altitude);
     auto const isolineType = GetIsolineType(altitude);
-    if (isolineType.empty())
+    if (isolineType == kInvalidType)
     {
       LOG(LWARNING, ("Skip unsupported altitudes level", altitude, "in", countryName));
       continue;
     }
-    auto const type = classif().GetTypeByPath({"isoline", isolineType});
 
     for (auto const & isoline : levelIsolines.second)
     {
       feature::FeatureBuilder fb;
-      fb.SetLinear();
       for (auto const & pt : isoline)
         fb.AddPoint(pt);
-
-      fb.AddType(type);
+      fb.AddType(isolineType);
       if (!isolineName.empty())
         fb.AddName("default", isolineName);
-      fbs.emplace_back(std::move(fb));
+      fb.SetLinear();
+      fn(std::move(fb));
     }
   }
 }

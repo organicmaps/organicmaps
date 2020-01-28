@@ -111,8 +111,8 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(bool a
 {
   auto finalProcessor =
       make_shared<CountryFinalProcessor>(m_genInfo.m_targetDir, m_genInfo.m_tmpDir,
-                                         m_genInfo.m_isolinesDir,
                                          m_genInfo.m_haveBordersForWholeWorld, m_threadsCount);
+  finalProcessor->SetIsolinesDir(m_genInfo.m_isolinesDir);
   finalProcessor->SetBooking(m_genInfo.m_bookingDataFilename);
   finalProcessor->SetCitiesAreas(m_genInfo.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME));
   finalProcessor->SetPromoCatalog(m_genInfo.m_promoCatalogCitiesFilename);
