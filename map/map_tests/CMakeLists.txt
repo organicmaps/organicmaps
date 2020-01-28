@@ -40,7 +40,7 @@ omim_link_libraries(
   generator_tests_support
   generator
   map
-  api
+  ge0
   drape_frontend
   shaders
   drape

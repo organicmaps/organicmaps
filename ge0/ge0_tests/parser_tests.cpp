@@ -2,8 +2,8 @@
 
 #include "map/mwm_url.hpp"
 
-#include "api/ge0_generator.hpp"
-#include "api/ge0_parser.hpp"
+#include "ge0/parser.hpp"
+#include "ge0/url_generator.hpp"
 
 #include "base/macros.hpp"
 

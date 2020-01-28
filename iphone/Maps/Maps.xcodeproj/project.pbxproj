@@ -312,6 +312,7 @@
 		34F73FA31E08300E00AC1FD6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34F73FA11E08300E00AC1FD6 /* Images.xcassets */; };
 		34F742321E0834F400AC1FD6 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F742301E0834F400AC1FD6 /* UIViewController+Navigation.m */; };
 		34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */; };
+		39CDE69123E1B6C8007CDA58 /* libge0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39CDE69023E1B6C8007CDA58 /* libge0.a */; };
 		3D15ACEE2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D15ACED2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm */; };
 		3D1958EB213804B6009A83EC /* libmetrics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D1958EA213804B6009A83EC /* libmetrics.a */; };
 		3DB1C57122D5DDA60097EC4C /* PromoAfterBookingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DB1C57022D5DDA60097EC4C /* PromoAfterBookingViewController.xib */; };
@@ -529,7 +530,6 @@
 		6741AA361BF340DE002C974C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A3A1B13222600E6D4FD /* libz.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
 		6741AABD1BF356BA002C974C /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA21BF356B9002C974C /* libagg.a */; };
 		6741AABE1BF356BA002C974C /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA31BF356B9002C974C /* libalohalitics.a */; };
-		6741AAC01BF356BA002C974C /* libapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA51BF356B9002C974C /* libapi.a */; };
 		6741AAC11BF356BA002C974C /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA61BF356B9002C974C /* libbase.a */; };
 		6741AAC21BF356BA002C974C /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA71BF356B9002C974C /* libcoding.a */; };
 		6741AAC31BF356BA002C974C /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA81BF356B9002C974C /* libexpat.a */; };
@@ -1347,6 +1347,7 @@
 		34FE4C431BCC013500066718 /* MWMMapWidgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapWidgets.h; sourceTree = "<group>"; };
 		34FE4C441BCC013500066718 /* MWMMapWidgets.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgets.mm; sourceTree = "<group>"; };
 		34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrafficButtonArea.swift; sourceTree = "<group>"; };
+		39CDE69023E1B6C8007CDA58 /* libge0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libge0.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D15ACED2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMObjectsCategorySelectorDataSource.mm; sourceTree = "<group>"; };
 		3D15ACEF2155118800F725D5 /* MWMObjectsCategorySelectorDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMObjectsCategorySelectorDataSource.h; sourceTree = "<group>"; };
 		3D1958EA213804B6009A83EC /* libmetrics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmetrics.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1550,7 +1551,6 @@
 		6741AA5D1BF340DE002C974C /* maps.me dbg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me dbg.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AAA21BF356B9002C974C /* libagg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libagg.a; path = "../../../omim-xcode-build/Debug/libagg.a"; sourceTree = "<group>"; };
 		6741AAA31BF356B9002C974C /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
-		6741AAA51BF356B9002C974C /* libapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libapi.a; path = "../../../omim-xcode-build/Debug/libapi.a"; sourceTree = "<group>"; };
 		6741AAA61BF356B9002C974C /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
 		6741AAA71BF356B9002C974C /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
 		6741AAA81BF356B9002C974C /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = "../../../omim-xcode-build/Debug/libexpat.a"; sourceTree = "<group>"; };
@@ -2043,6 +2043,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39CDE69123E1B6C8007CDA58 /* libge0.a in Frameworks */,
 				47A65CAD2350044800DCD85F /* CoreApi.framework in Frameworks */,
 				4577B28121F2066A00864FAC /* libvulkan_wrapper.a in Frameworks */,
 				CDB4D4D5222D118E00104869 /* CarPlay.framework in Frameworks */,
@@ -2082,7 +2083,6 @@
 				3411387D1C15AE73002E3B3E /* libeditor.a in Frameworks */,
 				6741AABD1BF356BA002C974C /* libagg.a in Frameworks */,
 				6741AABE1BF356BA002C974C /* libalohalitics.a in Frameworks */,
-				6741AAC01BF356BA002C974C /* libapi.a in Frameworks */,
 				6741AAC11BF356BA002C974C /* libbase.a in Frameworks */,
 				F68BDF061EEA9A830009BB81 /* MyTargetSDK.framework in Frameworks */,
 				6741AAC21BF356BA002C974C /* libcoding.a in Frameworks */,
@@ -2227,6 +2227,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				39CDE69023E1B6C8007CDA58 /* libge0.a */,
 				450B5C822355F50200E9019E /* libweb_api.a */,
 				47A65CAC2350044800DCD85F /* CoreApi.framework */,
 				4577B28021F2066A00864FAC /* libvulkan_wrapper.a */,
@@ -2248,7 +2249,6 @@
 				340474DB1E08199D00C92850 /* 3party */,
 				6741AAA21BF356B9002C974C /* libagg.a */,
 				6741AAA31BF356B9002C974C /* libalohalitics.a */,
-				6741AAA51BF356B9002C974C /* libapi.a */,
 				6741AAA61BF356B9002C974C /* libbase.a */,
 				6741AAA71BF356B9002C974C /* libcoding.a */,
 				674A7E201C0DA55E003D48E1 /* libdrape_frontend.a */,

@@ -15,7 +15,8 @@
 #include "map/utils.hpp"
 #include "map/viewport_search_params.hpp"
 
-#include "api/ge0_parser.hpp"
+#include "ge0/parser.hpp"
+#include "ge0/url_generator.hpp"
 
 #include "generator/borders.hpp"
 
@@ -96,8 +97,6 @@
 #include "partners_api/ads_engine.hpp"
 #include "partners_api/opentable_api.hpp"
 #include "partners_api/partners.hpp"
-
-#include "api/ge0_generator.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"

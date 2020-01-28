@@ -1,10 +1,10 @@
-#include "api/ge0_parser.hpp"
+#include "ge0/parser.hpp"
+
+#include "ge0/url_generator.hpp"
 
 #include "geometry/mercator.hpp"
 
 #include "coding/url_encode.hpp"
-
-#include "api/ge0_generator.hpp"
 
 #include "base/math.hpp"
 #include "base/string_utils.hpp"

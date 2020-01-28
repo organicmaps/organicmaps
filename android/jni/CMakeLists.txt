@@ -114,7 +114,7 @@ target_link_libraries(
   z
   # MapsWithMe libs
   map
-  api
+  ge0
   tracking
   routing
   traffic

@@ -22,6 +22,8 @@
 		3971140A229D7C6D003915E5 /* helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 678338D31C723B1A00FD6263 /* helpers.hpp */; };
 		3971141C229D8983003915E5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3971141B229D8983003915E5 /* CoreLocation.framework */; };
 		3971141E229D89F4003915E5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3971141D229D89F4003915E5 /* Security.framework */; };
+		39B9682223E1AC5F00D3B8E3 /* libge0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B9682123E1AC5F00D3B8E3 /* libge0.a */; };
+		39B9682B23E1AD9F00D3B8E3 /* libge0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B9682123E1AC5F00D3B8E3 /* libge0.a */; };
 		3D497EA123292706000FB57D /* map_files_downloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D497E9E23292706000FB57D /* map_files_downloader.cpp */; };
 		3D497EA223292706000FB57D /* map_files_downloader_with_ping.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D497E9F23292706000FB57D /* map_files_downloader_with_ping.hpp */; };
 		3D497EA323292706000FB57D /* map_files_downloader_with_ping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D497EA023292706000FB57D /* map_files_downloader_with_ping.cpp */; };
@@ -100,7 +102,6 @@
 		67F90B751C6A277900CD458E /* task_runner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67247FC91C60BA8A00EDE56A /* task_runner.cpp */; };
 		67F90B761C6A277900CD458E /* test_map_files_downloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67247FCB1C60BA8A00EDE56A /* test_map_files_downloader.cpp */; };
 		67F90B771C6A278800CD458E /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709AF1C6215690093DD1B /* libagg.a */; };
-		67F90B781C6A278800CD458E /* libapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B01C6215690093DD1B /* libapi.a */; };
 		67F90B791C6A278800CD458E /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B11C6215690093DD1B /* libeditor.a */; };
 		67F90B7A1C6A278800CD458E /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B21C6215690093DD1B /* libfreetype.a */; };
 		67F90B7D1C6A278800CD458E /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B51C6215690093DD1B /* libminizip.a */; };
@@ -133,7 +134,6 @@
 		67F90BD11C6A2A1E00CD458E /* storage_http_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6724800F1C60CE7300EDE56A /* storage_http_tests.cpp */; };
 		67F90BD21C6A2A2200CD458E /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67247FD71C60BA9900EDE56A /* testingmain.cpp */; };
 		67F90BD31C6A2A3000CD458E /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709AF1C6215690093DD1B /* libagg.a */; };
-		67F90BD41C6A2A3000CD458E /* libapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B01C6215690093DD1B /* libapi.a */; };
 		67F90BD51C6A2A3000CD458E /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B11C6215690093DD1B /* libeditor.a */; };
 		67F90BD61C6A2A3000CD458E /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B21C6215690093DD1B /* libfreetype.a */; };
 		67F90BD91C6A2A3000CD458E /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B51C6215690093DD1B /* libminizip.a */; };
@@ -210,6 +210,7 @@
 		39711419229D7F75003915E5 /* libMopub.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libMopub.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3971141B229D8983003915E5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3971141D229D89F4003915E5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		39B9682123E1AC5F00D3B8E3 /* libge0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libge0.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D497E9E23292706000FB57D /* map_files_downloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map_files_downloader.cpp; sourceTree = "<group>"; };
 		3D497E9F23292706000FB57D /* map_files_downloader_with_ping.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = map_files_downloader_with_ping.hpp; sourceTree = "<group>"; };
 		3D497EA023292706000FB57D /* map_files_downloader_with_ping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map_files_downloader_with_ping.cpp; sourceTree = "<group>"; };
@@ -280,7 +281,6 @@
 		674709A91C6215000093DD1B /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-xcode-build/Debug/libpugixml.a"; sourceTree = "<group>"; };
 		674709AD1C62151D0093DD1B /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
 		674709AF1C6215690093DD1B /* libagg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libagg.a; path = "../../../omim-xcode-build/Debug/libagg.a"; sourceTree = "<group>"; };
-		674709B01C6215690093DD1B /* libapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libapi.a; path = "../../../omim-xcode-build/Debug/libapi.a"; sourceTree = "<group>"; };
 		674709B11C6215690093DD1B /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-xcode-build/Debug/libeditor.a"; sourceTree = "<group>"; };
 		674709B21C6215690093DD1B /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = "../../../omim-xcode-build/Debug/libfreetype.a"; sourceTree = "<group>"; };
 		674709B51C6215690093DD1B /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminizip.a; path = "../../../omim-xcode-build/Debug/libminizip.a"; sourceTree = "<group>"; };
@@ -368,7 +368,6 @@
 				67F90B8B1C6A278800CD458E /* libmap.a in Frameworks */,
 				67F90B871C6A278800CD458E /* libdrape_frontend.a in Frameworks */,
 				67F90B791C6A278800CD458E /* libeditor.a in Frameworks */,
-				67F90B781C6A278800CD458E /* libapi.a in Frameworks */,
 				67F90B7F1C6A278800CD458E /* libopening_hours.a in Frameworks */,
 				67F90B8C1C6A278800CD458E /* libalohalitics.a in Frameworks */,
 				67F90B841C6A278800CD458E /* libsearch.a in Frameworks */,
@@ -383,6 +382,7 @@
 				67F90B921C6A278800CD458E /* libgeometry.a in Frameworks */,
 				67F90B821C6A278800CD458E /* librouting.a in Frameworks */,
 				67F90B941C6A278800CD458E /* libplatform.a in Frameworks */,
+				39B9682B23E1AD9F00D3B8E3 /* libge0.a in Frameworks */,
 				67F90B771C6A278800CD458E /* libagg.a in Frameworks */,
 				67F90B811C6A278800CD458E /* libprotobuf.a in Frameworks */,
 				67F90B7A1C6A278800CD458E /* libfreetype.a in Frameworks */,
@@ -397,6 +397,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39B9682223E1AC5F00D3B8E3 /* libge0.a in Frameworks */,
 				56DAC38D23992FB1000BC50D /* Security.framework in Frameworks */,
 				56DAC38C23992F8C000BC50D /* libvulkan_wrapper.a in Frameworks */,
 				56DAC38A23992F84000BC50D /* libweb_api.a in Frameworks */,
@@ -420,7 +421,6 @@
 				67F90BE71C6A2A3000CD458E /* libmap.a in Frameworks */,
 				67F90BE31C6A2A3000CD458E /* libdrape_frontend.a in Frameworks */,
 				67F90BD51C6A2A3000CD458E /* libeditor.a in Frameworks */,
-				67F90BD41C6A2A3000CD458E /* libapi.a in Frameworks */,
 				67F90BDB1C6A2A3000CD458E /* libopening_hours.a in Frameworks */,
 				67F90BE81C6A2A3000CD458E /* libalohalitics.a in Frameworks */,
 				67F90BE01C6A2A3000CD458E /* libsearch.a in Frameworks */,
@@ -452,6 +452,7 @@
 		34F5584C1DBF327C00A4FC11 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				39B9682123E1AC5F00D3B8E3 /* libge0.a */,
 				56DAC38B23992F8C000BC50D /* libvulkan_wrapper.a */,
 				56DAC38923992F84000BC50D /* libweb_api.a */,
 				56DAC38723992F7F000BC50D /* libdescriptions.a */,
@@ -510,7 +511,6 @@
 			isa = PBXGroup;
 			children = (
 				674709AF1C6215690093DD1B /* libagg.a */,
-				674709B01C6215690093DD1B /* libapi.a */,
 				674709B11C6215690093DD1B /* libeditor.a */,
 				674709B21C6215690093DD1B /* libfreetype.a */,
 				674709B51C6215690093DD1B /* libminizip.a */,

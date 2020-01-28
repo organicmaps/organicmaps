@@ -1,16 +1,16 @@
-project(api_tests)
+project(ge0_tests)
 
 set(
   SRC
-  ge0_generator_tests.cpp
-  ge0_parser_tests.cpp
+  parser_tests.cpp
+  url_generator_tests.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
-  api
+  ge0
   platform
   coding
   base

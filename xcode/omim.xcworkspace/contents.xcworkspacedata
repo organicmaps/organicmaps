@@ -95,7 +95,7 @@
       </FileRef>
    </Group>
    <FileRef
-      location = "container:api/api.xcodeproj">
+      location = "container:ge0/ge0.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:base/base.xcodeproj">
@@ -181,9 +181,9 @@
    <FileRef
       location = "container:ugc/ugc.xcodeproj">
    </FileRef>
-    <FileRef
-       location = "container:web_api/web_api.xcodeproj">
-    </FileRef>
+   <FileRef
+      location = "container:web_api/web_api.xcodeproj">
+   </FileRef>
    <FileRef
       location = "container:software_renderer/software_renderer.xcodeproj">
    </FileRef>

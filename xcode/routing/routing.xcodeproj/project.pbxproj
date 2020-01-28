@@ -55,6 +55,7 @@
 		3462FDAD1DC1E5BF00906FD7 /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FDAC1DC1E5BF00906FD7 /* libopening_hours.a */; };
 		349D1CE01E3F589900A878FD /* restrictions_serialization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 349D1CDE1E3F589900A878FD /* restrictions_serialization.cpp */; };
 		349D1CE11E3F589900A878FD /* restrictions_serialization.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 349D1CDF1E3F589900A878FD /* restrictions_serialization.hpp */; };
+		39B9682A23E1ACB300D3B8E3 /* libge0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B9682923E1ACB300D3B8E3 /* libge0.a */; };
 		40576F761F791360000B593B /* fake_graph_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40576F751F791360000B593B /* fake_graph_test.cpp */; };
 		40576F781F7A788B000B593B /* fake_vertex.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40576F771F7A788B000B593B /* fake_vertex.hpp */; };
 		405F48DC1F6AD01C005BA81A /* routing_result.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 405F48DB1F6AD01C005BA81A /* routing_result.hpp */; };
@@ -282,7 +283,6 @@
 		67BD35D31C69F139003AA26F /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343F81A3F640D00A0A8C3 /* librouting.a */; };
 		67BD35D51C69F155003AA26F /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35D41C69F155003AA26F /* libstorage.a */; };
 		67BD35E31C69F198003AA26F /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35D61C69F198003AA26F /* libagg.a */; };
-		67BD35E41C69F198003AA26F /* libapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35D71C69F198003AA26F /* libapi.a */; };
 		67BD35E51C69F198003AA26F /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35D81C69F198003AA26F /* libdrape_frontend.a */; };
 		67BD35E61C69F198003AA26F /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35D91C69F198003AA26F /* libdrape.a */; };
 		67BD35E71C69F198003AA26F /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD35DA1C69F198003AA26F /* libexpat.a */; };
@@ -367,6 +367,7 @@
 		349D1CDF1E3F589900A878FD /* restrictions_serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = restrictions_serialization.hpp; sourceTree = "<group>"; };
 		34F558351DBF2A2600A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34F558361DBF2A2600A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		39B9682923E1ACB300D3B8E3 /* libge0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libge0.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		40576F751F791360000B593B /* fake_graph_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fake_graph_test.cpp; sourceTree = "<group>"; };
 		40576F771F7A788B000B593B /* fake_vertex.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fake_vertex.hpp; sourceTree = "<group>"; };
 		405F48DB1F6AD01C005BA81A /* routing_result.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_result.hpp; sourceTree = "<group>"; };
@@ -554,7 +555,6 @@
 		67BD35B21C69F086003AA26F /* routing_test_tools.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_test_tools.hpp; sourceTree = "<group>"; };
 		67BD35D41C69F155003AA26F /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstorage.a; path = "../../../omim-xcode-build/Debug/libstorage.a"; sourceTree = "<group>"; };
 		67BD35D61C69F198003AA26F /* libagg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libagg.a; path = "../../../omim-xcode-build/Debug/libagg.a"; sourceTree = "<group>"; };
-		67BD35D71C69F198003AA26F /* libapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libapi.a; path = "../../../omim-xcode-build/Debug/libapi.a"; sourceTree = "<group>"; };
 		67BD35D81C69F198003AA26F /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
 		67BD35D91C69F198003AA26F /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
 		67BD35DA1C69F198003AA26F /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = "../../../omim-xcode-build/Debug/libexpat.a"; sourceTree = "<group>"; };
@@ -645,12 +645,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39B9682A23E1ACB300D3B8E3 /* libge0.a in Frameworks */,
 				56EE14DB1FE812FC0036F20C /* libtransit.a in Frameworks */,
 				567E9F811F5853370064CB96 /* libtraffic.a in Frameworks */,
 				567E9F7F1F58530D0064CB96 /* librouting_common.a in Frameworks */,
 				567E9F7D1F5852C00064CB96 /* libicu.a in Frameworks */,
 				67BD35E31C69F198003AA26F /* libagg.a in Frameworks */,
-				67BD35E41C69F198003AA26F /* libapi.a in Frameworks */,
 				67BD35E51C69F198003AA26F /* libdrape_frontend.a in Frameworks */,
 				67BD35E61C69F198003AA26F /* libdrape.a in Frameworks */,
 				67BD35E71C69F198003AA26F /* libexpat.a in Frameworks */,
@@ -687,6 +687,7 @@
 		56F0D7611D896DAF00045886 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				39B9682923E1ACB300D3B8E3 /* libge0.a */,
 				56EE14DC1FE812FC0036F20C /* libtransit.a */,
 				567E9F801F5853370064CB96 /* libtraffic.a */,
 				408B55BF1FD953F100F4E78B /* libbsdiff.a */,
@@ -765,7 +766,6 @@
 			isa = PBXGroup;
 			children = (
 				67BD35D61C69F198003AA26F /* libagg.a */,
-				67BD35D71C69F198003AA26F /* libapi.a */,
 				67BD35D81C69F198003AA26F /* libdrape_frontend.a */,
 				67BD35D91C69F198003AA26F /* libdrape.a */,
 				67BD35DA1C69F198003AA26F /* libexpat.a */,

@@ -34,7 +34,7 @@ omim_link_libraries(
   ${PROJECT_NAME}
   qt_common
   map
-  api
+  ge0
   drape_frontend
   shaders
   routing

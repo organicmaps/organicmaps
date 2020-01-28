@@ -1,4 +1,4 @@
-#include "api/ge0_generator.hpp"
+#include "ge0/url_generator.hpp"
 
 #include "base/assert.hpp"
 
