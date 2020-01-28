@@ -7,6 +7,7 @@
 #include "platform/platform.hpp"
 
 #include "coding/hex.hpp"
+#include "coding/traffic.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -32,7 +33,8 @@ vector<DataPoint> ReadDataPoints(string const & data)
 
   try
   {
-    coding::TrafficGPSEncoder::DeserializeDataPoints(1 /* version */, src, points);
+    coding::TrafficGPSEncoder::DeserializeDataPoints(coding::TrafficGPSEncoder::kLatestVersion, src,
+                                                     points);
   }
   catch (Reader::SizeException const & e)
   {
