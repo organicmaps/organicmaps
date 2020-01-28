@@ -1,21 +1,24 @@
 import logging
 import os
-from argparse import ArgumentParser, RawDescriptionHelpFormatter
+from argparse import ArgumentParser
+from argparse import RawDescriptionHelpFormatter
 
 from .generator import settings
-from .generator.env import (Env, find_last_build_dir, WORLDS_NAMES,
-                            WORLD_NAME, WORLD_COASTS_NAME)
-from .generator.exceptions import ContinueError, SkipError, ValidationError
-from .maps_generator import (generate_maps, generate_coasts, reset_to_stage,
-                             ALL_STAGES, stage_download_production_external,
-                             stage_descriptions, stage_ugc, stage_popularity,
-                             stage_localads, stage_statistics, stage_srtm,
-                             stages_as_string, stage_as_string, stage_coastline,
-                             stage_update_planet)
-from .utils.collections import unique
+from .generator import stages
+from .generator import stages_declaration as sd
+from .generator.env import Env
+from .generator.env import PathProvider
+from .generator.env import WORLDS_NAMES
+from .generator.env import find_last_build_dir
+from .generator.env import get_all_countries_list
+from .generator.exceptions import ContinueError
+from .generator.exceptions import SkipError
+from .generator.exceptions import ValidationError
+from .maps_generator import generate_coasts
+from .maps_generator import generate_maps
+from .utils.algo import unique
 
 logger = logging.getLogger("maps_generator")
-
 
 examples = """Examples:
 1) Non-standard planet with coastlines
@@ -68,11 +71,12 @@ examples = """Examples:
 
 
 def parse_options():
-    parser = ArgumentParser(description="Tool for generation maps for maps.me "
-                                        "application.",
-                            epilog=examples,
-                            formatter_class=RawDescriptionHelpFormatter,
-                            parents=[settings.parser])
+    parser = ArgumentParser(
+        description="Tool for generation maps for maps.me " "application.",
+        epilog=examples,
+        formatter_class=RawDescriptionHelpFormatter,
+        parents=[settings.parser],
+    )
     parser.add_argument(
         "-c",
         "--continue",
@@ -80,51 +84,61 @@ def parse_options():
         nargs="?",
         type=str,
         help="Continue the last build or specified in CONTINUE from the "
-             "last stopped stage.")
+        "last stopped stage.",
+    )
     parser.add_argument(
         "--countries",
         type=str,
         default="",
         help="List of regions, separated by a comma or a semicolon, or path to "
-             "file with regions, separated by a line break, for which maps"
-             " will be built. The names of the regions can be seen "
-             "in omim/data/borders. It is necessary to set names without "
-             "any extension.")
+        "file with regions, separated by a line break, for which maps"
+        " will be built. The names of the regions can be seen "
+        "in omim/data/borders. It is necessary to set names without "
+        "any extension.",
+    )
     parser.add_argument(
         "--without_countries",
         type=str,
         default="",
-        help="List of regions to exclude them from generation. Syntax is the same as for --countries.")
+        help="List of regions to exclude them from generation. Syntax is the same as for --countries.",
+    )
     parser.add_argument(
         "--skip",
         type=str,
         default="",
         help=f"List of stages, separated by a comma or a semicolon, "
         f"for which building will be skipped. Available skip stages: "
-        f"{', '.join([s.replace('stage_', '') for s in ALL_STAGES])}.")
+        f"{', '.join([s.replace('stage_', '') for s in stages.stages.get_visible_stages_names()])}.",
+    )
     parser.add_argument(
         "--from_stage",
         type=str,
         default="",
         help=f"Stage from which maps will be rebuild. Available stages: "
-        f"{', '.join([s.replace('stage_', '') for s in ALL_STAGES])}.")
+        f"{', '.join([s.replace('stage_', '') for s in stages.stages.get_visible_stages_names()])}.",
+    )
     parser.add_argument(
         "--coasts",
         default=False,
         action="store_true",
-        help="Build only WorldCoasts.raw and WorldCoasts.rawgeom files")
+        help="Build only WorldCoasts.raw and WorldCoasts.rawgeom files",
+    )
     parser.add_argument(
         "--production",
         default=False,
         action="store_true",
         help="Build production maps. In another case, 'osm only maps' are built"
-             " - maps without additional data and advertising.")
+        " - maps without additional data and advertising.",
+    )
     parser.add_argument(
         "--order",
         type=str,
-        default=os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                             "var/etc/file_generation_order.txt"),
-        help="Mwm generation order.")
+        default=os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "var/etc/file_generation_order.txt",
+        ),
+        help="Mwm generation order.",
+    )
     return vars(parser.parse_args())
 
 
@@ -133,15 +147,25 @@ def main():
     root.addHandler(logging.NullHandler())
     options = parse_options()
 
+    # Processing of 'continue' option.
+    # If 'continue' is set maps generation is continued from the last build
+    # that is found automatically.
     build_name = None
     if options["continue"] is None or options["continue"]:
         d = find_last_build_dir(options["continue"])
         if d is None:
-            raise ContinueError("The build cannot continue: the last build "
-                                "directory was not found.")
+            raise ContinueError(
+                "The build cannot continue: the last build " "directory was not found."
+            )
         build_name = d
-    options["build_name"] = build_name
 
+    # Processing of 'countries' option.
+    # There is processing 'countries' and 'without_countries' options.
+    # Option 'without_countries' has more priority than 'countries'.
+    # Options 'countries' and 'without_countries' can include '*'.
+    # For example: '--countries="UK*, Japan"*' means
+    # '--countries="UK_England_East Midlands, UK_England_East of England_Essex, ...,
+    # Japan_Chubu Region_Aichi_Nagoya, Japan_Chubu Region_Aichi_Toyohashi, ..."'.
     countries_line = ""
     without_countries_line = ""
     if "COUNTRIES" in os.environ:
@@ -152,14 +176,9 @@ def main():
         countries_line = "*"
 
     if options["without_countries"]:
-      without_countries_line = options["without_countries"]
+        without_countries_line = options["without_countries"]
 
-    borders_path = os.path.join(settings.USER_RESOURCE_PATH, "borders")
-    all_countries = [
-        f.replace(".poly", "") for f in os.listdir(borders_path)
-        if os.path.isfile(os.path.join(borders_path, f))
-    ]
-    all_countries += list(WORLDS_NAMES)
+    all_countries = get_all_countries_list(PathProvider.borders_path())
 
     def end_star_compare(prefix, full):
         return full.startswith(prefix)
@@ -168,48 +187,45 @@ def main():
         return a == b
 
     def get_countries_set_from_line(line):
-      countries = []
-      used_countries = set()
-      countries_list = []
-      if os.path.isfile(line):
-          with open(line) as f:
-              countries_list = [x.strip() for x in f]
-      elif line:
-          countries_list = [
-              x.strip() for x in line.replace(";", ",").split(",")
-          ]
+        countries = []
+        used_countries = set()
+        countries_list = []
+        if os.path.isfile(line):
+            with open(line) as f:
+                countries_list = [x.strip() for x in f]
+        elif line:
+            countries_list = [x.strip() for x in line.replace(";", ",").split(",")]
 
-      for country_item in countries_list:
-          cmp = compare
-          _raw_country = country_item[:]
-          if _raw_country and _raw_country[-1] == "*":
-              _raw_country = _raw_country.replace("*", "")
-              cmp = end_star_compare
+        for country_item in countries_list:
+            cmp = compare
+            _raw_country = country_item[:]
+            if _raw_country and _raw_country[-1] == "*":
+                _raw_country = _raw_country.replace("*", "")
+                cmp = end_star_compare
 
-          for country in all_countries:
-            if cmp(_raw_country, country):
-                used_countries.add(country_item)
-                countries.append(country)
+            for country in all_countries:
+                if cmp(_raw_country, country):
+                    used_countries.add(country_item)
+                    countries.append(country)
 
-      countries = unique(countries)
-      diff = set(countries_list) - used_countries
-      if diff:
-          raise ValidationError(f"Bad input countries {', '.join(diff)}")
-      return set(countries)
+        countries = unique(countries)
+        diff = set(countries_list) - used_countries
+        if diff:
+            raise ValidationError(f"Bad input countries {', '.join(diff)}")
+        return set(countries)
 
     countries = get_countries_set_from_line(countries_line)
     without_countries = get_countries_set_from_line(without_countries_line)
     countries -= without_countries
     countries = list(countries)
-    options["countries"] = countries if countries else all_countries
+    if not countries:
+        countries = all_countries
 
-    options["build_all_countries"] = False
-    if len(countries) == len(all_countries):
-      options["build_all_countries"] = True
-
+    # Processing of 'order' option.
+    # It defines an order of countries generation using a file from 'order' path.
     if options["order"]:
         ordered_countries = []
-        countries = set(options["countries"])
+        countries = set(countries)
         with open(options["order"]) as file:
             for c in file:
                 if c.strip().startswith("#"):
@@ -219,48 +235,46 @@ def main():
                     ordered_countries.append(c)
                     countries.remove(c)
             if countries:
-                raise ValueError(f"{options['order']} does not have an order "
-                                 f"for {countries}.")
-        options["countries"] = ordered_countries
+                raise ValueError(
+                    f"{options['order']} does not have an order " f"for {countries}."
+                )
+        countries = ordered_countries
 
-    options_skip = []
+    # Processing of 'skip' option.
+    skipped_stages = set()
     if options["skip"]:
-        options_skip = [
-            f"stage_{s.strip()}"
-            for s in options["skip"].replace(";", ",").split(",")
-        ]
-    options["skip"] = options_skip
-    if not options["production"]:
-        options["skip"] += stages_as_string(
-            stage_download_production_external,
-            stage_ugc,
-            stage_popularity,
-            stage_srtm,
-            stage_descriptions,
-            stage_localads,
-            stage_statistics
-        )
-    if not all(s in ALL_STAGES for s in options["skip"]):
-        raise SkipError(f"Stages {set(options['skip']) - set(ALL_STAGES)} "
-                        f"not found.")
+        for s in options["skip"].replace(";", ",").split(","):
+            stage = f"stage_{s.strip()}"
+            if not stages.stages.is_valid_stage_name(stage):
+                raise SkipError(f"Stage {stage} not found.")
+            skipped_stages.add(stage)
 
     if settings.PLANET_URL != settings.DEFAULT_PLANET_URL:
-        options["skip"] += stages_as_string(stage_update_planet)
+        skipped_stages.add(stages.get_stage_name(sd.StageUpdatePlanet))
 
-    if stage_as_string(stage_coastline) in options["skip"]:
-        worlds_names = [x for x in options["countries"] if x in WORLDS_NAMES]
-        if worlds_names:
-            raise SkipError(f"You can not skip {stages_as_string(stage_coastline)}"
-                            f" if you want to generate {WORLDS_NAMES}."
-                            f" You can exclude them with --without_countries option.")
+    stage_coastline_name = stages.get_stage_name(sd.StageCoastline)
+    if stage_coastline_name in skipped_stages:
+        if any(x in WORLDS_NAMES for x in options["countries"]):
+            raise SkipError(
+                f"You can not skip {stage_coastline_name}"
+                f" if you want to generate {WORLDS_NAMES}."
+                f" You can exclude them with --without_countries option."
+            )
 
-    env = Env(options)
-    if env.from_stage:
-        reset_to_stage(env.from_stage, env)
-    if env.coasts:
-        generate_coasts(env)
+    # Make env and run maps generation.
+    env = Env(
+        countries=countries,
+        production=options["production"],
+        build_name=build_name,
+        skipped_stages=skipped_stages,
+    )
+    from_stage = None
+    if options["from_stage"]:
+        from_stage = f"stage_{options['from_stage']}"
+    if options["coasts"]:
+        generate_coasts(env, from_stage)
     else:
-        generate_maps(env)
+        generate_maps(env, from_stage)
     env.finish()
 
 

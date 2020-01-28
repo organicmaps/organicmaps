@@ -1,0 +1,127 @@
+import os
+from typing import AnyStr
+from typing import Optional
+from typing import Type
+from typing import Union
+
+import filelock
+
+from . import settings
+from .env import Env
+from .exceptions import ContinueError
+from .stages import Stage
+from .stages import get_stage_name
+from .stages import stages
+from .status import Status
+
+
+class Generation:
+    """
+    Generation describes process of a map generation. It contains stages.
+
+    For example:
+      generation = Generation(env)
+      generation.add_stage(s1)
+      generation.add_stage(s2)
+      generation.run()
+    """
+
+    def __init__(self, env: Env):
+        self.env = env
+        self.stages = []
+
+        for country_stage in stages.countries_stages:
+            if self.is_skipped_stage(country_stage):
+                stage_name = get_stage_name(country_stage)
+                self.env.add_skipped_stage_name(stage_name)
+
+    def is_skipped_stage(self, stage: Union[Type[Stage], Stage]) -> bool:
+        return stage.is_production_only and not self.env.production
+
+    def add_stage(self, stage: Stage):
+        if self.is_skipped_stage(stage):
+            stage_name = get_stage_name(stage)
+            self.env.add_skipped_stage_name(stage_name)
+        else:
+            self.stages.append(stage)
+
+    def run(self, from_stage: Optional[AnyStr] = None):
+        if from_stage is not None:
+            self.reset_to_stage(from_stage)
+
+        planet_lock = filelock.FileLock(f"{settings.PLANET_O5M}.lock", timeout=1)
+        build_lock = filelock.FileLock(
+            f"{os.path.join(self.env.paths.build_path, 'lock')}.lock"
+        )
+        try:
+            for stage in self.stages:
+                if stage.need_planet_lock:
+                    planet_lock.acquire()
+                else:
+                    planet_lock.release()
+
+                if stage.need_build_lock:
+                    build_lock.acquire()
+                else:
+                    build_lock.release()
+
+                stage(self.env)
+        finally:
+            planet_lock.release()
+            build_lock.release()
+
+    def reset_to_stage(self, stage_name: AnyStr):
+        """
+        Resets generation state to stage_name.
+        Status files are overwritten new statuses according stage_name.
+        It supposes that stages have next representation:
+          stage1, ..., stage_mwm[country_stage_1, ..., country_stage_M], ..., stageN
+        """
+        countries_statuses_paths = [
+            os.path.join(self.env.paths.status_path, f)
+            for f in os.listdir(self.env.paths.status_path)
+            if os.path.isfile(os.path.join(self.env.paths.status_path, f))
+            and os.path.join(self.env.paths.status_path, f)
+            != self.env.paths.main_status_path
+        ]
+
+        def set_countries_stage(st):
+            for path in countries_statuses_paths:
+                Status(path, st).update_status()
+
+        def finish_countries_stage():
+            for path in countries_statuses_paths:
+                Status(path).finish()
+
+        high_level_stages = [get_stage_name(s) for s in self.stages]
+        if not (
+            stage_name in high_level_stages
+            or any(stage_name == get_stage_name(s) for s in stages.countries_stages)
+        ):
+            raise ContinueError(
+                f"Stage {stage_name} not in {', '.join(high_level_stages)}."
+            )
+
+        if not os.path.exists(self.env.paths.main_status_path):
+            raise ContinueError(
+                f"Status file {self.env.paths.main_status_path} not found."
+            )
+
+        if not os.path.exists(self.env.paths.status_path):
+            raise ContinueError(f"Status path {self.env.paths.status_path} not found.")
+
+        mwm_stage_name = get_stage_name(stages.mwm_stage)
+        stage_mwm_index = high_level_stages.index(mwm_stage_name)
+
+        main_status = None
+        if stage_name in high_level_stages[: stage_mwm_index + 1]:
+            main_status = stage_name
+            set_countries_stage("")
+        elif stage_name in high_level_stages[stage_mwm_index + 1 :]:
+            main_status = stage_name
+            finish_countries_stage()
+        else:
+            main_status = get_stage_name(stages.mwm_stage)
+            set_countries_stage(stage_name)
+
+        Status(self.env.paths.main_status_path, main_status).update_status()

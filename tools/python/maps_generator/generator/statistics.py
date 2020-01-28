@@ -1,23 +1,26 @@
-import re
-import os
 import datetime
+import os
+import re
 from collections import defaultdict
 
 from .exceptions import ParseError
 
+RE_STAT = re.compile(
+    r"(?:\d+\. )?([\w:|-]+?)\|: "
+    r"size = \d+; "
+    r"count = (\d+); "
+    r"length = ([0-9.e+-]+) m; "
+    r"area = ([0-9.e+-]+) m²; "
+    r"names = (\d+)\s*"
+)
 
-RE_STAT = re.compile(r"(?:\d+\. )?([\w:|-]+?)\|: "
-                     r"size = \d+; "
-                     r"count = (\d+); "
-                     r"length = ([0-9.e+-]+) m; "
-                     r"area = ([0-9.e+-]+) m²; "
-                     r"names = (\d+)\s*")
-
-RE_TIME_DELTA = re.compile(r'^(?:(?P<days>-?\d+) (days?, )?)?'
-                           r'((?:(?P<hours>-?\d+):)(?=\d+:\d+))?'
-                           r'(?:(?P<minutes>-?\d+):)?'
-                           r'(?P<seconds>-?\d+)'
-                           r'(?:\.(?P<microseconds>\d{1,6})\d{0,6})?$')
+RE_TIME_DELTA = re.compile(
+    r"^(?:(?P<days>-?\d+) (days?, )?)?"
+    r"((?:(?P<hours>-?\d+):)(?=\d+:\d+))?"
+    r"(?:(?P<minutes>-?\d+):)?"
+    r"(?P<seconds>-?\d+)"
+    r"(?:\.(?P<microseconds>\d{1,6})\d{0,6})?$"
+)
 
 RE_FINISH_STAGE = re.compile(r"(.*)Stage (.+): finished in (.+)$")
 
@@ -26,13 +29,15 @@ def read_stat(f):
     stats = []
     for line in f:
         m = RE_STAT.match(line)
-        stats.append({
-            "name": m.group(1).replace("|", "-"),
-            "cnt": int(m.group(2)),
-            "len": float(m.group(3)),
-            "area": float(m.group(4)),
-            "names": int(m.group(5))
-        })
+        stats.append(
+            {
+                "name": m.group(1).replace("|", "-"),
+                "cnt": int(m.group(2)),
+                "len": float(m.group(3)),
+                "area": float(m.group(4)),
+                "names": int(m.group(5)),
+            }
+        )
     return stats
 
 

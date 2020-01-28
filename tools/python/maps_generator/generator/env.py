@@ -5,11 +5,21 @@ import logging.config
 import os
 import shutil
 import sys
+from functools import wraps
+from typing import Any
+from typing import AnyStr
+from typing import Callable
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing import Set
 
 from . import settings
 from .osmtools import build_osmtools
 from .status import Status
-from ..utils.file import find_executable, is_executable, symlink_force
+from ..utils.file import find_executable
+from ..utils.file import is_executable
+from ..utils.file import symlink_force
 
 logger = logging.getLogger("maps_generator")
 
@@ -19,28 +29,72 @@ WORLD_COASTS_NAME = "WorldCoasts"
 WORLDS_NAMES = {WORLD_NAME, WORLD_COASTS_NAME}
 
 
-def _write_version(out_path, version):
-    with open(os.path.join(out_path, settings.VERSION_FILE_NAME), "w") as f:
-        f.write(str(version))
+def get_all_countries_list(borders_path: AnyStr) -> List[AnyStr]:
+    """Returns all countries including World and WorldCoasts."""
+    return [
+        f.replace(".poly", "")
+        for f in os.listdir(borders_path)
+        if os.path.isfile(os.path.join(borders_path, f))
+    ] + list(WORLDS_NAMES)
 
 
-def _read_version(version_path):
-    with open(version_path) as f:
-        line = f.readline().strip()
-        try:
-            return int(line)
-        except ValueError:
-            logger.exception(f"Cast '{line}' to int error.")
-            return 0
+def create_if_not_exist_path(path: AnyStr) -> bool:
+    """Creates directory if it doesn't exist."""
+    try:
+        os.mkdir(path)
+        logger.info(f"Create {path} ...")
+        return True
+    except FileExistsError:
+        return False
 
 
-def find_last_build_dir(hint):
-    if hint:
+def create_if_not_exist(func: Callable[..., AnyStr]) -> Callable[..., AnyStr]:
+    """
+    It's a decorator, that wraps func in create_if_not_exist_path,
+    that returns a path.
+    """
+
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        path = func(*args, **kwargs)
+        create_if_not_exist_path(path)
+        return path
+
+    return wrapper
+
+
+class Version:
+    """It's used for writing and reading a generation version."""
+
+    @staticmethod
+    def write(out_path: AnyStr, version: AnyStr):
+        with open(os.path.join(out_path, settings.VERSION_FILE_NAME), "w") as f:
+            f.write(str(version))
+
+    @staticmethod
+    def read(version_path: AnyStr) -> int:
+        with open(version_path) as f:
+            line = f.readline().strip()
+            try:
+                return int(line)
+            except ValueError:
+                logger.exception(f"Cast '{line}' to int error.")
+                return 0
+
+
+def find_last_build_dir(hint: Optional[AnyStr] = None) -> Optional[AnyStr]:
+    """
+    It tries to find a last generation directory. If it's found function
+    returns path of last generation directory. Otherwise returns None.
+    """
+    if hint is not None:
         p = os.path.join(settings.MAIN_OUT_PATH, hint)
         return hint if os.path.exists(p) else None
     try:
-        paths = [os.path.join(settings.MAIN_OUT_PATH, f)
-                 for f in os.listdir(settings.MAIN_OUT_PATH)]
+        paths = [
+            os.path.join(settings.MAIN_OUT_PATH, f)
+            for f in os.listdir(settings.MAIN_OUT_PATH)
+        ]
     except FileNotFoundError:
         logger.exception(f"{settings.MAIN_OUT_PATH} not found.")
         return None
@@ -50,327 +104,396 @@ def find_last_build_dir(hint):
         if not os.path.isfile(version_path):
             versions.append(0)
         else:
-            versions.append(_read_version(version_path))
+            versions.append(Version.read(version_path))
     pairs = sorted(zip(paths, versions), key=lambda p: p[1], reverse=True)
-    return (None if not pairs or pairs[0][1] == 0
-            else pairs[0][0].split(os.sep)[-1])
+    return None if not pairs or pairs[0][1] == 0 else pairs[0][0].split(os.sep)[-1]
 
 
-def planet_lock_file():
-    return f"{settings.PLANET_O5M}.lock"
+class PathProvider:
+    """
+    PathProvider is used for building paths for a maps generation.
+    """
 
+    def __init__(self, build_path: AnyStr, mwm_version: AnyStr):
+        self.build_path = build_path
+        self.mwm_version = mwm_version
 
-def build_lock_file(out_path):
-    return f"{os.path.join(out_path, 'lock')}.lock"
+        create_if_not_exist_path(self.build_path)
+
+    @property
+    @create_if_not_exist
+    def intermediate_data_path(self) -> AnyStr:
+        """
+        intermediate_data_path contains intermediate files,
+        for example downloaded external files, that are needed for genration,
+        *.mwm.tmp files, etc.
+        """
+        return os.path.join(self.build_path, "intermediate_data")
+
+    @property
+    @create_if_not_exist
+    def data_path(self) -> AnyStr:
+        """It's a synonum for intermediate_data_path."""
+        return self.intermediate_data_path
+
+    @property
+    @create_if_not_exist
+    def intermediate_tmp_path(self) -> AnyStr:
+        """intermediate_tmp_path contains *.mwm.tmp files."""
+        return os.path.join(self.intermediate_data_path, "tmp")
+
+    @property
+    @create_if_not_exist
+    def mwm_path(self) -> AnyStr:
+        """mwm_path contains *.mwm files."""
+        return os.path.join(self.build_path, self.mwm_version)
+
+    @property
+    @create_if_not_exist
+    def log_path(self) -> AnyStr:
+        """mwm_path log files."""
+        return os.path.join(self.build_path, "logs")
+
+    @property
+    @create_if_not_exist
+    def generation_borders_path(self) -> AnyStr:
+        """
+        generation_borders_path contains *.poly files, that define
+        which .mwm files are generated.
+        """
+        return os.path.join(self.intermediate_data_path, "borders")
+
+    @property
+    @create_if_not_exist
+    def draft_path(self) -> AnyStr:
+        """draft_path is used for saving temporary intermediate files."""
+        return os.path.join(self.build_path, "draft")
+
+    @property
+    @create_if_not_exist
+    def osm2ft_path(self) -> AnyStr:
+        """osm2ft_path contains osmId<->ftId mappings."""
+        return os.path.join(self.build_path, "osm2ft")
+
+    @property
+    @create_if_not_exist
+    def coastline_path(self) -> AnyStr:
+        """coastline_path is used for a coastline generation."""
+        return os.path.join(self.intermediate_data_path, "coasts")
+
+    @property
+    @create_if_not_exist
+    def coastline_tmp_path(self) -> AnyStr:
+        """coastline_tmp_path is used for a coastline generation."""
+        return os.path.join(self.coastline_path, "tmp")
+
+    @property
+    @create_if_not_exist
+    def status_path(self) -> AnyStr:
+        """status_path contains status files."""
+        return os.path.join(self.build_path, "status")
+
+    @property
+    @create_if_not_exist
+    def descriptions_path(self) -> AnyStr:
+        return os.path.join(self.intermediate_data_path, "descriptions")
+
+    @property
+    @create_if_not_exist
+    def stats_path(self) -> AnyStr:
+        return os.path.join(self.build_path, "stats")
+
+    @property
+    @create_if_not_exist
+    def transit_path(self) -> AnyStr:
+        return self.intermediate_data_path
+
+    @property
+    def main_status_path(self) -> AnyStr:
+        return os.path.join(self.status_path, "stages.status")
+
+    @property
+    def packed_polygons_path(self) -> AnyStr:
+        return os.path.join(self.intermediate_data_path, "packed_polygons.bin")
+
+    @property
+    def localads_path(self) -> AnyStr:
+        return os.path.join(self.intermediate_data_path, f"localads_{self.mwm_version}")
+
+    @property
+    def types_path(self) -> AnyStr:
+        return os.path.join(self.user_resource_path, "types.txt")
+
+    @property
+    def external_resources_path(self) -> AnyStr:
+        return os.path.join(self.mwm_path, "external_resources.txt")
+
+    @property
+    def id_to_wikidata_path(self) -> AnyStr:
+        return os.path.join(self.intermediate_data_path, "id_to_wikidata.csv")
+
+    @property
+    def wiki_url_path(self) -> AnyStr:
+        return os.path.join(self.intermediate_data_path, "wiki_urls.txt")
+
+    @property
+    def ugc_path(self) -> AnyStr:
+        return os.path.join(self.intermediate_data_path, "ugc_db.sqlite3")
+
+    @property
+    def hotels_path(self) -> AnyStr:
+        return os.path.join(self.intermediate_data_path, "hotels.csv")
+
+    @property
+    def promo_catalog_cities_path(self) -> AnyStr:
+        return os.path.join(self.intermediate_data_path, "promo_catalog_cities.json")
+
+    @property
+    def promo_catalog_countries_path(self) -> AnyStr:
+        return os.path.join(self.intermediate_data_path, "promo_catalog_countries.json")
+
+    @property
+    def popularity_path(self) -> AnyStr:
+        return os.path.join(self.intermediate_data_path, "popular_places.csv")
+
+    @property
+    def subway_path(self) -> AnyStr:
+        return os.path.join(
+            self.intermediate_data_path, "mapsme_osm_subways.transit.json"
+        )
+
+    @property
+    def food_paths(self) -> AnyStr:
+        return os.path.join(self.intermediate_data_path, "ids_food.json")
+
+    @property
+    def food_translations_path(self) -> AnyStr:
+        return os.path.join(self.intermediate_data_path, "translations_food.json")
+
+    @property
+    def uk_postcodes_path(self) -> AnyStr:
+        return os.path.join(self.intermediate_data_path, "uk_postcodes")
+
+    @property
+    def us_postcodes_path(self) -> AnyStr:
+        return os.path.join(self.intermediate_data_path, "us_postcodes")
+
+    @property
+    def cities_boundaries_path(self) -> AnyStr:
+        return os.path.join(self.intermediate_data_path, "cities_boundaries.bin")
+
+    @property
+    def hierarchy_path(self) -> AnyStr:
+        return os.path.join(self.user_resource_path, "hierarchy.txt")
+
+    @property
+    def old_to_new_path(self) -> AnyStr:
+        return os.path.join(self.user_resource_path, "old_vs_new.csv")
+
+    @property
+    def borders_to_osm_path(self) -> AnyStr:
+        return os.path.join(self.user_resource_path, "borders_vs_osm.csv")
+
+    @property
+    def countries_synonyms_path(self) -> AnyStr:
+        return os.path.join(self.user_resource_path, "countries_synonyms.csv")
+
+    @property
+    def counties_txt_path(self) -> AnyStr:
+        return os.path.join(self.mwm_path, "countries.txt")
+
+    @property
+    def user_resource_path(self) -> AnyStr:
+        return settings.USER_RESOURCE_PATH
+
+    @staticmethod
+    def srtm_path() -> AnyStr:
+        return settings.SRTM_PATH
+
+    @staticmethod
+    def borders_path() -> AnyStr:
+        return os.path.join(settings.USER_RESOURCE_PATH, "borders")
+
+    @staticmethod
+    @create_if_not_exist
+    def tmp_dir():
+        return settings.TMPDIR
 
 
 class Env:
-    def __init__(self, options):
-        Env._logging_setup()
+    """
+    Env provides a generation environment. It sets up instruments and paths,
+    that are used for a maps generation. It stores state of the maps generation.
+    """
+
+    def __init__(
+        self,
+        countries: Optional[List[AnyStr]] = None,
+        production: bool = False,
+        build_name: Optional[AnyStr] = None,
+        skipped_stages: Optional[Set[AnyStr]] = None,
+    ):
+        self.setup_logging()
+
         logger.info("Start setup ...")
-        for k, v in Env._osm_tools_setup().items():
+        os.environ["TMPDIR"] = PathProvider.tmp_dir()
+        for k, v in self.setup_osm_tools().items():
             setattr(self, k, v)
-        for k, v in options.items():
-            setattr(self, k, v)
 
-        self.gen_tool = Env._generator_tool_setup()
+        self.gen_tool = self.setup_generator_tool()
 
-        setup_options = Env._out_path_setup(self.build_name)
-        self.out_path, _, self.mwm_version, self.planet_version = setup_options
-        logger.info(f"Out path is {self.out_path}.")
-
-        self.intermediate_path = Env._intermediate_path_setup(self.out_path)
-        self.data_path = self.intermediate_path
-        self.intermediate_tmp_path = os.path.join(self.intermediate_path, "tmp")
-        self._create_if_not_exist(self.intermediate_tmp_path)
-        Env._tmp_dir_setup()
-
-        self.mwm_path = os.path.join(self.out_path, str(self.mwm_version))
-        self._create_if_not_exist(self.mwm_path)
-
-        self.log_path = os.path.join(self.out_path, "logs")
-        self._create_if_not_exist(self.log_path)
-
-        self.temp_borders_path = self._prepare_borders()
-
-        self.draft_path = os.path.join(self.out_path, "draft")
-        self._create_if_not_exist(self.draft_path)
-        symlink_force(self.temp_borders_path,
-                      os.path.join(self.draft_path, "borders"))
-
-        self.osm2ft_path = os.path.join(self.out_path, "osm2ft")
-        self._create_if_not_exist(self.osm2ft_path)
-        for x in os.listdir(self.osm2ft_path):
-            p = os.path.join(self.osm2ft_path, x)
-            if os.path.isfile(p) and x.endswith(".mwm.osm2ft"):
-                shutil.move(p, os.path.join(self.mwm_path, x))
+        self.production = production
+        self.countries = countries
+        self.skipped_stages = set() if skipped_stages is None else skipped_stages
+        if self.countries is None:
+            self.countries = get_all_countries_list(PathProvider.borders_path())
 
         self.node_storage = settings.NODE_STORAGE
-        self.user_resource_path = settings.USER_RESOURCE_PATH
 
-        self.coastline_path = os.path.join(self.intermediate_path, "coasts")
-        self._create_if_not_exist(self.coastline_path)
+        version_format = "%Y_%m_%d__%H_%M_%S"
+        dt = None
+        if build_name is None:
+            dt = datetime.datetime.now()
+            build_name = dt.strftime(version_format)
+        else:
+            dt = datetime.datetime.strptime(build_name, version_format)
 
-        self.status_path = os.path.join(self.out_path, "status")
-        self._create_if_not_exist(self.status_path)
-        self.countries_meta = collections.defaultdict(dict)
+        self.mwm_version = dt.strftime("%y%m%d")
+        self.planet_version = dt.strftime("%s")
+        self.build_path = os.path.join(settings.MAIN_OUT_PATH, build_name)
+        self.build_name = build_name
 
-        self.main_status_path = os.path.join(self.status_path, "stages.status")
+        logger.info(f"Build path is {self.build_path}.")
+
+        self.paths = PathProvider(self.build_path, self.mwm_version)
+
+        Version.write(self.build_path, self.planet_version)
+        self.setup_borders()
+        self.setup_osm2ft()
+
         self.main_status = Status()
-
-        self.coastline_tmp_path = os.path.join(self.coastline_path, "tmp")
-        self._create_if_not_exist(self.coastline_tmp_path)
-        
-        self.srtm_path = settings.SRTM_PATH
-
-        self._subprocess_out = None
-        self._subprocess_countries_out = {}
-
-        _write_version(self.out_path, self.planet_version)
-
-        self._skipped_stages = set(self.skip)
+        # self.countries_meta stores log files and statuses for each country.
+        self.countries_meta = collections.defaultdict(dict)
+        self.subprocess_out = None
+        self.subprocess_countries_out = {}
 
         printed_countries = ", ".join(self.countries)
         if len(self.countries) > 50:
-            printed_countries = (f"{', '.join(self.countries[:25])}, ..., "
-                                 f"{', '.join(self.countries[-25:])}")
-        logger.info(f"The following {len(self.countries)} maps will build: "
-                    f"{printed_countries}.")
+            printed_countries = (
+                f"{', '.join(self.countries[:25])}, ..., "
+                f"{', '.join(self.countries[-25:])}"
+            )
+        logger.info(
+            f"The following {len(self.countries)} maps will build: "
+            f"{printed_countries}."
+        )
         logger.info("Finish setup")
 
-    def get_mwm_names(self):
+    def __getitem__(self, item):
+        return self.__dict__[item]
+
+    def get_tmp_mwm_names(self) -> List[AnyStr]:
         tmp_ext = ".mwm.tmp"
         existing_names = set()
-        for f in os.listdir(self.intermediate_tmp_path):
-            path = os.path.join(self.intermediate_tmp_path, f)
+        for f in os.listdir(self.paths.intermediate_tmp_path):
+            path = os.path.join(self.paths.intermediate_tmp_path, f)
             if f.endswith(tmp_ext) and os.path.isfile(path):
                 name = f.replace(tmp_ext, "")
                 if name in self.countries:
                     existing_names.add(name)
         return [c for c in self.countries if c in existing_names]
 
-    def is_accepted_stage(self, stage):
-        return stage.__name__ not in self._skipped_stages
+    def add_skipped_stage_name(self, stage_name: AnyStr):
+        self.skipped_stages.add(stage_name)
 
-    @property
-    def descriptions_path(self):
-        path = os.path.join(self.intermediate_path, "descriptions")
-        self._create_if_not_exist(path)
-        return path
-
-    @property
-    def packed_polygons_path(self):
-        return os.path.join(self.intermediate_path, "packed_polygons.bin")
-
-    @property
-    def localads_path(self):
-        path = os.path.join(self.out_path, f"localads_{self.mwm_version}")
-        self._create_if_not_exist(path)
-        return path
-
-    @property
-    def stats_path(self):
-        path = os.path.join(self.out_path, "stats")
-        self._create_if_not_exist(path)
-        return path
-
-    @property
-    def types_path(self):
-        return os.path.join(self.user_resource_path, "types.txt")
-
-    @property
-    def external_resources_path(self):
-        return os.path.join(self.mwm_path, "external_resources.txt")
-
-    @property
-    def id_to_wikidata_path(self):
-        return os.path.join(self.intermediate_path, "id_to_wikidata.csv")
-
-    @property
-    def wiki_url_path(self):
-        return os.path.join(self.intermediate_path, "wiki_urls.txt")
-
-    @property
-    def ugc_path(self):
-        return os.path.join(self.intermediate_path, "ugc_db.sqlite3")
-
-    @property
-    def hotels_path(self):
-        return os.path.join(self.intermediate_path, "hotels.csv")
-
-    @property
-    def promo_catalog_cities_path(self):
-        return os.path.join(self.intermediate_path, "promo_catalog_cities.json")
-
-    @property
-    def promo_catalog_countries_path(self):
-        return os.path.join(self.intermediate_path,
-                            "promo_catalog_countries.json")
-
-    @property
-    def popularity_path(self):
-        return os.path.join(self.intermediate_path, "popular_places.csv")
-
-    @property
-    def subway_path(self):
-        return os.path.join(self.intermediate_path,
-                            "mapsme_osm_subways.transit.json")
-
-    @property
-    def food_paths(self):
-        return os.path.join(self.intermediate_path, "ids_food.json")
-
-    @property
-    def food_translations_path(self):
-        return os.path.join(self.intermediate_path, "translations_food.json")
-
-    @property
-    def uk_postcodes_path(self):
-        return os.path.join(self.intermediate_path, "uk_postcodes")
-
-    @property
-    def us_postcodes_path(self):
-        return os.path.join(self.intermediate_path, "us_postcodes")
-
-    @property
-    def cities_boundaries_path(self):
-        return os.path.join(self.intermediate_path, "cities_boundaries.bin")
-
-    @property
-    def transit_path(self):
-        return self.intermediate_path
-
-    @property
-    def hierarchy_path(self):
-        return os.path.join(self.user_resource_path, "hierarchy.txt")
-
-    @property
-    def old_to_new_path(self):
-        return os.path.join(self.user_resource_path, "old_vs_new.csv")
-
-    @property
-    def borders_to_osm_path(self):
-        return os.path.join(self.user_resource_path, "borders_vs_osm.csv")
-
-    @property
-    def countries_synonyms_path(self):
-        return os.path.join(self.user_resource_path, "countries_synonyms.csv")
-
-    @property
-    def counties_txt_path(self):
-        return os.path.join(self.mwm_path, "countries.txt")
-
-    def __getitem__(self, item):
-        return self.__dict__[item]
+    def is_skipped_stage_name(self, stage_name: AnyStr) -> bool:
+        return stage_name not in self.skipped_stages
 
     def finish(self):
         self.main_status.finish()
 
-    def finish_mwm(self, mwm_name):
+    def finish_mwm(self, mwm_name: AnyStr):
         self.countries_meta[mwm_name]["status"].finish()
 
-    def set_subprocess_out(self, subprocess_out, country=None):
+    def set_subprocess_out(self, subprocess_out: Any, country: Optional[AnyStr] = None):
         if country is None:
-            self._subprocess_out = subprocess_out
+            self.subprocess_out = subprocess_out
         else:
-            self._subprocess_countries_out[country] = subprocess_out
+            self.subprocess_countries_out[country] = subprocess_out
 
-    def get_subprocess_out(self, country=None):
+    def get_subprocess_out(self, country: Optional[AnyStr] = None):
         if country is None:
-            return self._subprocess_out
+            return self.subprocess_out
         else:
-            return self._subprocess_countries_out[country]
+            return self.subprocess_countries_out[country]
 
     @staticmethod
-    def _logging_setup():
+    def setup_logging():
         def exception_handler(type, value, tb):
-            logger.exception(f"Uncaught exception: {str(value)}",
-                             exc_info=(type, value, tb))
+            logger.exception(
+                f"Uncaught exception: {str(value)}", exc_info=(type, value, tb)
+            )
 
         logging.config.dictConfig(settings.LOGGING)
         sys.excepthook = exception_handler
 
     @staticmethod
-    def _generator_tool_setup():
+    def setup_generator_tool() -> AnyStr:
         logger.info("Check generator tool ...")
         gen_tool_path = shutil.which(settings.GEN_TOOL)
         if gen_tool_path is None:
             logger.info(f"Find generator tool in {settings.BUILD_PATH} ...")
-            gen_tool_path = find_executable(settings.BUILD_PATH,
-                                            settings.GEN_TOOL)
+            gen_tool_path = find_executable(settings.BUILD_PATH, settings.GEN_TOOL)
         logger.info(f"Generator found - {gen_tool_path}")
         return gen_tool_path
 
     @staticmethod
-    def _osm_tools_setup():
+    def setup_osm_tools() -> Dict[AnyStr, AnyStr]:
         path = settings.OSM_TOOLS_PATH
         osm_tool_names = [
-            settings.OSM_TOOL_CONVERT, settings.OSM_TOOL_UPDATE,
-            settings.OSM_TOOL_FILTER
+            settings.OSM_TOOL_CONVERT,
+            settings.OSM_TOOL_UPDATE,
+            settings.OSM_TOOL_FILTER,
         ]
 
         logger.info("Check osm tools ...")
-        if not Env._create_if_not_exist(path):
+        if not create_if_not_exist_path(path):
             tmp_paths = [os.path.join(path, t) for t in osm_tool_names]
             if all([is_executable(t) for t in tmp_paths]):
                 osm_tool_paths = dict(zip(osm_tool_names, tmp_paths))
-                logger.info(
-                    f"Osm tools found - {', '.join(osm_tool_paths.values())}")
+                logger.info(f"Osm tools found - {', '.join(osm_tool_paths.values())}")
                 return osm_tool_paths
 
         tmp_paths = [shutil.which(t) for t in osm_tool_names]
         if all(tmp_paths):
             osm_tool_paths = dict(zip(osm_tool_names, tmp_paths))
-            logger.info(
-                f"Osm tools found - {', '.join(osm_tool_paths.values())}")
+            logger.info(f"Osm tools found - {', '.join(osm_tool_paths.values())}")
             return osm_tool_paths
 
         logger.info("Build osm tools ...")
         return build_osmtools(settings.OSM_TOOLS_SRC_PATH)
 
-    @staticmethod
-    def _out_path_setup(build_name):
-        dt = datetime.datetime.now()
-        version_format = "%Y_%m_%d__%H_%M_%S"
-        if build_name:
-            dt = datetime.datetime.strptime(build_name, version_format)
+    def setup_borders(self):
+        temp_borders = self.paths.generation_borders_path
+        # It is needed in case of rebuilding several mwms.
+        for filename in os.listdir(temp_borders):
+            file_path = os.path.join(temp_borders, filename)
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
 
-        s = dt.strftime(version_format)
-        mwm_version = dt.strftime("%y%m%d")
-        planet_version = int(dt.strftime("%s"))
-
-        out_path = os.path.join(settings.MAIN_OUT_PATH, s)
-        Env._create_if_not_exist(settings.MAIN_OUT_PATH)
-        Env._create_if_not_exist(out_path)
-        return out_path, s, mwm_version, planet_version
-
-    @staticmethod
-    def _intermediate_path_setup(out_path):
-        intermediate_path = os.path.join(out_path, "intermediate_data")
-        Env._create_if_not_exist(intermediate_path)
-        return intermediate_path
-
-    @staticmethod
-    def _tmp_dir_setup():
-        Env._create_if_not_exist(settings.TMPDIR)
-        os.environ["TMPDIR"] = settings.TMPDIR
-
-    @staticmethod
-    def _create_if_not_exist(path):
-        try:
-            os.mkdir(path)
-            logger.info(f"Create {path} ...")
-            return True
-        except FileExistsError:
-            return False
-
-    def _prepare_borders(self):
-        borders = "borders"
-        temp_borders = os.path.join(self.intermediate_path, borders)
-        Env._create_if_not_exist(temp_borders)
-        borders = os.path.join(settings.USER_RESOURCE_PATH, borders)
+        borders = PathProvider.borders_path()
         for x in self.countries:
             if x in WORLDS_NAMES:
                 continue
-            shutil.copy2(f"{os.path.join(borders, x)}.poly", temp_borders)
-        return temp_borders
+
+            poly = f"{x}.poly"
+            os.symlink(os.path.join(borders, poly), os.path.join(temp_borders, poly))
+        symlink_force(temp_borders, os.path.join(self.paths.draft_path, "borders"))
+
+    def setup_osm2ft(self):
+        for x in os.listdir(self.paths.osm2ft_path):
+            p = os.path.join(self.paths.osm2ft_path, x)
+            if os.path.isfile(p) and x.endswith(".mwm.osm2ft"):
+                shutil.move(p, os.path.join(self.paths.mwm_path, x))

@@ -6,8 +6,11 @@ class DummyObject:
         return lambda *args: None
 
 
-def create_file_logger(file, level=logging.DEBUG,
-                       format="[%(asctime)s] %(levelname)s %(module)s %(message)s"):
+def create_file_logger(
+    file,
+    level=logging.DEBUG,
+    format="[%(asctime)s] %(levelname)s %(module)s %(message)s",
+):
     logger = logging.getLogger(file)
     logger.setLevel(level)
     formatter = logging.Formatter(format)

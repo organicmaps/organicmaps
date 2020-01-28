@@ -1,239 +1,239 @@
+""""
+This file contains some decorators that define stages.
+There are two main types of stages:
+    1. stage - a high level stage
+    2. country_stage - a stage that applies to countries files(*.mwm).
+
+country_stage might be inside stage. There are country stages inside mwm_stage.
+mwm_stage is only one stage that contains country_stages.
+"""
+import datetime
 import logging
 import os
-import shutil
-import subprocess
+import time
+from abc import ABC
+from abc import abstractmethod
+from typing import AnyStr
+from typing import List
+from typing import Optional
+from typing import Type
+from typing import Union
 
-from . import settings
-from .env import WORLD_NAME, WORLDS_NAMES
-from .gen_tool import run_gen_tool
-from .osmtools import osmconvert, osmupdate
-from ..utils.file import download_file, is_verified
-from ..utils.file import symlink_force
-from ..utils.md5 import write_md5sum, md5
+from .env import Env
+from .status import Status
+from ..utils.algo import camel_case_split
+from ..utils.log import DummyObject
+from ..utils.log import create_file_logger
 
 logger = logging.getLogger("maps_generator")
 
 
-def download_planet(planet):
-    download_file(settings.PLANET_URL, planet)
-    download_file(settings.PLANET_MD5_URL, md5(planet))
+class Stage(ABC):
+    need_planet_lock = False
+    need_build_lock = False
+    is_helper = False
+    is_mwm_stage = False
+    is_production_only = False
+
+    def __init__(self, **args):
+        self.args = args
+
+    def __call__(self, env: Env):
+        return self.apply(env, **self.args)
+
+    @abstractmethod
+    def apply(self, *args, **kwargs):
+        pass
 
 
-def convert_planet(tool, in_planet, out_planet, output=subprocess.DEVNULL,
-                   error=subprocess.DEVNULL):
-    osmconvert(tool, in_planet, out_planet, output=output, error=error)
-    write_md5sum(out_planet, md5(out_planet))
+def get_stage_name(stage: Union[Type[Stage], Stage]) -> AnyStr:
+    n = stage.__class__.__name__ if isinstance(stage, Stage) else stage.__name__
+    return "_".join(w.lower() for w in camel_case_split(n))
 
 
-def stage_download_and_convert_planet(env, force_download, **kwargs):
-    if force_download or not is_verified(settings.PLANET_PBF):
-        download_planet(settings.PLANET_PBF)
+class Stages:
+    """Stages class is used for storing all stages."""
 
-    convert_planet(env[settings.OSM_TOOL_CONVERT],
-                   settings.PLANET_PBF, settings.PLANET_O5M,
-                   output=env.get_subprocess_out(),
-                   error=env.get_subprocess_out())
-    os.remove(settings.PLANET_PBF)
-    os.remove(md5(settings.PLANET_PBF))
+    def __init__(self):
+        self.mwm_stage: Optional[Type[Stage]] = None
+        self.countries_stages: List[Type[Stage]] = []
+        self.stages: List[Type[Stage]] = []
+        self.helper_stages: List[Type[Stage]] = []
 
+    def set_mwm_stage(self, stage: Type[Stage]):
+        assert self.mwm_stage is None
+        self.mwm_stage = stage
 
-def stage_update_planet(env, **kwargs):
-    tmp = settings.PLANET_O5M + ".tmp"
-    osmupdate(env[settings.OSM_TOOL_UPDATE], settings.PLANET_O5M, tmp,
-              output=env.get_subprocess_out(),
-              error=env.get_subprocess_out(),
-              **kwargs)
-    os.remove(settings.PLANET_O5M)
-    os.rename(tmp, settings.PLANET_O5M)
-    write_md5sum(settings.PLANET_O5M, md5(settings.PLANET_O5M))
+    def add_helper_stage(self, stage: Type[Stage]):
+        self.helper_stages.append(stage)
 
+    def add_country_stage(self, stage: Type[Stage]):
+        self.countries_stages.append(stage)
 
-def stage_preprocess(env, **kwargs):
-    run_gen_tool(env.gen_tool,
-                 out=env.get_subprocess_out(),
-                 err=env.get_subprocess_out(),
-                 intermediate_data_path=env.intermediate_path,
-                 osm_file_type="o5m",
-                 osm_file_name=settings.PLANET_O5M,
-                 node_storage=env.node_storage,
-                 user_resource_path=env.user_resource_path,
-                 preprocess=True,
-                 **kwargs)
+    def add_stage(self, stage: Type[Stage]):
+        self.stages.append(stage)
 
+    def get_visible_stages_names(self) -> List[AnyStr]:
+        """Returns all stages names except helper stages names."""
+        stages = []
+        for s in self.stages:
+            stages.append(get_stage_name(s))
+            if s == self.mwm_stage:
+                stages += [get_stage_name(st) for st in self.countries_stages]
+        return stages
 
-def stage_features(env, **kwargs):
-    extra = {}
-    if env.production:
-        extra["add_ads"] = True
-    if any(x not in WORLDS_NAMES for x in env.countries):
-        extra["generate_packed_borders"] = True
-    if any(x == WORLD_NAME for x in env.countries):
-        extra["generate_world"] = True
-    if env.build_all_countries:
-        extra["have_borders_for_whole_world"] = True
-
-    run_gen_tool(
-        env.gen_tool,
-        out=env.get_subprocess_out(),
-        err=env.get_subprocess_out(),
-        data_path=env.data_path,
-        intermediate_data_path=env.intermediate_path,
-        osm_file_type="o5m",
-        osm_file_name=settings.PLANET_O5M,
-        node_storage=env.node_storage,
-        user_resource_path=env.user_resource_path,
-        dump_cities_boundaries=True,
-        cities_boundaries_data=env.cities_boundaries_path,
-        generate_features=True,
-        **extra,
-        **kwargs
-    )
+    def is_valid_stage_name(self, stage_name) -> bool:
+        return get_stage_name(self.mwm_stage) == stage_name or any(
+            any(stage_name == get_stage_name(x) for x in c)
+            for c in [self.countries_stages, self.stages, self.helper_stages]
+        )
 
 
-def run_gen_tool_with_recovery_country(env, *args, **kwargs):
-    if "data_path" not in kwargs or "output" not in kwargs:
-        logger.warning("The call run_gen_tool() will be without recovery.")
-        run_gen_tool(*args, **kwargs)
-    prev_data_path = kwargs["data_path"]
-    mwm = f"{kwargs['output']}.mwm"
-    osm2ft = f"{mwm}.osm2ft"
-    kwargs["data_path"] = env.draft_path
-    symlink_force(os.path.join(prev_data_path, osm2ft),
-                  os.path.join(env.draft_path, osm2ft))
-    shutil.copy(os.path.join(prev_data_path, mwm),
-                os.path.join(env.draft_path, mwm))
-    run_gen_tool(*args, **kwargs)
-    shutil.move(os.path.join(env.draft_path, mwm),
-                os.path.join(prev_data_path, mwm))
-    kwargs["data_path"] = prev_data_path
+# A global variable stage contains all possible stages.
+stages = Stages()
 
 
-def _generate_common_index(env, country, **kwargs):
-    run_gen_tool(env.gen_tool,
-                 out=env.get_subprocess_out(country),
-                 err=env.get_subprocess_out(country),
-                 data_path=env.mwm_path,
-                 intermediate_data_path=env.intermediate_path,
-                 user_resource_path=env.user_resource_path,
-                 node_storage=env.node_storage,
-                 planet_version=env.planet_version,
-                 generate_geometry=True,
-                 generate_index=True,
-                 output=country,
-                 **kwargs)
+def outer_stage(stage: Type[Stage]) -> Type[Stage]:
+    """It's decorator that defines high level stage."""
+    if stage.is_helper:
+        stages.add_helper_stage(stage)
+    else:
+        stages.add_stage(stage)
+        if stage.is_mwm_stage:
+            stages.set_mwm_stage(stage)
+
+    def new_apply(method):
+        def apply(obj: Stage, env: Env, *args, **kwargs):
+            name = get_stage_name(obj)
+            stage_formatted = " ".join(name.split("_")).capitalize()
+            logfile = os.path.join(env.paths.log_path, f"{name}.log")
+            log_handler = logging.FileHandler(logfile)
+            logger.addHandler(log_handler)
+            if not env.is_skipped_stage_name(name):
+                logger.info(f"{stage_formatted} was not accepted.")
+                logger.removeHandler(log_handler)
+                return
+
+            main_status = env.main_status
+            main_status.init(env.paths.main_status_path, name)
+            if main_status.need_skip():
+                logger.warning(f"{stage_formatted} was skipped.")
+                logger.removeHandler(log_handler)
+                return
+
+            main_status.update_status()
+            logger.info(f"{stage_formatted}: start ...")
+            t = time.time()
+            env.set_subprocess_out(log_handler.stream)
+            method(obj, env, *args, **kwargs)
+            d = time.time() - t
+            logger.info(
+                f"{stage_formatted}: finished in "
+                f"{str(datetime.timedelta(seconds=d))}"
+            )
+            logger.removeHandler(log_handler)
+
+        return apply
+
+    stage.apply = new_apply(stage.apply)
+    return stage
 
 
-def stage_index_world(env, country, **kwargs):
-    _generate_common_index(env, country,
-                           generate_search_index=True,
-                           cities_boundaries_data=env.cities_boundaries_path,
-                           generate_cities_boundaries=True,
-                           **kwargs)
+def country_stage_status(stage: Type[Stage]) -> Type[Stage]:
+    """It's helper decorator that works with status file."""
+
+    def new_apply(method):
+        def apply(obj: Stage, env: Env, country: AnyStr, *args, **kwargs):
+            name = get_stage_name(obj)
+            _logger = DummyObject()
+            countries_meta = env.countries_meta
+            if "logger" in countries_meta[country]:
+                _logger, _ = countries_meta[country]["logger"]
+
+            stage_formatted = " ".join(name.split("_")).capitalize()
+
+            if not env.is_skipped_stage_name(name):
+                _logger.info(f"{stage_formatted} was not accepted.")
+                return
+
+            if "status" not in countries_meta[country]:
+                countries_meta[country]["status"] = Status()
+
+            status = countries_meta[country]["status"]
+            status_file = os.path.join(env.paths.status_path, f"{country}.status")
+            status.init(status_file, name)
+            if status.need_skip():
+                _logger.warning(f"{stage_formatted} was skipped.")
+                return
+
+            status.update_status()
+            method(obj, env, country, *args, **kwargs)
+
+        return apply
+
+    stage.apply = new_apply(stage.apply)
+    return stage
 
 
-def stage_cities_ids_world(env, country, **kwargs):
-    run_gen_tool_with_recovery_country(
-        env,
-        env.gen_tool,
-        out=env.get_subprocess_out(country),
-        err=env.get_subprocess_out(country),
-        data_path=env.mwm_path,
-        user_resource_path=env.user_resource_path,
-        output=country,
-        generate_cities_ids=True,
-        **kwargs
-    )
+def country_stage_log(stage: Type[Stage]) -> Type[Stage]:
+    """It's helper decorator that works with log file."""
+
+    def new_apply(method):
+        def apply(obj: Stage, env: Env, country: AnyStr, *args, **kwargs):
+            name = get_stage_name(obj)
+            log_file = os.path.join(env.paths.log_path, f"{country}.log")
+            countries_meta = env.countries_meta
+            if "logger" not in countries_meta[country]:
+                countries_meta[country]["logger"] = create_file_logger(log_file)
+
+            _logger, log_handler = countries_meta[country]["logger"]
+            stage_formatted = " ".join(name.split("_")).capitalize()
+            _logger.info(f"{stage_formatted}: start ...")
+            t = time.time()
+            env.set_subprocess_out(log_handler.stream, country)
+            method(obj, env, country, *args, logger=_logger, **kwargs)
+            d = time.time() - t
+            _logger.info(
+                f"{stage_formatted}: finished in "
+                f"{str(datetime.timedelta(seconds=d))}"
+            )
+
+        return apply
+
+    stage.apply = new_apply(stage.apply)
+    return stage
 
 
-def stage_index(env, country, **kwargs):
-    _generate_common_index(env, country,
-                           generate_search_index=True,
-                           **kwargs)
+def country_stage(stage: Type[Stage]) -> Type[Stage]:
+    """It's decorator that defines country stage."""
+    if stage.is_helper:
+        stages.add_helper_stage(stage)
+    else:
+        stages.add_country_stage(stage)
+
+    return country_stage_log(country_stage_status(stage))
 
 
-def stage_coastline_index(env, country, **kwargs):
-    _generate_common_index(env, country, **kwargs)
+def mwm_stage(stage: Type[Stage]) -> Type[Stage]:
+    stage.is_mwm_stage = True
+    return stage
 
 
-def stage_ugc(env, country, **kwargs):
-    run_gen_tool_with_recovery_country(
-        env,
-        env.gen_tool,
-        out=env.get_subprocess_out(country),
-        err=env.get_subprocess_out(country),
-        data_path=env.mwm_path,
-        intermediate_data_path=env.intermediate_path,
-        user_resource_path=env.user_resource_path,
-        ugc_data=env.ugc_path,
-        output=country,
-        **kwargs
-    )
+def planet_lock(stage: Type[Stage]) -> Type[Stage]:
+    stage.need_planet_lock = True
+    return stage
 
 
-def stage_popularity(env, country, **kwargs):
-    run_gen_tool_with_recovery_country(
-        env,
-        env.gen_tool,
-        out=env.get_subprocess_out(country),
-        err=env.get_subprocess_out(country),
-        data_path=env.mwm_path,
-        intermediate_data_path=env.intermediate_path,
-        user_resource_path=env.user_resource_path,
-        popular_places_data=env.popularity_path,
-        generate_popular_places=True,
-        output=country,
-        **kwargs
-    )
+def build_lock(stage: Type[Stage]) -> Type[Stage]:
+    stage.need_build_lock = True
+    return stage
 
 
-def stage_srtm(env, country, **kwargs):
-    run_gen_tool_with_recovery_country(
-        env,
-        env.gen_tool,
-        out=env.get_subprocess_out(country),
-        err=env.get_subprocess_out(country),
-        data_path=env.mwm_path,
-        intermediate_data_path=env.intermediate_path,
-        user_resource_path=env.user_resource_path,
-        srtm_path=env.srtm_path,
-        output=country,
-        **kwargs
-    )
+def production_only(stage: Type[Stage]) -> Type[Stage]:
+    stage.is_production_only = True
+    return stage
 
 
-def stage_routing(env, country, **kwargs):
-    run_gen_tool_with_recovery_country(
-        env,
-        env.gen_tool,
-        out=env.get_subprocess_out(country),
-        err=env.get_subprocess_out(country),
-        data_path=env.mwm_path,
-        intermediate_data_path=env.intermediate_path,
-        user_resource_path=env.user_resource_path,
-        cities_boundaries_data=env.cities_boundaries_path,
-        generate_maxspeed=True,
-        make_city_roads=True,
-        make_cross_mwm=True,
-        disable_cross_mwm_progress=True,
-        generate_cameras=True,
-        make_routing_index=True,
-        generate_traffic_keys=True,
-        output=country,
-        **kwargs
-    )
-
-
-def stage_routing_transit(env, country, **kwargs):
-    run_gen_tool_with_recovery_country(
-        env,
-        env.gen_tool,
-        out=env.get_subprocess_out(country),
-        err=env.get_subprocess_out(country),
-        data_path=env.mwm_path,
-        intermediate_data_path=env.intermediate_path,
-        user_resource_path=env.user_resource_path,
-        transit_path=env.transit_path,
-        make_transit_cross_mwm=True,
-        output=country,
-        **kwargs
-    )
+def helper_stage(stage: Type[Stage]) -> Type[Stage]:
+    stage.is_helper = True
+    return stage

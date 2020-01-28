@@ -1,26 +1,29 @@
 import os
+from typing import AnyStr
 
 
 class Status:
-    def __init__(self):
-        self.stat_path = None
-        self.stat_next = None
+    """Status is used for recovering and continuation maps generation."""
+
+    def __init__(self, stat_path: AnyStr = None, stat_next: AnyStr = None):
+        self.stat_path = stat_path
+        self.stat_next = stat_next
         self.stat_saved = None
         self.find = False
 
-    def init(self, stat_path, stat_next):
+    def init(self, stat_path: AnyStr, stat_next: AnyStr):
         self.stat_path = stat_path
         self.stat_next = stat_next
         if os.path.exists(self.stat_path) and os.path.isfile(self.stat_path):
             with open(self.stat_path) as status:
                 self.stat_saved = status.read()
         if not self.find:
-            self.find = self.stat_saved is None or not self.need_skip()
+            self.find = not self.stat_saved or not self.need_skip()
 
-    def need_skip(self):
+    def need_skip(self) -> bool:
         if self.find:
             return False
-        return self.stat_saved is not None and self.stat_next != self.stat_saved
+        return self.stat_saved and self.stat_next != self.stat_saved
 
     def update_status(self):
         with open(self.stat_path, "w") as status:
