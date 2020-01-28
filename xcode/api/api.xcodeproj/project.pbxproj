@@ -20,6 +20,9 @@
 		391A146623E0FC9A00A448F4 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A146523E0FC9A00A448F4 /* libz.tbd */; };
 		391A146823E0FC9E00A448F4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A146723E0FC9E00A448F4 /* Security.framework */; };
 		391A146A23E0FCB700A448F4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A146923E0FCB700A448F4 /* CoreLocation.framework */; };
+		39F3D51E23E196110037D487 /* ge0_parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F3D51C23E196110037D487 /* ge0_parser.hpp */; };
+		39F3D51F23E196110037D487 /* ge0_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39F3D51D23E196110037D487 /* ge0_parser.cpp */; };
+		39F3D52123E196240037D487 /* ge0_parser_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39F3D52023E196240037D487 /* ge0_parser_tests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,9 @@
 		391A146523E0FC9A00A448F4 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		391A146723E0FC9E00A448F4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		391A146923E0FCB700A448F4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		39F3D51C23E196110037D487 /* ge0_parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ge0_parser.hpp; path = ../../api/ge0_parser.hpp; sourceTree = "<group>"; };
+		39F3D51D23E196110037D487 /* ge0_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ge0_parser.cpp; path = ../../api/ge0_parser.cpp; sourceTree = "<group>"; };
+		39F3D52023E196240037D487 /* ge0_parser_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ge0_parser_tests.cpp; path = ../../../api/api_tests/ge0_parser_tests.cpp; sourceTree = "<group>"; };
 		675347171A40577A00A0A8C3 /* libapi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libapi.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -71,6 +77,7 @@
 		391A145523E0FC4100A448F4 /* api_tests */ = {
 			isa = PBXGroup;
 			children = (
+				39F3D52023E196240037D487 /* ge0_parser_tests.cpp */,
 				391A145823E0FC5C00A448F4 /* testingmain.cpp */,
 				391A145623E0FC5200A448F4 /* ge0_generator_tests.cpp */,
 			);
@@ -95,6 +102,8 @@
 		6753470E1A40577A00A0A8C3 = {
 			isa = PBXGroup;
 			children = (
+				39F3D51D23E196110037D487 /* ge0_parser.cpp */,
+				39F3D51C23E196110037D487 /* ge0_parser.hpp */,
 				391A145523E0FC4100A448F4 /* api_tests */,
 				390F890523E0F1CB00476FCF /* ge0_generator.cpp */,
 				390F890423E0F1CB00476FCF /* ge0_generator.hpp */,
@@ -121,6 +130,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39F3D51E23E196110037D487 /* ge0_parser.hpp in Headers */,
 				390F890623E0F1CB00476FCF /* ge0_generator.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,6 +227,7 @@
 			files = (
 				391A145723E0FC5200A448F4 /* ge0_generator_tests.cpp in Sources */,
 				391A145923E0FC5C00A448F4 /* testingmain.cpp in Sources */,
+				39F3D52123E196240037D487 /* ge0_parser_tests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				390F890723E0F1CB00476FCF /* ge0_generator.cpp in Sources */,
+				39F3D51F23E196110037D487 /* ge0_parser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

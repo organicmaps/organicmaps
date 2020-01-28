@@ -1,20 +1,17 @@
 #pragma once
 
-#include "base/base.hpp"
-
+#include <cstddef>
 #include <cstdint>
 #include <string>
 
-namespace url_scheme
+namespace ge0
 {
-struct ApiPoint;
-
 class Ge0Parser
 {
 public:
   Ge0Parser();
 
-  bool Parse(std::string const & url, url_scheme::ApiPoint & outPoint, double & outZoomLevel);
+  bool Parse(std::string const & url, double & outLat, double & outLon, std::string & outName, double & outZoomLevel);
 
 protected:
   uint8_t DecodeBase64Char(char const c);
@@ -31,4 +28,4 @@ protected:
 private:
   uint8_t m_base64ReverseCharTable[256];
 };
-}  // namespace url_api
+}  // namespace ge0

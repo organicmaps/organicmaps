@@ -15,7 +15,6 @@ set(
   extrapolator_tests.cpp
   feature_getters_tests.cpp
   framework_light_tests.cpp
-  ge0_parser_tests.cpp
   geourl_test.cpp
   gps_track_collection_test.cpp
   gps_track_storage_test.cpp

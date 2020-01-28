@@ -1,20 +1,23 @@
 #include "testing/testing.hpp"
 
-#include "map/ge0_parser.hpp"
 #include "map/mwm_url.hpp"
 
 #include "api/ge0_generator.hpp"
+#include "api/ge0_parser.hpp"
 
 #include "base/macros.hpp"
 
 #include <algorithm>
+#include <string>
 
 using namespace std;
 
-using url_scheme::Ge0Parser;
-using url_scheme::ApiPoint;
-
 namespace
+{
+double const kZoomEps = 1e-10;
+}  // namespace
+
+namespace ge0
 {
 class Ge0ParserForTest : public Ge0Parser
 {
@@ -28,46 +31,44 @@ double GetLatEpsilon(size_t coordBytes)
 {
   // Should be / 2.0 but probably because of accumulates loss of precision, 1.77 works but 2.0
   // doesn't.
-  double infelicity = 1 << ((ge0::kMaxPointBytes - coordBytes) * 3);
-  return infelicity / ((1 << ge0::kMaxCoordBits) - 1) * 180 / 1.77;
+  double infelicity = 1 << ((kMaxPointBytes - coordBytes) * 3);
+  return infelicity / ((1 << kMaxCoordBits) - 1) * 180 / 1.77;
 }
 
 double GetLonEpsilon(size_t coordBytes)
 {
   // Should be / 2.0 but probably because of accumulates loss of precision, 1.77 works but 2.0
   // doesn't.
-  double infelicity = 1 << ((ge0::kMaxPointBytes - coordBytes) * 3);
-  return (infelicity / ((1 << ge0::kMaxCoordBits) - 1)) * 360 / 1.77;
+  double infelicity = 1 << ((kMaxPointBytes - coordBytes) * 3);
+  return (infelicity / ((1 << kMaxCoordBits) - 1)) * 360 / 1.77;
 }
 
 void TestSuccess(char const * s, double lat, double lon, double zoom, char const * name)
 {
   Ge0Parser parser;
-  ApiPoint apiPoint;
+  double parsedLat;
+  double parsedLon;
+  string parsedName;
   double parsedZoomLevel;
-  bool const result = parser.Parse(s, apiPoint, parsedZoomLevel);
+  bool const result = parser.Parse(s, parsedLat, parsedLon, parsedName, parsedZoomLevel);
 
   TEST(result, (s, zoom, lat, lon, name));
 
-  TEST_EQUAL(apiPoint.m_name, string(name), (s));
-  TEST_EQUAL(apiPoint.m_id, string(), (s));
+  TEST_EQUAL(parsedName, string(name), (s));
   double const latEps = GetLatEpsilon(9);
-  double const lonEps = GetLonEpsilon(9);
-  TEST(fabs(apiPoint.m_lat - lat) <= latEps, (s, zoom, lat, lon, name));
-  TEST(fabs(apiPoint.m_lon - lon) <= lonEps, (s, zoom, lat, lon, name));
-
-  TEST(fabs(apiPoint.m_lat - lat) <= latEps, (s, zoom, lat, lon, name));
-  TEST(fabs(apiPoint.m_lon - lon) <= lonEps, (s, zoom, lat, lon, name));
-  TEST_ALMOST_EQUAL_ULPS(parsedZoomLevel, zoom, (s, zoom, lat, lon, name));
+  double const lonEps = GetLonEpsilon(9);  
+  TEST_ALMOST_EQUAL_ABS(parsedLat, lat, latEps, (s, zoom, lat, lon, name));
+  TEST_ALMOST_EQUAL_ABS(parsedLon, lon, lonEps, (s, zoom, lat, lon, name));
+  TEST_ALMOST_EQUAL_ABS(parsedZoomLevel, zoom, kZoomEps, (s, zoom, lat, lon, name));
 }
 
 void TestFailure(char const * s)
 {
   Ge0Parser parser;
-  ApiPoint apiPoint;
-  double zoomLevel;
-  bool const result = parser.Parse(s, apiPoint, zoomLevel);
-  TEST_EQUAL(result, false, (s));
+  string name;
+  double lat, lon, zoomLevel;
+  bool const result = parser.Parse(s, lat, lon, name, zoomLevel);
+  TEST(!result, (s));
 }
 
 bool ConvergenceTest(double lat, double lon, double latEps, double lonEps)
@@ -84,7 +85,6 @@ bool ConvergenceTest(double lat, double lon, double latEps, double lonEps)
     return true;
   return false;
 }
-}  // namespace
 
 UNIT_TEST(Base64DecodingWorksForAValidChar)
 {
@@ -215,23 +215,21 @@ UNIT_TEST(NameDecoding)
         "d0%bd%d0%b8%d1%8e%3F";
 
     Ge0Parser parser;
-    ApiPoint apiPoint;
+    double parsedLat;
+    double parsedLon;
+    string parsedName;
     double parsedZoomLevel;
-    bool const result = parser.Parse(url.c_str(), apiPoint, parsedZoomLevel);
+    bool const result = parser.Parse(url.c_str(), parsedLat, parsedLon, parsedName, parsedZoomLevel);
 
     TEST(result, (url, zoom, lat, lon, name));
 
     // Name would be valid but is too long.
-    TEST_NOT_EQUAL(apiPoint.m_name, string(name), (url));
-    TEST_EQUAL(apiPoint.m_id, string(), (url));
+    TEST_NOT_EQUAL(parsedName, string(name), (url));
     double const latEps = GetLatEpsilon(9);
     double const lonEps = GetLonEpsilon(9);
-    TEST(fabs(apiPoint.m_lat - lat) <= latEps, (url, zoom, lat, lon, name));
-    TEST(fabs(apiPoint.m_lon - lon) <= lonEps, (url, zoom, lat, lon, name));
-
-    TEST(fabs(apiPoint.m_lat - lat) <= latEps, (url, zoom, lat, lon, name));
-    TEST(fabs(apiPoint.m_lon - lon) <= lonEps, (url, zoom, lat, lon, name));
-    TEST_ALMOST_EQUAL_ULPS(parsedZoomLevel, zoom, (url, zoom, lat, lon, name));
+    TEST_ALMOST_EQUAL_ABS(parsedLat, lat, latEps, (url, zoom, lat, lon, name));
+    TEST_ALMOST_EQUAL_ABS(parsedLon, lon, lonEps, (url, zoom, lat, lon, name));
+    TEST_ALMOST_EQUAL_ABS(parsedZoomLevel, zoom, kZoomEps, (url, zoom, lat, lon, name));
   }
 }
 
@@ -293,3 +291,4 @@ UNIT_TEST(ClippedName)
   TestSuccess("ge0://AwAAAAAAAA/"           , 0, 0, 4, "");
   TestSuccess("ge0://AwAAAAAAAA"            , 0, 0, 4, "");
 }
+}  // namespace ge0

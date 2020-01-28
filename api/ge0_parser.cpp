@@ -1,6 +1,4 @@
-#include "map/ge0_parser.hpp"
-
-#include "map/mwm_url.hpp"
+#include "api/ge0_parser.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -15,7 +13,7 @@
 
 using namespace std;
 
-namespace url_scheme
+namespace ge0
 {
 Ge0Parser::Ge0Parser()
 {
@@ -23,12 +21,12 @@ Ge0Parser::Ge0Parser()
     m_base64ReverseCharTable[i] = 255;
   for (uint8_t i = 0; i < 64; ++i)
   {
-    char c = ge0::Base64Char(i);
+    char c = Base64Char(i);
     m_base64ReverseCharTable[static_cast<uint8_t>(c)] = i;
   }
 }
 
-bool Ge0Parser::Parse(string const & url, url_scheme::ApiPoint & outPoint, double & outZoomLevel)
+bool Ge0Parser::Parse(string const & url, double & outLat, double & outLon, std::string & outName, double & outZoomLevel)
 {
   // URL format:
   //
@@ -52,14 +50,14 @@ bool Ge0Parser::Parse(string const & url, url_scheme::ApiPoint & outPoint, doubl
     return false;
   outZoomLevel = DecodeZoom(zoomI);
 
-  DecodeLatLon(url.substr(LATLON_POSITION, LATLON_LENGTH), outPoint.m_lat, outPoint.m_lon);
+  DecodeLatLon(url.substr(LATLON_POSITION, LATLON_LENGTH), outLat, outLon);
 
-  ASSERT(mercator::ValidLon(outPoint.m_lon), (outPoint.m_lon));
-  ASSERT(mercator::ValidLat(outPoint.m_lat), (outPoint.m_lat));
+  ASSERT(mercator::ValidLon(outLon), (outLon));
+  ASSERT(mercator::ValidLat(outLat), (outLat));
 
   if (url.size() >= NAME_POSITON_IN_URL)
   {
-    outPoint.m_name = DecodeName(
+    outName = DecodeName(
         url.substr(NAME_POSITON_IN_URL, min(url.size() - NAME_POSITON_IN_URL, MAX_NAME_LENGTH)));
   }
   return true;
@@ -80,13 +78,13 @@ void Ge0Parser::DecodeLatLon(string const & url, double & lat, double & lon)
 {
   int latInt = 0, lonInt = 0;
   DecodeLatLonToInt(url, latInt, lonInt, url.size());
-  lat = DecodeLatFromInt(latInt, (1 << ge0::kMaxCoordBits) - 1);
-  lon = DecodeLonFromInt(lonInt, (1 << ge0::kMaxCoordBits) - 1);
+  lat = DecodeLatFromInt(latInt, (1 << kMaxCoordBits) - 1);
+  lon = DecodeLonFromInt(lonInt, (1 << kMaxCoordBits) - 1);
 }
 
 void Ge0Parser::DecodeLatLonToInt(string const & url, int & lat, int & lon, size_t const bytes)
 {
-  int shift = ge0::kMaxCoordBits - 3;
+  int shift = kMaxCoordBits - 3;
   for (size_t i = 0; i < bytes; ++i, shift -= 3)
   {
     const uint8_t a = DecodeBase64Char(url[i]);
@@ -95,7 +93,7 @@ void Ge0Parser::DecodeLatLonToInt(string const & url, int & lat, int & lon, size
     lat |= lat1 << shift;
     lon |= lon1 << shift;
   }
-  const double middleOfSquare = 1 << (3 * (ge0::kMaxPointBytes - bytes) - 1);
+  const double middleOfSquare = 1 << (3 * (kMaxPointBytes - bytes) - 1);
   lat += middleOfSquare;
   lon += middleOfSquare;
 }
@@ -151,5 +149,4 @@ bool Ge0Parser::IsHexChar(char const a)
 {
   return ((a >= '0' && a <= '9') || (a >= 'A' && a <= 'F') || (a >= 'a' && a <= 'f'));
 }
-
-}  // namespace url_scheme
+}  // namespace ge0

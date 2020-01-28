@@ -4,7 +4,6 @@
 #include "map/chart_generator.hpp"
 #include "map/displayed_categories_modifiers.hpp"
 #include "map/everywhere_search_params.hpp"
-#include "map/ge0_parser.hpp"
 #include "map/geourl_process.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/notifications/notification_manager_delegate.hpp"
@@ -15,6 +14,8 @@
 #include "map/user_mark.hpp"
 #include "map/utils.hpp"
 #include "map/viewport_search_params.hpp"
+
+#include "api/ge0_parser.hpp"
 
 #include "generator/borders.hpp"
 
@@ -436,7 +437,7 @@ Framework::Framework(FrameworkParams const & params)
 
   m_bmManager->InitRegionAddressGetter(m_featuresFetcher.GetDataSource(), *m_infoGetter);
 
-  m_ParsedMapApi.SetBookmarkManager(m_bmManager.get());
+  m_parsedMapApi.SetBookmarkManager(m_bmManager.get());
   m_routingManager.SetBookmarkManager(m_bmManager.get());
   m_searchMarks.SetBookmarkManager(m_bmManager.get());
 
@@ -2135,34 +2136,29 @@ bool Framework::ShowMapForURL(string const & url)
   enum ResultT { FAILED, NEED_CLICK, NO_NEED_CLICK };
   ResultT result = FAILED;
 
-  using namespace url_scheme;
-  using namespace strings;
-
-  if (StartsWith(url, "ge0"))
+  if (strings::StartsWith(url, "ge0"))
   {
-    Ge0Parser parser;
-    double zoom;
-    ApiPoint pt;
+    ge0::Ge0Parser parser;
+    double lat, lon, zoom;
 
-    if (parser.Parse(url, pt, zoom))
+    if (parser.Parse(url, lat, lon, name, zoom))
     {
-      point = mercator::FromLatLon(pt.m_lat, pt.m_lon);
+      point = mercator::FromLatLon(lat, lon);
       rect = df::GetRectForDrawScale(zoom, point);
-      name = pt.m_name;
       result = NEED_CLICK;
     }
   }
-  else if (m_ParsedMapApi.IsValid())
+  else if (m_parsedMapApi.IsValid())
   {
-    if (!m_ParsedMapApi.GetViewportRect(rect))
+    if (!m_parsedMapApi.GetViewportRect(rect))
       rect = df::GetWorldRect();
 
-    apiMark = m_ParsedMapApi.GetSinglePoint();
+    apiMark = m_parsedMapApi.GetSinglePoint();
     result = apiMark ? NEED_CLICK : NO_NEED_CLICK;
   }
   else  // Actually, we can parse any geo url scheme with correct coordinates.
   {
-    Info info;
+    url_scheme::Info info;
     ParseGeoURL(url, info);
     if (info.IsValid())
     {
@@ -2216,23 +2212,23 @@ url_scheme::ParsedMapApi::ParsingResult Framework::ParseAndSetApiURL(string cons
     editSession.SetIsVisible(UserMark::Type::API, true);
   }
 
-  return m_ParsedMapApi.SetUriAndParse(url);
+  return m_parsedMapApi.SetUriAndParse(url);
 }
 
 Framework::ParsedRoutingData Framework::GetParsedRoutingData() const
 {
-  return Framework::ParsedRoutingData(m_ParsedMapApi.GetRoutePoints(),
-                                      routing::FromString(m_ParsedMapApi.GetRoutingType()));
+  return Framework::ParsedRoutingData(m_parsedMapApi.GetRoutePoints(),
+                                      routing::FromString(m_parsedMapApi.GetRoutingType()));
 }
 
 url_scheme::SearchRequest Framework::GetParsedSearchRequest() const
 {
-  return m_ParsedMapApi.GetSearchRequest();
+  return m_parsedMapApi.GetSearchRequest();
 }
 
 url_scheme::Subscription Framework::GetParsedSubscription() const
 {
-  return m_ParsedMapApi.GetSubscription();
+  return m_parsedMapApi.GetSubscription();
 }
 
 FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator,
@@ -2681,7 +2677,7 @@ string Framework::CodeGe0url(double lat, double lon, double zoomLevel, string co
 
 string Framework::GenerateApiBackUrl(ApiMarkPoint const & point) const
 {
-  string res = m_ParsedMapApi.GetGlobalBackUrl();
+  string res = m_parsedMapApi.GetGlobalBackUrl();
   if (!res.empty())
   {
     ms::LatLon const ll = point.GetLatLon();

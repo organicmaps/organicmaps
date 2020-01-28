@@ -726,10 +726,10 @@ public:
 
   /// @name Api
   std::string GenerateApiBackUrl(ApiMarkPoint const & point) const;
-  url_scheme::ParsedMapApi const & GetApiDataHolder() const { return m_ParsedMapApi; }
+  url_scheme::ParsedMapApi const & GetApiDataHolder() const { return m_parsedMapApi; }
 
 private:
-  url_scheme::ParsedMapApi m_ParsedMapApi;
+  url_scheme::ParsedMapApi m_parsedMapApi;
 
 public:
   /// @name Data versions
