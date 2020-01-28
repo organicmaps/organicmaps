@@ -3,14 +3,15 @@ package com.mapswithme.maps.bookmarks;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.HttpClient;
+import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
@@ -54,9 +55,10 @@ public class BookmarksDownloadManager
     DownloadManager.Request request = new DownloadManager
         .Request(dstUri)
         .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-        .addRequestHeader(HttpClient.HEADER_USER_AGENT, Framework.nativeGetUserAgent())
-        .addRequestHeader(HttpClient.HEADER_DEVICE_ID, Framework.nativeGetDeviceId())
         .setDestinationInExternalFilesDir(mContext, null, dstUri.getLastPathSegment());
+
+    for (KeyValue header: BookmarkManager.INSTANCE.getCatalogHeaders())
+      request.addRequestHeader(header.getKey(), header.getValue());
 
     String accessToken = Framework.nativeGetAccessToken();
     if (!TextUtils.isEmpty(accessToken))
