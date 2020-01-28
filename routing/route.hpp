@@ -247,21 +247,7 @@ public:
     }
   }
 
-  template <class SI>
-  void SetRouteSegments(SI && v)
-  {
-    m_routeSegments = std::forward<SI>(v);
-
-    m_haveAltitudes = true;
-    for (auto const & s : m_routeSegments)
-    {
-      if (s.GetJunction().GetAltitude() == geometry::kInvalidAltitude)
-      {
-        m_haveAltitudes = false;
-        return;
-      }
-    }
-  }
+  void SetRouteSegments(std::vector<RouteSegment> && routeSegments);
 
   std::vector<RouteSegment> & GetRouteSegments() { return m_routeSegments; }
   std::vector<RouteSegment> const & GetRouteSegments() const { return m_routeSegments; }
@@ -390,8 +376,6 @@ public:
   /// \returns mwm list which is crossed by the route and where there are restrictions on warning
   /// about speed cameras.
   std::vector<platform::CountryFile> const & GetMwmsPartlyProhibitedForSpeedCams() const;
-
-  void SetFakeSegmentsOnPolyline();
 
 private:
   friend std::string DebugPrint(Route const & r);

@@ -238,11 +238,19 @@ void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
   m_poly.GetCurrentDirectionPoint(pt, kOnEndToleranceM);
 }
 
-void Route::SetFakeSegmentsOnPolyline()
+void Route::SetRouteSegments(vector<RouteSegment> && routeSegments)
 {
   vector<size_t> fakeSegmentIndexes;
+  m_routeSegments = move(routeSegments);
+  m_haveAltitudes = true;
   for (size_t i = 0; i < m_routeSegments.size(); ++i)
   {
+    if (m_haveAltitudes &&
+        m_routeSegments[i].GetJunction().GetAltitude() == geometry::kInvalidAltitude)
+    {
+      m_haveAltitudes = false;
+    }
+
     if (!m_routeSegments[i].GetSegment().IsRealSegment())
       fakeSegmentIndexes.push_back(i);
   }
