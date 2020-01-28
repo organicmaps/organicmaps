@@ -2,11 +2,11 @@
 
 #include "map/mwm_url.hpp"
 
-#include "api/internal/c/api-client-internals.h"
-
 #include "geometry/mercator.hpp"
 
 #include "coding/url_encode.hpp"
+
+#include "api/ge0_generator.hpp"
 
 #include "base/math.hpp"
 #include "base/string_utils.hpp"

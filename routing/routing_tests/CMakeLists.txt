@@ -47,6 +47,7 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   map
+  api
   routing
   platform_tests_support
   traffic

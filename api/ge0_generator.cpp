@@ -1,12 +1,9 @@
-#include "api-client.h"
+#include "api/ge0_generator.hpp"
+
 #include <assert.h>
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
-
-// Max number of base64 bytes to encode a geo point.
-#define MAPSWITHME_MAX_POINT_BYTES 10
-#define MAPSWITHME_MAX_COORD_BITS (MAPSWITHME_MAX_POINT_BYTES * 3)
 
 char MapsWithMe_Base64Char(int x)
 {
@@ -94,7 +91,7 @@ size_t MapsWithMe_UrlEncodeString(char const * s, size_t size, char ** res)
 {
   size_t i;
   char * out;
-  *res = malloc(size * 3 + 1);
+  *res = (char*)malloc(size * 3 + 1);
   out = *res;
   for (i = 0; i < size; ++i)
   {

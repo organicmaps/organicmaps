@@ -27,6 +27,7 @@ omim_link_libraries(
   drape_frontend
   shaders
   map
+  api
   storage
   drape
   generator

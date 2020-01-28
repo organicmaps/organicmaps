@@ -16,6 +16,7 @@ omim_add_executable(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   map
+  api
   software_renderer
   drape_frontend
   shaders

@@ -44,6 +44,9 @@ IncludeCategories:
   - Regex:           '^"map/map_integration_tests/'
     Priority:        4763
 
+  - Regex:           '^"api/api_tests/'
+    Priority:        4765
+
   - Regex:           '^"openlr/openlr_tests/'
     Priority:        4770
 
@@ -202,6 +205,9 @@ IncludeCategories:
 
   - Regex:           '^"map/'
     Priority:        47000
+
+  - Regex:           '^"api/'
+    Priority:        47050
 
   - Regex:           '^"openlr/'
     Priority:        47100

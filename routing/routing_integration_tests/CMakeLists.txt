@@ -41,6 +41,7 @@ omim_link_libraries(
   editor_tests_support
   generator
   map
+  api
   tracking
   drape_frontend
   shaders

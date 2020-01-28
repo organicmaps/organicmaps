@@ -290,6 +290,7 @@ else()
   message(FATAL_ERROR "Cannot find python.")
 endif()
 
+add_subdirectory(api)
 add_subdirectory(base)
 add_subdirectory(coding)
 add_subdirectory(descriptions)

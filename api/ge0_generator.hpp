@@ -5,6 +5,25 @@
 extern "C" {
 #endif
 
+// Max number of base64 bytes to encode a geo point.
+#define MAPSWITHME_MAX_POINT_BYTES 10
+#define MAPSWITHME_MAX_COORD_BITS (MAPSWITHME_MAX_POINT_BYTES * 3)
+
+char MapsWithMe_Base64Char(int x);
+int MapsWithMe_LatToInt(double lat, int maxValue);
+double MapsWithMe_LonIn180180(double lon);
+int MapsWithMe_LonToInt(double lon, int maxValue);
+void MapsWithMe_LatLonToString(double lat, double lon, char * s, int nBytes);
+
+#ifdef __cplusplus
+}  // Closing brace for extern "C"
+#endif
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* @TODO: Finish URL Scheme API implementation and uncomment.
 typedef struct
 {

@@ -7,22 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3496AB901DC1F7D400C5DDBA /* api-client-test.c in Sources */ = {isa = PBXBuildFile; fileRef = 3496AB8E1DC1F71200C5DDBA /* api-client-test.c */; };
 		3496AB911DC1F7E000C5DDBA /* libapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675347171A40577A00A0A8C3 /* libapi.a */; };
-		675347271A4057A700A0A8C3 /* api-client.c in Sources */ = {isa = PBXBuildFile; fileRef = 675347251A4057A700A0A8C3 /* api-client.c */; };
-		675347281A4057A700A0A8C3 /* api-client.h in Headers */ = {isa = PBXBuildFile; fileRef = 675347261A4057A700A0A8C3 /* api-client.h */; };
-		6753472B1A4057C500A0A8C3 /* api-client-internals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6753472A1A4057C500A0A8C3 /* api-client-internals.h */; };
+		390F890623E0F1CB00476FCF /* ge0_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 390F890423E0F1CB00476FCF /* ge0_generator.hpp */; };
+		390F890723E0F1CB00476FCF /* ge0_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 390F890523E0F1CB00476FCF /* ge0_generator.cpp */; };
+		391A145723E0FC5200A448F4 /* ge0_generator_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 391A145623E0FC5200A448F4 /* ge0_generator_tests.cpp */; };
+		391A145923E0FC5C00A448F4 /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 391A145823E0FC5C00A448F4 /* testingmain.cpp */; };
+		391A145C23E0FC7F00A448F4 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A145B23E0FC7F00A448F4 /* libplatform.a */; };
+		391A145E23E0FC8400A448F4 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A145D23E0FC8400A448F4 /* libcoding.a */; };
+		391A146023E0FC8700A448F4 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A145F23E0FC8700A448F4 /* libbase.a */; };
+		391A146223E0FC8B00A448F4 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A146123E0FC8B00A448F4 /* liboauthcpp.a */; };
+		391A146423E0FC9200A448F4 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A146323E0FC9200A448F4 /* libalohalitics.a */; };
+		391A146623E0FC9A00A448F4 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A146523E0FC9A00A448F4 /* libz.tbd */; };
+		391A146823E0FC9E00A448F4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A146723E0FC9E00A448F4 /* Security.framework */; };
+		391A146A23E0FCB700A448F4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A146923E0FCB700A448F4 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		34763F471DBE28F800D370CF /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34763F481DBE28F800D370CF /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		3496AB761DC1F6CD00C5DDBA /* api_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = api_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3496AB8E1DC1F71200C5DDBA /* api-client-test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "api-client-test.c"; sourceTree = "<group>"; };
+		390F890423E0F1CB00476FCF /* ge0_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ge0_generator.hpp; path = ../../api/ge0_generator.hpp; sourceTree = "<group>"; };
+		390F890523E0F1CB00476FCF /* ge0_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ge0_generator.cpp; path = ../../api/ge0_generator.cpp; sourceTree = "<group>"; };
+		391A145623E0FC5200A448F4 /* ge0_generator_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ge0_generator_tests.cpp; path = ../../../api/api_tests/ge0_generator_tests.cpp; sourceTree = "<group>"; };
+		391A145823E0FC5C00A448F4 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		391A145B23E0FC7F00A448F4 /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		391A145D23E0FC8400A448F4 /* libcoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		391A145F23E0FC8700A448F4 /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		391A146123E0FC8B00A448F4 /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		391A146323E0FC9200A448F4 /* libalohalitics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libalohalitics.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		391A146523E0FC9A00A448F4 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		391A146723E0FC9E00A448F4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		391A146923E0FCB700A448F4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		675347171A40577A00A0A8C3 /* libapi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libapi.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		675347251A4057A700A0A8C3 /* api-client.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "api-client.c"; path = "src/c/api-client.c"; sourceTree = "<group>"; };
-		675347261A4057A700A0A8C3 /* api-client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "api-client.h"; path = "src/c/api-client.h"; sourceTree = "<group>"; };
-		6753472A1A4057C500A0A8C3 /* api-client-internals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "api-client-internals.h"; path = "c/api-client-internals.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +46,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				391A146A23E0FCB700A448F4 /* CoreLocation.framework in Frameworks */,
+				391A146823E0FC9E00A448F4 /* Security.framework in Frameworks */,
+				391A146623E0FC9A00A448F4 /* libz.tbd in Frameworks */,
+				391A146423E0FC9200A448F4 /* libalohalitics.a in Frameworks */,
+				391A146223E0FC8B00A448F4 /* liboauthcpp.a in Frameworks */,
+				391A146023E0FC8700A448F4 /* libbase.a in Frameworks */,
+				391A145E23E0FC8400A448F4 /* libcoding.a in Frameworks */,
+				391A145C23E0FC7F00A448F4 /* libplatform.a in Frameworks */,
 				3496AB911DC1F7E000C5DDBA /* libapi.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -44,23 +68,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3496AB8D1DC1F6E400C5DDBA /* api_tests */ = {
+		391A145523E0FC4100A448F4 /* api_tests */ = {
 			isa = PBXGroup;
 			children = (
-				3496AB8E1DC1F71200C5DDBA /* api-client-test.c */,
+				391A145823E0FC5C00A448F4 /* testingmain.cpp */,
+				391A145623E0FC5200A448F4 /* ge0_generator_tests.cpp */,
 			);
-			name = api_tests;
-			path = ../../api/tests/c;
+			path = api_tests;
+			sourceTree = "<group>";
+		};
+		391A145A23E0FC7F00A448F4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				391A146923E0FCB700A448F4 /* CoreLocation.framework */,
+				391A146723E0FC9E00A448F4 /* Security.framework */,
+				391A146523E0FC9A00A448F4 /* libz.tbd */,
+				391A146323E0FC9200A448F4 /* libalohalitics.a */,
+				391A146123E0FC8B00A448F4 /* liboauthcpp.a */,
+				391A145F23E0FC8700A448F4 /* libbase.a */,
+				391A145D23E0FC8400A448F4 /* libcoding.a */,
+				391A145B23E0FC7F00A448F4 /* libplatform.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		6753470E1A40577A00A0A8C3 = {
 			isa = PBXGroup;
 			children = (
+				391A145523E0FC4100A448F4 /* api_tests */,
+				390F890523E0F1CB00476FCF /* ge0_generator.cpp */,
+				390F890423E0F1CB00476FCF /* ge0_generator.hpp */,
 				34763F471DBE28F800D370CF /* common-debug.xcconfig */,
 				34763F481DBE28F800D370CF /* common-release.xcconfig */,
-				3496AB8D1DC1F6E400C5DDBA /* api_tests */,
-				675347191A40577A00A0A8C3 /* api */,
 				675347181A40577A00A0A8C3 /* Products */,
+				391A145A23E0FC7F00A448F4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,25 +114,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		675347191A40577A00A0A8C3 /* api */ = {
-			isa = PBXGroup;
-			children = (
-				675347291A4057AB00A0A8C3 /* internal */,
-				675347251A4057A700A0A8C3 /* api-client.c */,
-				675347261A4057A700A0A8C3 /* api-client.h */,
-			);
-			name = api;
-			path = ../../api;
-			sourceTree = "<group>";
-		};
-		675347291A4057AB00A0A8C3 /* internal */ = {
-			isa = PBXGroup;
-			children = (
-				6753472A1A4057C500A0A8C3 /* api-client-internals.h */,
-			);
-			path = internal;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -99,8 +121,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				675347281A4057A700A0A8C3 /* api-client.h in Headers */,
-				6753472B1A4057C500A0A8C3 /* api-client-internals.h in Headers */,
+				390F890623E0F1CB00476FCF /* ge0_generator.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,6 +185,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -193,7 +215,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3496AB901DC1F7D400C5DDBA /* api-client-test.c in Sources */,
+				391A145723E0FC5200A448F4 /* ge0_generator_tests.cpp in Sources */,
+				391A145923E0FC5C00A448F4 /* testingmain.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				675347271A4057A700A0A8C3 /* api-client.c in Sources */,
+				390F890723E0F1CB00476FCF /* ge0_generator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -721,8 +721,8 @@ public:
                               double bearing, double speed, double elapsedSeconds);
 
 public:
-  std::string CodeGe0url(Bookmark const * bmk, bool addName);
-  std::string CodeGe0url(double lat, double lon, double zoomLevel, std::string const & name);
+  static std::string CodeGe0url(Bookmark const * bmk, bool addName);
+  static std::string CodeGe0url(double lat, double lon, double zoomLevel, std::string const & name);
 
   /// @name Api
   std::string GenerateApiBackUrl(ApiMarkPoint const & point) const;

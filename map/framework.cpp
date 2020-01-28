@@ -96,6 +96,8 @@
 #include "partners_api/opentable_api.hpp"
 #include "partners_api/partners.hpp"
 
+#include "api/ge0_generator.hpp"
+
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
@@ -103,9 +105,6 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
-
-#include "api/internal/c/api-client-internals.h"
-#include "api/src/c/api-client.h"
 
 #include <algorithm>
 #include <sstream>
@@ -2657,6 +2656,7 @@ StringsBundle const & Framework::GetStringsBundle()
   return m_stringsBundle;
 }
 
+// static
 string Framework::CodeGe0url(Bookmark const * bmk, bool addName)
 {
   double lat = mercator::YToLat(bmk->GetPivot().y);
@@ -2664,6 +2664,7 @@ string Framework::CodeGe0url(Bookmark const * bmk, bool addName)
   return CodeGe0url(lat, lon, bmk->GetScale(), addName ? bmk->GetPreferredName() : "");
 }
 
+// static
 string Framework::CodeGe0url(double lat, double lon, double zoomLevel, string const & name)
 {
   size_t const resultSize = MapsWithMe_GetMaxBufferSize(static_cast<int>(name.size()));
