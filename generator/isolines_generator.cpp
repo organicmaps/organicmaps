@@ -9,19 +9,30 @@ namespace generator
 {
 namespace
 {
+static std::vector<int> const kAltClasses = {1000, 500, 100, 50, 10};
+static std::vector<int> const kNamedAltClasses = {1000, 500, 100, 50};
+static std::string const kTypePrefix = "step_";
+
 std::string GetIsolineType(topography_generator::Altitude altitude)
 {
-  static std::vector<int> const altClasses = {1000, 500, 100, 50, 10};
-  ASSERT(std::is_sorted(altClasses.cbegin(), altClasses.cend(), std::greater<int>()), ());
-
-  std::string const kPrefix = "step_";
+  ASSERT(std::is_sorted(kAltClasses.cbegin(), kAltClasses.cend(), std::greater<int>()), ());
   if (altitude == 0)
-    return kPrefix + strings::to_string(altClasses.back());
+    return kTypePrefix + strings::to_string(kAltClasses.back());
 
-  for (auto altStep : altClasses)
+  for (auto altStep : kAltClasses)
   {
     if (altitude % altStep == 0)
-      return kPrefix + strings::to_string(altStep);
+      return kTypePrefix + strings::to_string(altStep);
+  }
+  return "";
+}
+
+std::string GetIsolineName(topography_generator::Altitude altitude)
+{
+  for (auto altStep : kNamedAltClasses)
+  {
+    if (altitude % altStep == 0)
+      return strings::to_string(altitude);
   }
   return "";
 }
@@ -43,7 +54,7 @@ void IsolineFeaturesGenerator::GenerateIsolines(std::string const & countryName,
   for (auto const & levelIsolines : countryIsolines.m_contours)
   {
     auto const altitude = levelIsolines.first;
-    auto const isolineName = strings::to_string(altitude);
+    auto const isolineName = GetIsolineName(altitude);
     auto const isolineType = GetIsolineType(altitude);
     if (isolineType.empty())
     {
@@ -60,7 +71,8 @@ void IsolineFeaturesGenerator::GenerateIsolines(std::string const & countryName,
         fb.AddPoint(pt);
 
       fb.AddType(type);
-      fb.AddName("default", isolineName);
+      if (!isolineName.empty())
+        fb.AddName("default", isolineName);
       fbs.emplace_back(std::move(fb));
     }
   }
