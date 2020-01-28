@@ -886,7 +886,7 @@ public enum Statistics
   {
     if (mEnabled)
     {
-      AppEventsLogger.activateApp(activity);
+      AppEventsLogger.activateApp(activity.getApplication());
       org.alohalytics.Statistics.onStart(activity);
     }
 
@@ -897,7 +897,6 @@ public enum Statistics
   {
     if (mEnabled)
     {
-      AppEventsLogger.deactivateApp(activity);
       org.alohalytics.Statistics.onStop(activity);
     }
     mMediator.getEventLogger().stopActivity(activity);
