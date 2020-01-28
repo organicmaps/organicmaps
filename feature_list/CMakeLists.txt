@@ -19,6 +19,7 @@ omim_link_libraries(
   kml
   editor
   indexer
+  ge0
   platform
   mwm_diff
   bsdiff

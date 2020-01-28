@@ -1,17 +1,19 @@
 #include "testing/testing.hpp"
 
-#include "search/cities_boundaries_table.hpp"
-#include "search/features_layer_path_finder.hpp"
-#include "search/retrieval.hpp"
+#include "generator/generator_tests_support/test_feature.hpp"
+#include "generator/generator_tests_support/test_mwm_builder.hpp"
+
+#include "generator/feature_builder.hpp"
+
 #include "search/search_tests_support/helpers.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
+
+#include "search/cities_boundaries_table.hpp"
+#include "search/features_layer_path_finder.hpp"
+#include "search/retrieval.hpp"
 #include "search/token_range.hpp"
 #include "search/token_slice.hpp"
-
-#include "generator/feature_builder.hpp"
-#include "generator/generator_tests_support/test_feature.hpp"
-#include "generator/generator_tests_support/test_mwm_builder.hpp"
 
 #include "editor/editable_data_source.hpp"
 
@@ -31,6 +33,7 @@
 
 #include <cstdint>
 #include <string>
+#include <tuple>
 #include <vector>
 
 using namespace feature;
@@ -959,17 +962,62 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
 
 UNIT_CLASS_TEST(ProcessorTest, TestCoords)
 {
-  auto request = MakeRequest("51.681644 39.183481");
-  auto const & results = request->Results();
-  TEST_EQUAL(results.size(), 1, ());
+  vector<tuple<string, double, double>> tests = {
+      {"51.681644 39.183481", 51.681644, 39.183481},
 
-  auto const & result = results[0];
-  TEST_EQUAL(result.GetResultType(), Result::Type::LatLon, ());
-  TEST(result.HasPoint(), ());
+      {"https://maps.apple.com/maps?ll=30.3345,-81.6648&q=30.3345,-81.6648", 30.3345, -81.6648},
+      {"https://maps.apple.com/maps?ll=30.3345,-81.6648&q=10.0,10.0", 30.3345, -81.6648},
+      {"https://maps.apple.com/maps?q=10.0,10.0&ll=30.3345,-81.6648", 30.3345, -81.6648},
+      {"https://maps.apple.com/maps?q=10.0,10.0&ll=10.0,10.0", 10.0, 10.0},
 
-  m2::PointD const expected = mercator::FromLatLon(51.681644, 39.183481);
-  auto const actual = result.GetFeatureCenter();
-  TEST(mercator::DistanceOnEarth(expected, actual) <= 1.0, ());
+      // The first pair of coordinates in this URL belongs to the selected feature but is harder to
+      // parse. The second pair (in "m=") is the viewport center.
+      {"https://2gis.ru/moscow/geo/4504338361754075/"
+       "37.326747%2C55.481637?m=37.371024%2C55.523592%2F9.69",
+       55.523592, 37.371024},
+      {"https://2gis.com.cy/cyprus?m=32.441559%2C34.767296%2F14.58", 34.767296, 32.441559},
+      {"https://2gis.com.cy/cyprus/geo/70030076127247109/"
+       "32.431259%2C34.771945?m=32.433265%2C34.770793%2F17.21",
+       34.770793, 32.433265},
+
+      {"https://yandex.ru/maps/?ll=158.828916%2C52.931098&z=9.1", 52.931098, 158.828916},
+      {"https://yandex.ru/maps/78/petropavlovsk/?ll=158.657810%2C53.024529&z=12.99", 53.024529,
+       158.657810},
+      {"https://yandex.ru/maps/78/petropavlovsk/"
+       "?ll=158.643359%2C53.018729&mode=whatshere&whatshere%5Bpoint%5D=158.643270%2C53.021174&"
+       "whatshere%5Bzoom%5D=16.07&z=15.65",
+       53.018729, 158.643359},
+      {"https://yandex.com.tr/harita/115707/fatih/?ll=28.967470%2C41.008857&z=10", 41.008857,
+       28.967470},
+
+      {"http://ge0.me/kyuh76X_vf/Borgo_Maggiore", 43.941187, 12.447423},
+      {"ge0://kyuh76X_vf/Borgo_Maggiore", 43.941187, 12.447423},
+      {"Check out Ospedale di Stato My Places • Hospital "
+       "http://ge0.me/syujRR7Xgi/Ospedale_di_Stato ge0://syujRR7Xgi/Ospedale_di_Stato",
+       43.950255, 12.455579},
+
+      {"https://en.mapy.cz/zakladni?x=37.5516243&y=55.7638088&z=12", 55.7638088, 37.5516243},
+      {"https://en.mapy.cz/"
+       "turisticka?moje-mapy&x=37.6575394&y=55.7253036&z=13&m3d=1&height=10605&yaw=0&pitch=-90&l=0&"
+       "cat=mista-trasy",
+       55.7253036, 37.6575394},
+  };
+
+  for (auto const & [query, lat, lon] : tests)
+  {
+    auto request = MakeRequest(query);
+    auto const & results = request->Results();
+    TEST_EQUAL(results.size(), 1, ());
+
+    auto const & result = results[0];
+    TEST_EQUAL(result.GetResultType(), Result::Type::LatLon, ());
+    TEST(result.HasPoint(), ());
+
+    m2::PointD const expected = mercator::FromLatLon(lat, lon);
+    auto const actual = result.GetFeatureCenter();
+    auto const dist = mercator::DistanceOnEarth(actual, expected);
+    TEST(dist <= 1.0, (actual, expected, dist));
+  }
 }
 
 UNIT_CLASS_TEST(ProcessorTest, HotelsFiltering)

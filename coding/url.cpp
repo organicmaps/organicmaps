@@ -4,12 +4,14 @@
 
 #include "geometry/mercator.hpp"
 
-#include <cstddef>
-#include <sstream>
-#include <regex>
-
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
+
+#include <algorithm>
+#include <cstddef>
+#include <regex>
+#include <sstream>
+#include <vector>
 
 using namespace std;
 
@@ -27,57 +29,59 @@ double const kMaxZoom = 17.0;
 class LatLonParser
 {
 public:
-  explicit LatLonParser(url::GeoURLInfo & info)
+  LatLonParser(url::Url const & url, url::GeoURLInfo & info)
     : m_info(info)
+    , m_url(url)
     , m_regexp("-?\\d+\\.{1}\\d*, *-?\\d+\\.{1}\\d*")
     , m_latPriority(-1)
     , m_lonPriority(-1)
   {
   }
 
+  url::Url const & GetUrl() const { return m_url; }
+
   bool IsValid() const
   {
     return m_latPriority == m_lonPriority && m_latPriority != -1;
   }
 
-  bool operator()(url::Param const & param)
+  void operator()(url::Param const & param)
   {
     if (param.m_name == "z" || param.m_name == "zoom")
     {
       double x;
       if (strings::to_double(param.m_value, x))
         m_info.SetZoom(x);
-      return true;
+      return;
     }
 
     int const priority = GetCoordinatesPriority(param.m_name);
     if (priority == -1 || priority < m_latPriority || priority < m_lonPriority)
-      return false;
+      return;
 
-    if (priority != kLatLonPriority)
+    if (priority != kXYPriority && priority != kLatLonPriority)
     {
       strings::ForEachMatched(param.m_value, m_regexp, AssignCoordinates(*this, priority));
-      return true;
+      return;
     }
 
     double x;
     if (strings::to_double(param.m_value, x))
     {
-      if (param.m_name == "lat")
+      if (param.m_name == "lat" || param.m_name == "y")
       {
         if (!m_info.SetLat(x))
-          return false;
+          return;
         m_latPriority = priority;
       }
       else
       {
-        ASSERT_EQUAL(param.m_name, "lon", ());
+        ASSERT(param.m_name == "lon" || param.m_name == "x", (param.m_name));
         if (!m_info.SetLon(x))
-          return false;
+          return;
         m_lonPriority = priority;
       }
     }
-    return true;
   }
 
 private:
@@ -103,10 +107,25 @@ private:
         return;
       VERIFY(strings::to_double(token.substr(n, token.size() - n), lon), ());
 
+      SwapIfNeeded(lat, lon);
+
       if (m_parser.m_info.SetLat(lat) && m_parser.m_info.SetLon(lon))
       {
         m_parser.m_latPriority = m_priority;
         m_parser.m_lonPriority = m_priority;
+      }
+    }
+
+    void SwapIfNeeded(double & lat, double & lon) const
+    {
+      vector<string> const kSwappingProviders = {"2gis", "yandex"};
+      for (auto const & s : kSwappingProviders)
+      {
+        if (m_parser.GetUrl().GetPath().find(s) != string::npos)
+        {
+          swap(lat, lon);
+          break;
+        }
       }
     }
 
@@ -115,7 +134,12 @@ private:
     int m_priority;
   };
 
-  inline static int const kLatLonPriority = 5;
+  // Usually (lat, lon), but some providers use (lon, lat).
+  inline static int const kLLPriority = 5;
+  // We do not try to guess the projection and do not interpret (x, y)
+  // as Mercator coordinates in URLs. We simply use (y, x) for (lat, lon).
+  inline static int const kXYPriority = 6;
+  inline static int const kLatLonPriority = 7;
 
   // Priority for accepting coordinates if we have many choices.
   // -1 - not initialized
@@ -125,21 +149,26 @@ private:
   {
     if (token.empty())
       return 0;
-    else if (token == "q")
+    if (token == "q" || token == "m")
       return 1;
-    else if (token == "daddr")
+    if (token == "saddr" || token == "daddr")
       return 2;
-    else if (token == "point")
+    if (token == "sll")
       return 3;
-    else if (token == "ll")
+    if (token.find("point") != string::npos)
       return 4;
-    else if (token == "lat" || token == "lon")
+    if (token == "ll")
+      return kLLPriority;
+    if (token == "x" || token == "y")
+      return kXYPriority;
+    if (token == "lat" || token == "lon")
       return kLatLonPriority;
 
     return -1;
   }
 
   url::GeoURLInfo & m_info;
+  url::Url const & m_url;
   regex m_regexp;
   int m_latPriority;
   int m_lonPriority;
@@ -323,7 +352,7 @@ GeoURLInfo::GeoURLInfo(string const & s)
     return;
   }
 
-  LatLonParser parser(*this);
+  LatLonParser parser(url, *this);
   parser(url::Param(string(), url.GetPath()));
   url.ForEachParam(ref(parser));
 
