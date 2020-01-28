@@ -46,6 +46,9 @@ area[amenity=grave_yard],
 node[amenity=grave_yard],
 {z-index: 800;}
 
+line[isoline],
+{z-index: 801;}
+
 node[place=continent]
 {z-index: 999;}
 
@@ -720,3 +723,21 @@ area|z15[aeroway=terminal]
 { text: name; font-size: 9; fill-opacity: 0.8; text-color: @building_label; text-position: center;}
 area|z16-[aeroway=terminal]
 {text: name; font-size: 9; fill-opacity: 1; text-color: @building_label; text-position: center;}
+
+/* 9. ISOLINES */
+
+line[isoline]
+{text-position: line;}
+
+line|z11-[isoline=step_1000],
+{text:name;font-size: 7;fill-opacity: 0.5;text-color: @label_isoline1000;}
+
+line|z12-[isoline=step_500],
+{text:name;font-size: 7;fill-opacity: 0.5;text-color: @label_isoline500;}
+
+line|z15-[isoline=step_100],
+{text:name;font-size: 7;fill-opacity: 0.7;text-color: @label_isoline100;}
+
+line|z17-[isoline=step_50],
+line|z17-[isoline=zero],
+{text:name;font-size: 7;fill-opacity: 0.6;text-color: @label_isoline50;}

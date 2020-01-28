@@ -83,14 +83,22 @@ area[landuse=village_green],
 area[landuse=field],
 {z-index: 41;}
 
+line[isoline=step_1000],
+line[isoline=step_500],
+line[isoline=step_100],
+line[isoline=step_50],
+line[isoline=step_10],
+line[isoline=zero],
+{z-index: 42;}
+
 area[natural=wetland],
 area[leisure=marina],
 line[waterway=stream][intermittent=yes]
-{z-index: 42;}
+{z-index: 43;}
 
 area[landuse=cemetery],
 area[amenity=grave_yard]
-{z-index: 43;}
+{z-index: 44;}
 
 area[highway=pedestrian][area?],
 area[area:highway=pedestrian],
@@ -99,13 +107,13 @@ area[area:highway=footway],
 area[area:highway=living_street],
 area[public_transport=platform],
 area[railway=platform]
-{z-index: 44;}
+{z-index: 45;}
 
 area[landuse=grass],
 area[natural=grassland],
 area[leisure=golf_course],
 area[natural=heath]
-{z-index: 45;}
+{z-index: 46;}
 
 line[waterway=river],
 line[waterway=riverbank],
@@ -637,3 +645,54 @@ line|z18-[barrier=fence],
 line|z18-[barrier=hedge],
 line|z18-[historic=citywalls],
 {width: 1.4;dashes: 0.3,0.3;}
+
+/* 9. ISOLINES */
+
+line|z11-[isoline=step_1000],
+{color: @isoline1000;}
+line|z11-[isoline=step_500],
+{color: @isoline500;}
+
+line|z12-[isoline=step_100],
+{color: @isoline100;}
+
+line|z15-[isoline=step_50],
+line|z15-[isoline=zero],
+{color: @isoline50;}
+
+line|z17-[isoline=step_10],
+{color: @isoline10;}
+
+line|z11-[isoline=step_1000],
+{width: 1.0;opacity: 0.5;}
+line|z11[isoline=step_500],
+{width: 0.5;opacity: 0.3;}
+
+line|z12[isoline=step_500],
+{width: 0.5;opacity: 0.5;}
+line|z12-13[isoline=step_100],
+{width: 0.5;opacity: 0.3;}
+
+line|z13-[isoline=step_500],
+{width: 1.0;opacity: 0.5;}
+
+line|z14-16[isoline=step_100],
+{width: 0.5;opacity: 0.5;}
+
+line|z15-16[isoline=step_50],
+line|z15-16[isoline=zero],
+{width: 0.5;opacity: 0.35;}
+
+line|z17-[isoline=step_100],
+{width: 1.0;opacity: 0.5;}
+line|z17[isoline=step_50],
+line|z17[isoline=zero],
+{width: 0.5;opacity: 0.5;}
+line|z17[isoline=step_10],
+{width: 0.5;opacity: 0.35;}
+
+line|z18-[isoline=step_50],
+line|z18-[isoline=zero],
+{width: 1.0;opacity: 0.5;}
+line|z18-[isoline=step_10],
+{width: 0.5;opacity: 0.5;}
