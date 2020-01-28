@@ -2,7 +2,7 @@
 
 #include "partners_api/booking_params_base.hpp"
 
-#include "base/url_helpers.hpp"
+#include "coding/url_helpers.hpp"
 
 #include <string>
 #include <vector>
@@ -15,7 +15,7 @@ struct BlockParams : public ParamsBase
 
   static BlockParams MakeDefault();
 
-  base::url::Params Get() const;
+  coding::url::Params Get() const;
 
   // ParamsBase overrides:
   bool IsEmpty() const override;

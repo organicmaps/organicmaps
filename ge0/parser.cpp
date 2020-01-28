@@ -4,7 +4,7 @@
 
 #include "geometry/mercator.hpp"
 
-#include "coding/url_encode.hpp"
+#include "coding/url_helpers.hpp"
 
 #include "base/math.hpp"
 #include "base/string_utils.hpp"
@@ -111,7 +111,7 @@ double Ge0Parser::DecodeLonFromInt(int const lon, int const maxValue)
 string Ge0Parser::DecodeName(string name)
 {
   ValidateName(name);
-  name = UrlDecode(name);
+  name = coding::url::UrlDecode(name);
   SpacesToUnderscore(name);
   return name;
 }

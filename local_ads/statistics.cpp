@@ -8,7 +8,7 @@
 
 #include "coding/file_writer.hpp"
 #include "coding/point_coding.hpp"
-#include "coding/url_encode.hpp"
+#include "coding/url_helpers.hpp"
 #include "coding/write_to_sink.hpp"
 #include "coding/zlib.hpp"
 
@@ -183,9 +183,9 @@ std::string MakeRemoteURL(std::string const & userId, std::string const & name, 
 
   std::ostringstream ss;
   ss << kStatisticsServer << "/";
-  ss << UrlEncode(userId) << "/";
+  ss << coding::url::UrlEncode(userId) << "/";
   ss << version << "/";
-  ss << UrlEncode(name);
+  ss << coding::url::UrlEncode(name);
   return ss.str();
 }
   

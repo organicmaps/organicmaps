@@ -12,12 +12,10 @@
 
 #include "coding/internal/file_data.hpp"
 #include "coding/reader_streambuf.hpp"
-#include "coding/url_encode.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
-#include "base/url_helpers.hpp"
 
 #include "com/mapswithme/core/jni_helper.hpp"
 

@@ -59,8 +59,6 @@ set(
   framework_light.cpp
   framework_light.hpp
   framework_light_delegate.hpp
-  geourl_process.cpp
-  geourl_process.hpp
   gps_track_collection.cpp
   gps_track_collection.hpp
   gps_track_filter.cpp

@@ -98,8 +98,6 @@ set(
   timer.hpp
   uni_string_dfa.cpp
   uni_string_dfa.hpp
-  url_helpers.cpp
-  url_helpers.hpp
   visitor.hpp
 )
 

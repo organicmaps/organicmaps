@@ -6,7 +6,7 @@
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
 
-#include "coding/url_encode.hpp"
+#include "coding/url_helpers.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
@@ -196,10 +196,10 @@ void MakeProducts(std::string const & src, Object const & from, Object const & t
                 << "&title2=" << to.m_title << "&ob2=" << to.m_id
                 << "&h2=" << to.m_house << "&e1=";
 #else
-  productStream << "city=" << city.m_id << "&title1=" << UrlEncode(from.m_title)
-                << "&ob1=" << from.m_id << "&h1=" << UrlEncode(from.m_house)
-                << "&title2=" << UrlEncode(to.m_title) << "&ob2=" << to.m_id
-                << "&h2=" << UrlEncode(to.m_house) << "&e1=";
+  productStream << "city=" << city.m_id << "&title1=" << coding::url::UrlEncode(from.m_title)
+                << "&ob1=" << from.m_id << "&h1=" << coding::url::UrlEncode(from.m_house)
+                << "&title2=" << coding::url::UrlEncode(to.m_title) << "&ob2=" << to.m_id
+                << "&h2=" << coding::url::UrlEncode(to.m_house) << "&e1=";
 #endif
 
   taxi::Product product;

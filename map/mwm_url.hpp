@@ -9,6 +9,11 @@
 class ApiMarkPoint;
 class BookmarkManager;
 
+namespace coding::url
+{
+class Uri;
+}
+
 namespace url_scheme
 {
 struct ApiPoint
@@ -58,8 +63,6 @@ namespace lead
 struct CampaignDescription;
 }
 
-class Uri;
-
 /// Handles [mapswithme|mwm|mapsme]://map|route|search?params - everything related to displaying info on a map
 class ParsedMapApi
 {
@@ -98,7 +101,7 @@ public:
   CatalogPath const & GetCatalogPath() const { return m_catalogPath; }
   Subscription const & GetSubscription() const { return m_subscription; }
 private:
-  ParsingResult Parse(Uri const & uri);
+  ParsingResult Parse(coding::url::Uri const & uri);
   bool AddKeyValue(std::string const & key, std::string const & value, std::vector<ApiPoint> & points);
   bool RouteKeyValue(std::string const & key, std::string const & value, std::vector<std::string> & pattern);
   bool SearchKeyValue(std::string const & key, std::string const & value, SearchRequest & request) const;

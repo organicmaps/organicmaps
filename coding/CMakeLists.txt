@@ -85,9 +85,8 @@ set(
   traffic.hpp
   transliteration.cpp
   transliteration.hpp
-  uri.cpp
-  uri.hpp
-  url_encode.hpp
+  url_helpers.cpp
+  url_helpers.hpp
   value_opt_string.hpp
   var_record_reader.hpp
   var_serial_vector.hpp

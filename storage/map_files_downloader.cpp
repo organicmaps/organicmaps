@@ -6,11 +6,10 @@
 #include "platform/platform.hpp"
 #include "platform/servers_list.hpp"
 
-#include "coding/url_encode.hpp"
+#include "coding/url_helpers.hpp"
 
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
-#include "base/url_helpers.hpp"
 
 namespace storage
 {
@@ -65,8 +64,8 @@ void MapFilesDownloader::UnsubscribeAll()
 std::string MapFilesDownloader::MakeFullUrlLegacy(std::string const & baseUrl,
                                                   std::string const & fileName, int64_t dataVersion)
 {
-  return base::url::Join(baseUrl, OMIM_OS_NAME, strings::to_string(dataVersion),
-                         UrlEncode(fileName));
+  return coding::url::Join(baseUrl, OMIM_OS_NAME, strings::to_string(dataVersion),
+                           coding::url::UrlEncode(fileName));
 }
 
 void MapFilesDownloader::SetServersList(ServersList const & serversList)
@@ -89,7 +88,7 @@ std::vector<std::string> MapFilesDownloader::MakeUrlList(std::string const & rel
   std::vector<std::string> urls;
   urls.reserve(m_serversList.size());
   for (auto const & server : m_serversList)
-    urls.emplace_back(base::url::Join(server, relativeUrl));
+    urls.emplace_back(coding::url::Join(server, relativeUrl));
 
   return urls;
 }

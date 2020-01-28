@@ -11,7 +11,7 @@
 #include "platform/marketing_service.hpp"
 #include "platform/settings.hpp"
 
-#include "coding/uri.hpp"
+#include "coding/url_helpers.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
@@ -127,7 +127,7 @@ enum class ApiURLType
 
 std::array<std::string, 3> const kAvailableSchemes = {{"mapswithme", "mwm", "mapsme"}};
 
-ApiURLType URLType(Uri const & uri)
+ApiURLType URLType(coding::url::Uri const & uri)
 {
   if (std::find(kAvailableSchemes.begin(), kAvailableSchemes.end(), uri.GetScheme()) == kAvailableSchemes.end())
     return ApiURLType::Incorrect;
@@ -191,12 +191,12 @@ ParsedMapApi::ParsingResult ParsedMapApi::SetUriAndParse(string const & url)
     return ParsingResult::Incorrect;
   }
 
-  ParsingResult const res = Parse(url_scheme::Uri(url));
+  ParsingResult const res = Parse(coding::url::Uri(url));
   m_isValid = res != ParsingResult::Incorrect;
   return res;
 }
 
-ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
+ParsedMapApi::ParsingResult ParsedMapApi::Parse(coding::url::Uri const & uri)
 {
   switch (URLType(uri))
   {

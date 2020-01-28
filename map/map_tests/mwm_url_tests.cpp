@@ -9,7 +9,7 @@
 #include "platform/settings.hpp"
 
 #include "coding/internal/file_data.hpp"
-#include "coding/uri.hpp"
+#include "coding/url_helpers.hpp"
 
 #include "base/macros.hpp"
 #include "base/string_format.hpp"
@@ -123,7 +123,7 @@ bool IsValid(Framework & fm, string const & uriString)
 UNIT_TEST(MapApiSmoke)
 {
   string uriString = "mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name";
-  TEST(Uri(uriString).IsValid(), ());
+  TEST(coding::url::Uri(uriString).IsValid(), ());
 
   ApiTest test(uriString);
 
@@ -139,7 +139,7 @@ UNIT_TEST(RouteApiSmoke)
 {
   string const uriString =
       "mapswithme://route?sll=1,1&saddr=name0&dll=2,2&daddr=name1&type=vehicle";
-  TEST(Uri(uriString).IsValid(), ());
+  TEST(coding::url::Uri(uriString).IsValid(), ());
 
   ApiTest test(uriString);
   TEST(test.IsValid(), ());
@@ -151,7 +151,7 @@ UNIT_TEST(RouteApiSmoke)
 UNIT_TEST(CatalogueApiSmoke)
 {
   string const uriString = "mapsme://catalogue?id=440f02e5-ff38-45ed-95c0-44587c9a5fc7&name=CatalogGroupName";
-  TEST(Uri(uriString).IsValid(), ());
+  TEST(coding::url::Uri(uriString).IsValid(), ());
 
   ApiTest test(uriString);
   TEST(test.IsValid(), ());
@@ -177,7 +177,7 @@ UNIT_TEST(CatalogueApiInvalidUrl)
 UNIT_TEST(SearchApiSmoke)
 {
   string const uriString = "mapsme://search?query=fff&cll=1,1&locale=ru&map";
-  TEST(Uri(uriString).IsValid(), ());
+  TEST(coding::url::Uri(uriString).IsValid(), ());
 
   ApiTest test(uriString);
   TEST(test.IsValid(), ());
@@ -209,7 +209,7 @@ UNIT_TEST(LeadApiSmoke)
   });
 
   string const uriString = "mapsme://lead?utm_source=a&utm_medium=b&utm_campaign=c&utm_content=d&utm_term=e";
-  TEST(Uri(uriString).IsValid(), ());
+  TEST(coding::url::Uri(uriString).IsValid(), ());
   ApiTest test(uriString);
   TEST(test.IsValid(), ());
 

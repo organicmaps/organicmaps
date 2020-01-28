@@ -1,7 +1,7 @@
 #include "map/bookmark.hpp"
 #include "map/bookmark_helpers.hpp"
 
-#include "coding/url_encode.hpp"
+#include "coding/url_helpers.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -360,7 +360,7 @@ std::string BookmarkCategory::GetCatalogDeeplink() const
     return {};
 
   std::ostringstream ss;
-  ss << kDeepLinkUrl << "catalogue?id=" << m_serverId << "&name=" << UrlEncode(GetName());
+  ss << kDeepLinkUrl << "catalogue?id=" << m_serverId << "&name=" << coding::url::UrlEncode(GetName());
   return ss.str();
 }
 

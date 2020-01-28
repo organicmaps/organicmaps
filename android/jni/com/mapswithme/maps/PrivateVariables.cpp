@@ -2,7 +2,7 @@
 
 #include "android/jni/com/mapswithme/core/jni_helper.hpp"
 
-#include "base/url_helpers.hpp"
+#include "coding/url_helpers.hpp"
 
 #include <jni.h>
 
@@ -19,7 +19,7 @@ extern "C"
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_PrivateVariables_alohalyticsRealtimeUrl(JNIEnv * env, jclass clazz)
   {
-    return env->NewStringUTF(base::url::Join(ALOHALYTICS_URL, "realtime").c_str());
+    return env->NewStringUTF(coding::url::Join(ALOHALYTICS_URL, "realtime").c_str());
   }
 
   JNIEXPORT jstring JNICALL

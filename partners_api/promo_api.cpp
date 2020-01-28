@@ -5,9 +5,10 @@
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
+#include "coding/url_helpers.hpp"
+
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
-#include "base/url_helpers.hpp"
 
 #include <algorithm>
 #include <chrono>
@@ -61,7 +62,7 @@ void ParseCityGallery(std::string const & src, UTM utm, std::string const & utmT
     auto const obj = json_array_get(dataArray, i);
     FromJSONObject(obj, "name", item.m_name);
     FromJSONObject(obj, "url", item.m_url);
-    item.m_url = InjectUTM(url::Join(BOOKMARKS_CATALOG_FRONT_URL, item.m_url), utm);
+    item.m_url = InjectUTM(coding::url::Join(BOOKMARKS_CATALOG_FRONT_URL, item.m_url), utm);
     if (!utmTerm.empty())
       item.m_url = InjectUTMTerm(item.m_url, utmTerm);
 
@@ -93,7 +94,7 @@ void ParseCityGallery(std::string const & src, UTM utm, std::string const & utmT
 
   auto const meta = json_object_get(root.get(), "meta");
   FromJSONObjectOptionalField(meta, "more", result.m_moreUrl);
-  result.m_moreUrl = InjectUTM(url::Join(BOOKMARKS_CATALOG_FRONT_URL, result.m_moreUrl), utm);
+  result.m_moreUrl = InjectUTM(coding::url::Join(BOOKMARKS_CATALOG_FRONT_URL, result.m_moreUrl), utm);
   if (!utmTerm.empty())
     result.m_moreUrl = InjectUTMTerm(result.m_moreUrl, utmTerm);
   FromJSONObjectOptionalField(meta, "category", result.m_category);
@@ -117,8 +118,8 @@ std::string MakeCityGalleryUrl(std::string const & baseUrl, std::string const & 
 
   ASSERT_EQUAL(baseUrl.back(), '/', ());
 
-  url::Params params = {{"city_id", ToSignedId(id)}, {"lang", lang}};
-  return url::Make(url::Join(baseUrl, "gallery/v2/search/"), params);
+  coding::url::Params params = {{"city_id", ToSignedId(id)}, {"lang", lang}};
+  return coding::url::Make(coding::url::Join(baseUrl, "gallery/v2/search/"), params);
 }
 
 std::string MakePoiGalleryUrl(std::string const & baseUrl, std::string const & id,
@@ -129,7 +130,7 @@ std::string MakePoiGalleryUrl(std::string const & baseUrl, std::string const & i
   if (baseUrl.empty())
     return {};
     
-  url::Params params;
+  coding::url::Params params;
 
   if (!id.empty())
     params.emplace_back("city_id", ToSignedId(id));
@@ -145,7 +146,7 @@ std::string MakePoiGalleryUrl(std::string const & baseUrl, std::string const & i
   params.emplace_back("tags", strings::JoinStrings(tags, ","));
   params.emplace_back("lang", lang);
 
-  return url::Make(url::Join(baseUrl, "gallery/v2/search/"), params);
+  return coding::url::Make(coding::url::Join(baseUrl, "gallery/v2/search/"), params);
 }
 
 std::string GetPictureUrl(std::string const & baseUrl, std::string const & id)

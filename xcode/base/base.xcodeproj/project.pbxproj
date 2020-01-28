@@ -39,7 +39,6 @@
 		395FEB3521492F350036395C /* stl_helpers_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 395FEB3321492F320036395C /* stl_helpers_tests.cpp */; };
 		3975D20B235F2738004D84D3 /* cancellable_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3975D20A235F2738004D84D3 /* cancellable_tests.cpp */; };
 		3975D20C235F2761004D84D3 /* thread_safe_queue_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 395784CE2303034000F2CC07 /* thread_safe_queue_tests.cpp */; };
-		3975D20D235F2761004D84D3 /* url_helpers_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 395784CF2303034000F2CC07 /* url_helpers_tests.cpp */; };
 		397DC50D22BB8EBF007126DB /* bidirectional_map.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 397DC50B22BB8EBF007126DB /* bidirectional_map.hpp */; };
 		397DC50E22BB8EBF007126DB /* non_intersecting_intervals.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 397DC50C22BB8EBF007126DB /* non_intersecting_intervals.hpp */; };
 		397DC51122BB8ED2007126DB /* bidirectional_map_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 397DC50F22BB8ECD007126DB /* bidirectional_map_tests.cpp */; };
@@ -75,8 +74,6 @@
 		39FD27391CC65AD000AFF551 /* timer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39FD26E31CC65A0E00AFF551 /* timer_test.cpp */; };
 		39FD273B1CC65B1000AFF551 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675341771A3F57BF00A0A8C3 /* libbase.a */; };
 		3D1BE646212D775500ACD94A /* atomic_shared_ptr.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D1BE645212D775500ACD94A /* atomic_shared_ptr.hpp */; };
-		3D3731FE1F9A445500D2121B /* url_helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D3731FC1F9A445400D2121B /* url_helpers.cpp */; };
-		3D3731FF1F9A445500D2121B /* url_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D3731FD1F9A445500D2121B /* url_helpers.hpp */; };
 		3D74EF111F8B902C0081202C /* suffix_array.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74EF0B1F8B902B0081202C /* suffix_array.cpp */; };
 		3D74EF121F8B902C0081202C /* visitor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D74EF0C1F8B902B0081202C /* visitor.hpp */; };
 		3D7815731F3A145F0068B6AC /* task_loop.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D7815711F3A145F0068B6AC /* task_loop.hpp */; };
@@ -181,7 +178,6 @@
 		3917FA5E211E00C300937DF4 /* suffix_array.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = suffix_array.hpp; sourceTree = "<group>"; };
 		3917FA60211E00F100937DF4 /* geo_object_id_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geo_object_id_tests.cpp; sourceTree = "<group>"; };
 		395784CE2303034000F2CC07 /* thread_safe_queue_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = thread_safe_queue_tests.cpp; sourceTree = "<group>"; };
-		395784CF2303034000F2CC07 /* url_helpers_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = url_helpers_tests.cpp; sourceTree = "<group>"; };
 		395FEB3321492F320036395C /* stl_helpers_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stl_helpers_tests.cpp; sourceTree = "<group>"; };
 		3975D20A235F2738004D84D3 /* cancellable_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cancellable_tests.cpp; sourceTree = "<group>"; };
 		397DC50B22BB8EBF007126DB /* bidirectional_map.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bidirectional_map.hpp; sourceTree = "<group>"; };
@@ -226,8 +222,6 @@
 		39FD27401CC65B2800AFF551 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = "<group>"; };
 		39FD27421CC65B4800AFF551 /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
 		3D1BE645212D775500ACD94A /* atomic_shared_ptr.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = atomic_shared_ptr.hpp; sourceTree = "<group>"; };
-		3D3731FC1F9A445400D2121B /* url_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = url_helpers.cpp; sourceTree = "<group>"; };
-		3D3731FD1F9A445500D2121B /* url_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = url_helpers.hpp; sourceTree = "<group>"; };
 		3D74EF0B1F8B902B0081202C /* suffix_array.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = suffix_array.cpp; sourceTree = "<group>"; };
 		3D74EF0C1F8B902B0081202C /* visitor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = visitor.hpp; sourceTree = "<group>"; };
 		3D7815711F3A145F0068B6AC /* task_loop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = task_loop.hpp; sourceTree = "<group>"; };
@@ -338,7 +332,6 @@
 			children = (
 				3975D20A235F2738004D84D3 /* cancellable_tests.cpp */,
 				395784CE2303034000F2CC07 /* thread_safe_queue_tests.cpp */,
-				395784CF2303034000F2CC07 /* url_helpers_tests.cpp */,
 				397DC50F22BB8ECD007126DB /* bidirectional_map_tests.cpp */,
 				F61B9796229BFDF1000E878B /* non_intersecting_intervals_tests.cpp */,
 				390F1C0F2294299A00EA58E3 /* file_name_utils_tests.cpp */,
@@ -507,8 +500,6 @@
 				675341CA1A3F57E400A0A8C3 /* timer.hpp */,
 				3446C66F1DDCA96300146687 /* uni_string_dfa.cpp */,
 				3446C6701DDCA96300146687 /* uni_string_dfa.hpp */,
-				3D3731FC1F9A445400D2121B /* url_helpers.cpp */,
-				3D3731FD1F9A445500D2121B /* url_helpers.hpp */,
 				3D74EF0C1F8B902B0081202C /* visitor.hpp */,
 				3D78157A1F3D89EC0068B6AC /* waiter.hpp */,
 			);
@@ -571,7 +562,6 @@
 				3917FA5F211E00C400937DF4 /* suffix_array.hpp in Headers */,
 				3917FA53211E008C00937DF4 /* clustering_map.hpp in Headers */,
 				3989E364230302EA00D63F84 /* thread_safe_queue.hpp in Headers */,
-				3D3731FF1F9A445500D2121B /* url_helpers.hpp in Headers */,
 				390F1C0D2294298E00EA58E3 /* file_name_utils.hpp in Headers */,
 				E1B7FFC121FA19FE00F094DC /* thread_pool_computational.hpp in Headers */,
 				675342071A3F57E400A0A8C3 /* thread_pool.hpp in Headers */,
@@ -718,7 +708,6 @@
 				3917FA6A211E010400937DF4 /* control_flow_tests.cpp in Sources */,
 				39FD27321CC65AD000AFF551 /* string_format_test.cpp in Sources */,
 				39FD272A1CC65AD000AFF551 /* mem_trie_test.cpp in Sources */,
-				3975D20D235F2761004D84D3 /* url_helpers_tests.cpp in Sources */,
 				395FEB3521492F350036395C /* stl_helpers_tests.cpp in Sources */,
 				3975D20C235F2761004D84D3 /* thread_safe_queue_tests.cpp in Sources */,
 				3446C67C1DDCAA4600146687 /* levenshtein_dfa_test.cpp in Sources */,
@@ -772,7 +761,6 @@
 				3D74EF111F8B902C0081202C /* suffix_array.cpp in Sources */,
 				3917FA57211E009700937DF4 /* geo_object_id.cpp in Sources */,
 				3901B745235F02B3006ABD43 /* cancellable.cpp in Sources */,
-				3D3731FE1F9A445500D2121B /* url_helpers.cpp in Sources */,
 				675341F91A3F57E400A0A8C3 /* src_point.cpp in Sources */,
 				675342031A3F57E400A0A8C3 /* strings_bundle.cpp in Sources */,
 				675341CD1A3F57E400A0A8C3 /* base.cpp in Sources */,
