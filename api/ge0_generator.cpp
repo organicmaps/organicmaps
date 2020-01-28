@@ -1,13 +1,16 @@
 #include "api/ge0_generator.hpp"
 
-#include <assert.h>
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
+#include "base/assert.hpp"
+
+#include <cmath>
+#include <cstdint>
+#include <cstdlib>
+#include <cstring>
 
 char MapsWithMe_Base64Char(int x)
 {
-  assert(x >= 0 && x < 64);
+  CHECK_GREATER_OR_EQUAL(x, 0, ());
+  CHECK_LESS(x, 64, ());
   return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"[x];
 }
 
@@ -146,9 +149,12 @@ size_t MapsWithMe_UrlEncodeString(char const * s, size_t size, char ** res)
 // Append s to buf (is there is space). Increment *bytesAppended by size.
 void MapsWithMe_AppendString(char * buf, int bufSize, int * bytesAppended, char const * s, size_t size)
 {
-  size_t const bytesAvailable = bufSize - *bytesAppended;
+  int64_t const bytesAvailable = static_cast<int64_t>(bufSize) - static_cast<int64_t>(*bytesAppended);
   if (bytesAvailable > 0)
-    memcpy(buf + *bytesAppended, s, size < bytesAvailable ? size : bytesAvailable);
+  {
+    int64_t const toCopy = static_cast<int64_t>(size) < bytesAvailable ? static_cast<int64_t>(size) : bytesAvailable;
+    memcpy(buf + *bytesAppended, s, static_cast<size_t>(toCopy));
+  }
 
   *bytesAppended += size;
 }
