@@ -3,6 +3,7 @@ project(drape_tests)
 add_definitions(
   -DOGL_TEST_ENABLED
   -DGTEST_DONT_DEFINE_TEST
+  -DWITH_GL_MOCK
 )
 
 include_directories(
@@ -35,11 +36,10 @@ set(
   stipple_pen_tests.cpp
   texture_of_colors_tests.cpp
   testing_graphics_context.hpp
-  testingmain.cpp
   uniform_value_tests.cpp
 )
 
-omim_add_executable(${PROJECT_NAME} ${DRAPE_COMMON_SRC} ${VULKAN_SRC} ${SRC})
+omim_add_test(${PROJECT_NAME} ${DRAPE_COMMON_SRC} ${VULKAN_SRC} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}

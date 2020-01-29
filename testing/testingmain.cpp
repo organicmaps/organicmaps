@@ -2,6 +2,7 @@
 #include "testing/testregister.hpp"
 
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 #include "base/waiter.hpp"
@@ -16,6 +17,10 @@
 #include <regex>
 #include <string>
 #include <vector>
+
+#ifdef WITH_GL_MOCK
+# include "drape/drape_tests/gl_mock_functions.hpp"
+#endif
 
 #ifdef TARGET_OS_IPHONE
 # include <CoreFoundation/CoreFoundation.h>
@@ -163,6 +168,11 @@ int main(int argc, char * argv[])
   base::SetLogMessageFn(base::LogMessageTests);
 #endif
 
+#ifdef WITH_GL_MOCK
+  emul::GLMockFunctions::Init(&argc, argv);
+  SCOPE_GUARD(GLMockScope, std::bind(&emul::GLMockFunctions::Teardown));
+#endif
+
   vector<string> testnames;
   vector<bool> testResults;
   int numFailedTests = 0;
@@ -242,6 +252,9 @@ int main(int argc, char * argv[])
     {
       // Run the test.
       test->m_fn();
+#ifdef WITH_GL_MOCK
+      emul::GLMockFunctions::ValidateAndClear();
+#endif
 
       if (g_lastTestOK)
       {
