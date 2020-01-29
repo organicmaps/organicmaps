@@ -1,4 +1,5 @@
 import FBAudienceNetwork
+import MoPub_FacebookAudienceNetwork_Adapters
 
 private func attributedTitle(title: String, indent: CGFloat) -> NSAttributedString {
   let paragraphStyle = NSMutableParagraphStyle()
@@ -157,14 +158,15 @@ final class AdBanner: UITableViewCell {
     } else {
       adCallToActionButtons = [adCallToActionButtonCompact, adCallToActionButtonDetailed]
     }
-    ad.registerView(forInteraction: self, with: nil, withClickableViews: adCallToActionButtons)
+    ad.registerView(forInteraction: self,
+                    mediaView: FBMediaView(),
+                    iconImageView: adIconImageView,
+                    viewController: UIViewController.topViewController(),
+                    clickableViews: adCallToActionButtons)
 
-    ad.icon?.loadAsync { [weak self] image in
-      self?.adIconImageView.image = image
-    }
-    adTitleLabel.attributedText = attributedTitle(title: ad.title ?? "",
+    adTitleLabel.attributedText = attributedTitle(title: ad.headline ?? "",
                                                   indent: adPrivacyImage.width + DAAImageWidth.constant)
-    adBodyLabel.text = ad.body ?? ""
+    adBodyLabel.text = ad.bodyText ?? ""
     let config = state.config()
     adTitleLabel.numberOfLines = config.numberOfTitleLines
     adBodyLabel.numberOfLines = config.numberOfBodyLines

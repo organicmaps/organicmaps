@@ -2,6 +2,8 @@
 #import "MPNativeAd.h"
 #import "MPNativeView.h"
 
+@class FBNativeAd;
+
 @interface MPNativeAd (MWM) <MPNativeViewDelegate>
 
 - (void)setAdView:(UIView *)view actionButtons:(NSArray<UIButton *> *)buttons;

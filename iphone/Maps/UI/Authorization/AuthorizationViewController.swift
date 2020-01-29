@@ -91,9 +91,8 @@ final class AuthorizationViewController: MWMViewController {
   }
   
   @IBAction func facebookSignIn() {
-    let fbLoginManager = FBSDKLoginManager()
-    fbLoginManager.loginBehavior = .systemAccount
-    fbLoginManager.logIn(withReadPermissions: ["public_profile", "email"], from: self) { [weak self] (result, error) in
+    let fbLoginManager = LoginManager()
+    fbLoginManager.logIn(permissions: ["public_profile", "email"], from: self) { [weak self] (result, error) in
       if let error = error {
         self?.process(error: error, type: .facebook)
       } else if let token = result?.token {

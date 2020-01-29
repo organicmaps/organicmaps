@@ -1,3 +1,5 @@
+import MoPub_FacebookAudienceNetwork_Adapters
+
 final class MopubBanner: NSObject, Banner {
   private enum Limits {
     static let minTimeOnScreen: TimeInterval = 3
@@ -138,7 +140,7 @@ final class MopubBanner: NSObject, Banner {
       return (nativeAd.adAdapter as! FacebookNativeAdAdapter).fbNativeAd.adChoicesLinkURL
     }
 
-    return URL(string: kDAAIconTapDestinationURL)
+    return URL(string: kPrivacyIconTapDestinationURL)
   }
 
   // MARK: - Helpers
@@ -147,12 +149,13 @@ final class MopubBanner: NSObject, Banner {
   private func load() {
     let settings = MPStaticNativeAdRendererSettings()
     let config = MPStaticNativeAdRenderer.rendererConfiguration(with: settings)!
-    request = MPNativeAdRequest(adUnitIdentifier: placementID, rendererConfigurations: [config])
+    let fbConfig = FacebookNativeAdRenderer.rendererConfiguration(with: settings)
+    request = MPNativeAdRequest(adUnitIdentifier: placementID, rendererConfigurations: [config, fbConfig])
     let targeting = MPNativeAdRequestTargeting()
-    targeting.keywords = "user_lang:\(AppInfo.shared().twoLetterLanguageId ?? "")"
-    targeting.desiredAssets = [kAdTitleKey, kAdTextKey, kAdIconImageKey, kAdCTATextKey]
+    targeting?.keywords = "user_lang:\(AppInfo.shared().twoLetterLanguageId ?? "")"
+    targeting?.desiredAssets = [kAdTitleKey, kAdTextKey, kAdIconImageKey, kAdCTATextKey]
     if let location = MWMLocationManager.lastLocation() {
-      targeting.location = location
+      targeting?.location = location
     }
     request.targeting = targeting
 

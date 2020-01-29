@@ -14,7 +14,7 @@ pod 'ActionSheetPicker-3.0', '2.3.0'
 pod 'FBSDKCoreKit', '5.15'
 pod 'FBSDKLoginKit', '5.15'
 pod 'Flurry-iOS-SDK/FlurrySDK', '10.1'
-pod 'mopub-ios-sdk', '~> 5.10'
+pod 'mopub-ios-sdk', '5.10'
 pod 'MoPub-FacebookAudienceNetwork-Adapters', '5.6.0.0'
 
 end

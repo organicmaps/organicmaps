@@ -1,5 +1,6 @@
 #import "MPNativeAd+MWM.h"
 #import "SwiftBridge.h"
+#import <FBAudienceNetwork/FBNativeAd.h>
 
 @interface MPNativeAd ()
 
@@ -26,8 +27,10 @@
     {
       FacebookNativeAdAdapter *fbAdapter = (FacebookNativeAdAdapter *)adapter;
       [fbAdapter.fbNativeAd registerViewForInteraction:self.associatedView
-                                    withViewController:[self viewControllerForPresentingModalView]
-                                    withClickableViews:buttons];
+                                             mediaView:[[FBMediaView alloc] init]
+                                              iconView:Nil
+                                        viewController:[self viewControllerForPresentingModalView]
+                                        clickableViews:buttons];
     }
     else
     {

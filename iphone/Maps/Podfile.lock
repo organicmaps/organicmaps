@@ -44,7 +44,7 @@ DEPENDENCIES:
   - FBSDKLoginKit (= 5.15)
   - Flurry-iOS-SDK/FlurrySDK (= 10.1)
   - MoPub-FacebookAudienceNetwork-Adapters (= 5.6.0.0)
-  - mopub-ios-sdk (~> 5.10)
+  - mopub-ios-sdk (= 5.10)
   - Pushwoosh (= 5.16.0)
 
 SPEC REPOS:
@@ -70,6 +70,6 @@ SPEC CHECKSUMS:
   mopub-ios-sdk: 3d65133b95b6498aa871a66818a11a5ba307e565
   Pushwoosh: 6cba171e52f3f7b8ccd280f492a5831deac2f594
 
-PODFILE CHECKSUM: 68054a76d0d74219f643b4055fca97f6fcdcf5d1
+PODFILE CHECKSUM: 733b86434976d4702689274a81b45cdafc689454
 
 COCOAPODS: 1.8.3

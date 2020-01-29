@@ -19,7 +19,7 @@ final class FacebookBanner: NSObject, Banner {
     self.failure = failure
     self.click = click
 
-    nativeAd.load()
+    nativeAd.loadAd(withMediaCachePolicy: .all)
     requestDate = Date()
   }
 
@@ -88,7 +88,6 @@ final class FacebookBanner: NSObject, Banner {
 
   init(bannerID: String) {
     nativeAd = FBNativeAd(placementID: bannerID)
-    nativeAd.mediaCachePolicy = .all
     super.init()
     nativeAd.delegate = self
     let center = NotificationCenter.default
