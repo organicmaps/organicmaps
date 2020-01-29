@@ -1,10 +1,10 @@
 package com.mapswithme.maps.onboarding;
 
 import android.app.Activity;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
@@ -105,7 +105,9 @@ public enum IntroductionScreenFactory implements StatisticValueConverter<String>
             public void onIntroductionButtonClick(@NonNull Activity activity,
                                                   @NonNull String deeplink)
             {
-              BookmarksCatalogActivity.start(activity, deeplink);
+              BookmarksCatalogActivity.startForResult(activity,
+                                                      BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
+                                                      deeplink);
             }
           };
         }

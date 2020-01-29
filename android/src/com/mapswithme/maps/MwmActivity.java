@@ -2440,7 +2440,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (requestCode == REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG)
       DrivingOptionsActivity.start(this);
     else if (requestCode == REQ_CODE_CATALOG_UNLIMITED_ACCESS)
-      BookmarksCatalogActivity.start(this, BookmarkManager.INSTANCE.getCatalogFrontendUrl(UTM.UTM_NONE));
+      BookmarksCatalogActivity.startForResult(this,
+                                              BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
+                                              BookmarkManager.INSTANCE.getCatalogFrontendUrl(UTM.UTM_NONE));
   }
 
   @Override

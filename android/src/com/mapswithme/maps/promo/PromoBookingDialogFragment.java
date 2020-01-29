@@ -2,17 +2,18 @@ package com.mapswithme.maps.promo;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
+import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -87,7 +88,9 @@ public class PromoBookingDialogFragment extends BaseMwmDialogFragment
     if (mCityGuidesUrl == null)
       return;
 
-    BookmarksCatalogActivity.start(requireActivity(), mCityGuidesUrl);
+    BookmarksCatalogActivity.startForResult(requireActivity(),
+                                            BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
+                                            mCityGuidesUrl);
     dismissAllowingStateLoss();
 
     Statistics.ParameterBuilder builder = Statistics.makeInAppSuggestionParamBuilder();

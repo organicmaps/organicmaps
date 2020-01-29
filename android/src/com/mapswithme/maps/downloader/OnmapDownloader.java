@@ -1,18 +1,19 @@
 package com.mapswithme.maps.downloader;
 
 import android.location.Location;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.background.Notifier;
+import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
@@ -330,7 +331,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       if (mPromoBanner == null)
         return;
 
-      BookmarksCatalogActivity.start(mActivity, mPromoBanner.getUrl());
+      BookmarksCatalogActivity.startForResult(mActivity, BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
+                                              mPromoBanner.getUrl());
       Statistics.ParameterBuilder builder =
           Statistics.makeDownloaderBannerParamBuilder(Statistics.ParamValue.MAPSME_GUIDES);
       Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_BANNER_CLICK, builder);
