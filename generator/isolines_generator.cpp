@@ -13,7 +13,6 @@ std::vector<int> const kAltClasses = {1000, 500, 100, 50, 10};
 int const kNamedAltStep = 50;
 std::string const kTypePrefix = "step_";
 std::string const kTypeZero = "zero";
-uint32_t const kInvalidType = 0;
 
 std::string GetIsolineName(topography_generator::Altitude altitude)
 {
@@ -45,7 +44,7 @@ uint32_t IsolineFeaturesGenerator::GetIsolineType(int altitude) const
     if (altitude % altStep == 0)
       return m_altClassToType.at(altStep);
   }
-  return kInvalidType;
+  return ftype::GetEmptyValue();
 }
 
 void IsolineFeaturesGenerator::GenerateIsolines(std::string const & countryName,
@@ -62,7 +61,7 @@ void IsolineFeaturesGenerator::GenerateIsolines(std::string const & countryName,
     auto const altitude = levelIsolines.first;
     auto const isolineName = GetIsolineName(altitude);
     auto const isolineType = GetIsolineType(altitude);
-    if (isolineType == kInvalidType)
+    if (isolineType == ftype::GetEmptyValue())
     {
       LOG(LWARNING, ("Skip unsupported altitudes level", altitude, "in", countryName));
       continue;
