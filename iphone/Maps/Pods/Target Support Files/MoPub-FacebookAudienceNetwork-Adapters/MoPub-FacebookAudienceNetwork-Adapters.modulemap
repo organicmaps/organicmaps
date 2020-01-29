@@ -1,0 +1,6 @@
+framework module MoPub_FacebookAudienceNetwork_Adapters {
+  umbrella header "MoPub-FacebookAudienceNetwork-Adapters-umbrella.h"
+
+  export *
+  module * { export * }
+}

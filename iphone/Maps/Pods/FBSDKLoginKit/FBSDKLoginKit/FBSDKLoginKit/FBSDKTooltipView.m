@@ -16,11 +16,19 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import "FBSDKTooltipView.h"
 
 #import <CoreText/CoreText.h>
 
+#ifdef FBSDKCOCOAPODS
+#import <FBSDKCoreKit/FBSDKCoreKit+Internal.h>
+#else
 #import "FBSDKCoreKit+Internal.h"
+#endif
 
 static const CGFloat kTransitionDuration    = 0.3;
 static const CGFloat kZoomOutScale          = 0.001f;
@@ -601,3 +609,5 @@ static CGMutablePathRef _createCloseCrossGlyphWithRect(CGRect rect)
 }
 
 @end
+
+#endif

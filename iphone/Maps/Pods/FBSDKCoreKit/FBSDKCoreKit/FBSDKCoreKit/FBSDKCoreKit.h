@@ -18,6 +18,8 @@
 
 #import <UIKit/UIKit.h>
 
+#ifdef BUCK
+
 #import <FBSDKCoreKit/FBSDKAccessToken.h>
 #import <FBSDKCoreKit/FBSDKAppEvents.h>
 #import <FBSDKCoreKit/FBSDKApplicationDelegate.h>
@@ -27,7 +29,6 @@
 #import <FBSDKCoreKit/FBSDKGraphRequest.h>
 #import <FBSDKCoreKit/FBSDKGraphRequestConnection.h>
 #import <FBSDKCoreKit/FBSDKGraphRequestDataAttachment.h>
-#import <FBSDKCoreKit/FBSDKMacros.h>
 #import <FBSDKCoreKit/FBSDKSettings.h>
 #import <FBSDKCoreKit/FBSDKTestUsersManager.h>
 #import <FBSDKCoreKit/FBSDKUtility.h>
@@ -53,5 +54,43 @@
 #import <FBSDKCoreKit/FBSDKDeviceViewControllerBase.h>
 #endif
 
-#define FBSDK_VERSION_STRING @"4.42.0"
-#define FBSDK_TARGET_PLATFORM_VERSION @"v3.2"
+#else
+
+#import "FBSDKAccessToken.h"
+#import "FBSDKAppEvents.h"
+#import "FBSDKApplicationDelegate.h"
+#import "FBSDKButton.h"
+#import "FBSDKConstants.h"
+#import "FBSDKCopying.h"
+#import "FBSDKGraphRequest.h"
+#import "FBSDKGraphRequestConnection.h"
+#import "FBSDKGraphRequestDataAttachment.h"
+#import "FBSDKSettings.h"
+#import "FBSDKTestUsersManager.h"
+#import "FBSDKUtility.h"
+
+#if !TARGET_OS_TV
+#import "FBSDKAppLink.h"
+#import "FBSDKAppLinkNavigation.h"
+#import "FBSDKAppLinkResolver.h"
+#import "FBSDKAppLinkResolving.h"
+#import "FBSDKAppLinkReturnToRefererController.h"
+#import "FBSDKAppLinkReturnToRefererView.h"
+#import "FBSDKAppLinkTarget.h"
+#import "FBSDKAppLinkUtility.h"
+#import "FBSDKGraphErrorRecoveryProcessor.h"
+#import "FBSDKMeasurementEvent.h"
+#import "FBSDKMutableCopying.h"
+#import "FBSDKProfile.h"
+#import "FBSDKProfilePictureView.h"
+#import "FBSDKURL.h"
+#import "FBSDKWebViewAppLinkResolver.h"
+#else
+#import "FBSDKDeviceButton.h"
+#import "FBSDKDeviceViewControllerBase.h"
+#endif
+
+#endif
+
+#define FBSDK_VERSION_STRING @"5.15.0"
+#define FBSDK_TARGET_PLATFORM_VERSION @"v5.0"

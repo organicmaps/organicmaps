@@ -16,12 +16,25 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import <Foundation/Foundation.h>
 
-typedef void(^FBSDKCodelessSettingLoadBlock)(BOOL isCodelessSetupEnabled, NSError *error);
+NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^FBSDKCodelessSettingLoadBlock)(BOOL isCodelessSetupEnabled, NSError *_Nullable error);
+
+NS_SWIFT_NAME(CodelessIndexer)
 @interface FBSDKCodelessIndexer : NSObject
 
-+ (NSString *)extInfo;
+@property (class, nonatomic, copy, readonly) NSString *extInfo;
+
++ (void)enable;
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#endif

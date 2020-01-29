@@ -14,8 +14,8 @@
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 #import "MPNativeAd+MWM.h"
-#import "MPNativeAd.h"
-#import "MoPub-Bridging-Header.h"
+//#import "MPNativeAd.h"
+//#import "MoPub-Bridging-Header.h"
 #import "UIKitCategories.h"
 
 #import "private.h"
@@ -23,7 +23,8 @@
 #import <CoreApi/CoreApi-swift.h>
 
 #import "BookmarksVC.h"
-#import "FacebookNativeAdAdapter.h"
+//#import "FacebookNativeAdAdapter.h"
+#import "CatalogPromoItem.h"
 #import "CoreNotificationWrapper.h"
 #import "MapViewController.h"
 #import "MWMActionBarButton.h"

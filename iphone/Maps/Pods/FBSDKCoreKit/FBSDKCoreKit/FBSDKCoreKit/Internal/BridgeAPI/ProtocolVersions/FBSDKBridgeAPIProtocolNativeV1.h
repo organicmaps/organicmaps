@@ -16,6 +16,10 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import <UIKit/UIKit.h>
 
 #import "FBSDKBridgeAPIProtocol.h"
@@ -51,6 +55,7 @@ typedef struct
 } FBSDKBridgeAPIProtocolNativeV1BridgeParameterInputKeysStruct;
 FOUNDATION_EXPORT const FBSDKBridgeAPIProtocolNativeV1BridgeParameterInputKeysStruct FBSDKBridgeAPIProtocolNativeV1BridgeParameterInputKeys;
 
+NS_SWIFT_NAME(BridgeAPIProtocolNativeV1)
 @interface FBSDKBridgeAPIProtocolNativeV1 : NSObject <FBSDKBridgeAPIProtocol>
 
 - (instancetype)init NS_UNAVAILABLE;
@@ -65,7 +70,9 @@ NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, copy, readonly) NSString *appScheme;
 @property (nonatomic, assign, readonly) NSUInteger dataLengthThreshold;
-@property (nonatomic, assign, readonly) BOOL includeAppIcon;
+@property (nonatomic, assign, readonly, getter=shouldIncludeAppIcon) BOOL includeAppIcon;
 @property (nonatomic, strong, readonly) UIPasteboard *pasteboard;
 
 @end
+
+#endif

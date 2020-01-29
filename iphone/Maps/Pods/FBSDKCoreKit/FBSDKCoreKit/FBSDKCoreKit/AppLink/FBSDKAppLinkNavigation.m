@@ -16,6 +16,10 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import "FBSDKAppLinkNavigation.h"
 
 #import "FBSDKAppLinkTarget.h"
@@ -208,21 +212,21 @@ static id<FBSDKAppLinkResolving> defaultResolver;
 
 + (void)resolveAppLink:(NSURL *)destination
               resolver:(id<FBSDKAppLinkResolving>)resolver
-               handler:(FBSDKAppLinkFromURLHandler)handler {
+               handler:(FBSDKAppLinkBlock)handler {
   [resolver appLinkFromURL:destination handler:handler];
 }
 
-+ (void)resolveAppLink:(NSURL *)destination handler:(FBSDKAppLinkFromURLHandler)handler {
++ (void)resolveAppLink:(NSURL *)destination handler:(FBSDKAppLinkBlock)handler {
   [self resolveAppLink:destination resolver:[self defaultResolver] handler:handler];
 }
 
-+ (void)navigateToURL:(NSURL *)destination handler:(FBSDKAppLinkNavigationHandler)handler {
++ (void)navigateToURL:(NSURL *)destination handler:(FBSDKAppLinkNavigationBlock)handler {
   [self navigateToURL:destination resolver:[self defaultResolver] handler:handler];
 }
 
 + (void)navigateToURL:(NSURL *)destination
              resolver:(id<FBSDKAppLinkResolving>)resolver
-              handler:(FBSDKAppLinkNavigationHandler)handler {
+              handler:(FBSDKAppLinkNavigationBlock)handler {
 
   dispatch_async(dispatch_get_main_queue(), ^{
     [self resolveAppLink:destination
@@ -292,3 +296,5 @@ static id<FBSDKAppLinkResolving> defaultResolver;
 }
 
 @end
+
+#endif

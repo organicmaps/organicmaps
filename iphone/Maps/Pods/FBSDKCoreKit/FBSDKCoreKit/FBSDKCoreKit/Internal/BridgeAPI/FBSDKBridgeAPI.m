@@ -16,6 +16,10 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import "FBSDKBridgeAPI.h"
 
 #import "FBSDKCoreKit+Internal.h"
@@ -27,10 +31,17 @@ typedef void (^FBSDKAuthenticationCompletionHandler)(NSURL *_Nullable callbackUR
 - (instancetype)initWithURL:(NSURL *)URL callbackURLScheme:(nullable NSString *)callbackURLScheme completionHandler:(FBSDKAuthenticationCompletionHandler)completionHandler;
 - (BOOL)start;
 - (void)cancel;
+@optional
+- (void)setPresentationContextProvider:(id)presentationContextProvider;
 
 @end
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+#import <AuthenticationServices/AuthenticationServices.h>
+@interface FBSDKBridgeAPI() <FBSDKApplicationObserving, FBSDKContainerViewControllerDelegate, ASWebAuthenticationPresentationContextProviding>
+#else
 @interface FBSDKBridgeAPI() <FBSDKApplicationObserving, FBSDKContainerViewControllerDelegate>
+#endif
 
 @end
 
@@ -209,11 +220,11 @@ didFinishLaunchingWithOptions:(NSDictionary<UIApplicationLaunchOptionsKey, id> *
       self->_pendingRequestCompletionBlock = nil;
       NSError *openedURLError;
       if ([request.scheme hasPrefix:@"http"]) {
-        openedURLError = [NSError fbErrorWithCode:FBSDKErrorBrowserUnavailable
-                                          message:@"the app switch failed because the browser is unavailable"];
+        openedURLError = [FBSDKError errorWithCode:FBSDKErrorBrowserUnavailable
+                                           message:@"the app switch failed because the browser is unavailable"];
       } else {
-        openedURLError = [NSError fbErrorWithCode:FBSDKErrorAppVersionUnsupported
-                                          message:@"the app switch failed because the destination app is out of date"];
+        openedURLError = [FBSDKError errorWithCode:FBSDKErrorAppVersionUnsupported
+                                           message:@"the app switch failed because the destination app is out of date"];
       }
       FBSDKBridgeAPIResponse *response = [FBSDKBridgeAPIResponse bridgeAPIResponseWithRequest:request
                                                                                         error:openedURLError];
@@ -314,6 +325,11 @@ didFinishLaunchingWithOptions:(NSDictionary<UIApplicationLaunchOptionsKey, id> *
     _authenticationSession = [[AuthenticationSessionClass alloc] initWithURL:url
                                                            callbackURLScheme:[FBSDKInternalUtility appURLScheme]
                                                            completionHandler:_authenticationSessionCompletionHandler];
+    if (@available(iOS 13.0, *)) {
+      if ([_authenticationSession respondsToSelector:@selector(setPresentationContextProvider:)]) {
+        [_authenticationSession setPresentationContextProvider:self];
+      }
+    }
     _isRequestingSFAuthenticationSession = YES;
     [_authenticationSession start];
   }
@@ -321,9 +337,9 @@ didFinishLaunchingWithOptions:(NSDictionary<UIApplicationLaunchOptionsKey, id> *
 
 - (void)_setSessionCompletionHandlerFromHandler:(void(^)(BOOL, NSError *))handler
 {
-  __weak typeof(self) weakSelf = self;
+  __weak FBSDKBridgeAPI *weakSelf = self;
   _authenticationSessionCompletionHandler = ^ (NSURL *aURL, NSError *error) {
-    typeof(self) strongSelf = weakSelf;
+    FBSDKBridgeAPI *strongSelf = weakSelf;
     strongSelf->_isRequestingSFAuthenticationSession = NO;
     handler(error == nil, error);
     if (error == nil) {
@@ -411,4 +427,15 @@ didFinishLaunchingWithOptions:(NSDictionary<UIApplicationLaunchOptionsKey, id> *
   _pendingRequestCompletionBlock = NULL;
 }
 
+#pragma mark - ASWebAuthenticationPresentationContextProviding
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+- (ASPresentationAnchor)presentationAnchorForWebAuthenticationSession:(ASWebAuthenticationSession *)session API_AVAILABLE(ios(13.0)){
+#else
+- (UIWindow *)presentationAnchorForWebAuthenticationSession:(id<FBSDKAuthenticationSession>)session API_AVAILABLE(ios(11.0)) {
+#endif
+  return UIApplication.sharedApplication.keyWindow;
+}
+
 @end
+
+#endif

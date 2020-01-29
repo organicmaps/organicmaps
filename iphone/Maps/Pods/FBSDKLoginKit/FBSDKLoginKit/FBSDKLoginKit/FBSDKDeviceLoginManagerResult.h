@@ -18,7 +18,11 @@
 
 #import <Foundation/Foundation.h>
 
+#ifdef FBSDKCOCOAPODS
 #import <FBSDKCoreKit/FBSDKAccessToken.h>
+#endif
+
+@class FBSDKAccessToken;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
  @abstract Represents the results of the a device login flow.
  @discussion This is used by `FBSDKDeviceLoginManager`.
  */
+NS_SWIFT_NAME(DeviceLoginManagerResult)
 @interface FBSDKDeviceLoginManagerResult : NSObject
 
 /*!

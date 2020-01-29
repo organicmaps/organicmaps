@@ -16,6 +16,10 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import "FBSDKAppLink.h"
 
 FOUNDATION_EXPORT NSString *const FBSDKAppLinkDataParameterName;
@@ -34,7 +38,9 @@ FOUNDATION_EXPORT NSString *const FBSDKAppLinkRefererUrl;
                               webURL:(NSURL *)webURL
                     isBackToReferrer:(BOOL)isBackToReferrer;
 
-/*! return if this AppLink is to go back to referrer. */
+/** return if this AppLink is to go back to referrer. */
 @property (nonatomic, assign, readonly, getter=isBackToReferrer) BOOL backToReferrer;
 
 @end
+
+#endif

@@ -16,12 +16,17 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include <mach/mach.h>
-#include <mach/mach_time.h>
-#include <assert.h>
-#include <dispatch/dispatch.h>
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
 
 #import "FBSDKMonotonicTime.h"
+
+#include <assert.h>
+#include <mach/mach.h>
+#include <mach/mach_time.h>
+
+#include <dispatch/dispatch.h>
 
 /**
  * PLEASE NOTE: FBSDKSDKMonotonicTimeTests work fine, but are disabled
@@ -84,3 +89,5 @@ FBSDKMonotonicTimeSeconds FBSDKMonotonicTimeConvertMachUnitsToSeconds(FBSDKMachA
 
     return ratio * (double)machUnits;
 }
+
+#endif

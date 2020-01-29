@@ -16,7 +16,14 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import "FBSDKMeasurementEvent_Internal.h"
+
+#import "FBSDKLogger.h"
+#import "FBSDKSettings.h"
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
 
@@ -33,11 +40,11 @@ NSString *const FBSDKMeasurementEventNotificationName = @"com.facebook.facebook-
 NSString *const FBSDKMeasurementEventNameKey = @"event_name";
 NSString *const FBSDKMeasurementEventArgsKey = @"event_args";
 
-/* app Link Event raised by this FBSDKURL */
+/** app Link Event raised by this FBSDKURL */
 NSString *const FBSDKAppLinkParseEventName = @"al_link_parse";
 NSString *const FBSDKAppLinkNavigateInEventName = @"al_nav_in";
 
-/*! AppLink events raised in this class */
+/** AppLink events raised in this class */
 NSString *const FBSDKAppLinkNavigateOutEventName = @"al_nav_out";
 NSString *const FBSDKAppLinkNavigateBackToReferrerEventName = @"al_ref_back_out";
 
@@ -48,8 +55,9 @@ NSString *const FBSDKAppLinkNavigateBackToReferrerEventName = @"al_ref_back_out"
 
 - (void)postNotification {
     if (!_name) {
-      NSLog(@"Warning: Missing event name when logging FBSDK measurement event. \n"
-            " Ignoring this event in logging.");
+        [FBSDKLogger
+         singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
+         logEntry:@"Warning: Missing event name when logging FBSDK measurement event.\nIgnoring this event in logging."];
         return;
     }
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -76,3 +84,5 @@ NSString *const FBSDKAppLinkNavigateBackToReferrerEventName = @"al_ref_back_out"
 }
 
 @end
+
+#endif

@@ -1,17 +1,38 @@
 PODS:
   - ActionSheetPicker-3.0 (2.3.0)
   - AppsFlyerFramework (4.9.0)
-  - Bolts (1.9.0):
-    - Bolts/AppLinks (= 1.9.0)
-    - Bolts/Tasks (= 1.9.0)
-  - Bolts/AppLinks (1.9.0):
-    - Bolts/Tasks
-  - Bolts/Tasks (1.9.0)
-  - FBSDKCoreKit (4.42.0):
-    - Bolts (~> 1.9)
-  - FBSDKLoginKit (4.42.0):
-    - FBSDKCoreKit
+  - FBAudienceNetwork (5.6.0):
+    - FBSDKCoreKit/Basics (>= 5.6.0)
+  - FBSDKCoreKit (5.15.0):
+    - FBSDKCoreKit/Basics (= 5.15.0)
+    - FBSDKCoreKit/Core (= 5.15.0)
+  - FBSDKCoreKit/Basics (5.15.0)
+  - FBSDKCoreKit/Core (5.15.0):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (5.15.0):
+    - FBSDKLoginKit/Login (= 5.15.0)
+  - FBSDKLoginKit/Login (5.15.0):
+    - FBSDKCoreKit (~> 5.0)
   - Flurry-iOS-SDK/FlurrySDK (10.1.0)
+  - MoPub-FacebookAudienceNetwork-Adapters (5.6.0.0):
+    - MoPub-FacebookAudienceNetwork-Adapters/MoPub (= 5.6.0.0)
+    - MoPub-FacebookAudienceNetwork-Adapters/Network (= 5.6.0.0)
+  - MoPub-FacebookAudienceNetwork-Adapters/MoPub (5.6.0.0):
+    - mopub-ios-sdk/Core (~> 5.6)
+  - MoPub-FacebookAudienceNetwork-Adapters/Network (5.6.0.0):
+    - FBAudienceNetwork (= 5.6.0)
+    - mopub-ios-sdk/Core (~> 5.6)
+  - mopub-ios-sdk (5.10.0):
+    - mopub-ios-sdk/MoPubSDK (= 5.10.0)
+  - mopub-ios-sdk/Avid (5.10.0):
+    - mopub-ios-sdk/Core
+  - mopub-ios-sdk/Core (5.10.0)
+  - mopub-ios-sdk/Moat (5.10.0):
+    - mopub-ios-sdk/Core
+  - mopub-ios-sdk/MoPubSDK (5.10.0):
+    - mopub-ios-sdk/Avid
+    - mopub-ios-sdk/Core
+    - mopub-ios-sdk/Moat
   - Pushwoosh (5.16.0):
     - Pushwoosh/Core (= 5.16.0)
   - Pushwoosh/Core (5.16.0)
@@ -19,30 +40,36 @@ PODS:
 DEPENDENCIES:
   - ActionSheetPicker-3.0 (= 2.3.0)
   - AppsFlyerFramework (= 4.9.0)
-  - FBSDKCoreKit (= 4.42.0)
-  - FBSDKLoginKit (= 4.42.0)
+  - FBSDKCoreKit (= 5.15)
+  - FBSDKLoginKit (= 5.15)
   - Flurry-iOS-SDK/FlurrySDK (= 10.1)
+  - MoPub-FacebookAudienceNetwork-Adapters (= 5.6.0.0)
+  - mopub-ios-sdk (~> 5.10)
   - Pushwoosh (= 5.16.0)
 
 SPEC REPOS:
   trunk:
     - ActionSheetPicker-3.0
     - AppsFlyerFramework
-    - Bolts
+    - FBAudienceNetwork
     - FBSDKCoreKit
     - FBSDKLoginKit
     - Flurry-iOS-SDK
+    - MoPub-FacebookAudienceNetwork-Adapters
+    - mopub-ios-sdk
     - Pushwoosh
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: eef157d75e151f255c5333d26656c7fbfe905a51
   AppsFlyerFramework: f57e5d590ad3124d3e594a76032a181bc91ec6cd
-  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
-  FBSDKCoreKit: aa42f1c384775f8b075f53a43080474278e9701d
-  FBSDKLoginKit: 373830c68aa48c9e8f0bfed93a3e32d2ca8963a0
+  FBAudienceNetwork: 1ea63543665445a3a5b4a059e8210a343b6ab3c1
+  FBSDKCoreKit: 083ba8c8e37939c0b4c84250654c9be0aef0c2f8
+  FBSDKLoginKit: bd40354a96e4718765713ef225bc368f10dc395d
   Flurry-iOS-SDK: be6bfad47f3b3c15a38b5e396935ef74512f1c38
+  MoPub-FacebookAudienceNetwork-Adapters: 3cec249235d12e3fec9a01bf559d608fa3ec05e1
+  mopub-ios-sdk: 3d65133b95b6498aa871a66818a11a5ba307e565
   Pushwoosh: 6cba171e52f3f7b8ccd280f492a5831deac2f594
 
-PODFILE CHECKSUM: 44680f7ff08ae6986147c4f7799f2c6971243c0b
+PODFILE CHECKSUM: 68054a76d0d74219f643b4055fca97f6fcdcf5d1
 
 COCOAPODS: 1.8.3

@@ -16,6 +16,10 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import "FBSDKAppLinkReturnToRefererView.h"
 
 #import "FBSDKAppLink.h"
@@ -63,7 +67,7 @@ static const CGFloat FBSDKCloseButtonHeight = 12.0;
 
 - (void)commonInit {
     // Initialization code
-    _includeStatusBarInSize = FBSDKIncludeStatusBarInSizeIOS7AndLater;
+    _includeStatusBarInSize = FBSDKIncludeStatusBarInSizeAlways;
 
     // iOS 7 system blue color
     self.backgroundColor = [UIColor colorWithRed:0.0f green:122.0f / 255.0f blue:1.0f alpha:1.0f];
@@ -151,11 +155,6 @@ static const CGFloat FBSDKCloseButtonHeight = 12.0;
         case FBSDKIncludeStatusBarInSizeAlways:
             include = YES;
             break;
-        case FBSDKIncludeStatusBarInSizeIOS7AndLater: {
-            float systemVersion = [UIDevice currentDevice].systemVersion.floatValue;
-            include = (systemVersion >= 7.0);
-            break;
-        }
         case FBSDKIncludeStatusBarInSizeNever:
             include = NO;
             break;
@@ -269,3 +268,5 @@ static const CGFloat FBSDKCloseButtonHeight = 12.0;
 }
 
 @end
+
+#endif

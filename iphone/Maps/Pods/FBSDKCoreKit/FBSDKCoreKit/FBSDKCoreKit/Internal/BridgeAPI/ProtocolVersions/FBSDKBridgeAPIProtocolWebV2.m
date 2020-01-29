@@ -16,6 +16,10 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import "FBSDKBridgeAPIProtocolWebV2.h"
 
 #import "FBSDKBridgeAPIProtocolNativeV1.h"
@@ -24,7 +28,6 @@
 #import "FBSDKInternalUtility.h"
 #import "FBSDKServerConfiguration.h"
 #import "FBSDKServerConfigurationManager.h"
-#import "FBSDKUtility.h"
 
 @implementation FBSDKBridgeAPIProtocolWebV2
 {
@@ -51,9 +54,9 @@
   NSDictionary *queryParameters = nil;
   if (actionID) {
     NSDictionary *bridgeArgs = @{ FBSDKBridgeAPIProtocolNativeV1BridgeParameterInputKeys.actionID: actionID };
-    NSString *bridgeArgsString = [FBSDKInternalUtility JSONStringForObject:bridgeArgs
-                                                                     error:NULL
-                                                      invalidObjectHandler:NULL];
+    NSString *bridgeArgsString = [FBSDKBasicUtility JSONStringForObject:bridgeArgs
+                                                                  error:NULL
+                                                   invalidObjectHandler:NULL];
     queryParameters = @{ FBSDKBridgeAPIProtocolNativeV1InputKeys.bridgeArgs: bridgeArgsString };
   }
   return [FBSDKInternalUtility appURLWithHost:@"bridge" path:methodName queryParameters:queryParameters error:errorRef];
@@ -65,7 +68,7 @@
   if (!requestURL.scheme) {
     requestURL = [FBSDKInternalUtility facebookURLWithHostPrefix:@"m"
                                                             path:requestURL.path
-                                                 queryParameters:nil
+                                                 queryParameters:@{}
                                                   defaultVersion:@""
                                                            error:errorRef];
   }
@@ -83,7 +86,7 @@
   FBSDKDialogConfiguration *dialogConfiguration = [serverConfiguration dialogConfigurationForDialogName:methodName];
   if (!dialogConfiguration) {
     if (errorRef != NULL) {
-      *errorRef = [NSError fbErrorWithCode:FBSDKErrorDialogUnavailable message:nil];
+      *errorRef = [FBSDKError errorWithCode:FBSDKErrorDialogUnavailable message:nil];
     }
     return nil;
   }
@@ -97,7 +100,7 @@
     return nil;
   }
 
-  NSMutableDictionary *queryParameters = [[FBSDKUtility dictionaryWithQueryString:requestURL.query] mutableCopy];
+  NSMutableDictionary<NSString *, id> *queryParameters = [[FBSDKBasicUtility dictionaryWithQueryString:requestURL.query] mutableCopy];
   queryParameters[@"ios_bundle_id"] = [NSBundle mainBundle].bundleIdentifier;
   NSURL *redirectURL = [self _redirectURLWithActionID:nil methodName:methodName error:errorRef];
   if (!redirectURL) {
@@ -128,3 +131,5 @@
 }
 
 @end
+
+#endif

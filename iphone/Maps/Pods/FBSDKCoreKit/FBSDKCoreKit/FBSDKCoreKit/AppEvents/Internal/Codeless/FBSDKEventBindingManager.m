@@ -16,18 +16,22 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import "FBSDKEventBindingManager.h"
 
 #import <objc/runtime.h>
 
 #import <UIKit/UIKit.h>
 
-#import "FBSDKCodelessMacros.h"
 #import "FBSDKCodelessPathComponent.h"
 #import "FBSDKEventBinding.h"
 #import "FBSDKSwizzler.h"
 #import "FBSDKTypeUtility.h"
 #import "FBSDKViewHierarchy.h"
+#import "FBSDKViewHierarchyMacros.h"
 
 #define ReactNativeTargetKey          @"target"
 #define ReactNativeTouchEndEventName  @"touchEnd"
@@ -36,14 +40,6 @@
 #define ReactNativeClassRCTImageView  "RCTImageVIew"
 #define ReactNativeClassRCTTouchEvent "RCTTouchEvent"
 #define ReactNativeClassRCTTouchHandler "RCTTouchHandler"
-
-static void fb_dispatch_on_main_thread(dispatch_block_t block) {
-  dispatch_async(dispatch_get_main_queue(), block);
-}
-
-static void fb_dispatch_on_default_thread(dispatch_block_t block) {
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
-}
 
 @interface FBSDKEventBindingManager ()
 {
@@ -122,6 +118,11 @@ static void fb_dispatch_on_default_thread(dispatch_block_t block) {
   if (isStarted) {
     return;
   }
+
+  if (0 == eventBindings.count) {
+    return;
+  }
+
   isStarted = YES;
 
   void (^blockToWindow)(id view) = ^(id view) {
@@ -382,9 +383,15 @@ static void fb_dispatch_on_default_thread(dispatch_block_t block) {
 - (void)updateBindings:(NSArray *)bindings {
   eventBindings = bindings;
   [reactBindings removeAllObjects];
+  if (!isStarted) {
+    [self start];
+  }
+
   fb_dispatch_on_main_thread(^{
     [self rematchBindings];
   });
 }
 
 @end
+
+#endif

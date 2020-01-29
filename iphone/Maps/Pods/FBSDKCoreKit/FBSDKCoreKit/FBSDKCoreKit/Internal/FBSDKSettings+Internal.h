@@ -16,7 +16,11 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#if SWIFT_PACKAGE
+#import "FBSDKSettings.h"
+#else
 #import <FBSDKCoreKit/FBSDKSettings.h>
+#endif
 
 @protocol FBSDKAccessTokenCaching;
 
@@ -26,12 +30,9 @@
 
 + (void)setAccessTokenCache:(NSObject<FBSDKAccessTokenCaching> *)accessTokenCache;
 
-+ (NSString *)graphAPIDebugParamValue;
-
-+ (BOOL)isGraphErrorRecoveryDisabled;
+@property (class, nonatomic, copy, readonly) NSString *graphAPIDebugParamValue;
 
 // used by Unity.
-+ (NSString *)userAgentSuffix;
-+ (void)setUserAgentSuffix:(NSString *)suffix;
+@property (class, nonatomic, copy) NSString *userAgentSuffix;
 
 @end

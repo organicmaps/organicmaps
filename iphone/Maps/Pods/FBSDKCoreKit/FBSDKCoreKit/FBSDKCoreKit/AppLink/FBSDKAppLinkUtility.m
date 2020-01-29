@@ -16,14 +16,17 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "FBSDKAppLinkUtility.h"
+#import "TargetConditionals.h"
 
-#import <Bolts/BFURL.h>
+#if !TARGET_OS_TV
+
+#import "FBSDKAppLinkUtility.h"
 
 #import "FBSDKAppEventsUtility.h"
 #import "FBSDKGraphRequest.h"
 #import "FBSDKInternalUtility.h"
 #import "FBSDKSettings.h"
+#import "FBSDKURL.h"
 #import "FBSDKUtility.h"
 
 static NSString *const FBSDKLastDeferredAppLink = @"com.facebook.sdk:lastDeferredAppLink%@";
@@ -31,7 +34,7 @@ static NSString *const FBSDKDeferredAppLinkEvent = @"DEFERRED_APP_LINK";
 
 @implementation FBSDKAppLinkUtility {}
 
-+ (void)fetchDeferredAppLink:(FBSDKDeferredAppLinkHandler)handler
++ (void)fetchDeferredAppLink:(FBSDKURLBlock)handler
 {
   NSAssert([NSThread isMainThread], @"FBSDKAppLink fetchDeferredAppLink: must be invoked from main thread.");
 
@@ -49,7 +52,7 @@ static NSString *const FBSDKDeferredAppLinkEvent = @"DEFERRED_APP_LINK";
                                                                                 parameters:deferredAppLinkParameters
                                                                                tokenString:nil
                                                                                    version:nil
-                                                                                HTTPMethod:@"POST"];
+                                                                                HTTPMethod:FBSDKHTTPMethodPOST];
 
   [deferredAppLinkRequest startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
                                                        id result,
@@ -80,14 +83,9 @@ static NSString *const FBSDKDeferredAppLinkEvent = @"DEFERRED_APP_LINK";
   }];
 }
 
-+ (BOOL)fetchDeferredAppInvite:(FBSDKDeferredAppInviteHandler)handler
++ (NSString *)appInvitePromotionCodeFromURL:(NSURL *)url
 {
-  return NO;
-}
-
-+ (NSString*)appInvitePromotionCodeFromURL:(NSURL*)url;
-{
-  BFURL *parsedUrl = [[FBSDKInternalUtility resolveBoltsClassWithName:@"BFURL"] URLWithURL:url];
+  FBSDKURL *parsedUrl = [FBSDKURL URLWithURL:url];
   NSDictionary *extras = parsedUrl.appLinkExtras;
   if (extras) {
     NSString *deeplinkContextString = extras[@"deeplink_context"];
@@ -95,7 +93,7 @@ static NSString *const FBSDKDeferredAppLinkEvent = @"DEFERRED_APP_LINK";
     // Parse deeplinkContext and extract promo code
     if (deeplinkContextString.length > 0) {
       NSError *error = nil;
-      NSDictionary *deeplinkContextData = [FBSDKInternalUtility objectForJSONString:deeplinkContextString error:&error];
+      NSDictionary<id, id> *deeplinkContextData = [FBSDKBasicUtility objectForJSONString:deeplinkContextString error:&error];
       if (!error && [deeplinkContextData isKindOfClass:[NSDictionary class]]) {
         return deeplinkContextData[@"promo_code"];
       }
@@ -105,4 +103,23 @@ static NSString *const FBSDKDeferredAppLinkEvent = @"DEFERRED_APP_LINK";
   return nil;
 
 }
+
++ (BOOL)isMatchURLScheme:(NSString *)scheme
+{
+  if (!scheme) {
+    return NO;
+  }
+  for(NSDictionary *urlType in [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleURLTypes"])
+  {
+    for(NSString *urlScheme in urlType[@"CFBundleURLSchemes"]) {
+      if([urlScheme caseInsensitiveCompare:scheme] == NSOrderedSame) {
+        return YES;
+      }
+    }
+  }
+  return NO;
+}
+
 @end
+
+#endif

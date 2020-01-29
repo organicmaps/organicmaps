@@ -1,7 +1,7 @@
 # Facebook SDK for iOS
 
 [![Platforms](https://img.shields.io/cocoapods/p/FBSDKCoreKit.svg)](https://cocoapods.org/pods/FBSDKCoreKit)
-[![Build Status](https://travis-ci.org/facebook/facebook-objc-sdk.svg?branch=master)](https://travis-ci.org/facebook/facebook-objc-sdk)
+[![Build Status](https://travis-ci.org/facebook/facebook-ios-sdk.svg?branch=master)](https://travis-ci.org/facebook/facebook-ios-sdk)
 
 [![CocoaPods](https://img.shields.io/cocoapods/v/FBSDKCoreKit.svg)](https://cocoapods.org/pods/FBSDKCoreKit)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
@@ -15,9 +15,34 @@ NOTE: By default, the Facebook SDK for iOS is installed in ~/Documents/FacebookS
 
 ## TRY IT OUT
 
-1. Download the SDK at <https://developers.facebook.com/docs/ios> or via CocoaPods by adding the 'FBSDKCoreKit',
-   'FBSDKLoginKit', and 'FBSDKShareKit' pods.
-2. Test your install: build and run the project at `~/Documents/FacebookSDK/Samples/Scrumptious/Scrumptious.xcodeproj`
+### Swift Package Manager (available Xcode 11.2 and forward)
+
+1. In Xcode, select File > Swift Packages > Add Package Dependency.
+2. Follow the prompts using the URL for this repository and a minimum semantic version of v5.10.0
+3. Check-out the tutorials available online at: <https://developers.facebook.com/docs/ios/getting-started>
+4. Start coding! Visit <https://developers.facebook.com/docs/ios> for tutorials and reference documentation.
+
+**Note:**
+
+If you explicitly **DO NOT** want to include Swift, import `FBSDKCoreKit` `FBSDKLoginKit` and `FBSDKShareKit`
+
+For projects that include Swift, use `FacebookCore`, `FacebookLogin`, and `FacebookShare`
+
+### CocoaPods
+
+1. If you explicitly **DO NOT** want to include Swift files, add the following to your `Podfile`:
+
+        pod 'FBSDKCoreKit'
+        pod 'FBSDKLoginKit'
+        pod 'FBSDKShareKit'
+
+   If you would like to use versions of the pods that include Swift, add the following to your `Podfile`:
+
+        pod 'FBSDKCoreKit/Swift'
+        pod 'FBSDKLoginKit/Swift'
+        pod 'FBSDKShareKit/Swift'
+
+2. Test your install by adding `import FBSDKCoreKit` to your `AppDelegate`
 3. Check-out the tutorials available online at: <https://developers.facebook.com/docs/ios/getting-started>
 4. Start coding! Visit <https://developers.facebook.com/docs/ios> for tutorials and reference documentation.
 
@@ -31,14 +56,20 @@ NOTE: By default, the Facebook SDK for iOS is installed in ~/Documents/FacebookS
 
 ## GIVE FEEDBACK
 
-Please report bugs or issues to <https://developers.facebook.com/bugs/>
+Please report bugs or issues to our designated developer support team -- <https://developers.facebook.com/support/bugs/> -- as this will help us resolve them more quickly.
 
-You can also join the [Facebook Developers Group on Facebook](https://www.facebook.com/groups/fbdevelopers/) or ask
-questions on [Stack Overflow](http://facebook.stackoverflow.com)
+You can also visit our [Facebook Developer Community Forum](https://developers.facebook.com/community/),
+join the [Facebook Developers Group on Facebook](https://www.facebook.com/groups/fbdevelopers/),
+ask questions on [Stack Overflow](http://facebook.stackoverflow.com),
+or open an issue in this repository.
 
 ## LICENSE
 
 See the [LICENSE](LICENSE) file.
+
+## Security Policy
+
+See the [SECURITY POLICY](SECURITY.md) for more info on our bug bounty program.
 
 ## DEVELOPER TERMS
 

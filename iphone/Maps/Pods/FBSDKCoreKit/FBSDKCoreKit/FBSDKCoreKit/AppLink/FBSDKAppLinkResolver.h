@@ -16,79 +16,39 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import <Foundation/Foundation.h>
 
 #import "FBSDKAppLinkResolving.h"
 
-@class BFTask;
-
-
-// Check if Bolts.framework is available for import
-#if __has_include(<Bolts/BFAppLinkResolving.h>)
-// Import it if it's available
-#import <Bolts/BFAppLinkResolving.h>
-#else
-// Otherwise - redeclare BFAppLinkResolving protocol to resolve the problem of missing symbols
-// Please note: Bolts.framework is still required for AppLink resolving to work,
-// but this allows FBSDKCoreKit to weakly link Bolts.framework as well as this enables clang modulemaps to work.
+NS_ASSUME_NONNULL_BEGIN
 
 /**
- Implement this protocol to provide an alternate strategy for resolving
- App Links that may include pre-fetching, caching, or querying for App Link
- data from an index provided by a service provider.
+ Describes the callback for appLinkFromURLInBackground.
+ @param appLinks the FBSDKAppLinks representing the deferred App Links
+ @param error the error during the request, if any
  */
-DEPRECATED_MSG_ATTRIBUTE("Use `FBSDKAppLinkResolving`")
-@protocol BFAppLinkResolving <NSObject>
-
-/**
- Asynchronously resolves App Link data for a given URL.
-
- @param url The URL to resolve into an App Link.
- @return A BFTask that will return a BFAppLink for the given URL.
- */
-- (BFTask *)appLinkFromURLInBackground:(NSURL *)url
-DEPRECATED_MSG_ATTRIBUTE("Use `appLinkFromURL:handler:`");
-
-@end
-
-#endif
+typedef void (^FBSDKAppLinksBlock)(NSDictionary<NSURL *, FBSDKAppLink *> * appLinks,
+                                                 NSError * _Nullable error)
+NS_SWIFT_NAME(AppLinksBlock);
 
 /**
 
-  Provides an implementation of the BFAppLinkResolving protocol that uses the Facebook App Link
+ Provides an implementation of the FBSDKAppLinkResolving protocol that uses the Facebook App Link
  Index API to resolve App Links given a URL. It also provides an additional helper method that can resolve
  multiple App Links in a single call.
 
-
-
- Usage of this type requires a client token. See `[FBSDKSettings setClientToken:]` and linking
- Bolts.framework
+ Usage of this type requires a client token. See `[FBSDKSettings setClientToken:]`
  */
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-@interface FBSDKAppLinkResolver : NSObject<FBSDKAppLinkResolving, BFAppLinkResolving>
-#pragma clang diagnostic pop
 
-/**
-  Asynchronously resolves App Link data for multiple URLs.
+NS_SWIFT_NAME(AppLinkResolver)
+@interface FBSDKAppLinkResolver : NSObject<FBSDKAppLinkResolving>
 
- @param urls An array of NSURLs to resolve into App Links.
- @return A BFTask that will return dictionary mapping input NSURLs to their
-  corresponding BFAppLink.
-
- You should set the client token before making this call. See `[FBSDKSettings setClientToken:]`
- */
-- (BFTask *)appLinksFromURLsInBackground:(NSArray<NSURL *> *)urls
-DEPRECATED_MSG_ATTRIBUTE("Use `appLinkFromURLs:handler:`");
-
-/**
- Asynchronously resolves App Link data for a given URL.
-
- @param url The URL to resolve into an App Link.
- @return A BFTask that will return a BFAppLink for the given URL.
- */
-- (BFTask *)appLinkFromURLInBackground:(NSURL *)url
-DEPRECATED_MSG_ATTRIBUTE("Use `appLinkFromURL:handler:`");
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
 
 /**
  Asynchronously resolves App Link data for a given array of URLs.
@@ -96,12 +56,17 @@ DEPRECATED_MSG_ATTRIBUTE("Use `appLinkFromURL:handler:`");
  @param urls The URLs to resolve into an App Link.
  @param handler The completion block that will return an App Link for the given URL.
  */
-- (void)appLinksFromURLs:(NSArray<NSURL *> *)urls handler:(FBSDKAppLinksFromURLArrayHandler)handler
+- (void)appLinksFromURLs:(NSArray<NSURL *> *)urls handler:(FBSDKAppLinksBlock)handler
 NS_EXTENSION_UNAVAILABLE_IOS("Not available in app extension");
 
 /**
   Allocates and initializes a new instance of FBSDKAppLinkResolver.
  */
-+ (instancetype)resolver;
++ (instancetype)resolver
+NS_SWIFT_NAME(init());
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#endif

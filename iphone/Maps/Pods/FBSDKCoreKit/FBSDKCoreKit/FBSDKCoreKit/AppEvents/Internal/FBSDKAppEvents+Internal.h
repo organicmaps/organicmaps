@@ -16,15 +16,17 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#if SWIFT_PACKAGE
+#import "FBSDKAppEvents.h"
+#else
 #import <FBSDKCoreKit/FBSDKAppEvents.h>
+#endif
 
 #import "FBSDKAppEventsUtility.h"
 
 @class FBSDKGraphRequest;
 
 // Internally known event names
-
-FOUNDATION_EXPORT NSString *const FBSDKAppEventNamePurchased;
 
 /** Use to log that the share dialog was launched */
 FOUNDATION_EXPORT NSString *const FBSDKAppEventNameShareSheetLaunch;
@@ -41,10 +43,10 @@ FOUNDATION_EXPORT NSString *const FBSDKAppEventNamePermissionsUIDismiss;
 /** Use to log that the login view was used */
 FOUNDATION_EXPORT NSString *const FBSDKAppEventNameLoginViewUsage;
 
-/*! Use to log that the share tray launched. */
+/** Use to log that the share tray launched. */
 FOUNDATION_EXPORT NSString *const FBSDKAppEventNameShareTrayDidLaunch;
 
-/*! Use to log that the person selected a sharing target. */
+/** Use to log that the person selected a sharing target. */
 FOUNDATION_EXPORT NSString *const FBSDKAppEventNameShareTrayDidSelectActivity;
 
 // Internally known event parameters
@@ -105,7 +107,7 @@ FOUNDATION_EXPORT NSString *const FBSDKAppEventNameFBSDKLiveStreamingMic;
 FOUNDATION_EXPORT NSString *const FBSDKAppEventNameFBSDKLiveStreamingCamera;
 
 /** Use to log the results of a share dialog */
-FOUNDATION_EXPORT NSString *const FBSDLAppEventNameFBSDKEventShareDialogResult;
+FOUNDATION_EXPORT NSString *const FBSDKAppEventNameFBSDKEventShareDialogResult;
 FOUNDATION_EXPORT NSString *const FBSDKAppEventNameFBSDKEventMessengerShareDialogResult;
 FOUNDATION_EXPORT NSString *const FBSDKAppEventNameFBSDKEventAppInviteShareDialogResult;
 
@@ -118,11 +120,11 @@ FOUNDATION_EXPORT NSString *const FBSDKAppEventParameterDialogShareContentType;
 FOUNDATION_EXPORT NSString *const FBSDKAppEventParameterDialogShareContentUUID;
 FOUNDATION_EXPORT NSString *const FBSDKAppEventParameterDialogShareContentPageID;
 
-/*! Use to log parameters for share tray use */
+/** Use to log parameters for share tray use */
 FOUNDATION_EXPORT NSString *const FBSDKAppEventParameterShareTrayActivityName;
 FOUNDATION_EXPORT NSString *const FBSDKAppEventParameterShareTrayResult;
 
-/*! Use to log parameters for live streaming*/
+/** Use to log parameters for live streaming*/
 FOUNDATION_EXPORT NSString *const FBSDKAppEventParameterLiveStreamingPrevStatus;
 FOUNDATION_EXPORT NSString *const FBSDKAppEventParameterLiveStreamingStatus;
 FOUNDATION_EXPORT NSString *const FBSDKAppEventParameterLiveStreamingError;
@@ -199,12 +201,44 @@ FOUNDATION_EXPORT NSString *const FBSDKAppEventsWKWebViewMessagesPixelIDKey;
 
 @interface FBSDKAppEvents (Internal)
 
+@property (class, nonatomic, strong, readonly) FBSDKAppEvents *singleton;
+
+#ifdef DEBUG
++ (void)resetSingleton;
+#endif
+
++ (void)logInternalEvent:(FBSDKAppEventName)eventName
+      isImplicitlyLogged:(BOOL)isImplicitlyLogged;
+
++ (void)logInternalEvent:(FBSDKAppEventName)eventName
+              valueToSum:(double)valueToSum
+      isImplicitlyLogged:(BOOL)isImplicitlyLogged;
+
++ (void)logInternalEvent:(FBSDKAppEventName)eventName
+              parameters:(NSDictionary *)parameters
+      isImplicitlyLogged:(BOOL)isImplicitlyLogged;
+
++ (void)logInternalEvent:(FBSDKAppEventName)eventName
+              parameters:(NSDictionary *)parameters
+      isImplicitlyLogged:(BOOL)isImplicitlyLogged
+             accessToken:(FBSDKAccessToken *)accessToken;
+
++ (void)logInternalEvent:(FBSDKAppEventName)eventName
+              valueToSum:(double)valueToSum
+              parameters:(NSDictionary *)parameters
+      isImplicitlyLogged:(BOOL)isImplicitlyLogged;
+
++ (void)logInternalEvent:(NSString *)eventName
+              valueToSum:(NSNumber *)valueToSum
+              parameters:(NSDictionary *)parameters
+      isImplicitlyLogged:(BOOL)isImplicitlyLogged
+            accessToken:(FBSDKAccessToken *)accessToken;
+
 + (void)logImplicitEvent:(NSString *)eventName
               valueToSum:(NSNumber *)valueToSum
               parameters:(NSDictionary *)parameters
              accessToken:(FBSDKAccessToken *)accessToken;
 
-+ (FBSDKAppEvents *)singleton;
 - (void)flushForReason:(FBSDKAppEventsFlushReason)flushReason;
 - (void)registerNotifications;
 

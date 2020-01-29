@@ -18,26 +18,30 @@
 
 #import <Foundation/Foundation.h>
 
+#import "FBSDKAppEvents+Internal.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_NAME(UserDataStore)
 @interface FBSDKUserDataStore : NSObject
 
-+ (void)initStore;
-
-+ (void)setUserDataAndHash:(NSDictionary *)ud;
-
-+ (void)setUserDataAndHash:(nullable NSString *)email
-                 firstName:(nullable NSString *)firstName
-                  lastName:(nullable NSString *)lastName
-                     phone:(nullable NSString *)phone
-               dateOfBirth:(nullable NSString *)dateOfBirth
-                    gender:(nullable NSString *)gender
-                      city:(nullable NSString *)city
-                     state:(nullable NSString *)state
-                       zip:(nullable NSString *)zip
-                   country:(nullable NSString *)country;
-
-+ (NSString *) getHashedUserData;
++ (void)setAndHashUserEmail:(nullable NSString *)email
+                  firstName:(nullable NSString *)firstName
+                   lastName:(nullable NSString *)lastName
+                      phone:(nullable NSString *)phone
+                dateOfBirth:(nullable NSString *)dateOfBirth
+                     gender:(nullable NSString *)gender
+                       city:(nullable NSString *)city
+                      state:(nullable NSString *)state
+                        zip:(nullable NSString *)zip
+                    country:(nullable NSString *)country;
++ (void)setAndHashData:(nullable NSString *)data
+               forType:(FBSDKAppEventUserDataType)type;
++ (void)setHashData:(nullable NSString *)hashData
+            forType:(FBSDKAppEventUserDataType)type;
++ (nullable NSString *)getHashedData;
++ (nullable NSString *)getHashedDataForType:(FBSDKAppEventUserDataType)type;
++ (void)clearDataForType:(FBSDKAppEventUserDataType)type;
 
 @end
 

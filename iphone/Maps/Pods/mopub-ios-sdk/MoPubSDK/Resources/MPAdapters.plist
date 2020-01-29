@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>AdColonyAdapterConfiguration</string>
+	<string>AppLovinAdapterConfiguration</string>
+	<string>ChartboostAdapterConfiguration</string>
+	<string>FacebookAdapterConfiguration</string>
+	<string>FlurryAdapterConfiguration</string>
+	<string>GoogleAdMobAdapterConfiguration</string>
+	<string>IronSourceAdapterConfiguration</string>
+	<string>SnapAdAdapterConfiguration</string>
+	<string>TapjoyAdapterConfiguration</string>
+	<string>UnityAdsAdapterConfiguration</string>
+	<string>VerizonAdapterConfiguration</string>
+	<string>VungleAdapterConfiguration</string>
+</array>
+</plist>

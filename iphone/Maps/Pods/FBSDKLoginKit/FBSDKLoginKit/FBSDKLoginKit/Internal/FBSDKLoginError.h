@@ -16,16 +16,19 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import <Foundation/Foundation.h>
 
-#import <FBSDKLoginKit/FBSDKLoginConstants.h>
+#import "FBSDKLoginConstants.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSError (FBSDKLoginError)
 
 + (NSError *)fbErrorForFailedLoginWithCode:(FBSDKLoginError)code;
-+ (NSError *)fbErrorForSystemAccountStoreError:(NSError *)accountStoreError;
 + (NSError *)fbErrorForSystemPasswordChange:(NSError *)innerError;
 
 + (nullable NSError *)fbErrorFromReturnURLParameters:(NSDictionary<NSString *, id> *)parameters;
@@ -34,3 +37,5 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif

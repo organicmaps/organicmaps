@@ -16,21 +16,31 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface FBSDKAudioResourceLoader : NSObject
 
 + (instancetype)sharedLoader;
 
-- (BOOL)loadSound:(NSError **)error;
+- (BOOL)loadSound:(NSError *__autoreleasing *)errorRef;
 - (void)playSound;
 
 @end
 
 @interface FBSDKAudioResourceLoader (Subclass)
 
-+ (NSString *)name;
-+ (NSUInteger)version;
-+ (NSData *)data;
+@property (class, nonatomic, copy, nullable, readonly) NSString *name;
+@property (class, nonatomic, copy, nullable, readonly) NSData *data;
+@property (class, nonatomic, assign, readonly) NSUInteger version;
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#endif

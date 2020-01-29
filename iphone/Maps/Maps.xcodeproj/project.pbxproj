@@ -175,7 +175,6 @@
 		3490D2E31CE9DD2500D0B838 /* MWMSideButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3490D2DD1CE9DD2500D0B838 /* MWMSideButtonsView.xib */; };
 		34926BE71EA4C2A700DCF14C /* SearchBanners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34926BE51EA4C2A700DCF14C /* SearchBanners.swift */; };
 		34943BBB1E2626B200B14F84 /* WelcomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34943BB91E2626B200B14F84 /* WelcomePageController.swift */; };
-		3495433D1EB22D9600F08F73 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3495433C1EB22D9600F08F73 /* MPAdBrowserController.xib */; };
 		349A13831DEC138C00C7DB60 /* MWMMobileInternetAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 349A13801DEC138C00C7DB60 /* MWMMobileInternetAlert.m */; };
 		349A13851DEC138C00C7DB60 /* MWMMobileInternetAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349A13811DEC138C00C7DB60 /* MWMMobileInternetAlert.xib */; };
 		349D1ABC1E2D05EF004A2006 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D1ABA1E2D05EF004A2006 /* SearchBar.swift */; };
@@ -305,7 +304,6 @@
 		34F4073B1E9E1AFF00E57AC0 /* MopubBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F407241E9E1AFF00E57AC0 /* MopubBanner.swift */; };
 		34F4073E1E9E1AFF00E57AC0 /* MPNativeAd+MWM.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F407261E9E1AFF00E57AC0 /* MPNativeAd+MWM.m */; };
 		34F407411E9E1AFF00E57AC0 /* RBBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F4072A1E9E1AFF00E57AC0 /* RBBanner.swift */; };
-		34F409891E9E1DD200E57AC0 /* libMopub.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F4075D1E9E1D7A00E57AC0 /* libMopub.a */; };
 		34F5E0D41E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F5E0D21E3F254800B1C415 /* UIView+Hierarchy.swift */; };
 		34F73F9C1E082FF800AC1FD6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34F73F5F1E082FF700AC1FD6 /* InfoPlist.strings */; };
 		34F73F9F1E082FF800AC1FD6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34F73F611E082FF800AC1FD6 /* Localizable.strings */; };
@@ -332,7 +330,6 @@
 		4586D0C41F48121A00DF9CE5 /* libbsdiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4586D0C31F48121A00DF9CE5 /* libbsdiff.a */; };
 		4586D0E71F4813AB00DF9CE5 /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */; };
 		4598438621394CFD00F8CAB2 /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4598438521394CFD00F8CAB2 /* MetalPerformanceShaders.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		45A37B9E20B33F5E005FBDBB /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A37B9D20B33F5D005FBDBB /* FBAudienceNetwork.framework */; };
 		45CBCCBA20590AAB006B55C2 /* libkml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CBCCBB20590AAB006B55C2 /* libkml.a */; };
 		45FFD65D1E965EBE00DB854E /* liblocal_ads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FFD65C1E965EBE00DB854E /* liblocal_ads.a */; };
 		4707E4B12372FE860017DF6E /* PlacePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4707E4AF2372FE860017DF6E /* PlacePageViewController.swift */; };
@@ -820,23 +817,6 @@
 		F6FEA82E1C58F108007223CC /* MWMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F6FEA82C1C58E89B007223CC /* MWMButton.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		3470403A1EA6628700038379 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 34F407581E9E1D7A00E57AC0 /* Mopub.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 34F4074B1E9E1D3500E57AC0;
-			remoteInfo = Mopub;
-		};
-		34F4075C1E9E1D7A00E57AC0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 34F407581E9E1D7A00E57AC0 /* Mopub.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 34F4074C1E9E1D3500E57AC0;
-			remoteInfo = Mopub;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		0B07BBB5C2EFC6F60EF51BC8 /* Pods-MAPS.ME.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAPS.ME.debug.xcconfig"; path = "Target Support Files/Pods-MAPS.ME/Pods-MAPS.ME.debug.xcconfig"; sourceTree = "<group>"; };
 		166595280BE641CF8ADE2209 /* Pods-MAPS.ME.production full.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAPS.ME.production full.xcconfig"; path = "Target Support Files/Pods-MAPS.ME/Pods-MAPS.ME.production full.xcconfig"; sourceTree = "<group>"; };
@@ -1278,7 +1258,6 @@
 		34F407261E9E1AFF00E57AC0 /* MPNativeAd+MWM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MPNativeAd+MWM.m"; sourceTree = "<group>"; };
 		34F407281E9E1AFF00E57AC0 /* MWMBannerHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBannerHelpers.h; sourceTree = "<group>"; };
 		34F4072A1E9E1AFF00E57AC0 /* RBBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBBanner.swift; sourceTree = "<group>"; };
-		34F407581E9E1D7A00E57AC0 /* Mopub.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Mopub.xcodeproj; path = MoPubSDK/Mopub.xcodeproj; sourceTree = "<group>"; };
 		34F5E0D21E3F254800B1C415 /* UIView+Hierarchy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Hierarchy.swift"; sourceTree = "<group>"; };
 		34F5E0DA1E3F3ED300B1C415 /* MWMRoutePoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRoutePoint.h; sourceTree = "<group>"; };
 		34F5E0DC1E3F51AF00B1C415 /* MWMCoreRouterType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCoreRouterType.h; sourceTree = "<group>"; };
@@ -2061,7 +2040,6 @@
 				4586D0C41F48121A00DF9CE5 /* libbsdiff.a in Frameworks */,
 				34E6F2DB1F459C05008E14F9 /* GLKit.framework in Frameworks */,
 				F6F8E3C51EF8469700F2DE8F /* libugc.a in Frameworks */,
-				34F409891E9E1DD200E57AC0 /* libMopub.a in Frameworks */,
 				3488B03B1E9D13EF0068AFD8 /* UserNotifications.framework in Frameworks */,
 				45FFD65D1E965EBE00DB854E /* liblocal_ads.a in Frameworks */,
 				34D1B6F11E95096B0057E9C7 /* libicu.a in Frameworks */,
@@ -2075,7 +2053,6 @@
 				67B78B3F1E422C110018E590 /* SafariServices.framework in Frameworks */,
 				67B78B3D1E422BF60018E590 /* CoreData.framework in Frameworks */,
 				344D63181E795A3C006F17CB /* SystemConfiguration.framework in Frameworks */,
-				45A37B9E20B33F5E005FBDBB /* FBAudienceNetwork.framework in Frameworks */,
 				450B5C832355F50200E9019E /* libweb_api.a in Frameworks */,
 				3446C6771DDCA9A200146687 /* libtraffic.a in Frameworks */,
 				34201E0C1DC0E33100D24118 /* libtracking.a in Frameworks */,
@@ -2344,7 +2321,6 @@
 				340474DD1E08199D00C92850 /* Fabric.framework */,
 				347D15C71F82362900E86251 /* GoogleSignIn.framework */,
 				347D15C81F82362900E86251 /* GoogleSignInDependencies.framework */,
-				34F407581E9E1D7A00E57AC0 /* Mopub.xcodeproj */,
 				340474E91E08199D00C92850 /* MyTarget */,
 				340474EE1E08199D00C92850 /* MyTrackerSDK.framework */,
 			);
@@ -3263,14 +3239,6 @@
 				34F4072A1E9E1AFF00E57AC0 /* RBBanner.swift */,
 			);
 			path = RB;
-			sourceTree = "<group>";
-		};
-		34F407591E9E1D7A00E57AC0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				34F4075D1E9E1D7A00E57AC0 /* libMopub.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		34F4B0641F6AC6890035F4F3 /* UGCViewModel */ = {
@@ -4657,7 +4625,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				3470403B1EA6628700038379 /* PBXTargetDependency */,
 			);
 			name = MAPS.ME;
 			productName = Maps;
@@ -4735,28 +4702,12 @@
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 34F407591E9E1D7A00E57AC0 /* Products */;
-					ProjectRef = 34F407581E9E1D7A00E57AC0 /* Mopub.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				6741A93D1BF340DE002C974C /* MAPS.ME */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		34F4075D1E9E1D7A00E57AC0 /* libMopub.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libMopub.a;
-			remoteRef = 34F4075C1E9E1D7A00E57AC0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6741A9411BF340DE002C974C /* Resources */ = {
@@ -4768,7 +4719,6 @@
 				4560F585213D53C100CC736C /* shaders_metal.metallib in Resources */,
 				F642D1231F0F9D1D005E3C25 /* ugc_types.csv in Resources */,
 				34E50DFB1F6FCC96008EED49 /* UGCReviewCell.xib in Resources */,
-				3495433D1EB22D9600F08F73 /* MPAdBrowserController.xib in Resources */,
 				6741A9531BF340DE002C974C /* 01_dejavusans.ttf in Resources */,
 				6741A9541BF340DE002C974C /* 02_droidsans-fallback.ttf in Resources */,
 				479D305B22C62F4000D18278 /* MWMBookmarksBannerViewController.xib in Resources */,
@@ -5019,18 +4969,18 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MAPS.ME/Pods-MAPS.ME-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ActionSheetPicker-3.0/ActionSheetPicker_3_0.framework",
-				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Flurry-iOS-SDK/Flurry_iOS_SDK.framework",
+				"${BUILT_PRODUCTS_DIR}/mopub-ios-sdk/MoPub.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ActionSheetPicker_3_0.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flurry_iOS_SDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MoPub.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -5601,14 +5551,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		3470403B1EA6628700038379 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Mopub;
-			targetProxy = 3470403A1EA6628700038379 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		34F73F5F1E082FF700AC1FD6 /* InfoPlist.strings */ = {

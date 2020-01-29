@@ -16,17 +16,17 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import "FBSDKAppLinkResolver.h"
 
 #import <UIKit/UIKit.h>
 
-#import <Bolts/BFAppLink.h>
-#import <Bolts/BFAppLinkTarget.h>
-#import <Bolts/BFTask.h>
-#import <Bolts/BFTaskCompletionSource.h>
-
 #import "FBSDKAccessToken.h"
 #import "FBSDKAppLink.h"
+#import "FBSDKAppLinkTarget.h"
 #import "FBSDKGraphRequest+Internal.h"
 #import "FBSDKGraphRequestConnection.h"
 #import "FBSDKInternalUtility.h"
@@ -46,47 +46,35 @@ static NSString *const kAppLinksKey = @"app_links";
 
 @interface FBSDKAppLinkResolver ()
 
-@property (nonatomic, strong) NSMutableDictionary<NSURL *, BFAppLink *> *cachedBFAppLinks;
 @property (nonatomic, strong) NSMutableDictionary<NSURL *, FBSDKAppLink *> *cachedFBSDKAppLinks;
 @property (nonatomic, assign) UIUserInterfaceIdiom userInterfaceIdiom;
 @end
 
 @implementation FBSDKAppLinkResolver
 
-static Class g_BFTaskCompletionSourceClass;
-static Class g_BFAppLinkTargetClass;
-static Class g_BFAppLinkClass;
-static Class g_BFTaskClass;
-
 + (void)initialize
 {
   if (self == [FBSDKAppLinkResolver class]) {
-    g_BFTaskCompletionSourceClass = [FBSDKInternalUtility
-                                     resolveBoltsClassWithName:@"BFTaskCompletionSource"];
-    g_BFAppLinkTargetClass = [FBSDKInternalUtility resolveBoltsClassWithName:@"BFAppLinkTarget"];
-    g_BFTaskClass = [FBSDKInternalUtility resolveBoltsClassWithName:@"BFTask"];
-    g_BFAppLinkClass = [FBSDKInternalUtility resolveBoltsClassWithName:@"BFAppLink"];
   }
 }
 
 - (instancetype)initWithUserInterfaceIdiom:(UIUserInterfaceIdiom)userInterfaceIdiom
 {
   if (self = [super init]) {
-    self.cachedBFAppLinks = [NSMutableDictionary dictionary];
     self.cachedFBSDKAppLinks = [NSMutableDictionary dictionary];
     self.userInterfaceIdiom = userInterfaceIdiom;
   }
   return self;
 }
 
-- (void)appLinkFromURL:(NSURL *)url handler:(FBSDKAppLinkFromURLHandler)handler
+- (void)appLinkFromURL:(NSURL *)url handler:(FBSDKAppLinkBlock)handler
 {
   [self appLinksFromURLs:@[url] handler:^(NSDictionary<NSURL *, FBSDKAppLink *> *urls, NSError * _Nullable error) {
     handler(urls[url], error);
   }];
 }
 
-- (void)appLinksFromURLs:(NSArray<NSURL *> *)urls handler:(FBSDKAppLinksFromURLArrayHandler)handler
+- (void)appLinksFromURLs:(NSArray<NSURL *> *)urls handler:(FBSDKAppLinksBlock)handler
 {
   if (![FBSDKSettings clientToken] && ![FBSDKAccessToken currentAccessToken]) {
     [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
@@ -166,7 +154,7 @@ static Class g_BFTaskClass;
       NSURL *fallbackUrl = webFallbackString ? [NSURL URLWithString:webFallbackString] : url;
 
       NSNumber *shouldFallback = webTarget[kShouldFallbackKey];
-      if (shouldFallback && !shouldFallback.boolValue) {
+      if (shouldFallback != nil && !shouldFallback.boolValue) {
         fallbackUrl = nil;
       }
 
@@ -182,118 +170,11 @@ static Class g_BFTaskClass;
   }];
 }
 
-- (BFTask *)appLinksFromURLsInBackground:(NSArray *)urls
-{
-  if (![FBSDKSettings clientToken] && ![FBSDKAccessToken currentAccessToken]) {
-    [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
-                           logEntry:@"A user access token or clientToken is required to use FBAppLinkResolver"];
-  }
-  NSMutableDictionary<NSURL *, BFAppLink *> *appLinks = [NSMutableDictionary dictionary];
-  NSMutableArray<NSURL *> *toFind = [NSMutableArray array];
-  NSMutableArray<NSString *> *toFindStrings = [NSMutableArray array];
-
-  @synchronized (self.cachedBFAppLinks) {
-    for (NSURL *url in urls) {
-      if (self.cachedBFAppLinks[url]) {
-        appLinks[url] = self.cachedBFAppLinks[url];
-      } else {
-        [toFind addObject:url];
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        NSString *toFindString = [url.absoluteString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-#pragma clang diagnostic pop
-        if (toFindString) {
-          [toFindStrings addObject:toFindString];
-        }
-      }
-    }
-  }
-  if (toFind.count == 0) {
-    // All of the URLs have already been found.
-    return [g_BFTaskClass taskWithResult:appLinks];
-  }
-  NSMutableArray<NSString *> *fields = [NSMutableArray arrayWithObject:kIOSKey];
-
-  NSString *idiomSpecificField = nil;
-
-  switch (self.userInterfaceIdiom) {
-    case UIUserInterfaceIdiomPad:
-      idiomSpecificField = kIPadKey;
-      break;
-    case UIUserInterfaceIdiomPhone:
-      idiomSpecificField = kIPhoneKey;
-      break;
-    default:
-      break;
-  }
-  if (idiomSpecificField) {
-    [fields addObject:idiomSpecificField];
-  }
-  NSString *path = [NSString stringWithFormat:@"?fields=%@.fields(%@)&ids=%@",
-                    kAppLinksKey,
-                    [fields componentsJoinedByString:@","],
-                    [toFindStrings componentsJoinedByString:@","]];
-  FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:path
-                                                                 parameters:nil
-                                                                      flags:FBSDKGraphRequestFlagDoNotInvalidateTokenOnError | FBSDKGraphRequestFlagDisableErrorRecovery];
-  BFTaskCompletionSource *tcs = [g_BFTaskCompletionSourceClass taskCompletionSource];
-  [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-    if (error) {
-      [tcs setError:error];
-      return;
-    }
-    for (NSURL *url in toFind) {
-      id nestedObject = result[url.absoluteString][kAppLinksKey];
-      NSMutableArray *rawTargets = [NSMutableArray array];
-      if (idiomSpecificField) {
-        [rawTargets addObjectsFromArray:nestedObject[idiomSpecificField]];
-      }
-      [rawTargets addObjectsFromArray:nestedObject[kIOSKey]];
-
-      NSMutableArray<BFAppLinkTarget *> *targets = [NSMutableArray arrayWithCapacity:rawTargets.count];
-      for (id rawTarget in rawTargets) {
-        [targets addObject:[g_BFAppLinkTargetClass appLinkTargetWithURL:[NSURL URLWithString:rawTarget[kURLKey]]
-                                                             appStoreId:rawTarget[kIOSAppStoreIdKey]
-                                                                appName:rawTarget[kIOSAppNameKey]]];
-      }
-
-      id webTarget = nestedObject[kWebKey];
-      NSString *webFallbackString = webTarget[kURLKey];
-      NSURL *fallbackUrl = webFallbackString ? [NSURL URLWithString:webFallbackString] : url;
-
-      NSNumber *shouldFallback = webTarget[kShouldFallbackKey];
-      if (shouldFallback && !shouldFallback.boolValue) {
-        fallbackUrl = nil;
-      }
-
-      BFAppLink *link = [g_BFAppLinkClass appLinkWithSourceURL:url
-                                                       targets:targets
-                                                        webURL:fallbackUrl];
-      @synchronized (self.cachedBFAppLinks) {
-        self.cachedBFAppLinks[url] = link;
-      }
-      appLinks[url] = link;
-    }
-    [tcs setResult:appLinks];
-  }];
-  return tcs.task;
-}
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-- (BFTask *)appLinkFromURLInBackground:(NSURL *)url
-{
-  // Implement in terms of appLinksFromURLsInBackground
-  BFTask *resolveTask = [self appLinksFromURLsInBackground:@[url]];
-  return [resolveTask continueWithSuccessBlock:^id(BFTask *task) {
-    return task.result[url];
-  }];
-}
-#pragma clang diagnostic pop
-
 + (instancetype)resolver
 {
   return [[self alloc] initWithUserInterfaceIdiom:UI_USER_INTERFACE_IDIOM()];
 }
 
 @end
+
+#endif

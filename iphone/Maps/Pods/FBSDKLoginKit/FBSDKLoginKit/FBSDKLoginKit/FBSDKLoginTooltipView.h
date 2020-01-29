@@ -16,9 +16,15 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import <UIKit/UIKit.h>
 
-#import <FBSDKLoginKit/FBSDKTooltipView.h>
+#import "FBSDKTooltipView.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @protocol FBSDKLoginTooltipViewDelegate;
 
@@ -37,6 +43,7 @@
   (e.g., to test the UI layout) by implementing the delegate or setting `forceDisplay` to YES.
 
  */
+NS_SWIFT_NAME(FBLoginTooltipView)
 @interface FBSDKLoginTooltipView : FBSDKTooltipView
 
 /**  the delegate */
@@ -44,7 +51,7 @@
 
 /**  if set to YES, the view will always be displayed and the delegate's
   `loginTooltipView:shouldAppear:` will NOT be called. */
-@property (nonatomic, assign) BOOL forceDisplay;
+@property (nonatomic, assign, getter=shouldForceDisplay) BOOL forceDisplay;
 
 @end
 
@@ -54,6 +61,7 @@
   The `FBSDKLoginTooltipViewDelegate` protocol defines the methods used to receive event
  notifications from `FBSDKLoginTooltipView` objects.
  */
+NS_SWIFT_NAME(LoginTooltipViewDelegate)
 @protocol FBSDKLoginTooltipViewDelegate <NSObject>
 
 @optional
@@ -88,3 +96,7 @@
 
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#endif
