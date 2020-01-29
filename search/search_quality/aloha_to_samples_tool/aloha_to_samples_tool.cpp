@@ -13,6 +13,7 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include <cstdlib>
 #include <iostream>
 #include <map>
 #include <memory>
@@ -31,7 +32,9 @@ using namespace std;
 using namespace strings;
 
 DEFINE_string(data_path, "", "Path to data directory (resources dir).");
-DEFINE_bool(categorial_only, false, "Save only categorial requests.");
+DEFINE_string(categorial, "all",
+              "Allowed values: 'all' - save all requests; 'only' - save only categorial requests; "
+              "'no' - save all but categorial requests.");
 
 struct EmitInfo
 {
@@ -187,6 +190,13 @@ int main(int argc, char * argv[])
   google::SetUsageMessage("This tool converts events from Alohalytics to search samples.");
   google::ParseCommandLineFlags(&argc, &argv, true);
 
+  if (FLAGS_categorial != "all" && FLAGS_categorial != "only" && FLAGS_categorial != "no")
+  {
+    LOG(LINFO, ("Invalid categorial filter mode:", FLAGS_categorial,
+                "allowed walues are: 'all', 'only', 'no'."));
+    return EXIT_FAILURE;
+  }
+
   if (!FLAGS_data_path.empty())
   {
     Platform & platform = GetPlatform();
@@ -213,9 +223,9 @@ int main(int argc, char * argv[])
       {
         // The exception above is a normal one, Cereal lacks to detect the end of the stream.
         cerr << ex.what() << endl;
-        return -1;
+        return EXIT_FAILURE;
       }
-      return 0;
+      return EXIT_SUCCESS;
     }
 
     auto const * event = dynamic_cast<AlohalyticsIdServerEvent const *>(ptr.get());
@@ -240,8 +250,11 @@ int main(int argc, char * argv[])
       if (!info || !result)
         continue;
 
-      if (FLAGS_categorial_only && !info->m_isCategorial)
+      if ((FLAGS_categorial == "only" && !info->m_isCategorial) ||
+          (FLAGS_categorial == "no" && info->m_isCategorial))
+      {
         continue;
+      }
 
       auto const resultMatches = info->m_results.size() > result->m_pos &&
                                  info->m_results[result->m_pos] == result->m_result;
@@ -256,5 +269,5 @@ int main(int argc, char * argv[])
       }
     }
   }
-  return 0;
+  return EXIT_SUCCESS;
 }
