@@ -68,7 +68,8 @@ dependencies {
   implementation('com.crashlytics.sdk.android:crashlytics-ndk:2.0.4@aar') { transitive = true }
   // 3-party
   implementation 'com.facebook.android:facebook-android-sdk:5.15.0'
-  implementation 'com.facebook.android:audience-network-sdk:4.28.2'
+  implementation 'com.facebook.android:audience-network-sdk:5.6.1'
+  implementation 'com.mopub.mediation:facebookaudiencenetwork:5.6.1.0'
   implementation 'com.google.code.gson:gson:2.6.1'
   implementation 'com.pushwoosh:pushwoosh:5.19.7'
   implementation 'com.pushwoosh:pushwoosh-gcm:5.12.1'
@@ -78,7 +79,7 @@ dependencies {
     exclude group: 'com.google.android.exoplayer', module:'exoplayer-dash'
     exclude group: 'com.google.android.exoplayer', module:'exoplayer-hls'
   }
-  implementation('com.mopub:mopub-sdk-native-static:5.0.0@aar') {
+  implementation('com.mopub:mopub-sdk-native-static:5.10.0@aar') {
     transitive = true;
   }
   implementation fileTree(dir: '3rd_party', include: '*.jar')

@@ -13,8 +13,6 @@ public class Factory
     String provider = banner.getProvider();
     switch (provider)
     {
-      case Providers.FACEBOOK:
-        return new FacebookAdsLoader(cacheListener, tracker);
       case Providers.MY_TARGET:
         return new MyTargetAdsLoader(cacheListener, tracker);
       case Providers.MOPUB:
