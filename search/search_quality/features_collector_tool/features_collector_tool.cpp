@@ -116,27 +116,29 @@ int main(int argc, char * argv[])
 
   auto engine = InitSearchEngine(dataSource, affiliations, "en" /* locale */, FLAGS_num_threads);
 
-  string lines;
-  if (FLAGS_json_in.empty())
+  vector<Sample> samples;
   {
-    GetContents(cin, lines);
-  }
-  else
-  {
-    ifstream ifs(FLAGS_json_in);
-    if (!ifs.is_open())
+    string lines;
+    if (FLAGS_json_in.empty())
     {
-      cerr << "Can't open input json file." << endl;
+      GetContents(cin, lines);
+    }
+    else
+    {
+      ifstream ifs(FLAGS_json_in);
+      if (!ifs.is_open())
+      {
+        cerr << "Can't open input json file." << endl;
+        return -1;
+      }
+      GetContents(ifs, lines);
+    }
+
+    if (!Sample::DeserializeFromJSONLines(lines, samples))
+    {
+      cerr << "Can't parse input json file." << endl;
       return -1;
     }
-    GetContents(ifs, lines);
-  }
-
-  vector<Sample> samples;
-  if (!Sample::DeserializeFromJSONLines(lines, samples))
-  {
-    cerr << "Can't parse input json file." << endl;
-    return -1;
   }
 
   vector<Stats> stats(samples.size());
