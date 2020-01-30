@@ -159,14 +159,12 @@ int main(int argc, char * argv[])
     requests.back()->Start();
   }
 
-  for (auto const & request : requests)
-    request->Wait();
-
   cout << "SampleId,";
   RankingInfo::PrintCSVHeader(cout);
   cout << ",Relevance" << endl;
   for (size_t i = 0; i < samples.size(); ++i)
   {
+    requests[i]->Wait();
     auto const & sample = samples[i];
     auto const & results = requests[i]->Results();
 
@@ -201,6 +199,7 @@ int main(int argc, char * argv[])
       if (wasNotFound && isRelevant)
         s.m_notFound.push_back(j);
     }
+    requests[i].reset();
   }
 
   if (FLAGS_stats_path.empty())
