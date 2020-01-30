@@ -436,6 +436,7 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
 
         MoveTypeAggregator aggregator;
         IsCrossroadChecker::CrossroadInfo info{};
+        info.fill(0);
         for (auto subtrackBegin = track.begin(); subtrackBegin != track.end();)
         {
           auto moveType = pointToMoveType.GetMoveType(*subtrackBegin);
@@ -451,6 +452,7 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
 
           // If it's not the end of the track than it could be a crossroad.
           IsCrossroadChecker::CrossroadInfo crossroad{};
+          crossroad.fill(0);
           if (end != track.end())
           {
             crossroad = checker(prev->GetSegment(), end->GetSegment());
@@ -459,7 +461,8 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
 
           aggregator.Add(move(moveType), info, subtrackBegin, end, geometry);
           subtrackBegin = end;
-          info = {};
+//          info = {};
+          info.fill(0);
         }
 
         auto const summary = aggregator.GetSummary(user, mwmName, countryName, stats);
