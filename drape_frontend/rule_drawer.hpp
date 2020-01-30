@@ -44,6 +44,10 @@ public:
 
   void operator()(FeatureType & f);
 
+#ifdef DRAW_TILE_NET
+  void DrawTileNet();
+#endif
+
 private:
   void ProcessAreaStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape,
                         int & minVisibleScale);
@@ -53,10 +57,6 @@ private:
                          int & minVisibleScale);
 
   bool CheckCoastlines(FeatureType & f, Stylist const & s);
-
-#ifdef DRAW_TILE_NET
-  void DrawTileNet(TInsertShapeFn const & insertShape);
-#endif
 
   bool CheckCancelled();
 

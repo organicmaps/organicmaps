@@ -189,6 +189,13 @@ public:
   DECLARE_CHECKER_INSTANCE(IsBuildingPartChecker);
 };
 
+class IsIsolineChecker : public BaseChecker
+{
+  IsIsolineChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsIsolineChecker);
+};
+
 class IsPoiChecker : public BaseChecker
 {
   IsPoiChecker();

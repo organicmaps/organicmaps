@@ -10,6 +10,7 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/road_shields_parser.hpp"
 
+#include "geometry/clipping.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/polyline2d.hpp"
 #include "geometry/spline.hpp"
@@ -173,7 +174,7 @@ class ApplyLineFeatureGeometry : public BaseApplyFeature
 public:
   ApplyLineFeatureGeometry(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                            FeatureID const & id, double currentScaleGtoP, int minVisibleScale,
-                           uint8_t rank, size_t pointsCount);
+                           uint8_t rank, size_t pointsCount, bool smooth);
 
   void operator() (m2::PointD const & point);
   bool HasGeometry() const;
@@ -189,6 +190,7 @@ private:
   double m_sqrScale;
   m2::PointD m_lastAddedPoint;
   bool m_simplify;
+  bool m_smooth;
   size_t m_initialPointsCount;
 
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS

@@ -132,27 +132,12 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::Point
     resultIterator(poligon[0], poligon[i + 1], poligon[i + 2]);
 }
 
-vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline)
+std::vector<m2::SharedSpline> ClipPathByRectImpl(m2::RectD const & rect,
+                                                 std::vector<m2::PointD> const & path)
 {
   vector<m2::SharedSpline> result;
 
-  vector<m2::PointD> const & path = spline->GetPath();
   if (path.size() < 2)
-    return result;
-
-  m2::RectD splineRect;
-  for (m2::PointD const & p : path)
-    splineRect.Add(p);
-
-  // Check for spline is inside.
-  if (rect.IsRectInside(splineRect))
-  {
-    result.push_back(spline);
-    return result;
-  }
-
-  // Check for spline is outside.
-  if (!rect.IsIntersect(splineRect))
     return result;
 
   // Divide spline into parts.
@@ -190,5 +175,138 @@ vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpli
     }
   }
   return result;
+}
+
+enum class RectCase
+{
+  Inside,
+  Outside,
+  Intersect
+};
+
+RectCase GetRectCase(m2::RectD const & rect, std::vector<m2::PointD> const & path)
+{
+  m2::RectD pathRect;
+  for (auto const & p : path)
+    pathRect.Add(p);
+
+  if (rect.IsRectInside(pathRect))
+    return RectCase::Inside;
+
+  if (rect.IsIntersect(pathRect))
+    return RectCase::Intersect;
+
+  return RectCase::Outside;
+}
+
+vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline)
+{
+  auto const rectCase = GetRectCase(rect, spline->GetPath());
+  switch (rectCase)
+  {
+  case RectCase::Inside: return {spline};
+  case RectCase::Outside: return {};
+  case RectCase::Intersect: return ClipPathByRectImpl(rect, spline->GetPath());
+  }
+}
+
+std::vector<m2::SharedSpline> ClipPathByRect(m2::RectD const & rect,
+                                             std::vector<m2::PointD> const & path)
+{
+  auto const rectCase = GetRectCase(rect, path);
+  switch (rectCase)
+  {
+  case RectCase::Inside: return {m2::SharedSpline(path)};
+  case RectCase::Outside: return {};
+  case RectCase::Intersect: return ClipPathByRectImpl(rect, path);
+  }
+}
+
+void ClipPathByRectBeforeSmooth(m2::RectD const & rect, std::vector<m2::PointD> const & path,
+                                GuidePointsForSmooth & guidePoints,
+                                std::vector<std::vector<m2::PointD>> & clippedPaths)
+{
+  if (path.size() < 2)
+    return;
+
+  auto const rectCase = GetRectCase(rect, path);
+
+  if (rectCase == RectCase::Outside)
+    return;
+
+  m2::PointD guideFront;
+  m2::PointD guideBack;
+  double const kEps = 1e-5;
+  if (path.front().EqualDxDy(path.back(), kEps))
+  {
+    guideFront = path[path.size() - 2];
+    guideBack = path[1];
+  }
+  else
+  {
+    guideFront = path[0] + (path[0] - path[1]) * 2.0;
+    guideBack = path.back() + (path.back() - path[path.size() - 2]) * 2.0;
+  }
+
+  if (rectCase == RectCase::Inside)
+  {
+    clippedPaths.push_back(path);
+    guidePoints.push_back({guideFront, guideBack});
+    return;
+  }
+
+  // Divide spline into parts.
+  clippedPaths.reserve(2);
+  std::vector<m2::PointD> currentPath;
+  m2::PointD currentGuideFront;
+  m2::PointD currentGuideBack;
+
+  auto const startCurrentPath = [&](size_t pos)
+  {
+    if (pos > 0)
+      currentPath.push_back(path[pos - 1]);
+    currentGuideFront = pos > 1 ? path[pos - 2] : guideFront;
+  };
+
+  auto const finishCurrentPath = [&](size_t pos)
+  {
+    currentPath.push_back(path[pos]);
+    currentGuideBack = pos < path.size() - 1 ? path[pos + 1] : guideBack;
+
+    clippedPaths.emplace_back(std::move(currentPath));
+    guidePoints.push_back({currentGuideFront, currentGuideBack});
+
+    currentPath = {};
+  };
+
+  for (size_t pos = 0; pos < path.size(); ++pos)
+  {
+    if (rect.IsPointInside(path[pos]))
+    {
+      if (currentPath.empty())
+        startCurrentPath(pos);
+      currentPath.push_back(path[pos]);
+    }
+    else if (!currentPath.empty())
+    {
+      finishCurrentPath(pos);
+    }
+    else if (pos > 0)
+    {
+      auto p1 = path[pos - 1];
+      auto p2 = path[pos];
+      if (m2::Intersect(rect, p1, p2))
+      {
+        startCurrentPath(pos);
+        finishCurrentPath(pos);
+      }
+    }
+  }
+
+  if (!currentPath.empty())
+  {
+    clippedPaths.emplace_back(std::move(currentPath));
+    guidePoints.push_back({currentGuideFront, guideBack});
+  }
 }
 }  // namespace m2;
