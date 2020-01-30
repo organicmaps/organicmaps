@@ -1,11 +1,7 @@
 #include "testing/testing.hpp"
 
-#include "map/mwm_url.hpp"
-
 #include "ge0/parser.hpp"
 #include "ge0/url_generator.hpp"
-
-#include "base/macros.hpp"
 
 #include <algorithm>
 #include <string>
@@ -241,11 +237,10 @@ UNIT_TEST(LatLonFullAndClippedCoordinates)
   {
     for (double lon = -180; lon < 180; lon += 0.7)
     {
-      char buf[20] = {0};
-      ge0::GenShortShowMapUrl(lat, lon, 4, "", buf, ARRAY_SIZE(buf));
+      string const buf = ge0::GenerateShortShowMapUrl(lat, lon, 4, "");
       for (int i = 9; i >= 1; --i)
       {
-        string const str = string(buf).substr(7, i);
+        string const str = buf.substr(7, i);
         size_t const coordSize = str.size();
         Ge0ParserForTest parser;
         double latTmp, lonTmp;

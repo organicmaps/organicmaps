@@ -2656,22 +2656,13 @@ string Framework::CodeGe0url(Bookmark const * bmk, bool addName)
 {
   double lat = mercator::YToLat(bmk->GetPivot().y);
   double lon = mercator::XToLon(bmk->GetPivot().x);
-  return CodeGe0url(lat, lon, bmk->GetScale(), addName ? bmk->GetPreferredName() : "");
+  return ge0::GenerateShortShowMapUrl(lat, lon, bmk->GetScale(), addName ? bmk->GetPreferredName() : "");
 }
 
 // static
 string Framework::CodeGe0url(double lat, double lon, double zoomLevel, string const & name)
 {
-  size_t const resultSize = ge0::GetMaxBufferSize(static_cast<int>(name.size()));
-
-  string res(resultSize, 0);
-  int const len = ge0::GenShortShowMapUrl(lat, lon, zoomLevel, name.c_str(), &res[0],
-                                          static_cast<int>(res.size()));
-
-  ASSERT_LESS_OR_EQUAL(len, static_cast<int>(res.size()), ());
-  res.resize(len);
-
-  return res;
+  return ge0::GenerateShortShowMapUrl(lat, lon, zoomLevel, name);
 }
 
 string Framework::GenerateApiBackUrl(ApiMarkPoint const & point) const

@@ -225,8 +225,10 @@ UNIT_TEST(LatLonToString_StringDensity)
     }
   }
 
-  int min1 = 1 << 30, min2 = 1 << 30;
-  int max1 = 0, max2 = 0;
+  int min1 = 1 << 30;
+  int min2 = 1 << 30;
+  int max1 = 0;
+  int max2 = 0;
   for (int i = 0; i < 256; ++i)
   {
     if (num1[i] != 0 && num1[i] < min1)
@@ -247,173 +249,93 @@ UNIT_TEST(LatLonToString_StringDensity)
   TEST((max2 - min2) * 1.0 / max2 < 0.05, ());
 }
 
-UNIT_TEST(GenShortShowMapUrl_SmokeTest)
+UNIT_TEST(GenerateShortShowMapUrl_SmokeTest)
 {
-  char buf[100] = {0};
-  int res = GenShortShowMapUrl(0, 0, 19, "Name", buf, 100);
-  TEST_EQUAL("ge0://8wAAAAAAAA/Name", string(buf), ());
-  TEST_EQUAL(21, res, ());
+  string res = GenerateShortShowMapUrl(0, 0, 19, "Name");
+  TEST_EQUAL("ge0://8wAAAAAAAA/Name", res, ());
 }
 
-UNIT_TEST(GenShortShowMapUrl_NameIsNull)
+UNIT_TEST(GenerateShortShowMapUrl_NameIsEmpty)
 {
-  char buf[100] = {0};
-  int res = GenShortShowMapUrl(0, 0, 19, 0, buf, 100);
-  TEST_EQUAL("ge0://8wAAAAAAAA", string(buf), ());
-  TEST_EQUAL(16, res, ());
+  string res = GenerateShortShowMapUrl(0, 0, 19, "");
+  TEST_EQUAL("ge0://8wAAAAAAAA", res, ());
 }
 
-UNIT_TEST(GenShortShowMapUrl_NameIsEmpty)
+UNIT_TEST(GenerateShortShowMapUrl_ZoomVerySmall)
 {
-  char buf[100] = {0};
-  int res = GenShortShowMapUrl(0, 0, 19, "", buf, 100);
-  TEST_EQUAL("ge0://8wAAAAAAAA", string(buf), ());
-  TEST_EQUAL(16, res, ());
+  string res = GenerateShortShowMapUrl(0, 0, 2, "Name");
+  TEST_EQUAL("ge0://AwAAAAAAAA/Name", res, ());
 }
 
-UNIT_TEST(GenShortShowMapUrl_ZoomVerySmall)
+UNIT_TEST(GenerateShortShowMapUrl_ZoomNegative)
 {
-  char buf[100] = {0};
-  int res = GenShortShowMapUrl(0, 0, 2, "Name", buf, 100);
-  TEST_EQUAL("ge0://AwAAAAAAAA/Name", string(buf), ());
-  TEST_EQUAL(21, res, ());
+  string res = GenerateShortShowMapUrl(0, 0, -5, "Name");
+  TEST_EQUAL("ge0://AwAAAAAAAA/Name", res, ());
 }
 
-UNIT_TEST(GenShortShowMapUrl_ZoomNegative)
+UNIT_TEST(GenerateShortShowMapUrl_ZoomLarge)
 {
-  char buf[100] = {0};
-  int res = GenShortShowMapUrl(0, 0, -5, "Name", buf, 100);
-  TEST_EQUAL("ge0://AwAAAAAAAA/Name", string(buf), ());
-  TEST_EQUAL(21, res, ());
+  string res = GenerateShortShowMapUrl(0, 0, 20, "Name");
+  TEST_EQUAL("ge0://_wAAAAAAAA/Name", res, ());
 }
 
-UNIT_TEST(GenShortShowMapUrl_ZoomLarge)
+UNIT_TEST(GenerateShortShowMapUrl_ZoomVeryLarge)
 {
-  char buf[100] = {0};
-  int res = GenShortShowMapUrl(0, 0, 20, "Name", buf, 100);
-  TEST_EQUAL("ge0://_wAAAAAAAA/Name", string(buf), ());
-  TEST_EQUAL(21, res, ());
+  string res = GenerateShortShowMapUrl(0, 0, 2000000000, "Name");
+  TEST_EQUAL("ge0://_wAAAAAAAA/Name", res, ());
 }
 
-UNIT_TEST(GenShortShowMapUrl_ZoomVeryLarge)
+UNIT_TEST(GenerateShortShowMapUrl_FractionalZoom)
 {
-  char buf[100] = {0};
-  int res = GenShortShowMapUrl(0, 0, 2000000000, "Name", buf, 100);
-  TEST_EQUAL("ge0://_wAAAAAAAA/Name", string(buf), ());
-  TEST_EQUAL(21, res, ());
+  string res = GenerateShortShowMapUrl(0, 0, 8.25, "Name");
+  TEST_EQUAL("ge0://RwAAAAAAAA/Name", res, ());
 }
 
-UNIT_TEST(GenShortShowMapUrl_FractionalZoom)
+UNIT_TEST(GenerateShortShowMapUrl_FractionalZoomRoundsDown)
 {
-  char buf[100] = {0};
-  int res = GenShortShowMapUrl(0, 0, 8.25, "Name", buf, 100);
-  TEST_EQUAL("ge0://RwAAAAAAAA/Name", string(buf), ());
-  TEST_EQUAL(21, res, ());
+  string res = GenerateShortShowMapUrl(0, 0, 8.499, "Name");
+  TEST_EQUAL("ge0://RwAAAAAAAA/Name", res, ());
 }
 
-UNIT_TEST(GenShortShowMapUrl_FractionalZoomRoundsDown)
+UNIT_TEST(GenerateShortShowMapUrl_FractionalZoomNextStep)
 {
-  char buf[100] = {0};
-  int res = GenShortShowMapUrl(0, 0, 8.499, "Name", buf, 100);
-  TEST_EQUAL("ge0://RwAAAAAAAA/Name", string(buf), ());
-  TEST_EQUAL(21, res, ());
+  string res = GenerateShortShowMapUrl(0, 0, 8.5, "Name");
+  TEST_EQUAL("ge0://SwAAAAAAAA/Name", res, ());
 }
 
-UNIT_TEST(GenShortShowMapUrl_FractionalZoomNextStep)
+UNIT_TEST(GenerateShortShowMapUrl_SpaceIsReplacedWithUnderscore)
 {
-  char buf[100] = {0};
-  int res = GenShortShowMapUrl(0, 0, 8.5, "Name", buf, 100);
-  TEST_EQUAL("ge0://SwAAAAAAAA/Name", string(buf), ());
-  TEST_EQUAL(21, res, ());
+  string res = GenerateShortShowMapUrl(0, 0, 19, "Hello World");
+  TEST_EQUAL("ge0://8wAAAAAAAA/Hello_World", res, ());
 }
 
-UNIT_TEST(GenShortShowMapUrl_SpaceIsReplacedWithUnderscore)
+UNIT_TEST(GenerateShortShowMapUrl_NamesAreEscaped)
 {
-  char buf[100] = {0};
-  int res = GenShortShowMapUrl(0, 0, 19, "Hello World", buf, 100);
-  TEST_EQUAL("ge0://8wAAAAAAAA/Hello_World", string(buf), ());
-  TEST_EQUAL(28, res, ());
+  string res = GenerateShortShowMapUrl(0, 0, 19, "'Hello,World!%$");
+  TEST_EQUAL("ge0://8wAAAAAAAA/%27Hello%2CWorld%21%25%24", res, ());
 }
 
-UNIT_TEST(GenShortShowMapUrl_NamesAreEscaped)
+UNIT_TEST(GenerateShortShowMapUrl_UnderscoreIsReplacedWith_Percent_20)
 {
-  char buf[100] = {0};
-  int res = GenShortShowMapUrl(0, 0, 19, "'Hello,World!%$", buf, 100);
-  TEST_EQUAL("ge0://8wAAAAAAAA/%27Hello%2CWorld%21%25%24", string(buf), ());
-  TEST_EQUAL(42, res, ());
+  string res = GenerateShortShowMapUrl(0, 0, 19, "Hello_World");
+  TEST_EQUAL("ge0://8wAAAAAAAA/Hello%20World", res, ());
 }
 
-UNIT_TEST(GenShortShowMapUrl_UnderscoreIsReplacedWith_Percent_20)
+UNIT_TEST(GenerateShortShowMapUrl_ControlCharsAreEscaped)
 {
-  char buf[100] = {0};
-  int res = GenShortShowMapUrl(0, 0, 19, "Hello_World", buf, 100);
-  TEST_EQUAL("ge0://8wAAAAAAAA/Hello%20World", string(buf), ());
-  TEST_EQUAL(30, res, ());
+  string res = GenerateShortShowMapUrl(0, 0, 19, "Hello\tWorld\n");
+  TEST_EQUAL("ge0://8wAAAAAAAA/Hello%09World%0A", res, ());
 }
 
-UNIT_TEST(GenShortShowMapUrl_ControlCharsAreEscaped)
+UNIT_TEST(GenerateShortShowMapUrl_Unicode)
 {
-  char buf[100] = {0};
-  int res = GenShortShowMapUrl(0, 0, 19, "Hello\tWorld\n", buf, 100);
-  TEST_EQUAL("ge0://8wAAAAAAAA/Hello%09World%0A", string(buf), ());
-  TEST_EQUAL(33, res, ());
+  string res = GenerateShortShowMapUrl(0, 0, 19, "\xe2\x98\x84");
+  TEST_EQUAL("ge0://8wAAAAAAAA/\xe2\x98\x84", res, ());
 }
 
-UNIT_TEST(GenShortShowMapUrl_BufferNullAndEmpty)
+UNIT_TEST(GenerateShortShowMapUrl_UnicodeMixedWithOtherChars)
 {
-  int res = GenShortShowMapUrl(0, 0, 19, "Name", nullptr, 0);
-  TEST_EQUAL(21, res, ());
-}
-
-UNIT_TEST(GenShortShowMapUrl_BufferNotNullAndEmpty)
-{
-  char buf[100] = {0};
-  int res = GenShortShowMapUrl(0, 0, 19, "Name", buf, 0);
-  TEST_EQUAL(21, res, ());
-}
-
-UNIT_TEST(GenShortShowMapUrl_TerminatingNullIsNotWritten)
-{
-  char buf[] = "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
-  int res = GenShortShowMapUrl(0, 0, 19, "Name", buf, 27);
-  TEST_EQUAL("ge0://8wAAAAAAAA/Namexxxxxx", string(buf), ());
-  TEST_EQUAL(21, res, ());
-}
-
-UNIT_TEST(GenShortShowMapUrl_BufferIs1Byte)
-{
-  char buf;
-  int res = GenShortShowMapUrl(0, 0, 19, "Name", &buf, 1);
-  TEST_EQUAL('g', buf, ());
-  TEST_EQUAL(21, res, ());
-}
-
-UNIT_TEST(GenShortShowMapUrl_BufferTooSmall)
-{
-  for (int bufSize = 1; bufSize <= 21; ++bufSize)
-  {
-    char buf[100] = {0};
-    int res = GenShortShowMapUrl(0, 0, 19, "Name", buf, bufSize);
-    char expected[] = "ge0://8wAAAAAAAA/Name";
-    expected[bufSize] = 0;
-    TEST_EQUAL(string(expected), string(buf), ());
-    TEST_EQUAL(21, res, ());
-  }
-}
-
-UNIT_TEST(GenShortShowMapUrl_Unicode)
-{
-  char buf[100] = {0};
-  int res = GenShortShowMapUrl(0, 0, 19, "\xe2\x98\x84", buf, 100);
-  TEST_EQUAL("ge0://8wAAAAAAAA/\xe2\x98\x84", string(buf), ());
-  TEST_EQUAL(20, res, ());
-}
-
-UNIT_TEST(GenShortShowMapUrl_UnicodeMixedWithOtherChars)
-{
-  char buf[100] = {0};
-  int res = GenShortShowMapUrl(0, 0, 19, "Back_in \xe2\x98\x84!\xd1\x8e\xd0\xbc", buf, 100);
-  TEST_EQUAL("ge0://8wAAAAAAAA/Back%20in_\xe2\x98\x84%21\xd1\x8e\xd0\xbc", string(buf), ());
-  TEST_EQUAL(37, res, ());
+  string res = GenerateShortShowMapUrl(0, 0, 19, "Back_in \xe2\x98\x84!\xd1\x8e\xd0\xbc");
+  TEST_EQUAL("ge0://8wAAAAAAAA/Back%20in_\xe2\x98\x84%21\xd1\x8e\xd0\xbc", res, ());
 }
 }  // namespace ge0
