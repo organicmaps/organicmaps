@@ -3,6 +3,8 @@
 #include "ge0/parser.hpp"
 #include "ge0/url_generator.hpp"
 
+#include "base/math.hpp"
+
 #include <algorithm>
 #include <string>
 
@@ -62,14 +64,17 @@ void TestFailure(char const * s)
 {
   Ge0Parser parser;
   string name;
-  double lat, lon, zoomLevel;
+  double lat;
+  double lon;
+  double zoomLevel;
   bool const result = parser.Parse(s, lat, lon, name, zoomLevel);
   TEST(!result, (s));
 }
 
 bool ConvergenceTest(double lat, double lon, double latEps, double lonEps)
 {
-  double tmpLat = lat, tmpLon = lon;
+  double tmpLat = lat;
+  double tmpLon = lon;
   Ge0ParserForTest parser;
   for (size_t i = 0; i < 100000; ++i)
   {
@@ -77,9 +82,7 @@ bool ConvergenceTest(double lat, double lon, double latEps, double lonEps)
     ge0::LatLonToString(tmpLat, tmpLon, urlPrefix + 0, 9);
     parser.DecodeLatLon(urlPrefix, tmpLat, tmpLon);
   }
-  if (fabs(lat - tmpLat) <= latEps && fabs(lon - tmpLon) <= lonEps)
-    return true;
-  return false;
+  return base::AlmostEqualAbs(lat, tmpLat, latEps) && base::AlmostEqualAbs(lon, tmpLon, lonEps);
 }
 
 UNIT_TEST(Base64DecodingWorksForAValidChar)
