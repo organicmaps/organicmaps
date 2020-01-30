@@ -97,7 +97,7 @@ UNIT_TEST(TrimSegment_Vertical)
   m2::PointD const a(2.0, -1.0);
   m2::PointD const b(2.0, 3.0);
   double const dist = 1.0;
-  m2::PointD const point = TrimSegment(a, b, dist);
+  m2::PointD const point = GetPointAtDistFromTarget(a /* source */, b /* target */, dist);
   m2::PointD const pointPlan(2.0, 2.0);
   TEST(AlmostEqualAbs(point, pointPlan, kMwmPointAccuracy), ());
 }
@@ -107,7 +107,7 @@ UNIT_TEST(TrimSegment_VerticalNegative)
   m2::PointD const a(-3.0, -5.0);
   m2::PointD const b(-3.0, 6.0);
   double const dist = 4.0;
-  m2::PointD const point = TrimSegment(a, b, dist);
+  m2::PointD const point = GetPointAtDistFromTarget(a /* source */, b /* target */, dist);
   m2::PointD const pointPlan(-3.0, 2.0);
   TEST(AlmostEqualAbs(point, pointPlan, kMwmPointAccuracy), ());
 }
@@ -117,7 +117,7 @@ UNIT_TEST(TrimSegment_ExceptionalCase)
   m2::PointD const a(1.0, 2.0);
   m2::PointD const b(2.0, 3.0);
   double const dist = 10.0;
-  m2::PointD const point = TrimSegment(a, b, dist);
+  m2::PointD const point = GetPointAtDistFromTarget(a /* source */, b /* target */, dist);
   TEST(AlmostEqualAbs(point, a, kMwmPointAccuracy), ());
 }
 
@@ -170,7 +170,8 @@ UNIT_TEST(TrimSegment_Radius3)
   m2::PointD const pointRoundabout(15.0, 17.0);
   double const r = 3.0;
 
-  m2::PointD const nextPointOnRoad = TrimSegment(pointOnRoad, pointRoundabout, r);
+  m2::PointD const nextPointOnRoad = GetPointAtDistFromTarget(
+      pointOnRoad /* source */, pointRoundabout /* target */, r /* dist */);
   double const dist = DistanceOnPlain(nextPointOnRoad, pointRoundabout);
   TestRunCmpNumbers(dist, r);
 }
@@ -209,7 +210,8 @@ UNIT_TEST(Manage_MiniRoundabout_1Road)
                               kMwmPointAccuracy),
          ());
 
-  m2::PointD newPointOnRoad = TrimSegment(nearest, center, r);
+  m2::PointD const newPointOnRoad =
+      GetPointAtDistFromTarget(nearest /* source */, center /* target */, r /* dist */);
   AddPointToCircle(circlePlain, newPointOnRoad);
 
   std::vector<m2::PointD> const circlePlainExpected{
@@ -237,19 +239,22 @@ UNIT_TEST(Manage_MiniRoundabout_4Roads)
 
   auto circlePlain = PointToPolygon(center, r, 6, 30.0);
 
-  AddPointToCircle(circlePlain, TrimSegment(mercator::FromLatLon(stationRoadNode.m_lat,
-                                                                       stationRoadNode.m_lon),
-                                            center, r));
-  AddPointToCircle(circlePlain, TrimSegment(mercator::FromLatLon(plaughRoundaboutNode.m_lat,
-                                                                       plaughRoundaboutNode.m_lon),
-                                            center, r));
-  AddPointToCircle(circlePlain, TrimSegment(mercator::FromLatLon(stationRoadLeftNode.m_lat,
-                                                                       stationRoadLeftNode.m_lon),
-                                            center, r));
+  AddPointToCircle(circlePlain, GetPointAtDistFromTarget(
+                                    mercator::FromLatLon(stationRoadNode.m_lat,
+                                                         stationRoadNode.m_lon) /* source */,
+                                    center /* target */, r /* dist */));
+  AddPointToCircle(circlePlain, GetPointAtDistFromTarget(
+                                    mercator::FromLatLon(plaughRoundaboutNode.m_lat,
+                                                         plaughRoundaboutNode.m_lon) /* source */,
+                                    center /* target */, r /* dist */));
+  AddPointToCircle(circlePlain, GetPointAtDistFromTarget(
+                                    mercator::FromLatLon(stationRoadLeftNode.m_lat,
+                                                         stationRoadLeftNode.m_lon) /* source */,
+                                    center /* target */, r /* dist */));
   AddPointToCircle(circlePlain,
-                   TrimSegment(mercator::FromLatLon(plaughRoundaboutRightNode.m_lat,
-                                                          plaughRoundaboutRightNode.m_lon),
-                               center, r));
+                   GetPointAtDistFromTarget(mercator::FromLatLon(plaughRoundaboutRightNode.m_lat,
+                                                                 plaughRoundaboutRightNode.m_lon),
+                                            center, r));
 
   std::vector<m2::PointD> const circlePlainExpected{
       {-0.47381, 60.67520}, {-0.47383, 60.67521}, {-0.47384, 60.67521}, {-0.47385, 60.67520},
