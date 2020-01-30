@@ -3,7 +3,8 @@ extension TabView {
     if styleName.isEmpty {
       styleName = "TabView"
     }
-    for style in StyleManager.shared.getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName)
+      where !style.isEmpty && !style.hasExclusion(view: self) {
       TabViewRenderer.render(self, style: style)
     }
   }

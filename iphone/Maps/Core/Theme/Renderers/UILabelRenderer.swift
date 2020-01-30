@@ -12,8 +12,8 @@ extension UILabel {
   }
 
   @objc override func applyTheme() {
-    let styles = StyleManager.shared.getStyle(styleName)
-    for style in styles {
+    for style in StyleManager.shared.getStyle(styleName)
+      where !style.isEmpty && !style.hasExclusion(view: self) {
       UILabelRenderer.render(self, style: style)
     }
   }

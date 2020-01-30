@@ -1,6 +1,7 @@
 extension UITextView {
   @objc override func applyTheme() {
-    for style in StyleManager.shared.getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName)
+      where !style.isEmpty && !style.hasExclusion(view: self) {
       UITextViewRenderer.render(self, style: style)
     }
   }

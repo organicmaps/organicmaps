@@ -37,7 +37,9 @@
       }
     }
 
-    UISearchBarRenderer.setAppearance()
+    if #available(iOS 13, *) {} else {
+      UISearchBarRenderer.setAppearance()
+    }
   }
 
   private func updateView(_ view: UIView?) {

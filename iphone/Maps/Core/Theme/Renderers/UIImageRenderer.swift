@@ -1,6 +1,7 @@
 extension UIImageView {
   @objc override func applyTheme() {
-    for style in StyleManager.shared.getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName)
+      where !style.isEmpty && !style.hasExclusion(view: self) {
       UIImageViewRenderer.render(self, style: style)
     }
   }

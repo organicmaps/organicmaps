@@ -40,9 +40,11 @@ class Style: ExpressibleByDictionaryLiteral {
     case pageIndicatorTintColor
     case currentPageIndicatorTintColor
 
+    case ratingViewSettings
     case coloring
     case colors
     case images
+    case exclusions
     case unknown
   }
 
@@ -50,6 +52,9 @@ class Style: ExpressibleByDictionaryLiteral {
   typealias Value = Any?
 
   var params:[Key: Value] = [:]
+  var isEmpty: Bool {
+    return params.isEmpty
+  }
 
   required init(dictionaryLiteral elements: (Style.Parameter, Any?)...) {
     for (key, value) in elements {
@@ -63,16 +68,30 @@ class Style: ExpressibleByDictionaryLiteral {
 
   func append(_ style: Style) {
     params.merge(style.params) { (a, b) -> Style.Value in
-      return b
+      return a
     }
   }
 
   func append(_ styles: [Style]) {
     styles.forEach { (style) in
       params.merge(style.params) { (a, b) -> Style.Value in
-        return b
+        return a
       }
     }
+  }
+
+  func hasExclusion(view: UIView) -> Bool {
+    guard let exclusions = exclusions else {
+      return false
+    }
+    var superView:UIView? = view
+    while (superView != nil) {
+      if exclusions.contains(String(describing: type(of: superView!))) {
+        return true
+      }
+      superView = superView?.superview
+    }
+    return false;
   }
 }
 
@@ -262,6 +281,11 @@ extension Style {
     set { params[.currentPageIndicatorTintColor] = newValue }
   }
 
+  var ratingViewSettings: RatingViewSettings? {
+    get { return self[.ratingViewSettings] as? RatingViewSettings }
+    set { params[.ratingViewSettings] = newValue }
+  }
+
   var colors: [UIColor]? {
     get { return self[.colors] as? [UIColor] }
     set { params[.colors] = newValue }
@@ -275,5 +299,10 @@ extension Style {
   var coloring: MWMButtonColoring? {
     get { return self[.coloring] as? MWMButtonColoring }
     set { params[.coloring] = newValue }
+  }
+
+  var exclusions: Set<String>? {
+    get { return self[.exclusions] as? Set<String> }
+    set { params[.exclusions] = newValue }
   }
 }

@@ -3,7 +3,8 @@ extension UINavigationItem {
     if styleName.isEmpty {
       styleName = "NavigationBarItem"
     }
-    for style in StyleManager.shared.getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName)
+      where !style.isEmpty {
       UINavigationItemRenderer.render(self, style: style)
     }
   }

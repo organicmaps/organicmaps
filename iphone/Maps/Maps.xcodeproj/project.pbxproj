@@ -619,6 +619,7 @@
 		995739042355CAA30019AEE7 /* PageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995739032355CAA30019AEE7 /* PageIndicator.swift */; };
 		995739062355CAC40019AEE7 /* ImageViewCrossDisolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995739052355CAC40019AEE7 /* ImageViewCrossDisolve.swift */; };
 		995739082355CB660019AEE7 /* AllPassSubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995739072355CB660019AEE7 /* AllPassSubscriptionViewController.swift */; };
+		9974CA3A23E05B9C003FE824 /* RatingViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9974CA3923E05B9C003FE824 /* RatingViewRenderer.swift */; };
 		999D3A67237BFA4600C5F7A8 /* SubscriptionViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999D3A66237BFA4600C5F7A8 /* SubscriptionViewBuilder.swift */; };
 		999FC12023ABA9AD00B0E6F9 /* SearchStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999FC11F23ABA9AD00B0E6F9 /* SearchStyleSheet.swift */; };
 		999FC12223ABABA000B0E6F9 /* IFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999FC12123ABABA000B0E6F9 /* IFonts.swift */; };
@@ -650,6 +651,7 @@
 		99D363172358647700941BF4 /* SubscriptionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D363162358647700941BF4 /* SubscriptionGroup.swift */; };
 		99D363192358685300941BF4 /* SubscriptionGroupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D363182358685300941BF4 /* SubscriptionGroupItem.swift */; };
 		99D3631E23589BE800941BF4 /* FredokaOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99D3631D23589BE800941BF4 /* FredokaOne-Regular.ttf */; };
+		99DEF9D023E2CD67006BFD21 /* UISearchBar+swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 99DEF9CF23E2CD67006BFD21 /* UISearchBar+swizzle.m */; };
 		99E2B0122368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E2B0112368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift */; };
 		99E2B01E23698B0800FFABC5 /* WelcomeProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E2B01D23698B0800FFABC5 /* WelcomeProtocols.swift */; };
 		99E2B0232369904800FFABC5 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E2B0222369904800FFABC5 /* WelcomeViewController.swift */; };
@@ -1677,6 +1679,7 @@
 		9957FAE0237AE04900855F48 /* MWMMapViewControlsManager+AddPlace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMMapViewControlsManager+AddPlace.h"; sourceTree = "<group>"; };
 		9957FAE3237AE3CF00855F48 /* DeepLinkCatalogueStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkCatalogueStrategy.swift; sourceTree = "<group>"; };
 		9957FAEA237AF22800855F48 /* DeepLinkIncorrectStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkIncorrectStrategy.swift; sourceTree = "<group>"; };
+		9974CA3923E05B9C003FE824 /* RatingViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingViewRenderer.swift; sourceTree = "<group>"; };
 		999D3A60237B088C00C5F7A8 /* DeepLinkSubscriptionStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkSubscriptionStrategy.swift; sourceTree = "<group>"; };
 		999D3A66237BFA4600C5F7A8 /* SubscriptionViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionViewBuilder.swift; sourceTree = "<group>"; };
 		999D3A68237C0ADD00C5F7A8 /* DeepLinkMapStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkMapStrategy.swift; sourceTree = "<group>"; };
@@ -1713,6 +1716,8 @@
 		99D363162358647700941BF4 /* SubscriptionGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionGroup.swift; sourceTree = "<group>"; };
 		99D363182358685300941BF4 /* SubscriptionGroupItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionGroupItem.swift; sourceTree = "<group>"; };
 		99D3631D23589BE800941BF4 /* FredokaOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FredokaOne-Regular.ttf"; sourceTree = "<group>"; };
+		99DEF9CE23E2CD67006BFD21 /* UISearchBar+swizzle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UISearchBar+swizzle.h"; sourceTree = "<group>"; };
+		99DEF9CF23E2CD67006BFD21 /* UISearchBar+swizzle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UISearchBar+swizzle.m"; sourceTree = "<group>"; };
 		99E2B0112368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWMCategory+PlacesCountTitle.swift"; sourceTree = "<group>"; };
 		99E2B01D23698B0800FFABC5 /* WelcomeProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeProtocols.swift; sourceTree = "<group>"; };
 		99E2B0222369904800FFABC5 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -3604,6 +3609,8 @@
 				9929693A23D89B7100B0D5D9 /* UIView+swizzle.m */,
 				9929693C23D89C1400B0D5D9 /* UITextField+swizzle.h */,
 				9929693D23D89C1400B0D5D9 /* UITextField+swizzle.m */,
+				99DEF9CE23E2CD67006BFD21 /* UISearchBar+swizzle.h */,
+				99DEF9CF23E2CD67006BFD21 /* UISearchBar+swizzle.m */,
 			);
 			path = Swizzle;
 			sourceTree = "<group>";
@@ -3690,6 +3697,7 @@
 				991FCA1D23AD0A73009AD684 /* MWMButtonRenderer.swift */,
 				99F50FC723B273F800E95228 /* MWMTableViewCellRenderer.swift */,
 				99169D7223D06B390006A9CA /* RatingSummaryViewRenderer.swift */,
+				9974CA3923E05B9C003FE824 /* RatingViewRenderer.swift */,
 				999FC12E23ABD53300B0E6F9 /* TabViewRenderer.swift */,
 				994AEBEB23AB763C0079B81F /* UIActivityIndicatorRenderer.swift */,
 				994AEBEA23AB763C0079B81F /* UIButtonRenderer.swift */,
@@ -5296,6 +5304,7 @@
 				34E50DF81F6FCC96008EED49 /* UGCReviewCell.swift in Sources */,
 				F6E2FF3F1E097BA00083EBEC /* MWMSearchTableViewController.mm in Sources */,
 				F6E2FDE01E097BA00083EBEC /* MWMEditorViewController.mm in Sources */,
+				99DEF9D023E2CD67006BFD21 /* UISearchBar+swizzle.m in Sources */,
 				994AEC3423AB7B410079B81F /* DiscoveryStyleSheet.swift in Sources */,
 				6741A9C01BF340DE002C974C /* MWMTextView.m in Sources */,
 				B32FE74320D2B09600EF7446 /* CatalogWebViewController.swift in Sources */,
@@ -5331,6 +5340,7 @@
 				34845DAF1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */,
 				CD6E8677226774C700D1EDF7 /* CPConstants.swift in Sources */,
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.m in Sources */,
+				9974CA3A23E05B9C003FE824 /* RatingViewRenderer.swift in Sources */,
 				47A04171238DE8AE00D84E95 /* HotelFacilitiesViewController.swift in Sources */,
 				479D306522C664CE00D18278 /* MWMDownloadBannerViewController.m in Sources */,
 				F6E2FEDF1E097BA00083EBEC /* MWMSearchManager+Layout.m in Sources */,

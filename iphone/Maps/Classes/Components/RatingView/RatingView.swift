@@ -329,18 +329,6 @@
     return viewSize
   }
 
-  override func applyTheme() {
-    super.applyTheme()
-    leftTextColor = leftTextColor.opposite()
-    rightTextColor = rightTextColor.opposite()
-    topTextColor = topTextColor.opposite()
-    bottomTextColor = bottomTextColor.opposite()
-    filledColor = filledColor.opposite()
-    emptyColor = emptyColor.opposite()
-    emptyBorderColor = emptyBorderColor.opposite()
-    filledBorderColor = filledBorderColor.opposite()
-  }
-
   private func createLayers() -> [CALayer] {
     return combineLayers(starLayers: createStarLayers(), textLayers: createTextLayers())
   }

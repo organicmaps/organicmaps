@@ -1,8 +1,9 @@
 import Foundation
 extension RatingSummaryView {
   @objc override func applyTheme() {
-    for style in StyleManager.shared.getStyle(styleName) {
-      RatingSummaryViewRenderer.render(self, style: style)
+    for style in StyleManager.shared.getStyle(styleName)
+      where !style.isEmpty && !style.hasExclusion(view: self) {
+        RatingSummaryViewRenderer.render(self, style: style)
     }
   }
 }
@@ -22,7 +23,7 @@ class RatingSummaryViewRenderer {
       control.excellentColor = colors[5]
     }
     if let images = style.images, images.count == 6 {
-      control.normalImage = UIImage(named: images[0])
+      control.noValueImage = UIImage(named: images[0])
       control.horribleImage = UIImage(named: images[1])
       control.badImage = UIImage(named: images[2])
       control.normalImage = UIImage(named: images[3])

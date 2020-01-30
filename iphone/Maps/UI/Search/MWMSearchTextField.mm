@@ -35,6 +35,14 @@ NSTimeInterval constexpr kOnSearchCompletedDelay = 0.2;
   return rect;
 }
 
+#pragma mark - Draw
+
+- (void)drawPlaceholderInRect:(CGRect)rect
+{
+  [[self placeholder] drawInRect:rect withAttributes:@{NSFontAttributeName: self.font,
+                                                       NSForegroundColorAttributeName: self.tintColor}];
+}
+
 #pragma mark - Properties
 
 - (void)setIsSearching:(BOOL)isSearching
@@ -50,7 +58,7 @@ NSTimeInterval constexpr kOnSearchCompletedDelay = 0.2;
         UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     [view startAnimating];
     view.bounds = self.leftView.bounds;
-   view.styleName = @"SearchSearchTextFieldIcon";
+    view.styleName = @"SearchSearchTextFieldIcon";
     self.leftView = view;
   }
   else

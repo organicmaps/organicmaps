@@ -1,6 +1,7 @@
 extension UIActivityIndicatorView {
   @objc override func applyTheme() {
-    for style in StyleManager.shared.getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName)
+      where !style.isEmpty && !style.hasExclusion(view: self) {
       UIActivityIndicatorRenderer.render(self, style: style)
     }
   }

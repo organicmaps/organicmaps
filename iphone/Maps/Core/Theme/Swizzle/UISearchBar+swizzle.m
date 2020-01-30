@@ -1,7 +1,7 @@
-#import "UITextField+swizzle.h"
+#import "UISearchBar+swizzle.h"
 #import "SwizzleStyle.h"
 
-@implementation UITextField (swizzle)
+@implementation UISearchBar (swizzle)
 +(void)load {
   [SwizzleStyle swizzle:[self class] methodName:@"didMoveToWindow"];
 }

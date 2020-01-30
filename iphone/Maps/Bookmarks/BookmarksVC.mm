@@ -211,8 +211,6 @@ using namespace std;
   [super viewDidLoad];
 
   self.searchBar.delegate = self;
-  [self.statusBarBackground setStyleAndApply:@"SearchBarView"];
-  [self.searchBar setStyleAndApply: @"SearchBar"];
   self.searchBar.placeholder = L(@"search_in_the_list");
 
   [self.noResultsView setTranslatesAutoresizingMaskIntoConstraints:NO];

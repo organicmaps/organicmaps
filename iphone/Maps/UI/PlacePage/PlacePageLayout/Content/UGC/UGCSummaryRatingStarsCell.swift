@@ -1,12 +1,6 @@
 
 final class UGCSummaryRatingStarsCell: UICollectionViewCell {
-  @IBOutlet private weak var ratingView: RatingView! {
-    didSet {
-      ratingView.topTextFont = UIFont.regular10()
-      ratingView.topTextColor = UIColor.blackSecondaryText()
-      ratingView.borderWidth = 0
-    }
-  }
+  @IBOutlet private weak var ratingView: RatingView!
 
   func config(rating: UGCRatingStars) {
     ratingView.topText = L(rating.title)

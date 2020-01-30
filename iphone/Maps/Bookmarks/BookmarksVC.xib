@@ -105,6 +105,9 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="108" id="R0d-xI-qxQ"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchBarView"/>
+                    </userDefinedRuntimeAttributes>
                 </view>
                 <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="CQZ-YM-Mk4">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>

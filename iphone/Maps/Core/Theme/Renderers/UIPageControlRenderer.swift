@@ -3,7 +3,8 @@ extension UIPageControl {
     if styleName.isEmpty {
       styleName = "PageControl"
     }
-    for style in StyleManager.shared.getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName)
+      where !style.isEmpty && !style.hasExclusion(view: self) {
       UIPageControlenderer.render(self, style: style)
     }
   }

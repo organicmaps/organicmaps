@@ -109,7 +109,7 @@
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="create"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium17:blackHintText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalTransButton:medium17"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="rightButtonTap" destination="QQB-Ml-wwB" eventType="touchUpInside" id="HT2-dB-W2f"/>

@@ -2,7 +2,6 @@ final class UGCAddReviewRatingCell: MWMTableViewCell {
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var ratingView: RatingView! {
     didSet {
-      ratingView.borderWidth = 0
       ratingView.delegate = self
     }
   }

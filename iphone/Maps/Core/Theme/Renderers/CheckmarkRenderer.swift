@@ -4,8 +4,9 @@ extension Checkmark {
     if styleName.isEmpty {
       styleName = "Checkmark"
     }
-    for style in StyleManager.shared.getStyle(styleName) {
-      CheckmarkRenderer.render(self, style: style)
+    for style in StyleManager.shared.getStyle(styleName)
+      where !style.isEmpty && !style.hasExclusion(view: self) {
+        CheckmarkRenderer.render(self, style: style)
     }
   }
 }

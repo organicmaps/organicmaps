@@ -6,21 +6,20 @@ class GlobalStyleSheet: IStyleSheet {
     theme.add(styleName: "TableView") { (s) -> (Void) in
       s.backgroundColor = colors.white
       s.separatorColor = colors.blackDividers
+      s.exclusions = [String(describing: UIDatePicker.self)]
     }
 
     theme.add(styleName: "TableCell") { (s) -> (Void) in
       s.backgroundColor = colors.white
       s.fontColor = colors.blackPrimaryText
-      s.tintColor = colors.blackPrimaryText
-      s.fontColorDetailed = colors.blackSecondaryText
-    }
-
-    theme.add(styleName: "MWMTableViewCell") { (s) -> (Void) in
-      s.backgroundColor = colors.white
-      s.fontColor = colors.blackPrimaryText
-      s.tintColor = colors.blackPrimaryText
+      s.tintColor = colors.linkBlue
       s.fontColorDetailed = colors.blackSecondaryText
       s.backgroundColorSelected = colors.pressBackground
+      s.exclusions = [String(describing: UIDatePicker.self),
+                       "_UIActivityUserDefaultsActivityCell"]
+    }
+
+    theme.add(styleName: "MWMTableViewCell", from: "TableCell") { (s) -> (Void) in
     }
 
     theme.add(styleName: "TableViewHeaderFooterView") { (s) -> (Void) in
@@ -158,6 +157,16 @@ class GlobalStyleSheet: IStyleSheet {
       s.shadowOffset = CGSize(width: 0, height: 0)
     }
 
+    theme.add(styleName: "RatingView") { (s) -> (Void) in
+      var settings = RatingViewSettings()
+      settings.filledColor = colors.ratingYellow
+      settings.emptyColor = colors.blackDividers
+      settings.textFonts[.right] = fonts.regular10
+      settings.textColors[.right] = colors.blackSecondaryText
+      s.ratingViewSettings = settings
+      s.borderWidth = 0
+    }
+
     //MARK: Buttons
     theme.add(styleName: "FlatNormalButton") { (s) -> (Void) in
       s.font = fonts.medium14
@@ -181,6 +190,7 @@ class GlobalStyleSheet: IStyleSheet {
       s.fontColor = colors.linkBlue
       s.backgroundColor = colors.clear
       s.fontColorHighlighted = colors.linkBlueHighlighted
+      s.fontColorDisabled = colors.blackHintText
       s.backgroundColorHighlighted = colors.clear
     }
 

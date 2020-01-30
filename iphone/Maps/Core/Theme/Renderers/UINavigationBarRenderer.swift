@@ -4,7 +4,8 @@ extension UINavigationBar {
     if styleName.isEmpty {
       styleName = "NavigationBar"
     }
-    for style in StyleManager.shared.getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName)
+      where !style.isEmpty && !style.hasExclusion(view: self) {
       UINavigationBarRenderer.render(self, style: style)
     }
   }

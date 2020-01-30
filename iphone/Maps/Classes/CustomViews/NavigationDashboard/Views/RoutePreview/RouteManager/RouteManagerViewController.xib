@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,13 +24,13 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3y4-jh-JUF" customClass="RouteManagerDimView" customModule="maps_me" customModuleProvider="target" propertyAccessControl="none">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <subviews>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TC7-xW-EwE">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kTd-fr-ia7">
-                            <rect key="frame" x="166.5" y="265.5" width="42" height="136.5"/>
+                            <rect key="frame" x="186" y="380" width="42" height="136.5"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_route_manager_trash" translatesAutoresizingMaskIntoConstraints="NO" id="ZEN-kK-2CA">
                                     <rect key="frame" x="-3" y="40" width="48" height="48"/>
@@ -92,14 +94,14 @@
             <point key="canvasLocation" x="288" y="-49"/>
         </view>
         <view contentMode="scaleToFill" id="TKX-qe-h4F" propertyAccessControl="none">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i5M-Pr-FkT">
-                    <rect key="frame" x="0.0" y="563" width="375" height="104"/>
+                    <rect key="frame" x="0.0" y="758" width="414" height="138"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0L-ul-gog" customClass="RouteManagerHeaderView" customModule="maps_me" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="760" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQh-uc-65J">
                                     <rect key="frame" x="16" y="14" width="42" height="20.5"/>
@@ -112,7 +114,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Fo-Ae-QrQ">
-                                    <rect key="frame" x="311" y="0.0" width="48" height="48"/>
+                                    <rect key="frame" x="370" y="0.0" width="28" height="48"/>
                                     <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="imageEdgeInsets" minX="-8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" image="ic_get_position"/>
@@ -121,7 +123,7 @@
                                     </connections>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MJB-bK-y5c">
-                                    <rect key="frame" x="16" y="47" width="359" height="1"/>
+                                    <rect key="frame" x="16" y="47" width="398" height="1"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="1" id="aOa-8P-yGw"/>
@@ -154,17 +156,17 @@
                             </connections>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mqc-M4-MPb" customClass="RouteManagerFooterView" customModule="maps_me" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="48" width="375" height="48"/>
+                            <rect key="frame" x="0.0" y="48" width="414" height="48"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="or0-Gy-0su">
-                                    <rect key="frame" x="-100" y="0.0" width="575" height="148"/>
+                                    <rect key="frame" x="-100" y="0.0" width="614" height="148"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="BlackOpaqueBackground"/>
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pjx-6o-NWS">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="1" id="jFT-3E-Yrc"/>
@@ -185,7 +187,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u3h-0s-UBo">
-                                    <rect key="frame" x="313" y="0.0" width="46" height="48"/>
+                                    <rect key="frame" x="352" y="0.0" width="46" height="48"/>
                                     <state key="normal" title="Button"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalTransButton"/>
@@ -213,6 +215,9 @@
                                 <constraint firstAttribute="trailing" secondItem="or0-Gy-0su" secondAttribute="trailing" constant="-100" id="zfL-pn-451"/>
                                 <constraint firstItem="or0-Gy-0su" firstAttribute="top" secondItem="mqc-M4-MPb" secondAttribute="top" id="ztB-hC-yRP"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <outlet property="background" destination="or0-Gy-0su" id="aFx-YJ-deT"/>
                                 <outlet property="cancelButton" destination="2WE-hS-hzl" id="8op-cA-N4M"/>
@@ -221,12 +226,15 @@
                             </connections>
                         </view>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zqd-YQ-ksD" customClass="RouteManagerTableView" customModule="maps_me" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="48" width="375" height="0.0"/>
+                            <rect key="frame" x="0.0" y="48" width="414" height="0.0"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <gestureRecognizers/>
                             <constraints>
                                 <constraint firstAttribute="height" priority="750" id="69R-bB-eQ7"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="TableView"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <outlet property="dataSource" destination="-1" id="RZu-Qk-qvN"/>
                                 <outlet property="delegate" destination="-1" id="QdP-tL-Afh"/>
@@ -250,6 +258,9 @@
                         <constraint firstItem="mqc-M4-MPb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" constant="-8" id="gvJ-kF-Ylk"/>
                         <constraint firstItem="s0L-ul-gog" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ub9-gl-pdn"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                    </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

@@ -7,7 +7,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
   @IBOutlet weak var manageRouteBoxBackground: UIView! {
     didSet {
       iPhoneSpecific {
-        manageRouteBoxBackground.styleName = "BlackOpaqueColor"
+        manageRouteBoxBackground.styleName = "BlackOpaqueBackground"
       }
     }
   }
