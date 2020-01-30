@@ -54,8 +54,11 @@ void IsolineFeaturesGenerator::GenerateIsolines(std::string const & countryName,
                                                                       m_isolinesDir);
   topography_generator::Contours<topography_generator::Altitude> countryIsolines;
   if (!topography_generator::LoadContours(isolinesPath, countryIsolines))
+  {
+    LOG(LWARNING, ("Can't load contours", isolinesPath));
     return;
-
+  }
+  LOG(LINFO, ("Generating isolines for", countryName));
   for (auto const & levelIsolines : countryIsolines.m_contours)
   {
     auto const altitude = levelIsolines.first;

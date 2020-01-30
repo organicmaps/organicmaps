@@ -114,6 +114,10 @@ set(
   intermediate_elements.hpp
   isolines_generator.cpp
   isolines_generator.hpp
+  isolines_info.cpp
+  isolines_info.hpp
+  isolines_section_builder.cpp
+  isolines_section_builder.hpp
   maxspeeds_builder.cpp
   maxspeeds_builder.hpp
   maxspeeds_collector.cpp

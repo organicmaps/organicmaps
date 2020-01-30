@@ -12,6 +12,7 @@
 #include "generator/feature_generator.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/generate_info.hpp"
+#include "generator/isolines_section_builder.cpp"
 #include "generator/maxspeeds_builder.hpp"
 #include "generator/metalines_builder.hpp"
 #include "generator/osm_source.hpp"
@@ -129,6 +130,7 @@ DEFINE_string(
     nodes_list_path, "",
     "Path to file containing list of node ids we need to add to locality index. May be empty.");
 
+DEFINE_bool(generate_isolines_info, false, "Generate the isolines info section");
 DEFINE_string(isolines_path, "",
               "Path to isolines directory. If set, adds isolines linear features.");
 // Routing.
@@ -539,6 +541,9 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       else
         BuildDescriptionsSection(FLAGS_wikipedia_pages, datFile);
     }
+
+    if (FLAGS_generate_isolines_info)
+      BuildIsolinesInfoSection(FLAGS_isolines_path, country, datFile);
 
     if (FLAGS_generate_popular_places)
     {

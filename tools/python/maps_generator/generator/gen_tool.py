@@ -25,6 +25,7 @@ class GenTool:
         "generate_geo_objects_index": bool,
         "generate_geometry": bool,
         "generate_index": bool,
+        "generate_isolines_info": bool,
         "generate_maxspeed": bool,
         "generate_packed_borders": bool,
         "generate_popular_places": bool,
