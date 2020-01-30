@@ -5,11 +5,6 @@
   #define OMIM_OS_NAME "android"
   #define OMIM_OS_MOBILE
 
-#elif defined(_TIZEN_EMULATOR) || defined(_TIZEN_DEVICE)
-  #define OMIM_OS_TIZEN
-  #define OMIM_OS_NAME "tizen"
-  #define OMIM_OS_MOBILE
-
 #elif defined(__APPLE__)
   #include <TargetConditionals.h>
   #if (TARGET_OS_IPHONE > 0)

@@ -120,7 +120,6 @@ Some of these contain their own README files.
 * `software_renderer` -
 * `stats` - Alohalytics statistics.
 * `testing` - common interfaces for tests.
-* `tizen` - Tizen application.
 * `tools` - tools for building packages and maps, for testing etc.
 * `track_analyzing` -
 * `track_generator` - Generate smooth tracks based on waypoints from KML.

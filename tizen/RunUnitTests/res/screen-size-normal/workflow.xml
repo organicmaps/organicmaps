@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Workflow>
-    <Scene Form="IDL_FORM" Id="MainScene"/>
-    <SceneTransition AnimationType="none" DestroyOption="keep" DirectionType="forward" HistoryOption="add" Id="IDSCNT_MAIN_SCENE" Method="" SourceId="" SourceResourceType="" TargetId="MainScene"/>
-    <!--UI Builder(Workflow Designer) only-->
-    <WorkflowDesigner>
-        <Position Name="MainScene" X="170" Y="60"/>
-    </WorkflowDesigner>
-</Workflow>

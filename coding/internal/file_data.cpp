@@ -22,10 +22,6 @@
 #include <io.h>
 #endif
 
-#ifdef OMIM_OS_TIZEN
-#include "tizen/inc/FIo.hpp"
-#endif
-
 using namespace std;
 
 namespace base
@@ -34,14 +30,7 @@ FileData::FileData(string const & fileName, Op op)
   : m_FileName(fileName), m_Op(op)
 {
   char const * const modes [] = {"rb", "wb", "r+b", "ab"};
-#ifdef OMIM_OS_TIZEN
-  m_File = new Tizen::Io::File();
-  result const error = m_File->Construct(fileName.c_str(), modes[op]);
-  if (error == E_SUCCESS)
-  {
-    return;
-  }
-#else
+
   m_File = fopen(fileName.c_str(), modes[op]);
   if (m_File)
     return;
@@ -53,7 +42,6 @@ FileData::FileData(string const & fileName, Op op)
     if (m_File)
       return;
   }
-#endif
 
   // if we're here - something bad is happened
   if (m_Op != OP_READ)
@@ -64,15 +52,11 @@ FileData::FileData(string const & fileName, Op op)
 
 FileData::~FileData()
 {
-#ifdef OMIM_OS_TIZEN
-  delete m_File;
-#else
   if (m_File)
   {
     if (fclose(m_File))
       LOG(LWARNING, ("Error closing file", GetErrorProlog()));
   }
-#endif
 }
 
 string FileData::GetErrorProlog() const
@@ -93,13 +77,6 @@ static int64_t const INVALID_POS = -1;
 
 uint64_t FileData::Size() const
 {
-#ifdef OMIM_OS_TIZEN
-  Tizen::Io::FileAttributes attr;
-  result const error = Tizen::Io::File::GetAttributes(m_FileName.c_str(), attr);
-  if (IsFailed(error))
-    MYTHROW(Reader::SizeException, (m_FileName, m_Op, error));
-  return attr.GetFileSize();
-#else
   int64_t const pos = ftell64(m_File);
   if (pos == INVALID_POS)
     MYTHROW(Reader::SizeException, (GetErrorProlog(), pos));
@@ -116,91 +93,52 @@ uint64_t FileData::Size() const
 
   ASSERT_GREATER_OR_EQUAL(size, 0, ());
   return static_cast<uint64_t>(size);
-#endif
 }
 
 void FileData::Read(uint64_t pos, void * p, size_t size)
 {
-#ifdef OMIM_OS_TIZEN
-  result error = m_File->Seek(Tizen::Io::FILESEEKPOSITION_BEGIN, pos);
-  if (IsFailed(error))
-    MYTHROW(Reader::ReadException, (error, pos));
-  int const bytesRead = m_File->Read(p, size);
-  error = GetLastResult();
-  if (static_cast<size_t>(bytesRead) != size || IsFailed(error))
-    MYTHROW(Reader::ReadException, (m_FileName, m_Op, error, bytesRead, pos, size));
-#else
   if (fseek64(m_File, static_cast<off_t>(pos), SEEK_SET))
     MYTHROW(Reader::ReadException, (GetErrorProlog(), pos));
 
   size_t const bytesRead = fread(p, 1, size, m_File);
   if (bytesRead != size || ferror(m_File))
     MYTHROW(Reader::ReadException, (GetErrorProlog(), bytesRead, pos, size));
-#endif
 }
 
 uint64_t FileData::Pos() const
 {
-#ifdef OMIM_OS_TIZEN
-  int const pos = m_File->Tell();
-  result const error = GetLastResult();
-  if (IsFailed(error))
-    MYTHROW(Writer::PosException, (m_FileName, m_Op, error, pos));
-  return pos;
-#else
   int64_t const pos = ftell64(m_File);
   if (pos == INVALID_POS)
     MYTHROW(Writer::PosException, (GetErrorProlog(), pos));
 
   ASSERT_GREATER_OR_EQUAL(pos, 0, ());
   return static_cast<uint64_t>(pos);
-#endif
 }
 
 void FileData::Seek(uint64_t pos)
 {
   ASSERT_NOT_EQUAL(m_Op, OP_APPEND, (m_FileName, m_Op, pos));
-#ifdef OMIM_OS_TIZEN
-  result const error = m_File->Seek(Tizen::Io::FILESEEKPOSITION_BEGIN, pos);
-  if (IsFailed(error))
-    MYTHROW(Writer::SeekException, (m_FileName, m_Op, error, pos));
-#else
   if (fseek64(m_File, static_cast<off_t>(pos), SEEK_SET))
     MYTHROW(Writer::SeekException, (GetErrorProlog(), pos));
-#endif
 }
 
 void FileData::Write(void const * p, size_t size)
 {
-#ifdef OMIM_OS_TIZEN
-  result const error = m_File->Write(p, size);
-  if (IsFailed(error))
-    MYTHROW(Writer::WriteException, (m_FileName, m_Op, error, size));
-#else
   size_t const bytesWritten = fwrite(p, 1, size, m_File);
   if (bytesWritten != size || ferror(m_File))
     MYTHROW(Writer::WriteException, (GetErrorProlog(), bytesWritten, size));
-#endif
 }
 
 void FileData::Flush()
 {
-#ifdef OMIM_OS_TIZEN
-  result const error = m_File->Flush();
-  if (IsFailed(error))
-    MYTHROW(Writer::WriteException, (m_FileName, m_Op, error));
-#else
   if (fflush(m_File))
     MYTHROW(Writer::WriteException, (GetErrorProlog()));
-#endif
 }
 
 void FileData::Truncate(uint64_t sz)
 {
 #ifdef OMIM_OS_WINDOWS
   int const res = _chsize(fileno(m_File), sz);
-#elif defined OMIM_OS_TIZEN
-  result res = m_File->Truncate(sz);
 #else
   int const res = ftruncate(fileno(m_File), static_cast<off_t>(sz));
 #endif
@@ -231,9 +169,8 @@ bool CheckFileOperationResult(int res, string const & fName)
 {
   if (!res)
     return true;
-#if !defined(OMIM_OS_TIZEN)
+
   LOG(LWARNING, ("File operation error for file:", fName, "-", strerror(errno)));
-#endif
 
   // additional check if file really was removed correctly
   uint64_t dummy;
@@ -248,27 +185,13 @@ bool CheckFileOperationResult(int res, string const & fName)
 
 bool DeleteFileX(string const & fName)
 {
-  int res;
-
-#ifdef OMIM_OS_TIZEN
-  res = IsFailed(Tizen::Io::File::Remove(fName.c_str())) ? -1 : 0;
-#else
-  res = remove(fName.c_str());
-#endif
-
+  int res = remove(fName.c_str());
   return CheckFileOperationResult(res, fName);
 }
 
 bool RenameFileX(string const & fOld, string const & fNew)
 {
-  int res;
-
-#ifdef OMIM_OS_TIZEN
-  res = IsFailed(Tizen::Io::File::Move(fOld.c_str(), fNew.c_str())) ? -1 : 0;
-#else
-  res = rename(fOld.c_str(), fNew.c_str());
-#endif
-
+  int res = rename(fOld.c_str(), fNew.c_str());
   return CheckFileOperationResult(res, fOld);
 }
 

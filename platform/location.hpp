@@ -27,7 +27,7 @@ namespace location
     EWindowsNative,
     EAndroidNative,
     EGoogle,
-    ETizen,
+    ETizen, // Deprecated but left here for backward compatibility.
     EPredictor,
     EUser
   };
