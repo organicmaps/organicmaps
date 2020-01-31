@@ -17,6 +17,5 @@ $TWINE generate-all-localization-files --format apple --file-name InfoPlist.stri
 $TWINE generate-all-localization-files --format jquery "$OMIM_PATH/data/cuisines.txt" "$OMIM_PATH/data/cuisine-strings/"
 $TWINE generate-all-localization-files --format jquery "$OMIM_PATH/data/countries_names.txt" "$OMIM_PATH/data/countries-strings/"
 $TWINE generate-all-localization-files --format jquery "$OMIM_PATH/data/sound.txt" "$OMIM_PATH/data/sound-strings/"
-#$TWINE generate-all-localization-files --include translated --format tizen "$STRINGS_PATH/strings.txt" "$OMIM_PATH/tizen/MapsWithMe/res/" --tags tizen
 
 rm $MERGED_FILE

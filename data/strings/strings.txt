@@ -1,39 +1,5 @@
 [[Strings]]
 
-  [about]
-    comment = About button text (should be short)
-    tags = tizen
-    en = About
-    ru = О приложении
-    ar = نبذة عنا
-    cs = O aplikaci
-    da = Om app
-    nl = Over
-    fi = Tietoja
-    fr = À propos de
-    de = Über MAPS.ME
-    hu = A programról
-    id = Tentang
-    it = Informazioni
-    ja = 情報
-    ko = 소개
-    nb = Om
-    pl = O programie
-    pt = Sobre
-    pt-BR = Sobre
-    ro = Despre
-    es = Acerca de
-    sv = Om
-    th = เกี่ยวกับ
-    tr = Hakkında
-    uk = Про програму
-    vi = Giới thiệu
-    zh-Hans = 关于
-    zh-Hant = 關於
-    he = אודות
-    sk = O aplikácii
-    fa = درباره‌ی
-
   [back]
     comment = Button text (should be short)
     en = Back
@@ -70,7 +36,6 @@
 
   [cancel]
     comment = Button text (should be short)
-    tags = tizen
     en = Cancel
     ru = Отмена
     ar = إلغاء
@@ -105,7 +70,6 @@
 
   [cancel_download]
     comment = Button which interrupts country download
-    tags = tizen
     en = Cancel Download
     ru = Отменить загрузку
     ar = إلغاء التنزيل
@@ -140,7 +104,6 @@
 
   [delete]
     comment = Button which deletes downloaded country
-    tags = tizen
     en = Delete
     ru = Удалить
     ar = حذف
@@ -240,7 +203,6 @@
     fa = ادامه
 
   [download_maps]
-    tags = tizen
     en = Download Maps
     ru = Загрузить карты
     ar = تنزيل الخرائط
@@ -559,7 +521,6 @@
 
   [kilometres]
     comment = Choose measurement on first launch alert - choose metric system button
-    tags = tizen
     en = Kilometers
     en-GB = Kilometres
     ru = Километры
@@ -729,7 +690,6 @@
 
   [mb]
     comment = Settings/Downloader - size string, only strings different from English should be translated
-    tags = tizen
     en = MB
     ru = МБ
     ar = م.ب.
@@ -757,7 +717,6 @@
 
   [miles]
     comment = Choose measurement on first launch alert - choose imperial system button
-    tags = tizen
     en = Miles
     ru = Мили
     ar = ميل
@@ -1123,40 +1082,6 @@
     he = כן
     sk = Áno
     fa = بله
-
-  [use_wifi_recommendation_text]
-    comment = Settings/Downloader - No internet connection dialog message
-    tags = tizen
-    en = We recommend using WiFi to download large maps
-    ru = Мы рекомендуем загружать большие страны через WiFi
-    ar = نحن نوصي باستخدام واي فاي لتنزيل الخرائط الكبيرة
-    cs = Pro stahování větších map doporučujeme používat WiFi
-    da = Vi anbefaler, at du bruger WiFi for at downloade store kort
-    nl = We raden WiFi aan om grote kaarten te downloaden
-    fi = WiFi-yhteyttä suositellaan suurten karttojen lataamiseen
-    fr = Nous recommandons d'utiliser une connexion Wi-Fi pour télécharger de grandes cartes
-    de = Wir empfehlen Ihnen, große Länder über eine WLAN-Verbindung herunterzuladen
-    hu = WiFi használatát javasoljuk nagy térképek letöltéséhez
-    id = Kami merekomendasi gunakan WiFi untuk mengunduh peta yang berukuran besar
-    it = Ti consigliamo di utilizzare il WiFi per scaricare mappe di grandi dimensioni
-    ja = 大きなマップをダウンロードする際はWiFiの使用をおすすめします。
-    ko = WiFi를 이용하여 큰 지도를 다운로드하는 것을 권하여 드립니다.
-    nb = Vi anbefaler å bruke WiFi når du skal laste ned store kart
-    pl = Zaleca się korzystanie z WiFi przy pobieraniu dużych map
-    pt = Recomendamos a utilização de WiFi para descarregar grandes mapas
-    pt-BR = Recomendamos usar WiFi para baixar mapas grandes
-    ro = Vă recomandăm să utilizați WiFi pentru a descărca hărți mari.
-    es = Recomendamos usar WiFi para descarga de los países grandes
-    sv = Vi rekommenderar att använda WiFi för nedladdning av stora kartor
-    th = เราขอแนะนำให้ใช้ WiFi เพื่อดาวน์โหลดแผนที่ขนาดใหญ่
-    tr = Büyük haritaları indirmek için WiFi kullanmanızı öneriyoruz
-    uk = Ми рекомендуємо завантажувати великі країни через WiFi
-    vi = Chúng tôi khuyên bạn nên sử dụng WiFi để tải xuống các bảnđồ lớn.
-    zh-Hans = 我们推荐使用 WiFi 来下载大的地图
-    zh-Hant = 我們建議透過 WiFi 連線來下載較大的地圖
-    he = אנו ממליצים להשתמש ב WiFi להורדת מפות גדולות
-    sk = Doporučujeme použiť WiFi pre sťahovanie väčších máp
-    fa = اکیداً توصیه می کنیم برای دانلود نقشه های حجیم از اینترنت وای فای استفاده نمایید
 
   [which_measurement_system]
     comment = Choose measurement on first launch alert - title
@@ -1762,7 +1687,6 @@
     fa = نیازمند است. متاسفانه دستگاه شما از ان پشتیبانی نمی کندOpenGLبرنامه برای اجرا به
 
   [download]
-    tags = tizen
     en = Download
     ru = Загрузить
     ar = تنزيل
@@ -2526,7 +2450,7 @@
 
   [download_country_failed]
     comment = Show popup notification on top of the map when country download has failed.
-    tags = android,tizen
+    tags = android
     en = %@ download has failed
     ru = Не удалось загрузить %@
     ar = فشلت عملية تنزيل %@
@@ -2561,7 +2485,7 @@
 
   [add_new_set]
     comment = Add New Bookmark Set dialog title
-    tags = ios,tizen
+    tags = ios
     en = Add New Set
     ru = Добавить группу
     ar = إضافة مجموعة جديدة
@@ -2630,7 +2554,7 @@
 
   [bookmark_color]
     comment = Bookmark Color dialog title
-    tags = ios,tizen
+    tags = ios
     en = Bookmark Color
     en-GB = Bookmark Colour
     ru = Цвет метки
@@ -2734,7 +2658,7 @@
 
   [bookmarks]
     comment = Bookmarks - dialog title
-    tags = ios,tizen
+    tags = ios
     en = Bookmarks
     ru = Метки
     ar = الإشارات المرجعية
@@ -3046,7 +2970,7 @@
 
   [settings]
     comment = Settings button in system menu
-    tags = android,tizen, ios
+    tags = android, ios
     en = Settings
     ru = Настройки
     ar = الإعدادات
@@ -3220,7 +3144,7 @@
 
   [visible]
     comment = Show bookmarks from this category on a map or not
-    tags = ios,tizen
+    tags = ios
     en = Visible
     ru = Показывать на карте
     ar = مرئي
@@ -3288,7 +3212,7 @@
 
   [measurement_units]
     comment = Measurement units title in settings activity
-    tags = ios,android,tizen
+    tags = ios,android
     en = Measurement units
     ru = Единицы измерения
     ar = وحدات القياس.
@@ -3323,7 +3247,7 @@
 
   [measurement_units_summary]
     comment = Detailed description of Measurement Units settings button
-    tags = ios,android,tizen
+    tags = ios,android
     en = Choose between miles and kilometers
     en-GB = Choose between miles and kilometres
     ru = Использовать километры или мили
@@ -3447,7 +3371,7 @@
   [eat]
     comment = Search team review required on any change
     comment = Search category for cafes, bars, restaurants
-    tags = ios,android,tizen
+    tags = ios,android
     en = Where to eat
     ru = Где поесть
     ar = مكان لتناول الطعام
@@ -3482,7 +3406,7 @@
 
   [food]
     comment = Search category for grocery stores
-    tags = ios,android,tizen
+    tags = ios,android
     en = Groceries
     ru = Продукты
     ar = المشتريات
@@ -3518,7 +3442,7 @@
   [transport]
     comment = Search team review required on any change
     comment = Search category
-    tags = ios,android,tizen
+    tags = ios,android
     en = Transport
     ru = Транспорт
     ar = نقل
@@ -3554,7 +3478,7 @@
   [fuel]
     comment = Search team review required on any change
     comment = Search category
-    tags = ios,android,tizen
+    tags = ios,android
     en = Gas
     en-GB = Petrol
     ru = Заправка
@@ -3591,7 +3515,7 @@
   [parking]
     comment = Search team review required on any change
     comment = Search category
-    tags = ios,android,tizen
+    tags = ios,android
     en = Parking
     ru = Парковка
     ar = الاصطفاف
@@ -3627,7 +3551,7 @@
   [shopping]
     comment = Search team review required on any change
     comment = Search category for clothes/shoes/gifts/jewellery/sport shops
-    tags = ios,android,tizen
+    tags = ios,android
     en = Shopping
     ru = Шоппинг
     ar = التسوق
@@ -3663,7 +3587,7 @@
   [hotel]
     comment = Search team review required on any change
     comment = Search category
-    tags = ios,android,tizen
+    tags = ios,android
     en = Hotel
     ru = Гостиница
     ar = فندق
@@ -3699,7 +3623,7 @@
   [tourism]
     comment = Search team review required on any change
     comment = Search category
-    tags = ios,android,tizen
+    tags = ios,android
     en = Sights
     ru = Достопримечательность
     ar = سياحة
@@ -3735,7 +3659,7 @@
   [entertainment]
     comment = Search team review required on any change
     comment = Search category
-    tags = ios,android,tizen
+    tags = ios,android
     en = Entertainment
     ru = Развлечения
     ar = التسلية
@@ -3771,7 +3695,7 @@
   [atm]
     comment = Search team review required on any change
     comment = Search category
-    tags = ios,android,tizen
+    tags = ios,android
     en = ATM
     ru = Банкомат
     ar = ماكينة الصراف الآلي
@@ -3807,7 +3731,7 @@
   [nightlife]
     comment = Search team review required on any change
     comment = Search category for nightclubs/bars
-    tags = ios,android,tizen
+    tags = ios,android
     en = Nightlife
     ru = Ночная жизнь
     ar = أنشطة ترفيه ليلية
@@ -3843,7 +3767,7 @@
   [children]
     comment = Search team review required on any change
     comment = Search category for water park/disneyland/playground/toys store
-    tags = ios,android,tizen
+    tags = ios,android
     en = Family holiday
     ru = Отдых с детьми
     ar = عطلة عائلية
@@ -3879,7 +3803,7 @@
   [bank]
     comment = Search team review required on any change
     comment = Search category
-    tags = ios,android,tizen
+    tags = ios,android
     en = Bank
     ru = Банк
     ar = بنك
@@ -3915,7 +3839,7 @@
   [pharmacy]
     comment = Search team review required on any change
     comment = Search category
-    tags = ios,android,tizen
+    tags = ios,android
     en = Pharmacy
     ru = Аптека
     ar = صيدلية
@@ -3951,7 +3875,7 @@
   [hospital]
     comment = Search team review required on any change
     comment = Search category
-    tags = ios,android,tizen
+    tags = ios,android
     en = Hospital
     ru = Больница
     ar = مستشفى
@@ -3988,7 +3912,7 @@
   [toilet]
     comment = Search team review required on any change
     comment = Search category
-    tags = ios,android,tizen
+    tags = ios,android
     en = Toilet
     ru = Туалет
     ar = حمام
@@ -4024,7 +3948,7 @@
   [post]
     comment = Search team review required on any change
     comment = Search category
-    tags = ios,android,tizen
+    tags = ios,android
     en = Post
     ru = Почта
     ar = بريد
@@ -4060,7 +3984,7 @@
   [police]
     comment = Search team review required on any change
     comment = Search category
-    tags = ios,android,tizen
+    tags = ios,android
     en = Police
     ru = Полиция
     ar = شرطة
@@ -4095,7 +4019,7 @@
 
   [no_search_results_found]
     comment = String in search result list, when nothing found
-    tags = ios,android,tizen
+    tags = ios,android
     en = No results found
     ru = Нет результатов поиска
     ar = لم يتم العثور على أي نتائج
@@ -4341,7 +4265,7 @@
 
   [edit]
     comment = resource for context menu
-    tags = android,tizen
+    tags = android
     en = Edit
     ru = Редактировать
     ar = تعديل
@@ -4374,7 +4298,7 @@
 
   [unknown_current_position]
     comment = Warning message when doing search around current position
-    tags = ios,android,tizen
+    tags = ios,android
     en = Your location hasn't been determined yet
     ru = Ваше местоположение еще не определено
     ar = لم يتم التعرف على موقعك بعد.
@@ -4613,7 +4537,7 @@
 
   [bookmark_share_sms]
     comment = Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
-    tags = ios,android,tizen
+    tags = ios,android
     en = Hey, check out my pin at MAPS.ME! %1$@ or %2$@ Don't have offline maps installed? Download here: http://maps.me/get
     ru = Моя метка на карте. Жми %1$@ или %2$@
     ar = هاي، تفقد الدبوس الخاص بي على MAPS.ME! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get
@@ -4646,7 +4570,7 @@
 
   [my_position_share_sms]
     comment = Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
-    tags = ios,android,tizen
+    tags = ios,android
     en = Hey, check out my current location in MAPS.ME! %1$@ or %2$@ Don't have offline maps? Download here: http://maps.me/get
     ru = Смотри где я сейчас. Жми %1$@ или %2$@
     ar = هاي، تفقد الموقع الخاص بي على MAPS.ME! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get
@@ -4680,7 +4604,7 @@
 
   [bookmark_share_email_subject]
     comment = Subject for emailed bookmark
-    tags = ios,android,tizen
+    tags = ios,android
     en = Hey, check out my pin in MAPS.ME!
     ru = Смотри мою метку на карте MAPS.ME
     ar = هاي، تفقد الدبوس الخاص بي على خريطة MAPS.ME!
@@ -4712,42 +4636,9 @@
     he = הי, בדוק את הסיכה שלי במפה של MAPS.ME!
     sk = Pozri na moju značku na mape MAPS.ME
 
-  [bookmark_share_email]
-    comment = Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me
-    tags = tizen
-    en = Hi,\n\nI pinned: %1$@ on the MAPS.ME offline map of the world. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
-    ru = Привет!\n\nОткрой эту ссылку %2$@ либо эту %3$@, для того, чтобы увидеть мою метку %1$@ на карте MAPS.ME.\n\nСпасибо.
-    ar = مرحبا،\n\nقمت بوضع دبوس: %1$@ على MAPS.ME، خرائط العالم بدون الاتصال مع الانترنت. انقر على هذا الرابط %2$@ أو الرابط التالي %3$@ لمشاهدة الموقع على الخريطة.\n\nشكرا لك.
-    cs = Ahoj,\n\noznačil/a jsem %1$@ v MAPS.ME, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
-    da = Hej\n\nJeg markerede: %1$@ på MAPS.ME, en verden af offline kort. Klik på dette link %2$@ eller dette %3$@ for at se stedet på kortet.\n\nTak.
-    nl = Hoi,\n\nIk heb: %1$@ geprikt bij MAPS.ME, offline wereldkaarten. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.
-    fi = Hei,\n\nnastoitin kohteen %1$@ MAPS.ME:ssä, koko maailman kattavassa offline-karttasovelluksessa. Klikkaa linkkiä %2$@ tai %3$@ nähdäksesi paikan kartalla. \n\nKiitos. kaikki
-    fr = Bonjour,\n\nJ'ai épinglé %1$@ sur MAPS.ME, les cartes du monde hors ligne. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.
-    de = Hi,\n\nIch habe %1$@ auf MAPS.ME, der Offline-Weltkarte, gepinnt. Klicke auf diesen Link %2$@ oder diesen %3$@, um den Ort auf der Karte zu sehen.\n\nVielen Dank.
-    hu = Üdvözlöm,\n\nleszúrtam egy MAPS.ME jelzőt: %1$@. Kattintson erre a hivatkozásra %2$@ vagy erre %3$@ hogy lássa a helyet a térképen.\n\nKöszönöm.
-    id = Hai,\n\nI disematkan: %1$@ di MAPS.ME, peta offline dunia. Klik tautan ini %2$@ atau ini %3$@ untuk melihat tempat di peta.\n\n Terima kasih.
-    it = Ciao,\n\nHo segnato %1$@ su MAPS.ME, le mappe del mondo offline. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.
-    ja = オフラインマップ MAPS.ME でこの位置にピンを作成しました: %1$@\n\nリンク %2$@ または %3$@ をクリックするとマップ上で確認できます。
-    ko = 안녕하세요.\n\n다음 위치에 표시를 하였습니다: 오프라인 세계 지도인 MAPS.ME에서 %1$@. %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
-    nb = Hei,\n\nI merket av: %1$@ på MAPS.ME, offline verdenskart. Klikk på denne koblingen %2$@ eller denne %3$@ for å se stedet på kartet.\n\nTakk.
-    pl = Cześć,\n\nDodałem znacznik w: %1$@ w aplikacji MAPS.ME, mapach offline całego świata. Naciśnij ten link %2$@ lub ten %3$@ by zobaczyć to miejsce na mapie.\n\nDziękuję.
-    pt = Olá,\n\nFixei:%1$@ na MAPS.ME, mapas offline mundiais. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
-    pt-BR = Olá,\n\nMarquei %1$@ no MAPS.ME, mapas offline mundiais. Clique neste link %2$@ ou neste %3$@ para ver o local no mapa.\n\nObrigado.
-    ro = Salut,\n\nAm fixat poziția: %1$@ pe MAPS.ME, hărțile offline din întreaga lume. Clic pe acest link %2$@ sau pe acesta %3$@ pentru a vedea locul pe hartă.\n\nMulțumesc.
-    es = ¡Hola!\n\nMarqué con un alfiler: %1$@ en MAPS.ME, mapas del mundo sin conexión. Haz clic en este enlace %2$@ o este %3$@ para ver el sitio en el mapa.\n\nGracias.
-    sv = Hej,\n\nJag lade till en knappnål: %1$@ på MAPS.ME, offline-kartor över hela världen. Klicka på denna länk %2$@ eller denna %3$@ för att se platsen på kartan.\n\nTack.
-    th = หวัดดี\n\nฉันปักหมุด: %1$@ ที่ MAPS.ME, โลกแผนที่ออฟไลน์ คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ
-    tr = Merhaba,\n\nDünyanın çevrimdışı haritaları MAPS.ME’d: %1$@ pinledim. Yeri haritadan görmek için bu bağlantıya %2$@ veya şuna %3$@ tıkla.\n\nTeşekkürler.
-    uk = Привіт,\n\nЯ позначив: %1$@ на MAPS.ME, офлайн картах світу. Натисни на це посилання %2$@ або на це посилання %3$@, щоб побачити місце на карті.\n\nДякую.
-    vi = Xin chào,\n\nI được gắn: %1$@ tại MAPS.ME, bản đồ thế giới ngoại tuyến. Ấn vào đường dẫn này %2$@ hoặc cái này %3$@ để xem vị trí trên bản đồ.\n\nCám ơn nhiều.
-    zh-Hans = 嗨,\n\n我在 MAPS.ME 世界离线地图上标 注了%1$@。点击此链接%2$@或此链 接 %3$@来查看在地图上的位置。\n\n谢 谢。
-    zh-Hant = 嗨，\n\n我在 MAPS.ME 世界離線地圖上標記了%1$@。點擊此連結 %2$@ 或此連結 %3$@ 來察看地圖上的位置。\n\n謝謝。
-    he = הי, n\nI\ סומן בסיכה: %1$@ במפות העולם הלא-מקוונות של MAPS.ME. הקש על הלינק או על %3$@ כדי לראות את המקום על המפה. %2$@\n\n תודה.
-    sk = Ahoj,\n\nOznačil/a som: %1$@ v MAPS.ME, offline mapách celého sveta. Stlačte jeden z týchto odkazov %2$@, %3$@ a uvidíte toto miesto na mape.\n\nVďaka
-
   [my_position_share_email_subject]
     comment = Subject for emailed position
-    tags = ios,android,tizen
+    tags = ios,android
     en = Hey, check out my current location on the MAPS.ME map!
     ru = Посмотри на карте MAPS.ME, где я сейчас нахожусь
     ar = يا هلا، تحقق من موقعي الحالي على خريطة MAPS.ME!
@@ -4781,7 +4672,7 @@
 
   [my_position_share_email]
     comment = Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME
-    tags = ios,android,tizen
+    tags = ios,android
     en = Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
     ru = Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте MAPS.ME, открой эту ссылку %2$@ или эту %3$@\n\nСпасибо.
     ar = مرحبا،\n\nأنا هنا الآن: %1$@. انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة.\n\nشكرا لك.
@@ -4850,7 +4741,7 @@
 
   [share]
     comment = Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.
-    tags = ios,android,tizen
+    tags = ios,android
     en = Share
     ru = Поделиться
     ar = مشاركة
@@ -4885,7 +4776,7 @@
 
   [message]
     comment = iOS share by Message button text (including SMS)
-    tags = ios,android,tizen
+    tags = ios,android
     en = Message
     ru = Сообщение
     ar = رسالة
@@ -4919,7 +4810,7 @@
 
   [email]
     comment = Share by email button text, also used in editor.
-    tags = ios,android,tizen
+    tags = ios,android
     en = Email
     ru = Email
     ar = البريد الالكتروني
@@ -4953,7 +4844,7 @@
 
   [copy_link]
     comment = Copy Link
-    tags = ios,tizen
+    tags = ios
     en = Copy Link
     ru = Скопировать ссылку
     ar = نسخ الرابط
@@ -5126,7 +5017,7 @@
 
   [done]
     comment = Used for bookmark editing
-    tags = android,tizen
+    tags = android
     en = Done
     ru = Готово
     ar = تم
@@ -5257,7 +5148,7 @@
 
   [version]
     comment = Prints version number in About dialog
-    tags = android,tizen
+    tags = android
     en = Version: %@
     ru = Версия: %@
     ar = الاصدار: %@
@@ -5305,7 +5196,7 @@
 
   [are_you_sure]
     comment = Confirmation in downloading countries dialog
-    tags = android,tizen
+    tags = android
     en = Are you sure you want to continue?
     ru = Вы уверены, что хотите продолжить?
     ar = هل أنت واثق أنك تريد الاستمرار؟
@@ -5409,7 +5300,7 @@
     fa = طول
 
   [share_my_location]
-    tags = ios,android,tizen
+    tags = ios,android
     en = Share My Location
     ru = Поделиться местоположением
     ar = مشاركة موقعي
@@ -5592,7 +5483,7 @@
     fa = مسیریابی
 
   [pref_zoom_title]
-    tags = android,tizen
+    tags = android
     en = Zoom buttons
     ru = Кнопки масштаба
     ar = أزرار التكبير
@@ -5626,7 +5517,7 @@
     fa = دکمه های درشت نمایی
 
   [pref_zoom_summary]
-    tags = android,tizen
+    tags = android
     en = Display on the map
     ru = Показать на карте
     ar = عرض على الشاشة
@@ -6912,69 +6803,6 @@
     tl = Mga Ruta
     fa = مسیر ها
 
-  [maps_licence_info]
-    comment = Show on first launch.
-    tags = tizen
-    en = This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.
-    ru = Это приложение использует географические данные (включая карты, справочники, достопримечательности, границы стран и регионов, др.) взятые из проекта OpenStreetMap. Мы не гарантируем последовательности, точности, полноты и пригодности данных OpenStreetMap.
-    cs = Tato aplikace využívá geografická data (zahrnující mapy, zakreslení firem a zájmových bodů, hranice států a regionů apod.), která byla převzata z otevřeného projektu OpenStreetMap. Konzistenci, přesnost, úplnost ani správnost těchto OpenStreetMap dat proto nemůžeme zaručit.
-    fi = Tämä sovellus käyttää maantieteellistä dataa (mukaan lukien karttoja, yrityslistauksia, mielenkiinnon kohteita, maiden ja alueiden rajoja jne.), joka on noudettu OpenStreetMap-järjestelmästä. Emme takaa OpenStreetMapin datan johdonmukaisuutta, täsmällisyyttä, täydellisyyttä tai sovellettavuutta.
-    fr = Cette application utilise des données géographiques (incluant des cartes, des listes d'entreprises, des centres d'intérêt, des frontières de pays et de régions, etc.) extraites du projet OpenStreetMap. Nous ne garantissons aucune cohérence, exactitude, complétude ou applicabilité des données d'OpenStreetMap.
-    de = Diese Anwendungen verwenden geographische Informationen (inklusive Karten, Geschäftseinträge, Sehenswürdigkeiten, Landes- und Regionsgrenzen, etc.) aus dem OpenStreetMap-Projekt. Wir können weder die Beständigkeit noch die Genauigkeit, Vollständigkeit oder Eignung der OpenStreetMap-Daten garantieren.
-    id = Aplikasi ini menggunakan data geografis (termasuk peta, daftar perusahaan, lokasi-lokasi menarik, batas-batas negara dan daerah, dll) yang diambil dari proyek OpenStreetMap. Kami tidak menjamin konsistensi, akurasi, kelengkapan atau kesesuaian data OpenStreetMap apa pun.
-    ja = このアプリケーションはOpenStreetMapプロジェクトから取得された地理的データ（地図、ビジネスリスト、興味のある場所、国境と地域など）を使います。OpenStreetMapのデータの整合性、正確さ、完全性や適合性に関して弊社は保証致しかねます。
-    nb = Denne applikasjonen bruker geografiske data (inkludert kart, butikkoppføringer, interessepunkter, landegrenser og regiongrenser osv.) som er hentet fra OpenStreetMap-prosjektet. Vi garanterer ikke at data fra OpenStreetMap alltid er konsekvente, nøyaktige, fullstendige eller pålitelige.
-    pt-BR = Esta aplicação utiliza dados geográficos (incluindo mapas, listas de empresas, pontos de interesse, fronteiras de países e regiões, etc.) do projeto OpenStreetMap. Nós não garantimos a consistência, precisão, completude ou aplicabilidade dos dados do OpenStreetMap.
-    ro = Această aplicație utilizează date geografice (inclusiv hărți, liste de firme, puncte de interes, frontiere de țări și regiuni etc.) preluate din proiectul OpenStreetMap. Nu garantăm uniformitatea, acuratețea, integralitatea sau aplicabilitatea datelor OpenStreetMap.
-    sv = Detta program använder geografisk data (inkluderar kartor, företagsuppgifter, intressepunkter, landsgränser och regioner m.m.) från OpenStreetMap projektet. Vi garanterar ingen konsekvenshet, nogrannhet, fullständighet eller tillämpbarhet av OpenStreetMap datan.
-    vi = Ứng dụng này sử dụng dữ liệu địa lý (bao gồm bản đồ, thông tin doanh nghiệp, các điểm lưu tâm, biên giới quốc gia và khu vực, v.v…) lấy từ dự án OpenStreetMap. Chúng tôi không đảm bảo bất kỳ sự nhất quán, chính xác, toàn vẹn hay phù hợp nào từ các dữ liệu OpenStreetMap.
-    zh-Hans = 这个应用程序使用了源自OpenStreetMap项目的地理数据（包括地图、商业清单、景点、国家和地区边界等）。我们对OpenStreetMap任何数据的一致性、准确性、完整性或适用性不做担保。
-    zh-Hant = 此應用程式使用從 OpenStreetMap 專案擷取之地理數據（包括地圖、商家資訊、興趣點、國家和地區邊界等）。我們不保證 OpenStreetMap 數據的一致性、準確性、完整性、或適用性。
-    sk = Táto aplikácia používa geografické dáta (zahrňujúce mapy, obchodné zoznamy, body záujmov, hranice krajín a regiónov, atď.) prevzaté z OpenStreetMap projektu. Negarantujeme žiadnu jednotnosť, presnosť, úplnosť alebo použiteľnosť dát OpenStreetMap.
-
-  [agree]
-    comment = Show on first launch.
-    tags = tizen
-    en = I agree
-    ru = Я согласен
-    cs = Souhlasím
-    fi = Hyväksyn
-    fr = Je suis d'accord
-    de = Ich stimme zu
-    id = Saya setuju
-    ja = 同意する
-    nb = Jeg samtykker
-    pt-BR = Eu concordo
-    ro = Sunt de acord
-    vi = Tôi đồng ý
-    zh-Hans = 我同意
-    zh-Hant = 我同意
-    he = אני מסכים
-    sk = Súhlasím
-    fa = موافقم
-
-  [disagree]
-    comment = Show on first launch
-    tags = tizen
-    en = I disagree
-    ru = Я не согласен
-    cs = Nesouhlasím
-    fi = En hyväksy
-    fr = Je ne suis pas d'accord
-    de = Ich stimme nicht zu
-    id = Saya setuju
-    ja = 同意しない
-    nb = Jeg samtykker ikke
-    pt-BR = Eu não concordo
-    ro = Nu sunt de acord
-    sv = Jag accepterar
-    vi = Tôi không đồng ý
-    zh-Hans = 我不同意
-    zh-Hant = 我不同意
-    he = אינני מסכים
-    sk = Nesúhlasím
-    fa = مخالفم
-
   [download_map_notification]
     comment = text of notification
     tags = ios
@@ -7770,7 +7598,7 @@
   [wifi]
     comment = Search team review required on any change
     comment = Search category
-    tags = ios,android,tizen
+    tags = ios,android
     en = WiFi
     ru = WiFi
     ar = واي-فاي
@@ -7803,7 +7631,7 @@
 
   [routing_map_outdated]
     comment = Update map suggestion
-    tags = ios,android,tizen
+    tags = ios,android
     en = Please update the map to create a route
     ru = Пожалуйста, обновите карту для того, чтобы проложить маршрут.
     ar = يرجى تحديث الخريطة لإنشاء مسار.
@@ -7837,7 +7665,7 @@
 
   [routing_update_maps]
     comment = Update maps suggestion
-    tags = ios,android,tizen
+    tags = ios,android
     en = The new version of MAPS.ME allows creating routes from your current position to a destination point. Please update maps to use this feature.
     ru = В новой версии MAPS.ME вы сможете строить маршруты от текущего местоположения до точки назначения. Чтобы воспользоваться этой функцией, обновите, пожалуйста, карты.
     ar = إصدار MAPS.ME الجديد يسمح بإنشاء مسارات انطلاقاً من موقعك الحالي نحو المكان الذي تتجه إليه. يرجى تحديث الخرائط لاستخدام هذه الميزة.
@@ -7905,7 +7733,7 @@
 
   [downloader_cancel_all]
     comment = Cancel all button text
-    tags = ios,android,tizen
+    tags = ios,android
     en = Cancel All
     ru = Отменить все
     ar = إلغاء الكل
@@ -7940,7 +7768,7 @@
 
   [downloader_downloaded_subtitle]
     comment = Downloaded maps category
-    tags = ios,android,tizen
+    tags = ios,android
     en = Downloaded
     ru = Загруженные
     ar = تم تنزيلها
@@ -8007,7 +7835,7 @@
 
   [downloader_queued]
     comment = Country queued for download
-    tags = ios,android,tizen
+    tags = ios,android
     en = Queued
     ru = В очереди
     ar = مَصْفوف
@@ -8140,7 +7968,7 @@
     fa = دانلود همه
 
   [downloader_downloading]
-    tags = ios,android,tizen
+    tags = ios,android
     en = Downloading:
     ru = Загружается:
     ar = يتم تنزيل:
@@ -8206,7 +8034,7 @@
 
   [routing_disclaimer]
     comment = Disclaimer message
-    tags = ios,android,tizen
+    tags = ios,android
     en = Creating routes in MAPS.ME app, please keep in mind the following:\n\n  - Suggested routes can be considered as recommendations only.\n - Road conditions, traffic rules and signs have higher priority than navigation advice.\n - The map may be incorrect or outdated, and routes may not be created the best possible way.\n\n  Be safe on roads and take care of yourself!
     ru = Используя маршруты в приложении MAPS.ME, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!
     ar = عند إنشاء مسارات الطرق في تطبيق MAPS.ME، يرجى أخذ التالي في الحسبان:\n\n  - المسارات المقترحة تعتبر مجرد اقتراحات فقط.\n - حالة الطريق وقوانينه والإشارات الموجودة فيه لها الأولولية أثناء تقديم نصائح الملاحة.\n - قد تكون الخريطة خاطئة أو قديمة، لذا فإنه يمكن ألا تُرسم المسارات بالشكل الأمثل.\n\n  كن آمنا على الطريق وانتبه لتفسك!
@@ -8239,7 +8067,7 @@
 
   [downloader_outdated_maps]
     comment = Outdated maps category
-    tags = ios,android,tizen
+    tags = ios,android
     en = Outdated
     ru = Неактуальные
     ar = انتهت صلاحيته
@@ -8273,7 +8101,7 @@
 
   [downloader_uptodate_maps]
     comment = Up to date maps category
-    tags = ios,android,tizen
+    tags = ios,android
     en = Up-to-date
     ru = Обновленные
     ar = محدّث
@@ -8307,7 +8135,7 @@
 
   [downloader_status_outdated]
     comment = Status of outdated country in the list
-    tags = ios,android,tizen
+    tags = ios,android
     en = Update
     ru = Обновить
     ar = تحديث
@@ -8342,7 +8170,7 @@
 
   [downloader_status_failed]
     comment = Status of failed country in the list
-    tags = ios,android,tizen
+    tags = ios,android
     en = Failed
     ru = Ошибка
     ar = فشل
@@ -8656,7 +8484,7 @@
 
   [downloader_download_map_and_routing]
     comment = Context menu item for downloader.
-    tags = ios,android,tizen
+    tags = ios,android
     en = Download Map + Routing
     ru = Загрузить карту + маршруты
     ar = تنزيل الخريطة + تحديد المسار
@@ -8690,7 +8518,7 @@
 
   [downloader_download_routing]
     comment = Context menu item for downloader.
-    tags = ios,android,tizen
+    tags = ios,android
     en = Download Routing
     ru = Загрузить маршруты
     ar = تنزيل تحديد المسار
@@ -8724,7 +8552,7 @@
 
   [downloader_delete_routing]
     comment = Context menu item for downloader.
-    tags = ios,android,tizen
+    tags = ios,android
     en = Delete Routing
     ru = Удалить маршруты
     ar = إزالة تحديد المسار
@@ -8758,7 +8586,7 @@
 
   [downloader_download_map]
     comment = Context menu item for downloader.
-    tags = ios,android,tizen
+    tags = ios,android
     en = Download map
     ru = Загрузить карту
     ar = تنزيل الخريطة
@@ -8826,7 +8654,7 @@
 
   [routing_go]
     comment = Button for routing.
-    tags = ios,android,tizen
+    tags = ios,android
     en = Go!
     ru = Поехали!
     ar = انطلق!
@@ -8860,7 +8688,7 @@
 
   [downloader_retry]
     comment = Item status in downloader.
-    tags = ios,android,tizen
+    tags = ios,android
     en = Retry
     ru = Повторить
     ar = تكرار
@@ -8894,7 +8722,7 @@
 
   [downloader_map_and_routing]
     comment = Item in context menu.
-    tags = ios,android,tizen
+    tags = ios,android
     en = Map + Routing
     ru = Карта + Маршруты
     ar = الخريطة + تحديد المسار
@@ -8928,7 +8756,7 @@
 
   [downloader_delete_map]
     comment = Item in context menu.
-    tags = ios,android,tizen
+    tags = ios,android
     en = Delete Map
     ru = Удалить карту
     ar = حذف الخريطة
@@ -8963,7 +8791,7 @@
 
   [downloader_update_map]
     comment = Item in context menu.
-    tags = ios,android,tizen
+    tags = ios,android
     en = Update Map
     ru = Обновить карту
     ar = تحديث الخريطة
@@ -8998,7 +8826,7 @@
 
   [downloader_update_map_and_routing]
     comment = Item in context menu.
-    tags = ios,android,tizen
+    tags = ios,android
     en = Update Map + Routing
     ru = Обновить карту + Маршруты
     ar = تحديث الخريطة + تحديد المسار
@@ -9032,7 +8860,7 @@
 
   [downloader_map_only]
     comment = Item in context menu.
-    tags = ios,android,tizen
+    tags = ios,android
     en = Map Only
     ru = Только карта
     ar = الخريطة فقط
@@ -9066,7 +8894,7 @@
 
   [toolbar_application_menu]
     comment = Toolbar title
-    tags = ios,android,tizen
+    tags = ios,android
     en = Application menu
     ru = Меню приложения
     ar = قائمة التطبيق
