@@ -64,7 +64,7 @@ public class MapLayerCompositeController implements MapLayerController
 
     List<ControllerAndMode> entries = new ArrayList<>();
     entries.add(subwayEntry);
-//    entries.add(isoLineEntry);
+    entries.add(isoLineEntry);
     entries.add(trafficEntry);
 
     Collections.sort(entries, (lhs, rhs) ->
