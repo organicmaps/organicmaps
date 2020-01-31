@@ -18,5 +18,7 @@ class OnIsolinesChangedListenerImpl implements OnIsolinesChangedListener
   @Override
   public void onStateChanged(int type)
   {
+    IsolinesState state = IsolinesState.values()[type];
+    state.activate(mApp);
   }
 }
