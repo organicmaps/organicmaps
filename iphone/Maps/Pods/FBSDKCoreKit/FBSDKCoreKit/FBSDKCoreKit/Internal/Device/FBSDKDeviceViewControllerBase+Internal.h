@@ -18,31 +18,36 @@
 
 #import "TargetConditionals.h"
 
-#if !TARGET_OS_TV
+#if TARGET_OS_TV
 
-#import "FBSDKLoginCompletion.h"
+#if SWIFT_PACKAGE
+#import "FBSDKDeviceViewControllerBase.h"
+#else
+#import <FBSDKCoreKit/FBSDKDeviceViewControllerBase.h>
+#endif
 
-@interface FBSDKLoginCompletionParameters ()
+#import "FBSDKCoreKit+Internal.h"
+#import "FBSDKDeviceDialogView.h"
 
-@property (nonatomic, copy) NSString *accessTokenString;
-@property (nonatomic, copy) NSString *nonceString;
+@class FBSDKDeviceDialogView;
 
-@property (nonatomic, copy) NSSet *permissions;
-@property (nonatomic, copy) NSSet *declinedPermissions;
-@property (nonatomic, copy) NSSet *expiredPermissions;
+NS_ASSUME_NONNULL_BEGIN
 
-@property (nonatomic, copy) NSString *appID;
-@property (nonatomic, copy) NSString *userID;
+/*
+  An internal base class for device related flows.
 
-@property (nonatomic, copy) NSError *error;
+ This is an internal API that should not be used directly and is subject to change.
+*/
+@interface FBSDKDeviceViewControllerBase()<
+UIViewControllerAnimatedTransitioning,
+UIViewControllerTransitioningDelegate,
+FBSDKDeviceDialogViewDelegate
+>
 
-@property (nonatomic, copy) NSDate *expirationDate;
-@property (nonatomic, copy) NSDate *dataAccessExpirationDate;
-
-@property (nonatomic, copy) NSString *challenge;
-
-@property (nonatomic, copy) NSString *graphDomain;
+@property (nonatomic, strong, readonly) FBSDKDeviceDialogView *deviceDialogView;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 #endif

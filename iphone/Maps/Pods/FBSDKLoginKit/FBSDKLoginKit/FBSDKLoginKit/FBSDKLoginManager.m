@@ -230,7 +230,8 @@ typedef NS_ENUM(NSInteger, FBSDKLoginManagerState) {
                                                                          userID:parameters.userID
                                                                  expirationDate:parameters.expirationDate
                                                                     refreshDate:[NSDate date]
-                                                                    dataAccessExpirationDate:parameters.dataAccessExpirationDate];
+                                                                    dataAccessExpirationDate:parameters.dataAccessExpirationDate
+                                                                    graphDomain:parameters.graphDomain];
         result = [[FBSDKLoginManagerLoginResult alloc] initWithToken:token
                                                          isCancelled:NO
                                                   grantedPermissions:recentlyGrantedPermissions
@@ -326,7 +327,7 @@ typedef NS_ENUM(NSInteger, FBSDKLoginManagerState) {
 
   NSMutableDictionary *loginParams = [NSMutableDictionary dictionary];
   loginParams[@"client_id"] = [FBSDKSettings appID];
-  loginParams[@"response_type"] = @"token_or_nonce,signed_request";
+  loginParams[@"response_type"] = @"token_or_nonce,signed_request,graph_domain";
   loginParams[@"redirect_uri"] = @"fbconnect://success";
   loginParams[@"display"] = @"touch";
   loginParams[@"sdk"] = @"ios";

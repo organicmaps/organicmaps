@@ -58,6 +58,8 @@ NS_SWIFT_NAME(LoginCompletionParameters)
 @property (nonatomic, copy, readonly) NSDate *dataAccessExpirationDate;
 
 @property (nonatomic, copy, readonly) NSString *challenge;
+
+@property (nonatomic, copy, readonly) NSString *graphDomain;
 @end
 
 NS_SWIFT_NAME(LoginCompleting)

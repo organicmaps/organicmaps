@@ -198,6 +198,9 @@ static void FBSDKLoginRequestMeAndPermissions(FBSDKLoginCompletionParameters *pa
   NSError *error = nil;
   NSDictionary<id, id> *state = [FBSDKBasicUtility objectForJSONString:parameters[@"state"] error:&error];
   _parameters.challenge = [FBSDKUtility URLDecode:state[@"challenge"]];
+
+  NSString *domain = parameters[@"graph_domain"];
+  _parameters.graphDomain = [domain copy];
 }
 
 - (void)setErrorWithDictionary:(NSDictionary *)parameters

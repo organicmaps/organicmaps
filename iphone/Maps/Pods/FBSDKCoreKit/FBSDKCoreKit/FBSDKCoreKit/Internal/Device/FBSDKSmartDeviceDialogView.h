@@ -18,30 +18,14 @@
 
 #import "TargetConditionals.h"
 
-#if !TARGET_OS_TV
+#if TARGET_OS_TV
 
-#import "FBSDKLoginCompletion.h"
+#import <UIKit/UIKit.h>
 
-@interface FBSDKLoginCompletionParameters ()
+#import "FBSDKDeviceDialogView.h"
 
-@property (nonatomic, copy) NSString *accessTokenString;
-@property (nonatomic, copy) NSString *nonceString;
-
-@property (nonatomic, copy) NSSet *permissions;
-@property (nonatomic, copy) NSSet *declinedPermissions;
-@property (nonatomic, copy) NSSet *expiredPermissions;
-
-@property (nonatomic, copy) NSString *appID;
-@property (nonatomic, copy) NSString *userID;
-
-@property (nonatomic, copy) NSError *error;
-
-@property (nonatomic, copy) NSDate *expirationDate;
-@property (nonatomic, copy) NSDate *dataAccessExpirationDate;
-
-@property (nonatomic, copy) NSString *challenge;
-
-@property (nonatomic, copy) NSString *graphDomain;
+NS_SWIFT_NAME(FBSmartDeviceDialogView)
+@interface FBSDKSmartDeviceDialogView : FBSDKDeviceDialogView
 
 @end
 

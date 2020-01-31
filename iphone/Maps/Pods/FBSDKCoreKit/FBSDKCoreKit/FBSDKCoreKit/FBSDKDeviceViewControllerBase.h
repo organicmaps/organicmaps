@@ -18,31 +18,21 @@
 
 #import "TargetConditionals.h"
 
-#if !TARGET_OS_TV
+#if TARGET_OS_TV
 
-#import "FBSDKLoginCompletion.h"
+#import <UIKit/UIKit.h>
 
-@interface FBSDKLoginCompletionParameters ()
+NS_ASSUME_NONNULL_BEGIN
 
-@property (nonatomic, copy) NSString *accessTokenString;
-@property (nonatomic, copy) NSString *nonceString;
+/*
+  An internal base class for device related flows.
 
-@property (nonatomic, copy) NSSet *permissions;
-@property (nonatomic, copy) NSSet *declinedPermissions;
-@property (nonatomic, copy) NSSet *expiredPermissions;
-
-@property (nonatomic, copy) NSString *appID;
-@property (nonatomic, copy) NSString *userID;
-
-@property (nonatomic, copy) NSError *error;
-
-@property (nonatomic, copy) NSDate *expirationDate;
-@property (nonatomic, copy) NSDate *dataAccessExpirationDate;
-
-@property (nonatomic, copy) NSString *challenge;
-
-@property (nonatomic, copy) NSString *graphDomain;
-
+ This is an internal API that should not be used directly and is subject to change.
+*/
+NS_SWIFT_NAME(FBDeviceViewControllerBase)
+@interface FBSDKDeviceViewControllerBase : UIViewController
 @end
+
+NS_ASSUME_NONNULL_END
 
 #endif

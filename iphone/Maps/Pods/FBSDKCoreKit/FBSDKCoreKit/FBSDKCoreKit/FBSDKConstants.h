@@ -323,6 +323,11 @@ typedef NS_ERROR_ENUM(FBSDKErrorDomain, FBSDKCoreError)
    Indicates an app switch to the browser (typically for a dialog) failed.
    */
   FBSDKErrorBrowserUnavailable,
+
+  /**
+   Indicates that a bridge api interaction was interrupted.
+   */
+  FBSDKErrorBridgeAPIInterruption,
 } NS_SWIFT_NAME(CoreError);
 
 /**

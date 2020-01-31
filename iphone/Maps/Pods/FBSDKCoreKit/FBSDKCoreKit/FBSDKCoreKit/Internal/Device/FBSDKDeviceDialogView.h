@@ -18,30 +18,29 @@
 
 #import "TargetConditionals.h"
 
-#if !TARGET_OS_TV
+#if TARGET_OS_TV
 
-#import "FBSDKLoginCompletion.h"
+#import <UIKit/UIKit.h>
 
-@interface FBSDKLoginCompletionParameters ()
+NS_SWIFT_NAME(DeviceDialogViewDelegate)
+@protocol FBSDKDeviceDialogViewDelegate;
 
-@property (nonatomic, copy) NSString *accessTokenString;
-@property (nonatomic, copy) NSString *nonceString;
+// internal class, APIs are subject to change.
+NS_SWIFT_NAME(FBDeviceDialogView)
+@interface FBSDKDeviceDialogView : UIView
 
-@property (nonatomic, copy) NSSet *permissions;
-@property (nonatomic, copy) NSSet *declinedPermissions;
-@property (nonatomic, copy) NSSet *expiredPermissions;
+@property (nonatomic, weak) id<FBSDKDeviceDialogViewDelegate> delegate;
+@property (nonatomic, copy) NSString *confirmationCode;
 
-@property (nonatomic, copy) NSString *appID;
-@property (nonatomic, copy) NSString *userID;
+// override point for subclasses.
+- (void)buildView;
 
-@property (nonatomic, copy) NSError *error;
+@end
 
-@property (nonatomic, copy) NSDate *expirationDate;
-@property (nonatomic, copy) NSDate *dataAccessExpirationDate;
+NS_SWIFT_NAME(DeviceDialogViewDelegate)
+@protocol FBSDKDeviceDialogViewDelegate <NSObject>
 
-@property (nonatomic, copy) NSString *challenge;
-
-@property (nonatomic, copy) NSString *graphDomain;
+- (void)deviceDialogViewDidCancel:(FBSDKDeviceDialogView *)deviceDialogView;
 
 @end
 

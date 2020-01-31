@@ -40,7 +40,9 @@ static NSMutableDictionary<NSString *, NSString *> *_methodMapping;
       [self addClass:object_getClass(class) isClassMethod:YES];
     }
   }
-  return [_methodMapping copy];
+  @synchronized (_methodMapping) {
+    return [_methodMapping copy];
+  }
 }
 
 #pragma mark - private methods
@@ -116,7 +118,9 @@ static NSMutableDictionary<NSString *, NSString *> *_methodMapping;
                               NSStringFromSelector(selector)];
 
       if (methodAddress && methodName) {
-        [_methodMapping setObject:methodName forKey:methodAddress];
+        @synchronized (_methodMapping) {
+          [_methodMapping setObject:methodName forKey:methodAddress];
+        }
       }
     }
   }
