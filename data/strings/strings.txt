@@ -46315,3 +46315,37 @@
     zh-Hans = 如需使用高度線，請更新或下載所需區域的地圖
     zh-Hant = 如需使用高度线，请更新或下载所需区域的地图
     fa = برای فعال سازی و استفاده از لایه توپوگرافی نقشه منطقه را به روزرسانی یا دانلود کنید
+
+  [isolines_location_error_dialog]
+    en = The topographic layer is not yet available in this area
+    ru = Линии высот пока не доступны в этом регионе
+    ar = الطبقة الطبوغرافية ليست متاحة بعد في هذه المنطقة
+    cs = Topografická vrstva není v této oblasti ještě dostupná
+    da = Det topografiske lag er endnu ikke tilgængeligt i dette område
+    nl = De hoogtelijnen zijn nog niet beschikbaar in deze regio
+    fi = Korkeus linjat eivät ole vielä saatavilla tällä alueella
+    fr = Les lignes d'élévation ne sont pas encore disponibles dans cette région
+    de = Topographie-Layer sind in dieser Region noch nicht verfügbar
+    hu = Ezen a területen a topográfiai réteg még nem elérhető
+    id = Lapisan topografi belum tersedia untuk wilayah ini
+    it = La modalità topografica per questa regione non è ancora disponibile
+    ja = トポグラフィーレイヤーはこの地域ではまだ利用できません
+    ko = 이 지역의 지형 레이어는 아직 사용할 수 없습니다
+    nb = Høydekurver er ikke tilgjengelige i dette området ennå
+    pl = W tej chwili nie są dostępne linie wysokości w tym regionie
+    pt = A linhas de alturas ainda não está disponível em sua região
+    pt-BR = A camada topográfica ainda não está disponível para esta região
+    ro = Liniile de înălțimi pană ce nu sunt disponibile în această regiune
+    es = La altitud de relieve aún no está disponible en esta región
+    es-MX = La altitud de relieve no está aún disponible en esta región
+    sv = Höjningslinjer är ännu inte tillgängligt i den här regionen
+    th = เลเยอร์แผนที่ภูมิประเทศยังใช้งานไม่ได้ในพื้นที่นี้
+    tr = Bu bölgede henüz yükseklik çizgileri mevcut değil
+    uk = Лінії висот ще недоступні в цьому регіоні
+    vi = Đường hiển thị độ cao hiện chưa khả dụng tại khu vực này
+    el = Τα τοπογραφικά στρώματα δεν είναι ακόμα διαθέσιμα σε αυτή την περιοχή
+    sk = Topografická vrstva ešte nie je v tejto oblasti k dispozícii
+    sw = Tabaka la sura ya nchi bado haipatikani katika eneo hili
+    zh-Hans = 暂时无法获取该地区的高低线
+    zh-Hant = 暫時無法獲取該地區的高低線
+    fa = لایه توپوگرافی هنوز برای این منطقه در دسترس نیست
