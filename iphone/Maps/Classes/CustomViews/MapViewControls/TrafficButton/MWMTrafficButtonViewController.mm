@@ -146,6 +146,10 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   else if ([MWMMapOverlayManager isoLinesEnabled])
   {
     btn.imageName = @"btn_isoMap_on";
+    if ([MWMMapOverlayManager isolinesState] == MWMMapOverlayIsolinesStateNoData)
+      [[MWMToast toastWithText:L(@"isolines_location_error_dialog")] show];
+    else if ([MWMMapOverlayManager isolinesState] == MWMMapOverlayIsolinesStateExpiredData)
+      [MWMAlertViewController.activeAlertController presentInfoAlert:L(@"isolines_activation_error_dialog") text:@""];
   }
   else
   {

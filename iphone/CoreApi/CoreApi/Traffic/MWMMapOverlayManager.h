@@ -17,6 +17,13 @@ typedef NS_ENUM(NSUInteger, MWMMapOverlayTransitState) {
   MWMMapOverlayTransitStateNoData,
 } NS_SWIFT_NAME(MapOverlayTransitState);
 
+typedef NS_ENUM(NSUInteger, MWMMapOverlayIsolinesState) {
+  MWMMapOverlayIsolinesStateDisabled,
+  MWMMapOverlayIsolinesStateEnabled,
+  MWMMapOverlayIsolinesStateExpiredData,
+  MWMMapOverlayIsolinesStateNoData,
+} NS_SWIFT_NAME(MapOverlayTransitState);
+
 NS_SWIFT_NAME(MapOverlayManagerObserver)
 @protocol MWMMapOverlayManagerObserver <NSObject>
 
@@ -36,6 +43,7 @@ NS_SWIFT_NAME(MapOverlayManager)
 
 + (MWMMapOverlayTrafficState)trafficState;
 + (MWMMapOverlayTransitState)transitState;
++ (MWMMapOverlayIsolinesState)isolinesState;
 
 + (BOOL)trafficEnabled;
 + (BOOL)transitEnabled;

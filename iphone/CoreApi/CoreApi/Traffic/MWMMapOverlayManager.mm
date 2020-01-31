@@ -8,6 +8,7 @@
 
 @property(nonatomic) TrafficManager::TrafficState trafficState;
 @property(nonatomic) TransitReadManager::TransitSchemeState transitState;
+@property(nonatomic) IsolinesManager::IsolinesState isolinesState;
 
 @end
 
@@ -39,6 +40,14 @@
       for (id<MWMMapOverlayManagerObserver> observer in self.observers) {
         if ([observer respondsToSelector:@selector(onTransitStateUpdated)]) {
           [observer onTransitStateUpdated];
+        }
+      }
+    });
+    GetFramework().GetIsolinesManager().SetStateListener([self](IsolinesManager::IsolinesState state) {
+      self.isolinesState = state;
+      for (id<MWMMapOverlayManagerObserver> observer in self.observers) {
+        if ([observer respondsToSelector:@selector(onIsoLinesStateUpdated)]) {
+          [observer onIsoLinesStateUpdated];
         }
       }
     });
@@ -88,6 +97,19 @@
   }
 }
 
++ (MWMMapOverlayIsolinesState)isolinesState {
+  switch ([MWMMapOverlayManager manager].isolinesState) {
+    case IsolinesManager::IsolinesState::Disabled:
+      return MWMMapOverlayIsolinesStateDisabled;
+    case IsolinesManager::IsolinesState::Enabled:
+      return MWMMapOverlayIsolinesStateEnabled;
+    case IsolinesManager::IsolinesState::ExpiredData:
+      return MWMMapOverlayIsolinesStateExpiredData;
+    case IsolinesManager::IsolinesState::NoData:
+      return MWMMapOverlayIsolinesStateNoData;
+  }
+}
+
 + (BOOL)trafficEnabled {
   return [MWMMapOverlayManager manager].trafficState != TrafficManager::TrafficState::Disabled;
 }
@@ -97,7 +119,7 @@
 }
 
 + (BOOL)isoLinesEnabled {
-  return GetFramework().LoadIsolinesEnabled();
+  return [MWMMapOverlayManager manager].isolinesState != IsolinesManager::IsolinesState::Disabled;
 }
 
 + (void)setTrafficEnabled:(BOOL)enable {
@@ -131,12 +153,6 @@
   auto &f = GetFramework();
   f.GetIsolinesManager().SetEnabled(enable);
   f.SaveIsolonesEnabled(enable);
-
-  for (id<MWMMapOverlayManagerObserver> observer in [MWMMapOverlayManager manager].observers) {
-    if ([observer respondsToSelector:@selector(onIsoLinesStateUpdated)]) {
-      [observer onIsoLinesStateUpdated];
-    }
-  }
 }
 
 @end
