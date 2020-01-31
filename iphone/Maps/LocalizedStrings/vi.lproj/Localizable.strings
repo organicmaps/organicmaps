@@ -6,9 +6,6 @@
 
 /********** Strings **********/
 
-/* About button text (should be short) */
-"about" = "Giới thiệu";
-
 /* Button text (should be short) */
 "back" = "Quay lại";
 
@@ -107,9 +104,6 @@
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Có";
-
-/* Settings/Downloader - No internet connection dialog message */
-"use_wifi_recommendation_text" = "Chúng tôi khuyên bạn nên sử dụng WiFi để tải xuống các bảnđồ lớn.";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Bạn thích sử dụng hệ thống đo lường nào?";
@@ -406,9 +400,6 @@
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Này, hãy xem ghim của tôi tại MAPS.ME map";
 
-/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Xin chào,\n\nI được gắn: %1$@ tại MAPS.ME, bản đồ thế giới ngoại tuyến. Ấn vào đường dẫn này %2$@ hoặc cái này %3$@ để xem vị trí trên bản đồ.\n\nCám ơn nhiều.";
-
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Này, hãy xem vị trí hiện tại của tôi tại MAPS.ME map!";
 
@@ -586,15 +577,6 @@
 
 /* category title */
 "routes" = "Tuyến đường";
-
-/* Show on first launch. */
-"maps_licence_info" = "Ứng dụng này sử dụng dữ liệu địa lý (bao gồm bản đồ, thông tin doanh nghiệp, các điểm lưu tâm, biên giới quốc gia và khu vực, v.v…) lấy từ dự án OpenStreetMap. Chúng tôi không đảm bảo bất kỳ sự nhất quán, chính xác, toàn vẹn hay phù hợp nào từ các dữ liệu OpenStreetMap.";
-
-/* Show on first launch. */
-"agree" = "Tôi đồng ý";
-
-/* Show on first launch */
-"disagree" = "Tôi không đồng ý";
 
 /* text of notification */
 "download_map_notification" = "Tải xuống bản đồ của vị trí của bạn";

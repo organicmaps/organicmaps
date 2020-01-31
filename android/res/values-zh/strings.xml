@@ -4,8 +4,6 @@
 <!-- Language: zh-Hans -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- About button text (should be short) -->
-	<string name="about">关于</string>
 	<!-- Button text (should be short) -->
 	<string name="back">返回</string>
 	<!-- Button text (should be short) -->
@@ -66,8 +64,6 @@
 	<string name="touch_to_download">轻触下载</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">是</string>
-	<!-- Settings/Downloader - No internet connection dialog message -->
-	<string name="use_wifi_recommendation_text">我们推荐使用 WiFi 来下载大的地图</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">您喜欢哪种测量系统?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -255,8 +251,6 @@
 	<string name="my_position_share_sms">嘿,在 MAPS.ME 上查看我目前的位置 吧!%1$s 或%2$s 未安装离线地图?在此 下载: http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">嘿,在 MAPS.ME 上查看我标注的图钉吧!</string>
-	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">嗨,\n\n我在 MAPS.ME 世界离线地图上标 注了%1$s。点击此链接%2$s或此链 接 %3$s来查看在地图上的位置。\n\n谢 谢。</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">嗨，到 MAPS.ME 查看我的当前位置！</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
@@ -363,12 +357,6 @@
 	<string name="route">路线</string>
 	<!-- category title -->
 	<string name="routes">路线</string>
-	<!-- Show on first launch. -->
-	<string name="maps_licence_info">这个应用程序使用了源自OpenStreetMap项目的地理数据（包括地图、商业清单、景点、国家和地区边界等）。我们对OpenStreetMap任何数据的一致性、准确性、完整性或适用性不做担保。</string>
-	<!-- Show on first launch. -->
-	<string name="agree">我同意</string>
-	<!-- Show on first launch -->
-	<string name="disagree">我不同意</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">下载您所在地方的地图</string>
 	<!-- text of notification -->

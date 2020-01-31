@@ -6,9 +6,6 @@
 
 /********** Strings **********/
 
-/* About button text (should be short) */
-"about" = "Über MAPS.ME";
-
 /* Button text (should be short) */
 "back" = "Zurück";
 
@@ -107,9 +104,6 @@
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Ja";
-
-/* Settings/Downloader - No internet connection dialog message */
-"use_wifi_recommendation_text" = "Wir empfehlen Ihnen, große Länder über eine WLAN-Verbindung herunterzuladen";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Welches Einheitensystem bevorzugen Sie?";
@@ -406,9 +400,6 @@
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Schau dir meine Stecknadel auf der MAPS.ME-Karte an";
 
-/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Hi,\n\nIch habe %1$@ auf MAPS.ME, der Offline-Weltkarte, gepinnt. Klicke auf diesen Link %2$@ oder diesen %3$@, um den Ort auf der Karte zu sehen.\n\nVielen Dank.";
-
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Sieh dir meinen aktuellen Standort auf der MAPS.ME-Karte an";
 
@@ -586,15 +577,6 @@
 
 /* category title */
 "routes" = "Routen";
-
-/* Show on first launch. */
-"maps_licence_info" = "Diese Anwendungen verwenden geographische Informationen (inklusive Karten, Geschäftseinträge, Sehenswürdigkeiten, Landes- und Regionsgrenzen, etc.) aus dem OpenStreetMap-Projekt. Wir können weder die Beständigkeit noch die Genauigkeit, Vollständigkeit oder Eignung der OpenStreetMap-Daten garantieren.";
-
-/* Show on first launch. */
-"agree" = "Ich stimme zu";
-
-/* Show on first launch */
-"disagree" = "Ich stimme nicht zu";
 
 /* text of notification */
 "download_map_notification" = "Laden Sie die Karte Ihres Standortes herunter";

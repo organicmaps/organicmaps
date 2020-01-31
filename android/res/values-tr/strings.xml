@@ -4,8 +4,6 @@
 <!-- Language: tr -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- About button text (should be short) -->
-	<string name="about">Hakkında</string>
 	<!-- Button text (should be short) -->
 	<string name="back">Geri</string>
 	<!-- Button text (should be short) -->
@@ -70,8 +68,6 @@
 	<string name="touch_to_download">İndirmek için dokunun</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Evet</string>
-	<!-- Settings/Downloader - No internet connection dialog message -->
-	<string name="use_wifi_recommendation_text">Büyük haritaları indirmek için WiFi kullanmanızı öneriyoruz</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Hangi ölçü sistemini tercih edersiniz?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -259,8 +255,6 @@
 	<string name="my_position_share_sms">Hey, MAPS.ME’de geçerli konumumu incele! %1$s veya %2$s Çevrimiçi haritalar sende yok mu? Buradan indir: http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hey, MAPS.ME haritasında pinimi incele!</string>
-	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Merhaba,\n\nDünyanın çevrimdışı haritaları MAPS.ME’d: %1$s pinledim. Yeri haritadan görmek için bu bağlantıya %2$s veya şuna %3$s tıkla.\n\nTeşekkürler.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hey, MAPS.ME’de geçerli konumumu incele!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->

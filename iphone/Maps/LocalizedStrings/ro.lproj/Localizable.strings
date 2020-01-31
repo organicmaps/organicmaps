@@ -6,9 +6,6 @@
 
 /********** Strings **********/
 
-/* About button text (should be short) */
-"about" = "Despre";
-
 /* Button text (should be short) */
 "back" = "Înapoi";
 
@@ -107,9 +104,6 @@
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Da";
-
-/* Settings/Downloader - No internet connection dialog message */
-"use_wifi_recommendation_text" = "Vă recomandăm să utilizați WiFi pentru a descărca hărți mari.";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Ce sistem de măsură preferați?";
@@ -406,9 +400,6 @@
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hei, poți vedea care este poziția mea pe harta MAPS.ME!";
 
-/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Salut,\n\nAm fixat poziția: %1$@ pe MAPS.ME, hărțile offline din întreaga lume. Clic pe acest link %2$@ sau pe acesta %3$@ pentru a vedea locul pe hartă.\n\nMulțumesc.";
-
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Hei, îmi poți vedea poziția actuală pe harta MAPS.ME!";
 
@@ -586,15 +577,6 @@
 
 /* category title */
 "routes" = "Trasee";
-
-/* Show on first launch. */
-"maps_licence_info" = "Această aplicație utilizează date geografice (inclusiv hărți, liste de firme, puncte de interes, frontiere de țări și regiuni etc.) preluate din proiectul OpenStreetMap. Nu garantăm uniformitatea, acuratețea, integralitatea sau aplicabilitatea datelor OpenStreetMap.";
-
-/* Show on first launch. */
-"agree" = "Sunt de acord";
-
-/* Show on first launch */
-"disagree" = "Nu sunt de acord";
 
 /* text of notification */
 "download_map_notification" = "Descărcați harta locului în care vă aflați";

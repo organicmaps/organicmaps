@@ -4,8 +4,6 @@
 <!-- Language: hu -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- About button text (should be short) -->
-	<string name="about">A programról</string>
 	<!-- Button text (should be short) -->
 	<string name="back">Vissza</string>
 	<!-- Button text (should be short) -->
@@ -66,8 +64,6 @@
 	<string name="touch_to_download">Érintse meg letöltéshez</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Igen</string>
-	<!-- Settings/Downloader - No internet connection dialog message -->
-	<string name="use_wifi_recommendation_text">WiFi használatát javasoljuk nagy térképek letöltéséhez</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Milyen mértékegységet használjunk?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -255,8 +251,6 @@
 	<string name="my_position_share_sms">Nézd meg a MAPS.ME helyzetemet! %1$s vagy %2$s A program letöltése: http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Nézze meg a MAPS.ME jelzőmet</string>
-	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Üdvözlöm,\n\nleszúrtam egy MAPS.ME jelzőt: %1$s. Kattintson erre a hivatkozásra %2$s vagy erre %3$s hogy lássa a helyet a térképen.\n\nKöszönöm.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Nézze meg a helyzetemet a MAPS.ME térképen!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->

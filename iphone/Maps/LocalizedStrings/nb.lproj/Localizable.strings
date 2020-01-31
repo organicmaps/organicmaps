@@ -6,9 +6,6 @@
 
 /********** Strings **********/
 
-/* About button text (should be short) */
-"about" = "Om";
-
 /* Button text (should be short) */
 "back" = "Tilbake";
 
@@ -107,9 +104,6 @@
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Ja";
-
-/* Settings/Downloader - No internet connection dialog message */
-"use_wifi_recommendation_text" = "Vi anbefaler å bruke WiFi når du skal laste ned store kart";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Hvilket målesystem foretrekker du?";
@@ -406,9 +400,6 @@
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hei, se merket mitt på MAPS.ME-kartet";
 
-/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Hei,\n\nI merket av: %1$@ på MAPS.ME, offline verdenskart. Klikk på denne koblingen %2$@ eller denne %3$@ for å se stedet på kartet.\n\nTakk.";
-
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Hei, se posisjonen min på MAPS.ME-kartet!";
 
@@ -586,15 +577,6 @@
 
 /* category title */
 "routes" = "Ruter";
-
-/* Show on first launch. */
-"maps_licence_info" = "Denne applikasjonen bruker geografiske data (inkludert kart, butikkoppføringer, interessepunkter, landegrenser og regiongrenser osv.) som er hentet fra OpenStreetMap-prosjektet. Vi garanterer ikke at data fra OpenStreetMap alltid er konsekvente, nøyaktige, fullstendige eller pålitelige.";
-
-/* Show on first launch. */
-"agree" = "Jeg samtykker";
-
-/* Show on first launch */
-"disagree" = "Jeg samtykker ikke";
 
 /* text of notification */
 "download_map_notification" = "Last ned kart over stedet der du befinner deg";

@@ -4,8 +4,6 @@
 <!-- Language: fa -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- About button text (should be short) -->
-	<string name="about">درباره‌ی</string>
 	<!-- Button text (should be short) -->
 	<string name="back">بازگشت</string>
 	<!-- Button text (should be short) -->
@@ -69,8 +67,6 @@
 	<string name="touch_to_download">برای دانلود لمس کنید</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">بله</string>
-	<!-- Settings/Downloader - No internet connection dialog message -->
-	<string name="use_wifi_recommendation_text">اکیداً توصیه می کنیم برای دانلود نقشه های حجیم از اینترنت وای فای استفاده نمایید</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">کدام واحد اندازه گیری را ترجیح می دهید؟</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -336,10 +332,6 @@
 	<string name="route">مسیر</string>
 	<!-- category title -->
 	<string name="routes">مسیر ها</string>
-	<!-- Show on first launch. -->
-	<string name="agree">موافقم</string>
-	<!-- Show on first launch -->
-	<string name="disagree">مخالفم</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">دانلود نقشه جایی که هستید</string>
 	<!-- text of notification -->

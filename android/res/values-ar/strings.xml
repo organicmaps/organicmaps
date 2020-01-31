@@ -4,8 +4,6 @@
 <!-- Language: ar -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- About button text (should be short) -->
-	<string name="about">نبذة عنا</string>
 	<!-- Button text (should be short) -->
 	<string name="back">رجوع</string>
 	<!-- Button text (should be short) -->
@@ -70,8 +68,6 @@
 	<string name="touch_to_download">انقر للتنزيل</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">نعم</string>
-	<!-- Settings/Downloader - No internet connection dialog message -->
-	<string name="use_wifi_recommendation_text">نحن نوصي باستخدام واي فاي لتنزيل الخرائط الكبيرة</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">ما هو نظام القياس المفضل لديك؟</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -259,8 +255,6 @@
 	<string name="my_position_share_sms">هاي، تفقد الموقع الخاص بي على MAPS.ME! %1$s أو %2$s. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">هاي، تفقد الدبوس الخاص بي على خريطة MAPS.ME!</string>
-	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">مرحبا،\n\nقمت بوضع دبوس: %1$s على MAPS.ME، خرائط العالم بدون الاتصال مع الانترنت. انقر على هذا الرابط %2$s أو الرابط التالي %3$s لمشاهدة الموقع على الخريطة.\n\nشكرا لك.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">يا هلا، تحقق من موقعي الحالي على خريطة MAPS.ME!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->

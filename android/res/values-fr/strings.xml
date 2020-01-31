@@ -4,8 +4,6 @@
 <!-- Language: fr -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- About button text (should be short) -->
-	<string name="about">À propos de</string>
 	<!-- Button text (should be short) -->
 	<string name="back">Retour</string>
 	<!-- Button text (should be short) -->
@@ -70,8 +68,6 @@
 	<string name="touch_to_download">Toucher pour télécharger</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Oui</string>
-	<!-- Settings/Downloader - No internet connection dialog message -->
-	<string name="use_wifi_recommendation_text">Nous recommandons d\'utiliser une connexion Wi-Fi pour télécharger de grandes cartes</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Quel système de mesure préférez-vous ?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -259,8 +255,6 @@
 	<string name="my_position_share_sms">Hé, regarde ma position actuelle sur MAPS.ME ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hé, regarde mon épingle sur la carte MAPS.ME !</string>
-	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Bonjour,\n\nJ\'ai épinglé %1$s sur MAPS.ME, les cartes du monde hors ligne. Clique sur ce lien %2$s ou sur celui-ci %3$s pour voir l\'endroit sur la carte.\n\nMerci.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hé, regarde ma position actuelle sur la carte MAPS.ME !</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
@@ -371,12 +365,6 @@
 	<string name="route">Itinéraire</string>
 	<!-- category title -->
 	<string name="routes">Itinéraires</string>
-	<!-- Show on first launch. -->
-	<string name="maps_licence_info">Cette application utilise des données géographiques (incluant des cartes, des listes d\'entreprises, des centres d\'intérêt, des frontières de pays et de régions, etc.) extraites du projet OpenStreetMap. Nous ne garantissons aucune cohérence, exactitude, complétude ou applicabilité des données d\'OpenStreetMap.</string>
-	<!-- Show on first launch. -->
-	<string name="agree">Je suis d\'accord</string>
-	<!-- Show on first launch -->
-	<string name="disagree">Je ne suis pas d\'accord</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Télécharger la carte de l\'endroit où vous êtes</string>
 	<!-- text of notification -->

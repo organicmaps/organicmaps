@@ -6,9 +6,6 @@
 
 /********** Strings **********/
 
-/* About button text (should be short) */
-"about" = "About";
-
 /* Button text (should be short) */
 "back" = "Back";
 
@@ -107,9 +104,6 @@
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Yes";
-
-/* Settings/Downloader - No internet connection dialog message */
-"use_wifi_recommendation_text" = "We recommend using WiFi to download large maps";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Which measurement system do you prefer?";
@@ -406,9 +400,6 @@
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hey, check out my pin in MAPS.ME!";
 
-/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Hi,\n\nI pinned: %1$@ on the MAPS.ME offline map of the world. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.";
-
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Hey, check out my current location on the MAPS.ME map!";
 
@@ -586,15 +577,6 @@
 
 /* category title */
 "routes" = "Routes";
-
-/* Show on first launch. */
-"maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
-
-/* Show on first launch. */
-"agree" = "I agree";
-
-/* Show on first launch */
-"disagree" = "I disagree";
 
 /* text of notification */
 "download_map_notification" = "Download the map of the place where you are";

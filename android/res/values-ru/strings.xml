@@ -4,8 +4,6 @@
 <!-- Language: ru -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- About button text (should be short) -->
-	<string name="about">О приложении</string>
 	<!-- Button text (should be short) -->
 	<string name="back">Назад</string>
 	<!-- Button text (should be short) -->
@@ -71,8 +69,6 @@
 	<string name="touch_to_download">Нажмите для загрузки</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Да</string>
-	<!-- Settings/Downloader - No internet connection dialog message -->
-	<string name="use_wifi_recommendation_text">Мы рекомендуем загружать большие страны через WiFi</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Какую систему измерения вы предпочитаете?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -261,8 +257,6 @@
 	<string name="my_position_share_sms">Смотри где я сейчас. Жми %1$s или %2$s</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Смотри мою метку на карте MAPS.ME</string>
-	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Привет!\n\nОткрой эту ссылку %2$s либо эту %3$s, для того, чтобы увидеть мою метку %1$s на карте MAPS.ME.\n\nСпасибо.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Посмотри на карте MAPS.ME, где я сейчас нахожусь</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
@@ -375,12 +369,6 @@
 	<string name="route">Маршрут</string>
 	<!-- category title -->
 	<string name="routes">Маршруты</string>
-	<!-- Show on first launch. -->
-	<string name="maps_licence_info">Это приложение использует географические данные (включая карты, справочники, достопримечательности, границы стран и регионов, др.) взятые из проекта OpenStreetMap. Мы не гарантируем последовательности, точности, полноты и пригодности данных OpenStreetMap.</string>
-	<!-- Show on first launch. -->
-	<string name="agree">Я согласен</string>
-	<!-- Show on first launch -->
-	<string name="disagree">Я не согласен</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Скачайте карту места, где вы находитесь</string>
 	<!-- text of notification -->

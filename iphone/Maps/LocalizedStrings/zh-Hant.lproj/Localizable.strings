@@ -6,9 +6,6 @@
 
 /********** Strings **********/
 
-/* About button text (should be short) */
-"about" = "關於";
-
 /* Button text (should be short) */
 "back" = "返回";
 
@@ -107,9 +104,6 @@
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "是";
-
-/* Settings/Downloader - No internet connection dialog message */
-"use_wifi_recommendation_text" = "我們建議透過 WiFi 連線來下載較大的地圖";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "您偏好哪種度量單位系統？";
@@ -406,9 +400,6 @@
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "嘿，看看我在 MAPS.ME 地圖上的圖釘！";
 
-/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "嗨，\n\n我在 MAPS.ME 世界離線地圖上標記了%1$@。點擊此連結 %2$@ 或此連結 %3$@ 來察看地圖上的位置。\n\n謝謝。";
-
 /* Subject for emailed position */
 "my_position_share_email_subject" = "嗨，到 MAPS.ME 地圖查看我的目前位置！";
 
@@ -586,15 +577,6 @@
 
 /* category title */
 "routes" = "路線";
-
-/* Show on first launch. */
-"maps_licence_info" = "此應用程式使用從 OpenStreetMap 專案擷取之地理數據（包括地圖、商家資訊、興趣點、國家和地區邊界等）。我們不保證 OpenStreetMap 數據的一致性、準確性、完整性、或適用性。";
-
-/* Show on first launch. */
-"agree" = "我同意";
-
-/* Show on first launch */
-"disagree" = "我不同意";
 
 /* text of notification */
 "download_map_notification" = "下載您所在地方的地圖";

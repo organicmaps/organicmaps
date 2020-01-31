@@ -4,8 +4,6 @@
 <!-- Language: nb -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- About button text (should be short) -->
-	<string name="about">Om</string>
 	<!-- Button text (should be short) -->
 	<string name="back">Tilbake</string>
 	<!-- Button text (should be short) -->
@@ -70,8 +68,6 @@
 	<string name="touch_to_download">Trykk for å laste ned</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Ja</string>
-	<!-- Settings/Downloader - No internet connection dialog message -->
-	<string name="use_wifi_recommendation_text">Vi anbefaler å bruke WiFi når du skal laste ned store kart</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Hvilket målesystem foretrekker du?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -253,8 +249,6 @@
 	<string name="my_position_share_sms">Hei, se posisjonen min på MAPS.ME! %1$s eller %2$s Har du ikke offline-kart? Last dem ned her: http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hei, se merket mitt på MAPS.ME-kartet</string>
-	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Hei,\n\nI merket av: %1$s på MAPS.ME, offline verdenskart. Klikk på denne koblingen %2$s eller denne %3$s for å se stedet på kartet.\n\nTakk.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hei, se posisjonen min på MAPS.ME-kartet!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
@@ -357,12 +351,6 @@
 	<string name="route">Rute</string>
 	<!-- category title -->
 	<string name="routes">Ruter</string>
-	<!-- Show on first launch. -->
-	<string name="maps_licence_info">Denne applikasjonen bruker geografiske data (inkludert kart, butikkoppføringer, interessepunkter, landegrenser og regiongrenser osv.) som er hentet fra OpenStreetMap-prosjektet. Vi garanterer ikke at data fra OpenStreetMap alltid er konsekvente, nøyaktige, fullstendige eller pålitelige.</string>
-	<!-- Show on first launch. -->
-	<string name="agree">Jeg samtykker</string>
-	<!-- Show on first launch -->
-	<string name="disagree">Jeg samtykker ikke</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Last ned kart over stedet der du befinner deg</string>
 	<!-- Dialog for transferring maps from lite to pro. -->

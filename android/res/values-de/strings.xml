@@ -4,8 +4,6 @@
 <!-- Language: de -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- About button text (should be short) -->
-	<string name="about">Über MAPS.ME</string>
 	<!-- Button text (should be short) -->
 	<string name="back">Zurück</string>
 	<!-- Button text (should be short) -->
@@ -70,8 +68,6 @@
 	<string name="touch_to_download">Antippen, um herunterzuladen</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Ja</string>
-	<!-- Settings/Downloader - No internet connection dialog message -->
-	<string name="use_wifi_recommendation_text">Wir empfehlen Ihnen, große Länder über eine WLAN-Verbindung herunterzuladen</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Welches Einheitensystem bevorzugen Sie?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -259,8 +255,6 @@
 	<string name="my_position_share_sms">Schau wo ich gerade bin. Klicke auf den Link %1$s oder %2$s - Keine Offline-Karten installiert? Hier herunterladen: http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Schau dir meine Stecknadel auf der MAPS.ME-Karte an</string>
-	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Hi,\n\nIch habe %1$s auf MAPS.ME, der Offline-Weltkarte, gepinnt. Klicke auf diesen Link %2$s oder diesen %3$s, um den Ort auf der Karte zu sehen.\n\nVielen Dank.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Sieh dir meinen aktuellen Standort auf der MAPS.ME-Karte an</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
@@ -369,12 +363,6 @@
 	<string name="route">Route</string>
 	<!-- category title -->
 	<string name="routes">Routen</string>
-	<!-- Show on first launch. -->
-	<string name="maps_licence_info">Diese Anwendungen verwenden geographische Informationen (inklusive Karten, Geschäftseinträge, Sehenswürdigkeiten, Landes- und Regionsgrenzen, etc.) aus dem OpenStreetMap-Projekt. Wir können weder die Beständigkeit noch die Genauigkeit, Vollständigkeit oder Eignung der OpenStreetMap-Daten garantieren.</string>
-	<!-- Show on first launch. -->
-	<string name="agree">Ich stimme zu</string>
-	<!-- Show on first launch -->
-	<string name="disagree">Ich stimme nicht zu</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Laden Sie die Karte Ihres Standortes herunter</string>
 	<!-- text of notification -->

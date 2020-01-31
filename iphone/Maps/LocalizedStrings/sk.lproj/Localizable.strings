@@ -6,9 +6,6 @@
 
 /********** Strings **********/
 
-/* About button text (should be short) */
-"about" = "O aplikácii";
-
 /* Button text (should be short) */
 "back" = "Späť";
 
@@ -107,9 +104,6 @@
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Áno";
-
-/* Settings/Downloader - No internet connection dialog message */
-"use_wifi_recommendation_text" = "Doporučujeme použiť WiFi pre sťahovanie väčších máp";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Aký systém pre meranie preferujete?";
@@ -406,9 +400,6 @@
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Pozri na moju značku na mape MAPS.ME";
 
-/* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Ahoj,\n\nOznačil/a som: %1$@ v MAPS.ME, offline mapách celého sveta. Stlačte jeden z týchto odkazov %2$@, %3$@ a uvidíte toto miesto na mape.\n\nVďaka";
-
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Pozrite si moju aktuálnu polohu na mape MAPS.ME";
 
@@ -586,15 +577,6 @@
 
 /* category title */
 "routes" = "Trasy";
-
-/* Show on first launch. */
-"maps_licence_info" = "Táto aplikácia používa geografické dáta (zahrňujúce mapy, obchodné zoznamy, body záujmov, hranice krajín a regiónov, atď.) prevzaté z OpenStreetMap projektu. Negarantujeme žiadnu jednotnosť, presnosť, úplnosť alebo použiteľnosť dát OpenStreetMap.";
-
-/* Show on first launch. */
-"agree" = "Súhlasím";
-
-/* Show on first launch */
-"disagree" = "Nesúhlasím";
 
 /* text of notification */
 "download_map_notification" = "Stiahnite si mapu miesta, kde sa práve nachádzate";

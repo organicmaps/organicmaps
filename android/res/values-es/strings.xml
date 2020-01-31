@@ -4,8 +4,6 @@
 <!-- Language: es -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- About button text (should be short) -->
-	<string name="about">Acerca de</string>
 	<!-- Button text (should be short) -->
 	<string name="back">Atrás</string>
 	<!-- Button text (should be short) -->
@@ -64,8 +62,6 @@
 	<string name="touch_to_download">Presionar para descargar</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Sí</string>
-	<!-- Settings/Downloader - No internet connection dialog message -->
-	<string name="use_wifi_recommendation_text">Recomendamos usar WiFi para descarga de los países grandes</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">¿Cual sistema de medición prefieres?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -247,8 +243,6 @@
 	<string name="my_position_share_sms">Mira dónde estoy. Abre %1$s o %2$s</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Mira mi alfiler en el mapa de MAPS.ME</string>
-	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">¡Hola!\n\nMarqué con un alfiler: %1$s en MAPS.ME, mapas del mundo sin conexión. Haz clic en este enlace %2$s o este %3$s para ver el sitio en el mapa.\n\nGracias.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Mira mi ubicación actual en el mapa en MAPS.ME</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->

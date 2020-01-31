@@ -4,8 +4,6 @@
 <!-- Language: pl -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- About button text (should be short) -->
-	<string name="about">O programie</string>
 	<!-- Button text (should be short) -->
 	<string name="back">Wróć</string>
 	<!-- Button text (should be short) -->
@@ -68,8 +66,6 @@
 	<string name="touch_to_download">Proszę nacisnąć, aby pobrać.</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Tak</string>
-	<!-- Settings/Downloader - No internet connection dialog message -->
-	<string name="use_wifi_recommendation_text">Zaleca się korzystanie z WiFi przy pobieraniu dużych map</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Który system miar jest najbardziej dogodny?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -257,8 +253,6 @@
 	<string name="my_position_share_sms">Zobacz gdzie jestem. Link %1$s lub %2$s</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Obejrzyj mój znacznik na mapie w MAPS.ME</string>
-	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Cześć,\n\nDodałem znacznik w: %1$s w aplikacji MAPS.ME, mapach offline całego świata. Naciśnij ten link %2$s lub ten %3$s by zobaczyć to miejsce na mapie.\n\nDziękuję.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Zobacz moją aktualną lokalizację na mapie przy użyciu MAPS.ME</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->

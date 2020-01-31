@@ -4,8 +4,6 @@
 <!-- Language: ro -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- About button text (should be short) -->
-	<string name="about">Despre</string>
 	<!-- Button text (should be short) -->
 	<string name="back">Înapoi</string>
 	<!-- Button text (should be short) -->
@@ -70,8 +68,6 @@
 	<string name="touch_to_download">Atingeți pentru a descărca.</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Da</string>
-	<!-- Settings/Downloader - No internet connection dialog message -->
-	<string name="use_wifi_recommendation_text">Vă recomandăm să utilizați WiFi pentru a descărca hărți mari.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Ce sistem de măsură preferați?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -253,8 +249,6 @@
 	<string name="my_position_share_sms">Hei, îmi poți vedea poziția actuală pe MAPS.ME! %1$s sau %2$s Nu ai hărțile offline? Descarcă de aici: http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hei, poți vedea care este poziția mea pe harta MAPS.ME!</string>
-	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Salut,\n\nAm fixat poziția: %1$s pe MAPS.ME, hărțile offline din întreaga lume. Clic pe acest link %2$s sau pe acesta %3$s pentru a vedea locul pe hartă.\n\nMulțumesc.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hei, îmi poți vedea poziția actuală pe harta MAPS.ME!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
@@ -357,12 +351,6 @@
 	<string name="route">Traseu</string>
 	<!-- category title -->
 	<string name="routes">Trasee</string>
-	<!-- Show on first launch. -->
-	<string name="maps_licence_info">Această aplicație utilizează date geografice (inclusiv hărți, liste de firme, puncte de interes, frontiere de țări și regiuni etc.) preluate din proiectul OpenStreetMap. Nu garantăm uniformitatea, acuratețea, integralitatea sau aplicabilitatea datelor OpenStreetMap.</string>
-	<!-- Show on first launch. -->
-	<string name="agree">Sunt de acord</string>
-	<!-- Show on first launch -->
-	<string name="disagree">Nu sunt de acord</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Descărcați harta locului în care vă aflați</string>
 	<!-- Dialog for transferring maps from lite to pro. -->

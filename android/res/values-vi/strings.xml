@@ -4,8 +4,6 @@
 <!-- Language: vi -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- About button text (should be short) -->
-	<string name="about">Giới thiệu</string>
 	<!-- Button text (should be short) -->
 	<string name="back">Quay lại</string>
 	<!-- Button text (should be short) -->
@@ -70,8 +68,6 @@
 	<string name="touch_to_download">Chạm để tải xuống</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Có</string>
-	<!-- Settings/Downloader - No internet connection dialog message -->
-	<string name="use_wifi_recommendation_text">Chúng tôi khuyên bạn nên sử dụng WiFi để tải xuống các bảnđồ lớn.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Bạn thích sử dụng hệ thống đo lường nào?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -253,8 +249,6 @@
 	<string name="my_position_share_sms">Này, hãy xem vị trí hiện tại của tôi tại MAPS.ME! %1$s hoặc %2$s Bạn không có bản đồ ngoại tuyến? Tải xuống tại đây: http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Này, hãy xem ghim của tôi tại MAPS.ME map</string>
-	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Xin chào,\n\nI được gắn: %1$s tại MAPS.ME, bản đồ thế giới ngoại tuyến. Ấn vào đường dẫn này %2$s hoặc cái này %3$s để xem vị trí trên bản đồ.\n\nCám ơn nhiều.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Này, hãy xem vị trí hiện tại của tôi tại MAPS.ME map!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
@@ -357,12 +351,6 @@
 	<string name="route">Tuyến đường</string>
 	<!-- category title -->
 	<string name="routes">Tuyến đường</string>
-	<!-- Show on first launch. -->
-	<string name="maps_licence_info">Ứng dụng này sử dụng dữ liệu địa lý (bao gồm bản đồ, thông tin doanh nghiệp, các điểm lưu tâm, biên giới quốc gia và khu vực, v.v…) lấy từ dự án OpenStreetMap. Chúng tôi không đảm bảo bất kỳ sự nhất quán, chính xác, toàn vẹn hay phù hợp nào từ các dữ liệu OpenStreetMap.</string>
-	<!-- Show on first launch. -->
-	<string name="agree">Tôi đồng ý</string>
-	<!-- Show on first launch -->
-	<string name="disagree">Tôi không đồng ý</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Tải xuống bản đồ của vị trí của bạn</string>
 	<!-- Dialog for transferring maps from lite to pro. -->

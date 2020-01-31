@@ -4,8 +4,6 @@
 <!-- Language: ja -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- About button text (should be short) -->
-	<string name="about">情報</string>
 	<!-- Button text (should be short) -->
 	<string name="back">戻る</string>
 	<!-- Button text (should be short) -->
@@ -66,8 +64,6 @@
 	<string name="touch_to_download">タッチしてダウンロード</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">はい</string>
-	<!-- Settings/Downloader - No internet connection dialog message -->
-	<string name="use_wifi_recommendation_text">大きなマップをダウンロードする際はWiFiの使用をおすすめします。</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">どちらの距離単位を使いますか？</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -253,8 +249,6 @@
 	<string name="my_position_share_sms">私は今ここにいます。リンク: %1$s, %2$s</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">MAPS.MEでピン情報を確認</string>
-	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">オフラインマップ MAPS.ME でこの位置にピンを作成しました: %1$s\n\nリンク %2$s または %3$s をクリックするとマップ上で確認できます。</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">MAPS.MEで現在地を確認</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
@@ -355,12 +349,6 @@
 	<string name="route">経路</string>
 	<!-- category title -->
 	<string name="routes">ルート</string>
-	<!-- Show on first launch. -->
-	<string name="maps_licence_info">このアプリケーションはOpenStreetMapプロジェクトから取得された地理的データ（地図、ビジネスリスト、興味のある場所、国境と地域など）を使います。OpenStreetMapのデータの整合性、正確さ、完全性や適合性に関して弊社は保証致しかねます。</string>
-	<!-- Show on first launch. -->
-	<string name="agree">同意する</string>
-	<!-- Show on first launch -->
-	<string name="disagree">同意しない</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">あなたがいる場所のマップをダウンロードしよう</string>
 	<!-- text of notification -->
