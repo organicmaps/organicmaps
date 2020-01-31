@@ -4,7 +4,7 @@
 
 #include "platform/local_country_file_utils.hpp"
 
-#include "coding/url_helpers.hpp"
+#include "coding/url.hpp"
 
 #include "base/assert.hpp"
 
@@ -18,7 +18,7 @@ std::string MakeRelativeUrl(std::string const & fileName, int64_t dataVersion, u
   else
     url << OMIM_OS_NAME "/" << dataVersion;
 
-  return coding::url::Join(url.str(), coding::url::UrlEncode(fileName));
+  return url::Join(url.str(), url::UrlEncode(fileName));
 }
 }  // namespace
 

@@ -1,4 +1,4 @@
-#include "coding/url_helpers.hpp"
+#include "coding/url.hpp"
 
 #include "coding/hex.hpp"
 
@@ -27,7 +27,7 @@ double const kMaxZoom = 17.0;
 class LatLonParser
 {
 public:
-  explicit LatLonParser(coding::url::GeoURLInfo & info)
+  explicit LatLonParser(url::GeoURLInfo & info)
     : m_info(info)
     , m_regexp("-?\\d+\\.{1}\\d*, *-?\\d+\\.{1}\\d*")
     , m_latPriority(-1)
@@ -139,14 +139,14 @@ private:
     return -1;
   }
 
-  coding::url::GeoURLInfo & m_info;
+  url::GeoURLInfo & m_info;
   regex m_regexp;
   int m_latPriority;
   int m_lonPriority;
 };
 }  // namespace
 
-namespace coding::url
+namespace url
 {
 Uri::Uri(std::string const & uri) : m_url(uri)
 {
@@ -372,4 +372,4 @@ bool GeoURLInfo::SetLon(double x)
   }
   return false;
 }
-}  // namespace coding::url
+}  // namespace url

@@ -12,7 +12,7 @@
 #include "coding/elias_coder.hpp"
 #include "coding/files_container.hpp"
 #include "coding/reader.hpp"
-#include "coding/url_helpers.hpp"
+#include "coding/url.hpp"
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
 #include "coding/writer.hpp"
@@ -74,7 +74,7 @@ string MakeRemoteURL(string const & name, uint64_t version)
   ss << TRAFFIC_DATA_BASE_URL;
   if (version != 0)
     ss << version << "/";
-  ss << coding::url::UrlEncode(name) << TRAFFIC_FILE_EXTENSION;
+  ss << url::UrlEncode(name) << TRAFFIC_FILE_EXTENSION;
   return ss.str();
 }
 

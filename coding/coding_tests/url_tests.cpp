@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "coding/url_helpers.hpp"
+#include "coding/url.hpp"
 
 #include <queue>
 #include <string>
@@ -27,7 +27,7 @@ public:
 
   ~TestUri()
   {
-    coding::url::Uri uri(m_uri);
+    url::Uri uri(m_uri);
     TEST_EQUAL(uri.GetScheme(), m_scheme, ());
     TEST_EQUAL(uri.GetPath(), m_path, ());
     TEST(!m_scheme.empty() || !uri.IsValid(), ("Scheme is empty if and only if uri is invalid!"));
@@ -63,7 +63,7 @@ char const * orig4 = "#$%^&@~[]{}()|*+`\"\'";
 char const * enc4 = "%23%24%25%5E%26%40~%5B%5D%7B%7D%28%29%7C%2A%2B%60%22%27";
 }  // namespace url_encode_testdata
 
-namespace coding::url
+namespace url
 {
 UNIT_TEST(Url_Join)
 {
@@ -222,4 +222,4 @@ UNIT_TEST(UriComprehensive)
       .KV("key2", "").KV("key2", "")
       .KV("key3", "value1").KV("key3", "").KV("key3", "value2");
 }
-}  // namespace coding::url
+}  // namespace url

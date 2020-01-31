@@ -4,7 +4,7 @@
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
-#include "coding/url_helpers.hpp"
+#include "coding/url.hpp"
 
 #include "base/logging.hpp"
 #include "base/thread.hpp"
@@ -90,7 +90,7 @@ bool UserStatsLoader::Update(std::string const & userName)
     m_userName = userName;
   }
 
-  auto const url = kUserStatsUrl + "&name=" + coding::url::UrlEncode(userName);
+  auto const url = kUserStatsUrl + "&name=" + url::UrlEncode(userName);
   platform::HttpClient request(url);
   request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
 

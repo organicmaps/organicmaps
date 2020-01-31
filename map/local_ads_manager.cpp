@@ -22,7 +22,7 @@
 
 #include "coding/point_coding.hpp"
 #include "coding/string_utf8_multilang.hpp"
-#include "coding/url_helpers.hpp"
+#include "coding/url.hpp"
 
 #include "base/file_name_utils.hpp"
 
@@ -90,7 +90,7 @@ std::string MakeCampaignDownloadingURL(MwmSet::MwmId const & mwmId)
   ss << kServerUrl << "/"
      << campaignDataVersion << "/"
      << mwmId.GetInfo()->GetVersion() << "/"
-     << coding::url::UrlEncode(mwmId.GetInfo()->GetCountryName()) << ".ads";
+     << url::UrlEncode(mwmId.GetInfo()->GetCountryName()) << ".ads";
   return ss.str();
 }
 
@@ -148,9 +148,9 @@ std::string MakeCampaignPageURL(FeatureID const & featureId)
 
   std::ostringstream ss;
   ss << kCampaignPageUrl << "/" << featureId.m_mwmId.GetInfo()->GetVersion() << "/"
-     << coding::url::UrlEncode(featureId.m_mwmId.GetInfo()->GetCountryName()) << "/" << featureId.m_index;
+     << url::UrlEncode(featureId.m_mwmId.GetInfo()->GetCountryName()) << "/" << featureId.m_index;
 
-  coding::url::Params params;
+  url::Params params;
   params.reserve(kMarketingParameters.size());
   for (auto const & key : kMarketingParameters)
   {
@@ -161,7 +161,7 @@ std::string MakeCampaignPageURL(FeatureID const & featureId)
     params.push_back({key, value});
   }
 
-  return coding::url::Make(ss.str(), params);
+  return url::Make(ss.str(), params);
 }
 }  // namespace
 

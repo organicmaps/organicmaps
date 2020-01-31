@@ -5,7 +5,7 @@
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
-#include "coding/url_helpers.hpp"
+#include "coding/url.hpp"
 
 #include <array>
 #include <cstdint>
@@ -30,9 +30,9 @@ Tip GetTip()
 {
   auto const tipIndex = std::time(nullptr) % kTipsCount;
   auto const link = kTipsLinks[tipIndex];
-  auto const catalogUrl = coding::url::Join(BOOKMARKS_CATALOG_FRONT_URL, languages::GetCurrentNorm());
+  auto const catalogUrl = url::Join(BOOKMARKS_CATALOG_FRONT_URL, languages::GetCurrentNorm());
   return {static_cast<Tip::Type>(tipIndex),
-          link.empty() ? link : coding::url::Join(catalogUrl, link)};
+          link.empty() ? link : url::Join(catalogUrl, link)};
 }
 
 bool CanShowTipButton() { return GetPlatform().IsConnected(); }

@@ -2,7 +2,7 @@
 
 #include "platform/http_client.hpp"
 
-#include "coding/url_helpers.hpp"
+#include "coding/url.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -51,7 +51,7 @@ string BuildPostRequest(map<string, string> const & params)
   {
     if (it != params.begin())
       result += "&";
-    result += it->first + "=" + coding::url::UrlEncode(it->second);
+    result += it->first + "=" + url::UrlEncode(it->second);
   }
   return result;
 }

@@ -7,7 +7,7 @@
 
 #include "platform/measurement_utils.hpp"
 
-#include "coding/url_helpers.hpp"
+#include "coding/url.hpp"
 
 #include "base/logging.hpp"
 #include "base/math.hpp"
@@ -251,7 +251,7 @@ string MetadataTagProcessorImpl::ValidateAndFormat_wikipedia(string v) const
       if (slashIndex != string::npos && slashIndex + 1 != baseIndex)
       {
         // Normalize article title according to OSM standards.
-        string title = coding::url::UrlDecode(v.substr(baseIndex + baseSize));
+        string title = url::UrlDecode(v.substr(baseIndex + baseSize));
         replace(title.begin(), title.end(), '_', ' ');
         return v.substr(slashIndex + 1, baseIndex - slashIndex - 1) + ":" + title;
       }

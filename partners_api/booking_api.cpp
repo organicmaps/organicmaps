@@ -4,7 +4,7 @@
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 
-#include "coding/url_helpers.hpp"
+#include "coding/url.hpp"
 #include "coding/sha1.hpp"
 
 #include "base/get_time.hpp"
@@ -65,14 +65,14 @@ std::string FormatTime(system_clock::time_point p)
   return partners_api::FormatTime(p, "%Y-%m-%d");
 }
 
-string MakeUrlForTesting(string const & func, coding::url::Params const & params, string const & divider)
+string MakeUrlForTesting(string const & func, url::Params const & params, string const & divider)
 {
   ASSERT(!g_BookingUrlForTesting.empty(), ());
 
   auto funcForTesting = func;
   if (funcForTesting == "hotelAvailability")
   {
-    auto const it = find_if(params.cbegin(), params.cend(), [](coding::url::Param const & param)
+    auto const it = find_if(params.cbegin(), params.cend(), [](url::Param const & param)
     {
       return param.m_name == "show_only_deals";
     });
@@ -81,24 +81,24 @@ string MakeUrlForTesting(string const & func, coding::url::Params const & params
       funcForTesting = "deals";
   }
 
-  return coding::url::Make(g_BookingUrlForTesting + divider + funcForTesting, params);
+  return url::Make(g_BookingUrlForTesting + divider + funcForTesting, params);
 }
 
-string MakeApiUrlImpl(string const & baseUrl, string const & func, coding::url::Params const & params,
+string MakeApiUrlImpl(string const & baseUrl, string const & func, url::Params const & params,
                       string const & divider)
 {
   if (!g_BookingUrlForTesting.empty())
     return MakeUrlForTesting(func, params, divider);
 
-  return coding::url::Make(baseUrl + divider + func, params);
+  return url::Make(baseUrl + divider + func, params);
 }
 
-string MakeApiUrlV1(string const & func, coding::url::Params const & params)
+string MakeApiUrlV1(string const & func, url::Params const & params)
 {
   return MakeApiUrlImpl(kBookingApiBaseUrlV1, func, params, ".");
 }
 
-string MakeApiUrlV2(string const & func, coding::url::Params const & params)
+string MakeApiUrlV2(string const & func, url::Params const & params)
 {
   return MakeApiUrlImpl(kBookingApiBaseUrlV2, func, params, "/");
 }
@@ -374,9 +374,9 @@ string ApplyAvailabilityParamsUniversal(string const & url, AvailabilityParams c
   auto const pos = url.find('#');
 
   if (pos == string::npos)
-    return coding::url::Make(url, p);
+    return url::Make(url, p);
 
-  string result = coding::url::Make(url.substr(0, pos), p);
+  string result = url::Make(url.substr(0, pos), p);
   result.append(url.substr(pos));
   return result;
 }
@@ -391,14 +391,14 @@ string ApplyAvailabilityParamsDeep(string const & url, AvailabilityParams const 
 
   p.emplace_back("numberOfGuests", std::to_string(sum));
 
-  return coding::url::Make(url, p);
+  return url::Make(url, p);
 }
 
 string AppendAid(string const & baseUrl)
 {
   ASSERT(!baseUrl.empty(), ());
-  coding::url::Params p = {{"aid", BOOKING_AFFILIATE_ID}};
-  return coding::url::Make(baseUrl, p);
+  url::Params p = {{"aid", BOOKING_AFFILIATE_ID}};
+  return url::Make(baseUrl, p);
 }
 
 string ApplendLabel(string const & baseUrl, string const & labelSource)
@@ -408,9 +408,9 @@ string ApplendLabel(string const & baseUrl, string const & labelSource)
   auto static const kDeviceIdHash =
       coding::SHA1::CalculateForStringFormatted(GetPlatform().UniqueClientId());
 
-  coding::url::Params const p = {{"label", labelSource + "-" + coding::url::UrlEncode(kDeviceIdHash)}};
+  url::Params const p = {{"label", labelSource + "-" + url::UrlEncode(kDeviceIdHash)}};
 
-  return coding::url::Make(baseUrl, p);
+  return url::Make(baseUrl, p);
 }
 
 string AppendAidAndLabel(string const & baseUrl, string const & labelSource)
@@ -490,8 +490,8 @@ string Api::GetHotelReviewsUrl(string const & hotelId, string const & baseUrl) c
   ASSERT(!baseUrl.empty(), ());
   ASSERT(!hotelId.empty(), ());
 
-  coding::url::Params const p = {{"tab", "4"}};
-  return coding::url::Make(AppendAidAndLabel(baseUrl, "ppReviews"), p);
+  url::Params const p = {{"tab", "4"}};
+  return url::Make(AppendAidAndLabel(baseUrl, "ppReviews"), p);
 }
 
 string Api::GetSearchUrl(string const & city, string const & name) const
@@ -502,13 +502,13 @@ string Api::GetSearchUrl(string const & city, string const & name) const
   ostringstream paramStream;
   paramStream << city << " " << name;
 
-  auto const urlEncodedParams = coding::url::UrlEncode(paramStream.str());
+  auto const urlEncodedParams = url::UrlEncode(paramStream.str());
 
   if (urlEncodedParams.empty())
     return {};
 
-  coding::url::Params p = {{"&ss=", urlEncodedParams}};
-  return coding::url::Make(AppendAidAndLabel(kSearchBaseUrl, "ppActionButtonOSM"), p);
+  url::Params p = {{"&ss=", urlEncodedParams}};
+  return url::Make(AppendAidAndLabel(kSearchBaseUrl, "ppActionButtonOSM"), p);
 }
 
 string Api::ApplyAvailabilityParams(string const & url, AvailabilityParams const & params) const

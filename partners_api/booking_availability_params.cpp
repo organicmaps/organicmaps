@@ -80,9 +80,9 @@ AvailabilityParams AvailabilityParams::MakeDefault()
   return result;
 }
 
-coding::url::Params AvailabilityParams::Get(UrlFilter const & filter /* = {} */) const
+url::Params AvailabilityParams::Get(UrlFilter const & filter /* = {} */) const
 {
-  coding::url::Params result;
+  url::Params result;
 
   if (IsAcceptedByFilter(filter, "hotel_ids"))
     result.emplace_back("hotel_ids", strings::JoinStrings(m_hotelIds, ','));

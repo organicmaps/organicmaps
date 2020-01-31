@@ -1,6 +1,6 @@
 #pragma once
 
-#include "coding/url_helpers.hpp"
+#include "coding/url.hpp"
 
 #include <cstdint>
 #include <string>
@@ -34,7 +34,7 @@ inline std::string InjectUTM(std::string const & url, UTM utm)
   if (url.empty())
     return {};
 
-  coding::url::Params params;
+  url::Params params;
   params.emplace_back("utm_source", "maps.me");
   switch (utm)
   {
@@ -85,12 +85,12 @@ inline std::string InjectUTM(std::string const & url, UTM utm)
   case UTM::None:
     return url;
   }
-  return coding::url::Make(url, params);
+  return url::Make(url, params);
 }
 
 inline std::string InjectUTMContent(std::string const & url, UTMContent content)
 {
-  coding::url::Params params;
+  url::Params params;
   switch (content)
   {
   case UTMContent::Description:
@@ -106,10 +106,10 @@ inline std::string InjectUTMContent(std::string const & url, UTMContent content)
     params.emplace_back("utm_content", "more");
     break;
   }
-  return coding::url::Make(url, params);
+  return url::Make(url, params);
 }
 
 inline std::string InjectUTMTerm(std::string const & url, std::string const & value)
 {
-  return coding::url::Make(url, {{"utm_term", value}});
+  return url::Make(url, {{"utm_term", value}});
 }

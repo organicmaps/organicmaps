@@ -9,7 +9,7 @@
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/serdes_json.hpp"
-#include "coding/url_helpers.hpp"
+#include "coding/url.hpp"
 #include "coding/writer.hpp"
 
 #include "base/file_name_utils.hpp"
@@ -125,7 +125,7 @@ std::string UserBindingRequestUrl(std::string const & advertisingId)
   std::ostringstream ss;
   ss << kUserBindingRequestUrl
      << "?vendor=" << kVendor
-     << "&advertising_id=" << coding::url::UrlEncode(advertisingId);
+     << "&advertising_id=" << url::UrlEncode(advertisingId);
   return ss.str();
 }
 
@@ -671,7 +671,7 @@ std::string User::GetPhoneAuthUrl(std::string const & redirectUri)
 {
   std::ostringstream os;
   os << kPassportServerUrl << "/oauth/authorize/?mode=phone_device&response_type=code"
-     << "&locale=" << languages::GetCurrentOrig() << "&redirect_uri=" << coding::url::UrlEncode(redirectUri)
+     << "&locale=" << languages::GetCurrentOrig() << "&redirect_uri=" << url::UrlEncode(redirectUri)
      << "&client_id=" << kAppName;
 
   return os.str();

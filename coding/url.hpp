@@ -5,7 +5,10 @@
 #include <utility>
 #include <vector>
 
-namespace coding::url
+// Note. This should be "namespace coding::url" according to
+// the style guide but we don't follow this convention here in
+// order to simplify the usage.
+namespace url
 {
 // Uri in format: 'scheme://path?key1=value1&key2&key3=&key4=value4'
 class Uri
@@ -72,4 +75,4 @@ struct GeoURLInfo
   double m_lon;
   double m_zoom;
 };
-}  // namespace coding::url
+}  // namespace url

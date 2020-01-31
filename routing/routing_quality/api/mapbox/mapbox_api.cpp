@@ -4,7 +4,7 @@
 
 #include "coding/file_writer.hpp"
 #include "coding/serdes_json.hpp"
-#include "coding/url_helpers.hpp"
+#include "coding/url.hpp"
 #include "coding/writer.hpp"
 
 #include "platform/http_client.hpp"
@@ -48,7 +48,7 @@ string LatLonsToString(vector<ms::LatLon> const & coords)
   }
 
   oss << ".json";
-  return coding::url::UrlEncode(oss.str());
+  return url::UrlEncode(oss.str());
 }
 }  // namespace
 

@@ -81,7 +81,7 @@
 #include "coding/point_coding.hpp"
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/transliteration.hpp"
-#include "coding/url_helpers.hpp"
+#include "coding/url.hpp"
 #include "coding/zip_reader.hpp"
 
 #include "geometry/angles.hpp"
@@ -2156,7 +2156,7 @@ bool Framework::ShowMapForURL(string const & url)
   }
   else  // Actually, we can parse any geo url scheme with correct coordinates.
   {
-    coding::url::GeoURLInfo info(url);
+    url::GeoURLInfo info(url);
     if (info.IsValid())
     {
       point = mercator::FromLatLon(info.m_lat, info.m_lon);
@@ -2671,9 +2671,9 @@ string Framework::GenerateApiBackUrl(ApiMarkPoint const & point) const
     ms::LatLon const ll = point.GetLatLon();
     res += "pin?ll=" + strings::to_string(ll.m_lat) + "," + strings::to_string(ll.m_lon);
     if (!point.GetName().empty())
-      res += "&n=" + coding::url::UrlEncode(point.GetName());
+      res += "&n=" + url::UrlEncode(point.GetName());
     if (!point.GetApiID().empty())
-      res += "&id=" + coding::url::UrlEncode(point.GetApiID());
+      res += "&id=" + url::UrlEncode(point.GetApiID());
   }
   return res;
 }

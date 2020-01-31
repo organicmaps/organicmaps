@@ -9,7 +9,7 @@
 class ApiMarkPoint;
 class BookmarkManager;
 
-namespace coding::url
+namespace url
 {
 class Uri;
 }
@@ -101,7 +101,7 @@ public:
   CatalogPath const & GetCatalogPath() const { return m_catalogPath; }
   Subscription const & GetSubscription() const { return m_subscription; }
 private:
-  ParsingResult Parse(coding::url::Uri const & uri);
+  ParsingResult Parse(url::Uri const & uri);
   bool AddKeyValue(std::string const & key, std::string const & value, std::vector<ApiPoint> & points);
   bool RouteKeyValue(std::string const & key, std::string const & value, std::vector<std::string> & pattern);
   bool SearchKeyValue(std::string const & key, std::string const & value, SearchRequest & request) const;

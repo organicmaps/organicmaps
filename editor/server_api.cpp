@@ -1,6 +1,6 @@
 #include "editor/server_api.hpp"
 
-#include "coding/url_helpers.hpp"
+#include "coding/url.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -124,7 +124,7 @@ uint64_t ServerApi06::CreateNote(ms::LatLon const & ll, std::string const & mess
   CHECK(!message.empty(), ("Note content should not be empty."));
   std::string const params = "?lat=" + strings::to_string_dac(ll.m_lat, 7) +
                              "&lon=" + strings::to_string_dac(ll.m_lon, 7) +
-                             "&text=" + coding::url::UrlEncode(message + " #mapsme");
+                             "&text=" + url::UrlEncode(message + " #mapsme");
   OsmOAuth::Response const response = m_auth.Request("/notes" + params, "POST");
   if (response.first != OsmOAuth::HTTP::OK)
     MYTHROW(ErrorAddingNote, ("Could not post a new note:", response));
@@ -146,7 +146,7 @@ void ServerApi06::CloseNote(uint64_t const id) const
 
 bool ServerApi06::TestOSMUser(std::string const & userName)
 {
-  std::string const method = "/user/" + coding::url::UrlEncode(userName);
+  std::string const method = "/user/" + url::UrlEncode(userName);
   return m_auth.DirectRequest(method, false).first == OsmOAuth::HTTP::OK;
 }
 

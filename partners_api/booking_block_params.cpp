@@ -19,9 +19,9 @@ BlockParams BlockParams::MakeDefault()
   return result;
 }
 
-coding::url::Params BlockParams::Get() const
+url::Params BlockParams::Get() const
 {
-  coding::url::Params params = {{"hotel_ids", m_hotelId},
+  url::Params params = {{"hotel_ids", m_hotelId},
                         {"checkin", FormatTime(m_checkin)},
                         {"checkout", FormatTime(m_checkout)}};
 

@@ -37,7 +37,7 @@ set(
   test_polylines.hpp
   text_storage_tests.cpp
   traffic_test.cpp
-  url_helpers_tests.cpp
+  url_tests.cpp
   value_opt_string_test.cpp
   var_record_reader_test.cpp
   var_serial_vector_test.cpp
