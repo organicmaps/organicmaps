@@ -8,6 +8,7 @@
 
 namespace generator
 {
+// For generated isolines must be built isolines_info section based on the same binary isolines file.
 class IsolineFeaturesGenerator
 {
 public:

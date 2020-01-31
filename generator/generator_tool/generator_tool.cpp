@@ -542,6 +542,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
         BuildDescriptionsSection(FLAGS_wikipedia_pages, datFile);
     }
 
+    // This section must be built with the same isolines file as had been used at the features stage.
     if (FLAGS_generate_isolines_info)
       BuildIsolinesInfoSection(FLAGS_isolines_path, country, datFile);
 

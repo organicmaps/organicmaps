@@ -1,5 +1,6 @@
 #include "generator/isolines_section_builder.hpp"
-#include "generator/isolines_info.hpp"
+
+#include "indexer/isolines_info.hpp"
 
 #include "topography_generator/isolines_utils.hpp"
 #include "topography_generator/utils/contours.hpp"

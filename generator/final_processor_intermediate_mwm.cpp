@@ -418,6 +418,8 @@ void CountryFinalProcessor::ProcessRoundabouts()
 
 void CountryFinalProcessor::AddIsolines()
 {
+  // For generated isolines must be built isolines_info section based on the same
+  // binary isolines file.
   IsolineFeaturesGenerator isolineFeaturesGenerator(m_isolinesPath);
   auto const affiliation = CountriesFilesIndexAffiliation(m_borderPath, m_haveBordersForWholeWorld);
   ThreadPool pool(m_threadsCount);

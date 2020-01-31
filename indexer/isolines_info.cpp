@@ -1,4 +1,4 @@
-#include "generator/isolines_info.hpp"
+#include "indexer/isolines_info.hpp"
 
 #include "indexer/data_source.hpp"
 
