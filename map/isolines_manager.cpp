@@ -1,7 +1,6 @@
 #include "map/isolines_manager.hpp"
 
-// TODO: Uncomment later.
-//#include "generator/isolines_info.hpp"
+#include "indexer/isolines_info.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
@@ -90,14 +89,13 @@ void IsolinesManager::UpdateViewport(ScreenBase const & screen)
       }
       else
       {
-        // TODO: Uncomment later.
-        //isolines::IsolinesInfo info;
-        //if (isolines::LoadIsolinesInfo(m_dataSource, mwmId, info))
-        //{
-        //  LOG(LINFO, ("Isolines min altitude", info.m_minAltitude,
-        //              "max altitude", info.m_maxAltitude, "altitude step", info.m_altStep));
-        //  status = Availability::Available;
-        //}
+        isolines::IsolinesInfo info;
+        if (isolines::LoadIsolinesInfo(m_dataSource, mwmId, info))
+        {
+          LOG(LINFO, ("Isolines min altitude", info.m_minAltitude,
+                      "max altitude", info.m_maxAltitude, "altitude step", info.m_altStep));
+          status = Availability::Available;
+        }
       }
       m_mwmCache.insert(std::make_pair(mwmId, status));
     }

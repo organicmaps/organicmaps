@@ -103,6 +103,8 @@
 		675344E01A3F68F900A0A8C3 /* boost_concept.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344DD1A3F68F900A0A8C3 /* boost_concept.hpp */; };
 		D501ACA3238FDC6000B8C08E /* point_with_altitude.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D501ACA1238FDC6000B8C08E /* point_with_altitude.cpp */; };
 		D501ACA4238FDC6000B8C08E /* point_with_altitude.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D501ACA2238FDC6000B8C08E /* point_with_altitude.hpp */; };
+		BBB7061323E48E0400A7F29A /* smoothing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBB7061123E48E0400A7F29A /* smoothing.cpp */; };
+		BBB7061423E48E0400A7F29A /* smoothing.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBB7061223E48E0400A7F29A /* smoothing.hpp */; };
 		D53836352366DAF3007E7EDB /* oblate_spheroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D53836332366DAF3007E7EDB /* oblate_spheroid.cpp */; };
 		D53836362366DAF3007E7EDB /* oblate_spheroid.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D53836342366DAF3007E7EDB /* oblate_spheroid.hpp */; };
 		D53836382366DB07007E7EDB /* oblate_spheroid_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D53836372366DB07007E7EDB /* oblate_spheroid_tests.cpp */; };
@@ -222,6 +224,8 @@
 		675344DD1A3F68F900A0A8C3 /* boost_concept.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = boost_concept.hpp; sourceTree = "<group>"; };
 		D501ACA1238FDC6000B8C08E /* point_with_altitude.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point_with_altitude.cpp; sourceTree = "<group>"; };
 		D501ACA2238FDC6000B8C08E /* point_with_altitude.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = point_with_altitude.hpp; sourceTree = "<group>"; };
+		BBB7061123E48E0400A7F29A /* smoothing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = smoothing.cpp; sourceTree = "<group>"; };
+		BBB7061223E48E0400A7F29A /* smoothing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = smoothing.hpp; sourceTree = "<group>"; };
 		D53836332366DAF3007E7EDB /* oblate_spheroid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = oblate_spheroid.cpp; sourceTree = "<group>"; };
 		D53836342366DAF3007E7EDB /* oblate_spheroid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = oblate_spheroid.hpp; sourceTree = "<group>"; };
 		D53836372366DB07007E7EDB /* oblate_spheroid_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = oblate_spheroid_tests.cpp; sourceTree = "<group>"; };
@@ -327,6 +331,8 @@
 		675344931A3F684600A0A8C3 /* geometry */ = {
 			isa = PBXGroup;
 			children = (
+				BBB7061123E48E0400A7F29A /* smoothing.cpp */,
+				BBB7061223E48E0400A7F29A /* smoothing.hpp */,
 				4435C7872372BB5500B4358C /* circle_on_earth.hpp */,
 				448425722372BB3F00C6AD04 /* circle_on_earth.cpp */,
 				D53836332366DAF3007E7EDB /* oblate_spheroid.cpp */,
@@ -417,6 +423,7 @@
 				39B2B9731FB4681400AB85A1 /* line2d.hpp in Headers */,
 				344A713D1F3DA07000B8DDB8 /* nearby_points_sweeper.hpp in Headers */,
 				675344C01A3F687400A0A8C3 /* cellid.hpp in Headers */,
+				BBB7061423E48E0400A7F29A /* smoothing.hpp in Headers */,
 				45A2D9BF1F7526E6003310A0 /* bounding_box.hpp in Headers */,
 				675344CB1A3F687400A0A8C3 /* polyline2d.hpp in Headers */,
 				56EB1ED11C6B6DF30022D831 /* segment2d.hpp in Headers */,
@@ -584,6 +591,7 @@
 				45A2D9BE1F7526E6003310A0 /* bounding_box.cpp in Sources */,
 				45A2D9C01F7526E6003310A0 /* calipers_box.cpp in Sources */,
 				344A713C1F3DA07000B8DDB8 /* nearby_points_sweeper.cpp in Sources */,
+				BBB7061323E48E0400A7F29A /* smoothing.cpp in Sources */,
 				347F33701C454205009758CC /* triangle2d.cpp in Sources */,
 				448425732372BB3F00C6AD04 /* circle_on_earth.cpp in Sources */,
 				675344BC1A3F687400A0A8C3 /* angles.cpp in Sources */,

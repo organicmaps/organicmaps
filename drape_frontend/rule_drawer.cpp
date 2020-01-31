@@ -473,9 +473,8 @@ void RuleDrawer::operator()(FeatureType & f)
   if (m_filter(f))
     return;
 
-  // TODO: Uncomment later.
-  //if (!m_context->IsolinesEnabled() && ftypes::IsIsolineChecker::Instance()(f))
-  //  return;
+  if (!m_context->IsolinesEnabled() && ftypes::IsIsolineChecker::Instance()(f))
+    return;
 
   Stylist s;
   m_callback(f, s);

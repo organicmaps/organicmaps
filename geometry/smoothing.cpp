@@ -12,6 +12,9 @@ void SmoothGeneric(m2::PointD const & pt0, m2::PointD const & pt1,
                    m2::PointD const & pt2, m2::PointD const & pt3,
                    double alpha, size_t pointsCount, std::vector<m2::PointD> & path)
 {
+  ASSERT(!pt0.EqualDxDy(pt1, kEps), ());
+  ASSERT(!pt1.EqualDxDy(pt2, kEps), ());
+  ASSERT(!pt2.EqualDxDy(pt3, kEps), ());
   auto const calcNextT = [alpha](double prevT, m2::PointD const & prevP, m2::PointD const & nextP)
   {
     auto const dx = nextP.x - prevP.x;
@@ -42,6 +45,7 @@ void SmoothGeneric(m2::PointD const & pt0, m2::PointD const & pt1,
   }
 }
 
+// The same as SmoothGeneric but optimized for alpha == 0.0.
 void SmoothUniform(m2::PointD const & pt0, m2::PointD const & pt1,
                    m2::PointD const & pt2, m2::PointD const & pt3,
                    size_t pointsCount, std::vector<m2::PointD> & path)
