@@ -96,7 +96,7 @@ public class ToggleMapLayerDialog extends DialogFragment
     Pair<BottomSheetItem, OnItemClickListener<BottomSheetItem>> isoLines
         = new Pair<>(BottomSheetItem.Isolines.makeInstance(getContext()), isoLinesListener);
 
-    return Arrays.asList(traffic, subway, isoLines);
+    return Arrays.asList(traffic, isoLines, subway);
   }
 
   public static void show(@NonNull AppCompatActivity activity)

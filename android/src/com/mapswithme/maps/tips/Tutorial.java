@@ -74,8 +74,8 @@ public enum Tutorial
       },
 
   ISOLINES(R.string.tips_map_layers_title_countour,
-             R.string.tips_map_layers_message_countour,
-             R.id.isolines, null, MwmActivity.class)
+           R.string.tips_map_layers_message_countour,
+           R.id.isolines, null, MwmActivity.class)
       {
 
         @NonNull
