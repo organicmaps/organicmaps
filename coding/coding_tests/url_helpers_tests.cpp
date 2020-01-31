@@ -175,8 +175,7 @@ UNIT_TEST(ProcessURL_GoogleMaps)
 
 UNIT_TEST(UriValidScheme)
 {
-  char const uriS[] = "mapswithme://map?ll=10.3,12.3223&n=Hello%20World";
-  Uri uri(uriS, ARRAY_SIZE(uriS) - 1);
+  Uri uri("mapswithme://map?ll=10.3,12.3223&n=Hello%20World");
   TEST_EQUAL(uri.GetScheme(), "mapswithme", ());
 }
 

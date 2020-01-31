@@ -90,18 +90,24 @@ private:
 
     void operator()(string const & token) const
     {
-      double lat, lon;
+      double lat;
+      double lon;
 
       string::size_type n = token.find(',');
-      ASSERT(n != string::npos, ());
+      if (n == string::npos)
+        return;
       VERIFY(strings::to_double(token.substr(0, n), lat), ());
 
       n = token.find_first_not_of(", ", n);
-      ASSERT(n != string::npos, ());
+      if (n == string::npos)
+        return;
       VERIFY(strings::to_double(token.substr(n, token.size() - n), lon), ());
 
       if (m_parser.m_info.SetLat(lat) && m_parser.m_info.SetLon(lon))
-        m_parser.m_latPriority = m_parser.m_lonPriority = m_priority;
+      {
+        m_parser.m_latPriority = m_priority;
+        m_parser.m_lonPriority = m_priority;
+      }
     }
 
   private:
@@ -142,7 +148,7 @@ private:
 
 namespace coding::url
 {
-void Uri::Init()
+Uri::Uri(std::string const & uri) : m_url(uri)
 {
   if (!Parse())
   {
@@ -153,14 +159,16 @@ void Uri::Init()
 
 bool Uri::Parse()
 {
-  // get url scheme
+  // Get url scheme.
   size_t pathStart = m_url.find(':');
   if (pathStart == string::npos || pathStart == 0)
     return false;
   m_scheme.assign(m_url, 0, pathStart);
 
-  // skip slashes
-  while (++pathStart < m_url.size() && m_url[pathStart] == '/') {}
+  // Skip slashes.
+  while (++pathStart < m_url.size() && m_url[pathStart] == '/')
+  {
+  }
 
   // Find query starting point for (key, value) parsing.
   m_queryStart = m_url.find('?', pathStart);
@@ -184,7 +192,7 @@ bool Uri::Parse()
 
 bool Uri::ForEachKeyValue(Callback const & callback) const
 {
-  // parse query for keys and values
+  // Parse query for keys and values.
   size_t const count = m_url.size();
   size_t const queryStart = m_queryStart;
 

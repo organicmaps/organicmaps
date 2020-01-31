@@ -13,8 +13,7 @@ class Uri
 public:
   using Callback = std::function<bool(std::string const &, std::string const &)>;
 
-  explicit Uri(std::string const & uri) : m_url(uri) { Init(); }
-  Uri(char const * uri, size_t size) : m_url(uri, uri + size) { Init(); }
+  explicit Uri(std::string const & uri);
 
   std::string const & GetScheme() const { return m_scheme; }
   std::string const & GetPath() const { return m_path; }
@@ -22,7 +21,6 @@ public:
   bool ForEachKeyValue(Callback const & callback) const;
 
 private:
-  void Init();
   bool Parse();
 
   std::string m_url;
