@@ -69,6 +69,7 @@ namespace android
 
     void TrafficStateChanged(TrafficManager::TrafficState state);
     void TransitSchemeStateChanged(TransitReadManager::TransitSchemeState state);
+    void IsolinesSchemeStateChanged(IsolinesManager::IsolinesState state);
 
     void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
 
@@ -78,7 +79,7 @@ namespace android
 
     TrafficManager::TrafficStateChangedFn m_onTrafficStateChangedFn;
     TransitReadManager::TransitStateChangedFn m_onTransitStateChangedFn;
-    TransitReadManager::TransitStateChangedFn m_onIsolinesStateChangedFn;
+    IsolinesManager::IsolinesStateChangedFn m_onIsolinesStateChangedFn;
 
     bool m_isChoosePositionMode;
 
@@ -168,7 +169,7 @@ namespace android
 
     void SetTrafficStateListener(TrafficManager::TrafficStateChangedFn const & fn);
     void SetTransitSchemeListener(TransitReadManager::TransitStateChangedFn const & fn);
-    void SetIsolinesListener(TransitReadManager::TransitStateChangedFn const & fn);
+    void SetIsolinesListener(IsolinesManager::IsolinesStateChangedFn const & fn);
     bool IsTrafficEnabled();
     void EnableTraffic();
     void DisableTraffic();

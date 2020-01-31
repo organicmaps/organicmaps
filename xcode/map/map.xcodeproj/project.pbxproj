@@ -222,6 +222,8 @@
 		BBA014AE2073C784007402E4 /* bookmark_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBA014AC2073C784007402E4 /* bookmark_helpers.hpp */; };
 		BBA014B120754997007402E4 /* user_mark_id_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBA014AF20754996007402E4 /* user_mark_id_storage.hpp */; };
 		BBA014B220754997007402E4 /* user_mark_id_storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA014B020754996007402E4 /* user_mark_id_storage.cpp */; };
+		BBB7060B23E45F3400A7F29A /* isolines_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBB7060923E45F3300A7F29A /* isolines_manager.cpp */; };
+		BBB7060C23E45F3400A7F29A /* isolines_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBB7060A23E45F3300A7F29A /* isolines_manager.hpp */; };
 		BBD9E2C61EE9D01900DF189A /* routing_mark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD9E2C41EE9D01900DF189A /* routing_mark.cpp */; };
 		BBD9E2C71EE9D01900DF189A /* routing_mark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBD9E2C51EE9D01900DF189A /* routing_mark.hpp */; };
 		BBFC7E3A202D29C000531BE7 /* user_mark_layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBFC7E38202D29BF00531BE7 /* user_mark_layer.cpp */; };
@@ -497,6 +499,8 @@
 		BBA014AC2073C784007402E4 /* bookmark_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bookmark_helpers.hpp; sourceTree = "<group>"; };
 		BBA014AF20754996007402E4 /* user_mark_id_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = user_mark_id_storage.hpp; sourceTree = "<group>"; };
 		BBA014B020754996007402E4 /* user_mark_id_storage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = user_mark_id_storage.cpp; sourceTree = "<group>"; };
+		BBB7060923E45F3300A7F29A /* isolines_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = isolines_manager.cpp; sourceTree = "<group>"; };
+		BBB7060A23E45F3300A7F29A /* isolines_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isolines_manager.hpp; sourceTree = "<group>"; };
 		BBD9E2C41EE9D01900DF189A /* routing_mark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_mark.cpp; sourceTree = "<group>"; };
 		BBD9E2C51EE9D01900DF189A /* routing_mark.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_mark.hpp; sourceTree = "<group>"; };
 		BBFC7E38202D29BF00531BE7 /* user_mark_layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = user_mark_layer.cpp; sourceTree = "<group>"; };
@@ -842,6 +846,8 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				BBB7060923E45F3300A7F29A /* isolines_manager.cpp */,
+				BBB7060A23E45F3300A7F29A /* isolines_manager.hpp */,
 				3D0D2F7123D854AA00945C8D /* tips_api_delegate.cpp */,
 				3D0D2F7223D854AA00945C8D /* tips_api_delegate.hpp */,
 				3DF528D4237DC82E000ED0D5 /* catalog_headers_provider.cpp */,
@@ -997,6 +1003,7 @@
 				3D4F44BB21345D270005E765 /* tips_api.hpp in Headers */,
 				675346A21A4054E800A0A8C3 /* user_mark.hpp in Headers */,
 				454649F21F2728CE00EF4064 /* local_ads_mark.hpp in Headers */,
+				BBB7060C23E45F3400A7F29A /* isolines_manager.hpp in Headers */,
 				39E3C60323312BA800FB0C37 /* features_fetcher.hpp in Headers */,
 				BBA014AE2073C784007402E4 /* bookmark_helpers.hpp in Headers */,
 				F6B283061C1B03320081957A /* gps_track_filter.hpp in Headers */,
@@ -1215,6 +1222,7 @@
 				3DA5714120B5CC80007BDE27 /* booking_availability_filter.cpp in Sources */,
 				F6B283051C1B03320081957A /* gps_track_filter.cpp in Sources */,
 				675346481A4054E800A0A8C3 /* bookmark_manager.cpp in Sources */,
+				BBB7060B23E45F3400A7F29A /* isolines_manager.cpp in Sources */,
 				3D0D2F7323D854AA00945C8D /* tips_api_delegate.cpp in Sources */,
 				40ACC79923191C2600238E21 /* power_manager_tests.cpp in Sources */,
 				45F6EE9F1FB1C77600019892 /* search_api.cpp in Sources */,
