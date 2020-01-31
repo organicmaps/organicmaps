@@ -1,10 +1,10 @@
 extension UITableView {
   @objc override func applyTheme() {
-    for style in StyleManager.shared.getStyle(styleName)
-      where !style.isEmpty && !style.hasExclusion(view: self) {
+    if styleName.isEmpty {
       styleName = "TableView"
     }
-    for style in StyleManager.shared.getStyle(styleName) {
+    for style in StyleManager.shared.getStyle(styleName)
+      where !style.isEmpty && !style.hasExclusion(view: self) {
       UITableViewRenderer.render(self, style: style)
     }
   }

@@ -32,7 +32,10 @@ class UISearchBarRenderer: UIViewRenderer {
       searchTextField?.backgroundColor = backgroundColor
     }
     if let barTintColor = style.barTintColor {
-      control.backgroundImage = barTintColor.getImage()
+      let position = control.delegate?.position?(for: control) ?? control.barPosition
+      control.setBackgroundImage(barTintColor.getImage(), for: position, barMetrics: .defaultPrompt)
+      control.setBackgroundImage(barTintColor.getImage(), for: position, barMetrics: .default)
+      control.backgroundColor = barTintColor
     }
     if let tintColor = style.tintColor {
       control.tintColor = tintColor
