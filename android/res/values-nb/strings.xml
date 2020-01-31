@@ -1640,6 +1640,7 @@
 	<string name="tips_map_layers_title_countour">Høydekurver uten nett med MAPS.ME!</string>
 	<string name="tips_map_layers_message_countour">Høydekurver hjelper deg å planlegge turen din og ikke gå seg vill</string>
 	<string name="isolines_activation_error_dialog">For å bruke høydekurver oppdater eller last opp kartet til nødvendig område</string>
+	<string name="isolines_location_error_dialog">Høydekurver er ikke tilgjengelige i dette området ennå</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestasjon</string>

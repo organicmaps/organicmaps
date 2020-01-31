@@ -3198,6 +3198,8 @@
 
 "isolines_activation_error_dialog" = "For at aktivere og bruge de topografiske lag, opdater venligst eller download kortet for området";
 
+"isolines_location_error_dialog" = "Det topografiske lag er endnu ikke tilgængeligt i dette område";
+
 
 /**********  Partners  **********/
 

@@ -3198,6 +3198,8 @@
 
 "isolines_activation_error_dialog" = "Chcete-li aktivovat a používat topografickou vrstvu, prosím aktualizujte nebo si stáhněte mapu oblasti";
 
+"isolines_location_error_dialog" = "Topografická vrstva není v této oblasti ještě dostupná";
+
 
 /**********  Partners  **********/
 

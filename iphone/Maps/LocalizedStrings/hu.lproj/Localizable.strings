@@ -3198,6 +3198,8 @@
 
 "isolines_activation_error_dialog" = "A topográfiai réteg aktiválásához és használatához kérjük frissítse vagy töltse le az adott terület térképét";
 
+"isolines_location_error_dialog" = "Ezen a területen a topográfiai réteg még nem elérhető";
+
 
 /**********  Partners  **********/
 

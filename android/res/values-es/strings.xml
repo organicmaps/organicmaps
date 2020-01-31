@@ -1742,6 +1742,7 @@
 	<string name="tips_map_layers_title_countour">¡Altitud de relieve sin conexión en MAPS.ME!</string>
 	<string name="tips_map_layers_message_countour">La altitud de relieve te ayudará a planificar un viaje a la naturaleza y no perderte en la zona</string>
 	<string name="isolines_activation_error_dialog">Para usar la altitud de relieve, actualiza o descarga el mapa del área deseada</string>
+	<string name="isolines_location_error_dialog">La altitud de relieve aún no está disponible en esta región</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estación de teleférico</string>

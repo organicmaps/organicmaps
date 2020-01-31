@@ -3198,6 +3198,8 @@
 
 "isolines_activation_error_dialog" = "Als u gebruik wilt maken van hoogtelijnen, moet u een kaart van het gewenste gebied bijwerken of downloaden";
 
+"isolines_location_error_dialog" = "De hoogtelijnen zijn nog niet beschikbaar in deze regio";
+
 
 /**********  Partners  **********/
 

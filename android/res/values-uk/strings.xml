@@ -1754,6 +1754,7 @@
 	<string name="tips_map_layers_title_countour">Лінії висот офлайн у MAPS.ME!</string>
 	<string name="tips_map_layers_message_countour">Лінії висот допоможуть спланувати подорож на природу та не загубитися на місцевості</string>
 	<string name="isolines_activation_error_dialog">Щоб скористатися лініями висот, оновіть чи завантажте карту потрібної місцевості</string>
+	<string name="isolines_location_error_dialog">Лінії висот ще недоступні в цьому регіоні</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

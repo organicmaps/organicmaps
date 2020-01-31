@@ -3198,6 +3198,8 @@
 
 "isolines_activation_error_dialog" = "Yükseklik çizgilerini kullanmak için, istediğiniz arazinin haritasını güncelleyin veya indirin";
 
+"isolines_location_error_dialog" = "Bu bölgede henüz yükseklik çizgileri mevcut değil";
+
 
 /**********  Partners  **********/
 

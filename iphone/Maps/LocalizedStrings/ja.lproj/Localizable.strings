@@ -3198,6 +3198,8 @@
 
 "isolines_activation_error_dialog" = "トポグラフィーレイヤーを有効化して使用するには、このエリアのマップを更新もしくはダウンロードしてください";
 
+"isolines_location_error_dialog" = "トポグラフィーレイヤーはこの地域ではまだ利用できません";
+
 
 /**********  Partners  **********/
 

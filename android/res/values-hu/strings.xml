@@ -1749,6 +1749,7 @@
 	<string name="tips_map_layers_title_countour">Újdonság a MAPS.ME-n: offline topográfiai réteg!</string>
 	<string name="tips_map_layers_message_countour">Tervezze meg és élvezze a természetjáró kirándulásait, és tudjon meg mindent a környékről</string>
 	<string name="isolines_activation_error_dialog">A topográfiai réteg aktiválásához és használatához kérjük frissítse vagy töltse le az adott terület térképét</string>
+	<string name="isolines_location_error_dialog">Ezen a területen a topográfiai réteg még nem elérhető</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>

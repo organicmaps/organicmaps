@@ -3198,6 +3198,8 @@
 
 "isolines_activation_error_dialog" = "To activate and use the topographic layer please update or download the map of the area";
 
+"isolines_location_error_dialog" = "The topographic layer is not yet available in this area";
+
 
 /**********  Partners  **********/
 

@@ -1751,6 +1751,7 @@
 	<string name="tips_map_layers_title_countour">Novinka v MAPS.ME: offline topografická vrstva!</string>
 	<string name="tips_map_layers_message_countour">Naplánujte si a užijte si své výlety do přírody s jistotou, že víte vše o této oblasti</string>
 	<string name="isolines_activation_error_dialog">Chcete-li aktivovat a používat topografickou vrstvu, prosím aktualizujte nebo si stáhněte mapu oblasti</string>
+	<string name="isolines_location_error_dialog">Topografická vrstva není v této oblasti ještě dostupná</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>

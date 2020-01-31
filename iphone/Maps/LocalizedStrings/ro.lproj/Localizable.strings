@@ -3198,6 +3198,8 @@
 
 "isolines_activation_error_dialog" = "Pentru a utiliza liniile de înălțimi, actualizați sau descărcați harta zonei dorite";
 
+"isolines_location_error_dialog" = "Liniile de înălțimi pană ce nu sunt disponibile în această regiune";
+
 
 /**********  Partners  **********/
 

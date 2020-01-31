@@ -3198,6 +3198,8 @@
 
 "isolines_activation_error_dialog" = "Do skorzystania z linii wysokości, zaktualizuj lub pobierz mapę obszaru, który potrzebujesz";
 
+"isolines_location_error_dialog" = "W tej chwili nie są dostępne linie wysokości w tym regionie";
+
 
 /**********  Partners  **********/
 

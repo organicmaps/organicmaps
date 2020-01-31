@@ -3198,6 +3198,8 @@
 
 "isolines_activation_error_dialog" = "如需使用高度线，请更新或下载所需区域的地图";
 
+"isolines_location_error_dialog" = "暫時無法獲取該地區的高低線";
+
 
 /**********  Partners  **********/
 

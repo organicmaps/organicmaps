@@ -3198,6 +3198,8 @@
 
 "isolines_activation_error_dialog" = "Um den Topographie-Layer benutzen zu können, aktualisieren oder laden Sie die Karte der benötigten Gegend herunter";
 
+"isolines_location_error_dialog" = "Topographie-Layer sind in dieser Region noch nicht verfügbar";
+
 
 /**********  Partners  **********/
 

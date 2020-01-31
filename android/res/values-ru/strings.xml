@@ -1795,6 +1795,7 @@
 	<string name="tips_map_layers_title_countour">Линии высот офлайн в MAPS.ME!</string>
 	<string name="tips_map_layers_message_countour">Линии высот помогут спланировать путешествие на природу и не потеряться на местности</string>
 	<string name="isolines_activation_error_dialog">Чтобы воспользоваться линиями высот, обновите или загрузите карту нужной местности</string>
+	<string name="isolines_location_error_dialog">Линии высот пока не доступны в этом регионе</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

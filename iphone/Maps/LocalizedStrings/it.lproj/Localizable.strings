@@ -3198,6 +3198,8 @@
 
 "isolines_activation_error_dialog" = "Per utilizzare la modalità topografica, aggiornate o scaricate la mappa dell'area interessata";
 
+"isolines_location_error_dialog" = "La modalità topografica per questa regione non è ancora disponibile";
+
 
 /**********  Partners  **********/
 

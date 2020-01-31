@@ -1753,6 +1753,7 @@
 	<string name="tips_map_layers_title_countour">เลเยอร์แผนที่ภูมิประเทศแบบออฟไลน์ ใหม่ในแอป MAPS.ME!</string>
 	<string name="tips_map_layers_message_countour">วางแผนและสนุกไปกับทริปท่องธรรมชาติโดยมั่นใจว่าคุณรู้ทุกอย่างเกี่ยวกับพื้นที่นั้น</string>
 	<string name="isolines_activation_error_dialog">ในการเปิดใช้งานเลเยอร์แผนที่ภูมิประเทศโปรดอัปเดตหรือดาวน์โหลดแผนที่ของบริเวณนั้น</string>
+	<string name="isolines_location_error_dialog">เลเยอร์แผนที่ภูมิประเทศยังใช้งานไม่ได้ในพื้นที่นี้</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

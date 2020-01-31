@@ -3198,6 +3198,8 @@
 
 "isolines_activation_error_dialog" = "For å bruke høydekurver oppdater eller last opp kartet til nødvendig område";
 
+"isolines_location_error_dialog" = "Høydekurver er ikke tilgjengelige i dette området ennå";
+
 
 /**********  Partners  **********/
 

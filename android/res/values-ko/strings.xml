@@ -1743,6 +1743,7 @@
 	<string name="tips_map_layers_title_countour">MAPS.ME의 새 기능: 오프라인 지형 레이어!</string>
 	<string name="tips_map_layers_message_countour">이 지역에 대한 모든 것을 알고 있는지 확인하면서 자연 여행을 계획하고 즐기세요</string>
 	<string name="isolines_activation_error_dialog">지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오</string>
+	<string name="isolines_location_error_dialog">이 지역의 지형 레이어는 아직 사용할 수 없습니다</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">케이블카 역</string>

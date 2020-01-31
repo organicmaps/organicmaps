@@ -3198,6 +3198,8 @@
 
 "isolines_activation_error_dialog" = "Päivitä tai lataa haluamasi alueen kartta, voidaksesi käyttää korkeuslinjoja";
 
+"isolines_location_error_dialog" = "Korkeus linjat eivät ole vielä saatavilla tällä alueella";
+
 
 /**********  Partners  **********/
 

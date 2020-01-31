@@ -3198,6 +3198,8 @@
 
 "isolines_activation_error_dialog" = "Para usar la altitud de relieve, actualiza o descarga el mapa del área deseada";
 
+"isolines_location_error_dialog" = "La altitud de relieve aún no está disponible en esta región";
+
 
 /**********  Partners  **********/
 

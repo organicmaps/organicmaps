@@ -3198,6 +3198,8 @@
 
 "isolines_activation_error_dialog" = "Untuk mengaktifkan dan menggunakan lapisan topografi, silakan perbarui atau unduh peta area";
 
+"isolines_location_error_dialog" = "Lapisan topografi belum tersedia untuk wilayah ini";
+
 
 /**********  Partners  **********/
 

@@ -3198,6 +3198,8 @@
 
 "isolines_activation_error_dialog" = "Pour utiliser les lignes d'altitude, mettez à jour ou téléchargez la carte de l'endroit désiré";
 
+"isolines_location_error_dialog" = "Les lignes d'élévation ne sont pas encore disponibles dans cette région";
+
 
 /**********  Partners  **********/
 

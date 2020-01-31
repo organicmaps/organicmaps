@@ -1750,6 +1750,7 @@
 	<string name="tips_map_layers_title_countour">離線高度線在MAPS.ME中！</string>
 	<string name="tips_map_layers_message_countour">高度線可以幫您規劃通往大自然地區的路線，不會迷路</string>
 	<string name="isolines_activation_error_dialog">如需使用高度线，请更新或下载所需区域的地图</string>
+	<string name="isolines_location_error_dialog">暫時無法獲取該地區的高低線</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">纜車站</string>
