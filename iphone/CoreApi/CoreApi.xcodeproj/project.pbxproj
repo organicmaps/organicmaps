@@ -112,6 +112,8 @@
 		993F54F3237C5D1100545511 /* PromoAfterBookingCampaignAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 993F54EF237C5D1000545511 /* PromoAfterBookingCampaignAdapter.mm */; };
 		993F54F4237C5D1100545511 /* PromoDiscoveryCampaignAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 993F54F0237C5D1000545511 /* PromoDiscoveryCampaignAdapter.mm */; };
 		993F54F5237C5D1100545511 /* PromoAfterBookingCampaignAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 993F54F1237C5D1000545511 /* PromoAfterBookingCampaignAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9940622023EAC57900493D1A /* ElevationHeightPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 9940621E23EAC57900493D1A /* ElevationHeightPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9940622123EAC57900493D1A /* ElevationHeightPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9940621F23EAC57900493D1A /* ElevationHeightPoint.m */; };
 		99447849238559F2004DAEE5 /* DeeplinkParsingResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 99447847238559F2004DAEE5 /* DeeplinkParsingResult.h */; };
 		9957FACE237AB01400855F48 /* DeepLinkParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 9957FACC237AB01400855F48 /* DeepLinkParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9957FACF237AB01400855F48 /* DeepLinkParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9957FACD237AB01400855F48 /* DeepLinkParser.mm */; };
@@ -119,6 +121,9 @@
 		9957FADC237ACB1100855F48 /* DeepLinkSearchData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9957FADA237ACB1100855F48 /* DeepLinkSearchData.mm */; };
 		9957FAE8237AE5B000855F48 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = 9957FAE6237AE5B000855F48 /* Logger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9957FAE9237AE5B000855F48 /* Logger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9957FAE7237AE5B000855F48 /* Logger.mm */; };
+		9974CA2923DF1968003FE824 /* ElevationProfileData.h in Headers */ = {isa = PBXBuildFile; fileRef = 9974CA2723DF1968003FE824 /* ElevationProfileData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9974CA2A23DF1968003FE824 /* ElevationProfileData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9974CA2823DF1968003FE824 /* ElevationProfileData.m */; };
+		9974CA2D23DF197B003FE824 /* ElevationProfileData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 9974CA2B23DF197B003FE824 /* ElevationProfileData+Core.h */; };
 		999D3A64237B097C00C5F7A8 /* DeepLinkSubscriptionData.h in Headers */ = {isa = PBXBuildFile; fileRef = 999D3A62237B097C00C5F7A8 /* DeepLinkSubscriptionData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		999D3A65237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 999D3A63237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm */; };
 		99F31EB823D5DD9000CE2CE1 /* PromoAfterBookingData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 99F31EB523D5DD8F00CE2CE1 /* PromoAfterBookingData.mm */; };
@@ -240,6 +245,8 @@
 		993F54EF237C5D1000545511 /* PromoAfterBookingCampaignAdapter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PromoAfterBookingCampaignAdapter.mm; sourceTree = "<group>"; };
 		993F54F0237C5D1000545511 /* PromoDiscoveryCampaignAdapter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PromoDiscoveryCampaignAdapter.mm; sourceTree = "<group>"; };
 		993F54F1237C5D1000545511 /* PromoAfterBookingCampaignAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoAfterBookingCampaignAdapter.h; sourceTree = "<group>"; };
+		9940621E23EAC57900493D1A /* ElevationHeightPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ElevationHeightPoint.h; sourceTree = "<group>"; };
+		9940621F23EAC57900493D1A /* ElevationHeightPoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ElevationHeightPoint.m; sourceTree = "<group>"; };
 		99447847238559F2004DAEE5 /* DeeplinkParsingResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeeplinkParsingResult.h; sourceTree = "<group>"; };
 		9957FACC237AB01400855F48 /* DeepLinkParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkParser.h; sourceTree = "<group>"; };
 		9957FACD237AB01400855F48 /* DeepLinkParser.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkParser.mm; sourceTree = "<group>"; };
@@ -247,6 +254,9 @@
 		9957FADA237ACB1100855F48 /* DeepLinkSearchData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkSearchData.mm; sourceTree = "<group>"; };
 		9957FAE6237AE5B000855F48 /* Logger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
 		9957FAE7237AE5B000855F48 /* Logger.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Logger.mm; sourceTree = "<group>"; };
+		9974CA2723DF1968003FE824 /* ElevationProfileData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ElevationProfileData.h; sourceTree = "<group>"; };
+		9974CA2823DF1968003FE824 /* ElevationProfileData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ElevationProfileData.m; sourceTree = "<group>"; };
+		9974CA2B23DF197B003FE824 /* ElevationProfileData+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ElevationProfileData+Core.h"; sourceTree = "<group>"; };
 		999D3A62237B097C00C5F7A8 /* DeepLinkSubscriptionData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkSubscriptionData.h; sourceTree = "<group>"; };
 		999D3A63237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkSubscriptionData.mm; sourceTree = "<group>"; };
 		99F31EB523D5DD8F00CE2CE1 /* PromoAfterBookingData.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PromoAfterBookingData.mm; sourceTree = "<group>"; };
@@ -429,6 +439,7 @@
 				47942D89237D629D00DEFAE3 /* Catalog */,
 				47942D5B237CC3B500DEFAE3 /* Common */,
 				47942D65237CC3B500DEFAE3 /* Booking */,
+				9974CA2623DF1931003FE824 /* ElevationProfile */,
 				47942D69237CC3B500DEFAE3 /* UGC */,
 			);
 			path = PlacePageData;
@@ -612,6 +623,18 @@
 			path = Logger;
 			sourceTree = "<group>";
 		};
+		9974CA2623DF1931003FE824 /* ElevationProfile */ = {
+			isa = PBXGroup;
+			children = (
+				9974CA2723DF1968003FE824 /* ElevationProfileData.h */,
+				9974CA2823DF1968003FE824 /* ElevationProfileData.m */,
+				9974CA2B23DF197B003FE824 /* ElevationProfileData+Core.h */,
+				9940621E23EAC57900493D1A /* ElevationHeightPoint.h */,
+				9940621F23EAC57900493D1A /* ElevationHeightPoint.m */,
+			);
+			path = ElevationProfile;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -626,12 +649,14 @@
 				471AB99123AB931000F56D49 /* MWMMapSearchResult+Core.h in Headers */,
 				4738A8E0239FACE7007C0F43 /* CoreBanner.h in Headers */,
 				47942D6D237CC3E300DEFAE3 /* PlacePagePreviewData.h in Headers */,
+				9940622023EAC57900493D1A /* ElevationHeightPoint.h in Headers */,
 				3D40DED523ED9C7F00A0153A /* WebApi.h in Headers */,
 				47A65CAF235008E100DCD85F /* CoreApi-swift.h in Headers */,
 				9957FACE237AB01400855F48 /* DeepLinkParser.h in Headers */,
 				993F54F5237C5D1100545511 /* PromoAfterBookingCampaignAdapter.h in Headers */,
 				47942D7D237CC42B00DEFAE3 /* UgcData.h in Headers */,
 				47942D77237CC41A00DEFAE3 /* HotelRooms.h in Headers */,
+				9974CA2D23DF197B003FE824 /* ElevationProfileData+Core.h in Headers */,
 				479834F223426CCC00724D1E /* MWMTag+Convenience.h in Headers */,
 				47942D78237CC41A00DEFAE3 /* HotelRooms+Core.h in Headers */,
 				479F704F234FB60400011E2E /* MWMCatalogObserver.h in Headers */,
@@ -646,6 +671,7 @@
 				4718C4322355FC3C00640DF1 /* MWMNetworkPolicy.h in Headers */,
 				99103843237EDFA200893C9F /* DeepLinkData.h in Headers */,
 				47F4F1FD23A3D1AC0022FD56 /* MWMMapNodeAttributes+Core.h in Headers */,
+				9974CA2923DF1968003FE824 /* ElevationProfileData.h in Headers */,
 				47C637DD2354B79B00E12DE0 /* MWMSearchFrameworkHelper.h in Headers */,
 				47942D70237CC40400DEFAE3 /* PlacePageInfoData+Core.h in Headers */,
 				47942DA0237D954400DEFAE3 /* PlacePageBookmarkData+Core.h in Headers */,
@@ -681,7 +707,7 @@
 				47942D75237CC41A00DEFAE3 /* HotelBookingData+Core.h in Headers */,
 				47938905239A932D006ECACC /* UgcSummaryRatingType.h in Headers */,
 				47942D72237CC40B00DEFAE3 /* OpeningHours.h in Headers */,
-				47C637D72354AEBE00E12DE0 /* MWMTrafficManager.h in Headers */,
+				47C637D72354AEBE00E12DE0 /* MWMMapOverlayManager.h in Headers */,
 				47942D6B237CC3D600DEFAE3 /* PlacePageData.h in Headers */,
 				47942D8C237D634300DEFAE3 /* CatalogPromoData.h in Headers */,
 				47942D90237D654B00DEFAE3 /* CatalogPromoData+Core.h in Headers */,
@@ -776,6 +802,7 @@
 				47942D9D237D927800DEFAE3 /* PlacePageBookmarkData.mm in Sources */,
 				4738A8E1239FACE7007C0F43 /* CoreBanner.mm in Sources */,
 				47942D86237CC55500DEFAE3 /* MWMOpeningHoursCommon.mm in Sources */,
+				9974CA2A23DF1968003FE824 /* ElevationProfileData.m in Sources */,
 				47942D82237CC52A00DEFAE3 /* MWMOpeningHours.mm in Sources */,
 				47942D73237CC41400DEFAE3 /* OpeningHours.mm in Sources */,
 				47C637DC2354B79B00E12DE0 /* MWMSearchFrameworkHelper.mm in Sources */,
@@ -802,6 +829,7 @@
 				4718C4332355FC3C00640DF1 /* MWMNetworkPolicy.mm in Sources */,
 				993F54F3237C5D1100545511 /* PromoAfterBookingCampaignAdapter.mm in Sources */,
 				47F701F0238C86F000D18E95 /* PlacePageButtonsData.mm in Sources */,
+				9940622123EAC57900493D1A /* ElevationHeightPoint.m in Sources */,
 				47EEAFF42350CEDB005CF316 /* AppInfo.mm in Sources */,
 				47E8163623B1889C008FD836 /* MWMStorage.mm in Sources */,
 				9957FAE9237AE5B000855F48 /* Logger.mm in Sources */,

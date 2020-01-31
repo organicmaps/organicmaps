@@ -45,5 +45,6 @@ class Fonts: IFonts {
   var semibold14 = UIFont.systemFont(ofSize: 14, weight:UIFont.Weight.semibold)
   var semibold15 = UIFont.systemFont(ofSize: 15, weight:UIFont.Weight.semibold)
   var semibold16 = UIFont.systemFont(ofSize: 16, weight:UIFont.Weight.semibold)
+  var semibold18 = UIFont.systemFont(ofSize: 18, weight:UIFont.Weight.semibold)
   var fredokaRegular25 = UIFont(name: "FredokaOne-Regular", size: 25) ?? UIFont.boldSystemFont(ofSize: 48)
 }

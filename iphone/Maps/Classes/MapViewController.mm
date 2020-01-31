@@ -98,7 +98,7 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 @property(nonatomic) BOOL needDeferFocusNotification;
 @property(nonatomic) BOOL deferredFocusValue;
-@property(nonatomic) PlacePageViewController *placePageVC;
+@property(nonatomic) UIViewController *placePageVC;
 @property(nonatomic) IBOutlet UIView *placePageContainer;
 
 @end
@@ -112,8 +112,7 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 - (void)showPlacePage {
   self.controlsManager.trafficButtonHidden = YES;
-  self.placePageVC = (PlacePageViewController *)[[UIStoryboard instance:MWMStoryboardPlacePage] instantiateInitialViewController];
-  self.placePageVC.placePageData = [[PlacePageData alloc] init];
+  self.placePageVC = [PlacePageBuilder buildWithData:[[PlacePageData alloc] init]];
   [self addChildViewController:self.placePageVC];
   self.placePageContainer.hidden = NO;
   [self.placePageContainer addSubview:self.placePageVC.view];

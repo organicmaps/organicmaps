@@ -15,7 +15,7 @@ final class PhotoCell: UICollectionViewCell {
 }
 
 protocol HotelPhotosViewControllerDelegate: AnyObject {
-  func didSelectItemAt(_ index: Int, lastItemIndex: Int)
+  func didSelectItemAt(_ hotelPhotosViewController: HotelPhotosViewController, index: Int, lastItemIndex: Int)
 }
 
 final class HotelPhotosViewController: UIViewController {
@@ -56,6 +56,6 @@ extension HotelPhotosViewController: UICollectionViewDataSource {
 
 extension HotelPhotosViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    delegate?.didSelectItemAt(indexPath.item, lastItemIndex: collectionView.numberOfItems(inSection: 0) - 1)
+    delegate?.didSelectItemAt(self, index: indexPath.item, lastItemIndex: collectionView.numberOfItems(inSection: 0) - 1)
   }
 }

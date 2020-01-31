@@ -478,6 +478,11 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
   [[MapViewController sharedController] showRemoveAds];
 }
 
+- (void)openElevationDifficultPopup:(PlacePageData *)data {
+  auto difficultyPopup = [ElevationDetailsBuilder buildWithData:data];
+  [[MapViewController sharedController] presentViewController:difficultyPopup animated:YES completion:nil];
+}
+
 #pragma mark - AvailableArea / PlacePageArea
 
 - (void)updateAvailableArea:(CGRect)frame

@@ -1,0 +1,240 @@
+protocol PlacePageInteractorProtocol: class {
+
+}
+
+class PlacePageInteractor {
+  weak var presenter: PlacePagePresenterProtocol?
+  weak var viewController: UIViewController?
+
+  private var placePageData: PlacePageData
+
+  init (viewController: UIViewController, data: PlacePageData) {
+    self.placePageData = data
+    self.viewController = viewController
+  }
+}
+
+extension PlacePageInteractor: PlacePageInteractorProtocol {
+
+}
+
+// MARK: - PlacePagePreviewViewControllerDelegate
+
+extension PlacePageInteractor: PlacePagePreviewViewControllerDelegate {
+  func previewDidPressRemoveAds() {
+    MWMPlacePageManagerHelper.showRemoveAds()
+  }
+
+  func previewDidPressAddReview() {
+    MWMPlacePageManagerHelper.showUGCAddReview(placePageData, rating: .none, from: .placePagePreview)
+  }
+
+  func previewDidPressSimilarHotels() {
+    MWMPlacePageManagerHelper.searchSimilar(placePageData)
+  }
+}
+
+// MARK: - PlacePageInfoViewControllerDelegate
+
+extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
+  func didPressCall() {
+    MWMPlacePageManagerHelper.call(placePageData)
+  }
+
+  func didPressWebsite() {
+    MWMPlacePageManagerHelper.openWebsite(placePageData)
+  }
+
+  func didPressEmail() {
+
+  }
+
+  func didPressLocalAd() {
+    MWMPlacePageManagerHelper.openLocalAdsURL(placePageData)
+  }
+}
+
+// MARK: - WikiDescriptionViewControllerDelegate
+
+extension PlacePageInteractor: WikiDescriptionViewControllerDelegate {
+  func didPressMore() {
+    MWMPlacePageManagerHelper.showPlaceDescription(placePageData.wikiDescriptionHtml)
+  }
+}
+
+// MARK: - TaxiViewControllerDelegate
+
+extension PlacePageInteractor: TaxiViewControllerDelegate {
+  func didPressOrder() {
+    MWMPlacePageManagerHelper.orderTaxi(placePageData)
+  }
+}
+
+// MARK: - AddReviewViewControllerDelegate
+
+extension PlacePageInteractor: AddReviewViewControllerDelegate {
+  func didRate(_ rating: UgcSummaryRatingType) {
+    MWMPlacePageManagerHelper.showUGCAddReview(placePageData, rating: rating, from: .placePage)
+  }
+}
+
+// MARK: - PlacePageReviewsViewControllerDelegate
+
+extension PlacePageInteractor: PlacePageReviewsViewControllerDelegate {
+  func didPressMoreReviews() {
+
+  }
+}
+
+// MARK: - PlacePageButtonsViewControllerDelegate
+
+extension PlacePageInteractor: PlacePageButtonsViewControllerDelegate {
+  func didPressHotels() {
+    MWMPlacePageManagerHelper.openDescriptionUrl(placePageData)
+  }
+
+  func didPressAddPlace() {
+    MWMPlacePageManagerHelper.addPlace(placePageData.locationCoordinate)
+  }
+
+  func didPressEditPlace() {
+    MWMPlacePageManagerHelper.editPlace()
+  }
+
+  func didPressAddBusiness() {
+    MWMPlacePageManagerHelper.addBusiness()
+  }
+}
+
+// MARK: - HotelPhotosViewControllerDelegate
+
+extension PlacePageInteractor: HotelPhotosViewControllerDelegate {
+  func didSelectItemAt(_ hotelPhotosViewController: HotelPhotosViewController, index: Int, lastItemIndex: Int) {
+    guard let photos = placePageData.hotelBooking?.photos else { return }
+    if index == lastItemIndex {
+      let galleryController = GalleryViewController.instance(photos: photos)
+      galleryController.title = placePageData.previewData.title
+      MapViewController.shared()?.navigationController?.pushViewController(galleryController, animated: true)
+    } else {
+      let currentPhoto = photos[index]
+      let view = hotelPhotosViewController.viewForPhoto(currentPhoto)
+      let photoVC = PhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: view)
+
+      photoVC.referenceViewForPhotoWhenDismissingHandler = {
+        hotelPhotosViewController.viewForPhoto($0)
+      }
+      viewController?.present(photoVC, animated: true)
+    }
+  }
+}
+
+// MARK: - HotelDescriptionViewControllerDelegate
+
+extension PlacePageInteractor: HotelDescriptionViewControllerDelegate {
+  func hotelDescriptionDidPressMore() {
+    MWMPlacePageManagerHelper.openMoreUrl(placePageData)
+  }
+}
+
+// MARK: - HotelFacilitiesViewControllerDelegate
+
+extension PlacePageInteractor: HotelFacilitiesViewControllerDelegate {
+  func facilitiesDidPressMore() {
+    MWMPlacePageManagerHelper.showAllFacilities(placePageData)
+  }
+}
+
+// MARK: - HotelReviewsViewControllerDelegate
+
+extension PlacePageInteractor: HotelReviewsViewControllerDelegate {
+  func hotelReviewsDidPressMore() {
+    MWMPlacePageManagerHelper.openReviewUrl(placePageData)
+  }
+}
+
+// MARK: - CatalogSingleItemViewControllerDelegate
+
+extension PlacePageInteractor: CatalogSingleItemViewControllerDelegate {
+  func catalogPromoItemDidPressView() {
+    MWMPlacePageManagerHelper.openCatalogSingleItem(placePageData, at: 0)
+  }
+
+  func catalogPromoItemDidPressMore() {
+    MWMPlacePageManagerHelper.openCatalogSingleItem(placePageData, at: 0)
+  }
+}
+
+// MARK: - CatalogGalleryViewControllerDelegate
+
+extension PlacePageInteractor: CatalogGalleryViewControllerDelegate {
+  func promoGalleryDidPressMore() {
+    MWMPlacePageManagerHelper.openCatalogMoreItems(placePageData)
+  }
+
+  func promoGalleryDidSelectItemAtIndex(_ index: Int) {
+    MWMPlacePageManagerHelper.openCatalogSingleItem(placePageData, at: index)
+  }
+}
+
+// MARK: - PlacePageBookmarkViewControllerDelegate
+
+extension PlacePageInteractor: PlacePageBookmarkViewControllerDelegate {
+  func bookmarkDidPressEdit() {
+    MWMPlacePageManagerHelper.editBookmark()
+  }
+}
+
+// MARK: - ActionBarViewControllerDelegate
+
+extension PlacePageInteractor: ActionBarViewControllerDelegate {
+  func actionBarDidPressButton(_ type: ActionBarButtonType) {
+    switch type {
+    case .booking:
+      MWMPlacePageManagerHelper.book(placePageData)
+    case .bookingSearch:
+      MWMPlacePageManagerHelper.searchSimilar(placePageData)
+    case .bookmark:
+      if placePageData.bookmarkData != nil {
+        MWMPlacePageManagerHelper.removeBookmark(placePageData)
+      } else {
+        MWMPlacePageManagerHelper.addBookmark(placePageData)
+      }
+    case .call:
+      MWMPlacePageManagerHelper.call(placePageData)
+    case .download:
+      fatalError()
+    case .opentable:
+      fatalError("Opentable is not supported and will be deleted")
+    case .partner:
+      MWMPlacePageManagerHelper.openPartner(placePageData)
+    case .routeAddStop:
+      MWMPlacePageManagerHelper.routeAddStop(placePageData)
+    case .routeFrom:
+      MWMPlacePageManagerHelper.route(from: placePageData)
+    case .routeRemoveStop:
+      MWMPlacePageManagerHelper.routeRemoveStop(placePageData)
+    case .routeTo:
+      MWMPlacePageManagerHelper.route(to: placePageData)
+    case .share:
+      MWMPlacePageManagerHelper.share(placePageData)
+    case .avoidToll:
+      MWMPlacePageManagerHelper.avoidToll()
+    case .avoidDirty:
+      MWMPlacePageManagerHelper.avoidDirty()
+    case .avoidFerry:
+      MWMPlacePageManagerHelper.avoidFerry()
+    case .more:
+      fatalError("More button should've been handled in ActionBarViewContoller")
+    @unknown default:
+      fatalError()
+    }
+  }
+}
+
+// MARK: - ElevationProfileViewControllerDelegate
+
+extension PlacePageInteractor: ElevationProfileViewControllerDelegate {
+  func openDifficultyPopup() {
+    MWMPlacePageManagerHelper.openElevationDifficultPopup(placePageData)
+  }
+}

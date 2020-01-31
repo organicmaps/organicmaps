@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -40,7 +40,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TaY-K1-Hdb">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="781.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="782.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="try to subscribe" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v4o-CM-FZh">
                                     <rect key="frame" x="24" y="62" width="272" height="14.5"/>
@@ -53,7 +53,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Pass Premium" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PQG-Je-4JN">
-                                    <rect key="frame" x="24" y="84.5" width="272" height="29.5"/>
+                                    <rect key="frame" x="24" y="84.5" width="272" height="30.5"/>
                                     <fontDescription key="fontDescription" name="FredokaOne-Regular" family="Fredoka One" pointSize="25"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -63,7 +63,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pyJ-8x-bjL">
-                                    <rect key="frame" x="0.0" y="114" width="320" height="230"/>
+                                    <rect key="frame" x="0.0" y="115" width="320" height="230"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dDh-cr-cQb">
                                             <rect key="frame" x="0.0" y="0.0" width="960" height="230"/>
@@ -192,11 +192,11 @@
                                     </connections>
                                 </scrollView>
                                 <view contentMode="scaleToFill" placeholderIntrinsicWidth="106" placeholderIntrinsicHeight="16" translatesAutoresizingMaskIntoConstraints="NO" id="2G3-Jk-HS0" customClass="PageIndicator" customModule="maps_me" customModuleProvider="target">
-                                    <rect key="frame" x="107" y="344" width="106" height="16"/>
+                                    <rect key="frame" x="107" y="345" width="106" height="16"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="kgh-BN-Pin">
-                                    <rect key="frame" x="20" y="430" width="280" height="144"/>
+                                    <rect key="frame" x="20" y="431" width="280" height="144"/>
                                     <subviews>
                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lg7-Sn-MNZ" userLabel="Continue" customClass="BookmarksSubscriptionButton" customModule="maps_me" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="280" height="64"/>
@@ -238,8 +238,8 @@
                                         </button>
                                     </subviews>
                                 </stackView>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- $38" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HUV-kf-oUo" customClass="BookmarksSubscriptionDiscountLabel" customModule="maps_me" customModuleProvider="target">
-                                    <rect key="frame" x="28" y="407" width="48.5" height="35"/>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- $38" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HUV-kf-oUo" customClass="InsetsLabel" customModule="maps_me" customModuleProvider="target">
+                                    <rect key="frame" x="28" y="408" width="48.5" height="35"/>
                                     <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="35" id="BYp-RT-R6I"/>
@@ -252,7 +252,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wL2-uQ-ivp" userLabel="Restore">
-                                    <rect key="frame" x="50" y="584" width="220" height="50"/>
+                                    <rect key="frame" x="50" y="585" width="220" height="50"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
                                     <constraints>
@@ -271,7 +271,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Frp-JY-kuq">
-                                    <rect key="frame" x="20" y="642" width="280" height="75.5"/>
+                                    <rect key="frame" x="20" y="643" width="280" height="75.5"/>
                                     <string key="text">Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                     <color key="textColor" white="0.0" alpha="0.31555008559999997" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -282,7 +282,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2O1-n3-hBU" userLabel="TermsOfUse">
-                                    <rect key="frame" x="20" y="717.5" width="66" height="44"/>
+                                    <rect key="frame" x="20" y="718.5" width="66" height="44"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
                                     <constraints>
@@ -301,7 +301,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUY-sv-eiY" userLabel="PrivacyPolicy">
-                                    <rect key="frame" x="231" y="717.5" width="69" height="44"/>
+                                    <rect key="frame" x="231" y="718.5" width="69" height="44"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
                                     <constraints>

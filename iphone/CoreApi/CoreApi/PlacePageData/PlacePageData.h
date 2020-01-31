@@ -11,6 +11,7 @@
 @class HotelBookingData;
 @class HotelRooms;
 @class UgcData;
+@class ElevationProfileData;
 
 typedef NS_ENUM(NSInteger, PlacePageSponsoredType) {
   PlacePageSponsoredTypeNone,
@@ -37,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, readonly, nullable) PlacePageButtonsData *buttonsData;
 @property(nonatomic, readonly) PlacePagePreviewData *previewData;
-@property(nonatomic, readonly) PlacePageInfoData *infoData;
+@property(nonatomic, readonly, nullable) PlacePageInfoData *infoData;
 @property(nonatomic, readonly, nullable) PlacePageBookmarkData *bookmarkData;
 @property(nonatomic, readonly) PlacePageSponsoredType sponsoredType;
 @property(nonatomic, readonly) PlacePageTaxiProvider taxiProvider;
@@ -46,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) HotelBookingData *hotelBooking;
 @property(nonatomic, readonly, nullable) HotelRooms *hotelRooms;
 @property(nonatomic, readonly, nullable) UgcData *ugcData;
+@property(nonatomic, readonly, nullable) ElevationProfileData *elevationProfileData;
 @property(nonatomic, readonly, nullable) NSString *bookingSearchUrl;
 @property(nonatomic, readonly) BOOL isLargeToponim;
 @property(nonatomic, readonly) BOOL isSightseeing;

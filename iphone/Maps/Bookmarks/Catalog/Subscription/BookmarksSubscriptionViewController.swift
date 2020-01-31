@@ -3,7 +3,7 @@ import SafariServices
 @objc class BookmarksSubscriptionViewController: BaseSubscriptionViewController {
   //MARK: outlets
   @IBOutlet private var annualSubscriptionButton: BookmarksSubscriptionButton!
-  @IBOutlet private var annualDiscountLabel: BookmarksSubscriptionDiscountLabel!
+  @IBOutlet private var annualDiscountLabel: InsetsLabel!
   @IBOutlet private var monthlySubscriptionButton: BookmarksSubscriptionButton!
   @IBOutlet private var contentView: UIView!
 

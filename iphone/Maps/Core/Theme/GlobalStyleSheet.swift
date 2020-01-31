@@ -70,6 +70,12 @@ class GlobalStyleSheet: IStyleSheet {
       s.onTintColor = colors.ratingYellow
       s.offTintColor = colors.blackDividers
     }
+
+    theme.add(styleName: "DifficultyView") { (s) -> (Void) in
+      s.colors = [colors.ratingGreen, colors.ratingYellow, colors.ratingRed]
+      s.offTintColor = colors.blackSecondaryText
+      s.backgroundColor = colors.clear
+    }
     
     //MARK: Global styles
     theme.add(styleName: "Divider") { (s) -> (Void) in

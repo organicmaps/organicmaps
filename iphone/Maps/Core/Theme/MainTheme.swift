@@ -9,6 +9,7 @@ class MainTheme: Theme {
     self.registerStyleSheet(MapStyleSheet.self)
     self.registerStyleSheet(AuthStyleSheet.self)
     self.registerStyleSheet(SubscriptionsStyleSheet.self)
+    self.registerStyleSheet(PlacePageStyleSheet.self)
   }
 }
 

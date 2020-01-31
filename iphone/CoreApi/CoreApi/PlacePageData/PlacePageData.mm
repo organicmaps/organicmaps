@@ -8,6 +8,7 @@
 #import "HotelBookingData+Core.h"
 #import "HotelRooms+Core.h"
 #import "UgcData+Core.h"
+#import "ElevationProfileData+Core.h"
 
 #include <CoreApi/CoreApi.h>
 #include "platform/network_policy.hpp"
@@ -108,6 +109,8 @@ static PlacePageTaxiProvider convertTaxiProvider(taxi::Provider::Type providerTy
       _sponsoredReviewURL = @(rawData().GetSponsoredReviewUrl().c_str());
       _sponsoredDeeplink = @(rawData().GetSponsoredDeepLink().c_str());
     }
+
+//    _elevationProfileData = [[ElevationProfileData alloc] init];
   }
   return self;
 }

@@ -46,7 +46,7 @@ class BaseSubscriptionViewController: MWMViewController {
   }
 
   func configure(buttons: [SubscriptionPeriod: BookmarksSubscriptionButton],
-                 discountLabels: [SubscriptionPeriod: BookmarksSubscriptionDiscountLabel]) {
+                 discountLabels: [SubscriptionPeriod: InsetsLabel]) {
     subscriptionManager?.getAvailableSubscriptions { [weak self] (subscriptions, error) in
       guard let subscriptions = subscriptions, subscriptions.count >= buttons.count else {
         MWMAlertViewController.activeAlert().presentInfoAlert(L("price_error_title"),

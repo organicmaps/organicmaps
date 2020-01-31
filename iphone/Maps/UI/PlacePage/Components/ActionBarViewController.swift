@@ -54,7 +54,7 @@ class ActionBarViewController: UIViewController {
     if placePageData.bookingSearchUrl != nil {
       buttons.append(.bookingSearch)
     }
-    if placePageData.infoData.phone != nil, AppInfo.shared().canMakeCalls {
+    if placePageData.infoData?.phone != nil, AppInfo.shared().canMakeCalls {
       buttons.append(.call)
     }
     if !isRoutePlanning {

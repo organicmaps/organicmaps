@@ -138,6 +138,9 @@ class FontStyleSheet: IStyleSheet {
     theme.add(styleName: "semibold16") { (s) -> (Void) in
       s.font = fonts.semibold16
     }
+    theme.add(styleName: "semibold18") { (s) -> (Void) in
+      s.font = fonts.semibold18
+    }
     theme.add(styleName: "fredokaRegular25") { (s) -> (Void) in
       s.font = fonts.fredokaRegular25
     }

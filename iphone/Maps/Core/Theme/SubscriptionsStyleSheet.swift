@@ -30,6 +30,7 @@ class SubscriptionsStyleSheet: IStyleSheet {
       s.shadowOpacity = 0.62
       s.fontColor = UIColor.white
       s.font = fonts.bold17
+      s.textContainerInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     }
 
     theme.add(styleName: "BookmarksSubscriptionDiscount", forType: .light) { (s) -> (Void) in
@@ -37,6 +38,7 @@ class SubscriptionsStyleSheet: IStyleSheet {
       s.cornerRadius = 6
       s.fontColor = UIColor.white
       s.font = fonts.bold17
+      s.textContainerInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     }
 
     theme.add(styleName: "AllPassSubscriptionYearlyButton") { (s) -> (Void) in
@@ -105,6 +107,7 @@ class SubscriptionsStyleSheet: IStyleSheet {
       s.font = fonts.bold17
       s.fontColor = colors.discountText
       s.backgroundColor = colors.allPassSubscriptionDiscountBackground
+      s.textContainerInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     }
   }
 }

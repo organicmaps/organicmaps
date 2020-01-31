@@ -2,6 +2,7 @@
 #import <CoreApi/UgcSummaryRatingType.h>
 
 @class PlacePageData;
+@class ElevationProfileData;
 
 @interface MWMPlacePageManagerHelper : NSObject
 
@@ -38,5 +39,6 @@
 + (void)avoidFerry;
 + (void)avoidToll;
 + (void)showRemoveAds;
++ (void)openElevationDifficultPopup:(PlacePageData *)data;
 
 @end

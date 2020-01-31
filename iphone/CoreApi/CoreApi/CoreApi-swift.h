@@ -51,3 +51,4 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/HotelRoom.h>
 #import <CoreApi/UgcData.h>
 #import <CoreApi/UgcSummaryRating.h>
+#import <CoreApi/ElevationProfileData.h>

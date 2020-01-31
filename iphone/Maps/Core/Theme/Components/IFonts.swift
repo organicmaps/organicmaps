@@ -46,5 +46,6 @@
   var semibold14: UIFont { get }
   var semibold15: UIFont { get }
   var semibold16: UIFont { get }
+  var semibold18: UIFont { get }
   var fredokaRegular25: UIFont { get }
 }

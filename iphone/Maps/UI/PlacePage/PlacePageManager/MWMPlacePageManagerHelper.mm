@@ -41,6 +41,7 @@
 - (void)avoidFerry;
 - (void)avoidToll;
 - (void)showRemoveAds;
+- (void)openElevationDifficultPopup:(PlacePageData *)data;
 
 @end
 
@@ -170,6 +171,10 @@
 
 + (void)showRemoveAds {
   [[MWMMapViewControlsManager manager].placePageManager showRemoveAds];
+}
+
++ (void)openElevationDifficultPopup:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager openElevationDifficultPopup:data];
 }
 
 @end
