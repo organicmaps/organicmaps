@@ -921,6 +921,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::SetDisplacementMode:
   case Message::Type::UpdateMetalines:
   case Message::Type::EnableUGCRendering:
+  case Message::Type::EnableIsolines:
     {
       m_forceUpdateScene = true;
       break;

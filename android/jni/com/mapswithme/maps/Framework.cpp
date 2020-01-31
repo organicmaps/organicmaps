@@ -1731,13 +1731,15 @@ Java_com_mapswithme_maps_Framework_nativeIsTransitSchemeEnabled(JNIEnv * env, jc
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetIsolinesLayerEnabled(JNIEnv * env, jclass, jboolean enabled)
 {
-  frm()->EnableIsolines(static_cast<bool>(enabled));
+  auto const isolinesEnabled = static_cast<bool>(enabled);
+  frm()->GetIsolinesManager().SetEnabled(isolinesEnabled);
+  frm()->SaveIsolonesEnabled(isolinesEnabled);
 }
 
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeIsIsolinesLayerEnabled(JNIEnv * env, jclass)
 {
-  return static_cast<jboolean>(frm()->IsolinesEnabled());
+  return static_cast<jboolean>(frm()->LoadIsolinesEnabled());
 }
 
 JNIEXPORT void JNICALL

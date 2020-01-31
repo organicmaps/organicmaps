@@ -69,6 +69,8 @@ set(
   gps_track.hpp
   gps_tracker.cpp
   gps_tracker.hpp
+  isolines_manager.cpp
+  isolines_manager.hpp
   local_ads_manager.cpp
   local_ads_manager.hpp
   local_ads_mark.cpp

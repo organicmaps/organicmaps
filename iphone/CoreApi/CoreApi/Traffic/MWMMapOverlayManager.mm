@@ -97,7 +97,7 @@
 }
 
 + (BOOL)isoLinesEnabled {
-  return GetFramework().IsolinesEnabled();
+  return GetFramework().LoadIsolinesEnabled();
 }
 
 + (void)setTrafficEnabled:(BOOL)enable {
@@ -128,7 +128,10 @@
     [self setTransitEnabled:false];
   }
 
-  GetFramework().EnableIsolines(enable);
+  auto &f = GetFramework();
+  f.GetIsolinesManager().SetEnabled(enable);
+  f.SaveIsolonesEnabled(enable);
+
   for (id<MWMMapOverlayManagerObserver> observer in [MWMMapOverlayManager manager].observers) {
     if ([observer respondsToSelector:@selector(onIsoLinesStateUpdated)]) {
       [observer onIsoLinesStateUpdated];

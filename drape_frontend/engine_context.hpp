@@ -32,12 +32,14 @@ public:
                 CustomFeaturesContextWeakPtr customFeaturesContext,
                 bool is3dBuildingsEnabled,
                 bool isTrafficEnabled,
+                bool isolinesEnabled,
                 int displacementMode,
                 TIsUGCFn const & isUGCFn);
 
   TileKey const & GetTileKey() const { return m_tileKey; }
   bool Is3dBuildingsEnabled() const { return m_3dBuildingsEnabled; }
   bool IsTrafficEnabled() const { return m_trafficEnabled; }
+  bool IsolinesEnabled() const { return m_isolinesEnabled; }
   bool IsUGC(FeatureID const & fid) { return m_isUGCFn ? m_isUGCFn(fid) : false; }
   int GetDisplacementMode() const { return m_displacementMode; }
   CustomFeaturesContextWeakPtr GetCustomFeaturesContext() const { return m_customFeaturesContext; }
@@ -60,6 +62,7 @@ private:
   CustomFeaturesContextWeakPtr m_customFeaturesContext;
   bool m_3dBuildingsEnabled;
   bool m_trafficEnabled;
+  bool m_isolinesEnabled;
   int m_displacementMode;
   TIsUGCFn m_isUGCFn;
 };

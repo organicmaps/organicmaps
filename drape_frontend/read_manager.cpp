@@ -44,12 +44,14 @@ bool ReadManager::LessByTileInfo::operator()(std::shared_ptr<TileInfo> const & l
 }
 
 ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model,
-                         bool allow3dBuildings, bool trafficEnabled, EngineContext::TIsUGCFn && isUGCFn)
+                         bool allow3dBuildings, bool trafficEnabled, bool isolinesEnabled,
+                         EngineContext::TIsUGCFn && isUGCFn)
   : m_commutator(commutator)
   , m_model(model)
   , m_have3dBuildings(false)
   , m_allow3dBuildings(allow3dBuildings)
   , m_trafficEnabled(trafficEnabled)
+  , m_isolinesEnabled(isolinesEnabled)
   , m_displacementMode(dp::displacement::kDefaultMode)
   , m_modeChanged(false)
   , m_ugcRenderingEnabled(false)
@@ -233,11 +235,13 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey,
                                          ref_ptr<MetalineManager> metalineMng)
 {
   ASSERT(m_pool != nullptr, ());
-  auto context = make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter, m_userMarksGenerationCounter),
+  auto context = make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter,
+                                                       m_userMarksGenerationCounter),
                                                m_commutator, texMng, metalineMng,
                                                m_customFeaturesContext,
                                                m_have3dBuildings && m_allow3dBuildings,
-                                               m_trafficEnabled, m_displacementMode,
+                                               m_trafficEnabled, m_isolinesEnabled,
+                                               m_displacementMode,
                                                m_ugcRenderingEnabled ? m_isUGCFn : nullptr);
   std::shared_ptr<TileInfo> tileInfo = std::make_shared<TileInfo>(std::move(context));
   m_tileInfos.insert(tileInfo);
@@ -328,6 +332,15 @@ void ReadManager::SetTrafficEnabled(bool trafficEnabled)
   {
     m_modeChanged = true;
     m_trafficEnabled = trafficEnabled;
+  }
+}
+
+void ReadManager::SetIsolinesEnabled(bool isolinesEnabled)
+{
+  if (m_isolinesEnabled != isolinesEnabled)
+  {
+    m_modeChanged = true;
+    m_isolinesEnabled = isolinesEnabled;
   }
 }
 

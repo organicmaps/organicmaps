@@ -14,6 +14,7 @@ EngineContext::EngineContext(TileKey tileKey,
                              CustomFeaturesContextWeakPtr customFeaturesContext,
                              bool is3dBuildingsEnabled,
                              bool isTrafficEnabled,
+                             bool isolinesEnabled,
                              int displacementMode,
                              TIsUGCFn const & isUGCFn)
   : m_tileKey(tileKey)
@@ -23,6 +24,7 @@ EngineContext::EngineContext(TileKey tileKey,
   , m_customFeaturesContext(customFeaturesContext)
   , m_3dBuildingsEnabled(is3dBuildingsEnabled)
   , m_trafficEnabled(isTrafficEnabled)
+  , m_isolinesEnabled(isolinesEnabled)
   , m_displacementMode(displacementMode)
   , m_isUGCFn(isUGCFn)
 {}

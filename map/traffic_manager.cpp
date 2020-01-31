@@ -92,13 +92,7 @@ void TrafficManager::SetEnabled(bool enabled)
   {
     std::lock_guard<std::mutex> lock(m_mutex);
     if (enabled == IsEnabled())
-    {
-       LOG(LWARNING, ("Invalid attempt to", enabled ? "enable" : "disable",
-                      "traffic manager, it's already", enabled ? "enabled" : "disabled",
-                      ", doing nothing."));
        return;
-    }
-
     Clear();
     ChangeState(enabled ? TrafficState::Enabled : TrafficState::Disabled);
   }

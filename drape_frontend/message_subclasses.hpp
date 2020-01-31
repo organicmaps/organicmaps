@@ -1118,6 +1118,21 @@ private:
   bool const m_isSimplified;
 };
 
+class EnableIsolinesMessage : public Message
+{
+public:
+  explicit EnableIsolinesMessage(bool isEnabled)
+    : m_isEnabled(isEnabled)
+  {}
+
+  Type GetType() const override { return Type::EnableIsolines; }
+
+  bool IsEnabled() { return m_isEnabled; }
+
+private:
+  bool m_isEnabled = false;
+};
+
 class EnableTransitSchemeMessage : public Message
 {
 public:

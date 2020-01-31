@@ -9,6 +9,7 @@
 #include "map/discovery/discovery_manager.hpp"
 #include "map/displacement_mode_manager.hpp"
 #include "map/features_fetcher.hpp"
+#include "map/isolines_manager.hpp"
 #include "map/local_ads_manager.hpp"
 #include "map/mwm_url.hpp"
 #include "map/notifications/notification_manager.hpp"
@@ -238,6 +239,7 @@ protected:
   power_management::PowerManager m_powerManager;
 
   TransitReadManager m_transitManager;
+  IsolinesManager m_isolinesManager;
 
   // Note. |m_routingManager| should be declared before |m_trafficManager|
   RoutingManager m_routingManager;
@@ -759,6 +761,8 @@ public:
 
   TransitReadManager & GetTransitManager();
 
+  IsolinesManager & GetIsolinesManager();
+
   bool LoadTrafficEnabled();
   void SaveTrafficEnabled(bool trafficEnabled);
 
@@ -768,8 +772,8 @@ public:
   bool LoadTransitSchemeEnabled();
   void SaveTransitSchemeEnabled(bool enabled);
 
-  void EnableIsolines(bool enable);
-  bool IsolinesEnabled() const;
+  bool LoadIsolinesEnabled();
+  void SaveIsolonesEnabled(bool enabled);
 
   dp::ApiVersion LoadPreferredGraphicsAPI();
   void SavePreferredGraphicsAPI(dp::ApiVersion apiVersion);

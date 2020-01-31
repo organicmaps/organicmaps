@@ -101,6 +101,7 @@ std::string DebugPrint(Message::Type msgType)
   case Message::Type::ShowDebugInfo: return "ShowDebugInfo";
   case Message::Type::NotifyRenderThread: return "NotifyRenderThread";
   case Message::Type::NotifyGraphicsReady: return "NotifyGraphicsReady";
+  case Message::Type::EnableIsolines: return "EnableIsolines";
   }
   ASSERT(false, ("Unknown message type."));
   return "Unknown type";
