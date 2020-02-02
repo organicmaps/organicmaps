@@ -54,8 +54,19 @@ private:
       // Try to prevent loading a new tile if the position can be found in the loaded one.
       auto const latDist = pos.m_lat - m_leftBottomOfPreferredTile.m_lat;
       auto const lonDist = pos.m_lon - m_leftBottomOfPreferredTile.m_lon;
-      if (latDist >= 0.0 && latDist <= 1.0 && lonDist >= 0.0 && lonDist <= 1.0)
-        return m_preferredTile->GetHeight(pos);
+      if (latDist > -kEps && latDist < 1.0 + kEps && lonDist > -kEps && lonDist < 1.0 + kEps)
+      {
+        ms::LatLon innerPos = pos;
+        if (latDist < 0.0)
+          innerPos.m_lat += kEps;
+        else if (latDist >= 1.0)
+          innerPos.m_lat -= kEps;
+        if (lonDist < 0.0)
+          innerPos.m_lon += kEps;
+        else if (lonDist >= 1.0)
+          innerPos.m_lon -= kEps;
+        return m_preferredTile->GetHeight(innerPos);
+      }
     }
 
     return m_srtmManager.GetHeight(pos);
@@ -136,23 +147,22 @@ private:
 class SeamlessAltitudeProvider : public ValuesProvider<Altitude>
 {
 public:
-  using MoveFromBorderFn = std::function<bool (ms::LatLon & pos)>;
+  using IsOnBorderFn = std::function<bool (ms::LatLon const & pos)>;
 
   SeamlessAltitudeProvider(ValuesProvider<Altitude> & originalProvider,
                            ValuesProvider<Altitude> & filteredProvider,
-                           MoveFromBorderFn && moveFromBorderFn)
+                           IsOnBorderFn && isOnBorderFn)
     : m_originalProvider(originalProvider)
     , m_filteredProvider(filteredProvider)
-    , m_moveFromBorderFn(std::move(moveFromBorderFn))
+    , m_isOnBorderFn(std::move(isOnBorderFn))
   {}
 
   Altitude GetValue(ms::LatLon const & pos) override
   {
-    auto movedPos = pos;
-    if (m_moveFromBorderFn(movedPos))
+    if (m_isOnBorderFn(pos))
     {
       // Check that we have original neighboring tile, use filtered if haven't.
-      auto const alt = m_originalProvider.GetValue(movedPos);
+      auto const alt = m_originalProvider.GetValue(pos);
       if (alt != kInvalidAltitude)
         return alt;
     }
@@ -164,7 +174,7 @@ public:
 private:
   ValuesProvider<Altitude> & m_originalProvider;
   ValuesProvider<Altitude> & m_filteredProvider;
-  MoveFromBorderFn m_moveFromBorderFn;
+  IsOnBorderFn m_isOnBorderFn;
 };
 
 class TileIsolinesTask
@@ -247,24 +257,17 @@ private:
     auto const avoidSeam = lat == kAsterTilesLatTop || (lat == kAsterTilesLatBottom - 1);
     if (avoidSeam)
     {
+      m_srtmProvider.SetPrefferedTile(ms::LatLon(lat == kAsterTilesLatTop ? lat - 0.5 : lat + 0.5,
+                                                 lon));
       SeamlessAltitudeProvider seamlessAltProvider(m_srtmProvider, altProvider,
-                                                   [](ms::LatLon & pos)
+                                                   [](ms::LatLon const & pos)
       {
         // In case when two altitudes sources are used for altitudes extraction,
         // for the same position on the border could be returned different altitudes.
         // Force to use altitudes near the srtm/aster border from srtm source,
         // it helps to avoid contours gaps due to different altitudes for equal positions.
-        if  (fabs(pos.m_lat - kAsterTilesLatTop) < kEps)
-        {
-          pos.m_lat -= kEps;
-          return true;
-        }
-        if (fabs(pos.m_lat - kAsterTilesLatBottom) < kEps)
-        {
-          pos.m_lat += kEps;
-          return true;
-        }
-        return false;
+        return fabs(pos.m_lat - kAsterTilesLatTop) < kEps ||
+               fabs(pos.m_lat - kAsterTilesLatBottom) < kEps;
       });
       GenerateContours(lat, lon, seamlessAltProvider, contours);
     }
