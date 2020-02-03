@@ -31,7 +31,7 @@ enum class Internet
 };
 std::string DebugPrint(Internet internet);
 
-// Metadata fields in the sorted order, visible to users.
+// Object details in the sorted order, visible to users.
 // Must correspond MapObject.java
 enum class Props : uint8_t
 {
@@ -137,7 +137,6 @@ std::vector<Props> MetadataToProps(std::vector<T> const & metadata)
   {
     switch (static_cast<Metadata::EType>(type))
     {
-    case Metadata::FMD_CUISINE: res.push_back(Props::Cuisine); break;
     case Metadata::FMD_OPEN_HOURS: res.push_back(Props::OpeningHours); break;
     case Metadata::FMD_PHONE_NUMBER: res.push_back(Props::Phone); break;
     case Metadata::FMD_FAX_NUMBER: res.push_back(Props::Fax); break;
@@ -155,6 +154,7 @@ std::vector<Props> MetadataToProps(std::vector<T> const & metadata)
     case Metadata::FMD_FLATS: res.push_back(Props::Flats); break;
     case Metadata::FMD_BUILDING_LEVELS: res.push_back(Props::BuildingLevels); break;
     case Metadata::FMD_LEVEL: res.push_back(Props::Level); break;
+    case Metadata::FMD_CUISINE:
     case Metadata::FMD_TURN_LANES:
     case Metadata::FMD_TURN_LANES_FORWARD:
     case Metadata::FMD_TURN_LANES_BACKWARD:

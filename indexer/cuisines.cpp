@@ -1,12 +1,33 @@
 #include "indexer/cuisines.hpp"
 
+#include "indexer/classificator.hpp"
+
+#include "platform/localization.hpp"
+
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
+
+#include <algorithm>
 
 using namespace std;
 
 namespace osm
 {
+Cuisines::Cuisines()
+{
+  auto const add = [&](auto const *, uint32_t type) {
+    auto const cuisine = classif().GetFullObjectNamePath(type);
+    CHECK_EQUAL(cuisine.size(), 2, (cuisine));
+    m_allCuisines.emplace_back(
+        cuisine[1], platform::GetLocalizedTypeName(classif().GetReadableObjectName(type)));
+  };
+
+  auto const cuisineType = classif().GetTypeByPath({"cuisine"});
+  classif().GetObject(cuisineType)->ForEachObjectInTree(add, cuisineType);
+  sort(m_allCuisines.begin(), m_allCuisines.end(),
+       [](auto const & lhs, auto const & rhs) { return lhs.second < rhs.second; });
+}
+
 // static
 Cuisines & Cuisines::Instance()
 {
@@ -14,51 +35,14 @@ Cuisines & Cuisines::Instance()
   return instance;
 }
 
-namespace
+string Cuisines::Translate(string const & singleCuisine)
 {
-void InitializeCuisinesForLocale(platform::TGetTextByIdPtr & ptr, string const & lang)
-{
-  if (!ptr || ptr->GetLocale() != lang)
-    ptr = GetTextByIdFactory(platform::TextSource::Cuisines, lang);
-  CHECK(ptr, ("Error loading cuisines translations for", lang, "language."));
+  auto const it = find_if(m_allCuisines.begin(), m_allCuisines.end(),
+                          [&](auto const & cuisine) { return cuisine.first == singleCuisine; });
+  if (it != m_allCuisines.end())
+    return it->second;
+  return {};
 }
 
-string TranslateImpl(platform::TGetTextByIdPtr const & ptr, string const & key)
-{
-  ASSERT(ptr, ("ptr should be initialized before calling this function."));
-  return ptr->operator()(key);
-}
-}  // namespace
-
-void Cuisines::Parse(string const & osmRawCuisinesTagValue, vector<string> & outCuisines)
-{
-  strings::Tokenize(osmRawCuisinesTagValue, ";", base::MakeBackInsertFunctor(outCuisines));
-}
-
-void Cuisines::ParseAndLocalize(string const & osmRawCuisinesTagValue, vector<string> & outCuisines,
-                                string const & lang)
-{
-  Parse(osmRawCuisinesTagValue, outCuisines);
-  InitializeCuisinesForLocale(m_translations, lang);
-  for (auto & cuisine : outCuisines)
-  {
-    string tr = TranslateImpl(m_translations, cuisine);
-    if (!tr.empty())
-      cuisine = move(tr);
-  }
-}
-
-string Cuisines::Translate(string const & singleOsmCuisine, string const & lang)
-{
-  ASSERT(singleOsmCuisine.find(';') == string::npos,
-         ("Please call Parse method for raw OSM cuisine string."));
-  InitializeCuisinesForLocale(m_translations, lang);
-  return TranslateImpl(m_translations, singleOsmCuisine);
-}
-
-AllCuisines Cuisines::AllSupportedCuisines(string const & lang)
-{
-  InitializeCuisinesForLocale(m_translations, lang);
-  return m_translations->GetAllSortedTranslations();
-}
+AllCuisines Cuisines::AllSupportedCuisines() { return m_allCuisines; }
 }  // namespace osm

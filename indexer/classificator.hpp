@@ -218,6 +218,7 @@ public:
 
   ClassifObject const * GetObject(uint32_t type) const;
   std::string GetFullObjectName(uint32_t type) const;
+  std::vector<std::string> GetFullObjectNamePath(uint32_t type) const;
   //@}
 
   /// @return Object name to show in UI (not for debug purposes).

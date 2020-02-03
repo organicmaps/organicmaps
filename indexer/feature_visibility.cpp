@@ -62,6 +62,24 @@ string Classificator::GetFullObjectName(uint32_t type) const
   return s;
 }
 
+vector<string> Classificator::GetFullObjectNamePath(uint32_t type) const
+{
+  ClassifObject const * p = &m_root;
+  uint8_t i = 0;
+  vector<string> res;
+
+  // get the final ClassifObject
+  uint8_t v;
+  while (ftype::GetValue(type, i, v))
+  {
+    ++i;
+    p = p->GetObject(v);
+    res.push_back(p->GetName());
+  }
+
+  return res;
+}
+
 namespace feature
 {
 

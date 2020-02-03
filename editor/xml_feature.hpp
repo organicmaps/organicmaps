@@ -130,6 +130,9 @@ public:
   std::string GetPostcode() const;
   void SetPostcode(std::string const & postcode);
 
+  std::string GetCuisine() const;
+  void SetCuisine(std::string const & cuisine);
+
   /// Our and OSM modification time are equal.
   time_t GetModificationTime() const;
   void SetModificationTime(time_t const time);

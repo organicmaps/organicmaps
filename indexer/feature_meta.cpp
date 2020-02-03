@@ -46,9 +46,7 @@ string Metadata::GetWikiURL() const
 // static
 bool Metadata::TypeFromString(string const & k, Metadata::EType & outType)
 {
-  if (k == "cuisine")
-    outType = Metadata::FMD_CUISINE;
-  else if (k == "opening_hours")
+  if (k == "opening_hours")
     outType = Metadata::FMD_OPEN_HOURS;
   else if (k == "phone" || k == "contact:phone")
     outType = Metadata::FMD_PHONE_NUMBER;

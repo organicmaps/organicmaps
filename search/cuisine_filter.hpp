@@ -19,7 +19,7 @@ namespace cuisine_filter
 struct Description
 {
   Description() = default;
-  Description(FeatureType & ft, bool fromMetadata);
+  Description(FeatureType & ft);
 
   std::vector<uint32_t> m_types;
 };

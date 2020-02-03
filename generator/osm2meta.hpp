@@ -64,7 +64,6 @@ public:
     std::string valid;
     switch (mdType)
     {
-    case Metadata::FMD_CUISINE: valid = ValidateAndFormat_cuisine(v); break;
     case Metadata::FMD_OPEN_HOURS: valid = ValidateAndFormat_opening_hours(v); break;
     case Metadata::FMD_FAX_NUMBER:  // The same validator as for phone.
     case Metadata::FMD_PHONE_NUMBER: valid = ValidateAndFormat_phone(v); break;
@@ -90,6 +89,7 @@ public:
     case Metadata::FMD_AIRPORT_IATA: valid = ValidateAndFormat_airport_iata(v); break;
     case Metadata::FMD_DURATION: valid = ValidateAndFormat_duration(v); break;
     // Used for old data compatibility only and should not be set:
+    case Metadata::FMD_CUISINE:
     case Metadata::FMD_POSTCODE: CHECK(false, (mdType, "used for compatibility, should not be set."));
     // Metadata types we do not get from OSM.
     case Metadata::FMD_SPONSORED_ID:

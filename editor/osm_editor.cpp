@@ -133,6 +133,9 @@ bool AreObjectsEqualButStreet(osm::EditableMapObject const & lhs,
   if (lhs.GetPostcode() != rhs.GetPostcode())
     return false;
 
+  if (lhs.GetCuisines() != rhs.GetCuisines())
+    return false;
+
   if (!lhs.GetMetadata().Equals(rhs.GetMetadata()))
     return false;
 
@@ -584,7 +587,8 @@ EditableProperties Editor::GetEditablePropertiesForTypes(feature::TypesHolder co
 {
   editor::TypeAggregatedDescription desc;
   if (m_config.Get()->GetTypeDescription(types.ToObjectNames(), desc))
-    return {desc.GetEditableFields(), desc.IsNameEditable(), desc.IsAddressEditable()};
+    return {desc.GetEditableFields(), desc.IsNameEditable(), desc.IsAddressEditable(),
+            desc.IsCuisineEditable()};
   return {};
 }
 

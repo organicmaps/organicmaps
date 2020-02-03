@@ -14,7 +14,6 @@ using EType = feature::Metadata::EType;
 
 // TODO(mgsergio): It would be nice to have this map generated from editor.config.
 static unordered_map<string, EType> const kNamesToFMD = {
-    {"cuisine", feature::Metadata::FMD_CUISINE},
     {"opening_hours", feature::Metadata::FMD_OPEN_HOURS},
     {"phone", feature::Metadata::FMD_PHONE_NUMBER},
     {"fax", feature::Metadata::FMD_FAX_NUMBER},
@@ -60,8 +59,15 @@ bool TypeDescriptionFromXml(pugi::xml_node const & root, pugi::xml_node const & 
       return;
     }
 
+    if (fieldName == "cuisine")
+    {
+      outDesc.m_cuisine = true;
+      return;
+    }
+
     // TODO(mgsergio): Add support for non-metadata fields like atm, wheelchair, toilet etc.
     auto const it = kNamesToFMD.find(fieldName);
+
     ASSERT(it != end(kNamesToFMD), ("Wrong field:", fieldName));
     outDesc.m_editableFields.push_back(it->second);
   };

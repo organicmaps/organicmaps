@@ -18,18 +18,21 @@ struct TypeAggregatedDescription
 
   bool IsEmpty() const
   {
-    return IsNameEditable() || IsAddressEditable() || !m_editableFields.empty();
+    return IsNameEditable() || IsAddressEditable() || IsCuisineEditable() ||
+           !m_editableFields.empty();
   }
 
   FeatureFields const & GetEditableFields() const { return m_editableFields; }
 
   bool IsNameEditable() const { return m_name; }
   bool IsAddressEditable() const { return m_address; }
+  bool IsCuisineEditable() const { return m_cuisine; }
 
   FeatureFields m_editableFields;
 
   bool m_name = false;
   bool m_address = false;
+  bool m_cuisine = false;
 };
 
 class EditorConfig

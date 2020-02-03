@@ -1,6 +1,5 @@
 #include "map_object.hpp"
 
-#include "indexer/cuisines.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -127,7 +126,16 @@ string MapObject::GetLocalizedType() const
 
 vector<osm::Props> MapObject::AvailableProperties() const
 {
-  return MetadataToProps(m_metadata.GetPresentTypes());
+  auto props = MetadataToProps(m_metadata.GetPresentTypes());
+
+  auto const & isCuisine = ftypes::IsCuisineChecker::Instance();
+  if (any_of(m_types.begin(), m_types.end(), [&](auto const t) { return isCuisine(t); }))
+  {
+    props.push_back(Props::Cuisine);
+    base::SortUnique(props);
+  }
+
+  return props;
 }
 
 string MapObject::GetPhone() const { return m_metadata.Get(feature::Metadata::FMD_PHONE_NUMBER); }
@@ -163,14 +171,28 @@ Internet MapObject::GetInternet() const
 vector<string> MapObject::GetCuisines() const
 {
   vector<string> cuisines;
-  Cuisines::Instance().Parse(m_metadata.Get(feature::Metadata::FMD_CUISINE), cuisines);
+  auto const & isCuisine = ftypes::IsCuisineChecker::Instance();
+  for (auto const t : m_types)
+  {
+    if (!isCuisine(t))
+      continue;
+    auto const cuisine = classif().GetFullObjectNamePath(t);
+    CHECK_EQUAL(cuisine.size(), 2, (cuisine));
+    cuisines.push_back(cuisine[1]);
+  }
   return cuisines;
 }
 
 vector<string> MapObject::GetLocalizedCuisines() const
 {
   vector<string> localized;
-  Cuisines::Instance().ParseAndLocalize(m_metadata.Get(feature::Metadata::FMD_CUISINE), localized);
+  auto const & isCuisine = ftypes::IsCuisineChecker::Instance();
+  for (auto const t : m_types)
+  {
+    if (!isCuisine(t))
+      continue;
+    localized.push_back(platform::GetLocalizedTypeName(classif().GetReadableObjectName(t)));
+  }
   return localized;
 }
 

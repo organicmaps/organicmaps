@@ -75,27 +75,6 @@ private:
   int const m_priceRate;
 };
 
-class TestCafeWithCuisine : public TestCafe
-{
-public:
-  TestCafeWithCuisine(m2::PointD const & center, string const & name, string const & lang, string const & cuisine)
-    : TestCafe(center, name, lang), m_cuisine(cuisine)
-  {
-  }
-
-  // TestPOI overrides:
-  void Serialize(FeatureBuilder & fb) const override
-  {
-    TestCafe::Serialize(fb);
-
-    auto & metadata = fb.GetMetadata();
-    metadata.Set(Metadata::FMD_CUISINE, m_cuisine);
-  }
-
-private:
-  string m_cuisine;
-};
-
 class TestAirport : public TestPOI
 {
 public:
@@ -1584,34 +1563,6 @@ UNIT_CLASS_TEST(ProcessorTest, CuisineTest)
     Rules rules{ExactMatch(countryId, pizza)};
     TEST(ResultsMatch("pizza ", "en", rules), ());
     TEST(ResultsMatch("pizzeria ", "en", rules), ());
-  }
-}
-
-UNIT_CLASS_TEST(ProcessorTest, CuisineMetadataTest)
-{
-  string const countryName = "Wonderland";
-
-  TestCafeWithCuisine kebab(m2::PointD(1.0, 1.0), "Useless name", "en", "kebab");
-  TestCafeWithCuisine tapas(m2::PointD(1.0, 1.0), "Useless name", "en", "tapas");
-
-  // Metadata is supported for old maps only.
-  SetMwmVersion(180801);
-
-  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
-    builder.Add(kebab);
-    builder.Add(tapas);
-  });
-
-  SetViewport(m2::RectD(-1, -1, 1, 1));
-
-  {
-    Rules rules{ExactMatch(countryId, kebab)};
-    TEST(ResultsMatch("kebab ", "en", rules), ());
-  }
-
-  {
-    Rules rules{ExactMatch(countryId, tapas)};
-    TEST(ResultsMatch("tapas ", "en", rules), ());
   }
 }
 

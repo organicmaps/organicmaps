@@ -14,7 +14,6 @@ enum class TextSource
 {
   TtsSound = 0, //!< Maneuvers text to speech strings.
   Countries,    //!< Countries names strings.
-  Cuisines      //!< OSM cuisines translations.
 };
 
 class GetTextById;

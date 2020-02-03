@@ -231,18 +231,6 @@ void ProcessMetadata(FeatureType & ft, Result::Metadata & meta)
 
   feature::Metadata const & src = ft.GetMetadata();
 
-  auto const cuisinesMeta = src.Get(feature::Metadata::FMD_CUISINE);
-  if (cuisinesMeta.empty())
-  {
-    meta.m_cuisine = "";
-  }
-  else
-  {
-    vector<string> cuisines;
-    osm::Cuisines::Instance().ParseAndLocalize(cuisinesMeta, cuisines);
-    meta.m_cuisine = strings::JoinStrings(cuisines, " • ");
-  }
-
   meta.m_airportIata = src.Get(feature::Metadata::FMD_AIRPORT_IATA);
   meta.m_brand = src.Get(feature::Metadata::FMD_BRAND);
 

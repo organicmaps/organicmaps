@@ -2,6 +2,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/editable_map_object.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -27,6 +28,7 @@ constexpr char const * kUploadStatus = "upload_status";
 constexpr char const * kUploadError = "upload_error";
 constexpr char const * kHouseNumber = "addr:housenumber";
 constexpr char const * kPostcode = "addr:postcode";
+constexpr char const * kCuisine = "cuisine";
 
 constexpr char const * kUnknownType = "unknown";
 constexpr char const * kNodeType = "node";
@@ -265,6 +267,10 @@ string XMLFeature::GetPostcode() const { return GetTagValue(kPostcode); }
 
 void XMLFeature::SetPostcode(string const & postcode) { SetTagValue(kPostcode, postcode); }
 
+string XMLFeature::GetCuisine() const { return GetTagValue(kCuisine); }
+
+void XMLFeature::SetCuisine(string const & cuisine) { SetTagValue(kCuisine, cuisine); }
+
 time_t XMLFeature::GetModificationTime() const
 {
   return base::StringToTimestamp(GetRootNode().attribute(kTimestamp).value());
@@ -402,6 +408,13 @@ void ApplyPatch(XMLFeature const & xml, osm::EditableMapObject & object)
   if (!postcode.empty())
     object.SetPostcode(postcode);
 
+  auto const cuisineStr = xml.GetCuisine();
+  if (!cuisineStr.empty())
+  {
+    auto const cuisines = strings::Tokenize(cuisineStr, ";");
+    object.SetCuisines(cuisines);
+  }
+
   xml.ForEachTag([&object](string const & k, string const & v) {
     if (!object.UpdateMetadataValue(k, v))
       LOG(LWARNING, ("Patch feature has unknown tags", k, v));
@@ -434,6 +447,13 @@ XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
   if (!postcode.empty())
     toFeature.SetPostcode(postcode);
 
+  auto const cuisines = object.GetCuisines();
+  if (!cuisines.empty())
+  {
+    auto const cuisineStr = strings::JoinStrings(cuisines, ";");
+    toFeature.SetCuisine(cuisineStr);
+  }
+
   if (serializeType)
   {
     feature::TypesHolder th = object.GetTypes();
@@ -443,6 +463,9 @@ XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
     // or save all our types directly, to restore and reuse them in migration of modified features.
     for (uint32_t const type : th)
     {
+      if (ftypes::IsCuisineChecker::Instance()(type))
+        continue;
+
       string const strType = classif().GetReadableObjectName(type);
       strings::SimpleTokenizer iter(strType, "-");
       string const k = *iter;
@@ -491,9 +514,19 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
   if (!postcode.empty())
     object.SetPostcode(postcode);
 
-  feature::TypesHolder types;
+  auto const cuisineStr = xml.GetCuisine();
+  if (!cuisineStr.empty())
+  {
+    auto const cuisines = strings::Tokenize(cuisineStr, ";");
+    object.SetCuisines(cuisines);
+  }
+
+  feature::TypesHolder types = object.GetTypes();
   xml.ForEachTag([&object, &types](string const & k, string const & v) {
     if (object.UpdateMetadataValue(k, v))
+      return;
+
+    if (k == "cuisine")
       return;
 
     // Simple heuristics. It works if all our supported types for
