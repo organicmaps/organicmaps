@@ -139,7 +139,6 @@
 		677A2DEB1C0DDDBE00635A00 /* resources-default in Resources */ = {isa = PBXBuildFile; fileRef = 677A2DE71C0DDD7C00635A00 /* resources-default */; };
 		67A461A71C2172C400B18739 /* 07_roboto_medium.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 67A461A61C2172C400B18739 /* 07_roboto_medium.ttf */; };
 		67E8DC931BBC1D3F0053C5BA /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E8DC911BBC1D3F0053C5BA /* libagg.a */; };
-		67F4D3F51CC5400900C5D9BB /* cuisine-strings in Resources */ = {isa = PBXBuildFile; fileRef = 67F4D3F41CC5400900C5D9BB /* cuisine-strings */; };
 		9D4AD1DD1B7388CD00EBDD27 /* 02_droidsans-fallback.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9DF792621B73884F00AF2D19 /* 02_droidsans-fallback.ttf */; };
 /* End PBXBuildFile section */
 
@@ -373,7 +372,6 @@
 		677A2DE71C0DDD7C00635A00 /* resources-default */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-default"; sourceTree = "<group>"; };
 		67A461A61C2172C400B18739 /* 07_roboto_medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 07_roboto_medium.ttf; sourceTree = "<group>"; };
 		67E8DC911BBC1D3F0053C5BA /* libagg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libagg.a; path = "../../../omim-xcode-build/Debug/libagg.a"; sourceTree = "<group>"; };
-		67F4D3F41CC5400900C5D9BB /* cuisine-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "cuisine-strings"; sourceTree = "<group>"; };
 		9DF792621B73884F00AF2D19 /* 02_droidsans-fallback.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "02_droidsans-fallback.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -555,7 +553,6 @@
 		6729A5C91A693045007D5872 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				67F4D3F41CC5400900C5D9BB /* cuisine-strings */,
 				45B5B59D1CA422EE00D93E36 /* resources-6plus_dark */,
 				45B5B59E1CA422EE00D93E36 /* resources-hdpi_dark */,
 				45B5B5A01CA422EE00D93E36 /* resources-xhdpi_dark */,
@@ -754,7 +751,6 @@
 				45B5B59B1CA422C800D93E36 /* resources-xhdpi_clear in Resources */,
 				45B5B5981CA422C800D93E36 /* resources-6plus_clear in Resources */,
 				450703071E9E6C7100E8C029 /* local_ads_symbols.txt in Resources */,
-				67F4D3F51CC5400900C5D9BB /* cuisine-strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

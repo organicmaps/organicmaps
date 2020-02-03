@@ -561,7 +561,6 @@
 		67B78B451E422C970018E590 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B441E422C970018E590 /* iAd.framework */; };
 		67B78B471E422E0A0018E590 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B461E422E0A0018E590 /* MobileCoreServices.framework */; };
 		67B78B551E42333C0018E590 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B541E42333C0018E590 /* AdSupport.framework */; };
-		6B653B951C7F2DE4007BEFC5 /* cuisine-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B653B931C7F2DE4007BEFC5 /* cuisine-strings */; };
 		6B9978361C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
 		7BD07E4A8D71CA41F082BEC7 /* Pods_MAPS_ME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E5736C23FC4E77509C9946 /* Pods_MAPS_ME.framework */; };
 		9917D17D2396793A00A7E06E /* PaidRoutesSubscriptionCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917D17C2396793A00A7E06E /* PaidRoutesSubscriptionCampaign.swift */; };
@@ -1579,7 +1578,6 @@
 		67B78B441E422C970018E590 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		67B78B461E422E0A0018E590 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		67B78B541E42333C0018E590 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		6B653B931C7F2DE4007BEFC5 /* cuisine-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "cuisine-strings"; path = "../../data/cuisine-strings"; sourceTree = "<group>"; };
 		6B9978341C89A316003B8AA0 /* editor.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
 		8022FD18AD3EEA9E8C75A7A7 /* Pods-MAPS.ME.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAPS.ME.release.xcconfig"; path = "Target Support Files/Pods-MAPS.ME/Pods-MAPS.ME.release.xcconfig"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MAPSME.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MAPSME.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -2217,7 +2215,6 @@
 				CD08888322BCF1C800C1368D /* maps.me rel.entitlements */,
 				345E8F4D1F83976800A826CC /* GoogleService-Info.plist */,
 				34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */,
-				6B653B931C7F2DE4007BEFC5 /* cuisine-strings */,
 				4A300ED31C6DCFD400140018 /* countries-strings */,
 				5605022E1B6211E100169CAD /* sound-strings */,
 			);
@@ -4797,7 +4794,6 @@
 				6741A9711BF340DE002C974C /* copyright.html in Resources */,
 				4A300ED51C6DCFD400140018 /* countries-strings in Resources */,
 				6741A9491BF340DE002C974C /* countries.txt in Resources */,
-				6B653B951C7F2DE4007BEFC5 /* cuisine-strings in Resources */,
 				347752931F7251C7000D46A3 /* UGCAddReviewTextCell.xib in Resources */,
 				6741A9871BF340DE002C974C /* drules_proto_clear.bin in Resources */,
 				6741A97E1BF340DE002C974C /* drules_proto_dark.bin in Resources */,

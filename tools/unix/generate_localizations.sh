@@ -14,7 +14,6 @@ $TWINE generate-all-localization-files --include translated --format android "$M
 $TWINE generate-all-localization-files --format apple "$MERGED_FILE" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
 $TWINE generate-all-localization-files --format apple-plural "$MERGED_FILE" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
 $TWINE generate-all-localization-files --format apple --file-name InfoPlist.strings "$OMIM_PATH/iphone/plist.txt" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
-$TWINE generate-all-localization-files --format jquery "$OMIM_PATH/data/cuisines.txt" "$OMIM_PATH/data/cuisine-strings/"
 $TWINE generate-all-localization-files --format jquery "$OMIM_PATH/data/countries_names.txt" "$OMIM_PATH/data/countries-strings/"
 $TWINE generate-all-localization-files --format jquery "$OMIM_PATH/data/sound.txt" "$OMIM_PATH/data/sound-strings/"
 
