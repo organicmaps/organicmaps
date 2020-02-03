@@ -9,9 +9,9 @@ public class StatisticMapTaskWrapper implements MapTask
 {
   private static final long serialVersionUID = 7604577952712453816L;
   @NonNull
-  private final MapTask mMapTask;
+  private final MapTaskWithStatistics mMapTask;
 
-  private StatisticMapTaskWrapper(@NonNull MapTask mapTask)
+  private StatisticMapTaskWrapper(@NonNull MapTaskWithStatistics mapTask)
   {
     mMapTask = mapTask;
   }
@@ -23,22 +23,15 @@ public class StatisticMapTaskWrapper implements MapTask
     boolean firstLaunch = MwmApplication.from(target).isFirstLaunch();
     if (success)
       Statistics.INSTANCE.trackDeeplinkEvent(Statistics.EventName.DEEPLINK_CALL,
-                                             mMapTask.toStatisticValue(), firstLaunch);
+                                             mMapTask.toStatisticParams(), firstLaunch);
     else
       Statistics.INSTANCE.trackDeeplinkEvent(Statistics.EventName.DEEPLINK_CALL_MISSED,
-                                             toStatisticValue(), firstLaunch);
+                                             mMapTask.toStatisticParams(), firstLaunch);
     return success;
   }
 
   @NonNull
-  @Override
-  public String toStatisticValue()
-  {
-    return mMapTask.toStatisticValue();
-  }
-
-  @NonNull
-  static MapTask wrap(@NonNull MapTask task)
+  static MapTask wrap(@NonNull MapTaskWithStatistics task)
   {
     return new StatisticMapTaskWrapper(task);
   }

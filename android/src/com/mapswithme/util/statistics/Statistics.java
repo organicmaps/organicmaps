@@ -5,6 +5,7 @@ import android.content.Context;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Pair;
@@ -1770,9 +1771,35 @@ public enum Statistics
     trackEvent(GUIDES_TRACK_SELECT, params().add(SERVER_ID, serverId), STATISTICS_CHANNEL_REALTIME);
   }
 
-  public void trackDeeplinkEvent(@NonNull String event, @NonNull String type, boolean isFirstLaunch)
+  public void trackDeeplinkEvent(@NonNull String event, @NonNull ParameterBuilder params,
+                                 boolean isFirstLaunch)
   {
-    trackEvent(event, params().add(TYPE, type).add(FIRST_LAUNCH, isFirstLaunch ? TRUE : FALSE));
+    trackEvent(event, params.add(FIRST_LAUNCH, isFirstLaunch ? TRUE : FALSE));
+  }
+
+  @NonNull
+  public static ParameterBuilder makeParametersFromType(@NonNull String type)
+  {
+    return params().add(TYPE, type);
+  }
+
+  @NonNull
+  public static ParameterBuilder makeParametersFromTypeAndUrl(@NonNull String type, @NonNull String url)
+  {
+    Statistics.ParameterBuilder result = params();
+    Uri uri = Uri.parse(url);
+    for (String name : uri.getQueryParameterNames())
+    {
+      if (name.startsWith("utm_") || name.equals("booking_aid"))
+      {
+        String value = uri.getQueryParameter(name);
+        result.add(name, value == null ? "" : value);
+      }
+    }
+
+    result.add(TYPE, type);
+
+    return result;
   }
 
   public static ParameterBuilder params()

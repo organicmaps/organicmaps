@@ -760,21 +760,19 @@ public class Factory
     return value;
   }
 
-  public static class BookmarksSubscriptionTask implements MapTask
+  public static class BookmarksSubscriptionTask extends UrlTaskWithStatistics
   {
     private static final long serialVersionUID = 8378582625122063605L;
-    @NonNull
-    private final String mUrl;
 
     BookmarksSubscriptionTask(@NonNull String url)
     {
-      mUrl = url;
+      super(url);
     }
 
     @Override
     public boolean run(@NonNull MwmActivity target)
     {
-      Uri uri = Uri.parse(mUrl);
+      Uri uri = Uri.parse(getUrl());
       String serverId = uri.getQueryParameter(PurchaseUtils.GROUPS);
       if (TextUtils.isEmpty(serverId))
         return false;
@@ -804,21 +802,19 @@ public class Factory
     }
   }
 
-  public static class ImportBookmarkCatalogueTask implements MapTask
+  public static class ImportBookmarkCatalogueTask extends UrlTaskWithStatistics
   {
     private static final long serialVersionUID = 5363722491377575159L;
-    @NonNull
-    private final String mUrl;
 
     ImportBookmarkCatalogueTask(@NonNull String url)
     {
-      mUrl = url;
+      super(url);
     }
 
     @Override
     public boolean run(@NonNull MwmActivity target)
     {
-      BookmarkCategoriesActivity.startForResult(target, BookmarksPageFactory.DOWNLOADED.ordinal(), mUrl);
+      BookmarkCategoriesActivity.startForResult(target, BookmarksPageFactory.DOWNLOADED.ordinal(), getUrl());
       return true;
     }
 
@@ -830,7 +826,7 @@ public class Factory
     }
   }
 
-  public static class GuidesPageToOpenTask extends BaseUrlTask
+  public static class GuidesPageToOpenTask extends UrlTaskWithStatistics
   {
     private static final long serialVersionUID = 8388101038319062165L;
 
@@ -870,13 +866,6 @@ public class Factory
       target.showIntroductionScreenForDeeplink(getUrl(), IntroductionScreenFactory.FREE_GUIDE);
       return true;
     }
-
-    @NonNull
-    @Override
-    public String toStatisticValue()
-    {
-      throw new UnsupportedOperationException("This task not statistic tracked!");
-    }
   }
 
   public static class GuidesPageToOpenIntroductionTask extends BaseUrlTask
@@ -894,13 +883,6 @@ public class Factory
       String deeplink = convertUrlToGuidesPageDeeplink(getUrl());
       target.showIntroductionScreenForDeeplink(deeplink, IntroductionScreenFactory.GUIDES_PAGE);
       return true;
-    }
-
-    @NonNull
-    @Override
-    public String toStatisticValue()
-    {
-      throw new UnsupportedOperationException("This task not statistic tracked!");
     }
   }
 
@@ -922,34 +904,58 @@ public class Factory
     }
   }
 
-  public static class OpenUrlTask implements MapTask
+  abstract static class UrlTaskWithStatistics extends MapTaskWithStatistics
+  {
+    private static final long serialVersionUID = -8661639898700431066L;
+    @NonNull
+    private final String mUrl;
+
+    UrlTaskWithStatistics(@NonNull String url)
+    {
+      Utils.checkNotNull(url);
+      mUrl = url;
+    }
+
+    @Override
+    @NonNull
+    public Statistics.ParameterBuilder toStatisticParams()
+    {
+      return Statistics.makeParametersFromTypeAndUrl(toStatisticValue(), mUrl);
+    }
+
+    @NonNull
+    String getUrl()
+    {
+      return mUrl;
+    }
+  }
+
+  public static class OpenUrlTask extends UrlTaskWithStatistics
   {
     private static final long serialVersionUID = -7257820771228127413L;
     private static final int SEARCH_IN_VIEWPORT_ZOOM = 16;
-    @NonNull
-    private final String mUrl;
+
     @NonNull
     private final String mStatisticValue;
 
     OpenUrlTask(@NonNull String url, @NonNull String statisticValue)
     {
-      Utils.checkNotNull(url);
-      mUrl = url;
+      super(url);
       mStatisticValue = statisticValue;
     }
 
     @Override
     public boolean run(@NonNull MwmActivity target)
     {
-      final @ParsedUrlMwmRequest.ParsingResult int result = Framework.nativeParseAndSetApiUrl(mUrl);
+      final @ParsedUrlMwmRequest.ParsingResult int result = Framework.nativeParseAndSetApiUrl(getUrl());
       switch (result)
       {
         case ParsedUrlMwmRequest.RESULT_INCORRECT:
           // TODO: Kernel recognizes "mapsme://", "mwm://" and "mapswithme://" schemas only!!!
-          return MapFragment.nativeShowMapForUrl(mUrl);
+          return MapFragment.nativeShowMapForUrl(getUrl());
 
         case ParsedUrlMwmRequest.RESULT_MAP:
-          return MapFragment.nativeShowMapForUrl(mUrl);
+          return MapFragment.nativeShowMapForUrl(getUrl());
 
         case ParsedUrlMwmRequest.RESULT_ROUTE:
           final ParsedRoutingData data = Framework.nativeGetParsedRoutingData();
@@ -991,7 +997,7 @@ public class Factory
     }
   }
 
-  public static class ShowCountryTask implements MapTask
+  public static class ShowCountryTask extends MapTaskWithStatistics
   {
     private static final long serialVersionUID = 256630934543189768L;
     private final String mCountryId;
@@ -1016,7 +1022,7 @@ public class Factory
     }
   }
 
-  public static class ShowBookmarkCategoryTask extends RegularMapTask
+  public static class ShowBookmarkCategoryTask implements MapTask
   {
     private static final long serialVersionUID = 8285565041410550281L;
     final long mCategoryId;
@@ -1033,7 +1039,7 @@ public class Factory
     }
   }
 
-  static abstract class BaseUserMarkTask extends RegularMapTask
+  static abstract class BaseUserMarkTask implements MapTask
   {
     private static final long serialVersionUID = -3348320422813422144L;
     final long mCategoryId;
@@ -1080,7 +1086,7 @@ public class Factory
     }
   }
 
-  public static class ShowPointTask implements MapTask
+  public static class ShowPointTask extends MapTaskWithStatistics
   {
     private static final long serialVersionUID = -2467635346469323664L;
     private final double mLat;
@@ -1108,7 +1114,7 @@ public class Factory
     }
   }
 
-  public static class BuildRouteTask implements MapTask
+  public static class BuildRouteTask extends MapTaskWithStatistics
   {
     private static final long serialVersionUID = 5301468481040195957L;
     private final double mLatTo;
@@ -1213,7 +1219,7 @@ public class Factory
     }
   }
 
-  public static class RestoreRouteTask extends RegularMapTask
+  public static class RestoreRouteTask implements MapTask
   {
     private static final long serialVersionUID = 6123893958975977040L;
 
@@ -1225,7 +1231,7 @@ public class Factory
     }
   }
 
-  public static class ShowUGCEditorTask extends RegularMapTask
+  public static class ShowUGCEditorTask implements MapTask
   {
     private static final long serialVersionUID = 1636712824900113568L;
     // Nullable because of possible serialization from previous incompatible version of class.
@@ -1256,7 +1262,7 @@ public class Factory
     }
   }
 
-  public static class ShowDialogTask extends RegularMapTask
+  public static class ShowDialogTask implements MapTask
   {
     private static final long serialVersionUID = 1548931513812565018L;
     @NonNull

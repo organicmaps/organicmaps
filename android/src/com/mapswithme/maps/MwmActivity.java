@@ -64,7 +64,6 @@ import com.mapswithme.maps.editor.ReportFragment;
 import com.mapswithme.maps.gallery.Items;
 import com.mapswithme.maps.intent.Factory;
 import com.mapswithme.maps.intent.MapTask;
-import com.mapswithme.maps.intent.RegularMapTask;
 import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.maplayer.MapLayerCompositeController;
@@ -1035,7 +1034,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (category == null)
       throw new IllegalArgumentException("Category not found in bundle");
 
-    MapTask mapTask = new RegularMapTask()
+    addTask(new MapTask()
     {
       private static final long serialVersionUID = -7417385158050827655L;
 
@@ -1045,8 +1044,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         target.showBookmarkCategory(category);
         return true;
       }
-    };
-    addTask(mapTask);
+    });
     closePlacePage();
   }
 
@@ -1133,7 +1131,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onRouteToDiscoveredObject(@NonNull final MapObject object)
   {
-    addTask(new RegularMapTask()
+    addTask(new MapTask()
     {
       private static final long serialVersionUID = -219799471997583494L;
 
@@ -1151,7 +1149,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onShowDiscoveredObject(@NonNull final MapObject object)
   {
-    addTask(new RegularMapTask()
+    addTask(new MapTask()
     {
       private static final long serialVersionUID = 7499190617762270631L;
 
@@ -1967,7 +1965,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void adjustCompassAndTraffic(final int offsetY)
   {
-    addTask(new RegularMapTask()
+    addTask(new MapTask()
     {
       private static final long serialVersionUID = 9177064181621376624L;
 

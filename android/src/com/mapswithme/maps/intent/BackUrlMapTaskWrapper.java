@@ -46,11 +46,4 @@ public class BackUrlMapTaskWrapper implements MapTask
   {
     return new BackUrlMapTaskWrapper(task, url);
   }
-
-  @NonNull
-  @Override
-  public String toStatisticValue()
-  {
-    return mMapTask.toStatisticValue();
-  }
 }
