@@ -40,7 +40,7 @@ import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.PlacePageTracker;
 import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
-public class BottomSheetPlacePageController implements PlacePageController, LocationListener,
+public class BottomSheetPlacePageController implements PlacePageController<MapObject>, LocationListener,
                                                        View.OnLayoutChangeListener,
                                                        BannerController.BannerStateRequester,
                                                        BannerController.BannerStateListener,
