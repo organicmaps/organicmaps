@@ -1,10 +1,11 @@
 #include "generator/osm2meta.hpp"
 
-#include "platform/measurement_utils.hpp"
-
 #include "routing/routing_helpers.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
+
+#include "platform/measurement_utils.hpp"
 
 #include "coding/url_encode.hpp"
 
@@ -73,6 +74,13 @@ void CollapseMultipleConsecutiveCharsIntoOne(char c, string & str)
   auto const comparator = [c](char lhs, char rhs) { return lhs == rhs && lhs == c; };
   str.erase(unique(str.begin(), str.end(), comparator), str.end());
 }
+
+bool IsNoNameNoAddressBuilding(FeatureParams const & params)
+{
+  static uint32_t const buildingType = classif().GetTypeByPath({"building"});
+  return params.m_types.size() == 1 && params.m_types[0] == buildingType &&
+         params.house.Get().empty() && params.name.IsEmpty();
+}
 }  // namespace
 
 string MetadataTagProcessorImpl::ValidateAndFormat_stars(string const & v) const
@@ -119,6 +127,9 @@ string MetadataTagProcessorImpl::ValidateAndFormat_opening_hours(string const & 
 
 string MetadataTagProcessorImpl::ValidateAndFormat_ele(string const & v) const
 {
+  if (IsNoNameNoAddressBuilding(m_params))
+    return {};
+
   return measurement_utils::OSMDistanceToMetersString(v);
 }
 
