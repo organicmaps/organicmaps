@@ -422,7 +422,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     m_autoScale2d = m_autoScale3d = kUnknownAutoZoom;
   }
 
-  if (!m_isCompassAvailable)
+  if (!m_isCompassAvailable || m_isArrowGluedInRouting)
   {
     bool const hasBearing = info.HasBearing();
     if ((isNavigable && hasBearing) ||
@@ -573,7 +573,7 @@ void MyPositionController::OnCompassUpdate(location::CompassInfo const & info, S
   double const oldAzimut = GetDrawableAzimut();
   m_isCompassAvailable = true;
 
-  if (IsInRouting() && m_isArrowGluedInRouting && m_mode == location::FollowAndRotate)
+  if (IsInRouting() && m_isArrowGluedInRouting)
     return;
 
   SetDirection(info.m_bearing);
