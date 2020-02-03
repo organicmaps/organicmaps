@@ -10,6 +10,16 @@ class MapStyleSheet: IStyleSheet {
       s.mwmImage =  "btn_menu_traffic_off"
     }
 
+    theme.add(styleName: "LayersIsolinesButtonEnabled") { (s) -> (Void) in
+      s.fontColor = colors.linkBlue
+      s.mwmImage = "btn_menu_isomaps_on"
+    }
+
+    theme.add(styleName: "LayersIsolinesButtonDisabled") { (s) -> (Void) in
+      s.fontColor = colors.blackSecondaryText
+      s.mwmImage = "btn_menu_isomaps_off"
+    }
+
     theme.add(styleName: "LayersSubwayButtonEnabled") { (s) -> (Void) in
       s.fontColor = colors.linkBlue
       s.mwmImage = "btn_menu_subway_on"

@@ -48,8 +48,7 @@ final class LayersViewController: MWMViewController {
 
   private func updateIsoLinesButton() {
     let enabled = MapOverlayManager.isoLinesEnabled()
-    isoLinesButton.setTitleColor(enabled ? UIColor.linkBlue() : UIColor.blackSecondaryText(), for: .normal)
-    isoLinesButton.imageName = enabled ? "btn_menu_isomaps_on" : "btn_menu_isomaps_off"
+    isoLinesButton.setStyleAndApply(enabled ? "LayersIsolinesButtonEnabled" : "LayersIsolinesButtonDisabled")
   }
 
   @IBAction func onTrafficButton(_ sender: UIButton) {
