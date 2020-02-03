@@ -281,6 +281,9 @@ string MetadataTagProcessorImpl::ValidateAndFormat_wikipedia(string v) const
 
 string MetadataTagProcessorImpl::ValidateAndFormat_airport_iata(string const & v) const
 {
+  if (!ftypes::IsAirportChecker::Instance()(m_params.m_types))
+    return {};
+
   if (v.size() != 3)
     return {};
 
