@@ -24,6 +24,7 @@
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
+#import <AdSupport/AdSupport.h>
 #import <CoreFoundation/CFURL.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <UIKit/UIKit.h>
@@ -131,8 +132,8 @@ std::string Platform::UniqueClientId() const { return [Alohalytics installationI
 
 std::string Platform::AdvertisingId() const
 {
-  //TODO(@beloal): Implement me.
-  return {};
+  NSUUID *adId = [ASIdentifierManager sharedManager].advertisingIdentifier;
+  return adId.UUIDString.UTF8String;
 }
 
 std::string Platform::MacAddress(bool md5Decoded) const
