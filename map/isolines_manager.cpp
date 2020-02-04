@@ -2,6 +2,8 @@
 
 #include "indexer/isolines_info.hpp"
 
+#include "metrics/eye.hpp"
+
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -43,6 +45,7 @@ void IsolinesManager::SetEnabled(bool enabled)
 {
   ChangeState(enabled ? IsolinesState::Enabled : IsolinesState::Disabled);
   m_drapeEngine.SafeCall(&df::DrapeEngine::EnableIsolines, enabled);
+  m_trackFirstSchemeData = enabled;
   if (enabled)
   {
     Invalidate();
@@ -127,7 +130,14 @@ void IsolinesManager::UpdateState()
   else if (!available && noData)
     ChangeState(IsolinesState::NoData);
   else
+  {
+    if (available && m_trackFirstSchemeData)
+    {
+      eye::Eye::Event::LayerShown(eye::Layer::Type::Isolines);
+      m_trackFirstSchemeData = false;
+    }
     ChangeState(IsolinesState::Enabled);
+  }
 }
 
 void IsolinesManager::Invalidate()

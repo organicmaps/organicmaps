@@ -67,6 +67,7 @@ private:
 
   std::vector<MwmSet::MwmId> m_lastMwms;
   std::map<MwmSet::MwmId, Availability> m_mwmCache;
+  bool m_trackFirstSchemeData = false;
 };
 
 std::string DebugPrint(IsolinesManager::IsolinesState state);
