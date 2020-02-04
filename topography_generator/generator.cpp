@@ -238,7 +238,7 @@ private:
     }
     else
     {
-      GenerateContours(lat, lon, m_srtmProvider, contours);
+      GenerateSeamlessContours(lat, lon, m_srtmProvider, contours);
     }
 
     LOG(LINFO, ("Isolines for tile", tileName, "min altitude", contours.m_minValue,

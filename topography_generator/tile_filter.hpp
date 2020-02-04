@@ -13,7 +13,7 @@ public:
   virtual size_t GetKernelRadius() const = 0;
   virtual void Process(size_t tileSize, size_t tileOffset,
                std::vector<ValueType> const & srcValues,
-               std::vector<ValueType> & dstValues) const = 0;
+               std::vector<ValueType> & dstValues, ValueType invalidValue) const = 0;
 };
 
 template <typename ValueType>
@@ -28,9 +28,9 @@ public:
 
   void Process(size_t tileSize, size_t tileOffset,
                std::vector<ValueType> const & srcValues,
-               std::vector<ValueType> & dstValues) const override
+               std::vector<ValueType> & dstValues, ValueType invalidValue) const override
   {
-    ProcessMedian(m_kernelRadius, tileSize, tileOffset, srcValues, dstValues);
+    ProcessMedian(m_kernelRadius, tileSize, tileOffset, srcValues, dstValues, invalidValue);
   }
 
 private:
@@ -49,9 +49,9 @@ public:
 
   void Process(size_t tileSize, size_t tileOffset,
                std::vector<ValueType> const & srcValues,
-               std::vector<ValueType> & dstValues) const override
+               std::vector<ValueType> & dstValues, ValueType invalidValue) const override
   {
-    ProcessWithLinearKernel(m_kernel, tileSize, tileOffset, srcValues, dstValues);
+    ProcessWithLinearKernel(m_kernel, tileSize, tileOffset, srcValues, dstValues, invalidValue);
   }
 
 private:
@@ -83,7 +83,7 @@ std::vector<ValueType> FilterTile(FiltersSequence<ValueType> const & filters,
   for (auto const & filter : filters)
   {
     currentOffset += filter->GetKernelRadius();
-    filter->Process(extTileSize, currentOffset, extTileValues, extTileValues2);
+    filter->Process(extTileSize, currentOffset, extTileValues, extTileValues2, kInvalidAltitude);
     extTileValues.swap(extTileValues2);
   }
 

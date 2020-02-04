@@ -41,9 +41,7 @@ void GetExtendedTile(ms::LatLon const & leftBottom, size_t stepsInDegree,
 
         auto npos = ms::LatLon(startPos.m_lat - ni * step, startPos.m_lon + nj * step);
         val = valuesProvider.GetValue(npos);
-        CHECK_NOT_EQUAL(val, valuesProvider.GetInvalidValue(), (ni, nj, npos));
       }
-      CHECK_NOT_EQUAL(val, valuesProvider.GetInvalidValue(), (pos));
       extTileValues[i * extendedTileSize + j] = val;
     }
   }
@@ -52,7 +50,8 @@ void GetExtendedTile(ms::LatLon const & leftBottom, size_t stepsInDegree,
 template <typename ValueType>
 void ProcessWithLinearKernel(std::vector<double> const & kernel, size_t tileSize, size_t tileOffset,
                              std::vector<ValueType> const & srcValues,
-                             std::vector<ValueType> & dstValues)
+                             std::vector<ValueType> & dstValues,
+                             ValueType invalidValue)
 {
   auto const kernelSize = kernel.size();
   auto const kernelRadius = kernel.size() / 2;
@@ -67,10 +66,21 @@ void ProcessWithLinearKernel(std::vector<double> const & kernel, size_t tileSize
     for (size_t j = tileOffset; j < tileSize - tileOffset; ++j)
     {
       tempValues[j] = 0.0;
-      for (size_t k = 0; k < kernelSize; ++k)
+      auto const origValue = srcValues[i * tileSize + j];
+      if (origValue == invalidValue)
       {
-        size_t const srcIndex = i * tileSize + j - kernelRadius + k;
-        tempValues[j] += kernel[k] * srcValues[srcIndex];
+        tempValues[j] = invalidValue;
+      }
+      else
+      {
+        for (size_t k = 0; k < kernelSize; ++k)
+        {
+          size_t const srcIndex = i * tileSize + j - kernelRadius + k;
+          auto srcValue = srcValues[srcIndex];
+          if (srcValue == invalidValue)
+            srcValue = origValue;
+          tempValues[j] += kernel[k] * srcValue;
+        }
       }
     }
     for (size_t j = tileOffset; j < tileSize - tileOffset; ++j)
@@ -84,10 +94,21 @@ void ProcessWithLinearKernel(std::vector<double> const & kernel, size_t tileSize
     for (size_t i = tileOffset; i < tileSize - tileOffset; ++i)
     {
       tempValues[i] = 0.0;
-      for (size_t k = 0; k < kernelSize; ++k)
+      auto const origValue = dstValues[i * tileSize + j];
+      if (origValue == invalidValue)
       {
-        size_t const srcIndex = (i - kernelRadius + k) * tileSize + j;
-        tempValues[i] += kernel[k] * dstValues[srcIndex];
+        tempValues[i] = invalidValue;
+      }
+      else
+      {
+        for (size_t k = 0; k < kernelSize; ++k)
+        {
+          size_t const srcIndex = (i - kernelRadius + k) * tileSize + j;
+          auto srcValue = dstValues[srcIndex];
+          if (srcValue == invalidValue)
+            srcValue = origValue;
+          tempValues[i] += kernel[k] * srcValue;
+        }
       }
     }
     for (size_t i = tileOffset; i < tileSize - tileOffset; ++i)
@@ -101,7 +122,8 @@ template <typename ValueType>
 void ProcessWithSquareKernel(std::vector<double> const & kernel, size_t kernelSize,
                              size_t tileSize, size_t tileOffset,
                              std::vector<ValueType> const & srcValues,
-                             std::vector<ValueType> & dstValues)
+                             std::vector<ValueType> & dstValues,
+                             ValueType invalidValue)
 {
   CHECK_EQUAL(kernelSize * kernelSize, kernel.size(), ());
   size_t const kernelRadius = kernelSize / 2;
@@ -114,13 +136,24 @@ void ProcessWithSquareKernel(std::vector<double> const & kernel, size_t kernelSi
     for (size_t j = tileOffset; j < tileSize - tileOffset; ++j)
     {
       size_t const dstIndex = i * tileSize + j;
-      dstValues[dstIndex] = 0;
-      for (size_t ki = 0; ki < kernelSize; ++ki)
+      auto const origValue = srcValues[dstIndex];
+      if (origValue == invalidValue)
       {
-        for (size_t kj = 0; kj < kernelSize; ++kj)
+        dstValues[dstIndex] = invalidValue;
+      }
+      else
+      {
+        dstValues[dstIndex] = 0;
+        for (size_t ki = 0; ki < kernelSize; ++ki)
         {
-          size_t const srcIndex = (i - kernelRadius + ki) * tileSize + j - kernelRadius + kj;
-          dstValues[dstIndex] += kernel[ki * kernelSize + kj] * srcValues[srcIndex];
+          for (size_t kj = 0; kj < kernelSize; ++kj)
+          {
+            size_t const srcIndex = (i - kernelRadius + ki) * tileSize + j - kernelRadius + kj;
+            auto const srcValue = srcValues[srcIndex];
+            if (srcValue == invalidValue)
+              srcValue = origValue;
+            dstValues[dstIndex] += kernel[ki * kernelSize + kj] * srcValue;
+          }
         }
       }
     }
@@ -130,7 +163,8 @@ void ProcessWithSquareKernel(std::vector<double> const & kernel, size_t kernelSi
 template <typename ValueType>
 void ProcessMedian(size_t kernelRadius, size_t tileSize, size_t tileOffset,
                    std::vector<ValueType> const & srcValues,
-                   std::vector<ValueType> & dstValues)
+                   std::vector<ValueType> & dstValues,
+                   ValueType invalidValue)
 {
   CHECK_LESS_OR_EQUAL(kernelRadius, tileOffset, ());
   CHECK_GREATER(tileSize, tileOffset * 2, ());
@@ -142,18 +176,30 @@ void ProcessMedian(size_t kernelRadius, size_t tileSize, size_t tileOffset,
   {
     for (size_t j = tileOffset; j < tileSize - tileOffset; ++j)
     {
-      size_t const startI = i - kernelRadius;
-      size_t const startJ = j - kernelRadius;
-      for (size_t ki = 0; ki < kernelSize; ++ki)
+      auto const origValue = srcValues[i * tileSize + j];
+      size_t const dstIndex = i * tileSize + j;
+      if (origValue == invalidValue)
       {
-        for (size_t kj = 0; kj < kernelSize; ++kj)
-        {
-          size_t const srcIndex = (startI + ki) * tileSize + startJ + kj;
-          kernel[ki * kernelSize + kj] = srcValues[srcIndex];
-        }
+        dstValues[dstIndex] = invalidValue;
       }
-      std::sort(kernel.begin(), kernel.end());
-      dstValues[i * tileSize + j] = kernel[kernelRadius];
+      else
+      {
+        size_t const startI = i - kernelRadius;
+        size_t const startJ = j - kernelRadius;
+        for (size_t ki = 0; ki < kernelSize; ++ki)
+        {
+          for (size_t kj = 0; kj < kernelSize; ++kj)
+          {
+            size_t const srcIndex = (startI + ki) * tileSize + startJ + kj;
+            auto srcValue = srcValues[srcIndex];
+            if (srcValue == invalidValue)
+              srcValue = origValue;
+            kernel[ki * kernelSize + kj] = srcValue;
+          }
+        }
+        std::sort(kernel.begin(), kernel.end());
+        dstValues[dstIndex] = kernel[kernelRadius];
+      }
     }
   }
 }
