@@ -610,6 +610,7 @@ public:
 
   bool HasYears() const { return !GetYears().empty(); }
   bool HasMonths() const { return !GetMonths().empty(); }
+  bool HasMonthDay() const;
   bool HasWeeks() const { return !GetWeeks().empty(); }
   bool HasWeekdays() const { return !GetWeekdays().IsEmpty(); }
   bool HasTimes() const { return !GetTimes().empty(); }

@@ -87,6 +87,8 @@ set(
   online_absent_fetcher.hpp
   online_cross_fetcher.cpp
   online_cross_fetcher.hpp
+  opening_hours_serdes.cpp
+  opening_hours_serdes.hpp
   pedestrian_directions.cpp
   pedestrian_directions.hpp
   position_accumulator.cpp
@@ -158,7 +160,7 @@ set(
   turns_sound_settings.hpp
   turns_tts_text.cpp
   turns_tts_text.hpp
-  vehicle_mask.cpp  
+  vehicle_mask.cpp
   vehicle_mask.hpp
   world_graph.cpp
   world_graph.hpp

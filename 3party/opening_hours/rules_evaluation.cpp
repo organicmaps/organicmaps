@@ -33,7 +33,7 @@ int CompareMonthDayTimeTuple(osmoh::MonthDay const & monthDay, std::tm const & d
   if (monthDay.HasYear())
   {
     if (monthDay.GetYear() != date.tm_year + kTMYearOrigin)
-      return monthDay.GetYear() != date.tm_year + kTMYearOrigin;
+      return static_cast<int>(monthDay.GetYear()) - (date.tm_year + kTMYearOrigin);
   }
 
   if (monthDay.HasMonth())
@@ -45,7 +45,7 @@ int CompareMonthDayTimeTuple(osmoh::MonthDay const & monthDay, std::tm const & d
   if (monthDay.HasDayNum())
   {
     if (monthDay.GetDayNum() != date.tm_mday)
-      return monthDay.GetDayNum() - date.tm_mday;
+      return static_cast<int>(monthDay.GetDayNum()) - date.tm_mday;
   }
 
   return 0;

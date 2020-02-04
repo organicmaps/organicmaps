@@ -689,6 +689,20 @@ std::ostream & operator<<(std::ostream & ost, TWeekRanges const ranges)
 }
 
 // RuleSequence ------------------------------------------------------------------------------------
+bool RuleSequence::HasMonthDay() const
+{
+  for (auto const & monthRange : GetMonths())
+  {
+    if (monthRange.GetStart().GetDayNum())
+      return true;
+
+    if (monthRange.GetEnd().GetDayNum())
+      return true;
+  }
+
+  return false;
+}
+
 std::ostream & operator<<(std::ostream & ost, RuleSequence::Modifier const modifier)
 {
   switch (modifier)

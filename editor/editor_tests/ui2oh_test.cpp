@@ -176,7 +176,7 @@ UNIT_TEST(OpeningHours2TimeTableSet)
   }
   {
     OpeningHours oh("2016 Mo-Fr 08:00-10:00");
-    TEST(oh.IsValid(), ());
+    TEST(!oh.IsValid(), ());
 
     TimeTableSet tts;
 
