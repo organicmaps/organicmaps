@@ -61,6 +61,12 @@ public:
     route = m_route;
     return m_code;
   }
+
+  bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction,
+                                   double radius, EdgeProj & proj) override
+  {
+    return false;
+  }
 };
 
 // Router which every next call of CalculateRoute() method return different return codes.
@@ -84,6 +90,12 @@ public:
     route = Route(GetName(), m_route.begin(), m_route.end(), 0 /* route id */);
     FillSubroutesInfo(route);
     return m_returnCodes[m_returnCodesIdx++];
+  }
+
+  bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction,
+                                   double radius, EdgeProj & proj) override
+  {
+    return false;
   }
 
 private:

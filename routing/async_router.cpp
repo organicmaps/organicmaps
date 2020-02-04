@@ -129,6 +129,13 @@ void AsyncRouter::RouterDelegateProxy::Cancel()
   m_delegate.Cancel();
 }
 
+bool AsyncRouter::FindClosestProjectionToRoad(m2::PointD const & point,
+                                              m2::PointD const & direction, double radius,
+                                              EdgeProj & proj)
+{
+  return m_router->FindClosestProjectionToRoad(point, direction, radius, proj);
+}
+
 void AsyncRouter::RouterDelegateProxy::OnProgress(float progress)
 {
   ProgressCallback onProgress = nullptr;

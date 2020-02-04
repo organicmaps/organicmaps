@@ -1149,7 +1149,7 @@ void RoutingManager::CallRouteBuildStart(std::vector<RouteMarkData> const & poin
 }
 
 void RoutingManager::MatchLocationToRoute(location::GpsInfo & location,
-                                          location::RouteMatchingInfo & routeMatchingInfo) const
+                                          location::RouteMatchingInfo & routeMatchingInfo)
 {
   if (!IsRoutingActive())
     return;

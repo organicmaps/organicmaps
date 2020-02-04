@@ -251,6 +251,7 @@ public:
 
   std::vector<RouteSegment> & GetRouteSegments() { return m_routeSegments; }
   std::vector<RouteSegment> const & GetRouteSegments() const { return m_routeSegments; }
+  RoutingSettings const & GetCurrentRoutingSettings() const { return m_routingSettings; }
 
   void SetCurrentSubrouteIdx(size_t currentSubrouteIdx) { m_currentSubrouteIdx = currentSubrouteIdx; }
 
@@ -314,7 +315,10 @@ public:
   
   bool MoveIterator(location::GpsInfo const & info);
 
-  void MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
+  /// \brief Finds projection of |location| to the nearest route and sets |routeMatchingInfo|
+  /// fields accordingly.
+  bool MatchLocationToRoute(location::GpsInfo & location,
+                            location::RouteMatchingInfo & routeMatchingInfo) const;
 
   /// Add country name if we have no country filename to make route
   void AddAbsentCountry(std::string const & name);

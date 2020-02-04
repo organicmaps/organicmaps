@@ -338,7 +338,7 @@ private:
   bool IsTrackingReporterEnabled() const;
   bool IsTrackingReporterArchiveEnabled() const;
   void MatchLocationToRoute(location::GpsInfo & info,
-                            location::RouteMatchingInfo & routeMatchingInfo) const;
+                            location::RouteMatchingInfo & routeMatchingInfo);
   location::RouteMatchingInfo GetRouteMatchingInfo(location::GpsInfo & info);
   uint32_t GenerateRoutePointsTransactionId() const;
 

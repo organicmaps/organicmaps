@@ -329,6 +329,45 @@ void IndexRouter::ClearState()
   m_directionsEngine->Clear();
 }
 
+bool IndexRouter::FindClosestProjectionToRoad(m2::PointD const & point,
+                                              m2::PointD const & direction, double radius,
+                                              EdgeProj & proj)
+{
+  auto const rect = mercator::RectByCenterXYAndSizeInMeters(point, radius);
+  std::vector<std::pair<Edge, geometry::PointWithAltitude>> candidates;
+
+  uint32_t const count = direction.IsAlmostZero() ? 1 : 3;
+  m_roadGraph.FindClosestEdges(rect, count, candidates);
+
+  if (candidates.empty())
+    return false;
+
+  if (direction.IsAlmostZero())
+  {
+    // We have no direction so return the first closest edge.
+    proj.m_edge = candidates[0].first;
+    proj.m_point = candidates[0].second.GetPoint();
+    return true;
+  }
+
+  // We have direction so we can find the closest codirectional edge.
+  Edge codirectionalEdge;
+  if (!FindClosestCodirectionalEdge(point, direction, candidates, codirectionalEdge))
+    return false;
+
+  for (auto const & [edge, projection] : candidates)
+  {
+    if (edge == codirectionalEdge)
+    {
+      proj.m_edge = edge;
+      proj.m_point = projection.GetPoint();
+      break;
+    }
+  }
+
+  return true;
+}
+
 RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
                                              m2::PointD const & startDirection,
                                              bool adjustToPrevRoute,

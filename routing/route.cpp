@@ -288,26 +288,30 @@ double Route::GetPolySegAngle(size_t ind) const
   return (i == polySz) ? 0 : base::RadToDeg(ang::AngleTo(p1, p2));
 }
 
-void Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const
+bool Route::MatchLocationToRoute(location::GpsInfo & location,
+                                 location::RouteMatchingInfo & routeMatchingInfo) const
 {
-  if (m_poly.IsValid())
+  if (!m_poly.IsValid())
+    return false;
+
+  auto const & iter = m_poly.GetCurrentIter();
+  routeMatchingInfo.Set(iter.m_pt, iter.m_ind, GetMercatorDistanceFromBegin());
+
+  auto const locationMerc = mercator::FromLatLon(location.m_latitude, location.m_longitude);
+  auto const distFromRouteM = mercator::DistanceOnEarth(iter.m_pt, locationMerc);
+
+  if (distFromRouteM < m_routingSettings.m_matchingThresholdM)
   {
-    auto const & iter = m_poly.GetCurrentIter();
-
-    auto const locationMerc = mercator::FromLatLon(location.m_latitude, location.m_longitude);
-    auto const distFromRouteM = mercator::DistanceOnEarth(iter.m_pt, locationMerc);
-
-    if (!m_poly.IsFakeSegment(iter.m_ind) &&
-        distFromRouteM < m_routingSettings.m_matchingThresholdM)
+    if (!m_poly.IsFakeSegment(iter.m_ind))
     {
       location.m_latitude = mercator::YToLat(iter.m_pt.y);
       location.m_longitude = mercator::XToLon(iter.m_pt.x);
       if (m_routingSettings.m_matchRoute)
         location.m_bearing = location::AngleToBearing(GetPolySegAngle(iter.m_ind));
+      return true;
     }
-
-    routeMatchingInfo.Set(iter.m_pt, iter.m_ind, GetMercatorDistanceFromBegin());
   }
+  return false;
 }
 
 size_t Route::GetSubrouteCount() const { return m_subrouteAttrs.size(); }

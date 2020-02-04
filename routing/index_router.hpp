@@ -93,6 +93,9 @@ public:
                                   bool adjustToPrevRoute, RouterDelegate const & delegate,
                                   Route & route) override;
 
+  bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction,
+                                   double radius, EdgeProj & proj) override;
+
   VehicleType GetVehicleType() const { return m_vehicleType; }
 
 private:
@@ -144,7 +147,7 @@ private:
 
   Segment GetSegmentByEdge(Edge const & edge) const;
 
-  /// \brief Fills |closestCodirectionalEdge| with a codirectional edge which is closet to
+  /// \brief Fills |closestCodirectionalEdge| with a codirectional edge which is closest to
   /// |point| and returns true if there's any. If not returns false.
   bool FindClosestCodirectionalEdge(
       m2::PointD const & point, m2::PointD const & direction,

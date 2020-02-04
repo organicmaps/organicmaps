@@ -100,7 +100,8 @@ public:
   void GetRouteFollowingInfo(FollowingInfo & info) const;
 
   void MatchLocationToRoute(location::GpsInfo & location,
-                            location::RouteMatchingInfo & routeMatchingInfo) const;
+                            location::RouteMatchingInfo & routeMatchingInfo);
+  void MatchLocationToRoadGraph(location::GpsInfo & location);
   // Get traffic speed for the current route position.
   // Returns SpeedGroup::Unknown if any trouble happens: position doesn't match with route or something else.
   traffic::SpeedGroup MatchTraffic(location::RouteMatchingInfo const & routeMatchingInfo) const;
@@ -194,6 +195,9 @@ private:
   SessionState m_state;
   bool m_isFollowing;
   Checkpoints m_checkpoints;
+
+  EdgeProj m_proj;
+  bool m_projectedToRoadGraph = false;
 
   /// Current position metrics to check for RouteNeedRebuild state.
   double m_lastDistance = 0.0;

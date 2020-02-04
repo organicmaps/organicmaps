@@ -48,6 +48,12 @@ public:
 
     return m_result;
   }
+
+  bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction,
+                                   double radius, EdgeProj & proj) override
+  {
+    return false;
+  }
 };
 
 class DummyFetcher : public IOnlineFetcher

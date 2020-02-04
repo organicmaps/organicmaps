@@ -22,6 +22,12 @@ using CountryParentNameGetterFn = std::function<std::string(std::string const &)
 
 class Route;
 
+struct EdgeProj
+{
+  Edge m_edge;
+  m2::PointD m_point;
+};
+
 /// Routing engine type.
 enum class RouterType
 {
@@ -64,6 +70,9 @@ public:
   virtual RouterResultCode CalculateRoute(Checkpoints const & checkpoints,
                                           m2::PointD const & startDirection, bool adjust,
                                           RouterDelegate const & delegate, Route & route) = 0;
+
+  virtual bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction,
+                                           double radius, EdgeProj & proj) = 0;
 };
 
 }  // namespace routing

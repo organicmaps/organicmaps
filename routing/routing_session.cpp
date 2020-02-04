@@ -3,13 +3,14 @@
 #include "routing/routing_helpers.hpp"
 #include "routing/speed_camera.hpp"
 
-#include "geometry/mercator.hpp"
-
 #include "platform/location.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/internal/file_data.hpp"
+
+#include "geometry/angles.hpp"
+#include "geometry/mercator.hpp"
 
 #include <utility>
 
@@ -510,8 +511,47 @@ void RoutingSession::SetRouter(unique_ptr<IRouter> && router,
   m_router->SetRouter(move(router), move(fetcher));
 }
 
+void RoutingSession::MatchLocationToRoadGraph(location::GpsInfo & location)
+{
+  auto const locationMerc = mercator::FromLatLon(location.m_latitude, location.m_longitude);
+  double const radius = m_route->GetCurrentRoutingSettings().m_matchingThresholdM;
+
+  m2::PointD const direction = m_positionAccumulator.GetDirection();
+  EdgeProj proj;
+  if (!m_router->FindClosestProjectionToRoad(locationMerc, direction, radius, proj))
+  {
+    m_projectedToRoadGraph = false;
+    return;
+  }
+
+  if (!m_projectedToRoadGraph)
+  {
+    m_projectedToRoadGraph = true;
+  }
+  else
+  {
+    if (m_proj.m_edge.GetFeatureId() == proj.m_edge.GetFeatureId())
+    {
+      location.m_latitude = mercator::YToLat(proj.m_point.y);
+      location.m_longitude = mercator::XToLon(proj.m_point.x);
+
+      if (m_route->GetCurrentRoutingSettings().m_matchRoute)
+      {
+        location.m_bearing =
+            location::AngleToBearing(base::RadToDeg(ang::AngleTo(m_proj.m_point, proj.m_point)));
+      }
+    }
+    else
+    {
+      m_projectedToRoadGraph = false;
+    }
+  }
+
+  m_proj = proj;
+}
+
 void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
-                                          location::RouteMatchingInfo & routeMatchingInfo) const
+                                          location::RouteMatchingInfo & routeMatchingInfo)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (!IsOnRoute())
@@ -519,7 +559,15 @@ void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
 
   ASSERT(m_route, ());
 
-  m_route->MatchLocationToRoute(location, routeMatchingInfo);
+  bool const matchedToRoute = m_route->MatchLocationToRoute(location, routeMatchingInfo);
+  if (matchedToRoute)
+  {
+    m_projectedToRoadGraph = false;
+    return;
+  }
+
+  // Could not match location to the route. Let's try to match to the road graph.
+  MatchLocationToRoadGraph(location);
 }
 
 traffic::SpeedGroup RoutingSession::MatchTraffic(
