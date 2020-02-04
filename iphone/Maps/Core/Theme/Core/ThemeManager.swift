@@ -5,6 +5,7 @@ final class ThemeManager: NSObject {
   private static let instance = ThemeManager()
   private weak var timer: Timer?
   private var isDarkModeEnabled: Bool = false
+  private static let enableDarkModeBySystem = false
 
   private override init() {
     super.init()
@@ -24,7 +25,7 @@ final class ThemeManager: NSObject {
       case .night: fallthrough
       case .vehicleNight: return isVehicleRouting ? .vehicleNight : .night
       case .auto:
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, *), ThemeManager.enableDarkModeBySystem {
           guard isVehicleRouting else { return isDarkModeEnabled ? .night : .day }
           return isDarkModeEnabled ? .vehicleNight : .vehicleDay
         } else {
@@ -32,8 +33,12 @@ final class ThemeManager: NSObject {
           switch FrameworkHelper.daytime(at: MWMLocationManager.lastLocation()) {
           case .day: return .vehicleDay
           case .night: return .vehicleNight
+          @unknown default:
+            fatalError()
           }
         }
+      @unknown default:
+        fatalError()
       }
     }(theme)
 
@@ -45,6 +50,8 @@ final class ThemeManager: NSObject {
       case .night: fallthrough
       case .vehicleNight: return true
       case .auto: assert(false); return false
+      @unknown default:
+        fatalError()
       }
     }(actualTheme)
 
