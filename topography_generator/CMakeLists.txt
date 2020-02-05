@@ -11,6 +11,7 @@ set(
   generator.cpp
   generator.hpp
   isolines_utils.hpp
+  isolines_profile.hpp
   main.cpp
   marching_squares/contours_builder.cpp
   marching_squares/contours_builder.hpp

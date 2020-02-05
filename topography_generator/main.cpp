@@ -32,6 +32,8 @@ DEFINE_uint64(median_r, 1, "Isolines generating mode. Median filter radius.");
 DEFINE_uint64(threads, 4, "Number of threads.");
 DEFINE_uint64(tiles_per_thread, 9, "Max cached tiles per thread");
 
+using namespace topography_generator;
+
 int main(int argc, char ** argv)
 {
   google::SetUsageMessage(
@@ -84,8 +86,7 @@ int main(int argc, char ** argv)
     return EXIT_FAILURE;
   }
 
-  topography_generator::Generator generator(FLAGS_srtm_path, FLAGS_threads,
-                                            FLAGS_tiles_per_thread);
+  Generator generator(FLAGS_srtm_path, FLAGS_threads, FLAGS_tiles_per_thread);
   if (isPackingMode)
   {
     if (FLAGS_data_dir.empty())
@@ -100,14 +101,15 @@ int main(int argc, char ** argv)
       return EXIT_FAILURE;
     }
 
-    topography_generator::CountryIsolinesParams params;
+    IsolinesPackingParams params;
+    params.m_outputDir = FLAGS_out_dir;
     params.m_simplificationZoom = static_cast<int>(FLAGS_simpl_zoom);
     params.m_maxIsolineLength = FLAGS_max_length;
     params.m_alitudesStepFactor = FLAGS_alt_step_factor;
     params.m_isolinesTilesPath = FLAGS_isolines_path;
 
     generator.InitCountryInfoGetter(FLAGS_data_dir);
-    generator.PackIsolinesForCountry(FLAGS_countryId, params, FLAGS_out_dir);
+    generator.PackIsolinesForCountry(FLAGS_countryId, params);
 
     return EXIT_SUCCESS;
   }
@@ -120,18 +122,16 @@ int main(int argc, char ** argv)
 
   CHECK(validTilesRect, ());
 
-  topography_generator::TileIsolinesParams params;
+  TileIsolinesParams params;
   if (FLAGS_median_r > 0)
   {
-    params.m_filters.emplace_back(
-      std::make_unique<topography_generator::MedianFilter<topography_generator::Altitude>>(
-        FLAGS_median_r));
+    params.m_filters.emplace_back(std::make_unique<MedianFilter<Altitude>>(FLAGS_median_r));
   }
+
   if (FLAGS_gaussian_st_dev > 0.0 && FLAGS_gaussian_r_factor > 0)
   {
     params.m_filters.emplace_back(
-      std::make_unique<topography_generator::GaussianFilter<topography_generator::Altitude>>(
-        FLAGS_gaussian_st_dev, FLAGS_gaussian_r_factor));
+      std::make_unique<GaussianFilter<Altitude>>(FLAGS_gaussian_st_dev, FLAGS_gaussian_r_factor));
   }
 
   params.m_outputDir = FLAGS_out_dir;
