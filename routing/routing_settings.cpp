@@ -33,7 +33,7 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
             20.0 /* m_matchingThresholdM */,
             false /* m_showTurnAfterNext */,
             -1 /* m_minSpeedForRouteRebuildMpS */,
-            20.0 /* m_finishToleranceM */};
+            15.0 /* m_finishToleranceM */};
   case VehicleType::Transit:
     return {false /* useDirectionForRouteBuilding */,
             true /* m_matchRoute */,
@@ -41,7 +41,7 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
             40.0 /* m_matchingThresholdM */,
             false /* m_showTurnAfterNext */,
             -1 /* m_minSpeedForRouteRebuildMpS */,
-            20.0 /* m_finishToleranceM */};
+            15.0 /* m_finishToleranceM */};
   case VehicleType::Bicycle:
     return {false /* useDirectionForRouteBuilding */,
             true /* m_matchRoute */,
@@ -49,7 +49,7 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
             30.0 /* m_matchingThresholdM */,
             false /* m_showTurnAfterNext */,
             -1 /* m_minSpeedForRouteRebuildMpS */,
-            20.0 /* m_finishToleranceM */};
+            15.0 /* m_finishToleranceM */};
   case VehicleType::Car:
     return {true /* useDirectionForRouteBuilding */,
             true /* m_matchRoute */,
@@ -57,7 +57,7 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
             50.0 /* m_matchingThresholdM */,
             true /* m_showTurnAfterNext */,
             routing::KMPH2MPS(3.0) /* m_minSpeedForRouteRebuildMpS */,
-            50.0 /* m_finishToleranceM */};
+            20.0 /* m_finishToleranceM */};
   case VehicleType::Count:
     CHECK(false, ("Can't create GetRoutingSettings for", vehicleType));
   }
