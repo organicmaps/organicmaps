@@ -463,13 +463,13 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mReset = (TextView) view.findViewById(R.id.reset);
     mReset.setOnClickListener(this);
 
-    mDetailsBlocks.append(OsmProps.OpeningHours.toInt(), blockOpeningHours);
-    mDetailsBlocks.append(OsmProps.Phone.toInt(), blockPhone);
-    mDetailsBlocks.append(OsmProps.Website.toInt(), blockWeb);
-    mDetailsBlocks.append(OsmProps.Email.toInt(), blockEmail);
-    mDetailsBlocks.append(OsmProps.Cuisine.toInt(), blockCuisine);
-    mDetailsBlocks.append(OsmProps.Operator.toInt(), blockOperator);
-    mDetailsBlocks.append(OsmProps.Internet.toInt(), blockWifi);
+    mDetailsBlocks.append(OsmProps.OpeningHours.ordinal(), blockOpeningHours);
+    mDetailsBlocks.append(OsmProps.Phone.ordinal(), blockPhone);
+    mDetailsBlocks.append(OsmProps.Website.ordinal(), blockWeb);
+    mDetailsBlocks.append(OsmProps.Email.ordinal(), blockEmail);
+    mDetailsBlocks.append(OsmProps.Cuisine.ordinal(), blockCuisine);
+    mDetailsBlocks.append(OsmProps.Operator.ordinal(), blockOperator);
+    mDetailsBlocks.append(OsmProps.Internet.ordinal(), blockWifi);
   }
 
   private static EditText findInput(View blockWithInput)

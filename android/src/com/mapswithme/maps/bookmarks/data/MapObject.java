@@ -31,31 +31,20 @@ public class MapObject implements Parcelable, PopularityProvider, ShareableInfoP
   // Order must correspond indexer/map_object.hpp
   public enum OsmProps
   {
-    OpeningHours(0),
-    Phone(1),
-    Fax(2),
-    Website(3),
-    Email(4),
-    Cuisine(5),
-    Stars(6),
-    Operator(7),
-    Elevation(8),
-    Internet(9),
-    Wikipedia(10),
-    Flats(11),
-    BuildingLevels(12),
-    Level(13);
-    private final int mType;
-
-    OsmProps(int type)
-    {
-      mType = type;
-    }
-
-    public int toInt()
-    {
-      return mType;
-    }
+    OpeningHours,
+    Phone,
+    Fax,
+    Website,
+    Email,
+    Cuisine,
+    Stars,
+    Operator,
+    Elevation,
+    Internet,
+    Wikipedia,
+    Flats,
+    BuildingLevels,
+    Level;
   }
 
   @Retention(RetentionPolicy.SOURCE)
