@@ -30,8 +30,18 @@ std::string Platform::UniqueClientId() const
 
 std::string Platform::AdvertisingId() const
 {
-  //TODO(@alexzatsepin): Implement me.
-  return {};
+  JNIEnv *env = jni::GetEnv();
+  static jmethodID const getAdvertisingId = jni::GetStaticMethodID(env, g_utilsClazz,
+                                                                   "getAdvertisingId",
+                                                                   "(Landroid/content/Context;)"
+                                                                   "Ljava/lang/String;");
+  jobject context = android::Platform::Instance().GetContext();
+  jni::TScopedLocalRef adIdRef(env, env->CallStaticObjectMethod(g_utilsClazz, getAdvertisingId,
+                                                                context));
+  if (adIdRef.get() == nullptr)
+    return {};
+
+  return jni::ToNativeString(env, static_cast<jstring>(adIdRef.get()));
 }
 
 std::string Platform::MacAddress(bool md5Decoded) const

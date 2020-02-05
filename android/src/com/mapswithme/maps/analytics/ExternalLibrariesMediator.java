@@ -3,11 +3,11 @@ package com.mapswithme.maps.analytics;
 import android.app.Application;
 import android.os.AsyncTask;
 import android.os.CountDownTimer;
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
-import android.text.TextUtils;
-
 import com.appsflyer.AppsFlyerConversionListener;
 import com.appsflyer.AppsFlyerLib;
 import com.crashlytics.android.Crashlytics;
@@ -191,6 +191,12 @@ public class ExternalLibrariesMediator
       throw new IllegalStateException("Advertising info must be obtained first!");
 
     return mAdvertisingInfo.isLimitAdTrackingEnabled();
+  }
+
+  @Nullable
+  public String getAdvertisingId()
+  {
+    return mAdvertisingInfo != null ? mAdvertisingInfo.getID() : null;
   }
 
   public void disableAdProvider(@NonNull Banner.Type type)
@@ -389,6 +395,12 @@ public class ExternalLibrariesMediator
       return "AdvertisingInfo{" +
              "mInfo=" + mInfo +
              '}';
+    }
+
+    @Nullable
+    String getID()
+    {
+      return mInfo != null ? mInfo.getId() : null;
     }
   }
 
