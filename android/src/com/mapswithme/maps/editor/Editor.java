@@ -63,7 +63,7 @@ public final class Editor
   public static native boolean nativeShouldShowAddPlace();
   public static native boolean nativeShouldShowAddBusiness();
   @NonNull
-  public static native int[] nativeGetEditableFields();
+  public static native int[] nativeGetEditableProperties();
 
   public static native String nativeGetCategory();
   public static native String nativeGetOpeningHours();

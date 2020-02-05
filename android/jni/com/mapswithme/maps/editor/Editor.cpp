@@ -261,14 +261,14 @@ Java_com_mapswithme_maps_editor_Editor_nativeShouldShowAddBusiness(JNIEnv *, jcl
 }
 
 JNIEXPORT jintArray JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetEditableFields(JNIEnv * env, jclass clazz)
+Java_com_mapswithme_maps_editor_Editor_nativeGetEditableProperties(JNIEnv * env, jclass clazz)
 {
-  auto const & editable = g_editableMapObject.GetEditableFields();
+  auto const & editable = g_editableMapObject.GetEditableProperties();
   size_t const size = editable.size();
   jintArray jEditableFields = env->NewIntArray(static_cast<jsize>(size));
   jint * arr = env->GetIntArrayElements(jEditableFields, 0);
   for (size_t i = 0; i < size; ++i)
-    arr[i] = editable[i];
+    arr[i] = base::Underlying(editable[i]);
   env->ReleaseIntArrayElements(jEditableFields, arr, 0);
 
   return jEditableFields;
