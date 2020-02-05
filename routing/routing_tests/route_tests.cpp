@@ -141,9 +141,9 @@ UNIT_TEST(FinshRouteOnSomeDistanceToTheFinishPointTest)
       // Finish tolerance value for cars is greater then for other vehicle types.
       // The iterator for other types should be moved closer to the finish point.
       if (vehicleType == VehicleType::Car)
-        route.MoveIterator(GetGps(1.0, 2.99956));
+        route.MoveIterator(GetGps(1.0, 2.99986));
       else
-        route.MoveIterator(GetGps(1.0, 2.99983));
+        route.MoveIterator(GetGps(1.0, 2.99989));
 
       TEST(route.IsSubroutePassed(0), ());
       TEST_LESS(route.GetCurrentDistanceToEndMeters(), distToFinish, ());
