@@ -126,7 +126,8 @@ void IsolinesManager::UpdateState()
     ChangeState(IsolinesState::ExpiredData);
   else if (!available && noData)
     ChangeState(IsolinesState::NoData);
-  ChangeState(IsolinesState::Enabled);
+  else
+    ChangeState(IsolinesState::Enabled);
 }
 
 void IsolinesManager::Invalidate()
