@@ -1187,8 +1187,6 @@ public class PlacePageView extends NestedScrollView
 
   private void processSponsored(@NonNull NetworkPolicy policy)
   {
-    mCatalogPromoController.updateCatalogPromo(policy, mMapObject);
-
     if (mSponsored == null || mMapObject == null)
       return;
 
