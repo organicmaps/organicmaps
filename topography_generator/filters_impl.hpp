@@ -176,8 +176,8 @@ void ProcessMedian(size_t kernelRadius, size_t tileSize, size_t tileOffset,
   {
     for (size_t j = tileOffset; j < tileSize - tileOffset; ++j)
     {
-      auto const origValue = srcValues[i * tileSize + j];
       size_t const dstIndex = i * tileSize + j;
+      auto const origValue = srcValues[dstIndex];
       if (origValue == invalidValue)
       {
         dstValues[dstIndex] = invalidValue;

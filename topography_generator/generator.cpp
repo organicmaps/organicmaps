@@ -15,6 +15,7 @@
 
 #include <algorithm>
 #include <fstream>
+#include <set>
 #include <vector>
 
 namespace topography_generator
@@ -34,8 +35,13 @@ void MercatorRectToTilesRange(m2::RectD const & rect,
 
   left = static_cast<int>(floor(leftBottom.m_lon));
   bottom = static_cast<int>(floor(leftBottom.m_lat));
-  right = static_cast<int>(floor(rightTop.m_lon));
-  top = static_cast<int>(floor(rightTop.m_lat));
+  right = std::min(179, static_cast<int>(floor(rightTop.m_lon)));
+  top = std::min(89, static_cast<int>(floor(rightTop.m_lat)));
+}
+
+std::string GetTileProfilesDir(std::string const & tilesDir)
+{
+  return base::JoinPath(tilesDir, "tiles_profiles");
 }
 
 std::string GetTileProfilesFilePath(int lat, int lon, std::string const & profilesDir)
@@ -43,7 +49,7 @@ std::string GetTileProfilesFilePath(int lat, int lon, std::string const & profil
   return GetIsolinesFilePath(lat, lon, profilesDir) + ".profiles";
 }
 
-std::string GetTilesProfileDir(std::string const & tilesDir, std::string const & profileName)
+std::string GetTilesDir(std::string const & tilesDir, std::string const & profileName)
 {
   return base::JoinPath(tilesDir, profileName);
 }
@@ -54,7 +60,7 @@ void AppendTileProfile(std::string const & fileName, std::string const & profile
   fout << profileName << std::endl;
 }
 
-bool LoadTileProfiles(std::string const & fileName, std::vector<std::string> & profileNames)
+bool LoadTileProfiles(std::string const & fileName, std::set<std::string> & profileNames)
 {
   std::ifstream fin(fileName);
   if (!fin)
@@ -63,7 +69,7 @@ bool LoadTileProfiles(std::string const & fileName, std::vector<std::string> & p
   while (std::getline(fin, line))
   {
     if (!line.empty())
-      profileNames.push_back(line);
+      profileNames.insert(line);
   }
   return true;
 }
@@ -258,10 +264,10 @@ public:
 private:
   void Init(int left, int bottom, int right, int top)
   {
-    CHECK(right >= -180 && right <= 179, ());
-    CHECK(left >= -180 && left <= 179, ());
-    CHECK(top >= -90 && top <= 89, ());
-    CHECK(bottom >= -90 && bottom <= 89, ());
+    CHECK(right >= -179 && right <= 180, (right));
+    CHECK(left >= -180 && left <= 179, (left));
+    CHECK(top >= -89 && top <= 90, (top));
+    CHECK(bottom >= -90 && bottom <= 89, (bottom));
 
     m_left = left;
     m_bottom = bottom;
@@ -272,6 +278,16 @@ private:
   void ProcessTile(int lat, int lon)
   {
     auto const tileName = GetIsolinesTileBase(lat, lon);
+
+    if (m_profileParams != nullptr)
+    {
+      auto const profilesPath = GetTileProfilesFilePath(lat, lon, m_profileParams->m_tilesProfilesDir);
+      if (!GetPlatform().IsFileExistsByFullPath(profilesPath))
+      {
+        LOG(LINFO, ("SRTM tile", tileName, "doesn't have profiles, skip processing."));
+        return;
+      }
+    }
 
     if (!GetPlatform().IsFileExistsByFullPath(generator::SrtmTile::GetPath(m_strmDir, tileName)))
     {
@@ -288,13 +304,8 @@ private:
     if (m_profileParams != nullptr)
     {
       auto const profilesPath = GetTileProfilesFilePath(lat, lon, m_profileParams->m_tilesProfilesDir);
-      if (!GetPlatform().IsFileExistsByFullPath(profilesPath))
-      {
-        LOG(LINFO, ("SRTM tile", tileName, "doesn't have profiles, skip processing."));
-        return;
-      }
 
-      std::vector<std::string> profileNames;
+      std::set<std::string> profileNames;
       CHECK(LoadTileProfiles(profilesPath, profileNames) && !profileNames.empty(), (tileName));
 
       for (auto const & profileName : profileNames)
@@ -463,22 +474,38 @@ void Generator::GenerateIsolines(int left, int bottom, int right, int top,
 void Generator::GenerateIsolinesForCountries()
 {
   if (!GetPlatform().IsFileExistsByFullPath(m_isolinesTilesOutDir) &&
-    !GetPlatform().MkDirRecursively(m_isolinesTilesOutDir))
+      !GetPlatform().MkDirRecursively(m_isolinesTilesOutDir))
   {
     LOG(LERROR, ("Can't create directory", m_isolinesTilesOutDir));
     return;
   }
 
-  auto const tmpDir = base::JoinPath(m_isolinesTilesOutDir, "tiles_profiles");
-
-  Platform::RmDirRecursively(tmpDir);
-  if (!GetPlatform().MkDirChecked(tmpDir))
+  std::set<std::string> checkedProfiles;
+  for (auto const & countryParams : m_countriesToGenerate.m_countryParams)
   {
-    LOG(LERROR, ("Can't create directory", tmpDir));
+    auto const profileName = countryParams.second.m_profileName;
+    if (checkedProfiles.find(profileName) != checkedProfiles.end())
+      continue;
+    checkedProfiles.insert(profileName);
+    auto const profileTilesDir = GetTilesDir(m_isolinesTilesOutDir, profileName);
+    if (!GetPlatform().IsFileExistsByFullPath(profileTilesDir) &&
+        !GetPlatform().MkDirChecked(profileTilesDir))
+    {
+      LOG(LERROR, ("Can't create directory", profileTilesDir));
+      return;
+    }
+  }
+
+  auto const tmpTileProfilesDir = GetTileProfilesDir(m_isolinesTilesOutDir);
+
+  Platform::RmDirRecursively(tmpTileProfilesDir);
+  if (!GetPlatform().MkDirChecked(tmpTileProfilesDir))
+  {
+    LOG(LERROR, ("Can't create directory", tmpTileProfilesDir));
     return;
   }
 
-  //SCOPE_GUARD(tmpDirGuard, std::bind(&Platform::RmDirRecursively, tmpDir));
+  //SCOPE_GUARD(tmpDirGuard, std::bind(&Platform::RmDirRecursively, tmpTileProfilesDir));
 
   m2::RectI boundingRect;
   for (auto const & countryParams : m_countriesToGenerate.m_countryParams)
@@ -500,14 +527,16 @@ void Generator::GenerateIsolinesForCountries()
       {
         if (params.NeedSkipTile(lat, lon))
           continue;
-        auto const tileProfilesFilePath = GetTileProfilesFilePath(lat, lon, tmpDir);
+        auto const tileProfilesFilePath = GetTileProfilesFilePath(lat, lon, tmpTileProfilesDir);
         AppendTileProfile(tileProfilesFilePath, params.m_profileName);
       }
     }
   }
 
+  LOG(LINFO, ("Generate isolienes for tiles rect", boundingRect));
+
   GenerateIsolines(boundingRect.LeftBottom().x, boundingRect.LeftBottom().y,
-                   boundingRect.RightTop().x, boundingRect.RightTop().y, tmpDir);
+                   boundingRect.RightTop().x, boundingRect.RightTop().y + 1, tmpTileProfilesDir);
 }
 
 void Generator::PackIsolinesForCountry(storage::CountryId const & countryId,
@@ -645,7 +674,7 @@ void Generator::InitProfiles(std::string const & isolinesProfilesFileName,
     auto const & profileParams = profile.second;
 
     TileIsolinesParams tileParams;
-    tileParams.m_outputDir = GetTilesProfileDir(isolinesTilesOutDir, profileName);
+    tileParams.m_outputDir = GetTilesDir(isolinesTilesOutDir, profileName);
     tileParams.m_latLonStepFactor = profileParams.m_latLonStepFactor;
     tileParams.m_alitudesStep = profileParams.m_alitudesStep;
     tileParams.m_simplificationZoom = profileParams.m_simplificationZoom;
@@ -663,7 +692,7 @@ void Generator::InitProfiles(std::string const & isolinesProfilesFileName,
     packingParams.m_outputDir = isolinesCountriesOutDir;
     packingParams.m_simplificationZoom = 0;
     packingParams.m_alitudesStepFactor = 1;
-    packingParams.m_isolinesTilesPath = GetTilesProfileDir(isolinesTilesOutDir, profileName);
+    packingParams.m_isolinesTilesPath = GetTilesDir(isolinesTilesOutDir, profileName);
     packingParams.m_maxIsolineLength = profileParams.m_maxIsolinesLength;
     m_profileToPackingParams.emplace(profileName, std::move(packingParams));
   }

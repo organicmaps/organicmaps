@@ -2,6 +2,8 @@
 
 #include "topography_generator/isolines_utils.hpp"
 
+#include "storage/storage_defines.hpp"
+
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/serdes_json.hpp"
@@ -9,6 +11,7 @@
 #include "base/visitor.hpp"
 
 #include <map>
+#include <string>
 #include <unordered_set>
 
 namespace topography_generator
@@ -42,7 +45,7 @@ struct IsolinesProfilesCollection
 struct TileCoord
 {
   TileCoord() = default;
-  TileCoord(int leftLon, int bottomLat): m_leftLon(leftLon), m_bottomLat(bottomLat) {}
+  TileCoord(int bottomLat, int leftLon): m_leftLon(leftLon), m_bottomLat(bottomLat) {}
 
   int32_t m_leftLon = 0;
   int32_t m_bottomLat = 0;
@@ -67,26 +70,26 @@ struct TileCoordHash
 struct CountryIsolinesParams
 {
   std::string m_profileName;
-  std::unordered_set<TileCoord, TileCoordHash> m_tileNamesSubset;
+  std::unordered_set<TileCoord, TileCoordHash> m_tileCoordsSubset;
   bool m_tilesAreBanned;
 
   bool NeedSkipTile(int lat, int lon) const
   {
-    if (m_tileNamesSubset.empty())
+    if (m_tileCoordsSubset.empty())
       return false;
     TileCoord coord(lat, lon);
-    auto const found = m_tileNamesSubset.find(coord) != m_tileNamesSubset.end();
+    auto const found = m_tileCoordsSubset.find(coord) != m_tileCoordsSubset.end();
     return m_tilesAreBanned == found;
   }
 
   DECLARE_VISITOR_AND_DEBUG_PRINT(CountryIsolinesParams, visitor(m_profileName, "profileName"),
-                                  visitor(m_tileNamesSubset, "tileNamesSubset"),
+                                  visitor(m_tileCoordsSubset, "tileCoordsSubset"),
                                   visitor(m_tilesAreBanned, "tilesAreBanned"));
 };
 
 struct CountriesToGenerate
 {
-  std::map<std::string, CountryIsolinesParams> m_countryParams;
+  std::map<storage::CountryId, CountryIsolinesParams> m_countryParams;
 
   DECLARE_VISITOR_AND_DEBUG_PRINT(CountriesToGenerate, visitor(m_countryParams, "countryParams"));
 };
