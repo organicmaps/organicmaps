@@ -1,7 +1,9 @@
 package com.mapswithme.maps.downloader;
 
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Class representing a single item in countries hierarchy.
@@ -63,6 +65,7 @@ public final class CountryItem implements Comparable<CountryItem>
   // Internal ID for grouping under headers in the list
   int headerId;
   // Internal field to store search result name
+  @Nullable
   String searchResultName;
 
   private static void ensureRootIdKnown()
