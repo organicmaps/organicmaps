@@ -201,6 +201,9 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       @Override
       public void onClick(View v)
       {
+        if (mCurrentCountry == null)
+          return;
+
         MapManager.nativeCancel(mCurrentCountry.id);
         Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
                                        Statistics.params().add(Statistics.EventParam.FROM, "map"));
@@ -213,7 +216,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       @Override
       public void onClick(View v)
       {
-        MapManager.warnOn3g(mActivity, mCurrentCountry.id, new Runnable()
+        MapManager.warnOn3g(mActivity, mCurrentCountry == null ? null : mCurrentCountry.id, new Runnable()
         {
           @Override
           public void run()
