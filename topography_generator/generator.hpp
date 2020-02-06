@@ -51,7 +51,8 @@ using ProfileToIsolinesPackingParams = std::map<std::string, IsolinesPackingPara
 class Generator
 {
 public:
-  Generator(std::string const & srtmPath, size_t threadsCount, size_t maxCachedTilesPerThread);
+  Generator(std::string const & srtmPath, size_t threadsCount, size_t maxCachedTilesPerThread,
+            bool forceRegenerate);
 
   void InitCountryInfoGetter(std::string const & dataDir);
 
@@ -96,5 +97,6 @@ private:
   size_t m_threadsCount;
   size_t m_maxCachedTilesPerThread;
   std::string m_srtmPath;
+  bool m_forceRegenerate;
 };
 }  // namespace topography_generator

@@ -13,12 +13,14 @@ class MarchingSquares
 {
 public:
   MarchingSquares(ms::LatLon const & leftBottom, ms::LatLon const & rightTop,
-                  double step, ValueType valueStep, ValuesProvider<ValueType> & valuesProvider)
+                  double step, ValueType valueStep, ValuesProvider<ValueType> & valuesProvider,
+                  std::string const & debugId)
     : m_leftBottom(leftBottom)
     , m_rightTop(rightTop)
     , m_step(step)
     , m_valueStep(valueStep)
     , m_valuesProvider(valuesProvider)
+    , m_debugId(debugId)
   {
     CHECK_GREATER(m_rightTop.m_lon, m_leftBottom.m_lon, ());
     CHECK_GREATER(m_rightTop.m_lat, m_leftBottom.m_lat, ());
@@ -42,8 +44,7 @@ public:
       return;
     }
 
-    ContoursBuilder contoursBuilder(levelsCount);
-    contoursBuilder.SetDebugId(m_debugId);
+    ContoursBuilder contoursBuilder(levelsCount, m_debugId);
 
     for (size_t i = 0; i < m_stepsCountLat; ++i)
     {
@@ -56,8 +57,8 @@ public:
         auto const rightTop = ms::LatLon(std::min(leftBottom.m_lat + m_step, m_rightTop.m_lat),
                                          std::min(leftBottom.m_lon + m_step, m_rightTop.m_lon));
 
-        Square<ValueType> square(leftBottom, rightTop, result.m_minValue, m_valueStep, m_valuesProvider);
-        square.SetDebugId(m_debugId);
+        Square<ValueType> square(leftBottom, rightTop, result.m_minValue, m_valueStep,
+                                 m_valuesProvider, m_debugId);
         square.GenerateSegments(contoursBuilder);
       }
       auto const isLastLine = i == m_stepsCountLat - 1;
@@ -66,8 +67,6 @@ public:
 
     contoursBuilder.GetContours(result.m_minValue, result.m_valueStep, result.m_contours);
   }
-
-  void SetDebugId(std::string const & debugId) { m_debugId = debugId; }
 
 private:
   void ScanValuesInRect(ValueType & minValue, ValueType & maxValue, size_t & invalidValuesCount) const
@@ -93,6 +92,9 @@ private:
           maxValue = value;
       }
     }
+
+    if (invalidValuesCount > 0)
+      LOG(LWARNING, ("Tile", m_debugId, "contains", invalidValuesCount, "invalid values."));
 
     Square<ValueType>::ToLevelsRange(m_valueStep, minValue, maxValue);
 

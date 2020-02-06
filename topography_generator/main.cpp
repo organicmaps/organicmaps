@@ -7,6 +7,9 @@
 
 #include <cstdlib>
 
+// Common option for all modes
+DEFINE_bool(force, false, "Force to regenerate isolines for tiles and countries.");
+
 // Options for automatic isolines generating mode.
 DEFINE_string(profiles_path, "", "Automatic isolines generating mode. "
                                  "Path to a json file with isolines profiles.");
@@ -146,7 +149,7 @@ int main(int argc, char ** argv)
     }
   }
 
-  Generator generator(FLAGS_srtm_path, FLAGS_threads, FLAGS_tiles_per_thread);
+  Generator generator(FLAGS_srtm_path, FLAGS_threads, FLAGS_tiles_per_thread, FLAGS_force);
 
   if (isAutomaticMode)
   {

@@ -15,7 +15,7 @@ namespace topography_generator
 class ContoursBuilder
 {
 public:
-  explicit ContoursBuilder(size_t levelsCount);
+  ContoursBuilder(size_t levelsCount, std::string const & debugId);
 
   void AddSegment(size_t levelInd, ms::LatLon const & beginPos, ms::LatLon const & endPos);
   void BeginLine();
@@ -41,8 +41,6 @@ public:
       }
     }
   }
-
-  void SetDebugId(std::string const & debugId) { m_debugId = debugId; }
 
 private:
   using ContourRaw = std::deque<ms::LatLon>;

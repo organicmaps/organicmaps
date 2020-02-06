@@ -12,13 +12,15 @@ public:
   Square(ms::LatLon const & leftBottom,
          ms::LatLon const & rightTop,
          ValueType minValue, ValueType valueStep,
-         ValuesProvider<ValueType> & valuesProvider)
+         ValuesProvider<ValueType> & valuesProvider,
+         std::string const & debugId)
     : m_minValue(minValue)
     , m_valueStep(valueStep)
     , m_left(leftBottom.m_lon)
     , m_right(rightTop.m_lon)
     , m_bottom(leftBottom.m_lat)
     , m_top(rightTop.m_lat)
+    , m_debugId(debugId)
   {
     static_assert(std::is_integral<ValueType>::value, "Only integral types are supported.");
 
@@ -30,6 +32,9 @@ public:
 
   void GenerateSegments(ContoursBuilder & builder)
   {
+    if (!m_isValid)
+      return;
+
     ValueType minVal = std::min(m_valueLB, std::min(m_valueLT, std::min(m_valueRT, m_valueRB)));
     ValueType maxVal = std::max(m_valueLB, std::max(m_valueLT, std::max(m_valueRT, m_valueRB)));
 
@@ -54,8 +59,6 @@ public:
       maxVal = step * ((maxVal + 1) / step);
   }
 
-  void SetDebugId(std::string const & debugId) { m_debugId = debugId; }
-
 private:
   enum class Rib
   {
@@ -67,12 +70,17 @@ private:
     Unclear,
   };
 
-  ValueType GetValue(ms::LatLon const & pos, ValuesProvider<ValueType> & valuesProvider) const
+  ValueType GetValue(ms::LatLon const & pos, ValuesProvider<ValueType> & valuesProvider)
   {
     // If a contour goes right through the corner of the square false segments can be generated.
     // Shift the value slightly from the corner.
     ValueType val = valuesProvider.GetValue(pos);
-    CHECK(val != valuesProvider.GetInvalidValue(), (m_debugId, pos));
+    if (val == valuesProvider.GetInvalidValue())
+    {
+      LOG(LWARNING, ("Invalid value at the position", pos, m_debugId));
+      m_isValid = false;
+      return val;
+    }
 
     if (val % m_valueStep == 0)
       return val + 1;
@@ -217,6 +225,7 @@ private:
   ValueType m_valueRT;
   ValueType m_valueRB;
 
+  bool m_isValid = true;
   std::string m_debugId;
 };
 }  // topography_generator

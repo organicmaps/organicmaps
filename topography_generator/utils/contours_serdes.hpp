@@ -5,6 +5,7 @@
 #include "coding/file_writer.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/geometry_coding.hpp"
+#include "coding/internal/file_data.hpp"
 
 namespace topography_generator
 {
@@ -104,17 +105,20 @@ template <typename ValueType>
 bool SaveContrours(std::string const & filePath,
                    Contours<ValueType> && contours)
 {
+  auto const tmpFilePath = filePath + ".tmp";
   try
   {
-    FileWriter file(filePath);
+    FileWriter file(tmpFilePath);
     SerializerContours<ValueType> ser(std::move(contours));
     ser.Serialize(file);
   }
   catch (FileWriter::Exception const & ex)
   {
-    LOG(LWARNING, ("File writer exception raised:", ex.what(), ", file", filePath));
+    LOG(LWARNING, ("File writer exception raised:", ex.what(), ", file", tmpFilePath));
     return false;
   }
+  base::DeleteFileX(filePath);
+  VERIFY(base::RenameFileX(tmpFilePath, filePath), (fileTmp, file));
   return true;
 }
 

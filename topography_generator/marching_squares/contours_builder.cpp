@@ -6,10 +6,11 @@ namespace topography_generator
 {
 double constexpr kEps = 1e-7;
 
-ContoursBuilder::ContoursBuilder(size_t levelsCount)
+ContoursBuilder::ContoursBuilder(size_t levelsCount, std::string const & debugId)
   : m_levelsCount(levelsCount)
   , m_finalizedContours(levelsCount)
   , m_activeContours(levelsCount)
+  , m_debugId(debugId)
 {}
 
 void ContoursBuilder::AddSegment(size_t levelInd, ms::LatLon const & beginPos, ms::LatLon const & endPos)

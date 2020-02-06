@@ -90,12 +90,17 @@ public:
   Altitude GetValue(ms::LatLon const & pos) override
   {
     auto const alt = GetValueImpl(pos);
-    if (alt != kInvalidAltitude)
+    if (IsValidAltitude(alt))
       return alt;
     return GetMedianValue(pos);
   }
 
   Altitude GetInvalidValue() const override { return kInvalidAltitude; }
+
+  static bool IsValidAltitude(Altitude alt)
+  {
+    return alt != kInvalidAltitude && alt > -420 && alt < 8850;
+  }
 
 private:
   Altitude GetValueImpl(ms::LatLon const & pos)
@@ -126,9 +131,6 @@ private:
 
   Altitude GetMedianValue(ms::LatLon const & pos)
   {
-    if (!m_srtmManager.GetTile(pos).IsValid())
-      return kInvalidAltitude;
-
     // Look around the position with invalid altitude
     // and return median of surrounding valid altitudes.
     double const step = 1.0 / kArcSecondsInDegree;
@@ -147,13 +149,18 @@ private:
           if (abs(i) != kernelRadius && abs(j) != kernelRadius)
             continue;
           auto const alt = GetValueImpl({pos.m_lat + i * step, pos.m_lon + j * step});
-          if (alt == kInvalidAltitude)
-            continue;
-          kernel.push_back(alt);
+          if (IsValidAltitude(alt))
+            kernel.push_back(alt);
         }
       }
     }
-    CHECK(!kernel.empty(), (pos));
+
+    if (kernel.empty())
+    {
+      LOG(LWARNING, ("Can't fix invalid value", GetValueImpl(pos), "at the position", pos));
+      return kInvalidAltitude;
+    }
+
     std::nth_element(kernel.begin(), kernel.begin() + kernel.size() / 2, kernel.end());
     return kernel[kernel.size() / 2];
   }
@@ -233,20 +240,22 @@ class TileIsolinesTask
 {
 public:
   TileIsolinesTask(int left, int bottom, int right, int top, std::string const & srtmDir,
-                   TileIsolinesParams const * params)
+                   TileIsolinesParams const * params, bool forceRegenerate)
     : m_strmDir(srtmDir)
     , m_srtmProvider(srtmDir)
     , m_params(params)
+    , m_forceRegenerate(forceRegenerate)
   {
     CHECK(params != nullptr, ());
     Init(left, bottom, right, top);
   }
 
   TileIsolinesTask(int left, int bottom, int right, int top, std::string const & srtmDir,
-                   TileIsolinesProfileParams const * profileParams)
+                   TileIsolinesProfileParams const * profileParams, bool forceRegenerate)
     : m_strmDir(srtmDir)
     , m_srtmProvider(srtmDir)
     , m_profileParams(profileParams)
+    , m_forceRegenerate(forceRegenerate)
   {
     CHECK(profileParams != nullptr, ());
     Init(left, bottom, right, top);
@@ -295,8 +304,6 @@ private:
       return;
     }
 
-    m_srtmProvider.SetPrefferedTile({lat + 0.5, lon + 0.5});
-
     std::ostringstream os;
     os << tileName << " (" << lat << ", " << lon << ")";
     m_debugId = os.str();
@@ -323,7 +330,17 @@ private:
   void ProcessTile(int lat, int lon, std::string const & tileName, std::string const & profileName,
                    TileIsolinesParams const & params)
   {
+    auto const outFile = GetIsolinesFilePath(lat, lon, params.m_outputDir);
+    if (!m_forceRegenerate && GetPlatform().IsFileExistsByFullPath(outFile))
+    {
+      LOG(LINFO, ("Isolines for", tileName, ", profile", profileName,
+                  "are ready, skip processing."));
+      return;
+    }
+
     LOG(LINFO, ("Begin generating isolines for tile", tileName, ", profile", profileName));
+
+    m_srtmProvider.SetPrefferedTile({lat + 0.5, lon + 0.5});
 
     Contours<Altitude> contours;
     if (!params.m_filters.empty() && (lat >= kAsterTilesLatTop || lat < kAsterTilesLatBottom))
@@ -348,7 +365,7 @@ private:
 
     if (params.m_simplificationZoom > 0)
       SimplifyContours(params.m_simplificationZoom, contours);
-    SaveContrours(GetIsolinesFilePath(lat, lon, params.m_outputDir), std::move(contours));
+    SaveContrours(outFile, std::move(contours));
 
     LOG(LINFO, ("End generating isolines for tile", tileName, ", profile", profileName));
   }
@@ -389,8 +406,7 @@ private:
 
     MarchingSquares<Altitude> squares(leftBottom, rightTop,
                                       squaresStep, params.m_alitudesStep,
-                                      altProvider);
-    squares.SetDebugId(m_debugId);
+                                      altProvider, m_debugId);
     squares.GenerateContours(contours);
   }
 
@@ -402,13 +418,15 @@ private:
   SrtmProvider m_srtmProvider;
   TileIsolinesParams const * m_params = nullptr;
   TileIsolinesProfileParams const * m_profileParams = nullptr;
+  bool m_forceRegenerate;
   std::string m_debugId;
 };
 
 template <typename ParamsType>
 void RunGenerateIsolinesTasks(int left, int bottom, int right, int top,
                               std::string const & srtmPath, ParamsType const & params,
-                              size_t threadsCount, size_t maxCachedTilesPerThread)
+                              size_t threadsCount, size_t maxCachedTilesPerThread,
+                              bool forceRegenerate)
 {
   std::vector<std::unique_ptr<TileIsolinesTask>> tasks;
 
@@ -442,24 +460,27 @@ void RunGenerateIsolinesTasks(int left, int bottom, int right, int top,
     for (int lon = left; lon < right; lon += tilesColPerTask)
     {
       int const rightLon = std::min(lon + tilesColPerTask - 1, right - 1);
-      auto task = std::make_unique<TileIsolinesTask>(lon, lat, rightLon, topLat, srtmPath, &params);
+      auto task = std::make_unique<TileIsolinesTask>(lon, lat, rightLon, topLat, srtmPath, &params,
+                                                     forceRegenerate);
       threadPool.SubmitWork([task = std::move(task)](){ task->Do(); });
     }
   }
 }
 }  // namespace
 
-Generator::Generator(std::string const & srtmPath, size_t threadsCount, size_t maxCachedTilesPerThread)
+Generator::Generator(std::string const & srtmPath, size_t threadsCount,
+                     size_t maxCachedTilesPerThread, bool forceRegenerate)
   : m_threadsCount(threadsCount)
   , m_maxCachedTilesPerThread(maxCachedTilesPerThread)
   , m_srtmPath(srtmPath)
+  , m_forceRegenerate(forceRegenerate)
 {}
 
 void Generator::GenerateIsolines(int left, int bottom, int right, int top,
                                  TileIsolinesParams const & params)
 {
   RunGenerateIsolinesTasks(left, bottom, right, top, m_srtmPath, params,
-                           m_threadsCount, m_maxCachedTilesPerThread);
+                           m_threadsCount, m_maxCachedTilesPerThread, m_forceRegenerate);
 }
 
 
@@ -468,7 +489,7 @@ void Generator::GenerateIsolines(int left, int bottom, int right, int top,
 {
   TileIsolinesProfileParams params(m_profileToTileParams, tilesProfilesDir);
   RunGenerateIsolinesTasks(left, bottom, right, top, m_srtmPath, params,
-                           m_threadsCount, m_maxCachedTilesPerThread);
+                           m_threadsCount, m_maxCachedTilesPerThread, m_forceRegenerate);
 }
 
 void Generator::GenerateIsolinesForCountries()
@@ -505,38 +526,54 @@ void Generator::GenerateIsolinesForCountries()
     return;
   }
 
-  //SCOPE_GUARD(tmpDirGuard, std::bind(&Platform::RmDirRecursively, tmpTileProfilesDir));
-
   m2::RectI boundingRect;
   for (auto const & countryParams : m_countriesToGenerate.m_countryParams)
   {
     auto const & countryId = countryParams.first;
     auto const & params = countryParams.second;
 
-    auto const countryRect = m_infoReader->GetLimitRectForLeaf(countryId);
+    auto const countryFile = GetIsolinesFilePath(countryId, m_isolinesCountriesOutDir);
 
-    int left, bottom, right, top;
-    MercatorRectToTilesRange(countryRect, left, bottom, right, top);
-
-    boundingRect.Add(m2::PointI(left, bottom));
-    boundingRect.Add(m2::PointI(right, top));
-
-    for (int lat = bottom; lat <= top; ++lat)
+    if (!m_forceRegenerate && GetPlatform().IsFileExistsByFullPath(countryFile))
     {
-      for (int lon = left; lon <= right; ++lon)
+      LOG(LINFO, ("Isolines for", countryId, "are ready, skip processing."));
+      continue;
+    }
+
+    m2::RectD countryRect;
+    std::vector<m2::RegionD> countryRegions;
+    GetCountryRegions(countryId, countryRect, countryRegions);
+
+    for (auto const & region : countryRegions)
+    {
+      countryRect = region.GetRect();
+
+      int left, bottom, right, top;
+      MercatorRectToTilesRange(countryRect, left, bottom, right, top);
+
+      boundingRect.Add(m2::PointI(left, bottom));
+      boundingRect.Add(m2::PointI(right, top));
+
+      for (int lat = bottom; lat <= top; ++lat)
       {
-        if (params.NeedSkipTile(lat, lon))
-          continue;
-        auto const tileProfilesFilePath = GetTileProfilesFilePath(lat, lon, tmpTileProfilesDir);
-        AppendTileProfile(tileProfilesFilePath, params.m_profileName);
+        for (int lon = left; lon <= right; ++lon)
+        {
+          if (params.NeedSkipTile(lat, lon))
+            continue;
+          auto const tileProfilesFilePath = GetTileProfilesFilePath(lat, lon, tmpTileProfilesDir);
+          AppendTileProfile(tileProfilesFilePath, params.m_profileName);
+        }
       }
     }
   }
 
-  LOG(LINFO, ("Generate isolienes for tiles rect", boundingRect));
+  if (!boundingRect.IsValid())
+    return;
+
+  LOG(LINFO, ("Generate isolines for tiles rect", boundingRect));
 
   GenerateIsolines(boundingRect.LeftBottom().x, boundingRect.LeftBottom().y,
-                   boundingRect.RightTop().x, boundingRect.RightTop().y + 1, tmpTileProfilesDir);
+                   boundingRect.RightTop().x + 1, boundingRect.RightTop().y + 1, tmpTileProfilesDir);
 }
 
 void Generator::PackIsolinesForCountry(storage::CountryId const & countryId,
@@ -549,6 +586,14 @@ void Generator::PackIsolinesForCountry(storage::CountryId const & countryId,
                                        IsolinesPackingParams const & params,
                                        NeedSkipTileFn const & needSkipTileFn)
 {
+  auto const outFile = GetIsolinesFilePath(countryId, params.m_outputDir);
+
+  if (!m_forceRegenerate && GetPlatform().IsFileExistsByFullPath(outFile))
+  {
+    LOG(LINFO, ("Isolines for", countryId, "are ready, skip processing."));
+    return;
+  }
+
   LOG(LINFO, ("Begin packing isolines for country", countryId));
 
   m2::RectD countryRect;
@@ -601,7 +646,6 @@ void Generator::PackIsolinesForCountry(storage::CountryId const & countryId,
               "min altitude", countryIsolines.m_minValue,
               "max altitude", countryIsolines.m_maxValue));
 
-  auto const outFile = GetIsolinesFilePath(countryId, params.m_outputDir);
   SaveContrours(outFile, std::move(countryIsolines));
 
   LOG(LINFO, ("Isolines saved to", outFile));
@@ -624,7 +668,7 @@ void Generator::PackIsolinesForCountries()
     auto const & countryId = countryParams.first;
     auto const & params = countryParams.second;
 
-    threadPool.SubmitWork([this, countryId, taskInd, tasksCount, &params]()
+    threadPool.SubmitWork([this, countryId, taskInd, tasksCount, params]()
     {
       LOG(LINFO, ("Begin task", taskInd, "/", tasksCount, countryId));
 
