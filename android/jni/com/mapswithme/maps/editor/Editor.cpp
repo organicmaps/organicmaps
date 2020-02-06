@@ -245,18 +245,30 @@ Java_com_mapswithme_maps_editor_Editor_nativeSaveEditedFeature(JNIEnv *, jclass)
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeShouldShowEditPlace(JNIEnv *, jclass)
 {
+  ::Framework * frm = g_framework->NativeFramework();
+  if (!frm->HasPlacePageInfo())
+    return static_cast<jboolean>(false);
+
   return g_framework->GetPlacePageInfo().ShouldShowEditPlace();
 }
 
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeShouldShowAddPlace(JNIEnv *, jclass)
 {
+  ::Framework * frm = g_framework->NativeFramework();
+  if (!frm->HasPlacePageInfo())
+    return static_cast<jboolean>(false);
+
   return g_framework->GetPlacePageInfo().ShouldShowAddPlace();
 }
 
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeShouldShowAddBusiness(JNIEnv *, jclass)
 {
+  ::Framework * frm = g_framework->NativeFramework();
+  if (!frm->HasPlacePageInfo())
+    return static_cast<jboolean>(false);
+
   return g_framework->GetPlacePageInfo().ShouldShowAddBusiness();
 }
 
@@ -417,6 +429,9 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeStartEdit(JNIEnv *, jclass)
 {
   ::Framework * frm = g_framework->NativeFramework();
+  if (!frm->HasPlacePageInfo())
+    return;
+
   place_page::Info const & info = g_framework->GetPlacePageInfo();
   CHECK(frm->GetEditableMapObject(info.GetID(), g_editableMapObject), ("Invalid feature in the place page."));
 }
