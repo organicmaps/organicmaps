@@ -7,32 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		671F59221B8759350032311E /* crypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 671F59151B8759350032311E /* crypt.h */; };
-		671F59231B8759350032311E /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 671F59161B8759350032311E /* ioapi.c */; };
-		671F59241B8759350032311E /* ioapi.h in Headers */ = {isa = PBXBuildFile; fileRef = 671F59171B8759350032311E /* ioapi.h */; };
-		671F59281B8759350032311E /* minizip.c in Sources */ = {isa = PBXBuildFile; fileRef = 671F591B1B8759350032311E /* minizip.c */; };
-		671F59291B8759350032311E /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 671F591C1B8759350032311E /* mztools.c */; };
-		671F592A1B8759350032311E /* mztools.h in Headers */ = {isa = PBXBuildFile; fileRef = 671F591D1B8759350032311E /* mztools.h */; };
-		671F592B1B8759350032311E /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 671F591E1B8759350032311E /* unzip.c */; };
-		671F592C1B8759350032311E /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = 671F591F1B8759350032311E /* unzip.h */; };
-		671F592D1B8759350032311E /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 671F59201B8759350032311E /* zip.c */; };
-		671F592E1B8759350032311E /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = 671F59211B8759350032311E /* zip.h */; };
+		3D40DEBB23EB5E0100A0153A /* minizip.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D40DEA223EB5E0100A0153A /* minizip.hpp */; };
+		3D40DECA23EB5E0100A0153A /* minizip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D40DEBA23EB5E0100A0153A /* minizip.cpp */; };
+		3D40DECD23EC069300A0153A /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D40DECB23EC069300A0153A /* zip.c */; };
+		3D40DECE23EC069300A0153A /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D40DECC23EC069300A0153A /* zip.h */; };
+		3D40DED123EC071400A0153A /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D40DECF23EC071400A0153A /* unzip.c */; };
+		3D40DED223EC071400A0153A /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D40DED023EC071400A0153A /* unzip.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		34EBB47C1DBF525A005BE9B8 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34EBB47D1DBF525A005BE9B8 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		3D40DEA223EB5E0100A0153A /* minizip.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = minizip.hpp; sourceTree = "<group>"; };
+		3D40DEBA23EB5E0100A0153A /* minizip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = minizip.cpp; sourceTree = "<group>"; };
+		3D40DECB23EC069300A0153A /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zip.c; path = src/zip.c; sourceTree = "<group>"; };
+		3D40DECC23EC069300A0153A /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zip.h; path = src/zip.h; sourceTree = "<group>"; };
+		3D40DECF23EC071400A0153A /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = unzip.c; path = src/unzip.c; sourceTree = "<group>"; };
+		3D40DED023EC071400A0153A /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = src/unzip.h; sourceTree = "<group>"; };
 		671F590C1B87568D0032311E /* libminizip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libminizip.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		671F59151B8759350032311E /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
-		671F59161B8759350032311E /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
-		671F59171B8759350032311E /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
-		671F591B1B8759350032311E /* minizip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = minizip.c; sourceTree = "<group>"; };
-		671F591C1B8759350032311E /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
-		671F591D1B8759350032311E /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
-		671F591E1B8759350032311E /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
-		671F591F1B8759350032311E /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
-		671F59201B8759350032311E /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
-		671F59211B8759350032311E /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,16 +59,12 @@
 		671F59131B8756990032311E /* minizip */ = {
 			isa = PBXGroup;
 			children = (
-				671F59151B8759350032311E /* crypt.h */,
-				671F59161B8759350032311E /* ioapi.c */,
-				671F59171B8759350032311E /* ioapi.h */,
-				671F591B1B8759350032311E /* minizip.c */,
-				671F591C1B8759350032311E /* mztools.c */,
-				671F591D1B8759350032311E /* mztools.h */,
-				671F591E1B8759350032311E /* unzip.c */,
-				671F591F1B8759350032311E /* unzip.h */,
-				671F59201B8759350032311E /* zip.c */,
-				671F59211B8759350032311E /* zip.h */,
+				3D40DECF23EC071400A0153A /* unzip.c */,
+				3D40DED023EC071400A0153A /* unzip.h */,
+				3D40DECB23EC069300A0153A /* zip.c */,
+				3D40DECC23EC069300A0153A /* zip.h */,
+				3D40DEBA23EB5E0100A0153A /* minizip.cpp */,
+				3D40DEA223EB5E0100A0153A /* minizip.hpp */,
 			);
 			name = minizip;
 			path = ../../3party/minizip;
@@ -89,11 +77,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				671F592E1B8759350032311E /* zip.h in Headers */,
-				671F59221B8759350032311E /* crypt.h in Headers */,
-				671F592C1B8759350032311E /* unzip.h in Headers */,
-				671F59241B8759350032311E /* ioapi.h in Headers */,
-				671F592A1B8759350032311E /* mztools.h in Headers */,
+				3D40DED223EC071400A0153A /* unzip.h in Headers */,
+				3D40DECE23EC069300A0153A /* zip.h in Headers */,
+				3D40DEBB23EB5E0100A0153A /* minizip.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,6 +122,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 671F59031B87568D0032311E;
@@ -153,11 +140,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				671F592B1B8759350032311E /* unzip.c in Sources */,
-				671F59231B8759350032311E /* ioapi.c in Sources */,
-				671F59281B8759350032311E /* minizip.c in Sources */,
-				671F592D1B8759350032311E /* zip.c in Sources */,
-				671F59291B8759350032311E /* mztools.c in Sources */,
+				3D40DED123EC071400A0153A /* unzip.c in Sources */,
+				3D40DECA23EB5E0100A0153A /* minizip.cpp in Sources */,
+				3D40DECD23EC069300A0153A /* zip.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,6 +177,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -200,6 +186,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -220,6 +207,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Production Full";

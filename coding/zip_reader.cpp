@@ -5,7 +5,9 @@
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
-#include "3party/minizip/unzip.h"
+#include <array>
+
+#include "3party/minizip/minizip.hpp"
 
 using namespace std;
 
@@ -44,61 +46,60 @@ ZipFileReader::ZipFileReader(string const & container, string const & file, uint
                              uint32_t logPageCount)
   : FileReader(container, logPageSize, logPageCount), m_uncompressedFileSize(0)
 {
-  unzFile zip = unzOpen64(container.c_str());
+  auto zip = unzip::Open(container.c_str());
   if (!zip)
     MYTHROW(OpenZipException, ("Can't get zip file handle", container));
 
   SCOPE_GUARD(zipGuard, bind(&unzClose, zip));
 
-  if (UNZ_OK != unzLocateFile(zip, file.c_str(), 1))
+  if (unzip::Code::Ok != unzip::SeekToFile(zip, file.c_str()))
     MYTHROW(LocateZipException, ("Can't locate file inside zip", file));
 
-  if (UNZ_OK != unzOpenCurrentFile(zip))
+  if (unzip::Code::Ok != unzip::OpenCurrentFile(zip))
     MYTHROW(LocateZipException, ("Can't open file inside zip", file));
 
-  uint64_t const offset = unzGetCurrentFileZStreamPos64(zip);
-  (void) unzCloseCurrentFile(zip);
+  auto const offset = unzip::GetCurrentFileFilePos(zip);
+  unzip::CloseCurrentFile(zip);
 
   if (offset == 0 || offset > Size())
     MYTHROW(LocateZipException, ("Invalid offset inside zip", file));
 
-  unz_file_info64 fileInfo;
-  if (UNZ_OK != unzGetCurrentFileInfo64(zip, &fileInfo, NULL, 0, NULL, 0, NULL, 0))
+  unzip::FileInfo fileInfo;
+  if (unzip::Code::Ok != unzip::GetCurrentFileInfo(zip, fileInfo))
     MYTHROW(LocateZipException, ("Can't get compressed file size inside zip", file));
 
-  SetOffsetAndSize(offset, fileInfo.compressed_size);
-  m_uncompressedFileSize = fileInfo.uncompressed_size;
+  SetOffsetAndSize(offset, fileInfo.m_info.compressed_size);
+  m_uncompressedFileSize = fileInfo.m_info.uncompressed_size;
 }
 
 void ZipFileReader::FilesList(string const & zipContainer, FileList & filesList)
 {
-  unzFile const zip = unzOpen64(zipContainer.c_str());
+  auto const zip = unzip::Open(zipContainer.c_str());
   if (!zip)
     MYTHROW(OpenZipException, ("Can't get zip file handle", zipContainer));
 
   SCOPE_GUARD(zipGuard, bind(&unzClose, zip));
 
-  if (UNZ_OK != unzGoToFirstFile(zip))
+  if (unzip::Code::Ok != unzip::SeekToFirstFile(zip))
     MYTHROW(LocateZipException, ("Can't find first file inside zip", zipContainer));
 
   do
   {
-    char fileName[256];
-    unz_file_info64 fileInfo;
-    if (UNZ_OK != unzGetCurrentFileInfo64(zip, &fileInfo, fileName, ARRAY_SIZE(fileName), NULL, 0, NULL, 0))
+    unzip::FileInfo fileInfo;
+    if (unzip::Code::Ok != unzip::GetCurrentFileInfo(zip, fileInfo))
       MYTHROW(LocateZipException, ("Can't get file name inside zip", zipContainer));
 
-    filesList.push_back(make_pair(fileName, fileInfo.uncompressed_size));
+    filesList.push_back(make_pair(fileInfo.m_filename, fileInfo.m_info.uncompressed_size));
 
-  } while (UNZ_OK == unzGoToNextFile(zip));
+  } while (unzip::Code::Ok == unzip::SeekToNextFile(zip));
 }
 
 bool ZipFileReader::IsZip(string const & zipContainer)
 {
-  unzFile zip = unzOpen64(zipContainer.c_str());
+  auto zip = unzip::Open(zipContainer);
   if (!zip)
     return false;
-  unzClose(zip);
+  unzip::Close(zip);
   return true;
 }
 
@@ -106,36 +107,36 @@ bool ZipFileReader::IsZip(string const & zipContainer)
 void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileInZip,
                               Delegate & delegate)
 {
-  unzFile zip = unzOpen64(zipContainer.c_str());
+  auto zip = unzip::Open(zipContainer);
   if (!zip)
     MYTHROW(OpenZipException, ("Can't get zip file handle", zipContainer));
-  SCOPE_GUARD(zipGuard, bind(&unzClose, zip));
+  SCOPE_GUARD(zipGuard, bind(&unzip::Close, zip));
 
-  if (UNZ_OK != unzLocateFile(zip, fileInZip.c_str(), 1))
+  if (unzip::Code::Ok != unzip::SeekToFile(zip, fileInZip))
     MYTHROW(LocateZipException, ("Can't locate file inside zip", fileInZip));
 
-  if (UNZ_OK != unzOpenCurrentFile(zip))
+  if (unzip::Code::Ok != unzip::OpenCurrentFile(zip))
     MYTHROW(LocateZipException, ("Can't open file inside zip", fileInZip));
-  SCOPE_GUARD(currentFileGuard, bind(&unzCloseCurrentFile, zip));
+  SCOPE_GUARD(currentFileGuard, bind(&unzip::CloseCurrentFile, zip));
 
-  unz_file_info64 fileInfo;
-  if (UNZ_OK != unzGetCurrentFileInfo64(zip, &fileInfo, NULL, 0, NULL, 0, NULL, 0))
+  unzip::FileInfo fileInfo;
+  if (unzip::Code::Ok != unzip::GetCurrentFileInfo(zip, fileInfo))
     MYTHROW(LocateZipException, ("Can't get uncompressed file size inside zip", fileInZip));
 
-  char buf[ZIP_FILE_BUFFER_SIZE];
+  std::array<char, unzip::kFileBufferSize> buf;
   int readBytes = 0;
 
   delegate.OnStarted();
   do
   {
-    readBytes = unzReadCurrentFile(zip, buf, ZIP_FILE_BUFFER_SIZE);
+    readBytes = unzip::ReadCurrentFile(zip, buf);
     if (readBytes < 0)
     {
       MYTHROW(InvalidZipException,
               ("Error", readBytes, "while unzipping", fileInZip, "from", zipContainer));
     }
 
-    delegate.OnBlockUnzipped(static_cast<size_t>(readBytes), buf);
+    delegate.OnBlockUnzipped(static_cast<size_t>(readBytes), buf.data());
   } while (readBytes != 0);
   delegate.OnCompleted();
 }
