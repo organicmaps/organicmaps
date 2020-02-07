@@ -17,4 +17,9 @@ set(
   src/zip.h
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+add_library(${PROJECT_NAME} SHARED ${SRC})
+
+omim_link_libraries(
+  ${PROJECT_NAME}
+  ${LIBZ}
+)

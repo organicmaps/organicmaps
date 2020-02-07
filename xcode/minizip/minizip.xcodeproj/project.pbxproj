@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		39E0FA6023EDB52400001124 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 39E0FA5F23EDB52400001124 /* libz.tbd */; };
+		39E0FA6523EDB80E00001124 /* ioapi.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E0FA6323EDB80E00001124 /* ioapi.h */; };
+		39E0FA6623EDB80E00001124 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 39E0FA6423EDB80E00001124 /* ioapi.c */; };
 		3D40DEBB23EB5E0100A0153A /* minizip.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D40DEA223EB5E0100A0153A /* minizip.hpp */; };
 		3D40DECA23EB5E0100A0153A /* minizip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D40DEBA23EB5E0100A0153A /* minizip.cpp */; };
 		3D40DECD23EC069300A0153A /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 3D40DECB23EC069300A0153A /* zip.c */; };
@@ -18,6 +21,10 @@
 /* Begin PBXFileReference section */
 		34EBB47C1DBF525A005BE9B8 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34EBB47D1DBF525A005BE9B8 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		39E0FA5F23EDB52400001124 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		39E0FA6123EDB5E000001124 /* libz.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.tbd; path = usr/lib/libz.1.tbd; sourceTree = SDKROOT; };
+		39E0FA6323EDB80E00001124 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ioapi.h; path = src/ioapi.h; sourceTree = "<group>"; };
+		39E0FA6423EDB80E00001124 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ioapi.c; path = src/ioapi.c; sourceTree = "<group>"; };
 		3D40DEA223EB5E0100A0153A /* minizip.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = minizip.hpp; sourceTree = "<group>"; };
 		3D40DEBA23EB5E0100A0153A /* minizip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = minizip.cpp; sourceTree = "<group>"; };
 		3D40DECB23EC069300A0153A /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zip.c; path = src/zip.c; sourceTree = "<group>"; };
@@ -32,12 +39,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39E0FA6023EDB52400001124 /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		39E0FA5E23EDB52400001124 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				39E0FA6123EDB5E000001124 /* libz.1.tbd */,
+				39E0FA5F23EDB52400001124 /* libz.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		671F59031B87568D0032311E = {
 			isa = PBXGroup;
 			children = (
@@ -45,6 +62,7 @@
 				34EBB47D1DBF525A005BE9B8 /* common-release.xcconfig */,
 				671F59131B8756990032311E /* minizip */,
 				671F590D1B87568D0032311E /* Products */,
+				39E0FA5E23EDB52400001124 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -59,6 +77,8 @@
 		671F59131B8756990032311E /* minizip */ = {
 			isa = PBXGroup;
 			children = (
+				39E0FA6423EDB80E00001124 /* ioapi.c */,
+				39E0FA6323EDB80E00001124 /* ioapi.h */,
 				3D40DECF23EC071400A0153A /* unzip.c */,
 				3D40DED023EC071400A0153A /* unzip.h */,
 				3D40DECB23EC069300A0153A /* zip.c */,
@@ -80,6 +100,7 @@
 				3D40DED223EC071400A0153A /* unzip.h in Headers */,
 				3D40DECE23EC069300A0153A /* zip.h in Headers */,
 				3D40DEBB23EB5E0100A0153A /* minizip.hpp in Headers */,
+				39E0FA6523EDB80E00001124 /* ioapi.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,6 +163,7 @@
 			files = (
 				3D40DED123EC071400A0153A /* unzip.c in Sources */,
 				3D40DECA23EB5E0100A0153A /* minizip.cpp in Sources */,
+				39E0FA6623EDB80E00001124 /* ioapi.c in Sources */,
 				3D40DECD23EC069300A0153A /* zip.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -178,6 +200,7 @@
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				MACH_O_TYPE = mh_dylib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -187,6 +210,7 @@
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				MACH_O_TYPE = mh_dylib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -208,6 +232,7 @@
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				MACH_O_TYPE = mh_dylib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Production Full";

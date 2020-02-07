@@ -78,7 +78,7 @@ void ZipFileReader::FilesList(string const & zipContainer, FileList & filesList)
   if (!zip)
     MYTHROW(OpenZipException, ("Can't get zip file handle", zipContainer));
 
-  SCOPE_GUARD(zipGuard, bind(&unzClose, zip));
+  SCOPE_GUARD(zipGuard, bind(&unzip::Close, zip));
 
   if (unzip::Code::Ok != unzip::SeekToFirstFile(zip))
     MYTHROW(LocateZipException, ("Can't find first file inside zip", zipContainer));
