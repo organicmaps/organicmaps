@@ -11,6 +11,7 @@
 #include "geometry/parametrized_segment.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/polyline2d.hpp"
+#include "geometry/triangle2d.hpp"
 
 #include "base/assert.hpp"
 #include "base/control_flow.hpp"
@@ -23,19 +24,45 @@ namespace
 {
 double DistanceToFeature(m2::PointD const & pt, FeatureType & ft)
 {
-  if (ft.GetGeomType() != feature::GeomType::Line)
+  if (ft.GetGeomType() == feature::GeomType::Point)
     return mercator::DistanceOnEarth(pt, feature::GetCenter(ft));
 
-  ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-  std::vector<m2::PointD> points(ft.GetPointsCount());
-  for (size_t i = 0; i < points.size(); ++i)
-    points[i] = ft.GetPoint(i);
+  if (ft.GetGeomType() == feature::GeomType::Line)
+  {
+    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+    std::vector<m2::PointD> points(ft.GetPointsCount());
+    for (size_t i = 0; i < points.size(); ++i)
+      points[i] = ft.GetPoint(i);
 
-  auto const & [dummy, segId] = m2::CalcMinSquaredDistance(points.begin(), points.end(), pt);
-  CHECK_LESS(segId + 1, points.size(), ());
-  m2::ParametrizedSegment<m2::PointD> segment(points[segId], points[segId + 1]);
+    auto const & [dummy, segId] = m2::CalcMinSquaredDistance(points.begin(), points.end(), pt);
+    CHECK_LESS(segId + 1, points.size(), ());
+    m2::ParametrizedSegment<m2::PointD> segment(points[segId], points[segId + 1]);
 
-  return mercator::DistanceOnEarth(pt, segment.ClosestPointTo(pt));
+    return mercator::DistanceOnEarth(pt, segment.ClosestPointTo(pt));
+  }
+
+  if (ft.GetGeomType() == feature::GeomType::Area)
+  {
+    // An approximation.
+    std::vector<m2::TriangleD> triangles;
+    bool inside = false;
+    auto fn = [&](m2::PointD const & a, m2::PointD const & b, m2::PointD const & c) {
+      inside = inside || IsPointInsideTriangle(pt, a, b, c);
+      if (!inside)
+        triangles.emplace_back(a, b, c);
+    };
+
+    ft.ForEachTriangle(fn, FeatureType::BEST_GEOMETRY);
+
+    if (inside)
+      return 0.0;
+
+    CHECK(!triangles.empty(), ());
+    auto proj = m2::ProjectPointToTriangles(pt, triangles);
+    return mercator::DistanceOnEarth(pt, proj);
+  }
+
+  UNREACHABLE();
 }
 
 template <typename Iter>
@@ -46,6 +73,8 @@ bool StartsWithHouseNumber(Iter beg, Iter end)
   std::string s;
   for (auto it = beg; it != end; ++it)
   {
+    if (!s.empty())
+      s.append(" ");
     s.append(*it);
     if (LooksLikeHouseNumber(s, false /* isPrefix */))
       return true;
@@ -65,7 +94,10 @@ bool EndsWithHouseNumber(Iter beg, Iter end)
   std::string s;
   for (auto it = --end;; --it)
   {
-    s = *it + s;
+    if (s.empty())
+      s = *it;
+    else
+      s = *it + " " + s;
     if (LooksLikeHouseNumber(s, false /* isPrefix */))
       return true;
     if (it == beg)
@@ -81,12 +113,18 @@ bool StreetMatches(std::string const & name, std::vector<std::string> const & qu
   if (nameTokens.empty())
     return false;
 
+  auto const tokensMatch = [&](std::string const & a, std::string const & b) {
+    bool const sa = search::IsStreetSynonym(strings::MakeUniString(a));
+    bool const sb = search::IsStreetSynonym(strings::MakeUniString(b));
+    return (sa && sb) || a == b;
+  };
+
   for (size_t i = 0; i + nameTokens.size() <= queryTokens.size(); ++i)
   {
     bool found = true;
     for (size_t j = 0; j < nameTokens.size(); ++j)
     {
-      if (queryTokens[i + j] != nameTokens[j])
+      if (!tokensMatch(queryTokens[i + j], nameTokens[j]))
       {
         found = false;
         break;
