@@ -13,7 +13,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
 
 @interface MWMNavigationDashboardManager : NSObject
 
-+ (MWMNavigationDashboardManager *)manager;
++ (nonnull MWMNavigationDashboardManager *)sharedManager;
 + (void)addObserver:(id<MWMNavigationDashboardObserver>)observer;
 + (void)removeObserver:(id<MWMNavigationDashboardObserver>)observer;
 

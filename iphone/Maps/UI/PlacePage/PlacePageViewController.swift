@@ -157,6 +157,8 @@ enum PlacePageState {
   lazy var actionBarViewController: ActionBarViewController = {
     let vc = storyboard!.instantiateViewController(ofType: ActionBarViewController.self)
     vc.placePageData = placePageData
+    vc.canAddStop = MWMRouter.canAddIntermediatePoint()
+    vc.isRoutePlanning = MWMNavigationDashboardManager.shared().state != .hidden
     vc.delegate = self
     return vc
   } ()

@@ -48,7 +48,7 @@ using Observers = NSHashTable<Observer>;
 
 @implementation MWMNavigationDashboardManager
 
-+ (MWMNavigationDashboardManager *)manager
++ (MWMNavigationDashboardManager *)sharedManager
 {
   return [MWMMapViewControlsManager manager].navigationManager;
 }
@@ -315,12 +315,12 @@ using Observers = NSHashTable<Observer>;
 
 + (void)addObserver:(id<MWMNavigationDashboardObserver>)observer
 {
-  [[self manager].observers addObject:observer];
+  [[self sharedManager].observers addObject:observer];
 }
 
 + (void)removeObserver:(id<MWMNavigationDashboardObserver>)observer
 {
-  [[self manager].observers removeObject:observer];
+  [[self sharedManager].observers removeObject:observer];
 }
 
 #pragma mark - MWMNavigationDashboardObserver
@@ -344,7 +344,7 @@ using Observers = NSHashTable<Observer>;
 
 + (void)updateNavigationInfoAvailableArea:(CGRect)frame
 {
-  [[self manager] updateNavigationInfoAvailableArea:frame];
+  [[self sharedManager] updateNavigationInfoAvailableArea:frame];
 }
 
 - (void)updateNavigationInfoAvailableArea:(CGRect)frame

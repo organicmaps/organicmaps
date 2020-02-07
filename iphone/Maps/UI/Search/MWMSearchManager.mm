@@ -183,7 +183,7 @@ using Observers = NSHashTable<Observer>;
     else
       [MWMRouter buildToPoint:point bestRouter:NO];
   }
-  if (!IPAD || [MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateHidden)
+  if (!IPAD || [MWMNavigationDashboardManager sharedManager].state != MWMNavigationDashboardStateHidden)
     self.state = MWMSearchManagerStateHidden;
 }
 
@@ -263,7 +263,7 @@ using Observers = NSHashTable<Observer>;
       self.actionBarViewBottom.priority = UILayoutPriorityDefaultHigh;
     }];
   }
-  auto const navigationManagerState = [MWMNavigationDashboardManager manager].state;
+  auto const navigationManagerState = [MWMNavigationDashboardManager sharedManager].state;
   [self viewHidden:navigationManagerState != MWMNavigationDashboardStateHidden];
   [MWMSearch setSearchOnMap:YES];
   [self.tableViewController reloadData];

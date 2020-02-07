@@ -148,7 +148,7 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
   BOOL const isSearchHidden = ([MWMSearchManager manager].state == MWMSearchManagerStateHidden);
   BOOL const isNavigationDashboardHidden =
-      ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateHidden);
+      ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden);
   if (isSearchHidden && isNavigationDashboardHidden)
     self.controlsManager.hidden = !self.controlsManager.hidden;
 }
@@ -284,7 +284,7 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 {
   [super viewWillAppear:animated];
 
-  if ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateHidden)
+  if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
   [self updateStatusBarStyle];
@@ -312,7 +312,7 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   self.welcomePageController = [MWMWelcomePageController controllerWithParent:self];
   [self processMyPositionStateModeEvent:[MWMLocationManager isLocationProhibited] ?
                                          MWMMyPositionModeNotFollowNoPosition : MWMMyPositionModePendingPosition];
-  if ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateHidden)
+  if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
   [NSNotificationCenter.defaultCenter addObserver:self

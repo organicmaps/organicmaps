@@ -132,7 +132,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 - (void)onNavigationDashboardStateChanged
 {
-  auto const navigationState = [MWMNavigationDashboardManager manager].state;
+  auto const navigationState = [MWMNavigationDashboardManager sharedManager].state;
   if (navigationState == MWMNavigationDashboardStateHidden)
     self.state = MWMBottomMenuStateInactive;
   else
@@ -171,7 +171,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   case MWMBottomMenuViewCellAddPlace:
   {
     BOOL const isEnabled =
-        [MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateHidden &&
+        [MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden &&
         GetFramework().CanEditMap();
     [cell configureWithImageName:@"ic_add_place"
                            label:L(@"placepage_add_place_button")
