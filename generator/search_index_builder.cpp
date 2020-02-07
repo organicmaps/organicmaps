@@ -1,6 +1,7 @@
 #include "generator/search_index_builder.hpp"
 
 #include "search/common.hpp"
+#include "search/house_to_street_table.hpp"
 #include "search/mwm_context.hpp"
 #include "search/reverse_geocoder.hpp"
 #include "search/search_index_values.hpp"
@@ -491,7 +492,7 @@ void BuildAddressTable(FilesContainerR & container, string const & addressDataFi
   // Flush results to disk.
   {
     // Code corresponds to the HouseToStreetTable decoding.
-    MapUint32ToValueBuilder<uint32_t> builder;
+    search::HouseToStreetTableBuilder builder;
     uint32_t houseToStreetCount = 0;
     for (size_t i = 0; i < results.size(); ++i)
     {
@@ -502,22 +503,7 @@ void BuildAddressTable(FilesContainerR & container, string const & addressDataFi
       }
     }
 
-    // Each street id is encoded as delta from some prediction.
-    // First street id in the block encoded as VarUint, all other street ids in the block
-    // encoded as VarInt delta from previous id.
-    auto const writeBlockCallback = [&](Writer & w, vector<uint32_t>::const_iterator begin,
-                                        vector<uint32_t>::const_iterator end) {
-      CHECK(begin != end, ("MapUint32ToValueBuilder should guarantee begin != end."));
-      WriteVarUint(w, *begin);
-      auto prevIt = begin;
-      for (auto it = begin + 1; it != end; ++it)
-      {
-        int32_t const delta = base::asserted_cast<int32_t>(*it) - *prevIt;
-        WriteVarInt(w, delta);
-        prevIt = it;
-      }
-    };
-    builder.Freeze(writer, writeBlockCallback);
+    builder.Freeze(writer);
 
     LOG(LINFO, ("Address: BuildingToStreet entries count:", houseToStreetCount));
   }

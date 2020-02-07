@@ -1,15 +1,28 @@
 #pragma once
 
+#include "coding/map_uint32_to_val.hpp"
+
 #include <cstdint>
 #include <memory>
+#include <vector>
 
 class MwmValue;
+class Reader;
+class Writer;
 
 namespace search
 {
 class HouseToStreetTable
 {
 public:
+  enum class Version : uint8_t
+  {
+    V0 = 0,
+    V1 = 1,
+    V2 = 2,
+    Latest = V2
+  };
+
   enum class StreetIdType
   {
     // Table stores the index number of the correct street corresponding
@@ -19,6 +32,25 @@ public:
     FeatureId,
     // Empty table.
     None
+  };
+
+  struct Header
+  {
+    template <typename Sink>
+    void Serialize(Sink & sink) const
+    {
+      CHECK_EQUAL(static_cast<uint8_t>(m_version), static_cast<uint8_t>(Version::V2), ());
+      WriteToSink(sink, static_cast<uint8_t>(m_version));
+      WriteToSink(sink, m_tableOffset);
+      WriteToSink(sink, m_tableSize);
+    }
+
+    void Read(Reader & reader);
+
+    Version m_version = Version::Latest;
+    // All offsets are relative to the start of the section (offset of header is zero).
+    uint32_t m_tableOffset = 0;
+    uint32_t m_tableSize = 0;
   };
 
   virtual ~HouseToStreetTable() = default;
@@ -33,5 +65,15 @@ public:
   virtual bool Get(uint32_t houseId, uint32_t & streetIndex) const = 0;
 
   virtual StreetIdType GetStreetIdType() const = 0;
+};
+
+class HouseToStreetTableBuilder
+{
+public:
+  void Put(uint32_t featureId, uint32_t offset);
+  void Freeze(Writer & writer) const;
+
+private:
+  MapUint32ToValueBuilder<uint32_t> m_builder;
 };
 }  // namespace search

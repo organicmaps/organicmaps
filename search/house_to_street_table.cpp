@@ -4,16 +4,21 @@
 
 #include "platform/mwm_traits.hpp"
 
+#include "coding/files_container.hpp"
 #include "coding/fixed_bits_ddvector.hpp"
 #include "coding/map_uint32_to_val.hpp"
 #include "coding/reader.hpp"
+#include "coding/varint.hpp"
+#include "coding/write_to_sink.hpp"
+#include "coding/writer.hpp"
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
-
-#include <vector>
+#include "base/logging.hpp"
 
 #include "defines.hpp"
+
+#include <vector>
 
 using namespace std;
 
@@ -49,10 +54,10 @@ class EliasFanoMap : public HouseToStreetTable
 public:
   using Map = MapUint32ToValue<uint32_t>;
 
-  explicit EliasFanoMap(MwmValue const & value) : m_reader(unique_ptr<ModelReader>())
+  explicit EliasFanoMap(unique_ptr<Reader> reader) : m_reader(move(reader))
   {
-    auto const readBlockCallback = [&](NonOwningReaderSource & source, uint32_t blockSize,
-                                       vector<uint32_t> & values) {
+    ASSERT(m_reader, ());
+    auto readBlockCallback = [](auto & source, uint32_t blockSize, vector<uint32_t> & values) {
       CHECK_GREATER(blockSize, 0, ());
       values.resize(blockSize);
       values[0] = ReadVarUint<uint32_t>(source);
@@ -66,10 +71,7 @@ public:
       }
     };
 
-    m_reader = value.m_cont.GetReader(SEARCH_ADDRESS_FILE_TAG);
-    ASSERT(m_reader.GetPtr(), ("Can't get", SEARCH_ADDRESS_FILE_TAG, "section reader."));
-
-    m_map = Map::Load(*m_reader.GetPtr(), readBlockCallback);
+    m_map = Map::Load(*m_reader, readBlockCallback);
     ASSERT(m_map.get(), ("Can't instantiate MapUint32ToValue<uint32_t>."));
   }
 
@@ -82,7 +84,7 @@ public:
   StreetIdType GetStreetIdType() const override { return StreetIdType::FeatureId; }
 
 private:
-  FilesContainerR::TReader m_reader;
+  unique_ptr<Reader> m_reader;
   unique_ptr<Map> m_map;
 };
 
@@ -95,6 +97,18 @@ public:
 };
 }  // namespace
 
+// HouseToStreetTable::Header ---------------------------------------------------------------------
+void HouseToStreetTable::Header::Read(Reader & reader)
+{
+  NonOwningReaderSource source(reader);
+  m_version = static_cast<Version>(ReadPrimitiveFromSource<uint8_t>(source));
+  CHECK_EQUAL(static_cast<uint8_t>(m_version), static_cast<uint8_t>(Version::V2), ());
+  m_tableOffset = ReadPrimitiveFromSource<uint32_t>(source);
+  m_tableSize = ReadPrimitiveFromSource<uint32_t>(source);
+}
+
+// HouseToStreetTable ------------------------------------------------------------------------------
+// static
 unique_ptr<HouseToStreetTable> HouseToStreetTable::Load(MwmValue const & value)
 {
   version::MwmTraits traits(value.GetMwmVersion());
@@ -105,9 +119,28 @@ unique_ptr<HouseToStreetTable> HouseToStreetTable::Load(MwmValue const & value)
   try
   {
     if (format == version::MwmTraits::HouseToStreetTableFormat::Fixed3BitsDDVector)
+    {
       result = make_unique<Fixed3BitsTable>(value);
+    }
     if (format == version::MwmTraits::HouseToStreetTableFormat::EliasFanoMap)
-      result = make_unique<EliasFanoMap>(value);
+    {
+      FilesContainerR::TReader reader = value.m_cont.GetReader(SEARCH_ADDRESS_FILE_TAG);
+      ASSERT(reader.GetPtr(), ("Can't get", SEARCH_ADDRESS_FILE_TAG, "section reader."));
+      result = make_unique<EliasFanoMap>(unique_ptr<Reader>(reader.GetPtr()));
+    }
+    if (format == version::MwmTraits::HouseToStreetTableFormat::EliasFanoMapWithHeader)
+    {
+      FilesContainerR::TReader reader = value.m_cont.GetReader(SEARCH_ADDRESS_FILE_TAG);
+      ASSERT(reader.GetPtr(), ("Can't get", SEARCH_ADDRESS_FILE_TAG, "section reader."));
+
+      Header header;
+      header.Read(*reader.GetPtr());
+      CHECK(header.m_version == Version::V2, (base::Underlying(header.m_version)));
+
+      auto subreader = (*reader.GetPtr()).CreateSubReader(header.m_tableOffset, header.m_tableSize);
+      CHECK(subreader, ());
+      result = make_unique<EliasFanoMap>(move(subreader));
+    }
   }
   catch (Reader::OpenException const & ex)
   {
@@ -119,4 +152,46 @@ unique_ptr<HouseToStreetTable> HouseToStreetTable::Load(MwmValue const & value)
   return result;
 }
 
+// HouseToStreetTableBuilder -----------------------------------------------------------------------
+void HouseToStreetTableBuilder::Put(uint32_t houseId, uint32_t streetId)
+{
+  m_builder.Put(houseId, streetId);
+}
+
+void HouseToStreetTableBuilder::Freeze(Writer & writer) const
+{
+  size_t startOffset = writer.Pos();
+  CHECK(coding::IsAlign8(startOffset), ());
+
+  HouseToStreetTable::Header header;
+  header.Serialize(writer);
+
+  uint64_t bytesWritten = writer.Pos();
+  coding::WritePadding(writer, bytesWritten);
+
+  // Each street id is encoded as delta from some prediction.
+  // First street id in the block encoded as VarUint, all other street ids in the block
+  // encoded as VarInt delta from previous id
+  auto const writeBlockCallback = [](auto & w, auto begin, auto end) {
+    CHECK(begin != end, ("MapUint32ToValueBuilder should guarantee begin != end."));
+    WriteVarUint(w, *begin);
+    auto prevIt = begin;
+    for (auto it = begin + 1; it != end; ++it)
+    {
+      int32_t const delta = base::asserted_cast<int32_t>(*it) - *prevIt;
+      WriteVarInt(w, delta);
+      prevIt = it;
+    }
+  };
+
+  header.m_tableOffset = base::asserted_cast<uint32_t>(writer.Pos() - startOffset);
+  m_builder.Freeze(writer, writeBlockCallback);
+  header.m_tableSize =
+      base::asserted_cast<uint32_t>(writer.Pos() - header.m_tableOffset - startOffset);
+
+  auto const endOffset = writer.Pos();
+  writer.Seek(startOffset);
+  header.Serialize(writer);
+  writer.Seek(endOffset);
+}
 }  // namespace search

@@ -37,6 +37,10 @@ public:
     // Elias-Fano based map from feature id to corresponding street feature id.
     EliasFanoMap,
 
+    // Elias-Fano based map from feature id to corresponding street feature id
+    // with srction header and version.
+    EliasFanoMapWithHeader,
+
     // The format of relation is unknown. Most likely, an error has occured.
     Unknown
   };
