@@ -49,10 +49,10 @@ namespace feature
 class FeaturesCollector2 : public FeaturesCollector
 {
 public:
-  FeaturesCollector2(string const & fName, DataHeader const & header, RegionData const & regionData,
-                     uint32_t versionDate)
-    : FeaturesCollector(fName + DATA_FILE_TAG)
-    , m_writer(fName)
+  FeaturesCollector2(string const & filename, DataHeader const & header,
+                     RegionData const & regionData, uint32_t versionDate)
+    : FeaturesCollector(filename + DATA_FILE_TAG)
+    , m_filename(filename)
     , m_header(header)
     , m_regionData(regionData)
     , m_versionDate(versionDate)
@@ -60,12 +60,12 @@ public:
     for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
     {
       string const postfix = strings::to_string(i);
-      m_geoFile.push_back(make_unique<TmpFile>(fName + GEOMETRY_FILE_TAG + postfix));
-      m_trgFile.push_back(make_unique<TmpFile>(fName + TRIANGLE_FILE_TAG + postfix));
+      m_geoFile.push_back(make_unique<TmpFile>(filename + GEOMETRY_FILE_TAG + postfix));
+      m_trgFile.push_back(make_unique<TmpFile>(filename + TRIANGLE_FILE_TAG + postfix));
     }
 
-    m_metadataFile = make_unique<TmpFile>(fName + METADATA_FILE_TAG);
-    m_addrFile = make_unique<FileWriter>(fName + TEMP_ADDR_FILENAME);
+    m_metadataFile = make_unique<TmpFile>(filename + METADATA_FILE_TAG);
+    m_addrFile = make_unique<FileWriter>(filename + TEMP_ADDR_FILENAME);
   }
 
   ~FeaturesCollector2()
@@ -79,33 +79,40 @@ public:
   {
     // write version information
     {
-      auto w = m_writer.GetWriter(VERSION_FILE_TAG);
+      FilesContainerW writer(m_filename);
+      auto w = writer.GetWriter(VERSION_FILE_TAG);
       version::WriteVersion(*w, m_versionDate);
     }
 
     // write own mwm header
     m_header.SetBounds(m_bounds);
     {
-      auto w = m_writer.GetWriter(HEADER_FILE_TAG);
+      FilesContainerW writer(m_filename, FileWriter::OP_WRITE_EXISTING);
+      auto w = writer.GetWriter(HEADER_FILE_TAG);
       m_header.Save(*w);
     }
 
     // write region info
     {
-      auto w = m_writer.GetWriter(REGION_INFO_FILE_TAG);
+      FilesContainerW writer(m_filename, FileWriter::OP_WRITE_EXISTING);
+      auto w = writer.GetWriter(REGION_INFO_FILE_TAG);
       m_regionData.Serialize(*w);
     }
 
     // assume like we close files
     Flush();
 
-    m_writer.Write(m_datFile.GetName(), DATA_FILE_TAG);
+    {
+      FilesContainerW writer(m_filename, FileWriter::OP_WRITE_EXISTING);
+      writer.Write(m_datFile.GetName(), DATA_FILE_TAG);
+    }
 
-    // File Writer finalization function with appending to the main mwm file.
+    // File Writer finalization function with adding section to the main mwm file.
     auto const finalizeFn = [this](unique_ptr<TmpFile> w, string const & tag,
                                    string const & postfix = string()) {
       w->Flush();
-      m_writer.Write(w->GetName(), tag + postfix);
+      FilesContainerW writer(m_filename, FileWriter::OP_WRITE_EXISTING);
+      writer.Write(w->GetName(), tag + postfix);
     };
 
     for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
@@ -115,9 +122,13 @@ public:
       finalizeFn(move(m_trgFile[i]), TRIANGLE_FILE_TAG, postfix);
     }
 
+    finalizeFn(move(m_metadataFile), METADATA_FILE_TAG);
+
     {
+      FilesContainerW writer(m_filename, FileWriter::OP_WRITE_EXISTING);
+      auto w = writer.GetWriter(METADATA_INDEX_FILE_TAG);
+
       /// @todo Replace this mapping vector with succint structure.
-      auto w = m_writer.GetWriter(METADATA_INDEX_FILE_TAG);
       for (auto const & v : m_metadataOffset)
       {
         WriteToSink(*w, v.first);
@@ -125,14 +136,10 @@ public:
       }
     }
 
-    finalizeFn(move(m_metadataFile), METADATA_FILE_TAG);
-
-    m_writer.Finish();
-
     if (m_header.GetType() == DataHeader::MapType::Country ||
         m_header.GetType() == DataHeader::MapType::World)
     {
-      FileWriter osm2ftWriter(m_writer.GetFileName() + OSM2FEATURE_FILE_EXTENSION);
+      FileWriter osm2ftWriter(m_filename + OSM2FEATURE_FILE_EXTENSION);
       m_osm2ft.Write(osm2ftWriter);
     }
   }
@@ -283,7 +290,7 @@ private:
     }
   }
 
-  FilesContainerW m_writer;
+  string m_filename;
 
   // File used for postcodes and search sections build.
   unique_ptr<FileWriter> m_addrFile;
