@@ -422,11 +422,15 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     m_autoScale2d = m_autoScale3d = kUnknownAutoZoom;
   }
 
-  if (!m_isCompassAvailable || m_isArrowGluedInRouting)
+  // Sets direction based on GPS if compass is not available or the direction must be glued to the
+  // route (route-corrected angle is set only in OnLocationUpdate(): in OnCompassUpdate() the angle
+  // always has the original value.
+  if ((!m_isCompassAvailable || m_isArrowGluedInRouting) && info.HasBearing())
   {
-    bool const hasBearing = info.HasBearing();
-    if ((isNavigable && hasBearing) ||
-        (!isNavigable && hasBearing && info.HasSpeed() && info.m_speedMpS > kMinSpeedThresholdMps))
+    // Sets direction if in routing, or moving with |m_speedMpS| speed, or there is no signal from
+    // the compass sensor.
+    if (isNavigable || (info.HasSpeed() && info.m_speedMpS > kMinSpeedThresholdMps) ||
+        !m_isCompassAvailable)
     {
       SetDirection(base::DegToRad(info.m_bearing));
     }
