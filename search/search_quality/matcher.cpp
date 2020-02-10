@@ -113,18 +113,12 @@ bool StreetMatches(std::string const & name, std::vector<std::string> const & qu
   if (nameTokens.empty())
     return false;
 
-  auto const tokensMatch = [&](std::string const & a, std::string const & b) {
-    bool const sa = search::IsStreetSynonym(strings::MakeUniString(a));
-    bool const sb = search::IsStreetSynonym(strings::MakeUniString(b));
-    return (sa && sb) || a == b;
-  };
-
   for (size_t i = 0; i + nameTokens.size() <= queryTokens.size(); ++i)
   {
     bool found = true;
     for (size_t j = 0; j < nameTokens.size(); ++j)
     {
-      if (!tokensMatch(queryTokens[i + j], nameTokens[j]))
+      if (queryTokens[i + j] != nameTokens[j])
       {
         found = false;
         break;
