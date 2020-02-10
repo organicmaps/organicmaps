@@ -98,7 +98,6 @@ public:
 
   bool IsNameEditable() const;
   bool IsAddressEditable() const;
-  bool IsCuisineEditable() const;
 
   std::vector<Props> GetEditableProperties() const;
   // TODO(AlexZ): Remove this method and use GetEditableProperties() in UI.

@@ -29,20 +29,21 @@ Cuisines::Cuisines()
 }
 
 // static
-Cuisines & Cuisines::Instance()
+Cuisines const & Cuisines::Instance()
 {
   static Cuisines instance;
   return instance;
 }
 
-string Cuisines::Translate(string const & singleCuisine)
+string const & Cuisines::Translate(string const & singleCuisine) const
 {
+  static const string kEmptyString;
   auto const it = find_if(m_allCuisines.begin(), m_allCuisines.end(),
                           [&](auto const & cuisine) { return cuisine.first == singleCuisine; });
   if (it != m_allCuisines.end())
     return it->second;
-  return {};
+  return kEmptyString;
 }
 
-AllCuisines Cuisines::AllSupportedCuisines() { return m_allCuisines; }
+AllCuisines const & Cuisines::AllSupportedCuisines() const { return m_allCuisines; }
 }  // namespace osm

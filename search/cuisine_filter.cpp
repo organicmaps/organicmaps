@@ -23,7 +23,7 @@ Description::Description(FeatureType & ft)
 {
   m_types.clear();
   ft.ForEachType([this](uint32_t t) {
-    if (ftypes::IsCuisineChecker::Instance().IsMatched(t))
+    if (ftypes::IsCuisineChecker::Instance()(t))
       m_types.push_back(t);
   });
 }

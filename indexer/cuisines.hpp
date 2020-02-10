@@ -8,13 +8,14 @@ namespace osm
 {
 using AllCuisines = std::vector<std::pair<std::string, std::string>>;
 
+// This class IS thread-safe.
 class Cuisines
 {
 public:
-  static Cuisines & Instance();
+  static Cuisines const & Instance();
 
-  std::string Translate(std::string const & singleCuisine);
-  AllCuisines AllSupportedCuisines();
+  std::string const & Translate(std::string const & singleCuisine) const;
+  AllCuisines const & AllSupportedCuisines() const;
 
 private:
   Cuisines();

@@ -205,7 +205,6 @@ int8_t const EditableMapObject::kMaximumLevelsEditableByUsers = 25;
 
 bool EditableMapObject::IsNameEditable() const { return m_editableProperties.m_name; }
 bool EditableMapObject::IsAddressEditable() const { return m_editableProperties.m_address; }
-bool EditableMapObject::IsCuisineEditable() const { return m_editableProperties.m_cuisine; }
 
 vector<Props> EditableMapObject::GetEditableProperties() const
 {
