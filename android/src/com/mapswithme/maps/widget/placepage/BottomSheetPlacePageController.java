@@ -5,8 +5,6 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.Resources;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,9 +12,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -32,7 +28,6 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.promo.Promo;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
-import com.mapswithme.util.Graphics;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
@@ -50,7 +45,6 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
   private static final float PREVIEW_PLUS_RATIO = 0.45f;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = BottomSheetPlacePageController.class.getSimpleName();
-  private static final String EXTRA_MAP_OBJECT = "extra_map_object";
   private static final int ANIM_BANNER_APPEARING_MS = 300;
   private static final int ANIM_CHANGE_PEEK_HEIGHT_MS = 100;
   @NonNull
@@ -92,80 +86,59 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
   @Nullable
   private final RoutingModeListener mRoutingModeListener;
   @NonNull
-  private final AnchorBottomSheetBehavior.BottomSheetCallback mSheetCallback
-      = new AnchorBottomSheetBehavior.BottomSheetCallback()
-
+  private final BottomSheetChangedListener mBottomSheetChangedListener = new BottomSheetChangedListener()
   {
     @Override
-    public void onStateChanged(@NonNull View bottomSheet, int oldState, int newState)
+    public void onSheetHidden()
     {
-      LOGGER.d(TAG, "State change, new = " + BottomSheetPlacePageController.toString(newState)
-                    + " old = " + BottomSheetPlacePageController.toString(oldState)
-                    + " placepage height = " + mPlacePage.getHeight());
-      if (isSettlingState(newState) || isDraggingState(newState))
-      {
-        return;
-      }
+      onHiddenInternal();
+    }
 
-      if (isHiddenState(newState))
-      {
-        onHiddenInternal();
-        return;
-      }
+    @Override
+    public void onSheetDirectionIconChange()
+    {
+      PlacePageUtils.setPullDrawable(mPlacePageBehavior, mPlacePage, R.id.pull_icon);
+    }
 
-      setPullDrawable();
+    @Override
+    public void onSheetDetailsOpened()
+    {
+      mBannerController.onPlacePageStateChanged();
+      mPlacePageTracker.onDetails();
+    }
 
-      if (isAnchoredState(newState) || isExpandedState(newState))
-      {
-        mBannerController.onPlacePageStateChanged();
-        mPlacePageTracker.onDetails();
-        return;
-      }
-
+    @Override
+    public void onSheetCollapsed()
+    {
       mBannerController.onPlacePageStateChanged();
       setPeekHeight();
     }
 
     @Override
-    public void onSlide(@NonNull View bottomSheet, float slideOffset)
+    public void onSheetSliding(int top)
     {
-      mSlideListener.onPlacePageSlide(bottomSheet.getTop());
+      mSlideListener.onPlacePageSlide(top);
       mPlacePageTracker.onMove();
+    }
 
-      if (slideOffset < 0)
-        return;
-
-      updateViewPortRect();
-
+    @Override
+    public void onSheetSlideFinish()
+    {
+      PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
       resizeBanner();
     }
   };
 
+  @NonNull
+  private final AnchorBottomSheetBehavior.BottomSheetCallback mSheetCallback
+      = new DefaultBottomSheetCallback(mBottomSheetChangedListener);
+
   private void onHiddenInternal()
   {
     Framework.nativeDeactivatePopup();
-    updateViewPortRect();
+    PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
     UiUtils.invisible(mButtonsLayout);
     mPlacePageTracker.onHidden();
-  }
-
-  private void setPullDrawable()
-  {
-    @AnchorBottomSheetBehavior.State
-    int state = mPlacePageBehavior.getState();
-    @DrawableRes
-    int drawableId = UiUtils.NO_ID;
-    if (isCollapsedState(state))
-      drawableId = R.drawable.ic_disclosure_up;
-    else if (isAnchoredState(state) || isExpandedState(state))
-      drawableId = R.drawable.ic_disclosure_down;
-
-    if (drawableId == UiUtils.NO_ID)
-      return;
-
-    ImageView img = mPlacePage.findViewById(R.id.pull_icon);
-    Drawable drawable = Graphics.tint(mActivity, drawableId, R.attr.bannerButtonBackgroundColor);
-    img.setImageDrawable(drawable);
   }
 
   private void resizeBanner()
@@ -219,10 +192,10 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
     return height - mPlacePageBehavior.getPeekHeight();
   }
 
-  public BottomSheetPlacePageController(@NonNull Activity activity,
-                                        @NonNull AdsRemovalPurchaseControllerProvider provider,
-                                        @NonNull SlideListener listener,
-                                        @Nullable RoutingModeListener routingModeListener)
+  BottomSheetPlacePageController(@NonNull Activity activity,
+                                 @NonNull AdsRemovalPurchaseControllerProvider provider,
+                                 @NonNull SlideListener listener,
+                                 @Nullable RoutingModeListener routingModeListener)
   {
     mActivity = activity;
     mPurchaseControllerProvider = provider;
@@ -278,7 +251,7 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
     mPlacePage.setMapObject(object, (policy, isSameObject) -> {
       @AnchorBottomSheetBehavior.State
       int state = mPlacePageBehavior.getState();
-      if (isSameObject && !isHiddenState(state))
+      if (isSameObject && !PlacePageUtils.isHiddenState(state))
         return;
 
       mBannerRatio = 0;
@@ -337,13 +310,13 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
 
     @AnchorBottomSheetBehavior.State
     int currentState = mPlacePageBehavior.getState();
-    if (isSettlingState(currentState) || isDraggingState(currentState))
+    if (PlacePageUtils.isSettlingState(currentState) || PlacePageUtils.isDraggingState(currentState))
     {
       LOGGER.d(TAG, "Sheet state inappropriate, ignore.");
       return;
     }
 
-    if (isCollapsedState(currentState) && mPlacePageBehavior.getPeekHeight() > 0)
+    if (PlacePageUtils.isCollapsedState(currentState) && mPlacePageBehavior.getPeekHeight() > 0)
     {
       setPeekHeightAnimatedly(peekHeight);
       return;
@@ -423,7 +396,7 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
   @Override
   public boolean isClosed()
   {
-    return isHiddenState(mPlacePageBehavior.getState());
+    return PlacePageUtils.isHiddenState(mPlacePageBehavior.getState());
   }
 
   @Override
@@ -437,7 +410,8 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
   {
     @AnchorBottomSheetBehavior.State
     int currentState = mPlacePageBehavior.getState();
-    if (isHiddenState(currentState) || isDraggingState(currentState) || isSettlingState(currentState))
+    if (PlacePageUtils.isHiddenState(currentState) || PlacePageUtils.isDraggingState(currentState)
+        || PlacePageUtils.isSettlingState(currentState))
       return;
 
     mPlacePage.refreshAzimuth(north);
@@ -461,60 +435,17 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
 
     mPlacePage.post(this::setPeekHeight);
 
-    if (isHiddenState(mPlacePageBehavior.getState()))
+    if (PlacePageUtils.isHiddenState(mPlacePageBehavior.getState()))
       return;
 
-    updateViewPortRect();
-  }
-
-  private void updateViewPortRect()
-  {
-    mPlacePage.post(() -> {
-      View coordinatorLayout = (ViewGroup) mPlacePage.getParent();
-      int viewPortWidth = coordinatorLayout.getWidth();
-      int viewPortHeight = coordinatorLayout.getHeight();
-      Rect sheetRect = new Rect();
-      mPlacePage.getGlobalVisibleRect(sheetRect);
-      if (sheetRect.top < mViewportMinHeight)
-        return;
-
-      if (sheetRect.top >= viewPortHeight)
-      {
-        Framework.nativeSetVisibleRect(0, 0, viewPortWidth, viewPortHeight);
-        return;
-      }
-      viewPortHeight -= sheetRect.height();
-      Framework.nativeSetVisibleRect(0, 0, viewPortWidth, viewPortHeight);
-    });
-  }
-
-  @NonNull
-  private static String toString(@AnchorBottomSheetBehavior.State int state)
-  {
-    switch (state)
-    {
-      case AnchorBottomSheetBehavior.STATE_EXPANDED:
-        return "EXPANDED";
-      case AnchorBottomSheetBehavior.STATE_COLLAPSED:
-        return "COLLAPSED";
-      case AnchorBottomSheetBehavior.STATE_ANCHORED:
-        return "ANCHORED";
-      case AnchorBottomSheetBehavior.STATE_DRAGGING:
-        return "DRAGGING";
-      case AnchorBottomSheetBehavior.STATE_SETTLING:
-        return "SETTLING";
-      case AnchorBottomSheetBehavior.STATE_HIDDEN:
-        return "HIDDEN";
-      default:
-        throw new AssertionError("Unsupported state detected: " + state);
-    }
+    PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
   }
 
   @Override
   public void onSave(@NonNull Bundle outState)
   {
     mPlacePageTracker.onSave(outState);
-    outState.putParcelable(EXTRA_MAP_OBJECT, mPlacePage.getMapObject());
+    outState.putParcelable(PlacePageUtils.EXTRA_MAP_OBJECT, mPlacePage.getMapObject());
   }
 
   @Override
@@ -530,7 +461,7 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
       return;
     }
 
-    MapObject object = inState.getParcelable(EXTRA_MAP_OBJECT);
+    MapObject object = inState.getParcelable(PlacePageUtils.EXTRA_MAP_OBJECT);
     if (object == null)
       return;
 
@@ -551,7 +482,7 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
       UiUtils.show(mButtonsLayout);
       setPeekHeight();
       showBanner(object, policy);
-      setPullDrawable();
+      PlacePageUtils.setPullDrawable(mPlacePageBehavior, mPlacePage, R.id.pull_icon);
     });
   }
 
@@ -598,46 +529,17 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
     Promo.INSTANCE.setListener(null);
   }
 
-  private static boolean isSettlingState(@AnchorBottomSheetBehavior.State int state)
-  {
-    return state == AnchorBottomSheetBehavior.STATE_SETTLING;
-  }
-
-  private static boolean isDraggingState(@AnchorBottomSheetBehavior.State int state)
-  {
-    return state == AnchorBottomSheetBehavior.STATE_DRAGGING;
-  }
-
-  private static boolean isCollapsedState(@AnchorBottomSheetBehavior.State int state)
-  {
-    return state == AnchorBottomSheetBehavior.STATE_COLLAPSED;
-  }
-
-  private static boolean isAnchoredState(@AnchorBottomSheetBehavior.State int state)
-  {
-    return state == AnchorBottomSheetBehavior.STATE_ANCHORED;
-  }
-
-  private static boolean isExpandedState(@AnchorBottomSheetBehavior.State int state)
-  {
-    return state == AnchorBottomSheetBehavior.STATE_EXPANDED;
-  }
-
-  private static boolean isHiddenState(@AnchorBottomSheetBehavior.State int state)
-  {
-    return state == AnchorBottomSheetBehavior.STATE_HIDDEN;
-  }
-
   @Nullable
   @Override
   public BannerController.BannerState requestBannerState()
   {
     @AnchorBottomSheetBehavior.State
     int state = mPlacePageBehavior.getState();
-    if (isSettlingState(state) || isDraggingState(state) || isHiddenState(state))
+    if (PlacePageUtils.isSettlingState(state) || PlacePageUtils.isDraggingState(state)
+        || PlacePageUtils.isHiddenState(state))
       return null;
 
-    if (isAnchoredState(state) || isExpandedState(state))
+    if (PlacePageUtils.isAnchoredState(state) || PlacePageUtils.isExpandedState(state))
       return BannerController.BannerState.DETAILS;
 
     return BannerController.BannerState.PREVIEW;
@@ -668,13 +570,13 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
     {
       @AnchorBottomSheetBehavior.State
       int state = mPlacePageBehavior.getState();
-      if (isCollapsedState(state))
+      if (PlacePageUtils.isCollapsedState(state))
       {
         mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_ANCHORED);
         return true;
       }
 
-      if (isAnchoredState(state) || isExpandedState(state))
+      if (PlacePageUtils.isAnchoredState(state) || PlacePageUtils.isExpandedState(state))
       {
         mPlacePage.resetScroll();
         mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_COLLAPSED);

@@ -96,6 +96,7 @@
       android:background="?ppButtonsBackground"/>
     <include layout="@layout/divider_horizontal"/>
   </FrameLayout>
+  <include layout="@layout/elevation_profile_bottom_sheet" />
   <com.google.android.material.appbar.AppBarLayout
     android:id="@+id/app_bar"
     app:layout_behavior="@string/placepage_toolbar_behavior"

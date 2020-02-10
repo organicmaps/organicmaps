@@ -122,8 +122,8 @@ import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.menu.MyPositionButton;
-import com.mapswithme.maps.widget.placepage.BottomSheetPlacePageController;
 import com.mapswithme.maps.widget.placepage.PlacePageController;
+import com.mapswithme.maps.widget.placepage.PlacePageControllerFactory;
 import com.mapswithme.maps.widget.placepage.RoutingModeListener;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.InputUtils;
@@ -512,8 +512,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
     setContentView(R.layout.activity_map);
-    mPlacePageController = new BottomSheetPlacePageController(this, this, this,
-                                                              this);
+    mPlacePageController = PlacePageControllerFactory.createBottomSheetPlacePageController(this, this, this,
+                                                      this);
     mPlacePageController.initialize();
     mPlacePageController.onActivityCreated(this, savedInstanceState);
 

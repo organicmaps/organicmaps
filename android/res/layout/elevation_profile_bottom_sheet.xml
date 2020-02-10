@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/elevation_profile"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@color/base_accent"
+  android:minHeight="350dp"
+  app:behavior_defaultState="hidden"
+  app:behavior_hideable="true"
+  app:behavior_skipAnchored="true"
+  app:layout_behavior="@string/placepage_behavior"
+  android:orientation="vertical"
+  tools:showIn="@layout/activity_map" />
