@@ -75,10 +75,8 @@ bool FromSmallerToBigger(HighwayType lhs, HighwayType rhs)
 
 namespace routing
 {
-IsCrossroadChecker::CrossroadInfo IsCrossroadChecker::operator()(Segment const & current, Segment const & next) const
+IsCrossroadChecker::Type IsCrossroadChecker::operator()(Segment const & current, Segment const & next) const
 {
-  IsCrossroadChecker::CrossroadInfo ret = {};
-
   auto const currentSegmentFeatureId = current.GetFeatureId();
   auto const currentSegmentHwType = m_geometry.GetRoad(currentSegmentFeatureId).GetHighwayType();
   auto const nextSegmentFeatureId = next.GetFeatureId();
@@ -86,7 +84,7 @@ IsCrossroadChecker::CrossroadInfo IsCrossroadChecker::operator()(Segment const &
   auto const currentRoadPoint = current.GetRoadPoint(true /* isFront */);
   auto const jointId = m_indexGraph.GetJointId(currentRoadPoint);
   if (jointId == Joint::kInvalidId)
-    return ret;
+    return Type::Count;
 
   bool const isCurrentLink = IsHighwayLink(currentSegmentHwType);
   bool const isNextLink = IsHighwayLink(nextSegmentHwType);
@@ -97,30 +95,18 @@ IsCrossroadChecker::CrossroadInfo IsCrossroadChecker::operator()(Segment const &
   {
     // Changing highway type.
     if (isCurrentLink && !isNextLink && isNextBig)
-    {
-      ++ret[base::Underlying(Type::TurnFromSmallerToBigger)];
-      return ret;
-    }
+      return Type::TurnFromSmallerToBigger;
 
     if (!isCurrentLink && isNextLink && isCurrentBig)
-    {
-      ++ret[base::Underlying(Type::TurnFromBiggerToSmaller)];
-      return ret;
-    }
+      return Type::TurnFromBiggerToSmaller;
 
     // It's move without links.
     if (!isCurrentLink && !isNextLink)
     {
       if (isCurrentBig && !isNextBig)
-      {
-        ++ret[base::Underlying(Type::TurnFromBiggerToSmaller)];
-        return ret;
-      }
+        return Type::TurnFromBiggerToSmaller;
       else if (!isCurrentBig && isNextBig)
-      {
-        ++ret[base::Underlying(Type::TurnFromSmallerToBigger)];
-        return ret;
-      }
+        return Type::TurnFromSmallerToBigger;
     }
   }
 
@@ -163,9 +149,14 @@ IsCrossroadChecker::CrossroadInfo IsCrossroadChecker::operator()(Segment const &
     }
   });
 
-  if (retType != Type::Count)
-    ++ret[base::Underlying(retType)];
-  return ret;
+  return retType;
+}
+
+// static
+void IsCrossroadChecker::MergeCrossroads(Type from, CrossroadInfo & to)
+{
+  if (from != Type::Count)
+    ++to[base::Underlying(from)];
 }
 
 // static
@@ -174,5 +165,17 @@ void IsCrossroadChecker::MergeCrossroads(IsCrossroadChecker::CrossroadInfo const
 {
   for (size_t i = 0; i < from.size(); ++i)
     to[i] += from[i];
+}
+
+std::string DebugPrint(IsCrossroadChecker::Type type)
+{
+  switch (type)
+  {
+  case IsCrossroadChecker::Type::TurnFromSmallerToBigger: return "TurnFromSmallerToBigger";
+  case IsCrossroadChecker::Type::TurnFromBiggerToSmaller: return "TurnFromBiggerToSmaller";
+  case IsCrossroadChecker::Type::IntersectionWithBig: return "IntersectionWithBig";
+  case IsCrossroadChecker::Type::Count: return "Count";
+  }
+  UNREACHABLE();
 }
 }  // namespace routing

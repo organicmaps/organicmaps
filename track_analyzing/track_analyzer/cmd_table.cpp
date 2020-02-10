@@ -435,7 +435,6 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
           continue;
 
         MoveTypeAggregator aggregator;
-        // Initializing with base::Underlying(IsCrossroadChecker::Type::None) that means with 0.
         IsCrossroadChecker::CrossroadInfo info = {};
         for (auto subtrackBegin = track.begin(); subtrackBegin != track.end();)
         {
@@ -451,12 +450,8 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
           }
 
           // If it's not the end of the track than it could be a crossroad.
-          IsCrossroadChecker::CrossroadInfo crossroad = {};
           if (end != track.end())
-          {
-            crossroad = checker(prev->GetSegment(), end->GetSegment());
-            IsCrossroadChecker::MergeCrossroads(crossroad, info);
-          }
+            IsCrossroadChecker::MergeCrossroads(checker(prev->GetSegment(), end->GetSegment()), info);
 
           aggregator.Add(move(moveType), info, subtrackBegin, end, geometry);
           subtrackBegin = end;
