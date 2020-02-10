@@ -9,6 +9,10 @@ class PhoneNumberAuthorizationViewController: WebViewController {
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
+  override func willLoadUrl(_ decisionHandler: @escaping WebViewControllerWillLoadBlock) {
+    decisionHandler(true, WebApi.getDefaultAuthHeaders())
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()

@@ -20,5 +20,6 @@ public:
 };
 
 platform::HttpClient::Headers GetDefaultCatalogHeaders();
+platform::HttpClient::Headers GetDefaultAuthHeaders();
 platform::HttpClient::Headers GetCatalogHeaders(HeadersParams const & params);
 }  // namespace web_api

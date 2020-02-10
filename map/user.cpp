@@ -1,5 +1,7 @@
 #include "map/user.hpp"
 
+#include "web_api/request_headers.hpp"
+
 #include "platform/http_client.hpp"
 #include "platform/http_payload.hpp"
 #include "platform/http_uploader.hpp"
@@ -710,7 +712,7 @@ void User::RequestImpl(std::string const & url, BuildRequestHandler const & onBu
 
   platform::HttpClient request(url);
   request.SetRawHeader("Accept", kApplicationJson);
-  request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
+  request.SetRawHeaders(web_api::GetDefaultAuthHeaders());
   if (onBuildRequest)
     onBuildRequest(request);
 

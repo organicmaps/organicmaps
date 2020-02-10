@@ -74,6 +74,7 @@ public class PhoneAuthFragment extends BaseWebViewMwmFragment
 
     mWebView.getSettings().setJavaScriptEnabled(true);
     mWebView.getSettings().setUserAgentString(Framework.nativeGetUserAgent());
-    mWebView.loadUrl(Framework.nativeGetPhoneAuthUrl(REDIRECT_URL));
+    mWebView.loadUrl(Framework.nativeGetPhoneAuthUrl(REDIRECT_URL),
+                     Framework.getDefaultAuthHeaders());
   }
 }

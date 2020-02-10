@@ -1957,6 +1957,13 @@ Java_com_mapswithme_maps_Framework_nativeGetPhoneAuthUrl(JNIEnv * env, jclass, j
   return jni::ToJavaString(env, User::GetPhoneAuthUrl(jni::ToNativeString(env, redirectUrl)));
 }
 
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetDefaultAuthHeaders(JNIEnv * env, jobject)
+{
+  auto const & bm = frm()->GetBookmarkManager();
+  return jni::ToKeyValueArray(env, web_api::GetDefaultAuthHeaders());
+}
+
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetPrivacyPolicyLink(JNIEnv * env, jclass)
 {

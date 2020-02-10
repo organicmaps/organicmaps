@@ -29,11 +29,14 @@ import com.mapswithme.maps.routing.TransitRouteInfo;
 import com.mapswithme.maps.search.FilterUtils;
 import com.mapswithme.maps.settings.SettingsPrefsFragment;
 import com.mapswithme.util.Constants;
+import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class wraps android::Framework.cpp class
@@ -238,6 +241,17 @@ public class Framework
   public static void setSpeedCamerasMode(@NonNull SettingsPrefsFragment.SpeedCameraMode mode)
   {
     nativeSetSpeedCamManagerMode(mode.ordinal());
+  }
+
+  @NonNull
+  public static Map<String, String> getDefaultAuthHeaders()
+  {
+    KeyValue[] headers = nativeGetDefaultAuthHeaders();
+    Map<String, String> result = new HashMap<>();
+    for (KeyValue header: headers)
+      result.put(header.getKey(), header.getValue());
+
+    return result;
   }
 
   public static native void nativeShowTrackRect(long track);
@@ -472,6 +486,8 @@ public class Framework
   public static native boolean nativeIsUserAuthenticated();
   @NonNull
   public static native String nativeGetPhoneAuthUrl(@NonNull String redirectUrl);
+  @NonNull
+  public static native KeyValue[] nativeGetDefaultAuthHeaders();
   @NonNull
   public static native String nativeGetPrivacyPolicyLink();
   @NonNull

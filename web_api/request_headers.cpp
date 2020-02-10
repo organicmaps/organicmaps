@@ -8,11 +8,14 @@
 
 #include "base/string_utils.hpp"
 
+#include <utility>
+
 namespace web_api
 {
 namespace
 {
 char const * const kDeviceIdHeader = "X-Mapsme-Device-Id";
+char const * const kAdvertisingIdHeader = "X-Mapsme-Advertising-Id";
 char const * const kUserAgentHeader = "User-Agent";
 char const * const kCitiesHeader = "X-Mapsme-City-Ids";
 char const * const kCountriesHeader = "X-Mapsme-Country-Ids";
@@ -23,6 +26,17 @@ platform::HttpClient::Headers GetDefaultCatalogHeaders()
 {
   return {{kUserAgentHeader, GetPlatform().GetAppUserAgent()},
           {kDeviceIdHeader, DeviceId()}};
+}
+
+platform::HttpClient::Headers GetDefaultAuthHeaders()
+{
+  platform::HttpClient::Headers result = {{kUserAgentHeader, GetPlatform().GetAppUserAgent()},
+                                          {kDeviceIdHeader, DeviceId()}};
+
+  auto adId = GetPlatform().AdvertisingId();
+  if (!adId.empty())
+    result.emplace(kAdvertisingIdHeader, std::move(adId));
+  return result;
 }
 
 platform::HttpClient::Headers GetCatalogHeaders(HeadersParams const & params)
