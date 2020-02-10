@@ -96,6 +96,9 @@ SUBWAY_URL: http://osm-subway.maps.me/mapsme/latest.json
 # FOOD_URL:
 # FOOD_TRANSLATIONS_URL:
 # SRTM_PATH:
+# ISOLINES_PATH:
+# UK_POSTCODES_URL:
+# US_POSTCODES_URL:
 
 [Stats]
 # Path to rules for calculating statistics by type
@@ -132,29 +135,25 @@ optional arguments:
                         break, for which maps will be built. The names of the
                         regions can be seen in omim/data/borders. It is
                         necessary to set names without any extension.
-
-  --without_countries COUNTRIES
-                        Syntax the same with --countries. List of regions
-                        which you want to exclude from building.
-
+  --without_countries WITHOUT_COUNTRIES
+                        List of regions to exclude them from generation.
+                        Syntax is the same as for --countries.
   --skip SKIP           List of stages, separated by a comma or a semicolon,
                         for which building will be skipped. Available skip
-                        stages: download_external,
-                        download_production_external,
-                        download_and_convert_planet, update_planet, coastline,
-                        preprocess, features, mwm, descriptions,
-                        countries_txt, external_resources, localads,
-                        statistics, cleanup, index, ugc, popularity, srtm,
-                        routing, routing_transit.
+                        stages: DownloadExternal, DownloadProductionExternal,
+                        DownloadAndConvertPlanet, UpdatePlanet, Coastline,
+                        Preprocess, Features, Mwm, Index, CitiesIdsWorld, Ugc,
+                        Popularity, Srtm, Descriptions, Routing,
+                        RoutingTransit, CountriesTxt, ExternalResources,
+                        LocalAds, Statistics, Cleanup.
   --from_stage FROM_STAGE
                         Stage from which maps will be rebuild. Available
-                        stages: download_external,
-                        download_production_external,
-                        download_and_convert_planet, update_planet, coastline,
-                        preprocess, features, mwm, descriptions,
-                        countries_txt, external_resources, localads,
-                        statistics, cleanup, index, ugc, popularity, srtm,
-                        routing, routing_transit.
+                        stages: DownloadExternal, DownloadProductionExternal,
+                        DownloadAndConvertPlanet, UpdatePlanet, Coastline,
+                        Preprocess, Features, Mwm, Index, CitiesIdsWorld, Ugc,
+                        Popularity, Srtm, Descriptions, Routing,
+                        RoutingTransit, CountriesTxt, ExternalResources,
+                        LocalAds, Statistics, Cleanup.
   --coasts              Build only WorldCoasts.raw and WorldCoasts.rawgeom
                         files
   --production          Build production maps. In another case, 'osm only
@@ -205,7 +204,7 @@ For example, you changed routing code in omim project and want to regenerate map
 You must have previous generation. You may regenerate from stage routing only for two mwms:
 
 ```sh
-python$ python3.6 -m maps_generator -c --from_stage="routing" --countries="Japan_Kinki Region_Osaka_Osaka, Japan_Chugoku Region_Tottori"
+python$ python3.6 -m maps_generator -c --from_stage="Routing" --countries="Japan_Kinki Region_Osaka_Osaka, Japan_Chugoku Region_Tottori"
 ```
 ##### Note: To generate maps with the coastline, you need more time and you need the planet to contain a continuous coastline.
 
@@ -230,11 +229,11 @@ PLANET_MD5_URL: https://download.geofabrik.de/russia/central-fed-district-latest
 
 3. Run
 ```sh
-python$ python3.6 -m maps_generator --countries="Russia_Moscow" --skip="coastline"
+python$ python3.6 -m maps_generator --countries="Russia_Moscow" --skip="Coastline"
 ```
 
 #### Generate all possible mwms from .osm.pbf file
 If you cut some area (with http://geojson.io and osmium tool for example) and you don't want to think what mwms got into this .osm.pbf file, you just:
 ```sh
-python$ python3.6 -m maps_generator --skip="coastline" --without_countries="World*"
+python$ python3.6 -m maps_generator --skip="Coastline" --without_countries="World*"
 ```

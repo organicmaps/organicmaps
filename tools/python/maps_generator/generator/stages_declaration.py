@@ -35,12 +35,12 @@ from .gen_tool import run_gen_tool
 from .stages import Stage
 from .stages import build_lock
 from .stages import country_stage
-from .stages import get_stage_name
-from .stages import helper_stage
+from .stages import helper_stage_for
 from .stages import mwm_stage
 from .stages import outer_stage
 from .stages import planet_lock
 from .stages import production_only
+from .stages import stages
 from .statistics import get_stages_info
 from .statistics import make_stats
 from ..utils.file import download_files
@@ -49,8 +49,8 @@ from ..utils.file import is_verified
 logger = logging.getLogger("maps_generator")
 
 
-def is_skipped(env: Env, stage: Type[Stage]) -> bool:
-    return env.is_skipped_stage_name(get_stage_name(stage))
+def is_accepted(env: Env, stage: Type[Stage]) -> bool:
+    return env.is_accepted_stage(stage)
 
 
 @outer_stage
@@ -84,7 +84,7 @@ class StageDownloadProductionExternal(Stage):
 @planet_lock
 class StageDownloadAndConvertPlanet(Stage):
     def apply(self, env: Env, **kwargs):
-        force_download = not is_skipped(env, StageUpdatePlanet)
+        force_download = not is_accepted(env, StageUpdatePlanet)
         if force_download or not is_verified(settings.PLANET_O5M):
             steps.step_download_and_convert_planet(
                 env, force_download=force_download, **kwargs
@@ -140,17 +140,17 @@ class StagePreprocess(Stage):
 class StageFeatures(Stage):
     def apply(self, env: Env):
         extra = {}
-        if is_skipped(env, StageDescriptions):
+        if is_accepted(env, StageDescriptions):
             extra["idToWikidata"] = env.paths.id_to_wikidata_path
-        if is_skipped(env, StageDownloadProductionExternal):
+        if is_accepted(env, StageDownloadProductionExternal):
             extra["booking_data"] = env.paths.hotels_path
             extra["promo_catalog_cities"] = env.paths.promo_catalog_cities_path
             extra["popular_places_data"] = env.paths.popularity_path
             extra["brands_data"] = env.paths.food_paths
             extra["brands_translations_data"] = env.paths.food_translations_path
-        if is_skipped(env, StageCoastline):
+        if is_accepted(env, StageCoastline):
             extra["emit_coasts"] = True
-        if is_skipped(env, StageIsolinesInfo):
+        if is_accepted(env, StageIsolinesInfo):
             extra["isolines_path"] = PathProvider.isolines_path()
 
         steps.step_features(env, **extra)
@@ -161,12 +161,9 @@ class StageFeatures(Stage):
 @outer_stage
 @build_lock
 @production_only
-@helper_stage
+@helper_stage_for("StageDescriptions")
 class StageDownloadDescriptions(Stage):
     def apply(self, env: Env):
-        if not is_skipped(env, StageDescriptions):
-            return
-
         run_gen_tool(
             env.gen_tool,
             out=env.get_subprocess_out(),
@@ -231,7 +228,7 @@ class StageIndex(Stage):
             steps.step_coastline_index(env, country, **kwargs)
         else:
             extra = {}
-            if is_skipped(env, StageDownloadProductionExternal):
+            if is_accepted(env, StageDownloadProductionExternal):
                 extra["uk_postcodes_dataset"] = env.paths.uk_postcodes_path
                 extra["us_postcodes_dataset"] = env.paths.us_postcodes_path
             steps.step_index(env, country, **kwargs, **extra)
@@ -311,7 +308,7 @@ class StageCountriesTxt(Stage):
             env.paths.mwm_path,
             env.paths.mwm_version,
         )
-        if is_skipped(env, StageDownloadProductionExternal):
+        if is_accepted(env, StageDownloadProductionExternal):
             countries_json = json.loads(countries)
             inject_promo_ids(
                 countries_json,
@@ -353,7 +350,7 @@ class StageExternalResources(Stage):
 @outer_stage
 @build_lock
 @production_only
-class StageLocalads(Stage):
+class StageLocalAds(Stage):
     def apply(self, env: Env):
         create_csv(
             env.paths.localads_path,
@@ -430,3 +427,6 @@ class StageCleanup(Stage):
 
         logger.info(f"{env.paths.draft_path} will be removed.")
         shutil.rmtree(env.paths.draft_path)
+
+
+stages.init()

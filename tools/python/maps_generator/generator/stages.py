@@ -13,15 +13,15 @@ import os
 import time
 from abc import ABC
 from abc import abstractmethod
+from collections import defaultdict
 from typing import AnyStr
+from typing import Callable
 from typing import List
 from typing import Optional
 from typing import Type
 from typing import Union
 
-from .env import Env
 from .status import Status
-from ..utils.algo import camel_case_split
 from ..utils.log import DummyObject
 from ..utils.log import create_file_logger
 
@@ -38,7 +38,7 @@ class Stage(ABC):
     def __init__(self, **args):
         self.args = args
 
-    def __call__(self, env: Env):
+    def __call__(self, env: "Env"):
         return self.apply(env, **self.args)
 
     @abstractmethod
@@ -48,7 +48,18 @@ class Stage(ABC):
 
 def get_stage_name(stage: Union[Type[Stage], Stage]) -> AnyStr:
     n = stage.__class__.__name__ if isinstance(stage, Stage) else stage.__name__
-    return "_".join(w.lower() for w in camel_case_split(n))
+    return n.replace("Stage", "")
+
+
+def get_stage_type(stage: Union[Type[Stage], AnyStr]):
+    from . import stages_declaration as sd
+
+    if isinstance(stage, str):
+        if not stage.startswith("Stage"):
+            stage = f"Stage{stage}"
+        getattr(sd, stage)
+
+    return stage
 
 
 class Stages:
@@ -59,6 +70,14 @@ class Stages:
         self.countries_stages: List[Type[Stage]] = []
         self.stages: List[Type[Stage]] = []
         self.helper_stages: List[Type[Stage]] = []
+        self.dependencies = defaultdict(set)
+
+    def init(self):
+        # We normalize self.dependencies to Dict[Type[Stage], Set[Type[Stage]]].
+        dependencies = defaultdict(set)
+        for k, v in self.dependencies.items():
+            dependencies[get_stage_type(k)] = set(get_stage_type(x) for x in v)
+        self.dependencies = dependencies
 
     def set_mwm_stage(self, stage: Type[Stage]):
         assert self.mwm_stage is None
@@ -72,6 +91,10 @@ class Stages:
 
     def add_stage(self, stage: Type[Stage]):
         self.stages.append(stage)
+
+    def add_dependency_for(self, stage: Type[Stage], *deps):
+        for dep in deps:
+            self.dependencies[stage].add(dep)
 
     def get_visible_stages_names(self) -> List[AnyStr]:
         """Returns all stages names except helper stages names."""
@@ -103,34 +126,30 @@ def outer_stage(stage: Type[Stage]) -> Type[Stage]:
             stages.set_mwm_stage(stage)
 
     def new_apply(method):
-        def apply(obj: Stage, env: Env, *args, **kwargs):
+        def apply(obj: Stage, env: "Env", *args, **kwargs):
             name = get_stage_name(obj)
-            stage_formatted = " ".join(name.split("_")).capitalize()
             logfile = os.path.join(env.paths.log_path, f"{name}.log")
             log_handler = logging.FileHandler(logfile)
             logger.addHandler(log_handler)
-            if not env.is_skipped_stage_name(name):
-                logger.info(f"{stage_formatted} was not accepted.")
+            if not env.is_accepted_stage(stage):
+                logger.info(f"{name} was not accepted.")
                 logger.removeHandler(log_handler)
                 return
 
             main_status = env.main_status
             main_status.init(env.paths.main_status_path, name)
             if main_status.need_skip():
-                logger.warning(f"{stage_formatted} was skipped.")
+                logger.warning(f"{name} was skipped.")
                 logger.removeHandler(log_handler)
                 return
 
             main_status.update_status()
-            logger.info(f"{stage_formatted}: start ...")
+            logger.info(f"{name}: start ...")
             t = time.time()
             env.set_subprocess_out(log_handler.stream)
             method(obj, env, *args, **kwargs)
             d = time.time() - t
-            logger.info(
-                f"{stage_formatted}: finished in "
-                f"{str(datetime.timedelta(seconds=d))}"
-            )
+            logger.info(f"{name}: finished in " f"{str(datetime.timedelta(seconds=d))}")
             logger.removeHandler(log_handler)
 
         return apply
@@ -143,17 +162,15 @@ def country_stage_status(stage: Type[Stage]) -> Type[Stage]:
     """It's helper decorator that works with status file."""
 
     def new_apply(method):
-        def apply(obj: Stage, env: Env, country: AnyStr, *args, **kwargs):
+        def apply(obj: Stage, env: "Env", country: AnyStr, *args, **kwargs):
             name = get_stage_name(obj)
             _logger = DummyObject()
             countries_meta = env.countries_meta
             if "logger" in countries_meta[country]:
                 _logger, _ = countries_meta[country]["logger"]
 
-            stage_formatted = " ".join(name.split("_")).capitalize()
-
-            if not env.is_skipped_stage_name(name):
-                _logger.info(f"{stage_formatted} was not accepted.")
+            if not env.is_accepted_stage(stage):
+                _logger.info(f"{name} was not accepted.")
                 return
 
             if "status" not in countries_meta[country]:
@@ -163,7 +180,7 @@ def country_stage_status(stage: Type[Stage]) -> Type[Stage]:
             status_file = os.path.join(env.paths.status_path, f"{country}.status")
             status.init(status_file, name)
             if status.need_skip():
-                _logger.warning(f"{stage_formatted} was skipped.")
+                _logger.warning(f"{name} was skipped.")
                 return
 
             status.update_status()
@@ -179,7 +196,7 @@ def country_stage_log(stage: Type[Stage]) -> Type[Stage]:
     """It's helper decorator that works with log file."""
 
     def new_apply(method):
-        def apply(obj: Stage, env: Env, country: AnyStr, *args, **kwargs):
+        def apply(obj: Stage, env: "Env", country: AnyStr, *args, **kwargs):
             name = get_stage_name(obj)
             log_file = os.path.join(env.paths.log_path, f"{country}.log")
             countries_meta = env.countries_meta
@@ -234,6 +251,10 @@ def production_only(stage: Type[Stage]) -> Type[Stage]:
     return stage
 
 
-def helper_stage(stage: Type[Stage]) -> Type[Stage]:
-    stage.is_helper = True
-    return stage
+def helper_stage_for(*deps) -> Callable[[Type[Stage],], Type[Stage]]:
+    def wrapper(stage: Type[Stage]) -> Type[Stage]:
+        stages.add_dependency_for(stage, *deps)
+        stage.is_helper = True
+        return stage
+
+    return wrapper

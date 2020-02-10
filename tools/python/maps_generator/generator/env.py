@@ -13,9 +13,12 @@ from typing import Dict
 from typing import List
 from typing import Optional
 from typing import Set
+from typing import Type
+from typing import Union
 
 from . import settings
 from .osmtools import build_osmtools
+from .stages import Stage
 from .status import Status
 from ..utils.file import find_executable
 from ..utils.file import is_executable
@@ -336,7 +339,7 @@ class Env:
         countries: Optional[List[AnyStr]] = None,
         production: bool = False,
         build_name: Optional[AnyStr] = None,
-        skipped_stages: Optional[Set[AnyStr]] = None,
+        skipped_stages: Optional[Set[Type[Stage]]] = None,
     ):
         self.setup_logging()
 
@@ -408,11 +411,15 @@ class Env:
                     existing_names.add(name)
         return [c for c in self.countries if c in existing_names]
 
-    def add_skipped_stage_name(self, stage_name: AnyStr):
-        self.skipped_stages.add(stage_name)
+    def add_skipped_stage(self, stage: Union[Type[Stage], Stage]):
+        if isinstance(stage, Stage):
+            stage = stage.__class__
+        self.skipped_stages.add(stage)
 
-    def is_skipped_stage_name(self, stage_name: AnyStr) -> bool:
-        return stage_name not in self.skipped_stages
+    def is_accepted_stage(self, stage: Union[Type[Stage], Stage]) -> bool:
+        if isinstance(stage, Stage):
+            stage = stage.__class__
+        return stage not in self.skipped_stages
 
     def finish(self):
         self.main_status.finish()

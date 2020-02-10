@@ -1,5 +1,6 @@
 import os
 from typing import AnyStr
+from typing import List
 from typing import Optional
 from typing import Type
 from typing import Union
@@ -27,25 +28,41 @@ class Generation:
     """
 
     def __init__(self, env: Env):
-        self.env = env
-        self.stages = []
+        self.env: Env = env
+        self.stages: List[Stage] = []
+        self.runnable_stages: Optional[List[Stage]] = None
 
         for country_stage in stages.countries_stages:
             if self.is_skipped_stage(country_stage):
-                stage_name = get_stage_name(country_stage)
-                self.env.add_skipped_stage_name(stage_name)
+                self.env.add_skipped_stage(country_stage)
 
     def is_skipped_stage(self, stage: Union[Type[Stage], Stage]) -> bool:
         return stage.is_production_only and not self.env.production
 
     def add_stage(self, stage: Stage):
+        self.stages.append(stage)
         if self.is_skipped_stage(stage):
-            stage_name = get_stage_name(stage)
-            self.env.add_skipped_stage_name(stage_name)
-        else:
-            self.stages.append(stage)
+            self.env.add_skipped_stage(stage)
+
+    def pre_run(self):
+        skipped = set()
+
+        def traverse(current: Type[Stage]):
+            deps = stages.dependencies.get(current, [])
+            for d in deps:
+                skipped.add(d)
+                traverse(d)
+
+        for skipped_stage in self.env.skipped_stages:
+            traverse(skipped_stage)
+
+        for s in skipped:
+            self.env.add_skipped_stage(s)
+
+        self.runnable_stages = [s for s in self.stages if self.env.is_accepted_stage(s)]
 
     def run(self, from_stage: Optional[AnyStr] = None):
+        self.pre_run()
         if from_stage is not None:
             self.reset_to_stage(from_stage)
 
@@ -54,7 +71,7 @@ class Generation:
             f"{os.path.join(self.env.paths.build_path, 'lock')}.lock"
         )
         try:
-            for stage in self.stages:
+            for stage in self.runnable_stages:
                 if stage.need_planet_lock:
                     planet_lock.acquire()
                 else:
@@ -93,14 +110,12 @@ class Generation:
             for path in countries_statuses_paths:
                 Status(path).finish()
 
-        high_level_stages = [get_stage_name(s) for s in self.stages]
+        high_level_stages = [get_stage_name(s) for s in self.runnable_stages]
         if not (
             stage_name in high_level_stages
             or any(stage_name == get_stage_name(s) for s in stages.countries_stages)
         ):
-            raise ContinueError(
-                f"Stage {stage_name} not in {', '.join(high_level_stages)}."
-            )
+            raise ContinueError(f"{stage_name} not in {', '.join(high_level_stages)}.")
 
         if not os.path.exists(self.env.paths.main_status_path):
             raise ContinueError(

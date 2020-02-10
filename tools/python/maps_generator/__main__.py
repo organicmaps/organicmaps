@@ -244,19 +244,18 @@ def main():
     skipped_stages = set()
     if options["skip"]:
         for s in options["skip"].replace(";", ",").split(","):
-            stage = f"stage_{s.strip()}"
+            stage = s.strip()
             if not stages.stages.is_valid_stage_name(stage):
-                raise SkipError(f"Stage {stage} not found.")
-            skipped_stages.add(stage)
+                raise SkipError(f"{stage} not found.")
+            skipped_stages.add(stages.get_stage_type(stage))
 
     if settings.PLANET_URL != settings.DEFAULT_PLANET_URL:
-        skipped_stages.add(stages.get_stage_name(sd.StageUpdatePlanet))
+        skipped_stages.add(sd.StageUpdatePlanet)
 
-    stage_coastline_name = stages.get_stage_name(sd.StageCoastline)
-    if stage_coastline_name in skipped_stages:
+    if sd.StageCoastline in skipped_stages:
         if any(x in WORLDS_NAMES for x in options["countries"]):
             raise SkipError(
-                f"You can not skip {stage_coastline_name}"
+                f"You can not skip {stages.get_stage_name(sd.StageCoastline)}"
                 f" if you want to generate {WORLDS_NAMES}."
                 f" You can exclude them with --without_countries option."
             )
@@ -270,7 +269,7 @@ def main():
     )
     from_stage = None
     if options["from_stage"]:
-        from_stage = f"stage_{options['from_stage']}"
+        from_stage = f"{options['from_stage']}"
     if options["coasts"]:
         generate_coasts(env, from_stage)
     else:
