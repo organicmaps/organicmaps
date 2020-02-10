@@ -38,13 +38,13 @@ UserMark::Type const type = UserMark::Type::API;
 class ApiTest
 {
 public:
-  explicit ApiTest(string const & uriString)
+  explicit ApiTest(string const & urlString)
     : m_fm(kFrameworkParams)
   {
     m_m = &m_fm.GetBookmarkManager();
     m_api.SetBookmarkManager(m_m);
 
-    auto const res = m_api.SetUriAndParse(uriString);
+    auto const res = m_api.SetUrlAndParse(urlString);
     if (res != ParsedMapApi::ParsingResult::Incorrect)
     {
       if (!m_api.GetViewportRect(m_viewportRect))
@@ -109,11 +109,11 @@ private:
   BookmarkManager * m_m;
 };
 
-bool IsValid(Framework & fm, string const & uriString)
+bool IsValid(Framework & fm, string const & urlString)
 {
   ParsedMapApi api;
   api.SetBookmarkManager(&fm.GetBookmarkManager());
-  api.SetUriAndParse(uriString);
+  api.SetUrlAndParse(urlString);
   fm.GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::API);
 
   return api.IsValid();
@@ -122,10 +122,10 @@ bool IsValid(Framework & fm, string const & uriString)
 
 UNIT_TEST(MapApiSmoke)
 {
-  string uriString = "mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name";
-  TEST(url::Uri(uriString).IsValid(), ());
+  string urlString = "mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name";
+  TEST(url::Url(urlString).IsValid(), ());
 
-  ApiTest test(uriString);
+  ApiTest test(urlString);
 
   TEST(test.IsValid(), ());
   TEST_EQUAL(test.GetPointCount(), 1, ());
@@ -137,11 +137,11 @@ UNIT_TEST(MapApiSmoke)
 
 UNIT_TEST(RouteApiSmoke)
 {
-  string const uriString =
+  string const urlString =
       "mapswithme://route?sll=1,1&saddr=name0&dll=2,2&daddr=name1&type=vehicle";
-  TEST(url::Uri(uriString).IsValid(), ());
+  TEST(url::Url(urlString).IsValid(), ());
 
-  ApiTest test(uriString);
+  ApiTest test(urlString);
   TEST(test.IsValid(), ());
   TEST(test.TestRoutePoint(0, 1, 1, "name0"), ());
   TEST(test.TestRoutePoint(1, 2, 2, "name1"), ());
@@ -150,10 +150,10 @@ UNIT_TEST(RouteApiSmoke)
 
 UNIT_TEST(CatalogueApiSmoke)
 {
-  string const uriString = "mapsme://catalogue?id=440f02e5-ff38-45ed-95c0-44587c9a5fc7&name=CatalogGroupName";
-  TEST(url::Uri(uriString).IsValid(), ());
+  string const urlString = "mapsme://catalogue?id=440f02e5-ff38-45ed-95c0-44587c9a5fc7&name=CatalogGroupName";
+  TEST(url::Url(urlString).IsValid(), ());
 
-  ApiTest test(uriString);
+  ApiTest test(urlString);
   TEST(test.IsValid(), ());
 
   auto const & catalogItem = test.GetCatalog();
@@ -176,10 +176,10 @@ UNIT_TEST(CatalogueApiInvalidUrl)
 
 UNIT_TEST(SearchApiSmoke)
 {
-  string const uriString = "mapsme://search?query=fff&cll=1,1&locale=ru&map";
-  TEST(url::Uri(uriString).IsValid(), ());
+  string const urlString = "mapsme://search?query=fff&cll=1,1&locale=ru&map";
+  TEST(url::Url(urlString).IsValid(), ());
 
-  ApiTest test(uriString);
+  ApiTest test(urlString);
   TEST(test.IsValid(), ());
 
   auto const & request = test.GetSearchRequest();
@@ -208,9 +208,9 @@ UNIT_TEST(LeadApiSmoke)
     UNUSED_VALUE(base::DeleteFileX(path));
   });
 
-  string const uriString = "mapsme://lead?utm_source=a&utm_medium=b&utm_campaign=c&utm_content=d&utm_term=e";
-  TEST(url::Uri(uriString).IsValid(), ());
-  ApiTest test(uriString);
+  string const urlString = "mapsme://lead?utm_source=a&utm_medium=b&utm_campaign=c&utm_content=d&utm_term=e";
+  TEST(url::Url(urlString).IsValid(), ());
+  ApiTest test(urlString);
   TEST(test.IsValid(), ());
 
   auto checkEqual = [](string const & key, string const & value)

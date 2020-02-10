@@ -153,33 +153,33 @@ std::string DebugPrint(Param const & param)
   return "UrlParam [" + param.m_name + "=" + param.m_value + "]";
 }
 
-Uri::Uri(std::string const & uri)
+Url::Url(std::string const & url)
 {
-  if (!Parse(uri))
+  if (!Parse(url))
   {
     ASSERT(m_scheme.empty() && m_path.empty() && !IsValid(), ());
   }
 }
 
-bool Uri::Parse(std::string const & uri)
+bool Url::Parse(std::string const & url)
 {
   // Get url scheme.
-  size_t pathStart = uri.find(':');
+  size_t pathStart = url.find(':');
   if (pathStart == string::npos || pathStart == 0)
     return false;
-  m_scheme.assign(uri, 0, pathStart);
+  m_scheme.assign(url, 0, pathStart);
 
   // Skip slashes.
-  while (++pathStart < uri.size() && uri[pathStart] == '/')
+  while (++pathStart < url.size() && url[pathStart] == '/')
   {
   }
 
   // Find query starting point for (key, value) parsing.
-  size_t queryStart = uri.find('?', pathStart);
+  size_t queryStart = url.find('?', pathStart);
   size_t pathLength;
   if (queryStart == string::npos)
   {
-    queryStart = uri.size();
+    queryStart = url.size();
     pathLength = queryStart - pathStart;
   }
   else
@@ -189,30 +189,30 @@ bool Uri::Parse(std::string const & uri)
   }
 
   // Get path (url without query).
-  m_path.assign(uri, pathStart, pathLength);
+  m_path.assign(url, pathStart, pathLength);
 
   // Parse query for keys and values.
-  for (size_t start = queryStart; start < uri.size();)
+  for (size_t start = queryStart; start < url.size();)
   {
-    size_t end = uri.find('&', start);
+    size_t end = url.find('&', start);
     if (end == string::npos)
-      end = uri.size();
+      end = url.size();
 
     // Skip empty keys.
     if (end != start)
     {
-      size_t const eq = uri.find('=', start);
+      size_t const eq = url.find('=', start);
 
       string key;
       string value;
       if (eq != string::npos && eq < end)
       {
-        key = UrlDecode(uri.substr(start, eq - start));
-        value = UrlDecode(uri.substr(eq + 1, end - eq - 1));
+        key = UrlDecode(url.substr(start, eq - start));
+        value = UrlDecode(url.substr(eq + 1, end - eq - 1));
       }
       else
       {
-        key = UrlDecode(uri.substr(start, end - start));
+        key = UrlDecode(url.substr(start, end - start));
       }
 
       m_params.emplace_back(key, value);
@@ -224,7 +224,7 @@ bool Uri::Parse(std::string const & uri)
   return true;
 }
 
-bool Uri::ForEachParam(Callback const & callback) const
+bool Url::ForEachParam(Callback const & callback) const
 {
   // todo(@m) Looks strange but old code worked this way.
   if (m_params.empty())
@@ -325,16 +325,16 @@ string UrlDecode(string const & encodedUrl)
 
 GeoURLInfo::GeoURLInfo(string const & s)
 {
-  Uri uri(s);
-  if (!uri.IsValid())
+  Url url(s);
+  if (!url.IsValid())
   {
     Reset();
     return;
   }
 
   LatLonParser parser(*this);
-  parser(url::Param(string(), uri.GetPath()));
-  uri.ForEachParam(ref(parser));
+  parser(url::Param(string(), url.GetPath()));
+  url.ForEachParam(ref(parser));
 
   if (!parser.IsValid())
   {

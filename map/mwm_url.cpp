@@ -127,7 +127,7 @@ enum class ApiURLType
 
 std::array<std::string, 3> const kAvailableSchemes = {{"mapswithme", "mwm", "mapsme"}};
 
-ApiURLType URLType(url::Uri const & uri)
+ApiURLType URLType(url::Url const & uri)
 {
   if (std::find(kAvailableSchemes.begin(), kAvailableSchemes.end(), uri.GetScheme()) == kAvailableSchemes.end())
     return ApiURLType::Incorrect;
@@ -181,7 +181,7 @@ void ParsedMapApi::SetBookmarkManager(BookmarkManager * manager)
   m_bmManager = manager;
 }
 
-ParsedMapApi::ParsingResult ParsedMapApi::SetUriAndParse(string const & url)
+ParsedMapApi::ParsingResult ParsedMapApi::SetUrlAndParse(string const & url)
 {
   Reset();
 
@@ -191,12 +191,12 @@ ParsedMapApi::ParsingResult ParsedMapApi::SetUriAndParse(string const & url)
     return ParsingResult::Incorrect;
   }
 
-  ParsingResult const res = Parse(url::Uri(url));
+  ParsingResult const res = Parse(url::Url(url));
   m_isValid = res != ParsingResult::Incorrect;
   return res;
 }
 
-ParsedMapApi::ParsingResult ParsedMapApi::Parse(url::Uri const & uri)
+ParsedMapApi::ParsingResult ParsedMapApi::Parse(url::Url const & uri)
 {
   switch (URLType(uri))
   {

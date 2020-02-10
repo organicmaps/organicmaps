@@ -22,13 +22,13 @@ std::string DebugPrint(Param const & param);
 
 using Params = std::vector<Param>;
 
-// Uri in format: 'scheme://path?key1=value1&key2&key3=&key4=value4'
-class Uri
+// Url in format: 'scheme://path?key1=value1&key2&key3=&key4=value4'
+class Url
 {
 public:
   using Callback = std::function<bool(Param const & param)>;
 
-  explicit Uri(std::string const & uri);
+  explicit Url(std::string const & url);
 
   std::string const & GetScheme() const { return m_scheme; }
   std::string const & GetPath() const { return m_path; }
@@ -36,7 +36,7 @@ public:
   bool ForEachParam(Callback const & callback) const;
 
 private:
-  bool Parse(std::string const & uri);
+  bool Parse(std::string const & url);
 
   std::string m_scheme;
   std::string m_path;

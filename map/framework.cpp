@@ -2209,7 +2209,7 @@ url_scheme::ParsedMapApi::ParsingResult Framework::ParseAndSetApiURL(string cons
     editSession.SetIsVisible(UserMark::Type::API, true);
   }
 
-  return m_parsedMapApi.SetUriAndParse(url);
+  return m_parsedMapApi.SetUrlAndParse(url);
 }
 
 Framework::ParsedRoutingData Framework::GetParsedRoutingData() const

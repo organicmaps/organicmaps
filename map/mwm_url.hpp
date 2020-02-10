@@ -11,7 +11,7 @@ class BookmarkManager;
 
 namespace url
 {
-class Uri;
+class Url;
 }
 
 namespace url_scheme
@@ -83,7 +83,7 @@ public:
 
   void SetBookmarkManager(BookmarkManager * manager);
 
-  ParsingResult SetUriAndParse(std::string const & url);
+  ParsingResult SetUrlAndParse(std::string const & url);
   bool IsValid() const { return m_isValid; }
   std::string const & GetGlobalBackUrl() const { return m_globalBackUrl; }
   std::string const & GetAppTitle() const { return m_appTitle; }
@@ -101,7 +101,7 @@ public:
   CatalogPath const & GetCatalogPath() const { return m_catalogPath; }
   Subscription const & GetSubscription() const { return m_subscription; }
 private:
-  ParsingResult Parse(url::Uri const & uri);
+  ParsingResult Parse(url::Url const & url);
   bool AddKeyValue(std::string const & key, std::string const & value, std::vector<ApiPoint> & points);
   bool RouteKeyValue(std::string const & key, std::string const & value, std::vector<std::string> & pattern);
   bool SearchKeyValue(std::string const & key, std::string const & value, SearchRequest & request) const;
