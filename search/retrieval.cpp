@@ -4,6 +4,7 @@
 #include "search/feature_offset_match.hpp"
 #include "search/interval_set.hpp"
 #include "search/mwm_context.hpp"
+#include "search/search_index_header.hpp"
 #include "search/search_index_values.hpp"
 #include "search/search_trie.hpp"
 #include "search/token_slice.hpp"
@@ -347,7 +348,7 @@ struct RetrievePostcodeFeaturesAdaptor
 };
 
 template <typename Value>
-unique_ptr<Retrieval::TrieRoot<Value>> ReadTrie(MwmValue const & value, ModelReaderPtr & reader)
+unique_ptr<Retrieval::TrieRoot<Value>> ReadTrie(ModelReaderPtr & reader)
 {
   return trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<Value>>(
       SubReaderWrapper<Reader>(reader.GetPtr()), SingleValueSerializer<Value>());
@@ -355,17 +356,31 @@ unique_ptr<Retrieval::TrieRoot<Value>> ReadTrie(MwmValue const & value, ModelRea
 }  // namespace
 
 Retrieval::Retrieval(MwmContext const & context, base::Cancellable const & cancellable)
-  : m_context(context)
-  , m_cancellable(cancellable)
-  , m_reader(context.m_value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG))
+  : m_context(context), m_cancellable(cancellable), m_reader(unique_ptr<ModelReader>())
 {
   auto const & value = context.m_value;
 
   version::MwmTraits mwmTraits(value.GetMwmVersion());
   auto const format = mwmTraits.GetSearchIndexFormat();
   // We do not support mwms older than November 2015.
-  CHECK_EQUAL(format, version::MwmTraits::SearchIndexFormat::CompressedBitVector, ());
-  m_root = ReadTrie<Uint64IndexValue>(value, m_reader);
+  CHECK(format == version::MwmTraits::SearchIndexFormat::CompressedBitVector ||
+            format == version::MwmTraits::SearchIndexFormat::CompressedBitVectorWithHeader,
+        (format));
+  if (format == version::MwmTraits::SearchIndexFormat::CompressedBitVector)
+  {
+    m_reader = context.m_value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
+  }
+  else
+  {
+    FilesContainerR::TReader reader = value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
+
+    SearchIndexHeader header;
+    header.Read(*reader.GetPtr());
+    CHECK(header.m_version == SearchIndexHeader::Version::V2, (base::Underlying(header.m_version)));
+
+    m_reader = reader.SubReader(header.m_indexOffset, header.m_indexSize);
+  }
+  m_root = ReadTrie<Uint64IndexValue>(m_reader);
 }
 
 Retrieval::ExtendedFeatures Retrieval::RetrieveAddressFeatures(

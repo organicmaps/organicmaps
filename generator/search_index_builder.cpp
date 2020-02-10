@@ -4,6 +4,7 @@
 #include "search/house_to_street_table.hpp"
 #include "search/mwm_context.hpp"
 #include "search/reverse_geocoder.hpp"
+#include "search/search_index_header.hpp"
 #include "search/search_index_values.hpp"
 #include "search/search_trie.hpp"
 #include "search/types_skipper.hpp"
@@ -552,7 +553,24 @@ bool BuildSearchIndexFromDataFile(string const & path, string const & country, b
       {
         FilesContainerW writeContainer(readContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING);
         auto writer = writeContainer.GetWriter(SEARCH_INDEX_FILE_TAG);
+        size_t const startOffset = writer->Pos();
+        CHECK(coding::IsAlign8(startOffset), ());
+
+        search::SearchIndexHeader header;
+        header.Serialize(*writer);
+
+        uint64_t bytesWritten = writer->Pos();
+        coding::WritePadding(*writer, bytesWritten);
+
+        header.m_indexOffset = base::asserted_cast<uint32_t>(writer->Pos() - startOffset);
         rw_ops::Reverse(FileReader(indexFilePath), *writer);
+        header.m_indexSize =
+            base::asserted_cast<uint32_t>(writer->Pos() - header.m_indexOffset - startOffset);
+
+        auto const endOffset = writer->Pos();
+        writer->Seek(startOffset);
+        header.Serialize(*writer);
+        writer->Seek(endOffset);
       }
 
       {

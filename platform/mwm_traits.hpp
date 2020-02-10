@@ -22,6 +22,12 @@ public:
     // stored behind every node of the search trie.
     // This format corresponds to ValueList<Uint64IndexValue>.
     CompressedBitVector,
+
+    // A compressed bit vector of feature indices is
+    // stored behind every node of the search trie.
+    // This format corresponds to ValueList<Uint64IndexValue>.
+    // Section has header.
+    CompressedBitVectorWithHeader,
   };
 
   enum class HouseToStreetTableFormat
