@@ -10,29 +10,6 @@
 // order to simplify the usage.
 namespace url
 {
-// Uri in format: 'scheme://path?key1=value1&key2&key3=&key4=value4'
-class Uri
-{
-public:
-  using Callback = std::function<bool(std::string const &, std::string const &)>;
-
-  explicit Uri(std::string const & uri);
-
-  std::string const & GetScheme() const { return m_scheme; }
-  std::string const & GetPath() const { return m_path; }
-  bool IsValid() const { return !m_scheme.empty(); }
-  bool ForEachKeyValue(Callback const & callback) const;
-
-private:
-  bool Parse();
-
-  std::string m_url;
-  std::string m_scheme;
-  std::string m_path;
-
-  size_t m_queryStart;
-};
-
 struct Param
 {
   Param(std::string const & name, std::string const & value) : m_name(name), m_value(value) {}
@@ -41,7 +18,30 @@ struct Param
   std::string m_value;
 };
 
+std::string DebugPrint(Param const & param);
+
 using Params = std::vector<Param>;
+
+// Uri in format: 'scheme://path?key1=value1&key2&key3=&key4=value4'
+class Uri
+{
+public:
+  using Callback = std::function<bool(Param const & param)>;
+
+  explicit Uri(std::string const & uri);
+
+  std::string const & GetScheme() const { return m_scheme; }
+  std::string const & GetPath() const { return m_path; }
+  bool IsValid() const { return !m_scheme.empty(); }
+  bool ForEachParam(Callback const & callback) const;
+
+private:
+  bool Parse(std::string const & uri);
+
+  std::string m_scheme;
+  std::string m_path;
+  std::vector<Param> m_params;
+};
 
 // Make URL by using base url and vector of params.
 std::string Make(std::string const & baseUrl, Params const & params);

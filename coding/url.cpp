@@ -40,30 +40,30 @@ public:
     return m_latPriority == m_lonPriority && m_latPriority != -1;
   }
 
-  bool operator()(string const & key, string const & value)
+  bool operator()(url::Param const & param)
   {
-    if (key == "z" || key == "zoom")
+    if (param.m_name == "z" || param.m_name == "zoom")
     {
       double x;
-      if (strings::to_double(value, x))
+      if (strings::to_double(param.m_value, x))
         m_info.SetZoom(x);
       return true;
     }
 
-    int const priority = GetCoordinatesPriority(key);
+    int const priority = GetCoordinatesPriority(param.m_name);
     if (priority == -1 || priority < m_latPriority || priority < m_lonPriority)
       return false;
 
     if (priority != kLatLonPriority)
     {
-      strings::ForEachMatched(value, m_regexp, AssignCoordinates(*this, priority));
+      strings::ForEachMatched(param.m_value, m_regexp, AssignCoordinates(*this, priority));
       return true;
     }
 
     double x;
-    if (strings::to_double(value, x))
+    if (strings::to_double(param.m_value, x))
     {
-      if (key == "lat")
+      if (param.m_name == "lat")
       {
         if (!m_info.SetLat(x))
           return false;
@@ -71,7 +71,7 @@ public:
       }
       else
       {
-        ASSERT_EQUAL(key, "lon", ());
+        ASSERT_EQUAL(param.m_name, "lon", ());
         if (!m_info.SetLon(x))
           return false;
         m_lonPriority = priority;
@@ -148,86 +148,94 @@ private:
 
 namespace url
 {
-Uri::Uri(std::string const & uri) : m_url(uri)
+std::string DebugPrint(Param const & param)
 {
-  if (!Parse())
+  return "UrlParam [" + param.m_name + "=" + param.m_value + "]";
+}
+
+Uri::Uri(std::string const & uri)
+{
+  if (!Parse(uri))
   {
     ASSERT(m_scheme.empty() && m_path.empty() && !IsValid(), ());
-    m_queryStart = m_url.size();
   }
 }
 
-bool Uri::Parse()
+bool Uri::Parse(std::string const & uri)
 {
   // Get url scheme.
-  size_t pathStart = m_url.find(':');
+  size_t pathStart = uri.find(':');
   if (pathStart == string::npos || pathStart == 0)
     return false;
-  m_scheme.assign(m_url, 0, pathStart);
+  m_scheme.assign(uri, 0, pathStart);
 
   // Skip slashes.
-  while (++pathStart < m_url.size() && m_url[pathStart] == '/')
+  while (++pathStart < uri.size() && uri[pathStart] == '/')
   {
   }
 
   // Find query starting point for (key, value) parsing.
-  m_queryStart = m_url.find('?', pathStart);
+  size_t queryStart = uri.find('?', pathStart);
   size_t pathLength;
-  if (m_queryStart == string::npos)
+  if (queryStart == string::npos)
   {
-    m_queryStart = m_url.size();
-    pathLength = m_queryStart - pathStart;
+    queryStart = uri.size();
+    pathLength = queryStart - pathStart;
   }
   else
   {
-    pathLength = m_queryStart - pathStart;
-    ++m_queryStart;
+    pathLength = queryStart - pathStart;
+    ++queryStart;
   }
 
   // Get path (url without query).
-  m_path.assign(m_url, pathStart, pathLength);
+  m_path.assign(uri, pathStart, pathLength);
 
-  return true;
-}
-
-bool Uri::ForEachKeyValue(Callback const & callback) const
-{
   // Parse query for keys and values.
-  size_t const count = m_url.size();
-  size_t const queryStart = m_queryStart;
-
-  // Just a URL without parameters.
-  if (queryStart == count)
-    return false;
-
-  for (size_t start = queryStart; start < count; )
+  for (size_t start = queryStart; start < uri.size();)
   {
-    size_t end = m_url.find('&', start);
+    size_t end = uri.find('&', start);
     if (end == string::npos)
-      end = count;
+      end = uri.size();
 
     // Skip empty keys.
     if (end != start)
     {
-      size_t const eq = m_url.find('=', start);
+      size_t const eq = uri.find('=', start);
 
-      string key, value;
+      string key;
+      string value;
       if (eq != string::npos && eq < end)
       {
-        key = UrlDecode(m_url.substr(start, eq - start));
-        value = UrlDecode(m_url.substr(eq + 1, end - eq - 1));
+        key = UrlDecode(uri.substr(start, eq - start));
+        value = UrlDecode(uri.substr(eq + 1, end - eq - 1));
       }
       else
       {
-        key = UrlDecode(m_url.substr(start, end - start));
+        key = UrlDecode(uri.substr(start, end - start));
       }
 
-      if (!callback(key, value))
-        return false;
+      m_params.emplace_back(key, value);
     }
 
     start = end + 1;
   }
+
+  return true;
+}
+
+bool Uri::ForEachParam(Callback const & callback) const
+{
+  // todo(@m) Looks strange but old code worked this way.
+  if (m_params.empty())
+    return false;
+
+  for (auto const & param : m_params)
+  {
+    if (!callback(param))
+      return false;
+  }
+
   return true;
 }
 
@@ -325,8 +333,8 @@ GeoURLInfo::GeoURLInfo(string const & s)
   }
 
   LatLonParser parser(*this);
-  parser(string(), uri.GetPath());
-  uri.ForEachKeyValue(ref(parser));
+  parser(url::Param(string(), uri.GetPath()));
+  uri.ForEachParam(ref(parser));
 
   if (!parser.IsValid())
   {

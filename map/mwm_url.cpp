@@ -205,10 +205,9 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(url::Uri const & uri)
     case ApiURLType::Map:
     {
       vector<ApiPoint> points;
-      auto const result = uri.ForEachKeyValue([&points, this](string const & key, string const & value)
-                                              {
-                                                return AddKeyValue(key, value, points);
-                                              });
+      auto const result = uri.ForEachParam([&points, this](url::Param const & param) {
+        return AddKeyValue(param.m_name, param.m_value, points);
+      });
 
       if (!result || points.empty())
         return ParsingResult::Incorrect;
@@ -231,10 +230,9 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(url::Uri const & uri)
       m_routePoints.clear();
       using namespace route;
       vector<string> pattern{kSourceLatLon, kSourceName, kDestLatLon, kDestName, kRouteType};
-      auto const result = uri.ForEachKeyValue([&pattern, this](string const & key, string const & value)
-                                              {
-                                                return RouteKeyValue(key, value, pattern);
-                                              });
+      auto const result = uri.ForEachParam([&pattern, this](url::Param const & param) {
+        return RouteKeyValue(param.m_name, param.m_value, pattern);
+      });
 
       if (!result || pattern.size() != 0)
         return ParsingResult::Incorrect;
@@ -250,10 +248,9 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(url::Uri const & uri)
     case ApiURLType::Search:
     {
       SearchRequest request;
-      auto const result = uri.ForEachKeyValue([&request, this](string const & key, string const & value)
-                                              {
-                                                return SearchKeyValue(key, value, request);
-                                              });
+      auto const result = uri.ForEachParam([&request, this](url::Param const & param) {
+        return SearchKeyValue(param.m_name, param.m_value, request);
+      });
       if (!result)
         return ParsingResult::Incorrect;
       
@@ -263,10 +260,9 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(url::Uri const & uri)
     case ApiURLType::Lead:
     {
       lead::CampaignDescription description;
-      auto result = uri.ForEachKeyValue([&description, this](string const & key, string const & value)
-                                        {
-                                          return LeadKeyValue(key, value, description);
-                                        });
+      auto result = uri.ForEachParam([&description, this](url::Param const & param) {
+        return LeadKeyValue(param.m_name, param.m_value, description);
+      });
 
       if (!result || !description.IsValid())
         return ParsingResult::Incorrect;
@@ -277,10 +273,9 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(url::Uri const & uri)
     case ApiURLType::Catalogue:
     {
       Catalog item;
-      auto const result = uri.ForEachKeyValue([&item, this](string const & key, string const & value)
-                                              {
-                                                return CatalogKeyValue(key, value, item);
-                                              });
+      auto const result = uri.ForEachParam([&item, this](url::Param const & param) {
+        return CatalogKeyValue(param.m_name, param.m_value, item);
+      });
 
       if (!result || item.m_id.empty())
         return ParsingResult::Incorrect;
@@ -291,10 +286,9 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(url::Uri const & uri)
     case ApiURLType::CataloguePath:
     {
       CatalogPath item;
-      auto const result = uri.ForEachKeyValue([&item, this](string const & key, string const & value)
-                                              {
-                                                return CatalogPathKeyValue(key, value, item);
-                                              });
+      auto const result = uri.ForEachParam([&item, this](url::Param const & param) {
+        return CatalogPathKeyValue(param.m_name, param.m_value, item);
+      });
 
       if (!result || item.m_url.empty())
         return ParsingResult::Incorrect;
@@ -305,10 +299,9 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(url::Uri const & uri)
     case ApiURLType::Subscription:
     {
      Subscription item;
-     auto const result = uri.ForEachKeyValue([&item, this](string const & key, string const & value)
-                                            {
-                                              return SubscriptionKeyValue(key, value, item);
-                                            });
+     auto const result = uri.ForEachParam([&item, this](url::Param const & param) {
+       return SubscriptionKeyValue(param.m_name, param.m_value, item);
+     });
 
      if (!result || item.m_groups.empty())
        return ParsingResult::Incorrect;

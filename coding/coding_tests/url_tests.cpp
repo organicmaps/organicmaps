@@ -31,15 +31,15 @@ public:
     TEST_EQUAL(uri.GetScheme(), m_scheme, ());
     TEST_EQUAL(uri.GetPath(), m_path, ());
     TEST(!m_scheme.empty() || !uri.IsValid(), ("Scheme is empty if and only if uri is invalid!"));
-    uri.ForEachKeyValue(bind(&TestUri::AddTestValue, this, placeholders::_1, placeholders::_2));
+    uri.ForEachParam(bind(&TestUri::AddTestValue, this, placeholders::_1));
   }
 
 private:
-  bool AddTestValue(string const & key, string const & value)
+  bool AddTestValue(url::Param const & param)
   {
-    TEST(!m_keyValuePairs.empty(), ("Failed for uri = ", m_uri, "Passed KV = ", key, value));
-    TEST_EQUAL(m_keyValuePairs.front().first,  key, ());
-    TEST_EQUAL(m_keyValuePairs.front().second, value, ());
+    TEST(!m_keyValuePairs.empty(), ("Failed for uri = ", m_uri, "Passed KV = ", param));
+    TEST_EQUAL(m_keyValuePairs.front().first, param.m_name, ());
+    TEST_EQUAL(m_keyValuePairs.front().second, param.m_value, ());
     m_keyValuePairs.pop();
     return true;
   }
