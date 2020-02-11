@@ -39,6 +39,26 @@ namespace
 char constexpr kDelim[] = " \t\r\n";
 
 using TagMapping = routing::RoadAccessTagProcessor::TagMapping;
+using ConditionalTagsList = routing::RoadAccessTagProcessor::ConditionalTagsList;
+
+// Get from: https://taginfo.openstreetmap.org/search?q=%3Aconditional
+// @{
+vector<string> const kCarAccessConditionalTags = {
+    "motorcar", "vehicle", "motor_vehicle"
+};
+
+vector<string> const kDefaultAccessConditionalTags = {
+    "access"
+};
+
+vector<string> const kPedestrianAccessConditionalTags = {
+    "foot"
+};
+
+vector<string> const kBycicleAccessConditionalTags = {
+    "bicycle"
+};
+// @}
 
 TagMapping const kMotorCarTagMapping = {
     {OsmElement::Tag("motorcar", "yes"), RoadAccess::Type::Yes},
@@ -245,6 +265,30 @@ RoadAccess::Type GetAccessTypeFromMapping(OsmElement const & elem, TagMapping co
   }
   return RoadAccess::Type::Count;
 }
+
+optional<string> GetConditionalTag(OsmElement const & elem,
+                                             vector<ConditionalTagsList> const & tagsList)
+{
+  for (auto const & tags : tagsList)
+  {
+    for (auto const & tag : tags)
+      if (elem.HasTag(tag))
+        return {elem.GetTag(tag)};
+  }
+  return nullopt;
+}
+
+// "motor_vehicle:conditional" -> "motor_vehicle"
+// "access:conditional" -> "access"
+// etc.
+string GetVehicleTypeForAccessConditional(string const & accessConditionalTag)
+{
+  auto const pos = accessConditionalTag.find(":");
+  CHECK_NOT_EQUAL(pos, string::npos, (accessConditionalTag));
+  
+  string result(accessConditionalTag.begin(), accessConditionalTag.begin() + pos);
+  return result;
+}
 }  // namespace
 
 namespace routing
@@ -262,10 +306,14 @@ RoadAccessTagProcessor::RoadAccessTagProcessor(VehicleType vehicleType)
     m_accessMappings.push_back(&kDefaultTagMapping);
     m_barrierMappings.push_back(&kCarBarriersTagMapping);
     m_hwIgnoreBarriersWithoutAccess = kHighwaysWhereIgnoreBarriersWithoutAccess;
+    m_conditionalTagsVector.push_back(kCarAccessConditionalTags);
+    m_conditionalTagsVector.push_back(kDefaultAccessConditionalTags);
     break;
   case VehicleType::Pedestrian:
     m_accessMappings.push_back(&kPedestrianTagMapping);
     m_accessMappings.push_back(&kDefaultTagMapping);
+    m_conditionalTagsVector.push_back(kPedestrianAccessConditionalTags);
+    m_conditionalTagsVector.push_back(kDefaultAccessConditionalTags);
     break;
   case VehicleType::Bicycle:
     m_accessMappings.push_back(&kBicycleTagMapping);
@@ -273,6 +321,8 @@ RoadAccessTagProcessor::RoadAccessTagProcessor(VehicleType vehicleType)
     m_accessMappings.push_back(&kDefaultTagMapping);
     m_barrierMappings.push_back(&kBicycleBarriersTagMapping);
     m_hwIgnoreBarriersWithoutAccess = kHighwaysWhereIgnoreBarriersWithoutAccess;
+    m_conditionalTagsVector.push_back(kBycicleAccessConditionalTags);
+    m_conditionalTagsVector.push_back(kDefaultAccessConditionalTags);
     break;
   case VehicleType::Transit:
     // Use kTransitTagMapping to keep transit section empty. We'll use pedestrian section for
@@ -318,6 +368,11 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem)
   // Apply barrier tags if we have no {vehicle = ...}, {access = ...} etc.
   if (auto op = getAccessType(m_barrierMappings))
     m_barriersWithoutAccessTag.emplace(elem.m_id, *op);
+}
+
+void RoadAccessTagProcessor::ProcessConditional(OsmElement const & elem)
+{
+  // to be implemented
 }
 
 void RoadAccessTagProcessor::WriteWayToAccess(ostream & stream)
@@ -483,6 +538,121 @@ RoadAccessCollector::RoadAccessCollector(string const & dataFilePath, string con
 
   m_valid = true;
   m_roadAccessByVehicleType.swap(roadAccessByVehicleType);
+}
+
+// AccessConditionalTagParser ----------------------------------------------------------------------
+AccessConditionalTagParser::AccessConditionalTagParser()
+{
+  m_vehiclesToRoadAccess.push_back(kMotorCarTagMapping);
+  m_vehiclesToRoadAccess.push_back(kMotorVehicleTagMapping);
+  m_vehiclesToRoadAccess.push_back(kVehicleTagMapping);
+  m_vehiclesToRoadAccess.push_back(kPedestrianTagMapping);
+  m_vehiclesToRoadAccess.push_back(kBicycleTagMapping);
+  m_vehiclesToRoadAccess.push_back(kDefaultTagMapping);
+}
+
+vector<AccessConditionalTagParser::AccessConditional> AccessConditionalTagParser::
+    ParseAccessConditionalTag(string const & tag, string const & value)
+{
+  size_t pos = 0;
+
+  string const vehicleType = GetVehicleTypeForAccessConditional(tag);
+  vector<AccessConditional> accessConditionals;
+  while (pos < value.size())
+  {
+    AccessConditionalTagParser::AccessConditional access;
+    auto accessOp = ReadUntilSymbol(value, pos, '@');
+    if (!accessOp)
+      break;
+
+    string accessString;
+    tie(pos, accessString) = *accessOp;
+    ++pos;  // skip '@'
+    strings::Trim(accessString);
+
+    access.m_accessType = GetAccessByVehicleAndStringValue(vehicleType, accessString);
+
+    auto substrOp = ReadUntilSymbol(value, pos, ';');
+    if (!substrOp)
+    {
+      auto openingHours = std::string(value.begin() + pos, value.end());
+      access.m_openingHours = TrimAndDropAroundParentheses(move(openingHours));
+      pos = value.size();
+    }
+    else
+    {
+      auto [newPos, _] = *substrOp;
+      // We cannot distinguish these two situations:
+      //   1) no @ Mo-Fr ; yes @ Sa-Su
+      //   2) no @ Mo-Fr ; Sa 10:00-19:00
+      auto nextAccessOp = ReadUntilSymbol(value, newPos, '@');
+      if (nextAccessOp)
+      {
+        // This is 1) case.
+        auto openingHours = std::string(value.begin() + pos, value.begin() + newPos);
+        access.m_openingHours = TrimAndDropAroundParentheses(move(openingHours));
+        pos = newPos;
+        ++pos;  // skip ';'
+      }
+      else
+      {
+        // This is 2) case.
+        auto openingHours = std::string(value.begin() + pos, value.end());
+        access.m_openingHours = TrimAndDropAroundParentheses(move(openingHours));
+        pos = value.size();
+      }
+    }
+
+    accessConditionals.emplace_back(move(access));
+  }
+
+  return accessConditionals;
+}
+
+optional<pair<size_t, string>> AccessConditionalTagParser::ReadUntilSymbol(string const & input,
+                                                                           size_t startPos,
+                                                                           char symbol)
+{
+  string result;
+  while (startPos < input.size() && input[startPos] != symbol)
+  {
+    result += input[startPos];
+    ++startPos;
+  }
+
+  if (input[startPos] == symbol)
+    return make_pair(startPos, result);
+
+  return nullopt;
+}
+
+RoadAccess::Type AccessConditionalTagParser::GetAccessByVehicleAndStringValue(
+    string const & vehicleFromTag, string const & stringAccessValue)
+{
+  for (auto const & vehicleToAccess : m_vehiclesToRoadAccess)
+  {
+    auto const it = vehicleToAccess.find({vehicleFromTag, stringAccessValue});
+    if (it != vehicleToAccess.end())
+      return it->second;
+  }
+
+  return RoadAccess::Type::Count;
+}
+
+string AccessConditionalTagParser::TrimAndDropAroundParentheses(string input)
+{
+  strings::Trim(input);
+
+  if (input.back() == ';')
+    input.erase(std::prev(input.end()));
+
+  if (input.front() == '(' && input.back() == ')')
+  {
+    input.erase(input.begin());
+    input.erase(std::prev(input.end()));
+  }
+
+  return input;
 }
 
 // Functions ------------------------------------------------------------------

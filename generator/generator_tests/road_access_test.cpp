@@ -229,4 +229,76 @@ UNIT_TEST(RoadAccessWriter_Merge)
                                "Car Private 2 3\n";
   TEST_EQUAL(buffer.str(), correctAnswer, ());
 }
+
+UNIT_TEST(RoadAccessCoditionalParse)
+{
+  AccessConditionalTagParser parser;
+
+  using ConditionalVector = std::vector<AccessConditionalTagParser::AccessConditional>;
+  std::vector<std::pair<std::string, ConditionalVector>> tests = {
+      {"no @ Mo-Su",
+       {{RoadAccess::Type::No, "Mo-Su"}}},
+
+      {"no @ Mo-Su;",
+       {{RoadAccess::Type::No, "Mo-Su"}}},
+
+      {"yes @ (10:00 - 20:00)",
+       {{RoadAccess::Type::Yes, "10:00 - 20:00"}}},
+
+      {"private @ Mo-Fr 15:00-20:00",
+       {{RoadAccess::Type::Private, "Mo-Fr 15:00-20:00"}}},
+
+      {"destination @ 10:00-20:00",
+       {{RoadAccess::Type::Destination, "10:00-20:00"}}},
+
+      {"yes @ Mo-Fr ; Sa-Su",
+       {{RoadAccess::Type::Yes, "Mo-Fr ; Sa-Su"}}},
+
+      {"no @ (Mo-Su) ; yes @ (Fr-Su)",
+       {{RoadAccess::Type::No, "Mo-Su"},
+
+        {RoadAccess::Type::Yes, "Fr-Su"}}},
+      {"private @ (18:00-09:00; Oct-Mar)", {{RoadAccess::Type::Private, "18:00-09:00; Oct-Mar"}}},
+
+      {"no @ (Nov-May); no @ (20:00-07:00)",
+       {{RoadAccess::Type::No, "Nov-May"},
+        {RoadAccess::Type::No, "20:00-07:00"}}},
+
+      {"no @ 22:30-05:00",
+       {{RoadAccess::Type::No, "22:30-05:00"}}},
+
+      {"destination @ (Mo-Fr 06:00-15:00); yes @ (Mo-Fr 15:00-21:00; Sa,Su,SH,PH 09:00-21:00)",
+       {{RoadAccess::Type::Destination, "Mo-Fr 06:00-15:00"},
+        {RoadAccess::Type::Yes, "Mo-Fr 15:00-21:00; Sa,Su,SH,PH 09:00-21:00"}}},
+
+      {"no @ (Mar 15-Jul 15); private @ (Jan- Dec)",
+       {{RoadAccess::Type::No, "Mar 15-Jul 15"},
+        {RoadAccess::Type::Private, "Jan- Dec"}}},
+
+      {"no @ (06:30-08:30);destination @ (06:30-08:30 AND agricultural)",
+       {{RoadAccess::Type::No, "06:30-08:30"},
+        {RoadAccess::Type::Destination, "06:30-08:30 AND agricultural"}}},
+
+      {"no @ (Mo-Fr 00:00-08:00,20:00-24:00; Sa-Su 00:00-24:00; PH 00:00-24:00)",
+       {{RoadAccess::Type::No, "Mo-Fr 00:00-08:00,20:00-24:00; Sa-Su 00:00-24:00; PH 00:00-24:00"}}}
+  };
+
+  std::vector<std::string> tags = {
+      "motorcar:conditional",
+      "vehicle:conditional",
+      "motor_vehicle:conditional",
+      "bicycle:conditional",
+      "foot:conditional"
+  };
+
+  for (auto const & tag : tags)
+  {
+    for (auto const & test : tests)
+    {
+      auto const & [value, answer] = test;
+      auto const access = parser.ParseAccessConditionalTag(tag, value);
+      TEST(access == answer, (value, tag));
+    }
+  }
+}
 }  // namespace
