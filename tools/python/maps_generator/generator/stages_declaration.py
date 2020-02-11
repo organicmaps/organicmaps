@@ -147,9 +147,10 @@ class StageFeatures(Stage):
             extra["popular_places_data"] = env.paths.popularity_path
             extra["brands_data"] = env.paths.food_paths
             extra["brands_translations_data"] = env.paths.food_translations_path
+            extra["isolines_path"] = env.paths.isolines_path()
         if is_skipped(env, StageCoastline):
             extra["emit_coasts"] = True
-
+            
         steps.step_features(env, **extra)
         if os.path.exists(env.paths.packed_polygons_path):
             shutil.copy2(env.paths.packed_polygons_path, env.paths.mwm_path)

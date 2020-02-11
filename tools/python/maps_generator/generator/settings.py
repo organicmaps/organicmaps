@@ -131,7 +131,6 @@ OSM_TOOLS_CC_FLAGS = [
 CPU_COUNT = multiprocessing.cpu_count()
 
 # Planet and coasts:
-ISOLINES_PATH = _get_opt_path(config, "External", "ISOLINES_PATH", ISOLINES_PATH)
 PLANET_O5M = os.path.join(MAIN_OUT_PATH, PLANET + ".o5m")
 PLANET_PBF = os.path.join(MAIN_OUT_PATH, PLANET + ".osm.pbf")
 PLANET_COASTS_GEOM_URL = os.path.join(PLANET_COASTS_URL, "latest_coasts.geom")
@@ -229,6 +228,7 @@ def init(default_settings_path: AnyStr):
     global US_POSTCODES_URL
     global FOOD_TRANSLATIONS_URL
     global SRTM_PATH
+    global ISOLINES_PATH
 
     PLANET_URL = cfg.get_opt_path("External", "PLANET_URL", PLANET_URL)
     PLANET_MD5_URL = cfg.get_opt_path("External", "PLANET_MD5_URL", PLANET_MD5_URL)
@@ -253,6 +253,7 @@ def init(default_settings_path: AnyStr):
         "External", "FOOD_TRANSLATIONS_URL", FOOD_TRANSLATIONS_URL
     )
     SRTM_PATH = cfg.get_opt_path("External", "SRTM_PATH", SRTM_PATH)
+    ISOLINES_PATH = cfg.get_opt_path("External", "ISOLINES_PATH", ISOLINES_PATH)
 
     # Stats section:
     global STATS_TYPES_CONFIG
