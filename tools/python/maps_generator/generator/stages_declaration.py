@@ -26,6 +26,7 @@ from . import coastline
 from . import settings
 from . import steps
 from .env import Env
+from .env import PathProvider
 from .env import WORLDS_NAMES
 from .env import WORLD_COASTS_NAME
 from .env import WORLD_NAME
@@ -147,10 +148,11 @@ class StageFeatures(Stage):
             extra["popular_places_data"] = env.paths.popularity_path
             extra["brands_data"] = env.paths.food_paths
             extra["brands_translations_data"] = env.paths.food_translations_path
-            extra["isolines_path"] = env.paths.isolines_path()
         if is_skipped(env, StageCoastline):
             extra["emit_coasts"] = True
-            
+        if is_skipped(env, StageIsolinesInfo):
+            extra["isolines_path"] = PathProvider.isolines_path()
+
         steps.step_features(env, **extra)
         if os.path.exists(env.paths.packed_polygons_path):
             shutil.copy2(env.paths.packed_polygons_path, env.paths.mwm_path)
@@ -265,6 +267,14 @@ class StagePopularity(Stage):
 class StageSrtm(Stage):
     def apply(self, env: Env, country, **kwargs):
         steps.step_srtm(env, country, **kwargs)
+
+
+@country_stage
+@build_lock
+@production_only
+class StageIsolinesInfo(Stage):
+    def apply(self, env: Env, country, **kwargs):
+        steps.step_isolines_info(env, country, **kwargs)
 
 
 @country_stage

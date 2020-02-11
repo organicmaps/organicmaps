@@ -233,6 +233,22 @@ def step_srtm(env: Env, country: AnyStr, **kwargs):
     )
 
 
+def step_isolines_info(env: Env, country: AnyStr, **kwargs):
+    run_gen_tool_with_recovery_country(
+        env,
+        env.gen_tool,
+        out=env.get_subprocess_out(country),
+        err=env.get_subprocess_out(country),
+        data_path=env.paths.mwm_path,
+        intermediate_data_path=env.paths.intermediate_data_path,
+        user_resource_path=env.paths.user_resource_path,
+        generate_isolines_info=True,
+        isolines_path=PathProvider.isolines_path(),
+        output=country,
+        **kwargs,
+    )
+
+
 def step_description(env: Env, country: AnyStr, **kwargs):
     run_gen_tool_with_recovery_country(
         env,
