@@ -67,7 +67,7 @@ namespace feature
     static std::unique_ptr<FeaturesOffsetsTable> Load(std::string const & filePath);
 
     static std::unique_ptr<FeaturesOffsetsTable> Load(FilesContainerR const & cont);
-    static std::unique_ptr<FeaturesOffsetsTable> Build(FilesContainerR const & cont,
+    static std::unique_ptr<FeaturesOffsetsTable> Build(ModelReaderPtr & reader,
                                                        std::string const & storePath);
 
     FeaturesOffsetsTable(FeaturesOffsetsTable const &) = delete;
@@ -100,9 +100,6 @@ namespace feature
     FeaturesOffsetsTable() = default;
 
     static std::unique_ptr<FeaturesOffsetsTable> LoadImpl(std::string const & filePath);
-    static std::unique_ptr<FeaturesOffsetsTable> CreateImpl(platform::LocalCountryFile const & localFile,
-                                                            FilesContainerR const & cont,
-                                                            std::string const & storePath);
 
     succinct::elias_fano m_table;
     std::unique_ptr<MmapReader> m_pReader;

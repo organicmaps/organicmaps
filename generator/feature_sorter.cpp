@@ -12,6 +12,7 @@
 #include "routing/speed_camera_prohibition.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/dat_section_header.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_processor.hpp"
@@ -27,6 +28,7 @@
 #include "coding/files_container.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/point_coding.hpp"
+#include "coding/succinct_mapper.hpp"
 
 #include "geometry/polygon.hpp"
 
@@ -105,7 +107,27 @@ public:
 
     {
       FilesContainerW writer(m_filename, FileWriter::OP_WRITE_EXISTING);
-      writer.Write(m_datFile.GetName(), DATA_FILE_TAG);
+      auto w = writer.GetWriter(DATA_FILE_TAG);
+
+      size_t const startOffset = w->Pos();
+      CHECK(coding::IsAlign8(startOffset), ());
+
+      feature::DatSectionHeader header;
+      header.Serialize(*w);
+
+      uint64_t bytesWritten = w->Pos();
+      coding::WritePadding(*w, bytesWritten);
+
+      header.m_featuresOffset = base::asserted_cast<uint32_t>(w->Pos() - startOffset);
+      ReaderSource<ModelReaderPtr> src(make_unique<FileReader>(m_datFile.GetName()));
+      rw::ReadAndWrite(src, *w);
+      header.m_featuresSize =
+          base::asserted_cast<uint32_t>(w->Pos() - header.m_featuresOffset - startOffset);
+
+      auto const endOffset = w->Pos();
+      w->Seek(startOffset);
+      header.Serialize(*w);
+      w->Seek(endOffset);
     }
 
     // File Writer finalization function with adding section to the main mwm file.
