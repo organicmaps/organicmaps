@@ -126,12 +126,12 @@ using GetHotelInfoCallback = platform::SafeCallback<void(HotelInfo const & hotel
 // NOTE: this callback will be called on the network thread.
 using GetHotelAvailabilityCallback = std::function<void(std::vector<std::string> hotelIds)>;
 
-/// This is a lightweight class but methods are non-static in order to support the NetworkPolicy
-/// restrictions.
 /// Callbacks will be called in the same order as methods are called.
 class Api
 {
 public:
+  Api();
+
   std::string GetBookHotelUrl(std::string const & baseUrl) const;
   std::string GetDeepLink(std::string const & hotelId) const;
   std::string GetDescriptionUrl(std::string const & baseUrl) const;
@@ -153,6 +153,10 @@ public:
   /// These methods use caching server to prevent Booking from being ddossed.
   void GetHotelInfo(std::string const & hotelId, std::string const & lang,
                     GetHotelInfoCallback const & fn) const;
+
+  void SetAffiliateId(std::string const & affiliateId);
+private:
+  std::string m_affiliateId;
 };
 
 void SetBookingUrlForTesting(std::string const & url);

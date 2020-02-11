@@ -2228,7 +2228,12 @@ url_scheme::ParsedMapApi::ParsingResult Framework::ParseAndSetApiURL(string cons
     editSession.SetIsVisible(UserMark::Type::API, true);
   }
 
-  return m_parsedMapApi.SetUrlAndParse(url);
+  auto const result = m_parsedMapApi.SetUrlAndParse(url);
+
+  if (!m_parsedMapApi.GetAffiliateId().empty())
+    m_bookingApi->SetAffiliateId(m_parsedMapApi.GetAffiliateId());
+
+  return result;
 }
 
 Framework::ParsedRoutingData Framework::GetParsedRoutingData() const

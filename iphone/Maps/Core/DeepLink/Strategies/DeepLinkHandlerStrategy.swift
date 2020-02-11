@@ -15,7 +15,7 @@ extension IDeepLinkHandlerStrategy {
     
     var result = [String: String]()
     components.queryItems?
-      .filter({ $0.name.starts(with: "utm_") || $0.name == "booking_aid" })
+      .filter({ $0.name.starts(with: "utm_") || $0.name == "affiliate_id" })
       .forEach({ result[$0.name] = $0.value ?? "" })
     
     // Internal params are more perffered than url params.

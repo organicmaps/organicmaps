@@ -191,10 +191,14 @@ ParsedMapApi::ParsingResult ParsedMapApi::SetUrlAndParse(string const & url)
   {
     return ParsingResult::Incorrect;
   }
-
-  ParsingResult const res = Parse(url::Url(url));
-  m_isValid = res != ParsingResult::Incorrect;
-  return res;
+  auto const u = url::Url(url);
+  ParsingResult const result = Parse(u);
+  if (result != ParsingResult::Incorrect)
+  {
+    m_isValid = true;
+    ParseAdditional(u);
+  }
+  return result;
 }
 
 ParsedMapApi::ParsingResult ParsedMapApi::Parse(url::Url const & url)
@@ -313,6 +317,17 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(url::Url const & url)
    }
   }
   UNREACHABLE();
+}
+
+void ParsedMapApi::ParseAdditional(url::Url const & url)
+{
+  url.ForEachParam([this](url::Param const & param)
+  {
+    if (param.m_name == "affiliate_id")
+      m_affiliateId = param.m_value;
+
+    return true;
+  });
 }
 
 void ParsedMapApi::ParseMapParam(url::Param const & param, vector<ApiPoint> & points, bool & correctOrder)

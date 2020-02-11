@@ -1789,7 +1789,7 @@ public enum Statistics
     Uri uri = Uri.parse(url);
     for (String name : uri.getQueryParameterNames())
     {
-      if (name.startsWith("utm_") || name.equals("booking_aid"))
+      if (name.startsWith("utm_") || name.equals("affiliate_id"))
       {
         String value = uri.getQueryParameter(name);
         result.add(name, value == null ? "" : value);
