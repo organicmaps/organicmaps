@@ -11,8 +11,8 @@
 
 namespace topography_generator
 {
-using Altitude = feature::TAltitude;
-Altitude constexpr kInvalidAltitude = feature::kInvalidAltitude;
+using Altitude = geometry::Altitude;
+Altitude constexpr kInvalidAltitude = geometry::kInvalidAltitude;
 
 constexpr char const * const kIsolinesExt = ".isolines";
 

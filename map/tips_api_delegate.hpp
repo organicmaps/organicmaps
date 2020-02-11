@@ -9,7 +9,7 @@ class TipsApiDelegate : public TipsApi::Delegate
 public:
   explicit TipsApiDelegate(Framework const & framework);
 
-  boost::optional<m2::PointD> GetCurrentPosition() const override;
+  std::optional<m2::PointD> GetCurrentPosition() const override;
   bool IsCountryLoaded(m2::PointD const & pt) const override;
   bool HaveTransit(m2::PointD const & pt) const override;
   double GetLastBackgroundTime() const override;

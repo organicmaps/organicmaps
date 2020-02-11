@@ -5,7 +5,7 @@ TipsApiDelegate::TipsApiDelegate(Framework const & framework)
 {
 }
 
-boost::optional<m2::PointD> TipsApiDelegate::GetCurrentPosition() const
+std::optional<m2::PointD> TipsApiDelegate::GetCurrentPosition() const
 {
   return m_framework.GetCurrentPosition();
 }

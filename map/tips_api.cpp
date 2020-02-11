@@ -190,10 +190,10 @@ TipsApi::TipsApi(std::unique_ptr<Delegate> delegate)
       }
 
       auto const pos = m_delegate->GetCurrentPosition();
-      if (!pos.is_initialized())
+      if (!pos)
         return false;
 
-      return m_delegate->IsCountryLoaded(pos.get());
+      return m_delegate->IsCountryLoaded(*pos);
     },
     // Condition for Tips::Type::PublicTransport type.
     [this] (eye::Info const & info)
@@ -208,10 +208,10 @@ TipsApi::TipsApi(std::unique_ptr<Delegate> delegate)
       }
 
       auto const pos = m_delegate->GetCurrentPosition();
-      if (!pos.is_initialized())
+      if (!pos)
         return false;
 
-      return m_delegate->HaveTransit(pos.get());
+      return m_delegate->HaveTransit(*pos);
     },
    // Condition for Tips::Type::Isolines type.
    [this] (eye::Info const & info)

@@ -140,11 +140,10 @@ Iter FollowedPolyline::GetBestMatchingProjection(m2::RectD const & posRect) cons
   // enough to |posRect| center. If |m_current| is right before intermediate point we can get |iter|
   // right after intermediate point (in next subroute).
   size_t const hoppingBorderIdx =
-      min(m_nextCheckpointIndex, min(m_segProj.size(), m_current.m_ind + 3));
-  auto const res = GetClosestMatchingProjectionInInterval(posRect, m_current.m_ind, hoppingBorderIdx);
-  if (res.m_iter.IsValid() || res.m_closerToUnmatching)
-    return UpdatedProjection{res.m_iter, res.m_closerToUnmatching};
-
+    min(m_nextCheckpointIndex, min(m_segProj.size(), m_current.m_ind + 3));
+  auto const iter = GetClosestMatchingProjectionInInterval(posRect, m_current.m_ind, hoppingBorderIdx);
+  if (iter.IsValid())
+    return iter;
   // If a projection to the 3 closest route segments is not found tries to find projection to other route
   // segments of current subroute.
   return GetClosestMatchingProjectionInInterval(posRect, hoppingBorderIdx, m_nextCheckpointIndex);

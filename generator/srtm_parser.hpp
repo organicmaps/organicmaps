@@ -24,7 +24,7 @@ public:
 
   inline bool IsValid() const { return m_valid; }
   // Returns height in meters at |coord| or kInvalidAltitude.
-  feature::TAltitude GetHeight(ms::LatLon const & coord) const;
+  geometry::Altitude GetHeight(ms::LatLon const & coord) const;
 
   static std::string GetBase(ms::LatLon const & coord);
   static ms::LatLon GetCenter(ms::LatLon const & coord);
@@ -50,7 +50,7 @@ class SrtmTileManager
 public:
   explicit SrtmTileManager(std::string const & dir);
 
-  feature::TAltitude GetHeight(ms::LatLon const & coord);
+  geometry::Altitude GetHeight(ms::LatLon const & coord);
 
   SrtmTile const & GetTile(ms::LatLon const & coord);
 

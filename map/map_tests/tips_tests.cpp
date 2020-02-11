@@ -53,7 +53,7 @@ void MakeLastShownTipAvailableByTime()
   EyeForTesting::SetInfo(editableInfo);
 }
 
-boost::optional<eye::Tip::Type> GetTipForTesting(TipsApi::Duration showAnyTipPeriod,
+std::optional<eye::Tip::Type> GetTipForTesting(TipsApi::Duration showAnyTipPeriod,
                                                  TipsApi::Duration showSameTipPeriod,
                                                  TipsApiDelegateForTesting const & delegate)
 {

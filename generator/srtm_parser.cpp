@@ -90,11 +90,7 @@ void SrtmTile::Init(std::string const & dir, ms::LatLon const & coord)
   m_valid = true;
 }
 
-<<<<<<< HEAD
-geometry::Altitude SrtmTile::GetHeight(ms::LatLon const & coord)
-=======
-feature::TAltitude SrtmTile::GetHeight(ms::LatLon const & coord) const
->>>>>>> 877249c4d0... [topography_generator] Stable tiles addressing scheme for positive and negative latitudes and longitudes of theirs left bottom corner.
+geometry::Altitude SrtmTile::GetHeight(ms::LatLon const & coord) const
 {
   if (!IsValid())
     return geometry::kInvalidAltitude;
@@ -111,13 +107,8 @@ feature::TAltitude SrtmTile::GetHeight(ms::LatLon const & coord) const
   auto const col = static_cast<size_t>(std::round(kArcSecondsInDegree * ln));
 
   size_t const ix = row * (kArcSecondsInDegree + 1) + col;
-<<<<<<< HEAD
 
-  if (ix >= Size())
-    return geometry::kInvalidAltitude;
-=======
   CHECK_LESS(ix, Size(), (coord));
->>>>>>> 877249c4d0... [topography_generator] Stable tiles addressing scheme for positive and negative latitudes and longitudes of theirs left bottom corner.
   return ReverseByteOrder(Data()[ix]);
 }
 
