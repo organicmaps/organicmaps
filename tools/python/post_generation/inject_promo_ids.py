@@ -48,7 +48,7 @@ class PromoIds(object):
             mwm_file = mwm.MWM(f)
             mwm_file.read_header()
             mwm_file.read_types(self.types_path)
-            for feature in mwm_file.iter_features(metadata=True):
+            for feature in mwm_file.iter_features():
                 osm_id = ft2osm.get(feature["id"], None)
                 types = feature["header"]["types"]
 
