@@ -476,6 +476,14 @@ world  +
     internet_access  +
         wlan  -
         {}
+    isoline  +
+        step_10  -
+        step_100  -
+        step_1000  -
+        step_50  -
+        step_500  -
+        zero  -
+        {}
     junction  +
         roundabout  -
         {}

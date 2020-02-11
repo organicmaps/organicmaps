@@ -1328,4 +1328,10 @@ amenity|parking_space|underground
 amenity|parking_space|private
 amenity|parking_space|permissive
 landuse|churchyard
+isoline|step_1000
+isoline|step_500
+isoline|step_100
+isoline|step_50
+isoline|step_10
+isoline|zero
 complex_entry
