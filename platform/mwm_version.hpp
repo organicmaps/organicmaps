@@ -24,7 +24,9 @@ enum class Format
   v8,      // February 2016 (long strings in metadata; store seconds since epoch in MwmVersion).
            // December 2016 (index graph section was added in version 161206, between v8 and v9).
   v9,      // April 2017 (OSRM sections are deleted and replaced by cross mwm section).
-  lastFormat = v9
+  v10,     // February 2020 (compressed metadata index, addr section with header, sdx section with
+           // header).
+  lastFormat = v10
 };
 
 enum class MwmType

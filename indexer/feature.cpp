@@ -185,10 +185,14 @@ uint8_t ReadByte(TSource & src)
 }
 }  // namespace
 
-FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<uint8_t> && buffer)
-  : m_loadInfo(loadInfo), m_data(buffer)
+FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<uint8_t> && buffer,
+                         MetadataIndex const * metaidx)
+  : m_loadInfo(loadInfo), m_data(buffer), m_metaidx(metaidx)
 {
-  CHECK(m_loadInfo, ());
+  CHECK(loadInfo, ());
+  ASSERT(m_loadInfo->GetMWMFormat() < version::Format::v10 || m_metaidx,
+         (m_loadInfo->GetMWMFormat()));
+
   m_header = Header(m_data);
 }
 
@@ -517,28 +521,43 @@ void FeatureType::ParseMetadata()
   CHECK(m_loadInfo, ());
   try
   {
-    struct TMetadataIndexEntry
+    auto const format = m_loadInfo->GetMWMFormat();
+    if (format >= version::Format::v10)
     {
-      uint32_t key;
-      uint32_t value;
-    };
-    DDVector<TMetadataIndexEntry, FilesContainerR::TReader> idx(
-        m_loadInfo->GetMetadataIndexReader());
-
-    auto it = lower_bound(idx.begin(), idx.end(),
-                          TMetadataIndexEntry{static_cast<uint32_t>(m_id.m_index), 0},
-                          [](TMetadataIndexEntry const & v1, TMetadataIndexEntry const & v2) {
-                            return v1.key < v2.key;
-                          });
-
-    if (it != idx.end() && m_id.m_index == it->key)
-    {
-      ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetMetadataReader());
-      src.Skip(it->value);
-      if (m_loadInfo->GetMWMFormat() >= version::Format::v8)
+      uint32_t offset;
+      CHECK(m_metaidx, ("metadata index shold be set for mwm format >= v10"));
+      if (m_metaidx->Get(m_id.m_index, offset))
+      {
+        ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetMetadataReader());
+        src.Skip(offset);
         m_metadata.Deserialize(src);
-      else
-        m_metadata.DeserializeFromMWMv7OrLower(src);
+      }
+    }
+    else
+    {
+      struct MetadataIndexEntry
+      {
+        uint32_t key;
+        uint32_t value;
+      };
+      DDVector<MetadataIndexEntry, FilesContainerR::TReader> idx(
+          m_loadInfo->GetMetadataIndexReader());
+
+      auto it = lower_bound(idx.begin(), idx.end(),
+                            MetadataIndexEntry{static_cast<uint32_t>(m_id.m_index), 0},
+                            [](MetadataIndexEntry const & v1, MetadataIndexEntry const & v2) {
+                              return v1.key < v2.key;
+                            });
+
+      if (it != idx.end() && m_id.m_index == it->key)
+      {
+        ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetMetadataReader());
+        src.Skip(it->value);
+        if (m_loadInfo->GetMWMFormat() >= version::Format::v8)
+          m_metadata.Deserialize(src);
+        else
+          m_metadata.DeserializeFromMWMv7OrLower(src);
+      }
     }
   }
   catch (Reader::OpenException const &)

@@ -100,6 +100,8 @@ set(
   map_style.hpp
   map_style_reader.cpp
   map_style_reader.hpp
+  meta_idx.cpp
+  meta_idx.hpp
   mwm_set.cpp
   mwm_set.hpp
   postcodes.cpp

@@ -16,6 +16,7 @@
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_processor.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/meta_idx.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/scales_patch.hpp"
 
@@ -128,12 +129,11 @@ public:
       FilesContainerW writer(m_filename, FileWriter::OP_WRITE_EXISTING);
       auto w = writer.GetWriter(METADATA_INDEX_FILE_TAG);
 
-      /// @todo Replace this mapping vector with succint structure.
+      MetadataIndexBuilder metaIdxBuilder;
       for (auto const & v : m_metadataOffset)
-      {
-        WriteToSink(*w, v.first);
-        WriteToSink(*w, v.second);
-      }
+        metaIdxBuilder.Put(v.first, v.second);
+
+      metaIdxBuilder.Freeze(*w);
     }
 
     if (m_header.GetType() == DataHeader::MapType::Country ||

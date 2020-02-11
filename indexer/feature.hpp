@@ -2,6 +2,7 @@
 #include "indexer/cell_id.hpp"
 #include "indexer/feature_altitude.hpp"
 #include "indexer/feature_data.hpp"
+#include "indexer/meta_idx.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
@@ -33,7 +34,8 @@ class FeatureType
 public:
   using GeometryOffsets = buffer_vector<uint32_t, feature::DataHeader::kMaxScalesCount>;
 
-  FeatureType(feature::SharedLoadInfo const * loadInfo, std::vector<uint8_t> && buffer);
+  FeatureType(feature::SharedLoadInfo const * loadInfo, std::vector<uint8_t> && buffer,
+              feature::MetadataIndex const * metaidx);
   FeatureType(osm::MapObject const & emo);
 
   feature::GeomType GetGeomType() const;
@@ -244,6 +246,8 @@ private:
   // Non-owning pointer to shared load info. SharedLoadInfo created once per FeaturesVector.
   feature::SharedLoadInfo const * m_loadInfo = nullptr;
   std::vector<uint8_t> m_data;
+  // Pointer to shared metadata index. Must be set for mwm format >= Format::v10
+  feature::MetadataIndex const * m_metaidx = nullptr;
 
   ParsedFlags m_parsed;
   Offsets m_offsets;
