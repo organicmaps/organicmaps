@@ -32,7 +32,7 @@ public:
       header.Read(*reader.GetPtr());
       CHECK(header.m_version == feature::DatSectionHeader::Version::V0,
             (base::Underlying(header.m_version)));
-      m_recordReader = std::make_unique<VarRecordReader>(
+      m_recordReader = std::make_unique<RecordReader>(
           reader.SubReader(header.m_featuresOffset, header.m_featuresSize));
 
       auto metaIdxReader = m_loadInfo.GetMetadataIndexReader();
@@ -41,7 +41,7 @@ public:
     }
     else
     {
-      m_recordReader = std::make_unique<VarRecordReader>(m_loadInfo.GetDataReader());
+      m_recordReader = std::make_unique<RecordReader>(m_loadInfo.GetDataReader());
     }
     CHECK(m_recordReader, ());
   }
@@ -67,17 +67,17 @@ public:
 
   template <class ToDo> static void ForEachOffset(ModelReaderPtr reader, ToDo && toDo)
   {
-    VarRecordReader recordReader(reader);
+    RecordReader recordReader(reader);
     recordReader.ForEachRecord(
         [&](uint32_t pos, std::vector<uint8_t> && /* data */) { toDo(pos); });
   }
 
 private:
   friend class FeaturesVectorTest;
-  using VarRecordReader = VarRecordReader<FilesContainerR::TReader>;
+  using RecordReader = VarRecordReader<FilesContainerR::TReader>;
 
   feature::SharedLoadInfo m_loadInfo;
-  std::unique_ptr<VarRecordReader> m_recordReader;
+  std::unique_ptr<RecordReader> m_recordReader;
   feature::FeaturesOffsetsTable const * m_table;
   std::unique_ptr<feature::MetadataIndex> m_metaidx;
 };
