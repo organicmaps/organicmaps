@@ -82,7 +82,7 @@ private:
       return val;
     }
 
-    if (val % m_valueStep == 0)
+    if (abs(val) % m_valueStep == 0)
       return val + 1;
     return val;
   }

@@ -99,7 +99,7 @@ public:
 
   static bool IsValidAltitude(Altitude alt)
   {
-    return alt != kInvalidAltitude && alt > -420 && alt < 8850;
+    return alt != kInvalidAltitude && alt > -435 && alt < 8850;
   }
 
 private:
