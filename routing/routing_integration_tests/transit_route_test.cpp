@@ -124,7 +124,7 @@ UNIT_TEST(Transit_London_DeptfordBridgeToCyprus)
 
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
-  integration::TestRouteLength(*routeResult.first, 12758.9);
+  integration::TestRouteLength(*routeResult.first, 12323.7);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);
@@ -139,7 +139,7 @@ UNIT_TEST(Transit_Washington_FoggyToShaw)
 
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
-  integration::TestRouteLength(*routeResult.first, 5971.0);
+  integration::TestRouteLength(*routeResult.first, 5887.58);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);

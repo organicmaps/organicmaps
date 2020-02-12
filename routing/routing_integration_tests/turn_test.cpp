@@ -455,8 +455,8 @@ UNIT_TEST(RussiaMoscowLeningradskiyPrptToTheCenterUTurnTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
-                                  mercator::FromLatLon(55.79231, 37.54951), {0., 0.},
-                                  mercator::FromLatLon(55.79280, 37.55028));
+                                  mercator::FromLatLon(55.79368, 37.54833), {0., 0.},
+                                  mercator::FromLatLon(55.79325, 37.54734));
 
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;

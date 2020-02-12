@@ -264,7 +264,7 @@ const TestTurn & TestTurn::TestPoint(m2::PointD const & expectedPoint, double in
 
 const TestTurn & TestTurn::TestDirection(routing::turns::CarDirection expectedDirection) const
 {
-  TEST_EQUAL(m_direction, expectedDirection, (m_direction));
+  TEST_EQUAL(m_direction, expectedDirection, ());
   return *this;
 }
 

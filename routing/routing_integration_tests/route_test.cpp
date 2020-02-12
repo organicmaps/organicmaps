@@ -47,7 +47,7 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents(VehicleType::Car),
         mercator::FromLatLon(55.66216, 37.63259), {0., 0.},
-        mercator::FromLatLon(55.66237, 37.63560), 1502.0);
+        mercator::FromLatLon(55.66237, 37.63560), 2073.94);
   }
 
   UNIT_TEST(MoscowToSVOAirport)
@@ -392,7 +392,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 19621.8);
+    integration::TestRouteTime(route, 20101.6);
   }
 
   // Test on roads with tag route=shuttle_train
