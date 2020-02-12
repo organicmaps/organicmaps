@@ -78,8 +78,7 @@ namespace feature
     return table;
   }
 
-  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Build(ModelReaderPtr & reader,
-                                                               string const & storePath)
+  void FeaturesOffsetsTable::Build(ModelReaderPtr & reader, string const & storePath)
   {
     Builder builder;
     FeaturesVector::ForEachOffset(reader,
@@ -87,7 +86,6 @@ namespace feature
 
     unique_ptr<FeaturesOffsetsTable> table(Build(builder));
     table->Save(storePath);
-    return table;
   }
 
   void FeaturesOffsetsTable::Save(string const & filePath)
@@ -138,7 +136,7 @@ namespace feature
       CHECK(header.m_version == DatSectionHeader::Version::V0,
             (base::Underlying(header.m_version)));
       auto featuresSubreader = reader.SubReader(header.m_featuresOffset, header.m_featuresSize);
-      (void)feature::FeaturesOffsetsTable::Build(featuresSubreader, destPath);
+      feature::FeaturesOffsetsTable::Build(featuresSubreader, destPath);
 
       FilesContainerW(filePath, FileWriter::OP_WRITE_EXISTING).Write(destPath, FEATURE_OFFSETS_FILE_TAG);
       return true;

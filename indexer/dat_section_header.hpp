@@ -16,7 +16,7 @@ public:
   template <typename Sink>
   void Serialize(Sink & sink) const
   {
-    CHECK_EQUAL(static_cast<uint8_t>(m_version), static_cast<uint8_t>(Version::V0), ());
+    CHECK_EQUAL(m_version, Version::V0, ());
     WriteToSink(sink, static_cast<uint8_t>(m_version));
     WriteToSink(sink, m_featuresOffset);
     WriteToSink(sink, m_featuresSize);
@@ -36,4 +36,10 @@ public:
   uint32_t m_featuresOffset = 0;
   uint32_t m_featuresSize = 0;
 };
+
+inline std::string DebugPrint(DatSectionHeader::Version v)
+{
+  CHECK(v == DatSectionHeader::Version::V0, ());
+  return "V0";
+}
 }  // namespace feature

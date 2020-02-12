@@ -67,8 +67,7 @@ namespace feature
     static std::unique_ptr<FeaturesOffsetsTable> Load(std::string const & filePath);
 
     static std::unique_ptr<FeaturesOffsetsTable> Load(FilesContainerR const & cont);
-    static std::unique_ptr<FeaturesOffsetsTable> Build(ModelReaderPtr & reader,
-                                                       std::string const & storePath);
+    static void Build(ModelReaderPtr & reader, std::string const & storePath);
 
     FeaturesOffsetsTable(FeaturesOffsetsTable const &) = delete;
     FeaturesOffsetsTable const & operator=(FeaturesOffsetsTable const &) = delete;

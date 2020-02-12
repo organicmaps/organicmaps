@@ -115,7 +115,7 @@ public:
       feature::DatSectionHeader header;
       header.Serialize(*w);
 
-      uint64_t bytesWritten = w->Pos();
+      uint64_t bytesWritten = static_cast<uint64_t>(w->Pos());
       coding::WritePadding(*w, bytesWritten);
 
       header.m_featuresOffset = base::asserted_cast<uint32_t>(w->Pos() - startOffset);
