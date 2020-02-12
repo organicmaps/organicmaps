@@ -224,19 +224,10 @@ bool Url::Parse(std::string const & url)
   return true;
 }
 
-bool Url::ForEachParam(Callback const & callback) const
+void Url::ForEachParam(Callback const & callback) const
 {
-  // todo(@m) Looks strange but old code worked this way.
-  if (m_params.empty())
-    return false;
-
   for (auto const & param : m_params)
-  {
-    if (!callback(param))
-      return false;
-  }
-
-  return true;
+    callback(param);
 }
 
 string Make(string const & baseUrl, Params const & params)

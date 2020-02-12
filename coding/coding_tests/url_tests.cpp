@@ -35,13 +35,12 @@ public:
   }
 
 private:
-  bool AddTestValue(url::Param const & param)
+  void AddTestValue(url::Param const & param)
   {
     TEST(!m_keyValuePairs.empty(), ("Failed for url = ", m_url, "Passed KV = ", param));
     TEST_EQUAL(m_keyValuePairs.front().first, param.m_name, ());
     TEST_EQUAL(m_keyValuePairs.front().second, param.m_value, ());
     m_keyValuePairs.pop();
-    return true;
   }
 
   string m_url;

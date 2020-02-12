@@ -26,14 +26,14 @@ using Params = std::vector<Param>;
 class Url
 {
 public:
-  using Callback = std::function<bool(Param const & param)>;
+  using Callback = std::function<void(Param const & param)>;
 
   explicit Url(std::string const & url);
 
   std::string const & GetScheme() const { return m_scheme; }
   std::string const & GetPath() const { return m_path; }
   bool IsValid() const { return !m_scheme.empty(); }
-  bool ForEachParam(Callback const & callback) const;
+  void ForEachParam(Callback const & callback) const;
 
 private:
   bool Parse(std::string const & url);

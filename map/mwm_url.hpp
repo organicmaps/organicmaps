@@ -1,5 +1,7 @@
 #pragma once
 
+#include "coding/url.hpp"
+
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
@@ -102,13 +104,13 @@ public:
   Subscription const & GetSubscription() const { return m_subscription; }
 private:
   ParsingResult Parse(url::Url const & url);
-  bool AddKeyValue(std::string const & key, std::string const & value, std::vector<ApiPoint> & points);
-  bool RouteKeyValue(std::string const & key, std::string const & value, std::vector<std::string> & pattern);
-  bool SearchKeyValue(std::string const & key, std::string const & value, SearchRequest & request) const;
-  bool LeadKeyValue(std::string const & key, std::string const & value, lead::CampaignDescription & description) const;
-  bool CatalogKeyValue(std::string const & key, std::string const & value, Catalog & item) const;
-  bool CatalogPathKeyValue(std::string const & key, std::string const & value, CatalogPath & item) const;
-  bool SubscriptionKeyValue(std::string const & key, std::string const & value, Subscription & item) const;
+  void ParseMapParam(url::Param const & param, std::vector<ApiPoint> & points, bool & correctOrder);
+  void ParseRouteParam(url::Param const & param, std::vector<std::string> & pattern);
+  void ParseSearchParam(url::Param const & param, SearchRequest & request) const;
+  void ParseLeadParam(url::Param const & param, lead::CampaignDescription & description) const;
+  void ParseCatalogParam(url::Param const & param, Catalog & item) const;
+  void ParseCatalogPathParam(url::Param const & param, CatalogPath & item) const;
+  void ParseSubscriptionParam(url::Param const & param, Subscription & item) const;
 
   BookmarkManager * m_bmManager = nullptr;
   std::vector<RoutePoint> m_routePoints;

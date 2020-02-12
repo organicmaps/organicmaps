@@ -39,9 +39,11 @@ class ApiTest
 {
 public:
   explicit ApiTest(string const & urlString)
-    : m_fm(kFrameworkParams)
+    : m_framework(kFrameworkParams)
   {
-    m_m = &m_fm.GetBookmarkManager();
+    df::VisualParams::Init(1.0, 1024);
+
+    m_m = &m_framework.GetBookmarkManager();
     m_api.SetBookmarkManager(m_m);
 
     auto const res = m_api.SetUrlAndParse(urlString);
@@ -103,7 +105,7 @@ private:
   }
 
 private:
-  Framework m_fm;
+  Framework m_framework;
   ParsedMapApi m_api;
   m2::RectD m_viewportRect;
   BookmarkManager * m_m;
@@ -118,7 +120,7 @@ bool IsValid(Framework & fm, string const & urlString)
 
   return api.IsValid();
 }
-}
+}  // namespace
 
 UNIT_TEST(MapApiSmoke)
 {
