@@ -653,7 +653,7 @@ line|z11-[isoline=step_1000],
 line|z11-[isoline=step_500],
 {color: @isoline500;}
 
-line|z12-[isoline=step_100],
+line|z13-[isoline=step_100],
 {color: @isoline100;}
 
 line|z15-[isoline=step_50],
@@ -664,35 +664,36 @@ line|z17-[isoline=step_10],
 {color: @isoline10;}
 
 line|z11-[isoline=step_1000],
-{width: 1.0;opacity: 0.5;}
+{width: 1.0;opacity: 0.7;}
 line|z11[isoline=step_500],
-{width: 0.5;opacity: 0.3;}
+{width: 0.7;opacity: 0.4;}
 
 line|z12[isoline=step_500],
-{width: 0.5;opacity: 0.5;}
-line|z12-13[isoline=step_100],
-{width: 0.5;opacity: 0.3;}
+{width: 1.0;opacity: 0.5;}
 
 line|z13-[isoline=step_500],
+{width: 1.0;opacity: 0.7;}
+line|z13[isoline=step_100],
+{width: 0.7;opacity: 0.4;}
+
+line|z14[isoline=step_100],
 {width: 1.0;opacity: 0.5;}
 
-line|z14-16[isoline=step_100],
-{width: 0.5;opacity: 0.5;}
-
+line|z15-16[isoline=step_100],
+{width: 1.0;opacity: 0.7;}
 line|z15-16[isoline=step_50],
 line|z15-16[isoline=zero],
-{width: 0.5;opacity: 0.35;}
+{width: 1.0;opacity: 0.4;}
 
 line|z17-[isoline=step_100],
-{width: 1.0;opacity: 0.5;}
+{width: 1.0;opacity: 0.7;}
 line|z17[isoline=step_50],
 line|z17[isoline=zero],
-{width: 0.5;opacity: 0.5;}
+{width: 1.0;opacity: 0.5;}
 line|z17[isoline=step_10],
-{width: 0.5;opacity: 0.35;}
+{width: 1.0;opacity: 0.4;}
 
 line|z18-[isoline=step_50],
 line|z18-[isoline=zero],
-{width: 1.0;opacity: 0.5;}
 line|z18-[isoline=step_10],
-{width: 0.5;opacity: 0.5;}
+{width: 1.0;opacity: 0.7;}
