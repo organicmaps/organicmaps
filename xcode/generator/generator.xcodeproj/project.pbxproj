@@ -49,6 +49,10 @@
 		39F7E3AB20E1023400DA7A14 /* test_with_classificator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F7E3A420E1022E00DA7A14 /* test_with_classificator.hpp */; };
 		39F7E3AC20E1023400DA7A14 /* test_with_custom_mwms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39F7E3A320E1022E00DA7A14 /* test_with_custom_mwms.cpp */; };
 		39F7E3AD20E1023400DA7A14 /* test_with_custom_mwms.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F7E3A220E1022E00DA7A14 /* test_with_custom_mwms.hpp */; };
+		3D0BBC3923F536A700A50354 /* isolines_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BBC3523F536A600A50354 /* isolines_generator.cpp */; };
+		3D0BBC3A23F536A700A50354 /* isolines_section_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BBC3623F536A700A50354 /* isolines_section_builder.cpp */; };
+		3D0BBC3B23F536A700A50354 /* isolines_section_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D0BBC3723F536A700A50354 /* isolines_section_builder.hpp */; };
+		3D0BBC3C23F536A700A50354 /* isolines_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D0BBC3823F536A700A50354 /* isolines_generator.hpp */; };
 		3D51BC481D5E50F700F1FA8D /* centers_table_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D51BC461D5E50F700F1FA8D /* centers_table_builder.cpp */; };
 		3D51BC491D5E50F700F1FA8D /* centers_table_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D51BC471D5E50F700F1FA8D /* centers_table_builder.hpp */; };
 		3D51BC521D5E512500F1FA8D /* altitude_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D51BC4A1D5E512500F1FA8D /* altitude_generator.cpp */; };
@@ -351,6 +355,10 @@
 		39F7E3A320E1022E00DA7A14 /* test_with_custom_mwms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_with_custom_mwms.cpp; sourceTree = "<group>"; };
 		39F7E3A420E1022E00DA7A14 /* test_with_classificator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test_with_classificator.hpp; sourceTree = "<group>"; };
 		39F7E3A520E1022E00DA7A14 /* test_with_classificator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_with_classificator.cpp; sourceTree = "<group>"; };
+		3D0BBC3523F536A600A50354 /* isolines_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = isolines_generator.cpp; sourceTree = "<group>"; };
+		3D0BBC3623F536A700A50354 /* isolines_section_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = isolines_section_builder.cpp; sourceTree = "<group>"; };
+		3D0BBC3723F536A700A50354 /* isolines_section_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isolines_section_builder.hpp; sourceTree = "<group>"; };
+		3D0BBC3823F536A700A50354 /* isolines_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isolines_generator.hpp; sourceTree = "<group>"; };
 		3D51BC461D5E50F700F1FA8D /* centers_table_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = centers_table_builder.cpp; sourceTree = "<group>"; };
 		3D51BC471D5E50F700F1FA8D /* centers_table_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = centers_table_builder.hpp; sourceTree = "<group>"; };
 		3D51BC4A1D5E512500F1FA8D /* altitude_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = altitude_generator.cpp; sourceTree = "<group>"; };
@@ -683,6 +691,10 @@
 		6753401D1A3F2A1B00A0A8C3 /* generator */ = {
 			isa = PBXGroup;
 			children = (
+				3D0BBC3523F536A600A50354 /* isolines_generator.cpp */,
+				3D0BBC3823F536A700A50354 /* isolines_generator.hpp */,
+				3D0BBC3623F536A700A50354 /* isolines_section_builder.cpp */,
+				3D0BBC3723F536A700A50354 /* isolines_section_builder.hpp */,
 				402BAFC623994186007385D4 /* postcode_points_builder.cpp */,
 				402BAFC723994186007385D4 /* postcode_points_builder.hpp */,
 				56DAC2EA2398FA76000BC50D /* cells_merger.cpp */,
@@ -1122,6 +1134,7 @@
 				56FB43892164F571002099B3 /* node.hpp in Headers */,
 				391C0C8C22BD257A003DC252 /* cities_ids_builder.hpp in Headers */,
 				39711416229D7E01003915E5 /* key_value_storage.hpp in Headers */,
+				3D0BBC3B23F536A700A50354 /* isolines_section_builder.hpp in Headers */,
 				3D74EF081F86841C0081202C /* ugc_section_builder.hpp in Headers */,
 				56A1B7AE21A82C3F00246F8C /* maxspeeds_builder.hpp in Headers */,
 				56A1B7AC21A82C3F00246F8C /* maxspeeds_parser.hpp in Headers */,
@@ -1159,6 +1172,7 @@
 				4003E3B22112FB2B007721B0 /* emitter_interface.hpp in Headers */,
 				4032E73A225D151D00D33617 /* translator_coastline.hpp in Headers */,
 				4003E3AA2112FB2B007721B0 /* factory_utils.hpp in Headers */,
+				3D0BBC3C23F536A700A50354 /* isolines_generator.hpp in Headers */,
 				671C2D5B22AFD969008B2B8B /* place_point.hpp in Headers */,
 				3989E326230300D600D63F84 /* collector_city_area.hpp in Headers */,
 				401E317E225C971400DE7EB8 /* collector_tag.hpp in Headers */,
@@ -1270,6 +1284,7 @@
 				56DAC3382398FA77000BC50D /* gen_mwm_info.cpp in Sources */,
 				56DAC3292398FA77000BC50D /* processor_simple.cpp in Sources */,
 				56037E56219AF97200C2193D /* filter_elements.cpp in Sources */,
+				3D0BBC3A23F536A700A50354 /* isolines_section_builder.cpp in Sources */,
 				56E0C4E4213FD56F00541E0F /* cities_boundaries_checker.cpp in Sources */,
 				39B2B9781FB468CC00AB85A1 /* cities_boundaries_builder.cpp in Sources */,
 				56A1B7AD21A82C3F00246F8C /* maxspeeds_builder.cpp in Sources */,
@@ -1296,6 +1311,7 @@
 				675340871A3F2A7400A0A8C3 /* unpack_mwm.cpp in Sources */,
 				670B84BC1A8CDB0000CE4492 /* osm_source.cpp in Sources */,
 				675340701A3F2A7400A0A8C3 /* feature_sorter.cpp in Sources */,
+				3D0BBC3923F536A700A50354 /* isolines_generator.cpp in Sources */,
 				675340621A3F2A7400A0A8C3 /* coastlines_generator.cpp in Sources */,
 				56DAC3192398FA77000BC50D /* collector_building_parts.cpp in Sources */,
 				4032E73B225D151D00D33617 /* translator_coastline.cpp in Sources */,

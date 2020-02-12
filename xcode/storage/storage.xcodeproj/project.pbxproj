@@ -24,6 +24,8 @@
 		3971141E229D89F4003915E5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3971141D229D89F4003915E5 /* Security.framework */; };
 		39B9682223E1AC5F00D3B8E3 /* libge0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B9682123E1AC5F00D3B8E3 /* libge0.a */; };
 		39B9682B23E1AD9F00D3B8E3 /* libge0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B9682123E1AC5F00D3B8E3 /* libge0.a */; };
+		3D0BBC3223F530CC00A50354 /* libminizip.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBC3123F530CC00A50354 /* libminizip.dylib */; };
+		3D0BBC3423F530DB00A50354 /* libminizip.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBC3323F530DB00A50354 /* libminizip.dylib */; };
 		3D497EA123292706000FB57D /* map_files_downloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D497E9E23292706000FB57D /* map_files_downloader.cpp */; };
 		3D497EA223292706000FB57D /* map_files_downloader_with_ping.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D497E9F23292706000FB57D /* map_files_downloader_with_ping.hpp */; };
 		3D497EA323292706000FB57D /* map_files_downloader_with_ping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D497EA023292706000FB57D /* map_files_downloader_with_ping.cpp */; };
@@ -104,7 +106,6 @@
 		67F90B771C6A278800CD458E /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709AF1C6215690093DD1B /* libagg.a */; };
 		67F90B791C6A278800CD458E /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B11C6215690093DD1B /* libeditor.a */; };
 		67F90B7A1C6A278800CD458E /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B21C6215690093DD1B /* libfreetype.a */; };
-		67F90B7D1C6A278800CD458E /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B51C6215690093DD1B /* libminizip.a */; };
 		67F90B7E1C6A278800CD458E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B61C6215690093DD1B /* liboauthcpp.a */; };
 		67F90B7F1C6A278800CD458E /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B71C6215690093DD1B /* libopening_hours.a */; };
 		67F90B811C6A278800CD458E /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B91C6215690093DD1B /* libprotobuf.a */; };
@@ -136,7 +137,6 @@
 		67F90BD31C6A2A3000CD458E /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709AF1C6215690093DD1B /* libagg.a */; };
 		67F90BD51C6A2A3000CD458E /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B11C6215690093DD1B /* libeditor.a */; };
 		67F90BD61C6A2A3000CD458E /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B21C6215690093DD1B /* libfreetype.a */; };
-		67F90BD91C6A2A3000CD458E /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B51C6215690093DD1B /* libminizip.a */; };
 		67F90BDA1C6A2A3000CD458E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B61C6215690093DD1B /* liboauthcpp.a */; };
 		67F90BDB1C6A2A3000CD458E /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B71C6215690093DD1B /* libopening_hours.a */; };
 		67F90BDD1C6A2A3000CD458E /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709B91C6215690093DD1B /* libprotobuf.a */; };
@@ -211,6 +211,8 @@
 		3971141B229D8983003915E5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3971141D229D89F4003915E5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		39B9682123E1AC5F00D3B8E3 /* libge0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libge0.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D0BBC3123F530CC00A50354 /* libminizip.dylib */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libminizip.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D0BBC3323F530DB00A50354 /* libminizip.dylib */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libminizip.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D497E9E23292706000FB57D /* map_files_downloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map_files_downloader.cpp; sourceTree = "<group>"; };
 		3D497E9F23292706000FB57D /* map_files_downloader_with_ping.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = map_files_downloader_with_ping.hpp; sourceTree = "<group>"; };
 		3D497EA023292706000FB57D /* map_files_downloader_with_ping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map_files_downloader_with_ping.cpp; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D0BBC3423F530DB00A50354 /* libminizip.dylib in Frameworks */,
 				3971141E229D89F4003915E5 /* Security.framework in Frameworks */,
 				3971141C229D8983003915E5 /* CoreLocation.framework in Frameworks */,
 				56EE14E11FE813FC0036F20C /* libbsdiff.a in Frameworks */,
@@ -373,7 +376,6 @@
 				67F90B841C6A278800CD458E /* libsearch.a in Frameworks */,
 				67F90B831C6A278800CD458E /* libsdf_image.a in Frameworks */,
 				67F90B911C6A278800CD458E /* libbase.a in Frameworks */,
-				67F90B7D1C6A278800CD458E /* libminizip.a in Frameworks */,
 				67F90B8F1C6A278800CD458E /* libjansson.a in Frameworks */,
 				67F90B851C6A278800CD458E /* libstb_image.a in Frameworks */,
 				67F90B881C6A278800CD458E /* libdrape.a in Frameworks */,
@@ -397,6 +399,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D0BBC3223F530CC00A50354 /* libminizip.dylib in Frameworks */,
 				39B9682223E1AC5F00D3B8E3 /* libge0.a in Frameworks */,
 				56DAC38D23992FB1000BC50D /* Security.framework in Frameworks */,
 				56DAC38C23992F8C000BC50D /* libvulkan_wrapper.a in Frameworks */,
@@ -426,7 +429,6 @@
 				67F90BE01C6A2A3000CD458E /* libsearch.a in Frameworks */,
 				67F90BDF1C6A2A3000CD458E /* libsdf_image.a in Frameworks */,
 				67F90BED1C6A2A3000CD458E /* libbase.a in Frameworks */,
-				67F90BD91C6A2A3000CD458E /* libminizip.a in Frameworks */,
 				67F90BEB1C6A2A3000CD458E /* libjansson.a in Frameworks */,
 				67F90BE11C6A2A3000CD458E /* libstb_image.a in Frameworks */,
 				67F90BE41C6A2A3000CD458E /* libdrape.a in Frameworks */,
@@ -452,6 +454,8 @@
 		34F5584C1DBF327C00A4FC11 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3D0BBC3323F530DB00A50354 /* libminizip.dylib */,
+				3D0BBC3123F530CC00A50354 /* libminizip.dylib */,
 				39B9682123E1AC5F00D3B8E3 /* libge0.a */,
 				56DAC38B23992F8C000BC50D /* libvulkan_wrapper.a */,
 				56DAC38923992F84000BC50D /* libweb_api.a */,

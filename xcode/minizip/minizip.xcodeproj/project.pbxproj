@@ -31,7 +31,7 @@
 		3D40DECC23EC069300A0153A /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zip.h; path = src/zip.h; sourceTree = "<group>"; };
 		3D40DECF23EC071400A0153A /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = unzip.c; path = src/unzip.c; sourceTree = "<group>"; };
 		3D40DED023EC071400A0153A /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = src/unzip.h; sourceTree = "<group>"; };
-		671F590C1B87568D0032311E /* libminizip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libminizip.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		671F590C1B87568D0032311E /* libminizip.dylib */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libminizip.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +69,7 @@
 		671F590D1B87568D0032311E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				671F590C1B87568D0032311E /* libminizip.a */,
+				671F590C1B87568D0032311E /* libminizip.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -121,7 +121,7 @@
 			);
 			name = minizip;
 			productName = minizip;
-			productReference = 671F590C1B87568D0032311E /* libminizip.a */;
+			productReference = 671F590C1B87568D0032311E /* libminizip.dylib */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -198,6 +198,7 @@
 		671F59111B87568D0032311E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EXECUTABLE_EXTENSION = dylib;
 				EXECUTABLE_PREFIX = lib;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				MACH_O_TYPE = mh_dylib;
@@ -208,6 +209,7 @@
 		671F59121B87568D0032311E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EXECUTABLE_EXTENSION = dylib;
 				EXECUTABLE_PREFIX = lib;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				MACH_O_TYPE = mh_dylib;
@@ -230,6 +232,7 @@
 		A8E541221F9FBCFE00A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EXECUTABLE_EXTENSION = dylib;
 				EXECUTABLE_PREFIX = lib;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				MACH_O_TYPE = mh_dylib;

@@ -30,6 +30,7 @@
 		34FFD30F1E9CEF490010AD12 /* map_widget.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 34FFD2F21E9CEEA20010AD12 /* map_widget.hpp */; };
 		34FFD3101E9CEF490010AD12 /* resources_common.qrc in Sources */ = {isa = PBXBuildFile; fileRef = 34FFD2FD1E9CEEA20010AD12 /* resources_common.qrc */; };
 		39B9682623E1AC8800D3B8E3 /* libge0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B9682523E1AC8800D3B8E3 /* libge0.a */; };
+		3D0BBC2C23F5302900A50354 /* libminizip.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBC2B23F5302900A50354 /* libminizip.dylib */; };
 		4415CD992271B1A200AA3A19 /* routing_settings_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4415CD952271B1A200AA3A19 /* routing_settings_dialog.cpp */; };
 		4415CD9A2271B1A200AA3A19 /* screenshoter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4415CD962271B1A200AA3A19 /* screenshoter.cpp */; };
 		450703071E9E6C7100E8C029 /* local_ads_symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 450703061E9E6C7100E8C029 /* local_ads_symbols.txt */; };
@@ -71,7 +72,6 @@
 		671E78E51E6A4E1A00B2859B /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E78E41E6A4E1A00B2859B /* librouting_common.a */; };
 		671E79221E6A508600B2859B /* libopenlr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E79211E6A508600B2859B /* libopenlr.a */; };
 		671F59021B8755FE0032311E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 671F59011B8755FE0032311E /* libz.dylib */; };
-		671F59301B8759460032311E /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671F592F1B8759460032311E /* libminizip.a */; };
 		672292B11DE307DC005BA3A7 /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 672292B01DE307DC005BA3A7 /* libtraffic.a */; };
 		6729A5C11A693014007D5872 /* categories.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5B91A693013007D5872 /* categories.txt */; };
 		6729A5C21A693014007D5872 /* classificator.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A5BA1A693013007D5872 /* classificator.txt */; };
@@ -251,6 +251,7 @@
 		34FFD30B1E9CEF010010AD12 /* libicu.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicu.a; path = "/Users/igrechuhin/Repo/omim/xcode/icu/../../../omim-build/xcode/Debug/libicu.a"; sourceTree = "<absolute>"; };
 		34FFD30C1E9CEF010010AD12 /* liblocal_ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblocal_ads.a; path = "/Users/igrechuhin/Repo/omim/xcode/local_ads/../../../omim-build/xcode/Debug/liblocal_ads.a"; sourceTree = "<absolute>"; };
 		39B9682523E1AC8800D3B8E3 /* libge0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libge0.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D0BBC2B23F5302900A50354 /* libminizip.dylib */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libminizip.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		4415CD952271B1A200AA3A19 /* routing_settings_dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_settings_dialog.cpp; sourceTree = "<group>"; };
 		4415CD962271B1A200AA3A19 /* screenshoter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = screenshoter.cpp; sourceTree = "<group>"; };
 		4415CD972271B1A200AA3A19 /* routing_settings_dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_settings_dialog.hpp; sourceTree = "<group>"; };
@@ -380,6 +381,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D0BBC2C23F5302900A50354 /* libminizip.dylib in Frameworks */,
 				39B9682623E1AC8800D3B8E3 /* libge0.a in Frameworks */,
 				675B562020D15BEF00A521D2 /* libkml.a in Frameworks */,
 				675B561E20D15BC300A521D2 /* libopen_location_code.a in Frameworks */,
@@ -404,7 +406,6 @@
 				674A7E391C0DB727003D48E1 /* libstb_image.a in Frameworks */,
 				674A7E311C0DB727003D48E1 /* libgeometry.a in Frameworks */,
 				67E8DC931BBC1D3F0053C5BA /* libagg.a in Frameworks */,
-				671F59301B8759460032311E /* libminizip.a in Frameworks */,
 				671F59021B8755FE0032311E /* libz.dylib in Frameworks */,
 				674A29AB1B26F0AE001A525C /* libalohalitics.a in Frameworks */,
 				674A29AE1B26F0AE001A525C /* libbase.a in Frameworks */,
@@ -438,6 +439,7 @@
 		3475E0DC1DBF5772004C7E69 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3D0BBC2B23F5302900A50354 /* libminizip.dylib */,
 				39B9682523E1AC8800D3B8E3 /* libge0.a */,
 				675B561F20D15BEF00A521D2 /* libkml.a */,
 				675B561D20D15BC300A521D2 /* libopen_location_code.a */,

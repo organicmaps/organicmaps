@@ -155,13 +155,13 @@
 		39B2B96A1FB4631400AB85A1 /* libbsdiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B2B96B1FB4631400AB85A1 /* libbsdiff.a */; };
 		39B2B96C1FB4633200AB85A1 /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B2B96D1FB4633200AB85A1 /* libtess2.a */; };
 		39B2B9741FB4687500AB85A1 /* libgflags.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B2B9751FB4687500AB85A1 /* libgflags.a */; };
-		39B2B9831FB469ED00AB85A1 /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B2B9841FB469ED00AB85A1 /* libminizip.a */; };
 		39BBC13B1F9FD65C009D1687 /* highlighting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39BBC1391F9FD65C009D1687 /* highlighting.cpp */; };
 		39BBC13C1F9FD65C009D1687 /* highlighting.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39BBC13A1F9FD65C009D1687 /* highlighting.hpp */; };
 		39BBC13E1F9FD679009D1687 /* segment_tree_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39BBC13D1F9FD679009D1687 /* segment_tree_tests.cpp */; };
 		39BBC1401F9FD683009D1687 /* point_rect_matcher_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39BBC13F1F9FD683009D1687 /* point_rect_matcher_tests.cpp */; };
 		39BBC1421F9FD68C009D1687 /* highlighting_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39BBC1411F9FD68C009D1687 /* highlighting_tests.cpp */; };
 		3D0AEB021FBB102C00AD042B /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEB041FBB102C00AD042B /* libgenerator_tests_support.a */; };
+		3D0BBC3023F5309F00A50354 /* libminizip.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBC2F23F5309F00A50354 /* libminizip.dylib */; };
 		3DA5722B20C1956D007BDE27 /* integration_tests_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA5722920C1956D007BDE27 /* integration_tests_helpers.hpp */; };
 		3DFEBF761EF2D55800317D5C /* city_finder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DFEBF751EF2D55800317D5C /* city_finder.hpp */; };
 		405DB10720FF472300EE3824 /* utils_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 405DB10620FF472300EE3824 /* utils_test.cpp */; };
@@ -435,6 +435,7 @@
 		39BBC1411F9FD68C009D1687 /* highlighting_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = highlighting_tests.cpp; sourceTree = "<group>"; };
 		3D0AEB041FBB102C00AD042B /* libgenerator_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D0AEB051FBB102C00AD042B /* libindexer_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D0BBC2F23F5309F00A50354 /* libminizip.dylib */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libminizip.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DA5722820C1956D007BDE27 /* integration_tests_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = integration_tests_helpers.cpp; sourceTree = "<group>"; };
 		3DA5722920C1956D007BDE27 /* integration_tests_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = integration_tests_helpers.hpp; sourceTree = "<group>"; };
 		3DFEBF751EF2D55800317D5C /* city_finder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = city_finder.hpp; sourceTree = "<group>"; };
@@ -572,10 +573,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D0BBC3023F5309F00A50354 /* libminizip.dylib in Frameworks */,
 				6715565720BF1019002BA3B4 /* libeditor_tests_support.a in Frameworks */,
 				6715565920BF1019002BA3B4 /* libopen_location_code.a in Frameworks */,
 				39AEF86C1FB45E1600943FC9 /* libz.tbd in Frameworks */,
-				39B2B9831FB469ED00AB85A1 /* libminizip.a in Frameworks */,
 				39B2B9741FB4687500AB85A1 /* libgflags.a in Frameworks */,
 				39AEF86D1FB45E1600943FC9 /* libicu.a in Frameworks */,
 				39AEF86F1FB45E1600943FC9 /* libopening_hours.a in Frameworks */,
@@ -677,6 +678,7 @@
 		34F558391DBF2E0E00A4FC11 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3D0BBC2F23F5309F00A50354 /* libminizip.dylib */,
 				56DAC34523991309000BC50D /* libkml.a */,
 				56DAC34323991301000BC50D /* libplatform_tests_support.a */,
 				67935E7320D14D06002996B0 /* CoreLocation.framework */,
