@@ -155,6 +155,7 @@ public:
                     GetHotelInfoCallback const & fn) const;
 
   void SetAffiliateId(std::string const & affiliateId);
+  
 private:
   std::string m_affiliateId;
 };

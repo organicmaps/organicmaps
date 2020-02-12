@@ -501,7 +501,7 @@ string Api::GetSearchUrl(string const & city, string const & name) const
 
   url::Params p = {{"aid", m_affiliateId},
                    {"label", MakeLabel("ppActionButtonOSM")},
-                   {"&ss=", urlEncodedParams}};
+                   {"ss", urlEncodedParams}};
   return url::Make(kSearchBaseUrl, p);
 }
 

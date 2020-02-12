@@ -193,11 +193,11 @@ ParsedMapApi::ParsingResult ParsedMapApi::SetUrlAndParse(string const & url)
   }
   auto const u = url::Url(url);
   ParsingResult const result = Parse(u);
-  if (result != ParsingResult::Incorrect)
-  {
-    m_isValid = true;
+  m_isValid = result != ParsingResult::Incorrect;
+
+  if (m_isValid)
     ParseAdditional(u);
-  }
+
   return result;
 }
 
@@ -533,11 +533,19 @@ void ParsedMapApi::ParseSubscriptionParam(url::Param const & param, Subscription
 
 void ParsedMapApi::Reset()
 {
-  m_globalBackUrl.clear();
-  m_appTitle.clear();
+  m_routePoints = {};
+  m_request = {};
+  m_catalog = {};
+  m_catalogPath = {};
+  m_subscription = {};
+  m_globalBackUrl ={};
+  m_appTitle = {};
+  m_routingType = {};
+  m_affiliateId = {};
   m_version = 0;
   m_zoomLevel = 0.0;
   m_goBackOnBalloonClick = false;
+  m_isValid = false;
 }
 
 bool ParsedMapApi::GetViewportRect(m2::RectD & rect) const
