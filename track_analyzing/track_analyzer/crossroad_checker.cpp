@@ -105,7 +105,7 @@ IsCrossroadChecker::Type IsCrossroadChecker::operator()(Segment const & current,
     {
       if (isCurrentBig && !isNextBig)
         return Type::TurnFromBiggerToSmaller;
-      else if (!isCurrentBig && isNextBig)
+      if (!isCurrentBig && isNextBig)
         return Type::TurnFromSmallerToBigger;
     }
   }

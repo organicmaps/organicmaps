@@ -444,14 +444,18 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
           // Splitting track with points where MoveType is changed.
           while (end != track.end() && pointToMoveType.GetMoveType(*end) == moveType)
           {
-            IsCrossroadChecker::MergeCrossroads(checker(prev->GetSegment(), end->GetSegment()), info);
+            IsCrossroadChecker::MergeCrossroads(checker(prev->GetSegment(), end->GetSegment()),
+                                                info);
             prev = end;
             ++end;
           }
 
           // If it's not the end of the track than it could be a crossroad.
           if (end != track.end())
-            IsCrossroadChecker::MergeCrossroads(checker(prev->GetSegment(), end->GetSegment()), info);
+          {
+            IsCrossroadChecker::MergeCrossroads(checker(prev->GetSegment(), end->GetSegment()),
+                                                info);
+          }
 
           aggregator.Add(move(moveType), info, subtrackBegin, end, geometry);
           subtrackBegin = end;
