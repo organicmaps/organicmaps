@@ -11,13 +11,18 @@ namespace
 {
 std::vector<int> const kAltClasses = {1000, 500, 100, 50, 10};
 int const kNamedAltStep = 50;
+int const kNamedAltRange = 150;
 std::string const kTypePrefix = "step_";
 std::string const kTypeZero = "zero";
 
-std::string GetIsolineName(topography_generator::Altitude altitude)
+std::string GetIsolineName(int altitude, int step, int minAltitude, int maxAltitude)
 {
-  if (altitude % kNamedAltStep == 0)
+  if (step > 10 ||
+      abs(altitude) % kNamedAltStep == 0 ||
+      maxAltitude - minAltitude <= kNamedAltRange)
+  {
     return strings::to_string(altitude);
+  }
   return "";
 }
 }  // namespace
@@ -41,7 +46,7 @@ uint32_t IsolineFeaturesGenerator::GetIsolineType(int altitude) const
 
   for (auto altStep : kAltClasses)
   {
-    if (altitude % altStep == 0)
+    if (abs(altitude) % altStep == 0)
       return m_altClassToType.at(altStep);
   }
   return ftype::GetEmptyValue();
@@ -62,7 +67,8 @@ void IsolineFeaturesGenerator::GenerateIsolines(std::string const & countryName,
   for (auto const & levelIsolines : countryIsolines.m_contours)
   {
     auto const altitude = levelIsolines.first;
-    auto const isolineName = GetIsolineName(altitude);
+    auto const isolineName = GetIsolineName(altitude, countryIsolines.m_valueStep,
+                                            countryIsolines.m_minValue, countryIsolines.m_maxValue);
     auto const isolineType = GetIsolineType(altitude);
     if (isolineType == ftype::GetEmptyValue())
     {
