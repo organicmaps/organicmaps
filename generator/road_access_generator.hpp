@@ -26,6 +26,23 @@ class FeatureParams;
 
 namespace generator
 {
+struct AccessConditional
+{
+  AccessConditional() = default;
+  AccessConditional(routing::RoadAccess::Type accessType, std::string const & openingHours)
+      : m_accessType(accessType), m_openingHours(openingHours)
+  {
+  }
+
+  bool operator==(AccessConditional const & rhs) const
+  {
+    return std::tie(m_accessType, m_openingHours) == std::tie(rhs.m_accessType, rhs.m_openingHours);
+  }
+
+  routing::RoadAccess::Type m_accessType = routing::RoadAccess::Type::Count;
+  std::string m_openingHours;
+};
+
 namespace cache
 {
 class IntermediateDataReaderInterface;
@@ -48,6 +65,7 @@ public:
   void Process(OsmElement const & elem);
   void ProcessConditional(OsmElement const & elem);
   void WriteWayToAccess(std::ostream & stream);
+  void WriteWayToAccessConditional(std::ostream & stream);
   void WriteBarrierTags(std::ostream & stream, uint64_t id, std::vector<uint64_t> const & points,
                         bool ignoreBarrierWithoutAccess);
   void Merge(RoadAccessTagProcessor const & roadAccessTagProcessor);
@@ -70,6 +88,7 @@ private:
   std::unordered_map<uint64_t, RoadAccess::Type> m_barriersWithoutAccessTag;
   std::unordered_map<uint64_t, RoadAccess::Type> m_barriersWithAccessTag;
   std::unordered_map<uint64_t, RoadAccess::Type> m_wayToAccess;
+  std::unordered_map<uint64_t, std::vector<generator::AccessConditional>> m_wayToAccessConditional;
 };
 
 class RoadAccessWriter : public generator::CollectorInterface
@@ -120,32 +139,19 @@ private:
 class AccessConditionalTagParser
 {
 public:
-  struct AccessConditional
-  {
-    AccessConditional() = default;
-    AccessConditional(RoadAccess::Type accessType, std::string const & openingHours)
-      : m_accessType(accessType), m_openingHours(openingHours)
-    {
-    }
-
-    bool operator==(AccessConditional const & rhs) const
-    {
-      return std::tie(m_accessType, m_openingHours) == std::tie(rhs.m_accessType, rhs.m_openingHours);
-    }
-
-    RoadAccess::Type m_accessType = RoadAccess::Type::Count;
-    std::string m_openingHours;
-  };
+  static AccessConditionalTagParser const & Instance();
 
   AccessConditionalTagParser();
-  std::vector<AccessConditional> ParseAccessConditionalTag(std::string const & tag, std::string const & value);
+  std::vector<generator::AccessConditional> ParseAccessConditionalTag(
+      std::string const & tag, std::string const & value) const;
 
 private:
   RoadAccess::Type GetAccessByVehicleAndStringValue(std::string const & vehicleFromTag,
-                                                    std::string const & stringAccessValue);
+                                                    std::string const & stringAccessValue) const;
+
   std::optional<std::pair<size_t, std::string>> ReadUntilSymbol(std::string const & input,
-                                                                size_t startPos, char symbol);
-  std::string TrimAndDropAroundParentheses(std::string input);
+                                                                size_t startPos, char symbol) const;
+  std::string TrimAndDropAroundParentheses(std::string input) const;
 
   std::vector<RoadAccessTagProcessor::TagMapping> m_vehiclesToRoadAccess;
 };

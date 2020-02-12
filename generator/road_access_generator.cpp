@@ -32,6 +32,7 @@
 
 using namespace feature;
 using namespace routing;
+using namespace generator;
 using namespace std;
 
 namespace
@@ -44,19 +45,19 @@ using ConditionalTagsList = routing::RoadAccessTagProcessor::ConditionalTagsList
 // Get from: https://taginfo.openstreetmap.org/search?q=%3Aconditional
 // @{
 vector<string> const kCarAccessConditionalTags = {
-    "motorcar", "vehicle", "motor_vehicle"
+    "motorcar:conditional", "vehicle:conditional", "motor_vehicle:conditional"
 };
 
 vector<string> const kDefaultAccessConditionalTags = {
-    "access"
+    "access:conditional"
 };
 
 vector<string> const kPedestrianAccessConditionalTags = {
-    "foot"
+    "foot:conditional"
 };
 
 vector<string> const kBycicleAccessConditionalTags = {
-    "bicycle"
+    "bicycle:conditional"
 };
 // @}
 
@@ -266,14 +267,14 @@ RoadAccess::Type GetAccessTypeFromMapping(OsmElement const & elem, TagMapping co
   return RoadAccess::Type::Count;
 }
 
-optional<string> GetConditionalTag(OsmElement const & elem,
-                                             vector<ConditionalTagsList> const & tagsList)
+optional<pair<string, string>> GetTagValueConditionalAccess(
+    OsmElement const & elem, vector<ConditionalTagsList> const & tagsList)
 {
   for (auto const & tags : tagsList)
   {
     for (auto const & tag : tags)
       if (elem.HasTag(tag))
-        return {elem.GetTag(tag)};
+        return make_pair(tag, elem.GetTag(tag));
   }
   return nullopt;
 }
@@ -372,7 +373,19 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem)
 
 void RoadAccessTagProcessor::ProcessConditional(OsmElement const & elem)
 {
-  // to be implemented
+  if (!elem.IsWay())
+    return;
+
+  auto op = GetTagValueConditionalAccess(elem, m_conditionalTagsVector);
+  if (!op)
+    return;
+
+  auto const & [tag, value] = *op;
+  auto const & parser = AccessConditionalTagParser::Instance();
+  auto accesses = parser.ParseAccessConditionalTag(tag, value);
+
+  auto & toSave = m_wayToAccessConditional[elem.m_id];
+  toSave.insert(toSave.end(), move_iterator(accesses.begin()), move_iterator(accesses.end()));
 }
 
 void RoadAccessTagProcessor::WriteWayToAccess(ostream & stream)
@@ -382,6 +395,17 @@ void RoadAccessTagProcessor::WriteWayToAccess(ostream & stream)
   {
     stream << ToString(m_vehicleType) << " " << ToString(i.second) << " " << i.first << " "
            << 0 /* wildcard segment Idx */ << endl;
+  }
+}
+
+void RoadAccessTagProcessor::WriteWayToAccessConditional(std::ostream & stream)
+{
+  for (auto const & [osmId, accesses] : m_wayToAccessConditional)
+  {
+    CHECK(!accesses.empty(), ());
+    stream << ToString(m_vehicleType) << " " << osmId << " " << accesses.size() << endl;
+    for (auto const & access : accesses)
+      stream << ToString(access.m_accessType) << " " << access.m_openingHours << endl;
   }
 }
 
@@ -418,6 +442,8 @@ void RoadAccessTagProcessor::Merge(RoadAccessTagProcessor const & other)
   m_barriersWithoutAccessTag.insert(begin(other.m_barriersWithoutAccessTag),
                                     end(other.m_barriersWithoutAccessTag));
   m_wayToAccess.insert(begin(other.m_wayToAccess), end(other.m_wayToAccess));
+  m_wayToAccessConditional.insert(begin(other.m_wayToAccessConditional),
+                                  end(other.m_wayToAccessConditional));
 }
 
 // RoadAccessWriter ------------------------------------------------------------
@@ -444,7 +470,10 @@ shared_ptr<generator::CollectorInterface> RoadAccessWriter::Clone(
 void RoadAccessWriter::CollectFeature(FeatureBuilder const & fb, OsmElement const & elem)
 {
   for (auto & p : m_tagProcessors)
+  {
     p.Process(elem);
+    p.ProcessConditional(elem);
+  }
 
   if (!routing::IsRoad(fb.GetTypes()))
     return;
@@ -493,6 +522,12 @@ void RoadAccessWriter::Save()
     for (auto & p : m_tagProcessors)
       p.WriteBarrierTags(out, wayId, nodes, ignoreBarrierWithoutAccessOnThisWay);
   }
+
+  ofstream outConditional;
+  outConditional.exceptions(fstream::failbit | fstream::badbit);
+  outConditional.open(GetFilename() + ROAD_ACCESS_CONDITIONAL_EXT);
+  for (auto & p : m_tagProcessors)
+    p.WriteWayToAccessConditional(outConditional);
 }
 
 void RoadAccessWriter::Merge(generator::CollectorInterface const & collector)
@@ -541,6 +576,13 @@ RoadAccessCollector::RoadAccessCollector(string const & dataFilePath, string con
 }
 
 // AccessConditionalTagParser ----------------------------------------------------------------------
+// static
+AccessConditionalTagParser const & AccessConditionalTagParser::Instance()
+{
+  static AccessConditionalTagParser instance;
+  return instance;
+}
+
 AccessConditionalTagParser::AccessConditionalTagParser()
 {
   m_vehiclesToRoadAccess.push_back(kMotorCarTagMapping);
@@ -551,8 +593,8 @@ AccessConditionalTagParser::AccessConditionalTagParser()
   m_vehiclesToRoadAccess.push_back(kDefaultTagMapping);
 }
 
-vector<AccessConditionalTagParser::AccessConditional> AccessConditionalTagParser::
-    ParseAccessConditionalTag(string const & tag, string const & value)
+vector<AccessConditional> AccessConditionalTagParser::ParseAccessConditionalTag(
+    string const & tag, string const & value) const
 {
   size_t pos = 0;
 
@@ -560,7 +602,7 @@ vector<AccessConditionalTagParser::AccessConditional> AccessConditionalTagParser
   vector<AccessConditional> accessConditionals;
   while (pos < value.size())
   {
-    AccessConditionalTagParser::AccessConditional access;
+    AccessConditional access;
     auto accessOp = ReadUntilSymbol(value, pos, '@');
     if (!accessOp)
       break;
@@ -611,7 +653,7 @@ vector<AccessConditionalTagParser::AccessConditional> AccessConditionalTagParser
 
 optional<pair<size_t, string>> AccessConditionalTagParser::ReadUntilSymbol(string const & input,
                                                                            size_t startPos,
-                                                                           char symbol)
+                                                                           char symbol) const
 {
   string result;
   while (startPos < input.size() && input[startPos] != symbol)
@@ -627,7 +669,7 @@ optional<pair<size_t, string>> AccessConditionalTagParser::ReadUntilSymbol(strin
 }
 
 RoadAccess::Type AccessConditionalTagParser::GetAccessByVehicleAndStringValue(
-    string const & vehicleFromTag, string const & stringAccessValue)
+    string const & vehicleFromTag, string const & stringAccessValue) const
 {
   for (auto const & vehicleToAccess : m_vehiclesToRoadAccess)
   {
@@ -639,7 +681,7 @@ RoadAccess::Type AccessConditionalTagParser::GetAccessByVehicleAndStringValue(
   return RoadAccess::Type::Count;
 }
 
-string AccessConditionalTagParser::TrimAndDropAroundParentheses(string input)
+string AccessConditionalTagParser::TrimAndDropAroundParentheses(string input) const
 {
   strings::Trim(input);
 

@@ -234,8 +234,8 @@ UNIT_TEST(RoadAccessCoditionalParse)
 {
   AccessConditionalTagParser parser;
 
-  using ConditionalVector = std::vector<AccessConditionalTagParser::AccessConditional>;
-  std::vector<std::pair<std::string, ConditionalVector>> tests = {
+  using ConditionalVector = vector<AccessConditional>;
+  vector<pair<string, ConditionalVector>> tests = {
       {"no @ Mo-Su",
        {{RoadAccess::Type::No, "Mo-Su"}}},
 
@@ -283,7 +283,7 @@ UNIT_TEST(RoadAccessCoditionalParse)
        {{RoadAccess::Type::No, "Mo-Fr 00:00-08:00,20:00-24:00; Sa-Su 00:00-24:00; PH 00:00-24:00"}}}
   };
 
-  std::vector<std::string> tags = {
+  vector<string> tags = {
       "motorcar:conditional",
       "vehicle:conditional",
       "motor_vehicle:conditional",
@@ -299,6 +299,68 @@ UNIT_TEST(RoadAccessCoditionalParse)
       auto const access = parser.ParseAccessConditionalTag(tag, value);
       TEST(access == answer, (value, tag));
     }
+  }
+}
+
+UNIT_TEST(RoadAccessWriter_ConditionalMerge)
+{
+  classificator::Load();
+  auto const filename = generator_tests::GetFileName();
+  SCOPE_GUARD(_, bind(Platform::RemoveFileIfExists, cref(filename)));
+
+  auto const w1 = MakeOsmElementWithNodes(
+      1 /* id */, {{"highway", "primary"}, {"vehicle:conditional", "no @ (Mo-Su)"}} /* tags */,
+      OsmElement::EntityType::Way, {10, 11, 12, 13});
+
+  auto const w2 = MakeOsmElementWithNodes(
+      2 /* id */,
+      {{"highway", "service"}, {"vehicle:conditional", "private @ (10:00-20:00)"}} /* tags */,
+      OsmElement::EntityType::Way, {20, 21, 22, 23});
+
+  auto const w3 = MakeOsmElementWithNodes(
+      3 /* id */,
+      {{"highway", "service"},
+       {"vehicle:conditional", "private @ (12:00-19:00) ; no @ (Mo-Su)"}} /* tags */,
+      OsmElement::EntityType::Way, {30, 31, 32, 33});
+
+  auto c1 = make_shared<RoadAccessWriter>(filename);
+  auto c2 = c1->Clone();
+  auto c3 = c1->Clone();
+
+  c1->CollectFeature(MakeFbForTest(w1), w1);
+  c2->CollectFeature(MakeFbForTest(w2), w2);
+  c3->CollectFeature(MakeFbForTest(w3), w3);
+
+  c1->Finish();
+  c2->Finish();
+  c3->Finish();
+
+  c1->Merge(*c2);
+  c1->Merge(*c3);
+
+  c1->Save();
+
+  ifstream stream;
+  stream.exceptions(fstream::failbit | fstream::badbit);
+  stream.open(filename + ROAD_ACCESS_CONDITIONAL_EXT);
+  stringstream buffer;
+  buffer << stream.rdbuf();
+
+  string const correctAnswer = "Car 3 2\n"
+                               "Private 12:00-19:00\n"
+                               "No Mo-Su\n"
+                               "Car 2 1\n"
+                               "Private 10:00-20:00\n"
+                               "Car 1 1\n"
+                               "No Mo-Su\n";
+  if (buffer.str() != correctAnswer)
+  {
+    cout << "Result:" << endl
+         << buffer.str() << endl
+         << "Correct result:" << endl
+         << correctAnswer << endl;
+
+    TEST(false, ());
   }
 }
 }  // namespace
