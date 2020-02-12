@@ -1,23 +1,13 @@
 class RatingSummaryViewController: UIViewController {
   @IBOutlet var titleLabel: UILabel!
   @IBOutlet var countLabel: UILabel!
-  @IBOutlet var ratingSummaryView: RatingSummaryView! {
-    didSet {
-      ratingSummaryView.horribleColor = UIColor.ratingRed()
-      ratingSummaryView.badColor = UIColor.ratingOrange()
-      ratingSummaryView.normalColor = UIColor.ratingYellow()
-      ratingSummaryView.goodColor = UIColor.ratingLightGreen()
-      ratingSummaryView.excellentColor = UIColor.ratingGreen()
-      ratingSummaryView.textFont = UIFont.bold28()
-      ratingSummaryView.textSize = 28
-    }
-  }
+  @IBOutlet var ratingSummaryView: RatingSummaryView!
   @IBOutlet var ratingViews: [UIView]!
   @IBOutlet var ratingLabels: [UILabel]!
   @IBOutlet var starViews: [StarRatingView]! {
     didSet {
       starViews.forEach {
-        $0.activeColor = UIColor.ratingYellow()
+        $0.activeColor = UIColor.yellow
         $0.inactiveColor = UIColor.blackDividers()
       }
     }

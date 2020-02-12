@@ -94,7 +94,6 @@ class PlacePagePreviewViewController: UIViewController {
   func updateUgc(_ ugcData: UgcData) {
     ugcContainerView.isHidden = false
     if let summaryRating = ugcData.summaryRating {
-      ratingSummaryView.defaultConfig()
       ratingSummaryView.value = summaryRating.ratingString
       ratingSummaryView.type = summaryRating.ratingType
       reviewsLabel.text = String(format:L("placepage_summary_rating_description"), ugcData.ratingsCount)
@@ -116,7 +115,6 @@ class PlacePagePreviewViewController: UIViewController {
 
   func updateBooking(_ bookingData: HotelBookingData, rooms: HotelRooms?) {
     ugcContainerView.isHidden = false
-    ratingSummaryView.defaultConfig()
     ratingSummaryView.value = NSNumber(value: bookingData.score).stringValue
     let rawRating = Int(bookingData.score / 2) + 1
     ratingSummaryView.type = UgcSummaryRatingType(rawValue: rawRating) ?? .none

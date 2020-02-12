@@ -31,7 +31,7 @@ class CatalogPromoItemCell: UICollectionViewCell {
     if promoItem.hexColor.count == 6 {
       proContainerView.backgroundColor = UIColor(fromHexString: promoItem.hexColor)
     } else {
-      proContainerView.backgroundColor = UIColor.ratingRed()
+      proContainerView.backgroundColor = UIColor.red
     }
     proContainerView.isHidden = false
   }

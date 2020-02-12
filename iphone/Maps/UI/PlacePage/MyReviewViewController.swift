@@ -15,7 +15,7 @@ class MyReviewViewController: UIViewController {
   @IBOutlet var starViews: [StarRatingView]! {
     didSet {
       starViews.forEach {
-        $0.activeColor = UIColor.ratingYellow()
+        $0.activeColor = UIColor.yellow
         $0.inactiveColor = UIColor.blackDividers()
       }
     }

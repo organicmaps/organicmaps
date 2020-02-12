@@ -463,7 +463,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
       {
         rm.FollowRoute();
         [[MWMMapViewControlsManager manager] onRouteStart];
-        [MWMThemeManager setAutoUpdates:YES];}
+        [MWMThemeManager setAutoUpdates:YES];
       }
       else
       {
