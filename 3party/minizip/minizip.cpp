@@ -12,17 +12,17 @@ Code Close(File file)
   return static_cast<Code>(unzClose(file));
 }
 
-Code SeekToFirstFile(File file)
+Code GoToFirstFile(File file)
 {
   return static_cast<Code>(unzGoToFirstFile(file));
 }
 
-Code SeekToNextFile(File file)
+Code GoToNextFile(File file)
 {
   return static_cast<Code>(unzGoToNextFile(file));
 }
 
-Code SeekToFile(File file, std::string const & filename)
+Code GoToFile(File file, std::string const & filename)
 {
   return static_cast<Code>(unzLocateFile(file, filename.c_str(), 1 /* iCaseSensitivity */));
 }

@@ -8,7 +8,6 @@
 
 #include <iomanip>
 #include <sstream>
-#include <vector>
 
 namespace generator
 {

@@ -27,7 +27,7 @@ enum class Code : int8_t
   Ok = UNZ_OK,
   EndOfListOfFile = UNZ_END_OF_LIST_OF_FILE,
   ErrNo = UNZ_ERRNO,
-  Eof = UNZ_OK,
+  Eof = UNZ_EOF,
   ParamError = UNZ_PARAMERROR,
   BadZipFile = UNZ_BADZIPFILE,
   InternalError = UNZ_INTERNALERROR,
@@ -38,11 +38,11 @@ File Open(std::string const & filename);
 
 Code Close(File file);
 
-Code SeekToFirstFile(File file);
+Code GoToFirstFile(File file);
 
-Code SeekToNextFile(File file);
+Code GoToNextFile(File file);
 
-Code SeekToFile(File file, std::string const & filename);
+Code GoToFile(File file, std::string const & filename);
 
 Code OpenCurrentFile(File file);
 

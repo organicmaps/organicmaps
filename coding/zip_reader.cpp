@@ -52,7 +52,7 @@ ZipFileReader::ZipFileReader(string const & container, string const & file, uint
 
   SCOPE_GUARD(zipGuard, bind(&unzClose, zip));
 
-  if (unzip::Code::Ok != unzip::SeekToFile(zip, file.c_str()))
+  if (unzip::Code::Ok != unzip::GoToFile(zip, file.c_str()))
     MYTHROW(LocateZipException, ("Can't locate file inside zip", file));
 
   if (unzip::Code::Ok != unzip::OpenCurrentFile(zip))
@@ -80,7 +80,7 @@ void ZipFileReader::FilesList(string const & zipContainer, FileList & filesList)
 
   SCOPE_GUARD(zipGuard, bind(&unzip::Close, zip));
 
-  if (unzip::Code::Ok != unzip::SeekToFirstFile(zip))
+  if (unzip::Code::Ok != unzip::GoToFirstFile(zip))
     MYTHROW(LocateZipException, ("Can't find first file inside zip", zipContainer));
 
   do
@@ -91,7 +91,7 @@ void ZipFileReader::FilesList(string const & zipContainer, FileList & filesList)
 
     filesList.push_back(make_pair(fileInfo.m_filename, fileInfo.m_info.uncompressed_size));
 
-  } while (unzip::Code::Ok == unzip::SeekToNextFile(zip));
+  } while (unzip::Code::Ok == unzip::GoToNextFile(zip));
 }
 
 bool ZipFileReader::IsZip(string const & zipContainer)
@@ -112,7 +112,7 @@ void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileIn
     MYTHROW(OpenZipException, ("Can't get zip file handle", zipContainer));
   SCOPE_GUARD(zipGuard, bind(&unzip::Close, zip));
 
-  if (unzip::Code::Ok != unzip::SeekToFile(zip, fileInZip))
+  if (unzip::Code::Ok != unzip::GoToFile(zip, fileInZip))
     MYTHROW(LocateZipException, ("Can't locate file inside zip", fileInZip));
 
   if (unzip::Code::Ok != unzip::OpenCurrentFile(zip))
