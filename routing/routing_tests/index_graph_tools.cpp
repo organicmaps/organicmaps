@@ -307,8 +307,8 @@ void TestIndexGraphTopology::Builder::BuildJoints()
 
 void TestIndexGraphTopology::Builder::BuildGraphFromRequests(vector<EdgeRequest> const & requests)
 {
-  RoadAccess::FeatureTypeHashMap featureTypes;
-  RoadAccess::PointsTypeHashMap pointTypes;
+  RoadAccess::WayToAccess featureTypes;
+  RoadAccess::PointToAccess pointTypes;
   for (auto const & request : requests)
   {
     BuildSegmentFromEdge(request);
@@ -322,7 +322,7 @@ void TestIndexGraphTopology::Builder::BuildGraphFromRequests(vector<EdgeRequest>
       pointTypes[RoadPoint(request.m_id, 1 /* pointId */)] = request.m_toAccessType;
   }
 
-  m_roadAccess.SetAccessTypes(move(featureTypes), move(pointTypes));
+  m_roadAccess.SetAccess(move(featureTypes), move(pointTypes));
 }
 
 void TestIndexGraphTopology::Builder::BuildSegmentFromEdge(EdgeRequest const & request)

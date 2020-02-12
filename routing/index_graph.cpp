@@ -297,10 +297,10 @@ void IndexGraph::ReconstructJointSegment(JointSegment const & parentJoint,
       return currentPointId < lastPointId ? pointId + 1 : pointId - 1;
     };
 
-    if (m_roadAccess.GetFeatureType(firstChild.GetFeatureId()) == RoadAccess::Type::No)
+    if (m_roadAccess.GetAccess(firstChild.GetFeatureId()) == RoadAccess::Type::No)
       continue;
 
-    if (m_roadAccess.GetPointType(parent.GetRoadPoint(isOutgoing)) == RoadAccess::Type::No)
+    if (m_roadAccess.GetAccess(parent.GetRoadPoint(isOutgoing)) == RoadAccess::Type::No)
       continue;
 
     if (IsUTurn(parent, firstChild) && IsUTurnAndRestricted(parent, firstChild, isOutgoing))
@@ -318,7 +318,7 @@ void IndexGraph::ReconstructJointSegment(JointSegment const & parentJoint,
     bool noRoadAccess = false;
     do
     {
-      if (m_roadAccess.GetPointType(rp) == RoadAccess::Type::No)
+      if (m_roadAccess.GetAccess(rp) == RoadAccess::Type::No)
       {
         noRoadAccess = true;
         break;
@@ -367,11 +367,11 @@ void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bo
   if (IsRestricted(from, from.GetFeatureId(), to.GetFeatureId(), isOutgoing, parents))
     return;
 
-  if (m_roadAccess.GetFeatureType(to.GetFeatureId()) == RoadAccess::Type::No)
+  if (m_roadAccess.GetAccess(to.GetFeatureId()) == RoadAccess::Type::No)
     return;
 
   RoadPoint const rp = from.GetRoadPoint(isOutgoing);
-  if (m_roadAccess.GetPointType(rp) == RoadAccess::Type::No)
+  if (m_roadAccess.GetAccess(rp) == RoadAccess::Type::No)
     return;
 
   auto const weight = CalculateEdgeWeight(EdgeEstimator::Purpose::Weight, isOutgoing, from, to);
@@ -399,8 +399,8 @@ RouteWeight IndexGraph::GetPenalties(EdgeEstimator::Purpose purpose,
       fromPenaltyData.m_passThroughAllowed == toPenaltyData.m_passThroughAllowed ? 0 : 1;
 
   // We do not distinguish between RoadAccess::Type::Private and RoadAccess::Type::Destination for now.
-  bool const fromAccessAllowed = m_roadAccess.GetFeatureType(u.GetFeatureId()) == RoadAccess::Type::Yes;
-  bool const toAccessAllowed = m_roadAccess.GetFeatureType(v.GetFeatureId()) == RoadAccess::Type::Yes;
+  bool const fromAccessAllowed = m_roadAccess.GetAccess(u.GetFeatureId()) == RoadAccess::Type::Yes;
+  bool const toAccessAllowed = m_roadAccess.GetAccess(v.GetFeatureId()) == RoadAccess::Type::Yes;
   // Route crosses border of access=yes/access={private, destination} area if |u| and |v| have different
   // access restrictions.
   int8_t accessPenalty = fromAccessAllowed == toAccessAllowed ? 0 : 1;
@@ -408,7 +408,7 @@ RouteWeight IndexGraph::GetPenalties(EdgeEstimator::Purpose purpose,
   // RoadPoint between u and v is front of u.
   auto const rp = u.GetRoadPoint(true /* front */);
   // No double penalty for barriers on the border of access=yes/access={private, destination} area.
-  if (m_roadAccess.GetPointType(rp) != RoadAccess::Type::Yes)
+  if (m_roadAccess.GetAccess(rp) != RoadAccess::Type::Yes)
     accessPenalty = 1;
 
   double weightPenalty = 0.0;

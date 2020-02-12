@@ -43,47 +43,43 @@ public:
     Count
   };
 
-  using FeatureTypeHashMap = ska::flat_hash_map<uint32_t, RoadAccess::Type>;
-  using PointsTypeHashMap = ska::flat_hash_map<RoadPoint, RoadAccess::Type, RoadPoint::Hash>;
+  using WayToAccess = ska::flat_hash_map<uint32_t, RoadAccess::Type>;
+  using PointToAccess = ska::flat_hash_map<RoadPoint, RoadAccess::Type, RoadPoint::Hash>;
 
-  FeatureTypeHashMap const & GetFeatureTypes() const
+  WayToAccess const & GetWayToAccess() const
   {
-    return m_featureTypes;
+    return m_wayToAccess;
   }
 
-  PointsTypeHashMap const & GetPointTypes() const
+  PointToAccess const & GetPointToAccess() const
   {
-    return m_pointTypes;
+    return m_pointToAccess;
   }
 
-  Type GetFeatureType(uint32_t featureId) const;
-  Type GetPointType(RoadPoint const & point) const;
+  Type GetAccess(uint32_t featureId) const;
+  Type GetAccess(RoadPoint const & point) const;
 
-  template <typename MF, typename MP>
-  void SetAccessTypes(MF && mf, MP && mp)
+  template <typename WayToAccess, typename PointToAccess>
+  void SetAccess(WayToAccess && wayToAccess, PointToAccess && pointToAccess)
   {
-    m_featureTypes = std::forward<MF>(mf);
-    m_pointTypes = std::forward<MP>(mp);
+    m_wayToAccess = std::forward<WayToAccess>(wayToAccess);
+    m_pointToAccess = std::forward<PointToAccess>(pointToAccess);
   }
-
-  void Clear();
-
-  void Swap(RoadAccess & rhs);
 
   bool operator==(RoadAccess const & rhs) const;
 
-  template <typename MF>
-  void SetFeatureTypesForTests(MF && mf)
+  template <typename WayToAccess>
+  void SetWayToAccessForTests(WayToAccess && wayToAccess)
   {
-    m_featureTypes = std::forward<MF>(mf);
+    m_wayToAccess = std::forward<WayToAccess>(wayToAccess);
   }
 
 private:
   // If segmentIdx of a key in this map is 0, it means the
   // entire feature has the corresponding access type.
   // Otherwise, the information is about the segment with number (segmentIdx-1).
-  FeatureTypeHashMap m_featureTypes;
-  PointsTypeHashMap m_pointTypes;
+  WayToAccess m_wayToAccess;
+  PointToAccess m_pointToAccess;
 };
 
 std::string ToString(RoadAccess::Type type);

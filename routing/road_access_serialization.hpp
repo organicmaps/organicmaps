@@ -53,8 +53,8 @@ public:
     for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
     {
       auto const pos = sink.Pos();
-      SerializeOneVehicleType(sink, roadAccessByType[i].GetFeatureTypes(),
-                              roadAccessByType[i].GetPointTypes());
+      SerializeOneVehicleType(sink, roadAccessByType[i].GetWayToAccess(),
+                              roadAccessByType[i].GetPointToAccess());
       sectionSizes[i] = base::checked_cast<uint32_t>(sink.Pos() - pos);
     }
 
@@ -101,7 +101,7 @@ public:
       RoadAccessTypesPointMap mp;
       DeserializeOneVehicleType(src, mf, mp);
 
-      roadAccess.SetAccessTypes(std::move(mf), std::move(mp));
+      roadAccess.SetAccess(std::move(mf), std::move(mp));
     }
   }
 

@@ -155,7 +155,7 @@ UNIT_TEST(RoadAccess_AccessPrivate)
   auto const roadAccessAllTypes =
       SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
   auto const carRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)];
-  TEST_EQUAL(carRoadAccess.GetFeatureType(0 /* featureId */), RoadAccess::Type::Private, ());
+  TEST_EQUAL(carRoadAccess.GetAccess(0 /* featureId */), RoadAccess::Type::Private, ());
 }
 
 UNIT_TEST(RoadAccess_Access_Multiple_Vehicle_Types)
@@ -172,12 +172,12 @@ UNIT_TEST(RoadAccess_Access_Multiple_Vehicle_Types)
       SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
   auto const carRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)];
   auto const bicycleRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Bicycle)];
-  TEST_EQUAL(carRoadAccess.GetFeatureType(1 /* featureId */), RoadAccess::Type::Private, ());
-  TEST_EQUAL(carRoadAccess.GetFeatureType(2 /* featureId */), RoadAccess::Type::Private, ());
-  TEST_EQUAL(carRoadAccess.GetFeatureType(3 /* featureId */), RoadAccess::Type::Yes, ());
-  TEST_EQUAL(carRoadAccess.GetFeatureType(4 /* featureId */), RoadAccess::Type::Destination,
+  TEST_EQUAL(carRoadAccess.GetAccess(1 /* featureId */), RoadAccess::Type::Private, ());
+  TEST_EQUAL(carRoadAccess.GetAccess(2 /* featureId */), RoadAccess::Type::Private, ());
+  TEST_EQUAL(carRoadAccess.GetAccess(3 /* featureId */), RoadAccess::Type::Yes, ());
+  TEST_EQUAL(carRoadAccess.GetAccess(4 /* featureId */), RoadAccess::Type::Destination,
              ());
-  TEST_EQUAL(bicycleRoadAccess.GetFeatureType(3 /* featureId */), RoadAccess::Type::No, ());
+  TEST_EQUAL(bicycleRoadAccess.GetAccess(3 /* featureId */), RoadAccess::Type::No, ());
 }
 
 UNIT_TEST(RoadAccessWriter_Merge)

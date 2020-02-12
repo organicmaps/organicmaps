@@ -32,21 +32,21 @@ void PrintKV(ostringstream & oss, KV const & kvs, size_t maxKVToShow)
 namespace routing
 {
 // RoadAccess --------------------------------------------------------------------------------------
-RoadAccess::Type RoadAccess::GetFeatureType(uint32_t featureId) const
+RoadAccess::Type RoadAccess::GetAccess(uint32_t featureId) const
 {
 // todo(@m) This may or may not be too slow. Consider profiling this and using
 // a Bloom filter or anything else that is faster than std::map.
-  auto const it = m_featureTypes.find(featureId);
-  if (it != m_featureTypes.cend())
+  auto const it = m_wayToAccess.find(featureId);
+  if (it != m_wayToAccess.cend())
     return it->second;
 
   return RoadAccess::Type::Yes;
 }
 
-RoadAccess::Type RoadAccess::GetPointType(RoadPoint const & point) const
+RoadAccess::Type RoadAccess::GetAccess(RoadPoint const & point) const
 {
-  auto const it = m_pointTypes.find(point);
-  if (it != m_pointTypes.cend())
+  auto const it = m_pointToAccess.find(point);
+  if (it != m_pointToAccess.cend())
     return it->second;
 
   return RoadAccess::Type::Yes;
@@ -54,7 +54,7 @@ RoadAccess::Type RoadAccess::GetPointType(RoadPoint const & point) const
 
 bool RoadAccess::operator==(RoadAccess const & rhs) const
 {
-  return m_featureTypes == rhs.m_featureTypes && m_pointTypes == rhs.m_pointTypes;
+  return m_wayToAccess == rhs.m_wayToAccess && m_pointToAccess == rhs.m_pointToAccess;
 }
 
 // Functions ---------------------------------------------------------------------------------------
@@ -87,9 +87,9 @@ string DebugPrint(RoadAccess const & r)
   size_t const kMaxIdsToShow = 10;
   ostringstream oss;
   oss << "RoadAccess { FeatureTypes [";
-  PrintKV(oss, r.GetFeatureTypes(), kMaxIdsToShow);
+  PrintKV(oss, r.GetWayToAccess(), kMaxIdsToShow);
   oss << "], PointTypes [";
-  PrintKV(oss, r.GetPointTypes(), kMaxIdsToShow);
+  PrintKV(oss, r.GetPointToAccess(), kMaxIdsToShow);
   oss << "] }";
   return oss.str();
 }

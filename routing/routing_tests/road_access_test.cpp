@@ -22,21 +22,21 @@ namespace
 {
 UNIT_TEST(RoadAccess_Serialization)
 {
-  RoadAccess::FeatureTypeHashMap const m0 = {
+  RoadAccess::WayToAccess const m0 = {
       {1 /* featureId */, RoadAccess::Type::No},
       {2 /* featureId */, RoadAccess::Type::Private},
   };
 
-  RoadAccess::FeatureTypeHashMap const m1 = {
+  RoadAccess::WayToAccess const m1 = {
       {1 /* featureId */, RoadAccess::Type::Private},
       {2 /* featureId */, RoadAccess::Type::Destination},
   };
 
   RoadAccess roadAccessCar;
-  roadAccessCar.SetFeatureTypesForTests(m0);
+  roadAccessCar.SetWayToAccessForTests(m0);
 
   RoadAccess roadAccessPedestrian;
-  roadAccessPedestrian.SetFeatureTypesForTests(m1);
+  roadAccessPedestrian.SetWayToAccessForTests(m1);
 
   RoadAccessSerializer::RoadAccessByVehicleType roadAccessAllTypes;
   roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)] = roadAccessCar;

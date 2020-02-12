@@ -143,8 +143,8 @@ bool ParseRoadAccess(string const & roadAccessPath,
     return false;
   }
 
-  RoadAccess::FeatureTypeHashMap featureType[static_cast<size_t>(VehicleType::Count)];
-  RoadAccess::PointsTypeHashMap pointType[static_cast<size_t>(VehicleType::Count)];
+  RoadAccess::WayToAccess featureType[static_cast<size_t>(VehicleType::Count)];
+  RoadAccess::PointToAccess pointType[static_cast<size_t>(VehicleType::Count)];
 
   auto addFeature = [&](uint32_t featureId, VehicleType vehicleType,
                         RoadAccess::Type roadAccessType, uint64_t osmId) {
@@ -226,7 +226,7 @@ bool ParseRoadAccess(string const & roadAccessPath,
   }
 
   for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
-    roadAccessByVehicleType[i].SetAccessTypes(move(featureType[i]), move(pointType[i]));
+    roadAccessByVehicleType[i].SetAccess(move(featureType[i]), move(pointType[i]));
 
   return true;
 }
