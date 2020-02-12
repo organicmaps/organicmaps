@@ -9,7 +9,9 @@ def find_feature(path, typ, string):
     mwm.read_header()
     mwm.read_types(os.path.join(os.path.dirname(__file__),
                                 "..", "..", "..", "data", "types.txt"))
-    for i, feature in enumerate(mwm.iter_features(metadata=True)):
+
+    parse_metadata = typ == "m"
+    for i, feature in enumerate(mwm.iter_features(metadata=parse_metadata)):
         found = False
         if typ == "n" and "name" in feature["header"]:
             for value in feature["header"]["name"].values():
