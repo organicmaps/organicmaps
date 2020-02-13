@@ -42,7 +42,7 @@ void CropContours(m2::RectD & rect, std::vector<m2::RegionD> & regions, size_t m
   {
     std::vector<Contour> levelCroppedContours;
 
-    if (abs(it->first) % (contours.m_valueStep * valueStepFactor) == 0)
+    if (it->first % static_cast<ValueType>(contours.m_valueStep * valueStepFactor) == 0)
     {
       for (auto const & contour : it->second)
       {
