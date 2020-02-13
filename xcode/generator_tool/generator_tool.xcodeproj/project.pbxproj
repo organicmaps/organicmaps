@@ -33,13 +33,16 @@
 		397057C022CB57F9001A55CA /* cities_ids_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 397057BD22CB57F8001A55CA /* cities_ids_tests.cpp */; };
 		39B9681E23E1AC3700D3B8E3 /* libge0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B9681D23E1AC3700D3B8E3 /* libge0.a */; };
 		39C4345222CE13F00002AEE3 /* booking_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39C4345122CE13F00002AEE3 /* booking_tests.cpp */; };
-		3D0BBC2223F435B900A50354 /* libminizip.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBC2123F435B900A50354 /* libminizip.dylib */; };
-		3D0BBC2423F52ED500A50354 /* libminizip.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBC2323F52ED500A50354 /* libminizip.dylib */; };
-		3D0BBC2623F52EE900A50354 /* libminizip.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBC2523F52EE900A50354 /* libminizip.dylib */; };
 		401E3189225C988500DE7EB8 /* libdescriptions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 401E3188225C988500DE7EB8 /* libdescriptions.a */; };
 		4491F494213D6B470011834F /* speed_cameras_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4491F490213D46380011834F /* speed_cameras_test.cpp */; };
 		4491F496213D6B8E0011834F /* osm2meta_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 677E2A0B1CAAC7CB001DC42A /* osm2meta_test.cpp */; };
 		4491F497213D6BA00011834F /* tag_admixer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 677E2A0C1CAAC7CB001DC42A /* tag_admixer_test.cpp */; };
+		4740184B23F5BE1B00A93C81 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4740184A23F5BE1B00A93C81 /* minizip.framework */; };
+		4740184C23F5BE1C00A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740184A23F5BE1B00A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4740184E23F5BE3900A93C81 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4740184D23F5BE3900A93C81 /* minizip.framework */; };
+		4740184F23F5BE3A00A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740184D23F5BE3900A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4740185123F5BE6500A93C81 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4740185023F5BE6500A93C81 /* minizip.framework */; };
+		4740185223F5BE6600A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740185023F5BE6500A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		562147271F6AA36A002D2214 /* libbsdiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 562147261F6AA36A002D2214 /* libbsdiff.a */; };
 		562147291F6AA37E002D2214 /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 562147281F6AA37E002D2214 /* libmwm_diff.a */; };
 		562D42941FD8460500A995F3 /* libugc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 562D42951FD8460500A995F3 /* libugc.a */; };
@@ -190,6 +193,39 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		4740181723F5BB9F00A93C81 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4740185223F5BE6600A93C81 /* minizip.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4740181A23F5BBA500A93C81 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4740184F23F5BE3A00A93C81 /* minizip.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4740181D23F5BBAA00A93C81 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4740184C23F5BE1C00A93C81 /* minizip.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6726C2311A4C2BBD005EEA39 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -247,11 +283,11 @@
 		397057BD22CB57F8001A55CA /* cities_ids_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cities_ids_tests.cpp; sourceTree = "<group>"; };
 		39B9681D23E1AC3700D3B8E3 /* libge0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libge0.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		39C4345122CE13F00002AEE3 /* booking_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_tests.cpp; sourceTree = "<group>"; };
-		3D0BBC2123F435B900A50354 /* libminizip.dylib */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libminizip.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D0BBC2323F52ED500A50354 /* libminizip.dylib */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libminizip.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D0BBC2523F52EE900A50354 /* libminizip.dylib */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libminizip.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		401E3188225C988500DE7EB8 /* libdescriptions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libdescriptions.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4491F490213D46380011834F /* speed_cameras_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_cameras_test.cpp; sourceTree = "<group>"; };
+		4740184A23F5BE1B00A93C81 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4740184D23F5BE3900A93C81 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4740185023F5BE6500A93C81 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		562147261F6AA36A002D2214 /* libbsdiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbsdiff.a; path = ../bsdiff/build/Debug/libbsdiff.a; sourceTree = "<group>"; };
 		562147281F6AA37E002D2214 /* libmwm_diff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmwm_diff.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-gsfdicnjgjjbizhdmwedavcucpok/Build/Products/Debug/libmwm_diff.a"; sourceTree = "<group>"; };
 		562D42951FD8460500A995F3 /* libugc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libugc.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -298,7 +334,6 @@
 		671ED3BE20D4098100D4317E /* sponsored_storage_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sponsored_storage_tests.cpp; sourceTree = "<group>"; };
 		671ED3C620D40A2000D4317E /* libplatform_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		671ED3C820D40A3E00D4317E /* libgenerator_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		671ED3CA20D40A8C00D4317E /* libminizip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libminizip.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		671F58B71B86109B0032311E /* intermediate_data_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = intermediate_data_test.cpp; sourceTree = "<group>"; };
 		6726C1E51A4C28D5005EEA39 /* coasts_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = coasts_test.cpp; sourceTree = "<group>"; };
 		6726C1E61A4C28D5005EEA39 /* feature_builder_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_builder_test.cpp; sourceTree = "<group>"; };
@@ -343,7 +378,6 @@
 		679624B71D11775300AE4E3C /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
 		679624B81D11775300AE4E3C /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
 		679624B91D11775300AE4E3C /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = "../../../omim-xcode-build/Debug/libfreetype.a"; sourceTree = "<group>"; };
-		679624BC1D11775300AE4E3C /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminizip.a; path = "../../../omim-xcode-build/Debug/libminizip.a"; sourceTree = "<group>"; };
 		679624BD1D11775300AE4E3C /* libplatform_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform_tests_support.a; path = "../../../omim-xcode-build/Debug/libplatform_tests_support.a"; sourceTree = "<group>"; };
 		679624BE1D11775300AE4E3C /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
 		679624BF1D11775300AE4E3C /* libstb_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstb_image.a; path = "../../../omim-xcode-build/Debug/libstb_image.a"; sourceTree = "<group>"; };
@@ -362,11 +396,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D0BBC2423F52ED500A50354 /* libminizip.dylib in Frameworks */,
 				56DAC360239915E9000BC50D /* libstorage.a in Frameworks */,
 				671C2D8B22AFE2F7008B2B8B /* libdescriptions.a in Frameworks */,
 				671C2D8922AFE250008B2B8B /* libtraffic.a in Frameworks */,
 				677E2A0A1CAAC771001DC42A /* libz.tbd in Frameworks */,
+				4740184E23F5BE3900A93C81 /* minizip.framework in Frameworks */,
 				671ED3C920D40A3E00D4317E /* libgenerator_tests_support.a in Frameworks */,
 				671ED3C720D40A2000D4317E /* libplatform_tests_support.a in Frameworks */,
 				56EE14CF1FE803FE0036F20C /* libtransit.a in Frameworks */,
@@ -431,7 +465,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D0BBC2223F435B900A50354 /* libminizip.dylib in Frameworks */,
 				39B9681E23E1AC3700D3B8E3 /* libge0.a in Frameworks */,
 				401E3189225C988500DE7EB8 /* libdescriptions.a in Frameworks */,
 				56EE14CD1FE803EA0036F20C /* libtransit.a in Frameworks */,
@@ -457,6 +490,7 @@
 				67BC92C51D17FD5800A4A378 /* libstb_image.a in Frameworks */,
 				677E2A191CAACCB3001DC42A /* libz.tbd in Frameworks */,
 				6719DD5F1B95AB570018166F /* libtess2.a in Frameworks */,
+				4740185123F5BE6500A93C81 /* minizip.framework in Frameworks */,
 				670F887A1CE4CA9C003F68BA /* libopening_hours.a in Frameworks */,
 				674A28F21B1C8119001A525C /* libsuccinct.a in Frameworks */,
 				674A28F01B1C8104001A525C /* libsearch.a in Frameworks */,
@@ -481,7 +515,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D0BBC2623F52EE900A50354 /* libminizip.dylib in Frameworks */,
 				679624CF1D11779700AE4E3C /* OpenGL.framework in Frameworks */,
 				679624CD1D11775F00AE4E3C /* libagg.a in Frameworks */,
 				679624CB1D11775F00AE4E3C /* librouting.a in Frameworks */,
@@ -493,6 +526,7 @@
 				679624C91D11775300AE4E3C /* libstb_image.a in Frameworks */,
 				679624B51D11773A00AE4E3C /* libmap.a in Frameworks */,
 				6796249F1D1013AD00AE4E3C /* libsearch_tests_support.a in Frameworks */,
+				4740184B23F5BE1B00A93C81 /* minizip.framework in Frameworks */,
 				6796247E1D10130A00AE4E3C /* libz.tbd in Frameworks */,
 				6796247D1D1012F500AE4E3C /* libopening_hours.a in Frameworks */,
 				6796247B1D1012F500AE4E3C /* libprotobuf.a in Frameworks */,
@@ -520,15 +554,14 @@
 		34F558551DBF3CD800A4FC11 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3D0BBC2523F52EE900A50354 /* libminizip.dylib */,
-				3D0BBC2323F52ED500A50354 /* libminizip.dylib */,
-				3D0BBC2123F435B900A50354 /* libminizip.dylib */,
 				39B9681D23E1AC3700D3B8E3 /* libge0.a */,
 				56DAC35F239915E9000BC50D /* libstorage.a */,
+				4740185023F5BE6500A93C81 /* minizip.framework */,
+				4740184D23F5BE3900A93C81 /* minizip.framework */,
+				4740184A23F5BE1B00A93C81 /* minizip.framework */,
 				671C2D8A22AFE2F7008B2B8B /* libdescriptions.a */,
 				671C2D8822AFE250008B2B8B /* libtraffic.a */,
 				401E3188225C988500DE7EB8 /* libdescriptions.a */,
-				671ED3CA20D40A8C00D4317E /* libminizip.a */,
 				671ED3C820D40A3E00D4317E /* libgenerator_tests_support.a */,
 				671ED3C620D40A2000D4317E /* libplatform_tests_support.a */,
 				56EE14D01FE803FE0036F20C /* libtransit.a */,
@@ -666,7 +699,6 @@
 				679624B71D11775300AE4E3C /* libdrape_frontend.a */,
 				679624B81D11775300AE4E3C /* libdrape.a */,
 				679624B91D11775300AE4E3C /* libfreetype.a */,
-				679624BC1D11775300AE4E3C /* libminizip.a */,
 				679624BD1D11775300AE4E3C /* libplatform_tests_support.a */,
 				679624BE1D11775300AE4E3C /* libsdf_image.a */,
 				679624BF1D11775300AE4E3C /* libstb_image.a */,
@@ -710,6 +742,7 @@
 				6726C21D1A4C2BBD005EEA39 /* Sources */,
 				6726C21F1A4C2BBD005EEA39 /* Frameworks */,
 				6726C2311A4C2BBD005EEA39 /* CopyFiles */,
+				4740181A23F5BBA500A93C81 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -744,6 +777,7 @@
 				675341541A3F54D800A0A8C3 /* Sources */,
 				675341551A3F54D800A0A8C3 /* Frameworks */,
 				675341561A3F54D800A0A8C3 /* CopyFiles */,
+				4740181723F5BB9F00A93C81 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -761,6 +795,7 @@
 				679624591D100F2500AE4E3C /* Sources */,
 				6796245A1D100F2500AE4E3C /* Frameworks */,
 				6796245B1D100F2500AE4E3C /* CopyFiles */,
+				4740181D23F5BBAA00A93C81 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

@@ -24,8 +24,6 @@
 		3971141E229D89F4003915E5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3971141D229D89F4003915E5 /* Security.framework */; };
 		39B9682223E1AC5F00D3B8E3 /* libge0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B9682123E1AC5F00D3B8E3 /* libge0.a */; };
 		39B9682B23E1AD9F00D3B8E3 /* libge0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B9682123E1AC5F00D3B8E3 /* libge0.a */; };
-		3D0BBC3223F530CC00A50354 /* libminizip.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBC3123F530CC00A50354 /* libminizip.dylib */; };
-		3D0BBC3423F530DB00A50354 /* libminizip.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBC3323F530DB00A50354 /* libminizip.dylib */; };
 		3D497EA123292706000FB57D /* map_files_downloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D497E9E23292706000FB57D /* map_files_downloader.cpp */; };
 		3D497EA223292706000FB57D /* map_files_downloader_with_ping.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D497E9F23292706000FB57D /* map_files_downloader_with_ping.hpp */; };
 		3D497EA323292706000FB57D /* map_files_downloader_with_ping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D497EA023292706000FB57D /* map_files_downloader_with_ping.cpp */; };
@@ -43,6 +41,10 @@
 		402873422295A91F0036AA1C /* country_tree.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4028733F2295A91E0036AA1C /* country_tree.hpp */; };
 		402873432295A91F0036AA1C /* country_tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 402873402295A91F0036AA1C /* country_tree.cpp */; };
 		402873442295A91F0036AA1C /* downloader_search_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 402873412295A91F0036AA1C /* downloader_search_params.hpp */; };
+		4740186123F5BF0C00A93C81 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4740186023F5BF0C00A93C81 /* minizip.framework */; };
+		4740186223F5BF0C00A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740186023F5BF0C00A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4740186423F5BF1800A93C81 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4740186323F5BF1800A93C81 /* minizip.framework */; };
+		4740186523F5BF1800A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740186323F5BF1800A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5670EAFA1FF1150C002495D8 /* libtransit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5670EAFB1FF1150C002495D8 /* libtransit.a */; };
 		5670EAFC1FF11535002495D8 /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5670EAFD1FF11535002495D8 /* libmwm_diff.a */; };
 		5670EAFE1FF11558002495D8 /* libbsdiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5670EAFF1FF11558002495D8 /* libbsdiff.a */; };
@@ -193,6 +195,31 @@
 		F6BC312C2034366100F677FE /* pinger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6BC312A2034366100F677FE /* pinger.cpp */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4740183623F5BC5200A93C81 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4740186523F5BF1800A93C81 /* minizip.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4740183B23F5BC7100A93C81 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4740186223F5BF0C00A93C81 /* minizip.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		3462FDAE1DC1E62F00906FD7 /* libgenerator_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgenerator_tests_support.a; path = "../../../omim-build/xcode/Debug/libgenerator_tests_support.a"; sourceTree = "<group>"; };
 		3462FDB01DC1E65B00906FD7 /* libgenerator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgenerator.a; path = "../../../omim-build/xcode/Debug/libgenerator.a"; sourceTree = "<group>"; };
@@ -211,8 +238,6 @@
 		3971141B229D8983003915E5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3971141D229D89F4003915E5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		39B9682123E1AC5F00D3B8E3 /* libge0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libge0.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D0BBC3123F530CC00A50354 /* libminizip.dylib */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libminizip.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D0BBC3323F530DB00A50354 /* libminizip.dylib */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libminizip.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D497E9E23292706000FB57D /* map_files_downloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map_files_downloader.cpp; sourceTree = "<group>"; };
 		3D497E9F23292706000FB57D /* map_files_downloader_with_ping.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = map_files_downloader_with_ping.hpp; sourceTree = "<group>"; };
 		3D497EA023292706000FB57D /* map_files_downloader_with_ping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map_files_downloader_with_ping.cpp; sourceTree = "<group>"; };
@@ -231,6 +256,8 @@
 		402873402295A91F0036AA1C /* country_tree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_tree.cpp; sourceTree = "<group>"; };
 		402873412295A91F0036AA1C /* downloader_search_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = downloader_search_params.hpp; sourceTree = "<group>"; };
 		4069AD9F21495A5A005EB75C /* categories_cuisines.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = categories_cuisines.txt; sourceTree = "<group>"; };
+		4740186023F5BF0C00A93C81 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4740186323F5BF1800A93C81 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5670EAFB1FF1150C002495D8 /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5670EAFD1FF11535002495D8 /* libmwm_diff.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmwm_diff.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5670EAFF1FF11558002495D8 /* libbsdiff.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbsdiff.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -285,7 +312,6 @@
 		674709AF1C6215690093DD1B /* libagg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libagg.a; path = "../../../omim-xcode-build/Debug/libagg.a"; sourceTree = "<group>"; };
 		674709B11C6215690093DD1B /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-xcode-build/Debug/libeditor.a"; sourceTree = "<group>"; };
 		674709B21C6215690093DD1B /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = "../../../omim-xcode-build/Debug/libfreetype.a"; sourceTree = "<group>"; };
-		674709B51C6215690093DD1B /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminizip.a; path = "../../../omim-xcode-build/Debug/libminizip.a"; sourceTree = "<group>"; };
 		674709B61C6215690093DD1B /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-xcode-build/Debug/liboauthcpp.a"; sourceTree = "<group>"; };
 		674709B71C6215690093DD1B /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "../../../omim-xcode-build/Debug/libopening_hours.a"; sourceTree = "<group>"; };
 		674709B91C6215690093DD1B /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprotobuf.a; path = "../../../omim-xcode-build/Debug/libprotobuf.a"; sourceTree = "<group>"; };
@@ -355,10 +381,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D0BBC3423F530DB00A50354 /* libminizip.dylib in Frameworks */,
 				3971141E229D89F4003915E5 /* Security.framework in Frameworks */,
 				3971141C229D8983003915E5 /* CoreLocation.framework in Frameworks */,
 				56EE14E11FE813FC0036F20C /* libbsdiff.a in Frameworks */,
+				4740186423F5BF1800A93C81 /* minizip.framework in Frameworks */,
 				56EE14DF1FE813D00036F20C /* libmwm_diff.a in Frameworks */,
 				F66D569A1EAE36510081E883 /* librouting_common.a in Frameworks */,
 				F66D56981EAE36280081E883 /* libicu.a in Frameworks */,
@@ -399,7 +425,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D0BBC3223F530CC00A50354 /* libminizip.dylib in Frameworks */,
 				39B9682223E1AC5F00D3B8E3 /* libge0.a in Frameworks */,
 				56DAC38D23992FB1000BC50D /* Security.framework in Frameworks */,
 				56DAC38C23992F8C000BC50D /* libvulkan_wrapper.a in Frameworks */,
@@ -422,6 +447,7 @@
 				67F90BF21C6A2AAB00CD458E /* libstorage.a in Frameworks */,
 				67F90BEC1C6A2A3000CD458E /* libindexer.a in Frameworks */,
 				67F90BE71C6A2A3000CD458E /* libmap.a in Frameworks */,
+				4740186123F5BF0C00A93C81 /* minizip.framework in Frameworks */,
 				67F90BE31C6A2A3000CD458E /* libdrape_frontend.a in Frameworks */,
 				67F90BD51C6A2A3000CD458E /* libeditor.a in Frameworks */,
 				67F90BDB1C6A2A3000CD458E /* libopening_hours.a in Frameworks */,
@@ -454,12 +480,12 @@
 		34F5584C1DBF327C00A4FC11 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3D0BBC3323F530DB00A50354 /* libminizip.dylib */,
-				3D0BBC3123F530CC00A50354 /* libminizip.dylib */,
 				39B9682123E1AC5F00D3B8E3 /* libge0.a */,
 				56DAC38B23992F8C000BC50D /* libvulkan_wrapper.a */,
 				56DAC38923992F84000BC50D /* libweb_api.a */,
 				56DAC38723992F7F000BC50D /* libdescriptions.a */,
+				4740186323F5BF1800A93C81 /* minizip.framework */,
+				4740186023F5BF0C00A93C81 /* minizip.framework */,
 				3971141D229D89F4003915E5 /* Security.framework */,
 				3971141B229D8983003915E5 /* CoreLocation.framework */,
 				39711419229D7F75003915E5 /* libMopub.a */,
@@ -517,7 +543,6 @@
 				674709AF1C6215690093DD1B /* libagg.a */,
 				674709B11C6215690093DD1B /* libeditor.a */,
 				674709B21C6215690093DD1B /* libfreetype.a */,
-				674709B51C6215690093DD1B /* libminizip.a */,
 				674709B61C6215690093DD1B /* liboauthcpp.a */,
 				674709B71C6215690093DD1B /* libopening_hours.a */,
 				674709B91C6215690093DD1B /* libprotobuf.a */,
@@ -728,6 +753,7 @@
 				67F90B541C6A275B00CD458E /* Sources */,
 				67F90B551C6A275B00CD458E /* Frameworks */,
 				67F90B561C6A275B00CD458E /* Resources */,
+				4740183623F5BC5200A93C81 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -745,6 +771,7 @@
 				67F90BB21C6A29F700CD458E /* Sources */,
 				67F90BB31C6A29F700CD458E /* Frameworks */,
 				67F90BB41C6A29F700CD458E /* Resources */,
+				4740183B23F5BC7100A93C81 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -963,6 +990,7 @@
 					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
 				);
 				INFOPLIST_FILE = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "storage-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -977,6 +1005,7 @@
 					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
 				);
 				INFOPLIST_FILE = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "storage-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -991,6 +1020,7 @@
 					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
 				);
 				INFOPLIST_FILE = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = storage_integration_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1005,6 +1035,7 @@
 					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
 				);
 				INFOPLIST_FILE = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = storage_integration_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1040,6 +1071,7 @@
 					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
 				);
 				INFOPLIST_FILE = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "storage-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1054,6 +1086,7 @@
 					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
 				);
 				INFOPLIST_FILE = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = storage_integration_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

@@ -30,7 +30,6 @@
 		34FFD30F1E9CEF490010AD12 /* map_widget.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 34FFD2F21E9CEEA20010AD12 /* map_widget.hpp */; };
 		34FFD3101E9CEF490010AD12 /* resources_common.qrc in Sources */ = {isa = PBXBuildFile; fileRef = 34FFD2FD1E9CEEA20010AD12 /* resources_common.qrc */; };
 		39B9682623E1AC8800D3B8E3 /* libge0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B9682523E1AC8800D3B8E3 /* libge0.a */; };
-		3D0BBC2C23F5302900A50354 /* libminizip.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBC2B23F5302900A50354 /* libminizip.dylib */; };
 		4415CD992271B1A200AA3A19 /* routing_settings_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4415CD952271B1A200AA3A19 /* routing_settings_dialog.cpp */; };
 		4415CD9A2271B1A200AA3A19 /* screenshoter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4415CD962271B1A200AA3A19 /* screenshoter.cpp */; };
 		450703071E9E6C7100E8C029 /* local_ads_symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 450703061E9E6C7100E8C029 /* local_ads_symbols.txt */; };
@@ -56,6 +55,8 @@
 		45B5B5A51CA422EE00D93E36 /* resources-xhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5A01CA422EE00D93E36 /* resources-xhdpi_dark */; };
 		45B5B5A61CA422EE00D93E36 /* resources-xxhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5A11CA422EE00D93E36 /* resources-xxhdpi_dark */; };
 		45D7ADA4210B519300160DE3 /* bookmark_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45D7ADA2210B519300160DE3 /* bookmark_dialog.cpp */; };
+		4740186723F5BF3900A93C81 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4740186623F5BF3900A93C81 /* minizip.framework */; };
+		4740186823F5BF3900A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740186623F5BF3900A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		670D05931B0CBD320013A7AC /* about.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753456D1A404CB200A0A8C3 /* about.hpp */; };
 		670D05941B0CBD320013A7AC /* info_dialog.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345731A404CB200A0A8C3 /* info_dialog.hpp */; };
 		670D05951B0CBD320013A7AC /* preferences_dialog.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345781A404CB200A0A8C3 /* preferences_dialog.hpp */; };
@@ -185,6 +186,17 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		4740184023F5BC8E00A93C81 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4740186823F5BF3900A93C81 /* minizip.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6729A5B81A692C7D007D5872 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -251,7 +263,6 @@
 		34FFD30B1E9CEF010010AD12 /* libicu.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicu.a; path = "/Users/igrechuhin/Repo/omim/xcode/icu/../../../omim-build/xcode/Debug/libicu.a"; sourceTree = "<absolute>"; };
 		34FFD30C1E9CEF010010AD12 /* liblocal_ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblocal_ads.a; path = "/Users/igrechuhin/Repo/omim/xcode/local_ads/../../../omim-build/xcode/Debug/liblocal_ads.a"; sourceTree = "<absolute>"; };
 		39B9682523E1AC8800D3B8E3 /* libge0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libge0.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D0BBC2B23F5302900A50354 /* libminizip.dylib */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libminizip.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		4415CD952271B1A200AA3A19 /* routing_settings_dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_settings_dialog.cpp; sourceTree = "<group>"; };
 		4415CD962271B1A200AA3A19 /* screenshoter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = screenshoter.cpp; sourceTree = "<group>"; };
 		4415CD972271B1A200AA3A19 /* routing_settings_dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_settings_dialog.hpp; sourceTree = "<group>"; };
@@ -287,6 +298,7 @@
 		45B5B5A11CA422EE00D93E36 /* resources-xxhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-xxhdpi_dark"; sourceTree = "<group>"; };
 		45D7ADA2210B519300160DE3 /* bookmark_dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bookmark_dialog.cpp; sourceTree = "<group>"; };
 		45D7ADA3210B519300160DE3 /* bookmark_dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bookmark_dialog.hpp; sourceTree = "<group>"; };
+		4740186623F5BF3900A93C81 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		671182F41C80E09A00CB8177 /* colors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = colors.txt; sourceTree = "<group>"; };
 		671182F51C80E09A00CB8177 /* patterns.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patterns.txt; sourceTree = "<group>"; };
 		6714E5DE1BD13F67008AB603 /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_clear.bin; sourceTree = "<group>"; };
@@ -296,7 +308,6 @@
 		671E78E41E6A4E1A00B2859B /* librouting_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting_common.a; path = "/Users/darkserj/mapsme/omim/xcode/routing_common/../../../omim-build/xcode/Debug/librouting_common.a"; sourceTree = "<absolute>"; };
 		671E79211E6A508600B2859B /* libopenlr.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopenlr.a; path = "/Users/darkserj/mapsme/omim/xcode/openlr/../../../omim-build/xcode/Debug/libopenlr.a"; sourceTree = "<absolute>"; };
 		671F59011B8755FE0032311E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		671F592F1B8759460032311E /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminizip.a; path = "../../../omim-xcode-build/Debug/libminizip.a"; sourceTree = "<group>"; };
 		672292B01DE307DC005BA3A7 /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = "../../../omim-build/xcode/Debug/libtraffic.a"; sourceTree = "<group>"; };
 		6729A5B91A693013007D5872 /* categories.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = categories.txt; sourceTree = "<group>"; };
 		6729A5BA1A693013007D5872 /* classificator.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = classificator.txt; sourceTree = "<group>"; };
@@ -381,7 +392,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D0BBC2C23F5302900A50354 /* libminizip.dylib in Frameworks */,
 				39B9682623E1AC8800D3B8E3 /* libge0.a in Frameworks */,
 				675B562020D15BEF00A521D2 /* libkml.a in Frameworks */,
 				675B561E20D15BC300A521D2 /* libopen_location_code.a in Frameworks */,
@@ -429,6 +439,7 @@
 				67534C421A4097D000A0A8C3 /* OpenGL.framework in Frameworks */,
 				675345A81A40535E00A0A8C3 /* Cocoa.framework in Frameworks */,
 				675345A61A40534F00A0A8C3 /* CoreFoundation.framework in Frameworks */,
+				4740186723F5BF3900A93C81 /* minizip.framework in Frameworks */,
 				675345A41A40534500A0A8C3 /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,8 +450,8 @@
 		3475E0DC1DBF5772004C7E69 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3D0BBC2B23F5302900A50354 /* libminizip.dylib */,
 				39B9682523E1AC8800D3B8E3 /* libge0.a */,
+				4740186623F5BF3900A93C81 /* minizip.framework */,
 				675B561F20D15BEF00A521D2 /* libkml.a */,
 				675B561D20D15BC300A521D2 /* libopen_location_code.a */,
 				34EF6F8120246E0B00838CBC /* libtransit.a */,
@@ -457,7 +468,6 @@
 				674A7E341C0DB727003D48E1 /* libsdf_image.a */,
 				674A7E351C0DB727003D48E1 /* libstb_image.a */,
 				67E8DC911BBC1D3F0053C5BA /* libagg.a */,
-				671F592F1B8759460032311E /* libminizip.a */,
 				671F59011B8755FE0032311E /* libz.dylib */,
 				674A29901B26F0AE001A525C /* libalohalitics.a */,
 				674A29931B26F0AE001A525C /* libbase.a */,
@@ -682,6 +692,7 @@
 				675345471A404C6100A0A8C3 /* Resources */,
 				6729A5B81A692C7D007D5872 /* CopyFiles */,
 				34EF6F84202471B500838CBC /* Copy frameworks */,
+				4740184023F5BC8E00A93C81 /* Embed Frameworks */,
 			);
 			buildRules = (
 				671E78E11E6A45BD00B2859B /* PBXBuildRule */,
@@ -897,6 +908,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -919,6 +931,7 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

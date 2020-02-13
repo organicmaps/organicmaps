@@ -106,7 +106,6 @@
 		678338A11C6DE5BA00FD6263 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675341311C58C786002CF0D9 /* libbase.a */; };
 		678338A21C6DE5BA00FD6263 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675341321C58C786002CF0D9 /* libcoding.a */; };
 		678338A31C6DE5BA00FD6263 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675341331C58C786002CF0D9 /* libjansson.a */; };
-		678338A41C6DE5BA00FD6263 /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675341341C58C786002CF0D9 /* libminizip.a */; };
 		678338A61C6DE5BA00FD6263 /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6753412F1C58C70C002CF0D9 /* libindexer.a */; };
 		678338A71C6DE5E300FD6263 /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675340E91C58C496002CF0D9 /* libplatform_tests_support.a */; };
 		678338A81C6DE5E300FD6263 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343781A3F5CF500A0A8C3 /* libplatform.a */; };
@@ -210,7 +209,6 @@
 		675341311C58C786002CF0D9 /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
 		675341321C58C786002CF0D9 /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
 		675341331C58C786002CF0D9 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "../../../omim-xcode-build/Debug/libjansson.a"; sourceTree = "<group>"; };
-		675341341C58C786002CF0D9 /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminizip.a; path = "../../../omim-xcode-build/Debug/libminizip.a"; sourceTree = "<group>"; };
 		6753413B1C58C79C002CF0D9 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		675343781A3F5CF500A0A8C3 /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		675343861A3F5D5900A0A8C3 /* apple_location_service.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = apple_location_service.mm; sourceTree = "<group>"; };
@@ -291,7 +289,6 @@
 				678338A71C6DE5E300FD6263 /* libplatform_tests_support.a in Frameworks */,
 				678338A81C6DE5E300FD6263 /* libplatform.a in Frameworks */,
 				678338A21C6DE5BA00FD6263 /* libcoding.a in Frameworks */,
-				678338A41C6DE5BA00FD6263 /* libminizip.a in Frameworks */,
 				678338A11C6DE5BA00FD6263 /* libbase.a in Frameworks */,
 				678338A61C6DE5BA00FD6263 /* libindexer.a in Frameworks */,
 				678338A31C6DE5BA00FD6263 /* libjansson.a in Frameworks */,
@@ -357,7 +354,6 @@
 				675341311C58C786002CF0D9 /* libbase.a */,
 				675341321C58C786002CF0D9 /* libcoding.a */,
 				675341331C58C786002CF0D9 /* libjansson.a */,
-				675341341C58C786002CF0D9 /* libminizip.a */,
 				6753412F1C58C70C002CF0D9 /* libindexer.a */,
 			);
 			name = libs;

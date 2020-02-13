@@ -56,7 +56,6 @@
 		349D1CE01E3F589900A878FD /* restrictions_serialization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 349D1CDE1E3F589900A878FD /* restrictions_serialization.cpp */; };
 		349D1CE11E3F589900A878FD /* restrictions_serialization.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 349D1CDF1E3F589900A878FD /* restrictions_serialization.hpp */; };
 		39B9682A23E1ACB300D3B8E3 /* libge0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B9682923E1ACB300D3B8E3 /* libge0.a */; };
-		3D0BBC2E23F5306A00A50354 /* libminizip.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBC2D23F5306A00A50354 /* libminizip.dylib */; };
 		40576F761F791360000B593B /* fake_graph_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40576F751F791360000B593B /* fake_graph_test.cpp */; };
 		40576F781F7A788B000B593B /* fake_vertex.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40576F771F7A788B000B593B /* fake_vertex.hpp */; };
 		405F48DC1F6AD01C005BA81A /* routing_result.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 405F48DB1F6AD01C005BA81A /* routing_result.hpp */; };
@@ -109,6 +108,8 @@
 		44F45B282136B069001B1618 /* speed_cameras_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44F45B272136B069001B1618 /* speed_cameras_tests.cpp */; };
 		44F4EDC723A78C2E005254C4 /* latlon_with_altitude.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44F4EDC523A78C2D005254C4 /* latlon_with_altitude.cpp */; };
 		44F4EDC823A78C2E005254C4 /* latlon_with_altitude.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44F4EDC623A78C2E005254C4 /* latlon_with_altitude.hpp */; };
+		4740185A23F5BEE500A93C81 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4740185923F5BEE500A93C81 /* minizip.framework */; };
+		4740185B23F5BEE600A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740185923F5BEE500A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		56099E291CC7C97D00A7772A /* loaded_path_segment.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E251CC7C97D00A7772A /* loaded_path_segment.hpp */; };
 		56099E2A1CC7C97D00A7772A /* routing_result_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E261CC7C97D00A7772A /* routing_result_graph.hpp */; };
 		56099E2B1CC7C97D00A7772A /* turn_candidate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E271CC7C97D00A7772A /* turn_candidate.hpp */; };
@@ -319,6 +320,20 @@
 		F6C3A1B621AC298F0060EEC8 /* speed_camera_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6C3A1B421AC298F0060EEC8 /* speed_camera_manager.cpp */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4740185C23F5BEE600A93C81 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4740185B23F5BEE600A93C81 /* minizip.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0C08AA321DF83223004195DD /* index_graph_serialization.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = index_graph_serialization.cpp; sourceTree = "<group>"; };
 		0C08AA331DF83223004195DD /* index_graph_serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = index_graph_serialization.hpp; sourceTree = "<group>"; };
@@ -371,7 +386,6 @@
 		34F558351DBF2A2600A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34F558361DBF2A2600A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		39B9682923E1ACB300D3B8E3 /* libge0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libge0.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D0BBC2D23F5306A00A50354 /* libminizip.dylib */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libminizip.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		40576F751F791360000B593B /* fake_graph_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fake_graph_test.cpp; sourceTree = "<group>"; };
 		40576F771F7A788B000B593B /* fake_vertex.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fake_vertex.hpp; sourceTree = "<group>"; };
 		405F48DB1F6AD01C005BA81A /* routing_result.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_result.hpp; sourceTree = "<group>"; };
@@ -424,6 +438,7 @@
 		44F45B272136B069001B1618 /* speed_cameras_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_cameras_tests.cpp; sourceTree = "<group>"; };
 		44F4EDC523A78C2D005254C4 /* latlon_with_altitude.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = latlon_with_altitude.cpp; sourceTree = "<group>"; };
 		44F4EDC623A78C2E005254C4 /* latlon_with_altitude.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = latlon_with_altitude.hpp; sourceTree = "<group>"; };
+		4740185923F5BEE500A93C81 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56099E251CC7C97D00A7772A /* loaded_path_segment.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = loaded_path_segment.hpp; sourceTree = "<group>"; };
 		56099E261CC7C97D00A7772A /* routing_result_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_result_graph.hpp; sourceTree = "<group>"; };
 		56099E271CC7C97D00A7772A /* turn_candidate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turn_candidate.hpp; sourceTree = "<group>"; };
@@ -567,7 +582,6 @@
 		67BD35DA1C69F198003AA26F /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = "../../../omim-xcode-build/Debug/libexpat.a"; sourceTree = "<group>"; };
 		67BD35DB1C69F198003AA26F /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = "../../../omim-xcode-build/Debug/libfreetype.a"; sourceTree = "<group>"; };
 		67BD35DE1C69F198003AA26F /* libmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmap.a; path = "../../../omim-xcode-build/Debug/libmap.a"; sourceTree = "<group>"; };
-		67BD35DF1C69F198003AA26F /* libminizip.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminizip.a; path = "../../../omim-xcode-build/Debug/libminizip.a"; sourceTree = "<group>"; };
 		67BD35E01C69F198003AA26F /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "../../../omim-xcode-build/Debug/libopening_hours.a"; sourceTree = "<group>"; };
 		67BD35E11C69F198003AA26F /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
 		67BD35E21C69F198003AA26F /* libstb_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstb_image.a; path = "../../../omim-xcode-build/Debug/libstb_image.a"; sourceTree = "<group>"; };
@@ -652,11 +666,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D0BBC2E23F5306A00A50354 /* libminizip.dylib in Frameworks */,
 				39B9682A23E1ACB300D3B8E3 /* libge0.a in Frameworks */,
 				56EE14DB1FE812FC0036F20C /* libtransit.a in Frameworks */,
 				567E9F811F5853370064CB96 /* libtraffic.a in Frameworks */,
 				567E9F7F1F58530D0064CB96 /* librouting_common.a in Frameworks */,
+				4740185A23F5BEE500A93C81 /* minizip.framework in Frameworks */,
 				567E9F7D1F5852C00064CB96 /* libicu.a in Frameworks */,
 				67BD35E31C69F198003AA26F /* libagg.a in Frameworks */,
 				67BD35E51C69F198003AA26F /* libdrape_frontend.a in Frameworks */,
@@ -694,8 +708,8 @@
 		56F0D7611D896DAF00045886 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3D0BBC2D23F5306A00A50354 /* libminizip.dylib */,
 				39B9682923E1ACB300D3B8E3 /* libge0.a */,
+				4740185923F5BEE500A93C81 /* minizip.framework */,
 				56EE14DC1FE812FC0036F20C /* libtransit.a */,
 				567E9F801F5853370064CB96 /* libtraffic.a */,
 				408B55BF1FD953F100F4E78B /* libbsdiff.a */,
@@ -780,7 +794,6 @@
 				67BD35DA1C69F198003AA26F /* libexpat.a */,
 				67BD35DB1C69F198003AA26F /* libfreetype.a */,
 				67BD35DE1C69F198003AA26F /* libmap.a */,
-				67BD35DF1C69F198003AA26F /* libminizip.a */,
 				67BD35E01C69F198003AA26F /* libopening_hours.a */,
 				67BD35E11C69F198003AA26F /* libsdf_image.a */,
 				67BD35E21C69F198003AA26F /* libstb_image.a */,
@@ -1204,6 +1217,7 @@
 				67BD35911C69F03E003AA26F /* Sources */,
 				67BD35921C69F03E003AA26F /* Frameworks */,
 				67BD35931C69F03E003AA26F /* Resources */,
+				4740185C23F5BEE600A93C81 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1552,6 +1566,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)_common/build/Debug",
@@ -1566,6 +1581,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)_common/build/Debug",
@@ -1614,6 +1630,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)_common/build/Debug",
