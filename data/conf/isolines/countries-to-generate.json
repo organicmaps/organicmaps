@@ -396,7 +396,7 @@
         {
             "key": "Australia_Brisbane",
             "value": {
-                "profileName": "normal",
+                "profileName": "small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -444,7 +444,7 @@
         {
             "key": "Australia_Victoria",
             "value": {
-                "profileName": "small",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -868,7 +868,7 @@
         {
             "key": "Brazil_Southeast Region_Espirito Santo",
             "value": {
-                "profileName": "normal",
+                "profileName": "small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -980,7 +980,7 @@
         {
             "key": "Burkina Faso",
             "value": {
-                "profileName": "small",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -1004,7 +1004,7 @@
         {
             "key": "Cameroon_West",
             "value": {
-                "profileName": "normal",
+                "profileName": "small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -1020,7 +1020,7 @@
         {
             "key": "Canada_Alberta_Edmonton",
             "value": {
-                "profileName": "small",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -1124,7 +1124,7 @@
         {
             "key": "Canada_Manitoba_Northeast",
             "value": {
-                "profileName": "normal",
+                "profileName": "small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -1316,7 +1316,7 @@
         {
             "key": "Canada_Ontario_Northwestern",
             "value": {
-                "profileName": "small",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -1724,7 +1724,7 @@
         {
             "key": "Congo-Kinshasa_Kivu",
             "value": {
-                "profileName": "small",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -2100,7 +2100,7 @@
         {
             "key": "Finland_Northern Finland",
             "value": {
-                "profileName": "small",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -3448,6 +3448,10 @@
                     },
                     {
                         "bottomLat": 67,
+                        "leftLon": -54
+                    },
+                    {
+                        "bottomLat": 67,
                         "leftLon": -53
                     },
                     {
@@ -3529,7 +3533,7 @@
         {
             "key": "Guinea",
             "value": {
-                "profileName": "small",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -3569,7 +3573,7 @@
         {
             "key": "Hungary_Northern Great Plain",
             "value": {
-                "profileName": "high",
+                "profileName": "high_f2",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -3577,7 +3581,7 @@
         {
             "key": "Hungary_Transdanubia",
             "value": {
-                "profileName": "high",
+                "profileName": "high_f2",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -3745,7 +3749,7 @@
         {
             "key": "India_Maharashtra",
             "value": {
-                "profileName": "small",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -4137,7 +4141,7 @@
         {
             "key": "Italy_Lazio",
             "value": {
-                "profileName": "high",
+                "profileName": "high_f2",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -4945,7 +4949,7 @@
         {
             "key": "Lithuania_East",
             "value": {
-                "profileName": "high",
+                "profileName": "high_f2",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -5633,7 +5637,7 @@
         {
             "key": "Paraguay",
             "value": {
-                "profileName": "small",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -5673,7 +5677,7 @@
         {
             "key": "Philippines_Luzon_North",
             "value": {
-                "profileName": "normal",
+                "profileName": "small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -5969,7 +5973,7 @@
         {
             "key": "Russia_Arkhangelsk Oblast_Central",
             "value": {
-                "profileName": "small",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -7273,7 +7277,7 @@
         {
             "key": "Sweden_Vastra Gotaland",
             "value": {
-                "profileName": "high",
+                "profileName": "high_f2",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -7313,7 +7317,7 @@
         {
             "key": "Switzerland_Lake Geneva region",
             "value": {
-                "profileName": "high",
+                "profileName": "high_f2",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -7377,7 +7381,7 @@
         {
             "key": "Thailand_Central",
             "value": {
-                "profileName": "small",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -7393,7 +7397,7 @@
         {
             "key": "Thailand_South",
             "value": {
-                "profileName": "normal",
+                "profileName": "small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -7449,7 +7453,7 @@
         {
             "key": "Tunisia",
             "value": {
-                "profileName": "normal",
+                "profileName": "small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -8113,7 +8117,7 @@
         {
             "key": "US_Florida_Jacksonville",
             "value": {
-                "profileName": "high_f2",
+                "profileName": "normal",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -8137,7 +8141,7 @@
         {
             "key": "US_Florida_Tampa",
             "value": {
-                "profileName": "high",
+                "profileName": "high_f2",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -8265,7 +8269,7 @@
         {
             "key": "US_Indiana_North",
             "value": {
-                "profileName": "high",
+                "profileName": "high_f2",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -8681,7 +8685,7 @@
         {
             "key": "US_North Carolina_Wilmington",
             "value": {
-                "profileName": "high",
+                "profileName": "high_f2",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -8689,7 +8693,7 @@
         {
             "key": "US_North Carolina_Wilson",
             "value": {
-                "profileName": "high",
+                "profileName": "high_f2",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -8817,7 +8821,7 @@
         {
             "key": "US_Pennsylvania_Pittsburgh",
             "value": {
-                "profileName": "high",
+                "profileName": "high_f2",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -9184,14 +9188,6 @@
         },
         {
             "key": "Yemen",
-            "value": {
-                "profileName": "poor",
-                "tileCoordsSubset": [],
-                "tilesAreBanned": false
-            }
-        },
-        {
-            "key": "Zimbabwe",
             "value": {
                 "profileName": "poor",
                 "tileCoordsSubset": [],
