@@ -75,8 +75,7 @@ final class PlacePageReviewsViewController: UIViewController {
   private func createMoreReviewsButton() {
     let button = UIButton()
     button.setTitle(L("placepage_more_reviews_button"), for: .normal)
-    button.titleLabel?.font = UIFont.regular17()
-    button.setTitleColor(UIColor.linkBlue(), for: .normal)
+    button.styleName = "MoreButton"
     button.heightAnchor.constraint(equalToConstant: 44).isActive = true
     stackView.addArrangedSubview(button)
     button.addTarget(self, action: #selector(onMoreReviewsButton), for: .touchUpInside)

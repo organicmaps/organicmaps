@@ -55,8 +55,7 @@ class HotelFacilitiesViewController: UIViewController {
   private func addMoreButton() {
     let button = UIButton()
     button.setTitle(L("booking_show_more"), for: .normal)
-    button.titleLabel?.font = UIFont.regular16()
-    button.setTitleColor(UIColor.linkBlue(), for: .normal)
+    button.styleName = "MoreButton"
     button.heightAnchor.constraint(equalToConstant: 44).isActive = true
     stackView.addArrangedSubview(button)
     button.addTarget(self, action: #selector(onMoreButton(_:)), for: .touchUpInside)

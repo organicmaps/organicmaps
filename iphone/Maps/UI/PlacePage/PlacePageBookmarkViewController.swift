@@ -83,4 +83,9 @@ class PlacePageBookmarkViewController: UIViewController {
   @IBAction func onEdit(_ sender: UIButton) {
     delegate?.bookmarkDidPressEdit()
   }
+  
+  override func applyTheme() {
+    super.applyTheme()
+    updateViews()
+  }
 }

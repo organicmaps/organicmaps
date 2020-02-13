@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		116616F223F597AF003CB923 /* StarRatingViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116616F123F597AF003CB923 /* StarRatingViewRenderer.swift */; };
 		1185C52C23BB53A7004BF349 /* UIViewControllerRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1185C52B23BB53A7004BF349 /* UIViewControllerRenderer.swift */; };
 		1DA7908820762CEB008BDD6B /* libopen_location_code.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DA7908920762CEB008BDD6B /* libopen_location_code.a */; };
 		1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA2F6920D3B57400FB2C66 /* UIColor+PartnerColor.m */; };
@@ -869,6 +870,7 @@
 
 /* Begin PBXFileReference section */
 		0B07BBB5C2EFC6F60EF51BC8 /* Pods-MAPS.ME.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAPS.ME.debug.xcconfig"; path = "Target Support Files/Pods-MAPS.ME/Pods-MAPS.ME.debug.xcconfig"; sourceTree = "<group>"; };
+		116616F123F597AF003CB923 /* StarRatingViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingViewRenderer.swift; sourceTree = "<group>"; };
 		1185C52B23BB53A7004BF349 /* UIViewControllerRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerRenderer.swift; sourceTree = "<group>"; };
 		166595280BE641CF8ADE2209 /* Pods-MAPS.ME.production full.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAPS.ME.production full.xcconfig"; path = "Target Support Files/Pods-MAPS.ME/Pods-MAPS.ME.production full.xcconfig"; sourceTree = "<group>"; };
 		1D3623240D0F684500981E51 /* MapsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapsAppDelegate.h; sourceTree = "<group>"; };
@@ -3677,6 +3679,7 @@
 				99169D7223D06B390006A9CA /* RatingSummaryViewRenderer.swift */,
 				9974CA3923E05B9C003FE824 /* RatingViewRenderer.swift */,
 				999FC12E23ABD53300B0E6F9 /* TabViewRenderer.swift */,
+				116616F123F597AF003CB923 /* StarRatingViewRenderer.swift */,
 				994AEBEB23AB763C0079B81F /* UIActivityIndicatorRenderer.swift */,
 				994AEBEA23AB763C0079B81F /* UIButtonRenderer.swift */,
 				994AEBF723AB763C0079B81F /* UIBarButtonItemRenderer.swift */,
@@ -5473,6 +5476,7 @@
 				348A8DF81F66775A00D83026 /* RatingViewDelegate.swift in Sources */,
 				4716EABA21A325310029B886 /* IPaidRouteStatistics.swift in Sources */,
 				3490D2E11CE9DD2500D0B838 /* MWMSideButtonsView.mm in Sources */,
+				116616F223F597AF003CB923 /* StarRatingViewRenderer.swift in Sources */,
 				47F4F21523A6F06F0022FD56 /* AvailableMapsDataSource.swift in Sources */,
 				995739062355CAC40019AEE7 /* ImageViewCrossDisolve.swift in Sources */,
 				994AEC1F23AB763C0079B81F /* UITextFieldRenderer.swift in Sources */,

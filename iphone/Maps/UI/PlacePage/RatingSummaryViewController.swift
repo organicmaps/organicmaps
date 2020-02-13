@@ -4,14 +4,7 @@ class RatingSummaryViewController: UIViewController {
   @IBOutlet var ratingSummaryView: RatingSummaryView!
   @IBOutlet var ratingViews: [UIView]!
   @IBOutlet var ratingLabels: [UILabel]!
-  @IBOutlet var starViews: [StarRatingView]! {
-    didSet {
-      starViews.forEach {
-        $0.activeColor = UIColor.yellow
-        $0.inactiveColor = UIColor.blackDividers()
-      }
-    }
-  }
+  @IBOutlet var starViews: [StarRatingView]!
   
   var ugcData: UgcData? {
     didSet {

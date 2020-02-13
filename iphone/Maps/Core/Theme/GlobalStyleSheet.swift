@@ -66,6 +66,11 @@ class GlobalStyleSheet: IStyleSheet {
       s.backgroundColor = colors.white
     }
 
+    theme.add(styleName: "StarRatingView") { (s) -> (Void) in
+      s.onTintColor = colors.ratingYellow
+      s.offTintColor = colors.blackDividers
+    }
+    
     //MARK: Global styles
     theme.add(styleName: "Divider") { (s) -> (Void) in
       s.backgroundColor = colors.blackDividers

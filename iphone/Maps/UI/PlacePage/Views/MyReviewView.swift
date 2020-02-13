@@ -23,10 +23,7 @@ final class ReviewRatingView: UIView {
 
 extension ReviewRatingView {
   func defaultConfig() {
-    nameLabel.font = UIFont.regular14()
-    nameLabel.textColor = UIColor.blackSecondaryText()
-    starRatingView.activeColor = UIColor.ratingYellow()
-    starRatingView.inactiveColor = UIColor.blackDividers()
+    nameLabel.styleName = "regular14:blackSecondaryText"
   }
 }
 

@@ -38,6 +38,11 @@ class MapStyleSheet: IStyleSheet {
       s.shadowOffset = CGSize(width: 0, height: 1)
     }
 
+    theme.add(styleName: "PPRatingView") { (s) -> (Void) in
+      s.backgroundColor = colors.blackOpaque
+      s.round = true
+    }
+    
     theme.add(styleName: "PPRatingHorrible") { (s) -> (Void) in
       s.image = "ic_24px_rating_horrible"
       s.tintColor = colors.ratingRed
@@ -63,6 +68,11 @@ class MapStyleSheet: IStyleSheet {
       s.tintColor = colors.ratingGreen
     }
 
+    theme.add(styleName: "PPButton", from: "FlatNormalTransButtonBig") { (s) -> (Void) in
+      s.borderColor = colors.linkBlue
+      s.borderWidth = 1
+    }
+    
     theme.add(styleName: "ButtonZoomIn") { (s) -> (Void) in
       s.mwmImage = "btn_zoom_in"
     }
@@ -123,7 +133,7 @@ class MapStyleSheet: IStyleSheet {
 
     theme.add(styleName: "PPTitlePopularView") { (s) -> (Void) in
       s.backgroundColor = colors.linkBlueHighlighted
-      s.round = true
+      s.cornerRadius = 10
     }
 
     theme.add(styleName: "RouteBasePreview") { (s) -> (Void) in

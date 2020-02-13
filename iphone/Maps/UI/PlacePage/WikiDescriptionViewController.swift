@@ -56,4 +56,9 @@ class WikiDescriptionViewController: UIViewController {
   @IBAction func onMore(_ sender: UIButton) {
     delegate?.didPressMore()
   }
+  
+  override func applyTheme() {
+    super.applyTheme()
+    updateDescription()
+  }
 }

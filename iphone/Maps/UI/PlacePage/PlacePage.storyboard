@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -38,7 +38,7 @@
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                 <integer key="value" value="2"/>
                                                             </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
@@ -49,7 +49,7 @@
                                                     <constraint firstAttribute="height" constant="10" id="yn2-uS-XdO"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
@@ -77,14 +77,14 @@
                                     <constraint firstAttribute="height" constant="1" id="G2u-nx-IJt"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="inM-UW-vpv">
                                 <rect key="frame" x="0.0" y="687" width="414" height="49"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -134,8 +134,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium20"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium20:blackPrimaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <view contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Jgo-Sd-tyF">
@@ -150,8 +149,7 @@
                                                                 <color key="textColor" red="0.1176470588" green="0.58823529409999997" blue="0.93983289930000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold12"/>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="linkBlue"/>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="bold12:linkBlueText"/>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="popular_place"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
@@ -166,10 +164,7 @@
                                                         </constraints>
                                                         <viewLayoutGuide key="safeArea" id="Evu-SG-jZE"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlueHighlighted"/>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPTitlePopularView"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
@@ -181,7 +176,7 @@
                                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5bu-1v-9Tb" secondAttribute="bottom" id="p52-P8-ncK"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="yrY-oi-L2J" customClass="DirectionView" customModule="maps_me" customModuleProvider="target">
@@ -203,8 +198,7 @@
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="linkBlue"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:linkBlueText"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
@@ -233,8 +227,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <view hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="jaa-Yj-XQR" customClass="DirectionView" customModule="maps_me" customModuleProvider="target">
@@ -256,8 +249,7 @@
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="linkBlue"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:linkBlueText"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
@@ -283,8 +275,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="DpF-gz-Yio">
@@ -296,8 +287,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackPrimaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <view hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="y54-Rh-kGm" customClass="DirectionView" customModule="maps_me" customModuleProvider="target">
@@ -319,8 +309,7 @@
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="linkBlue"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:linkBlueText"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
@@ -351,10 +340,6 @@
                                                     <constraint firstAttribute="width" constant="48" placeholder="YES" id="uO0-fG-zKL"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="normalImage" value="ic_12px_rating_normal"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="excellentImage" value="ic_12px_rating_excellent"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="goodImage" value="ic_12px_rating_good"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="horribleImage" value="ic_12px_rating_horrible"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="topOffset">
                                                         <real key="value" value="3"/>
                                                     </userDefinedRuntimeAttribute>
@@ -373,7 +358,7 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="textSize">
                                                         <real key="value" value="12"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="badImage" value="ic_12px_rating_bad"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="RatingSummaryView12"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Based on 5 reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kol-v4-MSp">
@@ -382,8 +367,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="253" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XLL-e8-8Bs">
@@ -394,12 +378,7 @@
                                                 <inset key="contentEdgeInsets" minX="8" minY="2" maxX="8" maxY="2"/>
                                                 <state key="normal" title="+ Leave review"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="10"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold12"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButton:bold12"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="onAddReview:" destination="76G-o4-sUY" eventType="touchUpInside" id="bXP-b8-DcF"/>
@@ -411,8 +390,7 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium16"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium16:blackPrimaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <view hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="253" translatesAutoresizingMaskIntoConstraints="NO" id="4Hd-EK-fGw">
@@ -424,8 +402,7 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium12"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="white"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium12:whiteText"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
@@ -438,10 +415,7 @@
                                                     <constraint firstAttribute="bottom" secondItem="NdO-wE-Vri" secondAttribute="bottom" id="x7s-2d-HeZ"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="10"/>
-                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPReviewDiscountView"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
@@ -453,13 +427,7 @@
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="6"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButton"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="place_page_search_similar_hotel"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -475,7 +443,7 @@
                                     <constraint firstAttribute="height" constant="1" id="wVu-Mv-mmU"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -491,7 +459,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sNg-Nr-PA2"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <size key="freeformSize" width="375" height="220"/>
@@ -532,7 +500,7 @@
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4pU-ex-66e">
                                 <rect key="frame" x="16" y="0.0" width="343" height="147"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="150" id="E6c-1w-LKj"/>
                                 </constraints>
@@ -541,9 +509,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular16:blackPrimaryText"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="textContainer.lineFragmentPadding">
                                         <integer key="value" value="0"/>
                                     </userDefinedRuntimeAttribute>
@@ -558,11 +524,7 @@
                                 <state key="normal" title="more"/>
                                 <state key="highlighted" backgroundImage="dialog_btn_press"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlueHighlighted"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="text_more_button"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MoreButton"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="onMore:" destination="WSQ-QR-4WY" eventType="touchUpInside" id="z5J-UQ-f0u"/>
@@ -581,7 +543,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pcV-Cv-rW6"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <size key="freeformSize" width="375" height="180"/>
@@ -609,7 +571,7 @@
                                     <constraint firstAttribute="height" constant="1" id="aHE-My-xp3"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pmL-HT-I1N">
@@ -622,7 +584,7 @@
                                     <constraint firstAttribute="height" constant="1" id="JBo-AG-AKH"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -641,7 +603,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="g60-e9-U8G"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -669,7 +631,7 @@
                                     <constraint firstAttribute="height" constant="1" id="Qyj-Ho-8e0"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icTaxiTaxi" translatesAutoresizingMaskIntoConstraints="NO" id="SBs-yh-ReN">
@@ -685,8 +647,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold14"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="bold14:blackPrimaryText"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQo-Zu-gKT">
@@ -697,12 +658,7 @@
                                 <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
                                 <state key="normal" title="Button"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="8"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold14"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButton:bold14"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="taxi_order"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -716,7 +672,7 @@
                                     <constraint firstAttribute="height" constant="1" id="02W-ix-CLG"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -739,7 +695,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cBR-ke-2iM"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <size key="freeformSize" width="375" height="64"/>
@@ -767,7 +723,7 @@
                                     <constraint firstAttribute="height" constant="1" id="qIJ-KN-0aS"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjZ-TM-sWx">
@@ -780,8 +736,7 @@
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="placepage_summary_rating"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold22"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="bold22:blackPrimaryText"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bco-RO-VCb">
@@ -790,8 +745,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular12"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular12:blackSecondaryText"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zA3-sW-zKZ" customClass="RatingSummaryView" customModule="maps_me" customModuleProvider="target">
@@ -802,11 +756,7 @@
                                             <constraint firstAttribute="height" constant="40" placeholder="YES" id="R3d-hM-3Zn"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="horribleImage" value="ic_24px_rating_horrible"/>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="badImage" value="ic_24px_rating_bad"/>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="normalImage" value="ic_24px_rating_normal"/>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="goodImage" value="ic_24px_rating_good"/>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="excellentImage" value="ic_24px_rating_excellent"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="RatingSummaryView24"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Wc-1u-FNF">
@@ -816,11 +766,11 @@
                                             <constraint firstAttribute="height" constant="1" id="EPl-tu-abH"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="zA3-sW-zKZ" firstAttribute="centerY" secondItem="bjZ-TM-sWx" secondAttribute="centerY" id="1jO-YT-r70"/>
                                     <constraint firstItem="Bco-RO-VCb" firstAttribute="leading" secondItem="pgy-cZ-vxO" secondAttribute="leading" id="3fm-Rd-v8r"/>
@@ -846,16 +796,15 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="15" translatesAutoresizingMaskIntoConstraints="NO" id="byx-ho-a4f" customClass="StarRatingView" customModule="maps_me" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="26.333333333333325" width="100" height="42.666666666666657"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="jFx-bx-UOi" secondAttribute="trailing" id="9Pf-Z7-zD5"/>
                                             <constraint firstItem="byx-ho-a4f" firstAttribute="leading" secondItem="yit-dQ-UAT" secondAttribute="leading" id="CcM-3l-Viy"/>
@@ -874,16 +823,15 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="15" translatesAutoresizingMaskIntoConstraints="NO" id="Cn3-gh-0EI" customClass="StarRatingView" customModule="maps_me" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="26.333333333333325" width="100" height="42.666666666666657"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="Cn3-gh-0EI" firstAttribute="leading" secondItem="pGF-Z8-eUO" secondAttribute="leading" id="3lr-s1-NQy"/>
                                             <constraint firstAttribute="bottom" secondItem="Cn3-gh-0EI" secondAttribute="bottom" id="Ctk-8N-ZLF"/>
@@ -902,16 +850,15 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="15" translatesAutoresizingMaskIntoConstraints="NO" id="owL-Uj-tvV" customClass="StarRatingView" customModule="maps_me" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="26.333333333333325" width="100" height="42.666666666666657"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="848-O2-XZ5" secondAttribute="trailing" id="8E3-uU-8Yd"/>
                                             <constraint firstItem="848-O2-XZ5" firstAttribute="top" secondItem="s0o-2u-iWy" secondAttribute="top" constant="8" id="MFE-TN-sQ3"/>
@@ -930,7 +877,7 @@
                                     <constraint firstAttribute="height" constant="1" id="LIh-ei-0CN"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -952,7 +899,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Qqm-hA-RiC"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <size key="freeformSize" width="375" height="168"/>
@@ -996,7 +943,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="NiY-No-EBo"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <size key="freeformSize" width="414" height="44"/>
@@ -1023,7 +970,7 @@
                                     <constraint firstAttribute="height" constant="1" id="jKt-85-lAj"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9KS-oh-sqK">
@@ -1033,8 +980,7 @@
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="placepage_rate_comment"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:blackPrimaryText"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="LjS-v9-1od">
@@ -1053,10 +999,7 @@
                                                             <constraint firstAttribute="width" secondItem="Mv3-SR-sCZ" secondAttribute="height" multiplier="1:1" id="527-kD-6dS"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackOpaque"/>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="20"/>
-                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPRatingView"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Horrible" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VJu-uZ-CxE">
@@ -1066,8 +1009,7 @@
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="placepage_rate_horrible"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium10"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium10:blackSecondaryText"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gU5-h0-OQf">
@@ -1075,7 +1017,7 @@
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="-19" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" image="ic_24px_rating_horrible"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="ratingRed"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPRatingHorrible"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="onRate:" destination="ern-pm-PWc" eventType="touchUpInside" id="Q2J-ak-fs0"/>
@@ -1117,10 +1059,7 @@
                                                             <constraint firstAttribute="width" secondItem="ZjW-st-rK3" secondAttribute="height" multiplier="1:1" id="eza-rU-qWK"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackOpaque"/>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="20"/>
-                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPRatingView"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bad" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQz-Bh-tEX">
@@ -1130,8 +1069,7 @@
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="placepage_rate_bad"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium10"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium10:blackSecondaryText"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2wV-Xa-3un">
@@ -1139,7 +1077,7 @@
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="-19" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" image="ic_24px_rating_bad"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="ratingOrange"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPRatingBad"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="onRate:" destination="ern-pm-PWc" eventType="touchUpInside" id="Vk6-98-Wax"/>
@@ -1181,10 +1119,7 @@
                                                             <constraint firstAttribute="width" secondItem="Ky6-z6-UZL" secondAttribute="height" multiplier="1:1" id="sdp-0W-AfB"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackOpaque"/>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="20"/>
-                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPRatingView"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Normal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMP-Vl-yvA">
@@ -1194,8 +1129,7 @@
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="placepage_rate_normal"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium10"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium10:blackSecondaryText"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5K-8L-2dl">
@@ -1203,7 +1137,7 @@
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="-19" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" image="ic_24px_rating_normal"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="ratingYellow"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPRatingNormal"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="onRate:" destination="ern-pm-PWc" eventType="touchUpInside" id="BGZ-0p-px4"/>
@@ -1245,10 +1179,7 @@
                                                             <constraint firstAttribute="width" secondItem="gSt-GD-pAQ" secondAttribute="height" multiplier="1:1" id="uvU-nz-c7s"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackOpaque"/>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="20"/>
-                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPRatingView"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Good" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSb-wh-KA3">
@@ -1258,8 +1189,7 @@
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="placepage_rate_good"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium10"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium10:blackSecondaryText"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rnN-MC-MCe">
@@ -1267,7 +1197,7 @@
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="-19" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" image="ic_24px_rating_good"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="ratingLightGreen"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPRatingGood"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="onRate:" destination="ern-pm-PWc" eventType="touchUpInside" id="wXE-aD-Fsk"/>
@@ -1309,10 +1239,7 @@
                                                             <constraint firstAttribute="width" secondItem="PXF-Xv-iJZ" secondAttribute="height" multiplier="1:1" id="OPC-XW-dlA"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackOpaque"/>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="20"/>
-                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPRatingView"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Excellent" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UYm-h4-dov">
@@ -1322,8 +1249,7 @@
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="placepage_rate_excellent"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium10"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium10:blackSecondaryText"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cjj-x5-bTn">
@@ -1331,7 +1257,7 @@
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="-19" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" image="ic_24px_rating_excellent"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="ratingGreen"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPRatingExellent"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="onRate:" destination="ern-pm-PWc" eventType="touchUpInside" id="S3v-5k-1xn"/>
@@ -1372,7 +1298,7 @@
                                     <constraint firstAttribute="height" constant="1" id="5Gv-rq-P9B"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -1394,7 +1320,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="snf-qT-eY3"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <size key="freeformSize" width="375" height="130"/>
@@ -1425,7 +1351,7 @@
                                     <constraint firstAttribute="height" constant="1" id="rO5-BK-awu"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="SYO-2V-qwm">
@@ -1438,7 +1364,7 @@
                                     <constraint firstAttribute="height" constant="1" id="Zan-qZ-gqm"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -1457,7 +1383,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="58R-Xd-hzj"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <size key="freeformSize" width="375" height="200"/>
@@ -1489,15 +1415,7 @@
                                         <state key="normal" title="Booking.com"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="details_on_bookingcom"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="borderColorName" value="linkBlue"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="8"/>
-                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPButton"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="onBooking:" destination="4Am-Sa-65S" eventType="touchUpInside" id="nC8-KC-x8P"/>
@@ -1512,15 +1430,7 @@
                                         <state key="normal" title="Add Place"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="placepage_add_place_button"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="borderColorName" value="linkBlue"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="8"/>
-                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPButton"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="onAddPlace:" destination="4Am-Sa-65S" eventType="touchUpInside" id="2NL-kj-B6z"/>
@@ -1535,15 +1445,7 @@
                                         <state key="normal" title="Edit Place"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="edit_place"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="borderColorName" value="linkBlue"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="8"/>
-                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPButton"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="onEditPlace:" destination="4Am-Sa-65S" eventType="touchUpInside" id="ftW-wO-u8A"/>
@@ -1558,15 +1460,7 @@
                                         <state key="normal" title="Add Business"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="placepage_add_business_button"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="borderColorName" value="linkBlue"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="8"/>
-                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPButton"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="onAddBusiness:" destination="4Am-Sa-65S" eventType="touchUpInside" id="Lpn-E2-zBs"/>
@@ -1584,7 +1478,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wND-VP-FnI"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <size key="freeformSize" width="375" height="256"/>
@@ -1614,7 +1508,7 @@
                                     <constraint firstAttribute="height" constant="1" id="diq-po-5mb"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fMV-Nc-MV1">
@@ -1640,7 +1534,7 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZqA-NZ-Wai">
                                                     <rect key="frame" x="0.0" y="0.0" width="150" height="100"/>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PressBackground"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MP6-Ob-yrp">
@@ -1690,7 +1584,7 @@
                                     <constraint firstAttribute="height" constant="1" id="6Lj-Xw-JNO"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -1709,7 +1603,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ap2-6G-LHF"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <size key="freeformSize" width="375" height="110"/>
@@ -1736,14 +1630,14 @@
                                     <constraint firstAttribute="height" constant="1" id="WRx-2c-a5b"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wbd-0C-g1k" customClass="ExpandableLabel" customModule="maps_me" customModuleProvider="target">
                                 <rect key="frame" x="16" y="17" width="343" height="41"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CJa-YV-HLO">
@@ -1753,7 +1647,7 @@
                                     <constraint firstAttribute="height" constant="1" id="q5G-zU-9ne"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YQc-yG-6tW">
@@ -1764,8 +1658,7 @@
                                 <state key="normal" title="More on Booking.com"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="more_on_bookingcom"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalTransButtonBig"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="onMoreButton:" destination="cSk-R6-61j" eventType="touchUpInside" id="eb7-Kq-FsD"/>
@@ -1778,7 +1671,7 @@
                                     <constraint firstAttribute="height" constant="1" id="FyK-YV-WFz"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -1803,7 +1696,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uD5-4L-NZG"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <size key="freeformSize" width="375" height="120"/>
@@ -1831,7 +1724,7 @@
                                     <constraint firstAttribute="height" constant="1" id="mXV-7a-ZoX"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9cj-Tc-FmC">
@@ -1844,7 +1737,7 @@
                                     <constraint firstAttribute="height" constant="1" id="0ym-HA-1Yu"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -1863,7 +1756,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2ZO-rV-hbS"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <size key="freeformSize" width="375" height="150"/>
@@ -1901,8 +1794,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular16:blackPrimaryText"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_placepage_change" translatesAutoresizingMaskIntoConstraints="NO" id="onF-JL-5dZ">
@@ -1923,7 +1815,7 @@
                                     <constraint firstAttribute="height" constant="1" id="EEb-FZ-zQK"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -1945,7 +1837,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xdh-hy-Bxo"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="pe0-Qk-VTv" appends="YES" id="8fl-TA-rH2"/>
@@ -2008,8 +1900,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular16:blackPrimaryText"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tq8-Dl-Au7">
@@ -2019,7 +1910,7 @@
                                     <constraint firstAttribute="height" constant="1" id="JMA-NM-Fig"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -2036,7 +1927,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ccL-7H-eDR"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="7T3-wt-fdM" appends="YES" id="bYc-ym-Vbu"/>
@@ -2071,7 +1962,7 @@
                                     <constraint firstAttribute="height" constant="1" id="TLH-lj-VWD"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NxY-gn-rSO">
@@ -2086,8 +1977,7 @@
                                                 <color key="textColor" red="0.33333333329999998" green="0.5450980392" blue="0.1843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium16"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="green"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium16:greenText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Based on" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbf-rz-A00">
@@ -2096,8 +1986,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular13"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular13:blackSecondaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tpK-xv-e2e">
@@ -2107,7 +1996,7 @@
                                                     <constraint firstAttribute="height" constant="1" id="fwG-my-oce"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
@@ -2125,7 +2014,7 @@
                                             <constraint firstItem="wbf-rz-A00" firstAttribute="leading" secondItem="Q6d-dl-Wdi" secondAttribute="leading" constant="16" id="vjo-wO-MnD"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
@@ -2137,7 +2026,7 @@
                                     <constraint firstAttribute="height" constant="1" id="w1f-wa-Hgq"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -2156,7 +2045,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RBE-y0-lIX"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <size key="freeformSize" width="375" height="200"/>
@@ -2190,8 +2079,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:blackPrimaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="8.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fjp-1p-sTK">
@@ -2200,8 +2088,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium20"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium20:blackPrimaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jTB-Th-Ekk">
@@ -2210,8 +2097,7 @@
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular13"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular13:blackSecondaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                         </subviews>
@@ -2228,7 +2114,7 @@
                                             <constraint firstItem="Fjp-1p-sTK" firstAttribute="leading" secondItem="RHE-3s-tdT" secondAttribute="trailing" constant="8" id="mTA-ju-1t1"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fnC-V9-k6q">
@@ -2240,8 +2126,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackPrimaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_good" translatesAutoresizingMaskIntoConstraints="NO" id="iPS-3u-nrl">
@@ -2263,7 +2148,7 @@
                                             <constraint firstItem="dnY-CM-aTS" firstAttribute="leading" secondItem="iPS-3u-nrl" secondAttribute="trailing" constant="16" id="evo-QW-2sL"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r4G-nh-NQ3">
@@ -2275,8 +2160,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackPrimaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_bad" translatesAutoresizingMaskIntoConstraints="NO" id="RNP-4u-PZQ">
@@ -2298,7 +2182,7 @@
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="RNP-4u-PZQ" secondAttribute="bottom" id="zRz-ef-PFN"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
@@ -2310,7 +2194,7 @@
                                     <constraint firstAttribute="height" constant="1" id="wX6-kk-oBV"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -2326,7 +2210,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zpD-N2-YqV"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <size key="freeformSize" width="375" height="200"/>
@@ -2358,8 +2242,7 @@
                                 <color key="textColor" white="0.0" alpha="0.54000000000000004" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:blackSecondaryText"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QBA-ja-OWM">
@@ -2371,8 +2254,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:blackPrimaryText"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIs-Rt-dP7">
@@ -2382,8 +2264,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackPrimaryText"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dmV-pG-EDq">
@@ -2396,9 +2277,7 @@
                                             <color key="titleColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlueHighlighted"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MoreButton"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="onMore:" destination="Uqa-lN-kxa" eventType="touchUpInside" id="g2f-r0-gtt"/>
@@ -2419,7 +2298,7 @@
                                     <constraint firstItem="EED-rc-fje" firstAttribute="top" secondItem="QBA-ja-OWM" secondAttribute="top" constant="16" id="qEb-rg-VhI"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4co-gt-uj9">
@@ -2443,14 +2322,7 @@
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                         <state key="normal" title="View"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="6"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButton"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="pp_discovery_place_related_cta_button"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
@@ -2469,8 +2341,7 @@
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                         <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:blackPrimaryText"/>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ArrivalGuides" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0YD-vJ-HhG">
@@ -2479,8 +2350,7 @@
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                         <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular12"/>
+                                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular12:blackSecondaryText"/>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </label>
                                                                 </subviews>
@@ -2495,7 +2365,7 @@
                                                                     <constraint firstItem="2op-Ba-YTM" firstAttribute="top" secondItem="ZI4-Rc-va0" secondAttribute="top" id="zeI-N5-IxR"/>
                                                                 </constraints>
                                                                 <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                         </subviews>
@@ -2508,7 +2378,7 @@
                                                             <constraint firstItem="ZI4-Rc-va0" firstAttribute="leading" secondItem="pap-xz-yJo" secondAttribute="leading" id="w2Z-ey-Dhe"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
@@ -2523,7 +2393,7 @@
                                                     <constraint firstItem="4Tf-Jl-ueD" firstAttribute="top" secondItem="pap-xz-yJo" secondAttribute="bottom" constant="8" id="sN6-Fr-WQp"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
@@ -2539,13 +2409,7 @@
                                             <constraint firstAttribute="bottom" secondItem="a21-t7-ueW" secondAttribute="bottom" id="s2U-tr-uqP"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="6"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="borderColorName" value="blackDividers"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="DiscoveryCell"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
@@ -2575,7 +2439,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uTn-Se-AtA"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <size key="freeformSize" width="375" height="454"/>
@@ -2606,8 +2470,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:blackSecondaryText"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ucb-4d-ebI">
@@ -2646,9 +2509,8 @@
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                     <state key="normal" title="Button"/>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="semibold14"/>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="details"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="semibold14:linkBlueText"/>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="onDetails:" destination="IN7-Mv-bq7" eventType="touchUpInside" id="MdI-wJ-z3v"/>
@@ -2660,8 +2522,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:blackPrimaryText"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6eo-y7-aFf">
@@ -2670,8 +2531,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular12"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular12:blackSecondaryText"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sz8-O3-cyO">
@@ -2684,8 +2544,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="white"/>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold12"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="bold12:whiteText"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                     </subviews>
@@ -2719,14 +2578,7 @@
                                         <viewLayoutGuide key="safeArea" id="mgk-dQ-3x4"/>
                                         <size key="customSize" width="160" height="194"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="6"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="borderColorName" value="blackDividers"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="DiscoveryCell"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="itemImageView" destination="380-Dp-zx8" id="Rgm-Zq-gAm"/>
@@ -2764,8 +2616,7 @@
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="placepage_more_button"/>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="linkBlue"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:linkBlueText"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                     </subviews>
@@ -2789,14 +2640,7 @@
                                         </constraints>
                                         <viewLayoutGuide key="safeArea" id="eHi-E5-YdF"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="6"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="borderColorName" value="blackDividers"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="DiscoveryCell"/>
                                         </userDefinedRuntimeAttributes>
                                     </collectionViewCell>
                                 </cells>
@@ -2818,7 +2662,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bvx-lu-0o3"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <size key="freeformSize" width="375" height="247"/>
@@ -2846,7 +2690,7 @@
                                     <constraint firstAttribute="height" constant="1" id="Gxv-aX-YKX"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iB6-kj-Bi1">
@@ -2856,7 +2700,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="155"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wB7-XJ-Nck">
@@ -2868,8 +2712,7 @@
                                                 <state key="normal" title="Edit bookmark"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="placepage_edit_bookmark_button"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalTransButtonBig"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="onEdit:" destination="cB4-oj-3Tv" eventType="touchUpInside" id="1TN-b8-s90"/>
@@ -2894,7 +2737,7 @@
                                             <constraint firstItem="OUV-mg-G9u" firstAttribute="centerX" secondItem="wB7-XJ-Nck" secondAttribute="centerX" id="wyh-oj-4AU"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
@@ -2906,7 +2749,7 @@
                                     <constraint firstAttribute="height" constant="1" id="kUP-Hr-5Kg"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -2925,7 +2768,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mWF-en-dQX"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <size key="freeformSize" width="375" height="200"/>
@@ -3010,11 +2853,6 @@
     <resources>
         <image name="dialog_btn_press" width="280" height="44"/>
         <image name="icTaxiTaxi" width="40" height="40"/>
-        <image name="ic_12px_rating_bad" width="12" height="12"/>
-        <image name="ic_12px_rating_excellent" width="12" height="12"/>
-        <image name="ic_12px_rating_good" width="12" height="12"/>
-        <image name="ic_12px_rating_horrible" width="12" height="12"/>
-        <image name="ic_12px_rating_normal" width="12" height="12"/>
         <image name="ic_24px_rating_bad" width="24" height="24"/>
         <image name="ic_24px_rating_excellent" width="24" height="24"/>
         <image name="ic_24px_rating_good" width="24" height="24"/>

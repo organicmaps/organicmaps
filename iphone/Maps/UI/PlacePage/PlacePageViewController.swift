@@ -304,7 +304,7 @@ enum PlacePageState {
     }
 
     let bgView = UIView()
-    bgView.backgroundColor = UIColor.white()
+    bgView.styleName = "Background"
     stackView.insertSubview(bgView, at: 0)
     bgView.alignToSuperview()
     scrollView.decelerationRate = .fast

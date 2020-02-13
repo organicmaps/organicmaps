@@ -17,11 +17,11 @@ class InfoItemViewController: UIViewController {
     didSet {
       switch style {
       case .regular:
-        imageView?.mwm_coloring = .black
-        infoLabel?.textColor = UIColor.blackPrimaryText()
+        imageView?.styleName = "MWMBlack"
+        infoLabel?.styleName = "blackPrimaryText"
       case .link:
-        imageView?.mwm_coloring = .blue
-        infoLabel?.textColor = UIColor.linkBlue()
+        imageView?.styleName = "MWMBlue"
+        infoLabel?.styleName = "linkBlueText"
       }
     }
   }
@@ -43,8 +43,8 @@ class InfoItemViewController: UIViewController {
     super.viewDidLoad()
 
     if style == .link {
-      imageView.mwm_coloring = .blue
-      infoLabel.textColor = UIColor.linkBlue()
+      imageView.styleName = "MWMBlue"
+      infoLabel.styleName = "linkBlueText"
     }
   }
 }
@@ -176,8 +176,7 @@ class PlacePageInfoViewController: UIViewController {
   private func createLocalAdsButton(_ title: String) -> UIButton {
     let button = UIButton()
     button.setTitle(title, for: .normal)
-    button.titleLabel?.font = UIFont.regular17()
-    button.setTitleColor(UIColor.linkBlue(), for: .normal)
+    button.styleName = "FlatNormalTransButtonBig"
     button.heightAnchor.constraint(equalToConstant: 44).isActive = true
     stackView.addArrangedSubview(button)
     button.addTarget(self, action: #selector(onLocalAdsButton(_:)), for: .touchUpInside)

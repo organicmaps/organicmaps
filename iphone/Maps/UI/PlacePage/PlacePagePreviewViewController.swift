@@ -99,12 +99,10 @@ class PlacePagePreviewViewController: UIViewController {
       reviewsLabel.text = String(format:L("placepage_summary_rating_description"), ugcData.ratingsCount)
     } else {
       if ugcData.isUpdateEmpty {
-        ratingSummaryView.noValueImage = UIImage(named: "ic_12px_rating_normal")
-        ratingSummaryView.noValueColor = UIColor.blackSecondaryText()
+        ratingSummaryView.setStyleAndApply("RatingSummaryView12")
         reviewsLabel.text = ugcData.reviews.count == 0 ? L("placepage_no_reviews") : ""
       } else {
-        ratingSummaryView.noValueImage = UIImage(named: "ic_12px_radio_on")
-        ratingSummaryView.noValueColor = UIColor.linkBlue()
+        ratingSummaryView.setStyleAndApply("RatingSummaryView12User")
         reviewsLabel.text = L("placepage_reviewed")
         addReviewButton.isHidden = true
       }
