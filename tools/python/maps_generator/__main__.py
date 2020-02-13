@@ -46,7 +46,7 @@ examples = """Examples:
     For example, you changed routing code in omim project and want to regenerate maps.
     You must have previous generation. You may regenerate from stage routing only for two mwms:
     
-    python$ python3.6 -m maps_generator -c --from_stage="routing" --countries="Japan_Kinki Region_Osaka_Osaka, Japan_Chugoku Region_Tottori"
+    python$ python3.6 -m maps_generator -c --from_stage="Routing" --countries="Japan_Kinki Region_Osaka_Osaka, Japan_Chugoku Region_Tottori"
     
     Note: To generate maps with the coastline, you need more time and you need the planet to contain a continuous coastline.
 
@@ -66,7 +66,7 @@ examples = """Examples:
     ...
     
     3. Run
-    python$ python3.6 -m maps_generator --countries="Russia_Moscow" --skip="coastline"
+    python$ python3.6 -m maps_generator --countries="Russia_Moscow" --skip="Coastline"
 """
 
 

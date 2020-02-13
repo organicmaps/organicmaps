@@ -57,7 +57,7 @@ def get_stage_type(stage: Union[Type[Stage], AnyStr]):
     if isinstance(stage, str):
         if not stage.startswith("Stage"):
             stage = f"Stage{stage}"
-        getattr(sd, stage)
+        return getattr(sd, stage)
 
     return stage
 
