@@ -54,7 +54,7 @@ class EliasFanoMap : public HouseToStreetTable
 public:
   using Map = MapUint32ToValue<uint32_t>;
 
-  explicit EliasFanoMap(unique_ptr<Reader> reader) : m_reader(move(reader))
+  explicit EliasFanoMap(unique_ptr<Reader> && reader) : m_reader(move(reader))
   {
     ASSERT(m_reader, ());
     auto readBlockCallback = [](auto & source, uint32_t blockSize, vector<uint32_t> & values) {
@@ -128,7 +128,7 @@ unique_ptr<HouseToStreetTable> HouseToStreetTable::Load(MwmValue const & value)
       ASSERT(reader.GetPtr(), ("Can't get", SEARCH_ADDRESS_FILE_TAG, "section reader."));
       result = make_unique<EliasFanoMap>(unique_ptr<Reader>(reader.GetPtr()));
     }
-    if (format == version::MwmTraits::HouseToStreetTableFormat::EliasFanoMapWithHeader)
+    if (format == version::MwmTraits::HouseToStreetTableFormat::HouseToStreetTableWithHeader)
     {
       FilesContainerR::TReader reader = value.m_cont.GetReader(SEARCH_ADDRESS_FILE_TAG);
       ASSERT(reader.GetPtr(), ("Can't get", SEARCH_ADDRESS_FILE_TAG, "section reader."));
@@ -137,7 +137,7 @@ unique_ptr<HouseToStreetTable> HouseToStreetTable::Load(MwmValue const & value)
       header.Read(*reader.GetPtr());
       CHECK(header.m_version == Version::V2, (base::Underlying(header.m_version)));
 
-      auto subreader = (*reader.GetPtr()).CreateSubReader(header.m_tableOffset, header.m_tableSize);
+      auto subreader = reader.GetPtr()->CreateSubReader(header.m_tableOffset, header.m_tableSize);
       CHECK(subreader, ());
       result = make_unique<EliasFanoMap>(move(subreader));
     }
@@ -160,13 +160,13 @@ void HouseToStreetTableBuilder::Put(uint32_t houseId, uint32_t streetId)
 
 void HouseToStreetTableBuilder::Freeze(Writer & writer) const
 {
-  size_t startOffset = writer.Pos();
+  size_t const startOffset = writer.Pos();
   CHECK(coding::IsAlign8(startOffset), ());
 
   HouseToStreetTable::Header header;
   header.Serialize(writer);
 
-  uint64_t bytesWritten = writer.Pos();
+  uint64_t bytesWritten = static_cast<uint64_t>(writer.Pos());
   coding::WritePadding(writer, bytesWritten);
 
   // Each street id is encoded as delta from some prediction.

@@ -17,7 +17,7 @@ MwmTraits::SearchIndexFormat MwmTraits::GetSearchIndexFormat() const
 MwmTraits::HouseToStreetTableFormat MwmTraits::GetHouseToStreetTableFormat() const
 {
   if (GetFormat() >= version::Format::v10)
-    return HouseToStreetTableFormat::EliasFanoMapWithHeader;
+    return HouseToStreetTableFormat::HouseToStreetTableWithHeader;
 
   if (GetFormat() < version::Format::v7)
     return HouseToStreetTableFormat::Unknown;
@@ -83,8 +83,8 @@ std::string DebugPrint(MwmTraits::HouseToStreetTableFormat format)
     return "Fixed3BitsDDVector";
   case MwmTraits::HouseToStreetTableFormat::EliasFanoMap:
     return "EliasFanoMap";
-  case MwmTraits::HouseToStreetTableFormat::EliasFanoMapWithHeader:
-    return "EliasFanoMapWithHeader";
+  case MwmTraits::HouseToStreetTableFormat::HouseToStreetTableWithHeader:
+    return "HouseToStreetTableWithHeader";
   case MwmTraits::HouseToStreetTableFormat::Unknown:
     return "Unknown";
   }

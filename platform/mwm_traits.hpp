@@ -37,9 +37,8 @@ public:
     // Elias-Fano based map from feature id to corresponding street feature id.
     EliasFanoMap,
 
-    // Elias-Fano based map from feature id to corresponding street feature id
-    // with srction header and version.
-    EliasFanoMapWithHeader,
+    // Versioning is independent of MwmTraits: section format depends on the section header.
+    HouseToStreetTableWithHeader,
 
     // The format of relation is unknown. Most likely, an error has occured.
     Unknown

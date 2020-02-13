@@ -491,7 +491,6 @@ void BuildAddressTable(FilesContainerR & container, string const & addressDataFi
 
   // Flush results to disk.
   {
-    // Code corresponds to the HouseToStreetTable decoding.
     search::HouseToStreetTableBuilder builder;
     uint32_t houseToStreetCount = 0;
     for (size_t i = 0; i < results.size(); ++i)
