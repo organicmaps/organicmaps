@@ -235,9 +235,9 @@ void ParseTracks(string const & logFile, shared_ptr<NumMwmIds> const & numMwmIds
 
 void WriteCsvTableHeader(basic_ostream<char> & stream)
 {
-  stream << "user,mwm,hw type,surface type,maxspeed km/h,is city road,is one way,is day,lat lon,distance,time,"
-            "mean speed km/h,turn from smaller to bigger,turn from bigger to smaller,from link,to link,"
-            "intersection with big,intersection with small,intersection with link\n";
+  stream << "user,mwm,hw type,surface type,maxspeed km/h,is city road,is one way,is day,lat lon,"
+            "distance,time,mean speed km/h,turn from smaller to bigger,turn from bigger to smaller,"
+            "intersection with big\n";
 }
 
 void LogNameToCountMapping(string const & keyName, string const & descr,

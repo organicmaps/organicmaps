@@ -262,7 +262,7 @@ public:
         << m_totalTime << ","
         << CalcSpeedKMpH(m_totalDistance, m_totalTime) << ",";
 
-    for (size_t i = 1; i < m_crossroads.size(); ++i)
+    for (size_t i = 0; i < m_crossroads.size(); ++i)
     {
       out << m_crossroads[i];
       if (i != m_crossroads.size() - 1)
