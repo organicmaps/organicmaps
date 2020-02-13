@@ -138,4 +138,13 @@
     <attr name="subscriptionTitleColor" format="color"/>
     <attr name="subscriptionSubtitleColor" format="color"/>
   </declare-styleable>
+  
+  <declare-styleable name="ThemeAttrs.Fonts">
+    <attr name="fontHeadline1" format="reference"/>
+    <attr name="fontHeadline2" format="reference"/>
+    <attr name="fontHeadline3" format="reference"/>
+    <attr name="fontHeadline4" format="reference"/>
+    <attr name="fontHeadline5" format="reference"/>
+    <attr name="fontHeadline6" format="reference"/>
+  </declare-styleable>
 </resources>

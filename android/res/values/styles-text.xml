@@ -234,4 +234,23 @@
     <item name="android:textColor">?attr/filterPropertyTextColor</item>
     <item name="android:background">?filterPropertyBackground</item>
   </style>
+
+  <style name="Headline.H6" parent="TextAppearance.AppCompat.Title">
+    <item name="android:textSize">@dimen/text_size_h6_headline</item>
+  </style>
+  <style name="Headline.H5" parent="TextAppearance.AppCompat.Headline">
+    <item name="android:textSize">@dimen/text_size_h5_headline</item>
+  </style>
+  <style name="Headline.H4" parent="TextAppearance.AppCompat.Display1">
+    <item name="android:textSize">@dimen/text_size_h4_headline</item>
+  </style>
+  <style name="Headline.H3" parent="TextAppearance.AppCompat.Display2">
+    <item name="android:textSize">@dimen/text_size_h3_headline</item>
+  </style>
+  <style name="Headline.H2" parent="TextAppearance.AppCompat.Display3">
+    <item name="android:textSize">@dimen/text_size_h2_headline</item>
+  </style>
+  <style name="Headline.H1" parent="TextAppearance.AppCompat.Display4">
+    <item name="android:textSize">@dimen/test_size_h1_headline</item>
+  </style>
 </resources>

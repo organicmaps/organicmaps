@@ -25,6 +25,13 @@
   <dimen name="line_spacing_extra_1">4sp</dimen>
   <dimen name="line_spacing_extra_2">6sp</dimen>
 
+  <dimen name="text_size_h6_headline">20sp</dimen>
+  <dimen name="text_size_h5_headline">24sp</dimen>
+  <dimen name="text_size_h4_headline">34sp</dimen>
+  <dimen name="text_size_h3_headline">48sp</dimen>
+  <dimen name="text_size_h2_headline">60sp</dimen>
+  <dimen name="test_size_h1_headline">96sp</dimen>
+
   <!-- BASE TEXT SIZES -->
 
   <!-- -->
