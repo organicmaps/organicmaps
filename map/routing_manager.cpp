@@ -1154,7 +1154,10 @@ void RoutingManager::MatchLocationToRoute(location::GpsInfo & location,
   if (!IsRoutingActive())
     return;
 
-  m_routingSession.MatchLocationToRoute(location, routeMatchingInfo);
+  bool const matchedToRoute = m_routingSession.MatchLocationToRoute(location, routeMatchingInfo);
+
+  if (!matchedToRoute && m_currentRouterType == RouterType::Vehicle)
+    m_routingSession.MatchLocationToRoadGraph(location);
 }
 
 location::RouteMatchingInfo RoutingManager::GetRouteMatchingInfo(location::GpsInfo & info)

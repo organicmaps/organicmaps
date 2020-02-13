@@ -99,7 +99,7 @@ public:
   SessionState OnLocationPositionChanged(location::GpsInfo const & info);
   void GetRouteFollowingInfo(FollowingInfo & info) const;
 
-  void MatchLocationToRoute(location::GpsInfo & location,
+  bool MatchLocationToRoute(location::GpsInfo & location,
                             location::RouteMatchingInfo & routeMatchingInfo);
   void MatchLocationToRoadGraph(location::GpsInfo & location);
   // Get traffic speed for the current route position.

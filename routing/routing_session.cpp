@@ -550,24 +550,20 @@ void RoutingSession::MatchLocationToRoadGraph(location::GpsInfo & location)
   m_proj = proj;
 }
 
-void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
+bool RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
                                           location::RouteMatchingInfo & routeMatchingInfo)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (!IsOnRoute())
-    return;
+    return true;
 
   ASSERT(m_route, ());
 
   bool const matchedToRoute = m_route->MatchLocationToRoute(location, routeMatchingInfo);
   if (matchedToRoute)
-  {
     m_projectedToRoadGraph = false;
-    return;
-  }
 
-  // Could not match location to the route. Let's try to match to the road graph.
-  MatchLocationToRoadGraph(location);
+  return matchedToRoute;
 }
 
 traffic::SpeedGroup RoutingSession::MatchTraffic(

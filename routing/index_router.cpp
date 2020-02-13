@@ -336,7 +336,7 @@ bool IndexRouter::FindClosestProjectionToRoad(m2::PointD const & point,
   auto const rect = mercator::RectByCenterXYAndSizeInMeters(point, radius);
   std::vector<std::pair<Edge, geometry::PointWithAltitude>> candidates;
 
-  uint32_t const count = direction.IsAlmostZero() ? 1 : 3;
+  uint32_t const count = direction.IsAlmostZero() ? 1 : 4;
   m_roadGraph.FindClosestEdges(rect, count, candidates);
 
   if (candidates.empty())

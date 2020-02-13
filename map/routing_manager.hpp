@@ -337,6 +337,8 @@ private:
 
   bool IsTrackingReporterEnabled() const;
   bool IsTrackingReporterArchiveEnabled() const;
+  /// \returns false if the location could not be matched to the route and should be matched to the
+  /// road graph. Otherwise returns true.
   void MatchLocationToRoute(location::GpsInfo & info,
                             location::RouteMatchingInfo & routeMatchingInfo);
   location::RouteMatchingInfo GetRouteMatchingInfo(location::GpsInfo & info);
