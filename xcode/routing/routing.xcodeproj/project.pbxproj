@@ -139,7 +139,6 @@
 		567F81952154D6FF0093C25B /* city_roads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 567F81932154D6FF0093C25B /* city_roads.hpp */; };
 		568194751F03A32400450EC3 /* road_access_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568194731F03A32400450EC3 /* road_access_test.cpp */; };
 		568194761F03A32400450EC3 /* routing_helpers_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568194741F03A32400450EC3 /* routing_helpers_tests.cpp */; };
-		5694CECA1EBA25F7004576D3 /* road_access_serialization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694CEC51EBA25F7004576D3 /* road_access_serialization.cpp */; };
 		5694CECB1EBA25F7004576D3 /* road_access_serialization.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5694CEC61EBA25F7004576D3 /* road_access_serialization.hpp */; };
 		5694CECC1EBA25F7004576D3 /* road_access.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694CEC71EBA25F7004576D3 /* road_access.cpp */; };
 		5694CECD1EBA25F7004576D3 /* road_access.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5694CEC81EBA25F7004576D3 /* road_access.hpp */; };
@@ -472,7 +471,6 @@
 		567F81932154D6FF0093C25B /* city_roads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = city_roads.hpp; path = ../../routing/city_roads.hpp; sourceTree = "<group>"; };
 		568194731F03A32400450EC3 /* road_access_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_access_test.cpp; sourceTree = "<group>"; };
 		568194741F03A32400450EC3 /* routing_helpers_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_helpers_tests.cpp; sourceTree = "<group>"; };
-		5694CEC51EBA25F7004576D3 /* road_access_serialization.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_access_serialization.cpp; sourceTree = "<group>"; };
 		5694CEC61EBA25F7004576D3 /* road_access_serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = road_access_serialization.hpp; sourceTree = "<group>"; };
 		5694CEC71EBA25F7004576D3 /* road_access.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_access.cpp; sourceTree = "<group>"; };
 		5694CEC81EBA25F7004576D3 /* road_access.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = road_access.hpp; sourceTree = "<group>"; };
@@ -959,7 +957,6 @@
 				67C79BA01E2CEE1400C40034 /* restriction_loader.hpp */,
 				349D1CDE1E3F589900A878FD /* restrictions_serialization.cpp */,
 				349D1CDF1E3F589900A878FD /* restrictions_serialization.hpp */,
-				5694CEC51EBA25F7004576D3 /* road_access_serialization.cpp */,
 				5694CEC61EBA25F7004576D3 /* road_access_serialization.hpp */,
 				5694CEC71EBA25F7004576D3 /* road_access.cpp */,
 				5694CEC81EBA25F7004576D3 /* road_access.hpp */,
@@ -1408,7 +1405,6 @@
 				40C645161F8D167F002E05A0 /* fake_ending.cpp in Sources */,
 				56099E331CC9247E00A7772A /* bicycle_directions.cpp in Sources */,
 				0C08AA341DF83223004195DD /* index_graph_serialization.cpp in Sources */,
-				5694CECA1EBA25F7004576D3 /* road_access_serialization.cpp in Sources */,
 				674F9BD41B0A580E00704FFA /* road_graph.cpp in Sources */,
 				5631B66B219B125D009F47D4 /* maxspeeds.cpp in Sources */,
 				0C81E1571F0258AA00DC66DF /* segmented_route.cpp in Sources */,

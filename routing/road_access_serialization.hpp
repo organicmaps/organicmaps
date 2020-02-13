@@ -41,14 +41,33 @@ public:
   {
     uint32_t const header = kLatestVersion;
     WriteToSink(sink, header);
+    SerializeAccess(sink, roadAccessByType);
+  }
 
+  template <class Source>
+  static void Deserialize(Source & src, VehicleType vehicleType, RoadAccess & roadAccess)
+  {
+    uint32_t const header = ReadPrimitiveFromSource<uint32_t>(src);
+    CHECK_EQUAL(header, kLatestVersion, ());
+    DeserializeAccess(src, vehicleType, roadAccess);
+  }
+
+private:
+  inline static uint32_t const kLatestVersion = 1;
+
+  inline static std::map<VehicleType, bool> const kSupportedVehicles = {
+      {VehicleType::Pedestrian, true},
+      {VehicleType::Bicycle, true},
+      {VehicleType::Car, true},
+      {VehicleType::Transit, false}};
+
+  template <class Sink>
+  static void SerializeAccess(Sink & sink, RoadAccessByVehicleType const & roadAccessByType)
+  {
     auto const sectionSizesPos = sink.Pos();
-    std::array<uint32_t, static_cast<size_t>(VehicleType::Count)> sectionSizes;
+    std::array<uint32_t, static_cast<size_t>(VehicleType::Count)> sectionSizes = {};
     for (size_t i = 0; i < sectionSizes.size(); ++i)
-    {
-      sectionSizes[i] = 0;
-      WriteToSink(sink, sectionSizes[i]);
-    }
+      WriteToSink(sink, 0);
 
     for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
     {
@@ -60,38 +79,23 @@ public:
 
     auto const endPos = sink.Pos();
     sink.Seek(sectionSizesPos);
-    for (size_t i = 0; i < sectionSizes.size(); ++i)
-      WriteToSink(sink, sectionSizes[i]);
+    for (auto const sectionSize : sectionSizes)
+      WriteToSink(sink, sectionSize);
+
     sink.Seek(endPos);
   }
 
   template <class Source>
-  static void Deserialize(Source & src, VehicleType vehicleType, RoadAccess & roadAccess)
+  static void DeserializeAccess(Source & src, VehicleType vehicleType, RoadAccess & roadAccess)
   {
-    auto const subsectionNumberToVehicleType = [](uint32_t version, size_t subsection)
+    std::array<uint32_t, static_cast<size_t>(VehicleType::Count)> sectionSizes{};
+    for (auto & sectionSize : sectionSizes)
+      sectionSize = ReadPrimitiveFromSource<uint32_t>(src);
+
+    for (size_t i = 0; i < sectionSizes.size(); ++i)
     {
-      if (version == 0)
-      {
-        switch (subsection)
-        {
-        case 0: return VehicleType::Pedestrian;
-        case 1: return VehicleType::Bicycle;
-        case 2: return VehicleType::Car;
-        default: return VehicleType::Count;
-        }
-      }
-      return static_cast<VehicleType>(subsection);
-    };
-
-    uint32_t const header = ReadPrimitiveFromSource<uint32_t>(src);
-
-    std::vector<uint32_t> sectionSizes;
-    for (size_t i = 0; subsectionNumberToVehicleType(header, i) < VehicleType::Count; ++i)
-      sectionSizes.push_back(ReadPrimitiveFromSource<uint32_t>(src));
-
-    for (size_t i = 0; subsectionNumberToVehicleType(header, i) < VehicleType::Count; ++i)
-    {
-      if (vehicleType != subsectionNumberToVehicleType(header, i))
+      auto const sectionVehicleType = static_cast<VehicleType>(i);
+      if (!kSupportedVehicles.at(vehicleType) || sectionVehicleType != vehicleType)
       {
         src.Skip(sectionSizes[i]);
         continue;
@@ -105,7 +109,6 @@ public:
     }
   }
 
-private:
   template <typename Sink>
   static void SerializeOneVehicleType(Sink & sink, RoadAccessTypesFeatureMap const & mf,
                                       RoadAccessTypesPointMap const & mp)
@@ -238,7 +241,5 @@ private:
     for (size_t i = 0; i < n; ++i)
       segments.emplace_back(kFakeNumMwmId, featureIds[i], segmentIndices[i], isForward[i]);
   }
-
-  uint32_t static const kLatestVersion;
 };
 }  // namespace routing
