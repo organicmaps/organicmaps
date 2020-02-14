@@ -40,7 +40,10 @@ public class ElevationProfileBottomSheetController implements PlacePageControlle
     @Override
     public void onSheetDirectionIconChange()
     {
-      // TODO: coming soon;
+      if (UiUtils.isLandscape(mActivity))
+        return;
+
+      PlacePageUtils.setPullDrawable(mSheetBehavior, mSheet, R.id.pull_icon);
     }
 
     @Override
@@ -78,6 +81,8 @@ public class ElevationProfileBottomSheetController implements PlacePageControlle
   private final AnchorBottomSheetBehavior.BottomSheetCallback mSheetCallback
       = new DefaultBottomSheetCallback(mBottomSheetChangedListener);
 
+  private boolean mDeactivateMapSelection;
+
   ElevationProfileBottomSheetController(@NonNull Activity activity,
                                         @NonNull SlideListener slideListener)
   {
@@ -89,12 +94,16 @@ public class ElevationProfileBottomSheetController implements PlacePageControlle
   public void openFor(@NonNull MapObject object)
   {
     mMapObject = object;
-    mSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_COLLAPSED);
+    if (mSheetBehavior.getSkipCollapsed())
+      mSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_EXPANDED);
+    else
+      mSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_COLLAPSED);
   }
 
   @Override
-  public void close()
+  public void close(boolean deactivateMapSelection)
   {
+    mDeactivateMapSelection = deactivateMapSelection;
     mSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_HIDDEN);
   }
 
@@ -154,10 +163,6 @@ public class ElevationProfileBottomSheetController implements PlacePageControlle
     mViewPortMinWidth = mSheet.getResources().getDimensionPixelSize(R.dimen.viewport_min_width);
     mSheetBehavior = AnchorBottomSheetBehavior.from(mSheet);
     mSheetBehavior.addBottomSheetCallback(mSheetCallback);
-    mSheetBehavior.setPeekHeight(mSheet.getResources()
-                                       .getDimensionPixelSize(R.dimen.elevation_profile_peek_height));
-    if (UiUtils.isLandscape(mActivity))
-      mSheetBehavior.setSkipCollapsed(true);
   }
 
   @Override
@@ -180,7 +185,7 @@ public class ElevationProfileBottomSheetController implements PlacePageControlle
 
     if (!Framework.nativeHasPlacePageInfo())
     {
-      close();
+      close(false);
       return;
     }
 
@@ -189,19 +194,38 @@ public class ElevationProfileBottomSheetController implements PlacePageControlle
       return;
 
     mMapObject = object;
-    // TODO: probably the state should be restored as well.
+    if (UiUtils.isLandscape(mActivity))
+    {
+      // In case when bottom sheet was collapsed for vertical orientation then after rotation
+      // we should expand bottom sheet forcibly for horizontal orientation. It's by design.
+      if (!PlacePageUtils.isHiddenState(mSheetBehavior.getState()))
+      {
+        mSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_EXPANDED);
+      }
+      return;
+    }
+
     PlacePageUtils.setPullDrawable(mSheetBehavior, mSheet, R.id.pull_icon);
   }
 
   private void onHiddenInternal()
   {
+    if (mDeactivateMapSelection)
+      Framework.nativeDeactivatePopup();
+    mDeactivateMapSelection = false;
     if (UiUtils.isLandscape(mActivity))
     {
       PlacePageUtils.moveViewPortRight(mSheet, mViewPortMinWidth);
       return;
     }
 
-    Framework.nativeDeactivatePopup();
     PlacePageUtils.moveViewportUp(mSheet, mViewportMinHeight);
+  }
+
+  @Override
+  public boolean support(MapObject object)
+  {
+    // TODO: only for tests.
+    return object.getTitle().equals("Петровский Путевой Дворец");
   }
 }

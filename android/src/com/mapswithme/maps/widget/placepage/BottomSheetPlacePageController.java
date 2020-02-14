@@ -133,9 +133,13 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
   private final AnchorBottomSheetBehavior.BottomSheetCallback mSheetCallback
       = new DefaultBottomSheetCallback(mBottomSheetChangedListener);
 
+  private boolean mDeactivateMapSelection;
+
   private void onHiddenInternal()
   {
-    Framework.nativeDeactivatePopup();
+    if (mDeactivateMapSelection)
+      Framework.nativeDeactivatePopup();
+    mDeactivateMapSelection = false;
     PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
     UiUtils.invisible(mButtonsLayout);
     mPlacePageTracker.onHidden();
@@ -214,7 +218,7 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
     mToolbar = mActivity.findViewById(R.id.pp_toolbar);
     UiUtils.extendViewWithStatusBar(mToolbar);
     UiUtils.showHomeUpButton(mToolbar);
-    mToolbar.setNavigationOnClickListener(v -> close());
+    mToolbar.setNavigationOnClickListener(v -> close(true));
     mPlacePage = mActivity.findViewById(R.id.placepage);
     mPlacePageBehavior = AnchorBottomSheetBehavior.from(mPlacePage);
     mPlacePageBehavior.addBottomSheetCallback(mSheetCallback);
@@ -387,8 +391,9 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
   }
 
   @Override
-  public void close()
+  public void close(boolean deactivateMapSelection)
   {
+    mDeactivateMapSelection = deactivateMapSelection;
     mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_HIDDEN);
     mPlacePage.reset();
   }
@@ -457,7 +462,7 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
 
     if (!Framework.nativeHasPlacePageInfo())
     {
-      close();
+      close(false);
       return;
     }
 
@@ -560,7 +565,14 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
   @Override
   public void closePlacePage()
   {
-    close();
+    close(true);
+  }
+
+  @Override
+  public boolean support(MapObject object)
+  {
+    // TODO: only for tests.
+    return !object.getTitle().equals("Петровский Путевой Дворец");
   }
 
   private class PlacePageGestureListener extends GestureDetector.SimpleOnGestureListener

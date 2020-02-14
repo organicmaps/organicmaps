@@ -6,12 +6,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.base.Savable;
+import com.mapswithme.maps.base.Supportable;
 
 public interface PlacePageController<T> extends Initializable, Savable<Bundle>,
-                                             Application.ActivityLifecycleCallbacks
+                                                Application.ActivityLifecycleCallbacks,
+                                                Supportable<T>
 {
   void openFor(@NonNull T object);
-  void close();
+  void close(boolean deactivateMapSelection);
   boolean isClosed();
 
   interface SlideListener
