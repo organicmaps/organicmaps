@@ -18,46 +18,6 @@
 
 namespace
 {
-class FeatureIdBuilder
-{
-public:
-  FeatureID Build(JNIEnv * env, jobject obj)
-  {
-    Init(env);
-
-    jstring jcountryName = static_cast<jstring>(env->GetObjectField(obj, m_countryName));
-    jint jindex = env->GetIntField(obj, m_index);
-
-    auto const countryName = jni::ToNativeString(env, jcountryName);
-    auto const index = static_cast<uint32_t>(jindex);
-
-    auto const & ds = g_framework->GetDataSource();
-    auto const id = ds.GetMwmIdByCountryFile(platform::CountryFile(countryName));
-    return FeatureID(id, index);
-  }
-
-private:
-  void Init(JNIEnv * env)
-  {
-    if (m_initialized)
-      return;
-
-    m_class = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/FeatureId");
-    m_countryName = env->GetFieldID(m_class, "mMwmName", "Ljava/lang/String;");
-    m_version = env->GetFieldID(m_class, "mMwmVersion", "J");
-    m_index = env->GetFieldID(m_class, "mFeatureIndex", "I");
-
-    m_initialized = true;
-  }
-
-  bool m_initialized = false;
-
-  jclass m_class;
-  jfieldID m_countryName;
-  jfieldID m_version;
-  jfieldID m_index;
-} g_builder;
-
 class JavaBridge
 {
 public:
@@ -270,7 +230,7 @@ JNIEXPORT
 void JNICALL Java_com_mapswithme_maps_ugc_UGC_nativeRequestUGC(JNIEnv * env, jclass /* clazz */,
                                                                jobject featureId)
 {
-  auto const fid = g_builder.Build(env, featureId);
+  auto const fid = g_framework->BuildFeatureId(env, featureId);
   g_framework->RequestUGC(fid, [](ugc::UGC const & ugc, ugc::UGCUpdate const & update) {
     g_bridge.OnUGCReceived(jni::GetEnv(), ugc, update);
   });
@@ -281,7 +241,7 @@ void JNICALL Java_com_mapswithme_maps_ugc_UGC_nativeSetUGCUpdate(JNIEnv * env, j
                                                                  jobject featureId,
                                                                  jobject ugcUpdate)
 {
-  auto const fid = g_builder.Build(env, featureId);
+  auto const fid = g_framework->BuildFeatureId(env, featureId);
   ugc::UGCUpdate update = g_bridge.ToNativeUGCUpdate(env, ugcUpdate);
   g_framework->SetUGCUpdate(fid, update, [](ugc::Storage::SettingResult const & result) {
     g_bridge.OnUGCSaved(jni::GetEnv(), result);

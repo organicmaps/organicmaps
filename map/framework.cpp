@@ -1136,17 +1136,20 @@ void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation
   ShowRect(rect, -1 /* maxScale */, animation);
 }
 
-void Framework::ShowFeatureByMercator(m2::PointD const & pt)
+void Framework::ShowFeature(FeatureID const & featureId)
 {
   StopLocationFollow();
 
   place_page::BuildInfo info;
-  info.m_mercator = pt;
+  info.m_featureId = featureId;
+  info.m_match = place_page::BuildInfo::Match::FeatureOnly;
   m_currentPlacePageInfo = BuildPlacePageInfo(info);
+
   if (m_drapeEngine != nullptr)
   {
-    m_drapeEngine->SetModelViewCenter(pt, scales::GetUpperComfortScale(), true /* isAnim */,
-                                      true /* trackVisibleViewport */);
+    auto const pt = m_currentPlacePageInfo->GetMercator();
+    auto const scale = scales::GetUpperComfortScale();
+    m_drapeEngine->SetModelViewCenter(pt, scale, true /* isAnim */, true /* trackVisibleViewport */);
   }
   ActivateMapSelection(m_currentPlacePageInfo);
 }
@@ -3124,20 +3127,18 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
       auto const features = FindFeaturesByIndex(index);
       for (auto const & fid : features)
       {
-        FeaturesLoaderGuard guard(m_featuresFetcher.GetDataSource(), fid.m_mwmId);
-        auto ft = guard.GetFeatureByIndex(fid.m_index);
-        if (!ft)
+        if (!fid.IsValid())
           continue;
 
         // Show the first feature on the map.
         if (!isShown)
         {
-          ShowFeatureByMercator(feature::GetCenter(*ft));
+          ShowFeature(fid);
           isShown = true;
         }
 
         // Log found features.
-        LOG(LINFO, ("Feature found:", fid, mercator::ToLatLon(feature::GetCenter(*ft))));
+        LOG(LINFO, ("Feature found:", fid));
       }
     }
     return true;

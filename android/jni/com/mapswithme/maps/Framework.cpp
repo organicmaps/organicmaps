@@ -4,6 +4,7 @@
 #include "com/mapswithme/opengl/androidoglcontextfactory.hpp"
 #include "com/mapswithme/platform/Platform.hpp"
 #include "com/mapswithme/util/NetworkPolicy.hpp"
+#include "com/mapswithme/util/FeatureIdBuilder.hpp"
 #include "com/mapswithme/vulkan/android_vulkan_context_factory.hpp"
 
 #include "map/chart_generator.hpp"
@@ -873,6 +874,13 @@ void Framework::OnPowerSchemeChanged(power_management::Scheme const actualScheme
 {
   // Dummy
   // TODO: provide information for UI Properties.
+}
+
+FeatureID Framework::BuildFeatureId(JNIEnv * env, jobject featureId)
+{
+  static FeatureIdBuilder const builder(env);
+
+  return builder.Build(env, featureId);
 }
 }  // namespace android
 
@@ -1963,7 +1971,6 @@ Java_com_mapswithme_maps_Framework_nativeGetPhoneAuthUrl(JNIEnv * env, jclass, j
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetDefaultAuthHeaders(JNIEnv * env, jobject)
 {
-  auto const & bm = frm()->GetBookmarkManager();
   return jni::ToKeyValueArray(env, web_api::GetDefaultAuthHeaders());
 }
 
@@ -1980,10 +1987,12 @@ Java_com_mapswithme_maps_Framework_nativeGetTermsOfUseLink(JNIEnv * env, jclass)
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeShowFeatureByLatLon(JNIEnv * env, jclass,
-                                                             jdouble lat, jdouble lon)
+Java_com_mapswithme_maps_Framework_nativeShowFeature(JNIEnv * env, jclass, jobject featureId)
 {
-  frm()->ShowFeatureByMercator(mercator::FromLatLon(ms::LatLon(lat, lon)));
+  auto const f = g_framework->BuildFeatureId(env, featureId);
+
+  if (f.IsValid())
+    frm()->ShowFeature(f);
 }
 
 JNIEXPORT void JNICALL

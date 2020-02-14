@@ -1,5 +1,5 @@
 #include <jni.h>
-#include <android/jni/com/mapswithme/maps/Framework.hpp>
+#include "com/mapswithme/maps/Framework.hpp"
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "com/mapswithme/platform/Platform.hpp"
 

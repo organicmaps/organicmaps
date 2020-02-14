@@ -18,6 +18,7 @@ import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.auth.AuthorizationListener;
 import com.mapswithme.maps.background.NotificationCandidate;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
+import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.DownloaderPromoBanner;
 import com.mapswithme.maps.gdpr.UserBindingListener;
@@ -493,7 +494,7 @@ public class Framework
   @NonNull
   public static native String nativeGetTermsOfUseLink();
 
-  public static native void nativeShowFeatureByLatLon(double lat, double lon);
+  public static native void nativeShowFeature(@NonNull FeatureId featureId);
   public static native void nativeShowBookmarkCategory(long cat);
 
   private static native int nativeGetFilterRating(float rawRating);

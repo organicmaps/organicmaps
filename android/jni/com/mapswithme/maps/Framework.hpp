@@ -22,14 +22,15 @@
 #include "partners_api/promo_api.hpp"
 #include "partners_api/utm.hpp"
 
+#include "indexer/feature_decl.hpp"
+#include "indexer/map_style.hpp"
+
 #include "platform/country_defines.hpp"
 #include "platform/location.hpp"
 
 #include "geometry/avg_vector.hpp"
 
 #include "base/timer.hpp"
-
-#include "indexer/map_style.hpp"
 
 #include <cstdint>
 #include <map>
@@ -227,6 +228,8 @@ namespace android
     // PowerManager::Subscriber overrides:
     void OnPowerFacilityChanged(power_management::Facility const facility, bool enabled) override;
     void OnPowerSchemeChanged(power_management::Scheme const actualScheme) override;
+
+    FeatureID BuildFeatureId(JNIEnv * env, jobject featureId);
   };
 }
 

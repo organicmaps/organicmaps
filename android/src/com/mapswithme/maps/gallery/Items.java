@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.search.Popularity;
 import com.mapswithme.maps.search.SearchResult;
 
@@ -133,6 +134,15 @@ public class Items
         return null;
 
       return mResult.description.featureType;
+    }
+
+    @NonNull
+    public FeatureId getFeatureId()
+    {
+      if (mResult.description == null)
+        return FeatureId.EMPTY;
+
+      return mResult.description.featureId == null ? FeatureId.EMPTY : mResult.description.featureId;
     }
 
     @NonNull

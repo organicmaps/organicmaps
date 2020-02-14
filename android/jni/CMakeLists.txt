@@ -22,6 +22,7 @@ set(
   SRC
   # JNI headers
   ../../private.h
+  com/mapswithme/util/FeatureIdBuilder.hpp
   com/mapswithme/core/jni_helper.hpp
   com/mapswithme/core/logging.hpp
   com/mapswithme/core/ScopedEnv.hpp

@@ -4,10 +4,10 @@
 
 #include "ScopedLocalRef.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include "base/buffer_vector.hpp"
 #include "base/logging.hpp"
-
-#include "geometry/point2d.hpp"
 
 #include <iterator>
 #include <memory>
