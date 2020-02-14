@@ -14,10 +14,13 @@ public:
   bool Parse(std::string const & url, double & outLat, double & outLon, std::string & outName, double & outZoomLevel);
 
 protected:
+  bool ParseAfterPrefix(std::string const & url, size_t from, double & outLat, double & outLon,
+                        std::string & outName, double & outZoomLevel);
+
   uint8_t DecodeBase64Char(char const c);
   static double DecodeZoom(uint8_t const zoomByte);
-  void DecodeLatLon(std::string const & url, double & lat, double & lon);
-  void DecodeLatLonToInt(std::string const & url, int & lat, int & lon, size_t const bytes);
+  bool DecodeLatLon(std::string const & s, double & lat, double & lon);
+  bool DecodeLatLonToInt(std::string const & s, int & lat, int & lon);
   double DecodeLatFromInt(int const lat, int const maxValue);
   double DecodeLonFromInt(int const lon, int const maxValue);
   std::string DecodeName(std::string name);

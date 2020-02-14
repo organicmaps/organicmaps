@@ -171,6 +171,11 @@ UNIT_TEST(LatLonDecoding)
   TestSuccess("ge0://B_________/Name", 90, 179.999999, 4.25, "Name");
   TestSuccess("ge0://Bqqqqqqqqq/Name", 90, -180, 4.25, "Name");
   TestSuccess("ge0://BAAAAAAAAA/Name", -90, -180, 4.25, "Name");
+  TestFailure("ge0://Byqqqqqqq/Name");
+  TestFailure("ge0://Byqqqqqqq/");
+  TestFailure("ge0://Byqqqqqqq");
+  TestFailure("ge0://B");
+  TestFailure("ge0://");
 }
 
 UNIT_TEST(NameDecoding)
@@ -196,6 +201,12 @@ UNIT_TEST(NameDecoding)
       "ge0://AwAAAAAAAA/"
       "\xd1\x81\xd1\x82\xd1\x80\xd0\xbe\xd0\xba\xd0\xb0_\xd0\xb2_\xd1\x8e\xd1\x82\xd1\x84-8",
       0, 0, 4, "строка в ютф-8");
+
+  TestSuccess("ge0://AwAAAAAAAA/", 0, 0, 4, "");
+  TestSuccess("ge0://AwAAAAAAAA/s", 0, 0, 4, "s");
+
+  TestFailure("ge0://AwAAAAAAAAs");
+  TestFailure("ge0://AwAAAAAAAAss");
 
   {
     auto const name =
@@ -288,5 +299,25 @@ UNIT_TEST(ClippedName)
   TestSuccess("ge0://AwAAAAAAAA/S"          , 0, 0, 4, "S");
   TestSuccess("ge0://AwAAAAAAAA/"           , 0, 0, 4, "");
   TestSuccess("ge0://AwAAAAAAAA"            , 0, 0, 4, "");
+}
+
+UNIT_TEST(Bad_Base64)
+{
+  TestSuccess("ge0://Byqqqqqqqq", 45, 0, 4.25, "");
+  TestFailure("ge0://Byqqqqqqq");
+  TestFailure("ge0://Byqqqqqqq\xEE");
+}
+
+UNIT_TEST(OtherPrefixes)
+{
+  TestSuccess("http://ge0.me/Byqqqqqqqq/Name", 45, 0, 4.25, "Name");
+  TestSuccess("https://ge0.me/Byqqqqqqqq/Name", 45, 0, 4.25, "Name");
+  TestFailure("http://ge1.me/Byqqqqqqqq/Name");
+  TestSuccess("http://ge0.me/AwAAAAAAAA/Super%5fPoi", 0, 0, 4, "Super Poi");
+  TestSuccess("https://ge0.me/AwAAAAAAAA/Super%5fPoi", 0, 0, 4, "Super Poi");
+  TestFailure("https://ge1.me/AwAAAAAAAA/Super%5fPoi");
+
+  TestSuccess("https://ge0.me/Byqqqqqqqq", 45, 0, 4.25, "");
+  TestFailure("https://ge0.me/Byqqqqqqq");
 }
 }  // namespace ge0

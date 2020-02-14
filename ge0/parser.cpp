@@ -2,10 +2,11 @@
 
 #include "ge0/url_generator.hpp"
 
-#include "geometry/mercator.hpp"
-
 #include "coding/url.hpp"
 
+#include "geometry/mercator.hpp"
+
+#include "base/assert.hpp"
 #include "base/math.hpp"
 #include "base/string_utils.hpp"
 
@@ -28,7 +29,7 @@ Ge0Parser::Ge0Parser()
 
 bool Ge0Parser::Parse(string const & url, double & outLat, double & outLon, std::string & outName, double & outZoomLevel)
 {
-  // URL format:
+  // Original URL format:
   //
   //       +------------------  1 byte: zoom level
   //       |+-------+---------  9 bytes: lat,lon
@@ -36,30 +37,51 @@ bool Ge0Parser::Parse(string const & url, double & outLat, double & outLon, std:
   //       ||       | |  |
   // ge0://ZCoordba64/Name
 
-  const int ZOOM_POSITION = 6;
-  const int LATLON_POSITION = ZOOM_POSITION + 1;
-  const int NAME_POSITON_IN_URL = 17;
-  const int LATLON_LENGTH = NAME_POSITON_IN_URL - LATLON_POSITION - 1;
-  const size_t MAX_NAME_LENGTH = 256;
+  // Alternative format (differs only in the prefix):
+  // http://ge0.me/ZCoordba64/Name
 
-  if (url.size() < 16 || !strings::StartsWith(url, "ge0://"))
+  for (string const & prefix : {"ge0://", "http://ge0.me/", "https://ge0.me/"})
+  {
+    if (strings::StartsWith(url, prefix))
+      return ParseAfterPrefix(url, prefix.size(), outLat, outLon, outName, outZoomLevel);
+  }
+
+  return false;
+}
+
+bool Ge0Parser::ParseAfterPrefix(string const & url, size_t from, double & outLat, double & outLon,
+                                 std::string & outName, double & outZoomLevel)
+{
+  size_t const kEncodedZoomAndCoordinatesLength = 10;
+  if (url.size() < from + kEncodedZoomAndCoordinatesLength)
     return false;
 
-  uint8_t const zoomI = DecodeBase64Char(url[ZOOM_POSITION]);
-  if (zoomI > 63)
+  size_t const kMaxNameLength = 256;
+
+  size_t const posZoom = from;
+  size_t const posLatLon = posZoom + 1;
+  size_t const posName = from + kEncodedZoomAndCoordinatesLength + 1;
+  size_t const lengthLatLon = posName - posLatLon - 1;
+
+  uint8_t const zoomI = DecodeBase64Char(url[posZoom]);
+  if (zoomI >= 64)
     return false;
   outZoomLevel = DecodeZoom(zoomI);
 
-  DecodeLatLon(url.substr(LATLON_POSITION, LATLON_LENGTH), outLat, outLon);
+  if (!DecodeLatLon(url.substr(posLatLon, lengthLatLon), outLat, outLon))
+    return false;
 
   ASSERT(mercator::ValidLon(outLon), (outLon));
   ASSERT(mercator::ValidLat(outLat), (outLat));
 
-  if (url.size() >= NAME_POSITON_IN_URL)
+  if (url.size() >= posName)
   {
-    outName = DecodeName(
-        url.substr(NAME_POSITON_IN_URL, min(url.size() - NAME_POSITON_IN_URL, MAX_NAME_LENGTH)));
+    CHECK_GREATER(posName, 0, ());
+    if (url[posName - 1] != '/')
+      return false;
+    outName = DecodeName(url.substr(posName, min(url.size() - posName, kMaxNameLength)));
   }
+
   return true;
 }
 
@@ -74,28 +96,36 @@ double Ge0Parser::DecodeZoom(uint8_t const zoomByte)
   return static_cast<double>(zoomByte) / 4 + 4;
 }
 
-void Ge0Parser::DecodeLatLon(string const & url, double & lat, double & lon)
+bool Ge0Parser::DecodeLatLon(string const & s, double & lat, double & lon)
 {
-  int latInt = 0, lonInt = 0;
-  DecodeLatLonToInt(url, latInt, lonInt, url.size());
+  int latInt = 0;
+  int lonInt = 0;
+  if (!DecodeLatLonToInt(s, latInt, lonInt))
+    return false;
+
   lat = DecodeLatFromInt(latInt, (1 << kMaxCoordBits) - 1);
   lon = DecodeLonFromInt(lonInt, (1 << kMaxCoordBits) - 1);
+  return true;
 }
 
-void Ge0Parser::DecodeLatLonToInt(string const & url, int & lat, int & lon, size_t const bytes)
+bool Ge0Parser::DecodeLatLonToInt(string const & s, int & lat, int & lon)
 {
   int shift = kMaxCoordBits - 3;
-  for (size_t i = 0; i < bytes; ++i, shift -= 3)
+  for (size_t i = 0; i < s.size(); ++i, shift -= 3)
   {
-    const uint8_t a = DecodeBase64Char(url[i]);
-    const int lat1 = (((a >> 5) & 1) << 2 | ((a >> 3) & 1) << 1 | ((a >> 1) & 1));
-    const int lon1 = (((a >> 4) & 1) << 2 | ((a >> 2) & 1) << 1 | (a & 1));
+    uint8_t const a = DecodeBase64Char(s[i]);
+    if (a >= 64)
+      return false;
+
+    int const lat1 = (((a >> 5) & 1) << 2 | ((a >> 3) & 1) << 1 | ((a >> 1) & 1));
+    int const lon1 = (((a >> 4) & 1) << 2 | ((a >> 2) & 1) << 1 | (a & 1));
     lat |= lat1 << shift;
     lon |= lon1 << shift;
   }
-  const double middleOfSquare = 1 << (3 * (kMaxPointBytes - bytes) - 1);
+  double const middleOfSquare = 1 << (3 * (kMaxPointBytes - s.size()) - 1);
   lat += middleOfSquare;
   lon += middleOfSquare;
+  return true;
 }
 
 double Ge0Parser::DecodeLatFromInt(int const lat, int const maxValue)
