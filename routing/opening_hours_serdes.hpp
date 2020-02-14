@@ -106,6 +106,9 @@ public:
   void SetSerializeEverything() { m_serializeEverything = true; }
 
   template <typename Writer>
+  bool Serialize(BitWriter<Writer> & writer, osmoh::OpeningHours const & openingHours);
+
+  template <typename Writer>
   bool Serialize(BitWriter<Writer> & writer, std::string const & openingHoursString);
 
   template <typename Reader>
@@ -116,6 +119,11 @@ private:
   inline static uint16_t constexpr kYearBias = 2000;
 
   bool IsTwentyFourHourRule(osmoh::RuleSequence const & rule) const;
+
+  template <typename Writer>
+  bool SerializeImpl(BitWriter<Writer> & writer, osmoh::OpeningHours const & openingHours);
+
+  bool IsSerializable(osmoh::OpeningHours const & openingHours);
 
   std::vector<osmoh::RuleSequence> DecomposeOh(osmoh::OpeningHours const & oh);
   Header CreateHeader(osmoh::RuleSequence const & rule) const;
@@ -162,15 +170,32 @@ OpeningHoursSerDes::Header OpeningHoursSerDes::Header::Deserialize(BitReader<Rea
 // OpeningHoursSerDes ------------------------------------------------------------------------------
 template <typename Writer>
 bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer,
+                                   osmoh::OpeningHours const & openingHours)
+{
+  if (!IsSerializable(openingHours))
+    return false;
+
+  return SerializeImpl(writer, openingHours);
+}
+
+template <typename Writer>
+bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer,
                                    std::string const & openingHoursString)
 {
-  CheckSupportedFeatures();
-
   osmoh::OpeningHours const oh(openingHoursString);
   if (!oh.IsValid())
     return false;
 
-  std::vector<osmoh::RuleSequence> decomposedRules = DecomposeOh(oh);
+  return OpeningHoursSerDes::Serialize(writer, oh);
+}
+
+template <typename Writer>
+bool OpeningHoursSerDes::SerializeImpl(BitWriter<Writer> & writer,
+                                       osmoh::OpeningHours const & openingHours)
+{
+  CheckSupportedFeatures();
+
+  std::vector<osmoh::RuleSequence> decomposedRules = DecomposeOh(openingHours);
   if (decomposedRules.empty())
     return false;
 

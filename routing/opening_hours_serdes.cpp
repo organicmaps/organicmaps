@@ -1,5 +1,7 @@
 #include "routing/opening_hours_serdes.hpp"
 
+#include "coding/writer.hpp"
+
 #include "base/assert.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
@@ -338,5 +340,15 @@ bool OpeningHoursSerDes::IsTwentyFourHourRule(osmoh::RuleSequence const & rule) 
          rule.GetMonths().empty() && rule.GetTimes().size() == 1 &&
          rule.GetTimes().back().GetStart() == kTwentyFourHourStart &&
          rule.GetTimes().back().GetEnd() == kTwentyFourHourEnd;
+}
+
+
+bool OpeningHoursSerDes::IsSerializable(osmoh::OpeningHours const & openingHours)
+{
+  std::vector<uint8_t> buffer;
+  MemWriter memWriter(buffer);
+  BitWriter tmpBitWriter(memWriter);
+
+  return SerializeImpl(tmpBitWriter, openingHours);
 }
 }  // namespace routing
