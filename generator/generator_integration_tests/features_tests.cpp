@@ -92,20 +92,20 @@ CountryFeaturesCounters constexpr kWorldCounters(945 /* fbs */, 364406 /* geomet
                                                  0 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kNorthAucklandCounters(
-    1811974 /* fbs */, 12194844 /* geometryPoints */, 1007482 /* point */, 205377 /* line */,
-    599115 /* area */, 212341 /* poi */, 521 /* cityTownOrVillage */, 3557 /* bookingHotels */);
+    1812099 /* fbs */, 12196602 /* geometryPoints */, 1007482 /* point */, 205502 /* line */,
+    599115 /* area */, 212466 /* poi */, 521 /* cityTownOrVillage */, 3557 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kNorthWellingtonCounters(
-    797735 /* fbs */, 7771504 /* geometryPoints */, 460522 /* point */, 86937 /* line */,
-    250276 /* area */, 95819 /* poi */, 297 /* cityTownOrVillage */, 1062 /* bookingHotels */);
+    797745 /* fbs */, 7771644 /* geometryPoints */, 460522 /* point */, 86947 /* line */,
+    250276 /* area */, 95829 /* poi */, 297 /* cityTownOrVillage */, 1062 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kSouthCanterburyCounters(
-    637099 /* fbs */, 6983176 /* geometryPoints */, 397947 /* point */, 81566 /* line */,
-    157586 /* area */, 89535 /* poi */, 331 /* cityTownOrVillage */, 2085 /* bookingHotels */);
+    637194 /* fbs */, 6984528 /* geometryPoints */, 397947 /* point */, 81661 /* line */,
+    157586 /* area */, 89630 /* poi */, 331 /* cityTownOrVillage */, 2085 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kSouthSouthlandCounters(
-    340609 /* fbs */, 5342304 /* geometryPoints */, 185986 /* point */, 40097 /* line */,
-    114526 /* area */, 40647 /* poi */, 297 /* cityTownOrVillage */, 1621 /* bookingHotels */);
+    340612 /* fbs */, 5342351 /* geometryPoints */, 185986 /* point */, 40100 /* line */,
+    114526 /* area */, 40650 /* poi */, 297 /* cityTownOrVillage */, 1621 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kSouthSouthlandMixedNodesCounters(
     2 /* fbs */, 2 /* geometryPoints */, 2 /* point */, 0 /* line */, 0 /* area */, 0 /* poi */,
