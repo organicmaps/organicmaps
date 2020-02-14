@@ -2,16 +2,17 @@
 <LinearLayout
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/elevation_profile"
-  android:layout_width="200dp"
+  android:layout_width="@dimen/place_page_width"
   android:layout_height="wrap_content"
-  android:minHeight="200dp"
-  android:background="@color/base_accent"
+  android:paddingStart="@dimen/margin_base"
+  android:paddingEnd="@dimen/margin_base"
+  android:paddingTop="@dimen/margin_base"
+  android:background="?cardBackground"
   app:behavior_defaultState="hidden"
-  app:behavior_hideable="true"
-  app:behavior_skipAnchored="true"
   app:behavior_skipCollapsed="true"
+  app:behavior_hideable="true"
   app:layout_behavior="@string/placepage_behavior"
-  android:orientation="vertical"
-  tools:showIn="@layout/activity_map" />
+  android:orientation="vertical">
+  <include layout="@layout/elevation_profile_internal" />
+</LinearLayout>

@@ -45,7 +45,7 @@
   <dimen name="search_item_height">56dp</dimen>
   <dimen name="search_box_height">56dp</dimen>
 
-  <dimen name="place_page_width">360dp</dimen>
+  <dimen name="place_page_width">320dp</dimen>
   <dimen name="place_page_buttons_height">56dp</dimen>
 
   <dimen name="downloader_status_size">40dp</dimen>
@@ -82,6 +82,7 @@
   <dimen name="viewport_min_height">100dp</dimen>
   <dimen name="viewport_min_width">300dp</dimen>
   <dimen name="elevation_profile_peek_height">269dp</dimen>
+  <dimen name="elevation_profile_chart_min_height">144dp</dimen>
 
   <!-- routing layout -->
   <dimen name="routing_info_height">48dp</dimen>
