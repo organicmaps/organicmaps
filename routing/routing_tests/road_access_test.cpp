@@ -54,7 +54,6 @@ UNIT_TEST(RoadAccess_Serialization)
     MemReader memReader(buf.data(), buf.size());
     ReaderSource<MemReader> src(memReader);
     RoadAccessSerializer::Deserialize(src, VehicleType::Car, deserializedRoadAccess);
-    TEST_EQUAL(src.Size(), 0, ());
 
     TEST_EQUAL(roadAccessCar, deserializedRoadAccess, ());
   }
@@ -65,7 +64,6 @@ UNIT_TEST(RoadAccess_Serialization)
     MemReader memReader(buf.data(), buf.size());
     ReaderSource<MemReader> src(memReader);
     RoadAccessSerializer::Deserialize(src, VehicleType::Pedestrian, deserializedRoadAccess);
-    TEST_EQUAL(src.Size(), 0, ());
 
     TEST_EQUAL(roadAccessPedestrian, deserializedRoadAccess, ());
   }
