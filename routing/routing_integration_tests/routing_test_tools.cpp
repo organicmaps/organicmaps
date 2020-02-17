@@ -6,8 +6,6 @@
 
 #include "map/features_fetcher.hpp"
 
-#include "storage/routing_helpers.hpp"
-
 #include "routing/index_router.hpp"
 #include "routing/online_absent_fetcher.hpp"
 #include "routing/online_cross_fetcher.hpp"
@@ -15,9 +13,12 @@
 #include "routing/router_delegate.hpp"
 #include "routing/routing_callbacks.hpp"
 
+#include "storage/country_parent_getter.hpp"
+#include "storage/routing_helpers.hpp"
+
 #include "indexer/data_source.hpp"
 
-#include "storage/country_parent_getter.hpp"
+#include "platform/platform_tests_support/helpers.hpp"
 
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
@@ -37,7 +38,6 @@
 #include <map>
 #include <memory>
 #include <set>
-#include <sys/resource.h>
 #include <tuple>
 
 using namespace routing;
@@ -52,14 +52,6 @@ namespace
 {
 double constexpr kErrorMeters = 1.0;
 double constexpr kErrorSeconds = 1.0;
-
-void ChangeMaxNumberOfOpenFiles(size_t n)
-{
-  struct rlimit rlp;
-  getrlimit(RLIMIT_NOFILE, &rlp);
-  rlp.rlim_cur = n;
-  setrlimit(RLIMIT_NOFILE, &rlp);
-}
 }  // namespace
 
 namespace integration
@@ -67,7 +59,7 @@ namespace integration
 shared_ptr<FeaturesFetcher> CreateFeaturesFetcher(vector<LocalCountryFile> const & localFiles)
 {
   size_t const maxOpenFileNumber = 4096;
-  ChangeMaxNumberOfOpenFiles(maxOpenFileNumber);
+  platform::tests_support::ChangeMaxNumberOfOpenFiles(maxOpenFileNumber);
   shared_ptr<FeaturesFetcher> featuresFetcher(new FeaturesFetcher);
   featuresFetcher->InitClassificator();
 

@@ -1,35 +1,40 @@
-#include "search/search_params.hpp"
-
-#include "indexer/classificator_loader.hpp"
-#include "indexer/data_header.hpp"
-#include "indexer/data_source.hpp"
-#include "indexer/mwm_set.hpp"
-
-#include "geometry/mercator.hpp"
-#include "geometry/point2d.hpp"
-
-#include "search/ranking_info.hpp"
-#include "search/result.hpp"
 #include "search/search_quality/helpers.hpp"
+
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
 
-#include "platform/country_file.hpp"
-#include "platform/local_country_file.hpp"
-#include "platform/platform.hpp"
+#include "search/ranking_info.hpp"
+#include "search/result.hpp"
+#include "search/search_params.hpp"
 
 #include "storage/country.hpp"
 #include "storage/country_info_getter.hpp"
 #include "storage/storage.hpp"
 #include "storage/storage_defines.hpp"
 
-#include "base/file_name_utils.hpp"
+#include "indexer/classificator_loader.hpp"
+#include "indexer/data_header.hpp"
+#include "indexer/data_source.hpp"
+#include "indexer/mwm_set.hpp"
+
+#include "platform/platform_tests_support/helpers.hpp"
+
+#include "platform/country_file.hpp"
+#include "platform/local_country_file.hpp"
+#include "platform/platform.hpp"
+
+#include "geometry/mercator.hpp"
+#include "geometry/point2d.hpp"
+
 #include "base/checked_cast.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
+
+#include "defines.hpp"
 
 #include <algorithm>
 #include <chrono>
@@ -44,8 +49,6 @@
 #include <sstream>
 #include <string>
 #include <vector>
-
-#include "defines.hpp"
 
 #include "3party/gflags/src/gflags/gflags.h"
 
@@ -366,7 +369,7 @@ void RunRequests(TestSearchEngine & engine, m2::RectD const & viewport, string q
 
 int main(int argc, char * argv[])
 {
-  ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
+  platform::tests_support::ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
   CheckLocale();
 
   google::SetUsageMessage("Search quality tests.");

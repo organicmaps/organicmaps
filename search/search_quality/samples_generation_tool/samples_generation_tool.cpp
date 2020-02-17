@@ -1,15 +1,18 @@
+#include "search/search_quality/helpers.hpp"
+#include "search/search_quality/sample.hpp"
+
 #include "search/categories_cache.hpp"
 #include "search/house_numbers_matcher.hpp"
 #include "search/mwm_context.hpp"
 #include "search/reverse_geocoder.hpp"
-#include "search/search_quality/helpers.hpp"
-#include "search/search_quality/sample.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/search_string_utils.hpp"
+
+#include "platform/platform_tests_support/helpers.hpp"
 
 #include "platform/platform.hpp"
 
@@ -397,7 +400,7 @@ unordered_map<uint32_t, StringUtf8Multilang> ParseStrings()
 
 int main(int argc, char * argv[])
 {
-  ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
+  platform::tests_support::ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
 
   google::SetUsageMessage("Samples generation tool.");
   google::ParseCommandLineFlags(&argc, &argv, true);

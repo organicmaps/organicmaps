@@ -3,6 +3,7 @@ project(platform_tests_support)
 set(
   SRC
   async_gui_thread.hpp
+  helpers.hpp
   scoped_dir.cpp
   scoped_dir.hpp
   scoped_file.cpp

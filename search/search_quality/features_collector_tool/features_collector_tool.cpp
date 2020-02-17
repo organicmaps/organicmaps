@@ -16,6 +16,8 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_source.hpp"
 
+#include "platform/platform_tests_support/helpers.hpp"
+
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
@@ -26,6 +28,8 @@
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
+#include "defines.hpp"
+
 #include <cstddef>
 #include <fstream>
 #include <iostream>
@@ -33,8 +37,6 @@
 #include <memory>
 #include <string>
 #include <vector>
-
-#include "defines.hpp"
 
 #include "3party/gflags/src/gflags/gflags.h"
 
@@ -97,7 +99,7 @@ void DisplayStats(ostream & os, vector<Sample> const & samples, vector<Stats> co
 
 int main(int argc, char * argv[])
 {
-  ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
+  platform::tests_support::ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
   CheckLocale();
 
   google::SetUsageMessage("Features collector tool.");

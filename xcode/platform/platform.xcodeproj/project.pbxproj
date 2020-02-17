@@ -29,6 +29,7 @@
 		3DEE1AE721F7091100054A91 /* battery_tracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE1AE521F7091100054A91 /* battery_tracker.cpp */; };
 		3DEE1AE821F7091100054A91 /* battery_tracker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DEE1AE621F7091100054A91 /* battery_tracker.hpp */; };
 		3DF528EB238BFFC1000ED0D5 /* downloader_defines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DF528EA238BFFC1000ED0D5 /* downloader_defines.hpp */; };
+		40D4697723FAB8D00030476C /* helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40D4697623FAB8D00030476C /* helpers.hpp */; };
 		451E32A01F73A8B000964C9F /* secure_storage_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 451E329D1F73A8B000964C9F /* secure_storage_ios.mm */; };
 		451E32A11F73A8B000964C9F /* secure_storage_qt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451E329E1F73A8B000964C9F /* secure_storage_qt.cpp */; };
 		451E32A21F73A8B000964C9F /* secure_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 451E329F1F73A8B000964C9F /* secure_storage.hpp */; };
@@ -159,6 +160,7 @@
 		3DEE1AE521F7091100054A91 /* battery_tracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = battery_tracker.cpp; sourceTree = "<group>"; };
 		3DEE1AE621F7091100054A91 /* battery_tracker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = battery_tracker.hpp; sourceTree = "<group>"; };
 		3DF528EA238BFFC1000ED0D5 /* downloader_defines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = downloader_defines.hpp; sourceTree = "<group>"; };
+		40D4697623FAB8D00030476C /* helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = helpers.hpp; sourceTree = "<group>"; };
 		451E329D1F73A8B000964C9F /* secure_storage_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = secure_storage_ios.mm; sourceTree = "<group>"; };
 		451E329E1F73A8B000964C9F /* secure_storage_qt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = secure_storage_qt.cpp; sourceTree = "<group>"; };
 		451E329F1F73A8B000964C9F /* secure_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = secure_storage.hpp; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				5661A5CB20DD57DA00C6B1D1 /* async_gui_thread.hpp */,
+				40D4697623FAB8D00030476C /* helpers.hpp */,
 				675E889E1DB7B0F200F8EBDA /* test_socket.cpp */,
 				675E889F1DB7B0F200F8EBDA /* test_socket.hpp */,
 				67247FFB1C60BD6500EDE56A /* writable_dir_changer.cpp */,
@@ -557,6 +560,7 @@
 				3D30587D1D8320E4004AC712 /* http_client.hpp in Headers */,
 				56EB1EDD1C6B6E6C0022D831 /* file_logging.hpp in Headers */,
 				333A417021C3E13B00AF26F6 /* http_session_manager.h in Headers */,
+				40D4697723FAB8D00030476C /* helpers.hpp in Headers */,
 				F6DF735B1EC9EAE700D8BA0B /* string_storage_base.hpp in Headers */,
 				3D318A072021DD8B007B2607 /* http_uploader.hpp in Headers */,
 				6741250D1B4C00CC00A3E828 /* local_country_file_utils.hpp in Headers */,

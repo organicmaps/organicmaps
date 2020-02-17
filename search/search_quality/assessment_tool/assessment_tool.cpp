@@ -1,9 +1,11 @@
 #include "search/search_quality/assessment_tool/main_model.hpp"
 #include "search/search_quality/assessment_tool/main_view.hpp"
 
+#include "map/framework.hpp"
+
 #include "search/search_quality/helpers.hpp"
 
-#include "map/framework.hpp"
+#include "platform/platform_tests_support/helpers.hpp"
 
 #include "platform/platform.hpp"
 
@@ -17,7 +19,7 @@ DEFINE_string(samples_path, "", "Path to the file with samples to open on startu
 
 int main(int argc, char ** argv)
 {
-  search::search_quality::ChangeMaxNumberOfOpenFiles(search::search_quality::kMaxOpenFiles);
+  platform::tests_support::ChangeMaxNumberOfOpenFiles(search::search_quality::kMaxOpenFiles);
 
   google::SetUsageMessage("Assessment tool.");
   google::ParseCommandLineFlags(&argc, &argv, true);
