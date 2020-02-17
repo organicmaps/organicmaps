@@ -54,6 +54,11 @@ public:
       {
       }
 
+      bool operator==(Access const & rhs) const
+      {
+        return m_type == rhs.m_type && m_openingHours == rhs.m_openingHours;
+      }
+
       RoadAccess::Type m_type = RoadAccess::Type::Count;
       osmoh::OpeningHours m_openingHours;
     };
@@ -65,9 +70,12 @@ public:
       m_accesses.emplace_back(type, std::move(openingHours));
     }
 
+    size_t Size() const { return m_accesses.size(); }
     bool IsEmpty() const { return m_accesses.empty(); }
     std::vector<Access> const & GetAccesses() const { return m_accesses; }
-    size_t Size() const { return m_accesses.size(); }
+
+    bool operator==(Conditional const & rhs) const { return m_accesses == rhs.m_accesses; }
+    bool operator!=(Conditional const & rhs) const { return !(*this == rhs); }
 
   private:
     std::vector<Access> m_accesses;
@@ -130,6 +138,7 @@ private:
 std::string ToString(RoadAccess::Type type);
 void FromString(std::string const & s, RoadAccess::Type & result);
 
+std::string DebugPrint(RoadAccess::Conditional const & conditional);
 std::string DebugPrint(RoadAccess::Type type);
 std::string DebugPrint(RoadAccess const & r);
 }  // namespace routing

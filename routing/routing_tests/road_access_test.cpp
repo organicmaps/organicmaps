@@ -12,6 +12,8 @@
 #include <cstdint>
 #include <vector>
 
+#include "3party/opening_hours/opening_hours.hpp"
+
 using namespace routing;
 using namespace routing_test;
 using namespace std;
@@ -20,53 +22,203 @@ using TestEdge = TestIndexGraphTopology::Edge;
 
 namespace
 {
-UNIT_TEST(RoadAccess_Serialization)
+void FillRoadAccessBySample_1(RoadAccess & roadAccess)
 {
-  RoadAccess::WayToAccess const m0 = {
+  RoadAccess::WayToAccess wayToAccess = {
       {1 /* featureId */, RoadAccess::Type::No},
       {2 /* featureId */, RoadAccess::Type::Private},
   };
 
-  RoadAccess::WayToAccess const m1 = {
+  RoadAccess::PointToAccess pointToAccess = {
+      {RoadPoint(3 /* featureId */, 0 /* pointId */), RoadAccess::Type::No},
+      {RoadPoint(4 /* featureId */, 7 /* pointId */), RoadAccess::Type::Private},
+  };
+
+  roadAccess.SetAccess(move(wayToAccess), move(pointToAccess));
+}
+
+void FillRoadAccessBySample_2(RoadAccess & roadAccess)
+{
+  RoadAccess::WayToAccess wayToAccess = {
       {1 /* featureId */, RoadAccess::Type::Private},
       {2 /* featureId */, RoadAccess::Type::Destination},
   };
 
+  RoadAccess::PointToAccess pointToAccess = {
+      {RoadPoint(3 /* featureId */, 10 /* pointId */), RoadAccess::Type::Destination},
+      {RoadPoint(4 /* featureId */, 0 /* pointId */), RoadAccess::Type::No},
+  };
+
+  roadAccess.SetAccess(move(wayToAccess), move(pointToAccess));
+}
+
+void FillRoadAccessBySampleConditional_1(RoadAccess & roadAccess)
+{
+  std::vector<std::string> const openingHoursStrings = {
+      "Mo-Su", "10:00-18:00", "Mo-Fr 10:00-14:00", "09:00-13:00", "Apr - May", "2010 - 2100"};
+
+  std::vector<osmoh::OpeningHours> openingHours;
+  for (auto const & oh : openingHoursStrings)
+  {
+    openingHours.emplace_back(oh);
+    TEST(openingHours.back().IsValid(), ());
+  }
+
+  RoadAccess::Conditional conditional_1;
+  conditional_1.Insert(RoadAccess::Type::No, move(openingHours[0]));
+  conditional_1.Insert(RoadAccess::Type::Private, move(openingHours[1]));
+
+  RoadAccess::Conditional conditional_2;
+  conditional_2.Insert(RoadAccess::Type::Destination, move(openingHours[2]));
+
+  RoadAccess::Conditional conditional_3;
+  conditional_3.Insert(RoadAccess::Type::No, move(openingHours[4]));
+  conditional_3.Insert(RoadAccess::Type::Destination, move(openingHours[3]));
+
+  RoadAccess::Conditional conditional_4;
+  conditional_4.Insert(RoadAccess::Type::Destination, move(openingHours[5]));
+
+  RoadAccess::WayToAccessConditional wayToAccessConditional = {{1 /* featureId */, conditional_1},
+                                                               {2 /* featureId */, conditional_2}};
+
+  RoadAccess::PointToAccessConditional pointToAccessConditional = {
+      {RoadPoint(3 /* featureId */, 0 /* pointId */), conditional_3},
+      {RoadPoint(4 /* featureId */, 7 /* pointId */), conditional_4}};
+
+  roadAccess.SetAccessConditional(move(wayToAccessConditional), move(pointToAccessConditional));
+}
+
+void FillRoadAccessBySampleConditional_2(RoadAccess & roadAccess)
+{
+  std::vector<std::string> const openingHoursStrings = {
+      "Mo", "Apr-May 03:00-04:25", "Mo-Sa 12:00-13:00", "2010-2098", "Nov-Apr", "19:00-21:00"};
+
+  std::vector<osmoh::OpeningHours> openingHours;
+  for (auto const & oh : openingHoursStrings)
+  {
+    openingHours.emplace_back(oh);
+    TEST(openingHours.back().IsValid(), (oh));
+  }
+
+  RoadAccess::Conditional conditional_1;
+  conditional_1.Insert(RoadAccess::Type::Private, move(openingHours[0]));
+
+  RoadAccess::Conditional conditional_2;
+  conditional_2.Insert(RoadAccess::Type::No, move(openingHours[1]));
+  conditional_2.Insert(RoadAccess::Type::Private, move(openingHours[2]));
+
+  RoadAccess::Conditional conditional_3;
+  conditional_3.Insert(RoadAccess::Type::Destination, move(openingHours[3]));
+
+  RoadAccess::Conditional conditional_4;
+  conditional_4.Insert(RoadAccess::Type::No, move(openingHours[4]));
+  conditional_4.Insert(RoadAccess::Type::No, move(openingHours[5]));
+
+  RoadAccess::WayToAccessConditional wayToAccessConditional = {{1 /* featureId */, conditional_1},
+                                                               {2 /* featureId */, conditional_2}};
+
+  RoadAccess::PointToAccessConditional pointToAccessConditional = {
+      {RoadPoint(3 /* featureId */, 10 /* pointId */), conditional_3},
+      {RoadPoint(4 /* featureId */, 2 /* pointId */), conditional_4}};
+
+  roadAccess.SetAccessConditional(move(wayToAccessConditional), move(pointToAccessConditional));
+}
+
+
+class RoadAccessSerDesTest
+{
+public:
+  void Serialize(RoadAccessSerializer::RoadAccessByVehicleType const & roadAccessAllTypes)
+  {
+    MemWriter writer(m_buffer);
+    RoadAccessSerializer::Serialize(writer, roadAccessAllTypes);
+  }
+
+  void TestDeserialize(VehicleType vehicleType, RoadAccess const & answer)
+  {
+    RoadAccess deserializedRoadAccess;
+
+    MemReader memReader(m_buffer.data(), m_buffer.size());
+    ReaderSource<MemReader> src(memReader);
+    RoadAccessSerializer::Deserialize(src, vehicleType, deserializedRoadAccess);
+    TEST_EQUAL(src.Size(), 0, ());
+    TEST_EQUAL(answer, deserializedRoadAccess, ());
+  }
+
+  void ClearBuffer() { m_buffer.clear(); }
+
+private:
+  vector<uint8_t> m_buffer;
+};
+
+UNIT_CLASS_TEST(RoadAccessSerDesTest, RoadAccess_Serdes)
+{
   RoadAccess roadAccessCar;
-  roadAccessCar.SetWayToAccessForTests(m0);
+  FillRoadAccessBySample_1(roadAccessCar);
 
   RoadAccess roadAccessPedestrian;
-  roadAccessPedestrian.SetWayToAccessForTests(m1);
+  FillRoadAccessBySample_2(roadAccessPedestrian);
 
   RoadAccessSerializer::RoadAccessByVehicleType roadAccessAllTypes;
   roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)] = roadAccessCar;
   roadAccessAllTypes[static_cast<size_t>(VehicleType::Pedestrian)] = roadAccessPedestrian;
 
-  vector<uint8_t> buf;
+  Serialize(roadAccessAllTypes);
+  TestDeserialize(VehicleType::Car, roadAccessCar);
+  TestDeserialize(VehicleType::Pedestrian, roadAccessPedestrian);
+}
+
+UNIT_CLASS_TEST(RoadAccessSerDesTest, RoadAccess_Serdes_Conditional_One_Vehicle)
+{
+  auto constexpr kVehicleTypeCount = static_cast<size_t>(VehicleType::Count);
+  for (size_t vehicleTypeId = 0; vehicleTypeId < kVehicleTypeCount; ++vehicleTypeId)
   {
-    MemWriter<decltype(buf)> writer(buf);
-    RoadAccessSerializer::Serialize(writer, roadAccessAllTypes);
+    RoadAccess roadAccess;
+    FillRoadAccessBySampleConditional_1(roadAccess);
+
+    RoadAccessSerializer::RoadAccessByVehicleType roadAccessAllTypes;
+    roadAccessAllTypes[vehicleTypeId] = roadAccess;
+
+    Serialize(roadAccessAllTypes);
+    TestDeserialize(static_cast<VehicleType>(vehicleTypeId), roadAccess);
+    ClearBuffer();
   }
+}
 
-  {
-    RoadAccess deserializedRoadAccess;
+UNIT_CLASS_TEST(RoadAccessSerDesTest, RoadAccess_Serdes_Conditional_Several_Vehicles)
+{
+  RoadAccess roadAccessCar;
+  FillRoadAccessBySampleConditional_1(roadAccessCar);
 
-    MemReader memReader(buf.data(), buf.size());
-    ReaderSource<MemReader> src(memReader);
-    RoadAccessSerializer::Deserialize(src, VehicleType::Car, deserializedRoadAccess);
+  RoadAccess roadAccessPedestrian;
+  FillRoadAccessBySampleConditional_2(roadAccessPedestrian);
 
-    TEST_EQUAL(roadAccessCar, deserializedRoadAccess, ());
-  }
+  RoadAccessSerializer::RoadAccessByVehicleType roadAccessAllTypes;
+  roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)] = roadAccessCar;
+  roadAccessAllTypes[static_cast<size_t>(VehicleType::Pedestrian)] = roadAccessPedestrian;
 
-  {
-    RoadAccess deserializedRoadAccess;
+  Serialize(roadAccessAllTypes);
+  TestDeserialize(VehicleType::Car, roadAccessCar);
+  TestDeserialize(VehicleType::Pedestrian, roadAccessPedestrian);
+}
 
-    MemReader memReader(buf.data(), buf.size());
-    ReaderSource<MemReader> src(memReader);
-    RoadAccessSerializer::Deserialize(src, VehicleType::Pedestrian, deserializedRoadAccess);
+UNIT_CLASS_TEST(RoadAccessSerDesTest, RoadAccess_Serdes_Conditional_Mixed_Several_Vehicles)
+{
+  RoadAccess roadAccessCar;
+  FillRoadAccessBySampleConditional_1(roadAccessCar);
+  FillRoadAccessBySample_1(roadAccessCar);
 
-    TEST_EQUAL(roadAccessPedestrian, deserializedRoadAccess, ());
-  }
+  RoadAccess roadAccessPedestrian;
+  FillRoadAccessBySampleConditional_2(roadAccessPedestrian);
+  FillRoadAccessBySample_2(roadAccessPedestrian);
+
+  RoadAccessSerializer::RoadAccessByVehicleType roadAccessAllTypes;
+  roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)] = roadAccessCar;
+  roadAccessAllTypes[static_cast<size_t>(VehicleType::Pedestrian)] = roadAccessPedestrian;
+
+  Serialize(roadAccessAllTypes);
+  TestDeserialize(VehicleType::Car, roadAccessCar);
+  TestDeserialize(VehicleType::Pedestrian, roadAccessPedestrian);
 }
 
 UNIT_TEST(RoadAccess_WayBlocked)

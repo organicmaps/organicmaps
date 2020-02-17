@@ -458,26 +458,30 @@ private:
     size_t successWritten = 0;
     WriteToSink(sink, successWritten);
 
-    BitWriter<Sink> bitWriter(sink);
-    uint32_t prevFeatureId = 0;
-    for (auto const & [position, accessConditional] : positionsAccessConditional)
     {
-      if (!openingHoursSerializer.Serialize(bitWriter, accessConditional.m_openingHours))
-        continue;
+      BitWriter<Sink> bitWriter(sink);
+      uint32_t prevFeatureId = 0;
+      for (auto const & [position, accessConditional] : positionsAccessConditional)
+      {
+        if (!openingHoursSerializer.Serialize(bitWriter, accessConditional.m_openingHours))
+          continue;
 
-      uint32_t const currentFeatureId =
-        position.GetFeatureId();
-      CHECK_GREATER_OR_EQUAL(currentFeatureId, prevFeatureId, ());
-      uint32_t const featureIdDiff = currentFeatureId - prevFeatureId;
-      prevFeatureId = currentFeatureId;
+        uint32_t const currentFeatureId = position.GetFeatureId();
+        CHECK_GREATER_OR_EQUAL(currentFeatureId, prevFeatureId, ());
+        uint32_t const featureIdDiff = currentFeatureId - prevFeatureId;
+        prevFeatureId = currentFeatureId;
 
-      WriteGamma(bitWriter, featureIdDiff + 1);
-      WriteGamma(bitWriter, position.GetPointId() + 1);
-      ++successWritten;
+        WriteGamma(bitWriter, featureIdDiff + 1);
+        auto const pointId = position.IsWay() ? 0 : position.GetPointId() + 1;
+        WriteGamma(bitWriter, pointId + 1);
+        ++successWritten;
+      }
     }
 
+    auto const endPos = sink.Pos();
     sink.Seek(sizePos);
     WriteToSink(sink, successWritten);
+    sink.Seek(endPos);
   }
 
   template <typename Source>
@@ -497,6 +501,7 @@ private:
       auto oh = openingHoursDeserializer.Deserialize(bitReader);
       auto const featureIdDiff = ReadGamma<uint32_t>(bitReader) - 1;
       auto const featureId = prevFeatureId + featureIdDiff;
+      prevFeatureId = featureId;
       auto const pointId = ReadGamma<uint32_t>(bitReader) - 1;
 
       AccessPosition const position(featureId, pointId);

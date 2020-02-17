@@ -54,7 +54,9 @@ RoadAccess::Type RoadAccess::GetAccess(RoadPoint const & point) const
 
 bool RoadAccess::operator==(RoadAccess const & rhs) const
 {
-  return m_wayToAccess == rhs.m_wayToAccess && m_pointToAccess == rhs.m_pointToAccess;
+  return m_wayToAccess == rhs.m_wayToAccess && m_pointToAccess == rhs.m_pointToAccess &&
+         m_wayToAccessConditional == rhs.m_wayToAccessConditional &&
+         m_pointToAccessConditional == rhs.m_pointToAccessConditional;
 }
 
 // Functions ---------------------------------------------------------------------------------------
@@ -80,16 +82,32 @@ void FromString(string const & s, RoadAccess::Type & result)
   ASSERT(false, ("Could not read RoadAccess from the string", s));
 }
 
+string DebugPrint(RoadAccess::Conditional const & conditional)
+{
+  stringstream ss;
+  ss << " { ";
+  for (auto const & access : conditional.GetAccesses())
+  {
+    ss << DebugPrint(access.m_type) << " @ (" << access.m_openingHours.GetRule() << "), ";
+  }
+  ss << " } ";
+  return ss.str();
+}
+
 string DebugPrint(RoadAccess::Type type) { return ToString(type); }
 
 string DebugPrint(RoadAccess const & r)
 {
   size_t const kMaxIdsToShow = 10;
   ostringstream oss;
-  oss << "RoadAccess { FeatureTypes [";
+  oss << "WayToAccess { FeatureTypes [";
   PrintKV(oss, r.GetWayToAccess(), kMaxIdsToShow);
-  oss << "], PointTypes [";
+  oss << "], PointToAccess [";
   PrintKV(oss, r.GetPointToAccess(), kMaxIdsToShow);
+  oss << "], WayToAccessConditional [";
+  PrintKV(oss, r.GetWayToAccessConditional(), kMaxIdsToShow);
+  oss << "], PointToAccessConditional [";
+  PrintKV(oss, r.GetPointToAccessConditional(), kMaxIdsToShow);
   oss << "] }";
   return oss.str();
 }
