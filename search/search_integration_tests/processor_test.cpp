@@ -1005,7 +1005,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCoords)
 
   for (auto const & [query, lat, lon] : tests)
   {
-    auto request = MakeRequest(query);
+    auto const request = MakeRequest(query);
     auto const & results = request->Results();
     TEST_EQUAL(results.size(), 1, ());
 
@@ -1016,7 +1016,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCoords)
     m2::PointD const expected = mercator::FromLatLon(lat, lon);
     auto const actual = result.GetFeatureCenter();
     auto const dist = mercator::DistanceOnEarth(actual, expected);
-    TEST(dist <= 1.0, (actual, expected, dist));
+    TEST_LESS_OR_EQUAL(dist, 1.0, (actual, expected));
   }
 }
 

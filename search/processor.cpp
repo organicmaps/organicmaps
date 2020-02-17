@@ -50,6 +50,7 @@
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
+#include "base/buffer_vector.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/scope_guard.hpp"
@@ -546,21 +547,13 @@ void Processor::Search(SearchParams const & params)
 
 void Processor::SearchCoordinates()
 {
-  set<ms::LatLon> seen;
-  auto const emitUnique = [&](double lat, double lon) {
-    if (seen.emplace(lat, lon).second)
-    {
-      m_emitter.AddResultNoChecks(m_ranker.MakeResult(
-          RankerResult(lat, lon), true /* needAddress */, true /* needHighlighting */));
-      m_emitter.Emit();
-    }
-  };
+  buffer_vector<ms::LatLon, 3> results;
 
   {
     double lat;
     double lon;
     if (MatchLatLonDegree(m_query, lat, lon))
-      emitUnique(lat, lon);
+      results.emplace_back(lat, lon);
   }
 
   istringstream iss(m_query);
@@ -570,11 +563,19 @@ void Processor::SearchCoordinates()
     ge0::Ge0Parser parser;
     ge0::Ge0Parser::Result r;
     if (parser.Parse(token, r))
-      emitUnique(r.m_lat, r.m_lon);
+      results.emplace_back(r.m_lat, r.m_lon);
 
     url::GeoURLInfo info(token);
     if (info.IsValid())
-      emitUnique(info.m_lat, info.m_lon);
+      results.emplace_back(info.m_lat, info.m_lon);
+  }
+
+  base::SortUnique(results);
+  for (auto const & r : results)
+  {
+    m_emitter.AddResultNoChecks(m_ranker.MakeResult(
+        RankerResult(r.m_lat, r.m_lon), true /* needAddress */, true /* needHighlighting */));
+    m_emitter.Emit();
   }
 }
 
