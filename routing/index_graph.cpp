@@ -64,7 +64,7 @@ bool IndexGraph::IsJointOrEnd(Segment const & segment, bool fromStart)
 }
 
 void IndexGraph::GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
-                             vector<SegmentEdge> & edges, Parents<Segment> & parents)
+                             vector<SegmentEdge> & edges, Parents<Segment> const & parents)
 {
   RoadPoint const roadPoint = segment.GetRoadPoint(isOutgoing);
   Joint::Id const jointId = m_roadIndex.GetJointId(roadPoint);
@@ -140,13 +140,13 @@ optional<JointEdge> IndexGraph::GetJointEdgeByLastPoint(Segment const & parent,
                                                         Segment const & firstChild, bool isOutgoing,
                                                         uint32_t lastPoint)
 {
-  vector<Segment> const possibleChilds = {firstChild};
+  vector<Segment> const possibleChildren = {firstChild};
   vector<uint32_t> const lastPoints = {lastPoint};
 
   vector<JointEdge> edges;
   vector<RouteWeight> parentWeights;
   Parents<JointSegment> emptyParents;
-  ReconstructJointSegment({} /* parentJoint */, parent, possibleChilds, lastPoints,
+  ReconstructJointSegment({} /* parentJoint */, parent, possibleChildren, lastPoints,
                           isOutgoing, edges, parentWeights, emptyParents);
 
   CHECK_LESS_OR_EQUAL(edges.size(), 1, ());
@@ -203,7 +203,7 @@ void IndexGraph::SetRoadAccess(RoadAccess && roadAccess) { m_roadAccess = move(r
 
 void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
                                      bool useRoutingOptions, vector<SegmentEdge> & edges,
-                                     Parents<Segment> & parents)
+                                     Parents<Segment> const & parents)
 {
   RoadGeometry const & road = m_geometry->GetRoad(rp.GetFeatureId());
 
@@ -266,7 +266,7 @@ void IndexGraph::GetSegmentCandidateForJoint(Segment const & parent, bool isOutg
 
 /// \brief Prolongs segments from |parent| to |firstChildren| directions in order to
 ///        create JointSegments.
-/// \param |firstChildren| - vecotor of neigbouring segments from parent.
+/// \param |firstChildren| - vector of neighbouring segments from parent.
 /// \param |lastPointIds| - vector of the end numbers of road points for |firstChildren|.
 /// \param |jointEdges| - the result vector with JointEdges.
 /// \param |parentWeights| - see |IndexGraphStarterJoints::GetEdgeList| method about this argument.
@@ -279,7 +279,7 @@ void IndexGraph::ReconstructJointSegment(JointSegment const & parentJoint,
                                          bool isOutgoing,
                                          vector<JointEdge> & jointEdges,
                                          vector<RouteWeight> & parentWeights,
-                                         Parents<JointSegment> & parents)
+                                         Parents<JointSegment> const & parents)
 {
   CHECK_EQUAL(firstChildren.size(), lastPointIds.size(), ());
 
@@ -359,7 +359,7 @@ void IndexGraph::ReconstructJointSegment(JointSegment const & parentJoint,
 }
 
 void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
-                                    vector<SegmentEdge> & edges, Parents<Segment> & parents)
+                                    vector<SegmentEdge> & edges, Parents<Segment> const & parents)
 {
   if (IsUTurn(from, to) && IsUTurnAndRestricted(from, to, isOutgoing))
     return;

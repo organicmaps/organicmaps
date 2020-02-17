@@ -52,7 +52,7 @@ public:
   // Put outgoing (or ingoing) egdes for segment to the 'edges' vector.
   void GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
                    std::vector<SegmentEdge> & edges,
-                   Parents<Segment> & parents = kEmptyParentsSegments);
+                   Parents<Segment> const & parents = kEmptyParentsSegments);
 
   void GetEdgeList(JointSegment const & parentJoint,
                    Segment const & parent, bool isOutgoing, std::vector<JointEdge> & edges,
@@ -119,7 +119,7 @@ public:
   bool IsRestricted(ParentVertex const & parent,
                     uint32_t parentFeatureId,
                     uint32_t currentFeatureId, bool isOutgoing,
-                    Parents<ParentVertex> & parents) const;
+                    Parents<ParentVertex> const & parents) const;
 
   bool IsUTurnAndRestricted(Segment const & parent, Segment const & child, bool isOutgoing) const;
 
@@ -129,9 +129,9 @@ public:
 private:
   void GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
                            bool useRoutingOptions, std::vector<SegmentEdge> & edges,
-                           Parents<Segment> & parents);
+                           Parents<Segment> const & parents);
   void GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
-                          std::vector<SegmentEdge> & edges, Parents<Segment> & parents);
+                          std::vector<SegmentEdge> & edges, Parents<Segment> const & parents);
 
   struct PenaltyData
   {
@@ -156,7 +156,7 @@ private:
                                bool isOutgoing,
                                std::vector<JointEdge> & jointEdges,
                                std::vector<RouteWeight> & parentWeights,
-                               Parents<JointSegment> & parents);
+                               Parents<JointSegment> const & parents);
 
   std::shared_ptr<Geometry> m_geometry;
   std::shared_ptr<EdgeEstimator> m_estimator;
@@ -188,7 +188,7 @@ bool IndexGraph::IsRestricted(ParentVertex const & parent,
                               uint32_t parentFeatureId,
                               uint32_t currentFeatureId,
                               bool isOutgoing,
-                              Parents<ParentVertex> & parents) const
+                              Parents<ParentVertex> const & parents) const
 {
   if (parentFeatureId == currentFeatureId)
     return false;
