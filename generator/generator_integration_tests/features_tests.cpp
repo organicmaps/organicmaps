@@ -76,7 +76,40 @@ struct CountryFeaturesCounters
            m_poi == rhs.m_poi && m_cityTownOrVillage == rhs.m_cityTownOrVillage &&
            m_bookingHotels == rhs.m_bookingHotels;
   }
+
+  bool operator!=(CountryFeaturesCounters const & rhs) const { return !(*this == rhs); }
 };
+
+struct CountryFeatureResults
+{
+  CountryFeatureResults() = default;
+  CountryFeatureResults(CountryFeaturesCounters actual, CountryFeaturesCounters expected)
+    : m_actual(actual), m_expected(expected)
+  {
+  }
+
+  CountryFeaturesCounters m_actual;
+  CountryFeaturesCounters m_expected;
+};
+
+void TestAndLogCountryFeatures(std::map<std::string, CountryFeatureResults> const & results)
+{
+  for (auto const & result : results)
+  {
+    if (result.second.m_actual != result.second.m_expected)
+    {
+      LOG(LINFO, ("Unexpectad result for", result.first, "actual:", result.second.m_actual,
+                  "expected:", result.second.m_expected,
+                  "the difference is:", result.second.m_actual - result.second.m_expected));
+    }
+  }
+
+  for (auto const & result : results)
+  {
+    TEST_EQUAL(result.second.m_actual, result.second.m_expected,
+               (result.first, "difference:", result.second.m_actual - result.second.m_expected));
+  }
+}
 
 std::string DebugPrint(CountryFeaturesCounters const & cnt)
 {
@@ -202,7 +235,8 @@ public:
 
     TEST(Platform::IsFileExistsByFullPath(world), ());
 
-    TestCountry(world, kWorldCounters);
+    auto const actual = GetCountersForCountry(world);
+    TEST_EQUAL(actual, kWorldCounters, ("kWorldCounters difference:", actual - kWorldCounters));
   }
 
   void BuildCountries()
@@ -224,10 +258,16 @@ public:
     rawGenerator.GenerateCountries();
     TEST(rawGenerator.Execute(), ());
 
-    TestCountry(northAuckland, kNorthAucklandCounters);
-    TestCountry(northWellington, kNorthWellingtonCounters);
-    TestCountry(southCanterbury, kSouthCanterburyCounters);
-    TestCountry(southSouthland, kSouthSouthlandCounters);
+    std::map<std::string, CountryFeatureResults> results;
+    results["kNorthAucklandCounters"] =
+        CountryFeatureResults(GetCountersForCountry(northAuckland), kNorthAucklandCounters);
+    results["kNorthWellingtonCounters"] =
+        CountryFeatureResults(GetCountersForCountry(northWellington), kNorthWellingtonCounters);
+    results["kSouthCanterburyCounters"] =
+        CountryFeatureResults(GetCountersForCountry(southCanterbury), kSouthCanterburyCounters);
+    results["kSouthSouthlandCounters"] =
+        CountryFeatureResults(GetCountersForCountry(southSouthland), kSouthSouthlandCounters);
+    TestAndLogCountryFeatures(results);
   }
 
   void BuildCountriesWithComplex()
@@ -250,10 +290,20 @@ public:
     rawGenerator.GenerateCountries();
     TEST(rawGenerator.Execute(), ());
 
-    TestCountry(northAuckland, kNorthAucklandCounters + kNorthAucklandComplexFeaturesCounters);
-    TestCountry(northWellington, kNorthWellingtonCounters + kNorthWellingtonComplexFeaturesCounters);
-    TestCountry(southCanterbury, kSouthCanterburyCounters + kSouthCanterburyComplexFeaturesCounters);
-    TestCountry(southSouthland, kSouthSouthlandCounters + kSouthSouthlandComplexFeaturesCounters);
+    std::map<std::string, CountryFeatureResults> results;
+    results["kNorthAucklandCounters + kNorthAucklandComplexFeaturesCounters"] =
+        CountryFeatureResults(GetCountersForCountry(northAuckland),
+                              kNorthAucklandCounters + kNorthAucklandComplexFeaturesCounters);
+    results["kNorthWellingtonCounters + kNorthWellingtonComplexFeaturesCounters"] =
+        CountryFeatureResults(GetCountersForCountry(northWellington),
+                              kNorthWellingtonCounters + kNorthWellingtonComplexFeaturesCounters);
+    results["kSouthCanterburyCounters + kSouthCanterburyComplexFeaturesCounters"] =
+        CountryFeatureResults(GetCountersForCountry(southCanterbury),
+                              kSouthCanterburyCounters + kSouthCanterburyComplexFeaturesCounters);
+    results["kSouthSouthlandCounters + kSouthSouthlandComplexFeaturesCounters"] =
+        CountryFeatureResults(GetCountersForCountry(southSouthland),
+                              kSouthSouthlandCounters + kSouthSouthlandComplexFeaturesCounters);
+    TestAndLogCountryFeatures(results);
   }
 
   void CheckMixedTagsAndNodes()
@@ -278,22 +328,28 @@ public:
     rawGenerator.GenerateWorld(true /* needMixTags */);
     TEST(rawGenerator.Execute(), ());
 
-    TestCountry(northAuckland, kNorthAucklandCounters);
-    TestCountry(northWellington, kNorthWellingtonCounters);
-    TestCountry(southCanterbury, kSouthCanterburyCounters);
-
     size_t partner1CntReal = 0;
 
-    TestCountry(southSouthland, kSouthSouthlandCounters + kSouthSouthlandMixedNodesCounters,
-                [&](auto const & fb) {
-                  static auto const partner1 = classif().GetTypeByPath({"sponsored", "partner1"});
-                  if (fb.HasType(partner1))
-                    ++partner1CntReal;
-                });
+    std::map<std::string, CountryFeatureResults> results;
+    results["kNorthAucklandCounters"] =
+        CountryFeatureResults(GetCountersForCountry(northAuckland), kNorthAucklandCounters);
+    results["kNorthWellingtonCounters"] =
+        CountryFeatureResults(GetCountersForCountry(northWellington), kNorthWellingtonCounters);
+    results["kSouthCanterburyCounters"] =
+        CountryFeatureResults(GetCountersForCountry(southCanterbury), kSouthCanterburyCounters);
+    results["kSouthSouthlandCounters + kSouthSouthlandMixedNodesCounters"] = CountryFeatureResults(
+        GetCountersForCountry(
+            southSouthland,
+            [&](auto const & fb) {
+              static auto const partner1 = classif().GetTypeByPath({"sponsored", "partner1"});
+              if (fb.HasType(partner1))
+                ++partner1CntReal;
+            }),
+        kSouthSouthlandCounters + kSouthSouthlandMixedNodesCounters);
+    results["kWorldCounters"] = CountryFeatureResults(GetCountersForCountry(world), kWorldCounters);
 
+    TestAndLogCountryFeatures(results);
     TEST_EQUAL(partner1CntReal, 4, ());
-
-    TestCountry(world, kWorldCounters);
   }
 
   void CheckGeneratedData()
@@ -348,10 +404,9 @@ public:
   }
 
 private:
-  void TestCountry(
-      std::string const & path, CountryFeaturesCounters const & expected,
-      std::function<void(feature::FeatureBuilder const &)> const & fn =
-          [](feature::FeatureBuilder const &) {})
+  CountryFeaturesCounters GetCountersForCountry(
+      std::string const & path, std::function<void(feature::FeatureBuilder const &)> const & fn =
+                                    [](feature::FeatureBuilder const &) {})
   {
     CHECK(Platform::IsFileExistsByFullPath(path), ());
     auto const fbs = feature::ReadAllDatRawFormat(path);
@@ -381,7 +436,7 @@ private:
       fn(fb);
     }
 
-    TEST_EQUAL(actual, expected, ("The difference is:", actual - expected));
+    return actual;
   }
 
   void TestGeneratedFile(std::string const & path, size_t fileSize)
