@@ -138,6 +138,11 @@
     <attr name="subscriptionTitleColor" format="color"/>
     <attr name="subscriptionSubtitleColor" format="color"/>
   </declare-styleable>
+
+  <declare-styleable name="ThemeAttrs.ElevationProfile">
+    <attr name="elevationProfilePropertyBg" format="reference" />
+    <attr name="elevationProfilePropIconTint" format="color" />
+  </declare-styleable>
   
   <declare-styleable name="ThemeAttrs.Fonts">
     <attr name="fontHeadline1" format="reference"/>

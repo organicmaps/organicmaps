@@ -8,6 +8,7 @@
   android:paddingStart="@dimen/margin_base"
   android:paddingEnd="@dimen/margin_base"
   android:paddingTop="@dimen/margin_half_plus"
+  android:paddingBottom="@dimen/margin_base"
   android:background="?cardBackground"
   app:behavior_defaultState="hidden"
   app:behavior_hideable="true"

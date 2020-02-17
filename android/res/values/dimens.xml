@@ -83,6 +83,7 @@
   <dimen name="viewport_min_width">300dp</dimen>
   <dimen name="elevation_profile_peek_height">269dp</dimen>
   <dimen name="elevation_profile_chart_min_height">144dp</dimen>
+  <dimen name="elevation_profile_chart_info_min_height">68dp</dimen>
 
   <!-- routing layout -->
   <dimen name="routing_info_height">48dp</dimen>

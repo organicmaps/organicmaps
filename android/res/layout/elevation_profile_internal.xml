@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   tools:showIn="@layout/elevation_profile_bottom_sheet">
   <TextView
@@ -15,12 +16,134 @@
     android:id="@+id/chart_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="@dimen/elevation_profile_chart_min_height"
     android:gravity="center"
+    android:minHeight="@dimen/elevation_profile_chart_min_height"
     android:orientation="vertical">
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="Chart is coming soon!" />
+  </LinearLayout>
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_base"
+    android:minHeight="@dimen/elevation_profile_chart_info_min_height"
+    android:orientation="horizontal">
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_marginEnd="@dimen/margin_quarter"
+      android:layout_weight="1"
+      android:background="?elevationProfilePropertyBg"
+      android:gravity="center_horizontal"
+      android:orientation="vertical"
+      android:padding="@dimen/margin_quarter_plus">
+      <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="?elevationProfilePropIconTint"
+        app:srcCompat="@drawable/ic_ascent" />
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_eighth"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/elevation_profile_ascent"
+        android:textAppearance="@style/MwmTextAppearance.Body5" />
+      <TextView
+        android:id="@+id/ascent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearance"
+        tools:text="10000 m" />
+    </LinearLayout>
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_marginEnd="@dimen/margin_quarter"
+      android:layout_weight="1"
+      android:background="?elevationProfilePropertyBg"
+      android:gravity="center_horizontal"
+      android:orientation="vertical"
+      android:padding="@dimen/margin_quarter_plus">
+      <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="?elevationProfilePropIconTint"
+        app:srcCompat="@drawable/ic_descent" />
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_eighth"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/elevation_profile_descent"
+        android:textAppearance="@style/MwmTextAppearance.Body5" />
+      <TextView
+        android:id="@+id/descent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearance"
+        tools:text="10000 m" />
+    </LinearLayout>
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_marginEnd="@dimen/margin_quarter"
+      android:layout_weight="1"
+      android:background="?elevationProfilePropertyBg"
+      android:gravity="center_horizontal"
+      android:orientation="vertical"
+      android:padding="@dimen/margin_quarter_plus">
+      <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="?elevationProfilePropIconTint"
+        app:srcCompat="@drawable/ic_maxalt" />
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_eighth"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/elevation_profile_maxaltitude"
+        android:textAppearance="@style/MwmTextAppearance.Body5" />
+      <TextView
+        android:id="@+id/max_altitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearance"
+        tools:text="10000 m" />
+    </LinearLayout>
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:background="?elevationProfilePropertyBg"
+      android:gravity="center_horizontal"
+      android:orientation="vertical"
+      android:padding="@dimen/margin_quarter_plus">
+      <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="?elevationProfilePropIconTint"
+        app:srcCompat="@drawable/ic_minalt" />
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_eighth"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/elevation_profile_minaltitude"
+        android:textAppearance="@style/MwmTextAppearance.Body5" />
+      <TextView
+        android:id="@+id/min_altitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearance"
+        tools:text="10000 m" />
+    </LinearLayout>
   </LinearLayout>
 </merge>

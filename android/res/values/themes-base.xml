@@ -168,6 +168,8 @@
     <item name="subscriptionSubtitleColor">@color/bookmarks_subs_subtitle</item>
     <item name="bg_crown">@drawable/bg_crown</item>
     <item name="bg_dog_btn">@drawable/ic_dog_bg</item>
+    <item name="elevationProfilePropertyBg">@drawable/bg_rounded_rect</item>
+    <item name="elevationProfilePropIconTint">@color/black_secondary</item>
   </style>
 
   <!-- Night theme -->
@@ -335,5 +337,7 @@
     <item name="subscriptionSubtitleColor">@color/bookmarks_subs_subtitle_night</item>
     <item name="bg_crown">@drawable/bg_crown_night</item>
     <item name="bg_dog_btn">@drawable/ic_dog_bg_night</item>
+    <item name="elevationProfilePropertyBg">@drawable/bg_rounded_rect_night</item>
+    <item name="elevationProfilePropIconTint">@color/white_secondary</item>
   </style>
 </resources>
