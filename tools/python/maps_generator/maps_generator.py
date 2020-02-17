@@ -44,7 +44,7 @@ def generate_coasts(env: Env, from_stage: Optional[AnyStr] = None):
     stages = [
         sd.StageDownloadAndConvertPlanet(),
         sd.StageUpdatePlanet(),
-        sd.StageCoastline(),
+        sd.StageCoastline(use_old_if_fail=False),
         sd.StageCleanup(),
     ]
 
