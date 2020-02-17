@@ -46349,3 +46349,63 @@
     zh-Hans = 暂时无法获取该地区的高低线
     zh-Hant = 暫時無法獲取該地區的高低線
     fa = لایه توپوگرافی هنوز برای این منطقه در دسترس نیست
+
+  [elevation_profile_diff_level]
+    comment = FIXME
+    en = Difficulty level
+
+  [elevation_profile_diff_level_easy]
+    comment = FIXME
+    en = Easy
+
+  [elevation_profile_diff_level_moderate]
+    comment = FIXME
+    en = Moderate
+
+  [elevation_profile_diff_level_hard]
+    comment = FIXME
+    en = Hard
+
+  [elevation_profile_ascent]
+    comment = FIXME
+    en = Ascent
+
+  [elevation_profile_descent]
+    comment = FIXME
+    en = Descent
+
+  [elevation_profile_minaltitude]
+    comment = FIXME
+    en = Min. altitude
+
+  [elevation_profile_maxaltitude]
+    comment = FIXME
+    en = Max. altitude
+
+  [elevation_profile_m]
+    comment = FIXME
+    en = m
+
+  [elevation_profile_difficulty]
+    comment = FIXME
+    en = Difficulty
+
+  [elevation_profile_distance]
+    comment = FIXME
+    en = Dist.:
+
+  [elevation_profile_km]
+    comment = FIXME
+    en = km
+
+  [elevation_profile_time]
+    comment = FIXME
+    en = Time:
+
+  [elevation_profile_hours]
+    comment = FIXME
+    en = h.
+
+  [elevation_profile_minutes]
+    comment = FIXME
+    en = min
