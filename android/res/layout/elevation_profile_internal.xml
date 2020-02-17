@@ -146,4 +146,48 @@
         tools:text="10000 m" />
     </LinearLayout>
   </LinearLayout>
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_base"
+    android:orientation="horizontal">
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearance"
+        android:text="@string/elevation_profile_difficulty"/>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_half_plus_eight"
+        android:layout_marginEnd="@dimen/margin_half_double_plus"
+        android:background="@color/yellow"/>
+    </LinearLayout>
+    <View
+      android:layout_width="0dp"
+      android:layout_weight="1"
+      android:layout_height="@dimen/margin_base"
+      android:minWidth="@dimen/margin_base"/>
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearance"
+        android:text="@string/elevation_profile_time" />
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_half"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textStyle="bold"
+        tools:text="3 h. 25 min." />
+    </LinearLayout>
+  </LinearLayout>
 </merge>
