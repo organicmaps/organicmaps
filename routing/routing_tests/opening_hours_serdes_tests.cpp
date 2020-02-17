@@ -857,4 +857,21 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_MonthHours_Usage)
   TEST(oh.IsClosed(GetUnixtimeByDate(2020, Month::May, 6, 01 /* hh */, 00 /* mm */)), ());
   TEST(oh.IsOpen(GetUnixtimeByDate(2020, Month::May, 6, 01 /* hh */, 32 /* mm */)), ());
 }
+
+UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_InverseMonths_Usage)
+{
+  EnableAll();
+
+  TEST(Serialize("Mar - Nov"), ());
+  Flush();
+
+  auto const oh = Deserialize();
+
+  TEST(oh.IsOpen(GetUnixtimeByDate(2019, Month::Mar, 20, 20 /* hh */, 00 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByDate(2019, Month::May, 20, 20 /* hh */, 00 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByDate(2019, Month::Nov, 20, 20 /* hh */, 00 /* mm */)), ());
+  TEST(!oh.IsOpen(GetUnixtimeByDate(2019, Month::Dec, 20, 20 /* hh */, 00 /* mm */)), ());
+  TEST(!oh.IsOpen(GetUnixtimeByDate(2019, Month::Jan, 20, 20 /* hh */, 00 /* mm */)), ());
+  TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::Feb, 20, 20 /* hh */, 00 /* mm */)), ());
+}
 } // namespace

@@ -353,14 +353,52 @@ UNIT_TEST(RoadAccessWriter_ConditionalMerge)
                                "Private 10:00-20:00\n"
                                "Car 1 1\n"
                                "No Mo-Su\n";
-  if (buffer.str() != correctAnswer)
-  {
-    cout << "Result:" << endl
-         << buffer.str() << endl
-         << "Correct result:" << endl
-         << correctAnswer << endl;
 
-    TEST(false, ());
-  }
+  TEST_EQUAL(buffer.str(), correctAnswer, ());
+}
+
+UNIT_TEST(RoadAccessWriter_Conditional_WinterRoads)
+{
+  classificator::Load();
+  auto const filename = generator_tests::GetFileName();
+  SCOPE_GUARD(_, bind(Platform::RemoveFileIfExists, cref(filename)));
+
+  auto const w1 = MakeOsmElementWithNodes(
+      1 /* id */, {{"highway", "primary"}, {"ice_road", "yes"}} /* tags */,
+      OsmElement::EntityType::Way, {10, 11, 12, 13});
+
+  auto const w2 = MakeOsmElementWithNodes(
+      2 /* id */,
+      {{"highway", "service"}, {"winter_road", "yes"}} /* tags */,
+      OsmElement::EntityType::Way, {20, 21, 22, 23});
+
+  auto c1 = make_shared<RoadAccessWriter>(filename);
+
+  c1->CollectFeature(MakeFbForTest(w1), w1);
+  c1->CollectFeature(MakeFbForTest(w2), w2);
+
+  c1->Finish();
+  c1->Save();
+
+  ifstream stream;
+  stream.exceptions(fstream::failbit | fstream::badbit);
+  stream.open(filename + ROAD_ACCESS_CONDITIONAL_EXT);
+  stringstream buffer;
+  buffer << stream.rdbuf();
+
+  string const correctAnswer = "Pedestrian 2 1\n"
+                               "No Feb - Dec\n"
+                               "Pedestrian 1 1\n"
+                               "No Feb - Dec\n"
+                               "Bicycle 2 1\n"
+                               "No Feb - Dec\n"
+                               "Bicycle 1 1\n"
+                               "No Feb - Dec\n"
+                               "Car 2 1\n"
+                               "No Feb - Dec\n"
+                               "Car 1 1\n"
+                               "No Feb - Dec\n";
+
+  TEST_EQUAL(buffer.str(), correctAnswer, ());
 }
 }  // namespace
