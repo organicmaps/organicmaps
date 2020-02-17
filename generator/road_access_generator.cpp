@@ -30,6 +30,8 @@
 #include <unordered_map>
 #include <utility>
 
+#include "3party/opening_hours/opening_hours.hpp"
+
 using namespace feature;
 using namespace routing;
 using namespace generator;
@@ -154,7 +156,6 @@ set<OsmElement::Tag> const kHighwaysWhereIgnoreBarriersWithoutAccess = {
 
 bool ParseRoadAccess(string const & roadAccessPath,
                      map<base::GeoObjectId, uint32_t> const & osmIdToFeatureId,
-                     FeaturesVector const & featuresVector,
                      RoadAccessCollector::RoadAccessByVehicleType & roadAccessByVehicleType)
 {
   ifstream stream(roadAccessPath);
@@ -250,6 +251,67 @@ bool ParseRoadAccess(string const & roadAccessPath,
     roadAccessByVehicleType[i].SetAccess(move(featureType[i]), move(pointType[i]));
 
   return true;
+}
+
+void ParseRoadAccessConditional(
+    string const & roadAccessPath, map<base::GeoObjectId, uint32_t> const & osmIdToFeatureId,
+    RoadAccessCollector::RoadAccessByVehicleType & roadAccessByVehicleType)
+{
+  ifstream stream(roadAccessPath);
+  if (!stream)
+  {
+    LOG(LWARNING, ("Could not open", roadAccessPath));
+    return;
+  }
+
+  size_t constexpr kVehicleCount = static_cast<size_t>(VehicleType::Count);
+  CHECK_EQUAL(kVehicleCount, roadAccessByVehicleType.size(), ());
+  array<RoadAccess::WayToAccessConditional, kVehicleCount> wayToAccessConditional;
+
+  string buffer;
+  VehicleType vehicleType;
+  while (stream >> buffer)
+  {
+    FromString(buffer, vehicleType);
+
+    uint64_t osmId = 0;
+    stream >> osmId;
+
+    size_t accessNumber = 0;
+    stream >> accessNumber;
+    CHECK_NOT_EQUAL(accessNumber, 0, ());
+    RoadAccess::Conditional conditional;
+    for (size_t i = 0; i < accessNumber; ++i)
+    {
+      getline(stream, buffer);
+      stringstream tmpStream;
+      tmpStream << buffer;
+      RoadAccess::Type roadAccessType = RoadAccess::Type::Count;
+      tmpStream >> buffer;
+      FromString(buffer, roadAccessType);
+      CHECK_NOT_EQUAL(roadAccessType, RoadAccess::Type::Count, ());
+
+      buffer = tmpStream.str();
+      osmoh::OpeningHours openingHours(buffer);
+      if (!openingHours.IsValid())
+        continue;
+
+      conditional.Insert(roadAccessType, move(openingHours));
+    }
+
+    if (conditional.IsEmpty())
+      continue;
+
+    auto const it = osmIdToFeatureId.find(base::MakeOsmWay(osmId));
+    if (it == osmIdToFeatureId.end())
+      continue;
+    uint32_t const featureId = it->second;
+
+    wayToAccessConditional[static_cast<size_t>(vehicleType)].emplace(featureId, move(conditional));
+  }
+
+  for (size_t i = 0; i < roadAccessByVehicleType.size(); ++i)
+    roadAccessByVehicleType[i].SetAccessConditional(move(wayToAccessConditional[i]));
 }
 
 // If |elem| has access tag from |mapping|, returns corresponding RoadAccess::Type.
@@ -560,16 +622,16 @@ RoadAccessCollector::RoadAccessCollector(string const & dataFilePath, string con
     return;
   }
 
-  FeaturesVectorTest featuresVector(dataFilePath);
-
   RoadAccessCollector::RoadAccessByVehicleType roadAccessByVehicleType;
-  if (!ParseRoadAccess(roadAccessPath, osmIdToFeatureId, featuresVector.GetVector(),
-                       roadAccessByVehicleType))
+  if (!ParseRoadAccess(roadAccessPath, osmIdToFeatureId, roadAccessByVehicleType))
   {
     LOG(LWARNING, ("An error happened while parsing road access from file:", roadAccessPath));
     m_valid = false;
     return;
   }
+
+  auto const roadAccessConditional = roadAccessPath + ROAD_ACCESS_CONDITIONAL_EXT;
+  ParseRoadAccessConditional(roadAccessConditional, osmIdToFeatureId, roadAccessByVehicleType);
 
   m_valid = true;
   m_roadAccessByVehicleType.swap(roadAccessByVehicleType);

@@ -854,4 +854,10 @@ bool OpeningHours::HasYearSelector() const
 {
   return std::any_of(m_rule.cbegin(), m_rule.cend(), std::mem_fn(&osmoh::RuleSequence::HasYears));
 }
+
+void swap(OpeningHours & lhs, OpeningHours & rhs)
+{
+  std::swap(lhs.m_rule, rhs.m_rule);
+  std::swap(lhs.m_valid, rhs.m_valid);
+}
 } // namespace osmoh

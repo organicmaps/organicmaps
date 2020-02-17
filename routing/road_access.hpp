@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "3party/skarupke/flat_hash_map.hpp"
+#include "3party/opening_hours/opening_hours.hpp"
 
 namespace routing
 {
@@ -43,17 +44,51 @@ public:
     Count
   };
 
+  class Conditional
+  {
+  public:
+    struct Access
+    {
+      Access(RoadAccess::Type type, osmoh::OpeningHours && openingHours)
+          : m_type(type), m_openingHours(std::move(openingHours))
+      {
+      }
+
+      RoadAccess::Type m_type = RoadAccess::Type::Count;
+      osmoh::OpeningHours m_openingHours;
+    };
+
+    Conditional() = default;
+
+    void Insert(RoadAccess::Type type, osmoh::OpeningHours && openingHours)
+    {
+      m_accesses.emplace_back(type, std::move(openingHours));
+    }
+
+    bool IsEmpty() const { return m_accesses.empty(); }
+    std::vector<Access> const & GetAccesses() const { return m_accesses; }
+    size_t Size() const { return m_accesses.size(); }
+
+  private:
+    std::vector<Access> m_accesses;
+  };
+
   using WayToAccess = ska::flat_hash_map<uint32_t, RoadAccess::Type>;
   using PointToAccess = ska::flat_hash_map<RoadPoint, RoadAccess::Type, RoadPoint::Hash>;
+  using WayToAccessConditional = ska::flat_hash_map<uint32_t, Conditional>;
+  using PointToAccessConditional = ska::flat_hash_map<RoadPoint, Conditional, RoadPoint::Hash>;
+  // TODO (@gmoryes) add PointToAccessConditional
 
-  WayToAccess const & GetWayToAccess() const
+  WayToAccess const & GetWayToAccess() const { return m_wayToAccess; }
+  PointToAccess const & GetPointToAccess() const { return m_pointToAccess; }
+  WayToAccessConditional const & GetWayToAccessConditional() const
   {
-    return m_wayToAccess;
+    return m_wayToAccessConditional;
   }
 
-  PointToAccess const & GetPointToAccess() const
+  PointToAccessConditional const & GetPointToAccessConditional() const
   {
-    return m_pointToAccess;
+    return m_pointToAccessConditional;
   }
 
   Type GetAccess(uint32_t featureId) const;
@@ -64,6 +99,14 @@ public:
   {
     m_wayToAccess = std::forward<WayToAccess>(wayToAccess);
     m_pointToAccess = std::forward<PointToAccess>(pointToAccess);
+  }
+
+  template <typename WayConditional>
+  void SetAccessConditional(WayConditional && wayToAccessConditional,
+                            PointToAccessConditional && pointToAccessConditional)
+  {
+    m_wayToAccessConditional = std::forward<WayConditional>(wayToAccessConditional);
+    m_pointToAccessConditional = std::forward<PointToAccessConditional>(pointToAccessConditional);
   }
 
   bool operator==(RoadAccess const & rhs) const;
@@ -80,6 +123,8 @@ private:
   // Otherwise, the information is about the segment with number (segmentIdx-1).
   WayToAccess m_wayToAccess;
   PointToAccess m_pointToAccess;
+  WayToAccessConditional m_wayToAccessConditional;
+  PointToAccessConditional m_pointToAccessConditional;
 };
 
 std::string ToString(RoadAccess::Type type);

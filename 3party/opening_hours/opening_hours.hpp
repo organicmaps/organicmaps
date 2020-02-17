@@ -689,8 +689,10 @@ public:
 
   TRuleSequences const & GetRule() const { return m_rule; }
 
+  friend void swap(OpeningHours & lhs, OpeningHours & rhs);
+
 private:
   TRuleSequences m_rule;
-  bool const m_valid;
+  bool m_valid;
 };
 } // namespace osmoh
