@@ -2155,12 +2155,13 @@ bool Framework::ShowMapForURL(string const & url)
   if (strings::StartsWith(url, "ge0"))
   {
     ge0::Ge0Parser parser;
-    double lat, lon, zoom;
+    ge0::Ge0Parser::Result parseResult;
 
-    if (parser.Parse(url, lat, lon, name, zoom))
+    if (parser.Parse(url, parseResult))
     {
-      point = mercator::FromLatLon(lat, lon);
-      rect = df::GetRectForDrawScale(zoom, point);
+      point = mercator::FromLatLon(parseResult.m_lat, parseResult.m_lon);
+      rect = df::GetRectForDrawScale(parseResult.m_zoomLevel, point);
+      name = move(parseResult.m_name);
       result = NEED_CLICK;
     }
   }

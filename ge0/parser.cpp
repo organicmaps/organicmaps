@@ -11,6 +11,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <sstream>
 
 using namespace std;
 
@@ -27,7 +28,7 @@ Ge0Parser::Ge0Parser()
   }
 }
 
-bool Ge0Parser::Parse(string const & url, double & outLat, double & outLon, std::string & outName, double & outZoomLevel)
+bool Ge0Parser::Parse(string const & url, Result & result)
 {
   // Original URL format:
   //
@@ -43,14 +44,13 @@ bool Ge0Parser::Parse(string const & url, double & outLat, double & outLon, std:
   for (string const & prefix : {"ge0://", "http://ge0.me/", "https://ge0.me/"})
   {
     if (strings::StartsWith(url, prefix))
-      return ParseAfterPrefix(url, prefix.size(), outLat, outLon, outName, outZoomLevel);
+      return ParseAfterPrefix(url, prefix.size(), result);
   }
 
   return false;
 }
 
-bool Ge0Parser::ParseAfterPrefix(string const & url, size_t from, double & outLat, double & outLon,
-                                 std::string & outName, double & outZoomLevel)
+bool Ge0Parser::ParseAfterPrefix(string const & url, size_t from, Result & result)
 {
   size_t const kEncodedZoomAndCoordinatesLength = 10;
   if (url.size() < from + kEncodedZoomAndCoordinatesLength)
@@ -66,20 +66,20 @@ bool Ge0Parser::ParseAfterPrefix(string const & url, size_t from, double & outLa
   uint8_t const zoomI = DecodeBase64Char(url[posZoom]);
   if (zoomI >= 64)
     return false;
-  outZoomLevel = DecodeZoom(zoomI);
+  result.m_zoomLevel = DecodeZoom(zoomI);
 
-  if (!DecodeLatLon(url.substr(posLatLon, lengthLatLon), outLat, outLon))
+  if (!DecodeLatLon(url.substr(posLatLon, lengthLatLon), result.m_lat, result.m_lon))
     return false;
 
-  ASSERT(mercator::ValidLon(outLon), (outLon));
-  ASSERT(mercator::ValidLat(outLat), (outLat));
+  ASSERT(mercator::ValidLat(result.m_lat), (result.m_lat));
+  ASSERT(mercator::ValidLon(result.m_lon), (result.m_lon));
 
   if (url.size() >= posName)
   {
     CHECK_GREATER(posName, 0, ());
     if (url[posName - 1] != '/')
       return false;
-    outName = DecodeName(url.substr(posName, min(url.size() - posName, kMaxNameLength)));
+    result.m_name = DecodeName(url.substr(posName, min(url.size() - posName, kMaxNameLength)));
   }
 
   return true;
@@ -178,5 +178,16 @@ void Ge0Parser::ValidateName(string & name)
 bool Ge0Parser::IsHexChar(char const a)
 {
   return ((a >= '0' && a <= '9') || (a >= 'A' && a <= 'F') || (a >= 'a' && a <= 'f'));
+}
+
+string DebugPrint(Ge0Parser::Result const & r)
+{
+  ostringstream oss;
+  oss << "ParseResult [";
+  oss << "zoom=" << r.m_zoomLevel << ", ";
+  oss << "lat=" << r.m_lat << ", ";
+  oss << "lon=" << r.m_lon << ", ";
+  oss << "name=" << r.m_name << "]";
+  return oss.str();
 }
 }  // namespace ge0

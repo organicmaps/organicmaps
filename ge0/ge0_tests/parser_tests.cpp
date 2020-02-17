@@ -44,31 +44,25 @@ double GetLonEpsilon(size_t coordBytes)
 void TestSuccess(char const * s, double lat, double lon, double zoom, char const * name)
 {
   Ge0Parser parser;
-  double parsedLat;
-  double parsedLon;
-  string parsedName;
-  double parsedZoomLevel;
-  bool const result = parser.Parse(s, parsedLat, parsedLon, parsedName, parsedZoomLevel);
+  Ge0Parser::Result parseResult;
+  bool const success = parser.Parse(s, parseResult);
 
-  TEST(result, (s, zoom, lat, lon, name));
+  TEST(success, (s, parseResult));
 
-  TEST_EQUAL(parsedName, string(name), (s));
+  TEST_EQUAL(parseResult.m_name, string(name), (s));
   double const latEps = GetLatEpsilon(9);
-  double const lonEps = GetLonEpsilon(9);  
-  TEST_ALMOST_EQUAL_ABS(parsedLat, lat, latEps, (s, zoom, lat, lon, name));
-  TEST_ALMOST_EQUAL_ABS(parsedLon, lon, lonEps, (s, zoom, lat, lon, name));
-  TEST_ALMOST_EQUAL_ABS(parsedZoomLevel, zoom, kZoomEps, (s, zoom, lat, lon, name));
+  double const lonEps = GetLonEpsilon(9);
+  TEST_ALMOST_EQUAL_ABS(parseResult.m_lat, lat, latEps, (s, parseResult));
+  TEST_ALMOST_EQUAL_ABS(parseResult.m_lon, lon, lonEps, (s, parseResult));
+  TEST_ALMOST_EQUAL_ABS(parseResult.m_zoomLevel, zoom, kZoomEps, (s, parseResult));
 }
 
 void TestFailure(char const * s)
 {
   Ge0Parser parser;
-  string name;
-  double lat;
-  double lon;
-  double zoomLevel;
-  bool const result = parser.Parse(s, lat, lon, name, zoomLevel);
-  TEST(!result, (s));
+  Ge0Parser::Result parseResult;
+  bool const success = parser.Parse(s, parseResult);
+  TEST(!success, (s, parseResult));
 }
 
 bool ConvergenceTest(double lat, double lon, double latEps, double lonEps)
@@ -225,21 +219,18 @@ UNIT_TEST(NameDecoding)
         "d0%bd%d0%b8%d1%8e%3F";
 
     Ge0Parser parser;
-    double parsedLat;
-    double parsedLon;
-    string parsedName;
-    double parsedZoomLevel;
-    bool const result = parser.Parse(url.c_str(), parsedLat, parsedLon, parsedName, parsedZoomLevel);
+    Ge0Parser::Result parseResult;
+    bool const success = parser.Parse(url.c_str(), parseResult);
 
-    TEST(result, (url, zoom, lat, lon, name));
+    TEST(success, (url, parseResult));
 
     // Name would be valid but is too long.
-    TEST_NOT_EQUAL(parsedName, string(name), (url));
+    TEST_NOT_EQUAL(parseResult.m_name, string(name), (url));
     double const latEps = GetLatEpsilon(9);
     double const lonEps = GetLonEpsilon(9);
-    TEST_ALMOST_EQUAL_ABS(parsedLat, lat, latEps, (url, zoom, lat, lon, name));
-    TEST_ALMOST_EQUAL_ABS(parsedLon, lon, lonEps, (url, zoom, lat, lon, name));
-    TEST_ALMOST_EQUAL_ABS(parsedZoomLevel, zoom, kZoomEps, (url, zoom, lat, lon, name));
+    TEST_ALMOST_EQUAL_ABS(parseResult.m_lat, lat, latEps, (url, parseResult));
+    TEST_ALMOST_EQUAL_ABS(parseResult.m_lon, lon, lonEps, (url, parseResult));
+    TEST_ALMOST_EQUAL_ABS(parseResult.m_zoomLevel, zoom, kZoomEps, (url, parseResult));
   }
 }
 

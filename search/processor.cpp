@@ -567,13 +567,10 @@ void Processor::SearchCoordinates()
   string token;
   while (iss >> token)
   {
-    double lat;
-    double lon;
-    string unusedName;
-    double unusedZoomLevel;
     ge0::Ge0Parser parser;
-    if (parser.Parse(token, lat, lon, unusedName, unusedZoomLevel))
-      emitUnique(lat, lon);
+    ge0::Ge0Parser::Result r;
+    if (parser.Parse(token, r))
+      emitUnique(r.m_lat, r.m_lon);
 
     url::GeoURLInfo info(token);
     if (info.IsValid())

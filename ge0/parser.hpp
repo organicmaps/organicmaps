@@ -9,13 +9,20 @@ namespace ge0
 class Ge0Parser
 {
 public:
+  struct Result
+  {
+    double m_zoomLevel = 0.0;
+    double m_lat = 0.0;
+    double m_lon = 0.0;
+    std::string m_name;
+  };
+
   Ge0Parser();
 
-  bool Parse(std::string const & url, double & outLat, double & outLon, std::string & outName, double & outZoomLevel);
+  bool Parse(std::string const & url, Result & result);
 
 protected:
-  bool ParseAfterPrefix(std::string const & url, size_t from, double & outLat, double & outLon,
-                        std::string & outName, double & outZoomLevel);
+  bool ParseAfterPrefix(std::string const & url, size_t from, Result & result);
 
   uint8_t DecodeBase64Char(char const c);
   static double DecodeZoom(uint8_t const zoomByte);
@@ -31,4 +38,6 @@ protected:
 private:
   uint8_t m_base64ReverseCharTable[256];
 };
+
+std::string DebugPrint(Ge0Parser::Result const & r);
 }  // namespace ge0
