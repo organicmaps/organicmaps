@@ -49,7 +49,8 @@ public class ElevationProfileBottomSheetController implements PlacePageControlle
     @Override
     public void onSheetDetailsOpened()
     {
-      // TODO: coming soon
+      if (UiUtils.isLandscape(mActivity))
+        PlacePageUtils.moveViewPortRight(mSheet, mViewPortMinWidth);
     }
 
     @Override
