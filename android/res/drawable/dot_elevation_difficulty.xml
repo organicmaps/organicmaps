@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:state_enabled="false">
+    <shape android:shape="oval">
+      <size
+        android:width="@dimen/elevation_profile_difficulty_dot_size"
+        android:height="@dimen/elevation_profile_difficulty_dot_size" />
+      <solid android:color="@color/black_12" />
+    </shape>
+  </item>
+  <item android:state_enabled="true">
+    <shape android:shape="oval">
+      <size
+        android:width="@dimen/elevation_profile_difficulty_dot_size"
+        android:height="@dimen/elevation_profile_difficulty_dot_size" />
+      <solid android:color="@color/elevation_profile_dot_enabled" />
+    </shape>
+  </item>
+</selector>

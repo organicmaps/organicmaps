@@ -154,18 +154,39 @@
     <LinearLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:gravity="center_vertical"
       android:orientation="horizontal">
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearance"
         android:text="@string/elevation_profile_difficulty"/>
-      <TextView
+      <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_half_plus_eight"
-        android:layout_marginEnd="@dimen/margin_half_double_plus"
-        android:background="@color/yellow"/>
+        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/margin_half_plus_eight">
+        <TextView
+          android:id="@+id/difficulty_level_1"
+          android:layout_width="@dimen/elevation_profile_difficulty_dot_size"
+          android:layout_height="@dimen/elevation_profile_difficulty_dot_size"
+          android:background="@drawable/dot_elevation_difficulty"
+          android:enabled="false"/>
+        <TextView
+          android:id="@+id/difficulty_level_2"
+          android:layout_width="@dimen/elevation_profile_difficulty_dot_size"
+          android:layout_height="@dimen/elevation_profile_difficulty_dot_size"
+          android:layout_marginStart="@dimen/margin_quarter"
+          android:layout_marginEnd="@dimen/margin_quarter"
+          android:background="@drawable/dot_elevation_difficulty"
+          android:enabled="false"/>
+        <TextView
+          android:id="@+id/difficulty_level_3"
+          android:layout_width="@dimen/elevation_profile_difficulty_dot_size"
+          android:layout_height="@dimen/elevation_profile_difficulty_dot_size"
+          android:background="@drawable/dot_elevation_difficulty"
+          android:enabled="false"/>
+      </LinearLayout>
     </LinearLayout>
     <View
       android:layout_width="0dp"

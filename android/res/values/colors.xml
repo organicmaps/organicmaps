@@ -215,4 +215,6 @@
   <color name="yellow">#FFC800</color>
   <color name="all_pass_subtitle">#67BEFF</color>
   <color name="bookmarks_sightseeing_subs_central_content_bg">#DAF8FF</color>
+
+  <color name="elevation_profile_dot_enabled">#FF9600</color>
 </resources>
