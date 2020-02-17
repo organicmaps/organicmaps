@@ -15,8 +15,6 @@ using Altitudes = std::vector<Altitude>;
 Altitude constexpr kInvalidAltitude = std::numeric_limits<Altitude>::min();
 Altitude constexpr kDefaultAltitudeMeters = 0;
 
-double constexpr kPointsEqualEpsilon = 1e-6;
-
 class PointWithAltitude
 {
 public:
@@ -50,10 +48,7 @@ inline PointWithAltitude MakePointWithAltitudeForTesting(m2::PointD const & poin
   return PointWithAltitude(point, kDefaultAltitudeMeters);
 }
 
-inline bool AlmostEqualAbs(PointWithAltitude const & lhs, PointWithAltitude const & rhs)
-{
-  return base::AlmostEqualAbs(lhs.GetPoint(), rhs.GetPoint(), kPointsEqualEpsilon);
-}
+bool AlmostEqualAbs(PointWithAltitude const & lhs, PointWithAltitude const & rhs, double eps);
 }  // namespace geometry
 
 namespace std

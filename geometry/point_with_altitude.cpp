@@ -23,6 +23,10 @@ std::string DebugPrint(PointWithAltitude const & r)
      << "}";
   return ss.str();
 }
+bool AlmostEqualAbs(PointWithAltitude const & lhs, PointWithAltitude const & rhs, double eps)
+{
+  return lhs.GetPoint().EqualDxDy(rhs.GetPoint(), eps) && lhs.GetAltitude() == rhs.GetAltitude();
+}
 }  // namespace geometry
 
 namespace std

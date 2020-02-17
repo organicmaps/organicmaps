@@ -8,6 +8,8 @@
 #include "indexer/feature_altitude.hpp"
 #include "indexer/feature_data.hpp"
 
+#include "coding/point_coding.hpp"
+
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 #include "geometry/rect2d.hpp"
@@ -210,8 +212,7 @@ public:
     {
       for (size_t i = 0; i < junctions.size(); ++i)
       {
-        if (!base::AlmostEqualAbs(m_cross.GetPoint(), junctions[i].GetPoint(),
-                                  geometry::kPointsEqualEpsilon))
+        if (!base::AlmostEqualAbs(m_cross.GetPoint(), junctions[i].GetPoint(), kMwmPointAccuracy))
           continue;
 
         if (i + 1 < junctions.size())
