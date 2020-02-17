@@ -3200,6 +3200,51 @@
 
 "isolines_location_error_dialog" = "Bu bölgede henüz yükseklik çizgileri mevcut değil";
 
+/* FIXME */
+"elevation_profile_diff_level" = "Difficulty level";
+
+/* FIXME */
+"elevation_profile_diff_level_easy" = "Easy";
+
+/* FIXME */
+"elevation_profile_diff_level_moderate" = "Moderate";
+
+/* FIXME */
+"elevation_profile_diff_level_hard" = "Hard";
+
+/* FIXME */
+"elevation_profile_ascent" = "Ascent";
+
+/* FIXME */
+"elevation_profile_descent" = "Descent";
+
+/* FIXME */
+"elevation_profile_minaltitude" = "Min. altitude";
+
+/* FIXME */
+"elevation_profile_maxaltitude" = "Max. altitude";
+
+/* FIXME */
+"elevation_profile_m" = "m";
+
+/* FIXME */
+"elevation_profile_difficulty" = "Difficulty";
+
+/* FIXME */
+"elevation_profile_distance" = "Dist.:";
+
+/* FIXME */
+"elevation_profile_km" = "km";
+
+/* FIXME */
+"elevation_profile_time" = "Time:";
+
+/* FIXME */
+"elevation_profile_hours" = "h.";
+
+/* FIXME */
+"elevation_profile_minutes" = "min";
+
 
 /**********  Partners  **********/
 

@@ -1813,6 +1813,36 @@
 	<string name="tips_map_layers_message_countour">Plan and enjoy your nature trips being sure you know everything about the area</string>
 	<string name="isolines_activation_error_dialog">To activate and use the topographic layer please update or download the map of the area</string>
 	<string name="isolines_location_error_dialog">The topographic layer is not yet available in this area</string>
+	<!-- FIXME -->
+	<string name="elevation_profile_diff_level">Difficulty level</string>
+	<!-- FIXME -->
+	<string name="elevation_profile_diff_level_easy">Easy</string>
+	<!-- FIXME -->
+	<string name="elevation_profile_diff_level_moderate">Moderate</string>
+	<!-- FIXME -->
+	<string name="elevation_profile_diff_level_hard">Hard</string>
+	<!-- FIXME -->
+	<string name="elevation_profile_ascent">Ascent</string>
+	<!-- FIXME -->
+	<string name="elevation_profile_descent">Descent</string>
+	<!-- FIXME -->
+	<string name="elevation_profile_minaltitude">Min. altitude</string>
+	<!-- FIXME -->
+	<string name="elevation_profile_maxaltitude">Max. altitude</string>
+	<!-- FIXME -->
+	<string name="elevation_profile_m">m</string>
+	<!-- FIXME -->
+	<string name="elevation_profile_difficulty">Difficulty</string>
+	<!-- FIXME -->
+	<string name="elevation_profile_distance">Dist.:</string>
+	<!-- FIXME -->
+	<string name="elevation_profile_km">km</string>
+	<!-- FIXME -->
+	<string name="elevation_profile_time">Time:</string>
+	<!-- FIXME -->
+	<string name="elevation_profile_hours">h.</string>
+	<!-- FIXME -->
+	<string name="elevation_profile_minutes">min</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
