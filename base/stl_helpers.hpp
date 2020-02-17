@@ -110,8 +110,8 @@ private:
 template <typename Cont>
 void SortUnique(Cont & c)
 {
-  sort(c.begin(), c.end());
-  c.erase(unique(c.begin(), c.end()), c.end());
+  std::sort(c.begin(), c.end());
+  c.erase(std::unique(c.begin(), c.end()), c.end());
 }
 
 // Sorts according to |less| and removes duplicate entries according to |equals| from |c|.
@@ -120,14 +120,14 @@ void SortUnique(Cont & c)
 template <typename Cont, typename Less, typename Equals>
 void SortUnique(Cont & c, Less && less, Equals && equals)
 {
-  sort(c.begin(), c.end(), std::forward<Less>(less));
-  c.erase(unique(c.begin(), c.end(), std::forward<Equals>(equals)), c.end());
+  std::sort(c.begin(), c.end(), std::forward<Less>(less));
+  c.erase(std::unique(c.begin(), c.end(), std::forward<Equals>(equals)), c.end());
 }
 
 template <typename Cont, typename Fn>
 void EraseIf(Cont & c, Fn && fn)
 {
-  c.erase(remove_if(c.begin(), c.end(), std::forward<Fn>(fn)), c.end());
+  c.erase(std::remove_if(c.begin(), c.end(), std::forward<Fn>(fn)), c.end());
 }
 
 template <typename Cont, typename Fn>
