@@ -133,13 +133,13 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
   private final AnchorBottomSheetBehavior.BottomSheetCallback mSheetCallback
       = new DefaultBottomSheetCallback(mBottomSheetChangedListener);
 
-  private boolean mDeactivateMapSelection;
+  private boolean mDeactivateMapSelection = true;
 
   private void onHiddenInternal()
   {
     if (mDeactivateMapSelection)
       Framework.nativeDeactivatePopup();
-    mDeactivateMapSelection = false;
+    mDeactivateMapSelection = true;
     PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
     UiUtils.invisible(mButtonsLayout);
     mPlacePageTracker.onHidden();

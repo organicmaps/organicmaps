@@ -81,7 +81,7 @@ public class ElevationProfileBottomSheetController implements PlacePageControlle
   private final AnchorBottomSheetBehavior.BottomSheetCallback mSheetCallback
       = new DefaultBottomSheetCallback(mBottomSheetChangedListener);
 
-  private boolean mDeactivateMapSelection;
+  private boolean mDeactivateMapSelection = true;
 
   ElevationProfileBottomSheetController(@NonNull Activity activity,
                                         @NonNull SlideListener slideListener)
@@ -212,7 +212,7 @@ public class ElevationProfileBottomSheetController implements PlacePageControlle
   {
     if (mDeactivateMapSelection)
       Framework.nativeDeactivatePopup();
-    mDeactivateMapSelection = false;
+    mDeactivateMapSelection = true;
     if (UiUtils.isLandscape(mActivity))
     {
       PlacePageUtils.moveViewPortRight(mSheet, mViewPortMinWidth);
