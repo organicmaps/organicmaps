@@ -11,7 +11,7 @@ import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlacePageControllerComposite implements PlacePageController<MapObject>
+class PlacePageControllerComposite implements PlacePageController<MapObject>
 {
   @NonNull
   private final Activity mActivity;
@@ -27,9 +27,10 @@ public class PlacePageControllerComposite implements PlacePageController<MapObje
   @NonNull
   private PlacePageController<MapObject> mActiveController;
 
-  public PlacePageControllerComposite(@NonNull Activity activity,
-                                      @NonNull AdsRemovalPurchaseControllerProvider adsProvider,
-                                      @NonNull SlideListener slideListener, @Nullable RoutingModeListener routingModeListener)
+  PlacePageControllerComposite(@NonNull Activity activity,
+                               @NonNull AdsRemovalPurchaseControllerProvider adsProvider,
+                               @NonNull SlideListener slideListener,
+                               @Nullable RoutingModeListener routingModeListener)
   {
     mActivity = activity;
     mAdsProvider = adsProvider;

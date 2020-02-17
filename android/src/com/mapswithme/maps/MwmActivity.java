@@ -124,7 +124,7 @@ import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.menu.MyPositionButton;
 import com.mapswithme.maps.widget.placepage.PlacePageController;
-import com.mapswithme.maps.widget.placepage.PlacePageControllerComposite;
+import com.mapswithme.maps.widget.placepage.PlacePageFactory;
 import com.mapswithme.maps.widget.placepage.RoutingModeListener;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.InputUtils;
@@ -515,7 +515,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     setContentView(R.layout.activity_map);
 
-    mPlacePageController = new PlacePageControllerComposite(this, this, this, this);
+    mPlacePageController = PlacePageFactory.createPlacePageController(this, this, this, this);
     mPlacePageController.initialize();
     mPlacePageController.onActivityCreated(this, savedInstanceState);
 
