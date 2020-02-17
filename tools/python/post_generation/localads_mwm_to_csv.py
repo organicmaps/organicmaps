@@ -22,9 +22,6 @@ GOOD_TYPES = ("amenity", "shop", "tourism", "leisure", "sport",
               "railway-halt", "aerialway-station", "building-train_station")
 SOURCE_TYPES = {"osm": 0, "booking": 1}
 
-# Big enough to never intersect with a feature id (there are below 3 mln usually).
-FAKE_FEATURE_ID = 100111000
-
 
 def generate_id_from_name_and_version(name, version):
     return ctypes.c_long((adler32(bytes(name, "utf-8")) << 32) | version).value
@@ -63,11 +60,6 @@ def parse_mwm(mwm_name, osm2ft_name, override_version, types_name):
                                                version,
                                                SOURCE_TYPES["osm"]))
                         break
-    QUEUES["mapping"].put((ctypes.c_long(FAKE_FEATURE_ID).value,
-                           FAKE_FEATURE_ID,
-                           mwm_id,
-                           version,
-                           SOURCE_TYPES["osm"]))
 
 
 def write_csv(output_dir, qtype):
