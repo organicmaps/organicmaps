@@ -267,6 +267,8 @@ void ParseRoadAccessConditional(
   size_t constexpr kVehicleCount = static_cast<size_t>(VehicleType::Count);
   CHECK_EQUAL(kVehicleCount, roadAccessByVehicleType.size(), ());
   array<RoadAccess::WayToAccessConditional, kVehicleCount> wayToAccessConditional;
+  // TODO point is not supported yet.
+  array<RoadAccess::PointToAccessConditional, kVehicleCount> pointToAccessConditional;
 
   string buffer;
   VehicleType vehicleType;
@@ -311,7 +313,10 @@ void ParseRoadAccessConditional(
   }
 
   for (size_t i = 0; i < roadAccessByVehicleType.size(); ++i)
-    roadAccessByVehicleType[i].SetAccessConditional(move(wayToAccessConditional[i]));
+  {
+    roadAccessByVehicleType[i].SetAccessConditional(move(wayToAccessConditional[i]),
+                                                    move(pointToAccessConditional[i]));
+  }
 }
 
 // If |elem| has access tag from |mapping|, returns corresponding RoadAccess::Type.

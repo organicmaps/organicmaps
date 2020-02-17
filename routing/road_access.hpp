@@ -85,7 +85,6 @@ public:
   using PointToAccess = ska::flat_hash_map<RoadPoint, RoadAccess::Type, RoadPoint::Hash>;
   using WayToAccessConditional = ska::flat_hash_map<uint32_t, Conditional>;
   using PointToAccessConditional = ska::flat_hash_map<RoadPoint, Conditional, RoadPoint::Hash>;
-  // TODO (@gmoryes) add PointToAccessConditional
 
   WayToAccess const & GetWayToAccess() const { return m_wayToAccess; }
   PointToAccess const & GetPointToAccess() const { return m_pointToAccess; }
