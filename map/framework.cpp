@@ -2276,6 +2276,9 @@ FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator,
       poi = ft.GetID();
       break;
     case feature::GeomType::Line:
+      // Skip/ignore isolines.
+      if (ftypes::IsIsolineChecker::Instance()(ft))
+        return;
       line = ft.GetID();
       break;
     case feature::GeomType::Area:
