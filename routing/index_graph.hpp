@@ -75,7 +75,8 @@ public:
 
   RoadAccess::Type GetAccessType(Segment const & segment) const
   {
-    return m_roadAccess.GetAccess(segment.GetFeatureId());
+    auto [type, _] = m_roadAccess.GetAccessWithoutConditional(segment.GetFeatureId());
+    return type;
   }
 
   uint32_t GetNumRoads() const { return m_roadIndex.GetSize(); }
@@ -129,7 +130,8 @@ public:
   bool IsUTurnAndRestricted(Segment const & parent, Segment const & child, bool isOutgoing) const;
 
   RouteWeight CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool isOutgoing,
-                                  Segment const & from, Segment const & to);
+                                  Segment const & from, Segment const & to,
+                                  std::optional<RouteWeight const> const & prevWeight = std::nullopt);
 
   template <typename T>
   void SetCurrentTimeGetter(T && t) { m_currentTimeGetter = std::forward<T>(t); }
@@ -163,7 +165,13 @@ private:
   };
 
   PenaltyData GetRoadPenaltyData(Segment const & segment);
-  RouteWeight GetPenalties(EdgeEstimator::Purpose purpose, Segment const & u, Segment const & v);
+
+  /// \brief Calculates penalties for moving from |u| to |v|.
+  /// \param |prevWeight| uses for fetching access:conditional. In fact it is time when user
+  /// will be at |u|. This time is based on start time of route building and weight of calculated
+  /// path until |u|.
+  RouteWeight GetPenalties(EdgeEstimator::Purpose purpose, Segment const & u, Segment const & v,
+                           std::optional<RouteWeight> const & prevWeight);
 
   void GetSegmentCandidateForRoadPoint(RoadPoint const & rp, NumMwmId numMwmId,
                                        bool isOutgoing, std::vector<Segment> & children);
@@ -176,6 +184,10 @@ private:
                                std::vector<JointEdge> & jointEdges,
                                std::vector<RouteWeight> & parentWeights,
                                Parents<JointSegment> const & parents);
+
+  template <typename AccessPositionType>
+  bool IsAccessNoForSure(AccessPositionType const & accessPositionType,
+                         RouteWeight const & weight, bool useAccessConditional) const;
 
   std::shared_ptr<Geometry> m_geometry;
   std::shared_ptr<EdgeEstimator> m_estimator;
@@ -205,6 +217,16 @@ private:
     return GetCurrentTimestamp();
   };
 };
+
+template <typename AccessPositionType>
+bool IndexGraph::IsAccessNoForSure(AccessPositionType const & accessPositionType,
+                                   RouteWeight const & weight, bool useAccessConditional) const
+{
+  auto const [accessType, confidence] =
+      useAccessConditional ? m_roadAccess.GetAccess(accessPositionType, weight)
+                           : m_roadAccess.GetAccessWithoutConditional(accessPositionType);
+  return accessType == RoadAccess::Type::No && confidence == RoadAccess::Confidence::Sure;
+}
 
 template <typename ParentVertex>
 bool IndexGraph::IsRestricted(ParentVertex const & parent,

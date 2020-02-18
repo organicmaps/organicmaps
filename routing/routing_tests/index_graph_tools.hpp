@@ -2,6 +2,7 @@
 
 #include "generator/generator_tests_support/routing_helpers.hpp"
 
+#include "routing/base/astar_algorithm.hpp"
 #include "routing/edge_estimator.hpp"
 #include "routing/fake_ending.hpp"
 #include "routing/index_graph.hpp"
@@ -12,18 +13,16 @@
 #include "routing/road_point.hpp"
 #include "routing/route.hpp"
 #include "routing/segment.hpp"
-#include "routing/speed_camera_ser_des.hpp"
 #include "routing/single_vehicle_world_graph.hpp"
+#include "routing/speed_camera_ser_des.hpp"
 #include "routing/transit_graph_loader.hpp"
 #include "routing/transit_world_graph.hpp"
-
-#include "routing/base/astar_algorithm.hpp"
-
-#include "routing_common/num_mwm_id.hpp"
 
 #include "traffic/traffic_info.hpp"
 
 #include "transit/transit_types.hpp"
+
+#include "routing_common/num_mwm_id.hpp"
 
 #include "indexer/classificator_loader.hpp"
 
@@ -31,6 +30,7 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <ctime>
 #include <map>
 #include <memory>
 #include <unordered_map>
@@ -65,16 +65,16 @@ public:
                             std::vector<Edge> & edges) override
   {
     edges.clear();
-    m_graph->GetEdgeList(vertexData.m_vertex, true /* isOutgoing */, true /* useRoutingOptions */,
-                         edges);
+    m_graph->GetEdgeList(vertexData, true /* isOutgoing */, true /* useRoutingOptions */,
+                         true /* useAccessConditional */, edges);
   }
 
   void GetIngoingEdgesList(astar::VertexData<Vertex, RouteWeight> const & vertexData,
                            std::vector<Edge> & edges) override
   {
     edges.clear();
-    m_graph->GetEdgeList(vertexData.m_vertex, false /* isOutgoing */, true /* useRoutingOptions */,
-                         edges);
+    m_graph->GetEdgeList(vertexData, false /* isOutgoing */, true /* useRoutingOptions */,
+                         true /* useAccessConditional */, edges);
   }
 
   RouteWeight GetAStarWeightEpsilon() override { return RouteWeight(0.0); }
@@ -205,13 +205,21 @@ public:
 
   // Sets access for previously added edge.
   void SetEdgeAccess(Vertex from, Vertex to, RoadAccess::Type type);
+  /// \param |condition| in osm opening hours format.
+  void SetEdgeAccessConditional(Vertex from, Vertex to, RoadAccess::Type type,
+                                std::string const & condition);
 
   // Sets access type for previously added point.
   void SetVertexAccess(Vertex v, RoadAccess::Type type);
+  /// \param |condition| in osm opening hours format.
+  void SetVertexAccessConditional(Vertex v, RoadAccess::Type type, std::string const & condition);
 
   // Finds a path between the start and finish vertices. Returns true iff a path exists.
   bool FindPath(Vertex start, Vertex finish, double & pathWeight,
                 std::vector<Edge> & pathEdges) const;
+
+  template <typename T>
+  void SetCurrentTimeGetter(T && getter) { m_currentTimeGetter = std::forward<T>(getter); }
 
 private:
   struct EdgeRequest
@@ -222,10 +230,13 @@ private:
     double m_weight = 0.0;
     // Access type for edge.
     RoadAccess::Type m_accessType = RoadAccess::Type::Yes;
+    RoadAccess::Conditional m_accessConditionalType;
     // Access type for vertex from.
     RoadAccess::Type m_fromAccessType = RoadAccess::Type::Yes;
+    RoadAccess::Conditional m_fromAccessConditionalType;
     // Access type for vertex to.
     RoadAccess::Type m_toAccessType = RoadAccess::Type::Yes;
+    RoadAccess::Conditional m_toAccessConditionalType;
 
     EdgeRequest(uint32_t id, Vertex from, Vertex to, double weight)
       : m_id(id), m_from(from), m_to(to), m_weight(weight)
@@ -236,11 +247,12 @@ private:
   // Builder builds a graph from edge requests.
   struct Builder
   {
-    Builder(uint32_t numVertices) : m_numVertices(numVertices) {}
+    explicit Builder(uint32_t numVertices) : m_numVertices(numVertices) {}
     std::unique_ptr<SingleVehicleWorldGraph> PrepareIndexGraph();
     void BuildJoints();
     void BuildGraphFromRequests(std::vector<EdgeRequest> const & requests);
     void BuildSegmentFromEdge(EdgeRequest const & request);
+    void SetCurrentTimeGetter(std::function<time_t()> const & getter) { m_currentTimeGetter = getter; }
 
     uint32_t const m_numVertices;
     std::map<Edge, double> m_edgeWeights;
@@ -250,11 +262,13 @@ private:
     std::map<Vertex, std::vector<Segment>> m_ingoingSegments;
     std::vector<Joint> m_joints;
     RoadAccess m_roadAccess;
+    std::function<time_t()> m_currentTimeGetter;
   };
 
   void AddDirectedEdge(std::vector<EdgeRequest> & edgeRequests, Vertex from, Vertex to,
                        double weight) const;
 
+  std::function<time_t()> m_currentTimeGetter;
   uint32_t const m_numVertices;
   std::vector<EdgeRequest> m_edgeRequests;
 };
@@ -310,4 +324,12 @@ FakeEnding MakeFakeEnding(uint32_t featureId, uint32_t segmentIdx, m2::PointD co
 
 std::unique_ptr<IndexGraphStarter> MakeStarter(FakeEnding const & start, FakeEnding const & finish,
                                                WorldGraph & graph);
+
+using Month = osmoh::MonthDay::Month;
+using Weekday = osmoh::Weekday;
+
+time_t GetUnixtimeByDate(uint16_t year, Month month, uint8_t monthDay, uint8_t hours,
+                         uint8_t minutes);
+time_t GetUnixtimeByDate(uint16_t year, Month month, Weekday weekday, uint8_t hours,
+                         uint8_t minutes);
 }  // namespace routing_test

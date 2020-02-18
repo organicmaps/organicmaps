@@ -6,6 +6,7 @@
 #include "base/assert.hpp"
 
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -42,6 +43,12 @@ public:
 
     // The number of different road types.
     Count
+  };
+
+  enum class Confidence
+  {
+    Maybe,
+    Sure
   };
 
   class Conditional
@@ -101,8 +108,13 @@ public:
     return m_pointToAccessConditional;
   }
 
-  Type GetAccess(uint32_t featureId) const;
-  Type GetAccess(RoadPoint const & point) const;
+  std::pair<Type, Confidence> GetAccess(uint32_t featureId,
+                                        RouteWeight const & weightToFeature) const;
+  std::pair<Type, Confidence> GetAccess(RoadPoint const & point,
+                                        RouteWeight const & weightToPoint) const;
+
+  std::pair<Type, Confidence> GetAccessWithoutConditional(uint32_t featureId) const;
+  std::pair<Type, Confidence> GetAccessWithoutConditional(RoadPoint const & point) const;
 
   template <typename WayToAccess, typename PointToAccess>
   void SetAccess(WayToAccess && wayToAccess, PointToAccess && pointToAccess)
@@ -131,7 +143,21 @@ public:
   void SetCurrentTimeGetter(T && getter) { m_currentTimeGetter = std::forward<T>(getter); }
 
 private:
+  // When we check access:conditional, we check such interval in fact:
+  // is access:conditional is open at: curTime - |kConfidenceIntervalSeconds| / 2
+  // is access:conditional is open at: curTime + |kConfidenceIntervalSeconds| / 2
+  // If at both ends access:conditional is open we say, we are sure that this access:conditional is open,
+  // if only one is open, we say access:conditional is maybe open.
+  inline static time_t constexpr kConfidenceIntervalSeconds = 2 * 3600;  // 2 hours
+
+  static std::optional<Confidence> GetConfidenceForAccessConditional(
+      time_t momentInTime, osmoh::OpeningHours const & openingHours);
+
+  std::pair<Type, Confidence> GetAccess(uint32_t featureId, time_t momentInTime) const;
+  std::pair<Type, Confidence> GetAccess(RoadPoint const & point, time_t momentInTime) const;
+
   std::function<time_t()> m_currentTimeGetter;
+
   // If segmentIdx of a key in this map is 0, it means the
   // entire feature has the corresponding access type.
   // Otherwise, the information is about the segment with number (segmentIdx-1).
@@ -146,6 +172,7 @@ time_t GetCurrentTimestamp();
 std::string ToString(RoadAccess::Type type);
 void FromString(std::string const & s, RoadAccess::Type & result);
 
+std::string DebugPrint(RoadAccess::Confidence confidence);
 std::string DebugPrint(RoadAccess::Conditional const & conditional);
 std::string DebugPrint(RoadAccess::Type type);
 std::string DebugPrint(RoadAccess const & r);

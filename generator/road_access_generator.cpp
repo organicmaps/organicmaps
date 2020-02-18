@@ -279,10 +279,11 @@ void ParseRoadAccessConditional(
   array<RoadAccess::PointToAccessConditional, kVehicleCount> pointToAccessConditional;
 
   string buffer;
-  VehicleType vehicleType;
+  VehicleType vehicleType = VehicleType::Count;
   while (stream >> buffer)
   {
     FromString(buffer, vehicleType);
+    CHECK_NOT_EQUAL(vehicleType, VehicleType::Count, (buffer));
 
     uint64_t osmId = 0;
     stream >> osmId;
@@ -291,17 +292,16 @@ void ParseRoadAccessConditional(
     stream >> accessNumber;
     CHECK_NOT_EQUAL(accessNumber, 0, ());
     RoadAccess::Conditional conditional;
+    char const newline = stream.get();
+    CHECK_EQUAL(newline, '\n', ());
     for (size_t i = 0; i < accessNumber; ++i)
     {
       getline(stream, buffer);
-      stringstream tmpStream;
-      tmpStream << buffer;
       RoadAccess::Type roadAccessType = RoadAccess::Type::Count;
-      tmpStream >> buffer;
       FromString(buffer, roadAccessType);
       CHECK_NOT_EQUAL(roadAccessType, RoadAccess::Type::Count, ());
 
-      buffer = tmpStream.str();
+      getline(stream, buffer);
       osmoh::OpeningHours openingHours(buffer);
       if (!openingHours.IsValid())
         continue;
@@ -497,7 +497,7 @@ void RoadAccessTagProcessor::WriteWayToAccessConditional(std::ostream & stream)
     CHECK(!accesses.empty(), ());
     stream << ToString(m_vehicleType) << " " << osmId << " " << accesses.size() << endl;
     for (auto const & access : accesses)
-      stream << ToString(access.m_accessType) << " " << access.m_openingHours << endl;
+      stream << ToString(access.m_accessType) << endl << access.m_openingHours << endl;
   }
 }
 

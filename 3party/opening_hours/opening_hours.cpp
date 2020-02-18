@@ -32,6 +32,7 @@
 #include <iomanip>
 #include <ios>
 #include <ostream>
+#include <tuple>
 #include <type_traits>
 #include <vector>
 
@@ -540,6 +541,12 @@ bool DateOffset::operator==(DateOffset const & rhs) const
          m_offset == rhs.m_offset;
 }
 
+bool DateOffset::operator<(DateOffset const & rhs) const
+{
+  return std::tie(m_wdayOffest, m_positive, m_offset) <
+         std::tie(rhs.m_wdayOffest, rhs.m_positive, rhs.m_offset);
+}
+
 // MonthDay ----------------------------------------------------------------------------------------
 std::ostream & operator<<(std::ostream & ost, MonthDay::Month const month)
 {
@@ -646,6 +653,12 @@ bool MonthDay::operator==(MonthDay const & rhs) const
 {
   return m_year == rhs.m_year && m_month == rhs.m_month && m_daynum == rhs.m_daynum &&
          m_variable_date == rhs.m_variable_date && m_offset == rhs.m_offset;
+}
+
+bool MonthDay::operator<(MonthDay const & rhs) const
+{
+  return std::tie(m_year, m_month, m_daynum, m_variable_date, m_offset) <
+         std::tie(rhs.m_year, rhs.m_month, rhs.m_daynum, rhs.m_variable_date, rhs.m_offset);
 }
 
 // MonthdayRange -----------------------------------------------------------------------------------

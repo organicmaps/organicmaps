@@ -1,3 +1,5 @@
+#include "routing/routing_tests/index_graph_tools.hpp"
+
 #include "testing/testing.hpp"
 
 #include "routing/opening_hours_serdes.hpp"
@@ -14,58 +16,12 @@
 #include <vector>
 
 using namespace routing;
+using namespace routing_test;
 
 using Buffer = std::vector<uint8_t>;
 
 namespace
 {
-using Month = osmoh::MonthDay::Month;
-using Weekday = osmoh::Weekday;
-
-time_t GetUnixtimeByDate(uint16_t year, Month month, uint8_t monthDay, uint8_t hours,
-                         uint8_t minutes)
-{
-  std::tm t{};
-  t.tm_year = year - 1900;
-  t.tm_mon = static_cast<int>(month) - 1;
-  t.tm_mday = monthDay;
-  t.tm_hour = hours;
-  t.tm_min = minutes;
-
-  std::time_t moment = std::mktime(&t);
-  return moment;
-}
-
-time_t GetUnixtimeByDate(uint16_t year, Month month, Weekday weekday, uint8_t hours,
-                         uint8_t minutes)
-{
-  int monthDay = 1;
-  auto createUnixtime = [&]() {
-    std::tm t{};
-    t.tm_year = year - 1900;
-    t.tm_mon = static_cast<int>(month) - 1;
-    t.tm_mday = monthDay;
-    t.tm_wday = static_cast<int>(weekday) - 1;
-    t.tm_hour = hours;
-    t.tm_min = minutes;
-
-    return std::mktime(&t);
-  };
-
-  int wday = -1;
-  for (;;)
-  {
-    auto unixtime = createUnixtime();
-    auto time_out = std::localtime(&unixtime);
-    wday = time_out->tm_wday;
-    if (wday == static_cast<int>(weekday) - 1)
-      break;
-    ++monthDay;
-  }
-
-  return createUnixtime();
-}
-
 struct BitReaderWriter
 {
   BitReaderWriter()
@@ -858,7 +814,7 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_MonthHours_Usage)
   TEST(oh.IsOpen(GetUnixtimeByDate(2020, Month::May, 6, 01 /* hh */, 32 /* mm */)), ());
 }
 
-UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_InverseMonths_Usage)
+UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_InverseMonths_Usage_1)
 {
   EnableAll();
 
@@ -873,5 +829,25 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_InverseMonths_Usage)
   TEST(!oh.IsOpen(GetUnixtimeByDate(2019, Month::Dec, 20, 20 /* hh */, 00 /* mm */)), ());
   TEST(!oh.IsOpen(GetUnixtimeByDate(2019, Month::Jan, 20, 20 /* hh */, 00 /* mm */)), ());
   TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::Feb, 20, 20 /* hh */, 00 /* mm */)), ());
+}
+
+UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_InverseMonths_Usage_2)
+{
+  EnableAll();
+
+  TEST(Serialize("Nov - Mar"), ());
+  Flush();
+
+  auto const oh = Deserialize();
+
+  TEST(!oh.IsOpen(GetUnixtimeByDate(2019, Month::Sep, 20, 20 /* hh */, 00 /* mm */)), ());
+  TEST(!oh.IsOpen(GetUnixtimeByDate(2019, Month::Oct, 20, 20 /* hh */, 00 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByDate(2019, Month::Nov, 20, 20 /* hh */, 00 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByDate(2019, Month::Dec, 20, 20 /* hh */, 00 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByDate(2019, Month::Jan, 20, 20 /* hh */, 00 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByDate(2019, Month::Feb, 20, 20 /* hh */, 00 /* mm */)), ());
+  TEST(oh.IsOpen(GetUnixtimeByDate(2019, Month::Mar, 20, 20 /* hh */, 00 /* mm */)), ());
+  TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::Apr, 20, 20 /* hh */, 00 /* mm */)), ());
+  TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::May, 20, 20 /* hh */, 00 /* mm */)), ());
 }
 } // namespace

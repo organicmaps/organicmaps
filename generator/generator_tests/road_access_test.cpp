@@ -186,7 +186,8 @@ UNIT_TEST(RoadAccess_AccessPrivate)
   auto const roadAccessAllTypes =
       SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
   auto const carRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)];
-  TEST_EQUAL(carRoadAccess.GetAccess(0 /* featureId */), RoadAccess::Type::Private, ());
+  TEST_EQUAL(carRoadAccess.GetAccessWithoutConditional(0 /* featureId */),
+             make_pair(RoadAccess::Type::Private, RoadAccess::Confidence::Sure), ());
 }
 
 UNIT_TEST(RoadAccess_Access_Multiple_Vehicle_Types)
@@ -203,12 +204,20 @@ UNIT_TEST(RoadAccess_Access_Multiple_Vehicle_Types)
       SaveAndLoadRoadAccess(roadAccessContent, osmIdsToFeatureIdsContent);
   auto const carRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Car)];
   auto const bicycleRoadAccess = roadAccessAllTypes[static_cast<size_t>(VehicleType::Bicycle)];
-  TEST_EQUAL(carRoadAccess.GetAccess(1 /* featureId */), RoadAccess::Type::Private, ());
-  TEST_EQUAL(carRoadAccess.GetAccess(2 /* featureId */), RoadAccess::Type::Private, ());
-  TEST_EQUAL(carRoadAccess.GetAccess(3 /* featureId */), RoadAccess::Type::Yes, ());
-  TEST_EQUAL(carRoadAccess.GetAccess(4 /* featureId */), RoadAccess::Type::Destination,
-             ());
-  TEST_EQUAL(bicycleRoadAccess.GetAccess(3 /* featureId */), RoadAccess::Type::No, ());
+  TEST_EQUAL(carRoadAccess.GetAccessWithoutConditional(1 /* featureId */),
+             make_pair(RoadAccess::Type::Private, RoadAccess::Confidence::Sure), ());
+
+  TEST_EQUAL(carRoadAccess.GetAccessWithoutConditional(2 /* featureId */),
+             make_pair(RoadAccess::Type::Private, RoadAccess::Confidence::Sure), ());
+
+  TEST_EQUAL(carRoadAccess.GetAccessWithoutConditional(3 /* featureId */),
+             make_pair(RoadAccess::Type::Yes, RoadAccess::Confidence::Sure), ());
+
+  TEST_EQUAL(carRoadAccess.GetAccessWithoutConditional(4 /* featureId */),
+             make_pair(RoadAccess::Type::Destination, RoadAccess::Confidence::Sure), ());
+
+  TEST_EQUAL(bicycleRoadAccess.GetAccessWithoutConditional(3 /* featureId */),
+             make_pair(RoadAccess::Type::No, RoadAccess::Confidence::Sure), ());
 }
 
 UNIT_TEST(RoadAccessWriter_Merge)
@@ -224,10 +233,17 @@ UNIT_TEST(RoadAccessWriter_Merge)
   auto const w3 = MakeOsmElementWithNodes(3 /* id */, {{"highway", "motorway"}} /* tags */,
                                           OsmElement::EntityType::Way, {30, 31, 32, 33});
 
-  auto const p1 = generator_tests::MakeOsmElement(11 /* id */, {{"barrier", "lift_gate"}, {"motor_vehicle", "private"}}, OsmElement::EntityType::Node);
-  auto const p2 = generator_tests::MakeOsmElement(22 /* id */, {{"barrier", "lift_gate"}, {"motor_vehicle", "private"}}, OsmElement::EntityType::Node);
+  auto const p1 = generator_tests::MakeOsmElement(
+      11 /* id */, {{"barrier", "lift_gate"}, {"motor_vehicle", "private"}},
+      OsmElement::EntityType::Node);
+
+  auto const p2 = generator_tests::MakeOsmElement(
+      22 /* id */, {{"barrier", "lift_gate"}, {"motor_vehicle", "private"}},
+      OsmElement::EntityType::Node);
+
   // We should ignore this barrier because it's without access tag and placed on highway-motorway.
-  auto const p3 = generator_tests::MakeOsmElement(32 /* id */, {{"barrier", "lift_gate"}}, OsmElement::EntityType::Node);
+  auto const p3 = generator_tests::MakeOsmElement(32 /* id */, {{"barrier", "lift_gate"}},
+                                                  OsmElement::EntityType::Node);
 
   auto c1 = make_shared<RoadAccessWriter>(filename);
   auto c2 = c1->Clone();
@@ -391,16 +407,20 @@ UNIT_TEST(RoadAccessWriter_ConditionalMerge)
   };
 
   test({"Car 3 2",
-        "Private 12:00-19:00",
-        "No Mo-Su"});
+        "Private",
+        "12:00-19:00",
+        "No",
+        "Mo-Su"});
 
   test({
       "Car 2 1",
-      "Private 10:00-20:00"});
+      "Private",
+      "10:00-20:00"});
 
   test({
       "Car 1 1",
-      "No Mo-Su"});
+      "No",
+      "Mo-Su"});
 
   TEST_EQUAL(GetLinesNumber(buffer.str()), linesNumber, ());
 }
@@ -441,17 +461,23 @@ UNIT_TEST(RoadAccessWriter_Conditional_WinterRoads)
   };
 
   test({"Pedestrian 2 1",
-        "No Mar - Nov"});
+        "No",
+        "Mar - Nov"});
   test({"Pedestrian 1 1",
-        "No Mar - Nov"});
+        "No",
+        "Mar - Nov"});
   test({"Bicycle 2 1",
-        "No Mar - Nov"});
+        "No",
+        "Mar - Nov"});
   test({"Bicycle 1 1",
-        "No Mar - Nov"});
+        "No",
+        "Mar - Nov"});
   test({"Car 2 1",
-        "No Mar - Nov"});
+        "No",
+        "Mar - Nov"});
   test({"Car 1 1",
-        "No Mar - Nov"});
+        "No",
+        "Mar - Nov"});
 
   TEST_EQUAL(GetLinesNumber(buffer.str()), linesNumber, ());
 }

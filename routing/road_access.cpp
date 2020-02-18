@@ -37,24 +37,78 @@ RoadAccess::RoadAccess() : m_currentTimeGetter([](){ return GetCurrentTimestamp(
 {
 }
 
-RoadAccess::Type RoadAccess::GetAccess(uint32_t featureId) const
+pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(
+    uint32_t featureId, RouteWeight const & weightToFeature) const
 {
-// todo(@m) This may or may not be too slow. Consider profiling this and using
-// a Bloom filter or anything else that is faster than std::map.
-  auto const it = m_wayToAccess.find(featureId);
-  if (it != m_wayToAccess.cend())
-    return it->second;
-
-  return RoadAccess::Type::Yes;
+  return GetAccess(featureId, m_currentTimeGetter() + weightToFeature.GetWeight());
 }
 
-RoadAccess::Type RoadAccess::GetAccess(RoadPoint const & point) const
+pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(
+    RoadPoint const & point, RouteWeight const & weightToPoint) const
+{
+  return GetAccess(point, m_currentTimeGetter() + weightToPoint.GetWeight());
+}
+
+pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(uint32_t featureId,
+                                                                     time_t momentInTime) const
+{
+  auto const itConditional = m_wayToAccessConditional.find(featureId);
+  if (itConditional != m_wayToAccessConditional.cend())
+  {
+    auto const & conditional = itConditional->second;
+    for (auto const & access : conditional.GetAccesses())
+    {
+      auto const op = GetConfidenceForAccessConditional(momentInTime, access.m_openingHours);
+      if (!op)
+        continue;
+
+      return {access.m_type, *op};
+    }
+  }
+
+  return GetAccessWithoutConditional(featureId);
+}
+
+pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(RoadPoint const & point,
+                                                                     time_t momentInTime) const
+{
+  auto const itConditional = m_pointToAccessConditional.find(point);
+  if (itConditional != m_pointToAccessConditional.cend())
+  {
+    auto const & conditional = itConditional->second;
+    for (auto const & access : conditional.GetAccesses())
+    {
+      auto const op = GetConfidenceForAccessConditional(momentInTime, access.m_openingHours);
+      if (!op)
+        continue;
+
+      return {access.m_type, *op};
+    }
+  }
+
+  return GetAccessWithoutConditional(point);
+}
+
+pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccessWithoutConditional(
+    uint32_t featureId) const
+{
+  // todo(@m) This may or may not be too slow. Consider profiling this and using
+  // a Bloom filter or anything else that is faster than ska::flat_hash_map
+  auto const it = m_wayToAccess.find(featureId);
+  if (it != m_wayToAccess.cend())
+    return {it->second, Confidence::Sure};
+
+  return {Type::Yes, Confidence::Sure};
+}
+
+pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccessWithoutConditional(
+    RoadPoint const & point) const
 {
   auto const it = m_pointToAccess.find(point);
   if (it != m_pointToAccess.cend())
-    return it->second;
+    return {it->second, Confidence::Sure};
 
-  return RoadAccess::Type::Yes;
+  return {Type::Yes, Confidence::Sure};
 }
 
 bool RoadAccess::operator==(RoadAccess const & rhs) const
@@ -64,10 +118,26 @@ bool RoadAccess::operator==(RoadAccess const & rhs) const
          m_pointToAccessConditional == rhs.m_pointToAccessConditional;
 }
 
+// static
+optional<RoadAccess::Confidence> RoadAccess::GetConfidenceForAccessConditional(
+    time_t momentInTime, osmoh::OpeningHours const & openingHours)
+{
+  auto const left = momentInTime - kConfidenceIntervalSeconds / 2;
+  auto const right = momentInTime + kConfidenceIntervalSeconds / 2;
+
+  auto const leftOpen = openingHours.IsOpen(left);
+  auto const rightOpen = openingHours.IsOpen(right);
+
+  if (!leftOpen && !rightOpen)
+    return nullopt;
+
+  return leftOpen && rightOpen ? Confidence::Sure : Confidence::Maybe;
+}
+
 // Functions ---------------------------------------------------------------------------------------
 time_t GetCurrentTimestamp()
 {
-  using system_clock = std::chrono::system_clock;
+  using system_clock = chrono::system_clock;
   return system_clock::to_time_t(system_clock::now());
 }
 
@@ -90,7 +160,7 @@ void FromString(string const & s, RoadAccess::Type & result)
     }
   }
   result = RoadAccess::Type::Count;
-  ASSERT(false, ("Could not read RoadAccess from the string", s));
+  CHECK(false, ("Could not read RoadAccess from the string", s));
 }
 
 string DebugPrint(RoadAccess::Conditional const & conditional)
@@ -103,6 +173,16 @@ string DebugPrint(RoadAccess::Conditional const & conditional)
   }
   ss << " } ";
   return ss.str();
+}
+
+string DebugPrint(RoadAccess::Confidence confidence)
+{
+  switch (confidence)
+  {
+  case RoadAccess::Confidence::Maybe: return "Maybe";
+  case RoadAccess::Confidence::Sure: return "Sure";
+  }
+  UNREACHABLE();
 }
 
 string DebugPrint(RoadAccess::Type type) { return ToString(type); }

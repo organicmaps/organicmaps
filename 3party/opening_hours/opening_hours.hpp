@@ -425,6 +425,8 @@ public:
   void SetWDayOffsetPositive(bool const on) { m_positive = on; }
 
   bool operator==(DateOffset const & rhs) const;
+  bool operator!=(DateOffset const & rhs) const { return !(*this == rhs); }
+  bool operator<(DateOffset const & rhs) const;
 
 private:
   Weekday m_wdayOffest = Weekday::None;
@@ -484,6 +486,8 @@ public:
   void SetVariableDate(VariableDate const date) { m_variable_date = date; }
 
   bool operator==(MonthDay const & rhs) const;
+  bool operator<(MonthDay const & rhs) const;
+  bool operator<=(MonthDay const & rhs) const { return *this < rhs || *this == rhs; }
 
 private:
   TYear m_year = 0;

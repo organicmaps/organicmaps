@@ -18,10 +18,11 @@ public:
   explicit constexpr RouteWeight(double weight) : m_weight(weight) {}
 
   constexpr RouteWeight(double weight, int8_t numPassThroughChanges, int8_t numAccessChanges,
-                        double transitTime)
+                        int8_t numAccessConditionalPenalties, double transitTime)
     : m_weight(weight)
     , m_numPassThroughChanges(numPassThroughChanges)
     , m_numAccessChanges(numAccessChanges)
+    , m_numAccessConditionalPenalties(numAccessConditionalPenalties)
     , m_transitTime(transitTime)
   {
   }
@@ -33,6 +34,9 @@ public:
   int8_t GetNumPassThroughChanges() const { return m_numPassThroughChanges; }
   int8_t GetNumAccessChanges() const { return m_numAccessChanges; }
   double GetTransitTime() const { return m_transitTime; }
+
+  int8_t GetNumAccessConditionalPenalties() const { return m_numAccessConditionalPenalties; }
+  void AddAccessConditionalPenalty();
 
   bool operator<(RouteWeight const & rhs) const
   {
@@ -46,6 +50,10 @@ public:
     // access={private, destination} crosses.
     if (m_numAccessChanges != rhs.m_numAccessChanges)
       return m_numAccessChanges < rhs.m_numAccessChanges;
+
+    if (m_numAccessConditionalPenalties != rhs.m_numAccessConditionalPenalties)
+      return m_numAccessConditionalPenalties < rhs.m_numAccessConditionalPenalties;
+
     if (m_weight != rhs.m_weight)
       return m_weight < rhs.m_weight;
     // Prefer bigger transit time if total weights are same.
@@ -72,13 +80,16 @@ public:
   {
     ASSERT_NOT_EQUAL(m_numPassThroughChanges, std::numeric_limits<int8_t>::min(), ());
     ASSERT_NOT_EQUAL(m_numAccessChanges, std::numeric_limits<int8_t>::min(), ());
-    return RouteWeight(-m_weight, -m_numPassThroughChanges, -m_numAccessChanges, -m_transitTime);
+    ASSERT_NOT_EQUAL(m_numAccessConditionalPenalties, std::numeric_limits<int8_t>::min(), ());
+    return RouteWeight(-m_weight, -m_numPassThroughChanges, -m_numAccessChanges,
+                       -m_numAccessConditionalPenalties, -m_transitTime);
   }
 
   bool IsAlmostEqualForTests(RouteWeight const & rhs, double epsilon)
   {
     return m_numPassThroughChanges == rhs.m_numPassThroughChanges &&
            m_numAccessChanges == rhs.m_numAccessChanges &&
+           m_numAccessConditionalPenalties == rhs.m_numAccessConditionalPenalties &&
            base::AlmostEqualAbs(m_weight, rhs.m_weight, epsilon) &&
            base::AlmostEqualAbs(m_transitTime, rhs.m_transitTime, epsilon);
   }
@@ -90,6 +101,9 @@ private:
   int8_t m_numPassThroughChanges = 0;
   // Number of access=yes/access={private,destination} zone changes.
   int8_t m_numAccessChanges = 0;
+  // Number of access:conditional dangerous zones (when RoadAccess::GetAccess() return
+  // |Confidence::Maybe|).
+  int8_t m_numAccessConditionalPenalties = 0;
   // Transit time. It's already included in |m_weight| (m_transitTime <= m_weight).
   double m_transitTime = 0.0;
 };
@@ -104,6 +118,7 @@ constexpr RouteWeight GetAStarWeightMax<RouteWeight>()
   return RouteWeight(std::numeric_limits<double>::max() /* weight */,
                      std::numeric_limits<int8_t>::max() /* numPassThroughChanges */,
                      std::numeric_limits<int8_t>::max() /* numAccessChanges */,
+                     std::numeric_limits<int8_t>::max() /* numAccessConditionalPenalties */,
                      0.0 /* transitTime */);  // operator< prefers bigger transit time
 }
 
@@ -111,6 +126,6 @@ template <>
 constexpr RouteWeight GetAStarWeightZero<RouteWeight>()
 {
   return RouteWeight(0.0 /* weight */, 0 /* numPassThroughChanges */, 0 /* numAccessChanges */,
-                     0.0 /* transitTime */);
+                     0 /* numAccessConditionalPenalties */, 0.0 /* transitTime */);
 }
 }  // namespace routing

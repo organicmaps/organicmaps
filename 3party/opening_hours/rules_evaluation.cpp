@@ -274,8 +274,12 @@ bool IsActive(MonthdayRange const & range, std::tm const & date)
 
   if (range.HasEnd())
   {
-    return range.GetStart() <= date &&
-           date <= NormalizeEnd(range.GetStart(), range.GetEnd());
+    auto const & start = range.GetStart();
+    auto const end = NormalizeEnd(range.GetStart(), range.GetEnd());
+    if (start <= end)
+      return start <= date && date <= end;
+    else
+      return start <= date || date <= end;
   }
 
   return range.GetStart() == date;

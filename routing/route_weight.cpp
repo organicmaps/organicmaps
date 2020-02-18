@@ -34,8 +34,12 @@ RouteWeight RouteWeight::operator+(RouteWeight const & rhs) const
          (m_numPassThroughChanges, rhs.m_numPassThroughChanges));
   ASSERT(!SumWillOverflow(m_numAccessChanges, rhs.m_numAccessChanges),
          (m_numAccessChanges, rhs.m_numAccessChanges));
+  ASSERT(!SumWillOverflow(m_numAccessConditionalPenalties, rhs.m_numAccessConditionalPenalties),
+         (m_numAccessConditionalPenalties, rhs.m_numAccessConditionalPenalties));
+
   return RouteWeight(m_weight + rhs.m_weight, m_numPassThroughChanges + rhs.m_numPassThroughChanges,
                      m_numAccessChanges + rhs.m_numAccessChanges,
+                     m_numAccessConditionalPenalties + rhs.m_numAccessConditionalPenalties,
                      m_transitTime + rhs.m_transitTime);
 }
 
@@ -43,12 +47,18 @@ RouteWeight RouteWeight::operator-(RouteWeight const & rhs) const
 {
   ASSERT_NOT_EQUAL(m_numPassThroughChanges, numeric_limits<int8_t>::min(), ());
   ASSERT_NOT_EQUAL(m_numAccessChanges, numeric_limits<int8_t>::min(), ());
-  ASSERT(!SumWillOverflow(m_numPassThroughChanges, static_cast<int8_t>(-rhs.m_numPassThroughChanges)),
-         (m_numPassThroughChanges, -rhs.m_numPassThroughChanges));
+  ASSERT(
+      !SumWillOverflow(m_numPassThroughChanges, static_cast<int8_t>(-rhs.m_numPassThroughChanges)),
+      (m_numPassThroughChanges, -rhs.m_numPassThroughChanges));
   ASSERT(!SumWillOverflow(m_numAccessChanges, static_cast<int8_t>(-rhs.m_numAccessChanges)),
          (m_numAccessChanges, -rhs.m_numAccessChanges));
+  ASSERT(!SumWillOverflow(m_numAccessConditionalPenalties,
+                          static_cast<int8_t>(-rhs.m_numAccessConditionalPenalties)),
+         (m_numAccessConditionalPenalties, -rhs.m_numAccessConditionalPenalties));
+
   return RouteWeight(m_weight - rhs.m_weight, m_numPassThroughChanges - rhs.m_numPassThroughChanges,
                      m_numAccessChanges - rhs.m_numAccessChanges,
+                     m_numAccessConditionalPenalties - rhs.m_numAccessConditionalPenalties,
                      m_transitTime - rhs.m_transitTime);
 }
 
@@ -58,24 +68,36 @@ RouteWeight & RouteWeight::operator+=(RouteWeight const & rhs)
          (m_numPassThroughChanges, rhs.m_numPassThroughChanges));
   ASSERT(!SumWillOverflow(m_numAccessChanges, rhs.m_numAccessChanges),
          (m_numAccessChanges, rhs.m_numAccessChanges));
+  ASSERT(!SumWillOverflow(m_numAccessConditionalPenalties, rhs.m_numAccessConditionalPenalties),
+         (m_numAccessConditionalPenalties, rhs.m_numAccessConditionalPenalties));
   m_weight += rhs.m_weight;
   m_numPassThroughChanges += rhs.m_numPassThroughChanges;
   m_numAccessChanges += rhs.m_numAccessChanges;
+  m_numAccessConditionalPenalties += rhs.m_numAccessConditionalPenalties;
   m_transitTime += rhs.m_transitTime;
   return *this;
+}
+
+void RouteWeight::AddAccessConditionalPenalty()
+{
+  ASSERT_LESS(m_numAccessConditionalPenalties,
+              std::numeric_limits<decltype(m_numAccessConditionalPenalties)>::max(), ());
+  ++m_numAccessConditionalPenalties;
 }
 
 ostream & operator<<(ostream & os, RouteWeight const & routeWeight)
 {
   os << "(" << static_cast<int32_t>(routeWeight.GetNumPassThroughChanges()) << ", "
-     << static_cast<int32_t>(routeWeight.GetNumAccessChanges()) << ", " << routeWeight.GetWeight()
-     << ", " << routeWeight.GetTransitTime() << ")";
+     << static_cast<int32_t>(routeWeight.GetNumAccessChanges()) << ", "
+     << static_cast<int32_t>(routeWeight.GetNumAccessConditionalPenalties()) << ", "
+     << routeWeight.GetWeight() << ", " << routeWeight.GetTransitTime() << ")";
   return os;
 }
 
 RouteWeight operator*(double lhs, RouteWeight const & rhs)
 {
   return RouteWeight(lhs * rhs.GetWeight(), rhs.GetNumPassThroughChanges(),
-                     rhs.GetNumAccessChanges(), lhs * rhs.GetTransitTime());
+                     rhs.GetNumAccessChanges(), rhs.GetNumAccessConditionalPenalties(),
+                     lhs * rhs.GetTransitTime());
 }
 }  // namespace routing
