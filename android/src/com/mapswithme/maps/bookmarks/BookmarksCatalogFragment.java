@@ -158,6 +158,12 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   {
     setHasOptionsMenu(true);
 
+    View root = inflater.inflate(R.layout.fragment_bookmarks_catalog, container, false);
+    mWebView = root.findViewById(getWebViewResId());
+    mRetryBtn = root.findViewById(R.id.retry_btn);
+    mProgressView = root.findViewById(R.id.progress);
+    initWebView();
+
     mFailedPurchaseController = PurchaseFactory.createFailedBookmarkPurchaseController(requireContext());
     mFailedPurchaseController.initialize(requireActivity());
     mPurchaseChecker = new FailedBookmarkPurchaseChecker();
@@ -169,11 +175,6 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     mProductDetailsLoadingCallback = new ProductDetailsLoadingCallback();
     mProductDetailsLoadingManager.addCallback(mProductDetailsLoadingCallback);
 
-    View root = inflater.inflate(R.layout.fragment_bookmarks_catalog, container, false);
-    mWebView = root.findViewById(getWebViewResId());
-    mRetryBtn = root.findViewById(R.id.retry_btn);
-    mProgressView = root.findViewById(R.id.progress);
-    initWebView();
     mRetryBtn.setOnClickListener(v -> onRetryClick());
     mDelegate.onCreateView(savedInstanceState);
     return root;
