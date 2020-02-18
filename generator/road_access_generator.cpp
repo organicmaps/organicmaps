@@ -47,7 +47,7 @@ using ConditionalTagsList = routing::RoadAccessTagProcessor::ConditionalTagsList
 // Get from: https://taginfo.openstreetmap.org/search?q=%3Aconditional
 // @{
 vector<string> const kCarAccessConditionalTags = {
-    "motorcar:conditional", "vehicle:conditional", "motor_vehicle:conditional"
+    "motor_vehicle:conditional", "motorcar:conditional", "vehicle:conditional",
 };
 
 vector<string> const kDefaultAccessConditionalTags = {
@@ -348,8 +348,10 @@ optional<pair<string, string>> GetTagValueConditionalAccess(
   for (auto const & tags : tagsList)
   {
     for (auto const & tag : tags)
+    {
       if (elem.HasTag(tag))
         return make_pair(tag, elem.GetTag(tag));
+    }
   }
 
   if (tagsList.empty())
@@ -473,7 +475,11 @@ void RoadAccessTagProcessor::ProcessConditional(OsmElement const & elem)
   auto accesses = parser.ParseAccessConditionalTag(tag, value);
 
   auto & toSave = m_wayToAccessConditional[elem.m_id];
-  toSave.insert(toSave.end(), move_iterator(accesses.begin()), move_iterator(accesses.end()));
+  for (auto & access : accesses)
+  {
+    if (access.m_accessType != RoadAccess::Type::Count)
+      toSave.emplace_back(move(access));
+  }
 }
 
 void RoadAccessTagProcessor::WriteWayToAccess(ostream & stream)
@@ -773,13 +779,13 @@ string AccessConditionalTagParser::TrimAndDropAroundParentheses(string input) co
 {
   strings::Trim(input);
 
-  if (input.back() == ';')
-    input.erase(std::prev(input.end()));
+  if (!input.empty() && input.back() == ';')
+    input.pop_back();
 
-  if (input.front() == '(' && input.back() == ')')
+  if (input.size() >= 2 && input.front() == '(' && input.back() == ')')
   {
     input.erase(input.begin());
-    input.erase(std::prev(input.end()));
+    input.pop_back();
   }
 
   return input;

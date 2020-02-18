@@ -37,6 +37,7 @@ omim_link_libraries(
   base
   icu
   jansson
+  opening_hours
   oauthcpp
   protobuf
   stats_client

@@ -63,6 +63,37 @@ void BuildTestMwmWithRoads(LocalCountryFile & country)
   }
 }
 
+size_t GetLinesNumber(string const & text)
+{
+  stringstream ss;
+  ss << text.data();
+  string line;
+  size_t n = 0;
+  while (getline(ss, line))
+    ++n;
+  return n;
+}
+
+bool ExistsConsecutiveLines(string const & text, vector<string> const & lines)
+{
+  stringstream ss;
+  ss << text.data();
+  size_t lineIndex = 0;
+  string lineFromText;
+  while (getline(ss, lineFromText))
+  {
+    if (lineFromText == lines[lineIndex])
+      ++lineIndex;
+    else
+      lineIndex = 0;
+
+    if (lineIndex == lines.size())
+      return true;
+  }
+
+  return false;
+}
+
 void LoadRoadAccess(string const & mwmFilePath, VehicleType vehicleType, RoadAccess & roadAccess)
 {
   FilesContainerR const cont(mwmFilePath);
@@ -280,7 +311,14 @@ UNIT_TEST(RoadAccessCoditionalParse)
         {RoadAccess::Type::Destination, "06:30-08:30 AND agricultural"}}},
 
       {"no @ (Mo-Fr 00:00-08:00,20:00-24:00; Sa-Su 00:00-24:00; PH 00:00-24:00)",
-       {{RoadAccess::Type::No, "Mo-Fr 00:00-08:00,20:00-24:00; Sa-Su 00:00-24:00; PH 00:00-24:00"}}}
+       {{RoadAccess::Type::No, "Mo-Fr 00:00-08:00,20:00-24:00; Sa-Su 00:00-24:00; PH 00:00-24:00"}}},
+
+      // Not valid cases
+      {"trash @ (Mo-Fr 00:00-10:00)", {{RoadAccess::Type::Count, "Mo-Fr 00:00-10:00"}}},
+      {"yes Mo-Fr", {}},
+      {"yes (Mo-Fr)", {}},
+      {"no ; Mo-Fr", {}},
+      {"asdsadasdasd", {}}
   };
 
   vector<string> tags = {
@@ -346,15 +384,25 @@ UNIT_TEST(RoadAccessWriter_ConditionalMerge)
   stringstream buffer;
   buffer << stream.rdbuf();
 
-  string const correctAnswer = "Car 3 2\n"
-                               "Private 12:00-19:00\n"
-                               "No Mo-Su\n"
-                               "Car 2 1\n"
-                               "Private 10:00-20:00\n"
-                               "Car 1 1\n"
-                               "No Mo-Su\n";
+  size_t linesNumber = 0;
+  auto const test = [&linesNumber, &buffer](vector<string> const & lines) {
+    TEST(ExistsConsecutiveLines(buffer.str(), lines), (buffer.str(), lines));
+    linesNumber += lines.size();
+  };
 
-  TEST_EQUAL(buffer.str(), correctAnswer, ());
+  test({"Car 3 2",
+        "Private 12:00-19:00",
+        "No Mo-Su"});
+
+  test({
+      "Car 2 1",
+      "Private 10:00-20:00"});
+
+  test({
+      "Car 1 1",
+      "No Mo-Su"});
+
+  TEST_EQUAL(GetLinesNumber(buffer.str()), linesNumber, ());
 }
 
 UNIT_TEST(RoadAccessWriter_Conditional_WinterRoads)
@@ -386,19 +434,25 @@ UNIT_TEST(RoadAccessWriter_Conditional_WinterRoads)
   stringstream buffer;
   buffer << stream.rdbuf();
 
-  string const correctAnswer = "Pedestrian 2 1\n"
-                               "No Feb - Dec\n"
-                               "Pedestrian 1 1\n"
-                               "No Feb - Dec\n"
-                               "Bicycle 2 1\n"
-                               "No Feb - Dec\n"
-                               "Bicycle 1 1\n"
-                               "No Feb - Dec\n"
-                               "Car 2 1\n"
-                               "No Feb - Dec\n"
-                               "Car 1 1\n"
-                               "No Feb - Dec\n";
+  size_t linesNumber = 0;
+  auto const test = [&linesNumber, &buffer](vector<string> const & lines) {
+    TEST(ExistsConsecutiveLines(buffer.str(), lines), (buffer.str(), lines));
+    linesNumber += lines.size();
+  };
 
-  TEST_EQUAL(buffer.str(), correctAnswer, ());
+  test({"Pedestrian 2 1",
+        "No Mar - Nov"});
+  test({"Pedestrian 1 1",
+        "No Mar - Nov"});
+  test({"Bicycle 2 1",
+        "No Mar - Nov"});
+  test({"Bicycle 1 1",
+        "No Mar - Nov"});
+  test({"Car 2 1",
+        "No Mar - Nov"});
+  test({"Car 1 1",
+        "No Mar - Nov"});
+
+  TEST_EQUAL(GetLinesNumber(buffer.str()), linesNumber, ());
 }
 }  // namespace

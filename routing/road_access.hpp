@@ -108,12 +108,12 @@ public:
     m_pointToAccess = std::forward<PointToAccess>(pointToAccess);
   }
 
-  template <typename WayConditional>
+  template <typename WayConditional, typename PointConditional>
   void SetAccessConditional(WayConditional && wayToAccessConditional,
-                            PointToAccessConditional && pointToAccessConditional)
+                            PointConditional && pointToAccessConditional)
   {
     m_wayToAccessConditional = std::forward<WayConditional>(wayToAccessConditional);
-    m_pointToAccessConditional = std::forward<PointToAccessConditional>(pointToAccessConditional);
+    m_pointToAccessConditional = std::forward<PointConditional>(pointToAccessConditional);
   }
 
   bool operator==(RoadAccess const & rhs) const;

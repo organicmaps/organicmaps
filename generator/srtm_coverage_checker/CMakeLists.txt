@@ -29,6 +29,7 @@ omim_link_libraries(
   minizip
   oauthcpp
   protobuf
+  opening_hours
   stats_client
   succinct
   ${LIBZ}

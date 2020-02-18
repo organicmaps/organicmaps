@@ -37,12 +37,18 @@ public:
   using PointToAccessConditional = RoadAccess::PointToAccessConditional;
   using RoadAccessByVehicleType = std::array<RoadAccess, static_cast<size_t>(VehicleType::Count)>;
 
+  enum class Header
+  {
+    WithoutAccessConditional = 1,
+    WithAccessConditional = 2
+  };
+
   RoadAccessSerializer() = delete;
 
   template <class Sink>
   static void Serialize(Sink & sink, RoadAccessByVehicleType const & roadAccessByType)
   {
-    uint32_t const header = kLatestVersion;
+    Header const header = kLatestVersion;
     WriteToSink(sink, header);
     SerializeAccess(sink, roadAccessByType);
     SerializeAccessConditional(sink, roadAccessByType);
@@ -51,16 +57,16 @@ public:
   template <class Source>
   static void Deserialize(Source & src, VehicleType vehicleType, RoadAccess & roadAccess)
   {
-    uint32_t const header = ReadPrimitiveFromSource<uint32_t>(src);
+    auto const header = static_cast<Header>(ReadPrimitiveFromSource<uint32_t>(src));
     CHECK_LESS_OR_EQUAL(header, kLatestVersion, ());
     switch (header)
     {
-    case 1:
+    case Header::WithoutAccessConditional:
     {
       DeserializeAccess(src, vehicleType, roadAccess);
       break;
     }
-    case 2:
+    case Header::WithAccessConditional:
     {
       DeserializeAccess(src, vehicleType, roadAccess);
       DeserializeAccessConditional(src, vehicleType, roadAccess);
@@ -71,31 +77,19 @@ public:
   }
 
 private:
-  inline static uint32_t const kLatestVersion = 2;
+  inline static Header const kLatestVersion = Header::WithAccessConditional;
   
   class AccessPosition
   {
   public:
-//    friend void swap(AccessPosition & lhs, AccessPosition & rhs)
-//    {
-//      std::swap(lhs.m_featureId, rhs.m_featureId);
-//      std::swap(lhs.m_pointId, rhs.m_pointId);
-//    }
-
     static AccessPosition MakeWayAccess(uint32_t featureId)
     {
-      AccessPosition accessPosition;
-      accessPosition.m_featureId = featureId;
-      accessPosition.m_pointId = 0;  // wildcard pointId for way access.
-      return accessPosition;
+      return {featureId, 0 /* wildcard pointId for way access */};
     }
     
     static AccessPosition MakePointAccess(uint32_t featureId, uint32_t pointId)
     {
-      AccessPosition accessPosition;
-      accessPosition.m_featureId = featureId;
-      accessPosition.m_pointId = pointId + 1;
-      return accessPosition;
+      return {featureId, pointId + 1};
     }
 
     AccessPosition() = default;
@@ -177,7 +171,6 @@ private:
       DeserializeOneVehicleType(src, wayToAccess, pointToAccess);
 
       roadAccess.SetAccess(std::move(wayToAccess), std::move(pointToAccess));
-      return;
     }
   }
 
@@ -326,13 +319,12 @@ private:
 
     for (auto & positionsConditional : positionsByAccessType)
     {
-      std::stable_sort(positionsConditional.begin(), positionsConditional.end(),
-                       [](auto const & lhs, auto const & rhs)
-                       {
-                         auto const & lhsAccessPosition = lhs.first;
-                         auto const & rhsAccessPosition = rhs.first;
-                         return lhsAccessPosition < rhsAccessPosition;
-                       });
+      std::sort(positionsConditional.begin(), positionsConditional.end(),
+                [](auto const & lhs, auto const & rhs) {
+                  auto const & lhsAccessPosition = lhs.first;
+                  auto const & rhsAccessPosition = rhs.first;
+                  return lhsAccessPosition < rhsAccessPosition;
+                });
 
       SerializePositionsAccessConditional(sink, positionsConditional);
     }
@@ -522,4 +514,6 @@ private:
     return openingHoursSerDes;
   }
 };
+
+std::string DebugPrint(RoadAccessSerializer::Header const & header);
 }  // namespace routing
