@@ -337,7 +337,7 @@ private:
   /// Bookmarks
   /// If not invalid, bookmark is bound to this place page.
   kml::MarkId m_markId = kml::kInvalidMarkId;
-  kml::MarkGroupId m_markGroupId = kml::kInvalidMarkGroupId;;
+  kml::MarkGroupId m_markGroupId = kml::kInvalidMarkGroupId;
   /// Bookmark category name. Empty, if it's not bookmark;
   std::string m_bookmarkCategoryName;
   kml::BookmarkData m_bookmarkData;

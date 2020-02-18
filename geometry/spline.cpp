@@ -3,26 +3,20 @@
 #include "base/logging.hpp"
 
 #include <numeric>
+#include <utility>
 
 using namespace std;
 
 namespace m2
 {
-
 Spline::Spline(vector<PointD> const & path)
 {
-  ASSERT(path.size() > 1, ("Wrong path size!"));
-  m_position.assign(path.begin(), path.end());
-  size_t cnt = m_position.size() - 1;
-  m_direction = vector<PointD>(cnt);
-  m_length = vector<double>(cnt);
+  Init(path);
+}
 
-  for(size_t i = 0; i < cnt; ++i)
-  {
-    m_direction[i] = path[i + 1] - path[i];
-    m_length[i] = m_direction[i].Length();
-    m_direction[i] = m_direction[i].Normalize();
-  }
+Spline::Spline(vector<PointD> && path)
+{
+  Init(move(path));
 }
 
 Spline::Spline(size_t reservedSize)
@@ -84,6 +78,13 @@ size_t Spline::GetSize() const
   return m_position.size();
 }
 
+void Spline::Clear()
+{
+  m_position.clear();
+  m_direction.clear();
+  m_length.clear();
+}
+
 bool Spline::IsEmpty() const
 {
   return m_position.empty();
@@ -118,11 +119,21 @@ double Spline::GetLength() const
   return accumulate(m_length.begin(), m_length.end(), 0.0);
 }
 
-void Spline::Clear()
+template <typename T>
+void Spline::Init(T && path)
 {
-  m_position.clear();
-  m_direction.clear();
-  m_length.clear();
+  ASSERT(path.size() > 1, ("Wrong path size!"));
+  m_position = forward<T>(path);
+  size_t cnt = m_position.size() - 1;
+  m_direction = vector<PointD>(cnt);
+  m_length = vector<double>(cnt);
+
+  for (size_t i = 0; i < cnt; ++i)
+  {
+    m_direction[i] = m_position[i + 1] - m_position[i];
+    m_length[i] = m_direction[i].Length();
+    m_direction[i] = m_direction[i].Normalize();
+  }
 }
 
 Spline::iterator::iterator()
@@ -260,8 +271,13 @@ void Spline::iterator::AdvanceForward(double step)
 }
 
 SharedSpline::SharedSpline(vector<PointD> const & path)
+  : m_spline(make_shared<Spline>(path))
 {
-  m_spline.reset(new Spline(path));
+}
+
+SharedSpline::SharedSpline(vector<PointD> && path)
+  : m_spline(make_shared<Spline>(move(path)))
+{
 }
 
 SharedSpline::SharedSpline(SharedSpline const & other)
