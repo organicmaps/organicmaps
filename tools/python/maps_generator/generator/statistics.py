@@ -1,9 +1,17 @@
 import datetime
+import json
+import logging
 import os
 import re
 from collections import defaultdict
+from typing import AnyStr
+from typing import Dict
+from typing import List
 
+from .env import WORLDS_NAMES
 from .exceptions import ParseError
+
+logger = logging.getLogger("maps_generator")
 
 RE_STAT = re.compile(
     r"(?:\d+\. )?([\w:|-]+?)\|: "
@@ -128,3 +136,45 @@ def get_stages_info(log_path, ignored_stages=frozenset()):
                     country = file.split(".")[0]
                     result["countries"][country][stage_name] = dt
     return result
+
+
+def read_types(path: AnyStr) -> Dict[AnyStr, Dict]:
+    """"
+    Reads and summarizes statistics for all countries, excluding World and
+    WorldCoast.
+    """
+    with open(path) as f:
+        json_data = json.load(f)
+        all_types = {}
+        countries = json_data["countries"]
+        for country, json_value in countries.items():
+            if country in WORLDS_NAMES:
+                continue
+            try:
+                json_types = json_value["types"]
+            except KeyError:
+                logger.exception(f"Cannot parse {json_value}")
+                continue
+            for t in json_types:
+                curr = all_types.get(t["type"], {})
+                curr["quantity"] = curr.get("quantity", 0.0) + t["quantity"]
+                curr["unit"] = t["unit"]
+                all_types[t["type"]] = curr
+        return all_types
+
+
+def diff(new: Dict[AnyStr, Dict], old: Dict[AnyStr, Dict]) -> List:
+    assert len(new) == len(old)
+    lines = []
+    for key in new:
+        o = old[key]["quantity"]
+        n = new[key]["quantity"]
+        rel = 0
+        if o != 0.0:
+            rel = int(((n - o) / o) * 100)
+        else:
+            if n != 0.0:
+                rel = 100
+
+        lines.append((key, o, n, rel, n - o, new[key]["unit"],))
+    return lines
