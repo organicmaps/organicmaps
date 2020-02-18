@@ -800,7 +800,7 @@ UNIT_TEST(Bookmarks_Sorting)
     {
       kml::TrackData trackData;
       trackData.m_id = testTrackData.m_trackId;
-      trackData.m_points = {{0.0, 0.0}, {1.0, 0.0}};
+      trackData.m_pointsWithAltitudes = {{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}};
       if (testTrackData.m_hoursSinceCreation != kUnknownTime)
         trackData.m_timestamp = currentTime - testTrackData.m_hoursSinceCreation;
       auto const * track = es.CreateTrack(std::move(trackData));

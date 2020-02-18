@@ -2,10 +2,11 @@
 
 #include "indexer/classificator.hpp"
 
-#include "geometry/mercator.hpp"
-
 #include "coding/hex.hpp"
+#include "coding/point_coding.hpp"
 #include "coding/string_utf8_multilang.hpp"
+
+#include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
@@ -73,6 +74,11 @@ std::string PointToString(m2::PointD const & org)
 
   ss << lon << "," << lat;
   return ss.str();
+}
+
+std::string PointToString(geometry::PointWithAltitude const & pt)
+{
+  return PointToString(pt.GetPoint()) + "," + strings::to_string(pt.GetAltitude());
 }
 
 std::string GetLocalizableString(LocalizableString const & s, int8_t lang)
@@ -495,10 +501,10 @@ void SaveTrackData(KmlWriter::WriterWrapper & writer, TrackData const & trackDat
   }
 
   writer << kIndent4 << "<LineString><coordinates>";
-  for (size_t i = 0; i < trackData.m_points.size(); ++i)
+  for (size_t i = 0; i < trackData.m_pointsWithAltitudes.size(); ++i)
   {
-    writer << PointToString(trackData.m_points[i]);
-    if (i + 1 != trackData.m_points.size())
+    writer << PointToString(trackData.m_pointsWithAltitudes[i]);
+    if (i + 1 != trackData.m_pointsWithAltitudes.size())
       writer << " ";
   }
   writer << "</coordinates></LineString>\n";
@@ -506,6 +512,50 @@ void SaveTrackData(KmlWriter::WriterWrapper & writer, TrackData const & trackDat
   SaveTrackExtendedData(writer, trackData);
 
   writer << kIndent2 << "</Placemark>\n";
+}
+
+bool ParsePoint(std::string const & s, char const * delim, m2::PointD & pt,
+                geometry::Altitude & altitude)
+{
+  // Order in string is: lon, lat, z.
+  strings::SimpleTokenizer iter(s, delim);
+  if (!iter)
+    return false;
+
+  double lon;
+  if (strings::to_double(*iter, lon) && mercator::ValidLon(lon) && ++iter)
+  {
+    double lat;
+    if (strings::to_double(*iter, lat) && mercator::ValidLat(lat))
+    {
+      pt = mercator::FromLatLon(lat, lon);
+
+      int rawAltitude;
+      if (++iter && strings::to_int(*iter, rawAltitude))
+        altitude = static_cast<geometry::Altitude>(rawAltitude);
+
+      return true;
+    }
+  }
+  return false;
+}
+
+bool ParsePoint(std::string const & s, char const * delim, m2::PointD & pt)
+{
+  geometry::Altitude dummyAltitude;
+  return ParsePoint(s, delim, pt, dummyAltitude);
+}
+
+bool ParsePointWithAltitude(std::string const & s, char const * delim,
+                            geometry::PointWithAltitude & point)
+{
+  geometry::Altitude altitude = geometry::kDefaultAltitudeMeters;
+  m2::PointD pt;
+  auto result = ParsePoint(s, delim, pt, altitude);
+  point.SetPoint(std::move(pt));
+  point.SetAltitude(altitude);
+
+  return result;
 }
 }  // namespace
 
@@ -566,28 +616,8 @@ void KmlParser::ResetPoint()
   m_trackWidth = kDefaultTrackWidth;
   m_icon = BookmarkIcon::None;
 
-  m_points.clear();
+  m_pointsWithAltitudes.clear();
   m_geometryType = GEOMETRY_TYPE_UNKNOWN;
-}
-
-bool KmlParser::ParsePoint(std::string const & s, char const * delim, m2::PointD & pt)
-{
-  // Order in string is: lon, lat, z.
-  strings::SimpleTokenizer iter(s, delim);
-  if (!iter)
-    return false;
-
-  double lon;
-  if (strings::to_double(*iter, lon) && mercator::ValidLon(lon) && ++iter)
-  {
-    double lat;
-    if (strings::to_double(*iter, lat) && mercator::ValidLat(lat))
-    {
-      pt = mercator::FromLatLon(lat, lon);
-      return true;
-    }
-  }
-  return false;
 }
 
 void KmlParser::SetOrigin(std::string const & s)
@@ -607,11 +637,14 @@ void KmlParser::ParseLineCoordinates(std::string const & s, char const * blockSe
   strings::SimpleTokenizer tupleIter(s, blockSeparator);
   while (tupleIter)
   {
-    m2::PointD pt;
-    if (ParsePoint(*tupleIter, coordSeparator, pt))
+    geometry::PointWithAltitude point;
+    if (ParsePointWithAltitude(*tupleIter, coordSeparator, point))
     {
-      if (m_points.empty() || !pt.EqualDxDy(m_points.back(), 1e-5 /* eps */))
-        m_points.push_back(std::move(pt));
+      if (m_pointsWithAltitudes.empty() ||
+          !AlmostEqualAbs(m_pointsWithAltitudes.back(), point, kMwmPointAccuracy))
+      {
+        m_pointsWithAltitudes.emplace_back(std::move(point));
+      }
     }
     ++tupleIter;
   }
@@ -637,7 +670,7 @@ bool KmlParser::MakeValid()
   }
   else if (GEOMETRY_TYPE_LINE == m_geometryType)
   {
-    return m_points.size() > 1;
+    return m_pointsWithAltitudes.size() > 1;
   }
 
   return false;
@@ -760,7 +793,7 @@ void KmlParser::Pop(std::string const & tag)
         data.m_description = std::move(m_description);
         data.m_layers = std::move(m_trackLayers);
         data.m_timestamp = m_timestamp;
-        data.m_points = m_points;
+        data.m_pointsWithAltitudes = m_pointsWithAltitudes;
         data.m_visible = m_visible;
         data.m_nearestToponyms = std::move(m_nearestToponyms);
         data.m_properties = std::move(m_properties);

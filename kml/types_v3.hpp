@@ -9,8 +9,10 @@
 #include <memory>
 #include <sstream>
 #include <string>
+#include <utility>
 #include <vector>
 
+// V3 kml structures are used to deserialize data of lower versions (V0 - V3).
 namespace kml
 {
 struct BookmarkDataV3
@@ -118,7 +120,8 @@ struct TrackDataV3
     data.m_description = m_description;
     data.m_layers = m_layers;
     data.m_timestamp = m_timestamp;
-    data.m_points = m_points;
+    for (auto & pt : m_points)
+      data.m_pointsWithAltitudes.emplace_back(std::move(pt), geometry::kDefaultAltitudeMeters);
     return data;
   }
   

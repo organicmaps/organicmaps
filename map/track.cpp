@@ -14,7 +14,7 @@ Track::Track(kml::TrackData && data)
   , m_groupID(0)
 {
   m_data.m_id = GetId();
-  ASSERT_GREATER(m_data.m_points.size(), 1, ());
+  ASSERT_GREATER(m_data.m_pointsWithAltitudes.size(), 1, ());
 }
 
 std::string Track::GetName() const
@@ -25,8 +25,8 @@ std::string Track::GetName() const
 m2::RectD Track::GetLimitRect() const
 {
   m2::RectD rect;
-  for (auto const & point : m_data.m_points)
-    rect.Add(point);
+  for (auto const & point : m_data.m_pointsWithAltitudes)
+    rect.Add(point.GetPoint());
   return rect;
 }
 
@@ -34,13 +34,13 @@ double Track::GetLengthMeters() const
 {
   double res = 0.0;
 
-  auto it = m_data.m_points.begin();
-  double lat1 = mercator::YToLat(it->y);
-  double lon1 = mercator::XToLon(it->x);
-  for (++it; it != m_data.m_points.end(); ++it)
+  auto it = m_data.m_pointsWithAltitudes.begin();
+  double lat1 = mercator::YToLat(it->GetPoint().y);
+  double lon1 = mercator::XToLon(it->GetPoint().x);
+  for (++it; it != m_data.m_pointsWithAltitudes.end(); ++it)
   {
-    double const lat2 = mercator::YToLat(it->y);
-    double const lon2 = mercator::XToLon(it->x);
+    double const lat2 = mercator::YToLat(it->GetPoint().y);
+    double const lon2 = mercator::XToLon(it->GetPoint().x);
     res += ms::DistanceOnEarth(lat1, lon1, lat2, lon2);
     lat1 = lat2;
     lon1 = lon2;
@@ -76,9 +76,18 @@ float Track::GetDepth(size_t layerIndex) const
   return layerIndex * 10;
 }
 
-std::vector<m2::PointD> const & Track::GetPoints() const
+std::vector<m2::PointD> Track::GetPoints() const
 {
-  return m_data.m_points;
+  std::vector<m2::PointD> result;
+  for (auto const & pt : m_data.m_pointsWithAltitudes)
+    result.push_back(pt.GetPoint());
+
+  return result;
+}
+
+std::vector<geometry::PointWithAltitude> const & Track::GetPointsWithAltitudes() const
+{
+  return m_data.m_pointsWithAltitudes;
 }
 
 void Track::Attach(kml::MarkGroupId groupId)

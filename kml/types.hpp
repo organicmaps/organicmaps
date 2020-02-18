@@ -2,6 +2,8 @@
 
 #include "kml/type_utils.hpp"
 
+#include "coding/point_coding.hpp"
+
 #include "base/visitor.hpp"
 
 #include <cmath>
@@ -206,13 +208,12 @@ struct BookmarkData
 
   bool operator==(BookmarkData const & data) const
   {
-    double constexpr kEps = 1e-5;
     return m_id == data.m_id && m_name == data.m_name &&
            m_description == data.m_description &&
            m_color == data.m_color && m_icon == data.m_icon &&
            m_viewportScale == data.m_viewportScale &&
            IsEqual(m_timestamp, data.m_timestamp) &&
-           m_point.EqualDxDy(data.m_point, kEps) &&
+           m_point.EqualDxDy(data.m_point, kMwmPointAccuracy) &&
            m_featureTypes == data.m_featureTypes &&
            m_customName == data.m_customName &&
            m_boundTracks == data.m_boundTracks &&
@@ -281,7 +282,7 @@ struct TrackData
                                   visitor(m_description, "description"),
                                   visitor(m_layers, "layers"),
                                   visitor(m_timestamp, "timestamp"),
-                                  visitor(m_points, "points"),
+                                  visitor(m_pointsWithAltitudes, "pointsWithAltitudes"),
                                   visitor(m_visible, "visible"),
                                   visitor(m_nearestToponyms, "nearestToponyms"),
                                   visitor(m_properties, "properties"),
@@ -293,7 +294,8 @@ struct TrackData
   {
     return m_id == data.m_id && m_localId == data.m_localId && m_name == data.m_name &&
            m_description == data.m_description && m_layers == data.m_layers &&
-           IsEqual(m_timestamp, data.m_timestamp) && IsEqual(m_points, data.m_points) &&
+           IsEqual(m_timestamp, data.m_timestamp) &&
+           IsEqual(m_pointsWithAltitudes, data.m_pointsWithAltitudes) &&
            m_visible == data.m_visible && m_nearestToponyms == data.m_nearestToponyms &&
            m_properties == data.m_properties;
   }
@@ -312,8 +314,8 @@ struct TrackData
   std::vector<TrackLayer> m_layers;
   // Creation timestamp.
   Timestamp m_timestamp = {};
-  // Points.
-  std::vector<m2::PointD> m_points;
+  // Points with altitudes.
+  std::vector<geometry::PointWithAltitude> m_pointsWithAltitudes;
   // Visibility.
   bool m_visible = true;
   // Nearest toponyms.

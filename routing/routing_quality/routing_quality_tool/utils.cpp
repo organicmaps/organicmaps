@@ -1,5 +1,3 @@
-#include <utility>
-
 #include "routing/routing_quality/routing_quality_tool/utils.hpp"
 
 #include "routing/vehicle_mask.hpp"
@@ -9,11 +7,14 @@
 
 #include "coding/string_utf8_multilang.hpp"
 
+#include "geometry/point_with_altitude.hpp"
+
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
 #include <iomanip>
+#include <utility>
 
 using namespace routing::routes_builder;
 
@@ -32,11 +33,13 @@ void PrintWithSpaces(std::string const & str, size_t maxN)
     std::cout << " ";
 }
 
-std::vector<m2::PointD> ConvertToPointDVector(std::vector<ms::LatLon> const & latlons)
+std::vector<geometry::PointWithAltitude> ConvertToPointsWithAltitudes(
+    std::vector<ms::LatLon> const & latlons)
 {
-  std::vector<m2::PointD> result(latlons.size());
+  std::vector<geometry::PointWithAltitude> result;
+  result.reserve(latlons.size());
   for (size_t i = 0; i < latlons.size(); ++i)
-    result[i] = mercator::FromLatLon(latlons[i]);
+    result.emplace_back(mercator::FromLatLon(latlons[i]), geometry::kDefaultAltitudeMeters);
 
   return result;
 }
@@ -90,14 +93,19 @@ void SaveKmlFileDataTo(RoutesBuilder::Result const & mapsmeResult,
   kml.m_bookmarksData.emplace_back(CreateBookmark(start, true /* isStart */));
   kml.m_bookmarksData.emplace_back(CreateBookmark(finish, false /* isStart */));
 
+  auto & resultPoints =
+      mapsmeResult.GetRoutes().back().m_followedPolyline.GetPolyline().GetPoints();
   kml::TrackData mapsmeTrack;
-  mapsmeTrack.m_points = mapsmeResult.GetRoutes().back().m_followedPolyline.GetPolyline().GetPoints();
+  mapsmeTrack.m_pointsWithAltitudes.reserve(resultPoints.size());
+  for (auto const & pt : resultPoints)
+    mapsmeTrack.m_pointsWithAltitudes.emplace_back(pt, geometry::kDefaultAltitudeMeters);
+
   addTrack(std::move(mapsmeTrack));
 
   for (auto const & route : apiResult.GetRoutes())
   {
     kml::TrackData apiTrack;
-    apiTrack.m_points = ConvertToPointDVector(route.GetWaypoints());
+    apiTrack.m_pointsWithAltitudes = ConvertToPointsWithAltitudes(route.GetWaypoints());
     addTrack(std::move(apiTrack));
   }
 

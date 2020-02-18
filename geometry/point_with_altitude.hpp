@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <limits>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace geometry
@@ -20,15 +21,18 @@ class PointWithAltitude
 public:
   PointWithAltitude();
   PointWithAltitude(m2::PointD const & point, Altitude altitude);
-  PointWithAltitude(PointWithAltitude const &) = default;
-  PointWithAltitude & operator=(PointWithAltitude const &) = default;
+  PointWithAltitude(m2::PointD && point, Altitude altitude);
 
-  bool operator==(PointWithAltitude const & r) const { return m_point == r.m_point; }
+  bool operator==(PointWithAltitude const & r) const;
   bool operator!=(PointWithAltitude const & r) const { return !(*this == r); }
-  bool operator<(PointWithAltitude const & r) const { return m_point < r.m_point; }
+  bool operator<(PointWithAltitude const & r) const;
 
   m2::PointD const & GetPoint() const { return m_point; }
   Altitude GetAltitude() const { return m_altitude; }
+
+  template <typename T>
+  void SetPoint(T && point) { m_point = std::forward<T>(point); }
+  void SetAltitude(Altitude altitude) { m_altitude = altitude; }
 
 private:
   friend std::string DebugPrint(PointWithAltitude const & r);
@@ -43,10 +47,7 @@ template <typename T>
 m2::Point<T> GetPoint(m2::Point<T> const & point) { return point; }
 inline m2::PointD GetPoint(PointWithAltitude const & pwa) { return pwa.GetPoint(); }
 
-inline PointWithAltitude MakePointWithAltitudeForTesting(m2::PointD const & point)
-{
-  return PointWithAltitude(point, kDefaultAltitudeMeters);
-}
+PointWithAltitude MakePointWithAltitudeForTesting(m2::PointD const & point);
 
 bool AlmostEqualAbs(PointWithAltitude const & lhs, PointWithAltitude const & rhs, double eps);
 }  // namespace geometry

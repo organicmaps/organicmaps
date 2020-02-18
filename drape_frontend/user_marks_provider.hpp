@@ -105,7 +105,7 @@ public:
   virtual dp::Color GetColor(size_t layerIndex) const = 0;
   virtual float GetWidth(size_t layerIndex) const = 0;
   virtual float GetDepth(size_t layerIndex) const = 0;
-  virtual std::vector<m2::PointD> const & GetPoints() const = 0;
+  virtual std::vector<m2::PointD> GetPoints() const = 0;
 
 private:
   kml::TrackId m_id;

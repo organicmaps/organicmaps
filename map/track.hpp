@@ -29,7 +29,8 @@ public:
   dp::Color GetColor(size_t layerIndex) const override;
   float GetWidth(size_t layerIndex) const override;
   float GetDepth(size_t layerIndex) const override;
-  std::vector<m2::PointD> const & GetPoints() const override;
+  std::vector<m2::PointD> GetPoints() const override;
+  std::vector<geometry::PointWithAltitude> const & GetPointsWithAltitudes() const;
 
   void Attach(kml::MarkGroupId groupId);
   void Detach();

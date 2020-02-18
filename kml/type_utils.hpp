@@ -3,16 +3,17 @@
 #include "indexer/feature.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/point_with_altitude.hpp"
 
-#include <cstdint>
 #include <chrono>
+#include <cstdint>
 #include <limits>
 #include <map>
 #include <set>
 #include <sstream>
 #include <string>
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 namespace kml
 {
@@ -82,6 +83,8 @@ inline void SetDefaultStr(LocalizableString & localizableStr, std::string const 
 }
 
 extern bool IsEqual(std::vector<m2::PointD> const & v1, std::vector<m2::PointD> const & v2);
+extern bool IsEqual(std::vector<geometry::PointWithAltitude> const & v1,
+                    std::vector<geometry::PointWithAltitude> const & v2);
 
 struct BookmarkData;
 std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string const & languageOrig);

@@ -3,13 +3,14 @@
 #include "kml/header_binary.hpp"
 #include "kml/types.hpp"
 #include "kml/types_v3.hpp"
+#include "kml/types_v6.hpp"
 #include "kml/visitors.hpp"
+
+#include "platform/platform.hpp"
 
 #include "coding/read_write_utils.hpp"
 #include "coding/sha1.hpp"
 #include "coding/text_storage.hpp"
-
-#include "platform/platform.hpp"
 
 #include <string>
 #include <vector>
@@ -21,13 +22,16 @@ namespace binary
 enum class Version : uint8_t
 {
   V0 = 0,
-  V1 = 1, // 11th April 2018 (new Point2D storage, added deviceId, feature name -> custom name).
-  V2 = 2, // 25th April 2018 (added serverId).
-  V3 = 3, // 7th May 2018 (persistent feature types).
-  V4 = 4, // 26th August 2019 (key-value properties and nearestToponym for bookmarks and tracks, cities -> toponyms).
-  V5 = 5, // 21st November 2019 (extended color palette).
-  V6 = 6, // 3rd December 2019 (extended bookmark icons).
-  Latest = V6
+  V1 = 1,  // 11th April 2018: new Point2D storage, added deviceId, feature name -> custom name.
+  V2 = 2,  // 25th April 2018: added serverId.
+  V3 = 3,  // 7th May 2018: persistent feature types. V3 is binary compatible with lower versions.
+  V4 = 4,  // 26th August 2019: key-value properties and nearestToponym for bookmarks and tracks,
+           // cities -> toponyms.
+  V5 = 5,  // 21st November 2019: extended color palette.
+  V6 = 6,  // 3rd December 2019: extended bookmark icons. V6 is binary compatible with V4 and V5
+           // versions.
+  V7 = 7,  // 13th February 2020: track points are replaced by points with altitude.
+  Latest = V7
 };
 
 class SerializerKml
@@ -140,7 +144,7 @@ public:
     auto const v = ReadPrimitiveFromSource<Version>(source);
 
     if (v != Version::Latest && v != Version::V2 && v != Version::V3 && v != Version::V4 &&
-        v != Version::V5)
+        v != Version::V5 && v != Version::V6)
     {
       MYTHROW(DeserializeException, ("Incorrect file version."));
     }
@@ -152,13 +156,19 @@ public:
     auto subReader = reader.CreateSubReader(source.Pos(), source.Size());
     InitializeIfNeeded(*subReader);
 
-    if (v == Version::V6 || v == Version::V5 || v == Version::V4)
+    if (v == Version::V7)
+    {
+      DeserializeFileData(subReader, m_data);
+    }
+    else if (v == Version::V6 || v == Version::V5 || v == Version::V4)
     {
       // NOTE: v.4, v.5 and v.6 are binary compatible.
-      DeserializeCategory(subReader, m_data);
-      DeserializeBookmarks(subReader, m_data);
-      DeserializeTracks(subReader, m_data);
-      DeserializeStrings(subReader, m_data);
+      FileDataV6 dataV6;
+      dataV6.m_deviceId = m_data.m_deviceId;
+      dataV6.m_serverId = m_data.m_serverId;
+      DeserializeFileData(subReader, dataV6);
+
+      m_data = dataV6.ConvertToLatestVersion();
     }
     else
     {
@@ -166,15 +176,11 @@ public:
       FileDataV3 dataV3;
       dataV3.m_deviceId = m_data.m_deviceId;
       dataV3.m_serverId = m_data.m_serverId;
-      DeserializeCategory(subReader, dataV3);
-      DeserializeBookmarks(subReader, dataV3);
+      DeserializeFileData(subReader, dataV3);
 
       // Migrate bookmarks (it's necessary ony for v.2).
       if (v == Version::V2)
         MigrateBookmarksV2(dataV3);
-
-      DeserializeTracks(subReader, dataV3);
-      DeserializeStrings(subReader, dataV3);
 
       m_data = dataV3.ConvertToLatestVersion();
     }
@@ -248,6 +254,18 @@ private:
   }
 
   template <typename FileDataType>
+  void DeserializeFileData(std::unique_ptr<Reader> & subReader, FileDataType & data)
+  {
+    // Keep in mind - deserialization/serialization works in two stages:
+    // - serialization/deserialization non-string members of structures;
+    // - serialization/deserialization string members of structures.
+    DeserializeCategory(subReader, data);
+    DeserializeBookmarks(subReader, data);
+    DeserializeTracks(subReader, data);
+    DeserializeStrings(subReader, data);
+  }
+
+  template <typename FileDataType>
   void DeserializeCategory(std::unique_ptr<Reader> & subReader, FileDataType & data)
   {
     auto categorySubReader = CreateCategorySubReader(*subReader);
@@ -288,8 +306,7 @@ private:
     DeserializedStringCollector<Reader> collector(strings);
     CollectorVisitor<decltype(collector)> visitor(collector);
     data.Visit(visitor);
-    CollectorVisitor<decltype(collector)> clearVisitor(collector,
-                                                       true /* clear index */);
+    CollectorVisitor<decltype(collector)> clearVisitor(collector, true /* clear index */);
     data.Visit(clearVisitor);
   }
 

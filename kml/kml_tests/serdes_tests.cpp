@@ -96,8 +96,9 @@ kml::FileData GenerateKmlFileData()
   trackData.m_layers = {{6.0, {kml::PredefinedColor::None, 0xff0000ff}},
                         {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}};
   trackData.m_timestamp = std::chrono::system_clock::from_time_t(900);
-  trackData.m_points = {m2::PointD(45.9242, 56.8679), m2::PointD(45.2244, 56.2786),
-                        m2::PointD(45.1964, 56.9832)};
+  trackData.m_pointsWithAltitudes = {{m2::PointD(45.9242, 56.8679), 1},
+                                     {m2::PointD(45.2244, 56.2786), 2},
+                                     {m2::PointD(45.1964, 56.9832), 3}};
   trackData.m_visible = false;
   trackData.m_nearestToponyms = {"12345", "54321", "98765"};
   trackData.m_properties = {{"tr_property1", "value1"}, {"tr_property2", "value2"}};
@@ -307,7 +308,7 @@ char const * kGeneratedKml =
   "      <width>6</width>\n"
   "    </LineStyle></Style>\n"
   "    <TimeStamp><when>1970-01-01T00:15:00Z</when></TimeStamp>\n"
-  "    <LineString><coordinates>45.9242,49.326859 45.2244,48.941288 45.1964,49.401948</coordinates></LineString>\n"
+  "    <LineString><coordinates>45.9242,49.326859,1 45.2244,48.941288,2 45.1964,49.401948,3</coordinates></LineString>\n"
   "    <ExtendedData xmlns:mwm=\"https://maps.me\">\n"
   "      <mwm:name>\n"
   "        <mwm:lang code=\"ru\">Тестовый трек</mwm:lang>\n"
