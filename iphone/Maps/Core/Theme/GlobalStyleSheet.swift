@@ -168,12 +168,26 @@ class GlobalStyleSheet: IStyleSheet {
       s.shadowOffset = CGSize(width: 0, height: 0)
     }
 
-    theme.add(styleName: "RatingView") { (s) -> (Void) in
+    theme.add(styleName: "RatingView12") { (s) -> (Void) in
       var settings = RatingViewSettings()
       settings.filledColor = colors.ratingYellow
       settings.emptyColor = colors.blackDividers
-      settings.textFonts[.right] = fonts.regular10
-      settings.textColors[.right] = colors.blackSecondaryText
+      settings.textFonts[.top] = fonts.regular10
+      settings.textColors[.top] = colors.blackSecondaryText
+      settings.starSize = 12
+      settings.starsCount = 5
+      s.ratingViewSettings = settings
+      s.borderWidth = 0
+    }
+
+    theme.add(styleName: "RatingView20") { (s) -> (Void) in
+      var settings = RatingViewSettings()
+      settings.filledColor = colors.ratingYellow
+      settings.emptyColor = colors.blackDividers
+      settings.textFonts[.top] = fonts.regular10
+      settings.textColors[.top] = colors.blackSecondaryText
+      settings.starSize = 20
+      settings.starsCount = 5
       s.ratingViewSettings = settings
       s.borderWidth = 0
     }

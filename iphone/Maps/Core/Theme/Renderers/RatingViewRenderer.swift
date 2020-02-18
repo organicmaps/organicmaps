@@ -1,9 +1,6 @@
 import Foundation
 extension RatingView {
   @objc override func applyTheme() {
-    if styleName.isEmpty {
-      styleName = "RatingView"
-    }
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {
         RatingViewRenderer.render(self, style: style)

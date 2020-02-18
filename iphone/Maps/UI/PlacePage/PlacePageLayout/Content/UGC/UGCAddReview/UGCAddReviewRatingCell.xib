@@ -36,6 +36,7 @@
                             <userDefinedRuntimeAttribute type="number" keyPath="minTouchRating">
                                 <real key="value" value="0.0"/>
                             </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="RatingView20"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
