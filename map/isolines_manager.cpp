@@ -12,8 +12,7 @@
 
 int constexpr kMinIsolinesZoom = 11;
 
-// TODO: Update value.
-int64_t constexpr kMinDataVersion = 0;
+int64_t constexpr kMinDataVersion = 200209;
 
 IsolinesManager::IsolinesManager(DataSource & dataSource, GetMwmsByRectFn const & getMwmsByRectFn)
   : m_dataSource(dataSource)
