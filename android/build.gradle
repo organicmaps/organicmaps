@@ -103,6 +103,7 @@ dependencies {
   implementation 'com.google.android:flexbox:1.0.0'
   implementation 'com.trafi:anchor-bottom-sheet-behavior:0.13-alpha'
   implementation 'com.google.firebase:firebase-messaging:17.0.0'
+  implementation 'com.github.yoksnod:MPAndroidChart:3.2.0-alpha'
 }
 
 def getDate() {
