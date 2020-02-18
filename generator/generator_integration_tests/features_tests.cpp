@@ -10,17 +10,19 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
+#include "platform/platform_tests_support/helpers.hpp"
+
 #include "platform/platform.hpp"
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 
+#include "defines.hpp"
+
 #include <cstdio>
 #include <sstream>
 #include <string>
-
-#include "defines.hpp"
 
 using namespace generator_integration_tests;
 
@@ -135,6 +137,8 @@ public:
     // You can get features-2019_07_17__13_39_20 by running:
     // rsync -v -p testdata.mapsme.cloud.devmail.ru::testdata/features-2019_07_17__13_39_20.zip .
     Init("features-2019_07_17__13_39_20" /* archiveName */);
+    size_t const kMaxOpenFiles = 4096;
+    platform::tests_support::ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
   }
 
   ~FeatureIntegrationTests()
