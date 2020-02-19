@@ -5,8 +5,6 @@
   android:id="@+id/elevation_profile"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:paddingStart="@dimen/margin_base"
-  android:paddingEnd="@dimen/margin_base"
   android:paddingTop="@dimen/margin_half_plus"
   android:paddingBottom="@dimen/margin_base"
   android:background="?cardBackground"
@@ -20,6 +18,8 @@
     android:layout_width="wrap_content"
     android:layout_height="@dimen/margin_half"
     android:layout_marginBottom="@dimen/margin_eighth"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginEnd="@dimen/margin_base"
     android:layout_gravity="center_horizontal"
     android:gravity="center"
     android:orientation="vertical">

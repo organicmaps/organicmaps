@@ -11,7 +11,7 @@ public class AxisValueFormatter extends DefaultValueFormatter
   @NonNull
   private String mDimen = DEF_DIMEN;
 
-  AxisValueFormatter()
+  public AxisValueFormatter()
   {
     super(DEF_DIGITS);
   }

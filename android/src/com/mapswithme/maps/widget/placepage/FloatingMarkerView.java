@@ -15,6 +15,8 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.mapswithme.maps.R;
 
+import java.util.Locale;
+
 @SuppressLint("ViewConstructor")
 public class FloatingMarkerView extends MarkerView
 {
@@ -27,7 +29,10 @@ public class FloatingMarkerView extends MarkerView
   @NonNull
   private final TextView mAltitudeView;
   @NonNull
-  private final TextView mDistanceView;
+  private final TextView mDistanceTextView;
+  @NonNull
+  private final TextView mDistanceValueView;
+
   private float mOffset;
 
   public FloatingMarkerView(@NonNull Context context)
@@ -36,8 +41,9 @@ public class FloatingMarkerView extends MarkerView
     mTextContainer = findViewById(R.id.text_container);
     mImage = findViewById(R.id.image);
     mSlidingContainer = findViewById(R.id.sliding_container);
-    mDistanceView = findViewById(R.id.distance_text);
+    mDistanceTextView = findViewById(R.id.distance_text);
     mAltitudeView = findViewById(R.id.altitude);
+    mDistanceValueView = findViewById(R.id.distance_value);
   }
 
   // runs every time the MarkerView is redrawn, can be used to update the
@@ -95,8 +101,9 @@ public class FloatingMarkerView extends MarkerView
 
   private void updatePointValues(@NonNull Entry entry)
   {
-    mDistanceView.setText(String.format("Distance : %s km", entry.getX()));
-    mAltitudeView.setText(String.format("%sm", entry.getY()));
+    mDistanceTextView.setText("Distance : ");
+    mDistanceValueView.setText(String.format("%s km", entry.getX()));
+    mAltitudeView.setText(String.format(Locale.US, "%.2fm", entry.getY()));
   }
 
   private void updateHorizontal(@NonNull Highlight highlight)

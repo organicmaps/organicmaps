@@ -15,28 +15,36 @@
     android:id="@+id/text_container"
     android:layout_width="wrap_content"
     android:layout_height="@dimen/half_chart_height"
+    android:layout_marginStart="@dimen/margin_eighth"
+    android:layout_marginEnd="@dimen/margin_eighth"
     android:layout_alignParentBottom="true"
     android:layout_toEndOf="@id/image">
     <RelativeLayout
       android:id="@+id/sliding_container"
-      android:layout_width="@dimen/half_chart_height"
+      android:layout_width="wrap_content"
       android:layout_height="@dimen/half_chart_height"
+      android:maxWidth="@dimen/dialog_min_height"
       android:padding="@dimen/margin_quarter_plus"
+      android:background="@drawable/bg_point_desc"
+      android:elevation="@dimen/margin_eighth"
       android:layout_centerVertical="true"
-      android:background="@drawable/elevation">
-      <TextView
-        android:id="@+id/text"
-        android:layout_width="@dimen/half_chart_height"
-        android:layout_height="@dimen/half_chart_height"
-        android:visibility="gone" />
+      tools:ignore="UnusedAttribute">
       <TextView
         android:id="@+id/distance_text"
-        android:layout_width="match_parent"
+        android:maxWidth="@dimen/dialog_min_height"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:lines="2" />
-      <LinearLayout
+        android:lines="1" />
+      <TextView
         android:layout_below="@id/distance_text"
-        android:layout_width="match_parent"
+        android:id="@+id/distance_value"
+        android:maxWidth="@dimen/dialog_min_height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1" />
+      <LinearLayout
+        android:layout_below="@id/distance_value"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_quarter_plus"
         android:gravity="center_vertical"
@@ -49,7 +57,7 @@
         <TextView
           android:id="@+id/altitude"
           android:layout_marginStart="@dimen/margin_quarter"
-          android:layout_width="match_parent"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:lines="1" />
       </LinearLayout>

@@ -9,6 +9,7 @@ import com.github.mikephil.charting.utils.MPPointF;
 import com.mapswithme.maps.R;
 
 @SuppressLint("ViewConstructor")
+public
 class CurrentLocationMarkerView extends MarkerView
 {
   /**

@@ -133,7 +133,7 @@ public class PlacePageView extends NestedScrollView
                RecyclerClickListener,
                NearbyAdapter.OnItemClickListener,
                EditBookmarkFragment.EditBookmarkListener,
-               Detachable<Activity>, OnChartValueSelectedListener
+               Detachable<Activity>
 
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
@@ -141,11 +141,6 @@ public class PlacePageView extends NestedScrollView
   private static final String PREF_USE_DMS = "use_dms";
   private static final String DISCOUNT_PREFIX = "-";
   private static final String DISCOUNT_SUFFIX = "%";
-  private static final int CHART_Y_LABEL_COUNT = 3;
-  private static final int CHART_X_LABEL_COUNT = 6;
-  private static final int CHART_ANIMATION_DURATION = 1500;
-  private static final int CHART_FILL_ALPHA = (int) (0.12 * 255);
-  private static final float CUBIC_INTENSITY = 0.2f;
 
   private boolean mIsDocked;
   private boolean mIsFloating;
@@ -343,18 +338,6 @@ public class PlacePageView extends NestedScrollView
   @NonNull
   private View mCatalogPromoTitleView;
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private LineChart mChart;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private FloatingMarkerView mFloatingMarkerView;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private MarkerView mCurrentLocationMarkerView;
-
   void setScrollable(boolean scrollable)
   {
     mScrollable = scrollable;
@@ -393,30 +376,6 @@ public class PlacePageView extends NestedScrollView
   public void detach()
   {
     mCatalogPromoController.detach();
-  }
-
-  @Override
-  public void onValueSelected(Entry e, Highlight h)
-  {
-    mFloatingMarkerView.updateOffsets(e, h);
-    Highlight curPos = getCurrentPosHighlight();
-
-    mChart.highlightValues(Arrays.asList(curPos, h),
-                           Arrays.asList(mCurrentLocationMarkerView, mFloatingMarkerView));
-  }
-
-  @NonNull
-  private Highlight getCurrentPosHighlight()
-  {
-    LineData data = mChart.getData();
-    final Entry entryForIndex = data.getDataSetByIndex(0).getEntryForIndex(5);
-    return new Highlight(entryForIndex.getX(), 0, 5);
-  }
-
-  @Override
-  public void onNothingSelected()
-  {
-    highlightChartCurrentLocation();
   }
 
   public interface SetMapObjectListener
@@ -549,111 +508,6 @@ public class PlacePageView extends NestedScrollView
     Sponsored.setInfoListener(this);
 
     initPlaceDescriptionView();
-
-    initChart();
-  }
-
-  private void initChart()
-  {
-    TextView topAlt = findViewById(R.id.highest_altitude);
-    topAlt.setText("10000m");
-    TextView bottomAlt = findViewById(R.id.lowest_altitude);
-    bottomAlt.setText("100m");
-
-
-    mChart = findViewById(R.id.elevation_profile_chart);
-    mChart.setBackgroundColor(Color.WHITE);
-    mChart.setTouchEnabled(true);
-    mChart.setOnChartValueSelectedListener(this);
-    mChart.setDrawGridBackground(false);
-    mChart.setDragEnabled(true);
-    mChart.setScaleEnabled(true);
-    mChart.setPinchZoom(true);
-    int sideOffset = getResources().getDimensionPixelSize(R.dimen.margin_base);
-    mChart.setExtraTopOffset(0);
-    int topOffset = getResources().getDimensionPixelSize(R.dimen.margin_base_plus) / 2;
-    mChart.setViewPortOffsets(sideOffset, topOffset, sideOffset, getResources().getDimensionPixelSize(R.dimen.margin_base_plus_quarter));
-    mChart.getDescription().setEnabled(false);
-    mChart.setDrawBorders(false);
-    Legend l = mChart.getLegend();
-    l.setEnabled(false);
-    initAxises();
-    setData(20, 180);
-
-    mFloatingMarkerView = new FloatingMarkerView(getActivity());
-    mCurrentLocationMarkerView = new CurrentLocationMarkerView(getActivity());
-    mFloatingMarkerView.setChartView(mChart);
-    mCurrentLocationMarkerView.setChartView(mChart);
-    highlightChartCurrentLocation();
-    mChart.animateX(CHART_ANIMATION_DURATION);
-  }
-
-  private void highlightChartCurrentLocation()
-  {
-    mChart.highlightValues(Collections.singletonList(getCurrentPosHighlight()),
-                           Collections.singletonList(mCurrentLocationMarkerView));
-  }
-
-  private void initAxises()
-  {
-    XAxis x = mChart.getXAxis();
-    x.setLabelCount(CHART_X_LABEL_COUNT, false);
-    x.setAvoidFirstLastClipping(true);
-    x.setDrawGridLines(false);
-    x.setTextColor(getResources().getColor(R.color.black_50));
-    x.setPosition(XAxis.XAxisPosition.BOTTOM);
-    ValueFormatter xAxisFormatter = new AxisValueFormatter();
-    x.setValueFormatter(xAxisFormatter);
-
-    YAxis y = mChart.getAxisLeft();
-    y.setLabelCount(CHART_Y_LABEL_COUNT, false);
-    y.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
-    y.setDrawGridLines(true);
-    y.setGridColor(getResources().getColor(R.color.black_12));
-    y.setEnabled(true);
-    y.setTextColor(Color.TRANSPARENT);
-    y.setAxisLineColor(Color.WHITE);
-    int lineLength = getResources().getDimensionPixelSize(R.dimen.margin_eighth);
-    y.enableGridDashedLine(lineLength, 2 * lineLength, 0);
-
-    mChart.getAxisRight().setEnabled(false);
-  }
-
-  private void setData(int count, float range)
-  {
-    List<Entry> values = new ArrayList<>();
-
-    for (int i = 0; i < count; i++)
-    {
-      float val = (float) (Math.random() * (range + 1)) + 20;
-      values.add(new Entry(i, val));
-    }
-
-    LineDataSet set;
-
-    // create a dataset and give it a type
-    set = new LineDataSet(values, "DataSet 1");
-
-    set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-    set.setCubicIntensity(CUBIC_INTENSITY);
-    set.setDrawFilled(true);
-    set.setDrawCircles(false);
-    int lineThickness = getResources().getDimensionPixelSize(R.dimen.divider_width);
-    set.setLineWidth(lineThickness);
-    set.setCircleColor(getResources().getColor(R.color.base_accent));
-    set.setColor(getResources().getColor(R.color.base_accent));
-    set.setFillAlpha(CHART_FILL_ALPHA);
-    set.setDrawHorizontalHighlightIndicator(false);
-    set.setHighlightLineWidth(lineThickness);
-    set.setHighLightColor(getResources().getColor(R.color.base_accent_transparent));
-    set.setFillColor(getResources().getColor(R.color.chart_color));
-
-
-    LineData data = new LineData(set);
-    data.setValueTextSize(getResources().getDimensionPixelSize(R.dimen.text_size_icon_title));
-    data.setDrawValues(false);
-
-    mChart.setData(data);
   }
 
   public void initButtons(@NonNull ViewGroup buttons)

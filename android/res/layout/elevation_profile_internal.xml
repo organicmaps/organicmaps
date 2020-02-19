@@ -8,10 +8,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/margin_half"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginEnd="@dimen/margin_base"
     android:paddingBottom="@dimen/margin_base"
     android:textAppearance="?fontHeadline6"
     tools:text="Xindian Shitoushan Trail" />
-  <include layout="@layout/list_divider" />
+  <include
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/divider_height"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginEnd="@dimen/margin_base"
+    layout="@layout/list_divider" />
   <LinearLayout
     android:id="@+id/chart_container"
     android:layout_width="match_parent"
@@ -19,10 +26,7 @@
     android:gravity="center"
     android:minHeight="@dimen/elevation_profile_chart_min_height"
     android:orientation="vertical">
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Chart is coming soon!" />
+    <include layout="@layout/altitude_chart"/>
   </LinearLayout>
   <LinearLayout
     android:layout_width="match_parent"

@@ -2,7 +2,6 @@
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:visibility="gone"
   android:layout_height="@dimen/chart_height"
   android:background="?attr/cardBackground"
   android:orientation="vertical">
@@ -18,7 +17,7 @@
     android:textSize="@dimen/text_size_body_5"
     android:layout_alignParentTop="true"
     android:layout_alignParentEnd="true"
-    android:layout_marginTop="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_quarter"
     android:layout_marginStart="@dimen/margin_half"
     android:layout_marginEnd="@dimen/margin_base_plus"
     android:paddingLeft="@dimen/margin_quarter_plus"
