@@ -392,12 +392,14 @@ node|z13-[place=locality],
 node|z13-[place=neighbourhood],
 node|z14-[place=farm],
 node|z14-[place=isolated_dwelling],
+node|z17-[landuse=residential],
 {text: name;text-color: @district_label;}
 node|z13-14[place=suburb]::int_name,
 node|z13-[place=locality]::int_name,
 node|z13-[place=neighbourhood]::int_name,
 node|z14-[place=farm]::int_name,
 node|z14-[place=isolated_dwelling]::int_name,
+node|z17-[landuse=residential]::int_name,
 {text: int_name;text-color: @district_label;}
 
 node|z10[place=suburb]
@@ -418,11 +420,13 @@ node|z13-[place=locality],
 node|z13-[place=neighbourhood],
 node|z14-[place=farm],
 node|z14-[place=isolated_dwelling],
+node|z17-[landuse=residential],
 {font-size: 12;}
 node|z13-[place=locality]::int_name,
 node|z13-[place=neighbourhood]::int_name,
 node|z14-[place=isolated_dwelling]::int_name,
 node|z14-[place=farm]::int_name,
+node|z17-[landuse=residential]::int_name,
 {font-size: 10;}
 
 /* 5.VEGETATION, BEACH & GLACIER */
