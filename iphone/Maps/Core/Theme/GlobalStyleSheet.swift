@@ -255,7 +255,7 @@ class GlobalStyleSheet: IStyleSheet {
     theme.add(styleName: "MoreButton") { (s) -> (Void) in
       s.fontColor = colors.linkBlue
       s.fontColorHighlighted = colors.linkBlueHighlighted
-      s.backgroundColor = colors.white
+      s.backgroundColor = colors.clear
       s.font = fonts.regular16
     }
 
