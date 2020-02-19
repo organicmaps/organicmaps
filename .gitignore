@@ -190,3 +190,5 @@ build_version.hpp
 
 # Configs
 tools/python/maps_generator/var/etc/map_generator.ini
+tools/python/routing/etc/*.ini
+

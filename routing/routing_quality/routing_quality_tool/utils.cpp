@@ -455,14 +455,18 @@ SimilarityCounter::~SimilarityCounter()
 
 void SimilarityCounter::Push(Result const & result)
 {
-  auto const left = kIntervals[m_currentInterval].m_left;
-  auto const right = kIntervals[m_currentInterval].m_right;
-  if (!(left <= result.m_similarity && result.m_similarity < right))
+  auto left = kIntervals[m_currentInterval].m_left;
+  auto right = kIntervals[m_currentInterval].m_right;
+  while (!(left <= result.m_similarity && result.m_similarity < right))
   {
     ++m_currentInterval;
     m_routesSaver.TurnToNextFile();
+    CHECK_LESS(m_currentInterval, m_routesCounter.size(), ());
+    left = kIntervals[m_currentInterval].m_left;
+    right = kIntervals[m_currentInterval].m_right;
   }
 
+  CHECK_LESS(m_currentInterval, m_routesCounter.size(), ());
   if (m_routesCounter[m_currentInterval].m_routesNumber == 0)
   {
     LOG(LINFO,
