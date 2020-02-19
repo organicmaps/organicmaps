@@ -68,6 +68,8 @@ public:
 
   bool HasCuisineTypes() const;
 
+  bool HasIsolines() const;
+
 private:
   Format GetFormat() const { return m_version.GetFormat(); }
   uint32_t GetVersion() const { return m_version.GetVersion(); }

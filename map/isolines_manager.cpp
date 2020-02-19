@@ -7,12 +7,12 @@
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "platform/mwm_traits.hpp"
+
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
 int constexpr kMinIsolinesZoom = 11;
-
-int64_t constexpr kMinDataVersion = 200209;
 
 IsolinesManager::IsolinesManager(DataSource & dataSource, GetMwmsByRectFn const & getMwmsByRectFn)
   : m_dataSource(dataSource)
@@ -85,7 +85,7 @@ void IsolinesManager::UpdateViewport(ScreenBase const & screen)
     if (it == m_mwmCache.end())
     {
       Availability status = Availability::NoData;
-      if (mwmId.GetInfo()->GetVersion() < kMinDataVersion)
+      if (!version::MwmTraits(mwmId.GetInfo()->m_version).HasIsolines())
       {
         status = Availability::ExpiredData;
       }
