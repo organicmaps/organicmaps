@@ -931,7 +931,9 @@ void ApplyLineFeatureGeometry::ProcessLineRule(Stylist::TRuleWrapper const & rul
   {
     m2::GuidePointsForSmooth guidePointsForSmooth;
     std::vector<std::vector<m2::PointD>> clippedPaths;
-    m2::ClipPathByRectBeforeSmooth(m_tileRect, m_spline->GetPath(), guidePointsForSmooth,
+    auto extTileRect = m_tileRect;
+    extTileRect.Inflate(m_tileRect.SizeX() * 0.3, m_tileRect.SizeY() * 0.3);
+    m2::ClipPathByRectBeforeSmooth(extTileRect, m_spline->GetPath(), guidePointsForSmooth,
                                    clippedPaths);
     if (clippedPaths.empty())
       return;

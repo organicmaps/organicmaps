@@ -12,9 +12,9 @@ void SmoothGeneric(m2::PointD const & pt0, m2::PointD const & pt1,
                    m2::PointD const & pt2, m2::PointD const & pt3,
                    double alpha, size_t pointsCount, std::vector<m2::PointD> & path)
 {
-  ASSERT(!pt0.EqualDxDy(pt1, kEps), ());
-  ASSERT(!pt1.EqualDxDy(pt2, kEps), ());
-  ASSERT(!pt2.EqualDxDy(pt3, kEps), ());
+  if (pt0.EqualDxDy(pt1, kEps) || pt1.EqualDxDy(pt2, kEps) || pt2.EqualDxDy(pt3, kEps))
+    return;
+
   auto const calcNextT = [alpha](double prevT, m2::PointD const & prevP, m2::PointD const & nextP)
   {
     auto const dx = nextP.x - prevP.x;
@@ -40,7 +40,7 @@ void SmoothGeneric(m2::PointD const & pt0, m2::PointD const & pt1,
     auto const b2 = a2 * (t3 - t) / (t3 - t1) + a3 * (t - t1) / (t3 - t1);
 
     auto const pt = b1 * (t2 - t) / (t2 - t1) + b2 * (t - t1) / (t2 - t1);
-    if (!path.back().EqualDxDy(pt, kEps))
+    if (!path.back().EqualDxDy(pt, kEps) && !pt2.EqualDxDy(pt, kEps))
       path.push_back(pt);
   }
 }
@@ -50,6 +50,9 @@ void SmoothUniform(m2::PointD const & pt0, m2::PointD const & pt1,
                    m2::PointD const & pt2, m2::PointD const & pt3,
                    size_t pointsCount, std::vector<m2::PointD> & path)
 {
+  if (pt0.EqualDxDy(pt1, kEps) || pt1.EqualDxDy(pt2, kEps) || pt2.EqualDxDy(pt3, kEps))
+    return;
+
   for (size_t i = 1; i < pointsCount; ++i)
   {
     double const t = static_cast<double>(i) / pointsCount;
@@ -62,7 +65,7 @@ void SmoothUniform(m2::PointD const & pt0, m2::PointD const & pt1,
     double const k3 = t3 - t2;
 
     auto const pt = (pt0 * k0 + pt1 * k1 + pt2 * k2 + pt3 * k3) * 0.5;
-    if (!path.back().EqualDxDy(pt, kEps))
+    if (!path.back().EqualDxDy(pt, kEps) && !pt2.EqualDxDy(pt, kEps))
       path.push_back(pt);
   }
 }
@@ -94,18 +97,12 @@ void SmoothPaths(GuidePointsForSmooth const & guidePoints,
       m2::PointD const & pt2 = path[i + 1];
       m2::PointD const & pt3 = i + 2 < path.size() ? path[i + 2] : guides.second;
 
-      if (smoothedPath.back().EqualDxDy(pt2, 1e-5))
-        continue;
-
       if (smoothAlpha == kUniformAplha)
         SmoothUniform(pt0, pt1, pt2, pt3, newPointsPerSegmentCount, smoothedPath);
       else
         SmoothGeneric(pt0, pt1, pt2, pt3, smoothAlpha, newPointsPerSegmentCount, smoothedPath);
 
-      if (smoothedPath.back().EqualDxDy(pt2, kEps))
-        smoothedPath.back() = pt2;
-      else
-        smoothedPath.push_back(pt2);
+      smoothedPath.push_back(pt2);
     }
 
     if (smoothedPath.size() > 2)
