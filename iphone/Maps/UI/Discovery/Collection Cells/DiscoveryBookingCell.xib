@@ -63,7 +63,7 @@
                             <constraint firstAttribute="height" constant="20" id="jcd-OG-vjG"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="image" keyPath="styleName" value="RatingSummaryView24:bold12"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="RatingSummaryView24:bold12"/>
                             <userDefinedRuntimeAttribute type="number" keyPath="topOffset">
                                 <real key="value" value="2"/>
                             </userDefinedRuntimeAttribute>
@@ -146,7 +146,4 @@
             <point key="canvasLocation" x="-165" y="-17"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="RatingSummaryView24:bold12" width="16" height="16"/>
-    </resources>
 </document>
