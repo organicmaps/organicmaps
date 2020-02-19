@@ -122,11 +122,11 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
   }
 
   if (productInfo.m_isLocalAdsCustomer)
-    self.backgroundColor = [UIColor bannerBackground];
+      [self setStyleAndApply: @"SearchCellAds"];
   else if (isAvailable)
-    self.backgroundColor = [UIColor transparentGreen];
+      [self setStyleAndApply: @"SearchCellAvaliable"];
   else
-    self.backgroundColor = [UIColor white];
+    [self setStyleAndApply: @"Background"];
 }
 
 - (void)setInfoText:(NSString *)infoText

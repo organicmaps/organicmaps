@@ -103,5 +103,13 @@ class SearchStyleSheet: IStyleSheet {
       s.borderColor = colors.blackDividers
       s.textAlignment = .natural
     }
+
+    theme.add(styleName: "SearchCellAds", from: "TableCell") { (s) -> (Void) in
+      s.backgroundColor = colors.bannerBackground
+    }
+
+    theme.add(styleName: "SearchCellAvaliable", from: "TableCell") { (s) -> (Void) in
+      s.backgroundColor = colors.transparentGreen
+    }
   }
 }
