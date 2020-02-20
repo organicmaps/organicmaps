@@ -948,8 +948,8 @@ office|government;947;
 office|estate_agent;[office=estate_agent],[shop=estate_agent];;name;int_name;948;
 office|lawyer;949;
 office;[office];;name;int_name;950;
-landuse|residential|rural;[landuse=residential][residential=rural];;name;int_name;951;
-landuse|residential|urban;[landuse=residential][residential=urban];;name;int_name;952;
+deprecated|deprecated;951;x
+deprecated|deprecated;952;x
 amenity|ferry_terminal;953;
 amenity;[amenity];;name;int_name;954;
 shop|furniture;955;

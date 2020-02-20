@@ -1579,8 +1579,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     // {{"boundary", "administrative", "state"}, {{"boundary", "administrative"}, {"border_type", "state"}}},
     // {{"boundary", "administrative", "suburb"}, {{"boundary", "administrative"}, {"border_type", "suburb"}}},
     // {{"communication", "line", "underground"}, {{"communication", "line"}, {"location", "underground"}}},
-    // {{"landuse", "residential", "rural"}, {{"landuse", "residential"}, {"residential", "rural"}}},
-    // {{"landuse", "residential", "urban"}, {{"landuse", "residential"}, {"residential", "urban"}}},
     // {{"man_made", "pipeline", "overground"}, {{"man_made", "pipeline"}, {"location", "overground"}}},
     // {{"railway", "incline", "bridge"}, {{"railway", "incline"}, {"bridge", "any_value"}}},
     // {{"railway", "incline", "tunnel"}, {{"railway", "incline"}, {"tunnel", "any_value"}}},
