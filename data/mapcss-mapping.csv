@@ -19,7 +19,7 @@ natural|tree;18;
 place|locality;19;
 natural|coastline;20;
 place|village;21;
-highway|residential|oneway;[highway=residential][oneway?];x;name;int_name;22;highway|residential
+deprecated|deprecated;22;x
 waterway|river;23;
 addr:interpolation|even;24;hwtag|oneway
 addr:interpolation|odd;25;hwtag|private
@@ -149,7 +149,7 @@ highway|tertiary|junction;[highway=tertiary][junction?];x;name;int_name;148;high
 highway|track|private;[highway=track][access=private];x;name;int_name;149;highway|track
 railway|tram;150;
 amenity|toilets;151;
-highway|residential|junction;[highway=residential][junction?];x;name;int_name;152;highway|residential
+deprecated|deprecated;152;x
 highway|footway|permissive;[highway=footway][access=permissive],[highway=footway][foot=permissive];;name;int_name;153;
 highway|primary|junction;[highway=primary][junction?];x;name;int_name;154;highway|primary
 landuse|construction;155;
@@ -680,7 +680,7 @@ railway|planned|bridge;[railway=planned][bridge?];x;name;int_name;679;
 highway|service|embankment;[highway=service][embankment?];x;name;int_name;680;highway|service
 highway|crossing|island;[highway=crossing][crossing=island];x;name;int_name;681;
 highway|unclassified|cycleway;[highway=unclassified][cycleway];x;name;int_name;682;highway|unclassified
-highway|residential|cycleway;[highway=residential][cycleway];x;name;int_name;683;highway|residential
+deprecated|deprecated;683;x
 natural|commercial;684;x
 highway|path|embankment;[highway=path][embankment?];x;name;int_name;685;highway|path
 natural|vineyard;686;
@@ -718,7 +718,7 @@ historic|ruins;717;
 historic|monument;718;
 historic|castle;719;
 historic|archaeological_site;720;
-highway|residential|private;[highway=residential][access=private];x;name;int_name;721;highway|residential
+deprecated|deprecated;721;x
 man_made|cutline;722;
 natural|bay;723;
 natural|spring;724;
