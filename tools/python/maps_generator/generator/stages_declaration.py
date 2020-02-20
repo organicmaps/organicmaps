@@ -14,6 +14,7 @@ import tarfile
 from collections import defaultdict
 from functools import partial
 from multiprocessing.pool import ThreadPool
+from typing import AnyStr
 from typing import Type
 
 from descriptions.descriptions_downloader import check_and_get_checker
@@ -141,17 +142,21 @@ class StageFeatures(Stage):
     def apply(self, env: Env):
         extra = {}
         if is_accepted(env, StageDescriptions):
-            extra["idToWikidata"] = env.paths.id_to_wikidata_path
+            extra.update({"idToWikidata": env.paths.id_to_wikidata_path})
         if is_accepted(env, StageDownloadProductionExternal):
-            extra["booking_data"] = env.paths.hotels_path
-            extra["promo_catalog_cities"] = env.paths.promo_catalog_cities_path
-            extra["popular_places_data"] = env.paths.popularity_path
-            extra["brands_data"] = env.paths.food_paths
-            extra["brands_translations_data"] = env.paths.food_translations_path
+            extra.update(
+                {
+                    "booking_data": env.paths.hotels_path,
+                    "promo_catalog_cities": env.paths.promo_catalog_cities_path,
+                    "popular_places_data": env.paths.popularity_path,
+                    "brands_data": env.paths.food_paths,
+                    "brands_translations_data": env.paths.food_translations_path,
+                }
+            )
         if is_accepted(env, StageCoastline):
-            extra["emit_coasts"] = True
+            extra.update({"emit_coasts": True})
         if is_accepted(env, StageIsolinesInfo):
-            extra["isolines_path"] = PathProvider.isolines_path()
+            extra.update({"isolines_path": PathProvider.isolines_path()})
 
         steps.step_features(env, **extra)
         if os.path.exists(env.paths.packed_polygons_path):
@@ -189,7 +194,21 @@ class StageDownloadDescriptions(Stage):
 @mwm_stage
 class StageMwm(Stage):
     def apply(self, env: Env):
-        def build(country):
+        with ThreadPool() as pool:
+            pool.map(
+                lambda c: StageMwm.make_mwm(c, env),
+                env.get_tmp_mwm_names(),
+                chunksize=1,
+            )
+
+    @staticmethod
+    def make_mwm(country: AnyStr, env: Env):
+        if country == WORLD_NAME:
+            StageIndex(country=country)(env)
+            StageCitiesIdsWorld(country=country)(env)
+        elif country == WORLD_COASTS_NAME:
+            StageIndex(country=country)(env)
+        else:
             StageIndex(country=country)(env)
             StageUgc(country=country)(env)
             StagePopularity(country=country)(env)
@@ -197,25 +216,8 @@ class StageMwm(Stage):
             StageDescriptions(country=country)(env)
             StageRouting(country=country)(env)
             StageRoutingTransit(country=country)(env)
-            env.finish_mwm(country)
 
-        def build_world(country):
-            StageIndex(country=country)(env)
-            StageCitiesIdsWorld(country=country)(env)
-            env.finish_mwm(country)
-
-        def build_world_coasts(country):
-            StageIndex(country=country)(env)
-            env.finish_mwm(country)
-
-        specific = {WORLD_NAME: build_world, WORLD_COASTS_NAME: build_world_coasts}
-        names = env.get_tmp_mwm_names()
-        with ThreadPool() as pool:
-            pool.map(
-                lambda c: specific[c](c) if c in specific else build(c),
-                names,
-                chunksize=1,
-            )
+        env.finish_mwm(country)
 
 
 @country_stage
@@ -227,11 +229,14 @@ class StageIndex(Stage):
         elif country == WORLD_COASTS_NAME:
             steps.step_coastline_index(env, country, **kwargs)
         else:
-            extra = {}
             if is_accepted(env, StageDownloadProductionExternal):
-                extra["uk_postcodes_dataset"] = env.paths.uk_postcodes_path
-                extra["us_postcodes_dataset"] = env.paths.us_postcodes_path
-            steps.step_index(env, country, **kwargs, **extra)
+                kwargs.update(
+                    {
+                        "uk_postcodes_dataset": env.paths.uk_postcodes_path,
+                        "us_postcodes_dataset": env.paths.us_postcodes_path,
+                    }
+                )
+            steps.step_index(env, country, **kwargs)
 
 
 @country_stage

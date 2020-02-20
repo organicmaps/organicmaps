@@ -87,15 +87,14 @@ def step_preprocess(env: Env, **kwargs):
 
 
 def step_features(env: Env, **kwargs):
-    extra = {}
     if env.production:
-        extra["add_ads"] = True
+        kwargs.update({"add_ads": True})
     if any(x not in WORLDS_NAMES for x in env.countries):
-        extra["generate_packed_borders"] = True
+        kwargs.update({"generate_packed_borders": True})
     if any(x == WORLD_NAME for x in env.countries):
-        extra["generate_world"] = True
+        kwargs.update({"generate_world": True})
     if len(env.countries) == len(get_all_countries_list(PathProvider.borders_path())):
-        extra["have_borders_for_whole_world"] = True
+        kwargs.update({"have_borders_for_whole_world": True})
 
     run_gen_tool(
         env.gen_tool,
@@ -110,7 +109,6 @@ def step_features(env: Env, **kwargs):
         dump_cities_boundaries=True,
         cities_boundaries_data=env.paths.cities_boundaries_path,
         generate_features=True,
-        **extra,
         **kwargs,
     )
 
