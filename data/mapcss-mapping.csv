@@ -785,10 +785,10 @@ highway|motorway|levee;[highway=motorway][levee?];x;name;int_name;784;highway|mo
 highway|motorway_link|cycleway;[highway=motorway_link][cycleway?];x;name;int_name;785;highway|motorway
 deprecated|deprecated;786;x
 deprecated|deprecated;787;x
-highway|path|bicycle-bridge;[highway=path][bicycle?][bridge?];x;name;int_name;788;highway|path|bicycle
-highway|path|bicycle-construction;[highway=path][bicycle?][construction?];x;name;int_name;789;highway|path|bicycle
-highway|path|bicycle-disused;[highway=path][bicycle?][disused?];x;name;int_name;790;highway|path|bicycle
-highway|path|bicycle-tunnel;[highway=path][bicycle?][tunnel?];x;name;int_name;791;highway|path|bicycle
+deprecated|deprecated;788;x
+deprecated|deprecated;789;x
+deprecated|deprecated;790;x
+deprecated|deprecated;791;x
 deprecated|deprecated;792;x
 deprecated|deprecated;793;x
 deprecated|deprecated;794;x
