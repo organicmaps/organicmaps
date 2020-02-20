@@ -1006,7 +1006,7 @@ place|city|capital|10;[place=city][capital=10],[place=city][capital?][admin_leve
 place|city|capital|11;[place=city][capital=11],[place=city][capital?][admin_level=11];;name;int_name;1006;
 hwtag|yesfoot;1007;
 public_transport|platform;1008;
-highway|platform;1009;
+deprecated|deprecated;1009;x
 aeroway|aerodrome|international;[aeroway=aerodrome][aerodrome=international];;name;int_name;1010;
 railway|station|light_rail;[railway=station][station=light_rail],[railway=station][transport=light_rail];;name;int_name;1011;
 railway|station|monorail;[railway=station][station=monorail],[railway=station][transport=monorail];;name;int_name;1012;

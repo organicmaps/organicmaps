@@ -958,7 +958,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     // {"boundary", "administrative"},
     // {"communication", "line"},
     // {"earthquake:damage", "spontaneous_camp"},
-    // {"highway", "platform"},
     // {"highway", "traffic_signals"},
     // {"historic", "battlefield"},
     // {"landuse", "brownfield"},
