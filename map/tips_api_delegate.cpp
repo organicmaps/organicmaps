@@ -35,7 +35,8 @@ storage::CountryId TipsApiDelegate::GetCountryId(m2::PointD const & pt) const
   return m_framework.GetCountryIndex(pt);
 }
 
-int64_t TipsApiDelegate::GetCountryVersion(storage::CountryId const & countryId) const
+isolines::Quality TipsApiDelegate::GetIsolinesQuality(storage::CountryId const & countryId) const
 {
-  return m_framework.GetStorage().GetVersion(countryId);
+  auto const id = m_framework.GetMwmIdByName(countryId);
+  return m_framework.GetIsolinesManager().GetDataQuality(id);
 }

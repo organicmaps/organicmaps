@@ -2,6 +2,8 @@
 
 #include "storage/storage_defines.hpp"
 
+#include "indexer/isolines_info.hpp"
+
 #include "metrics/eye_info.hpp"
 
 #include "geometry/point2d.hpp"
@@ -31,7 +33,7 @@ public:
     virtual double GetLastBackgroundTime() const = 0;
     virtual m2::PointD const & GetViewportCenter() const = 0;
     virtual storage::CountryId GetCountryId(m2::PointD const & pt) const = 0;
-    virtual int64_t GetCountryVersion(storage::CountryId const & countryId) const = 0;
+    virtual isolines::Quality GetIsolinesQuality(storage::CountryId const & countryId) const = 0;
   };
 
   static Duration GetShowAnyTipPeriod();

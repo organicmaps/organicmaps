@@ -15,7 +15,7 @@ public:
   double GetLastBackgroundTime() const override;
   m2::PointD const & GetViewportCenter() const override;
   storage::CountryId GetCountryId(m2::PointD const & pt) const override;
-  int64_t GetCountryVersion(storage::CountryId const & countryId) const override;
+  isolines::Quality GetIsolinesQuality(storage::CountryId const & countryId) const override;
 
 private:
   Framework const & m_framework;

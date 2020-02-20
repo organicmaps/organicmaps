@@ -1,7 +1,5 @@
 #include "map/isolines_manager.hpp"
 
-#include "indexer/isolines_info.hpp"
-
 #include "metrics/eye.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
@@ -38,6 +36,27 @@ void IsolinesManager::ChangeState(IsolinesState newState)
   m_state = newState;
   if (m_onStateChangedFn != nullptr)
     m_onStateChangedFn(newState);
+}
+
+IsolinesManager::Info const & IsolinesManager::LoadSection(MwmSet::MwmId const & id) const
+{
+  Availability status = Availability::NoData;
+  isolines::Quality quality = isolines::Quality::None;
+  if (!version::MwmTraits(id.GetInfo()->m_version).HasIsolines())
+  {
+    status = Availability::ExpiredData;
+  }
+
+  isolines::IsolinesInfo info;
+  if (isolines::LoadIsolinesInfo(m_dataSource, id, info))
+  {
+    LOG(LINFO, ("Isolines min altitude", info.m_minAltitude, "max altitude", info.m_maxAltitude,
+                "altitude step", info.m_altStep));
+    status = Availability::Available;
+    quality = info.GetQuality();
+  }
+
+  return m_mwmCache.emplace(id, Info(status, quality)).first->second;
 }
 
 void IsolinesManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
@@ -88,24 +107,7 @@ void IsolinesManager::UpdateViewport(ScreenBase const & screen)
       continue;
     auto it = m_mwmCache.find(mwmId);
     if (it == m_mwmCache.end())
-    {
-      Availability status = Availability::NoData;
-      if (!version::MwmTraits(mwmId.GetInfo()->m_version).HasIsolines())
-      {
-        status = Availability::ExpiredData;
-      }
-      else
-      {
-        isolines::IsolinesInfo info;
-        if (isolines::LoadIsolinesInfo(m_dataSource, mwmId, info))
-        {
-          LOG(LINFO, ("Isolines min altitude", info.m_minAltitude,
-                      "max altitude", info.m_maxAltitude, "altitude step", info.m_altStep));
-          status = Availability::Available;
-        }
-      }
-      m_mwmCache.insert(std::make_pair(mwmId, status));
-    }
+      LoadSection(mwmId);
   }
   UpdateState();
 }
@@ -121,7 +123,7 @@ void IsolinesManager::UpdateState()
       continue;
     auto const it = m_mwmCache.find(mwmId);
     CHECK(it != m_mwmCache.end(), ());
-    switch (it->second)
+    switch (it->second.m_availability)
     {
     case Availability::Available: available = true; break;
     case Availability::ExpiredData: expired = true; break;
@@ -151,6 +153,18 @@ void IsolinesManager::Invalidate()
   m_lastMwms.clear();
   if (m_currentModelView)
     UpdateViewport(m_currentModelView.get());
+}
+
+isolines::Quality IsolinesManager::GetDataQuality(MwmSet::MwmId const & id) const
+{
+  if (id.IsAlive())
+    return isolines::Quality::None;
+
+  auto const it = m_mwmCache.find(id);
+  if (it == m_mwmCache.cend())
+    return LoadSection(id).m_quality;
+
+  return it->second.m_quality;
 }
 
 void IsolinesManager::OnMwmDeregistered(platform::LocalCountryFile const & countryFile)

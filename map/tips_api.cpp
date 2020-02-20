@@ -230,8 +230,8 @@ TipsApi::TipsApi(std::unique_ptr<Delegate> delegate)
 
      if (kIsolinesExceptedMwms.find(countryId) != kIsolinesExceptedMwms.end())
          return false;
-     
-     return m_delegate->GetCountryVersion(countryId) > 191124;
+
+     return m_delegate->GetIsolinesQuality(countryId) == isolines::Quality::Normal;
    },
   }};
 }

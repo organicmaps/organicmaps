@@ -3,6 +3,7 @@
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
 
 #include "indexer/data_source.hpp"
+#include "indexer/isolines_info.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "platform/local_country_file.hpp"
@@ -44,18 +45,33 @@ public:
   void UpdateViewport(ScreenBase const & screen);
   void Invalidate();
 
+  isolines::Quality GetDataQuality(MwmSet::MwmId const & id) const;
+
   void OnMwmDeregistered(platform::LocalCountryFile const & countryFile);
 
 private:
-  void UpdateState();
-  void ChangeState(IsolinesState newState);
-
   enum class Availability
   {
     Available,
     NoData,
     ExpiredData
   };
+
+  struct Info
+  {
+    Info() = default;
+    Info(Availability availability, isolines::Quality quality)
+      : m_availability(availability), m_quality(quality)
+    {
+    }
+
+    Availability m_availability = Availability::NoData;
+    isolines::Quality m_quality = isolines::Quality::None;
+  };
+
+  void UpdateState();
+  void ChangeState(IsolinesState newState);
+  Info const & LoadSection(MwmSet::MwmId const & id) const;
 
   IsolinesState m_state = IsolinesState::Disabled;
   IsolinesStateChangedFn m_onStateChangedFn;
@@ -68,7 +84,7 @@ private:
   boost::optional<ScreenBase> m_currentModelView;
 
   std::vector<MwmSet::MwmId> m_lastMwms;
-  std::map<MwmSet::MwmId, Availability> m_mwmCache;
+  mutable std::map<MwmSet::MwmId, Info> m_mwmCache;
   bool m_trackFirstSchemeData = false;
 };
 

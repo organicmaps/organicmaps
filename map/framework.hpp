@@ -762,6 +762,7 @@ public:
   TransitReadManager & GetTransitManager();
 
   IsolinesManager & GetIsolinesManager();
+  IsolinesManager const & GetIsolinesManager() const;
 
   bool LoadTrafficEnabled();
   void SaveTrafficEnabled(bool trafficEnabled);

@@ -11,6 +11,13 @@ class DataSource;
 
 namespace isolines
 {
+enum class Quality
+{
+  None,
+  Poor,
+  Normal,
+};
+
 struct IsolinesInfo
 {
   IsolinesInfo() = default;
@@ -19,6 +26,17 @@ struct IsolinesInfo
     , m_maxAltitude(maxAlitude)
     , m_altStep(altStep)
   {}
+
+  isolines::Quality GetQuality() const
+  {
+    if (m_altStep == 0)
+      return isolines::Quality::None;
+
+    if (m_altStep >= 500)
+      return isolines::Quality::Poor;
+
+    return isolines::Quality::Normal;
+  }
 
   int16_t m_minAltitude = 0;
   int16_t m_maxAltitude = 0;
