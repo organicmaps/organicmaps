@@ -518,7 +518,7 @@ highway|footway|disused;[highway=footway][disused?];x;name;int_name;517;
 leisure|playground|tennis;[leisure=playground][sport=tennis];x;name;int_name;518;
 highway|secondary|area;[highway=secondary][area?];x;name;int_name;519;
 sport|diving;520;
-highway|track|grade3|private;[highway=track][tracktype=grade3][access=private];x;name;int_name;521;highway|track|grade3
+deprecated|deprecated;521;x
 boundary|administrative|suburb;[boundary=administrative][border_type=suburb];;name;int_name;522;
 natural|quarry;523;x
 railway|monorail|tunnel;[railway=monorail][tunnel?];;name;int_name;524;
