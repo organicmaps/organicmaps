@@ -185,7 +185,6 @@ std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo =
   {"amenity-taxi", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
   {"building-train_station", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
   {"highway-bus_stop", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
-  {"highway-platform", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
   {"public_transport-platform", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
   {"railway-halt", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
   {"railway-station", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},

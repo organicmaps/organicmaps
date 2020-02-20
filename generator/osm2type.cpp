@@ -472,8 +472,6 @@ void PreprocessElement(OsmElement * p)
       {
         if (p->m_type == OsmElement::EntityType::Node)
           p->AddTag("highway", "bus_stop");
-        else
-          p->AddTag("highway", "platform");
       }
       else if (tag.m_value == "stop_position" && isTram && p->m_type == OsmElement::EntityType::Node)
       {

@@ -52,7 +52,6 @@ HighwayBasedMeanSpeeds const kDefaultSpeeds = {
     {HighwayType::HighwaySteps, InOutCitySpeedKMpH(SpeedKMpH(3.0))},
     {HighwayType::HighwayPedestrian, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
     {HighwayType::HighwayFootway, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
-    {HighwayType::HighwayPlatform, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
     {HighwayType::ManMadePier, InOutCitySpeedKMpH(SpeedKMpH(7.0))},
     {HighwayType::RouteFerry, InOutCitySpeedKMpH(SpeedKMpH(1.0, 20.0))},
 };
@@ -79,8 +78,7 @@ VehicleModel::LimitsInitList const kPedestrianOptionsDefault = {
     {{"highway", "living_street"}, true},
     {{"highway", "steps"}, true},
     {{"highway", "pedestrian"}, true},
-    {{"highway", "footway"}, true},
-    {{"highway", "platform"}, true}};
+    {{"highway", "footway"}, true}};
 
 // All options available.
 VehicleModel::LimitsInitList const kPedestrianOptionsAll = {
@@ -103,8 +101,7 @@ VehicleModel::LimitsInitList const kPedestrianOptionsAll = {
     {{"highway", "living_street"}, true},
     {{"highway", "steps"}, true},
     {{"highway", "pedestrian"}, true},
-    {{"highway", "footway"}, true},
-    {{"highway", "platform"}, true}};
+    {{"highway", "footway"}, true}};
 
 // Same as defaults except trunk and trunk link are not allowed.
 VehicleModel::LimitsInitList const kPedestrianOptionsNoTrunk = {
@@ -124,8 +121,7 @@ VehicleModel::LimitsInitList const kPedestrianOptionsNoTrunk = {
     {{"highway", "living_street"}, true},
     {{"highway", "steps"}, true},
     {{"highway", "pedestrian"}, true},
-    {{"highway", "footway"}, true},
-    {{"highway", "platform"}, true}};
+    {{"highway", "footway"}, true}};
 
 // Same as defaults except cycleway is allowed.
 VehicleModel::LimitsInitList const kPedestrianOptionsCyclewayAllowed = {
@@ -147,8 +143,7 @@ VehicleModel::LimitsInitList const kPedestrianOptionsCyclewayAllowed = {
     {{"highway", "living_street"}, true},
     {{"highway", "steps"}, true},
     {{"highway", "pedestrian"}, true},
-    {{"highway", "footway"}, true},
-    {{"highway", "platform"}, true}};
+    {{"highway", "footway"}, true}};
 
 // Same as defaults except cycleway is allowed and trunk and trunk_link are not allowed.
 VehicleModel::LimitsInitList const kPedestrianOptionsCyclewayAllowedNoTrunk = {
@@ -168,8 +163,7 @@ VehicleModel::LimitsInitList const kPedestrianOptionsCyclewayAllowedNoTrunk = {
     {{"highway", "living_street"}, true},
     {{"highway", "steps"}, true},
     {{"highway", "pedestrian"}, true},
-    {{"highway", "footway"}, true},
-    {{"highway", "platform"}, true}};
+    {{"highway", "footway"}, true}};
 
 // Australia
 VehicleModel::LimitsInitList const kPedestrianOptionsAustralia = kPedestrianOptionsAll;
@@ -201,8 +195,7 @@ VehicleModel::LimitsInitList const kPedestrianOptionsBelgium = {
     {{"highway", "living_street"}, true},
     {{"highway", "steps"}, true},
     {{"highway", "pedestrian"}, true},
-    {{"highway", "footway"}, true},
-    {{"highway", "platform"}, true}};
+    {{"highway", "footway"}, true}};
 
 // Brazil
 VehicleModel::LimitsInitList const kPedestrianOptionsBrazil = kPedestrianOptionsAll;

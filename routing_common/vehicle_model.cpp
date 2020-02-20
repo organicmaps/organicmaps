@@ -459,7 +459,6 @@ string DebugPrint(HighwayType type)
   case HighwayType::RouteFerryMotorcar: return "route-ferry-motorcar";
   case HighwayType::RouteFerryMotorVehicle: return "route-ferry-motor_vehicle";
   case HighwayType::RailwayRailMotorVehicle: return "railway-rail-motor_vehicle";
-  case HighwayType::HighwayPlatform: return "highway-platform";
   case HighwayType::RouteShuttleTrain: return "route-shuttle_train";
   }
 

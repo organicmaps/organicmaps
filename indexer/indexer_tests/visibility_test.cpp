@@ -38,7 +38,6 @@ public:
     char const * arr[][2] = {
       {"highway", "bus_stop"},
       {"highway", "speed_camera"},
-      {"highway", "platform"},
       {"highway", "world_level"},
       {"highway", "world_towns_level"},
     };

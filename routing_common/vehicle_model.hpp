@@ -60,7 +60,6 @@ enum class HighwayType : uint32_t
   RouteFerryMotorcar = 988,
   RouteFerryMotorVehicle = 993,
   RailwayRailMotorVehicle = 994,
-  HighwayPlatform = 1008,
   RouteShuttleTrain = 1054,
 };
 

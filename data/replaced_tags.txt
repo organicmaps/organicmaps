@@ -28,6 +28,8 @@ ice_road=yes : highway=ice_road
 winter_road=yes : highway=ice_road
 highway=turning_loop : highway=mini_roundabout
 
+highway=platform : highway=pedestrian
+
 natural=marsh : natural=wetland, wetland=marsh
 natural=waterfall : waterway=waterfall
 natural = forest : natural = wood
