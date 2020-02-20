@@ -38,17 +38,16 @@ void IsolinesManager::ChangeState(IsolinesState newState)
     m_onStateChangedFn(newState);
 }
 
-IsolinesManager::Info const & IsolinesManager::LoadSection(MwmSet::MwmId const & id) const
+IsolinesManager::Info const & IsolinesManager::LoadIsolinesInfo(MwmSet::MwmId const & id) const
 {
   Availability status = Availability::NoData;
   isolines::Quality quality = isolines::Quality::None;
+  isolines::IsolinesInfo info;
   if (!version::MwmTraits(id.GetInfo()->m_version).HasIsolines())
   {
     status = Availability::ExpiredData;
   }
-
-  isolines::IsolinesInfo info;
-  if (isolines::LoadIsolinesInfo(m_dataSource, id, info))
+  else if (isolines::LoadIsolinesInfo(m_dataSource, id, info))
   {
     LOG(LINFO, ("Isolines min altitude", info.m_minAltitude, "max altitude", info.m_maxAltitude,
                 "altitude step", info.m_altStep));
@@ -107,7 +106,7 @@ void IsolinesManager::UpdateViewport(ScreenBase const & screen)
       continue;
     auto it = m_mwmCache.find(mwmId);
     if (it == m_mwmCache.end())
-      LoadSection(mwmId);
+      LoadIsolinesInfo(mwmId);
   }
   UpdateState();
 }
@@ -157,12 +156,12 @@ void IsolinesManager::Invalidate()
 
 isolines::Quality IsolinesManager::GetDataQuality(MwmSet::MwmId const & id) const
 {
-  if (id.IsAlive())
+  if (!id.IsAlive())
     return isolines::Quality::None;
 
   auto const it = m_mwmCache.find(id);
   if (it == m_mwmCache.cend())
-    return LoadSection(id).m_quality;
+    return LoadIsolinesInfo(id).m_quality;
 
   return it->second.m_quality;
 }

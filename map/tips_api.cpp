@@ -228,6 +228,9 @@ TipsApi::TipsApi(std::unique_ptr<Delegate> delegate)
      auto const pos = m_delegate->GetViewportCenter();
      auto const countryId = m_delegate->GetCountryId(pos);
 
+     if (countryId.empty())
+       return false;
+
      if (kIsolinesExceptedMwms.find(countryId) != kIsolinesExceptedMwms.end())
          return false;
 

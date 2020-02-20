@@ -71,7 +71,7 @@ private:
 
   void UpdateState();
   void ChangeState(IsolinesState newState);
-  Info const & LoadSection(MwmSet::MwmId const & id) const;
+  Info const & LoadIsolinesInfo(MwmSet::MwmId const & id) const;
 
   IsolinesState m_state = IsolinesState::Disabled;
   IsolinesStateChangedFn m_onStateChangedFn;
