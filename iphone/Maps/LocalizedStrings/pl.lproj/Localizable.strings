@@ -3881,8 +3881,6 @@
 
 "type.highway.pedestrian.tunnel" = "Tunel pasażu pieszego";
 
-"type.highway.platform" = "Peron";
-
 "type.highway.primary" = "Ulica";
 
 "type.highway.primary.bridge" = "Ulica";

@@ -3881,8 +3881,6 @@
 
 "type.highway.pedestrian.tunnel" = "거리";
 
-"type.highway.platform" = "highway-platform";
-
 "type.highway.primary" = "거리";
 
 "type.highway.primary.bridge" = "거리";

@@ -3881,8 +3881,6 @@
 
 "type.highway.pedestrian.tunnel" = "Вулиця";
 
-"type.highway.platform" = "highway-platform";
-
 "type.highway.primary" = "Вулиця";
 
 "type.highway.primary.bridge" = "Вулиця";

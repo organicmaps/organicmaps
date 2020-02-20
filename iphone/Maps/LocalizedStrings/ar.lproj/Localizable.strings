@@ -3881,8 +3881,6 @@
 
 "type.highway.pedestrian.tunnel" = "شارع";
 
-"type.highway.platform" = "highway-platform";
-
 "type.highway.primary" = "شارع";
 
 "type.highway.primary.bridge" = "شارع";

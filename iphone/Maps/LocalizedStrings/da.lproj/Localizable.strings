@@ -3881,8 +3881,6 @@
 
 "type.highway.pedestrian.tunnel" = "Gade";
 
-"type.highway.platform" = "highway-platform";
-
 "type.highway.primary" = "Gade";
 
 "type.highway.primary.bridge" = "Gade";

@@ -3881,8 +3881,6 @@
 
 "type.highway.pedestrian.tunnel" = "Οδός";
 
-"type.highway.platform" = "highway-platform";
-
 "type.highway.primary" = "Οδός";
 
 "type.highway.primary.bridge" = "Οδός";

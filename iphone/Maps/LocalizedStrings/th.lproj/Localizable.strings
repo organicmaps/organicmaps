@@ -3881,8 +3881,6 @@
 
 "type.highway.pedestrian.tunnel" = "ถนน";
 
-"type.highway.platform" = "highway-platform";
-
 "type.highway.primary" = "ถนน";
 
 "type.highway.primary.bridge" = "ถนน";

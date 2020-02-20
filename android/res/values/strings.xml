@@ -2162,7 +2162,6 @@
 	<string name="type.highway.pedestrian.area">Street</string>
 	<string name="type.highway.pedestrian.bridge">Street</string>
 	<string name="type.highway.pedestrian.tunnel">Street</string>
-	<string name="type.highway.platform">highway-platform</string>
 	<string name="type.highway.primary">Street</string>
 	<string name="type.highway.primary.bridge">Street</string>
 	<string name="type.highway.primary.tunnel">Street</string>

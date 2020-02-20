@@ -3881,8 +3881,6 @@
 
 "type.highway.pedestrian.tunnel" = "Katu";
 
-"type.highway.platform" = "highway-platform";
-
 "type.highway.primary" = "Katu";
 
 "type.highway.primary.bridge" = "Katu";

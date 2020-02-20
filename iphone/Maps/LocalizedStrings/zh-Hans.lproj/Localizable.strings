@@ -3881,8 +3881,6 @@
 
 "type.highway.pedestrian.tunnel" = "街头";
 
-"type.highway.platform" = "highway-platform";
-
 "type.highway.primary" = "街头";
 
 "type.highway.primary.bridge" = "街头";

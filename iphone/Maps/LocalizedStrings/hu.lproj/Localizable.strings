@@ -3881,8 +3881,6 @@
 
 "type.highway.pedestrian.tunnel" = "Utca";
 
-"type.highway.platform" = "highway-platform";
-
 "type.highway.primary" = "Utca";
 
 "type.highway.primary.bridge" = "Utca";

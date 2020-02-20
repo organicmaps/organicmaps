@@ -3881,8 +3881,6 @@
 
 "type.highway.pedestrian.tunnel" = "Calle";
 
-"type.highway.platform" = "highway-platform";
-
 "type.highway.primary" = "Calle";
 
 "type.highway.primary.bridge" = "Calle";

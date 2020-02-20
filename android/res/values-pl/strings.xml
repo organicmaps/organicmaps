@@ -2058,7 +2058,6 @@
 	<string name="type.highway.pedestrian.area">Pasaż pieszy</string>
 	<string name="type.highway.pedestrian.bridge">Most pasażu pieszego</string>
 	<string name="type.highway.pedestrian.tunnel">Tunel pasażu pieszego</string>
-	<string name="type.highway.platform">Peron</string>
 	<string name="type.highway.primary">Ulica</string>
 	<string name="type.highway.primary.bridge">Ulica</string>
 	<string name="type.highway.primary.tunnel">Tunel drogowy</string>

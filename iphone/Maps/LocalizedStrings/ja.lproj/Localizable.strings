@@ -3881,8 +3881,6 @@
 
 "type.highway.pedestrian.tunnel" = "ストリート";
 
-"type.highway.platform" = "highway-platform";
-
 "type.highway.primary" = "ストリート";
 
 "type.highway.primary.bridge" = "ストリート";
