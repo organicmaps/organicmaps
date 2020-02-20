@@ -127,9 +127,6 @@ OSM_TOOLS_CC_FLAGS = [
     "-O3",
 ]
 
-# System:
-CPU_COUNT = multiprocessing.cpu_count()
-
 # Planet and coasts:
 PLANET_O5M = os.path.join(MAIN_OUT_PATH, PLANET + ".o5m")
 PLANET_PBF = os.path.join(MAIN_OUT_PATH, PLANET + ".osm.pbf")
@@ -139,6 +136,9 @@ PLANET_COASTS_RAWGEOM_URL = os.path.join(PLANET_COASTS_URL, "latest_coasts.rawge
 if DEBUG:
     PLANET_URL = "http://osmz.ru/mwm/islands/islands.o5m"
     PLANET_MD5_URL = "https://cloud.mail.ru/public/5v2F/f7cSaEXBC"
+
+# Common:
+THREADS_COUNT = multiprocessing.cpu_count()
 
 # for lib logging
 LOGGING = {
@@ -260,6 +260,12 @@ def init(default_settings_path: AnyStr):
     STATS_TYPES_CONFIG = cfg.get_opt_path(
         "Stats", "STATS_TYPES_CONFIG", STATS_TYPES_CONFIG
     )
+
+    # Common:
+    global THREADS_COUNT
+    threads_count = int(cfg.get_opt("Common", "THREADS_COUNT", THREADS_COUNT))
+    if threads_count > 0:
+        THREADS_COUNT = threads_count
 
     # Planet and costs:
     global PLANET_O5M

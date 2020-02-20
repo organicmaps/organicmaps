@@ -40,6 +40,10 @@ SUBWAY_URL: http://osm-subway.maps.me/mapsme/latest.json
 # SRTM_PATH:
 # ISOLINES_PATH:
 
+[Common]
+# Auto detection.
+THREADS_COUNT: 0
+
 [Stats]
 STATS_TYPES_CONFIG: ${Developer:OMIM_PATH}/tools/python/maps_generator/var/etc/stats_types_config.txt
 

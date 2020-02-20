@@ -3,6 +3,7 @@ import logging
 import os
 import subprocess
 
+from . import settings
 from .exceptions import OptionNotFound
 from .exceptions import ValidationError
 from .exceptions import wait_and_raise_if_fail
@@ -45,6 +46,7 @@ class GenTool:
         "split_by_polygons": bool,
         "type_statistics": bool,
         "version": bool,
+        "threads_count": int,
         "booking_data": str,
         "promo_catalog_cities": str,
         "brands_data": str,
@@ -84,7 +86,7 @@ class GenTool:
         self.subprocess = None
         self.output = out
         self.error = err
-        self.options = {}
+        self.options = {"threads_count": 1}
         self.logger = logger
         self.add_options(**options)
 

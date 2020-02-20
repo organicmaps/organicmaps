@@ -194,7 +194,7 @@ class StageDownloadDescriptions(Stage):
 @mwm_stage
 class StageMwm(Stage):
     def apply(self, env: Env):
-        with ThreadPool() as pool:
+        with ThreadPool(settings.THREADS_COUNT) as pool:
             pool.map(
                 lambda c: StageMwm.make_mwm(c, env),
                 env.get_tmp_mwm_names(),
@@ -399,7 +399,7 @@ class StageStatistics(Stage):
 
         names = env.get_tmp_mwm_names()
         countries = filter(lambda x: x not in WORLDS_NAMES, names)
-        with ThreadPool() as pool:
+        with ThreadPool(settings.THREADS_COUNT) as pool:
             pool.map(partial(stage_mwm_statistics, env), countries)
 
         steps_info = get_stages_info(env.paths.log_path, {"statistics"})

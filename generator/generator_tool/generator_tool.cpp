@@ -197,6 +197,8 @@ DEFINE_bool(generate_traffic_keys, false,
 DEFINE_bool(dump_mwm_tmp, false, "Prints feature builder objects from .mwm.tmp");
 
 // Common.
+DEFINE_uint64(threads_count, 0, "Desired count of threads. If count equals zero, count of "
+                                "threads is set automatically.");
 DEFINE_bool(verbose, false, "Provide more detailed output.");
 
 using namespace generator;
@@ -212,7 +214,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   Platform & pl = GetPlatform();
-  auto threadsCount = pl.CpuCores();
+  unsigned threadsCount = FLAGS_threads_count != 0 ? static_cast<unsigned>(FLAGS_threads_count)
+                                                   : pl.CpuCores();
 
   if (!FLAGS_user_resource_path.empty())
   {
@@ -385,7 +388,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
       /// @todo Make threads count according to environment (single mwm build or planet build).
       if (!indexer::BuildSearchIndexFromDataFile(path, country, true /* forceRebuild */,
-                                                 1 /* threadsCount */))
+                                                 threadsCount))
       {
         LOG(LCRITICAL, ("Error generating search index."));
       }

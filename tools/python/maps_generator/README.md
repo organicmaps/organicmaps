@@ -100,6 +100,10 @@ SUBWAY_URL: http://osm-subway.maps.me/mapsme/latest.json
 # UK_POSTCODES_URL:
 # US_POSTCODES_URL:
 
+[Common]
+# Auto detection.
+THREADS_COUNT: 0
+
 [Stats]
 # Path to rules for calculating statistics by type
 STATS_TYPES_CONFIG: ${Developer:OMIM_PATH}/tools/python/maps_generator/var/etc/stats_types_config.txt

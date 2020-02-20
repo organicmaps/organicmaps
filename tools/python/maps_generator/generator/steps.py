@@ -1,6 +1,7 @@
 """
 This file contains basic api for generator_tool and osm tools to generate maps.
 """
+import functools
 import logging
 import os
 import shutil
@@ -23,6 +24,16 @@ from ..utils.md5 import md5
 from ..utils.md5 import write_md5sum
 
 logger = logging.getLogger("maps_generator")
+
+
+def multithread_run_if_one_country(func):
+    @functools.wraps(func)
+    def wrap(env, *args, **kwargs):
+        if len(env.countries) == 1:
+            kwargs.update({"threads_count": settings.THREADS_COUNT})
+        func(env, *args, **kwargs)
+
+    return wrap
 
 
 def download_planet(planet: AnyStr):
@@ -109,6 +120,7 @@ def step_features(env: Env, **kwargs):
         dump_cities_boundaries=True,
         cities_boundaries_data=env.paths.cities_boundaries_path,
         generate_features=True,
+        threads_count=settings.THREADS_COUNT,
         **kwargs,
     )
 
@@ -135,6 +147,7 @@ def run_gen_tool_with_recovery_country(env: Env, *args, **kwargs):
     kwargs["data_path"] = prev_data_path
 
 
+@multithread_run_if_one_country
 def _generate_common_index(env: Env, country: AnyStr, **kwargs):
     run_gen_tool(
         env.gen_tool,
