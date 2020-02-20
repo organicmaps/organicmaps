@@ -43,6 +43,18 @@ NSTimeInterval constexpr kOnSearchCompletedDelay = 0.2;
                                                        NSForegroundColorAttributeName: self.tintColor}];
 }
 
+-(void)layoutSubviews
+{
+  [super layoutSubviews];
+  for (UIView* view in self.subviews) {
+    if ([view isKindOfClass:[UIButton class]]) {
+      UIButton* button = (UIButton*) view;
+      [button setImage:[UIImage imageNamed:@"ic_search_clear_14"] forState:UIControlStateNormal];
+      button.tintColor = self.tintColor;
+    }
+  }
+}
+
 #pragma mark - Properties
 
 - (void)setIsSearching:(BOOL)isSearching
