@@ -366,7 +366,7 @@ deprecated|deprecated;365;x
 piste:type|downhill|novice;[piste:type=downhill][piste:difficulty=novice];;name;int_name;366;
 railway|narrow_gauge|bridge;[railway=narrow_gauge][bridge?];;name;int_name;367;
 noexit|motorcar;368;x
-highway|service|parking_aisle|tunnel;[highway=service][service=parking_aisle][tunnel?];x;name;int_name;369;highway|service|parking_aisle
+deprecated|deprecated;369;x
 highway|bridleway|permissive;[highway=bridleway][access=permissive];;name;int_name;370;
 railway|construction;371;
 highway|primary_link|junction;[highway=primary_link][junction?];x;name;int_name;372;highway|primary_link
@@ -412,7 +412,7 @@ man_made|pipeline|oil;[man_made=pipeline][type=oil];x;name;int_name;411;man_made
 leisure|park|private;[leisure=park][access=private];;name;int_name;412;
 deprecated|deprecated;413;x
 noexit|motor_vehicle;414;
-highway|service|parking_aisle|bridge;[highway=service][service=parking_aisle][bridge?];x;name;int_name;415;highway|service|parking_aisle
+deprecated|deprecated;415;x
 highway|motorway|tunnel;[highway=motorway][tunnel?];;name;int_name;416;
 railway|light_rail|tunnel;[railway=light_rail][tunnel?];;name;int_name;417;
 highway|service|parking_aisle|area;[highway=service][service=parking_aisle][area?];x;name;int_name;418;area:highway|service
