@@ -281,7 +281,7 @@ highway|road|bridge;[highway=road][bridge?];;name;int_name;280;
 boundary|administrative|3;[boundary=administrative][admin_level=3];;name;int_name;281;
 man_made|pipeline|water;[man_made=pipeline][water];x;name;int_name;282;man_made|pipeline
 boundary|administrative;283;
-highway|road|oneway;[highway=road][oneway?];x;name;int_name;284;highway|road
+deprecated|deprecated;284;x
 deprecated|deprecated;285;x
 sport|athletics;286;
 landuse|railway;287;
@@ -407,7 +407,7 @@ historic|museum;406;
 highway|living_street|bridge;[highway=living_street][bridge?];;name;int_name;407;
 deprecated|deprecated;408;x
 railway|monorail;409;
-highway|road|junction;[highway=road][junction?];x;name;int_name;410;highway|road
+deprecated|deprecated;410;x
 man_made|pipeline|oil;[man_made=pipeline][type=oil];x;name;int_name;411;man_made|pipeline
 leisure|park|private;[leisure=park][access=private];;name;int_name;412;
 deprecated|deprecated;413;x
