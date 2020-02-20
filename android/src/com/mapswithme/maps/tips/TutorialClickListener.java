@@ -1,9 +1,9 @@
 package com.mapswithme.maps.tips;
 
 import android.app.Activity;
-import androidx.annotation.NonNull;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -12,11 +12,15 @@ public abstract class TutorialClickListener implements View.OnClickListener
   @NonNull
   private final Activity mActivity;
   @NonNull
-  private final Tutorial mTutorial;
+  private Tutorial mTutorial = Tutorial.STUB;
 
-  public TutorialClickListener(@NonNull Activity activity, @NonNull Tutorial tutorial)
+  public TutorialClickListener(@NonNull Activity activity)
   {
     mActivity = activity;
+  }
+
+  public void setTutorial(@NonNull Tutorial tutorial)
+  {
     mTutorial = tutorial;
   }
 

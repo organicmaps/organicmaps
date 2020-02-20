@@ -2350,20 +2350,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mTutorial = null;
   }
 
+  @Nullable
+  public Tutorial getTutorial()
+  {
+    return mTutorial;
+  }
+
+  public void setTutorial(@NonNull Tutorial tutorial)
+  {
+    mTutorial = tutorial;
+    mToggleMapLayerController.setTutorial(tutorial);
+  }
+
   private void tryToShowTutorial()
   {
-    Tutorial tutorial = Tutorial.requestCurrent(this, getClass());
-    if (tutorial == Tutorial.STUB)
-      return;
-
-    if (mTutorial != null)
-      return;
-
-    mTutorial = tutorial;
-    mTutorial.show(getActivity(), this);
-
-    Statistics.INSTANCE.trackTipsEvent(Statistics.EventName.TIPS_TRICKS_SHOW,
-                                       mTutorial.ordinal());
+    addTask(new Factory.ShowTutorialTask());
   }
 
   private boolean tryToShowPromoAfterBooking()

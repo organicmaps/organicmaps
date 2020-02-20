@@ -36,6 +36,7 @@ import com.mapswithme.maps.purchase.SubscriptionType;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchEngine;
+import com.mapswithme.maps.tips.Tutorial;
 import com.mapswithme.maps.ugc.EditParams;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.maps.ugc.UGCEditorActivity;
@@ -1284,6 +1285,29 @@ public class Factory
 
       final DialogFragment fragment = (DialogFragment) Fragment.instantiate(target, mDialogName);
       fragment.show(target.getSupportFragmentManager(), mDialogName);
+      return true;
+    }
+  }
+
+  public static class ShowTutorialTask implements MapTask
+  {
+    private static final long serialVersionUID = -7565474616748655191L;
+
+    @Override
+    public boolean run(@NonNull MwmActivity target)
+    {
+      Tutorial tutorial = Tutorial.requestCurrent(target, target.getClass());
+      if (tutorial == Tutorial.STUB)
+        return false;
+
+      if (target.getTutorial() != null)
+        return false;
+
+      target.setTutorial(tutorial);
+      tutorial.show(target, target);
+
+      Statistics.INSTANCE.trackTipsEvent(Statistics.EventName.TIPS_TRICKS_SHOW,
+                                         tutorial.ordinal());
       return true;
     }
   }

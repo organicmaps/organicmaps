@@ -1,11 +1,11 @@
 package com.mapswithme.maps.maplayer;
 
 import android.app.Activity;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
-
 import com.mapswithme.maps.maplayer.subway.SubwayMapLayerController;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButtonController;
@@ -14,7 +14,6 @@ import com.mapswithme.maps.tips.TutorialClickListener;
 import com.mapswithme.util.InputUtils;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,18 +22,18 @@ public class MapLayerCompositeController implements MapLayerController
   @NonNull
   private final AppCompatActivity mActivity;
   @NonNull
-  private final Collection<ControllerAndMode> mChildrenEntries;
+  private final List<ControllerAndMode> mChildrenEntries;
   @NonNull
   private ControllerAndMode mMasterEntry;
+  @NonNull
+  private final TutorialClickListener mOpenBottomDialogClickListener;
 
   public MapLayerCompositeController(@NonNull TrafficButton traffic, @NonNull View subway,
                                      @NonNull View isoLines, @NonNull AppCompatActivity activity)
   {
-    Tutorial tutorial = Tutorial.requestCurrent(activity, activity.getClass());
-
-    View.OnClickListener listener = new OpenBottomDialogClickListener(activity, tutorial);
+    mOpenBottomDialogClickListener = new OpenBottomDialogClickListener(activity);
     mActivity = activity;
-    mChildrenEntries = createEntries(traffic, subway, isoLines, activity, listener, tutorial);
+    mChildrenEntries = createEntries(traffic, subway, isoLines, activity, mOpenBottomDialogClickListener);
     mMasterEntry = getCurrentLayer();
     toggleMode(mMasterEntry.getMode());
   }
@@ -44,8 +43,7 @@ public class MapLayerCompositeController implements MapLayerController
                                                              @NonNull View subway,
                                                              @NonNull View isoLinesView,
                                                              @NonNull AppCompatActivity activity,
-                                                             @NonNull View.OnClickListener dialogClickListener,
-                                                             @NonNull Tutorial tutorial)
+                                                             @NonNull View.OnClickListener dialogClickListener)
   {
     traffic.setOnclickListener(dialogClickListener);
     TrafficButtonController trafficButtonController = new TrafficButtonController(traffic,
@@ -67,16 +65,24 @@ public class MapLayerCompositeController implements MapLayerController
     entries.add(isoLineEntry);
     entries.add(trafficEntry);
 
-    Collections.sort(entries, (lhs, rhs) ->
+    return entries;
+  }
+
+  public void setTutorial(@NonNull Tutorial tutorial)
+  {
+    mOpenBottomDialogClickListener.setTutorial(tutorial);
+
+    // The sorting is needed to put the controller mode corresponding to the specified tutorial
+    // at the first place in the list. It allows to enable the map layer ignoring the opening the
+    // bottom dialog when user taps on the pulsating map layer button.
+    Collections.sort(mChildrenEntries, (lhs, rhs) ->
     {
-      if (lhs.getTutorial() == tutorial)
+      if (tutorial.equals(lhs.getTutorial()))
         return -1;
-      if (rhs.getTutorial() == tutorial)
+      if (tutorial.equals(rhs.getTutorial()))
         return 1;
       return 0;
     });
-
-    return Collections.unmodifiableList(entries);
   }
 
   public void toggleMode(@NonNull Mode mode)
@@ -299,9 +305,9 @@ public class MapLayerCompositeController implements MapLayerController
 
   private class OpenBottomDialogClickListener extends TutorialClickListener
   {
-    OpenBottomDialogClickListener(@NonNull Activity activity, @NonNull Tutorial tutorial)
+    OpenBottomDialogClickListener(@NonNull Activity activity)
     {
-      super(activity, tutorial);
+      super(activity);
     }
 
     @Override
