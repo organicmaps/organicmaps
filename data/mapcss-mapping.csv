@@ -47,7 +47,7 @@ highway|track|grade4;[highway=track][tracktype=grade4];;name;int_name;46;
 deprecated|deprecated;47;x
 landuse|farmland;48;
 barrier|fence;49;
-highway|primary|oneway;[highway=primary][oneway?];x;name;int_name;50;highway|primary
+deprecated|deprecated;50;x
 power|pole;51;
 waterway|riverbank;52;
 highway|path|bicycle;[highway=path][bicycle?];;name;int_name;53;
@@ -151,7 +151,7 @@ railway|tram;150;
 amenity|toilets;151;
 deprecated|deprecated;152;x
 highway|footway|permissive;[highway=footway][access=permissive],[highway=footway][foot=permissive];;name;int_name;153;
-highway|primary|junction;[highway=primary][junction?];x;name;int_name;154;highway|primary
+deprecated|deprecated;154;x
 landuse|construction;155;
 tourism|viewpoint;156;
 amenity|atm;157;
@@ -298,7 +298,7 @@ highway|secondary|tunnel;[highway=secondary][tunnel?];;name;int_name;297;
 railway|abandoned|bridge;[railway=abandoned][bridge?];;name;int_name;298;
 man_made|lighthouse;299;
 highway|path|demanding_mountain_hiking;[highway=path][sac_scale=demanding_mountain_hiking];;name;int_name;300;
-highway|primary|motorroad;[highway=primary][motorroad?];x;name;int_name;301;highway|primary
+deprecated|deprecated;301;x
 amenity|restaurant|hotel;[amenity=restaurant][hotel];x;name;int_name;302;tourism|hotel
 power|generator;303;
 highway|pedestrian|bridge;[highway=pedestrian][bridge?];;name;int_name;304;
@@ -798,8 +798,8 @@ deprecated|deprecated;797;x
 deprecated|deprecated;798;x
 deprecated|deprecated;799;x
 highway|pedestrian|cycleway;[highway=pedestrian][cycleway];x;name;int_name;800;highway|pedestrian
-highway|primary|cycleway;[highway=primary][cycleway];x;name;int_name;801;highway|primary
-highway|primary|cycleway-motorroad;[highway=primary][cycleway?][motorroad?];x;name;int_name;802;highway|primary
+deprecated|deprecated;801;x
+deprecated|deprecated;802;x
 highway|primary_link|cycleway;[highway=primary_link][cycleway?];x;name;int_name;803;highway|primary_link
 highway|primary_link|cycleway-motorroad;[highway=primary_link][cycleway?][motorroad?];x;name;int_name;804;highway|primary_link
 highway|raceway|dismantled;[highway=raceway][dismantled?];x;name;int_name;805;
