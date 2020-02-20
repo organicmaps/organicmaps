@@ -41,7 +41,7 @@ highway|track|grade1;[highway=track][tracktype=grade1];;name;int_name;40;
 deprecated|deprecated;41;x
 highway|service|driveway;[highway=service][service=driveway];;name;int_name;42;
 man_made|survey_point;43;x
-highway|motorway_link|oneway;[highway=motorway_link][oneway?];x;name;int_name;44;highway|motorway_link
+highway|motorway_link;44;
 waterway|stream|intermittent;[waterway=stream][intermittent=yes];;name;int_name;45;
 highway|track|grade4;[highway=track][tracktype=grade4];;name;int_name;46;
 deprecated|deprecated;47;x
@@ -198,7 +198,7 @@ railway|crossing;197;
 boundary|national_park;198;
 natural|wood|deciduous;[natural=wood][wood=deciduous],[natural=wood][leaf_type=deciduous],[natural=wood][leaf_cycle=deciduous];x;name;int_name;199;landuse|forest|deciduous
 waterway|dam;200;
-highway|motorway_link;201;
+deprecated|deprecated;201;x
 leisure|golf_course;202;
 highway|service|bridge;[highway=service][bridge?];;name;int_name;203;
 power|minor_line;204;
@@ -374,7 +374,7 @@ landuse|greenhouse_horticulture;373;
 highway|primary_link|motorroad;[highway=primary_link][motorroad?];x;name;int_name;374;highway|primary_link
 amenity|bureau_de_change;375;
 power|generator|photovoltaic;[power=generator][generator:type=photovoltaic];;name;int_name;376;x
-highway|motorway_link|junction;[highway=motorway_link][junction?];x;name;int_name;377;highway|motorway_link
+deprecated|deprecated;377;x
 highway|bridleway|bridge;[highway=bridleway][bridge?];;name;int_name;378;
 highway|service|driveway|tunnel;[highway=service][service=driveway][tunnel?];x;name;int_name;379;highway|service|driveway
 deprecated|deprecated;380;x
