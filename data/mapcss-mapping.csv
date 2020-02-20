@@ -22,7 +22,7 @@ place|village;21;
 deprecated|deprecated;22;x
 waterway|river;23;
 hwtag|oneway;24;
-addr:interpolation|odd;25;hwtag|private
+hwtag|private;25;
 amenity|parking;26;
 highway|primary;27;
 railway|rail;28;
@@ -985,7 +985,7 @@ internet_access;[internet_access];;name;int_name;984;
 internet_access|wlan;985;
 amenity|waste_disposal;986;
 amenity|bbq;987;
-hwtag|private;988;
+deprecated|deprecated;988;x
 route|ferry|motorcar;[route=ferry][motorcar];;name;int_name;989;
 junction|roundabout;990;
 highway|speed_camera;991;
