@@ -378,7 +378,7 @@ highway|motorway_link|junction;[highway=motorway_link][junction?];x;name;int_nam
 highway|bridleway|bridge;[highway=bridleway][bridge?];;name;int_name;378;
 highway|service|driveway|tunnel;[highway=service][service=driveway][tunnel?];x;name;int_name;379;highway|service|driveway
 highway|track|cutting;[highway=track][cutting?];x;name;int_name;380;highway|track
-landuse|basin|retention;[landuse=basin][basin=retention];x;name;int_name;381;natural|water
+deprecated|deprecated;381;x
 railway|narrow_gauge|tunnel;[railway=narrow_gauge][tunnel?];;name;int_name;382;
 railway|dismantled;383;x
 waterway|dock;384;
@@ -393,7 +393,7 @@ highway|cycleway|destination;[highway=cycleway][access=destination];x;name;int_n
 man_made|cairn;393;
 railway|preserved|bridge;[railway=preserved][bridge?];;name;int_name;394;
 highway|path|demanding_alpine_hiking;[highway=path][sac_scale=demanding_alpine_hiking];;name;int_name;395;
-landuse|basin|infiltration;[landuse=basin][basin=infiltration];x;name;int_name;396;natural|water
+deprecated|deprecated;396;x
 highway|secondary_link|bridge;[highway=secondary_link][bridge?];;name;int_name;397;
 railway|tram|tunnel;[railway=tram][tunnel?];;name;int_name;398;
 highway|footway|cutting;[highway=footway][cutting?];x;name;int_name;399;highway|footway
@@ -451,7 +451,7 @@ highway|motorway|cutting;[highway=motorway][cutting?];x;name;int_name;450;highwa
 railway|razed;451;
 highway|footway|demanding_mountain_hiking;[highway=footway][sac_scale=demanding_mountain_hiking];;name;int_name;452;
 aerialway|chair_lift|6;[aerialway=chair_lift][piste:lift:occupancy=6];x;name;int_name;453;aerialway|chair_lift
-landuse|basin|detention;[landuse=basin][basin=detention];x;name;int_name;454;natural|water
+deprecated|deprecated;454;x
 landuse|orchard;455;
 highway|track|grade1|area;[highway=track][tracktype=grade1][area?];x;name;int_name;456;highway|track
 highway|living_street|tunnel;[highway=living_street][tunnel?];;name;int_name;457;
@@ -465,7 +465,7 @@ amenity|restaurant|vegetarian;[amenity=restaurant][cuisine=vegetarian];x;name;in
 communication|line|submarine;[communication=line][location=submarine];x;name;int_name;465;communication|line
 piste:type|downhill|expert;[piste:type=downhill][piste:difficulty=expert];;name;int_name;466;
 landuse|salt_pond;467;
-landuse|reservoir|water_storage;[landuse=reservoir][reservoir=water_storage];x;name;int_name;468;natural|water
+deprecated|deprecated;468;x
 railway|monorail|bridge;[railway=monorail][bridge?];;name;int_name;469;
 highway|steps|area;[highway=steps][area?];x;name;int_name;470;area:highway|steps
 railway|proposed;471;x
@@ -505,13 +505,13 @@ highway|footpath;504;highway|footway
 highway|path|disused;[highway=path][disused?];x;name;int_name;505;
 highway|tertiary|motorroad;[highway=tertiary][motorroad?];x;name;int_name;506;highway|tertiary
 leisure|green;507;x
-landuse|reservoir|sewage;[landuse=reservoir][reservoir=sewage];x;name;int_name;508;natural|water
+deprecated|deprecated;508;x
 railway|spur|bridge;[railway=spur][bridge?];;name;int_name;509;
 highway|track|disused;[highway=track][disused?];x;name;int_name;510;
 highway|tertiary_link|junction;[highway=tertiary_link][junction?];x;name;int_name;511;highway|tertiary_link
 highway|track|grade3|destination;[highway=track][tracktype=grade3][access=destination];x;name;int_name;512;highway|track
 sport|curling;513;
-landuse|reservoir|evaporator;[landuse=reservoir][reservoir=evaporator];x;name;int_name;514;natural|water
+deprecated|deprecated;514;x
 landuse|wood|coniferous;[landuse=wood][wood=coniferous];x;name;int_name;515;landuse|forest
 natural|scrub|deciduous;[natural=scrub][wood=deciduous];x;name;int_name;516;
 highway|footway|disused;[highway=footway][disused?];x;name;int_name;517;
@@ -564,12 +564,12 @@ highway|track|junction;[highway=track][junction?];x;name;int_name;563;highway|tr
 natural|lake;564;
 man_made|pipeline|sewage;[man_made=pipeline][type=sewage];x;name;int_name;565;man_made|pipeline
 highway|primary_link|construction;[highway=primary_link][construction?];x;name;int_name;566;highway|construction
-landuse|reservoir|tailings;[landuse=reservoir][reservoir=tailings];x;name;int_name;567;natural|water
+deprecated|deprecated;567;x
 highway|secondary|disused;[highway=secondary][disused?];x;name;int_name;568;
 highway|track|grade5|destination;[highway=track][tracktype=grade5][access=destination];x;name;int_name;569;highway|track
-natural|basin;570;natural|water
+deprecated|deprecated;570;x
 aerialway|chair_lift|5;[aerialway=chair_lift][piste:lift:occupancy=5];x;name;int_name;571;
-natural|reservoir;572;natural|water
+deprecated|deprecated;572;x
 highway|steps|construction;[highway=steps][construction?];x;name;int_name;573;highway|construction
 highway|motorway|area;[highway=motorway][area?];x;name;int_name;574;
 piste:lift|rope_tow;575;
@@ -629,7 +629,7 @@ man_made|pipeline|oil|overground;[man_made=pipeline][type=oil][location=overgrou
 highway|primary_link|area;[highway=primary_link][area?];x;name;int_name;629;
 highway|primary_link|disused;[highway=primary_link][disused?];x;name;int_name;630;highway|primary_link
 highway|track|grade5|permissive;[highway=track][tracktype=grade5][access=permissive];x;name;int_name;631;highway|track|grade5
-landuse|reservoir|cooling;[landuse=reservoir][reservoir=cooling];x;name;int_name;632;natural|water
+deprecated|deprecated;632;x
 aeroway|airport;633;aeroway|aerodrome
 highway|tertiary_link|tunnel;[highway=tertiary_link][tunnel?];;name;int_name;634;
 man_made|piste:halfpipe;635;x
