@@ -556,7 +556,7 @@ highway|footway|demanding_alpine_hiking;[highway=footway][sac_scale=demanding_al
 railway|proposed|bridge;[railway=proposed][bridge?];x;name;int_name;556;
 deprecated|deprecated;557;x
 landuse|runway;558;x
-natural|farm;559;landuse|farmland
+deprecated|deprecated;559;x
 deprecated|deprecated;560;x
 highway|motorway_link|disused;[highway=motorway_link][disused?];x;name;int_name;561;
 highway|crossing|uncontrolled;[highway=crossing][crossing=uncontrolled];x;name;int_name;562;
@@ -599,7 +599,7 @@ highway|pedestrian|construction;[highway=pedestrian][construction?];x;name;int_n
 deprecated|deprecated;599;x
 landuse|raceway;600;x
 place|continent;601;
-natural|farmland;602;landuse|farmland
+deprecated|deprecated;602;x
 deprecated|deprecated;603;x
 boundary|administrative|nation;[boundary=administrative][border_type=nation];;name;int_name;604;
 railway|dismantled|bridge;[railway=dismantled][bridge?];x;name;int_name;605;
