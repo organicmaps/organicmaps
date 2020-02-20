@@ -57,6 +57,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
     [ovc addChildViewController:self];
     [ovc.controlsView addSubview:self.view];
     [self configLayout];
+    [self applyTheme];
     [StyleManager.shared addListener: self];
     [MWMMapOverlayManager addObserver:self];
   }

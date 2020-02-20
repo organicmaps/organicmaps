@@ -6,10 +6,6 @@
 
 @property(nonatomic) NSHashTable<id<MWMMapOverlayManagerObserver>> *observers;
 
-@property(nonatomic) TrafficManager::TrafficState trafficState;
-@property(nonatomic) TransitReadManager::TransitSchemeState transitState;
-@property(nonatomic) IsolinesManager::IsolinesState isolinesState;
-
 @end
 
 @implementation MWMMapOverlayManager
@@ -30,13 +26,11 @@
   if (self) {
     _observers = [NSHashTable weakObjectsHashTable];
     GetFramework().GetTrafficManager().SetStateListener([self](TrafficManager::TrafficState state) {
-      self.trafficState = state;
       for (id<MWMMapOverlayManagerObserver> observer in self.observers) {
         [observer onTrafficStateUpdated];
       }
     });
     GetFramework().GetTransitManager().SetStateListener([self](TransitReadManager::TransitSchemeState state) {
-      self.transitState = state;
       for (id<MWMMapOverlayManagerObserver> observer in self.observers) {
         if ([observer respondsToSelector:@selector(onTransitStateUpdated)]) {
           [observer onTransitStateUpdated];
@@ -44,7 +38,6 @@
       }
     });
     GetFramework().GetIsolinesManager().SetStateListener([self](IsolinesManager::IsolinesState state) {
-      self.isolinesState = state;
       for (id<MWMMapOverlayManagerObserver> observer in self.observers) {
         if ([observer respondsToSelector:@selector(onIsoLinesStateUpdated)]) {
           [observer onIsoLinesStateUpdated];
@@ -65,8 +58,10 @@
   [[MWMMapOverlayManager manager].observers removeObject:observer];
 }
 
+#pragma mark - Properties
+
 + (MWMMapOverlayTrafficState)trafficState {
-  switch ([MWMMapOverlayManager manager].trafficState) {
+  switch (GetFramework().GetTrafficManager().GetState()) {
     case TrafficManager::TrafficState::Disabled:
       return MWMMapOverlayTrafficStateDisabled;
     case TrafficManager::TrafficState::Enabled:
@@ -87,7 +82,7 @@
 }
 
 + (MWMMapOverlayTransitState)transitState {
-  switch ([MWMMapOverlayManager manager].transitState) {
+  switch (GetFramework().GetTransitManager().GetState()) {
     case TransitReadManager::TransitSchemeState::Disabled:
       return MWMMapOverlayTransitStateDisabled;
     case TransitReadManager::TransitSchemeState::Enabled:
@@ -98,7 +93,7 @@
 }
 
 + (MWMMapOverlayIsolinesState)isolinesState {
-  switch ([MWMMapOverlayManager manager].isolinesState) {
+  switch (GetFramework().GetIsolinesManager().GetState()) {
     case IsolinesManager::IsolinesState::Disabled:
       return MWMMapOverlayIsolinesStateDisabled;
     case IsolinesManager::IsolinesState::Enabled:
@@ -111,15 +106,15 @@
 }
 
 + (BOOL)trafficEnabled {
-  return [MWMMapOverlayManager manager].trafficState != TrafficManager::TrafficState::Disabled;
+  return self.trafficState != MWMMapOverlayTrafficStateDisabled;
 }
 
 + (BOOL)transitEnabled {
-  return [MWMMapOverlayManager manager].transitState != TransitReadManager::TransitSchemeState::Disabled;
+  return self.transitState != MWMMapOverlayTransitStateDisabled;
 }
 
 + (BOOL)isoLinesEnabled {
-  return [MWMMapOverlayManager manager].isolinesState != IsolinesManager::IsolinesState::Disabled;
+  return self.isolinesState != MWMMapOverlayIsolinesStateDisabled;
 }
 
 + (void)setTrafficEnabled:(BOOL)enable {
