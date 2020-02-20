@@ -21,6 +21,11 @@ IsolinesManager::IsolinesManager(DataSource & dataSource, GetMwmsByRectFn const 
   CHECK(m_getMwmsByRectFn != nullptr, ());
 }
 
+IsolinesManager::IsolinesState IsolinesManager::GetState() const
+{
+  return m_state;
+}
+
 void IsolinesManager::SetStateListener(IsolinesStateChangedFn const & onStateChangedFn)
 {
   m_onStateChangedFn = onStateChangedFn;

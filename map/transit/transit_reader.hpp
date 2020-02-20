@@ -99,6 +99,8 @@ public:
   void Stop();
 
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
+
+  TransitSchemeState GetState() const;
   void SetStateListener(TransitStateChangedFn const & onStateChangedFn);
 
   bool GetTransitDisplayInfo(TransitDisplayInfos & transitDisplayInfos);

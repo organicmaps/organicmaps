@@ -79,12 +79,14 @@ void TrafficManager::Teardown()
   m_thread.join();
 }
 
+TrafficManager::TrafficState TrafficManager::GetState() const
+{
+  return m_state;
+}
+
 void TrafficManager::SetStateListener(TrafficStateChangedFn const & onStateChangedFn)
 {
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, onStateChangedFn]()
-  {
-    m_onStateChangedFn = onStateChangedFn;
-  });
+  m_onStateChangedFn = onStateChangedFn;
 }
 
 void TrafficManager::SetEnabled(bool enabled)

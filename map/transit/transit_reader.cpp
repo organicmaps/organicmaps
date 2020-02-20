@@ -411,6 +411,11 @@ void TransitReadManager::OnTaskCompleted(threads::IRoutine * task)
     m_event.notify_all();
 }
 
+TransitReadManager::TransitSchemeState TransitReadManager::GetState() const
+{
+  return m_state;
+}
+
 void TransitReadManager::SetStateListener(TransitStateChangedFn const & onStateChangedFn)
 {
   m_onStateChangedFn = onStateChangedFn;

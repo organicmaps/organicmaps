@@ -33,7 +33,9 @@ public:
 
   IsolinesManager(DataSource & dataSource, GetMwmsByRectFn const & getMwmsByRectFn);
 
+  IsolinesState GetState() const;
   void SetStateListener(IsolinesStateChangedFn const & onStateChangedFn);
+
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
 
   void SetEnabled(bool enabled);

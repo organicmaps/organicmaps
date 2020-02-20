@@ -62,7 +62,9 @@ public:
 
   void Teardown();
 
+  TrafficState GetState() const;
   void SetStateListener(TrafficStateChangedFn const & onStateChangedFn);
+
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
   void SetCurrentDataVersion(int64_t dataVersion);
 
