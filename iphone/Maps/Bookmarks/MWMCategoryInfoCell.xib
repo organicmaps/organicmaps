@@ -61,6 +61,7 @@
                         <state key="normal" title="...more"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="linkBlueText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="text_more_button"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="onMoreButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="FBX-DJ-aPn"/>
