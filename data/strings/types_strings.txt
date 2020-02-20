@@ -8042,10 +8042,6 @@
     sk = Ulica
     fa = جاده
 
-  [type.highway.platform]
-    en = highway-platform
-    pl = Peron
-
   [type.highway.primary]
     en = Street
     ru = Улица
