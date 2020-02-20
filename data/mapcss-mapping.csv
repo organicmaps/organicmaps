@@ -252,7 +252,7 @@ amenity|grave_yard;251;
 waterway|canal|tunnel;[waterway=canal][tunnel?];;name;int_name;252;
 piste:type|downhill|easy;[piste:type=downhill][piste:difficulty=easy];;name;int_name;253;
 waterway|ditch|tunnel;[waterway=ditch][tunnel?];;name;int_name;254;
-landuse|wood;255;landuse|forest
+deprecated|deprecated;255;x
 piste:type|downhill|intermediate;[piste:type=downhill][piste:difficulty=intermediate];;name;int_name;256;
 railway|subway_entrance;257;
 highway|trunk_link|motorroad;[highway=trunk_link][motorroad?];x;name;int_name;258;highway|trunk_link
