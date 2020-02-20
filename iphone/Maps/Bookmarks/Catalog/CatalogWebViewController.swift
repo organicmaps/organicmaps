@@ -371,6 +371,7 @@ final class CatalogWebViewController: WebViewController {
                                             statistics: stats)
     paymentVC.delegate = self
     paymentVC.modalTransitionStyle = .coverVertical
+    paymentVC.modalPresentationStyle = .fullScreen
     self.navigationController?.present(paymentVC, animated: true)
   }
 
