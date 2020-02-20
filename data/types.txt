@@ -1006,7 +1006,7 @@ place|city|capital|10
 place|city|capital|11
 hwtag|yesfoot
 public_transport|platform
-highway|platform
+mapswithme
 aeroway|aerodrome|international
 railway|station|light_rail
 railway|station|monorail
