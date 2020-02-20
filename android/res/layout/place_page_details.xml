@@ -13,8 +13,6 @@
 
     <include layout="@layout/place_page_fat_shadow"/>
 
-    <include layout="@layout/altitude_chart"/>
-
     <include layout="@layout/catalog_promo_container"/>
 
     <include

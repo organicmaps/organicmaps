@@ -218,5 +218,5 @@
   <color name="bookmarks_sightseeing_subs_central_content_bg">#DAF8FF</color>
 
   <color name="elevation_profile_dot_enabled">#FF9600</color>
-  <color name="chart_color">#1E96F0</color>
+  <color name="elevation_profile">#1E96F0</color>
 </resources>

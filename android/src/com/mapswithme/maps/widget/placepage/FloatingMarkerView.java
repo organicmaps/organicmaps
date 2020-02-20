@@ -68,7 +68,7 @@ public class FloatingMarkerView extends MarkerView
     return getOffset();
   }
 
-  public void updateOffsets(Entry entry, Highlight highlight)
+  public void updateOffsets(@NonNull Entry entry, @NonNull Highlight highlight)
   {
     updateVertical(entry);
     updateHorizontal(highlight);
@@ -112,7 +112,7 @@ public class FloatingMarkerView extends MarkerView
     final int wholeText = Math.abs(mTextContainer.getWidth());
     RectF rect = getChartView().getContentRect();
 
-    LayoutParams textParams =(LayoutParams) mTextContainer.getLayoutParams();
+    LayoutParams textParams = (LayoutParams) mTextContainer.getLayoutParams();
     LayoutParams imgParams = (LayoutParams) mImage.getLayoutParams();
 
     boolean isLeftToRightDirection = highlight.getXPx() + halfImg + wholeText >= rect.right;

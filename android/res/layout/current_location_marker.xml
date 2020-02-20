@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
   tools:background="@color/black_primary"
   tools:ignore="Overdraw">
-
   <ImageView
     android:id="@+id/image"
-    android:src="@drawable/ic_chart_pin"
-    android:layout_below="@id/label"
-    android:background="@drawable/ic_you_marker"
-    android:layout_centerHorizontal="true"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"/>
+    android:layout_height="wrap_content"
+    android:layout_below="@id/label"
+    android:layout_centerHorizontal="true"
+    android:background="@drawable/ic_you_marker"
+    android:src="@drawable/ic_chart_pin" />
   <TextView
     android:id="@+id/label"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="you"
+    android:background="@drawable/bg_your_location_pin"
+    android:ellipsize="end"
     android:paddingStart="@dimen/margin_quarter"
     android:paddingEnd="@dimen/margin_quarter"
-    android:background="@drawable/bg_your_location_pin"
-    android:textSize="@dimen/text_size_icon_title"
+    android:singleLine="true"
+    android:text="you"
     android:textColor="@color/base_accent"
-    android:ellipsize="end"
-    android:singleLine="true" />
-
+    android:textSize="@dimen/text_size_icon_title" />
 </RelativeLayout>

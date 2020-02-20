@@ -2,50 +2,46 @@
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:layout_height="@dimen/chart_height"
-  android:background="?attr/cardBackground"
+  android:layout_height="@dimen/elevation_profile_height"
+  android:background="?cardBackground"
   android:orientation="vertical">
-
   <com.github.mikephil.charting.charts.LineChart
     android:id="@+id/elevation_profile_chart"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
-
   <TextView
     android:id="@+id/highest_altitude"
-    android:background="@drawable/bg_altitude"
-    android:textSize="@dimen/text_size_body_5"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_alignParentTop="true"
     android:layout_alignParentEnd="true"
-    android:layout_marginTop="@dimen/margin_quarter"
     android:layout_marginStart="@dimen/margin_half"
+    android:layout_marginTop="@dimen/margin_quarter"
     android:layout_marginEnd="@dimen/margin_base_plus"
-    android:paddingLeft="@dimen/margin_quarter_plus"
+    android:background="@drawable/bg_altitude"
     android:paddingStart="@dimen/margin_quarter_plus"
-    android:paddingRight="@dimen/margin_quarter_plus"
-    android:paddingEnd="@dimen/margin_quarter_plus"
+    android:paddingLeft="@dimen/margin_quarter_plus"
     android:paddingTop="@dimen/margin_eighth"
+    android:paddingEnd="@dimen/margin_quarter_plus"
+    android:paddingRight="@dimen/margin_quarter_plus"
     android:paddingBottom="@dimen/margin_eighth"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"/>
-
+    android:textSize="@dimen/text_size_body_5" />
   <TextView
     android:id="@+id/lowest_altitude"
-    android:textSize="@dimen/text_size_body_5"
-    android:background="@drawable/bg_altitude"
-    android:layout_alignParentBottom="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_alignParentEnd="true"
+    android:layout_alignParentBottom="true"
+    android:layout_gravity="center_horizontal|start"
     android:layout_marginStart="@dimen/margin_half"
     android:layout_marginEnd="@dimen/margin_base_plus"
     android:layout_marginBottom="@dimen/margin_base_plus"
-    android:paddingLeft="@dimen/margin_quarter_plus"
+    android:background="@drawable/bg_altitude"
     android:paddingStart="@dimen/margin_quarter_plus"
-    android:paddingRight="@dimen/margin_quarter_plus"
-    android:paddingEnd="@dimen/margin_quarter_plus"
+    android:paddingLeft="@dimen/margin_quarter_plus"
     android:paddingTop="@dimen/margin_eighth"
+    android:paddingEnd="@dimen/margin_quarter_plus"
+    android:paddingRight="@dimen/margin_quarter_plus"
     android:paddingBottom="@dimen/margin_eighth"
-    android:layout_gravity="center_horizontal|start"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"/>
-
+    android:textSize="@dimen/text_size_body_5" />
 </RelativeLayout>

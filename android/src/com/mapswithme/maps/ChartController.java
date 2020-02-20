@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-class ChartPresenter implements OnChartValueSelectedListener
+class ChartController implements OnChartValueSelectedListener
 {
   private static final int CHART_Y_LABEL_COUNT = 3;
   private static final int CHART_X_LABEL_COUNT = 6;
@@ -38,17 +38,22 @@ class ChartPresenter implements OnChartValueSelectedListener
   private final AppCompatActivity mActivity;
 
   @NonNull
-  private LineChart mChart;
+  private final LineChart mChart;
 
   @NonNull
-  private FloatingMarkerView mFloatingMarkerView;
+  private final FloatingMarkerView mFloatingMarkerView;
 
   @NonNull
-  private MarkerView mCurrentLocationMarkerView;
+  private final MarkerView mCurrentLocationMarkerView;
 
-  public ChartPresenter(@NonNull AppCompatActivity activity)
+  ChartController(@NonNull AppCompatActivity activity)
   {
     mActivity = activity;
+    mChart = getActivity().findViewById(R.id.elevation_profile_chart);
+    mFloatingMarkerView = new FloatingMarkerView(getActivity());
+    mCurrentLocationMarkerView = new CurrentLocationMarkerView(getActivity());
+    mFloatingMarkerView.setChartView(mChart);
+    mCurrentLocationMarkerView.setChartView(mChart);
     initChart();
   }
 
@@ -65,8 +70,6 @@ class ChartPresenter implements OnChartValueSelectedListener
     TextView bottomAlt = getActivity().findViewById(R.id.lowest_altitude);
     bottomAlt.setText("100m");
 
-
-    mChart = getActivity().findViewById(R.id.elevation_profile_chart);
     mChart.setBackgroundColor(Color.WHITE);
     mChart.setTouchEnabled(true);
     mChart.setOnChartValueSelectedListener(this);
@@ -85,10 +88,7 @@ class ChartPresenter implements OnChartValueSelectedListener
     initAxises();
     setData(20, 180);
 
-    mFloatingMarkerView = new FloatingMarkerView(getActivity());
-    mCurrentLocationMarkerView = new CurrentLocationMarkerView(getActivity());
-    mFloatingMarkerView.setChartView(mChart);
-    mCurrentLocationMarkerView.setChartView(mChart);
+
     highlightChartCurrentLocation();
     mChart.animateX(CHART_ANIMATION_DURATION);
   }
@@ -157,8 +157,7 @@ class ChartPresenter implements OnChartValueSelectedListener
     set.setDrawHorizontalHighlightIndicator(false);
     set.setHighlightLineWidth(lineThickness);
     set.setHighLightColor(getResources().getColor(R.color.base_accent_transparent));
-    set.setFillColor(getResources().getColor(R.color.chart_color));
-
+    set.setFillColor(getResources().getColor(R.color.elevation_profile));
 
     LineData data = new LineData(set);
     data.setValueTextSize(getResources().getDimensionPixelSize(R.dimen.text_size_icon_title));

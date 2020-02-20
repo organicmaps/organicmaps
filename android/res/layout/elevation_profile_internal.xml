@@ -26,12 +26,14 @@
     android:gravity="center"
     android:minHeight="@dimen/elevation_profile_chart_min_height"
     android:orientation="vertical">
-    <include layout="@layout/altitude_chart"/>
+    <include layout="@layout/elevation_profile"/>
   </LinearLayout>
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginEnd="@dimen/margin_base"
     android:minHeight="@dimen/elevation_profile_chart_info_min_height"
     android:orientation="horizontal">
     <LinearLayout
@@ -154,6 +156,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginEnd="@dimen/margin_base"
     android:orientation="horizontal">
     <LinearLayout
       android:layout_width="wrap_content"

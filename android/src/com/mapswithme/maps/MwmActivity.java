@@ -270,7 +270,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private Tutorial mTutorial;
   @Nullable
   private OnboardingTip mOnboardingTip;
-  private ChartPresenter mChartPresenter;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private ChartController mChartController;
 
   public interface LeftAnimationTrackListener
   {
@@ -520,7 +523,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePageController.initialize();
     mPlacePageController.onActivityCreated(this, savedInstanceState);
 
-    mChartPresenter = new ChartPresenter(this);
+    mChartController = new ChartController(this);
 
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews(isLaunchByDeepLink);
