@@ -21,7 +21,7 @@ natural|coastline;20;
 place|village;21;
 deprecated|deprecated;22;x
 waterway|river;23;
-addr:interpolation|even;24;hwtag|oneway
+hwtag|oneway;24;
 addr:interpolation|odd;25;hwtag|private
 amenity|parking;26;
 highway|primary;27;
@@ -880,7 +880,7 @@ area:highway|motorway;879;
 area:highway|trunk;880;
 area:highway|residental;881;x
 entrance;[entrance];;ref;addr:flats;882;
-hwtag|oneway;883;
+deprecated|deprecated;883;x
 highway|proposed;884;
 tourism|artwork;885;
 railway|subway|red;[railway=subway][colour=red];;name;int_name;886;
