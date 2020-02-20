@@ -62,7 +62,7 @@ amenity|restaurant;61;
 landuse|reservoir;62;
 highway|track|grade5;[highway=track][tracktype=grade5];;name;int_name;63;
 amenity|bench;64;
-highway|service|oneway;[highway=service][oneway?];x;name;int_name;65;highway|service
+deprecated|deprecated;65;x
 highway|trunk;66;
 amenity|fuel;67;
 leisure|park;68;
@@ -405,7 +405,7 @@ leisure|dog_park;404;
 aerialway|gondola;405;
 historic|museum;406;
 highway|living_street|bridge;[highway=living_street][bridge?];;name;int_name;407;
-highway|service|cutting;[highway=service][cutting?];x;name;int_name;408;highway|service
+deprecated|deprecated;408;x
 railway|monorail;409;
 highway|road|junction;[highway=road][junction?];x;name;int_name;410;highway|road
 man_made|pipeline|oil;[man_made=pipeline][type=oil];x;name;int_name;411;man_made|pipeline
@@ -592,7 +592,7 @@ highway|track|grade3|permissive;[highway=track][tracktype=grade3][access=permiss
 highway|track|grade4|private;[highway=track][tracktype=grade4][access=private];x;name;int_name;592;highway|track|grade4
 highway|byway|permissive;[highway=byway][access=permissive];x;name;int_name;593;highway|track
 natural|railway;594;x
-highway|service|dyke;[highway=service][man_made][dyke?];x;name;int_name;595;highway|service
+deprecated|deprecated;595;x
 railway|incline;596;x
 boundary|administrative|region;[boundary=administrative][border_type=region];;name;int_name;597;
 highway|pedestrian|construction;[highway=pedestrian][construction?];x;name;int_name;598;highway|construction
@@ -667,7 +667,7 @@ landuse|raceway|dismantled;[landuse=raceway][dismantled?];x;name;int_name;666;
 railway|planned|tunnel;[railway=planned][tunnel?];x;name;int_name;667;
 highway|residential|turning_circle;[highway=residential][turning_circle?];x;name;int_name;668;
 highway|bridleway|disused;[highway=bridleway][disused?];x;name;int_name;669;
-highway|service|cycleway;[highway=service][cycleway?];x;name;int_name;670;highway|service
+deprecated|deprecated;670;x
 highway|pedestrian|disused;[highway=pedestrian][disused?];x;name;int_name;671;
 highway|unsurfaced|area;[highway=unsurfaced][area?];x;name;int_name;672;
 highway|minor|tunnel;[highway=minor][tunnel?];x;name;int_name;673;highway|unclassified
@@ -677,7 +677,7 @@ highway|crossing|zebra;[highway=crossing][crossing=zebra];x;name;int_name;676;
 landuse|runway|dismantled;[landuse=runway][dismantled?];x;name;int_name;677;
 highway|bridleway|construction;[highway=bridleway][construction?];x;name;int_name;678;
 railway|planned|bridge;[railway=planned][bridge?];x;name;int_name;679;
-highway|service|embankment;[highway=service][embankment?];x;name;int_name;680;highway|service
+deprecated|deprecated;680;x
 highway|crossing|island;[highway=crossing][crossing=island];x;name;int_name;681;
 highway|unclassified|cycleway;[highway=unclassified][cycleway];x;name;int_name;682;highway|unclassified
 deprecated|deprecated;683;x
@@ -689,7 +689,7 @@ man_made|pipeline|water|overground;[man_made=pipeline][type=water][location=over
 highway|footpath|area;[highway=footpath][area?];x;name;int_name;689;highway|footway
 highway|road|turning_circle;[highway=road][turning_circle?];x;name;int_name;690;
 boundary|administrative|country;[boundary=administrative][border_type=country];;name;int_name;691;
-highway|service|levee;[highway=service][levee?];x;name;int_name;692;highway|service
+deprecated|deprecated;692;x
 natural|orchard;693;
 natural|retail;694;x
 communication|line|underground;[communication=line][location=underground];;name;int_name;695;
@@ -808,7 +808,7 @@ highway|secondary|cycleway-motorroad;[highway=secondary][cycleway?][motorroad?];
 highway|secondary_link|cycleway;[highway=secondary_link][cycleway?];x;name;int_name;808;highway|secondary_link
 highway|secondary_link|cycleway-motorroad;[highway=secondary_link][cycleway?][motorroad?];x;name;int_name;809;highway|secondary_link
 highway|secondary_link|disused;[highway=secondary_link][disused?];x;name;int_name;810;highway|secondary_link
-highway|service|dike;[highway=service][dike?];x;name;int_name;811;highway|service
+deprecated|deprecated;811;x
 highway|steps|dike;[highway=steps][dike?];x;name;int_name;812;highway|steps
 highway|steps|dyke;[highway=steps][dyke?];x;name;int_name;813;highway|steps
 highway|steps|embankment;[highway=steps][embankment?];x;name;int_name;814;highway|steps
