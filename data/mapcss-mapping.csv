@@ -44,7 +44,7 @@ man_made|survey_point;43;x
 highway|motorway_link|oneway;[highway=motorway_link][oneway?];x;name;int_name;44;highway|motorway_link
 waterway|stream|intermittent;[waterway=stream][intermittent=yes];;name;int_name;45;
 highway|track|grade4;[highway=track][tracktype=grade4];;name;int_name;46;
-highway|tertiary|oneway;[highway=tertiary][oneway?];x;name;int_name;47;highway|tertiary
+deprecated|deprecated;47;x
 landuse|farmland;48;
 barrier|fence;49;
 highway|primary|oneway;[highway=primary][oneway?];x;name;int_name;50;highway|primary
@@ -145,7 +145,7 @@ railway|abandoned;144;
 amenity|parking|private;[amenity=parking][access=private];;name;int_name;145;
 boundary|administrative|7;[boundary=administrative][admin_level=7];;name;int_name;146;
 tourism|attraction;147;
-highway|tertiary|junction;[highway=tertiary][junction?];x;name;int_name;148;highway|tertiary
+deprecated|deprecated;148;x
 deprecated|deprecated;149;x
 railway|tram;150;
 amenity|toilets;151;
@@ -503,7 +503,7 @@ highway|motorway_link|construction;[highway=motorway_link][construction?];x;name
 highway|trunk_link|tunnel;[highway=trunk_link][tunnel?];;name;int_name;503;
 deprecated|deprecated;504;x
 highway|path|disused;[highway=path][disused?];x;name;int_name;505;
-highway|tertiary|motorroad;[highway=tertiary][motorroad?];x;name;int_name;506;highway|tertiary
+deprecated|deprecated;506;x
 leisure|green;507;x
 deprecated|deprecated;508;x
 railway|spur|bridge;[railway=spur][bridge?];;name;int_name;509;
@@ -813,7 +813,7 @@ highway|steps|dike;[highway=steps][dike?];x;name;int_name;812;highway|steps
 highway|steps|dyke;[highway=steps][dyke?];x;name;int_name;813;highway|steps
 highway|steps|embankment;[highway=steps][embankment?];x;name;int_name;814;highway|steps
 highway|steps|levee;[highway=steps][levee?];x;name;int_name;815;highway|steps
-highway|tertiary|cycleway-motorroad;[highway=tertiary][cycleway?][motorroad?];x;name;int_name;816;highway|tertiary
+deprecated|deprecated;816;x
 highway|tertiary_link|construction;[highway=tertiary_link][construction?];x;name;int_name;817;highway|tertiary_link
 highway|tertiary_link|cycleway;[highway=tertiary_link][cycleway?];x;name;int_name;818;highway|tertiary_link
 highway|tertiary_link|cycleway-motorroad;[highway=tertiary_link][cycleway?][motorroad?];x;name;int_name;819;highway|tertiary_link
