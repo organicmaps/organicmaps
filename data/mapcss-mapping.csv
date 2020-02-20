@@ -38,7 +38,7 @@ highway|cycleway;37;
 landuse|farm;38;
 amenity|place_of_worship;39;
 highway|track|grade1;[highway=track][tracktype=grade1];;name;int_name;40;
-highway|secondary|oneway;[highway=secondary][oneway?];x;name;int_name;41;highway|secondary
+deprecated|deprecated;41;x
 highway|service|driveway;[highway=service][service=driveway];;name;int_name;42;
 man_made|survey_point;43;x
 highway|motorway_link|oneway;[highway=motorway_link][oneway?];x;name;int_name;44;highway|motorway_link
@@ -134,7 +134,7 @@ sport|tennis;133;
 landuse|vineyard;134;
 aeroway|taxiway;135;
 aeroway|aerodrome;136;
-highway|secondary|junction;[highway=secondary][junction?];x;name;int_name;137;highway|secondary
+deprecated|deprecated;137;x
 amenity|fire_station;138;
 landuse|retail;139;
 leisure|nature_reserve;140;
@@ -410,7 +410,7 @@ railway|monorail;409;
 highway|road|junction;[highway=road][junction?];x;name;int_name;410;highway|road
 man_made|pipeline|oil;[man_made=pipeline][type=oil];x;name;int_name;411;man_made|pipeline
 leisure|park|private;[leisure=park][access=private];;name;int_name;412;
-highway|secondary|motorroad;[highway=secondary][motorroad?];x;name;int_name;413;highway|secondary
+deprecated|deprecated;413;x
 noexit|motor_vehicle;414;
 highway|service|parking_aisle|bridge;[highway=service][service=parking_aisle][bridge?];x;name;int_name;415;highway|service|parking_aisle
 highway|motorway|tunnel;[highway=motorway][tunnel?];;name;int_name;416;
@@ -644,7 +644,7 @@ landuse|raceway|disused;[landuse=raceway][disused?];x;name;int_name;643;
 highway|motorway_link|area;[highway=motorway_link][area?];x;name;int_name;644;
 natural|recreation_ground;645;x
 deprecated|deprecated;646;x
-highway|secondary|cycleway;[highway=secondary][cycleway?];x;name;int_name;647;highway|secondary
+deprecated|deprecated;647;x
 deprecated|deprecated;648;x
 natural|forest|coniferous;[natural=forest][wood=coniferous];x;name;int_name;649;landuse|forest
 deprecated|deprecated;650;x
@@ -804,7 +804,7 @@ highway|primary_link|cycleway;[highway=primary_link][cycleway?];x;name;int_name;
 highway|primary_link|cycleway-motorroad;[highway=primary_link][cycleway?][motorroad?];x;name;int_name;804;highway|primary_link
 highway|raceway|dismantled;[highway=raceway][dismantled?];x;name;int_name;805;
 highway|road|cycleway;[highway=road][cycleway];x;name;int_name;806;
-highway|secondary|cycleway-motorroad;[highway=secondary][cycleway?][motorroad?];x;name;int_name;807;highway|secondary
+deprecated|deprecated;807;x
 highway|secondary_link|cycleway;[highway=secondary_link][cycleway?];x;name;int_name;808;highway|secondary_link
 highway|secondary_link|cycleway-motorroad;[highway=secondary_link][cycleway?][motorroad?];x;name;int_name;809;highway|secondary_link
 highway|secondary_link|disused;[highway=secondary_link][disused?];x;name;int_name;810;highway|secondary_link
