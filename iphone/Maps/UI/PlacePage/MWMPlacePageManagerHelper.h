@@ -9,7 +9,7 @@
 + (void)showUGCAddReview:(PlacePageData *)data
                   rating:(UgcSummaryRatingType)value
               fromSource:(MWMUGCReviewSource)source;
-+ (void)searchSimilar;
++ (void)searchSimilar:(PlacePageData *)data;
 + (void)editPlace;
 + (void)addBusiness;
 + (void)addPlace:(CLLocationCoordinate2D)coordinate;

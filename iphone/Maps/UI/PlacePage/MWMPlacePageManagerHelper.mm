@@ -12,7 +12,7 @@
 
 - (void)updateAvailableArea:(CGRect)frame;
 - (void)showUGCAddReview:(PlacePageData *)data rating:(UgcSummaryRatingType)value fromSource:(MWMUGCReviewSource)source;
-- (void)searchSimilar;
+- (void)searchSimilar:(PlacePageData *)data;
 - (void)editPlace;
 - (void)addBusiness;
 - (void)addPlace:(CLLocationCoordinate2D)coordinate;
@@ -55,9 +55,9 @@
   [[MWMMapViewControlsManager manager].placePageManager showUGCAddReview:data rating:value fromSource:source];
 }
 
-+ (void)searchSimilar
++ (void)searchSimilar:(PlacePageData *)data
 {
-  [[MWMMapViewControlsManager manager].placePageManager searchSimilar];
+  [[MWMMapViewControlsManager manager].placePageManager searchSimilar:data];
 }
 
 + (void)editPlace {

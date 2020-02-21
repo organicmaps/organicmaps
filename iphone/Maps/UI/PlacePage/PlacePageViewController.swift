@@ -369,7 +369,7 @@ extension PlacePageViewController: PlacePagePreviewViewControllerDelegate {
   }
 
   func previewDidPressSimilarHotels() {
-    MWMPlacePageManagerHelper.searchSimilar()
+    MWMPlacePageManagerHelper.searchSimilar(placePageData)
   }
 }
 
@@ -534,7 +534,7 @@ extension PlacePageViewController: ActionBarViewControllerDelegate {
     case .booking:
       MWMPlacePageManagerHelper.book(placePageData)
     case .bookingSearch:
-      MWMPlacePageManagerHelper.searchSimilar()
+      MWMPlacePageManagerHelper.searchSimilar(placePageData)
     case .bookmark:
       if placePageData.bookmarkData != nil {
         MWMPlacePageManagerHelper.removeBookmark(placePageData)

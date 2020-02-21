@@ -405,12 +405,12 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
   [[MapViewController sharedController].navigationController pushViewController:ugcVC animated:YES];
 }
 
-- (void)searchSimilar
+- (void)searchSimilar:(PlacePageData *)data
 {
-//  [Statistics logEvent:@"Placepage_Hotel_search_similar"
-//        withParameters:@{kStatProvider : self.data.isBooking ? kStatBooking : kStatOSM}];
+  [Statistics logEvent:@"Placepage_Hotel_search_similar"
+        withParameters:@{kStatProvider : data.sponsoredType == PlacePageSponsoredTypeBooking ? kStatBooking : kStatOSM}];
 
-  MWMHotelParams * params = [[MWMHotelParams alloc] init];
+  MWMHotelParams * params = [[MWMHotelParams alloc] initWithPlacePageData:data];
   [[MWMSearchManager manager] showHotelFilterWithParams:params
                       onFinishCallback:^{
     [MWMMapViewControlsManager.manager searchTextOnMap:[L(@"booking_hotel") stringByAppendingString:@" "]

@@ -68,6 +68,7 @@ static PlacePageDataHotelType convertHotelType(std::optional<ftypes::IsHotelChec
     _subtitle = rawData.GetSubtitle().empty() ? nil : @(rawData.GetSubtitle().c_str());
     _address = rawData.GetAddress().empty() ? nil : @(rawData.GetAddress().c_str());
     _pricing = rawData.GetApproximatePricing().empty() ? nil : @(rawData.GetApproximatePricing().c_str());
+    _rawPricing = rawData.GetRawApproximatePricing() ? nil : [[NSNumber alloc] initWithInt: *(rawData.GetRawApproximatePricing())];
     _hasBanner = rawData.HasBanner();
     _isPopular = rawData.GetPopularity() > 0;
     _isBookingPlace = rawData.GetSponsoredType() == place_page::SponsoredType::Booking;
