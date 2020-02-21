@@ -109,9 +109,23 @@ extension LayersViewController: MapOverlayManagerObserver {
 
   func onIsoLinesStateUpdated() {
     updateIsoLinesButton()
-    if MapOverlayManager.isoLinesEnabled() {
+    let status: String?
+    switch MapOverlayManager.isolinesState() {
+    case .enabled:
+      status = "success"
+    case .expiredData:
+      status = "error"
+    case .noData:
+      status = "unavailable"
+    case .disabled:
+      status = nil
+    @unknown default:
+      fatalError()
+    }
+    
+    if let status = status {
       Statistics.logEvent("Map_Layers_activate", withParameters: ["name" : "isolines",
-                                                                  "status" : "success"])
+                                                                  "status" : status])
     }
   }
 }
