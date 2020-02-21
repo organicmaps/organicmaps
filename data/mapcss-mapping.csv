@@ -88,7 +88,7 @@ barrier|bollard;87;
 leisure|playground;88;
 waterway|drain;89;
 waterway|canal;90;
-highway|trunk_link|oneway;[highway=trunk_link][oneway?];x;name;int_name;91;highway|trunk_link
+highway|trunk_link;91;
 highway|unclassified|bridge;[highway=unclassified][bridge?];;name;int_name;92;
 landuse|forest|deciduous;[landuse=forest][wood=deciduous],[landuse=forest][leaf_type=deciduous],[landuse=forest][leaf_cycle=deciduous],[natural=wood][wood=deciduous],[natural=wood][leaf_type=deciduous],[natural=wood][leaf_cycle=deciduous];;name;int_name;93;
 place|island;94;
@@ -219,7 +219,7 @@ deprecated|deprecated;218;x
 power|station;219;
 sport|swimming;220;
 leisure|track;221;
-highway|trunk_link;222;
+deprecated|deprecated;222;x
 barrier|retaining_wall;223;
 amenity|college;224;
 sport|baseball;225;
@@ -255,7 +255,7 @@ waterway|ditch|tunnel;[waterway=ditch][tunnel?];;name;int_name;254;
 deprecated|deprecated;255;x
 piste:type|downhill|intermediate;[piste:type=downhill][piste:difficulty=intermediate];;name;int_name;256;
 railway|subway_entrance;257;
-highway|trunk_link|motorroad;[highway=trunk_link][motorroad?];x;name;int_name;258;highway|trunk_link
+deprecated|deprecated;258;x
 man_made|pipeline;259;
 route|ferry;260;
 highway|trunk_link|bridge;[highway=trunk_link][bridge?];;name;int_name;261;
@@ -339,7 +339,7 @@ amenity|parking|permissive|fee;[amenity=parking][access=permissive][fee?];x;name
 railway|disused|bridge;[railway][disused?][bridge?];x;name;int_name;339;
 tourism|zoo;340;
 sport|gymnastics;341;
-highway|trunk_link|junction;[highway=trunk_link][junction?];x;name;int_name;342;highway|trunk_link
+deprecated|deprecated;342;x
 railway|subway|bridge;[railway=subway][bridge?];;name;int_name;343;
 railway|light_rail|bridge;[railway=light_rail][bridge?];;name;int_name;344;
 aeroway|terminal;345;
@@ -829,9 +829,9 @@ deprecated|deprecated;828;x
 deprecated|deprecated;829;x
 deprecated|deprecated;830;x
 deprecated|deprecated;831;x
-highway|trunk_link|cycleway;[highway=trunk_link][cycleway?];x;name;int_name;832;highway|trunk_link
-highway|trunk_link|cycleway-motorroad;[highway=trunk_link][cycleway?][motorroad?];x;name;int_name;833;highway|trunk_link
-highway|trunk_link|disused;[highway=trunk_link][disused?];x;name;int_name;834;highway|trunk_link
+deprecated|deprecated;832;x
+deprecated|deprecated;833;x
+deprecated|deprecated;834;x
 deprecated|deprecated;835;x
 deprecated|deprecated;836;x
 deprecated|deprecated;837;x
