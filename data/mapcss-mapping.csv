@@ -299,7 +299,7 @@ railway|abandoned|bridge;[railway=abandoned][bridge?];;name;int_name;298;
 man_made|lighthouse;299;
 highway|path|demanding_mountain_hiking;[highway=path][sac_scale=demanding_mountain_hiking];;name;int_name;300;
 deprecated|deprecated;301;x
-amenity|restaurant|hotel;[amenity=restaurant][hotel];x;name;int_name;302;tourism|hotel
+deprecated|deprecated;302;x
 power|generator;303;
 highway|pedestrian|bridge;[highway=pedestrian][bridge?];;name;int_name;304;
 man_made|pipeline|overground;[man_made=pipeline][location=overground];;name;int_name;305;
