@@ -1,4 +1,5 @@
 #include "local_ads/statistics.hpp"
+
 #include "local_ads/config.hpp"
 #include "local_ads/file_helpers.hpp"
 
@@ -20,14 +21,15 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "3party/jansson/myjansson.hpp"
+#include "private.h"
 
 #include <functional>
 #include <memory>
 #include <sstream>
 #include <utility>
 
-#include "private.h"
+#include "3party/Alohalytics/src/alohalytics.h"
+#include "3party/jansson/myjansson.hpp"
 
 namespace
 {
@@ -486,6 +488,18 @@ void Statistics::ExtractMetadata(std::string const & fileName)
       ReaderSource<FileReader> src(reader);
       ReadMetadata(src, countryId, mwmVersion, baseTimestamp);
     }
+
+    auto const expectedFileName = countryId + "_" + strings::to_string(mwmVersion) + kStatisticsExt;
+
+    if (fileName != expectedFileName)
+    {
+      alohalytics::TStringMap const info = {
+          {"expectedFilename", expectedFileName},
+          {"actualFilename", fileName},
+      };
+      alohalytics::LogEvent("localAdsBadFile", info);
+    }
+
     MetadataKey const key = std::make_pair(countryId, mwmVersion);
     auto it = m_metadataCache.find(key);
     if (it != m_metadataCache.end())
