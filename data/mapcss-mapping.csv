@@ -419,7 +419,7 @@ highway|service|parking_aisle|area;[highway=service][service=parking_aisle][area
 highway|residential|construction;[highway=residential][construction?];x;name;int_name;419;highway|construction
 highway|motorway|construction;[highway=motorway][construction?];x;name;int_name;420;highway|construction
 deprecated|deprecated;421;x
-landuse|scrub;422;natural|scrub
+deprecated|deprecated;422;x
 highway|road|tunnel;[highway=road][tunnel?];;name;int_name;423;
 sport|archery;424;
 railway|construction|bridge;[railway][construction?][bridge?];x;name;int_name;425;
