@@ -70,7 +70,7 @@ leisure|pitch;69;
 highway|pedestrian;70;
 natural|scrub;71;
 highway|motorway|bridge;[highway=motorway][bridge?];;name;int_name;72;
-highway|trunk|oneway;[highway=trunk][oneway?];x;name;int_name;73;highway|trunk
+deprecated|deprecated;73;x
 railway|level_crossing;74;
 landuse|industrial;75;
 barrier|wall;76;
@@ -211,7 +211,7 @@ railway|halt;210;
 addr:interpolation|all;211;x
 railway|rail|tunnel;[railway=rail][tunnel?];;name;int_name;212;
 man_made|wastewater_plant;213;
-highway|trunk|motorroad;[highway=trunk][motorroad?];x;name;int_name;214;highway|trunk
+deprecated|deprecated;214;x
 place|county;215;
 deprecated|deprecated;216;x
 landuse|conservation;217;x
@@ -234,7 +234,7 @@ amenity|parking|permissive;[amenity=parking][access=permissive];;name;int_name;2
 boundary|administrative|5;[boundary=administrative][admin_level=5];;name;int_name;234;
 highway|unclassified|tunnel;[highway=unclassified][tunnel?];;name;int_name;235;
 deprecated|deprecated;236;x
-highway|trunk|junction;[highway=trunk][junction?];x;name;int_name;237;highway|trunk
+deprecated|deprecated;237;x
 highway|residential|tunnel;[highway=residential][tunnel?];;name;int_name;238;
 aeroway|helipad;239;
 highway|path|permissive;[highway=path][access=permissive];;name;int_name;240;
@@ -445,7 +445,7 @@ highway|path|difficult_alpine_hiking;[highway=path][sac_scale=difficult_alpine_h
 earthquake:damage|spontaneous_camp;445;
 deprecated|deprecated;446;x
 railway|yard;447;
-highway|trunk|cutting;[highway=trunk][cutting?];x;name;int_name;448;highway|trunk
+deprecated|deprecated;448;x
 natural|meadow;449;
 deprecated|deprecated;450;x
 railway|razed;451;
@@ -823,12 +823,12 @@ highway|track|grade4|no-access;[highway=track][tracktype=grade4][access=no];x;na
 highway|track|grade5|no-access;[highway=track][tracktype=grade5][access=no];x;name;int_name;823;highway|track|grade5
 highway|track|no-access;[highway=track][access=no];;name;int_name;824;
 highway|track|race;[highway=raceway];x;name;int_name;825;
-highway|trunk|cycleway;[highway=trunk][cycleway?];x;name;int_name;826;highway|trunk
-highway|trunk|cycleway-motorroad;[highway=trunk][cycleway?][motorroad?];x;name;int_name;827;highway|trunk
-highway|trunk|dike;[highway=trunk][dike?];x;name;int_name;828;highway|trunk
-highway|trunk|dyke;[highway=trunk][dyke?];x;name;int_name;829;highway|trunk
-highway|trunk|embankment;[highway=trunk][embankment?];x;name;int_name;830;highway|trunk
-highway|trunk|levee;[highway=trunk][levee?];x;name;int_name;831;highway|trunk
+deprecated|deprecated;826;x
+deprecated|deprecated;827;x
+deprecated|deprecated;828;x
+deprecated|deprecated;829;x
+deprecated|deprecated;830;x
+deprecated|deprecated;831;x
 highway|trunk_link|cycleway;[highway=trunk_link][cycleway?];x;name;int_name;832;highway|trunk_link
 highway|trunk_link|cycleway-motorroad;[highway=trunk_link][cycleway?][motorroad?];x;name;int_name;833;highway|trunk_link
 highway|trunk_link|disused;[highway=trunk_link][disused?];x;name;int_name;834;highway|trunk_link
