@@ -577,7 +577,7 @@ natural|pond;576;
 natural|industrial;577;x
 highway|secondary_link|tunnel;[highway=secondary_link][tunnel?];;name;int_name;578;
 highway|pedestrian|junction;[highway=pedestrian][junction?];x;name;int_name;579;highway|pedestrian
-highway|track|grade5|private;[highway=track][tracktype=grade5][access=private];x;name;int_name;580;highway|track|grade5
+deprecated|deprecated;580;x
 highway|track|grade5|area;[highway=track][tracktype=grade5][area?];x;name;int_name;581;
 natural|forest|deciduous;[natural=forest][wood=deciduous];x;name;int_name;582;landuse|forest
 highway|living_street|construction;[highway=living_street][construction?];x;name;int_name;583;highway|construction
