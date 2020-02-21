@@ -61,16 +61,20 @@ public:
                                           m_graph->GetPoint(to, true /* front */));
   }
 
-  void GetOutgoingEdgesList(Vertex const & v, std::vector<Edge> & edges) override
+  void GetOutgoingEdgesList(astar::VertexData<Vertex, RouteWeight> const & vertexData,
+                            std::vector<Edge> & edges) override
   {
     edges.clear();
-    m_graph->GetEdgeList(v, true /* isOutgoing */, true /* useRoutingOptions */, edges);
+    m_graph->GetEdgeList(vertexData.m_vertex, true /* isOutgoing */, true /* useRoutingOptions */,
+                         edges);
   }
 
-  void GetIngoingEdgesList(Vertex const & v, std::vector<Edge> & edges) override
+  void GetIngoingEdgesList(astar::VertexData<Vertex, RouteWeight> const & vertexData,
+                           std::vector<Edge> & edges) override
   {
     edges.clear();
-    m_graph->GetEdgeList(v, false /* isOutgoing */, true /* useRoutingOptions */, edges);
+    m_graph->GetEdgeList(vertexData.m_vertex, false /* isOutgoing */, true /* useRoutingOptions */,
+                         edges);
   }
 
   RouteWeight GetAStarWeightEpsilon() override { return RouteWeight(0.0); }

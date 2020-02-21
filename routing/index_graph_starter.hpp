@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/base/astar_graph.hpp"
+#include "routing/base/astar_vertex_data.hpp"
 #include "routing/base/routing_result.hpp"
 
 #include "routing/fake_ending.hpp"
@@ -89,25 +90,26 @@ public:
   // start and finish in pass-through/non-pass-through area and number of non-pass-through crosses.
   bool CheckLength(RouteWeight const & weight);
 
-  void GetEdgeList(JointSegment const & parent, Segment const & segment, bool isOutgoing,
-                   std::vector<JointEdge> & edges, std::vector<RouteWeight> & parentWeights) const
+  void GetEdgeList(astar::VertexData<JointSegment, Weight> const & parentVertexData,
+                   Segment const & segment, bool isOutgoing, std::vector<JointEdge> & edges,
+                   std::vector<RouteWeight> & parentWeights) const
   {
-    return m_graph.GetEdgeList(parent, segment, isOutgoing, edges, parentWeights);
+    return m_graph.GetEdgeList(parentVertexData, segment, isOutgoing,
+                               true /* useAccessConditional */, edges, parentWeights);
   }
-
-  void GetEdgesList(Segment const & segment, bool isOutgoing,
-                    std::vector<SegmentEdge> & edges) const;
 
   // AStarGraph overridings:
   // @{
-  void GetOutgoingEdgesList(Vertex const & segment, std::vector<Edge> & edges) override
+  void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
+                            std::vector<Edge> & edges) override
   {
-    GetEdgesList(segment, true /* isOutgoing */, edges);
+    GetEdgesList(vertexData, true /* isOutgoing */, true /* useAccessConditional */, edges);
   }
 
-  void GetIngoingEdgesList(Vertex const & segment, std::vector<Edge> & edges) override
+  void GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
+                           std::vector<Edge> & edges) override
   {
-    GetEdgesList(segment, false /* isOutgoing */, edges);
+    GetEdgesList(vertexData, false /* isOutgoing */, true /* useAccessConditional */, edges);
   }
 
   RouteWeight HeuristicCostEstimate(Vertex const & from, Vertex const & to) override
@@ -134,6 +136,11 @@ public:
 
   RouteWeight GetAStarWeightEpsilon() override;
   // @}
+
+  void GetEdgesList(Vertex const & vertex, bool isOutgoing, std::vector<SegmentEdge> & edges) const
+  {
+    GetEdgesList({vertex, Weight(0.0)}, isOutgoing, false /* useAccessConditional */, edges);
+  }
 
   RouteWeight HeuristicCostEstimate(Vertex const & from, ms::LatLon const & to) const
   {
@@ -202,6 +209,9 @@ private:
     CHECK_LESS(segmentIdx, std::numeric_limits<uint32_t>::max(), ());
     return GetFakeSegment(segmentIdx++);
   }
+
+  void GetEdgesList(astar::VertexData<Vertex, Weight> const & vertexData, bool isOutgoing,
+                    bool useAccessConditional, std::vector<SegmentEdge> & edges) const;
 
   // Creates fake edges for fake ending and adds it to  fake graph. |otherEnding| used to generate
   // propper fake edges in case both endings have projections to the same segment.

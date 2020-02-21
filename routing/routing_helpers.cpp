@@ -226,7 +226,8 @@ bool CheckGraphConnectivity(Segment const & start, bool isOutgoing, bool useRout
 
     // Note. If |isOutgoing| == true outgoing edges are looked for.
     // If |isOutgoing| == false it's the finish. So ingoing edges are looked for.
-    graph.GetEdgeList(u, isOutgoing, useRoutingOptions, edges);
+    graph.GetEdgeList({u, RouteWeight(0.0)}, isOutgoing, useRoutingOptions,
+                      false /* useAccessConditional */, edges);
     for (auto const & edge : edges)
     {
       auto const & v = edge.GetTarget();

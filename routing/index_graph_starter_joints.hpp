@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/base/astar_graph.hpp"
+#include "routing/base/astar_vertex_data.hpp"
 #include "routing/fake_feature_ids.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/joint_segment.hpp"
@@ -47,14 +48,16 @@ public:
   // @{
   RouteWeight HeuristicCostEstimate(Vertex const & from, Vertex const & to) override;
 
-  void GetOutgoingEdgesList(Vertex const & vertex, std::vector<Edge> & edges) override
+  void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
+                            std::vector<Edge> & edges) override
   {
-    GetEdgeList(vertex, true /* isOutgoing */, edges);
+    GetEdgeList(vertexData, true /* isOutgoing */, edges);
   }
 
-  void GetIngoingEdgesList(Vertex const & vertex, std::vector<Edge> & edges) override
+  void GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
+                           std::vector<Edge> & edges) override
   {
-    GetEdgeList(vertex, false /* isOutgoing */, edges);
+    GetEdgeList(vertexData, false /* isOutgoing */, edges);
   }
 
   void SetAStarParents(bool forward, Parents & parents) override
@@ -134,7 +137,8 @@ private:
 
   void AddFakeJoints(Segment const & segment, bool isOutgoing, std::vector<JointEdge> & edges);
 
-  void GetEdgeList(JointSegment const & vertex, bool isOutgoing, std::vector<JointEdge> & edges);
+  void GetEdgeList(astar::VertexData<Vertex, Weight> const & vertexData, bool isOutgoing,
+                   std::vector<JointEdge> & edges);
 
   JointSegment CreateFakeJoint(Segment const & from, Segment const & to);
 
@@ -148,7 +152,7 @@ private:
     return m_graph.IsJointOrEnd(segment, fromStart);
   }
 
-  bool FillEdgesAndParentsWeights(JointSegment const & vertex,
+  bool FillEdgesAndParentsWeights(astar::VertexData<Vertex, Weight> const & vertexData,
                                   bool isOutgoing,
                                   size_t & firstFakeId,
                                   std::vector<JointEdge> & edges,
@@ -440,12 +444,12 @@ std::optional<Segment> IndexGraphStarterJoints<Graph>::GetParentSegment(
 }
 
 template <typename Graph>
-bool IndexGraphStarterJoints<Graph>::FillEdgesAndParentsWeights(JointSegment const & vertex,
-                                                                bool isOutgoing,
-                                                                size_t & firstFakeId,
-                                                                std::vector<JointEdge> & edges,
-                                                                std::vector<Weight> & parentWeights)
+bool IndexGraphStarterJoints<Graph>::FillEdgesAndParentsWeights(
+    astar::VertexData<Vertex, Weight> const & vertexData,
+    bool isOutgoing, size_t & firstFakeId,
+    std::vector<JointEdge> & edges, std::vector<Weight> & parentWeights)
 {
+  auto const & vertex = vertexData.m_vertex;
   // Case of fake start or finish joints.
   // Note: startJoint and finishJoint are just loops
   //       from start to start or end to end vertex.
@@ -468,7 +472,7 @@ bool IndexGraphStarterJoints<Graph>::FillEdgesAndParentsWeights(JointSegment con
       return false;
 
     Segment const & parentSegment = *optional;
-    m_graph.GetEdgeList(vertex, parentSegment, isOutgoing, edges, parentWeights);
+    m_graph.GetEdgeList(vertexData, parentSegment, isOutgoing, edges, parentWeights);
 
     firstFakeId = edges.size();
     bool const opposite = !isOutgoing;
@@ -498,8 +502,9 @@ bool IndexGraphStarterJoints<Graph>::FillEdgesAndParentsWeights(JointSegment con
 }
 
 template <typename Graph>
-void IndexGraphStarterJoints<Graph>::GetEdgeList(JointSegment const & vertex, bool isOutgoing,
-                                                 std::vector<JointEdge> & edges)
+void IndexGraphStarterJoints<Graph>::GetEdgeList(
+    astar::VertexData<Vertex, Weight> const & vertexData, bool isOutgoing,
+    std::vector<JointEdge> & edges)
 {
   CHECK(m_init, ("IndexGraphStarterJoints was not initialized."));
 
@@ -513,11 +518,12 @@ void IndexGraphStarterJoints<Graph>::GetEdgeList(JointSegment const & vertex, bo
   std::vector<Weight> parentWeights;
 
   size_t firstFakeId = 0;
-  if (!FillEdgesAndParentsWeights(vertex, isOutgoing, firstFakeId, edges, parentWeights))
+  if (!FillEdgesAndParentsWeights(vertexData, isOutgoing, firstFakeId, edges, parentWeights))
     return;
 
   if (!isOutgoing)
   {
+    auto const & vertex = vertexData.m_vertex;
     // |parentSegment| is parent-vertex from which we search children.
     // For correct weight calculation we should get weight of JointSegment, that
     // ends in |parentSegment| and add |parentWeight[i]| to the saved value.

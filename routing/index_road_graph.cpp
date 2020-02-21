@@ -138,6 +138,7 @@ void IndexRoadGraph::GetEdges(geometry::PointWithAltitude const & junction, bool
   {
     tmpEdges.clear();
     m_starter.GetEdgesList(segment, isOutgoing, tmpEdges);
+
     segmentEdges.insert(segmentEdges.end(), tmpEdges.begin(), tmpEdges.end());
   }
 

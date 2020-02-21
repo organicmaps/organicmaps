@@ -4,6 +4,13 @@
 
 namespace routing
 {
+void WorldGraph::GetEdgeList(Segment const & vertex, bool isOutgoing, bool useRoutingOptions,
+                             std::vector<SegmentEdge> & edges)
+{
+  GetEdgeList({vertex, RouteWeight(0.0)}, isOutgoing, useRoutingOptions,
+              false /* useAccessConditional */, edges);
+}
+
 void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
                           std::vector<SegmentEdge> & edges)
 {
@@ -16,9 +23,12 @@ void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, bool useRout
   SetMode(WorldGraphMode::SingleMwm);
 
   for (Segment const & twin : twins)
-    GetEdgeList(twin, isOutgoing, useRoutingOptions, edges);
+  {
+    GetEdgeList({twin, RouteWeight(0.0)}, isOutgoing, useRoutingOptions,
+                false /* useAccessConditional */, edges);
+  }
 
-  SetMode(prevMode);
+      SetMode(prevMode);
 }
 
 RoutingOptions WorldGraph::GetRoutingOptions(Segment const & /* segment */)

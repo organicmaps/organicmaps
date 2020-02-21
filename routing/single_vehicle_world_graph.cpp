@@ -75,36 +75,38 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
   jointEdges.insert(jointEdges.end(), newCrossMwmEdges.begin(), newCrossMwmEdges.end());
 }
 
-void SingleVehicleWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
-                                          bool useRoutingOptions, vector<SegmentEdge> & edges)
+void SingleVehicleWorldGraph::GetEdgeList(
+    astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
+    bool useRoutingOptions, bool useAccessConditional, vector<SegmentEdge> & edges)
 {
   CHECK_NOT_EQUAL(m_mode, WorldGraphMode::LeapsOnly, ());
 
   ASSERT(m_parentsForSegments.forward && m_parentsForSegments.backward,
          ("m_parentsForSegments was not initialized in SingleVehicleWorldGraph."));
+  auto const & segment = vertexData.m_vertex;
   auto & parents = isOutgoing ? *m_parentsForSegments.forward : *m_parentsForSegments.backward;
   IndexGraph & indexGraph = m_loader->GetIndexGraph(segment.GetMwmId());
-  indexGraph.GetEdgeList(segment, isOutgoing, useRoutingOptions, edges, parents);
+  indexGraph.GetEdgeList(vertexData, isOutgoing, useRoutingOptions, edges, parents);
 
   if (m_mode != WorldGraphMode::SingleMwm && m_crossMwmGraph && m_crossMwmGraph->IsTransition(segment, isOutgoing))
     GetTwins(segment, isOutgoing, useRoutingOptions, edges);
 }
 
-void SingleVehicleWorldGraph::GetEdgeList(JointSegment const & parentJoint,
-                                          Segment const & parent, bool isOutgoing,
-                                          vector<JointEdge> & jointEdges,
-                                          vector<RouteWeight> & parentWeights)
+void SingleVehicleWorldGraph::GetEdgeList(
+    astar::VertexData<JointSegment, RouteWeight> const & parentVertexData, Segment const & parent,
+    bool isOutgoing, bool useAccessConditional, vector<JointEdge> & jointEdges,
+    vector<RouteWeight> & parentWeights)
 {
   // Fake segments aren't processed here. All work must be done
   // on the IndexGraphStarterJoints abstraction-level.
   if (!parent.IsRealSegment())
     return;
 
-  ASSERT(m_parentsForSegments.forward && m_parentsForSegments.backward,
-         ("m_parentsForSegments was not initialized in SingleVehicleWorldGraph."));
+  ASSERT(m_parentsForJoints.forward && m_parentsForJoints.backward,
+         ("m_parentsForJoints was not initialized in SingleVehicleWorldGraph."));
   auto & parents = isOutgoing ? *m_parentsForJoints.forward : *m_parentsForJoints.backward;
   auto & indexGraph = GetIndexGraph(parent.GetMwmId());
-  indexGraph.GetEdgeList(parentJoint, parent, isOutgoing, jointEdges, parentWeights, parents);
+  indexGraph.GetEdgeList(parentVertexData, parent, isOutgoing, jointEdges, parentWeights, parents);
 
   if (m_mode != WorldGraphMode::JointSingleMwm)
     CheckAndProcessTransitFeatures(parent, jointEdges, parentWeights, isOutgoing);

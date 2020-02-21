@@ -12,6 +12,7 @@ set(
   base/astar_algorithm.hpp
   base/astar_progress.cpp
   base/astar_progress.hpp
+  base/astar_vertex_data.hpp
   base/astar_weight.hpp
   base/bfs.hpp
   base/followed_polyline.cpp

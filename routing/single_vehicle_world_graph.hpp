@@ -35,11 +35,16 @@ public:
   // @{
   ~SingleVehicleWorldGraph() override = default;
 
-  void GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
+  using WorldGraph::GetEdgeList;
+
+  void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
+                   bool useRoutingOptions, bool useAccessConditional,
                    std::vector<SegmentEdge> & edges) override;
 
-  void GetEdgeList(JointSegment const & parentJoint, Segment const & parent, bool isOutgoing,
-                   std::vector<JointEdge> & jointEdges, std::vector<RouteWeight> & parentWeights) override;
+  void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData,
+                   Segment const & parent, bool isOutgoing, bool useAccessConditional,
+                   std::vector<JointEdge> & jointEdges,
+                   std::vector<RouteWeight> & parentWeights) override;
 
   bool CheckLength(RouteWeight const &, double) const override { return true; }
 

@@ -184,12 +184,14 @@ bool IndexGraphStarter::CheckLength(RouteWeight const & weight)
          m_graph.CheckLength(weight, m_startToFinishDistanceM);
 }
 
-void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
+void IndexGraphStarter::GetEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
+                                     bool isOutgoing, bool useAccessConditional,
                                      vector<SegmentEdge> & edges) const
 {
   edges.clear();
   CHECK_NOT_EQUAL(m_graph.GetMode(), WorldGraphMode::LeapsOnly, ());
 
+  auto const & segment = vertexData.m_vertex;
   if (IsFakeSegment(segment))
   {
     Segment real;
@@ -198,7 +200,11 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
       bool const haveSameFront = GetJunction(segment, true /* front */) == GetJunction(real, true);
       bool const haveSameBack = GetJunction(segment, false /* front */) == GetJunction(real, false);
       if ((isOutgoing && haveSameFront) || (!isOutgoing && haveSameBack))
-        m_graph.GetEdgeList(real, isOutgoing, true /* useRoutingOptions */, edges);
+      {
+        astar::VertexData const replacedFakeSegment(real, vertexData.m_realDistance);
+        m_graph.GetEdgeList(replacedFakeSegment, isOutgoing, true /* useRoutingOptions */,
+                            useAccessConditional, edges);
+      }
     }
 
     for (auto const & s : m_fake.GetEdges(segment, isOutgoing))
@@ -206,7 +212,8 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
   }
   else
   {
-    m_graph.GetEdgeList(segment, isOutgoing, true /* useRoutingOptions */, edges);
+    m_graph.GetEdgeList(vertexData, isOutgoing, true /* useRoutingOptions */, useAccessConditional,
+                        edges);
   }
 
   AddFakeEdges(segment, isOutgoing, edges);

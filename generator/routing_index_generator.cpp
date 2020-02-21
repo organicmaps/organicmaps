@@ -205,11 +205,13 @@ public:
     m_graph.GetEdgeList(child, isOutgoing, true /* useRoutingOptions */, edges);
   }
 
-  void GetEdgeList(JointSegment const & parentJoint, Segment const & parent, bool isOutgoing,
-                   vector<JointEdge> & edges, vector<RouteWeight> & parentWeights) const
+  void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & vertexData,
+                   Segment const & parent, bool isOutgoing, vector<JointEdge> & edges,
+                   vector<RouteWeight> & parentWeights) const
   {
     CHECK(m_AStarParents, ());
-    return m_graph.GetEdgeList(parentJoint, parent, isOutgoing, edges, parentWeights, *m_AStarParents);
+    return m_graph.GetEdgeList(vertexData.m_vertex, parent, isOutgoing, edges, parentWeights,
+                               *m_AStarParents);
   }
 
   bool IsJoint(Segment const & segment, bool fromStart) const

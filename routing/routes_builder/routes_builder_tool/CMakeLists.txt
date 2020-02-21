@@ -32,6 +32,7 @@ omim_link_libraries(
   oauthcpp
   opening_hours
   protobuf
+  opening_hours
   stats_client
   succinct
   gflags

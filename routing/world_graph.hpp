@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/base/astar_vertex_data.hpp"
 #include "routing/cross_mwm_graph.hpp"
 #include "routing/edge_estimator.hpp"
 #include "routing/geometry.hpp"
@@ -49,12 +50,18 @@ public:
 
   virtual ~WorldGraph() = default;
 
-  virtual void GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
+  virtual void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData,
+                           bool isOutgoing, bool useRoutingOptions, bool useAccessConditional,
                            std::vector<SegmentEdge> & edges) = 0;
-  virtual void GetEdgeList(JointSegment const & vertex, Segment const & segment, bool isOutgoing,
-                           std::vector<JointEdge> & edges, std::vector<RouteWeight> & parentWeights) = 0;
+  virtual void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & vertexData,
+                           Segment const & segment, bool isOutgoing, bool useAccessConditional,
+                           std::vector<JointEdge> & edges,
+                           std::vector<RouteWeight> & parentWeights) = 0;
 
-  // Checks whether path length meets restrictions. Restrictions may depend on the distance from
+  void GetEdgeList(Segment const & vertex, bool isOutgoing, bool useRoutingOptions,
+                   std::vector<SegmentEdge> & edges);
+
+      // Checks whether path length meets restrictions. Restrictions may depend on the distance from
   // start to finish of the route.
   virtual bool CheckLength(RouteWeight const & weight, double startToFinishDistanceM) const = 0;
 

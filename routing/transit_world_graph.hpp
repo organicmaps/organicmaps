@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/base/astar_vertex_data.hpp"
 #include "routing/cross_mwm_graph.hpp"
 #include "routing/edge_estimator.hpp"
 #include "routing/geometry.hpp"
@@ -11,9 +12,9 @@
 #include "routing/transit_info.hpp"
 #include "routing/world_graph.hpp"
 
-#include "routing_common/num_mwm_id.hpp"
-
 #include "transit/transit_types.hpp"
+
+#include "routing_common/num_mwm_id.hpp"
 
 #include "geometry/latlon.hpp"
 
@@ -34,10 +35,13 @@ public:
   // WorldGraph overrides:
   ~TransitWorldGraph() override = default;
 
-  void GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
+  using WorldGraph::GetEdgeList;
+
+  void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
+                   bool useRoutingOptions, bool useAccessConditional,
                    std::vector<SegmentEdge> & edges) override;
-  void GetEdgeList(JointSegment const & parentJoint,
-                   Segment const & segment, bool isOutgoing,
+  void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData,
+                   Segment const & segment, bool isOutgoing, bool useAccessConditional,
                    std::vector<JointEdge> & edges,
                    std::vector<RouteWeight> & parentWeights) override;
 
@@ -84,8 +88,8 @@ private:
   }
 
   RoadGeometry const & GetRealRoadGeometry(NumMwmId mwmId, uint32_t featureId);
-  void AddRealEdges(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
-                    std::vector<SegmentEdge> & edges);
+  void AddRealEdges(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
+                    bool useRoutingOptions, std::vector<SegmentEdge> & edges);
   TransitGraph & GetTransitGraph(NumMwmId mwmId);
 
   std::unique_ptr<CrossMwmGraph> m_crossMwmGraph;

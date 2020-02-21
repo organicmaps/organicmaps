@@ -16,16 +16,16 @@ LeapsGraph::LeapsGraph(IndexGraphStarter & starter) : m_starter(starter)
   m_finishSegment = m_starter.GetFinishSegment();
 }
 
-void LeapsGraph::GetOutgoingEdgesList(Segment const & segment,
+void LeapsGraph::GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
                                       std::vector<SegmentEdge> & edges)
 {
-  GetEdgesList(segment, true /* isOutgoing */, edges);
+  GetEdgesList(vertexData.m_vertex, true /* isOutgoing */, edges);
 }
 
-void LeapsGraph::GetIngoingEdgesList(Segment const & segment,
+void LeapsGraph::GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
                                      std::vector<SegmentEdge> & edges)
 {
-  GetEdgesList(segment, false /* isOutgoing */, edges);
+  GetEdgesList(vertexData.m_vertex, false /* isOutgoing */, edges);
 }
 
 RouteWeight LeapsGraph::HeuristicCostEstimate(Segment const & from, Segment const & to)

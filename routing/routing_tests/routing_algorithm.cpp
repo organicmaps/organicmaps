@@ -27,14 +27,22 @@ size_t UndirectedGraph::GetNodesNumber() const
   return m_adjs.size();
 }
 
-void UndirectedGraph::GetIngoingEdgesList(Vertex const & v, std::vector<SimpleEdge> & adj)
+void UndirectedGraph::GetEdgesList(Vertex const & vertex, bool /* isOutgoing */,
+                                   std::vector<Edge> & adj)
 {
-  GetAdjacencyList(v, adj);
+  GetAdjacencyList(vertex, adj);
 }
 
-void UndirectedGraph::GetOutgoingEdgesList(Vertex const & v, std::vector<SimpleEdge> & adj)
+void UndirectedGraph::GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
+                                          std::vector<SimpleEdge> & adj)
 {
-  GetAdjacencyList(v, adj);
+  GetEdgesList(vertexData.m_vertex, false /* isOutgoing */, adj);
+}
+
+void UndirectedGraph::GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
+                                           std::vector<SimpleEdge> & adj)
+{
+  GetEdgesList(vertexData.m_vertex, true /* isOutgoing */, adj);
 }
 
 double UndirectedGraph::HeuristicCostEstimate(Vertex const & v, Vertex const & w)
@@ -56,14 +64,9 @@ void DirectedGraph::AddEdge(Vertex from, Vertex to, Weight w)
   m_ingoing[to].emplace_back(from, w);
 }
 
-void DirectedGraph::GetIngoingEdgesList(Vertex const & v, std::vector<Edge> & adj)
+void DirectedGraph::GetEdgesList(Vertex const & v, bool isOutgoing, std::vector<Edge> & adj)
 {
-  adj = m_ingoing[v];
-}
-
-void DirectedGraph::GetOutgoingEdgesList(Vertex const & v, std::vector<Edge> & adj)
-{
-  adj = m_outgoing[v];
+  adj = isOutgoing ? m_outgoing[v] : m_ingoing[v];
 }
 }  // namespace routing_tests
 
@@ -114,8 +117,10 @@ public:
     : m_roadGraph(roadGraph), m_maxSpeedMPS(KMPH2MPS(roadGraph.GetMaxSpeedKMpH()))
   {}
 
-  void GetOutgoingEdgesList(Vertex const & v, std::vector<Edge> & adj) override
+  void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
+                            std::vector<Edge> & adj) override
   {
+    auto const & v = vertexData.m_vertex;
     IRoadGraph::EdgeVector edges;
     m_roadGraph.GetOutgoingEdges(v, edges);
 
@@ -132,8 +137,10 @@ public:
     }
   }
 
-  void GetIngoingEdgesList(Vertex const & v, std::vector<Edge> & adj) override
+  void GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
+                           std::vector<Edge> & adj) override
   {
+    auto const & v = vertexData.m_vertex;
     IRoadGraph::EdgeVector edges;
     m_roadGraph.GetIngoingEdges(v, edges);
 

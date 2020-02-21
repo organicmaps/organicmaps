@@ -1,5 +1,8 @@
 #pragma once
 
+#include "routing/base/astar_algorithm.hpp"
+#include "routing/base/astar_graph.hpp"
+#include "routing/base/astar_vertex_data.hpp"
 #include "routing/edge_estimator.hpp"
 #include "routing/geometry.hpp"
 #include "routing/joint.hpp"
@@ -11,9 +14,6 @@
 #include "routing/road_point.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/segment.hpp"
-
-#include "routing/base/astar_algorithm.hpp"
-#include "routing/base/astar_graph.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -49,13 +49,19 @@ public:
 
   inline static Parents<Segment> kEmptyParentsSegments = {};
   // Put outgoing (or ingoing) egdes for segment to the 'edges' vector.
+  void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
+                   bool useRoutingOptions, std::vector<SegmentEdge> & edges,
+                   Parents<Segment> const & parents = kEmptyParentsSegments);
   void GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
                    std::vector<SegmentEdge> & edges,
                    Parents<Segment> const & parents = kEmptyParentsSegments);
 
-  void GetEdgeList(JointSegment const & parentJoint,
+  void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData,
                    Segment const & parent, bool isOutgoing, std::vector<JointEdge> & edges,
                    std::vector<RouteWeight> & parentWeights, Parents<JointSegment> & parents);
+  void GetEdgeList(JointSegment const & parentJoint, Segment const & parent, bool isOutgoing,
+                   std::vector<JointEdge> & edges, std::vector<RouteWeight> & parentWeights,
+                   Parents<JointSegment> & parents);
 
   std::optional<JointEdge> GetJointEdgeByLastPoint(Segment const & parent,
                                                    Segment const & firstChild, bool isOutgoing,
@@ -129,11 +135,22 @@ public:
   void SetCurrentTimeGetter(T && t) { m_currentTimeGetter = std::forward<T>(t); }
 
 private:
-  void GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
-                           bool useRoutingOptions, std::vector<SegmentEdge> & edges,
-                           Parents<Segment> const & parents);
-  void GetNeighboringEdge(Segment const & from, Segment const & to, bool isOutgoing,
-                          std::vector<SegmentEdge> & edges, Parents<Segment> const & parents);
+  void GetEdgeListImpl(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
+                       bool useRoutingOptions, bool useAccessConditional,
+                       std::vector<SegmentEdge> & edges, Parents<Segment> const & parents);
+
+  void GetEdgeListImpl(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData,
+                       Segment const & parent, bool isOutgoing, bool useAccessConditional,
+                       std::vector<JointEdge> & edges, std::vector<RouteWeight> & parentWeights,
+                       Parents<JointSegment> & parents);
+
+  void GetNeighboringEdges(astar::VertexData<Segment, RouteWeight> const & fromVertexData,
+                           RoadPoint const & rp, bool isOutgoing, bool useRoutingOptions,
+                           std::vector<SegmentEdge> & edges, Parents<Segment> const & parents,
+                           bool useAccessConditional);
+  void GetNeighboringEdge(astar::VertexData<Segment, RouteWeight> const & fromVertexData,
+                          Segment const & to, bool isOutgoing, std::vector<SegmentEdge> & edges,
+                          Parents<Segment> const & parents, bool useAccessConditional);
 
   struct PenaltyData
   {
@@ -151,7 +168,7 @@ private:
   void GetSegmentCandidateForRoadPoint(RoadPoint const & rp, NumMwmId numMwmId,
                                        bool isOutgoing, std::vector<Segment> & children);
   void GetSegmentCandidateForJoint(Segment const & parent, bool isOutgoing, std::vector<Segment> & children);
-  void ReconstructJointSegment(JointSegment const & parentJoint,
+  void ReconstructJointSegment(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData,
                                Segment const & parent,
                                std::vector<Segment> const & firstChildren,
                                std::vector<uint32_t> const & lastPointIds,

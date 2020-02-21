@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/base/astar_weight.hpp"
+#include "routing/base/astar_vertex_data.hpp"
 
 #include <map>
 #include <vector>
@@ -21,8 +22,10 @@ public:
 
   virtual Weight HeuristicCostEstimate(Vertex const & from, Vertex const & to) = 0;
 
-  virtual void GetOutgoingEdgesList(Vertex const & v, std::vector<Edge> & edges) = 0;
-  virtual void GetIngoingEdgesList(Vertex const & v, std::vector<Edge> & edges) = 0;
+  virtual void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
+                                    std::vector<Edge> & edges) = 0;
+  virtual void GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
+                                   std::vector<Edge> & edges) = 0;
 
   virtual void SetAStarParents(bool forward, Parents & parents);
   virtual void DropAStarParents();
