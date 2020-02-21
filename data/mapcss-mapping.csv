@@ -630,7 +630,7 @@ highway|primary_link|area;[highway=primary_link][area?];x;name;int_name;629;
 deprecated|deprecated;630;x
 highway|track|grade5|permissive;[highway=track][tracktype=grade5][access=permissive];x;name;int_name;631;highway|track|grade5
 deprecated|deprecated;632;x
-aeroway|airport;633;aeroway|aerodrome
+deprecated|deprecated;633;x
 highway|tertiary_link|tunnel;[highway=tertiary_link][tunnel?];;name;int_name;634;
 man_made|piste:halfpipe;635;x
 deprecated|deprecated;636;x
