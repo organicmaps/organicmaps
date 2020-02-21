@@ -175,7 +175,7 @@ landuse|village_green;174;
 amenity|drinking_water;175;
 amenity|university;176;
 highway|secondary_link|oneway;[highway=secondary_link][oneway?];x;name;int_name;177;highway|secondary_link
-power|sub_station;178;power|substation
+power|substation;178;
 railway|tram_stop;179;
 place|city;180;
 amenity|shelter;181;
@@ -1087,7 +1087,7 @@ amenity|sauna;1086;leisure|sauna
 man_made|chimney;1087;
 man_made|tower;1088;
 man_made|water_well;1089;
-power|substation;1090;
+deprecated|deprecated;1090;x
 shop|bookmaker;1091;
 shop|car_repair|tyres;[shop=car_repair][service=tyres];;name;int_name;1092;
 shop|cosmetics;1093;
