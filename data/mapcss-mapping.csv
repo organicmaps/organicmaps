@@ -93,7 +93,7 @@ highway|unclassified|bridge;[highway=unclassified][bridge?];;name;int_name;92;
 landuse|forest|deciduous;[landuse=forest][wood=deciduous],[landuse=forest][leaf_type=deciduous],[landuse=forest][leaf_cycle=deciduous],[natural=wood][wood=deciduous],[natural=wood][leaf_type=deciduous],[natural=wood][leaf_cycle=deciduous];;name;int_name;93;
 place|island;94;
 highway|primary|bridge;[highway=primary][bridge?];;name;int_name;95;
-highway|primary_link|oneway;[highway=primary_link][oneway?];x;name;int_name;96;highway|primary_link
+highway|primary_link;96;
 amenity|fast_food;97;
 highway|footway|bridge;[highway=footway][bridge?];;name;int_name;98;
 amenity|bank;99;
@@ -185,7 +185,7 @@ shop|hairdresser;184;
 amenity|hunting_stand;185;
 boundary|administrative|9;[boundary=administrative][admin_level=9];;name;int_name;186;
 amenity|fountain;187;
-highway|primary_link;188;
+deprecated|deprecated;188;x
 amenity|bar;189;
 landuse|garages;190;
 boundary|administrative|2;[boundary=administrative][admin_level=2];;name;int_name;191;
@@ -369,9 +369,9 @@ noexit|motorcar;368;x
 deprecated|deprecated;369;x
 highway|bridleway|permissive;[highway=bridleway][access=permissive];;name;int_name;370;
 railway|construction;371;
-highway|primary_link|junction;[highway=primary_link][junction?];x;name;int_name;372;highway|primary_link
+deprecated|deprecated;372;x
 landuse|greenhouse_horticulture;373;
-highway|primary_link|motorroad;[highway=primary_link][motorroad?];x;name;int_name;374;highway|primary_link
+deprecated|deprecated;374;x
 amenity|bureau_de_change;375;
 power|generator|photovoltaic;[power=generator][generator:type=photovoltaic];;name;int_name;376;x
 deprecated|deprecated;377;x
@@ -627,7 +627,7 @@ railway|siding|bridge;[railway=siding][bridge?];;name;int_name;626;
 highway|footway|difficult_alpine_hiking;[highway=footway][sac_scale=difficult_alpine_hiking];;name;int_name;627;
 man_made|pipeline|oil|overground;[man_made=pipeline][type=oil][location=overground];x;name;int_name;628;
 highway|primary_link|area;[highway=primary_link][area?];x;name;int_name;629;
-highway|primary_link|disused;[highway=primary_link][disused?];x;name;int_name;630;highway|primary_link
+deprecated|deprecated;630;x
 highway|track|grade5|permissive;[highway=track][tracktype=grade5][access=permissive];x;name;int_name;631;highway|track|grade5
 deprecated|deprecated;632;x
 aeroway|airport;633;aeroway|aerodrome
@@ -800,8 +800,8 @@ deprecated|deprecated;799;x
 deprecated|deprecated;800;x
 deprecated|deprecated;801;x
 deprecated|deprecated;802;x
-highway|primary_link|cycleway;[highway=primary_link][cycleway?];x;name;int_name;803;highway|primary_link
-highway|primary_link|cycleway-motorroad;[highway=primary_link][cycleway?][motorroad?];x;name;int_name;804;highway|primary_link
+deprecated|deprecated;803;x
+deprecated|deprecated;804;x
 highway|raceway|dismantled;[highway=raceway][dismantled?];x;name;int_name;805;
 highway|road|cycleway;[highway=road][cycleway];x;name;int_name;806;
 deprecated|deprecated;807;x
