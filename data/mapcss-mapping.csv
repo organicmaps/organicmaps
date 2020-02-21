@@ -638,7 +638,7 @@ highway|tertiary|cycleway;[highway=tertiary][cycleway?];x;name;int_name;637;
 highway|trunk|area;[highway=trunk][area?];x;name;int_name;638;
 highway|secondary_link|construction;[highway=secondary_link][construction?];x;name;int_name;639;highway|construction
 landuse|street;640;x
-leisure|park|destination;[leisure=park][access=destination];x;name;int_name;641;leisure|park
+deprecated|deprecated;641;x
 deprecated|deprecated;642;x
 landuse|raceway|disused;[landuse=raceway][disused?];x;name;int_name;643;
 highway|motorway_link|area;[highway=motorway_link][area?];x;name;int_name;644;
