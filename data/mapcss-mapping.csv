@@ -430,7 +430,7 @@ railway|siding;429;
 highway|track|area;[highway=track][area?];;name;int_name;430;
 deprecated|deprecated;431;x
 railway|funicular;432;
-amenity|parking|public|fee;[amenity=parking][access=public][fee?];x;name;int_name;433;amenity|parking|fee
+deprecated|deprecated;433;x
 historic|battlefield;434;
 highway|primary|construction;[highway=primary][construction?];x;name;int_name;435;highway|construction
 sport|australian_football;436;
