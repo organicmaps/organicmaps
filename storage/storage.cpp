@@ -547,9 +547,6 @@ void Storage::DownloadCountry(CountryId const & countryId, MapFileType type)
   queuedCountry.SetOnProgressCallback(bind(&Storage::OnMapFileDownloadProgress, this, _1, _2));
 
   m_downloader->DownloadMapFile(queuedCountry);
-
-  NotifyStatusChangedForHierarchy(countryId);
-  SaveDownloadQueue();
 }
 
 void Storage::DeleteCountry(CountryId const & countryId, MapFileType type)
@@ -1357,6 +1354,17 @@ void Storage::OnFinishDownloading()
   if (!localMaps.empty())
     GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapDownloadDiscovered);
   return;
+}
+
+void Storage::OnCountryInQueue(CountryId const & id)
+{
+  NotifyStatusChangedForHierarchy(id);
+  SaveDownloadQueue();
+}
+
+void Storage::OnStartDownloadingCountry(CountryId const & id)
+{
+  NotifyStatusChangedForHierarchy(id);
 }
 
 void Storage::OnDiffStatusReceived(diffs::NameDiffInfoMap && diffs)
