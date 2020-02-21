@@ -99,7 +99,7 @@ highway|footway|bridge;[highway=footway][bridge?];;name;int_name;98;
 amenity|bank;99;
 barrier|hedge;100;
 amenity|pub;101;
-leisure|swimming_pool;102;
+leisure|swimming_pool;[leisure=swimming_pool],[amenity=swimming_pool];;name;int_name;102;
 natural|land;103;
 tourism|hotel;104;
 landuse|cemetery;105;
@@ -1062,7 +1062,7 @@ shop|tailor;1061;craft|tailor
 shop|estate_agent;1062;office|estate_agent
 shop|dry_cleaning;1063;
 shop|tyres;1064;
-amenity|swimming_pool;1065;leisure|swimming_pool
+deprecated|deprecated;1065;x
 amenity|car_wash;1066;
 amenity|veterinary;1067;
 amenity|charging_station;1068;

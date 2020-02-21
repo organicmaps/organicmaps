@@ -43,7 +43,6 @@ office=administrative : office=government
 shop=tailor : craft=tailor
 shop=estate_agent : office=estate_agent
 
-amenity=swimming_pool : leisure=swimming_pool
 amenity=gym : leisure=fitness_centre
 amenity=sauna : leisure=sauna
 amenity=monastery : amenity=place_of_worship
