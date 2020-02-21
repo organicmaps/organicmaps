@@ -1174,7 +1174,7 @@ highway|services;1173;
 leisure|fitness_station;1174;
 leisure|ice_rink;1175;
 leisure|marina;1176;
-leisure|picnic_table;1177;tourism|picnic_site
+deprecated|deprecated;1177;x
 man_made|surveillance;1178;
 man_made|water_tap;1179;
 man_made|works;1180;
