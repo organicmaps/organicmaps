@@ -124,9 +124,24 @@ class PlacePagePreviewViewController: UIViewController {
   }
 
   func updateBooking(_ bookingData: HotelBookingData, rooms: HotelRooms?) {
+    var rawRating: Int
+    switch bookingData.score {
+    case 0..<2:
+      rawRating = 1
+    case 2..<4:
+      rawRating = 2
+    case 4..<6:
+      rawRating = 3
+    case 6..<8:
+      rawRating = 4
+    case 8...10:
+      rawRating = 5
+    default:
+      rawRating = 0
+    }
+
     ugcContainerView.isHidden = false
     ratingSummaryView.value = NSNumber(value: bookingData.score).stringValue
-    let rawRating = Int(bookingData.score / 2) + 1
     ratingSummaryView.type = UgcSummaryRatingType(rawValue: rawRating) ?? .none
     guard let rooms = rooms else { return }
     priceLabel.text = String(coreFormat: L("place_page_starting_from"), arguments: [rooms.minPrice])
