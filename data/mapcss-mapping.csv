@@ -489,7 +489,7 @@ highway|bridleway|tunnel;[highway=bridleway][tunnel?];;name;int_name;488;
 highway|motorway_link|tunnel;[highway=motorway_link][tunnel?];;name;int_name;489;
 highway|residential|disused;[highway=residential][disused?];x;name;int_name;490;
 highway|cycleway|construction;[highway=cycleway][construction?];x;name;int_name;491;
-highway|bridleway|private;[highway=bridleway][access=private];x;name;int_name;492;highway|bridleway
+deprecated|deprecated;492;x
 highway|tertiary_link|bridge;[highway=tertiary_link][bridge?];;name;int_name;493;
 deprecated|deprecated;494;x
 amenity|parking|park_and_ride;[amenity=parking][parking=park_and_ride];;name;int_name;495;
@@ -546,7 +546,7 @@ power|line|underground;[power=line][location=underground];;name;int_name;545;
 deprecated|deprecated;546;x
 deprecated|deprecated;547;x
 deprecated|deprecated;548;x
-highway|bridleway|cutting;[highway=bridleway][cutting?];x;name;int_name;549;highway|bridleway
+deprecated|deprecated;549;x
 waterway|lock_gate;550;
 railway|proposed|tunnel;[railway=proposed][tunnel?];x;name;int_name;551;
 highway|primary|disused;[highway=primary][disused?];x;name;int_name;552;
@@ -608,7 +608,7 @@ deprecated|deprecated;607;x
 piste:lift|magic_carpet;608;
 natural|scrub|coniferous;[natural=scrub][wood=coniferous];x;name;int_name;609;
 deprecated|deprecated;610;x
-highway|bridleway|destination;[highway=bridleway][access=destination];x;name;int_name;611;highway|bridleway
+deprecated|deprecated;611;x
 highway|motorway|disused;[highway=motorway][disused?];x;name;int_name;612;
 landuse|runway|disused;[landuse=runway][disused?];x;name;int_name;613;
 deprecated|deprecated;614;x
@@ -656,7 +656,7 @@ highway|trunk_link|area;[highway=trunk_link][area?];x;name;int_name;655;
 railway|incline|tunnel;[railway=incline][tunnel?];;name;int_name;656;
 boundary|administrative|municipality;[boundary=administrative][border_type=municipality];;name;int_name;657;
 deprecated|deprecated;658;x
-highway|byway|destination;[highway=byway][access=destination];x;name;int_name;659;highway|bridleway
+deprecated|deprecated;659;x
 natural|construction;[natural][construction?];x;name;int_name;660;
 communication|line;661;
 highway|tertiary_link|motorroad;[highway=tertiary_link][motorroad?];x;name;int_name;662;highway|tertiary_link
