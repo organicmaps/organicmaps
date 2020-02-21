@@ -135,6 +135,12 @@ public class GeofenceTransitionsIntentService extends JobIntentService
 
     private void requestLocationCheck()
     {
+      // Framework and LightFramework use the same files to process local ads
+      // events and are not explicitly synchronized. Logging local ads events
+      // from both frameworks at once may lead to a data race.
+      if (getApplication().arePlatformAndCoreInitialized())
+        return;
+
       LOG.d(TAG, "Geofences = " + Arrays.toString(mGeofences.toArray()));
 
       GeofenceLocation geofenceLocation = getGeofenceLocation();
