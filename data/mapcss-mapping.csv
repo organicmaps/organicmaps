@@ -174,7 +174,7 @@ landuse|recreation_ground;173;
 landuse|village_green;174;
 amenity|drinking_water;175;
 amenity|university;176;
-highway|secondary_link|oneway;[highway=secondary_link][oneway?];x;name;int_name;177;highway|secondary_link
+highway|secondary_link;177;
 power|substation;178;
 railway|tram_stop;179;
 place|city;180;
@@ -242,7 +242,7 @@ place|islet;241;
 sport|basketball;242;
 amenity|cinema;243;
 amenity|theatre;244;
-highway|secondary_link;245;
+deprecated|deprecated;245;x
 railway|spur;246;
 aerialway|station;247;
 landuse|brownfield;248;
@@ -435,7 +435,7 @@ historic|battlefield;434;
 deprecated|deprecated;435;x
 sport|australian_football;436;
 railway|disused|tunnel;[railway][disused?][tunnel?];x;name;int_name;437;
-highway|secondary_link|junction;[highway=secondary_link][junction?];x;name;int_name;438;highway|secondary_link
+deprecated|deprecated;438;x
 deprecated|deprecated;439;x
 deprecated|deprecated;440;x
 piste:lift|t-bar;441;
@@ -532,7 +532,7 @@ deprecated|deprecated;531;x
 man_made|pipeline|hot_water;[man_made=pipeline][type=hot_water];x;name;int_name;532;man_made|pipeline
 leisure|landscape_reserve;533;
 leisure|playing_fields;534;x
-highway|secondary_link|motorroad;[highway=secondary_link][motorroad];x;name;int_name;535;highway|secondary_link
+deprecated|deprecated;535;x
 boundary|administrative|state;[boundary=administrative][border_type=state];;name;int_name;536;
 deprecated|deprecated;537;x
 highway|cycleway|area;[highway=cycleway][area?];x;name;int_name;538;
@@ -805,9 +805,9 @@ deprecated|deprecated;804;x
 highway|raceway|dismantled;[highway=raceway][dismantled?];x;name;int_name;805;
 highway|road|cycleway;[highway=road][cycleway];x;name;int_name;806;
 deprecated|deprecated;807;x
-highway|secondary_link|cycleway;[highway=secondary_link][cycleway?];x;name;int_name;808;highway|secondary_link
-highway|secondary_link|cycleway-motorroad;[highway=secondary_link][cycleway?][motorroad?];x;name;int_name;809;highway|secondary_link
-highway|secondary_link|disused;[highway=secondary_link][disused?];x;name;int_name;810;highway|secondary_link
+deprecated|deprecated;808;x
+deprecated|deprecated;809;x
+deprecated|deprecated;810;x
 deprecated|deprecated;811;x
 deprecated|deprecated;812;x
 deprecated|deprecated;813;x
