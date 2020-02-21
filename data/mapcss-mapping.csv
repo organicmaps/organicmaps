@@ -576,7 +576,7 @@ piste:lift|rope_tow;575;
 natural|pond;576;
 natural|industrial;577;x
 highway|secondary_link|tunnel;[highway=secondary_link][tunnel?];;name;int_name;578;
-highway|pedestrian|junction;[highway=pedestrian][junction?];x;name;int_name;579;highway|pedestrian
+deprecated|deprecated;579;x
 deprecated|deprecated;580;x
 highway|track|grade5|area;[highway=track][tracktype=grade5][area?];x;name;int_name;581;
 natural|forest|deciduous;[natural=forest][wood=deciduous];x;name;int_name;582;landuse|forest
@@ -797,7 +797,7 @@ deprecated|deprecated;796;x
 deprecated|deprecated;797;x
 deprecated|deprecated;798;x
 deprecated|deprecated;799;x
-highway|pedestrian|cycleway;[highway=pedestrian][cycleway];x;name;int_name;800;highway|pedestrian
+deprecated|deprecated;800;x
 deprecated|deprecated;801;x
 deprecated|deprecated;802;x
 highway|primary_link|cycleway;[highway=primary_link][cycleway?];x;name;int_name;803;highway|primary_link
