@@ -55,7 +55,7 @@ landuse|meadow;54;
 highway|living_street;55;
 deprecated|deprecated;56;x
 natural|peak;57;
-highway|motorway|oneway;[highway=motorway][oneway?];x;name;int_name;58;highway|motorway
+highway|motorway;58;
 highway|steps;59;
 waterway|ditch;60;
 amenity|restaurant;61;
@@ -193,7 +193,7 @@ leisure|common;192;
 highway|track|bridge;[highway=track][bridge?];;name;int_name;193;
 highway|path|bridge;[highway=path][bridge?];;name;int_name;194;
 piste:type|nordic;195;
-highway|motorway;196;
+deprecated|deprecated;196;x
 railway|crossing;197;
 boundary|national_park;198;
 natural|wood|deciduous;[natural=wood][wood=deciduous],[natural=wood][leaf_type=deciduous],[natural=wood][leaf_cycle=deciduous];x;name;int_name;199;landuse|forest|deciduous
@@ -447,7 +447,7 @@ deprecated|deprecated;446;x
 railway|yard;447;
 highway|trunk|cutting;[highway=trunk][cutting?];x;name;int_name;448;highway|trunk
 natural|meadow;449;
-highway|motorway|cutting;[highway=motorway][cutting?];x;name;int_name;450;highway|motorway
+deprecated|deprecated;450;x
 railway|razed;451;
 highway|footway|demanding_mountain_hiking;[highway=footway][sac_scale=demanding_mountain_hiking];;name;int_name;452;
 aerialway|chair_lift|6;[aerialway=chair_lift][piste:lift:occupancy=6];x;name;int_name;453;aerialway|chair_lift
@@ -456,7 +456,7 @@ landuse|orchard;455;
 deprecated|deprecated;456;x
 highway|living_street|tunnel;[highway=living_street][tunnel?];;name;int_name;457;
 highway|secondary|construction;[highway=secondary][construction?];x;name;int_name;458;highway|construction
-highway|living_street|junction;[highway=living_street][junction?];x;name;int_name;459;highway|living_street
+deprecated|deprecated;459;x
 railway|construction|tunnel;[railway][construction?][tunnel?];x;name;int_name;460;
 sport|handball;461;
 boundary|administrative|city;[boundary=administrative][border_type=city];;name;int_name;462;
@@ -498,7 +498,7 @@ highway|track|grade3|area;[highway=track][tracktype=grade3][area?];x;name;int_na
 landuse|wood|mixed;[landuse=wood][wood=mixed];x;name;int_name;498;landuse|forest
 waterway|lock;499;
 deprecated|deprecated;500;x
-highway|motorway|junction;[highway=motorway][junction?];x;name;int_name;501;highway|motorway
+deprecated|deprecated;501;x
 highway|motorway_link|construction;[highway=motorway_link][construction?];x;name;int_name;502;highway|construction
 highway|trunk_link|tunnel;[highway=trunk_link][tunnel?];;name;int_name;503;
 deprecated|deprecated;504;x
@@ -777,12 +777,12 @@ deprecated|deprecated;776;x
 deprecated|deprecated;777;x
 deprecated|deprecated;778;x
 deprecated|deprecated;779;x
-highway|motorway|cycleway;[highway=motorway][cycleway];x;name;int_name;780;highway|motorway
-highway|motorway|dike;[highway=motorway][dike?];x;name;int_name;781;highway|motorway
-highway|motorway|dyke;[highway=motorway][dyke?];x;name;int_name;782;highway|motorway
-highway|motorway|embankment;[highway=motorway][embankment?];x;name;int_name;783;highway|motorway
-highway|motorway|levee;[highway=motorway][levee?];x;name;int_name;784;highway|motorway
-highway|motorway_link|cycleway;[highway=motorway_link][cycleway?];x;name;int_name;785;highway|motorway
+deprecated|deprecated;780;x
+deprecated|deprecated;781;x
+deprecated|deprecated;782;x
+deprecated|deprecated;783;x
+deprecated|deprecated;784;x
+deprecated|deprecated;785;x
 deprecated|deprecated;786;x
 deprecated|deprecated;787;x
 deprecated|deprecated;788;x
