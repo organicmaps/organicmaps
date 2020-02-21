@@ -437,7 +437,7 @@ sport|australian_football;436;
 railway|disused|tunnel;[railway][disused?][tunnel?];x;name;int_name;437;
 highway|secondary_link|junction;[highway=secondary_link][junction?];x;name;int_name;438;highway|secondary_link
 deprecated|deprecated;439;x
-highway|steps|cutting;[highway=steps][cutting?];x;name;int_name;440;highway|steps
+deprecated|deprecated;440;x
 piste:lift|t-bar;441;
 highway|trunk|construction;[highway=trunk][construction?];x;name;int_name;442;highway|construction
 deprecated|deprecated;443;x
@@ -809,10 +809,10 @@ highway|secondary_link|cycleway;[highway=secondary_link][cycleway?];x;name;int_n
 highway|secondary_link|cycleway-motorroad;[highway=secondary_link][cycleway?][motorroad?];x;name;int_name;809;highway|secondary_link
 highway|secondary_link|disused;[highway=secondary_link][disused?];x;name;int_name;810;highway|secondary_link
 deprecated|deprecated;811;x
-highway|steps|dike;[highway=steps][dike?];x;name;int_name;812;highway|steps
-highway|steps|dyke;[highway=steps][dyke?];x;name;int_name;813;highway|steps
-highway|steps|embankment;[highway=steps][embankment?];x;name;int_name;814;highway|steps
-highway|steps|levee;[highway=steps][levee?];x;name;int_name;815;highway|steps
+deprecated|deprecated;812;x
+deprecated|deprecated;813;x
+deprecated|deprecated;814;x
+deprecated|deprecated;815;x
 deprecated|deprecated;816;x
 highway|tertiary_link|construction;[highway=tertiary_link][construction?];x;name;int_name;817;highway|tertiary_link
 highway|tertiary_link|cycleway;[highway=tertiary_link][cycleway?];x;name;int_name;818;highway|tertiary_link
