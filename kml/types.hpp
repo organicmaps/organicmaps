@@ -167,6 +167,8 @@ inline std::string ToString(BookmarkIcon icon)
   UNREACHABLE();
 }
 
+// Note: any changes in binary format of this structure
+// will affect previous kmb versions, where this structure was used.
 struct ColorData
 {
   DECLARE_VISITOR_AND_DEBUG_PRINT(ColorData, visitor(m_predefinedColor, "predefinedColor"),
@@ -185,6 +187,10 @@ struct ColorData
   uint32_t m_rgba = 0;
 };
 
+// This structure is used in FileDataV6 because
+// its binary format is the same as in kmb version 6.
+// Make a copy of this structure in a file types_v<n>.hpp
+// in case of any changes of its binary format.
 struct BookmarkData
 {
   DECLARE_VISITOR_AND_DEBUG_PRINT(BookmarkData, visitor(m_id, "id"),
@@ -255,6 +261,8 @@ struct BookmarkData
   Properties m_properties;
 };
 
+// Note: any changes in binary format of this structure
+// will affect previous kmb versions, where this structure was used.
 struct TrackLayer
 {
   DECLARE_VISITOR_AND_DEBUG_PRINT(TrackLayer, visitor(m_lineWidth, "lineWidth"),
@@ -324,6 +332,10 @@ struct TrackData
   Properties m_properties;
 };
 
+// This structure is used in FileDataV6 because
+// its binary format is the same as in kmb version 6.
+// Make a copy of this structure in a file types_v<n>.hpp
+// in case of any changes of its binary format.
 struct CategoryData
 {
   DECLARE_VISITOR_AND_DEBUG_PRINT(CategoryData, visitor(m_id, "id"),

@@ -48,7 +48,7 @@ struct BookmarkDataV3
 
   bool operator!=(BookmarkDataV3 const & data) const { return !operator==(data); }
 
-  BookmarkData ConvertToLatestVersion() const
+  BookmarkData ConvertToLatestVersion()
   {
     BookmarkData data;
     data.m_id = m_id;
@@ -111,7 +111,7 @@ struct TrackDataV3
 
   bool operator!=(TrackDataV3 const & data) const { return !operator==(data); }
 
-  TrackData ConvertToLatestVersion() const
+  TrackData ConvertToLatestVersion()
   {
     TrackData data;
     data.m_id = m_id;
@@ -179,7 +179,7 @@ struct CategoryDataV3
 
   bool operator!=(CategoryDataV3 const & data) const { return !operator==(data); }
 
-  CategoryData ConvertToLatestVersion() const
+  CategoryData ConvertToLatestVersion()
   {
     // We don't convert m_cities to m_toponyms, since m_cities have been never used.
     CategoryData data;
@@ -261,7 +261,7 @@ struct FileDataV3
   // Tracks collection.
   std::vector<TrackDataV3> m_tracksData;
 
-  FileData ConvertToLatestVersion() const
+  FileData ConvertToLatestVersion()
   {
     FileData data;
     data.m_deviceId = m_deviceId;
@@ -269,11 +269,11 @@ struct FileDataV3
     data.m_categoryData = m_categoryData.ConvertToLatestVersion();
 
     data.m_bookmarksData.reserve(m_bookmarksData.size());
-    for (auto const & d : m_bookmarksData)
+    for (auto & d : m_bookmarksData)
       data.m_bookmarksData.emplace_back(d.ConvertToLatestVersion());
 
     data.m_tracksData.reserve(m_tracksData.size());
-    for (auto const & d : m_tracksData)
+    for (auto & d : m_tracksData)
       data.m_tracksData.emplace_back(d.ConvertToLatestVersion());
 
     return data;

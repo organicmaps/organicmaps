@@ -130,6 +130,7 @@ void GenerateTracks(string const & inputDir, string const & outputDir, routing::
     for (auto & track : data.m_tracksData)
     {
       std::vector<m2::PointD> waypoints;
+      waypoints.reserve(track.m_pointsWithAltitudes.size());
       for (auto const & pt : track.m_pointsWithAltitudes)
         waypoints.push_back(pt.GetPoint());
 

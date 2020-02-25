@@ -605,7 +605,7 @@ UNIT_TEST(Kml_Serialization_Text_File)
 }
 
 // 8. Check binary deserialization of v.3 format.
-UNIT_TEST(Kml_Deserialization_Bin_V3)
+UNIT_TEST(Kml_Deserialization_From_Bin_V3_And_V4)
 {
   kml::FileData dataFromBinV3;
   try
@@ -632,4 +632,33 @@ UNIT_TEST(Kml_Deserialization_Bin_V3)
   }
 
   TEST_EQUAL(dataFromBinV3, dataFromBinV4, ());
+}
+
+UNIT_TEST(Kml_Deserialization_From_Bin_V6_And_V7)
+{
+  kml::FileData dataFromBinV6;
+  try
+  {
+    MemReader reader(kBinKmlV6.data(), kBinKmlV6.size());
+    kml::binary::DeserializerKml des(dataFromBinV6);
+    des.Deserialize(reader);
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
+  {
+    TEST(false, ("Exception raised", exc.what()));
+  }
+
+  kml::FileData dataFromBinV7;
+  try
+  {
+    MemReader reader(kBinKmlV7.data(), kBinKmlV7.size());
+    kml::binary::DeserializerKml des(dataFromBinV7);
+    des.Deserialize(reader);
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
+  {
+    TEST(false, ("Exception raised", exc.what()));
+  }
+
+  TEST_EQUAL(dataFromBinV6, dataFromBinV7, ());
 }

@@ -43,7 +43,7 @@ struct TrackDataV6
 
   bool operator!=(TrackDataV6 const & data) const { return !operator==(data); }
 
-  TrackData ConvertToLatestVersion() const
+  TrackData ConvertToLatestVersion()
   {
     TrackData data;
     data.m_id = m_id;
@@ -98,7 +98,7 @@ struct FileDataV6
 
   bool operator!=(FileDataV6 const & data) const { return !operator==(data); }
 
-  FileData ConvertToLatestVersion() const
+  FileData ConvertToLatestVersion()
   {
     FileData data;
     data.m_deviceId = m_deviceId;
@@ -107,7 +107,7 @@ struct FileDataV6
     data.m_bookmarksData = m_bookmarksData;
 
     data.m_tracksData.reserve(m_tracksData.size());
-    for (auto const & track : m_tracksData)
+    for (auto & track : m_tracksData)
       data.m_tracksData.emplace_back(track.ConvertToLatestVersion());
 
     return data;

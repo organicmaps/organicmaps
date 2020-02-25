@@ -79,6 +79,7 @@ float Track::GetDepth(size_t layerIndex) const
 std::vector<m2::PointD> Track::GetPoints() const
 {
   std::vector<m2::PointD> result;
+  result.reserve(m_data.m_pointsWithAltitudes.size());
   for (auto const & pt : m_data.m_pointsWithAltitudes)
     result.push_back(pt.GetPoint());
 
