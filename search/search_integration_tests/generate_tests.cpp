@@ -30,11 +30,12 @@ namespace
 class GenerateTest : public TestWithClassificator
 {
 public:
-  void MakeFeature(TestMwmBuilder & builder, pair<string, string> const & tag,
+  void MakeFeature(TestMwmBuilder & builder, vector<pair<string, string>> const & tags,
                    m2::PointD const & pt)
   {
     OsmElement e;
-    e.AddTag(tag.first, tag.second);
+    for (auto const & tag : tags)
+      e.AddTag(tag.first, tag.second);
 
     FeatureBuilderParams params;
     ftype::GetNameAndType(&e, params);
@@ -61,16 +62,15 @@ UNIT_CLASS_TEST(GenerateTest, GenerateDeprecatedTypes)
     TestMwmBuilder builder(file, DataHeader::MapType::Country);
 
     // Deprecated types.
-    MakeFeature(builder, {"office", "travel_agent"}, {0, 0});
-    MakeFeature(builder, {"shop", "tailor"}, {1, 1});
-    MakeFeature(builder, {"shop", "estate_agent"}, {2, 2});
+    MakeFeature(builder, {{"leisure", "dog_park"}, {"sport", "tennis"}}, {0.0, 0.0});
+    MakeFeature(builder, {{"leisure", "playground"}, {"sport", "tennis"}}, {1.0, 1.0});
   }
 
   FrozenDataSource dataSource;
   TEST_EQUAL(dataSource.Register(file).second, MwmSet::RegResult::Success, ());
 
   // New types.
-  base::StringIL arr[] = {{"shop"}, {"office"}};
+  base::StringIL arr[] = {{"leisure", "dog_park"}, {"leisure", "playground"}, {"sport", "tennis"}};
 
   Classificator const & cl = classif();
   set<uint32_t> types;
@@ -84,7 +84,7 @@ UNIT_CLASS_TEST(GenerateTest, GenerateDeprecatedTypes)
   };
   dataSource.ForEachInScale(fn, scales::GetUpperScale());
 
-  TEST_EQUAL(count, 3, ());
+  TEST_EQUAL(count, 2, ());
 
   file.DeleteFromDisk(MapFileType::Map);
 }
