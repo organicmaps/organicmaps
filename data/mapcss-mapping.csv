@@ -1055,8 +1055,8 @@ building|train_station;1054;
 route|shuttle_train;1055;
 shop|copyshop;1056;
 shop|photo;1057;
-shop|travel_agency;1058;
-office|travel_agent;1059;shop|travel_agency
+shop|travel_agency;[shop=travel_agency],[office=travel_agent];;name;int_name;1058;
+deprecated|deprecated;1059;x
 shop|outdoor;1060;
 shop|tailor;1061;craft|tailor
 shop|estate_agent;1062;office|estate_agent

@@ -36,7 +36,6 @@ natural = forest : natural = wood
 # TODO
 # natural = ridge + cliff=yes -> natural=cliff
 
-office=travel_agent : shop=travel_agency
 office=notary : office=lawyer
 office=administrative : office=government
 
