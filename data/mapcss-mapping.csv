@@ -279,7 +279,7 @@ waterway|river|tunnel;[waterway=river][tunnel?];;name;int_name;278;
 boundary|administrative|county;[boundary=administrative][border_type=county];;name;int_name;279;
 highway|road|bridge;[highway=road][bridge?];;name;int_name;280;
 boundary|administrative|3;[boundary=administrative][admin_level=3];;name;int_name;281;
-man_made|pipeline|water;[man_made=pipeline][water];x;name;int_name;282;man_made|pipeline
+deprecated|deprecated;282;x
 boundary|administrative;283;
 deprecated|deprecated;284;x
 deprecated|deprecated;285;x
@@ -355,7 +355,7 @@ highway|unclassified|area;[highway=unclassified][area?];;name;int_name;354;
 natural|volcano;355;
 amenity|parking|underground|fee;[amenity=parking][location=underground][fee?],[amenity=parking][parking=underground][fee?];x;name;int_name;356;amenity|parking|underground
 amenity|parking|underground;[amenity=parking][location=underground],[amenity=parking][parking=underground];;name;int_name;357;
-man_made|pipeline|gas;[man_made=pipeline][gas];x;name;int_name;358;man_made|pipeline
+deprecated|deprecated;358;x
 amenity|parking|multi-storey;[amenity=parking][parking=multi-storey];;name;int_name;359;
 leisure|recreation_ground;360;
 highway|footway|mountain_hiking;[highway=footway][sac_scale=mountain_hiking];;name;int_name;361;
@@ -384,7 +384,7 @@ railway|dismantled;383;x
 waterway|dock;384;
 natural|forest;385;landuse|forest
 highway|service|driveway|area;[highway=service][service=driveway][area?];x;name;int_name;386;highway|service|driveway
-man_made|pipeline|heat;[man_made=pipeline][type=heat];x;name;int_name;387;man_made|pipeline
+deprecated|deprecated;387;x
 place|city|capital;[place=city][capital?];;name;int_name;388;
 aerialway|cable_car;389;
 piste:type|downhill;390;
@@ -408,7 +408,7 @@ highway|living_street|bridge;[highway=living_street][bridge?];;name;int_name;407
 deprecated|deprecated;408;x
 railway|monorail;409;
 deprecated|deprecated;410;x
-man_made|pipeline|oil;[man_made=pipeline][type=oil];x;name;int_name;411;man_made|pipeline
+deprecated|deprecated;411;x
 leisure|park|private;[leisure=park][access=private];;name;int_name;412;
 deprecated|deprecated;413;x
 noexit|motor_vehicle;414;
@@ -475,7 +475,7 @@ natural|grass;474;natural|grassland
 highway|road|area;[highway=road][area?];x;name;int_name;475;
 highway|tertiary|area;[highway=tertiary][area?];x;name;int_name;476;
 piste:lift|platter;477;
-man_made|pipeline|natural_gas;[man_made=pipeline][type=natural_gas];x;name;int_name;478;man_made|pipeline
+deprecated|deprecated;478;x
 highway|unclassified|disused;[highway=unclassified][disused?];x;name;int_name;479;
 railway|preserved|tunnel;[railway=preserved][tunnel?];;name;int_name;480;
 noexit|vehicle;481;x
@@ -529,7 +529,7 @@ highway|primary_link|tunnel;[highway=primary_link][tunnel?];;name;int_name;528;
 highway|footway|alpine_hiking;[highway=footway][sac_scale=alpine_hiking];;name;int_name;529;
 natural|scrub|mixed;[natural=scrub][wood=mixed];x;name;int_name;530;
 deprecated|deprecated;531;x
-man_made|pipeline|hot_water;[man_made=pipeline][type=hot_water];x;name;int_name;532;man_made|pipeline
+deprecated|deprecated;532;x
 leisure|landscape_reserve;533;
 leisure|playing_fields;534;x
 deprecated|deprecated;535;x
@@ -562,7 +562,7 @@ highway|motorway_link|disused;[highway=motorway_link][disused?];x;name;int_name;
 highway|crossing|uncontrolled;[highway=crossing][crossing=uncontrolled];x;name;int_name;562;
 deprecated|deprecated;563;x
 natural|lake;564;
-man_made|pipeline|sewage;[man_made=pipeline][type=sewage];x;name;int_name;565;man_made|pipeline
+deprecated|deprecated;565;x
 deprecated|deprecated;566;x
 deprecated|deprecated;567;x
 highway|secondary|disused;[highway=secondary][disused?];x;name;int_name;568;
@@ -685,7 +685,7 @@ natural|commercial;684;x
 deprecated|deprecated;685;x
 natural|vineyard;686;
 deprecated|deprecated;687;x
-man_made|pipeline|water|overground;[man_made=pipeline][type=water][location=overground];x;name;int_name;688;man_made|pipeline
+deprecated|deprecated;688;x
 deprecated|deprecated;689;x
 highway|road|turning_circle;[highway=road][turning_circle?];x;name;int_name;690;
 boundary|administrative|country;[boundary=administrative][border_type=country];;name;int_name;691;
@@ -848,11 +848,11 @@ leisure|park|no-access;[leisure=park][access=no];;name;int_name;847;
 leisure|playing_fields|tennis;[leisure=playing_fields][sport=tennis];x;name;int_name;848;
 leisure|recreation_ground|private;[leisure=recreation_ground][access=private];x;name;int_name;849;leisure|recreation_ground
 leisure|recreation_ground|no-access;[leisure=recreation_ground][access=no];x;name;int_name;850;leisure|recreation_ground
-man_made|pipeline|gas|overground;[man_made=pipeline][type=gas][location=overground];x;name;int_name;851;man_made|pipeline
-man_made|pipeline|heat|overground;[man_made=pipeline][type=heat][location=overground];x;name;int_name;852;man_made|pipeline
-man_made|pipeline|hot_water|overground;[man_made=pipeline][type=hot_water][location=overground];x;name;int_name;853;man_made|pipeline
-man_made|pipeline|natural_gas|overground;[man_made=pipeline][type=natural_gas][location=overground];x;name;int_name;854;man_made|pipeline
-man_made|pipeline|sewage|overground;[man_made=pipeline][type=sewage][location=overground];x;name;int_name;855;man_made|pipeline
+deprecated|deprecated;851;x
+deprecated|deprecated;852;x
+deprecated|deprecated;853;x
+deprecated|deprecated;854;x
+deprecated|deprecated;855;x
 mapswithme|grid;856;
 natural|farmyard;857;x
 natural|garages;858;x
