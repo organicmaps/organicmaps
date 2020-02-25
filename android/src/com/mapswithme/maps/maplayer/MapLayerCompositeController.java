@@ -6,7 +6,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import com.mapswithme.maps.maplayer.subway.SubwayMapLayerController;
+import com.mapswithme.maps.maplayer.subway.DefaultMapLayerController;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButtonController;
 import com.mapswithme.maps.tips.Tutorial;
@@ -49,9 +49,9 @@ public class MapLayerCompositeController implements MapLayerController
     TrafficButtonController trafficButtonController = new TrafficButtonController(traffic,
                                                                                   activity);
     subway.setOnClickListener(dialogClickListener);
-    SubwayMapLayerController subwayMapLayerController = new SubwayMapLayerController(subway);
+    DefaultMapLayerController subwayMapLayerController = new DefaultMapLayerController(subway);
 
-    SubwayMapLayerController isoLinesController = new SubwayMapLayerController(isoLinesView);
+    DefaultMapLayerController isoLinesController = new DefaultMapLayerController(isoLinesView);
     isoLinesView.setOnClickListener(dialogClickListener);
     ControllerAndMode subwayEntry = new ControllerAndMode(Mode.SUBWAY, Tutorial.SUBWAY,
                                                           subwayMapLayerController);

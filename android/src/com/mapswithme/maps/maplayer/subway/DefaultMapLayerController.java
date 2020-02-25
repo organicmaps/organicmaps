@@ -1,65 +1,65 @@
 package com.mapswithme.maps.maplayer.subway;
 
-import androidx.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import com.mapswithme.maps.maplayer.MapLayerController;
 import com.mapswithme.util.UiUtils;
 
-public class SubwayMapLayerController implements MapLayerController
+public class DefaultMapLayerController implements MapLayerController
 {
   @NonNull
-  private final View mSubwayBtn;
+  private final View mLayerView;
 
-  public SubwayMapLayerController(@NonNull View subwayBtn)
+  public DefaultMapLayerController(@NonNull View subwayBtn)
   {
-    mSubwayBtn = subwayBtn;
-    UiUtils.addStatusBarOffset(mSubwayBtn);
+    mLayerView = subwayBtn;
+    UiUtils.addStatusBarOffset(mLayerView);
   }
 
   @Override
   public void turnOn()
   {
-    mSubwayBtn.setSelected(true);
+    mLayerView.setSelected(true);
   }
 
   @Override
   public void turnOff()
   {
-    mSubwayBtn.setSelected(false);
+    mLayerView.setSelected(false);
   }
 
   @Override
   public void show()
   {
-    UiUtils.show(mSubwayBtn);
+    UiUtils.show(mLayerView);
   }
 
   @Override
   public void showImmediately()
   {
-    mSubwayBtn.setVisibility(View.VISIBLE);
+    mLayerView.setVisibility(View.VISIBLE);
   }
 
   @Override
   public void hide()
   {
-    UiUtils.hide(mSubwayBtn);
+    UiUtils.hide(mLayerView);
   }
 
   @Override
   public void hideImmediately()
   {
-    mSubwayBtn.setVisibility(View.GONE);
+    mLayerView.setVisibility(View.GONE);
   }
 
   @Override
   public void adjust(int offsetX, int offsetY)
   {
-    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mSubwayBtn.getLayoutParams();
+    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mLayerView.getLayoutParams();
     params.setMargins(offsetX, offsetY, 0, 0);
-    mSubwayBtn.setLayoutParams(params);
+    mLayerView.setLayoutParams(params);
   }
 
   @Override
