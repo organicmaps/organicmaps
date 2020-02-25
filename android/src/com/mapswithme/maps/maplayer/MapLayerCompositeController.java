@@ -51,8 +51,9 @@ public class MapLayerCompositeController implements MapLayerController
     subway.setOnClickListener(dialogClickListener);
     DefaultMapLayerController subwayMapLayerController = new DefaultMapLayerController(subway);
 
-    DefaultMapLayerController isoLinesController = new DefaultMapLayerController(isoLinesView);
     isoLinesView.setOnClickListener(dialogClickListener);
+    DefaultMapLayerController isoLinesController = new DefaultMapLayerController(isoLinesView);
+
     ControllerAndMode subwayEntry = new ControllerAndMode(Mode.SUBWAY, Tutorial.SUBWAY,
                                                           subwayMapLayerController);
     ControllerAndMode trafficEntry = new ControllerAndMode(Mode.TRAFFIC, null,

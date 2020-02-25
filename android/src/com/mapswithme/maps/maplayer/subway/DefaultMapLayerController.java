@@ -39,7 +39,7 @@ public class DefaultMapLayerController implements MapLayerController
   @Override
   public void showImmediately()
   {
-    mLayerView.setVisibility(View.VISIBLE);
+    UiUtils.show(mLayerView);
   }
 
   @Override
@@ -51,7 +51,7 @@ public class DefaultMapLayerController implements MapLayerController
   @Override
   public void hideImmediately()
   {
-    mLayerView.setVisibility(View.GONE);
+    UiUtils.hide(mLayerView);
   }
 
   @Override
