@@ -107,6 +107,10 @@ if (USE_PPROF)
   add_definitions(-DUSE_PPROF)
 endif()
 
+if (USE_HEAPPROF)
+  message("Heap Profiler is enabled")
+endif()
+
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Set environment variables
