@@ -202,7 +202,7 @@ deprecated|deprecated;201;x
 leisure|golf_course;202;
 highway|service|bridge;[highway=service][bridge?];;name;int_name;203;
 power|minor_line;204;
-natural|marsh;205;natural|wetland|marsh
+natural|wetland|marsh;[natural=wetland][wetland=marsh],[natural=marsh];;name;int_name;205;
 leisure|stadium;206;
 amenity|doctors;207;
 railway|disused;208;
@@ -1067,7 +1067,7 @@ amenity|car_wash;1066;
 amenity|veterinary;1067;
 amenity|charging_station;1068;
 amenity|childcare;1069;
-natural|wetland|marsh;[natural=wetland][wetland=marsh];;name;int_name;1070;
+deprecated|deprecated;1070;x
 amenity|bicycle_parking;1071;
 amenity|community_centre;1072;
 amenity|courthouse;1073;
