@@ -541,7 +541,7 @@ barrier|cycle_barrier;540;
 deprecated|deprecated;541;x
 amenity|speed_trap;542;
 area:highway|track;543;
-highway|primary|area;[highway=primary][area?];x;name;int_name;544;area:highway|primary
+area:highway|primary;544;
 power|line|underground;[power=line][location=underground];;name;int_name;545;
 deprecated|deprecated;546;x
 deprecated|deprecated;547;x
@@ -868,7 +868,7 @@ deprecated|deprecated;867;x
 area:highway|residential;868;
 area:highway|secondary;869;
 area:highway|tertiary;870;
-area:highway|primary;871;
+deprecated|deprecated;871;x
 deprecated|deprecated;872;x
 area:highway|pedestrian;873;
 area:highway|unclassified;874;
