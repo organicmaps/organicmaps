@@ -857,7 +857,7 @@ mapswithme|grid;856;
 natural|farmyard;857;x
 natural|garages;858;x
 natural|greenfield;859;x
-natural|greenhouse_horticulture;860;landuse|greenhouse_horticulture
+deprecated|deprecated;860;x
 natural|salt_pond;861;
 natural|street;862;x
 railway|incline|bridge;[railway=incline][bridge?];;name;int_name;863;
