@@ -661,7 +661,7 @@ natural|construction;[natural][construction?];x;name;int_name;660;
 deprecated|deprecated;661;x
 deprecated|deprecated;662;x
 railway|dismantled|tunnel;[railway=dismantled][tunnel?];x;name;int_name;663;
-leisure|recreation_ground|permissive;[leisure=recreation_ground][access=permissive];x;name;int_name;664;leisure|recreation_ground
+deprecated|deprecated;664;x
 railway|yard|bridge;[railway=yard][bridge?];;name;int_name;665;
 landuse|raceway|dismantled;[landuse=raceway][dismantled?];x;name;int_name;666;
 railway|planned|tunnel;[railway=planned][tunnel?];x;name;int_name;667;
@@ -846,8 +846,8 @@ landuse|scrub|mixed;[landuse=scrub][wood=mixed];x;name;int_name;845;
 leisure|dog_park|tennis;[leisure=dog_park][sport=tennis];x;name;int_name;846;
 leisure|park|no-access;[leisure=park][access=no];;name;int_name;847;
 leisure|playing_fields|tennis;[leisure=playing_fields][sport=tennis];x;name;int_name;848;
-leisure|recreation_ground|private;[leisure=recreation_ground][access=private];x;name;int_name;849;leisure|recreation_ground
-leisure|recreation_ground|no-access;[leisure=recreation_ground][access=no];x;name;int_name;850;leisure|recreation_ground
+deprecated|deprecated;849;x
+deprecated|deprecated;850;x
 deprecated|deprecated;851;x
 deprecated|deprecated;852;x
 deprecated|deprecated;853;x
