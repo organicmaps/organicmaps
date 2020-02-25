@@ -589,7 +589,7 @@ railway|planned;588;x
 deprecated|deprecated;589;x
 deprecated|deprecated;590;x
 highway|track|grade3|permissive;[highway=track][tracktype=grade3][access=permissive];x;name;int_name;591;highway|track|grade3
-highway|track|grade4|private;[highway=track][tracktype=grade4][access=private];x;name;int_name;592;highway|track|grade4
+deprecated|deprecated;592;x
 deprecated|deprecated;593;x
 natural|railway;594;x
 deprecated|deprecated;595;x
