@@ -55,9 +55,6 @@ diet=vegan : cuisine=vegan
 aerodrome:type=international : aerodrome=international
 
 amenity=parking_entrance : amenity=parking
-amenity=garages : building=garage
-amenity=garage : building=garage
-building=garages : building=garage
 
 historic=cannon : historic=memorial
 historic=technical_monument : historic=memorial
