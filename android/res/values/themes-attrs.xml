@@ -112,6 +112,11 @@
     <attr name="tipsSecondaryTextColor" format="color"/>
     <attr name="bg_crown" format="reference"/>
     <attr name="bg_dog_btn" format="reference"/>
+    <attr name="bg_altitude" format="reference"/>
+    <attr name="chart_axis_label_color" format="color"/>
+    <attr name="chart_your_location_pin_bg" format="reference"/>
+    <attr name="chart_selected_point_bg" format="reference"/>
+    <attr name="chart_selected_point_triangle" format="reference"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">

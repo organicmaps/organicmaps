@@ -25,7 +25,7 @@
       android:layout_height="@dimen/half_elevation_profile_height"
       android:maxWidth="@dimen/dialog_min_height"
       android:padding="@dimen/margin_quarter_plus"
-      android:background="@drawable/bg_point_desc"
+      android:background="?chart_selected_point_bg"
       android:elevation="@dimen/margin_eighth"
       android:layout_centerVertical="true"
       tools:ignore="UnusedAttribute">
@@ -51,7 +51,7 @@
         android:orientation="horizontal">
         <ImageView
           android:id="@+id/triangle"
-          android:src="@drawable/trang"
+          android:src="?chart_selected_point_triangle"
           android:layout_width="@dimen/margin_half_plus"
           android:layout_height="@dimen/margin_half_plus"/>
         <TextView

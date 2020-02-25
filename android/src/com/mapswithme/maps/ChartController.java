@@ -20,6 +20,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.mapswithme.maps.widget.placepage.AxisValueFormatter;
 import com.mapswithme.maps.widget.placepage.CurrentLocationMarkerView;
 import com.mapswithme.maps.widget.placepage.FloatingMarkerView;
+import com.mapswithme.util.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,7 +71,7 @@ class ChartController implements OnChartValueSelectedListener
     TextView bottomAlt = getActivity().findViewById(R.id.lowest_altitude);
     bottomAlt.setText("100m");
 
-    mChart.setBackgroundColor(Color.WHITE);
+    mChart.setBackgroundColor(ThemeUtils.getColor(getActivity(), android.R.attr.textColorPrimaryInverse));
     mChart.setTouchEnabled(true);
     mChart.setOnChartValueSelectedListener(this);
     mChart.setDrawGridBackground(false);
@@ -111,8 +112,10 @@ class ChartController implements OnChartValueSelectedListener
     x.setLabelCount(CHART_X_LABEL_COUNT, false);
     x.setAvoidFirstLastClipping(true);
     x.setDrawGridLines(false);
-    x.setTextColor(getResources().getColor(R.color.black_50));
+    x.setTextColor(ThemeUtils.getColor(getActivity(), R.attr.chart_axis_label_color));
     x.setPosition(XAxis.XAxisPosition.BOTTOM);
+    x.setAxisLineColor(ThemeUtils.getColor(getActivity(), R.attr.dividerHorizontal));
+    x.setAxisLineWidth(getActivity().getResources().getDimensionPixelSize(R.dimen.divider_height));
     ValueFormatter xAxisFormatter = new AxisValueFormatter();
     x.setValueFormatter(xAxisFormatter);
 
@@ -123,7 +126,7 @@ class ChartController implements OnChartValueSelectedListener
     y.setGridColor(getResources().getColor(R.color.black_12));
     y.setEnabled(true);
     y.setTextColor(Color.TRANSPARENT);
-    y.setAxisLineColor(Color.WHITE);
+    y.setAxisLineColor(Color.TRANSPARENT);
     int lineLength = getResources().getDimensionPixelSize(R.dimen.margin_eighth);
     y.enableGridDashedLine(lineLength, 2 * lineLength, 0);
 

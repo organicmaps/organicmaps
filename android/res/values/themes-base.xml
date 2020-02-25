@@ -170,6 +170,11 @@
     <item name="bg_dog_btn">@drawable/ic_dog_bg</item>
     <item name="elevationProfilePropertyBg">@drawable/bg_rounded_rect</item>
     <item name="elevationProfilePropIconTint">@color/black_secondary</item>
+    <item name="bg_altitude">@drawable/bg_altitude</item>
+    <item name="chart_axis_label_color">@color/black_54</item>
+    <item name="chart_selected_point_bg">@drawable/bg_point_desc</item>
+    <item name="chart_your_location_pin_bg">@drawable/bg_your_location_pin</item>
+    <item name="chart_selected_point_triangle">@drawable/ic_triangle</item>
   </style>
 
   <!-- Night theme -->
@@ -339,5 +344,10 @@
     <item name="bg_dog_btn">@drawable/ic_dog_bg_night</item>
     <item name="elevationProfilePropertyBg">@drawable/bg_rounded_rect_night</item>
     <item name="elevationProfilePropIconTint">@color/white_secondary</item>
+    <item name="bg_altitude">@drawable/bg_altitude_night</item>
+    <item name="chart_axis_label_color">@color/white_54</item>
+    <item name="chart_your_location_pin_bg">@drawable/bg_your_location_pin_night</item>
+    <item name="chart_selected_point_bg">@drawable/bg_point_desc_night</item>
+    <item name="chart_selected_point_triangle">@drawable/ic_triangle_night</item>
   </style>
 </resources>
