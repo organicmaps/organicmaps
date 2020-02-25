@@ -382,7 +382,7 @@ deprecated|deprecated;381;x
 railway|narrow_gauge|tunnel;[railway=narrow_gauge][tunnel?];;name;int_name;382;
 railway|dismantled;383;x
 waterway|dock;384;
-natural|forest;385;landuse|forest
+deprecated|deprecated;385;x
 highway|service|driveway|area;[highway=service][service=driveway][area?];x;name;int_name;386;highway|service|driveway
 deprecated|deprecated;387;x
 place|city|capital;[place=city][capital?];;name;int_name;388;
@@ -495,7 +495,7 @@ deprecated|deprecated;494;x
 amenity|parking|park_and_ride;[amenity=parking][parking=park_and_ride];;name;int_name;495;
 deprecated|deprecated;496;x
 highway|track|grade3|area;[highway=track][tracktype=grade3][area?];x;name;int_name;497;
-landuse|wood|mixed;[landuse=wood][wood=mixed];x;name;int_name;498;landuse|forest
+deprecated|deprecated;498;x
 waterway|lock;499;
 deprecated|deprecated;500;x
 deprecated|deprecated;501;x
@@ -512,7 +512,7 @@ deprecated|deprecated;511;x
 deprecated|deprecated;512;x
 sport|curling;513;
 deprecated|deprecated;514;x
-landuse|wood|coniferous;[landuse=wood][wood=coniferous];x;name;int_name;515;landuse|forest
+deprecated|deprecated;515;x
 natural|scrub|deciduous;[natural=scrub][wood=deciduous];x;name;int_name;516;
 highway|footway|disused;[highway=footway][disused?];x;name;int_name;517;
 leisure|playground|tennis;[leisure=playground][sport=tennis];x;name;int_name;518;
@@ -579,7 +579,7 @@ highway|secondary_link|tunnel;[highway=secondary_link][tunnel?];;name;int_name;5
 deprecated|deprecated;579;x
 deprecated|deprecated;580;x
 highway|track|grade5|area;[highway=track][tracktype=grade5][area?];x;name;int_name;581;
-natural|forest|deciduous;[natural=forest][wood=deciduous];x;name;int_name;582;landuse|forest
+deprecated|deprecated;582;x
 deprecated|deprecated;583;x
 highway|track|racetrack;[highway=raceway];x;name;int_name;584;
 highway|tertiary|disused;[highway=tertiary][disused?];x;name;int_name;585;
@@ -621,7 +621,7 @@ landuse|scrub|deciduous;[landuse=scrub][wood=deciduous];x;name;int_name;620;
 highway|bridleway|area;[highway=bridleway][area?];x;name;int_name;621;
 natural|military;622;x
 deprecated|deprecated;623;x
-natural|forest|mixed;[natural=forest][wood=mixed];x;name;int_name;624;landuse|forest
+deprecated|deprecated;624;x
 highway|raceway|disused;[highway=raceway][disused?];x;name;int_name;625;
 railway|siding|bridge;[railway=siding][bridge?];;name;int_name;626;
 highway|footway|difficult_alpine_hiking;[highway=footway][sac_scale=difficult_alpine_hiking];;name;int_name;627;
@@ -646,7 +646,7 @@ natural|recreation_ground;645;x
 deprecated|deprecated;646;x
 deprecated|deprecated;647;x
 deprecated|deprecated;648;x
-natural|forest|coniferous;[natural=forest][wood=coniferous];x;name;int_name;649;landuse|forest
+deprecated|deprecated;649;x
 deprecated|deprecated;650;x
 railway|spur|tunnel;[railway=spur][tunnel?];;name;int_name;651;
 deprecated|deprecated;652;x
