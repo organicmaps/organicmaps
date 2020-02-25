@@ -400,7 +400,7 @@ deprecated|deprecated;399;x
 railway|abandoned|tunnel;[railway=abandoned][tunnel?];;name;int_name;400;
 area:highway|living_street;401;
 piste:type|sled;402;
-aerialway|chair_lift|4;[aerialway=chair_lift][piste:lift:occupancy=4];x;name;int_name;403;aerialway|chair_lift
+deprecated|deprecated;403;x
 leisure|dog_park;404;
 aerialway|gondola;405;
 historic|museum;406;
@@ -450,7 +450,7 @@ natural|meadow;449;
 deprecated|deprecated;450;x
 railway|razed;451;
 highway|footway|demanding_mountain_hiking;[highway=footway][sac_scale=demanding_mountain_hiking];;name;int_name;452;
-aerialway|chair_lift|6;[aerialway=chair_lift][piste:lift:occupancy=6];x;name;int_name;453;aerialway|chair_lift
+deprecated|deprecated;453;x
 deprecated|deprecated;454;x
 landuse|orchard;455;
 deprecated|deprecated;456;x
