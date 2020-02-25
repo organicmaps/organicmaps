@@ -471,7 +471,7 @@ area:highway|steps;470;
 railway|proposed;471;x
 highway|tertiary|construction;[highway=tertiary][construction?];x;name;int_name;472;
 deprecated|deprecated;473;x
-natural|grass;474;natural|grassland
+natural|grassland;474;
 highway|road|area;[highway=road][area?];x;name;int_name;475;
 highway|tertiary|area;[highway=tertiary][area?];x;name;int_name;476;
 piste:lift|platter;477;
@@ -953,7 +953,7 @@ landuse|residential|urban;[landuse=residential][residential=urban];;name;int_nam
 amenity|ferry_terminal;953;
 amenity;[amenity];;name;int_name;954;
 shop|furniture;955;
-natural|grassland;956;
+deprecated|deprecated;956;x
 natural|waterfall;957;waterway|waterfall
 waterway|waterfall;958;
 railway|proposed;959;
