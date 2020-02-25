@@ -84,6 +84,10 @@ public class MapLayerCompositeController implements MapLayerController
         return 1;
       return 0;
     });
+
+    // The current layer must be updated after the layer controllers are sorted.
+    mMasterEntry = getCurrentLayer();
+    toggleMode(mMasterEntry.getMode());
   }
 
   public void toggleMode(@NonNull Mode mode)
