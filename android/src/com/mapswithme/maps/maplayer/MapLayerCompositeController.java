@@ -22,9 +22,9 @@ public class MapLayerCompositeController implements MapLayerController
   @NonNull
   private final AppCompatActivity mActivity;
   @NonNull
-  private final List<ControllerAndMode> mChildrenEntries;
+  private final List<ControllerAndMode> mLayers;
   @NonNull
-  private ControllerAndMode mMasterEntry;
+  private ControllerAndMode mCurrentLayer;
   @NonNull
   private final TutorialClickListener mOpenBottomDialogClickListener;
 
@@ -33,17 +33,17 @@ public class MapLayerCompositeController implements MapLayerController
   {
     mOpenBottomDialogClickListener = new OpenBottomDialogClickListener(activity);
     mActivity = activity;
-    mChildrenEntries = createEntries(traffic, subway, isoLines, activity, mOpenBottomDialogClickListener);
-    mMasterEntry = getCurrentLayer();
-    toggleMode(mMasterEntry.getMode());
+    mLayers = createLayers(traffic, subway, isoLines, activity, mOpenBottomDialogClickListener);
+    mCurrentLayer = getCurrentLayer();
+    toggleMode(mCurrentLayer.getMode());
   }
 
   @NonNull
-  private static List<ControllerAndMode> createEntries(@NonNull TrafficButton traffic,
-                                                             @NonNull View subway,
-                                                             @NonNull View isoLinesView,
-                                                             @NonNull AppCompatActivity activity,
-                                                             @NonNull View.OnClickListener dialogClickListener)
+  private static List<ControllerAndMode> createLayers(@NonNull TrafficButton traffic,
+                                                      @NonNull View subway,
+                                                      @NonNull View isoLinesView,
+                                                      @NonNull AppCompatActivity activity,
+                                                      @NonNull View.OnClickListener dialogClickListener)
   {
     traffic.setOnclickListener(dialogClickListener);
     TrafficButtonController trafficButtonController = new TrafficButtonController(traffic,
@@ -76,7 +76,7 @@ public class MapLayerCompositeController implements MapLayerController
     // The sorting is needed to put the controller mode corresponding to the specified tutorial
     // at the first place in the list. It allows to enable the map layer ignoring the opening the
     // bottom dialog when user taps on the pulsating map layer button.
-    Collections.sort(mChildrenEntries, (lhs, rhs) ->
+    Collections.sort(mLayers, (lhs, rhs) ->
     {
       if (tutorial.equals(lhs.getTutorial()))
         return -1;
@@ -86,8 +86,8 @@ public class MapLayerCompositeController implements MapLayerController
     });
 
     // The current layer must be updated after the layer controllers are sorted.
-    mMasterEntry = getCurrentLayer();
-    toggleMode(mMasterEntry.getMode());
+    mCurrentLayer = getCurrentLayer();
+    toggleMode(mCurrentLayer.getMode());
   }
 
   public void toggleMode(@NonNull Mode mode)
@@ -114,20 +114,20 @@ public class MapLayerCompositeController implements MapLayerController
 
   private void turnInitialMode()
   {
-    mMasterEntry.getController().hideImmediately();
-    mMasterEntry = mChildrenEntries.iterator().next();
-    mMasterEntry.getController().showImmediately();
+    mCurrentLayer.getController().hideImmediately();
+    mCurrentLayer = mLayers.iterator().next();
+    mCurrentLayer.getController().showImmediately();
   }
 
   public void applyLastActiveMode()
   {
-    toggleMode(mMasterEntry.getMode(), true);
+    toggleMode(mCurrentLayer.getMode(), true);
   }
 
   @Override
   public void attachCore()
   {
-    for (ControllerAndMode each : mChildrenEntries)
+    for (ControllerAndMode each : mLayers)
     {
       each.getController().attachCore();
     }
@@ -136,7 +136,7 @@ public class MapLayerCompositeController implements MapLayerController
   @Override
   public void detachCore()
   {
-    for (ControllerAndMode each : mChildrenEntries)
+    for (ControllerAndMode each : mLayers)
     {
       each.getController().detachCore();
     }
@@ -144,11 +144,11 @@ public class MapLayerCompositeController implements MapLayerController
 
   private void setMasterController(@NonNull Mode mode)
   {
-    for (ControllerAndMode each : mChildrenEntries)
+    for (ControllerAndMode each : mLayers)
     {
       if (each.getMode() == mode)
       {
-        mMasterEntry = each;
+        mCurrentLayer = each;
       }
       else
       {
@@ -161,65 +161,65 @@ public class MapLayerCompositeController implements MapLayerController
   private void showMasterController(boolean animate)
   {
     if (animate)
-      mMasterEntry.getController().show();
+      mCurrentLayer.getController().show();
     else
-      mMasterEntry.getController().showImmediately();
+      mCurrentLayer.getController().showImmediately();
   }
 
   @NonNull
   private ControllerAndMode getCurrentLayer()
   {
-    for (ControllerAndMode each : mChildrenEntries)
+    for (ControllerAndMode each : mLayers)
     {
       if (each.getMode().isEnabled(mActivity))
         return each;
     }
 
-    return mChildrenEntries.iterator().next();
+    return mLayers.iterator().next();
   }
 
   @Override
   public void turnOn()
   {
-    mMasterEntry.getController().turnOn();
-    mMasterEntry.getMode().setEnabled(mActivity, true);
+    mCurrentLayer.getController().turnOn();
+    mCurrentLayer.getMode().setEnabled(mActivity, true);
   }
 
   @Override
   public void turnOff()
   {
-    mMasterEntry.getController().turnOff();
-    mMasterEntry.getMode().setEnabled(mActivity, false);
+    mCurrentLayer.getController().turnOff();
+    mCurrentLayer.getMode().setEnabled(mActivity, false);
   }
 
   @Override
   public void show()
   {
-    mMasterEntry.getController().show();
+    mCurrentLayer.getController().show();
   }
 
   @Override
   public void showImmediately()
   {
-    mMasterEntry.getController().showImmediately();
+    mCurrentLayer.getController().showImmediately();
   }
 
   @Override
   public void hide()
   {
-    mMasterEntry.getController().hide();
+    mCurrentLayer.getController().hide();
   }
 
   @Override
   public void hideImmediately()
   {
-    mMasterEntry.getController().hideImmediately();
+    mCurrentLayer.getController().hideImmediately();
   }
 
   @Override
   public void adjust(int offsetX, int offsetY)
   {
-    for(ControllerAndMode controllerAndMode: mChildrenEntries)
+    for(ControllerAndMode controllerAndMode: mLayers)
       controllerAndMode.getController().adjust(offsetX, offsetY);
   }
 
@@ -248,7 +248,7 @@ public class MapLayerCompositeController implements MapLayerController
   @NonNull
   private ControllerAndMode findModeMapLayerController(@NonNull Mode mode)
   {
-    for (ControllerAndMode each : mChildrenEntries)
+    for (ControllerAndMode each : mLayers)
     {
       if (each.getMode() == mode)
         return each;
@@ -318,7 +318,7 @@ public class MapLayerCompositeController implements MapLayerController
     @Override
     public void onProcessClick(@NonNull View view)
     {
-      if (mMasterEntry.getMode().isEnabled(mActivity))
+      if (mCurrentLayer.getMode().isEnabled(mActivity))
       {
         turnOff();
         toggleMode(getCurrentLayer().getMode());
