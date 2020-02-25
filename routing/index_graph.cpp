@@ -199,7 +199,11 @@ void IndexGraph::SetUTurnRestrictions(vector<RestrictionUTurn> && noUTurnRestric
   }
 }
 
-void IndexGraph::SetRoadAccess(RoadAccess && roadAccess) { m_roadAccess = move(roadAccess); }
+void IndexGraph::SetRoadAccess(RoadAccess && roadAccess)
+{
+  m_roadAccess = move(roadAccess);
+  m_roadAccess.SetCurrentTimeGetter(m_currentTimeGetter);
+}
 
 void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
                                      bool useRoutingOptions, vector<SegmentEdge> & edges,

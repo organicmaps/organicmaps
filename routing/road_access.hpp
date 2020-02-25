@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include <chrono>
 
 #include "3party/skarupke/flat_hash_map.hpp"
 #include "3party/opening_hours/opening_hours.hpp"
@@ -124,7 +125,14 @@ public:
     m_wayToAccess = std::forward<WayToAccess>(wayToAccess);
   }
 
+  template <typename T>
+  void SetCurrentTimeGetter(T && getter) { m_currentTimeGetter = std::forward<T>(getter); }
+
 private:
+  std::function<time_t()> m_currentTimeGetter = []() {
+    using system_clock = std::chrono::system_clock;
+    return system_clock::to_time_t(system_clock::now());
+  };
   // If segmentIdx of a key in this map is 0, it means the
   // entire feature has the corresponding access type.
   // Otherwise, the information is about the segment with number (segmentIdx-1).

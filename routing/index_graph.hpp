@@ -17,6 +17,7 @@
 
 #include "geometry/point2d.hpp"
 
+#include <chrono>
 #include <cstdint>
 #include <map>
 #include <memory>
@@ -126,6 +127,9 @@ public:
   RouteWeight CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool isOutgoing,
                                   Segment const & from, Segment const & to);
 
+  template <typename T>
+  void SetCurrentTimeGetter(T && t) { m_currentTimeGetter = std::forward<T>(t); }
+
 private:
   void GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
                            bool useRoutingOptions, std::vector<SegmentEdge> & edges,
@@ -181,6 +185,11 @@ private:
 
   RoadAccess m_roadAccess;
   RoutingOptions m_avoidRoutingOptions;
+
+  std::function<time_t()> m_currentTimeGetter = []() {
+    using system_clock = std::chrono::system_clock;
+    return system_clock::to_time_t(system_clock::now());
+  };
 };
 
 template <typename ParentVertex>
