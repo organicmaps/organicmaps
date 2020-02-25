@@ -1098,7 +1098,7 @@ shop|wine;1097;
 tourism|chalet;1098;
 tourism|information|board;[tourism=information][information=board];;name;int_name;1099;
 tourism|information|map;[tourism=information][information=map];;name;int_name;1100;
-tourism|information|office;[tourism=information][information=office];x;name;int_name;1101;tourism|information|office
+deprecated|deprecated;1101;x
 traffic_calming|bump;1102;
 traffic_calming|hump;1103;
 shop|car_parts;1104;
