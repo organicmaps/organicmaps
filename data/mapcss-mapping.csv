@@ -398,7 +398,7 @@ highway|secondary_link|bridge;[highway=secondary_link][bridge?];;name;int_name;3
 railway|tram|tunnel;[railway=tram][tunnel?];;name;int_name;398;
 deprecated|deprecated;399;x
 railway|abandoned|tunnel;[railway=abandoned][tunnel?];;name;int_name;400;
-highway|living_street|area;[highway=living_street][area?];x;name;int_name;401;area:highway|living_street
+area:highway|living_street;401;
 piste:type|sled;402;
 aerialway|chair_lift|4;[aerialway=chair_lift][piste:lift:occupancy=4];x;name;int_name;403;aerialway|chair_lift
 leisure|dog_park;404;
@@ -873,7 +873,7 @@ area:highway|path;872;
 area:highway|pedestrian;873;
 area:highway|unclassified;874;
 area:highway|steps;875;
-area:highway|living_street;876;
+deprecated|deprecated;876;x
 area:highway|cycleway;877;
 area:highway|track;878;
 area:highway|motorway;879;
