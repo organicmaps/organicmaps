@@ -425,7 +425,7 @@ sport|archery;424;
 railway|construction|bridge;[railway][construction?][bridge?];x;name;int_name;425;
 highway|track|grade2|area;[highway=track][tracktype=grade2][area?];x;name;int_name;426;
 highway|ford;427;
-highway|path|area;[highway=path][area?];x;name;int_name;428;area:highway|path
+area:highway|path;428;
 railway|siding;429;
 highway|track|area;[highway=track][area?];;name;int_name;430;
 deprecated|deprecated;431;x
@@ -869,7 +869,7 @@ area:highway|residential;868;
 area:highway|secondary;869;
 area:highway|tertiary;870;
 area:highway|primary;871;
-area:highway|path;872;
+deprecated|deprecated;872;x
 area:highway|pedestrian;873;
 area:highway|unclassified;874;
 area:highway|steps;875;
