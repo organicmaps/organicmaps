@@ -270,7 +270,7 @@ highway|tertiary|tunnel;[highway=tertiary][tunnel?];;name;int_name;269;
 landuse|landfill;270;
 amenity|bicycle_rental;271;
 deprecated|deprecated;272;x
-highway|tertiary_link|oneway;[highway=tertiary_link][oneway?];x;name;int_name;273;highway|tertiary_link
+highway|tertiary_link;273;
 landuse|greenfield;274;
 tourism|alpine_hut;275;
 highway|footway|area;[highway=footway][area?];;name;int_name;276;
@@ -316,7 +316,7 @@ aeroway|gate;315;
 railway|preserved;316;
 highway|path|horse;[highway=path][horse?];;name;int_name;317;
 landuse|field;318;
-highway|tertiary_link;319;
+deprecated|deprecated;319;x
 leisure|water_park;320;
 natural|wetland|bog;[natural=wetland][wetland=bog];;name;int_name;321;
 man_made|windmill;322;
@@ -508,7 +508,7 @@ leisure|green;507;x
 deprecated|deprecated;508;x
 railway|spur|bridge;[railway=spur][bridge?];;name;int_name;509;
 highway|track|disused;[highway=track][disused?];x;name;int_name;510;
-highway|tertiary_link|junction;[highway=tertiary_link][junction?];x;name;int_name;511;highway|tertiary_link
+deprecated|deprecated;511;x
 deprecated|deprecated;512;x
 sport|curling;513;
 deprecated|deprecated;514;x
@@ -659,7 +659,7 @@ deprecated|deprecated;658;x
 deprecated|deprecated;659;x
 natural|construction;[natural][construction?];x;name;int_name;660;
 communication|line;661;
-highway|tertiary_link|motorroad;[highway=tertiary_link][motorroad?];x;name;int_name;662;highway|tertiary_link
+deprecated|deprecated;662;x
 railway|dismantled|tunnel;[railway=dismantled][tunnel?];x;name;int_name;663;
 leisure|recreation_ground|permissive;[leisure=recreation_ground][access=permissive];x;name;int_name;664;leisure|recreation_ground
 railway|yard|bridge;[railway=yard][bridge?];;name;int_name;665;
@@ -814,10 +814,10 @@ deprecated|deprecated;813;x
 deprecated|deprecated;814;x
 deprecated|deprecated;815;x
 deprecated|deprecated;816;x
-highway|tertiary_link|construction;[highway=tertiary_link][construction?];x;name;int_name;817;highway|tertiary_link
-highway|tertiary_link|cycleway;[highway=tertiary_link][cycleway?];x;name;int_name;818;highway|tertiary_link
-highway|tertiary_link|cycleway-motorroad;[highway=tertiary_link][cycleway?][motorroad?];x;name;int_name;819;highway|tertiary_link
-highway|tertiary_link|disused;[highway=tertiary_link][disused?];x;name;int_name;820;highway|tertiary_link
+deprecated|deprecated;817;x
+deprecated|deprecated;818;x
+deprecated|deprecated;819;x
+deprecated|deprecated;820;x
 highway|track|grade3|no-access;[highway=track][tracktype=grade3][access=no];x;name;int_name;821;highway|track|grade3
 highway|track|grade4|no-access;[highway=track][tracktype=grade4][access=no];x;name;int_name;822;highway|track|grade4
 highway|track|grade5|no-access;[highway=track][tracktype=grade5][access=no];x;name;int_name;823;highway|track|grade5
