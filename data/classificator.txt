@@ -186,11 +186,6 @@ world  +
         train_station  -
         {}
     building:part  -
-    communication  +
-        line  +
-            underground  -
-            {}
-        {}
     complex_entry  -
     craft  +
         brewery  -
