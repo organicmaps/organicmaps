@@ -117,17 +117,17 @@ class PlacePageControllerComposite implements PlacePageController<MapObject>
     if (!mControllers.isEmpty())
       throw new AssertionError("Place page controllers already initialized!");
 
-    PlacePageController<MapObject> poiPlacePageController =
-        createBottomSheetPlacePageController(mActivity, mAdsProvider, mSlideListener, mRoutingModeListener);
-    poiPlacePageController.initialize();
-    mControllers.add(poiPlacePageController);
+    PlacePageController<MapObject> richController =
+        createRichPlacePageController(mActivity, mAdsProvider, mSlideListener, mRoutingModeListener);
+    richController.initialize();
+    mControllers.add(richController);
 
-    PlacePageController<MapObject> elevationProfileController =
-        createElevationProfileBottomSheetController(mActivity, mSlideListener);
-    elevationProfileController.initialize();
-    mControllers.add(elevationProfileController);
+    PlacePageController<MapObject> simpleController =
+        createSimplePlacePageController(mActivity, mSlideListener);
+    simpleController.initialize();
+    mControllers.add(simpleController);
 
-    mActiveController = poiPlacePageController;
+    mActiveController = richController;
   }
 
   @Override
@@ -177,18 +177,18 @@ class PlacePageControllerComposite implements PlacePageController<MapObject>
   }
 
   @NonNull
-  private static PlacePageController<MapObject> createBottomSheetPlacePageController(
+  private static PlacePageController<MapObject> createRichPlacePageController(
       @NonNull Activity activity, @NonNull AdsRemovalPurchaseControllerProvider provider,
       @NonNull PlacePageController.SlideListener listener,
       @Nullable RoutingModeListener routingModeListener)
   {
-    return new BottomSheetPlacePageController(activity, provider, listener, routingModeListener);
+    return new RichPlacePageController(activity, provider, listener, routingModeListener);
   }
 
   @NonNull
-  private static PlacePageController<MapObject> createElevationProfileBottomSheetController(
+  private static PlacePageController<MapObject> createSimplePlacePageController(
       @NonNull Activity activity, @NonNull PlacePageController.SlideListener listener)
   {
-    return new ElevationProfileBottomSheetController(activity, listener);
+    return new SimplePlacePageController(activity, listener);
   }
 }

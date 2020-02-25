@@ -35,16 +35,16 @@ import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.PlacePageTracker;
 import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
-public class BottomSheetPlacePageController implements PlacePageController<MapObject>, LocationListener,
-                                                       View.OnLayoutChangeListener,
-                                                       BannerController.BannerStateRequester,
-                                                       BannerController.BannerStateListener,
-                                                       Closable
+public class RichPlacePageController implements PlacePageController<MapObject>, LocationListener,
+                                                View.OnLayoutChangeListener,
+                                                BannerController.BannerStateRequester,
+                                                BannerController.BannerStateListener,
+                                                Closable
 {
   private static final float ANCHOR_RATIO = 0.3f;
   private static final float PREVIEW_PLUS_RATIO = 0.45f;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = BottomSheetPlacePageController.class.getSimpleName();
+  private static final String TAG = RichPlacePageController.class.getSimpleName();
   private static final int ANIM_BANNER_APPEARING_MS = 300;
   private static final int ANIM_CHANGE_PEEK_HEIGHT_MS = 100;
   @NonNull
@@ -196,10 +196,10 @@ public class BottomSheetPlacePageController implements PlacePageController<MapOb
     return height - mPlacePageBehavior.getPeekHeight();
   }
 
-  BottomSheetPlacePageController(@NonNull Activity activity,
-                                 @NonNull AdsRemovalPurchaseControllerProvider provider,
-                                 @NonNull SlideListener listener,
-                                 @Nullable RoutingModeListener routingModeListener)
+  RichPlacePageController(@NonNull Activity activity,
+                          @NonNull AdsRemovalPurchaseControllerProvider provider,
+                          @NonNull SlideListener listener,
+                          @Nullable RoutingModeListener routingModeListener)
   {
     mActivity = activity;
     mPurchaseControllerProvider = provider;

@@ -12,7 +12,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.util.UiUtils;
 import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
-public class ElevationProfileBottomSheetController implements PlacePageController<MapObject>
+public class SimplePlacePageController implements PlacePageController<MapObject>
 {
   @NonNull
   private final Activity mActivity;
@@ -84,8 +84,8 @@ public class ElevationProfileBottomSheetController implements PlacePageControlle
 
   private boolean mDeactivateMapSelection = true;
 
-  ElevationProfileBottomSheetController(@NonNull Activity activity,
-                                        @NonNull SlideListener slideListener)
+  SimplePlacePageController(@NonNull Activity activity,
+                            @NonNull SlideListener slideListener)
   {
     mActivity = activity;
     mSlideListener = slideListener;
