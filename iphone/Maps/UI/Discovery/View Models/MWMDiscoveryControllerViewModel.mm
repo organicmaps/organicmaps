@@ -106,8 +106,8 @@ using namespace discovery;
   NSString *subtitle = @(platform::GetLocalizedTypeName(readableType).c_str());
   NSString *title = result.GetString().empty() ? subtitle : @(result.GetString().c_str());
   
-  NSString *ratingValue = [self ratingValueForProductInfo:info];
-  UgcSummaryRatingType ratingType = [self ratingTypeForProductInfo:info];
+  NSString *ratingValue = [self ratingValueForRating:info.m_ugcRating];
+  UgcSummaryRatingType ratingType = [self ratingTypeForRating:info.m_ugcRating];
   
   NSString *distance = [self distanceFrom:center
                                        to:result.GetFeatureCenter()];
@@ -137,8 +137,8 @@ using namespace discovery;
   }
   NSString *price = @(result.GetHotelApproximatePricing().c_str());
   
-  NSString *ratingValue = [self ratingValueForProductInfo:info];
-  UgcSummaryRatingType ratingType = [self ratingTypeForProductInfo:info];
+  NSString *ratingValue = [self ratingValueForRating:result.GetHotelRating()];
+  UgcSummaryRatingType ratingType = [self ratingTypeForRating:result.GetHotelRating()];
   
   NSString *distance = [self distanceFrom:center
                                        to:result.GetFeatureCenter()];
@@ -169,12 +169,12 @@ using namespace discovery;
   return @(distance.c_str());
 }
 
-- (NSString *)ratingValueForProductInfo:(search::ProductInfo const &)info {
-  return @(place_page::rating::GetRatingFormatted(info.m_ugcRating).c_str());
+- (NSString *)ratingValueForRating:(float)rating {
+  return @(place_page::rating::GetRatingFormatted(rating).c_str());
 }
 
-- (UgcSummaryRatingType)ratingTypeForProductInfo:(search::ProductInfo const &)info {
-  return (UgcSummaryRatingType)place_page::rating::GetImpress(info.m_ugcRating);
+- (UgcSummaryRatingType)ratingTypeForRating:(float)rating {
+  return (UgcSummaryRatingType)place_page::rating::GetImpress(rating);
 }
 
 @end
