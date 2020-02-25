@@ -462,7 +462,7 @@ sport|handball;461;
 boundary|administrative|city;[boundary=administrative][border_type=city];;name;int_name;462;
 piste:type|downhill|freeride;[piste:type=downhill][piste:difficulty=freeride];;name;int_name;463;
 deprecated|deprecated;464;x
-communication|line|submarine;[communication=line][location=submarine];x;name;int_name;465;communication|line
+deprecated|deprecated;465;x
 piste:type|downhill|expert;[piste:type=downhill][piste:difficulty=expert];;name;int_name;466;
 landuse|salt_pond;467;
 deprecated|deprecated;468;x
@@ -658,7 +658,7 @@ boundary|administrative|municipality;[boundary=administrative][border_type=munic
 deprecated|deprecated;658;x
 deprecated|deprecated;659;x
 natural|construction;[natural][construction?];x;name;int_name;660;
-communication|line;661;
+deprecated|deprecated;661;x
 deprecated|deprecated;662;x
 railway|dismantled|tunnel;[railway=dismantled][tunnel?];x;name;int_name;663;
 leisure|recreation_ground|permissive;[leisure=recreation_ground][access=permissive];x;name;int_name;664;leisure|recreation_ground
@@ -692,7 +692,7 @@ boundary|administrative|country;[boundary=administrative][border_type=country];;
 deprecated|deprecated;692;x
 natural|orchard;693;
 natural|retail;694;x
-communication|line|underground;[communication=line][location=underground];;name;int_name;695;
+deprecated|deprecated;695;x
 natural|cemetery;696;x
 deprecated|deprecated;697;x
 deprecated|deprecated;698;x
