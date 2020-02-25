@@ -1079,9 +1079,9 @@ deprecated|deprecated;1078;x
 emergency|phone;1079;
 highway|rest_area;1080;
 highway|traffic_signals;1081;
-leisure|fitness_centre;1082;
-leisure|sports_centre|fitness;[leisure=sports_centre][sport=fitness];x;name;int_name;1083;leisure|fitness_centre
-amenity|gym;1084;leisure|fitness_centre
+leisure|fitness_centre;[leisure=fitness_centre],[leisure=sports_centre][sport=fitness],[amenity=gym];;name;int_name;1082;
+deprecated|deprecated;1083;x
+deprecated|deprecated;1084;x
 leisure|sauna;1085;
 amenity|sauna;1086;leisure|sauna
 man_made|chimney;1087;
