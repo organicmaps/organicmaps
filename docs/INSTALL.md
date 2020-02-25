@@ -39,11 +39,12 @@ is preferred, but GCC 6+ would also work.
 
 ### Ubuntu 16.04
 
-Install Qt 5, CMake and Clang:
+Install Qt 5, CMake, Clang and SQLite:
 
     sudo apt-get update
     sudo apt-get install qtbase5-dev cmake
     sudo apt-get install clang libc++-dev libboost-iostreams-dev libglu1-mesa-dev
+    sudo apt-get install libsqlite3-dev
 
 Do a git clone:
 
