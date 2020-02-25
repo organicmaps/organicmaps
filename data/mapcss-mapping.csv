@@ -1082,8 +1082,8 @@ highway|traffic_signals;1081;
 leisure|fitness_centre;[leisure=fitness_centre],[leisure=sports_centre][sport=fitness],[amenity=gym];;name;int_name;1082;
 deprecated|deprecated;1083;x
 deprecated|deprecated;1084;x
-leisure|sauna;1085;
-amenity|sauna;1086;leisure|sauna
+leisure|sauna;[leisure=sauna],[amenity=sauna];;name;int_name;1085;
+deprecated|deprecated;1086;x
 man_made|chimney;1087;
 man_made|tower;1088;
 man_made|water_well;1089;
