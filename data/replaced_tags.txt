@@ -39,7 +39,6 @@ natural = forest : natural = wood
 office=notary : office=lawyer
 office=administrative : office=government
 
-shop=tailor : craft=tailor
 shop=estate_agent : office=estate_agent
 
 amenity=gym : leisure=fitness_centre

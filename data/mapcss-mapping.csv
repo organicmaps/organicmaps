@@ -974,7 +974,7 @@ craft|carpenter;973;
 craft|shoemaker;974;
 craft|photographer;975;
 craft|electrician;976;
-craft|tailor;977;
+craft|tailor;[craft=tailor],[shop=tailor];;name;int_name;977;
 craft|plumber;978;
 craft|brewery;979;
 craft|metal_construction;980;
@@ -1058,7 +1058,7 @@ shop|photo;1057;
 shop|travel_agency;[shop=travel_agency],[office=travel_agent];;name;int_name;1058;
 deprecated|deprecated;1059;x
 shop|outdoor;1060;
-shop|tailor;1061;craft|tailor
+deprecated|deprecated;1061;x
 shop|estate_agent;1062;office|estate_agent
 shop|dry_cleaning;1063;
 shop|tyres;1064;
