@@ -954,8 +954,8 @@ amenity|ferry_terminal;953;
 amenity;[amenity];;name;int_name;954;
 shop|furniture;955;
 deprecated|deprecated;956;x
-natural|waterfall;957;waterway|waterfall
-waterway|waterfall;958;
+waterway|waterfall;957;
+deprecated|deprecated;958;x
 railway|proposed;959;
 amenity|casino;960;
 amenity|brothel;961;
