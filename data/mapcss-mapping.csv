@@ -945,7 +945,7 @@ hwtag|lit;944;
 office|company;945;
 office|telecommunication;946;
 office|government;947;
-office|estate_agent;948;
+office|estate_agent;[office=estate_agent],[shop=estate_agent];;name;int_name;948;
 office|lawyer;949;
 office;[office];;name;int_name;950;
 landuse|residential|rural;[landuse=residential][residential=rural];;name;int_name;951;
@@ -1059,7 +1059,7 @@ shop|travel_agency;[shop=travel_agency],[office=travel_agent];;name;int_name;105
 deprecated|deprecated;1059;x
 shop|outdoor;1060;
 deprecated|deprecated;1061;x
-shop|estate_agent;1062;office|estate_agent
+deprecated|deprecated;1062;x
 shop|dry_cleaning;1063;
 shop|tyres;1064;
 deprecated|deprecated;1065;x
@@ -1182,7 +1182,7 @@ office|insurance;1181;
 office|ngo;1182;
 shop|chocolate;1183;
 shop|erotic;1184;
-shop|estate_agent;1185;office|estate_agent
+deprecated|deprecated;1185;x
 shop|fabric;1186;
 shop|funeral_directors;1187;
 shop|massage;1188;
