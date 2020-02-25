@@ -1108,7 +1108,7 @@ leisure|sports_centre|swimming;[leisure=sports_centre][sport=swimming];;name;int
 leisure|sports_centre|yoga;[leisure=sports_centre][sport=yoga];;name;int_name;1108;
 amenity|public_bookcase;1109;
 tourism|apartment;1110;
-tourism|resort;1111;
+tourism|resort;[tourism=resort],[leisure=resort],[leisure=summer_camp];;name;int_name;1111;
 sponsored;[sponsored];;name;int_name;1112;
 sponsored|booking;1113;
 hwtag|nobicycle;1114;
@@ -1199,7 +1199,7 @@ tourism|theme_park;1198;
 tourism|wilderness_hut;1199;
 sponsored|cian;1200;x
 sponsored|holiday;1201;
-leisure|resort;1202;tourism|resort
+deprecated|deprecated;1202;x
 sponsored|partner1;1203;
 sponsored|partner2;1204;
 sponsored|partner3;1205;

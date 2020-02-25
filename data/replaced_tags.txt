@@ -59,11 +59,6 @@ historic=technical_monument : historic=memorial
 historic=shield : historic=memorial
 historic=war_memorial : historic=memorial
 
-# OSM recommends leisure=resort instead of tourism=resort
-# but we already have the type for tourism and don't have one for leisure.
-leisure=resort : tourism=resort
-leisure=summer_camp : tourism=resort
-
 place=allotments : place=neighbourhood
 
 crossing=traffic_signals : highway=traffic_signals
