@@ -118,7 +118,7 @@ bool SaveContrours(std::string const & filePath,
     return false;
   }
   base::DeleteFileX(filePath);
-  VERIFY(base::RenameFileX(tmpFilePath, filePath), (fileTmp, file));
+  VERIFY(base::RenameFileX(tmpFilePath, filePath), (tmpFilePath, filePath));
   return true;
 }
 
