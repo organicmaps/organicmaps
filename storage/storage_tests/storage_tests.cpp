@@ -774,7 +774,8 @@ UNIT_CLASS_TEST(StorageTest, DownloadedMap)
 
     auto algeriaCoastChecker = make_unique<CountryDownloaderChecker>(
         storage, algeriaCoastCountryId, MapFileType::Map,
-        vector<Status>{Status::ENotDownloaded, Status::EInQueue, Status::EOnDisk});
+        vector<Status>{Status::ENotDownloaded, Status::EInQueue, Status::EDownloading,
+                       Status::EOnDisk});
 
     algeriaCentralChecker->StartDownload();
     algeriaCoastChecker->StartDownload();

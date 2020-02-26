@@ -28,7 +28,15 @@ void FakeMapFilesDownloader::Download(QueuedCountry & queuedCountry)
   m_queue.push_back(queuedCountry);
 
   if (m_queue.size() != 1)
+  {
+    for (auto const subscriber : m_subscribers)
+      subscriber->OnCountryInQueue(queuedCountry.GetCountryId());
+
     return;
+  }
+
+  for (auto const subscriber : m_subscribers)
+    subscriber->OnStartDownloading();
 
   Download();
 }
@@ -109,6 +117,9 @@ void FakeMapFilesDownloader::Download()
     return;
   }
 
+  for (auto const subscriber : m_subscribers)
+    subscriber->OnStartDownloadingCountry(queuedCountry.GetCountryId());
+
   ++m_timestamp;
   m_progress = {0, queuedCountry.GetDownloadSize()};
   m_writer.reset(new FileWriter(queuedCountry.GetFileDownloadPath()));
@@ -160,6 +171,13 @@ void FakeMapFilesDownloader::OnFileDownloaded(QueuedCountry const & queuedCountr
   m_taskRunner.PostTask([country, status]() { country.OnDownloadFinished(status); });
 
   if (!m_queue.empty())
+  {
     Download();
+  }
+  else
+  {
+    for (auto const subscriber : m_subscribers)
+      subscriber->OnFinishDownloading();
+  }
 }
 }  // namespace storage
