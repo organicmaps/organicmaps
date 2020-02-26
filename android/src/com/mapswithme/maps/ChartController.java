@@ -112,7 +112,7 @@ class ChartController implements OnChartValueSelectedListener
     x.setLabelCount(CHART_X_LABEL_COUNT, false);
     x.setAvoidFirstLastClipping(true);
     x.setDrawGridLines(false);
-    x.setTextColor(ThemeUtils.getColor(getActivity(), R.attr.chart_axis_label_color));
+    x.setTextColor(ThemeUtils.getColor(getActivity(), R.attr.elevationProfileAxisLabelColor));
     x.setPosition(XAxis.XAxisPosition.BOTTOM);
     x.setAxisLineColor(ThemeUtils.getColor(getActivity(), R.attr.dividerHorizontal));
     x.setAxisLineWidth(getActivity().getResources().getDimensionPixelSize(R.dimen.divider_height));

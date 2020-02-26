@@ -76,7 +76,7 @@
       android:layout_height="wrap_content"
       android:layout_width="wrap_content"
       android:layout_gravity="center"
-      android:src="?attr/bg_dog_btn"/>
+      android:src="?attr/bgDogBtn"/>
 
     <ImageView
       android:id="@+id/onboarding_btn"

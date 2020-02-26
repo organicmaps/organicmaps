@@ -18,7 +18,7 @@
     android:id="@+id/label"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="?chart_your_location_pin_bg"
+    android:background="?elevationProfileYourLocationPinBg"
     android:ellipsize="end"
     android:paddingStart="@dimen/margin_quarter"
     android:paddingEnd="@dimen/margin_quarter"
