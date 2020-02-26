@@ -61,7 +61,7 @@ public:
   void GetEdgeList(Segment const & vertex, bool isOutgoing, bool useRoutingOptions,
                    std::vector<SegmentEdge> & edges);
 
-      // Checks whether path length meets restrictions. Restrictions may depend on the distance from
+  // Checks whether path length meets restrictions. Restrictions may depend on the distance from
   // start to finish of the route.
   virtual bool CheckLength(RouteWeight const & weight, double startToFinishDistanceM) const = 0;
 

@@ -28,7 +28,7 @@ void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, bool useRout
                 false /* useAccessConditional */, edges);
   }
 
-      SetMode(prevMode);
+  SetMode(prevMode);
 }
 
 RoutingOptions WorldGraph::GetRoutingOptions(Segment const & /* segment */)
