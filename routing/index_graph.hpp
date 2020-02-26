@@ -17,13 +17,11 @@
 
 #include "geometry/point2d.hpp"
 
-#include <chrono>
 #include <cstdint>
 #include <map>
 #include <memory>
 #include <optional>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 namespace routing
@@ -187,8 +185,7 @@ private:
   RoutingOptions m_avoidRoutingOptions;
 
   std::function<time_t()> m_currentTimeGetter = []() {
-    using system_clock = std::chrono::system_clock;
-    return system_clock::to_time_t(system_clock::now());
+    return GetCurrentTimestamp();
   };
 };
 

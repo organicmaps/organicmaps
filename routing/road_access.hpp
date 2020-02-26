@@ -10,7 +10,6 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
-#include <chrono>
 
 #include "3party/skarupke/flat_hash_map.hpp"
 #include "3party/opening_hours/opening_hours.hpp"
@@ -87,8 +86,11 @@ public:
   using WayToAccessConditional = ska::flat_hash_map<uint32_t, Conditional>;
   using PointToAccessConditional = ska::flat_hash_map<RoadPoint, Conditional, RoadPoint::Hash>;
 
+  RoadAccess();
+
   WayToAccess const & GetWayToAccess() const { return m_wayToAccess; }
   PointToAccess const & GetPointToAccess() const { return m_pointToAccess; }
+
   WayToAccessConditional const & GetWayToAccessConditional() const
   {
     return m_wayToAccessConditional;
@@ -129,10 +131,7 @@ public:
   void SetCurrentTimeGetter(T && getter) { m_currentTimeGetter = std::forward<T>(getter); }
 
 private:
-  std::function<time_t()> m_currentTimeGetter = []() {
-    using system_clock = std::chrono::system_clock;
-    return system_clock::to_time_t(system_clock::now());
-  };
+  std::function<time_t()> m_currentTimeGetter;
   // If segmentIdx of a key in this map is 0, it means the
   // entire feature has the corresponding access type.
   // Otherwise, the information is about the segment with number (segmentIdx-1).
@@ -141,6 +140,8 @@ private:
   WayToAccessConditional m_wayToAccessConditional;
   PointToAccessConditional m_pointToAccessConditional;
 };
+
+time_t GetCurrentTimestamp();
 
 std::string ToString(RoadAccess::Type type);
 void FromString(std::string const & s, RoadAccess::Type & result);

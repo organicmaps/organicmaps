@@ -2,8 +2,8 @@
 
 #include "routing/city_roads.hpp"
 #include "routing/index_graph_serialization.hpp"
-#include "routing/maxspeeds.hpp"
 #include "routing/restriction_loader.hpp"
+#include "routing/road_access.hpp"
 #include "routing/road_access_serialization.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_exceptions.hpp"
@@ -25,12 +25,6 @@ namespace
 {
 using namespace routing;
 using namespace std;
-
-time_t GetCurrentTimestamp()
-{
-  using system_clock = std::chrono::system_clock;
-  return system_clock::to_time_t(system_clock::now());
-}
 
 class IndexGraphLoaderImpl final : public IndexGraphLoader
 {

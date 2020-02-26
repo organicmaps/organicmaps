@@ -3,6 +3,7 @@
 #include "base/assert.hpp"
 
 #include <algorithm>
+#include <chrono>
 #include <sstream>
 
 using namespace std;
@@ -32,6 +33,10 @@ void PrintKV(ostringstream & oss, KV const & kvs, size_t maxKVToShow)
 namespace routing
 {
 // RoadAccess --------------------------------------------------------------------------------------
+RoadAccess::RoadAccess() : m_currentTimeGetter([](){ return GetCurrentTimestamp(); })
+{
+}
+
 RoadAccess::Type RoadAccess::GetAccess(uint32_t featureId) const
 {
 // todo(@m) This may or may not be too slow. Consider profiling this and using
@@ -60,6 +65,12 @@ bool RoadAccess::operator==(RoadAccess const & rhs) const
 }
 
 // Functions ---------------------------------------------------------------------------------------
+time_t GetCurrentTimestamp()
+{
+  using system_clock = std::chrono::system_clock;
+  return system_clock::to_time_t(system_clock::now());
+}
+
 string ToString(RoadAccess::Type type)
 {
   if (type <= RoadAccess::Type::Count)
