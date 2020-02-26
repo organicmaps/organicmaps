@@ -1,6 +1,7 @@
 package com.mapswithme.maps.widget.placepage;
 
 import android.app.Activity;
+import android.app.Application;
 import android.os.Bundle;
 import android.view.View;
 
@@ -14,8 +15,9 @@ import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
 public class SimplePlacePageController implements PlacePageController<MapObject>
 {
+  @SuppressWarnings("NullableProblems")
   @NonNull
-  private final Activity mActivity;
+  private Application mApplication;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mSheet;
@@ -40,7 +42,7 @@ public class SimplePlacePageController implements PlacePageController<MapObject>
     @Override
     public void onSheetDirectionIconChange()
     {
-      if (UiUtils.isLandscape(mActivity))
+      if (UiUtils.isLandscape(mApplication))
         return;
 
       PlacePageUtils.setPullDrawable(mSheetBehavior, mSheet, R.id.pull_icon);
@@ -49,21 +51,21 @@ public class SimplePlacePageController implements PlacePageController<MapObject>
     @Override
     public void onSheetDetailsOpened()
     {
-      if (UiUtils.isLandscape(mActivity))
+      if (UiUtils.isLandscape(mApplication))
         PlacePageUtils.moveViewPortRight(mSheet, mViewPortMinWidth);
     }
 
     @Override
     public void onSheetCollapsed()
     {
-      if (UiUtils.isLandscape(mActivity))
+      if (UiUtils.isLandscape(mApplication))
         PlacePageUtils.moveViewPortRight(mSheet, mViewPortMinWidth);
     }
 
     @Override
     public void onSheetSliding(int top)
     {
-      if (UiUtils.isLandscape(mActivity))
+      if (UiUtils.isLandscape(mApplication))
         return;
 
       mSlideListener.onPlacePageSlide(top);
@@ -72,7 +74,7 @@ public class SimplePlacePageController implements PlacePageController<MapObject>
     @Override
     public void onSheetSlideFinish()
     {
-      if (UiUtils.isLandscape(mActivity))
+      if (UiUtils.isLandscape(mApplication))
         return;
 
       PlacePageUtils.moveViewportUp(mSheet, mViewportMinHeight);
@@ -84,10 +86,8 @@ public class SimplePlacePageController implements PlacePageController<MapObject>
 
   private boolean mDeactivateMapSelection = true;
 
-  SimplePlacePageController(@NonNull Activity activity,
-                            @NonNull SlideListener slideListener)
+  SimplePlacePageController(@NonNull SlideListener slideListener)
   {
-    mActivity = activity;
     mSlideListener = slideListener;
   }
 
@@ -157,9 +157,12 @@ public class SimplePlacePageController implements PlacePageController<MapObject>
   }
 
   @Override
-  public void initialize()
+  public void initialize(@Nullable Activity activity)
   {
-    mSheet = mActivity.findViewById(R.id.elevation_profile);
+    if (activity == null)
+      throw new AssertionError("Activity must be non-null");
+    mApplication = activity.getApplication();
+    mSheet = activity.findViewById(R.id.elevation_profile);
     mViewportMinHeight = mSheet.getResources().getDimensionPixelSize(R.dimen.viewport_min_height);
     mViewPortMinWidth = mSheet.getResources().getDimensionPixelSize(R.dimen.viewport_min_width);
     mSheetBehavior = AnchorBottomSheetBehavior.from(mSheet);
@@ -195,7 +198,7 @@ public class SimplePlacePageController implements PlacePageController<MapObject>
       return;
 
     mMapObject = object;
-    if (UiUtils.isLandscape(mActivity))
+    if (UiUtils.isLandscape(mApplication))
     {
       // In case when bottom sheet was collapsed for vertical orientation then after rotation
       // we should expand bottom sheet forcibly for horizontal orientation. It's by design.
@@ -214,7 +217,7 @@ public class SimplePlacePageController implements PlacePageController<MapObject>
     if (mDeactivateMapSelection)
       Framework.nativeDeactivatePopup();
     mDeactivateMapSelection = true;
-    if (UiUtils.isLandscape(mActivity))
+    if (UiUtils.isLandscape(mApplication))
     {
       PlacePageUtils.moveViewPortRight(mSheet, mViewPortMinWidth);
       return;

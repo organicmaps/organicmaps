@@ -4,11 +4,13 @@ import android.app.Application;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.maplayer.subway.OnIsolinesChangedListener;
 
-public class IsolinesManager
+public class IsolinesManager implements Initializable<Void>
 {
   @NonNull
   private final OnIsolinesChangedListener mListener;
@@ -41,9 +43,16 @@ public class IsolinesManager
     setEnabled(!isEnabled());
   }
 
-  public void initialize()
+  @Override
+  public void initialize(@Nullable Void aVoid)
   {
     registerListener();
+  }
+
+  @Override
+  public void destroy()
+  {
+    // No op.
   }
 
   @NonNull

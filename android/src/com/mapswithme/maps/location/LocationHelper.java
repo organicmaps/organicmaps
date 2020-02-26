@@ -10,6 +10,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.routing.RoutingController;
@@ -21,7 +22,7 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-public enum LocationHelper
+public enum LocationHelper implements Initializable<Void>
 {
   INSTANCE;
 
@@ -154,13 +155,19 @@ public enum LocationHelper
     }
   };
 
-  @UiThread
-  public void initialize()
+  @Override
+  public void initialize(@Nullable Void aVoid)
   {
     initProvider();
     LocationState.nativeSetListener(mMyPositionModeListener);
     LocationState.nativeSetLocationPendingTimeoutListener(mLocationPendingTimeoutListener);
     MwmApplication.backgroundTracker().addListener(mOnTransition);
+  }
+
+  @Override
+  public void destroy()
+  {
+    // No op.
   }
 
   private void initProvider()

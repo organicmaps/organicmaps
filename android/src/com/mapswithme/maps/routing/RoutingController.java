@@ -1,27 +1,26 @@
 package com.mapswithme.maps.routing;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import androidx.annotation.DimenRes;
-import androidx.annotation.IntRange;
-import androidx.annotation.MainThread;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-import androidx.core.util.Pair;
-import androidx.appcompat.app.AlertDialog;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.DimenRes;
+import androidx.annotation.IntRange;
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.util.Pair;
+import androidx.fragment.app.FragmentActivity;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
-import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.taxi.TaxiInfoError;
@@ -44,7 +43,7 @@ import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_POINT_
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_POINT_REMOVE;
 
 @androidx.annotation.UiThread
-public class RoutingController implements TaxiManager.TaxiListener
+public class RoutingController implements TaxiManager.TaxiListener, Initializable<Void>
 {
   private static final String TAG = RoutingController.class.getSimpleName();
 
@@ -280,7 +279,8 @@ public class RoutingController implements TaxiManager.TaxiListener
     mContainer = container;
   }
 
-  public void initialize()
+  @Override
+  public void initialize(@Nullable Void aVoid)
   {
     mLastRouterType = Framework.nativeGetLastUsedRouter();
     mInvalidRoutePointsTransactionId = Framework.nativeInvalidRoutePointsTransactionId();
@@ -291,6 +291,12 @@ public class RoutingController implements TaxiManager.TaxiListener
     Framework.nativeSetRoutingRecommendationListener(mRoutingRecommendationListener);
     Framework.nativeSetRoutingLoadPointsListener(mRoutingLoadPointsListener);
     TaxiManager.INSTANCE.setTaxiListener(this);
+  }
+
+  @Override
+  public void destroy()
+  {
+    // No op.
   }
 
   public void detach()

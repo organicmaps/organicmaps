@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
+
 import androidx.annotation.NonNull;
 import androidx.multidex.MultiDex;
-
 import com.appsflyer.AppsFlyerLib;
 import com.mapswithme.maps.analytics.ExternalLibrariesMediator;
 import com.mapswithme.maps.background.AppBackgroundTracker;
@@ -283,16 +283,16 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     MapManager.nativeSubscribe(mStorageCallbacks);
 
     initNativeStrings();
-    SearchEngine.INSTANCE.initialize();
+    SearchEngine.INSTANCE.initialize(null);
     BookmarkManager.loadBookmarks();
-    TtsPlayer.INSTANCE.init(this);
+    TtsPlayer.INSTANCE.initialize(this);
     ThemeSwitcher.restart(false);
-    LocationHelper.INSTANCE.initialize();
-    RoutingController.get().initialize();
-    TrafficManager.INSTANCE.initialize();
-    SubwayManager.from(this).initialize();
-    IsolinesManager.from(this).initialize();
-    mPurchaseOperationObservable.initialize();
+    LocationHelper.INSTANCE.initialize(null);
+    RoutingController.get().initialize(null);
+    TrafficManager.INSTANCE.initialize(null);
+    SubwayManager.from(this).initialize(null);
+    IsolinesManager.from(this).initialize(null);
+    mPurchaseOperationObservable.initialize(null);
     mBackgroundTracker.addListener(this);
     mFrameworkInitialized = true;
   }

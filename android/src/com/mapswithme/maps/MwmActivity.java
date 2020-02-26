@@ -519,8 +519,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     setContentView(R.layout.activity_map);
 
-    mPlacePageController = PlacePageFactory.createPlacePageController(this, this, this, this);
-    mPlacePageController.initialize();
+    mPlacePageController = PlacePageFactory.createPlacePageController(this, this, this);
+    mPlacePageController.initialize(this);
     mPlacePageController.onActivityCreated(this, savedInstanceState);
 
     mChartController = new ChartController(this);
@@ -535,7 +535,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController.setVisibilityListener(this);
     SearchEngine.INSTANCE.addListener(this);
 
-    SharingHelper.INSTANCE.initialize();
+    SharingHelper.INSTANCE.initialize(null);
 
     initControllersAndValidatePurchases(savedInstanceState);
 

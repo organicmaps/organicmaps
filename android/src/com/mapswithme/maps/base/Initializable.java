@@ -1,7 +1,9 @@
 package com.mapswithme.maps.base;
 
-public interface Initializable
+import androidx.annotation.Nullable;
+
+public interface Initializable<T>
 {
-  void initialize();
+  void initialize(@Nullable T t);
   void destroy();
 }

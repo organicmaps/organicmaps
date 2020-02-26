@@ -2,9 +2,9 @@ package com.mapswithme.maps.purchase;
 
 import android.app.Activity;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
@@ -40,8 +40,11 @@ abstract class AbstractPurchaseController<V, B, UiCallback extends PurchaseCallb
   }
 
   @Override
-  public final void initialize(@NonNull Activity activity)
+  public final void initialize(@Nullable Activity activity)
   {
+    if (activity == null)
+      throw new AssertionError("Activity must be non-null");
+
     mBillingManager.initialize(activity);
     onInitialize(activity);
   }

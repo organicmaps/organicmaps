@@ -14,8 +14,6 @@ import java.util.List;
 class PlacePageControllerComposite implements PlacePageController<MapObject>
 {
   @NonNull
-  private final Activity mActivity;
-  @NonNull
   private final AdsRemovalPurchaseControllerProvider mAdsProvider;
   @NonNull
   private final PlacePageController.SlideListener mSlideListener;
@@ -27,12 +25,10 @@ class PlacePageControllerComposite implements PlacePageController<MapObject>
   @NonNull
   private PlacePageController<MapObject> mActiveController;
 
-  PlacePageControllerComposite(@NonNull Activity activity,
-                               @NonNull AdsRemovalPurchaseControllerProvider adsProvider,
+  PlacePageControllerComposite(@NonNull AdsRemovalPurchaseControllerProvider adsProvider,
                                @NonNull SlideListener slideListener,
                                @Nullable RoutingModeListener routingModeListener)
   {
-    mActivity = activity;
     mAdsProvider = adsProvider;
     mSlideListener = slideListener;
     mRoutingModeListener = routingModeListener;
@@ -112,19 +108,19 @@ class PlacePageControllerComposite implements PlacePageController<MapObject>
   }
 
   @Override
-  public void initialize()
+  public void initialize(@Nullable Activity activity)
   {
     if (!mControllers.isEmpty())
       throw new AssertionError("Place page controllers already initialized!");
 
     PlacePageController<MapObject> richController =
-        createRichPlacePageController(mActivity, mAdsProvider, mSlideListener, mRoutingModeListener);
-    richController.initialize();
+        createRichPlacePageController(mAdsProvider, mSlideListener, mRoutingModeListener);
+    richController.initialize(activity);
     mControllers.add(richController);
 
     PlacePageController<MapObject> simpleController =
-        createSimplePlacePageController(mActivity, mSlideListener);
-    simpleController.initialize();
+        createSimplePlacePageController(mSlideListener);
+    simpleController.initialize(activity);
     mControllers.add(simpleController);
 
     mActiveController = richController;
@@ -135,6 +131,9 @@ class PlacePageControllerComposite implements PlacePageController<MapObject>
   {
     if (mControllers.isEmpty())
       throw new AssertionError("Place page controllers already destroyed!");
+
+    for (PlacePageController<MapObject> controller: mControllers)
+      controller.destroy();
 
     mControllers.clear();
   }
@@ -178,17 +177,17 @@ class PlacePageControllerComposite implements PlacePageController<MapObject>
 
   @NonNull
   private static PlacePageController<MapObject> createRichPlacePageController(
-      @NonNull Activity activity, @NonNull AdsRemovalPurchaseControllerProvider provider,
+      @NonNull AdsRemovalPurchaseControllerProvider provider,
       @NonNull PlacePageController.SlideListener listener,
       @Nullable RoutingModeListener routingModeListener)
   {
-    return new RichPlacePageController(activity, provider, listener, routingModeListener);
+    return new RichPlacePageController(provider, listener, routingModeListener);
   }
 
   @NonNull
   private static PlacePageController<MapObject> createSimplePlacePageController(
-      @NonNull Activity activity, @NonNull PlacePageController.SlideListener listener)
+      @NonNull PlacePageController.SlideListener listener)
   {
-    return new SimplePlacePageController(activity, listener);
+    return new SimplePlacePageController(listener);
   }
 }

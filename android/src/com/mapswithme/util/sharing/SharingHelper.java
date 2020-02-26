@@ -8,20 +8,21 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.text.TextUtils;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import android.text.TextUtils;
-
 import com.cocosw.bottomsheet.BottomSheet;
 import com.google.gson.Gson;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
-import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.maps.dialog.DialogUtils;
+import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
@@ -36,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public enum SharingHelper
+public enum SharingHelper implements Initializable<Void>
 {
   INSTANCE;
 
@@ -53,7 +54,8 @@ public enum SharingHelper
   @Nullable
   private ProgressDialog mProgressDialog;
 
-  public void initialize()
+  @Override
+  public void initialize(@Nullable Void aVoid)
   {
     ThreadPool.getStorage().execute(
         () ->
@@ -68,6 +70,12 @@ public enum SharingHelper
               INSTANCE.mItems.put(item.packageName, item);
           }
         });
+  }
+
+  @Override
+  public void destroy()
+  {
+    // No op.
   }
 
   private static SharingTarget[] parse(String json)

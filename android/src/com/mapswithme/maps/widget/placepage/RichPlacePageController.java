@@ -21,6 +21,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.ads.CompoundNativeAdLoader;
 import com.mapswithme.maps.ads.DefaultAdTracker;
+import com.mapswithme.maps.ads.Factory;
 import com.mapswithme.maps.ads.MwmNativeAd;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.RoadWarningMarkType;
@@ -47,8 +48,6 @@ public class RichPlacePageController implements PlacePageController<MapObject>, 
   private static final String TAG = RichPlacePageController.class.getSimpleName();
   private static final int ANIM_BANNER_APPEARING_MS = 300;
   private static final int ANIM_CHANGE_PEEK_HEIGHT_MS = 100;
-  @NonNull
-  private final Activity mActivity;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private AnchorBottomSheetBehavior<View> mPlacePageBehavior;
@@ -81,8 +80,9 @@ public class RichPlacePageController implements PlacePageController<MapObject>, 
   private final AdsRemovalPurchaseControllerProvider mPurchaseControllerProvider;
   @NonNull
   private final SlideListener mSlideListener;
+  @SuppressWarnings("NullableProblems")
   @NonNull
-  private final GestureDetectorCompat mGestureDetector;
+  private GestureDetectorCompat mGestureDetector;
   @Nullable
   private final RoutingModeListener mRoutingModeListener;
   @NonNull
@@ -196,30 +196,33 @@ public class RichPlacePageController implements PlacePageController<MapObject>, 
     return height - mPlacePageBehavior.getPeekHeight();
   }
 
-  RichPlacePageController(@NonNull Activity activity,
-                          @NonNull AdsRemovalPurchaseControllerProvider provider,
+  RichPlacePageController(@NonNull AdsRemovalPurchaseControllerProvider provider,
                           @NonNull SlideListener listener,
                           @Nullable RoutingModeListener routingModeListener)
   {
-    mActivity = activity;
     mPurchaseControllerProvider = provider;
     mSlideListener = listener;
-    mGestureDetector = new GestureDetectorCompat(activity, new PlacePageGestureListener());
     mRoutingModeListener = routingModeListener;
   }
 
   @SuppressLint("ClickableViewAccessibility")
   @Override
-  public void initialize()
+  public void initialize(@Nullable Activity activity)
   {
-    Resources res = mActivity.getResources();
+    if (activity == null)
+      throw new AssertionError("Activity must be non-null!");
+
+
+    mGestureDetector = new GestureDetectorCompat(activity, new PlacePageGestureListener());
+
+    Resources res = activity.getResources();
     mViewportMinHeight = res.getDimensionPixelSize(R.dimen.viewport_min_height);
     mOpenBannerTouchSlop = res.getDimensionPixelSize(R.dimen.placepage_banner_open_touch_slop);
-    mToolbar = mActivity.findViewById(R.id.pp_toolbar);
+    mToolbar = activity.findViewById(R.id.pp_toolbar);
     UiUtils.extendViewWithStatusBar(mToolbar);
     UiUtils.showHomeUpButton(mToolbar);
     mToolbar.setNavigationOnClickListener(v -> close(true));
-    mPlacePage = mActivity.findViewById(R.id.placepage);
+    mPlacePage = activity.findViewById(R.id.placepage);
     mPlacePageBehavior = AnchorBottomSheetBehavior.from(mPlacePage);
     mPlacePageBehavior.addBottomSheetCallback(mSheetCallback);
     mPlacePage.setOnTouchListener((v, event) -> mGestureDetector.onTouchEvent(event));
@@ -229,16 +232,16 @@ public class RichPlacePageController implements PlacePageController<MapObject>, 
 
     ViewGroup bannerContainer = mPlacePage.findViewById(R.id.banner_container);
     DefaultAdTracker tracker = new DefaultAdTracker();
-    CompoundNativeAdLoader loader = com.mapswithme.maps.ads.Factory.createCompoundLoader(tracker,
-                                                                                         tracker);
+    CompoundNativeAdLoader loader = Factory.createCompoundLoader(tracker,
+                                                                 tracker);
     mBannerController = new BannerController(bannerContainer, loader, tracker,
                                              mPurchaseControllerProvider, this, this);
 
-    mButtonsLayout = mActivity.findViewById(R.id.pp_buttons_layout);
+    mButtonsLayout = activity.findViewById(R.id.pp_buttons_layout);
     ViewGroup buttons = mButtonsLayout.findViewById(R.id.container);
     mPlacePage.initButtons(buttons);
     UiUtils.bringViewToFrontOf(mButtonsLayout, mPlacePage);
-    UiUtils.bringViewToFrontOf(mActivity.findViewById(R.id.app_bar), mPlacePage);
+    UiUtils.bringViewToFrontOf(activity.findViewById(R.id.app_bar), mPlacePage);
     mPlacePageTracker = new PlacePageTracker(mPlacePage, mButtonsLayout);
     LocationHelper.INSTANCE.addListener(this);
   }

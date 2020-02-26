@@ -10,10 +10,10 @@ public class PlacePageFactory
 {
   @NonNull
   public static PlacePageController<MapObject> createPlacePageController(
-      @NonNull Activity activity, @NonNull AdsRemovalPurchaseControllerProvider provider,
+      @NonNull AdsRemovalPurchaseControllerProvider provider,
       @NonNull PlacePageController.SlideListener slideListener,
       @NonNull RoutingModeListener routingModeListener)
   {
-    return new PlacePageControllerComposite(activity, provider, slideListener, routingModeListener);
+    return new PlacePageControllerComposite(provider, slideListener, routingModeListener);
   }
 }

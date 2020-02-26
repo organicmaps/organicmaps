@@ -36,8 +36,11 @@ public class FailedBookmarkPurchaseController implements PurchaseController<Fail
   }
 
   @Override
-  public void initialize(@NonNull Activity activity)
+  public void initialize(@Nullable Activity activity)
   {
+    if (activity == null)
+      throw new AssertionError("Activity must be non-null!");
+
     mBillingManager.initialize(activity);
     mValidator.addCallback(mValidationCallback);
     mBillingManager.addCallback(mBillingCallback);

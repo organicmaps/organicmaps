@@ -1,9 +1,11 @@
 package com.mapswithme.maps;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.util.Base64;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.purchase.CoreStartTransactionObserver;
 import com.mapswithme.maps.purchase.CoreValidationObserver;
 import com.mapswithme.maps.purchase.PurchaseUtils;
@@ -17,7 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 public class PurchaseOperationObservable implements Framework.PurchaseValidationListener,
-                                                    Framework.StartTransactionListener
+                                                    Framework.StartTransactionListener,
+                                                    Initializable<Void>
 {
   private static final String TAG = PurchaseOperationObservable.class.getSimpleName();
   @NonNull
@@ -42,12 +45,19 @@ public class PurchaseOperationObservable implements Framework.PurchaseValidation
     return application.getPurchaseOperationObservable();
   }
 
-  public void initialize()
+  @Override
+  public void initialize(@Nullable Void aVoid)
   {
     mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
     mLogger.i(TAG, "Initializing purchase operation observable...");
     Framework.nativeSetPurchaseValidationListener(this);
     Framework.nativeStartPurchaseTransactionListener(this);
+  }
+
+  @Override
+  public void destroy()
+  {
+    // No op.
   }
 
   @Override
