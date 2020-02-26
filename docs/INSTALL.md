@@ -66,7 +66,7 @@ Run tests from this directory with `omim/tools/unix/run_tests.sh`.
 
 Install dependencies:
 
-    dnf install clang qt5-qtbase-devel boost-devel libstdc++-devel
+    dnf install clang qt5-qtbase-devel boost-devel libstdc++-devel libsqlite3-devel
 
 Then do a git clone, run `configure.sh` and compile with linux-clang spec:
 
