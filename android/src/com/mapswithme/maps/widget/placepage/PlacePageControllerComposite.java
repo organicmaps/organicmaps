@@ -188,6 +188,6 @@ class PlacePageControllerComposite implements PlacePageController<MapObject>
   private static PlacePageController<MapObject> createSimplePlacePageController(
       @NonNull PlacePageController.SlideListener listener)
   {
-    return new SimplePlacePageController(listener);
+    return new SimplePlacePageController(listener, new ElevationProfileViewRenderer());
   }
 }

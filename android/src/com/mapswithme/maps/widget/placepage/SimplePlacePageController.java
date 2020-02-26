@@ -31,6 +31,8 @@ public class SimplePlacePageController implements PlacePageController<MapObject>
   @Nullable
   private MapObject mMapObject;
   @NonNull
+  private final PlacePageViewRenderer<MapObject> mViewRenderer;
+  @NonNull
   private final BottomSheetChangedListener mBottomSheetChangedListener = new BottomSheetChangedListener()
   {
     @Override
@@ -86,15 +88,18 @@ public class SimplePlacePageController implements PlacePageController<MapObject>
 
   private boolean mDeactivateMapSelection = true;
 
-  SimplePlacePageController(@NonNull SlideListener slideListener)
+  SimplePlacePageController(@NonNull SlideListener slideListener,
+                            @NonNull PlacePageViewRenderer<MapObject> renderer)
   {
     mSlideListener = slideListener;
+    mViewRenderer = renderer;
   }
 
   @Override
   public void openFor(@NonNull MapObject object)
   {
     mMapObject = object;
+    mViewRenderer.render(mMapObject);
     if (mSheetBehavior.getSkipCollapsed())
       mSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_EXPANDED);
     else
@@ -167,12 +172,13 @@ public class SimplePlacePageController implements PlacePageController<MapObject>
     mViewPortMinWidth = mSheet.getResources().getDimensionPixelSize(R.dimen.viewport_min_width);
     mSheetBehavior = AnchorBottomSheetBehavior.from(mSheet);
     mSheetBehavior.addBottomSheetCallback(mSheetCallback);
+    mViewRenderer.initialize(mSheet);
   }
 
   @Override
   public void destroy()
   {
-    // Do nothing by default.
+    mViewRenderer.destroy();
   }
 
   @Override
