@@ -20,7 +20,6 @@ enum class Section
   VoiceInstructions,
   Language,
   SpeedCameras,
-  FAQ,
   Count
 };
 
@@ -187,36 +186,6 @@ struct CamerasCellStrategy : BaseCellStategy
 
   SettingsTableViewSelectableCell * m_selectedCell = nil;
 };
-
-struct FAQCellStrategy : BaseCellStategy
-{
-  UITableViewCell * BuildCell(UITableView * tableView, NSIndexPath * indexPath,
-                              MWMTTSSettingsViewController * /* controller */) override
-  {
-    Class cls = [SettingsTableViewLinkCell class];
-    auto cell = static_cast<SettingsTableViewLinkCell *>(
-        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-    [cell configWithTitle:L(@"pref_tts_how_to_set_up_voice") info:nil];
-    return cell;
-  }
-
-  void SelectCell(UITableView * /* tableView */, NSIndexPath * /* indexPath */,
-                  MWMTTSSettingsViewController * controller) override
-  {
-    [Statistics logEvent:kStatEventName(kStatTTSSettings, kStatHelp)];
-    NSString * path = [NSBundle.mainBundle pathForResource:@"tts-how-to-set-up-voice"
-                                                    ofType:@"html"];
-    NSString * html = [[NSString alloc] initWithContentsOfFile:path
-                                                      encoding:NSUTF8StringEncoding
-                                                         error:nil];
-    NSURL * baseURL = [NSURL fileURLWithPath:path];
-    WebViewController * vc =
-        [[WebViewController alloc] initWithHtml:html
-                                        baseUrl:baseURL
-                                          title:L(@"pref_tts_how_to_set_up_voice")];
-    [controller.navigationController pushViewController:vc animated:YES];
-  };
-};
 }  // namespace
 
 @interface MWMTTSSettingsViewController ()<SettingsTableViewSwitchCellDelegate>
@@ -241,7 +210,6 @@ struct FAQCellStrategy : BaseCellStategy
     m_strategies.emplace(Underlying(Section::VoiceInstructions), make_unique<VoiceInstructionCellStrategy>());
     m_strategies.emplace(Underlying(Section::Language), make_unique<LanguageCellStrategy>());
     m_strategies.emplace(Underlying(Section::SpeedCameras), make_unique<CamerasCellStrategy>());
-    m_strategies.emplace(Underlying(Section::FAQ), make_unique<FAQCellStrategy>());
   }
 
   return self;

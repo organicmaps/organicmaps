@@ -136,8 +136,6 @@
 		3472B5E1200F86C800DC6CD5 /* MWMEditorHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5DF200F86C800DC6CD5 /* MWMEditorHelper.mm */; };
 		34763EE71F2F392300F4D2D3 /* MWMTextToSpeech.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34763EE51F2F392300F4D2D3 /* MWMTextToSpeech.mm */; };
 		34763F071F3092E700F4D2D3 /* String+Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34763F051F3092E700F4D2D3 /* String+Format.swift */; };
-		3476B8DD1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */; };
-		3476B8E11BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */; };
 		347752881F725002000D46A3 /* UGCAddReviewRatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347752851F725002000D46A3 /* UGCAddReviewRatingCell.swift */; };
 		3477528B1F725002000D46A3 /* UGCAddReviewRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347752861F725002000D46A3 /* UGCAddReviewRatingCell.xib */; };
 		347752901F7251C7000D46A3 /* UGCAddReviewTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3477528D1F7251C7000D46A3 /* UGCAddReviewTextCell.swift */; };
@@ -1085,8 +1083,6 @@
 		34763EEA1F2F3AD700F4D2D3 /* MWMTextToSpeechObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTextToSpeechObserver.h; sourceTree = "<group>"; };
 		34763F051F3092E700F4D2D3 /* String+Format.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Format.swift"; sourceTree = "<group>"; };
 		34763F0B1F30CCAC00F4D2D3 /* MWMEditorCellType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMEditorCellType.h; sourceTree = "<group>"; };
-		3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "tts-how-to-set-up-voice.html"; path = "../../data/tts-how-to-set-up-voice.html"; sourceTree = "<group>"; };
-		3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tts-how-to-set-up-voice-img"; path = "../../data/tts-how-to-set-up-voice-img"; sourceTree = "<group>"; };
 		347752851F725002000D46A3 /* UGCAddReviewRatingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UGCAddReviewRatingCell.swift; sourceTree = "<group>"; };
 		347752861F725002000D46A3 /* UGCAddReviewRatingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UGCAddReviewRatingCell.xib; sourceTree = "<group>"; };
 		3477528D1F7251C7000D46A3 /* UGCAddReviewTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UGCAddReviewTextCell.swift; sourceTree = "<group>"; };
@@ -4775,8 +4771,6 @@
 				4501B1932077C35A001B9173 /* resources-xxxhdpi_dark */,
 				FAAEA7D0161BD26600CCD661 /* synonyms.txt */,
 				BB25B1A51FB32767007276FA /* transit_colors.txt */,
-				3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */,
-				3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */,
 				FA64D9A813F975AD00350ECF /* types.txt */,
 				F642D1221F0F9D1D005E3C25 /* ugc_types.csv */,
 				EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */,
@@ -5115,9 +5109,7 @@
 				CDB4D4D7222D248900104869 /* CarPlayStoryboard.storyboard in Resources */,
 				47C8789122DF525A00A772DA /* SubscriptionSuccessViewController.xib in Resources */,
 				4707E4B42372FF480017DF6E /* PlacePage.storyboard in Resources */,
-				3476B8E11BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */,
 				47C8789E22DF662700A772DA /* SubscriptionExpiredViewController.xib in Resources */,
-				3476B8DD1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */,
 				6741A95D1BF340DE002C974C /* types.txt in Resources */,
 				6741A94B1BF340DE002C974C /* unicode_blocks.txt in Resources */,
 				340E1EFE1E2F614400CE49BF /* Welcome.storyboard in Resources */,
