@@ -69,6 +69,11 @@ OSM_TOOLS_SRC_PATH: ${Developer:OMIM_PATH}/tools/osmctools
 OSM_TOOLS_PATH: ~/osmctools
 
 
+[Stages]
+# Run osmupdate tool for planet.
+NEED_PLANET_UPDATE: 0
+
+
 [Logging]
 # The path where maps_generator log will be saved.
 # LOG_FILE_PATH: generation.log
@@ -100,9 +105,11 @@ SUBWAY_URL: http://osm-subway.maps.me/mapsme/latest.json
 # UK_POSTCODES_URL:
 # US_POSTCODES_URL:
 
+
 [Common]
 # Auto detection.
 THREADS_COUNT: 0
+
 
 [Stats]
 # Path to rules for calculating statistics by type

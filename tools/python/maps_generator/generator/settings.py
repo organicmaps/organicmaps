@@ -90,6 +90,9 @@ OSM_TOOLS_PATH = os.path.join(_WORK_PATH, "osmctools")
 NODE_STORAGE = "mem" if total_virtual_memory() / 10 ** 9 >= 64 else "map"
 USER_RESOURCE_PATH = os.path.join(OMIM_PATH, "data")
 
+# Stages section:
+NEED_PLANET_UPDATE = False
+
 # Logging section:
 LOG_FILE_PATH = os.path.join(MAIN_OUT_PATH, "generation.log")
 
@@ -204,6 +207,10 @@ def init(default_settings_path: AnyStr):
         "Generator tool", "USER_RESOURCE_PATH", USER_RESOURCE_PATH
     )
     NODE_STORAGE = cfg.get_opt("Generator tool", "NODE_STORAGE", NODE_STORAGE)
+
+    # Stages section:
+    global NEED_PLANET_UPDATE
+    NEED_PLANET_UPDATE = cfg.get_opt("Stages", "NEED_PLANET_UPDATE", NEED_PLANET_UPDATE)
 
     # Logging section:
     global LOG_FILE_PATH

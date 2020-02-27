@@ -84,8 +84,7 @@ class StageDownloadProductionExternal(Stage):
 @outer_stage
 @planet_lock
 class StageDownloadAndConvertPlanet(Stage):
-    def apply(self, env: Env, **kwargs):
-        force_download = not is_accepted(env, StageUpdatePlanet)
+    def apply(self, env: Env, force_download: bool = True, **kwargs):
         if force_download or not is_verified(settings.PLANET_O5M):
             steps.step_download_and_convert_planet(
                 env, force_download=force_download, **kwargs
@@ -96,8 +95,7 @@ class StageDownloadAndConvertPlanet(Stage):
 @planet_lock
 class StageUpdatePlanet(Stage):
     def apply(self, env: Env, **kwargs):
-        if not settings.DEBUG:
-            steps.step_update_planet(env, **kwargs)
+        steps.step_update_planet(env, **kwargs)
 
 
 @outer_stage

@@ -260,6 +260,9 @@ def main():
                 f" You can exclude them with --without_countries option."
             )
 
+    if not settings.NEED_PLANET_UPDATE:
+        skipped_stages.add(sd.StageUpdatePlanet)
+
     # Make env and run maps generation.
     env = Env(
         countries=countries,
