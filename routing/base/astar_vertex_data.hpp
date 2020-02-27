@@ -5,7 +5,8 @@ namespace routing::astar
 template <typename Vertex, typename Weight>
 struct VertexData
 {
-  VertexData() = default;
+  static VertexData Zero() { return VertexData(Vertex(), Weight()); }
+
   VertexData(Vertex const & vertex, Weight const & realDistance)
     : m_vertex(vertex), m_realDistance(realDistance)
   {

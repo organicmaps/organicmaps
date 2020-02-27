@@ -187,7 +187,7 @@ optional<JointEdge> IndexGraph::GetJointEdgeByLastPoint(Segment const & parent,
   vector<JointEdge> edges;
   vector<RouteWeight> parentWeights;
   Parents<JointSegment> emptyParents;
-  ReconstructJointSegment({} /* parentVertexData */, parent, possibleChildren, lastPoints,
+  ReconstructJointSegment(astar::VertexData<JointSegment, RouteWeight>::Zero(), parent, possibleChildren, lastPoints,
                           isOutgoing, edges, parentWeights, emptyParents);
 
   CHECK_LESS_OR_EQUAL(edges.size(), 1, ());
