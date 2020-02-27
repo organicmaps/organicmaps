@@ -124,7 +124,7 @@ waterway|stream|tunnel
 tourism|information|guidepost
 amenity|parking|fee
 amenity|kindergarten
-power|generator|wind
+mapswithme
 place|suburb
 landuse|allotments
 landuse|forest|coniferous
@@ -330,7 +330,7 @@ sport|football
 highway|steps|bridge
 highway|track|tunnel
 highway|pedestrian|tunnel
-power|generator|hydro
+mapswithme
 sport|cricket
 sport|bowls
 highway|path|tunnel
@@ -373,7 +373,7 @@ mapswithme
 landuse|greenhouse_horticulture
 mapswithme
 amenity|bureau_de_change
-power|generator|photovoltaic
+mapswithme
 mapswithme
 highway|bridleway|bridge
 highway|service|driveway

@@ -696,11 +696,7 @@ world  +
         village  -
         {}
     power  +
-        generator  +
-            hydro  -
-            photovoltaic  -
-            wind  -
-            {}
+        generator  -
         line  +
             underground  -
             {}
