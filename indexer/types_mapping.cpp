@@ -28,19 +28,33 @@ void IndexAndTypeMapping::Load(istream & s)
     if (!v.empty())
     {
       path.clear();
+
+      // Types can be deprecated with replacement, for deprecated type we have replacing type
+      // in types.txt. We should use only main type for type index to ensure stable indices.
+      // Main type description starts with '*' in types.txt.
+      auto const isMainTypeDescription = v[0] == '*';
+      if (isMainTypeDescription)
+      {
+        v = v.substr(1);
+        CHECK(!v.empty(), (ind));
+      }
       strings::Tokenize(v, "|", base::MakeBackInsertFunctor(path));
 
-      Add(ind++, c.GetTypeByPath(path));
+      Add(ind++, c.GetTypeByPath(path), isMainTypeDescription);
     }
   }
 }
 
-void IndexAndTypeMapping::Add(uint32_t ind, uint32_t type)
+void IndexAndTypeMapping::Add(uint32_t ind, uint32_t type, bool isMainTypeDescription)
 {
   ASSERT_EQUAL ( ind, m_types.size(), () );
 
   m_types.push_back(type);
-  m_map.insert(make_pair(type, ind));
+  if (isMainTypeDescription)
+  {
+    auto const res = m_map.insert(make_pair(type, ind));
+    CHECK(res.second, ("Type can have only one main description.", ind, m_map[ind]));
+  }
 }
 
 uint32_t IndexAndTypeMapping::GetIndex(uint32_t t) const

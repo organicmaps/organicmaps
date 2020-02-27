@@ -82,3 +82,23 @@ UNIT_CLASS_TEST(TestWithClassificator, Classificator_Subtree)
 
   TEST_EQUAL(expectedTypes, subtreeTypes, ());
 }
+
+UNIT_CLASS_TEST(TestWithClassificator, Classificator_StableIndex)
+{
+  // mapcss-mapping.csv:
+  //
+  // amenity|parking|underground|fee;[amenity=parking][location=underground][fee?],[amenity=parking][parking=underground][fee?];x;name;int_name;356;amenity|parking|underground
+  // amenity|parking|underground;[amenity=parking][location=underground],[amenity=parking][parking=underground];;name;int_name;357;
+  //
+  // The main definition of amenity|parking|underground goes second but we must use it for index. Test both indexes 
+  // belong to amenity|parking|underground type and GetIndexForType returns second  one.
+
+  Classificator const & c = classif();
+
+  uint32_t const type = c.GetTypeByPath({"amenity", "parking", "underground"});
+  TEST(c.IsTypeValid(type), ());
+  uint32_t const index = c.GetIndexForType(type);
+  TEST_EQUAL(index, 357 - 1, ());
+  TEST_EQUAL(type, c.GetTypeForIndex(356 - 1), ());
+  TEST_EQUAL(type, c.GetTypeForIndex(357 - 1), ());
+}

@@ -28,7 +28,7 @@ public:
 
 private:
   using Map = std::map<uint32_t, uint32_t>;
-  void Add(uint32_t ind, uint32_t type);
+  void Add(uint32_t ind, uint32_t type, bool isMainTypeDescription);
 
   std::vector<uint32_t> m_types;
   Map m_map;
