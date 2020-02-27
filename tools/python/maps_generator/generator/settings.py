@@ -131,8 +131,6 @@ OSM_TOOLS_CC_FLAGS = [
 ]
 
 # Planet and coasts:
-PLANET_O5M = os.path.join(MAIN_OUT_PATH, PLANET + ".o5m")
-PLANET_PBF = os.path.join(MAIN_OUT_PATH, PLANET + ".osm.pbf")
 PLANET_COASTS_GEOM_URL = os.path.join(PLANET_COASTS_URL, "latest_coasts.geom")
 PLANET_COASTS_RAWGEOM_URL = os.path.join(PLANET_COASTS_URL, "latest_coasts.rawgeom")
 
@@ -275,12 +273,8 @@ def init(default_settings_path: AnyStr):
         THREADS_COUNT = threads_count
 
     # Planet and costs:
-    global PLANET_O5M
-    global PLANET_PBF
     global PLANET_COASTS_GEOM_URL
     global PLANET_COASTS_RAWGEOM_URL
-    PLANET_O5M = os.path.join(MAIN_OUT_PATH, PLANET + ".o5m")
-    PLANET_PBF = os.path.join(MAIN_OUT_PATH, PLANET + ".osm.pbf")
     PLANET_COASTS_GEOM_URL = os.path.join(PLANET_COASTS_URL, "latest_coasts.geom")
     PLANET_COASTS_RAWGEOM_URL = os.path.join(PLANET_COASTS_URL, "latest_coasts.rawgeom")
 

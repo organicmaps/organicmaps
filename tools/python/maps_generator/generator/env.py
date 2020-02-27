@@ -212,6 +212,14 @@ class PathProvider:
         return self.intermediate_data_path
 
     @property
+    def planet_osm_pbf(self) -> AnyStr:
+        return os.path.join(self.build_path, f"{settings.PLANET}.osm.pbf")
+
+    @property
+    def planet_o5m(self) -> AnyStr:
+        return os.path.join(self.build_path, f"{settings.PLANET}.o5m")
+
+    @property
     def main_status_path(self) -> AnyStr:
         return os.path.join(self.status_path, "stages.status")
 
@@ -312,7 +320,6 @@ class PathProvider:
     @staticmethod
     def srtm_path() -> AnyStr:
         return settings.SRTM_PATH
-        
 
     @staticmethod
     def isolines_path() -> AnyStr:

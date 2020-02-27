@@ -33,7 +33,7 @@ def make_coastline(env: Env):
     coastline_o5m = os.path.join(env.paths.coastline_path, "coastline.o5m")
     filter_coastline(
         env[settings.OSM_TOOL_FILTER],
-        settings.PLANET_O5M,
+        env.paths.planet_o5m,
         coastline_o5m,
         output=env.get_subprocess_out(),
         error=env.get_subprocess_out(),

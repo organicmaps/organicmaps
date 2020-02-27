@@ -53,33 +53,33 @@ def convert_planet(
 
 
 def step_download_and_convert_planet(env: Env, force_download: bool, **kwargs):
-    if force_download or not is_verified(settings.PLANET_PBF):
-        download_planet(settings.PLANET_PBF)
+    if force_download or not is_verified(env.paths.planet_osm_pbf):
+        download_planet(env.paths.planet_osm_pbf)
 
     convert_planet(
         env[settings.OSM_TOOL_CONVERT],
-        settings.PLANET_PBF,
-        settings.PLANET_O5M,
+        env.paths.planet_osm_pbf,
+        env.paths.planet_o5m,
         output=env.get_subprocess_out(),
         error=env.get_subprocess_out(),
     )
-    os.remove(settings.PLANET_PBF)
-    os.remove(md5(settings.PLANET_PBF))
+    os.remove(env.paths.planet_osm_pbf)
+    os.remove(md5(env.paths.planet_osm_pbf))
 
 
 def step_update_planet(env: Env, **kwargs):
-    tmp = settings.PLANET_O5M + ".tmp"
+    tmp = f"{env.paths.planet_o5m}.tmp"
     osmupdate(
         env[settings.OSM_TOOL_UPDATE],
-        settings.PLANET_O5M,
+        env.paths.planet_o5m,
         tmp,
         output=env.get_subprocess_out(),
         error=env.get_subprocess_out(),
         **kwargs,
     )
-    os.remove(settings.PLANET_O5M)
-    os.rename(tmp, settings.PLANET_O5M)
-    write_md5sum(settings.PLANET_O5M, md5(settings.PLANET_O5M))
+    os.remove(env.paths.planet_o5m)
+    os.rename(tmp, env.paths.planet_o5m)
+    write_md5sum(env.paths.planet_o5m, md5(env.paths.planet_o5m))
 
 
 def step_preprocess(env: Env, **kwargs):
@@ -89,7 +89,7 @@ def step_preprocess(env: Env, **kwargs):
         err=env.get_subprocess_out(),
         intermediate_data_path=env.paths.intermediate_data_path,
         osm_file_type="o5m",
-        osm_file_name=settings.PLANET_O5M,
+        osm_file_name=env.paths.planet_o5m,
         node_storage=env.node_storage,
         user_resource_path=env.paths.user_resource_path,
         preprocess=True,
@@ -114,7 +114,7 @@ def step_features(env: Env, **kwargs):
         data_path=env.paths.data_path,
         intermediate_data_path=env.paths.intermediate_data_path,
         osm_file_type="o5m",
-        osm_file_name=settings.PLANET_O5M,
+        osm_file_name=env.paths.planet_o5m,
         node_storage=env.node_storage,
         user_resource_path=env.paths.user_resource_path,
         dump_cities_boundaries=True,

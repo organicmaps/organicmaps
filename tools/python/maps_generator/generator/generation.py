@@ -66,17 +66,11 @@ class Generation:
         if from_stage is not None:
             self.reset_to_stage(from_stage)
 
-        planet_lock = filelock.FileLock(f"{settings.PLANET_O5M}.lock", timeout=1)
         build_lock = filelock.FileLock(
             f"{os.path.join(self.env.paths.build_path, 'lock')}.lock"
         )
         try:
             for stage in self.runnable_stages:
-                if stage.need_planet_lock:
-                    planet_lock.acquire()
-                else:
-                    planet_lock.release()
-
                 if stage.need_build_lock:
                     build_lock.acquire()
                 else:
@@ -84,7 +78,6 @@ class Generation:
 
                 stage(self.env)
         finally:
-            planet_lock.release()
             build_lock.release()
 
     def reset_to_stage(self, stage_name: AnyStr):
