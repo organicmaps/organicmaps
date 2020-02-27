@@ -204,6 +204,7 @@ public class SimplePlacePageController implements PlacePageController<MapObject>
       return;
 
     mMapObject = object;
+    mViewRenderer.render(object);
     if (UiUtils.isLandscape(mApplication))
     {
       // In case when bottom sheet was collapsed for vertical orientation then after rotation
