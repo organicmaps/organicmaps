@@ -14,7 +14,7 @@
   <RelativeLayout
     android:id="@+id/text_container"
     android:layout_width="wrap_content"
-    android:layout_height="@dimen/half_elevation_profile_height"
+    android:layout_height="@dimen/elevation_profile_half_height"
     android:layout_marginStart="@dimen/margin_eighth"
     android:layout_marginEnd="@dimen/margin_eighth"
     android:layout_alignParentBottom="true"
@@ -22,7 +22,7 @@
     <RelativeLayout
       android:id="@+id/sliding_container"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/half_elevation_profile_height"
+      android:layout_height="@dimen/elevation_profile_half_height"
       android:maxWidth="@dimen/dialog_min_height"
       android:padding="@dimen/margin_quarter_plus"
       android:background="?elevationProfileSelectedPointBg"

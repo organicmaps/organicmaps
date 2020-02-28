@@ -8,8 +8,6 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -35,6 +33,8 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.PlacePageTracker;
 import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
+
+import java.util.Objects;
 
 public class RichPlacePageController implements PlacePageController<MapObject>, LocationListener,
                                                 View.OnLayoutChangeListener,
@@ -80,9 +80,6 @@ public class RichPlacePageController implements PlacePageController<MapObject>, 
   private final AdsRemovalPurchaseControllerProvider mPurchaseControllerProvider;
   @NonNull
   private final SlideListener mSlideListener;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private GestureDetectorCompat mGestureDetector;
   @Nullable
   private final RoutingModeListener mRoutingModeListener;
   @NonNull
@@ -110,6 +107,7 @@ public class RichPlacePageController implements PlacePageController<MapObject>, 
     @Override
     public void onSheetCollapsed()
     {
+      mPlacePage.resetScroll();
       mBannerController.onPlacePageStateChanged();
       setPeekHeight();
     }
@@ -209,12 +207,7 @@ public class RichPlacePageController implements PlacePageController<MapObject>, 
   @Override
   public void initialize(@Nullable Activity activity)
   {
-    if (activity == null)
-      throw new AssertionError("Activity must be non-null!");
-
-
-    mGestureDetector = new GestureDetectorCompat(activity, new PlacePageGestureListener());
-
+    Objects.requireNonNull(activity);
     Resources res = activity.getResources();
     mViewportMinHeight = res.getDimensionPixelSize(R.dimen.viewport_min_height);
     mOpenBannerTouchSlop = res.getDimensionPixelSize(R.dimen.placepage_banner_open_touch_slop);
@@ -225,11 +218,12 @@ public class RichPlacePageController implements PlacePageController<MapObject>, 
     mPlacePage = activity.findViewById(R.id.placepage);
     mPlacePageBehavior = AnchorBottomSheetBehavior.from(mPlacePage);
     mPlacePageBehavior.addBottomSheetCallback(mSheetCallback);
-    mPlacePage.setOnTouchListener((v, event) -> mGestureDetector.onTouchEvent(event));
+    GestureDetectorCompat gestureDetector
+        = new GestureDetectorCompat(activity, new PlacePageGestureListener(mPlacePageBehavior));
+    mPlacePage.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
     mPlacePage.addOnLayoutChangeListener(this);
     mPlacePage.addClosable(this);
     mPlacePage.setRoutingModeListener(mRoutingModeListener);
-
     ViewGroup bannerContainer = mPlacePage.findViewById(R.id.banner_container);
     DefaultAdTracker tracker = new DefaultAdTracker();
     CompoundNativeAdLoader loader = Factory.createCompoundLoader(tracker,
@@ -576,29 +570,5 @@ public class RichPlacePageController implements PlacePageController<MapObject>, 
   {
     // TODO: only for tests.
     return !object.getTitle().equals("Петровский Путевой Дворец");
-  }
-
-  private class PlacePageGestureListener extends GestureDetector.SimpleOnGestureListener
-  {
-    @Override
-    public boolean onSingleTapConfirmed(MotionEvent e)
-    {
-      @AnchorBottomSheetBehavior.State
-      int state = mPlacePageBehavior.getState();
-      if (PlacePageUtils.isCollapsedState(state))
-      {
-        mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_ANCHORED);
-        return true;
-      }
-
-      if (PlacePageUtils.isAnchoredState(state) || PlacePageUtils.isExpandedState(state))
-      {
-        mPlacePage.resetScroll();
-        mPlacePageBehavior.setState(AnchorBottomSheetBehavior.STATE_COLLAPSED);
-        return true;
-      }
-
-      return false;
-    }
   }
 }

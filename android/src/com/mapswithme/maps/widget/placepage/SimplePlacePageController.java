@@ -1,17 +1,22 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GestureDetectorCompat;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.util.UiUtils;
 import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
+
+import java.util.Objects;
 
 public class SimplePlacePageController implements PlacePageController<MapObject>
 {
@@ -33,55 +38,56 @@ public class SimplePlacePageController implements PlacePageController<MapObject>
   @NonNull
   private final PlacePageViewRenderer<MapObject> mViewRenderer;
   @NonNull
-  private final BottomSheetChangedListener mBottomSheetChangedListener = new BottomSheetChangedListener()
-  {
-    @Override
-    public void onSheetHidden()
-    {
-      onHiddenInternal();
-    }
+  private final BottomSheetChangedListener mBottomSheetChangedListener =
+      new BottomSheetChangedListener()
+      {
+        @Override
+        public void onSheetHidden()
+        {
+          onHiddenInternal();
+        }
 
-    @Override
-    public void onSheetDirectionIconChange()
-    {
-      if (UiUtils.isLandscape(mApplication))
-        return;
+        @Override
+        public void onSheetDirectionIconChange()
+        {
+          if (UiUtils.isLandscape(mApplication))
+            return;
 
-      PlacePageUtils.setPullDrawable(mSheetBehavior, mSheet, R.id.pull_icon);
-    }
+          PlacePageUtils.setPullDrawable(mSheetBehavior, mSheet, R.id.pull_icon);
+        }
 
-    @Override
-    public void onSheetDetailsOpened()
-    {
-      if (UiUtils.isLandscape(mApplication))
-        PlacePageUtils.moveViewPortRight(mSheet, mViewPortMinWidth);
-    }
+        @Override
+        public void onSheetDetailsOpened()
+        {
+          if (UiUtils.isLandscape(mApplication))
+            PlacePageUtils.moveViewPortRight(mSheet, mViewPortMinWidth);
+        }
 
-    @Override
-    public void onSheetCollapsed()
-    {
-      if (UiUtils.isLandscape(mApplication))
-        PlacePageUtils.moveViewPortRight(mSheet, mViewPortMinWidth);
-    }
+        @Override
+        public void onSheetCollapsed()
+        {
+          if (UiUtils.isLandscape(mApplication))
+            PlacePageUtils.moveViewPortRight(mSheet, mViewPortMinWidth);
+        }
 
-    @Override
-    public void onSheetSliding(int top)
-    {
-      if (UiUtils.isLandscape(mApplication))
-        return;
+        @Override
+        public void onSheetSliding(int top)
+        {
+          if (UiUtils.isLandscape(mApplication))
+            return;
 
-      mSlideListener.onPlacePageSlide(top);
-    }
+          mSlideListener.onPlacePageSlide(top);
+        }
 
-    @Override
-    public void onSheetSlideFinish()
-    {
-      if (UiUtils.isLandscape(mApplication))
-        return;
+        @Override
+        public void onSheetSlideFinish()
+        {
+          if (UiUtils.isLandscape(mApplication))
+            return;
 
-      PlacePageUtils.moveViewportUp(mSheet, mViewportMinHeight);
-    }
-  };
+          PlacePageUtils.moveViewportUp(mSheet, mViewportMinHeight);
+        }
+      };
 
   private final AnchorBottomSheetBehavior.BottomSheetCallback mSheetCallback
       = new DefaultBottomSheetCallback(mBottomSheetChangedListener);
@@ -161,17 +167,21 @@ public class SimplePlacePageController implements PlacePageController<MapObject>
 
   }
 
+  @SuppressLint("ClickableViewAccessibility")
   @Override
   public void initialize(@Nullable Activity activity)
   {
-    if (activity == null)
-      throw new AssertionError("Activity must be non-null");
+    Objects.requireNonNull(activity);
     mApplication = activity.getApplication();
     mSheet = activity.findViewById(R.id.elevation_profile);
     mViewportMinHeight = mSheet.getResources().getDimensionPixelSize(R.dimen.viewport_min_height);
     mViewPortMinWidth = mSheet.getResources().getDimensionPixelSize(R.dimen.viewport_min_width);
     mSheetBehavior = AnchorBottomSheetBehavior.from(mSheet);
     mSheetBehavior.addBottomSheetCallback(mSheetCallback);
+    boolean isLandscape = UiUtils.isLandscape(mApplication);
+    GestureDetectorCompat gestureDetector = new GestureDetectorCompat(
+        activity, new SimplePlacePageGestureListener(mSheetBehavior, isLandscape));
+    mSheet.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
     mViewRenderer.initialize(mSheet);
   }
 
@@ -238,5 +248,29 @@ public class SimplePlacePageController implements PlacePageController<MapObject>
   {
     // TODO: only for tests.
     return object.getTitle().equals("Петровский Путевой Дворец");
+  }
+
+  private static class SimplePlacePageGestureListener extends PlacePageGestureListener
+  {
+    private final boolean mLandscape;
+
+    SimplePlacePageGestureListener(@NonNull AnchorBottomSheetBehavior<View> bottomSheetBehavior,
+                                   boolean landscape)
+    {
+      super(bottomSheetBehavior);
+      mLandscape = landscape;
+    }
+
+    @Override
+    public boolean onSingleTapConfirmed(MotionEvent e)
+    {
+      if (mLandscape)
+      {
+        getBottomSheetBehavior().setState(AnchorBottomSheetBehavior.STATE_HIDDEN);
+        return false;
+      }
+
+      return super.onSingleTapConfirmed(e);
+    }
   }
 }

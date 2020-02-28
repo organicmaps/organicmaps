@@ -81,10 +81,12 @@
   <dimen name="button_small_corner_radius">2dp</dimen>
   <dimen name="viewport_min_height">100dp</dimen>
   <dimen name="viewport_min_width">300dp</dimen>
-  <dimen name="elevation_profile_peek_height">269dp</dimen>
+  <dimen name="elevation_profile_peek_height">260dp</dimen>
   <dimen name="elevation_profile_chart_min_height">144dp</dimen>
   <dimen name="elevation_profile_chart_info_min_height">68dp</dimen>
   <dimen name="elevation_profile_difficulty_dot_size">10dp</dimen>
+  <dimen name="elevation_profile_height">144dp</dimen>
+  <dimen name="elevation_profile_half_height">72dp</dimen>
 
   <!-- routing layout -->
   <dimen name="routing_info_height">48dp</dimen>
@@ -292,6 +294,4 @@
   <dimen name="subs_btn_min_width">328dp</dimen>
   <dimen name="bookmarks_all_subscription_pager_item_margin">@dimen/margin_base_plus</dimen>
   <dimen name="bookmarks_sightseeing_subs_central_content_margin">88dp</dimen>
-  <dimen name="elevation_profile_height">144dp</dimen>
-  <dimen name="half_elevation_profile_height">72dp</dimen>
 </resources>
