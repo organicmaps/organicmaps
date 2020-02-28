@@ -107,6 +107,8 @@ std::string DebugPrint(UserMark::Type type)
   case UserMark::Type::SPEED_CAM: return "SPEED_CAM";
   case UserMark::Type::LOCAL_ADS: return "LOCAL_ADS";
   case UserMark::Type::TRANSIT: return "TRANSIT";
+  case UserMark::Type::TRACK_INFO: return "TRACK_INFO";
+  case UserMark::Type::TRACK_SELECTION: return "TRACK_SELECTION";
   case UserMark::Type::COLORED: return "COLORED";
   case UserMark::Type::USER_MARK_TYPES_COUNT: return "USER_MARK_TYPES_COUNT";
   case UserMark::Type::USER_MARK_TYPES_COUNT_MAX: return "USER_MARK_TYPES_COUNT_MAX";

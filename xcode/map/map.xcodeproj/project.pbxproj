@@ -221,6 +221,8 @@
 		67F183841BD5049500AB1840 /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F183801BD5049500AB1840 /* libtess2.a */; };
 		991CE2D02372BDB1009EB02A /* onboarding.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 991CE2CE2372BDB0009EB02A /* onboarding.hpp */; };
 		991CE2D12372BDB1009EB02A /* onboarding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2CF2372BDB1009EB02A /* onboarding.cpp */; };
+		BB1C0196241BF73C0067FD5C /* track_mark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB1C0194241BF73C0067FD5C /* track_mark.hpp */; };
+		BB1C0197241BF73C0067FD5C /* track_mark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB1C0195241BF73C0067FD5C /* track_mark.cpp */; };
 		BB421D6C1E8C0031005BFA4D /* transliteration_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB421D6A1E8C0026005BFA4D /* transliteration_test.cpp */; };
 		BB4E5F251FCC664A00A77250 /* transit_display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4E5F211FCC664A00A77250 /* transit_display.cpp */; };
 		BB4E5F261FCC664A00A77250 /* transit_display.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB4E5F221FCC664A00A77250 /* transit_display.hpp */; };
@@ -519,6 +521,8 @@
 		67F183871BD5050900AB1840 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		991CE2CE2372BDB0009EB02A /* onboarding.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = onboarding.hpp; sourceTree = "<group>"; };
 		991CE2CF2372BDB1009EB02A /* onboarding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = onboarding.cpp; sourceTree = "<group>"; };
+		BB1C0194241BF73C0067FD5C /* track_mark.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = track_mark.hpp; sourceTree = "<group>"; };
+		BB1C0195241BF73C0067FD5C /* track_mark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = track_mark.cpp; sourceTree = "<group>"; };
 		BB421D6A1E8C0026005BFA4D /* transliteration_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transliteration_test.cpp; sourceTree = "<group>"; };
 		BB4E5F211FCC664A00A77250 /* transit_display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = transit_display.cpp; path = transit/transit_display.cpp; sourceTree = "<group>"; };
 		BB4E5F221FCC664A00A77250 /* transit_display.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = transit_display.hpp; path = transit/transit_display.hpp; sourceTree = "<group>"; };
@@ -888,6 +892,8 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				BB1C0195241BF73C0067FD5C /* track_mark.cpp */,
+				BB1C0194241BF73C0067FD5C /* track_mark.hpp */,
 				3DBD7B90240D523300ED9FE8 /* elevation_info.cpp */,
 				3DBD7B91240D523300ED9FE8 /* elevation_info.hpp */,
 				BBB7060923E45F3300A7F29A /* isolines_manager.cpp */,
@@ -1081,6 +1087,7 @@
 				3DD692B3220AD240001C3C62 /* caching_address_getter.hpp in Headers */,
 				3D62CBDA20FF6C8B00E7BB6E /* discovery_search.hpp in Headers */,
 				3DD1166C21888AAD007A2ED4 /* notification_queue_serdes.hpp in Headers */,
+				BB1C0196241BF73C0067FD5C /* track_mark.hpp in Headers */,
 				3D0D2F7423D854AA00945C8D /* tips_api_delegate.hpp in Headers */,
 				675346491A4054E800A0A8C3 /* bookmark_manager.hpp in Headers */,
 				3DA5714320B5CC80007BDE27 /* booking_filter_processor.hpp in Headers */,
@@ -1295,6 +1302,7 @@
 				675346641A4054E800A0A8C3 /* framework.cpp in Sources */,
 				40ACC79623191C2600238E21 /* countries_names_tests.cpp in Sources */,
 				3DBD7B92240D523400ED9FE8 /* elevation_info.cpp in Sources */,
+				BB1C0197241BF73C0067FD5C /* track_mark.cpp in Sources */,
 				40ACC79823191C2600238E21 /* notification_tests.cpp in Sources */,
 				3DEE1AE021EE03B400054A91 /* power_manager.cpp in Sources */,
 				BB4E5F281FCC664A00A77250 /* transit_reader.cpp in Sources */,

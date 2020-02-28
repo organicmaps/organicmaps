@@ -22,6 +22,7 @@ public:
   std::string GetName() const;
   m2::RectD GetLimitRect() const;
   double GetLengthMeters() const;
+  double GetLengthMeters(size_t segmentIndex) const;
 
   int GetMinZoom() const override { return 1; }
   df::DepthLayer GetDepthLayer() const override;
@@ -35,8 +36,16 @@ public:
   void Attach(kml::MarkGroupId groupId);
   void Detach();
 
+  kml::MarkId GetSelectionMarkId() const { return m_selectionMarkId; }
+  void SetSelectionMarkId(kml::MarkId markId);
+  bool GetPoint(double distanceInMeters, m2::PointD & pt) const;
+
 private:
+  void CacheLengths();
+
   kml::TrackData m_data;
-  kml::MarkGroupId m_groupID;
+  kml::MarkGroupId m_groupID = kml::kInvalidMarkGroupId;
+  kml::MarkId m_selectionMarkId = kml::kInvalidMarkId;
+  std::vector<double> m_cachedLengths;
   mutable bool m_isDirty = true;
 };

@@ -26,6 +26,7 @@
 #include "coding/zip_creator.hpp"
 #include "coding/zip_reader.hpp"
 
+#include "geometry/rect_intersect.hpp"
 #include "geometry/transformations.hpp"
 
 #include "base/file_name_utils.hpp"
@@ -542,6 +543,8 @@ BookmarkManager::BookmarkManager(User & user, Callbacks && callbacks)
   m_selectionMark = CreateUserMark<StaticMarkPoint>(m2::PointD{});
   m_myPositionMark = CreateUserMark<MyPositionMarkPoint>(m2::PointD{});
 
+  m_trackInfoMarkId = CreateUserMark<TrackInfoMark>(m2::PointD{})->GetId();
+
   using namespace std::placeholders;
   m_bookmarkCloud.SetSynchronizationHandlers(
       std::bind(&BookmarkManager::OnSynchronizationStarted, this, _1),
@@ -727,6 +730,9 @@ void BookmarkManager::DetachTrack(kml::TrackId trackId, kml::MarkGroupId groupId
 void BookmarkManager::DeleteTrack(kml::TrackId trackId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto const markId = GetTrackSelectionMarkId(trackId);
+  if (markId != kml::kInvalidMarkId)
+    DeleteUserMark(markId);
   auto it = m_tracks.find(trackId);
   auto const groupId = it->second->GetGroupId();
   if (groupId != kml::kInvalidMarkGroupId)
@@ -836,15 +842,6 @@ kml::TrackIdSet const & BookmarkManager::GetTrackIds(kml::MarkGroupId groupId) c
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   return GetGroup(groupId)->GetUserLines();
-}
-
-ElevationInfo BookmarkManager::MakeElevationInfo(kml::TrackId trackId) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto const track = GetTrack(trackId);
-  CHECK(track != nullptr, ());
-
-  return ElevationInfo(*track);
 }
 
 bool BookmarkManager::GetLastSortingType(kml::MarkGroupId groupId, SortingType & sortingType) const
@@ -1030,6 +1027,15 @@ bool BookmarkManager::IsGuide(kml::AccessRules accessRules)
          accessRules == kml::AccessRules::P2P;
 }
 
+ElevationInfo BookmarkManager::MakeElevationInfo(kml::TrackId trackId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto const track = GetTrack(trackId);
+  CHECK(track != nullptr, ());
+
+  return ElevationInfo(*track);
+}
+
 void BookmarkManager::SetElevationActivePoint(kml::TrackId const & trackId, double targetDistance)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1037,39 +1043,21 @@ void BookmarkManager::SetElevationActivePoint(kml::TrackId const & trackId, doub
   auto const track = GetTrack(trackId);
   CHECK(track != nullptr, ());
 
-  auto const & points = track->GetPointsWithAltitudes();
+  m2::PointD pt;
+  CHECK(track->GetPoint(targetDistance, pt), (trackId, targetDistance));
 
-  if (points.empty())
-    return;
-
-  m2::PointD result = m2::PointD::Zero();
-  double distance = 0.0;
-  for (size_t i = 1; i < points.size(); ++i)
-  {
-    auto const & ptA = points[i - 1].GetPoint();
-    auto const & ptB = points[i].GetPoint();
-    double lastDistance = mercator::DistanceOnEarth(ptA, ptB);
-    distance += lastDistance;
-    if (distance >= targetDistance)
-    {
-      auto const k = (lastDistance - (distance - targetDistance)) / lastDistance;
-      result = ptA + (ptB - ptA) * k;
-
-      // TODO(darina): propagate |result| and |distance| into track user mark.
-
-      return;
-    }
-  }
-
-  // TODO(darina): propagate |points.back()| and |distance| into track user mark.
+  SelectTrack(TrackSelectionInfo(trackId, pt, targetDistance));
 }
 
 double BookmarkManager::GetElevationActivePoint(kml::TrackId const & trackId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  // TODO(darina): implement receiving of active point from track user mark.
-  return 0.0;
+  auto const markId = GetTrackSelectionMarkId(trackId);
+  CHECK(markId != kml::kInvalidMarkId, ());
+
+  auto const trackSelectionMark = GetMark<TrackSelectionMark>(markId);
+  return trackSelectionMark->GetDistance();
 }
 
 void BookmarkManager::SetElevationActivePointChangedCallback(ElevationActivePointChangedCallback const & cb)
@@ -1077,6 +1065,151 @@ void BookmarkManager::SetElevationActivePointChangedCallback(ElevationActivePoin
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   m_elevationActivePointChanged = cb;
+}
+
+BookmarkManager::TrackSelectionInfo BookmarkManager::FindNearestTrack(m2::RectD const & touchRect) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  TrackSelectionInfo selectionInfo;
+
+  auto minSquaredDist = std::numeric_limits<double>::max();
+  for (auto const & pair : m_categories)
+  {
+    auto const & category = *pair.second;
+    if (!category.IsVisible())
+      continue;
+
+    for (auto trackId : category.GetUserLines())
+    {
+      auto const track = GetTrack(trackId);
+      auto const trackRect = track->GetLimitRect();
+
+      if (trackRect.IsIntersect(touchRect))
+      {
+        auto const & pointsWithAlt = track->GetPointsWithAltitudes();
+        for (size_t i = 0; i + 1 < pointsWithAlt.size(); ++i)
+        {
+          auto pt1 = pointsWithAlt[i].GetPoint();
+          auto pt2 = pointsWithAlt[i + 1].GetPoint();
+          if (m2::Intersect(touchRect, pt1, pt2))
+          {
+            m2::ParametrizedSegment<m2::PointD> seg(pt1, pt2);
+            auto const closestPoint = seg.ClosestPointTo(touchRect.Center());
+            auto const squaredDist = closestPoint.SquaredLength(touchRect.Center());
+            if (squaredDist < minSquaredDist)
+            {
+              minSquaredDist = squaredDist;
+              selectionInfo.m_trackId = trackId;
+              selectionInfo.m_trackPoint = closestPoint;
+
+              auto const segDistInMeters = mercator::DistanceOnEarth(pointsWithAlt[i].GetPoint(),
+                                                                     closestPoint);
+              selectionInfo.m_distanceInMeters = segDistInMeters;
+              if (i > 0)
+                selectionInfo.m_distanceInMeters += track->GetLengthMeters(i - 1);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return selectionInfo;
+}
+
+BookmarkManager::TrackSelectionInfo BookmarkManager::GetTrackSelectionInfo(kml::TrackId const & trackId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto const markId = GetTrackSelectionMarkId(trackId);
+  if (markId == kml::kInvalidMarkId)
+    return {};
+
+  auto const mark = GetMark<TrackSelectionMark>(markId);
+  return TrackSelectionInfo(trackId, mark->GetPivot(), mark->GetDistance());
+}
+
+kml::MarkId BookmarkManager::GetTrackSelectionMarkId(kml::TrackId trackId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_NOT_EQUAL(trackId, kml::kInvalidTrackId, ());
+
+  for (auto markId : GetUserMarkIds(UserMark::Type::TRACK_SELECTION))
+  {
+    auto const * mark = GetMark<TrackSelectionMark>(markId);
+    if (mark->GetTrackId() == trackId)
+      return markId;
+  }
+  return kml::kInvalidMarkId;
+}
+
+void BookmarkManager::SelectTrack(TrackSelectionInfo const & trackSelectionInfo)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_NOT_EQUAL(trackSelectionInfo.m_trackId, kml::kInvalidTrackId, ());
+
+  auto const markId = GetTrackSelectionMarkId(trackSelectionInfo.m_trackId);
+
+  auto es = GetEditSession();
+  TrackSelectionMark * trackSelectionMark = nullptr;
+  if (markId == kml::kInvalidMarkId)
+  {
+    trackSelectionMark = es.CreateUserMark<TrackSelectionMark>(trackSelectionInfo.m_trackPoint);
+    trackSelectionMark->SetTrackId(trackSelectionInfo.m_trackId);
+  }
+  else
+  {
+    trackSelectionMark = es.GetMarkForEdit<TrackSelectionMark>(markId);
+  }
+
+  trackSelectionMark->SetPosition(trackSelectionInfo.m_trackPoint);
+  trackSelectionMark->SetDistance(trackSelectionInfo.m_distanceInMeters);
+
+  if (m_elevationActivePointChanged != nullptr)
+    m_elevationActivePointChanged();
+}
+
+void BookmarkManager::DeselectTrack(kml::TrackId trackId)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_NOT_EQUAL(trackId, kml::kInvalidTrackId, ());
+
+  auto const markId = GetTrackSelectionMarkId(trackId);
+  if (markId != kml::kInvalidMarkId)
+    GetEditSession().DeleteUserMark(markId);
+}
+
+void BookmarkManager::ShowDefaultTrackInfo(kml::TrackId trackId)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  auto track = GetTrack(trackId);
+  CHECK(track != nullptr, ());
+
+  auto const & points = track->GetPointsWithAltitudes();
+  auto const pt = points[points.size() / 2].GetPoint();
+  auto const distance = track->GetLengthMeters(points.size() / 2 - 1);
+
+  auto es = GetEditSession();
+  auto trackInfoMark = es.GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
+  trackInfoMark->SetPosition(pt);
+  trackInfoMark->SetIsVisible(true);
+  trackInfoMark->SetTrackId(trackId);
+
+  SelectTrack(TrackSelectionInfo(trackId, pt, distance));
+}
+
+void BookmarkManager::HideTrackInfo(kml::TrackId trackId)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  auto es = GetEditSession();
+  auto trackInfoMark = es.GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
+  if (trackInfoMark->GetTrackId() != trackId)
+    return;
+
+  trackInfoMark->SetPosition(m2::PointD::Zero());
+  trackInfoMark->SetIsVisible(false);
+  trackInfoMark->SetTrackId(kml::kInvalidTrackId);
 }
 
 void BookmarkManager::PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort,
@@ -1657,6 +1790,23 @@ void BookmarkManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 {
   m_drapeEngine.Set(engine);
   m_firstDrapeNotification = true;
+
+  std::vector<std::string> symbols;
+  symbols.push_back("bookmark-default-m");
+  symbols.push_back("ic_marker_ontrack");
+
+  m_drapeEngine.SafeCall(&df::DrapeEngine::RequestSymbolsSize, symbols,
+      [this](std::map<std::string, m2::PointF> && sizes)
+      {
+        GetPlatform().RunTask(Platform::Thread::Gui,
+            [this, sizes = move(sizes)]() mutable
+            {
+              auto es = GetEditSession();
+              auto infoMark = es.GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
+              infoMark->SetOffset(m2::PointF(0.0, -sizes.at("ic_marker_ontrack").y / 2));
+              m_maxBookmarkSymbolSize = sizes.at("bookmark-default-m");
+            });
+      });
 }
 
 void BookmarkManager::InitRegionAddressGetter(DataSource const & dataSource,
@@ -2402,15 +2552,22 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   BestUserMarkFinder finder(holder, findOnlyVisible, this);
-  auto const hasFound = finder(UserMark::Type::ROUTING) ||
-                        finder(UserMark::Type::ROAD_WARNING) ||
-                        finder(UserMark::Type::SEARCH) ||
-                        finder(UserMark::Type::API);
+  auto hasFound = finder(UserMark::Type::ROUTING) ||
+                  finder(UserMark::Type::ROAD_WARNING) ||
+                  finder(UserMark::Type::SEARCH) ||
+                  finder(UserMark::Type::API);
   if (!hasFound)
   {
     for (auto const & pair : m_categories)
-      finder(pair.first);
+      hasFound = finder(pair.first) || hasFound;
   }
+
+  if (!hasFound)
+  {
+    hasFound = finder(UserMark::Type::TRACK_INFO) ||
+               finder(UserMark::Type::TRACK_SELECTION);
+  }
+
   return finder.GetFoundMark();
 }
 

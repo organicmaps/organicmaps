@@ -6,6 +6,7 @@
 #include "map/cloud.hpp"
 #include "map/elevation_info.hpp"
 #include "map/track.hpp"
+#include "map/track_mark.hpp"
 #include "map/user_mark_layer.hpp"
 
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
@@ -209,8 +210,6 @@ public:
 
   kml::MarkIdSet const & GetUserMarkIds(kml::MarkGroupId groupId) const;
   kml::TrackIdSet const & GetTrackIds(kml::MarkGroupId groupId) const;
-
-  ElevationInfo MakeElevationInfo(kml::TrackId trackId) const;
 
   // Do not change the order.
   enum class SortingType
@@ -452,11 +451,34 @@ public:
   std::vector<std::string> GetCategoriesFromCatalog(AccessRulesFilter && filter) const;
   static bool IsGuide(kml::AccessRules accessRules);
 
+  ElevationInfo MakeElevationInfo(kml::TrackId trackId) const;
   void SetElevationActivePoint(kml::TrackId const & trackId, double distanceInMeters);
   // Returns distance from start of the track to active point in meters.
   double GetElevationActivePoint(kml::TrackId const & trackId) const;
-
   void SetElevationActivePointChangedCallback(ElevationActivePointChangedCallback const & cb);
+
+  struct TrackSelectionInfo
+  {
+    TrackSelectionInfo() = default;
+    TrackSelectionInfo(kml::TrackId trackId, m2::PointD const & trackPoint, double distanceInMeters)
+      : m_trackId(trackId)
+      , m_trackPoint(trackPoint)
+      , m_distanceInMeters(distanceInMeters)
+    {}
+
+    kml::TrackId m_trackId = kml::kInvalidTrackId;
+    m2::PointD m_trackPoint = m2::PointD::Zero();
+    double m_distanceInMeters = 0.0;
+  };
+
+  TrackSelectionInfo FindNearestTrack(m2::RectD const & touchRect) const;
+  TrackSelectionInfo GetTrackSelectionInfo(kml::TrackId const & trackId) const;
+
+  void SelectTrack(TrackSelectionInfo const & trackSelectionInfo);
+  void DeselectTrack(kml::TrackId trackId);
+
+  void ShowDefaultTrackInfo(kml::TrackId trackId);
+  void HideTrackInfo(kml::TrackId trackId);
 
 private:
   class MarksChangesTracker : public df::UserMarksProvider
@@ -728,6 +750,8 @@ private:
 
   std::vector<std::string> GetAllPaidCategoriesIds() const;
 
+  kml::MarkId GetTrackSelectionMarkId(kml::TrackId trackId) const;
+
   ThreadChecker m_threadChecker;
 
   User & m_user;
@@ -768,6 +792,9 @@ private:
 
   StaticMarkPoint * m_selectionMark = nullptr;
   MyPositionMarkPoint * m_myPositionMark = nullptr;
+
+  kml::MarkId m_trackInfoMarkId = kml::kInvalidMarkId;
+  m2::PointF m_maxBookmarkSymbolSize;
 
   bool m_asyncLoadingInProgress = false;
   struct BookmarkLoaderInfo

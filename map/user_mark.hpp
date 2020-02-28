@@ -47,6 +47,8 @@ public:
     ROAD_WARNING,
     TRANSIT,
     LOCAL_ADS,
+    TRACK_INFO,
+    TRACK_SELECTION,
     DEBUG_MARK,  // Plain "DEBUG" results in a name collision.
     COLORED,
     USER_MARK_TYPES_COUNT,

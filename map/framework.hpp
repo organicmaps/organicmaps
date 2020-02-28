@@ -437,6 +437,9 @@ private:
 
   void OnTapEvent(place_page::BuildInfo const & buildInfo);
   std::optional<place_page::Info> BuildPlacePageInfo(place_page::BuildInfo const & buildInfo);
+  void BuildTrackPlacePage(BookmarkManager::TrackSelectionInfo const & trackSelectionInfo,
+                           place_page::Info & info);
+  BookmarkManager::TrackSelectionInfo FindTrackInTapPosition(place_page::BuildInfo const & buildInfo) const;
   UserMark const * FindUserMarkInTapPosition(place_page::BuildInfo const & buildInfo) const;
   FeatureID FindBuildingAtPoint(m2::PointD const & mercator) const;
 
@@ -685,7 +688,8 @@ private:
   void FillRoadTypeMarkInfo(RoadWarningMark const & roadTypeMark, place_page::Info & info) const;
   void FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info & info) const;
   void FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const;
-  void FillTrackInfo(Track const & trackId, place_page::Info & info) const;
+  void FillTrackInfo(Track const & track, m2::PointD const & trackPoint,
+                     place_page::Info & info) const;
   void SetPlacePageLocation(place_page::Info & info);
   void FillLocalExperts(FeatureType & ft, place_page::Info & info) const;
   void FillDescription(FeatureType & ft, place_page::Info & info) const;

@@ -123,6 +123,8 @@ set(
   tips_api_delegate.hpp
   track.cpp
   track.hpp
+  track_mark.cpp
+  track_mark.hpp
   traffic_manager.cpp
   traffic_manager.hpp
   transit/transit_display.cpp

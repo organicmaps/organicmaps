@@ -792,10 +792,12 @@ void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) 
   FillPointInfoForBookmark(bmk, info);
 }
 
-void Framework::FillTrackInfo(Track const & track, place_page::Info & info) const
+void Framework::FillTrackInfo(Track const & track, m2::PointD const & trackPoint,
+                              place_page::Info & info) const
 {
   info.SetTrackId(track.GetId());
   info.SetBookmarkCategoryId(track.GetGroupId());
+  info.SetMercator(trackPoint);
 }
 
 search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const & pt) const
@@ -1128,6 +1130,8 @@ void Framework::ShowTrack(kml::TrackId trackId)
 
   StopLocationFollow();
   ShowRect(rect);
+
+  GetBookmarkManager().ShowDefaultTrackInfo(trackId);
 }
 
 void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation)
@@ -2529,6 +2533,16 @@ FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator) const
   return featureId;
 }
 
+void Framework::BuildTrackPlacePage(BookmarkManager::TrackSelectionInfo const & trackSelectionInfo,
+                                    place_page::Info & info)
+{
+  info.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
+  auto const & track = *GetBookmarkManager().GetTrack(trackSelectionInfo.m_trackId);
+  FillTrackInfo(track, trackSelectionInfo.m_trackPoint, info);
+  GetBookmarkManager().SelectTrack(trackSelectionInfo);
+  GetBookmarkManager().HideTrackInfo(trackSelectionInfo.m_trackId);
+}
+
 std::optional<place_page::Info> Framework::BuildPlacePageInfo(
     place_page::BuildInfo const & buildInfo)
 {
@@ -2564,6 +2578,20 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
       case UserMark::Type::ROAD_WARNING:
         FillRoadTypeMarkInfo(*static_cast<RoadWarningMark const *>(mark), outInfo);
         break;
+      case UserMark::Type::TRACK_INFO:
+      {
+        auto const & infoMark = *static_cast<TrackInfoMark const *>(mark);
+        BuildTrackPlacePage(GetBookmarkManager().GetTrackSelectionInfo(infoMark.GetTrackId()),
+                            outInfo);
+        return outInfo;
+      }
+      case UserMark::Type::TRACK_SELECTION:
+      {
+        auto const & selMark = *static_cast<TrackSelectionMark const *>(mark);
+        BuildTrackPlacePage(GetBookmarkManager().GetTrackSelectionInfo(selMark.GetTrackId()),
+                            outInfo);
+        return outInfo;
+      }
       default:
         ASSERT(false, ("FindNearestUserMark returned invalid mark."));
       }
@@ -2581,6 +2609,16 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
     FillMyPositionInfo(outInfo, buildInfo);
     SetPlacePageLocation(outInfo);
     return outInfo;
+  }
+
+  if (buildInfo.IsTrackMatchingEnabled())
+  {
+    auto const trackSelectionInfo = FindTrackInTapPosition(buildInfo);
+    if (trackSelectionInfo.m_trackId != kml::kInvalidTrackId)
+    {
+      BuildTrackPlacePage(trackSelectionInfo, outInfo);
+      return outInfo;
+    }
   }
 
   if (!buildInfo.m_postcode.empty())
@@ -2641,6 +2679,21 @@ void Framework::UpdatePlacePageInfoForCurrentSelection(
     m_currentPlacePageInfo->GetBuildInfo());
   if (m_currentPlacePageInfo && m_onPlacePageUpdate)
     m_onPlacePageUpdate();
+}
+
+BookmarkManager::TrackSelectionInfo Framework::FindTrackInTapPosition(
+    place_page::BuildInfo const & buildInfo) const
+{
+  auto const & bm = GetBookmarkManager();
+  if (buildInfo.m_trackId != kml::kInvalidTrackId)
+  {
+    auto const selection = bm.GetTrackSelectionInfo(buildInfo.m_trackId);
+    CHECK_NOT_EQUAL(selection.m_trackId, kml::kInvalidTrackId, ());
+    return selection;
+  }
+  auto const touchRect = df::TapInfo::GetDefaultSearchRect(buildInfo.m_mercator,
+                                                           m_currentModelView).GetGlobalRect();
+  return bm.FindNearestTrack(touchRect);
 }
 
 UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo const & buildInfo) const

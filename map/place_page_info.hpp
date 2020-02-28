@@ -90,6 +90,7 @@ struct BuildInfo
     Everything = 0,
     FeatureOnly,
     UserMarkOnly,
+    TrackOnly,
     Nothing
   };
 
@@ -113,6 +114,11 @@ struct BuildInfo
     return m_match == Match::Everything || m_match == Match::UserMarkOnly;
   }
 
+  bool IsTrackMatchingEnabled() const
+  {
+    return m_match == Match::Everything || m_match == Match::TrackOnly;
+  }
+
   Source m_source = Source::Other;
   m2::PointD m_mercator;
   bool m_isLongTap = false;
@@ -120,6 +126,7 @@ struct BuildInfo
   FeatureID m_featureId;
   Match m_match = Match::Everything;
   kml::MarkId m_userMarkId = kml::kInvalidMarkId;
+  kml::TrackId m_trackId = kml::kInvalidTrackId;
   bool m_isGeometrySelectionAllowed = false;
   bool m_needAnimationOnSelection = true;
   std::string m_postcode;
