@@ -8,6 +8,8 @@
   android:paddingTop="@dimen/margin_base"
   android:paddingBottom="@dimen/margin_base"
   android:background="?cardBackground"
+  android:clickable="true"
+  android:focusable="true"
   app:behavior_defaultState="hidden"
   app:behavior_skipCollapsed="true"
   app:behavior_hideable="true"
