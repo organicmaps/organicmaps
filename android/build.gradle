@@ -172,6 +172,7 @@ configurations.all {
 }
 
 android {
+  ndkVersion = "21.0.6113669"
   dataBinding {
     enabled = true
   }
