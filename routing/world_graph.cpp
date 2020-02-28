@@ -23,10 +23,7 @@ void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, bool useRout
   SetMode(WorldGraphMode::SingleMwm);
 
   for (Segment const & twin : twins)
-  {
-    GetEdgeList({twin, RouteWeight(0.0)}, isOutgoing, useRoutingOptions,
-                false /* useAccessConditional */, edges);
-  }
+    GetEdgeList(twin, isOutgoing, useRoutingOptions, edges);
 
   SetMode(prevMode);
 }
