@@ -684,6 +684,7 @@ private:
   void FillRoadTypeMarkInfo(RoadWarningMark const & roadTypeMark, place_page::Info & info) const;
   void FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info & info) const;
   void FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const;
+  void FillTrackInfo(Track const & trackId, place_page::Info & info) const;
   void SetPlacePageLocation(place_page::Info & info);
   void FillLocalExperts(FeatureType & ft, place_page::Info & info) const;
   void FillDescription(FeatureType & ft, place_page::Info & info) const;

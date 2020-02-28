@@ -139,6 +139,7 @@ public:
   /// Place traits
   bool IsFeature() const { return m_featureID.IsValid(); }
   bool IsBookmark() const { return m_markGroupId != kml::kInvalidMarkGroupId && m_markId != kml::kInvalidMarkId; }
+  bool IsTrack() const { return m_trackId != kml::kInvalidTrackId; }
   bool IsMyPosition() const { return m_selectedObject == df::SelectionShape::ESelectedObject::OBJECT_MY_POSITION; }
   bool IsRoutePoint() const { return m_isRoutePoint; }
   bool IsRoadType() const { return m_roadType != RoadWarningMarkType::Count; }
@@ -196,6 +197,9 @@ public:
   void SetBookmarkCategoryName(std::string const & name) { m_bookmarkCategoryName = name; }
   void SetBookmarkData(kml::BookmarkData const & data) { m_bookmarkData = data; }
   kml::BookmarkData const & GetBookmarkData() const { return m_bookmarkData; }
+
+  void SetTrackId(kml::TrackId trackId) { m_trackId = trackId; };
+  kml::TrackId GetTrackId() const { return m_trackId; };
 
   /// Api
   void SetApiId(std::string const & apiId) { m_apiId = apiId; }
@@ -341,6 +345,8 @@ private:
   /// Bookmark category name. Empty, if it's not bookmark;
   std::string m_bookmarkCategoryName;
   kml::BookmarkData m_bookmarkData;
+
+  kml::TrackId m_trackId = kml::kInvalidTrackId;
 
   /// Api ID passed for the selected object. It's automatically included in api url below.
   std::string m_apiId;

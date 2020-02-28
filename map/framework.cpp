@@ -792,6 +792,12 @@ void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) 
   FillPointInfoForBookmark(bmk, info);
 }
 
+void Framework::FillTrackInfo(Track const & track, place_page::Info & info) const
+{
+  info.SetTrackId(track.GetId());
+  info.SetBookmarkCategoryId(track.GetGroupId());
+}
+
 search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const & pt) const
 {
   return m_addressGetter.GetAddressAtPoint(m_featuresFetcher.GetDataSource(), pt);

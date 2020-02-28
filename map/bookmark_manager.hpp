@@ -4,6 +4,7 @@
 #include "map/bookmark_catalog.hpp"
 #include "map/bookmark_helpers.hpp"
 #include "map/cloud.hpp"
+#include "map/elevation_info.hpp"
 #include "map/track.hpp"
 #include "map/user_mark_layer.hpp"
 
@@ -57,6 +58,7 @@ public:
   using KMLDataCollectionPtr = std::shared_ptr<KMLDataCollection>;
 
   using BookmarksChangedCallback = std::function<void()>;
+  using ElevationActivePointChangedCallback = std::function<void()>;
 
   using AsyncLoadingStartedCallback = std::function<void()>;
   using AsyncLoadingFinishedCallback = std::function<void()>;
@@ -207,6 +209,8 @@ public:
 
   kml::MarkIdSet const & GetUserMarkIds(kml::MarkGroupId groupId) const;
   kml::TrackIdSet const & GetTrackIds(kml::MarkGroupId groupId) const;
+
+  ElevationInfo MakeElevationInfo(kml::TrackId trackId) const;
 
   // Do not change the order.
   enum class SortingType
@@ -447,6 +451,12 @@ public:
   using AccessRulesFilter = std::function<bool(kml::AccessRules)>;
   std::vector<std::string> GetCategoriesFromCatalog(AccessRulesFilter && filter) const;
   static bool IsGuide(kml::AccessRules accessRules);
+
+  void SetElevationActivePoint(kml::TrackId const & trackId, double distanceInMeters);
+  // Returns distance from start of the track to active point in meters.
+  double GetElevationActivePoint(kml::TrackId const & trackId) const;
+
+  void SetElevationActivePointChangedCallback(ElevationActivePointChangedCallback const & cb);
 
 private:
   class MarksChangesTracker : public df::UserMarksProvider
@@ -731,6 +741,7 @@ private:
   std::mutex m_regionAddressMutex;
 
   BookmarksChangedCallback m_categoriesChangedCallback;
+  ElevationActivePointChangedCallback m_elevationActivePointChanged;
   AsyncLoadingCallbacks m_asyncLoadingCallbacks;
   std::atomic<bool> m_needTeardown;
   size_t m_openedEditSessionsCount = 0;

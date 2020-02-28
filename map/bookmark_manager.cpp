@@ -838,6 +838,15 @@ kml::TrackIdSet const & BookmarkManager::GetTrackIds(kml::MarkGroupId groupId) c
   return GetGroup(groupId)->GetUserLines();
 }
 
+ElevationInfo BookmarkManager::MakeElevationInfo(kml::TrackId trackId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto const it = m_tracks.find(trackId);
+  CHECK(it != m_tracks.cend(), ());
+
+  return ElevationInfo(*(it->second));
+}
+
 bool BookmarkManager::GetLastSortingType(kml::MarkGroupId groupId, SortingType & sortingType) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1019,6 +1028,55 @@ bool BookmarkManager::IsGuide(kml::AccessRules accessRules)
 {
   return accessRules == kml::AccessRules::Public || accessRules == kml::AccessRules::Paid ||
          accessRules == kml::AccessRules::P2P;
+}
+
+void BookmarkManager::SetElevationActivePoint(kml::TrackId const & trackId, double targetDistance)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  auto const it = m_tracks.find(trackId);
+  CHECK(it != m_tracks.cend(), ());
+
+  auto const & points = it->second->GetPointsWithAltitudes();
+
+  if (points.empty())
+    return;
+
+  m2::PointD result = m2::PointD::Zero();
+  double distance = 0.0;
+  double lastDistance = 0.0;
+  for (size_t i = 1; i < points.size(); ++i)
+  {
+    lastDistance = mercator::DistanceOnEarth(points[i - 1].GetPoint(), points[i].GetPoint());
+    distance += lastDistance;
+    if (distance >= targetDistance)
+    {
+      auto const & ptA = points[i - 1].GetPoint();
+      auto const & ptB = points[i].GetPoint();
+      auto const k = lastDistance - (distance - targetDistance) / lastDistance;
+      result.x = ptA.x + (ptB.x - ptA.x) * k;
+      result.y = ptA.y + (ptB.y - ptA.y) * k;
+
+      // TODO(darina): propagate |result| and |distance| into track user mark.
+
+      return;
+    }
+  }
+}
+
+double BookmarkManager::GetElevationActivePoint(kml::TrackId const & trackId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  // TODO(darina): implement receiving of active point from track user mark.
+  return 0.0;
+}
+
+void BookmarkManager::SetElevationActivePointChangedCallback(ElevationActivePointChangedCallback const & cb)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  m_elevationActivePointChanged = cb;
 }
 
 void BookmarkManager::PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort,
