@@ -182,6 +182,45 @@ UNIT_TEST(to_double)
   TEST(!strings::to_double("1.18973e+4932", d), ());
 }
 
+UNIT_TEST(to_float)
+{
+  std::string s;
+  float f;
+
+  s = "";
+  TEST(!strings::to_float(s, f), ());
+
+  s = "0.123";
+  TEST(strings::to_float(s, f), ());
+  TEST_ALMOST_EQUAL_ULPS(0.123f, f, ());
+
+  s = "1.";
+  TEST(strings::to_float(s, f), ());
+  TEST_ALMOST_EQUAL_ULPS(1.0f, f, ());
+
+  s = "0";
+  TEST(strings::to_float(s, f), ());
+  TEST_ALMOST_EQUAL_ULPS(0.f, f, ());
+
+  s = "5.6843418860808e-14";
+  TEST(strings::to_float(s, f), ());
+  TEST_ALMOST_EQUAL_ULPS(5.6843418860808e-14f, f, ());
+
+  s = "-2";
+  TEST(strings::to_float(s, f), ());
+  TEST_ALMOST_EQUAL_ULPS(-2.0f, f, ());
+
+  s = "labuda";
+  TEST(!strings::to_float(s, f), ());
+
+  s = "123.456 we don't parse it.";
+  TEST(!strings::to_float(s, f), ());
+
+  TEST(!strings::to_float("INF", f), ());
+  TEST(!strings::to_float("NAN", f), ());
+  TEST(!strings::to_float("1.18973e+4932", f), ());
+}
+
 UNIT_TEST(to_int)
 {
   int i;
@@ -287,6 +326,186 @@ UNIT_TEST(to_int64)
 
   s = "labuda";
   TEST(!strings::to_int64(s, i), ());
+}
+
+UNIT_TEST(to_any)
+{
+  {
+    int8_t i;
+    std::string s;
+
+    s = "";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "1oo";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "-129";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "128";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "-128";
+    TEST(strings::to_any(s, i), ());
+
+    s = "127";
+    TEST(strings::to_any(s, i), ());
+  }
+  {
+    uint8_t i;
+    std::string s;
+
+    s = "";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "1oo";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "-1";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "256";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "0";
+    TEST(strings::to_any(s, i), ());
+
+    s = "255";
+    TEST(strings::to_any(s, i), ());
+  }
+  {
+    int16_t i;
+    std::string s;
+
+    s = "";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "1oo";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "-32769";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "32768";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "-32768";
+    TEST(strings::to_any(s, i), ());
+
+    s = "32767";
+    TEST(strings::to_any(s, i), ());
+  }
+  {
+    uint16_t i;
+    std::string s;
+
+    s = "";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "1oo";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "-1";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "65536";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "0";
+    TEST(strings::to_any(s, i), ());
+
+    s = "65535";
+    TEST(strings::to_any(s, i), ());
+  }
+  {
+    int32_t i;
+    std::string s;
+
+    s = "";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "1oo";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "-2147483649";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "2147483648";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "-2147483648";
+    TEST(strings::to_any(s, i), ());
+
+    s = "2147483647";
+    TEST(strings::to_any(s, i), ());
+  }
+  {
+    uint32_t i;
+    std::string s;
+
+    s = "";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "1oo";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "-1";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "4294967296";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "0";
+    TEST(strings::to_any(s, i), ());
+
+    s = "4294967295";
+    TEST(strings::to_any(s, i), ());
+  }
+  {
+    int64_t i;
+    std::string s;
+
+    s = "";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "1oo";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "-9223372036854775809";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "9223372036854775808";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "-9223372036854775808";
+    TEST(strings::to_any(s, i), ());
+
+    s = "9223372036854775807";
+    TEST(strings::to_any(s, i), ());
+  }
+  {
+    uint64_t i;
+    std::string s;
+
+    s = "";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "1oo";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "-18446744073709551616";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "18446744073709551616";
+    TEST(!strings::to_any(s, i), ());
+
+    s = "0";
+    TEST(strings::to_any(s, i), ());
+
+    s = "18446744073709551615";
+    TEST(strings::to_any(s, i), ());
+  }
 }
 
 UNIT_TEST(to_string)

@@ -2,6 +2,7 @@
 
 #include "base/assert.hpp"
 
+#include <limits>
 #include <type_traits>
 
 namespace base
@@ -28,5 +29,11 @@ ReturnType asserted_cast(ParameterType v)
   ASSERT_EQUAL(static_cast<ParameterType>(result), v, ());
   ASSERT((result > 0) == (v > 0), ("asserted_cast failed, value =", v, ", result =", result));
   return result;
+}
+
+template <typename ResultType, typename ParameterType>
+bool is_cast_valid(ParameterType v)
+{
+  return std::numeric_limits<ResultType>::min() <= v && std::numeric_limits<ResultType>::max() >= v;
 }
 }  // namespace base

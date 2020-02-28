@@ -164,7 +164,6 @@ void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name
   // Conversion osm id to feature id.
   string osmIdStr;
   GetField(osmIdStr, name);
-  CHECK(strings::is_number(osmIdStr), ("Osm id string is not a number:", osmIdStr));
   uint64_t osmIdNum;
   CHECK(strings::to_uint64(osmIdStr, osmIdNum),
         ("Cann't convert osm id string:", osmIdStr, "to a number."));

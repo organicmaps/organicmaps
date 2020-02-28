@@ -1,11 +1,14 @@
 #pragma once
 
 #include "base/buffer_vector.hpp"
+#include "base/checked_cast.hpp"
 #include "base/macros.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
+#include <cerrno>
 #include <cstdint>
+#include <cstdlib>
 #include <iterator>
 #include <limits>
 #include <regex>
@@ -363,9 +366,55 @@ UniChar LastUniChar(std::string const & s);
 
 /// @name From string to numeric.
 //@{
-WARN_UNUSED_RESULT bool to_int(char const * s, int & i, int base = 10);
-WARN_UNUSED_RESULT bool to_uint(char const * s, unsigned int & i, int base = 10);
+namespace internal
+{
+template <typename T, typename = std::enable_if_t<std::is_signed<T>::value>>
+long IntConverter(char const * start, char ** stop, int base)
+{
+  return std::strtol(start, stop, base);
+}
+
+template <typename T, typename = std::enable_if_t<std::is_unsigned<T>::value>>
+unsigned long IntConverter(char const * start, char ** stop, int base)
+{
+  return std::strtoul(start, stop, base);
+}
+
+template <typename T,
+          typename = std::enable_if_t<std::is_integral<T>::value && sizeof(T) <= sizeof(int)>>
+bool ToInteger(char const * start, T & result, int base = 10)
+{
+  char * stop;
+  errno = 0;  // Library functions do not reset it.
+
+  auto const v = IntConverter<T>(start, &stop, base);
+
+  if (errno == EINVAL || errno == ERANGE || *stop != 0 || start == stop ||
+      !base::is_cast_valid<T>(v))
+  {
+    errno = 0;
+    return false;
+  }
+
+  result = static_cast<T>(v);
+  return true;
+}
+}  // namespace internal
+
+WARN_UNUSED_RESULT inline bool to_int(char const * s, int & i, int base = 10)
+{
+  return internal::ToInteger(s, i, base);
+}
+
+WARN_UNUSED_RESULT inline bool to_uint(char const * s, unsigned int & i, int base = 10)
+{
+  return internal::ToInteger(s, i, base);
+}
+
+// Note: negative values will be converted too.
+// For ex. "-1" converts to uint64_t max value.
 WARN_UNUSED_RESULT bool to_uint64(char const * s, uint64_t & i, int base = 10);
+
 WARN_UNUSED_RESULT bool to_int64(char const * s, int64_t & i);
 WARN_UNUSED_RESULT bool to_size_t(char const * s, size_t & i, int base = 10);
 WARN_UNUSED_RESULT bool to_float(char const * s, float & f);
@@ -373,8 +422,8 @@ WARN_UNUSED_RESULT bool to_double(char const * s, double & d);
 
 WARN_UNUSED_RESULT inline bool is_number(std::string const & s)
 {
-  int64_t dummy;
-  return to_int64(s.c_str(), dummy);
+  uint64_t dummy;
+  return to_uint64(s.c_str(), dummy);
 }
 
 WARN_UNUSED_RESULT inline bool to_int(std::string const & s, int & i, int base = 10)
@@ -386,6 +435,8 @@ WARN_UNUSED_RESULT inline bool to_uint(std::string const & s, unsigned int & i, 
   return to_uint(s.c_str(), i, base);
 }
 
+// Note: negative values will be converted too.
+// For ex. "-1" converts to uint64_t max value.
 WARN_UNUSED_RESULT inline bool to_uint64(std::string const & s, uint64_t & i, int base = 10)
 {
   return to_uint64(s.c_str(), i, base);
@@ -423,15 +474,18 @@ std::string to_string(T t)
 template <typename T>
 struct ToStringConverter { std::string operator()(T const & v) { return to_string(v); } };
 
-WARN_UNUSED_RESULT inline bool to_any(std::string const & s, int & i) { return to_int(s, i); }
-WARN_UNUSED_RESULT inline bool to_any(std::string const & s, unsigned int & i)
+template <typename T,
+          typename = std::enable_if_t<std::is_integral<T>::value && sizeof(T) <= sizeof(int)>>
+WARN_UNUSED_RESULT inline bool to_any(std::string const & s, T & i)
 {
-  return to_uint(s, i);
+  return internal::ToInteger(s.c_str(), i);
 }
+
 WARN_UNUSED_RESULT inline bool to_any(std::string const & s, uint64_t & i)
 {
   return to_uint64(s, i);
 }
+
 WARN_UNUSED_RESULT inline bool to_any(std::string const & s, int64_t & i) { return to_int64(s, i); }
 WARN_UNUSED_RESULT inline bool to_any(std::string const & s, float & f) { return to_float(s, f); }
 WARN_UNUSED_RESULT inline bool to_any(std::string const & s, double & d) { return to_double(s, d); }
