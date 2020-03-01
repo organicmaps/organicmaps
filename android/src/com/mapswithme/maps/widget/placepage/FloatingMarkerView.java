@@ -3,7 +3,6 @@ package com.mapswithme.maps.widget.placepage;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.RectF;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,10 +19,11 @@ import java.util.Locale;
 @SuppressLint("ViewConstructor")
 public class FloatingMarkerView extends MarkerView
 {
+  private static final int TRIANGLE_ROTATION_ANGLE = 180;
   @NonNull
   private final View mImage;
   @NonNull
-  private final View mTextContainer;
+  private final View mInfoFloatingContainer;
   @NonNull
   private final View mSlidingContainer;
   @NonNull
@@ -32,13 +32,19 @@ public class FloatingMarkerView extends MarkerView
   private final TextView mDistanceTextView;
   @NonNull
   private final TextView mDistanceValueView;
+  @NonNull
+  private final View mFloatingTriangle;
+  @NonNull
+  private final View mTextContentContainer;
 
   private float mOffset;
 
   public FloatingMarkerView(@NonNull Context context)
   {
     super(context, R.layout.floating_marker_view);
-    mTextContainer = findViewById(R.id.text_container);
+    mInfoFloatingContainer = findViewById(R.id.info_floating_container);
+    mTextContentContainer = findViewById(R.id.floating_text_container);
+    mFloatingTriangle = findViewById(R.id.floating_triangle);
     mImage = findViewById(R.id.image);
     mSlidingContainer = findViewById(R.id.sliding_container);
     mDistanceTextView = findViewById(R.id.distance_text);
@@ -71,12 +77,24 @@ public class FloatingMarkerView extends MarkerView
   public void updateOffsets(@NonNull Entry entry, @NonNull Highlight highlight)
   {
     updateVertical(entry);
+    final float halfImg = Math.abs(mImage.getWidth()) / 2f;
+
+    boolean isLeftToRightDirection = isInvertedOrder(highlight);
+    mOffset = isLeftToRightDirection ? -getWidth() + halfImg : -halfImg;
     updateHorizontal(highlight);
+  }
+
+  private boolean isInvertedOrder(@NonNull Highlight highlight)
+  {
+    float x = highlight.getXPx();
+    float halfImg = Math.abs(mImage.getWidth()) / 2f;
+    int wholeText = Math.abs(mInfoFloatingContainer.getWidth());
+    return x + halfImg + wholeText >= getChartView().getContentRect().right;
   }
 
   private void updateVertical(@NonNull Entry entry)
   {
-    LayoutParams layoutParams = (LayoutParams) mTextContainer.getLayoutParams();
+    LayoutParams layoutParams = (LayoutParams) mTextContentContainer.getLayoutParams();
     float posY = entry.getY();
     if (posY + mSlidingContainer.getHeight() / 2f >= getChartView().getYChartMax())
     {
@@ -96,7 +114,7 @@ public class FloatingMarkerView extends MarkerView
       layoutParams.removeRule(ALIGN_PARENT_TOP);
       layoutParams.removeRule(ALIGN_PARENT_BOTTOM);
     }
-    mTextContainer.setLayoutParams(layoutParams);
+    mTextContentContainer.setLayoutParams(layoutParams);
   }
 
   private void updatePointValues(@NonNull Entry entry)
@@ -108,23 +126,32 @@ public class FloatingMarkerView extends MarkerView
 
   private void updateHorizontal(@NonNull Highlight highlight)
   {
-    final float halfImg = Math.abs(mImage.getWidth()) / 2f;
-    final int wholeText = Math.abs(mTextContainer.getWidth());
-    RectF rect = getChartView().getContentRect();
-
-    LayoutParams textParams = (LayoutParams) mTextContainer.getLayoutParams();
+    LayoutParams textParams = (LayoutParams) mInfoFloatingContainer.getLayoutParams();
     LayoutParams imgParams = (LayoutParams) mImage.getLayoutParams();
 
-    boolean isLeftToRightDirection = highlight.getXPx() + halfImg + wholeText >= rect.right;
-    mOffset = isLeftToRightDirection ? -getWidth() + halfImg : -halfImg;
-    int anchorId = isLeftToRightDirection ? R.id.text_container : R.id.image;
-    LayoutParams toBecomeAnchor = isLeftToRightDirection ? textParams : imgParams;
-    LayoutParams toBecomeDependent = isLeftToRightDirection ? imgParams : textParams;
+    boolean isInvertedOrder = isInvertedOrder(highlight);
+    int anchorId = isInvertedOrder ? mInfoFloatingContainer.getId() : mImage.getId();
+    LayoutParams toBecomeAnchor = isInvertedOrder ? textParams : imgParams;
+    LayoutParams toBecomeDependent = isInvertedOrder ? imgParams : textParams;
 
     toBecomeAnchor.removeRule(RelativeLayout.END_OF);
     toBecomeDependent.addRule(RelativeLayout.END_OF, anchorId);
 
-    mTextContainer.setLayoutParams(textParams);
+    mFloatingTriangle.setRotation(isInvertedOrder ? 0 : TRIANGLE_ROTATION_ANGLE);
+    mInfoFloatingContainer.setLayoutParams(textParams);
     mImage.setLayoutParams(imgParams);
+
+    LayoutParams triangleParams = (LayoutParams) mFloatingTriangle.getLayoutParams();
+    LayoutParams textContentParams = (LayoutParams) mTextContentContainer.getLayoutParams();
+
+    toBecomeAnchor = isInvertedOrder ? textContentParams : triangleParams;
+    toBecomeDependent = isInvertedOrder ? triangleParams : textContentParams;
+    anchorId = isInvertedOrder ? mTextContentContainer.getId() : mFloatingTriangle.getId();
+
+    toBecomeAnchor.removeRule(RelativeLayout.END_OF);
+    toBecomeDependent.addRule(END_OF, anchorId);
+
+    mFloatingTriangle.setLayoutParams(triangleParams);
+    mTextContentContainer.setLayoutParams(textContentParams);
   }
 }

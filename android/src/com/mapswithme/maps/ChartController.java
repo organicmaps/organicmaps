@@ -71,7 +71,7 @@ class ChartController implements OnChartValueSelectedListener
     TextView bottomAlt = getActivity().findViewById(R.id.lowest_altitude);
     bottomAlt.setText("100m");
 
-    mChart.setBackgroundColor(ThemeUtils.getColor(getActivity(), android.R.attr.textColorPrimaryInverse));
+    mChart.setBackgroundColor(ThemeUtils.getColor(getActivity(), R.attr.cardBackground));
     mChart.setTouchEnabled(true);
     mChart.setOnChartValueSelectedListener(this);
     mChart.setDrawGridBackground(false);
