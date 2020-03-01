@@ -82,7 +82,10 @@ extension PlacePageInteractor: AddReviewViewControllerDelegate {
 
 extension PlacePageInteractor: PlacePageReviewsViewControllerDelegate {
   func didPressMoreReviews() {
-
+    let moreReviews = viewController!.storyboard!.instantiateViewController(ofType: MoreReviewsViewController.self)
+    moreReviews.ugcData = placePageData.ugcData
+    moreReviews.title = placePageData.previewData.title
+    MapViewController.shared()?.navigationController?.pushViewController(moreReviews, animated: true)
   }
 }
 
