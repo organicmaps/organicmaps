@@ -46,6 +46,9 @@ class PlacePagePreviewViewController: UIViewController {
   var placePagePreviewData: PlacePagePreviewData!
   weak var delegate: PlacePagePreviewViewControllerDelegate?
 
+  private var distance: String? = nil
+  private var heading: CGFloat? = nil
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -79,7 +82,16 @@ class PlacePagePreviewViewController: UIViewController {
     configUgc()
     ugcContainerView.isHidden = !placePagePreviewData.isBookingPlace
 
-    directionView?.isHidden = false
+    if let distance = distance {
+      directionView?.isHidden = false
+      directionView?.label.text = distance
+    }
+
+    if let heading = heading {
+      updateHeading(heading)
+    } else {
+      directionView?.imageView.isHidden = true
+    }
 
     stackView.addArrangedSubview(adView)
   }
@@ -129,12 +141,19 @@ class PlacePagePreviewViewController: UIViewController {
   }
 
   func updateDistance(_ distance: String) {
+    self.distance = distance
+    directionView?.isHidden = false
     directionView?.label.text = distance
   }
 
   func updateHeading(_ angle: CGFloat) {
-    UIView.animate(withDuration: kDefaultAnimationDuration, delay: 0, options: [.beginFromCurrentState, .curveEaseInOut], animations: {
-      self.directionView?.imageView.transform = CGAffineTransform(rotationAngle: angle)
+    heading = angle
+    directionView?.imageView.isHidden = false
+    UIView.animate(withDuration: kDefaultAnimationDuration,
+                   delay: 0,
+                   options: [.beginFromCurrentState, .curveEaseInOut],
+                   animations: { [unowned self] in
+                    self.directionView?.imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2 - angle)
     })
   }
 

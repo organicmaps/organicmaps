@@ -4,6 +4,8 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   private let storyboard: UIStoryboard
   weak var presenter: PlacePagePresenterProtocol?
 
+  fileprivate var lastLocation: CLLocation?
+
   lazy var viewControllers: [UIViewController] = {
     return configureViewControllers()
   }()
@@ -298,12 +300,7 @@ extension PlacePageCommonLayout {
 
 extension PlacePageCommonLayout: MWMLocationObserver {
   func onHeadingUpdate(_ heading: CLHeading) {
-    if heading.trueHeading < 0 {
-      return
-    }
-
-    let rad = heading.trueHeading * Double.pi / 180
-    previewViewController.updateHeading(CGFloat(rad))
+    updateHeading(heading.trueHeading)
   }
 
   func onLocationUpdate(_ location: CLLocation) {
@@ -314,9 +311,21 @@ extension PlacePageCommonLayout: MWMLocationObserver {
     distanceFormatter.unitStyle = .abbreviated
     let formattedDistance = distanceFormatter.string(fromDistance: distance)
     previewViewController.updateDistance(formattedDistance)
+    lastLocation = location
+    updateHeading(location.course)
   }
 
   func onLocationError(_ locationError: MWMLocationStatus) {
 
+  }
+
+  private func updateHeading(_ heading: CLLocationDirection) {
+    guard let location = lastLocation, heading > 0 else {
+      return
+    }
+
+    let rad = heading * Double.pi / 180
+    let angle = GeoUtil.angle(atPoint: location.coordinate, toPoint: placePageData.locationCoordinate)
+    previewViewController.updateHeading(CGFloat(angle) + CGFloat(rad))
   }
 }
