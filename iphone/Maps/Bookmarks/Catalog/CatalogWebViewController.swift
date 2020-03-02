@@ -421,6 +421,7 @@ private func logToPushWoosh(_ categoryInfo: CatalogCategoryInfo) {
   
   if categoryInfo.productId == nil {
     pushManager!.setTags(["Bookmarks_Guides_free_title": categoryInfo.name]);
+    pushManager!.setTags(["Bookmarks_Guides_free_date": MWMPushNotifications.formattedTimestamp()]);
   } else {
     pushManager!.setTags(["Bookmarks_Guides_paid_tier": categoryInfo.productId!]);
     pushManager!.setTags(["Bookmarks_Guides_paid_title": categoryInfo.name]);

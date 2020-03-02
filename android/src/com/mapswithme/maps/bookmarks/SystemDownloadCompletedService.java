@@ -162,6 +162,8 @@ public class SystemDownloadCompletedService extends JobIntentService
     if (TextUtils.isEmpty(productId))
     {
       app.sendPushWooshTags("Bookmarks_Guides_free_title", new String[] {name});
+      app.sendPushWooshTags("Bookmarks_Guides_free_date",
+                            new String[] {PushwooshHelper.nativeGetFormattedTimestamp()});
     }
     else
     {
