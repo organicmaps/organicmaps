@@ -948,8 +948,8 @@ mapswithme
 *office|estate_agent
 *office|lawyer
 *office
-*landuse|residential|rural
-*landuse|residential|urban
+mapswithme
+mapswithme
 *amenity|ferry_terminal
 *amenity
 *shop|furniture

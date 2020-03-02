@@ -513,10 +513,7 @@ world  +
         railway  -
         recreation_ground  -
         reservoir  -
-        residential  +
-            rural  -
-            urban  -
-            {}
+        residential  -
         retail  -
         salt_pond  -
         village_green  -
