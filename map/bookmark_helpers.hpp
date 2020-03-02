@@ -93,7 +93,7 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType
 std::unique_ptr<kml::FileData> LoadKmzFile(std::string const & file, std::string & kmlHash);
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fileType);
 
-bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFileType fileType);
+bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileType fileType);
 bool SaveKmlData(kml::FileData & kmlData, Writer & writer, KmlFileType fileType);
 
 void ResetIds(kml::FileData & kmlData);

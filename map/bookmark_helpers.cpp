@@ -339,6 +339,22 @@ bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFileType 
   return success;
 }
 
+bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileType fileType)
+{
+  auto const fileTmp = file + ".tmp";
+  if (SaveKmlFile(kmlData, fileTmp, fileType))
+  {
+    // Only after successful save we replace original file.
+    base::DeleteFileX(file);
+    auto const res = base::RenameFileX(fileTmp, file);
+    if (!res)
+      LOG(LWARNING, ("Renaming of .tmp bookmarks file failed", fileTmp, file));
+    return res;
+  }
+  base::DeleteFileX(fileTmp);
+  return false;
+}
+
 bool SaveKmlData(kml::FileData & kmlData, Writer & writer, KmlFileType fileType)
 {
   try

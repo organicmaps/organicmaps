@@ -647,7 +647,7 @@ private:
 
   std::unique_ptr<kml::FileData> CollectBmGroupKMLData(BookmarkCategory const * group) const;
   KMLDataCollectionPtr PrepareToSaveBookmarks(kml::GroupIdCollection const & groupIdCollection);
-  bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file);
+  bool SaveKmlFileByExt(kml::FileData & kmlData, std::string const & file);
 
   void OnSynchronizationStarted(Cloud::SynchronizationType type);
   void OnSynchronizationFinished(Cloud::SynchronizationType type, Cloud::SynchronizationResult result,

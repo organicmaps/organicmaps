@@ -554,8 +554,9 @@ void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessTo
 
       // Save KML.
       auto const filePath = base::JoinPath(GetPlatform().TmpDir(), uploadData.m_serverId + kKmlExtension);
-      if (!SaveKmlFile(*fileData, filePath, KmlFileType::Text))
+      if (!SaveKmlFileSafe(*fileData, filePath, KmlFileType::Text))
       {
+        FileWriter::DeleteFileX(filePath);
         if (uploadErrorCallback)
           uploadErrorCallback(UploadResult::InvalidCall, "Could not save the uploading file.");
         return;

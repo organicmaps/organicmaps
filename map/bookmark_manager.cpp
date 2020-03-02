@@ -152,7 +152,7 @@ BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollect
 
   auto const categoryId = kmlToShare.second->m_categoryData.m_id;
 
-  if (!SaveKmlFile(*kmlToShare.second, filePath, KmlFileType::Text))
+  if (!SaveKmlFileSafe(*kmlToShare.second, filePath, KmlFileType::Text))
   {
     return BookmarkManager::SharingResult(categoryId, BookmarkManager::SharingResult::Code::FileError,
                                           "Bookmarks file does not exist.");
@@ -187,7 +187,7 @@ Cloud::ConvertionResult ConvertBeforeUploading(std::string const & filePath,
     return r;
   }
 
-  if (!SaveKmlFile(*kmlData, tmpFilePath, KmlFileType::Text))
+  if (!SaveKmlFileSafe(*kmlData, tmpFilePath, KmlFileType::Text))
     return {};
 
   Cloud::ConvertionResult result;
@@ -215,7 +215,7 @@ Cloud::ConvertionResult ConvertAfterDownloading(std::string const & filePath,
   
   Cloud::ConvertionResult result;
   result.m_hash = hash;
-  result.m_isSuccessful = SaveKmlFile(*kmlData, convertedFilePath, KmlFileType::Binary);
+  result.m_isSuccessful = SaveKmlFileSafe(*kmlData, convertedFilePath, KmlFileType::Binary);
   return result;
 }
 
@@ -320,7 +320,7 @@ bool ConvertBookmarks(std::vector<std::string> const & files,
       if (kmlData == nullptr)
         continue;
 
-      if (!SaveKmlFile(*kmlData, kmbPath, KmlFileType::Binary))
+      if (!SaveKmlFileSafe(*kmlData, kmbPath, KmlFileType::Binary))
       {
         base::DeleteFileX(kmbPath);
         continue;
@@ -504,7 +504,7 @@ void FixUpHotelPlacemarks(BookmarkManager::KMLDataCollectionPtr & collection,
     if (needSave)
     {
       CHECK(!p.first.empty(), ());
-      SaveKmlFile(*p.second, p.first, KmlFileType::Binary);
+      SaveKmlFileSafe(*p.second, p.first, KmlFileType::Binary);
     }
   }
   
@@ -1911,7 +1911,7 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
           base::DeleteFileX(fileSavePath);
           fileSavePath = GenerateValidAndUniqueFilePathForKMB(fileName);
 
-          if (!SaveKmlFile(*kmlData, fileSavePath, KmlFileType::Binary))
+          if (!SaveKmlFileSafe(*kmlData, fileSavePath, KmlFileType::Binary))
           {
             base::DeleteFileX(fileSavePath);
             fileSavePath.clear();
@@ -2398,6 +2398,8 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
 
     if (!UserMarkIdStorage::Instance().CheckIds(fileData) || HasDuplicatedIds(fileData))
     {
+      LOG(LINFO, ("Reset bookmark ids in the file", fileName,
+                  ", the file is from catalog:", FromCatalog(fileData)));
       //TODO: notify subscribers(like search subsystem). This KML could have been indexed.
       ResetIds(fileData);
     }
@@ -2526,7 +2528,7 @@ bool BookmarkManager::SaveBookmarkCategory(kml::MarkGroupId groupId)
     return false;
   auto const & file = collection->front().first;
   auto & kmlData = *collection->front().second;
-  return SaveKmlFileSafe(kmlData, file);
+  return SaveKmlFileByExt(kmlData, file);
 }
 
 bool BookmarkManager::SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & writer,
@@ -2588,20 +2590,11 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
   return collection;
 }
 
-bool BookmarkManager::SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file)
+bool BookmarkManager::SaveKmlFileByExt(kml::FileData & kmlData, std::string const & file)
 {
   auto const ext = base::GetFileExtension(file);
-  auto const fileTmp = file + ".tmp";
-  if (SaveKmlFile(kmlData, fileTmp, ext == kKmbExtension ?
-                                    KmlFileType::Binary : KmlFileType::Text))
-  {
-    // Only after successful save we replace original file.
-    base::DeleteFileX(file);
-    VERIFY(base::RenameFileX(fileTmp, file), (fileTmp, file));
-    return true;
-  }
-  base::DeleteFileX(fileTmp);
-  return false;
+  return SaveKmlFileSafe(kmlData, file, ext == kKmbExtension ? KmlFileType::Binary
+                                                             : KmlFileType::Text);
 }
 
 void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollection)
@@ -2622,7 +2615,7 @@ void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollec
   {
     // Save bookmarks synchronously.
     for (auto const & kmlItem : *kmlDataCollection)
-      SaveKmlFileSafe(*kmlItem.second, kmlItem.first);
+      SaveKmlFileByExt(*kmlItem.second, kmlItem.first);
     return;
   }
 
@@ -2630,7 +2623,7 @@ void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollec
                         [this, kmlDataCollection = std::move(kmlDataCollection)]()
   {
     for (auto const & kmlItem : *kmlDataCollection)
-      SaveKmlFileSafe(*kmlItem.second, kmlItem.first);
+      SaveKmlFileByExt(*kmlItem.second, kmlItem.first);
   });
 }
 
@@ -2846,8 +2839,9 @@ void BookmarkManager::ConvertAllKmlFiles(ConversionHandler && handler)
       while (Platform::IsFileExistsByFullPath(kmbPath))
         kmbPath = base::JoinPath(newDir, fileName + strings::to_string(counter++) + kKmbExtension);
 
-      if (!SaveKmlFile(*kmlData, kmbPath, KmlFileType::Binary))
+      if (!SaveKmlFileSafe(*kmlData, kmbPath, KmlFileType::Binary))
       {
+        FileWriter::DeleteFileX(kmbPath);
         allConverted = false;
         continue;
       }
@@ -3192,6 +3186,7 @@ void BookmarkManager::UploadToCatalog(kml::MarkGroupId categoryId, kml::AccessRu
     auto fileDataPtr = std::make_unique<kml::FileData>();
     auto const serverId = fileData->m_serverId;
     *fileDataPtr = std::move(*fileData);
+    LOG(LINFO, ("Reset bookmark ids after uploading, server id:", fileData->m_serverId));
     ResetIds(*fileDataPtr);
     KMLDataCollection collection;
     collection.emplace_back(std::make_pair("", std::move(fileDataPtr)));
