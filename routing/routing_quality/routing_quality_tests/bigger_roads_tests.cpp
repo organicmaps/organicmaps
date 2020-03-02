@@ -119,7 +119,7 @@ UNIT_TEST(RoutingQuality_LenOblBadPaving)
 
 UNIT_TEST(RoutingQuality_MosOblBadPaving)
 {
-  TEST(CheckCarRoute({55.93849, 36.02792} /* start */, {55.93567, 36.0533} /* finish */,
+  TEST(CheckCarRoute({55.92961, 36.04081} /* start */, {55.93567, 36.0533} /* finish */,
                      {{{55.92321, 36.04630}}} /* reference track */),
        ());
 }

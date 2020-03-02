@@ -140,8 +140,8 @@ VehicleModel::SurfaceInitList const kCarSurface = {
   // {{surfaceType, surfaceType}, {weightFactor, etaFactor}}
   {{"psurface", "paved_good"}, {1.0, 1.0}},
   {{"psurface", "paved_bad"}, {0.5, 0.5}},
-  {{"psurface", "unpaved_good"}, {0.5, 0.8}},
-  {{"psurface", "unpaved_bad"}, {0.3, 0.3}}
+  {{"psurface", "unpaved_good"}, {0.4, 0.8}},
+  {{"psurface", "unpaved_bad"}, {0.1, 0.3}}
 };
 
 // Names must be the same with country names from countries.txt
