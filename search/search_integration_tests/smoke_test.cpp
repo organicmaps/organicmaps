@@ -155,7 +155,6 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
                                                        {"waterway", "riverbank"},
                                                        {"waterway", "stream"},
                                                        {"landuse", "basin"},
-                                                       {"landuse", "residential"},
                                                        {"place", "county"},
                                                        {"place", "islet"},
                                                        {"power", "pole"},
