@@ -1,5 +1,6 @@
 #include "routing/routing_quality/routing_quality_tool/utils.hpp"
 #include "routing/routing_quality/routing_quality_tool/benchmark_stat.hpp"
+#include "routing/routing_quality/routing_quality_tool/error_type_counter.hpp"
 
 #include "routing/routing_quality/api/api.hpp"
 
@@ -36,6 +37,7 @@ namespace
 {
 // Shows distribution of simularity in comparison mode.
 static std::string const kPythonDistribution = "show_distribution.py";
+static std::string const kPythonBarError = "show_errors_distribution.py";
 
 double constexpr kBadETADiffPercent = std::numeric_limits<double>::max();
 
@@ -162,6 +164,8 @@ template <typename AnotherResult>
 void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> && mapsmeResults,
                    std::vector<std::pair<AnotherResult, std::string>> && anotherResults)
 {
+  ErrorTypeCounter mapsmeErrorCounter;
+  ErrorTypeCounter anotherErrorCounter;
   ComparisonType type = IsMapsmeVsApi() ? ComparisonType::MapsmeVsApi
                                         : ComparisonType::MapsmeVsMapsme;
   RoutesSaver routesSaver(FLAGS_save_results, type);
@@ -185,6 +189,9 @@ void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> &&
 
     auto const & startLatLon = mercator::ToLatLon(anotherResult.GetStartPoint());
     auto const & finishLatLon = mercator::ToLatLon(anotherResult.GetFinishPoint());
+
+    mapsmeErrorCounter.PushError(mapsmeResult.m_code);
+    anotherErrorCounter.PushError(anotherResult.m_code);
 
     if (!mapsmeResult.IsCodeOK() && anotherResult.IsCodeOK())
     {
@@ -226,6 +233,16 @@ void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> &&
   LOG(LINFO, (apiErrors, "routes can not build via", anotherSourceName, "but mapsme do built them."));
 
   PrintResults(std::move(results), routesSaver);
+
+  std::vector<std::string> errorLabels;
+  std::vector<std::vector<double>> errorsCount;
+  FillLabelsAndErrorTypeDistribution(errorLabels, errorsCount, mapsmeErrorCounter,
+                                     anotherErrorCounter);
+
+  auto const pythonScriptPath = base::JoinPath(FLAGS_save_results, kPythonBarError);
+  CreatePythonBarByMap(pythonScriptPath, errorLabels, errorsCount,
+                       {"mapsme", IsMapsmeVsMapsme() ? "old mapsme" : "api"} /* legends */,
+                       "Type of errors" /* xlabel */, "Number of errors" /* ylabel */);
 }
 
 void CheckArgs()

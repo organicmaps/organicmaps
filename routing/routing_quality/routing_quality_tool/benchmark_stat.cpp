@@ -1,6 +1,7 @@
 #include "routing/routing_quality/routing_quality_tool/benchmark_stat.hpp"
 
 #include "routing/routing_quality/routing_quality_tool/benchmark_results.hpp"
+#include "routing/routing_quality/routing_quality_tool/error_type_counter.hpp"
 #include "routing/routing_quality/routing_quality_tool/utils.hpp"
 
 #include "routing/routing_callbacks.hpp"
@@ -137,10 +138,11 @@ void RunBenchmarkStat(
     std::string const & dirForResults)
 {
   BenchmarkResults benchmarkResults;
+  ErrorTypeCounter errorTypeCounter;
   for (auto const & resultItem : mapsmeResults)
   {
     auto const & result = resultItem.first;
-    benchmarkResults.PushError(result.m_code);
+    errorTypeCounter.PushError(result.m_code);
     if (result.m_code != RouterResultCode::NoError)
       continue;
 
@@ -173,11 +175,7 @@ void RunBenchmarkStat(
 
   std::vector<std::string> labels;
   std::vector<double> heights;
-  for (auto const & [errorName, errorCount] : benchmarkResults.GetErrorsDistribution())
-  {
-    labels.emplace_back(errorName);
-    heights.emplace_back(errorCount);
-  }
+  FillLabelsAndErrorTypeDistribution(labels, heights, errorTypeCounter);
 
   CreatePythonBarByMap(pythonScriptPath, labels, {heights}, {"mapsme"} /* legends */,
                        "Type of errors" /* xlabel */, "Number of errors" /* ylabel */);
@@ -190,6 +188,8 @@ void RunBenchmarkComparison(
 {
   BenchmarkResults benchmarkResults;
   BenchmarkResults benchmarkOldResults;
+  ErrorTypeCounter errorTypeCounter;
+  ErrorTypeCounter errorTypeCounterOld;
   std::vector<double> etaDiffsPercent;
   std::vector<double> etaDiffs;
 
@@ -208,8 +208,8 @@ void RunBenchmarkComparison(
 
     auto const & mapsmeOldResult = mapsmeOldResultPair.first;
 
-    benchmarkResults.PushError(mapsmeResult.m_code);
-    benchmarkOldResults.PushError(mapsmeOldResult.m_code);
+    errorTypeCounter.PushError(mapsmeResult.m_code);
+    errorTypeCounterOld.PushError(mapsmeOldResult.m_code);
 
     if (IsErrorCode(mapsmeResult.m_code) && !IsErrorCode(mapsmeOldResult.m_code))
     {
@@ -281,15 +281,8 @@ void RunBenchmarkComparison(
                               {"old mapsme", "new mapsme"} /* legends */);
 
   std::vector<std::string> labels;
-  std::vector<std::vector<double>> errorsCount(2);
-  for (auto const & item : benchmarkOldResults.GetErrorsDistribution())
-  {
-    labels.emplace_back(item.first);
-    errorsCount[0].emplace_back(item.second);
-  }
-
-  for (auto const & item : benchmarkResults.GetErrorsDistribution())
-    errorsCount[1].emplace_back(item.second);
+  std::vector<std::vector<double>> errorsCount;
+  FillLabelsAndErrorTypeDistribution(labels, errorsCount, errorTypeCounter, errorTypeCounterOld);
 
   pythonScriptPath = base::JoinPath(dirForResults, kPythonBarError);
   CreatePythonBarByMap(pythonScriptPath, labels, errorsCount,

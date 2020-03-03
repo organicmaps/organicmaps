@@ -358,8 +358,8 @@ void CreatePythonBarByMap(std::string const & pythonScriptPath,
     counts.back() = ']';
 
   std::string const formatString = drawPercents
-                                       ? "'{{:2.0f}}({:2.0f}%)'.format(height, height / summ * 100)"
-                                       : "'{:2.0f}'.format(height)";
+                                       ? "f'{round(height, 2)}({round(height / summ * 100, 2)}%)'"
+                                       : "f'{round(height, 2)}'";
 
   python << R"(
 import matplotlib
