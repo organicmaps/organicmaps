@@ -203,6 +203,7 @@ bool WriteToTempAndRenameToFile(string const & dest, function<bool(string const 
   if (!write(tmpFileName))
   {
     LOG(LERROR, ("Can't write to", tmpFileName));
+    DeleteFileX(tmpFileName);
     return false;
   }
   if (!RenameFileX(tmpFileName, dest))

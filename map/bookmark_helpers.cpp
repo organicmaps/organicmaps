@@ -15,6 +15,7 @@
 
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/internal/file_data.hpp"
 #include "coding/sha1.hpp"
 #include "coding/zip_reader.hpp"
 
@@ -341,18 +342,10 @@ bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFileType 
 
 bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileType fileType)
 {
-  auto const fileTmp = file + ".tmp";
-  if (SaveKmlFile(kmlData, fileTmp, fileType))
+  return base::WriteToTempAndRenameToFile(file, [&kmlData, fileType](std::string const & fileName)
   {
-    // Only after successful save we replace original file.
-    base::DeleteFileX(file);
-    auto const res = base::RenameFileX(fileTmp, file);
-    if (!res)
-      LOG(LWARNING, ("Renaming of .tmp bookmarks file failed", fileTmp, file));
-    return res;
-  }
-  base::DeleteFileX(fileTmp);
-  return false;
+    return SaveKmlFile(kmlData, fileName, fileType);
+  });
 }
 
 bool SaveKmlData(kml::FileData & kmlData, Writer & writer, KmlFileType fileType)
