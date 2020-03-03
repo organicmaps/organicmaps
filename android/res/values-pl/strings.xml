@@ -1904,9 +1904,6 @@
 	<string name="type.building.garage">Garaż</string>
 	<string name="type.building.has_parts">Część budynku</string>
 	<string name="type.building.train_station">Dworzec kolejowy</string>
-	<string name="type.communication">Komunikacja</string>
-	<string name="type.communication.line">Kabel komunikacyjny</string>
-	<string name="type.communication.line.underground">Podziemny kabel komunikacyjny</string>
 	<string name="type.craft">Rzemiosło</string>
 	<string name="type.craft.brewery">Browar</string>
 	<string name="type.craft.carpenter">Stolarz</string>
@@ -2170,8 +2167,6 @@
 	<string name="type.landuse.recreation_ground">Tereny wypoczynkowe</string>
 	<string name="type.landuse.reservoir">Woda</string>
 	<string name="type.landuse.residential">Tereny zamieszkania</string>
-	<string name="type.landuse.residential.rural">Tereny wiejskie</string>
-	<string name="type.landuse.residential.urban">Tereny miejskie</string>
 	<string name="type.landuse.retail">Obszar handlu</string>
 	<string name="type.landuse.salt_pond">Słone jezioro</string>
 	<string name="type.landuse.village_green">Nawsie</string>
@@ -2296,7 +2291,6 @@
 	<string name="type.place.suburb">Przedmieścia</string>
 	<string name="type.place.town">Miasteczko</string>
 	<string name="type.place.village">Wioska</string>
-	<string name="type.power.generator.wind">Turbina wiatrowa</string>
 	<string name="type.power.line">Linia wysokiego napięcia</string>
 	<string name="type.power.line.underground">Podziemna linia wysokiego napięcia</string>
 	<string name="type.power.minor_line">Linia niskiego napięcia</string>

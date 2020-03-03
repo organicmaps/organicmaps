@@ -2008,9 +2008,6 @@
 	<string name="type.building.garage">Garage</string>
 	<string name="type.building.has_parts">Building</string>
 	<string name="type.building.train_station">Train Station</string>
-	<string name="type.communication">communication</string>
-	<string name="type.communication.line">communication-line</string>
-	<string name="type.communication.line.underground">communication-line-underground</string>
 	<string name="type.craft">craft</string>
 	<string name="type.craft.brewery">Craft brewery</string>
 	<string name="type.craft.carpenter">Carpenter</string>
@@ -2292,8 +2289,6 @@
 	<string name="type.landuse.recreation_ground">landuse-recreation_ground</string>
 	<string name="type.landuse.reservoir">Water</string>
 	<string name="type.landuse.residential">landuse-residential</string>
-	<string name="type.landuse.residential.rural">landuse-residential-rural</string>
-	<string name="type.landuse.residential.urban">landuse-residential-urban</string>
 	<string name="type.landuse.retail">landuse-retail</string>
 	<string name="type.landuse.salt_pond">landuse-salt_pond</string>
 	<string name="type.landuse.village_green">landuse-village_green</string>
@@ -2438,9 +2433,6 @@
 	<string name="type.place.village">Village</string>
 	<string name="type.power">power</string>
 	<string name="type.power.generator">power-generator</string>
-	<string name="type.power.generator.hydro">power-generator-hydro</string>
-	<string name="type.power.generator.photovoltaic">power-generator-photovoltaic</string>
-	<string name="type.power.generator.wind">power-generator-wind</string>
 	<string name="type.power.line">power-line</string>
 	<string name="type.power.line.underground">power-line-underground</string>
 	<string name="type.power.minor_line">power-minor_line</string>
@@ -2630,7 +2622,6 @@
 	<string name="type.shop.video">Shop</string>
 	<string name="type.shop.wine">Wine Shop</string>
 	<string name="type.sponsored">sponsored</string>
-	<string name="type.sponsored.banner">sponsored-banner</string>
 	<string name="type.sponsored.booking">sponsored-booking</string>
 	<string name="type.sponsored.holiday">Christmas or New Year Celebrations</string>
 	<string name="type.sponsored.opentable">sponsored-opentable</string>
@@ -2654,7 +2645,6 @@
 	<string name="type.sponsored.partner7">sponsored-partner7</string>
 	<string name="type.sponsored.partner8">sponsored-partner8</string>
 	<string name="type.sponsored.partner9">sponsored-partner9</string>
-	<string name="type.sponsored.viator">sponsored-viator</string>
 	<string name="type.sport">sport</string>
 	<string name="type.sport.american_football">sport-american_football</string>
 	<string name="type.sport.archery">sport-archery</string>
@@ -2753,7 +2743,6 @@
 	<string name="type.piste_type.nordic">piste:type-nordic</string>
 	<string name="type.piste_type.sled">piste:type-sled</string>
 	<string name="type.building_part">Building</string>
-	<string name="type.earthquake_damage">earthquake:damage</string>
 	<string name="type.area_highway.cycleway">area:highway-cycleway</string>
 	<string name="type.area_highway.footway">area:highway-footway</string>
 	<string name="type.area_highway.living_street">area:highway-living_street</string>
