@@ -281,7 +281,11 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
   }
 
   CHECK(m_route, (m_state));
-  CHECK(m_route->IsValid(), (m_state));
+  // Note. The route may not be valid here. It happens in case when while the first route
+  // build is cancelled because of traffic jam were downloaded. After that route rebuilding
+  // happens. While the rebuilding may be called OnLocationPositionChanged(...)
+  if (!m_route->IsValid())
+    return m_state;
 
   m_turnNotificationsMgr.SetSpeedMetersPerSecond(info.m_speedMpS);
 
