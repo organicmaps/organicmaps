@@ -473,12 +473,10 @@ void RoadAccessTagProcessor::ProcessConditional(OsmElement const & elem)
   auto const & [tag, value] = *op;
   auto const & parser = AccessConditionalTagParser::Instance();
   auto accesses = parser.ParseAccessConditionalTag(tag, value);
-
-  auto & toSave = m_wayToAccessConditional[elem.m_id];
   for (auto & access : accesses)
   {
     if (access.m_accessType != RoadAccess::Type::Count)
-      toSave.emplace_back(move(access));
+      m_wayToAccessConditional[elem.m_id].emplace_back(move(access));
   }
 }
 
