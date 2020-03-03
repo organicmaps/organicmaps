@@ -3624,18 +3624,6 @@
     sk = Železničná stanica
     fa = ایستگاه قطار
 
-  [type.communication]
-    en = communication
-    pl = Komunikacja
-
-  [type.communication.line]
-    en = communication-line
-    pl = Kabel komunikacyjny
-
-  [type.communication.line.underground]
-    en = communication-line-underground
-    pl = Podziemny kabel komunikacyjny
-
   [type.craft]
     en = craft
     pl = Rzemiosło
@@ -10915,14 +10903,6 @@
     en = landuse-residential
     pl = Tereny zamieszkania
 
-  [type.landuse.residential.rural]
-    en = landuse-residential-rural
-    pl = Tereny wiejskie
-
-  [type.landuse.residential.urban]
-    en = landuse-residential-urban
-    pl = Tereny miejskie
-
   [type.landuse.retail]
     en = landuse-retail
     pl = Obszar handlu
@@ -13736,16 +13716,6 @@
 
   [type.power.generator]
     en = power-generator
-
-  [type.power.generator.hydro]
-    en = power-generator-hydro
-
-  [type.power.generator.photovoltaic]
-    en = power-generator-photovoltaic
-
-  [type.power.generator.wind]
-    en = power-generator-wind
-    pl = Turbina wiatrowa
 
   [type.power.line]
     en = power-line
@@ -17613,9 +17583,6 @@
   [type.sponsored]
     en = sponsored
 
-  [type.sponsored.banner]
-    en = sponsored-banner
-
   [type.sponsored.booking]
     en = sponsored-booking
 
@@ -17690,9 +17657,6 @@
 
   [type.sponsored.partner9]
     en = sponsored-partner9
-
-  [type.sponsored.viator]
-    en = sponsored-viator
 
   [type.sport]
     en = sport
@@ -19355,9 +19319,6 @@
     el = Κτίριο
     sk = Budova
     fa = ساختما
-
-  [type.earthquake_damage]
-    en = earthquake:damage
 
   [type.area_highway.cycleway]
     en = area:highway-cycleway
