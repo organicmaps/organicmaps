@@ -32,8 +32,8 @@
       android:layout_width="wrap_content"
       android:layout_height="@dimen/elevation_profile_half_height"
       android:layout_alignParentBottom="true"
-      android:layout_marginTop="8dp"
-      android:layout_marginBottom="8dp"
+      android:layout_marginTop="@dimen/margin_half"
+      android:layout_marginBottom="@dimen/margin_half"
       android:layout_toEndOf="@id/floating_triangle">
       <RelativeLayout
         android:id="@+id/sliding_container"
@@ -48,14 +48,16 @@
           android:id="@+id/distance_text"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:lines="1"
+          android:singleLine="true"
+          android:ellipsize="end"
           android:maxWidth="@dimen/dialog_min_height" />
         <TextView
           android:id="@+id/distance_value"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_below="@id/distance_text"
-          android:lines="1"
+          android:singleLine="true"
+          android:ellipsize="end"
           android:maxWidth="@dimen/dialog_min_height" />
         <LinearLayout
           android:layout_width="wrap_content"
@@ -74,7 +76,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_quarter"
-            android:lines="1" />
+            android:singleLine="true"
+            android:ellipsize="end" />
         </LinearLayout>
       </RelativeLayout>
     </RelativeLayout>

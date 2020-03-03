@@ -78,7 +78,6 @@ public class FloatingMarkerView extends MarkerView
   {
     updateVertical(entry);
     final float halfImg = Math.abs(mImage.getWidth()) / 2f;
-
     boolean isLeftToRightDirection = isInvertedOrder(highlight);
     mOffset = isLeftToRightDirection ? -getWidth() + halfImg : -halfImg;
     updateHorizontal(highlight);
