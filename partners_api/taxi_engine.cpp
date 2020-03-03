@@ -117,7 +117,6 @@ void ResultMaker::DecrementRequestCount()
 Engine::Engine(std::vector<ProviderUrl> urls /* = {} */)
 {
   AddApi<yandex::Api>(urls, Provider::Type::Yandex);
-  AddApi<maxim::Api>(urls, Provider::Type::Maxim);
   AddApi<rutaxi::Api>(urls, Provider::Type::Rutaxi);
 }
 
@@ -201,6 +200,18 @@ std::vector<Provider::Type> Engine::GetProvidersAtPos(ms::LatLon const & pos) co
   {
     if (IsAvailableAtPos(api.m_type, point))
       result.push_back(api.m_type);
+  }
+
+  return result;
+}
+
+std::vector<Provider::Type> Engine::GetSupportedProviders() const
+{
+  std::vector<Provider::Type> result;
+  result.reserve(m_apis.size());
+  for (auto const & api : m_apis)
+  {
+    result.emplace_back(api.m_type);
   }
 
   return result;

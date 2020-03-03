@@ -76,6 +76,8 @@ public:
 
   std::vector<Provider::Type> GetProvidersAtPos(ms::LatLon const & pos) const;
 
+  std::vector<Provider::Type> GetSupportedProviders() const;
+
 private:
   bool IsAvailableAtPos(Provider::Type type, m2::PointD const & point) const;
   bool IsDisabledAtPos(Provider::Type type, m2::PointD const & point) const;

@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "partners_api/taxi_engine.hpp"
 #include "partners_api/taxi_places.hpp"
 #include "partners_api/taxi_places_loader.hpp"
 #include "partners_api/taxi_provider.hpp"
@@ -15,9 +16,10 @@ public:
   {
     using places::Loader;
 
+    taxi::Engine engine;
     std::vector<taxi::SupportedPlaces> places;
-    for (size_t i = 0; i < Provider::Type::Count; ++i)
-      places.emplace_back(Loader::LoadFor(static_cast<Provider::Type>(i)));
+    for (auto const provider : engine.GetSupportedProviders())
+      places.emplace_back(Loader::LoadFor(provider));
 
     for (size_t i = 0; i < places.size(); ++i)
     {
