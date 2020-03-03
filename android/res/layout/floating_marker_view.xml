@@ -26,7 +26,7 @@
       android:layout_width="@dimen/margin_half"
       android:layout_height="@dimen/margin_base"
       android:layout_centerVertical="true"
-      android:src="@drawable/ic_triangle_elevation" />
+      android:src="?elevationProfileFloatingTriangle"/>
     <RelativeLayout
       android:id="@+id/floating_text_container"
       android:layout_width="wrap_content"

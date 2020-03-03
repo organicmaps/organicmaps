@@ -147,6 +147,7 @@
     <attr name="elevationProfileYourLocationPinBg" format="reference"/>
     <attr name="elevationProfileSelectedPointBg" format="reference"/>
     <attr name="elevationProfileSelectedPointTriangle" format="reference"/>
+    <attr name="elevationProfileFloatingTriangle" format="reference"/>
   </declare-styleable>
   
   <declare-styleable name="ThemeAttrs.Fonts">
