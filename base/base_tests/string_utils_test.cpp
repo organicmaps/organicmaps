@@ -184,6 +184,7 @@ UNIT_TEST(to_double)
 
 UNIT_TEST(to_float)
 {
+  float kEps = 1E-30f;
   std::string s;
   float f;
 
@@ -192,23 +193,23 @@ UNIT_TEST(to_float)
 
   s = "0.123";
   TEST(strings::to_float(s, f), ());
-  TEST_ALMOST_EQUAL_ULPS(0.123f, f, ());
+  TEST_ALMOST_EQUAL_ABS(0.123f, f, kEps, ());
 
   s = "1.";
   TEST(strings::to_float(s, f), ());
-  TEST_ALMOST_EQUAL_ULPS(1.0f, f, ());
+  TEST_ALMOST_EQUAL_ABS(1.0f, f, kEps, ());
 
   s = "0";
   TEST(strings::to_float(s, f), ());
-  TEST_ALMOST_EQUAL_ULPS(0.f, f, ());
+  TEST_ALMOST_EQUAL_ABS(0.f, f, kEps, ());
 
   s = "5.6843418860808e-14";
   TEST(strings::to_float(s, f), ());
-  TEST_ALMOST_EQUAL_ULPS(5.6843418860808e-14f, f, ());
+  TEST_ALMOST_EQUAL_ABS(5.6843418860808e-14f, f, kEps, ());
 
   s = "-2";
   TEST(strings::to_float(s, f), ());
-  TEST_ALMOST_EQUAL_ULPS(-2.0f, f, ());
+  TEST_ALMOST_EQUAL_ABS(-2.0f, f, kEps, ());
 
   s = "labuda";
   TEST(!strings::to_float(s, f), ());
@@ -348,9 +349,11 @@ UNIT_TEST(to_any)
 
     s = "-128";
     TEST(strings::to_any(s, i), ());
+    TEST_EQUAL(i, -128, ());
 
     s = "127";
     TEST(strings::to_any(s, i), ());
+    TEST_EQUAL(i, 127, ());
   }
   {
     uint8_t i;
@@ -370,9 +373,11 @@ UNIT_TEST(to_any)
 
     s = "0";
     TEST(strings::to_any(s, i), ());
+    TEST_EQUAL(i, 0, ());
 
     s = "255";
     TEST(strings::to_any(s, i), ());
+    TEST_EQUAL(i, 255, ());
   }
   {
     int16_t i;
@@ -392,9 +397,11 @@ UNIT_TEST(to_any)
 
     s = "-32768";
     TEST(strings::to_any(s, i), ());
+    TEST_EQUAL(i, -32768, ());
 
     s = "32767";
     TEST(strings::to_any(s, i), ());
+    TEST_EQUAL(i, 32767, ());
   }
   {
     uint16_t i;
@@ -414,9 +421,11 @@ UNIT_TEST(to_any)
 
     s = "0";
     TEST(strings::to_any(s, i), ());
+    TEST_EQUAL(i, 0, ());
 
     s = "65535";
     TEST(strings::to_any(s, i), ());
+    TEST_EQUAL(i, 65535, ());
   }
   {
     int32_t i;
@@ -436,9 +445,11 @@ UNIT_TEST(to_any)
 
     s = "-2147483648";
     TEST(strings::to_any(s, i), ());
+    TEST_EQUAL(i, -2147483648, ());
 
     s = "2147483647";
     TEST(strings::to_any(s, i), ());
+    TEST_EQUAL(i, 2147483647, ());
   }
   {
     uint32_t i;
@@ -458,9 +469,11 @@ UNIT_TEST(to_any)
 
     s = "0";
     TEST(strings::to_any(s, i), ());
+    TEST_EQUAL(i, 0, ());
 
     s = "4294967295";
     TEST(strings::to_any(s, i), ());
+    TEST_EQUAL(i, 4294967295, ());
   }
   {
     int64_t i;
@@ -480,9 +493,14 @@ UNIT_TEST(to_any)
 
     s = "-9223372036854775808";
     TEST(strings::to_any(s, i), ());
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicitly-unsigned-literal"
+    TEST_EQUAL(i, -9223372036854775808LL, ());
+#pragma clang diagnostic pop
 
     s = "9223372036854775807";
     TEST(strings::to_any(s, i), ());
+    TEST_EQUAL(i, 9223372036854775807, ());
   }
   {
     uint64_t i;
@@ -502,9 +520,11 @@ UNIT_TEST(to_any)
 
     s = "0";
     TEST(strings::to_any(s, i), ());
+    TEST_EQUAL(i, 0, ());
 
     s = "18446744073709551615";
     TEST(strings::to_any(s, i), ());
+    TEST_EQUAL(i, 18446744073709551615ULL, ());
   }
 }
 

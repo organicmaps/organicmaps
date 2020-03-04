@@ -29,7 +29,7 @@ public:
 
   kml::TrackId GetId() const { return m_id; };
   std::string const & GetName() const { return m_name; }
-  size_t GetLength() const { return m_points.size(); };
+  size_t GetSize() const { return m_points.size(); };
   Points const & GetPoints() const { return m_points; };
   uint16_t GetAscent() const { return m_ascent; }
   uint16_t GetDescent() const { return m_descent; }

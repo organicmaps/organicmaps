@@ -12,10 +12,10 @@ std::string const kDifficultyKey = "difficulty";
 std::string const kDurationKey = "duration";
 
 template <typename T>
-void FillUintProperty(kml::Properties const & properties, std::string const & key, T & value)
+void FillProperty(kml::Properties const & properties, std::string const & key, T & value)
 {
-  auto const it = properties.find(kAscentKey);
-  if (it != properties.cend() && strings::to_any(it->second, value))
+  auto const it = properties.find(key);
+  if (it != properties.cend() && !strings::to_any(it->second, value))
     LOG(LERROR, ("Conversion is not possible for key", key, "string representation is", it->second));
 }
 }  // namespace
@@ -40,10 +40,10 @@ ElevationInfo::ElevationInfo(Track const & track)
 
   auto const & properties = track.GetData().m_properties;
 
-  FillUintProperty(properties, kAscentKey, m_ascent);
-  FillUintProperty(properties, kDescentKey, m_descent);
-  FillUintProperty(properties, kLowestPointKey, m_minAltitude);
-  FillUintProperty(properties, kHighestPointKey, m_maxAltitude);
-  FillUintProperty(properties, kDifficultyKey, m_difficulty);
-  FillUintProperty(properties, kDurationKey, m_duration);
+  FillProperty(properties, kAscentKey, m_ascent);
+  FillProperty(properties, kDescentKey, m_descent);
+  FillProperty(properties, kLowestPointKey, m_minAltitude);
+  FillProperty(properties, kHighestPointKey, m_maxAltitude);
+  FillProperty(properties, kDifficultyKey, m_difficulty);
+  FillProperty(properties, kDurationKey, m_duration);
 }

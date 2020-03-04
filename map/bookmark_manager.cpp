@@ -841,10 +841,10 @@ kml::TrackIdSet const & BookmarkManager::GetTrackIds(kml::MarkGroupId groupId) c
 ElevationInfo BookmarkManager::MakeElevationInfo(kml::TrackId trackId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto const it = m_tracks.find(trackId);
-  CHECK(it != m_tracks.cend(), ());
+  auto const track = GetTrack(trackId);
+  CHECK(track != nullptr, ());
 
-  return ElevationInfo(*(it->second));
+  return ElevationInfo(*track);
 }
 
 bool BookmarkManager::GetLastSortingType(kml::MarkGroupId groupId, SortingType & sortingType) const
@@ -1034,34 +1034,34 @@ void BookmarkManager::SetElevationActivePoint(kml::TrackId const & trackId, doub
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  auto const it = m_tracks.find(trackId);
-  CHECK(it != m_tracks.cend(), ());
+  auto const track = GetTrack(trackId);
+  CHECK(track != nullptr, ());
 
-  auto const & points = it->second->GetPointsWithAltitudes();
+  auto const & points = track->GetPointsWithAltitudes();
 
   if (points.empty())
     return;
 
   m2::PointD result = m2::PointD::Zero();
   double distance = 0.0;
-  double lastDistance = 0.0;
   for (size_t i = 1; i < points.size(); ++i)
   {
-    lastDistance = mercator::DistanceOnEarth(points[i - 1].GetPoint(), points[i].GetPoint());
+    auto const & ptA = points[i - 1].GetPoint();
+    auto const & ptB = points[i].GetPoint();
+    double lastDistance = mercator::DistanceOnEarth(ptA, ptB);
     distance += lastDistance;
     if (distance >= targetDistance)
     {
-      auto const & ptA = points[i - 1].GetPoint();
-      auto const & ptB = points[i].GetPoint();
-      auto const k = lastDistance - (distance - targetDistance) / lastDistance;
-      result.x = ptA.x + (ptB.x - ptA.x) * k;
-      result.y = ptA.y + (ptB.y - ptA.y) * k;
+      auto const k = (lastDistance - (distance - targetDistance)) / lastDistance;
+      result = ptA + (ptB - ptA) * k;
 
       // TODO(darina): propagate |result| and |distance| into track user mark.
 
       return;
     }
   }
+
+  // TODO(darina): propagate |points.back()| and |distance| into track user mark.
 }
 
 double BookmarkManager::GetElevationActivePoint(kml::TrackId const & trackId) const

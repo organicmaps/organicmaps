@@ -22,58 +22,19 @@ namespace strings
 {
 namespace
 {
-template <typename T, typename = std::enable_if_t<std::is_signed<T>::value>>
-long Int64Converter(char const * start, char ** stop, int base)
-{
-#ifdef OMIM_OS_WINDOWS_NATIVE
-  return _strtoi64(start, &stop, base);
-#else
-  return std::strtoll(start, stop, base);
-#endif
-}
-
-template <typename T, typename = std::enable_if_t<std::is_unsigned<T>::value>>
-unsigned long Int64Converter(char const * start, char ** stop, int base)
-{
-#ifdef OMIM_OS_WINDOWS_NATIVE
-  return _strtoui64(start, &stop, base);
-#else
-  return std::strtoull(start, stop, base);
-#endif
-}
-
-template <typename T>
-bool ToInt64Impl(char const * start, T & i, int base /*= 10*/)
-{
-  char * stop;
-  errno = 0;
-
-  auto const tmp = Int64Converter<T>(start, &stop, base);
-
-  if (errno == EINVAL || errno == ERANGE || *stop != 0 || start == stop ||
-      !base::is_cast_valid<T>(tmp))
-  {
-    errno = 0;
-    return false;
-  }
-
-  i = tmp;
-  return true;
-}
-
 template <typename T>
 T RealConverter(char const * start, char ** stop);
 
 template <>
 float RealConverter<float>(char const * start, char ** stop)
 {
-  return strtof(start, stop);
+  return std::strtof(start, stop);
 }
 
 template <>
 double RealConverter<double>(char const * start, char ** stop)
 {
-  return strtod(start, stop);
+  return std::strtod(start, stop);
 }
 
 template <typename T>
@@ -118,16 +79,6 @@ UniChar LastUniChar(std::string const & s)
   utf8::unchecked::iterator<std::string::const_iterator> iter(s.end());
   --iter;
   return *iter;
-}
-
-bool to_uint64(char const * start, uint64_t & i, int base /*= 10*/)
-{
-  return ToInt64Impl(start, i, base);
-}
-
-bool to_int64(char const * start, int64_t & i)
-{
-  return ToInt64Impl(start, i, 10);
 }
 
 bool to_size_t(char const * start, size_t & i, int base)

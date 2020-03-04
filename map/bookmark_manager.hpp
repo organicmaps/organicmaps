@@ -10,10 +10,10 @@
 
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
 
+#include "platform/safe_callback.hpp"
+
 #include "geometry/any_rect2d.hpp"
 #include "geometry/screenbase.hpp"
-
-#include "platform/safe_callback.hpp"
 
 #include "base/macros.hpp"
 #include "base/strings_bundle.hpp"

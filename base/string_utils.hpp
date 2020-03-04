@@ -368,20 +368,44 @@ UniChar LastUniChar(std::string const & s);
 //@{
 namespace internal
 {
-template <typename T, typename = std::enable_if_t<std::is_signed<T>::value>>
+template <typename T, typename = std::enable_if_t<std::is_signed<T>::value &&
+                                                  sizeof(T) < sizeof(long long)>>
 long IntConverter(char const * start, char ** stop, int base)
 {
   return std::strtol(start, stop, base);
 }
 
-template <typename T, typename = std::enable_if_t<std::is_unsigned<T>::value>>
+template <typename T, typename = std::enable_if_t<std::is_unsigned<T>::value &&
+                                                  sizeof(T) < sizeof(unsigned long long)>>
 unsigned long IntConverter(char const * start, char ** stop, int base)
 {
   return std::strtoul(start, stop, base);
 }
 
+template <typename T, typename = std::enable_if_t<std::is_signed<T>::value &&
+                                                  sizeof(T) == sizeof(long long)>>
+long long IntConverter(char const * start, char ** stop, int base)
+{
+#ifdef OMIM_OS_WINDOWS_NATIVE
+  return _strtoi64(start, &stop, base);
+#else
+  return std::strtoll(start, stop, base);
+#endif
+}
+
+template <typename T, typename = std::enable_if_t<std::is_unsigned<T>::value &&
+                                                  sizeof(T) == sizeof(unsigned long long)>>
+unsigned long long IntConverter(char const * start, char ** stop, int base)
+{
+#ifdef OMIM_OS_WINDOWS_NATIVE
+  return _strtoui64(start, &stop, base);
+#else
+  return std::strtoull(start, stop, base);
+#endif
+}
+
 template <typename T,
-          typename = std::enable_if_t<std::is_integral<T>::value && sizeof(T) <= sizeof(int)>>
+          typename = std::enable_if_t<std::is_integral<T>::value>>
 bool ToInteger(char const * start, T & result, int base = 10)
 {
   char * stop;
@@ -390,7 +414,7 @@ bool ToInteger(char const * start, T & result, int base = 10)
   auto const v = IntConverter<T>(start, &stop, base);
 
   if (errno == EINVAL || errno == ERANGE || *stop != 0 || start == stop ||
-      !base::is_cast_valid<T>(v))
+      !base::IsCastValid<T>(v))
   {
     errno = 0;
     return false;
@@ -412,10 +436,24 @@ WARN_UNUSED_RESULT inline bool to_uint(char const * s, unsigned int & i, int bas
 }
 
 // Note: negative values will be converted too.
-// For ex. "-1" converts to uint64_t max value.
-WARN_UNUSED_RESULT bool to_uint64(char const * s, uint64_t & i, int base = 10);
+// For ex.:
+//  "-1" converts to std::numeric_limits<uint64_t>::max();
+//  "-2" converts to std::numeric_limits<uint64_t>::max() - 1;
+//  "-3" converts to std::numeric_limits<uint64_t>::max() - 2;
+//  ...
+// negative std::numeric_limits<uint64_t>::max() converts to 1.
+// Values lower than negative std::numeric_limits<uint64_t>::max()
+// are not convertible (method returns false).
+WARN_UNUSED_RESULT inline bool to_uint64(char const * s, uint64_t & i, int base = 10)
+{
+  return internal::ToInteger(s, i, base);
+}
 
-WARN_UNUSED_RESULT bool to_int64(char const * s, int64_t & i);
+WARN_UNUSED_RESULT inline bool to_int64(char const * s, int64_t & i)
+{
+  return internal::ToInteger(s, i);
+}
+
 WARN_UNUSED_RESULT bool to_size_t(char const * s, size_t & i, int base = 10);
 WARN_UNUSED_RESULT bool to_float(char const * s, float & f);
 WARN_UNUSED_RESULT bool to_double(char const * s, double & d);
@@ -475,7 +513,7 @@ template <typename T>
 struct ToStringConverter { std::string operator()(T const & v) { return to_string(v); } };
 
 template <typename T,
-          typename = std::enable_if_t<std::is_integral<T>::value && sizeof(T) <= sizeof(int)>>
+          typename = std::enable_if_t<std::is_integral<T>::value && sizeof(T) < sizeof(long long)>>
 WARN_UNUSED_RESULT inline bool to_any(std::string const & s, T & i)
 {
   return internal::ToInteger(s.c_str(), i);
@@ -483,10 +521,14 @@ WARN_UNUSED_RESULT inline bool to_any(std::string const & s, T & i)
 
 WARN_UNUSED_RESULT inline bool to_any(std::string const & s, uint64_t & i)
 {
-  return to_uint64(s, i);
+  return internal::ToInteger(s.c_str(), i);
 }
 
-WARN_UNUSED_RESULT inline bool to_any(std::string const & s, int64_t & i) { return to_int64(s, i); }
+WARN_UNUSED_RESULT inline bool to_any(std::string const & s, int64_t & i)
+{
+  return internal::ToInteger(s.c_str(), i);
+}
+
 WARN_UNUSED_RESULT inline bool to_any(std::string const & s, float & f) { return to_float(s, f); }
 WARN_UNUSED_RESULT inline bool to_any(std::string const & s, double & d) { return to_double(s, d); }
 WARN_UNUSED_RESULT inline bool to_any(std::string const & s, std::string & result)

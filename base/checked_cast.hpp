@@ -32,8 +32,12 @@ ReturnType asserted_cast(ParameterType v)
 }
 
 template <typename ResultType, typename ParameterType>
-bool is_cast_valid(ParameterType v)
+bool IsCastValid(ParameterType v)
 {
-  return std::numeric_limits<ResultType>::min() <= v && std::numeric_limits<ResultType>::max() >= v;
+  static_assert(std::is_integral<ParameterType>::value, "ParameterType should be integral");
+  static_assert(std::is_integral<ResultType>::value, "ReturnType should be integral");
+
+  auto const result = static_cast<ResultType>(v);
+  return static_cast<ParameterType>(result) == v && ((result > 0) == (v > 0));
 }
 }  // namespace base
