@@ -37,7 +37,7 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, Smoke)
     Rules const rules = {ExactMatch(id, cafe)};
 
     TEST(ResultsMatch("Eat ", rules), ());
-    TEST(ResultsMatch("Bar", rules), ());
+    TEST(ResultsMatch("cafe Bar", rules), ());
     TEST(ResultsMatch("Drunken", Rules{}), ());
 
     EditFeature(cafeId, [](osm::EditableMapObject & emo) {
@@ -45,7 +45,7 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, Smoke)
     });
 
     TEST(ResultsMatch("Eat ", rules), ());
-    TEST(ResultsMatch("Bar", rules), ());
+    TEST(ResultsMatch("cafe Bar", rules), ());
     TEST(ResultsMatch("Drunken", rules), ());
   }
 
@@ -84,7 +84,7 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, NonamePoi)
 UNIT_CLASS_TEST(SearchEditedFeaturesTest, SearchInViewport)
 {
   TestCity city(m2::PointD(0, 0), "Canterlot", "default", 100 /* rank */);
-  TestPOI bakery0(m2::PointD(0, 0), "Bakery 0", "default");
+  TestPOI bakery0(m2::PointD(0, 0), "French Bakery 0", "default");
   TestPOI cornerPost(m2::PointD(100, 100), "Corner Post", "default");
   auto & editor = osm::Editor::Instance();
 
@@ -95,13 +95,13 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, SearchInViewport)
     builder.Add(cornerPost);
   });
 
-  auto const tmp1 = TestPOI::AddWithEditor(editor, countryId, "bakery1", {1.0, 1.0});
+  auto const tmp1 = TestPOI::AddWithEditor(editor, countryId, "French Bakery1", {1.0, 1.0});
   TestPOI const & bakery1 = tmp1.first;
   FeatureID const & id1 = tmp1.second;
-  auto const tmp2 = TestPOI::AddWithEditor(editor, countryId, "bakery2", {2.0, 2.0});
+  auto const tmp2 = TestPOI::AddWithEditor(editor, countryId, "French Bakery2", {2.0, 2.0});
   TestPOI const & bakery2 = tmp2.first;
   FeatureID const & id2 = tmp2.second;
-  auto const tmp3 = TestPOI::AddWithEditor(editor, countryId, "bakery3", {3.0, 3.0});
+  auto const tmp3 = TestPOI::AddWithEditor(editor, countryId, "French Bakery3", {3.0, 3.0});
   TestPOI const & bakery3 = tmp3.first;
   FeatureID const & id3 = tmp3.second;
   UNUSED_VALUE(id2);
@@ -111,28 +111,28 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, SearchInViewport)
     Rules const rules = {ExactMatch(countryId, bakery0), ExactMatch(countryId, bakery1),
                          ExactMatch(countryId, bakery2), ExactMatch(countryId, bakery3)};
 
-    TEST(ResultsMatch("bakery", Mode::Viewport, rules), ());
+    TEST(ResultsMatch("french bakery", Mode::Viewport, rules), ());
   }
 
   SetViewport(m2::RectD(-2.0, -2.0, -1.0, -1.0));
   {
     Rules const rules = {};
 
-    TEST(ResultsMatch("bakery", Mode::Viewport, rules), ());
+    TEST(ResultsMatch("french bakery", Mode::Viewport, rules), ());
   }
 
   SetViewport(m2::RectD(-1.0, -1.0, 1.5, 1.5));
   {
     Rules const rules = {ExactMatch(countryId, bakery0), ExactMatch(countryId, bakery1)};
 
-    TEST(ResultsMatch("bakery", Mode::Viewport, rules), ());
+    TEST(ResultsMatch("french bakery", Mode::Viewport, rules), ());
   }
 
   SetViewport(m2::RectD(1.5, 1.5, 4.0, 4.0));
   {
     Rules const rules = {ExactMatch(countryId, bakery2), ExactMatch(countryId, bakery3)};
 
-    TEST(ResultsMatch("bakery", Mode::Viewport, rules), ());
+    TEST(ResultsMatch("french bakery", Mode::Viewport, rules), ());
   }
 
   editor.DeleteFeature(id1);
@@ -142,7 +142,7 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, SearchInViewport)
   {
     Rules const rules = {ExactMatch(countryId, bakery0), ExactMatch(countryId, bakery2)};
 
-    TEST(ResultsMatch("bakery", Mode::Viewport, rules), ());
+    TEST(ResultsMatch("french bakery", Mode::Viewport, rules), ());
   }
 }
 

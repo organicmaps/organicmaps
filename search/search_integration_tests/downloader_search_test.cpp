@@ -224,18 +224,18 @@ void TestResults(vector<T> received, vector<T> expected)
 
 UNIT_CLASS_TEST(DownloaderSearchTest, Smoke)
 {
-  AddRegion("Flatland", "Square One", m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0));
-  AddRegion("", "Square Two", m2::PointD(1.0, 1.0), m2::PointD(3.0, 3.0));
+  AddRegion("Flatland", "Squareland One", m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0));
+  AddRegion("", "Squareland Two", m2::PointD(1.0, 1.0), m2::PointD(3.0, 3.0));
   AddRegion("Wonderland", "Shortpondland", m2::PointD(-1.0, -1.0), m2::PointD(0.0, 0.0));
   AddRegion("", "Longpondland", m2::PointD(-3.0, -3.0), m2::PointD(-1.0, -1.0));
   BuildWorld();
 
   {
-    DownloaderSearchRequest request(m_dataSource, m_engine, "square one");
+    DownloaderSearchRequest request(m_dataSource, m_engine, "squareland one");
     request.Run();
 
     TestResults(request.GetResults(),
-                {storage::DownloaderSearchResult("Square One", "Square One capital")});
+                {storage::DownloaderSearchResult("Squareland One", "Squareland One capital")});
   }
 
   {
@@ -254,12 +254,12 @@ UNIT_CLASS_TEST(DownloaderSearchTest, Smoke)
   }
 
   {
-    DownloaderSearchRequest request(m_dataSource, m_engine, "square");
+    DownloaderSearchRequest request(m_dataSource, m_engine, "squareland");
     request.Run();
 
     TestResults(request.GetResults(),
-                {storage::DownloaderSearchResult("Square One", "Square One capital"),
-                 storage::DownloaderSearchResult("Square Two", "Square Two capital")});
+                {storage::DownloaderSearchResult("Squareland One", "Squareland One capital"),
+                 storage::DownloaderSearchResult("Squareland Two", "Squareland Two capital")});
   }
 }
 }  // namespace

@@ -179,7 +179,7 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
   TestBuilding descartesHouse(m2::PointD(10, 10), "Descartes house", "2", "en");
   TestBuilding bornHouse(m2::PointD(14.999, 15), "Born house", "8", firstAprilStreet.GetName("en"), "en");
 
-  TestPOI busStop(m2::PointD(0, 0), "Bus stop", "en");
+  TestPOI busStop(m2::PointD(0, 0), "Central bus stop", "en");
   TestPOI tramStop(m2::PointD(0.0001, 0.0001), "Tram stop", "en");
   TestPOI quantumTeleport1(m2::PointD(0.0002, 0.0002), "Quantum teleport 1", "en");
 
@@ -239,7 +239,7 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
   }
   {
     Rules rules = {ExactMatch(wonderlandId, busStop)};
-    TEST(ResultsMatch("Bus stop", rules), ());
+    TEST(ResultsMatch("Central bus stop", rules), ());
   }
   {
     Rules rules = {ExactMatch(wonderlandId, quantumCafe),
@@ -784,7 +784,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
   TestPOI nonameAtm(m2::PointD(0, 0), "", "en");
   nonameAtm.SetTypes({{"amenity", "atm"}});
 
-  TestPOI namedAtm(m2::PointD(0.3, 0.3), "ATM", "en");
+  TestPOI namedAtm(m2::PointD(0.03, 0.03), "ATM", "en");
   namedAtm.SetTypes({{"amenity", "atm"}});
 
   TestPOI busStop(m2::PointD(0.00005, 0.0005), "ATM Bus Stop", "en");
@@ -817,7 +817,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
     Rules const rules = {ExactMatch(wonderlandId, nonameAtm), ExactMatch(wonderlandId, namedAtm),
                          ExactMatch(wonderlandId, busStop)};
 
-    auto request = MakeRequest("atm");
+    auto request = MakeRequest("San Francisco atm");
     TEST(ResultsMatch(request->Results(), rules), ());
     for (auto const & result : request->Results())
     {
@@ -930,7 +930,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
                          ExactMatch(wonderlandId, hotelCafe), ExactMatch(testWorldId, homel),
                          ExactMatch(wonderlandId, hotelDeVille)};
     // A prefix token.
-    auto request = MakeRequest("hotel");
+    auto request = MakeRequest("hote");
     TEST(ResultsMatch(request->Results(), rules), ());
   }
 
@@ -1701,7 +1701,7 @@ UNIT_CLASS_TEST(ProcessorTest, BrandTest)
 
   {
     Rules rules{ExactMatch(countryId, sw)};
-    TEST(ResultsMatch("Subway", "en", rules), ());
+    TEST(ResultsMatch("Subway cafe", "en", rules), ());
     TEST(ResultsMatch("Сабвэй", "ru", rules), ());
     TEST(ResultsMatch("サブウェイ", "ja", rules), ());
   }
