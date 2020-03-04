@@ -137,7 +137,7 @@ final class MopubBanner: NSObject, Banner {
     guard let nativeAd = nativeAd else { return nil }
 
     if nativeAd.adAdapter is FacebookNativeAdAdapter {
-      return (nativeAd.adAdapter as! FacebookNativeAdAdapter).fbNativeAd.adChoicesLinkURL
+      return (nativeAd.adAdapter as! FacebookNativeAdAdapter).fbNativeAdBase.adChoicesLinkURL
     }
 
     return URL(string: kPrivacyIconTapDestinationURL)

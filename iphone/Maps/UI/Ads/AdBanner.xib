@@ -27,18 +27,20 @@
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f76-qn-ne4">
                         <rect key="frame" x="4" y="4" width="367" height="102"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EuF-Rm-DHQ">
-                                <rect key="frame" x="-40" y="8" width="40" height="40"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="EuF-Rm-DHQ">
+                                <rect key="frame" x="10" y="8" width="16" height="16"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="dih-tk-IV1"/>
-                                    <constraint firstAttribute="height" constant="40" id="eTa-1E-6Of"/>
+                                    <constraint firstAttribute="width" priority="500" constant="16" id="0Yn-tc-gkb"/>
+                                    <constraint firstAttribute="width" priority="250" constant="40" id="ds7-os-zKb"/>
+                                    <constraint firstAttribute="height" priority="500" constant="16" id="eTa-1E-6Of"/>
+                                    <constraint firstAttribute="height" priority="250" constant="40" id="mkc-bm-qPX"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AdsIconImage"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zWu-Gh-Vf7" userLabel="Privacy images">
-                                <rect key="frame" x="8" y="10" width="40" height="12"/>
+                                <rect key="frame" x="32" y="10" width="40" height="12"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_ads_fb" translatesAutoresizingMaskIntoConstraints="NO" id="U70-zR-E2N">
                                         <rect key="frame" x="0.0" y="0.0" width="20" height="12"/>
@@ -71,8 +73,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AdBannerPrivacyImage"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="300" text="Delivery Club" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIR-cO-v6L">
-                                <rect key="frame" x="12" y="8" width="266" height="14.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="499" text="Delivery Club D" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIR-cO-v6L">
+                                <rect key="frame" x="36" y="8" width="242" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -80,8 +82,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="bold12:blackSecondaryText"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="451" verticalHuggingPriority="249" horizontalCompressionResistancePriority="249" text="Как " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ev3-yY-ql1">
-                                <rect key="frame" x="8" y="26.5" width="270" height="67.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" verticalHuggingPriority="249" horizontalCompressionResistancePriority="499" text="Как " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ev3-yY-ql1">
+                                <rect key="frame" x="32" y="26.5" width="246" height="67.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -140,7 +142,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="So8-wM-Cgz">
-                                <rect key="frame" x="6" y="8" width="42" height="16"/>
+                                <rect key="frame" x="30" y="8" width="42" height="16"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="privacyAction" destination="WK2-gA-ocn" eventType="touchUpInside" id="ma2-uV-7hH"/>
@@ -170,11 +172,10 @@
                             <constraint firstAttribute="trailing" secondItem="9qA-JC-fkn" secondAttribute="leading" priority="250" id="5CH-Fo-S70"/>
                             <constraint firstItem="huL-pj-FQy" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" id="9xd-8o-CPo"/>
                             <constraint firstAttribute="bottom" secondItem="Ev3-yY-ql1" secondAttribute="bottom" priority="500" constant="8" id="FJI-xF-QTM"/>
-                            <constraint firstItem="NKM-3R-3g1" firstAttribute="top" relation="greaterThanOrEqual" secondItem="EuF-Rm-DHQ" secondAttribute="bottom" constant="8" id="Fjs-IQ-LQv"/>
                             <constraint firstItem="Ev3-yY-ql1" firstAttribute="top" secondItem="kIR-cO-v6L" secondAttribute="bottom" priority="250" constant="8" id="HHb-Vh-rIl"/>
-                            <constraint firstItem="EuF-Rm-DHQ" firstAttribute="trailing" secondItem="f76-qn-ne4" secondAttribute="leading" priority="500" id="HLI-Zw-ETh"/>
                             <constraint firstItem="54O-iN-1Gg" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" id="JWc-kJ-RaK"/>
                             <constraint firstItem="EuF-Rm-DHQ" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" constant="8" id="KEp-1t-yK0"/>
+                            <constraint firstItem="EIT-s3-8BF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="EuF-Rm-DHQ" secondAttribute="bottom" constant="8" id="KRN-l8-eq0"/>
                             <constraint firstItem="Ev3-yY-ql1" firstAttribute="top" secondItem="kIR-cO-v6L" secondAttribute="bottom" priority="700" constant="4" id="NmE-r2-ZNA"/>
                             <constraint firstAttribute="trailing" secondItem="kIR-cO-v6L" secondAttribute="trailing" priority="250" constant="16" id="POq-M6-rLU"/>
                             <constraint firstItem="zWu-Gh-Vf7" firstAttribute="top" secondItem="kIR-cO-v6L" secondAttribute="top" constant="2" id="Q0s-7L-aih"/>
@@ -190,7 +191,7 @@
                             <constraint firstAttribute="trailing" secondItem="9qA-JC-fkn" secondAttribute="trailing" priority="500" constant="16" id="dww-N9-1tY"/>
                             <constraint firstItem="Ev3-yY-ql1" firstAttribute="trailing" secondItem="kIR-cO-v6L" secondAttribute="trailing" id="eM3-Nv-zVj"/>
                             <constraint firstItem="So8-wM-Cgz" firstAttribute="top" secondItem="zWu-Gh-Vf7" secondAttribute="top" constant="-2" id="fNs-FC-pga"/>
-                            <constraint firstItem="EuF-Rm-DHQ" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" priority="250" constant="16" id="gJI-DA-6rn"/>
+                            <constraint firstItem="EuF-Rm-DHQ" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" constant="10" id="gJI-DA-6rn"/>
                             <constraint firstItem="54O-iN-1Gg" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" id="ge7-AI-110"/>
                             <constraint firstItem="EIT-s3-8BF" firstAttribute="width" secondItem="NKM-3R-3g1" secondAttribute="width" id="gvb-Sb-VpY"/>
                             <constraint firstItem="EIT-s3-8BF" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" constant="12" id="hHP-XI-N3c"/>
@@ -203,8 +204,7 @@
                             <constraint firstAttribute="bottom" secondItem="54O-iN-1Gg" secondAttribute="bottom" id="tOj-8H-AsH"/>
                             <constraint firstItem="Ev3-yY-ql1" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" id="tVH-Tk-6D6"/>
                             <constraint firstItem="9qA-JC-fkn" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" constant="24" id="u8g-fp-l2o"/>
-                            <constraint firstItem="zWu-Gh-Vf7" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" priority="600" constant="8" id="vlX-zx-nfP"/>
-                            <constraint firstItem="zWu-Gh-Vf7" firstAttribute="leading" secondItem="EuF-Rm-DHQ" secondAttribute="trailing" priority="250" constant="8" id="w5K-BT-1ED"/>
+                            <constraint firstItem="zWu-Gh-Vf7" firstAttribute="leading" secondItem="EuF-Rm-DHQ" secondAttribute="trailing" constant="6" id="w5K-BT-1ED"/>
                             <constraint firstItem="EIT-s3-8BF" firstAttribute="top" secondItem="Ev3-yY-ql1" secondAttribute="bottom" constant="8" id="wEs-mb-MUF"/>
                             <constraint firstItem="NKM-3R-3g1" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" priority="250" constant="12" id="ypZ-TK-ao1"/>
                             <constraint firstItem="So8-wM-Cgz" firstAttribute="trailing" secondItem="zWu-Gh-Vf7" secondAttribute="trailing" id="zGz-Sf-G1b"/>
@@ -251,12 +251,12 @@
                 <outlet property="removeAdsImage" destination="D3u-BA-Ixx" id="0qo-wO-cBR"/>
                 <outlet property="removeAdsLargeButton" destination="EIT-s3-8BF" id="Xdb-44-0cc"/>
                 <outlet property="removeAdsSmallButton" destination="huL-pj-FQy" id="dtr-Nq-1O0"/>
-                <outletCollection property="detailedModeConstraints" destination="w5K-BT-1ED" collectionClass="NSMutableArray" id="Lv4-E4-dYV"/>
                 <outletCollection property="detailedModeConstraints" destination="POq-M6-rLU" collectionClass="NSMutableArray" id="rqF-JD-SZe"/>
-                <outletCollection property="detailedModeConstraints" destination="gJI-DA-6rn" collectionClass="NSMutableArray" id="Bf5-KV-Yq1"/>
                 <outletCollection property="detailedModeConstraints" destination="hzn-4Y-A0H" collectionClass="NSMutableArray" id="iYa-dA-hgO"/>
                 <outletCollection property="detailedModeConstraints" destination="5CH-Fo-S70" collectionClass="NSMutableArray" id="U1k-ax-zNd"/>
                 <outletCollection property="detailedModeConstraints" destination="HHb-Vh-rIl" collectionClass="NSMutableArray" id="Xye-5k-1LM"/>
+                <outletCollection property="detailedModeConstraints" destination="mkc-bm-qPX" collectionClass="NSMutableArray" id="Dg1-qx-woC"/>
+                <outletCollection property="detailedModeConstraints" destination="ds7-os-zKb" collectionClass="NSMutableArray" id="Mc6-Ou-cEC"/>
             </connections>
             <point key="canvasLocation" x="-285.60000000000002" y="-205.09745127436284"/>
         </tableViewCell>

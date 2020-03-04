@@ -3,18 +3,13 @@
 #import "MPNativeView.h"
 
 @class FBNativeAd;
+@class FBMediaView;
 
 @interface MPNativeAd (MWM) <MPNativeViewDelegate>
 
-- (void)setAdView:(UIView *)view actionButtons:(NSArray<UIButton *> *)buttons;
+- (void)setAdView:(UIView *)view iconView:(UIImageView *)iconImageView actionButtons:(NSArray<UIButton *> *)buttons;
 - (void)unregister;
 
 @property(nonatomic, readonly) id<MPNativeAdAdapter> adAdapter;
-
-@end
-
-@interface FacebookNativeAdAdapter ()
-
-@property(nonatomic, readonly) FBNativeAd * fbNativeAd;
 
 @end

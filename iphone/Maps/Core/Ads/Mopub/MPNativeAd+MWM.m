@@ -11,13 +11,12 @@
 - (void)willAttachToView:(UIView *)view withAdContentViews:(NSArray *)adContentViews;
 - (void)adViewTapped;
 - (void)nativeViewWillMoveToSuperview:(UIView *)superview;
-- (UIViewController *)viewControllerForPresentingModalView;
 
 @end
 
 @implementation MPNativeAd (MWM)
 
-- (void)setAdView:(UIView *)view actionButtons:(NSArray<UIButton *> *)buttons
+- (void)setAdView:(UIView *)view iconView:(UIImageView *)iconImageView actionButtons:(NSArray<UIButton *> *)buttons
 {
   self.associatedView = (MPNativeView *)view;
   ((MWMAdBanner *)view).mpNativeAd = self;
@@ -25,12 +24,14 @@
     id<MPNativeAdAdapter> adapter = self.adAdapter;
     if ([adapter isKindOfClass:[FacebookNativeAdAdapter class]])
     {
-      FacebookNativeAdAdapter *fbAdapter = (FacebookNativeAdAdapter *)adapter;
-      [fbAdapter.fbNativeAd registerViewForInteraction:self.associatedView
-                                             mediaView:[[FBMediaView alloc] init]
-                                              iconView:Nil
-                                        viewController:[self viewControllerForPresentingModalView]
-                                        clickableViews:buttons];
+     FacebookNativeAdAdapter *fbAdapter = (FacebookNativeAdAdapter *)adapter;
+     FBNativeBannerAd *fbNativeAd = (FBNativeBannerAd *)(fbAdapter.fbNativeAdBase);
+     if (fbNativeAd) {
+       [fbNativeAd registerViewForInteraction:self.associatedView
+                                iconImageView:iconImageView
+                               viewController:[MapViewController sharedController]
+                               clickableViews:buttons];
+     }
     }
     else
     {
@@ -56,7 +57,7 @@
   if ([adapter isKindOfClass:[FacebookNativeAdAdapter class]])
   {
     FacebookNativeAdAdapter *fbAdapter = (FacebookNativeAdAdapter *)adapter;
-    [fbAdapter.fbNativeAd unregisterView];
+    [fbAdapter.fbNativeAdBase unregisterView];
   }
 }
 

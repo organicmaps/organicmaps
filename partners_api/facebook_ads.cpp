@@ -3,8 +3,8 @@
 namespace
 {
 #if defined(OMIM_OS_IPHONE)
-  auto const kSingleBannerIdForAllTypes = "185237551520383_1450324925011633";
-  auto const kSearchbannerId = "185237551520383_1453784847998974";
+  auto const kSingleBannerIdForAllTypes = "185237551520383_3000232483354195";
+  auto const kSearchbannerId = "185237551520383_3000236913353752";
 #elif defined(OMIM_OS_ANDROID)
   auto const kSingleBannerIdForAllTypes = "185237551520383_1450325641678228";
   auto const kSearchbannerId = "185237551520383_1384653791578747";

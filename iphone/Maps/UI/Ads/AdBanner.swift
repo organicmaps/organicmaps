@@ -147,7 +147,7 @@ final class AdBanner: UITableViewCell {
       adCallToActionButtonDetailed.isHighlighted = highlighted;
   }
 
-  private func configFBBanner(ad: FBNativeAd) {
+  private func configFBBanner(ad: FBNativeBannerAd) {
     adType = .native
     DAAImageWidth.constant = adPrivacyImage.width;
     DAAImage.isHidden = false;
@@ -159,7 +159,6 @@ final class AdBanner: UITableViewCell {
       adCallToActionButtons = [adCallToActionButtonCompact, adCallToActionButtonDetailed]
     }
     ad.registerView(forInteraction: self,
-                    mediaView: FBMediaView(),
                     iconImageView: adIconImageView,
                     viewController: UIViewController.topViewController(),
                     clickableViews: adCallToActionButtons)
@@ -206,8 +205,7 @@ final class AdBanner: UITableViewCell {
       adCallToActionButtons = [adCallToActionButtonCompact, adCallToActionButtonDetailed]
       adCallToActionButtons.forEach { $0.setTitle(ad.ctaText, for: .normal) }
     }
-    mpNativeAd?.setAdView(self, actionButtons: adCallToActionButtons)
-
+    mpNativeAd?.setAdView(self, iconView: adIconImageView, actionButtons: adCallToActionButtons)
     adTitleLabel.attributedText = attributedTitle(title: ad.title,
                                                   indent: adPrivacyImage.width + DAAImageWidth.constant)
     adBodyLabel.text = ad.text
