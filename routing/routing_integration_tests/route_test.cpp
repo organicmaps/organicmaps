@@ -298,7 +298,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 18241.2);
+    integration::TestRouteTime(route, 18011.8);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22TimeTest)
@@ -311,7 +311,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 1060.0);
+    integration::TestRouteTime(route, 1023.0);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22SubrouteTest)
@@ -392,7 +392,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 18989.9);
+    integration::TestRouteTime(route, 19381.5);
   }
 
   // Test on roads with tag route=shuttle_train
@@ -420,7 +420,7 @@ namespace
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
 
-    integration::TestRouteTime(route, 6348.78);
+    integration::TestRouteTime(route, 8102.0);
   }
 
   // Test on removing speed cameras from the route for maps from Jan 2019,
