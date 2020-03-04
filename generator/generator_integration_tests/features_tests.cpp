@@ -381,7 +381,7 @@ public:
     TestGeneratedFile(maxSpeeds, 1301515 /* fileSize */);
     TestGeneratedFile(metalines, 288032 /* fileSize */);
     TestGeneratedFile(restrictions, 371110 /* fileSize */);
-    TestGeneratedFile(roadAccess, 1914255 /* fileSize */);
+    TestGeneratedFile(roadAccess, 1915402 /* fileSize */);
     TestGeneratedFile(m_genInfo.m_citiesBoundariesFilename, 87 /* fileSize */);
   }
 
