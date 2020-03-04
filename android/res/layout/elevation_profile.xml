@@ -5,7 +5,7 @@
   android:layout_height="@dimen/elevation_profile_height"
   android:background="?cardBackground"
   android:orientation="vertical">
-  <com.github.mikephil.charting.charts.LineChart
+  <com.mapswithme.maps.widget.placepage.ElevationProfileChart
     android:id="@+id/elevation_profile_chart"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
