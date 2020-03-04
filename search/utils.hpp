@@ -77,18 +77,15 @@ void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, Locales const & loc
 }
 
 // Returns |true| and fills |types| if request specified by |slice| is categorial
-// in any of the |locales| and |false| otherwise. We expect that categorial requests should
-// mostly arise from clicking on a category button in the UI.
-// It is assumed that typing a word that matches a category's name
-// and a space after it means that no errors were made.
+// in any of the |locales| and |false| otherwise.
+// We expect that categorial requests should mostly arise from clicking on a category
+// button in the UI but also allow typing the category name without errors manually
+// and not adding a space.
 template <typename T>
 bool FillCategories(QuerySliceOnRawStrings<T> const & slice, Locales const & locales,
                     CategoriesHolder const & catHolder, std::vector<uint32_t> & types)
 {
   types.clear();
-  if (slice.HasPrefixToken())
-    return false;
-
   catHolder.ForEachNameAndType(
       [&](CategoriesHolder::Category::Name const & categorySynonym, uint32_t type) {
         if (!locales.Contains(static_cast<uint64_t>(categorySynonym.m_locale)))
