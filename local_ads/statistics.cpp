@@ -314,7 +314,11 @@ std::list<Event> Statistics::WriteEvents(std::list<Event> & events, std::string 
       }
 
       if (writer == nullptr || writer->GetName() != metadata.m_fileName)
-        writer = std::make_unique<FileWriter>(metadata.m_fileName, FileWriter::OP_APPEND);
+      {
+        writer = std::make_unique<FileWriter>(
+            metadata.m_fileName,
+            needWriteMetadata ? FileWriter::OP_WRITE_TRUNCATE : FileWriter::OP_APPEND);
+      }
 
       if (needWriteMetadata)
         WriteMetadata(*writer, event.m_countryId, event.m_mwmVersion, metadata.m_timestamp);
