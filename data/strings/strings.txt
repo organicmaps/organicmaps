@@ -46996,3 +46996,6 @@
     zh-Hans = 订阅
     zh-Hant = 訂閱
     fa = عضویت
+
+  [freenow_taxi_title]
+    en = FREE NOW
