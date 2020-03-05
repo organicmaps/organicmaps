@@ -532,6 +532,7 @@ static NSString * const kStatVehicle = @"Vehicle";
 static NSString * const kStatVendor = @"vendor";
 static NSString * const kStatVersion = @"version";
 static NSString * const kStatVezet = @"Vezet";
+static NSString * const kStatFreenow = @"Freenow";
 static NSString * const kStatViewOnMap = @"view_on_map";
 static NSString * const kStatVisible = @"Visible";
 static NSString * const kStatWebView = @"webview";

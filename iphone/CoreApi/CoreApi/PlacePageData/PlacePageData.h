@@ -30,7 +30,8 @@ typedef NS_ENUM(NSInteger, PlacePageTaxiProvider) {
   PlacePageTaxiProviderUber,
   PlacePageTaxiProviderYandex,
   PlacePageTaxiProviderMaxim,
-  PlacePageTaxiProviderRutaxi
+  PlacePageTaxiProviderRutaxi,
+  PlacePageTaxiProviderFreenow,
 };
 
 typedef NS_ENUM(NSInteger, PlacePageRoadType) {

@@ -13,6 +13,7 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
       case .yandex: return #imageLiteral(resourceName: "ic_taxi_logo_yandex")
       case .maxim: return #imageLiteral(resourceName: "ic_taxi_logo_maksim")
       case .vezet: return #imageLiteral(resourceName: "ic_taxi_logo_vezet")
+      case .freenow: return #imageLiteral(resourceName: "ic_logo_freenow")
       }
     }
 
@@ -23,6 +24,7 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
       case .yandex: return L("yandex_taxi_title")
       case .maxim: return L("maxim_taxi_title")
       case .vezet: return L("vezet_taxi")
+      case .freenow: return title
       }
     }
 
@@ -42,6 +44,7 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
         } else {
           return "\(currency) \(price)"
         }
+      case .freenow: return price
       }
     }
 
