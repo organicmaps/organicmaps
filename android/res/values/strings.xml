@@ -1839,6 +1839,9 @@
 	<string name="hide_screen_map_update">Hide and continue</string>
 	<string name="view_on_map_downloaded_error">This guide has been deleted from this device</string>
 	<string name="subscription">Subscription</string>
+	<string name="freenow_taxi_title">FREE NOW</string>
+
+	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
 	<string name="sponsored_partner2_action">Discount</string>
 	<string name="sponsored_partner3_action">Coupon</string>

@@ -3244,6 +3244,11 @@
 
 "subscription" = "Подписка";
 
+"freenow_taxi_title" = "FREE NOW";
+
+
+/**********  Partners  **********/
+
 "sponsored_partner1_action" = "Аутлеты";
 
 "sponsored_partner2_action" = "Discount";

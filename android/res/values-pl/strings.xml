@@ -1787,6 +1787,8 @@
 	<string name="hide_screen_map_update">Ukryj i kontynuuj</string>
 	<string name="view_on_map_downloaded_error">Ten przewodnik został usunięty z urządzenia</string>
 	<string name="subscription">Subskrypcja</string>
+
+	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Wyprzedaże</string>
 	<string name="sponsored_partner2_action">Przecena</string>
 	<string name="sponsored_partner3_action">Kupon</string>

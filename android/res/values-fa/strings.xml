@@ -1715,7 +1715,7 @@
 	<!-- hide the full screen banner and continue working with the app -->
 	<string name="hide_screen_map_update">پنهان کردن و ادامه دادن</string>
 	<string name="view_on_map_downloaded_error">راهنما از این دستگاه پاک شده است</string>
-	<string name="subscription">عضویت[[ Partners ]]</string>
+	<string name="subscription">عضویت</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>

@@ -3242,7 +3242,12 @@
 
 "view_on_map_downloaded_error" = "راهنما از این دستگاه پاک شده است";
 
-"subscription" = "عضویت[[ Partners ]]";
+"subscription" = "عضویت";
+
+"freenow_taxi_title" = "FREE NOW";
+
+
+/**********  Partners  **********/
 
 "sponsored_partner1_action" = "Outlets";
 

@@ -3244,6 +3244,11 @@
 
 "subscription" = "Predplatné";
 
+"freenow_taxi_title" = "FREE NOW";
+
+
+/**********  Partners  **********/
+
 "sponsored_partner1_action" = "Outlets";
 
 "sponsored_partner2_action" = "Discount";
