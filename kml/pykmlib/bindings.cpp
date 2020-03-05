@@ -8,6 +8,7 @@
 
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include "base/assert.hpp"
 
@@ -121,6 +122,42 @@ struct LocalizableStringAdapter
         out << ", ";
     }
     out << "]";
+    return out.str();
+  }
+};
+
+std::string LatLonToString(ms::LatLon const & latLon);
+
+struct PointWithAltitudeAdapter
+{
+  static m2::PointD const & GetPoint(geometry::PointWithAltitude const & ptWithAlt)
+  {
+    return ptWithAlt.GetPoint();
+  }
+
+  static geometry::Altitude GetAltitude(geometry::PointWithAltitude const & ptWithAlt)
+  {
+    return ptWithAlt.GetAltitude();
+  }
+
+  static void SetPoint(geometry::PointWithAltitude & ptWithAlt, m2::PointD const & pt)
+  {
+    ptWithAlt.SetPoint(pt);
+  }
+
+  static void SetAltitude(geometry::PointWithAltitude & ptWithAlt, geometry::Altitude altitude)
+  {
+    ptWithAlt.SetAltitude(altitude);
+  }
+
+  static std::string ToString(geometry::PointWithAltitude const & ptWithAlt)
+  {
+    auto const latLon = mercator::ToLatLon(ptWithAlt.GetPoint());
+    std::ostringstream out;
+    out << "["
+        << "point:" << LatLonToString(latLon) << ", "
+        << "altitude:" << ptWithAlt.GetAltitude()
+        << "]";
     return out.str();
   }
 };
@@ -243,34 +280,10 @@ void VectorAdapter<TrackLayer>::PrintType(std::ostringstream & out, TrackLayer c
 }
 
 template<>
-boost::python::list VectorAdapter<m2::PointD>::Get(std::vector<m2::PointD> const & points)
+void VectorAdapter<geometry::PointWithAltitude>::PrintType(std::ostringstream & out,
+                                                           geometry::PointWithAltitude const & pt)
 {
-  std::vector<ms::LatLon> latLonArray;
-  latLonArray.reserve(points.size());
-  for (size_t i = 0; i < points.size(); ++i)
-    latLonArray.emplace_back(mercator::YToLat(points[i].y), mercator::XToLon(points[i].x));
-  return std_vector_to_python_list(latLonArray);
-}
-
-template<>
-void VectorAdapter<m2::PointD>::Set(std::vector<m2::PointD> & v, boost::python::object const & iterable)
-{
-  v.clear();
-  if (iterable.is_none())
-    return;
-
-  auto const latLon = python_list_to_std_vector<ms::LatLon>(iterable);
-  v.reserve(latLon.size());
-  for (size_t i = 0; i < latLon.size(); ++i)
-    v.emplace_back(mercator::LonToX(latLon[i].m_lon), mercator::LatToY(latLon[i].m_lat));
-}
-
-std::string LatLonToString(ms::LatLon const & latLon);
-template<>
-void VectorAdapter<m2::PointD>::PrintType(std::ostringstream & out, m2::PointD const & pt)
-{
-  ms::LatLon const latLon(mercator::YToLat(pt.y), mercator::XToLon(pt.x));
-  out << LatLonToString(latLon);
+  out << PointWithAltitudeAdapter::ToString(pt);
 }
 
 std::string BookmarkDataToString(BookmarkData const & bm);
@@ -423,7 +436,8 @@ std::string TrackDataToString(TrackData const & t)
       << "description:" << LocalizableStringAdapter::ToString(t.m_description) << ", "
       << "timestamp:" << DebugPrint(t.m_timestamp) << ", "
       << "layers:" << VectorAdapter<TrackLayer>::ToString(t.m_layers) << ", "
-      << "points:" << VectorAdapter<m2::PointD>::ToString(t.m_points) << ", "
+      << "points_with_altitudes:"
+      << VectorAdapter<geometry::PointWithAltitude>::ToString(t.m_pointsWithAltitudes) << ", "
       << "visible:" << (t.m_visible ? "True" : "False") << ", "
       << "nearest_toponyms:" << VectorAdapter<std::string>::ToString(t.m_nearestToponyms) << ", "
       << "properties:" << PropertiesAdapter::ToString(t.m_properties)
@@ -768,6 +782,13 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def_readwrite("lon", &ms::LatLon::m_lon)
     .def("__str__", &LatLonToString);
 
+  class_<geometry::PointWithAltitude>("PointWithAltitude")
+    .def("get_point", &PointWithAltitudeAdapter::GetPoint, return_value_policy<copy_const_reference>())
+    .def("set_point", &PointWithAltitudeAdapter::SetPoint)
+    .def("get_altitude", &PointWithAltitudeAdapter::GetAltitude)
+    .def("set_altitude", &PointWithAltitudeAdapter::SetAltitude)
+    .def("__str__", &PointWithAltitudeAdapter::ToString);
+
   class_<m2::PointD>("PointD");
 
   class_<Timestamp>("Timestamp");
@@ -819,6 +840,12 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def("set_list", &VectorAdapter<m2::PointD>::Set)
     .def("__str__", &VectorAdapter<m2::PointD>::ToString);
 
+  class_<std::vector<geometry::PointWithAltitude>>("PointWithAltitudeList")
+    .def(vector_indexing_suite<std::vector<geometry::PointWithAltitude>>())
+    .def("get_list", &VectorAdapter<geometry::PointWithAltitude>::Get)
+    .def("set_list", &VectorAdapter<geometry::PointWithAltitude>::Set)
+    .def("__str__", &VectorAdapter<geometry::PointWithAltitude>::ToString);
+
   class_<std::vector<ms::LatLon>>("LatLonList")
     .def(vector_indexing_suite<std::vector<ms::LatLon>>());
 
@@ -828,7 +855,7 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def_readwrite("description", &TrackData::m_description)
     .def_readwrite("timestamp", &TrackData::m_timestamp)
     .def_readwrite("layers", &TrackData::m_layers)
-    .def_readwrite("points", &TrackData::m_points)
+    .def_readwrite("points_with_altitudes", &TrackData::m_pointsWithAltitudes)
     .def_readwrite("visible", &TrackData::m_visible)
     .def_readwrite("nearest_toponyms", &TrackData::m_nearestToponyms)
     .def_readwrite("properties", &TrackData::m_properties)

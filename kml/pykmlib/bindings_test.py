@@ -71,10 +71,16 @@ class PyKmlibAdsTest(unittest.TestCase):
         track.description['ru'] = 'Тестовое описание трека'
         track.timestamp = int(datetime.datetime.now().timestamp())
         track.layers.set_list([layer1, layer2])
-        track.points.set_list([
-        	pykmlib.LatLon(45.9242, 56.8679),
-        	pykmlib.LatLon(45.2244, 56.2786),
-        	pykmlib.LatLon(45.1964, 56.9832)])
+        pt1 = pykmlib.PointWithAltitude()
+        pt1.set_point(pykmlib.LatLon(45.9242, 56.8679))
+        pt1.set_altitude(100)
+        pt2 = pykmlib.PointWithAltitude()
+        pt2.set_point(pykmlib.LatLon(45.2244, 56.2786))
+        pt2.set_altitude(110)
+        pt3 = pykmlib.PointWithAltitude()
+        pt3.set_point(pykmlib.LatLon(45.1964, 56.9832))
+        pt3.set_altitude(120)
+        track.points_with_altitudes.set_list([pt1, pt2, pt3])
         track.visible = True
         track.nearest_toponyms.set_list(['12345', '54321', '98765'])
         track.properties.set_dict({'tr_property1':'value1', 'tr_property2':'value2'})

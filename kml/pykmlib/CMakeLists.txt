@@ -27,6 +27,7 @@ omim_link_libraries(
   pugixml
   expat
   stats_client
+  succinct
 )
 
 link_qt5_core(${PROJECT_NAME})
