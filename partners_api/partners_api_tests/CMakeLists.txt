@@ -7,8 +7,10 @@ set(
   ads_engine_tests.cpp
   booking_tests.cpp
   facebook_tests.cpp
+  freenow_tests.cpp
   google_tests.cpp
-  maxim_tests.cpp
+# Maxim taxi project is disabled.
+# maxim_tests.cpp
 # Megafon project is disabled until the contract is renewed or extended.
 # megafon_countries_tests.cpp
   mopub_tests.cpp
@@ -17,7 +19,8 @@ set(
   rutaxi_tests.cpp
   taxi_engine_tests.cpp
   taxi_places_tests.cpp
-  uber_tests.cpp
+# Uber taxi project is disabled.
+# uber_tests.cpp
   yandex_tests.cpp
 )
 

@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "partners_api/freenow_api.hpp"
 #include "partners_api/maxim_api.hpp"
 #include "partners_api/rutaxi_api.hpp"
 #include "partners_api/taxi_engine.hpp"
@@ -97,6 +98,18 @@ public:
   storage::CountryId GetMwmId(m2::PointD const & point) override { return {}; }
 };
 
+class IrelandDublinDelegate : public taxi::Delegate
+{
+public:
+  storage::CountriesVec GetCountryIds(m2::PointD const & point) override
+  {
+    return {"Ireland"};
+  }
+
+  std::string GetCityName(m2::PointD const & point) override { return "Dublin"; }
+  storage::CountryId GetMwmId(m2::PointD const & point) override { return {}; }
+};
+
 std::vector<taxi::Product> GetUberSynchronous(ms::LatLon const & from, ms::LatLon const & to,
                                               std::string const & url)
 {
@@ -169,6 +182,15 @@ std::vector<taxi::Product> GetRutaxiSynchronous(ms::LatLon const & from, ms::Lat
   return rutaxiProducts;
 }
 
+std::vector<taxi::Product> GetFreenowSynchronous(ms::LatLon const & from, ms::LatLon const & to,
+                                                 std::string const & url)
+{
+  std::string freenowAnswer;
+  TEST(taxi::freenow::RawApi::GetServiceTypes(from, to, "-" /* token */, freenowAnswer, url), ());
+
+  return taxi::freenow::MakeProductsFromJson(freenowAnswer);
+}
+
 taxi::ProvidersContainer GetProvidersSynchronous(taxi::Engine const & engine,
                                                  ms::LatLon const & from, ms::LatLon const & to,
                                                  taxi::Delegate & delegate, std::string const & url)
@@ -191,6 +213,9 @@ taxi::ProvidersContainer GetProvidersSynchronous(taxi::Engine const & engine,
     case taxi::Provider::Type::Rutaxi:
       providers.emplace_back(taxi::Provider::Type::Rutaxi,
                              GetRutaxiSynchronous(from, to, delegate, url));
+      break;
+    case taxi::Provider::Type::Freenow:
+      providers.emplace_back(taxi::Provider::Type::Freenow, GetFreenowSynchronous(from, to, url));
       break;
     case taxi::Provider::Type::Count:
       LOG(LERROR, ());
@@ -445,7 +470,8 @@ UNIT_CLASS_TEST(AsyncGuiThread, TaxiEngine_Smoke)
   taxi::Engine engine({{taxi::Provider::Type::Uber, kTesturl},
                        {taxi::Provider::Type::Yandex, kTesturl},
                        {taxi::Provider::Type::Maxim, kTesturl},
-                       {taxi::Provider::Type::Rutaxi, kTesturl}});
+                       {taxi::Provider::Type::Rutaxi, kTesturl},
+                       {taxi::Provider::Type::Freenow, kTesturl}});
 
   engine.SetDelegate(std::make_unique<BelarusMinskDelegate>());
   BelarusMinskDelegate delegate;
@@ -523,5 +549,10 @@ UNIT_TEST(TaxiEngine_GetProvidersAtPos)
   engine.SetDelegate(std::make_unique<RussiaKonetsDelegate>());
   providers = engine.GetProvidersAtPos(latlon);
   TEST(providers.empty(), (providers));
+
+  engine.SetDelegate(std::make_unique<IrelandDublinDelegate>());
+  providers = engine.GetProvidersAtPos(latlon);
+  TEST_EQUAL(providers.size(), 1, ());
+  TEST_EQUAL(providers[0], taxi::Provider::Type::Freenow, ());
 }
 }  // namespace

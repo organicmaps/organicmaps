@@ -150,6 +150,8 @@ class ResponseProvider:
                 "/gallery/v2/search/": self.promo_gallery_city,
                 "/single/empty/gallery/v2/search/": self.promo_gallery_city_single_empty,
                 "/single/gallery/v2/search/": self.promo_gallery_city_single,
+                "/partners/oauth/token": self.freenow_auth_token,
+                "/partners/service-types": self.freenow_service_types,
             }[url]()
         except:
             return self.test_404()
@@ -250,6 +252,12 @@ class ResponseProvider:
 
     def promo_gallery_city_single(self):
         return Payload(jsons.PROMO_GALLERY_CITY_SINGLE)
+
+    def freenow_auth_token(self):
+        return Payload(jsons.FREENOW_AUTH_TOKEN)
+
+    def freenow_service_types(self):
+        return Payload(jsons.FREENOW_SERVICE_TYPES)
 
     def kill(self):
         logging.debug("Kill called in ResponseProvider")

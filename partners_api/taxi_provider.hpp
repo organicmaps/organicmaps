@@ -25,6 +25,7 @@ public:
     Yandex,
     Maxim,
     Rutaxi,
+    Freenow,
     Count
   };
 
@@ -82,6 +83,7 @@ inline std::string DebugPrint(Provider::Type type)
   case Provider::Type::Yandex: return "Yandex";
   case Provider::Type::Maxim: return "Maxim";
   case Provider::Type::Rutaxi: return "Rutaxi";
+  case Provider::Type::Freenow: return "Freenow";
   case Provider::Type::Count: ASSERT(false, ()); return "";
   }
   UNREACHABLE();

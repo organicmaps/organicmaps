@@ -1,4 +1,6 @@
 #include "partners_api/taxi_engine.hpp"
+
+#include "partners_api/freenow_api.hpp"
 #include "partners_api/maxim_api.hpp"
 #include "partners_api/rutaxi_api.hpp"
 #include "partners_api/taxi_places_loader.hpp"
@@ -118,6 +120,7 @@ Engine::Engine(std::vector<ProviderUrl> urls /* = {} */)
 {
   AddApi<yandex::Api>(urls, Provider::Type::Yandex);
   AddApi<rutaxi::Api>(urls, Provider::Type::Rutaxi);
+  AddApi<freenow::Api>(urls, Provider::Type::Freenow);
 }
 
 void Engine::SetDelegate(std::unique_ptr<Delegate> delegate)

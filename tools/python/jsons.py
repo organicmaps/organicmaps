@@ -607,3 +607,72 @@ PROMO_GALLERY_CITY_SINGLE = """
     }
 }
 """
+
+FREENOW_AUTH_TOKEN = """
+{
+  "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXV",
+  "token_type": "bearer",
+  "expires_in": 600,
+  "scope": "service-types"
+}
+"""
+
+FREENOW_SERVICE_TYPES = """
+{
+  "serviceTypes": [
+    {
+      "id": "TAXI",
+      "type": "TAXI",
+      "displayName": "Taxi",
+      "eta": {
+        "value": 0,
+        "displayValue": "0 Minutes"
+      },
+      "fare": {
+        "type": "FIXED",
+        "value": 5000,
+        "currencyCode": "GBP",
+        "displayValue": "5000GBP"
+      },
+      "availablePaymentMethodTypes": [
+        "BUSINESS_ACCOUNT",
+        "CREDIT_CARD",
+        "PAYPAL",
+        "CASH"
+      ],
+      "seats": {
+        "max": 4,
+        "values": [],
+        "displayValue": "4"
+      },
+      "availableBookingOptions": [
+        {
+          "name": "COMMENT",
+          "displayName": "COMMENT",
+          "type": "TEXT"
+        },
+        {
+          "name": "MERCEDES",
+          "displayName": "MERCEDES",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "FAVORITE_DRIVER",
+          "displayName": "FAVORITE_DRIVER",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "FIVE_STARS",
+          "displayName": "FIVE_STARS",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "SMALL_ANIMAL",
+          "displayName": "SMALL_ANIMAL",
+          "type": "BOOLEAN"
+        }
+      ]
+    }
+  ]
+}
+"""

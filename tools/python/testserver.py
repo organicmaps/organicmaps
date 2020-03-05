@@ -181,8 +181,13 @@ class PostHandler(BaseHTTPRequestHandler, ResponseProviderMixin):
     def do_POST(self):
         self.init_vars()
         self.server.reset_selfdestruct_timer()
-        length = int(self.headers.getheader('content-length'))
-        self.dispatch_response(Payload(self.rfile.read(length)))
+        headers = self.prepare_headers()
+        payload = self.response_provider.response_for_url_and_headers(self.path, headers)
+        if payload.response_code() >= 300:
+            length = int(self.headers.getheader('content-length'))
+            self.dispatch_response(Payload(self.rfile.read(length)))
+        else:
+            self.dispatch_response(payload)
 
 
     def do_GET(self):

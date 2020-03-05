@@ -20,6 +20,8 @@ set(
   downloader_promo.hpp
   facebook_ads.cpp
   facebook_ads.hpp
+  freenow_api.cpp
+  freenow_api.hpp
   google_ads.cpp
   google_ads.hpp
   locals_api.cpp

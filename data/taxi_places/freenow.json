@@ -1,0 +1,191 @@
+{
+  "disabled": {
+    "countries": [], 
+    "mwms": []
+  }, 
+  "enabled": {
+    "countries": [
+      {
+        "cities": [
+          "Arezzo", 
+          "Bologna", 
+          "Cagliari", 
+          "Milan", 
+          "Naples", 
+          "Palermo", 
+          "Rome", 
+          "Turin"
+        ], 
+        "id": "Italy"
+      }, 
+      {
+        "cities": [
+          "Faro", 
+          "Lisbon", 
+          "Porto"
+        ], 
+        "id": "Portugal"
+      }, 
+      {
+        "cities": [
+          "Gdansk", 
+          "Katowice", 
+          "Krakow", 
+          "\u0141\u00f3d\u017a", 
+          "Pozna\u0144", 
+          "Warsaw", 
+          "Wroc\u0142aw"
+        ], 
+        "id": "Poland"
+      }, 
+      {
+        "cities": [
+          "Stockholm"
+        ], 
+        "id": "Sweden"
+      }, 
+      {
+        "cities": [
+          "Graz", 
+          "Innsbruck", 
+          "Salzburg", 
+          "Vienna"
+        ], 
+        "id": "Austria"
+      }, 
+      {
+        "cities": [
+          "Brighton", 
+          "Edinburgh", 
+          "Glasgow", 
+          "London", 
+          "Manchester", 
+          "City of Nottingham", 
+          "Oxford", 
+          "Reading"
+        ], 
+        "id": "Great Britain"
+      }, 
+      {
+        "cities": [
+          "Aachen", 
+          "Aschaffenburg", 
+          "Augsburg", 
+          "Berlin", 
+          "B\u00f6blingen", 
+          "Bochum", 
+          "Bonn", 
+          "Bottrop", 
+          "Brunswick", 
+          "Bremen", 
+          "Dachau", 
+          "Darmstadt", 
+          "Dortmund", 
+          "Dresden", 
+          "Dusseldorf", 
+          "Duisburg", 
+          "Ebersberg", 
+          "Emmendingen (Kernstadt)", 
+          "Erding", 
+          "Erfurt", 
+          "Erlangen", 
+          "Essen", 
+          "Esslingen am Neckar", 
+          "Flensburg", 
+          "Frankfurt", 
+          "Freiburg im Breisgau", 
+          "F\u00fcrstenfeldbruck", 
+          "F\u00fcrth", 
+          "Gelsenkirchen", 
+          "Gladbeck", 
+          "G\u00f6ppingen", 
+          "G\u00fctersloh", 
+          "Hagen", 
+          "Halle (Saale)", 
+          "Hamburg", 
+          "Hamm", 
+          "Hanau", 
+          "Hanover", 
+          "Heidelberg", 
+          "Heilbronn", 
+          "Herne", 
+          "Herzogenaurach", 
+          "Hildesheim", 
+          "Ingolstadt", 
+          "Kaiserslautern", 
+          "Karlsruhe", 
+          "Kassel", 
+          "Kiel", 
+          "Koblenz", 
+          "K\u00f6ln", 
+          "Krefeld", 
+          "Landsberg am Lech", 
+          "Leipzig", 
+          "Leverkusen", 
+          "L\u00fcbeck", 
+          "Ludwigsburg", 
+          "Ludwigshafen am Rhein", 
+          "Magdeburg", 
+          "Mainz", 
+          "Mannheim", 
+          "Mettmann", 
+          "M\u00f6nchengladbach", 
+          "Munich", 
+          "M\u00fclheim an der Ruhr", 
+          "M\u00fcnster", 
+          "Neuss", 
+          "Nuremberg", 
+          "Oberhausen", 
+          "Offenbach am Main", 
+          "Osnabr\u00fcck", 
+          "Paderborn", 
+          "Potsdam", 
+          "Rastatt", 
+          "Baden-Baden", 
+          "Regensburg", 
+          "Reutlingen", 
+          "Rosenheim", 
+          "Rostock", 
+          "Saarbr\u00fccken", 
+          "Solingen", 
+          "Starnberg", 
+          "Steinfurt", 
+          "Stuttgart", 
+          "T\u00fcbingen", 
+          "Neu-Ulm", 
+          "Wetzlar", 
+          "Wiesbaden", 
+          "Wolfsburg", 
+          "Wuppertal"
+        ], 
+        "id": "Germany"
+      }, 
+      {
+        "cities": [
+          "Cork", 
+          "Dublin", 
+          "Galway", 
+          "Limerick", 
+          "Navan"
+        ], 
+        "id": "Ireland"
+      }, 
+      {
+        "cities": [
+          "Zurich"
+        ], 
+        "id": "Switzerland"
+      }, 
+      {
+        "cities": [
+          "Barcelona", 
+          "Madrid", 
+          "Seville", 
+          "Valencia"
+        ], 
+        "id": "Spain"
+      }
+    ], 
+    "mwms": []
+  }
+}
