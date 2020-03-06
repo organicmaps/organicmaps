@@ -2348,7 +2348,7 @@
 	<string name="type.natural.bay">Bay</string>
 	<string name="type.natural.beach">Beach</string>
 	<string name="type.natural.cape">Cape</string>
-	<string name="type.natural.cave_entrance">Cave Entrance</string>
+	<string name="type.natural.cave_entrance">Cave</string>
 	<string name="type.natural.cliff">Cliff</string>
 	<string name="type.natural.coastline">Coastline</string>
 	<string name="type.natural.geyser">Geyser</string>

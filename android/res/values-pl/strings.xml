@@ -2219,7 +2219,7 @@
 	<string name="type.natural.bay">Zatoka</string>
 	<string name="type.natural.beach">Plaża</string>
 	<string name="type.natural.cape">Przylądek</string>
-	<string name="type.natural.cave_entrance">Wejście do jaskini</string>
+	<string name="type.natural.cave_entrance">Jaskinia</string>
 	<string name="type.natural.cliff">Klif</string>
 	<string name="type.natural.coastline">Linia brzegowa</string>
 	<string name="type.natural.geyser">Gejzer</string>

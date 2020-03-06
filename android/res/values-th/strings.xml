@@ -2125,7 +2125,7 @@
 	<string name="type.natural.bay">อ่าว</string>
 	<string name="type.natural.beach">ชายหาด</string>
 	<string name="type.natural.cape">พื้นที่ยื่นเข้าไปในน้ำ</string>
-	<string name="type.natural.cave_entrance">ทางเข้าถ้ำ</string>
+	<string name="type.natural.cave_entrance">ถ้ำ</string>
 	<string name="type.natural.geyser">นำ้พุร้อน</string>
 	<string name="type.natural.glacier">ธารน้ำแข็ง</string>
 	<string name="type.natural.grassland">ทุ่งหญ้า</string>

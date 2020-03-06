@@ -1882,7 +1882,7 @@
 	<string name="type.natural.bay">Κόλπος</string>
 	<string name="type.natural.beach">Παραλία</string>
 	<string name="type.natural.cape">Ακρωτήρι</string>
-	<string name="type.natural.cave_entrance">Είσοδος σπηλαίου</string>
+	<string name="type.natural.cave_entrance">Σπήλαιο</string>
 	<string name="type.natural.geyser">Θερμοπίδακας</string>
 	<string name="type.natural.glacier">Παγετώνας</string>
 	<string name="type.natural.grassland">Λιβάδι</string>

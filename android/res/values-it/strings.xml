@@ -2108,7 +2108,7 @@
 	<string name="type.natural.bay">Baia</string>
 	<string name="type.natural.beach">Spiaggia</string>
 	<string name="type.natural.cape">Capo</string>
-	<string name="type.natural.cave_entrance">Ingresso grotta</string>
+	<string name="type.natural.cave_entrance">Grotta</string>
 	<string name="type.natural.geyser">Geyser</string>
 	<string name="type.natural.glacier">Ghiacciaio</string>
 	<string name="type.natural.grassland">Campo</string>

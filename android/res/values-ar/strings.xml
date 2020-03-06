@@ -2125,7 +2125,7 @@
 	<string name="type.natural.bay">خليج</string>
 	<string name="type.natural.beach">شاطئ</string>
 	<string name="type.natural.cape">رأس</string>
-	<string name="type.natural.cave_entrance">مدخل كهف</string>
+	<string name="type.natural.cave_entrance">كهف</string>
 	<string name="type.natural.geyser">نبع ماء حار</string>
 	<string name="type.natural.glacier">كتلة جليدية</string>
 	<string name="type.natural.grassland">ملعب</string>

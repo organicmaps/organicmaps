@@ -2117,7 +2117,7 @@
 	<string name="type.natural.bay">Záliv</string>
 	<string name="type.natural.beach">Pláž</string>
 	<string name="type.natural.cape">Mys</string>
-	<string name="type.natural.cave_entrance">Vchod do jeskyně</string>
+	<string name="type.natural.cave_entrance">Jeskyně</string>
 	<string name="type.natural.geyser">Gejzír</string>
 	<string name="type.natural.glacier">Ledovec</string>
 	<string name="type.natural.grassland">Pole</string>

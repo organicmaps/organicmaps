@@ -2102,7 +2102,7 @@
 	<string name="type.natural.bay">Bahía</string>
 	<string name="type.natural.beach">Playa</string>
 	<string name="type.natural.cape">Cabo</string>
-	<string name="type.natural.cave_entrance">Entrada a la cueva</string>
+	<string name="type.natural.cave_entrance">Cueva</string>
 	<string name="type.natural.geyser">Geiser</string>
 	<string name="type.natural.glacier">Glaciar</string>
 	<string name="type.natural.grassland">Campo</string>

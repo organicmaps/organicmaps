@@ -2116,7 +2116,7 @@
 	<string name="type.natural.bay">Öböl</string>
 	<string name="type.natural.beach">Strand</string>
 	<string name="type.natural.cape">Hegytető</string>
-	<string name="type.natural.cave_entrance">Barlangbejárat</string>
+	<string name="type.natural.cave_entrance">Barlang</string>
 	<string name="type.natural.geyser">Gejzír</string>
 	<string name="type.natural.glacier">Gleccser</string>
 	<string name="type.natural.grassland">Mező</string>

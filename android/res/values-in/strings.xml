@@ -2103,7 +2103,7 @@
 	<string name="type.natural.bay">Teluk</string>
 	<string name="type.natural.beach">Pantai</string>
 	<string name="type.natural.cape">Tanjung</string>
-	<string name="type.natural.cave_entrance">Mulut gua</string>
+	<string name="type.natural.cave_entrance">Gua</string>
 	<string name="type.natural.geyser">Geiser</string>
 	<string name="type.natural.glacier">Gletser</string>
 	<string name="type.natural.grassland">Ladang</string>

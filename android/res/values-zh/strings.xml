@@ -2117,7 +2117,7 @@
 	<string name="type.military.bunker">地堡</string>
 	<string name="type.natural.beach">海滩</string>
 	<string name="type.natural.cape">海角</string>
-	<string name="type.natural.cave_entrance">山洞入口</string>
+	<string name="type.natural.cave_entrance">山洞</string>
 	<string name="type.natural.geyser">间歇泉</string>
 	<string name="type.natural.glacier">冰川</string>
 	<string name="type.natural.grassland">田野</string>
