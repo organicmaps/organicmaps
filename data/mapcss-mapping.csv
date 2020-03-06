@@ -265,7 +265,7 @@ railway|light_rail;264;
 place|region;265;
 railway|narrow_gauge;266;
 railway|subway;267;
-natural|cave_entrance;268;
+natural|cave_entrance;[natural=cave_entrance],[natural=cave];;name;int_name;268;
 highway|tertiary|tunnel;[highway=tertiary][tunnel?];;name;int_name;269;
 landuse|landfill;270;
 amenity|bicycle_rental;271;
