@@ -6,6 +6,7 @@
 #include <fstream>
 #include <functional>
 #include <iomanip>
+#include <limits>
 #include <list>
 #include <map>
 #include <string>
@@ -493,10 +494,7 @@ UNIT_TEST(to_any)
 
     s = "-9223372036854775808";
     TEST(strings::to_any(s, i), ());
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wimplicitly-unsigned-literal"
-    TEST_EQUAL(i, -9223372036854775808LL, ());
-#pragma clang diagnostic pop
+    TEST_EQUAL(i, std::numeric_limits<int64_t>::min(), ());
 
     s = "9223372036854775807";
     TEST(strings::to_any(s, i), ());
