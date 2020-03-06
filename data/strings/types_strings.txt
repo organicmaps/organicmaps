@@ -2393,31 +2393,38 @@
     fa = صندوق پست
 
   [type.amenity.post_office]
-    en = Post
-    ru = Почта
-    ar = بريد
+    en = Post office
+    ru = Почтовое отделение
+    ar = مكتب بريد
     cs = Pošta
-    fi = Posti
-    fr = Poste
+    da = Postkontor
+    nl = Postkantoor
+    fi = Postitoimisto
+    fr = Bureau de poste
+    de = Poststelle
     hu = Posta
-    id = Pos
-    it = Posta
+    id = Kantor pos
+    it = Ufficio postale
     ja = 郵便局
-    ko = 우편
-    pl = Poczta
+    ko = 우체국
+    nb = Postkontor
+    pl = Urząd Pocztowy
     pt = Correios
     pt-BR = Correios
-    ro = Poştă
+    ro = Oficiu poștal
     es = Oficina de correos
-    th = ไปรษณีย์
-    tr = Posta
-    uk = Пошта
-    vi = Bưu điện
-    zh-Hans = 邮政
-    zh-Hant = 郵局
+    es-MX = Oficina de correos
+    sv = Postkontor
+    th = ที่ทำการไปรษณีย์
+    tr = Postane
+    uk = Поштове відділення
+    vi = Bưu cục
     el = Ταχυδρομείο
     sk = Pošta
-    fa = پست
+    sw = Ofisi ya posta
+    zh-Hans = 邮局
+    zh-Hant = 郵局
+    fa = دفتر پست
 
   [type.amenity.prison]
     en = Prison
