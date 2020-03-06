@@ -7561,36 +7561,36 @@ fa:توربین بادی
 
 # Skipped if empty name
 natural-cave_entrance
-en:Cave Entrance
+en:Cave
 ru:Пещера
-ar:مدخل كهف
-cs:Vchod do jeskyně
-da:Huleindgang
-nl:Grotingang
-fi:Luolan sisäänkäynti
-fr:Entrée de la cave
-de:Höhleneingang
-hu:Barlangbejárat
-id:Mulut gua
-it:Ingresso grotta
-ja:洞穴入口
-ko:동굴입구
-nb:Grotteåpning
-pl:Wejście do jaskini
-pt:Entrada de caverna
-pt-BR:Entrada de caverna
-ro:Intrare peșteră
-es:Entrada a la cueva
-sv:Grottöppning
-th:ทางเข้าถ้ำ
-tr:Entrée de la cave
+ar:كهف
+cs:Jeskyně
+da:Hule
+nl:Grot
+fi:Luola
+fr:Cave
+de:Höhle
+hu:Barlang
+id:Gua
+it:Grotta
+ja:洞窟
+ko:동굴
+nb:Grotte
+pl:Jaskinia
+pt:Caverna
+pt-BR:Caverna
+ro:Peșteră
+es:Cueva|Caverna
+sv:Grotta
+th:ถ้ำ
+tr:Mağara
 uk:Печера
-vi:Cửa Hang
-zh-Hans:山洞入口
-zh-Hant:洞穴入口
-el:Είσοδος σπηλαίου
-sk:Vstup do jaskyne
-fa:ورودی غار
+vi:Hang|Hang động
+zh-Hans:山洞
+zh-Hant:洞穴
+el:Σπήλαιο
+sk:Jaskyňa
+fa:غار
 
 # Skipped if empty name
 natural-tree
