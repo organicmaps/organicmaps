@@ -149,7 +149,7 @@ UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_Speed)
              {SpeedKMpH(100.0 /* weight */, 100.0 /* eta */) /* in city */,
               SpeedKMpH(150.0 /* weight */, 150.0 /* eta */) /* out of city */});
   CheckSpeed({GetType("highway", "primary")}, {SpeedKMpH(90.0, 90.0), SpeedKMpH(120.0, 120.0)});
-  CheckSpeed({GetType("highway", "residential")}, {SpeedKMpH(22.5, 27.5), SpeedKMpH(25.0, 30.0)});
+  CheckSpeed({GetType("highway", "residential")}, {SpeedKMpH(45, 27.5), SpeedKMpH(50.0, 30.0)});
 }
 
 UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_Speed_MultiTypes)
@@ -211,10 +211,10 @@ UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_SpeedFactor)
   CheckSpeed({secondary, unpavedGood}, {SpeedKMpH(48.0, 56.0), SpeedKMpH(48.0, 56.0)});
   CheckSpeed({secondary, unpavedBad}, {SpeedKMpH(16.0, 14.0), SpeedKMpH(16.0, 14.0)});
 
-  CheckSpeed({residential, pavedGood}, {SpeedKMpH(18.0, 24.75), SpeedKMpH(20.0, 27.0)});
-  CheckSpeed({residential, pavedBad}, {SpeedKMpH(9.0, 13.75), SpeedKMpH(10.0, 15.0)});
-  CheckSpeed({residential, unpavedGood}, {SpeedKMpH(13.5, 22.0), SpeedKMpH(15.0, 24.0)});
-  CheckSpeed({residential, unpavedBad}, {SpeedKMpH(4.5, 5.5), SpeedKMpH(5.0, 6.0)});
+  CheckSpeed({residential, pavedGood}, {SpeedKMpH(36.0, 24.75), SpeedKMpH(40.0, 27.0)});
+  CheckSpeed({residential, pavedBad}, {SpeedKMpH(18.0, 13.75), SpeedKMpH(20.0, 15.0)});
+  CheckSpeed({residential, unpavedGood}, {SpeedKMpH(27, 22.0), SpeedKMpH(30.0, 24.0)});
+  CheckSpeed({residential, unpavedBad}, {SpeedKMpH(9, 5.5), SpeedKMpH(10.0, 6.0)});
 }
 
 UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_MaxspeedFactor)
