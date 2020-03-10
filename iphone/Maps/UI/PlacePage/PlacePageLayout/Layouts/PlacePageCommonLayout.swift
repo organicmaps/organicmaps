@@ -272,7 +272,7 @@ extension PlacePageCommonLayout {
   }
 
   func onLoadCatalogPromo() {
-    guard let catalogPromo = self.placePageData.catalogPromo else {
+    guard let catalogPromo = self.placePageData.catalogPromo, catalogPromo.promoItems.count > 0 else {
       if self.placePageData.wikiDescriptionHtml != nil {
         wikiDescriptionViewController.view.isHidden = false
       }
