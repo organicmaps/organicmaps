@@ -69,6 +69,14 @@ using namespace storage;
   [self layoutIfNeeded];
 }
 
+-(void)setUpdateSize:(NSString *)updateSize
+{
+  _updateSize = updateSize;
+  self.primaryButton.localizedText =
+      [NSString stringWithCoreFormat:L(@"whats_new_auto_update_button_size")
+                           arguments:@[self.updateSize]];
+}
+
 - (void)stateDownloading
 {
   self.state = State::Downloading;
@@ -83,9 +91,6 @@ using namespace storage;
   [self stopSpinner];
   self.primaryButton.hidden = NO;
   self.secondaryButton.localizedText = L(@"whats_new_auto_update_button_later");
-  self.primaryButton.localizedText =
-      [NSString stringWithCoreFormat:L(@"whats_new_auto_update_button_size")
-                           arguments:@[self.updateSize]];
 }
 
 - (void)startSpinner
@@ -159,14 +164,8 @@ using namespace storage;
   controller.todo = todo;
   auto view = static_cast<MWMAutoupdateView *>(controller.view);
   view.delegate = controller;
-  auto & f = GetFramework();
-  auto const & s = f.GetStorage();
-  storage::Storage::UpdateInfo updateInfo;
-  s.GetUpdateInfo(s.GetRootId(), updateInfo);
-  MwmSize const updateSizeInBytes = updateInfo.m_totalUpdateSizeInBytes;
-  view.updateSize = formattedSize(updateSizeInBytes);
-  controller.sizeInMB = updateSizeInBytes / MB;
   [MWMFrameworkListener addObserver:controller];
+  [controller updateSize];
   return controller;
 }
 
@@ -181,6 +180,7 @@ using namespace storage;
   {
     [view stateDownloading];
     [MWMStorage updateNode:RootId() onCancel:^{
+      [self updateSize];
       [view stateWaiting];
     }];
     [Statistics logEvent:kStatDownloaderOnStartScreenAutoDownload
@@ -200,11 +200,24 @@ using namespace storage;
   }];
 }
 
+- (void)updateSize
+{
+  auto containerView = static_cast<MWMAutoupdateView *>(self.view);
+  auto & f = GetFramework();
+  auto const & s = f.GetStorage();
+  storage::Storage::UpdateInfo updateInfo;
+  s.GetUpdateInfo(s.GetRootId(), updateInfo);
+  MwmSize const updateSizeInBytes = updateInfo.m_totalUpdateSizeInBytes;
+  containerView.updateSize = formattedSize(updateSizeInBytes);
+  _sizeInMB = updateSizeInBytes / MB;
+}
+
 - (IBAction)updateTap
 {
   MWMAutoupdateView *view = (MWMAutoupdateView *)self.view;
   [view stateDownloading];
   [MWMStorage updateNode:RootId() onCancel:^{
+    [self updateSize];
     [view stateWaiting];
   }];
   [Statistics logEvent:kStatDownloaderOnStartScreenManualDownload
@@ -298,6 +311,7 @@ using namespace storage;
 
 - (void)processError
 {
+  [self updateSize];
   [static_cast<MWMAutoupdateView *>(self.view) stateWaiting];
   [MWMStorage cancelDownloadNode:RootId()];
   auto errorType = ^NSString * (NodeErrorCode code)
