@@ -26,6 +26,7 @@
     if (error.code == kStorageCellularForbidden) {
       __weak __typeof(self) ws = self;
       [[MWMAlertViewController activeAlertController] presentNoWiFiAlertWithOkBlock:^{
+        [MWMStorage enableCellularDownload:YES];
         [ws downloadNode:countryId];
       } andCancelBlock:nil];
     } else {
@@ -49,6 +50,7 @@
     if (error.code == kStorageCellularForbidden) {
       __weak __typeof(self) ws = self;
       [[MWMAlertViewController activeAlertController] presentNoWiFiAlertWithOkBlock:^{
+        [MWMStorage enableCellularDownload:YES];
         [ws updateNode:countryId onCancel:cancel];
       } andCancelBlock:cancel];
     } else {
@@ -71,6 +73,7 @@
     __weak __typeof(self) ws = self;
     if (error.code == kStorageCellularForbidden) {
       [[MWMAlertViewController activeAlertController] presentNoWiFiAlertWithOkBlock:^{
+        [MWMStorage enableCellularDownload:YES];
         [ws deleteNode:countryId];
       } andCancelBlock:nil];
     } else if (error.code == kStorageHaveUnsavedEdits) {
@@ -90,6 +93,7 @@
     if (error.code == kStorageCellularForbidden) {
       __weak __typeof(self) ws = self;
       [[MWMAlertViewController activeAlertController] presentNoWiFiAlertWithOkBlock:^{
+        [MWMStorage enableCellularDownload:YES];
         [ws downloadNodes:countryIds onSuccess:success];
       } andCancelBlock:nil];
     } else {
