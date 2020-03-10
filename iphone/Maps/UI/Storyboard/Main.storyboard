@@ -81,7 +81,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="500" translatesAutoresizingMaskIntoConstraints="NO" id="rbx-Oj-jeo">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="832"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="350" id="6h8-a6-LWn"/>
@@ -827,7 +827,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchStatusBarView"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="DPt-gs-efn">
+                            <searchBar contentMode="redraw" text="" translatesAutoresizingMaskIntoConstraints="NO" id="DPt-gs-efn">
                                 <rect key="frame" x="0.0" y="44" width="414" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="9M7-y1-RSU"/>
@@ -851,6 +851,7 @@
                             <constraint firstAttribute="trailing" secondItem="CwW-x8-G3j" secondAttribute="trailing" id="6QL-v4-rNy"/>
                             <constraint firstItem="dlW-OQ-WMO" firstAttribute="bottom" secondItem="kXO-Oh-2vO" secondAttribute="bottom" id="8Tl-19-ReF"/>
                             <constraint firstItem="DPt-gs-efn" firstAttribute="top" secondItem="dlW-OQ-WMO" secondAttribute="top" id="DaT-3k-Xu4"/>
+                            <constraint firstItem="st5-ZJ-F0A" firstAttribute="bottom" secondItem="CwW-x8-G3j" secondAttribute="bottom" priority="750" id="J6r-da-BDI"/>
                             <constraint firstItem="kXO-Oh-2vO" firstAttribute="leading" secondItem="dlW-OQ-WMO" secondAttribute="leading" id="M0m-98-7Ev"/>
                             <constraint firstItem="dlW-OQ-WMO" firstAttribute="bottom" secondItem="CwW-x8-G3j" secondAttribute="bottom" id="QPk-e4-hZs"/>
                             <constraint firstItem="DPt-gs-efn" firstAttribute="leading" secondItem="dlW-OQ-WMO" secondAttribute="leading" id="VJj-Tp-SDf"/>
@@ -862,7 +863,7 @@
                             <constraint firstItem="dlW-OQ-WMO" firstAttribute="trailing" secondItem="st5-ZJ-F0A" secondAttribute="trailing" constant="16" id="m79-xn-ucm"/>
                             <constraint firstItem="kXO-Oh-2vO" firstAttribute="top" secondItem="DPt-gs-efn" secondAttribute="bottom" id="nAx-dp-QrX"/>
                             <constraint firstItem="CwW-x8-G3j" firstAttribute="top" secondItem="Xxz-fq-71r" secondAttribute="bottom" id="nLg-Zb-DT9"/>
-                            <constraint firstItem="st5-ZJ-F0A" firstAttribute="bottom" secondItem="CwW-x8-G3j" secondAttribute="bottom" id="wj3-ZU-xMA"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="st5-ZJ-F0A" secondAttribute="bottom" constant="16" id="opX-GF-1De"/>
                             <constraint firstItem="dlW-OQ-WMO" firstAttribute="trailing" secondItem="kXO-Oh-2vO" secondAttribute="trailing" id="yMA-25-2pq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dlW-OQ-WMO"/>
@@ -874,9 +875,9 @@
                         <outlet property="allMapsButton" destination="GN0-2F-Ytz" id="Oi0-99-SSP"/>
                         <outlet property="allMapsCancelButton" destination="bQM-6x-WHa" id="GhS-AQ-EZd"/>
                         <outlet property="allMapsView" destination="st5-ZJ-F0A" id="KAY-Rx-kCC"/>
-                        <outlet property="allMapsViewBottomOffset" destination="wj3-ZU-xMA" id="jfn-W1-TEn"/>
                         <outlet property="noMapsContainer" destination="kXO-Oh-2vO" id="fpe-Gj-ZmD"/>
                         <outlet property="searchBar" destination="DPt-gs-efn" id="HS1-0c-JX8"/>
+                        <outlet property="searchBarTopOffset" destination="DaT-3k-Xu4" id="8gw-DU-okf"/>
                         <outlet property="statusBarBackground" destination="Xxz-fq-71r" id="W1o-7P-C8n"/>
                         <outlet property="tableView" destination="CwW-x8-G3j" id="uIf-Yj-DiC"/>
                     </connections>

@@ -27,6 +27,7 @@ class DownloadMapsViewController: MWMViewController {
   @IBOutlet var searchBar: UISearchBar!
   @IBOutlet var statusBarBackground: UIView!
   @IBOutlet var noMapsContainer: UIView!
+  @IBOutlet var searchBarTopOffset: NSLayoutConstraint!
 
   // MARK: - Properties
 
@@ -71,6 +72,11 @@ class DownloadMapsViewController: MWMViewController {
     }
     MWMFrameworkListener.add(self)
     noMapsContainer.isHidden = !dataSource.isEmpty || Storage.downloadInProgress()
+    if !dataSource.isRoot {
+      searchBarTopOffset.constant = -searchBar.frame.height
+    } else {
+      searchBar.placeholder = L("downloader_search_field_hint")
+    }
     configButtons()
   }
 
@@ -275,6 +281,9 @@ extension DownloadMapsViewController: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    if indexPath.section == dataSource.numberOfSections() {
+      return false
+    }
     let nodeAttrs = dataSource.item(at: indexPath)
     switch nodeAttrs.nodeStatus {
     case .onDisk, .onDiskOutOfDate, .partly:
@@ -297,7 +306,9 @@ extension DownloadMapsViewController: UITableViewDataSource {
 extension DownloadMapsViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let headerView = MWMMapDownloaderCellHeader()
-    headerView.text = dataSource.title(for: section)
+    if section != dataSource.numberOfSections() {
+      headerView.text = dataSource.title(for: section)
+    }
     return headerView
   }
 
