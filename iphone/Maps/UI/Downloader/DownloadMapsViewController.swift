@@ -143,6 +143,7 @@ class DownloadMapsViewController: MWMViewController {
       case .cancelDownload:
         action = UIAlertAction(title: L("cancel_download"), style: .destructive, handler: { _ in
           Storage.cancelDownloadNode(nodeAttrs.countryId)
+          Statistics.logEvent(kStatDownloaderDownloadCancel, withParameters: [kStatFrom: kStatMap])
         })
       case .retryDownload:
         action = UIAlertAction(title: L("downloader_retry"), style: .destructive, handler: { _ in
@@ -214,6 +215,7 @@ class DownloadMapsViewController: MWMViewController {
   @IBAction func onCancelAllMaps(_ sender: UIButton) {
     skipCountryEvent = true
     Storage.cancelDownloadNode(dataSource.parentAttributes().countryId)
+    Statistics.logEvent(kStatDownloaderDownloadCancel, withParameters: [kStatFrom: kStatMap])
     skipCountryEvent = false
     self.processCountryEvent(dataSource.parentAttributes().countryId)
     tableView.reloadData()
@@ -351,6 +353,7 @@ extension DownloadMapsViewController: MWMMapDownloaderTableViewCellDelegate {
       break
     case .downloading, .applying, .inQueue:
       Storage.cancelDownloadNode(nodeAttrs.countryId)
+      Statistics.logEvent(kStatDownloaderDownloadCancel, withParameters: [kStatFrom: kStatMap])
       break
     case .onDiskOutOfDate:
       Storage.updateNode(nodeAttrs.countryId)
