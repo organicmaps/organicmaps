@@ -127,7 +127,8 @@ class DownloadMapsViewController: MWMViewController {
                                 Storage.downloadNode(nodeAttrs.countryId)
         })
       case .update:
-        let title = "\(L("downloader_status_outdated")) (TODO: updated size)"
+        let size = formattedSize(nodeAttrs.totalUpdateSizeBytes)
+        let title = "\(L("downloader_status_outdated")) \(size)"
         action = UIAlertAction(title: title, style: .default, handler: { _ in
           Storage.updateNode(nodeAttrs.countryId)
         })

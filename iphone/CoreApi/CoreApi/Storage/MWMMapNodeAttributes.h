@@ -34,6 +34,7 @@ NS_SWIFT_NAME(MapNodeAttributes)
 @property(nonatomic, readonly) uint64_t totalSize;
 @property(nonatomic, readonly) uint64_t downloadedSize;
 @property(nonatomic, readonly) uint64_t downloadingSize;
+@property(nonatomic, readonly) uint64_t totalUpdateSizeBytes;
 @property(nonatomic, readonly) NSString *nodeName;
 @property(nonatomic, readonly) NSString *nodeDescription;
 @property(nonatomic, readonly) MWMMapNodeStatus nodeStatus;
