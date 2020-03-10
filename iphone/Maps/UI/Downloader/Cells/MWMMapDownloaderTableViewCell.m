@@ -78,7 +78,7 @@
       size = isModeDownloaded ? nodeAttrs.downloadedSize : nodeAttrs.totalSize;
       break;
     case MWMMapNodeStatusDownloading:
-      size = isModeDownloaded ? nodeAttrs.downloadingSize : nodeAttrs.totalSize - nodeAttrs.downloadingSize;
+      size = isModeDownloaded ? nodeAttrs.totalUpdateSizeBytes : nodeAttrs.totalSize - nodeAttrs.downloadingSize;
       break;
     case MWMMapNodeStatusOnDisk:
       size = isModeDownloaded ? nodeAttrs.totalSize : 0;
