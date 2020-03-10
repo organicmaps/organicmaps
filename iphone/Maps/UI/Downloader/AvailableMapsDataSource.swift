@@ -35,8 +35,7 @@ class AvailableMapsDataSource {
     sections = []
     sectionsContent = [:]
 
-    if let location = location {
-      nearbySection = Storage.nearbyAvailableCountries(location)
+    if let location = location, let nearbySection = Storage.nearbyAvailableCountries(location) {
       sections?.append(Const.locationArrow)
       sectionsContent![Const.locationArrow] = nearbySection
     }
