@@ -33,6 +33,7 @@ class DownloadMapsViewController: MWMViewController {
   var dataSource: IDownloaderDataSource!
   @objc var mode: MWMMapDownloaderMode = .downloaded
   private var skipCountryEvent = false
+  private var hasAddMapSection: Bool { dataSource.isRoot && mode == .downloaded }
 
   lazy var noSerchResultViewController: SearchNoResultsViewController = {
     let vc = storyboard!.instantiateViewController(ofType: SearchNoResultsViewController.self)
@@ -62,6 +63,7 @@ class DownloadMapsViewController: MWMViewController {
     tableView.registerNib(cell: MWMMapDownloaderPlaceTableViewCell.self)
     tableView.registerNib(cell: MWMMapDownloaderLargeCountryTableViewCell.self)
     tableView.registerNib(cell: MWMMapDownloaderSubplaceTableViewCell.self)
+    tableView.registerNib(cell: MWMMapDownloaderButtonTableViewCell.self)
     title = dataSource.title
     if mode == .downloaded {
       let addMapsButton = button(with: UIImage(named: "ic_nav_bar_add"), action: #selector(onAddMaps))
@@ -192,12 +194,6 @@ class DownloadMapsViewController: MWMViewController {
     }
   }
 
-  @objc func onAddMaps() {
-    let vc = storyboard!.instantiateViewController(ofType: DownloadMapsViewController.self)
-    vc.mode = .available
-    navigationController?.pushViewController(vc, animated: true)
-  }
-
   @IBAction func onAllMaps(_ sender: UIButton) {
     skipCountryEvent = true
     if mode == .downloaded {
@@ -222,14 +218,24 @@ class DownloadMapsViewController: MWMViewController {
 
 extension DownloadMapsViewController: UITableViewDataSource {
   func numberOfSections(in tableView: UITableView) -> Int {
-    dataSource.numberOfSections()
+    dataSource.numberOfSections() + (hasAddMapSection ? 1 : 0)
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    dataSource.numberOfItems(in: section)
+    if hasAddMapSection && section == dataSource.numberOfSections() {
+      return 1
+    }
+    return dataSource.numberOfItems(in: section)
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    if hasAddMapSection && indexPath.section == dataSource.numberOfSections()  {
+      let cellType = MWMMapDownloaderButtonTableViewCell.self
+      let buttonCell = tableView.dequeueReusableCell(cell: cellType, indexPath: indexPath)
+      buttonCell.delegate = self
+      return buttonCell
+    }
+
     let nodeAttrs = dataSource.item(at: indexPath)
     let cell: MWMMapDownloaderTableViewCell
     if dataSource.item(at: indexPath).hasChildren {
@@ -435,5 +441,15 @@ extension DownloadMapsViewController: UISearchBarDelegate {
 extension DownloadMapsViewController: UIBarPositioningDelegate {
   func position(for bar: UIBarPositioning) -> UIBarPosition {
     .topAttached
+  }
+}
+
+// MARK: - MWMMapDownloaderButtonTableViewCellProtocol
+
+extension DownloadMapsViewController: MWMMapDownloaderButtonTableViewCellProtocol {
+  @objc func onAddMaps() {
+    let vc = storyboard!.instantiateViewController(ofType: DownloadMapsViewController.self)
+    vc.mode = .available
+    navigationController?.pushViewController(vc, animated: true)
   }
 }

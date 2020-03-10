@@ -24,7 +24,7 @@
 
 - (IBAction)buttonPressed
 {
-  [self.delegate openAvailableMaps];
+  [self.delegate onAddMaps];
 }
 
 @end

@@ -40,6 +40,7 @@
 #import "MWMLocationManager.h"
 #import "MWMMapWidgetsHelper.h"
 #import "MWMMapDownloaderTableViewCell.h"
+#import "MWMMapDownloaderButtonTableViewCell.h"
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "MWMMapDownloaderSubplaceTableViewCell.h"
