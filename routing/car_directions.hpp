@@ -18,7 +18,7 @@
 
 namespace routing
 {
-class BicycleDirectionsEngine : public IDirectionsEngine
+class CarDirectionsEngine : public IDirectionsEngine
 {
 public:
   struct AdjacentEdges
@@ -32,7 +32,7 @@ public:
 
   using AdjacentEdgesMap = std::map<SegmentRange, AdjacentEdges>;
 
-  BicycleDirectionsEngine(DataSource const & dataSource, std::shared_ptr<NumMwmIds> numMwmIds);
+  CarDirectionsEngine(DataSource const & dataSource, std::shared_ptr<NumMwmIds> numMwmIds);
 
   // IDirectionsEngine override:
   bool Generate(IndexRoadGraph const & graph, std::vector<geometry::PointWithAltitude> const & path,

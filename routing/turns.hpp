@@ -55,7 +55,7 @@ private:
   // Fake edges in IndexGraph is identified by instances of Segment
   // with Segment::m_mwmId == kFakeNumMwmId. So instead of |m_featureId| field in this class
   // number mwm id field and feature id (uint32_t) should be used and |m_start| and |m_end|
-  // should be removed. To do that classes IndexRoadGraph, BicycleDirectionsEngine,
+  // should be removed. To do that classes IndexRoadGraph, CarDirectionsEngine,
   // PedestrianDirectionsEngine and other should be significant refactored.
   m2::PointD m_start;          // Coordinates of start of last Edge in SegmentRange.
   m2::PointD m_end;            // Coordinates of end of SegmentRange.

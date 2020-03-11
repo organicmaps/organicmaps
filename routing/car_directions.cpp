@@ -1,4 +1,4 @@
-#include "routing/bicycle_directions.hpp"
+#include "routing/car_directions.hpp"
 
 #include "routing/road_point.hpp"
 #include "routing/router_delegate.hpp"
@@ -36,7 +36,7 @@ class RoutingResult : public IRoutingResult
 {
 public:
   RoutingResult(IRoadGraph::EdgeVector const & routeEdges,
-                BicycleDirectionsEngine::AdjacentEdgesMap const & adjacentEdges,
+                CarDirectionsEngine::AdjacentEdgesMap const & adjacentEdges,
                 TUnpackedPathSegments const & pathSegments)
     : m_routeEdges(routeEdges)
     , m_adjacentEdges(adjacentEdges)
@@ -89,7 +89,7 @@ public:
 
 private:
   IRoadGraph::EdgeVector const & m_routeEdges;
-  BicycleDirectionsEngine::AdjacentEdgesMap const & m_adjacentEdges;
+  CarDirectionsEngine::AdjacentEdgesMap const & m_adjacentEdges;
   TUnpackedPathSegments const & m_pathSegments;
   double m_routeLength;
 };
@@ -150,27 +150,27 @@ bool IsJoint(IRoadGraph::EdgeVector const & ingoingEdges,
 
 namespace routing
 {
-// BicycleDirectionsEngine::AdjacentEdges ---------------------------------------------------------
-bool BicycleDirectionsEngine::AdjacentEdges::IsAlmostEqual(AdjacentEdges const & rhs) const
+// CarDirectionsEngine::AdjacentEdges ---------------------------------------------------------
+bool CarDirectionsEngine::AdjacentEdges::IsAlmostEqual(AdjacentEdges const & rhs) const
 {
   return m_outgoingTurns.IsAlmostEqual(rhs.m_outgoingTurns) &&
          m_ingoingTurnsCount == rhs.m_ingoingTurnsCount;
 }
 
-// BicycleDirectionsEngine ------------------------------------------------------------------------
-BicycleDirectionsEngine::BicycleDirectionsEngine(DataSource const & dataSource,
-                                                 shared_ptr<NumMwmIds> numMwmIds)
+// CarDirectionsEngine ------------------------------------------------------------------------
+CarDirectionsEngine::CarDirectionsEngine(DataSource const & dataSource,
+                                         shared_ptr<NumMwmIds> numMwmIds)
   : m_dataSource(dataSource), m_numMwmIds(numMwmIds)
 {
   CHECK(m_numMwmIds, ());
 }
 
-bool BicycleDirectionsEngine::Generate(IndexRoadGraph const & graph,
-                                       vector<geometry::PointWithAltitude> const & path,
-                                       base::Cancellable const & cancellable, Route::TTurns & turns,
-                                       Route::TStreets & streetNames,
-                                       vector<geometry::PointWithAltitude> & routeGeometry,
-                                       vector<Segment> & segments)
+bool CarDirectionsEngine::Generate(IndexRoadGraph const & graph,
+                                   vector<geometry::PointWithAltitude> const & path,
+                                   base::Cancellable const & cancellable, Route::TTurns & turns,
+                                   Route::TStreets & streetNames,
+                                   vector<geometry::PointWithAltitude> & routeGeometry,
+                                   vector<Segment> & segments)
 {
   CHECK(m_numMwmIds, ());
 
@@ -212,21 +212,21 @@ bool BicycleDirectionsEngine::Generate(IndexRoadGraph const & graph,
   return true;
 }
 
-void BicycleDirectionsEngine::Clear()
+void CarDirectionsEngine::Clear()
 {
   m_adjacentEdges.clear();
   m_pathSegments.clear();
   m_loader.reset();
 }
 
-FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::MwmId const & id)
+FeaturesLoaderGuard & CarDirectionsEngine::GetLoader(MwmSet::MwmId const & id)
 {
   if (!m_loader || id != m_loader->GetId())
     m_loader = make_unique<FeaturesLoaderGuard>(m_dataSource, id);
   return *m_loader;
 }
 
-void BicycleDirectionsEngine::LoadPathAttributes(FeatureID const & featureId, LoadedPathSegment & pathSegment)
+void CarDirectionsEngine::LoadPathAttributes(FeatureID const & featureId, LoadedPathSegment & pathSegment)
 {
   if (!featureId.IsValid())
     return;
@@ -245,7 +245,7 @@ void BicycleDirectionsEngine::LoadPathAttributes(FeatureID const & featureId, Lo
   pathSegment.m_onRoundabout = ftypes::IsRoundAboutChecker::Instance()(*ft);
 }
 
-void BicycleDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
+void CarDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
     IRoadGraph::EdgeVector const & outgoingEdges, Edge const & inEdge, uint32_t startSegId,
     uint32_t endSegId, SegmentRange & segmentRange, TurnCandidates & outgoingTurns)
 {
@@ -303,10 +303,10 @@ void BicycleDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
     sort(outgoingTurns.candidates.begin(), outgoingTurns.candidates.end(), base::LessBy(&TurnCandidate::m_angle));
 }
 
-void BicycleDirectionsEngine::GetEdges(IndexRoadGraph const & graph,
-                                       geometry::PointWithAltitude const & currJunction,
-                                       bool isCurrJunctionFinish, IRoadGraph::EdgeVector & outgoing,
-                                       IRoadGraph::EdgeVector & ingoing)
+void CarDirectionsEngine::GetEdges(IndexRoadGraph const & graph,
+                                   geometry::PointWithAltitude const & currJunction,
+                                   bool isCurrJunctionFinish, IRoadGraph::EdgeVector & outgoing,
+                                   IRoadGraph::EdgeVector & ingoing)
 {
   // Note. If |currJunction| is a finish the outgoing edges
   // from finish are not important for turn generation.
@@ -316,7 +316,7 @@ void BicycleDirectionsEngine::GetEdges(IndexRoadGraph const & graph,
   graph.GetIngoingEdges(currJunction, ingoing);
 }
 
-void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
+void CarDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     IndexRoadGraph const & graph, vector<geometry::PointWithAltitude> const & path,
     IRoadGraph::EdgeVector const & routeEdges, base::Cancellable const & cancellable)
 {

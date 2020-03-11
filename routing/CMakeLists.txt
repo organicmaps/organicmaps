@@ -18,8 +18,8 @@ set(
   base/followed_polyline.cpp
   base/followed_polyline.hpp
   base/routing_result.hpp
-  bicycle_directions.cpp
-  bicycle_directions.hpp
+  car_directions.cpp
+  car_directions.hpp
   checkpoint_predictor.cpp
   checkpoint_predictor.hpp
   checkpoints.cpp

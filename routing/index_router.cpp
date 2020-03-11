@@ -3,7 +3,7 @@
 #include "routing/base/astar_progress.hpp"
 #include "routing/base/bfs.hpp"
 
-#include "routing/bicycle_directions.hpp"
+#include "routing/car_directions.hpp"
 #include "routing/fake_ending.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_loader.hpp"
@@ -126,7 +126,7 @@ unique_ptr<IDirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType,
   case VehicleType::Bicycle:
   // @TODO Bicycle turn generation engine is used now. It's ok for the time being.
   // But later a special car turn generation engine should be implemented.
-  case VehicleType::Car: return make_unique<BicycleDirectionsEngine>(dataSource, numMwmIds);
+  case VehicleType::Car: return make_unique<CarDirectionsEngine>(dataSource, numMwmIds);
   case VehicleType::Count:
     CHECK(false, ("Can't create DirectionsEngine for", vehicleType));
     return nullptr;

@@ -2,7 +2,7 @@
 
 #include "routing/routing_benchmarks/helpers.hpp"
 
-#include "routing/bicycle_directions.hpp"
+#include "routing/car_directions.hpp"
 #include "routing/road_graph.hpp"
 
 #include "routing_common/car_model.hpp"
@@ -42,7 +42,7 @@ protected:
   std::unique_ptr<routing::IDirectionsEngine> CreateDirectionsEngine(
       std::shared_ptr<routing::NumMwmIds> numMwmIds) override
   {
-    return std::make_unique<routing::BicycleDirectionsEngine>(m_dataSource, numMwmIds);
+    return std::make_unique<routing::CarDirectionsEngine>(m_dataSource, numMwmIds);
   }
 
   std::unique_ptr<routing::VehicleModelFactoryInterface> CreateModelFactory() override
