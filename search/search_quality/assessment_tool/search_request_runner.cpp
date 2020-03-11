@@ -59,6 +59,9 @@ void SearchRequestRunner::InitiateBackgroundSearch(size_t from, size_t to)
     {
       CHECK(m_contexts[index].m_searchState == Context::SearchState::Completed, ());
       ++m_backgroundNumProcessed;
+      LOG(LINFO, ("Using results from an earlier search for request number", index + 1));
+      if (m_backgroundNumProcessed == to - from + 1)
+        PrintBackgroundSearchStats();
     }
   }
 
@@ -215,6 +218,7 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
         if (background)
         {
           ++m_backgroundNumProcessed;
+          m_backgroundQueryHandles.erase(index);
           if (m_backgroundNumProcessed == m_backgroundLastIndex - m_backgroundFirstIndex + 1)
             PrintBackgroundSearchStats();
           else
@@ -242,18 +246,11 @@ void SearchRequestRunner::PrintBackgroundSearchStats() const
   vitals.reserve(m_backgroundLastIndex - m_backgroundFirstIndex + 1);
   for (size_t index = m_backgroundFirstIndex; index <= m_backgroundLastIndex; ++index)
   {
-    auto const & context = m_contexts[index];
-    auto const & edits = context.m_foundResultsEdits;
-    bool foundVital = false;
-    for (auto const & entry : edits.GetEntries())
-    {
-      if (entry.m_currRelevance == search::Sample::Result::Relevance::Vital)
-      {
-        foundVital = true;
-        break;
-      }
-    }
-
+    auto const & entries = m_contexts[index].m_foundResultsEdits.GetEntries();
+    bool const foundVital =
+        any_of(entries.begin(), entries.end(), [](ResultsEdits::Entry const & e) {
+          return e.m_currRelevance == search::Sample::Result::Relevance::Vital;
+        });
     if (foundVital)
       vitals.emplace_back(index + 1);
   }
