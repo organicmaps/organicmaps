@@ -190,7 +190,7 @@ extension PlacePageInteractor: PlacePageBookmarkViewControllerDelegate {
 // MARK: - ActionBarViewControllerDelegate
 
 extension PlacePageInteractor: ActionBarViewControllerDelegate {
-  func actionBarDidPressButton(_ type: ActionBarButtonType) {
+  func actionBar(_ actionBar: ActionBarViewController, dPressButton type: ActionBarButtonType) {
     switch type {
     case .booking:
       MWMPlacePageManagerHelper.book(placePageData)
@@ -228,7 +228,9 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
     case .routeTo:
       MWMPlacePageManagerHelper.route(to: placePageData)
     case .share:
-      MWMPlacePageManagerHelper.share(placePageData)
+      let shareVC = MWMActivityViewController.share(forPlacePage: placePageData)
+      shareVC!.present(inParentViewController: actionBar, anchorView: actionBar.popoverSourceView)
+      Statistics.logEvent(kStatEventName(kStatPlacePage, kStatShare))
     case .avoidToll:
       MWMPlacePageManagerHelper.avoidToll()
     case .avoidDirty:

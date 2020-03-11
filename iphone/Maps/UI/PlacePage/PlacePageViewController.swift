@@ -96,6 +96,10 @@ extension PlacePageViewController: PlacePageViewProtocol {
   }
 
   func scrollTo(_ point: CGPoint) {
+    if traitCollection.horizontalSizeClass != .compact || beginDragging {
+      return
+    }
+
     UIView.animate(withDuration: kDefaultAnimationDuration) { [weak scrollView] in
       scrollView?.contentOffset = point
     }

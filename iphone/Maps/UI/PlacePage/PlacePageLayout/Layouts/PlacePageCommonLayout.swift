@@ -10,7 +10,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     return configureViewControllers()
   }()
 
-  var actionBar: UIViewController? {
+  var actionBar: ActionBarViewController? {
     return actionBarViewController
   }
 

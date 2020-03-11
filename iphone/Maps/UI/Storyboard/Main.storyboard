@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Wns-nH-AQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Wns-nH-AQU">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -108,9 +108,7 @@
                             <constraint firstItem="Tqh-46-Yrm" firstAttribute="centerX" secondItem="utd-Jy-pE5" secondAttribute="centerX" id="0T0-4t-4m2"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="65S-M4-TnM" secondAttribute="bottom" priority="100" id="2E3-5i-6An"/>
                             <constraint firstAttribute="bottom" secondItem="rL1-9E-4b7" secondAttribute="bottom" id="4fw-Xu-gAG"/>
-                            <constraint firstItem="rbx-Oj-jeo" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="5Sh-l6-Icd">
-                                <variation key="heightClass=regular-widthClass=regular" constant="75"/>
-                            </constraint>
+                            <constraint firstItem="rbx-Oj-jeo" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="5Sh-l6-Icd"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="QKu-4A-UgP" secondAttribute="bottom" priority="100" id="6ko-rI-S5u"/>
                             <constraint firstItem="Tqh-46-Yrm" firstAttribute="centerY" secondItem="utd-Jy-pE5" secondAttribute="centerY" id="7pv-5d-X2W"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="rbx-Oj-jeo" secondAttribute="trailing" id="9M9-8P-Hzb"/>
@@ -1122,7 +1120,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="sMq-pa-AId"/>
         <segue reference="4Cc-99-mlN"/>
-        <segue reference="gFM-Ca-ARt"/>
+        <segue reference="OEF-kR-jKi"/>
         <segue reference="0A8-4b-0A2"/>
     </inferredMetricsTieBreakers>
 </document>

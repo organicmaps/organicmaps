@@ -8,7 +8,7 @@ class PlacePageElevationLayout: IPlacePageLayout {
     return configureViewControllers()
   }()
 
-  var actionBar: UIViewController? = nil
+  var actionBar: ActionBarViewController? = nil
   var adState: AdBannerState = .unset
 
   lazy var previewViewController: PlacePagePreviewViewController = {

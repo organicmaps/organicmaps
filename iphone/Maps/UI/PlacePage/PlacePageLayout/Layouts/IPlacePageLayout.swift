@@ -21,7 +21,7 @@ enum PlacePageState {
 protocol IPlacePageLayout: class {
   var presenter: PlacePagePresenterProtocol? { get set }
   var viewControllers: [UIViewController] { get }
-  var actionBar: UIViewController? { get }
+  var actionBar: ActionBarViewController? { get }
   var adState: AdBannerState { get set }
 
   func calculateSteps(inScrollView scrollView: UIScrollView) -> [PlacePageState]

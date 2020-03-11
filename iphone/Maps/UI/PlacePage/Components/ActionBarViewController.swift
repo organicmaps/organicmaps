@@ -1,10 +1,13 @@
 protocol ActionBarViewControllerDelegate: AnyObject {
-  func actionBarDidPressButton(_ type: ActionBarButtonType)
+  func actionBar(_ actionBar: ActionBarViewController, dPressButton type: ActionBarButtonType)
 }
 
 class ActionBarViewController: UIViewController {
   @IBOutlet var stackView: UIStackView!
   var downloadButton: ActionBarButton? = nil
+  var popoverSourceView: UIView? {
+    stackView.arrangedSubviews.last
+  }
 
   var placePageData: PlacePageData!
   var isRoutePlanning = false
@@ -165,10 +168,15 @@ class ActionBarViewController: UIViewController {
       actionSheet.addAction(UIAlertAction(title: titleForButton(button, placePageData.partnerIndex, false),
                                           style: .default,
                                           handler: { [weak self] _ in
-                                            self?.delegate?.actionBarDidPressButton(button)
+                                            guard let self = self else { return }
+                                            self.delegate?.actionBar(self, dPressButton: button)
       }))
     }
     actionSheet.addAction(UIAlertAction(title: L("cancel"), style: .cancel))
+    if let popover = actionSheet.popoverPresentationController, let sourceView = stackView.arrangedSubviews.last {
+      popover.sourceView = sourceView
+      popover.sourceRect = sourceView.bounds
+    }
     present(actionSheet, animated: true)
   }
 }
@@ -179,6 +187,6 @@ extension ActionBarViewController: ActionBarButtonDelegate {
       showMore()
       return
     }
-    delegate?.actionBarDidPressButton(type)
+    delegate?.actionBar(self, dPressButton: type)
   }
 }
