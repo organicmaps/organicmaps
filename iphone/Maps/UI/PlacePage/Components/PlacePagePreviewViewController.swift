@@ -11,8 +11,6 @@ protocol PlacePagePreviewViewControllerDelegate: AnyObject {
 
 class PlacePagePreviewViewController: UIViewController {
   @IBOutlet var stackView: UIStackView!
-  @IBOutlet var titleLabel: UILabel!
-  @IBOutlet var titleContainerView: UIStackView!
   @IBOutlet var popularView: UIView!
   @IBOutlet var subtitleLabel: UILabel!
   @IBOutlet var subtitleContainerView: UIStackView!
@@ -34,7 +32,6 @@ class PlacePagePreviewViewController: UIViewController {
   @IBOutlet var scheduleContainerView: UIStackView!
   @IBOutlet var searchSimilarContainerView: UIStackView!
 
-  @IBOutlet var titleDirectionView: DirectionView!
   @IBOutlet var subtitleDirectionView: DirectionView!
   @IBOutlet var addressDirectionView: DirectionView!
 
@@ -53,19 +50,22 @@ class PlacePagePreviewViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    let subtitleString = NSMutableAttributedString()
+    if placePagePreviewData.isPopular {
+      subtitleString.append(NSAttributedString(string: L("popular_place"),
+                                               attributes: [.foregroundColor : UIColor.linkBlue(),
+                                                            .font : UIFont.regular14()]))
+    }
 
-    if let title = placePagePreviewData.title {
-      titleLabel.text = title
-      directionView = titleDirectionView
-    } else {
-      titleContainerView.isHidden = true
+    if let subtitle = placePagePreviewData.subtitle ?? placePagePreviewData.coordinates {
+      subtitleString.append(NSAttributedString(string: placePagePreviewData.isPopular ? " • " + subtitle : subtitle,
+                                               attributes: [.foregroundColor : UIColor.blackSecondaryText(),
+                                                            .font : UIFont.regular14()]))
     }
-    if let subtitle = placePagePreviewData.subtitle {
-      subtitleLabel.text = subtitle
-      directionView = subtitleDirectionView
-    } else {
-      subtitleContainerView.isHidden = true
-    }
+
+    directionView = subtitleDirectionView
+    subtitleLabel.attributedText = subtitleString
+
     if let address = placePagePreviewData.address {
       addressLabel.text = address
       directionView = addressDirectionView
@@ -78,7 +78,6 @@ class PlacePagePreviewViewController: UIViewController {
     } else {
       priceLabel.isHidden = true
     }
-    popularView.isHidden = !placePagePreviewData.isPopular
     searchSimilarContainerView.isHidden = placePagePreviewData.hotelType == .none
     configSchedule()
     configUgc()

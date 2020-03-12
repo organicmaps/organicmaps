@@ -6,6 +6,9 @@ protocol PlacePagePresenterProtocol: class {
   func updatePreviewOffset()
   func layoutIfNeeded()
   func findNextStop(_ offset: CGFloat, velocity: CGFloat) -> PlacePageState
+  func showNextStop()
+  func onOffsetChanged(_ offset: CGFloat)
+  func closeAnimated()
 }
 
 class PlacePagePresenter: NSObject {
@@ -14,7 +17,7 @@ class PlacePagePresenter: NSObject {
   private let isPreviewPlus: Bool
   private let layout: IPlacePageLayout
   private var scrollSteps:[PlacePageState] = []
-
+  private var isNavigationBarVisible = false
 
   init(view: PlacePageViewProtocol,
        interactor: PlacePageInteractorProtocol,
@@ -24,6 +27,17 @@ class PlacePagePresenter: NSObject {
     self.interactor = interactor
     self.layout = layout
     self.isPreviewPlus = isPreviewPlus
+  }
+
+  private func setNavigationBarVisible(_ val: Bool) {
+    guard val != isNavigationBarVisible, let navigationBar = layout.navigationBar else { return }
+    isNavigationBarVisible = val
+    if isNavigationBarVisible {
+      view.addNavigationBar(navigationBar)
+    } else {
+      navigationBar.removeFromParent()
+      navigationBar.view.removeFromSuperview()
+    }
   }
 }
 
@@ -99,5 +113,27 @@ extension PlacePagePresenter: PlacePagePresenterProtocol {
     }
 
     return result
+  }
+
+  func showNextStop() {
+    if let nextStop = scrollSteps.last(where: { $0.offset > view.scrollView.contentOffset.y }) {
+      view.scrollTo(CGPoint(x: 0, y: nextStop.offset), forced: true)
+    }
+  }
+
+  func onOffsetChanged(_ offset: CGFloat) {
+    if offset > 0 && !isNavigationBarVisible{
+      setNavigationBarVisible(true)
+    } else if offset <= 0 && isNavigationBarVisible {
+      setNavigationBarVisible(false)
+    }
+  }
+
+  func closeAnimated() {
+    view.scrollTo(CGPoint(x: 0, y: -self.view.scrollView.height + 1),
+                  animated: true,
+                  forced: true) {
+                    self.view.scrollTo(CGPoint(x: 0, y: -self.view.scrollView.height), animated: false, forced: true)
+    }
   }
 }

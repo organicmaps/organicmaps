@@ -74,5 +74,33 @@ class PlacePageStyleSheet: IStyleSheet {
       s.colors?[0] = colors.linkBlue
       s.images?[0] = "ic_12px_radio_on"
     }
+
+    theme.add(styleName: "PPHeaderView") { (s) -> (Void) in
+      s.backgroundColor = colors.white
+      s.cornerRadius = 10
+      s.clip = true
+    }
+
+    theme.add(styleName: "PPNavigationBarView") { (s) -> (Void) in
+      s.backgroundColor = colors.white
+      s.shadowColor = UIColor.black
+      s.shadowOffset = CGSize(width: 0, height: -1)
+      s.shadowOpacity = 1
+      s.shadowOpacity = 0.6
+      s.clip = false
+    }
+
+    theme.add(styleName: "PPBackgroundView") { (s) -> (Void) in
+      s.backgroundColor = colors.white
+      s.cornerRadius = 10
+      s.shadowColor = UIColor.black
+      s.shadowOffset = CGSize(width: 0, height: 1)
+      s.shadowOpacity = 0.6
+      s.shadowRadius = 2
+    }
+
+    theme.add(styleName: "PPCloseButton") { (s) -> (Void) in
+      s.tintColor = colors.blackDividers
+    }
   }
 }

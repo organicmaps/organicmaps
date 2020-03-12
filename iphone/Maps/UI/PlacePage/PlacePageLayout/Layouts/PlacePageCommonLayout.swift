@@ -14,6 +14,10 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     return actionBarViewController
   }
 
+  var navigationBar: UIViewController? {
+    return placePageNavigationViewController
+  }
+
   var adState: AdBannerState = .unset {
     didSet {
       previewViewController.adView.state = self.adState
@@ -133,7 +137,14 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     vc.delegate = interactor
     return vc
   } ()
-  
+
+  lazy var placePageHeaderViewController: PlacePageHeaderViewController = {
+    return PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .flexible)
+  } ()
+
+  lazy var placePageNavigationViewController: PlacePageHeaderViewController = {
+    return PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .fixed)
+  } ()
   
   init(interactor: PlacePageInteractor, storyboard: UIStoryboard, data: PlacePageData) {
     self.interactor = interactor
@@ -143,6 +154,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   
   private func configureViewControllers() -> [UIViewController] {
     var viewControllers = [UIViewController]()
+    viewControllers.append(placePageHeaderViewController)
     viewControllers.append(previewViewController)
     if placePageData.isPromoCatalog {
       viewControllers.append(catalogSingleItemViewController)
@@ -237,6 +249,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
       steps.append(.previewPlus(-scrollHeight * 0.55))
     }
     steps.append(.expanded(-scrollHeight * 0.3))
+    steps.append(.full(0))
     return steps
   }
 }

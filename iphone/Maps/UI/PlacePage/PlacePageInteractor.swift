@@ -259,3 +259,15 @@ extension PlacePageInteractor: ElevationProfileViewControllerDelegate {
     MWMBookmarksManager.shared().setElevationActivePoint(distance, trackId: placePageData.elevationProfileData!.trackId)
   }
 }
+
+// MARK: - PlacePageHeaderViewController
+
+extension PlacePageInteractor: PlacePageHeaderViewControllerDelegate {
+  func previewDidPressClose() {
+    presenter?.closeAnimated()
+  }
+
+  func previewDidPressExpand() {
+    presenter?.showNextStop()
+  }
+}

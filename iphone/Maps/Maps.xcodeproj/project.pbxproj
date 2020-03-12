@@ -644,6 +644,10 @@
 		99B6A74E2362F5CD002C94CB /* PromoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B6A74D2362F5CD002C94CB /* PromoCoordinator.swift */; };
 		99B6A77F23684573002C94CB /* PromoDiscoveryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B6A77E23684573002C94CB /* PromoDiscoveryBuilder.swift */; };
 		99C6532223F2F506004322F3 /* IPlacePageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C6532123F2F506004322F3 /* IPlacePageLayout.swift */; };
+		99C964292428C0F700E41723 /* PlacePageHeaderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C964232428C0F700E41723 /* PlacePageHeaderPresenter.swift */; };
+		99C9642B2428C0F700E41723 /* PlacePageHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C964252428C0F700E41723 /* PlacePageHeaderViewController.swift */; };
+		99C9642C2428C0F700E41723 /* PlacePageHeaderBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C964262428C0F700E41723 /* PlacePageHeaderBuilder.swift */; };
+		99C964302428C27A00E41723 /* PlacePageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C9642F2428C27A00E41723 /* PlacePageHeaderView.swift */; };
 		99CB34962369C281001D28AD /* FirstLaunchBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CB34952369C281001D28AD /* FirstLaunchBuilder.swift */; };
 		99CB34982369C291001D28AD /* FirstLaunchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CB34972369C291001D28AD /* FirstLaunchPresenter.swift */; };
 		99CB34B02369DF2E001D28AD /* WhatsNewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CB34AB2369DF2E001D28AD /* WhatsNewPresenter.swift */; };
@@ -1707,6 +1711,10 @@
 		99B6A74D2362F5CD002C94CB /* PromoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCoordinator.swift; sourceTree = "<group>"; };
 		99B6A77E23684573002C94CB /* PromoDiscoveryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoDiscoveryBuilder.swift; sourceTree = "<group>"; };
 		99C6532123F2F506004322F3 /* IPlacePageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPlacePageLayout.swift; sourceTree = "<group>"; };
+		99C964232428C0F700E41723 /* PlacePageHeaderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageHeaderPresenter.swift; sourceTree = "<group>"; };
+		99C964252428C0F700E41723 /* PlacePageHeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageHeaderViewController.swift; sourceTree = "<group>"; };
+		99C964262428C0F700E41723 /* PlacePageHeaderBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageHeaderBuilder.swift; sourceTree = "<group>"; };
+		99C9642F2428C27A00E41723 /* PlacePageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageHeaderView.swift; sourceTree = "<group>"; };
 		99CB34952369C281001D28AD /* FirstLaunchBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchBuilder.swift; sourceTree = "<group>"; };
 		99CB34972369C291001D28AD /* FirstLaunchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchPresenter.swift; sourceTree = "<group>"; };
 		99CB34AB2369DF2E001D28AD /* WhatsNewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewPresenter.swift; sourceTree = "<group>"; };
@@ -3804,6 +3812,7 @@
 				99A906D823F6F7030005872B /* WikiDescriptionViewController.swift */,
 				478F6FA523C4521F00054A53 /* MoreReviewsViewController.swift */,
 				4726254821C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift */,
+				99C964222428C0D500E41723 /* PlacePageHeader */,
 				993DF0C223F6BD0600AC231A /* ElevationDetails */,
 				99DEF9D523E420D2006BFD21 /* ElevationProfile */,
 			);
@@ -3818,6 +3827,17 @@
 				993DF0B423F6B2EF00AC231A /* PlacePageElevationLayout.swift */,
 			);
 			path = Layouts;
+			sourceTree = "<group>";
+		};
+		99C964222428C0D500E41723 /* PlacePageHeader */ = {
+			isa = PBXGroup;
+			children = (
+				99C964232428C0F700E41723 /* PlacePageHeaderPresenter.swift */,
+				99C964252428C0F700E41723 /* PlacePageHeaderViewController.swift */,
+				99C964262428C0F700E41723 /* PlacePageHeaderBuilder.swift */,
+				99C9642F2428C27A00E41723 /* PlacePageHeaderView.swift */,
+			);
+			path = PlacePageHeader;
 			sourceTree = "<group>";
 		};
 		99CB34AA2369DF23001D28AD /* WhatsNew */ = {
@@ -5257,6 +5277,7 @@
 				F6E407D01FC45EF5001F7821 /* MWMDiscoveryController.mm in Sources */,
 				F6E2FDEC1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.mm in Sources */,
 				34BBD64C1F826DB10070CA50 /* AuthorizationViewController.swift in Sources */,
+				99C964292428C0F700E41723 /* PlacePageHeaderPresenter.swift in Sources */,
 				F6E2FE101E097BA00083EBEC /* MWMOpeningHoursTableViewCell.mm in Sources */,
 				47C8789D22DF662700A772DA /* SubscriptionExpiredViewController.swift in Sources */,
 				6741A9B01BF340DE002C974C /* MapsAppDelegate.mm in Sources */,
@@ -5343,6 +5364,7 @@
 				47E3C7292111E614008B3B27 /* FadeInAnimatedTransitioning.swift in Sources */,
 				34AB667D1FC5AA330078E451 /* MWMRoutePreview.mm in Sources */,
 				993DF11B23F6BDB100AC231A /* UIViewRenderer.swift in Sources */,
+				99C964302428C27A00E41723 /* PlacePageHeaderView.swift in Sources */,
 				B33D21AC20DA515800BAD749 /* MWMCategoryInfoCell.mm in Sources */,
 				473CBF9B2164DD470059BD54 /* SettingsTableViewSelectableProgressCell.swift in Sources */,
 				47E3C72D2111E6A2008B3B27 /* FadeTransitioning.swift in Sources */,
@@ -5390,6 +5412,8 @@
 				F6EBB26F1FD7E33300B69B6A /* DiscoveryNoResultsCell.swift in Sources */,
 				47D0026721999DA900F651A2 /* PendingTransactionsHandler.swift in Sources */,
 				993DF10A23F6BDB100AC231A /* UISwitchRenderer.swift in Sources */,
+				99C9642C2428C0F700E41723 /* PlacePageHeaderBuilder.swift in Sources */,
+				99C9642B2428C0F700E41723 /* PlacePageHeaderViewController.swift in Sources */,
 				F6FE3C391CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.m in Sources */,
 				F6E2FDFE1E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.mm in Sources */,
 				F6E2FEDC1E097BA00083EBEC /* MWMSearchManager+Filter.mm in Sources */,

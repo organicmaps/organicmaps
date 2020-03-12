@@ -5,8 +5,15 @@ protocol PlacePageViewProtocol: class {
   func addToStack(_ viewController: UIViewController)
   func addActionBar(_ actionBarViewController: UIViewController)
   func hideActionBar(_ value: Bool)
-  func scrollTo(_ point: CGPoint)
+  func addNavigationBar(_ header: UIViewController)
+  func scrollTo(_ point: CGPoint, animated: Bool, forced: Bool, completion: (()->())?)
   func layoutIfNeeded()
+}
+
+extension PlacePageViewProtocol {
+  func scrollTo(_ point: CGPoint, animated: Bool = true, forced: Bool = false, completion: (()->())? = nil) {
+    scrollTo(point, animated: animated, forced: forced, completion: completion)
+  }
 }
 
 final class PlacePageScrollView: UIScrollView {
@@ -52,7 +59,7 @@ final class TouchTransparentView: UIView {
     }
 
     let bgView = UIView()
-    bgView.styleName = "Background"
+    bgView.styleName = "PPBackgroundView"
     stackView.insertSubview(bgView, at: 0)
     bgView.alignToSuperview()
     scrollView.decelerationRate = .fast
@@ -95,13 +102,33 @@ extension PlacePageViewController: PlacePageViewProtocol {
     ])
   }
 
-  func scrollTo(_ point: CGPoint) {
-    if traitCollection.horizontalSizeClass != .compact || beginDragging {
+  func addNavigationBar(_ header: UIViewController) {
+    header.view.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(header.view)
+    addChild(header)
+    NSLayoutConstraint.activate([
+      header.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      header.view.topAnchor.constraint(equalTo: view.topAnchor),
+      header.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+    ])
+  }
+
+  func scrollTo(_ point: CGPoint, animated: Bool, forced: Bool, completion: (()->())?) {
+    if traitCollection.horizontalSizeClass != .compact || (beginDragging && !forced) {
       return
     }
-
-    UIView.animate(withDuration: kDefaultAnimationDuration) { [weak scrollView] in
-      scrollView?.contentOffset = point
+    let scrollPosition = CGPoint(x: point.x, y: min((scrollView.contentSize.height - scrollView.height), point.y))
+    if animated {
+      UIView.animate(withDuration: kDefaultAnimationDuration, animations: { [weak scrollView] in
+        scrollView?.contentOffset = scrollPosition
+      }) { (complete) in
+        if complete {
+          completion?()
+        }
+      }
+    } else {
+      scrollView?.contentOffset = scrollPosition
+      completion?()
     }
   }
 
@@ -117,6 +144,7 @@ extension PlacePageViewController: UIScrollViewDelegate {
     if scrollView.contentOffset.y < -scrollView.height + 1 && beginDragging {
       rootViewController.dismissPlacePage()
     }
+    presenter.onOffsetChanged(scrollView.contentOffset.y)
   }
 
   func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -145,6 +173,8 @@ extension PlacePageViewController: UIScrollViewDelegate {
     case .previewPlus(_):
       fallthrough
     case .expanded(_):
+      fallthrough
+    case .full(_):
       presenter?.setAdState(.detailed)
     }
     targetContentOffset.pointee = CGPoint(x: 0, y: targetState.offset)
