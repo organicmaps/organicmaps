@@ -679,6 +679,7 @@ std::string IndexToClassificatorType(uint32_t index)
 BOOST_PYTHON_MODULE(pykmlib)
 {
   scope().attr("__version__") = PYBINDINGS_VERSION;
+  scope().attr("invalid_altitude") = geometry::kInvalidAltitude;
   register_exception_translator<std::runtime_error>(&TranslateRuntimeError);
   TimestampConverter();
   LatLonConverter();

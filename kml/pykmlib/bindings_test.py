@@ -79,7 +79,7 @@ class PyKmlibAdsTest(unittest.TestCase):
         pt2.set_altitude(110)
         pt3 = pykmlib.PointWithAltitude()
         pt3.set_point(pykmlib.LatLon(45.1964, 56.9832))
-        pt3.set_altitude(120)
+        pt3.set_altitude(pykmlib.invalid_altitude)
         track.points_with_altitudes.set_list([pt1, pt2, pt3])
         track.visible = True
         track.nearest_toponyms.set_list(['12345', '54321', '98765'])

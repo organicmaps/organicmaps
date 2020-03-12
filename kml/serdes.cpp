@@ -78,7 +78,9 @@ std::string PointToString(m2::PointD const & org)
 
 std::string PointToString(geometry::PointWithAltitude const & pt)
 {
-  return PointToString(pt.GetPoint()) + "," + strings::to_string(pt.GetAltitude());
+  if (pt.GetAltitude() != geometry::kInvalidAltitude)
+    return PointToString(pt.GetPoint()) + "," + strings::to_string(pt.GetAltitude());
+  return PointToString(pt.GetPoint());
 }
 
 std::string GetLocalizableString(LocalizableString const & s, int8_t lang)
@@ -549,7 +551,7 @@ bool ParsePoint(std::string const & s, char const * delim, m2::PointD & pt)
 bool ParsePointWithAltitude(std::string const & s, char const * delim,
                             geometry::PointWithAltitude & point)
 {
-  geometry::Altitude altitude = geometry::kDefaultAltitudeMeters;
+  geometry::Altitude altitude = geometry::kInvalidAltitude;
   m2::PointD pt;
   auto result = ParsePoint(s, delim, pt, altitude);
   point.SetPoint(std::move(pt));
