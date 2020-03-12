@@ -264,6 +264,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
   buildInfo.m_match = place_page::BuildInfo::Match::Everything;
   buildInfo.m_userMarkId = bookmark->GetId();
   f.UpdatePlacePageInfoForCurrentSelection(buildInfo);
+  [data updateBookmarkStatus];
 }
 
 - (void)removeBookmark:(PlacePageData *)data
@@ -278,6 +279,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
   buildInfo.m_match = place_page::BuildInfo::Match::FeatureOnly;
   buildInfo.m_userMarkId = kml::kInvalidMarkId;
   f.UpdatePlacePageInfoForCurrentSelection(buildInfo);
+  [data updateBookmarkStatus];
 }
 
 - (void)call:(PlacePageData *)data {

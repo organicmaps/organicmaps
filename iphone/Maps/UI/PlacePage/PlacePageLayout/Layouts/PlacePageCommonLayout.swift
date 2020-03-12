@@ -193,6 +193,9 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     }
     
     placePageData.loadOnlineData(completion: onLoadOnlineData)
+    placePageData.onBookmarkStatusUpdate = { [weak self] in
+      self?.updateBookmarkSection()
+    }
 
     MWMLocationManager.add(observer: self)
     if let lastLocation = MWMLocationManager.lastLocation() {
@@ -293,6 +296,19 @@ extension PlacePageCommonLayout {
   func onGetBanner(banner: MWMBanner, loadNew: Bool) -> Void {
     previewViewController.updateBanner(banner)
     presenter?.updatePreviewOffset()
+  }
+
+  func updateBookmarkSection() {
+    var hidden = false
+    if let bookmarkData = placePageData.bookmarkData {
+      bookmarkViewController.bookmarkData = bookmarkData
+    } else {
+      hidden = true
+    }
+    UIView.animate(withDuration: kDefaultAnimationDuration) { [unowned self] in
+      self.bookmarkViewController.view.isHidden = hidden
+      self.presenter?.layoutIfNeeded()
+    }
   }
 }
 

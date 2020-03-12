@@ -241,4 +241,18 @@ static PlacePageTaxiProvider convertTaxiProvider(taxi::Provider::Type providerTy
   });
 }
 
+- (void)updateBookmarkStatus {
+  if (!GetFramework().HasPlacePageInfo()) {
+    return;
+  }
+  if (rawData().IsBookmark()) {
+    _bookmarkData = [[PlacePageBookmarkData alloc] initWithRawData:rawData()];
+  } else {
+    _bookmarkData = nil;
+  }
+  if (self.onBookmarkStatusUpdate != nil) {
+    self.onBookmarkStatusUpdate();
+  }
+}
+
 @end

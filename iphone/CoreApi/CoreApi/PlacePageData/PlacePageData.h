@@ -69,6 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString *sponsoredMoreURL;
 @property(nonatomic, readonly, nullable) NSString *sponsoredReviewURL;
 @property(nonatomic, readonly, nullable) NSString *sponsoredDeeplink;
+@property(nonatomic, copy, nullable) MWMVoidBlock onBookmarkStatusUpdate;
 
 - (instancetype)initWithLocalizationProvider:(id<IOpeningHoursLocalization>)localization;
 - (instancetype)init NS_UNAVAILABLE;
@@ -76,6 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loadOnlineDataWithCompletion:(MWMVoidBlock)completion;
 - (void)loadUgcWithCompletion:(MWMVoidBlock)completion;
 - (void)loadCatalogPromoWithCompletion:(MWMVoidBlock)completion;
+- (void)updateBookmarkStatus;
 
 @end
 
