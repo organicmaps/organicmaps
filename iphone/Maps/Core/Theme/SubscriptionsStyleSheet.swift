@@ -43,27 +43,27 @@ class SubscriptionsStyleSheet: IStyleSheet {
 
     theme.add(styleName: "AllPassSubscriptionYearlyButton") { (s) -> (Void) in
       s.fontColorHighlighted = colors.white
-      s.font = fonts.medium14
+      s.font = fonts.semibold14
       s.cornerRadius = 6
       s.fontColor = colors.allPassSubscriptionDescription
-      s.backgroundColor = colors.allPassSubscriptionSubTitle
+      s.backgroundColor = colors.allPassSubscriptionYearlyBackground
       s.backgroundColorHighlighted = colors.linkBlueHighlighted
     }
 
     theme.add(styleName: "AllPassSubscriptionMonthlyButton") { (s) -> (Void) in
       s.fontColorHighlighted = colors.white
-      s.font = fonts.medium14
+      s.font = fonts.semibold14
       s.fontColor = colors.allPassSubscriptionMonthlyTitle
       s.cornerRadius = 6
-      s.borderWidth = 1
-      s.borderColor = colors.blackHintText
+      s.borderWidth = 3
+      s.borderColor = UIColor.white.withAlphaComponent(alpha54)
       s.backgroundColorHighlighted = colors.blackDividers
-      s.backgroundColor = colors.allPassSubscriptionMonthlyBackground
+      s.backgroundColor = colors.clear
     }
 
     theme.add(styleName: "AllPassSubscriptionRestoreButton") { (s) -> (Void) in
       s.font = fonts.medium14
-      s.fontColor = colors.allPassSubscriptionDescription
+      s.fontColor = colors.allPassSubscriptionTermsTitle
       s.fontColorHighlighted = colors.linkBlueHighlighted
     }
 
@@ -77,24 +77,28 @@ class SubscriptionsStyleSheet: IStyleSheet {
       s.fontColor = colors.allPassSubscriptionTermsTitle
     }
 
+    theme.add(styleName: "AllPassSubscriptionTitleView") { (s) -> (Void) in
+      s.backgroundColor = colors.clear
+      s.cornerRadius = 10
+      s.clip = true
+    }
+
     theme.add(styleName: "AllPassSubscriptionTitle") { (s) -> (Void) in
-      s.font = fonts.medium10
-      s.fontColor = colors.allPassSubscriptionTermsTitle
-      s.fontColorHighlighted = colors.blackHintText
+      s.font = fonts.regular17
+      s.fontColor = colors.allPassSubscriptionTitle
     }
 
     theme.add(styleName: "AllPassSubscriptionSubTitle") { (s) -> (Void) in
-      s.font = fonts.fredokaRegular25
+      s.font = fonts.heavy20
       s.fontColor = colors.allPassSubscriptionSubTitle
     }
 
     theme.add(styleName: "AllPassSubscriptionDescription1") { (s) -> (Void) in
-      s.font = fonts.bold34
+      s.font = fonts.heavy38
       s.fontColor = colors.allPassSubscriptionDescription
     }
 
     theme.add(styleName: "AllPassSubscriptionDescription2") { (s) -> (Void) in
-      s.font = fonts.medium18
       s.fontColor = colors.allPassSubscriptionDescription
     }
 
@@ -104,7 +108,7 @@ class SubscriptionsStyleSheet: IStyleSheet {
       s.shadowColor = colors.blackHintText
       s.shadowOpacity = 0.62
       s.cornerRadius = 6
-      s.font = fonts.bold17
+      s.font = fonts.heavy17
       s.fontColor = colors.discountText
       s.backgroundColor = colors.allPassSubscriptionDiscountBackground
       s.textContainerInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)

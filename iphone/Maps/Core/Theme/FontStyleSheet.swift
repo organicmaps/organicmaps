@@ -123,6 +123,15 @@ class FontStyleSheet: IStyleSheet {
     theme.add(styleName: "bold48") { (s) -> (Void) in
       s.font = fonts.bold48
     }
+    theme.add(styleName: "heavy17") { (s) -> (Void) in
+      s.font = fonts.heavy17
+    }
+    theme.add(styleName: "heavy20") { (s) -> (Void) in
+      s.font = fonts.heavy20
+    }
+    theme.add(styleName: "heavy38") { (s) -> (Void) in
+      s.font = fonts.heavy38
+    }
     theme.add(styleName: "italic16") { (s) -> (Void) in
       s.font = fonts.italic16
     }
@@ -140,9 +149,6 @@ class FontStyleSheet: IStyleSheet {
     }
     theme.add(styleName: "semibold18") { (s) -> (Void) in
       s.font = fonts.semibold18
-    }
-    theme.add(styleName: "fredokaRegular25") { (s) -> (Void) in
-      s.font = fonts.fredokaRegular25
     }
 
     theme.add(styleName: "whitePrimaryText") { (s) -> (Void) in

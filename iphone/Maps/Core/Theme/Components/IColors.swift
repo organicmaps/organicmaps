@@ -63,9 +63,10 @@ let alpha100: CGFloat = 1.0
   var facebookButtonBackground: UIColor { get }
   var facebookButtonBackgroundDisabled: UIColor { get }
   var allPassSubscriptionTitle: UIColor { get }
-  var allPassSubscriptionDescription: UIColor { get }
   var allPassSubscriptionSubTitle: UIColor { get }
+  var allPassSubscriptionDescription: UIColor { get }
   var allPassSubscriptionMonthlyBackground: UIColor { get }
+  var allPassSubscriptionYearlyBackground: UIColor { get }
   var allPassSubscriptionMonthlyTitle: UIColor { get }
   var allPassSubscriptionDiscountBackground: UIColor { get }
   var allPassSubscriptionTermsTitle: UIColor { get }

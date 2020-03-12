@@ -10,6 +10,7 @@ class ImageViewCrossDisolve: UIView {
         let imageView = UIImageView(image: image);
         self.addSubview(imageView)
         imageView.alpha = 0
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false;
         imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true

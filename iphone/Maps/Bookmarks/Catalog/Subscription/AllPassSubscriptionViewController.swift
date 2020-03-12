@@ -4,10 +4,10 @@ class AllPassSubscriptionViewController: BaseSubscriptionViewController {
   @IBOutlet private var annualSubscriptionButton: BookmarksSubscriptionButton!
   @IBOutlet private var annualDiscountLabel: InsetsLabel!
   @IBOutlet private var monthlySubscriptionButton: BookmarksSubscriptionButton!
-  @IBOutlet private var pageIndicator: PageIndicator!
   @IBOutlet private var descriptionPageScrollView: UIScrollView!
   @IBOutlet private var contentView: UIView!
   @IBOutlet private var statusBarBackgroundView: UIVisualEffectView!
+  @IBOutlet private var descriptionSubtitles: [UILabel]!
 
   //MARK: locals
   private var pageWidth: CGFloat {
@@ -47,7 +47,6 @@ class AllPassSubscriptionViewController: BaseSubscriptionViewController {
       UIImage.init(named: "AllPassSubscriptionBg2"),
       UIImage.init(named: "AllPassSubscriptionBg3")
     ]
-    pageIndicator.pageCount = maxPages
     startAnimating();
 
     annualSubscriptionButton.config(title: L("annual_subscription_title"),
@@ -58,7 +57,15 @@ class AllPassSubscriptionViewController: BaseSubscriptionViewController {
                                      enabled: false)
 
     annualDiscountLabel.isHidden = true
-    
+
+    let fontFamily = UIFont.systemFont(ofSize: 17).familyName
+    let css = "<style type=\"text/css\">b{font-weight: 900;}body{font-weight: 300; font-size: 17; font-family: '-apple-system','\(fontFamily)';}</style>"
+    zip(descriptionSubtitles, ["all_pass_subscription_message_subtitle",
+                               "all_pass_subscription_message_subtitle_2",
+                               "all_pass_subscription_message_subtitle_3"]).forEach { (title, loc) in
+                                title.attributedText = NSAttributedString.string(withHtml: css + L(loc), defaultAttributes: [:])
+    }
+
     self.configure(buttons: [
       .year: annualSubscriptionButton,
       .month: monthlySubscriptionButton],
@@ -132,7 +139,6 @@ extension AllPassSubscriptionViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     if scrollView == descriptionPageScrollView {
       let pageProgress = scrollView.contentOffset.x/self.pageWidth
-      pageIndicator.currentPage = pageProgress
       backgroundImageView.currentPage = pageProgress
     } else {
       let statusBarAlpha = min(scrollView.contentOffset.y/self.statusBarBackVisibleThreshold, 1)

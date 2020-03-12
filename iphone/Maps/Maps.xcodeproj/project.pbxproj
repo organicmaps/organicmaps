@@ -659,7 +659,6 @@
 		99CB34CF236B054B001D28AD /* DeepLinkInfoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CB34CA236B054B001D28AD /* DeepLinkInfoBuilder.swift */; };
 		99D363172358647700941BF4 /* SubscriptionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D363162358647700941BF4 /* SubscriptionGroup.swift */; };
 		99D363192358685300941BF4 /* SubscriptionGroupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D363182358685300941BF4 /* SubscriptionGroupItem.swift */; };
-		99D3631E23589BE800941BF4 /* FredokaOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99D3631D23589BE800941BF4 /* FredokaOne-Regular.ttf */; };
 		99DEF9D723E420F6006BFD21 /* ElevationProfileDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DEF9D623E420F6006BFD21 /* ElevationProfileDescriptionCell.swift */; };
 		99E2B0122368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E2B0112368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift */; };
 		99E2B01E23698B0800FFABC5 /* WelcomeProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E2B01D23698B0800FFABC5 /* WelcomeProtocols.swift */; };
@@ -1728,7 +1727,6 @@
 		99CB34CA236B054B001D28AD /* DeepLinkInfoBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkInfoBuilder.swift; sourceTree = "<group>"; };
 		99D363162358647700941BF4 /* SubscriptionGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionGroup.swift; sourceTree = "<group>"; };
 		99D363182358685300941BF4 /* SubscriptionGroupItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionGroupItem.swift; sourceTree = "<group>"; };
-		99D3631D23589BE800941BF4 /* FredokaOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FredokaOne-Regular.ttf"; sourceTree = "<group>"; };
 		99DEF9D623E420F6006BFD21 /* ElevationProfileDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationProfileDescriptionCell.swift; sourceTree = "<group>"; };
 		99E2B0112368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWMCategory+PlacesCountTitle.swift"; sourceTree = "<group>"; };
 		99E2B01D23698B0800FFABC5 /* WelcomeProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeProtocols.swift; sourceTree = "<group>"; };
@@ -2293,7 +2291,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				99D3631D23589BE800941BF4 /* FredokaOne-Regular.ttf */,
 				F6C3A1B121AC22810060EEC8 /* Alert 5.m4a */,
 				34D7DB77204ED3DD0041D015 /* maps.me dbg.entitlements */,
 				CD08888422BCF1C900C1368D /* maps.me full.entitlements */,
@@ -5031,7 +5028,6 @@
 				34B6FD602015E6BF00C18E97 /* DiscoveryBookingCell.xib in Resources */,
 				4788739020EE30B300F6826B /* LayersViewController.xib in Resources */,
 				F6E2FDF51E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
-				99D3631E23589BE800941BF4 /* FredokaOne-Regular.ttf in Resources */,
 				CD96C70D22A681C400DB7CFE /* DiscoveryGuideCell.xib in Resources */,
 				F6E2FDFB1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
 				342639361EA0E60A0025EB89 /* local_ads_symbols.txt in Resources */,
