@@ -1123,12 +1123,14 @@ UNIT_CLASS_TEST(Runner, TrackParsingTest_1)
                                     dp::Color(171, 230, 0, 255),
                                     dp::Color(0, 230, 117, 255),
                                     dp::Color(0, 59, 230, 255)}};
-  array<double, 4> const length = {{3525.46839061, 27172.44338132, 27046.0456586, 23967.35765800}};
-
+  array<double, 4> const length = {{3525.46839061, 27174.11393166, 27046.0456586, 23967.35765800}};
+  array<geometry::Altitude, 4> const altitudes = {{0, 27, -3, -2}};
   size_t i = 0;
   for (auto trackId : bmManager.GetTrackIds(catId))
   {
     auto const * track = bmManager.GetTrack(trackId);
+    TEST_EQUAL(track->GetPointsWithAltitudes()[0].GetAltitude(), altitudes[i],
+      (track->GetPointsWithAltitudes()[0].GetAltitude(), altitudes[i]));
     TEST_EQUAL(names[i], track->GetName(), ());
     TEST(fabs(track->GetLengthMeters() - length[i]) < 1.0E-6, (track->GetLengthMeters(), length[i]));
     TEST_GREATER(track->GetLayerCount(), 0, ());
