@@ -302,7 +302,7 @@ jobjectArray ToBannersArray(JNIEnv * env, std::vector<ads::Banner> const & banne
 {
   return jni::ToJavaArray(env, g_bannerClazz, banners,
                           [](JNIEnv * env, ads::Banner const & item) {
-                            return CreateBanner(env, item.m_bannerId, static_cast<jint>(item.m_type));
+                            return CreateBanner(env, item.m_value, static_cast<jint>(item.m_type));
                           });
 }
 

@@ -16,66 +16,66 @@ UNIT_TEST(Rb_GetBanner)
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "dentist"}));
-    TEST_EQUAL(rb.GetBannerId(holder, "Russian Federation", "ru"), "7", ());
+    TEST_EQUAL(rb.GetBanner(holder, "Russian Federation", "ru"), "7", ());
     holder.Add(c.GetTypeByPath({"amenity", "pub"}));
-    TEST_EQUAL(rb.GetBannerId(holder, "Russian Federation", "ru"), "7", ());
+    TEST_EQUAL(rb.GetBanner(holder, "Russian Federation", "ru"), "7", ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "restaurant"}));
-    TEST_EQUAL(rb.GetBannerId(holder, "Russian Federation", "ru"), "1", ());
+    TEST_EQUAL(rb.GetBanner(holder, "Russian Federation", "ru"), "1", ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"tourism", "information", "map"}));
-    TEST_EQUAL(rb.GetBannerId(holder, "Russian Federation", "ru"), "5", ());
+    TEST_EQUAL(rb.GetBanner(holder, "Russian Federation", "ru"), "5", ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"shop", "ticket"}));
-    TEST_EQUAL(rb.GetBannerId(holder, "Russian Federation", "ru"), "2", ());
+    TEST_EQUAL(rb.GetBanner(holder, "Russian Federation", "ru"), "2", ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "bank"}));
-    TEST_EQUAL(rb.GetBannerId(holder, "Russian Federation", "ru"), "8", ());
+    TEST_EQUAL(rb.GetBanner(holder, "Russian Federation", "ru"), "8", ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "atm"}));
-    TEST_EQUAL(rb.GetBannerId(holder, "Russian Federation", "ru"), "8", ());
+    TEST_EQUAL(rb.GetBanner(holder, "Russian Federation", "ru"), "8", ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "bureau_de_change"}));
-    TEST_EQUAL(rb.GetBannerId(holder, "Russian Federation", "ru"), "8", ());
+    TEST_EQUAL(rb.GetBanner(holder, "Russian Federation", "ru"), "8", ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "atm"}));
-    TEST_EQUAL(rb.GetBannerId(holder, "Brazil", "en"), "", ());
+    TEST_EQUAL(rb.GetBanner(holder, "Brazil", "en"), "", ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "toilets"}));
-    auto const bannerId = rb.GetBannerIdForOtherTypes();
-    TEST_EQUAL(rb.GetBannerId(holder, "Russian Federation", "ru"), bannerId, ());
+    auto const bannerId = rb.GetBannerForOtherTypes();
+    TEST_EQUAL(rb.GetBanner(holder, "Russian Federation", "ru"), bannerId, ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"sponsored", "opentable"}));
-    auto const bannerId = rb.GetBannerIdForOtherTypes();
-    TEST_EQUAL(rb.GetBannerId(holder, "Russian Federation", "ru"), bannerId, ());
+    auto const bannerId = rb.GetBannerForOtherTypes();
+    TEST_EQUAL(rb.GetBanner(holder, "Russian Federation", "ru"), bannerId, ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"sponsored", "opentable"}));
-    TEST_EQUAL(rb.GetBannerId(holder, "Brazil", "ru"), "14", ());
+    TEST_EQUAL(rb.GetBanner(holder, "Brazil", "ru"), "14", ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"sponsored", "booking"}));
-    TEST_EQUAL(rb.GetBannerId(holder, "Russian Federation", "ru"), "", ());
+    TEST_EQUAL(rb.GetBanner(holder, "Russian Federation", "ru"), "", ());
   }
 }
 }  // namespace

@@ -16,12 +16,18 @@ namespace
 
 namespace ads
 {
-bool Facebook::HasSearchBanner() const { return true; }
-
-std::string Facebook::GetBannerIdForOtherTypes() const
+std::string FacebookPoi::GetBannerForOtherTypes() const
 {
   return kSingleBannerIdForAllTypes;
 }
 
-std::string Facebook::GetSearchBannerId() const { return kSearchbannerId; }
+bool FacebookSearch::HasBanner() const
+{
+  return true;
+}
+
+std::string FacebookSearch::GetBanner() const
+{
+  return kSearchbannerId;
+}
 }  // namespace ads

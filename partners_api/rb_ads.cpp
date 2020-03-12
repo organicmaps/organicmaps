@@ -88,7 +88,7 @@ Rb::Rb()
   AppendSupportedUserLanguages(kSupportedLanguages);
 }
 
-std::string Rb::GetBannerIdForOtherTypes() const
+std::string Rb::GetBannerForOtherTypes() const
 {
   return kBannerIdForOtherTypes;
 }

@@ -1,15 +1,16 @@
 #pragma once
 
-#include "indexer/ftypes_mapping.hpp"
+#include "partners_api/ads_utils.hpp"
 
 #include "storage/storage_defines.hpp"
+
+#include "indexer/ftypes_mapping.hpp"
 
 #include "base/macros.hpp"
 
 #include <cstdint>
 #include <initializer_list>
 #include <string>
-#include <unordered_set>
 
 namespace feature
 {
@@ -18,51 +19,57 @@ class TypesHolder;
 
 namespace ads
 {
-class ContainerBase
+class PoiContainerBase
 {
 public:
-  virtual ~ContainerBase() = default;
+  virtual ~PoiContainerBase() = default;
   virtual bool HasBanner(feature::TypesHolder const & types, storage::CountryId const & countryId,
                          std::string const & userLanguage) const = 0;
-  virtual std::string GetBannerId(feature::TypesHolder const & types,
-                                  storage::CountryId const & countryId,
-                                  std::string const & userLanguage) const = 0;
-  virtual std::string GetBannerIdForOtherTypes() const = 0;
-  virtual bool HasSearchBanner() const = 0;
-  virtual std::string GetSearchBannerId() const = 0;
+  virtual std::string GetBanner(feature::TypesHolder const & types,
+                                storage::CountryId const & countryId,
+                                std::string const & userLanguage) const = 0;
+
+protected:
+  virtual std::string GetBannerForOtherTypes() const = 0;
 };
 
 // Class which matches feature types and banner ids.
-class Container : public ContainerBase
+class PoiContainer : public PoiContainerBase,
+                     public WithSupportedLanguages,
+                     public WithSupportedCountries
 {
 public:
-  Container();
+  PoiContainer();
 
-  // ContainerBase overrides:
+  // PoiContainerBase overrides:
   bool HasBanner(feature::TypesHolder const & types, storage::CountryId const & countryId,
                  std::string const & userLanguage) const override;
-  std::string GetBannerId(feature::TypesHolder const & types, storage::CountryId const & countryId,
-                          std::string const & userLanguage) const override;
-  std::string GetBannerIdForOtherTypes() const override;
-  bool HasSearchBanner() const override;
-  std::string GetSearchBannerId() const override;
+  std::string GetBanner(feature::TypesHolder const & types, storage::CountryId const & countryId,
+                        std::string const & userLanguage) const override;
 
 protected:
+  std::string GetBannerForOtherTypes() const override;
+
   void AppendEntry(std::initializer_list<std::initializer_list<char const *>> && types,
                    std::string const & id);
   void AppendExcludedTypes(std::initializer_list<std::initializer_list<char const *>> && types);
-  void AppendSupportedCountries(std::initializer_list<storage::CountryId> const & countries);
-  void AppendSupportedUserLanguages(std::initializer_list<std::string> const & languages);
 
 private:
   ftypes::HashMapMatcher<uint32_t, std::string> m_typesToBanners;
   ftypes::HashSetMatcher<uint32_t> m_excludedTypes;
-  // All countries are supported when empty.
-  std::unordered_set<storage::CountryId> m_supportedCountries;
-  // It supplements |m_supportedCountries|. If a country isn't supported
-  // we check user's language.
-  std::unordered_set<int8_t> m_supportedUserLanguages;
 
-  DISALLOW_COPY(Container);
+  DISALLOW_COPY(PoiContainer);
+};
+
+class SearchContainerBase
+{
+public:
+  SearchContainerBase() = default;
+  virtual ~SearchContainerBase() = default;
+
+  virtual bool HasBanner() const = 0;
+  virtual std::string GetBanner() const = 0;
+
+  DISALLOW_COPY(SearchContainerBase);
 };
 }  // namespace ads

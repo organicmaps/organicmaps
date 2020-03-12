@@ -20,7 +20,7 @@ static inline MWMBannerType MatchBannerType(ads::Banner::Type coreType)
 static inline CoreBanner * MatchBanner(ads::Banner const & banner, NSString * query)
 {
   return [[CoreBanner alloc] initWithMwmType:MatchBannerType(banner.m_type)
-                                    bannerID:@(banner.m_bannerId.c_str())
+                                    bannerID:@(banner.m_value.c_str())
                                        query:query];
 }
 

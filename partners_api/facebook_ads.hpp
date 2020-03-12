@@ -5,14 +5,18 @@
 namespace ads
 {
 // Class which matches feature types and facebook banner ids.
-class Facebook : public Container
+class FacebookPoi : public PoiContainer
 {
 public:
-  Facebook() = default;
+  // PoiContainerBase overrides:
+  std::string GetBannerForOtherTypes() const override;
+};
 
-  // ContainerBase overrides:
-  bool HasSearchBanner() const override;
-  std::string GetBannerIdForOtherTypes() const override;
-  std::string GetSearchBannerId() const override;
+class FacebookSearch : public SearchContainerBase
+{
+public:
+  // SearchContainerBase overrides:
+  bool HasBanner() const override;
+  std::string GetBanner() const override;
 };
 }  // namespace ads

@@ -4,13 +4,11 @@
 
 #include "indexer/feature_data.hpp"
 
-#include "coding/string_utf8_multilang.hpp"
-
 #include <algorithm>
 
 namespace ads
 {
-Container::Container()
+PoiContainer::PoiContainer()
 {
   AppendExcludedTypes({{"sponsored", "booking"},
                        {"tourism", "hotel"},
@@ -27,51 +25,29 @@ Container::Container()
   m_excludedTypes.Append(promo::GetPromoCatalogOutdoorTypes());
 }
 
-void Container::AppendEntry(std::initializer_list<std::initializer_list<char const *>> && types,
-                            std::string const & id)
+void PoiContainer::AppendEntry(std::initializer_list<std::initializer_list<char const *>> && types,
+                               std::string const & id)
 {
   m_typesToBanners.Append(std::move(types), id);
 }
 
-void Container::AppendExcludedTypes(
+void PoiContainer::AppendExcludedTypes(
     std::initializer_list<std::initializer_list<char const *>> && types)
 {
   m_excludedTypes.Append(std::move(types));
 }
 
-void Container::AppendSupportedCountries(
-    std::initializer_list<storage::CountryId> const & countries)
+bool PoiContainer::HasBanner(feature::TypesHolder const & types,
+                             storage::CountryId const & countryId,
+                             std::string const & userLanguage) const
 {
-  m_supportedCountries.insert(countries.begin(), countries.end());
+  return (IsCountrySupported(countryId) || IsLanguageSupported(userLanguage)) &&
+         !m_excludedTypes.Contains(types);
 }
 
-void Container::AppendSupportedUserLanguages(std::initializer_list<std::string> const & languages)
-{
-  for (auto const & language : languages)
-  {
-    int8_t const langIndex = StringUtf8Multilang::GetLangIndex(language);
-    if (langIndex == StringUtf8Multilang::kUnsupportedLanguageCode)
-      continue;
-    m_supportedUserLanguages.insert(langIndex);
-  }
-}
-
-bool Container::HasBanner(feature::TypesHolder const & types, storage::CountryId const & countryId,
-                          std::string const & userLanguage) const
-{
-  if (!m_supportedCountries.empty() &&
-      m_supportedCountries.find(countryId) == m_supportedCountries.end())
-  {
-    auto const userLangCode = StringUtf8Multilang::GetLangIndex(userLanguage);
-    if (m_supportedUserLanguages.find(userLangCode) == m_supportedUserLanguages.end())
-      return false;
-  }
-  return !m_excludedTypes.Contains(types);
-}
-
-std::string Container::GetBannerId(feature::TypesHolder const & types,
-                                   storage::CountryId const & countryId,
-                                   std::string const & userLanguage) const
+std::string PoiContainer::GetBanner(feature::TypesHolder const & types,
+                                    storage::CountryId const & countryId,
+                                    std::string const & userLanguage) const
 {
   if (!HasBanner(types, countryId, userLanguage))
     return {};
@@ -80,20 +56,10 @@ std::string Container::GetBannerId(feature::TypesHolder const & types,
   if (m_typesToBanners.IsValid(it))
     return it->second;
 
-  return GetBannerIdForOtherTypes();
+  return GetBannerForOtherTypes();
 }
 
-std::string Container::GetBannerIdForOtherTypes() const
-{
-  return {};
-}
-
-bool Container::HasSearchBanner() const
-{
-  return false;
-}
-
-std::string Container::GetSearchBannerId() const
+std::string PoiContainer::GetBannerForOtherTypes() const
 {
   return {};
 }

@@ -77,7 +77,7 @@ Mopub::Mopub()
   }
 }
 
-std::string Mopub::GetBannerIdForOtherTypes() const
+std::string Mopub::GetBannerForOtherTypes() const
 {
   return kNonTourismPlacementId;
 }

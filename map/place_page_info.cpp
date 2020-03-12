@@ -322,7 +322,7 @@ bool Info::HasBanner() const
   if (!m_adsEngine || IsMyPosition() || IsRoadType())
     return false;
 
-  return m_adsEngine->HasBanner(m_types, m_topmostCountryIds, languages::GetCurrentNorm());
+  return m_adsEngine->HasPoiBanner(m_types, m_topmostCountryIds, languages::GetCurrentNorm());
 }
 
 std::vector<ads::Banner> Info::GetBanners() const
@@ -330,7 +330,7 @@ std::vector<ads::Banner> Info::GetBanners() const
   if (!m_adsEngine)
     return {};
 
-  return m_adsEngine->GetBanners(m_types, m_topmostCountryIds, languages::GetCurrentNorm());
+  return m_adsEngine->GetPoiBanners(m_types, m_topmostCountryIds, languages::GetCurrentNorm());
 }
 
 void Info::SetPartnerIndex(int index)

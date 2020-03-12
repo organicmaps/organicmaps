@@ -41,7 +41,7 @@ static MWMBannerType ConvertBannerType(ads::Banner::Type coreType) {
   self = [super init];
   if (self) {
     _mwmType = ConvertBannerType(banner.m_type);
-    _bannerID = @(banner.m_bannerId.c_str());
+    _bannerID = @(banner.m_value.c_str());
     _query = @"";
   }
   return self;

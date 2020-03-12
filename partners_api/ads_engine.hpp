@@ -19,33 +19,43 @@ class Engine
 public:
   Engine();
 
-  bool HasBanner(feature::TypesHolder const & types, storage::CountriesVec const & countryIds,
-                 std::string const & userLanguage) const;
-  std::vector<Banner> GetBanners(feature::TypesHolder const & types,
-                                 storage::CountriesVec const & countryIds,
-                                 std::string const & userLanguage) const;
-  void DisableAdProvider(Banner::Type const type, Banner::Place const place);
+  bool HasPoiBanner(feature::TypesHolder const & types, storage::CountriesVec const & countryIds,
+                    std::string const & userLanguage) const;
+  std::vector<Banner> GetPoiBanners(feature::TypesHolder const & types,
+                                    storage::CountriesVec const & countryIds,
+                                    std::string const & userLanguage) const;
   bool HasSearchBanner() const;
   std::vector<Banner> GetSearchBanners() const;
+  void DisableAdProvider(Banner::Type const type, Banner::Place const place);
 
 private:
-  using ContainerPtr = std::unique_ptr<ContainerBase>;
-
+  template <typename T>
   struct ContainerItem
   {
-    ContainerItem(Banner::Type type, ContainerPtr && container)
+    ContainerItem(Banner::Type type, std::unique_ptr<T> && container)
       : m_type(type), m_container(std::move(container))
     {
     }
     bool m_enabled = true;
     Banner::Type m_type;
-    ContainerPtr m_container;
+    std::unique_ptr<T> m_container;
   };
 
-  void SetAdProviderEnabled(std::vector<ContainerItem> & banners, Banner::Type const type,
-                            bool const isEnabled);
+  template <typename T>
+  void SetAdProviderEnabled(std::vector<ContainerItem<T>> & banners, Banner::Type const type,
+                            bool const isEnabled)
+  {
+    for (auto & item : banners)
+    {
+      if (item.m_type == type)
+      {
+        item.m_enabled = isEnabled;
+        return;
+      }
+    }
+  }
 
-  std::vector<ContainerItem> m_banners;
-  std::vector<ContainerItem> m_searchBanners;
+  std::vector<ContainerItem<PoiContainerBase>> m_poiBanners;
+  std::vector<ContainerItem<SearchContainerBase>> m_searchBanners;
 };
 }  // namespace ads

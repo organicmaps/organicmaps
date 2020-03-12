@@ -7,13 +7,13 @@
 namespace ads
 {
 // Class which matches feature types and mopub banner ids.
-class Mopub : public Container
+class Mopub : public PoiContainer
 {
 public:
   Mopub();
 
-  // ContainerBase overrides:
-  std::string GetBannerIdForOtherTypes() const override;
+  // PoiContainerBase overrides:
+  std::string GetBannerForOtherTypes() const override;
 
   static std::string InitializationBannerId();
 };

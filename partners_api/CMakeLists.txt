@@ -8,6 +8,8 @@ set(
   ads_base.hpp
   ads_engine.cpp
   ads_engine.hpp
+  ads_utils.cpp
+  ads_utils.hpp
   banner.hpp
   booking_api.cpp
   booking_api.hpp

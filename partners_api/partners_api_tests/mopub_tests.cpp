@@ -16,49 +16,49 @@ UNIT_TEST(Mopub_GetBanner)
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "dentist"}));
-    TEST_EQUAL(mopub.GetBannerId(holder, "Brazil", "ru"), mopub.GetBannerIdForOtherTypes(), ());
+    TEST_EQUAL(mopub.GetBanner(holder, "Brazil", "ru"), mopub.GetBannerForOtherTypes(), ());
     holder.Add(c.GetTypeByPath({"amenity", "pub"}));
-    TEST_EQUAL(mopub.GetBannerId(holder, "Cuba", "ru"), mopub.GetBannerIdForOtherTypes(), ());
+    TEST_EQUAL(mopub.GetBanner(holder, "Cuba", "ru"), mopub.GetBannerForOtherTypes(), ());
   }
   {
     feature::TypesHolder holder;
     holder.Add(c.GetTypeByPath({"amenity", "restaurant"}));
-    TEST_EQUAL(mopub.GetBannerId(holder, "Any country", "ru"), "d298f205fb8a47aaafb514d2b5b8cf55", ());
+    TEST_EQUAL(mopub.GetBanner(holder, "Any country", "ru"), "d298f205fb8a47aaafb514d2b5b8cf55", ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"tourism", "information", "map"}));
-    TEST_EQUAL(mopub.GetBannerId(holder, "Russia", "ru"), "d298f205fb8a47aaafb514d2b5b8cf55", ());
+    TEST_EQUAL(mopub.GetBanner(holder, "Russia", "ru"), "d298f205fb8a47aaafb514d2b5b8cf55", ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"highway", "speed_camera"}));
-    TEST_EQUAL(mopub.GetBannerId(holder, "Egypt", "ru"), "fbd54c31a20347a6b5d6654510c542a4", ());
+    TEST_EQUAL(mopub.GetBanner(holder, "Egypt", "ru"), "fbd54c31a20347a6b5d6654510c542a4", ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"building"}));
-    TEST_EQUAL(mopub.GetBannerId(holder, "Russia", "ru"), "fbd54c31a20347a6b5d6654510c542a4", ());
+    TEST_EQUAL(mopub.GetBanner(holder, "Russia", "ru"), "fbd54c31a20347a6b5d6654510c542a4", ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"shop", "ticket"}));
-    TEST_EQUAL(mopub.GetBannerId(holder, "USA", "ru"), "d298f205fb8a47aaafb514d2b5b8cf55", ());
+    TEST_EQUAL(mopub.GetBanner(holder, "USA", "ru"), "d298f205fb8a47aaafb514d2b5b8cf55", ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "toilets"}));
-    TEST_EQUAL(mopub.GetBannerId(holder, "Spain", "ru"), mopub.GetBannerIdForOtherTypes(), ());
+    TEST_EQUAL(mopub.GetBanner(holder, "Spain", "ru"), mopub.GetBannerForOtherTypes(), ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"sponsored", "opentable"}));
-    TEST_EQUAL(mopub.GetBannerId(holder, "Denmark", "ru"), mopub.GetBannerIdForOtherTypes(), ());
+    TEST_EQUAL(mopub.GetBanner(holder, "Denmark", "ru"), mopub.GetBannerForOtherTypes(), ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"sponsored", "booking"}));
-    TEST_EQUAL(mopub.GetBannerId(holder, "India", "ru"), "", ());
+    TEST_EQUAL(mopub.GetBanner(holder, "India", "ru"), "", ());
   }
 }
 }  // namespace
