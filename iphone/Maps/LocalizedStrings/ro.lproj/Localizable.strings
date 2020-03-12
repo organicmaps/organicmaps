@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "Mai multe";
 
-"placepage_more_reviews_button" = "More Reviews";
+"placepage_more_reviews_button" = "Mai multe recenzii";
 
 "book_button" = "Rezervare";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "Ghidul a fost descărcat cu succes";
 
-"download_guides" = "Descarcă ghiduri";
+/* as few symbols as possible */
+"download_guides" = "Găsește ghiduri";
 
 "guides_groups_cached" = "Ghiduri descărcate";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "20000+ ghizi și trasee";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000+\nghiduri\nși rute";
 
-"all_pass_subscription_message_subtitle" = "Descărcarea nelimitată a rutelor offline pentru plimbări prin oraș și activități în aer liber";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>Descărcare nelimitată offline</b> de trasee pentru oraș și odihnă activă";
 
-"all_pass_subscription_message_title_2" = "700+ orașe și 100+ de țări";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "Profil\naltitudine\ninteractiv";
 
-"all_pass_subscription_message_subtitle_2" = "Pentru călătorii în orice moment al anului";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "Toate rutele se încarcă <b>împreună cu altitudinea și informațiile de bază despre traseu</b>";
 
-"all_pass_subscription_message_title_3" = "Marcaje, fotografii și recomandări";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "Locații,\nimagini\nși recomandări";
 
-"all_pass_subscription_message_subtitle_3" = "Pentru a nu pierde cele mai interesante locuri din oraș și în aer liber.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>Aflați totul despre traseul</b>, pe care intenționați să-l parcurgeți";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "Liniile de înălțimi pană ce nu sunt disponibile în această regiune";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "Nivel de dificultate";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "Ușor";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "Mediu";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "Dificil";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "Urcare";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "Coborâre";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "Înălțime min.";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "Înălțime max.";
 
-/* FIXME */
 "elevation_profile_m" = "m";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "Dificultate";
 
-/* FIXME */
 "elevation_profile_distance" = "Dist.:";
 
-/* FIXME */
 "elevation_profile_km" = "km";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "Timp:";
 
-/* FIXME */
-"elevation_profile_hours" = "h.";
+"elevation_profile_hours" = "ore";
 
-/* FIXME */
 "elevation_profile_minutes" = "min";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "Ascunde și continuă utilizarea aplicației";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "Acest ghid a fost șters de pe dispozitiv";
+
+"subscription" = "Abonare";
 
 "sponsored_partner1_action" = "Outlets";
 
@@ -3439,7 +3435,7 @@
 
 "type.amenity.post_box" = "Cutie poștală";
 
-"type.amenity.post_office" = "Poştă";
+"type.amenity.post_office" = "Oficiu poștal";
 
 "type.amenity.prison" = "Prison";
 

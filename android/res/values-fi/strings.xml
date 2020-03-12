@@ -875,6 +875,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Kuvaus</string>
 	<string name="placepage_more_button">Lisää</string>
+	<string name="placepage_more_reviews_button">Lisää arvosteluja</string>
 	<string name="book_button">Varaa</string>
 	<string name="placepage_call_button">Soita</string>
 	<string name="placepage_edit_bookmark_button">Muokkaa kirjanmerkkiä</string>
@@ -1338,7 +1339,8 @@
 	<string name="error_already_downloaded">Tämä lista on jo ladattu</string>
 	<string name="guides">Oppaat</string>
 	<string name="guide_downloaded_title">Opas on onnistuneesti ladattu</string>
-	<string name="download_guides">Lataa oppaat</string>
+	<!-- as few symbols as possible -->
+	<string name="download_guides">Etsi matkaoppaita</string>
 	<string name="guides_groups_cached">Ladatut oppaat</string>
 	<string name="subtitle_error_downloading_guide">Opasta ei ladattu</string>
 	<string name="error_already_downloaded_guide">Tämä opas on jo ladattu</string>
@@ -1703,12 +1705,18 @@
 	<string name="new_onboarding_step5.3_button">Lataa ilmaiseksi</string>
 	<string name="new_onboarding_additional_steps_later_button">Ei nyt</string>
 	<string name="all_pass_subscription_header">MATKAOPASLUETTELON TILAUS</string>
-	<string name="all_pass_subscription_message_title">20000+ matkaopasta ja polkua</string>
-	<string name="all_pass_subscription_message_subtitle">Rajoittamaton offlinessa käytettävien kaupunkikierre- ja ulkoilureittien lataus</string>
-	<string name="all_pass_subscription_message_title_2">700+ kaupunkia ja 100+ maata</string>
-	<string name="all_pass_subscription_message_subtitle_2">Matkoille minä tahansa vuodenaikana</string>
-	<string name="all_pass_subscription_message_title_3">Kirjanmerkit, valokuvat ja suositukset</string>
-	<string name="all_pass_subscription_message_subtitle_3">Niin et menetä mielenkiintoisimpia kaupunki- tai luonnonpaikkoja.</string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title">30000+\nopasta\nja polkua</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle"><b>Rajoittamaton lataus offline-reittejä</b> kaupunkiin ja aktiivisia ulkoilua varten</string>
+	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_2">Interaktiivinen\nkorkeusprofiili</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_2">Kaikki polut ladataan <b>korkeuksineen ja perustietoineen reiteistä</b></string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_3">Valitut\npaikat, kuvat\nja suositukset</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_3"><b>Ota kaikki selvää reitistä</b>, jota sinä aiot kulkea</string>
 	<string name="sightseeing_subscription_header_subscription">Matkaopastilaus</string>
 	<string name="sightseeing_subscription_message">700+ kaupunkia ja 100+ maata</string>
 	<string name="sightseeing_subscription_message_2">Saatavilla offline-tilassa</string>
@@ -1743,6 +1751,25 @@
 	<string name="tips_map_layers_message_countour">Korkeuslinjat auttavat suunnittelemaan luontomatkan etkä enää eksy maastolla</string>
 	<string name="isolines_activation_error_dialog">Päivitä tai lataa haluamasi alueen kartta, voidaksesi käyttää korkeuslinjoja</string>
 	<string name="isolines_location_error_dialog">Korkeus linjat eivät ole vielä saatavilla tällä alueella</string>
+	<string name="elevation_profile_diff_level">Vaikeustaso</string>
+	<string name="elevation_profile_diff_level_easy">Helppo</string>
+	<string name="elevation_profile_diff_level_moderate">Kohtuullinen</string>
+	<string name="elevation_profile_diff_level_hard">Vaikea</string>
+	<string name="elevation_profile_ascent">Nosto</string>
+	<string name="elevation_profile_descent">Lasku</string>
+	<string name="elevation_profile_minaltitude">Min. korkeus</string>
+	<string name="elevation_profile_maxaltitude">Maks. korkeus</string>
+	<string name="elevation_profile_m">m</string>
+	<string name="elevation_profile_difficulty">Vaikeus</string>
+	<string name="elevation_profile_distance">Etäisyys:</string>
+	<string name="elevation_profile_km">km</string>
+	<string name="elevation_profile_time">Aika:</string>
+	<string name="elevation_profile_hours">t.</string>
+	<string name="elevation_profile_minutes">min</string>
+	<!-- hide the full screen banner and continue working with the app -->
+	<string name="hide_screen_map_update">Piilota ja jatka tausta-ajo</string>
+	<string name="view_on_map_downloaded_error">Tämä matkaopas oli poistettu laitteesta</string>
+	<string name="subscription">Tilaus</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>
@@ -1818,7 +1845,7 @@
 	<string name="type.amenity.place_of_worship.taoist">Temppeli</string>
 	<string name="type.amenity.police">Poliisi</string>
 	<string name="type.amenity.post_box">Postilaatikko</string>
-	<string name="type.amenity.post_office">Posti</string>
+	<string name="type.amenity.post_office">Postitoimisto</string>
 	<string name="type.amenity.pub">Pubi</string>
 	<string name="type.amenity.public_bookcase">Kirjahylly</string>
 	<string name="type.amenity.recycling">Kierrätyskeskus</string>

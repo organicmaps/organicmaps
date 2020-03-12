@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "Meer";
 
-"placepage_more_reviews_button" = "More Reviews";
+"placepage_more_reviews_button" = "Meer reacties";
 
 "book_button" = "Boeken";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "De handleiding is met succes gedownload";
 
-"download_guides" = "Handleidingen downloaden";
+/* as few symbols as possible */
+"download_guides" = "Gidsen zoeken";
 
 "guides_groups_cached" = "Gedownloade handleidingen";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "20000+ gidsen & wandelroutes";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000+\ngidsen\nen paden";
 
-"all_pass_subscription_message_subtitle" = "Onbeperkt downloaden van stads- en buitenroutes offline beschikbaar";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>Onbeperkt offline downloaden</b> van stads- en natuurroutes";
 
-"all_pass_subscription_message_title_2" = "700+ steden en 100+ landen";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "Interactief\nhoogteprofiel";
 
-"all_pass_subscription_message_subtitle_2" = "Plan uw reizen op elk moment van het jaar";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "Elk pad bevat <b>informatie over de hoogte en basisinformatie over de route</b>";
 
-"all_pass_subscription_message_title_3" = "Bladwijzers, foto's en aanbevelingen";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "Favorieten\nplekjes, foto's\nen tips";
 
-"all_pass_subscription_message_subtitle_3" = "Om de meest interessante plaatsen in de stad en in de natuur niet te missen.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>Meer informatie over de route</b> die u gaat nemen";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "De hoogtelijnen zijn nog niet beschikbaar in deze regio";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "Moeilijkheidsgraad";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "Gemakkelijk";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "Middelmatig";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "Moeilijk";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "Opstijging";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "Afdaling";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "Min. hoogte";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "Max. hoogte";
 
-/* FIXME */
 "elevation_profile_m" = "m";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "Moeilijkheid";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "Afst.:";
 
-/* FIXME */
 "elevation_profile_km" = "km";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "Op weg";
 
-/* FIXME */
-"elevation_profile_hours" = "h.";
+"elevation_profile_hours" = "uur";
 
-/* FIXME */
 "elevation_profile_minutes" = "min";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "Verbergen en doorgaan";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "Deze gids is van dit apparaat verwijderd";
+
+"subscription" = "Abonnement";
 
 "sponsored_partner1_action" = "Outlets";
 
@@ -3439,7 +3435,7 @@
 
 "type.amenity.post_box" = "Brievenbus";
 
-"type.amenity.post_office" = "Post";
+"type.amenity.post_office" = "Postkantoor";
 
 "type.amenity.prison" = "Prison";
 

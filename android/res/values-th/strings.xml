@@ -887,6 +887,7 @@
 	<string name="minute">น.</string>
 	<string name="placepage_place_description">คำอธิบาย</string>
 	<string name="placepage_more_button">เพิ่มเติม</string>
+	<string name="placepage_more_reviews_button">รีวิวอื่น ๆ</string>
 	<string name="book_button">จอง</string>
 	<string name="placepage_call_button">โทร</string>
 	<string name="placepage_edit_bookmark_button">แก้ไข Bookmark</string>
@@ -1349,7 +1350,8 @@
 	<string name="error_already_downloaded">มีการดาวน์โหลดรายการนี้แล้ว</string>
 	<string name="guides">คู่มือใช้งาน</string>
 	<string name="guide_downloaded_title">ดาวน์โหลดคู่มือใช้งานนี้สำเร็จ</string>
-	<string name="download_guides">ดาวน์โหลดคู่มือใช้งาน</string>
+	<!-- as few symbols as possible -->
+	<string name="download_guides">ค้นหาคู่มือใช้งาน</string>
 	<string name="guides_groups_cached">ดาวน์โหลดคู่มือใช้งานแล้ว</string>
 	<string name="subtitle_error_downloading_guide">ไม่มีการดาวน์โหลดคู่มือใช้งาน</string>
 	<string name="error_already_downloaded_guide">มีการดาวน์โหลดคู่มือใช้งานนี้แล้ว</string>
@@ -1714,12 +1716,18 @@
 	<string name="new_onboarding_step5.3_button">ดาวน์โหลดฟรี</string>
 	<string name="new_onboarding_additional_steps_later_button">ภายหลัง</string>
 	<string name="all_pass_subscription_header">สมัครสมาชิกแคตตาล็อก</string>
-	<string name="all_pass_subscription_message_title">คู่มือใช้งาน และเส้นทางมากกว่า 20,000 แห่ง</string>
-	<string name="all_pass_subscription_message_subtitle">มีเส้นทางของเมืองใหญ่และเส้นทางเอาท์ดอร์ที่ใช้งานได้แบบออฟไลน์ให้ดาวน์โหลดได้ไม่จำกัด</string>
-	<string name="all_pass_subscription_message_title_2">มากกว่า 700 เมืองใหญ่ และมากกว่า 100 ประเทศ</string>
-	<string name="all_pass_subscription_message_subtitle_2">วางแผนการเดินทางของคุณได้ในทุกเวลาของปี</string>
-	<string name="all_pass_subscription_message_title_3">บุ๊กมาร์ก รูปภาพ และคำแนะนำ</string>
-	<string name="all_pass_subscription_message_subtitle_3">เพื่อให้คุณไม่พลาดสถานที่น่าสนใจทั้งสุดทั้งในเมืองและพื้นที่กลางแจ้ง</string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title">30000+\nไกด์และเส้นทาง</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle"><b>ดาวน์โหลด</b> ถนนและเส้นทาง<b>เข้าสู่โหมดออฟไลน์ได้ไม่จำกัด</b></string>
+	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_2">ข้อมูลของความสูง\nแบบมีปฏิสัมพันธ์</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_2">แต่ละเส้นทางประกอบด้วย<b>ความสูงและข้อมูลพื้นฐานเกี่ยวกับเส้นทาง</b></string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_3">บุ๊คมาร์ก\nรูปภาพ และ\nคำแนะนำ</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_3"><b>เรียนรู้เกี่ยวกับเส้นทางทั้งหมด</b> ที่คุณกำลังจะไป</string>
 	<string name="sightseeing_subscription_header_subscription">สมัครสมาชิกคู่มือใช้งาน</string>
 	<string name="sightseeing_subscription_message">มากกว่า 700 เมืองใหญ่ และมากกว่า 100 ประเทศ</string>
 	<string name="sightseeing_subscription_message_2">ใช้งานได้แบบออฟไลน์</string>
@@ -1754,6 +1762,25 @@
 	<string name="tips_map_layers_message_countour">วางแผนและสนุกไปกับทริปท่องธรรมชาติโดยมั่นใจว่าคุณรู้ทุกอย่างเกี่ยวกับพื้นที่นั้น</string>
 	<string name="isolines_activation_error_dialog">ในการเปิดใช้งานเลเยอร์แผนที่ภูมิประเทศโปรดอัปเดตหรือดาวน์โหลดแผนที่ของบริเวณนั้น</string>
 	<string name="isolines_location_error_dialog">เลเยอร์แผนที่ภูมิประเทศยังใช้งานไม่ได้ในพื้นที่นี้</string>
+	<string name="elevation_profile_diff_level">ระดับความยาก</string>
+	<string name="elevation_profile_diff_level_easy">ง่าย</string>
+	<string name="elevation_profile_diff_level_moderate">ปานกลาง</string>
+	<string name="elevation_profile_diff_level_hard">ยาก</string>
+	<string name="elevation_profile_ascent">การขึ้น</string>
+	<string name="elevation_profile_descent">การลง</string>
+	<string name="elevation_profile_minaltitude">ระดับความสูงต่ำสุด</string>
+	<string name="elevation_profile_maxaltitude">ระดับความสูงสูงสุด</string>
+	<string name="elevation_profile_m">ม</string>
+	<string name="elevation_profile_difficulty">ลำบาก</string>
+	<string name="elevation_profile_distance">ระยะทาง</string>
+	<string name="elevation_profile_km">กม</string>
+	<string name="elevation_profile_time">เวลา:</string>
+	<string name="elevation_profile_hours">ชม</string>
+	<string name="elevation_profile_minutes">นาที</string>
+	<!-- hide the full screen banner and continue working with the app -->
+	<string name="hide_screen_map_update">ซ่อนและใช้งานต่อ</string>
+	<string name="view_on_map_downloaded_error">คู่มือใช้งานถูกลบออกจากอุปกรณ์แล้ว</string>
+	<string name="subscription">สมัครสมาชิก</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>
@@ -1831,7 +1858,7 @@
 	<string name="type.amenity.place_of_worship.taoist">วัด</string>
 	<string name="type.amenity.police">ตำรวจ</string>
 	<string name="type.amenity.post_box">ตู้จดหมาย</string>
-	<string name="type.amenity.post_office">ไปรษณีย์</string>
+	<string name="type.amenity.post_office">ที่ทำการไปรษณีย์</string>
 	<string name="type.amenity.pub">ผับ</string>
 	<string name="type.amenity.public_bookcase">ตู้หนังสือ สถานที่แลกเปลี่ยนหนังสือ</string>
 	<string name="type.amenity.recycling">ศูนย์รีไซเคิล</string>

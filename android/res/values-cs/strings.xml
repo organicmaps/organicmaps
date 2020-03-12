@@ -883,6 +883,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Popis</string>
 	<string name="placepage_more_button">Více</string>
+	<string name="placepage_more_reviews_button">Více recenzí</string>
 	<string name="book_button">Rezervace</string>
 	<string name="placepage_call_button">Volat</string>
 	<string name="placepage_edit_bookmark_button">Upravit záložku</string>
@@ -1347,7 +1348,8 @@
 	<string name="error_already_downloaded">Tento seznam byl již stažen</string>
 	<string name="guides">Průvodci</string>
 	<string name="guide_downloaded_title">Průvodce byl úspěšně stažen.</string>
-	<string name="download_guides">Stáhnout průvodce</string>
+	<!-- as few symbols as possible -->
+	<string name="download_guides">Průvodce vyhledáváním</string>
 	<string name="guides_groups_cached">Stažení průvodci</string>
 	<string name="subtitle_error_downloading_guide">Průvodce nebyl stažen</string>
 	<string name="error_already_downloaded_guide">Tento průvodce byl již stažen</string>
@@ -1712,12 +1714,18 @@
 	<string name="new_onboarding_step5.3_button">Stáhněte si zdarma</string>
 	<string name="new_onboarding_additional_steps_later_button">Později</string>
 	<string name="all_pass_subscription_header">PŘEDPLATNÉ KATALOGU</string>
-	<string name="all_pass_subscription_message_title">Více než 20000 průvodců a tras</string>
-	<string name="all_pass_subscription_message_subtitle">Neomezený počet stahování městských a venkovních tras dostupných offline</string>
-	<string name="all_pass_subscription_message_title_2">Více než 700 měst a 100 zemí</string>
-	<string name="all_pass_subscription_message_subtitle_2">Plánujte své cesty v jakémkoli období roku</string>
-	<string name="all_pass_subscription_message_title_3">Záložky, fotografie a doporučení</string>
-	<string name="all_pass_subscription_message_subtitle_3">Abyste nezmeškali nejzajímavější místa ve městě a venku.</string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title">Více než 30000\nprůvodců a tras</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle"><b>Neomezené stahování</b> městských a venkovních tras <b>do režimu offline</b></string>
+	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_2">Interaktivní\nvýškový profil</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_2">Každá trasa obsahuje <b>výšku a základní informace o trase</b></string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_3">Záložky,\nfotky a\ndoporučení</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_3"><b>Zjistěte vše o trase,</b> kterou se chcete vydat</string>
 	<string name="sightseeing_subscription_header_subscription">Předplatné průvodců</string>
 	<string name="sightseeing_subscription_message">Více než 700 měst a 100 zemí</string>
 	<string name="sightseeing_subscription_message_2">Dostupné offline</string>
@@ -1752,6 +1760,25 @@
 	<string name="tips_map_layers_message_countour">Naplánujte si a užijte si své výlety do přírody s jistotou, že víte vše o této oblasti</string>
 	<string name="isolines_activation_error_dialog">Chcete-li aktivovat a používat topografickou vrstvu, prosím aktualizujte nebo si stáhněte mapu oblasti</string>
 	<string name="isolines_location_error_dialog">Topografická vrstva není v této oblasti ještě dostupná</string>
+	<string name="elevation_profile_diff_level">Stupeň obtížnosti</string>
+	<string name="elevation_profile_diff_level_easy">Snadný</string>
+	<string name="elevation_profile_diff_level_moderate">Mírný</string>
+	<string name="elevation_profile_diff_level_hard">Těžký</string>
+	<string name="elevation_profile_ascent">Stoupání</string>
+	<string name="elevation_profile_descent">Klesání</string>
+	<string name="elevation_profile_minaltitude">Min. nadmořská výška</string>
+	<string name="elevation_profile_maxaltitude">Max. nadmořská výška</string>
+	<string name="elevation_profile_m">m</string>
+	<string name="elevation_profile_difficulty">Obtížnost</string>
+	<string name="elevation_profile_distance">Vzdál.:</string>
+	<string name="elevation_profile_km">km</string>
+	<string name="elevation_profile_time">Čas:</string>
+	<string name="elevation_profile_hours">hod.</string>
+	<string name="elevation_profile_minutes">min</string>
+	<!-- hide the full screen banner and continue working with the app -->
+	<string name="hide_screen_map_update">Skrýt a pokračovat</string>
+	<string name="view_on_map_downloaded_error">Tento průvodce byl smazán z tohoto zařízení</string>
+	<string name="subscription">Předplatné</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>

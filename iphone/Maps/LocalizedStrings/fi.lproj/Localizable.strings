@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "Lisää";
 
-"placepage_more_reviews_button" = "More Reviews";
+"placepage_more_reviews_button" = "Lisää arvosteluja";
 
 "book_button" = "Varaa";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "Opas on onnistuneesti ladattu";
 
-"download_guides" = "Lataa oppaat";
+/* as few symbols as possible */
+"download_guides" = "Etsi matkaoppaita";
 
 "guides_groups_cached" = "Ladatut oppaat";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "20000+ matkaopasta ja polkua";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000+\nopasta\nja polkua";
 
-"all_pass_subscription_message_subtitle" = "Rajoittamaton offlinessa käytettävien kaupunkikierre- ja ulkoilureittien lataus";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>Rajoittamaton lataus offline-reittejä</b> kaupunkiin ja aktiivisia ulkoilua varten";
 
-"all_pass_subscription_message_title_2" = "700+ kaupunkia ja 100+ maata";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "Interaktiivinen\nkorkeusprofiili";
 
-"all_pass_subscription_message_subtitle_2" = "Matkoille minä tahansa vuodenaikana";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "Kaikki polut ladataan <b>korkeuksineen ja perustietoineen reiteistä</b>";
 
-"all_pass_subscription_message_title_3" = "Kirjanmerkit, valokuvat ja suositukset";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "Valitut\npaikat, kuvat\nja suositukset";
 
-"all_pass_subscription_message_subtitle_3" = "Niin et menetä mielenkiintoisimpia kaupunki- tai luonnonpaikkoja.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>Ota kaikki selvää reitistä</b>, jota sinä aiot kulkea";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "Korkeus linjat eivät ole vielä saatavilla tällä alueella";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "Vaikeustaso";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "Helppo";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "Kohtuullinen";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "Vaikea";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "Nosto";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "Lasku";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "Min. korkeus";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "Maks. korkeus";
 
-/* FIXME */
 "elevation_profile_m" = "m";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "Vaikeus";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "Etäisyys:";
 
-/* FIXME */
 "elevation_profile_km" = "km";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "Aika:";
 
-/* FIXME */
-"elevation_profile_hours" = "h.";
+"elevation_profile_hours" = "t.";
 
-/* FIXME */
 "elevation_profile_minutes" = "min";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "Piilota ja jatka tausta-ajo";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "Tämä matkaopas oli poistettu laitteesta";
+
+"subscription" = "Tilaus";
 
 "sponsored_partner1_action" = "Outlets";
 
@@ -3439,7 +3435,7 @@
 
 "type.amenity.post_box" = "Postilaatikko";
 
-"type.amenity.post_office" = "Posti";
+"type.amenity.post_office" = "Postitoimisto";
 
 "type.amenity.prison" = "Prison";
 

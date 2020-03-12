@@ -886,6 +886,7 @@
 	<string name="minute">хв</string>
 	<string name="placepage_place_description">Опис</string>
 	<string name="placepage_more_button">Ще</string>
+	<string name="placepage_more_reviews_button">Ще відгуки</string>
 	<string name="book_button">Забронювати</string>
 	<string name="placepage_call_button">Подзвонити</string>
 	<string name="placepage_edit_bookmark_button">Редагувати мiтку</string>
@@ -1350,7 +1351,8 @@
 	<string name="error_already_downloaded">Цей список вже завантажений</string>
 	<string name="guides">Путівники</string>
 	<string name="guide_downloaded_title">Путівник успішно завантажено</string>
-	<string name="download_guides">Завантажити путівники</string>
+	<!-- as few symbols as possible -->
+	<string name="download_guides">Знайти путівники</string>
 	<string name="guides_groups_cached">Завантажені путівники</string>
 	<string name="subtitle_error_downloading_guide">Путівник не завантажено</string>
 	<string name="error_already_downloaded_guide">Цей путівник вже було завантажено</string>
@@ -1715,12 +1717,18 @@
 	<string name="new_onboarding_step5.3_button">Завантажити безкоштовно</string>
 	<string name="new_onboarding_additional_steps_later_button">Не зараз</string>
 	<string name="all_pass_subscription_header">ПЕРЕДПЛАТА КАТАЛОГУ</string>
-	<string name="all_pass_subscription_message_title">Понад 20 000 путівників і стежок</string>
-	<string name="all_pass_subscription_message_subtitle">Безлімітне завантаження офлайнових маршрутів для прогулянок містом і активного відпочинку</string>
-	<string name="all_pass_subscription_message_title_2">Понад 700 міст і 100 країн</string>
-	<string name="all_pass_subscription_message_subtitle_2">Для подорожей у будь-яку пору року</string>
-	<string name="all_pass_subscription_message_title_3">Мітки, фото та рекомендації</string>
-	<string name="all_pass_subscription_message_subtitle_3">Аби не проґавити найцікавіші місця в місті та на природі.</string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title">30000+\nпутівників\nі стежок</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle"><b>Безлімітне завантаження в офлайн</b> маршрутів для міста та активного відпочинку</string>
+	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_2">Інтерактивний\nпрофіль висот</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_2">Всі стежки завантажуються <b>з висотами й основною інформацією про маршрут</b></string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_3">Вибрані\nмісця, фото\nта рекомендації</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_3"><b>Дізнайтеся все про маршрут</b>, за яким збираєтеся пройти</string>
 	<string name="sightseeing_subscription_header_subscription">Передплата путівників</string>
 	<string name="sightseeing_subscription_message">Понад 700 міст і 100 країн</string>
 	<string name="sightseeing_subscription_message_2">Доступні онлайн</string>
@@ -1755,6 +1763,25 @@
 	<string name="tips_map_layers_message_countour">Лінії висот допоможуть спланувати подорож на природу та не загубитися на місцевості</string>
 	<string name="isolines_activation_error_dialog">Щоб скористатися лініями висот, оновіть чи завантажте карту потрібної місцевості</string>
 	<string name="isolines_location_error_dialog">Лінії висот ще недоступні в цьому регіоні</string>
+	<string name="elevation_profile_diff_level">Рівень складності</string>
+	<string name="elevation_profile_diff_level_easy">Простий</string>
+	<string name="elevation_profile_diff_level_moderate">Помірний</string>
+	<string name="elevation_profile_diff_level_hard">Складний</string>
+	<string name="elevation_profile_ascent">Підйом</string>
+	<string name="elevation_profile_descent">Спуск</string>
+	<string name="elevation_profile_minaltitude">Мін. висота</string>
+	<string name="elevation_profile_maxaltitude">Макс. висота</string>
+	<string name="elevation_profile_m">м</string>
+	<string name="elevation_profile_difficulty">Складність</string>
+	<string name="elevation_profile_distance">Відст.:</string>
+	<string name="elevation_profile_km">км</string>
+	<string name="elevation_profile_time">Шлях:</string>
+	<string name="elevation_profile_hours">год.</string>
+	<string name="elevation_profile_minutes">хв</string>
+	<!-- hide the full screen banner and continue working with the app -->
+	<string name="hide_screen_map_update">Приховати та поновити роботу</string>
+	<string name="view_on_map_downloaded_error">Цей путівник видалили з пристрою</string>
+	<string name="subscription">Передплата</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>
@@ -1832,7 +1859,7 @@
 	<string name="type.amenity.place_of_worship.taoist">Храм</string>
 	<string name="type.amenity.police">Міліція</string>
 	<string name="type.amenity.post_box">Поштова скринька</string>
-	<string name="type.amenity.post_office">Пошта</string>
+	<string name="type.amenity.post_office">Поштове відділення</string>
 	<string name="type.amenity.pub">Паб</string>
 	<string name="type.amenity.public_bookcase">Книги</string>
 	<string name="type.amenity.recycling">Прийом вторсировини</string>

@@ -843,7 +843,7 @@
 	<string name="minute">دقیقه</string>
 	<string name="placepage_place_description">توضیحات</string>
 	<string name="placepage_more_button">بیشتر</string>
-	<string name="placepage_more_reviews_button">بازخورد های بیشتر</string>
+	<string name="placepage_more_reviews_button">نقدهای دیگر</string>
 	<string name="book_button">رزرو</string>
 	<string name="placepage_call_button">تماس</string>
 	<string name="placepage_edit_bookmark_button">ویرایش نشانه ها</string>
@@ -1299,7 +1299,8 @@
 	<string name="bookmarks_downloaded_subtitle">\'نمایش بر روی نقشه\' را فشار دهید تا مکان های جدید را از لیست کاوش کنید</string>
 	<string name="guides">راهنما</string>
 	<string name="guide_downloaded_title">راهنمای با موفقیت دانلود شده است</string>
-	<string name="download_guides">دانلود راهنما</string>
+	<!-- as few symbols as possible -->
+	<string name="download_guides">جستجوی راهنما</string>
 	<string name="guides_groups_cached">راهنما‌های دانلود شده</string>
 	<string name="subtitle_error_downloading_guide">راهنما دانلود نشد</string>
 	<string name="error_already_downloaded_guide">این راهنمای قبلا دانلود شده است</string>
@@ -1650,12 +1651,18 @@
 	<string name="new_onboarding_step5.3_button">دانلود رایگان</string>
 	<string name="new_onboarding_additional_steps_later_button">بعداً</string>
 	<string name="all_pass_subscription_header">اشتراک کاتالوگ</string>
-	<string name="all_pass_subscription_message_title">20000+ راهنما و مسیرهای پیادهروی</string>
-	<string name="all_pass_subscription_message_subtitle">دانلود نامحدود مسیر شهرها و فضاهای باز موجود آفلاین</string>
-	<string name="all_pass_subscription_message_title_2">700+ شهر و 100+ کشور</string>
-	<string name="all_pass_subscription_message_subtitle_2">سفرهای خود را در هر زمانی از سال برنامهریزی کنید</string>
-	<string name="all_pass_subscription_message_title_3">نشانه ها، عکس ها و پیشنهاد ها</string>
-	<string name="all_pass_subscription_message_subtitle_3">در نتیجهدلربا ترین مکان های شهری و فضای باز را از دست نمی دهید.</string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title">30000+\nراهنما و مسیرها</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle"><b>دانلود نامحدود</b>مسیرهای شهری و فضای باز<b>در حالت آفلاین</b></string>
+	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_2">پروفایل ارتفاع\nتعاملی</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_2">هر مسیر شامل<b>ارتفاع و اطلاعات اصلی مسیر است</b></string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_3">نشانه ها،\nتصاویر و\nتوصیهها</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_3"><b>دانستن همه چیز درباره مسیری</b>که قرار است طی کنید</string>
 	<string name="sightseeing_subscription_header_subscription">اشتراک راهنماها</string>
 	<string name="sightseeing_subscription_message">700+ شهر و 100+ کشور</string>
 	<string name="sightseeing_subscription_message_2">دسترسی آفلاین</string>
@@ -1690,6 +1697,25 @@
 	<string name="tips_map_layers_message_countour">با اطمینان از این که همه چیز را در مورد منطقه می دانید طبیعت گردی خود را برنامه ریزی کنید و لذت ببرید</string>
 	<string name="isolines_activation_error_dialog">برای فعال سازی و استفاده از لایه توپوگرافی نقشه منطقه را به روزرسانی یا دانلود کنید</string>
 	<string name="isolines_location_error_dialog">لایه توپوگرافی هنوز برای این منطقه در دسترس نیست</string>
+	<string name="elevation_profile_diff_level">سطح دشواری</string>
+	<string name="elevation_profile_diff_level_easy">آسان</string>
+	<string name="elevation_profile_diff_level_moderate">متوسط</string>
+	<string name="elevation_profile_diff_level_hard">دشوار</string>
+	<string name="elevation_profile_ascent">بالا رفتن</string>
+	<string name="elevation_profile_descent">پایین آمدن</string>
+	<string name="elevation_profile_minaltitude">کمینه ارتفاع</string>
+	<string name="elevation_profile_maxaltitude">بیشینه ارتفاع</string>
+	<string name="elevation_profile_m">متر</string>
+	<string name="elevation_profile_difficulty">دشواری</string>
+	<string name="elevation_profile_distance">مسافت</string>
+	<string name="elevation_profile_km">کیلومتر</string>
+	<string name="elevation_profile_time">زمان:</string>
+	<string name="elevation_profile_hours">ساعت</string>
+	<string name="elevation_profile_minutes">دقیقه</string>
+	<!-- hide the full screen banner and continue working with the app -->
+	<string name="hide_screen_map_update">پنهان کردن و ادامه دادن</string>
+	<string name="view_on_map_downloaded_error">راهنما از این دستگاه پاک شده است</string>
+	<string name="subscription">عضویت[[ Partners ]]</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>
@@ -1765,7 +1791,7 @@
 	<string name="type.amenity.place_of_worship.taoist">گردشگری</string>
 	<string name="type.amenity.police">کلانتری</string>
 	<string name="type.amenity.post_box">صندوق پست</string>
-	<string name="type.amenity.post_office">پست</string>
+	<string name="type.amenity.post_office">دفتر پست</string>
 	<string name="type.amenity.pub">میکده</string>
 	<string name="type.amenity.recycling">مرکز بازیافت</string>
 	<string name="type.amenity.restaurant">غذا</string>

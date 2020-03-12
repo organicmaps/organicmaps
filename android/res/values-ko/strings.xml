@@ -877,6 +877,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">설명</string>
 	<string name="placepage_more_button">자세히</string>
+	<string name="placepage_more_reviews_button">더 많은 리뷰</string>
 	<string name="book_button">예약</string>
 	<string name="placepage_call_button">전화</string>
 	<string name="placepage_edit_bookmark_button">즐겨찾기 편집</string>
@@ -1339,7 +1340,8 @@
 	<string name="error_already_downloaded">해당 목록을 이미 다운로드 하였습니다.</string>
 	<string name="guides">안내</string>
 	<string name="guide_downloaded_title">안내를 성공적으로 다운로드 하였습니다.</string>
-	<string name="download_guides">안내 다운로드</string>
+	<!-- as few symbols as possible -->
+	<string name="download_guides">가이드 찾기</string>
 	<string name="guides_groups_cached">다운로드한 안내</string>
 	<string name="subtitle_error_downloading_guide">안내를 다운로드하지 않았습니다.</string>
 	<string name="error_already_downloaded_guide">안내를 이미 다운로드하였습니다.</string>
@@ -1704,12 +1706,18 @@
 	<string name="new_onboarding_step5.3_button">무료 다운로드</string>
 	<string name="new_onboarding_additional_steps_later_button">나중에</string>
 	<string name="all_pass_subscription_header">카탈로그 구독</string>
-	<string name="all_pass_subscription_message_title">2만개 이상의 가이드 및 길들</string>
-	<string name="all_pass_subscription_message_subtitle">오프라인에서 사용 가능한 도시 및 야외 경로를 무제한 다운로드</string>
-	<string name="all_pass_subscription_message_title_2">700개 이상 도시와 100곳 이상의 나라</string>
-	<string name="all_pass_subscription_message_subtitle_2">연중 언제든지 여행 계획을 세워 보세요</string>
-	<string name="all_pass_subscription_message_title_3">북마크, 사진 및 추천 장소들</string>
-	<string name="all_pass_subscription_message_subtitle_3">도시 및 야외에서 가장 흥미로운 장소들을 놓치지 않으실 수 있습니다.</string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title">30000개 이상의\n가이드 및 길들</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle"><b>오프라인 모드</b>에서 도시 및 아웃도어 경로를 <b>무제한 다운로드</b></string>
+	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_2">상호작용형\n고도 단면도</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_2">각 산길들은 <b>경로의 고도 및 기본 정보를 포함하고 있습니다</b></string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_3">즐겨찾기,\n사진 및\n추천글</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_3">가려는 곳의 <b>길에 대한 모든 것을 알 수 있습니다</b></string>
 	<string name="sightseeing_subscription_header_subscription">가이드 구독</string>
 	<string name="sightseeing_subscription_message">700개 이상 도시와 100곳 이상의 나라</string>
 	<string name="sightseeing_subscription_message_2">오프라인에서 사용 가능</string>
@@ -1744,6 +1752,25 @@
 	<string name="tips_map_layers_message_countour">이 지역에 대한 모든 것을 알고 있는지 확인하면서 자연 여행을 계획하고 즐기세요</string>
 	<string name="isolines_activation_error_dialog">지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오</string>
 	<string name="isolines_location_error_dialog">이 지역의 지형 레이어는 아직 사용할 수 없습니다</string>
+	<string name="elevation_profile_diff_level">난이도</string>
+	<string name="elevation_profile_diff_level_easy">쉬움</string>
+	<string name="elevation_profile_diff_level_moderate">보통</string>
+	<string name="elevation_profile_diff_level_hard">어려움</string>
+	<string name="elevation_profile_ascent">올라가기</string>
+	<string name="elevation_profile_descent">내려가기</string>
+	<string name="elevation_profile_minaltitude">산 최소 높이</string>
+	<string name="elevation_profile_maxaltitude">산 최대 높이</string>
+	<string name="elevation_profile_m">m</string>
+	<string name="elevation_profile_difficulty">난이도</string>
+	<string name="elevation_profile_distance">거리:</string>
+	<string name="elevation_profile_km">km</string>
+	<string name="elevation_profile_time">소비 시간:</string>
+	<string name="elevation_profile_hours">시간</string>
+	<string name="elevation_profile_minutes">분</string>
+	<!-- hide the full screen banner and continue working with the app -->
+	<string name="hide_screen_map_update">숨기고 계속하기</string>
+	<string name="view_on_map_downloaded_error">이 가이드는 이 장치에서 제거되었습니다</string>
+	<string name="subscription">구독</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">케이블카 역</string>
@@ -1820,7 +1847,7 @@
 	<string name="type.amenity.place_of_worship.taoist">절</string>
 	<string name="type.amenity.police">치안대</string>
 	<string name="type.amenity.post_box">포스트 박스</string>
-	<string name="type.amenity.post_office">우편</string>
+	<string name="type.amenity.post_office">우체국</string>
 	<string name="type.amenity.pub">술집</string>
 	<string name="type.amenity.public_bookcase">책장, 도서 교환</string>
 	<string name="type.amenity.recycling">재활용센터</string>

@@ -887,6 +887,7 @@
 	<string name="minute">د</string>
 	<string name="placepage_place_description">الوصف</string>
 	<string name="placepage_more_button">المزيد</string>
+	<string name="placepage_more_reviews_button">المزيد من المراجعات</string>
 	<string name="book_button">حجز</string>
 	<string name="placepage_call_button">اتصال</string>
 	<string name="placepage_edit_bookmark_button">تحرير العلامة المرجعية</string>
@@ -1349,7 +1350,8 @@
 	<string name="error_already_downloaded">تم بالفعل تنزيل هذه القائمة</string>
 	<string name="guides">الأدلّة</string>
 	<string name="guide_downloaded_title">تم تنزيل الدليل بنجاح</string>
-	<string name="download_guides">تنزيل الأدلة</string>
+	<!-- as few symbols as possible -->
+	<string name="download_guides">بحث عن أدلة</string>
 	<string name="guides_groups_cached">الأدلة التي تم تنزيلها</string>
 	<string name="subtitle_error_downloading_guide">لم يتم تنزيل الدليل</string>
 	<string name="error_already_downloaded_guide">تم بالفعل تنزيل هذا الدليل</string>
@@ -1714,12 +1716,18 @@
 	<string name="new_onboarding_step5.3_button">تحميل مجاني</string>
 	<string name="new_onboarding_additional_steps_later_button">لاحقًا</string>
 	<string name="all_pass_subscription_header">اشتراك في الدلائل</string>
-	<string name="all_pass_subscription_message_title">أكثر من 20000 دليل ومسار</string>
-	<string name="all_pass_subscription_message_subtitle">تحميل غير محدود لطرق المدينة والمناطق الخارجية بدون اتصال</string>
-	<string name="all_pass_subscription_message_title_2">أكثر من 700 مدينة و 100 دولة</string>
-	<string name="all_pass_subscription_message_subtitle_2">خطط لرحلاتك في أي وقت من السنة</string>
-	<string name="all_pass_subscription_message_title_3">الإشارات المرجعية، والصور والتوصيات</string>
-	<string name="all_pass_subscription_message_subtitle_3">لذا، لا تفوت الأماكن الأكثر إثارة في المدينة وفي الهواء الطلق.</string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title">30000+\nأدلة ومسارات</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle"><b>تحميلات غير محدودة</b> للمدينة والأماكن الخارجية <b>إلى الوضع الغير متصل</b></string>
+	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_2">ملف تفاعلي لتحديد\nالارتفاع</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_2">يحتوي كل مسار على <b>تحديد الارتفاع ومعلومات أساسية عن الطريق</b></string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_3">إشارات مرجعية\nوصور و\nتوصيات</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_3"><b>تعلم كل شيء عن المسار</b> الذي ستسلكه</string>
 	<string name="sightseeing_subscription_header_subscription">اشتراك الدلائل</string>
 	<string name="sightseeing_subscription_message">أكثر من 700 مدينة و 100 دولة</string>
 	<string name="sightseeing_subscription_message_2">متاح دون اتصال</string>
@@ -1754,6 +1762,25 @@
 	<string name="tips_map_layers_message_countour">خطط و استمتع برحلاتك في الطبيعة و أنت متأكد من أنك تعرف كل شيء عن المنطقة</string>
 	<string name="isolines_activation_error_dialog">لتفعيل الطبقة الطبوغرافية واستخدامها ، يرجى تحديث أوتنزيل خريطة المنطقة</string>
 	<string name="isolines_location_error_dialog">الطبقة الطبوغرافية ليست متاحة بعد في هذه المنطقة</string>
+	<string name="elevation_profile_diff_level">مستوى الصعوبة</string>
+	<string name="elevation_profile_diff_level_easy">سهل</string>
+	<string name="elevation_profile_diff_level_moderate">معتدل</string>
+	<string name="elevation_profile_diff_level_hard">صعب</string>
+	<string name="elevation_profile_ascent">تصاعدي</string>
+	<string name="elevation_profile_descent">تنازلي</string>
+	<string name="elevation_profile_minaltitude">الحد الأدنى للارتفاع</string>
+	<string name="elevation_profile_maxaltitude">الحد الأقصى للارتفاع</string>
+	<string name="elevation_profile_m">م</string>
+	<string name="elevation_profile_difficulty">درجة الصعوبة</string>
+	<string name="elevation_profile_distance">المسافة:</string>
+	<string name="elevation_profile_km">كم</string>
+	<string name="elevation_profile_time">مدة:</string>
+	<string name="elevation_profile_hours">ساعة</string>
+	<string name="elevation_profile_minutes">دقيقة</string>
+	<!-- hide the full screen banner and continue working with the app -->
+	<string name="hide_screen_map_update">إخفاء ومتابعة</string>
+	<string name="view_on_map_downloaded_error">تم حذف هذا الدليل من هذا الجهاز</string>
+	<string name="subscription">الاشتراك</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>
@@ -1831,7 +1858,7 @@
 	<string name="type.amenity.place_of_worship.taoist">معبد طاوي</string>
 	<string name="type.amenity.police">شرطة</string>
 	<string name="type.amenity.post_box">صندوق بريد</string>
-	<string name="type.amenity.post_office">بريد</string>
+	<string name="type.amenity.post_office">مكتب بريد</string>
 	<string name="type.amenity.pub">بار</string>
 	<string name="type.amenity.public_bookcase">مكتبة، تبادل كتب</string>
 	<string name="type.amenity.recycling">مركز إعادة تدوير</string>

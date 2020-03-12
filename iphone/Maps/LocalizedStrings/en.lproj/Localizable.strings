@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "The guide has been downloaded successfully";
 
-"download_guides" = "Download guides";
+/* as few symbols as possible */
+"download_guides" = "Search guides";
 
 "guides_groups_cached" = "Downloaded guides";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "20000+ guides & trails";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000+\nguides & trails";
 
-"all_pass_subscription_message_subtitle" = "Unlimited downloads of city and outdoor routes available offline";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>Unlimited downloads</b> of city and outdoor routes <b>to offline mode</b>";
 
-"all_pass_subscription_message_title_2" = "700+ cities and 100+ countries";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "Interactive\nelevation profile";
 
-"all_pass_subscription_message_subtitle_2" = "Plan your journeys at any time of the year";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "Each trail contains <b>elevation and basic info about the route</b>";
 
-"all_pass_subscription_message_title_3" = "Bookmarks, photos and recommendations";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "Bookmarks,\nphotos, and\nrecommendations";
 
-"all_pass_subscription_message_subtitle_3" = "So you don't miss the most interesting places in the city and outdoors.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>Learn all about the route</b> you are going to take";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "The topographic layer is not yet available in this area";
 
-/* FIXME */
 "elevation_profile_diff_level" = "Difficulty level";
 
-/* FIXME */
 "elevation_profile_diff_level_easy" = "Easy";
 
-/* FIXME */
 "elevation_profile_diff_level_moderate" = "Moderate";
 
-/* FIXME */
 "elevation_profile_diff_level_hard" = "Hard";
 
-/* FIXME */
 "elevation_profile_ascent" = "Ascent";
 
-/* FIXME */
 "elevation_profile_descent" = "Descent";
 
-/* FIXME */
 "elevation_profile_minaltitude" = "Min. altitude";
 
-/* FIXME */
 "elevation_profile_maxaltitude" = "Max. altitude";
 
-/* FIXME */
 "elevation_profile_m" = "m";
 
-/* FIXME */
 "elevation_profile_difficulty" = "Difficulty";
 
-/* FIXME */
 "elevation_profile_distance" = "Dist.:";
 
-/* FIXME */
 "elevation_profile_km" = "km";
 
-/* FIXME */
 "elevation_profile_time" = "Time:";
 
-/* FIXME */
 "elevation_profile_hours" = "h.";
 
-/* FIXME */
 "elevation_profile_minutes" = "min";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "Hide and continue";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "This guide has been deleted from this device";
+
+"subscription" = "Subscription";
 
 "sponsored_partner1_action" = "Outlets";
 
@@ -3439,7 +3435,7 @@
 
 "type.amenity.post_box" = "Postbox";
 
-"type.amenity.post_office" = "Post";
+"type.amenity.post_office" = "Post office";
 
 "type.amenity.prison" = "Prison";
 

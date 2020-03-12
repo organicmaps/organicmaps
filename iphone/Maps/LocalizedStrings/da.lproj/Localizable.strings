@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "Mere";
 
-"placepage_more_reviews_button" = "More Reviews";
+"placepage_more_reviews_button" = "Flere anmeldelser";
 
 "book_button" = "Book";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "Vejledningen er blevet downloadet";
 
-"download_guides" = "Download vejledninger";
+/* as few symbols as possible */
+"download_guides" = "Søgeguide";
 
 "guides_groups_cached" = "Downloadede vejledninger";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "20000+ guides & ruter";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000+\nguide & stier";
 
-"all_pass_subscription_message_subtitle" = "Ubegrænset downloads af by- og udendørsruter tilgængeligt offline";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>Ubegrænsede downloads</b> af by og udendørs ruter <b>til offline mode</b>";
 
-"all_pass_subscription_message_title_2" = "700+ byer og 100+ lande";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "Interaktiv\nhøjdeprofil";
 
-"all_pass_subscription_message_subtitle_2" = "Planlæg din rejse på ethvert tidspunkt af året";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "Hver sti indeholder <b>højde og basis info om ruten</b>";
 
-"all_pass_subscription_message_title_3" = "Bogmærker, fotos og anbefalinger";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "Bogmærker,\nbilleder og\nanbefalinger";
 
-"all_pass_subscription_message_subtitle_3" = "Så du ikke går glip af de mest interessante steder i byen og udendørs.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>Lær alt om ruten</b> du skal til at tage";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "Det topografiske lag er endnu ikke tilgængeligt i dette område";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "Sværhedsgrad";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "Let";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "Middel";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "Svær";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "Stige op";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "Stige ned";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "Min. højde";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "Maks. højde";
 
-/* FIXME */
 "elevation_profile_m" = "m";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "Vanskelighed";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "Afs.:";
 
-/* FIXME */
 "elevation_profile_km" = "km";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "Tid:";
 
-/* FIXME */
-"elevation_profile_hours" = "h.";
+"elevation_profile_hours" = "t.";
 
-/* FIXME */
 "elevation_profile_minutes" = "min";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "Skjul og fortsæt";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "Denne guide er blevet fjernet fra denne enhed";
+
+"subscription" = "Abonnement";
 
 "sponsored_partner1_action" = "Outlets";
 
@@ -3439,7 +3435,7 @@
 
 "type.amenity.post_box" = "Postboks";
 
-"type.amenity.post_office" = "Post";
+"type.amenity.post_office" = "Postkontor";
 
 "type.amenity.prison" = "Prison";
 

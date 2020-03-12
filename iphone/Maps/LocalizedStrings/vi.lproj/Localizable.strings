@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "Bổ sung";
 
-"placepage_more_reviews_button" = "More Reviews";
+"placepage_more_reviews_button" = "Thêm nhận xét";
 
 "book_button" = "Đặt trước";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "Hướng dẫn đã được tải xuống thành công";
 
-"download_guides" = "Tải xuống hướng dẫn";
+/* as few symbols as possible */
+"download_guides" = "Tìm hướng dẫn";
 
 "guides_groups_cached" = "Đã tải xuống hướng dẫn";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "Hơn 20000 hướng dẫn và đường mòn";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000+\nhướng dẫn\nvà đường mòn";
 
-"all_pass_subscription_message_subtitle" = "Tải xuống không giới hạn các tuyến đường ngoại tuyến trong thành phố và những hoạt động ngoài trời";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>Tải xuống không giới hạn</b> các tuyến di chuyển trong thành phố và cho các hoạt động ngoài trời sang <b>chế độ ngoại tuyến</b>";
 
-"all_pass_subscription_message_title_2" = "Hơn 700 thành phố và hơn 100 quốc gia";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "Hồ sơ độ cao\ntương tác";
 
-"all_pass_subscription_message_subtitle_2" = "Để du lịch vào bất cứ thời gian nào trong năm";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "Tất cả các đường mòn đang được tải có <b>bao gồm độ cao và thông tin chính về tuyến di chuyển</b>";
 
-"all_pass_subscription_message_title_3" = "Đánh dấu, ảnh và các khuyến nghị";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "Lựa chọn\nđ.điểm, h.ảnh\nvà các đề xuất";
 
-"all_pass_subscription_message_subtitle_3" = "Để không bỏ qua những địa điểm hấp dẫn nhất trong thành phố và ngoài tự nhiên.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>Tìm hiểu về tất cả các tuyến</b> mà bạn dự định đi qua";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "Đường hiển thị độ cao hiện chưa khả dụng tại khu vực này";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "Mức độ phức tạp";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "Dễ";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "Trung bình";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "Khó";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "Đi lên";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "Đi xuống";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "Độ cao tối thiểu";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "Độ cao tối đa";
 
-/* FIXME */
 "elevation_profile_m" = "m";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "Độ khó";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "Khoảng cách";
 
-/* FIXME */
 "elevation_profile_km" = "km";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "Giờ:";
 
-/* FIXME */
 "elevation_profile_hours" = "h.";
 
-/* FIXME */
-"elevation_profile_minutes" = "min";
+"elevation_profile_minutes" = "ph";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "Thu gọn và tiếp tục thao tác với ứng dụng";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "Hướng dẫn này đã được xóa khỏi thiết bị";
+
+"subscription" = "Đăng ký";
 
 "sponsored_partner1_action" = "Outlets";
 
@@ -3439,7 +3435,7 @@
 
 "type.amenity.post_box" = "Hòm thư";
 
-"type.amenity.post_office" = "Bưu điện";
+"type.amenity.post_office" = "Bưu cục";
 
 "type.amenity.prison" = "Prison";
 

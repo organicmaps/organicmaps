@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "更多";
 
-"placepage_more_reviews_button" = "More Reviews";
+"placepage_more_reviews_button" = "更多評論";
 
 "book_button" = "預約";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "指南已被成功下載";
 
-"download_guides" = "下載指南";
+/* as few symbols as possible */
+"download_guides" = "查找指南";
 
 "guides_groups_cached" = "已下載的指南";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "超過20000個指南和人行道";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000+\n指南\n和道路";
 
-"all_pass_subscription_message_subtitle" = "無限下載市內旅行與休閑運動的離線路線";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>無限離線下載</b>城市和戶外活動的路線";
 
-"all_pass_subscription_message_title_2" = "超過700座城市和100個國家";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "互動\n高度剖面圖";
 
-"all_pass_subscription_message_subtitle_2" = "支持全年旅行";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "<b>所有道路均已加載高度和路線基本信息</b>";
 
-"all_pass_subscription_message_title_3" = "標記，照片和推薦";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "默認\n地點，照片\n和推薦";
 
-"all_pass_subscription_message_subtitle_3" = "以免錯過市內外有趣的景點。";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>了解您準備前往的路線</b>，的所有信息";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "暫時無法獲取該地區的高低線";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "難度等級";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "容易";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "中等";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "困難";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "上坡";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "下坡";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "最小高度";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "最大高度";
 
-/* FIXME */
-"elevation_profile_m" = "m";
+"elevation_profile_m" = "米";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "難度";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "距離：";
 
-/* FIXME */
-"elevation_profile_km" = "km";
+"elevation_profile_km" = "千米";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "在路上：";
 
-/* FIXME */
-"elevation_profile_hours" = "h.";
+"elevation_profile_hours" = "小時";
 
-/* FIXME */
-"elevation_profile_minutes" = "min";
+"elevation_profile_minutes" = "分鐘";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "隱藏並繼續";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "該指南已從設備中刪除";
+
+"subscription" = "訂閱";
 
 "sponsored_partner1_action" = "Outlets";
 

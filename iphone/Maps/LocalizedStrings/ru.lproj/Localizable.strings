@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "Путеводитель был успешно загружен";
 
-"download_guides" = "Загрузите путеводители";
+/* as few symbols as possible */
+"download_guides" = "Найти путеводители";
 
 "guides_groups_cached" = "Загруженные путеводители";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "20000+ путеводителей и троп";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000+\nпутеводителей\nи троп";
 
-"all_pass_subscription_message_subtitle" = "Безлимитное скачивание офлайн маршрутов для городских прогулок и активного отдыха";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>Безлимитное скачивание в офлайн</b> маршрутов для города и активного отдыха";
 
-"all_pass_subscription_message_title_2" = "700+ городов и 100+ стран";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "Интерактивный\nпрофиль высот";
 
-"all_pass_subscription_message_subtitle_2" = "Для путешествий в любое время года";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "Все тропы загружаются <b>с высотами и основной информацией о маршруте</b>";
 
-"all_pass_subscription_message_title_3" = "Метки, фото и рекомендации";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "Избранные\nместа, фото\nи рекомендации";
 
-"all_pass_subscription_message_subtitle_3" = "Чтобы не пропустить самые интересные места в городе и на природе.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>Узнайте всё о маршруте</b>, по которому собираетесь пройти";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "Линии высот пока не доступны в этом регионе";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "Уровень сложности";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "Лёгкий";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "Умеренный";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "Сложный";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "Подъём";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "Спуск";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "Мин. высота";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "Макс. высота";
 
-/* FIXME */
-"elevation_profile_m" = "m";
+"elevation_profile_m" = "м";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "Сложность";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "Расст.:";
 
-/* FIXME */
-"elevation_profile_km" = "km";
+"elevation_profile_km" = "км";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "В пути:";
 
-/* FIXME */
-"elevation_profile_hours" = "h.";
+"elevation_profile_hours" = "ч.";
 
-/* FIXME */
-"elevation_profile_minutes" = "min";
+"elevation_profile_minutes" = "мин";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "Скрыть и продолжить работу";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "Этот путеводитель был удалён с устройства";
+
+"subscription" = "Подписка";
 
 "sponsored_partner1_action" = "Аутлеты";
 
@@ -3439,7 +3435,7 @@
 
 "type.amenity.post_box" = "Почтовый ящик";
 
-"type.amenity.post_office" = "Почта";
+"type.amenity.post_office" = "Почтовое отделение";
 
 "type.amenity.prison" = "Тюрьма";
 

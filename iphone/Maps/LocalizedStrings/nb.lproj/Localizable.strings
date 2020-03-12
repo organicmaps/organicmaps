@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "Mer";
 
-"placepage_more_reviews_button" = "More Reviews";
+"placepage_more_reviews_button" = "Flere anmeldelser";
 
 "book_button" = "Bestill";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "The guide has been downloaded successfully";
 
-"download_guides" = "Download guides";
+/* as few symbols as possible */
+"download_guides" = "Søke etter guider";
 
 "guides_groups_cached" = "Downloaded guides";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "20000+ guider og stier";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000+\nguider\nog stier";
 
-"all_pass_subscription_message_subtitle" = "Ubegrenset offlineruter nedlasting for byturer og friluftsliv";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>Ubegrenset nedlasting</b> av ruter for by og friluftsliv <b>uten nett</b>";
 
-"all_pass_subscription_message_title_2" = "700+ byer og 100+ land";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "Interaktiv\nhøydeprofil";
 
-"all_pass_subscription_message_subtitle_2" = "For reiser i alle årstider";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "Alle stier lastes ned <b>med høyder og den viktigste informasjonen om ruten</b>";
 
-"all_pass_subscription_message_title_3" = "Bokmerker, bilder og anbefalinger";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "Utvalgte\nsteder, bilder\nog anbefalinger";
 
-"all_pass_subscription_message_subtitle_3" = "For å ikke gå glipp av de mest interessante stedene i byen og ute i det fri.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>Lær alt om ruten</b> du har valgt";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "Høydekurver er ikke tilgjengelige i dette området ennå";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "Vanskelighetsgrad";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "Lett";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "Middels";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "Vanskelig";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "Stigning";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "Nedstigning";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "Min. høyde";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "Maks. høyde";
 
-/* FIXME */
 "elevation_profile_m" = "m";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "Vanskelighet";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "Avstand:";
 
-/* FIXME */
 "elevation_profile_km" = "km";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "I rute";
 
-/* FIXME */
-"elevation_profile_hours" = "h.";
+"elevation_profile_hours" = "t.";
 
-/* FIXME */
 "elevation_profile_minutes" = "min";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "Skjul og fortsett med appen";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "Denne guiden har blitt fjernet fra enheten";
+
+"subscription" = "Abonnement";
 
 "sponsored_partner1_action" = "Outlets";
 
@@ -3439,7 +3435,7 @@
 
 "type.amenity.post_box" = "Postboks";
 
-"type.amenity.post_office" = "Post";
+"type.amenity.post_office" = "Postkontor";
 
 "type.amenity.prison" = "Prison";
 

@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "Le guide a été téléchargé avec succès";
 
-"download_guides" = "Télécharger les guides";
+/* as few symbols as possible */
+"download_guides" = "Chercher les guides";
 
 "guides_groups_cached" = "Guides téléchargés";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "+ de 20 000 guides et sentiers";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000+\nde guides\net de sentiers";
 
-"all_pass_subscription_message_subtitle" = "Téléchargement illimité d'itinéraires de promenades en ville et d'activités de plein air avec l'accès hors ligne";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>Téléchargement illimité hors connexion</b> d'itinéraires pour ville et pour les activités en plein air";
 
-"all_pass_subscription_message_title_2" = "+ de 700 villes et de 100 pays";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "Profil intéractif\naltimétrique";
 
-"all_pass_subscription_message_subtitle_2" = "Pour voyager à tout moment de l'année";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "Chargement des sentiers <b>avec l'indication des altitudes et les informations principales sur l'itinéraire</b>";
 
-"all_pass_subscription_message_title_3" = "Signets, photos et recommandations";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "Lieux,\nphotos et avis\nfavoris";
 
-"all_pass_subscription_message_subtitle_3" = "Ainsi, vous ne passerez pas à côté des endroits les plus intéressants de la ville et en plein air.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>Tout savoir sur l'itinéraire</b>, que vous souhaitez prendre";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "Les lignes d'élévation ne sont pas encore disponibles dans cette région";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "Niveau de difficulté";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "Faible";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "Moyen";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "Haut";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "Montée";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "Descente";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "Hauteur minimale";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "Hauteur maximale";
 
-/* FIXME */
 "elevation_profile_m" = "m";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "Difficulté";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "Russe :";
 
-/* FIXME */
 "elevation_profile_km" = "km";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "Temps:";
 
-/* FIXME */
-"elevation_profile_hours" = "h.";
+"elevation_profile_hours" = "h";
 
-/* FIXME */
-"elevation_profile_minutes" = "min";
+"elevation_profile_minutes" = "mn";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "Fermer la fenêtre et continuer la navigation";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "Ce guide a été supprimé de votre appareil";
+
+"subscription" = "Souscription";
 
 "sponsored_partner1_action" = "Outlets";
 
@@ -3439,7 +3435,7 @@
 
 "type.amenity.post_box" = "Boîte aux lettres";
 
-"type.amenity.post_office" = "Poste";
+"type.amenity.post_office" = "Bureau de poste";
 
 "type.amenity.prison" = "Prison";
 

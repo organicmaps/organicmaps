@@ -875,6 +875,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Descripción</string>
 	<string name="placepage_more_button">Más</string>
+	<string name="placepage_more_reviews_button">Más comentarios</string>
 	<string name="book_button">Reservar</string>
 	<string name="placepage_call_button">Llamar</string>
 	<string name="placepage_edit_bookmark_button">Editar marcador</string>
@@ -1338,7 +1339,8 @@
 	<string name="error_already_downloaded">Esta lista ya se ha descargado</string>
 	<string name="guides">Guías</string>
 	<string name="guide_downloaded_title">Se ha descargado la guía correctamente</string>
-	<string name="download_guides">Descargar guías</string>
+	<!-- as few symbols as possible -->
+	<string name="download_guides">Encontrar guías</string>
 	<string name="guides_groups_cached">Guías descargadas</string>
 	<string name="subtitle_error_downloading_guide">No se ha descargado la guía</string>
 	<string name="error_already_downloaded_guide">Ya se ha descargado esta guía</string>
@@ -1703,12 +1705,18 @@
 	<string name="new_onboarding_step5.3_button">Descarga gratis</string>
 	<string name="new_onboarding_additional_steps_later_button">Más tarde</string>
 	<string name="all_pass_subscription_header">SUSCRIPCIÓN AL CATÁLOGO</string>
-	<string name="all_pass_subscription_message_title">Más de 20.000 guías y senderos</string>
-	<string name="all_pass_subscription_message_subtitle">Descarga ilimitada de rutas sin conexión para paseos por la ciudad y actividades al aire libre</string>
-	<string name="all_pass_subscription_message_title_2">700+ ciudades y 100+ países</string>
-	<string name="all_pass_subscription_message_subtitle_2">Para viajar en cualquier época del año</string>
-	<string name="all_pass_subscription_message_title_3">Marcadores, fotos y recomendaciones</string>
-	<string name="all_pass_subscription_message_subtitle_3">Para que no te pierdas los lugares más interesantes de la ciudad y de la naturaleza.</string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title">más de 30 mil\nguías\ny senderos</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle"><b>Descargas ilimitadas sin conexión</b> de rutas urbanas y actividades al aire libre</string>
+	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_2">Perfil\nInteractivo\nde alturas</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_2">Todos los senderos contienen <b>altitud e información básica de la ruta</b></string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_3">Sitios\nFavoritos,fotos\ny recomendaciones</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_3"><b>Aprende todo sobre la ruta</b> que vas a tomar</string>
 	<string name="sightseeing_subscription_header_subscription">Suscripción de Guías</string>
 	<string name="sightseeing_subscription_message">700+ ciudades y 100+ países</string>
 	<string name="sightseeing_subscription_message_2">Disponible sin conexión</string>
@@ -1743,6 +1751,25 @@
 	<string name="tips_map_layers_message_countour">La altitud de relieve te ayudará a planificar un viaje a la naturaleza y no perderte en la zona</string>
 	<string name="isolines_activation_error_dialog">Para usar la altitud de relieve, actualiza o descarga el mapa del área deseada</string>
 	<string name="isolines_location_error_dialog">La altitud de relieve aún no está disponible en esta región</string>
+	<string name="elevation_profile_diff_level">Nivel de dificultad</string>
+	<string name="elevation_profile_diff_level_easy">Fácil</string>
+	<string name="elevation_profile_diff_level_moderate">Moderado</string>
+	<string name="elevation_profile_diff_level_hard">Difícil</string>
+	<string name="elevation_profile_ascent">Ascenso</string>
+	<string name="elevation_profile_descent">Descenso</string>
+	<string name="elevation_profile_minaltitude">Altura mínima</string>
+	<string name="elevation_profile_maxaltitude">Altura máxima</string>
+	<string name="elevation_profile_m">m</string>
+	<string name="elevation_profile_difficulty">Dificultad</string>
+	<string name="elevation_profile_distance">Distancia</string>
+	<string name="elevation_profile_km">km</string>
+	<string name="elevation_profile_time">Lapso:</string>
+	<string name="elevation_profile_hours">h.</string>
+	<string name="elevation_profile_minutes">min</string>
+	<!-- hide the full screen banner and continue working with the app -->
+	<string name="hide_screen_map_update">Ocultar y continuar</string>
+	<string name="view_on_map_downloaded_error">Esta guía ha sido eliminada del dispositivo</string>
+	<string name="subscription">Suscripción</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estación de teleférico</string>

@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "Więcej";
 
-"placepage_more_reviews_button" = "More Reviews";
+"placepage_more_reviews_button" = "Więcej opinii";
 
 "book_button" = "Zarezerwuj";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "Przewodnik został pomyślnie pobrany";
 
-"download_guides" = "Pobierz przewodniki";
+/* as few symbols as possible */
+"download_guides" = "Znajdź przewodniki";
 
 "guides_groups_cached" = "Pobrane przewodniki";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "20000+ przewodników i szlaków";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000+\nprzewodników\ni szlaków";
 
-"all_pass_subscription_message_subtitle" = "Nieograniczone pobieranie tras offline do zwiedzania i aktywnego wypoczynku poza miastem";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>Nieograniczone pobieranie w trybie offline</b> tras dla miasta i wypoczynku aktywnego";
 
-"all_pass_subscription_message_title_2" = "700+ miast i 100+ krajów";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "Interaktywny\nprofil wysokości";
 
-"all_pass_subscription_message_subtitle_2" = "Dla podróży o każdej porze roku";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "Wszystkie trasy są pobierane <b>z wysokościami i podstawowymi informacjami o trasie</b>";
 
-"all_pass_subscription_message_title_3" = "Zakładki, zdjęcia i rekomendacje";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "Obrane miejsca,\nzdjęcia\ni referencje";
 
-"all_pass_subscription_message_subtitle_3" = "Aby nie przegapić najciekawszych miejsc w mieście i na łonie natury.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>dowiedz się wszystkiego o trasie</b>, którą zamierzasz przejść";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "W tej chwili nie są dostępne linie wysokości w tym regionie";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "Poziom trudności";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "Łatwy";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "Umiarkowany";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "Skomplikowany";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "Wejście";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "Zejście";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "Min. wysokość";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "Maks. wysokość";
 
-/* FIXME */
 "elevation_profile_m" = "m";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "Trudność";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "Odległ.:";
 
-/* FIXME */
 "elevation_profile_km" = "km";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "Trasa:";
 
-/* FIXME */
-"elevation_profile_hours" = "h.";
+"elevation_profile_hours" = "godz.";
 
-/* FIXME */
 "elevation_profile_minutes" = "min";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "Ukryj i kontynuuj";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "Ten przewodnik został usunięty z urządzenia";
+
+"subscription" = "Subskrypcja";
 
 "sponsored_partner1_action" = "Wyprzedaże";
 
@@ -3439,7 +3435,7 @@
 
 "type.amenity.post_box" = "Skrzynka pocztowa";
 
-"type.amenity.post_office" = "Poczta";
+"type.amenity.post_office" = "Urząd Pocztowy";
 
 "type.amenity.prison" = "Więzienie";
 

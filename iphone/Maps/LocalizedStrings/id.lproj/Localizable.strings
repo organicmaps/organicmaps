@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "Lainnya";
 
-"placepage_more_reviews_button" = "More Reviews";
+"placepage_more_reviews_button" = "Ulasan Lainnya";
 
 "book_button" = "Pesan";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "Panduan telah berhasil diunduh";
 
-"download_guides" = "Unduh panduan";
+/* as few symbols as possible */
+"download_guides" = "Panduan pencarian";
 
 "guides_groups_cached" = "Panduan yang diunduh";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "20000+ jalur & panduan";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000+\npanduan & jalur";
 
-"all_pass_subscription_message_subtitle" = "Download berbagai macam rute perjalanan dan kota secara offline";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>Unduh tanpa batas</b> jalur perkotaan dan outdoor <b>untuk mode offline</b>";
 
-"all_pass_subscription_message_title_2" = "700+ kota dan 100+ negara";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "Profil ketinggian\ninteraktif";
 
-"all_pass_subscription_message_subtitle_2" = "Rencanakan perjalanan Anda kapan saja";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "Setiap jalur terdapat <b>ketinggian dan informasi jalur secara umum</b>";
 
-"all_pass_subscription_message_title_3" = "Penanda, foto dan rekomendasi";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "Penanda,\nfoto dan\nrekomendasi";
 
-"all_pass_subscription_message_subtitle_3" = "Sehingga Anda tidak akan melewatkan tempat-tempat menarik yang ada di kota dan di luar ruangan.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>Pelajari semua rute</b> yang akan Anda ambil";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "Lapisan topografi belum tersedia untuk wilayah ini";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "Tingkat kesulitan";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "Mudah";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "Sedang";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "Sulit";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "Menanjak";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "Menurun";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "Ketinggian Min.";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "Ketinggian Maks.";
 
-/* FIXME */
 "elevation_profile_m" = "m";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "Kesulitan";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "Jarak:";
 
-/* FIXME */
 "elevation_profile_km" = "km";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "Waktu:";
 
-/* FIXME */
-"elevation_profile_hours" = "h.";
+"elevation_profile_hours" = "j.";
 
-/* FIXME */
-"elevation_profile_minutes" = "min";
+"elevation_profile_minutes" = "mnt";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "Sembunyikan dan lanjutkan";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "Panduan ini telah dihapus dari perangkat ini";
+
+"subscription" = "Berlangganan";
 
 "sponsored_partner1_action" = "Outlets";
 
@@ -3439,7 +3435,7 @@
 
 "type.amenity.post_box" = "Kotak pos";
 
-"type.amenity.post_office" = "Pos";
+"type.amenity.post_office" = "Kantor pos";
 
 "type.amenity.prison" = "Prison";
 

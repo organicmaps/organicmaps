@@ -885,6 +885,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Beskrivelse</string>
 	<string name="placepage_more_button">Mere</string>
+	<string name="placepage_more_reviews_button">Flere anmeldelser</string>
 	<string name="book_button">Book</string>
 	<string name="placepage_call_button">Ring</string>
 	<string name="placepage_edit_bookmark_button">Rediger bogmærke</string>
@@ -1348,7 +1349,8 @@
 	<string name="error_already_downloaded">Denne liste er allerede blevet downloadet</string>
 	<string name="guides">Vejledninger</string>
 	<string name="guide_downloaded_title">Vejledningen er blevet downloadet</string>
-	<string name="download_guides">Download vejledninger</string>
+	<!-- as few symbols as possible -->
+	<string name="download_guides">Søgeguide</string>
 	<string name="guides_groups_cached">Downloadede vejledninger</string>
 	<string name="subtitle_error_downloading_guide">Vejledningen blev ikke downloadet</string>
 	<string name="error_already_downloaded_guide">Denne vejledning er allerede blevet downloadet</string>
@@ -1713,12 +1715,18 @@
 	<string name="new_onboarding_step5.3_button">Gratis download</string>
 	<string name="new_onboarding_additional_steps_later_button">Senere</string>
 	<string name="all_pass_subscription_header">ABONNEMENT TIL KATALOG</string>
-	<string name="all_pass_subscription_message_title">20000+ guides &amp; ruter</string>
-	<string name="all_pass_subscription_message_subtitle">Ubegrænset downloads af by- og udendørsruter tilgængeligt offline</string>
-	<string name="all_pass_subscription_message_title_2">700+ byer og 100+ lande</string>
-	<string name="all_pass_subscription_message_subtitle_2">Planlæg din rejse på ethvert tidspunkt af året</string>
-	<string name="all_pass_subscription_message_title_3">Bogmærker, fotos og anbefalinger</string>
-	<string name="all_pass_subscription_message_subtitle_3">Så du ikke går glip af de mest interessante steder i byen og udendørs.</string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title">30000+\nguide &amp; stier</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle"><b>Ubegrænsede downloads</b> af by og udendørs ruter <b>til offline mode</b></string>
+	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_2">Interaktiv\nhøjdeprofil</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_2">Hver sti indeholder <b>højde og basis info om ruten</b></string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_3">Bogmærker,\nbilleder og\nanbefalinger</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_3"><b>Lær alt om ruten</b> du skal til at tage</string>
 	<string name="sightseeing_subscription_header_subscription">Guides Abonnement</string>
 	<string name="sightseeing_subscription_message">700+ byer og 100+ lande</string>
 	<string name="sightseeing_subscription_message_2">Tilgængeligt offline</string>
@@ -1753,6 +1761,25 @@
 	<string name="tips_map_layers_message_countour">Planlæg og nyd din naturtur ved at være sikker på, at du ved alt om området</string>
 	<string name="isolines_activation_error_dialog">For at aktivere og bruge de topografiske lag, opdater venligst eller download kortet for området</string>
 	<string name="isolines_location_error_dialog">Det topografiske lag er endnu ikke tilgængeligt i dette område</string>
+	<string name="elevation_profile_diff_level">Sværhedsgrad</string>
+	<string name="elevation_profile_diff_level_easy">Let</string>
+	<string name="elevation_profile_diff_level_moderate">Middel</string>
+	<string name="elevation_profile_diff_level_hard">Svær</string>
+	<string name="elevation_profile_ascent">Stige op</string>
+	<string name="elevation_profile_descent">Stige ned</string>
+	<string name="elevation_profile_minaltitude">Min. højde</string>
+	<string name="elevation_profile_maxaltitude">Maks. højde</string>
+	<string name="elevation_profile_m">m</string>
+	<string name="elevation_profile_difficulty">Vanskelighed</string>
+	<string name="elevation_profile_distance">Afs.:</string>
+	<string name="elevation_profile_km">km</string>
+	<string name="elevation_profile_time">Tid:</string>
+	<string name="elevation_profile_hours">t.</string>
+	<string name="elevation_profile_minutes">min</string>
+	<!-- hide the full screen banner and continue working with the app -->
+	<string name="hide_screen_map_update">Skjul og fortsæt</string>
+	<string name="view_on_map_downloaded_error">Denne guide er blevet fjernet fra denne enhed</string>
+	<string name="subscription">Abonnement</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>
@@ -1826,6 +1853,7 @@
 	<string name="type.amenity.place_of_worship.taoist">Tempel</string>
 	<string name="type.amenity.police">Politi</string>
 	<string name="type.amenity.post_box">Postboks</string>
+	<string name="type.amenity.post_office">Postkontor</string>
 	<string name="type.amenity.pub">Værtshus</string>
 	<string name="type.amenity.public_bookcase">Bog udveksling</string>
 	<string name="type.amenity.recycling">Genbrugsplads</string>

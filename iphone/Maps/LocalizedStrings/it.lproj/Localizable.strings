@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "Altro";
 
-"placepage_more_reviews_button" = "More Reviews";
+"placepage_more_reviews_button" = "Altre recensioni";
 
 "book_button" = "Prenota";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "La guida è stata scaricata correttamente";
 
-"download_guides" = "Scarica le guide";
+/* as few symbols as possible */
+"download_guides" = "Trova guide";
 
 "guides_groups_cached" = "Guide scaricate";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "+ di 20000 guide e sentieri";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "Più di 30000\nguide\ne sentieri";
 
-"all_pass_subscription_message_subtitle" = "Download illimitato di percorsi cittadini e di attività all'aria aperta";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>Download illimitati offline</b> percorsi cittadini e all'aria aperta";
 
-"all_pass_subscription_message_title_2" = "+ di 700 città e 100 Paesi";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "Profilo\naltimetrico\ninterattivo";
 
-"all_pass_subscription_message_subtitle_2" = "Per viaggiare in qualsiasi momento dell'anno";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "Tutti i sentieri contengono <b>altitudine e informazioni di base sul percorso</b>";
 
-"all_pass_subscription_message_title_3" = "Segnalibri, foto e suggerimenti";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "Luoghi salvati,\nfoto\ne suggerimenti";
 
-"all_pass_subscription_message_subtitle_3" = "Per non perdersi i posti più interessanti in città e nella natura.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>Scopri tutto riguardo il percorso</b> che farai";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "La modalità topografica per questa regione non è ancora disponibile";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "Livello di difficoltà";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "Facile";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "Moderato";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "Difficile";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "Ascesa";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "Discesa";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "Altitudine minima";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "Altitudine massima";
 
-/* FIXME */
 "elevation_profile_m" = "m";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "Difficoltà";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "Dist.";
 
-/* FIXME */
 "elevation_profile_km" = "km";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "Tempo:";
 
-/* FIXME */
-"elevation_profile_hours" = "h.";
+"elevation_profile_hours" = "ore";
 
-/* FIXME */
 "elevation_profile_minutes" = "min";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "Chiudi e prosegui";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "Questa guida è stata cancellata dal dispositivo";
+
+"subscription" = "Abbonamento";
 
 "sponsored_partner1_action" = "Outlets";
 
@@ -3439,7 +3435,7 @@
 
 "type.amenity.post_box" = "Casella";
 
-"type.amenity.post_office" = "Posta";
+"type.amenity.post_office" = "Ufficio postale";
 
 "type.amenity.prison" = "Prison";
 

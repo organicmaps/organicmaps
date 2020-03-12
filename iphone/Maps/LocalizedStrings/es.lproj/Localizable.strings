@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "Más";
 
-"placepage_more_reviews_button" = "More Reviews";
+"placepage_more_reviews_button" = "Más comentarios";
 
 "book_button" = "Reservar";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "Se ha descargado la guía correctamente";
 
-"download_guides" = "Descargar guías";
+/* as few symbols as possible */
+"download_guides" = "Encontrar guías";
 
 "guides_groups_cached" = "Guías descargadas";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "Más de 20.000 guías y senderos";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "más de 30 mil\nguías\ny senderos";
 
-"all_pass_subscription_message_subtitle" = "Descarga ilimitada de rutas sin conexión para paseos por la ciudad y actividades al aire libre";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>Descargas ilimitadas sin conexión</b> de rutas urbanas y actividades al aire libre";
 
-"all_pass_subscription_message_title_2" = "700+ ciudades y 100+ países";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "Perfil\nInteractivo\nde alturas";
 
-"all_pass_subscription_message_subtitle_2" = "Para viajar en cualquier época del año";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "Todos los senderos contienen <b>altitud e información básica de la ruta</b>";
 
-"all_pass_subscription_message_title_3" = "Marcadores, fotos y recomendaciones";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "Sitios\nFavoritos,fotos\ny recomendaciones";
 
-"all_pass_subscription_message_subtitle_3" = "Para que no te pierdas los lugares más interesantes de la ciudad y de la naturaleza.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>Aprende todo sobre la ruta</b> que vas a tomar";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "La altitud de relieve aún no está disponible en esta región";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "Nivel de dificultad";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "Fácil";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "Moderado";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "Difícil";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "Ascenso";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "Descenso";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "Altura mínima";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "Altura máxima";
 
-/* FIXME */
 "elevation_profile_m" = "m";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "Dificultad";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "Distancia";
 
-/* FIXME */
 "elevation_profile_km" = "km";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "Lapso:";
 
-/* FIXME */
 "elevation_profile_hours" = "h.";
 
-/* FIXME */
 "elevation_profile_minutes" = "min";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "Ocultar y continuar";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "Esta guía ha sido eliminada del dispositivo";
+
+"subscription" = "Suscripción";
 
 "sponsored_partner1_action" = "Outlets";
 

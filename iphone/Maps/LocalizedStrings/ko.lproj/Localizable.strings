@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "자세히";
 
-"placepage_more_reviews_button" = "More Reviews";
+"placepage_more_reviews_button" = "더 많은 리뷰";
 
 "book_button" = "예약";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "안내를 성공적으로 다운로드 하였습니다.";
 
-"download_guides" = "안내 다운로드";
+/* as few symbols as possible */
+"download_guides" = "가이드 찾기";
 
 "guides_groups_cached" = "다운로드한 안내";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "2만개 이상의 가이드 및 길들";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000개 이상의\n가이드 및 길들";
 
-"all_pass_subscription_message_subtitle" = "오프라인에서 사용 가능한 도시 및 야외 경로를 무제한 다운로드";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>오프라인 모드</b>에서 도시 및 아웃도어 경로를 <b>무제한 다운로드</b>";
 
-"all_pass_subscription_message_title_2" = "700개 이상 도시와 100곳 이상의 나라";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "상호작용형\n고도 단면도";
 
-"all_pass_subscription_message_subtitle_2" = "연중 언제든지 여행 계획을 세워 보세요";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "각 산길들은 <b>경로의 고도 및 기본 정보를 포함하고 있습니다</b>";
 
-"all_pass_subscription_message_title_3" = "북마크, 사진 및 추천 장소들";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "즐겨찾기,\n사진 및\n추천글";
 
-"all_pass_subscription_message_subtitle_3" = "도시 및 야외에서 가장 흥미로운 장소들을 놓치지 않으실 수 있습니다.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "가려는 곳의 <b>길에 대한 모든 것을 알 수 있습니다</b>";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "이 지역의 지형 레이어는 아직 사용할 수 없습니다";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "난이도";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "쉬움";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "보통";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "어려움";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "올라가기";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "내려가기";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "산 최소 높이";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "산 최대 높이";
 
-/* FIXME */
 "elevation_profile_m" = "m";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "난이도";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "거리:";
 
-/* FIXME */
 "elevation_profile_km" = "km";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "소비 시간:";
 
-/* FIXME */
-"elevation_profile_hours" = "h.";
+"elevation_profile_hours" = "시간";
 
-/* FIXME */
-"elevation_profile_minutes" = "min";
+"elevation_profile_minutes" = "분";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "숨기고 계속하기";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "이 가이드는 이 장치에서 제거되었습니다";
+
+"subscription" = "구독";
 
 "sponsored_partner1_action" = "Outlets";
 
@@ -3439,7 +3435,7 @@
 
 "type.amenity.post_box" = "포스트 박스";
 
-"type.amenity.post_office" = "우편";
+"type.amenity.post_office" = "우체국";
 
 "type.amenity.prison" = "Prison";
 

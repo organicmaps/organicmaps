@@ -1388,7 +1388,8 @@
 	<string name="bookmarks_downloaded_subtitle">Нажмите «Посмотреть на карте» чтобы посмотреть новые места из списка</string>
 	<string name="guides">Путеводители</string>
 	<string name="guide_downloaded_title">Путеводитель был успешно загружен</string>
-	<string name="download_guides">Загрузите путеводители</string>
+	<!-- as few symbols as possible -->
+	<string name="download_guides">Найти путеводители</string>
 	<string name="guides_groups_cached">Загруженные путеводители</string>
 	<string name="subtitle_error_downloading_guide">Путеводитель не был загружен</string>
 	<string name="error_already_downloaded_guide">Этот путеводитель уже был загружен</string>
@@ -1756,12 +1757,18 @@
 	<string name="new_onboarding_step5.3_button">Скачать бесплатно</string>
 	<string name="new_onboarding_additional_steps_later_button">Не сейчас</string>
 	<string name="all_pass_subscription_header">ПОДПИСКА НА КАТАЛОГ</string>
-	<string name="all_pass_subscription_message_title">20000+ путеводителей и троп</string>
-	<string name="all_pass_subscription_message_subtitle">Безлимитное скачивание офлайн маршрутов для городских прогулок и активного отдыха</string>
-	<string name="all_pass_subscription_message_title_2">700+ городов и 100+ стран</string>
-	<string name="all_pass_subscription_message_subtitle_2">Для путешествий в любое время года</string>
-	<string name="all_pass_subscription_message_title_3">Метки, фото и рекомендации</string>
-	<string name="all_pass_subscription_message_subtitle_3">Чтобы не пропустить самые интересные места в городе и на природе.</string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title">30000+\nпутеводителей\nи троп</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle"><b>Безлимитное скачивание в офлайн</b> маршрутов для города и активного отдыха</string>
+	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_2">Интерактивный\nпрофиль высот</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_2">Все тропы загружаются <b>с высотами и основной информацией о маршруте</b></string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_3">Избранные\nместа, фото\nи рекомендации</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_3"><b>Узнайте всё о маршруте</b>, по которому собираетесь пройти</string>
 	<string name="sightseeing_subscription_header_subscription">Подписка на путеводители</string>
 	<string name="sightseeing_subscription_message">700+ городов и 100+ стран</string>
 	<string name="sightseeing_subscription_message_2">Доступны офлайн</string>
@@ -1796,8 +1803,25 @@
 	<string name="tips_map_layers_message_countour">Линии высот помогут спланировать путешествие на природу и не потеряться на местности</string>
 	<string name="isolines_activation_error_dialog">Чтобы воспользоваться линиями высот, обновите или загрузите карту нужной местности</string>
 	<string name="isolines_location_error_dialog">Линии высот пока не доступны в этом регионе</string>
-
-	<!-- SECTION:  Partners  -->
+	<string name="elevation_profile_diff_level">Уровень сложности</string>
+	<string name="elevation_profile_diff_level_easy">Лёгкий</string>
+	<string name="elevation_profile_diff_level_moderate">Умеренный</string>
+	<string name="elevation_profile_diff_level_hard">Сложный</string>
+	<string name="elevation_profile_ascent">Подъём</string>
+	<string name="elevation_profile_descent">Спуск</string>
+	<string name="elevation_profile_minaltitude">Мин. высота</string>
+	<string name="elevation_profile_maxaltitude">Макс. высота</string>
+	<string name="elevation_profile_m">м</string>
+	<string name="elevation_profile_difficulty">Сложность</string>
+	<string name="elevation_profile_distance">Расст.:</string>
+	<string name="elevation_profile_km">км</string>
+	<string name="elevation_profile_time">В пути:</string>
+	<string name="elevation_profile_hours">ч.</string>
+	<string name="elevation_profile_minutes">мин</string>
+	<!-- hide the full screen banner and continue working with the app -->
+	<string name="hide_screen_map_update">Скрыть и продолжить работу</string>
+	<string name="view_on_map_downloaded_error">Этот путеводитель был удалён с устройства</string>
+	<string name="subscription">Подписка</string>
 	<string name="sponsored_partner1_action">Аутлеты</string>
 	<string name="sponsored_partner3_action">Купон</string>
 	<string name="sponsored_partner18_action">Лайфхак</string>
@@ -1881,7 +1905,7 @@
 	<string name="type.amenity.place_of_worship.taoist">Храм</string>
 	<string name="type.amenity.police">Полиция</string>
 	<string name="type.amenity.post_box">Почтовый ящик</string>
-	<string name="type.amenity.post_office">Почта</string>
+	<string name="type.amenity.post_office">Почтовое отделение</string>
 	<string name="type.amenity.prison">Тюрьма</string>
 	<string name="type.amenity.pub">Паб</string>
 	<string name="type.amenity.public_bookcase">Книжный шкаф</string>

@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "さらに詳しく";
 
-"placepage_more_reviews_button" = "More Reviews";
+"placepage_more_reviews_button" = "レビューを更に表示";
 
 "book_button" = "予約";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "ガイドが正常にダウンロードされました";
 
-"download_guides" = "ガイドをダウンロード";
+/* as few symbols as possible */
+"download_guides" = "ガイドを検索";
 
 "guides_groups_cached" = "ガイドをダウンロード";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "2万以上のガイド＆トレイル";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000+の\nガイド&トレイル";
 
-"all_pass_subscription_message_subtitle" = "オフラインで利用できる都市と戸外のルートが無制限にダウンロードできます";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "都市とアウトドアのルートの<b>オフラインモード</b>への<b>無制限のダウンロード</b>";
 
-"all_pass_subscription_message_title_2" = "700以上の都市と100以上の国";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "インタラクティブな\n高度情報";
 
-"all_pass_subscription_message_subtitle_2" = "いつでも旅の計画ができます";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "各トレイルには<b>ルートの高度と基本情報</b>が含まれています";
 
-"all_pass_subscription_message_title_3" = "ブックマークと、写真、そしてお薦め";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "ブックマーク、\n写真、そして\nおススメ";
 
-"all_pass_subscription_message_subtitle_3" = "これで都市やアウトドアの最も興味深い場所を見逃す事はありません。";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "これから旅する<b>ルートの詳細</b>";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "トポグラフィーレイヤーはこの地域ではまだ利用できません";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "難易度";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "イージー";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "ノーマル";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "ハード";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "上昇";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "下降";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "最小高度";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "最大高度";
 
-/* FIXME */
 "elevation_profile_m" = "m";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "難易度";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "距離：";
 
-/* FIXME */
-"elevation_profile_km" = "km";
+"elevation_profile_km" = "㎞";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "時間：";
 
-/* FIXME */
-"elevation_profile_hours" = "h.";
+"elevation_profile_hours" = "時間";
 
-/* FIXME */
-"elevation_profile_minutes" = "min";
+"elevation_profile_minutes" = "分";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "閉じて継続";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "このガイドはこの機器から削除されました";
+
+"subscription" = "サブスクリプション";
 
 "sponsored_partner1_action" = "Outlets";
 

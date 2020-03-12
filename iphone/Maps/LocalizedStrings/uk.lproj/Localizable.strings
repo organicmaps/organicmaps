@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "Ще";
 
-"placepage_more_reviews_button" = "More Reviews";
+"placepage_more_reviews_button" = "Ще відгуки";
 
 "book_button" = "Забронювати";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "Путівник успішно завантажено";
 
-"download_guides" = "Завантажити путівники";
+/* as few symbols as possible */
+"download_guides" = "Знайти путівники";
 
 "guides_groups_cached" = "Завантажені путівники";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "Понад 20 000 путівників і стежок";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000+\nпутівників\nі стежок";
 
-"all_pass_subscription_message_subtitle" = "Безлімітне завантаження офлайнових маршрутів для прогулянок містом і активного відпочинку";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>Безлімітне завантаження в офлайн</b> маршрутів для міста та активного відпочинку";
 
-"all_pass_subscription_message_title_2" = "Понад 700 міст і 100 країн";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "Інтерактивний\nпрофіль висот";
 
-"all_pass_subscription_message_subtitle_2" = "Для подорожей у будь-яку пору року";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "Всі стежки завантажуються <b>з висотами й основною інформацією про маршрут</b>";
 
-"all_pass_subscription_message_title_3" = "Мітки, фото та рекомендації";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "Вибрані\nмісця, фото\nта рекомендації";
 
-"all_pass_subscription_message_subtitle_3" = "Аби не проґавити найцікавіші місця в місті та на природі.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>Дізнайтеся все про маршрут</b>, за яким збираєтеся пройти";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "Лінії висот ще недоступні в цьому регіоні";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "Рівень складності";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "Простий";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "Помірний";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "Складний";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "Підйом";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "Спуск";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "Мін. висота";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "Макс. висота";
 
-/* FIXME */
-"elevation_profile_m" = "m";
+"elevation_profile_m" = "м";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "Складність";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "Відст.:";
 
-/* FIXME */
-"elevation_profile_km" = "km";
+"elevation_profile_km" = "км";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "Шлях:";
 
-/* FIXME */
-"elevation_profile_hours" = "h.";
+"elevation_profile_hours" = "год.";
 
-/* FIXME */
-"elevation_profile_minutes" = "min";
+"elevation_profile_minutes" = "хв";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "Приховати та поновити роботу";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "Цей путівник видалили з пристрою";
+
+"subscription" = "Передплата";
 
 "sponsored_partner1_action" = "Outlets";
 
@@ -3439,7 +3435,7 @@
 
 "type.amenity.post_box" = "Поштова скринька";
 
-"type.amenity.post_office" = "Пошта";
+"type.amenity.post_office" = "Поштове відділення";
 
 "type.amenity.prison" = "Prison";
 

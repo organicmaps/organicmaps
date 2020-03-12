@@ -889,6 +889,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Beschreibung</string>
 	<string name="placepage_more_button">Mehr</string>
+	<string name="placepage_more_reviews_button">Mehr Feedbacks</string>
 	<string name="book_button">Buchen</string>
 	<string name="placepage_call_button">Anruf</string>
 	<string name="placepage_edit_bookmark_button">Lesezeichen bearbeiten</string>
@@ -1352,7 +1353,8 @@
 	<string name="error_already_downloaded">Diese Liste wurde bereits heruntergeladen</string>
 	<string name="guides">Leitfaden</string>
 	<string name="guide_downloaded_title">Der Leitfaden wurde erfolgreich heruntergeladen</string>
-	<string name="download_guides">Leitfäden herunterladen</string>
+	<!-- as few symbols as possible -->
+	<string name="download_guides">Reiseführer suchen</string>
 	<string name="guides_groups_cached">Heruntergeladene Leitfäden</string>
 	<string name="subtitle_error_downloading_guide">Der Leitfaden wurde nicht heruntergeladen</string>
 	<string name="error_already_downloaded_guide">Dieser Leitfaden wurde bereits heruntergeladen</string>
@@ -1717,12 +1719,18 @@
 	<string name="new_onboarding_step5.3_button">Download Gratis</string>
 	<string name="new_onboarding_additional_steps_later_button">Später</string>
 	<string name="all_pass_subscription_header">KATALOGSUBSKRIPTION</string>
-	<string name="all_pass_subscription_message_title">20000+ Reiseführer und Wanderwege</string>
-	<string name="all_pass_subscription_message_subtitle">Unlimitiertes Herunterladen von Offline-Routen für Spaziergänge durch die Stadt und aktive Erholung</string>
-	<string name="all_pass_subscription_message_title_2">700+ Städte und 100+ Länder</string>
-	<string name="all_pass_subscription_message_subtitle_2">Für Reisen zu jeder Jahreszeit</string>
-	<string name="all_pass_subscription_message_title_3">Lesezeichen, Fotos und Empfehlungen</string>
-	<string name="all_pass_subscription_message_subtitle_3">Damit Sie die interessantesten Orte in der Stadt und im Freien nicht verpassen.</string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title">30000+\nReisführer\nund Wanderwege</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle"><b>Uneingeschränktes Downloaden</b> von Routen durch die Stadt und für aktive Erholung <b>offline</b></string>
+	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_2">Interaktiver\nHöhenprofil</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_2">Alle Wanderwege werden <b>с mit Höhen und Hauptinformationen über die Route angezeigt</b></string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_3">Lesezeichen\nFotos und\nEmpfehlungen</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_3"><b>Erfahren Sie alles über die Routen</b>, die Sie gehen möchten</string>
 	<string name="sightseeing_subscription_header_subscription">Reiseführer-Subskription</string>
 	<string name="sightseeing_subscription_message">700+ Städte und 100+ Länder</string>
 	<string name="sightseeing_subscription_message_2">Offline verfügbar</string>
@@ -1757,8 +1765,25 @@
 	<string name="tips_map_layers_message_countour">Der Topographie-Layer hilft Ihnen Ihre Reise in die Natur zu planen und sich in der Gegen zurechtzufinden</string>
 	<string name="isolines_activation_error_dialog">Um den Topographie-Layer benutzen zu können, aktualisieren oder laden Sie die Karte der benötigten Gegend herunter</string>
 	<string name="isolines_location_error_dialog">Topographie-Layer sind in dieser Region noch nicht verfügbar</string>
-
-	<!-- SECTION:  Partners  -->
+	<string name="elevation_profile_diff_level">Komplexitätsniveau</string>
+	<string name="elevation_profile_diff_level_easy">Leicht</string>
+	<string name="elevation_profile_diff_level_moderate">Mittel</string>
+	<string name="elevation_profile_diff_level_hard">Schwer</string>
+	<string name="elevation_profile_ascent">Bergauf</string>
+	<string name="elevation_profile_descent">Bergab</string>
+	<string name="elevation_profile_minaltitude">Min. Höhe</string>
+	<string name="elevation_profile_maxaltitude">Max. Höhe</string>
+	<string name="elevation_profile_m">m</string>
+	<string name="elevation_profile_difficulty">Schwierigkeitsgrad</string>
+	<string name="elevation_profile_distance">Entf.:</string>
+	<string name="elevation_profile_km">km</string>
+	<string name="elevation_profile_time">Dauer:</string>
+	<string name="elevation_profile_hours">St.</string>
+	<string name="elevation_profile_minutes">Min</string>
+	<!-- hide the full screen banner and continue working with the app -->
+	<string name="hide_screen_map_update">Ausblenden und Fortsetzen</string>
+	<string name="view_on_map_downloaded_error">Dieser Reiseführer wurde vom Gerät gelöscht</string>
+	<string name="subscription">Abo</string>
 	<string name="sponsored_partner2_action">Rabatt</string>
 
 	<!-- SECTION: Types -->
@@ -1832,6 +1857,7 @@
 	<string name="type.amenity.place_of_worship.taoist">Tempel</string>
 	<string name="type.amenity.police">Polizeistation</string>
 	<string name="type.amenity.post_box">Briefkasten</string>
+	<string name="type.amenity.post_office">Poststelle</string>
 	<string name="type.amenity.pub">Kneipe</string>
 	<string name="type.amenity.public_bookcase">Bücherschrank</string>
 	<string name="type.amenity.recycling">Recyclinghof</string>

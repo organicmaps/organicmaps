@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "Mehr";
 
-"placepage_more_reviews_button" = "More Reviews";
+"placepage_more_reviews_button" = "Mehr Feedbacks";
 
 "book_button" = "Buchen";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "Der Leitfaden wurde erfolgreich heruntergeladen";
 
-"download_guides" = "Leitfäden herunterladen";
+/* as few symbols as possible */
+"download_guides" = "Reiseführer suchen";
 
 "guides_groups_cached" = "Heruntergeladene Leitfäden";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "20000+ Reiseführer und Wanderwege";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000+\nReisführer\nund Wanderwege";
 
-"all_pass_subscription_message_subtitle" = "Unlimitiertes Herunterladen von Offline-Routen für Spaziergänge durch die Stadt und aktive Erholung";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>Uneingeschränktes Downloaden</b> von Routen durch die Stadt und für aktive Erholung <b>offline</b>";
 
-"all_pass_subscription_message_title_2" = "700+ Städte und 100+ Länder";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "Interaktiver\nHöhenprofil";
 
-"all_pass_subscription_message_subtitle_2" = "Für Reisen zu jeder Jahreszeit";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "Alle Wanderwege werden <b>с mit Höhen und Hauptinformationen über die Route angezeigt</b>";
 
-"all_pass_subscription_message_title_3" = "Lesezeichen, Fotos und Empfehlungen";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "Lesezeichen\nFotos und\nEmpfehlungen";
 
-"all_pass_subscription_message_subtitle_3" = "Damit Sie die interessantesten Orte in der Stadt und im Freien nicht verpassen.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>Erfahren Sie alles über die Routen</b>, die Sie gehen möchten";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "Topographie-Layer sind in dieser Region noch nicht verfügbar";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "Komplexitätsniveau";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "Leicht";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "Mittel";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "Schwer";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "Bergauf";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "Bergab";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "Min. Höhe";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "Max. Höhe";
 
-/* FIXME */
 "elevation_profile_m" = "m";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "Schwierigkeitsgrad";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "Entf.:";
 
-/* FIXME */
 "elevation_profile_km" = "km";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "Dauer:";
 
-/* FIXME */
-"elevation_profile_hours" = "h.";
+"elevation_profile_hours" = "St.";
 
-/* FIXME */
-"elevation_profile_minutes" = "min";
+"elevation_profile_minutes" = "Min";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "Ausblenden und Fortsetzen";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "Dieser Reiseführer wurde vom Gerät gelöscht";
+
+"subscription" = "Abo";
 
 "sponsored_partner1_action" = "Outlets";
 
@@ -3439,7 +3435,7 @@
 
 "type.amenity.post_box" = "Briefkasten";
 
-"type.amenity.post_office" = "Post";
+"type.amenity.post_office" = "Poststelle";
 
 "type.amenity.prison" = "Prison";
 

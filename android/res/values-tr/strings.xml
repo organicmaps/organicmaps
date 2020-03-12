@@ -887,6 +887,7 @@
 	<string name="minute">dk</string>
 	<string name="placepage_place_description">Açıklama</string>
 	<string name="placepage_more_button">Diğer</string>
+	<string name="placepage_more_reviews_button">Diğer yorumlar</string>
 	<string name="book_button">Rezervasyon</string>
 	<string name="placepage_call_button">Çağrı</string>
 	<string name="placepage_edit_bookmark_button">Yer İmini Düzenle</string>
@@ -1349,7 +1350,8 @@
 	<string name="error_already_downloaded">Bu liste zaten indirildi</string>
 	<string name="guides">El kitapları</string>
 	<string name="guide_downloaded_title">El kitabı başarılı bir şekilde indirildi</string>
-	<string name="download_guides">El kitaplarını indir</string>
+	<!-- as few symbols as possible -->
+	<string name="download_guides">Yol rehberlerini bul</string>
 	<string name="guides_groups_cached">İndirilen el kitapları</string>
 	<string name="subtitle_error_downloading_guide">El kitabı indirilmedi</string>
 	<string name="error_already_downloaded_guide">Bu el kitabı zaten indirildi</string>
@@ -1714,12 +1716,18 @@
 	<string name="new_onboarding_step5.3_button">Ücretsiz indir</string>
 	<string name="new_onboarding_additional_steps_later_button">Sonra</string>
 	<string name="all_pass_subscription_header">KATALOĞA ABONELİK</string>
-	<string name="all_pass_subscription_message_title">20.000+ rehber ve güzergah</string>
-	<string name="all_pass_subscription_message_subtitle">Sınırsız şehir ve açık hava güzergah indirmeleri çevrimdışı kullanılabilir</string>
-	<string name="all_pass_subscription_message_title_2">700+ şehir ve 100+ ülke</string>
-	<string name="all_pass_subscription_message_subtitle_2">Yolculuklarını yılın istediğin zamanında planla</string>
-	<string name="all_pass_subscription_message_title_3">Yer imleri, fotoğraflar ve öneriler</string>
-	<string name="all_pass_subscription_message_subtitle_3">Böylece şehirdeki ve dışarıdaki ilginç yerleri kaçırmazsınız.</string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title">30000+\nrehberler\nve yollar</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle"><b>Sınırsız çevrimdışı indirme</b> şehir ve açık hava etkinlikleri için yollar</string>
+	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_2">Etkileşimli\nyükseklik profili</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_2">Tüm yollar <b>yükseklik ve temel rota bilgileri ile</b> yüklenir</string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_3">Favori\nyerler, fotolar\nve öneriler</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_3">Gitmek üzere olduğunuz <b>rota hakkında her şeyi öğrenin</b></string>
 	<string name="sightseeing_subscription_header_subscription">Rehber Aboneliği</string>
 	<string name="sightseeing_subscription_message">700+ şehir ve 100+ ülke</string>
 	<string name="sightseeing_subscription_message_2">Çevrimdışı kullanılabilir</string>
@@ -1754,6 +1762,25 @@
 	<string name="tips_map_layers_message_countour">Yükseklik çizgileri, doğaya bir gezi planlamanıza ve arazide kaybolmamanıza yardımcı olacaktır</string>
 	<string name="isolines_activation_error_dialog">Yükseklik çizgilerini kullanmak için, istediğiniz arazinin haritasını güncelleyin veya indirin</string>
 	<string name="isolines_location_error_dialog">Bu bölgede henüz yükseklik çizgileri mevcut değil</string>
+	<string name="elevation_profile_diff_level">Zorluk seviyesi</string>
+	<string name="elevation_profile_diff_level_easy">Kolay</string>
+	<string name="elevation_profile_diff_level_moderate">Orta</string>
+	<string name="elevation_profile_diff_level_hard">Karmaşık</string>
+	<string name="elevation_profile_ascent">Tırmanış</string>
+	<string name="elevation_profile_descent">İniş</string>
+	<string name="elevation_profile_minaltitude">Min. rakım</string>
+	<string name="elevation_profile_maxaltitude">Maks. rakım</string>
+	<string name="elevation_profile_m">m</string>
+	<string name="elevation_profile_difficulty">Zorluk</string>
+	<string name="elevation_profile_distance">Mesafe:</string>
+	<string name="elevation_profile_km">km</string>
+	<string name="elevation_profile_time">Süre:</string>
+	<string name="elevation_profile_hours">sa.</string>
+	<string name="elevation_profile_minutes">dk.</string>
+	<!-- hide the full screen banner and continue working with the app -->
+	<string name="hide_screen_map_update">Gizle ve devam et</string>
+	<string name="view_on_map_downloaded_error">Bu rehber cihazdan kaldırıldı</string>
+	<string name="subscription">Abone</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>
@@ -1828,7 +1855,7 @@
 	<string name="type.amenity.place_of_worship.taoist">Tapınak</string>
 	<string name="type.amenity.police">Polis</string>
 	<string name="type.amenity.post_box">Posta kutusu</string>
-	<string name="type.amenity.post_office">Posta</string>
+	<string name="type.amenity.post_office">Postane</string>
 	<string name="type.amenity.public_bookcase">Kütüphane</string>
 	<string name="type.amenity.recycling">Geri dönüşüm merkezi</string>
 	<string name="type.amenity.restaurant">Restoran</string>

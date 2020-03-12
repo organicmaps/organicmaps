@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "المزيد";
 
-"placepage_more_reviews_button" = "More Reviews";
+"placepage_more_reviews_button" = "المزيد من المراجعات";
 
 "book_button" = "حجز";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "تم تنزيل الدليل بنجاح";
 
-"download_guides" = "تنزيل الأدلة";
+/* as few symbols as possible */
+"download_guides" = "بحث عن أدلة";
 
 "guides_groups_cached" = "الأدلة التي تم تنزيلها";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "أكثر من 20000 دليل ومسار";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000+\nأدلة ومسارات";
 
-"all_pass_subscription_message_subtitle" = "تحميل غير محدود لطرق المدينة والمناطق الخارجية بدون اتصال";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>تحميلات غير محدودة</b> للمدينة والأماكن الخارجية <b>إلى الوضع الغير متصل</b>";
 
-"all_pass_subscription_message_title_2" = "أكثر من 700 مدينة و 100 دولة";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "ملف تفاعلي لتحديد\nالارتفاع";
 
-"all_pass_subscription_message_subtitle_2" = "خطط لرحلاتك في أي وقت من السنة";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "يحتوي كل مسار على <b>تحديد الارتفاع ومعلومات أساسية عن الطريق</b>";
 
-"all_pass_subscription_message_title_3" = "الإشارات المرجعية، والصور والتوصيات";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "إشارات مرجعية\nوصور و\nتوصيات";
 
-"all_pass_subscription_message_subtitle_3" = "لذا، لا تفوت الأماكن الأكثر إثارة في المدينة وفي الهواء الطلق.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>تعلم كل شيء عن المسار</b> الذي ستسلكه";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "الطبقة الطبوغرافية ليست متاحة بعد في هذه المنطقة";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "مستوى الصعوبة";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "سهل";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "معتدل";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "صعب";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "تصاعدي";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "تنازلي";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "الحد الأدنى للارتفاع";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "الحد الأقصى للارتفاع";
 
-/* FIXME */
-"elevation_profile_m" = "m";
+"elevation_profile_m" = "م";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "درجة الصعوبة";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "المسافة:";
 
-/* FIXME */
-"elevation_profile_km" = "km";
+"elevation_profile_km" = "كم";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "مدة:";
 
-/* FIXME */
-"elevation_profile_hours" = "h.";
+"elevation_profile_hours" = "ساعة";
 
-/* FIXME */
-"elevation_profile_minutes" = "min";
+"elevation_profile_minutes" = "دقيقة";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "إخفاء ومتابعة";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "تم حذف هذا الدليل من هذا الجهاز";
+
+"subscription" = "الاشتراك";
 
 "sponsored_partner1_action" = "Outlets";
 
@@ -3439,7 +3435,7 @@
 
 "type.amenity.post_box" = "صندوق بريد";
 
-"type.amenity.post_office" = "بريد";
+"type.amenity.post_office" = "مكتب بريد";
 
 "type.amenity.prison" = "Prison";
 

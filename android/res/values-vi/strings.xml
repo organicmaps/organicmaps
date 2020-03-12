@@ -875,6 +875,7 @@
 	<string name="minute">phút</string>
 	<string name="placepage_place_description">Mô tả</string>
 	<string name="placepage_more_button">Bổ sung</string>
+	<string name="placepage_more_reviews_button">Thêm nhận xét</string>
 	<string name="book_button">Đặt trước</string>
 	<string name="placepage_call_button">Gọi</string>
 	<string name="placepage_edit_bookmark_button">Sửa Dấu Trang</string>
@@ -1334,7 +1335,8 @@
 	<string name="error_already_downloaded">Danh sách này đã được tải về</string>
 	<string name="guides">Hướng dẫn</string>
 	<string name="guide_downloaded_title">Hướng dẫn đã được tải xuống thành công</string>
-	<string name="download_guides">Tải xuống hướng dẫn</string>
+	<!-- as few symbols as possible -->
+	<string name="download_guides">Tìm hướng dẫn</string>
 	<string name="guides_groups_cached">Đã tải xuống hướng dẫn</string>
 	<string name="subtitle_error_downloading_guide">Hướng dẫn đã không được tải xuống</string>
 	<string name="error_already_downloaded_guide">Hướng dẫn này đã được tải xuống</string>
@@ -1699,12 +1701,18 @@
 	<string name="new_onboarding_step5.3_button">Tải miễn phí</string>
 	<string name="new_onboarding_additional_steps_later_button">Không phải bây giờ</string>
 	<string name="all_pass_subscription_header">ĐĂNG KÝ DANH SÁCH</string>
-	<string name="all_pass_subscription_message_title">Hơn 20000 hướng dẫn và đường mòn</string>
-	<string name="all_pass_subscription_message_subtitle">Tải xuống không giới hạn các tuyến đường ngoại tuyến trong thành phố và những hoạt động ngoài trời</string>
-	<string name="all_pass_subscription_message_title_2">Hơn 700 thành phố và hơn 100 quốc gia</string>
-	<string name="all_pass_subscription_message_subtitle_2">Để du lịch vào bất cứ thời gian nào trong năm</string>
-	<string name="all_pass_subscription_message_title_3">Đánh dấu, ảnh và các khuyến nghị</string>
-	<string name="all_pass_subscription_message_subtitle_3">Để không bỏ qua những địa điểm hấp dẫn nhất trong thành phố và ngoài tự nhiên.</string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title">30000+\nhướng dẫn\nvà đường mòn</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle"><b>Tải xuống không giới hạn</b> các tuyến di chuyển trong thành phố và cho các hoạt động ngoài trời sang <b>chế độ ngoại tuyến</b></string>
+	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_2">Hồ sơ độ cao\ntương tác</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_2">Tất cả các đường mòn đang được tải có <b>bao gồm độ cao và thông tin chính về tuyến di chuyển</b></string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_3">Lựa chọn\nđ.điểm, h.ảnh\nvà các đề xuất</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_3"><b>Tìm hiểu về tất cả các tuyến</b> mà bạn dự định đi qua</string>
 	<string name="sightseeing_subscription_header_subscription">Đăng ký hướng dẫn</string>
 	<string name="sightseeing_subscription_message">Hơn 700 thành phố và hơn 100 quốc gia</string>
 	<string name="sightseeing_subscription_message_2">Truy cập ngoại tuyến</string>
@@ -1739,6 +1747,25 @@
 	<string name="tips_map_layers_message_countour">Đường độ cao giúp lên kế hoạch du lịch hòa mình với thiên nhiên và không bị lạc khi di chuyển</string>
 	<string name="isolines_activation_error_dialog">Để sử dụng các đường chỉ độ cao, hãy cập nhật hoặc tải xuống bản đồ của khu vực bạn mong muốn</string>
 	<string name="isolines_location_error_dialog">Đường hiển thị độ cao hiện chưa khả dụng tại khu vực này</string>
+	<string name="elevation_profile_diff_level">Mức độ phức tạp</string>
+	<string name="elevation_profile_diff_level_easy">Dễ</string>
+	<string name="elevation_profile_diff_level_moderate">Trung bình</string>
+	<string name="elevation_profile_diff_level_hard">Khó</string>
+	<string name="elevation_profile_ascent">Đi lên</string>
+	<string name="elevation_profile_descent">Đi xuống</string>
+	<string name="elevation_profile_minaltitude">Độ cao tối thiểu</string>
+	<string name="elevation_profile_maxaltitude">Độ cao tối đa</string>
+	<string name="elevation_profile_m">m</string>
+	<string name="elevation_profile_difficulty">Độ khó</string>
+	<string name="elevation_profile_distance">Khoảng cách</string>
+	<string name="elevation_profile_km">km</string>
+	<string name="elevation_profile_time">Giờ:</string>
+	<string name="elevation_profile_hours">h.</string>
+	<string name="elevation_profile_minutes">ph</string>
+	<!-- hide the full screen banner and continue working with the app -->
+	<string name="hide_screen_map_update">Thu gọn và tiếp tục thao tác với ứng dụng</string>
+	<string name="view_on_map_downloaded_error">Hướng dẫn này đã được xóa khỏi thiết bị</string>
+	<string name="subscription">Đăng ký</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>
@@ -1815,7 +1842,7 @@
 	<string name="type.amenity.place_of_worship.taoist">Đền</string>
 	<string name="type.amenity.police">Cảnh sát</string>
 	<string name="type.amenity.post_box">Hòm thư</string>
-	<string name="type.amenity.post_office">Bưu điện</string>
+	<string name="type.amenity.post_office">Bưu cục</string>
 	<string name="type.amenity.pub">Quán rượu</string>
 	<string name="type.amenity.public_bookcase">Kệ sách</string>
 	<string name="type.amenity.recycling">Trung tâm tái sinh</string>

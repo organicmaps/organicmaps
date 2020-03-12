@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "بیشتر";
 
-"placepage_more_reviews_button" = "بازخورد های بیشتر";
+"placepage_more_reviews_button" = "نقدهای دیگر";
 
 "book_button" = "رزرو";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "راهنمای با موفقیت دانلود شده است";
 
-"download_guides" = "دانلود راهنما";
+/* as few symbols as possible */
+"download_guides" = "جستجوی راهنما";
 
 "guides_groups_cached" = "راهنما‌های دانلود شده";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "20000+ راهنما و مسیرهای پیادهروی";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000+\nراهنما و مسیرها";
 
-"all_pass_subscription_message_subtitle" = "دانلود نامحدود مسیر شهرها و فضاهای باز موجود آفلاین";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>دانلود نامحدود</b>مسیرهای شهری و فضای باز<b>در حالت آفلاین</b>";
 
-"all_pass_subscription_message_title_2" = "700+ شهر و 100+ کشور";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "پروفایل ارتفاع\nتعاملی";
 
-"all_pass_subscription_message_subtitle_2" = "سفرهای خود را در هر زمانی از سال برنامهریزی کنید";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "هر مسیر شامل<b>ارتفاع و اطلاعات اصلی مسیر است</b>";
 
-"all_pass_subscription_message_title_3" = "نشانه ها، عکس ها و پیشنهاد ها";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "نشانه ها،\nتصاویر و\nتوصیهها";
 
-"all_pass_subscription_message_subtitle_3" = "در نتیجهدلربا ترین مکان های شهری و فضای باز را از دست نمی دهید.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>دانستن همه چیز درباره مسیری</b>که قرار است طی کنید";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "لایه توپوگرافی هنوز برای این منطقه در دسترس نیست";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "سطح دشواری";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "آسان";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "متوسط";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "دشوار";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "بالا رفتن";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "پایین آمدن";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "کمینه ارتفاع";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "بیشینه ارتفاع";
 
-/* FIXME */
-"elevation_profile_m" = "m";
+"elevation_profile_m" = "متر";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "دشواری";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "مسافت";
 
-/* FIXME */
-"elevation_profile_km" = "km";
+"elevation_profile_km" = "کیلومتر";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "زمان:";
 
-/* FIXME */
-"elevation_profile_hours" = "h.";
+"elevation_profile_hours" = "ساعت";
 
-/* FIXME */
-"elevation_profile_minutes" = "min";
+"elevation_profile_minutes" = "دقیقه";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "پنهان کردن و ادامه دادن";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "راهنما از این دستگاه پاک شده است";
+
+"subscription" = "عضویت[[ Partners ]]";
 
 "sponsored_partner1_action" = "Outlets";
 
@@ -3439,7 +3435,7 @@
 
 "type.amenity.post_box" = "صندوق پست";
 
-"type.amenity.post_office" = "پست";
+"type.amenity.post_office" = "دفتر پست";
 
 "type.amenity.prison" = "Prison";
 

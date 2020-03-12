@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "Περισσότερα";
 
-"placepage_more_reviews_button" = "Περισσότερες κριτικές";
+"placepage_more_reviews_button" = "Περισσότερα σχόλια";
 
 "book_button" = "Book";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "Η λήψη του εγχειριδίου πραγματοποιήθηκε με επιτυχία";
 
-"download_guides" = "Κατεβάστε τα εγχειρίδια";
+/* as few symbols as possible */
+"download_guides" = "Έυρεση οδηγών";
 
 "guides_groups_cached" = "Κατεβασμένα εγχειρίδια";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "20.000+ οδηγών και μονοπατιών";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30.000+\nοδηγών\nκαι μονοπατιών";
 
-"all_pass_subscription_message_subtitle" = "Απεριόριστες λήψεις διαδρομών χωρίς σύνδεση για περιπάτους στην πόλη και υπαίθριες δραστηριότητες";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>Απεριόριστη λήψη εκτός σύνδεσης</b> διαδρομές για την πόλη και υπαίθριες δραστηριότητες";
 
-"all_pass_subscription_message_title_2" = "700+ πόλεις και 100+ χώρες";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "Διαδραστικό\nπροφίλ υψόμετρου";
 
-"all_pass_subscription_message_subtitle_2" = "Για ταξίδια σε οποιαδήποτε εποχή του χρόνου";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "Όλα τα μονοπάτια φορτώνονται <b>με υψόμετρα και βασικές πληροφορίες διαδρομής</b>";
 
-"all_pass_subscription_message_title_3" = "Αγαπημένα, φωτογραφίες και συστάσεις";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "Αγαπημένα,\nφωτογραφίες\nκαι συστάσεις";
 
-"all_pass_subscription_message_subtitle_3" = "Για να μην χάσετε τα πιο ενδιαφέροντα σημεία και τοποθεσίες στην πόλη και στη φύση.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>Μάθετε τα πάντα για τη διαδρομή</b> που θα ακολουθήσετε";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "Τα τοπογραφικά στρώματα δεν είναι ακόμα διαθέσιμα σε αυτή την περιοχή";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "Επίπεδο δυσκολίας";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "Εύκολο";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "Μέτριο";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "Δύσκολο";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "Άνοδος";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "Κάθοδος";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "Ελ. υψόμετρο";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "Μέγ. υψόμετρο";
 
-/* FIXME */
-"elevation_profile_m" = "m";
+"elevation_profile_m" = "μ";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "Δυσκολία";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "Απόστ.:";
 
-/* FIXME */
-"elevation_profile_km" = "km";
+"elevation_profile_km" = "χλμ";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "Διαρκ:";
 
-/* FIXME */
-"elevation_profile_hours" = "h.";
+"elevation_profile_hours" = "ω.";
 
-/* FIXME */
-"elevation_profile_minutes" = "min";
+"elevation_profile_minutes" = "λ.";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "Απόκρυψη και συνέχεια εργασίας";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "Αυτός ο ταξιδιωτικός οδηγός έχει αφαιρεθεί από τη συσκευή";
+
+"subscription" = "Συνδρομή";
 
 "sponsored_partner1_action" = "Outlets";
 

@@ -1500,7 +1500,7 @@
 
 "placepage_more_button" = "Viac";
 
-"placepage_more_reviews_button" = "More Reviews";
+"placepage_more_reviews_button" = "Ďalšie recenzie";
 
 "book_button" = "Rezervovať";
 
@@ -2383,7 +2383,8 @@
 
 "guide_downloaded_title" = "Príručka bola úspešne stiahnutá";
 
-"download_guides" = "Stiahnite si príručky";
+/* as few symbols as possible */
+"download_guides" = "Vyhľadať sprievodcov";
 
 "guides_groups_cached" = "Stiahnuté príručky";
 
@@ -3119,17 +3120,23 @@
 /* do not translate */
 "all_pass_subscription_subheader" = "City + Outdoor Pass";
 
-"all_pass_subscription_message_title" = "20000+ sprievodcov a trás";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title" = "30000+\nsprievodcov\na tratí";
 
-"all_pass_subscription_message_subtitle" = "Neobmedzené offline sťahovanie mestských a vonkajších trás";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle" = "<b>Neobmedzené sťahovanie</b> mestských a vonkajších trás <b>do režimu offline</b>";
 
-"all_pass_subscription_message_title_2" = "700+ miest a 100+ krajín";
+/* \n - for a break between lines. Max. 17 characters per 1 line. */
+"all_pass_subscription_message_title_2" = "Interaktívny\nvýškový profil";
 
-"all_pass_subscription_message_subtitle_2" = "Naplánujte si svoje cesty kedykoľvek v priebehu roka";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_2" = "Každá trasa obsahuje <b>prevýšenie a základné informácie o trase</b>";
 
-"all_pass_subscription_message_title_3" = "Záložky, fotografie a odporúčania";
+/* \n - for a break between lines. Max. 15 characters per 1 line. */
+"all_pass_subscription_message_title_3" = "Záložky,\nfotky a\nodporúčania";
 
-"all_pass_subscription_message_subtitle_3" = "Nenechajte si teda ujsť najzaujímavejšie miesta v meste a v prírode.";
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_3" = "<b>Dozviete sa všetko o trase</b>, ktorou sa vydáte";
 
 /* do not translate */
 "sightseeing_subscription_header_sightseeing" = "City Pass";
@@ -3200,53 +3207,42 @@
 
 "isolines_location_error_dialog" = "Topografická vrstva ešte nie je v tejto oblasti k dispozícii";
 
-/* FIXME */
-"elevation_profile_diff_level" = "Difficulty level";
+"elevation_profile_diff_level" = "Level obtiažnosti";
 
-/* FIXME */
-"elevation_profile_diff_level_easy" = "Easy";
+"elevation_profile_diff_level_easy" = "Jednoduchá";
 
-/* FIXME */
-"elevation_profile_diff_level_moderate" = "Moderate";
+"elevation_profile_diff_level_moderate" = "Mierna";
 
-/* FIXME */
-"elevation_profile_diff_level_hard" = "Hard";
+"elevation_profile_diff_level_hard" = "Náročná";
 
-/* FIXME */
-"elevation_profile_ascent" = "Ascent";
+"elevation_profile_ascent" = "Výstup";
 
-/* FIXME */
-"elevation_profile_descent" = "Descent";
+"elevation_profile_descent" = "Zostup";
 
-/* FIXME */
-"elevation_profile_minaltitude" = "Min. altitude";
+"elevation_profile_minaltitude" = "Min. nadmorská výška";
 
-/* FIXME */
-"elevation_profile_maxaltitude" = "Max. altitude";
+"elevation_profile_maxaltitude" = "Max. nadmorská výška";
 
-/* FIXME */
 "elevation_profile_m" = "m";
 
-/* FIXME */
-"elevation_profile_difficulty" = "Difficulty";
+"elevation_profile_difficulty" = "Obtiažnosť";
 
-/* FIXME */
-"elevation_profile_distance" = "Dist.:";
+"elevation_profile_distance" = "Vzdial.:";
 
-/* FIXME */
 "elevation_profile_km" = "km";
 
-/* FIXME */
-"elevation_profile_time" = "Time:";
+"elevation_profile_time" = "Čas:";
 
-/* FIXME */
 "elevation_profile_hours" = "h.";
 
-/* FIXME */
 "elevation_profile_minutes" = "min";
 
+/* hide the full screen banner and continue working with the app */
+"hide_screen_map_update" = "Skryť a pokračovať";
 
-/**********  Partners  **********/
+"view_on_map_downloaded_error" = "Tento sprievodca bol z tohto zariadenia odstránený";
+
+"subscription" = "Predplatné";
 
 "sponsored_partner1_action" = "Outlets";
 

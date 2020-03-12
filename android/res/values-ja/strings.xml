@@ -875,6 +875,7 @@
 	<string name="minute">分</string>
 	<string name="placepage_place_description">説明</string>
 	<string name="placepage_more_button">さらに詳しく</string>
+	<string name="placepage_more_reviews_button">レビューを更に表示</string>
 	<string name="book_button">予約</string>
 	<string name="placepage_call_button">コール</string>
 	<string name="placepage_edit_bookmark_button">ブックマークを編集</string>
@@ -1337,7 +1338,8 @@
 	<string name="error_already_downloaded">このリストは既にダウンロード済みです</string>
 	<string name="guides">ガイド</string>
 	<string name="guide_downloaded_title">ガイドが正常にダウンロードされました</string>
-	<string name="download_guides">ガイドをダウンロード</string>
+	<!-- as few symbols as possible -->
+	<string name="download_guides">ガイドを検索</string>
 	<string name="guides_groups_cached">ガイドをダウンロード</string>
 	<string name="subtitle_error_downloading_guide">ガイドがダウンロードされませんでした</string>
 	<string name="error_already_downloaded_guide">このガイドはすでにダウンロードされています</string>
@@ -1702,12 +1704,18 @@
 	<string name="new_onboarding_step5.3_button">無料ダウンロード</string>
 	<string name="new_onboarding_additional_steps_later_button">後で</string>
 	<string name="all_pass_subscription_header">カタログにサブスクライブ</string>
-	<string name="all_pass_subscription_message_title">2万以上のガイド＆トレイル</string>
-	<string name="all_pass_subscription_message_subtitle">オフラインで利用できる都市と戸外のルートが無制限にダウンロードできます</string>
-	<string name="all_pass_subscription_message_title_2">700以上の都市と100以上の国</string>
-	<string name="all_pass_subscription_message_subtitle_2">いつでも旅の計画ができます</string>
-	<string name="all_pass_subscription_message_title_3">ブックマークと、写真、そしてお薦め</string>
-	<string name="all_pass_subscription_message_subtitle_3">これで都市やアウトドアの最も興味深い場所を見逃す事はありません。</string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title">30000+の\nガイド&amp;トレイル</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle">都市とアウトドアのルートの<b>オフラインモード</b>への<b>無制限のダウンロード</b></string>
+	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_2">インタラクティブな\n高度情報</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_2">各トレイルには<b>ルートの高度と基本情報</b>が含まれています</string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_3">ブックマーク、\n写真、そして\nおススメ</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_3">これから旅する<b>ルートの詳細</b></string>
 	<string name="sightseeing_subscription_header_subscription">ガイドのサブスクリプション</string>
 	<string name="sightseeing_subscription_message">700以上の都市と100以上の国</string>
 	<string name="sightseeing_subscription_message_2">オフラインで利用可能</string>
@@ -1742,6 +1750,25 @@
 	<string name="tips_map_layers_message_countour">自然の旅で訪れる地域を全てを把握しながら計画を立て楽しみましょう</string>
 	<string name="isolines_activation_error_dialog">トポグラフィーレイヤーを有効化して使用するには、このエリアのマップを更新もしくはダウンロードしてください</string>
 	<string name="isolines_location_error_dialog">トポグラフィーレイヤーはこの地域ではまだ利用できません</string>
+	<string name="elevation_profile_diff_level">難易度</string>
+	<string name="elevation_profile_diff_level_easy">イージー</string>
+	<string name="elevation_profile_diff_level_moderate">ノーマル</string>
+	<string name="elevation_profile_diff_level_hard">ハード</string>
+	<string name="elevation_profile_ascent">上昇</string>
+	<string name="elevation_profile_descent">下降</string>
+	<string name="elevation_profile_minaltitude">最小高度</string>
+	<string name="elevation_profile_maxaltitude">最大高度</string>
+	<string name="elevation_profile_m">m</string>
+	<string name="elevation_profile_difficulty">難易度</string>
+	<string name="elevation_profile_distance">距離：</string>
+	<string name="elevation_profile_km">㎞</string>
+	<string name="elevation_profile_time">時間：</string>
+	<string name="elevation_profile_hours">時間</string>
+	<string name="elevation_profile_minutes">分</string>
+	<!-- hide the full screen banner and continue working with the app -->
+	<string name="hide_screen_map_update">閉じて継続</string>
+	<string name="view_on_map_downloaded_error">このガイドはこの機器から削除されました</string>
+	<string name="subscription">サブスクリプション</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

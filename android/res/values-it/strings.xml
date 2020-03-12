@@ -881,6 +881,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Descrizione</string>
 	<string name="placepage_more_button">Altro</string>
+	<string name="placepage_more_reviews_button">Altre recensioni</string>
 	<string name="book_button">Prenota</string>
 	<string name="placepage_call_button">Chiama</string>
 	<string name="placepage_edit_bookmark_button">Modifica segnalibro</string>
@@ -1344,7 +1345,8 @@
 	<string name="error_already_downloaded">Questa lista è già stata scaricata</string>
 	<string name="guides">Guide</string>
 	<string name="guide_downloaded_title">La guida è stata scaricata correttamente</string>
-	<string name="download_guides">Scarica le guide</string>
+	<!-- as few symbols as possible -->
+	<string name="download_guides">Trova guide</string>
 	<string name="guides_groups_cached">Guide scaricate</string>
 	<string name="subtitle_error_downloading_guide">La guida non è stata scaricata</string>
 	<string name="error_already_downloaded_guide">La guida è già stata scaricata</string>
@@ -1709,12 +1711,18 @@
 	<string name="new_onboarding_step5.3_button">Scarica gratis</string>
 	<string name="new_onboarding_additional_steps_later_button">Non ora</string>
 	<string name="all_pass_subscription_header">ISCRIVITI AL CATALOGO</string>
-	<string name="all_pass_subscription_message_title">+ di 20000 guide e sentieri</string>
-	<string name="all_pass_subscription_message_subtitle">Download illimitato di percorsi cittadini e di attività all\'aria aperta</string>
-	<string name="all_pass_subscription_message_title_2">+ di 700 città e 100 Paesi</string>
-	<string name="all_pass_subscription_message_subtitle_2">Per viaggiare in qualsiasi momento dell\'anno</string>
-	<string name="all_pass_subscription_message_title_3">Segnalibri, foto e suggerimenti</string>
-	<string name="all_pass_subscription_message_subtitle_3">Per non perdersi i posti più interessanti in città e nella natura.</string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title">Più di 30000\nguide\ne sentieri</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle"><b>Download illimitati offline</b> percorsi cittadini e all\'aria aperta</string>
+	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_2">Profilo\naltimetrico\ninterattivo</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_2">Tutti i sentieri contengono <b>altitudine e informazioni di base sul percorso</b></string>
+	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_3">Luoghi salvati,\nfoto\ne suggerimenti</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_3"><b>Scopri tutto riguardo il percorso</b> che farai</string>
 	<string name="sightseeing_subscription_header_subscription">Iscriviti alle guide</string>
 	<string name="sightseeing_subscription_message">+ di 700 città e 100 Paesi</string>
 	<string name="sightseeing_subscription_message_2">Disponibili offline</string>
@@ -1749,6 +1757,25 @@
 	<string name="tips_map_layers_message_countour">La modalità topografica aiuta a programmare il viaggio nella natura e a non perdersi</string>
 	<string name="isolines_activation_error_dialog">Per utilizzare la modalità topografica, aggiornate o scaricate la mappa dell\'area interessata</string>
 	<string name="isolines_location_error_dialog">La modalità topografica per questa regione non è ancora disponibile</string>
+	<string name="elevation_profile_diff_level">Livello di difficoltà</string>
+	<string name="elevation_profile_diff_level_easy">Facile</string>
+	<string name="elevation_profile_diff_level_moderate">Moderato</string>
+	<string name="elevation_profile_diff_level_hard">Difficile</string>
+	<string name="elevation_profile_ascent">Ascesa</string>
+	<string name="elevation_profile_descent">Discesa</string>
+	<string name="elevation_profile_minaltitude">Altitudine minima</string>
+	<string name="elevation_profile_maxaltitude">Altitudine massima</string>
+	<string name="elevation_profile_m">m</string>
+	<string name="elevation_profile_difficulty">Difficoltà</string>
+	<string name="elevation_profile_distance">Dist.</string>
+	<string name="elevation_profile_km">km</string>
+	<string name="elevation_profile_time">Tempo:</string>
+	<string name="elevation_profile_hours">ore</string>
+	<string name="elevation_profile_minutes">min</string>
+	<!-- hide the full screen banner and continue working with the app -->
+	<string name="hide_screen_map_update">Chiudi e prosegui</string>
+	<string name="view_on_map_downloaded_error">Questa guida è stata cancellata dal dispositivo</string>
+	<string name="subscription">Abbonamento</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stazione di rifornimento per auto elettriche</string>
@@ -1821,7 +1848,7 @@
 	<string name="type.amenity.place_of_worship.taoist">Tempio</string>
 	<string name="type.amenity.police">Polizia</string>
 	<string name="type.amenity.post_box">Casella</string>
-	<string name="type.amenity.post_office">Posta</string>
+	<string name="type.amenity.post_office">Ufficio postale</string>
 	<string name="type.amenity.public_bookcase">Libreria</string>
 	<string name="type.amenity.recycling">Centro di riciclaggio</string>
 	<string name="type.amenity.restaurant">Ristorante</string>
