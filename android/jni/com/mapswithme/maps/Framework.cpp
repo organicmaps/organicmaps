@@ -1032,7 +1032,16 @@ Java_com_mapswithme_maps_Framework_nativeSetUserMarkActivationListener(JNIEnv *e
   {
     JNIEnv * env = jni::GetEnv();
     auto const & info = frm()->GetCurrentPlacePageInfo();
-    jni::TScopedLocalRef userMarkRef(env, usermark_helper::CreateMapObject(env, info));
+    jni::TScopedLocalRef userMarkRef(env, nullptr);
+    if (info.IsTrack())
+    {
+      auto const elevationInfo = frm()->GetBookmarkManager().MakeElevationInfo(info.GetTrackId());
+      userMarkRef.reset(usermark_helper::CreateElevationInfo(env, elevationInfo));
+    }
+    else
+    {
+      userMarkRef.reset(usermark_helper::CreateMapObject(env, info));
+    }
     env->CallVoidMethod(g_userMarkActivationListener, activatedId, userMarkRef.get());
   };
   auto const closePlacePage = [deactivateId](bool switchFullScreenMode)

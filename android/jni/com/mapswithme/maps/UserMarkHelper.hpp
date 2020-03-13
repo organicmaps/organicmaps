@@ -34,6 +34,8 @@ void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, feature
 
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info);
 
+jobject CreateElevationInfo(JNIEnv * env, ElevationInfo const & info);
+
 jobjectArray ToBannersArray(JNIEnv * env, std::vector<ads::Banner> const & banners);
 
 jobjectArray ToRatingArray(JNIEnv * env, std::vector<std::string> const & ratingCategories);

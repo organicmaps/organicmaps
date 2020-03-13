@@ -32,6 +32,7 @@ jclass g_httpBackgroundUploaderClazz;
 jclass g_httpUploaderResultClazz;
 jclass g_networkPolicyClazz;
 jclass g_storageUtilsClazz;
+jclass g_elevationInfoClazz;
 
 extern "C"
 {
@@ -62,6 +63,7 @@ JNI_OnLoad(JavaVM * jvm, void *)
   g_httpUploaderResultClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpUploader$Result");
   g_networkPolicyClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/NetworkPolicy");
   g_storageUtilsClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/StorageUtils");
+  g_elevationInfoClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/ElevationInfo");
 
   return JNI_VERSION_1_6;
 }
@@ -89,6 +91,7 @@ JNI_OnUnload(JavaVM *, void *)
   env->DeleteGlobalRef(g_httpUploaderResultClazz);
   env->DeleteGlobalRef(g_networkPolicyClazz);
   env->DeleteGlobalRef(g_storageUtilsClazz);
+  env->DeleteGlobalRef(g_elevationInfoClazz);
 }
 } // extern "C"
 
