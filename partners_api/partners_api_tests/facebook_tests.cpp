@@ -4,7 +4,7 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_data.hpp"
 
-#include "partners_api/facebook_ads.hpp"
+#include "partners_api/ads/facebook_ads.hpp"
 
 namespace
 {

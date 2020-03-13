@@ -4,7 +4,7 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_data.hpp"
 
-#include "partners_api/mopub_ads.hpp"
+#include "partners_api/ads/mopub_ads.hpp"
 
 namespace
 {

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "partners_api/ads_base.hpp"
-#include "partners_api/banner.hpp"
+#include "partners_api/ads/ads_base.hpp"
+#include "partners_api/ads/banner.hpp"
 
 #include <memory>
 #include <string>

@@ -62,7 +62,7 @@
 
 #include "tracking/reporter.hpp"
 
-#include "partners_api/banner.hpp"
+#include "partners_api/ads/banner.hpp"
 #include "partners_api/booking_api.hpp"
 #include "partners_api/locals_api.hpp"
 #include "partners_api/promo_api.hpp"

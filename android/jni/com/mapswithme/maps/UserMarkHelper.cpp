@@ -3,8 +3,8 @@
 #include "map/elevation_info.hpp"
 #include "map/place_page_info.hpp"
 
-#include "partners_api/ads_engine.hpp"
-#include "partners_api/banner.hpp"
+#include "partners_api/ads/ads_engine.hpp"
+#include "partners_api/ads/banner.hpp"
 
 #include "base/string_utils.hpp"
 

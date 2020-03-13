@@ -13,11 +13,11 @@
 #include "map/user_mark.hpp"
 #include "map/purchase.hpp"
 
-#include "partners_api/ads_engine.hpp"
-#include "partners_api/banner.hpp"
+#include "partners_api/ads/ads_engine.hpp"
+#include "partners_api/ads/banner.hpp"
+#include "partners_api/ads/mopub_ads.hpp"
 #include "partners_api/booking_block_params.hpp"
 #include "partners_api/downloader_promo.hpp"
-#include "partners_api/mopub_ads.hpp"
 #include "partners_api/megafon_countries.hpp"
 
 #include "web_api/utils.hpp"

@@ -94,7 +94,7 @@
 #include "geometry/tree4d.hpp"
 #include "geometry/triangle2d.hpp"
 
-#include "partners_api/ads_engine.hpp"
+#include "partners_api/ads/ads_engine.hpp"
 #include "partners_api/opentable_api.hpp"
 #include "partners_api/partners.hpp"
 

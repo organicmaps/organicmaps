@@ -4,13 +4,21 @@ include_directories(${OMIM_ROOT}/3party/jansson/src)
 
 set(
   SRC
-  ads_base.cpp
-  ads_base.hpp
-  ads_engine.cpp
-  ads_engine.hpp
-  ads_utils.cpp
-  ads_utils.hpp
-  banner.hpp
+  ads/ads_base.cpp
+  ads/ads_base.hpp
+  ads/ads_engine.cpp
+  ads/ads_engine.hpp
+  ads/ads_utils.cpp
+  ads/ads_utils.hpp
+  ads/banner.hpp
+  ads/facebook_ads.cpp
+  ads/facebook_ads.hpp
+  ads/google_ads.cpp
+  ads/google_ads.hpp
+  ads/mopub_ads.cpp
+  ads/mopub_ads.hpp
+  ads/rb_ads.cpp
+  ads/rb_ads.hpp
   booking_api.cpp
   booking_api.hpp
   booking_availability_params.cpp
@@ -20,20 +28,14 @@ set(
   booking_params_base.hpp
   downloader_promo.cpp
   downloader_promo.hpp
-  facebook_ads.cpp
-  facebook_ads.hpp
   freenow_api.cpp
   freenow_api.hpp
-  google_ads.cpp
-  google_ads.hpp
   locals_api.cpp
   locals_api.hpp
   maxim_api.cpp
   maxim_api.hpp
   megafon_countries.cpp
   megafon_countries.hpp
-  mopub_ads.cpp
-  mopub_ads.hpp
   opentable_api.cpp
   opentable_api.hpp
   partners.cpp
@@ -42,8 +44,6 @@ set(
   promo_api.hpp
   promo_catalog_types.cpp
   promo_catalog_types.hpp
-  rb_ads.cpp
-  rb_ads.hpp
   rutaxi_api.cpp
   rutaxi_api.hpp
   taxi_base.cpp

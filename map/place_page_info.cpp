@@ -4,8 +4,8 @@
 
 #include "descriptions/loader.hpp"
 
-#include "partners_api/ads_engine.hpp"
-#include "partners_api/banner.hpp"
+#include "partners_api/ads/ads_engine.hpp"
+#include "partners_api/ads/banner.hpp"
 #include "partners_api/partners.hpp"
 
 #include "editor/osm_editor.hpp"

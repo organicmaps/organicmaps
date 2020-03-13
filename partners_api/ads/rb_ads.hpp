@@ -1,6 +1,6 @@
 #pragma once
 
-#include "partners_api/ads_base.hpp"
+#include "partners_api/ads/ads_base.hpp"
 
 namespace ads
 {

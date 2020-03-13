@@ -1,4 +1,4 @@
-#include "partners_api/facebook_ads.hpp"
+#include "partners_api/ads/facebook_ads.hpp"
 
 namespace
 {

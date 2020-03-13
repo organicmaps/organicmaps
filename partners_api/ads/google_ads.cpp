@@ -1,4 +1,4 @@
-#include "partners_api/google_ads.hpp"
+#include "partners_api/ads/google_ads.hpp"
 
 namespace
 {

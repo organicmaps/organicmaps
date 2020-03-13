@@ -1,4 +1,4 @@
-#include "partners_api/ads_base.hpp"
+#include "partners_api/ads/ads_base.hpp"
 
 #include "partners_api/promo_catalog_types.hpp"
 

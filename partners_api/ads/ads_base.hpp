@@ -1,6 +1,6 @@
 #pragma once
 
-#include "partners_api/ads_utils.hpp"
+#include "partners_api/ads/ads_utils.hpp"
 
 #include "storage/storage_defines.hpp"
 

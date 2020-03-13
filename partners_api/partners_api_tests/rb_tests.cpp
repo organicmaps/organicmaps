@@ -4,7 +4,7 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_data.hpp"
 
-#include "partners_api/rb_ads.hpp"
+#include "partners_api/ads/rb_ads.hpp"
 
 namespace
 {

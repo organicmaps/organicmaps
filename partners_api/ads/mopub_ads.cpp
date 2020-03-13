@@ -1,7 +1,7 @@
-#include "partners_api/mopub_ads.hpp"
+#include "partners_api/ads/mopub_ads.hpp"
 #include "partners_api/partners.hpp"
 
-#include "private.h"
+#include "std/target_os.hpp"
 
 namespace
 {

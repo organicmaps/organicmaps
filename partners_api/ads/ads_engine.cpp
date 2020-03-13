@@ -1,8 +1,9 @@
-#include "partners_api/ads_engine.hpp"
-#include "partners_api/facebook_ads.hpp"
-#include "partners_api/google_ads.hpp"
-#include "partners_api/mopub_ads.hpp"
-#include "partners_api/rb_ads.hpp"
+#include "partners_api/ads/ads_engine.hpp"
+
+#include "partners_api/ads/facebook_ads.hpp"
+#include "partners_api/ads/google_ads.hpp"
+#include "partners_api/ads/mopub_ads.hpp"
+#include "partners_api/ads/rb_ads.hpp"
 
 #include "indexer/feature_data.hpp"
 
@@ -17,7 +18,6 @@ Engine::Engine()
   m_poiBanners.emplace_back(Banner::Type::Mopub, std::make_unique<Mopub>());
 
   m_searchBanners.emplace_back(Banner::Type::Facebook, std::make_unique<FacebookSearch>());
-
 }
 
 std::vector<Banner> Engine::GetPoiBanners(feature::TypesHolder const & types,

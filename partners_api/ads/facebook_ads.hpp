@@ -1,11 +1,18 @@
 #pragma once
 
-#include "partners_api/ads_base.hpp"
+#include "partners_api/ads/ads_base.hpp"
 
 namespace ads
 {
 // Class which matches feature types and facebook banner ids.
-class Google : public SearchContainerBase
+class FacebookPoi : public PoiContainer
+{
+private:
+  // PoiContainerBase overrides:
+  std::string GetBannerForOtherTypes() const override;
+};
+
+class FacebookSearch : public SearchContainerBase
 {
 public:
   // SearchContainerBase overrides:
