@@ -69,6 +69,7 @@ class PlacePageInfoViewController: UIViewController {
     storyboard!.instantiateViewController(ofType: OpeningHoursViewController.self)
   }()
 
+  private var rawOpeningHoursView: InfoItemViewController?
   private var phoneView: InfoItemViewController?
   private var websiteView: InfoItemViewController?
   private var emailView: InfoItemViewController?
@@ -96,6 +97,9 @@ class PlacePageInfoViewController: UIViewController {
     if let openingHours = placePageInfoData.openingHours {
       openingHoursView.openingHours = openingHours
       addToStack(openingHoursView)
+    } else if let openingHoursString = placePageInfoData.openingHoursString {
+      rawOpeningHoursView = createInfoItem(openingHoursString, icon: UIImage(named: "ic_placepage_open_hours"))
+      rawOpeningHoursView?.infoLabel.numberOfLines = 0
     }
 
     if let phone = placePageInfoData.phone {

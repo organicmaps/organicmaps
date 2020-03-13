@@ -18,7 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) NSArray<WorkingDay *> *days;
 @property(nonatomic, readonly) BOOL isClosedNow;
 
-- (instancetype)initWithRawString:(NSString *)rawString localization:(id<IOpeningHoursLocalization>)localization;
+- (nullable instancetype)initWithRawString:(NSString *)rawString
+                              localization:(id<IOpeningHoursLocalization>)localization;
 
 @end
 

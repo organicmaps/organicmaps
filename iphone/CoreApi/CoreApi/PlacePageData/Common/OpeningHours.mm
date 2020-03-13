@@ -40,6 +40,9 @@
       wd.breaks = day.m_breaks;
       [array addObject:wd];
     }
+    if (array.count == 0) {
+      return nil;
+    }
     _days = [array copy];
   }
   return self;
