@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.core.view.GestureDetectorCompat;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.bookmarks.data.ElevationInfo;
 import com.mapswithme.util.UiUtils;
 import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
@@ -33,10 +33,8 @@ public class SimplePlacePageController implements PlacePageController
   private final SlideListener mSlideListener;
   private int mViewportMinHeight;
   private int mViewPortMinWidth;
-  @Nullable
-  private MapObject mMapObject;
   @NonNull
-  private final PlacePageViewRenderer<MapObject> mViewRenderer;
+  private final PlacePageViewRenderer<UserMarkInterface> mViewRenderer;
   @NonNull
   private final BottomSheetChangedListener mBottomSheetChangedListener =
       new BottomSheetChangedListener()
@@ -95,17 +93,16 @@ public class SimplePlacePageController implements PlacePageController
   private boolean mDeactivateMapSelection = true;
 
   SimplePlacePageController(@NonNull SlideListener slideListener,
-                            @NonNull PlacePageViewRenderer<MapObject> renderer)
+                            @NonNull PlacePageViewRenderer<UserMarkInterface> renderer)
   {
     mSlideListener = slideListener;
     mViewRenderer = renderer;
   }
 
   @Override
-  public void openFor(@NonNull UserMarkInterface object)
+  public void openFor(@NonNull UserMarkInterface userMark)
   {
-    mMapObject = (MapObject) object;
-    mViewRenderer.render(mMapObject);
+    mViewRenderer.render(userMark);
     if (mSheetBehavior.getSkipCollapsed())
       mSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_EXPANDED);
     else
@@ -194,7 +191,7 @@ public class SimplePlacePageController implements PlacePageController
   @Override
   public void onSave(@NonNull Bundle outState)
   {
-    outState.putParcelable(PlacePageUtils.EXTRA_MAP_OBJECT, mMapObject);
+    mViewRenderer.onSave(outState);
   }
 
   @Override
@@ -209,12 +206,7 @@ public class SimplePlacePageController implements PlacePageController
       return;
     }
 
-    MapObject object = inState.getParcelable(PlacePageUtils.EXTRA_MAP_OBJECT);
-    if (object == null)
-      return;
-
-    mMapObject = object;
-    mViewRenderer.render(object);
+    mViewRenderer.onRestore(inState);
     if (UiUtils.isLandscape(mApplication))
     {
       // In case when bottom sheet was collapsed for vertical orientation then after rotation
@@ -246,8 +238,7 @@ public class SimplePlacePageController implements PlacePageController
   @Override
   public boolean support(@NonNull UserMarkInterface object)
   {
-    // TODO: only for tests.
-    return ((MapObject) object).getTitle().equals("Петровский Путевой Дворец");
+    return object instanceof ElevationInfo;
   }
 
   private static class SimplePlacePageGestureListener extends PlacePageGestureListener

@@ -1,17 +1,22 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.annotation.SuppressLint;
+import android.content.res.Resources;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.bookmarks.data.ElevationInfo;
+import com.mapswithme.maps.routing.RoutingController;
 
 import java.util.Objects;
 
-public class ElevationProfileViewRenderer implements PlacePageViewRenderer<MapObject>
+public class ElevationProfileViewRenderer implements PlacePageViewRenderer<UserMarkInterface>
 {
+  private static final String EXTRA_ELEVATION_INFO = "extra_elevation_info";
   private static final int MAX_DIFFICULTY_LEVEL = 3;
 
   @SuppressWarnings("NullableProblems")
@@ -34,18 +39,25 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<MapOb
   private TextView mTime;
   @NonNull
   private final View[] mDifficultyLevels = new View[MAX_DIFFICULTY_LEVEL];
+  @Nullable
+  private ElevationInfo mElevationInfo;
 
+  @SuppressLint("SetTextI18n")
   @Override
-  public void render(@NonNull MapObject object)
+  public void render(@NonNull UserMarkInterface userMark)
   {
-    mTitle.setText(object.getTitle());
-    // TODO: just for testing.
-    setDifficulty(2);
-    mAscent.setText("980 m");
-    mDescent.setText("1000 m");
-    mMaxAltitude.setText("2243 m");
-    mMinAltitude.setText("20 m");
-    mTime.setText("3 h 45 min");
+    mElevationInfo = (ElevationInfo) userMark;
+    Resources resources = mTitle.getResources();
+    String meters = " " + resources.getString(R.string.elevation_profile_m);
+    mTitle.setText(mElevationInfo.getName());
+    setDifficulty(mElevationInfo.getDifficulty());
+    mAscent.setText(mElevationInfo.getAscent() + meters);
+    mDescent.setText(mElevationInfo.getDescent() +  meters);
+    mMaxAltitude.setText(mElevationInfo.getMaxAltitude() + meters);
+    mMinAltitude.setText(mElevationInfo.getMinAltitude() + meters);
+    mTime.setText(RoutingController.formatRoutingTime(mTitle.getContext(),
+                                                      (int) mElevationInfo.getDuration(),
+                                                      R.dimen.text_size_body_2));
   }
 
   @Override
@@ -76,5 +88,19 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<MapOb
 
     for (int i = 0; i < level; i++)
       mDifficultyLevels[i].setEnabled(true);
+  }
+
+  @Override
+  public void onSave(@NonNull Bundle outState)
+  {
+    outState.putParcelable(EXTRA_ELEVATION_INFO, mElevationInfo);
+  }
+
+  @Override
+  public void onRestore(@NonNull Bundle inState)
+  {
+    mElevationInfo = inState.getParcelable(EXTRA_ELEVATION_INFO);
+    if (mElevationInfo != null)
+      render(mElevationInfo);
   }
 }

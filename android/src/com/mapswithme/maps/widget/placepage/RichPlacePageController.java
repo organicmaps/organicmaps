@@ -567,9 +567,8 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   }
 
   @Override
-  public boolean support(@NonNull UserMarkInterface object)
+  public boolean support(@NonNull UserMarkInterface userMark)
   {
-    // TODO: only for tests.
-    return !((MapObject) object).getTitle().equals("Петровский Путевой Дворец");
+    return userMark instanceof MapObject;
   }
 }

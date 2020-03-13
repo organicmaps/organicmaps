@@ -1,12 +1,17 @@
 package com.mapswithme.maps.bookmarks.data;
 
-import androidx.annotation.NonNull;
+import android.os.Parcel;
+import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import com.mapswithme.maps.widget.placepage.UserMarkInterface;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ElevationInfo
+public class ElevationInfo implements Parcelable, UserMarkInterface
 {
   private final long mId;
   @NonNull
@@ -18,7 +23,7 @@ public class ElevationInfo
   private final int mMinAltitude;
   private final int mMaxAltitude;
   private final int mDifficulty;
-  private final long m_duration;
+  private final long mDuration;
 
   public ElevationInfo(long trackId, @NonNull String name, @NonNull Point[] points,
                        int ascent, int descent, int minAltitude, int maxAltitude, int difficulty,
@@ -32,7 +37,28 @@ public class ElevationInfo
     mMinAltitude = minAltitude;
     mMaxAltitude = maxAltitude;
     mDifficulty = difficulty;
-    this.m_duration = m_duration;
+    this.mDuration = m_duration;
+  }
+
+  protected ElevationInfo(Parcel in)
+  {
+    mId = in.readLong();
+    mName = in.readString();
+    mAscent = in.readInt();
+    mDescent = in.readInt();
+    mMinAltitude = in.readInt();
+    mMaxAltitude = in.readInt();
+    mDifficulty = in.readInt();
+    mDuration = in.readLong();
+    mPoints = readPoints(in);
+  }
+
+  @NonNull
+  private static List<Point> readPoints(@NonNull Parcel in)
+  {
+    List<Point> points = new ArrayList<>();
+    in.readTypedList(points, Point.CREATOR);
+    return points;
   }
 
   public long getId()
@@ -77,12 +103,34 @@ public class ElevationInfo
     return mDifficulty;
   }
 
-  public long getM_duration()
+  public long getDuration()
   {
-    return m_duration;
+    return mDuration;
   }
 
-  public static class Point
+  @Override
+  public int describeContents()
+  {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags)
+  {
+    dest.writeLong(mId);
+    dest.writeString(mName);
+    dest.writeInt(mAscent);
+    dest.writeInt(mDescent);
+    dest.writeInt(mMinAltitude);
+    dest.writeInt(mMaxAltitude);
+    dest.writeInt(mDifficulty);
+    dest.writeLong(mDuration);
+    // All collections are deserialized AFTER non-collection and primitive type objects,
+    // so collections must be always serialized at the end.
+    dest.writeList(mPoints);
+  }
+
+  public static class Point implements Parcelable
   {
     private final double mDistance;
     private final int mAltitude;
@@ -93,6 +141,27 @@ public class ElevationInfo
       mAltitude = altitude;
     }
 
+    protected Point(Parcel in)
+    {
+      mDistance = in.readDouble();
+      mAltitude = in.readInt();
+    }
+
+    public static final Creator<Point> CREATOR = new Creator<Point>()
+    {
+      @Override
+      public Point createFromParcel(Parcel in)
+      {
+        return new Point(in);
+      }
+
+      @Override
+      public Point[] newArray(int size)
+      {
+        return new Point[size];
+      }
+    };
+
     public double getDistance()
     {
       return mDistance;
@@ -102,5 +171,33 @@ public class ElevationInfo
     {
       return mAltitude;
     }
+
+    @Override
+    public int describeContents()
+    {
+      return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+      dest.writeDouble(mDistance);
+      dest.writeInt(mAltitude);
+    }
   }
+
+  public static final Creator<ElevationInfo> CREATOR = new Creator<ElevationInfo>()
+  {
+    @Override
+    public ElevationInfo createFromParcel(Parcel in)
+    {
+      return new ElevationInfo(in);
+    }
+
+    @Override
+    public ElevationInfo[] newArray(int size)
+    {
+      return new ElevationInfo[size];
+    }
+  };
 }
