@@ -17,10 +17,25 @@ class ActionBarViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    configButton1()
-    configButton2()
-    configButton3()
-    configButton4()
+    if placePageData.isRoutePoint {
+      visibleButtons.append(.routeRemoveStop)
+    } else if placePageData.roadType != .none {
+      switch placePageData.roadType {
+      case .toll:
+        visibleButtons.append(.avoidToll)
+      case .ferry:
+        visibleButtons.append(.avoidFerry)
+      case .dirty:
+        visibleButtons.append(.avoidDirty)
+      default:
+        fatalError()
+      }
+    } else {
+      configButton1()
+      configButton2()
+      configButton3()
+      configButton4()
+    }
 
     for buttonType in visibleButtons {
       var selected = false

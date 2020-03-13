@@ -51,6 +51,19 @@ static PlacePageTaxiProvider convertTaxiProvider(taxi::Provider::Type providerTy
   }
 }
 
+static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
+  switch (roadType) {
+    case RoadWarningMarkType::Toll:
+      return PlacePageRoadTypeToll;
+    case RoadWarningMarkType::Ferry:
+      return PlacePageRoadTypeFerry;
+    case RoadWarningMarkType::Dirty:
+      return PlacePageRoadTypeDirty;
+    case RoadWarningMarkType::Count:
+      return PlacePageRoadTypeNone;
+  }
+}
+
 @implementation PlacePageData
 
 - (instancetype)initWithLocalizationProvider:(id<IOpeningHoursLocalization>)localization {
@@ -70,6 +83,7 @@ static PlacePageTaxiProvider convertTaxiProvider(taxi::Provider::Type providerTy
     }
 
     _sponsoredType = convertSponsoredType(rawData().GetSponsoredType());
+    _roadType = convertRoadType(rawData().GetRoadType());
 
     auto const &taxiProviders = rawData().ReachableByTaxiProviders();
     if (!taxiProviders.empty()) {
@@ -82,6 +96,7 @@ static PlacePageTaxiProvider convertTaxiProvider(taxi::Provider::Type providerTy
     _isPromoCatalog = _isLargeToponim || _isSightseeing || _isOutdoor;
     _shouldShowUgc = rawData().ShouldShowUGC();
     _isMyPosition = rawData().IsMyPosition();
+    _isRoutePoint = rawData().IsRoutePoint();
     _isPreviewPlus = rawData().GetOpeningMode() == place_page::OpeningMode::PreviewPlus;
     _isPartner = rawData().GetSponsoredType() == place_page::SponsoredType::Partner;
     _partnerIndex = _isPartner ? rawData().GetPartnerIndex() : -1;

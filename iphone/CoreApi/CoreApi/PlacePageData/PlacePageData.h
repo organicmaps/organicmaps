@@ -32,6 +32,13 @@ typedef NS_ENUM(NSInteger, PlacePageTaxiProvider) {
   PlacePageTaxiProviderRutaxi
 };
 
+typedef NS_ENUM(NSInteger, PlacePageRoadType) {
+  PlacePageRoadTypeToll,
+  PlacePageRoadTypeFerry,
+  PlacePageRoadTypeDirty,
+  PlacePageRoadTypeNone
+};
+
 @protocol IOpeningHoursLocalization;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -44,6 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) PlacePageBookmarkData *bookmarkData;
 @property(nonatomic, readonly) PlacePageSponsoredType sponsoredType;
 @property(nonatomic, readonly) PlacePageTaxiProvider taxiProvider;
+@property(nonatomic, readonly) PlacePageRoadType roadType;
 @property(nonatomic, readonly, nullable) NSString *wikiDescriptionHtml;
 @property(nonatomic, readonly, nullable) CatalogPromoData *catalogPromo;
 @property(nonatomic, readonly, nullable) HotelBookingData *hotelBooking;
@@ -59,6 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) BOOL shouldShowUgc;
 @property(nonatomic, readonly) BOOL isMyPosition;
 @property(nonatomic, readonly) BOOL isPreviewPlus;
+@property(nonatomic, readonly) BOOL isRoutePoint;
 @property(nonatomic, readonly) NSInteger partnerIndex;
 @property(nonatomic, readonly, nullable) NSString *partnerName;
 @property(nonatomic, readonly) CLLocationCoordinate2D locationCoordinate;
