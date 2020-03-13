@@ -10,6 +10,7 @@ class Rb : public PoiContainer
 public:
   Rb();
 
+private:
   // PoiContainerBase overrides:
   std::string GetBannerForOtherTypes() const override;
 };

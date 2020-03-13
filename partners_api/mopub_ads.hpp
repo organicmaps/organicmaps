@@ -12,9 +12,10 @@ class Mopub : public PoiContainer
 public:
   Mopub();
 
+  static std::string InitializationBannerId();
+
+private:
   // PoiContainerBase overrides:
   std::string GetBannerForOtherTypes() const override;
-
-  static std::string InitializationBannerId();
 };
 }  // namespace ads

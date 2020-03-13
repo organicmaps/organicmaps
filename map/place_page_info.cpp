@@ -317,17 +317,9 @@ std::optional<int> Info::GetRawApproximatePricing() const
   return {};
 }
 
-bool Info::HasBanner() const
-{
-  if (!m_adsEngine || IsMyPosition() || IsRoadType())
-    return false;
-
-  return m_adsEngine->HasPoiBanner(m_types, m_topmostCountryIds, languages::GetCurrentNorm());
-}
-
 std::vector<ads::Banner> Info::GetBanners() const
 {
-  if (!m_adsEngine)
+  if (!m_adsEngine || IsMyPosition() || IsRoadType())
     return {};
 
   return m_adsEngine->GetPoiBanners(m_types, m_topmostCountryIds, languages::GetCurrentNorm());

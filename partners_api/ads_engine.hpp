@@ -19,13 +19,11 @@ class Engine
 public:
   Engine();
 
-  bool HasPoiBanner(feature::TypesHolder const & types, storage::CountriesVec const & countryIds,
-                    std::string const & userLanguage) const;
   std::vector<Banner> GetPoiBanners(feature::TypesHolder const & types,
                                     storage::CountriesVec const & countryIds,
                                     std::string const & userLanguage) const;
-  bool HasSearchBanner() const;
   std::vector<Banner> GetSearchBanners() const;
+
   void DisableAdProvider(Banner::Type const type, Banner::Place const place);
 
 private:

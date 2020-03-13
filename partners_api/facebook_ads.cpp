@@ -21,13 +21,13 @@ std::string FacebookPoi::GetBannerForOtherTypes() const
   return kSingleBannerIdForAllTypes;
 }
 
-bool FacebookSearch::HasBanner() const
-{
-  return true;
-}
-
 std::string FacebookSearch::GetBanner() const
 {
   return kSearchbannerId;
+}
+
+bool FacebookSearch::HasBanner() const
+{
+  return true;
 }
 }  // namespace ads

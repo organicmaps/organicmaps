@@ -244,7 +244,6 @@ public:
   FeatureStatus GetFeatureStatus() const { return m_featureStatus; }
 
   /// Banner
-  bool HasBanner() const;
   std::vector<ads::Banner> GetBanners() const;
 
   /// Taxi

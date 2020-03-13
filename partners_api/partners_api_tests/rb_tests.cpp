@@ -58,13 +58,13 @@ UNIT_TEST(Rb_GetBanner)
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "toilets"}));
-    auto const bannerId = rb.GetBannerForOtherTypes();
+    auto const bannerId = rb.GetBannerForOtherTypesForTesting();
     TEST_EQUAL(rb.GetBanner(holder, "Russian Federation", "ru"), bannerId, ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"sponsored", "opentable"}));
-    auto const bannerId = rb.GetBannerForOtherTypes();
+    auto const bannerId = rb.GetBannerForOtherTypesForTesting();
     TEST_EQUAL(rb.GetBanner(holder, "Russian Federation", "ru"), bannerId, ());
   }
   {

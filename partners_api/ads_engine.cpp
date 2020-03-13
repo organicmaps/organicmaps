@@ -17,22 +17,7 @@ Engine::Engine()
   m_poiBanners.emplace_back(Banner::Type::Mopub, std::make_unique<Mopub>());
 
   m_searchBanners.emplace_back(Banner::Type::Facebook, std::make_unique<FacebookSearch>());
-}
 
-bool Engine::HasPoiBanner(feature::TypesHolder const & types,
-                          storage::CountriesVec const & countryIds,
-                          std::string const & userLanguage) const
-{
-  for (auto const & countryId : countryIds)
-  {
-    for (auto const & item : m_poiBanners)
-    {
-      if (item.m_enabled && item.m_container->HasBanner(types, countryId, userLanguage))
-        return true;
-    }
-  }
-
-  return false;
 }
 
 std::vector<Banner> Engine::GetPoiBanners(feature::TypesHolder const & types,
@@ -59,17 +44,6 @@ std::vector<Banner> Engine::GetPoiBanners(feature::TypesHolder const & types,
   }
 
   return result;
-}
-
-bool Engine::HasSearchBanner() const
-{
-  for (auto const & item : m_searchBanners)
-  {
-    if (item.m_enabled && item.m_container->HasBanner())
-      return true;
-  }
-
-  return false;
 }
 
 std::vector<Banner> Engine::GetSearchBanners() const

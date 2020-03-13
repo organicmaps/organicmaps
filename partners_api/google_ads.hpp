@@ -8,8 +8,11 @@ namespace ads
 class Google : public SearchContainerBase
 {
 public:
-  // PoiContainerBase overrides:
-  bool HasBanner() const override;
+  // SearchContainerBase overrides:
   std::string GetBanner() const override;
+
+private:
+  // SearchContainerBase overrides:
+  bool HasBanner() const override;
 };
 }  // namespace ads

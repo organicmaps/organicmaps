@@ -13,13 +13,13 @@ namespace
 
 namespace ads
 {
-bool Google::HasBanner() const
-{
-  return true;
-}
-
 std::string Google::GetBanner() const
 {
   return kSearchbannerId;
+}
+
+bool Google::HasBanner() const
+{
+  return true;
 }
 }  // namespace ads

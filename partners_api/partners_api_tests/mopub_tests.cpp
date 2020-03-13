@@ -16,9 +16,9 @@ UNIT_TEST(Mopub_GetBanner)
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "dentist"}));
-    TEST_EQUAL(mopub.GetBanner(holder, "Brazil", "ru"), mopub.GetBannerForOtherTypes(), ());
+    TEST_EQUAL(mopub.GetBanner(holder, "Brazil", "ru"), mopub.GetBannerForOtherTypesForTesting(), ());
     holder.Add(c.GetTypeByPath({"amenity", "pub"}));
-    TEST_EQUAL(mopub.GetBanner(holder, "Cuba", "ru"), mopub.GetBannerForOtherTypes(), ());
+    TEST_EQUAL(mopub.GetBanner(holder, "Cuba", "ru"), mopub.GetBannerForOtherTypesForTesting(), ());
   }
   {
     feature::TypesHolder holder;
@@ -48,12 +48,12 @@ UNIT_TEST(Mopub_GetBanner)
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"amenity", "toilets"}));
-    TEST_EQUAL(mopub.GetBanner(holder, "Spain", "ru"), mopub.GetBannerForOtherTypes(), ());
+    TEST_EQUAL(mopub.GetBanner(holder, "Spain", "ru"), mopub.GetBannerForOtherTypesForTesting(), ());
   }
   {
     feature::TypesHolder holder;
     holder.Assign(c.GetTypeByPath({"sponsored", "opentable"}));
-    TEST_EQUAL(mopub.GetBanner(holder, "Denmark", "ru"), mopub.GetBannerForOtherTypes(), ());
+    TEST_EQUAL(mopub.GetBanner(holder, "Denmark", "ru"), mopub.GetBannerForOtherTypesForTesting(), ());
   }
   {
     feature::TypesHolder holder;

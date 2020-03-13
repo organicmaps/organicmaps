@@ -234,8 +234,9 @@ jobject CreateElevationInfo(JNIEnv * env, ElevationInfo const & info)
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 {
   jni::TScopedLocalObjectArrayRef jbanners(env, nullptr);
-  if (info.HasBanner())
-    jbanners.reset(ToBannersArray(env, info.GetBanners()));
+  auto const banners = info.GetBanners();
+  if (!banners.empty())
+    jbanners.reset(ToBannersArray(env, banners));
 
   jni::TScopedLocalObjectArrayRef jratings(env, ToRatingArray(env, info.GetRatingCategories()));
 

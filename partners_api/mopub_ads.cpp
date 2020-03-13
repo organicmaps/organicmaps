@@ -77,14 +77,14 @@ Mopub::Mopub()
   }
 }
 
-std::string Mopub::GetBannerForOtherTypes() const
-{
-  return kNonTourismPlacementId;
-}
-
 // static
 std::string Mopub::InitializationBannerId()
 {
   return kSponsoredBannerPlacementId;
+}
+
+std::string Mopub::GetBannerForOtherTypes() const
+{
+  return kNonTourismPlacementId;
 }
 }  // namespace ads

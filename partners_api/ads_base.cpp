@@ -37,14 +37,6 @@ void PoiContainer::AppendExcludedTypes(
   m_excludedTypes.Append(std::move(types));
 }
 
-bool PoiContainer::HasBanner(feature::TypesHolder const & types,
-                             storage::CountryId const & countryId,
-                             std::string const & userLanguage) const
-{
-  return (IsCountrySupported(countryId) || IsLanguageSupported(userLanguage)) &&
-         !m_excludedTypes.Contains(types);
-}
-
 std::string PoiContainer::GetBanner(feature::TypesHolder const & types,
                                     storage::CountryId const & countryId,
                                     std::string const & userLanguage) const
@@ -57,6 +49,19 @@ std::string PoiContainer::GetBanner(feature::TypesHolder const & types,
     return it->second;
 
   return GetBannerForOtherTypes();
+}
+
+std::string PoiContainer::GetBannerForOtherTypesForTesting() const
+{
+  return GetBannerForOtherTypes();
+}
+
+bool PoiContainer::HasBanner(feature::TypesHolder const & types,
+                             storage::CountryId const & countryId,
+                             std::string const & userLanguage) const
+{
+  return (IsCountrySupported(countryId) || IsLanguageSupported(userLanguage)) &&
+         !m_excludedTypes.Contains(types);
 }
 
 std::string PoiContainer::GetBannerForOtherTypes() const

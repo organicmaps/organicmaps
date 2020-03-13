@@ -247,12 +247,13 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   manager->m_viewportParams.m_query = text;
   manager.textChanged = YES;
   auto const & adsEngine = GetFramework().GetAdsEngine();
+  auto const banners = adsEngine.GetSearchBanners();
   auto const & purchase = GetFramework().GetPurchase();
-  bool const hasSubscription = purchase && !purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
+  bool const hasSubscription = purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
   
-  if (hasSubscription && adsEngine.HasSearchBanner())
+  if (!hasSubscription && !banners.empty())
   {
-    auto coreBanners = banner_helpers::MatchPriorityBanners(adsEngine.GetSearchBanners(), manager.lastQuery);
+    auto coreBanners = banner_helpers::MatchPriorityBanners(banners, manager.lastQuery);
     [[MWMBannersCache cache] refreshWithCoreBanners:coreBanners];
   }
   [manager update];
@@ -386,15 +387,16 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   if (resultsCount > 0)
   {
     auto const & adsEngine = GetFramework().GetAdsEngine();
+    auto const banners = adsEngine.GetSearchBanners();
     auto const & purchase = GetFramework().GetPurchase();
-    bool const hasSubscription = purchase && !purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
+    bool const hasSubscription = purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
 
-    if (hasSubscription && adsEngine.HasSearchBanner())
+    if (!hasSubscription && !banners.empty())
     {
       self.banners = [[MWMSearchBanners alloc] initWithSearchIndex:itemsIndex];
       __weak auto weakSelf = self;
       [[MWMBannersCache cache]
-          getWithCoreBanners:banner_helpers::MatchPriorityBanners(adsEngine.GetSearchBanners(), self.lastQuery)
+          getWithCoreBanners:banner_helpers::MatchPriorityBanners(banners, self.lastQuery)
                    cacheOnly:YES
                      loadNew:reloadBanner
                   completion:^(id<MWMBanner> ad, BOOL isAsync) {
