@@ -36,7 +36,7 @@ import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
 import java.util.Objects;
 
-public class RichPlacePageController implements PlacePageController<MapObject>, LocationListener,
+public class RichPlacePageController implements PlacePageController, LocationListener,
                                                 View.OnLayoutChangeListener,
                                                 BannerController.BannerStateRequester,
                                                 BannerController.BannerStateListener,
@@ -247,8 +247,9 @@ public class RichPlacePageController implements PlacePageController<MapObject>, 
   }
 
   @Override
-  public void openFor(@NonNull MapObject object)
+  public void openFor(@NonNull UserMarkInterface data)
   {
+    MapObject object = (MapObject) data;
     mPlacePage.setMapObject(object, (policy, isSameObject) -> {
       @AnchorBottomSheetBehavior.State
       int state = mPlacePageBehavior.getState();
@@ -566,9 +567,9 @@ public class RichPlacePageController implements PlacePageController<MapObject>, 
   }
 
   @Override
-  public boolean support(MapObject object)
+  public boolean support(@NonNull UserMarkInterface object)
   {
     // TODO: only for tests.
-    return !object.getTitle().equals("Петровский Путевой Дворец");
+    return !((MapObject) object).getTitle().equals("Петровский Путевой Дворец");
   }
 }

@@ -18,7 +18,7 @@ import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
 import java.util.Objects;
 
-public class SimplePlacePageController implements PlacePageController<MapObject>
+public class SimplePlacePageController implements PlacePageController
 {
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -102,9 +102,9 @@ public class SimplePlacePageController implements PlacePageController<MapObject>
   }
 
   @Override
-  public void openFor(@NonNull MapObject object)
+  public void openFor(@NonNull UserMarkInterface object)
   {
-    mMapObject = object;
+    mMapObject = (MapObject) object;
     mViewRenderer.render(mMapObject);
     if (mSheetBehavior.getSkipCollapsed())
       mSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_EXPANDED);
@@ -244,10 +244,10 @@ public class SimplePlacePageController implements PlacePageController<MapObject>
   }
 
   @Override
-  public boolean support(MapObject object)
+  public boolean support(@NonNull UserMarkInterface object)
   {
     // TODO: only for tests.
-    return object.getTitle().equals("Петровский Путевой Дворец");
+    return ((MapObject) object).getTitle().equals("Петровский Путевой Дворец");
   }
 
   private static class SimplePlacePageGestureListener extends PlacePageGestureListener

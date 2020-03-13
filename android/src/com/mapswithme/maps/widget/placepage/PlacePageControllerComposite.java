@@ -11,7 +11,7 @@ import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 import java.util.ArrayList;
 import java.util.List;
 
-class PlacePageControllerComposite implements PlacePageController<MapObject>
+class PlacePageControllerComposite implements PlacePageController
 {
   @NonNull
   private final AdsRemovalPurchaseControllerProvider mAdsProvider;
@@ -20,10 +20,10 @@ class PlacePageControllerComposite implements PlacePageController<MapObject>
   @Nullable
   private final RoutingModeListener mRoutingModeListener;
   @NonNull
-  private final List<PlacePageController<MapObject>> mControllers = new ArrayList<>();
+  private final List<PlacePageController> mControllers = new ArrayList<>();
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private PlacePageController<MapObject> mActiveController;
+  private PlacePageController mActiveController;
 
   PlacePageControllerComposite(@NonNull AdsRemovalPurchaseControllerProvider adsProvider,
                                @NonNull SlideListener slideListener,
@@ -35,7 +35,7 @@ class PlacePageControllerComposite implements PlacePageController<MapObject>
   }
 
   @Override
-  public void openFor(@NonNull MapObject object)
+  public void openFor(@NonNull UserMarkInterface object)
   {
     boolean support = mActiveController.support(object);
     if (support)
@@ -45,7 +45,7 @@ class PlacePageControllerComposite implements PlacePageController<MapObject>
     }
 
     mActiveController.close(false);
-    PlacePageController<MapObject> controller = findControllerFor(object);
+    PlacePageController controller = findControllerFor(object);
     if (controller == null)
       throw new UnsupportedOperationException("Map object '" + object + "' can't be opened " +
                                               "by existing controllers");
@@ -113,12 +113,12 @@ class PlacePageControllerComposite implements PlacePageController<MapObject>
     if (!mControllers.isEmpty())
       throw new AssertionError("Place page controllers already initialized!");
 
-    PlacePageController<MapObject> richController =
+    PlacePageController richController =
         createRichPlacePageController(mAdsProvider, mSlideListener, mRoutingModeListener);
     richController.initialize(activity);
     mControllers.add(richController);
 
-    PlacePageController<MapObject> simpleController =
+    PlacePageController simpleController =
         createSimplePlacePageController(mSlideListener);
     simpleController.initialize(activity);
     mControllers.add(simpleController);
@@ -126,13 +126,14 @@ class PlacePageControllerComposite implements PlacePageController<MapObject>
     mActiveController = richController;
   }
 
+
   @Override
   public void destroy()
   {
     if (mControllers.isEmpty())
       throw new AssertionError("Place page controllers already destroyed!");
 
-    for (PlacePageController<MapObject> controller: mControllers)
+    for (PlacePageController controller: mControllers)
       controller.destroy();
 
     mControllers.clear();
@@ -150,7 +151,7 @@ class PlacePageControllerComposite implements PlacePageController<MapObject>
     MapObject object = inState.getParcelable(PlacePageUtils.EXTRA_MAP_OBJECT);
     if (object != null)
     {
-      PlacePageController<MapObject> controller = findControllerFor(object);
+      PlacePageController controller = findControllerFor(object);
       if (controller != null)
         mActiveController = controller;
     }
@@ -158,9 +159,9 @@ class PlacePageControllerComposite implements PlacePageController<MapObject>
   }
 
   @Nullable
-  private PlacePageController<MapObject> findControllerFor(@NonNull MapObject object)
+  private PlacePageController findControllerFor(@NonNull UserMarkInterface object)
   {
-    for (PlacePageController<MapObject> controller : mControllers)
+    for (PlacePageController controller : mControllers)
     {
       if (controller.support(object))
         return controller;
@@ -170,13 +171,13 @@ class PlacePageControllerComposite implements PlacePageController<MapObject>
   }
 
   @Override
-  public boolean support(MapObject object)
+  public boolean support(@NonNull UserMarkInterface object)
   {
     return mActiveController.support(object);
   }
 
   @NonNull
-  private static PlacePageController<MapObject> createRichPlacePageController(
+  private static PlacePageController createRichPlacePageController(
       @NonNull AdsRemovalPurchaseControllerProvider provider,
       @NonNull PlacePageController.SlideListener listener,
       @Nullable RoutingModeListener routingModeListener)
@@ -185,7 +186,7 @@ class PlacePageControllerComposite implements PlacePageController<MapObject>
   }
 
   @NonNull
-  private static PlacePageController<MapObject> createSimplePlacePageController(
+  private static PlacePageController createSimplePlacePageController(
       @NonNull PlacePageController.SlideListener listener)
   {
     return new SimplePlacePageController(listener, new ElevationProfileViewRenderer());

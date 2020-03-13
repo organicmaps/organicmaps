@@ -1020,22 +1020,22 @@ Java_com_mapswithme_maps_Framework_nativeSetMapObjectListener(JNIEnv * env, jcla
 {
   LOG(LINFO, ("Set global map object listener"));
   g_mapObjectListener = env->NewGlobalRef(jListener);
-  // void onMapObjectActivated(MapObject object);
-  jmethodID const activatedId = jni::GetMethodID(env, g_mapObjectListener, "onMapObjectActivated",
-                                                 "(Lcom/mapswithme/maps/bookmarks/data/MapObject;)V");
-  // void onDismiss(boolean switchFullScreenMode);
-  jmethodID const dismissId = jni::GetMethodID(env, g_mapObjectListener, "onDismiss", "(Z)V");
+  // void onUserMarkActivated(MapObject object);
+  jmethodID const activatedId = jni::GetMethodID(env, g_mapObjectListener, "onUserMarkActivated",
+                                                 "(Lcom/mapswithme/maps/widget/placepage/UserMarkInterface;)V");
+  // void onUserMarkDeactivated(boolean switchFullScreenMode);
+  jmethodID const deactivateId = jni::GetMethodID(env, g_mapObjectListener, "onUserMarkDeactivated", "(Z)V");
   auto const fillPlacePage = [activatedId]()
   {
     JNIEnv * env = jni::GetEnv();
     auto const & info = frm()->GetCurrentPlacePageInfo();
-    jni::TScopedLocalRef mapObject(env, usermark_helper::CreateMapObject(env, info));
-    env->CallVoidMethod(g_mapObjectListener, activatedId, mapObject.get());
+    jni::TScopedLocalRef userMarkRef(env, usermark_helper::CreateMapObject(env, info));
+    env->CallVoidMethod(g_mapObjectListener, activatedId, userMarkRef.get());
   };
-  auto const closePlacePage = [dismissId](bool switchFullScreenMode)
+  auto const closePlacePage = [deactivateId](bool switchFullScreenMode)
   {
     JNIEnv * env = jni::GetEnv();
-    env->CallVoidMethod(g_mapObjectListener, dismissId, switchFullScreenMode);
+    env->CallVoidMethod(g_mapObjectListener, deactivateId, switchFullScreenMode);
   };
   frm()->SetPlacePageListeners(fillPlacePage, closePlacePage, fillPlacePage);
 }

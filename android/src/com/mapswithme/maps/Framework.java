@@ -29,6 +29,7 @@ import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.maps.routing.TransitRouteInfo;
 import com.mapswithme.maps.search.FilterUtils;
 import com.mapswithme.maps.settings.SettingsPrefsFragment;
+import com.mapswithme.maps.widget.placepage.UserMarkInterface;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.log.Logger;
@@ -113,11 +114,11 @@ public class Framework
   public static final int SUBSCRIPTION_TYPE_BOOKMARK_CATALOG = 1;
 
   @SuppressWarnings("unused")
-  public interface MapObjectListener
+  public interface UserMarkActivationListener
   {
-    void onMapObjectActivated(MapObject object);
+    void onUserMarkActivated(@NonNull UserMarkInterface userMark);
 
-    void onDismiss(boolean switchFullScreenMode);
+    void onUserMarkDeactivated(boolean switchFullScreenMode);
   }
 
   @SuppressWarnings("unused")
@@ -281,7 +282,7 @@ public class Framework
 
   public static native String nativeGetAddress(double lat, double lon);
 
-  public static native void nativeSetMapObjectListener(MapObjectListener listener);
+  public static native void nativeSetMapObjectListener(UserMarkActivationListener listener);
 
   public static native void nativeRemoveMapObjectListener();
 

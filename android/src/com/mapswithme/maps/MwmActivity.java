@@ -30,7 +30,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import com.mapswithme.maps.Framework.MapObjectListener;
+import com.mapswithme.maps.Framework.UserMarkActivationListener;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.api.ParsedMwmRequest;
@@ -126,6 +126,7 @@ import com.mapswithme.maps.widget.menu.MyPositionButton;
 import com.mapswithme.maps.widget.placepage.PlacePageController;
 import com.mapswithme.maps.widget.placepage.PlacePageFactory;
 import com.mapswithme.maps.widget.placepage.RoutingModeListener;
+import com.mapswithme.maps.widget.placepage.UserMarkInterface;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.NetworkPolicy;
@@ -149,32 +150,32 @@ import java.util.List;
 import java.util.Stack;
 
 public class MwmActivity extends BaseMwmFragmentActivity
-                      implements MapObjectListener,
-                                 View.OnTouchListener,
-                                 OnClickListener,
-                                 MapRenderingListener,
-                                 CustomNavigateUpListener,
-                                 RoutingController.Container,
-                                 LocationHelper.UiCallback,
-                                 FloatingSearchToolbarController.VisibilityListener,
-                                 NativeSearchListener,
-                                 NavigationButtonsAnimationController.OnTranslationChangedListener,
-                                 RoutingPlanInplaceController.RoutingPlanListener,
-                                 RoutingBottomMenuListener,
-                                 BookmarkManager.BookmarksLoadingListener,
-                                 DiscoveryFragment.DiscoveryListener,
-                                 FloatingSearchToolbarController.SearchToolbarListener,
-                                 OnTrafficLayerToggleListener,
-                                 OnSubwayLayerToggleListener,
-                                 BookmarkManager.BookmarksCatalogListener,
-                                 AdsRemovalPurchaseControllerProvider,
-                                 AdsRemovalActivationCallback,
-                                 PlacePageController.SlideListener,
-                                 AlertDialogCallback, RoutingModeListener,
-                                 AppBackgroundTracker.OnTransitionListener,
-                                 MaterialTapTargetPrompt.PromptStateChangeListener,
-                                 WelcomeDialogFragment.OnboardingStepPassedListener,
-                                 OnIsolinesLayerToggleListener
+    implements UserMarkActivationListener,
+               View.OnTouchListener,
+               OnClickListener,
+               MapRenderingListener,
+               CustomNavigateUpListener,
+               RoutingController.Container,
+               LocationHelper.UiCallback,
+               FloatingSearchToolbarController.VisibilityListener,
+               NativeSearchListener,
+               NavigationButtonsAnimationController.OnTranslationChangedListener,
+               RoutingPlanInplaceController.RoutingPlanListener,
+               RoutingBottomMenuListener,
+               BookmarkManager.BookmarksLoadingListener,
+               DiscoveryFragment.DiscoveryListener,
+               FloatingSearchToolbarController.SearchToolbarListener,
+               OnTrafficLayerToggleListener,
+               OnSubwayLayerToggleListener,
+               BookmarkManager.BookmarksCatalogListener,
+               AdsRemovalPurchaseControllerProvider,
+               AdsRemovalActivationCallback,
+               PlacePageController.SlideListener,
+               AlertDialogCallback, RoutingModeListener,
+               AppBackgroundTracker.OnTransitionListener,
+               MaterialTapTargetPrompt.PromptStateChangeListener,
+               WelcomeDialogFragment.OnboardingStepPassedListener,
+               OnIsolinesLayerToggleListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -265,7 +266,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private final OnClickListener mOnMyPositionClickListener = new CurrentPositionClickListener();
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private PlacePageController<MapObject> mPlacePageController;
+  private PlacePageController mPlacePageController;
   @Nullable
   private Tutorial mTutorial;
   @Nullable
@@ -1546,21 +1547,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   // Called from JNI.
   @Override
-  public void onMapObjectActivated(final MapObject object)
+  public void onUserMarkActivated(@NonNull UserMarkInterface userMark)
   {
-    if (MapObject.isOfType(MapObject.API_POINT, object))
+    if (userMark instanceof MapObject)
     {
-      final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
-      if (request == null)
-        return;
+      MapObject object = (MapObject) userMark;
+      if (MapObject.isOfType(MapObject.API_POINT, object))
+      {
+        final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
+        if (request == null)
+          return;
 
-      request.setPointData(object.getLat(), object.getLon(), object.getTitle(), object.getApiId());
-      object.setSubtitle(request.getCallerName(MwmApplication.get()).toString());
+        request.setPointData(object.getLat(), object.getLon(), object.getTitle(), object.getApiId());
+        object.setSubtitle(request.getCallerName(MwmApplication.get()).toString());
+      }
     }
 
     setFullscreen(false);
 
-    mPlacePageController.openFor(object);
+    mPlacePageController.openFor(userMark);
 
     if (UiUtils.isVisible(mFadeView))
       mFadeView.fadeOut();
@@ -1568,7 +1573,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   // Called from JNI.
   @Override
-  public void onDismiss(boolean switchFullScreenMode)
+  public void onUserMarkDeactivated(boolean switchFullScreenMode)
   {
     if (switchFullScreenMode)
     {
