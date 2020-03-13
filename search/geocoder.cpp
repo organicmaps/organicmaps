@@ -1342,7 +1342,8 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
         if (layer.m_sortedFeatures->empty() && !looksLikeHouseNumber)
           continue;
       }
-      else if (layer.m_sortedFeatures->empty())
+      else if (layer.m_sortedFeatures->empty() ||
+               house_numbers::LooksLikeHouseNumberStrict(layer.m_subQuery))
       {
         continue;
       }

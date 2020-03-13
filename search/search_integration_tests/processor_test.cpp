@@ -196,43 +196,41 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
                          "Strada drive", "en");
   TestBuilding terranceHouse(m2::PointD(-10, -10), "", "155", stradaDrive.GetName("en"), "en");
 
-  BuildWorld([&](TestMwmBuilder & builder)
-             {
-               builder.Add(wonderlandCountry);
-               builder.Add(losAlamosCity);
-               builder.Add(mskCity);
-               builder.Add(torontoCity);
-             });
-  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
-                                   {
-                                     builder.Add(losAlamosCity);
-                                     builder.Add(mskCity);
-                                     builder.Add(torontoCity);
-                                     builder.Add(longPondVillage);
+  auto const worldId = BuildWorld([&](TestMwmBuilder & builder) {
+    builder.Add(wonderlandCountry);
+    builder.Add(losAlamosCity);
+    builder.Add(mskCity);
+    builder.Add(torontoCity);
+  });
+  auto const wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(losAlamosCity);
+    builder.Add(mskCity);
+    builder.Add(torontoCity);
+    builder.Add(longPondVillage);
 
-                                     builder.Add(feynmanStreet);
-                                     builder.Add(bohrStreet1);
-                                     builder.Add(bohrStreet2);
-                                     builder.Add(bohrStreet3);
-                                     builder.Add(firstAprilStreet);
+    builder.Add(feynmanStreet);
+    builder.Add(bohrStreet1);
+    builder.Add(bohrStreet2);
+    builder.Add(bohrStreet3);
+    builder.Add(firstAprilStreet);
 
-                                     builder.Add(feynmanHouse);
-                                     builder.Add(bohrHouse);
-                                     builder.Add(hilbertHouse);
-                                     builder.Add(descartesHouse);
-                                     builder.Add(bornHouse);
+    builder.Add(feynmanHouse);
+    builder.Add(bohrHouse);
+    builder.Add(hilbertHouse);
+    builder.Add(descartesHouse);
+    builder.Add(bornHouse);
 
-                                     builder.Add(busStop);
-                                     builder.Add(tramStop);
-                                     builder.Add(quantumTeleport1);
-                                     builder.Add(quantumTeleport2);
-                                     builder.Add(quantumCafe);
-                                     builder.Add(lantern1);
-                                     builder.Add(lantern2);
+    builder.Add(busStop);
+    builder.Add(tramStop);
+    builder.Add(quantumTeleport1);
+    builder.Add(quantumTeleport2);
+    builder.Add(quantumCafe);
+    builder.Add(lantern1);
+    builder.Add(lantern2);
 
-                                     builder.Add(stradaDrive);
-                                     builder.Add(terranceHouse);
-                                   });
+    builder.Add(stradaDrive);
+    builder.Add(terranceHouse);
+  });
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
   {
@@ -266,13 +264,19 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
     TEST(ResultsMatch("feynman street 3", rules), ());
   }
   {
-    Rules rules = {ExactMatch(wonderlandId, feynmanHouse), ExactMatch(wonderlandId, lantern1),
+    // Here we expect to find feynmanHouse (building next to Feynman street with housenumber '1 unit 1')
+    // but not lantern1 (building next to Feynman street with name 'lantern 1') because '1'
+    // looks like housenumber.
+    Rules rules = {ExactMatch(wonderlandId, feynmanHouse),
                    ExactMatch(wonderlandId, firstAprilStreet)};
     TEST(ResultsMatch("feynman street 1", rules), ());
   }
   {
+    // Here we expect to find bohrHouse (building next to Bohr street with housenumber '1 unit 1')
+    // but not lantern1 (building next to Bohr street with name 'lantern 1') because '1' looks like
+    // housenumber.
     Rules rules = {ExactMatch(wonderlandId, bohrHouse), ExactMatch(wonderlandId, hilbertHouse),
-                   ExactMatch(wonderlandId, lantern1), ExactMatch(wonderlandId, firstAprilStreet)};
+                   ExactMatch(wonderlandId, firstAprilStreet)};
     TEST(ResultsMatch("bohr street 1", rules), ());
   }
   {
@@ -295,7 +299,9 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
     // It's not possible to find Descartes house by house number,
     // because it doesn't belong to Los Alamos streets. But it still
     // exists.
-    Rules rules = {ExactMatch(wonderlandId, lantern2), ExactMatch(wonderlandId, quantumTeleport2)};
+    // Also it's not possible to find 'Quantum teleport 2' and 'lantern 2' by name because '2' looks
+    // like house number and it is not considered as poi name.
+    Rules rules = {ExactMatch(worldId, losAlamosCity)};
     TEST(ResultsMatch("Los Alamos 2", rules), ());
   }
   {

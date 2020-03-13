@@ -96,6 +96,7 @@ vector<string> const g_patterns = {
     "NNBNL"
 };
 
+// List of patterns which look like house numbers more than other patterns. Constructed by hand.
 vector<string> const g_patternsStrict = {
     "N", "NBN", "NBL", "NL"
 };
