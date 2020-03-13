@@ -74,6 +74,9 @@ bool HouseNumbersMatch(strings::UniString const & houseNumber,
 bool LooksLikeHouseNumber(strings::UniString const & s, bool isPrefix);
 bool LooksLikeHouseNumber(std::string const & s, bool isPrefix);
 
+bool LooksLikeHouseNumberStrict(strings::UniString const & s);
+bool LooksLikeHouseNumberStrict(std::string const & s);
+
 std::string DebugPrint(Token::Type type);
 
 std::string DebugPrint(Token const & token);

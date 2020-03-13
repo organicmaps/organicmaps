@@ -31,7 +31,7 @@ namespace
 // sort | uniq
 //
 // *NOTE* there is a list of exceptions at the end.
-char const * const g_strings[] = {
+vector<string> const g_strings = {
     "a",      "aa",      "ab",      "abc",  "ac",   "ad",      "ae",      "af",       "ag",
     "ah",     "ai",      "aj",      "ak",   "al",   "am",      "an",      "ao",       "ap",
     "aq",     "ar",      "are",     "as",   "at",   "au",      "av",      "avenida",  "aw",
@@ -86,7 +86,7 @@ char const * const g_strings[] = {
 // ./clusterize-tag-values.lisp house-number path-to-taginfo-db.db > numbers.txt
 // tail -n +2 numbers.txt  | head -78 | sed 's/^.*) \(.*\) \[.*$/"\1"/g;s/[ -/]//g;s/$/,/' |
 // sort | uniq
-const char * const g_patterns[] = {
+vector<string> const g_patterns = {
     "BL",  "BLN",  "BLNSL", "BN",   "BNL",    "BNSL", "L",   "LL",   "LN",  "LNL",  "LNLN", "LNN",
     "N",   "NBL",  "NBLN",  "NBN",  "NBNBN",  "NBNL", "NL",  "NLBN", "NLL", "NLLN", "NLN",  "NLNL",
     "NLS", "NLSN", "NN",    "NNBN", "NNL",    "NNLN", "NNN", "NNS",  "NS",  "NSN",  "NSS",  "S",
@@ -96,8 +96,13 @@ const char * const g_patterns[] = {
     "NNBNL"
 };
 
+vector<string> const g_patternsStrict = {
+    "N", "NBN", "NBL", "NL"
+};
+
+
 // List of common synonyms for building parts. Constructed by hand.
-const char * const g_buildingPartSynonyms[] = {
+vector<string> const g_buildingPartSynonyms = {
     "building", "bldg", "bld",   "bl",  "unit",     "block", "blk",  "корпус",
     "корп",     "кор",  "литер", "лит", "строение", "стр",   "блок", "бл"};
 
@@ -121,7 +126,7 @@ public:
 
   BuildingPartSynonymsMatcher()
   {
-    for (auto const * s : g_buildingPartSynonyms)
+    for (auto const & s : g_buildingPartSynonyms)
     {
       UniString const us = MakeUniString(s);
       m_synonyms.Add(us.begin(), us.end());
@@ -145,13 +150,13 @@ public:
 
   StringsMatcher()
   {
-    for (auto const * s : g_strings)
+    for (auto const & s : g_strings)
     {
       UniString const us = MakeUniString(s);
       m_strings.Add(us.begin(), us.end());
     }
 
-    for (auto const * s : g_buildingPartSynonyms)
+    for (auto const & s : g_buildingPartSynonyms)
     {
       UniString const us = MakeUniString(s);
       m_strings.Add(us.begin(), us.end());
@@ -182,12 +187,12 @@ class HouseNumberClassifier
 public:
   using Patterns = StringSet<Token::Type, 4>;
 
-  HouseNumberClassifier()
+  HouseNumberClassifier(vector<string> const & patterns = g_patterns)
   {
-    for (auto const * p : g_patterns)
+    for (auto const & p : patterns)
     {
-      m_patterns.Add(make_transform_iterator(p, &CharToType),
-                     make_transform_iterator(p + strlen(p), &CharToType));
+      m_patterns.Add(make_transform_iterator(p.begin(), &CharToType),
+                     make_transform_iterator(p.end(), &CharToType));
     }
   }
 
@@ -573,6 +578,17 @@ bool LooksLikeHouseNumber(strings::UniString const & s, bool isPrefix)
 bool LooksLikeHouseNumber(string const & s, bool isPrefix)
 {
   return LooksLikeHouseNumber(strings::MakeUniString(s), isPrefix);
+}
+
+bool LooksLikeHouseNumberStrict(strings::UniString const & s)
+{
+  static HouseNumberClassifier const classifier(g_patternsStrict);
+  return classifier.LooksGood(s, false /* isPrefix */);
+}
+
+bool LooksLikeHouseNumberStrict(string const & s)
+{
+  return LooksLikeHouseNumberStrict(strings::MakeUniString(s));
 }
 
 string DebugPrint(Token::Type type)
