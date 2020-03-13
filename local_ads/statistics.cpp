@@ -493,7 +493,8 @@ void Statistics::ExtractMetadata(std::string const & fileName)
       ReadMetadata(src, countryId, mwmVersion, baseTimestamp);
     }
 
-    auto const expectedFileName = countryId + "_" + strings::to_string(mwmVersion) + kStatisticsExt;
+    auto const expectedFileName =
+        GetPath(countryId + "_" + strings::to_string(mwmVersion) + kStatisticsExt);
 
     if (fileName != expectedFileName)
     {
