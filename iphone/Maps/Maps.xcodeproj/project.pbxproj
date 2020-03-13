@@ -575,9 +575,6 @@
 		993DF12023F6BDB100AC231A /* TabViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0EE23F6BDB100AC231A /* TabViewRenderer.swift */; };
 		993DF12123F6BDB100AC231A /* UIViewControllerRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0EF23F6BDB100AC231A /* UIViewControllerRenderer.swift */; };
 		993DF12223F6BDB100AC231A /* UINavigationItemRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0F023F6BDB100AC231A /* UINavigationItemRenderer.swift */; };
-		993DF12323F6BDB100AC231A /* UIView+swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0F323F6BDB100AC231A /* UIView+swizzle.m */; };
-		993DF12423F6BDB100AC231A /* UISearchBar+swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0F723F6BDB100AC231A /* UISearchBar+swizzle.m */; };
-		993DF12523F6BDB100AC231A /* UITextField+swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0F823F6BDB100AC231A /* UITextField+swizzle.m */; };
 		993DF12623F6BDB100AC231A /* SwizzleStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0F923F6BDB100AC231A /* SwizzleStyle.m */; };
 		993DF12723F6BDB100AC231A /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0FA23F6BDB100AC231A /* Fonts.swift */; };
 		993DF12823F6BDB100AC231A /* IStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0FC23F6BDB100AC231A /* IStyleSheet.swift */; };
@@ -1636,13 +1633,7 @@
 		993DF0EE23F6BDB100AC231A /* TabViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewRenderer.swift; sourceTree = "<group>"; };
 		993DF0EF23F6BDB100AC231A /* UIViewControllerRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerRenderer.swift; sourceTree = "<group>"; };
 		993DF0F023F6BDB100AC231A /* UINavigationItemRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationItemRenderer.swift; sourceTree = "<group>"; };
-		993DF0F223F6BDB100AC231A /* UISearchBar+swizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISearchBar+swizzle.h"; sourceTree = "<group>"; };
-		993DF0F323F6BDB100AC231A /* UIView+swizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+swizzle.m"; sourceTree = "<group>"; };
-		993DF0F423F6BDB100AC231A /* UITextField+swizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+swizzle.h"; sourceTree = "<group>"; };
 		993DF0F523F6BDB100AC231A /* SwizzleStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwizzleStyle.h; sourceTree = "<group>"; };
-		993DF0F623F6BDB100AC231A /* UIView+swizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+swizzle.h"; sourceTree = "<group>"; };
-		993DF0F723F6BDB100AC231A /* UISearchBar+swizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISearchBar+swizzle.m"; sourceTree = "<group>"; };
-		993DF0F823F6BDB100AC231A /* UITextField+swizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+swizzle.m"; sourceTree = "<group>"; };
 		993DF0F923F6BDB100AC231A /* SwizzleStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwizzleStyle.m; sourceTree = "<group>"; };
 		993DF0FA23F6BDB100AC231A /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		993DF0FC23F6BDB100AC231A /* IStyleSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IStyleSheet.swift; sourceTree = "<group>"; };
@@ -3670,13 +3661,7 @@
 		993DF0F123F6BDB100AC231A /* Swizzle */ = {
 			isa = PBXGroup;
 			children = (
-				993DF0F223F6BDB100AC231A /* UISearchBar+swizzle.h */,
-				993DF0F323F6BDB100AC231A /* UIView+swizzle.m */,
-				993DF0F423F6BDB100AC231A /* UITextField+swizzle.h */,
 				993DF0F523F6BDB100AC231A /* SwizzleStyle.h */,
-				993DF0F623F6BDB100AC231A /* UIView+swizzle.h */,
-				993DF0F723F6BDB100AC231A /* UISearchBar+swizzle.m */,
-				993DF0F823F6BDB100AC231A /* UITextField+swizzle.m */,
 				993DF0F923F6BDB100AC231A /* SwizzleStyle.m */,
 			);
 			path = Swizzle;
@@ -5233,7 +5218,6 @@
 				6741A9A51BF340DE002C974C /* MWMShareActivityItem.mm in Sources */,
 				994F790723E85C5900660E75 /* DifficultyView.swift in Sources */,
 				99E2B0232369904800FFABC5 /* WelcomeViewController.swift in Sources */,
-				993DF12323F6BDB100AC231A /* UIView+swizzle.m in Sources */,
 				F6E2FF5D1E097BA00083EBEC /* MWMRecentTrackSettingsController.mm in Sources */,
 				34AB66651FC5AA330078E451 /* TransportTransitTrain.swift in Sources */,
 				993DF11C23F6BDB100AC231A /* UITableViewHeaderFooterViewRenderer.swift in Sources */,
@@ -5290,7 +5274,6 @@
 				F6E2FED01E097BA00083EBEC /* MWMSearchFilterViewController.mm in Sources */,
 				CDB92CEE229E9CF900EC757C /* MWMDiscoveryMapObjects.mm in Sources */,
 				34B6FD5F2015E6BF00C18E97 /* DiscoveryBookingCell.swift in Sources */,
-				993DF12423F6BDB100AC231A /* UISearchBar+swizzle.m in Sources */,
 				34D3B01B1E389D05004100F9 /* MWMButtonCell.m in Sources */,
 				34ABA6291C2D567B00FE1BEC /* MWMInputLoginValidator.m in Sources */,
 				337F98B421D3C9F200C8AC27 /* SearchHistoryViewController.swift in Sources */,
@@ -5381,7 +5364,6 @@
 				993DF11023F6BDB100AC231A /* MWMButtonRenderer.swift in Sources */,
 				3463BA671DE81DB90082417F /* MWMTrafficButtonViewController.mm in Sources */,
 				993DF10323F6BDB100AC231A /* MainTheme.swift in Sources */,
-				993DF12523F6BDB100AC231A /* UITextField+swizzle.m in Sources */,
 				34AB66051FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.mm in Sources */,
 				993DF12A23F6BDB100AC231A /* Style.swift in Sources */,
 				34ABA6171C2D185C00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm in Sources */,

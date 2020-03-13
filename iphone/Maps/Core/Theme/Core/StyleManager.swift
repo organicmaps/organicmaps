@@ -7,6 +7,11 @@
   @objc private(set) var theme: Theme?
   private var listeners: [Weak<ThemeListener>] = []
 
+  override private init() {
+    super.init()
+    SwizzleStyle.swizzle()
+  }
+
   func setTheme (_ theme: Theme) {
     self.theme = theme;
     update()

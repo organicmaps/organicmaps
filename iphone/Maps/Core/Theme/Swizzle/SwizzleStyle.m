@@ -4,6 +4,14 @@
 #import "objc/message.h"
 
 @implementation SwizzleStyle
+
++ (void)swizzle
+{
+  [SwizzleStyle swizzle:[UISearchBar class] methodName:@"didMoveToWindow"];
+  [SwizzleStyle swizzle:[UITextField class] methodName:@"didMoveToWindow"];
+  [SwizzleStyle swizzle:[UIView class] methodName:@"didMoveToWindow"];
+}
+
 + (void)swizzle:(Class)forClass methodName:(NSString*)methodName
 {
   SEL originalMethod = NSSelectorFromString(methodName);
