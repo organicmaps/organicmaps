@@ -282,9 +282,9 @@ public class Framework
 
   public static native String nativeGetAddress(double lat, double lon);
 
-  public static native void nativeSetMapObjectListener(UserMarkActivationListener listener);
+  public static native void nativeSetUserMarkActivationListener(@NonNull UserMarkActivationListener listener);
 
-  public static native void nativeRemoveMapObjectListener();
+  public static native void nativeRemoveUserMarkActivationListener();
 
   @UiThread
   public static native String nativeGetOutdatedCountriesString();
