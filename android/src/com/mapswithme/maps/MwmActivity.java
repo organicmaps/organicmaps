@@ -524,8 +524,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePageController.initialize(this);
     mPlacePageController.onActivityCreated(this, savedInstanceState);
 
-    mChartController = new ChartController(this);
-
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews(isLaunchByDeepLink);
 

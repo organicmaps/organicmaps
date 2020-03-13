@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.mapswithme.maps.ChartController;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.ElevationInfo;
 import com.mapswithme.maps.routing.RoutingController;
@@ -39,6 +40,9 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<UserM
   private TextView mTime;
   @NonNull
   private final View[] mDifficultyLevels = new View[MAX_DIFFICULTY_LEVEL];
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private ChartController mChartController;
   @Nullable
   private ElevationInfo mElevationInfo;
 
@@ -47,6 +51,7 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<UserM
   public void render(@NonNull UserMarkInterface userMark)
   {
     mElevationInfo = (ElevationInfo) userMark;
+    mChartController.setData(mElevationInfo);
     Resources resources = mTitle.getResources();
     String meters = " " + resources.getString(R.string.elevation_profile_m);
     mTitle.setText(mElevationInfo.getName());
@@ -64,6 +69,8 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<UserM
   public void initialize(@Nullable View view)
   {
     Objects.requireNonNull(view);
+    mChartController = new ChartController(view.getContext());
+    mChartController.initialize(view);
     mTitle = view.findViewById(R.id.title);
     mAscent = view.findViewById(R.id.ascent);
     mDescent = view.findViewById(R.id.descent);
