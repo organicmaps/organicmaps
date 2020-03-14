@@ -448,7 +448,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   public void onSave(@NonNull Bundle outState)
   {
     mPlacePageTracker.onSave(outState);
-    outState.putParcelable(PlacePageUtils.EXTRA_MAP_OBJECT, mPlacePage.getMapObject());
+    outState.putParcelable(PlacePageUtils.EXTRA_USER_MARK, mPlacePage.getMapObject());
   }
 
   @Override
@@ -464,7 +464,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
       return;
     }
 
-    MapObject object = inState.getParcelable(PlacePageUtils.EXTRA_MAP_OBJECT);
+    MapObject object = inState.getParcelable(PlacePageUtils.EXTRA_USER_MARK);
     if (object == null)
       return;
 

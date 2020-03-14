@@ -1,5 +1,7 @@
 package com.mapswithme.maps.widget.placepage;
 
-public interface UserMarkInterface
+import android.os.Parcelable;
+
+public interface UserMarkInterface extends Parcelable
 {
 }

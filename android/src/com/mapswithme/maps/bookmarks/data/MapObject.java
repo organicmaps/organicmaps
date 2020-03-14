@@ -1,7 +1,6 @@
 package com.mapswithme.maps.bookmarks.data;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 import android.text.TextUtils;
 
 import androidx.annotation.IntDef;
@@ -27,7 +26,7 @@ import java.util.List;
 
 // TODO(yunikkk): Refactor. Displayed information is different from edited information, and it's better to
 // separate them. Simple getters from jni place_page::Info and osm::EditableFeature should be enough.
-public class MapObject implements Parcelable, PopularityProvider, ShareableInfoProvider,
+public class MapObject implements PopularityProvider, ShareableInfoProvider,
                                   UserMarkInterface
 {
   // Order must correspond indexer/map_object.hpp

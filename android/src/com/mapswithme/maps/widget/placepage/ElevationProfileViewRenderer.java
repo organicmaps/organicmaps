@@ -17,7 +17,6 @@ import java.util.Objects;
 
 public class ElevationProfileViewRenderer implements PlacePageViewRenderer<UserMarkInterface>
 {
-  private static final String EXTRA_ELEVATION_INFO = "extra_elevation_info";
   private static final int MAX_DIFFICULTY_LEVEL = 3;
 
   @SuppressWarnings("NullableProblems")
@@ -100,13 +99,13 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<UserM
   @Override
   public void onSave(@NonNull Bundle outState)
   {
-    outState.putParcelable(EXTRA_ELEVATION_INFO, mElevationInfo);
+    outState.putParcelable(PlacePageUtils.EXTRA_USER_MARK, mElevationInfo);
   }
 
   @Override
   public void onRestore(@NonNull Bundle inState)
   {
-    mElevationInfo = inState.getParcelable(EXTRA_ELEVATION_INFO);
+    mElevationInfo = inState.getParcelable(PlacePageUtils.EXTRA_USER_MARK);
     if (mElevationInfo != null)
       render(mElevationInfo);
   }

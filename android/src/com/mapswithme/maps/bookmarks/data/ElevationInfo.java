@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ElevationInfo implements Parcelable, UserMarkInterface
+public class ElevationInfo implements UserMarkInterface
 {
   private final long mId;
   @NonNull

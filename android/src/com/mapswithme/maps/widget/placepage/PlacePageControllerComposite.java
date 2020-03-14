@@ -148,10 +148,10 @@ class PlacePageControllerComposite implements PlacePageController
   @Override
   public void onRestore(@NonNull Bundle inState)
   {
-    MapObject object = inState.getParcelable(PlacePageUtils.EXTRA_MAP_OBJECT);
-    if (object != null)
+    UserMarkInterface userMark = inState.getParcelable(PlacePageUtils.EXTRA_USER_MARK);
+    if (userMark != null)
     {
-      PlacePageController controller = findControllerFor(object);
+      PlacePageController controller = findControllerFor(userMark);
       if (controller != null)
         mActiveController = controller;
     }
