@@ -1,5 +1,6 @@
 package com.mapswithme.maps;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -136,6 +137,7 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     mChart.getAxisRight().setEnabled(false);
   }
 
+  @SuppressLint("SetTextI18n")
   public void setData(@NonNull ElevationInfo info)
   {
     List<Entry> values = new ArrayList<>();
@@ -166,8 +168,9 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     highlightChartCurrentLocation();
     mChart.animateX(CHART_ANIMATION_DURATION);
 
-    mMinAltitude.setText(info.getMinAltitude());
-    mMaxAltitude.setText(info.getMaxAltitude());
+    String meter = mContext.getResources().getString(R.string.elevation_profile_m);
+    mMinAltitude.setText(info.getMinAltitude() + " " + meter);
+    mMaxAltitude.setText(info.getMaxAltitude() + " " + meter);
   }
 
   @Override
